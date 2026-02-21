@@ -137,12 +137,8 @@
           "name": "habit_checks_user_id_users_id_fk",
           "tableFrom": "habit_checks",
           "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -150,12 +146,8 @@
           "name": "habit_checks_habit_id_habits_id_fk",
           "tableFrom": "habit_checks",
           "tableTo": "habits",
-          "columnsFrom": [
-            "habit_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["habit_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -163,12 +155,8 @@
           "name": "habit_checks_timing_id_habit_timings_id_fk",
           "tableFrom": "habit_checks",
           "tableTo": "habit_timings",
-          "columnsFrom": [
-            "timing_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["timing_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -251,12 +239,8 @@
           "name": "habit_periods_habit_id_habits_id_fk",
           "tableFrom": "habit_periods",
           "tableTo": "habits",
-          "columnsFrom": [
-            "habit_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["habit_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -354,12 +338,8 @@
           "name": "habit_products_habit_id_habits_id_fk",
           "tableFrom": "habit_products",
           "tableTo": "habits",
-          "columnsFrom": [
-            "habit_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["habit_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -367,12 +347,8 @@
           "name": "habit_products_product_id_products_id_fk",
           "tableFrom": "habit_products",
           "tableTo": "products",
-          "columnsFrom": [
-            "product_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["product_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -436,12 +412,8 @@
           "name": "habit_reminders_timing_id_habit_timings_id_fk",
           "tableFrom": "habit_reminders",
           "tableTo": "habit_timings",
-          "columnsFrom": [
-            "timing_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["timing_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -531,12 +503,8 @@
           "name": "habit_schedules_habit_id_habits_id_fk",
           "tableFrom": "habit_schedules",
           "tableTo": "habits",
-          "columnsFrom": [
-            "habit_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["habit_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -612,12 +580,8 @@
           "name": "habit_timings_schedule_id_habit_schedules_id_fk",
           "tableFrom": "habit_timings",
           "tableTo": "habit_schedules",
-          "columnsFrom": [
-            "schedule_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["schedule_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -728,12 +692,8 @@
           "name": "habits_user_id_users_id_fk",
           "tableFrom": "habits",
           "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -841,12 +801,8 @@
           "name": "product_collaborators_product_id_products_id_fk",
           "tableFrom": "product_collaborators",
           "tableTo": "products",
-          "columnsFrom": [
-            "product_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["product_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -854,12 +810,8 @@
           "name": "product_collaborators_user_id_users_id_fk",
           "tableFrom": "product_collaborators",
           "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -951,12 +903,8 @@
           "name": "product_stock_user_id_users_id_fk",
           "tableFrom": "product_stock",
           "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -964,12 +912,8 @@
           "name": "product_stock_product_id_products_id_fk",
           "tableFrom": "product_stock",
           "tableTo": "products",
-          "columnsFrom": [
-            "product_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["product_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1130,12 +1074,8 @@
           "name": "products_created_by_users_id_fk",
           "tableFrom": "products",
           "tableTo": "users",
-          "columnsFrom": [
-            "created_by"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["created_by"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1226,12 +1166,8 @@
           "name": "profiles_user_id_users_id_fk",
           "tableFrom": "profiles",
           "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1389,12 +1325,8 @@
           "name": "refresh_tokens_user_id_users_id_fk",
           "tableFrom": "refresh_tokens",
           "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1525,36 +1457,22 @@
     "public.habit_check_status": {
       "name": "habit_check_status",
       "schema": "public",
-      "values": [
-        "pending",
-        "done",
-        "skipped"
-      ]
+      "values": ["pending", "done", "skipped"]
     },
     "public.habit_frequency": {
       "name": "habit_frequency",
       "schema": "public",
-      "values": [
-        "daily",
-        "weekly",
-        "monthly",
-        "every_n_days"
-      ]
+      "values": ["daily", "weekly", "monthly", "every_n_days"]
     },
     "public.collaborator_role": {
       "name": "collaborator_role",
       "schema": "public",
-      "values": [
-        "editor"
-      ]
+      "values": ["editor"]
     },
     "public.user_role": {
       "name": "user_role",
       "schema": "public",
-      "values": [
-        "user",
-        "admin"
-      ]
+      "values": ["user", "admin"]
     }
   },
   "schemas": {},
