@@ -9,123 +9,14 @@ import {
 import { db } from '..'
 import { ingredients, products, tags } from '../schema'
 import { getOrCreateSeedUser } from './create-user'
-import { ingredientTagAssociations } from './IngredientsTags/seed-ingredients-tags'
+import { ingredientTagMap } from './IngredientsTags/seed-ingredients-tags'
 import { ingredientData } from './ingredients/seed-ingredients'
-
 // import { allIngredientProductTags } from './ProductIngredients/seed-product-ingredients'
-
 import { allProductData } from './products'
 import { allIngredientProductTags } from './products/ingredients-products-tags'
-// import { allProductTags } from './tags/seed-products-tags'
 import { allProductTags } from './products/product-tags'
 import { tagData } from './tags/seed-tags'
 
-// async function Seed() {
-//   const user = await getOrCreateSeedUser()
-//   const id = user.id
-
-//   // ── Products ──────────────────────────────────────
-//   const productsDataTotal = [...allProductData]
-//   const productResults = await Promise.allSettled(
-//     productsDataTotal.map((product) => createProduct(id, product, db))
-//   )
-//   const productFailed = productResults.filter((r) => r.status === 'rejected')
-//   if (productFailed.length) console.error(`${productFailed.length} produits échoués`, productFailed)
-//   else console.log(`${productResults.length} produits créés`)
-
-//   // ── Tags ──────────────────────────────────────────
-//   const tagResults = await Promise.allSettled(tagData.map((tag) => createTag(db, tag)))
-//   const tagFailed = tagResults.filter((r) => r.status === 'rejected')
-//   if (tagFailed.length) console.error(`${tagFailed.length} tags échoués`, tagFailed)
-//   else console.log(`${tagResults.length} tags créés`)
-
-//   // ── Ingredients ───────────────────────────────────
-//   const ingredientResults = await Promise.allSettled(
-//     ingredientData.map((ingredient) => createIngredient(id, ingredient, db))
-//   )
-//   const ingredientFailed = ingredientResults.filter((r) => r.status === 'rejected')
-//   if (ingredientFailed.length)
-//     console.error(`${ingredientFailed.length} ingrédients échoués`, ingredientFailed)
-//   else console.log(`${ingredientResults.length} ingrédients créés`)
-
-//   // ── Récupération de l'état réel en DB ─────────────
-//   // On requête après les inserts pour avoir les vrais IDs,
-//   // que les entités viennent d'être créées ou qu'elles existaient déjà.
-//   const [allProducts, allTags, allIngredients] = await Promise.all([
-//     db.select({ id: products.id, slug: products.slug }).from(products),
-//     db.select({ id: tags.id, slug: tags.slug }).from(tags),
-//     db.select({ id: ingredients.id, slug: ingredients.slug }).from(ingredients),
-//   ])
-
-//   const productSlugToId = new Map(allProducts.map((p) => [p.slug, p.id]))
-//   const tagSlugToId = new Map(allTags.map((t) => [t.slug, t.id]))
-//   const ingredientSlugToId = new Map(allIngredients.map((i) => [i.slug, i.id]))
-
-//   // ── Product ↔ Tag associations ────────────────────
-//   const productTagResults = await Promise.allSettled(
-//     allProductTags.map(({ productSlug, tagSlug }) => {
-//       const productId = productSlugToId.get(productSlug)
-//       const tagId = tagSlugToId.get(tagSlug)
-//       if (!productId || !tagId) {
-//         return Promise.reject(new Error(`Slug introuvable: product=${productSlug}, tag=${tagSlug}`))
-//       }
-//       return addTagToProduct(db, productId, tagId)
-//     })
-//   )
-//   const ptFailed = productTagResults.filter((r) => r.status === 'rejected')
-//   if (ptFailed.length) console.error(`${ptFailed.length} productTags échoués`, ptFailed)
-//   else console.log(`${productTagResults.length} productTags créés`)
-
-//   // ── Product ↔ Ingredient associations ────────────
-//   const productIngredientResults = await Promise.allSettled(
-//     (allIngredientProductTags as any[]).map((item) => {
-//       // Cast simple ici
-//       const { productSlug, ingredientSlug, notes, ...rest } = item
-
-//       const productId = productSlugToId.get(productSlug)
-//       const ingredientId = ingredientSlugToId.get(ingredientSlug)
-
-//       if (!productId || !ingredientId) {
-//         return Promise.reject(
-//           new Error(`Slug introuvable: product=${productSlug}, ingredient=${ingredientSlug}`)
-//         )
-//       }
-
-//       return addIngredientToProduct(db, {
-//         productId,
-//         ingredientId,
-//         notes: notes ?? null,
-//         // On convertit en String car ton type attend string | null
-//         concentrationValue:
-//           rest.concentrationValue != null ? String(rest.concentrationValue) : null,
-//         concentrationUnit: rest.concentrationUnit ?? null,
-//         concentrationPer: rest.concentrationPer ?? null,
-//       })
-//     })
-//   )
-//   const piFailed = productIngredientResults.filter((r) => r.status === 'rejected')
-//   if (piFailed.length) console.error(`${piFailed.length} productIngredients échoués`, piFailed)
-//   else console.log(`${productIngredientResults.length} productIngredients créés`)
-
-//   // ── Ingredient ↔ Tag associations ─────────────────
-//   const ingredientTagResults = await Promise.allSettled(
-//     ingredientTagAssociations.map(({ ingredientSlug, tagSlug }) => {
-//       const ingredientId = ingredientSlugToId.get(ingredientSlug)
-//       const tagId = tagSlugToId.get(tagSlug)
-//       if (!ingredientId || !tagId) {
-//         return Promise.reject(
-//           new Error(`Slug introuvable: ingredient=${ingredientSlug}, tag=${tagSlug}`)
-//         )
-//       }
-//       return addTagToIngredient(db, ingredientId, tagId)
-//     })
-//   )
-//   const itFailed = ingredientTagResults.filter((r) => r.status === 'rejected')
-//   if (itFailed.length) console.error(`${itFailed.length} ingredientTags échoués`, itFailed)
-//   else console.log(`${ingredientTagResults.length} ingredientTags créés`)
-// }
-
-// Seed()
 async function Seed() {
   const user = await getOrCreateSeedUser()
   const id = user.id
@@ -198,7 +89,7 @@ async function Seed() {
   // ── Product ↔ Tag ─────────────────────────────────
   await seedBatch(
     'productTags',
-    allProductTags,
+    allProductTags as any[],
     ({ productSlug, tagSlug }) => {
       const productId = productSlugToId.get(productSlug)
       const tagId = tagSlugToId.get(tagSlug)
@@ -231,16 +122,36 @@ async function Seed() {
     },
     (item) => `${item.productSlug} ↔ ${item.ingredientSlug}`
   )
+  // ── Ingredient ↔ Tag (Nouvelle Version) ──────────────
 
-  // ── Ingredient ↔ Tag ──────────────────────────────
+  // On transforme l'objet Record en une liste plate pour utiliser seedBatch
+  const associationsToProcess = Object.entries(ingredientTagMap).flatMap(
+    ([ingredientSlug, associations]) => {
+      // On fusionne tous les types de tags pour l'association
+      const allTagsForThisIngredient = [
+        ...associations.primary,
+        ...associations.secondary,
+        ...associations.avoid,
+      ]
+
+      return allTagsForThisIngredient.map((tagSlug) => ({
+        ingredientSlug,
+        tagSlug,
+      }))
+    }
+  )
+
   await seedBatch(
     'ingredientTags',
-    ingredientTagAssociations,
-    ({ ingredientSlug, tagSlug }) => {
+    associationsToProcess,
+    async ({ ingredientSlug, tagSlug }) => {
       const ingredientId = ingredientSlugToId.get(ingredientSlug)
       const tagId = tagSlugToId.get(tagSlug)
-      if (!ingredientId || !tagId)
+
+      if (!ingredientId || !tagId) {
         throw new Error(`Slug introuvable: ingredient=${ingredientSlug}, tag=${tagSlug}`)
+      }
+
       return addTagToIngredient(db, ingredientId, tagId)
     },
     ({ ingredientSlug, tagSlug }) => `${ingredientSlug} ↔ ${tagSlug}`

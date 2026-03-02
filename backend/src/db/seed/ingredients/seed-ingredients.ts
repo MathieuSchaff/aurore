@@ -34,6 +34,7 @@ export const INGREDIENT_SLUGS = {
   BIXA_ORELLANA: 'bixa-orellana', // Nom latin: Bixa Orellana | INCI: Bixa Orellana Seed Extract / Annatto | source de bixine (colorant naturel)
   BLEUET: 'bleuet', // Nom français pour Centaurea Cyanus | INCI: Centaurea Cyanus Flower Water / Extract | apaisant oculaire
   BOURRACHE: 'bourrache', // INCI: Borago Officinalis Seed Oil
+  BRIMONIDINE: 'brimonidine', // INCI: Brimonidine Tartrate | agoniste α2-adrénergique, vasoconstricteur topique (prescription), traitement de l'érythème de la rosacée (Mirvaso®)
   CALCIUM_PCA: 'calcium-pca', // INCI: Calcium PCA | humectant NMF
   CALENDULA: 'calendula-officinalis', // Nom latin: Calendula Officinalis | INCI: Calendula Officinalis Flower Extract
   CARNOSINE: 'carnosine', // INCI: Carnosine | dipeptide antioxydant / anti-glycation
@@ -82,7 +83,8 @@ export const INGREDIENT_SLUGS = {
   HYALURONIC_ACID: 'hyaluronic-acid', // INCI: Hyaluronic Acid | acide hyaluronique pur
   HYDROGENATED_POLYISOBUTENE: 'hydrogenated-polyisobutene', // INCI: Hydrogenated Polyisobutene | émollient synthétique
   HYPOCHLOROUS_ACID: 'hypochlorous-acid', // INCI: Hypochlorous Acid | antiseptique doux (eau électrolysée)
-  IRON_OXIDES: 'oxyde-de-fer',
+  IVERMECTINE: 'ivermectine', // INCI: Ivermectin | antiparasitaire topique (prescription), anti-Demodex, traitement de référence rosacée papulo-pustuleuse (Soolantra®)
+  IRON_OXIDE: 'oxide-de-fer',
   KOJIC_ACID: 'kojic-acid', // INCI: Kojic Acid | inhibiteur de tyrosinase, anti-taches
   LACTIC_ACID: 'lactic-acid', // INCI: Lactic Acid | AHA doux + humectant
   LENS_ESCULENTA_SEED_EXTRACT: 'lens-esculenta-seed-extract', // Extrait de lentille (Oil Control)
@@ -96,8 +98,10 @@ export const INGREDIENT_SLUGS = {
   MAUVE: 'mauve', // INCI: Malva Sylvestris Extract
   MELITANE: 'melitane', // INCI: Acetyl Hexapeptide-1 | peptide pro-pigmentant
   MENTHE_POIVREE: 'menthe-poivree', // INCI: Mentha Piperita (Peppermint) Oil / Extract
+  METRONIDAZOLE: 'metronidazole', // INCI: Metronidazole | antibiotique/antiparasitaire topique (prescription), anti-inflammatoire, traitement de référence rosacée papulo-pustuleuse (Rozex®, Metrogel®)
   NIACINAMIDE: 'niacinamide', // INCI: Niacinamide | vitamine B3, multifonction
   OPHIOPOGON_JAPONICUS: 'ophiopogon-japonicus', // Nom latin: Ophiopogon Japonicus | INCI: Ophiopogon Japonicus Root Extract (mondo grass)
+  OXYMETAZOLINE: 'oxymetazoline', // INCI: Oxymetazoline HCl | agoniste α1/α2-adrénergique, vasoconstricteur topique (prescription), traitement de l'érythème de la rosacée (Rhofade®)
   PALMITAMIDE_MEA: 'palmitamide-mea', // INCI: Palmitamide MEA | dérivé d'acide palmitique, souvent utilisé comme émollient ou agent apaisant / restructurant barrière
   PALMITOYL_PENTAPEPTIDE_4: 'palmitoyl-pentapeptide-4', // INCI: Palmitoyl Pentapeptide-4 | peptide collagen-boostant (Matrixyl® original)
   PALMITOYL_TETRAPEPTIDE_10: 'palmitoyl-tetrapeptide-10', // INCI: Palmitoyl Tetrapeptide-10 | peptide anti-âge
@@ -161,8 +165,369 @@ export const INGREDIENT_SLUGS = {
   ZINC_OXIDE: 'zinc-oxyde',
   ZINC_PCA: 'zinc-pca',
   ZINC_SULFATE: 'zinc-sulfate', // INCI: Zinc Sulfate | sulfate de zinc, astringent, antimicrobien, séborégulateur, utilisé en soins anti-acné ou apaisants
+
+  ENDOTHELYOL: 'endothelyol', // Composant majeur de l'Endothelyol®
+  DIETHYLAMINO_HYDROXYBENZOYL_HEXYL_BENZOATE: 'diethylamino-hydroxybenzoyl-hexyl-benzoate', // Uvinul A Plus
+  ETHYLHEXYL_TRIAZONE: 'ethylhexyl-triazone', // Uvinul T 150
 } as const
+
 export const ingredientData: IngredientInput[] = [
+  {
+    name: 'Ethylhexyl Triazone',
+    slug: INGREDIENT_SLUGS.ETHYLHEXYL_TRIAZONE,
+    category: 'filtre uv',
+    description:
+      'L’un des filtres UVB les plus puissants et les plus stables au monde, permettant d’atteindre des indices SPF élevés avec une excellente tolérance cutanée.',
+    content: `
+  # Ethylhexyl Triazone (Uvinul T 150)
+  L'Ethylhexyl Triazone est un filtre "haute capacité" utilisé pour construire la protection UVB des produits solaires. Il est insoluble dans l'eau, ce qui lui confère une excellente rémanence sur la peau.
+  ## INCI
+  **ETHYLHEXYL TRIAZONE**
+  ## Points forts
+  - **Efficacité record** : Une petite concentration suffit pour augmenter significativement le SPF d'une formule.
+  - **Stabilité** : Très résistant à la lumière et à la chaleur.
+  - **Affinité avec la peau** : Se fixe bien à la kératine, ce qui améliore la résistance à la sueur et à l'eau.
+  ## Rôle dans la gamme Sensifine AR
+  Il assure la protection contre les coups de soleil (UVB). Pour une peau souffrant de rougeurs, une brûlure solaire est une catastrophe car elle provoque une inflammation violente et durable. Ce filtre garantit l'indice SPF50+.
+  ## Sécurité environnementale
+  C'est l'un des filtres préférés des marques "éco-responsables" car il présente un profil de biodégradabilité plus favorable et n'est pas associé au blanchiment des coraux.
+  ## Utilisation
+  - **Cible** : Protection contre les brûlures solaires, peaux claires, peaux sujettes aux inflammations liées aux UV.
+  - **Type de soin** : Crèmes solaires SPF30/50/50+, soins de jour protecteurs.
+`,
+  },
+  {
+    name: 'Diethylamino Hydroxybenzoyl Hexyl Benzoate',
+    slug: INGREDIENT_SLUGS.DIETHYLAMINO_HYDROXYBENZOYL_HEXYL_BENZOATE,
+    category: 'filtre uv',
+    description:
+      'Filtre solaire organique de nouvelle génération, extrêmement stable, offrant une protection haute performance contre les rayons UVA responsables du photovieillissement.',
+    content: `
+  # Diethylamino Hydroxybenzoyl Hexyl Benzoate (Uvinul A Plus)
+  Ce filtre solaire moderne est une référence en formulation européenne et asiatique pour sa sécurité et son efficacité. Il est particulièrement apprécié pour sa capacité à filtrer les UVA longs, ceux qui pénètrent le plus profondément dans le derme.
+  ## INCI
+  **DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE**
+  ## Propriétés techniques
+  - **Photostabilité exceptionnelle** : Ne se dégrade pas sous l'action du soleil, garantissant une protection constante durant l'exposition.
+  - **Absorption UVA** : Couvre efficacement la plage des 320 à 400 nm.
+  - **Texture** : Permet de formuler des produits moins gras et sans effet blanc, contrairement aux filtres minéraux.
+  ## Pourquoi dans un soin anti-rougeurs ?
+  Le soleil est le premier facteur déclenchant des crises de rosacée. Les UVA endommagent les parois des vaisseaux sanguins et dégradent le collagène qui les soutient. En bloquant ces rayons, ce filtre empêche l'aggravation des rougeurs structurelles.
+  ## Sécurité
+  - **Haute Tolérance** : Très faible potentiel allergisant, idéal pour les peaux intolérantes.
+  - **Non-perturbateur** : Contrairement à certains anciens filtres (comme l'oxybenzone), il n'est pas suspecté d'être un perturbateur endocrinien.
+  ## Utilisation
+  - **Cible** : Protection solaire quotidienne, prévention des taches et des rides, peaux sensibles au soleil.
+  - **Type de soin** : Crèmes de jour SPF, protections solaires haute performance.
+`,
+  },
+  {
+    name: 'Endothelyol®',
+    slug: INGREDIENT_SLUGS.ENDOTHELYOL,
+    category: 'actif',
+    description:
+      'Complexe biotechnologique breveté ciblant les micro-vaisseaux et l’inflammation pour réduire les rougeurs chroniques et passagères.',
+    content: `
+  # Endothelyol®
+  L'Endothelyol® est un ingrédient de pointe issu de la recherche SVR, spécifiquement conçu pour répondre aux problématiques des peaux sujettes à la couperose et à la rosacée. Contrairement aux apaisants classiques, il agit directement sur les facteurs de vascularisation cutanée.
+  ## INCI
+  **CAFFEYL GLUCOSIDE, ROSMARINYL GLUCOSIDE, GOSSYPIUM HERBACEUM (COTTON) SEED OIL** (Note : Le complexe est souvent identifié par ses dérivés de polyphénols).
+  ## Composition
+  - **Dérivés de l'acide caféique et rosmarinique** : Molécules stabilisées pour une meilleure pénétration et efficacité antioxydante.
+  - **Action ciblée** : Agit sur les médiateurs de l'inflammation (interleukines) et les facteurs de croissance endothéliaux.
+  ## Mécanisme d'action
+  1. **Anti-angiogénique** : Limite la formation de nouveaux petits capillaires sanguins (néovascularisation) qui rendent les rougeurs permanentes.
+  2. **Amélioration de la microcirculation** : Aide à décongestionner les tissus et réduit l'apparence des vaisseaux déjà visibles.
+  3. **Apaisement immédiat** : Stoppe la cascade inflammatoire responsable des sensations de brûlure et de "flush".
+  ## Bienfaits
+  - Réduction prouvée de l'intensité des rougeurs.
+  - Teint plus uniforme et moins réactif aux changements de température.
+  - Action préventive contre l'aggravation de la rosacée.
+  ## Utilisation
+  - **Cible** : Peaux avec rougeurs, couperose, rosacée, flushs, peaux hypersensibles.
+  - **Type de soin** : Crèmes anti-rougeurs, sérums apaisants, soins post-actes dermatologiques.
+`,
+  },
+  {
+    name: 'Huile de coco (Coconut Oil)',
+    slug: INGREDIENT_SLUGS.HUILE_DE_COCO,
+    description:
+      'Huile végétale occlusive riche en acides gras saturés (laurique principalement), aux propriétés hydratantes et antimicrobiennes — mais controversée en raison de son potentiel comédogène élevé.',
+    content: `
+  # Huile de coco (Coconut Oil)
+  L'huile de coco est l'une des huiles végétales les plus utilisées en cosmétique et en "clean beauty". Riche en acide laurique, elle est appréciée pour ses propriétés occlusives, hydratantes et antimicrobiennes. Elle fait cependant l'objet d'une controverse sérieuse en skincare en raison de son score comédogène élevé (4/5), qui la rend inadaptée à de nombreux types de peau.
+  ## INCI
+  **COCOS NUCIFERA (COCONUT) OIL**
+  ## Composition
+  - **Acide laurique** (~48%) : Acide gras saturé à chaîne moyenne, principal responsable des propriétés antimicrobiennes.
+  - **Acide myristique** (~17%) et **acide palmitique** (~9%) : Acides gras saturés, contribuent à l'occlusivité.
+  - **Acide caprique/caprylique** (~13%) : Chaînes courtes, légèrement antimicrobiennes.
+  - Faible teneur en acides gras insaturés (oléique, linoléique) → stabilité oxydative élevée.
+  ## Mécanisme d'action
+  1. **Occlusif** : Forme un film lipidique en surface, réduit la TEWL (perte insensible en eau), favorise l'hydratation passive.
+  2. **Antimicrobien** : L'acide laurique est actif contre Staphylococcus aureus, Cutibacterium acnes et certains champignons (Candida) — d'où son utilisation en soins anti-acné dans certaines formulations.
+  3. **Émollient** : Adoucit et assouplit la peau en comblant les espaces inter-cornéocytaires.
+  ## ⚠️ Controverse : comédogénicité
+  L'huile de coco présente un **score comédogène de 4/5** — l'un des plus élevés parmi les huiles végétales courantes. Elle est susceptible d'obstruer les pores et de provoquer ou aggraver des comédons, en particulier sur le visage.
+  - **Peaux grasses, mixtes, acnéiques** : Fortement déconseillée sur le visage.
+  - **Peaux sèches, corpo, cheveux** : Peut être utilisée sans problème majeur dans ces zones.
+  - **Le paradoxe** : Bien qu'active contre C. acnes in vitro, son potentiel comédogène peut aggraver l'acné en pratique — l'effet obstructif l'emporte sur l'effet antibactérien.
+  - **Le mythe "clean beauty"** : Sa popularité en cosmétique naturelle ne doit pas faire oublier que "naturel" ≠ adapté à toutes les peaux.
+  ## Bienfaits (dans les bons contextes)
+  - Hydratation intense des zones sèches (corps, talons, lèvres, cheveux).
+  - Démaquillant efficace (soluble dans les corps gras).
+  - Stabilité oxydative élevée → longue durée de conservation.
+  - Antimicrobien doux pour certaines applications ciblées.
+  ## Utilisation
+  - **Cible** : Peaux sèches à très sèches (corps), cheveux secs/abîmés, démaquillage.
+  - **À éviter** : Peaux grasses, mixtes, acnéiques, peaux sujettes aux comédons — particulièrement sur le visage.
+  - **Type de soin** : Baumes corps, masques cheveux, démaquillants, soins des lèvres, soins des talons.
+  ## Note technique
+  Parmi les alternatives moins comédogènes avec des propriétés similaires : huile de jojoba (score 2), squalane (score 0-1), huile de pépins de raisin (score 1). Pour les peaux mixtes à grasses cherchant un effet antimicrobien, l'acide laurique formulé différemment (monolaurine) ou d'autres actifs (niacinamide, zinc) sont préférables.
+`,
+    category: 'actif',
+  },
+
+  {
+    name: 'Mélitane',
+    slug: INGREDIENT_SLUGS.MELITANE,
+    description:
+      'Peptide pro-pigmentant (Acetyl Hexapeptide-1) qui stimule la mélanogenèse cutanée via les récepteurs MC1-R, favorisant un bronzage naturel et une meilleure photoprotection endogène.',
+    content: `
+  # Mélitane
+  Le Mélitane (nom commercial) est un peptide synthétique de référence INCI Acetyl Hexapeptide-1, analogue structural de l'α-MSH (hormone mélanotrope). Il agit sur les mélanocytes pour stimuler la production de mélanine, favorisant un bronzage naturel et une meilleure résistance cutanée aux UV. Utilisé en cosmétique "préparation solaire" et en soins autobronzants physiologiques.
+  ## INCI
+  **ACETYL HEXAPEPTIDE-1**
+  ## Mécanisme d'action
+  1. **Mimétisme α-MSH** : Structure peptidique analogue à l'hormone mélanotrope α-MSH (alpha-Melanocyte Stimulating Hormone).
+  2. **Activation MC1-R** : Se lie aux récepteurs mélanocortine 1 (MC1-R) à la surface des mélanocytes → activation de l'adénylate cyclase → augmentation de l'AMPc intracellulaire.
+  3. **Stimulation mélanogenèse** : Cascade AMPc → activation de la tyrosinase → synthèse accrue de mélanine (eumélanine brune/noire majoritairement).
+  4. **Bronzage physiologique** : Le résultat est un bronzage naturel via les voies biologiques normales de pigmentation — différent des autobronzants chimiques (DHA) qui colorent sans mélanine.
+  ## Bienfaits
+  - **Préparation solaire** : Augmente le capital mélanique avant exposition, améliore la photoprotection endogène.
+  - **Bronzage naturel** : Teinte progressive et naturelle, sans effet "carotène" ou orangé des DHA.
+  - **Uniformisation du teint** : Stimule une pigmentation plus homogène.
+  - **Synergie UV** : Potentialise l'effet du soleil pour un bronzage plus rapide et plus durable.
+  ## Limites et précautions
+  - **Ne remplace pas la protection solaire** : L'augmentation de photoprotection endogène est modeste — un SPF reste indispensable.
+  - **Efficacité variable** selon le phototype : Plus visible sur les phototypes II-IV, moins sur les phototypes très clairs (I) ou très foncés (V-VI).
+  - **Délai d'action** : Résultats progressifs sur 2-4 semaines d'utilisation régulière.
+  - **Contre-indication relative** : Déconseillé en cas d'antécédents de mélanome ou de lésions pigmentaires atypiques — toute stimulation de la mélanogenèse doit être discutée avec un dermatologue dans ce contexte.
+  ## Utilisation
+  - **Cible** : Peaux souhaitant préparer/optimiser leur bronzage, peaux à teint irrégulier cherchant une uniformisation pigmentaire.
+  - **Moment** : Matin et/ou soir, en cure pré-solaire (4-6 semaines avant exposition) ou en entretien.
+  - **Type de soin** : Sérums préparation solaire, soins autobronzants physiologiques, crèmes teintées progressives.
+  ## Note technique
+  Le Mélitane est à distinguer du Mélanotane II (MT-II), analogue synthétique de l'α-MSH utilisé en injection de manière non réglementée — le MT-II présente des effets systémiques (érections, nausées) et un profil de sécurité non établi. Le Mélitane topique est un cosmétique réglementé, d'action locale et de sécurité bien établie dans les concentrations usuelles (0,0001-0,001%).
+`,
+    category: 'actif',
+  },
+
+  {
+    name: 'Resvératrol',
+    slug: INGREDIENT_SLUGS.RESVERATROL,
+    description:
+      'Polyphénol antioxydant puissant issu notamment du raisin, aux propriétés anti-âge, anti-inflammatoires et photoprotectrices. Sirotuines-activateur avec un recul clinique croissant en cosmétique.',
+    content: `
+  # Resvératrol
+  Le resvératrol est un polyphénol naturel (stilbène) produit par certaines plantes en réponse au stress (champignons, UV, blessures). Présent en forte concentration dans la peau du raisin, les baies et certains lichens, il est largement étudié pour ses propriétés antioxydantes, anti-inflammatoires et anti-âge. En cosmétique, il représente l'un des antioxydants les plus puissants et les mieux documentés.
+  ## INCI
+  **RESVERATROL**
+  ## Composition / Formes
+  - **Trans-resvératrol** : Forme biologiquement active, la plus utilisée en cosmétique.
+  - **Cis-resvératrol** : Forme moins stable et moins active.
+  - Sources naturelles : Vitis Vinifera (raisin), Polygonum Cuspidatum (renouée du Japon — source principale pour l'extraction), myrtille, mûre.
+  ## Mécanisme d'action
+  1. **Antioxydant puissant** : Neutralise les radicaux libres (ROS) via ses groupes hydroxyle phénoliques — activité supérieure à la vitamine E et comparable à la vitamine C selon certaines études.
+  2. **Activation des sirtuines (SIRT1)** : Active les sirtuines, protéines impliquées dans la réparation de l'ADN, la régulation de l'inflammation et la longévité cellulaire → effet "anti-âge" cellulaire.
+  3. **Inhibition NF-κB** : Réduit l'expression des cytokines pro-inflammatoires (IL-1β, IL-6, TNF-α) → effet anti-inflammatoire significatif.
+  4. **Photoprotection indirecte** : Réduit les dommages oxydatifs induits par les UV, inhibe les MMP (métalloprotéases) responsables de la dégradation du collagène.
+  5. **Stimulation collagène** : Peut stimuler la synthèse de collagène I et III via l'activation de fibroblastes.
+  ## Bienfaits
+  - **Anti-âge** : Réduit les signes du vieillissement cutané (rides, perte de fermeté) via antioxydation + collagène.
+  - **Éclat** : Uniformise le teint, réduit les taches par inhibition de la peroxydation lipidique et de l'oxydation de la mélanine.
+  - **Anti-inflammatoire** : Apaise les peaux réactives, réduit les rougeurs chroniques.
+  - **Synergie antioxydante** : Très synergique avec la vitamine C, la vitamine E et la niacinamide — potentialisation mutuelle.
+  ## Stabilité et formulation
+  - **Sensible à l'oxydation** : S'oxyde à l'air, à la lumière et à la chaleur → formulations en flacon opaque, airless ou avec antioxydants stabilisants essentielles.
+  - **Concentrations efficaces** : 0,1 à 1% en cosmétique — au-delà, stabilité difficile à maintenir.
+  - **pH** : Stable en formulation légèrement acide à neutre (pH 4-7).
+  ## Utilisation
+  - **Cible** : Peaux matures, peaux exposées (pollution, UV), peaux ternes ou avec début de relâchement, peaux réactives cherchant un anti-inflammatoire doux.
+  - **Moment** : Soir de préférence (antioxydant de réparation nocturne) — peut s'utiliser le matin en association avec SPF.
+  - **Type de soin** : Sérums antioxydants, crèmes anti-âge, soins contour des yeux.
+  ## Note technique
+  Le resvératrol est l'antioxydant de choix pour les routines anti-âge avancées, souvent associé à la vitamine C (matin) et utilisé seul ou avec des rétinoids (soir). Sa biodisponibilité orale est limitée (métabolisme hépatique rapide), mais en application topique il pénètre efficacement le stratum corneum. À distinguer du resvératrol oral (compléments alimentaires) dont les preuves cliniques restent moins solides qu'en application cutanée directe.
+`,
+    category: 'actif',
+  },
+  {
+    name: 'Brimonidine',
+    slug: INGREDIENT_SLUGS.BRIMONIDINE,
+    description:
+      "Vasoconstricteur topique agoniste α2-adrénergique (prescription), traitement de l'érythème facial persistant de la rosacée. Réduction rapide des rougeurs en ~30 minutes.",
+    content: `
+  # Brimonidine
+  La brimonidine est un agoniste sélectif des récepteurs α2-adrénergiques utilisé en application topique pour réduire l'érythème facial persistant de la rosacée. Commercialisée sous le nom Mirvaso® (gel 0,33%), elle est l'un des deux seuls vasoconstricteurs topiques ayant une AMM spécifique pour la rosacée.
+  ## INCI
+  **BRIMONIDINE TARTRATE**
+  ## Mécanisme d'action
+  1. **Agonisme α2-adrénergique sélectif** : Se lie aux récepteurs α2 des muscles lisses vasculaires dermiques → vasoconstriction des vaisseaux superficiels → réduction visible de l'érythème.
+  2. **Sélectivité α2** : Contrairement à l'oxymétazoline, la brimonidine est hautement sélective pour les récepteurs α2, ce qui limite les effets systémiques et le rebond.
+  3. **Pas d'action sur les papules/pustules** : Agit uniquement sur la composante vasculaire (érythème), sans effet sur les lésions inflammatoires.
+  ## Bienfaits
+  - **Réduction rapide de l'érythème** : Effet visible en 30 minutes, durée ~8-12h.
+  - **Meilleure tolérance** que l'oxymétazoline sur le plan du rebond vasculaire.
+  - **AMM rosacée** : Seul traitement topique approuvé spécifiquement pour l'érythème facial persistant.
+  ## Effets indésirables
+  - **Érythème de rebond** : Décrit chez ~10-20% des patients (vasodilatation réactionnelle en fin d'effet).
+  - Flush, sensation de brûlure locale à l'application.
+  - Risque de tachyphylaxie à l'usage quotidien prolongé.
+  ## Utilisation
+  - **Statut** : Médicament sur ordonnance (prescription obligatoire).
+  - **Forme** : Gel 0,33% (Mirvaso®).
+  - **Moment** : Matin, une application par jour sur les zones concernées.
+  - **Conseil** : Réserver aux événements ponctuels plutôt qu'à un usage quotidien au long cours pour limiter le rebond et la tachyphylaxie.
+  ## Note technique
+  La brimonidine est préférée en première intention par rapport à l'oxymétazoline pour son profil de sélectivité α2 plus favorable et un rebond moins marqué. Elle n'a aucun effet sur la composante inflammatoire (papules, pustules) ni sur la couperose (vaisseaux dilatés permanents) — son action est purement fonctionnelle et temporaire sur la vasodilatation réactive.
+`,
+    category: 'actif',
+  },
+
+  {
+    name: 'Oxymétazoline',
+    slug: INGREDIENT_SLUGS.OXYMETAZOLINE,
+    description:
+      "Vasoconstricteur topique agoniste α1/α2-adrénergique (prescription), traitement de l'érythème facial persistant de la rosacée. Effet rapide mais rebond vasculaire plus marqué que la brimonidine.",
+    content: `
+  # Oxymétazoline
+  L'oxymétazoline est un agoniste des récepteurs α1 et α2-adrénergiques utilisé en application topique pour réduire l'érythème facial persistant de la rosacée. Commercialisée sous le nom Rhofade® (crème 1%), elle partage le même mécanisme vasoconstricteur que la brimonidine mais avec un profil de sélectivité différent.
+  ## INCI
+  **OXYMETAZOLINE HYDROCHLORIDE**
+  ## Mécanisme d'action
+  1. **Agonisme α1 et α2-adrénergique** : Se lie aux récepteurs α1 (principalement) et α2C des muscles lisses vasculaires → vasoconstriction → réduction de l'érythème.
+  2. **Moindre sélectivité** : Le profil mixte α1/α2 est responsable d'un rebond vasculaire plus marqué que la brimonidine en fin d'effet — même classe pharmacologique que les décongestionnants nasaux (Rhinospray®), dont la dépendance/rebond est bien documentée.
+  3. **Pas d'action sur les papules/pustules** : Effet purement vasculaire, sans activité anti-inflammatoire ou antiparasitaire.
+  ## Bienfaits
+  - **Réduction rapide de l'érythème** : Effet en ~30 minutes, durée ~8-12h.
+  - **AMM rosacée** : Approuvée pour l'érythème facial persistant.
+  - Texture crème potentiellement mieux tolérée localement que le gel brimonidine chez certains patients.
+  ## Effets indésirables
+  - **Érythème de rebond plus marqué** que la brimonidine : vasodilatation réactionnelle significative en fin d'effet.
+  - Risque de dépendance fonctionnelle à l'usage répété (tachyphylaxie).
+  - Flush, prurit, sensation de brûlure locale.
+  ## Utilisation
+  - **Statut** : Médicament sur ordonnance (prescription obligatoire).
+  - **Forme** : Crème 1% (Rhofade®).
+  - **Moment** : Matin, une application par jour.
+  - **Conseil** : Usage ponctuel fortement recommandé — le risque de rebond et de dépendance contre-indique l'usage quotidien au long cours.
+  ## Note technique
+  L'oxymétazoline est généralement considérée en deuxième intention après la brimonidine en raison de son rebond plus prononcé. Son développement spécifique pour la rosacée (vs usage nasal historique) a permis une formulation cutanée optimisée, mais la classe pharmacologique reste la même. À ne pas confondre avec les traitements de fond de la rosacée (ivermectine, métronidazole) : l'oxymétazoline ne traite que le symptôme érythémateux et n'agit pas sur l'évolution de la maladie.
+`,
+    category: 'actif',
+  },
+
+  {
+    name: 'Métronidazole',
+    slug: INGREDIENT_SLUGS.METRONIDAZOLE,
+    description:
+      "Antibiotique et antiparasitaire topique (prescription), traitement de référence de la rosacée papulo-pustuleuse. Anti-inflammatoire cutané avec une longue histoire d'efficacité clinique.",
+    content: `
+  # Métronidazole
+  Le métronidazole est un agent antimicrobien et anti-inflammatoire topique utilisé depuis les années 1980 dans le traitement de la rosacée papulo-pustuleuse. Disponible en gel ou crème à 0,75% (Rozex®, Metrogel®), il reste un traitement de référence bien documenté, bien que son mécanisme exact dans la rosacée ne soit pas entièrement élucidé.
+  ## INCI
+  **METRONIDAZOLE**
+  ## Mécanisme d'action
+  1. **Anti-inflammatoire** : Inhibe la migration des leucocytes polymorphonucléaires et réduit la production de radicaux libres oxygénés → diminution de l'inflammation cutanée.
+  2. **Antiparasitaire** : Activité contre Demodex folliculorum (acarien impliqué dans la rosacée), bien que moins puissante que l'ivermectine.
+  3. **Antibactérien** : Actif sur les anaérobies, rôle possible dans la régulation du microbiome cutané.
+  4. **Mécanisme rosacée** : Probablement multifactoriel — l'effet anti-inflammatoire prédomine sur l'effet antimicrobien dans ce contexte.
+  ## Bienfaits
+  - **Réduction des papules et pustules** : Efficacité prouvée sur la composante inflammatoire de la rosacée (sous-type II).
+  - **Réduction de l'érythème** : Effet modéré sur les rougeurs en traitement de fond (≠ vasoconstricteurs).
+  - **Long recul clinique** : Utilisé depuis >40 ans, profil de sécurité bien établi.
+  - **Bonne tolérance locale** : Peu irritant, adapté aux peaux sensibles.
+  ## Effets indésirables
+  - Sécheresse, légères irritations locales possibles.
+  - Goût métallique si contact avec les lèvres (rare en application faciale soigneuse).
+  - Photosensibilité légère possible.
+  ## Utilisation
+  - **Statut** : Médicament sur ordonnance (prescription obligatoire).
+  - **Forme** : Gel ou crème 0,75% (Rozex®, Metrogel®) ; crème 1% disponible dans certains pays.
+  - **Moment** : Matin et/ou soir selon prescription, en traitement de fond.
+  - **Durée** : Traitement continu sur plusieurs semaines/mois — pas un traitement ponctuel.
+  ## Note technique
+  Le métronidazole est souvent comparé à l'ivermectine (Soolantra®) dans la rosacée papulo-pustuleuse. Les études comparatives tendent à montrer une supériorité de l'ivermectine sur les lésions inflammatoires, notamment via son action anti-Demodex plus ciblée. Cependant, le métronidazole reste une option valide en première ligne, moins coûteuse et avec un recul clinique plus long. Les deux peuvent être utilisés en association ou en alternance selon la réponse clinique.
+`,
+    category: 'actif',
+  },
+
+  {
+    name: 'Ivermectine',
+    slug: INGREDIENT_SLUGS.IVERMECTINE,
+    description:
+      'Antiparasitaire topique anti-Demodex (prescription), traitement de référence de la rosacée papulo-pustuleuse. Action combinée antiparasitaire et anti-inflammatoire supérieure au métronidazole dans les études comparatives.',
+    content: `
+  # Ivermectine
+  L'ivermectine topique (Soolantra® 1% crème) est aujourd'hui considérée comme le traitement de fond de référence de la rosacée papulo-pustuleuse. Issue de la classe des avermectines, elle cible directement Demodex folliculorum — l'acarien dont la surpopulation est fortement impliquée dans la physiopathologie de la rosacée inflammatoire — tout en exerçant un effet anti-inflammatoire propre.
+  ## INCI
+  **IVERMECTIN**
+  ## Mécanisme d'action
+  1. **Anti-Demodex** : Potentialise les canaux chlorure glutamate-dépendants des arthropodes → paralysie et mort de Demodex folliculorum, dont la densité est anormalement élevée dans la rosacée papulo-pustuleuse.
+  2. **Anti-inflammatoire direct** : Inhibe les cytokines pro-inflammatoires (IL-1β, TNF-α, IL-6) et la production de ROS indépendamment de son action antiparasitaire.
+  3. **Dual action** : La combinaison des deux mécanismes explique sa supériorité clinique sur le métronidazole (action anti-inflammatoire seule) dans les études head-to-head.
+  ## Bienfaits
+  - **Réduction supérieure des papules/pustules** : Supériorité démontrée vs métronidazole 0,75% dans deux études de phase III.
+  - **Action sur la cause** : Seul traitement topique ciblant directement Demodex, facteur étiologique majeur.
+  - **Effet durable** : Rechute plus lente après arrêt vs métronidazole.
+  - **Bonne tolérance** : Peu irritant, adapté aux peaux sensibles et réactives.
+  ## Effets indésirables
+  - Sécheresse, légère irritation ou sensation de brûlure initiale (transitoire).
+  - Très faible absorption systémique en application topique → sécurité systémique excellente.
+  ## Utilisation
+  - **Statut** : Médicament sur ordonnance (prescription obligatoire).
+  - **Forme** : Crème 1% (Soolantra®), une application par jour.
+  - **Moment** : Soir de préférence.
+  - **Durée** : Traitement de fond continu (minimum 12 semaines pour évaluer l'efficacité complète).
+  ## Note technique
+  L'ivermectine topique ne doit pas être confondue avec l'ivermectine orale (antiparasitaire systémique, hors AMM rosacée). En cas de rosacée sévère ou résistante, une association ivermectine topique + doxycycline orale (Oracea® 40mg) est la stratégie la mieux documentée. L'ivermectine n'agit pas sur l'érythème vasculaire (pour lequel brimonidine ou oxymétazoline sont indiquées) — les deux approches sont complémentaires et non interchangeables.
+`,
+    category: 'actif',
+  },
+  {
+    name: 'Dioxyde de titane (Titanium Dioxide)',
+    slug: INGREDIENT_SLUGS.TITANIUM_DIOXIDE,
+    description:
+      'Filtre minéral physique offrant une protection solaire large spectre UVB et UVA courts, opacifiant et apaisant, particulièrement adapté aux peaux sensibles et aux formulations minérales.',
+    content: `
+  # Dioxyde de titane (Titanium Dioxide)
+  Le dioxyde de titane est l'un des filtres UV minéraux les plus utilisés au monde. Pigment blanc inerte et insoluble, il agit en surface de la peau pour réfléchir et diffuser les rayons UV sans pénétration cutanée. Très bien toléré, il est la base de la majorité des crèmes solaires minérales et des maquillages couvrants.
+  ## INCI
+  **TITANIUM DIOXIDE**
+  (CI 77891 pour la forme pigmentaire ; noté [NANO] si particules nanométriques)
+  ## Composition chimique
+  - **Composé minéral** : TiO₂, existant sous deux formes cristallines principales utilisées en cosmétique : rutile (plus stable, meilleure résistance UV) et anatase.
+  - **Formes disponibles** : Non-nano (effet couvrant, voile blanc marqué) vs micronisé/nano (textures légères, voile blanc réduit).
+  - **Insoluble** : Film stable en surface, non absorbé systémiquement (consensus scientifique actuel).
+  ## Mécanisme d'action
+  1. **Protection UV physique** : Réfléchit et diffuse les UVB et UVA courts (UVA II) — couverture UVA moins complète que l'oxyde de zinc sur les UVA longs (UVA I).
+  2. **Opacifiant** : Forte capacité couvrante (indice de réfraction élevé), utilisé comme pigment blanc dans les fonds de teint et correcteurs.
+  3. **Barrière inerte** : Protège mécaniquement la peau des agressions extérieures sans réaction chimique.
+  4. **Apaisant** : Tolérance cutanée excellente, non irritant, non allergisant, adapté aux peaux réactives et aux bébés.
+  ## Bienfaits
+  - **Protection solaire UVB puissante** : Référence pour la protection UVB, souvent associé à ZnO pour compléter la couverture UVA.
+  - **Couvrant et matifiant** : Idéal pour les formulations teintées, fond de teint minéral, poudres couvrants.
+  - **Tolérance maximale** : Non comédogène, non irritant, approuvé pour peaux sensibles, bébés, femmes enceintes.
+  - **Stabilité en formulation** : Très stable chimiquement, compatible avec la plupart des actifs.
+  ## Utilisation
+  - **Cible** : Tous types de peau, en particulier peaux sensibles, réactives, bébés, femmes enceintes, personnes intolérantes aux filtres chimiques.
+  - **Moment** : Matin (protection solaire, base de maquillage).
+  - **Type de soin** : Crèmes solaires minérales, fonds de teint minéraux, poudres couvrantes, baumes réparateurs opaques (cicatrices, érythème fessier).
+  ## Note technique
+  Le TiO₂ est souvent combiné avec l'oxyde de zinc pour une protection broad-spectrum optimale : TiO₂ excelle sur les UVB et UVA courts, ZnO couvre les UVA longs. Seul, il ne suffit pas pour une protection UVA complète (critère PA++++ ou ratio UVA/UVB ≥ 1/3). La controverse CIRC (classé 2B cancérogène possible par inhalation) concerne uniquement la forme en poudre inhalée, pas l'application cutanée topique. Version nano : sûreté cutanée confirmée par le SCCS européen (2021).
+`,
+    category: 'actif',
+  },
   {
     name: 'Oxyde de zinc (Zinc Oxide)',
     slug: INGREDIENT_SLUGS.ZINC_OXIDE,
@@ -249,7 +614,7 @@ export const ingredientData: IngredientInput[] = [
   },
   {
     name: 'Oxydes de fer (Iron oxides)',
-    slug: INGREDIENT_SLUGS.IRON_OXIDES,
+    slug: INGREDIENT_SLUGS.IRON_OXIDE,
     description:
       'Pigments minéraux naturels assurant la coloration des soins et offrant une protection complémentaire contre la lumière bleue.',
     content: `
@@ -1316,7 +1681,7 @@ export const ingredientData: IngredientInput[] = [
   },
   {
     name: 'Melitane™ (Acetyl Hexapeptide-1)',
-    slug: 'INGREDIENT_SLUGS.MELITANE',
+    slug: INGREDIENT_SLUGS.MELITANE,
     description:
       'Peptide biomimétique pro-pigmentant, stimule la mélanogenèse et renforce la protection UV naturelle.',
     content: `
@@ -3191,208 +3556,697 @@ Le propylène glycol fait l'objet d'une surveillance rigoureuse par le SCCS (Sci
     name: 'Bleuet des Champs (Centaurea cyanus L.)',
     slug: INGREDIENT_SLUGS.BLEUET,
     description:
-      "L'expert du regard : un actif décongestionnant et apaisant de référence, idéal pour reposer les yeux fatigués et apaiser les paupières fragiles.",
-    content: `# Le Bleuet : L'Or Bleu de la Dermo-Cosmétique Oculaire
+      'L’allié délicat du regard et des peaux fragiles : un hydrolat traditionnellement chéri pour apaiser, rafraîchir et décongestionner le contour des yeux, tout en caressant les épidermes sensibles d’une douceur naturelle.',
+    content: `# Le Bleuet des Champs : Douceur Bleutée pour le Regard et la Peau
 
-Le **Bleuet des Champs**, fleur messicole emblématique des campagnes européennes, est l'ingrédient incontournable de la zone péri-oculaire. Sa composition unique en fait un allié précieux pour drainer les poches, éclaircir le regard et respecter la physiologie délicate des muqueuses ophtalmiques.
+  Originaire des moissons européennes, le **Bleuet des Champs** (Centaurea cyanus) est une messicole annuelle aux pétales d’un bleu intense et velouté. Longtemps compagnon discret des céréales, il incarne aujourd’hui un classique de la dermo-cosmétique oculaire et apaisante, surnommé autrefois « casse-lunettes » pour son usage traditionnel sur les yeux irrités.
 
----
+  ---
+  ## 🌾 Racines Historiques & Usage Traditionnel
 
-## 🌾 Histoire et Ethnobotanique : La "Casse-Lunettes"
-Au Moyen Âge, les herboristes utilisaient déjà l'eau de Bleuet pour soigner les inflammations oculaires, lui valant le surnom populaire de "casse-lunettes". Selon la théorie des signatures, sa couleur bleue intense rappelait la clarté d'un regard sain. Aujourd'hui, il est le pilier des soins démaquillants et des gels frais pour les yeux.
+  Depuis le Moyen Âge, l’infusion ou l’hydrolat de bleuet est employé en collyre artisanal pour calmer rougeurs, gonflements et fatigue oculaire. Sa teinte bleue, selon la théorie des signatures, évoquait la limpidité d’un regard reposé. Aujourd’hui encore, il reste un pilier des brumes apaisantes, lotions démaquillantes et soins contour des yeux, particulièrement appréciés pour leur fraîcheur sensorielle.
 
-## 🔬 Profil Moléculaire : Une Synergie Apaisante
-Le Bleuet puise son efficacité dans une combinaison spécifique de molécules hydrosolubles :
+  ## 🔬 Composition & Mécanismes d’Action
 
-* **Anthocyanes (Cyanidine) :** Pigments naturels responsables de sa couleur bleue, ils possèdent des propriétés antioxydantes et protectrices sur les micro-vaisseaux, limitant la perméabilité capillaire responsable des poches.
-* **Flavonoïdes :** Molécules anti-inflammatoires qui calment les irritations et les rougeurs de la paupière.
-* **Tannins :** Apportent une légère action astringente pour tonifier le tissu cutané très fin du contour de l'œil.
-* **Composés Phénoliques :** Protègent contre le stress oxydatif environnemental (Lumière bleue, pollution).
+  L’hydrolat et les extraits aqueux de fleurs renferment principalement :
+  - **Anthocyanes** (dont dérivés de cyanidine) → pigments bleus aux propriétés **antioxydantes** modérées
+  - **Flavonoïdes** (surtout apigénine, lutéoline) → effet anti-inflammatoire potentiel via inhibition partielle de médiateurs pro-inflammatoires
+  - **Polysaccharides** → contribueraient à une action apaisante et filmogène légère
+  - **Acides phénoliques** et traces de tannins → tonifient doucement et limitent l’oxydation
 
-## 🌿 Sourcing & Éco-Extraction : Pureté et Traçabilité
-Le Bleuet est une plante fragile dont la qualité dépend étroitement de son mode de culture.
-1.  **Culture Biologique :** Nous privilégions des fleurs issues de l'agriculture biologique (souvent en France ou en Europe de l'Est) pour garantir l'absence de pesticides, critique pour une application près des yeux.
-2.  **Distillation à la Vapeur d'Eau :** L'hydrolat de Bleuet est obtenu par distillation lente des fleurs séchées. Un ratio de **1/1** est privilégié pour obtenir une concentration optimale en principes actifs volatils.
-3.  **Filtration de Haute Précision :** Pour les formulations oculaires, l'extrait subit une micro-filtration stérile (0,22 µm) afin de garantir une pureté microbiologique irréprochable.
+  Des travaux in vitro et sur modèles animaux ont mis en évidence une activité **anti-inflammatoire** (inhibition d’œdèmes, modulation du complément) et antioxydante, notamment via neutralisation de chimiokines (CCL17/CCL22) et inhibition COX-2/5-LOX pour certains extraits enrichis.
 
-## ⚖️ Preuves d'Efficacité : Spécificité Contour des Yeux
-Le Bleuet agit sur les paramètres clés du confort oculaire :
-* **Décongestion des Poches :** Favorise le drainage lymphatique pour réduire l'aspect gonflé au réveil.
-* **Apaisement des Paupières :** Calme instantanément les sensations de tiraillement ou d'échauffement liées à la fatigue ou aux allergies.
-* **Respect Oculaire :** Son pH proche de celui des larmes (environ 7) assure une tolérance parfaite, minimisant les risques de picotements.
+  ## ⚖️ État des Preuves Scientifiques
 
-> **Le saviez-vous ?** Utilisé en compresse froide, l'hydrolat de Bleuet provoque une vasoconstriction qui décuple son effet anti-poches immédiat.
+  **Points solides ou prometteurs**
+  - Activité anti-inflammatoire démontrée in vitro et sur modèles animaux (œdème à la carragénine, zymosan…)
+  - Capacité antioxydante mesurée (parfois comparable ou supérieure à la vitamine C dans certaines études sur hydrolat)
+  - Très bonne tolérance oculaire et cutanée rapportée dans de nombreux produits cosmétiques testés sous contrôle ophtalmologique
 
-## 🤝 Synergies en Formulation
-L'eau de Bleuet s'intègre parfaitement dans des protocoles "Regard" avec :
-* **Caféine :** Pour un effet lipolytique et drainant accentué sur les poches graisseuses.
-* **Acide Hyaluronique :** Pour lisser les ridules de déshydratation ("patte d'oie").
-* **Provitamine B5 (Panthénol) :** Pour fortifier les cils tout en apaisant la paupière.
+  **Limites actuelles**
+  - Très peu d’études cliniques randomisées contrôlées chez l’humain, surtout pour l’hydrolat pur
+  - L’effet décongestionnant sur poches et cernes repose largement sur l’usage traditionnel et des observations sensorielles (fraîcheur, vasoconstriction temporaire par froid)
+  - Pas de preuve robuste d’efficacité supérieure à un placebo pour conjonctivite, orgelet ou irritations oculaires modérées
+  - Effet antioxydant et anti-inflammatoire réel mais modeste comparé à des actifs de référence
 
-## 🛡️ Sécurité & Tolérance
-Le Bleuet est le symbole de la haute tolérance cutanée :
-* **Yeux Sensibles & Porteurs de Lentilles :** Testé sous contrôle ophtalmique, il est l'actif de choix pour les démaquillants biphases.
-* **Bébés :** Utilisable pour nettoyer délicatement les yeux des nourrissons.
-* **Peaux Atopiques :** Recommandé pour apaiser les zones de l'eczéma palpébral.
+  En résumé : ingrédient **sûr**, **doux** et sensoriellement plaisant, dont les bienfaits reposent sur une solide tradition et des données précliniques encourageantes, mais qui attend encore des essais cliniques de qualité pour confirmer pleinement ses indications cosmétiques.
 
----
-*Fiche technique certifiée pour les experts en formulation et les marques de soins dermo-esthétiques.*`,
+  ## 🌿 Sourcing & Qualité en Cosmétique Premium
+
+  - **Culture** : privilégier agriculture biologique (France, Europe de l’Est, Balkans) pour limiter tout résidu et respecter une espèce en régression dans de nombreuses régions
+  - **Obtention** : distillation à la vapeur d’eau des fleurs fraîches ou séchées → ratio 1:1 idéal pour concentrer les composés hydrosolubles sans ajout
+  - **Contrôles** : micro-filtration stérile (0,22 µm), absence de conservateurs agressifs, pH physiologique (~6,5-7,5), conservation au frais après ouverture
+
+  ## 🛡️ Sécurité & Précautions Indispensables
+
+  - **Usage externe uniquement** (hydrolat ou extrait aqueux)
+  - **Famille Asteraceae** → risque allergique croisé (marguerite, camomille, arnica…) : test cutané recommandé
+  - **Contour des yeux** : excellente tolérance générale, y compris lentilles et peaux atopiques, mais éviter en cas d’infection oculaire avérée sans avis médical
+  - **Grossesse & allaitement** : hydrolat généralement considéré comme sûr par principe de précaution, mais infusions orales à éviter ou limiter sans avis médical
+  - **Conservation** : au réfrigérateur après ouverture, utiliser dans les 3-6 mois selon fabricant
+
+  ## 🤝 Synergies Inspirantes en Formulation
+
+  - **Caféine + Bleuet** → drainage & fraîcheur renforcés pour poches matinales
+  - **Panthénol + Bleuet** → réparation & apaisement des paupières fragiles
+  - **Acide hyaluronique bas poids + Bleuet** → hydratation + confort immédiat
+  - **Hamamélis ou Cassis** → effet tonifiant vasculaire complémentaire
+  - **Camomille romaine** → duo ultra-doux pour peaux ultra-réactives
+
+  Le Bleuet des Champs n’est pas un actif miracle aux performances spectaculaires, mais une matière première élégante, sensorielle et rassurante, qui incarne la douceur botanique dans les soins les plus délicats du quotidien.
+
+  **Catégorie :** actif apaisant & décongestionnant – priorité tolérance & sensorialité
+  `,
     category: 'actif',
   },
   {
     name: 'Hamamélis de Virginie (Hamamelis virginiana L.)',
     slug: INGREDIENT_SLUGS.HAMAMELIS,
     description:
-      "Le magicien des vaisseaux : l'actif de référence pour resserrer les pores, stabiliser la microcirculation et apaiser les peaux réactives sujettes aux rougeurs.",
-    content: `# L'Hamamélis : Le Stabilisateur de la Barrière Capillaire et Cutanée
+      'Extrait végétal astringent riche en tanins. Peut apporter un effet tonique et décongestionnant léger, mais nécessite prudence sur peaux sensibles ou rosacée en raison de son potentiel asséchant et irritant.',
+    content: `# L’Hamamélis de Virginie : Astringent Botanique à Usage Ciblé
 
-L'**Hamamélis**, souvent surnommé "Noisetier des sorcières" (*Witch Hazel*) pour ses vertus quasi-miraculeuses sur la circulation, est un ingrédient pilier de la pharmacognosie moderne. Son action biphasée — à la fois astringente et décongestionnante — en fait l'allié incontournable des peaux mixtes à grasses et des épidermes fragilisés par la couperose.
+  L’**Hamamelis virginiana** est un arbuste originaire d’Amérique du Nord dont les feuilles et l’écorce sont utilisées en phytothérapie et cosmétique pour leurs propriétés astringentes et veinotoniques.
 
----
+  En formulation, il est principalement utilisé dans les lotions purifiantes, soins post-rasage et produits pour peaux grasses.
 
-## 🍂 Histoire et Ethnobotanique : La Sagesse Amérindienne
-Originaire d'Amérique du Nord, l'Hamamélis était utilisé par les chamans pour ses propriétés hémostatiques et anti-inflammatoires. Introduit en Europe au XVIIIe siècle, il a rapidement intégré les préparations officinales pour traiter les désordres veineux. C'est l'un des rares extraits végétaux dont l'efficacité sur la **tonicité vasculaire** est solidement documentée par les pharmacopées internationales.
+  ---
 
-## 🔬 Profil Moléculaire : La Force des Tanneurs Naturels
-L'extrait d'Hamamélis tire sa puissance d'une composition riche en polyphénols spécifiques :
+  ## 🌿 Usage Traditionnel
 
-* **Tannins (Hamamélitannins) :** Ces composés possèdent une affinité unique avec les protéines de la peau. Ils provoquent une légère précipitation protéique superficielle, ce qui "resserre" les pores et les tissus (effet astringent mécanique).
-* **Flavonoïdes (Quercétine, Kaempférol) :** Puissants veinotoniques, ils diminuent la perméabilité des capillaires et renforcent leur résistance, luttant ainsi contre l'érythrose.
-* **Proanthocyanidols :** Agents antioxydants d'exception, ils protègent les membranes cellulaires contre la peroxydation lipidique induite par les agresseurs environnementaux.
+  Historiquement employé pour :
+  - inflammations mineures
+  - irritations cutanées
+  - troubles veineux superficiels
+  - hémorroïdes
 
-## 🌿 Sourcing & Éco-Extraction : Pureté et Stabilité
-Pour conserver la fraction active sans altérer la sensibilité de la peau, nous privilégions :
-1.  **Distillation à la Vapeur d'Eau des Feuilles et Écorces :** Permet d'obtenir une eau florale limpide, naturellement concentrée en molécules volatiles apaisantes.
-2.  **Extraits Glycérinés ou Hydro-Alcooliques Titrés :** Utilisés pour maximiser la concentration en tannins dans les formules traitantes (sérums, gels).
-3.  **Récolte Raisonnée :** Approvisionnement issu de forêts gérées durablement, garantissant une traçabilité totale du champ au laboratoire.
+  Son usage repose sur sa richesse en tanins aux propriétés vasoconstrictrices et protectrices.
 
-## ⚖️ Preuves d'Efficacité : Un Bouclier Vasculaire
-L'Hamamélis intervient activement dans le maintien de l'homéostasie cutanée :
-* **Action Astringente & Purifiante :** Réduit visiblement le diamètre des pores et régule l'excès de sébum sans dessécher l'épiderme.
-* **Effet Vasoconstricteur :** Diminue les rougeurs diffuses et décongestionne les tissus (idéal pour les soins contour des yeux ou post-rasage).
-* **Propriétés Apaisantes :** Inhibe la libération des médiateurs de l'inflammation, calmant les démangeaisons et les irritations des peaux atopiques.
+  ---
 
-> **Le saviez-vous ?** L'Hamamélis possède une activité antioxydante comparable à celle de la Vitamine E, ce qui en fait un excellent bouclier **anti-pollution**.
+  ## 🔬 Composition & Mécanismes
 
-## 🤝 Synergies en Formulation
-L'Hamamélis potentialise l'action de nombreux actifs :
-* **Zinc PCA :** Pour une efficacité renforcée sur les peaux à tendance acnéique (purification + resserrement des pores).
-* **Petit Houx (Ruscus) & Marron d'Inde :** Le trio d'or pour traiter les jambes lourdes et la couperose.
-* **Allantoïne :** Pour contrebalancer l'effet astringent par une hydratation et une douceur extrêmes.
+  Les extraits d’hamamélis contiennent :
 
-## 🛡️ Sécurité & Tolérance
-L'Hamamélis est reconnu pour sa grande innocuité :
-* **Peaux Sensibles :** Particulièrement recommandé pour les peaux réactives qui ne supportent pas les astringents alcoolisés.
-* **Bébés et Enfants :** Très utilisé dans les soins apaisants pour les rougeurs du siège ou les piqûres d'insectes.
-* **Grossesse :** Sans contre-indication en usage topique.
+  - **Tanins (hamamélitannins)** → effet astringent par précipitation des protéines cutanées
+  - **Flavonoïdes** → activité antioxydante modérée
+  - **Proanthocyanidines** → protection contre stress oxydatif
+  - **Acides phénoliques** → soutien anti-inflammatoire léger
 
----
-*Fiche technique élaborée pour les départements de Recherche & Développement et Marketing Stratégique.*`,
+  L’effet astringent provoque une sensation immédiate de peau plus ferme et pores visuellement resserrés.
+
+  ---
+
+  ## ⚖️ Données Scientifiques
+
+  √ Activité anti-inflammatoire modérée démontrée in vitro
+  √ Réduction temporaire de l’érythème UV-induit
+  √ Effet décongestionnant court terme
+
+  ! Données limitées concernant :
+  - réduction durable des rougeurs chroniques
+  - amélioration de la rosacée
+  - effet prolongé sur microcirculation faciale
+
+  L’effet observé est souvent transitoire.
+
+  ---
+
+  ## 🌡️ Impact sur Peaux Sensibles & Rosacée
+
+  La rosacée se caractérise par :
+  - barrière cutanée fragilisée
+  - hyperréactivité vasculaire
+  - tendance aux flushs
+
+  Points de vigilance :
+
+  - **Tanins** → peuvent assécher et fragiliser la barrière à long terme
+  - **Formes hydro-alcooliques fréquentes** → irritation + vasodilatation réflexe
+  - Effet astringent peut masquer temporairement la rougeur sans traiter l’inflammation sous-jacente
+
+  Chez certaines peaux rosacées :
+  - picotements
+  - tiraillements
+  - aggravation des rougeurs persistantes
+
+  Tolérance très variable selon :
+  - concentration
+  - présence d’alcool
+  - état inflammatoire de la peau
+
+  ---
+
+  ## 🌿 Qualité & Formulation
+
+  Deux formes principales :
+
+  1. **Distillat (hydrolat)**
+     - plus doux
+     - moins concentré en tanins
+
+  2. **Extrait hydro-alcoolique**
+     - plus astringent
+     - plus potentiellement irritant
+
+  Les versions sans alcool sont préférables pour peaux sensibles.
+
+  ---
+
+  ## 🛡️ Sécurité & Précautions
+
+  √ Généralement sûr en usage topique
+  ! Peut provoquer sécheresse et irritation en usage répété
+  ! À éviter en cas de rosacée inflammatoire active
+
+  Recommandations :
+  - éviter si alcool en haut de liste INCI
+  - éviter en combinaison avec exfoliants forts ou rétinoïdes
+  - associer à humectants (glycérine, panthénol) si utilisé
+
+  ---
+
+  ## 🤝 Synergies de Formulation
+
+  Plus adapté aux :
+
+  - **Peaux grasses / mixtes**
+  - **Soins post-rasage**
+  - **Produits purifiants ponctuels**
+
+  Associations pertinentes :
+
+  - Zinc PCA (séborégulation)
+  - Panthénol / Allantoïne (contrebalancer l’astringence)
+  - Céramides (soutien barrière)
+
+  Moins adapté aux routines dédiées rosacée.
+
+  ---
+
+  L’Hamamélis n’est pas un actif anti-rosacée à proprement parler.
+  Il peut apporter un effet tonique temporaire mais doit être utilisé avec prudence sur peau réactive chronique.
+
+  **Catégorie :** actif astringent – usage ciblé, non prioritaire pour rosacée.
+  `,
     category: 'actif',
   },
   {
     name: 'Hydrolat de Rose de Damas (Rosa damascena Miller)',
     slug: INGREDIENT_SLUGS.EAU_DE_ROSE,
     description:
-      "L'élixir de perfection cutanée : un tonique sensoriel aux propriétés apaisantes, astringentes et neuro-cosmétiques pour une peau sublimée et apaisée.",
-    content: `# L'Eau de Rose de Damas : L'Élixir Universel de la Dermo-Cosmétique
+      'Hydrolat aromatique traditionnel aux propriétés légèrement apaisantes et tonifiantes. Apporte une dimension sensorielle mais peut être irritant chez les peaux très réactives ou rosacées.',
+    content: `# L'Eau de Rose de Damas : Hydrolat Traditionnel à Usage Cosmétique
 
-Véritable icône de la beauté depuis l'Antiquité, l'**Eau de Rose de Damas** (ou hydrolat) est bien plus qu'une simple eau parfumée. En formulation de haut niveau, elle remplace avantageusement l'eau purifiée pour apporter une valeur ajoutée biologique immédiate : apaisement des cytokines inflammatoires et resserrement du grain de peau.
+  L'**Eau de Rose de Damas** (hydrolat de *Rosa damascena*) est obtenue par distillation à la vapeur des pétales. Elle contient les fractions hydrosolubles de la plante ainsi que des traces de composés aromatiques issus de l'huile essentielle.
 
----
+  En cosmétique moderne, elle est principalement utilisée pour ses propriétés tonifiantes légères et sa dimension sensorielle.
 
-## 🌹 Histoire & Ethnobotanique : De la Perse aux Laboratoires
-Originaire d'Orient et introduite en Europe lors des Croisades, la *Rosa damascena* est la variété la plus prisée en pharmacognosie pour sa richesse moléculaire. Traditionnellement utilisée pour ses vertus régénératrices et son action sur le "bien-être" de l'esprit, elle est aujourd'hui au cœur de la **neuro-cosmétique** pour son lien prouvé entre stimulation olfactive et réduction du stress cutané (diminution du cortisol local).
+  ---
 
-## 🔬 Profil Moléculaire : Une Micro-Dose de Puissance
-L'eau de rose contient les fractions hydrosolubles de l'huile essentielle de rose, dispersées naturellement :
+  ## 🌹 Histoire & Usage Traditionnel
+  Utilisée depuis l'Antiquité au Moyen-Orient et en Méditerranée, la rose de Damas était traditionnellement appliquée pour rafraîchir et parfumer la peau.
 
-* **Alcools Phényléthyliques :** Principaux constituants responsables de son action antibactérienne douce et de son parfum caractéristique.
-* **Géraniol & Nérol :** Molécules aux propriétés tonifiantes et cicatrisantes.
-* **Traces de Polyphénols :** Antioxydants hydrosolubles qui luttent contre le stress oxydatif induit par la pollution et les UV.
-* **Micro-NUTRIMENTS :** Vitamines et minéraux essentiels au maintien de la barrière hydrolipidique.
+  Son usage repose davantage sur la tradition cosmétique que sur des données cliniques robustes démontrant un effet dermatologique majeur.
 
-## 🌿 Sourcing & Éco-Extraction : La Distillation de Précision
-La qualité d'une eau de rose dépend du ratio de distillation (poids de fleurs / volume d'hydrolat obtenu).
-1.  **Récolte à l'Aube :** Les fleurs sont cueillies à la main au lever du jour, moment où leur teneur en principes actifs est à son apogée (avant l'évaporation des huiles par le soleil).
-2.  **Distillation à la Vapeur d'Eau :** Nous privilégions un ratio **1/1** (1 kg de fleurs pour 1 litre d'eau), garantissant une concentration maximale en molécules actives, contrairement aux eaux de rose industrielles fortement diluées.
-3.  **Filtration Stérile :** Pour garantir la pureté microbiologique sans altérer les molécules thermosensibles.
+  ---
 
-## ⚖️ Preuves d'Efficacité : Un Actif Multi-Fonctions
-L'eau de rose agit comme un véritable régulateur de l'homéostasie cutanée :
-* **Action Astringente :** Resserre les pores et affine le grain de peau par une légère modification de la tension superficielle du sébum.
-* **Anti-Inflammatoire :** Réduit les rougeurs diffuses et calme les sensations d'échauffement des peaux réactives.
-* **Rééquilibrage du pH :** Aide la peau à retrouver son pH physiologique après le nettoyage, renforçant ainsi la fonction barrière.
-* **Hydratation Optimisée :** Améliore la réceptivité de la peau aux soins appliqués ultérieurement.
+  ## 🔬 Profil Moléculaire
 
-> **Note de Formulation :** En remplacement de l'eau dans une émulsion, elle booste l'efficacité globale de la formule tout en améliorant sa signature sensorielle.
+  L’hydrolat contient :
 
-## 🤝 Synergies de Formulation
-L'eau de rose est une base d'accueil exceptionnelle pour :
-* **Acide Hyaluronique :** Pour une hydratation "plumping" intense et un confort immédiat.
-* **Aloe Vera :** Pour un cocktail apaisant et désaltérant post-exposition solaire.
-* **Niacinamide (Vitamine B3) :** Pour une action combinée sur l'éclat du teint et la réduction des pores.
+  * **Phényléthanol (Phenethyl Alcohol)** : composant aromatique majoritaire, légèrement antibactérien.
+  * **Géraniol, Citronellol, Nérol** : composés parfumants naturellement présents.
+  * **Traces de polyphénols** : activité antioxydante modérée.
+  * **Fraction aqueuse végétale** : eau + micro-composés solubles.
 
-## 🛡️ Sécurité & Tolérance
-L'eau de rose est l'un des actifs les plus sûrs de la cosmétopée :
-* **Tous types de peaux :** Idéale pour les peaux sèches, grasses, matures ou sensibles.
-* **Pédiatrie & Maternité :** Utilisable en toute sécurité pour les soins des bébés et des femmes enceintes.
-* **Innocuité Oculaire :** Souvent utilisée dans les formulations de démaquillants pour les yeux sensibles.
+  ⚠️ Les molécules aromatiques (géraniol, citronellol…) sont classées comme allergènes réglementés en Europe.
 
----
-*Expertise formulation : Pour une efficacité optimale, privilégier un hydrolat certifié Bio et sans conservateurs de synthèse (système de conservation naturel par l'alcool phényléthylique).*`,
+  ---
+
+  ## 🌿 Procédé d’Obtention
+
+  1. **Distillation à la vapeur** des pétales frais.
+  2. Séparation de l’huile essentielle.
+  3. Récupération de la phase aqueuse (hydrolat).
+
+  Le ratio de distillation influence la concentration en composés aromatiques.
+  Un hydrolat concentré contient davantage de molécules potentiellement sensibilisantes.
+
+  ---
+
+  ## ⚖️ Données d’Efficacité
+
+  Effets observés en cosmétique :
+
+  * **Effet tonique léger** (sensation de fraîcheur).
+  * **Action astringente douce** via les composés phénoliques.
+  * **Effet antioxydant modéré**.
+  * **Apport sensoriel important** (olfactif).
+
+  Il n’existe pas de preuves solides démontrant une réduction significative des rougeurs persistantes liées à la rosacée.
+
+  ---
+
+  ## 🌡️ Impact sur Peaux Sensibles / Rosacée
+
+  La rosacée implique :
+  - une barrière cutanée fragilisée
+  - une hyperréactivité nerveuse
+  - une tendance aux flushs
+
+  Les composés aromatiques naturels peuvent :
+
+  * provoquer picotements
+  * induire rougeurs transitoires
+  * aggraver une rosacée active
+
+  Tolérance variable selon :
+  - concentration
+  - position dans la formule
+  - état inflammatoire de la peau
+
+  ---
+
+  ## 🤝 Synergies de Formulation
+
+  Peut être associée à :
+
+  * **Céramides / Cholestérol** : compensation barrière
+  * **Panthénol / Allantoïne** : effet apaisant complémentaire
+  * **Niacinamide ≤5%** : soutien anti-rougeurs
+
+  À éviter en combinaison avec :
+  * alcool élevé
+  * exfoliants forts
+  * rétinoïdes en phase d'adaptation
+
+  ---
+
+  ## 🛡️ Sécurité & Tolérance
+
+  ✔️ Généralement bien tolérée en faible concentration
+  ⚠️ Peut être irritante chez :
+  - peaux très réactives
+  - rosacée inflammatoire active
+  - dermatite péri-orale
+
+  Déconseillée comme ingrédient principal chez les peaux à rougeurs chroniques.
+
+  ---
+
+  *Note formulation : ingrédient principalement sensoriel. Ne constitue pas un actif anti-rosacée à part entière.*
+  `,
     category: 'actif',
   },
   {
-    name: 'Hélichryse Italienne ou Immortelle (Helichrysum italicum G. Don)',
+    name: 'Hélichryse Italienne ou Immortelle (Helichrysum italicum (Roth) G. Don)',
     slug: INGREDIENT_SLUGS.HELICHRYSE_IMMORTELLE,
     description:
-      "L'actif anticoagulant naturel le plus puissant de la pharmacopée : une efficacité chirurgicale sur les hématomes et un régénérant tissulaire d'exception.",
-    content: `# L'Hélichryse Italienne : L'Or Corse de la Régénération Vasculaire
+      "L'actif botanique d'exception du maquis méditerranéen : une signature biochimique unique dominée par les italidiones et l'acétate de néryle, offrant une action anti-hématome sans équivalent, un soutien documenté de la microcirculation, une stimulation de la synthèse de céramides et d'acide hyaluronique endogène, et une protection anti-oxydante dermique de premier plan.",
+    content: `# L'Hélichryse Italienne : L'Or Corse de la Régénération Vasculaire et Cutanée
 
-L'**Hélichryse italienne**, surnommée "Immortelle" car ses fleurs ne fânent jamais même après la cueillette, est l'actif d'élite pour la microcirculation. En dermo-cosmétique de pointe, elle est considérée comme l'équivalent naturel de l'Arnica, avec une puissance d'action démultipliée sur les tissus lésés et congestionnés.
+  L'**Hélichryse italienne** (*Helichrysum italicum* (Roth) G. Don), surnommée **"Immortelle"** car ses bouquets secs se conservent exceptionnellement longtemps, ou encore **"Fleur de Saint-Jean"**, **"plante au curry"** et **"or solaire"**, est l'actif d'élite de la microcirculation cutanée et de la réparation de la barrière épidermique. Son huile essentielle, surnommée **"huile du boxeur"**, est considérée comme supérieure à l'Arnica par voie locale pour la résorption des hématomes. Au-delà de l'HE, ses extraits hydro-alcooliques, supercritiques et à base de cyclodextrines ouvrent des perspectives cosméceutiques majeures.
 
----
+  ---
 
-## ☀️ Histoire et Terroir : Une Fleur de Maquis
-Originaire du bassin méditerranéen, l'Immortelle puise sa force dans les sols arides et ensoleillés, notamment en **Corse**, où le biotype local est mondialement réputé pour sa concentration exceptionnelle en molécules actives. Utilisée depuis l'Antiquité pour ses vertus cicatrisantes, elle est aujourd'hui le joyau des soins post-opératoires et anti-âge globaux.
+  ## ☀️ Histoire, Terroir & Étymologie
 
-## 🔬 Profil Moléculaire : L'Exclusivité des Italidiones
-L'efficacité fulgurante de l'Hélichryse repose sur une signature biochimique unique :
+  ### Étymologie
+  Le nom *Helichrysum* vient du grec *helios* (soleil) et *chrysos* (or), en référence à la couleur dorée de ses capitules. L'appellation *italicum* dérive du latin *italicus*, l'Italie étant la région où la plante fut décrite pour la première fois.
 
-* **Italidiones (β-dicétones) :** Ces molécules rares sont des **chélateurs de fibrine** ultra-efficaces. Elles favorisent la résorption des hématomes (bleus) les plus profonds en "nettoyant" les dépôts de sang extravasé.
-* **Acétate de Néryle :** Un ester aux propriétés antalgiques et relaxantes, capable de calmer instantanément le "feu" cutané et les spasmes microvasculaires.
-* **Alpha-pinène & Limonène :** Terpènes drainants qui stimulent la circulation lymphatique et réduisent les œdèmes.
-* **Flavonoïdes & Acétophénones :** Antioxydants puissants qui protègent la matrice extracellulaire de la dégradation enzymatique (anti-élastase, anti-collagénase).
+  ### Une plante vénérée depuis l'Antiquité
+  Selon l'Odyssée d'Homère, **Nausicaa** devait sa beauté légendaire à l'utilisation de l'huile d'Immortelle. **Apollon** lui-même arborait une tiare d'hélichryse à Delphes pour rappeler son immortalité. Les Grecs vénéraient cette plante comme symbole d'amour éternel.
 
-## 🌿 Sourcing & Éco-Extraction : La Haute Précision
-L'Immortelle est une ressource précieuse dont le rendement est extrêmement faible (environ 1kg d'huile essentielle pour 1 tonne de fleurs).
-* **Culture Biologique :** Nous privilégions des plantations certifiées en Corse pour préserver le maquis sauvage.
-* **Distillation à la Vapeur d'Eau :** Procédé traditionnel basse pression permettant d'extraire l'huile essentielle intégrale.
-* **Extrait Oléique :** Pour une diffusion plus lente et une meilleure pénétration de la barrière hydrolipidique.
+  ### Terroir méditerranéen
+  Endémique du pourtour méditerranéen, l'Immortelle est présente en **Corse, Sardaigne, Italie, Grèce, Croatie, Albanie, Monténégro, Slovénie, Bosnie-Herzégovine, Espagne, Portugal, Algérie, Maroc et Chypre**. En France, elle est rare à très rare dans le Languedoc-Roussillon, les Alpes-Maritimes et le Var, et moyennement courante en Corse. Elle est **protégée en région PACA** (arrêté du 9 mai 1994) et sa cueillette sauvage est réglementée en Corse.
 
-## ⚖️ Preuves d'Efficacité : Performance Dermo-Cosmétique
-L'Hélichryse n'est pas qu'un actif apaisant, c'est un véritable **architecte cutané** :
-* **Action Anti-Hématome :** Des études cliniques montrent une disparition des ecchymoses deux fois plus rapide par rapport à un placebo.
-* **Régénération Cellulaire :** Favorise le renouvellement des kératinocytes, idéal pour l'atténuation des cicatrices et des vergetures.
-* **Anti-Âge & Éclat :** En renforçant les parois capillaires, elle réduit les rougeurs diffuses (couperose) et redonne de l'éclat aux teints ternes et asphyxiés.
+  Un proverbe provençal résume la récolte : *"Voou mies la dessouta que de la laissa troou madura"* — mieux vaut la cueillir trop tôt que trop tard.
 
-> **Focus R&D :** L'Immortelle agit sur l'**homéostasie endothéliale**, limitant l'inflammation neurogène et renforçant la jonction dermo-épidermique.
+  ---
 
-## 🤝 Synergies de Formulation
-Pour des résultats optimisés, l'Hélichryse s'associe à :
-* **Ciste Ladanifère :** Pour une action hémostatique et cicatrisante immédiate.
-* **Vitamine C :** Pour booster la synthèse de collagène et l'éclat du teint.
-* **Huile de Rose Musquée :** Pour traiter les cicatrices hypertrophiques et le vieillissement photo-induit.
+  ## 🌱 Botanique & Écologie
 
-## 🛡️ Sécurité & Tolérance
-L'Hélichryse est un actif puissant mais généralement bien toléré.
-* **Tolérance Cutanée :** Excellente en dilution.
-* **Précautions :** En raison de ses propriétés anticoagulantes, elle est déconseillée aux personnes sous traitement fluidifiant sanguin intense sans avis médical.
-* **Femmes enceintes :** Usage local autorisé après le premier trimestre (selon concentration).
+  ### Description
+  Plante vivace de **25 à 60 cm**, ligneuse à la base, sempervirente et hermaphrodite. Tiges tomenteuses et laineuses, feuilles linéaires très étroites (2–3 cm), grêles, roulées en dessous par les bords, verdâtres à argentées. Capitules serrés en corymbes terminaux d'un **jaune or** caractéristique, floraison de **mai à août** (principalement juin-juillet). Pollinisation entomophile (parfois autogame), fruits = akènes très petits couverts de glandes blanches brillantes. Toute la plante dégage une **odeur forte de curry** (*"Curry plant"* en anglais).
 
----
-*Document scientifique réservé aux formulateurs et experts beauté.*`,
+  ### Écologie
+  Plante **héliophile** (aime le soleil), **thermophile** (aime la chaleur) et souvent **xérophile** (tolère la sécheresse). Elle affectionne les sols sablonneux riches en silice, les falaises, pierriers granitiques et zones rocailleuses du littoral. Elle craint le gel, les stagnations d'eau et les teneurs élevées en calcaire actif.
+
+  ### Sous-espèces principales
+  - **ssp. italicum** — L'Immortelle d'Italie à proprement parler. Falaises et pierriers granitiques littoraux, maquis. C'est la sous-espèce principalement recherchée en France.
+  - **ssp. microphyllum** — Plus xérophile, garrigues et falaises calcaires maritimes (Corse, Sardaigne, Italie). Feuilles plus courtes (~1 cm), riche en arzanol.
+  - **ssp. serotinum** — La plus continentale. Capitules plus ovoïdes, akènes dépourvus de glandes. Quasi absente en Corse.
+  - **ssp. picardii**, **ssp. pseudolitoreum**, **ssp. siculum** — Sous-espèces mineures.
+
+  Les chémotypes des sous-espèces **microphyllum** et **serotinum** sont parmi les plus appréciés en aromathérapie.
+
+  ---
+
+  ## 🔬 Profil Biochimique Complet
+
+  L'efficacité de l'Hélichryse repose sur une **signature biochimique d'une complexité exceptionnelle**, avec une grande variabilité selon l'origine géographique, les procédés de distillation et la méthode d'extraction.
+
+  ### Huile essentielle — Chémotype corse (référence mondiale)
+  - **Acétate de néryle : 35–75 %** (composant majoritaire, marqueur de qualité — minimum 30 % requis)
+  - **Propionate de néryle : 3–6 %**
+  - **Italidiones I, II, III (β-dicétones / diones) : 15–20 %** — molécules rares quasi exclusives à cette espèce
+    - Italidione I = 4,6,9-triméthyl-8-décène-3,5-dione
+    - Italidione II = 2,4,6,9-tétraméthyl-8-décène-3,5-dione
+  - **Nérol : 2–3 %** (monoterpénol)
+  - **γ-curcumène : 4–13 %**, α-curcumène (sesquiterpènes)
+  - **β-caryophyllène**, α-cédrène, α-sélinène, β-sélinène
+  - **Limonène : 2–7 %**, α-pinène, 1,8-cinéole
+  - **Eudesm-5-en-11-ol** (identifié par Bianchini et al.)
+
+  **Particularité corse :** teneur en acétate de néryle systématiquement >30 %, concentration plus élevée de β-dicétones dans les jeunes pousses, et d'acétate de néryle en pleine floraison. Pour une qualité optimale : <9 % de β-dicétones.
+
+  ### Variabilité géographique majeure
+  | Origine | Profil dominant |
+  |---|---|
+  | **Corse** | Acétate de néryle (35–75 %), italidiones, propionate de néryle |
+  | **Toscane** | α-pinène (33–53 %), acétate de néryle (10–22 %), sesquiterpènes (23–39 %) |
+  | **Ex-Yougoslavie / Balkans** | α-pinène (22–30 %), γ-curcumène (10 %), α-curcumène (15–29 %) |
+  | **Grèce** | Géraniol (36 %), acétate de géranyle (15 %), nérolidol (12 %) |
+  | **Madagascar** | 1,8-cinéole (>70 %), **ni italidiones ni acétate de néryle** |
+
+  ⚠️ Les italidiones et l'acétate de néryle à haute concentration sont quasi exclusifs aux origines corses et sarde.
+
+  ### Composés de la plante entière (au-delà de l'HE)
+  - **Polyphénols :** glycosides d'acide hydroxybenzoïque et hydroxycinnamique, acide acylquinique, acide caféoylhexarique, acide chlorogénique, acide caféique
+  - **Flavonoïdes :** flavones, flavonols, flavanones, scutellaréine, quercétagétine, 6-hydroxylutéoline (dérivés méthoxylés), gnaphaline, tiliroside, naringénine, pinocembrine, dérivés de quercétine, myricétine, isorhamnétine, kaempférol
+  - **Arzanol** (surtout ssp. microphyllum) — hétérodimère prénylé phloroglucinol/α-pyrone, actif majeur anti-inflammatoire et antiviral
+  - **3-méthylarzanol** — dérivé de l'arzanol identifié dans les extraits à cyclodextrines
+  - **Arénol** — dérivé phénolique à noyau pyrane et fonction cétone
+  - **Alpha-pyrones prénylées du phloroglucinol**
+  - **Trémétones et acétophénones** — contribuent à l'activité anti-inflammatoire et antioxydante
+  - **Glycosides de phényléthanoïdes**
+  - **Apigénine** — flavone cicatrisante
+  - **Acide ursolique** — triterpène aux propriétés anti-inflammatoires
+  - **Phytostérols :** γ-sitostérol, campestérol, stigmastérol — identifiés dans les extraits à cyclodextrines, aux propriétés chimiopréventives, anti-inflammatoires et antioxydantes
+
+  ### Profil des extraits à cyclodextrines (HP-β-CD)
+  Les extractions assistées par hydroxypropyl-β-cyclodextrine permettent de solubiliser dans un milieu aqueux à la fois les polyphénols et une partie des composés volatils normalement réservés à l'HE. Composés identifiés par GC-MS dans les extraits : acétate de néryle, néo-intermédeol (sesquiterpène rarement rapporté dans H. italicum), β-sélinène, γ-curcumène, italidione I, nérol, α-pinène, limonène, linalol, camphre, 4-terpinéol, α-terpinéol, ainsi que des phytostérols (γ-sitostérol, campestérol, stigmastérol). L'analyse LC-MS révèle des dérivés d'acide hydroxycinnamique (3,5-O-dicaféoylquinique comme composé majoritaire), des flavonols (quercétine, myricétine, isorhamnétine, kaempférol), de l'arzanol et du 3-méthylarzanol.
+
+  ---
+
+  ## 🧪 Pharmacologie : Données Scientifiques Établies
+
+  ### 1. Action Anti-Hématome (activité phare)
+  **Puissance supérieure à l'Arnica par voie locale.**
+
+  Mécanisme proposé : les **β-dicétones (italidiones I, II, III)** faciliteraient la résorption ultra-rapide des hématomes par un mécanisme de **chélation de la fibrine**, lié au passage de la forme dionique à la forme énolique (équilibre tautomérique). Associé à l'action anti-inflammatoire et à la modulation de la coagulation.
+
+  Applications : hématomes externes (même anciens), ecchymoses, contusions, acrosyndrome, œdèmes, post-chirurgie plastique et esthétique.
+
+  > ⚠️ *Le mécanisme exact de chélation de la fibrine reste une hypothèse pharmacologique, non pleinement démontrée par des essais cliniques randomisés de grande ampleur.*
+
+  ### 2. Anti-inflammatoire (preuves solides in vitro & in vivo)
+  - **Inhibition du métabolisme de l'acide arachidonique** (double inhibition COX/LOX — Sala et al., 2003)
+  - **Arzanol = inhibiteur puissant de mPGES-1** (Kothavade et al., 2013 ; Bauer et al., 2011)
+  - **Acétophénone 1** (4-hydroxy-3-(3-méthyl-2-butényl)acétophénone) : inhibiteur de la peroxydation lipidique
+  - **Glucosides d'acétophénones** : activité anti-inflammatoire (Sala et al., 2001)
+  - Propriétés antalgiques documentées (Kramberger et al., 2021)
+  - **Inhibition de la voie NF-κB** : les polyphénols des extraits (non HE) peuvent inhiber le facteur de transcription NF-κB en amont, réduisant l'expression de médiateurs pro-inflammatoires (NO, TNF-α, cytokines). Ce mécanisme complète l'inhibition COX/LOX et mPGES-1 déjà documentée.
+
+  Applications : tendinites, arthrite, polyarthrite, rhumatismes, courbatures, douleurs musculaires et articulaires.
+
+  ### 3. Anti-oxydant
+  - Piégeage des radicaux libres (DPPH, ABTS)
+  - Inhibition enzymatique de la peroxydation lipidique
+  - Protection des membranes cellulaires
+  - **Arzanol** : activité anti-peroxydation documentée (Rosa et al., 2007)
+  - Effet cortisol-like (Sala et al., 2002)
+  - Les extraits à cyclodextrines montrent une activité antioxydante supérieure aux contrôles positifs standards (Jakupović et al., 2023)
+
+  ### 4. Réparation de la barrière cutanée et synthèse de céramides (découverte majeure)
+  **L'acétate de néryle, composant majoritaire de l'HE corse, est un régulateur transcriptionnel de la barrière épidermique.**
+
+  Étude clé (Lemaire et al., 2023, PLoS ONE — financée par le Groupe L'Occitane) :
+  - L'acétate de néryle médie à lui seul **41,5 % des gènes modulés** par l'HE entière
+  - Les gènes régulés sont impliqués dans la **différenciation épidermique**, la **formation de la barrière cutanée** et la **synthèse de céramides**
+  - **Involucrine (IVL)** — protéine clé de l'enveloppe cornée — surexprimée aux niveaux génique (24h) et protéique (5 jours)
+  - Après 5 jours de traitement : augmentation significative des **lipides totaux et des céramides** dans le stratum corneum
+  - L'HE corse augmente aussi l'expression de gènes du complexe de différenciation : involucrine, protéines riches en proline, enveloppe cornée tardive, famille S100
+
+  **Implications majeures :** ce mécanisme de renforcement de la barrière cutanée par stimulation de la synthèse endogène de céramides est directement pertinent pour les peaux sèches, la rosacée (barrière altérée), le vieillissement cutané (réduction des céramides avec l'âge), et les dermatites.
+
+  ### 5. Stimulation de la matrice extracellulaire (extrait hydro-alcoolique)
+  Étude (Acta Medica Academica, 2023) sur fibroblastes dermiques humains traités par extrait hydro-alcoolique d'H. italicum :
+  - **Surexpression de FGF-2** (Fibroblast Growth Factor-2) : fold change 1,74 (P=0,0473) — stimule l'angiogenèse et le tissu de granulation
+  - **Surexpression de HAS-2** (Hyaluronane Synthase-2) : fold change 3,10 (P=0,0335) — enzyme majeure de synthèse de l'acide hyaluronique endogène, protège les fibroblastes contre le stress UV-B
+  - Tendance à la diminution de **MMP-9** (métalloprotéinase de dégradation de la membrane basale) : fold change 0,72 (non statistiquement significatif)
+
+  **Implications :** l'extrait hydro-alcoolique (pas seulement l'HE) stimule directement la production d'acide hyaluronique endogène et la croissance fibroblastique. C'est un mécanisme anti-âge plus robuste et plus pertinent cliniquement que la seule inhibition enzymatique in vitro.
+
+  ### 6. Anti-âge enzymatique (in vitro)
+  - **Inhibition de la collagénase** (Fraternale et al., 2019)
+  - **Inhibition de l'élastase** (Ascrizzi et al., 2017)
+  - Effet comparable à l'acide oléanolique (triterpène pentacyclique protecteur cutané)
+  - Protection de la matrice extracellulaire contre la dégradation enzymatique
+  - Les extraits à cyclodextrines optimisés montrent aussi des propriétés **anti-collagénase et anti-élastase** significatives (Marijan et al., 2023)
+
+  > *L'Occitane en Provence a contribué à valider scientifiquement les propriétés anti-âge de l'Immortelle corse, développant une gamme cosmétique intégrant des extraits d'immortelle il y a plus de dix ans, avec des cultures dédiées en Corse.*
+
+  ### 7. Activité cosméceutique des extraits à cyclodextrines
+  Étude (Jakupović et al., 2023, Antioxidants) — extraits HP-β-CD d'H. italicum :
+  - **Anti-hyaluronidase** : IC50 très faible (14,31 et 19,82 μL/mL) — protège l'acide hyaluronique endogène de la dégradation
+  - **Anti-tyrosinase** : activité dépigmentante potentielle
+  - **Anti-lipoxygénase** : IC50 extrêmement faible (0,96 et 1,07 μL/mL) — anti-inflammatoire puissant
+  - **Anti-coagulation de l'ovalbumine** et **absorption UV**
+  - Activité supérieure aux contrôles positifs dans la majorité des tests
+  - **Biocompatibilité excellente** sur kératinocytes HaCaT (non-toxique jusqu'à 62,5 μL/mL)
+  - Utilisables directement en formulation cosmétique sans évaporation de solvant
+
+  OPT-1 (préparé avec acide lactique) : meilleure activité cosméceutique (anti-hyaluronidase, anti-tyrosinase). OPT-2 : meilleure activité antioxydante (DPPH, β-carotène, pouvoir réducteur).
+
+  ### 8. Cicatrisation & Régénération tissulaire
+  - Propriétés vulnéraires documentées (tradition Asteraceae)
+  - **Apigénine** identifiée comme composant actif cicatrisant (Süntar et al., 2013)
+  - Favorise le renouvellement des kératinocytes
+  - Utilisée en chirurgie plastique réparatrice et esthétique (Voinchet & Giraud-Robert, 2007) en association avec l'huile de Rose Musquée
+  - **L'hydrolat** active des voies de régénération cellulaire : surexpression de Bmi1, Sox2, Oct-4, NANOG et TERT (Serra et al., 2023 ; étude en bioreacteur dynamique sur cellules souches cutanées et fibroblastes)
+  - Validation ethnopharmacologique de l'usage topique sur les plaies (Taglialatela-Scafati et al., 2013)
+  - **Formulations topiques gel et pommade à 0,5 %** : cicatrisation significativement améliorée sur modèle de rats diabétiques, contenu en hydroxyproline supérieur, restitution des structures annexielles (Andjić et al., 2021)
+  - **Série clinique dermatologique** : 4 patients présentant des plaies traitées par préparations topiques à base d'H. italicum — bonne cicatrisation observée, sans infection secondaire ni irritation (revue PMC 2024)
+
+  ### 9. Protection cutanée in vivo chez l'humain (extrait supercritique CO₂)
+  Étude (Maksimovic et al., 2023, J. Ethnopharmacol.) :
+  - Premier essai in vivo humain utilisant des principes actifs d'H. italicum traités par haute pression
+  - Extrait supercritique CO₂ (350 bar, 40°C) imprégné dans des compresses de coton et tissus polypropylène
+  - Testé sur peau artificiellement irritée chez des volontaires humains
+  - Résultats : les composants actifs **maintiennent la peau intacte** et confirment les propriétés régénérantes revendiquées par la médecine traditionnelle
+  - Technologie verte (extraction + imprégnation supercritique intégrées) applicable aux pansements médicaux
+
+  ### 10. Soutien de la microcirculation
+  - Effet fluidifiant et tonique vasculaire
+  - Propriétés anticoagulantes et antiphlébitiques
+  - Renforcement des parois capillaires
+  - Applications : jambes lourdes, varices, couperose, phlébites et paraphlébites, varicosités
+
+  ### 11. Activité antimicrobienne
+  - Activité modérée sur **Staphylococcus aureus** (Nostro et al., 2001)
+  - Interaction avec le biofilm bactérien (Cui et al., 2016)
+  - **Réduction de la résistance multiple** d'Enterobacter aerogenes, E. coli, Pseudomonas aeruginosa et Acinetobacter baumannii (Lorenzi et al., 2009)
+  - Augmentation significative de l'efficacité des β-lactamines, quinolones et chloramphénicol par action sur les **pompes à efflux** (Guinoiseau et al., 2013)
+  - Propriétés antifongiques
+
+  ### 12. Activité antivirale
+  - **Arzanol** : propriétés anti-HIV documentées (Appendino et al., 2007)
+
+  ### 13. Activité cognitive
+  - L'extrait méthanolique de ssp. italicum améliore les fonctions cognitives et inhibe l'acétylcholinestérase (Gevrenova et al., 2023)
+
+  ### 14. Autres propriétés
+  - Antispasmodique intestinal (Rigano et al., 2013) — *NB : l'effet antispasmodique aortique et antihypertenseur est propre à une autre espèce, H. stoechas*
+  - Anticatarrhale, mucolytique
+  - Stimulante hépato-pancréatique (usage traditionnel)
+  - Antiproliférative (Staver et al., 2018)
+  - Antimutagène, surtout en synergie avec Ledum groenlandicum et Ravensara aromatica (Idaomar et al., 2002)
+  - Régulation transcriptomique des fibroblastes du côlon (Kramberger et al., 2022) — validant l'usage en médecine traditionnelle
+
+  ### 15. Usage animal remarquable
+  La **mésange bleue** utilise l'Immortelle parmi ses 5 plantes principales pour protéger son nid contre les parasites (Petit et al., 2002).
+
+  ---
+
+  ## 🧴 Formes Galéniques Topiques : Au-Delà de l'Huile Essentielle
+
+  L'hélichryse peut être formulée sous **6 formes topiques distinctes**, chacune avec un profil d'actifs et des applications spécifiques :
+
+  ### 1. Huile essentielle (HE)
+  Obtenue par distillation à la vapeur des sommités fleuries. Profil lipophile dominant : acétate de néryle, italidiones, terpènes. Usage classique en aromathérapie, dilution dans huile végétale. Action principale : anti-hématome, anti-inflammatoire, réparation de la barrière cutanée (céramides).
+
+  ### 2. Hydrolat (eau florale)
+  Sous-produit aqueux de la distillation. Contient des italidiones et β-dicétones (en proportions différentes de l'HE, influencées par les conditions climatiques). Forme la plus douce et la mieux adaptée aux peaux sensibles et rosacéiques. Propriétés régénérantes documentées au niveau moléculaire : activation de Bmi1, Sox2, Oct-4, NANOG et TERT dans les cellules souches cutanées et fibroblastes. Efficacité sur la cicatrisation validée en bioreacteur dynamique.
+
+  ### 3. Extrait hydro-alcoolique
+  Extraction par solvant hydro-alcoolique (éthanol/eau). Riche en flavonoïdes, acétophénones, dérivés phloroglucinol. Profil d'activité distinct de l'HE : stimulation directe de FGF-2 (croissance fibroblastique) et HAS-2 (synthèse d'acide hyaluronique endogène). Mécanisme anti-âge le plus robuste documenté pour l'hélichryse. Applicable en sérums et émulsions.
+
+  ### 4. Extrait à cyclodextrines (HP-β-CD)
+  Technologie d'extraction innovante utilisant l'hydroxypropyl-β-cyclodextrine comme solvant "skin-friendly". Avantage majeur : solubilise dans un milieu aqueux à la fois les polyphénols hydrophiles ET les composés volatils lipophiles (acétate de néryle, italidiones, curcumènes) normalement inaccessibles en phase aqueuse. Profil cosméceutique le plus large : anti-hyaluronidase, anti-tyrosinase, anti-lipoxygénase, anti-collagénase, anti-élastase, absorption UV. Biocompatible sur kératinocytes humains. Utilisable directement en formulation sans étape d'évaporation. Représente la frontière la plus avancée de la formulation cosméceutique à base d'hélichryse.
+
+  ### 5. Extrait supercritique CO₂
+  Extraction haute pression (350 bar, 40°C) au CO₂ supercritique, avec ou sans co-solvant (éthanol). Produit des extraits non-toxiques, sans résidus de solvant, à haut rendement. Première forme testée in vivo chez l'humain pour la protection cutanée. Application innovante : imprégnation dans des textiles médicaux (compresses, pansements). Technologie verte à haute sélectivité moléculaire.
+
+  ### 6. Formulations galéniques (gel, pommade)
+  Intégration de l'HE ou des extraits dans des bases galéniques classiques. Gel et pommade à 0,5 % d'HE : efficacité cicatrisante validée in vivo (modèle diabétique). L'α-pinène, composant de l'HE, accélère la fermeture des plaies, génère des cicatrices avec une résistance tensile efficace et contribue au dépôt de collagène.
+
+  ### 7. Gel à nanoparticules de chitosane
+  Gel à base d'eau thermale contenant des nanoparticules de chitosane chargées en extrait d'H. italicum. Testé chez des volontaires humains : pH, viscosité et étalabilité compatibles avec un usage cutané prolongé. Résultats : amélioration de l'hydratation et maintien de la fonction barrière cutanée. Forme innovante combinant les propriétés du chitosane (bioadhésion, libération contrôlée) et les actifs polyphénoliques de l'hélichryse.
+  ### INCI cosmétique
+  **HELICHRYSUM ITALICUM EXTRACT** (CAS 90045-56-0) — classé comme antiséborrhéique, masquant et apaisant. Présent dans de nombreux produits commerciaux : L'Occitane (gamme Immortelle Divine, Precious Serum, Essential Water), Irene Forte (Helichrysum Toner), TRUE BOTANICALS (Clear Nutrient Toner), Albiva, Missha, et de nombreuses autres marques.
+
+  Les extraits glycérinés hydrosolubles existent aussi sous l'INCI **Glycerin (and) Water (and) Helichrysum Stoechas Extract** (pour H. stoechas) — usage recommandé à 1–3 %, liquide brun transparent, soluble dans l'eau, ajout en phase froide ou cool-down d'une émulsion.
+
+  ---
+
+  ## 🌿 Sourcing, Production & Éco-Extraction
+
+  ### Rendement
+  Rendement extrêmement faible : environ **2 kg d'huile essentielle pour 1 tonne de sommités fleuries**. On distille toute la sommité fleurie (tige + fleurs épanouies + feuillage) directement après récolte.
+
+  ### Distillation
+  **Distillation à la vapeur d'eau**, durée : 1h30 à 4h30. L'huile obtenue est de couleur jaune clair à vert olive, d'odeur légère et délicate à capiteuse. Les procédés de distillation modifient la composition chimique — la basse pression préserve le profil intégral.
+
+  ### Techniques d'extraction avancées
+  - **Extraction supercritique CO₂ (SFE)** : haute sélectivité, sans résidus de solvant, extraction basse température préservant les composés thermosensibles. L'ajout de co-solvants polaires (éthanol, acétone) améliore l'extraction des polyphénols.
+  - **Extraction assistée par cyclodextrines (CDAE)** : ultrasons + HP-β-CD, extraction verte à 80°C, 30 min. Optimisée pour les phénols, acides phénoliques et flavonoïdes. Avec ou sans acide lactique comme modulateur de sélectivité.
+  - **Extraction par solvants organiques** : éthanol, méthanol, acétone — pour les extraits riches en polyphénols (flavonoïdes, pyrones, acétophénones, trémétones, acides phénoliques, arzanol, acide ursolique). Nécessite une évaporation résiduelle.
+  - **Procédé intégré SFE-SSI** : extraction supercritique couplée à l'imprégnation de supports textiles — technologie de pointe pour pansements médicaux actifs.
+
+  ### Production mondiale
+  Production estimée à **4,5 tonnes en 2013**, majoritairement issue des Balkans, de France et de Sardaigne. La Croatie produit environ 3 tonnes/an. En Corse, ~35 % de la production provient encore de cueillette sauvage. Surfaces cultivées estimées à ~200 ha en Corse et ~100 ha dans le Sud-Est continental.
+
+  ### Évolution du marché
+  Jusqu'en 2005, la production (surtout par cueillette) était stable. L'essor de l'aromathérapie et la popularisation cosmétique ont fait exploser la demande. Prix de l'HE en 2016 : **1 300 à 2 000 €/kg** (quasi doublé par rapport à 2005), variable selon qualité et mode de culture (conventionnel vs biologique).
+
+  ### Variétés sélectionnées
+  Le CNPMAI (Conservatoire National des Plantes) a développé les variétés **'Hélimilly'** et **'Hélimilly 2'** (2015) puis **'Hélimilly 3'** (2017), sélectionnées pour la qualité de leur HE et leur résistance au froid. 800 g de semences vendus entre 2018 et 2020 (taux de germination 40–95 %), soit plus de 12 millions de graines.
+
+  ---
+
+  ## 🎯 Focus Rosacée / Couperose
+
+  ### Ce que l'Hélichryse peut apporter
+  - Rougeurs congestives légères et couperose modérée
+  - Peaux sujettes aux flushs vasculaires
+  - Post-laser / post-IPL (hors phase aiguë immédiate)
+  - Soutien anti-inflammatoire et anti-oxydant
+  - **Réparation de la barrière cutanée** via stimulation de la synthèse de céramides (acétate de néryle) — directement pertinent pour la rosacée où la barrière est altérée
+  - **Protection de l'acide hyaluronique endogène** contre la dégradation (activité anti-hyaluronidase des extraits)
+
+  ### Limites et précautions pour les peaux rosacéiques
+  La rosacée implique une dysfonction vasculaire, une hyperréactivité neuro-inflammatoire et une altération de la barrière cutanée. L'HE contient des terpènes et cétones potentiellement irritants pour les peaux ultra-réactives.
+
+  | Situation | Recommandation |
+  |---|---|
+  | Rosacée papulo-pustuleuse active | ❌ Éviter l'HE |
+  | Couperose légère à modérée | ✔️ HE en très faible dilution (<0,1 %) |
+  | Peau ultra-sensible / barrière altérée | ⚠️ Grande prudence avec l'HE |
+  | **Hydrolat d'hélichryse** | **✔️ Beaucoup plus adapté** |
+  | **Extrait hydro-alcoolique ou à cyclodextrines** | **✔️ Forme la plus pertinente** — polyphénols anti-inflammatoires sans terpènes irritants en excès |
+
+  Formulation rosacée idéale : extrait hydrosoluble (cyclodextrine ou hydro-alcoolique) ou hydrolat, concentration adaptée, sans alcool, sans autres HE, en synergie avec niacinamide, panthénol, centella asiatica ou madecassoside.
+
+  ---
+
+  ## 🤝 Synergies de Formulation
+
+  - **Ciste Ladanifère** — action hémostatique et cicatrisante immédiate
+  - **Vitamine C (dérivés stables)** — synthèse de collagène et éclat du teint
+  - **Huile de Rose Musquée** — cicatrices hypertrophiques et vieillissement photo-induit (association validée cliniquement par Voinchet & Giraud-Robert)
+  - **Camomille Romaine** — synergie anti-allergique (usage traditionnel)
+  - **Ledum groenlandicum + Ravensara aromatica** — synergie antimutagène optimale (mélange à parts égales)
+  - **Niacinamide, Panthénol, Centella Asiatica** — pour peaux rosacéiques
+  - **Céramides exogènes** — en complément de la stimulation endogène par l'acétate de néryle
+
+  ---
+
+  ## ⚖️ Indications Thérapeutiques (Aromathérapie)
+
+  - Hématomes externes même anciens, ecchymoses, contusions
+  - Phlébites, paraphlébites, varicosités, couperose
+  - Acrosyndrome, œdèmes, jambes lourdes
+  - Rhumatismes, arthrite, polyarthrite, tendinites
+  - Cicatrices, vergetures, brûlures, plaies (fermées)
+  - Bronchite, rhinopharyngite
+  - Maladie de Dupuytren (applications locales)
+  - Déficience hépatocytaire, hépatite, cirrhose
+  - Hypercholestérolémie, bourdonnements d'oreille
+  - Anti-âge global, éclat du teint, peaux congestionnées
+  - Réparation de la barrière cutanée, peaux sèches et déshydratées
+  - Protection contre le photovieillissement UV
+
+  ---
+
+  ## 💧 L'Hydrolat : Bien Plus Qu'une Eau Florale
+
+  L'hydrolat d'hélichryse est une forme thérapeutiquement active à part entière, pas un simple sous-produit :
+  - **Lotion tonique** pour apaiser les rougeurs et revitaliser la peau
+  - **Infusion** pour ses bienfaits circulatoires et apaisants
+  - **Cicatrisation avancée** : activation de marqueurs de cellules souches (Bmi1, Sox2, Oct-4, NANOG) et de la télomérase (TERT) dans les fibroblastes et cellules souches cutanées — suggérant un effet anti-sénescence cellulaire
+  - Contient des italidiones et β-dicétones (profil influencé par les conditions météorologiques : corrélation positive avec les précipitations, négative avec les températures — inversement de l'HE)
+  - Modélisation moléculaire (docking) : les italidiones de l'hydrolat peuvent se lier à la protéine humaine **VAP-1** et bloquer sa fonction — mécanisme anti-inflammatoire potentiel
+  - Idéal pour les peaux rosacéiques où l'HE serait mal tolérée
+  - Application en bioreacteur dynamique mimant la communication dermo-épidermique in vivo
+  - **Modulation dose-dépendante de TNF-α** : l'hydrolat module l'expression du gène TNF-α selon la concentration — diminution à 30 % de concentration, mais remontée à 40 %, révélant une courbe dose-réponse en U inversé (hormèse). Implication pratique : il existe une fenêtre de concentration optimale au-delà de laquelle l'effet anti-inflammatoire se dégrade, ce qui plaide pour un dosage mesuré en formulation.
+
+  ---
+
+  ## 🛡️ Sécurité, Tolérance & Précautions
+
+  ### Profil de sécurité
+  - Peu cytotoxique ou génotoxique (Bakkali et al., 2005)
+  - Peu de risques d'interactions médicamenteuses (Antunes Viegas et al., 2014)
+  - Risque allergique modéré (allergènes : limonène, linalol — le limonène est classé "sensibilisant extrêmement rare" selon Schnuch et al., mais peut devenir allergène après oxydation à l'air)
+  - Tolérance cutanée excellente **en dilution appropriée**
+  - Extraits à cyclodextrines : **non-toxiques sur kératinocytes HaCaT** jusqu'à 62,5 μL/mL
+
+  ### Contre-indications
+  - **Femmes enceintes** de moins de 3 mois (usage local possible après le 1er trimestre selon concentration et avis médical)
+  - **Enfants en bas âge**
+  - **Patients sous anticoagulants** — interactions vraisemblables avec les antiagrégants plaquettaires
+  - **Troubles de la coagulation**, prise d'aspirine
+  - Ne pas appliquer sur **plaie ouverte**
+
+  ### Précautions
+  - **Neurotoxicité potentielle** de l'HE à forte dose (cétones)
+  - Voie orale déconseillée ou à dosage très faible, uniquement sur avis médical
+  - **Pas d'usage prolongé** sans suivi
+  - Toujours effectuer un test cutané préalable
+
+  ### Posologie indicative (voie cutanée, adulte)
+  1 goutte, 3 fois par jour, pendant 7 jours maximum.
+
+  ---
+
+  ## 📚 Références Scientifiques Clés
+
+  **Anti-hématome & circulation :** Voinchet & Giraud-Robert (2007) — Post-chirurgie plastique • Lobstein & Couic-Marinier (2017) — HE d'hélichryse.
+
+  **Anti-inflammatoire & antioxydant :** Sala et al. (2002, 2003) — COX/LOX et antioxydant • Bauer et al. (2011) — Arzanol et mPGES-1 • Rosa et al. (2007) — Arzanol et peroxydation lipidique • Kothavade et al. (2013) — Arzanol review.
+
+  **Barrière cutanée & céramides :** Lemaire et al. (2023) — Acétate de néryle, différenciation épidermique et synthèse de céramides (L'Occitane/QIMA).
+
+  **Matrice extracellulaire & anti-âge :** Acta Medica Academica (2023) — FGF-2, HAS-2, extrait hydro-alcoolique • Fraternale et al. (2019) — Anti-collagénase • Ascrizzi et al. (2017) — Anti-élastase.
+
+  **Extraits cosméceutiques :** Jakupović et al. (2023) — Cyclodextrines HP-β-CD, activité cosméceutique • Marijan et al. (2023) — Optimisation cyclodextrines, anti-élastase/anti-collagénase.
+
+  **Hydrolat & régénération :** Serra et al. (2023) — Hydrolat et régénération tissulaire • PMC 2024 — Hydrolat en bioreacteur dynamique, Bmi1/TERT/cellules souches cutanées.
+
+  **Protection cutanée in vivo :** Maksimovic et al. (2023) — Extrait supercritique CO₂, essai humain sur peau irritée.
+
+  **Cicatrisation :** Andjić et al. (2021) — Formulations topiques gel/pommade, rats diabétiques • Süntar et al. (2013) — Apigénine cicatrisante • Taglialatela-Scafati et al. (2013) — Usage topique antimicrobien validé.
+
+  **Antimicrobien & résistance :** Nostro et al. (2001) — S. aureus • Lorenzi et al. (2009) — Pompes à efflux • Guinoiseau et al. (2013) — Résistance multiple.
+
+  **Antiviral :** Appendino et al. (2007) — Arzanol et anti-HIV.
+
+  **Composition chimique :** Bianchini et al. (2001, 2003) — Variabilité corse • Ninčević et al. (2019) — Review taxonomie et biochimie • Maksimovic et al. (2017) — Techniques d'extraction comparées.
+
+  **Mésange bleue :** Petit et al. (2002) — Usage par la mésange bleue contre les parasites.
+  `,
     category: 'actif',
   },
   // ── Humectants & excipients ───────────────────────
@@ -3724,61 +4578,6 @@ L'Hélichryse est un actif puissant mais généralement bien toléré.
     `,
     category: 'actif',
   },
-
-  // ── Actifs anti-inflammatoires ────────────────────
-  {
-    name: 'Arnica des Montagnes (Arnica montana L.)',
-    slug: INGREDIENT_SLUGS.ARNICA,
-    description:
-      "L'or jaune des alpages : un trésor de pharmacognosie aux propriétés anti-ecchymotiques et apaisantes inégalées pour la récupération cutanée et le confort circulatoire.",
-    content: `# L'Arnica Montana : L'Architecte de la Récupération Cutanée
-
-  L'**Arnica montana**, plante vivace des massifs montagneux européens, est bien plus qu'une simple fleur des Alpes. Reconnue par la Pharmacopée Européenne, elle constitue l'actif de référence en dermo-cosmétique pour le traitement des désordres microcirculatoires et l'apaisement des tissus inflammés.
-
-  ---
-
-  ## 🌿 Origine et Ethnobotanique : "L'Herbe aux Chutes"
-  Depuis le Moyen Âge, l'Arnica est surnommée "l'herbe aux chutes" ou "tabac des Vosges". Utilisée traditionnellement par les montagnards pour soigner les traumatismes physiques, elle est devenue l'emblème de la **médecine du sport** et des soins post-opératoires. Sa cueillette est aujourd'hui strictement réglementée pour préserver la biodiversité des prairies d'altitude.
-
-  ## 🔬 Profil Moléculaire : Une Complexité Biochimique Unique
-  L'efficacité de l'Arnica ne repose pas sur une seule molécule, mais sur un "totum" végétal agissant en synergie :
-
-  * **Lactones Sesquiterpéniques (Hélénaline) :** Les véritables fers de lance de la plante. Elles possèdent une activité anti-inflammatoire puissante par inhibition du facteur de transcription **NF-κB**, régulant ainsi la cascade des cytokines pro-inflammatoires.
-  * **Flavonoïdes (Isoquercitrine, Astragaline) :** Agents veinotoniques et antioxydants, ils renforcent la résistance des capillaires sanguins et limitent la perméabilité vasculaire.
-  * **Huiles Essentielles & Thymol :** Apportent des propriétés antiseptiques et décongestionnantes.
-  * **Caroténoïdes :** Responsables de sa couleur vive, ils participent à la protection des tissus contre le stress oxydatif.
-
-
-
-  ## 🏗️ Sourcing & Éco-Extraction : La Haute Technologie Verte
-  Pour garantir une concentration optimale en principes actifs tout en respectant l'environnement, nous privilégions :
-  1.  **Cueillette Durable :** Récolte manuelle en zones certifiées (Vosges, Alpes, Carpates) respectant les cycles de régénération.
-  2.  **Macération Oléique ou Extraction CO2 Supercritique :** Cette dernière méthode, fleuron de la chimie verte, permet d'obtenir un extrait d'une pureté absolue, sans solvant résiduel, préservant l'intégrité des lactones thermosensibles.
-
-  ## ⚖️ Preuves d'Efficacité et Mécanismes d'Action
-  L'Arnica intervient sur plusieurs niveaux de l'homéostasie cutanée :
-  * **Action Anti-Ecchymotique :** Accélère la résorption des pigments sanguins (bleus, bosses) en stimulant les macrophages.
-  * **Apaisement Immédiat :** Des tests *in vivo* démontrent une réduction significative de la sensation de douleur et de l'œdème après application topique.
-  * **Microcirculation :** Améliore le drainage lymphatique et veineux, idéal pour les soins "jambes légères" ou les cernes vasculaires.
-
-  > **Le saviez-vous ?** Dans les protocoles post-actes esthétiques (injections d'acide hyaluronique ou mésothérapie), l'Arnica réduit le temps de récupération de **30% à 40%**.
-
-  ## 🤝 Synergies Formulationnelles
-  Pour maximiser son potentiel, l'Arnica se couple parfaitement avec :
-  * **Bromélaïne :** Pour une action renforcée sur les œdèmes.
-  * **Vitamine K-Oxydée :** Pour cibler spécifiquement les parois vasculaires et les cernes.
-  * **Calendula Officinalis :** Pour un duo apaisant et cicatrisant sur les peaux fragilisées.
-
-  ## 🛡️ Sécurité et Tolérance
-  L'Arnica en dermo-cosmétique est formulée à partir d'extraits standardisés garantissant une innocuité totale.
-  * **Usage Externe Uniquement :** Ne jamais appliquer sur une plaie ouverte ou une muqueuse.
-  * **Tolérance :** Convient aux adultes et aux enfants (selon le dosage).
-  * **Prudence :** Risque d'allergie croisée pour les personnes sensibles à la famille des *Asteraceae*.
-
-  ---
-  *Fiche technique destinée aux professionnels de la formulation et du marketing de santé.*`,
-    category: 'actif',
-  },
   {
     name: 'Acide glycyrrhétinique',
     slug: INGREDIENT_SLUGS.GLYCYRRHETINIC_ACID,
@@ -3809,6 +4608,60 @@ L'Hélichryse est un actif puissant mais généralement bien toléré.
        ## Précautions
        Parfaitement toléré, même sur peaux atopiques. Ne présente pas de toxicité systémique en usage topique cosmétique.
        `,
+    category: 'actif',
+  },
+  {
+    name: 'Arnica des Montagnes (Arnica montana L.)',
+    slug: INGREDIENT_SLUGS.ARNICA,
+    description:
+      "L'or jaune des alpages : un trésor botanique aux propriétés anti-inflammatoires et apaisantes, soutenu par une tradition millénaire et des recherches scientifiques prometteuses, pour une récupération cutanée optimisée.",
+    content: `# L'Arnica Montana : L'Alliée Naturelle pour une Récupération Harmonieuse
+
+  Découvrez l'**Arnica montana**, cette élégante plante vivace des sommets européens, qui allie beauté alpine et potentiel thérapeutique. Reconnue par les pharmacopées et plébiscitée en dermo-cosmétique, elle offre un soutien précieux pour apaiser les tissus après un choc, tout en invitant à une approche équilibrée, ancrée dans la science.
+
+  ---
+
+  ## 🌿 Origine et Ethnobotanique : Une Héritière des Traditions Montagnardes
+
+  Surnommée "herbe aux chutes" ou "tabac des Vosges", l'Arnica est utilisée depuis l'Antiquité grecque pour soulager contusions et inflammations. Aujourd'hui, elle brille en médecine du sport et soins post-esthétiques, avec une cueillette réglementée pour préserver sa rareté écologique. Des alternatives comme l'Arnica chamissonis émergent pour répondre à la demande croissante, harmonisant tradition et durabilité.
+
+  ## 🔬 Profil Moléculaire : Une Symphonie de Composés Actifs
+
+  Au cœur de son efficacité, un ensemble synergique de molécules :
+  - **Lactones sesquiterpéniques** (hélénaline, dihydrohélénaline) : agents anti-inflammatoires clés, inhibant le facteur NF-κB pour moduler les cytokines pro-inflammatoires.
+  - **Flavonoïdes** (isoquercitrine, astragaline) : protecteurs vasculaires et antioxydants, favorisant la résilience capillaire.
+  - **Coumarines et huiles essentielles** (thymol) : ajoutant des notes antiseptiques et décongestionnantes.
+
+  Cette composition riche inspire des formulations innovantes, tout en rappelant la nécessité de dosages précis pour une efficacité optimale.
+
+  ## 🏗️ Sourcing & Extraction : L'Art de la Pureté Écoresponsable
+
+  Récoltée manuellement dans des zones certifiées (Alpes, Vosges), l'Arnica bénéficie d'extractions modernes comme le CO₂ supercritique, préservant ses actifs sensibles sans solvants. Face à sa vulnérabilité, les pharmacopées européennes intègrent des substituts nord-américains, garantissant une chaîne d'approvisionnement éthique et traçable.
+
+  ## ⚖️ Preuves d'Efficacité : Un Potentiel Prometteur, à Confirmer
+
+  Inspirée par des siècles d'usage traditionnel, l'Arnica montre des résultats encourageants dans les études :
+  - **Anti-inflammatoire et apaisant** : Des essais in vitro et animaux (2024) démontrent une réduction significative des marqueurs inflammatoires comme le TNF-α, soutenant son rôle dans la résorption d'œdèmes et ecchymoses.
+  - **Applications cliniques** : Revues systématiques (2021-2024) indiquent des effets modestes mais prometteurs pour la douleur post-opératoire, arthrite et traumatismes, avec une réduction potentielle de 30-40% du temps de récupération dans certains protocoles esthétiques. Cependant, les preuves restent limitées par l'hétérogénéité des essais, des faiblesses méthodologiques et des tailles d'échantillons réduites. Des revues plus anciennes (2014) notent un manque de soutien clair pour les doses inférieures à 10%, et l'homéopathie orale ne surpasse souvent pas le placebo. Plus de recherches rigoureuses sont essentielles pour valider pleinement ces bienfaits.
+
+  > **Reconnaissances officielles** : L'OMS, la Commission E et l'ESCOP valident son usage externe traditionnel pour ecchymoses, entorses et inflammations superficielles, soulignant son profil sécuritaire en application locale.
+
+  ## 🤝 Synergies Formulationnelles : Des Alliances Élégantes
+
+  Pour amplifier ses vertus, associez l'Arnica à :
+  - **Bromélaïne** : pour un drainage œdémateux renforcé.
+  - **Vitamine K et Centella asiatica** : ciblant la microcirculation et les cernes.
+  - **Calendula ou Hamamélis** : pour un apaisement doux et cicatrisant.
+
+  Ces combinaisons ouvrent la voie à des produits innovants, adaptés aux besoins modernes.
+
+  ## 🛡️ Sécurité et Tolérance : Une Approche Prudente et Informée
+
+  Formulée en extraits standardisés, l'Arnica est généralement bien tolérée en usage externe. Toutefois, vigilance requise :
+  - **Risques** : Irritation cutanée possible avec un usage prolongé ; allergies croisées chez les sensibles aux Asteraceae.
+  - **Contre-indications** : Éviter sur plaies ouvertes, muqueuses ou yeux. Toxicité orale élevée (troubles digestifs, cardiaques) – usage interne réservé à l'homéopathie diluée.
+  - **Spécifiques** : Prudence chez les enfants (<3-6 ans), femmes enceintes (voie orale contre-indiquée) et en interactions avec anticoagulants.
+  `,
     category: 'actif',
   },
   {
@@ -3849,89 +4702,227 @@ L'Hélichryse est un actif puissant mais généralement bien toléré.
     name: 'Escin (Aesculus hippocastanum)',
     slug: INGREDIENT_SLUGS.ESCIN,
     description:
-      "Saponine triterpénique extraite des graines de marron d'Inde, veinotonique, anti-œdémateuse et anti-inflammatoire, idéale pour réduire rougeurs, gonflements et améliorer la microcirculation sur peaux sensibles ou couperosées.",
+      "Saponine triterpénique d'exception issue du marron d'Inde. Veinotonique, anti-œdémateuse et anti-inflammatoire, elle intègre désormais des propriétés antivirales, anticancérigènes et une biodisponibilité cutanée prouvée pour les peaux fragiles.",
     content: `
-      # Escin (Aesculus hippocastanum)
-      Principe actif majeur extrait des graines du marron d'Inde (Aesculus hippocastanum), arbre originaire des Balkans et utilisé en phytothérapie européenne depuis des siècles pour les troubles veineux. En dermocosmétique, l'escin est valorisé pour ses propriétés veinotoniques et décongestionnantes. Chez Pierre Fabre (Avène), il est souvent associé à d'autres extraits végétaux comme Ruscus aculeatus dans les gammes Antirougeurs pour apaiser et décongestionner les peaux sensibles, réactives ou sujettes à rougeurs diffuses et couperose, en complément de l'eau thermale apaisante.
+      # Escin (Aesculus hippocastanum) 🌰✨
 
-      ## INCI
+      Principe actif majeur extrait des graines du marron d'Inde (Aesculus hippocastanum), arbre originaire des Balkans et utilisé en phytothérapie européenne depuis des siècles pour les troubles veineux. En dermocosmétique, l'escin est valorisé pour ses propriétés veinotoniques et décongestionnantes. Chez Pierre Fabre (Avène), il est souvent associé à d'autres extraits végétaux comme *Ruscus aculeatus* dans les gammes Antirougeurs pour apaiser et décongestionner les peaux sensibles, réactives ou sujettes à rougeurs diffuses et couperose. 🌬️🛡️
+
+      **Des études récentes (2023-2025) confirment son potentiel antiviral, anticancérigène cutané et cicatrisant, élargissant ses applications au-delà des troubles vasculaires.** 🔬🚀
+
+      ## INCI 📝
       **Escin** ou **Aescin**
       (extrait de graines de marron d'Inde, souvent standardisé en β-escin ou mélange d'α et β-escin)
 
-      ## Composition chimique
-      - Triterpènes saponines (β-escin principal, α-escin, cryptoescin) : actifs veinotoniques et anti-inflammatoires
-      - Autres saponines et composés phénoliques mineurs : soutien antioxydant
-      - Pureté élevée dans les grades cosmétiques, sans allergènes majeurs, compatible formulations hypoallergéniques
+      ## Composition chimique 🧪
+      - **Triterpènes saponines** (β-escin principal, α-escin, cryptoescin) : actifs veinotoniques et anti-inflammatoires.
+      - **Composés bioactifs supplémentaires identifiés récemment** : esculetin, kaempférol, quercétine et (-)-épicatéchine, contribuant à des effets antiplaquettaires, antioxydants et hémostatiques. 🛡️⚡
+      - **Autres saponines et composés phénoliques mineurs** : soutien antioxydant.
+      - **Pureté élevée** : sans allergènes majeurs, compatible formulations hypoallergéniques.
 
-      ## Mécanisme d’action
-      1. Effet veinotonique : augmente le tonus veineux via modulation prostaglandines (PGF2α) et renforce la paroi vasculaire
-      2. Anti-œdémateux puissant : réduit la perméabilité capillaire en inhibant l'œdème inflammatoire et la fuite liquidienne
-      3. Action anti-inflammatoire : inhibition de NF-κB, réduction cytokines pro-inflammatoires et activation leucocytaire
-      4. Protection endothéliale : diminue stress oxydatif, superoxyde et altérations perméabilité (via PECAM-1 et LTB4)
-      5. Amélioration microcirculation : favorise drainage, oxygénation tissulaire et réduction stagnation sanguine
-      6. Effet antioxydant : neutralise ROS et protège contre dommages vasculaires oxydatifs
+      ## Mécanisme d’action & Précisions ⚙️
+      1. **Effet veinotonique** : augmente le tonus veineux via modulation prostaglandines (PGF2α) et renforce la paroi vasculaire. 📈
+      2. **Anti-œdémateux puissant** : réduit la perméabilité capillaire en inhibant l'œdème inflammatoire.
+      3. **Action anti-inflammatoire (Précision)** : Contrairement aux descriptions historiques, l'effet anti-inflammatoire ne dépend pas de la voie COX/PGF2α. Des études (2013-2024) démontrent qu'il passe par la modulation du récepteur aux glucocorticoïdes (GR) et l'inhibition de NF-κB. 🚫🔥
+      4. **Protection endothéliale** : diminue stress oxydatif, superoxyde et altérations perméabilité (via PECAM-1 et LTB4).
+      5. **Amélioration microcirculation** : favorise drainage, oxygénation tissulaire et réduction stagnation sanguine. 🌊
+      6. **Effet cicatrisant** : augmente la production de matrice extracellulaire (sans induire la conversion fibroblast-myofibroblaste), favorisant la force tensile des plaies cutanées. 🩹✅
+      7. **Action anticancérigène cutanée** : induit l'apoptose dans les cellules de mélanome via des mécanismes ROS-dépendants. 🛡️🩺
+      8. **Potentiel antiviral** : inhibe la réplication de coronavirus (y compris SARS-CoV-2) et d'autres virus enveloppés, avec effets virucides et immunomodulateurs. 🦠🚫
+      9. **Effets antibactériens et hypoglycémiants** : activité contre les bactéries Gram+/- et réduction du glucose sanguin topique.
 
-      ## Bienfaits
-      - **Décongestionnant vasculaire** : réduit gonflements, poches et sensations de lourdeur (jambes, contour yeux)
-      - **Anti-rougeurs visible** : atténue rougeurs diffuses, couperose et irritations (synergie avec Ruscus dans Antirougeurs Avène)
-      - **Apaisant & anti-inflammatoire** : calme inflammations, rougeurs et inconfort des peaux sensibles/réactives
-      - **Renforcement capillaire** : protège fragilité vasculaire, améliore tonicité et élasticité des vaisseaux
-      - **Drainant & anti-œdème** : diminue œdèmes localisés et rétention liquidienne (études sur réduction perméabilité)
-      - **Tolérance excellente** : adapté peaux sensibles, réactives, couperosées ou sujettes à rosacée
+      ## Bienfaits & Propriétés Récentes 🌟
+      - **Décongestionnant vasculaire** : réduit gonflements, poches et sensations de lourdeur. 🧊
+      - **Anti-rougeurs visible** : atténue rougeurs diffuses, couperose et irritations.
+      - **Cicatrisation accélérée** : améliore la guérison des plaies cutanées en augmentant la force tensile. 🩹✨
+      - **Propriétés anti-allergiques (Données récentes)** : La β-escine démontre une activité puissante, comparable à la dexaméthasone, en inhibant la dégranulation des mastocytes. 🌼
+      - **Protection antimélanome** : potentiel préventif ou adjuvant contre le mélanome cutané via l'apoptose. 🛡️
+      - **Effets antiviraux topiques** : contribution possible à des formulations protectrices cutanées. 🧼
+      - **Tolérance excellente** : adapté aux peaux sensibles, réactives ou sujettes à la rosacée. ✅
 
-      ## Utilisation
-      - **Cible** : peaux sensibles, réactives, sujettes à rougeurs, couperose, rosacée, fragilité vasculaire ou gonflements (visage, jambes, contour yeux)
-      - **Moment** : matin et/ou soir, quotidien ou en cure décongestionnante
-      - **Type de soin** : actif décongestionnant dans gammes Antirougeurs (Avène : crèmes, concentrés, masques calmants) pour réduction rougeurs et apaisement circulatoire
+      ## Biodisponibilité cutanée 🔄
+      L'escine présente une **excellente pénétration transdermique** : 25-50% de la dose appliquée traverse la barrière cutanée. Sa demi-vie d'élimination topique est de **13 heures**, assurant une action prolongée dans les tissus profonds (justifiant son usage dans les gels veinotoniques). 💧🔍
 
-      ## Note technique
-      Saponine de référence avec décennies d'usage phlébotonique et cosmétique (Reparil® pharma-like). Études récentes (2024-2025) confirment mécanismes anti-inflammatoires (bradykinine, NF-κB), veinotonique (PGF2α) et protecteur endothélial. Tolérance optimale validée sur peaux fragiles. Positionné comme ingrédient naturel multifonctionnel en dermocosmétique Pierre Fabre pour peaux couperosées et circulatoires, offrant efficacité prouvée sur microcirculation, réduction œdème/rougeurs et confort sans effets indésirables majeurs.
-    `,
+      ## Utilisation & Synergies 🧴
+      - **Cible** : peaux sensibles, rougeurs, fragilité vasculaire, mais aussi plaies mineures ou soins post-viraux. 🎯
+      - **Synergies d'ingrédients** :
+          - **Caféine** : idéal pour les contours des yeux (poches et lissage). ☕
+          - **Glucocorticoïdes topiques** : potentialise l'effet des corticoïdes à faibles doses tout en limitant leurs effets secondaires.
+          - **Agents apaisants** (Eau thermale, Niacinamide) : recommandés pour minimiser tout risque d'irritation à haute dose.
+      - **Type de soin** : gammes Antirougeurs, gels à perméation améliorée, concentrés apaisants.
+
+      ## Sécurité & Précautions ⚠️
+      - **Concentration** : 0,1% à 2% maximum dans les produits sans rinçage (au-delà : risque d'irritation).
+      - **Contre-indications** : Antécédents d'allergie au marronnier, troubles hémorragiques, insuffisance rénale/hépatique.
+      - **Interactions** : Attention aux traitements anticoagulants (aspirine, AVK), l'escine potentialise l'effet antiplaquettaire.
+      - **Stabilité** : Photosensible et hygroscopique — stockage à l'abri de la lumière (<25°C). 🌑
+
+      ## Note technique & Caractéristiques 🔬
+      Saponine de référence (Reparil®). **Formules d'approvisionnement** : Poudre standardisée (80-95%), β-escine enrichi, ou solutions pré-dissoutes.
+      - **Solubilité** : Hydrosoluble (nécessite souvent de la glycérine ou des glycols pour éviter la précipitation).
+      - **Compatibilité** : Éviter les cations métalliques (Ca²⁺, Mg²⁺) qui forment des sels insolubles.
+      - **Perspectives futures** : valorisation des déchets de graines, antioxydants naturels pour l'alimentaire, et recherches 2023-2025 en oncologie cutanée pour sa cytotoxicité sélective sur les cellules tumorales. 🌍🧬
+      `,
     category: 'actif',
   },
   {
     name: 'Ruscus aculeatus (Petit-houx)',
     slug: INGREDIENT_SLUGS.RUSCUS_ACULEATUS,
     description:
-      'Extrait racinaire du Petit-houx, veinotonique et anti-inflammatoire, améliore la microcirculation, réduit rougeurs et sensations de jambes lourdes pour peaux sensibles ou sujettes à couperose.',
+      'Extrait racinaire du Petit-houx, arbuste sempervirent méditerranéen aux vertus veinotoniques reconnues. Riche en saponines stéroïdiennes, il améliore la microcirculation, réduit rougeurs et œdèmes, et apaise les peaux sensibles ou sujettes à couperose — un pilier discret mais puissant de la phytothérapie vasculaire européenne.',
     content: `
-      # Ruscus aculeatus (Petit-houx)
-      Arbuste sempervirent méditerranéen utilisé depuis l'Antiquité en phytothérapie pour ses propriétés veinotoniques et anti-œdémateuses. Chez Pierre Fabre (Avène), l'extrait de racine enrichi en saponines est valorisé dans les gammes Antirougeurs pour ses effets apaisants et décongestionnants sur les peaux sensibles, réactives ou sujettes à rougeurs et couperose. Actif végétal traditionnel validé par des études modernes, il renforce la microcirculation et protège les vaisseaux fragiles en synergie avec l'eau thermale d'Avène.
+  # Ruscus aculeatus — Le Petit-houx
 
-      ## INCI
-      **Ruscus Aculeatus Root Extract**
-      (extrait de racine, souvent enrichi en saponines comme ruscogénine et néoruscogénine)
+  Tapi sous les chênaies claires du pourtour méditerranéen, le Petit-houx (*Ruscus aculeatus* L.) déploie ses cladodes coriaces et ses baies écarlates avec une discrétion qui contraste avec la puissance de ses racines. Utilisé depuis l'Antiquité gréco-romaine pour soulager les jambes lourdes et les troubles circulatoires, cet arbuste vivace de la famille des Asparagaceae s'est imposé comme l'un des phytoactifs vasculaires les mieux documentés de la pharmacopée européenne — et l'un des plus élégants alliés des peaux fragilisées par la couperose.
 
-      ## Composition chimique
-      - Saponines stéroïdiennes (ruscogénine, néoruscogénine) : principaux actifs veinotoniques et anti-inflammatoires
-      - Flavonoïdes, tanins et autres polyphénols : antioxydants et protecteurs vasculaires
-      - Acides gras, stérols et composés mineurs : soutien barrière et apaisant
-      - Pureté élevée dans les extraits cosmétiques, sans allergènes majeurs, formulations hypoallergéniques
+  > *Du sous-bois méditerranéen aux laboratoires dermocosmétiques : un voyage de deux millénaires au service de la microcirculation.*
 
-      ## Mécanisme d’action
-      1. Effet veinotonique et vasoconstricteur : renforce le tonus veineux, réduit la perméabilité capillaire et améliore le retour veineux
-      2. Action anti-inflammatoire : inhibition de l'adhésion leucocytaire, réduction des cytokines pro-inflammatoires et médiateurs via voie muscarinique
-      3. Protection endothéliale : diminue les changements de perméabilité induits par histamine ou ischémie/reperfusion
-      4. Amélioration microcirculation : favorise drainage lymphatique et réduit œdème/stagnation sanguine
-      5. Effet antioxydant : neutralise ROS et protège contre stress oxydatif vasculaire
-      6. Réduction rougeurs visibles : atténue dilatation capillaire et inflammation cutanée
+  ---
 
-      ## Bienfaits
-      - **Décongestionnant & veinotonique** : soulage sensations de jambes lourdes, gonflements et fatigue circulatoire
-      - **Anti-rougeurs** : réduit visiblement rougeurs, couperose et irritations (gammes Antirougeurs Avène)
-      - **Apaisant intense** : calme inconfort, démangeaisons et inflammations des peaux sensibles/réactives
-      - **Renforcement vasculaire** : protège fragilité capillaire et améliore tonicité des vaisseaux
-      - **Anti-œdémateux** : diminue gonflements et rétention d'eau localisée (jambes, contour yeux)
-      - **Tolérance exceptionnelle** : adapté peaux sensibles, réactives, atopiques ou sujettes à rosacée
+  ## 🌿 Portrait botanique
 
-      ## Utilisation
-      - **Cible** : peaux sensibles, réactives, sujettes à rougeurs, couperose, rosacée, jambes lourdes ou fragilité vasculaire
-      - **Moment** : matin et/ou soir, quotidien ou en cure intensive
-      - **Type de soin** : actif clé des gammes Antirougeurs (Avène : Fort Relief Concentrate, Day Cream SPF20, Calm Mask) pour apaisement et réduction rougeurs
+  Arbuste dioïque à rhizome traçant, le Petit-houx se distingue par ses **cladodes** — ces tiges aplaties en forme de feuilles, terminées par une épine fine — qui lui valent son nom vernaculaire. Ses petites fleurs naissent directement au centre des cladodes, suivies de baies rouge vif persistant tout l'hiver. Il prospère dans les sous-bois calcaires, les maquis et les haies du bassin méditerranéen, de l'Atlantique jusqu'à l'Iran occidental, entre le niveau de la mer et 800 mètres d'altitude.
 
-      ## Note technique
-      Extrait racinaire standardisé riche en ruscogénine, avec décennies d'usage en phlébotonique (Cyclo 3 Fort Pierre Fabre en référence pharma-like). Tolérance optimale validée sur peaux fragiles. Mécanismes veinotonique, anti-inflammatoire (NF-κB, muscarinique) et protecteur capillaire confirmés par études récentes (2024-2025). Positionné comme ingrédient naturel de choix en dermocosmétique pour peaux couperosées et circulatoires, offrant efficacité prouvée sur microcirculation, rougeurs et inconfort sans effets secondaires majeurs.
-    `,
+  C'est dans ses **rhizomes et racines** que se concentre l'essentiel de son potentiel thérapeutique — un trésor souterrain que les herboristes européens exploitent depuis des siècles.
+
+  ---
+
+  ## 🔬 Composition chimique — Une symphonie de saponines
+
+  La richesse du Petit-houx repose sur un profil phytochimique dominé par les saponines stéroïdiennes, véritables signatures de son identité pharmacologique :
+
+  - **Saponines stéroïdiennes** (spirostanol et furostanol) : **ruscogénine** et **néoruscogénine** comme principaux aglycones, accompagnés du ruscoside et de la ruscine — les piliers de l'activité veinotonique (teneur en ruscogénine : 0,3–0,38 % dans les rhizomes)
+  - **Flavonoïdes et polyphénols** : apigénine, quercétine, kaempférol — antioxydants et protecteurs vasculaires complémentaires
+  - **Anthocyanes** (dans les baies) : pélargonidine-3-glucoside, contribuant au potentiel antioxydant global
+  - **Acides phénoliques** : soutien anti-inflammatoire et photoprotecteur
+  - **Composés mineurs** : alcaloïdes (aculebiphényl A/B), acides gras, stérols — complément de la matrice bioactive
+  - **Contrôle qualité** : profil caractérisé par HPLC/UPLC pour garantir la standardisation des extraits cosmétiques
+
+  > *La ruscogénine est au Petit-houx ce que l'acide hyaluronique est à la peau : un acteur central autour duquel tout le système s'organise.*
+
+  ---
+
+  ## ⚙️ Mécanismes d'action
+
+  Le Petit-houx agit selon plusieurs voies pharmacologiques convergentes, formant un réseau d'action particulièrement cohérent pour la sphère vasculaire et cutanée :
+
+  ### Effet veinotonique et vasoconstricteur
+  - **Agonisme alpha-adrénergique** (récepteurs α1 et α2) : provoque une constriction veineuse directe, indépendante de l'endothélium
+  - Augmentation du **cAMP intraveineux** dans les veines variqueuses
+  - Amélioration du **rapport prostacycline/thromboxane**, favorisant l'équilibre hémostatique
+
+  ### Action anti-inflammatoire
+  - Inhibition de la production de **NO** dans les macrophages activés (EC₅₀ ≈ 60 µg/mL)
+  - Réduction de l'adhésion leucocytaire et des cytokines pro-inflammatoires
+  - Efficacité comparable au diclofénac dans des modèles animaux d'inflammation (œdème de patte de rat)
+  - Modulation via la voie muscarinique et NF-κB
+
+  ### Protection microvasculaire
+  - Diminution de la **perméabilité capillaire** induite par l'histamine (confirmée sur modèle de hamster)
+  - Protection endothéliale contre les dommages d'ischémie/reperfusion
+  - Inhibition de l'**élastase**, protégeant la matrice extracellulaire vasculaire
+
+  ### Soutien antimicrobien cutané
+  - Stimulation de l'expression de **RNase 7** (peptide antimicrobien) dans les kératinocytes humains primaires, via activation d'ERK et inhibition de l'autophagie tardive
+  - Activité antifongique contre les dermatophytes (CMI : 5–35 µg/mL)
+  - Activité contre le SARM (*Staphylococcus aureus* résistant à la méticilline)
+
+  ### Effet antioxydant
+  - Neutralisation des espèces réactives de l'oxygène (ROS) grâce aux polyphénols et flavonoïdes
+  - Protection contre le stress oxydatif vasculaire et cutané
+
+  ---
+
+  ## 🌸 Bienfaits en dermocosmétique
+
+  ### Anti-rougeurs et anti-couperose ✦
+  Le Petit-houx est un actif de choix pour les peaux marquées par des rougeurs diffuses, une couperose naissante ou une rosacée vasculaire. En atténuant la dilatation capillaire, en réduisant la perméabilité microvasculaire et en calmant l'inflammation sous-jacente, il agit sur les **causes profondes** des rougeurs visibles — pas seulement sur leur apparence.
+
+  *Niveau de preuve : bon pour l'amélioration de la microcirculation (RCT), modéré pour l'anti-rougeurs spécifiquement dermatologique (données principalement extrapolées des études vasculaires et observations cosmétiques).*
+
+  ### Décongestionnant et anti-œdémateux ✦
+  Soulage les sensations de gonflement, de tension et de jambes lourdes grâce à son action veinotonique et lymphocinétique. Diminue l'œdème localisé — pertinent aussi pour le contour des yeux gonflé et les peaux congestionnées.
+
+  *Niveau de preuve : bon — plusieurs essais cliniques randomisés sur l'IVC démontrent une réduction significative du volume des jambes, de la douleur et des symptômes associés.*
+
+  ### Apaisant pour peaux sensibles et réactives ✦
+  Calme l'inconfort, les démangeaisons et les inflammations cutanées grâce à ses propriétés anti-inflammatoires et son excellente tolérance. Traditionnellement utilisé aussi pour l'eczéma, les gerçures et les irritations.
+
+  *Niveau de preuve : modéré (données in vitro et in vivo solides, observations cliniques cohérentes, mais peu d'essais contrôlés spécifiquement dermatologiques).*
+
+  ### Renforcement de la barrière antimicrobienne ✦
+  En stimulant la production de peptides antimicrobiens endogènes (RNase 7), le Petit-houx renforce les défenses innées de la peau — une piste prometteuse pour la dermatite atopique et les peaux sujettes aux infections.
+
+  *Niveau de preuve : préliminaire mais prometteur (études in vitro sur kératinocytes humains primaires).*
+
+  ### Anti-âge et protection oxydative ✦
+  Les polyphénols et flavonoïdes de l'extrait protègent contre le vieillissement oxydatif cutané, améliorent l'hydratation et soutiennent la résilience de la peau face aux agressions environnementales.
+
+  *Niveau de preuve : modeste (études observationnelles cosmétiques, données antioxydantes in vitro). Des essais cliniques dédiés seraient nécessaires.*
+
+  ---
+
+  ## 💊 Applications en médecine — Au-delà de la peau
+
+  Le Petit-houx bénéficie d'un corpus scientifique solide en phlébologie et médecine vasculaire, qui constitue le socle de sa crédibilité dermocosmétique :
+
+  - **Insuffisance veineuse chronique (IVC)** : plusieurs RCT démontrent une réduction significative de l'œdème, de la douleur et de la lourdeur des jambes. La combinaison historique *Ruscus + hespéridine méthyl chalcone (HMC) + acide ascorbique* est utilisée depuis plus de 50 ans en Europe (référence : Cyclo 3 Fort, Pierre Fabre)
+  - **Hémorroïdes** : usage traditionnel bien établi, effets anti-inflammatoires confirmés en préclinique
+  - **Rétinopathie diabétique** : données préliminaires sur la réduction de la glycémie et de l'HbA1c
+  - **Protection osseuse** : activité anti-ostéoporotique observée chez des rates ovariectomisées
+  - **Potentiel anticancéreux** : effets antiprolifératifs in vitro (GI₅₀ : 31–350 µg/mL sur lignées HeLa, MCF-7) — purement exploratoire à ce stade
+
+  ---
+
+  ## ⚖️ Transparence scientifique — Ce qu'il faut savoir
+
+  > *Un bon actif se reconnaît autant à ce qu'il promet qu'à ce qu'il admet.*
+
+  ### Forces des données
+  - **Corpus vasculaire solide** : les propriétés veinotoniques et anti-œdémateuses reposent sur des essais cliniques randomisés de qualité correcte
+  - **Mécanismes d'action bien caractérisés** : l'agonisme alpha-adrénergique, l'inhibition de la perméabilité et les effets anti-inflammatoires sont documentés par des études pharmacologiques rigoureuses
+  - **Historique d'usage long** : plus de 50 ans d'utilisation en spécialité pharmaceutique européenne, avec un bon profil de tolérance
+
+  ### Limites et nuances
+  - **Preuves dermatologiques spécifiques : modérées** — l'essentiel des données provient d'études vasculaires ou in vitro ; les essais cliniques dédiés à la peau restent rares
+  - **Extrapolation cosmétique** : l'efficacité anti-rougeurs est largement inférée des données vasculaires et d'études observationnelles cosmétiques, pas de grands RCT dermatologiques
+  - **Données antimicrobiennes préliminaires** : la stimulation de RNase 7 est une piste intéressante mais encore au stade in vitro
+  - **Anti-âge et hydratation** : preuves modestes, essentiellement observationnelles
+  - **Études anticancéreuses** : exclusivement in vitro, aucune pertinence clinique à ce jour
+
+  ### Ce qui manque
+  Des essais cliniques randomisés dédiés aux indications dermatologiques (rosacée, dermatite atopique, vieillissement cutané) permettraient de confirmer le potentiel suggéré par les données précliniques et vasculaires.
+
+  ---
+
+  ## 🛡️ Sécurité et précautions
+
+  - **Tolérance topique** : excellente dans les formulations cosmétiques standardisées. Adapté aux peaux sensibles, réactives, atopiques et sujettes à rosacée
+  - **Allergie de contact** : rare, mais quelques cas de dermatite de contact allergique au ruscogénine ont été rapportés — un patch test peut être prudent en cas de peau très réactive
+  - **Voie orale** : bien tolérée aux doses recommandées dans les compléments alimentaires et spécialités pharmaceutiques, mais l'usage oral dépasse le cadre cosmétique
+  - **Grossesse et allaitement** : consulter un professionnel de santé avant usage oral ; usage topique cosmétique généralement considéré comme sûr
+  - **Interactions** : pas d'interactions majeures documentées en usage topique
+
+  ---
+
+  ## 🤝 Utilisation en formulation
+
+  - **Cible** : peaux sensibles, réactives, couperosées, rosacée vasculaire, jambes lourdes, contour des yeux gonflé, peaux matures à microcirculation ralentie
+  - **Forme galénique** : extrait racinaire standardisé en ruscogénine (souvent 0,3 % minimum), intégré dans crèmes, sérums, concentrés apaisants, soins jambes légères
+  - **Moment** : matin et/ou soir, quotidien ou en cure intensive
+  - **Synergies intéressantes** : eau thermale (Avène), hespéridine, vitamine C, niacinamide, centella asiatica, vigne rouge, marron d'Inde
+  - **Référence industrielle** : actif clé des gammes **Antirougeurs Avène** (Pierre Fabre) — Fort Relief Concentrate, Day Cream SPF 20, Calm Mask
+
+  ---
+
+  ## 📝 Note technique
+
+  Extrait racinaire standardisé riche en ruscogénine et néoruscogénine, adossé à plus de cinq décennies d'usage en spécialité phlébotrope (Cyclo 3 Fort, Pierre Fabre). Mécanismes veinotonique (α-adrénergique), anti-inflammatoire (NF-κB, muscarinique, inhibition NO) et protecteur capillaire (anti-élastase, anti-perméabilité) bien caractérisés par la littérature récente. Profil de tolérance excellent en topique, y compris sur peaux sensibles et atopiques.
+
+  **Positionnement** : ingrédient naturel de référence en dermocosmétique vasculaire — particulièrement pertinent pour les formulations anti-rougeurs, apaisantes et décongestionnantes. Preuves solides pour la microcirculation et l'IVC ; données dermatologiques spécifiques prometteuses mais nécessitant consolidation par des essais cliniques dédiés.
+
+  > *Le Petit-houx ne crie pas, il agit en silence — comme les meilleurs actifs, il laisse la peau parler pour lui.*
+      `,
     category: 'actif',
   },
   // ── Actifs réparateurs / barrière ─────────────────
@@ -6409,32 +7400,47 @@ Forment un film protecteur limitant la perte d'eau transépidermique (TEWL). Peu
     content: `
        # Acetyl Hexapeptide-8 (Argireline)
 
-       L'Acetyl Hexapeptide-8 est un peptide de synthèse révolutionnaire qui cible les rides dynamiques, celles causées par les mouvements répétitifs du visage (sourires, froncements de sourcils). Il est devenu l'alternative topique de référence aux injections pour lisser les traits sans figer le visage.
+       L'Acetyl Hexapeptide-8 (aussi appelé **Argireline®**) est un peptide de synthèse révolutionnaire qui cible les rides dynamiques, celles causées par les mouvements répétitifs du visage (sourires, froncements de sourcils). Il est devenu l'alternative topique de référence aux injections pour lisser les traits sans figer le visage.
+
+       **Note importante sur la nomenclature** : Cet ingrédient est officiellement nommé **Acetyl Hexapeptide-8** dans l'INCI actuel. Il a longtemps été (et est encore souvent) appelé **Acetyl Hexapeptide-3** dans de nombreux documents, marketing et anciennes publications, mais il s'agit de la **même molécule** (pas de changement structurel, juste une évolution/révision de la dénomination). Le nom **Acetyl Hexapeptide-3** est aujourd'hui considéré comme obsolète ou incorrect par plusieurs sources scientifiques et fournisseurs (ex. Lubrizol, le fabricant d'Argireline®).
 
        ## INCI
        ACETYL HEXAPEPTIDE-8
+       (anciennement référencé comme ACETYL HEXAPEPTIDE-3 dans certains contextes)
 
        ## Concentration typique
-       2 à 10 % (souvent utilisé en solution à 10 % comme l'Argireline®).
+       2 à 10 % (souvent utilisé en solution à 10 % comme l'Argireline® ou Argireline® Amplified). Les produits grand public contiennent fréquemment 5–10 %, tandis que les boosters ou sérums concentrés peuvent aller jusqu'à 10–20 % dans des formulations optimisées.
 
        ## Mécanisme d’action
-       Ce peptide agit par biomimétisme sur le complexe SNARE. Pour faire simple :
+       Ce peptide agit par **biomimétisme** sur le complexe SNARE. Pour faire simple :
+
        1. Il interfère avec les signaux nerveux qui ordonnent aux muscles du visage de se contracter.
        2. En "détendant" légèrement cette micro-contraction musculaire, il empêche la peau de se plisser.
        3. Avec une utilisation régulière, il prévient le creusement des rides installées.
 
+       Il mime partiellement l'action du botulinum toxin (Botox) mais de façon beaucoup plus douce et uniquement en surface (faible pénétration cutanée : < 0.2 % après 24 h selon certaines études).
+
        ## Bienfaits prouvés
-       - **Effet lissant immédiat** : Réduit visiblement la profondeur des rides du front, de la patte d'oie et du contour des lèvres.
+       - **Effet lissant immédiat** : Réduit visiblement la profondeur des rides du front, de la patte d'oie et du contour des lèvres (réduction de 15–30 % de la profondeur des rides observée dans plusieurs études avec 5–10 % sur 15–30 jours).
        - **Prévention** : Empêche la formation de nouvelles rides d'expression.
-       - **Texture** : Améliore la souplesse globale de la peau.
+       - **Texture** : Améliore la souplesse globale de la peau et peut augmenter l’hydratation.
+       - Résultats plus constants lorsqu’il est combiné dans des formules multi-actifs (acide hyaluronique, autres peptides, antioxydants).
+
+       Les effets restent toutefois bien inférieurs à ceux du Botox injectable (puissance et profondeur d’action limitées).
 
        ## Différence avec les Peptides de Cuivre
-       L'**Acetyl Hexapeptide-8** est un spécialiste de la "décontraction" (action mécanique sur les rides d'expression), tandis que les **Peptides de Cuivre** sont des spécialistes de la "reconstruction" (action biologique sur la fermeté et la réparation). Le premier lisse en surface par relaxation, le second densifie en profondeur.
+       L'**Acetyl Hexapeptide-8** est un spécialiste de la **"décontraction"** (action mécanique sur les rides d'expression), tandis que les **Peptides de Cuivre** (comme le GHK-Cu) sont des spécialistes de la **"reconstruction"** (action biologique sur la fermeté, la réparation, la synthèse de collagène et l’anti-inflammatoire). Le premier lisse en surface par relaxation, le second densifie et répare en profondeur. Ils sont très complémentaires.
 
        ## Comment l’utiliser
-       - **Zone ciblée** : Appliquer prioritairement sur le front, entre les sourcils (ride du lion) et le contour des yeux.
+       - **Zone ciblée** : Appliquer prioritairement sur le front, entre les sourcils (ride du lion), patte d’oie et contour des yeux/lèvres.
        - **Matin et Soir** : Pour des résultats optimaux, une application biquotidienne est recommandée.
-       - **Compatibilité** : Idéal avec l'acide hyaluronique. Attention à l'associer prudemment avec des acides forts (AHA) qui peuvent dénaturer les peptides si le pH est trop bas.
+       - **Compatibilité** : Idéal avec l'acide hyaluronique, niacinamide, céramides, peptides divers. Attention à l'associer prudemment avec des acides forts (AHA/BHA élevés) ou un pH très bas (< 4) qui peuvent dénaturer les peptides. Préférer des formules à pH neutre ou légèrement acide.
+       - **Astuce** : Appliquer sur peau propre et sèche, avant une crème hydratante pour sceller. Les formulations avec des vecteurs de pénétration (liposomes, etc.) améliorent légèrement l’efficacité.
+
+       ## Sécurité
+       Très bon profil de tolérance : aucun effet indésirable sérieux rapporté. Moins toxique et moins puissant que le botulinum toxin. Convient à la plupart des types de peau, y compris sensibles. Patch test recommandé en cas de peau très réactive.
+
+       L’Acetyl Hexapeptide-8 reste l’un des peptides anti-rides les plus étudiés et populaires, souvent surnommé à juste titre **"Botox en flacon"** pour les rides d’expression modérées. Pour des rides profondes installées, il est plus efficace en prévention ou en complément d’autres traitements.
        `,
     category: 'actif',
   },

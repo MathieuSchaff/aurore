@@ -16,9 +16,17 @@ export const TAG_SLUGS = {
   DESHYDRATATION: 'deshydratation',
   PORES_DILATES: 'pores-dilates',
   CERNES_POCHES: 'cernes-poches',
-  BRILLANCE: 'brillance', // excès de sébum
-  ECLAT: 'eclat', // teint terne → recherche d'éclat
+  BRILLANCE: 'brillance',
+  ECLAT: 'eclat',
   POST_ACNE: 'post-acne',
+  CICATRISATION: 'cicatrisation',
+  MICROBIOME: 'microbiome',
+  PHOTO_VIEILLISSEMENT: 'photo-vieillissement',
+  TEINT_TERNE: 'teint-terne',
+  LUMIERE_BLEUE: 'lumiere-bleue',
+  POLLUTION: 'pollution',
+  REPULPANT: 'repulpant',
+  ECZEMA: 'eczema',
 
   // ── Skin types (Types de peau) ──────────────────
   PEAU_SECHE: 'peau-seche',
@@ -42,7 +50,6 @@ export const TAG_SLUGS = {
   CONTOUR_YEUX: 'contour-yeux',
   DEMAQUILLANT: 'demaquillant',
   ESSENCE: 'essence',
-  // Nouveaux ajouts – protections solaires (formats spécifiques)
   SOLAIRE_VISAGE: 'solaire-visage',
   SOLAIRE_CORPS: 'solaire-corps',
   SOLAIRE_TEINTE: 'solaire-teinte',
@@ -57,11 +64,15 @@ export const TAG_SLUGS = {
   ANTISEPTIQUE: 'antiseptique',
   KERATOLYTIQUE: 'keratolytique',
   SEBO_REGULATEUR: 'sebo-regulateur',
+  MATIFIANT: 'matifiant',
+  ASTRINGENT: 'astringent',
+  TEXTURE_RICHE: 'texture-riche',
+  TEXTURE_LEGERE: 'texture-legere',
+  PROTECTION_CUTANEE: 'protection-cutanee',
+  BARRIERE_CUTANEE_ALTEREE: 'barriere-cutanee-alteree',
+  ANTI_BACTERIEN: 'anti-bacterien',
 
-  // Nouveaux ajouts – attributs solaires
-  FILTRES_MINERAUX: 'filtres-mineraux',
-
-  // ── Attributes – Labels / Certifications ────────
+  // ── Attributes – Labels & Cosmétique ──────────
   BIOMIMETIQUE: 'biomimetique',
   SANS_PARFUM: 'sans-parfum',
   BIO_NATUREL: 'bio-naturel',
@@ -69,15 +80,19 @@ export const TAG_SLUGS = {
   CRUELTY_FREE: 'cruelty-free',
   HYPOALLERGENIQUE: 'hypoallergenique',
   NON_COMEDOGENE: 'non-comedogene',
-
-  // ── Attributes – Cosmétique ─────────────────────
   PIGMENTS_VERTS: 'pigments-verts',
   SANS_SAVON: 'sans-savon',
+  COMEDOGENE: 'comedogene',
+  APAISANT: 'apaisant',
+  FILTRES_CHIMIQUES: 'filtres-chimiques',
+  FILTRES_MINERAUX: 'filtres-mineraux',
+  PREBIOTIQUE: 'prebiotique',
+  GROSSESSE_COMPATIBLE: 'grossesse-compatible',
 } as const
 
 // ─── Unified tag seed data ──────────────────────────────────────────
 export const tagData: CreateTagInput[] = [
-  // ── Concerns ──────────────────────────────────────
+  // Concerns
   { name: 'Anti-rougeurs', slug: TAG_SLUGS.ANTI_ROUGEURS, category: 'concern' },
   { name: 'Rosacée', slug: TAG_SLUGS.ROSACEE, category: 'concern' },
   { name: 'Couperose', slug: TAG_SLUGS.COUPEROSE, category: 'concern' },
@@ -94,15 +109,24 @@ export const tagData: CreateTagInput[] = [
   { name: 'Brillance', slug: TAG_SLUGS.BRILLANCE, category: 'concern' },
   { name: 'Éclat', slug: TAG_SLUGS.ECLAT, category: 'concern' },
   { name: 'Marques post-acné', slug: TAG_SLUGS.POST_ACNE, category: 'concern' },
+  { name: 'Cicatrisation', slug: TAG_SLUGS.CICATRISATION, category: 'concern' },
+  { name: 'Microbiome', slug: TAG_SLUGS.MICROBIOME, category: 'concern' },
+  { name: 'Photo-vieillissement', slug: TAG_SLUGS.PHOTO_VIEILLISSEMENT, category: 'concern' },
+  { name: 'Teint terne', slug: TAG_SLUGS.TEINT_TERNE, category: 'concern' },
+  { name: 'Lumière bleue', slug: TAG_SLUGS.LUMIERE_BLEUE, category: 'concern' },
+  { name: 'Pollution', slug: TAG_SLUGS.POLLUTION, category: 'concern' },
+  { name: 'Repulpant', slug: TAG_SLUGS.REPULPANT, category: 'concern' },
+  { name: 'Eczema', slug: TAG_SLUGS.ECZEMA, category: 'concern' },
 
-  // ── Skin types ────────────────────────────────────
+  // Skin types
   { name: 'Peau sèche', slug: TAG_SLUGS.PEAU_SECHE, category: 'skin_type' },
   { name: 'Peau mixte', slug: TAG_SLUGS.PEAU_MIXTE, category: 'skin_type' },
   { name: 'Peau grasse', slug: TAG_SLUGS.PEAU_GRASSE, category: 'skin_type' },
   { name: 'Peau réactive', slug: TAG_SLUGS.PEAU_REACTIVE, category: 'skin_type' },
   { name: 'Peau normale', slug: TAG_SLUGS.PEAU_NORMALE, category: 'skin_type' },
+  { name: 'Peau atopique', slug: TAG_SLUGS.PEAU_ATOPIQUE, category: 'skin_type' },
 
-  // ── Routine steps ─────────────────────────────────
+  // Routine steps
   { name: 'Soin de jour', slug: TAG_SLUGS.SOIN_DE_JOUR, category: 'routine_step' },
   { name: 'Soin de nuit', slug: TAG_SLUGS.SOIN_DE_NUIT, category: 'routine_step' },
   { name: 'Sérum', slug: TAG_SLUGS.SERUM, category: 'routine_step' },
@@ -110,6 +134,10 @@ export const tagData: CreateTagInput[] = [
   { name: 'Nettoyant', slug: TAG_SLUGS.NETTOYANT, category: 'routine_step' },
   { name: 'Exfoliant', slug: TAG_SLUGS.EXFOLIANT, category: 'routine_step' },
   { name: 'Protection solaire', slug: TAG_SLUGS.PROTECTION_SOLAIRE, category: 'routine_step' },
+  { name: 'Masque', slug: TAG_SLUGS.MASQUE, category: 'routine_step' },
+  { name: 'Tonique', slug: TAG_SLUGS.TONIQUE, category: 'routine_step' },
+  { name: 'Huile', slug: TAG_SLUGS.HUILE, category: 'routine_step' },
+  { name: 'Contour des yeux', slug: TAG_SLUGS.CONTOUR_YEUX, category: 'routine_step' },
   { name: 'Solaire visage', slug: TAG_SLUGS.SOLAIRE_VISAGE, category: 'routine_step' },
   { name: 'Solaire corps', slug: TAG_SLUGS.SOLAIRE_CORPS, category: 'routine_step' },
   { name: 'Solaire teinté', slug: TAG_SLUGS.SOLAIRE_TEINTE, category: 'routine_step' },
@@ -118,12 +146,8 @@ export const tagData: CreateTagInput[] = [
     slug: TAG_SLUGS.PROTECTION_LUMIERE_BLEUE,
     category: 'routine_step',
   },
-  { name: 'Masque', slug: TAG_SLUGS.MASQUE, category: 'routine_step' },
-  { name: 'Tonique', slug: TAG_SLUGS.TONIQUE, category: 'routine_step' },
-  { name: 'Huile', slug: TAG_SLUGS.HUILE, category: 'routine_step' },
-  { name: 'Contour des yeux', slug: TAG_SLUGS.CONTOUR_YEUX, category: 'routine_step' },
 
-  // ── Attributes ────────────────────────────────────
+  // Attributes
   { name: 'Anti-oxydant', slug: TAG_SLUGS.ANTI_OXYDANT, category: 'attribute' },
   { name: 'Humectant', slug: TAG_SLUGS.HUMECTANT, category: 'attribute' },
   { name: 'Émollient', slug: TAG_SLUGS.EMOLLIENT, category: 'attribute' },
@@ -132,7 +156,13 @@ export const tagData: CreateTagInput[] = [
   { name: 'Antiseptique', slug: TAG_SLUGS.ANTISEPTIQUE, category: 'attribute' },
   { name: 'Kératolytique', slug: TAG_SLUGS.KERATOLYTIQUE, category: 'attribute' },
   { name: 'Sébo-régulateur', slug: TAG_SLUGS.SEBO_REGULATEUR, category: 'attribute' },
-  { name: 'Filtres minéraux', slug: TAG_SLUGS.FILTRES_MINERAUX, category: 'attribute' },
+  { name: 'Matifiant', slug: TAG_SLUGS.MATIFIANT, category: 'attribute' },
+  { name: 'Astringent', slug: TAG_SLUGS.ASTRINGENT, category: 'attribute' },
+  { name: 'Texture riche', slug: TAG_SLUGS.TEXTURE_RICHE, category: 'attribute' },
+  { name: 'Texture légère', slug: TAG_SLUGS.TEXTURE_LEGERE, category: 'attribute' },
+  { name: 'Protection cutanée', slug: TAG_SLUGS.PROTECTION_CUTANEE, category: 'attribute' },
+  { name: 'Barrière altérée', slug: TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE, category: 'attribute' },
+  { name: 'Biomimétique', slug: TAG_SLUGS.BIOMIMETIQUE, category: 'attribute' },
   { name: 'Sans parfum', slug: TAG_SLUGS.SANS_PARFUM, category: 'attribute' },
   { name: 'Bio / Naturel', slug: TAG_SLUGS.BIO_NATUREL, category: 'attribute' },
   { name: 'Vegan', slug: TAG_SLUGS.VEGAN, category: 'attribute' },
@@ -140,4 +170,12 @@ export const tagData: CreateTagInput[] = [
   { name: 'Hypoallergénique', slug: TAG_SLUGS.HYPOALLERGENIQUE, category: 'attribute' },
   { name: 'Non comédogène', slug: TAG_SLUGS.NON_COMEDOGENE, category: 'attribute' },
   { name: 'Pigments verts', slug: TAG_SLUGS.PIGMENTS_VERTS, category: 'attribute' },
+  { name: 'Sans savon', slug: TAG_SLUGS.SANS_SAVON, category: 'attribute' },
+  { name: 'Comédogène', slug: TAG_SLUGS.COMEDOGENE, category: 'attribute' },
+  { name: 'Apaisant', slug: TAG_SLUGS.APAISANT, category: 'attribute' },
+  { name: 'Filtres chimiques', slug: TAG_SLUGS.FILTRES_CHIMIQUES, category: 'attribute' },
+  { name: 'Filtres minéraux', slug: TAG_SLUGS.FILTRES_MINERAUX, category: 'attribute' },
+  { name: 'Prébiotique', slug: TAG_SLUGS.PREBIOTIQUE, category: 'attribute' },
+  { name: 'Anti-bactérien', slug: TAG_SLUGS.ANTI_BACTERIEN, category: 'attribute' },
+  { name: 'Grossesse compatible', slug: TAG_SLUGS.GROSSESSE_COMPATIBLE, category: 'attribute' },
 ]

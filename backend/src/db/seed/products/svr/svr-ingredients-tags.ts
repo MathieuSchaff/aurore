@@ -587,7 +587,30 @@ export const SVR_PRODUCT_INGREDIENTS = [
     ingredientSlug: INGREDIENT_SLUGS.NIACINAMIDE,
     notes: 'Protège la barrière',
   },
-
+  {
+    productSlug: SVR_PRODUCT_SLUGS.SVR_SENSIFINE_AR_SPF50,
+    ingredientSlug: INGREDIENT_SLUGS.ENDOTHELYOL,
+  },
+  {
+    productSlug: SVR_PRODUCT_SLUGS.SVR_SENSIFINE_AR_SPF50,
+    ingredientSlug: INGREDIENT_SLUGS.AMMONIUM_GLYCYRRHIZATE,
+  },
+  {
+    productSlug: SVR_PRODUCT_SLUGS.SVR_SENSIFINE_AR_SPF50,
+    ingredientSlug: INGREDIENT_SLUGS.DIETHYLAMINO_HYDROXYBENZOYL_HEXYL_BENZOATE,
+  },
+  {
+    productSlug: SVR_PRODUCT_SLUGS.SVR_SENSIFINE_AR_SPF50,
+    ingredientSlug: INGREDIENT_SLUGS.ETHYLHEXYL_TRIAZONE,
+  },
+  {
+    productSlug: SVR_PRODUCT_SLUGS.SVR_SENSIFINE_AR_SPF50,
+    ingredientSlug: INGREDIENT_SLUGS.ARGININE,
+  },
+  {
+    productSlug: SVR_PRODUCT_SLUGS.SVR_SENSIFINE_AR_SPF50,
+    ingredientSlug: INGREDIENT_SLUGS.TOCOPHEROL,
+  },
   // ═══════════════════════════════════════════════════
   // SVR Sensifine AR Crème
   // ═══════════════════════════════════════════════════

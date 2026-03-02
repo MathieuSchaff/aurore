@@ -1,37 +1,42 @@
-import { ingredientTagAssociations } from '../IngredientsTags/seed-ingredients-tags'
+import { ingredientTagMap } from '../IngredientsTags/seed-ingredients-tags'
 import { INGREDIENT_SLUGS } from '../ingredients/seed-ingredients'
 
 function ChecIngredientsSlugs() {
-  const slugsCounter = new Map<string, number>(
-    Object.values(INGREDIENT_SLUGS).map((slug) => [slug, 0] as const)
-  )
-  for (const ingredientTagAssociation of ingredientTagAssociations) {
-    const slug = ingredientTagAssociation.ingredientSlug
-    if (slugsCounter.has(slug)) {
-      slugsCounter.set(slug, (slugsCounter.get(slug) ?? 0) + 1)
-    }
-  }
-  const withoutTags: string[] = []
-  const withTags: [string, number][] = []
+  const allSlugs = new Set(Object.values(INGREDIENT_SLUGS))
 
-  // On parcourt le Map une seule fois pour ventiler dans les deux listes
-  for (const [slug, count] of slugsCounter) {
-    if (count === 0) {
-      withoutTags.push(slug)
+  const withTags: [string, number][] = []
+  const withoutTags: string[] = []
+
+  for (const slug of allSlugs) {
+    const association = ingredientTagMap[slug]
+
+    // On vérifie si l'entrée existe ET si elle contient au moins un tag utile
+    if (association) {
+      const totalTags = association.primary.length + association.secondary.length
+
+      if (totalTags > 0) {
+        withTags.push([slug, totalTags])
+      } else {
+        withoutTags.push(slug)
+      }
     } else {
-      withTags.push([slug, count])
+      // Cas où le slug n'est même pas présent dans la map
+      withoutTags.push(slug)
     }
   }
 
   console.log("--- RAPPORT D'AUDIT ---")
 
   if (withoutTags.length > 0) {
-    console.error(`❌ ${withoutTags.length} ingrédients n'ont AUCUN tag :`)
+    console.error(`❌ ${withoutTags.length} ingrédients n'ont AUCUN tag (ou sont manquants) :`)
     console.table(withoutTags.map((slug) => ({ 'Ingrédient Orphelin': slug })))
+  } else {
+    console.log('✅ Tous les ingrédients ont au moins un tag !')
   }
 
-  console.log('\n📊 Ingrédients avec tags :')
-  // On transforme en objet juste pour l'affichage console.table si on veut un beau tableau
-  console.table(Object.fromEntries(withTags))
+  console.log('\n📊 Répartition des tags (Primary + Secondary) :')
+  // On trie par nombre de tags pour y voir plus clair
+  const sortedStats = [...withTags].sort((a, b) => b[1] - a[1])
+  console.table(Object.fromEntries(sortedStats))
 }
 ChecIngredientsSlugs()

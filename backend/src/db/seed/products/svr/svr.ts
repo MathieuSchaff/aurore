@@ -77,6 +77,22 @@ export const SVR_PRODUCT_SLUGS = {
 }
 export const SVR_PRODUCT_DATA = [
   {
+    name: 'Sensifine AR Crème SPF50+',
+    brand: 'SVR',
+    kind: 'skincare',
+    unit: 'tube',
+    slug: SVR_PRODUCT_SLUGS.SVR_SENSIFINE_AR_SPF50,
+    totalAmount: 50,
+    amountUnit: 'ml',
+    priceCents: 2050,
+    description:
+      'Soin anti-rougeurs apaisant haute protection. Prévient et corrige les rougeurs tout en protégeant des UVA, UVB, lumière visible et infrarouges.',
+    notes:
+      'Endothelyol® pour la microcirculation. Extrait de réglisse apaisant. Filtres solaires brevetés non écotoxiques. Texture non grasse.',
+    inci: 'AQUA/WATER/EAU, DIISOPROPYL ADIPATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DICAPRYLYL ETHER, ETHYLHEXYL TRIAZONE, SILICA, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIETHYLHEXYL BUTAMIDO TRIAZONE, STEARETH-2, STEARETH-21, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, GLYCERIN, PROPANEDIOL, CITRIC ACID, POTASSIUM CETYL PHOSPHATE, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, ARGININE, SODIUM STEAROYL GLUTAMATE, CAFFEYL GLUCOSIDE, DIPOTASSIUM GLYCYRRHIZATE, GOSSYPIUM HERBACEUM (COTTON) SEED OIL, ROSMARINYL GLUCOSIDE, TOCOPHEROL, CAFFEOIC ACID',
+    url: 'https://www.labo-svr.com',
+  },
+  {
     name: 'Sensifine Extrême',
     brand: 'SVR',
     kind: 'skincare',
