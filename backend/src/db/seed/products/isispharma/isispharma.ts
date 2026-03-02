@@ -1,6 +1,6 @@
 export const ISISPHARMA_PRODUCT_SLUGS = {
   ISISPHARMA_RUBORIL_EXPERT_M: 'isispharma-ruboril-expert-m',
-  ISISPHARMA_RUBORIL: 'isispharma-ruboril-expert-s',
+  ISISPHARMA_RUBORIL_EXPERT_S: 'isispharma-ruboril-expert-s',
 }
 
 export const ISISPHARMA_PRODUCT_DATA = [
@@ -9,7 +9,7 @@ export const ISISPHARMA_PRODUCT_DATA = [
     brand: 'Isispharma',
     kind: 'skincare',
     unit: 'pump',
-    slug: ISISPHARMA_PRODUCT_SLUGS.ISISPHARMA_RUBORIL,
+    slug: ISISPHARMA_PRODUCT_SLUGS.ISISPHARMA_RUBORIL_EXPERT_S,
     totalAmount: 40,
     amountUnit: 'ml',
     priceCents: 1650,

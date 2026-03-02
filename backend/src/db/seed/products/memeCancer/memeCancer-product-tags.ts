@@ -1,46 +1,76 @@
 import { TAG_SLUGS } from '../../tags/seed-tags'
 import { MEME_PRODUCT_SLUGS } from './memeCancer'
 
-export const MEME_PRODUCT_TAGS: { productSlug: string; tagSlug: string }[] = [
-  // Crème pour le Visage – Hydratant/nourrissant quotidien pour peaux très sèches/fragilisées
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_CREME_VISAGE, tagSlug: TAG_SLUGS.DESHYDRATATION },
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_CREME_VISAGE, tagSlug: TAG_SLUGS.PEAU_SECHE },
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_CREME_VISAGE, tagSlug: TAG_SLUGS.PEAU_SENSIBLE },
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_CREME_VISAGE, tagSlug: TAG_SLUGS.PEAU_ATOPIQUE },
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_CREME_VISAGE, tagSlug: TAG_SLUGS.BARRIERE_CUTANEE },
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_CREME_VISAGE, tagSlug: TAG_SLUGS.REPARATEUR },
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_CREME_VISAGE, tagSlug: TAG_SLUGS.CREME_HYDRATANTE },
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_CREME_VISAGE, tagSlug: TAG_SLUGS.SOIN_DE_JOUR },
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_CREME_VISAGE, tagSlug: TAG_SLUGS.SOIN_DE_NUIT },
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_CREME_VISAGE, tagSlug: TAG_SLUGS.HYPOALLERGENIQUE },
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_CREME_VISAGE, tagSlug: TAG_SLUGS.BIO_NATUREL }, // 98% origine naturelle
+interface ProductTagGroups {
+  primary: string[] // Tags principaux (Bénéfices thérapeutiques & Actions)
+  secondary: string[] // Tags secondaires (Type de peau, Routine, Labels)
+  avoid: string[] // Tags à éviter/exclure
+}
 
-  // Gelée Fondante Démaquillante – Démaquillant haute tolérance, transformation gelée → huile
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_GELEE_DEMAQUILLANTE, tagSlug: TAG_SLUGS.PEAU_SENSIBLE },
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_GELEE_DEMAQUILLANTE, tagSlug: TAG_SLUGS.PEAU_ATOPIQUE },
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_GELEE_DEMAQUILLANTE, tagSlug: TAG_SLUGS.NON_COMEDOGENE },
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_GELEE_DEMAQUILLANTE, tagSlug: TAG_SLUGS.BIO_NATUREL }, // 100% origine naturelle
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_GELEE_DEMAQUILLANTE, tagSlug: TAG_SLUGS.HYPOALLERGENIQUE },
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_GELEE_DEMAQUILLANTE, tagSlug: TAG_SLUGS.HUILE }, // Transformation huileuse
+export const MEME_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
+  // ── Crème pour le Visage – Hydratant/nourrissant quotidien pour peaux très sèches/fragilisées
+  [MEME_PRODUCT_SLUGS.MEME_CREME_VISAGE]: {
+    primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.REPARATEUR, TAG_SLUGS.DESHYDRATATION],
+    secondary: [
+      TAG_SLUGS.PEAU_SECHE,
+      TAG_SLUGS.PEAU_SENSIBLE,
+      TAG_SLUGS.PEAU_ATOPIQUE,
+      TAG_SLUGS.CREME_HYDRATANTE,
+      TAG_SLUGS.SOIN_DE_JOUR,
+      TAG_SLUGS.SOIN_DE_NUIT,
+      TAG_SLUGS.HYPOALLERGENIQUE,
+      TAG_SLUGS.BIO_NATUREL,
+    ],
+    avoid: [],
+  },
 
-  // Huile Lavante Visage et Corps – Nettoyant surgras sans savon, pH physiologique
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_HUILE_LAVANTE, tagSlug: TAG_SLUGS.NETTOYANT },
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_HUILE_LAVANTE, tagSlug: TAG_SLUGS.PEAU_SENSIBLE },
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_HUILE_LAVANTE, tagSlug: TAG_SLUGS.PEAU_ATOPIQUE },
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_HUILE_LAVANTE, tagSlug: TAG_SLUGS.PEAU_SECHE },
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_HUILE_LAVANTE, tagSlug: TAG_SLUGS.BARRIERE_CUTANEE },
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_HUILE_LAVANTE, tagSlug: TAG_SLUGS.SANS_SAVON },
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_HUILE_LAVANTE, tagSlug: TAG_SLUGS.BIO_NATUREL }, // 96% origine naturelle
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_HUILE_LAVANTE, tagSlug: TAG_SLUGS.HUILE },
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_HUILE_LAVANTE, tagSlug: TAG_SLUGS.HYPOALLERGENIQUE },
+  // ── Gelée Fondante Démaquillante – Démaquillant haute tolérance, transformation gelée → huile
+  [MEME_PRODUCT_SLUGS.MEME_GELEE_DEMAQUILLANTE]: {
+    primary: [
+      TAG_SLUGS.DEMAQUILLANT, // Ajouté pour précision
+      TAG_SLUGS.PEAU_REACTIVE, // Déduit du contexte haute tolérance
+    ],
+    secondary: [
+      TAG_SLUGS.PEAU_SENSIBLE,
+      TAG_SLUGS.PEAU_ATOPIQUE,
+      TAG_SLUGS.NON_COMEDOGENE,
+      TAG_SLUGS.BIO_NATUREL,
+      TAG_SLUGS.HYPOALLERGENIQUE,
+      TAG_SLUGS.HUILE,
+    ],
+    avoid: [],
+  },
 
-  // Baume Multi-Usages – Réparateur effet pansement pour zones sèches/irritées/cicatrices
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_BAUME_MULTI_USAGES, tagSlug: TAG_SLUGS.BARRIERE_CUTANEE },
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_BAUME_MULTI_USAGES, tagSlug: TAG_SLUGS.REPARATEUR },
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_BAUME_MULTI_USAGES, tagSlug: TAG_SLUGS.PEAU_SECHE },
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_BAUME_MULTI_USAGES, tagSlug: TAG_SLUGS.PEAU_SENSIBLE },
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_BAUME_MULTI_USAGES, tagSlug: TAG_SLUGS.PEAU_ATOPIQUE },
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_BAUME_MULTI_USAGES, tagSlug: TAG_SLUGS.CREME_HYDRATANTE },
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_BAUME_MULTI_USAGES, tagSlug: TAG_SLUGS.BIO_NATUREL }, // 98% origine naturelle
-  { productSlug: MEME_PRODUCT_SLUGS.MEME_BAUME_MULTI_USAGES, tagSlug: TAG_SLUGS.HYPOALLERGENIQUE },
-]
+  // ── Huile Lavante Visage et Corps – Nettoyant surgras sans savon, pH physiologique
+  [MEME_PRODUCT_SLUGS.MEME_HUILE_LAVANTE]: {
+    primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.BARRIERE_CUTANEE],
+    secondary: [
+      TAG_SLUGS.PEAU_SENSIBLE,
+      TAG_SLUGS.PEAU_ATOPIQUE,
+      TAG_SLUGS.PEAU_SECHE,
+      TAG_SLUGS.SANS_SAVON,
+      TAG_SLUGS.BIO_NATUREL,
+      TAG_SLUGS.HUILE,
+      TAG_SLUGS.HYPOALLERGENIQUE,
+    ],
+    avoid: [],
+  },
+
+  // ── Baume Multi-Usages – Réparateur effet pansement pour zones sèches/irritées/cicatrices
+  [MEME_PRODUCT_SLUGS.MEME_BAUME_MULTI_USAGES]: {
+    primary: [
+      TAG_SLUGS.REPARATEUR,
+      TAG_SLUGS.BARRIERE_CUTANEE,
+      TAG_SLUGS.CICATRISATION, // Ajouté pour l'effet "pansement"
+    ],
+    secondary: [
+      TAG_SLUGS.PEAU_SECHE,
+      TAG_SLUGS.PEAU_SENSIBLE,
+      TAG_SLUGS.PEAU_ATOPIQUE,
+      TAG_SLUGS.CREME_HYDRATANTE,
+      TAG_SLUGS.BIO_NATUREL,
+      TAG_SLUGS.HYPOALLERGENIQUE,
+    ],
+    avoid: [],
+  },
+}

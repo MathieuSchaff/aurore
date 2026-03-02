@@ -1,5 +1,5 @@
 import { sql } from 'drizzle-orm'
-import { index, pgTable, text, timestamp, uniqueIndex, uuid } from 'drizzle-orm/pg-core'
+import { index, pgEnum, pgTable, text, timestamp, uniqueIndex, uuid } from 'drizzle-orm/pg-core'
 
 import { ingredients } from './ingredients'
 import { products } from './products'
@@ -37,6 +37,7 @@ export const productTags = pgTable(
   ]
 )
 
+export const relevanceEnum = pgEnum('relevance', ['primary', 'secondary', 'avoid'])
 export const ingredientTags = pgTable(
   'ingredient_tags',
   {
@@ -48,6 +49,9 @@ export const ingredientTags = pgTable(
     tagId: uuid('tag_id')
       .notNull()
       .references(() => tags.id, { onDelete: 'cascade' }),
+    relevance: relevanceEnum('relevance').notNull().default('secondary'),
+    // 'primary'   → indication principale (ex: azelaic-acid + ROSACEE)
+    // 'secondary' → bénéfice indirect (ex: azelaic-acid + ANTI_TACHES)
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [

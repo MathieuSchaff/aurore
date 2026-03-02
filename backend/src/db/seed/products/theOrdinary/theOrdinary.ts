@@ -13,6 +13,38 @@ export const TO_PRODUCT_SLUGS = {
 
 export const TO_PRODUCT_DATA = [
   {
+    name: 'Niacinamide 10% + Zinc 1%',
+    brand: 'The Ordinary',
+    kind: 'skincare',
+    unit: 'dropper',
+    slug: 'the-ordinary-niacinamide-10-zinc-1',
+    totalAmount: 60,
+    amountUnit: 'ml',
+    priceCents: 1400,
+    description:
+      "Sérum haute concentration en vitamine B3 (niacinamide) et zinc pour réduire l'apparence des imperfections et l'excès de sébum.",
+    notes:
+      'Note: 4.6/5. pH 5.50-6.50. Sans alcool, sans huile, sans silicone. Aide à réguler la production de sébum.',
+    inci: 'Aqua (Water), Niacinamide, Pentylene Glycol, Zinc PCA, Dimethyl Isosorbide, Tamarin-dus Indica Seed Gum, Xanthan gum, Isoceteth-20, Ethoxydiglycol, Phenoxyethanol, Chlorphenesin.',
+    url: 'https://theordinary.com',
+  },
+  {
+    name: 'Hyaluronic Acid 2% + B5',
+    brand: 'The Ordinary',
+    kind: 'skincare',
+    unit: 'dropper',
+    slug: 'the-ordinary-hyaluronic-acid-2-b5',
+    totalAmount: 30,
+    amountUnit: 'ml',
+    priceCents: 990,
+    description:
+      "Sérum d'acide hyaluronique pur offrant une hydratation multi-profondeur, soutenu par l'ajout de vitamine B5 pour une meilleure hydratation de surface.",
+    notes:
+      "Note: 4.6/5. Contient 3 formes d'acide hyaluronique de différents poids moléculaires. Texture légère.",
+    inci: 'Aqua (Water), Sodium Hyaluronate, Pentylene Glycol, Propanediol, Sodium Hyaluronate Crosspolymer, Panthenol, Ahnfeltia Concinna Extract, Glycerin, Trisodium Ethylenediamine Disuccinate, Citric Acid, Isoceteth-20, Ethoxydiglycol, Ethylhexylglycerin, Hexylene Glycol, 1,2-Hexanediol, Phenoxyethanol, Caprylyl Glycol.',
+    url: 'https://theordinary.com',
+  },
+  {
     name: 'Caffeine Solution 5% + EGCG',
     brand: 'The Ordinary',
     slug: TO_PRODUCT_SLUGS.TO_CAFFEINE_5_EGCG,

@@ -1,0 +1,133 @@
+import { TAG_SLUGS } from '../../tags/seed-tags'
+import { THERAMID_PRODUCT_SLUGS } from './theramid'
+
+export interface ProductTagAssociation {
+  /** Tags principaux : bénéfices majeurs prouvés de l'actif */
+  primary: string[]
+  /** Tags secondaires : bénéfices d'accompagnement ou cibles spécifiques */
+  secondary: string[]
+  /** Tags d'exclusion : types de peau ou conditions où l'actif est déconseillé */
+  avoid: string[]
+}
+
+export type ProductTagMap = Record<string, ProductTagAssociation>
+export const THERAMID_PRODUCT_TAGS: ProductTagMap = {
+  [THERAMID_PRODUCT_SLUGS.THERAMID_EVEN_IN]: {
+    primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.ECLAT],
+    secondary: [
+      TAG_SLUGS.TEINT_TERNE,
+      TAG_SLUGS.SERUM,
+      TAG_SLUGS.NON_COMEDOGENE,
+      TAG_SLUGS.HUMECTANT,
+    ],
+    avoid: [],
+  },
+
+  [THERAMID_PRODUCT_SLUGS.THERAMID_TETRAMID_CEF]: {
+    primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ECLAT, TAG_SLUGS.PHOTO_VIEILLISSEMENT],
+    secondary: [
+      TAG_SLUGS.TEINT_TERNE,
+      TAG_SLUGS.SOIN_DE_JOUR,
+      TAG_SLUGS.POLLUTION,
+      TAG_SLUGS.SERUM,
+    ],
+    avoid: [],
+  },
+
+  [THERAMID_PRODUCT_SLUGS.THERAMID_A_RETINYL_RETINOATE]: {
+    primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.SOIN_DE_NUIT, TAG_SLUGS.BIOMIMETIQUE],
+    secondary: [
+      TAG_SLUGS.REPULPANT,
+      TAG_SLUGS.SERUM,
+      TAG_SLUGS.PEAU_SENSIBLE, // Car moins irritant que le rétinol pur
+      TAG_SLUGS.PHOTO_VIEILLISSEMENT,
+    ],
+    avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE],
+  },
+
+  [THERAMID_PRODUCT_SLUGS.THERAMID_COPPER_PEPTIDE]: {
+    primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.CICATRISATION, TAG_SLUGS.REPULPANT],
+    secondary: [
+      TAG_SLUGS.ANTI_OXYDANT,
+      TAG_SLUGS.SERUM,
+      TAG_SLUGS.BIOMIMETIQUE,
+      TAG_SLUGS.REPARATEUR,
+    ],
+    avoid: [],
+  },
+
+  [THERAMID_PRODUCT_SLUGS.THERAMID_CERAMIDE_TREATMENT]: {
+    primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.REPARATEUR, TAG_SLUGS.DESHYDRATATION],
+    secondary: [
+      TAG_SLUGS.APAISANT,
+      TAG_SLUGS.PEAU_SENSIBLE,
+      TAG_SLUGS.PEAU_REACTIVE,
+      TAG_SLUGS.EMOLLIENT,
+      TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
+    ],
+    avoid: [],
+  },
+
+  [THERAMID_PRODUCT_SLUGS.THERAMID_CLINICAL_VITAMIN_A]: {
+    primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.SOIN_DE_NUIT, TAG_SLUGS.PHOTO_VIEILLISSEMENT],
+    secondary: [TAG_SLUGS.ECLAT, TAG_SLUGS.SERUM, TAG_SLUGS.KERATOLYTIQUE, TAG_SLUGS.POST_ACNE],
+    avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.GROSSESSE_COMPATIBLE],
+  },
+
+  [THERAMID_PRODUCT_SLUGS.THERAMID_AZID]: {
+    primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PEAU_REACTIVE],
+    secondary: [
+      TAG_SLUGS.ROSACEE,
+      TAG_SLUGS.COUPEROSE,
+      TAG_SLUGS.SEBO_REGULATEUR,
+      TAG_SLUGS.ANTI_BACTERIEN,
+      TAG_SLUGS.ANTI_TACHES,
+      TAG_SLUGS.PORES_DILATES,
+    ],
+    avoid: [],
+  },
+
+  [THERAMID_PRODUCT_SLUGS.THERAMID_LINO_8]: {
+    primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ECLAT],
+    secondary: [
+      TAG_SLUGS.CERNES_POCHES,
+      TAG_SLUGS.PEAU_SECHE,
+      TAG_SLUGS.EMOLLIENT,
+      TAG_SLUGS.TEXTURE_LEGERE,
+    ],
+    avoid: [],
+  },
+
+  [THERAMID_PRODUCT_SLUGS.THERAMID_SMOOTHING_TREATMENT]: {
+    primary: [TAG_SLUGS.EXFOLIANT, TAG_SLUGS.ECLAT, TAG_SLUGS.TEINT_TERNE],
+    secondary: [
+      TAG_SLUGS.SOIN_DE_NUIT,
+      TAG_SLUGS.KERATOLYTIQUE,
+      TAG_SLUGS.APAISANT,
+      TAG_SLUGS.PEAU_MIXTE,
+    ],
+    avoid: [TAG_SLUGS.PEAU_SENSIBLE],
+  },
+
+  [THERAMID_PRODUCT_SLUGS.THERAMID_DERMA_PEPTIDES]: {
+    primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.BIOMIMETIQUE, TAG_SLUGS.REPULPANT],
+    secondary: [
+      TAG_SLUGS.SERUM,
+      TAG_SLUGS.REPARATEUR,
+      TAG_SLUGS.HYPERPIGMENTATION,
+      TAG_SLUGS.ECLAT,
+    ],
+    avoid: [],
+  },
+
+  [THERAMID_PRODUCT_SLUGS.THERAMID_HAPCA_FILLER]: {
+    primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.REPULPANT, TAG_SLUGS.HUMECTANT],
+    secondary: [
+      TAG_SLUGS.ANTI_AGE,
+      TAG_SLUGS.POLLUTION,
+      TAG_SLUGS.SERUM,
+      TAG_SLUGS.PROTECTION_CUTANEE,
+    ],
+    avoid: [],
+  },
+}

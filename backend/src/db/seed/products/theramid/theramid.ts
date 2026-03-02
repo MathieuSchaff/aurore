@@ -1,0 +1,191 @@
+export const THERAMID_PRODUCT_SLUGS = {
+  THERAMID_EVEN_IN: 'theramid-even-in',
+  THERAMID_TETRAMID_CEF: 'theramid-tetramid-cef',
+  THERAMID_A_RETINYL_RETINOATE: 'theramid-a-retinyl-retinoate',
+  THERAMID_COPPER_PEPTIDE: 'theramid-copper-peptide',
+  THERAMID_CERAMIDE_TREATMENT: 'theramid-ceramide-treatment',
+  THERAMID_CLINICAL_VITAMIN_A: 'theramid-clinical-vitamin-a',
+  THERAMID_AZID: 'theramid-azid',
+  THERAMID_LINO_8: 'theramid-lino-8',
+  THERAMID_SMOOTHING_TREATMENT: 'theramid-smoothing-treatment',
+  THERAMID_DERMA_PEPTIDES: 'theramid-derma-peptides',
+  THERAMID_HAPCA_FILLER: 'theramid-hapca-filler',
+}
+export const THERAMID_PRODUCT_DATA = [
+  {
+    name: 'Even In',
+    brand: 'Theramid',
+    kind: 'skincare',
+    unit: 'dropper',
+    slug: THERAMID_PRODUCT_SLUGS.THERAMID_EVEN_IN,
+    totalAmount: 30,
+    amountUnit: 'ml',
+    priceCents: 2995,
+    description:
+      'Traitement anti-taches avancé conçu pour réduire visiblement l’apparence des taches brunes et l’hyperpigmentation.',
+    notes:
+      'Acide Tranexamique, Acide Kojique, Alpha-Arbutine 2%. Étude clinique : -22% de taches en 8 semaines.',
+    inci: 'AQUA (WATER), GLYCERIN, BETAINE, GLYCERETH-26, TRANEXAMIC ACID, BUTYLENE GLYCOL, ACETYL GLUCOSAMINE, ARBUTIN, KOJIC ACID, NONAPEPTIDE-1, POTASSIUM AZELOYL DIGLYCINATE, GLYCYRRHIZA GLABRA (LICORICE) ROOT EXTRACT, CARNOSINE, LACTOBIONIC ACID, MANDELIC ACID, NIACINAMIDE, LACTOBACILLUS FERMENT, AMINOETHYLPHOSPHINIC ACID, HEXYLRESORCINOL, PHENYLETHYL RESORCINOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, DICAPRYLYL CARBONATE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, CARBOMER, SILICA, DEXTRIN PALMITATE, CAPRYLYL GLYCOL, DIISOSTEARYL MALATE, CITRIC ACID, TOCOPHEROL, ETHYLHEXYLGLYCERIN, PHENOXYETHANOL',
+    url: 'https://nichebeautylab.com',
+  },
+  {
+    name: 'Tetramid C.E.F',
+    brand: 'Theramid',
+    kind: 'skincare',
+    unit: 'dropper',
+    slug: THERAMID_PRODUCT_SLUGS.THERAMID_TETRAMID_CEF,
+    totalAmount: 30,
+    amountUnit: 'ml',
+    priceCents: 3295,
+    description:
+      'Traitement intensif à la vitamine C avec un puissant effet antioxydant pour restaurer la luminosité et combattre le photovieillissement.',
+    notes:
+      '20% Vitamin C Complex (Tetra, Ascorbosilane, Glucoside), 1% Vitamine E, 0.5% Acide Férulique.',
+    inci: 'AQUA (WATER), ASCORBYL TETRAISOPALMITATE, PROPANEDIOL, ASCORBYL GLUCOSIDE, GLYCERIN, TRICAPRYLIN, METHYLPROPANEDIOL, GLYCINE SOJA (SOYBEAN) SEED EXTRACT, TOCOPHERYL ACETATE, ASCORBYL METHYLSILANOL PECTINATE, FERULIC ACID, LECITHIN, SCLEROTIUM GUM, PULLULAN, XANTHAN GUM, SILICA, SODIUM HYDROXIDE, SODIUM CITRATE, CITRIC ACID, SODIUM BENZOATE, POTASSIUM SORBATE',
+    url: 'https://nichebeautylab.com',
+  },
+  {
+    name: 'A Retinyl Retinoate',
+    brand: 'Theramid',
+    kind: 'skincare',
+    unit: 'pump',
+    slug: THERAMID_PRODUCT_SLUGS.THERAMID_A_RETINYL_RETINOATE,
+    totalAmount: 30,
+    amountUnit: 'ml',
+    priceCents: 3995,
+    description:
+      'Traitement anti-âge puissant combinant le rétinoate de rétinyle et le rétinal pur encapsulé pour stimuler le collagène sans irritation.',
+    notes:
+      '0,06% Retinyl Retinoate, 0,1% Retinal encapsulé, Sodium Retinoyl Hyaluronate. Utilisation nuit uniquement.',
+    inci: 'AQUA (WATER), CAPRYLIC/CAPRIC TRIGLYCERIDE, COCO-CAPRYLATE, GLYCERIN, DIMETHICONE, TRIBEHENIN PEG-20 ESTERS, SILICA, COCO-CAPRYLATE/CAPRATE, BETAINE, PANTHENOL, CETEARYL ALCOHOL, RETINAL, RETINYL RETINOATE, SODIUM RETINOYL HYALURONATE, JOJOBA ESTERS, HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX, PPG-13-DECYLTETRADECETH-24, DIMETHICONE/VINYL DIMETHICONE CROSSPOLYMER, CARBOMER, BUTYLENE GLYCOL, MANNITOL, PHOSPHATIDYLCHOLINE, ISOPROPYL LAUROYL SARCOSINATE, POTASSIUM CETYL PHOSPHATE, CETYL ALCOHOL, ACACIA DECURRENS FLOWER WAX, POLYGLYCERIN-3, DIETHYLHEXYL SYRINGYLIDENEMALONATE, BENZOTRIAZOLYL DODECYL P-CRESOL, XANTHAN GUM, TOCOPHEROL, PHOSPHORIC ACID, CITRIC ACID, ETHYLHEXYLGLYCERIN, SODIUM BENZOATE, POTASSIUM SORBATE, SODIUM CHLORIDE, PHENOXYETHANOL, SODIUM HYDROXIDE',
+    url: 'https://nichebeautylab.com',
+  },
+  {
+    name: 'Copper Peptide',
+    brand: 'Theramid',
+    kind: 'skincare',
+    unit: 'pump',
+    slug: THERAMID_PRODUCT_SLUGS.THERAMID_COPPER_PEPTIDE,
+    totalAmount: 30,
+    amountUnit: 'ml',
+    priceCents: 4495,
+    description:
+      'Formulation de pointe avec la plus haute concentration de peptides de cuivre pour une peau ferme, lisse et réparée.',
+    notes:
+      '3% Copper Peptides, 13% Peptide Complex (Munapsys, Bio-peptides). Ne pas associer aux acides ou rétinoïdes.',
+    inci: 'AQUA (WATER), PROPANEDIOL, DIMETHICONE, HYDROGENATED ETHYLHEXYL OLIVATE, BETAINE, ISODODECANE, PEG-10 DIMETHICONE, COPPER TRIPEPTIDE-1, BIFIDA FERMENT LYSATE, GLYCERIN, PEG/PPG-18/18 DIMETHICONE, MAGNESIUM SULFATE, HYDROGENATED CASTOR OIL/SEBACIC ACID COPOLYMER, SODIUM HYALURONATE, ACETYL HEXAPEPTIDE-1, ACETYL TETRAPEPTIDE-2, TRIFLUOROACETYL TRIPEPTIDE-2, SH-OLIGOPEPTIDE-1, SH OLIGOPEPTIDE-2, SH-POLYPEPTIDE-1, SH-POLYPEPTIDE-9, SH POLYPEPTIDE-11, BACILLUS/FOLIC ACID FERMENT FILTRATE EXTRACT, ACETYL GLUTAMINE, DISTEARDIMONIUM HECTORITE, HYDROGENATED OLIVE OIL UNSAPONIFIABLES, PROPYLENE CARBONATE, LECITHIN, CAPRYLYL GLYCOL, BUTYLENE GLYCOL, DEXTRAN, TOCOPHEROL, ACETIC ACID, LACTIC ACID, DISODIUM EDTA, SODIUM BENZOATE, 1,2 HEXANEDIOL, ETHYLHEXYLGLYCERIN, PHENOXYETHANOL',
+    url: 'https://nichebeautylab.com',
+  },
+  {
+    name: 'Ceramide Treatment',
+    brand: 'Theramid',
+    kind: 'skincare',
+    unit: 'pump',
+    slug: THERAMID_PRODUCT_SLUGS.THERAMID_CERAMIDE_TREATMENT,
+    totalAmount: 30,
+    amountUnit: 'ml',
+    priceCents: 3495,
+    description:
+      'Soin intensif conçu pour restaurer la barrière protectrice de la peau et maintenir une hydratation optimale.',
+    notes:
+      '3% Céramides purs, 1% Ectoïne, 1% CICA (Centella Asiatica). Répare les peaux sèches et réactives.',
+    inci: 'AQUA (WATER), PROPANEDIOL, DICAPRYLYL CARBONATE, GLYCERIN, UNDECANE, CERAMIDE NG, TRIDECANE, GLYCINE SOJA SEED EXTRACT, CERAMIDE NP, CERAMIDE AP, CERAMIDE AS, CERAMIDE NS, CERAMIDE EOP, GOSSYPIUM HERBACEUM CALLUS CULTURE, DIMETHICONE, ECTOIN, ASIATICOSIDE, MADECCASSIC ACID, ASIATIC ACID, SILICA, HYDROGENATED LECITHIN, XANTHAN GUM, SCLEROTIUM GUM, DIPROPYLENE GLYCOL, LECITHIN, DIMETHICONE/VINYL DIMETHICONE CROSSPOLYMER, PULLULAN, SUCROSE DISTEARATE, GLYCERYL STEARATE, CHOLESTEROL, TOCOPHEROL, CITRIC ACID, ALCOHOL, ETHYLHEXYLGLYCERIN, PHENOXYETHANOL',
+    url: 'https://nichebeautylab.com',
+  },
+  {
+    name: 'Clinical Vitamin A',
+    brand: 'Theramid',
+    kind: 'skincare',
+    unit: 'pump',
+    slug: THERAMID_PRODUCT_SLUGS.THERAMID_CLINICAL_VITAMIN_A,
+    totalAmount: 30,
+    amountUnit: 'ml',
+    priceCents: 3495,
+    description:
+      'Traitement anti-âge haute performance combinant trois formes de vitamine A pour une régénération cellulaire maximale.',
+    notes:
+      '5% Granactive Retinoid, 0,3% Rétinol, 0,1% Rétinal encapsulé. Idéal pour les utilisateurs expérimentés de rétinoïdes.',
+    inci: 'AQUA (WATER), GLYCERIN, COCO-CAPRYLATE/CAPRATE, CAPRYLIC/CAPRIC TRIGLYCERIDE, PROPANEDIOL, COCO-CAPRYLATE, DIMETHYL ISOSORBIDE, POLYGLYCERYL-6 DISTERATE, CELLULOSE ACETATE BUTYRATE, CETYL ALCOHOL, HYDROXYPINACOLONE RETINOATE, RETINOL, RETINAL, LACTOCOCCUS FERMENT LYSATE, PLANKTON EXTRACT, CERAMIDE NG, TOCOPHEROL, ETHYLHEXYLGLYCERIN, JOJOBA ESTERS, LECITHIN, PULLULAN, SCLEROTIUM GUM, XANTHAN GUM, TRICAPRILIN, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, CAPRYLYL GLYCOL, SILICA, SODIUM CHLORIDE, LACTIC ACID, CITRIC ACID, PHENOXYETHANOL, SODIUM BENZOATE',
+    url: 'https://nichebeautylab.com',
+  },
+  {
+    name: 'AZID',
+    brand: 'Theramid',
+    kind: 'skincare',
+    unit: 'pump',
+    slug: THERAMID_PRODUCT_SLUGS.THERAMID_AZID,
+    totalAmount: 30,
+    amountUnit: 'ml',
+    priceCents: 3495,
+    description:
+      'Traitement intensif à 15% d’acide azélaïque pour réduire les taches, apaiser les rougeurs et traiter les peaux à tendance acnéique.',
+    notes:
+      '15% Acide Azélaïque, 1% Carnosine, 1% Avoine Colloïdale. Propriétés antibactériennes et séborégulatrices.',
+    inci: 'AQUA (WATER), AZELAIC ACID, GLYCERIN, PROPANEDIOL, GLYCERETH-26, AVENA SATIVA (OAT) KERNEL FLOUR, CARNOSINE, ACETYL TETRAPEPTIDE-2, CERAMIDE NP, CERAMIDE EOP, CERAMIDE NS, CERAMIDE AS, CERAMIDE AP, GALLYL GLUCOSIDE, PROPYL GALLATE, EPIGALLOCATECHIN GALLATYL GLUCOSIDE, DAUCUS CAROTA SATIVA ROOT CELL CULTURE LYSATE, GOSSYPIUM HERBACEUM (COTTON) CALLUS CULTURE, SPHINGOMONAS FERMENT EXTRACT, ETHYLHEXYLGLYCERIN, HYDROGENATED LECITHIN, SUCROSE DISTEARATE, GLYCERYL STEARATE, DIPROPYLENE GLYCOL, DEHYDROACETIC ACID, CAPRYLYL GLYCOL, PHENOXYETHANOL, TRIETHANOLAMINE, BENZYL ALCOHOL, CITRIC ACID',
+    url: 'https://nichebeautylab.com',
+  },
+  {
+    name: 'Lino-8',
+    brand: 'Theramid',
+    kind: 'skincare',
+    unit: 'pump',
+    slug: THERAMID_PRODUCT_SLUGS.THERAMID_LINO_8,
+    totalAmount: 30,
+    amountUnit: 'ml',
+    priceCents: 3295,
+    description:
+      'Traitement antioxydant puissant qui nourrit et protège la barrière cutanée grâce à un cocktail de vitamines essentielles.',
+    notes:
+      '8% Vitamine F, 1% Vitamine K1, 1% Coenzyme Q10. Améliore l’élasticité et traite les cernes.',
+    inci: 'AQUA (WATER), PANTHENOL, LINOLEIC ACID, COCO-CAPRYLATE, GLYCERIN, C15-19 ALKANE, PERSEA GRATISSIMA (AVOCADO) OIL, POLYGLYCERYL-6 DISTEARATE, SACCHAROMYCES FERMENT, DIMETHICONE, GLYCERYL STEARATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, PHYTONADIONE EPOXIDE, UBIQUINONE, LINOLENIC ACID, LAUROYL LYSINE, HAEMATOCOCCUS PLUVALIS EXTRACT, SQUALENE, BETA-SITOSTEROL, DIMETHICONE/VINYL DIMETHICONE CROSSPOLYMER, XANTHAN GUM, DISODIUM STEAROYL GLUTAMATE, SCLEROTIUM GUM, TOCOPHEROL, PHENOXYETHANOL, ETHYLHEXYLGLYCERIN',
+    url: 'https://nichebeautylab.com',
+  },
+  {
+    name: 'Smoothing Treatment',
+    brand: 'Theramid',
+    kind: 'skincare',
+    unit: 'pump',
+    slug: THERAMID_PRODUCT_SLUGS.THERAMID_SMOOTHING_TREATMENT,
+    totalAmount: 30,
+    amountUnit: 'ml',
+    priceCents: 2995,
+    description:
+      'Traitement exfoliant de nuit aux acides AHA et PHA pour une peau plus lisse, lumineuse et unifiée.',
+    notes:
+      '10% Gluconolactone, 10% Acide Mandélique, 5% Complexe Peptides Apaisants. Exfoliation douce sans irritation.',
+    inci: 'AQUA (WATER), GLUCONOLACTONE, MANDELIC ACID, GLYCERIN, PROPANEDIOL, SODIUM HYDROXIDE, BUTYLENE GLYCOL, ETHOXYDIGLYCOL, ACETYL HEXAPEPTIDE-1, ACETYL TETRAPEPTIDE-2, SODIUM HYALURONATE, CAPRYLYL GLYCOL, ETHYLHEXYLGLYCERIN, PHENOXYETHANOL',
+    url: 'https://nichebeautylab.com',
+  },
+  {
+    name: 'Derma - Peptides',
+    brand: 'Theramid',
+    kind: 'skincare',
+    unit: 'pump',
+    slug: THERAMID_PRODUCT_SLUGS.THERAMID_DERMA_PEPTIDES,
+    totalAmount: 30,
+    amountUnit: 'ml',
+    priceCents: 3295,
+    description:
+      'Sérum multi-peptide ultra-concentré stimulant la production de collagène et d’élastine pour réduire les signes de l’âge.',
+    notes:
+      '35% Peptides (Matrixyl, Munapsys, Bio-Peptides). 9 peptides biomimétiques. Texture fondante.',
+    inci: 'AQUA (WATER), GLYCERIN, PROPANEDIOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, BUTYLENE GLYCOL, DODECANE, C15-19 ALKANE, ETHYL MACADAMIATE, SILICA, GLYCINE SOJA (SOYBEAN) SEED EXTRACT, SODIUM HYALURONATE, ACETYL HEXAPEPTIDE-1, N-PROLYL PALMITOYL TRIPEPTIDE-56 ACETATE, ACETYL TETRAPEPTIDE-2, PALMITOYL TRIPEPTIDE-38, PALMITOYL TRIPEPTIDE-1, SH OLIGOPEPTIDE-1, SH-OLIGOPEPTIDE-2, SH-POLYPEPTIDE-1, SH POLYPEPTIDE-11, SH-POLYPEPTIDE-9, PALMITOYL DIPEPTIDE-10, PALMITOYL TETRAPEPTIDE-7, NONAPEPTIDE-1, PALMITOYL TETRAPEPTIDE-72 AMIDE, ACETYL GLUTAMINE, BACILLUS/FOLIC ACID FERMENT FILTRATE EXTRACT, TOCOPHEROL, POLYACRYLATE-13, PULLULAN, POLYISOBUTENE, PENTYLENE GLYCOL, POLYSORBATE 20, 1,2-HEXANEDIOL, LECITHIN, SORBITAN ISOSTEARATE, CARBOMER, SCLEROTIUM GUM, XANTHAN GUM, SODIUM LACTATE, CETYL ALCOHOL, HYDROXYPROPYL CYCLODEXTRIN, MALIC ACID, DEXTRAN, CAPRYLYL GLYCOL, ETHYLHEXYLGLYCERIN, PHENOXYETHANOL',
+    url: 'https://nichebeautylab.com',
+  },
+  {
+    name: 'HAPCA FILLER',
+    brand: 'Theramid',
+    kind: 'skincare',
+    unit: 'pump',
+    slug: THERAMID_PRODUCT_SLUGS.THERAMID_HAPCA_FILLER,
+    totalAmount: 30,
+    amountUnit: 'ml',
+    priceCents: 3495,
+    description:
+      'Sérum hydratant et repulpant à l’acide hyaluronique de nouvelle génération avec un effet similaire aux fillers dermiques.',
+    notes:
+      '5% Sodium PCA, 3% Acide Hyaluronique (Primalhyal Ultrafiller & 3K). Protection contre la pollution et les UV.',
+    inci: 'AQUA (WATER), GLYCERIN, SODIUM PCA, PROPANEDIOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, POLYSORBATE 80, HYDROLYZED HYALURONIC ACID, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, SODIUM ACETYLATED HYALURONATE, BETA-GLUCAN, PHOSPHOLIPIDS, SPHINGOLIPIDS, PLANKTON EXTRACT, CERAMIDE NG, TOCOPHEROL, ETHYLHEXYLGLYCERIN, LECITHIN, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, SQUALANE, PULLULAN, SCLEROTIUM GUM, XANTHAN GUM, CARBOMER, CETEARYL ALCOHOL, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, SILICA, TRIETHANOLAMINE, SORBITAN OLEATE, PHENOXYETHANOL, POLYSORBATE 20, POTASSIUM SORBATE, SODIUM BENZOATE',
+    url: 'https://nichebeautylab.com',
+  },
+]

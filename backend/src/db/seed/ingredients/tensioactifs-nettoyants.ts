@@ -1,0 +1,121 @@
+import { INGREDIENT_SLUGS } from './ingredient-slugs'
+import type { IngredientInput } from './seed-ingredients'
+
+export const TENSIOACTIFS_NETTOYANTS: IngredientInput[] = [
+  {
+    name: 'Sodium Cocoyl Isethionate (SCI)',
+    slug: INGREDIENT_SLUGS.SODIUM_COCOYL_ISETHIONATE,
+    category: 'Nettoyage & Texture',
+    description:
+      'Surnommé "mousse de bébé", ce tensioactif solide issu de l’huile de coco offre une mousse riche et crémeuse sans effet desséchant.',
+    content: `
+  # Sodium Cocoyl Isethionate : La Mousse de Soie
+
+  Le **Sodium Cocoyl Isethionate (SCI)** est l'ingrédient phare de la cosmétique solide et des syndets de luxe. Sa structure moléculaire unique lui permet de nettoyer la peau en profondeur tout en laissant un fini doux et hydraté, contrairement aux savons traditionnels.
+
+  ---
+
+  ## ✨ Points Forts & Bénéfices
+  * **Onctuosité Incomparable** : Produit une mousse dense, stable et crémeuse, même en eau calcaire.
+  * **Effet Conditionneur** : Laisse un film protecteur léger sur la peau et les cheveux, facilitant le démêlage.
+  * **Polyvalence** : L'ingrédient de choix pour les shampoings solides et les pains dermatologiques "sans savon".
+
+  ---
+
+  ## ⚖️ Transparence Scientifique & Limites
+  * **Procédé de Fabrication** : Bien que d'origine naturelle (coco), son mode de production (éthoxylation) est un sujet de débat pour les labels bio les plus stricts.
+  * **Sensibilité à l'Humidité** : Dans les produits solides, il peut rendre le produit mou s'il n'est pas correctement formulé avec des cires ou des beurres.
+
+  ---
+
+  ## 🛡️ Précautions & Sécurité
+  * **Usage Externe** : Sous forme de poudre pure, il est très volatil et irritant pour les voies respiratoires du formulateur. Une fois intégré au produit fini, il est parfaitement sûr.
+  `,
+  },
+  {
+    name: 'Coco-Glucoside',
+    slug: INGREDIENT_SLUGS.COCO_GLUCOSIDE,
+    category: 'Nettoyage & Douceur',
+    description:
+      'Un tensioactif non-ionique ultra-doux issu de la noix de coco et du sucre, conçu pour nettoyer la peau sans altérer son précieux film hydrolipidique.',
+    content: `
+  # Le Coco-Glucoside : La Caresse Nettoyante
+
+  Loin des détergents sulfatés agressifs, le **Coco-Glucoside** incarne la nouvelle génération du nettoyage respectueux. Obtenu par la condensation de l'alcool de coco et du glucose, ce tensioactif biodégradable réconcilie efficacité purifiante et haute tolérance cutanée.
+
+  ---
+
+  ## ✨ Points Forts & Bénéfices
+  * **Nettoyage Physiologique** : Élimine les impuretés et l'excès de sébum tout en respectant l'équilibre du microbiome.
+  * **Douceur Extrême** : Particulièrement recommandé pour les peaux sensibles, atopiques ou les produits destinés aux nourrissons.
+  * **Éco-Responsabilité** : Origine 100% végétale et renouvelable, avec une biodégradabilité exemplaire.
+  * **Agent de Texture** : Améliore la viscosité et la qualité de la mousse pour une expérience sensorielle onctueuse.
+
+  ---
+
+  ## ⚖️ Transparence Scientifique & Limites
+  * **Pouvoir Moussant** : Bien que très doux, son pouvoir moussant est naturellement inférieur aux sulfates synthétiques. Il nécessite souvent une formulation experte pour offrir une mousse généreuse.
+  * **Pouvoir Détergent** : Pour les maquillages très tenaces ou "waterproof", il peut s'avérer insuffisant s'il n'est pas associé à d'autres agents nettoyants ou huiles.
+
+  ---
+
+  ## 🛡️ Précautions & Sécurité
+  * **Innocuité** : Considéré comme l'un des tensioactifs les moins irritants du marché.
+  * **Allergies** : Très rares cas d'allergies de contact rapportés, principalement chez des sujets déjà sensibilisés aux glucosides.
+  `,
+  },
+  {
+    name: 'Sodium Lauroyl Methyl Isethionate',
+    slug: INGREDIENT_SLUGS.SODIUM_LAUROYL_METHYL_ISETHIONATE,
+    category: 'tensioactif anionique doux',
+    description:
+      'Tensioactif anionique doux offrant une mousse crémeuse et un nettoyage efficace tout en restant plus tolérant que les sulfates classiques.',
+    content: `
+# Sodium Lauroyl Methyl Isethionate
+Le Sodium Lauroyl Methyl Isethionate est un tensioactif anionique doux dérivé d’acides gras. Il est souvent utilisé comme alternative plus douce aux sulfates traditionnels.
+
+## INCI
+**SODIUM LAUROYL METHYL ISETHIONATE**
+
+## Points forts
+- **Mousse riche et crémeuse** : Sensation agréable à l’application.
+- **Moins irritant que les sulfates** : Alternative au SLS/SLES.
+- **Nettoyage efficace** : Élimine sébum et impuretés.
+- **Bonne compatibilité cutanée** : Adapté aux formules dermatologiques.
+
+## Rôle dans les soins
+Très utilisé dans les nettoyants solides, pains dermatologiques et gels lavants doux pour améliorer la texture et la sensorialité.
+
+## Utilisation
+- **Cible** : Peaux normales à sensibles.
+- **Type de soin** : Nettoyants visage, pains dermatologiques, gels douche doux.
+`,
+  },
+  {
+    name: 'Decyl Glucoside',
+    slug: INGREDIENT_SLUGS.DECYL_GLUCOSIDE,
+    category: 'tensioactif très doux',
+    description:
+      'Tensioactif non ionique particulièrement doux, adapté aux peaux sensibles et aux formules nettoyantes délicates.',
+    content: `
+# Decyl Glucoside
+Le Decyl Glucoside est un tensioactif non ionique dérivé de sucre et d’alcool gras végétal. Il est réputé pour sa grande douceur.
+
+## INCI
+**DECYL GLUCOSIDE**
+
+## Points forts
+- **Très doux** : Convient aux peaux sensibles et réactives.
+- **Nettoyage respectueux** : Préserve le film hydrolipidique.
+- **Mousse modérée** : Nettoyage efficace sans décapage.
+- **Biodégradable** : Profil écologique favorable.
+
+## Rôle dans les soins
+Souvent utilisé dans les nettoyants pour bébés ou les formules dermatologiques destinées aux peaux fragiles.
+
+## Utilisation
+- **Cible** : Peaux sensibles, sèches ou réactives.
+- **Type de soin** : Nettoyants visage doux, gels intimes, shampoings doux.
+`,
+  },
+]

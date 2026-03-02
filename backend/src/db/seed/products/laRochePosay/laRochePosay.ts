@@ -11,12 +11,29 @@ export const LRP_PRODUCT_SLUGS = {
   TOLERIANE_SENSITIVE: 'la-roche-posay-toleriane-sensitive',
   PURE_VITAMIN_C12: 'la-roche-posay-vitamin-c12-serum',
   LIPIKAR_HUILE_LAVANTE_AP_PLUS: 'la-roche-posay-lipikar-huile-lavante-ap-plus',
+  LRP_LIPIKAR_LAIT: 'la-roche-posay-lipikar-lait',
   LIPIKAR_BAUME_AP_M: 'la-roche-posay-lipikar-baume-ap-m',
   EFFACLAR_GEL_NETTOYANT: 'la-roche-posay-effaclar-gel',
   SERUM_B3_RETINOL: 'serum-b3-retinol',
   SERUM_MELA_B3: 'serum-mela-b3',
 }
 export const LRP_PRODUCT_DATA = [
+  {
+    name: 'Lipikar Huile Lavante AP+',
+    brand: 'La Roche-Posay',
+    kind: 'skincare',
+    unit: 'pump',
+    slug: LRP_PRODUCT_SLUGS.LIPIKAR_HUILE_LAVANTE_AP_PLUS,
+    totalAmount: 750,
+    amountUnit: 'ml',
+    priceCents: 2350,
+    description:
+      "Huile lavante relipidante anti-irritation et anti-grattage enrichie en Beurre de Karité. Conçue pour les peaux à tendance à l'eczéma atopique.",
+    notes:
+      "Note: 4.6/5. Contient de la Niacinamide pour apaiser les démangeaisons et de l'Aqua Posae Filiformis pour l'équilibre cutané. Convient dès la naissance.",
+    inci: 'AQUA / WATER / EAU • GLYCERIN • SUCROSE • SODIUM LAURETH SULFATE • COCO-BETAINE • SODIUM CHLORIDE • CITRIC ACID • SODIUM HYDROXIDE • TRISODIUM ETHYLENEDIAMINE DISUCCINATE • VITREOSCILLA FERMENT • NIACINAMIDE • PEG-75 SHEA BUTTER GLYCERIDES • PENTYLENE GLYCOL • POLYSORBATE 20 • SODIUM BENZOATE • PARFUM / FRAGRANCE (F.I.L. N70019790/1).',
+    url: 'https://www.laroche-posay.fr',
+  },
   {
     name: 'Anthelios XL Brume Solaire Invisible Corps SPF50+',
     brand: 'La Roche-Posay',
@@ -197,6 +214,22 @@ export const LRP_PRODUCT_DATA = [
     notes:
       'Enrichi en beurre de karité (20%), niacinamide apaisante et Aqua Posae Filiformis (prébiotique). Texture crème non grasse, non collante. Testé sur peaux à tendance eczéma atopique.',
     inci: 'Aqua / Water, Butyrospermum Parkii Butter / Shea Butter, Glycerin, Dimethicone, Niacinamide, Cetearyl Alcohol, Brassica Campestris Seed Oil / Rapeseed Seed Oil, Glyceryl Stearate, Ammonium Polyacryloyldimethyl Taurate, Peg-100 Stearate, Propanediol, Ophiopogon Japonicus Root Extract, Peg-20 Methyl Glucose Sesquistearate, Sorbitan Tristearate, Dimethiconol, Sodium Chloride, Mannose, Coco-Betaine, Disodium Edta, Capryloyl Glycine, Caprylyl Glycol, Vitreoscilla Ferment, Citric Acid, Maltodextrin, Xanthan Gum, Tocopherol, Pentaerythrityl Tetra-Di-T-Butyl Hydroxyhydrocinnamate',
+    url: 'https://www.laroche-posay.fr',
+  },
+  {
+    name: 'Lipikar Lait',
+    brand: 'La Roche-Posay',
+    kind: 'skincare',
+    unit: 'pump',
+    slug: LRP_PRODUCT_SLUGS.LRP_LIPIKAR_LAIT,
+    totalAmount: 400,
+    amountUnit: 'ml',
+    priceCents: 1750,
+    description:
+      'Lait relipidant pour peaux sèches/sensibles. Hydratation 48h, texture fluide absorption immédiate, sans fini gras.',
+    notes:
+      'Beurre de karité 20% + eau thermale. Sans parfum. Idéal quotidien/climats chauds, toute la famille.',
+    inci: 'AQUA/WATER, BUTYROSPERMUM PARKII BUTTER/SHEA BUTTER, GLYCERIN, ISOPROPYL PALMITATE, DIMETHICONE, CAPRYLIC/CAPRIC TRIGLYCERIDE, CETEARYL ALCOHOL, NIACINAMIDE, PEG-100 STEARATE, GLYCERYL STEARATE, SODIUM HYDROXIDE, CARBOMER, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, CAPRYLYL GLYCOL, CITRIC ACID, VITREOSCILLA FERMENT, XANTHAN GUM, PENTYLENE GLYCOL',
     url: 'https://www.laroche-posay.fr',
   },
   {

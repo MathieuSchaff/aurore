@@ -1,55 +1,54 @@
-// export const NOREVA_PRODUCT_TAGS = [
-//   {
-//     productSlug: NOREVA_PRODUCT_SLUGS.NOREVA_SENSIDIANE_AR_PLUS,
-//     tagSlug: TAG_SLUGS.ANTI_ROUGEURS,
-//   },
-//   {
-//     productSlug: NOREVA_PRODUCT_SLUGS.NOREVA_SENSIDIANE_AR_PLUS,
-//     tagSlug: TAG_SLUGS.ROSACEE,
-//   },
-//   {
-//     productSlug: NOREVA_PRODUCT_SLUGS.NOREVA_SENSIDIANE_AR_PLUS,
-//     tagSlug: TAG_SLUGS.PEAU_REACTIVE,
-//   }
-// ]
+import { TAG_SLUGS } from '../../tags/seed-tags'
+import { AR_PRODUCT_SLUGS } from './anti-rougeurs'
 
-// export const ACM_PRODUCT_TAGS = [
-//   {
-//     productSlug: ACM_PRODUCT_SLUGS.ACM_ROSAKALM_CREME_ANTI_ROUGEURS,
-//     tagSlug: TAG_SLUGS.ANTI_ROUGEURS,
-//   },
-//   {
-//     productSlug: ACM_PRODUCT_SLUGS.ACM_ROSAKALM_CREME_ANTI_ROUGEURS,
-//     tagSlug: TAG_SLUGS.PEAU_SENSIBLE,
-//   }
-// ]
+interface ProductTagGroups {
+  primary: string[] // Pathologies cibles (Rosacée, Couperose, Flushs)
+  secondary: string[] // Actifs, texture et bénéfices secondaires
+  avoid: string[] // Tags à exclure
+}
 
-// export const EUCERIN_PRODUCT_TAGS = [
-//   // --- Anti-Rougeurs Soin Apaisant ---
-//   {
-//     productSlug: EUCERIN_PRODUCT_SLUGS.EUCERIN_ANTI_ROUGEURS_SOIN_APAISANT,
-//     tagSlug: TAG_SLUGS.ANTI_ROUGEURS,
-//   },
-//   {
-//     productSlug: EUCERIN_PRODUCT_SLUGS.EUCERIN_ANTI_ROUGEURS_SOIN_APAISANT,
-//     tagSlug: TAG_SLUGS.PEAU_REACTIVE,
-//   },
-//   // --- Sun Photoaging Control SPF50 ---
-//   {
-//     productSlug: EUCERIN_PRODUCT_SLUGS.EUCERIN_SUN_PROTECTION_PHOTOAGING_CONTROL_FLUIDE_ANTI_AGE_SPF50,
-//     tagSlug: TAG_SLUGS.PROTECTION_SOLAIRE,
-//   },
-//   {
-//     productSlug: EUCERIN_PRODUCT_SLUGS.EUCERIN_SUN_PROTECTION_PHOTOAGING_CONTROL_FLUIDE_ANTI_AGE_SPF50,
-//     tagSlug: TAG_SLUGS.ANTI_AGE,
-//   },
-//   // --- Sun LEB Protect SPF50 ---
-//   {
-//     productSlug: EUCERIN_PRODUCT_SLUGS.EUCERIN_SUN_PROTECTION_LEB_PROTECT_CREME_GEL_VISAGE_CORPS_SPF50,
-//     tagSlug: TAG_SLUGS.PROTECTION_SOLAIRE,
-//   },
-//   {
-//     productSlug: EUCERIN_PRODUCT_SLUGS.EUCERIN_SUN_PROTECTION_LEB_PROTECT_CREME_GEL_VISAGE_CORPS_SPF50,
-//     tagSlug: TAG_SLUGS.PEAU_REACTIVE,
-//   }
-// ]
+export const AR_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
+  // ── Noreva - Sensidiane AR+ : Soin d'attaque avec pigments verts
+  [AR_PRODUCT_SLUGS.NOREVA_SENSIDIANE]: {
+    primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ROSACEE, TAG_SLUGS.PEAU_REACTIVE],
+    secondary: [
+      TAG_SLUGS.PIGMENTS_VERTS,
+      TAG_SLUGS.BARRIERE_CUTANEE,
+      TAG_SLUGS.APAISANT,
+      TAG_SLUGS.CREME_HYDRATANTE,
+      TAG_SLUGS.TEXTURE_LEGERE,
+    ],
+    avoid: [
+      TAG_SLUGS.PEAU_SECHE, // Texture notée comme légère, risque d'inconfort si peau très sèche
+    ],
+  },
+
+  // ── ACM - Rosakalm : Crème anti-rougeurs apaisante & masquante
+  [AR_PRODUCT_SLUGS.ACM_ROSAKALM]: {
+    primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.COUPEROSE],
+    secondary: [
+      TAG_SLUGS.PEAU_SENSIBLE,
+      TAG_SLUGS.PIGMENTS_VERTS,
+      TAG_SLUGS.BIO_NATUREL, // Contient de nombreux extraits végétaux (Ruscus, Sureau, etc.)
+      TAG_SLUGS.TEXTURE_RICHE, // Contient des huiles de jojoba et sésame en tête d'INCI
+      TAG_SLUGS.CREME_HYDRATANTE,
+    ],
+    avoid: [
+      TAG_SLUGS.PEAU_GRASSE,
+      TAG_SLUGS.SANS_PARFUM, // Contient du parfum en fin d'INCI
+    ],
+  },
+
+  // ── Eucerin - Anti-Rougeurs Soin Apaisant : Formule haute tolérance 0%
+  [AR_PRODUCT_SLUGS.EUCERIN_AR]: {
+    primary: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.FLUSHS, TAG_SLUGS.ANTI_ROUGEURS],
+    secondary: [
+      TAG_SLUGS.SANS_PARFUM,
+      TAG_SLUGS.HYPOALLERGENIQUE,
+      TAG_SLUGS.BARRIERE_CUTANEE,
+      TAG_SLUGS.NON_COMEDOGENE,
+      TAG_SLUGS.CREME_HYDRATANTE,
+    ],
+    avoid: [],
+  },
+}

@@ -1,60 +1,53 @@
-import { INGREDIENT_SLUGS } from '../../ingredients/seed-ingredients'
-import { MEME_PRODUCT_SLUGS } from './memeCancer'
+import { INGREDIENT_SLUGS } from '../../ingredients/ingredient-slugs'
+import { allProductSlugs } from '../products-slugs'
+export const MEMECANCER_INGREDIENTS_MAP: Record<string, any[]> = {
+  [allProductSlugs.MEME_CREME_VISAGE]: [
+    {
+      slug: INGREDIENT_SLUGS.SHEA_BUTTER,
+      notes: 'Nourrit en profondeur',
+    },
+    {
+      slug: INGREDIENT_SLUGS.ALLANTOIN,
+      notes: 'Apaisant et adoucissant',
+    },
+    {
+      slug: INGREDIENT_SLUGS.ALOE_VERA,
+      notes: 'Apaisant et protecteur',
+    },
+    {
+      slug: INGREDIENT_SLUGS.GLYCERIN,
+      notes: 'Hydratant humectant',
+    },
+    {
+      slug: INGREDIENT_SLUGS.NIACINAMIDE,
+      notes: 'Apaisante, vitamine B',
+    },
+  ],
+  [allProductSlugs.MEME_GELEE_DEMAQUILLANTE]: [
+    { slug: INGREDIENT_SLUGS.ALOE_VERA, notes: 'Apaisant et protecteur' },
+    { slug: INGREDIENT_SLUGS.GLYCERIN, notes: 'Hydratant' },
+    { slug: INGREDIENT_SLUGS.HUILE_GRAINES_TOURNESOL, notes: 'Dissout le maquillage en douceur' },
+  ],
+  [allProductSlugs.MEME_HUILE_LAVANTE]: [
+    { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: 'Apaisante, vitamine B3' },
+    { slug: INGREDIENT_SLUGS.GLYCERIN, notes: 'Agent hydratant' },
+    { slug: INGREDIENT_SLUGS.CUCUMBER_EXTRACT, notes: 'Rafraîchissant et apaisant' },
+  ],
+  [allProductSlugs.MEME_BAUME_MULTI_USAGES]: [
+    { slug: INGREDIENT_SLUGS.SHEA_BUTTER, notes: 'Réparateur et protecteur' },
+    { slug: INGREDIENT_SLUGS.PRUNUS_AMYGDALUS_DULCIS_OIL, notes: 'Adoucissante et assouplissante' },
+    // { slug: INGREDIENT_SLUGS., notes: 'Effet pansement protecteur' },
+  ],
+}
 
-export const MEME_PRODUCT_INGREDIENTS = [
-  // Crème Visage
-  {
-    productSlug: MEME_PRODUCT_SLUGS.MEME_CREME_VISAGE,
-    ingredientSlug: INGREDIENT_SLUGS.SHEA_BUTTER,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Nourrit en profondeur',
-  },
-  {
-    productSlug: MEME_PRODUCT_SLUGS.MEME_CREME_VISAGE,
-    ingredientSlug: INGREDIENT_SLUGS.ALLANTOIN,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Apaisant et adoucissant',
-  },
-
-  // Gelée Fondante Démaquillante
-  {
-    productSlug: MEME_PRODUCT_SLUGS.MEME_GELEE_DEMAQUILLANTE,
-    ingredientSlug: INGREDIENT_SLUGS.ALOE_VERA,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Apaisant et protecteur',
-  },
-  {
-    productSlug: MEME_PRODUCT_SLUGS.MEME_GELEE_DEMAQUILLANTE,
-    ingredientSlug: INGREDIENT_SLUGS.GLYCERIN,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Hydratant humectant',
-  },
-
-  // Huile Lavante Visage et Corps
-  {
-    productSlug: MEME_PRODUCT_SLUGS.MEME_HUILE_LAVANTE,
-    ingredientSlug: INGREDIENT_SLUGS.NIACINAMIDE,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Apaisante, vitamine B',
-  },
-
-  // Baume Multi-Usages
-  {
-    productSlug: MEME_PRODUCT_SLUGS.MEME_BAUME_MULTI_USAGES,
-    ingredientSlug: INGREDIENT_SLUGS.SHEA_BUTTER,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Nourrit et hydrate',
-  },
-]
+// Export original pour compatibilité descendante
+export const MEME_PRODUCT_INGREDIENTS = Object.entries(MEMECANCER_INGREDIENTS_MAP).flatMap(
+  ([productSlug, ingredients]) =>
+    ingredients.map((ing: any) => ({
+      productSlug,
+      ingredientSlug: ing.slug,
+      concentrationValue: ing.value || null,
+      concentrationUnit: ing.unit || null,
+      notes: ing.notes || '',
+    }))
+)

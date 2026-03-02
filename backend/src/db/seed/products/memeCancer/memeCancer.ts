@@ -1,8 +1,8 @@
 export const MEME_PRODUCT_SLUGS = {
   MEME_HUILE_LAVANTE: 'meme-huile-lavante',
-  MEME_GELEE_DEMAQUILLANTE: 'meme-huile-lavante',
-  MEME_BAUME_MULTI_USAGES: 'meme-huile-lavante',
-  MEME_CREME_VISAGE: 'meme-huile-lavante',
+  MEME_GELEE_DEMAQUILLANTE: 'meme-gelee-demaquillante',
+  MEME_BAUME_MULTI_USAGES: 'meme-baume-multi-usage',
+  MEME_CREME_VISAGE: 'meme-creme-visage',
 }
 export const MEME_PRODUCT_DATA = [
   {

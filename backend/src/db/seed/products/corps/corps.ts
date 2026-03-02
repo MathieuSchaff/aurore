@@ -1,9 +1,6 @@
 // ─── Slugs ────────────────────────────────────────────────
 
 export const CORPS_PRODUCT_SLUGS = {
-  TOPIALYSE_BAUME_PROTECT: 'topicrem-topialyse-baume-protect-plus',
-  TOPIALYSE_CREME: 'topicrem-topialyse-creme',
-  SVR_XERIAL_10_LAIT: 'svr-xerial-10-lait',
   CERAVE_SA_ANTI_RUGOSITES: 'cerave-creme-sa-anti-rugosites',
   CERAVE_BAUME_HYDRATANT: 'cerave-baume-hydratant',
   CERAVE_CREME_HYDRATANTE: 'cerave-creme-hydratante',
@@ -11,65 +8,11 @@ export const CORPS_PRODUCT_SLUGS = {
   EUCERIN_UREAREPAIR_LOTION_10: 'eucerin-urearepair-plus-lotion-10',
   EUCERIN_UREAREPAIR_CREME_5: 'eucerin-urearepair-plus-creme-5',
   EUCERIN_ATOPICONTROL_BAUME: 'eucerin-atopicontrol-baume',
-  LRP_LIPIKAR_BAUME_APM: 'la-roche-posay-lipikar-baume-ap-plus-m',
-  LRP_LIPIKAR_LAIT: 'la-roche-posay-lipikar-lait',
-  BIODERMA_ATODERM_INTENSIVE_BAUME: 'bioderma-atoderm-intensive-baume',
-  BIODERMA_ATODERM_CREME_ULTRA: 'bioderma-atoderm-creme-ultra',
-  BIODERMA_ATODERM_PP_BAUME: 'bioderma-atoderm-pp-baume',
-  URIAGE_XEMOSE_C8_PLUS_CORPS: 'uriage-xemose-c8-plus-creme-relipidante-anti-grattage',
 }
 
 // ─── Data ─────────────────────────────────────────────────
 
 export const CORPS_PRODUCT_DATA = [
-  {
-    name: 'TOPIALYSE Baume Protect+',
-    brand: 'Topicrem',
-    kind: 'skincare',
-    unit: 'pump',
-    slug: CORPS_PRODUCT_SLUGS.TOPIALYSE_BAUME_PROTECT,
-    totalAmount: 200,
-    amountUnit: 'ml',
-    priceCents: 2490,
-    description:
-      'Baume très riche anti-grattage et protecteur pour peaux très sèches à atopiques. Apaise immédiatement, protège des agressions (acariens, pollution), répare la barrière.',
-    notes:
-      'Céramides AD brevetés + prébiotiques. Hydratation 48h. Texture fondante riche (46% phase grasse). Non comédogène. Convient dès la naissance (hors prématurés).',
-    inci: 'AQUA, HELIANTHUS ANNUUS SEED OIL, COCOS NUCIFERA OIL, ORBIGNYA OLEIFERA SEED OIL, RICINUS COMMUNIS SEED OIL, CETEARYL ALCOHOL, HYDROGENATED CASTOR OIL, GLYCERYL STEARATE SE, PENTYLENE GLYCOL, CETEARYL GLUCOSIDE, SODIUM STEAROYL GLUTAMATE, OPHIOPOGON JAPONICUS ROOT EXTRACT, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, MALTODEXTRIN, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, GLYCOSPHINGOLIPIDS, CITRIC ACID, GLYCOLIPIDS',
-    url: 'https://fr.svr.com',
-  },
-  {
-    name: 'TOPIALYSE Crème',
-    brand: 'Topicrem',
-    kind: 'skincare',
-    unit: 'pump',
-    slug: CORPS_PRODUCT_SLUGS.TOPIALYSE_CREME,
-    totalAmount: 200,
-    amountUnit: 'ml',
-    priceCents: 2050,
-    description:
-      'Crème nourrissante apaisante pour peaux sèches et sensibles. Hydratation 48h, élimine tiraillements, texture velours non grasse.',
-    notes:
-      'Beurre de karité + babassu + bourrache + prébiotiques BioEcolia. 27% phase émolliente. Convient toute la famille, usage quotidien.',
-    inci: 'AQUA, BUTYROSPERMUM PARKII BUTTER, ORBIGNYA OLEIFERA SEED OIL, GLYCERIN, C10-18 TRIGLYCERIDES, COCOS NUCIFERA OIL, PENTYLENE GLYCOL, GLYCERYL STEARATE CITRATE, GLYCERYL STEARATE SE, BORAGO OFFICINALIS SEED OIL, GLYCERYL GLUCOSIDE, GLYCINE SOJA OIL, SODIUM STEAROYL GLUTAMATE, ALPHA-GLUCAN OLIGOSACCHARIDE, TOCOPHEROL, 1,2-HEXANEDIOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CAPRYLYL GLYCOL, CITRIC ACID, SODIUM HYDROXIDE, PARFUM',
-    url: 'https://fr.svr.com',
-  },
-  {
-    name: 'XERIAL 10 Lait',
-    brand: 'SVR',
-    kind: 'skincare',
-    unit: 'pump',
-    slug: CORPS_PRODUCT_SLUGS.SVR_XERIAL_10_LAIT,
-    totalAmount: 400,
-    amountUnit: 'ml',
-    priceCents: 2300,
-    description:
-      'Lait exfoliant hydratant intensif pour peaux rugueuses et squameuses. 10% urée brevetée, lisse dès la 1re application, hydrate 48h.',
-    notes:
-      'Urée 10% + panthénol + beurre de karité. Texture fraîche veloutée. Idéal kératose pilaire, coudes/genoux.',
-    inci: 'AQUA, UREA, COCOS NUCIFERA OIL, GLYCERIN, BUTYROSPERMUM PARKII BUTTER, GLYCERYL STEARATE, CANOLA OIL, BORAGO OFFICINALIS SEED OIL, SILICA, PANTHENOL, PENTYLENE GLYCOL, GLYCERYL GLUCOSIDE, SODIUM CITRATE, TRIACETIN, SERINE, PARFUM, CITRIC ACID, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, SODIUM STEAROYL GLUTAMATE, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, CARBOMER, SODIUM LACTATE, HISTIDINE, PROPYLENE GLYCOL, POLYSORBATE 60, SORBITAN ISOSTEARATE, BACILLUS FERMENT, POTASSIUM SORBATE',
-    url: 'https://fr.svr.com',
-  },
   {
     name: 'Crème SA Anti-Rugosités',
     brand: 'CeraVe',
@@ -178,99 +121,5 @@ export const CORPS_PRODUCT_DATA = [
       'Licochalcone A + céramides + oméga 6. Sans parfum. Convient dès 3 mois. Texture riche non collante.',
     inci: 'AQUA, GLYCERIN, PANTHENOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, DICAPRYLYL ETHER, OLEA EUROPAEA FRUIT OIL, RICINUS COMMUNIS SEED OIL, POLYGLYCERYL-3 POLYRICINOLEATE, GLYCERYL GLUCOSIDE, OENOTHERA BIENNIS OIL, BORAGO OFFICINALIS SEED OIL, CERAMIDE NP, GLYCYRRHIZA INFLATA ROOT EXTRACT, DECYLENE GLYCOL, GLYCINE SOJA OIL, TOCOPHEROL, ASCORBYL PALMITATE, MAGNESIUM SULFATE, SODIUM CITRATE, CITRIC ACID',
     url: 'https://int.eucerin.com',
-  },
-  {
-    name: 'Lipikar Baume AP+M',
-    brand: 'La Roche-Posay',
-    kind: 'skincare',
-    unit: 'pump',
-    slug: CORPS_PRODUCT_SLUGS.LRP_LIPIKAR_BAUME_APM,
-    totalAmount: 400,
-    amountUnit: 'ml',
-    priceCents: 2150,
-    description:
-      'Baume relipidant anti-démangeaisons pour peaux atopiques/eczémateuses. Apaise en 60s, anti-récidive, rééquilibre microbiome.',
-    notes:
-      'Niacinamide 4% + Aqua Posae Filiformis + beurre de karité. Réduit grattage nocturne 90%. Sans parfum. Dès la naissance.',
-    inci: 'AQUA/WATER, GLYCERIN, BUTYROSPERMUM PARKII BUTTER/SHEA BUTTER, NIACINAMIDE, PARAFFINUM LIQUIDUM/MINERAL OIL, CETEARYL ALCOHOL, DIMETHICONE, GLYCERYL STEARATE, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, PEG-100 STEARATE, MANNITOL, CERAMIDE NP, SODIUM CHLORIDE, CITRIC ACID, VITREOSCILLA FERMENT, XANTHAN GUM, PENTYLENE GLYCOL, CAPRYLYL GLYCOL',
-    url: 'https://www.laroche-posay.fr',
-  },
-  {
-    name: 'Lipikar Lait',
-    brand: 'La Roche-Posay',
-    kind: 'skincare',
-    unit: 'pump',
-    slug: CORPS_PRODUCT_SLUGS.LRP_LIPIKAR_LAIT,
-    totalAmount: 400,
-    amountUnit: 'ml',
-    priceCents: 1750,
-    description:
-      'Lait relipidant pour peaux sèches/sensibles. Hydratation 48h, texture fluide absorption immédiate, sans fini gras.',
-    notes:
-      'Beurre de karité 20% + eau thermale. Sans parfum. Idéal quotidien/climats chauds, toute la famille.',
-    inci: 'AQUA/WATER, BUTYROSPERMUM PARKII BUTTER/SHEA BUTTER, GLYCERIN, ISOPROPYL PALMITATE, DIMETHICONE, CAPRYLIC/CAPRIC TRIGLYCERIDE, CETEARYL ALCOHOL, NIACINAMIDE, PEG-100 STEARATE, GLYCERYL STEARATE, SODIUM HYDROXIDE, CARBOMER, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, CAPRYLYL GLYCOL, CITRIC ACID, VITREOSCILLA FERMENT, XANTHAN GUM, PENTYLENE GLYCOL',
-    url: 'https://www.laroche-posay.fr',
-  },
-  {
-    name: 'Atoderm Intensive Baume',
-    brand: 'Bioderma',
-    kind: 'skincare',
-    unit: 'pump',
-    slug: CORPS_PRODUCT_SLUGS.BIODERMA_ATODERM_INTENSIVE_BAUME,
-    totalAmount: 200,
-    amountUnit: 'ml',
-    priceCents: 2300,
-    description:
-      'Baume intensif anti-démangeaisons pour peaux atopiques. Soulage immédiatement, renforce barrière, anti-récidive 6 mois.',
-    notes:
-      'PEA + Lipigenium™ (céramides biomimétiques) + Skin Barrier Therapy™. Sans parfum. Soulagement 95% immédiat.',
-    inci: 'AQUA/WATER, GLYCERIN, PARAFFINUM LIQUIDUM, HELIANTHUS ANNUUS SEED OIL, BEHENYL ALCOHOL, SUCROSE STEARATE, CANOLA OIL, ZINC GLUCONATE, PALMITAMIDE MEA, TOCOPHEROL, PHYTOSPHINGOSINE, CERAMIDE NP, CERAMIDE AP, CHOLESTEROL, CERAMIDE EOP, XYLITOL, MANNITOL, RHAMNOSE, FRUCTOOLIGOSACCHARIDES, LAMINARIA OCHROLEUCA EXTRACT',
-    url: 'https://www.bioderma.fr',
-  },
-  {
-    name: 'Atoderm Crème Ultra',
-    brand: 'Bioderma',
-    kind: 'skincare',
-    unit: 'pump',
-    slug: CORPS_PRODUCT_SLUGS.BIODERMA_ATODERM_CREME_ULTRA,
-    totalAmount: 200,
-    amountUnit: 'ml',
-    priceCents: 1850,
-    description:
-      'Crème ultra-nourrissante quotidienne pour peaux sèches/sensibles. Hydratation 24h, stimule lipides naturels.',
-    notes: '+28% hydratation. Sans parfum. Absorption rapide.',
-    inci: 'AQUA/WATER/EAU, PARAFFINUM LIQUIDUM, GLYCERIN, BRASSICA CAMPESTRIS SEED OIL, SODIUM POLYACRYLATE, PENTYLENE GLYCOL, CETEARYL ALCOHOL, NIACINAMIDE, XYLITOL, XYLITYLGLUCOSIDE, ANHYDROXYLITOL, TOCOPHEROL, HELIANTHUS ANNUUS SEED OIL, MANNITOL, XYLITOL, RHAMNOSE, FRUCTOOLIGOSACCHARIDES, LAMINARIA OCHROLEUCA EXTRACT',
-    url: 'https://www.bioderma.fr',
-  },
-  {
-    name: 'Atoderm PP Baume',
-    brand: 'Bioderma',
-    kind: 'skincare',
-    unit: 'pump',
-    slug: CORPS_PRODUCT_SLUGS.BIODERMA_ATODERM_PP_BAUME,
-    totalAmount: 200,
-    amountUnit: 'ml',
-    priceCents: 2150,
-    description:
-      'Baume relipidant intensif pour peaux très sèches chroniques. Nutrition 24h, équilibre microbiome, réduit démangeaisons.',
-    notes: '-100% tiraillements. Texture riche non collante. Efficace hiver.',
-    inci: 'AQUA/WATER/EAU, GLYCERIN, PARAFFINUM LIQUIDUM, ETHYLHEXYL STEARATE, DIMETHICONE, NIACINAMIDE, SUCROSE STEARATE, FRUCTOOLIGOSACCHARIDES, PEUMUS BOLDUS LEAF EXTRACT, ZANTHOXYLUM BUNGEANUM FRUIT EXTRACT, LAMINARIA OCHROLEUCA EXTRACT, MANNITOL, XYLITOL, RHAMNOSE',
-    url: 'https://www.bioderma.fr',
-  },
-  {
-    name: 'Xémose C8+ Crème Relipidante Anti-grattage',
-    brand: 'Uriage',
-    kind: 'skincare',
-    unit: 'pump',
-    slug: CORPS_PRODUCT_SLUGS.URIAGE_XEMOSE_C8_PLUS_CORPS,
-    totalAmount: 200,
-    amountUnit: 'ml',
-    priceCents: 1234,
-    description:
-      'Crème relipidante anti-grattage 48h pour visage et corps, peaux très sèches à tendance atopique (dès la naissance).',
-    notes:
-      'Texture fraîche légère, absorption rapide non grasse. 8 céramides + 10% karité, anti-démangeaisons et anti-rechute.',
-    inci: 'AQUA (WATER, EAU) • BUTYROSPERMUM PARKII (SHEA) BUTTER • ETHYLHEXYL PALMITATE • OCTYLDODECANOL • DICAPRYLYL ETHER • GLYCERIN • POLYSORBATE 60 • BEHENYL ALCOHOL • PROPANEDIOL • SQUALANE • GLYCERYL STEARATE • PEG-100 STEARATE • ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER • CHLORPHENESIN • TOCOPHERYL ACETATE • PIROCTONE OLAMINE • XANTHAN GUM • CETRIMONIUM BROMIDE • o-CYMEN-5-OL • SAFFLOWER OIL/PALM OIL AMINOPROPANEDIOL ESTERS • SODIUM HYDROXIDE • BORAGE SEED OIL AMINOPROPANEDIOL AMIDES • POLYGLYCERYL-10 STEARATE • ASIATICOSIDE • PHYTOSPHINGOSINE • TRIETHYL CITRATE • TOCOPHEROL • POLYGLYCERYL-6 BEHENATE • BEHENIC ACID • CERAMIDE NP • CETEARYL ALCOHOL • CHOLESTEROL • LACTIC ACID • CERAMIDE NS • CERAMIDE EOP • CERAMIDE AP • SODIUM CETEARYL SULFATE',
-    url: 'https://www.uriage.fr',
   },
 ]

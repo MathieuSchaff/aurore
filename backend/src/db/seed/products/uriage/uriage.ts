@@ -10,9 +10,26 @@ export const URIAGE_PRODUCT_SLUGS = {
   URIAGE_GEL_SURGRAS: 'uriage-gel-surgras-dermatologique',
   URIAGE_ROSELIANE_CREME: 'uriage-roseliane-soin-anti-rougeurs-creme',
   URIAGE_ROSELIANE_TEINTE: 'uriage-roseliane-soin-teinte-anti-rougeurs-spf50',
+  URIAGE_XEMOSE_C8_PLUS_CORPS: 'uriage-xemose-c8-plus-creme-relipidante-anti-grattage',
 }
 
 export const URIAGE_PRODUCT_DATA = [
+  {
+    name: 'Xémose C8+ Crème Relipidante Anti-grattage',
+    brand: 'Uriage',
+    kind: 'skincare',
+    unit: 'pump',
+    slug: URIAGE_PRODUCT_SLUGS.URIAGE_XEMOSE_C8_PLUS_CORPS,
+    totalAmount: 200,
+    amountUnit: 'ml',
+    priceCents: 1234,
+    description:
+      'Crème relipidante anti-grattage 48h pour visage et corps, peaux très sèches à tendance atopique (dès la naissance).',
+    notes:
+      'Texture fraîche légère, absorption rapide non grasse. 8 céramides + 10% karité, anti-démangeaisons et anti-rechute.',
+    inci: 'AQUA (WATER, EAU) • BUTYROSPERMUM PARKII (SHEA) BUTTER • ETHYLHEXYL PALMITATE • OCTYLDODECANOL • DICAPRYLYL ETHER • GLYCERIN • POLYSORBATE 60 • BEHENYL ALCOHOL • PROPANEDIOL • SQUALANE • GLYCERYL STEARATE • PEG-100 STEARATE • ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER • CHLORPHENESIN • TOCOPHERYL ACETATE • PIROCTONE OLAMINE • XANTHAN GUM • CETRIMONIUM BROMIDE • o-CYMEN-5-OL • SAFFLOWER OIL/PALM OIL AMINOPROPANEDIOL ESTERS • SODIUM HYDROXIDE • BORAGE SEED OIL AMINOPROPANEDIOL AMIDES • POLYGLYCERYL-10 STEARATE • ASIATICOSIDE • PHYTOSPHINGOSINE • TRIETHYL CITRATE • TOCOPHEROL • POLYGLYCERYL-6 BEHENATE • BEHENIC ACID • CERAMIDE NP • CETEARYL ALCOHOL • CHOLESTEROL • LACTIC ACID • CERAMIDE NS • CERAMIDE EOP • CERAMIDE AP • SODIUM CETEARYL SULFATE',
+    url: 'https://www.uriage.fr',
+  },
   {
     name: 'Xémose C8+ Soin Visage Nourrissant Apaisant',
     brand: 'Uriage',

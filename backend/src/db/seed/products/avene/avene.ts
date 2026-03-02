@@ -1,48 +1,116 @@
 export const AVENE_PRODUCT_SLUGS = {
-  AVENE_TOLERANCE_CONTROL_CREME: 'avene-tolerance-control-creme',
-  AVENE_XERACALM_AD_BAUME: 'avene-xeracalm-ad-baume-relipidant',
-  AVENE_XERACALM_HUILE_LAVANTE: 'avene-xeracalm-huile-lavante',
-  AVENE_ROSAMED: 'avene-antirougeurs-rosamed',
-  AVENE_CLEANANCE_SPF50: 'avene-solaire-cleanance-solaire-spf50-plus',
-  AVENE_SUNSIMED_KA_SPF50: 'avene-solaire-sunsimed-ka-spf50-plus',
-  AVENE_TEINTEE_ANTI_LUMIERE_BLEUE_SPF50:
-    'avene-solaires-creme-teinte-anti-lumiere-bleue-spf50-plus',
-  AVENE_ULTRA_FLUID_OIL_CONTROL_SPF50: 'avene-ultra-fluid-oil-control-spf50',
-  AVENE_ULTRA_FLUID_ECLAT_RADIANCE_SPF50: 'avene-ultra-fluid-eclat-radiance-spf50-plus',
-  AVENE_ULTRA_FLUID_PERFECTEUR_SPF50: 'avene-ultra-fluid-perfecteur-spf50-plus',
-  AVENE_FLUIDE_ANTI_IMPERFECTION_SPF50: 'avene-fluide-anti-imperfection-spf50',
-  AVENE_CLEANANCE_COMEDOMED_SERUM_INTENSIF: 'avene-cleanance-comedomed-serum-intensif',
-  AVENE_HYALURON_ACTIV_PROCEDURE_CREME_LIFTING: 'avene-hyaluron-activ-procedure-creme-lifting',
-  AVENE_XERACALM_AD_CREME_RELIPIDANTE: 'avene-xeracalm-ad-creme-relipidante',
+  // --- 1. HYGIÈNE & EAU THERMALE ---
+  AVENE_THERMAL_SPRING_WATER: 'avene-eau-thermale',
   AVENE_CLEANANCE_GEL_NETTOYANT: 'avene-cleanance-gel-nettoyant',
+  AVENE_XERACALM_HUILE_LAVANTE: 'avene-xeracalm-huile-lavante',
+
+  // --- 2. SOINS APAISANTS & RÉPARATEURS ---
+  AVENE_CICALFATE_CREME_REPARATRICE: 'avene-cicalfate-creme-reparatrice',
+  AVENE_TOLERANCE_CONTROL_CREME: 'avene-tolerance-control-creme',
+  AVENE_TOLERANCE_CONTROL_BAUME: 'avene-tolerance-control-baume',
+  AVENE_ROSAMED: 'avene-antirougeurs-rosamed',
+
+  // --- 3. HYDRATATION (HYDRANCE & XERACALM) ---
+  AVENE_HYDRANCE_BOOST_SERUM: 'avene-hydrance-boost-serum-hydratant',
   AVENE_HYDRANCE_RICHE_CREME_HYDRATANTE: 'avene-hydrance-riche-creme-hydratante',
   AVENE_HYDRANCE_LIGHT_CREME_HYDRATANTE: 'avene-hydrance-light-creme-hydratante',
-  AVENE_CICALFATE_CREME_REPARATRICE: 'avene-cicalfate-creme-reparatrice',
+  AVENE_XERACALM_NUTRITION_BAUME: 'avene-xeracalm-nutrition-baume-hydratant',
+  AVENE_XERACALM_AD_CREME_RELIPIDANTE: 'avene-xeracalm-ad-creme-relipidante',
+  AVENE_XERACALM_AD_BAUME: 'avene-xeracalm-ad-baume-relipidant',
+
+  // --- 4. IMPERFECTIONS (CLEANANCE) ---
+  AVENE_CLEANANCE_COMEDOMED_SERUM_INTENSIF: 'avene-cleanance-comedomed-serum-intensif',
+  AVENE_CLEANANCE_COMEDOMED_SOIN_INTENSIF_ANTI_IMPERFECTION:
+    'avene-cleanance-comedomed-soin-anti-imperfection',
+
+  // --- 5. ANTI-ÂGE & ÉCLAT ---
+  AVENE_HYALURON_ACTIV_B3_SERUM: 'avene-hyaluron-activ-b3-serum-concentre',
   AVENE_HYALURON_ACTIV_B3_CREME_REGENERATION: 'avene-hyaluron-activ-b3-creme-regeneration',
-  AVENE_XERACALM_AD_HUILE_LAVANTE_RELIPIDANTE: 'avene-xeracalm-ad-huile-lavante-relipidante',
   AVENE_VITAMIN_ACTIV_C_SERUM_ECLAT: 'avene-vitamin-activ-c-serum-eclat',
 
-  // Compléments très courants / best-sellers
-  AVENE_CICALFATE_PLUS_CREME: 'avene-cicalfate-plus-creme-reparatrice',
-  AVENE_CLEANANCE_COMEDOMED_CONCENTRE: 'avene-cleanance-comedomed-concentre',
-  AVENE_HYALURON_ACTIV_B3_SERUM: 'avene-hyaluron-activ-b3-serum-concentre',
-  AVENE_THERMAL_SPRING_WATER: 'avene-eau-thermale',
-  AVENE_TOLERANCE_CONTROL_BAUME: 'avene-tolerance-control-baume',
-  AVENE_ANTIROUGEURS_FORT_CONCENTRE: 'avene-antirougeurs-fort-concentre',
-  AVENE_HYDRANCE_BOOST_SERUM: 'avene-hydrance-boost-serum-hydratant',
-  AVENE_XERACALM_NUTRITION_BAUME: 'avene-xeracalm-nutrition-baume-hydratant',
-  AVENE_ULTRA_FLUID_INVISIBLE_SPF50: 'avene-ultra-fluid-invisible-spf50-plus',
-  AVENE_CLEANANCE_HYDRA_CREME: 'avene-cleanance-hydra-creme-apaisante',
-
-  // Nouveautés / gamme Procedure (2025-2026)
+  // --- 6. GAMME PROCEDURE (NOUVEAUTÉS 2025-2026) ---
   AVENE_HYALURON_ACTIV_PROCEDURE_SERUM_TENSEUR: 'avene-hyaluron-activ-procedure-serum-tenseur',
   AVENE_HYALURON_ACTIV_PROCEDURE_CREME_MICRO_LIFT_YEUX_LEVRES:
     'avene-hyaluron-activ-procedure-creme-micro-lift-yeux-levres',
   AVENE_HYALURON_ACTIV_PROCEDURE_CREME_LIFTING_0_1_RETINAL:
     'avene-hyaluron-activ-procedure-creme-lifting-0-1-retinal',
-}
 
+  // --- 7. PROTECTION SOLAIRE ---
+  AVENE_SUNSIMED_KA_SPF50: 'avene-solaire-sunsimed-ka-spf50-plus',
+  AVENE_CLEANANCE_SPF50: 'avene-solaire-cleanance-solaire-spf50-plus',
+  AVENE_TEINTEE_ANTI_LUMIERE_BLEUE_SPF50:
+    'avene-solaires-creme-teinte-anti-lumiere-bleue-spf50-plus',
+  AVENE_ULTRA_FLUID_INVISIBLE_SPF50: 'avene-ultra-fluid-invisible-spf50-plus',
+  AVENE_ULTRA_FLUID_OIL_CONTROL_SPF50: 'avene-ultra-fluid-oil-control-spf50',
+  AVENE_ULTRA_FLUID_ECLAT_RADIANCE_SPF50: 'avene-ultra-fluid-eclat-radiance-spf50-plus',
+  AVENE_ULTRA_FLUID_PERFECTEUR_SPF50: 'avene-ultra-fluid-perfecteur-spf50-plus',
+  AVENE_FLUIDE_ANTI_IMPERFECTION_SPF50: 'avene-fluide-anti-imperfection-spf50',
+}
 export const AVENE_PRODUCT_DATA = [
+  {
+    name: 'Hydrance BOOST Sérum concentré hydratant',
+    brand: 'Avène',
+    kind: 'skincare',
+    unit: 'dropper',
+    slug: AVENE_PRODUCT_SLUGS.AVENE_HYDRANCE_BOOST_SERUM,
+    totalAmount: 30,
+    amountUnit: 'ml',
+    priceCents: 2340,
+    description:
+      'Véritable booster intense d’hydratation du visage qui rétablit l’équilibre des peaux sensibles déshydratées pendant 48H.',
+    notes:
+      '96% d’ingrédients d’origine naturelle. Enrichi en Acide Hyaluronique et Vitamine B3 (Niacinamide). Texture gel d’eau ultra-légère et fraîche. +132% d’hydratation immédiate.',
+    inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA). PROPANEDIOL. GLYCERIN. PENTYLENE GLYCOL. DIGLYCERIN. 1,2-HEXANEDIOL. NIACINAMIDE. SODIUM HYALURONATE. BETAINE. CITRIC ACID. FRAGRANCE (PARFUM). PCA. POLYGLYCERYL-4 CAPRATE. SCLEROTIUM GUM. SODIUM CITRATE. SODIUM HYDROXIDE. WATER (AQUA)',
+    url: 'https://www.eau-thermale-avene.fr',
+  },
+  {
+    name: 'Tolérance CONTROL Baume apaisant restaurateur',
+    brand: 'Avène',
+    kind: 'skincare',
+    unit: 'tube',
+    slug: AVENE_PRODUCT_SLUGS.AVENE_TOLERANCE_CONTROL_BAUME,
+    totalAmount: 40,
+    amountUnit: 'ml',
+    priceCents: 1765,
+    description:
+      'Baume ultra-calmant riche pour peaux hypersensibles, réactives, intolérantes ou allergiques. Calme la peau en 30 secondes.',
+    notes:
+      'Texture riche pour peaux sèches. Actif postbiotique D-Sensinose™. Sans parfum ni conservateur. Packaging Cosmétique Stérile®. Utilisable dès 2 ans.',
+    inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA). CAPRYLIC/CAPRIC TRIGLYCERIDE. GLYCERIN. CETEARYL ALCOHOL. BUTYROSPERMUM PARKII (SHEA) BUTTER (BUTYROSPERMUM PARKII BUTTER). SQUALANE. BEESWAX (CERA ALBA). CETEARYL GLUCOSIDE. CETYL ESTERS. AQUAPHILUS DOLOMIAE EXTRACT FILTRATE. ARGININE. CITRIC ACID. TROMETHAMINE. WATER (AQUA). XANTHAN GUM',
+    url: 'https://www.eau-thermale-avene.fr',
+  },
+  {
+    name: 'Hyaluron Activ B3 Sérum Concentré Repulpant',
+    brand: 'Avène',
+    kind: 'skincare',
+    unit: 'dropper',
+    slug: AVENE_PRODUCT_SLUGS.AVENE_HYALURON_ACTIV_B3_SERUM,
+    totalAmount: 30,
+    amountUnit: 'ml',
+    priceCents: 2589,
+    description:
+      'Sérum hautement concentré en acide hyaluronique pur (1,5%) et niacinamide (6%) pour agir sur la cause du vieillissement et raffermir la peau.',
+    notes:
+      'Formule minimaliste avec seulement 8 ingrédients. 94% d’origine naturelle. Effet tenseur immédiat et peau repulpée dès 4h. Sans parfum.',
+    inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA). NIACINAMIDE. GLYCERIN. PENTYLENE GLYCOL. SODIUM HYALURONATE. ADENOSINE. CITRIC ACID. SODIUM BENZOATE.',
+    url: 'https://www.eau-thermale-avene.fr',
+  },
+  {
+    name: 'Cleanance Comedomed+ Soin Intensif Anti-Imperfections',
+    brand: 'Avène',
+    kind: 'skincare',
+    unit: 'pump',
+    slug: AVENE_PRODUCT_SLUGS.AVENE_CLEANANCE_COMEDOMED_SOIN_INTENSIF_ANTI_IMPERFECTION,
+    totalAmount: 30,
+    amountUnit: 'ml',
+    priceCents: 1450,
+    description:
+      'Soin intensif nouvelle génération ciblant les boutons, points noirs et marques dès la racine avec une action anti-récidive 1 an.',
+    notes:
+      'Contient 25% de Comedoclastin™ et 4% de Niacinamide. Efficacité visible dès 5h. Texture gel-crème légère, fini non gras. Utilisable dès 9 ans.',
+    inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA). ISOPROPYL ALCOHOL. PEG-6. GLYCERIN. NIACINAMIDE. SILYBUM MARIANUM FRUIT EXTRACT. SILICA. POLYACRYLATE-13. POLYISOBUTENE. POLYSORBATE 20. SORBITAN ISOSTEARATE. WATER (AQUA)',
+    url: 'https://www.eau-thermale-avene.fr',
+  },
   {
     name: 'Cleanance Comedomed Sérum Intensif',
     brand: 'Avène',
@@ -60,19 +128,98 @@ export const AVENE_PRODUCT_DATA = [
     url: 'https://www.eau-thermale-avene.fr',
   },
   {
-    name: 'Hyaluron Activ Procedure Crème Lifting',
+    name: 'Ultra Fluid Invisible SPF50',
+    brand: 'Avène',
+    kind: 'skincare',
+    unit: 'bottle',
+    slug: AVENE_PRODUCT_SLUGS.AVENE_ULTRA_FLUID_INVISIBLE_SPF50,
+    totalAmount: 50,
+    amountUnit: 'ml',
+    priceCents: 1389,
+    description:
+      'Haute protection solaire quotidienne à la texture ultra fluide, aussi légère que de l’eau. Fini 100% invisible et non collant.',
+    notes:
+      'Technologie [waterlike]. Protège contre les UVA, UVB et la lumière bleue (TriasorB). Sans parfum. Excellente base de maquillage.',
+    inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA). C12-15 ALKYL BENZOATE. DICAPRYLYL CARBONATE. DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE. WATER (AQUA). DIISOPROPYL ADIPATE. ETHYLHEXYL TRIAZONE. ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH). PHENYLENE BIS-DIPHENYLTRIAZINE. BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE. POTASSIUM CETYL PHOSPHATE. C9-12 ALKANE. LAURYL GLUCOSIDE. POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE. GLYCERIN. TAPIOCA STARCH. TRIMETHYLPENTANEDIOL/ADIPIC ACID/GLYCERIN CROSSPOLYMER. BENZOIC ACID. CAPRYLIC/CAPRIC TRIGLYCERIDE. CAPRYLYL GLYCOL. CITRIC ACID. COCO-CAPRYLATE/CAPRATE. GLYCERYL LAURATE. GLYCINE SOJA (SOYBEAN) OIL (GLYCINE SOJA OIL). LENS ESCULENTA (LENTIL) SEED EXTRACT (LENS ESCULENTA SEED EXTRACT). PENTYLENE GLYCOL. PPG-1-PEG-9 LAURYL GLYCOL ETHER. RED 33 (CI 17200). SODIUM BENZOATE. SODIUM PHYTATE. TOCOPHEROL. TOCOPHERYL GLUCOSIDE. XANTHAN GUM',
+    url: 'https://www.eau-thermale-avene.fr',
+  },
+  {
+    name: 'XeraCalm Nutrition Baume Hydratant',
     brand: 'Avène',
     kind: 'skincare',
     unit: 'pump',
-    slug: AVENE_PRODUCT_SLUGS.AVENE_HYALURON_ACTIV_PROCEDURE_CREME_LIFTING,
+    slug: AVENE_PRODUCT_SLUGS.AVENE_XERACALM_NUTRITION_BAUME,
+    totalAmount: 400,
+    amountUnit: 'ml',
+    priceCents: 1990,
+    description:
+      'Soin quotidien haute tolérance pour peaux sèches à très sèches de toute la famille. Nourrit, hydrate et renforce la barrière cutanée.',
+    notes:
+      '95% d’ingrédients d’origine naturelle. Formule enrichie en huile de Chardon-Marie et Niacinamide.',
+    inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA). GLYCERIN. CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL (CARTHAMUS TINCTORIUS SEED OIL). PENTAERYTHRITYL TETRACAPRYLATE/TETRACAPRATE. POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE. ISOPROPYL PALMITATE. NIACINAMIDE. BEHENYL ALCOHOL. BENZOIC ACID. CAPRYLYL GLYCOL. HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL). HYDROXYETHYLCELLULOSE. LAURYL GLUCOSIDE. SILYBUM MARIANUM SEED OIL. SODIUM CITRATE. SODIUM LAURYL GLUCOSE CARBOXYLATE. SODIUM STEAROYL GLUTAMATE. SORBIC ACID. TOCOPHEROL. WATER (AQUA). XANTHAN GUM',
+    url: 'https://www.eau-thermale-avene.fr',
+  },
+  {
+    name: 'Hyaluron Activ Procedure Crème Micro-Lift Yeux & Lèvres',
+    brand: 'Avène',
+    kind: 'skincare',
+    unit: 'tube',
+    slug: AVENE_PRODUCT_SLUGS.AVENE_HYALURON_ACTIV_PROCEDURE_CREME_MICRO_LIFT_YEUX_LEVRES,
+    totalAmount: 15,
+    amountUnit: 'ml',
+    priceCents: 3099,
+    description:
+      'Soin anti-âge spécifique pour le contour des yeux et des lèvres qui cible et réduit les rides et les ridules.',
+    notes: 'Contient 0.05% de Rétinal. Action micro-lift ciblée.',
+    inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA). CAPRYLIC/CAPRIC TRIGLYCERIDE. GLYCERIN. SQUALANE. BUTYROSPERMUM PARKII (SHEA) BUTTER (BUTYROSPERMUM PARKII BUTTER). CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL (CARTHAMUS TINCTORIUS SEED OIL). PENTAERYTHRITYL TETRACAPRYLATE/TETRACAPRATE. CETEARYL ALCOHOL. BEHENYL ALCOHOL. NIACINAMIDE. C20-22 ALKYL PHOSPHATE. C20-22 ALCOHOLS. ACACIA SENEGAL GUM. CETEARYL GLUCOSIDE. HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL). RETINAL. SODIUM BENZOATE. SODIUM HYALURONATE. SODIUM HYDROXIDE. TOCOPHEROL. TOCOPHERYL GLUCOSIDE. XANTHAN GUM',
+    url: 'https://www.eau-thermale-avene.fr',
+  },
+  {
+    name: 'Spray d’Eau Thermale Avène',
+    brand: 'Avène',
+    kind: 'skincare',
+    unit: 'aerosol',
+    slug: AVENE_PRODUCT_SLUGS.AVENE_THERMAL_SPRING_WATER,
+    totalAmount: 300,
+    amountUnit: 'ml',
+    priceCents: 769,
+    description:
+      "Spray apaisant, fortifiant et rééquilibrant pour un confort immédiat. Diffuse une brume qui soulage les sensations d'inconfort sans dessécher la peau.",
+    notes:
+      'Convient à toute la famille (dès 0 mois). Idéal pour irritations, post-acte, rougeurs ou simplement pour se rafraîchir. Diminue la sensibilité cutanée de 64% dès la première semaine.',
+    inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA). NITROGEN',
+    url: 'https://www.eau-thermale-avene.fr',
+  },
+  {
+    name: 'Hyaluron Activ Procedure Crème Lifting 0.1% Rétinal',
+    brand: 'Avène',
+    kind: 'skincare',
+    unit: 'pump',
+    slug: AVENE_PRODUCT_SLUGS.AVENE_HYALURON_ACTIV_PROCEDURE_CREME_LIFTING_0_1_RETINAL,
     totalAmount: 30,
     amountUnit: 'ml',
-    priceCents: 5355,
+    priceCents: 4317,
     description:
-      'Crème lifting anti-rides avec rétinal, acide hyaluronique et niacinamide pour réhausser les traits et stimuler les cellules cutanées.',
-    notes: '0.1% rétinal. 2% niacinamide. Innovation dermo-esthétique. Testée sur tous phototypes.',
-    inci: 'AQUA/WATER, CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, SQUALANE, BUTYROSPERMUM PARKII (SHEA) BUTTER, CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL, PENTAERYTHRITYL TETRACAPRYLATE/TETRACAPRATE, CETEARYL ALCOHOL, BEHENYL ALCOHOL, NIACINAMIDE, C20-22 ALKYL PHOSPHATE, C20-22 ALCOHOLS, ACACIA SENEGAL GUM, ADENOSINE, CETEARYL GLUCOSIDE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, RETINAL, SODIUM BENZOATE, SODIUM HYALURONATE, SODIUM HYDROXIDE, TERMINALIA CHEBULA FRUIT EXTRACT, TOCOPHEROL, TOCOPHERYL GLUCOSIDE, XANTHAN GUM',
-    url: 'https://www.eau-thermale-avene.fr',
+      "Crème anti-rides et liftante haute performance. Améliore l'éclat de la peau et réduit les rides grâce à une concentration de 0.1% en rétinal.",
+    notes:
+      'Texture crème de couleur jaune (ne colore pas la peau). Très appréciée pour sa tolérance sur peaux sensibles malgré la puissance du rétinal.',
+    inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA). CAPRYLIC/CAPRIC TRIGLYCERIDE. GLYCERIN. SQUALANE. BUTYROSPERMUM PARKII (SHEA) BUTTER (BUTYROSPERMUM PARKII BUTTER). CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL (CARTHAMUS TINCTORIUS SEED OIL). PENTAERYTHRITYL TETRACAPRYLATE/TETRACAPRATE. CETEARYL ALCOHOL. BEHENYL ALCOHOL. NIACINAMIDE. C20-22 ALKYL PHOSPHATE. C20-22 ALCOHOLS. ACACIA SENEGAL GUM. ADENOSINE. CETEARYL GLUCOSIDE. HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL). RETINAL. SODIUM BENZOATE. SODIUM HYALURONATE. SODIUM HYDROXIDE. TERMINALIA CHEBULA FRUIT EXTRACT. TOCOPHEROL. TOCOPHERYL GLUCOSIDE. XANTHAN GUM',
+    url: 'https://www.atida.fr',
+  },
+  {
+    name: 'Hyaluron Activ Procedure Sérum Tenseur',
+    brand: 'Avène',
+    kind: 'skincare',
+    unit: 'dropper',
+    slug: AVENE_PRODUCT_SLUGS.AVENE_HYALURON_ACTIV_PROCEDURE_SERUM_TENSEUR,
+    totalAmount: 30,
+    amountUnit: 'ml',
+    priceCents: 4499,
+    description:
+      "Sérum concentré à effet tenseur immédiat formulé avec une solution de 10% d'Hexapeptide.",
+    notes: 'Innovation de la gamme Procedure pour un effet lifting renforcé.',
+    inci: '', // Non spécifié dans l'extrait
+    url: 'https://www.atida.fr',
   },
   {
     name: 'XeraCalm A.D Crème Relipidante',
@@ -169,10 +316,10 @@ export const AVENE_PRODUCT_DATA = [
     brand: 'Avène',
     kind: 'skincare',
     unit: 'pump',
-    slug: AVENE_PRODUCT_SLUGS.AVENE_XERACALM_AD_HUILE_LAVANTE_RELIPIDANTE,
-    totalAmount: 400,
+    slug: AVENE_PRODUCT_SLUGS.AVENE_XERACALM_HUILE_LAVANTE,
+    totalAmount: 750,
     amountUnit: 'ml',
-    priceCents: 1475,
+    priceCents: 1800,
     description:
       "Huile lavante relipidante pour peaux très sèches sujettes à l'eczéma atopique et démangeaisons, nettoie en douceur et apaise.",
     notes:
@@ -317,7 +464,7 @@ export const AVENE_PRODUCT_DATA = [
     slug: AVENE_PRODUCT_SLUGS.AVENE_TOLERANCE_CONTROL_CREME,
     totalAmount: 40,
     amountUnit: 'ml',
-    priceCents: 0,
+    priceCents: 1400,
     description:
       'Crème apaisante restauratrice haute tolérance pour peaux hypersensibles, intolérantes ou allergiques.',
     notes: 'Occlusion 7/10. Texture crème légère. D-Sensinose™ postbiotique ultra-calmante.',
@@ -330,9 +477,9 @@ export const AVENE_PRODUCT_DATA = [
     kind: 'skincare',
     unit: 'pump',
     slug: AVENE_PRODUCT_SLUGS.AVENE_XERACALM_AD_BAUME,
-    totalAmount: 200,
+    totalAmount: 400,
     amountUnit: 'ml',
-    priceCents: 0,
+    priceCents: 1800,
     description:
       'Baume relipidant très riche pour peaux très sèches à tendance atopique, dès la naissance.',
     notes:

@@ -1,52 +1,74 @@
-// import {  } from './anua/anua-ingredients-tags'
-// import { AROMAZONE_INGREDIENTS_TAGS } from './aromaZone/aromaZone-ingredients-tags'
-// import { AZELAIQUE_INGREDIENTS_TAGS } from './azelaique/azelaique-ingredients-tags'
-// import { BOJ_INGREDIENTS_TAGS } from './beautyOfJoseon/beautyOfJoseon-ingredients-tags'
-// import { CERAVE_INGREDIENTS_TAGS } from './cerave/cerave-ingredients-tags'
-// import { COLIBRI_INGREDIENTS_TAGS } from './colibri/colibri-ingredients-tags'
-// import { CORPS_INGREDIENTS_TAGS } from './corps/corps-ingredients-tags'
-// import { COSRX_INGREDIENTS_TAGS } from './cosrx/cosrx-ingredients-tags'
-// import { DR_IDRISS_INGREDIENTS_TAGS } from './drIdriss/drIdriss-ingredients-tags'
-// import { DR_SAM_INGREDIENTS_TAGS } from './drSam/drSam-ingredients-tags'
-// import { GG_INGREDIENTS_TAGS } from './geekAndGorgeous/geekAndGorgeous-ingredients-tags'
-// import {  } from './koreanSkincare/koreanSkincare-ingredients-tags'
-// import { MAD_ABOUT_SKIN_INGREDIENTS_TAGS } from './madAboutSkin/madAboutSkin-ingredients-tags'
-// import { MIXA_INGREDIENTS_TAGS } from './mixa/mixa-ingredients-tags'
-// import { PREQUEL_INGREDIENTS_TAGS } from './prequel/prequel-ingredients-tags'
-// import { REMEDY_INGREDIENTS_TAGS } from './remedy/remedy-ingredients-tags'
-// import { SEPHORA_INGREDIENTS_TAGS } from './sephora/sephora-ingredient-tags'
-// import { SERUMS_PEPTIDES_INGREDIENTS_TAGS } from './serums-peptides/serums-peptides-ingredients-tags'
-// import { SKIN1004_INGREDIENTS_TAGS } from './skin1004/skin1004-ingredients-tags'
-// import { SOLAIRE_INGREDIENTS_TAGS } from './solaires/solaires-ingredients-tags'
-// import { TO_INGREDIENTS_TAGS } from './theOrdinary/theOrdinary-ingredients-tags'
-// import { THERAMID_INGREDIENTS_TAGS } from './theramid/theramid-ingredients-tags'
-// import { TONERS_INGREDIENTS_TAGS } from './toners/toners-ingredients-tags'
-// import { VICHY_INGREDIENTS_TAGS } from './vichy/vichy-ingredients-tags'
+import { ADERMA_INGREDIENTS_MAP } from './aDerma/aDerma-ingredients-tags'
+import { ANTI_ROUGEURS_INGREDIENTS_MAP } from './anti-rougeurs/anti-rougeurs-ingredients-tags'
+import { ANUA_INGREDIENTS_MAP } from './anua/anua-ingredients-tags'
+import { AZ_INGREDIENTS_MAP } from './aromaZone/aromaZone-ingredients-tags'
+import { AVENE_INGREDIENTS_MAP } from './avene/avene-ingredients-tags'
+import { AZELAIQUE_INGREDIENTS_MAP } from './azelaique/azelaique-ingredients-tags'
+import { BOJ_INGREDIENTS_MAP } from './beautyOfJoseon/beautyOfJoseon-ingredients-tags'
+import { BIODERMA_INGREDIENTS_MAP } from './bioderma/bioderma-ingredients-tags'
+import { COLIBRI_INGREDIENTS_MAP } from './colibri/colibri-ingredients-tags'
+import { CORPS_INGREDIENTS_MAP } from './corps/corps-ingredients-tags'
+import { CYLA_INGREDIENTS_MAP } from './cyla/cyla-ingredients-tags'
+import { GARANCIA_INGREDIENTS_MAP } from './garancia/garancia-ingredients-tags'
+import { GG_INGREDIENTS_MAP } from './geekAndGorgeous/geekAndGorgeous-ingredients-tags'
+import { ISISPHARMA_INGREDIENTS_MAP } from './isispharma/isispharma-ingredients-tags'
+import { KOREAN_INGREDIENTS_MAP } from './koreanSkincare/koreanSkincare-ingredients-tags'
+import { LABBIARRITZ_INGREDIENTS_MAP } from './labBiarritz/labBiarritz-ingredients-tags'
+import { LRP_INGREDIENTS_MAP } from './laRochePosay/laRochePosay-ingredients-tags'
+import { MAD_ABOUT_SKIN_INGREDIENTS_MAP } from './madAboutSkin/madAboutSkin-ingredients-tags'
+import { MEMECANCER_INGREDIENTS_MAP } from './memeCancer/memeCancer-ingredients-tags'
+import { MIXA_INGREDIENTS_MAP } from './mixa/mixa-ingredients-tags'
+import { SEPHORA_INGREDIENTS_MAP } from './sephora/sephora-ingredient-tags'
+import { SERUMS_PEPTIDES_INGREDIENTS_MAP } from './serums-peptides/serums-peptides-ingredients-tags'
+import { SKIN1004_INGREDIENTS_MAP } from './skin1004/skin1004-ingredients-tags'
+import { SOLAIRES_INGREDIENTS_MAP } from './solaires/solaires-ingredients-tags'
+import { SVR_INGREDIENTS_MAP } from './svr/svr-ingredients-tags'
+import { TO_INGREDIENTS_MAP } from './theOrdinary/theOrdinary-ingredients-tags'
+import { THERAMID_INGREDIENTS_MAP } from './theramid/theramid-ingredients-tags'
+import { TONERS_INGREDIENTS_MAP } from './toners/toners-ingredients-tags'
+import { URIAGE_INGREDIENTS_MAP } from './uriage/uriage-ingredients-tags'
 
-import { ADERMA_PRODUCT_INGREDIENTS } from './aDerma/aDerma-ingredients-tags'
-import { AR_PRODUCT_INGREDIENTS } from './anti-rougeurs/anti-rougeurs-ingredients-tags'
-import { AVENE_PRODUCT_INGREDIENTS } from './avene/avene-ingredients-tags'
-import { BIODERMA_PRODUCT_INGREDIENTS } from './bioderma/bioderma-ingredients-tags'
-import { CYLA_INGREDIENTS_PRODUCT } from './cyla/cyla-ingredients-tags'
-import { GARANCIA_PRODUCT_INGREDIENTS } from './garancia/garancia-ingredients-tags'
-import { ISISPHARMA_PRODUCT_INGREDIENTS } from './isispharma/isispharma-ingredients-tags'
-import { LAB_BIARRITZ_PRODUCT_INGREDIENTS } from './labBiarritz/labBiarritz-ingredients-tags'
-import { LRP_PRODUCT_INGREDIENTS } from './laRochePosay/laRochePosay-ingredients-tags'
-import { MEME_PRODUCT_INGREDIENTS } from './memeCancer/memeCancer-ingredients-tags'
-import { SVR_PRODUCT_INGREDIENTS } from './svr/svr-ingredients-tags'
-import { URIAGE_PRODUCT_INGREDIENTS } from './uriage/uriage-ingredients-tags'
-
-export const allIngredientProductTags = [
-  ...URIAGE_PRODUCT_INGREDIENTS,
-  ...SVR_PRODUCT_INGREDIENTS,
-  ...LAB_BIARRITZ_PRODUCT_INGREDIENTS,
-  ...CYLA_INGREDIENTS_PRODUCT,
-  ...GARANCIA_PRODUCT_INGREDIENTS,
-  ...ISISPHARMA_PRODUCT_INGREDIENTS,
-  ...LRP_PRODUCT_INGREDIENTS,
-  ...MEME_PRODUCT_INGREDIENTS,
-  ...AVENE_PRODUCT_INGREDIENTS,
-  ...AR_PRODUCT_INGREDIENTS,
-  ...ADERMA_PRODUCT_INGREDIENTS,
-  ...BIODERMA_PRODUCT_INGREDIENTS,
-] as const
+export const ALL_PRODUCT_INGREDIENTS_MAP = {
+  ...ADERMA_INGREDIENTS_MAP,
+  ...ANTI_ROUGEURS_INGREDIENTS_MAP,
+  ...ANUA_INGREDIENTS_MAP,
+  ...AVENE_INGREDIENTS_MAP,
+  ...AZELAIQUE_INGREDIENTS_MAP,
+  ...AZ_INGREDIENTS_MAP,
+  ...BIODERMA_INGREDIENTS_MAP,
+  ...BOJ_INGREDIENTS_MAP,
+  ...COLIBRI_INGREDIENTS_MAP,
+  ...CORPS_INGREDIENTS_MAP,
+  ...CYLA_INGREDIENTS_MAP,
+  ...GARANCIA_INGREDIENTS_MAP,
+  ...GG_INGREDIENTS_MAP,
+  ...ISISPHARMA_INGREDIENTS_MAP,
+  ...KOREAN_INGREDIENTS_MAP,
+  ...LABBIARRITZ_INGREDIENTS_MAP,
+  ...LRP_INGREDIENTS_MAP,
+  ...MAD_ABOUT_SKIN_INGREDIENTS_MAP,
+  ...MEMECANCER_INGREDIENTS_MAP,
+  ...MIXA_INGREDIENTS_MAP,
+  ...SERUMS_PEPTIDES_INGREDIENTS_MAP,
+  ...SKIN1004_INGREDIENTS_MAP,
+  ...SOLAIRES_INGREDIENTS_MAP,
+  ...SVR_INGREDIENTS_MAP,
+  ...THERAMID_INGREDIENTS_MAP,
+  ...TONERS_INGREDIENTS_MAP,
+  ...TO_INGREDIENTS_MAP,
+  ...URIAGE_INGREDIENTS_MAP,
+  ...SEPHORA_INGREDIENTS_MAP,
+}
+/**
+ * Version aplatie pour le seeding de la base de données
+ */
+export const allIngredientProductTags = Object.entries(ALL_PRODUCT_INGREDIENTS_MAP).flatMap(
+  ([productSlug, ingredients]) =>
+    ingredients.map((ing: any) => ({
+      productSlug,
+      ingredientSlug: ing.slug,
+      concentrationValue: ing.value || null,
+      concentrationUnit: ing.unit || null,
+      notes: ing.notes || '',
+    }))
+)

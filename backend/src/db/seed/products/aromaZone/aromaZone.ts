@@ -53,4 +53,20 @@ export const AZ_PRODUCT_DATA = [
     inci: 'SQUALANE, ISOSORBIDE DICAPRYLATE, BAKUCHIOL',
     url: 'https://www.aroma-zone.com',
   },
+  {
+    name: "Sérum concentré d'Acide hyaluronique 3,5%",
+    brand: 'Aroma-Zone',
+    kind: 'skincare',
+    unit: 'dropper',
+    slug: AZ_PRODUCT_SLUGS.AZ_SERUM_HYALURONIQUE_3_5,
+    totalAmount: 30,
+    amountUnit: 'ml',
+    priceCents: 595,
+    description:
+      "Ce sérum 100% d'origine naturelle est l'un des plus concentrés du marché (3,5%). Il est reconnu pour lisser, hydrater et repulper la peau tout en comblant les rides.",
+    notes:
+      "Note: 4.6/5. Sans alcool. Contient de l'acide hyaluronique de différents poids moléculaires (5 kDa à 1800 kDa). Peut aussi s'utiliser sur les cheveux secs. Certifié COSMOS NATURAL.",
+    inci: 'Aqua, Sodium hyaluronate, Salix nigra bark extract, Glycerin.',
+    url: 'https://www.aroma-zone.com',
+  },
 ]

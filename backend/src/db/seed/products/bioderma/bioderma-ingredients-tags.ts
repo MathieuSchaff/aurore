@@ -1,497 +1,365 @@
-import { INGREDIENT_SLUGS } from '../../ingredients/seed-ingredients'
-import { BIODERMA_PRODUCT_SLUGS } from './bioderma'
+import { INGREDIENT_SLUGS } from '../../ingredients/ingredient-slugs'
+import { allProductSlugs } from '../products-slugs'
+export const BIODERMA_INGREDIENTS_MAP: Record<string, any[]> = {
+  [allProductSlugs.BIODERMA_ATODERM_CREME_ULTRA]: [
+    {
+      slug: INGREDIENT_SLUGS.NIACINAMIDE,
+      notes: 'Renforce la barrière et apaise',
+    },
+    {
+      slug: INGREDIENT_SLUGS.GLYCERIN,
+      notes: 'Humectant',
+    },
+    {
+      slug: INGREDIENT_SLUGS.RHAMNOSE,
+      notes: 'Polysaccharide prébiotique microbiome',
+    },
+    {
+      slug: INGREDIENT_SLUGS.TOCOPHEROL,
+      notes: 'Vitamine E antioxydante',
+    },
+  ],
 
-export const BIODERMA_PRODUCT_INGREDIENTS = [
-  // Atoderm Huile de douche
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_ATODERM_HUILE_DOUCHE,
-    ingredientSlug: INGREDIENT_SLUGS.NIACINAMIDE,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Relipidant',
-  },
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_ATODERM_HUILE_DOUCHE,
-    ingredientSlug: INGREDIENT_SLUGS.GLYCERIN,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Agent hydratant',
-  },
+  [allProductSlugs.BIODERMA_ATODERM_PP_BAUME]: [
+    {
+      slug: INGREDIENT_SLUGS.NIACINAMIDE,
+      notes: 'Régule sébum et apaise',
+    },
+    {
+      slug: INGREDIENT_SLUGS.DIMETHICONE,
+      notes: 'Film occlusif protecteur',
+    },
+    {
+      slug: INGREDIENT_SLUGS.RHAMNOSE,
+      notes: 'Prébiotique microbiome',
+    },
+    {
+      slug: INGREDIENT_SLUGS.GLYCERIN,
+      notes: 'Humectant',
+    },
+  ],
 
-  // Créaline Huile micellaire
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CREALINE_HUILE_MICELLAIRE,
-    ingredientSlug: INGREDIENT_SLUGS.SODIUM_PCA,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Aide à la synthèse des lipides',
-  },
-  // {
-  //   productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CREALINE_HUILE_MICELLAIRE,
-  //   ingredientSlug: INGREDIENT_SLUGS.OMEGA_3_6,
-  //   concentrationValue: null,
-  //   concentrationUnit: null,
-  //   concentrationPer: null,
-  //   notes: 'Nourrissant',
-  // },
+  [allProductSlugs.BIODERMA_CREALINE_DEFENSIVE_LEGERE]: [
+    {
+      slug: INGREDIENT_SLUGS.SQUALANE,
+      notes: 'Lipide émollient biomimétique',
+    },
+    {
+      slug: INGREDIENT_SLUGS.CARNOSINE, // à créer si absent
+      notes: 'Dipeptide antioxydant — Technologie Défensive',
+    },
+    {
+      slug: INGREDIENT_SLUGS.TOCOPHEROL,
+      notes: 'Vitamine E antioxydante',
+    },
+    {
+      slug: INGREDIENT_SLUGS.RHAMNOSE,
+      notes: 'Prébiotique microbiome',
+    },
+    {
+      slug: INGREDIENT_SLUGS.PALMITOYL_TETRAPEPTIDE_7, // = PALMITOYL_TETRAPEPTIDE-10 ici
+      notes: 'Peptide anti-inflammatoire et restructurant',
+    },
+  ],
 
-  // Photoderm XDEFENSE
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_PHOTODERM_XDEFENSE_SPF50,
-    ingredientSlug: INGREDIENT_SLUGS.ECTOIN,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Action détoxifiante',
-  },
+  [allProductSlugs.BIODERMA_SENSIBIO_AR]: [
+    {
+      slug: INGREDIENT_SLUGS.REGLISSE, // à créer si absent
+      notes: 'Acide glycyrrhétinique anti-rougeurs',
+    },
+    {
+      slug: INGREDIENT_SLUGS.PHYTOSPHINGOSINE,
+      notes: 'Lipide barrière anti-inflammatoire',
+    },
+    {
+      slug: INGREDIENT_SLUGS.SQUALANE,
+      notes: 'Lipide occlusif apaisant',
+    },
+    {
+      slug: INGREDIENT_SLUGS.RHAMNOSE,
+      notes: 'Prébiotique microbiome',
+    },
+  ],
+  [allProductSlugs.BIODERMA_ATODERM_HUILE_DOUCHE]: [
+    {
+      slug: INGREDIENT_SLUGS.NIACINAMIDE,
+      notes: 'Relipidant',
+    },
+    {
+      slug: INGREDIENT_SLUGS.GLYCERIN,
+      notes: 'Agent hydratant',
+    },
+  ],
+  [allProductSlugs.BIODERMA_CREALINE_HUILE_MICELLAIRE]: [
+    {
+      slug: INGREDIENT_SLUGS.SODIUM_PCA,
+      notes: 'Aide à la synthèse des lipides',
+    },
+  ],
+  [allProductSlugs.BIODERMA_PHOTODERM_XDEFENSE_SPF50]: [
+    {
+      slug: INGREDIENT_SLUGS.ECTOIN,
+      notes: 'Action détoxifiante',
+    },
+  ],
+  [allProductSlugs.BIODERMA_CREALINE_H2O]: [
+    {
+      slug: INGREDIENT_SLUGS.RHAMNOSE,
+      notes: 'Complexe D.A.F.',
+    },
+  ],
+  [allProductSlugs.BIODERMA_CICABIO_CREME]: [
+    {
+      slug: INGREDIENT_SLUGS.COPPER_SULFATE,
+      notes: 'Complexe cuivre-zinc',
+    },
+    {
+      slug: INGREDIENT_SLUGS.ZINC_SULFATE,
+      notes: 'Complexe cuivre-zinc',
+    },
+    {
+      slug: INGREDIENT_SLUGS.ACETYL_DIPEPTIDE_1_CETYL_ESTER,
+      notes: 'Technologie Antalgicine',
+    },
+  ],
+  [allProductSlugs.BIODERMA_SEBIUM_GEL_MOUSSANT]: [
+    {
+      slug: INGREDIENT_SLUGS.ZINC_SULFATE,
+      notes: 'Régulateur de sébum',
+    },
+    {
+      slug: INGREDIENT_SLUGS.COPPER_SULFATE,
+      notes: 'Régulateur de sébum',
+    },
+  ],
+  [allProductSlugs.BIODERMA_ATODERM_INTENSIVE_GEL_CREME]: [
+    {
+      slug: INGREDIENT_SLUGS.NIACINAMIDE,
+      notes: 'Stimule la production de lipides',
+    },
+    {
+      slug: INGREDIENT_SLUGS.REGLISSE,
+      notes: 'Apaise et réduit le grattage',
+    },
+  ],
+  [allProductSlugs.BIODERMA_ATODERM_INTENSIVE_EYE]: [
+    {
+      slug: INGREDIENT_SLUGS.REGLISSE,
+      notes: 'Enoxolone apaisante',
+    },
+    {
+      slug: INGREDIENT_SLUGS.CERAMIDE_NP,
+      notes: 'Complexe Lipigenium',
+    },
+  ],
+  [allProductSlugs.BIODERMA_ATODERM_INTENSIVE_BAUME]: [
+    {
+      slug: INGREDIENT_SLUGS.PALMITAMIDE_MEA,
+      notes: 'Actif PEA apaisant',
+    },
+    {
+      slug: INGREDIENT_SLUGS.CERAMIDE_NP,
+      notes: 'Lipides biomimétiques Lipigenium',
+    },
+  ],
+  [allProductSlugs.BIODERMA_PIGMENTBIO_SENSITIVE_AREAS]: [
+    {
+      slug: INGREDIENT_SLUGS.AZELAIC_ACID,
+      notes: 'Efficacité éclaircissante',
+    },
+  ],
+  [allProductSlugs.BIODERMA_SEBIUM_KERATO_PLUS]: [
+    {
+      slug: INGREDIENT_SLUGS.SALICYLIC_ACID,
+      value: 1.8,
+      unit: '%',
+      notes: 'BHA exfoliant',
+    },
+    {
+      slug: INGREDIENT_SLUGS.MALIC_ACID_ESTER,
+      value: 10,
+      unit: '%',
+      notes: "Ester d'acide malique (AHA)",
+    },
+  ],
+  [allProductSlugs.BIODERMA_SEBIUM_HYDRA_CLEANSER]: [
+    {
+      slug: INGREDIENT_SLUGS.SHEA_BUTTER,
+      notes: 'Huile de karité nourrissante',
+    },
+    {
+      slug: INGREDIENT_SLUGS.GLYCERIN,
+      notes: 'Humectant',
+    },
+  ],
+  [allProductSlugs.BIODERMA_SEBIUM_H2O]: [
+    {
+      slug: INGREDIENT_SLUGS.ZINC_GLUCONATE,
+      notes: 'Assainissant',
+    },
+    {
+      slug: INGREDIENT_SLUGS.COPPER_SULFATE,
+      notes: 'Assainissant',
+    },
+  ],
+  [allProductSlugs.BIODERMA_SEBIUM_HYDRA]: [
+    {
+      slug: INGREDIENT_SLUGS.CERAMIDES,
+      notes: 'Relipidant',
+    },
+    {
+      slug: INGREDIENT_SLUGS.ALLANTOIN,
+      notes: 'Apaisant',
+    },
+  ],
+  [allProductSlugs.BIODERMA_SEBIUM_SENSITIVE]: [
+    {
+      slug: INGREDIENT_SLUGS.BAKUCHIOL,
+      notes: 'Technologie Seborestore',
+    },
+    {
+      slug: INGREDIENT_SLUGS.ZINC_GLUCONATE,
+      notes: 'Séborégulateur',
+    },
+  ],
+  [allProductSlugs.BIODERMA_CICABIO_CREME_PLUS_SPF50]: [
+    {
+      slug: INGREDIENT_SLUGS.POLYGLUTAMIC_ACID,
+      notes: 'Acide polyglutamique hydratant',
+    },
+    {
+      slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE,
+      notes: 'Hydratant biomimétique',
+    },
+  ],
+  [allProductSlugs.BIODERMA_CICABIO_BAUME_LAVANT]: [
+    {
+      slug: INGREDIENT_SLUGS.ZINC_GLUCONATE,
+      notes: 'Prévient les infections',
+    },
+    {
+      slug: INGREDIENT_SLUGS.SQUALANE,
+      notes: 'Protection lipidique',
+    },
+  ],
+  [allProductSlugs.BIODERMA_CICABIO_RESTOR]: [
+    {
+      slug: INGREDIENT_SLUGS.PANTHENOL,
+      notes: 'Apaisant et réparateur',
+    },
+    {
+      slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE,
+      notes: 'Hydratation',
+    },
+  ],
+  [allProductSlugs.BIODERMA_CICABIO_ARNICA]: [
+    {
+      slug: INGREDIENT_SLUGS.ARNICA,
+      notes: "Apaise l'inconfort",
+    },
+    {
+      slug: INGREDIENT_SLUGS.ACETYL_DIPEPTIDE_1_CETYL_ESTER,
+      notes: 'Technologie Antalgicine',
+    },
+  ],
+  [allProductSlugs.BIODERMA_CICABIO_CREME_PLUS]: [
+    {
+      slug: INGREDIENT_SLUGS.POLYGLUTAMIC_ACID,
+      notes: 'Complexe Réparation optimale',
+    },
+    {
+      slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE,
+      notes: 'Actif biomimétique',
+    },
+    {
+      slug: INGREDIENT_SLUGS.ACETYL_DIPEPTIDE_1_CETYL_ESTER,
+      notes: 'Technologie Antalgicine',
+    },
+    {
+      slug: INGREDIENT_SLUGS.SQUALANE,
+      notes: 'Lipide biomimétique',
+    },
+  ],
+  [allProductSlugs.BIODERMA_CREALINE_GEL_MOUSSANT]: [
+    {
+      slug: INGREDIENT_SLUGS.RHAMNOSE,
+      notes: 'Complexe breveté D.A.F.',
+    },
+  ],
+  [allProductSlugs.BIODERMA_CREALINE_FORT]: [
+    {
+      slug: INGREDIENT_SLUGS.REGLISSE,
+      notes: 'Enoxolone action rapide',
+    },
+    {
+      slug: INGREDIENT_SLUGS.ALLANTOIN,
+      notes: 'Apaisant',
+    },
+  ],
+  [allProductSlugs.BIODERMA_CREALINE_DS_PLUS]: [
+    {
+      slug: INGREDIENT_SLUGS.PIROCTONE_OLAMINE,
+      notes: 'Action anti-fongique',
+    },
+    {
+      slug: INGREDIENT_SLUGS.REGLISSE,
+      notes: 'Apaisant',
+    },
+  ],
+  [allProductSlugs.BIODERMA_CREALINE_DEFENSIVE]: [
+    {
+      slug: INGREDIENT_SLUGS.CARNOSINE,
+      notes: 'Technologie défensive anti-oxydante',
+    },
+    {
+      slug: INGREDIENT_SLUGS.SALVIA_MILTIORRHIZA,
+      notes: 'Polyphénols de Sauge Rouge',
+    },
+  ],
+  [allProductSlugs.BIODERMA_CREALINE_AR_PLUS]: [
+    {
+      slug: INGREDIENT_SLUGS.REGLISSE,
+      notes: 'Actif neuro-apaisant',
+    },
+    {
+      slug: INGREDIENT_SLUGS.PHYTOSPHINGOSINE,
+      notes: 'Lipide biomimétique',
+    },
+  ],
+  [allProductSlugs.BIODERMA_CREALINE_DEFENSIVE_RICHE]: [
+    {
+      slug: INGREDIENT_SLUGS.CARNOSINE,
+      notes: 'Technologie défensive',
+    },
+    {
+      slug: INGREDIENT_SLUGS.SQUALANE,
+      notes: 'Nourrissant',
+    },
+  ],
+  [allProductSlugs.BIODERMA_CICABIO_SOIN_ISOLANT]: [
+    {
+      slug: INGREDIENT_SLUGS.RESVERATROL,
+      notes: 'Synergie avec le cuivre',
+    },
+    {
+      slug: INGREDIENT_SLUGS.COPPER_SULFATE,
+      notes: 'Assainissant',
+    },
+    {
+      slug: INGREDIENT_SLUGS.ZINC_SULFATE,
+      notes: 'Assainissant',
+    },
+  ],
+}
 
-  // Créaline H2O
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CREALINE_H2O,
-    ingredientSlug: INGREDIENT_SLUGS.RHAMNOSE,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Complexe D.A.F.',
-  },
-
-  // Cicabio Crème
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CICABIO_CREME,
-    ingredientSlug: INGREDIENT_SLUGS.COPPER_SULFATE,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Complexe cuivre-zinc',
-  },
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CICABIO_CREME,
-    ingredientSlug: INGREDIENT_SLUGS.ZINC_SULFATE,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Complexe cuivre-zinc',
-  },
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CICABIO_CREME,
-    ingredientSlug: INGREDIENT_SLUGS.ACETYL_DIPEPTIDE_1_CETYL_ESTER,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Technologie Antalgicine',
-  },
-
-  // Sébium Gel Moussant
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_SEBIUM_GEL_MOUSSANT,
-    ingredientSlug: INGREDIENT_SLUGS.ZINC_SULFATE,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Régulateur de sébum',
-  },
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_SEBIUM_GEL_MOUSSANT,
-    ingredientSlug: INGREDIENT_SLUGS.COPPER_SULFATE,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Régulateur de sébum',
-  },
-
-  // Atoderm Intensive gel-crème
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_ATODERM_INTENSIVE_GEL_CREME,
-    ingredientSlug: INGREDIENT_SLUGS.NIACINAMIDE,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Stimule la production de lipides',
-  },
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_ATODERM_INTENSIVE_GEL_CREME,
-    ingredientSlug: INGREDIENT_SLUGS.GLYCYRRHIZA_INFLATA,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Apaise et réduit le grattage',
-  },
-
-  // Atoderm Intensive eye
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_ATODERM_INTENSIVE_EYE,
-    ingredientSlug: INGREDIENT_SLUGS.GLYCYRRHETINIC_ACID,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Enoxolone apaisante',
-  },
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_ATODERM_INTENSIVE_EYE,
-    ingredientSlug: INGREDIENT_SLUGS.CERAMIDE_NP,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Complexe Lipigenium',
-  },
-
-  // Atoderm Intensive baume
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_ATODERM_INTENSIVE_BAUME,
-    ingredientSlug: INGREDIENT_SLUGS.PALMITAMIDE_MEA,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Actif PEA apaisant',
-  },
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_ATODERM_INTENSIVE_BAUME,
-    ingredientSlug: INGREDIENT_SLUGS.CERAMIDE_NP,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Lipides biomimétiques Lipigenium',
-  },
-
-  // Pigmentbio Sensitive Areas
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_PIGMENTBIO_SENSITIVE_AREAS,
-    ingredientSlug: INGREDIENT_SLUGS.AZELAIC_ACID,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Efficacité éclaircissante',
-  },
-  // {
-  //   productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_PIGMENTBIO_SENSITIVE_AREAS,
-  //   ingredientSlug: INGREDIENT_SLUGS.AMMONIUM_GLYCYRRHIZATE,
-  //   concentrationValue: null,
-  //   concentrationUnit: null,
-  //   concentrationPer: null,
-  //   notes: 'Extrait de réglisse',
-  // },
-
-  // Sébium Kerato+
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_SEBIUM_KERATO_PLUS,
-    ingredientSlug: INGREDIENT_SLUGS.SALICYLIC_ACID,
-    concentrationValue: 1.8,
-    concentrationUnit: '%',
-    concentrationPer: null,
-    notes: 'BHA exfoliant',
-  },
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_SEBIUM_KERATO_PLUS,
-    ingredientSlug: INGREDIENT_SLUGS.MALIC_ACID_ESTER,
-    concentrationValue: 10,
-    concentrationUnit: '%',
-    concentrationPer: null,
-    notes: "Ester d'acide malique (AHA)",
-  }, // ⚠️ SLUG MANQUANT : MALIC_ACID_ESTER
-
-  // Sébium Hydra cleanser
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_SEBIUM_HYDRA_CLEANSER,
-    ingredientSlug: INGREDIENT_SLUGS.SHEA_BUTTER,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Huile de karité nourrissante',
-  },
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_SEBIUM_HYDRA_CLEANSER,
-    ingredientSlug: INGREDIENT_SLUGS.GLYCERIN,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Humectant',
-  },
-
-  // Sébium H2O
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_SEBIUM_H2O,
-    ingredientSlug: INGREDIENT_SLUGS.ZINC_GLUCONATE,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Assainissant',
-  },
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_SEBIUM_H2O,
-    ingredientSlug: INGREDIENT_SLUGS.COPPER_SULFATE,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Assainissant',
-  },
-
-  // Sébium Hydra
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_SEBIUM_HYDRA,
-    ingredientSlug: INGREDIENT_SLUGS.CERAMIDES,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Relipidant',
-  },
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_SEBIUM_HYDRA,
-    ingredientSlug: INGREDIENT_SLUGS.ALLANTOIN,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Apaisant',
-  },
-
-  // Sébium Sensitive
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_SEBIUM_SENSITIVE,
-    ingredientSlug: INGREDIENT_SLUGS.BAKUCHIOL,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Technologie Seborestore',
-  },
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_SEBIUM_SENSITIVE,
-    ingredientSlug: INGREDIENT_SLUGS.ZINC_GLUCONATE,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Séborégulateur',
-  },
-
-  // Cicabio Crème+ SPF50+
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CICABIO_CREME_PLUS_SPF50,
-    ingredientSlug: INGREDIENT_SLUGS.POLYGLUTAMIC_ACID,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Acide polyglutamique hydratant',
-  },
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CICABIO_CREME_PLUS_SPF50,
-    ingredientSlug: INGREDIENT_SLUGS.SODIUM_HYALURONATE,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Hydratant biomimétique',
-  },
-
-  // Cicabio Baume Lavant
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CICABIO_BAUME_LAVANT,
-    ingredientSlug: INGREDIENT_SLUGS.ZINC_GLUCONATE,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Prévient les infections',
-  },
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CICABIO_BAUME_LAVANT,
-    ingredientSlug: INGREDIENT_SLUGS.SQUALANE,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Protection lipidique',
-  },
-
-  // Cicabio Restor
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CICABIO_RESTOR,
-    ingredientSlug: INGREDIENT_SLUGS.PANTHENOL,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Apaisant et réparateur',
-  },
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CICABIO_RESTOR,
-    ingredientSlug: INGREDIENT_SLUGS.SODIUM_HYALURONATE,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Hydratation',
-  },
-
-  // Cicabio Arnica+
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CICABIO_ARNICA,
-    ingredientSlug: INGREDIENT_SLUGS.ARNICA,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: "Apaise l'inconfort",
-  },
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CICABIO_ARNICA,
-    ingredientSlug: INGREDIENT_SLUGS.ACETYL_DIPEPTIDE_1_CETYL_ESTER,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Technologie Antalgicine',
-  },
-
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CICABIO_CREME_PLUS,
-    ingredientSlug: INGREDIENT_SLUGS.POLYGLUTAMIC_ACID,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Complexe Réparation optimale',
-  },
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CICABIO_CREME_PLUS,
-    ingredientSlug: INGREDIENT_SLUGS.SODIUM_HYALURONATE,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Actif biomimétique',
-  },
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CICABIO_CREME_PLUS,
-    ingredientSlug: INGREDIENT_SLUGS.ACETYL_DIPEPTIDE_1_CETYL_ESTER,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Technologie Antalgicine',
-  },
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CICABIO_CREME_PLUS,
-    ingredientSlug: INGREDIENT_SLUGS.SQUALANE,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Lipide biomimétique',
-  },
-
-  // Créaline Gel moussant
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CREALINE_GEL_MOUSSANT,
-    ingredientSlug: INGREDIENT_SLUGS.RHAMNOSE,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Complexe breveté D.A.F.',
-  },
-
-  // Créaline Fort
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CREALINE_FORT,
-    ingredientSlug: INGREDIENT_SLUGS.GLYCYRRHETINIC_ACID,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Enoxolone action rapide',
-  },
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CREALINE_FORT,
-    ingredientSlug: INGREDIENT_SLUGS.ALLANTOIN,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Apaisant',
-  },
-
-  // Créaline DS+ Crème
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CREALINE_DS_PLUS,
-    ingredientSlug: INGREDIENT_SLUGS.PIROCTONE_OLAMINE,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Action anti-fongique',
-  },
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CREALINE_DS_PLUS,
-    ingredientSlug: INGREDIENT_SLUGS.GLYCYRRHETINIC_ACID,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Apaisant',
-  },
-
-  // Créaline Défensive
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CREALINE_DEFENSIVE,
-    ingredientSlug: INGREDIENT_SLUGS.CARNOSINE,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Technologie défensive anti-oxydante',
-  },
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CREALINE_DEFENSIVE,
-    ingredientSlug: INGREDIENT_SLUGS.SALVIA_MILTIORRHIZA,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Polyphénols de Sauge Rouge',
-  },
-
-  // Créaline AR+ Crème
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CREALINE_AR_PLUS,
-    ingredientSlug: INGREDIENT_SLUGS.GLYCYRRHETINIC_ACID,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Actif neuro-apaisant',
-  },
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CREALINE_AR_PLUS,
-    ingredientSlug: INGREDIENT_SLUGS.PHYTOSPHINGOSINE,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Lipide biomimétique',
-  },
-
-  // Créaline Défensive riche
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CREALINE_DEFENSIVE_RICHE,
-    ingredientSlug: INGREDIENT_SLUGS.CARNOSINE,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Technologie défensive',
-  },
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CREALINE_DEFENSIVE_RICHE,
-    ingredientSlug: INGREDIENT_SLUGS.SQUALANE,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Nourrissant',
-  },
-
-  // Cicabio Soin Réparateur Isolant
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CICABIO_SOIN_ISOLANT,
-    ingredientSlug: INGREDIENT_SLUGS.RESVERATROL,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Synergie avec le cuivre',
-  },
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CICABIO_SOIN_ISOLANT,
-    ingredientSlug: INGREDIENT_SLUGS.COPPER_SULFATE,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Assainissant',
-  },
-  {
-    productSlug: BIODERMA_PRODUCT_SLUGS.BIODERMA_CICABIO_SOIN_ISOLANT,
-    ingredientSlug: INGREDIENT_SLUGS.ZINC_SULFATE,
-    concentrationValue: null,
-    concentrationUnit: null,
-    concentrationPer: null,
-    notes: 'Assainissant',
-  },
-]
+// Export original pour compatibilité descendante
+export const BIODERMA_PRODUCT_INGREDIENTS = Object.entries(BIODERMA_INGREDIENTS_MAP).flatMap(
+  ([productSlug, ingredients]) =>
+    ingredients.map((ing: any) => ({
+      productSlug,
+      ingredientSlug: ing.slug,
+      concentrationValue: ing.value || null,
+      concentrationUnit: ing.unit || null,
+      notes: ing.notes || '',
+    }))
+)
