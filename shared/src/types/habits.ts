@@ -133,10 +133,20 @@ export type HabitWithRelations = Habit & {
  * Pour une habitude avec timings, `isCompleted` est `true` uniquement si
  * tous les timings ont été cochés.
  */
+export type TodayProductStock = {
+  id: string
+  productId: string
+  dosage: string | null
+  order: number
+  product: { name: string; brand: string; unit: string }
+  stock: { qty: number } | null
+}
+
 export type TodayHabit = {
   habit: Habit
   timings: HabitTiming[]
   checks: HabitCheck[]
+  products: TodayProductStock[]
   isCompleted: boolean
 }
 
@@ -146,6 +156,7 @@ export type TodayHabit = {
 export type ToggleCheckResult = {
   checked: boolean
   check?: HabitCheck
+  depletedProducts?: string[]
 }
 
 /**

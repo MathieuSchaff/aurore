@@ -353,10 +353,28 @@ export const habitWithRelationsResponseSchema = habitResponseSchema.extend({
   products: z.array(habitProductResponseSchema),
 })
 
+export const todayProductStockSchema = z.object({
+  id: uuid,
+  productId: uuid,
+  dosage: z.string().nullable(),
+  order: z.number().int(),
+  product: z.object({
+    name: z.string(),
+    brand: z.string(),
+    unit: z.string(),
+  }),
+  stock: z
+    .object({
+      qty: z.number().int(),
+    })
+    .nullable(),
+})
+
 export const todayHabitResponseSchema = z.object({
   habit: habitResponseSchema,
   timings: z.array(habitTimingResponseSchema),
   checks: z.array(habitCheckResponseSchema),
+  products: z.array(todayProductStockSchema),
   isCompleted: z.boolean(),
 })
 
@@ -369,4 +387,5 @@ export const habitStatsResponseSchema = z.object({
 export const toggleCheckResultResponseSchema = z.object({
   checked: z.boolean(),
   check: habitCheckResponseSchema.optional(),
+  depletedProducts: z.array(z.string()).optional(),
 })

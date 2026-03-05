@@ -4,6 +4,8 @@ import { fieldChangeSchema } from './common'
 
 const uuid = z.uuid()
 
+// ─── Schemas ──────────────────────────────────────────────
+
 export const createIngredientSchema = z.object({
   name: z.string().min(1).max(200),
   description: z.string().max(2000).optional(),
@@ -34,6 +36,13 @@ export const ingredientResponseSchema = z.object({
   updatedAt: z.date(),
 })
 
+export const ingredientSearchResultSchema = z.object({
+  id: uuid,
+  name: z.string(),
+  slug: z.string(),
+  category: z.string().nullable(),
+})
+
 export const ingredientEditResponseSchema = z.object({
   id: uuid,
   ingredientId: uuid,
@@ -49,20 +58,32 @@ export const ingredientEditResponseSchema = z.object({
   createdAt: z.date(),
 })
 
-const editableIngredientFields = {
-  name: fieldChangeSchema(z.string()),
-  description: fieldChangeSchema(z.string()),
-  content: fieldChangeSchema(z.string()),
-  category: fieldChangeSchema(z.string()),
-}
-
 export const ingredientChangesSchema = z
-  .object(editableIngredientFields)
+  .object({
+    name: fieldChangeSchema(z.string()),
+    description: fieldChangeSchema(z.string()),
+    content: fieldChangeSchema(z.string()),
+    category: fieldChangeSchema(z.string()),
+  })
   .partial()
   .refine((data) => Object.keys(data).length > 0, {
     message: 'At least one field change is required',
   })
 
-export type IngredientChanges = z.infer<typeof ingredientChangesSchema>
+export const ingredientsSearchSchema = z.object({
+  category: z.string().array().catch([]).default([]),
+  concern: z.string().array().catch([]).default([]),
+  skinType: z.string().array().catch([]).default([]),
+  routineStep: z.string().array().catch([]).default([]),
+  attribute: z.string().array().catch([]).default([]),
+})
+
+// ─── Types ────────────────────────────────────────────────
+
 export type CreateIngredientInput = z.infer<typeof createIngredientSchema>
 export type UpdateIngredientInput = z.infer<typeof updateIngredientSchema>
+export type IngredientResponse = z.infer<typeof ingredientResponseSchema>
+export type IngredientSearchResult = z.infer<typeof ingredientSearchResultSchema>
+export type IngredientEditResponse = z.infer<typeof ingredientEditResponseSchema>
+export type IngredientChanges = z.infer<typeof ingredientChangesSchema>
+export type IngredientSearchFilters = z.infer<typeof ingredientsSearchSchema>
