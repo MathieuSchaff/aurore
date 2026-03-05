@@ -1,0 +1,122 @@
+/* =======================================================
+   THÈME LIGHT — Variante B : Bleu nuit comme couleur primaire
+   Refactorisé — DRY + extraction des bases (noms originaux conservés)
+   ======================================================= */
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  /* ===================================================
+     HUES — palette tropicale brésilienne (ne pas toucher)
+     =================================================== */
+  --hue-lime: 128deg;
+  --hue-mango: 65deg;
+  --hue-papaya: 32deg;
+  --hue-coral: 18deg;
+  --hue-aqua: 185deg;
+
+  /* ===================================================
+     Couleurs de base réutilisables (extraction)
+     =================================================== */
+  --blue-night-base: oklch(30% 0.1 220deg);
+  --blue-night-darker: oklch(22% 0.08 220deg);
+  --blue-night-dark: oklch(24% 0.12 220deg);
+  --blue-night-lighter: oklch(36% 0.14 220deg);
+  --mango-bright: oklch(88% 0.14 75deg);
+  --text-inverse-warm: oklch(97% 0.015 80deg);
+
+  /* ===================================================
+     SIDEBAR
+     Icônes en mango — on garde, c'est cohérent avec le header.
+     =================================================== */
+  --color-sidebar-bg: oklch(22% 0.08 220deg);
+  --color-sidebar-item-hover: oklch(32% 0.1 220deg);
+  --color-sidebar-item-active: var(--mango-bright);
+  --color-sidebar-icon: var(--mango-bright);
+  --color-sidebar-icon-active: var(--blue-night-darker);
+
+  --color-primary: var(--blue-night-base);
+  --color-primary-hover: var(--blue-night-dark);
+  --color-secondary: var(--mango-bright);
+
+  /* ===================================================
+     HEADER
+     =================================================== */
+  --color-header-bg: var(--color-secondary);
+  --color-header-border: oklch(72% 0.16 var(--hue-papaya));
+  --color-header-action: var(--blue-night-darker);
+  --color-header-action-border: var(--color-primary);
+  --color-header-action-bg-hover: oklch(from var(--color-primary) l c h / 0.12);
+
+  /* ===================================================
+     PRIMAIRE — bleu nuit
+     =================================================== */
+  /* Texte sur fond bleu nuit : blanc cassé chaud */
+  --text-inverse: var(--text-inverse-warm);
+  --color-focus: var(--blue-night-lighter);
+
+  /* ===================================================
+     COULEURS SÉMANTIQUES
+     =================================================== */
+  --color-accent: oklch(68% 0.2 var(--hue-mango));
+  --color-accent-light: oklch(92% 0.1 var(--hue-mango));
+
+  --color-success: oklch(50% 0.2 var(--hue-lime));
+  --color-error: oklch(56% 0.22 var(--hue-coral));
+  --color-error-light: oklch(93% 0.08 var(--hue-coral));
+  --color-info: oklch(54% 0.14 var(--hue-aqua));
+  --color-info-light: oklch(92% 0.07 var(--hue-aqua));
+
+  --bg-page: oklch(97.7% 0.028 75deg);
+  --bg-muted: oklch(89% 0.07 var(--hue-mango));
+  --bg-elevated: oklch(99% 0.01 var(--hue-mango));
+  --bg-sunken: oklch(87% 0.08 var(--hue-papaya));
+
+  /* États interactifs : bleu nuit très dilué */
+  --bg-hover: oklch(from var(--color-primary) l c h / 0.08);
+  --bg-active: oklch(from var(--color-primary) l c h / 0.14);
+  --bg-selected: var(--color-secondary);
+
+  /* ===================================================
+     TEXTE
+     =================================================== */
+  --text-primary: oklch(20% 0.07 var(--hue-papaya));
+  --text-secondary: oklch(38% 0.08 var(--hue-papaya));
+  --text-muted: oklch(56% 0.07 var(--hue-mango));
+
+  /* ===================================================
+     CARDS
+     =================================================== */
+  --card-icon-bg: oklch(from var(--color-primary) l c h / 0.12);
+  --card-icon-color: var(--color-primary);
+  --card-accent-border: var(--color-primary);
+  --bg-card: oklch(97.0% 0.035 72deg);
+
+  /* ===================================================
+     BORDURES
+     =================================================== */
+  --border-default: oklch(82% 0.08 var(--hue-mango));
+  --border-strong: oklch(from var(--color-primary) l c h / 0.4);
+
+  /* ===================================================
+     OMBRES
+     =================================================== */
+  --shadow-hard: 4px 4px 0px oklch(from var(--blue-night-darker) l c h / 0.35);
+
+  --shadow-card:
+    0 2px 4px oklch(from var(--blue-night-darker) l c h / 0.1),
+    0 6px 16px oklch(from var(--blue-night-darker) l c h / 0.08);
+
+  /* ===================================================
+     TAGS
+     =================================================== */
+  --tag-active-bg: oklch(from var(--color-primary) l c h / 0.8);
+  --tag-active-text: var(--color-secondary);
+  --tag-default-bg: oklch(88% 0.06 var(--hue-papaya));
+  --tag-default-text: oklch(40% 0.1 var(--hue-papaya));
+
+  /* ===================================================
+     MISC
+     =================================================== */
+  --overlay: oklch(15% 0.08 var(--hue-papaya) / 0.45);
+}
