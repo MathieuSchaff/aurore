@@ -71,13 +71,12 @@ export const ingredientChangesSchema = z
   })
 
 export const ingredientsSearchSchema = z.object({
-  category: z.string().array().catch([]).default([]),
-  concern: z.string().array().catch([]).default([]),
-  skinType: z.string().array().catch([]).default([]),
-  routineStep: z.string().array().catch([]).default([]),
-  attribute: z.string().array().catch([]).default([]),
+  category: z.array(z.string()).default([]),
+  concern: z.array(z.string()).default([]),
+  skinType: z.array(z.string()).default([]),
+  routineStep: z.array(z.string()).default([]),
+  attribute: z.array(z.string()).default([]),
 })
-
 // ─── Types ────────────────────────────────────────────────
 
 export type CreateIngredientInput = z.infer<typeof createIngredientSchema>
