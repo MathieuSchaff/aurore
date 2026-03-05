@@ -57,9 +57,12 @@ dev-rebuild-frontend: ## Rebuild uniquement le frontend sans cache
 	$(COMPOSE_DEV) build --no-cache frontend
 	$(COMPOSE_DEV) up
 
-install-deps: ## Installe les deps dans les containers (après bun add)
+install-deps: ## Installe les deps dans les containers (API + Frontend)
+	@echo "$(CYAN)Installation API...$(NC)"
 	$(COMPOSE_DEV) exec api sh -c "cd /app && bun install"
-	@echo "$(GREEN)✓ Dépendances installées$(NC)"
+	@echo "$(CYAN)Installation Frontend...$(NC)"
+	$(COMPOSE_DEV) exec frontend sh -c "cd /app && bun install"
+	@echo "$(GREEN)✓ Dépendances installées partout$(NC)"
 
 reinstall-backend: ## Rebuild complet backend (volumes + image)
 	$(COMPOSE_DEV) down
@@ -120,7 +123,7 @@ test-only: test-db-up ## Lance des tests spécifiques (ARGS="pattern")
 	@$(MAKE) test-db-down
 
 test-db-studio: ## Lance Drizzle Studio
-	cd backend && DATABASE_URL="$(TEST_DB_URL)" npx drizzle-kit studio --port 4982
+	cd backend && DATABASE_URL="$(TEST_DB_URL)" bun x drizzle-kit studio --port 4982
 
 test-migrate-run: ## Lance la DB test, applique les migrations et les tests
 	$(COMPOSE_TEST) up -d
@@ -204,16 +207,17 @@ shell-frontend: ## Shell dans le conteneur frontend
 DB_LOCAL = postgres://app:$(POSTGRES_PASSWORD)@localhost:5432/appdb
 
 db-migrate: ## Applique les migrations Drizzle
-	cd backend && DATABASE_URL="$(DB_LOCAL)" npx drizzle-kit migrate
+	cd backend && DATABASE_URL="$(DB_LOCAL)" bun x drizzle-kit migrate
 
 db-generate: ## Génère les migrations Drizzle
-	cd backend && DATABASE_URL="$(DB_LOCAL)" npx drizzle-kit generate
+	cd backend && DATABASE_URL="$(DB_LOCAL)" bun x drizzle-kit generate
 
 db-push: ## Push le schema Drizzle (dev)
-	cd backend && DATABASE_URL="$(DB_LOCAL)" npx drizzle-kit push
+	cd backend && DATABASE_URL="$(DB_LOCAL)" bun x drizzle-kit push
 
 db-studio: ## Lance Drizzle Studio
-	cd backend && DATABASE_URL="$(DB_LOCAL)" npx drizzle-kit studio --port 4983
+	cd backend && DATABASE_URL="$(DB_LOCAL)" bun x drizzle-kit studio --port 4983
+
 db-backup: ## Backup de la base de données
 	@mkdir -p ./backups
 	docker compose exec db pg_dump -U app appdb > ./backups/backup_$(shell date +%Y%m%d_%H%M%S).sql
