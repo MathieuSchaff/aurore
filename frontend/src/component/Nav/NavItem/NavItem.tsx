@@ -1,6 +1,6 @@
 import type { LinkProps } from '@tanstack/react-router'
 import { Link } from '@tanstack/react-router'
-import { Home, ListChecks, type LucideIcon } from 'lucide-react'
+import { Atom, Barcode, Home, ListChecks, type LucideIcon } from 'lucide-react'
 
 interface NavItem {
   to: LinkProps['to']
@@ -18,6 +18,16 @@ const navItems: NavItem[] = [
     to: '/habits',
     icon: ListChecks,
     label: 'Habitudes',
+  },
+  {
+    to: '/products',
+    icon: Barcode,
+    label: 'Produits',
+  },
+  {
+    to: '/ingredients',
+    icon: Atom,
+    label: 'Ingredients',
   },
 ]
 
