@@ -1,19 +1,19 @@
 include .env.dev
 export
 .PHONY: help \
-	dev dev-d dev-down dev-rebuild dev-rebuild-api dev-rebuild-frontend \
-	install-deps reinstall-backend reinstall-frontend \
+	dev dev-d dev-down dev-fresh dev-rebuild dev-rebuild-api dev-rebuild-frontend \
+	ts-check ts-build ts-clean \
+	install-deps reinstall-backend reinstall-frontend clean-install install build \
 	prod prod-down prod-logs prod-migrate \
 	test test-db-up test-db-down test-watch test-only test-db-studio \
 	test-migrate test-migrate-run test-migrate-clean \
-	stop restart ps \
+	stop restart ps health diagnose \
 	logs logs-api logs-db logs-nginx logs-frontend \
 	lint lint-fix format \
 	shell-api shell-db shell-frontend \
 	db-migrate db-generate db-push db-studio db-backup db-restore db-seed db-clean db-reset \
 	ssl-init ssl-renew \
-	clean clean-soft clean-images \
-	health install build
+	clean clean-soft clean-images
 
 # Couleurs pour l'affichage
 GREEN  := \033[0;32m
@@ -39,11 +39,16 @@ help: ## Affiche cette aide
 dev: ## Lance l'environnement de développement
 	$(COMPOSE_DEV) up --build
 
-dev-d: ## Lance le dev en arrière-plan
-	$(COMPOSE_DEV) up -d --build
-
 dev-down: ## Arrête l'environnement de développement
 	$(COMPOSE_DEV) down
+
+dev-d: ts-build ## Lance le dev en arrière-plan (build les types d'abord)
+	$(COMPOSE_DEV) up -d --build
+
+dev-fresh: ts-clean install-deps ts-build ## Clean total + install + types + docker
+	$(COMPOSE_DEV) down -v 2>/dev/null || true
+	docker volume rm habit-tracker_backend_node_modules habit-tracker_frontend_node_modules habit-tracker_root_node_modules 2>/dev/null || true
+	$(COMPOSE_DEV) up --build
 
 dev-rebuild: ## Rebuild complet sans cache (après ajout de dépendances)
 	$(COMPOSE_DEV) build --no-cache
@@ -57,12 +62,10 @@ dev-rebuild-frontend: ## Rebuild uniquement le frontend sans cache
 	$(COMPOSE_DEV) build --no-cache frontend
 	$(COMPOSE_DEV) up
 
-install-deps: ## Installe les deps dans les containers (API + Frontend)
-	@echo "$(CYAN)Installation API...$(NC)"
-	$(COMPOSE_DEV) exec api sh -c "cd /app && bun install"
-	@echo "$(CYAN)Installation Frontend...$(NC)"
-	$(COMPOSE_DEV) exec frontend sh -c "cd /app && bun install"
-	@echo "$(GREEN)✓ Dépendances installées partout$(NC)"
+install-deps: ## Installe les deps depuis la racine (Hôte)
+	@echo "$(CYAN)Installation de toutes les dépendances du monorepo...$(NC)"
+	bun install
+	@echo "$(GREEN)✓ Dépendances installées et liens symboliques créés$(NC)"
 
 reinstall-backend: ## Rebuild complet backend (volumes + image)
 	$(COMPOSE_DEV) down
@@ -77,6 +80,23 @@ reinstall-frontend: ## Rebuild complet frontend (volumes + image)
 	$(COMPOSE_DEV) build --no-cache frontend
 	$(COMPOSE_DEV) up -d
 	@echo "$(GREEN)✓ Frontend réinstallé$(NC)"
+
+ts-check: ## Permet de générer les types pour pas que l'éditeur rame
+	bun x tsc -b --watch
+
+ts-build: ## Build les types shared + backend (nécessaire avant Docker)
+	@echo "Génération des routes..."
+	# On demande à Vite de générer le routeTree sans faire tout le build lourd
+	-cd frontend && bunx vite build --mode development
+	@echo "Vérification TypeScript globale..."
+	bunx tsc -b
+
+ts-clean: ## Supprime tous les dist/ et caches TS
+	@echo "$(YELLOW)Nettoyage des types...$(NC)"
+	rm -rf shared/dist backend/dist frontend/dist
+	find . -name "*.tsbuildinfo" -delete
+	find . -name ".turbo" -type d -exec rm -rf {} + 2>/dev/null || true
+	@echo "$(GREEN)✓ Types nettoyés$(NC)"
 
 # =========================
 # Production
@@ -274,6 +294,7 @@ clean-soft: ## Supprime les conteneurs (garde les volumes)
 	$(COMPOSE_DEV) down 2>/dev/null || true
 	$(COMPOSE_PROD) down 2>/dev/null || true
 	$(COMPOSE_TEST) down 2>/dev/null || true
+	$(MAKE) ts-clean
 
 clean-images: ## Supprime les images du projet (force rebuild)
 	$(COMPOSE_DEV) down 2>/dev/null || true
@@ -291,5 +312,22 @@ install: ## Installe les dépendances (backend + frontend)
 	cd backend && bun install
 	cd frontend && bun install
 
+clean-install: ## Nettoyage radical des node_modules et réinstallation propre
+	@echo "$(YELLOW)Nettoyage via Docker pour éviter les problèmes de permissions...$(NC)"
+	docker run --rm -v $(PWD):/app -w /app alpine sh -c "rm -rf node_modules backend/node_modules frontend/node_modules shared/node_modules bun.lock"
+	@echo "$(CYAN)Réinstallation...$(NC)"
+	bun install --no-cache
+
 build: ## Build les images Docker
 	$(COMPOSE_PROD) build
+
+diagnose: ## Diagnostique les problèmes de types et Docker
+	@echo "$(CYAN)=== Vérification des types générés ===$(NC)"
+	@test -f shared/dist/index.d.ts && echo "$(GREEN)✓ shared/dist/index.d.ts$(NC)" || echo "$(RED)✗ shared/dist/index.d.ts manquant$(NC)"
+	@test -f backend/dist/index.d.ts && echo "$(GREEN)✓ backend/dist/index.d.ts$(NC)" || echo "$(RED)✗ backend/dist/index.d.ts manquant$(NC)"
+	@echo ""
+	@echo "$(CYAN)=== Vérification Docker ===$(NC)"
+	@docker compose ps 2>/dev/null || echo "$(YELLOW)Docker compose non actif$(NC)"
+	@echo ""
+	@echo "$(CYAN)=== Volumes Docker ===$(NC)"
+	@docker volume ls | grep habit-tracker || echo "$(YELLOW)Pas de volumes habit-tracker$(NC)"

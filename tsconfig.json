@@ -1,9 +1,36 @@
 {
+  // files: [] dit a typescript: ne compile aucun fichier ici
   "files": [],
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "composite": true,
+    "skipLibCheck": true,
+    "allowImportingTsExtensions": true,
+    "baseUrl": ".",
+    // crée un alias
+    "paths": {
+      "@habit-tracker/shared": ["./shared/dist/index.d.ts"],
+      "@habit-tracker/backend": ["./backend/dist/index.d.ts"]
+    }
+  },
+  // Architecture Typescript project references
+  // le champ references fait qu'au lieu de considérer un seul gros bloc de code,
+  // typescript voit trois projets distincts qui communiquent entre eux
+  // 1: permet de compiler uniquement ce qui a changé
+  // 2: forcer une séparation claire
   "references": [
-    { "path": "./frontend" },
-    { "path": "./backend" },
-    { "path": "./shared" }
+    {
+      "path": "./shared"
+    },
+    {
+      "path": "./backend"
+    },
+    {
+      "path": "./frontend"
+    }
   ],
   "exclude": ["node_modules", "dist", ".turbo"]
 }
