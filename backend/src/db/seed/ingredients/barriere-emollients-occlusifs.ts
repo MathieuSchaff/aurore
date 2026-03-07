@@ -3,6 +3,91 @@ import type { IngredientInput } from './seed-ingredients'
 
 export const BARRIERE_EMOLLIENTS_OCCLUSIFS: IngredientInput[] = [
   {
+    name: 'Triglycérides Caprylique/Caprique (Caprylic/Capric Triglyceride)',
+    slug: INGREDIENT_SLUGS.CAPRYLIC_CAPRIC_TRIGLYCERIDE,
+    category: 'emollient',
+    description:
+      'Huile estérifiée issue de la noix de coco, offrant un toucher soyeux non gras et une excellente protection de la barrière cutanée.',
+    content: `
+    # Triglycérides Caprylique/Caprique (Caprylic/Capric Triglyceride)
+    Souvent confondu à tort avec l'huile de coco brute, cet ingrédient est une fraction purifiée d'acides gras. C'est un "émollient neutre" de référence en dermo-cosmétique pour sa stabilité exceptionnelle et sa haute tolérance.
+    ## INCI
+    **CAPRYLIC/CAPRIC TRIGLYCERIDE**
+    (Dérivé d'huile de coco et de glycérine)
+    ## Composition chimique
+    - **Acide Caprylique (C8)** et **Acide Caprique (C10)** : Acides gras à chaîne moyenne.
+    - **Structure stable** : Résiste à l'oxydation (ne rancit pas).
+    ## Mécanisme d’action
+    1. **Renforcement lipidique** : S'insère entre les cornéocytes pour restaurer le ciment intercellulaire.
+    2. **Agent d'étalement** : Améliore la fluidité des formules sans laisser de film collant.
+    3. **Solvant de transport** : Aide à la pénétration d'autres actifs liposolubles.
+    ## Bienfaits
+    - **Toucher velouté** : Laisse la peau douce, souple et satinée sans effet gras.
+    - **Hydratation indirecte** : Limite la perte insensible en eau (PIE) en formant un voile protecteur fin.
+    - **Haute sécurité** : Non comédogène et non irritant, adapté aux bébés et peaux réactives.
+    ## Utilisation
+    - **Cible** : Toutes peaux, particulièrement les peaux sèches et sensibles.
+    - **Type de soin** : Crèmes hydratantes, laits corporels, huiles démaquillantes.
+  `,
+  },
+  {
+    name: 'Huile de Colza (Canola Oil)',
+    slug: INGREDIENT_SLUGS.HUILE_COLZA,
+    category: 'emollient',
+    description:
+      'Huile végétale riche en Oméga-3 et Vitamine E, idéale pour nourrir intensément et apaiser les peaux sèches à atopiques.',
+    content: `
+    # Huile de Colza (Canola Oil)
+    L'Huile de Colza est l'une des huiles végétales les plus équilibrées sur le plan nutritionnel. En cosmétique, elle est prisée pour ses vertus relipidantes et son profil anti-inflammatoire naturel.
+    ## INCI
+    **BRASSICA CAMPESTRIS SEED OIL**
+    (Huile végétale obtenue par pression à froid des graines)
+    ## Composition chimique
+    - **Acides gras insaturés** : Riche en Oméga-3 (acide alpha-linolénique) et Oméga-6.
+    - **Vitamine E (Tocophérol)** : Antioxydant naturel puissant.
+    - **Phytostérols** : Composés apaisants et réparateurs.
+    ## Mécanisme d’action
+    1. **Action anti-inflammatoire** : Les Oméga-3 aident à calmer les médiateurs de l'inflammation cutanée.
+    2. **Réparation de la barrière** : Apporte les lipides essentiels nécessaires à la cohésion de la couche cornée.
+    3. **Protection radicalaire** : Protège les membranes cellulaires du stress oxydatif.
+    ## Bienfaits
+    - **Nutrition intense** : Redonne de la souplesse aux peaux qui "tiraillent".
+    - **Apaisement** : Réduit les rougeurs et les démangeaisons liées à la sécheresse.
+    - **Anti-âge préventif** : Aide à maintenir l'élasticité des tissus.
+    ## Utilisation
+    - **Cible** : Peaux très sèches, peaux matures, eczéma, dermatite atopique.
+    - **Type de soin** : Baumes relipidants, huiles de douche, soins réparateurs.
+  `,
+  },
+  {
+    name: 'Butylene Glycol',
+    slug: INGREDIENT_SLUGS.BUTYLENE_GLYCOL,
+    category: 'Hydratation & Texture',
+    description:
+      "Humectant synthétique multifonction, qui attire l'humidité et améliore la sensorialité des formules skincare sans alourdir.",
+    content: `
+# Butylene Glycol : L'Humectant Polyvalent & Fiable
+Le **Butylene Glycol** (1,3-butanediol) est un alcool organique léger et non irritant, largement utilisé en cosmétique pour booster l'hydratation et la stabilité des produits.
+
+---
+## ✨ Points Forts & Bénéfices
+* **Hydratation Profonde** : Agit comme humectant puissant, attire l'eau dans la peau et prévient la perte d'humidité pour un effet repulpé et souple.
+* **Amélioration de la Texture** : Rend les crèmes et sérums plus fluides, non collants, avec une sensation veloutée et une meilleure absorption des actifs.
+* **Solvant & Booster** : Aide à dissoudre d'autres ingrédients et favorise leur pénétration cutanée sans obstruer les pores.
+* **Conditionneur Cutané** : Adoucit la peau et les cheveux, effet émollient léger.
+
+---
+## ⚖️ Transparence Scientifique & Limites
+* **Sécurité Prouvée** : Évalué comme sûr par le Cosmetic Ingredient Review (CIR) et l'EWG (low concern) ; non irritant pour la majorité des peaux même sensibles.
+* **Limites** : Chez les peaux ultra-réactives, peut rarement causer une irritation mineure (rougeur temporaire). Pas un actif "star" à lui seul, mais un excellent support pour d'autres ingrédients.
+
+---
+## 🛡️ Précautions & Sécurité
+* **Très Bien Toléré** : Convient à tous les types de peau, y compris sensibles et acnéiques (non comédogène). Pas de risque connu de toxicité ou d'allergie majeure en usage topique.
+* **Éviter les Concentrations Extrêmes** : Dans les formules classiques (jusqu'à 10-20 %), aucun souci ; patch test si peau hyper-réactive.
+`,
+  },
+  {
     name: 'Acide Oléique (Oméga-9)',
     slug: INGREDIENT_SLUGS.OLEIC_ACID,
     category: 'Nutrition & Pénétration',
@@ -34,7 +119,7 @@ L'**Acide Oléique** est un acide gras mono-insaturé présent dans de nombreuse
   },
   {
     name: 'Huile de Soja (Glycine Soja)',
-    slug: INGREDIENT_SLUGS.GLYCINE_SOJA_OIL,
+    slug: INGREDIENT_SLUGS.HUILE_SOJA,
     category: 'Émollient & Antioxydant',
     description:
       'Une huile fluide et pénétrante, riche en lécithine et vitamine E, qui assouplit la peau tout en la protégeant des radicaux libres.',
@@ -64,7 +149,7 @@ L'huile de **Glycine Soja** est une source précieuse d'acides gras essentiels e
   },
   {
     name: 'Beurre de Cacao (Theobroma Cacao)',
-    slug: INGREDIENT_SLUGS.THEOBROMA_CACAO_BUTTER,
+    slug: INGREDIENT_SLUGS.BEURRE_CACAO,
     category: 'Nutrition & Réconfort',
     description:
       'Un beurre végétal généreux, riche en polyphénols antioxydants, offrant une protection barrière exceptionnelle et un parfum naturellement gourmand.',
@@ -315,7 +400,7 @@ Le **Ceramide NG** est l'un des piliers du "ciment" de notre barrière cutanée.
   },
   {
     name: 'Ricinus Communis Seed Oil (Huile de Ricin)',
-    slug: INGREDIENT_SLUGS.RICINUS_COMMUNIS_SEED_OIL,
+    slug: INGREDIENT_SLUGS.HUILE_DE_RICIN,
     category: 'actif',
     description:
       'Huile végétale dense et protectrice, reconnue pour ses propriétés fortifiantes, adoucissantes et purifiantes.',

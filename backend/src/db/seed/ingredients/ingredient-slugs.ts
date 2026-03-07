@@ -54,7 +54,7 @@ export const BARRIERE_EMOLLIENTS_OCCLUSIFS = {
   HUILE_D_ARGAN: 'huile-argan', // INCI: Argania Spinosa Kernel Oil
   HUILE_DE_JOJOBA: 'huile-jojoba', // INCI: Simmondsia Chinensis (Jojoba) Seed Oil
   HUILE_DE_COCO: 'huile-coco', // INCI: Cocos Nucifera (Coconut) Oil
-  RICINUS_COMMUNIS_SEED_OIL: 'ricinus-communis-seed-oil', // INCI: Ricinus Communis (Castor) Seed Oil | huile de ricin
+  HUILE_DE_RICIN: 'ricinus-communis-seed-oil', // INCI: Ricinus Communis (Castor) Seed Oil | huile de ricin
   CAMELLIA_JAPONICA_OIL: 'camellia-japonica-seed-oil', // INCI: Camellia Japonica Seed Oil
   PRUNUS_AMYGDALUS_DULCIS_OIL: 'prunus-amygdalus-dulcis-oil', // INCI: Prunus Amygdalus Dulcis (Sweet Almond) Oil
   BOURRACHE: 'bourrache', // INCI: Borago Officinalis Seed Oil | riche en GLA
@@ -65,9 +65,12 @@ export const BARRIERE_EMOLLIENTS_OCCLUSIFS = {
   HUILE_CARTHAME: 'huile-carthame', // INCI: Carthamus Tinctorius Seed Oil SAFFLOWER_SEED_OIL
   CERAMIDE_NG: 'ceramide-ng', // INCI: Ceramide NG | céramide renforçant barrière cutanée
   LINOLEIC_ACID: 'linoleic-acid', // INCI: Linoleic Acid | acide gras essentiel, anti-inflammatoire barrière
-  THEOBROMA_CACAO_BUTTER: 'theobroma-cacao-butter', // INCI: Theobroma Cacao Seed Butter | beurre de cacao, nourrissant protecteur
-  GLYCINE_SOJA_OIL: 'glycine-soja-oil', // INCI: Glycine Soja Oil | huile de soja, émolliente riche en oméga
+  BEURRE_CACAO: 'theobroma-cacao-butter', // INCI: Theobroma Cacao Seed Butter | beurre de cacao, nourrissant protecteur
   OLEIC_ACID: 'oleic-acid', // INCI: Oleic Acid | acide gras oméga-9 émollient, renforce la barrière cutanée, nourrit et hydrate (idéal peaux sèches/matures)
+  HUILE_SOJA: 'huile-soja',
+  CAPRYLIC_CAPRIC_TRIGLYCERIDE: 'caprylic-capric-triglyceride',
+  HUILE_COLZA: 'huile-colza',
+  BUTYLENE_GLYCOL: 'butylene-glycol',
 } as const
 
 export const EXFOLIANTS = {
@@ -195,8 +198,9 @@ export const APAISANTS_ANTI_INFLAMMATOIRES = {
   EAU_DE_ROSE: 'eau-de-rose', // INCI: Rosa Damascena Flower Water | apaisant, tonique
   ROYAL_JELLY_EXTRACT: 'royal-jelly-extract', // INCI: Royal Jelly Extract | apaisant / nourrissant
   ZANTHOXYLUM_BUNGEANUM: 'zanthoxylum-bungeanum', // INCI: Zanthoxylum Bungeanum Fruit Extract | poivre Sichuan, anti-démangeaisons
-  CUPRESSUS_SEMPERVIRENS: 'cupressus-sempervirens', // INCI: Cupressus Sempervirens Extract | eau de cyprès – apaisant
   COLLOIDAL_OATMEAL: 'colloidal-oatmeal',
+  EXTRAIT_CAMOMILLE: 'extrait-camomille',
+  EXTRAIT_EPILOBE: 'extrait-epilobe',
 } as const
 
 export const ECLAIRCISSANTS_DEPIGMENTANTS = {
@@ -283,6 +287,7 @@ export const CIRCULATOIRE_DRAINAGE = {
   RUSCUS_ACULEATUS: 'ruscus-aculeatus', // INCI: Ruscus Aculeatus Root Extract (fragon épineux) | veinotonique
   CAFFEINE: 'caffeine', // INCI: Caffeine | lipolytique, décongestionnant
   ARNICA: 'arnica', // INCI: Arnica Montana Flower Extract | anti-hématomes, circulatoire
+  CYPRES: 'cypres', // INCI: Cupressus Sempervirens | Tonifiant, circulatoire et astringent
 } as const
 
 export const TENSIOACTIFS_NETTOYANTS = {
@@ -314,7 +319,7 @@ export const DIVERS_NON_CLASSES = {
   OPHIOPOGON_JAPONICUS: 'ophiopogon-japonicus', // INCI: Ophiopogon Japonicus Root Extract (mondo grass)
   ISOSORBIDE_DICAPRYLATE: 'isosorbide-dicaprylate', // INCI: Isosorbide Dicaprylate | hydratant lipophile intelligent
   RICE_AMINO_ACIDS: 'rice-amino-acids', // INCI: Rice Amino Acids | acides aminés riz, conditionnants
-  ORBIGNYA_OLEIFERA: 'orbignya-oleifera', // INCI: Orbignya Oleifera Seed Oil | huile babassu, émolliente légère
+  HUILE_BABASSU: 'huile-babassu', // INCI: Orbignya Oleifera Seed Oil | huile babassu, émolliente légère
   PINUS_PALUSTRIS: 'pinus-palustris', // INCI: Pinus Palustris Leaf Extract | pin, tonifiant antioxydant
   VETIVERIA_ZIZANOIDES: 'vetiveria-zizanoides', // INCI: Vetiveria Zizanoides Root Extract | vétiver, apaisant régénérant
   APHANIZOMENON_FLOS_AQUAE: 'aphanizomenon-flos-aquae', // INCI: Aphanizomenon Flos-Aquae Extract | algue bleue-verte nutritive

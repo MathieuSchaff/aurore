@@ -74,7 +74,7 @@ export const TONERS_INGREDIENTS_MAP: Record<string, any[]> = {
 
   [allProductSlugs.NUMBUZIN_NO9_NAD_PDRN_GLOW]: [
     {
-      slug: INGREDIENT_SLUGS.NICOTINAMIDE_ADENINE_DINUCLEOTIDE,
+      slug: INGREDIENT_SLUGS.NAD,
       notes: 'NAD+ – anti-âge, boost turnover cellulaire, énergie',
     },
     {

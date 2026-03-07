@@ -95,7 +95,7 @@ L'huile de **Pin des Marais** est reconnue pour ses propriétés aromatiques et 
   },
   {
     name: 'Huile de Babassu (Orbignya Oleifera)',
-    slug: INGREDIENT_SLUGS.ORBIGNYA_OLEIFERA,
+    slug: INGREDIENT_SLUGS.HUILE_BABASSU,
     category: 'Protection & Nutrition',
     description:
       'Une huile précieuse d’Amazonie, alternative légère à l’huile de coco, offrant une nutrition intense et une action protectrice sans fini gras.',

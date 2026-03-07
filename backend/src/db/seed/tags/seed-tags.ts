@@ -27,6 +27,7 @@ export const TAG_SLUGS = {
   POLLUTION: 'pollution',
   REPULPANT: 'repulpant',
   ECZEMA: 'eczema',
+  GRAIN_PEAU: 'grain-peau',
 
   // ── Skin types (Types de peau) ──────────────────
   PEAU_SECHE: 'peau-seche',
@@ -35,6 +36,8 @@ export const TAG_SLUGS = {
   PEAU_REACTIVE: 'peau-reactive',
   PEAU_NORMALE: 'peau-normale',
   PEAU_ATOPIQUE: 'peau-atopique',
+  PEAU_RUGUEUSE: 'peau-rugueuse',
+  PEAU_TOUS_TYPES: 'tous-types',
 
   // ── Routine steps (Étape / Format produit) ──────
   SOIN_DE_JOUR: 'soin-de-jour',
@@ -54,6 +57,8 @@ export const TAG_SLUGS = {
   SOLAIRE_CORPS: 'solaire-corps',
   SOLAIRE_TEINTE: 'solaire-teinte',
   PROTECTION_LUMIERE_BLEUE: 'protection-lumiere-bleue',
+  CORPS: 'corps',
+  VISAGE: 'visage',
 
   // ── Attributes – Propriétés techniques ──────────
   ANTI_OXYDANT: 'anti-oxydant',
@@ -94,6 +99,11 @@ export const TAG_SLUGS = {
 export const tagData: CreateTagInput[] = [
   // Concerns
   { name: 'Anti-rougeurs', slug: TAG_SLUGS.ANTI_ROUGEURS, category: 'concern' },
+  {
+    name: 'Grain de peau',
+    slug: TAG_SLUGS.GRAIN_PEAU,
+    category: 'concern',
+  },
   { name: 'Rosacée', slug: TAG_SLUGS.ROSACEE, category: 'concern' },
   { name: 'Couperose', slug: TAG_SLUGS.COUPEROSE, category: 'concern' },
   { name: 'Flushs', slug: TAG_SLUGS.FLUSHS, category: 'concern' },
@@ -125,6 +135,16 @@ export const tagData: CreateTagInput[] = [
   { name: 'Peau réactive', slug: TAG_SLUGS.PEAU_REACTIVE, category: 'skin_type' },
   { name: 'Peau normale', slug: TAG_SLUGS.PEAU_NORMALE, category: 'skin_type' },
   { name: 'Peau atopique', slug: TAG_SLUGS.PEAU_ATOPIQUE, category: 'skin_type' },
+  {
+    name: 'Peau rugueuse',
+    slug: TAG_SLUGS.PEAU_RUGUEUSE,
+    category: 'skin_type',
+  },
+  {
+    name: 'Tous types de peau',
+    slug: TAG_SLUGS.PEAU_TOUS_TYPES,
+    category: 'skin_type',
+  },
 
   // Routine steps
   { name: 'Soin de jour', slug: TAG_SLUGS.SOIN_DE_JOUR, category: 'routine_step' },
@@ -146,6 +166,16 @@ export const tagData: CreateTagInput[] = [
   {
     name: 'Protection lumière bleue',
     slug: TAG_SLUGS.PROTECTION_LUMIERE_BLEUE,
+    category: 'routine_step',
+  },
+  {
+    name: 'Corps',
+    slug: TAG_SLUGS.CORPS,
+    category: 'routine_step',
+  },
+  {
+    name: 'Visage',
+    slug: TAG_SLUGS.VISAGE,
     category: 'routine_step',
   },
 

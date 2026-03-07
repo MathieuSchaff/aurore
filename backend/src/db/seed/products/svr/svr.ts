@@ -36,7 +36,7 @@ export const SVR_PRODUCT_SLUGS = {
   SVR_SEBIACLEAR_ACTIVE_TEINTE: 'svr-sebiaclear-active-teinte',
 
   // Topialyse
-  SVR_TOPIALYSE_BAUME_PROTECT: 'svr-topialyse-baume-protect-plus',
+  SVR_TOPIALYSE_BAUME_PROTECT_PLUS: 'svr-topialyse-baume-protect-plus',
   SVR_TOPIALYSE_CREME: 'svr-topialyse-creme-nourrissante',
   SVR_TOPIALYSE_HUILE_LAVANTE: 'svr-topialyse-huile-lavante-relipidante',
   SVR_TOPIALYSE_GEL_LAVANT: 'svr-topialyse-gel-lavant-doux',
@@ -52,6 +52,7 @@ export const SVR_PRODUCT_SLUGS = {
   SVR_XERIAL_30_GEL_CREME: 'svr-xerial-30-gel-creme-lissant',
   SVR_XERIAL_DM_PSORIASIS: 'svr-xerial-dm-psoriasis-dispositif-medical',
   SVR_XERIAL_30_PIEDS: 'svr-xerial-30-creme-pieds-quotidien',
+  SVR_XERIAL_GEL_LAVANT_PEELING: 'svr-xerial-gel-lavant',
 
   // Autres gammes
   SVR_C20_BIOTIC: 'svr-c20-biotic-regenerating-radiance-cream',
@@ -74,6 +75,11 @@ export const SVR_PRODUCT_SLUGS = {
   SVR_DENSITIUM_BI_SERUM: 'svr-densitium-bi-serum',
   SVR_DENSITIUM_CREME: 'svr-densitium-creme',
   SVR_DENSITIUM_YEUX: 'svr-densitium-yeux',
+
+  // SUN SECURE
+  GOUTTE_TEINTEE: 'svr-goutte-teintee',
+  //PHYSIOPURE
+  SVR_PHYSIOPURE_GELEE_MOUSSANTE: 'svr-physiopure-gelee-moussante',
 }
 export const SVR_PRODUCT_DATA = [
   {
@@ -217,7 +223,7 @@ export const SVR_PRODUCT_DATA = [
     brand: 'SVR',
     kind: 'skincare',
     unit: 'pump',
-    slug: SVR_PRODUCT_SLUGS.SVR_TOPIALYSE_BAUME_PROTECT,
+    slug: SVR_PRODUCT_SLUGS.SVR_TOPIALYSE_BAUME_PROTECT_PLUS,
     totalAmount: 400,
     amountUnit: 'ml',
     priceCents: 2490,
@@ -225,7 +231,7 @@ export const SVR_PRODUCT_DATA = [
       'Soin relipidant protecteur anti-grattage pour peaux très sèches à atopiques. Protège contre les agressions extérieures.',
     notes: 'Céramides AD brevetés. Sucre prébiotique. 46% phase grasse.',
     inci: 'AQUA/WATER, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, COCOS NUCIFERA (COCONUT) OIL, ORBIGNYA OLEIFERA SEED OIL, RICINUS COMMUNIS (CASTOR) SEED OIL, CETEARYL ALCOHOL, HYDROGENATED CASTOR OIL, GLYCERIL STEARATE SE, PENTYLENE GLYCOL, CETEARYL GLUCOSIDE, SODIUM STEAROYL GLUTAMATE, OPHIOPOGON JAPONICUS ROOT EXTRACT, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, MALTODEXTRIN, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, GLYCOSPHINGOLIPIDS, CITRIC ACID, GLYCOLIPIDS',
-    url: 'https://www.labo-svr.com',
+    url: 'https://fr.svr.com/collections/tous-nos-soins-corps/products/topialyse-baume-protect',
   },
   {
     name: 'Topialyse Crème',
@@ -329,6 +335,22 @@ export const SVR_PRODUCT_DATA = [
     notes: '27% phase grasse. 7% Beurre de karité. Oméga 3, 6, 9.',
     inci: 'AQUA/WATER, ETHYLHEXYL STEARATE, BUTYROSPERMUM PARKII (SHEA) BUTTER, GLYCERYL STEARATE, CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, PEG-100 STEARATE, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, CAMELINA SATIVA SEED OIL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, TOCOPHEROL, TOCOPHERYL ACETATE, 1,2-HEXANEDIOL, ARACHIDYL ALCOHOL, ARACHIDYL GLUCOSIDE, BEHENYL ALCOHOL, CITRIC ACID, O-CYMEN-5-OL, SODIUM BENZOATE, PARFUM',
     url: 'https://www.labo-svr.com',
+  },
+  {
+    name: 'Xérial Gel Lavant Peeling',
+    brand: 'SVR',
+    kind: 'skincare',
+    unit: 'tube', // ou 'flacon' – souvent tube/pompe pour gels lavants corps
+    slug: SVR_PRODUCT_SLUGS.SVR_XERIAL_GEL_LAVANT_PEELING,
+    totalAmount: 200,
+    amountUnit: 'ml',
+    priceCents: 1990,
+    description:
+      'Gel douche exfoliant pour peaux sèches & rugueuses. Élimine les irrégularités, rugosités et affine le grain de peau grâce aux AHA, PHA et acide succinique. Hydrate et renforce la barrière cutanée avec acide polyglutamique et boosters d’aquaporines.',
+    notes:
+      '5% AHA + PHA + acide succinique pour exfoliation douce. Acide polyglutamique (hydratation x5 vs HA) + boosters d’aquaporines. Sans savon, biodégradable 98%. Testé dermato dès 10 ans. Parfum frais discret.',
+    inci: 'AQUA/WATER/EAU, GLYCERIN, GLUCONOLACTONE, COCO-BETAINE, LACTIC ACID, SODIUM HYDROXIDE, SODIUM LAUROAMPHOACETATE, COCO-GLUCOSIDE, SUCCINIC ACID, XANTHAN GUM, GLYCERYL GLUCOSIDE, CAPRYLYL/CAPRYL GLUCOSIDE, PARFUM/FRAGRANCE, SODIUM CHLORIDE, SODIUM BENZOATE, TETRASODIUM GLUTAMATE DIACETATE, POTASSIUM SORBATE, POLYGLUTAMIC ACID',
+    url: 'https://fr.svr.com/collections/xerial/products/xerial-gel-lavant-peeling',
   },
   {
     name: 'Xerial 10 Lait',
@@ -974,6 +996,46 @@ export const SVR_PRODUCT_DATA = [
     inci: 'AQUA/WATER/EAU, OCTYLDODECANOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, GLYCERIN, CETEARYL ALCOHOL, ORBIGNYA OLEIFERA SEED OIL, DISODIUM CETEARYL SULFOSUCCINATE, GLYCOL PALMITATE, SODIUM POLYACRYLATE, ARGININE PCA, CALCIUM PCA, CERA ALBA/BEESWAX/CIRE D’ABEILLE, GLYCERYL BEHENATE, CETEARETH-20, HYDROXYACETOPHENONE, PARFUM (FRAGRANCE), MALTODEXTRIN, CERATONIA SILIQUA GUM, XANTHAN GUM, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, HYALURONIC ACID, LACTOBACILLUS FERMENT, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, PENTYLENE GLYCOL, LACTIC ACID, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF EXTRACT, PALMITOYL TETRAPEPTIDE-7, CHRYSIN, CITRIC ACID',
     url: 'https://fr.labo-svr.com',
   },
+  {
+    name: 'Goutte teintée',
+    brand: 'SVR',
+    kind: 'skincare',
+    unit: 'pump',
+    slug: SVR_PRODUCT_SLUGS.GOUTTE_TEINTEE,
+    totalAmount: 15,
+    amountUnit: 'ml',
+    priceCents: 1990,
+    description:
+      'SUN SECURE Gouttes Teintées : un concentré teinté illuminateur avec des nacres d’origines naturelles, enrichi en actifs hydratants et anti oxydants pour un teint hâlé instantané.',
+    notes: `NACRES BRONZES 100% D’ORIGINE NATURELLE
+    Donnent à la peau un teint halé immédiat, pour sublimer toutes les carnations sans traces ni démarcations.
+
+    ACIDE POLYGLUTAMIQUE
+    Hydrate la peau toute la journée et protège la barrière cutanée de la peau.
+
+    ANTI OXYDANTS
+    Renforcent les défenses naturelles de la peau contre les agressions extérieures, dont la pollution, et ravivent l’éclat.
+
+    DÉRIVÉ DE SUCCULENTE
+    Révèle l’éclat de la peau.`,
+
+    inci: 'LAB24.13/A.14 : AQUA/WATER/EAU, GLYCERIN, MAURITIA FLEXUOSA FRUIT OIL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, MICA, PENTYLENE GLYCOL, CI 77491 (IRON OXIDES), SODIUM CARBOXYMETHYL STARCH, BORON NITRIDE, CORN STARCH MODIFIED, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, CI 77499 (IRON OXIDES), SODIUM STEAROYL GLUTAMATE, SCLEROTIUM GUM, TOCOPHEROL, XANTHAN GUM, CITRIC ACID, ALGIN, POLYGLUTAMIC ACID, CYAMOPSIS TETRAGONOLOBA (GUAR) GUM, FRUCTOOLIGOSACCHARIDES, PHYTIC ACID, BIOFLAVONOIDS, GLYCOPROTEINS.',
+    url: 'https://fr.svr.com/collections/nouveautes/products/sun-secure-gouttes-teintees',
+  },
+  {
+    name: 'Physiopure Gelée Moussante',
+    brand: 'SVR',
+    kind: 'skincare',
+    unit: 'pump', // format pompe/flacon pompe courant pour ce nettoyant
+    slug: SVR_PRODUCT_SLUGS.SVR_PHYSIOPURE_GELEE_MOUSSANTE,
+    totalAmount: 200,
+    amountUnit: 'ml',
+    priceCents: 1390,
+    description:
+      'Gelée nettoyante qui se transforme en mousse onctueuse. Purifie, élimine impuretés, pollution et maquillage waterproof sans dessécher. Pour toutes peaux, même sensibles. Peau nette, fraîche et apaisée.',
+    notes:
+      'Magnésium oxygénant pour détox & ré-oxygénation. Tensioactifs doux sans savon. Testé dermato sur peaux sensibles. 100% satisfaction sur pureté, douceur et non-dessèchement.',
+    inci: 'AQUA/WATER/EAU, GLYCERIN, DISODIUM COCOYL GLUTAMATE, DECYL GLUCOSIDE, XANTHAN GUM, COCO-BETAINE, MAGNESIUM PCA, CITRIC ACID, POTASSIUM SORBATE, SODIUM BENZOATE, PARFUM /FRAGRANCE',
+    url: 'https://fr.svr.com/products/physiopure-gelee-moussante-23',
+  },
 ]
-console.log(SVR_PRODUCT_DATA.length)
-console.log(Object.keys(SVR_PRODUCT_SLUGS).length)

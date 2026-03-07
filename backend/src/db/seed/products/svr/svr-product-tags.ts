@@ -631,7 +631,7 @@ export const SVR_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
     ],
   },
 
-  [SVR_PRODUCT_SLUGS.SVR_TOPIALYSE_BAUME_PROTECT]: {
+  [SVR_PRODUCT_SLUGS.SVR_TOPIALYSE_BAUME_PROTECT_PLUS]: {
     primary: [
       TAG_SLUGS.PEAU_SECHE,
       TAG_SLUGS.PEAU_ATOPIQUE,
@@ -654,6 +654,28 @@ export const SVR_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
     avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.BRILLANCE],
   },
 
+  [SVR_PRODUCT_SLUGS.SVR_TOPIALYSE_BAUME_PROTECT_PLUS]: {
+    primary: [
+      TAG_SLUGS.PEAU_SECHE,
+      TAG_SLUGS.PEAU_ATOPIQUE,
+      TAG_SLUGS.PEAU_SENSIBLE,
+      TAG_SLUGS.ECZEMA,
+      TAG_SLUGS.BARRIERE_CUTANEE,
+      TAG_SLUGS.REPARATEUR,
+    ],
+    secondary: [
+      TAG_SLUGS.EMOLLIENT,
+      TAG_SLUGS.OCCLUSIF,
+      TAG_SLUGS.TEXTURE_RICHE,
+      TAG_SLUGS.MICROBIOME,
+      TAG_SLUGS.PREBIOTIQUE,
+      TAG_SLUGS.BIOMIMETIQUE,
+      TAG_SLUGS.APAISANT,
+      TAG_SLUGS.SANS_PARFUM,
+      TAG_SLUGS.NON_COMEDOGENE,
+    ],
+    avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.BRILLANCE],
+  },
   [SVR_PRODUCT_SLUGS.SVR_TOPIALYSE_CREME]: {
     primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE],
     secondary: [
@@ -1153,5 +1175,54 @@ export const SVR_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
     ],
     secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.EMOLLIENT, TAG_SLUGS.ANTI_OXYDANT],
     avoid: [TAG_SLUGS.ANTI_ACNE],
+  },
+  [SVR_PRODUCT_SLUGS.GOUTTE_TEINTEE]: {
+    primary: [
+      TAG_SLUGS.PEAU_SENSIBLE,
+      TAG_SLUGS.ECLAT,
+      TAG_SLUGS.ANTI_OXYDANT,
+      TAG_SLUGS.TEINT_TERNE,
+    ],
+    secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.NON_COMEDOGENE, TAG_SLUGS.TEXTURE_LEGERE],
+    avoid: [TAG_SLUGS.PEAU_ATOPIQUE, TAG_SLUGS.ANTI_ACNE],
+  },
+
+  [SVR_PRODUCT_SLUGS.SVR_PHYSIOPURE_GELEE_MOUSSANTE]: {
+    primary: [
+      TAG_SLUGS.PEAU_SENSIBLE,
+      TAG_SLUGS.NETTOYANT,
+      TAG_SLUGS.DEMAQUILLANT,
+      TAG_SLUGS.ANTI_OXYDANT,
+      TAG_SLUGS.APAISANT,
+      TAG_SLUGS.PEAU_NORMALE,
+    ],
+    secondary: [
+      TAG_SLUGS.SANS_SAVON,
+      TAG_SLUGS.HUMECTANT, // Glycérine + non desséchant, maintient l'hydratation
+      TAG_SLUGS.SANS_PARFUM, // Parfum léger/discret
+      TAG_SLUGS.NON_COMEDOGENE,
+      TAG_SLUGS.DEMAQUILLANT,
+    ],
+    avoid: [],
+  },
+  [SVR_PRODUCT_SLUGS.SVR_XERIAL_GEL_LAVANT_PEELING]: {
+    // ajuste le slug si différent (ex. SVR_PRODUCT_SLUGS.SVR_XERIAL_GEL_LAVANT_PEELING)
+    primary: [
+      TAG_SLUGS.PEAU_SECHE,
+      TAG_SLUGS.PEAU_RUGUEUSE,
+      TAG_SLUGS.EXFOLIANT,
+      TAG_SLUGS.NETTOYANT,
+      TAG_SLUGS.CORPS,
+      TAG_SLUGS.ECLAT,
+      TAG_SLUGS.GRAIN_PEAU,
+      TAG_SLUGS.KERATOLYTIQUE,
+    ],
+    secondary: [TAG_SLUGS.SANS_SAVON, TAG_SLUGS.TEXTURE_RICHE, TAG_SLUGS.ECLAT],
+    avoid: [
+      TAG_SLUGS.PEAU_SENSIBLE, // Acides exfoliants → risque d'irritation sur hypersensibles (même si testé dermato)
+      TAG_SLUGS.PEAU_ATOPIQUE, // Pas pour atopie active (mieux Topialyse ou Cicavit)
+      TAG_SLUGS.PEAU_GRASSE, // Exfoliant + corps, pas optimisé pour gras/acné
+      TAG_SLUGS.ANTI_ACNE, // Pas dédié anti-acné (même si acides aident grain)
+    ],
   },
 }

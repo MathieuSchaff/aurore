@@ -36,9 +36,10 @@ export async function getOrCreateSeedUser(
   console.log(`Création de l'utilisateur seed : ${email}`)
   const result = await signup(ctx, email as Email, password as RawPassword)
 
-  if (!result.success) {
-    throw new Error(`Échec création utilisateur seed : ${result.error}`)
-  }
+    if (result.success === false) {
+      // TypeScript now knows 'error' exists because success is specifically false
+      throw new Error(`Échec création utilisateur seed : ${result.error}`)
+    }
 
   return result.data.user
 }

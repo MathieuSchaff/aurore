@@ -129,7 +129,7 @@ export const SVR_INGREDIENTS_MAP: Record<string, any[]> = {
   ],
   [allProductSlugs.SVR_CICAVIT_BAUME_LEVRES]: [
     {
-      slug: INGREDIENT_SLUGS.RICINUS_COMMUNIS_SEED_OIL,
+      slug: INGREDIENT_SLUGS.HUILE_DE_RICIN,
       notes: 'Huile de ricin protectrice',
     },
     {
@@ -482,6 +482,37 @@ export const SVR_INGREDIENTS_MAP: Record<string, any[]> = {
       slug: INGREDIENT_SLUGS.PANTHENOL,
       notes: 'Apaise et hydrate',
     },
+    {
+      slug: INGREDIENT_SLUGS.HUILE_DE_COCO,
+      notes: 'emollient',
+    },
+    {
+      slug: INGREDIENT_SLUGS.SHEA_BUTTER,
+      notes: 'apaise, protège, emollient',
+    },
+
+    {
+      slug: INGREDIENT_SLUGS.GLYCERYL_GLUCOSIDE,
+      notes: 'apaise, protège, emollient',
+    },
+    {
+      slug: INGREDIENT_SLUGS.BOURRACHE,
+      notes: 'apaise, protège, emollient',
+    },
+
+    {
+      slug: INGREDIENT_SLUGS.SERINE,
+    },
+    {
+      slug: INGREDIENT_SLUGS.HISTIDINE,
+    },
+    {
+      slug: INGREDIENT_SLUGS.SILICA,
+    },
+    {
+      slug: INGREDIENT_SLUGS.GLYCERYL_GLUCOSIDE,
+      notes: 'apaise, protège, emollient',
+    },
   ],
   [allProductSlugs.SVR_AMPOULE_A_LIFT]: [
     {
@@ -629,18 +660,30 @@ export const SVR_INGREDIENTS_MAP: Record<string, any[]> = {
     },
   ],
 
-  [allProductSlugs.SVR_TOPIALYSE_BAUME_PROTECT]: [
+  [allProductSlugs.SVR_TOPIALYSE_BAUME_PROTECT_PLUS]: [
     {
       slug: INGREDIENT_SLUGS.SHEA_BUTTER,
       notes: 'Beurre de karité protecteur',
     },
     {
       slug: INGREDIENT_SLUGS.CERAMIDES,
-      notes: 'Restaure la barrière cutanée',
+      notes:
+        'Céramides AD brevetés - Protègent la barrière cutanée des effets des acariens et pollution, restaurent les lipides manquants',
     },
     {
-      slug: INGREDIENT_SLUGS.NIACINAMIDE,
-      notes: 'Anti-irritant barrière',
+      slug: INGREDIENT_SLUGS.HUILE_DE_COCO,
+      notes: 'Huile de coco - Nourrit, adoucit et apporte des oméga 6/9 (phase grasse 46%)',
+    },
+    {
+      slug: INGREDIENT_SLUGS.HUILE_BABASSU,
+      notes: 'Huile/beurre de babassu - Nourrit intensément, effet velouté non gras',
+    },
+
+    {
+      slug: INGREDIENT_SLUGS.HUILE_DE_RICIN,
+    },
+    {
+      slug: INGREDIENT_SLUGS.HUILE_GRAINES_TOURNESOL,
     },
   ],
 
@@ -742,6 +785,26 @@ export const SVR_INGREDIENTS_MAP: Record<string, any[]> = {
     },
   ],
 
+  [allProductSlugs.SVR_XERIAL_GEL_LAVANT_PEELING]: [
+    {
+      slug: INGREDIENT_SLUGS.PHA,
+      value: 8,
+      unit: '%',
+      notes: 'Exfoliant ',
+    },
+    {
+      slug: INGREDIENT_SLUGS.LACTIC_ACID,
+      value: 5,
+      unit: '%',
+      notes: 'Exfoliant ',
+    },
+    {
+      slug: INGREDIENT_SLUGS.GLYCERIN,
+    },
+    {
+      slug: INGREDIENT_SLUGS.POLYGLUTAMIC_ACID,
+    },
+  ],
   [allProductSlugs.SVR_XERIAL_FISSURES_CREVASSES]: [
     {
       slug: INGREDIENT_SLUGS.UREA,
