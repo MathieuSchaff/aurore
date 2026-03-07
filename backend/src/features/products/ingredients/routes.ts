@@ -9,8 +9,8 @@ import {
   updateIngredientSchema,
 } from '@habit-tracker/shared'
 
-import { Hono } from 'hono'
 import { zValidator } from '@hono/zod-validator'
+import { Hono } from 'hono'
 import { z } from 'zod'
 
 import type { AppEnv } from '../../../app-env'
@@ -95,16 +95,21 @@ export const ingredientRoutes = ingredientsApp
     return c.json(ok(ingredient), HTTP_STATUS.OK)
   })
 
-  .patch('/:id', zValidator('param', idParam), zValidator('json', updateIngredientSchema), async (c) => {
-    const db = c.get('db')
-    const { id } = c.req.valid('param')
-    const userId = c.get('userId')
-    const input = c.req.valid('json')
+  .patch(
+    '/:id',
+    zValidator('param', idParam),
+    zValidator('json', updateIngredientSchema),
+    async (c) => {
+      const db = c.get('db')
+      const { id } = c.req.valid('param')
+      const userId = c.get('userId')
+      const input = c.req.valid('json')
 
-    const ingredient = await updateIngredient(userId, id, input, undefined, db)
+      const ingredient = await updateIngredient(userId, id, input, undefined, db)
 
-    return c.json(ok(ingredient), HTTP_STATUS.OK)
-  })
+      return c.json(ok(ingredient), HTTP_STATUS.OK)
+    }
+  )
 
   .delete('/:id', zValidator('param', idParam), async (c) => {
     const db = c.get('db')

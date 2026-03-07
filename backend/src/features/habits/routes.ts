@@ -14,8 +14,8 @@ import {
   updateHabitSchema,
 } from '@habit-tracker/shared'
 
-import { Hono } from 'hono'
 import { zValidator } from '@hono/zod-validator'
+import { Hono } from 'hono'
 import { z } from 'zod'
 
 import type { AppEnv } from '../../app-env'
@@ -124,71 +124,101 @@ export const habits = app
 
   // ── Today / Checks / Stats ─────────────────────────────────────────────
 
-  .post('/:id/check', zValidator('param', idParam), zValidator('json', toggleCheckSchema), async (c) => {
-    const { id } = c.req.valid('param')
-    const userId = c.get('userId')
-    const input = c.req.valid('json')
-    const date = input.date ?? getToday()
-    const result = await toggleHabitCheck({
-      habitId: id,
-      userId,
-      date,
-      timingId: input.timingId,
-      actualTime: input.actualTime,
-    })
-    return c.json(ok(result), HTTP_STATUS.OK)
-  })
+  .post(
+    '/:id/check',
+    zValidator('param', idParam),
+    zValidator('json', toggleCheckSchema),
+    async (c) => {
+      const { id } = c.req.valid('param')
+      const userId = c.get('userId')
+      const input = c.req.valid('json')
+      const date = input.date ?? getToday()
+      const result = await toggleHabitCheck({
+        habitId: id,
+        userId,
+        date,
+        timingId: input.timingId,
+        actualTime: input.actualTime,
+      })
+      return c.json(ok(result), HTTP_STATUS.OK)
+    }
+  )
 
-  .get('/:id/checks', zValidator('param', idParam), zValidator('query', dateRangeQuerySchema), async (c) => {
-    const { id } = c.req.valid('param')
-    const { startDate, endDate } = c.req.valid('query')
-    const checks = await getHabitChecks(id, startDate, endDate)
-    return c.json(ok(checks), HTTP_STATUS.OK)
-  })
+  .get(
+    '/:id/checks',
+    zValidator('param', idParam),
+    zValidator('query', dateRangeQuerySchema),
+    async (c) => {
+      const { id } = c.req.valid('param')
+      const { startDate, endDate } = c.req.valid('query')
+      const checks = await getHabitChecks(id, startDate, endDate)
+      return c.json(ok(checks), HTTP_STATUS.OK)
+    }
+  )
 
-  .get('/:id/stats', zValidator('param', idParam), zValidator('query', dateRangeQuerySchema), async (c) => {
-    const { id } = c.req.valid('param')
-    const { startDate, endDate } = c.req.valid('query')
-    const stats = await getHabitStats(id, startDate, endDate)
-    return c.json(ok(stats), HTTP_STATUS.OK)
-  })
+  .get(
+    '/:id/stats',
+    zValidator('param', idParam),
+    zValidator('query', dateRangeQuerySchema),
+    async (c) => {
+      const { id } = c.req.valid('param')
+      const { startDate, endDate } = c.req.valid('query')
+      const stats = await getHabitStats(id, startDate, endDate)
+      return c.json(ok(stats), HTTP_STATUS.OK)
+    }
+  )
 
   // ── Sub-entity updates ─────────────────────────────────────────────────
 
-  .put('/:id/frequency', zValidator('param', idParam), zValidator('json', frequencySchema), async (c) => {
-    const { id } = c.req.valid('param')
-    const frequency = c.req.valid('json')
-    const result = await updateHabitFrequency(id, frequency)
-    return c.json(ok(result), HTTP_STATUS.OK)
-  })
+  .put(
+    '/:id/frequency',
+    zValidator('param', idParam),
+    zValidator('json', frequencySchema),
+    async (c) => {
+      const { id } = c.req.valid('param')
+      const frequency = c.req.valid('json')
+      const result = await updateHabitFrequency(id, frequency)
+      return c.json(ok(result), HTTP_STATUS.OK)
+    }
+  )
 
-  .put('/:id/timings', zValidator('param', idParam), zValidator('json', z.array(timingSchema).max(10)), async (c) => {
-    const { id } = c.req.valid('param')
-    const timings = c.req.valid('json')
-    const result = await setHabitTimings(id, timings)
-    const mapped = result.map((t) => ({
-      id: t.id,
-      habitId: id,
-      day: t.day,
-      time: t.time,
-      label: t.label,
-      createdAt: t.createdAt,
-    }))
-    return c.json(ok(mapped), HTTP_STATUS.OK)
-  })
+  .put(
+    '/:id/timings',
+    zValidator('param', idParam),
+    zValidator('json', z.array(timingSchema).max(10)),
+    async (c) => {
+      const { id } = c.req.valid('param')
+      const timings = c.req.valid('json')
+      const result = await setHabitTimings(id, timings)
+      const mapped = result.map((t) => ({
+        id: t.id,
+        habitId: id,
+        day: t.day,
+        time: t.time,
+        label: t.label,
+        createdAt: t.createdAt,
+      }))
+      return c.json(ok(mapped), HTTP_STATUS.OK)
+    }
+  )
 
-  .put('/:id/reminders', zValidator('param', idParam), zValidator('json', z.array(reminderSchema).max(5)), async (c) => {
-    const { id } = c.req.valid('param')
-    const reminders = c.req.valid('json')
-    const result = await setHabitReminders(id, reminders)
-    const mapped = result.map((r) => ({
-      id: r.id,
-      habitId: id,
-      beforeMinutes: r.beforeMinutes,
-      createdAt: r.createdAt,
-    }))
-    return c.json(ok(mapped), HTTP_STATUS.OK)
-  })
+  .put(
+    '/:id/reminders',
+    zValidator('param', idParam),
+    zValidator('json', z.array(reminderSchema).max(5)),
+    async (c) => {
+      const { id } = c.req.valid('param')
+      const reminders = c.req.valid('json')
+      const result = await setHabitReminders(id, reminders)
+      const mapped = result.map((r) => ({
+        id: r.id,
+        habitId: id,
+        beforeMinutes: r.beforeMinutes,
+        createdAt: r.createdAt,
+      }))
+      return c.json(ok(mapped), HTTP_STATUS.OK)
+    }
+  )
 
   .put('/:id/period', zValidator('param', idParam), zValidator('json', periodSchema), async (c) => {
     const { id } = c.req.valid('param')
