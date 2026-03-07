@@ -33,7 +33,7 @@ export const profileRoute = app
     const profile = await getProfile(db, userId)
 
     if (!profile) {
-      return c.json(err('not_found'), HTTP_STATUS.NOT_FOUND) as never
+      return c.json(err('not_found'), HTTP_STATUS.NOT_FOUND)
     }
 
     return c.json(ok(profile), HTTP_STATUS.OK)
@@ -47,7 +47,7 @@ export const profileRoute = app
     const updated = await updateProfile(db, userId, data)
 
     if (!updated) {
-      return c.json(err('not_found'), HTTP_STATUS.NOT_FOUND) as never
+      return c.json(err('not_found'), HTTP_STATUS.NOT_FOUND)
     }
 
     return c.json(ok(updated), HTTP_STATUS.OK)

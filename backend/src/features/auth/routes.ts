@@ -57,7 +57,7 @@ export const jwtAuthRoutes = app
     const result = await login(ctx, email, password)
 
     if (!isApiSuccess(result)) {
-      return c.json(err(result.error), errorToStatus(result.error, authErrorMapping)) as never
+      return c.json(err(result.error), errorToStatus(result.error, authErrorMapping))
     }
 
     setRefreshTokenCookie(c, result.data.refreshToken, env)
@@ -76,7 +76,7 @@ export const jwtAuthRoutes = app
     const result = await signup(ctx, email, password)
 
     if (!isApiSuccess(result)) {
-      return c.json(err(result.error), errorToStatus(result.error, authErrorMapping)) as never
+      return c.json(err(result.error), errorToStatus(result.error, authErrorMapping))
     }
 
     setRefreshTokenCookie(c, result.data.refreshToken, env)
@@ -100,7 +100,7 @@ export const jwtAuthRoutes = app
 
     if (!isApiSuccess(result)) {
       clearRefreshTokenCookie(c)
-      return c.json(err(result.error), errorToStatus(result.error, authErrorMapping)) as never
+      return c.json(err(result.error), errorToStatus(result.error, authErrorMapping))
     }
 
     setRefreshTokenCookie(c, result.data.refreshToken, env)
@@ -140,7 +140,7 @@ export const jwtAuthRoutes = app
     const result = await login(ctx, email, password)
 
     if (!isApiSuccess(result)) {
-      return c.json(err(result.error), errorToStatus(result.error, authErrorMapping)) as never
+      return c.json(err(result.error), errorToStatus(result.error, authErrorMapping))
     }
 
     return c.json(
@@ -160,7 +160,7 @@ export const jwtAuthRoutes = app
     const result = await signup(ctx, email, password)
 
     if (!isApiSuccess(result)) {
-      return c.json(err(result.error), errorToStatus(result.error, authErrorMapping)) as never
+      return c.json(err(result.error), errorToStatus(result.error, authErrorMapping))
     }
 
     return c.json(
@@ -184,7 +184,7 @@ export const jwtAuthRoutes = app
     const result = await refresh(ctx, refreshToken)
 
     if (!isApiSuccess(result)) {
-      return c.json(err(result.error), errorToStatus(result.error, authErrorMapping)) as never
+      return c.json(err(result.error), errorToStatus(result.error, authErrorMapping))
     }
 
     return c.json(
