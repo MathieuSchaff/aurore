@@ -2,12 +2,13 @@ import type {
   CreateIngredientInput,
   FieldChange,
   IngredientChanges,
+  IngredientSearchFilters,
   UpdateIngredientInput,
 } from '@habit-tracker/shared'
 import { ingredientChangesSchema } from '@habit-tracker/shared'
 
 import slugify from '@sindresorhus/slugify'
-import { and, eq, inArray, type SQL, sql } from 'drizzle-orm'
+import { and, eq, ilike, inArray, or, type SQL, sql } from 'drizzle-orm'
 
 import { db } from '../../../db'
 import type { Database } from '../../../db/index'
@@ -19,13 +20,17 @@ import { IngredientError } from './ingredients-error'
 const EXCLUDED_KEYS = new Set(['id', 'createdBy', 'createdAt', 'slug', 'updatedAt'])
 
 export async function listIngredients(
-  filters: { category?: string; concern?: string } = {},
+  filters: IngredientSearchFilters,
   database: Database = db
 ): Promise<Ingredient[]> {
   const conditions: SQL[] = []
 
-  if (filters.category) conditions.push(eq(ingredients.category, filters.category))
-  if (filters.concern) {
+  if (filters.category.length > 0) {
+    conditions.push(inArray(ingredients.category, filters.category))
+  }
+
+  const addTagGroup = (slugs: string[]) => {
+    if (slugs.length === 0) return
     conditions.push(
       inArray(
         ingredients.id,
@@ -33,18 +38,25 @@ export async function listIngredients(
           .select({ ingredientId: ingredientTags.ingredientId })
           .from(ingredientTags)
           .innerJoin(tags, eq(ingredientTags.tagId, tags.id))
-          .where(eq(tags.slug, filters.concern))
+          .where(inArray(tags.slug, slugs))
       )
     )
   }
 
-  return database
+  addTagGroup(filters.concern)
+  addTagGroup(filters.skinType)
+  addTagGroup(filters.routineStep)
+  addTagGroup(filters.attribute)
+
+  const query = database
     .select()
     .from(ingredients)
     .where(conditions.length > 0 ? and(...conditions) : undefined)
     .orderBy(ingredients.name)
-}
 
+  console.log(query.toSQL())
+  return query
+}
 export async function createIngredient(
   userId: string,
   input: CreateIngredientInput,
@@ -159,4 +171,22 @@ export async function listIngredientEdits(ingredientId: string, database: Databa
     .from(ingredientEdits)
     .where(eq(ingredientEdits.ingredientId, ingredientId))
     .orderBy(sql`${ingredientEdits.createdAt} DESC`)
+}
+export async function searchIngredients(
+  query: string,
+  database: Database = db,
+  limit = 10
+): Promise<Pick<Ingredient, 'id' | 'name' | 'slug' | 'category'>[]> {
+  const pattern = `%${query}%`
+  return database
+    .select({
+      id: ingredients.id,
+      name: ingredients.name,
+      slug: ingredients.slug,
+      category: ingredients.category,
+    })
+    .from(ingredients)
+    .where(or(ilike(ingredients.name, pattern), ilike(ingredients.slug, pattern)))
+    .orderBy(ingredients.name)
+    .limit(limit)
 }

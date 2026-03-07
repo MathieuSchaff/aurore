@@ -1,15 +1,14 @@
 import {
   err,
-  errorResponse,
   errorToStatus,
   HTTP_STATUS,
-  ingredientTagResponseSchema,
   ok,
-  successResponse,
   tagErrorMapping,
 } from '@habit-tracker/shared'
 
-import { createRoute, OpenAPIHono, z } from '@hono/zod-openapi'
+import { Hono } from 'hono'
+import { zValidator } from '@hono/zod-validator'
+import { z } from 'zod'
 
 import type { AppEnv } from '../../../app-env'
 import { isUniqueViolation } from '../../../lib/helpers'
@@ -29,76 +28,9 @@ const addIngredientTagSchema = z.object({ tagId: z.uuid() })
 
 const replaceIngredientTagsSchema = z.object({ tagIds: z.array(z.uuid()) })
 
-const ingredientTagWithDetailsSchema = ingredientTagResponseSchema.extend({
-  tagName: z.string(),
-  tagSlug: z.string(),
-  tagCategory: z.string().nullable(),
-})
-
-const listTagsRoute = createRoute({
-  method: 'get',
-  path: '/{ingredientId}/tags',
-  tags: ['Ingredient Tags'],
-  summary: 'List tags for an ingredient',
-  request: { params: ingredientParams },
-  responses: {
-    [HTTP_STATUS.OK]: successResponse(z.array(ingredientTagWithDetailsSchema), 'Tags retrieved'),
-    [HTTP_STATUS.BAD_REQUEST]: errorResponse('Invalid ingredient id'),
-  },
-})
-
-const addTagRoute = createRoute({
-  method: 'post',
-  path: '/{ingredientId}/tags',
-  tags: ['Ingredient Tags'],
-  summary: 'Add a tag to an ingredient',
-  security: [{ Bearer: [] }],
-  request: {
-    params: ingredientParams,
-    body: { content: { 'application/json': { schema: addIngredientTagSchema } } },
-  },
-  responses: {
-    [HTTP_STATUS.CREATED]: successResponse(ingredientTagResponseSchema, 'Tag added'),
-    [HTTP_STATUS.UNAUTHORIZED]: errorResponse('Not authenticated'),
-    [HTTP_STATUS.BAD_REQUEST]: errorResponse('Validation error'),
-    [HTTP_STATUS.CONFLICT]: errorResponse('Tag already linked to this ingredient'),
-  },
-})
-
-const removeTagRoute = createRoute({
-  method: 'delete',
-  path: '/{ingredientId}/tags/{tagId}',
-  tags: ['Ingredient Tags'],
-  summary: 'Remove a tag from an ingredient',
-  security: [{ Bearer: [] }],
-  request: { params: ingredientTagParams },
-  responses: {
-    [HTTP_STATUS.OK]: successResponse(z.null(), 'Tag removed'),
-    [HTTP_STATUS.NOT_FOUND]: errorResponse('Tag not linked to this ingredient'),
-    [HTTP_STATUS.UNAUTHORIZED]: errorResponse('Not authenticated'),
-  },
-})
-
-const replaceTagsRoute = createRoute({
-  method: 'put',
-  path: '/{ingredientId}/tags',
-  tags: ['Ingredient Tags'],
-  summary: 'Replace all tags for an ingredient',
-  security: [{ Bearer: [] }],
-  request: {
-    params: ingredientParams,
-    body: { content: { 'application/json': { schema: replaceIngredientTagsSchema } } },
-  },
-  responses: {
-    [HTTP_STATUS.OK]: successResponse(z.array(ingredientTagResponseSchema), 'Tags replaced'),
-    [HTTP_STATUS.UNAUTHORIZED]: errorResponse('Not authenticated'),
-    [HTTP_STATUS.BAD_REQUEST]: errorResponse('Validation error'),
-  },
-})
-
 // ─── App ──────────────────────────────────────────────────
 
-const ingredientTagsApp = new OpenAPIHono<AppEnv>()
+const ingredientTagsApp = new Hono<AppEnv>()
 
 ingredientTagsApp.use('*', async (c, next) => {
   if (c.req.method === 'GET') return next()
@@ -117,14 +49,14 @@ ingredientTagsApp.onError((error, c) => {
 
 export const ingredientTagRoutes = ingredientTagsApp
 
-  .openapi(listTagsRoute, async (c) => {
+  .get('/:ingredientId/tags', zValidator('param', ingredientParams), async (c) => {
     const db = c.get('db')
     const { ingredientId } = c.req.valid('param')
     const items = await listTagsByIngredient(db, ingredientId)
     return c.json(ok(items), HTTP_STATUS.OK)
   })
 
-  .openapi(addTagRoute, async (c) => {
+  .post('/:ingredientId/tags', zValidator('param', ingredientParams), zValidator('json', addIngredientTagSchema), async (c) => {
     const db = c.get('db')
     const { ingredientId } = c.req.valid('param')
     const { tagId } = c.req.valid('json')
@@ -140,7 +72,7 @@ export const ingredientTagRoutes = ingredientTagsApp
     }
   })
 
-  .openapi(removeTagRoute, async (c) => {
+  .delete('/:ingredientId/tags/:tagId', zValidator('param', ingredientTagParams), async (c) => {
     const db = c.get('db')
     const { ingredientId, tagId } = c.req.valid('param')
     const removed = await removeTagFromIngredient(db, ingredientId, tagId)
@@ -148,7 +80,7 @@ export const ingredientTagRoutes = ingredientTagsApp
     return c.json(ok(null), HTTP_STATUS.OK)
   })
 
-  .openapi(replaceTagsRoute, async (c) => {
+  .put('/:ingredientId/tags', zValidator('param', ingredientParams), zValidator('json', replaceIngredientTagsSchema), async (c) => {
     const db = c.get('db')
     const { ingredientId } = c.req.valid('param')
     const { tagIds } = c.req.valid('json')

@@ -1,5 +1,3 @@
-import type { HabitStats } from '@habit-tracker/shared'
-
 import { differenceInDays, startOfDay } from 'date-fns'
 import { and, between, desc, eq, sql } from 'drizzle-orm'
 
@@ -16,17 +14,22 @@ export async function countHabitChecks(
   const result = await database
     .select({ count: sql<number>`count(*)::int` })
     .from(habitChecks)
-    .where(and(eq(habitChecks.habitId, habitId), between(habitChecks.date, startDate, endDate)))
+    .where(
+      and(
+        eq(habitChecks.habitId, habitId),
+        between(habitChecks.scheduledDate, startDate, endDate)
+      )
+    )
 
   return result[0]?.count ?? 0
 }
 
 export async function getHabitStreak(habitId: string, database: Database = db): Promise<number> {
   const checks = await database
-    .select({ date: habitChecks.date })
+    .select({ date: habitChecks.scheduledDate })
     .from(habitChecks)
-    .where(eq(habitChecks.habitId, habitId))
-    .orderBy(desc(habitChecks.date))
+    .where(and(eq(habitChecks.habitId, habitId), eq(habitChecks.status, 'done')))
+    .orderBy(desc(habitChecks.scheduledDate))
 
   if (checks.length === 0) {
     return 0
@@ -55,7 +58,7 @@ export async function getHabitStats(
   startDate: string,
   endDate: string,
   database: Database = db
-): Promise<HabitStats> {
+) {
   const [totalChecks, currentStreak] = await Promise.all([
     countHabitChecks(habitId, startDate, endDate, database),
     getHabitStreak(habitId, database),

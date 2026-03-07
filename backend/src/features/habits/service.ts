@@ -5,7 +5,6 @@ export {
   isHabitChecked,
   toggleHabitCheck,
   uncheckHabit,
-  uncheckHabitByDate,
 } from './habit-checks'
 export {
   archiveHabit,
@@ -20,11 +19,6 @@ export {
 export type { Database } from './habit-error'
 export { HabitError } from './habit-error'
 export {
-  addHabitReminder,
-  addHabitTiming,
-  deleteHabitPeriod,
-  deleteHabitReminder,
-  deleteHabitTiming,
   setHabitPeriod,
   setHabitReminders,
   setHabitTimings,

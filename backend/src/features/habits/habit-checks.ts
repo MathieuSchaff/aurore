@@ -1,7 +1,8 @@
-import { and, asc, between, eq, isNull } from 'drizzle-orm'
+import { and, asc, between, eq, isNull, sql } from 'drizzle-orm'
 
 import { db } from '../../db'
-import { type HabitCheck, habitChecks } from '../../db/schema/habits'
+import { type HabitCheck, habitChecks, habitProducts } from '../../db/schema/habits'
+import { productStock, products } from '../../db/schema/products'
 import { type Database, HabitError } from './habit-error'
 
 export async function checkHabit(
@@ -19,9 +20,11 @@ export async function checkHabit(
     .values({
       userId: input.userId,
       habitId: input.habitId,
-      date: input.date,
+      scheduledDate: input.date,
       timingId: input.timingId,
       actualTime: input.actualTime,
+      status: 'done',
+      completedAt: new Date(),
     })
     .returning()
 
@@ -42,22 +45,6 @@ export async function uncheckHabit(checkId: string, database: Database = db): Pr
   }
 }
 
-export async function uncheckHabitByDate(
-  habitId: string,
-  date: string,
-  database: Database = db
-): Promise<void> {
-  const result = await database
-    .delete(habitChecks)
-    .where(and(eq(habitChecks.habitId, habitId), eq(habitChecks.date, date)))
-
-  const deleted = (result.rowCount ?? 0) > 0
-
-  if (!deleted) {
-    throw new HabitError('check_not_found')
-  }
-}
-
 export async function getUserChecksForDate(
   userId: string,
   date: string,
@@ -66,7 +53,7 @@ export async function getUserChecksForDate(
   return database
     .select()
     .from(habitChecks)
-    .where(and(eq(habitChecks.userId, userId), eq(habitChecks.date, date)))
+    .where(and(eq(habitChecks.userId, userId), eq(habitChecks.scheduledDate, date)))
 }
 
 export async function getHabitChecks(
@@ -78,20 +65,28 @@ export async function getHabitChecks(
   return database
     .select()
     .from(habitChecks)
-    .where(and(eq(habitChecks.habitId, habitId), between(habitChecks.date, startDate, endDate)))
-    .orderBy(asc(habitChecks.date))
+    .where(
+      and(
+        eq(habitChecks.habitId, habitId),
+        between(habitChecks.scheduledDate, startDate, endDate)
+      )
+    )
+    .orderBy(asc(habitChecks.scheduledDate))
 }
 
 export async function isHabitChecked(
   habitId: string,
   date: string,
+  timingId?: string,
   database: Database = db
-): Promise<boolean> {
-  const check = await database.query.habitChecks.findFirst({
-    where: and(eq(habitChecks.habitId, habitId), eq(habitChecks.date, date)),
+): Promise<HabitCheck | undefined> {
+  return database.query.habitChecks.findFirst({
+    where: and(
+      eq(habitChecks.habitId, habitId),
+      eq(habitChecks.scheduledDate, date),
+      timingId ? eq(habitChecks.timingId, timingId) : isNull(habitChecks.timingId)
+    ),
   })
-
-  return !!check
 }
 
 export async function toggleHabitCheck(
@@ -103,20 +98,55 @@ export async function toggleHabitCheck(
     actualTime?: string
   },
   database: Database = db
-): Promise<{ checked: boolean; check?: HabitCheck }> {
-  const existing = await database.query.habitChecks.findFirst({
-    where: and(
-      eq(habitChecks.habitId, input.habitId),
-      eq(habitChecks.date, input.date),
-      input.timingId ? eq(habitChecks.timingId, input.timingId) : isNull(habitChecks.timingId)
-    ),
-  })
+): Promise<{ checked: boolean; check?: HabitCheck; depletedProducts?: string[] }> {
+  return database.transaction(async (tx) => {
+    const existing = await isHabitChecked(input.habitId, input.date, input.timingId, tx as any)
 
-  if (existing) {
-    await uncheckHabit(existing.id, database)
-    return { checked: false }
-  } else {
-    const check = await checkHabit(input, database)
-    return { checked: true, check }
-  }
+    // Get habit products for stock management
+    const linkedProducts = await tx
+      .select({
+        productId: habitProducts.productId,
+        productName: products.name,
+      })
+      .from(habitProducts)
+      .innerJoin(products, eq(habitProducts.productId, products.id))
+      .where(eq(habitProducts.habitId, input.habitId))
+
+    if (existing) {
+      // Uncheck → re-increment stock
+      await uncheckHabit(existing.id, tx as any)
+
+      for (const p of linkedProducts) {
+        await tx
+          .update(productStock)
+          .set({ qty: sql`${productStock.qty} + 1` })
+          .where(
+            and(eq(productStock.userId, input.userId), eq(productStock.productId, p.productId))
+          )
+      }
+
+      return { checked: false }
+    } else {
+      // Check → decrement stock
+      const check = await checkHabit(input, tx as any)
+
+      const depletedProducts: string[] = []
+
+      for (const p of linkedProducts) {
+        const updated = await tx
+          .update(productStock)
+          .set({ qty: sql`GREATEST(${productStock.qty} - 1, 0)` })
+          .where(
+            and(eq(productStock.userId, input.userId), eq(productStock.productId, p.productId))
+          )
+          .returning({ qty: productStock.qty })
+
+        if (updated[0]?.qty === 0) {
+          depletedProducts.push(p.productName)
+        }
+      }
+
+      return { checked: true, check, depletedProducts }
+    }
+  })
 }

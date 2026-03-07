@@ -1,10 +1,8 @@
 import type { HabitErrorCode } from '@habit-tracker/shared'
 
-import type { NodePgDatabase } from 'drizzle-orm/node-postgres'
+import type { Database as DbType } from '../../db'
 
-import type * as schema from '../../db/schema'
-
-export type Database = NodePgDatabase<typeof schema>
+export type Database = DbType
 
 export class HabitError extends Error {
   constructor(
