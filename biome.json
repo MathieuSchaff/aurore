@@ -2,14 +2,14 @@
   "$schema": "https://biomejs.dev/schemas/2.3.13/schema.json",
   "files": {
     "includes": [
-       "**",
-       "!**/node_modules",
-       "!**/dist",
-       "!**/build",
-       "!**/drizzle/migrations",
-       "!**/*.min.js",
-       "!**/coverage",
-       "!**/*.gen.ts"
+      "**",
+      "!**/node_modules",
+      "!**/dist",
+      "!**/build",
+      "!**/drizzle/migrations",
+      "!**/*.min.js",
+      "!**/coverage",
+      "!**/*.gen.ts"
     ]
   },
   "formatter": {

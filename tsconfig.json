@@ -8,6 +8,7 @@
     "useDefineForClassFields": true,
     "composite": true,
     "skipLibCheck": true,
+    "noEmit": true,
     "allowImportingTsExtensions": true,
     "baseUrl": ".",
     // crée un alias
