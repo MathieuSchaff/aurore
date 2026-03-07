@@ -130,7 +130,7 @@ Extrait des enveloppes du Poivre du Sichuan, cet actif contient des hydroxy-alph
 
   {
     name: 'Cypres Toujours Vert (Cupressus Sempervirens)',
-    slug: INGREDIENT_SLUGS.CUPRESSUS_SEMPERVIRENS,
+    slug: INGREDIENT_SLUGS.CYPRES,
     category: 'Tonus & Circulation',
     description:
       'Une essence boisée noble, reconnue pour ses propriétés décongestionnantes et tonifiantes, idéale pour restaurer la légèreté et la vitalité cutanée.',
@@ -1099,5 +1099,61 @@ Le Gluconate de Manganèse présente une sécurité d'emploi totale :
 
        **Conseil expert** : Pour les peaux grasses à imperfections, l'aloe vera est l'hydratant idéal car il apporte l'eau nécessaire sans boucher les pores (non comédogène) tout en aidant à cicatriser les marques d'acné.
        `,
+  },
+  {
+    name: "Extrait d'Épilobe",
+    slug: INGREDIENT_SLUGS.EXTRAIT_EPILOBE,
+    category: 'Apaisement & Anti-inflammatoire',
+    description:
+      'Extrait de la plante Epilobium angustifolium (aussi appelée épilobe à feuilles étroites ou fireweed), réputé pour calmer les inflammations et les rougeurs cutanées.',
+    content: `
+    # Extrait d'Épilobe : Le Secret Anti-Rougeurs des Plantes Sauvages
+    L'**Extrait d'Épilobe** (Epilobium Angustifolium Flower/Leaf/Stem Extract), surnommé "fireweed" ou "herbe à feu", est traditionnellement utilisé pour apaiser les brûlures et irritations. Moderne en cosmétique pour ses polyphénols anti-inflammatoires.
+
+    ---
+    ## ✨ Points Forts & Bénéfices
+    * **Anti-inflammatoire Fort** : Réduit les rougeurs, les irritations et l'inflammation grâce à ses flavonoïdes et polyphénols (idéal post-exfoliation ou pour peaux réactives).
+    * **Apaisant & Calmant** : Soulage les sensations de tiraillement, démangeaisons et inconforts ; excellent pour peaux sensibles, acnéiques ou sujettes aux rougeurs.
+    * **Antioxydant & Anti-âge** : Protège contre les radicaux libres, soutient la régénération cutanée et aide à atténuer les signes de vieillissement.
+    * **Anti-acné Potentiel** : Limite l'inflammation liée aux boutons et régule parfois le sébum.
+
+    ---
+    ## ⚖️ Transparence Scientifique & Limites
+    * **Preuves Croissantes** : Études montrent une forte activité anti-inflammatoire (réduction d'œdème, inhibition de médiateurs inflammatoires) et antioxydante ; utilisé en folk medicine depuis longtemps.
+    * **Limites** : Moins d'études cliniques massives que pour la camomille ; efficacité variable selon la concentration et la qualité d'extraction.
+
+    ---
+    ## 🛡️ Précautions & Sécurité
+    * **Très Sûr** : Hypoallergénique et bien toléré ; adapté aux peaux sensibles et irritées. Pas de toxicité connue en usage cosmétique.
+    * **Patch Test** : Recommandé pour les peaux très réactives, bien que les réactions soient rares.
+    `,
+  },
+  {
+    name: 'Extrait de Camomille',
+    slug: INGREDIENT_SLUGS.EXTRAIT_CAMOMILLE,
+    category: 'Apaisement & Anti-inflammatoire',
+    description:
+      'Extrait des fleurs de camomille (Matricaria chamomilla), reconnu pour ses puissantes propriétés calmantes, anti-inflammatoires et antioxydantes en soin de la peau.',
+    content: `
+    # Extrait de Camomille : Le Calmant Naturel par Excellence
+    L'**Extrait de Camomille** (Chamomilla Recutita / Matricaria Flower Extract) est issu des fleurs de la plante Matricaria chamomilla. C'est un classique en dermatologie et cosmétique pour apaiser les peaux irritées, sensibles ou réactives depuis des millénaires.
+
+    ---
+    ## ✨ Points Forts & Bénéfices
+    * **Apaisement Rapide** : Réduit les rougeurs, les irritations et les sensations d'inconfort grâce à ses composés anti-inflammatoires (comme l'α-bisabolol et les flavonoïdes).
+    * **Antioxydant Puissant** : Protège contre les radicaux libres et le stress oxydatif, aidant à prévenir le vieillissement prématuré et les dommages environnementaux.
+    * **Soutien à la Cicatrisation** : Favorise la réparation cutanée, accélère la guérison des petites lésions et calme les peaux atopiques ou sujettes à l'eczéma.
+    * **Antimicrobien Léger** : Aide à limiter les bactéries et inflammations associées aux imperfections.
+
+    ---
+    ## ⚖️ Transparence Scientifique & Limites
+    * **Preuves Solides** : De nombreuses études (revues ethnopharmacologiques et in vitro) confirment ses effets anti-inflammatoires, antioxydants et apaisants ; efficace en application topique pour les rougeurs et la photo-protection.
+    * **Limites** : Les bénéfices sont plus marqués en combinaison avec d'autres actifs ; seul, il n'est pas un traitement miracle pour les inflammations sévères. Certaines personnes très allergiques aux Astéracées (comme l'arnica) peuvent réagir (rare).
+
+    ---
+    ## 🛡️ Précautions & Sécurité
+    * **Très Doux** : Considéré comme l'un des extraits végétaux les plus sûrs et hypoallergéniques en cosmétique ; adapté aux peaux sensibles, bébés et femmes enceintes (sauf allergie connue).
+    * **Patch Test Recommandé** : Toujours tester sur une petite zone en cas d'antécédents d'allergie aux plantes de la famille des marguerites.
+    `,
   },
 ]

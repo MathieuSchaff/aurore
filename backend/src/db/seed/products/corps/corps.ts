@@ -8,11 +8,79 @@ export const CORPS_PRODUCT_SLUGS = {
   EUCERIN_UREAREPAIR_LOTION_10: 'eucerin-urearepair-plus-lotion-10',
   EUCERIN_UREAREPAIR_CREME_5: 'eucerin-urearepair-plus-creme-5',
   EUCERIN_ATOPICONTROL_BAUME: 'eucerin-atopicontrol-baume',
+  AMLACTIN_DAILY_NOURISH_12_AHA: 'amlactin-dayli-nourish-12-aha',
+  PAULAS_CHOICE_LAIT_CORPS_10_AHA: 'paula-choice-lait-corps-10-aha',
+  REMEDY_KP_BODY_MOISTURIZER: 'remedy-kp-body-moisturizer',
+  BYOMA_BLEMISH_CONTROL_BODY_LOTION: 'byoma-blemish-control-body-lotion',
 }
 
 // ─── Data ─────────────────────────────────────────────────
 
 export const CORPS_PRODUCT_DATA = [
+  {
+    name: 'KP Exfoliating Body Moisturizer',
+    brand: 'Remedy Science',
+    kind: 'skincare',
+    unit: 'pump',
+    slug: CORPS_PRODUCT_SLUGS.REMEDY_KP_BODY_MOISTURIZER,
+    totalAmount: 163,
+    amountUnit: 'ml',
+    priceCents: 3095,
+    description:
+      'Lotion corporelle ciblée contre la kératose pilaire combinant urée, acide lactique et rétinol encapsulé pour exfolier, hydrater et améliorer la texture de la peau.',
+    notes:
+      '10% urée kératolytique + 5% acide lactique (AHA) pour exfoliation et hydratation. Contient 0.1% rétinol encapsulé, céramide NP et squalane pour soutenir la barrière cutanée et lisser la peau.',
+    inci: 'AQUA / WATER, UREA, LACTIC ACID, BUTYROSPERMUM PARKII BUTTER, MYRISTYL MYRISTATE, HYDROXYETHYL ACRYLATE / SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, SODIUM HYDROXIDE, DIMETHICONE, SQUALANE, RETINOL, TRIETHYL CITRATE, GLYCERIN, MICROCRYSTALLINE CELLULOSE, POLYSORBATE 80, SODIUM STEAROYL GLUTAMATE, POLYSORBATE 20, CELLULOSE GUM, CAPRYLYL GLYCOL, CAPRYLIC / CAPRIC TRIGLYCERIDE, POLYGLYCERYL-10 DIOLEATE, SORBITAN ISOSTEARATE, ETHYLHEXYLGLYCERIN, HEXYLENE GLYCOL, SODIUM CITRATE, POLYGLYCERYL-10 DIPALMITATE, GLYCERIN, CERAMIDE NP, CURCUMA LONGA ROOT EXTRACT, PHENOXYETHANOL',
+    url: 'https://remedyskin.com',
+  },
+  {
+    name: 'Blemish Control Body Lotion',
+    brand: 'BYOMA',
+    kind: 'skincare',
+    unit: 'pump',
+    slug: CORPS_PRODUCT_SLUGS.BYOMA_BLEMISH_CONTROL_BODY_LOTION,
+    totalAmount: 300,
+    amountUnit: 'ml',
+    priceCents: 2000,
+    description:
+      'Lotion corporelle légère anti-imperfections avec acide salicylique pour désobstruer les pores, réduire les rougeurs et lisser la texture de la peau.',
+    notes:
+      'Contient BHA (salicylic acid), céramide NP et phytosphingosine pour soutenir la barrière cutanée, bakuchiol et antioxydants (vitamine E, rutin). Huiles nourrissantes de carthame et soja.',
+    inci: 'AQUA / WATER, CETEARYL ALCOHOL, CAPRYLIC / CAPRIC TRIGLYCERIDE, GLYCERIN, HAMAMELIS VIRGINIANA WATER, GLYCERYL STEARATE SE, GLYCINE SOJA OIL, ETHYL LINOLEATE, CARTHAMUS TINCTORIUS SEED OIL, PHENOXYETHANOL, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, SALICYLIC ACID, SODIUM HYDROXIDE, ETHYLHEXYLGLYCERIN, TOCOPHEROL, PHYTOSPHINGOSINE, CERAMIDE NP, BAKUCHIOL, PROPANEDIOL, RUTIN, HYDROXYCINNAMIC ACID',
+    url: 'https://www.byoma.com',
+  },
+  {
+    name: 'Lait Corps Sublimateur 10% AHA',
+    brand: 'Paula’s Choice',
+    kind: 'skincare',
+    unit: 'pump',
+    slug: CORPS_PRODUCT_SLUGS.PAULAS_CHOICE_LAIT_CORPS_10_AHA,
+    totalAmount: 210,
+    amountUnit: 'ml',
+    priceCents: 3120,
+    description:
+      'Lait corps exfoliant au glycolic acid (10% AHA) qui élimine les cellules mortes, lisse la peau et améliore l’apparence de la kératose pilaire, des taches et de la peau sèche.',
+    notes:
+      '10% acide glycolique (AHA) pour exfoliation chimique. Contient beurre de karité, antioxydants (vitamine C, vitamine E, thé vert) et agents apaisants (allantoïne, camomille).',
+    inci: 'AQUA / WATER, GLYCOLIC ACID, CYCLOPENTASILOXANE, DIMETHICONE, GLYCERIN, GLYCERYL STEARATE, CETYL ALCOHOL, BUTYROSPERMUM PARKII BUTTER, STEARIC ACID, SODIUM HYDROXIDE, PEG-100 STEARATE, XANTHAN GUM, TETRAHEXYLDECYL ASCORBATE, TOCOPHERYL ACETATE, DISODIUM EDTA, BUTYLENE GLYCOL, ALLANTOIN, CHAMOMILLA RECUTITA FLOWER EXTRACT, VITIS VINIFERA SEED OIL, CAMELLIA OLEIFERA LEAF EXTRACT, EPILOBIUM ANGUSTIFOLIUM EXTRACT, METHYLPARABEN, BUTYLPARABEN, ETHYLPARABEN, PROPYLPARABEN, PHENOXYETHANOL, SODIUM BENZOATE',
+    url: 'https://www.paulaschoice.com',
+  },
+  {
+    name: 'Daily Nourish Lotion 12% AHA',
+    brand: 'AmLactin',
+    kind: 'skincare',
+    unit: 'pump',
+    slug: CORPS_PRODUCT_SLUGS.AMLACTIN_DAILY_NOURISH_12_AHA,
+    totalAmount: 225,
+    amountUnit: 'ml',
+    priceCents: 1600,
+    description:
+      'Lotion exfoliante hydratante au lactate d’ammonium (12% AHA) pour peaux sèches, rugueuses ou kératose pilaire. Exfolie en douceur et améliore la texture.',
+    notes:
+      '12% acide lactique sous forme ammonium lactate. Exfolie + hydrate (AHA humectant). Sans parfum, sans parabènes, sans phtalates. Texture légère non grasse.',
+    inci: 'WATER, AMMONIUM LACTATE, MINERAL OIL, GLYCERIN, CETEARYL ALCOHOL, DIMETHICONE, GLYCERYL STEARATE SE, STEARETH-2, STEARYL ALCOHOL, XANTHAN GUM, PHENOXYETHANOL, ETHYLHEXYLGLYCERIN',
+    url: 'https://www.amlactin.com',
+  },
   {
     name: 'Crème SA Anti-Rugosités',
     brand: 'CeraVe',

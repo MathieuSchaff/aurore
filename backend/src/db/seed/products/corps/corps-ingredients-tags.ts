@@ -109,6 +109,22 @@ export const CORPS_INGREDIENTS_MAP: Record<string, any[]> = {
     {
       slug: INGREDIENT_SLUGS.ARGININE,
     },
+
+    {
+      slug: INGREDIENT_SLUGS.PCA,
+    },
+    {
+      slug: INGREDIENT_SLUGS.SERINE,
+    },
+    {
+      slug: INGREDIENT_SLUGS.LYSINE_HCL,
+    },
+    {
+      slug: INGREDIENT_SLUGS.GLYCERIN,
+    },
+    {
+      slug: INGREDIENT_SLUGS.GLYCERYL_GLUCOSIDE,
+    },
   ],
 
   [CORPS_PRODUCT_SLUGS.EUCERIN_UREAREPAIR_CREME_5]: [
@@ -140,6 +156,116 @@ export const CORPS_INGREDIENTS_MAP: Record<string, any[]> = {
     {
       slug: INGREDIENT_SLUGS.BOURRACHE,
       notes: 'Huile de bourrache – oméga-6',
+    },
+  ],
+  // ─── AmLactin ──────────────────────────────────────────────────────────────
+
+  [CORPS_PRODUCT_SLUGS.AMLACTIN_DAILY_NOURISH_12_AHA]: [
+    {
+      slug: INGREDIENT_SLUGS.LACTIC_ACID,
+      notes: 'Ammonium lactate 12% – AHA exfoliant + humectant',
+    },
+    {
+      slug: INGREDIENT_SLUGS.GLYCERIN,
+      notes: 'Glycérine – humectant',
+    },
+  ],
+
+  [CORPS_PRODUCT_SLUGS.PAULAS_CHOICE_LAIT_CORPS_10_AHA]: [
+    {
+      slug: INGREDIENT_SLUGS.GLYCOLIC_ACID,
+    },
+    {
+      slug: INGREDIENT_SLUGS.GREEN_TEA,
+    },
+
+    {
+      slug: INGREDIENT_SLUGS.GLYCERIN,
+    },
+    {
+      slug: INGREDIENT_SLUGS.SHEA_BUTTER,
+    },
+
+    {
+      slug: INGREDIENT_SLUGS.THD_ASCORBATE,
+    },
+    {
+      slug: INGREDIENT_SLUGS.DIMETHICONE,
+    },
+    {
+      slug: INGREDIENT_SLUGS.ALLANTOIN,
+    },
+    {
+      slug: INGREDIENT_SLUGS.TOCOPHERYL_ACETATE,
+    },
+
+    {
+      slug: INGREDIENT_SLUGS.HUILE_DE_PEPINS_DE_RAISIN,
+    },
+
+    {
+      slug: INGREDIENT_SLUGS.EXTRAIT_CAMOMILLE,
+    },
+    {
+      slug: INGREDIENT_SLUGS.BUTYLENE_GLYCOL,
+    },
+    {
+      slug: INGREDIENT_SLUGS.EXTRAIT_EPILOBE,
+    },
+  ],
+  // ─── Remedy Science ────────────────────────────────────────────────────────
+
+  [CORPS_PRODUCT_SLUGS.REMEDY_KP_BODY_MOISTURIZER]: [
+    {
+      slug: INGREDIENT_SLUGS.UREA,
+      notes: 'Urée 10% – kératolytique + hydratant',
+    },
+    {
+      slug: INGREDIENT_SLUGS.LACTIC_ACID,
+      notes: 'Acide lactique 5% – AHA exfoliant',
+    },
+    {
+      slug: INGREDIENT_SLUGS.RETINOL,
+      notes: 'Rétinol encapsulé 0.1% – renouvellement cellulaire',
+    },
+    {
+      slug: INGREDIENT_SLUGS.CERAMIDE_NP,
+      notes: 'Céramide NP – barrière cutanée',
+    },
+    {
+      slug: INGREDIENT_SLUGS.SQUALANE,
+      notes: 'Squalane – émollient biomimétique',
+    },
+    {
+      slug: INGREDIENT_SLUGS.GLYCERIN,
+    },
+  ],
+
+  // ─── BYOMA ─────────────────────────────────────────────────────────────────
+
+  [CORPS_PRODUCT_SLUGS.BYOMA_BLEMISH_CONTROL_BODY_LOTION]: [
+    {
+      slug: INGREDIENT_SLUGS.SALICYLIC_ACID,
+      notes: 'BHA – désobstrue pores, anti-acné corporelle',
+    },
+    {
+      slug: INGREDIENT_SLUGS.CERAMIDE_NP,
+      notes: 'Céramide NP – renforce barrière cutanée',
+    },
+    {
+      slug: INGREDIENT_SLUGS.PHYTOSPHINGOSINE,
+      notes: 'Lipide biomimétique – soutien barrière',
+    },
+    {
+      slug: INGREDIENT_SLUGS.BAKUCHIOL,
+      notes: 'Bakuchiol – rétinol-like, anti-imperfections',
+    },
+    {
+      slug: INGREDIENT_SLUGS.TOCOPHEROL,
+      notes: 'Vitamine E – antioxydant',
+    },
+    {
+      slug: INGREDIENT_SLUGS.GLYCERIN,
     },
   ],
 }

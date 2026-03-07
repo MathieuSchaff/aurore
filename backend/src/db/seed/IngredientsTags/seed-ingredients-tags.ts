@@ -12,6 +12,45 @@ export interface IngredientAssociation {
 export type IngredientTagMap = Record<string, IngredientAssociation>
 
 export const ingredientTagMap: IngredientTagMap = {
+  [INGREDIENT_SLUGS.CAPRYLIC_CAPRIC_TRIGLYCERIDE]: {
+    primary: [TAG_SLUGS.EMOLLIENT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PEAU_SENSIBLE],
+    secondary: [TAG_SLUGS.NON_COMEDOGENE, TAG_SLUGS.BIOMIMETIQUE, TAG_SLUGS.PEAU_TOUS_TYPES],
+    avoid: [], // Ingrédient extrêmement neutre et sûr
+  },
+
+  [INGREDIENT_SLUGS.HUILE_COLZA]: {
+    primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_ATOPIQUE, TAG_SLUGS.REPARATEUR],
+    secondary: [
+      TAG_SLUGS.ECZEMA,
+      TAG_SLUGS.ANTI_OXYDANT,
+      TAG_SLUGS.TEXTURE_RICHE,
+      TAG_SLUGS.GROSSESSE_COMPATIBLE,
+    ],
+    avoid: [],
+  },
+
+  [INGREDIENT_SLUGS.BUTYLENE_GLYCOL]: {
+    primary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.DESHYDRATATION],
+    secondary: [TAG_SLUGS.TEXTURE_LEGERE, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.VISAGE],
+    avoid: [],
+  },
+
+  [INGREDIENT_SLUGS.EXTRAIT_CAMOMILLE]: {
+    primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.PEAU_REACTIVE],
+    secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BIO_NATUREL, TAG_SLUGS.GROSSESSE_COMPATIBLE],
+    avoid: [],
+  },
+
+  [INGREDIENT_SLUGS.EXTRAIT_EPILOBE]: {
+    primary: [TAG_SLUGS.SEBO_REGULATEUR, TAG_SLUGS.MATIFIANT, TAG_SLUGS.PORES_DILATES],
+    secondary: [
+      TAG_SLUGS.ANTI_ACNE,
+      TAG_SLUGS.BRILLANCE,
+      TAG_SLUGS.PEAU_GRASSE,
+      TAG_SLUGS.PEAU_MIXTE,
+    ],
+    avoid: [],
+  },
   [INGREDIENT_SLUGS.ENDOTHELYOL]: {
     primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.COUPEROSE],
     secondary: [TAG_SLUGS.ROSACEE, TAG_SLUGS.APAISANT],
@@ -174,7 +213,7 @@ export const ingredientTagMap: IngredientTagMap = {
     secondary: [TAG_SLUGS.ECLAT, TAG_SLUGS.PHOTO_VIEILLISSEMENT, TAG_SLUGS.ANTI_ROUGEURS],
     avoid: [],
   },
-  [INGREDIENT_SLUGS.RICINUS_COMMUNIS_SEED_OIL]: {
+  [INGREDIENT_SLUGS.HUILE_DE_RICIN]: {
     primary: [TAG_SLUGS.HUILE, TAG_SLUGS.OCCLUSIF],
     secondary: [TAG_SLUGS.REPARATEUR],
     avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.COMEDOGENE, TAG_SLUGS.ANTI_ACNE],
@@ -1388,7 +1427,7 @@ export const ingredientTagMap: IngredientTagMap = {
   },
 
   // ── Cupressus Sempervirens (Cyprès - Tonique circulatoire) ──
-  [INGREDIENT_SLUGS.CUPRESSUS_SEMPERVIRENS]: {
+  [INGREDIENT_SLUGS.CYPRES]: {
     primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ASTRINGENT],
     secondary: [TAG_SLUGS.COUPEROSE, TAG_SLUGS.TONIQUE],
     avoid: [],
@@ -1615,7 +1654,7 @@ export const ingredientTagMap: IngredientTagMap = {
   },
 
   // ── Orbignya Oleifera (Huile de Babassu) ──
-  [INGREDIENT_SLUGS.ORBIGNYA_OLEIFERA]: {
+  [INGREDIENT_SLUGS.HUILE_BABASSU]: {
     primary: [TAG_SLUGS.EMOLLIENT, TAG_SLUGS.HUILE],
     secondary: [TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.PEAU_SECHE],
     avoid: [],
@@ -1709,7 +1748,7 @@ export const ingredientTagMap: IngredientTagMap = {
     secondary: [TAG_SLUGS.COUPEROSE, TAG_SLUGS.PEAU_MIXTE],
     avoid: [],
   },
-  [INGREDIENT_SLUGS.GLYCINE_SOJA_OIL]: {
+  [INGREDIENT_SLUGS.HUILE_SOJA]: {
     primary: [TAG_SLUGS.EMOLLIENT, TAG_SLUGS.REPARATEUR],
     secondary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.PEAU_SECHE],
     avoid: [],
@@ -1735,7 +1774,7 @@ export const ingredientTagMap: IngredientTagMap = {
   },
 
   // ── Theobroma Cacao Butter (Beurre de cacao) ──
-  [INGREDIENT_SLUGS.THEOBROMA_CACAO_BUTTER]: {
+  [INGREDIENT_SLUGS.BEURRE_CACAO]: {
     primary: [TAG_SLUGS.EMOLLIENT, TAG_SLUGS.TEXTURE_RICHE],
     secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.OCCLUSIF],
     avoid: [TAG_SLUGS.NON_COMEDOGENE], // Car il est potentiellement comédogène

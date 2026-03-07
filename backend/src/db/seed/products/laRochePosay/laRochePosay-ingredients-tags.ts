@@ -39,6 +39,10 @@ export const LRP_INGREDIENTS_MAP: Record<string, any[]> = {
       slug: INGREDIENT_SLUGS.GLYCERIN,
       notes: 'Humectant',
     },
+
+    {
+      slug: INGREDIENT_SLUGS.CIRE_ABEILLE,
+    },
   ],
   [LRP_PRODUCT_SLUGS.ANTHELIOS_XL_BRUME_SPF50]: [
     {
@@ -245,11 +249,6 @@ export const LRP_INGREDIENTS_MAP: Record<string, any[]> = {
     },
   ],
 
-  [LRP_PRODUCT_SLUGS.LIPIKAR_HUILE_LAVANTE_AP_PLUS]: [
-    // Huile lavante → focus douceur, pas d'actifs listés en détail
-    // Peut-être ajouter si INCI fourni plus tard
-  ],
-
   [LRP_PRODUCT_SLUGS.LIPIKAR_BAUME_AP_M]: [
     {
       slug: INGREDIENT_SLUGS.SHEA_BUTTER,
@@ -262,6 +261,19 @@ export const LRP_INGREDIENTS_MAP: Record<string, any[]> = {
     {
       slug: INGREDIENT_SLUGS.VITREOSCILLA_FERMENT,
       notes: 'Aqua Posae Filiformis – prébiotique microbiome',
+    },
+
+    {
+      slug: INGREDIENT_SLUGS.GLYCERIN,
+    },
+    {
+      slug: INGREDIENT_SLUGS.HUILE_COLZA,
+    },
+    {
+      slug: INGREDIENT_SLUGS.DIMETHICONE,
+    },
+    {
+      slug: INGREDIENT_SLUGS.TOCOPHEROL,
     },
   ],
 
