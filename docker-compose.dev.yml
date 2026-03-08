@@ -15,41 +15,24 @@ services:
       dockerfile: backend/Dockerfile
       target: dev
 
-    # ─────────────────────────────────────────────────────────────
-    # VOLUMES : Structure workspace Bun complète
-    # ─────────────────────────────────────────────────────────────
-    # Le package.json racine déclare 3 workspaces : backend, frontend, shared
-    # Bun a besoin de TOUS les voir pour résoudre les dépendances.
-    #
-    # - package.json racine   → définit les workspaces
-    # - bun.lock              → lockfile
-    # - backend/              → (read-write pour le hot reload)
-    # - shared/               → types partagés
-    # - frontend/             → monté en :ro car Bun doit le voir, mais
-    #                           on n'écrit pas dedans depuis l'API
-    # - node_modules anonymes → évite que le mount écrase les deps
-    # ─────────────────────────────────────────────────────────────
     volumes:
-      # ./chemin/local → bind mount  = ton disque dur
+      # 🔥 Volumes anonymes D'ABORD (isolation node_modules)
+      - /app/shared/node_modules
+      - /app/backend/node_modules
+      - root_node_modules:/app/node_modules
+      - backend_node_modules:/app/backend/node_modules
+
+      # 🔥 Bind mounts (src rw pour génération types, dist rw pour écriture)
       - ./package.json:/app/package.json:ro
       - ./bun.lock:/app/bun.lock
+      - ./tsconfig.json:/app/tsconfig.json:ro
       - ./backend:/app/backend
-      - ./shared:/app/shared
+      - ./shared/package.json:/app/shared/package.json:ro
+      - ./shared/src:/app/shared/src # rw pour hot reload
+      - ./shared/dist:/app/shared/dist # rw pour écriture types
       - ./frontend:/app/frontend:ro
-      # volumes anonymes pour pas que docker écrase ces dossiers avec mes dossiers
-      # pour que ça évite de crash
-      # POURQUOI ?
-      # 1. Pendant le 'build', Docker installe des bibliothèques (node_modules)
-      #    spécifiques à Linux.
-      # 2. Sans ces lignes, le montage de mon dossier Windows (le volume du dessus)
-      #    viendrait ÉCRASER ces fichiers Linux par mes dossiers Windows.
-      # 3. Résultat : l'app crasherait car elle essaierait d'utiliser des outils
-      #    Windows sur un système Linux.
-      #
-      # nom_sans_slash → volume nommé = disque dur géré par Docker
-      # On nomma ça pour identifier facilement et rebuild quand on insalle une nouvelle lib
-      - root_node_modules:/app/node_modules # ← même volume partagé
-      - backend_node_modules:/app/backend/node_modules
+      - ./shared/tsconfig.json:/app/shared/tsconfig.json:ro # sinon peut pas faire le front peut pas faire le lien vers le shared.
+      - ./backend/tsconfig.json:/app/backend/tsconfig.json:ro
 
     environment:
       NODE_ENV: development
@@ -81,26 +64,23 @@ services:
     # VOLUMES : Même logique, mais ici c'est backend/ en :ro
     # ─────────────────────────────────────────────────────────────
     volumes:
+      # 🔥 Volumes anonymes D'ABORD
+      - /app/shared/node_modules
+      - /app/frontend/node_modules
+      - /app/backend/node_modules
+      - root_node_modules:/app/node_modules
+      - frontend_node_modules:/app/frontend/node_modules
+
+      # 🔥 Bind mounts (lecture seule pour tout)
       - ./package.json:/app/package.json:ro
       - ./bun.lock:/app/bun.lock:ro
       - ./frontend:/app/frontend
-      - ./shared:/app/shared:ro # ✅ Lit vos types générés
-      - ./backend/dist:/app/backend/dist:ro # ✅ Types Hono RPC
-      - ./backend/src:/app/backend/src:ro # ✅ Si besoin source
-      # volumes anonymes pour pas que docker écrase ces dossiers avec mes dossiers
-      # pour que ça évite de crash
-      # POURQUOI ?
-      # 1. Pendant le 'build', Docker installe des bibliothèques (node_modules)
-      #    spécifiques à Linux.
-      # 2. Sans ces lignes, le montage de mon dossier Windows (le volume du dessus)
-      #    viendrait ÉCRASER ces fichiers Linux par mes dossiers Windows.
-      # 3. Résultat : l'app crasherait car elle essaierait d'utiliser des outils
-      #    Windows sur un système Linux.
-      #
-      # nom_sans_slash → volume nommé = disque dur géré par Docker
-      # On nomma ça pour identifier facilement et rebuild quand on insalle une nouvelle lib
-      - root_node_modules:/app/node_modules # ← même volume partagé
-      - frontend_node_modules:/app/frontend/node_modules
+      - ./shared/package.json:/app/shared/package.json:ro
+      - ./shared/src:/app/shared/src:ro
+      - ./shared/dist:/app/shared/dist:ro # ro : lecture types
+      - ./backend/dist:/app/backend/dist:ro # ro : types Hono RPC
+      - ./shared/tsconfig.json:/app/shared/tsconfig.json:ro # sinon peut pas faire le front peut pas faire le lien vers le shared.
+      - ./backend/tsconfig.json:/app/backend/tsconfig.json:ro
 
     environment:
       - VITE_API_URL=http://localhost:3000

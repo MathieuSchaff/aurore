@@ -309,8 +309,7 @@ health: ## Vérifie la santé des services
 # Installation
 # =========================
 install: ## Installe les dépendances (backend + frontend)
-	cd backend && bun install
-	cd frontend && bun install
+	bun install
 
 clean-install: ## Nettoyage radical des node_modules et réinstallation propre
 	@echo "$(YELLOW)Nettoyage via Docker pour éviter les problèmes de permissions...$(NC)"
