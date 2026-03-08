@@ -52,7 +52,7 @@ export const Header = () => {
             aria-controls="main-nav-list"
             aria-label={isOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
           >
-            <PanelLeftOpen size={18} />
+            <PanelLeftOpen className="main-nav__icon" size={20} />
           </button>
         </div>
         <NavSideList onItemClick={closeMenu} />
@@ -75,6 +75,7 @@ export const Header = () => {
                   onClick={handleLogout}
                   disabled={logout.isPending}
                   className="secondary-nav__logout"
+                  size="sm"
                 >
                   {logout.isPending ? 'Déconnexion...' : 'Déconnexion'}
                 </Button>
