@@ -22,8 +22,9 @@
   --blue-night-darker: oklch(22% 0.08 220deg);
   --blue-night-dark: oklch(24% 0.12 220deg);
   --blue-night-lighter: oklch(36% 0.14 220deg);
-  --mango-bright: oklch(88% 0.14 75deg);
+  /*--mango-bright: oklch(88% 0.14 75deg);*/
   --text-inverse-warm: oklch(97% 0.015 80deg);
+  --mango-bright: oklch(82% 0.18 72deg);
 
   /* ===================================================
      SIDEBAR
@@ -67,7 +68,7 @@
   --color-info: oklch(54% 0.14 var(--hue-aqua));
   --color-info-light: oklch(92% 0.07 var(--hue-aqua));
 
-  --bg-page: oklch(97.7% 0.028 75deg);
+  --bg-page: oklch(95% 0.03 75deg);
   --bg-muted: oklch(89% 0.07 var(--hue-mango));
   --bg-elevated: oklch(99% 0.01 var(--hue-mango));
   --bg-sunken: oklch(87% 0.08 var(--hue-papaya));
@@ -87,26 +88,23 @@
   /* ===================================================
      CARDS
      =================================================== */
-  --card-icon-bg: oklch(from var(--color-primary) l c h / 0.12);
-  --card-icon-color: var(--color-primary);
-  --card-accent-border: var(--color-primary);
-  --bg-card: oklch(97.0% 0.035 72deg);
-
+  --bg-card: oklch(99.5% 0.002 75deg);
+  --card-accent-border: oklch(48% 0.28 128deg);
+  --card-icon-bg: oklch(88% 0.16 70deg);
+  --card-icon-color: oklch(35% 0.22 128deg);
   /* ===================================================
      BORDURES
      =================================================== */
-  --border-default: oklch(82% 0.08 var(--hue-mango));
+  /*--border-default: oklch(78% 0.22 72deg);*/
+  /*--border-default: oklch(82% 0.08 var(--hue-mango));*/
+  --border-default: oklch(58% 0.26 128deg);
   --border-strong: oklch(from var(--color-primary) l c h / 0.4);
 
   /* ===================================================
      OMBRES
      =================================================== */
-  --shadow-hard: 4px 4px 0px oklch(from var(--blue-night-darker) l c h / 0.35);
-
-  --shadow-card:
-    0 2px 4px oklch(from var(--blue-night-darker) l c h / 0.1),
-    0 6px 16px oklch(from var(--blue-night-darker) l c h / 0.08);
-
+  --shadow-card: 0 2px 0px oklch(48% 0.28 128deg);
+  --shadow-hard: 5px 5px 0px oklch(65% 0.24 68deg);
   /* ===================================================
      TAGS
      =================================================== */

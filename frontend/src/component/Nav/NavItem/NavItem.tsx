@@ -1,13 +1,42 @@
 import type { LinkProps } from '@tanstack/react-router'
 import { Link } from '@tanstack/react-router'
-import { Atom, Barcode, Home, ListChecks, type LucideIcon } from 'lucide-react'
+import type { LucideProps } from 'lucide-react'
+import { Atom, Barcode, Home, ListChecks } from 'lucide-react'
+import { forwardRef } from 'react'
 
+const ShelvingUnit = forwardRef<SVGSVGElement, LucideProps>(
+  ({ color = 'currentColor', size = 24, strokeWidth = 2, ...props }, ref) => (
+    <svg
+      ref={ref}
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <title>Shelving unit icon</title>
+      <path d="M12 12V9a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3" />
+      <path d="M16 20v-3a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3" />
+      <path d="M20 22V2" />
+      <path d="M4 12h16" />
+      <path d="M4 20h16" />
+      <path d="M4 2v20" />
+      <path d="M4 4h16" />
+    </svg>
+  )
+)
+
+ShelvingUnit.displayName = 'ShelvingUnit'
 interface NavItem {
   to: LinkProps['to']
-  icon: LucideIcon
+  icon: React.ComponentType<any>
   label: string
 }
-
 const navItems: NavItem[] = [
   {
     to: '/',
@@ -28,6 +57,11 @@ const navItems: NavItem[] = [
     to: '/ingredients',
     icon: Atom,
     label: 'Ingredients',
+  },
+  {
+    to: '/inventaire',
+    icon: ShelvingUnit,
+    label: 'Inventaire',
   },
 ]
 
