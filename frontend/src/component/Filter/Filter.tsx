@@ -1,9 +1,6 @@
 import { X } from 'lucide-react'
-import { useEffect, useRef } from 'react'
-
+import { useEffect, useRef, useState } from 'react'
 import './Filter.css'
-
-import { useState } from 'react'
 
 export type FilterOption = { value: string; label: string }
 
@@ -12,7 +9,9 @@ export type FilterFieldConfig<T extends string> = {
   label: string
   placeholder: string
   options: FilterOption[]
+  variant?: 'chips' | 'search-select'
 }
+
 export type FilterValues<T extends string> = Record<T, string[]>
 
 type FilterDialogProps<T extends string> = {
@@ -25,6 +24,98 @@ type FilterDialogProps<T extends string> = {
   initial_filters: FilterValues<T>
 }
 
+// ─── SearchSelect ──────────────────────────────────────────
+type SearchSelectProps = {
+  options: FilterOption[]
+  selected: string[]
+  onToggle: (value: string) => void
+  placeholder?: string
+}
+
+function SearchSelect({ options, selected, onToggle, placeholder }: SearchSelectProps) {
+  const [query, setQuery] = useState('')
+  const [isOpen, setIsOpen] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  const unselectedOptions = options.filter((o) => !selected.includes(o.value))
+  const filtered = query
+    ? unselectedOptions.filter((o) => o.label.toLowerCase().includes(query.toLowerCase()))
+    : unselectedOptions
+
+  const selectedOptions = options.filter((o) => selected.includes(o.value))
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setIsOpen(false)
+        setQuery('')
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
+  return (
+    <div className="search-select" ref={containerRef}>
+      {/* Chips des sélectionnées */}
+      {selectedOptions.length > 0 && (
+        <div className="search-select__selected">
+          {selectedOptions.map((opt) => (
+            <button
+              key={opt.value}
+              type="button"
+              className="filter-chip filter-chip--active filter-chip--removable"
+              onClick={() => onToggle(opt.value)}
+            >
+              {opt.label}
+              <X size={12} />
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* Input */}
+      <input
+        type="text"
+        className="search-select__input"
+        placeholder={placeholder ?? 'Rechercher...'}
+        value={query}
+        onChange={(e) => {
+          setQuery(e.target.value)
+          setIsOpen(true)
+        }}
+        onFocus={() => setIsOpen(true)}
+      />
+
+      {/* Dropdown */}
+      {isOpen && filtered.length > 0 && (
+        <ul className="search-select__dropdown">
+          {filtered.map((opt) => (
+            <li key={opt.value}>
+              <button
+                type="button"
+                className="search-select__option"
+                onClick={() => {
+                  onToggle(opt.value)
+                  setQuery('')
+                  setIsOpen(false)
+                }}
+              >
+                {opt.label}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {isOpen && query && filtered.length === 0 && (
+        <div className="search-select__empty">Aucun résultat</div>
+      )}
+    </div>
+  )
+}
+
+// ─── FilterDialog ──────────────────────────────────────────
 export function FilterDialog<T extends string>({
   open,
   onClose,
@@ -35,8 +126,6 @@ export function FilterDialog<T extends string>({
   initial_filters,
 }: FilterDialogProps<T>) {
   const dialogRef = useRef<HTMLDialogElement>(null)
-
-  // 1. État local pour "stocker" les clics avant de valider
   const [localFilters, setLocalFilters] = useState<FilterValues<T>>(currentFilters)
 
   useEffect(() => {
@@ -70,6 +159,9 @@ export function FilterDialog<T extends string>({
       onClick={(e) => {
         if (e.target === dialogRef.current) handleClose()
       }}
+      onKeyUp={(e) => {
+        if (e.key === 'Escape') handleClose()
+      }}
       onCancel={handleClose}
     >
       <div className="filter-drawer__panel">
@@ -79,28 +171,42 @@ export function FilterDialog<T extends string>({
             <X size={16} />
           </button>
         </div>
+
         <div className="filter-drawer__body">
           {fields.map((field) => {
             const selected = localFilters[field.key as T] ?? []
+            const variant = field.variant ?? 'chips'
+
             return (
               <div key={field.key} className="filter-drawer__group">
                 <span className="filter-drawer__label">{field.label}</span>
-                <div className="filter-drawer__chips">
-                  {field.options.map((opt) => (
-                    <button
-                      key={opt.value}
-                      type="button"
-                      className={`filter-chip ${selected.includes(opt.value) ? 'filter-chip--active' : ''}`}
-                      onClick={() => handleToggle(field.key as T, opt.value)}
-                    >
-                      {opt.label}
-                    </button>
-                  ))}
-                </div>
+
+                {variant === 'search-select' ? (
+                  <SearchSelect
+                    options={field.options}
+                    selected={selected}
+                    onToggle={(value) => handleToggle(field.key as T, value)}
+                    placeholder={field.placeholder}
+                  />
+                ) : (
+                  <div className="filter-drawer__chips">
+                    {field.options.map((opt) => (
+                      <button
+                        key={opt.value}
+                        type="button"
+                        className={`filter-chip ${selected.includes(opt.value) ? 'filter-chip--active' : ''}`}
+                        onClick={() => handleToggle(field.key as T, opt.value)}
+                      >
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             )
           })}
         </div>
+
         <div className="filter-drawer__footer">
           <button
             type="button"
