@@ -19,10 +19,7 @@ import { IngredientError } from './ingredients-error'
 
 const EXCLUDED_KEYS = new Set(['id', 'createdBy', 'createdAt', 'slug', 'updatedAt'])
 
-export async function listIngredients(
-  filters: IngredientSearchFilters,
-  database: Database = db
-): Promise<Ingredient[]> {
+export async function listIngredients(filters: IngredientSearchFilters, database: Database = db) {
   const conditions: SQL[] = []
 
   if (filters.category.length > 0) {

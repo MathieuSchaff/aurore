@@ -32,7 +32,7 @@ const slugParam = z.object({
 })
 
 const idParam = z.object({
-  id: z.string().uuid(),
+  id: z.uuid(),
 })
 
 const searchQuery = z.object({
