@@ -134,6 +134,10 @@ export const productChangesSchema = z
     message: 'At least one field change is required',
   })
 
+export const searchProductsQuery = z.object({
+  q: z.string().min(1).max(100),
+  limit: z.coerce.number().int().min(1).max(20).default(8),
+})
 export type ProductChanges = z.infer<typeof productChangesSchema>
 export type CreateProductInput = z.infer<typeof createProductSchema>
 export type UpdateProductInput = z.infer<typeof updateProductSchema>

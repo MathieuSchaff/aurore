@@ -50,6 +50,7 @@
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   border-bottom: 1px solid var(--border-default);
+  flex-shrink: 0;
 }
 
 .filter-drawer__title {
@@ -77,18 +78,20 @@
   background: var(--bg-active);
 }
 
+/* Body : scroll uniquement sur cette zone */
 .filter-drawer__body {
-  padding: var(--space-5);
+  flex: 1;
   overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
+  /* Pas de gap ici — les accordéons gèrent leur propre espacement avec leurs borders */
 }
 
+/* Groupes non-accordéon (search-select) */
 .filter-drawer__group {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--border-default);
 }
 
 .filter-drawer__label {
@@ -99,26 +102,14 @@
   letter-spacing: 0.05em;
 }
 
-.filter-drawer__select {
-  padding: var(--space-3) var(--space-4);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-md);
-  background: var(--bg-page);
-  font-family: var(--font-sans);
-  font-size: var(--text-sm);
-  color: var(--text-primary);
-  cursor: pointer;
-  transition: border-color var(--transition-fast) ease;
-  appearance: auto;
-}
-
-.filter-drawer__select:focus {
-  outline: 2px solid var(--color-focus);
-  outline-offset: 2px;
-  border-color: var(--color-primary);
+.filter-drawer__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
 }
 
 .filter-drawer__footer {
+  flex-shrink: 0;
   padding: var(--space-4) var(--space-5);
   border-top: 1px solid var(--border-default);
   display: flex;
@@ -163,35 +154,100 @@
   color: var(--text-primary);
 }
 
-@media (min-width: 640px) {
-  .filter-drawer[open] {
-    align-items: center;
-    justify-content: flex-end;
-  }
+/* ─── Accordion ─────────────────────────────────────────────
+ *
+ * DOM structure :
+ *   .filter-accordion
+ *     .filter-accordion__trigger   ← bouton cliquable
+ *     .filter-accordion__body      ← grid wrapper (0fr→1fr)
+ *       .filter-accordion__inner   ← overflow:hidden + min-height:0  ← OBLIGATOIRE ICI
+ *         .filter-drawer__chips    ← contenu réel avec padding
+ *
+ * La règle fondamentale : overflow:hidden doit être sur l'enfant DIRECT du grid,
+ * pas sur le grid lui-même. C'est ce qui permet la clip correcte à height 0.
+ * ────────────────────────────────────────────────────────── */
 
-  .filter-drawer__panel {
-    max-width: 22rem;
-    max-height: 100dvh;
-    height: 100%;
-    border-radius: var(--radius-lg) 0 0 var(--radius-lg);
-    animation: drawer-slide-left var(--transition-base) ease;
-  }
-
-  @keyframes drawer-slide-left {
-    from {
-      translate: 100% 0;
-    }
-    to {
-      translate: 0 0;
-    }
-  }
+.filter-accordion {
+  border-bottom: 1px solid var(--border-default);
 }
 
-.filter-drawer__chips {
+.filter-accordion__trigger {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--space-4) var(--space-5);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  gap: var(--space-3);
+  transition: background var(--transition-fast) ease;
 }
+
+.filter-accordion__trigger:hover {
+  background: var(--bg-hover);
+}
+
+.filter-accordion__label {
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.filter-accordion__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.filter-accordion__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 var(--space-1);
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  color: var(--text-inverse);
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  line-height: 1;
+}
+
+.filter-accordion__chevron {
+  color: var(--text-muted);
+  flex-shrink: 0;
+  /* La transition du rotate est gérée inline via style prop React pour éviter
+     le conflit avec la valeur initiale CSS */
+  transition: transform var(--transition-base) ease;
+}
+
+/* Grid wrapper : c'est lui qui anime la hauteur */
+.filter-accordion__body {
+  display: grid;
+  /* grid-template-rows injecté inline depuis React : '0fr' ou '1fr' */
+  transition: grid-template-rows var(--transition-base) ease;
+}
+
+/* Inner wrapper : overflow:hidden + min-height:0 — les deux sont requis */
+.filter-accordion__inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* Chips avec padding — on met le padding ici et non sur __inner
+   pour éviter que le padding ne crée une hauteur visible à 0fr */
+.filter-accordion__inner .filter-drawer__chips {
+  padding: var(--space-1) var(--space-5) var(--space-4);
+}
+
+/* ─── Chips ─────────────────────────────────────────────── */
 
 .filter-chip {
   padding: 0.375rem 0.75rem;
@@ -199,9 +255,15 @@
   border: 1px solid var(--border-default);
   background: transparent;
   color: var(--text-secondary);
-  font-size: 0.8125rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition:
+    background var(--transition-fast) ease,
+    border-color var(--transition-fast) ease,
+    color var(--transition-fast) ease;
+  white-space: nowrap;
 }
 
 .filter-chip:hover {
@@ -221,7 +283,7 @@
 }
 
 .filter-chip--removable {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 0.375rem;
 }
@@ -230,6 +292,8 @@
   flex-shrink: 0;
   opacity: 0.8;
 }
+
+/* ─── SearchSelect ──────────────────────────────────────── */
 
 .search-select {
   position: relative;
@@ -241,7 +305,7 @@
 .search-select__selected {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: var(--space-2);
 }
 
 .search-select__input {
@@ -304,4 +368,30 @@
   font-size: var(--text-sm);
   color: var(--text-muted);
   font-style: italic;
+}
+
+/* ─── Desktop (slide depuis la droite) ──────────────────── */
+
+@media (min-width: 640px) {
+  .filter-drawer[open] {
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .filter-drawer__panel {
+    max-width: 22rem;
+    max-height: 100dvh;
+    height: 100%;
+    border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+    animation: drawer-slide-left var(--transition-base) ease;
+  }
+
+  @keyframes drawer-slide-left {
+    from {
+      translate: 100% 0;
+    }
+    to {
+      translate: 0 0;
+    }
+  }
 }

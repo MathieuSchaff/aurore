@@ -231,7 +231,7 @@
   text-decoration: none;
   color: inherit;
   overflow: hidden;
-  box-shadow: var(--shadow-card); /* ← ajouté */
+  box-shadow: var(--shadow-card);
   transition:
     border-color var(--transition-fast) ease,
     box-shadow var(--transition-fast) ease;

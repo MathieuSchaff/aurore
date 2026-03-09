@@ -51,6 +51,13 @@ export type ProductEdit = {
   summary: string | null
   createdAt: string | Date
 }
+export type ProductSearchResult = {
+  id: string
+  name: string
+  brand: string
+  kind: string
+  slug: string
+}
 export type ProductErrorCode =
   | 'product_not_found'
   | 'product_creation_failed'

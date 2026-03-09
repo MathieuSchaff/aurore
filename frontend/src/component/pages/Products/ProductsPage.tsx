@@ -3,14 +3,27 @@ import { getRouteApi, Link, useNavigate } from '@tanstack/react-router'
 import { ChevronLeft, ChevronRight, Package, Search, SlidersHorizontal } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
+import { ingredientQueries } from '../../../lib/queries/ingredients'
 import { type ListProductsFilters, productQueries } from '../../../lib/queries/products'
 import { FilterDialog, type FilterFieldConfig, type FilterValues } from '../../Filter/Filter'
 
 import './ProductsPage.css'
 
+import { ProductSearch } from '../../search/ProductSearch/ProductSearch'
+
 const routeApi = getRouteApi('/products/')
 
-type FilterKey = 'kind' | 'brand' | 'routine_step' | 'attribute' | 'skin_type' | 'concern'
+type FilterKey =
+  | 'kind'
+  | 'brand'
+  | 'concern'
+  | 'skin_type'
+  | 'skin_zone'
+  | 'product_type'
+  | 'routine_step'
+  | 'attribute'
+  | 'ingredient'
+
 function kindIconClass(kind: string): string {
   switch (kind) {
     case 'complément':
@@ -55,16 +68,41 @@ function kindCardClass(kind: string): string {
       return ''
   }
 }
+
 const CATEGORY_LABELS: Record<string, { label: string; key: FilterKey }> = {
-  routine_step: { label: 'Etape routine', key: 'routine_step' },
+  routine_step: { label: 'Étape routine', key: 'routine_step' },
   attribute: { label: 'Caractéristiques', key: 'attribute' },
   skin_type: { label: 'Type de peau', key: 'skin_type' },
+  skin_zone: { label: 'Zone', key: 'skin_zone' },
+  product_type: { label: 'Type de produit', key: 'product_type' },
   concern: { label: 'Cibles', key: 'concern' },
 }
+const EMPTY_FILTERS = {
+  kind: [] as string[],
+  brand: [] as string[],
+  routine_step: [] as string[],
+  attribute: [] as string[],
+  skin_type: [] as string[],
+  skin_zone: [] as string[],
+  product_type: [] as string[],
+  concern: [] as string[],
+  ingredient: [] as string[],
+} satisfies FilterValues<FilterKey>
 
 export function ProductsPage() {
   const [isDrawerOpen, setDrawerOpen] = useState(false)
-  const { kind, brand, routine_step, attribute, skin_type, concern } = routeApi.useSearch()
+
+  const {
+    kind,
+    brand,
+    routine_step,
+    attribute,
+    skin_type,
+    skin_zone,
+    product_type,
+    concern,
+    ingredient,
+  } = routeApi.useSearch()
   const navigate = useNavigate({ from: '/products/' })
 
   const filters: FilterValues<FilterKey> = {
@@ -73,15 +111,22 @@ export function ProductsPage() {
     routine_step,
     attribute,
     skin_type,
+    skin_zone,
+    product_type,
     concern,
+    ingredient,
   }
+
   const filterKeys: FilterKey[] = [
     'kind',
     'brand',
     'routine_step',
     'attribute',
     'skin_type',
+    'skin_zone',
+    'product_type',
     'concern',
+    'ingredient',
   ]
 
   const filterCount =
@@ -90,10 +135,17 @@ export function ProductsPage() {
     routine_step.length +
     attribute.length +
     skin_type.length +
-    concern.length
+    skin_zone.length +
+    product_type.length +
+    concern.length +
+    ingredient.length
+
   const hasFilters = filterCount > 0
 
   const { data: filterOptions } = useQuery(productQueries.filterOptions())
+
+  // Charge tous les ingrédients une fois — SearchSelect fait le filtre local
+  const { data: allIngredients } = useQuery(ingredientQueries.all())
 
   const apiFilters: ListProductsFilters = hasFilters
     ? {
@@ -101,8 +153,11 @@ export function ProductsPage() {
         brand: brand.length > 0 ? brand : undefined,
         concern: concern.length > 0 ? concern : undefined,
         skin_type: skin_type.length > 0 ? skin_type : undefined,
+        skin_zone: skin_zone.length > 0 ? skin_zone : undefined,
+        product_type: product_type.length > 0 ? product_type : undefined,
         attribute: attribute.length > 0 ? attribute : undefined,
         routine_step: routine_step.length > 0 ? routine_step : undefined,
+        ingredient: ingredient.length > 0 ? ingredient : undefined,
         page: 1,
         limit: 20,
       }
@@ -149,8 +204,16 @@ export function ProductsPage() {
         placeholder: 'Tous',
         options,
       })),
+      {
+        key: 'ingredient' as FilterKey,
+        label: 'Ingrédient',
+        placeholder: 'Rechercher un ingrédient...',
+        variant: 'search-select',
+        options: allIngredients?.map((i) => ({ value: i.slug, label: i.name })) ?? [],
+      },
     ]
-  }, [filterOptions])
+  }, [filterOptions, allIngredients])
+
   function applyFilters(newFilters: FilterValues<FilterKey>) {
     navigate({
       search: (prev) => ({ ...prev, ...newFilters }),
@@ -165,10 +228,7 @@ export function ProductsPage() {
   }
 
   function resetFilters() {
-    navigate({
-      search: { kind: [], brand: [], routine_step: [], attribute: [], skin_type: [], concern: [] },
-      replace: true,
-    })
+    navigate({ search: EMPTY_FILTERS, replace: true })
   }
 
   const activeTags = filterKeys.flatMap((key) => filters[key].map((value) => ({ key, value })))
@@ -181,12 +241,16 @@ export function ProductsPage() {
   const items = data?.items ?? []
   const total = data?.total ?? 0
   const totalPages = Math.ceil((total ?? 0) / 20)
+
   return (
     <div className={`products-page ${isPlaceholderData ? 'is-syncing' : ''}`}>
       <header className="products-header">
         <div className="products-header__banner" />
 
         <div className="products-header__top">
+          <div className="products-header__search">
+            <ProductSearch />
+          </div>
           <h1 className="products-header__title">
             Produits
             {isPlaceholderData && <span className="loader-mini">...</span>}
@@ -223,14 +287,7 @@ export function ProductsPage() {
         onClose={() => setDrawerOpen(false)}
         fields={filterFields}
         currentFilters={filters}
-        initial_filters={{
-          kind: [],
-          brand: [],
-          routine_step: [],
-          attribute: [],
-          skin_type: [],
-          concern: [],
-        }}
+        initial_filters={EMPTY_FILTERS}
         onApply={applyFilters}
         onReset={resetFilters}
       />

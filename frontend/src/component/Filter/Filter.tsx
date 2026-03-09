@@ -1,4 +1,4 @@
-import { X } from 'lucide-react'
+import { ChevronDown, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import './Filter.css'
 
@@ -24,7 +24,6 @@ type FilterDialogProps<T extends string> = {
   initial_filters: FilterValues<T>
 }
 
-// ─── SearchSelect ──────────────────────────────────────────
 type SearchSelectProps = {
   options: FilterOption[]
   selected: string[]
@@ -57,7 +56,6 @@ function SearchSelect({ options, selected, onToggle, placeholder }: SearchSelect
 
   return (
     <div className="search-select" ref={containerRef}>
-      {/* Chips des sélectionnées */}
       {selectedOptions.length > 0 && (
         <div className="search-select__selected">
           {selectedOptions.map((opt) => (
@@ -74,7 +72,6 @@ function SearchSelect({ options, selected, onToggle, placeholder }: SearchSelect
         </div>
       )}
 
-      {/* Input */}
       <input
         type="text"
         className="search-select__input"
@@ -87,7 +84,6 @@ function SearchSelect({ options, selected, onToggle, placeholder }: SearchSelect
         onFocus={() => setIsOpen(true)}
       />
 
-      {/* Dropdown */}
       {isOpen && filtered.length > 0 && (
         <ul className="search-select__dropdown">
           {filtered.map((opt) => (
@@ -114,8 +110,64 @@ function SearchSelect({ options, selected, onToggle, placeholder }: SearchSelect
     </div>
   )
 }
+type AccordionGroupProps<T extends string> = {
+  field: FilterFieldConfig<T>
+  selected: string[]
+  onToggle: (value: string) => void
+  defaultOpen?: boolean
+}
 
-// ─── FilterDialog ──────────────────────────────────────────
+function AccordionGroup<T extends string>({
+  field,
+  selected,
+  onToggle,
+  defaultOpen = false,
+}: AccordionGroupProps<T>) {
+  const [isOpen, setIsOpen] = useState(defaultOpen)
+
+  return (
+    <div className="filter-accordion">
+      <button
+        type="button"
+        className="filter-accordion__trigger"
+        onClick={() => setIsOpen((v) => !v)}
+        aria-expanded={isOpen}
+      >
+        <span className="filter-accordion__label">{field.label}</span>
+        <div className="filter-accordion__meta">
+          {selected.length > 0 && (
+            <span className="filter-accordion__count">{selected.length}</span>
+          )}
+          <ChevronDown
+            size={14}
+            className="filter-accordion__chevron"
+            style={{ transform: isOpen ? 'rotate(0deg)' : 'rotate(-90deg)' }}
+          />
+        </div>
+      </button>
+
+      <div className="filter-accordion__body" style={{ gridTemplateRows: isOpen ? '1fr' : '0fr' }}>
+        <div className="filter-accordion__inner">
+          <div className="filter-drawer__chips">
+            {field.options.map((opt) => (
+              <button
+                key={opt.value}
+                type="button"
+                className={`filter-chip ${selected.includes(opt.value) ? 'filter-chip--active' : ''}`}
+                onClick={() => onToggle(opt.value)}
+                tabIndex={isOpen ? 0 : -1}
+                aria-hidden={!isOpen}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export function FilterDialog<T extends string>({
   open,
   onClose,
@@ -177,32 +229,28 @@ export function FilterDialog<T extends string>({
             const selected = localFilters[field.key as T] ?? []
             const variant = field.variant ?? 'chips'
 
-            return (
-              <div key={field.key} className="filter-drawer__group">
-                <span className="filter-drawer__label">{field.label}</span>
-
-                {variant === 'search-select' ? (
+            if (variant === 'search-select') {
+              return (
+                <div key={field.key} className="filter-drawer__group">
+                  <span className="filter-drawer__label">{field.label}</span>
                   <SearchSelect
                     options={field.options}
                     selected={selected}
                     onToggle={(value) => handleToggle(field.key as T, value)}
                     placeholder={field.placeholder}
                   />
-                ) : (
-                  <div className="filter-drawer__chips">
-                    {field.options.map((opt) => (
-                      <button
-                        key={opt.value}
-                        type="button"
-                        className={`filter-chip ${selected.includes(opt.value) ? 'filter-chip--active' : ''}`}
-                        onClick={() => handleToggle(field.key as T, opt.value)}
-                      >
-                        {opt.label}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
+                </div>
+              )
+            }
+
+            return (
+              <AccordionGroup
+                key={field.key}
+                field={field}
+                selected={selected}
+                onToggle={(value) => handleToggle(field.key as T, value)}
+                defaultOpen={selected.length > 0}
+              />
             )
           })}
         </div>
@@ -210,6 +258,7 @@ export function FilterDialog<T extends string>({
         <div className="filter-drawer__footer">
           <button
             type="button"
+            className="filter-drawer__reset"
             onClick={() => {
               setLocalFilters(initial_filters)
               onReset()
