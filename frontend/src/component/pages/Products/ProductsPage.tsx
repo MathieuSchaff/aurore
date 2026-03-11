@@ -182,14 +182,35 @@ export function ProductsPage() {
         tagList.map((tag) => ({ value: tag.slug, label: tag.name }))
       )
     }
+    const desiredOrder: FilterKey[] = [
+      'skin_zone', // Zone
+      'attribute', // Caractéristiques
+      'product_type', // Type de produit
+      'concern', // Cibles
+      'routine_step', // Étape routine
+      'skin_type', // Type de peau
+      //
+    ]
+    const orderedEntries = Array.from(tagsByCategory.entries())
+      .sort(([keyA], [keyB]) => {
+        const indexA = desiredOrder.indexOf(keyA)
+        const indexB = desiredOrder.indexOf(keyB)
 
+        // Si un des deux n'est pas dans l'ordre désiré =>  on le met à la fin
+        if (indexA === -1 && indexB === -1) return 0
+        if (indexA === -1) return 1 // keyA inconnu => après
+        if (indexB === -1) return -1 // keyB inconnu => après
+
+        return indexA - indexB
+      })
+      .map(([key, options]) => ({
+        key,
+        // biome-ignore lint: la clé sera là!!
+        label: CATEGORY_LABELS[key]!.label,
+        placeholder: 'Tous',
+        options,
+      }))
     return [
-      {
-        key: 'kind',
-        label: 'Catégorie',
-        placeholder: 'Toutes',
-        options: filterOptions.kinds.map((k) => ({ value: k, label: k })),
-      },
       {
         key: 'brand',
         label: 'Marque',
@@ -197,19 +218,20 @@ export function ProductsPage() {
         variant: 'search-select',
         options: filterOptions.brands.map((b) => ({ value: b, label: b })),
       },
-      ...Array.from(tagsByCategory.entries()).map(([key, options]) => ({
-        key,
-        // biome-ignore lint: sera là
-        label: CATEGORY_LABELS[key]!.label,
-        placeholder: 'Tous',
-        options,
-      })),
+      ...orderedEntries,
       {
         key: 'ingredient' as FilterKey,
         label: 'Ingrédient',
         placeholder: 'Rechercher un ingrédient...',
         variant: 'search-select',
         options: allIngredients?.map((i) => ({ value: i.slug, label: i.name })) ?? [],
+      },
+
+      {
+        key: 'kind',
+        label: 'Catégorie',
+        placeholder: 'Toutes',
+        options: filterOptions.kinds.map((k) => ({ value: k, label: k })),
       },
     ]
   }, [filterOptions, allIngredients])
