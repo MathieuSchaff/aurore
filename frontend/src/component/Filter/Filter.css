@@ -78,13 +78,16 @@
   background: var(--bg-active);
 }
 
-/* Body : scroll uniquement sur cette zone */
 .filter-drawer__body {
   flex: 1;
-  overflow-y: auto;
-  /* Pas de gap ici — les accordéons gèrent leur propre espacement avec leurs borders */
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
+.filter-drawer__body::-webkit-scrollbar {
+  display: none;
+}
 /* Groupes non-accordéon (search-select) */
 .filter-drawer__group {
   display: flex;
@@ -241,6 +244,14 @@
   min-height: 0;
 }
 
+/* Reset complet du fieldset UA (border groove, padding, margin, min-inline-size) */
+.filter-accordion__inner fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+  min-inline-size: 0;
+}
+
 /* Chips avec padding — on met le padding ici et non sur __inner
    pour éviter que le padding ne crée une hauteur visible à 0fr */
 .filter-accordion__inner .filter-drawer__chips {
@@ -320,6 +331,48 @@
   transition: border-color var(--transition-fast) ease;
 }
 
+/* Wrapper relatif pour positionner le bouton dismiss */
+.search-select__input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Quand la liste est ouverte, on laisse de la place à droite pour le bouton */
+.search-select__input-wrapper:has(.search-select__dismiss)
+  .search-select__input {
+  padding-right: calc(var(--space-3) + 1.5rem + var(--space-2));
+}
+
+/* Bouton de fermeture de la liste, positionné en absolu dans le wrapper */
+.search-select__dismiss {
+  position: absolute;
+  right: var(--space-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition:
+    background var(--transition-fast) ease,
+    color var(--transition-fast) ease;
+  flex-shrink: 0;
+}
+
+.search-select__dismiss:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.search-select__dismiss svg {
+  transition: transform var(--transition-base) ease;
+}
+
 .search-select__input::placeholder {
   color: var(--text-muted);
 }
@@ -393,5 +446,129 @@
     to {
       translate: 0 0;
     }
+  }
+}
+.search-select__option--active {
+  background-color: var(--color-primary-light);
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
+}
+
+/* Assurez-vous que les éléments focusables ont un outline visible */
+.filter-chip:focus-visible,
+.search-select__input:focus,
+.filter-accordion__trigger:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Réduire le motion pour les utilisateurs qui le préfèrent */
+@media (prefers-reduced-motion: reduce) {
+  .filter-accordion__chevron,
+  .filter-accordion__body {
+    transition: none;
+  }
+}
+
+/* ─── Thème Light — renforcement du contraste ────────────── */
+
+[data-theme="light"] {
+  /* Panel : fond légèrement élevé pour se détacher du bg-page */
+  .filter-drawer__panel {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-default);
+    box-shadow: var(--shadow-hard);
+  }
+
+  /* Header : fond teinté mango pour marquer la hiérarchie */
+  .filter-drawer__header {
+    background: var(--color-secondary);
+    border-bottom-color: var(--border-default);
+  }
+
+  .filter-drawer__title {
+    color: var(--blue-night-darker, var(--color-primary));
+  }
+
+  .filter-drawer__close {
+    background: oklch(from var(--color-primary) l c h / 0.12);
+    color: var(--color-primary);
+  }
+
+  .filter-drawer__close:hover {
+    background: oklch(from var(--color-primary) l c h / 0.22);
+  }
+
+  /* Chips inactives : fond visible, border franche */
+  .filter-chip {
+    background: var(--bg-card);
+    border-color: var(--border-default);
+    color: var(--text-secondary);
+    font-weight: var(--font-semibold);
+  }
+
+  .filter-chip:hover {
+    background: var(--bg-hover);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  /* Chips actives : bleu nuit plein avec texte chaud */
+  .filter-chip--active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--text-inverse);
+  }
+
+  .filter-chip--active:hover {
+    background: var(--color-primary-hover);
+    opacity: 1;
+    color: var(--text-inverse);
+  }
+
+  /* Label accordion : plus contrasté */
+  .filter-accordion__label {
+    color: var(--text-secondary);
+  }
+
+  /* Trigger hover : teinte mango subtile */
+  .filter-accordion__trigger:hover {
+    background: oklch(from var(--color-secondary) l c h / 0.3);
+  }
+
+  /* Footer */
+  .filter-drawer__footer {
+    background: var(--bg-card);
+    border-top-color: var(--border-default);
+  }
+
+  /* Bouton reset : border franche */
+  .filter-drawer__reset {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  .filter-drawer__reset:hover {
+    background: oklch(from var(--color-primary) l c h / 0.08);
+    color: var(--color-primary);
+  }
+
+  /* Input search-select */
+  .search-select__input {
+    background: var(--bg-card);
+    border-color: var(--border-default);
+  }
+
+  .search-select__input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px oklch(from var(--color-primary) l c h / 0.15);
+  }
+
+  /* Dropdown */
+  .search-select__dropdown {
+    background: var(--bg-elevated);
+    border-color: var(--border-default);
+    box-shadow: 0 4px 20px oklch(from var(--color-primary) l c h / 0.15);
   }
 }
