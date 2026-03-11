@@ -7,7 +7,6 @@ import { useMemo, useState } from 'react'
 import z from 'zod'
 
 import { useSignup } from '../../../lib/queries/auth'
-import './SignupPage.css'
 
 type FieldErrors = Partial<Record<keyof AuthInput | 'confirmPassword' | 'form', string>>
 
@@ -74,57 +73,59 @@ export const SignupPage = () => {
           navigate({ to: '/dashboard' })
           return
         }
-
-        const message = API_ERROR_MESSAGES[res.error] ?? 'Erreur inconnue'
-        setErrors({ form: message })
+        if ('error' in res) {
+          const errorKey = res.error as keyof typeof API_ERROR_MESSAGES
+          const message = API_ERROR_MESSAGES[errorKey] ?? 'Erreur inconnue'
+          setErrors({ form: message })
+        }
       },
     })
   }
 
   return (
     <>
-      <div className="signup__header">
-        <h1 className="signup__title">Créer un compte</h1>
-        <p className="signup__subtitle">Commencez à suivre vos habitudes</p>
+      <div className="auth-page__header">
+        <h1 className="auth-page__title">Créer un compte</h1>
+        <p className="auth-page__subtitle">Commencez à suivre vos habitudes</p>
       </div>
 
-      <form className="signup__form" onSubmit={handleSubmit} noValidate>
+      <form className="auth-form" onSubmit={handleSubmit} noValidate>
         {errors.form && (
-          <p className="signup__error-banner" role="alert">
+          <p className="auth-error-banner" role="alert">
             {errors.form}
           </p>
         )}
 
-        <div className={`signup__field ${errors.email ? 'signup__field--error' : ''}`}>
-          <Mail size={18} className="signup__field-icon" aria-hidden="true" />
-          <div className="signup__field-body">
-            <label htmlFor="signup-email" className="signup__label">
+        <div className={`auth-field ${errors.email ? 'auth-field--error' : ''}`}>
+          <Mail size={18} className="auth-field__icon" aria-hidden="true" />
+          <div className="auth-field__body">
+            <label htmlFor="signup-email" className="auth-field__label">
               Email
             </label>
             <input
               id="signup-email"
               name="email"
               type="email"
-              className="signup__input"
+              className="auth-field__input"
               placeholder="nom@exemple.com"
               required
               autoComplete="email"
             />
           </div>
         </div>
-        {errors.email && <p className="signup__field-error">{errors.email}</p>}
+        {errors.email && <p className="auth-field__error">{errors.email}</p>}
 
-        <div className={`signup__field ${errors.password ? 'signup__field--error' : ''}`}>
-          <Lock size={18} className="signup__field-icon" aria-hidden="true" />
-          <div className="signup__field-body">
-            <label htmlFor="signup-password" className="signup__label">
+        <div className={`auth-field ${errors.password ? 'auth-field--error' : ''}`}>
+          <Lock size={18} className="auth-field__icon" aria-hidden="true" />
+          <div className="auth-field__body">
+            <label htmlFor="signup-password" className="auth-field__label">
               Mot de passe
             </label>
             <input
               id="signup-password"
               name="password"
               type={showPassword ? 'text' : 'password'}
-              className="signup__input"
+              className="auth-field__input"
               placeholder="••••••••"
               required
               autoComplete="new-password"
@@ -135,14 +136,14 @@ export const SignupPage = () => {
           </div>
           <button
             type="button"
-            className="signup__field-toggle"
+            className="auth-field__toggle"
             onClick={() => setShowPassword((v) => !v)}
             aria-label={showPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'}
           >
             {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
           </button>
         </div>
-        {errors.password && <p className="signup__field-error">{errors.password}</p>}
+        {errors.password && <p className="auth-field__error">{errors.password}</p>}
 
         {touched && (
           <ul className="signup__rules" aria-label="Règles du mot de passe">
@@ -159,16 +160,16 @@ export const SignupPage = () => {
           </ul>
         )}
 
-        <div className={`signup__field ${errors.confirmPassword ? 'signup__field--error' : ''}`}>
-          <Lock size={18} className="signup__field-icon" aria-hidden="true" />
-          <div className="signup__field-body">
-            <label htmlFor="signup-confirm" className="signup__label">
+        <div className={`auth-field ${errors.confirmPassword ? 'auth-field--error' : ''}`}>
+          <Lock size={18} className="auth-field__icon" aria-hidden="true" />
+          <div className="auth-field__body">
+            <label htmlFor="signup-confirm" className="auth-field__label">
               Confirmer le mot de passe
             </label>
             <input
               id="signup-confirm"
               type={showConfirm ? 'text' : 'password'}
-              className="signup__input"
+              className="auth-field__input"
               placeholder="••••••••"
               required
               autoComplete="new-password"
@@ -178,14 +179,14 @@ export const SignupPage = () => {
           </div>
           <button
             type="button"
-            className="signup__field-toggle"
+            className="auth-field__toggle"
             onClick={() => setShowConfirm((v) => !v)}
             aria-label={showConfirm ? 'Masquer la confirmation' : 'Afficher la confirmation'}
           >
             {showConfirm ? <EyeOff size={18} /> : <Eye size={18} />}
           </button>
         </div>
-        {errors.confirmPassword && <p className="signup__field-error">{errors.confirmPassword}</p>}
+        {errors.confirmPassword && <p className="auth-field__error">{errors.confirmPassword}</p>}
 
         {confirmPassword.length > 0 && (
           <div
@@ -200,7 +201,7 @@ export const SignupPage = () => {
           </div>
         )}
 
-        <button type="submit" className="signup__submit" disabled={signup.isPending}>
+        <button type="submit" className="auth-submit" disabled={signup.isPending}>
           {signup.isPending ? 'Création...' : 'Créer mon compte'}
         </button>
       </form>
