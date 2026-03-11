@@ -29,10 +29,6 @@ export const GARANCIA_INGREDIENTS_MAP: Record<string, any[]> = {
       notes: 'Veinotonique — petit-houx',
     },
     {
-      slug: INGREDIENT_SLUGS.REGLISSE,
-      notes: 'Deuxième dérivé de réglisse anti-inflammatoire',
-    },
-    {
       slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA,
       notes: 'Cicatrisant et apaisant',
     },

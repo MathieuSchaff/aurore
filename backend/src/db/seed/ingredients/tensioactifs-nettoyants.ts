@@ -3,6 +3,39 @@ import type { IngredientInput } from './seed-ingredients'
 
 export const TENSIOACTIFS_NETTOYANTS: IngredientInput[] = [
   {
+    name: 'Gleditsia Seed Extract (Gleditsia Triacanthos Seed Extract)',
+    slug: INGREDIENT_SLUGS.GLEDITSIA_TRIACANTHOS_SEED_EXTRACT,
+    category: 'actif',
+    description:
+      "Extrait de graines d'acacia à miel, antioxydant et protecteur, utilisé pour conditionner peau et cheveux tout en stabilisant les formules.",
+    content: `
+  # Gleditsia Seed Extract (Gleditsia Triacanthos Seed Extract)
+  Extrait de graines de févier d'Amérique (honey locust), riche en composés protecteurs, apporte conditionnement et antioxydant.
+  ## INCI
+  **GLEDITSIA TRIACANTHOS SEED EXTRACT**
+  (Extrait de graines)
+  ## Composition chimique
+  - **Composés phénoliques** : Antioxydants.
+  - **Polysaccharides** : Filmogènes et hydratants.
+  ## Mécanisme d’action
+  1. **Antioxydant** : Protège contre stress oxydatif.
+  2. **Conditionnement** : Adoucit et lisse peau/cheveux.
+  3. **Film protecteur** : Barrière légère non occlusive.
+  4. **Stabilisation** : Améliore texture des formules.
+  ## Bienfaits
+  - **Protection** : Contre radicaux libres.
+  - **Douceur** : Peau et cheveux plus lisses.
+  - **Apaisant** : Réduit irritations.
+  - **Polyvalent** : Soins peau et capillaires.
+  ## Utilisation
+  - **Cible** : Peaux sèches, cheveux ternes, formules naturelles.
+  - **Moment** : Quotidien.
+  - **Type de soin** : Conditionneurs, crèmes, shampoings.
+  ## Note technique
+  Souvent utilisé comme épaississant naturel ou protecteur capillaire. Bonne tolérance, origine végétale.
+    `,
+  },
+  {
     name: 'Sodium Cocoyl Isethionate (SCI)',
     slug: INGREDIENT_SLUGS.SODIUM_COCOYL_ISETHIONATE,
     category: 'Nettoyage & Texture',

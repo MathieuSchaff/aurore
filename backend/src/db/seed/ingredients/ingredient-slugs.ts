@@ -1,4 +1,8 @@
 export const HUMECTANTS = {
+  HYDROXYETHYL_UREA: 'hydroxyethyl-urea', // INCI: Hydroxyethyl Urea | humectant puissant, améliore l'élasticité cutanée
+  GLUCOSAMINE_HCL: 'glucosamine-hcl', // INCI: Glucosamine HCl | précurseur d'acide hyaluronique, humectant doux
+  SODIUM_LACTATE: 'sodium-lactate', // INCI: Sodium Lactate | sel sodique de l'acide lactique, composant NMF
+  ALANINE: 'alanine', // INCI: Alanine | acide aminé NMF, réparateur et hydratant
   GLYCERIN: 'glycerin', // INCI: Glycerin | humectant star
   HYALURONIC_ACID: 'hyaluronic-acid', // INCI: Hyaluronic Acid | acide hyaluronique pur
   SODIUM_HYALURONATE: 'sodium-hyaluronate', // INCI: Sodium Hyaluronate | sel de sodium de l'acide hyaluronique (forme la plus courante)
@@ -32,6 +36,9 @@ export const HUMECTANTS = {
 } as const
 
 export const BARRIERE_EMOLLIENTS_OCCLUSIFS = {
+  CETEARYL_ALCOHOL: 'cetearyl-alcohol', // INCI: Cetearyl Alcohol | alcool gras émollient et épaississant, non asséchant
+  GLYCERYL_STEARATE: 'glyceryl-stearate', // INCI: Glyceryl Stearate | émulsifiant émollient, agent de texture
+  AVOCADO_OIL: 'avocado-oil', // INCI: Persea Gratissima (Avocado) Oil | huile d'avocat, nourrissante et régénérante
   CERAMIDES: 'ceramides', // INCI: Ceramide (général) ou mélange (Ceramide NP, AP, EOP...)
   CERAMIDE_NP: 'ceramide-np', // INCI: Ceramide NP (Ceramide 3)
   CERAMIDE_AP: 'ceramide-ap', // INCI: Ceramide AP (Ceramide 6-II)
@@ -71,6 +78,8 @@ export const BARRIERE_EMOLLIENTS_OCCLUSIFS = {
   CAPRYLIC_CAPRIC_TRIGLYCERIDE: 'caprylic-capric-triglyceride',
   HUILE_COLZA: 'huile-colza',
   BUTYLENE_GLYCOL: 'butylene-glycol',
+  ROSEHIP_SEED_OIL: 'rosehip-seed-oil', // INCI: Rosa Canina Seed Oil | huile d'églantier, régénérante, cicatrisante, riche en vitamine A/C
+  CAMELINA_SEED_OIL: 'camelina-seed-oil', // INCI: Camelina Sativa Seed Oil | huile de cameline, oméga-3, légère et antioxydante
 } as const
 
 export const EXFOLIANTS = {
@@ -82,6 +91,7 @@ export const EXFOLIANTS = {
   PAPAIN: 'papain', // INCI: Papain | enzyme exfoliante (papaye)
   PROTEASE: 'protease', // INCI: Protease | enzyme exfoliante protéolytique
   CAPRYLOYL_SALICYLIC_ACID: 'capryloyl-salicylic-acid', // INCI: Capryloyl Salicylic Acid | BHA lipophile, exfoliant doux
+  CITRUS_LIMON_FRUIT_WATER: 'citrus-limon-fruit-water', // INCI: Citrus Limon Fruit Water
 } as const
 
 export const RETINOIDES = {
@@ -111,6 +121,7 @@ export const RETINOIDES = {
 } as const
 
 export const PEPTIDES = {
+  PALMITOYL_OLIGOPEPTIDE: 'palmitoyl-oligopeptide', // INCI: Palmitoyl Oligopeptide | peptide anti-âge, stimule la synthèse de collagène
   ARGIRELINE: 'argireline', // INCI: Acetyl Hexapeptide-8 | peptide "Botox-like"
   MATRIXYL_3000: 'matrixyl-3000', // INCI: Palmitoyl Tripeptide-1 + Palmitoyl Tetrapeptide-7
   PALMITOYL_PENTAPEPTIDE_4: 'palmitoyl-pentapeptide-4', // INCI: Palmitoyl Pentapeptide-4 | Matrixyl® original
@@ -168,14 +179,18 @@ export const ANTIOXYDANTS_VITAMINES = {
   PANAX_GINSENG: 'panax-ginseng', // INCI: Panax Ginseng Root Extract | adaptogène / antioxydant
   PLANKTON_EXTRACT: 'plankton-extract', // INCI: Plankton Extract | antioxydant / hydratant marin
   ASCOPHYLLUM_NODOSUM_EXTRACT: 'ascophyllum-nodosum-extract', // INCI: Ascophyllum Nodosum Extract | algue, antioxydant
-  HIPPOPHAE_RHAMNOIDES: 'hippophae-rhamnoides', // INCI: Hippophae Rhamnoides Fruit Oil / Extract (argousier) | riche en antioxydants
+  HUILE_ARGOUSIER: 'hippophae-rhamnoides', // INCI: Hippophae Rhamnoides Fruit Oil / Extract (argousier) | riche en antioxydants
   HAEMATOCOCCUS_PLUVIALIS: 'haematococcus-pluvialis', // INCI: Haematococcus Pluvialis Extract | algue riche en astaxanthine (antioxydant puissant)
   PUNICA_GRANATUM: 'punica-granatum', // INCI: Punica Granatum Fruit Extract | grenade, antioxydant anti-âge
   VITAMIN_K1: 'vitamine-k1',
   FERULIC_ACID: 'ferulic-acid',
+  HIBISCUS_SABDARIFFA: 'hibiscus-sabdariffa', // INCI: Hibiscus Sabdariffa Flower Extract | antioxydant, éclat, anti-âge
+  BEET_ROOT_EXTRACT: 'beet-root-extract', // INCI: Beta Vulgaris Root Extract | betterave, bétalaïnes antioxydantes
+  GARDENIA_FRUIT_EXTRACT: 'gardenia-fruit-extract', // INCI: Gardenia Jasminoides Fruit Extract | éclaircissant / antioxydant
 } as const
 
 export const APAISANTS_ANTI_INFLAMMATOIRES = {
+  SODIUM_DEXTRAN_SULFATE: 'sodium-dextran-sulfate', // INCI: Sodium Dextran Sulfate | apaisant et décongestionnant vasculaire
   CENTELLA_ASIATICA: 'centella-asiatica', // INCI: Centella Asiatica Extract
   CENTELLA_COMPLEX: 'centella-complex', // Complexe actifs Centella
   MADECASSOSIDE: 'madecassoside', // INCI: Madecassoside | triterpène pur de Centella
@@ -201,6 +216,9 @@ export const APAISANTS_ANTI_INFLAMMATOIRES = {
   COLLOIDAL_OATMEAL: 'colloidal-oatmeal',
   EXTRAIT_CAMOMILLE: 'extrait-camomille',
   EXTRAIT_EPILOBE: 'extrait-epilobe',
+  BOSWELLIA_SERRATA: 'boswellia-serrata', // INCI: Boswellia Serrata Gum/Extract | apaisant puissant
+  ZINGIBER_OFFICINALE: 'zingiber-officinale', // INCI: Zingiber Officinale Root Extract | gingembre, tonifiant/antioxydant
+  MORINDA_CITRIFOLIA: 'morinda-citrifolia', // INCI: Morinda Citrifolia Fruit Extract | Noni, protecteur/antioxydant
 } as const
 
 export const ECLAIRCISSANTS_DEPIGMENTANTS = {
@@ -232,6 +250,7 @@ export const ANTI_ACNE_SEBUM = {
   PIROCTONE_OLAMINE: 'piroctone-olamine', // INCI: Piroctone Olamine | antifongique (anti-Malassezia), anti-pelliculaire
   COMEDOCLASTIN: 'comedoclastin', // Extrait de Silybum marianum titré (Cleanance) | anti-comédogène
   LENS_ESCULENTA_SEED_EXTRACT: 'lens-esculenta-seed-extract', // Extrait de lentille (Oil Control) | matifiant
+  PEA_EXTRACT: 'pea-extract', // INCI: Pisum Sativum Extract | extrait de pois, matifiant / sébum
 } as const
 
 export const ANTI_ROSACEE_VASOCONSTRICTEURS = {
@@ -259,6 +278,7 @@ export const FILTRES_UV = {
 } as const
 
 export const PROBIOTIQUES_PREBIOTIQUES_POSTBIOTIQUES = {
+  PSEUDOALTEROMONAS_FERMENT: 'pseudoalteromonas-ferment', // INCI: Pseudoalteromonas Ferment Extract | postbiotique marin, hydratant et protecteur
   PROBIOTICS: 'probiotics', // INCI fréquent: Lactobacillus Ferment | bactéries vivantes
   POSTBIOTICS: 'postbiotics', // INCI variable (ex: Lactobacillus Ferment Filtrate)
   ALPHA_GLUCAN_OLIGOSACCHARIDE: 'alpha-glucan-oligosaccharide', // INCI: Alpha-Glucan Oligosaccharide | prébiotique
@@ -268,6 +288,7 @@ export const PROBIOTIQUES_PREBIOTIQUES_POSTBIOTIQUES = {
   AQUAPHILUS_DOLOMIAE_FERMENT_FILTRATE: 'aquaphilus-dolomiae-ferment-filtrate', // C+ Restore (Cicalfate+)
   VITREOSCILLA_FERMENT: 'vitreoscilla-ferment', // INCI: Vitreoscilla Ferment | ferment bactérien apaisant, réparateur et fortifiant (postbiotique-like)
   FRUCTOOLIGOSACCHARIDES: 'fructooligosaccharides', // INCI: Fructooligosaccharides | prébiotique, soutient le microbiote cutané
+  CHICORY_ROOT_EXTRACT: 'chicory-root-extract', // INCI: Cichorium Intybus Root Extract | racine de chicorée, source d'inuline prébiotique
 } as const
 
 export const ACTIFS_ANTI_AGE_REPARATEURS = {
@@ -276,10 +297,11 @@ export const ACTIFS_ANTI_AGE_REPARATEURS = {
   MADECASSIC_ACID: 'madecassic-acid', // INCI: Madecassic Acid | composant Centella, apaisant et réparateur
   ALLANTOIN: 'allantoin', // INCI: Allantoin | apaisant, cicatrisant
   PANTHENOL: 'panthenol', // INCI: Panthenol | provitamine B5, apaisant / hydratant
-  SILYBUM_MARIANUM: 'silybum-marianum', // INCI: Silybum Marianum Seed Extract | régénérant
-  SYLIBUM_MARIANUM_FRUIT_EXTRACT: 'sylibum-marianum-fruit-extract',
+  CHARDON_MARIE: 'chardon-marie', // INCI: Silybum Marianum Seed Extract | régénérant
   HYDROXYPALMITOYL_SPHINGANINE: 'hydroxypalmitoyl-sphinganine', // INCI: Hydroxypalmitoyl Sphinganine | céramide-like, renforce barrière
   TWO_OLEAMIDO_1_3_OCTADECANEDIOL: '2-oleamido-1-3-octadecanediol', // INCI: 2-Oleamido-1,3-Octadecanediol | lipide biomimétique réparateur
+  PROTEOGLYCAN_COMPLEX: 'proteoglycan-complex', // Complexe de protéoglycanes | structure cutanée
+  ACMELLA_OLERACEA_EXTRACT: 'acmella-oleracea-extract', // INCI: Acmella Oleracea Extract | effet liftant naturel, "Botox-like" végétal
 } as const
 
 export const CIRCULATOIRE_DRAINAGE = {
@@ -295,6 +317,7 @@ export const TENSIOACTIFS_NETTOYANTS = {
   DECYL_GLUCOSIDE: 'decyl-glucoside', // INCI: Decyl Glucoside | tensioactif doux
   SODIUM_LAUROYL_METHYL_ISETHIONATE: 'sodium-lauroyl-methyl-isethionate', // INCI: Sodium Lauroyl Methyl Isethionate | tensioactif doux
   SODIUM_COCOYL_ISETHIONATE: 'sodium-cocoyl-isethionate', // INCI: Sodium Cocoyl Isethionate | tensioactif doux dérivé de coco
+  GLEDITSIA_TRIACANTHOS_SEED_EXTRACT: 'gleditsia-seed-extract', // INCI: Gleditsia Triacanthos Seed Extract | tensioactif / épaississant naturel doux
 } as const
 
 export const TEXTURANTS_FONCTIONNELS = {

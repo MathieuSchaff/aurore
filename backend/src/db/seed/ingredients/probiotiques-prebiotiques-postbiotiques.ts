@@ -3,6 +3,63 @@ import type { IngredientInput } from './seed-ingredients'
 
 export const PROBIOTIQUES_PREBIOTIQUES_POSTBIOTIQUES: IngredientInput[] = [
   {
+    name: 'Chicory Root Extract (Cichorium Intybus Root Extract)',
+    slug: INGREDIENT_SLUGS.CHICORY_ROOT_EXTRACT,
+    category: 'actif',
+    description:
+      'Extrait de racine de chicorée prébiotique, hydrate, équilibre le microbiome et renforce la barrière cutanée.',
+    content: `
+# Chicory Root Extract (Cichorium Intybus Root Extract)
+Source naturelle d'inuline prébiotique, cet extrait soutient le microbiome cutané et améliore hydratation et élasticité.
+## INCI
+**CICHORIUM INTYBUS ROOT EXTRACT**
+(Extrait de racine)
+## Composition chimique
+- **Inuline** : Prébiotique fibreux.
+- **Polyphénols et flavonoïdes** : Antioxydants.
+## Mécanisme d’action
+1. **Prébiotique** : Nourrit bactéries bénéfiques du microbiome.
+2. **Hydratation** : Augmente NMF et rétention d'eau.
+3. **Antioxydant** : Protège contre oxydation.
+4. **Barrière renforcée** : Améliore élasticité et hydratation.
+## Bienfaits
+- **Équilibre microbiome** : Peau plus saine et résistante.
+- **Hydratation longue durée** : Jusqu'à +97% en études.
+- **Apaisement** : Réduit irritations.
+- **Anti-âge** : Améliore fermeté et éclat.
+## Utilisation
+- **Cible** : Peaux déshydratées, sensibles, déséquilibrées.
+- **Moment** : Matin et soir.
+- **Type de soin** : Sérums hydratants, soins microbiome.
+## Note technique
+Effet "vitamin D-like" sur barrière. Synergie avec postbiotiques ou hyaluronique.
+  `,
+  },
+  {
+    name: 'Pseudoalteromonas Ferment Extract',
+    slug: INGREDIENT_SLUGS.PSEUDOALTEROMONAS_FERMENT,
+    category: 'Probiotiques & Postbiotiques',
+    description:
+      'Un postbiotique marin issu de bactéries des grands fonds, reconnu pour ses propriétés hydratantes et protectrices contre le stress environnemental.',
+    content: `
+# Pseudoalteromonas Ferment Extract : Le Postbiotique des Grands Fonds
+Le **Pseudoalteromonas Ferment Extract** est obtenu par fermentation d'une bactérie marine vivant dans des conditions extrêmes (pression, froid, obscurité). Cette adaptation exceptionnelle lui confère des mécanismes de protection cellulaire uniques, que la cosmétique exploite pour renforcer et hydrater la peau.
+---
+## ✨ Points Forts & Bénéfices
+* **Hydratation Profonde** : Stimule la production naturelle d'acide hyaluronique et renforce le film hydrolipidique.
+* **Protection Anti-Stress** : Aide la peau à mieux résister aux agressions extérieures (pollution, UV, variations thermiques).
+* **Effet Postbiotique** : Soutient l'équilibre du microbiome cutané sans introduire de micro-organismes vivants.
+---
+## ⚖️ Transparence Scientifique & Limites
+* **Données cliniques limitées** : Actif relativement récent dont les études sont majoritairement réalisées par les fabricants eux-mêmes.
+* **Concentrations variables** : L'efficacité dépend fortement de la concentration utilisée dans la formule finale.
+---
+## 🛡️ Précautions & Sécurité
+* Très bien toléré, y compris sur les peaux sensibles et réactives.
+* Aucune contre-indication connue à ce jour.
+`,
+  },
+  {
     name: 'Vitreoscilla Ferment',
     slug: INGREDIENT_SLUGS.VITREOSCILLA_FERMENT,
     category: 'Équilibre du Microbiome',

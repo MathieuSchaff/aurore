@@ -3,6 +3,105 @@ import type { IngredientInput } from './seed-ingredients'
 
 export const HUMECTANTS: IngredientInput[] = [
   {
+    name: 'Alanine',
+    slug: INGREDIENT_SLUGS.ALANINE,
+    category: 'Humectants',
+    description:
+      "Un acide aminé essentiel du Facteur Naturel d'Hydratation (NMF), qui hydrate, soutient la réparation cutanée et renforce la cohésion du stratum corneum.",
+    content: `
+# Alanine : L'Acide Aminé Structurant
+L'**Alanine** est l'un des acides aminés les plus simples et les plus abondants du corps humain. Elle fait partie intégrante du **NMF** (Natural Moisturizing Factor) de la peau, aux côtés de la sérine, la glycine et d'autres acides aminés. En cosmétique, elle contribue à l'hydratation et à l'intégrité du stratum corneum.
+---
+## ✨ Points Forts & Bénéfices
+* **Humectant NMF** : Retient l'eau dans les couches supérieures de l'épiderme, en reproduisant fidèlement le facteur d'hydratation naturel.
+* **Soutien à la Réparation** : Participe à la synthèse de protéines structurales (kératine, collagène) en tant que substrat métabolique.
+* **Renforce la Cohésion Cellulaire** : Aide à maintenir l'intégrité des cornéocytes et la structure du film hydrolipidique.
+* **Synergie d'Acides Aminés** : Le plus souvent formulée en complexes multi-acides aminés pour reproduire le NMF complet.
+---
+## ⚖️ Transparence Scientifique & Limites
+* **Actif de soutien** : L'alanine seule n'est pas un ingrédient "star" avec des effets spectaculaires — son intérêt est dans la cohérence d'une formule NMF complète.
+* **Peu d'études isolées** : La littérature porte surtout sur les complexes d'acides aminés plutôt que sur l'alanine individuelle.
+---
+## 🛡️ Précautions & Sécurité
+* Aucune contre-indication connue, tolérance universelle.
+* Convient aux peaux atopiques, sensibles, réactives et aux nourrissons.
+`,
+  },
+  {
+    name: 'Lactate de Sodium (Sodium Lactate)',
+    slug: INGREDIENT_SLUGS.SODIUM_LACTATE,
+    category: 'Humectants',
+    description:
+      "Le sel sodique de l'acide lactique, composant majeur du Facteur Naturel d'Hydratation (NMF), humectant puissant et régulateur de pH naturel.",
+    content: `
+# Lactate de Sodium : Le Champion du NMF
+Le **Sodium Lactate** est le sel de sodium de l'acide lactique. Il est naturellement produit par la peau et constitue l'un des composants les plus importants du **NMF** (Natural Moisturizing Factor) — le système d'hydratation intrinsèque du stratum corneum. En cosmétique, il est utilisé à la fois comme humectant et comme régulateur de pH.
+---
+## ✨ Points Forts & Bénéfices
+* **Humectant NMF** : S'intègre parfaitement dans le mécanisme naturel d'hydratation de la peau, avec une excellente rétention d'eau.
+* **Régulateur de pH** : Aide à maintenir le pH légèrement acide de la peau (4,5–5,5), essentiel pour la barrière et le microbiome.
+* **Exfoliant très doux** : Dérive de l'acide lactique mais sous forme de sel, l'action exfoliante est quasi inexistante — bénéfice sans inconvénient.
+* **Synergie avec d'autres humectants** : Se combine idéalement avec la glycérine, l'urée et les acides aminés pour un effet NMF complet.
+---
+## ⚖️ Transparence Scientifique & Limites
+* **Ne remplace pas l'acide lactique** : Pour un effet exfoliant chimique, il faudra la forme acide non neutralisée.
+* **Efficacité pH-dépendante** : Son action humectante est optimale dans des formules au pH physiologique.
+---
+## 🛡️ Précautions & Sécurité
+* Excellent profil de tolérance, convient aux peaux les plus sensibles.
+* Peut être utilisé matin et soir sans photosensibilisation (contrairement à l'acide lactique libre).
+`,
+  },
+  {
+    name: 'Glucosamine HCl',
+    slug: INGREDIENT_SLUGS.GLUCOSAMINE_HCL,
+    category: 'Humectants',
+    description:
+      "Un précurseur naturel de l'acide hyaluronique qui hydrate, soutient la synthèse des glycosaminoglycanes et offre un effet exfoliant très doux.",
+    content: `
+# Glucosamine HCl : Le Précurseur de l'Acide Hyaluronique
+La **Glucosamine HCl** est un aminosucre naturellement présent dans le cartilage et les tissus conjonctifs. En cosmétique, elle est connue comme précurseur direct dans la voie de biosynthèse de l'acide hyaluronique (via la N-acétylglucosamine), ce qui en fait un actif humectant et régénérant indirect.
+---
+## ✨ Points Forts & Bénéfices
+* **Précurseur d'Acide Hyaluronique** : Fournit le "matériau de base" pour que les fibroblastes synthétisent davantage d'HA endogène.
+* **Humectant Fonctionnel** : Hygroscopique par sa structure glucidique, retient l'eau dans l'épiderme.
+* **Exfoliant Très Doux** : Favorise le renouvellement cellulaire en accélérant légèrement la desquamation naturelle.
+* **Potentiel Éclaircissant** : Inhibe partiellement la glycosylation de la tyrosinase, réduisant la production de mélanine.
+---
+## ⚖️ Transparence Scientifique & Limites
+* **Effet indirect** : Il n'apporte pas directement de l'HA — la chaîne de biosynthèse dépend de nombreux facteurs cellulaires.
+* **Effet éclaircissant modeste** comparé à l'alpha-arbutin ou à l'acide tranexamique.
+---
+## 🛡️ Précautions & Sécurité
+* Bien toléré sur tous types de peaux, y compris sensibles.
+* Allergie au crustacé : la glucosamine cosmétique est souvent d'origine végétale ou de fermentation, mais vérifier la source en cas d'allergie sévère.
+`,
+  },
+  {
+    name: 'Hydroxyéthyl Urée (Hydroxyethyl Urea)',
+    slug: INGREDIENT_SLUGS.HYDROXYETHYL_UREA,
+    category: 'Humectants',
+    description:
+      "Un dérivé de l'urée particulièrement bien toléré, qui hydrate en profondeur et améliore l'élasticité cutanée sans l'effet kératolytique de l'urée pure.",
+    content: `
+# Hydroxyéthyl Urée : L'Urée Sans Picotements
+L'**Hydroxyethyl Urea** est un dérivé synthétique de l'urée, où un groupement hydroxyéthyle remplace un hydrogène. Ce changement structural supprime le potentiel irritant et kératolytique de l'urée classique, tout en conservant — et même en amplifiant — son pouvoir humectant.
+---
+## ✨ Points Forts & Bénéfices
+* **Humectant Puissant** : Capacité de rétention d'eau supérieure à la glycérine, améliore l'hydratation des couches profondes de l'épiderme.
+* **Améliore l'Élasticité** : Agit sur la souplesse et la résistance mécanique de la peau en modulant les interactions des protéines du stratum corneum.
+* **Excellent Tolérance** : Contrairement à l'urée pure à haute concentration, ne provoque pas de picotements ni d'irritation.
+---
+## ⚖️ Transparence Scientifique & Limites
+* **Moins documenté que l'urée** : Actif plus récent, les études cliniques indépendantes restent rares.
+* **Pas d'effet kératolytique** : Si tu cherches un exfoliant chimique doux, mieux vaut se tourner vers l'urée pure ou un AHA.
+---
+## 🛡️ Précautions & Sécurité
+* Compatible peaux sensibles, atopiques et réactives.
+* Peut être utilisé autour de l'œil avec précaution.
+`,
+  },
+  {
     name: 'Glycine',
     slug: INGREDIENT_SLUGS.GLYCINE,
     category: 'Régénération & Structure',

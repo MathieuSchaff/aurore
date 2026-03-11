@@ -9,6 +9,10 @@ import { BIODERMA_PRODUCT_DATA } from './bioderma/bioderma'
 import { COLIBRI_PRODUCT_DATA } from './colibri/colibri'
 import { CORPS_PRODUCT_DATA } from './corps/corps'
 import { CYLA_PRODUCT_DATA } from './cyla/cyla'
+// import { VICHY_PRODUCT_DATA } from './vichy/vichy'
+// import { PREQUEL_PRODUCT_DATA } from './prequel/prequel'
+// import { REMEDY_PRODUCT_DATA } from './remedy/remedy'
+import { DR_IDRISS_PRODUCT_DATA } from './drIdriss/drIdriss'
 import { GARANCIA_PRODUCT_DATA } from './garancia/garancia'
 import { GG_PRODUCTS_DATA } from './geekAndGorgeous/geekAndGorgeous'
 import { ISISPHARMA_PRODUCT_DATA } from './isispharma/isispharma'
@@ -18,6 +22,7 @@ import { LRP_PRODUCT_DATA } from './laRochePosay/laRochePosay'
 import { MAD_ABOUT_SKIN_PRODUCT_DATA } from './madAboutSkin/madAboutSkin'
 import { MEME_PRODUCT_DATA } from './memeCancer/memeCancer'
 import { MIXA_PRODUCT_DATA } from './mixa/mixa'
+import { OCCITANE_PRODUCT_DATA } from './occitane/occitane'
 import { SEPHORA_PRODUCT_DATA } from './sephora/sephora'
 import { SERUMS_PEPTIDES_PRODUCT_DATA } from './serums-peptides/serums-peptides'
 import { SKIN1004_PRODUCT_DATA } from './skin1004/skin1004'
@@ -27,10 +32,6 @@ import { TO_PRODUCT_DATA } from './theOrdinary/theOrdinary'
 import { THERAMID_PRODUCT_DATA } from './theramid/theramid'
 import { TONERS_PRODUCT_DATA } from './toners/toners'
 import { URIAGE_PRODUCT_DATA } from './uriage/uriage'
-// import { VICHY_PRODUCT_DATA } from './vichy/vichy'
-// import { PREQUEL_PRODUCT_DATA } from './prequel/prequel'
-// import { REMEDY_PRODUCT_DATA } from './remedy/remedy'
-// import { DR_IDRISS_PRODUCT_DATA } from './drIdriss/drIdriss'
 // import { COSRX_PRODUCT_DATA } from './cosrx/cosrx'
 // import { DR_SAM_PRODUCT_DATA } from './drSam/drSam'
 // import { CERAVE_PRODUCT_DATA } from './cerave/cerave'
@@ -66,10 +67,11 @@ export const allProductData = [
   ...TONERS_PRODUCT_DATA,
   ...URIAGE_PRODUCT_DATA,
   // ...VICHY_PRODUCT_DATA,
-  // ...DR_IDRISS_PRODUCT_DATA,
+  ...DR_IDRISS_PRODUCT_DATA,
   // ...CERAVE_PRODUCT_DATA,
   // ...COSRX_PRODUCT_DATA,
   // ...DR_SAM_PRODUCT_DATA,
   // ...PREQUEL_PRODUCT_DATA,
   // ...REMEDY_PRODUCT_DATA,
+  ...OCCITANE_PRODUCT_DATA,
 ] as const

@@ -1,12 +1,47 @@
-import { IngredientInput } from "./seed-ingredients";
-import { INGREDIENT_SLUGS } from "./ingredient-slugs";
+import { INGREDIENT_SLUGS } from './ingredient-slugs'
+import type { IngredientInput } from './seed-ingredients'
 
 export const ANTI_ACNE_SEBUM: IngredientInput[] = [
   {
-    name: "Arbre à thé",
+    name: 'Pea Extract (Pisum Sativum Extract)',
+    slug: INGREDIENT_SLUGS.PEA_EXTRACT,
+    category: 'actif',
+    description:
+      "Extrait de pois riche en antioxydants et protéines, utilisé pour renforcer l'élasticité, apaiser et protéger la peau sensible.",
+    content: `
+# Pea Extract (Pisum Sativum Extract)
+L'extrait de pois (Pisum sativum) est une source végétale d'antioxydants et de peptides qui soutient la résilience cutanée et combat les signes de sensibilité.
+## INCI
+**PISUM SATIVUM EXTRACT**
+(Extrait de graines de pois)
+## Composition chimique
+- **Antioxydants** : Acide ellagique, quercétine, bêta-sitostérol.
+- **Protéines et peptides** : Renforcent la barrière.
+- **Vitamines et minéraux** : Soutien métabolique.
+## Mécanisme d’action
+1. **Protection antioxydante** : Réduit les facteurs de sensibilité et l'inflammation.
+2. **Renforcement de l'élasticité** : Stimule les protéines structurelles comme le collagène.
+3. **Apaisement** : Calme les rougeurs et soutient la barrière cutanée.
+4. **Conditionnement** : Améliore l'hydratation et la douceur.
+## Bienfaits
+- **Peau plus résistante** : Réduit les signes de sensibilité et d'irritation.
+- **Fermeté et élasticité** : Améliore le tonus cutané.
+- **Apaisant** : Idéal pour peaux réactives ou sujettes aux rougeurs.
+- **Hydratation** : Renforce la rétention d'humidité.
+## Utilisation
+- **Cible** : Peaux sensibles, perte d'élasticité, irritées ou matures.
+- **Moment** : Quotidien, matin et soir.
+- **Type de soin** : Sérums apaisants, crèmes barrière, soins anti-âge doux.
+## Note technique
+Polyvalent et très bien toléré, il fonctionne en synergie avec les céramides ou l'avoine pour renforcer la barrière. Souvent utilisé en concentrations modérées pour ses effets calmants et protecteurs.
+  `,
+  },
+  {
+    name: 'Arbre à thé',
     slug: INGREDIENT_SLUGS.TEA_TREE,
-    category: "purifiant & apaisant",
-    description: "Huile essentielle réputée pour ses propriétés antibactériennes et assainissantes, idéale pour les peaux à imperfections.",
+    category: 'purifiant & apaisant',
+    description:
+      'Huile essentielle réputée pour ses propriétés antibactériennes et assainissantes, idéale pour les peaux à imperfections.',
     content: `
 # Arbre à thé (Tea Tree)
 L'huile de Tea Tree est extraite des feuilles de l'arbre Melaleuca alternifolia, originaire d'Australie.
@@ -29,10 +64,11 @@ C'est l'ingrédient phare des routines pour peaux acnéiques ou à imperfections
 `,
   },
   {
-    name: "Copper Gluconate",
+    name: 'Copper Gluconate',
     slug: INGREDIENT_SLUGS.COPPER_GLUCONATE,
-    category: "antibactérien & réparateur",
-    description: "Un sel de cuivre essentiel qui aide à purifier la peau tout en favorisant la régénération des tissus.",
+    category: 'antibactérien & réparateur',
+    description:
+      'Un sel de cuivre essentiel qui aide à purifier la peau tout en favorisant la régénération des tissus.',
     content: `
 # Copper Gluconate (Gluconate de Cuivre)
 Le cuivre est un oligo-élément indispensable à la santé de la peau. Il intervient dans la synthèse de l'élastine et possède des vertus assainissantes naturelles.
@@ -54,10 +90,11 @@ Souvent associé au Zinc, il assainit la zone lésée pour éviter les infection
 `,
   },
   {
-    name: "Zinc PCA",
+    name: 'Zinc PCA',
     slug: INGREDIENT_SLUGS.ZINC_PCA,
-    category: "actif",
-    description: "Actif séborégulateur et antibactérien combinant zinc et PCA pour équilibrer les peaux grasses à imperfections, tout en hydratant sans assécher.",
+    category: 'actif',
+    description:
+      'Actif séborégulateur et antibactérien combinant zinc et PCA pour équilibrer les peaux grasses à imperfections, tout en hydratant sans assécher.',
     content: `
     # Zinc PCA
     Le Zinc PCA est un actif cosmétique très apprécié en dermatologie pour son action ciblée sur les peaux grasses, mixtes et à tendance acnéique. Il associe les propriétés régulatrices du zinc à l'hydratation apportée par l'acide pyrrolidone carboxylique (PCA), un composant naturel du NMF (Natural Moisturizing Factor) de la peau.
@@ -95,10 +132,11 @@ Souvent associé au Zinc, il assainit la zone lésée pour éviter les infection
   `,
   },
   {
-    name: "Extrait de lentille (Lens esculenta seed extract)",
+    name: 'Extrait de lentille (Lens esculenta seed extract)',
     slug: INGREDIENT_SLUGS.LENS_ESCULENTA_SEED_EXTRACT,
-    category: "actif",
-    description: "Actif d'origine naturelle riche en oligosaccharides, conçu pour resserrer les pores et affiner durablement le grain de peau.",
+    category: 'actif',
+    description:
+      "Actif d'origine naturelle riche en oligosaccharides, conçu pour resserrer les pores et affiner durablement le grain de peau.",
     content: `
     # Extrait de lentille (Lens esculenta seed extract)
     L'extrait de lentille est un ingrédient d'origine végétale sélectionné pour son action ciblée sur la structure du pore. Particulièrement utilisé dans les soins correcteurs pour peaux grasses, cet actif allie naturalité et performance dermatologique pour restaurer l'aspect lisse et mat de l'épiderme.
@@ -128,10 +166,11 @@ Souvent associé au Zinc, il assainit la zone lésée pour éviter les infection
   `,
   },
   {
-    name: "Comedoclastin™ (Extrait de Silybum marianum)",
+    name: 'Comedoclastin™ (Extrait de Silybum marianum)',
     slug: INGREDIENT_SLUGS.COMEDOCLASTIN,
-    category: "actif",
-    description: "Actif végétal breveté issu du Chardon-marie qui réduit les imperfections et limite leur réapparition en agissant à la racine.",
+    category: 'actif',
+    description:
+      'Actif végétal breveté issu du Chardon-marie qui réduit les imperfections et limite leur réapparition en agissant à la racine.',
     content: `
     # Comedoclastin™ (Extrait de Silybum marianum)
     La Comedoclastin™ est une innovation de rupture issue de la Recherche Pierre Fabre. Cet actif végétal "intelligent" est extrait des graines de Chardon-marie (*Silybum marianum*) selon un procédé breveté. Il constitue le cœur de l'expertise de la marque Avène pour le traitement des peaux à tendance acnéique.
@@ -161,10 +200,11 @@ Souvent associé au Zinc, il assainit la zone lésée pour éviter les infection
   `,
   },
   {
-    name: "Copper Sulfate",
+    name: 'Copper Sulfate',
     slug: INGREDIENT_SLUGS.COPPER_SULFATE,
-    category: "actif",
-    description: "Sulfate de cuivre aux propriétés antimicrobiennes, astringentes et séborégulatrices, utilisé en faible concentration dans les soins purifiants, anti-acné et assainissants pour peaux grasses à imperfections.",
+    category: 'actif',
+    description:
+      'Sulfate de cuivre aux propriétés antimicrobiennes, astringentes et séborégulatrices, utilisé en faible concentration dans les soins purifiants, anti-acné et assainissants pour peaux grasses à imperfections.',
     content: `
     # Copper Sulfate (Sulfate de Cuivre)
 
@@ -208,10 +248,11 @@ Souvent associé au Zinc, il assainit la zone lésée pour éviter les infection
   `,
   },
   {
-    name: "Zinc Sulfate (sulfate de zinc)",
+    name: 'Zinc Sulfate (sulfate de zinc)',
     slug: INGREDIENT_SLUGS.ZINC_SULFATE,
-    category: "actif",
-    description: "Sel minéral astringent et antimicrobien, régule le sébum et apaise les peaux à imperfections.",
+    category: 'actif',
+    description:
+      'Sel minéral astringent et antimicrobien, régule le sébum et apaise les peaux à imperfections.',
     content: `
     # Zinc Sulfate (sulfate de zinc)
 
@@ -250,10 +291,11 @@ Souvent associé au Zinc, il assainit la zone lésée pour éviter les infection
   `,
   },
   {
-    name: "Piroctone Olamine",
+    name: 'Piroctone Olamine',
     slug: INGREDIENT_SLUGS.PIROCTONE_OLAMINE,
-    category: "actif",
-    description: "Agent antifongique puissant ciblant Malassezia, efficace contre pellicules, démangeaisons et irritations du cuir chevelu, très bien toléré même par les peaux sensibles.",
+    category: 'actif',
+    description:
+      'Agent antifongique puissant ciblant Malassezia, efficace contre pellicules, démangeaisons et irritations du cuir chevelu, très bien toléré même par les peaux sensibles.',
     content: `
     # Piroctone Olamine
 
@@ -298,10 +340,11 @@ Souvent associé au Zinc, il assainit la zone lésée pour éviter les infection
   `,
   },
   {
-    name: "Gluconate de Zinc (Zinc Gluconate)",
+    name: 'Gluconate de Zinc (Zinc Gluconate)',
     slug: INGREDIENT_SLUGS.ZINC_GLUCONATE,
-    category: "actif",
-    description: "L'oligo-élément régulateur de l'homéostasie cutanée : une action sébo-régulatrice, purifiante et cicatrisante incontournable pour les peaux à imperfections.",
+    category: 'actif',
+    description:
+      "L'oligo-élément régulateur de l'homéostasie cutanée : une action sébo-régulatrice, purifiante et cicatrisante incontournable pour les peaux à imperfections.",
     content: `# Le Gluconate de Zinc : Le Gardien de la Pureté Cutanée
 
 Le **Gluconate de Zinc** est le sel de zinc de l'acide gluconique. En dermo-cosmétique de pointe (référencé dans les gammes Cleanance d'Avène ou Effaclar de La Roche-Posay), il est l'actif de choix pour traiter les désordres des peaux mixtes à grasses. Sa forme "gluconate" offre une biodisponibilité et une tolérance cutanée bien supérieures aux sels de zinc classiques.
@@ -344,10 +387,11 @@ Le Gluconate de Zinc présente un excellent profil d'innocuité :
 *Fiche technique destinée aux experts R&D et aux chefs de produits dermo-cosmétiques.*`,
   },
   {
-    name: "Acide azélaïque",
+    name: 'Acide azélaïque',
     slug: INGREDIENT_SLUGS.AZELAIC_ACID,
-    category: "actif",
-    description: "Acide dicarboxylique naturel approuvé FDA pour l'acné et la rosacée. Très efficace sur l'hyperpigmentation, le melasma et l'érythème post-inflammatoire. Excellent profil de tolérance, safe grossesse.",
+    category: 'actif',
+    description:
+      "Acide dicarboxylique naturel approuvé FDA pour l'acné et la rosacée. Très efficace sur l'hyperpigmentation, le melasma et l'érythème post-inflammatoire. Excellent profil de tolérance, safe grossesse.",
     content: `## Qu'est-ce que c'est ?
   Acide faible (diacide dicarboxylique) naturellement présent dans le blé, l'orge, et produit par la levure *Malassezia furfur* sur la peau elle-même. Ce n'est **pas** un exfoliant chimique classique — il n'agit pas directement sur la cohésion des cornéocytes comme l'acide glycolique.
 
@@ -533,10 +577,11 @@ Le Gluconate de Zinc présente un excellent profil d'innocuité :
   | Anti-âge | Faible |`,
   },
   {
-    name: "Acide hypochloreux",
+    name: 'Acide hypochloreux',
     slug: INGREDIENT_SLUGS.HYPOCHLOROUS_ACID,
-    category: "actif",
-    description: "Composé naturellement produit par les globules blancs via la myéloperoxydase. Antimicrobien puissant à large spectre et anti-inflammatoire, mais extrêmement doux. Idéal pour peaux réactives, acnéiques, rosacée, eczéma et post-procédures.",
+    category: 'actif',
+    description:
+      'Composé naturellement produit par les globules blancs via la myéloperoxydase. Antimicrobien puissant à large spectre et anti-inflammatoire, mais extrêmement doux. Idéal pour peaux réactives, acnéiques, rosacée, eczéma et post-procédures.',
     content: `## Qu'est-ce que c'est ?
   Substance naturellement produite par les neutrophiles (globules blancs) pour combattre infections et inflammation. Formulé en skincare par électrolyse d'une solution saline, c'est un acide faible (pH ~3–6) appliqué en spray ou toner. Ce pH bas est ce qui le distingue de l'eau de Javel classique : à ce pH, on obtient du HOCl pur, beaucoup plus doux et contrôlé. Il agit en détruisant l'intégrité des membranes microbiennes — y compris les **biofilms** bactériens résistants — sans irriter ni laisser de résidus toxiques.
 
@@ -615,10 +660,11 @@ Le Gluconate de Zinc présente un excellent profil d'innocuité :
   - **Active Skin Repair** : multi-usage (visage, corps, post-coupure, animaux)`,
   },
   {
-    name: "Niacinamide",
+    name: 'Niacinamide',
     slug: INGREDIENT_SLUGS.NIACINAMIDE,
-    category: "actif",
-    description: "Dérivé amide de la vitamine B3 (nicotinamide). Ingrédient hydrosoluble, ultra-stable, \"jack-of-all-trades\" avec des centaines d'études. Agit sur la barrière cutanée, l'hyperpigmentation, les rougeurs, le sébum, les pores et les rides. Excellent support qui rend les autres actifs plus performants et tolérables. Sur la liste des médicaments essentiels de l'OMS.",
+    category: 'actif',
+    description:
+      "Dérivé amide de la vitamine B3 (nicotinamide). Ingrédient hydrosoluble, ultra-stable, \"jack-of-all-trades\" avec des centaines d'études. Agit sur la barrière cutanée, l'hyperpigmentation, les rougeurs, le sébum, les pores et les rides. Excellent support qui rend les autres actifs plus performants et tolérables. Sur la liste des médicaments essentiels de l'OMS.",
     content: `## Nature et origine
   Forme amide de l'acide nicotinique (niacine), découverte entre 1935 et 1937. Hydrosoluble, stable, naturellement présente dans l'organisme et l'alimentation (viande, poisson, légumineuses, noix, champignons, levure, lait, légumes verts, café). Précurseur de **NAD+/NADH** et **NADPH** → rôle central dans le métabolisme cellulaire, la réparation ADN et la production d'ATP.
 
@@ -740,10 +786,11 @@ Le Gluconate de Zinc présente un excellent profil d'innocuité :
   Rare en pays développés. Causée par manque de niacine/tryptophane (alimentation pauvre, alcoolisme, régime maïs non nixtamalisé). Symptômes : les "4 D" → **Dermatite** (photosensible), **Diarrhée**, **Démence**, **Death**. La niacinamide est le traitement de référence (sans le flush de la niacine).`,
   },
   {
-    name: "Soufre (Sulfur)",
+    name: 'Soufre (Sulfur)',
     slug: INGREDIENT_SLUGS.SULFUR,
-    category: "ingredient",
-    description: "Actif anti-acné parmi les plus anciens en dermatologie. Kératolytique, séborégulateur et antibactérien, il cible comédons, points noirs et inflammations — particulièrement efficace sur les peaux grasses et acnéiques.",
+    category: 'ingredient',
+    description:
+      'Actif anti-acné parmi les plus anciens en dermatologie. Kératolytique, séborégulateur et antibactérien, il cible comédons, points noirs et inflammations — particulièrement efficace sur les peaux grasses et acnéiques.',
     content: `## Contexte historique & réglementaire
   Le soufre est l'un des plus anciens ingrédients actifs en dermatologie, utilisé depuis l'Antiquité (époque de Cléopâtre) et même employé historiquement contre la peste. Aujourd'hui, il est classé comme **médicament en vente libre (OTC)** aux États-Unis, au même titre que l'acide salicylique ou le peroxyde de benzoyle. Après avoir perdu en popularité face à ces actifs modernes, il connaît un **regain d'intérêt** notable.
 
@@ -824,10 +871,11 @@ Le Gluconate de Zinc présente un excellent profil d'innocuité :
   - **Dermite séborrhéique** : formule soufre + acide salicylique en nettoyant`,
   },
   {
-    name: "Acide Salicylique",
+    name: 'Acide Salicylique',
     slug: INGREDIENT_SLUGS.SALICYLIC_ACID,
-    category: "actif",
-    description: "BHA liposoluble, pénètre les pores pour lutter contre l'acné et les points noirs.",
+    category: 'actif',
+    description:
+      "BHA liposoluble, pénètre les pores pour lutter contre l'acné et les points noirs.",
     content: `
     # Acide Salicylique
 
@@ -900,4 +948,4 @@ Le Gluconate de Zinc présente un excellent profil d'innocuité :
     **Conseil expert** : l’acide salicylique est l’actif n°1 pour transformer une peau acnéique/grasse en peau nette et mate. Introduisez-le progressivement, hydratez intensément et protégez du soleil pour éviter irritation et maximiser les bénéfices. Associez à niacinamide pour booster tolérance et résultats anti-imperfections. Patience pendant la purge → la peau en sort plus belle et équilibrée !
     `,
   },
-];
+]

@@ -12,7 +12,7 @@ import { COLIBRI_PRODUCT_TAGS } from './colibri/colibri-product-tags'
 import { CORPS_PRODUCT_TAGS } from './corps/corps-product-tags'
 // import { COSRX_PRODUCT_TAGS } from './cosrx/cosrx-product-tags'
 import { CYLA_PRODUCT_TAGS } from './cyla/cyla-product-tags'
-// import { DR_IDRISS_PRODUCT_TAGS } from './drIdriss/drIdriss-product-tags'
+import { DR_IDRISS_PRODUCT_TAGS } from './drIdriss/drIdriss-product-tags'
 // import { DR_SAM_PRODUCT_TAGS } from './drSam/drSam-product-tags'
 import { GARANCIA_PRODUCT_TAGS } from './garancia/garancia-product-tags'
 import { GG_PRODUCT_TAGS } from './geekAndGorgeous/geekAndGorgeous-product-tags'
@@ -23,6 +23,7 @@ import { LRP_PRODUCT_TAGS } from './laRochePosay/laRochePosay-product-tags'
 import { MAD_ABOUT_SKIN_PRODUCT_TAGS } from './madAboutSkin/madAboutSkin-product-tags'
 import { MEME_PRODUCT_TAGS } from './memeCancer/memeCancer-product-tags'
 import { MIXA_PRODUCT_TAGS } from './mixa/mixa-product-tags'
+import { OCCITANE_PRODUCT_TAGS } from './occitane/occitane-product-tags'
 // import { PREQUEL_PRODUCT_TAGS } from './prequel/prequel-product-tags'
 // import { REMEDY_PRODUCT_TAGS } from './remedy/remedy-product-tags'
 import { SEPHORA_PRODUCT_TAGS } from './sephora/sephora-product-tags'
@@ -73,7 +74,7 @@ export const allProductTagsMap: AllProductTags = {
   ...TONERS_PRODUCT_TAGS,
   ...URIAGE_PRODUCT_TAGS,
   ...THERAMID_PRODUCT_TAGS,
-  // ...DR_IDRISS_PRODUCT_TAGS,
+  ...DR_IDRISS_PRODUCT_TAGS,
   // ...CERAVE_PRODUCT_TAGS,
   // ...COSRX_PRODUCT_TAGS,
   ...AR_PRODUCT_TAGS,
@@ -83,4 +84,5 @@ export const allProductTagsMap: AllProductTags = {
   // ...VICHY_PRODUCT_TAGS,
   ...MAD_ABOUT_SKIN_PRODUCT_TAGS,
   // ...REMEDY_PRODUCT_TAGS,
+  ...OCCITANE_PRODUCT_TAGS,
 } as const

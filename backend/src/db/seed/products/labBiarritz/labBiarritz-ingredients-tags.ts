@@ -19,28 +19,8 @@ export const LABBIARRITZ_INGREDIENTS_MAP: Record<string, any[]> = {
       slug: INGREDIENT_SLUGS.PRUNUS_AMYGDALUS_DULCIS_OIL,
       notes: 'Nourrit et protège',
     },
-    {
-      slug: INGREDIENT_SLUGS.ZINC_OXIDE,
-      notes: 'Écrans minéraux',
-    },
-    {
-      slug: INGREDIENT_SLUGS.TITANIUM_DIOXIDE,
-      notes: 'Écrans minéraux',
-    },
-    {
-      slug: INGREDIENT_SLUGS.ALOE_VERA,
-      notes: 'Hydrate et apaise',
-    },
-    {
-      slug: INGREDIENT_SLUGS.PRUNUS_AMYGDALUS_DULCIS_OIL,
-      notes: 'Nourrit et protège',
-    },
   ],
   [allProductSlugs.LABORATOIRES_BIARRITZ_CREME_SOLAIRE_TEINTEE_SPF50]: [
-    {
-      slug: INGREDIENT_SLUGS.ZINC_OXIDE,
-      notes: 'Écrans minéraux',
-    },
     {
       slug: INGREDIENT_SLUGS.ZINC_OXIDE,
       notes: 'Écrans minéraux',

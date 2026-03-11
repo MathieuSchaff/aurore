@@ -3,6 +3,119 @@ import type { IngredientInput } from './seed-ingredients'
 
 export const EXFOLIANTS: IngredientInput[] = [
   {
+    name: 'Eau de fruit de Citron (Citrus Limon Fruit Water)',
+    slug: INGREDIENT_SLUGS.CITRUS_LIMON_FRUIT_WATER,
+    category: 'actif',
+    description:
+      'Hydrosol de citron obtenu par distillation vapeur, riche en vitamine C, acides citrique et acides de fruits (AHA). Exfoliant doux naturel, purifiant et clarifiant, réduisant pores et prévenant comédons.',
+    content: `
+# Eau de Fruit de Citron (Citrus Limon Fruit Water)
+
+Citrus Limon Fruit Water est l'hydrosol (eau florale) issue de la distillation vapeur du fruit de citron. Originaire du bassin méditerranéen et d'Asie du Sud-Est, le citron est utilisé depuis l'Antiquité pour ses propriétés toniques, purifiantes et éclaircissantes.
+
+## INCI
+**CITRUS LIMON (LEMON) FRUIT WATER** ou **CITRUS LIMON FRUIT EXTRACT**
+(CAS: 92346-89-9 / 84929-31-7 | COSING: 55418)
+
+## Composition chimique
+
+### Acides de fruits (AHA naturels)
+- **Acide citrique** : AHA principal, pH légèrement acide (5-7), exfoliation douce
+- **Acide malique** : exfoliation complémentaire
+- **Acide tartrique** : présent en quantités mineures
+
+### Composés actifs
+- **Vitamine C (acide ascorbique)** : antioxydant puissant, synthèse collagène, brightening
+- **Flavonoïdes & composés phénoliques** : antioxydation, protection UV, anti-inflammatoire léger
+- **Huiles essentielles volatiles** (1.5-3% dans jus pur, moins dans hydrosol)
+  - Limonène : très puissant, responsable de l'arome frais ; propriétés antimicrobiennes
+  - α-pinène, β-pinène : antibactériennes, bactériostatiques
+  - Citral, géraniol, linalool : composés odorants, propriétés antimicrobiennes
+- **Pectines & polysaccharides** : hydratation, soutien barrière cutanée
+- **Minéraux & oligo-éléments** : calcium, potassium, magnésium, fer
+
+### Profil de sécurité de l'hydrosol
+L'hydrosol obtenu par distillation vapeur est :
+- **Moins concentré en huiles essentielles** que le jus frais (donc moins photosensibilisant)
+- **Moins acide** que le jus brut (pH équilibré 5-7, non dénaturant)
+- **Sans composés photoxiques** comme bergaptène (qui est lipophile et reste dans l'huile essentielle)
+
+## Mécanisme d'action
+
+### 1. Exfoliation douce et naturelle
+L'acide citrique (AHA naturel) dissout légèrement la liaison céramidique entre cellules mortes de la couche cornée, promouvant le renouvellement cellulaire sans agressivité.
+
+### 2. Régulation sébum & purification
+Limonène et composés volatils régulent la production de sébum, réduisent séborrhée, purifient pores obstrués et aident à prévenir la formation de comédons (points noirs).
+
+### 3. Antioxydation & protéction
+Vitamine C concentrée neutralise radicaux libres, protège contre UV/pollution, synthétise collagène pour fermeté long-terme.
+
+### 4. Propriétés antimicrobiennes
+Limonène, pinènes, linalool offrent protection contre Propionibacterium acnes (responsable de l'acné) et autres bactéries cutanées. Effet anti-dandruff sur le cuir chevelu.
+
+### 5. Clarification & Eclat
+Ensemble de la composition : élimination cellules mortes + sébum régulé + antioxydation = teint unifié, lumineux et éclatant.
+
+### 6. Tonification légère
+Astringent léger naturel, rafraîchit et tonifie la peau, resserrant légèrement les pores.
+
+## Bienfaits dermatologiques
+
+- **Exfoliation naturelle douce** : Renouvellement cellulaire sans irritation (contrairement aux exfoliants physiques agressifs)
+- **Réduction points noirs & comédons** : Purifie pores, régule sébum, exfolie cellules mortes qui occlueraient pores
+- **Peau plus claire & radieuse** : Élimination des imperfections légères, teint unifié
+- **Éclat immédiat** : Effet revitalisant et tonifiant après application
+- **Équilibre sébum** : Idéale peaux grasses, mixtes, acnéiques
+- **Préparation optimale** : Améliore pénétration des actifs ultérieurs (toner astringent)
+- **Propriétés calmantes légères** : Acide citrique + flavonoïdes apaisent légèrement
+
+## Efficacité clinique
+
+Études confirment :
+- Propriétés antibactériennes contre Cutibacterium acnes (limonène casse membrane bactérienne)
+- Limonène + pinènes = effet bactériostatique (inhibent croissance sans tuer)
+- Linalool = inhibition quorum sensing (communication bactérienne)
+- Vitamine C + flavonoïdes = photo-protection et antioxydation mesurable
+
+## Utilisation
+
+- **Concentrations** : 3-10% dans toniques/toners, ou 100% comme eau florale mist
+- **Cible** : Peaux grasses, mixtes, acnéiques, mates, pores dilatés, comédons, accumulation sébum
+- **Moment** : Le matin (tonifiant) ou matin & soir selon sensibilité
+- **Application** : Tonique/toner après nettoyage, avant sérums/crèmes
+- **Format** : Toniques astringents, toners purifiant, mists revitalisants, bases hydratantes
+- **Compatible avec** : Niacinamide, acide salicylique, BHA, benzoyl peroxide, zinc, soufre
+
+## Précautions importantes
+
+### ⚠️ Photosensibilité
+- **Hydrosol** : très faible risque (huiles essentielles largement séparées)
+- **Jus frais/concentré** : risque réel de photophotodermatite (réaction inflammatoire)
+- **Conseil** : Toujours utiliser SPF 30+ le jour après application
+- Éviter exposition solaire directe pendant 24-48h après application si possible
+
+### Sensibilité & Patch test
+- Acide citrique peut irriter peaux très sensibles
+- Recommandé : test patch 24-48h avant usage général
+- Peut assécher si surconcentration ou fréquence excessive
+
+### Interactions
+- Peut interférer avec rétinoïdes (tous deux exfoliants) → alterner soirs
+- Compatible avec AHA/BHA mais risque cumul exfoliation si usage quotidien
+- Recommandation : 2-3× hebdo pour exfoliation douce régulière
+
+## Note technique
+
+**Hydrosol vs Jus vs Extrait** :
+- **Hydrosol (Lemon Fruit Water INCI)** : distillation vapeur, moins puissant mais très sûr, hydrogel base idéale
+- **Extrait de fruit (Citrus Limon Fruit Extract)** : peut contenir plus huiles essentielles, efficacité renforcée mais photosensibilité augmentée
+- **Jus frais** : extrêmement agressif et photosensibilisant, ne pas utiliser en cosmétique
+
+Certification : EWG score 2 (très faible toxicité), CIR rating B (sûr en cosmétiques si concentrations appropriées).
+  `,
+  },
+  {
     name: 'LHA (Capryloyl Salicylic Acid)',
     slug: INGREDIENT_SLUGS.CAPRYLOYL_SALICYLIC_ACID,
     category: 'Exfoliation Précise',

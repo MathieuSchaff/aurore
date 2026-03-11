@@ -3,6 +3,147 @@ import type { IngredientInput } from './seed-ingredients'
 
 export const BARRIERE_EMOLLIENTS_OCCLUSIFS: IngredientInput[] = [
   {
+    name: 'Camelina Seed Oil (Camelina Sativa Seed Oil)',
+    slug: INGREDIENT_SLUGS.CAMELINA_SEED_OIL,
+    category: 'actif',
+    description:
+      'Huile légère riche en oméga-3, antioxydante et réparatrice, parfaite pour peaux sèches, sensibles ou inflammées.',
+    content: `
+# Camelina Seed Oil (Camelina Sativa Seed Oil)
+Huile de cameline (gold of pleasure), source exceptionnelle d'oméga-3 végétaux, idéale pour restaurer et protéger la barrière cutanée.
+## INCI
+**CAMELINA SATIVA SEED OIL**
+(Huile de graines pressées à froid)
+## Composition chimique
+- **Oméga-3 (ALA)** : Jusqu'à 40%, anti-inflammatoire.
+- **Vitamine E** : Antioxydant puissant.
+- **Phytostérols** : Hydratants et protecteurs.
+## Mécanisme d’action
+1. **Anti-inflammatoire** : Réduit rougeurs et irritations.
+2. **Réparation barrière** : Renforce lipides cutanés.
+3. **Antioxydant** : Protège contre radicaux libres.
+4. **Hydratation** : Améliore rétention d'eau.
+## Bienfaits
+- **Apaisement** : Peaux sensibles, réactives, eczéma.
+- **Nutrition** : Peaux sèches ou matures.
+- **Anti-âge** : Améliore élasticité et fermeté.
+- **Non comédogène** : Texture légère, absorption rapide.
+## Utilisation
+- **Cible** : Peaux sèches, sensibles, inflammées, matures.
+- **Moment** : Soir ou en massage quotidien.
+- **Type de soin** : Huiles visage, baumes réparateurs.
+## Note technique
+Texture sèche malgré richesse en oméga-3. Synergie avec squalane ou céramides pour booster réparation.
+  `,
+  },
+  {
+    name: 'Rosehip Seed Oil (Rosa Canina Seed Oil)',
+    slug: INGREDIENT_SLUGS.ROSEHIP_SEED_OIL,
+    category: 'actif',
+    description:
+      "Huile de graines d'églantier régénérante, riche en acides gras essentiels et vitamines, idéale pour cicatriser, hydrater et lutter contre les signes de l'âge.",
+    content: `
+# Rosehip Seed Oil (Rosa Canina Seed Oil)
+L'huile de rose musquée (églantier) est une huile végétale star en régénération cutanée, grâce à sa haute teneur en oméga et vitamines.
+## INCI
+**ROSA CANINA SEED OIL**
+(Huile de graines pressées à froid)
+## Composition chimique
+- **Acides gras essentiels** : Linoléique (51%), linolénique (19%), oléique (20%).
+- **Vitamines** : A (trans-rétinoïque naturel), C, E.
+## Mécanisme d’action
+1. **Régénération cellulaire** : Stimule le renouvellement et la production de collagène.
+2. **Réparation barrière** : Renforce la cohésion lipidique.
+3. **Anti-inflammatoire** : Apaise cicatrices et rougeurs.
+4. **Antioxydant** : Protège contre le stress oxydatif.
+## Bienfaits
+- **Cicatrisation accélérée** : Atténue cicatrices, vergetures, marques post-acné.
+- **Anti-âge** : Réduit rides fines, améliore élasticité.
+- **Hydratation intense** : Peau plus souple et nourrie.
+- **Éclat et uniformité** : Atténue taches et hyperpigmentation.
+## Utilisation
+- **Cible** : Peaux sèches, matures, cicatricielles, ternes.
+- **Moment** : Soir (photosensible légère), ou matin avec SPF.
+- **Type de soin** : Huile pure, sérums réparateurs, crèmes nourrissantes.
+## Note technique
+Non comédogène malgré sa richesse, elle pénètre vite. Excellente en synergie avec vitamine C pour booster l'éclat et la réparation.
+  `,
+  },
+  {
+    name: "Huile d'Avocat (Persea Gratissima Oil)",
+    slug: INGREDIENT_SLUGS.AVOCADO_OIL,
+    category: 'Barrière & Émollients',
+    description:
+      'Une huile végétale riche en acides gras insaturés et en vitamine E, très nourrissante et régénérante, idéale pour les peaux sèches et matures.',
+    content: `
+# Huile d'Avocat : L'Huile Nourrissante par Excellence
+L'**huile d'avocat** est extraite de la chair du fruit *Persea gratissima*. C'est l'une des huiles végétales les plus riches en acides gras mono-insaturés (acide oléique majoritaire), en vitamines A, D et E, et en stérols végétaux. Sa texture dense et sa grande affinité avec les lipides cutanés en font un ingrédient de choix pour les peaux sèches, abîmées ou matures.
+---
+## ✨ Points Forts & Bénéfices
+* **Nutrition Intense** : Apporte une grande quantité d'acides gras essentiels qui compensent les déficits lipidiques de la barrière cutanée.
+* **Régénérante** : Les stérols végétaux et la vitamine E stimulent le renouvellement cellulaire et aident à réparer les dommages cutanés.
+* **Émolliente & Occlusive** : Crée un film protecteur qui limite la TEWL (perte en eau transépidermique).
+* **Anti-oxydante** : La vitamine E naturellement présente protège les acides gras de l'oxydation et la peau du stress oxydatif.
+---
+## ⚖️ Transparence Scientifique & Limites
+* **Texture riche** : Peut être trop occlusive pour les peaux mixtes à grasses ou les peaux acnéiques.
+* **Index comédogène modéré (2-3)** : À utiliser avec précaution si tu es très acnée-prone.
+* **Oxydation** : Huile relativement instable à l'air et à la lumière — choisir des formulations bien conservées.
+---
+## 🛡️ Précautions & Sécurité
+* Allergie à l'avocat (rare) : contre-indication en cas d'allergie avérée au fruit.
+* Déconseillée en usage pur sur peaux grasses ou à tendance acnéique.
+`,
+  },
+  {
+    name: 'Glycéryl Stéarate (Glyceryl Stearate)',
+    slug: INGREDIENT_SLUGS.GLYCERYL_STEARATE,
+    category: 'Barrière & Émollients',
+    description:
+      'Un émulsifiant émollient naturel qui stabilise les formules crème et renforce le film hydrolipidique de la peau.',
+    content: `
+# Glycéryl Stéarate : L'Émulsifiant Doux
+Le **Glyceryl Stearate** est un ester de glycérol et d'acide stéarique, naturellement présent dans le corps humain. En cosmétique, il joue un double rôle : stabiliser l'émulsion (maintenir l'eau et l'huile ensemble) et agir comme émollient pour adoucir la peau.
+---
+## ✨ Points Forts & Bénéfices
+* **Stabilisant d'émulsion** : Permet d'obtenir des textures crème homogènes et stables dans le temps.
+* **Émollient doux** : Contribue à la douceur et au fondant de la texture au toucher.
+* **Renforcement Barrière** : Apporte des lipides structurants compatibles avec le ciment intercellulaire.
+---
+## ⚖️ Transparence Scientifique & Limites
+* **Rôle principalement fonctionnel** : Son intérêt est davantage galénique (texture, stabilité) qu'actif pur.
+* **Effet barrière modeste** en solo — c'est un ingrédient de support plutôt que de traitement.
+---
+## 🛡️ Précautions & Sécurité
+* Excellent profil de tolérance, convient aux peaux sensibles et aux formules pour bébés.
+* Non comédogène aux concentrations d'usage standard.
+`,
+  },
+  {
+    name: 'Alcool Cétéarylique (Cetearyl Alcohol)',
+    slug: INGREDIENT_SLUGS.CETEARYL_ALCOHOL,
+    category: 'Barrière & Émollients',
+    description:
+      "Un alcool gras émollient et épaississant qui nourrit et adoucit la peau sans l'assécher, souvent confondu à tort avec les alcools irritants.",
+    content: `
+# Alcool Cétéarylique : L'Alcool Gras Mal Compris
+Malgré son nom, le **Cetearyl Alcohol** n'a rien à voir avec l'alcool éthylique (l'alcool qui assèche). C'est un mélange d'alcools gras — l'alcool cétylique et l'alcool stéarylique — d'origine végétale, qui appartient à la famille des émollients structurants.
+---
+## ✨ Points Forts & Bénéfices
+* **Émollient & Adoucissant** : Laisse un film protecteur sur la peau qui réduit la perte en eau transépidermique.
+* **Texturant & Stabilisant** : Donne du corps aux crèmes et lotions, améliore leur tenue et leur onctuosité.
+* **Renforcement Barrière** : S'intègre dans la structure lipidique de la couche cornée.
+---
+## ⚖️ Transparence Scientifique & Limites
+* **Potentiel comédogène modéré** : Peut obstruer les pores chez les peaux très acnéiques ou acnée-prone, à utiliser avec précaution.
+* **Confusion fréquente** : Souvent rejeté à tort par les consommateurs qui évitent tous les "alcools".
+---
+## 🛡️ Précautions & Sécurité
+* Très bien toléré en général. Les rares réactions sont des allergies de contact, exceptionnelles.
+* À éviter en concentration élevée si peau très sujette aux comédons.
+`,
+  },
+  {
     name: 'Triglycérides Caprylique/Caprique (Caprylic/Capric Triglyceride)',
     slug: INGREDIENT_SLUGS.CAPRYLIC_CAPRIC_TRIGLYCERIDE,
     category: 'emollient',

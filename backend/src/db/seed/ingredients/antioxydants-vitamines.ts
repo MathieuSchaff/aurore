@@ -3,6 +3,107 @@ import type { IngredientInput } from './seed-ingredients'
 
 export const ANTIOXYDANTS_VITAMINES: IngredientInput[] = [
   {
+    name: 'Beet Root Extract (Beta Vulgaris Root Extract)',
+    slug: INGREDIENT_SLUGS.BEET_ROOT_EXTRACT,
+    category: 'actif',
+    description:
+      'Extrait de betterave riche en antioxydants et vitamines, hydrate, illumine et protège la peau.',
+    content: `
+# Beet Root Extract (Beta Vulgaris Root Extract)
+Betterave rouge, source de bétalaïnes et minéraux, apporte couleur naturelle et bienfaits nourrissants/antioxydants.
+## INCI
+**BETA VULGARIS ROOT EXTRACT**
+(Extrait de racine)
+## Composition chimique
+- **Bétalaïnes** : Pigments antioxydants.
+- **Vitamines A, C, K** : Soutien renouvellement.
+- **Minéraux** : Hydratation et éclat.
+## Mécanisme d’action
+1. **Antioxydant** : Neutralise radicaux libres.
+2. **Hydratation** : Augmente NMF.
+3. **Coloration naturelle** : Teinte rose saine.
+4. **Renouvellement** : Favorise éclat et uniformité.
+## Bienfaits
+- **Éclat et radiance** : Teint plus vif.
+- **Hydratation** : Peau repulpée.
+- **Protection** : Contre oxydation.
+- **Apaisant** : Réduit rougeurs.
+## Utilisation
+- **Cible** : Peaux ternes, déshydratées, besoin d'éclat.
+- **Moment** : Quotidien.
+- **Type de soin** : Masques, sérums teintés naturels.
+## Note technique
+Souvent utilisé pour couleur naturelle + antioxydants. Synergie avec vitamine C pour booster éclat.
+  `,
+  },
+  {
+    name: 'Gardenia Fruit Extract (Gardenia Jasminoides Fruit Extract)',
+    slug: INGREDIENT_SLUGS.GARDENIA_FRUIT_EXTRACT,
+    category: 'actif',
+    description:
+      'Extrait de fruit aux propriétés antioxydantes et protectrices, illumine, apaise et protège contre la lumière bleue et le stress environnemental.',
+    content: `
+# Gardenia Fruit Extract (Gardenia Jasminoides Fruit Extract)
+Extrait du fruit de gardénia, riche en crocines et flavonoïdes, offre une protection multi-niveaux et un effet éclaircissant naturel.
+## INCI
+**GARDENIA JASMINOIDES FRUIT EXTRACT**
+(Extrait de fruit)
+## Composition chimique
+- **Crocines et flavonoïdes** : Antioxydants puissants.
+- **Acide férulique** : Protection et éclat.
+## Mécanisme d’action
+1. **Protection antioxydante** : Neutralise radicaux libres et lumière bleue.
+2. **Apaisement** : Réduit inflammation et rougeurs.
+3. **Éclat** : Uniformise le teint et booste radiance.
+4. **Régénération** : Soutient renouvellement cellulaire.
+## Bienfaits
+- **Protection quotidienne** : Contre pollution, lumière bleue.
+- **Éclat naturel** : Teint plus lumineux et uniforme.
+- **Apaisant** : Peaux irritées ou sensibles.
+- **Anti-âge** : Soutient collagène et élasticité.
+## Utilisation
+- **Cible** : Peaux exposées, ternes, sensibles, anti-pollution.
+- **Moment** : Matin pour protection.
+- **Type de soin** : Sérums protecteurs, crèmes jour.
+## Note technique
+Effet melatonin-like pour protection nocturne. Synergie avec antioxydants comme vitamine C ou resvératrol.
+  `,
+  },
+  {
+    name: 'Hibiscus Sabdariffa (Hibiscus Sabdariffa Flower Extract)',
+    slug: INGREDIENT_SLUGS.HIBISCUS_SABDARIFFA,
+    category: 'actif',
+    description:
+      "Extrait floral riche en antioxydants et acides organiques, utilisé pour booster l'éclat, raffermir et protéger la peau contre le vieillissement oxydatif.",
+    content: `
+# Hibiscus Sabdariffa (Hibiscus Sabdariffa Flower Extract)
+L'hibiscus sabdariffa, aussi appelé bissap ou oseille de Guinée, est une plante tropicale dont les fleurs riches en anthocyanes et polyphénols offrent un puissant effet antioxydant et raffermissant en cosmétique.
+## INCI
+**HIBISCUS SABDARIFFA FLOWER EXTRACT**
+(Extrait de fleurs d'origine naturelle)
+## Composition chimique
+- **Anthocyanes et polyphénols** : Puissants antioxydants.
+- **Acides organiques naturels (AHA-like)** : Exfoliation douce.
+- **Flavonoïdes** : Protection contre les radicaux libres.
+## Mécanisme d’action
+1. **Action antioxydante forte** : Neutralise les radicaux libres et protège contre le stress oxydatif.
+2. **Inhibition de la dégradation de l'élastine** : Préserve la fermeté et l'élasticité cutanée.
+3. **Exfoliation douce** : Favorise le renouvellement cellulaire pour un teint plus lumineux.
+4. **Effet anti-inflammatoire** : Apaise les rougeurs et soutient la barrière cutanée.
+## Bienfaits
+- **Éclat et uniformité du teint** : Réduit l'aspect terne et booste la radiance.
+- **Raffermissement** : Améliore la tonicité et réduit l'apparence des rides fines.
+- **Protection anti-âge** : Combat les signes du vieillissement prématuré.
+- **Hydratation et douceur** : Texture plus lisse et souple.
+## Utilisation
+- **Cible** : Peaux ternes, matures, perte de fermeté, signes de fatigue.
+- **Moment** : Matin et/ou soir, idéal en sérum ou crème anti-âge.
+- **Type de soin** : Ingrédient star des soins éclat et raffermissants naturels.
+## Note technique
+L'hibiscus sabdariffa excelle en synergie avec la vitamine C ou les niacinamides pour maximiser l'éclat et la protection antioxydante. Sa couleur rouge naturelle peut légèrement teinter les formules, mais il est très bien toléré même par les peaux sensibles.
+  `,
+  },
+  {
     name: 'Vitamine K1 (Phytonadione)',
     slug: INGREDIENT_SLUGS.VITAMIN_K1,
     category: 'Vasculaire & Réparateur',
@@ -1177,7 +1278,7 @@ La carnosine brille par son profil de sécurité exceptionnel :
   },
   {
     name: 'Argousier',
-    slug: INGREDIENT_SLUGS.HIPPOPHAE_RHAMNOIDES,
+    slug: INGREDIENT_SLUGS.HUILE_ARGOUSIER,
     category: 'actif',
     description:
       'Extrait végétal riche en vitamines C et E, caroténoïdes et acides gras, utilisé pour ses propriétés antioxydantes et régénérantes.',

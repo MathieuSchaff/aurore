@@ -3,7 +3,7 @@ import { allProductSlugs } from '../products-slugs'
 export const AVENE_INGREDIENTS_MAP: Record<string, any[]> = {
   [allProductSlugs.AVENE_CLEANANCE_COMEDOMED_SERUM_INTENSIF]: [
     {
-      slug: INGREDIENT_SLUGS.SYLIBUM_MARIANUM_FRUIT_EXTRACT,
+      slug: INGREDIENT_SLUGS.CHARDON_MARIE,
       value: 25,
       unit: '%',
       notes: 'Comedoclastin™ : actif breveté issu du Chardon-marie',
@@ -51,7 +51,7 @@ export const AVENE_INGREDIENTS_MAP: Record<string, any[]> = {
       notes: 'Action matifiante et anti-irritante',
     },
     {
-      slug: INGREDIENT_SLUGS.SYLIBUM_MARIANUM_FRUIT_EXTRACT,
+      slug: INGREDIENT_SLUGS.CHARDON_MARIE,
       notes: 'Comedoclastin™ : aide à réduire les imperfections',
     },
   ],
@@ -218,7 +218,7 @@ export const AVENE_INGREDIENTS_MAP: Record<string, any[]> = {
   ],
   [allProductSlugs.AVENE_ROSAMED]: [
     {
-      slug: INGREDIENT_SLUGS.SYLIBUM_MARIANUM_FRUIT_EXTRACT,
+      slug: INGREDIENT_SLUGS.CHARDON_MARIE,
       notes: "Angiopausine™ : réduit l'hypervascularisation cutanée",
     },
     {
@@ -226,10 +226,6 @@ export const AVENE_INGREDIENTS_MAP: Record<string, any[]> = {
     },
     {
       slug: INGREDIENT_SLUGS.PENTYLENE_GLYCOL,
-    },
-    {
-      slug: INGREDIENT_SLUGS.SILYBUM_MARIANUM,
-      notes: "Actif phare — composant clé de l'Angiopausine™",
     },
     {
       slug: INGREDIENT_SLUGS.TOCOPHEROL,

@@ -9,6 +9,8 @@ import { BIODERMA_PRODUCT_SLUGS } from './bioderma/bioderma'
 import { COLIBRI_PRODUCT_SLUGS } from './colibri/colibri'
 import { CORPS_PRODUCT_SLUGS } from './corps/corps'
 import { CYLA_PRODUCT_SLUGS } from './cyla/cyla'
+// import { PREQUEL_PRODUCT_SLUGS } from './prequel/prequel'
+import { DR_IDRISS_PRODUCT_SLUGS } from './drIdriss/drIdriss'
 import { GARANCIA_PRODUCT_SLUGS } from './garancia/garancia'
 import { GG_PRODUCTS_SLUGS } from './geekAndGorgeous/geekAndGorgeous'
 import { ISISPHARMA_PRODUCT_SLUGS } from './isispharma/isispharma'
@@ -18,6 +20,7 @@ import { LRP_PRODUCT_SLUGS } from './laRochePosay/laRochePosay'
 import { MAD_ABOUT_SKIN_PRODUCT_SLUGS } from './madAboutSkin/madAboutSkin'
 import { MEME_PRODUCT_SLUGS } from './memeCancer/memeCancer'
 import { MIXA_PRODUCT_SLUGS } from './mixa/mixa'
+import { OCCITANE_PRODUCT_SLUGS } from './occitane/occitane'
 import { SEPHORA_PRODUCT_SLUGS } from './sephora/sephora'
 import { SERUMS_PEPTIDES_PRODUCT_SLUGS } from './serums-peptides/serums-peptides'
 import { SKIN1004_PRODUCT_SLUGS } from './skin1004/skin1004'
@@ -28,8 +31,6 @@ import { TO_PRODUCT_SLUGS } from './theOrdinary/theOrdinary'
 import { THERAMID_PRODUCT_SLUGS } from './theramid/theramid'
 import { TONERS_PRODUCT_SLUGS } from './toners/toners'
 import { URIAGE_PRODUCT_SLUGS } from './uriage/uriage'
-// import { PREQUEL_PRODUCT_SLUGS } from './prequel/prequel'
-// import { DR_IDRISS_PRODUCT_SLUGS } from './drIdriss/drIdriss'
 // import {  } from './cosrx/cosrx'
 // import { CERAVE_PRODUCT_SLUGS } from './cerave/cerave'
 // import { DR_SAM_PRODUCT_SLUGS } from './drSam/drSam'
@@ -66,10 +67,11 @@ export const allProductSlugs = {
   ...URIAGE_PRODUCT_SLUGS,
   // ...CERAVE_PRODUCT_SLUGS,
   // ...COSRX_PRODUCT_SLUGS,
-  // ...DR_IDRISS_PRODUCT_SLUGS,
+  ...DR_IDRISS_PRODUCT_SLUGS,
   // ...DR_SAM_PRODUCT_SLUGS,
   // ...PREQUEL_PRODUCT_SLUGS,
   // ...REMEDY_PRODUCT_SLUGS,
   ...THERAMID_PRODUCT_SLUGS,
   // ...VICHY_PRODUCT_SLUGS,
+  ...OCCITANE_PRODUCT_SLUGS,
 } as const
