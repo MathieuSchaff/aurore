@@ -3,6 +3,321 @@ import type { IngredientInput } from './seed-ingredients'
 
 export const APAISANTS_ANTI_INFLAMMATOIRES: IngredientInput[] = [
   {
+    name: 'Sulfate de Dextran Sodique (Sodium Dextran Sulfate)',
+    slug: INGREDIENT_SLUGS.SODIUM_DEXTRAN_SULFATE,
+    category: 'Apaisants & Anti-inflammatoires',
+    description:
+      "Un polysaccharide sulfaté apaisant et décongestionnant, qui cible les rougeurs et l'inconfort vasculaire des peaux sensibles et réactives.",
+    content: `
+# Sulfate de Dextran Sodique : L'Apaisant Vasculaire
+Le **Sodium Dextran Sulfate** est un polysaccharide (sucre complexe) d'origine microbienne, modifié chimiquement par sulfatation. Cette structure lui confère une affinité particulière pour les protéines impliquées dans l'inflammation et la perméabilité vasculaire.
+---
+## ✨ Points Forts & Bénéfices
+* **Décongestionnant Vasculaire** : Réduit la visibilité des rougeurs diffuses en agissant sur la perméabilité des capillaires.
+* **Apaisant** : Diminue les sensations d'échauffement, de picotements et d'inconfort des peaux réactives.
+* **Filmogène Protecteur** : Forme un film à la surface de la peau qui limite les agressions extérieures.
+---
+## ⚖️ Transparence Scientifique & Limites
+* **Actif de niche** : Peu d'études indépendantes, la majorité des données provient des fabricants.
+* **Effets modestes en usage seul** : Fonctionne mieux en synergie avec d'autres actifs apaisants.
+---
+## 🛡️ Précautions & Sécurité
+* Très bien toléré sur les peaux sensibles et les peaux atopiques.
+* Aucune photosensibilisation connue.
+`,
+  },
+  {
+    name: 'Noni (Morinda Citrifolia)',
+    slug: INGREDIENT_SLUGS.MORINDA_CITRIFOLIA,
+    category: 'actif',
+    description:
+      'Extrait de fruit de Noni riche en vitamines, polysaccharides et antioxydants puissants (flavonoïdes, coumarines, iridoïdes). Protecteur cutané et régénérant traditionnel polynésien utilisé depuis 2000 ans.',
+    content: `
+# Noni (Morinda Citrifolia)
+
+Morinda Citrifolia, communément appelé Noni, est un petit arbuste tropical originaire d'Asie du Sud-Est, d'Australie et des îles du Pacifique. Utilisé pendant plus de 2000 ans en médecine traditionnelle polynésienne et asiatique, le Noni est un véritable superaliment cutané avec un profil phytochimique remarquable.
+
+## INCI
+**MORINDA CITRIFOLIA FRUIT EXTRACT** ou **MORINDA CITRIFOLIA EXTRACT**
+(CAS: 223748-75-4)
+
+## Composition chimique
+
+### Vitamines & nutriments essentiels
+- **Vitamine C** : 76.24 mg/100g (ripe fruit) - antioxydant puissant, luminosité
+- **Vitamine A (β-carotène)** : conversion rétinol, antivieillissement
+- **Vitamines du groupe B** : métabolisme cellulaire, énergie cutanée
+- **Niacine (B3)** : beauté cutanée, sérénité
+
+### Polysaccharides & polyphénols puissants
+- **Polysaccharides** : 1.07-1.72 g/100g (décroissent avec maturité du fruit)
+  - Propriétés immunomodulatrices, anti-inflammatoires, anti-tumorales
+  - Nonioside A : polysaccharide unique du Noni
+- **Flavonoïdes** : kaempférol, rutine
+  - Antioxydants puissants, anti-inflammatoires, antitumoraux
+- **Coumarines** (ex. scopolétine) : anti-inflammatoires, anxiolytiques, propriétés vasodilatatrices
+
+### Composés iridoïdes & phénoliques
+- **Iridoïdes** : aucubine, acide asperulosidique, asperuloside, déacétylasperuloside
+  - Antioxydation renforcée, protection cellulaire
+- **Acide gallique & acide usorique** : propriétés antioxydantes et antimicrobiennes
+- **Damnacanthol** : anthraquinone avec activités antioxydante et anti-inflammatoire
+
+### Acides gras essentiels & acides aminés
+- **Acides gras volatiles** : amélioration fonction membrane cellulaire
+- **Acides aminés** : nutrition cellulaire, synthèse protéines cutanées
+
+### Profil minéral riche
+- Potassium : très concentré (électrolytes, hydratation)
+- Calcium, magnésium, phosphore, sodium
+- Oligo-éléments : fer, zinc, cuivre
+
+## Mécanisme d'action
+
+### 1. Antioxydation massive & multipathways
+Capacité antioxydante remarquable (plus élevée que jus de raisin en études comparatives) grâce à :
+- Flavonoïdes puissants (kaempférol antitumorale)
+- Polysaccharides scavenging radicaux libres
+- Iridoïdes neutralisant ROS (reactive oxygen species)
+- Protection contre : nitroxyde, superoxyde, hydroxyde radicaux
+
+### 2. Modulation inflammation chronique & immunitaire
+- Inhibition pro-inflammatory cytokines (TNF-α, IL-6, IL-8)
+- Polysaccharides activent réponse immunitaire naturelle (immunomodulation)
+- Propriétés anti-inflammatoires sans suppression excessif immunité
+
+### 3. Réparation cellulaire & régénération
+- Damnacanthol + vitamines + acides aminés = nutrition complète fibroblastes
+- Stimulation collagène et élastine pour fermeté long-terme
+- Restauration capacité renouvellement cellulaire (crucial avec âge)
+
+### 4. Protection contre oxydation & dégâts cellulaires
+- Antioxydation protège ADN contre dégâts photo-oxydatifs (UV/pollution)
+- Restauration glutathion (master antioxydant) in vitro confirmée
+- Contreaction accumulation ROS et stress oxydatif systémique
+
+### 5. Propriétés antimicrobiennes & antibactériennes
+- Acide gallique, iridoïdes = inhibition bactéries cutanées
+- Anti-antifongique : protection contre Candida, Malassezia
+- Propriétés antivirales documentées
+
+### 6. Hydratation & support barrière
+- Polysaccharides hydratants et structurants
+- Acides gras essentiels renforcent fonction barrière lipidique
+- Minéraux (potassium, calcium) soutiennent hydratation osmotique
+
+## Bienfaits dermatologiques
+
+- **Protection antioxydante puissante** : Neutralise radicaux libres responsables vieillissement prématuré
+- **Anti-âge visible** : Atténue ridules, rides, taches pigmentaires, perte fermeté
+- **Apaisement inflammation chronique** : Idéal pour rosacea, sensibilité, inflammaging
+- **Cicatrisation & réparation** : Restaure capacité renouvellement, accélère healing
+- **Régénération cutanée** : Stimule fibroblastes, collagène, élastine
+- **Clarté & éclat** : Élimination radicaux libres = teint lumineux et unifié
+- **Immunité cutanée** : Renforcement défenses innées contre pathogènes
+- **Hydratation profonde** : Polysaccharides et minéraux renforcent hydratation
+- **Effet "skin replenisher"** : Restaure jeunesse cutanée au niveau cellulaire
+
+## Efficacité clinique
+
+Études confirmées :
+- **Antioxydation** : Plusieurs études démontrent capacité antioxydante supérieure à jus de raisin et d'orange
+- **ROS modulation** : Neutralisation dose-dépendante ROS in vitro (SW872 cells)
+- **Collagen restoration** : Noni favorise dépôt collagène, restaure structure cutanée
+- **Skin health regimen** : Études dermatologiques confirment efficacité en soin régulier
+- **Tolérance excellente** : Bien toléré 2000+ ans sans toxicité documentée
+
+## Utilisation
+
+- **Concentrations recommandées** : 1-5% dans sérums, crèmes, masques hydratants
+- **Cible** : Tous types de peau ; particulier intérêt peaux matures, sensibles, inflammées, ternes, affaiblies
+- **Moment** : Matin et soir pour effet cumulatif
+- **Compatible avec** : Centella asiatica, boswellia, vitamine C, hyaluronic acid, acide hyaluronique, peptides
+- **Types produits** : Sérums antioxydants, crèmes réparatrices, masques éclat, essences hydratantes premium
+
+## Profil de sécurité
+
+- **Extrêmement bien toléré** : Historique 2000+ ans d'utilisation sans toxicité
+- **Hypoallergénique** : Rarement cause réactions allergiques
+- **Biodisponibilité confirmée** : Absorption intestinale in vitro démontrée
+- **Sans contaminants majeurs** : Assurez sélection extraits standardisés et purifiés
+- **Conseil** : Patch test recommandé pour ultra-sensibles (précaution générale)
+
+## Note technique
+
+**Originalité du Noni** : Profil phytochimique unique combining :
+- Polysaccharides immunomodulateurs (rare en fruits)
+- Iridoïdes sophistiqués (antioxydation avancée)
+- Coumarines (vasodilation, anti-inflammatoire)
+- Vitamines concentrées (C particulièrement)
+- Minéraux riches (potassium exceptionnellement concentré)
+
+Aucune autre fruit n'offre cette combinaison, faisant Noni véritablement "superfruit" cutané.
+
+**Limitation documentée** : Variabilité géographique/processus affecte composition finale produits commerciaux. Préférer extraits standardisés avec certificat de qualité.
+  `,
+  },
+  {
+    name: 'Gingembre (Zingiber Officinale)',
+    slug: INGREDIENT_SLUGS.ZINGIBER_OFFICINALE,
+    category: 'actif',
+    description:
+      'Extrait de rhizome de gingembre riche en gingérols et shogaols, reconnu pour ses propriétés tonifiantes, antioxydantes, anti-inflammatoires et stimulatrices de microcirculation cutanée.',
+    content: `
+# Gingembre (Zingiber Officinale)
+
+Zingiber Officinale est un rhizome (tige souterraine) cultivé en Asie du Sud-Est (Indonésie, Sri Lanka, Chine, Vietnam) depuis des millénaires. Utilisé en médecine Ayurvédique et chinoise traditionnelle, il combine efficacité dermatologique et vertus cosmétiques de premier plan.
+
+## INCI
+**ZINGIBER OFFICINALE (GINGER) ROOT EXTRACT** ou **ZINGIBER OFFICINALE EXTRACT**
+(CAS: 84696-15-1 | COSING: 60316 / 83959)
+
+## Composition chimique
+- **Composés piquants (Gingerols & Shogaols)** : principales molécules actives
+  - Gingerol (6-gingerol le plus abondant) : précurseur thermique du shogaol
+  - Shogaols : neurotransmetteurs, propriétés anti-inflammatoires renforcées
+  - Gingerdiones et gingediacetates : variations structurales
+- **Vitamines & Minéraux** (teneur exceptionnelle)
+  - **Vitamine C** : 6000 mg/100g (antioxydant puissant, synthèse collagène)
+  - **Vitamines B** : B1 (thiamine), B2 (riboflavine), B3 (niacine)
+  - **Minéraux** : sodium, phosphore, calcium, magnésium, fer, zinc, manganèse, cuivre
+- **Huiles essentielles** (1.5-3%) : borneol, cineol, linalool, citral, géraniol, limonène
+- **Flavonoïdes** : kaempférol (propriétés anti-inflammatoires, antitumorales)
+- **Polysaccharides & acides aminés** : hydratation et nutrition cellulaire
+
+## Mécanisme d'action
+
+### 1. Activation de la microcirculation
+Le gingembre augmente le flux sanguin local et stimule la circulation dermique, oxygénant les cellules cutanées et donnant une apparence plus tonifiée et radieuse.
+
+### 2. Antioxydation puissante
+Concentrations exceptionnelles en vitamine C et flavonoïdes neutralisent les radicaux libres, protégeant contre le stress oxydatif, le vieillissement prématuré et les dégâts UV/pollution.
+
+### 3. Inflammation modulée
+Gingerols et shogaols inhibent les voies inflammatoires (NF-κB, COX-2), réduisant rougeurs et réactions cutanées sans agressivité.
+
+### 4. Apaisement & réduction des rougeurs
+Synergie avérée avec bisabolol pour calmer irritations, eczéma et peaux réactives. Anti-inflammatoire général de la peau.
+
+### 5. Stimulation métabolique cutané
+Améliore le renouvellement cellulaire, favorisant l'élimination des cellules mortes et une texture plus lisse et régulière.
+
+### 6. Propriétés antimicrobiennes
+Composés volatils (borneol, cineol) offrent protection contre bactéries, champignons et microbes responsables d'acné.
+
+## Bienfaits dermatologiques
+
+- **Tonification & fermeté** : Renforcit la peau, améliore grain de peau, affine pores
+- **Radiance accrue** : Circulation stimulée = teint plus lumineux et éclatant
+- **Réduction des rougeurs** : Apaise irritations, rosacea légère, réactions cutanées
+- **Protection anti-âge** : Antioxydation + stimulation collagène = réduction rides et signes vieillissement
+- **Clarté cutanée** : Propriétés antimicrobiennes aident contrôle acné et imperfections
+- **Hydratation améliorée** : Acides aminés et polysaccharides renforcent hydratation cutanée
+- **Aroma revitalisante** : Huiles essentielles offrent expérience sensorielle énergisante
+
+## Utilisation
+
+- **Concentrations recommandées** : 0.1-2% dans formules (sérums, crèmes, toniques, masques)
+- **Cible** : Peaux mates, ternes, sensibles aux rougeurs, signes vieillissement, acné, circulation compromise
+- **Moment** : Matin et soir pour effet cumulatif de tonification
+- **Compatible avec** : Vitamine C, niacinamide, acide hyaluronique, acide salicylique, bisabolol
+- **Types de produits** : Sérums tonifiants, crèmes rajeunissantes, toniques vitalité, masques éclat, essences revitalisantes
+
+## Sécurité & Tolérance
+
+- **Non-comédogène** : Ne bouche pas les pores
+- **Non-desséchant** : Bien toléré même peaux sensibles (amino-acides hydratants)
+- **Généralement sans effets secondaires** : Utilisé traditionnellement sans toxicité rapportée
+- **Conseil** : Patch test recommandé pour sensibilités extrêmes aux épices
+- **Photosensibilité** : Minimal (gingembre non photosensibilisant contrairement au citron)
+
+## Note technique
+
+Teneur exceptionnelle en 160+ composés bioactifs reconnus. Gingembre nommé plante médicinale de l'année 2018 en Allemagne. L'extraction optimale préserve gingerols et shogaols (méthanolique ou macération) ; certaines méthodes peuvent dégrader composés actifs.
+
+Arôme caractéristique piquant/épicé : idéal pour formulations "revitalisantes" mais peut être modulé avec huiles essentielles compatibles.
+  `,
+  },
+  {
+    name: 'Boswellia Serrata (Encens indien)',
+    slug: INGREDIENT_SLUGS.BOSWELLIA_SERRATA,
+    category: 'actif',
+    description:
+      "Extrait de résine d'Encens indien riche en acides boswelliques, reconnu pour ses puissantes propriétés apaisantes, anti-inflammatoires et régénérantes. Traditionnellement utilisé en médecine Ayurvédique depuis des millénaires.",
+    content: `
+# Boswellia Serrata (Encens indien / Frankincense)
+
+Boswellia Serrata est une résine extraite du tronc de l'arbre Boswellia, originaire d'Inde, d'Afrique du Nord et du Moyen-Orient. Son utilisation remonte à plus de 2000 ans dans la médecine Ayurvédique et les pratiques cosmétiques traditionnelles.
+
+## INCI
+**BOSWELLIA SERRATA GUM** ou **BOSWELLIA SERRATA RESIN EXTRACT**
+(CAS: 97952-72-2 | COSING: 85313)
+
+## Composition chimique
+- **Acides boswelliques** (30-60% de résine) : molécules pentacycliques triterpéniques responsables de l'effet anti-inflammatoire
+  - Acide β-boswellique (β-BA)
+  - Acide acétyl-β-boswellique (AC-β-BA)
+  - Acide 11-céto-β-boswellique (KBA)
+  - Acide acétyl-11-céto-β-boswellique (AKBA) - *le plus puissant inhibiteur de 5-lipoxygenase*
+- **Huiles essentielles** (5-10%) : incensole, incensole oxide, α-thuène, serratol
+- **Polysaccharides** : arabinose, galactose, xylose pour hydratation et soutien structural
+- **Flavonoïdes et composés phénoliques** : propriétés antioxydantes
+
+## Mécanisme d'action
+
+### 1. Inhibition de 5-lipoxygenase
+Les acides boswelliques, particulièrement l'AKBA, inhibent sélectivement l'enzyme 5-lipoxygenase, bloquant la cascade inflammatoire et réduisant la synthèse de leucotriènes pro-inflammatoires.
+
+### 2. Apaisement et réduction de rougeurs
+Minimise les rougeurs, irritations et œdèmes cutanés en modulant les cytokines inflammatoires (inhibition de NF-κB et MAPK pathways).
+
+### 3. Renforcement de la barrière cutanée
+Soutient l'intégrité structurale de la peau, favorisant la rétention hydrique et la résistance aux agressions externes (pollution, UV, microbes).
+
+### 4. Régénération et fermeté
+Stimule les fibroblastes pour augmenter la synthèse de collagène, maintenant la fermeté et l'élasticité. Améliore la texture cutanée et réduit l'aspect des pores.
+
+### 5. Protection antioxydante
+Neutre les radicaux libres responsables du vieillissement prématuré et de l'inflammation chronique (inflamm'aging).
+
+## Bienfaits dermatologiques
+
+- **Apaisement puissant** : Particulièrement efficace pour les peaux sensibles, réactives, avec rosacea/couperose ou conditions inflammatoires (eczéma, psoriasis).
+- **Réduction des rougeurs** : Calme les inflammations aigues et chroniques.
+- **Maintien de la fermeté** : Améliore la densité cutanée et réduit l'aspect de relâchement.
+- **Texture améliorée** : Régularise le grain de peau, affine les pores.
+- **Protection environnementale** : Renforce la défense cutanée contre pollution, UV et stress oxydatif.
+- **Excellente tolérance** : Adaptée à tous les types de peau, même les plus sensibles.
+
+## Efficacité clinique
+
+Étude in vivo (double-aveugle, 28 jours) : application 2× quotidienne de crème contenant 0.5% d'acides boswelliques
+- **Amélioration significative** de la rugosité tactile et des ridules fines
+- **Augmentation mesurable** de l'élasticité cutanée (biophysique)
+- **Réduction visible** de la profondeur des rides (évaluations échographiques)
+
+Efficacité confirmée pour eczéma et psoriasis (71 sujets, 6 semaines).
+
+## Utilisation
+
+- **Concentrations recommandées** : 1-5% dans formules (sérums, crèmes, masques, soins apaisants)
+- **Cible** : Peaux sensibles, réactives, rosacea, eczéma, psoriasis, inflammations chroniques, signes de vieillissement
+- **Moment** : Matin et soir pour effet cumulatif
+- **Compatible avec** : Niacinamide, centella asiatica, acide hyaluronique, calendula, aloe vera
+- **Types de produits** : Sérums apaisants, crèmes réparatrices, masques SOS, essences hydratantes
+
+## Note technique
+
+Boswellia Serrata BT est une variante extraite avec technologie BioTransformation (enzymes végétales) pour améliorer la biodisponibilité. Assurer la qualité en utilisant des extraits standardisés en acides boswelliques (min. 30% AKBA).
+
+La résine contient naturellement une aromatique boisée riche, apportant une note sensorielle premium aux formulations tout en évitant les allergènes déclarables de certains types d'huiles essentielles.
+
+## Durabilité
+
+Récolte durable certifiée Fairtrade : plus de 400 collecteurs bénéficiaires en Inde, avec pratiques de récolte soutenable et replantation active.
+  `,
+  },
+  {
     name: 'Avoine Colloïdale',
     slug: INGREDIENT_SLUGS.COLLOIDAL_OATMEAL,
     category: 'Apaisement & Protection',

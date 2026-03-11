@@ -30,10 +30,6 @@ export const ISISPHARMA_INGREDIENTS_MAP: Record<string, any[]> = {
       notes: 'Veinotonique — petit-houx',
     },
     {
-      slug: INGREDIENT_SLUGS.REGLISSE,
-      notes: 'Deuxième dérivé de réglisse',
-    },
-    {
       slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA,
       notes: 'CENTELLA ASIATICA LEAF EXTRACT',
     },

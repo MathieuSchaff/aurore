@@ -19,6 +19,9 @@ export const GG_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.PEAU_SECHE,
       TAG_SLUGS.REPARATEUR,
       TAG_SLUGS.APAISANT,
+      TAG_SLUGS.TRAITEMENT,
+      TAG_SLUGS.MATIN,
+      TAG_SLUGS.SOIR,
     ],
     avoid: [],
   },
@@ -33,12 +36,15 @@ export const GG_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.PEAU_GRASSE,
       TAG_SLUGS.BARRIERE_CUTANEE,
       TAG_SLUGS.HYPOALLERGENIQUE,
-      TAG_SLUGS.SOIN_DE_NUIT,
+      TAG_SLUGS.SOIR,
+      TAG_SLUGS.TRAITEMENT,
+      TAG_SLUGS.TEXTURE_LEGERE,
     ],
     avoid: [
       TAG_SLUGS.GROSSESSE_COMPATIBLE, // Les rétinoïdes sont contre-indiqués
       TAG_SLUGS.PEAU_REACTIVE, // Concentration trop élevée pour peaux novices/réactives
       TAG_SLUGS.ECZEMA,
+      TAG_SLUGS.PEAU_SECHE, // Rétinal peut assêcher
     ],
   },
 
@@ -50,11 +56,18 @@ export const GG_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.PEAU_MIXTE,
       TAG_SLUGS.PEAU_GRASSE,
       TAG_SLUGS.PEAU_NORMALE,
-      TAG_SLUGS.CREME_HYDRATANTE,
+      TAG_SLUGS.GEL_CREME,
       TAG_SLUGS.SANS_PARFUM,
       TAG_SLUGS.REPARATEUR,
       TAG_SLUGS.TEXTURE_LEGERE,
       TAG_SLUGS.VEGAN,
+      TAG_SLUGS.HYPOALLERGENIQUE,
+      TAG_SLUGS.HUMECTANT,
+      TAG_SLUGS.APAISANT,
+      TAG_SLUGS.MATIN,
+      TAG_SLUGS.SOIR,
+      TAG_SLUGS.HYDRATATION,
+      TAG_SLUGS.EMOLLIENCE,
     ],
     avoid: [
       TAG_SLUGS.PEAU_SECHE, // Texture gel-crème souvent insuffisante pour peaux très sèches

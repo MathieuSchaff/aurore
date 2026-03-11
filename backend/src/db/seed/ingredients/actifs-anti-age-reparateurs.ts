@@ -3,6 +3,179 @@ import type { IngredientInput } from './seed-ingredients'
 
 export const ACTIFS_ANTI_AGE_REPARATEURS: IngredientInput[] = [
   {
+    name: 'Acmella Oleracea Extract',
+    slug: INGREDIENT_SLUGS.ACMELLA_OLERACEA_EXTRACT,
+    category: 'actif',
+    description:
+      "Extrait végétal 'Botox-like' naturel, relaxe les muscles faciaux pour lisser rides d'expression et raffermir la peau.",
+    content: `
+# Acmella Oleracea Extract
+Aussi appelée paracress ou spilanthes, cette plante offre un effet liftant immédiat grâce au spilanthol, alternative naturelle au Botox.
+## INCI
+**ACMELLA OLERACEA EXTRACT**
+(Extrait de plante entière ou fleurs)
+## Composition chimique
+- **Spilanthol** : Alkamide principal, neuromodulateur.
+- **Autres composés** : Antioxydants et anti-inflammatoires.
+## Mécanisme d’action
+1. **Relaxation musculaire** : Inhibe les contractions micro-faciales.
+2. **Stimulation collagène** : Améliore fermeté et élasticité.
+3. **Effet liftant immédiat** : Lisse rides d'expression.
+4. **Hydratation et apaisement** : Renforce la barrière.
+## Bienfaits
+- **Lissage rides d'expression** : Pattes d'oie, front, rides du lion.
+- **Effet tenseur** : Peau plus ferme et liftée.
+- **Anti-âge naturel** : Alternative douce et non invasive.
+- **Tolérance élevée** : Convient aux peaux sensibles.
+## Utilisation
+- **Cible** : Rides d'expression, perte de fermeté, prévention anti-âge.
+- **Moment** : Matin et soir pour effet cumulatif.
+- **Type de soin** : Sérums liftants, crèmes contour des yeux.
+## Note technique
+Effet visible rapide (minutes), cumulatif sur 4-8 semaines. Synergie idéale avec peptides ou rétinol pour booster l'anti-âge.
+  `,
+  },
+  {
+    name: 'Complexe de Protéoglycanes',
+    slug: INGREDIENT_SLUGS.PROTEOGLYCAN_COMPLEX,
+    category: 'actif',
+    description:
+      'Complexe de protéoglycanes (décorines, versicane, perlécane) imitant les composants structurels naturels de la peau. Restaure densité et élasticité cutanée, hydrate profondément, retarde vieillissement visible.',
+    content: `
+# Complexe de Protéoglycanes
+
+Les protéoglycanes sont des molécules glycosylées fondamentales de la matrice extracellulaire cutanée. Composées d'une protéine-coeur liée à des glycosaminoglycanes (GAG) sulfatés, elles maintiennent structure cutanée, hydratation et jeunesse. Avec l'âge, les protéoglycanes diminuent drastiquement, causant rides, relâchement et perte d'éclat.
+
+## INCI
+**PROTEOGLYCAN COMPLEX** ou noms propriétaires selon source :
+- Proteum 89+ (MartiDerm - 3e génération)
+- Noms alternatifs : Hydrolyzed Proteoglycans, Soluble Proteoglycans, GAG Complex
+
+## Composition chimique
+
+### Protéoglycanes majeurs de la peau
+
+#### 1. Décorines
+- Protéine-coeur : ~38 kDa
+- GAG : chaîne unique de dermatane sulfate ou chondroïtine sulfate
+- Rôle : Régulation fibrogenèse collagène (interactions GAG-collagène essentielles)
+- Fonction anti-âge : Assure formation correcte fibrilles collagène, prévient fragmentation
+- Observation viellissement : Décorines diminuent drastiquement, raccourcissement chaînes GAG = peau fragile
+
+#### 2. Versicane
+- Protéine-coeur : ~375 kDa (très grande)
+- GAG : chondroïtine sulfate et chaînes héparan sulfate multiples
+- Rôle : Hydratation massive (attraction molécules eau), soutien structure matricielle
+- Localisation : Derme principalement
+- Perte avec âge : Directement corrélée à perte hydratation, rides, sagging
+
+#### 3. Perlécane (Heparan Sulfate Proteoglycan)
+- Protéine-coeur : ~467 kDa
+- GAG : héparan sulfate linéaire
+- Rôle : Angiogenèse (formation vaisseaux), adhérence cellulaire, barrière tissulaire
+- Propriétés : Pro et anti-angiogenèse selon contexte
+- Importance : Régénération tissulaire, réparation cutanée
+
+### Glycosaminoglycanes (GAG) composants
+- **Dermatane Sulfate (CS/DS)** : liaison collagène, structure dermis
+- **Chondroïtine Sulfate (CS)** : hydratation, soutien mécanique
+- **Héparan Sulfate (HS)** : adhérence cellulaire, croissance facteurs
+- **Acide Hyaluronique (HA)** : rétention eau massive (1000× poids molécule)
+
+### Caractéristiques structurelles
+- **Poids moléculaire adapté** : Protéoglycanes natifs (>250 kDa) vs fragments hydrolysés (réduits, meilleure pénétration)
+- **Degrés de sulfatation variables** : Affectent charge, propriétés d'hydratation, interactions protéiques
+- **Capacité rétention eau** : 1 molécule protéoglycane = hydratation de 100+ molécules eau
+
+## Mécanisme d'action
+
+### 1. Restauration structure extracellulaire matricielle (ECM)
+- Protéoglycanes = 15-20% poids ECM derme (après collagène, élastine)
+- Forment agrégats massifs avec HA et collagène = supermolécules structurantes
+- Rôle mécanique : Augmentent rigidité tissulaire (firmness), élasticité
+- Topique application : Restaure organisation ECM dégradée par âge/UV
+
+### 2. Hydratation profonde & long-terme
+- GAG attractent et retiennent eau massivement
+- Hydratation cutanée augmente visiblement (mesure corneomètre : +6h hydratation après application)
+- Effet "plumping" immédiat : Cellules hydratées = peau gonflée, rides moins visibles
+- Stimulation HA/collagène : Protéoglycanes triggent fibroblastes produire HA & collagène
+
+### 3. Stimulation fibroblastes & collagène
+- Protéoglycanes reconnus comme signaux biologiques (matricryptins)
+- Fragments actifs stimulent fibroblastes → synthèse collagène (I, III, IV)
+- Collagène neuf = structure fermée, rides atténuées, fermeté restaurée
+- Effet cumulatif : Nécessite 4+ semaines pour résultat structural (pas immédiat)
+
+### 4. Support barrière cutanée
+- Protéoglycanes renforcent cohésion cellulaire et imperméabilité
+- Maintiennent hydratation intra-cutanée
+- Réduisent transepidermal water loss (TEWL)
+- Résultat : Peau moins sèche, moins irritable, mieux protégée
+
+### 5. Anti-inflammatoire & cytoprotection
+- GAG héparan sulfate = propriétés anti-inflammatoires
+- Polysaccharides modulateurs inflammation chronique (inflamm'aging)
+- Protection contre photo-dégradation (UV-induced collagen breakdown)
+
+### 6. Renouvellement & régénération tissulaire
+- Signaux matriciels activent réparation cutanée
+- Favorisent différenciation kératinocytes
+- Support prolifération fibroblastes et kératinocytes
+- Cicatrisation améliorée, resilience accrue
+
+## Bienfaits dermatologiques
+
+- **Réduction rides visibles** : Hydratation + collagène stimulation = réduction profondeur rides
+- **Fermeté & élasticité restaurées** : Structure ECM renforcée, perte "bounce" retrouvée
+- **Hydratation durable** : Polysaccharides retiennent eau 24h+ (cliniquement confirmé)
+- **Éclat & luminosité** : Peau bien hydratée diffuse lumière mieux
+- **Prévention vieillissement** : Restauration protéoglycanes = freinage processus vieillissement
+- **Support barrière** : Moins de sécheresse, moins irritation, confort accru
+- **Ressourcement cutané** : Peau retrouve apparence "jeune" et translucide
+- **Compatibilité universelle** : Tous types peau ; particulier pour matures, sèches, déshydratées
+
+## Efficacité clinique
+
+Études in vivo confirmées :
+- **Hydratation** : +15-20% hydratation cutanée mesurée 6h post-application (Corneometer)
+- **Rides** : Réduction significative (12.51% glabellar, 6.09% crow's feet après 2 semaines peptide complex)
+- **Collagène** : Synthèse augmentée x3.8 in vitro (Proteum 89+) vs protéoglycanes animaux
+- **Photoaging** : Inversion marqueurs photoaging (ROS, CPD, collagen degradation)
+- **Perception utilisateur** : 30 femmes 34-56 ans : apprécient "peau plus brillante, hydratée, rides réduites"
+- **Effet long-terme** : Cumul bénéfices après 4+ semaines usage quotidien
+
+## Utilisation
+
+- **Concentrations recommandées** : 2-6% dans sérums premium, crèmes hydratantes, masques
+- **Cible** : Peaux matures (40+), déshydratées, mates, signes vieillissement marqués, perte fermeté
+- **Moment** : Matin et soir pour effet cumulatif ; résultats visibles 2-4 semaines
+- **Application** : Sérums hydratants, crèmes de jour/nuit, masques réparateurs, essences hydratantes premium
+- **Compatible avec** : Acide hyaluronique, vitamine C, niacinamide, peptides, centella asiatica, HA
+- **Synergie** : Combiner avec HA bas poids moléculaire pour pénétration dermique + protéoglycanes surface
+
+## Précautions & notes
+
+- **Résultats structurels** : Nécessitent 4+ semaines (pas de Botox-instant)
+- **Effet hydratation** : Immédiat 6h ; long-terme après 2-4 semaines
+- **Durabilité** : Résultats persistant quelques semaines après arrêt
+- **Stockage** : Protéoglycanes sensibles oxidation, conserver coolness & air-tight
+- **Coût** : Ingredient premium (découvert 1970s, extraction coûteuse), reflété en prix produits
+
+## Note technique
+
+**Variation sources** :
+- **Peigne coq** : Source classique, très efficace (67% HA, 12% GAG, 17% protéines)
+- **Pommes Aomori** : Céramides pommes + protéoglycanes = formule spécialisée J-Beauty
+- **Soja fermenté** : Source végétal émergente, efficacité comparable
+- **Cartilage marin** : Alternative durable (déchets transformation)
+
+Protéoglycanes hydrolysés (réduits poids moléculaire) pénètrent mieux épiderme que natifs géants, tout en maintenant activité biologique.
+
+**Découverte** : Protéoglycane validée cliniquement Japon (Aomori region), d'où popularité J-Beauty actuelle et expansion globale.
+  `,
+  },
+  {
     name: 'Adénosine (Adenosine)',
     slug: INGREDIENT_SLUGS.ADENOSINE,
     category: 'actif',
@@ -121,6 +294,56 @@ export const ACTIFS_ANTI_AGE_REPARATEURS: IngredientInput[] = [
   `,
   },
   {
+    name: 'Chardon-Marie (Silybum marianum)',
+    slug: INGREDIENT_SLUGS.CHARDON_MARIE,
+    category: 'actif',
+    description:
+      'Actif végétal breveté d’Avène issu des achènes du Chardon-Marie. Nourrissant intense, renforce la barrière cutanée, limite les imperfections et apaise les peaux sèches, atopiques ou acnéiques.',
+    content: `
+    # Chardon-Marie (Silybum marianum)
+
+    Plante méditerranéenne emblématique de la phytothérapie, le **Chardon-Marie** est cultivé en France selon des pratiques durables et éco-responsables (Botanical Expertise Pierre Fabre). Les Laboratoires Dermatologiques **Avène** (Pierre Fabre) exploitent ses achènes via un procédé innovant d’**upcycling** : extraction du **Comedoclastin™** breveté (anti-imperfections) et obtention, en co-produit, de l’**huile de Chardon-Marie** par pression à froid. Cette valorisation circulaire et 100 % française produit deux actifs signature à partir d’une même matière première tracée.
+
+    ## INCI
+    - **Silybum Marianum Seed Oil** — huile d’achènes (pression à froid)
+    - **Silybum Marianum Fruit Extract** — extrait purifié des fruits (dont la fraction brevetée Comedoclastin™)
+
+    ## Composition chimique clé
+    - Acides gras essentiels : acide oléique, acide linoléique (riche en oméga-6)
+    - Flavonolignanes (silymarine) : silybine, silychristine, silydianine — antioxydants majeurs
+    - Tocophérols (vitamine E naturelle) et stérols — protecteurs et stabilisants
+    Pureté élevée, sans allergènes majeurs, culture française tracée.
+
+    ## Mécanismes d’action
+    1. Stimulation de la synthèse des céramides (notamment céramide 1/EOS) → renforce la barrière lipidique (démontré par HPTLC sur modèles d’épidermes reconstruits)
+    2. Antioxydant puissant : neutralise radicaux libres (UV, pollution, stress oxydatif)
+    3. Comédolytique ciblé (Comedoclastin™) : inhibe la formation des micro-comédons et l’oxydation du sébum en composés irritants
+    4. Régénération du film hydrolipidique → restaure souplesse et élasticité
+    5. Anti-inflammatoire : réduit médiateurs pro-inflammatoires et inhibe collagénase/élastase
+    6. Photoprotection complémentaire contre UVA/UVB et photovieillissement
+    7. Soutien à la détoxification et réparation cutanée
+
+    ## Bienfaits
+    - Nourrissant intense : hydrate en profondeur les peaux sèches à très sèches
+    - Renforce durablement la barrière cutanée et limite la perte insensible en eau
+    - Anti-imperfections : réduit boutons, points noirs, lésions inflammatoires (−45 % en 12 mois – étude clinique)
+    - Antioxydant & anti-âge : protège contre le photovieillissement, préserve le collagène
+    - Apaisant : calme rougeurs, irritations et sensations d’échauffement
+    - Tolérance exceptionnelle : validée sur peaux sensibles, réactives, atopiques, bébés et enfants
+
+    ## Utilisation
+    **Peaux cibles** : sèches / atopiques / sensibles — mixtes à grasses / à imperfections / acnéiques légères à modérées — exposées à la pollution
+    **Moment** : quotidien, matin et/ou soir (idéal le soir pour la régénération)
+    **Gammes Avène phares** :
+    - XERACALM NUTRITION → huile nourrissante (huile de Chardon-Marie)
+    - CLEANANCE COMEDOMED → anti-imperfections (Comedoclastin™)
+    - Certains soins anti-âge protecteurs
+
+    ## Note technique
+    Actif signature Pierre Fabre protégé par brevets (ex. FR3113585A1 – synthèse céramides ; brevets EP – Comedoclastin™). Procédé d’upcycling unique, traçabilité française intégrale, concentration contrôlée en principes actifs → pureté, durabilité et efficacité clinique prouvée sur le long terme, y compris sur peaux fragiles.
+      `,
+  },
+  {
     name: 'Hydroxypalmitoyl Sphinganine',
     slug: INGREDIENT_SLUGS.HYDROXYPALMITOYL_SPHINGANINE,
     category: 'Céramides & Barrière Cutanée',
@@ -181,40 +404,7 @@ export const ACTIFS_ANTI_AGE_REPARATEURS: IngredientInput[] = [
   * **Sensibilité** : Bien toléré, mais comme tout dérivé de Centella, un risque allergique très marginal existe pour les terrains atopiques.
   `,
   },
-  {
-    name: 'Extrait de Chardon-marie (Silybum marianum fruit extract)',
-    slug: INGREDIENT_SLUGS.SYLIBUM_MARIANUM_FRUIT_EXTRACT,
-    category: 'actif',
-    description:
-      'Actif végétal polyvalent aux propriétés antioxydantes, anti-inflammatoires et protectrices pour les peaux sujettes aux imperfections.',
-    content: `
-    # Extrait de Chardon-marie (Silybum marianum fruit extract)
-    L'extrait de fruit de Chardon-marie est un ingrédient d'origine naturelle ancestral, réévalué par la recherche dermatologique moderne pour sa richesse exceptionnelle en silymarine. Cultivé selon les standards de la Botanical Expertise Pierre Fabre, cet extrait joue un rôle clé dans la protection des lipides cutanés et la régulation des peaux à problèmes.
-    ## INCI
-    **SILYBUM MARIANUM FRUIT EXTRACT**
-    (Extrait purifié des fruits/graines de Chardon-marie)
-    ## Composition chimique
-    - **Silymarine (Silybine, Silychristine, Silydianine)** : Complexe de flavonolignanes aux propriétés antioxydantes majeures.
-    - **Tocophérol (Vitamine E)** : Renforce l'action protectrice contre le stress oxydatif.
-    - **Acides gras essentiels** : Soutiennent l'intégrité de la barrière lipidique.
-    ## Mécanisme d’action
-    1. **Inhibition de l'oxydation du sébum** : Empêche la transformation du sébum en composés irritants et comédogènes.
-    2. **Action anti-inflammatoire** : Réduit la production de médiateurs pro-inflammatoires dans les kératinocytes.
-    3. **Protection radicalaire** : Neutralise les radicaux libres générés par les UV et la pollution.
-    4. **Soutien de la régénération** : Favorise la synthèse protéique pour une meilleure réparation tissulaire.
-    ## Bienfaits
-    - **Action anti-imperfections** : Participe à la réduction des lésions inflammatoires et des points noirs.
-    - **Effet apaisant** : Diminue les rougeurs et les sensations d'échauffement cutané.
-    - **Protection anti-âge** : Préserve le capital collagène en luttant contre le vieillissement induit par les toxines environnementales.
-    - **Détoxification cutanée** : Aide la peau à mieux éliminer les impuretés accumulées.
-    ## Utilisation
-    - **Cible** : Peaux mixtes à grasses, peaux acnéiques, peaux exposées à la pollution urbaine.
-    - **Moment** : Application quotidienne, idéalement le soir pour accompagner le cycle de régénération.
-    - **Type de soin** : Présent dans les gammes **Cleanance** et certains soins anti-âge protecteurs.
-    ## Note technique
-    Bien que la Comedoclastin™ soit une fraction spécifique issue de cette plante, l'extrait total de fruit de Silybum marianum offre une synergie de molécules qui protègent globalement l'écosystème cutané. Sa culture est réalisée en France selon des principes d'agriculture raisonnée, garantissant une concentration constante en principes actifs.
-  `,
-  },
+
   {
     name: 'Panthenol (Provitamine B5)',
     slug: INGREDIENT_SLUGS.PANTHENOL,
@@ -258,51 +448,6 @@ export const ACTIFS_ANTI_AGE_REPARATEURS: IngredientInput[] = [
 
       ## Note technique
       Actif multifonctionnel avec plus de 50 ans d'usage clinique et cosmétique (dexpanthenol pharma-like). Études récentes (2024-2025) confirment hydratation stratum corneum, stimulation prolifération cellulaire, réduction inflammation et restauration barrière. Tolérance optimale validée sur peaux les plus fragiles (y compris pédiatriques). Souvent associé à postbiotiques (Cicalfate+), lipides ou avoine pour synergie réparatrice. Positionné comme ingrédient de base incontournable en dermocosmétique Pierre Fabre pour hydratation, apaisement et réparation sans risque, offrant efficacité prouvée et confort maximal.
-    `,
-  },
-  {
-    name: 'Chardon-Marie (Silybum marianum)',
-    slug: INGREDIENT_SLUGS.SILYBUM_MARIANUM,
-    category: 'actif',
-    description:
-      "Actif végétal breveté d'Avène issu des achènes du Chardon-Marie, nourrissant, renforçant la barrière cutanée et limitant les imperfections pour peaux sèches ou acnéiques.",
-    content: `
-      # Chardon-Marie (Silybum marianum)
-      Plante méditerranéenne emblématique de la phytothérapie européenne, le Chardon-Marie est cultivé en France selon des pratiques durables et à faible consommation d’eau. Les Laboratoires Dermatologiques Avène (Pierre Fabre) en valorisent les achènes (fruits secs) via un procédé innovant d’upcycling : extraction du Comedoclastin™ breveté (anti-imperfections) dont le co-produit raffiné donne l’huile de Chardon-Marie. Cette approche circulaire, locale et éco-responsable, permet d’obtenir deux actifs signature d’une même matière première, alliant tradition et innovation cosmétique dermatologique.
-
-      ## INCI
-      **Silybum Marianum Seed Oil** (huile d’achènes) ou **Silybum Marianum Fruit Extract** (extrait Comedoclastin™)
-      (partie utilisée : achènes/fruits secs – pression à froid pour l’huile, extraction liquide brevetée pour l’extrait)
-
-      ## Composition chimique
-      - Acides gras essentiels (acide oléique, acide linoléique riche en oméga-6) : restructurants du film hydrolipidique
-      - Flavonolignanes (silymarine : silybine, silychristine, silydianine) dans l’extrait : antioxydants puissants
-      - Stérols et tocophérols naturels : protecteurs et stabilisants
-      - Pureté élevée, sans allergènes majeurs ni résidus, issue de culture française tracée
-
-      ## Mécanisme d’action
-      1. Stimulation de la synthèse des céramides (notamment céramide 1/EOS) : renforce la matrice lipidique du stratum corneum (démontré par HPTLC sur modèles d’épidermes reconstruits)
-      2. Action antioxydante puissante : piégeage des radicaux libres UV- et pollution-induits
-      3. Effet comédolytique ciblé (Comedoclastin™ breveté) : bloque la transformation des follicules sébacés en micro-comédons
-      4. Régénération du film hydrolipidique grâce aux oméga-6 : restaure souplesse et élasticité
-      5. Inhibition des enzymes protéolytiques (collagénase, élastase) et réduction des médiateurs inflammatoires
-      6. Photoprotection complémentaire : facteur de protection contre UVA/UVB et stress oxydatif
-
-      ## Bienfaits
-      - **Nourrissant intense** : hydrate en profondeur et restaure la souplesse des peaux sèches à très sèches
-      - **Renforcement de la barrière cutanée** : protège durablement contre les agressions extérieures et limite la perte insensible en eau
-      - **Anti-imperfections** : réduit boutons, points noirs et limite leur réapparition (étude clinique réelle 12 mois : -45 % lésions inflammatoires)
-      - **Antioxydant & anti-âge** : combat le photovieillissement et préserve le capital jeunesse
-      - **Apaisant & anti-inflammatoire** : calme rougeurs et irritations dès les premières applications
-      - **Tolérance exceptionnelle** : adapté peaux sensibles, réactives, atopiques, bébés et enfants (gammes Xeracalm)
-
-      ## Utilisation
-      - **Cible** : peaux sèches, très sèches, à imperfections, acnéiques légères à modérées, sensibles ou atopiques
-      - **Moment** : matin et/ou soir, en application quotidienne
-      - **Type de soin** : actif central des gammes XERACALM NUTRITION (huile pour sécheresse intense) et CLEANANCE COMEDOMED (Comedoclastin™ pour peaux à imperfections) chez Avène
-
-      ## Note technique
-      Actif signature Pierre Fabre avec brevets exclusifs (FR3113585A1 pour l’huile renforçant la fonction barrière via synthèse de céramides ; brevets EP pour Comedoclastin™). Procédé d’upcycling unique et traçabilité 100 % française garantissent pureté, durabilité et efficacité clinique prouvée sur long terme. Alliant des siècles de tradition phytothérapeutique à une innovation dermatologique récente, il offre une tolérance optimale validée chez les peaux les plus fragiles.
     `,
   },
   {

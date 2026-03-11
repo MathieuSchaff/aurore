@@ -26,9 +26,6 @@ export const BOJ_INGREDIENTS_MAP: Record<string, any[]> = {
       slug: INGREDIENT_SLUGS.HYALURONIC_ACID,
     },
     {
-      slug: INGREDIENT_SLUGS.HYALURONIC_ACID,
-    },
-    {
       slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE,
       notes: 'HA multi-moléculaire – hydratation profonde',
     },

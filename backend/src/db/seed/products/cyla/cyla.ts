@@ -8,7 +8,7 @@ export const CYLA_PRODUCT_SLUGS = {
 export const CYLA_PRODUCT_DATA = [
   {
     name: 'Essence Initiale',
-    brand: 'cyla', // à compléter
+    brand: 'Cyla',
     kind: 'skincare',
     unit: 'pump',
     slug: CYLA_PRODUCT_SLUGS.ESSENCE_INITIALE,
@@ -24,7 +24,7 @@ export const CYLA_PRODUCT_DATA = [
   },
   {
     name: 'Gel Plume',
-    brand: 'cyla',
+    brand: 'Cyla',
     kind: 'skincare',
     unit: 'pump',
     slug: CYLA_PRODUCT_SLUGS.GEL_PLUME,
@@ -40,7 +40,7 @@ export const CYLA_PRODUCT_DATA = [
   },
   {
     name: 'Crème Filante',
-    brand: 'cyla',
+    brand: 'Cyla',
     kind: 'skincare',
     unit: 'pump',
     slug: CYLA_PRODUCT_SLUGS.CREME_FILANTE,
@@ -56,7 +56,7 @@ export const CYLA_PRODUCT_DATA = [
   },
   {
     name: 'Crème Légère Initiale',
-    brand: 'cyla',
+    brand: 'Cyla',
     kind: 'skincare',
     unit: 'pump',
     slug: CYLA_PRODUCT_SLUGS.CREME_LEGERE_INITIALE,
@@ -72,7 +72,7 @@ export const CYLA_PRODUCT_DATA = [
   },
   {
     name: 'Crème Intense Initiale',
-    brand: 'cyla',
+    brand: 'Cyla',
     kind: 'skincare',
     unit: 'pump',
     slug: CYLA_PRODUCT_SLUGS.CREME_INTENSE_INITIALE,

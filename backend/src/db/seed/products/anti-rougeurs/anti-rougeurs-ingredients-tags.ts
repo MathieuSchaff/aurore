@@ -18,7 +18,7 @@ export const ANTI_ROUGEURS_INGREDIENTS_MAP: Record<string, any[]> = {
       notes: 'Thé vert — antioxydant',
     },
     {
-      slug: INGREDIENT_SLUGS.HIPPOPHAE_RHAMNOIDES,
+      slug: INGREDIENT_SLUGS.HUILE_ARGOUSIER,
       notes: 'Argousier — régénérant riche en vitamine C',
     },
     {

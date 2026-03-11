@@ -1,6 +1,5 @@
 export const URIAGE_PRODUCT_SLUGS = {
   URIAGE_XEMOSE_C8_PLUS_VISAGE: 'uriage-xemose-c8-plus-soin-visage-nourrissant-apaisant',
-  URIAGE_ROSELIANE: 'uriage-roseliane-soin-anti-rougeurs',
   URIAGE_HYSEAC_SERUM: 'uriage-hyseac-serum-peau-neuve-booster-anti-imperfections',
   URIAGE_CICA_DAILY_SERUM: 'uriage-cica-daily-serum-reparateur-intense',
   URIAGE_ROSELIANE_SERUM: 'uriage-roseliane-serum-lissant-correcteur-anti-rougeurs',
@@ -47,19 +46,6 @@ export const URIAGE_PRODUCT_DATA = [
     url: 'https://www.uriage.fr',
   },
 
-  {
-    name: 'Roséliane Soin Anti-Rougeurs',
-    brand: 'Uriage',
-    kind: 'skincare',
-    unit: 'pump',
-    slug: URIAGE_PRODUCT_SLUGS.URIAGE_ROSELIANE,
-    totalAmount: 40,
-    amountUnit: 'ml',
-    priceCents: 1430,
-    description: 'Soin apaisant qui renforce la barrière cutanée et les parois vasculaires.',
-    notes: 'Texture onctueuse. N°1 des gammes anti-rougeurs.',
-    inci: 'AQUA (WATER, EAU), SQUALANE, GLYCERIN, DICAPRYLYL ETHER, BUTYROSPERMUM PARKII (SHEA) BUTTER, DIGLYCERIN, PROPANEDIOL, CETYL ALCOHOL, PENTAERYTHRITYL DISTEARATE, 1,2-HEXANEDIOL, STEARETH-2, STEARETH-21, DIMETHICONE, GLYCERYL STEARATE, PEG-100 STEARATE, SODIUM POLYACRYLATE, PARFUM (FRAGRANCE), CI 77891 (TITANIUM DIOXIDE), CHLORPHENESIN, MICA, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, TOCOPHEROL, XANTHAN GUM, o-CYMEN-5-OL, MALTODEXTRIN, ASIATICOSIDE, ASPARAGOPSIS ARMATA EXTRACT, PANAX GINSENG ROOT EXTRACT, POLYGLYCERYL-10 STEARATE, SODIUM BENZOATE, POTASSIUM SORBATE, ASCOPHYLLUM NODOSUM EXTRACT, TRIETHYL CITRATE, POLYGLYCERYL-6 BEHENATE, CI 77491 (IRON OXIDES), SILICA, BEHENIC ACID, CERAMIDE NP, CETEARYL ALCOHOL, CHOLESTEROL, LACTIC ACID, CERAMIDE NS, TOCOPHEROL, CERAMIDE EOP, CERAMIDE AP, SODIUM CETEARYL SULFATE, SODIUM HYDROXIDE',
-  },
   {
     name: 'HYSEAC Sérum Peau Neuve Booster Anti-Imperfections',
     brand: 'Uriage',

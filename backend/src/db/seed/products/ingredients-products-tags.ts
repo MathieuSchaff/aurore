@@ -18,6 +18,7 @@ import { LRP_INGREDIENTS_MAP } from './laRochePosay/laRochePosay-ingredients-tag
 import { MAD_ABOUT_SKIN_INGREDIENTS_MAP } from './madAboutSkin/madAboutSkin-ingredients-tags'
 import { MEMECANCER_INGREDIENTS_MAP } from './memeCancer/memeCancer-ingredients-tags'
 import { MIXA_INGREDIENTS_MAP } from './mixa/mixa-ingredients-tags'
+import { OCCITANE_INGREDIENTS_MAP } from './occitane/occitane-ingredients'
 import { SEPHORA_INGREDIENTS_MAP } from './sephora/sephora-ingredient-tags'
 import { SERUMS_PEPTIDES_INGREDIENTS_MAP } from './serums-peptides/serums-peptides-ingredients-tags'
 import { SKIN1004_INGREDIENTS_MAP } from './skin1004/skin1004-ingredients-tags'
@@ -58,6 +59,7 @@ export const ALL_PRODUCT_INGREDIENTS_MAP = {
   ...TO_INGREDIENTS_MAP,
   ...URIAGE_INGREDIENTS_MAP,
   ...SEPHORA_INGREDIENTS_MAP,
+  ...OCCITANE_INGREDIENTS_MAP,
 }
 /**
  * Version aplatie pour le seeding de la base de données

@@ -93,50 +93,6 @@ export const URIAGE_INGREDIENTS_MAP: Record<string, any[]> = {
       notes: 'Vitamine E antioxydante',
     },
   ],
-  [allProductSlugs.URIAGE_ROSELIANE]: [
-    {
-      slug: INGREDIENT_SLUGS.SQUALANE,
-      notes: 'Émollient apaisant',
-    },
-    {
-      slug: INGREDIENT_SLUGS.SHEA_BUTTER,
-      notes: 'Nourrissant, renforce la barrière',
-    },
-    {
-      slug: INGREDIENT_SLUGS.CERAMIDE_NP,
-    },
-    {
-      slug: INGREDIENT_SLUGS.CERAMIDE_NS,
-    },
-    {
-      slug: INGREDIENT_SLUGS.CERAMIDE_EOP,
-    },
-    {
-      slug: INGREDIENT_SLUGS.CERAMIDE_AP,
-    },
-    {
-      slug: INGREDIENT_SLUGS.CHOLESTEROL,
-    },
-    {
-      slug: INGREDIENT_SLUGS.ASIATICOSIDE,
-      notes: 'Apaisant, réparateur',
-    },
-    {
-      slug: INGREDIENT_SLUGS.TOCOPHEROL,
-      notes: 'Vitamine E antioxydante',
-    },
-    {
-      slug: INGREDIENT_SLUGS.ASCOPHYLLUM_NODOSUM_EXTRACT,
-      notes: 'Algue brune, complexe SK5R anti-rougeurs',
-    },
-    {
-      slug: INGREDIENT_SLUGS.DIMETHICONE,
-      notes: 'Émollient, protège la barrière',
-    },
-    {
-      slug: INGREDIENT_SLUGS.PHYTOSPHINGOSINE,
-    },
-  ],
   [allProductSlugs.URIAGE_HYSEAC_SERUM]: [
     {
       slug: INGREDIENT_SLUGS.GLYCOLIC_ACID,

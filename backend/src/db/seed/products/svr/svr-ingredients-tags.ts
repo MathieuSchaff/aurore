@@ -509,10 +509,6 @@ export const SVR_INGREDIENTS_MAP: Record<string, any[]> = {
     {
       slug: INGREDIENT_SLUGS.SILICA,
     },
-    {
-      slug: INGREDIENT_SLUGS.GLYCERYL_GLUCOSIDE,
-      notes: 'apaise, protège, emollient',
-    },
   ],
   [allProductSlugs.SVR_AMPOULE_A_LIFT]: [
     {

@@ -3,6 +3,30 @@ import type { IngredientInput } from './seed-ingredients'
 
 export const PEPTIDES: IngredientInput[] = [
   {
+    name: 'Palmitoyl Oligopeptide',
+    slug: INGREDIENT_SLUGS.PALMITOYL_OLIGOPEPTIDE,
+    category: 'Peptides',
+    description:
+      "Un peptide de signal anti-âge qui stimule la synthèse de collagène et d'élastine pour réduire les rides et raffermir le tissu cutané.",
+    content: `
+# Palmitoyl Oligopeptide : Le Peptide Architecte
+Le **Palmitoyl Oligopeptide** est un peptide de signal composé d'une chaîne d'acides aminés couplée à un acide palmitique (lipide). Cette liaison lipidique améliore la pénétration dans les couches lipophiles de la peau et lui permet d'atteindre les fibroblastes du derme.
+---
+## ✨ Points Forts & Bénéfices
+* **Stimulation du Collagène** : Envoie un signal aux fibroblastes pour augmenter la production de collagène de type I et III.
+* **Stimulation de l'Élastine** : Contribue à la fermeté et à l'élasticité de la peau avec un usage prolongé.
+* **Synergie Peptidique** : Souvent associé à d'autres peptides (Palmitoyl Tetrapeptide-7, Matrixyl) pour un effet anti-âge renforcé.
+---
+## ⚖️ Transparence Scientifique & Limites
+* **Résultats progressifs** : Les effets sur la densité cutanée nécessitent 8 à 12 semaines d'utilisation régulière.
+* **Instabilité possible** : Sensible au pH et aux formulations acides — vérifier la compatibilité avec les AHA/vitamine C pure.
+---
+## 🛡️ Précautions & Sécurité
+* Bien toléré, y compris sur les peaux sensibles.
+* Pas de restriction d'utilisation jour/nuit.
+`,
+  },
+  {
     name: 'Complexe de Peptides (Peptide Complex)',
     slug: INGREDIENT_SLUGS.PEPTIDE_COMPLEX,
     category: 'Régénération & Anti-âge',

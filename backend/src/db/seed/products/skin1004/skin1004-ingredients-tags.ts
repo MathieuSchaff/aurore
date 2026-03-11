@@ -7,10 +7,6 @@ export const SKIN1004_INGREDIENTS_MAP: Record<string, any[]> = {
       notes: 'Centella fermentée (ProBio-Cica) + extrait – apaisant, barrière',
     },
     {
-      slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA,
-      notes: 'Ferment Centella – renforce barrière, probiotique',
-    },
-    {
       slug: INGREDIENT_SLUGS.CERAMIDE_NP,
       notes: 'Céramide NP – réparation barrière',
     },
@@ -107,10 +103,7 @@ export const SKIN1004_INGREDIENTS_MAP: Record<string, any[]> = {
       slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA,
       notes: 'Centella fermentée (ProBio-Cica) – apaisant, barrière',
     },
-    {
-      slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA,
-      notes: 'Ferment probiotique – renforce barrière',
-    },
+
     {
       slug: INGREDIENT_SLUGS.CERAMIDE_NP,
       notes: 'Céramide NP – réparation',
@@ -126,9 +119,7 @@ export const SKIN1004_INGREDIENTS_MAP: Record<string, any[]> = {
       slug: INGREDIENT_SLUGS.HYALURONIC_ACID,
       notes: 'HA cross-linked – hydratation longue durée',
     },
-    {
-      slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA,
-    },
+
     {
       slug: INGREDIENT_SLUGS.ASIATICOSIDE,
     },

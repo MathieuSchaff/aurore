@@ -8,7 +8,7 @@ interface ProductTagGroups {
 }
 
 export const MEME_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
-  // ── Crème pour le Visage – Hydratant/nourrissant quotidien pour peaux très sèches/fragilisées
+  // ── Crème pour le Visage
   [MEME_PRODUCT_SLUGS.MEME_CREME_VISAGE]: {
     primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.REPARATEUR, TAG_SLUGS.DESHYDRATATION],
     secondary: [
@@ -16,19 +16,19 @@ export const MEME_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.PEAU_SENSIBLE,
       TAG_SLUGS.PEAU_ATOPIQUE,
       TAG_SLUGS.CREME_HYDRATANTE,
-      TAG_SLUGS.SOIN_DE_JOUR,
-      TAG_SLUGS.SOIN_DE_NUIT,
+      TAG_SLUGS.MATIN, // Remplacé SOIN_DE_JOUR
+      TAG_SLUGS.SOIR, // Remplacé SOIN_DE_NUIT
       TAG_SLUGS.HYPOALLERGENIQUE,
       TAG_SLUGS.BIO_NATUREL,
     ],
-    avoid: [],
+    avoid: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BRILLANCE],
   },
 
-  // ── Gelée Fondante Démaquillante – Démaquillant haute tolérance, transformation gelée → huile
+  // ── Gelée Fondante Démaquillante
   [MEME_PRODUCT_SLUGS.MEME_GELEE_DEMAQUILLANTE]: {
     primary: [
-      TAG_SLUGS.DEMAQUILLANT, // Ajouté pour précision
-      TAG_SLUGS.PEAU_REACTIVE, // Déduit du contexte haute tolérance
+      TAG_SLUGS.DOUBLE_NETTOYAGE_1, // Étape de démaquillage huileux
+      TAG_SLUGS.PEAU_REACTIVE,
     ],
     secondary: [
       TAG_SLUGS.PEAU_SENSIBLE,
@@ -36,12 +36,12 @@ export const MEME_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.NON_COMEDOGENE,
       TAG_SLUGS.BIO_NATUREL,
       TAG_SLUGS.HYPOALLERGENIQUE,
-      TAG_SLUGS.HUILE,
+      TAG_SLUGS.BAUME_DEMAQUILLANT, // Format le plus proche de la gelée fondante
     ],
     avoid: [],
   },
 
-  // ── Huile Lavante Visage et Corps – Nettoyant surgras sans savon, pH physiologique
+  // ── Huile Lavante Visage et Corps
   [MEME_PRODUCT_SLUGS.MEME_HUILE_LAVANTE]: {
     primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.BARRIERE_CUTANEE],
     secondary: [
@@ -50,27 +50,26 @@ export const MEME_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.PEAU_SECHE,
       TAG_SLUGS.SANS_SAVON,
       TAG_SLUGS.BIO_NATUREL,
-      TAG_SLUGS.HUILE,
+      TAG_SLUGS.HUILE_NETTOYANTE,
       TAG_SLUGS.HYPOALLERGENIQUE,
+      TAG_SLUGS.ZONE_CORPS,
+      TAG_SLUGS.ZONE_VISAGE,
     ],
     avoid: [],
   },
 
-  // ── Baume Multi-Usages – Réparateur effet pansement pour zones sèches/irritées/cicatrices
+  // ── Baume Multi-Usages
   [MEME_PRODUCT_SLUGS.MEME_BAUME_MULTI_USAGES]: {
-    primary: [
-      TAG_SLUGS.REPARATEUR,
-      TAG_SLUGS.BARRIERE_CUTANEE,
-      TAG_SLUGS.CICATRISATION, // Ajouté pour l'effet "pansement"
-    ],
+    primary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CICATRISATION],
     secondary: [
       TAG_SLUGS.PEAU_SECHE,
       TAG_SLUGS.PEAU_SENSIBLE,
       TAG_SLUGS.PEAU_ATOPIQUE,
-      TAG_SLUGS.CREME_HYDRATANTE,
+      TAG_SLUGS.BAUME, // Plus précis que CREME_HYDRATANTE
       TAG_SLUGS.BIO_NATUREL,
       TAG_SLUGS.HYPOALLERGENIQUE,
+      TAG_SLUGS.GROSSESSE_COMPATIBLE,
     ],
-    avoid: [],
+    avoid: [TAG_SLUGS.PEAU_GRASSE],
   },
 }
