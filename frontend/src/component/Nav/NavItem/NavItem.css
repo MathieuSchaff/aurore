@@ -30,7 +30,6 @@
 
   &:hover {
     background: var(--color-sidebar-item-hover);
-    /*color: var(--color-sidebar-icon-active);*/
   }
 
   &:focus-visible {
@@ -103,4 +102,22 @@
     visibility: visible;
     transform: translateX(0);
   }
+}
+
+[data-theme="dark"] .main-nav .main-nav__link {
+  color: oklch(88% 0.03 40deg);
+}
+
+[data-theme="dark"] .main-nav .main-nav__link:hover {
+  background: oklch(30% 0.08 160deg);
+  color: oklch(97% 0.01 40deg);
+}
+
+[data-theme="dark"] .main-nav .main-nav__link[aria-current="page"] {
+  color: var(--color-sidebar-icon-active);
+}
+
+[data-theme="dark"] .main-nav .main-nav__link[aria-current="page"]:hover {
+  background: oklch(30% 0.08 160deg);
+  color: oklch(97% 0.01 40deg);
 }
