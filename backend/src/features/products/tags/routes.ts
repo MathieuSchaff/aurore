@@ -72,7 +72,7 @@ export const tagRoutes = tagsApp
     const { id } = c.req.valid('param')
     const deleted = await deleteTag(db, id)
     if (!deleted) throw new TagError('tag_not_found')
-    return c.json(ok(null), HTTP_STATUS.OK)
+    return c.body(null, 204)
   })
 
   .get('/:slug/products', zValidator('param', slugParam), async (c) => {

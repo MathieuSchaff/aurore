@@ -2,7 +2,6 @@ import type {
   CreateIngredientInput,
   FieldChange,
   IngredientChanges,
-  IngredientSearchFilters,
   UpdateIngredientInput,
 } from '@habit-tracker/shared'
 import { ingredientChangesSchema } from '@habit-tracker/shared'
@@ -18,12 +17,29 @@ import { areEqual, isUniqueViolation } from '../../../lib/helpers'
 import { IngredientError } from './ingredients-error'
 
 const EXCLUDED_KEYS = new Set(['id', 'createdBy', 'createdAt', 'slug', 'updatedAt'])
-
-export async function listIngredients(filters: IngredientSearchFilters, database: Database = db) {
+export async function listIngredients(
+  filters: {
+    category?: string
+    concern?: string
+    skinType?: string
+    attribute?: string
+    page?: number
+    limit?: number
+  },
+  database: Database = db
+) {
   const conditions: SQL[] = []
+  const page = filters.page ?? 1
+  const limit = filters.limit ?? 20
+  const offset = (page - 1) * limit
 
-  if (filters.category.length > 0) {
-    conditions.push(inArray(ingredients.category, filters.category))
+  const categories = filters.category?.split(',').filter(Boolean) ?? []
+  const concerns = filters.concern?.split(',').filter(Boolean) ?? []
+  const skinTypes = filters.skinType?.split(',').filter(Boolean) ?? []
+  const attributes = filters.attribute?.split(',').filter(Boolean) ?? []
+
+  if (categories.length > 0) {
+    conditions.push(inArray(ingredients.category, categories))
   }
 
   const addTagGroup = (slugs: string[]) => {
@@ -40,20 +56,33 @@ export async function listIngredients(filters: IngredientSearchFilters, database
     )
   }
 
-  addTagGroup(filters.concern)
-  addTagGroup(filters.skinType)
-  addTagGroup(filters.routineStep)
-  addTagGroup(filters.attribute)
+  addTagGroup(concerns)
+  addTagGroup(skinTypes)
+  addTagGroup(attributes)
 
-  const query = database
-    .select()
-    .from(ingredients)
-    .where(conditions.length > 0 ? and(...conditions) : undefined)
-    .orderBy(ingredients.name)
-
-  console.log(query.toSQL())
-  return query
+  const where = conditions.length > 0 ? and(...conditions) : undefined
+  const [items, [{ total }]] = await Promise.all([
+    database
+      .select({
+        id: ingredients.id,
+        name: ingredients.name,
+        slug: ingredients.slug,
+        category: ingredients.category,
+        description: sql<string | null>`left(${ingredients.description}, 120)`,
+      })
+      .from(ingredients)
+      .where(where)
+      .orderBy(ingredients.name)
+      .limit(limit)
+      .offset(offset),
+    database
+      .select({ total: sql<number>`cast(count(*) as integer)` })
+      .from(ingredients)
+      .where(where),
+  ])
+  return { items, total }
 }
+
 export async function createIngredient(
   userId: string,
   input: CreateIngredientInput,
