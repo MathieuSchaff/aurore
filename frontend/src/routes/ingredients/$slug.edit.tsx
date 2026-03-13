@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { IngredientEditPage } from '../../component/pages/Ingredient/IngredientEditpage'
+import { IngredientEditPage } from '@/component/pages/Ingredient/Edit/IngredientEditpage'
 import { requireAuth } from '../../lib/auth/requireAuth'
 import { ingredientQueries } from '../../lib/queries/ingredients'
 
