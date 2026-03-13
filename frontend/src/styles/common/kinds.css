@@ -1,0 +1,85 @@
+/* ======================================================
+   KIND COLORS — Centralisé
+   Utilisé par : ProductsPage.css, ProductPage.css
+   Dépend de   : colors-root.css, colors-dark.css
+
+   Classes génériques applicables à n'importe quel élément
+   portant une sémantique "kind" : badge, icône, bordure.
+
+   Pattern d'usage :
+     <span class="kind-badge kind--complement">Complément</span>
+     <div  class="kind-icon  kind--skincare">…</div>
+     <a    class="list-card  kind-border--huile">…</a>
+   ====================================================== */
+
+/* ======================================================
+   1. CUSTOM PROPERTIES PAR KIND
+      Une seule source de vérité pour bg / color / border.
+      Les classes utilitaires ci-dessous les consomment.
+   ====================================================== */
+
+.kind--complement {
+  --_kind-bg: var(--primary-90);
+  --_kind-color: var(--primary-40);
+  --_kind-border: var(--primary-60);
+}
+.kind--skincare {
+  --_kind-bg: var(--color-info-light);
+  --_kind-color: var(--color-info);
+  --_kind-border: var(--info-60);
+}
+.kind--huile {
+  --_kind-bg: var(--color-accent-light);
+  --_kind-color: var(--color-accent);
+  --_kind-border: var(--color-accent);
+}
+.kind--vitamine {
+  --_kind-bg: var(--color-error-light);
+  --_kind-color: var(--error-65);
+  --_kind-border: var(--error-65);
+}
+.kind--default {
+  --_kind-bg: var(--card-icon-bg);
+  --_kind-color: var(--card-icon-color);
+  --_kind-border: var(--border-default);
+}
+
+/* ── Overrides dark ── */
+[data-theme="dark"] .kind--complement {
+  --_kind-bg: var(--primary-20);
+  --_kind-color: var(--primary-60);
+}
+[data-theme="dark"] .kind--skincare {
+  --_kind-bg: var(--info-20);
+  --_kind-color: var(--info-60);
+}
+[data-theme="dark"] .kind--huile {
+  --_kind-bg: var(--accent-20);
+  --_kind-color: var(--accent-80);
+}
+[data-theme="dark"] .kind--vitamine {
+  --_kind-bg: var(--error-20);
+  --_kind-color: var(--error-65);
+}
+
+/* ======================================================
+   2. CLASSES UTILITAIRES
+      Consomment les custom properties locales ci-dessus.
+   ====================================================== */
+
+/* Badge / pill texte (ex-__kind) */
+.kind-badge {
+  background: var(--_kind-bg);
+  color: var(--_kind-color);
+}
+
+/* Icône / avatar (ex-__icon--*) */
+.kind-icon {
+  background: var(--_kind-bg);
+  color: var(--_kind-color);
+}
+
+/* Bordure accentuée (ex-.product-card--*) */
+.kind-border {
+  border-left-color: var(--_kind-border);
+}
