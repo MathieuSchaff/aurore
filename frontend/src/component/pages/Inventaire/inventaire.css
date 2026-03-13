@@ -1,0 +1,198 @@
+/* ─── Conteneur principal ─────────────────────────────────── */
+.inv-page-container {
+  /* À styliser : min-height, background gradient tropical */
+}
+
+.inv-page-container.inv-loading {
+  /* À styliser : centrer le contenu (flex) */
+}
+
+.inv-loading-content {
+  /* À styliser : centrer, avec text-align: center */
+}
+
+.inv-spinner {
+  /* À styliser : spinner animé (border, border-radius, animation) */
+}
+
+.inv-loading-text {
+  /* À styliser : couleur et font-weight */
+}
+
+/* ─── Header ──────────────────────────────────────────────── */
+.inv-header {
+  /* À styliser : border-bottom épais, bg blanc/dark, backdrop blur */
+}
+
+.inv-header-inner {
+  /* À styliser : max-width, padding, margin auto */
+}
+
+.inv-title {
+  /* À styliser : font-size grande, font-weight: 900, color orange-900 */
+}
+
+.inv-subtitle {
+  /* À styliser : font-size, color orange-700 */
+}
+
+/* ─── Contenu Principal ───────────────────────────────────── */
+.inv-content {
+  /* À styliser : max-width, padding, margin auto */
+}
+
+/* ─── Banneau d'Erreur ────────────────────────────────────── */
+.inv-error-banner {
+  /* À styliser : padding, bg red-50, border-left 4px red, flex gap, margin bottom */
+}
+
+.inv-error-icon {
+  /* À styliser : width, height, color red, flex-shrink: 0 */
+}
+
+.inv-error-title {
+  /* À styliser : font-weight bold, color red-900 */
+}
+
+.inv-error-text {
+  /* À styliser : font-size sm, color red-700, margin-top */
+}
+
+/* ─── État Vide ───────────────────────────────────────────── */
+.inv-empty-state {
+  /* À styliser : text-align center, padding vertical large */
+}
+
+.inv-empty-icon {
+  /* À styliser : width, height, background gradient orange, border-radius, flex items center justify center, margin-bottom */
+}
+
+.inv-empty-icon-inner {
+  /* À styliser : width, height, color */
+}
+
+.inv-empty-title {
+  /* À styliser : font-size 2xl, font-weight bold, margin-bottom */
+}
+
+.inv-empty-text {
+  /* À styliser : color gris, font-size petit */
+}
+
+/* ─── Liste de Stock ──────────────────────────────────────── */
+.inv-stock-list {
+  /* À styliser : display grid, gap-4 */
+}
+
+.inv-stock-card {
+  /* À styliser : bg white, border-2 orange, border-radius, overflow hidden, shadow, hover:shadow bigger */
+}
+
+/* ─── En-tête du Stock (ligne principale) ────────────────── */
+.inv-stock-header {
+  /* À styliser : width 100%, padding-x et y, display flex, items-center, justify-between, gap, hover:bg orange-light, transition, text-align left, border: none, background: none, cursor: pointer */
+}
+
+.inv-stock-info {
+  /* À styliser : flex-1, min-width 0 */
+}
+
+.inv-stock-name {
+  /* À styliser : font-weight: 900, font-size lg, color slate-900, margin-bottom, truncate */
+}
+
+.inv-stock-category {
+  /* À styliser : font-size sm, color slate-500, text-truncate avec line-clamp */
+}
+
+/* ─── Actions du Stock (Quantité + Chevron) ───────────────── */
+.inv-stock-actions {
+  /* À styliser : display flex, items-center, gap-4 */
+}
+
+.inv-quantity-display {
+  /* À styliser : text-align right */
+}
+
+.inv-quantity-value {
+  /* À styliser : font-size 3xl, font-weight 900, color orange-600 */
+}
+
+.inv-quantity-status {
+  /* À styliser : font-size xs, color slate-500, font-weight medium */
+}
+
+.inv-chevron {
+  /* À styliser : width 5, height 5, color orange-400, transition, transform */
+}
+
+.inv-chevron-open {
+  /* À styliser : transform: rotate(180deg) */
+}
+
+/* ─── Groupe d'Édition ────────────────────────────────────── */
+.inv-edit-group {
+  /* À styliser : display flex, items-center, gap-2 */
+}
+
+.inv-edit-input {
+  /* À styliser : width 16, padding-x et y, border-2 orange-300, bg white, color slate-900, font-weight bold, border-radius, focus:outline-none focus:border-orange-500 */
+}
+
+.inv-btn-confirm {
+  /* À styliser : padding-x et y, bg green-500, hover:bg green-600, color white, font-weight bold, font-size sm, border-radius, transition, disabled:opacity-50, border: none, cursor: pointer */
+}
+
+.inv-btn-cancel {
+  /* À styliser : padding-x et y, bg slate-300, hover:bg slate-400, color slate-900, font-weight bold, font-size sm, border-radius, transition, border: none, cursor: pointer */
+}
+
+/* ─── Détails Expandus ────────────────────────────────────── */
+.inv-stock-details {
+  /* À styliser : border-top-2 orange-200, bg orange-50, padding-x et y, display flex flex-col, gap-4 */
+}
+
+.inv-details-grid {
+  /* À styliser : display grid grid-cols-2, gap-4, font-size sm */
+}
+
+.inv-detail-item {
+  /* À styliser : (pas de style spécifique ici, hérite du grid) */
+}
+
+.inv-detail-label {
+  /* À styliser : color slate-500, font-size xs, uppercase, font-weight bold, letter-spacing, margin-bottom */
+}
+
+.inv-detail-value {
+  /* À styliser : color slate-700 */
+}
+
+.inv-detail-mono {
+  /* À styliser : font-family monospace */
+}
+
+.inv-detail-description {
+  /* À styliser : (conteneur flex avec direction column) */
+}
+
+/* ─── Actions Détails ─────────────────────────────────────── */
+.inv-detail-actions {
+  /* À styliser : display flex, gap-3, padding-top, border-top, border-orange-200 */
+}
+
+.inv-btn {
+  /* À styliser : padding-x et y, border-radius, transition, border: none, cursor: pointer, font-weight bold, display flex, items-center, gap-2 */
+}
+
+.inv-btn-primary {
+  /* À styliser : bg orange-500, hover:bg orange-600, color white, flex-1 */
+}
+
+.inv-btn-danger {
+  /* À styliser : bg red-100, hover:bg red-200, color red-700, disabled:opacity-50 */
+}
+
+.inv-btn-icon {
+  /* À styliser : width 4, height 4 */
+}
