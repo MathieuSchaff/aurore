@@ -66,6 +66,7 @@ function warnInvalidEntries() {
   if (invalid.length === 0) return
 
   console.warn(`\n⚠️  ${invalid.length} entrée(s) avec ingredientSlug manquant :`)
+  // biome-ignore lint: toto
   invalid.forEach((i) => console.warn(`  → product=${i.productSlug}`))
   console.warn('  Vérifie que la propriété est bien nommée "slug" dans les fichiers source.\n')
 }
@@ -172,6 +173,7 @@ async function seed() {
 
   // 2. Création de l'utilisateur seed
   console.log("👤 Création de l'utilisateur seed...")
+  // biome-ignore lint: toto
   let user
   try {
     user = await getOrCreateSeedUser()

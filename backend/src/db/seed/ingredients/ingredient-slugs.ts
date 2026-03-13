@@ -346,7 +346,22 @@ export const DIVERS_NON_CLASSES = {
   PINUS_PALUSTRIS: 'pinus-palustris', // INCI: Pinus Palustris Leaf Extract | pin, tonifiant antioxydant
   VETIVERIA_ZIZANOIDES: 'vetiveria-zizanoides', // INCI: Vetiveria Zizanoides Root Extract | vétiver, apaisant régénérant
   APHANIZOMENON_FLOS_AQUAE: 'aphanizomenon-flos-aquae', // INCI: Aphanizomenon Flos-Aquae Extract | algue bleue-verte nutritive
+  ULVA_LACTUCA: 'ulva-lactuca', // INCI: Ulva Lactuca Extract | laitue de mer, riche en magnésium et élastine-like (souplesse)
+  CHLORELLA_VULGARIS: 'chlorella-vulgaris', // INCI: Chlorella Vulgaris Extract | micro-algue verte, correcteur de cernes et restructurant
+  SPIRULINA_PLATENSIS: 'spirulina-platensis', // INCI: Spirulina Platensis Extract | micro-algue bleue, super-aliment riche en protéines et revitalisante
+  DUNALIELLA_SALINA: 'dunaliella-salina', // INCI: Dunaliella Salina Extract | micro-algue orangée, très riche en bêta-carotène (effet bonne mine et antioxydant)
+  CHONDRUS_CRISPUS: 'chondrus-crispus', // INCI: Chondrus Crispus Extract | mousse d'Irlande, filmogène protecteur et gélifiant naturel
+  PALMARIA_PALMATA: 'palmaria-palmata', // INCI: Palmaria Palmata Extract | Dulse, tonifiante et favorise la microcirculation (éclat du teint)
+  JANIA_RUBENS: 'jania-rubens', // INCI: Jania Rubens Extract | algue rouge calcaire, ultra-hydratante et "anti-fatigue" cellulaire
+  LAMINARIA_DIGITATA: 'laminaria-digitata', // INCI: Laminaria Digitata Extract | algue brune, reminéralisante et hydratante (riche en alginates)
+  FUCUS_VESICULOSUS: 'fucus-vesiculosus', // INCI: Fucus Vesiculosus Extract | algue brune, détoxifiante et drainante (souvent utilisée pour le contour des yeux)
+  ALARIA_ESCULENTA: 'alaria-esculenta', // INCI: Alaria Esculenta Extract | algue brune, booster de collagène et d'élastine (fermeté)
+  UNDARIA_PINNATIFIDA: 'undaria-pinnatifida', // INCI: Undaria Pinnatifida Extract | Wakamé, protecteur de la matrice extracellulaire et antioxydant
+  NMN: 'nmn',
+  TRIPTERYGIUM_WILFORDII_CALLUS_EXTRACT: 'tripterygium-wilfordii-callus-extract',
+  MYRTUS_COMMUNIS_LEAF_EXTRACT: 'myrtus-communis-leaf-extract',
 } as const
+
 export const INGREDIENT_SLUGS = {
   ...PROBIOTIQUES_PREBIOTIQUES_POSTBIOTIQUES,
   ...ACTIFS_ANTI_AGE_REPARATEURS,
