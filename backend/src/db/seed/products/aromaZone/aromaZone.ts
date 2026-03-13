@@ -14,7 +14,7 @@ export const AZ_PRODUCT_DATA = [
     slug: AZ_PRODUCT_SLUGS.AROMA_ZONE_CONCENTRE_AZELAIC_10,
     totalAmount: 30,
     amountUnit: 'ml',
-    priceCents: 1500,
+    priceCents: 695,
     description: 'Sérum naturel 10% acide azélaïque + HA + silice. Séborégulateur, matifiant.',
     notes:
       '100% origine naturelle, marque française. Très asséchant selon avis, extrait saule (BHA naturel), picotements possibles. Pas idéal post-IPL.',

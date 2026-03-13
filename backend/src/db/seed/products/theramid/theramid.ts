@@ -135,8 +135,51 @@ export const THERAMID_PRODUCT_DATA = [
     totalAmount: 30,
     amountUnit: 'ml',
     priceCents: 3495,
-    description:
-      'Traitement intensif à 15% d’acide azélaïque pour réduire les taches, apaiser les rougeurs et traiter les peaux à tendance acnéique.',
+    description: `Traitement intensif à 15% d’acide azélaïque pour réduire les taches, apaiser les rougeurs et traiter les peaux à tendance acnéique.
+      🧪 Les ingrédients distinctifs
+      Antioxydants polyphénoliques — Trio inédit
+      Ces trois composants forment un système antioxydant en cascade très sophistiqué :
+
+      Gallyl glucoside → Ester de gallate glycosylé, antioxydant stabilisé, offrant une meilleure biodisponibilité que l'acide gallique libre.
+
+      Propyl gallate → Antioxydant puissant, surtout utilisé comme stabilisateur de formule (protège les lipides de l'oxydation). Son usage en tant qu'actif cosmétique est inhabituel et haut de gamme.
+
+      Epigallocatechin gallatyl glucoside → EGCG glycosylé. Version beaucoup plus stable à l'oxydation que l'EGCG libre, garantissant une formulation plus sérieuse.
+
+      Biotechnologie végétale
+      Trois ingrédients de niche, coûteux, signalant une marque premium :
+
+      Daucus carota sativa root cell culture lysate → Cultures cellulaires de carotte, riches en caroténoïdes et peptides de croissance. Propriétés régénérantes.
+
+      Gossypium herbaceum (cotton) callus culture → Callose de coton, ingrédient rare aux propriétés anti-âge, réparatrices et antioxydantes.
+
+      Sphingomonas ferment extract → Apporte des sphinganes hydratants et filmogènes.
+
+      Peptide
+      Acetyl tetrapeptide-2 → Peptide mimétique de la thymopoïétine. Stimule la cohésion épidermique et la synthèse des protéines de jonction. Orienté anti-âge et fermeté.
+
+      🛡️ Barrière ceramide — Le profil le plus complet
+      Cette formule offre la couverture la plus exhaustive du panel pour la restauration cutanée :
+
+      5 Ceramides (NP + EOP + NS + AS + AP) → Inclut les céramides NS et AS, rarement formulés ensemble.
+
+      Hydrogenated lecithin → Phospholipide formant des structures lamellaires proches de la barrière naturelle.
+
+      Sucrose distearate + Glyceryl stearate → Émulsifiants doux, cohérents avec un profil de haute tolérance.
+
+      Carnosine → Actif anti-glycation et antioxydant.
+
+      Avena sativa kernel flour → Farine d'avoine colloïdale. Calmant, forme un film protecteur plus efficace que l'extrait liquide.
+
+      ⚠️ Points à nuancer
+      Benzyl alcohol → Conservateur/solvant pouvant être irritant à doses élevées. Allergène potentiel répertorié par l'UE. Inhabituel pour un profil "tolérance maximale".
+
+      Triethanolamine → Ajusteur de pH classique mais controversé (formation potentielle de nitrosamines). Moins élégant que le NaOH.
+
+      Propyl gallate → Efficace, mais des questions subsistent sur la tolérance cutanée à hautes doses.
+
+      Glycereth-26 → Dérivé de PEG (émollient/humectant) souvent évité par les profils "clean".
+          `,
     notes:
       '15% Acide Azélaïque, 1% Carnosine, 1% Avoine Colloïdale. Propriétés antibactériennes et séborégulatrices.',
     inci: 'AQUA (WATER), AZELAIC ACID, GLYCERIN, PROPANEDIOL, GLYCERETH-26, AVENA SATIVA (OAT) KERNEL FLOUR, CARNOSINE, ACETYL TETRAPEPTIDE-2, CERAMIDE NP, CERAMIDE EOP, CERAMIDE NS, CERAMIDE AS, CERAMIDE AP, GALLYL GLUCOSIDE, PROPYL GALLATE, EPIGALLOCATECHIN GALLATYL GLUCOSIDE, DAUCUS CAROTA SATIVA ROOT CELL CULTURE LYSATE, GOSSYPIUM HERBACEUM (COTTON) CALLUS CULTURE, SPHINGOMONAS FERMENT EXTRACT, ETHYLHEXYLGLYCERIN, HYDROGENATED LECITHIN, SUCROSE DISTEARATE, GLYCERYL STEARATE, DIPROPYLENE GLYCOL, DEHYDROACETIC ACID, CAPRYLYL GLYCOL, PHENOXYETHANOL, TRIETHANOLAMINE, BENZYL ALCOHOL, CITRIC ACID',
