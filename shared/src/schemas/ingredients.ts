@@ -71,11 +71,12 @@ export const ingredientChangesSchema = z
   })
 
 export const ingredientsSearchSchema = z.object({
-  category: z.array(z.string()).default([]),
-  concern: z.array(z.string()).default([]),
-  skinType: z.array(z.string()).default([]),
-  routineStep: z.array(z.string()).default([]),
-  attribute: z.array(z.string()).default([]),
+  category: z.string().optional(),
+  concern: z.string().optional(),
+  skinType: z.string().optional(),
+  attribute: z.string().optional(),
+  page: z.coerce.number().min(1).default(1),
+  limit: z.coerce.number().min(1).max(100).default(20),
 })
 // ─── Types ────────────────────────────────────────────────
 

@@ -5,6 +5,10 @@ import type { HttpStatus } from '../types/api'
 export const HTTP_STATUS = {
   OK: 200,
   CREATED: 201,
+  // NE PAS METTRE 204, car Hono type c.json()
+  //  pour n'accepter que les ContentfulStatusCode (codes avec body), et 204 en est explicitement exclu.
+  // Le protocole HTTP interdit un body sur une réponse 204
+  // DELETED: 204,
   BAD_REQUEST: 400,
   UNAUTHORIZED: 401,
   FORBIDDEN: 403,

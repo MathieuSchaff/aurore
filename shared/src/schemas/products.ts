@@ -135,7 +135,7 @@ export const productChangesSchema = z
   })
 
 export const searchProductsQuery = z.object({
-  q: z.string().min(1).max(100),
+  q: z.string().trim().min(1).max(100),
   limit: z.coerce.number().int().min(1).max(20).default(8),
 })
 export type ProductChanges = z.infer<typeof productChangesSchema>
