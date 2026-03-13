@@ -9,7 +9,7 @@ export const stockWithProductResponseSchema = productStockResponseSchema.extend(
 export type StockWithProduct = z.infer<typeof stockWithProductResponseSchema>
 
 export const addStockEntrySchema = z.object({
-  qty: z.number().int().min(1),
+  qty: z.number().int().min(1).max(9999),
   pricePaidCents: z.number().int().min(0).optional(),
   purchasedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Format YYYY-MM-DD requis'),
 })

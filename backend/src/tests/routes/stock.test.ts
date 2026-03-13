@@ -339,5 +339,21 @@ describe('Stock Routes', () => {
       })
       expect(res.status).toBe(HTTP_STATUS.UNAUTHORIZED)
     })
+
+    it('should only increment stock for the authenticated user', async () => {
+      const tokenToto = await setupAndLogin(app, TEST_CREDENTIALS.toto)
+      const tokenAlice = await setupAndLogin(app, TEST_CREDENTIALS.alice)
+      const product = await createProduct(app, tokenToto)
+
+      await authPost(app, `/stock/${product.id}/entries`, tokenToto, {
+        qty: 3,
+        purchasedAt: '2026-03-13',
+      })
+
+      // Alice should have no stock for this product
+      const res = await authGet(app, '/stock', tokenAlice)
+      const data = await res.json()
+      expect(data.data).toEqual([])
+    })
   })
 })

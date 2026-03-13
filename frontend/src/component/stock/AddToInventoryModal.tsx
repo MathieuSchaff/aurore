@@ -1,6 +1,7 @@
 import { X } from 'lucide-react'
 import { useState } from 'react'
 
+import { useScrollLock } from '../../hooks/useScrollLock'
 import { useAddStockEntry } from '../../lib/queries/stock'
 import './AddToInventoryModal.css'
 
@@ -29,19 +30,24 @@ export function AddToInventoryModal({ product, onClose, onSuccess }: AddToInvent
 
   const addEntry = useAddStockEntry()
 
+  useScrollLock(true)
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const pricePaidCents = price !== '' ? Math.round(parseFloat(price) * 100) : undefined
 
-    await addEntry.mutateAsync({
-      productId: product.id,
-      qty,
-      pricePaidCents,
-      purchasedAt,
-    })
-
-    onSuccess?.()
-    onClose()
+    try {
+      await addEntry.mutateAsync({
+        productId: product.id,
+        qty,
+        pricePaidCents,
+        purchasedAt,
+      })
+      onSuccess?.()
+      onClose()
+    } catch {
+      // error is shown via addEntry.isError
+    }
   }
 
   return (
