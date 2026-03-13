@@ -11,8 +11,6 @@ const productStockKeys = {
   list: (filters: ListStockFilters = {}) => [...productStockKeys.lists(), filters] as const,
   detail: (productId: string) => [...productStockKeys.all, 'detail', productId] as const,
 }
-// const _a = []
-// a.
 // ─── Query Options ───────────────────────────────────────
 export const productStockQueries = {
   /**

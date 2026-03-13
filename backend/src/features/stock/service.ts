@@ -125,6 +125,14 @@ export async function addStockEntry(
   database: Database = db
 ): Promise<{ entry: StockEntry; stock: ProductStock }> {
   return database.transaction(async (tx) => {
+    const [productExists] = await tx
+      .select({ id: products.id })
+      .from(products)
+      .where(eq(products.id, productId))
+      .limit(1)
+
+    if (!productExists) throw new StockError('product_not_found')
+
     const [entry] = await tx
       .insert(stockEntries)
       .values({
