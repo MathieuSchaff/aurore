@@ -81,9 +81,7 @@ function SearchSelect({
 }: SearchSelectProps) {
   const [query, setQuery] = useState('')
   const [isOpen, setIsOpen] = useState(false)
-  // pour gérer le focus des options
   const [activeIndex, setActiveIndex] = useState(-1)
-  const containerRef = useRef<HTMLDivElement>(null)
   const clickOutsideContainer = useRef<HTMLDivElement>(null)
 
   const inputRef = useRef<HTMLInputElement>(null)
