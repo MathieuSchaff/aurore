@@ -14,8 +14,6 @@ export * from './schemas/tasks'
 
 // ─── Types (entity types, error codes, composed types) ───────────────────────
 
-// ─── Types (entity types, error codes, composed types) ───────────────────────
-
 export type * from './types/api'
 export type * from './types/auth'
 export type * from './types/common'
@@ -44,7 +42,7 @@ export type {
 export type * from './types/profile'
 export type { StockErrorCode } from './types/stock'
 export type { IngredientTag, ProductTag, Tag, TagErrorCode } from './types/tags'
-export type { TaskEnergy, TaskStatus, TaskErrorCode } from './types/tasks'
+export type { Task, Subtask, TaskEnergy, TaskStatus, TaskErrorCode } from './types/tasks'
 
 // ─── Helpers (error mappings, constants, utilities) ──────────────────────────
 
