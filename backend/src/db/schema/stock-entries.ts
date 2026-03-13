@@ -1,4 +1,5 @@
-import { index, integer, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core'
+import { sql } from 'drizzle-orm'
+import { date, index, integer, pgTable, timestamp, uuid } from 'drizzle-orm/pg-core'
 
 import { products } from './products'
 import { users } from './users'
@@ -6,7 +7,7 @@ import { users } from './users'
 export const stockEntries = pgTable(
   'stock_entries',
   {
-    id: uuid('id').defaultRandom().primaryKey(),
+    id: uuid('id').primaryKey().default(sql`uuidv7()`),
     userId: uuid('user_id')
       .notNull()
       .references(() => users.id, { onDelete: 'cascade' }),
@@ -15,7 +16,7 @@ export const stockEntries = pgTable(
       .references(() => products.id, { onDelete: 'cascade' }),
     qty: integer('qty').notNull(),
     pricePaidCents: integer('price_paid_cents'),
-    purchasedAt: text('purchased_at').notNull(), // YYYY-MM-DD
+    purchasedAt: date('purchased_at').notNull(),
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [
