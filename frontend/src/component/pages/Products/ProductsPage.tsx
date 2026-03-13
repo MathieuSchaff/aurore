@@ -276,195 +276,200 @@ export function ProductsPage() {
   const totalPages = Math.ceil((total ?? 0) / 20)
   return (
     <>
-    <div className={`list-page${isPlaceholderData ? ' is-syncing' : ''}`}>
-      <header className="list-header">
-        <div className="page-banner" />
+      <div className={`list-page${isPlaceholderData ? ' is-syncing' : ''}`}>
+        <header className="list-header">
+          <div className="page-banner" />
 
-        <div className="list-header__top">
-          <div className="list-header__search">
-            <SearchCombobox
-              queryFn={productQueries.search}
-              toResult={(item) => ({
-                id: item.id,
-                slug: item.slug,
-                label: item.name,
-                sublabel: item.brand,
-              })}
-              onSelect={(slug) => navigate({ to: '/products/$slug', params: { slug } })}
-            />
-          </div>
-          <h1 className="list-header__title">
-            Produits
-            {isPlaceholderData && <span className="loader-mini">...</span>}
-          </h1>
-          <button type="button" className="list-filter-btn" onClick={() => setDrawerOpen(true)}>
-            <SlidersHorizontal size={16} />
-            Filtrer
-            {filterCount > 0 && <span className="list-filter-btn__count">{filterCount}</span>}
-          </button>
-        </div>
-
-        {activeTags.length > 0 && (
-          <div className="list-active-filters">
-            {activeTags.map(({ key, value }) => (
-              <button
-                key={`${key}-${value}`}
-                type="button"
-                className="list-active-filter-tag"
-                onClick={() => toggleSingleFilter(key, value)}
-              >
-                {getFilterLabel(key, value)}
-                <span className="list-active-filter-tag__x">&times;</span>
-              </button>
-            ))}
-            <button type="button" className="list-clear-all" onClick={resetFilters}>
-              Tout effacer
+          <div className="list-header__top">
+            <div className="list-header__search">
+              <SearchCombobox
+                queryFn={productQueries.search}
+                toResult={(item) => ({
+                  id: item.id,
+                  slug: item.slug,
+                  label: item.name,
+                  sublabel: item.brand,
+                })}
+                onSelect={(slug) => navigate({ to: '/products/$slug', params: { slug } })}
+              />
+            </div>
+            <h1 className="list-header__title">
+              Produits
+              {isPlaceholderData && <span className="loader-mini">...</span>}
+            </h1>
+            <button type="button" className="list-filter-btn" onClick={() => setDrawerOpen(true)}>
+              <SlidersHorizontal size={16} />
+              Filtrer
+              {filterCount > 0 && <span className="list-filter-btn__count">{filterCount}</span>}
             </button>
           </div>
-        )}
-      </header>
 
-      <FilterDialog
-        open={isDrawerOpen}
-        onClose={() => setDrawerOpen(false)}
-        fields={filterFields}
-        currentFilters={filters}
-        initial_filters={EMPTY_FILTERS}
-        onApply={applyFilters}
-        onReset={resetFilters}
-      />
-
-      <main
-        className="list-main"
-        style={{
-          opacity: isPlaceholderData ? 0.6 : 1,
-          transition: 'opacity 0.2s ease-in-out',
-          pointerEvents: isPlaceholderData ? 'none' : 'auto',
-        }}
-      >
-        {!hasFilters ? (
-          <div className="empty-state">
-            <div className="empty-state__icon">
-              <Search size={24} />
-            </div>
-            <h2 className="empty-state__title">Explorez les produits</h2>
-            <p className="empty-state__subtitle">
-              Utilisez le bouton Filtrer pour sélectionner une catégorie, une marque ou un concern.
-            </p>
-          </div>
-        ) : isLoading && !isPlaceholderData ? (
-          <div className="empty-state">
-            <div className="empty-state__icon">
-              <Package size={24} />
-            </div>
-            <p className="empty-state__subtitle">Chargement...</p>
-          </div>
-        ) : items.length === 0 ? (
-          <div className="empty-state">
-            <div className="empty-state__icon">
-              <Package size={24} />
-            </div>
-            <h2 className="empty-state__title">Aucun produit trouvé</h2>
-            <p className="empty-state__subtitle">
-              Essayez de modifier vos filtres pour trouver des produits.
-            </p>
-          </div>
-        ) : (
-          <>
-            <div className="list-results-info">
-              <span className="list-results-count">
-                {total} produit{total > 1 ? 's' : ''} trouvé{total > 1 ? 's' : ''}
-              </span>
-            </div>
-
-            <div className="list-grid">
-              {items.map((product) => (
-                <Link
-                  key={product.id}
-                  to="/products/$slug"
-                  params={{ slug: product.slug }}
-                  className={`list-card kind-border ${kindClass(product.kind)}`}
+          {activeTags.length > 0 && (
+            <div className="list-active-filters">
+              {activeTags.map(({ key, value }) => (
+                <button
+                  key={`${key}-${value}`}
+                  type="button"
+                  className="list-active-filter-tag"
+                  onClick={() => toggleSingleFilter(key, value)}
                 >
-                  <div className={`list-card__icon icon-box kind-icon ${kindClass(product.kind)}`}>
-                    <KindIcon kind={product.kind} size={18} />
-                  </div>
-                  <div className="list-card__body">
-                    <div className="list-card__name">{product.name}</div>
-                    <div className="product-card__brand">{product.brand}</div>
-                    <div className="product-card__meta">
-                      <span className={`product-card__kind kind-badge ${kindClass(product.kind)}`}>
-                        {product.kind}
-                      </span>
-                      {product.unit && <span className="product-card__tag">{product.unit}</span>}
+                  {getFilterLabel(key, value)}
+                  <span className="list-active-filter-tag__x">&times;</span>
+                </button>
+              ))}
+              <button type="button" className="list-clear-all" onClick={resetFilters}>
+                Tout effacer
+              </button>
+            </div>
+          )}
+        </header>
+
+        <FilterDialog
+          open={isDrawerOpen}
+          onClose={() => setDrawerOpen(false)}
+          fields={filterFields}
+          currentFilters={filters}
+          initial_filters={EMPTY_FILTERS}
+          onApply={applyFilters}
+          onReset={resetFilters}
+        />
+
+        <main
+          className="list-main"
+          style={{
+            opacity: isPlaceholderData ? 0.6 : 1,
+            transition: 'opacity 0.2s ease-in-out',
+            pointerEvents: isPlaceholderData ? 'none' : 'auto',
+          }}
+        >
+          {!hasFilters ? (
+            <div className="empty-state">
+              <div className="empty-state__icon">
+                <Search size={24} />
+              </div>
+              <h2 className="empty-state__title">Explorez les produits</h2>
+              <p className="empty-state__subtitle">
+                Utilisez le bouton Filtrer pour sélectionner une catégorie, une marque ou un
+                concern.
+              </p>
+            </div>
+          ) : isLoading && !isPlaceholderData ? (
+            <div className="empty-state">
+              <div className="empty-state__icon">
+                <Package size={24} />
+              </div>
+              <p className="empty-state__subtitle">Chargement...</p>
+            </div>
+          ) : items.length === 0 ? (
+            <div className="empty-state">
+              <div className="empty-state__icon">
+                <Package size={24} />
+              </div>
+              <h2 className="empty-state__title">Aucun produit trouvé</h2>
+              <p className="empty-state__subtitle">
+                Essayez de modifier vos filtres pour trouver des produits.
+              </p>
+            </div>
+          ) : (
+            <>
+              <div className="list-results-info">
+                <span className="list-results-count">
+                  {total} produit{total > 1 ? 's' : ''} trouvé{total > 1 ? 's' : ''}
+                </span>
+              </div>
+
+              <div className="list-grid">
+                {items.map((product) => (
+                  <Link
+                    key={product.id}
+                    to="/products/$slug"
+                    params={{ slug: product.slug }}
+                    className={`list-card kind-border ${kindClass(product.kind)}`}
+                  >
+                    <div
+                      className={`list-card__icon icon-box kind-icon ${kindClass(product.kind)}`}
+                    >
+                      <KindIcon kind={product.kind} size={18} />
                     </div>
-                  </div>
-                  {product.priceCents != null && (
-                    <span className="product-card__price">
-                      {new Intl.NumberFormat('fr-FR', {
-                        style: 'currency',
-                        currency: 'EUR',
-                      }).format(product.priceCents / 100)}
-                    </span>
-                  )}
+                    <div className="list-card__body">
+                      <div className="list-card__name">{product.name}</div>
+                      <div className="product-card__brand">{product.brand}</div>
+                      <div className="product-card__meta">
+                        <span
+                          className={`product-card__kind kind-badge ${kindClass(product.kind)}`}
+                        >
+                          {product.kind}
+                        </span>
+                        {product.unit && <span className="product-card__tag">{product.unit}</span>}
+                      </div>
+                    </div>
+                    {product.priceCents != null && (
+                      <span className="product-card__price">
+                        {new Intl.NumberFormat('fr-FR', {
+                          style: 'currency',
+                          currency: 'EUR',
+                        }).format(product.priceCents / 100)}
+                      </span>
+                    )}
+                    <button
+                      type="button"
+                      className="list-card__add-btn"
+                      aria-label={`Ajouter ${product.name} à l'inventaire`}
+                      onClick={(e) => {
+                        e.preventDefault()
+                        e.stopPropagation()
+                        setModalProduct({
+                          id: product.id,
+                          name: product.name,
+                          brand: product.brand,
+                          priceCents: product.priceCents,
+                        })
+                      }}
+                    >
+                      <Plus size={14} />
+                    </button>
+                    <ChevronRight size={18} className="nav-arrow" />
+                  </Link>
+                ))}
+              </div>
+
+              {totalPages > 1 && (
+                <div className="list-pagination">
                   <button
                     type="button"
-                    className="list-card__add-btn"
-                    aria-label={`Ajouter ${product.name} à l'inventaire`}
-                    onClick={(e) => {
-                      e.preventDefault()
-                      e.stopPropagation()
-                      setModalProduct({
-                        id: product.id,
-                        name: product.name,
-                        brand: product.brand,
-                        priceCents: product.priceCents,
-                      })
-                    }}
+                    className="list-pagination__btn"
+                    disabled={page <= 1}
+                    onClick={() => goToPage(page - 1)}
                   >
-                    <Plus size={14} />
+                    <ChevronLeft size={16} />
                   </button>
-                  <ChevronRight size={18} className="nav-arrow" />
-                </Link>
-              ))}
-            </div>
 
-            {totalPages > 1 && (
-              <div className="list-pagination">
-                <button
-                  type="button"
-                  className="list-pagination__btn"
-                  disabled={page <= 1}
-                  onClick={() => goToPage(page - 1)}
-                >
-                  <ChevronLeft size={16} />
-                </button>
+                  <span className="list-pagination__info">
+                    {page} / {totalPages}
+                  </span>
 
-                <span className="list-pagination__info">
-                  {page} / {totalPages}
-                </span>
+                  <button
+                    type="button"
+                    className="list-pagination__btn"
+                    disabled={page >= totalPages}
+                    onClick={() => goToPage(page + 1)}
+                  >
+                    <ChevronRight size={16} />
+                  </button>
+                </div>
+              )}
+            </>
+          )}
+        </main>
+      </div>
 
-                <button
-                  type="button"
-                  className="list-pagination__btn"
-                  disabled={page >= totalPages}
-                  onClick={() => goToPage(page + 1)}
-                >
-                  <ChevronRight size={16} />
-                </button>
-              </div>
-            )}
-          </>
-        )}
-      </main>
-    </div>
-
-    {modalProduct && (
-      <AddToInventoryModal
-        product={modalProduct}
-        onClose={() => setModalProduct(null)}
-        onSuccess={() => setModalProduct(null)}
-      />
-    )}
+      {modalProduct && (
+        <AddToInventoryModal
+          product={modalProduct}
+          onClose={() => setModalProduct(null)}
+          onSuccess={() => setModalProduct(null)}
+        />
+      )}
     </>
   )
 }

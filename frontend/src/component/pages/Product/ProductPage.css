@@ -46,11 +46,6 @@
   position: relative;
 }
 
-/* Styles communs via .btn-pill (ingredients-shared.css) */
-.product-page__back {
-  /* margin-bottom handled by .product-page__top-actions wrapper */
-}
-
 .product-hero {
   display: flex;
   gap: var(--space-5);
@@ -136,8 +131,6 @@
   margin-bottom: var(--space-6);
 }
 
-/* .section-label et .section-label--flex définis dans ingredients-shared.css */
-
 .section-label__count {
   display: inline-flex;
   align-items: center;
@@ -201,7 +194,6 @@
   white-space: pre-wrap;
 }
 
-/* Quand .product-notes contient du markdown, la typo vient de .rich-text (markdown.css) */
 .product-notes.rich-text {
   white-space: normal;
 }
@@ -325,7 +317,6 @@
   border-color: var(--color-primary);
 }
 
-/* ── Top actions row (back + add-to-stock) ── */
 .product-page__top-actions {
   display: flex;
   align-items: center;
@@ -333,7 +324,6 @@
   margin-bottom: var(--space-4);
 }
 
-/* ── Add to inventory button ── */
 .product-page__add-btn {
   display: inline-flex;
   align-items: center;

@@ -1,8 +1,7 @@
-import { useState } from 'react'
-
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { getRouteApi, Link } from '@tanstack/react-router'
 import { ArrowLeft, ExternalLink, FlaskConical, Package, Plus } from 'lucide-react'
+import { useState } from 'react'
 import Markdown from 'react-markdown'
 
 import { productQueries } from '../../../lib/queries/products'
