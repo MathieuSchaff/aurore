@@ -69,11 +69,9 @@ export const ingredientRoutes = ingredientsApp
 
   .get('/', zValidator('query', ingredientsSearchSchema), async (c) => {
     const db = c.get('db')
-    const filters = c.req.valid('query')
-
-    const items = await listIngredients(filters, db)
-
-    return c.json(ok(items), HTTP_STATUS.OK)
+    const query = c.req.valid('query')
+    const { items, total } = await listIngredients(query, db)
+    return c.json(ok({ items, total }), HTTP_STATUS.OK)
   })
 
   .post('/', zValidator('json', createIngredientSchema), async (c) => {
@@ -114,10 +112,8 @@ export const ingredientRoutes = ingredientsApp
   .delete('/:id', zValidator('param', idParam), async (c) => {
     const db = c.get('db')
     const { id } = c.req.valid('param')
-
     await deleteIngredient(id, db)
-
-    return c.json(ok(null), HTTP_STATUS.OK)
+    return c.body(null, 204)
   })
 
   .get('/:slug/edits', zValidator('param', slugParam), async (c) => {
