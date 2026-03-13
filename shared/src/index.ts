@@ -10,6 +10,7 @@ export * from './schemas/products'
 export * from './schemas/profile'
 export * from './schemas/stock'
 export * from './schemas/tags'
+export * from './schemas/tasks'
 
 // ─── Types (entity types, error codes, composed types) ───────────────────────
 
@@ -43,6 +44,7 @@ export type {
 export type * from './types/profile'
 export type { StockErrorCode } from './types/stock'
 export type { IngredientTag, ProductTag, Tag, TagErrorCode } from './types/tags'
+export type { TaskEnergy, TaskStatus, TaskErrorCode } from './types/tasks'
 
 // ─── Helpers (error mappings, constants, utilities) ──────────────────────────
 
@@ -57,6 +59,7 @@ export * from './helpers/products'
 export * from './helpers/profile'
 export * from './helpers/stock'
 export * from './helpers/tags'
+export * from './helpers/tasks'
 
 // ─── OpenAPI ─────────────────────────────────────────────────────────────────
 
