@@ -115,9 +115,9 @@ export const useAddStockEntry = () => {
       const data = await res.json()
       return data.data
     },
-    onSuccess: (data, variables) => {
+    onSuccess: (_data, variables) => {
       queryClient.invalidateQueries({ queryKey: productStockKeys.list() })
-      queryClient.setQueryData(productStockKeys.detail(variables.productId), data.stock)
+      queryClient.invalidateQueries({ queryKey: productStockKeys.detail(variables.productId) })
     },
   })
 }
