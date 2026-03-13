@@ -5,3 +5,4 @@ export type StockErrorCode =
   | 'product_not_found'
   | 'unauthorized_access'
   | 'database_error'
+  | 'stock_entry_failed'
