@@ -1,4 +1,12 @@
-import { err, errorToStatus, HTTP_STATUS, ok, tagErrorMapping } from '@habit-tracker/shared'
+import {
+  addIngredientTagSchema,
+  err,
+  errorToStatus,
+  HTTP_STATUS,
+  ok,
+  replaceIngredientTagsSchema,
+  tagErrorMapping,
+} from '@habit-tracker/shared'
 
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
@@ -17,10 +25,6 @@ import { TagError } from '../tags/tags-error'
 
 const ingredientParams = z.object({ ingredientId: z.uuid() })
 const ingredientTagParams = z.object({ ingredientId: z.uuid(), tagId: z.uuid() })
-
-const addIngredientTagSchema = z.object({ tagId: z.uuid() })
-
-const replaceIngredientTagsSchema = z.object({ tagIds: z.array(z.uuid()) })
 
 // ─── App ──────────────────────────────────────────────────
 
@@ -57,10 +61,10 @@ export const ingredientTagRoutes = ingredientTagsApp
     async (c) => {
       const db = c.get('db')
       const { ingredientId } = c.req.valid('param')
-      const { tagId } = c.req.valid('json')
+      const { tagId, relevance } = c.req.valid('json')
 
       try {
-        const link = await addTagToIngredient(db, ingredientId, tagId)
+        const link = await addTagToIngredient(db, ingredientId, tagId, relevance)
         if (!link) throw new TagError('database_error')
         return c.json(ok(link), HTTP_STATUS.CREATED)
       } catch (e) {
@@ -86,8 +90,8 @@ export const ingredientTagRoutes = ingredientTagsApp
     async (c) => {
       const db = c.get('db')
       const { ingredientId } = c.req.valid('param')
-      const { tagIds } = c.req.valid('json')
-      const links = await replaceIngredientTags(db, ingredientId, tagIds)
+      const { tags } = c.req.valid('json')
+      const links = await replaceIngredientTags(db, ingredientId, tags)
       return c.json(ok(links), HTTP_STATUS.OK)
     }
   )

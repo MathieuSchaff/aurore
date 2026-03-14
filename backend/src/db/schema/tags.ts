@@ -17,6 +17,8 @@ export const tags = pgTable(
   (t) => [uniqueIndex('tags_slug_unique').on(t.slug), index('tags_category_idx').on(t.category)]
 )
 
+export const relevanceEnum = pgEnum('relevance', ['primary', 'secondary', 'avoid'])
+
 export const productTags = pgTable(
   'product_tags',
   {
@@ -28,6 +30,7 @@ export const productTags = pgTable(
     tagId: uuid('tag_id')
       .notNull()
       .references(() => tags.id, { onDelete: 'cascade' }),
+    relevance: relevanceEnum('relevance').notNull().default('secondary'),
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [
@@ -37,7 +40,6 @@ export const productTags = pgTable(
   ]
 )
 
-export const relevanceEnum = pgEnum('relevance', ['primary', 'secondary', 'avoid'])
 export const ingredientTags = pgTable(
   'ingredient_tags',
   {
