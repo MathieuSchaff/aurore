@@ -20,12 +20,17 @@ import {
   getTagBySlug,
   listIngredientsByTag,
   listProductsByTag,
+  listTags,
   updateTag,
 } from './tags.service'
 import { TagError } from './tags-error'
 
 const idParam = z.object({ id: z.uuid() })
 const slugParam = z.object({ slug: z.string().min(1).max(100) })
+
+const listTagsQuery = z.object({
+  category: z.string().optional(),
+})
 
 const tagsApp = new Hono<AppEnv>()
 
@@ -43,6 +48,13 @@ tagsApp.onError((error, c) => {
 })
 
 export const tagRoutes = tagsApp
+
+  .get('/', zValidator('query', listTagsQuery), async (c) => {
+    const db = c.get('db')
+    const query = c.req.valid('query')
+    const tags = await listTags(db, query)
+    return c.json(ok(tags), HTTP_STATUS.OK)
+  })
 
   .post('/', zValidator('json', createTagSchema), async (c) => {
     const db = c.get('db')

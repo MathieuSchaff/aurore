@@ -49,23 +49,25 @@ export async function getTagBySlug(db: DB, slug: string): Promise<Tag | undefine
   return tag
 }
 
-// export async function listTags(db: DB, params: ListTagsParams = {}) {
-//   const { category, search, limit = 100, offset = 0 } = params
+export async function listTags(
+  db: DB,
+  params: { category?: string; search?: string; limit?: number; offset?: number } = {}
+) {
+  const { category, search, limit = 100, offset = 0 } = params
 
-//   const conditions = []
+  const conditions = []
 
-//   if (category) conditions.push(eq(tags.category, category))
-//   if (search) conditions.push(ilike(tags.name, `%${search}%`))
+  if (category) conditions.push(eq(tags.category, category))
+  // if (search) conditions.push(ilike(tags.name, `%${search}%`))
 
-//   const where = conditions.length > 0 ? and(...conditions) : undefined
+  const where = conditions.length > 0 ? and(...conditions) : undefined
 
-//   const [items, [{ count }]] = await Promise.all([
-//     db.select().from(tags).where(where).limit(limit).offset(offset).orderBy(tags.name),
-//     db.select({ count: sql<number>`count(*)::int` }).from(tags).where(where),
-//   ])
+  const [items] = await Promise.all([
+    db.select().from(tags).where(where).limit(limit).offset(offset).orderBy(tags.name),
+  ])
 
-//   return { items, total: count }
-// }
+  return items
+}
 
 export async function updateTag(db: DB, id: string, data: UpdateTagInput): Promise<Tag> {
   try {
@@ -85,20 +87,25 @@ export async function deleteTag(db: DB, id: string): Promise<boolean> {
 
 // ─── Product Tags ────────────────────────────────────────
 
-export async function addTagToProduct(db: DB, productId: string, tagId: string) {
-  const [link] = await db.insert(productTags).values({ productId, tagId }).returning()
+export async function addTagToProduct(
+  db: DB,
+  productId: string,
+  tagId: string,
+  relevance: 'primary' | 'secondary' | 'avoid' = 'secondary'
+) {
+  const [link] = await db.insert(productTags).values({ productId, tagId, relevance }).returning()
   return link
 }
 
 export async function addManyTagsToProduct(
   db: DB,
   productId: string,
-  tagIds: string[]
+  tagsInput: { tagId: string; relevance: 'primary' | 'secondary' | 'avoid' }[]
 ): Promise<ProductTag[]> {
-  if (tagIds.length === 0) return []
+  if (tagsInput.length === 0) return []
   return db
     .insert(productTags)
-    .values(tagIds.map((tagId) => ({ productId, tagId })))
+    .values(tagsInput.map((t) => ({ productId, ...t })))
     .returning()
 }
 
@@ -111,6 +118,7 @@ export async function listTagsByProduct(db: DB, productId: string) {
       id: productTags.id,
       productId: productTags.productId,
       tagId: productTags.tagId,
+      relevance: productTags.relevance,
       createdAt: productTags.createdAt,
       // Joined tag fields
       tagName: tags.name,
@@ -153,36 +161,44 @@ export async function removeTagFromProduct(
 export async function replaceProductTags(
   db: DB,
   productId: string,
-  tagIds: string[]
+  tagsInput: { tagId: string; relevance: 'primary' | 'secondary' | 'avoid' }[]
 ): Promise<ProductTag[]> {
   return db.transaction(async (tx) => {
     await tx.delete(productTags).where(eq(productTags.productId, productId))
 
-    if (tagIds.length === 0) return []
+    if (tagsInput.length === 0) return []
 
     return tx
       .insert(productTags)
-      .values(tagIds.map((tagId) => ({ productId, tagId })))
+      .values(tagsInput.map((t) => ({ productId, ...t })))
       .returning()
   })
 }
 
 // ─── Ingredient Tags ──────────────────────────────────────
 
-export async function addTagToIngredient(db: DB, ingredientId: string, tagId: string) {
-  const [link] = await db.insert(ingredientTags).values({ ingredientId, tagId }).returning()
+export async function addTagToIngredient(
+  db: DB,
+  ingredientId: string,
+  tagId: string,
+  relevance: 'primary' | 'secondary' | 'avoid' = 'secondary'
+) {
+  const [link] = await db
+    .insert(ingredientTags)
+    .values({ ingredientId, tagId, relevance })
+    .returning()
   return link
 }
 
 export async function addManyTagsToIngredient(
   db: DB,
   ingredientId: string,
-  tagIds: string[]
+  tagsInput: { tagId: string; relevance: 'primary' | 'secondary' | 'avoid' }[]
 ): Promise<IngredientTag[]> {
-  if (tagIds.length === 0) return []
+  if (tagsInput.length === 0) return []
   return db
     .insert(ingredientTags)
-    .values(tagIds.map((tagId) => ({ ingredientId, tagId })))
+    .values(tagsInput.map((t) => ({ ingredientId, ...t })))
     .returning()
 }
 
@@ -195,6 +211,7 @@ export async function listTagsByIngredient(db: DB, ingredientId: string) {
       id: ingredientTags.id,
       ingredientId: ingredientTags.ingredientId,
       tagId: ingredientTags.tagId,
+      relevance: ingredientTags.relevance,
       createdAt: ingredientTags.createdAt,
       tagName: tags.name,
       tagSlug: tags.slug,
@@ -236,16 +253,16 @@ export async function removeTagFromIngredient(
 export async function replaceIngredientTags(
   db: DB,
   ingredientId: string,
-  tagIds: string[]
+  tagsInput: { tagId: string; relevance: 'primary' | 'secondary' | 'avoid' }[]
 ): Promise<IngredientTag[]> {
   return db.transaction(async (tx) => {
     await tx.delete(ingredientTags).where(eq(ingredientTags.ingredientId, ingredientId))
 
-    if (tagIds.length === 0) return []
+    if (tagsInput.length === 0) return []
 
     return tx
       .insert(ingredientTags)
-      .values(tagIds.map((tagId) => ({ ingredientId, tagId })))
+      .values(tagsInput.map((t) => ({ ingredientId, ...t })))
       .returning()
   })
 }

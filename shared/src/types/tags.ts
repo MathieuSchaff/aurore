@@ -12,6 +12,7 @@ export type ProductTag = {
   id: string
   productId: string
   tagId: string
+  relevance: 'primary' | 'secondary' | 'avoid'
   createdAt: string | Date
 }
 
