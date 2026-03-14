@@ -14,7 +14,14 @@ import { z } from 'zod'
 
 import type { AppEnv } from '../../app-env'
 import { requireJwtAuth } from '../auth/middleware'
-import { addStockEntry, deleteStock, getStockByProduct, getUserStock, upsertStock } from './service'
+import {
+  addStockEntry,
+  deleteStock,
+  getStockByProduct,
+  getStockEntries,
+  getUserStock,
+  upsertStock,
+} from './service'
 import { StockError } from './stock-error'
 
 const productIdParam = z.object({ productId: z.uuid() })
@@ -32,6 +39,12 @@ stockApp.onError((error, c) => {
 })
 
 export const stockRoutes = stockApp
+  .get('/entries', async (c) => {
+    const db = c.get('db')
+    const userId = c.get('userId')
+    const result = await getStockEntries(userId, db)
+    return c.json(ok(result), HTTP_STATUS.OK)
+  })
 
   .get('/', async (c) => {
     const db = c.get('db')
