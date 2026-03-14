@@ -1,9 +1,14 @@
-import { useSuspenseQuery } from '@tanstack/react-query'
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
 import { getRouteApi, Link, useNavigate } from '@tanstack/react-router'
-import { ArrowLeft, Save, X } from 'lucide-react'
-import { useCallback, useState } from 'react'
+import { ArrowLeft, Save, Trash2, X } from 'lucide-react'
+import { useCallback, useMemo, useState } from 'react'
 
-import { ingredientQueries, useUpdateIngredient } from '../../../../lib/queries/ingredients'
+import {
+  ingredientQueries,
+  useUpdateIngredient,
+  useUpdateIngredientTags,
+} from '../../../../lib/queries/ingredients'
+import { tagQueries } from '../../../../lib/queries/tags'
 import './IngredientPageEditable.css'
 import '../../../../styles/common/ingredients-shared.css'
 
@@ -12,7 +17,10 @@ const route = getRouteApi('/ingredients/$slug/edit')
 export function IngredientEditPage() {
   const { slug } = route.useParams()
   const { data: ingredient } = useSuspenseQuery(ingredientQueries.bySlug(slug))
+  const { data: currentTags } = useSuspenseQuery(ingredientQueries.tags(ingredient.id))
+  const { data: allTags } = useQuery(tagQueries.list())
   const updateIngredient = useUpdateIngredient()
+  const updateTags = useUpdateIngredientTags()
   const navigate = useNavigate()
 
   const [form, setForm] = useState({
@@ -21,6 +29,14 @@ export function IngredientEditPage() {
     description: ingredient.description ?? '',
     content: ingredient.content ?? '',
   })
+
+  const [tags, setTags] = useState(
+    currentTags.map((t) => ({
+      tagId: t.tagId,
+      tagName: t.tagName,
+      relevance: t.relevance || 'secondary',
+    }))
+  )
 
   const [error, setError] = useState<string | null>(null)
 
@@ -33,6 +49,19 @@ export function IngredientEditPage() {
     []
   )
 
+  const handleAddTag = (tagId: string) => {
+    const tag = allTags?.find((t) => t.id === tagId)
+    if (tag && !tags.find((t) => t.tagId === tagId)) {
+      setTags((prev) => [...prev, { tagId, tagName: tag.name, relevance: 'secondary' }])
+    }
+  }
+
+  const handleRemoveTag = (tagId: string) => {
+    setTags((prev) => prev.filter((t) => t.tagId !== tagId))
+  }
+  const handleUpdateRelevance = (tagId: string, relevance: 'primary' | 'secondary' | 'avoid') => {
+    setTags((prev) => prev.map((t) => (t.tagId === tagId ? { ...t, relevance } : t)))
+  }
   const handleSubmit = useCallback(
     async (e: React.SubmitEvent) => {
       e.preventDefault()
@@ -43,29 +72,45 @@ export function IngredientEditPage() {
       }
 
       try {
-        const updated = await updateIngredient.mutateAsync({
-          id: ingredient.id,
-          data: {
-            name: form.name.trim(),
-            category: form.category.trim() || null,
-            description: form.description.trim(),
-            content: form.content.trim(),
-          },
-        })
+        const [updated] = await Promise.all([
+          updateIngredient.mutateAsync({
+            id: ingredient.id,
+            data: {
+              name: form.name.trim(),
+              category: form.category.trim() || null,
+              description: form.description.trim(),
+              content: form.content.trim(),
+            },
+          }),
+          updateTags.mutateAsync({
+            ingredientId: ingredient.id,
+            tags: tags.map((t) => ({ tagId: t.tagId, relevance: t.relevance })),
+          }),
+        ])
         navigate({ to: '/ingredients/$slug', params: { slug: updated.slug } })
-      } catch {
-        setError('Une erreur est survenue lors de la sauvegarde.')
+      } catch (err) {
+        setError(
+          err instanceof Error ? err.message : 'Une erreur est survenue lors de la sauvegarde.'
+        )
       }
     },
-    [form, ingredient.id, updateIngredient, navigate]
+    [form, ingredient.id, updateIngredient, updateTags, tags, navigate]
   )
+
+  const availableTags = useMemo(() => {
+    return allTags?.filter((at) => !tags.find((t) => t.tagId === at.id)) ?? []
+  }, [allTags, tags])
+
+  const sortedTagsKey = (arr: { id: string; r: string }[]) =>
+    JSON.stringify([...arr].sort((a, b) => a.id.localeCompare(b.id)))
 
   const isDirty =
     form.name !== (ingredient.name ?? '') ||
     form.category !== (ingredient.category ?? '') ||
     form.description !== (ingredient.description ?? '') ||
-    form.content !== (ingredient.content ?? '')
-
+    form.content !== (ingredient.content ?? '') ||
+    sortedTagsKey(tags.map((t) => ({ id: t.tagId, r: t.relevance }))) !==
+      sortedTagsKey(currentTags.map((t) => ({ id: t.tagId, r: t.relevance })))
   return (
     <div className="ingredient-edit-page">
       <div className="ingredient-edit-page__banner" />
@@ -113,6 +158,62 @@ export function IngredientEditPage() {
           </div>
 
           <div className="ingredient-edit-form__field">
+            <label className="ingredient-edit-form__label" htmlFor="edit-tags">
+              Tags
+            </label>
+            <div className="ingredient-edit-tags">
+              {tags.map((tag) => (
+                <div key={tag.tagId} className={`edit-tag edit-tag--${tag.relevance}`}>
+                  <span className="edit-tag__name">{tag.tagName}</span>
+                  <select
+                    value={tag.relevance}
+                    className="edit-tag__relevance"
+                    onChange={(e) =>
+                      handleUpdateRelevance(
+                        tag.tagId,
+                        e.target.value as 'primary' | 'secondary' | 'avoid'
+                      )
+                    }
+                  >
+                    <option value="primary">Principal</option>
+                    <option value="secondary">Secondaire</option>
+                    <option value="avoid">À éviter</option>
+                  </select>
+                  <button
+                    type="button"
+                    className="edit-tag__remove"
+                    onClick={() => handleRemoveTag(tag.tagId)}
+                  >
+                    <Trash2 size={14} />
+                  </button>
+                </div>
+              ))}
+            </div>
+
+            <div className="ingredient-edit-add-tag">
+              <select
+                className="ingredient-edit-form__input"
+                onChange={(e) => {
+                  if (e.target.value) {
+                    handleAddTag(e.target.value)
+                    e.target.value = ''
+                  }
+                }}
+                value=""
+              >
+                <option value="" disabled>
+                  Ajouter un tag...
+                </option>
+                {availableTags.map((tag: any) => (
+                  <option key={tag.id} value={tag.id}>
+                    {tag.name} ({tag.category ?? 'Sans catégorie'})
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="ingredient-edit-form__field">
             <label className="ingredient-edit-form__label" htmlFor="edit-description">
               Description
             </label>
@@ -154,10 +255,12 @@ export function IngredientEditPage() {
             <button
               type="submit"
               className="ingredient-edit-form__btn ingredient-edit-form__btn--save"
-              disabled={updateIngredient.isPending || !isDirty}
+              disabled={updateIngredient.isPending || updateTags.isPending || !isDirty}
             >
               <Save size={16} />
-              {updateIngredient.isPending ? 'Enregistrement…' : 'Enregistrer'}
+              {updateIngredient.isPending || updateTags.isPending
+                ? 'Enregistrement…'
+                : 'Enregistrer'}
             </button>
           </div>
         </form>

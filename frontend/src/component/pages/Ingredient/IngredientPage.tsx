@@ -8,12 +8,22 @@ import './IngredientPage.css'
 import '../../../styles/common/ingredients-shared.css'
 import '../../../styles/common/markdown.css'
 
+import { useMemo } from 'react'
+
 const route = getRouteApi('/ingredients/$slug')
 
 export function IngredientPage() {
   const { slug } = route.useParams()
   const { data: ingredient } = useSuspenseQuery(ingredientQueries.bySlug(slug))
   const { data: products } = useQuery(ingredientQueries.products(slug))
+  const { data: tags } = useQuery(ingredientQueries.tags(ingredient.id))
+
+  const beneficialTags = useMemo(
+    () => tags?.filter((t) => t.relevance === 'primary' || t.relevance === 'secondary') ?? [],
+    [tags]
+  )
+  const primaryTags = useMemo(() => tags?.filter((t) => t.relevance === 'primary') ?? [], [tags])
+  const avoidTags = useMemo(() => tags?.filter((t) => t.relevance === 'avoid') ?? [], [tags])
 
   return (
     <div className="ingredient-page">
@@ -44,9 +54,43 @@ export function IngredientPage() {
             <h1 className="ingredient-hero__name">{ingredient.name}</h1>
             <div className="ingredient-hero__tags">
               {ingredient.category && <span className="category-tag">{ingredient.category}</span>}
+              {primaryTags.map((t) => (
+                <span key={t.id} className="category-tag category-tag--primary">
+                  {t.tagName}
+                </span>
+              ))}
             </div>
           </div>
         </div>
+
+        {beneficialTags.length > 0 && (
+          <div className="ingredient-section">
+            <h2 className="section-label">Bénéfices</h2>
+            <div className="ingredient-tags-list">
+              {beneficialTags.map((t) => (
+                <span
+                  key={t.id}
+                  className={`tag-pill ${t.relevance === 'primary' ? 'tag-pill--primary' : ''}`}
+                >
+                  {t.tagName}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {avoidTags.length > 0 && (
+          <div className="ingredient-section">
+            <h2 className="section-label section-label--avoid">À éviter pour</h2>
+            <div className="ingredient-tags-list">
+              {avoidTags.map((t) => (
+                <span key={t.id} className="tag-pill tag-pill--avoid">
+                  {t.tagName}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
 
         {ingredient.description && (
           <div className="ingredient-section">
