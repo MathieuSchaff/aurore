@@ -175,9 +175,7 @@ describe('Ingredient Tag Routes', () => {
       await authPost(app, `/ingredients/${ingredient.id}/tags`, token, { tagId: tag.id })
       const res = await authDelete(app, `/ingredients/${ingredient.id}/tags/${tag.id}`, token)
 
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
+      expect(res.status).toBe(HTTP_STATUS.NO_CONTENT)
     })
 
     it('should no longer appear in list after removal', async () => {
@@ -216,7 +214,9 @@ describe('Ingredient Tag Routes', () => {
       const tag2 = await createTag(app, token, 'Tag 2')
 
       await authPost(app, `/ingredients/${ingredient.id}/tags`, token, { tagId: tag1.id })
-      const res = await authPut(app, `/ingredients/${ingredient.id}/tags`, token, { tagIds: [tag2.id] })
+      const res = await authPut(app, `/ingredients/${ingredient.id}/tags`, token, {
+        tags: [{ tagId: tag2.id }],
+      })
 
       expect(res.status).toBe(HTTP_STATUS.OK)
       const data = await res.json()
@@ -230,7 +230,7 @@ describe('Ingredient Tag Routes', () => {
       const tag = await createTag(app, token)
 
       await authPost(app, `/ingredients/${ingredient.id}/tags`, token, { tagId: tag.id })
-      const res = await authPut(app, `/ingredients/${ingredient.id}/tags`, token, { tagIds: [] })
+      const res = await authPut(app, `/ingredients/${ingredient.id}/tags`, token, { tags: [] })
 
       expect(res.status).toBe(HTTP_STATUS.OK)
       const data = await res.json()
