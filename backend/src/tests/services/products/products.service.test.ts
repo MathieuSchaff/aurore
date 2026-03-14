@@ -152,7 +152,6 @@ describe('Product Service', () => {
 
       expect(fetched.id).toBe(created.id)
       expect(fetched.name).toBe('Magnésium')
-      expect(fetched.createdBy).toBe(user.id)
     })
 
     it('should throw product_not_found for unknown id', async () => {

@@ -321,10 +321,7 @@ describe('Product Routes', () => {
 
       const res = await authDelete(app, `/products/${created.id}`, token)
 
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      expect(data.data).toBeNull()
+      expect(res.status).toBe(HTTP_STATUS.NO_CONTENT)
     })
 
     it('should make the product unreachable by slug after deletion', async () => {

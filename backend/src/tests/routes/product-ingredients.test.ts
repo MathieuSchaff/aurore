@@ -379,10 +379,7 @@ describe('Product Ingredients Routes', () => {
         token
       )
 
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      expect(data.data).toBeNull()
+      expect(res.status).toBe(HTTP_STATUS.NO_CONTENT)
     })
 
     it('should make the link disappear from the list', async () => {

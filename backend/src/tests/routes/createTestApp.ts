@@ -12,6 +12,7 @@ import { productRoutes } from '../../features/products/routes'
 import { tagRoutes } from '../../features/products/tags/routes'
 import { profileRoute } from '../../features/profile/routes'
 import { stockRoutes } from '../../features/stock/routes'
+import { taskRoutes } from '../../features/tasks/routes'
 import { testDb } from '../db.test.config'
 import { JWT_SECRET, REFRESH_SECRET } from '../helpers/secrets'
 
@@ -38,5 +39,6 @@ export function createTestApp() {
     .route('/tags', tagRoutes)
     .route('/stock', stockRoutes)
     .route('/logs', logsRoutes)
+    .route('/tasks', taskRoutes)
   return app
 }

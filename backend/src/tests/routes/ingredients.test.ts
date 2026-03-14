@@ -321,10 +321,7 @@ describe('Ingredient Routes', () => {
 
       const res = await authDelete(app, `/ingredients/${created.id}`, token)
 
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      expect(data.data).toBeNull()
+      expect(res.status).toBe(204)
     })
 
     it('should make the ingredient unreachable by slug after deletion', async () => {
@@ -450,6 +447,85 @@ describe('Ingredient Routes', () => {
       const res = await app.request(`/ingredients/${i2.slug}/edits`)
       const data = await res.json()
       expect(data.data).toHaveLength(0)
+    })
+
+    it('should record old and new values in changes', async () => {
+      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
+
+      const createRes = await authPost(app, '/ingredients', token, {
+        name: 'Rétinol',
+        description: 'Ancienne description',
+      })
+      const { data: created } = await createRes.json()
+
+      await authPatch(app, `/ingredients/${created.id}`, token, {
+        description: 'Nouvelle description',
+      })
+
+      const res = await app.request(`/ingredients/${created.slug}/edits`)
+      const data = await res.json()
+
+      const change = data.data[0].changes.description
+      expect(change.old).toBe('Ancienne description')
+      expect(change.new).toBe('Nouvelle description')
+    })
+
+    it('should not create an edit when values are unchanged', async () => {
+      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
+
+      const createRes = await authPost(app, '/ingredients', token, {
+        name: 'Rétinol',
+        description: 'Description inchangée',
+      })
+      const { data: created } = await createRes.json()
+
+      // PATCH avec exactement les mêmes valeurs
+      await authPatch(app, `/ingredients/${created.id}`, token, {
+        description: 'Description inchangée',
+      })
+
+      const res = await app.request(`/ingredients/${created.slug}/edits`)
+      const data = await res.json()
+      expect(data.data).toHaveLength(0)
+    })
+
+    it('should not track slug in edits when name changes', async () => {
+      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
+
+      const createRes = await authPost(app, '/ingredients', token, { name: 'Vitamine C' })
+      const { data: created } = await createRes.json()
+
+      const patchRes = await authPatch(app, `/ingredients/${created.id}`, token, {
+        name: 'Vitamine C Pure',
+      })
+      const { data: updated } = await patchRes.json()
+
+      const res = await app.request(`/ingredients/${updated.slug}/edits`)
+      const data = await res.json()
+
+      expect(data.data).toHaveLength(1)
+      expect(data.data[0].changes).toHaveProperty('name')
+      expect(data.data[0].changes).not.toHaveProperty('slug')
+    })
+
+    it('should record editedBy with the authenticated user id', async () => {
+      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
+
+      // Récupère le userId via profile
+      const profileRes = await app.request('/profile', {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      const { data: profile } = await profileRes.json()
+
+      const createRes = await authPost(app, '/ingredients', token, VALID_INGREDIENT)
+      const { data: created } = await createRes.json()
+
+      await authPatch(app, `/ingredients/${created.id}`, token, { description: 'Edit tracée' })
+
+      const res = await app.request(`/ingredients/${created.slug}/edits`)
+      const data = await res.json()
+
+      expect(data.data[0].editedBy).toBe(profile.userId)
     })
   })
 })

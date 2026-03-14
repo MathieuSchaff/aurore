@@ -288,7 +288,7 @@ describe('Product Ingredients Service', () => {
       const result = await listProductsByIngredient(testDb, ingredient.id)
 
       expect(result).toHaveLength(2)
-      const productIds = result.map((r) => r.productId)
+      const productIds = result.map((r) => r.id)
       expect(productIds).toContain(p1.id)
       expect(productIds).toContain(p2.id)
     })
