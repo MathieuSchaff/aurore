@@ -1,17 +1,14 @@
 import type { AddStockEntryInput, UpdateStockInput } from '@habit-tracker/shared'
 
-import { and, eq, sql } from 'drizzle-orm'
+import { and, desc, eq, sql } from 'drizzle-orm'
 
 import { db } from '../../db'
 import type { Database } from '../../db/index'
-import { productStock, type ProductStock, products } from '../../db/schema/products'
-import { stockEntries, type StockEntry } from '../../db/schema/stock-entries'
+import { type ProductStock, productStock, products } from '../../db/schema/products'
+import { type StockEntry, stockEntries } from '../../db/schema/stock-entries'
 import { StockError } from './stock-error'
 
-export async function getUserStock(
-  userId: string,
-  database: Database = db
-) {
+export async function getUserStock(userId: string, database: Database = db) {
   return database
     .select({
       id: productStock.id,
@@ -159,4 +156,23 @@ export async function addStockEntry(
 
     return { entry, stock }
   })
+}
+export async function getStockEntries(userId: string, database: Database = db) {
+  return database
+    .select({
+      id: stockEntries.id,
+      productId: stockEntries.productId,
+      qty: stockEntries.qty,
+      pricePaidCents: stockEntries.pricePaidCents,
+      purchasedAt: stockEntries.purchasedAt,
+      createdAt: stockEntries.createdAt,
+      product: {
+        name: products.name,
+        brand: products.brand,
+      },
+    })
+    .from(stockEntries)
+    .innerJoin(products, eq(stockEntries.productId, products.id))
+    .where(eq(stockEntries.userId, userId))
+    .orderBy(desc(stockEntries.purchasedAt), desc(stockEntries.createdAt))
 }

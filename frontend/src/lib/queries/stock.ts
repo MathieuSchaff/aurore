@@ -4,18 +4,15 @@ import { api } from '../api'
 
 type ListStockFilters = Record<string, never>
 
-// ─── Query Keys ──────────────────────────────────────────
 const productStockKeys = {
   all: ['stock'] as const,
   lists: () => [...productStockKeys.all, 'list'] as const,
   list: (filters: ListStockFilters = {}) => [...productStockKeys.lists(), filters] as const,
   detail: (productId: string) => [...productStockKeys.all, 'detail', productId] as const,
+  entries: () => [...productStockKeys.all, 'entries'] as const,
 }
-// ─── Query Options ───────────────────────────────────────
+
 export const productStockQueries = {
-  /**
-   * List all stock entries for the authenticated user
-   */
   list: () =>
     queryOptions({
       queryKey: productStockKeys.list(),
@@ -27,9 +24,6 @@ export const productStockQueries = {
       },
     }),
 
-  /**
-   * Get stock detail for a specific product
-   */
   detail: (productId: string) =>
     queryOptions({
       queryKey: productStockKeys.detail(productId),
@@ -41,9 +35,20 @@ export const productStockQueries = {
       },
       enabled: !!productId,
     }),
+
+  // NOUVEAU: Query pour l'historique des entrées
+  entries: () =>
+    queryOptions({
+      queryKey: productStockKeys.entries(),
+      queryFn: async () => {
+        const res = await api.stock.entries.$get()
+        if (!res.ok) throw new Error('Failed to fetch stock entries')
+        const data = await res.json()
+        return data.data
+      },
+    }),
 }
 
-// ─── Mutations ───────────────────────────────────────────
 export const useUpsertStock = () => {
   const queryClient = useQueryClient()
 
@@ -58,11 +63,9 @@ export const useUpsertStock = () => {
       return data.data
     },
     onSuccess: (data, variables) => {
-      // Invalide la liste complète
       queryClient.invalidateQueries({
         queryKey: productStockKeys.list(),
       })
-      // Met à jour le cache du détail
       queryClient.setQueryData(productStockKeys.detail(variables.productId), data)
     },
   })
@@ -79,7 +82,6 @@ export const useDeleteStock = () => {
       if (!res.ok) throw new Error('Failed to delete stock')
     },
     onSuccess: (_, productId) => {
-      // Invalide la liste et supprime le détail
       queryClient.invalidateQueries({
         queryKey: productStockKeys.list(),
       })
@@ -114,8 +116,10 @@ export const useAddStockEntry = () => {
       return data.data
     },
     onSuccess: (_data, variables) => {
+      // Invalide le stock actuel ET l'historique
       queryClient.invalidateQueries({ queryKey: productStockKeys.list() })
       queryClient.invalidateQueries({ queryKey: productStockKeys.detail(variables.productId) })
+      queryClient.invalidateQueries({ queryKey: productStockKeys.entries() }) // NOUVEAU
     },
   })
 }
