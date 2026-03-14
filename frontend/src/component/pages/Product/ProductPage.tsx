@@ -1,11 +1,12 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { getRouteApi, Link } from '@tanstack/react-router'
-import { ArrowLeft, ExternalLink, FlaskConical, Package, Plus } from 'lucide-react'
+import { ArrowLeft, ExternalLink, FlaskConical, Package, Pencil, Plus } from 'lucide-react'
 import { useState } from 'react'
 import Markdown from 'react-markdown'
 
 import { productQueries } from '../../../lib/queries/products'
 
+import '../Products/ListPage.css'
 import './ProductPage.css'
 
 import { Button } from '@/component/Button/Button'
@@ -13,7 +14,6 @@ import { AddToInventoryModal } from '../../stock/AddToInventoryModal'
 
 const route = getRouteApi('/products/$slug')
 
-/** Retourne la classe modificatrice `.kind--*` (kinds-shared.css). */
 function kindClass(kind: string): string {
   switch (kind) {
     case 'complément':
@@ -69,14 +69,24 @@ export function ProductPage() {
             <ArrowLeft size={16} />
             Produits
           </Button>
-          <button
-            type="button"
-            className="product-page__add-btn"
-            onClick={() => setShowAddModal(true)}
-          >
-            <Plus size={16} />
-            Ajouter au stock
-          </button>
+          <div className="product-page__top-actions-right">
+            <Link
+              to="/products/$slug/edit"
+              params={{ slug }}
+              className="btn-pill product-page__edit-btn"
+            >
+              <Pencil size={14} />
+              Modifier
+            </Link>
+            <button
+              type="button"
+              className="product-page__add-btn"
+              onClick={() => setShowAddModal(true)}
+            >
+              <Plus size={16} />
+              Ajouter au stock
+            </button>
+          </div>
         </div>
         <div className="product-hero">
           <div className={`product-hero__icon kind-icon ${kindClass(product.kind)}`}>

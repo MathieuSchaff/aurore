@@ -8,8 +8,8 @@ import { FilterDialog, type FilterValues } from '../../Filter/Filter'
 import { SearchCombobox } from '../../search/SearchCombobox'
 import { type FilterKey, INGREDIENT_FILTER_FIELDS } from './filterFieldsIngredients'
 
+import '../Products/ListPage.css'
 import './IngredientsPage.css'
-import '../../../styles/common/ingredients-shared.css'
 import '../../../styles/common/ingredients-shared.css'
 const routeApi = getRouteApi('/ingredients/')
 
@@ -82,6 +82,11 @@ export function IngredientsPage() {
         <div className="page-banner" />
 
         <div className="list-header__top">
+          <h1 className="list-header__title">
+            Ingrédients
+            {isPlaceholderData && <span className="loader-mini">...</span>}
+          </h1>
+
           <div className="list-header__search">
             <SearchCombobox
               queryFn={ingredientQueries.search}
@@ -94,13 +99,10 @@ export function IngredientsPage() {
               onSelect={(slug) => navigate({ to: '/ingredients/$slug', params: { slug } })}
             />
           </div>
-          <h1 className="list-header__title">
-            Ingrédients
-            {isPlaceholderData && <span className="loader-mini">...</span>}
-          </h1>
+
           <button type="button" className="list-filter-btn" onClick={() => setDrawerOpen(true)}>
             <SlidersHorizontal size={16} />
-            Filtrer
+            <span>Filtrer</span>
             {filterCount > 0 && <span className="list-filter-btn__count">{filterCount}</span>}
           </button>
         </div>

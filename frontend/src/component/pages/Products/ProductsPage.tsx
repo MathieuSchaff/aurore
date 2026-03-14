@@ -16,6 +16,16 @@ import {
 } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
+import { ingredientQueries } from '../../../lib/queries/ingredients'
+import { type ListProductsFilters, productQueries } from '../../../lib/queries/products'
+import { FilterDialog, type FilterFieldConfig, type FilterValues } from '../../Filter/Filter'
+
+import './ListPage.css'
+import './ProductsPage.css'
+
+import { SearchCombobox } from '@/component/search/SearchCombobox'
+import { AddToInventoryModal } from '../../stock/AddToInventoryModal'
+
 const KIND_ICONS: Record<string, React.ElementType> = {
   skincare: Sparkles,
   complément: Pill,
@@ -23,23 +33,13 @@ const KIND_ICONS: Record<string, React.ElementType> = {
   vitamine: Sun,
   sérum: FlaskConical,
   masque: Leaf,
-  // fallback
   default: Package,
 }
 
-function KindIcon({ kind, size = 18 }: { kind: string; size?: number }) {
+function KindIcon({ kind, size = 20 }: { kind: string; size?: number }) {
   const Icon = KIND_ICONS[kind] ?? KIND_ICONS.default
   return <Icon size={size} />
 }
-
-import { ingredientQueries } from '../../../lib/queries/ingredients'
-import { type ListProductsFilters, productQueries } from '../../../lib/queries/products'
-import { FilterDialog, type FilterFieldConfig, type FilterValues } from '../../Filter/Filter'
-
-import './ProductsPage.css'
-
-import { SearchCombobox } from '@/component/search/SearchCombobox'
-import { AddToInventoryModal } from '../../stock/AddToInventoryModal'
 
 const routeApi = getRouteApi('/products/')
 
@@ -54,7 +54,6 @@ type FilterKey =
   | 'attribute'
   | 'ingredient'
 
-/** Retourne la classe modificatrice `.kind--*` (kinds-shared.css). */
 function kindClass(kind: string): string {
   switch (kind) {
     case 'complément':
@@ -78,6 +77,7 @@ const CATEGORY_LABELS: Record<string, { label: string; key: FilterKey }> = {
   product_type: { label: 'Type de produit', key: 'product_type' },
   concern: { label: 'Cibles', key: 'concern' },
 }
+
 const EMPTY_FILTERS = {
   kind: [] as string[],
   brand: [] as string[],
@@ -151,8 +151,6 @@ export function ProductsPage() {
   const hasFilters = filterCount > 0
 
   const { data: filterOptions } = useQuery(productQueries.filterOptions())
-
-  // Charge tous les ingrédients une fois — SearchSelect fait le filtre local
   const { data: allIngredients } = useQuery(ingredientQueries.all())
 
   const apiFilters: ListProductsFilters = hasFilters
@@ -190,34 +188,32 @@ export function ProductsPage() {
         tagList.map((tag) => ({ value: tag.slug, label: tag.name }))
       )
     }
+
     const desiredOrder: FilterKey[] = [
-      'skin_zone', // Zone
-      'attribute', // Caractéristiques
-      'product_type', // Type de produit
-      'concern', // Cibles
-      'routine_step', // Étape routine
-      'skin_type', // Type de peau
-      //
+      'skin_zone',
+      'attribute',
+      'product_type',
+      'concern',
+      'routine_step',
+      'skin_type',
     ]
+
     const orderedEntries = Array.from(tagsByCategory.entries())
       .sort(([keyA], [keyB]) => {
         const indexA = desiredOrder.indexOf(keyA)
         const indexB = desiredOrder.indexOf(keyB)
-
-        // Si un des deux n'est pas dans l'ordre désiré =>  on le met à la fin
         if (indexA === -1 && indexB === -1) return 0
-        if (indexA === -1) return 1 // keyA inconnu => après
-        if (indexB === -1) return -1 // keyB inconnu => après
-
+        if (indexA === -1) return 1
+        if (indexB === -1) return -1
         return indexA - indexB
       })
       .map(([key, options]) => ({
         key,
-        // biome-ignore lint: la clé sera là!!
         label: CATEGORY_LABELS[key]!.label,
         placeholder: 'Tous',
         options,
       }))
+
     return [
       {
         key: 'brand',
@@ -234,7 +230,6 @@ export function ProductsPage() {
         variant: 'search-select',
         options: allIngredients?.items.map((i) => ({ value: i.slug, label: i.name })) ?? [],
       },
-
       {
         key: 'kind',
         label: 'Catégorie',
@@ -247,7 +242,6 @@ export function ProductsPage() {
   function applyFilters(newFilters: FilterValues<FilterKey>) {
     navigate({
       search: (prev) => ({ ...prev, ...newFilters, page: 1 }),
-      // replace: true,
     })
   }
 
@@ -260,6 +254,7 @@ export function ProductsPage() {
     const next = current.includes(value) ? current.filter((v) => v !== value) : [...current, value]
     applyFilters({ ...filters, [key]: next })
   }
+
   function resetFilters() {
     navigate({ search: EMPTY_FILTERS, replace: true })
   }
@@ -274,6 +269,7 @@ export function ProductsPage() {
   const items = data?.items ?? []
   const total = data?.total ?? 0
   const totalPages = Math.ceil((total ?? 0) / 20)
+
   return (
     <>
       <div className={`list-page${isPlaceholderData ? ' is-syncing' : ''}`}>
@@ -281,6 +277,11 @@ export function ProductsPage() {
           <div className="page-banner" />
 
           <div className="list-header__top">
+            <h1 className="list-header__title">
+              Produits
+              {isPlaceholderData && <span className="loader-mini">...</span>}
+            </h1>
+
             <div className="list-header__search">
               <SearchCombobox
                 queryFn={productQueries.search}
@@ -293,13 +294,10 @@ export function ProductsPage() {
                 onSelect={(slug) => navigate({ to: '/products/$slug', params: { slug } })}
               />
             </div>
-            <h1 className="list-header__title">
-              Produits
-              {isPlaceholderData && <span className="loader-mini">...</span>}
-            </h1>
+
             <button type="button" className="list-filter-btn" onClick={() => setDrawerOpen(true)}>
               <SlidersHorizontal size={16} />
-              Filtrer
+              <span>Filtrer</span>
               {filterCount > 0 && <span className="list-filter-btn__count">{filterCount}</span>}
             </button>
           </div>
@@ -380,56 +378,72 @@ export function ProductsPage() {
 
               <div className="list-grid">
                 {items.map((product) => (
-                  <Link
+                  <div
                     key={product.id}
-                    to="/products/$slug"
-                    params={{ slug: product.slug }}
-                    className={`list-card kind-border ${kindClass(product.kind)}`}
+                    className={`list-card list-card--product kind-border ${kindClass(product.kind)}`}
                   >
-                    <div
-                      className={`list-card__icon icon-box kind-icon ${kindClass(product.kind)}`}
+                    <Link
+                      to="/products/$slug"
+                      params={{ slug: product.slug }}
+                      className="list-card__main"
                     >
-                      <KindIcon kind={product.kind} size={18} />
-                    </div>
-                    <div className="list-card__body">
-                      <div className="list-card__name">{product.name}</div>
-                      <div className="product-card__brand">{product.brand}</div>
-                      <div className="product-card__meta">
-                        <span
-                          className={`product-card__kind kind-badge ${kindClass(product.kind)}`}
-                        >
-                          {product.kind}
-                        </span>
-                        {product.unit && <span className="product-card__tag">{product.unit}</span>}
+                      <div className="list-card__icon">
+                        <KindIcon kind={product.kind} size={22} />
                       </div>
+
+                      <div className="list-card__body">
+                        <h3 className="list-card__name">{product.name}</h3>
+                        <p className="list-card__brand">{product.brand}</p>
+
+                        <div className="list-card__meta">
+                          <span className={`list-card__kind ${kindClass(product.kind)}`}>
+                            {product.kind}
+                          </span>
+
+                          {product.unit && <span className="list-card__unit">{product.unit}</span>}
+
+                          {product.priceCents != null && (
+                            <span className="list-card__price">
+                              {new Intl.NumberFormat('fr-FR', {
+                                style: 'currency',
+                                currency: 'EUR',
+                              }).format(product.priceCents / 100)}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </Link>
+
+                    <div className="list-card__actions">
+                      <button
+                        type="button"
+                        className="list-card__add-btn"
+                        aria-label={`Ajouter ${product.name} à l'inventaire`}
+                        onClick={(e) => {
+                          e.preventDefault()
+                          e.stopPropagation()
+                          setModalProduct({
+                            id: product.id,
+                            name: product.name,
+                            brand: product.brand,
+                            priceCents: product.priceCents,
+                          })
+                        }}
+                      >
+                        <Plus size={16} />
+                        <span>Ajouter</span>
+                      </button>
+
+                      <Link
+                        to="/products/$slug"
+                        params={{ slug: product.slug }}
+                        className="list-card__nav"
+                        aria-label={`Voir les détails de ${product.name}`}
+                      >
+                        <ChevronRight size={20} className="nav-arrow" />
+                      </Link>
                     </div>
-                    {product.priceCents != null && (
-                      <span className="product-card__price">
-                        {new Intl.NumberFormat('fr-FR', {
-                          style: 'currency',
-                          currency: 'EUR',
-                        }).format(product.priceCents / 100)}
-                      </span>
-                    )}
-                    <button
-                      type="button"
-                      className="list-card__add-btn"
-                      aria-label={`Ajouter ${product.name} à l'inventaire`}
-                      onClick={(e) => {
-                        e.preventDefault()
-                        e.stopPropagation()
-                        setModalProduct({
-                          id: product.id,
-                          name: product.name,
-                          brand: product.brand,
-                          priceCents: product.priceCents,
-                        })
-                      }}
-                    >
-                      <Plus size={14} />
-                    </button>
-                    <ChevronRight size={18} className="nav-arrow" />
-                  </Link>
+                  </div>
                 ))}
               </div>
 
