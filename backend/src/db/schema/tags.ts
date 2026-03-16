@@ -52,8 +52,6 @@ export const ingredientTags = pgTable(
       .notNull()
       .references(() => tags.id, { onDelete: 'cascade' }),
     relevance: relevanceEnum('relevance').notNull().default('secondary'),
-    // 'primary'   → indication principale (ex: azelaic-acid + ROSACEE)
-    // 'secondary' → bénéfice indirect (ex: azelaic-acid + ANTI_TACHES)
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [
