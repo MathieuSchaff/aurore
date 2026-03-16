@@ -5,7 +5,7 @@ export
 	ts-check ts-build ts-clean \
 	install-deps reinstall-backend reinstall-frontend clean-install install build \
 	prod prod-down prod-logs prod-migrate \
-	test test-db-up test-db-down test-watch test-only test-db-studio \
+	test test-db-up test-db-down test-watch test-only test-db-studio test-frontend test-frontend-watch test-frontend-only test-frontend-ui test-all \
 	test-migrate test-migrate-run test-migrate-clean \
 	stop restart ps health diagnose \
 	logs logs-api logs-db logs-nginx logs-frontend \
@@ -144,6 +144,24 @@ test-only: test-db-up ## Lance des tests spécifiques (ARGS="pattern")
 
 test-db-studio: ## Lance Drizzle Studio
 	cd backend && DATABASE_URL="$(TEST_DB_URL)" bun x drizzle-kit studio --port 4982
+
+# =========================
+# Tests frontend
+# =========================
+test-frontend: ## Lance les tests frontend
+	cd frontend && bunx vitest run
+	@echo "$(GREEN)✓ Tests frontend terminés$(NC)"
+
+test-frontend-watch: ## Lance les tests frontend en mode watch
+	cd frontend && bunx vitest
+
+test-frontend-only: ## Lance des tests frontend spécifiques (ARGS="pattern")
+	cd frontend && bunx vitest run "$(ARGS)"
+
+test-frontend-ui: ## Lance Vitest avec l'UI web
+	cd frontend && bunx vitest --ui
+
+test-all: test test-frontend ## Lance tous les tests (backend + frontend)
 
 test-migrate-run: ## Lance la DB test, applique les migrations et les tests
 	$(COMPOSE_TEST) up -d
