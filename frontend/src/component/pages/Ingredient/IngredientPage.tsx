@@ -2,6 +2,9 @@ import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
 import { getRouteApi, Link } from '@tanstack/react-router'
 import { ArrowLeft, ChevronRight, Leaf, Package, Pencil } from 'lucide-react'
 import Markdown from 'react-markdown'
+import rehypeKatex from 'rehype-katex'
+import remarkGfm from 'remark-gfm'
+import remarkMath from 'remark-math'
 
 import { ingredientQueries } from '../../../lib/queries/ingredients'
 import './IngredientPage.css'
@@ -24,7 +27,29 @@ export function IngredientPage() {
   )
   const primaryTags = useMemo(() => tags?.filter((t) => t.relevance === 'primary') ?? [], [tags])
   const avoidTags = useMemo(() => tags?.filter((t) => t.relevance === 'avoid') ?? [], [tags])
+  const renderMarkdown = (rawContent: string) => {
+    if (!rawContent) return ''
 
+    // On ne touche PAS au texte global pour éviter les  \
+    let cleaned = rawContent
+
+    // On cible UNIQUEMENT le contenu entre les $$
+
+    cleaned = cleaned.replace(/\$\$(.*?)\$\$/gs, (_, formula) => {
+      const fixedFormula = formula
+        .replace(/mathrm/g, '\\mathrm')
+        .replace(/pKa/g, '\\mathrm{pK}_a') // Optionnel: pour corriger pKa
+        .replace(/log/g, '\\log')
+        .replace(/left/g, '\\left')
+        .replace(/right/g, '\\right')
+        .replace(/frac/g, '\\frac')
+        .replace(/[\r\n]+/g, ' ') // Enlève les sauts de ligne internes
+
+      return `$$${fixedFormula}$$`
+    })
+
+    return cleaned
+  }
   return (
     <div className="ingredient-page">
       <div className="ingredient-page__banner" />
@@ -105,7 +130,19 @@ export function IngredientPage() {
           <div className="ingredient-section">
             <h2 className="section-label">Contenu</h2>
             <div className="rich-text">
-              <Markdown>{ingredient.content}</Markdown>
+              <Markdown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]}>
+                {/*{ingredient.content}*/}
+                {/*{
+                  ingredient.content
+                    .replace(/mathrm/g, '\\mathrm')
+                    .replace(/log/g, '\\log')
+                    .replace(/left/g, '\\left')
+                    .replace(/right/g, '\\right')
+                    .replace(/frac/g, '\\frac')
+                  // .replace(/\n/g, ' ')
+                              }*/}
+                {renderMarkdown(ingredient.content)}
+              </Markdown>
             </div>
           </div>
         )}

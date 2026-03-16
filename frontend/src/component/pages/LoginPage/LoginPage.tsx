@@ -7,20 +7,13 @@ import { useState } from 'react'
 import z from 'zod'
 
 import { useLogin } from '../../../lib/queries/auth'
-import { useAuthStore } from '../../../store/auth'
 
 type FieldErrors = Partial<Record<keyof AuthInput | 'form', string>>
-
-const API_ERROR_MESSAGES = {
-  invalid_credentials: 'Email ou mot de passe incorrect',
-  server_error: 'Erreur serveur, réessayez plus tard',
-} as const
 
 export const LoginPage = () => {
   const [errors, setErrors] = useState<FieldErrors>({})
   const [showPassword, setShowPassword] = useState(false)
 
-  const setAuth = useAuthStore((s) => s.setAuth)
   const navigate = useNavigate()
   const login = useLogin()
   const queryClient = useQueryClient()
@@ -43,20 +36,12 @@ export const LoginPage = () => {
     setErrors({})
 
     login.mutate(result.data, {
-      onSuccess: (res) => {
-        if (res.success) {
-          setAuth(res.data.accessToken, res.data.user)
-          queryClient.invalidateQueries({ queryKey: ['session'] })
-          queryClient.invalidateQueries({ queryKey: ['auth'] })
-          navigate({ to: '/dashboard' })
-          return
-        }
-        // pour pas que ts throw une erreur
-        if ('error' in res) {
-          const errorKey = res.error as keyof typeof API_ERROR_MESSAGES
-          const message = API_ERROR_MESSAGES[errorKey] ?? 'Erreur inconnue'
-          setErrors({ form: message })
-        }
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['session'] })
+        navigate({ to: '/dashboard' })
+      },
+      onError: (error) => {
+        setErrors({ form: error.message })
       },
     })
   }
@@ -120,10 +105,6 @@ export const LoginPage = () => {
           </button>
         </div>
         {errors.password && <p className="auth-field__error">{errors.password}</p>}
-
-        {/*<Link to="/forgot-password" className="login__forgot">
-          Mot de passe oublié ?
-        </Link>*/}
 
         <button type="submit" className="auth-submit" disabled={login.isPending}>
           {login.isPending ? 'Connexion...' : 'Se connecter'}

@@ -10,11 +10,6 @@ import { useSignup } from '../../../lib/queries/auth'
 
 type FieldErrors = Partial<Record<keyof AuthInput | 'confirmPassword' | 'form', string>>
 
-const API_ERROR_MESSAGES = {
-  email_exists: 'Cet email est déjà utilisé',
-  server_error: 'Erreur serveur, réessayez plus tard',
-} as const
-
 const PASSWORD_RULES = [
   { key: 'length', label: '8 caractères minimum', test: (v: string) => v.length >= 8 },
   { key: 'number', label: 'Un chiffre (0-9) ou symbole', test: (v: string) => /[\d\W]/.test(v) },
@@ -62,22 +57,14 @@ export const SignupPage = () => {
       })
       return
     }
-
     setErrors({})
-
     signup.mutate(result.data, {
-      onSuccess: (res) => {
-        if (res.success) {
-          queryClient.invalidateQueries({ queryKey: ['session'] })
-          queryClient.invalidateQueries({ queryKey: ['auth'] })
-          navigate({ to: '/dashboard' })
-          return
-        }
-        if ('error' in res) {
-          const errorKey = res.error as keyof typeof API_ERROR_MESSAGES
-          const message = API_ERROR_MESSAGES[errorKey] ?? 'Erreur inconnue'
-          setErrors({ form: message })
-        }
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['session'] })
+        navigate({ to: '/dashboard' })
+      },
+      onError: (error) => {
+        setErrors({ form: error.message })
       },
     })
   }
