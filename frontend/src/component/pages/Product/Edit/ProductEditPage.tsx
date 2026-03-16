@@ -21,7 +21,7 @@ export function ProductEditPage() {
   const { slug } = route.useParams()
   const { data: product } = useSuspenseQuery(productQueries.bySlug(slug))
   const { data: currentTags } = useSuspenseQuery(productQueries.tags(product.id))
-  const { data: currentIngredients } = useSuspenseQuery(productQueries.ingredients(product.id))
+  // const { data: product.ingredients } = useSuspenseQuery(productQueries.ingredients(product.id))
   const { data: allTags } = useQuery(tagQueries.list())
   const updateProduct = useUpdateProduct()
   const updateTags = useUpdateProductTags()
@@ -82,7 +82,7 @@ export function ProductEditPage() {
   }
 
   const handleSubmit = useCallback(
-    async (e: React.FormEvent) => {
+    async (e: React.SubmitEvent) => {
       e.preventDefault()
 
       if (!form.name.trim()) {
@@ -149,8 +149,7 @@ export function ProductEditPage() {
   const sortedTagsKey = (arr: { id: string; r: string }[]) =>
     JSON.stringify([...arr].sort((a, b) => a.id.localeCompare(b.id)))
 
-  const originalPriceEuros =
-    product.priceCents != null ? (product.priceCents / 100).toFixed(2) : ''
+  const originalPriceEuros = product.priceCents != null ? (product.priceCents / 100).toFixed(2) : ''
   const originalAmount = product.totalAmount != null ? String(product.totalAmount) : ''
 
   const isDirty =
@@ -421,20 +420,19 @@ export function ProductEditPage() {
             </div>
           </div>
 
-          {/* ── Ingrédients ── */}
           <div className="product-edit-form__field">
             <label className="product-edit-form__label">
               Ingrédients
-              {currentIngredients.length > 0 && (
-                <span className="product-edit-form__count">{currentIngredients.length}</span>
+              {product.ingredients.length > 0 && (
+                <span className="product-edit-form__count">{product.ingredients.length}</span>
               )}
             </label>
 
             <div className="product-edit-ingredients">
-              {currentIngredients.length === 0 && (
+              {product.ingredients.length === 0 && (
                 <p className="product-edit-ingredients__empty">Aucun ingrédient associé.</p>
               )}
-              {currentIngredients.map((ing: any) => (
+              {product.ingredients.map((ing) => (
                 <div key={ing.ingredientId} className="product-edit-ingredient">
                   <span className="product-edit-ingredient__name">{ing.ingredientName}</span>
                   <button
@@ -450,13 +448,16 @@ export function ProductEditPage() {
                   >
                     <Trash2 size={14} />
                   </button>
+                  <input type="number" defaultValue={ing.concentrationValue} />
                 </div>
               ))}
             </div>
 
             <IngredientSearch
-              existingIds={currentIngredients.map((i: any) => i.ingredientId)}
-              onAdd={(ingredientId) => addIngredient.mutate({ productId: product.id, ingredientId })}
+              existingIds={product.ingredients.map((i) => i.ingredientId)}
+              onAdd={(ingredientId) =>
+                addIngredient.mutate({ productId: product.id, ingredientId })
+              }
             />
           </div>
 
@@ -494,7 +495,7 @@ function IngredientSearch({
   const [query, setQuery] = useState('')
   const { data: results } = useQuery(ingredientQueries.search(query))
 
-  const available = results?.filter((r: any) => !existingIds.includes(r.id)) ?? []
+  const available = results?.filter((r) => !existingIds.includes(r.id)) ?? []
 
   return (
     <div className="product-edit-ingredient-search">
@@ -507,7 +508,7 @@ function IngredientSearch({
       />
       {available.length > 0 && (
         <ul className="product-edit-ingredient-results">
-          {available.map((ing: any) => (
+          {available.map((ing) => (
             <li key={ing.id}>
               <button
                 type="button"
