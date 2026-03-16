@@ -83,6 +83,9 @@ function SearchSelect({
   const [isOpen, setIsOpen] = useState(false)
   const [activeIndex, setActiveIndex] = useState(-1)
   const clickOutsideContainer = useRef<HTMLDivElement>(null)
+  const PAGE_SIZE = 50
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
+  useEffect(() => setVisibleCount(PAGE_SIZE), [query])
 
   const inputRef = useRef<HTMLInputElement>(null)
   // pour lier l'input a la liste
@@ -90,12 +93,21 @@ function SearchSelect({
   //  Les options, je veux pas celle sélectionnés fdéjà
   const unselectedOptions = options.filter((o) => !selected.includes(o.value))
   // si l'utilisateur a taper quelque chose => on prend les options qui sont pas déjà selectionnés
-  const filtered = query
-    ? unselectedOptions.filter((o) => o.label.toLowerCase().includes(query.toLowerCase()))
-    : unselectedOptions
+  const filtered = useMemo(() => {
+    const unselected = options.filter((o) => !selected.includes(o.value))
+    const result = query
+      ? unselected.filter((o) => o.label.toLowerCase().includes(query.toLowerCase()))
+      : unselected
+    return result.slice(0, visibleCount)
+  }, [options, selected, query, visibleCount])
 
   const selectedOptions = options.filter((o) => selected.includes(o.value))
-
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const { scrollTop, scrollHeight, clientHeight } = e.currentTarget
+    if (scrollTop + clientHeight >= scrollHeight - 5) {
+      setVisibleCount((prev) => prev + PAGE_SIZE)
+    }
+  }
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
       switch (e.key) {
@@ -170,6 +182,17 @@ function SearchSelect({
     }
   }, [activeIndex, isOpen, listboxId])
 
+  // const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+  //   const { scrollTop, scrollHeight, clientHeight } = e.currentTarget
+  //   console.log('scrollTop', scrollTop)
+  //   console.log('scrollHeight', scrollHeight)
+  //   console.log('clientHeight', clientHeight)
+  //   if (scrollTop + clientHeight >= scrollHeight) {
+  //     // On est en bas, charger plus d'options
+  //     console.log('the end')
+  //     // loadMoreOptions();
+  //   }
+  // }
   return (
     <div className="search-select">
       {selectedOptions.length > 0 && (
@@ -238,6 +261,7 @@ function SearchSelect({
             className="search-select__dropdown"
             role="listbox"
             aria-label={`Suggestions pour ${label}`}
+            onScroll={handleScroll}
           >
             {filtered.map((opt, index) => (
               <div

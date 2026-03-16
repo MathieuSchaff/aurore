@@ -151,7 +151,7 @@ export function ProductsPage() {
   const hasFilters = filterCount > 0
 
   const { data: filterOptions } = useQuery(productQueries.filterOptions())
-  const { data: allIngredients } = useQuery(ingredientQueries.all())
+  const { data: allIngredients } = useQuery(ingredientQueries.options())
 
   const apiFilters: ListProductsFilters = hasFilters
     ? {
@@ -213,7 +213,6 @@ export function ProductsPage() {
         placeholder: 'Tous',
         options,
       }))
-
     return [
       {
         key: 'brand',
@@ -222,14 +221,14 @@ export function ProductsPage() {
         variant: 'search-select',
         options: filterOptions.brands.map((b) => ({ value: b, label: b })),
       },
-      ...orderedEntries,
       {
         key: 'ingredient' as FilterKey,
         label: 'Ingrédient',
         placeholder: 'Rechercher un ingrédient...',
         variant: 'search-select',
-        options: allIngredients?.items.map((i) => ({ value: i.slug, label: i.name })) ?? [],
+        options: allIngredients?.map((i) => ({ value: i.slug, label: i.name })) ?? [],
       },
+      ...orderedEntries,
       {
         key: 'kind',
         label: 'Catégorie',
