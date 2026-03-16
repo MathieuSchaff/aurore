@@ -21,6 +21,7 @@ import {
   createIngredient,
   deleteIngredient,
   getIngredientBySlug,
+  listAllIngredientOptions,
   listIngredientEdits,
   listIngredients,
   searchIngredients,
@@ -66,7 +67,11 @@ export const ingredientRoutes = ingredientsApp
 
     return c.json(ok(results), HTTP_STATUS.OK)
   })
-
+  .get('/options', async (c) => {
+    const db = c.get('db')
+    const items = await listAllIngredientOptions(db)
+    return c.json(ok(items), HTTP_STATUS.OK)
+  })
   .get('/', zValidator('query', ingredientsSearchSchema), async (c) => {
     const db = c.get('db')
     const query = c.req.valid('query')
