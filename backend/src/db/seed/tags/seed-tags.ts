@@ -1,6 +1,3 @@
-import type { CreateTagInput } from '@habit-tracker/shared'
-
-// ─── Unified TAG_SLUGS ──────────────────────────────────────────────
 export const TAG_SLUGS = {
   // ── Concerns (Problématiques) ───────────────────────────────────────
   ANTI_ROUGEURS: 'anti-rougeurs',
@@ -147,7 +144,7 @@ export const TAG_SLUGS = {
 } as const
 // Pour les ingrédients => les tags pas possible sonts: product_type, routine_step
 //
-export const tagData: CreateTagInput[] = [
+export const tagData = [
   // ── Concerns ───────────────────────────────────────────────────────
   { name: 'Anti-rougeurs', slug: TAG_SLUGS.ANTI_ROUGEURS, category: 'concern' },
   { name: 'Rosacée', slug: TAG_SLUGS.ROSACEE, category: 'concern' },
