@@ -11,7 +11,7 @@ import { and, eq, ilike, inArray, or, type SQL, sql } from 'drizzle-orm'
 
 import { db } from '../../../db'
 import type { Database } from '../../../db/index'
-import { type Ingredient, ingredientEdits, ingredients } from '../../../db/schema/ingredients'
+import { ingredientEdits, ingredients } from '../../../db/schema/ingredients'
 import { ingredientTags, tags } from '../../../db/schema/tags'
 import { areEqual, isUniqueViolation } from '../../../lib/helpers'
 import { IngredientError } from './ingredients-error'
@@ -87,7 +87,7 @@ export async function createIngredient(
   userId: string,
   input: CreateIngredientInput,
   database: Database = db
-): Promise<Ingredient> {
+) {
   try {
     const [ingredient] = await database
       .insert(ingredients)
@@ -108,7 +108,7 @@ export async function createIngredient(
   }
 }
 
-export async function getIngredientById(id: string, database: Database = db): Promise<Ingredient> {
+export async function getIngredientById(id: string, database: Database = db) {
   const [ingredient] = await database
     .select()
     .from(ingredients)
@@ -119,10 +119,7 @@ export async function getIngredientById(id: string, database: Database = db): Pr
   return ingredient
 }
 
-export async function getIngredientBySlug(
-  slug: string,
-  database: Database = db
-): Promise<Ingredient> {
+export async function getIngredientBySlug(slug: string, database: Database = db) {
   const [ingredient] = await database
     .select()
     .from(ingredients)
@@ -139,7 +136,7 @@ export async function updateIngredient(
   data: UpdateIngredientInput,
   summary?: string,
   database: Database = db
-): Promise<Ingredient> {
+) {
   const oldIngredient = await getIngredientById(id, database)
   const slug = data.slug ?? (data.name ? slugify(data.name) : undefined)
   if (slug) data.slug = slug
@@ -182,7 +179,7 @@ export async function updateIngredient(
   return newIngredient
 }
 
-export async function deleteIngredient(id: string, database: Database = db): Promise<void> {
+export async function deleteIngredient(id: string, database: Database = db) {
   const rows = await database
     .delete(ingredients)
     .where(eq(ingredients.id, id))
@@ -198,11 +195,7 @@ export async function listIngredientEdits(ingredientId: string, database: Databa
     .where(eq(ingredientEdits.ingredientId, ingredientId))
     .orderBy(sql`${ingredientEdits.createdAt} DESC`)
 }
-export async function searchIngredients(
-  query: string,
-  database: Database = db,
-  limit = 10
-): Promise<Pick<Ingredient, 'id' | 'name' | 'slug' | 'category'>[]> {
+export async function searchIngredients(query: string, database: Database = db, limit = 10) {
   const pattern = `%${query}%`
   return database
     .select({
@@ -215,4 +208,14 @@ export async function searchIngredients(
     .where(or(ilike(ingredients.name, pattern), ilike(ingredients.slug, pattern)))
     .orderBy(ingredients.name)
     .limit(limit)
+}
+export async function listAllIngredientOptions(database: Database = db) {
+  return database
+    .select({
+      id: ingredients.id,
+      name: ingredients.name,
+      slug: ingredients.slug,
+    })
+    .from(ingredients)
+    .orderBy(ingredients.name)
 }
