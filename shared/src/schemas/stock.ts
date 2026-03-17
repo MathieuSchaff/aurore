@@ -1,13 +1,5 @@
 import { z } from 'zod'
 
-import { productResponseSchema, productStockResponseSchema } from './products'
-
-export const stockWithProductResponseSchema = productStockResponseSchema.extend({
-  product: productResponseSchema,
-})
-
-export type StockWithProduct = z.infer<typeof stockWithProductResponseSchema>
-
 export const addStockEntrySchema = z.object({
   qty: z.number().int().min(1).max(9999),
   pricePaidCents: z.number().int().min(0).optional(),
