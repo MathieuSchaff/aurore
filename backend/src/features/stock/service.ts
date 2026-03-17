@@ -3,10 +3,10 @@ import type { AddStockEntryInput } from '@habit-tracker/shared'
 import { desc, eq, sql } from 'drizzle-orm'
 
 import { db } from '../../db'
-import type { DB as Database } from '../../db/types'
+import type { DB as Database } from '../../db'
 import { products } from '../../db/schema/products'
 import { type StockEntry, stockEntries } from '../../db/schema/stock-entries'
-import { userProducts } from '../../db/schema/user-products'
+import { type UserProduct, userProducts } from '../../db/schema/user-products'
 import { StockError } from './stock-error'
 
 export async function getStockEntries(userId: string, database: Database = db) {
@@ -34,7 +34,7 @@ export async function addStockEntry(
   productId: string,
   input: AddStockEntryInput,
   database: Database = db
-): Promise<{ entry: StockEntry; stock: any }> {
+): Promise<{ entry: StockEntry; stock: UserProduct }> {
   return database.transaction(async (tx) => {
     const [productExists] = await tx
       .select({ id: products.id })
