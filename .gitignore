@@ -60,3 +60,13 @@ coverage/
 # Docker (local volumes)
 # =========================
 pgdata/
+
+# =========================
+# Claude Code / AI tools
+# =========================
+.superpowers/
+CLAUDE.md
+CLAUDE2.md
+docs/
+.memory/
+frontend/.tanstack/tmp/

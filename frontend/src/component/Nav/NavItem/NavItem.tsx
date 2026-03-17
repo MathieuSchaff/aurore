@@ -1,7 +1,7 @@
 import type { LinkProps } from '@tanstack/react-router'
 import { Link } from '@tanstack/react-router'
 import type { LucideProps } from 'lucide-react'
-import { Atom, Barcode, Home, ListChecks } from 'lucide-react'
+import { Atom, Barcode, CheckSquare, Home, ListChecks } from 'lucide-react'
 import { forwardRef } from 'react'
 
 const ShelvingUnit = forwardRef<SVGSVGElement, LucideProps>(
@@ -59,9 +59,14 @@ const navItems: NavItem[] = [
     label: 'Ingredients',
   },
   {
-    to: '/inventaire',
+    to: '/collection',
     icon: ShelvingUnit,
-    label: 'Inventaire',
+    label: 'Collection',
+  },
+  {
+    to: '/tasks',
+    icon: CheckSquare,
+    label: 'Tâches',
   },
 ]
 
