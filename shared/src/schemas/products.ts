@@ -38,10 +38,6 @@ export const updateProductSchema = z
   })
   .strict()
 
-export const updateStockSchema = z.object({
-  qty: z.number().int().min(0),
-})
-
 export const productResponseSchema = z.object({
   id: uuid,
   createdBy: uuid,
@@ -62,14 +58,6 @@ export const productResponseSchema = z.object({
   updatedAt: z.date(),
 })
 
-export const productStockResponseSchema = z.object({
-  id: uuid,
-  userId: uuid,
-  productId: uuid,
-  qty: z.number().int(),
-  updatedAt: z.date(),
-})
-
 export const productEditResponseSchema = z.object({
   id: uuid,
   productId: uuid,
@@ -83,10 +71,6 @@ export const productEditResponseSchema = z.object({
   ),
   summary: z.string().nullable(),
   createdAt: z.date(),
-})
-
-export const productWithStockResponseSchema = productResponseSchema.extend({
-  stock: productStockResponseSchema.nullable(),
 })
 
 export const filterOptionsSchema = z.object({
@@ -141,5 +125,4 @@ export const searchProductsQuery = z.object({
 export type ProductChanges = z.infer<typeof productChangesSchema>
 export type CreateProductInput = z.infer<typeof createProductSchema>
 export type UpdateProductInput = z.infer<typeof updateProductSchema>
-export type UpdateStockInput = z.infer<typeof updateStockSchema>
 export type ProductEditResponseSchema = z.infer<typeof productEditResponseSchema>
