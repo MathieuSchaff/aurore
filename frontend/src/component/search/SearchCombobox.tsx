@@ -17,7 +17,7 @@ export interface SearchComboboxResult {
 interface SearchComboboxProps<TItem, TQueryKey extends QueryKey> {
   queryFn: (query: string) => UseQueryOptions<TItem[], Error, TItem[], TQueryKey>
   toResult: (item: NoInfer<TItem>) => SearchComboboxResult
-  onSelect: (slug: string) => void
+  onSelect: (slug: string, result: SearchComboboxResult) => void
   placeholder?: string
   minChars?: number
   debounce?: number
@@ -58,10 +58,10 @@ export function SearchCombobox<TItem, TQueryKey extends QueryKey>({
 
   const results = rawResults.map(toResult)
 
-  function handleSelect(slug: string) {
+  function handleSelect(result: SearchComboboxResult) {
     setQuery('')
     setIsOpen(false)
-    onSelect(slug)
+    onSelect(result.slug, result)
   }
 
   const showDropdown = isOpen && debouncedQuery.length >= minChars
@@ -95,7 +95,7 @@ export function SearchCombobox<TItem, TQueryKey extends QueryKey>({
                 <button
                   type="button"
                   className="search-combobox__option"
-                  onClick={() => handleSelect(item.slug)}
+                  onClick={() => handleSelect(item)}
                 >
                   <span className="search-combobox__label">{item.label}</span>
                   {item.sublabel && (
