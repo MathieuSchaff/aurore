@@ -33,21 +33,6 @@ function authGet(app: Hono<AppEnv>, path: string, token: string) {
   })
 }
 
-function authPut(app: Hono<AppEnv>, path: string, token: string, body: object) {
-  return app.request(path, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-    body: JSON.stringify(body),
-  })
-}
-
-function authDelete(app: Hono<AppEnv>, path: string, token: string) {
-  return app.request(path, {
-    method: 'DELETE',
-    headers: { Authorization: `Bearer ${token}` },
-  })
-}
-
 function authPost(app: Hono<AppEnv>, path: string, token: string, body: object) {
   return app.request(path, {
     method: 'POST',
@@ -73,186 +58,6 @@ describe('Stock Routes', () => {
 
   beforeEach(() => {
     app = createTestApp()
-  })
-
-  // ━━━ GET /stock ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-  describe('GET /stock', () => {
-    it('should return empty list when no stock exists', async () => {
-      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-
-      const res = await authGet(app, '/stock', token)
-
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      expect(data.data).toEqual([])
-    })
-
-    it('should return stock after upsert', async () => {
-      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-      const product = await createProduct(app, token)
-
-      await authPut(app, `/stock/${product.id}`, token, { qty: 5 })
-
-      const res = await authGet(app, '/stock', token)
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.data).toHaveLength(1)
-      expect(data.data[0].qty).toBe(5)
-    })
-
-    it('should reject unauthenticated request', async () => {
-      const res = await app.request('/stock')
-      expect(res.status).toBe(HTTP_STATUS.UNAUTHORIZED)
-    })
-
-    it('should only return stock for the authenticated user', async () => {
-      const tokenToto = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-      const tokenAlice = await setupAndLogin(app, TEST_CREDENTIALS.alice)
-      const product = await createProduct(app, tokenToto)
-
-      await authPut(app, `/stock/${product.id}`, tokenToto, { qty: 3 })
-
-      const res = await authGet(app, '/stock', tokenAlice)
-      const data = await res.json()
-      expect(data.data).toEqual([])
-    })
-  })
-
-  // ━━━ PUT /stock/:productId ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-  describe('PUT /stock/:productId', () => {
-    it('should create stock entry for a product', async () => {
-      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-      const product = await createProduct(app, token)
-
-      const res = await authPut(app, `/stock/${product.id}`, token, { qty: 10 })
-
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-      expect(data.data.qty).toBe(10)
-    })
-
-    it('should update existing stock entry', async () => {
-      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-      const product = await createProduct(app, token)
-
-      await authPut(app, `/stock/${product.id}`, token, { qty: 10 })
-      const res = await authPut(app, `/stock/${product.id}`, token, { qty: 20 })
-
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.data.qty).toBe(20)
-    })
-
-    it('should allow qty of 0', async () => {
-      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-      const product = await createProduct(app, token)
-
-      const res = await authPut(app, `/stock/${product.id}`, token, { qty: 0 })
-
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.data.qty).toBe(0)
-    })
-
-    it('should reject negative qty', async () => {
-      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-      const product = await createProduct(app, token)
-
-      const res = await authPut(app, `/stock/${product.id}`, token, { qty: -1 })
-
-      expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST)
-    })
-
-    it('should reject invalid productId (non-UUID)', async () => {
-      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-
-      const res = await authPut(app, '/stock/not-a-uuid', token, { qty: 5 })
-
-      expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST)
-    })
-
-    it('should reject unauthenticated request', async () => {
-      const res = await app.request('/stock/00000000-0000-0000-0000-000000000001', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ qty: 5 }),
-      })
-      expect(res.status).toBe(HTTP_STATUS.UNAUTHORIZED)
-    })
-  })
-
-  // ━━━ GET /stock/:productId ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-  describe('GET /stock/:productId', () => {
-    it('should return stock for a specific product', async () => {
-      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-      const product = await createProduct(app, token)
-
-      await authPut(app, `/stock/${product.id}`, token, { qty: 7 })
-
-      const res = await authGet(app, `/stock/${product.id}`, token)
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.data.qty).toBe(7)
-    })
-
-    it('should reject invalid productId (non-UUID)', async () => {
-      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-
-      const res = await authGet(app, '/stock/not-a-uuid', token)
-      expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST)
-    })
-
-    it('should reject unauthenticated request', async () => {
-      const res = await app.request('/stock/00000000-0000-0000-0000-000000000001')
-      expect(res.status).toBe(HTTP_STATUS.UNAUTHORIZED)
-    })
-  })
-
-  // ━━━ DELETE /stock/:productId ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-  describe('DELETE /stock/:productId', () => {
-    it('should remove a stock entry', async () => {
-      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-      const product = await createProduct(app, token)
-
-      await authPut(app, `/stock/${product.id}`, token, { qty: 5 })
-      const res = await authDelete(app, `/stock/${product.id}`, token)
-
-      expect(res.status).toBe(HTTP_STATUS.OK)
-      const data = await res.json()
-      expect(data.success).toBe(true)
-    })
-
-    it('should not be visible in list after deletion', async () => {
-      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-      const product = await createProduct(app, token)
-
-      await authPut(app, `/stock/${product.id}`, token, { qty: 5 })
-      await authDelete(app, `/stock/${product.id}`, token)
-
-      const res = await authGet(app, '/stock', token)
-      const data = await res.json()
-      expect(data.data).toEqual([])
-    })
-
-    it('should reject invalid productId (non-UUID)', async () => {
-      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-
-      const res = await authDelete(app, '/stock/not-a-uuid', token)
-      expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST)
-    })
-
-    it('should reject unauthenticated request', async () => {
-      const res = await app.request('/stock/00000000-0000-0000-0000-000000000001', {
-        method: 'DELETE',
-      })
-      expect(res.status).toBe(HTTP_STATUS.UNAUTHORIZED)
-    })
   })
 
   // ━━━ POST /stock/:productId/entries ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -350,8 +155,8 @@ describe('Stock Routes', () => {
         purchasedAt: '2026-03-13',
       })
 
-      // Alice should have no stock for this product
-      const res = await authGet(app, '/stock', tokenAlice)
+      // Alice should have no stock entries
+      const res = await authGet(app, '/stock/entries', tokenAlice)
       const data = await res.json()
       expect(data.data).toEqual([])
     })
