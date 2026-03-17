@@ -5,7 +5,6 @@ import {
   HTTP_STATUS,
   ok,
   stockErrorMapping,
-  updateStockSchema,
 } from '@habit-tracker/shared'
 
 import { zValidator } from '@hono/zod-validator'
@@ -14,14 +13,7 @@ import { z } from 'zod'
 
 import type { AppEnv } from '../../app-env'
 import { requireJwtAuth } from '../auth/middleware'
-import {
-  addStockEntry,
-  deleteStock,
-  getStockByProduct,
-  getStockEntries,
-  getUserStock,
-  upsertStock,
-} from './service'
+import { addStockEntry, getStockEntries } from './service'
 import { StockError } from './stock-error'
 
 const productIdParam = z.object({ productId: z.uuid() })
@@ -46,35 +38,6 @@ export const stockRoutes = stockApp
     return c.json(ok(result), HTTP_STATUS.OK)
   })
 
-  .get('/', async (c) => {
-    const db = c.get('db')
-    const userId = c.get('userId')
-    const result = await getUserStock(userId, db)
-    return c.json(ok(result), HTTP_STATUS.OK)
-  })
-
-  .get('/:productId', zValidator('param', productIdParam), async (c) => {
-    const db = c.get('db')
-    const userId = c.get('userId')
-    const { productId } = c.req.valid('param')
-    const result = await getStockByProduct(userId, productId, db)
-    return c.json(ok(result), HTTP_STATUS.OK)
-  })
-
-  .put(
-    '/:productId',
-    zValidator('param', productIdParam),
-    zValidator('json', updateStockSchema),
-    async (c) => {
-      const db = c.get('db')
-      const userId = c.get('userId')
-      const { productId } = c.req.valid('param')
-      const input = c.req.valid('json')
-      const stock = await upsertStock(userId, productId, input, db)
-      return c.json(ok(stock), HTTP_STATUS.OK)
-    }
-  )
-
   .post(
     '/:productId/entries',
     zValidator('param', productIdParam),
@@ -88,11 +51,3 @@ export const stockRoutes = stockApp
       return c.json(ok(result), HTTP_STATUS.CREATED)
     }
   )
-
-  .delete('/:productId', zValidator('param', productIdParam), async (c) => {
-    const db = c.get('db')
-    const userId = c.get('userId')
-    const { productId } = c.req.valid('param')
-    await deleteStock(userId, productId, db)
-    return c.json(ok(null), HTTP_STATUS.OK)
-  })
