@@ -123,15 +123,15 @@
 }
 
 /* ── Sheet items ─────────────────────────────────────── */
-/* Sheet sits on --color-sidebar-bg (dark blue in light mode).       */
-/* Use --color-sidebar-icon for text so contrast is correct in both  */
-/* themes — the same token used by sidebar nav links.                */
+/* Default colors work well in dark mode (--text-primary ≈ 95% lightness,
+   --color-primary is golden). Light mode overrides below fix the dark
+   sidebar background where those tokens are too dark to read.        */
 
 .bottom-nav__sheet-link {
   display: flex;
   align-items: center;
   gap: var(--space-3, 0.75rem);
-  color: var(--color-sidebar-icon);
+  color: var(--text-primary);
   font-size: var(--text-base);
   font-weight: var(--font-medium);
   text-decoration: none;
@@ -164,7 +164,7 @@
 
 .bottom-nav__sheet-row-label {
   font-size: var(--text-sm);
-  color: oklch(from var(--color-sidebar-icon) l c h / 0.7);
+  color: var(--text-secondary);
   font-weight: var(--font-medium);
 }
 
@@ -176,7 +176,7 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  color: oklch(70% 0.2 25deg); /* bright coral — readable on dark bg in both themes */
+  color: var(--color-error);
   font-size: var(--text-base);
   font-weight: var(--font-medium);
   padding: 0.75rem var(--space-2, 0.5rem);
@@ -198,7 +198,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-3, 0.75rem);
-  color: var(--color-sidebar-icon);
+  color: var(--color-primary);
   font-size: var(--text-base);
   font-weight: var(--font-semibold);
   text-decoration: none;
@@ -211,27 +211,50 @@
   background: var(--color-sidebar-item-hover);
 }
 
-/* ── ThemeToggle inside sheet ────────────────────────── */
-/* ThemeToggle is designed for the mango header. Override its tokens  */
-/* here so it works on the dark sidebar background.                  */
-.bottom-nav__sheet-row .theme-toggle__track {
-  background-color: oklch(from var(--color-sidebar-icon) l c h / 0.2);
-}
+/* ── Light mode overrides ────────────────────────────── */
+/* In light mode the sidebar bg is dark blue — default text tokens    */
+/* are too dark to read. Switch to --color-sidebar-icon (mango)       */
+/* which is designed to sit on this background.                      */
 
-.bottom-nav__sheet-row:hover .theme-toggle__track {
-  background-color: oklch(from var(--color-sidebar-icon) l c h / 0.35);
-}
-
-.bottom-nav__sheet-row .theme-toggle__thumb {
-  background-color: var(--color-sidebar-icon);
-}
-
-.bottom-nav__sheet-row .theme-toggle__icon {
+[data-theme='light'] .bottom-nav__sheet-link {
   color: var(--color-sidebar-icon);
 }
 
-.bottom-nav__sheet-row [aria-checked='false'] .theme-toggle__icon--sun,
-.bottom-nav__sheet-row [aria-checked='true'] .theme-toggle__icon--moon {
+[data-theme='light'] .bottom-nav__sheet-row-label {
+  color: oklch(from var(--color-sidebar-icon) l c h / 0.7);
+}
+
+[data-theme='light'] .bottom-nav__sheet-auth-link {
+  color: var(--color-sidebar-icon);
+}
+
+[data-theme='light'] .bottom-nav__sheet-logout {
+  color: oklch(70% 0.2 25deg); /* brighter coral — readable on dark blue */
+}
+
+/* ── ThemeToggle inside sheet (light mode only) ──────── */
+/* ThemeToggle uses --color-header-action / --color-header-bg tokens  */
+/* designed for the mango top bar. In light mode those are dark blue  */
+/* — invisible on the dark blue sheet. Override for sidebar context. */
+
+[data-theme='light'] .bottom-nav__sheet-row .theme-toggle__track {
+  background-color: oklch(from var(--color-sidebar-icon) l c h / 0.2);
+}
+
+[data-theme='light'] .bottom-nav__sheet-row:hover .theme-toggle__track {
+  background-color: oklch(from var(--color-sidebar-icon) l c h / 0.35);
+}
+
+[data-theme='light'] .bottom-nav__sheet-row .theme-toggle__thumb {
+  background-color: var(--color-sidebar-icon);
+}
+
+[data-theme='light'] .bottom-nav__sheet-row .theme-toggle__icon {
+  color: var(--color-sidebar-icon);
+}
+
+[data-theme='light'] .bottom-nav__sheet-row [aria-checked='false'] .theme-toggle__icon--sun,
+[data-theme='light'] .bottom-nav__sheet-row [aria-checked='true'] .theme-toggle__icon--moon {
   color: var(--color-sidebar-bg);
   filter: none;
 }
