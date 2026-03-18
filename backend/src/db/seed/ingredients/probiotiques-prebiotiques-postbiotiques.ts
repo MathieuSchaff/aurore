@@ -4,7 +4,7 @@ import type { IngredientInput } from './seed-ingredients'
 export const PROBIOTIQUES_PREBIOTIQUES_POSTBIOTIQUES: IngredientInput[] = [
   {
     name: 'Chicory Root Extract (Cichorium Intybus Root Extract)',
-    slug: INGREDIENT_SLUGS.CHICORY_ROOT_EXTRACT,
+    slug: INGREDIENT_SLUGS.INULINE,
     category: 'actif',
     description:
       'Extrait de racine de chicorée prébiotique, hydrate, équilibre le microbiome et renforce la barrière cutanée.',

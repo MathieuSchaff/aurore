@@ -71,7 +71,7 @@ export const GG_INGREDIENTS_MAP: Record<string, any[]> = {
       notes: 'Prébiotique xylitol derivatives – hydratation, équilibre microbiome',
     },
     {
-      slug: INGREDIENT_SLUGS.ANYDROXYLITOL,
+      slug: INGREDIENT_SLUGS.ANHYDROXYLITOL,
     },
     {
       slug: INGREDIENT_SLUGS.XYLITOL,
