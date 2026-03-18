@@ -102,11 +102,23 @@
     padding: var(--space-4, 1rem) var(--space-4, 1rem) var(--space-2, 0.5rem);
     gap: var(--space-1, 0.25rem);
     transform: translateY(100%);
-    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    /* visibility becomes hidden after the slide-out animation completes (0.25s delay) */
+    /* pointer-events disabled while hidden so the nav bar tabs are reachable */
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+      visibility 0s linear 0.25s;
   }
 
   .bottom-nav__sheet--open {
     transform: translateY(0);
+    visibility: visible;
+    pointer-events: auto;
+    /* visibility becomes visible immediately when opening (no delay) */
+    transition:
+      transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+      visibility 0s linear 0s;
   }
 }
 
