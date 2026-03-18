@@ -19,8 +19,3 @@ export type Profile = InferSelectModel<typeof profiles>
 /** Données nécessaires pour insérer un nouveau profil. */
 export type NewProfile = InferInsertModel<typeof profiles>
 
-/** Profil sans le `userId` — utile pour les réponses publiques. */
-export type PublicProfile = Omit<Profile, 'userId'>
-
-/** Champs modifiables d'un profil (delta update). */
-export type ProfileUpdate = Partial<Pick<Profile, 'username' | 'bio' | 'avatarUrl'>>
