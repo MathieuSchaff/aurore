@@ -268,193 +268,163 @@
 }
 
 /* =======================================================
-   LIST CARD — Mode vertical (pour produits)
+   LIST CARD — Mode Botanical (produits)
    ======================================================= */
+
 .list-card--product {
   flex-direction: column;
   align-items: stretch;
   padding: 0;
   gap: 0;
+  border-left: none; /* neutralise le border-left du .list-card générique */
+  border-bottom: 3px solid var(--_kind-border);
+  transition: transform var(--transition-fast) ease,
+              box-shadow var(--transition-fast) ease;
 }
 
-/* Partie principale cliquable */
-.list-card--product .list-card__main {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-3);
-  padding: var(--space-4);
-  text-decoration: none;
-  color: inherit;
-  flex: 1;
+.list-card--product:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px oklch(from var(--_kind-color) l c h / 0.22);
+  border-color: var(--border-default); /* reset top/right/left hover border */
 }
 
-/* Icône produit — Mango */
-.list-card--product .list-card__icon {
-  width: 3rem;
-  height: 3rem;
-  background: oklch(from var(--color-accent) calc(l + 0.1) calc(c * 0.9) h);
-  color: var(--text-inverse);
-}
-
-[data-theme="dark"] .list-card--product .list-card__icon {
-  background: var(--accent-40);
-  color: var(--text-primary);
-}
-
-/* Body produit */
-.list-card--product .list-card__body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-}
-
-/* Nom produit — 2 lignes max */
-.list-card--product .list-card__name {
-  font-family: var(--font-sans);
-  font-size: var(--text-base);
-  white-space: normal;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  line-height: var(--leading-tight);
-}
-
-/* Marque produit */
-.list-card--product .list-card__brand {
-  font-size: var(--text-sm);
-  color: var(--text-muted);
-  font-weight: var(--font-medium);
-  margin: 0;
-}
-
-/* Meta produit (kind, unit, price) */
-.list-card--product .list-card__meta {
+/* ── Header cliquable ── */
+.list-card--product .list-card__header {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
-  flex-wrap: wrap;
-  margin-top: var(--space-2);
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--_kind-bg);
+  text-decoration: none;
+  color: inherit;
+  transition: filter var(--transition-fast) ease;
 }
 
-/* Kind — Vert outline */
+.list-card--product .list-card__header:hover {
+  filter: brightness(0.97);
+}
+
+/* ── Icône ronde ── */
+.list-card--product .list-card__icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--radius-full);
+  background: var(--_kind-color);
+  color: var(--text-inverse);
+  flex-shrink: 0;
+}
+
+/* ── Texte header ── */
+.list-card--product .list-card__header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
 .list-card--product .list-card__kind {
   font-size: var(--text-xs);
   font-weight: var(--font-bold);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 2px var(--space-2);
-  border: 2px solid var(--color-primary);
-  border-radius: var(--radius-sm);
-  color: var(--color-primary);
-  background: transparent;
+  letter-spacing: 0.08em;
+  color: var(--_kind-color);
+  /* darken slightly so it reads on the tinted bg */
+  filter: brightness(0.75);
 }
 
-[data-theme="dark"] .list-card--product .list-card__kind {
-  border-color: var(--primary-60);
-  color: var(--primary-70);
-}
-
-/* Unit — Neutre filled */
-.list-card--product .list-card__unit {
-  font-size: var(--text-xs);
+.list-card--product .list-card__brand {
+  font-size: var(--text-sm);
   font-weight: var(--font-semibold);
-  padding: 3px var(--space-2);
-  border-radius: var(--radius-sm);
-  background: var(--bg-muted);
-  color: var(--text-muted);
-  border: 1px solid var(--border-default);
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Price — Mango accent */
+/* ── Body ── */
+.list-card--product .list-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4) var(--space-4);
+}
+
+.list-card--product .list-card__name {
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+  line-height: var(--leading-tight);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin: 0;
+}
+
+/* ── Footer : prix + bouton ── */
+.list-card--product .list-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
 .list-card--product .list-card__price {
   font-family: var(--font-display);
   font-size: var(--text-lg);
   font-weight: var(--font-bold);
-  color: var(--color-accent);
-  margin-left: auto;
-  padding-left: var(--space-2);
+  color: var(--text-primary);
   white-space: nowrap;
   flex-shrink: 0;
 }
 
-[data-theme="dark"] .list-card--product .list-card__price {
-  color: var(--accent-70);
-}
-
-/* Barre d'actions produit */
-.list-card--product .list-card__actions {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--space-3) var(--space-4);
-  background: var(--bg-muted);
-  border-top: 1px solid var(--border-default);
-  gap: var(--space-3);
-}
-
-/* Bouton Ajouter produit — Vert */
+/* ── Bouton Ajouter ── */
 .list-card--product .list-card__add-btn {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-2) var(--space-4);
-  border: 2px solid var(--color-primary);
-  border-radius: var(--radius-full);
-  background: var(--color-primary);
+  background: var(--_kind-color);
   color: var(--text-inverse);
+  border: none;
+  border-radius: var(--radius-full);
   font-family: var(--font-sans);
   font-size: var(--text-sm);
   font-weight: var(--font-semibold);
   cursor: pointer;
   flex-shrink: 0;
-  transition: all var(--transition-fast) ease;
-}
-
-[data-theme="dark"] .list-card--product .list-card__add-btn {
-  background: var(--primary-60);
-  border-color: var(--primary-60);
-  color: var(--text-primary);
+  transition:
+    translate var(--transition-fast) ease,
+    box-shadow var(--transition-fast) ease;
 }
 
 .list-card--product .list-card__add-btn:hover {
-  background: oklch(from var(--color-primary) calc(l + 0.05) c h);
-  border-color: oklch(from var(--color-primary) calc(l + 0.05) c h);
   translate: -1px -1px;
-  box-shadow: 0 2px 8px oklch(from var(--color-primary) l c h / 0.2);
+  box-shadow: var(--shadow-hard);
 }
 
 .list-card--product .list-card__add-btn:active {
-  transform: scale(0.98);
   translate: 0;
+  box-shadow: none;
 }
 
-/* Navigation produit */
-.list-card--product .list-card__nav {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: var(--radius-full);
-  color: var(--text-muted);
-  transition: all var(--transition-fast) ease;
-  flex-shrink: 0;
-  margin-left: auto;
-  text-decoration: none;
+.list-card--product .list-card__add-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
-.list-card--product .list-card__nav:hover {
-  color: var(--color-primary);
-  background: var(--bg-hover);
-}
-
-.list-card--product .list-card__nav .nav-arrow {
-  transition: transform var(--transition-fast) ease;
-}
-
-.list-card--product:hover .list-card__nav .nav-arrow {
-  transform: translateX(3px);
-  color: var(--color-primary);
+/* ── Responsive ── */
+@media (min-width: 640px) {
+  .list-card--product .list-card__icon-wrap {
+    width: 3rem;
+    height: 3rem;
+  }
+  .list-card--product .list-card__name {
+    font-size: var(--text-lg);
+  }
 }
 
 /* =======================================================
@@ -566,14 +536,6 @@
   }
   .list-card__name {
     font-size: var(--text-base);
-  }
-  /* Produits en 2 colonnes aussi */
-  .list-card--product .list-card__icon {
-    width: 3.5rem;
-    height: 3.5rem;
-  }
-  .list-card--product .list-card__name {
-    font-size: var(--text-lg);
   }
 }
 
