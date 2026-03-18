@@ -10,7 +10,8 @@ import {
   habitSchedules,
   habitTimings,
 } from '../../db/schema/habits'
-import { type Database, HabitError } from './habit-error'
+import type { Database } from '../../db'
+import { HabitError } from './habit-error'
 
 // ─── FREQUENCY ───────────────────────────────────────────
 

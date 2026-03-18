@@ -3,7 +3,8 @@ import { and, asc, between, eq, isNull, sql } from 'drizzle-orm'
 import { db } from '../../db'
 import { type HabitCheck, habitChecks, habitProducts } from '../../db/schema/habits'
 import { productStock, products } from '../../db/schema/products'
-import { type Database, HabitError } from './habit-error'
+import type { Database } from '../../db'
+import { HabitError } from './habit-error'
 
 export async function checkHabit(
   input: {

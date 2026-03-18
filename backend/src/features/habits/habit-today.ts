@@ -6,7 +6,7 @@ import { productStock, products } from '../../db/schema/products'
 import { getToday } from '../../utils/dates'
 import { getUserChecksForDate } from './habit-checks'
 import { getUserHabitsWithRelations } from './habit-crud'
-import type { Database } from './habit-error'
+import type { Database } from '../../db'
 
 export async function getTodayHabits(userId: string, dateParam?: string, database: Database = db) {
   const today = dateParam ?? getToday()
