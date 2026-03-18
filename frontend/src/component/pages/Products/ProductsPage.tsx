@@ -1,21 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
 import { getRouteApi, Link, useNavigate } from '@tanstack/react-router'
-import {
-  ChevronLeft,
-  ChevronRight,
-  Droplets,
-  FlaskConical,
-  Leaf,
-  Package,
-  Pill,
-  Plus,
-  Search,
-  SlidersHorizontal,
-  Sparkles,
-  Sun,
-} from 'lucide-react'
+import { ChevronLeft, ChevronRight, Package, Plus, Search, SlidersHorizontal } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
+import { ProductIcon } from '../../../assets/product-icons'
 import { ingredientQueries } from '../../../lib/queries/ingredients'
 import { type ListProductsFilters, productQueries } from '../../../lib/queries/products'
 import { FilterDialog, type FilterFieldConfig, type FilterValues } from '../../Filter/Filter'
@@ -25,21 +13,6 @@ import './ProductsPage.css'
 
 import { SearchCombobox } from '@/component/search/SearchCombobox'
 import { AddToInventoryModal } from '../../stock/AddToInventoryModal'
-
-const KIND_ICONS: Record<string, React.ElementType> = {
-  skincare: Sparkles,
-  complément: Pill,
-  huile: Droplets,
-  vitamine: Sun,
-  sérum: FlaskConical,
-  masque: Leaf,
-  default: Package,
-}
-
-function KindIcon({ kind, size = 20 }: { kind: string; size?: number }) {
-  const Icon = KIND_ICONS[kind] ?? KIND_ICONS.default
-  return <Icon size={size} />
-}
 
 const routeApi = getRouteApi('/products/')
 
@@ -276,10 +249,10 @@ export function ProductsPage() {
           <div className="page-banner" />
 
           <div className="list-header__top">
-            <h1 className="list-header__title">
+            {/*<h1 className="list-header__title">
               Produits
               {isPlaceholderData && <span className="loader-mini">...</span>}
-            </h1>
+            </h1>*/}
 
             <div className="list-header__search">
               <SearchCombobox
@@ -384,68 +357,52 @@ export function ProductsPage() {
                 {items.map((product) => (
                   <div
                     key={product.id}
-                    className={`list-card list-card--product kind-border ${kindClass(product.kind)}`}
+                    className={`list-card list-card--product ${kindClass(product.kind)}`}
                   >
                     <Link
                       to="/products/$slug"
                       params={{ slug: product.slug }}
-                      className="list-card__main"
+                      className="list-card__header"
                     >
-                      <div className="list-card__icon">
-                        <KindIcon kind={product.kind} size={22} />
+                      <div className="list-card__icon-wrap">
+                        <ProductIcon unit={product.unit} kind={product.kind} size={22} />
                       </div>
-
-                      <div className="list-card__body">
-                        <h3 className="list-card__name">{product.name}</h3>
-                        <p className="list-card__brand">{product.brand}</p>
-
-                        <div className="list-card__meta">
-                          <span className={`list-card__kind ${kindClass(product.kind)}`}>
-                            {product.kind}
-                          </span>
-
-                          {product.unit && <span className="list-card__unit">{product.unit}</span>}
-
-                          {product.priceCents != null && (
-                            <span className="list-card__price">
-                              {new Intl.NumberFormat('fr-FR', {
-                                style: 'currency',
-                                currency: 'EUR',
-                              }).format(product.priceCents / 100)}
-                            </span>
-                          )}
-                        </div>
+                      <div className="list-card__header-text">
+                        <span className="list-card__kind">{product.kind}</span>
+                        <span className="list-card__brand">{product.brand}</span>
                       </div>
                     </Link>
 
-                    <div className="list-card__actions">
-                      <button
-                        type="button"
-                        className="list-card__add-btn"
-                        aria-label={`Ajouter ${product.name} à l'inventaire`}
-                        onClick={(e) => {
-                          e.preventDefault()
-                          e.stopPropagation()
-                          setModalProduct({
-                            id: product.id,
-                            name: product.name,
-                            brand: product.brand,
-                            priceCents: product.priceCents,
-                          })
-                        }}
-                      >
-                        <Plus size={16} />
-                        <span>Ajouter</span>
-                      </button>
-
-                      <Link
-                        to="/products/$slug"
-                        params={{ slug: product.slug }}
-                        className="list-card__nav"
-                        aria-label={`Voir les détails de ${product.name}`}
-                      >
-                        <ChevronRight size={20} className="nav-arrow" />
-                      </Link>
+                    <div className="list-card__body">
+                      <p className="list-card__name">{product.name}</p>
+                      <div className="list-card__footer">
+                        {product.priceCents != null && (
+                          <span className="list-card__price">
+                            {new Intl.NumberFormat('fr-FR', {
+                              style: 'currency',
+                              currency: 'EUR',
+                            }).format(product.priceCents / 100)}
+                          </span>
+                        )}
+                        <button
+                          type="button"
+                          className="list-card__add-btn"
+                          aria-label={`Ajouter ${product.name} à l'inventaire`}
+                          onClick={(e) => {
+                            e.preventDefault()
+                            e.stopPropagation()
+                            setModalProduct({
+                              id: product.id,
+                              name: product.name,
+                              brand: product.brand,
+                              priceCents: product.priceCents,
+                            })
+                          }}
+                        >
+                          <Plus size={14} />
+                          <span>Ajouter</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))}
