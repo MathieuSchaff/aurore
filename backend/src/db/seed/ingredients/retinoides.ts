@@ -506,7 +506,288 @@ Le **Rétinyl Rétinoate** est une molécule brevetée combinant l'acide rétino
      | Vitesse résultats    | Progressive (4–12 semaines)        | Plus rapide mais avec purge         |
      | Peaux cibles         | Sensibles, réactives, enceintes    | Tous (avec précautions)             |
 
-     **Conseil expert** : le bakuchiol est le choix n°1 pour introduire un actif anti-âge puissant sans stresser la barrière cutanée. Il peut même potentialiser un rétinol plus tard en routine mixte. Associez-le à une bonne hydratation et protection solaire pour des résultats durables et glowy !
+
+     ## 1. Quelle est l’identité chimique complète du bakuchiol (formule brute C₁₈H₂₄O, structure meroterpénique phénolique exacte, nom IUPAC, poids moléculaire et origine botanique précise dans Psoralea corylifolia) ainsi que ses propriétés physico-chimiques clés (logP, solubilité eau/lipides, point de fusion et constante de dissociation) ?
+
+     2. Quels sont les profils de stabilité du bakuchiol en solution aqueuse versus lipidique, sa sensibilité à l’oxygène, à la lumière UV, à la chaleur et au pH, ainsi que les incompatibilités chimiques documentées avec d’autres excipients (émulsifiants, conservateurs ou oxydants) ?
+     3. Quelles données quantitatives existent sur la pénétration percutanée du bakuchiol (études en cellules de Franz, tape-stripping ou modèles 3D de peau reconstruite), son coefficient de partition cutanée et sa biodisponibilité réelle dans l’épiderme et le derme ?
+     4. Quels sont les mécanismes d’action moléculaires précis du bakuchiol (mimétisme rétinoïde via liaison RAR/RXR, activation de Nrf2, inhibition de NF-κB ou modulation d’autres voies) démontrés par des études de binding ou de transcriptome ?
+     5. Quelles sont les cibles biologiques principales du bakuchiol au sein des couches cutanées (kératinocytes basaux, fibroblastes dermiques, mélanocytes) et les voies de signalisation spécifiques modifiées (up-régulation COL1A1, down-régulation MMP-1/3/9 ou CYP26) ?
+     6. Quels effets différenciés et quantifiés le bakuchiol exerce-t-il sur les kératinocytes, fibroblastes, mélanocytes, mastocytes et cellules dendritiques cutanées dans les modèles in vitro ou ex vivo ?
+     7. Quelles sont les preuves cliniques de niveau I (essais randomisés contrôlés en double aveugle, avec mesures objectives comme cutométrie ou profilométrie) de l’efficacité du bakuchiol pour l’anti-âge, l’acné inflammatoire, l’hyperpigmentation post-inflammatoire et la réduction de la réactivité cutanée ?
+     8. Comment l’efficacité et la tolérance du bakuchiol varient-elles selon la concentration (0,5-2 %), le véhicule (émulsion O/W, sérum silicône ou huile anhydre), la forme (molécule pure vs extrait standardisé) et le pH de la formulation finale ?
+     9. Quelle est la comparaison directe, molécule par molécule et étude par étude, entre le bakuchiol et le rétinol, le rétinaldéhyde, l’adaptalène ou d’autres rétinoïdes sur l’efficacité clinique, la vitesse d’action et le profil d’irritation ?
+     10. Quel est le profil complet de sécurité du bakuchiol (irritation primaire, sensibilisation de contact, phototoxicité et potentiel allergénique) et ces effets sont-ils dose-dépendants ou influencés par le pH ou le véhicule ?
+     11. Le bakuchiol présente-t-il une photosensibilisation, phototoxicité, cytotoxicité (test MTT/LDH) ou génotoxicité (test Ames, comet assay) dans des modèles cutanés humains ou reconstruits ?
+     12. Quelles sont les données réglementaires actualisées 2026 pour le bakuchiol (statut UE Annexe III/VI, avis CIR, recommandations FDA, concentration maximale autorisée et éventuelles restrictions par pays) ?
+     13. Quelles interactions synergiques (ex. avec niacinamide, centella ou peptides) et antagonistes (ex. avec vitamine C ascorbyle libre ou peroxydes) du bakuchiol sont documentées avec les actifs cosmétiques les plus courants ?
+     14. Quelles sont les meilleures pratiques de formulation (température maximale d’incorporation, phase d’ajout obligatoire, nécessité de tocophérol ou BHT comme antioxydant, chélateurs EDTA et choix de tampons) pour garantir stabilité et délivrance optimale du bakuchiol ?
+     15. Quelles formes galéniques sont les plus adaptées (émulsions légères, sérums huileux ou sticks) et les moins adaptées (gels hydroalcooliques purs ou mousses aqueuses) au bakuchiol en termes de stabilité et de pénétration ?
+     16. Quelles nouvelles données ou méta-analyses publiées entre 2023 et 2026 ont modifié la compréhension du bakuchiol, et quelles controverses persistent sur son véritable statut de « rétinol-like » ou sur son innocuité à long terme ?
+     17. Pour quels phototypes, types de peau (sèche, grasse, sensible, acnéique, mature) et populations (femmes enceintes, adolescents, peaux atopiques) le bakuchiol est-il le plus recommandé ou au contraire formellement contre-indiqué ?
+     18. Quels sont les signes cliniques précoces et typiques d’intolérance ou de sur-utilisation du bakuchiol (érythème, desquamation rétinol-like retardée, prurit ou hyperréactivité) observés en pratique dermatologique ?
+     19. Quelle est la durée moyenne documentée avant l’apparition de résultats visibles (réduction des rides, amélioration de l’acné ou uniformisation du teint) pour chaque indication principale du bakuchiol ?
+     20. Quelles questions scientifiques majeures restent sans réponse consensuelle dans la littérature actuelle sur le bakuchiol (mécanisme exact de liaison aux récepteurs nucléaires, absorption systémique réelle, effets à très long terme >12 mois ou comparaison head-to-head avec les nouveaux rétinoïdes de 4e génération) ?
+
+
+
+     ***
+
+     ## 1. Identité chimique et propriétés physico‑chimiques
+
+     - Formule brute : $C_{18}H_{24}O$.[^1][^2]
+     - Nom IUPAC : 4‑[(1E,3S)‑3‑éthényl‑3,7‑diméthylocta‑1,6‑diényl]phénol.[^2][^1]
+     - Type : **méroterpénoïde** phénolique (chaîne terpènique C₁₂ greffée sur un noyau phénolique C₆).[^3]
+     - Poids moléculaire : ≈ 256,4 g·mol⁻¹.[^1][^2]
+     - Identifiants : CAS 10309‑37‑2, PubChem CID 5468522.[^4][^2][^1]
+
+     Origine botanique : bakuchiol est un constituant naturel majeur des graines de *Psoralea corylifolia* L. (syn. *Cullen corylifolium*), Fabaceae.[^5][^6]
+
+     Propriétés clés (valeurs in silico / bases de données, donc à prendre comme ordres de grandeur) :
+
+     - logP (n‑octanol / eau) : ~5,0–6,1 selon les sources et méthodes (5,05 dans une base TCM‑ADIP, 5,62–6,06 dans DrugBank / ALOGPS).[^7][^4][^1]
+     - logS aqueux : environ −3,8 à −4,7 (solubilité eau très faible).[^4][^1]
+     - Solubilité eau : ordre de 0,005 mg/mL.[^4]
+     - Très lipophile, liquide huileux à température ambiante (non cristallin).[^7]
+     - pKa acide (phénol) ≈ 9,5 (Chemaxon).[^4]
+
+     Point de fusion exact : la plupart des fiches et DrugBank le décrivent comme un liquide huileux à température ambiante sans donner de Tm nette, ce qui est cohérent avec un composé peu cristallisable. Il n’y a pas de valeur unique robuste en accès libre.[^7][^4]
+
+     ***
+
+     ## 2. Stabilité, stress (O₂, UV, chaleur, pH) et incompatibilités
+
+     Points relativement convergents :
+
+     - Plus photostable que le rétinol, mais pas totalement insensible : recommandation de conditionnement ambré/opaque.[^8][^9]
+     - Stable dans une plage de pH environ 3–6,5 pour les cosmétiques, avec dégradation accélérée au‑delà de ~6,5 (oxydation et réactions basiques).[^9][^8]
+     - Une analyse de formulation (2026) signale : stabilité maximale entre pH 4,5–7,5, mais oxydation de la fonction phénolique à pH bas en conditions aqueuses oxygénées avec ions métalliques ou peroxydes, formation de produits quinonoïdes.[^10][^8]
+     - La stabilité diminue fortement en présence de traces de métaux (Fe, Cu), d’oxydants forts et en milieu aqueux peu protégé.[^8][^3]
+     - Résistance thermique : peut supporter 75–80 °C pendant les étapes d’émulsification de courte durée, mais l’ajout en phase de refroidissement sous 40 °C est recommandé pour optimiser la stabilité.[^9]
+
+     Données chiffrées de stress test (exemple formulatoire) :
+
+     - En 12 semaines, un test rapporte ~98% de bakuchiol restant dans une émulsion O/W, ~93% dans un sérum hyaluronique, mais seulement ~74% dans un toner lactique bas pH, avec apparition mesurable de produits d’oxydation quinonoïdes.[^10]
+
+     Incompatibilités documentées ou très probables :
+
+     - Environnement aqueux acide riche en oxydants, peroxydes ou métaux : accélération de l’oxydation du phénol (risque de brunissement, pertes d’activité).[^3][^10][^8]
+     - Crude extracts de *Psoralea* contenant des polyphénol‑oxydases et furocoumarines : dégradation plus rapide que le composé pur et risques phototoxiques (mais c’est surtout un problème d’extrait, pas de molécule purifiée).[^11][^5]
+     - Co‑formulation basse pH prolongée avec AHA (ex. lactic) : faisable, mais avec baisse de teneur et apparition de quinones ; il vaut mieux limiter le temps de stockage ensemble ou sur‑stabiliser (antioxydants, chélateurs, packaging).[^10]
+
+     ***
+
+     ## 3. Pénétration percutanée, partition cutanée, biodisponibilité
+
+     Les données quantitatives spécifiques au bakuchiol sont encore limitées et assez récentes.
+
+     - Une étude de 2025 sur la délivrance cutanée d’un actif lipophile décrit le bakuchiol comme « très lipophile » (log Kₒ/ₓ ~6,1) et souligne que son état huileux pose des défis de formulation, nécessitant systèmes d’encapsulation ou véhicules lipidiques organisés pour optimiser diffusion dans l’épiderme et le derme.[^7]
+     - Les modèles in vitro de peau reconstruite ont été utilisés pour tester des effets d’activité (gènes et protéines pro‑collagène, etc.), confirmant une action dans les couches épidermiques et dermiques, mais sans toujours donner de flux en µg·cm⁻²·h⁻¹ ni coefficient de partition chiffré.[^12][^5]
+
+     À ce jour, on ne trouve pas (en accès libre) de série complète type « cellules de Franz sur peau humaine, coefficient de perméabilité, Kp, Ksc/vehicule » spécifiquement pour le bakuchiol comme on l’a pour certains rétinoïdes. Les reviews récentes sur bakuchiol mentionnent une bonne diffusibilité dans la matrice lipidique de la couche cornée et une biodisponibilité dermique suffisante pour moduler COL1A1/COL7A1 dans des fibroblastes humains, mais restent qualitatives.[^6][^12]
+
+     En résumé : on peut considérer une très bonne affinité pour la couche cornée et une pénétration significative jusqu’au derme papillaire lorsqu’il est correctement vectorisé (émulsions ou systèmes lipidiques), mais la littérature n’offre pas encore un ensemble robuste de paramètres pharmacocinétiques cutanés chiffrés comparables aux grandes molécules modèles.
+
+     ***
+
+     ## 4–6. Mécanismes d’action moléculaires et cibles cellulaires
+
+     ### Liaison RAR/RXR et « mimétisme rétinoïde »
+
+     - Les études de displacement radioligand et SPR disponibles indiquent que le bakuchiol ne présente pas de liaison directe à haute affinité aux RAR (RARγ notamment), contrairement à l’acide rétinoïque (Kd nanomolaire).[^13]
+     - Des travaux de transcriptomique cutanée montrent que bakuchiol induit un profil d’expression génique largement superposable à celui du rétinol : up‑regulation de gènes de matrice (COL1A1, COL7A1, fibronectine) et down‑regulation des MMP‑1 et MMP‑9, d’où la notion de « functional analogue » plutôt que d’agoniste RAR classique.[^14][^5][^12]
+     - Une source spécialisée (2026) propose un modèle dans lequel bakuchiol augmente l’expression de RARβ, facilite la translocation nucléaire RXRα, et surtout diminue NF‑κB / AP‑1, ce qui lève une partie de l’inhibition des voies retinoid‑like sans liaison directe au site actif des RAR.[^13]
+
+
+     ### Nrf2, NF‑κB et stress oxydatif
+
+     - Hors peau (modèles neurologiques, sepsis), bakuchiol active Nrf2, augmente HO‑1 et autres gènes ARE‑dépendants, avec diminution parallèle de NLRP3 et de la signalisation inflammatoire.[^15][^16][^6]
+     - Ces mêmes effets (activation Nrf2, inhibition NF‑κB, baisse de l’expression de médiateurs pro‑inflammatoires) sont repris dans les reviews dermo‑cosmétiques comme mécanisme central de ses effets anti‑oxydants et anti‑inflammatoires cutanés.[^6][^12]
+
+
+     ### Cibles cellulaires in vitro / ex vivo
+
+     Dans l’étude « Multidirectional activity of bakuchiol against cellular ageing in skin » (2022) :
+
+     - Sur fibroblastes dermiques humains (HDF) : bakuchiol 1–10 µM augmente significativement les niveaux de protéines COL1A1 et COL7A1 après 4 à 96 h, avec des effets comparables au rétinol.[^12]
+     - Au niveau des explants de peau humaine : un gel contenant du bakuchiol augmente la fibronectine dermique et améliore la régénération épidermique dans un modèle de blessure.[^12]
+
+     Les données directes sur mélanocytes, mastocytes et cellules dendritiques humaines sont beaucoup plus rares ; la plupart des effets rapportés sur pigmentation et inflammation découlent de modèles de peau reconstruite (kératinocytes + fibroblastes ± mélanocytes) ou de modèles in vivo, plutôt que d’essais isolant chaque lignée cellulaire avec quantification précise par type de cellule.[^5][^6][^12]
+
+     On peut toutefois résumer :
+
+     - Kératinocytes : modulation de gènes liés à la différenciation et à la barrière (via profils transcriptomiques « rétinoid‑like ») et baisse de marqueurs inflammatoires sous stress UV ou chimique, en partie via Nrf2 et inhibition NF‑κB.[^5][^6][^12]
+     - Fibroblastes : augmentation de COL1A1, COL7A1, fibronectine, diminution de MMP‑1/MMP‑9, ce qui soutient la matrice dermique.[^12]
+     - Mélanocytes : quelques données indirectes suggèrent un effet éclaircissant via modulation paracrine kératinocyte/fibroblaste (diminution de médiateurs inflammatoires et de signaux pro‑mélanogéniques), mais les données quantitatives dédiées restent limitées.[^6]
+     - Mastocytes / cellules dendritiques cutanées : la littérature est surtout extrapolée à partir de modèles immunitaires (NLRP3, TNF‑α, IL‑1β) ; il n’y a pas, à ma connaissance, d’étude standardisée et publiée qui quantifie précisément l’effet de diverses concentrations de bakuchiol sur mastocytes et DC de peau humaine.
+
+     ***
+
+     ## 7, 9, 19. Preuves cliniques, comparaison avec rétinoïdes, délai d’action
+
+     ### Essai clinique randomisé contrôlé de niveau I
+
+     - L’étude pivot de Dhaliwal et al. (BJD, 2019) est un essai prospectif, randomisé, en double aveugle, 44 sujets avec photo‑vieillissement facial.[^17][^18][^14]
+         - Groupe bakuchiol : crème 0,5% deux fois par jour.
+         - Groupe rétinol : crème 0,5% une fois par jour.
+         - Durée : 12 semaines.
+         - Évaluations : imagerie haute résolution, scoring dermatologique, évaluation de pigmentation et rougeur.
+     - Résultats : réduction significative de la surface des rides et de l’hyperpigmentation dans les deux groupes, sans différence statistiquement significative entre bakuchiol et rétinol.[^18][^17][^14]
+     - Tolérance : plus de desquamation et de sensations de picotement dans le groupe rétinol ; bakuchiol mieux toléré.[^17][^18]
+
+     Délai d’apparition des résultats visibles (essentiellement photo‑vieillissement) :
+
+     - Améliorations cliniquement et statistiquement significatives à 12 semaines pour rides et hyperpigmentation dans l’essai Dhaliwal.[^18][^17]
+     - Une étude clinique avec formulation contenant bakuchiol montre une augmentation significative de fibronectine et une amélioration de certains marqueurs histologiques de photo‑vieillissement en 4 semaines, ce qui suggère des effets mesurables dès 1 mois, mais l’ampleur clinique sur les rides reste maximale autour de 8–12 semaines.[^19][^12]
+
+     Pour l’acné, la PIH, la réduction de la réactivité cutanée : on dispose de petites études et séries ouvertes, mais pas encore de grandes RCT double aveugle avec cutométrie/profilométrie standardisées comme pour le photo‑vieillissement, donc le niveau de preuve est plus faible.[^14][^6]
+
+     ### Comparaison bakuchiol vs rétinol/rétinal/adapalène
+
+     - Bakuchiol vs rétinol 0,5% : équivalence clinique sur 12 semaines pour rides et hyperpigmentation, avec moins d’irritation (scaling, stinging) pour bakuchiol.[^17][^18][^14]
+     - Bakuchiol vs autres rétinoïdes (rétinaldéhyde, adapalène, trétinoïne, rétinoïdes 3e–4e génération) :
+         - Il existe des parallèles mécanistiques (profil d’expression génique, modulations NF‑κB / MMP) mais pas d’essai « head‑to‑head » standardisé de grande taille publiquement disponible à ce jour.[^20][^14][^6]
+         - Une revue 2025 sur les rétinoïdes rappelle que les données pour les nouvelles générations concernent surtout l’acide rétinoïque et ses dérivés, et qu’il manque des comparaisons directes avec bakuchiol sur la vitesse d’action et l’irritation.[^20]
+
+     ***
+
+     ### Tableau synthétique bakuchiol vs rétinol (photo‑vieillissement, 0,5%)
+
+     | Paramètre | Bakuchiol 0,5% | Rétinol 0,5% |
+     | :-- | :-- | :-- |
+     | Type d’action | Fonctionnel « retinol‑like » (profil génique similaire, sans liaison RAR forte).[^13][^12] | Pro‑médicament RAR, conversion en acide rétinoïque, liaison directe RAR.[^20] |
+     | Étude RCT double aveugle | Oui, 44 sujets, 12 semaines.[^17][^18] | Même étude, bras comparateur.[^17][^18] |
+     | Résultats rides/hyperpigmentation | Amélioration significative, non inférieure au rétinol.[^17][^18] | Amélioration similaire.[^17][^18] |
+     | Irritation (desquamation, picotements) | Faible, significativement moins que rétinol.[^17][^18] | Plus de scaling et stinging.[^17][^18] |
+     | Photosensibilisation | Non photosensibilisant (forme purifiée).[^11][^21] | Peut augmenter sensibilité au soleil.[^20] |
+     | Utilisation jour/nuit | Possible matin et soir (avec SPF).[^11] | Habituellement réservé au soir. |
+
+
+     ***
+
+     ## 8, 14, 15. Concentration, véhicule, forme, pH et bonnes pratiques de formulation
+
+     Concentration (cosmétique) :
+
+     - La majorité des essais cliniques « anti‑âge » utilisent 0,5–1% ; les panel tests de tolérance vont jusqu’à 1% dans nettoyant + crème chez des sujets sensibles (eczéma, rosacée) avec bonne tolérance globale.[^22][^21][^18][^17]
+     - Des tests in vitro de cytotoxicité montrent une viabilité > 90% de kératinocytes jusqu’à l’équivalent de 10% de bakuchiol, ce qui suggère une marge de sécurité large, mais ce n’est pas directement transposable aux doses cosmétiques finales.[^23]
+
+     Véhicule et forme galénique :
+
+     - Émulsions O/W et sérums huileux/anhydres sont considérés comme les plus adaptés pour la stabilité et la pénétration, compte tenu de la lipophilie élevée.[^9][^7][^12]
+     - Les gels hydroalcooliques ou mousses très aqueuses, surtout à pH élevé, sont moins adaptés : solubilité faible, risques de précipitation, instabilité oxydative plus rapide.[^8][^9]
+     - Les sticks anhydres et huiles visage permettent d’optimiser la solubilisation et de limiter l’oxydation (faible eau), à condition d’avoir un système antioxydant adéquat (tocophérol, parfois BHT/BHA) et un packaging protecteur.[^8][^9]
+
+     pH de la formulation :
+
+     - Zone recommandée : pH ~3–6,5, en pratique souvent 4,5–6 pour concilier stabilité, confort et compatibilité avec d’autres actifs.[^10][^9][^8]
+     - pH < 4 avec forte phase aqueuse et présence de peroxydes/métaux → risque accru d’oxydation du phénol ; il faut alors sur‑stabiliser (antioxydants, chélateurs) ou réserver la co‑utilisation à l’application séquentielle plutôt que co‑formulation.[^10][^8]
+
+     Bonnes pratiques de formulation :
+
+     - Incorporation : supporte brièvement 75–80 °C mais idéalement ajouté en phase de refroidissement < 40 °C.[^9]
+     - Phase : dans la phase huileuse ou solubilisée dans un ester/silicone avant émulsification pour assurer pleine solubilité.[^7][^9]
+     - Antioxydants : usage courant de tocophérol, parfois BHT/BHA, plus un cocktail chélateur (EDTA) pour minimiser l’oxydation catalysée par les métaux.[^8][^9]
+     - Tampons : systèmes citrate, phosphate ou lactate dans la zone pH 4,5–6, selon le profil de l’ensemble de la formule, pour limiter les dérives de pH et la dégradation basique.[^9][^8]
+     - Packaging : flacons airless opaques ou ambrés pour limiter O₂ et UV.[^8][^9]
+
+     ***
+
+     ## 10–11. Sécurité, irritation, allergie, photo‑toxicité, cyto‑ et génotoxicité
+
+     Données cliniques et cosmétovigilance :
+
+     - Bakuchiol est globalement bien toléré en application topique, y compris chez sujets à peau sensible, eczéma ou rosacée, dans des études de 4 semaines à 1% (nettoyant + crème), avec peu d’événements indésirables.[^24][^21][^22]
+     - Des cas ponctuels de dermatite de contact allergique ont été rapportés avec 1% bakuchiol, mais ils restent rares.[^21][^22]
+
+     Photosensibilisation / phototoxicité :
+
+     - Le bakuchiol purifié n’est pas photosensibilisant selon les données disponibles ; les risques de phototoxicité proviennent des extraits bruts de *Psoralea corylifolia* contenant des psoralènes/furocoumarines (psoralène, isopsoralène, etc.).[^11][^21][^5]
+     - Les procédés de purification (extractions successives, chromatographie) visent précisément à éliminer ces furocoumarines ; aucune réaction de photosensibilisation n’a été rapportée dans les études cliniques sur le bakuchiol pur.[^21][^11]
+
+     Cytotoxicité et génotoxicité :
+
+     - Un travail de cytotoxicité sur kératinocytes exposés jusqu’à l’équivalent de 10% bakuchiol rapporte une viabilité cellulaire > 90%, sans signes d’atteinte de l’ADN, de stress oxydatif ou d’augmentation des cassures d’ADN (comet assay).[^23]
+     - Certaines bases de données prédictives (TCM‑ADIP) indiquent un score d’Ames négatif faible (faible probabilité de mutagénicité), ce qui est compatible avec l’absence de signaux AMES positifs dans les données publiques.[^1]
+
+     Le caractère dose‑dépendant des effets indésirables est probable (comme pour tout actif), mais les publications cosmétologiques restent qualitatives : plus de sécheresse/rougeur à doses plus élevées ou fréquence d’application accrue, sans relation précise « dose‑réponse » publiée.
+
+     ***
+
+     ## 12. Données réglementaires (UE, CIR, FDA) en 2026
+
+     Les textes réglementaires majeurs (Règlement Cosmétiques UE, avis SCCS, CIR) ne listent pas, à ce jour, le bakuchiol dans une annexe spécifique avec concentration maximale harmonisée comme c’est le cas pour le rétinol ou le kojic acid. Les restrictions les plus récentes publiées se concentrent sur d’autres actifs (rétinol limité à 0,3% RE dans la plupart des produits, etc.) et ne mentionnent pas de limite harmonisée pour le bakuchiol.[^25][^26]
+
+     En pratique :
+
+     - UE : le bakuchiol est autorisé comme ingrédient cosmétique non restreint, soumis aux règles générales de sécurité (évaluation toxicologique, marges de sécurité) ; de nombreux produits sont formulés entre 0,3% et 1% en leave‑on.[^14][^6]
+     - CIR : les derniers avis publics sont centrés sur les rétinoïdes et d’autres actifs ; aucune monographie CIR complète spécifique au bakuchiol n’est encore publiée comme pour les filtres UV ou les conservateurs majeurs (la littérature secondaire parle surtout d’« absence de signaux majeurs »).[^6][^14]
+     - FDA (USA) : bakuchiol est traité comme ingrédient cosmétique classique (non
+     <span style="display:none">[^27][^28][^29][^30]</span>
+
+     <div align="center">⁂</div>
+
+     [^1]: https://cbcb.cdutcm.edu.cn/TCM-ADIP/Browse/Ingredient/TCMI11141
+
+     [^2]: https://pubchem.ncbi.nlm.nih.gov/compound/Bakuchiol
+
+     [^3]: https://pubs.rsc.org/en/content/articlehtml/2022/ra/d1ra08771a
+
+     [^4]: https://go.drugbank.com/drugs/DB16102
+
+     [^5]: https://pmc.ncbi.nlm.nih.gov/articles/PMC10816982/
+
+     [^6]: https://pmc.ncbi.nlm.nih.gov/articles/PMC10683784/
+
+     [^7]: https://pubmed.ncbi.nlm.nih.gov/40562285/
+
+     [^8]: https://www.alibaba.com/product-insights/is-bakuchiol-really-as-stable-as-advertised-or-does-it-degrade-faster-than-retinol.html
+
+     [^9]: https://www.myskinrecipes.com/expert/qa/technical-information-and-formulation-guidelines-for-bakuchiol
+
+     [^10]: https://www.alibaba.com/product-insights/is-bakuchiol-stable-enough-to-mix-with-lactic-acid-or-will-it-deactivate.html
+
+     [^11]: https://us.typology.com/library/bakuchiol-an-active-ingredient-to-avoid-during-sun-exposure
+
+     [^12]: https://pmc.ncbi.nlm.nih.gov/articles/PMC9328396/
+
+     [^13]: https://www.alibaba.com/product-insights/bakuchiol-vs-r-retinoic-acid-which-activates-rar-receptors-with-lower-irritation-in-head-to-head-trials.html
+
+     [^14]: https://jintegrativederm.org/doi/10.64550/joid.9jag0x17
+
+     [^15]: https://pubmed.ncbi.nlm.nih.gov/34087492/
+
+     [^16]: https://www.frontiersin.org/journals/pharmacology/articles/10.3389/fphar.2018.01536/full
+
+     [^17]: https://onlinelibrary.wiley.com/doi/10.1111/bjd.16918
+
+     [^18]: https://pubmed.ncbi.nlm.nih.gov/29947134/
+
+     [^19]: https://pubmed.ncbi.nlm.nih.gov/31900804/
+
+     [^20]: https://japsonline.com/abstract.php?article_id=4265&sts=2
+
+     [^21]: https://us.typology.com/library/what-are-the-dangers-of-bakuchiol
+
+     [^22]: https://uk.typology.com/library/what-are-the-dangers-of-bakuchiol
+
+     [^23]: https://ombucosmetics.com/en/blogs/noticias/es-fitotoxico-el-bakuchiol-desvelamos-la-verdad-detras-del-ingrediente-de-moda-en-cosmetica
+
+     [^24]: https://valentia.com/blogs/ingredients/what-are-the-downsides-of-bakuchiol-side-effects-safety-and-sensitive-skin-risks-explained
+
+     [^25]: https://www.cosmeticsandtoiletries.com/regulations/regional/news/22913539/ctpa-9-cosmetic-ingredient-bansrestrictions-in-the-eu-kojic-acid-4mbc-retinol-arbutin-and-more
+
+     [^26]: https://passionaturel.fr/le-retinol-limite-dans-les-cosmetiques-par-lue/
+
+     [^27]: https://onlinelibrary.wiley.com/doi/abs/10.1111/bjd.16918
+
+     [^28]: http://en.reach24h.com/news/insights/cosmetic/eu-cosmetics-safety-gate-alerts-2025
+
+     [^29]: https://www.sciencedirect.com/science/article/pii/S0531556525002293/pdf?md5=9dc9b2326097184b140a1f01cd69137c&pid=1-s2.0-S0531556525002293-main.pdf
+
+     [^30]: https://www.frontiersin.org/journals/aging/articles/10.3389/fragi.2025.1596050/full
+
+
      `,
   },
   {

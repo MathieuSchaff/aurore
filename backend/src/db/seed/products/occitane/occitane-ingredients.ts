@@ -108,7 +108,7 @@ export const OCCITANE_INGREDIENTS_MAP: Record<
       notes: 'Extrait de betterave, soutient le microbiome cutané',
     },
     {
-      slug: INGREDIENT_SLUGS.CHICORY_ROOT_EXTRACT,
+      slug: INGREDIENT_SLUGS.INULINE,
       notes: 'Extrait de chicorée, prébiotique pour le microbiome',
     },
     {
