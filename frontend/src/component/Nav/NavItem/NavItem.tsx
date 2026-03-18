@@ -4,7 +4,7 @@ import type { LucideProps } from 'lucide-react'
 import { Atom, Barcode, CheckSquare, Home, ListChecks } from 'lucide-react'
 import { forwardRef } from 'react'
 
-const ShelvingUnit = forwardRef<SVGSVGElement, LucideProps>(
+export const ShelvingUnit = forwardRef<SVGSVGElement, LucideProps>(
   ({ color = 'currentColor', size = 24, strokeWidth = 2, ...props }, ref) => (
     <svg
       ref={ref}
