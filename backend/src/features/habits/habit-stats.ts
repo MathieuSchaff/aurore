@@ -3,7 +3,7 @@ import { and, between, desc, eq, sql } from 'drizzle-orm'
 
 import { db } from '../../db'
 import { habitChecks } from '../../db/schema/habits'
-import type { Database } from './habit-error'
+import type { Database } from '../../db'
 
 export async function countHabitChecks(
   habitId: string,

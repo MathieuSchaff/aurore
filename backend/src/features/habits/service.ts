@@ -16,7 +16,6 @@ export {
   restoreHabit,
   updateHabit,
 } from './habit-crud'
-export type { Database } from './habit-error'
 export { HabitError } from './habit-error'
 export {
   setHabitPeriod,
