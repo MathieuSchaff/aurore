@@ -1,7 +1,7 @@
 import { Outlet } from '@tanstack/react-router'
 import { Toaster } from 'sonner'
 
-import { BottomNav } from '../BottomNav/BottomNav'
+import { BottomNav } from '../../BottomNav/BottomNav'
 import { Header } from '../Header/Header'
 export const AppLayout = () => {
   return (
