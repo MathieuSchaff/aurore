@@ -294,6 +294,11 @@ export function ProductsPage() {
               />
             </div>
 
+            <Link to="/products/new" className="list-filter-btn">
+              <Plus size={16} />
+              <span>Créer</span>
+            </Link>
+
             <button type="button" className="list-filter-btn" onClick={() => setDrawerOpen(true)}>
               <SlidersHorizontal size={16} />
               <span>Filtrer</span>
