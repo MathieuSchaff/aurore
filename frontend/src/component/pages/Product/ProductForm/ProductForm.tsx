@@ -13,6 +13,7 @@ import {
 } from '../../../../lib/queries/products'
 import { tagQueries } from '../../../../lib/queries/tags'
 import '../../../../styles/common/ingredients-shared.css'
+import { BrandCombobox } from '../../../BrandCombobox/BrandCombobox'
 import './ProductForm.css'
 
 type ProductWithIngredients = {
@@ -73,6 +74,7 @@ export function ProductForm({ mode, product, initialTags = [], onSuccess }: Prod
     url: product?.url ?? '',
   })
 
+  const [brandConfirmed, setBrandConfirmed] = useState(mode === 'edit')
   const [tags, setTags] = useState<TagState[]>(initialTags)
   const [pendingIngredients, setPendingIngredients] = useState<
     Array<{ ingredientId: string; ingredientName: string }>
@@ -140,6 +142,7 @@ export function ProductForm({ mode, product, initialTags = [], onSuccess }: Prod
       ? createProduct.isPending ||
         !form.name.trim() ||
         !form.brand.trim() ||
+        !brandConfirmed ||
         !form.kind.trim() ||
         !form.unit.trim()
       : updateProduct.isPending || updateTags.isPending || !isDirty
@@ -265,16 +268,16 @@ export function ProductForm({ mode, product, initialTags = [], onSuccess }: Prod
         </div>
 
         <div className="product-edit-form__field">
-          <label className="product-edit-form__label" htmlFor="edit-brand">
+          <label className="product-edit-form__label">
             Marque <span className="product-edit-form__required">*</span>
           </label>
-          <input
-            id="edit-brand"
-            className="product-edit-form__input"
-            type="text"
-            value={form.brand}
-            onChange={handleChange('brand')}
-            placeholder="Ex : The Ordinary, Solgar…"
+          <BrandCombobox
+            value={form.brand ?? ''}
+            onChange={(v, confirmed) => {
+              setForm((prev) => ({ ...prev, brand: v }))
+              setBrandConfirmed(confirmed)
+            }}
+            inputClassName="product-edit-form__input"
           />
         </div>
       </div>
