@@ -48,18 +48,22 @@
 [data-theme="dark"] .kind--complement {
   --_kind-bg: var(--primary-20);
   --_kind-color: var(--primary-60);
+  --_kind-border: var(--primary-60);
 }
 [data-theme="dark"] .kind--skincare {
   --_kind-bg: var(--info-20);
   --_kind-color: var(--info-60);
+  --_kind-border: var(--color-info);
 }
 [data-theme="dark"] .kind--huile {
   --_kind-bg: var(--accent-20);
   --_kind-color: var(--accent-80);
+  --_kind-border: var(--accent-60);
 }
 [data-theme="dark"] .kind--vitamine {
   --_kind-bg: var(--error-20);
   --_kind-color: var(--error-65);
+  --_kind-border: var(--color-error);
 }
 
 /* ======================================================
