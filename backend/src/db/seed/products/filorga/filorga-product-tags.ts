@@ -1,0 +1,92 @@
+import { TAG_SLUGS } from '../../tags/seed-tags'
+import { FILORGA_PRODUCT_SLUGS } from './filorga'
+
+interface ProductTagGroups {
+  primary: string[] // Préoccupations majeures + actions clés
+  secondary: string[] // Type de produit, étapes routine, propriétés, labels
+  avoid: string[] // Exclusions (incompatibilités avec le produit)
+}
+
+export const PRODUCT_TAGS: Record<string, ProductTagGroups> = {
+  [FILORGA_PRODUCT_SLUGS.TIME_FILLER_ESSENCE]: {
+    primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT, TAG_SLUGS.DESHYDRATATION],
+    secondary: [
+      TAG_SLUGS.LOTION,
+      TAG_SLUGS.ESSENCE,
+      TAG_SLUGS.PREPARATION,
+      TAG_SLUGS.HYDRATATION,
+      TAG_SLUGS.PEAU_TOUS_TYPES,
+      TAG_SLUGS.MATIN,
+      TAG_SLUGS.SOIR,
+      TAG_SLUGS.BIOMIMETIQUE,
+    ],
+    avoid: [],
+  },
+  [FILORGA_PRODUCT_SLUGS.DAILY_PEEL_ANTI_RIDES]: {
+    primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.GRAIN_PEAU],
+    secondary: [
+      TAG_SLUGS.SERUM,
+      TAG_SLUGS.EXFOLIATION,
+      TAG_SLUGS.SOIR,
+      TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+      TAG_SLUGS.KERATOLYTIQUE,
+      TAG_SLUGS.PEAU_TOUS_TYPES,
+      TAG_SLUGS.PEAU_SENSIBLE,
+    ],
+    avoid: [TAG_SLUGS.MATIN],
+  },
+  [FILORGA_PRODUCT_SLUGS.DAILY_PEEL_ANTI_TACHES]: {
+    primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.ECLAT],
+    secondary: [
+      TAG_SLUGS.SERUM,
+      TAG_SLUGS.EXFOLIATION,
+      TAG_SLUGS.SOIR,
+      TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+      TAG_SLUGS.POST_ACNE,
+      TAG_SLUGS.PEAU_TOUS_TYPES,
+      TAG_SLUGS.PEAU_SENSIBLE,
+    ],
+    avoid: [TAG_SLUGS.MATIN],
+  },
+  [FILORGA_PRODUCT_SLUGS.NCEF_REVITALIZE_SERUM]: {
+    primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT, TAG_SLUGS.BARRIERE_CUTANEE],
+    secondary: [
+      TAG_SLUGS.SERUM,
+      TAG_SLUGS.TRAITEMENT,
+      TAG_SLUGS.PEAU_TOUS_TYPES,
+      TAG_SLUGS.PEAU_SENSIBLE,
+      TAG_SLUGS.MATIN,
+      TAG_SLUGS.SOIR,
+      TAG_SLUGS.ANTI_OXYDANT,
+      TAG_SLUGS.BIO_NATUREL,
+    ],
+    avoid: [],
+  },
+  [FILORGA_PRODUCT_SLUGS.SLEEP_PEEL_4_5]: {
+    primary: [TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT],
+    secondary: [
+      TAG_SLUGS.CREME_DE_NUIT,
+      TAG_SLUGS.EXFOLIATION,
+      TAG_SLUGS.SOIR,
+      TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+      TAG_SLUGS.PEAU_SENSIBLE,
+      TAG_SLUGS.PEAU_TOUS_TYPES,
+    ],
+    avoid: [TAG_SLUGS.MATIN],
+  },
+  [FILORGA_PRODUCT_SLUGS.HYDRA_AOX_5]: {
+    primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.ECLAT],
+    secondary: [
+      TAG_SLUGS.SERUM,
+      TAG_SLUGS.PROTECTION_SOLAIRE,
+      TAG_SLUGS.MATIN,
+      TAG_SLUGS.SOIR,
+      TAG_SLUGS.ANTI_OXYDANT,
+      TAG_SLUGS.LUMIERE_BLEUE,
+      TAG_SLUGS.POLLUTION,
+      TAG_SLUGS.PEAU_TOUS_TYPES,
+      TAG_SLUGS.TEXTURE_LEGERE,
+    ],
+    avoid: [],
+  },
+}
