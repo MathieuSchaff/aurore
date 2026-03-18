@@ -310,6 +310,50 @@ describe('Product Routes', () => {
     })
   })
 
+  // ━━━ GET /products/brands ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  describe('GET /products/brands', () => {
+    it('returns an empty array when no products exist', async () => {
+      const res = await app.request('/products/brands')
+      expect(res.status).toBe(200)
+      const data = await res.json()
+      expect(data.success).toBe(true)
+      expect(data.data).toEqual([])
+    })
+
+    it('returns distinct brand names sorted A→Z', async () => {
+      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
+      await authPost(app, '/products', token, {
+        name: 'Serum C',
+        brand: 'The Ordinary',
+        kind: 'skincare',
+        unit: 'ml',
+      })
+      await authPost(app, '/products', token, {
+        name: 'SPF 50',
+        brand: 'Avène',
+        kind: 'skincare',
+        unit: 'ml',
+      })
+      await authPost(app, '/products', token, {
+        name: 'Niacinamide',
+        brand: 'The Ordinary',
+        kind: 'skincare',
+        unit: 'ml',
+      })
+
+      const res = await app.request('/products/brands')
+      expect(res.status).toBe(200)
+      const data = await res.json()
+      expect(data.data).toEqual(['Avène', 'The Ordinary'])
+    })
+
+    it('does not require authentication', async () => {
+      const res = await app.request('/products/brands')
+      expect(res.status).toBe(200)
+    })
+  })
+
   // ━━━ DELETE /products/:id ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   describe('DELETE /products/:id', () => {
