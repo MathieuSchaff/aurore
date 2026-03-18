@@ -123,11 +123,15 @@
 }
 
 /* ── Sheet items ─────────────────────────────────────── */
+/* Sheet sits on --color-sidebar-bg (dark blue in light mode).       */
+/* Use --color-sidebar-icon for text so contrast is correct in both  */
+/* themes — the same token used by sidebar nav links.                */
+
 .bottom-nav__sheet-link {
   display: flex;
   align-items: center;
   gap: var(--space-3, 0.75rem);
-  color: var(--text-primary);
+  color: var(--color-sidebar-icon);
   font-size: var(--text-base);
   font-weight: var(--font-medium);
   text-decoration: none;
@@ -147,7 +151,7 @@
 
 .bottom-nav__sheet-divider {
   height: 1px;
-  background: var(--border-default);
+  background: oklch(from var(--color-sidebar-icon) l c h / 0.2);
   margin: var(--space-2, 0.5rem) 0;
 }
 
@@ -160,7 +164,7 @@
 
 .bottom-nav__sheet-row-label {
   font-size: var(--text-sm);
-  color: var(--text-secondary);
+  color: oklch(from var(--color-sidebar-icon) l c h / 0.7);
   font-weight: var(--font-medium);
 }
 
@@ -172,7 +176,7 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  color: var(--color-error, #e53e3e);
+  color: oklch(70% 0.2 25deg); /* bright coral — readable on dark bg in both themes */
   font-size: var(--text-base);
   font-weight: var(--font-medium);
   padding: 0.75rem var(--space-2, 0.5rem);
@@ -182,7 +186,7 @@
 }
 
 .bottom-nav__sheet-logout:hover {
-  background: var(--color-error-light);
+  background: var(--color-sidebar-item-hover);
 }
 
 .bottom-nav__sheet-logout:focus-visible {
@@ -194,7 +198,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-3, 0.75rem);
-  color: var(--color-primary);
+  color: var(--color-sidebar-icon);
   font-size: var(--text-base);
   font-weight: var(--font-semibold);
   text-decoration: none;
@@ -205,4 +209,29 @@
 
 .bottom-nav__sheet-auth-link:hover {
   background: var(--color-sidebar-item-hover);
+}
+
+/* ── ThemeToggle inside sheet ────────────────────────── */
+/* ThemeToggle is designed for the mango header. Override its tokens  */
+/* here so it works on the dark sidebar background.                  */
+.bottom-nav__sheet-row .theme-toggle__track {
+  background-color: oklch(from var(--color-sidebar-icon) l c h / 0.2);
+}
+
+.bottom-nav__sheet-row:hover .theme-toggle__track {
+  background-color: oklch(from var(--color-sidebar-icon) l c h / 0.35);
+}
+
+.bottom-nav__sheet-row .theme-toggle__thumb {
+  background-color: var(--color-sidebar-icon);
+}
+
+.bottom-nav__sheet-row .theme-toggle__icon {
+  color: var(--color-sidebar-icon);
+}
+
+.bottom-nav__sheet-row [aria-checked='false'] .theme-toggle__icon--sun,
+.bottom-nav__sheet-row [aria-checked='true'] .theme-toggle__icon--moon {
+  color: var(--color-sidebar-bg);
+  filter: none;
 }
