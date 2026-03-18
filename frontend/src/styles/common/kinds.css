@@ -1,89 +1,69 @@
-/* ======================================================
-   KIND COLORS — Centralisé
-   Utilisé par : ProductsPage.css, ProductPage.css
-   Dépend de   : colors-root.css, colors-dark.css
-
-   Classes génériques applicables à n'importe quel élément
-   portant une sémantique "kind" : badge, icône, bordure.
-
-   Pattern d'usage :
-     <span class="kind-badge kind--complement">Complément</span>
-     <div  class="kind-icon  kind--skincare">…</div>
-     <a    class="list-card  kind-border--huile">…</a>
-   ====================================================== */
-
-/* ======================================================
-   1. CUSTOM PROPERTIES PAR KIND
-      Une seule source de vérité pour bg / color / border.
-      Les classes utilitaires ci-dessous les consomment.
-   ====================================================== */
-
 .kind--complement {
-  --_kind-bg: var(--primary-90);
-  --_kind-color: var(--primary-40);
-  --_kind-border: var(--primary-60);
+  --_kind-bg: oklch(95% 0.12 95deg);
+  --_kind-color: oklch(55% 0.15 95deg);
+  --_kind-border: oklch(75% 0.2 95deg);
 }
 .kind--skincare {
-  --_kind-bg: var(--color-info-light);
-  --_kind-color: var(--color-info);
-  --_kind-border: var(--info-60);
+  --_kind-bg: oklch(94% 0.1 85deg);
+  --_kind-color: oklch(50% 0.12 85deg);
+  --_kind-border: oklch(70% 0.15 85deg);
 }
 .kind--huile {
-  --_kind-bg: var(--color-accent-light);
-  --_kind-color: var(--color-accent);
-  --_kind-border: var(--color-accent);
+  --_kind-bg: oklch(96% 0.15 78deg);
+  --_kind-color: oklch(60% 0.18 78deg);
+  --_kind-border: oklch(80% 0.22 78deg);
 }
 .kind--vitamine {
-  --_kind-bg: var(--color-error-light);
-  --_kind-color: var(--error-65);
-  --_kind-border: var(--error-65);
-}
-.kind--default {
-  --_kind-bg: var(--card-icon-bg);
-  --_kind-color: var(--card-icon-color);
-  --_kind-border: var(--border-default);
+  --_kind-bg: oklch(94% 0.12 65deg);
+  --_kind-color: oklch(55% 0.15 65deg);
+  --_kind-border: oklch(75% 0.2 65deg);
 }
 
-/* ── Overrides dark ── */
-[data-theme="dark"] .kind--complement {
-  --_kind-bg: var(--primary-20);
-  --_kind-color: var(--primary-60);
-  --_kind-border: var(--primary-60);
+.unit--pump {
+  --_kind-bg: oklch(95% 0.08 90deg);
+  --_kind-color: oklch(55% 0.12 90deg);
+  --_kind-border: oklch(75% 0.15 90deg);
 }
-[data-theme="dark"] .kind--skincare {
-  --_kind-bg: var(--info-20);
-  --_kind-color: var(--info-60);
-  --_kind-border: var(--color-info);
+.unit--dropper {
+  --_kind-bg: oklch(96% 0.1 105deg);
+  --_kind-color: oklch(60% 0.12 105deg);
+  --_kind-border: oklch(80% 0.15 105deg);
 }
-[data-theme="dark"] .kind--huile {
-  --_kind-bg: var(--accent-20);
-  --_kind-color: var(--accent-80);
-  --_kind-border: var(--accent-60);
+.unit--jar {
+  --_kind-bg: oklch(93% 0.15 45deg);
+  --_kind-color: oklch(45% 0.18 45deg);
+  --_kind-border: oklch(65% 0.22 45deg);
 }
-[data-theme="dark"] .kind--vitamine {
-  --_kind-bg: var(--error-20);
-  --_kind-color: var(--error-65);
-  --_kind-border: var(--color-error);
+.unit--tube {
+  --_kind-bg: oklch(94% 0.1 55deg);
+  --_kind-color: oklch(50% 0.12 55deg);
+  --_kind-border: oklch(70% 0.15 55deg);
+}
+.unit--spray {
+  --_kind-bg: oklch(95% 0.06 80deg);
+  --_kind-color: oklch(55% 0.1 80deg);
+  --_kind-border: oklch(75% 0.12 80deg);
+}
+.unit--spf {
+  --_kind-bg: oklch(96% 0.18 88deg);
+  --_kind-color: oklch(65% 0.2 88deg);
+  --_kind-border: oklch(85% 0.25 88deg);
 }
 
-/* ======================================================
-   2. CLASSES UTILITAIRES
-      Consomment les custom properties locales ci-dessus.
-   ====================================================== */
-
-/* Badge / pill texte (ex-__kind) */
 .kind-badge {
   background: var(--_kind-bg);
   color: var(--_kind-color);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
 }
 
-/* Icône / avatar (ex-__icon--*) */
 .kind-icon {
   background: var(--_kind-bg);
   color: var(--_kind-color);
 }
 
-/* Bordure accentuée (ex-.product-card--*) */
 .kind-border {
-  border-left-color: var(--_kind-border);
+  border-left: 4px solid var(--_kind-border);
 }

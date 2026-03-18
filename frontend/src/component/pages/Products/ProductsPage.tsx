@@ -42,6 +42,17 @@ function kindClass(kind: string): string {
   }
 }
 
+function unitClass(unit: string | null | undefined): string {
+  const u = unit?.toLowerCase().trim() ?? ''
+  if (u === 'pump' || u === 'pompe') return 'unit--pump'
+  if (u === 'dropper' || u === 'pipette' || u === 'compte-gouttes') return 'unit--dropper'
+  if (u === 'jar' || u === 'pot' || u === 'crème' || u === 'cream') return 'unit--jar'
+  if (u === 'tube') return 'unit--tube'
+  if (u === 'spray' || u === 'brume' || u === 'brumisateur') return 'unit--spray'
+  if (u === 'spf' || u === 'sunscreen' || u === 'solaire') return 'unit--spf'
+  return ''
+}
+
 const CATEGORY_LABELS: Record<string, { label: string; key: FilterKey }> = {
   routine_step: { label: 'Étape routine', key: 'routine_step' },
   attribute: { label: 'Caractéristiques', key: 'attribute' },
@@ -357,7 +368,7 @@ export function ProductsPage() {
                 {items.map((product) => (
                   <div
                     key={product.id}
-                    className={`list-card list-card--product ${kindClass(product.kind)}`}
+                    className={`list-card list-card--product ${kindClass(product.kind)} ${unitClass(product.unit)}`}
                   >
                     <Link
                       to="/products/$slug"
@@ -376,14 +387,19 @@ export function ProductsPage() {
                     <div className="list-card__body">
                       <p className="list-card__name">{product.name}</p>
                       <div className="list-card__footer">
-                        {product.priceCents != null && (
-                          <span className="list-card__price">
-                            {new Intl.NumberFormat('fr-FR', {
-                              style: 'currency',
-                              currency: 'EUR',
-                            }).format(product.priceCents / 100)}
-                          </span>
-                        )}
+                        <div className="list-card__price-wrap">
+                          {product.priceCents != null && (
+                            <span className="list-card__price">
+                              {new Intl.NumberFormat('fr-FR', {
+                                style: 'currency',
+                                currency: 'EUR',
+                              }).format(product.priceCents / 100)}
+                            </span>
+                          )}
+                          {product.unit && (
+                            <span className="list-card__unit-chip">{product.unit}</span>
+                          )}
+                        </div>
                         <button
                           type="button"
                           className="list-card__add-btn"
