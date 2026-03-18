@@ -9,6 +9,7 @@ import { toast } from 'sonner'
 import { useScrollLock } from '../../../hooks/useScrollLock'
 import { productQueries, useCreateProduct } from '../../../lib/queries/products'
 import { useCreateUserProduct } from '../../../lib/queries/user-products'
+import { BrandCombobox } from '../../BrandCombobox/BrandCombobox'
 import { SearchCombobox } from '../../search/SearchCombobox'
 
 import './QuickAddModal.css'
@@ -41,6 +42,7 @@ export function QuickAddModal({ onClose }: QuickAddModalProps) {
   const [newBrand, setNewBrand] = useState('')
   const [newKind, setNewKind] = useState('skincare')
   const [newUnit] = useState('flacon pompe')
+  const [newBrandConfirmed, setNewBrandConfirmed] = useState(false)
 
   const createProduct = useCreateProduct()
   const addUserProduct = useCreateUserProduct()
@@ -209,13 +211,13 @@ export function QuickAddModal({ onClose }: QuickAddModalProps) {
                 />
               </div>
               <div className="qa-field">
-                <label htmlFor="qa-new-brand">Marque</label>
-                <input
-                  id="qa-new-brand"
-                  type="text"
-                  required
+                <label>Marque</label>
+                <BrandCombobox
                   value={newBrand}
-                  onChange={(e) => setNewBrand(e.target.value)}
+                  onChange={(v, confirmed) => {
+                    setNewBrand(v)
+                    setNewBrandConfirmed(confirmed)
+                  }}
                   placeholder="ex: CeraVe"
                 />
               </div>
@@ -251,7 +253,12 @@ export function QuickAddModal({ onClose }: QuickAddModalProps) {
               <button
                 type="submit"
                 className="qa-submit-btn"
-                disabled={createProduct.isPending || addUserProduct.isPending}
+                disabled={
+                  createProduct.isPending ||
+                  addUserProduct.isPending ||
+                  !newBrand.trim() ||
+                  !newBrandConfirmed
+                }
               >
                 {createProduct.isPending ? 'Création...' : 'Créer et ajouter'}
               </button>
