@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { HabitsPage } from '../../component/pages/habits/HabitsPage'
+import { HabitsPage } from '../../features/habits/components/HabitsPage/HabitsPage'
 
 export const Route = createFileRoute('/_authenticated/habits')({
   component: RouteComponent,

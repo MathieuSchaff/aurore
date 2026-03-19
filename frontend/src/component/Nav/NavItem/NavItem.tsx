@@ -4,6 +4,10 @@ import type { LucideProps } from 'lucide-react'
 import { Atom, Barcode, CheckSquare, Home, ListChecks } from 'lucide-react'
 import { forwardRef } from 'react'
 
+/**
+ * Custom icon because Lucide lacks a specific "skincare shelf" graphic.
+ * Using forwardRef for compatibility with TanStack Router's Link.
+ */
 export const ShelvingUnit = forwardRef<SVGSVGElement, LucideProps>(
   ({ color = 'currentColor', size = 24, strokeWidth = 2, ...props }, ref) => (
     <svg
@@ -30,44 +34,22 @@ export const ShelvingUnit = forwardRef<SVGSVGElement, LucideProps>(
     </svg>
   )
 )
-
 ShelvingUnit.displayName = 'ShelvingUnit'
+
+// Sidebar link definition
 interface NavItem {
   to: LinkProps['to']
   icon: React.ComponentType<any>
   label: string
 }
+
 const navItems: NavItem[] = [
-  {
-    to: '/',
-    icon: Home,
-    label: 'Accueil',
-  },
-  {
-    to: '/habits',
-    icon: ListChecks,
-    label: 'Habitudes',
-  },
-  {
-    to: '/products',
-    icon: Barcode,
-    label: 'Produits',
-  },
-  {
-    to: '/ingredients',
-    icon: Atom,
-    label: 'Ingredients',
-  },
-  {
-    to: '/collection',
-    icon: ShelvingUnit,
-    label: 'Collection',
-  },
-  {
-    to: '/tasks',
-    icon: CheckSquare,
-    label: 'Tâches',
-  },
+  { to: '/', icon: Home, label: 'Accueil' },
+  { to: '/habits', icon: ListChecks, label: 'Habitudes' },
+  { to: '/products', icon: Barcode, label: 'Produits' },
+  { to: '/ingredients', icon: Atom, label: 'Ingredients' },
+  { to: '/collection', icon: ShelvingUnit, label: 'Collection' },
+  { to: '/tasks', icon: CheckSquare, label: 'Tâches' },
 ]
 
 interface NavSideListProps {

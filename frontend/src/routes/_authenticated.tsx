@@ -8,7 +8,7 @@ export const Route = createFileRoute('/_authenticated')({
   beforeLoad: async ({ context, location }) => {
     const store = useAuthStore.getState()
 
-    // si j'ai pas de accessToken ou accessToken est expiré, on doit refresh
+    // Token validation and recovery loop
     if (!store.accessToken || store.isTokenExpired()) {
       const refreshed = await silentRefresh(context.queryClient)
 
@@ -23,17 +23,14 @@ export const Route = createFileRoute('/_authenticated')({
         })
       }
 
-      // silentRefresh a déjà fait setAuth + setQueryData , ça devrait fonctionner
       return
     }
 
-    // si accessToken présent et non expiré, on va vérifier via le cache/serveur
     try {
+      // Server-side session verification
       await context.queryClient.ensureQueryData(authQueries.session())
     } catch {
-      // Le serveur a rejeté le token,
-      // l'utilisateur a set un token lui meme?
-      //  tenter un refresh
+      // If server rejects the current token, try one last refresh
       const refreshed = await silentRefresh(context.queryClient)
 
       if (!refreshed) {

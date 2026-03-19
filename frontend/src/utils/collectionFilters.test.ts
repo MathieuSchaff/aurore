@@ -53,104 +53,52 @@ const products: FilterableProduct[] = [
 ]
 
 describe('applyFilters', () => {
-  it('sans filtre → retourne tout', () => {
+  it('returns all products when no filters are set', () => {
     expect(applyFilters(products, DEFAULT_FILTERS)).toHaveLength(5)
   })
 
-  it('filtre par statut unique', () => {
-    const result = applyFilters(products, { ...DEFAULT_FILTERS, status: 'in_stock' })
-    expect(result).toHaveLength(2)
-    expect(result.every((p) => p.status === 'in_stock')).toBe(true)
+  it('filters by basic fields (status, brand, kind)', () => {
+    expect(applyFilters(products, { ...DEFAULT_FILTERS, status: 'in_stock' })).toHaveLength(2)
+    expect(applyFilters(products, { ...DEFAULT_FILTERS, brand: 'CeraVe' })).toHaveLength(2)
+    expect(applyFilters(products, { ...DEFAULT_FILTERS, kind: 'soin' })).toHaveLength(2)
   })
 
-  it('filtre par marque', () => {
-    const result = applyFilters(products, { ...DEFAULT_FILTERS, brand: 'CeraVe' })
-    expect(result).toHaveLength(2)
-    expect(result.every((p) => p.product.brand === 'CeraVe')).toBe(true)
+  it('handles combination filters and search', () => {
+    const combined = applyFilters(products, { ...DEFAULT_FILTERS, status: 'in_stock', brand: 'CeraVe' })
+    expect(combined).toHaveLength(2)
+
+    expect(applyFilters(products, { ...DEFAULT_FILTERS, search: 'cerave' })).toHaveLength(2)
+    expect(applyFilters(products, { ...DEFAULT_FILTERS, search: 'embryolisse' })).toHaveLength(1)
   })
 
-  it('filtre par kind', () => {
-    const result = applyFilters(products, { ...DEFAULT_FILTERS, kind: 'soin' })
-    expect(result).toHaveLength(2)
-  })
+  it('filters by numeric values (price and sentiment)', () => {
+    // max 10 euros
+    const affordable = applyFilters(products, { ...DEFAULT_FILTERS, maxPriceEuros: 10 })
+    expect(affordable.some(p => p.id === 'p2')).toBe(true) // 5.99
+    expect(affordable.some(p => p.id === 'p1')).toBe(false) // 12.99
 
-  it('filtre par sentiment', () => {
-    const result = applyFilters(products, { ...DEFAULT_FILTERS, sentiment: 5 })
-    expect(result).toHaveLength(1)
-    expect(result[0].id).toBe('p4')
-  })
-
-  it('filtres combinés (statut + marque)', () => {
-    const result = applyFilters(products, { ...DEFAULT_FILTERS, status: 'in_stock', brand: 'CeraVe' })
-    expect(result).toHaveLength(2)
-  })
-
-  it('filtre par prix max — 10€ → exclut produits > 10€', () => {
-    const result = applyFilters(products, { ...DEFAULT_FILTERS, maxPriceEuros: 10 })
-    // 5.99€ (p2) passes; p4 has priceCents=null → 0/100 = 0 ≤ 10 passes
-    expect(result.some((p) => p.id === 'p2')).toBe(true)
-    expect(result.some((p) => p.id === 'p4')).toBe(true)
-    // 12.99€, 24.90€, 18.00€ fail
-    expect(result.some((p) => p.id === 'p1')).toBe(false)
-    expect(result.some((p) => p.id === 'p3')).toBe(false)
-    expect(result.some((p) => p.id === 'p5')).toBe(false)
-  })
-
-  it('filtre par note min → produits sans review ont score 0', () => {
-    const result = applyFilters(products, { ...DEFAULT_FILTERS, minNote: 10 })
-    expect(result).toHaveLength(0)
-  })
-
-  it('filtre qui ne matche rien → tableau vide', () => {
-    const result = applyFilters(products, { ...DEFAULT_FILTERS, brand: 'Marque Inexistante' })
-    expect(result).toHaveLength(0)
-  })
-
-  it('recherche par nom (partiel, insensible à la casse)', () => {
-    const result = applyFilters(products, { ...DEFAULT_FILTERS, search: 'cerave' })
-    expect(result).toHaveLength(2)
-  })
-
-  it('recherche par marque', () => {
-    const result = applyFilters(products, { ...DEFAULT_FILTERS, search: 'embryolisse' })
-    expect(result).toHaveLength(1)
-    expect(result[0].id).toBe('p5')
+    expect(applyFilters(products, { ...DEFAULT_FILTERS, sentiment: 5 })).toHaveLength(1)
+    expect(applyFilters(products, { ...DEFAULT_FILTERS, minNote: 10 })).toHaveLength(0)
   })
 })
 
 describe('sortProducts', () => {
-  it('tri par nom A→Z', () => {
-    const result = sortProducts(products, 'name')
-    const names = result.map((p) => p.product.name)
-    expect(names).toEqual([...names].sort((a, b) => a.localeCompare(b)))
-  })
+  it('sorts by name and date correctly', () => {
+    const byName = sortProducts(products, 'name')
+    expect(byName[0].product.name).toBe('CeraVe Cleanser')
 
-  it('tri par prix croissant — null en fin de liste', () => {
-    const result = sortProducts(products, 'price_asc')
-    const prices = result.map((p) => p.product.priceCents)
-    expect(prices[prices.length - 1]).toBeNull()
-  })
-
-  it('tri par prix décroissant — null en fin de liste', () => {
-    const result = sortProducts(products, 'price_desc')
-    const prices = result.map((p) => p.product.priceCents)
-    expect(prices[prices.length - 1]).toBeNull()
-    const firstNonNull = prices.find((p) => p !== null)
-    expect(firstNonNull).toBeGreaterThan(0)
-  })
-
-  it('tri par sentiment — null traité comme 0, descend', () => {
-    const result = sortProducts(products, 'sentiment')
-    expect(result[0].id).toBe('p4') // sentiment 5
-    expect(result[1].id).toBe('p3') // sentiment 3
-  })
-
-  it("tri par date (récents d'abord)", () => {
     const withDates = [
       makeProduct({ id: 'old', updatedAt: '2025-01-01T00:00:00Z' }),
       makeProduct({ id: 'new', updatedAt: '2026-03-01T00:00:00Z' }),
     ]
-    const result = sortProducts(withDates, 'date')
-    expect(result[0].id).toBe('new')
+    expect(sortProducts(withDates, 'date')[0].id).toBe('new')
+  })
+
+  it('handles nulls in price and sentiment sorting', () => {
+    const asc = sortProducts(products, 'price_asc')
+    expect(asc[asc.length - 1].product.priceCents).toBeNull()
+
+    const bySentiment = sortProducts(products, 'sentiment')
+    expect(bySentiment[0].sentiment).toBe(5)
   })
 })

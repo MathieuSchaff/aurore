@@ -1,6 +1,6 @@
 [data-theme="dark"] {
-  /* === HUES === */
-  --hue-primary: 95deg; /* Jaune doré / Lime (accent du light) */
+  /* HUES */
+  --hue-primary: 95deg;
   --hue-accent: 85deg;
   --hue-orange: 30deg;
   --hue-clay: 40deg;
@@ -9,7 +9,7 @@
   --hue-info: 240deg;
   --hue-neutral: 70deg;
 
-  /* === PRIMARY PALETTE (Jaune doré) === */
+  /* Palette - Primary (Gold/Lime) */
   --primary-20: oklch(25% 0.1 var(--hue-primary));
   --primary-30: oklch(35% 0.14 var(--hue-primary));
   --primary-40: oklch(50% 0.18 var(--hue-primary));
@@ -18,13 +18,13 @@
   --primary-75: oklch(84% 0.2 var(--hue-primary));
   --primary-90: oklch(93% 0.08 var(--hue-primary));
 
-  /* === ACCENT PALETTE === */
+  /* Palette - Accent */
   --accent-20: oklch(25% 0.1 var(--hue-accent));
   --accent-60: oklch(74% 0.22 var(--hue-accent));
   --accent-80: oklch(84% 0.2 var(--hue-accent));
   --accent-95: oklch(25% 0.1 var(--hue-accent));
 
-  /* === NEUTRAL === */
+  /* Palette - Neutral */
   --neutral-10: oklch(15% 0.02 var(--hue-deep));
   --neutral-20: oklch(25% 0.02 var(--hue-deep));
   --neutral-50: oklch(50% 0.02 var(--hue-clay));
@@ -32,9 +32,7 @@
   --neutral-95: oklch(94% 0.03 var(--hue-clay));
   --neutral-99: oklch(98% 0.01 var(--hue-clay));
 
-  /* ===================================
-     SEMANTIC — ACTIONS
-     =================================== */
+  /* Semantic - Actions */
   --color-primary: var(--primary-60);
   --color-primary-hover: var(--primary-75);
   --color-primary-contrast: var(--neutral-10);
@@ -42,79 +40,49 @@
   --color-accent-light: var(--accent-95);
   --color-success: oklch(78% 0.15 145deg);
   --color-error: oklch(70% 0.18 var(--hue-error));
-  --color-error-light: oklch(22% 0.07 var(--hue-error)); /* fond atténué erreur */
+  --color-error-light: oklch(22% 0.07 var(--hue-error));
   --color-info: oklch(75% 0.12 var(--hue-info));
-  --color-info-light: oklch(22% 0.05 var(--hue-info)); /* fond atténué info */
+  --color-info-light: oklch(22% 0.05 var(--hue-info));
   --color-hover: var(--color-primary);
 
-  /* ===================================
-     HEADER
-     =================================== */
+  /* Semantic - Layout */
   --color-header-bg: oklch(22% 0.05 var(--hue-deep));
   --color-header-text: oklch(95% 0.03 var(--hue-clay));
-  --color-header-border: oklch(35% 0.07 var(--hue-deep)); /* équivalent dark de la bordure header */
+  --color-header-border: oklch(35% 0.07 var(--hue-deep));
   --color-header-action: var(--primary-60);
   --color-header-action-bg-hover: oklch(from var(--primary-60) l c h / 0.15);
   --header-border-bottom: 1px solid oklch(30% 0.05 var(--hue-deep));
 
-  /* ===================================
-     CARDS
-     =================================== */
-  --card-icon-bg: var(--primary-20);
-  --card-icon-color: var(--primary-60);
-  --card-accent-border: var(--primary-60);
+  --color-sidebar-bg: oklch(30% 0.13 33deg);
+  --color-sidebar-item-hover: oklch(40% 0.15 33deg);
+  --color-sidebar-item-active: oklch(84% 0.18 65deg);
+  --color-sidebar-icon: oklch(80% 0.1 65deg);
+  --color-sidebar-icon-active: oklch(92% 0.16 65deg);
 
-  /* ===================================
-     TAGS
-     =================================== */
-  --tag-active-bg: var(--accent-20);
-  --tag-active-text: var(--accent-80);
-  --tag-default-bg: oklch(28% 0.03 var(--hue-deep)); /* neutre sombre, équivalent du light */
-  --tag-default-text: oklch(72% 0.04 var(--hue-clay)); /* texte secondaire lisible */
-
-  /* ===================================
-     SIDEBAR
-     =================================== */
-  --color-sidebar-bg: oklch(14% 0.04 var(--hue-deep)); /* plus sombre que bg-page */
-
-  --color-sidebar-item-hover: oklch(24% 0.06 var(--hue-deep));
-  --color-sidebar-item-active: var(--primary-60); /* jaune doré, cohérent avec CTA */
-  --color-sidebar-icon: oklch(55% 0.08 var(--hue-primary));
-  --color-sidebar-icon-active: var(--primary-75);
-
-  /* ===================================
-     SURFACES
-     =================================== */
+  /* Surfaces */
   --bg-page: oklch(18% 0.04 var(--hue-deep));
   --bg-card: oklch(22% 0.05 var(--hue-deep));
   --bg-muted: oklch(15% 0.03 var(--hue-deep));
   --bg-elevated: oklch(26% 0.06 var(--hue-deep));
   --bg-sunken: oklch(12% 0.03 var(--hue-deep));
 
-  /* ===================================
-     INTERACTIVE STATES
-     =================================== */
+  /* Interactive States */
   --bg-hover: oklch(28% 0.06 var(--hue-deep));
   --bg-active: oklch(32% 0.08 var(--hue-deep));
   --bg-selected: oklch(30% 0.12 var(--hue-primary) / 0.3);
 
-  /* ===================================
-     TEXT
-     =================================== */
+  /* Typography */
   --text-primary: oklch(95% 0.03 var(--hue-clay));
   --text-secondary: oklch(80% 0.05 var(--hue-clay));
   --text-muted: oklch(55% 0.04 var(--hue-deep));
   --text-inverse: var(--neutral-10);
 
-  /* ===================================
-     BORDERS & SHADOWS
-     =================================== */
+  /* Borders & Shadows */
   --border-width: 3px;
   --border-default: oklch(42% 0.12 var(--hue-primary));
   --border-strong: var(--primary-60);
   --shadow-hard: 6px 6px 0px var(--primary-60);
-  --shadow-card:
-    0 2px 4px oklch(5% 0.02 var(--hue-deep) / 0.4), 0 6px 16px oklch(5% 0.02 var(--hue-deep) / 0.25); /* ombres plus prononcées qu'en light */
+  --shadow-card: 0 2px 4px oklch(5% 0.02 var(--hue-deep) / 0.4), 0 6px 16px oklch(5% 0.02 var(--hue-deep) / 0.25);
   --overlay: oklch(5% 0.05 var(--hue-deep) / 0.7);
   --color-focus: var(--color-primary);
 }

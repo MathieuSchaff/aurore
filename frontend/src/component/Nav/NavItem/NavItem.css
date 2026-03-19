@@ -6,6 +6,7 @@
   padding-top: var(--space-5);
   opacity: 0;
   height: 0;
+  /* Hiding from screen readers and layout when closed */
   visibility: hidden;
   transform: translateX(-100%);
   transition:
@@ -105,12 +106,12 @@
 }
 
 [data-theme="dark"] .main-nav .main-nav__link {
-  color: oklch(88% 0.03 40deg);
+  color: var(--color-sidebar-icon);
 }
 
 [data-theme="dark"] .main-nav .main-nav__link:hover {
-  background: oklch(30% 0.08 160deg);
-  color: oklch(97% 0.01 40deg);
+  background: var(--color-sidebar-item-hover);
+  color: var(--text-primary);
 }
 
 [data-theme="dark"] .main-nav .main-nav__link[aria-current="page"] {
@@ -118,6 +119,6 @@
 }
 
 [data-theme="dark"] .main-nav .main-nav__link[aria-current="page"]:hover {
-  background: oklch(30% 0.08 160deg);
-  color: oklch(97% 0.01 40deg);
+  background: var(--color-sidebar-item-hover);
+  color: var(--text-primary);
 }

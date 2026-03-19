@@ -66,6 +66,7 @@
   width: 14rem;
   height: 100dvh;
   overflow-y: auto;
+  /* Coordinate this z-index with modals and dropdowns */
   z-index: var(--z-nav, 100);
   box-shadow: var(--shadow-card);
   border-right: 1px solid var(--border-default);

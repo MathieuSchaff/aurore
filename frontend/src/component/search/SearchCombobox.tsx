@@ -9,13 +9,11 @@ export interface SearchComboboxResult {
   label: string
   sublabel?: string
 }
-// problème: on essaye d'avoir TItem ( le type de l'item)
-// mais on veux pas hardoder ça a chaque fois, on veut que ça soit souple
-// les items viennent du retour de queryFn, c'est ce que fetch note front
-// ... on type pas TItem avec toResult mais avec queryFn
-//
+
 interface SearchComboboxProps<TItem, TQueryKey extends QueryKey> {
   queryFn: (query: string) => UseQueryOptions<TItem[], Error, TItem[], TQueryKey>
+  // NoInfer prevents TypeScript from trying to infer TItem from toResult,
+  // forcing it to rely solely on queryFn for the source of truth.
   toResult: (item: NoInfer<TItem>) => SearchComboboxResult
   onSelect: (slug: string, result: SearchComboboxResult) => void
   placeholder?: string
@@ -36,6 +34,7 @@ export function SearchCombobox<TItem, TQueryKey extends QueryKey>({
   const [isOpen, setIsOpen] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
 
+  // Simple inline debounce to avoid another dependency or custom hook overhead for now
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedQuery(query), debounce)
     return () => clearTimeout(timer)
