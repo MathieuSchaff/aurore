@@ -161,6 +161,9 @@ export function useToggleCheck() {
       return json.data
     },
     onMutate: async ({ habitId, date, timingId }) => {
+      // Optimistic update for toggling checks
+      // Note: This logic is a bit dense because we handle both single checks and scheduled timings.
+      // TODO: See if we can simplify this when we implement the multi-check backend support.
       await qc.cancelQueries({ queryKey: habitKeys.today(date) })
       const todayOpts = habitQueries.today(date)
       const snapshot = qc.getQueryData(todayOpts.queryKey)

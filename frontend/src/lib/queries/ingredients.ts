@@ -122,8 +122,7 @@ export const ingredientQueries = {
     }),
 }
 
-// ─── Mutations ────────────────────────────────────────────
-
+// Mutations
 export function useCreateIngredient() {
   const qc = useQueryClient()
   return useMutation({

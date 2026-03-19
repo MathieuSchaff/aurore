@@ -4,11 +4,8 @@ import { useAuthStore } from '../../store/auth'
 import { api } from '../api'
 
 /**
- * Tente un refresh silencieux via le cookie httpOnly.
- *
- * - Déduplique : si un refresh est déjà en vol, on attend le même résultat
- * - Met à jour Zustand + le cache React Query en cas de succès
- * - Ne throw jamais — retourne true/false
+ * Silent refresh via httpOnly cookie.
+ * Deduplicated to avoid multiple concurrent calls.
  */
 
 let inflightRefresh: Promise<boolean> | null = null

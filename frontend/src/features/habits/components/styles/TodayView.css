@@ -1,0 +1,390 @@
+/* ============================================================
+   TODAY VIEW — Design amélioré avec ombres et contrastes
+   ============================================================ */
+
+/* ── Wrapper principal ── */
+.today-view {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* ============================================================
+   PROGRESS BAR
+   ============================================================ */
+
+.today-progress {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-default);
+  box-shadow: var(--shadow-card);
+}
+
+.today-progress__label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.today-progress__title {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--text-secondary);
+}
+
+.today-progress__count {
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: var(--color-primary);
+}
+
+.today-progress__track {
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--bg-muted);
+  overflow: hidden;
+  border: 1px solid var(--border-default);
+}
+
+.today-progress__fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: linear-gradient(
+    90deg,
+    var(--color-primary) 0%,
+    var(--color-accent) 100%
+  );
+  box-shadow: 0 0 8px oklch(from var(--color-primary) l c h / 0.4);
+  transition: width 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================================
+   SECTIONS (À faire / Terminé)
+   ============================================================ */
+
+.today-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.today-section__heading {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.today-section__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* Section des habitudes complétées : atténuée */
+.today-section--completed .today-section__list {
+  opacity: 0.7;
+}
+
+/* ============================================================
+   HABIT ROW
+   ============================================================ */
+
+.habit-row {
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+/* Ligne principale : checkbox + emoji + nom + flèche */
+.habit-row__main {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+}
+
+/* ── Checkbox ── */
+.habit-row__checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--border-strong);
+  background: transparent;
+  cursor: pointer;
+  transition:
+    border-color var(--transition-fast) ease,
+    background var(--transition-fast) ease,
+    transform var(--transition-fast) ease;
+}
+
+.habit-row__checkbox:hover:not(:disabled) {
+  transform: scale(1.15);
+  border-color: var(--color-primary);
+}
+
+.habit-row__checkbox:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.habit-row__checkbox:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.habit-row__checkbox:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.habit-row__checkbox-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+  color: var(--text-inverse);
+  stroke-width: 3;
+}
+
+/* ── Emoji ── */
+.habit-row__emoji {
+  font-size: var(--text-xl);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* ── Nom (bouton cliquable pour le détail) ── */
+.habit-row__name-btn {
+  flex: 1;
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  text-align: left;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color var(--transition-fast) ease;
+}
+
+.habit-row__name-btn:hover {
+  color: var(--text-primary);
+}
+
+.habit-row__name-btn:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ── Catégorie (badge discret) ── */
+.habit-row__category {
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  color: var(--color-accent);
+  background: var(--color-accent-light);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── Icône flèche / détail ── */
+.habit-row__detail-icon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  opacity: 0;
+  transition:
+    opacity var(--transition-fast) ease,
+    translate var(--transition-fast) ease,
+    color var(--transition-fast) ease;
+}
+
+.habit-row:hover .habit-row__detail-icon {
+  opacity: 1;
+  translate: 2px 0;
+  color: var(--color-primary);
+}
+
+/* ============================================================
+   TIMINGS (sous-section de HabitRow)
+   ============================================================ */
+
+.habit-row__timings {
+  border-top: 1px solid var(--border-default);
+  padding: var(--space-2) var(--space-4);
+}
+
+.habit-row__timings-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* Chaque timing est un bouton pill */
+.habit-timing-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  border: 1px solid transparent;
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  cursor: pointer;
+  transition:
+    background var(--transition-fast) ease,
+    border-color var(--transition-fast) ease,
+    color var(--transition-fast) ease,
+    box-shadow var(--transition-fast) ease;
+}
+
+.habit-timing-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.habit-timing-btn:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.habit-timing-btn__dot {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   SKELETON
+   ============================================================ */
+
+.habits-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.habits-skeleton__item {
+  height: 3.5rem;
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+/* ============================================================
+   EMPTY STATE
+   ============================================================ */
+
+.today-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-16) var(--space-4);
+  text-align: center;
+}
+
+.today-empty__icon {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.today-empty__primary {
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  color: var(--text-secondary);
+}
+
+.today-empty__secondary {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   ERROR STATE
+   ============================================================ */
+
+.today-error {
+  padding: var(--space-6) var(--space-4);
+  border-radius: var(--radius-lg);
+  border: 2px solid oklch(from var(--color-error) l c h / 0.3);
+  background: oklch(from var(--color-error) l c h / 0.08);
+  text-align: center;
+}
+
+.today-error__message {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--color-error);
+}
+
+/* ============================================================
+   STOCK BADGE
+   ============================================================ */
+
+.stock-badge {
+  display: inline-block;
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+.stock-badge--ok {
+  color: var(--color-success);
+  background: oklch(from var(--color-success) l c h / 0.12);
+  border: 1px solid oklch(from var(--color-success) l c h / 0.2);
+}
+
+.stock-badge--warning {
+  color: oklch(60% 0.18 75deg);
+  background: oklch(60% 0.18 75deg / 0.12);
+  border: 1px solid oklch(60% 0.18 75deg / 0.2);
+}
+
+.stock-badge--danger {
+  color: var(--color-error);
+  background: oklch(from var(--color-error) l c h / 0.12);
+  border: 1px solid oklch(from var(--color-error) l c h / 0.2);
+}
+
+/* ── Products list under habit row ── */
+.habit-row__products {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-4);
+  border-top: 1px dashed var(--border-default);
+}

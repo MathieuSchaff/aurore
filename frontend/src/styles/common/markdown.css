@@ -1,5 +1,4 @@
 .rich-text {
-  /* Layout & Defaults */
   font-size: var(--text-sm);
   color: var(--text-primary);
   line-height: var(--leading-relaxed);
@@ -7,7 +6,7 @@
   word-break: break-word;
   white-space: normal;
 
-  /* Reset vertical margins on first/last children to keep the container snug */
+  /* Keep container compact by removing outside margins from first/last elements */
   & > :first-child {
     margin-top: 0;
   }

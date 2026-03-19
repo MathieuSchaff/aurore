@@ -1,60 +1,40 @@
-.kind--complement {
-  --_kind-bg: oklch(95% 0.12 95deg);
-  --_kind-color: oklch(55% 0.15 95deg);
-  --_kind-border: oklch(75% 0.2 95deg);
-}
-.kind--skincare {
-  --_kind-bg: oklch(94% 0.1 85deg);
-  --_kind-color: oklch(50% 0.12 85deg);
-  --_kind-border: oklch(70% 0.15 85deg);
-}
-.kind--huile {
-  --_kind-bg: oklch(96% 0.15 78deg);
-  --_kind-color: oklch(60% 0.18 78deg);
-  --_kind-border: oklch(80% 0.22 78deg);
-}
-.kind--vitamine {
-  --_kind-bg: oklch(94% 0.12 65deg);
-  --_kind-color: oklch(55% 0.15 65deg);
-  --_kind-border: oklch(75% 0.2 65deg);
+.kind--complement,
+.kind--default,
+.kind--skincare,
+.kind--huile,
+.kind--vitamine,
+.unit--pump,
+.unit--dropper,
+.unit--jar,
+.unit--tube,
+.unit--spray,
+.unit--spf {
+  --_kind-bg: oklch(from var(--color-primary) l c h / 0.1);
+  --_kind-color: var(--color-primary);
+  --_kind-border: var(--color-primary);
 }
 
-.unit--pump {
-  --_kind-bg: oklch(95% 0.08 90deg);
-  --_kind-color: oklch(55% 0.12 90deg);
-  --_kind-border: oklch(75% 0.15 90deg);
-}
-.unit--dropper {
-  --_kind-bg: oklch(96% 0.1 105deg);
-  --_kind-color: oklch(60% 0.12 105deg);
-  --_kind-border: oklch(80% 0.15 105deg);
-}
-.unit--jar {
-  --_kind-bg: oklch(93% 0.15 45deg);
-  --_kind-color: oklch(45% 0.18 45deg);
-  --_kind-border: oklch(65% 0.22 45deg);
-}
-.unit--tube {
-  --_kind-bg: oklch(94% 0.1 55deg);
-  --_kind-color: oklch(50% 0.12 55deg);
-  --_kind-border: oklch(70% 0.15 55deg);
-}
-.unit--spray {
-  --_kind-bg: oklch(95% 0.06 80deg);
-  --_kind-color: oklch(55% 0.1 80deg);
-  --_kind-border: oklch(75% 0.12 80deg);
-}
-.unit--spf {
-  --_kind-bg: oklch(96% 0.18 88deg);
-  --_kind-color: oklch(65% 0.2 88deg);
-  --_kind-border: oklch(85% 0.25 88deg);
+[data-theme="light"] .kind--complement,
+[data-theme="light"] .kind--default,
+[data-theme="light"] .kind--skincare,
+[data-theme="light"] .kind--huile,
+[data-theme="light"] .kind--vitamine,
+[data-theme="light"] .unit--pump,
+[data-theme="light"] .unit--dropper,
+[data-theme="light"] .unit--jar,
+[data-theme="light"] .unit--tube,
+[data-theme="light"] .unit--spray,
+[data-theme="light"] .unit--spf {
+  --_kind-bg: oklch(92% 0.08 72deg);
+  --_kind-color: oklch(50% 0.15 72deg);
+  --_kind-border: oklch(72% 0.18 72deg);
 }
 
 .kind-badge {
   background: var(--_kind-bg);
   color: var(--_kind-color);
   padding: 2px 8px;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-full);
   font-size: var(--text-xs);
   font-weight: var(--font-semibold);
 }

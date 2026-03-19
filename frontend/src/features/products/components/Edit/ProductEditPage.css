@@ -1,0 +1,86 @@
+/* ─── Edit page layout ───────────────────────────────────── */
+
+.product-edit-page {
+  min-height: calc(100dvh - var(--nav-height));
+  background: var(--bg-page);
+  overflow-x: hidden;
+  animation: fade-slide-in var(--transition-base) ease;
+}
+
+.product-edit-page__banner {
+  height: 4rem;
+  background: linear-gradient(
+    135deg,
+    var(--color-accent) 0%,
+    oklch(from var(--color-accent) calc(l + 0.15) calc(c * 0.8) h) 50%,
+    oklch(from var(--color-primary) calc(l + 0.2) c h) 100%
+  );
+  opacity: 0.2;
+}
+
+.product-edit-page__content {
+  box-sizing: border-box;
+  max-width: 42rem;
+  width: 100%;
+  margin-inline: auto;
+  padding: var(--space-6);
+  margin-top: -2rem;
+  position: relative;
+}
+
+/* ── Topbar ── */
+
+.product-edit-page__topbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.product-edit-page__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--text-secondary);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    color var(--transition-fast) ease,
+    background var(--transition-fast) ease,
+    border-color var(--transition-fast) ease;
+}
+
+.product-edit-page__back:hover {
+  color: var(--color-accent);
+  background: var(--bg-hover);
+  border-color: var(--color-accent);
+}
+
+.product-edit-page__title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .product-edit-page__content {
+    padding: var(--space-4);
+    margin-top: -1rem;
+  }
+
+  .product-edit-page__topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+}

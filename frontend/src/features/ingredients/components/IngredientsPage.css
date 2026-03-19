@@ -1,0 +1,66 @@
+.ingredient-card__description {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  margin-top: var(--space-1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ingredient-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+}
+
+/* =======================================================
+   LIGHT MODE OVERRIDES FOR INGREDIENTS
+   ======================================================= */
+
+[data-theme="light"] .ingredients-page .list-header__title {
+  color: var(--color-primary); /* Blue Night */
+}
+
+[data-theme="light"] .ingredients-page .list-filter-btn {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+[data-theme="light"] .ingredients-page .list-filter-btn:hover {
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+[data-theme="light"] .ingredients-page .list-card {
+  border-left-color: var(--color-accent); /* Mango */
+  background: white;
+}
+
+[data-theme="light"] .ingredients-page .list-card:hover {
+  border-color: var(--color-accent);
+  border-left-color: var(--color-accent);
+  box-shadow: 0 4px 12px oklch(0.9 0.05 72deg / 0.15);
+}
+
+[data-theme="light"] .ingredients-page .list-card__icon {
+  background: oklch(92% 0.08 72deg); /* Very light mango */
+  color: oklch(50% 0.15 72deg); /* Rich mango icon */
+}
+
+[data-theme="light"] .ingredients-page .list-card__name {
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .ingredients-page .category-tag {
+  background: oklch(94% 0.06 72deg);
+  color: oklch(45% 0.12 72deg);
+}
+
+[data-theme="light"] .ingredients-page .nav-arrow {
+  color: oklch(0.6 0.05 72deg / 0.4);
+}
+
+[data-theme="light"] .ingredients-page .list-card:hover .nav-arrow {
+  color: var(--color-accent);
+}

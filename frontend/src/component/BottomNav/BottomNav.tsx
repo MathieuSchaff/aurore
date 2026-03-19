@@ -40,10 +40,8 @@ export function BottomNav() {
 
   return (
     <>
-      {/* Overlay — closes sheet when tapped */}
       {sheetOpen && <div className="bottom-nav__overlay" onClick={closeSheet} aria-hidden="true" />}
 
-      {/* Bottom sheet */}
       <div
         className={`bottom-nav__sheet${sheetOpen ? ' bottom-nav__sheet--open' : ''}`}
         aria-hidden={!sheetOpen}
@@ -106,7 +104,6 @@ export function BottomNav() {
         )}
       </div>
 
-      {/* Bottom nav bar */}
       <nav className="bottom-nav" aria-label="Navigation principale mobile">
         <Link
           to="/collection"

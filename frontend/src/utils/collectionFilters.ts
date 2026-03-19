@@ -98,8 +98,10 @@ export function sortProducts<T extends FilterableProduct>(
       case 'date':
         return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
       case 'price_asc':
+        // Using Infinity to ensure products without prices end up at the bottom
         return (a.product.priceCents ?? Infinity) - (b.product.priceCents ?? Infinity)
       case 'price_desc':
+        // Using -Infinity so null prices also end up at the bottom for descending sort
         return (b.product.priceCents ?? -Infinity) - (a.product.priceCents ?? -Infinity)
       default:
         return 0

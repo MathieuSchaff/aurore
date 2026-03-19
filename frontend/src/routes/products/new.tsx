@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { ProductCreatePage } from '../../component/pages/Product/Create/ProductCreatePage'
+import { ProductCreatePage } from '../../features/products/components/Create/ProductCreatePage'
 import { requireAuth } from '../../lib/auth/requireAuth'
 
 export const Route = createFileRoute('/products/new')({
