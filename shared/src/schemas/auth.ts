@@ -105,6 +105,10 @@ export const loginSchema = authSchema
 /** Alias sémantique — identique à {@link authSchema}. */
 export const signupSchema = authSchema
 
+export const verifyEmailBodySchema = z.object({
+    token: z.string().min(1),
+})
+
 // ─── Entity Schemas ──────────────────────────────────────
 
 /**
@@ -117,6 +121,8 @@ export const signupSchema = authSchema
 export const userPublicSchema = z.object({
     id: z.string(),
     email: z.email(),
+    createdAt: z.union([z.date(), z.string()]),
+    emailVerified: z.boolean(),
 })
 
 // ─── Auth Result Schemas (OpenAPI) ───────────────────────
