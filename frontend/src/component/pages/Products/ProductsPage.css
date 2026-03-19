@@ -1,5 +1,0 @@
-@media (max-width: 480px) {
-  .list-card--product .list-card__price {
-    font-size: var(--text-base);
-  }
-}
