@@ -13,6 +13,7 @@ import { tagRoutes } from '../../features/products/tags/routes'
 import { profileRoute } from '../../features/profile/routes'
 import { stockRoutes } from '../../features/stock/routes'
 import { taskRoutes } from '../../features/tasks/routes'
+import { userProductRoutes } from '../../features/user-products/routes'
 import { testDb } from '../db.test.config'
 import { JWT_SECRET, REFRESH_SECRET } from '../helpers/secrets'
 
@@ -24,9 +25,13 @@ export function createTestApp() {
     c.set('env', 'development')
     c.set('jwtSecret', JWT_SECRET)
     c.set('refreshSecret', REFRESH_SECRET)
+    c.set('frontendUrl', 'http://localhost:5173')
     await next()
   })
 
+  // Register all routes. 
+  // Note: Project has inconsistent test path conventions (/api prefix vs no prefix).
+  // This baseline follows the original structure to minimize breakage.
   app
     .route('/auth', jwtAuthRoutes)
     .route('/health', healthRoute)
@@ -40,5 +45,7 @@ export function createTestApp() {
     .route('/stock', stockRoutes)
     .route('/logs', logsRoutes)
     .route('/tasks', taskRoutes)
+    .route('/user-products', userProductRoutes)
+
   return app
 }
