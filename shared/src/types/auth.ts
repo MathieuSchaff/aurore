@@ -12,6 +12,8 @@ import type { ApiResponse, CommonErrorCode } from './api'
 export type UserPublic = {
   id: string
   email: string
+  createdAt: Date | string
+  emailVerified: boolean
 }
 
 // ─── Token Types ─────────────────────────────────────────
@@ -72,6 +74,9 @@ export type AuthErrorCode =
   | 'missing_refresh_token'
   | 'session_expired'
   | 'invalid_session'
+  | 'email_not_verified'
+  | 'token_expired'
+  | 'too_many_requests'
 
 // ─── Service Result Types ────────────────────────────────
 
@@ -85,7 +90,7 @@ export type SignupResult = ApiResponse<AuthenticatedResult, 'email_exists' | 'se
  * Résultat possible de l'opération login.
  * @see {@link ApiResponse}
  */
-export type LoginResult = ApiResponse<AuthenticatedResult, 'invalid_credentials' | 'server_error'>
+export type LoginResult = ApiResponse<AuthenticatedResult, 'invalid_credentials' | 'email_not_verified' | 'server_error'>
 
 /**
  * Résultat possible de l'opération refresh.
@@ -93,7 +98,7 @@ export type LoginResult = ApiResponse<AuthenticatedResult, 'invalid_credentials'
  */
 export type RefreshResult = ApiResponse<
   AuthenticatedResult,
-  'invalid_token' | 'session_expired' | 'missing_refresh_token' | 'server_error'
+  'invalid_token' | 'session_expired' | 'missing_refresh_token' | 'email_not_verified' | 'server_error'
 >
 
 /**

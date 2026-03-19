@@ -19,4 +19,7 @@ export const authErrorMapping = {
   missing_refresh_token: HTTP_STATUS.BAD_REQUEST,
   session_expired: HTTP_STATUS.UNAUTHORIZED,
   invalid_session: HTTP_STATUS.UNAUTHORIZED,
+  email_not_verified: HTTP_STATUS.FORBIDDEN,
+  token_expired: HTTP_STATUS.BAD_REQUEST,
+  too_many_requests: HTTP_STATUS.RATE_LIMIT_EXCEEDED,
 } as const satisfies Partial<Record<AuthErrorCode, HttpStatus>>
