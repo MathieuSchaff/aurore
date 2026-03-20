@@ -1,3 +1,9 @@
+import { mock } from 'bun:test'
+
+mock.module('../features/auth/email.service', () => ({
+  sendVerificationEmail: mock(async () => {}),
+}))
+
 import { afterAll, beforeAll, beforeEach } from 'bun:test'
 
 import { sql } from 'drizzle-orm'
@@ -5,28 +11,32 @@ import { sql } from 'drizzle-orm'
 import { closeTestDb, testDb } from './db.test.config'
 import { cleanDatabase } from './helpers/db-cleaner'
 
-// Avant tous les tests : vérifier que la connexion fonctionne
 beforeAll(async () => {
-  console.log('🔧 Initialisation de la DB de test...')
+  console.log('🔧 Initialisation de la DB de test (Bun SQL)...')
   try {
+    // Avec Bun, pas besoin de .rows, on vérifie juste que ça ne throw pas
     await testDb.execute(sql`SELECT 1`)
     console.log('✅ Connexion à la DB de test OK')
   } catch (error) {
     console.error('❌ Impossible de se connecter à la DB de test')
-    console.error('Assure-toi que docker compose -f docker-compose.test.yml up -d est lancé')
+    console.error('Vérifie : docker compose -f docker-compose.test.yml up -d')
+    // On affiche l'erreur réelle pour débugger plus vite (ex: mot de passe faux)
+    console.error(error)
     throw error
   }
 })
 
-// Avant chaque test : vider la DB
 beforeEach(async () => {
   await cleanDatabase()
 })
 
-// Après tous les tests : fermer la connexion
 afterAll(async () => {
-  console.log('🧹 Nettoyage final de la DB...')
-  await cleanDatabase()
-  await closeTestDb()
-  console.log('🔌 Connexion DB de test fermée')
+  console.log('🧹 Nettoyage final et fermeture...')
+  try {
+    await cleanDatabase()
+    await closeTestDb()
+    console.log('🔌 Connexion DB de test fermée')
+  } catch (err) {
+    console.error('⚠️ Erreur lors de la fermeture de la DB:', err)
+  }
 })
