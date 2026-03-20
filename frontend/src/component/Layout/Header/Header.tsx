@@ -1,9 +1,10 @@
 import { Link, useNavigate } from '@tanstack/react-router'
 import { PanelLeftOpen } from 'lucide-react'
 import { useRef, useState } from 'react'
+import { toast } from 'sonner'
 
 import { useClickOutside } from '../../../hooks/useClickOutside'
-import { useLogout } from '../../../lib/queries/auth'
+import { useLogout, useResendVerification } from '../../../lib/queries/auth'
 import { useAuthStore } from '../../../store/auth'
 import { Button } from '../../Button/Button'
 import { AuroreLogo } from '../../Logo/Logo'
@@ -16,7 +17,17 @@ export const Header = () => {
   const navigate = useNavigate()
 
   const isAuthenticated = useAuthStore((state) => !!state.accessToken)
+  const emailVerified = useAuthStore((s) => s.emailVerified)
+  const user = useAuthStore((s) => s.user)
   const logout = useLogout()
+  const resend = useResendVerification()
+
+  const handleResend = () => {
+    resend.mutate(undefined, {
+      onSuccess: () => toast.success('Email envoyé !'),
+      onError: () => toast.error('Erreur, réessaie plus tard.'),
+    })
+  }
 
   const closeMenu = () => setIsOpen(false)
   const toggleMenu = () => setIsOpen((prev) => !prev)
@@ -34,6 +45,14 @@ export const Header = () => {
 
   return (
     <header className="main-header">
+      {user && !emailVerified && (
+        <div className="email-verification-banner">
+          <span>Vérifie ton adresse email pour continuer à utiliser Aurore.</span>
+          <button type="button" onClick={handleResend} disabled={resend.isPending}>
+            {resend.isPending ? '...' : 'Renvoyer'}
+          </button>
+        </div>
+      )}
       <nav
         ref={navRef}
         className={`main-nav ${isOpen ? 'main-nav--open' : ''}`}
