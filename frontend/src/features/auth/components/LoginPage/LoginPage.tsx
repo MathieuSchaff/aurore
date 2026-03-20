@@ -6,7 +6,7 @@ import { Eye, EyeOff, Lock, Mail } from 'lucide-react'
 import { useState } from 'react'
 import z from 'zod'
 
-import { useLogin } from '../../../lib/queries/auth'
+import { useLogin } from '../../../../lib/queries/auth'
 
 type FieldErrors = Partial<Record<keyof AuthInput | 'form', string>>
 
@@ -36,13 +36,23 @@ export const LoginPage = () => {
 
     setErrors({})
 
+    const LOGIN_ERRORS: Record<string, string> = {
+      invalid_credentials: 'Email ou mot de passe incorrect',
+      email_not_verified: "Ton adresse email n'est pas vérifiée",
+      server_error: 'Une erreur est survenue, réessaie plus tard',
+    }
+
     login.mutate(result.data, {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ['session'] })
         navigate({ to: '/dashboard' })
       },
       onError: (error) => {
-        setErrors({ form: error.message })
+        if (error.message === 'email_not_verified') {
+          navigate({ to: '/verify-pending' })
+          return
+        }
+        setErrors({ form: LOGIN_ERRORS[error.message] ?? 'Une erreur est survenue, réessaie plus tard' })
       },
     })
   }
