@@ -2,9 +2,11 @@ import { beforeEach, describe, expect, it } from 'bun:test'
 
 import { HTTP_STATUS } from '@habit-tracker/shared'
 
+import { eq } from 'drizzle-orm'
 import type { Hono } from 'hono'
 
 import type { AppEnv } from '../../app-env'
+import { testDb } from '../db.test.config'
 import { TEST_CREDENTIALS } from '../helpers/test-credentials'
 import { createTestUser } from '../helpers/test-factories'
 import { createTestApp } from './createTestApp'
@@ -148,6 +150,17 @@ describe('Auth Routes (browser)', () => {
       const res = await jsonPost(app, '/auth/signup', {
         email: TEST_CREDENTIALS.toto.rawEmail,
         password: TEST_CREDENTIALS.invalide.sansChiffre,
+      })
+
+      expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST)
+      const data = await res.json()
+      expect(data.success).toBe(false)
+    })
+
+    it('should reject weak password (no special char)', async () => {
+      const res = await jsonPost(app, '/auth/signup', {
+        email: TEST_CREDENTIALS.toto.rawEmail,
+        password: TEST_CREDENTIALS.invalide.sansCaractereSpecial,
       })
 
       expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST)
@@ -728,6 +741,163 @@ describe('Auth Routes (browser)', () => {
       expect(dataToto.data.userId).toBeDefined()
       expect(dataAlice.data.userId).toBeDefined()
       expect(dataToto.data.userId).not.toBe(dataAlice.data.userId)
+    })
+  })
+
+  // ━━━ VERIFY EMAIL ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  describe('POST /auth/verify-email', () => {
+    it('should verify a valid token and return ok(null)', async () => {
+      const { createVerificationToken } = await import(
+        '../../features/auth/email-verification.service'
+      )
+      const creds = TEST_CREDENTIALS.toto
+      const user = await createTestUser(creds.rawEmail, creds.rawPassword)
+      const token = await createVerificationToken(testDb, user.id)
+
+      const res = await jsonPost(app, '/auth/verify-email', { token })
+
+      expect(res.status).toBe(HTTP_STATUS.OK)
+      const data = await res.json()
+      expect(data.success).toBe(true)
+      expect(data.data).toBeNull()
+    })
+
+    it('should return invalid_token (400) for unknown token', async () => {
+      const res = await jsonPost(app, '/auth/verify-email', { token: 'a'.repeat(64) })
+
+      expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST)
+      const data = await res.json()
+      expect(data.success).toBe(false)
+      expect(data.error).toBe('invalid_token')
+    })
+
+    it('should return token_expired (400) for expired token', async () => {
+      const { createVerificationToken } = await import(
+        '../../features/auth/email-verification.service'
+      )
+      const { emailVerifications } = await import('../../db/schema')
+      const creds = TEST_CREDENTIALS.toto
+      const user = await createTestUser(creds.rawEmail, creds.rawPassword)
+      const token = await createVerificationToken(testDb, user.id)
+
+      await testDb
+        .update(emailVerifications)
+        .set({ expiresAt: new Date(Date.now() - 1000) })
+        .where(eq(emailVerifications.userId, user.id))
+
+      const res = await jsonPost(app, '/auth/verify-email', { token })
+
+      expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST)
+      const data = await res.json()
+      expect(data.success).toBe(false)
+      expect(data.error).toBe('token_expired')
+    })
+  })
+
+  // ━━━ RESEND VERIFICATION ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  describe('POST /auth/resend-verification', () => {
+    it('should resend verification email when authenticated and unverified', async () => {
+      const creds = TEST_CREDENTIALS.toto
+      await createTestUser(creds.rawEmail, creds.rawPassword)
+      const { accessToken } = await loginAndGetCookies(app, creds.rawEmail, creds.rawPassword)
+
+      const res = await app.request('/auth/resend-verification', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${accessToken}` },
+      })
+
+      expect(res.status).toBe(HTTP_STATUS.OK)
+      const data = await res.json()
+      expect(data.success).toBe(true)
+    })
+
+    it('should return ok(null) when already verified (idempotent)', async () => {
+      const { users: usersTable } = await import('../../db/schema')
+      const creds = TEST_CREDENTIALS.toto
+      const user = await createTestUser(creds.rawEmail, creds.rawPassword)
+      const { accessToken } = await loginAndGetCookies(app, creds.rawEmail, creds.rawPassword)
+
+      await testDb
+        .update(usersTable)
+        .set({ emailVerifiedAt: new Date() })
+        .where(eq(usersTable.id, user.id))
+
+      const res = await app.request('/auth/resend-verification', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${accessToken}` },
+      })
+
+      expect(res.status).toBe(HTTP_STATUS.OK)
+      const data = await res.json()
+      expect(data.success).toBe(true)
+    })
+
+    it('should return 401 when not authenticated', async () => {
+      const res = await app.request('/auth/resend-verification', { method: 'POST' })
+      expect(res.status).toBe(HTTP_STATUS.UNAUTHORIZED)
+    })
+
+    it('should return too_many_requests (429) after 3 requests in the same hour', async () => {
+      const creds = TEST_CREDENTIALS.alice
+      await createTestUser(creds.rawEmail, creds.rawPassword)
+      const { accessToken } = await loginAndGetCookies(app, creds.rawEmail, creds.rawPassword)
+
+      const makeRequest = () =>
+        app.request('/auth/resend-verification', {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${accessToken}` },
+        })
+
+      // First 3 requests succeed
+      await makeRequest()
+      await makeRequest()
+      await makeRequest()
+
+      // 4th request should be rate limited
+      const res = await makeRequest()
+      expect(res.status).toBe(429)
+      const data = await res.json()
+      expect(data.success).toBe(false)
+      expect(data.error).toBe('too_many_requests')
+    })
+  })
+
+  // ━━━ LOGIN — EMAIL NOT VERIFIED ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  describe('POST /auth/login — email_not_verified', () => {
+    it('devrait retourner email_not_verified (403) après la grace period', async () => {
+      const { users: usersTable } = await import('../../db/schema')
+      const creds = TEST_CREDENTIALS.toto
+      const user = await createTestUser(creds.rawEmail, creds.rawPassword)
+
+      await testDb
+        .update(usersTable)
+        .set({ createdAt: new Date(Date.now() - 25 * 60 * 60 * 1000) })
+        .where(eq(usersTable.id, user.id))
+
+      const res = await jsonPost(app, '/auth/login', {
+        email: creds.rawEmail,
+        password: creds.rawPassword,
+      })
+
+      expect(res.status).toBe(HTTP_STATUS.FORBIDDEN)
+      const data = await res.json()
+      expect(data.success).toBe(false)
+      expect(data.error).toBe('email_not_verified')
+    })
+
+    it('devrait autoriser le login pendant la grace period (< 24h)', async () => {
+      const creds = TEST_CREDENTIALS.toto
+      await createTestUser(creds.rawEmail, creds.rawPassword)
+
+      const res = await jsonPost(app, '/auth/login', {
+        email: creds.rawEmail,
+        password: creds.rawPassword,
+      })
+
+      expect(res.status).toBe(HTTP_STATUS.OK)
     })
   })
 

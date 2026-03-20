@@ -6,6 +6,7 @@ export function createCtx(overrides?: Partial<AuthContext>): AuthContext {
     db: testDb,
     jwtSecret: JWT_SECRET,
     refreshSecret: REFRESH_SECRET,
+    frontendUrl: 'http://localhost:5173',
     ...overrides,
   }
 }

@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'bun:test'
 
+import { eq } from 'drizzle-orm'
+
 import { verifyAccessToken, verifyRefreshToken } from '../../../features/auth/jwt.utils'
 import { findValidRefreshToken } from '../../../features/auth/refresh-token.service'
 import { login } from '../../../features/auth/service'
@@ -311,5 +313,47 @@ describe('login', () => {
     expect(resultToto.data.user.email).toBe(toto.rawEmail)
     expect(resultAlice.data.user.email).toBe(alice.rawEmail)
     expect(resultToto.data.user.id).not.toBe(resultAlice.data.user.id)
+  })
+
+  it('devrait autoriser le login si email non vérifié dans les 24h (grace period)', async () => {
+    const creds = TEST_CREDENTIALS.toto
+    await createTestUser(creds.rawEmail, creds.rawPassword)
+
+    const result = await login(createCtx(), creds.email, creds.password)
+
+    expect(result.success).toBe(true)
+    if (!result.success) return
+    expect(result.data.user.emailVerified).toBe(false)
+  })
+
+  it('devrait bloquer le login si email non vérifié après 24h', async () => {
+    const { users: usersTable } = await import('../../../db/schema')
+    const creds = TEST_CREDENTIALS.toto
+    const created = await createTestUser(creds.rawEmail, creds.rawPassword)
+
+    await testDb
+      .update(usersTable)
+      .set({ createdAt: new Date(Date.now() - 25 * 60 * 60 * 1000) })
+      .where(eq(usersTable.id, created.id))
+
+    const result = await login(createCtx(), creds.email, creds.password)
+
+    expect(result.success).toBe(false)
+    if (result.success) return
+    expect(result.error).toBe('email_not_verified')
+  })
+
+  it('devrait autoriser le login si email vérifié même après 24h', async () => {
+    const { users: usersTable } = await import('../../../db/schema')
+    const creds = TEST_CREDENTIALS.toto
+    const created = await createTestUser(creds.rawEmail, creds.rawPassword)
+
+    await testDb.update(usersTable).set({
+      createdAt: new Date(Date.now() - 25 * 60 * 60 * 1000),
+      emailVerifiedAt: new Date(),
+    }).where(eq(usersTable.id, created.id))
+
+    const result = await login(createCtx(), creds.email, creds.password)
+    expect(result.success).toBe(true)
   })
 })

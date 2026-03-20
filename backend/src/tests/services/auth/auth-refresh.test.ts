@@ -2,6 +2,8 @@ import { describe, expect, it } from 'bun:test'
 
 import type { Email, RawPassword } from '@habit-tracker/shared'
 
+import { eq } from 'drizzle-orm'
+
 import {
   generateRefreshToken,
   verifyAccessToken,
@@ -246,5 +248,32 @@ describe('refresh', () => {
     if (!result.success) {
       expect(result.error).toBe('invalid_token')
     }
+  })
+
+  it('devrait bloquer le refresh si email non vérifié après 24h', async () => {
+    const { users: usersTable } = await import('../../../db/schema')
+    const creds = TEST_CREDENTIALS.toto
+    await createTestUser(creds.rawEmail, creds.rawPassword)
+
+    const loginResult = await login(
+      createCtx({ ip: '127.0.0.1', userAgent: 'Test' }),
+      creds.email as unknown as Email,
+      creds.password as unknown as RawPassword
+    )
+    if (!loginResult.success) return
+
+    await testDb
+      .update(usersTable)
+      .set({ createdAt: new Date(Date.now() - 25 * 60 * 60 * 1000) })
+      .where(eq(usersTable.id, loginResult.data.user.id))
+
+    const result = await refresh(
+      createCtx({ ip: '127.0.0.1', userAgent: 'Test' }),
+      loginResult.data.refreshToken
+    )
+
+    expect(result.success).toBe(false)
+    if (result.success) return
+    expect(result.error).toBe('email_not_verified')
   })
 })
