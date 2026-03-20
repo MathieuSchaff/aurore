@@ -75,12 +75,20 @@ export async function signup(
 
     const tokens = await createTokenPair(ctx, user.id)
 
-    const rawToken = await createVerificationToken(ctx.db, user.id)
-    const verificationUrl = `${ctx.frontendUrl}/verify-email?token=${rawToken}`
+    let rawToken: string | null = null
     try {
-      await sendVerificationEmail(user.email, verificationUrl)
-    } catch (emailErr) {
-      console.error('Verification email send failed (best-effort):', emailErr)
+      rawToken = await createVerificationToken(ctx.db, user.id)
+    } catch (tokenErr) {
+      console.error('Failed to create verification token (best-effort):', tokenErr)
+    }
+
+    if (rawToken !== null) {
+      const verificationUrl = `${ctx.frontendUrl}/verify-email?token=${rawToken}`
+      try {
+        await sendVerificationEmail(user.email, verificationUrl)
+      } catch (emailErr) {
+        console.error('Verification email send failed (best-effort):', emailErr)
+      }
     }
 
     return ok({
