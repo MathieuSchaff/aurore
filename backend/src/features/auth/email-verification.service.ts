@@ -20,7 +20,7 @@ function generateRawToken(): string {
 function hashToken(rawToken: string): string {
   const hasher = new CryptoHasher('sha256')
   hasher.update(rawToken)
-  return hasher.digest('base64url')
+  return hasher.digest('hex')
 }
 
 export async function createVerificationToken(db: DB, userId: string): Promise<string> {

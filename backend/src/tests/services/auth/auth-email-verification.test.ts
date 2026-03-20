@@ -5,6 +5,7 @@ import { eq, isNull } from 'drizzle-orm'
 import { emailVerifications } from '../../../db/schema'
 import {
   createVerificationToken,
+  hasVerifiedEmail,
   verifyEmailToken,
 } from '../../../features/auth/email-verification.service'
 import { TEST_CREDENTIALS } from '../../helpers/test-credentials'
@@ -174,7 +175,6 @@ describe('email-verification.service', () => {
 
   describe('hasVerifiedEmail', () => {
     it('devrait retourner false si emailVerifiedAt est null', async () => {
-      const { hasVerifiedEmail } = await import('../../../features/auth/email-verification.service')
       const user = await createTestUser(
         TEST_CREDENTIALS.toto.rawEmail,
         TEST_CREDENTIALS.toto.rawPassword
@@ -184,7 +184,6 @@ describe('email-verification.service', () => {
     })
 
     it('devrait retourner true si emailVerifiedAt est défini', async () => {
-      const { hasVerifiedEmail } = await import('../../../features/auth/email-verification.service')
       const { users: usersTable } = await import('../../../db/schema')
       const user = await createTestUser(
         TEST_CREDENTIALS.toto.rawEmail,
