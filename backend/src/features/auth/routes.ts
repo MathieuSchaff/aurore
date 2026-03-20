@@ -9,9 +9,9 @@ import {
   refreshTokenBodySchema,
 } from '@habit-tracker/shared'
 
-import { Hono } from 'hono'
 import { zValidator } from '@hono/zod-validator'
 import type { Context } from 'hono'
+import { Hono } from 'hono'
 
 import type { AppEnv } from '../../app-env'
 import { rateLimiterFunc } from '../../utils/rateLimiter'
@@ -24,6 +24,7 @@ function buildAuthContext(c: Context<AppEnv>): AuthContext {
     db: c.get('db'),
     jwtSecret: c.get('jwtSecret'),
     refreshSecret: c.get('refreshSecret'),
+    frontendUrl: c.get('frontendUrl'),
     ip: c.req.header('CF-Connecting-IP') ?? c.req.header('X-Forwarded-For') ?? 'unknown',
     userAgent: c.req.header('User-Agent') ?? 'unknown',
   }
@@ -40,7 +41,7 @@ app.use('/mobile/logout', requireJwtAuth)
 app.onError((e, c) => {
   console.error('Auth error:', e)
   return c.json(
-    err('server_error', e instanceof Error ? e.message : undefined),
+    err('server_error'),
     HTTP_STATUS.INTERNAL_SERVER_ERROR
   )
 })

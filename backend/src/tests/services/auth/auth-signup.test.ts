@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'bun:test'
 
+import { eq } from 'drizzle-orm'
+
 import { verifyAccessToken, verifyRefreshToken } from '../../../features/auth/jwt.utils'
 import { findValidRefreshToken } from '../../../features/auth/refresh-token.service'
 import { signup } from '../../../features/auth/service'
@@ -245,5 +247,30 @@ describe('signup', () => {
     expect(r1.data.user.email).toBe(toto.rawEmail)
     expect(r2.data.user.email).toBe(alice.rawEmail)
     expect(r3.data.user.email).toBe(jm.rawEmail)
+  })
+
+  it("devrait créer un token de vérification en base après l'inscription", async () => {
+    const { emailVerifications } = await import('../../../db/schema')
+    const creds = TEST_CREDENTIALS.toto
+
+    const result = await signup(createCtx(), creds.email, creds.password)
+    if (!result.success) return
+
+    const [row] = await testDb
+      .select()
+      .from(emailVerifications)
+      .where(eq(emailVerifications.userId, result.data.user.id))
+
+    expect(row).toBeDefined()
+    expect(row!.usedAt).toBeNull()
+  })
+
+  it("devrait retourner emailVerified: false après l'inscription", async () => {
+    const creds = TEST_CREDENTIALS.toto
+
+    const result = await signup(createCtx(), creds.email, creds.password)
+    if (!result.success) return
+
+    expect(result.data.user.emailVerified).toBe(false)
   })
 })

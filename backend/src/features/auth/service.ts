@@ -20,12 +20,15 @@ import {
   revokeRefreshToken,
   storeRefreshToken,
 } from './refresh-token.service'
+import { createVerificationToken } from './email-verification.service'
+import { sendVerificationEmail } from './email.service'
 import { createProfile, createUser, getUser, getUserById, toPublicUser } from './user.utils'
 
 export type AuthContext = {
   db: DB
   jwtSecret: string
   refreshSecret: string
+  frontendUrl: string
   ip?: string
   userAgent?: string
 }
@@ -72,6 +75,10 @@ export async function signup(
 
     const tokens = await createTokenPair(ctx, user.id)
 
+    const rawToken = await createVerificationToken(ctx.db, user.id)
+    const verificationUrl = `${ctx.frontendUrl}/verify-email?token=${rawToken}`
+    await sendVerificationEmail(user.email, verificationUrl)
+
     return ok({
       user: toPublicUser(user),
       ...tokens,
@@ -95,6 +102,11 @@ export async function login(
 
     const isValid = await Bun.password.verify(password, user?.passwordHash ?? DUMMY_HASH)
     if (!user || !isValid) return err('invalid_credentials')
+
+    if (!user.emailVerifiedAt) {
+      const graceExpired = user.createdAt < new Date(Date.now() - 24 * 60 * 60 * 1000)
+      if (graceExpired) return err('email_not_verified')
+    }
 
     const tokens = await createTokenPair(ctx, user.id)
 
@@ -135,6 +147,15 @@ export async function refresh(ctx: AuthContext, rawRefreshToken: string): Promis
     if (!user) {
       return err('invalid_token')
     }
+
+    if (!user.emailVerified) {
+      const createdAt = user.createdAt instanceof Date
+        ? user.createdAt
+        : new Date(user.createdAt)
+      const graceExpired = createdAt < new Date(Date.now() - 24 * 60 * 60 * 1000)
+      if (graceExpired) return err('email_not_verified')
+    }
+
     const tokens = await createTokenPair(ctx, payload.sub)
     await revokeRefreshToken(ctx.db, payload.jti)
 

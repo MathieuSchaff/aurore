@@ -11,6 +11,7 @@ export function createCtx(overrides?: Partial<AuthContext>): AuthContext {
     db: db,
     jwtSecret: env.JWT_SECRET,
     refreshSecret: env.REFRESH_SECRET,
+    frontendUrl: env.FRONTEND_URL,
     ...overrides,
   }
 }
