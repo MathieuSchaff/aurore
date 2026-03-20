@@ -38,6 +38,8 @@ services:
       NODE_ENV: development
       PORT: 3000
       LOG_LEVEL: debug
+      RESEND_API_KEY: ${RESEND_API_KEY}
+      FRONTEND_URL: ${FRONTEND_URL}
 
     ports:
       - "3000:3000"
