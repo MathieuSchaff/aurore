@@ -77,7 +77,11 @@ export async function signup(
 
     const rawToken = await createVerificationToken(ctx.db, user.id)
     const verificationUrl = `${ctx.frontendUrl}/verify-email?token=${rawToken}`
-    await sendVerificationEmail(user.email, verificationUrl)
+    try {
+      await sendVerificationEmail(user.email, verificationUrl)
+    } catch (emailErr) {
+      console.error('Verification email send failed (best-effort):', emailErr)
+    }
 
     return ok({
       user: toPublicUser(user),

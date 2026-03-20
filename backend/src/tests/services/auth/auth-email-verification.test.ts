@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 
-import { eq, isNull } from 'drizzle-orm'
+import { and, eq, isNull } from 'drizzle-orm'
 
 import { emailVerifications } from '../../../db/schema'
 import {
@@ -34,7 +34,7 @@ describe('email-verification.service', () => {
       const [row] = await testDb
         .select()
         .from(emailVerifications)
-        .where(eq(emailVerifications.userId, user.id))
+        .where(and(eq(emailVerifications.userId, user.id), isNull(emailVerifications.usedAt)))
 
       expect(row).toBeDefined()
       expect(row!.tokenHash).not.toBe(token)
@@ -71,7 +71,7 @@ describe('email-verification.service', () => {
       const [row] = await testDb
         .select()
         .from(emailVerifications)
-        .where(eq(emailVerifications.userId, user.id))
+        .where(and(eq(emailVerifications.userId, user.id), isNull(emailVerifications.usedAt)))
 
       const expiry = row!.expiresAt.getTime()
       expect(expiry).toBeGreaterThan(before.getTime() + 59 * 60 * 1000)
