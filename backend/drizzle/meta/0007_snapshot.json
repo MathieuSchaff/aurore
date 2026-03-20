@@ -136,39 +136,27 @@
         "habit_checks_user_id_users_id_fk": {
           "name": "habit_checks_user_id_users_id_fk",
           "tableFrom": "habit_checks",
-          "columnsFrom": [
-            "user_id"
-          ],
+          "columnsFrom": ["user_id"],
           "tableTo": "users",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         },
         "habit_checks_habit_id_habits_id_fk": {
           "name": "habit_checks_habit_id_habits_id_fk",
           "tableFrom": "habit_checks",
-          "columnsFrom": [
-            "habit_id"
-          ],
+          "columnsFrom": ["habit_id"],
           "tableTo": "habits",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         },
         "habit_checks_timing_id_habit_timings_id_fk": {
           "name": "habit_checks_timing_id_habit_timings_id_fk",
           "tableFrom": "habit_checks",
-          "columnsFrom": [
-            "timing_id"
-          ],
+          "columnsFrom": ["timing_id"],
           "tableTo": "habit_timings",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "set null"
         }
@@ -250,13 +238,9 @@
         "habit_periods_habit_id_habits_id_fk": {
           "name": "habit_periods_habit_id_habits_id_fk",
           "tableFrom": "habit_periods",
-          "columnsFrom": [
-            "habit_id"
-          ],
+          "columnsFrom": ["habit_id"],
           "tableTo": "habits",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         }
@@ -353,26 +337,18 @@
         "habit_products_habit_id_habits_id_fk": {
           "name": "habit_products_habit_id_habits_id_fk",
           "tableFrom": "habit_products",
-          "columnsFrom": [
-            "habit_id"
-          ],
+          "columnsFrom": ["habit_id"],
           "tableTo": "habits",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         },
         "habit_products_product_id_products_id_fk": {
           "name": "habit_products_product_id_products_id_fk",
           "tableFrom": "habit_products",
-          "columnsFrom": [
-            "product_id"
-          ],
+          "columnsFrom": ["product_id"],
           "tableTo": "products",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         }
@@ -435,13 +411,9 @@
         "habit_reminders_timing_id_habit_timings_id_fk": {
           "name": "habit_reminders_timing_id_habit_timings_id_fk",
           "tableFrom": "habit_reminders",
-          "columnsFrom": [
-            "timing_id"
-          ],
+          "columnsFrom": ["timing_id"],
           "tableTo": "habit_timings",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         }
@@ -530,13 +502,9 @@
         "habit_schedules_habit_id_habits_id_fk": {
           "name": "habit_schedules_habit_id_habits_id_fk",
           "tableFrom": "habit_schedules",
-          "columnsFrom": [
-            "habit_id"
-          ],
+          "columnsFrom": ["habit_id"],
           "tableTo": "habits",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         }
@@ -611,13 +579,9 @@
         "habit_timings_schedule_id_habit_schedules_id_fk": {
           "name": "habit_timings_schedule_id_habit_schedules_id_fk",
           "tableFrom": "habit_timings",
-          "columnsFrom": [
-            "schedule_id"
-          ],
+          "columnsFrom": ["schedule_id"],
           "tableTo": "habit_schedules",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         }
@@ -727,13 +691,9 @@
         "habits_user_id_users_id_fk": {
           "name": "habits_user_id_users_id_fk",
           "tableFrom": "habits",
-          "columnsFrom": [
-            "user_id"
-          ],
+          "columnsFrom": ["user_id"],
           "tableTo": "users",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         }
@@ -823,26 +783,18 @@
         "ingredient_edits_ingredient_id_ingredients_id_fk": {
           "name": "ingredient_edits_ingredient_id_ingredients_id_fk",
           "tableFrom": "ingredient_edits",
-          "columnsFrom": [
-            "ingredient_id"
-          ],
+          "columnsFrom": ["ingredient_id"],
           "tableTo": "ingredients",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         },
         "ingredient_edits_edited_by_users_id_fk": {
           "name": "ingredient_edits_edited_by_users_id_fk",
           "tableFrom": "ingredient_edits",
-          "columnsFrom": [
-            "edited_by"
-          ],
+          "columnsFrom": ["edited_by"],
           "tableTo": "users",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "no action"
         }
@@ -968,13 +920,9 @@
         "ingredients_created_by_users_id_fk": {
           "name": "ingredients_created_by_users_id_fk",
           "tableFrom": "ingredients",
-          "columnsFrom": [
-            "created_by"
-          ],
+          "columnsFrom": ["created_by"],
           "tableTo": "users",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         }
@@ -1097,26 +1045,18 @@
         "product_ingredients_product_id_products_id_fk": {
           "name": "product_ingredients_product_id_products_id_fk",
           "tableFrom": "product_ingredients",
-          "columnsFrom": [
-            "product_id"
-          ],
+          "columnsFrom": ["product_id"],
           "tableTo": "products",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         },
         "product_ingredients_ingredient_id_ingredients_id_fk": {
           "name": "product_ingredients_ingredient_id_ingredients_id_fk",
           "tableFrom": "product_ingredients",
-          "columnsFrom": [
-            "ingredient_id"
-          ],
+          "columnsFrom": ["ingredient_id"],
           "tableTo": "ingredients",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         }
@@ -1206,26 +1146,18 @@
         "product_edits_product_id_products_id_fk": {
           "name": "product_edits_product_id_products_id_fk",
           "tableFrom": "product_edits",
-          "columnsFrom": [
-            "product_id"
-          ],
+          "columnsFrom": ["product_id"],
           "tableTo": "products",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         },
         "product_edits_edited_by_users_id_fk": {
           "name": "product_edits_edited_by_users_id_fk",
           "tableFrom": "product_edits",
-          "columnsFrom": [
-            "edited_by"
-          ],
+          "columnsFrom": ["edited_by"],
           "tableTo": "users",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "no action"
         }
@@ -1419,13 +1351,9 @@
         "products_created_by_users_id_fk": {
           "name": "products_created_by_users_id_fk",
           "tableFrom": "products",
-          "columnsFrom": [
-            "created_by"
-          ],
+          "columnsFrom": ["created_by"],
           "tableTo": "users",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         }
@@ -1533,26 +1461,18 @@
         "stock_entries_user_id_users_id_fk": {
           "name": "stock_entries_user_id_users_id_fk",
           "tableFrom": "stock_entries",
-          "columnsFrom": [
-            "user_id"
-          ],
+          "columnsFrom": ["user_id"],
           "tableTo": "users",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         },
         "stock_entries_product_id_products_id_fk": {
           "name": "stock_entries_product_id_products_id_fk",
           "tableFrom": "stock_entries",
-          "columnsFrom": [
-            "product_id"
-          ],
+          "columnsFrom": ["product_id"],
           "tableTo": "products",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         }
@@ -1659,26 +1579,18 @@
         "ingredient_tags_ingredient_id_ingredients_id_fk": {
           "name": "ingredient_tags_ingredient_id_ingredients_id_fk",
           "tableFrom": "ingredient_tags",
-          "columnsFrom": [
-            "ingredient_id"
-          ],
+          "columnsFrom": ["ingredient_id"],
           "tableTo": "ingredients",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         },
         "ingredient_tags_tag_id_tags_id_fk": {
           "name": "ingredient_tags_tag_id_tags_id_fk",
           "tableFrom": "ingredient_tags",
-          "columnsFrom": [
-            "tag_id"
-          ],
+          "columnsFrom": ["tag_id"],
           "tableTo": "tags",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         }
@@ -1785,26 +1697,18 @@
         "product_tags_product_id_products_id_fk": {
           "name": "product_tags_product_id_products_id_fk",
           "tableFrom": "product_tags",
-          "columnsFrom": [
-            "product_id"
-          ],
+          "columnsFrom": ["product_id"],
           "tableTo": "products",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         },
         "product_tags_tag_id_tags_id_fk": {
           "name": "product_tags_tag_id_tags_id_fk",
           "tableFrom": "product_tags",
-          "columnsFrom": [
-            "tag_id"
-          ],
+          "columnsFrom": ["tag_id"],
           "tableTo": "tags",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         }
@@ -1983,26 +1887,18 @@
         "user_bans_user_id_users_id_fk": {
           "name": "user_bans_user_id_users_id_fk",
           "tableFrom": "user_bans",
-          "columnsFrom": [
-            "user_id"
-          ],
+          "columnsFrom": ["user_id"],
           "tableTo": "users",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         },
         "user_bans_banned_by_users_id_fk": {
           "name": "user_bans_banned_by_users_id_fk",
           "tableFrom": "user_bans",
-          "columnsFrom": [
-            "banned_by"
-          ],
+          "columnsFrom": ["banned_by"],
           "tableTo": "users",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         }
@@ -2092,13 +1988,9 @@
         "profiles_user_id_users_id_fk": {
           "name": "profiles_user_id_users_id_fk",
           "tableFrom": "profiles",
-          "columnsFrom": [
-            "user_id"
-          ],
+          "columnsFrom": ["user_id"],
           "tableTo": "users",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         }
@@ -2261,13 +2153,9 @@
         "refresh_tokens_user_id_users_id_fk": {
           "name": "refresh_tokens_user_id_users_id_fk",
           "tableFrom": "refresh_tokens",
-          "columnsFrom": [
-            "user_id"
-          ],
+          "columnsFrom": ["user_id"],
           "tableTo": "users",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         }
@@ -2325,13 +2213,9 @@
         "user_preferences_user_id_users_id_fk": {
           "name": "user_preferences_user_id_users_id_fk",
           "tableFrom": "user_preferences",
-          "columnsFrom": [
-            "user_id"
-          ],
+          "columnsFrom": ["user_id"],
           "tableTo": "users",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         }
@@ -2543,13 +2427,9 @@
         "user_product_reviews_user_product_id_user_products_id_fk": {
           "name": "user_product_reviews_user_product_id_user_products_id_fk",
           "tableFrom": "user_product_reviews",
-          "columnsFrom": [
-            "user_product_id"
-          ],
+          "columnsFrom": ["user_product_id"],
           "tableTo": "user_products",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         }
@@ -2558,9 +2438,7 @@
       "uniqueConstraints": {
         "user_product_reviews_user_product_id_unique": {
           "name": "user_product_reviews_user_product_id_unique",
-          "columns": [
-            "user_product_id"
-          ],
+          "columns": ["user_product_id"],
           "nullsNotDistinct": false
         }
       },
@@ -2697,26 +2575,18 @@
         "user_products_user_id_users_id_fk": {
           "name": "user_products_user_id_users_id_fk",
           "tableFrom": "user_products",
-          "columnsFrom": [
-            "user_id"
-          ],
+          "columnsFrom": ["user_id"],
           "tableTo": "users",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         },
         "user_products_product_id_products_id_fk": {
           "name": "user_products_product_id_products_id_fk",
           "tableFrom": "user_products",
-          "columnsFrom": [
-            "product_id"
-          ],
+          "columnsFrom": ["product_id"],
           "tableTo": "products",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         }
@@ -2834,39 +2704,27 @@
         "habit_check_products_check_id_habit_checks_id_fk": {
           "name": "habit_check_products_check_id_habit_checks_id_fk",
           "tableFrom": "habit_check_products",
-          "columnsFrom": [
-            "check_id"
-          ],
+          "columnsFrom": ["check_id"],
           "tableTo": "habit_checks",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         },
         "habit_check_products_habit_product_id_habit_products_id_fk": {
           "name": "habit_check_products_habit_product_id_habit_products_id_fk",
           "tableFrom": "habit_check_products",
-          "columnsFrom": [
-            "habit_product_id"
-          ],
+          "columnsFrom": ["habit_product_id"],
           "tableTo": "habit_products",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         },
         "habit_check_products_product_id_products_id_fk": {
           "name": "habit_check_products_product_id_products_id_fk",
           "tableFrom": "habit_check_products",
-          "columnsFrom": [
-            "product_id"
-          ],
+          "columnsFrom": ["product_id"],
           "tableTo": "products",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         }
@@ -2988,13 +2846,9 @@
         "wellbeing_logs_user_id_users_id_fk": {
           "name": "wellbeing_logs_user_id_users_id_fk",
           "tableFrom": "wellbeing_logs",
-          "columnsFrom": [
-            "user_id"
-          ],
+          "columnsFrom": ["user_id"],
           "tableTo": "users",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         }
@@ -3076,13 +2930,9 @@
         "subtasks_task_id_tasks_id_fk": {
           "name": "subtasks_task_id_tasks_id_fk",
           "tableFrom": "subtasks",
-          "columnsFrom": [
-            "task_id"
-          ],
+          "columnsFrom": ["task_id"],
           "tableTo": "tasks",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         }
@@ -3218,13 +3068,9 @@
         "tasks_user_id_users_id_fk": {
           "name": "tasks_user_id_users_id_fk",
           "tableFrom": "tasks",
-          "columnsFrom": [
-            "user_id"
-          ],
+          "columnsFrom": ["user_id"],
           "tableTo": "users",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         }
@@ -3240,118 +3086,62 @@
     "public.habit_check_status": {
       "name": "habit_check_status",
       "schema": "public",
-      "values": [
-        "pending",
-        "done",
-        "skipped"
-      ]
+      "values": ["pending", "done", "skipped"]
     },
     "public.habit_frequency": {
       "name": "habit_frequency",
       "schema": "public",
-      "values": [
-        "daily",
-        "weekly",
-        "monthly",
-        "every_n_days"
-      ]
+      "values": ["daily", "weekly", "monthly", "every_n_days"]
     },
     "public.collaborator_role": {
       "name": "collaborator_role",
       "schema": "public",
-      "values": [
-        "editor"
-      ]
+      "values": ["editor"]
     },
     "public.relevance": {
       "name": "relevance",
       "schema": "public",
-      "values": [
-        "primary",
-        "secondary",
-        "avoid"
-      ]
+      "values": ["primary", "secondary", "avoid"]
     },
     "public.ban_scope": {
       "name": "ban_scope",
       "schema": "public",
-      "values": [
-        "ingredient_edit",
-        "product_edit",
-        "product_create",
-        "global"
-      ]
+      "values": ["ingredient_edit", "product_edit", "product_create", "global"]
     },
     "public.display_scale": {
       "name": "display_scale",
       "schema": "public",
-      "values": [
-        "out_of_5",
-        "out_of_10",
-        "out_of_20",
-        "percentage"
-      ]
+      "values": ["out_of_5", "out_of_10", "out_of_20", "percentage"]
     },
     "public.user_role": {
       "name": "user_role",
       "schema": "public",
-      "values": [
-        "user",
-        "admin"
-      ]
+      "values": ["user", "admin"]
     },
     "public.repurchase_flag": {
       "name": "repurchase_flag",
       "schema": "public",
-      "values": [
-        "yes",
-        "no",
-        "unsure"
-      ]
+      "values": ["yes", "no", "unsure"]
     },
     "public.user_product_status": {
       "name": "user_product_status",
       "schema": "public",
-      "values": [
-        "in_stock",
-        "wishlist",
-        "watched",
-        "holy_grail",
-        "archived",
-        "avoided"
-      ]
+      "values": ["in_stock", "wishlist", "watched", "holy_grail", "archived", "avoided"]
     },
     "public.wellbeing_metric": {
       "name": "wellbeing_metric",
       "schema": "public",
-      "values": [
-        "energy",
-        "sleep",
-        "fog",
-        "stress",
-        "mood",
-        "skin",
-        "pain"
-      ]
+      "values": ["energy", "sleep", "fog", "stress", "mood", "skin", "pain"]
     },
     "public.task_energy": {
       "name": "task_energy",
       "schema": "public",
-      "values": [
-        "low",
-        "medium",
-        "high"
-      ]
+      "values": ["low", "medium", "high"]
     },
     "public.task_status": {
       "name": "task_status",
       "schema": "public",
-      "values": [
-        "inbox",
-        "active",
-        "done",
-        "snoozed"
-      ]
+      "values": ["inbox", "active", "done", "snoozed"]
     }
   },
   "schemas": {},

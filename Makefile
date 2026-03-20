@@ -1,5 +1,5 @@
-include .env.dev
-export
+# include .env.dev
+# export
 .PHONY: help \
 	dev dev-d dev-down dev-fresh dev-rebuild dev-rebuild-api dev-rebuild-frontend \
 	ts-check ts-build ts-clean \
@@ -242,45 +242,101 @@ shell-frontend: ## Shell dans le conteneur frontend
 # =========================
 
 # Variable locale pour les outils hors Docker
-DB_LOCAL = postgres://app:$(POSTGRES_PASSWORD)@localhost:5432/appdb
+# On définit une fonction pour récupérer le mot de passe selon l'env
+# Par défaut, on cherche dans .env.dev si aucune variable n'est chargée
+#
+GET_DB_URL = $(shell grep POSTGRES_PASSWORD .env.dev | cut -d '=' -f2)
+DB_LOCAL = postgres://app:$(GET_DB_URL)@localhost:5432/appdb
 
-db-migrate: ## Applique les migrations Drizzle
-	cd backend && DATABASE_URL="$(DB_LOCAL)" bun x drizzle-kit migrate
+# db-migrate: ## Applique les migrations Drizzle
+# 	cd backend && DATABASE_URL="$(DB_LOCAL)" bun x drizzle-kit migrate
 
-db-generate: ## Génère les migrations Drizzle
-	cd backend && DATABASE_URL="$(DB_LOCAL)" bun x drizzle-kit generate
+# db-generate: ## Génère les migrations Drizzle
+# 	cd backend && DATABASE_URL="$(DB_LOCAL)" bun x drizzle-kit generate
 
-db-push: ## Push le schema Drizzle (dev)
-	cd backend && DATABASE_URL="$(DB_LOCAL)" bun x drizzle-kit push
+# db-push: ## Push le schema Drizzle (dev)
+# 	cd backend && DATABASE_URL="$(DB_LOCAL)" bun x drizzle-kit push
 
-db-studio: ## Lance Drizzle Studio
+db-studio2: ## Lance Drizzle Studio
 	cd backend && DATABASE_URL="$(DB_LOCAL)" bun x drizzle-kit studio --port 4983
 
-db-backup: ## Backup de la base de données
-	@mkdir -p ./backups
-	docker compose exec db pg_dump -U app appdb > ./backups/backup_$(shell date +%Y%m%d_%H%M%S).sql
-	@echo "$(GREEN)✓ Backup créé dans ./backups/$(NC)"
+# db-backup: ## Backup de la base de données
+# 	@mkdir -p ./backups
+# 	docker compose exec db pg_dump -U app appdb > ./backups/backup_$(shell date +%Y%m%d_%H%M%S).sql
+# 	@echo "$(GREEN)✓ Backup créé dans ./backups/$(NC)"
 
-db-restore: ## Restaure la DB (usage: make db-restore FILE=./backups/backup.sql)
+# db-restore: ## Restaure la DB (usage: make db-restore FILE=./backups/backup.sql)
+# 	@if [ -z "$(FILE)" ]; then \
+# 		echo "$(YELLOW)Usage: make db-restore FILE=./backups/backup.sql$(NC)"; \
+# 		exit 1; \
+# 	fi
+# 	docker compose exec -T db psql -U app appdb < $(FILE)
+# 	@echo "$(GREEN)✓ Base de données restaurée$(NC)"
+
+# db-seed: ## Lance le seed de la base de données
+# 	$(COMPOSE_DEV) exec api bun run src/db/seed/index.ts
+# 	@echo "$(GREEN)✓ Seed exécuté$(NC)"
+
+# db-clean: ## Vide complètement la base de données (sans supprimer le container)
+# 	@echo "$(YELLOW)⚠ Nettoyage de la base de données local...$(NC)"
+# 	@read -p "Toutes les données seront perdues. Continuer ? [y/N] " confirm && [ "$$confirm" = "y" ] || exit 1
+# 	@docker compose exec -T db psql -U app -d appdb -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public; GRANT ALL ON SCHEMA public TO app; GRANT ALL ON SCHEMA public TO public;"
+# 	@echo "$(GREEN)✓ Base de données vidée. Pensez à faire un 'make db-push' pour recréer les tables.$(NC)"
+
+# db-reset: db-clean db-push db-seed ## Nettoie, recrée le schéma et injecte le seed
+
+# db-push-prod: ## Push le schema sur la DB de PROD (Attention !)
+# 	@echo "$(YELLOW)⚠ Opération sur la base de PROD...$(NC)"
+# 	$(eval PROD_PWD=$(shell grep POSTGRES_PASSWORD .env.prod | cut -d '=' -f2))
+# 	cd backend && DATABASE_URL="postgres://app:$(PROD_PWD)@ton-ip-prod:5432/appdb" bun x drizzle-kit push
+db-migrate: ## Applique les migrations Drizzle
+	@echo "$(CYAN)Application des migrations...$(NC)"
+	cd backend && export $$(grep -v '^\#' ../.env.dev | xargs) && bun x drizzle-kit migrate
+
+db-generate: ## Génère les fichiers de migration à partir du schéma
+	@echo "$(CYAN)Génération des fichiers de migration...$(NC)"
+	cd backend && export $$(grep -v '^\#' ../.env.dev | xargs) && bun x drizzle-kit generate
+
+db-push: ## Synchronise le schéma directement sur la DB (Dev rapide)
+	@echo "$(CYAN)Synchronisation du schéma (Push)...$(NC)"
+	cd backend && export $$(grep -v '^\#' ../.env.dev | xargs) && bun x drizzle-kit push
+
+db-studio: ## Lance l'interface graphique Drizzle Studio
+	@echo "$(CYAN)Lancement de Drizzle Studio sur http://localhost:4983$(NC)"
+	cd backend && export $$(grep -v '^\#' ../.env.dev | xargs) && bun x drizzle-kit studio --port 4983
+
+db-seed: ## Remplit la base de données avec des données de test
+	@echo "$(CYAN)Injection des données (Seed)...$(NC)"
+	$(COMPOSE_DEV) exec api bun run src/db/seed/index.ts
+	@echo "$(GREEN)✓ Seed exécuté avec succès$(NC)"
+
+db-clean: ## Vide complètement la base de données (SCHEMA public)
+	@echo "$(YELLOW)⚠ ATTENTION : Toutes les données vont être supprimées !$(NC)"
+	@read -p "Confirmer le nettoyage de la DB locale ? [y/N] " confirm && [ "$$confirm" = "y" ] || exit 1
+	@docker compose exec -T db psql -U app -d appdb -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public; GRANT ALL ON SCHEMA public TO app; GRANT ALL ON SCHEMA public TO public;"
+	@echo "$(GREEN)✓ Base de données vidée.$(NC)"
+
+db-reset: db-clean db-push db-seed ## Nettoyage complet + Push schéma + Seed
+
+db-backup: ## Crée une sauvegarde SQL de la base de données
+	@mkdir -p ./backups
+	@$(eval BK_NAME := ./backups/backup_$(shell date +%Y%m%d_%H%M%S).sql)
+	docker compose exec db pg_dump -U app appdb > $(BK_NAME)
+	@echo "$(GREEN)✓ Backup créé : $(BK_NAME)$(NC)"
+
+db-restore: ## Restaure une sauvegarde (Usage: make db-restore FILE=./backups/xxx.sql)
 	@if [ -z "$(FILE)" ]; then \
-		echo "$(YELLOW)Usage: make db-restore FILE=./backups/backup.sql$(NC)"; \
+		echo "$(RED)Erreur: Spécifiez un fichier avec FILE=path/to/file.sql$(NC)"; \
 		exit 1; \
 	fi
 	docker compose exec -T db psql -U app appdb < $(FILE)
-	@echo "$(GREEN)✓ Base de données restaurée$(NC)"
+	@echo "$(GREEN)✓ Restauration terminée$(NC)"
 
-db-seed: ## Lance le seed de la base de données
-	$(COMPOSE_DEV) exec api bun run src/db/seed/index.ts
-	@echo "$(GREEN)✓ Seed exécuté$(NC)"
-
-db-clean: ## Vide complètement la base de données (sans supprimer le container)
-	@echo "$(YELLOW)⚠ Nettoyage de la base de données local...$(NC)"
-	@read -p "Toutes les données seront perdues. Continuer ? [y/N] " confirm && [ "$$confirm" = "y" ] || exit 1
-	@docker compose exec -T db psql -U app -d appdb -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public; GRANT ALL ON SCHEMA public TO app; GRANT ALL ON SCHEMA public TO public;"
-	@echo "$(GREEN)✓ Base de données vidée. Pensez à faire un 'make db-push' pour recréer les tables.$(NC)"
-
-db-reset: db-clean db-push db-seed ## Nettoie, recrée le schéma et injecte le seed
-
+# Commande sensible : utilise .env.prod explicitement
+db-push-prod: ## [PROD] Push le schéma sur la DB de production
+	@echo "$(YELLOW)⚠ ATTENTION : Vous allez modifier le schéma de PRODUCTION !$(NC)"
+	@read -p "Êtes-vous sûr ? [y/N] " confirm && [ "$$confirm" = "y" ] || exit 1
+	cd backend && bun --env-file=../.env.prod x drizzle-kit push
 # =========================
 # SSL (production)
 # =========================

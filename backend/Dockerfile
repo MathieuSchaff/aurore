@@ -31,11 +31,16 @@ FROM oven/bun:1.3.9-debian AS prod
 WORKDIR /app
 ENV NODE_ENV=production
 
-COPY package.json bun.lock ./
+# On copie les fichiers de configuration racine
+COPY package.json bun.lock tsconfig.json ./
+
+# On prépare les dossiers pour les packages
 RUN mkdir -p backend shared
+
+# On copie les manifestes pour l'installation des dépendances
 COPY backend/package.json backend/
 COPY shared/package.json shared/
-RUN bun install --frozen-lockfile --production
+RUN bun install --frozen-lockfile
 
 COPY backend/ ./backend/
 COPY shared/ ./shared/
