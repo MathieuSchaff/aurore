@@ -1,5 +1,5 @@
-import type { HttpStatus } from '../types/api'
 import type { ProfileErrorCode } from '../types/profile'
+import type { HttpStatus } from './constants'
 import { HTTP_STATUS } from './constants'
 
 /**

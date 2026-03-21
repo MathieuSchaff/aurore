@@ -16,6 +16,4 @@ export {
 /** Profil complet tel que retourné par la base de données. */
 export type Profile = InferSelectModel<typeof profiles>
 
-/** Données nécessaires pour insérer un nouveau profil. */
 export type NewProfile = InferInsertModel<typeof profiles>
-
