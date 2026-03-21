@@ -348,10 +348,13 @@ describe('login', () => {
     const creds = TEST_CREDENTIALS.toto
     const created = await createTestUser(creds.rawEmail, creds.rawPassword)
 
-    await testDb.update(usersTable).set({
-      createdAt: new Date(Date.now() - 25 * 60 * 60 * 1000),
-      emailVerifiedAt: new Date(),
-    }).where(eq(usersTable.id, created.id))
+    await testDb
+      .update(usersTable)
+      .set({
+        createdAt: new Date(Date.now() - 25 * 60 * 60 * 1000),
+        emailVerifiedAt: new Date(),
+      })
+      .where(eq(usersTable.id, created.id))
 
     const result = await login(createCtx(), creds.email, creds.password)
     expect(result.success).toBe(true)
