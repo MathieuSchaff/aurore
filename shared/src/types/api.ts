@@ -1,4 +1,5 @@
-import type { baseErrorMapping, HTTP_STATUS } from '../helpers/constants'
+import type { baseErrorMapping } from '../helpers/constants'
+
 // ─── API Response Types ──────────────────────────────────
 
 /**
@@ -47,7 +48,5 @@ export type ApiError<E extends string = string> = {
  * @template E - Union des codes d'erreur possibles
  */
 export type ApiResponse<T, E extends string = string> = ApiSuccess<T> | ApiError<E>
-
-export type HttpStatus = (typeof HTTP_STATUS)[keyof typeof HTTP_STATUS]
 
 export type CommonErrorCode = keyof typeof baseErrorMapping
