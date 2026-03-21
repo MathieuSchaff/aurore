@@ -1,14 +1,12 @@
-import type { HttpStatus } from '../types/api'
 // ─── HTTP Status Codes ───────────────────────────────────
 
 /** Codes HTTP utilisés dans l'API. Utiliser ces constantes plutôt que des nombres littéraux. */
 export const HTTP_STATUS = {
   OK: 200,
   CREATED: 201,
-  // NE PAS METTRE 204, car Hono type c.json()
-  //  pour n'accepter que les ContentfulStatusCode (codes avec body), et 204 en est explicitement exclu.
-  // Le protocole HTTP interdit un body sur une réponse 204
-  // DELETED: 204,
+  NO_CONTENT: 204,
+  // NE PAS UTILISER 204 avec c.json() car Hono ne l'accepte pas (ContentfulStatusCode).
+  // Utiliser c.body(null, HTTP_STATUS.NO_CONTENT) à la place.
   BAD_REQUEST: 400,
   UNAUTHORIZED: 401,
   FORBIDDEN: 403,
@@ -17,6 +15,11 @@ export const HTTP_STATUS = {
   RATE_LIMIT_EXCEEDED: 429,
   INTERNAL_SERVER_ERROR: 500,
 } as const
+
+export type HttpStatus = (typeof HTTP_STATUS)[keyof typeof HTTP_STATUS]
+
+/** Status HTTP acceptables par c.json() dans Hono */
+export type ContentfulHttpStatus = Exclude<HttpStatus, typeof HTTP_STATUS.NO_CONTENT>
 
 // ─── Error Mapping ───────────────────────────────────────
 

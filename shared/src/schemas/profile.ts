@@ -20,7 +20,7 @@ export const BIO_MAX_LENGTH = 500
  * @see {@link ProfilePublic} pour le type TS équivalent.
  */
 export const profilePublicSchema = z.object({
-  userId: z.string().uuid(),
+  userId: z.uuid(),
   username: z.string().max(USERNAME_MAX_LENGTH).nullable().optional(),
   bio: z.string().max(BIO_MAX_LENGTH).nullable().optional(),
   avatarUrl: z.string().url().nullable().optional(),
@@ -56,7 +56,22 @@ export const profileUpdateSchema = z
   })
   .strict()
 
+// ─── Output Schemas ─────────────────────────────────────
+
+/**
+ * Statistiques d'utilisation d'un utilisateur.
+ */
+export const profileStatsSchema = z.object({
+  totalHabits: z.number(),
+  totalChecks: z.number(),
+  bestStreak: z.number(),
+  totalProducts: z.number(),
+})
+
 // ─── Inferred Types ──────────────────────────────────────
 
 /** Input typé pour la mise à jour d'un profil, inféré depuis {@link profileUpdateSchema}. */
 export type ProfileUpdateInput = z.infer<typeof profileUpdateSchema>
+
+/** Statistiques d'un profil, inférées depuis {@link profileStatsSchema}. */
+export type ProfileStats = z.infer<typeof profileStatsSchema>

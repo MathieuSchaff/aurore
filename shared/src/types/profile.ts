@@ -20,6 +20,16 @@ export type ProfilePublic = {
   updatedAt?: string | null
 }
 
+/**
+ * Statistiques d'utilisation d'un utilisateur.
+ */
+export type ProfileStats = {
+  totalHabits: number
+  totalChecks: number
+  bestStreak: number
+  totalProducts: number
+}
+
 // ─── Error Codes ─────────────────────────────────────────
 
 /**
@@ -54,3 +64,10 @@ export type MeResponse = ApiResponse<ProfilePublic, AuthErrorCode | ProfileError
  * @see {@link ApiResponse}
  */
 export type ProfileUpdateResponse = ApiResponse<ProfilePublic, AuthErrorCode | ProfileErrorCode>
+
+/**
+ * Résultat possible de l'opération GET /api/profile/stats.
+ *
+ * @see {@link ApiResponse}
+ */
+export type ProfileStatsResponse = ApiResponse<ProfileStats, AuthErrorCode | ProfileErrorCode>
