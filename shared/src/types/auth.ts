@@ -90,7 +90,10 @@ export type SignupResult = ApiResponse<AuthenticatedResult, 'email_exists' | 'se
  * Résultat possible de l'opération login.
  * @see {@link ApiResponse}
  */
-export type LoginResult = ApiResponse<AuthenticatedResult, 'invalid_credentials' | 'email_not_verified' | 'server_error'>
+export type LoginResult = ApiResponse<
+  AuthenticatedResult,
+  'invalid_credentials' | 'email_not_verified' | 'server_error'
+>
 
 /**
  * Résultat possible de l'opération refresh.
@@ -98,9 +101,13 @@ export type LoginResult = ApiResponse<AuthenticatedResult, 'invalid_credentials'
  */
 export type RefreshResult = ApiResponse<
   AuthenticatedResult,
-  'invalid_token' | 'session_expired' | 'missing_refresh_token' | 'email_not_verified' | 'server_error'
+  | 'invalid_token'
+  | 'session_expired'
+  | 'missing_refresh_token'
+  | 'email_not_verified'
+  | 'server_error'
 >
-
+export type GoogleCallbackResult = ApiResponse<AuthenticatedResult, 'server_error'>
 /**
  * Résultat possible de l'opération logout.
  *
@@ -109,6 +116,11 @@ export type RefreshResult = ApiResponse<
  * sont loggées mais non propagées.
  */
 export type LogoutResult = ApiResponse<null>
+
+/**
+ * Résultat possible de l'opération de changement de mot de passe.
+ */
+export type ChangePasswordResult = ApiResponse<null, 'invalid_credentials' | 'server_error'>
 
 // ─── JWT Payloads ────────────────────────────────────────
 

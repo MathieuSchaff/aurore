@@ -1,19 +1,19 @@
 import { z } from 'zod'
 
 export const accessTokenPayloadSchema = z.object({
-    sub: z.string(),
-    type: z.literal('access'),
-    jti: z.string(),
-    iat: z.number(),
-    exp: z.number(),
+  sub: z.string(),
+  type: z.literal('access'),
+  jti: z.string(),
+  iat: z.number(),
+  exp: z.number(),
 })
 
 export const refreshTokenPayloadSchema = z.object({
-    sub: z.string(),
-    type: z.literal('refresh'),
-    jti: z.string(),
-    iat: z.number(),
-    exp: z.number(),
+  sub: z.string(),
+  type: z.literal('refresh'),
+  jti: z.string(),
+  iat: z.number(),
+  exp: z.number(),
 })
 // ─── Branded Types ───────────────────────────────────────
 
@@ -58,12 +58,12 @@ export type HashedPassword = string & { readonly __brand: 'HashedPassword' }
  * @see https://zod.dev/api#pipes
  */
 export const emailSchema = z
-    .string()
-    .trim()
-    .toLowerCase()
-    // .email("Format d'email invalide")
-    .pipe(z.email("Format d'email invalide"))
-    .brand<'Email'>()
+  .string()
+  .trim()
+  .toLowerCase()
+  // .email("Format d'email invalide")
+  .pipe(z.email("Format d'email invalide"))
+  .brand<'Email'>()
 
 /**
  * Schema de validation d'un mot de passe.
@@ -74,14 +74,14 @@ export const emailSchema = z
  * - Au moins une minuscule, une majuscule, un chiffre, un caractère spécial
  */
 export const passwordSchema = z
-    .string()
-    .min(8, 'Minimum 8 caractères')
-    .max(128, 'Maximum 128 caractères')
-    .regex(/[a-z]/, 'Au moins une minuscule')
-    .regex(/[A-Z]/, 'Au moins une majuscule')
-    .regex(/[0-9]/, 'Au moins un chiffre')
-    .regex(/[^a-zA-Z0-9]/, 'Caractère spécial requis')
-    .brand<'RawPassword'>()
+  .string()
+  .min(8, 'Minimum 8 caractères')
+  .max(128, 'Maximum 128 caractères')
+  .regex(/[a-z]/, 'Au moins une minuscule')
+  .regex(/[A-Z]/, 'Au moins une majuscule')
+  .regex(/[0-9]/, 'Au moins un chiffre')
+  .regex(/[^a-zA-Z0-9]/, 'Caractère spécial requis')
+  .brand<'RawPassword'>()
 
 // ─── Auth Body Schemas ────────────────────────────────────
 
@@ -95,8 +95,8 @@ export const passwordSchema = z
  * ```
  */
 export const authSchema = z.object({
-    email: emailSchema,
-    password: passwordSchema,
+  email: emailSchema,
+  password: passwordSchema,
 })
 
 /** Alias sémantique — identique à {@link authSchema}. */
@@ -106,7 +106,7 @@ export const loginSchema = authSchema
 export const signupSchema = authSchema
 
 export const verifyEmailBodySchema = z.object({
-    token: z.string().min(1),
+  token: z.string().min(1),
 })
 
 // ─── Entity Schemas ──────────────────────────────────────
@@ -119,10 +119,10 @@ export const verifyEmailBodySchema = z.object({
  * Utilisé dans les réponses auth et les schemas OpenAPI.
  */
 export const userPublicSchema = z.object({
-    id: z.string(),
-    email: z.email(),
-    createdAt: z.union([z.date(), z.string()]),
-    emailVerified: z.boolean(),
+  id: z.string(),
+  email: z.email(),
+  createdAt: z.union([z.date(), z.string()]),
+  emailVerified: z.boolean(),
 })
 
 // ─── Auth Result Schemas (OpenAPI) ───────────────────────
@@ -135,8 +135,8 @@ export const userPublicSchema = z.object({
  * uniquement via un cookie httpOnly sécurisé.
  */
 export const browserAuthResultSchema = z.object({
-    user: userPublicSchema,
-    accessToken: z.string(),
+  user: userPublicSchema,
+  accessToken: z.string(),
 })
 
 /**
@@ -147,9 +147,9 @@ export const browserAuthResultSchema = z.object({
  * dans le Secure Storage natif (Keychain iOS / Keystore Android).
  */
 export const mobileAuthResultSchema = z.object({
-    user: userPublicSchema,
-    accessToken: z.string(),
-    refreshToken: z.string(),
+  user: userPublicSchema,
+  accessToken: z.string(),
+  refreshToken: z.string(),
 })
 
 /**
@@ -160,22 +160,27 @@ export const mobileAuthResultSchema = z.object({
  * après rotation du refresh token.
  */
 export const mobileRefreshResultSchema = z.object({
-    accessToken: z.string(),
-    refreshToken: z.string(),
+  accessToken: z.string(),
+  refreshToken: z.string(),
 })
 
 /** Résultat du check de session (`GET /api/auth/session`). */
 export const sessionResultSchema = z.object({
-    authenticated: z.literal(true),
-    userId: z.string(),
+  authenticated: z.literal(true),
+  userId: z.string(),
 })
 
-/**
- * Body attendu pour les endpoints mobile qui nécessitent un refresh token
+/** Body attendu pour les endpoints mobile qui nécessitent un refresh token
  * (`POST /api/auth/mobile/refresh`, `POST /api/auth/mobile/logout`).
  */
 export const refreshTokenBodySchema = z.object({
-    refreshToken: z.string().optional(),
+  refreshToken: z.string().optional(),
+})
+
+/** Schema pour le changement de mot de passe. */
+export const changePasswordSchema = z.object({
+  currentPassword: z.string().min(1, 'Mot de passe actuel requis'),
+  newPassword: passwordSchema,
 })
 
 // ─── Inferred Types ──────────────────────────────────────
@@ -183,10 +188,13 @@ export const refreshTokenBodySchema = z.object({
 /** Input typé pour login/signup, inféré depuis {@link authSchema}. */
 export type AuthInput = z.infer<typeof authSchema>
 
+/** Input pour changement de mot de passe. */
+export type ChangePasswordInput = z.infer<typeof changePasswordSchema>
+
 // ─── Validation Error Types ──────────────────────────────
 
 /** Erreurs de validation par champ pour les formulaires auth côté client. */
 export type AuthFieldErrors = {
-    email?: string[]
-    password?: string[]
+  email?: string[]
+  password?: string[]
 }
