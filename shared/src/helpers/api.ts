@@ -1,5 +1,10 @@
-import type { ApiError, ApiResponse, ApiSuccess, CommonErrorCode, HttpStatus } from '../types/api'
-import { baseErrorMapping, HTTP_STATUS } from './constants'
+import type { ApiError, ApiResponse, ApiSuccess, CommonErrorCode } from '../types/api'
+import {
+  baseErrorMapping,
+  type ContentfulHttpStatus,
+  HTTP_STATUS,
+  type HttpStatus,
+} from './constants'
 // ─── Response Factories ──────────────────────────────────
 
 /**
@@ -48,9 +53,10 @@ export const err = <E extends string>(error: E, details?: unknown): ApiError<E> 
 export const errorToStatus = <E extends string>(
   error: E,
   customMapping: Record<Exclude<E, CommonErrorCode>, HttpStatus>
-): HttpStatus => {
+): ContentfulHttpStatus => {
   const mapping = { ...baseErrorMapping, ...customMapping }
-  return mapping[error] ?? HTTP_STATUS.INTERNAL_SERVER_ERROR
+  const status = mapping[error as keyof typeof mapping] ?? HTTP_STATUS.INTERNAL_SERVER_ERROR
+  return status as ContentfulHttpStatus
 }
 
 // ─── Type Guards ─────────────────────────────────────────
