@@ -1,17 +1,18 @@
 import type { UserProductStatus } from '@habit-tracker/shared'
 
+import { useQuery } from '@tanstack/react-query'
 import clsx from 'clsx'
-import { Archive, Ban, Eye, Heart, Package, ShoppingBag, X } from 'lucide-react'
+import { Archive, Ban, Eye, Heart, Package, ShoppingBag, X, type LucideIcon } from 'lucide-react'
 import type React from 'react'
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
-import { useScrollLock } from '../../../../hooks/useScrollLock'
-import { useAddStockEntry } from '../../../../lib/queries/stock'
-import { productQueries, useCreateProduct } from '../../../../lib/queries/products'
-import { useCreateUserProduct } from '../../../../lib/queries/user-products'
-import { BrandCombobox } from '@/features/products/components/BrandCombobox/BrandCombobox'
 import { SearchCombobox } from '@/component/search/SearchCombobox'
+import { BrandCombobox } from '@/features/products/components/BrandCombobox/BrandCombobox'
+import { useScrollLock } from '../../../../hooks/useScrollLock'
+import { productQueries, useCreateProduct } from '../../../../lib/queries/products'
+import { useAddPurchase } from '../../../../lib/queries/purchases'
+import { useCreateUserProduct } from '../../../../lib/queries/user-products'
 
 import './QuickAddModal.css'
 
@@ -19,7 +20,7 @@ interface QuickAddModalProps {
   onClose: () => void
 }
 
-const statusLabels: Record<UserProductStatus, { label: string; icon: any; color: string }> = {
+const statusLabels: Record<UserProductStatus, { label: string; icon: LucideIcon; color: string }> = {
   in_stock: { label: 'En stock', icon: Package, color: '#10b981' },
   wishlist: { label: 'Wishlist', icon: ShoppingBag, color: '#3b82f6' },
   watched: { label: 'Surveille', icon: Eye, color: '#f59e0b' },
@@ -39,9 +40,9 @@ export function QuickAddModal({ onClose }: QuickAddModalProps) {
   const [selectedStatus, setSelectedStatus] = useState<UserProductStatus>('in_stock')
   const [purchasedAt, setPurchasedAt] = useState(() => new Date().toISOString().split('T')[0])
   const [purchasePrice, setPurchasePrice] = useState('')
+  const [expiresAt, setExpiresAt] = useState('')
 
   // New product form state
-  // FIXME: 'unit' should probably be a selectable field later
   const [newName, setNewName] = useState('')
   const [newBrand, setNewBrand] = useState('')
   const [newKind, setNewKind] = useState('skincare')
@@ -50,7 +51,24 @@ export function QuickAddModal({ onClose }: QuickAddModalProps) {
 
   const createProduct = useCreateProduct()
   const addUserProduct = useCreateUserProduct()
-  const addStockEntry = useAddStockEntry()
+  const addPurchase = useAddPurchase()
+
+  // Duplicate detection
+  const [debouncedNewName, setDebouncedNewName] = useState('')
+  const [debouncedNewBrand, setDebouncedNewBrand] = useState('')
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedNewName(newName.trim())
+      setDebouncedNewBrand(newBrand.trim())
+    }, 400)
+    return () => clearTimeout(timer)
+  }, [newName, newBrand])
+
+  const { data: similarProducts } = useQuery({
+    ...productQueries.checkDuplicate(debouncedNewName, debouncedNewBrand),
+    enabled: debouncedNewName.length >= 2 && debouncedNewBrand.length >= 1,
+  })
 
   useScrollLock(true)
 
@@ -66,17 +84,22 @@ export function QuickAddModal({ onClose }: QuickAddModalProps) {
     if (!selectedProduct) return
     try {
       if (selectedStatus === 'in_stock') {
-        await addStockEntry.mutateAsync({
+        const created = await addUserProduct.mutateAsync({
           productId: selectedProduct.id,
-          qty: 1,
-          purchasedAt,
-          pricePaidCents: purchasePrice ? Math.round(parseFloat(purchasePrice) * 100) : undefined,
+          status: 'in_stock',
+        })
+        await addPurchase.mutateAsync({
+          userProductId: created.id,
+          input: {
+            purchasedAt,
+            pricePaidCents: purchasePrice ? Math.round(parseFloat(purchasePrice) * 100) : undefined,
+            expiresAt: expiresAt || undefined,
+          },
         })
       } else {
         await addUserProduct.mutateAsync({
           productId: selectedProduct.id,
           status: selectedStatus,
-          qty: selectedStatus === 'holy_grail' ? 1 : 0,
         })
       }
       toast.success(`${selectedProduct.name} ajouté à votre collection !`)
@@ -98,17 +121,22 @@ export function QuickAddModal({ onClose }: QuickAddModalProps) {
       })
 
       if (selectedStatus === 'in_stock') {
-        await addStockEntry.mutateAsync({
+        const created = await addUserProduct.mutateAsync({
           productId: product.id,
-          qty: 1,
-          purchasedAt,
-          pricePaidCents: purchasePrice ? Math.round(parseFloat(purchasePrice) * 100) : undefined,
+          status: 'in_stock',
+        })
+        await addPurchase.mutateAsync({
+          userProductId: created.id,
+          input: {
+            purchasedAt,
+            pricePaidCents: purchasePrice ? Math.round(parseFloat(purchasePrice) * 100) : undefined,
+            expiresAt: expiresAt || undefined,
+          },
         })
       } else {
         await addUserProduct.mutateAsync({
           productId: product.id,
           status: selectedStatus,
-          qty: selectedStatus === 'holy_grail' ? 1 : 0,
         })
       }
       toast.success(`${newName} créé et ajouté à votre collection !`)
@@ -232,6 +260,15 @@ export function QuickAddModal({ onClose }: QuickAddModalProps) {
                           onChange={(e) => setPurchasePrice(e.target.value)}
                         />
                       </div>
+                      <div className="qa-field">
+                        <label htmlFor="qa-expires-at">Date d'expiration — optionnel</label>
+                        <input
+                          id="qa-expires-at"
+                          type="date"
+                          value={expiresAt}
+                          onChange={(e) => setExpiresAt(e.target.value)}
+                        />
+                      </div>
                     </div>
                   )}
 
@@ -240,9 +277,11 @@ export function QuickAddModal({ onClose }: QuickAddModalProps) {
                     className="qa-submit-btn"
                     style={{ width: '100%' }}
                     onClick={handleAddExisting}
-                    disabled={addUserProduct.isPending || addStockEntry.isPending}
+                    disabled={addUserProduct.isPending || addPurchase.isPending}
                   >
-                    {addUserProduct.isPending || addStockEntry.isPending ? 'Ajout...' : 'Ajouter à ma collection'}
+                    {addUserProduct.isPending || addPurchase.isPending
+                      ? 'Ajout...'
+                      : 'Ajouter à ma collection'}
                   </button>
                 </>
               )}
@@ -272,6 +311,26 @@ export function QuickAddModal({ onClose }: QuickAddModalProps) {
                   placeholder="ex: CeraVe"
                 />
               </div>
+              {similarProducts && similarProducts.length > 0 && (
+                <div className="qa-duplicate-warning" role="alert">
+                  <p>
+                    {similarProducts.length === 1
+                      ? 'Un produit similaire existe déjà :'
+                      : 'Des produits similaires existent déjà :'}
+                  </p>
+                  <ul>
+                    {similarProducts.map((p) => (
+                      <li key={p.id}>
+                        {p.name} — {p.brand}
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="qa-duplicate-hint">
+                    Tu peux l'ajouter via l'onglet « Produit existant ».
+                  </p>
+                </div>
+              )}
+
               <div className="qa-field">
                 <label htmlFor="qa-new-kind">Catégorie</label>
                 <input
@@ -325,6 +384,15 @@ export function QuickAddModal({ onClose }: QuickAddModalProps) {
                       onChange={(e) => setPurchasePrice(e.target.value)}
                     />
                   </div>
+                  <div className="qa-field">
+                    <label htmlFor="qa-new-expires-at">Date d'expiration — optionnel</label>
+                    <input
+                      id="qa-new-expires-at"
+                      type="date"
+                      value={expiresAt}
+                      onChange={(e) => setExpiresAt(e.target.value)}
+                    />
+                  </div>
                 </div>
               )}
 
@@ -334,7 +402,7 @@ export function QuickAddModal({ onClose }: QuickAddModalProps) {
                 disabled={
                   createProduct.isPending ||
                   addUserProduct.isPending ||
-                  addStockEntry.isPending ||
+                  addPurchase.isPending ||
                   !newBrand.trim() ||
                   !newBrandConfirmed
                 }

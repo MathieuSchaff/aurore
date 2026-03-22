@@ -1,11 +1,16 @@
-import type { UserProductStatus, DisplayScale } from '@habit-tracker/shared'
-import type { ReviewCriteria, CriteriaWeights } from '../../../lib/helpers/reviews'
-import { calculateWeightedScore } from '../../../lib/helpers/reviews'
-import { getSentimentEmoji } from '../../../utils/sentimentMap'
-import { Package, ShoppingBag, Eye, Heart, Archive, Ban } from 'lucide-react'
+import type { DisplayScale, UserProductStatus } from '@habit-tracker/shared'
+
+import { Archive, Ban, Eye, Heart, Package, ShoppingBag } from 'lucide-react'
 import type React from 'react'
 
-const statusConfig: Record<UserProductStatus, { label: string; icon: React.ComponentType<{ size?: number }>; color: string }> = {
+import type { CriteriaWeights, ReviewCriteria } from '../../../../lib/helpers/reviews'
+import { calculateWeightedScore } from '../../../../lib/helpers/reviews'
+import { getSentimentEmoji } from '../../../../utils/sentimentMap'
+
+const statusConfig: Record<
+  UserProductStatus,
+  { label: string; icon: React.ComponentType<{ size?: number }>; color: string }
+> = {
   in_stock: { label: 'En stock', icon: Package, color: '#10b981' },
   wishlist: { label: 'Wishlist', icon: ShoppingBag, color: '#3b82f6' },
   watched: { label: 'Surveille', icon: Eye, color: '#f59e0b' },
@@ -51,27 +56,33 @@ export function CollectionCard({ item, weights, displayScale }: CollectionCardPr
           <p className="collection-card__brand">{item.product.brand}</p>
         </div>
         {score && (
-          <div className="collection-card__score" aria-label={`Note : ${score}`}>
+          <output className="collection-card__score" aria-label={`Note : ${score}`}>
             {score}
-          </div>
+          </output>
         )}
       </div>
 
       <div className="collection-card__badges">
-        <span className="collection-card__status-badge" aria-label={`Statut : ${cfg.label}`}>
-          <StatusIcon size={12} />
+        <span className="collection-card__status-badge">
+          <span className="sr-only">Statut : </span>
+          <StatusIcon size={12} aria-hidden="true" />
           {cfg.label}
         </span>
 
         {item.qty > 0 && (
           <span className="collection-card__qty-badge">
-            <Package size={12} />
+            <span className="sr-only">Quantité : </span>
+            <Package size={12} aria-hidden="true" />
             {item.qty} {item.product.unit}
           </span>
         )}
 
         {emoji && (
-          <span className="collection-card__sentiment-badge" aria-label={`Ressenti : ${emoji}`}>
+          <span
+            className="collection-card__sentiment-badge"
+            role="img"
+            aria-label={`Ressenti : ${emoji}`}
+          >
             {emoji}
           </span>
         )}

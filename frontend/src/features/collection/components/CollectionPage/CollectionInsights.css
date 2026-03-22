@@ -20,9 +20,15 @@
   gap: var(--space-4);
 }
 
-.insight-card--positive { --_insight-color: var(--color-success); }
-.insight-card--negative { --_insight-color: var(--color-error); }
-.insight-card--neutral  { --_insight-color: var(--color-info); }
+.insight-card--positive {
+  --_insight-color: var(--color-success);
+}
+.insight-card--negative {
+  --_insight-color: var(--color-error);
+}
+.insight-card--neutral {
+  --_insight-color: var(--color-info);
+}
 
 .insight-header {
   display: flex;

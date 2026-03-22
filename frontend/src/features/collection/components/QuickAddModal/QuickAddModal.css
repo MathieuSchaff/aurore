@@ -1,7 +1,7 @@
 .qa-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: var(--overlay);
   backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
@@ -22,8 +22,11 @@
   background: var(--bg-card);
   width: 100%;
   max-width: 500px;
+  max-height: calc(100dvh - 2rem);
+  display: flex;
+  flex-direction: column;
   border-radius: 1.5rem;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-lg);
   position: relative;
   z-index: 1;
   animation: modalScale 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -71,6 +74,8 @@
 
 .qa-modal-content {
   padding: 1.5rem;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .qa-tabs {
@@ -98,7 +103,7 @@
 .qa-tab.active {
   background: var(--bg-card);
   color: var(--color-primary);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-sm);
 }
 
 /* Path A: Existing */
@@ -229,4 +234,27 @@
 .qa-submit-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.qa-duplicate-warning {
+  padding: 0.75rem 1rem;
+  background: var(--color-warning-light);
+  color: var(--color-warning-text);
+  border: 1px solid var(--color-warning-border);
+  border-radius: 0.75rem;
+  font-size: 0.85rem;
+}
+
+.qa-duplicate-warning p {
+  margin: 0 0 0.25rem;
+}
+
+.qa-duplicate-warning ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.qa-duplicate-hint {
+  font-style: italic;
+  opacity: 0.8;
 }
