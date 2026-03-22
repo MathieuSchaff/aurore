@@ -1464,4 +1464,79 @@ Le Gluconate de Zinc présente un excellent profil d'innocuité :
     Ce dossier révèle plusieurs éléments décisifs souvent absents de la littérature vulgarisée. D'abord, l'AS n'est pas un simple « exfoliant » : son octuple mécanisme d'action — desmolysis, comédolyse, inhibition COX-2, suppression NF-κB et NLRP3, apoptose sébocytaire Fas/FasL, inhibition de la lipogenèse AMPK/SREBP-1 et activité bactériostatique — en fait un agent pharmacologiquement plus complexe que le peroxyde de benzoyle ou l'acide glycolique. Ensuite, son efficacité est **indissociable du pH de formulation** : un produit à 2 % et pH 4,5 ne contient que 0,06 % d'acide libre effectif, rendant les étiquetages actuels cliniquement trompeurs. Troisièmement, contrairement aux AHA, l'AS ne provoque **aucune photosensibilisation mesurable** et possède même des propriétés photoprotectrices potentielles. Quatrièmement, les formulations avancées des années 2020 — en particulier l'AS greffé sur alginate (stabilité ×30, irritation réduite, efficacité préservée) — représentent un changement de paradigme qui pourrait résoudre le compromis historique entre pH bas nécessaire à l'efficacité et irritation. Enfin, le plus grand ECR disponible (N = 500, Ye 2024) positionne désormais l'AS 2 % comme **non-inférieur à l'adapalène**, avec un profil de tolérance nettement favorable, pour l'acné légère à modérée — une conclusion qui justifie sa place comme traitement de première ligne pour les peaux grasses et acnéiques, et comme adjuvant anti-âge légitime, bien que plus modeste que les rétinoïdes, pour les peaux sensibles ne tolérant pas ces derniers.
     `,
   },
+  {
+    name: 'Charcoal Powder',
+    slug: INGREDIENT_SLUGS.CHARCOAL_POWDER,
+    category: 'actif',
+    description:
+      'Charbon activé à haut pouvoir absorbant, idéal pour purifier les pores et détoxifier la peau.',
+    content: `
+# Charcoal Powder : L'Aimant à Impuretés
+Le **Charbon Activé** est une poudre de carbone traitée pour augmenter sa porosité. Cette structure lui permet d'absorber par adsorption les impuretés, le sébum excédentaire et les polluants à la surface de la peau.
+## ✨ Bienfaits
+* **Purification Profonde** : "Aspire" les débris logés dans les pores.
+* **Détoxification** : Aide à éliminer les traces de pollution environnementale.
+* **Matification** : Réduit instantanément la brillance des peaux grasses.
+    `,
+  },
+  {
+    name: 'Kaolin',
+    slug: INGREDIENT_SLUGS.KAOLIN,
+    category: 'actif',
+    description:
+      'Argile blanche douce, absorbante et purifiante, adaptée même aux peaux sensibles.',
+    content: `
+# Kaolin : La Douceur de l'Argile Blanche
+Le **Kaolin** est une argile minérale naturelle. Moins "agressive" que d'autres argiles, elle absorbe le sébum et les impuretés tout en respectant l'équilibre des peaux plus fragiles.
+## ✨ Propriétés
+* **Absorption Douce** : Élimine l'excès de gras sans dessécher excessivement.
+* **Apaisement** : Aide à calmer les peaux irritées.
+* **Texturant** : Apporte de l'onctuosité aux masques et nettoyants.
+    `,
+  },
+  {
+    name: 'Bentonite',
+    slug: INGREDIENT_SLUGS.BENTONITE,
+    category: 'actif',
+    description:
+      'Argile montmorillonite puissante, reconnue pour son action purifiante intense sur les pores obstrués.',
+    content: `
+# Bentonite : L'Argile Purifiante Intense
+La **Bentonite** est une argile issue de cendres volcaniques. Elle possède une capacité d'absorption exceptionnelle, ce qui en fait l'alliée numéro un des peaux très grasses et congestionnées.
+## ✨ Action
+* **Décongestion** : Aide à désincruster les pores en profondeur.
+* **Resserre les Pores** : Améliore l'apparence du grain de peau.
+* **Clarifiant** : Aide à réduire l'apparence des imperfections.
+    `,
+  },
+  {
+    name: 'Acnesyl-X-Pro',
+    slug: INGREDIENT_SLUGS.ACNESYL_X_PRO,
+    category: 'actif',
+    description:
+      'Complexe anti-acné multi-actif pour le contrôle du sébum, l’action antibactérienne et anti-comédogène.',
+    content: `
+# Acnesyl-X-Pro : Solution Multi-Cible
+**Acnesyl-X-Pro** est un complexe synergique conçu pour traiter les différentes causes de l'acné. Il agit simultanément sur la production de sébum, l'inflammation et la prolifération bactérienne.
+## ✨ Points Forts
+* **Sébostatique** : Régule durablement la production de gras.
+* **Antibactérien** : Cible les bactéries responsables des imperfections.
+* **Préventif** : Aide à limiter la formation de nouveaux comédons.
+    `,
+  },
+  {
+    name: 'Sarcosine',
+    slug: INGREDIENT_SLUGS.SARCOSINE,
+    category: 'actif',
+    description:
+      'Acide aminé naturel qui aide à réduire la production de sébum et à affiner le grain de peau.',
+    content: `
+# Sarcosine : Le Régulateur de Sébum
+La **Sarcosine** est un acide aminé qui inhibe l'enzyme 5-alpha réductase, responsable de la surproduction de sébum. Elle aide ainsi à maintenir une peau mate et des pores nets.
+## ✨ Bienfaits
+* **Matifiant** : Réduit significativement la brillance cutanée.
+* **Grain de peau** : Aide à minimiser l'apparence des pores dilatés.
+* **Équilibre** : Contribue à une peau plus saine et moins grasse.
+    `,
+  },
 ]

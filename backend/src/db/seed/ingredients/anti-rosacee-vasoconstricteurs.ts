@@ -1,12 +1,13 @@
-import { IngredientInput } from "./seed-ingredients";
-import { INGREDIENT_SLUGS } from "./ingredient-slugs";
+import { INGREDIENT_SLUGS } from './ingredient-slugs'
+import type { IngredientInput } from './seed-ingredients'
 
 export const ANTI_ROSACEE_VASOCONSTRICTEURS: IngredientInput[] = [
   {
-    name: "Endothelyol®",
+    name: 'Endothelyol®',
     slug: INGREDIENT_SLUGS.ENDOTHELYOL,
-    category: "actif",
-    description: "Complexe biotechnologique breveté ciblant les micro-vaisseaux et l’inflammation pour réduire les rougeurs chroniques et passagères.",
+    category: 'actif',
+    description:
+      'Complexe biotechnologique breveté ciblant les micro-vaisseaux et l’inflammation pour réduire les rougeurs chroniques et passagères.',
     content: `
   # Endothelyol®
   L'Endothelyol® est un ingrédient de pointe issu de la recherche SVR, spécifiquement conçu pour répondre aux problématiques des peaux sujettes à la couperose et à la rosacée. Contrairement aux apaisants classiques, il agit directement sur les facteurs de vascularisation cutanée.
@@ -29,10 +30,11 @@ export const ANTI_ROSACEE_VASOCONSTRICTEURS: IngredientInput[] = [
 `,
   },
   {
-    name: "Brimonidine",
+    name: 'Brimonidine',
     slug: INGREDIENT_SLUGS.BRIMONIDINE,
-    category: "actif",
-    description: "Vasoconstricteur topique agoniste α2-adrénergique (prescription), traitement de l'érythème facial persistant de la rosacée. Réduction rapide des rougeurs en ~30 minutes.",
+    category: 'actif',
+    description:
+      "Vasoconstricteur topique agoniste α2-adrénergique (prescription), traitement de l'érythème facial persistant de la rosacée. Réduction rapide des rougeurs en ~30 minutes.",
     content: `
   # Brimonidine
   La brimonidine est un agoniste sélectif des récepteurs α2-adrénergiques utilisé en application topique pour réduire l'érythème facial persistant de la rosacée. Commercialisée sous le nom Mirvaso® (gel 0,33%), elle est l'un des deux seuls vasoconstricteurs topiques ayant une AMM spécifique pour la rosacée.
@@ -60,10 +62,11 @@ export const ANTI_ROSACEE_VASOCONSTRICTEURS: IngredientInput[] = [
 `,
   },
   {
-    name: "Oxymétazoline",
+    name: 'Oxymétazoline',
     slug: INGREDIENT_SLUGS.OXYMETAZOLINE,
-    category: "actif",
-    description: "Vasoconstricteur topique agoniste α1/α2-adrénergique (prescription), traitement de l'érythème facial persistant de la rosacée. Effet rapide mais rebond vasculaire plus marqué que la brimonidine.",
+    category: 'actif',
+    description:
+      "Vasoconstricteur topique agoniste α1/α2-adrénergique (prescription), traitement de l'érythème facial persistant de la rosacée. Effet rapide mais rebond vasculaire plus marqué que la brimonidine.",
     content: `
   # Oxymétazoline
   L'oxymétazoline est un agoniste des récepteurs α1 et α2-adrénergiques utilisé en application topique pour réduire l'érythème facial persistant de la rosacée. Commercialisée sous le nom Rhofade® (crème 1%), elle partage le même mécanisme vasoconstricteur que la brimonidine mais avec un profil de sélectivité différent.
@@ -91,10 +94,11 @@ export const ANTI_ROSACEE_VASOCONSTRICTEURS: IngredientInput[] = [
 `,
   },
   {
-    name: "Métronidazole",
+    name: 'Métronidazole',
     slug: INGREDIENT_SLUGS.METRONIDAZOLE,
-    category: "actif",
-    description: "Antibiotique et antiparasitaire topique (prescription), traitement de référence de la rosacée papulo-pustuleuse. Anti-inflammatoire cutané avec une longue histoire d'efficacité clinique.",
+    category: 'actif',
+    description:
+      "Antibiotique et antiparasitaire topique (prescription), traitement de référence de la rosacée papulo-pustuleuse. Anti-inflammatoire cutané avec une longue histoire d'efficacité clinique.",
     content: `
   # Métronidazole
   Le métronidazole est un agent antimicrobien et anti-inflammatoire topique utilisé depuis les années 1980 dans le traitement de la rosacée papulo-pustuleuse. Disponible en gel ou crème à 0,75% (Rozex®, Metrogel®), il reste un traitement de référence bien documenté, bien que son mécanisme exact dans la rosacée ne soit pas entièrement élucidé.
@@ -124,10 +128,11 @@ export const ANTI_ROSACEE_VASOCONSTRICTEURS: IngredientInput[] = [
 `,
   },
   {
-    name: "Ivermectine",
+    name: 'Ivermectine',
     slug: INGREDIENT_SLUGS.IVERMECTINE,
-    category: "actif",
-    description: "Antiparasitaire topique anti-Demodex (prescription), traitement de référence de la rosacée papulo-pustuleuse. Action combinée antiparasitaire et anti-inflammatoire supérieure au métronidazole dans les études comparatives.",
+    category: 'actif',
+    description:
+      'Antiparasitaire topique anti-Demodex (prescription), traitement de référence de la rosacée papulo-pustuleuse. Action combinée antiparasitaire et anti-inflammatoire supérieure au métronidazole dans les études comparatives.',
     content: `
   # Ivermectine
   L'ivermectine topique (Soolantra® 1% crème) est aujourd'hui considérée comme le traitement de fond de référence de la rosacée papulo-pustuleuse. Issue de la classe des avermectines, elle cible directement Demodex folliculorum — l'acarien dont la surpopulation est fortement impliquée dans la physiopathologie de la rosacée inflammatoire — tout en exerçant un effet anti-inflammatoire propre.
@@ -155,10 +160,11 @@ export const ANTI_ROSACEE_VASOCONSTRICTEURS: IngredientInput[] = [
 `,
   },
   {
-    name: "Angiopausine™ (Extrait de Silybum marianum)",
+    name: 'Angiopausine™ (Extrait de Silybum marianum)',
     slug: INGREDIENT_SLUGS.ANGIOPAUSINE,
-    category: "actif",
-    description: "Actif breveté d'origine naturelle qui réduit la néovascularisation pour traiter les rougeurs installées et la couperose.",
+    category: 'actif',
+    description:
+      "Actif breveté d'origine naturelle qui réduit la néovascularisation pour traiter les rougeurs installées et la couperose.",
     content: `
     # Angiopausine™ (Extrait de Silybum marianum)
     L'Angiopausine™ est un actif de rupture issu de la Recherche Pierre Fabre, spécifiquement développé pour le soin des peaux sujettes aux rougeurs chroniques. Extrait de manière éco-responsable des graines de Chardon-marie, cet ingrédient cible pour la première fois les mécanismes biologiques profonds de la microcirculation cutanée.
@@ -186,4 +192,34 @@ export const ANTI_ROSACEE_VASOCONSTRICTEURS: IngredientInput[] = [
     L'Angiopausine™ représente une innovation majeure car elle ne se contente pas de masquer la rougeur par des pigments verts : elle traite l'origine vasculaire du problème. Ce brevet exclusif Pierre Fabre garantit une efficacité clinique démontrée sous contrôle dermatologique sur les peaux les plus sensibles et réactives.
   `,
   },
-];
+  {
+    name: 'Azelocalm',
+    slug: INGREDIENT_SLUGS.AZELOCALM,
+    category: 'actif',
+    description:
+      'Acide azélaïque complexé pour une meilleure tolérance, offrant tous les bienfaits anti-rougeurs sans irritation.',
+    content: `
+# Azelocalm : L'Acide Azélaïque Apaisé
+**Azelocalm** est une forme innovante d'acide azélaïque conçue pour être mieux tolérée par les peaux ultra-sensibles. Il conserve les propriétés antibactériennes et anti-inflammatoires de l'acide azélaïque tout en minimisant les picotements.
+## ✨ Bienfaits
+* **Anti-rougeurs** : Réduit visiblement les rougeurs diffuses.
+* **Tolérance** : Idéal pour les peaux sujettes à la rosacée papulo-pustuleuse.
+* **Uniformisation** : Aide à clarifier le teint en douceur.
+    `,
+  },
+  {
+    name: 'Azecoglycine (Potassium Azeloyl Diglycinate)',
+    slug: INGREDIENT_SLUGS.AZECOGLYCINE,
+    category: 'actif',
+    description:
+      'Complexe d’acide azélaïque et de glycine agissant en synergie pour réguler le sébum et apaiser les rougeurs.',
+    content: `
+# Azecoglycine : Synergie Anti-Imperfections et Apaisement
+L'**Azecoglycine** (PAD) est un dérivé hydrosoluble de l'acide azélaïque. Il combine l'action sébo-régulatrice de l'azélaïque avec les propriétés hydratantes et apaisantes de la glycine.
+## ✨ Points Forts
+* **Sébo-régulation** : Aide à contrôler la brillance sans dessécher.
+* **Apaisement** : Réduit les rougeurs et l'inflammation cutanée.
+* **Hydratation** : Améliore l'élasticité et le confort de la peau.
+    `,
+  },
+]

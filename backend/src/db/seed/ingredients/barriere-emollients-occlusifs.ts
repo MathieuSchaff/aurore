@@ -2012,4 +2012,19 @@ CERAMIDE AP`,
   4. **Hydratant aux céramides** : Pour sceller le tout.
   5. **Fréquence** : Quotidienne (matin et soir), particulièrement en hiver ou en période de sécheresse.`,
   },
+  {
+    name: 'Evening Primrose Oil (Oenothera Biennis Oil)',
+    slug: INGREDIENT_SLUGS.EVENING_PRIMROSE_OIL,
+    category: 'actif',
+    description:
+      'Huile d’onagre riche en acides gras essentiels (oméga-6), idéale pour nourrir les peaux sèches et apaiser les inflammations.',
+    content: `
+# Evening Primrose Oil : Le Trésor des Oméga-6
+L'**Huile d'Onagre** est l'une des sources les plus riches en acide gamma-linolénique (GLA). C'est une huile "thérapeutique" qui aide à restaurer la barrière cutanée tout en apaisant les peaux atopiques ou sujettes à l'eczéma.
+## ✨ Bienfaits
+* **Nutrition Intense** : Redonne de la souplesse aux peaux très sèches.
+* **Restauration Barrière** : Compense les carences en lipides essentiels de la peau.
+* **Apaisement** : Aide à calmer les rougeurs et l'inconfort cutané.
+    `,
+  },
 ]

@@ -1,12 +1,13 @@
-import { IngredientInput } from "./seed-ingredients";
-import { INGREDIENT_SLUGS } from "./ingredient-slugs";
+import { INGREDIENT_SLUGS } from './ingredient-slugs'
+import type { IngredientInput } from './seed-ingredients'
 
 export const CIRCULATOIRE_DRAINAGE: IngredientInput[] = [
   {
-    name: "Caféine",
+    name: 'Caféine',
     slug: INGREDIENT_SLUGS.CAFFEINE,
-    category: "drainant & énergisant",
-    description: "Alcaloïde végétal réputé pour son action stimulante sur la microcirculation et ses propriétés lipolytiques (brûle-graisses).",
+    category: 'drainant & énergisant',
+    description:
+      'Alcaloïde végétal réputé pour son action stimulante sur la microcirculation et ses propriétés lipolytiques (brûle-graisses).',
     content: `
 # Caféine
 La caféine est un actif de référence, particulièrement efficace pour réveiller le regard et affiner la silhouette.
@@ -29,10 +30,11 @@ C'est l'ingrédient star des contours des yeux "anti-fatigue" et des gels minceu
 `,
   },
   {
-    name: "Arnica des Montagnes (Arnica montana L.)",
+    name: 'Arnica des Montagnes (Arnica montana L.)',
     slug: INGREDIENT_SLUGS.ARNICA,
-    category: "actif",
-    description: "L'or jaune des alpages : un trésor botanique aux propriétés anti-inflammatoires et apaisantes, soutenu par une tradition millénaire et des recherches scientifiques prometteuses, pour une récupération cutanée optimisée.",
+    category: 'actif',
+    description:
+      "L'or jaune des alpages : un trésor botanique aux propriétés anti-inflammatoires et apaisantes, soutenu par une tradition millénaire et des recherches scientifiques prometteuses, pour une récupération cutanée optimisée.",
     content: `# L'Arnica Montana : L'Alliée Naturelle pour une Récupération Harmonieuse
 
   Découvrez l'**Arnica montana**, cette élégante plante vivace des sommets européens, qui allie beauté alpine et potentiel thérapeutique. Reconnue par les pharmacopées et plébiscitée en dermo-cosmétique, elle offre un soutien précieux pour apaiser les tissus après un choc, tout en invitant à une approche équilibrée, ancrée dans la science.
@@ -82,10 +84,11 @@ C'est l'ingrédient star des contours des yeux "anti-fatigue" et des gels minceu
   `,
   },
   {
-    name: "Escin (Aesculus hippocastanum)",
+    name: 'Escin (Aesculus hippocastanum)',
     slug: INGREDIENT_SLUGS.ESCIN,
-    category: "actif",
-    description: "Saponine triterpénique d'exception issue du marron d'Inde. Veinotonique, anti-œdémateuse et anti-inflammatoire, elle intègre désormais des propriétés antivirales, anticancérigènes et une biodisponibilité cutanée prouvée pour les peaux fragiles.",
+    category: 'actif',
+    description:
+      "Saponine triterpénique d'exception issue du marron d'Inde. Veinotonique, anti-œdémateuse et anti-inflammatoire, elle intègre désormais des propriétés antivirales, anticancérigènes et une biodisponibilité cutanée prouvée pour les peaux fragiles.",
     content: `
       # Escin (Aesculus hippocastanum) 🌰✨
 
@@ -148,10 +151,11 @@ C'est l'ingrédient star des contours des yeux "anti-fatigue" et des gels minceu
       `,
   },
   {
-    name: "Ruscus aculeatus (Petit-houx)",
+    name: 'Ruscus aculeatus (Petit-houx)',
     slug: INGREDIENT_SLUGS.RUSCUS_ACULEATUS,
-    category: "actif",
-    description: "Extrait racinaire du Petit-houx, arbuste sempervirent méditerranéen aux vertus veinotoniques reconnues. Riche en saponines stéroïdiennes, il améliore la microcirculation, réduit rougeurs et œdèmes, et apaise les peaux sensibles ou sujettes à couperose — un pilier discret mais puissant de la phytothérapie vasculaire européenne.",
+    category: 'actif',
+    description:
+      'Extrait racinaire du Petit-houx, arbuste sempervirent méditerranéen aux vertus veinotoniques reconnues. Riche en saponines stéroïdiennes, il améliore la microcirculation, réduit rougeurs et œdèmes, et apaise les peaux sensibles ou sujettes à couperose — un pilier discret mais puissant de la phytothérapie vasculaire européenne.',
     content: `
   # Ruscus aculeatus — Le Petit-houx
 
@@ -306,4 +310,4 @@ C'est l'ingrédient star des contours des yeux "anti-fatigue" et des gels minceu
   > *Le Petit-houx ne crie pas, il agit en silence — comme les meilleurs actifs, il laisse la peau parler pour lui.*
       `,
   },
-];
+]
