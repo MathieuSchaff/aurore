@@ -11,7 +11,6 @@ import { productIngredientRoutes } from '../../features/products/product-ingredi
 import { productRoutes } from '../../features/products/routes'
 import { tagRoutes } from '../../features/products/tags/routes'
 import { profileRoute } from '../../features/profile/routes'
-import { stockRoutes } from '../../features/stock/routes'
 import { taskRoutes } from '../../features/tasks/routes'
 import { userProductRoutes } from '../../features/user-products/routes'
 import { testDb } from '../db.test.config'
@@ -29,7 +28,7 @@ export function createTestApp() {
     await next()
   })
 
-  // Register all routes. 
+  // Register all routes.
   // Note: Project has inconsistent test path conventions (/api prefix vs no prefix).
   // This baseline follows the original structure to minimize breakage.
   app
@@ -42,7 +41,6 @@ export function createTestApp() {
     .route('/ingredients', ingredientRoutes)
     .route('/ingredients', ingredientTagRoutes)
     .route('/tags', tagRoutes)
-    .route('/stock', stockRoutes)
     .route('/logs', logsRoutes)
     .route('/tasks', taskRoutes)
     .route('/user-products', userProductRoutes)

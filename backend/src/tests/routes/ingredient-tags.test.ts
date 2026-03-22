@@ -121,7 +121,9 @@ describe('Ingredient Tag Routes', () => {
       const ingredient = await createIngredient(app, token)
       const tag = await createTag(app, token)
 
-      const res = await authPost(app, `/ingredients/${ingredient.id}/tags`, token, { tagId: tag.id })
+      const res = await authPost(app, `/ingredients/${ingredient.id}/tags`, token, {
+        tagId: tag.id,
+      })
 
       expect(res.status).toBe(HTTP_STATUS.CREATED)
       const data = await res.json()
@@ -136,7 +138,9 @@ describe('Ingredient Tag Routes', () => {
       const tag = await createTag(app, token)
 
       await authPost(app, `/ingredients/${ingredient.id}/tags`, token, { tagId: tag.id })
-      const res = await authPost(app, `/ingredients/${ingredient.id}/tags`, token, { tagId: tag.id })
+      const res = await authPost(app, `/ingredients/${ingredient.id}/tags`, token, {
+        tagId: tag.id,
+      })
 
       expect(res.status).toBe(HTTP_STATUS.CONFLICT)
     })
@@ -145,7 +149,9 @@ describe('Ingredient Tag Routes', () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
       const ingredient = await createIngredient(app, token)
 
-      const res = await authPost(app, `/ingredients/${ingredient.id}/tags`, token, { tagId: 'not-a-uuid' })
+      const res = await authPost(app, `/ingredients/${ingredient.id}/tags`, token, {
+        tagId: 'not-a-uuid',
+      })
 
       expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST)
     })
@@ -196,10 +202,9 @@ describe('Ingredient Tag Routes', () => {
       const ingredient = await createIngredient(app, token)
       const tag = await createTag(app, token)
 
-      const res = await app.request(
-        `/ingredients/${ingredient.id}/tags/${tag.id}`,
-        { method: 'DELETE' }
-      )
+      const res = await app.request(`/ingredients/${ingredient.id}/tags/${tag.id}`, {
+        method: 'DELETE',
+      })
       expect(res.status).toBe(HTTP_STATUS.UNAUTHORIZED)
     })
   })
