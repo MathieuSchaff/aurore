@@ -2,7 +2,7 @@
 # Frontend Dockerfile (Development)
 # Serveur Vite avec hot reload
 # =========================
-FROM oven/bun:1.3.9-alpine AS dev
+FROM oven/bun:1.3.11-alpine AS dev
 WORKDIR /app
 
 # Copier structure workspace

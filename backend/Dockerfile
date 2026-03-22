@@ -1,5 +1,5 @@
 # ---------- base ----------
-FROM oven/bun:1.3.9-debian AS base
+FROM oven/bun:1.3.10-debian AS base
 WORKDIR /app
 
 # ---------- deps ----------
@@ -27,7 +27,7 @@ EXPOSE 3000
 CMD ["bun", "--watch", "src/index.ts"]
 
 # ---------- prod ----------
-FROM oven/bun:1.3.9-debian AS prod
+FROM oven/bun:1.3.10-debian AS prod
 WORKDIR /app
 ENV NODE_ENV=production
 
