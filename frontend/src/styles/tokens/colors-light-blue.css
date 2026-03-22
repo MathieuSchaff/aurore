@@ -31,10 +31,12 @@
   --forest-green: oklch(75.42% 0.1726 var(--h-forest));
   --mango-bright: oklch(82% 0.18 var(--h-mango));
   --text-inverse-warm: oklch(97% 0.015 80);
-
   /* SEMANTIC TOKENS */
+  /* Current (Terracotta/Iron) */
   --color-primary: var(--oxydized-iron);
   --color-primary-hover: oklch(42% 0.1692 var(--h-iron));
+  --color-primary-text: var(--text-inverse-warm);
+  /*2660a4*/
   --color-primary-dark: var(--iron-base);
   --color-secondary: var(--mango-bright);
   --color-tertiary: var(--forest-green);
@@ -43,9 +45,9 @@
   /* SIDEBAR */
   --color-sidebar-bg: var(--oxydized-iron);
   --color-sidebar-item-hover: oklch(54% 0.16 var(--h-iron));
-  --color-sidebar-item-active: var(--mango-bright);
-  --color-sidebar-icon: var(--mango-bright);
-  --color-sidebar-icon-active: var(--iron-darker);
+  --color-sidebar-item-active: oklch(from var(--text-inverse-warm) l c h / 0.2);
+  --color-sidebar-icon: var(--text-inverse-warm);
+  --color-sidebar-icon-active: var(--text-inverse-warm);
 
   /* HEADER */
   --color-header-bg: var(--color-secondary);
@@ -103,4 +105,16 @@
 
   /* MISC */
   --overlay: oklch(15% 0.08 var(--h-papaya) / 0.45);
+
+  /* STATUS — LIGHT MODE DEFAULTS */
+  --color-success-light: oklch(95% 0.05 145deg);
+
+  --color-warning: oklch(75% 0.15 30deg);
+  --color-warning-light: oklch(96% 0.06 30deg);
+  --color-warning-text: oklch(40% 0.15 30deg);
+
+  --color-stat-orange: oklch(70% 0.18 45deg);
+  --color-stat-purple: oklch(65% 0.15 280deg);
+
+  --shadow-color: oklch(0% 0 0 / 0.1);
 }
