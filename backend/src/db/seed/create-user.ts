@@ -1,6 +1,9 @@
 import type { Email, RawPassword } from '@habit-tracker/shared'
 
+import { eq } from 'drizzle-orm'
+
 import { env } from '../../config/env'
+import { users } from '../../db/schema/users'
 import type { AuthContext } from '../../features/auth/service'
 import { signup } from '../../features/auth/service'
 import { getUser } from '../../features/auth/user.utils'
@@ -40,5 +43,12 @@ export async function getOrCreateSeedUser(
     throw new Error(`Échec création utilisateur seed : ${result.error}`)
   }
 
+  // Marquer l'utilisateur comme vérifié immédiatement
+  await ctx.db
+    .update(users)
+    .set({ emailVerifiedAt: new Date() })
+    .where(eq(users.id, result.data.user.id))
+
+  console.log(`Utilisateur seed créé et vérifié : ${email}`)
   return result.data.user
 }

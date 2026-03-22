@@ -1289,4 +1289,34 @@ C'est un ingrédient clé pour traiter les désordres pigmentaires et redonner d
   - Considérer la forme **GSSG** (oxydée) pour une meilleure stabilité
   - Conserver au réfrigérateur si possible`,
   },
+  {
+    name: '4-Butylresorcinol',
+    slug: INGREDIENT_SLUGS.BUTYLRESORCINOL,
+    category: 'actif',
+    description:
+      'Inhibiteur de tyrosinase extrêmement puissant, l’un des actifs les plus efficaces contre l’hyperpigmentation.',
+    content: `
+# 4-Butylresorcinol : L'Éclaircissant de Précision
+Le **4-Butylresorcinol** est un dérivé du résorcinol reconnu pour son action inhibitrice sur la tyrosinase et la TRP-1 (Tyrosinase-Related Protein-1). C'est l'un des agents éclaircissants les plus puissants disponibles en cosmétique moderne.
+## ✨ Points Forts
+* **Efficacité Maximale** : Agit à des concentrations très faibles pour réduire les taches brunes.
+* **Précision** : Cible spécifiquement la synthèse de mélanine.
+* **Multi-taches** : Efficace sur le mélasma, les taches de vieillesse et les taches post-acné.
+    `,
+  },
+  {
+    name: 'Iris Florentina Root Extract',
+    slug: INGREDIENT_SLUGS.IRIS_EXTRACT,
+    category: 'actif',
+    description:
+      'Extrait naturel de racine d’iris aux propriétés éclaircissantes, purifiantes et anti-âge.',
+    content: `
+# Iris Florentina Root Extract : Pureté et Éclat
+L'**Extrait d'Iris** est traditionnellement utilisé pour ses vertus purifiantes. En cosmétique, il est également apprécié pour son action sur l'éclat du teint et ses propriétés antioxydantes qui protègent la structure de la peau.
+## ✨ Bienfaits
+* **Éclat** : Aide à uniformiser le teint naturellement.
+* **Purification** : Aide à réguler les imperfections légères.
+* **Anti-âge** : Riche en isoflavones, il aide à maintenir la tonicité cutanée.
+    `,
+  },
 ]

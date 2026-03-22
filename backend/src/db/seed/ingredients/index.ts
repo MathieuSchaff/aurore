@@ -1,21 +1,21 @@
-import { IngredientInput } from "./seed-ingredients";
-import { HUMECTANTS } from "./humectants";
-import { BARRIERE_EMOLLIENTS_OCCLUSIFS } from "./barriere-emollients-occlusifs";
-import { EXFOLIANTS } from "./exfoliants";
-import { RETINOIDES } from "./retinoides";
-import { PEPTIDES } from "./peptides";
-import { ANTIOXYDANTS_VITAMINES } from "./antioxydants-vitamines";
-import { APAISANTS_ANTI_INFLAMMATOIRES } from "./apaisants-anti-inflammatoires";
-import { ECLAIRCISSANTS_DEPIGMENTANTS } from "./eclaircissants-depigmentants";
-import { ANTI_ACNE_SEBUM } from "./anti-acne-sebum";
-import { ANTI_ROSACEE_VASOCONSTRICTEURS } from "./anti-rosacee-vasoconstricteurs";
-import { FILTRES_UV } from "./filtres-uv";
-import { PROBIOTIQUES_PREBIOTIQUES_POSTBIOTIQUES } from "./probiotiques-prebiotiques-postbiotiques";
-import { ACTIFS_ANTI_AGE_REPARATEURS } from "./actifs-anti-age-reparateurs";
-import { CIRCULATOIRE_DRAINAGE } from "./circulatoire-drainage";
-import { TENSIOACTIFS_NETTOYANTS } from "./tensioactifs-nettoyants";
-import { TEXTURANTS_FONCTIONNELS } from "./texturants-fonctionnels";
-import { DIVERS_NON_CLASSES } from "./divers-non-classes";
+import { ACTIFS_ANTI_AGE_REPARATEURS } from './actifs-anti-age-reparateurs'
+import { ANTI_ACNE_SEBUM } from './anti-acne-sebum'
+import { ANTI_ROSACEE_VASOCONSTRICTEURS } from './anti-rosacee-vasoconstricteurs'
+import { ANTIOXYDANTS_VITAMINES } from './antioxydants-vitamines'
+import { APAISANTS_ANTI_INFLAMMATOIRES } from './apaisants-anti-inflammatoires'
+import { BARRIERE_EMOLLIENTS_OCCLUSIFS } from './barriere-emollients-occlusifs'
+import { CIRCULATOIRE_DRAINAGE } from './circulatoire-drainage'
+import { DIVERS_NON_CLASSES } from './divers-non-classes'
+import { ECLAIRCISSANTS_DEPIGMENTANTS } from './eclaircissants-depigmentants'
+import { EXFOLIANTS } from './exfoliants'
+import { FILTRES_UV } from './filtres-uv'
+import { HUMECTANTS } from './humectants'
+import { PEPTIDES } from './peptides'
+import { PROBIOTIQUES_PREBIOTIQUES_POSTBIOTIQUES } from './probiotiques-prebiotiques-postbiotiques'
+import { RETINOIDES } from './retinoides'
+import type { IngredientInput } from './seed-ingredients'
+import { TENSIOACTIFS_NETTOYANTS } from './tensioactifs-nettoyants'
+import { TEXTURANTS_FONCTIONNELS } from './texturants-fonctionnels'
 
 export const ingredientData: IngredientInput[] = [
   ...HUMECTANTS,
@@ -35,4 +35,4 @@ export const ingredientData: IngredientInput[] = [
   ...TENSIOACTIFS_NETTOYANTS,
   ...TEXTURANTS_FONCTIONNELS,
   ...DIVERS_NON_CLASSES,
-];
+]

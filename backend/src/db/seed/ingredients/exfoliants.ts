@@ -703,4 +703,64 @@ Alternative idéale aux gommages mécaniques ou chimiques pour les peaux ultra-s
        **Conseil expert** : C'est l'acide parfait pour débuter une routine exfoliante si vous avez peur des réactions chimiques ou si vous avez une peau réactive.
        `,
   },
+  {
+    name: 'AHA Esters',
+    slug: INGREDIENT_SLUGS.AHA_ESTERS,
+    category: 'actif',
+    description:
+      'Esters d’AHA à libération prolongée pour une exfoliation douce et continue sans irritation.',
+    content: `
+# AHA Esters : Exfoliation Intelligente
+Les **AHA Esters** sont des formes estérifiées d'acides hydroxy-carboxyliques. Leur structure unique permet une libération lente et contrôlée de l'acide sur la peau, minimisant ainsi les pics d'irritation associés aux AHA traditionnels.
+## ✨ Points Forts
+* **Libération Prolongée** : Fournit une action exfoliante constante sur plusieurs heures.
+* **Tolérance Optimale** : Idéal pour les peaux qui ne supportent pas les AHA libres.
+* **Hydratation** : Les esters ont souvent des propriétés émollientes intrinsèques.
+    `,
+  },
+  {
+    name: 'Ester d’Acide Malique',
+    slug: INGREDIENT_SLUGS.ESTER_ACIDE_MALIQUE,
+    category: 'actif',
+    description:
+      'AHA doux à libération modérée qui lisse le grain de peau tout en maintenant l’hydratation.',
+    content: `
+# Ester d’Acide Malique : Éclat et Douceur
+L'**Ester d'Acide Malique** combine les bienfaits de l'acide malique (issu des fruits comme la pomme) avec la douceur d'un ester. Il aide à lisser la texture cutanée et à raviver l'éclat du teint de manière progressive.
+## ✨ Bienfaits
+* **Lissage** : Affine le grain de peau en douceur.
+* **Éclat** : Ravive les teints ternes sans agression.
+* **Stabilité** : Plus stable et mieux toléré que l'acide malique pur dans certaines formulations.
+    `,
+  },
+  {
+    name: 'Ammonium Lactate',
+    slug: INGREDIENT_SLUGS.AMMONIUM_LACTATE,
+    category: 'actif',
+    description:
+      'Kératolytique doux et hydratant, particulièrement efficace pour les peaux sèches et rugueuses.',
+    content: `
+# Ammonium Lactate : Hydratation et Kératolyse
+L'**Ammonium Lactate** est un sel d'acide lactique reconnu pour sa double action : il hydrate intensément la peau tout en favorisant l'élimination des cellules mortes superficielles.
+## ✨ Utilisation
+* **Peaux Rugueuses** : Excellent pour traiter la kératose pilaire ou les zones très sèches.
+* **Hydratation** : Retient l'eau dans la couche cornée.
+* **Douceur** : Un exfoliant chimique de choix pour le corps et le visage.
+    `,
+  },
+  {
+    name: 'Phytic Acid',
+    slug: INGREDIENT_SLUGS.PHYTIC_ACID,
+    category: 'actif',
+    description:
+      'Acide phytique, antioxydant et chélateur de métaux, offrant une exfoliation très douce et protectrice.',
+    content: `
+# Phytic Acid : L'Exfoliant Protecteur
+L'**Acide Phytique** est un ingrédient multifonctionnel. En plus de ses propriétés exfoliantes douces, c'est un puissant chélateur de métaux et un antioxydant, ce qui en fait un allié précieux contre la pollution urbaine.
+## ✨ Propriétés
+* **Chélation** : Neutralise les métaux lourds (comme le fer ou le cuivre) qui catalysent l'oxydation.
+* **Exfoliation Douce** : Aide à clarifier le teint sans sensibiliser la peau.
+* **Protection** : Aide à prévenir les dommages causés par les radicaux libres.
+    `,
+  },
 ]

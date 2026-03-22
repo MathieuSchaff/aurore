@@ -1550,4 +1550,49 @@ Le Gluconate de Manganèse présente une sécurité d'emploi totale :
     * **Patch Test Recommandé** : Toujours tester sur une petite zone en cas d'antécédents d'allergie aux plantes de la famille des marguerites.
     `,
   },
+  {
+    name: 'Tasmannia Lanceolata Fruit Extract',
+    slug: INGREDIENT_SLUGS.TASMANNIA_LANCEOLATA,
+    category: 'Apaisement & Anti-inflammatoire',
+    description:
+      'Extrait de poivre de Tasmanie aux propriétés apaisantes immédiates, particulièrement efficace contre les démangeaisons et l’inconfort.',
+    content: `
+# Tasmannia Lanceolata : Le Calme Venu d'Australie
+L'**Extrait de Tasmannia Lanceolata** (Poivre de Tasmanie) contient de la polygodiale, une molécule active capable de calmer quasi instantanément les sensations de brûlure et de démangeaison.
+## ✨ Bienfaits
+* **Apaisement Flash** : Réduit l'inconfort en quelques minutes seulement.
+* **Anti-rougeurs** : Aide à diminuer l'apparence des rougeurs liées à l'inflammation.
+* **Antioxydant** : Protège les cellules contre le stress oxydatif.
+    `,
+  },
+  {
+    name: 'Enoxolone',
+    slug: INGREDIENT_SLUGS.ENOXOLONE,
+    category: 'Apaisement & Anti-inflammatoire',
+    description:
+      'Dérivé de l’acide glycyrrhizique (réglisse), reconnu pour son puissant effet anti-inflammatoire et apaisant.',
+    content: `
+# Enoxolone : L'Actif de Référence pour l'Apaisement
+L'**Enoxolone** (Acide Beta-Glycyrrhétinique) est un actif majeur pour traiter les peaux réactives. Il bloque certains médiateurs de l'inflammation, permettant de calmer rapidement les irritations.
+## ✨ Propriétés
+* **Anti-inflammatoire** : Action ciblée sur les processus inflammatoires cutanés.
+* **Réparateur** : Favorise la récupération de la barrière cutanée.
+* **Polyvalent** : Utilisé aussi bien pour l'eczéma que pour les coups de soleil ou les suites d'actes dermatologiques.
+    `,
+  },
+  {
+    name: 'Neutrazen',
+    slug: INGREDIENT_SLUGS.NEUTRAZEN,
+    category: 'Apaisement & Anti-inflammatoire',
+    description:
+      'Neuropeptide conçu pour prévenir et réduire les signes de l’inflammation neurophage, idéal pour les peaux ultra-sensibles.',
+    content: `
+# Neutrazen : Le Bouclier pour Peaux Hyper-Réactives
+**Neutrazen** est un tripeptide innovant qui aide à maintenir un seuil de sensibilité cutanée normal. Il agit en bloquant la libération de neuropeptides responsables de la cascade inflammatoire.
+## ✨ Points Forts
+* **Anti-neurophage** : Calme les réactions nerveuses de la peau (picotements, échauffements).
+* **Préventif** : Aide la peau à moins réagir aux agressions futures.
+* **Confort** : Redonne du confort aux peaux qui "ne supportent plus rien".
+    `,
+  },
 ]

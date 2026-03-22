@@ -339,4 +339,18 @@ export const GG_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
     ], // [cite: 5, 9]
     avoid: [],
   },
+
+  [GG_PRODUCTS_SLUGS.A_GAME_5]: {
+    primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT],
+    secondary: [
+      TAG_SLUGS.SERUM,
+      TAG_SLUGS.TRAITEMENT,
+      TAG_SLUGS.SOIR,
+      TAG_SLUGS.REPULPANT,
+      TAG_SLUGS.PEAU_SENSIBLE,
+      TAG_SLUGS.PEAU_TOUS_TYPES,
+      TAG_SLUGS.VEGAN,
+    ],
+    avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE, TAG_SLUGS.MATIN],
+  },
 }

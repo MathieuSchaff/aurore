@@ -405,4 +405,49 @@ Actif polyvalent par excellence, il s'intègre parfaitement dans les formulation
        **Conseil expert** : Indispensables si vous utilisez des actifs puissants (AHA, Rétinol) ou si vous nettoyez votre peau de manière un peu trop agressive, afin de restaurer la flore protectrice.
        `,
   },
+  {
+    name: 'Microbiota Regulator',
+    slug: INGREDIENT_SLUGS.MICROBIOTA_REGULATOR,
+    category: 'actif',
+    description:
+      "Actif régulateur du microbiote cutané qui aide à maintenir l'équilibre de la flore bactérienne pour une peau saine.",
+    content: `
+# Microbiota Regulator : Équilibrer la Vie Cutanée
+Le **Microbiota Regulator** est un actif conçu pour stabiliser l'écosystème microbien de la peau. En favorisant les bactéries bénéfiques et en limitant la prolifération des micro-organismes opportunistes, il renforce l'immunité cutanée.
+## ✨ Bienfaits
+* **Équilibre** : Maintient un ratio sain entre les différentes espèces bactériennes.
+* **Résilience** : Rend la peau moins vulnérable aux agressions extérieures.
+* **Pureté** : Aide à prévenir les déséquilibres liés à l'acné ou aux irritations.
+    `,
+  },
+  {
+    name: 'Melabiome-XP',
+    slug: INGREDIENT_SLUGS.MELABIOME_XP,
+    category: 'Probiotiques & Postbiotiques',
+    description:
+      'Complexe avancé de postbiotiques et prébiotiques pour le rééquilibrage et la protection du microbiome.',
+    content: `
+# Melabiome-XP : Synergie Microbiome
+Le **Melabiome-XP** est un complexe de nouvelle génération combinant des prébiotiques nourrissants et des postbiotiques protecteurs pour une action complète sur la santé de la barrière cutanée.
+## ✨ Points Forts
+* **Rééquilibrage** : Agit rapidement sur les flores perturbées.
+* **Protection** : Forme un bouclier biologique contre le stress environnemental.
+* **Confort** : Apaise les peaux stressées par le déséquilibre microbien.
+    `,
+  },
+  {
+    name: 'Aquabiome',
+    slug: INGREDIENT_SLUGS.AQUABIOME,
+    category: 'Probiotiques & Postbiotiques',
+    description:
+      'Complexe d’actifs marins protecteur du microbiome cutané et de la barrière cutanée.',
+    content: `
+# Aquabiome : La Force Marine pour votre Microbiome
+**Aquabiome** est un actif issu des biotechnologies marines qui utilise des nutriments spécifiques pour soutenir la diversité du microbiome cutané, particulièrement face au stress de la vie urbaine.
+## ✨ Bienfaits
+* **Diversité** : Favorise un microbiome varié et stable.
+* **Barrière** : Renforce les fonctions de défense de la peau.
+* **Hydratation** : Améliore la rétention d'eau en synergie avec les bonnes bactéries.
+    `,
+  },
 ]
