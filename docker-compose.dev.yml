@@ -16,11 +16,10 @@ services:
       target: dev
 
     volumes:
-      # 🔥 Volumes anonymes D'ABORD (isolation node_modules)
-      - /app/shared/node_modules
-      - /app/backend/node_modules
+      # 🔥 Volumes nommés pour isoler node_modules du host
       - root_node_modules:/app/node_modules
       - backend_node_modules:/app/backend/node_modules
+      - /app/shared/node_modules
 
       # 🔥 Bind mounts (src rw pour génération types, dist rw pour écriture)
       - ./package.json:/app/package.json:ro
@@ -30,8 +29,7 @@ services:
       - ./shared/package.json:/app/shared/package.json:ro
       - ./shared/src:/app/shared/src # rw pour hot reload
       - ./shared/dist:/app/shared/dist # rw pour écriture types
-      - ./frontend:/app/frontend:ro
-      - ./shared/tsconfig.json:/app/shared/tsconfig.json:ro # sinon peut pas faire le front peut pas faire le lien vers le shared.
+      - ./shared/tsconfig.json:/app/shared/tsconfig.json:ro
       - ./backend/tsconfig.json:/app/backend/tsconfig.json:ro
 
     environment:
@@ -44,15 +42,7 @@ services:
     ports:
       - "3000:3000"
 
-    # ─────────────────────────────────────────────────────────────
-    # COMMAND : bun install depuis /app (racine workspace)
-    # ─────────────────────────────────────────────────────────────
-    # Le Dockerfile définit WORKDIR=/app/backend, mais bun install
-    # doit tourner depuis /app pour voir le package.json racine.
-    # ─────────────────────────────────────────────────────────────
-    # command: sh -c "cd /app/backend && bun --watch src/index.ts"
-    # command: sh -c "cd /app && bun install && cd /app/backend && bun --watch src/index.ts"
-    command: sh -c "cd /app && bun install --frozen-lockfile --ignore-scripts 2>/dev/null; cd /app/backend && bun --watch src/index.ts"
+    command: sh -c "cd /app/backend && bun --watch src/index.ts"
 
   frontend:
     build:
@@ -66,12 +56,11 @@ services:
     # VOLUMES : Même logique, mais ici c'est backend/ en :ro
     # ─────────────────────────────────────────────────────────────
     volumes:
-      # 🔥 Volumes anonymes D'ABORD
-      - /app/shared/node_modules
-      - /app/frontend/node_modules
-      - /app/backend/node_modules
+      # 🔥 Volumes nommés pour isoler node_modules du host
       - root_node_modules:/app/node_modules
       - frontend_node_modules:/app/frontend/node_modules
+      - /app/shared/node_modules
+      - /app/backend/node_modules
 
       # 🔥 Bind mounts (lecture seule pour tout)
       - ./package.json:/app/package.json:ro
@@ -79,9 +68,9 @@ services:
       - ./frontend:/app/frontend
       - ./shared/package.json:/app/shared/package.json:ro
       - ./shared/src:/app/shared/src:ro
-      - ./shared/dist:/app/shared/dist:ro # ro : lecture types
-      - ./backend/dist:/app/backend/dist:ro # ro : types Hono RPC
-      - ./shared/tsconfig.json:/app/shared/tsconfig.json:ro # sinon peut pas faire le front peut pas faire le lien vers le shared.
+      - ./shared/dist:/app/shared/dist:ro
+      - ./backend/dist:/app/backend/dist:ro
+      - ./shared/tsconfig.json:/app/shared/tsconfig.json:ro
       - ./backend/tsconfig.json:/app/backend/tsconfig.json:ro
 
     environment:
@@ -89,7 +78,7 @@ services:
 
     # command: sh -c "cd /app/backend && bun --watch src/index.ts"
     # command: sh -c "cd /app && bun install && cd /app/frontend && bun run dev --host 0.0.0.0"
-    command: sh -c "cd /app && bun install --frozen-lockfile --ignore-scripts 2>/dev/null; cd /app/frontend && bun run dev --host 0.0.0.0"
+    command: sh -c "cd /app && bun install --frozen-lockfile --ignore-scripts || echo '⚠ bun install failed, continuing...'; cd /app/frontend && bun run dev --host 0.0.0.0"
     healthcheck:
       test: ["CMD-SHELL", "wget -qO- http://localhost:5173 || exit 1"]
       interval: 30s
