@@ -1,1 +1,0 @@
-export { stockRoutes } from './routes'
