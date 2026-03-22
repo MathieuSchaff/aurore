@@ -1,7 +1,7 @@
 # =========================
 # Frontend Dockerfile (Production)
 # =========================
-FROM oven/bun:1.3.9-alpine AS builder
+FROM oven/bun:1.3.11-alpine AS builder
 WORKDIR /app
 
 # Copier structure workspace
@@ -22,6 +22,7 @@ RUN cd /app/backend && bun run build
 
 # Build Vite
 WORKDIR /app/frontend
+ENV NODE_ENV=production
 RUN bun run build
 
 # =========================
