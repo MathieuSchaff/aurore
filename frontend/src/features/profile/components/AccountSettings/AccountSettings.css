@@ -1,0 +1,184 @@
+.account-settings {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.account-section {
+  padding: var(--space-5);
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.account-section-title {
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-1);
+}
+
+.account-section-title.danger {
+  color: var(--color-error);
+}
+
+.account-section-desc {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  margin-bottom: var(--space-5);
+}
+
+.account-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.account-action-btn {
+  justify-content: flex-start;
+  gap: var(--space-3);
+  width: 100%;
+  border-radius: var(--radius-full) !important; /* Arrondi comme demandé */
+  border: 2px solid var(--border-strong) !important; /* Plus marqué */
+  box-shadow: var(--shadow-hard); /* Brutaliste */
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+  font-weight: var(--font-bold);
+  padding: var(--space-3) var(--space-5);
+  background-color: var(--bg-card);
+}
+
+.account-action-btn:hover:not(:disabled) {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px var(--color-primary);
+  background-color: var(--bg-hover);
+}
+
+.account-action-btn:active:not(:disabled) {
+  transform: translate(0, 0);
+  box-shadow: 1px 1px 0px var(--color-primary);
+}
+
+.logout-btn {
+  border-color: var(--color-error) !important;
+}
+
+.logout-btn:hover:not(:disabled) {
+  background-color: color-mix(in oklch, var(--color-error) 5%, transparent);
+  color: var(--color-error);
+  border-color: var(--color-error) !important;
+  box-shadow: 4px 4px 0px var(--color-error);
+}
+
+.delete-btn {
+  color: var(--color-error);
+  border-color: var(--color-error) !important;
+  opacity: 0.6;
+}
+
+.delete-btn:hover:not(:disabled) {
+  background-color: var(--color-error);
+  color: white;
+  box-shadow: 4px 4px 0px color-mix(in oklch, var(--color-error) 50%, black);
+}
+
+.btn-badge {
+  margin-left: auto;
+  font-size: 10px;
+  background-color: var(--bg-muted);
+  color: var(--text-muted);
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.danger-zone {
+  border-color: color-mix(in oklch, var(--color-error) 30%, transparent);
+}
+
+/* ─── Change Password Form ─────────────────────────── */
+
+.change-password-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  background-color: var(--bg-muted);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-default);
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-2);
+}
+
+.form-title {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+}
+
+.show-passwords-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: var(--space-1);
+  border-radius: var(--radius-sm);
+  transition: color 0.2s;
+}
+
+.show-passwords-btn:hover {
+  color: var(--text-primary);
+  background-color: var(--bg-hover);
+}
+
+.form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.form-actions .button {
+  border-radius: var(--radius-full) !important;
+  border: 2px solid var(--border-strong) !important;
+  box-shadow: 2px 2px 0px var(--border-strong);
+  transition: all 0.2s ease;
+  font-weight: var(--font-bold);
+}
+
+.form-actions .button:hover:not(:disabled) {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0px var(--color-primary);
+}
+
+.form-actions .button:active:not(:disabled) {
+  transform: translate(0, 0);
+  box-shadow: 0px 0px 0px var(--color-primary);
+}
+
+.form-error {
+  font-size: var(--text-xs);
+  color: var(--color-error);
+  font-weight: var(--font-medium);
+}
+
+.form-success {
+  font-size: var(--text-xs);
+  color: var(--color-success);
+  font-weight: var(--font-medium);
+}
