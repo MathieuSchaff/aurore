@@ -1,10 +1,11 @@
-import { X } from 'lucide-react'
-import type { UserProductStatus, RepurchaseFlag } from '@habit-tracker/shared'
-import { getSentimentEmoji } from '../../../utils/sentimentMap'
-import { statusConfig } from './StatusSelector'
-import type { CollectionFilters, SortOption } from '../../../utils/collectionFilters'
-import { DEFAULT_FILTERS } from '../../../utils/collectionFilters'
+import type { RepurchaseFlag, UserProductStatus } from '@habit-tracker/shared'
+
 import clsx from 'clsx'
+import { X } from 'lucide-react'
+
+import type { CollectionFilters, SortOption } from '../../../../utils/collectionFilters'
+import { getSentimentEmoji } from '../../../../utils/sentimentMap'
+import { statusConfig } from './StatusSelector'
 
 interface FilterPanelProps {
   filters: CollectionFilters
@@ -16,7 +17,15 @@ interface FilterPanelProps {
   onReset: () => void
 }
 
-export function FilterPanel({ filters, sortBy, brands, kinds, onChange, onSortChange, onReset }: FilterPanelProps) {
+export function FilterPanel({
+  filters,
+  sortBy,
+  brands,
+  kinds,
+  onChange,
+  onSortChange,
+  onReset,
+}: FilterPanelProps) {
   const activeFilterCount = [
     filters.status !== 'all',
     filters.brand !== 'all',
@@ -30,11 +39,12 @@ export function FilterPanel({ filters, sortBy, brands, kinds, onChange, onSortCh
   const update = (patch: Partial<CollectionFilters>) => onChange({ ...filters, ...patch })
 
   return (
-    <div className="filter-panel" aria-label="Panneau de filtres">
+    <section className="filter-panel" aria-label="Panneau de filtres">
       <div className="filter-panel__header">
         <span>Filtres</span>
         {activeFilterCount > 0 && (
-          <span className="filter-panel__badge" aria-label={`${activeFilterCount} filtre(s) actif(s)`}>
+          <span className="filter-panel__badge">
+            <span className="sr-only">{activeFilterCount} filtre(s) actif(s)</span>
             {activeFilterCount}
           </span>
         )}
@@ -50,24 +60,42 @@ export function FilterPanel({ filters, sortBy, brands, kinds, onChange, onSortCh
           >
             <option value="all">Tous</option>
             {(Object.keys(statusConfig) as UserProductStatus[]).map((s) => (
-              <option key={s} value={s}>{statusConfig[s].label}</option>
+              <option key={s} value={s}>
+                {statusConfig[s].label}
+              </option>
             ))}
           </select>
         </div>
 
         <div className="filter-panel__group">
           <label htmlFor="filter-brand">Marque</label>
-          <select id="filter-brand" value={filters.brand} onChange={(e) => update({ brand: e.target.value })}>
+          <select
+            id="filter-brand"
+            value={filters.brand}
+            onChange={(e) => update({ brand: e.target.value })}
+          >
             <option value="all">Toutes</option>
-            {brands.map((b) => <option key={b} value={b}>{b}</option>)}
+            {brands.map((b) => (
+              <option key={b} value={b}>
+                {b}
+              </option>
+            ))}
           </select>
         </div>
 
         <div className="filter-panel__group">
           <label htmlFor="filter-kind">Type</label>
-          <select id="filter-kind" value={filters.kind} onChange={(e) => update({ kind: e.target.value })}>
+          <select
+            id="filter-kind"
+            value={filters.kind}
+            onChange={(e) => update({ kind: e.target.value })}
+          >
             <option value="all">Tous</option>
-            {kinds.map((k) => <option key={k} value={k}>{k}</option>)}
+            {kinds.map((k) => (
+              <option key={k} value={k}>
+                {k}
+              </option>
+            ))}
           </select>
         </div>
 
@@ -76,18 +104,26 @@ export function FilterPanel({ filters, sortBy, brands, kinds, onChange, onSortCh
           <select
             id="filter-sentiment"
             value={filters.sentiment}
-            onChange={(e) => update({ sentiment: e.target.value === 'all' ? 'all' : parseInt(e.target.value) })}
+            onChange={(e) =>
+              update({ sentiment: e.target.value === 'all' ? 'all' : parseInt(e.target.value) })
+            }
           >
             <option value="all">Tous</option>
             {[5, 4, 3, 2, 1].map((s) => (
-              <option key={s} value={s}>{getSentimentEmoji(s)}</option>
+              <option key={s} value={s}>
+                {getSentimentEmoji(s)}
+              </option>
             ))}
           </select>
         </div>
 
         <div className="filter-panel__group">
           <label htmlFor="filter-repurchase">Rachat ?</label>
-          <select id="filter-repurchase" value={filters.repurchase} onChange={(e) => update({ repurchase: e.target.value as RepurchaseFlag | 'all' })}>
+          <select
+            id="filter-repurchase"
+            value={filters.repurchase}
+            onChange={(e) => update({ repurchase: e.target.value as RepurchaseFlag | 'all' })}
+          >
             <option value="all">Indifférent</option>
             <option value="yes">Oui</option>
             <option value="unsure">Peut-être</option>
@@ -115,13 +151,19 @@ export function FilterPanel({ filters, sortBy, brands, kinds, onChange, onSortCh
             type="number"
             placeholder="Sans limite"
             value={filters.maxPriceEuros}
-            onChange={(e) => update({ maxPriceEuros: e.target.value === '' ? '' : parseFloat(e.target.value) })}
+            onChange={(e) =>
+              update({ maxPriceEuros: e.target.value === '' ? '' : parseFloat(e.target.value) })
+            }
           />
         </div>
 
         <div className="filter-panel__group">
           <label htmlFor="sort-by">Trier par</label>
-          <select id="sort-by" value={sortBy} onChange={(e) => onSortChange(e.target.value as SortOption)}>
+          <select
+            id="sort-by"
+            value={sortBy}
+            onChange={(e) => onSortChange(e.target.value as SortOption)}
+          >
             <option value="name">Nom</option>
             <option value="note">Note</option>
             <option value="sentiment">Sentiment</option>
@@ -142,6 +184,6 @@ export function FilterPanel({ filters, sortBy, brands, kinds, onChange, onSortCh
         <X size={14} />
         Réinitialiser
       </button>
-    </div>
+    </section>
   )
 }

@@ -1,9 +1,13 @@
-import clsx from 'clsx'
-import { Package, ShoppingBag, Eye, Heart, Archive, Ban } from 'lucide-react'
 import type { UserProductStatus } from '@habit-tracker/shared'
+
+import clsx from 'clsx'
+import { Archive, Ban, Eye, Heart, Package, ShoppingBag } from 'lucide-react'
 import type React from 'react'
 
-export const statusConfig: Record<UserProductStatus, { label: string; icon: React.ComponentType<{ size?: number }>; color: string }> = {
+export const statusConfig: Record<
+  UserProductStatus,
+  { label: string; icon: React.ComponentType<{ size?: number }>; color: string }
+> = {
   in_stock: { label: 'En stock', icon: Package, color: '#10b981' },
   wishlist: { label: 'Wishlist', icon: ShoppingBag, color: '#3b82f6' },
   watched: { label: 'Surveille', icon: Eye, color: '#f59e0b' },
@@ -19,7 +23,8 @@ interface StatusSelectorProps {
 
 export function StatusSelector({ value, onChange }: StatusSelectorProps) {
   return (
-    <div className="status-selector" role="group" aria-label="Statut du produit">
+    <fieldset className="status-selector">
+      <legend className="sr-only">Statut du produit</legend>
       {(Object.keys(statusConfig) as UserProductStatus[]).map((s) => {
         const cfg = statusConfig[s]
         const Icon = cfg.icon
@@ -36,6 +41,6 @@ export function StatusSelector({ value, onChange }: StatusSelectorProps) {
           </button>
         )
       })}
-    </div>
+    </fieldset>
   )
 }

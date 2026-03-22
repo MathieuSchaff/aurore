@@ -1,9 +1,11 @@
 import { AlertTriangle, Ghost, Heart, Zap } from 'lucide-react'
 import { useMemo } from 'react'
+
+import type { UserProduct } from '../../../../lib/queries/user-products'
 import './CollectionInsights.css'
 
 interface CollectionInsightsProps {
-  userProducts: any[]
+  userProducts: UserProduct[]
 }
 
 const COMMON_FILLERS = [
@@ -25,14 +27,14 @@ const COMMON_FILLERS = [
 export function CollectionInsights({ userProducts }: CollectionInsightsProps) {
   const analysis = useMemo(() => {
     const holyGrails = userProducts.filter((p) => p.status === 'holy_grail')
-    const lowTolerance = userProducts.filter((p) => p.review?.tolerance && p.review.tolerance <= 2)
-    const badSentiment = userProducts.filter((p) => p.sentiment && p.sentiment <= 2)
+    const lowTolerance = userProducts.filter((p) => (p.review?.tolerance ?? 0) > 0 && (p.review?.tolerance ?? 0) <= 2)
+    const badSentiment = userProducts.filter((p) => (p.sentiment ?? 0) > 0 && (p.sentiment ?? 0) <= 2)
     const avoided = userProducts.filter((p) => p.status === 'avoided')
 
-    const countIngredients = (products: any[]) => {
+    const countIngredients = (products: UserProduct[]) => {
       const counts: Record<string, { name: string; count: number }> = {}
       products.forEach((p) => {
-        p.product?.productIngredients?.forEach((pi: any) => {
+        p.product?.productIngredients?.forEach((pi) => {
           const ing = pi.ingredient
           if (COMMON_FILLERS.includes(ing.name)) return
           if (!counts[ing.id]) counts[ing.id] = { name: ing.name, count: 0 }
