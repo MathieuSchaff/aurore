@@ -170,7 +170,11 @@ describe('Logs Routes', () => {
       const res = await app.request('/logs/habit-check', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ habitId: '00000000-0000-0000-0000-000000000001', scheduledDate: TODAY, status: 'done' }),
+        body: JSON.stringify({
+          habitId: '00000000-0000-0000-0000-000000000001',
+          scheduledDate: TODAY,
+          status: 'done',
+        }),
       })
       expect(res.status).toBe(HTTP_STATUS.UNAUTHORIZED)
     })

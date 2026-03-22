@@ -54,11 +54,7 @@ describe('Ingredient Service', () => {
     })
 
     it('should auto-generate slug from name', async () => {
-      const ingredient = await createIngredient(
-        user.id,
-        { name: 'Acide Hyaluronique' },
-        testDb
-      )
+      const ingredient = await createIngredient(user.id, { name: 'Acide Hyaluronique' }, testDb)
 
       expect(ingredient.slug).toBe('acide-hyaluronique')
     })

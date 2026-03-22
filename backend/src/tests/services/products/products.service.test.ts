@@ -12,6 +12,7 @@ import {
   updateProduct,
 } from '../../../features/products/service'
 import { testDb } from '../../db.test.config'
+import { cleanDatabase } from '../../helpers/db-cleaner'
 import { createTestUser } from '../../helpers/test-factories'
 
 describe('Product Service', () => {
@@ -19,6 +20,7 @@ describe('Product Service', () => {
   let user: any
 
   beforeEach(async () => {
+    await cleanDatabase()
     user = await createTestUser()
   })
 

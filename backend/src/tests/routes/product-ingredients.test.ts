@@ -58,7 +58,12 @@ function authDelete(app: Hono<AppEnv>, path: string, token: string) {
   })
 }
 
-const VALID_PRODUCT = { name: 'Sérum Rétinol', brand: 'The Ordinary', kind: 'skincare', unit: 'pump' }
+const VALID_PRODUCT = {
+  name: 'Sérum Rétinol',
+  brand: 'The Ordinary',
+  kind: 'skincare',
+  unit: 'pump',
+}
 
 // ── Tests ────────────────────────────────────────────────────────────
 
