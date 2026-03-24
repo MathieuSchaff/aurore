@@ -393,7 +393,7 @@ function EmptyTodayState() {
     <div className="today-empty">
       <span className="today-empty__icon">🌅</span>
       <p className="today-empty__primary">Aucune habitude prevue aujourd'hui.</p>
-      <p className="today-empty__secondary">Cree ta premiere habitude pour commencer !</p>
+      <p className="today-empty__secondary">Créez votre première habitude pour commencer !</p>
     </div>
   )
 }

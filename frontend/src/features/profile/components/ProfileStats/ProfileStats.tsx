@@ -12,13 +12,13 @@ export const ProfileStats = () => {
       label: 'Habitudes actives',
       value: stats.totalHabits,
       icon: <Target className="stat-icon--habits" size={20} />,
-      description: 'Tes routines actuelles',
+      description: 'Vos routines actuelles',
     },
     {
       label: 'Produits',
       value: stats.totalProducts,
       icon: <Package className="stat-icon--products" size={20} />,
-      description: 'Dans ta collection',
+      description: 'Dans votre collection',
     },
   ]
 

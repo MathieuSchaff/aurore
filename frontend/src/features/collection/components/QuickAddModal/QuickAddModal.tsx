@@ -326,7 +326,7 @@ export function QuickAddModal({ onClose }: QuickAddModalProps) {
                     ))}
                   </ul>
                   <p className="qa-duplicate-hint">
-                    Tu peux l'ajouter via l'onglet « Produit existant ».
+                    Vous pouvez l'ajouter via l'onglet « Produit existant ».
                   </p>
                 </div>
               )}

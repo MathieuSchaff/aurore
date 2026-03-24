@@ -8,7 +8,7 @@ function DashboardPage() {
   return (
     <div>
       <h1>Dashboard</h1>
-      <p>Tu es connecté ! 🎉</p>
+      <p>Vous êtes connecté ! 🎉</p>
     </div>
   )
 }

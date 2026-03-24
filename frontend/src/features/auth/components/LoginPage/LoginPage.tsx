@@ -38,8 +38,8 @@ export const LoginPage = () => {
 
     const LOGIN_ERRORS: Record<string, string> = {
       invalid_credentials: 'Email ou mot de passe incorrect',
-      email_not_verified: "Ton adresse email n'est pas vérifiée",
-      server_error: 'Une erreur est survenue, réessaie plus tard',
+      email_not_verified: "Votre adresse email n'est pas vérifiée",
+      server_error: 'Une erreur est survenue, réessayez plus tard',
     }
 
     login.mutate(result.data, {

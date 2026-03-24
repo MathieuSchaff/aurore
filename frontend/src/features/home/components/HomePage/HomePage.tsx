@@ -20,12 +20,12 @@ const features: Feature[] = [
   {
     icon: <Droplets size={22} />,
     title: 'Collection skincare',
-    desc: 'Ton inventaire de produits, consultable en quelques secondes. Vérifie les ingrédients, explore les actifs, ajoute un produit à ta wishlist.',
+    desc: 'Votre inventaire de produits, consultable en quelques secondes. Vérifiez les ingrédients, explorez les actifs, ajoutez un produit à votre wishlist.',
   },
   {
     icon: <FlaskConical size={22} />,
     title: 'Base ingrédients',
-    desc: 'Recherche un actif, lis son profil dermo, compare les risques et bénéfices. INCI rendu lisible.',
+    desc: 'Recherchez un actif, lisez son profil dermo, comparez les risques et bénéfices. INCI rendu lisible.',
   },
   {
     icon: <CheckSquare size={22} />,
@@ -35,7 +35,7 @@ const features: Feature[] = [
   {
     icon: <BookMarked size={22} />,
     title: 'Wishlist',
-    desc: "Sauvegarde les produits qui t'intéressent avant d'acheter. Consulte leurs ingrédients avant de te décider.",
+    desc: "Sauvegardez les produits qui vous intéressent avant d'acheter. Consultez leurs ingrédients avant de vous décider.",
   },
   {
     icon: <Package size={22} />,
@@ -46,7 +46,7 @@ const features: Feature[] = [
   {
     icon: <Activity size={22} />,
     title: 'Journal bien-être',
-    desc: 'Énergie, sommeil, brouillard mental. Un journal léger pour suivre comment tu vas au fil du temps.',
+    desc: 'Énergie, sommeil, brouillard mental. Un journal léger pour suivre comment vous allez au fil du temps.',
     status: 'en cours',
   },
 ]
@@ -54,7 +54,7 @@ const features: Feature[] = [
 const principles = [
   {
     label: 'Sans pression',
-    desc: "Pas de streaks, pas de notifications agressives, pas de score de performance. L'outil s'adapte à toi.",
+    desc: "Pas de streaks, pas de notifications agressives, pas de score de performance. L'outil s'adapte à vous.",
   },
   {
     label: 'Pour cerveau TDAH',
@@ -62,7 +62,7 @@ const principles = [
   },
   {
     label: 'Entièrement personnel',
-    desc: 'Pas de publicités, pas de tracking, pas de gamification toxique. Juste ton outil, tes données.',
+    desc: 'Pas de publicités, pas de tracking, pas de gamification toxique. Juste votre outil, vos données.',
   },
 ]
 
@@ -81,7 +81,7 @@ export const HomePage = () => {
         <p className="home-hero__tagline">Compagnon bienveillant pour cerveau TDAH</p>
         <p className="home-hero__desc">
           Un outil personnel — pour voir ses produits skincare, vérifier les ingrédients, suivre ses
-          habitudes. Pas de pubs, pas de gamification toxique. Conçu pour s'adapter à ton rythme.
+          habitudes. Pas de pubs, pas de gamification toxique. Conçu pour s'adapter à votre rythme.
         </p>
       </section>
 
