@@ -2,8 +2,9 @@ import { useQuery } from '@tanstack/react-query'
 import { CheckSquare, Plus } from 'lucide-react'
 import { useState } from 'react'
 
-import { taskQueries, useCreateTask } from '../../../lib/queries/tasks'
+import { taskQueries, useCreateTask } from '../../../../lib/queries/tasks'
 import { TaskItem } from '../TaskItem'
+
 import './TasksPage.css'
 
 export function TasksPage() {
