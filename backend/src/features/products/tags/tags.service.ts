@@ -100,13 +100,18 @@ export async function addTagToProduct(
 export async function addManyTagsToProduct(
   db: DB,
   productId: string,
-  tagsInput: { tagId: string; relevance: 'primary' | 'secondary' | 'avoid' }[]
+  tagsInput: (string | { tagId: string; relevance?: 'primary' | 'secondary' | 'avoid' })[]
 ): Promise<ProductTag[]> {
   if (tagsInput.length === 0) return []
-  return db
-    .insert(productTags)
-    .values(tagsInput.map((t) => ({ productId, ...t })))
-    .returning()
+
+  const values = tagsInput.map((t) => {
+    if (typeof t === 'string') {
+      return { productId, tagId: t, relevance: 'secondary' as const }
+    }
+    return { productId, ...t, relevance: t.relevance ?? 'secondary' }
+  })
+
+  return db.insert(productTags).values(values).returning()
 }
 
 /**
@@ -161,17 +166,21 @@ export async function removeTagFromProduct(
 export async function replaceProductTags(
   db: DB,
   productId: string,
-  tagsInput: { tagId: string; relevance: 'primary' | 'secondary' | 'avoid' }[]
+  tagsInput: (string | { tagId: string; relevance?: 'primary' | 'secondary' | 'avoid' })[]
 ): Promise<ProductTag[]> {
   return db.transaction(async (tx) => {
     await tx.delete(productTags).where(eq(productTags.productId, productId))
 
     if (tagsInput.length === 0) return []
 
-    return tx
-      .insert(productTags)
-      .values(tagsInput.map((t) => ({ productId, ...t })))
-      .returning()
+    const values = tagsInput.map((t) => {
+      if (typeof t === 'string') {
+        return { productId, tagId: t, relevance: 'secondary' as const }
+      }
+      return { productId, ...t, relevance: t.relevance ?? 'secondary' }
+    })
+
+    return tx.insert(productTags).values(values).returning()
   })
 }
 
@@ -193,13 +202,18 @@ export async function addTagToIngredient(
 export async function addManyTagsToIngredient(
   db: DB,
   ingredientId: string,
-  tagsInput: { tagId: string; relevance: 'primary' | 'secondary' | 'avoid' }[]
+  tagsInput: (string | { tagId: string; relevance?: 'primary' | 'secondary' | 'avoid' })[]
 ): Promise<IngredientTag[]> {
   if (tagsInput.length === 0) return []
-  return db
-    .insert(ingredientTags)
-    .values(tagsInput.map((t) => ({ ingredientId, ...t })))
-    .returning()
+
+  const values = tagsInput.map((t) => {
+    if (typeof t === 'string') {
+      return { ingredientId, tagId: t, relevance: 'secondary' as const }
+    }
+    return { ingredientId, ...t, relevance: t.relevance ?? 'secondary' }
+  })
+
+  return db.insert(ingredientTags).values(values).returning()
 }
 
 /**
@@ -253,16 +267,20 @@ export async function removeTagFromIngredient(
 export async function replaceIngredientTags(
   db: DB,
   ingredientId: string,
-  tagsInput: { tagId: string; relevance: 'primary' | 'secondary' | 'avoid' }[]
+  tagsInput: (string | { tagId: string; relevance?: 'primary' | 'secondary' | 'avoid' })[]
 ): Promise<IngredientTag[]> {
   return db.transaction(async (tx) => {
     await tx.delete(ingredientTags).where(eq(ingredientTags.ingredientId, ingredientId))
 
     if (tagsInput.length === 0) return []
 
-    return tx
-      .insert(ingredientTags)
-      .values(tagsInput.map((t) => ({ ingredientId, ...t })))
-      .returning()
+    const values = tagsInput.map((t) => {
+      if (typeof t === 'string') {
+        return { ingredientId, tagId: t, relevance: 'secondary' as const }
+      }
+      return { ingredientId, ...t, relevance: t.relevance ?? 'secondary' }
+    })
+
+    return tx.insert(ingredientTags).values(values).returning()
   })
 }

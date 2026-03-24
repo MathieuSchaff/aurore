@@ -1,14 +1,16 @@
+import type { UserProductStatus } from '@habit-tracker/shared'
+
 import { useQuery } from '@tanstack/react-query'
-import { Star, Package, Heart, ShoppingBag, Eye, Archive, Ban, Trash2 } from 'lucide-react'
+import clsx from 'clsx'
+import { Archive, Ban, Eye, Heart, Package, ShoppingBag, Star, Trash2 } from 'lucide-react'
+
+import { calculateWeightedScore } from '../../../lib/helpers/reviews'
+import { userPreferenceQueries } from '../../../lib/queries/user-preferences'
 import {
+  useDeleteUserProduct,
   useUpdateUserProduct,
   useUpsertUserProductReview,
-  useDeleteUserProduct,
 } from '../../../lib/queries/user-products'
-import { userPreferenceQueries } from '../../../lib/queries/user-preferences'
-import { calculateWeightedScore } from '../../../lib/helpers/reviews'
-import type { UserProductStatus } from '@habit-tracker/shared'
-import clsx from 'clsx'
 
 import './PersonalReview.css'
 
@@ -57,9 +59,15 @@ export function PersonalReview({ userProduct: p }: PersonalReviewProps) {
         {score && (
           <div className="review-score">
             <span className="review-score-val">{score}</span>
-            {prefs?.displayScale !== 'percentage' && <span className="review-score-max">
-                {prefs?.displayScale === 'out_of_5' ? '/5' : prefs?.displayScale === 'out_of_10' ? '/10' : '/20'}
-            </span>}
+            {prefs?.displayScale !== 'percentage' && (
+              <span className="review-score-max">
+                {prefs?.displayScale === 'out_of_5'
+                  ? '/5'
+                  : prefs?.displayScale === 'out_of_10'
+                    ? '/10'
+                    : '/20'}
+              </span>
+            )}
           </div>
         )}
       </div>

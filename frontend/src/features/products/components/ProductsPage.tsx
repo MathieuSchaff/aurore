@@ -3,10 +3,10 @@ import { getRouteApi, Link, useNavigate } from '@tanstack/react-router'
 import { ChevronLeft, ChevronRight, Package, Plus, Search, SlidersHorizontal } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
+import { FilterDialog, type FilterFieldConfig, type FilterValues } from '@/component/Filter/Filter'
 import { ProductIcon } from '../../../assets/product-icons'
 import { ingredientQueries } from '../../../lib/queries/ingredients'
 import { type ListProductsFilters, productQueries } from '../../../lib/queries/products'
-import { FilterDialog, type FilterFieldConfig, type FilterValues } from '@/component/Filter/Filter'
 
 import './ListPage.css'
 import './ProductsPage.css'

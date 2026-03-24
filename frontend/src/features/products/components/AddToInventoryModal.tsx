@@ -1,8 +1,9 @@
 import { X } from 'lucide-react'
 import { useState } from 'react'
 
-import { useScrollLock } from '../../hooks/useScrollLock'
-import { useAddStockEntry } from '../../lib/queries/stock'
+import { useScrollLock } from '../../../hooks/useScrollLock'
+import { useAddPurchase } from '../../../lib/queries/purchases'
+import { useCreateUserProduct } from '../../../lib/queries/user-products'
 import './AddToInventoryModal.css'
 
 interface ModalProduct {
@@ -10,6 +11,7 @@ interface ModalProduct {
   name: string
   brand: string
   priceCents?: number | null
+  userProductId?: string
 }
 
 interface AddToInventoryModalProps {
@@ -20,15 +22,13 @@ interface AddToInventoryModalProps {
 
 export function AddToInventoryModal({ product, onClose, onSuccess }: AddToInventoryModalProps) {
   const today = new Date().toISOString().split('T')[0]
-  const defaultPrice = product.priceCents != null
-    ? (product.priceCents / 100).toFixed(2)
-    : ''
+  const defaultPrice = product.priceCents != null ? (product.priceCents / 100).toFixed(2) : ''
 
-  const [qty, setQty] = useState(1)
   const [price, setPrice] = useState(defaultPrice)
   const [purchasedAt, setPurchasedAt] = useState(today)
 
-  const addEntry = useAddStockEntry()
+  const addUserProduct = useCreateUserProduct()
+  const addPurchase = useAddPurchase()
 
   useScrollLock(true)
 
@@ -38,11 +38,17 @@ export function AddToInventoryModal({ product, onClose, onSuccess }: AddToInvent
     const pricePaidCents = price !== '' ? Math.round(parseFloat(price) * 100) : undefined
 
     try {
-      await addEntry.mutateAsync({
-        productId: product.id,
-        qty,
-        pricePaidCents,
-        purchasedAt,
+      let userProductId = product.userProductId
+      if (!userProductId) {
+        const created = await addUserProduct.mutateAsync({
+          productId: product.id,
+          status: 'in_stock',
+        })
+        userProductId = created.id
+      }
+      await addPurchase.mutateAsync({
+        userProductId,
+        input: { purchasedAt, pricePaidCents },
       })
       onSuccess?.()
       onClose()
@@ -53,13 +59,22 @@ export function AddToInventoryModal({ product, onClose, onSuccess }: AddToInvent
 
   return (
     <div className="inv-modal-wrapper">
+      {/*biome-ignore lint: we dont need to focus the overlay so no need for handleKey on it.*/}
       <div className="inv-modal-overlay" onClick={onClose} />
-
-      <div className="inv-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="inv-modal-title">
+      <div
+        className="inv-modal-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="inv-modal-title"
+      >
         <div className="inv-modal-header">
           <div>
-            <h2 id="inv-modal-title" className="inv-modal-title">Ajouter au stock</h2>
-            <p className="inv-modal-subtitle">{product.name} · {product.brand}</p>
+            <h2 id="inv-modal-title" className="inv-modal-title">
+              Ajouter au stock
+            </h2>
+            <p className="inv-modal-subtitle">
+              {product.name} · {product.brand}
+            </p>
           </div>
           <button
             type="button"
@@ -72,7 +87,7 @@ export function AddToInventoryModal({ product, onClose, onSuccess }: AddToInvent
         </div>
 
         <form onSubmit={handleSubmit} className="inv-modal-form">
-          {addEntry.isError && (
+          {(addPurchase.isError || addUserProduct.isError) && (
             <div className="inv-modal-error" role="alert">
               Erreur lors de l'ajout. Veuillez réessayer.
             </div>
@@ -89,22 +104,8 @@ export function AddToInventoryModal({ product, onClose, onSuccess }: AddToInvent
               value={purchasedAt}
               onChange={(e) => setPurchasedAt(e.target.value)}
               required
+              // biome-ignore lint: ok to autofocus
               autoFocus
-            />
-          </div>
-
-          <div className="inv-modal-field">
-            <label htmlFor="inv-qty" className="inv-modal-label inv-modal-label--priority">
-              Quantité
-            </label>
-            <input
-              id="inv-qty"
-              type="number"
-              min="1"
-              className="inv-modal-input"
-              value={qty}
-              onChange={(e) => setQty(Math.max(1, parseInt(e.target.value) || 1))}
-              required
             />
           </div>
 
@@ -129,16 +130,16 @@ export function AddToInventoryModal({ product, onClose, onSuccess }: AddToInvent
               type="button"
               className="inv-modal-cancel-btn"
               onClick={onClose}
-              disabled={addEntry.isPending}
+              disabled={addPurchase.isPending || addUserProduct.isPending}
             >
               Annuler
             </button>
             <button
               type="submit"
               className="inv-modal-submit-btn"
-              disabled={addEntry.isPending}
+              disabled={addPurchase.isPending || addUserProduct.isPending}
             >
-              {addEntry.isPending ? 'Ajout...' : 'Ajouter'}
+              {addPurchase.isPending || addUserProduct.isPending ? 'Ajout...' : 'Ajouter'}
             </button>
           </div>
         </form>
