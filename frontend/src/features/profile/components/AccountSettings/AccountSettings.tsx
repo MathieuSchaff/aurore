@@ -28,7 +28,7 @@ export const AccountSettings = ({ onEditProfile }: AccountSettingsProps) => {
       <section className="account-section">
         <h3 className="account-section-title">Profil</h3>
         <p className="account-section-desc">
-          Modifie tes informations publiques, ta bio et ton avatar.
+          Modifiez vos informations publiques, votre bio et votre avatar.
         </p>
 
         <div className="account-actions">
@@ -47,7 +47,7 @@ export const AccountSettings = ({ onEditProfile }: AccountSettingsProps) => {
       <section className="account-section">
         <h3 className="account-section-title">Sécurité</h3>
         <p className="account-section-desc">
-          Gère l'accès à ton compte et tes données personnelles.
+          Gérez l'accès à votre compte et vos données personnelles.
         </p>
 
         <div className="account-actions">
@@ -74,7 +74,7 @@ export const AccountSettings = ({ onEditProfile }: AccountSettingsProps) => {
 
       <section className="account-section">
         <h3 className="account-section-title">Session</h3>
-        <p className="account-section-desc">Déconnecte-toi de cet appareil.</p>
+        <p className="account-section-desc">Déconnectez-vous de cet appareil.</p>
 
         <div className="account-actions">
           <Button
@@ -91,7 +91,7 @@ export const AccountSettings = ({ onEditProfile }: AccountSettingsProps) => {
 
       <section className="account-section danger-zone">
         <h3 className="account-section-title danger">Zone de danger</h3>
-        <p className="account-section-desc">Actions irréversibles sur ton compte.</p>
+        <p className="account-section-desc">Actions irréversibles sur votre compte.</p>
 
         <div className="account-actions">
           <Button

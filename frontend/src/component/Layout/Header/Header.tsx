@@ -47,7 +47,7 @@ export const Header = () => {
     <header className="main-header">
       {user && !emailVerified && (
         <div className="email-verification-banner">
-          <span>Vérifie ton adresse email pour continuer à utiliser Aurore.</span>
+          <span>Vérifiez votre adresse email pour continuer à utiliser Aurore.</span>
           <button type="button" onClick={handleResend} disabled={resend.isPending}>
             {resend.isPending ? '...' : 'Renvoyer'}
           </button>

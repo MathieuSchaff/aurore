@@ -47,8 +47,8 @@ export const VerifyEmailPage = () => {
           className="auth-submit"
           onClick={() =>
             resend.mutate(undefined, {
-              onSuccess: () => toast.success('Email envoyé ! Vérifie ta boîte mail.'),
-              onError: () => toast.error("Impossible d'envoyer l'email, réessaie plus tard."),
+              onSuccess: () => toast.success('Email envoyé ! Vérifiez votre boîte mail.'),
+              onError: () => toast.error("Impossible d'envoyer l'email, réessayez plus tard."),
             })
           }
           disabled={resend.isPending}
