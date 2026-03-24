@@ -3,10 +3,10 @@ import { getRouteApi, Link, useNavigate } from '@tanstack/react-router'
 import { ChevronLeft, ChevronRight, FlaskConical, Plus, SlidersHorizontal } from 'lucide-react'
 import { useState } from 'react'
 
-import { FilterDialog, type FilterValues } from '@/component/Filter/Filter'
+import { type FilterValues, GroupedFilterDialog } from '@/component/Filter/Filter'
 import { SearchCombobox } from '@/component/search/SearchCombobox'
 import { ingredientQueries, type ListIngredientsFilters } from '../../../lib/queries/ingredients'
-import { type FilterKey, INGREDIENT_FILTER_FIELDS } from './filterFieldsIngredients'
+import { type FilterKey, GROUP_LABELS, INGREDIENT_FILTER_GROUPS } from './filterFieldsIngredients'
 
 import '../../products/components/ListPage.css'
 import './IngredientsPage.css'
@@ -72,8 +72,14 @@ export function IngredientsPage() {
   const activeTags = FILTER_KEYS.flatMap((key) => filters[key].map((value) => ({ key, value })))
 
   function getFilterLabel(key: FilterKey, value: string): string {
-    const field = INGREDIENT_FILTER_FIELDS.find((f) => f.key === key)
-    return field?.options.find((o) => o.value === value)?.label ?? value
+    for (const group of INGREDIENT_FILTER_GROUPS) {
+      for (const sf of group.subFilters) {
+        if (sf.key === key) {
+          return sf.options.find((o) => o.value === value)?.label ?? value
+        }
+      }
+    }
+    return value
   }
 
   return (
@@ -121,6 +127,7 @@ export function IngredientsPage() {
                 className="list-active-filter-tag"
                 onClick={() => toggleSingleFilter(key, value)}
               >
+                <span className="list-active-filter-tag__prefix">{GROUP_LABELS[key]}:</span>
                 {getFilterLabel(key, value)}
                 <span className="list-active-filter-tag__x">&times;</span>
               </button>
@@ -132,12 +139,12 @@ export function IngredientsPage() {
         )}
       </header>
 
-      <FilterDialog
+      <GroupedFilterDialog
         open={isDrawerOpen}
         onClose={() => setDrawerOpen(false)}
-        fields={INGREDIENT_FILTER_FIELDS}
+        groups={INGREDIENT_FILTER_GROUPS}
         currentFilters={filters}
-        initial_filters={EMPTY_FILTERS}
+        initialFilters={EMPTY_FILTERS}
         onApply={applyFilters}
         onReset={resetFilters}
       />

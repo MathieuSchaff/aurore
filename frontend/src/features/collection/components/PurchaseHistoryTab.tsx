@@ -14,10 +14,7 @@ export function PurchaseHistoryTab({ userProducts }: PurchaseHistoryTabProps) {
         product: up.product,
       }))
     )
-    .sort(
-      (a, b) =>
-        new Date(b.purchasedAt ?? 0).getTime() - new Date(a.purchasedAt ?? 0).getTime()
-    )
+    .sort((a, b) => new Date(b.purchasedAt ?? 0).getTime() - new Date(a.purchasedAt ?? 0).getTime())
 
   if (allPurchases.length === 0) {
     return (
@@ -50,9 +47,7 @@ export function PurchaseHistoryTab({ userProducts }: PurchaseHistoryTabProps) {
             </div>
             <div className="coll-hist-row-bottom">
               <span className="coll-hist-price">
-                {entry.pricePaidCents
-                  ? `${(entry.pricePaidCents / 100).toFixed(2)}€`
-                  : '—'}
+                {entry.pricePaidCents ? `${(entry.pricePaidCents / 100).toFixed(2)}€` : '—'}
               </span>
             </div>
           </div>

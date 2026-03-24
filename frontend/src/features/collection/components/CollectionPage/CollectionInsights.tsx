@@ -27,8 +27,12 @@ const COMMON_FILLERS = [
 export function CollectionInsights({ userProducts }: CollectionInsightsProps) {
   const analysis = useMemo(() => {
     const holyGrails = userProducts.filter((p) => p.status === 'holy_grail')
-    const lowTolerance = userProducts.filter((p) => (p.review?.tolerance ?? 0) > 0 && (p.review?.tolerance ?? 0) <= 2)
-    const badSentiment = userProducts.filter((p) => (p.sentiment ?? 0) > 0 && (p.sentiment ?? 0) <= 2)
+    const lowTolerance = userProducts.filter(
+      (p) => (p.review?.tolerance ?? 0) > 0 && (p.review?.tolerance ?? 0) <= 2
+    )
+    const badSentiment = userProducts.filter(
+      (p) => (p.sentiment ?? 0) > 0 && (p.sentiment ?? 0) <= 2
+    )
     const avoided = userProducts.filter((p) => p.status === 'avoided')
 
     const countIngredients = (products: UserProduct[]) => {

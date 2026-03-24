@@ -17,6 +17,7 @@ export type Product = {
   amountUnit: string | null
 
   url: string | null
+  imageUrl: string | null
   notes: string | null
   priceCents: number | null
 

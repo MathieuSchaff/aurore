@@ -121,6 +121,11 @@
   color: var(--color-error);
 }
 
+.list-active-filter-tag__prefix {
+  color: var(--text-muted);
+  font-weight: var(--font-medium);
+}
+
 .list-active-filter-tag__x {
   font-size: var(--text-base);
   line-height: 1;

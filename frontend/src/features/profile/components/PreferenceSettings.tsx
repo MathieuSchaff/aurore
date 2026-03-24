@@ -7,8 +7,8 @@ import {
   userPreferenceQueries,
   useUpdateUserPreferences,
 } from '../../../lib/queries/user-preferences'
-import { useThemeStore } from '../../../store/theme'
 import type { LightVariant } from '../../../store/theme'
+import { useThemeStore } from '../../../store/theme'
 
 import './PreferenceSettings.css'
 
@@ -110,9 +110,7 @@ export function PreferenceSettings() {
           <h3 id="palette-section-title" className="pref-section-title">
             Palette (mode clair)
           </h3>
-          <p className="pref-section-desc">
-            Choisissez la palette de couleurs pour le mode clair.
-          </p>
+          <p className="pref-section-desc">Choisissez la palette de couleurs pour le mode clair.</p>
           <div
             className="pref-palette-swatches"
             role="radiogroup"
@@ -142,10 +140,7 @@ export function PreferenceSettings() {
                 className="pref-palette-swatch"
                 onClick={() => setLightVariant(variant)}
               >
-                <span
-                  className="pref-palette-swatch__circle"
-                  style={{ backgroundColor: color }}
-                />
+                <span className="pref-palette-swatch__circle" style={{ backgroundColor: color }} />
                 <span className="pref-palette-swatch__label">{label}</span>
               </button>
             ))}

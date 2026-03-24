@@ -3,7 +3,12 @@ import { getRouteApi, Link, useNavigate } from '@tanstack/react-router'
 import { ChevronLeft, ChevronRight, Package, Plus, Search, SlidersHorizontal } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
-import { FilterDialog, type FilterFieldConfig, type FilterValues } from '@/component/Filter/Filter'
+import {
+  type FilterGroupConfig,
+  type FilterOption,
+  type FilterValues,
+  GroupedFilterDialog,
+} from '@/component/Filter/Filter'
 import { ProductIcon } from '../../../assets/product-icons'
 import { ingredientQueries } from '../../../lib/queries/ingredients'
 import { type ListProductsFilters, productQueries } from '../../../lib/queries/products'
@@ -55,13 +60,84 @@ function unitClass(unit: string | null | undefined): string {
   return ''
 }
 
-const CATEGORY_LABELS: Record<string, { label: string; key: FilterKey }> = {
-  routine_step: { label: 'Étape routine', key: 'routine_step' },
-  attribute: { label: 'Caractéristiques', key: 'attribute' },
-  skin_type: { label: 'Type de peau', key: 'skin_type' },
-  skin_zone: { label: 'Zone', key: 'skin_zone' },
-  product_type: { label: 'Type de produit', key: 'product_type' },
-  concern: { label: 'Cibles', key: 'concern' },
+const TAG_CATEGORY_TO_KEY: Record<string, FilterKey> = {
+  routine_step: 'routine_step',
+  attribute: 'attribute',
+  skin_type: 'skin_type',
+  skin_zone: 'skin_zone',
+  product_type: 'product_type',
+  concern: 'concern',
+}
+
+const LABEL_OVERRIDES: Record<string, string> = {
+  humectant: 'Hydratant',
+  emollient: 'Nourrissant',
+  'sebo-regulateur': 'Anti-sébum',
+  'barriere-alteree': 'Peau sensibilisée',
+}
+
+const ATTRIBUTE_SUBGROUPS = [
+  {
+    label: 'Formulation',
+    slugs: [
+      'bio-naturel',
+      'vegan',
+      'cruelty-free',
+      'sans-parfum',
+      'sans-savon',
+      'hypoallergenique',
+      'non-comedogene',
+      'grossesse-compatible',
+    ],
+    maxVisible: 6,
+  },
+  {
+    label: 'Texture',
+    slugs: ['texture-legere', 'texture-riche'],
+  },
+  {
+    label: 'Action',
+    slugs: [
+      'apaisant',
+      'humectant',
+      'anti-oxydant',
+      'matifiant',
+      'sebo-regulateur',
+      'reparateur',
+      'protection-cutanee',
+      'prebiotique',
+    ],
+    maxVisible: 6,
+  },
+  {
+    label: 'Technique',
+    slugs: [
+      'keratolytique',
+      'astringent',
+      'antiseptique',
+      'anti-bacterien',
+      'biomimetique',
+      'emollient',
+      'barriere-alteree',
+      'filtres-chimiques',
+      'filtres-mineraux',
+      'pigments-verts',
+      'comedogene',
+    ],
+    maxVisible: 4,
+  },
+]
+
+const GROUP_LABELS: Record<FilterKey, string> = {
+  skin_type: 'Peau',
+  skin_zone: 'Zone',
+  concern: 'Objectif',
+  kind: 'Catégorie',
+  product_type: 'Type',
+  routine_step: 'Étape',
+  attribute: 'Préf.',
+  brand: 'Marque',
+  ingredient: 'Ingr.',
 }
 
 const EMPTY_FILTERS = {
@@ -161,65 +237,111 @@ export function ProductsPage() {
     enabled: hasFilters,
   })
 
-  const filterFields = useMemo<FilterFieldConfig<FilterKey>[]>(() => {
+  const filterGroups = useMemo<FilterGroupConfig<FilterKey>[]>(() => {
     if (!filterOptions) return []
 
-    const tagsByCategory = new Map<FilterKey, { value: string; label: string }[]>()
-
+    const tagsByKey = new Map<FilterKey, FilterOption[]>()
     for (const [category, tagList] of Object.entries(filterOptions.tags)) {
-      const config = CATEGORY_LABELS[category]
-      if (!config) continue
-      tagsByCategory.set(
-        config.key,
-        tagList.map((tag) => ({ value: tag.slug, label: tag.name }))
+      const key = TAG_CATEGORY_TO_KEY[category]
+      if (!key) continue
+      tagsByKey.set(
+        key,
+        tagList.map((tag) => ({
+          value: tag.slug,
+          label: LABEL_OVERRIDES[tag.slug] ?? tag.name,
+        }))
       )
     }
 
-    const desiredOrder: FilterKey[] = [
-      'skin_zone',
-      'attribute',
-      'product_type',
-      'concern',
-      'routine_step',
-      'skin_type',
-    ]
+    const getOpts = (key: FilterKey): FilterOption[] => tagsByKey.get(key) ?? []
 
-    const orderedEntries = Array.from(tagsByCategory.entries())
-      .sort(([keyA], [keyB]) => {
-        const indexA = desiredOrder.indexOf(keyA)
-        const indexB = desiredOrder.indexOf(keyB)
-        if (indexA === -1 && indexB === -1) return 0
-        if (indexA === -1) return 1
-        if (indexB === -1) return -1
-        return indexA - indexB
-      })
-      .map(([key, options]) => ({
-        key,
-        label: CATEGORY_LABELS[key]!.label,
-        placeholder: 'Tous',
-        options,
-      }))
     return [
       {
-        key: 'brand',
-        label: 'Marque',
-        placeholder: 'Rechercher une marque...',
-        variant: 'search-select',
-        options: filterOptions.brands.map((b) => ({ value: b, label: b })),
+        id: 'skin',
+        label: 'Ma peau',
+        defaultOpen: true,
+        tier: 'essential',
+        subFilters: [
+          {
+            key: 'skin_type',
+            label: 'Type de peau',
+            placeholder: 'Tous',
+            options: getOpts('skin_type'),
+          },
+          { key: 'skin_zone', label: 'Zone', placeholder: 'Toutes', options: getOpts('skin_zone') },
+        ],
       },
       {
-        key: 'ingredient' as FilterKey,
-        label: 'Ingrédient',
-        placeholder: 'Rechercher un ingrédient...',
-        variant: 'search-select',
-        options: allIngredients?.map((i) => ({ value: i.slug, label: i.name })) ?? [],
+        id: 'objective',
+        label: 'Objectif',
+        defaultOpen: true,
+        tier: 'essential',
+        subFilters: [
+          { key: 'concern', label: 'Cibles', placeholder: 'Tous', options: getOpts('concern') },
+        ],
       },
-      ...orderedEntries,
       {
-        key: 'kind',
-        label: 'Catégorie',
-        placeholder: 'Toutes',
-        options: filterOptions.kinds.map((k) => ({ value: k, label: k })),
+        id: 'product',
+        label: 'Type de produit',
+        defaultOpen: false,
+        tier: 'advanced',
+        subFilters: [
+          {
+            key: 'kind',
+            label: 'Catégorie',
+            placeholder: 'Toutes',
+            options: filterOptions.kinds.map((k) => ({ value: k, label: k })),
+          },
+          {
+            key: 'product_type',
+            label: 'Format',
+            placeholder: 'Tous',
+            options: getOpts('product_type'),
+          },
+          {
+            key: 'routine_step',
+            label: 'Étape routine',
+            placeholder: 'Toutes',
+            options: getOpts('routine_step'),
+          },
+        ],
+      },
+      {
+        id: 'preferences',
+        label: 'Préférences',
+        defaultOpen: false,
+        tier: 'advanced',
+        subFilters: [
+          {
+            key: 'attribute',
+            label: 'Caractéristiques',
+            placeholder: 'Tous',
+            options: getOpts('attribute'),
+            subGroups: ATTRIBUTE_SUBGROUPS,
+          },
+        ],
+      },
+      {
+        id: 'search',
+        label: 'Recherche précise',
+        defaultOpen: false,
+        tier: 'advanced',
+        subFilters: [
+          {
+            key: 'brand',
+            label: 'Marque',
+            placeholder: 'Rechercher une marque...',
+            variant: 'search-select',
+            options: filterOptions.brands.map((b) => ({ value: b, label: b })),
+          },
+          {
+            key: 'ingredient',
+            label: 'Ingrédient',
+            placeholder: 'Rechercher un ingrédient...',
+            variant: 'search-select',
+            options: allIngredients?.map((i) => ({ value: i.slug, label: i.name })) ?? [],
+          },
+        ],
       },
     ]
   }, [filterOptions, allIngredients])
@@ -247,8 +369,14 @@ export function ProductsPage() {
   const activeTags = filterKeys.flatMap((key) => filters[key].map((value) => ({ key, value })))
 
   const getFilterLabel = (key: FilterKey, value: string): string => {
-    const field = filterFields.find((f) => f.key === key)
-    return field?.options.find((o) => o.value === value)?.label ?? value
+    for (const group of filterGroups) {
+      for (const sf of group.subFilters) {
+        if (sf.key === key) {
+          return sf.options.find((o) => o.value === value)?.label ?? value
+        }
+      }
+    }
+    return value
   }
 
   const items = data?.items ?? []
@@ -296,6 +424,7 @@ export function ProductsPage() {
                   className="list-active-filter-tag"
                   onClick={() => toggleSingleFilter(key, value)}
                 >
+                  <span className="list-active-filter-tag__prefix">{GROUP_LABELS[key]}:</span>
                   {getFilterLabel(key, value)}
                   <span className="list-active-filter-tag__x">&times;</span>
                 </button>
@@ -307,12 +436,12 @@ export function ProductsPage() {
           )}
         </header>
 
-        <FilterDialog
+        <GroupedFilterDialog
           open={isDrawerOpen}
           onClose={() => setDrawerOpen(false)}
-          fields={filterFields}
+          groups={filterGroups}
           currentFilters={filters}
-          initial_filters={EMPTY_FILTERS}
+          initialFilters={EMPTY_FILTERS}
           onApply={applyFilters}
           onReset={resetFilters}
         />
