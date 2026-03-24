@@ -11,11 +11,11 @@ export interface Task {
   title: string
   energy: TaskEnergy | null
   status: TaskStatus
-  snoozedUntil: string | null   // date string YYYY-MM-DD
-  doneAt: string | null          // ISO timestamp string
+  snoozedUntil: string | null // date string YYYY-MM-DD
+  doneAt: string | null // ISO timestamp string
   focusDurationMinutes: number | null
-  createdAt: string              // ISO timestamp string
-  updatedAt: string              // ISO timestamp string
+  createdAt: string // ISO timestamp string
+  updatedAt: string // ISO timestamp string
 }
 
 export interface Subtask {

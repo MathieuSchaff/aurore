@@ -83,7 +83,7 @@
   font-weight: var(--font-bold);
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: var(--tracking-widest);
 }
 
 .tasks-section--done {

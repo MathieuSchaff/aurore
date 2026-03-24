@@ -1,5 +1,5 @@
-import type { HttpStatus } from '../types/api'
 import type { TaskErrorCode } from '../types/tasks'
+import type { HttpStatus } from './constants'
 import { HTTP_STATUS } from './constants'
 
 export const taskErrorMapping = {
