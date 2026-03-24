@@ -1,5 +1,6 @@
 import clsx from 'clsx'
-import { sentimentEmojis } from '../../../utils/sentimentMap'
+
+import { sentimentEmojis } from '../../../../utils/sentimentMap'
 
 interface SentimentWidgetProps {
   value: number | null
@@ -16,7 +17,8 @@ const sentimentTitles: Record<number, string> = {
 
 export function SentimentWidget({ value, onChange }: SentimentWidgetProps) {
   return (
-    <div className="sentiment-widget" role="group" aria-label="Ressenti">
+    <fieldset className="sentiment-widget">
+      <legend className="sr-only">Ressenti</legend>
       {[1, 2, 3, 4, 5].map((s) => (
         <button
           key={s}
@@ -31,6 +33,6 @@ export function SentimentWidget({ value, onChange }: SentimentWidgetProps) {
           </span>
         </button>
       ))}
-    </div>
+    </fieldset>
   )
 }

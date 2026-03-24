@@ -1,11 +1,16 @@
-import { describe, it, expect, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
+/** @vitest-environment jsdom */
+import { cleanup, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { renderWithProviders, makeUserProduct } from '../../../test/utils'
-import { CollectionCard } from '../components/CollectionCard'
-import { ReviewForm } from '../components/ReviewForm'
+import { afterEach, describe, expect, it, vi } from 'vitest'
+
+import { makeUserProduct, renderWithProviders } from '../../../test/utils'
+import { CollectionCard } from '../components/card/CollectionCard'
+import { ReviewForm } from '../components/review/ReviewForm'
 
 describe('Flow : évaluation → note calculée', () => {
+  afterEach(() => {
+    cleanup()
+  })
   it("card sans review n'affiche pas de note", () => {
     const item = makeUserProduct({ review: null })
     renderWithProviders(<CollectionCard item={item} />)
@@ -15,8 +20,12 @@ describe('Flow : évaluation → note calculée', () => {
   it('card avec review affiche la note calculée', () => {
     const item = makeUserProduct({
       review: {
-        tolerance: 4, efficacy: 4, sensoriality: 4,
-        stability: 4, mixability: 4, valueForMoney: 4,
+        tolerance: 4,
+        efficacy: 4,
+        sensoriality: 4,
+        stability: 4,
+        mixability: 4,
+        valueForMoney: 4,
       },
     })
     renderWithProviders(<CollectionCard item={item} />)
@@ -45,8 +54,6 @@ describe('Flow : évaluation → note calculée', () => {
     await userEvent.click(screen.getByLabelText('Tolérance : 5 étoiles'))
     await userEvent.click(screen.getByLabelText('Efficacité : 5 étoiles'))
     await userEvent.click(screen.getByRole('button', { name: 'Enregistrer' }))
-    expect(onSubmit).toHaveBeenCalledWith(
-      expect.objectContaining({ tolerance: 5, efficacy: 5 })
-    )
+    expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining({ tolerance: 5, efficacy: 5 }))
   })
 })

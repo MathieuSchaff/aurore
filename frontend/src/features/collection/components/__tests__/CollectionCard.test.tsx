@@ -1,5 +1,6 @@
-import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
+import { describe, expect, it } from 'vitest'
+
 import { CollectionCard, type CollectionCardProduct } from '../card/CollectionCard'
 
 const baseItem: CollectionCardProduct = {
@@ -44,7 +45,14 @@ describe('CollectionCard', () => {
   it('affiche la note calculée si review renseignée', () => {
     const item: CollectionCardProduct = {
       ...baseItem,
-      review: { tolerance: 4, efficacy: 4, sensoriality: 4, stability: 4, mixability: 4, valueForMoney: 4 },
+      review: {
+        tolerance: 4,
+        efficacy: 4,
+        sensoriality: 4,
+        stability: 4,
+        mixability: 4,
+        valueForMoney: 4,
+      },
     }
     render(<CollectionCard item={item} />)
     const noteEl = screen.getByLabelText(/Note/)
@@ -57,7 +65,7 @@ describe('CollectionCard', () => {
     expect(screen.queryByLabelText(/Ressenti/)).not.toBeInTheDocument()
   })
 
-  it('affiche l\'emoji de sentiment si renseigné', () => {
+  it("affiche l'emoji de sentiment si renseigné", () => {
     const item: CollectionCardProduct = { ...baseItem, sentiment: 5 }
     render(<CollectionCard item={item} />)
     expect(screen.getByLabelText('Ressenti : 😍')).toBeInTheDocument()
