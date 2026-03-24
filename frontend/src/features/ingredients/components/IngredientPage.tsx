@@ -30,7 +30,7 @@ export function IngredientPage() {
   const renderMarkdown = (rawContent: string) => {
     if (!rawContent) return ''
 
-    // HACK: Targeting LaTeX content between $$ because rehype-katex 
+    // HACK: Targeting LaTeX content between $$ because rehype-katex
     // struggles with some raw formatting (like unescaped pKa or mathrm).
     let cleaned = rawContent
 

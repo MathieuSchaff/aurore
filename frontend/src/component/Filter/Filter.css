@@ -339,8 +339,7 @@
 }
 
 /* Quand la liste est ouverte, on laisse de la place à droite pour le bouton */
-.search-select__input-wrapper:has(.search-select__dismiss)
-  .search-select__input {
+.search-select__input-wrapper:has(.search-select__dismiss) .search-select__input {
   padding-right: calc(var(--space-3) + 1.5rem + var(--space-2));
 }
 

@@ -234,14 +234,8 @@
   color: var(--color-sidebar-icon);
 }
 
-[data-theme="light"]
-  .bottom-nav__sheet-row
-  [aria-checked="false"]
-  .theme-toggle__icon--sun,
-[data-theme="light"]
-  .bottom-nav__sheet-row
-  [aria-checked="true"]
-  .theme-toggle__icon--moon {
+[data-theme="light"] .bottom-nav__sheet-row [aria-checked="false"] .theme-toggle__icon--sun,
+[data-theme="light"] .bottom-nav__sheet-row [aria-checked="true"] .theme-toggle__icon--moon {
   color: var(--color-sidebar-bg);
   filter: none;
 }

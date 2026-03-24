@@ -21,7 +21,7 @@ export const LoginPage = () => {
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    // Quick way to get all form fields without multiple state bindings
+    // get form data
     const formData = Object.fromEntries(new FormData(e.currentTarget))
     const result = authSchema.safeParse(formData)
 
@@ -52,7 +52,9 @@ export const LoginPage = () => {
           navigate({ to: '/verify-pending' })
           return
         }
-        setErrors({ form: LOGIN_ERRORS[error.message] ?? 'Une erreur est survenue, réessaie plus tard' })
+        setErrors({
+          form: LOGIN_ERRORS[error.message] ?? 'Une erreur est survenue, réessaie plus tard',
+        })
       },
     })
   }

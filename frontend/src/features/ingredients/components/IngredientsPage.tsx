@@ -3,9 +3,9 @@ import { getRouteApi, Link, useNavigate } from '@tanstack/react-router'
 import { ChevronLeft, ChevronRight, FlaskConical, Plus, SlidersHorizontal } from 'lucide-react'
 import { useState } from 'react'
 
-import { ingredientQueries, type ListIngredientsFilters } from '../../../lib/queries/ingredients'
 import { FilterDialog, type FilterValues } from '@/component/Filter/Filter'
 import { SearchCombobox } from '@/component/search/SearchCombobox'
+import { ingredientQueries, type ListIngredientsFilters } from '../../../lib/queries/ingredients'
 import { type FilterKey, INGREDIENT_FILTER_FIELDS } from './filterFieldsIngredients'
 
 import '../../products/components/ListPage.css'
