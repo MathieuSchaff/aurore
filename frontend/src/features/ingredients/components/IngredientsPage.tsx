@@ -10,7 +10,7 @@ import { type FilterKey, INGREDIENT_FILTER_FIELDS } from './filterFieldsIngredie
 
 import '../../products/components/ListPage.css'
 import './IngredientsPage.css'
-import '../../../styles/common/ingredients-shared.css'
+import '@/styles/common/shared-components.css'
 const routeApi = getRouteApi('/ingredients/')
 
 const EMPTY_FILTERS: FilterValues<FilterKey> = {

@@ -10,6 +10,8 @@ import { type ListProductsFilters, productQueries } from '../../../lib/queries/p
 
 import './ListPage.css'
 import './ProductsPage.css'
+import '@/styles/common/shared-components.css'
+import '@/styles/common/kinds.css'
 
 import { SearchCombobox } from '@/component/search/SearchCombobox'
 import { AddToInventoryModal } from './AddToInventoryModal'
@@ -260,11 +262,6 @@ export function ProductsPage() {
           <div className="page-banner" />
 
           <div className="list-header__top">
-            {/*<h1 className="list-header__title">
-              Produits
-              {isPlaceholderData && <span className="loader-mini">...</span>}
-            </h1>*/}
-
             <div className="list-header__search">
               <SearchCombobox
                 queryFn={productQueries.search}

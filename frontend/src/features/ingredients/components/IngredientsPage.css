@@ -1,3 +1,73 @@
+.list-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-default);
+  border-left: 3px solid var(--color-primary);
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+  min-width: 0;
+  transition: all var(--transition-fast) ease;
+}
+
+[data-theme="dark"] .list-card {
+  border-color: var(--border-default);
+  border-left-color: var(--primary-60);
+}
+
+.list-card:hover {
+  border-color: var(--color-accent);
+  border-left-color: var(--color-accent);
+  box-shadow: 0 2px 8px oklch(from var(--color-accent) l c h / 0.1);
+}
+
+[data-theme="dark"] .list-card:hover {
+  box-shadow: 0 2px 8px oklch(from var(--color-accent) l c h / 0.2);
+}
+
+.list-card:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.list-card:hover .nav-arrow {
+  transform: translateX(3px);
+  color: var(--color-accent);
+}
+
+.list-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-md);
+  background: oklch(from var(--color-primary) l c h / 0.1);
+  color: var(--color-primary);
+}
+
+[data-theme="dark"] .list-card__icon {
+  background: oklch(from var(--color-primary) l c h / 0.2);
+  color: var(--primary-70);
+}
+
+.list-card__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.list-card__name {
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .ingredient-card__description {
   font-size: var(--text-sm);
   color: var(--text-secondary);
@@ -19,7 +89,7 @@
    ======================================================= */
 
 [data-theme="light"] .ingredients-page .list-header__title {
-  color: var(--color-primary); /* Blue Night */
+  color: var(--color-primary);
 }
 
 [data-theme="light"] .ingredients-page .list-filter-btn {
@@ -33,7 +103,7 @@
 }
 
 [data-theme="light"] .ingredients-page .list-card {
-  border-left-color: var(--color-accent); /* Mango */
+  border-left-color: var(--color-accent);
   background: white;
 }
 
@@ -44,8 +114,8 @@
 }
 
 [data-theme="light"] .ingredients-page .list-card__icon {
-  background: oklch(92% 0.08 72deg); /* Very light mango */
-  color: oklch(50% 0.15 72deg); /* Rich mango icon */
+  background: oklch(92% 0.08 72deg);
+  color: oklch(50% 0.15 72deg);
 }
 
 [data-theme="light"] .ingredients-page .list-card__name {

@@ -8,8 +8,8 @@ import remarkMath from 'remark-math'
 
 import { ingredientQueries } from '../../../lib/queries/ingredients'
 import './IngredientPage.css'
-import '../../../styles/common/ingredients-shared.css'
-import '../../../styles/common/markdown.css'
+import '@/styles/common/shared-components.css'
+import '@/styles/common/markdown.css'
 
 import { useMemo } from 'react'
 
@@ -130,16 +130,6 @@ export function IngredientPage() {
             <h2 className="section-label">Contenu</h2>
             <div className="rich-text">
               <Markdown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]}>
-                {/*{ingredient.content}*/}
-                {/*{
-                  ingredient.content
-                    .replace(/mathrm/g, '\\mathrm')
-                    .replace(/log/g, '\\log')
-                    .replace(/left/g, '\\left')
-                    .replace(/right/g, '\\right')
-                    .replace(/frac/g, '\\frac')
-                  // .replace(/\n/g, ' ')
-                              }*/}
                 {renderMarkdown(ingredient.content)}
               </Markdown>
             </div>
