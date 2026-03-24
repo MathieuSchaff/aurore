@@ -54,9 +54,7 @@
   --color-header-border: oklch(72% 0.16 var(--h-papaya));
   --color-header-action: var(--iron-darker);
   --color-header-action-border: var(--color-primary-dark);
-  --color-header-action-bg-hover: oklch(
-    from var(--color-primary-dark) l c h / 0.12
-  );
+  --color-header-action-bg-hover: oklch(from var(--color-primary-dark) l c h / 0.12);
 
   /* TYPOGRAPHY */
   --text-inverse: var(--text-inverse-warm);

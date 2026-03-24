@@ -8,6 +8,8 @@ import { productQueries } from '../../../lib/queries/products'
 
 import './ListPage.css'
 import './ProductPage.css'
+import '@/styles/common/shared-components.css'
+import '@/styles/common/kinds.css'
 
 import { Button } from '@/component/Button/Button'
 import { AddToInventoryModal } from './AddToInventoryModal'

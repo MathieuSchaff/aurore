@@ -24,7 +24,7 @@
   margin-bottom: 0;
 }
 
-/* Styles communs via .btn-pill (ingredients-shared.css) */
+/* Styles communs via .btn-pill (shared-components.css) */
 .ingredient-page__edit-btn {
   /* aucun override nécessaire pour l'instant */
 }
@@ -44,7 +44,7 @@
   position: relative;
 }
 
-/* Styles communs via .btn-pill (ingredients-shared.css) */
+/* Styles communs via .btn-pill (shared-components.css) */
 .ingredient-page__back {
   margin-bottom: var(--space-4);
 }

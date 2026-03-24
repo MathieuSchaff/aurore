@@ -14,7 +14,12 @@ interface CriteriaListProps {
   handleReview: (id: string, input: Partial<ReviewCriteria>) => void
 }
 
-export function CriteriaList({ p, activeTooltip, setActiveTooltip, handleReview }: CriteriaListProps) {
+export function CriteriaList({
+  p,
+  activeTooltip,
+  setActiveTooltip,
+  handleReview,
+}: CriteriaListProps) {
   const ref = useRef<HTMLDivElement>(null)
   useClickOutside(ref, () => setActiveTooltip(null))
 

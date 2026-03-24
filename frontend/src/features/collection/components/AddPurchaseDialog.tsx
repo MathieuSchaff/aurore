@@ -1,9 +1,10 @@
-import type { UserProduct } from '../../../lib/queries/user-products'
-import { X, Calendar, Euro } from 'lucide-react'
+import { Calendar, Euro, X } from 'lucide-react'
 import { useEffect, useRef } from 'react'
-import { useAddPurchase } from '../../../lib/queries/purchases'
 import { toast } from 'sonner'
+
 import { useClickOutside } from '../../../hooks/useClickOutside'
+import { useAddPurchase } from '../../../lib/queries/purchases'
+import type { UserProduct } from '../../../lib/queries/user-products'
 
 interface AddPurchaseDialogProps {
   p: UserProduct
@@ -24,7 +25,7 @@ export function AddPurchaseDialog({
 }: AddPurchaseDialogProps) {
   const addPurchaseMutation = useAddPurchase()
   const ref = useRef<HTMLDivElement>(null)
-  
+
   useClickOutside(ref, onClose)
 
   useEffect(() => {
@@ -42,9 +43,7 @@ export function AddPurchaseDialog({
         userProductId: p.id,
         input: {
           purchasedAt: purchaseDate,
-          pricePaidCents: purchasePrice
-            ? Math.round(parseFloat(purchasePrice) * 100)
-            : undefined,
+          pricePaidCents: purchasePrice ? Math.round(parseFloat(purchasePrice) * 100) : undefined,
         },
       },
       {

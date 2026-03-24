@@ -1,5 +1,6 @@
 import { AlertTriangle, X } from 'lucide-react'
 import { useEffect, useRef } from 'react'
+
 import { useClickOutside } from '../../../hooks/useClickOutside'
 
 interface DeleteConfirmDialogProps {
@@ -8,13 +9,9 @@ interface DeleteConfirmDialogProps {
   isPending: boolean
 }
 
-export function DeleteConfirmDialog({
-  onConfirm,
-  onClose,
-  isPending,
-}: DeleteConfirmDialogProps) {
+export function DeleteConfirmDialog({ onConfirm, onClose, isPending }: DeleteConfirmDialogProps) {
   const ref = useRef<HTMLDivElement>(null)
-  
+
   useClickOutside(ref, onClose)
 
   useEffect(() => {
@@ -39,7 +36,7 @@ export function DeleteConfirmDialog({
 
       <div className="coll-delete-dialog-body">
         <p>Retirer ce produit de votre collection ?</p>
-        
+
         <div className="coll-delete-dialog-actions">
           <button
             type="button"

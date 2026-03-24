@@ -134,9 +134,7 @@ export function CollectionFiltersSheet({
               <select
                 id="sheet-filter-repurchase"
                 value={filterRepurchase}
-                onChange={(e) =>
-                  setFilterRepurchase(e.target.value as RepurchaseFlag | 'all')
-                }
+                onChange={(e) => setFilterRepurchase(e.target.value as RepurchaseFlag | 'all')}
               >
                 <option value="all">Indifférent</option>
                 <option value="yes">Oui</option>

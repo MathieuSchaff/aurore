@@ -16,6 +16,24 @@ export type FilterFieldConfig<T extends string> = {
 
 export type FilterValues<T extends string> = Record<T, string[]>
 
+export type FilterSubGroup = {
+  label: string
+  slugs: string[]
+  maxVisible?: number
+}
+
+export type GroupedFilterField<T extends string> = FilterFieldConfig<T> & {
+  subGroups?: FilterSubGroup[]
+}
+
+export type FilterGroupConfig<T extends string> = {
+  id: string
+  label: string
+  defaultOpen: boolean
+  tier: 'essential' | 'advanced'
+  subFilters: GroupedFilterField<T>[]
+}
+
 type FilterDialogProps<T extends string> = {
   open: boolean
   onClose: () => void
@@ -427,6 +445,408 @@ function FilterFieldItem<T extends string>({
       onToggle={(value) => onToggle(value)}
       defaultOpen={selected.length > 0}
     />
+  )
+}
+
+function ChipsWithLimit({
+  options,
+  selected,
+  onToggle,
+  maxVisible,
+  isAccordionOpen,
+  escapeHandler,
+}: {
+  options: FilterOption[]
+  selected: string[]
+  onToggle: (value: string) => void
+  maxVisible?: number
+  isAccordionOpen: boolean
+  escapeHandler: (e: React.KeyboardEvent) => void
+}) {
+  const [expanded, setExpanded] = useState(false)
+  const limit = maxVisible ?? options.length
+  const visibleOptions = expanded ? options : options.slice(0, limit)
+  const hiddenCount = options.length - limit
+
+  return (
+    <>
+      {visibleOptions.map((opt) => {
+        const isSelected = selected.includes(opt.value)
+        return (
+          <button
+            key={opt.value}
+            type="button"
+            className={`filter-chip ${isSelected ? 'filter-chip--active' : ''}`}
+            onClick={() => onToggle(opt.value)}
+            aria-pressed={isSelected}
+            onKeyDown={escapeHandler}
+            tabIndex={isAccordionOpen ? 0 : -1}
+          >
+            {opt.label}
+          </button>
+        )
+      })}
+      {!expanded && hiddenCount > 0 && (
+        <button
+          type="button"
+          className="filter-chip filter-chip--more"
+          onClick={() => setExpanded(true)}
+          tabIndex={isAccordionOpen ? 0 : -1}
+        >
+          Voir tout ({options.length})
+        </button>
+      )}
+    </>
+  )
+}
+
+function SubGroupedChips<T extends string>({
+  field,
+  selected,
+  onToggle,
+  isAccordionOpen,
+  escapeHandler,
+}: {
+  field: GroupedFilterField<T>
+  selected: string[]
+  onToggle: (value: string) => void
+  isAccordionOpen: boolean
+  escapeHandler: (e: React.KeyboardEvent) => void
+}) {
+  if (!field.subGroups) {
+    return (
+      <fieldset className="filter-drawer__chips">
+        <legend className="sr-only">Options pour {field.label}</legend>
+        <ChipsWithLimit
+          options={field.options}
+          selected={selected}
+          onToggle={onToggle}
+          maxVisible={field.subGroups ? undefined : undefined}
+          isAccordionOpen={isAccordionOpen}
+          escapeHandler={escapeHandler}
+        />
+      </fieldset>
+    )
+  }
+
+  const optionsBySlug = new Map(field.options.map((o) => [o.value, o]))
+
+  return (
+    <div className="filter-subgroups">
+      {field.subGroups.map((sg) => {
+        const sgOptions = sg.slugs
+          .map((slug) => optionsBySlug.get(slug))
+          .filter((o): o is FilterOption => o != null)
+        if (sgOptions.length === 0) return null
+        return (
+          <fieldset key={sg.label} className="filter-subgroup">
+            <legend className="filter-subgroup__label">{sg.label}</legend>
+            <div className="filter-drawer__chips">
+              <ChipsWithLimit
+                options={sgOptions}
+                selected={selected}
+                onToggle={onToggle}
+                maxVisible={sg.maxVisible}
+                isAccordionOpen={isAccordionOpen}
+                escapeHandler={escapeHandler}
+              />
+            </div>
+          </fieldset>
+        )
+      })}
+    </div>
+  )
+}
+
+function GroupedAccordion<T extends string>({
+  group,
+  localFilters,
+  onToggle,
+}: {
+  group: FilterGroupConfig<T>
+  localFilters: FilterValues<T>
+  onToggle: (key: T, value: string) => void
+}) {
+  const totalSelected = group.subFilters.reduce(
+    (sum, sf) => sum + (localFilters[sf.key]?.length ?? 0),
+    0
+  )
+  const [isOpen, setIsOpen] = useState(group.defaultOpen || totalSelected > 0)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const contentId = useId()
+  const headerId = useId()
+
+  const escapeHandler = (e: React.KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      e.stopPropagation()
+      e.preventDefault()
+      setIsOpen(false)
+      buttonRef.current?.focus()
+    }
+  }
+
+  return (
+    <div className={`filter-accordion filter-accordion--${group.tier}`}>
+      <button
+        type="button"
+        id={headerId}
+        className="filter-accordion__trigger"
+        onClick={() => setIsOpen((v) => !v)}
+        aria-expanded={isOpen}
+        aria-controls={contentId}
+        ref={buttonRef}
+      >
+        <span className="filter-accordion__label">{group.label}</span>
+        <div className="filter-accordion__meta">
+          {totalSelected > 0 && (
+            <span className="filter-accordion__count" title={`${totalSelected} filtres actifs`}>
+              {totalSelected}
+            </span>
+          )}
+          <ChevronDown
+            size={14}
+            className="filter-accordion__chevron"
+            style={{ transform: isOpen ? 'rotate(0deg)' : 'rotate(-90deg)' }}
+            aria-hidden="true"
+          />
+        </div>
+      </button>
+      <section
+        id={contentId}
+        className="filter-accordion__body"
+        aria-labelledby={headerId}
+        style={{ gridTemplateRows: isOpen ? '1fr' : '0fr' }}
+        aria-hidden={!isOpen}
+      >
+        <div className="filter-accordion__inner">
+          {group.subFilters.map((sf) => {
+            const selected = localFilters[sf.key] ?? []
+            const variant = sf.variant ?? 'chips'
+
+            if (variant === 'search-select') {
+              return (
+                <div key={sf.key} className="filter-drawer__group filter-drawer__group--nested">
+                  <span className="filter-subgroup__label">{sf.label}</span>
+                  <SearchSelect
+                    options={sf.options}
+                    selected={selected}
+                    onToggle={(value) => onToggle(sf.key, value)}
+                    placeholder={sf.placeholder}
+                    label={sf.label}
+                  />
+                </div>
+              )
+            }
+
+            if (sf.subGroups) {
+              return (
+                <SubGroupedChips
+                  key={sf.key}
+                  field={sf}
+                  selected={selected}
+                  onToggle={(value) => onToggle(sf.key, value)}
+                  isAccordionOpen={isOpen}
+                  escapeHandler={escapeHandler}
+                />
+              )
+            }
+
+            return (
+              <fieldset key={sf.key} className="filter-subgroup">
+                <legend className="sr-only">Options pour {sf.label}</legend>
+                {group.subFilters.length > 1 && (
+                  <span className="filter-subgroup__label" aria-hidden="true">
+                    {sf.label}
+                  </span>
+                )}
+                <div className="filter-drawer__chips">
+                  <ChipsWithLimit
+                    options={sf.options}
+                    selected={selected}
+                    onToggle={(value) => onToggle(sf.key, value)}
+                    isAccordionOpen={isOpen}
+                    escapeHandler={escapeHandler}
+                  />
+                </div>
+              </fieldset>
+            )
+          })}
+        </div>
+      </section>
+    </div>
+  )
+}
+
+type GroupedFilterDialogProps<T extends string> = {
+  open: boolean
+  onClose: () => void
+  groups: FilterGroupConfig<T>[]
+  currentFilters: FilterValues<T>
+  onApply: (filters: FilterValues<T>) => void
+  onReset: () => void
+  initialFilters: FilterValues<T>
+}
+
+export function GroupedFilterDialog<T extends string>({
+  open,
+  onClose,
+  groups,
+  currentFilters,
+  onApply,
+  onReset,
+  initialFilters,
+}: GroupedFilterDialogProps<T>) {
+  const dialogRef = useRef<HTMLDialogElement>(null)
+  const panelRef = useRef<HTMLDivElement>(null)
+  const [localFilters, setLocalFilters] = useState<FilterValues<T>>(currentFilters)
+  const previousFocusRef = useRef<HTMLElement | null>(null)
+
+  useScrollLock(open)
+  useFocusTrap(open, panelRef)
+
+  useEffect(() => {
+    if (open) {
+      previousFocusRef.current = document.activeElement as HTMLElement
+    }
+  }, [open])
+
+  const handleClose = useCallback(() => {
+    onApply(localFilters)
+    onClose()
+    setTimeout(() => previousFocusRef.current?.focus(), 0)
+  }, [localFilters, onApply, onClose])
+
+  useEffect(() => {
+    if (open) {
+      setLocalFilters(currentFilters)
+      dialogRef.current?.showModal()
+    } else {
+      dialogRef.current?.close()
+    }
+  }, [open, currentFilters])
+
+  const handleToggle = (key: T, value: string) => {
+    setLocalFilters((prev) => {
+      const current = prev[key] ?? []
+      const next = current.includes(value)
+        ? current.filter((v) => v !== value)
+        : [...current, value]
+      return { ...prev, [key]: next }
+    })
+  }
+
+  const handleCancel = (e: React.UIEvent<HTMLDialogElement>) => {
+    e.preventDefault()
+    handleClose()
+  }
+
+  const handleBackdropClick = (e: React.MouseEvent<HTMLDialogElement>) => {
+    if (e.target === dialogRef.current) {
+      handleClose()
+    }
+  }
+
+  const handleArrowNav = (e: React.KeyboardEvent) => {
+    if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return
+    const target = e.target as HTMLElement
+    const accordion = target.closest('.filter-accordion')
+    if (!accordion) return
+    const trigger = accordion.querySelector<HTMLElement>('.filter-accordion__trigger')
+    if (!trigger) return
+    e.preventDefault()
+    const form = e.currentTarget as HTMLElement
+    const triggers = Array.from(form.querySelectorAll<HTMLElement>('.filter-accordion__trigger'))
+    const currentIndex = triggers.indexOf(trigger)
+    if (currentIndex === -1) return
+    const nextIndex =
+      e.key === 'ArrowDown'
+        ? (currentIndex + 1) % triggers.length
+        : (currentIndex - 1 + triggers.length) % triggers.length
+    triggers[nextIndex]?.focus()
+  }
+
+  const titleId = useId()
+  const essentialGroups = groups.filter((g) => g.tier === 'essential')
+  const advancedGroups = groups.filter((g) => g.tier === 'advanced')
+
+  return (
+    // biome-ignore lint/a11y/useKeyWithClickEvents: le backdrop peut pas être focus.
+    <dialog
+      ref={dialogRef}
+      className="filter-drawer"
+      aria-labelledby={titleId}
+      aria-modal="true"
+      onClick={handleBackdropClick}
+      onCancel={handleCancel}
+    >
+      <div className="filter-drawer__panel" ref={panelRef}>
+        <div className="filter-drawer__header">
+          <h2 id={titleId} className="filter-drawer__title">
+            Filtres
+          </h2>
+          <button
+            type="button"
+            className="filter-drawer__close"
+            onClick={handleClose}
+            aria-label="Fermer les filtres"
+          >
+            <X size={16} aria-hidden="true" />
+          </button>
+        </div>
+
+        <form
+          className="filter-drawer__body"
+          onSubmit={(e) => e.preventDefault()}
+          onKeyDown={handleArrowNav}
+        >
+          {essentialGroups.map((group) => (
+            <GroupedAccordion
+              key={group.id}
+              group={group}
+              localFilters={localFilters}
+              onToggle={handleToggle}
+            />
+          ))}
+
+          {advancedGroups.length > 0 && (
+            <div className="filter-drawer__separator" aria-hidden="true">
+              <span className="filter-drawer__separator-label">Avancé</span>
+            </div>
+          )}
+
+          {advancedGroups.map((group) => (
+            <GroupedAccordion
+              key={group.id}
+              group={group}
+              localFilters={localFilters}
+              onToggle={handleToggle}
+            />
+          ))}
+        </form>
+
+        <div className="filter-drawer__footer">
+          <button
+            type="button"
+            className="filter-drawer__reset"
+            onClick={() => {
+              setLocalFilters(initialFilters)
+              onReset()
+            }}
+            aria-label="Réinitialiser tous les filtres"
+          >
+            Réinitialiser
+          </button>
+          <button
+            type="button"
+            className="filter-drawer__apply"
+            onClick={handleClose}
+            aria-label="Appliquer les filtres sélectionnés"
+          >
+            Appliquer
+          </button>
+        </div>
+      </div>
+    </dialog>
   )
 }
 
