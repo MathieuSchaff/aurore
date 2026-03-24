@@ -100,6 +100,11 @@ export const reminderSchema = z.object({
   beforeMinutes: z.number().int().min(1).max(10080, 'Maximum 1 semaine (10080 min)'),
 })
 
+export const reminderWithTimingSchema = z.object({
+  timingId: z.string().uuid(),
+  beforeMinutes: z.number().int().min(1).max(10080, 'Maximum 1 semaine (10080 min)'),
+})
+
 /**
  * Valeurs prédéfinies pour `beforeMinutes`.
  * @example
@@ -221,6 +226,17 @@ export const toggleCheckSchema = z.object({
   timingId: uuid.optional(),
   actualTime: timeFormat.optional(),
   date: dateFormat.optional(),
+  products: z
+    .array(
+      z.object({
+        habitProductId: z.string().uuid(),
+        productId: z.string().uuid(),
+        used: z.boolean(),
+        actualDosage: z.string().max(100).optional(),
+      })
+    )
+    .max(50)
+    .optional(),
 })
 
 // ─── Query params ────────────────────────────────────────────────────────────
@@ -245,13 +261,25 @@ export const updateFrequencySchema = frequencySchema
 export const setTimingsSchema = z.array(timingSchema).max(10)
 
 /** Payload pour PUT /habits/:id/reminders — remplace tous les reminders existants. */
-export const setRemindersSchema = z.array(reminderSchema).max(5)
+export const setRemindersSchema = z.array(reminderWithTimingSchema).max(20)
 
 /** Payload pour PUT /habits/:id/period — remplace la période existante. */
 export const setPeriodSchema = periodSchema
 
 /** Payload pour PUT /habits/:id/products — remplace tous les produits associés. */
 export const setProductsSchema = z.array(habitProductSchema).max(20)
+
+export const reorderHabitsSchema = z.object({
+  habits: z
+    .array(
+      z.object({
+        id: z.string().uuid(),
+        position: z.number().int().min(0),
+      })
+    )
+    .min(1)
+    .max(100),
+})
 
 // ─── Types inférés ───────────────────────────────────────────────────────────
 
@@ -274,6 +302,8 @@ export type SetTimingsInput = z.infer<typeof setTimingsSchema>
 export type SetRemindersInput = z.infer<typeof setRemindersSchema>
 export type SetPeriodInput = z.infer<typeof setPeriodSchema>
 export type SetProductsInput = z.infer<typeof setProductsSchema>
+export type ReorderHabitsInput = z.infer<typeof reorderHabitsSchema>
+export type SetRemindersWithTimingInput = z.infer<typeof setRemindersSchema>
 
 // ─── Entity Response Schemas ─────────────────────────────────────────────────
 
@@ -308,19 +338,20 @@ export const habitFrequencyResponseSchema = z.object({
   updatedAt: z.date(),
 })
 
+export const habitReminderResponseSchema = z.object({
+  id: uuid,
+  timingId: uuid,
+  beforeMinutes: z.number().int(),
+  createdAt: z.date(),
+})
+
 export const habitTimingResponseSchema = z.object({
   id: uuid,
   habitId: uuid,
   day: z.number().int().nullable(),
   time: z.string(),
   label: z.string().nullable(),
-  createdAt: z.date(),
-})
-
-export const habitReminderResponseSchema = z.object({
-  id: uuid,
-  habitId: uuid,
-  beforeMinutes: z.number().int(),
+  reminders: z.array(habitReminderResponseSchema),
   createdAt: z.date(),
 })
 
@@ -353,7 +384,7 @@ export const habitWithRelationsResponseSchema = habitResponseSchema.extend({
   products: z.array(habitProductResponseSchema),
 })
 
-export const todayProductStockSchema = z.object({
+export const todayUserProductSchema = z.object({
   id: uuid,
   productId: uuid,
   dosage: z.string().nullable(),
@@ -374,7 +405,7 @@ export const todayHabitResponseSchema = z.object({
   habit: habitResponseSchema,
   timings: z.array(habitTimingResponseSchema),
   checks: z.array(habitCheckResponseSchema),
-  products: z.array(todayProductStockSchema),
+  products: z.array(todayUserProductSchema),
   isCompleted: z.boolean(),
 })
 
@@ -384,8 +415,32 @@ export const habitStatsResponseSchema = z.object({
   completionRate: z.number(),
 })
 
+export const habitCheckProductResponseSchema = z.object({
+  id: uuid,
+  checkId: uuid,
+  habitProductId: uuid,
+  productId: uuid,
+  used: z.boolean(),
+  actualDosage: z.string().nullable(),
+  createdAt: z.date(),
+})
+
+export const checkProductHistoryResponseSchema = z.object({
+  id: uuid,
+  checkId: uuid,
+  scheduledDate: z.string(),
+  habitProductId: uuid,
+  productId: uuid,
+  productName: z.string(),
+  productBrand: z.string().nullable(),
+  used: z.boolean(),
+  actualDosage: z.string().nullable(),
+  createdAt: z.date(),
+})
+
 export const toggleCheckResultResponseSchema = z.object({
   checked: z.boolean(),
   check: habitCheckResponseSchema.optional(),
   depletedProducts: z.array(z.string()).optional(),
+  checkProducts: z.array(habitCheckProductResponseSchema).optional(),
 })

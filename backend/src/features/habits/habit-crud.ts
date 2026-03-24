@@ -1,6 +1,11 @@
-import type { CreateHabitInput, HabitWithRelations, UpdateHabitInput } from '@habit-tracker/shared'
+import type {
+  CreateHabitInput,
+  HabitReminder,
+  HabitWithRelations,
+  UpdateHabitInput,
+} from '@habit-tracker/shared'
 
-import { and, asc, eq, isNull } from 'drizzle-orm'
+import { and, asc, desc, eq, inArray, isNotNull, isNull } from 'drizzle-orm'
 
 import { db } from '../../db'
 import type { Database } from '../../db/index'
@@ -26,14 +31,12 @@ async function loadHabitRelations(
   habitId: string,
   database: Database
 ): Promise<Omit<HabitWithRelations, keyof Habit>> {
-  // Schedule est 1:1 avec habit — on le récupère d'abord
   const schedule = await database.query.habitSchedules.findFirst({
     where: eq(habitSchedules.habitId, habitId),
   })
 
   const scheduleId = schedule?.id
 
-  // Timings et reminders sont liés au schedule, pas à l'habit directement
   const [timings, period, products] = await Promise.all([
     scheduleId
       ? database.query.habitTimings.findMany({
@@ -50,24 +53,29 @@ async function loadHabitRelations(
     }),
   ])
 
-  // Reminders : liés aux timings (timing_id) en Database, mais shared attend habitId.
-  // On récupère tous les reminders de tous les timings de cette habitude et on remap.
-  let mappedReminders: HabitWithRelations['reminders'] = []
+  // Load reminders for all timings
+  let allReminders: HabitReminder[] = []
   if (timings.length > 0) {
     const timingIds = timings.map((t) => t.id)
     const dbReminders = await database.query.habitReminders.findMany({
       where: (r, { inArray }) => inArray(r.timingId, timingIds),
     })
-    mappedReminders = dbReminders.map((r) => ({
+    allReminders = dbReminders.map((r) => ({
       id: r.id,
-      habitId,
+      timingId: r.timingId,
       beforeMinutes: r.beforeMinutes,
       createdAt: r.createdAt,
     }))
   }
 
-  // Mapper le schedule Database → format shared `HabitFrequency`
-  // Database stocke daysOfWeek en number[], shared attend string[]
+  // Group reminders by timingId
+  const remindersByTiming = new Map<string, HabitReminder[]>()
+  for (const r of allReminders) {
+    const existing = remindersByTiming.get(r.timingId) ?? []
+    existing.push(r)
+    remindersByTiming.set(r.timingId, existing)
+  }
+
   const frequency = schedule
     ? {
         habitId: schedule.habitId,
@@ -80,20 +88,20 @@ async function loadHabitRelations(
       }
     : null
 
-  // Mapper les timings Database (scheduleId) → format shared (habitId)
   const mappedTimings = timings.map((t) => ({
     id: t.id,
     habitId,
     day: t.day,
     time: t.time,
     label: t.label,
+    reminders: remindersByTiming.get(t.id) ?? [],
     createdAt: t.createdAt,
   }))
 
   return {
     frequency,
     timings: mappedTimings,
-    reminders: mappedReminders,
+    reminders: allReminders,
     period: period ?? null,
     products,
   }
@@ -236,6 +244,50 @@ export async function getUserHabitsWithRelations(
   )
 }
 
+export async function getArchivedHabits(userId: string, database: Database = db): Promise<Habit[]> {
+  return database
+    .select()
+    .from(habits)
+    .where(and(eq(habits.userId, userId), isNotNull(habits.archivedAt)))
+    .orderBy(desc(habits.archivedAt))
+}
+
+export async function getArchivedHabitsWithRelations(
+  userId: string,
+  database: Database = db
+): Promise<HabitWithRelations[]> {
+  const archivedHabits = await getArchivedHabits(userId, database)
+
+  return Promise.all(
+    archivedHabits.map(async (h) => {
+      const relations = await loadHabitRelations(h.id, database)
+      return { ...h, ...relations }
+    })
+  )
+}
+
+export async function reorderHabits(
+  userId: string,
+  habitsInput: { id: string; position: number }[],
+  database: Database = db
+): Promise<void> {
+  const habitIds = habitsInput.map((h) => h.id)
+  const userHabits = await database
+    .select({ id: habits.id })
+    .from(habits)
+    .where(and(eq(habits.userId, userId), inArray(habits.id, habitIds)))
+
+  if (userHabits.length !== habitIds.length) {
+    throw new HabitError('habit_not_found')
+  }
+
+  await database.transaction(async (tx) => {
+    for (const h of habitsInput) {
+      await tx.update(habits).set({ position: h.position }).where(eq(habits.id, h.id))
+    }
+  })
+}
+
 export async function updateHabit(
   habitId: string,
   userId: string,
@@ -310,11 +362,12 @@ export async function deleteHabit(
   database: Database = db
 ): Promise<void> {
   // CASCADE supprime schedules → timings → reminders, periods, products, checks
-  const result = await database
+  const deleted = await database
     .delete(habits)
     .where(and(eq(habits.id, habitId), eq(habits.userId, userId)))
+    .returning({ id: habits.id })
 
-  if ((result.rowCount ?? 0) === 0) {
+  if (deleted.length === 0) {
     throw new HabitError('habit_not_found')
   }
 }

@@ -1,9 +1,9 @@
 import { differenceInDays, startOfDay } from 'date-fns'
 import { and, between, desc, eq, sql } from 'drizzle-orm'
 
+import type { Database } from '../../db'
 import { db } from '../../db'
 import { habitChecks } from '../../db/schema/habits'
-import type { Database } from '../../db'
 
 export async function countHabitChecks(
   habitId: string,
@@ -15,14 +15,13 @@ export async function countHabitChecks(
     .select({ count: sql<number>`count(*)::int` })
     .from(habitChecks)
     .where(
-      and(
-        eq(habitChecks.habitId, habitId),
-        between(habitChecks.scheduledDate, startDate, endDate)
-      )
+      and(eq(habitChecks.habitId, habitId), between(habitChecks.scheduledDate, startDate, endDate))
     )
 
   return result[0]?.count ?? 0
 }
+
+import { calculateStreak } from './habit-stats-logic'
 
 export async function getHabitStreak(habitId: string, database: Database = db): Promise<number> {
   const checks = await database
@@ -31,26 +30,7 @@ export async function getHabitStreak(habitId: string, database: Database = db): 
     .where(and(eq(habitChecks.habitId, habitId), eq(habitChecks.status, 'done')))
     .orderBy(desc(habitChecks.scheduledDate))
 
-  if (checks.length === 0) {
-    return 0
-  }
-
-  let streak = 0
-  let expectedDate = startOfDay(new Date())
-
-  for (const check of checks) {
-    const checkDate = startOfDay(new Date(check.date))
-    const diff = differenceInDays(expectedDate, checkDate)
-
-    if (diff === 0 || diff === 1) {
-      streak++
-      expectedDate = checkDate
-    } else {
-      break
-    }
-  }
-
-  return streak
+  return calculateStreak(checks.map((c) => c.date))
 }
 
 export async function getHabitStats(

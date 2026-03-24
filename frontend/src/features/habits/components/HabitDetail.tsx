@@ -1,3 +1,5 @@
+import type { HabitWithRelations } from '@habit-tracker/shared'
+
 import { useQuery } from '@tanstack/react-query'
 import { X } from 'lucide-react'
 import { useMemo, useState } from 'react'
@@ -27,9 +29,7 @@ function describeFrequency(freq: {
         ? freq.daysOfWeek.map((d) => DAY_NAMES[d] ?? d).join(', ')
         : 'Hebdomadaire'
     case 'monthly':
-      return freq.daysOfMonth?.length
-        ? `Le ${freq.daysOfMonth.join(', ')} du mois`
-        : 'Mensuel'
+      return freq.daysOfMonth?.length ? `Le ${freq.daysOfMonth.join(', ')} du mois` : 'Mensuel'
     case 'every_n_days':
       return `Tous les ${freq.intervalDays ?? '?'} jours`
     default:
@@ -58,7 +58,10 @@ export function HabitDetail({ habitId, onClose }: HabitDetailProps) {
 
   const { data: habit, isLoading } = useQuery(habitQueries.detail(habitId))
   const { data: checks } = useQuery(habitQueries.checks(habitId, startDate, endDate))
-  const { data: stats } = useQuery(habitQueries.stats(habitId, startDate, endDate))
+  useQuery(habitQueries.stats(habitId, startDate, endDate))
+  const { data: checkProductsData } = useQuery(
+    habitQueries.checkProducts(habitId, startDate, endDate)
+  )
 
   // Get today data for stock info
   const { data: todayData } = useQuery(habitQueries.today())
@@ -125,20 +128,6 @@ export function HabitDetail({ habitId, onClose }: HabitDetailProps) {
                 </div>
               </div>
 
-              {/* Statistiques */}
-              {stats && (
-                <div className="habit-detail-stats">
-                  <StatCard label="Streak" value={stats.currentStreak ?? 0} unit="j" />
-                  <StatCard label="Total" value={stats.totalChecks ?? 0} unit="" />
-                  <StatCard
-                    label="Taux"
-                    value={Math.round((stats.completionRate ?? 0) * 100)}
-                    unit="%"
-                  />
-                </div>
-              )}
-
-              {/* Mini calendrier */}
               <div className="habit-mini-calendar">
                 <h3 className="habit-mini-calendar__heading">30 derniers jours</h3>
                 <div className="habit-mini-calendar__grid">
@@ -193,7 +182,31 @@ export function HabitDetail({ habitId, onClose }: HabitDetailProps) {
                 </div>
               )}
 
-              {/* Configuration */}
+              {checkProductsData && checkProductsData.length > 0 && (
+                <div className="habit-detail-config">
+                  <h3 className="habit-detail-config__heading">Historique produits</h3>
+                  <div className="habit-detail-check-products">
+                    {checkProductsData.map((cp) => (
+                      <div key={cp.id} className="check-product-row">
+                        <span className="check-product-row__date">{cp.scheduledDate}</span>
+                        <span className="check-product-row__name">
+                          {cp.productBrand ? `${cp.productBrand} - ` : ''}
+                          {cp.productName}
+                        </span>
+                        <span
+                          className={`check-product-row__status ${cp.used ? 'check-product-row__status--used' : 'check-product-row__status--skipped'}`}
+                        >
+                          {cp.used ? 'Utilise' : 'Passe'}
+                        </span>
+                        {cp.actualDosage && (
+                          <span className="check-product-row__dosage">{cp.actualDosage}</span>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               <div className="habit-detail-config">
                 <h3 className="habit-detail-config__heading">Configuration</h3>
                 <div className="habit-detail-config__list">
@@ -207,7 +220,9 @@ export function HabitDetail({ habitId, onClose }: HabitDetailProps) {
                         {habit.timings.map((t) => (
                           <span key={t.id} className="config-timing-badge">
                             {t.time}
-                            {t.label && <span className="config-timing-badge__label"> ({t.label})</span>}
+                            {t.label && (
+                              <span className="config-timing-badge__label"> ({t.label})</span>
+                            )}
                           </span>
                         ))}
                       </div>
@@ -219,11 +234,22 @@ export function HabitDetail({ habitId, onClose }: HabitDetailProps) {
                       value={`${habit.period.startDate}${habit.period.endDate ? ` -> ${habit.period.endDate}` : ''}`}
                     />
                   )}
-                  {habit.reminders && habit.reminders.length > 0 && (
-                    <ConfigRow
-                      label="Rappels"
-                      value={habit.reminders.map((r) => formatBeforeMinutes(r.beforeMinutes)).join(', ')}
-                    />
+                  {habit.timings?.some((t) => t.reminders.length > 0) && (
+                    <div className="config-row">
+                      <span className="config-row__label">Rappels</span>
+                      <div className="config-row__timings">
+                        {habit.timings
+                          .filter((t) => t.reminders.length > 0)
+                          .map((t) => (
+                            <span key={t.id} className="config-timing-badge">
+                              {t.label ?? t.time}:{' '}
+                              {t.reminders
+                                .map((r) => formatBeforeMinutes(r.beforeMinutes))
+                                .join(', ')}
+                            </span>
+                          ))}
+                      </div>
+                    </div>
                   )}
                 </div>
               </div>
@@ -238,18 +264,7 @@ export function HabitDetail({ habitId, onClose }: HabitDetailProps) {
 
       {showEdit && habit && (
         <HabitFormDialog
-          habit={{
-            id: habit.id,
-            name: habit.name,
-            category: habit.category,
-            frequency: habit.frequency
-              ? {
-                  type: habit.frequency.type,
-                  daysOfWeek: habit.frequency.daysOfWeek ?? undefined,
-                  intervalDays: habit.frequency.intervalDays ?? undefined,
-                }
-              : undefined,
-          }}
+          habit={habit as unknown as HabitWithRelations}
           onClose={() => setShowEdit(false)}
         />
       )}
@@ -258,18 +273,6 @@ export function HabitDetail({ habitId, onClose }: HabitDetailProps) {
 }
 
 // ── Sub-components ──
-
-function StatCard({ label, value, unit }: { label: string; value: number; unit: string }) {
-  return (
-    <div className="stat-card">
-      <div className="stat-card__value">
-        {value}
-        {unit && <span className="stat-card__unit">{unit}</span>}
-      </div>
-      <div className="stat-card__label">{label}</div>
-    </div>
-  )
-}
 
 function ConfigRow({ label, value }: { label: string; value: string }) {
   return (

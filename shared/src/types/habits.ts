@@ -76,9 +76,13 @@ export type HabitTiming = {
 
 export type HabitReminder = {
   id: string
-  habitId: string
+  timingId: string
   beforeMinutes: number
   createdAt: Date
+}
+
+export type HabitTimingWithReminders = HabitTiming & {
+  reminders: HabitReminder[]
 }
 
 export type HabitPeriod = {
@@ -107,6 +111,16 @@ export type HabitCheck = {
   createdAt: Date
 }
 
+export type HabitCheckProduct = {
+  id: string
+  checkId: string
+  habitProductId: string
+  productId: string
+  used: boolean
+  actualDosage: string | null
+  createdAt: Date
+}
+
 // ─── Composed Types ───────────────────────────────────────────────────────────
 
 /**
@@ -119,8 +133,8 @@ export type HabitCheck = {
  */
 export type HabitWithRelations = Habit & {
   frequency: HabitFrequency | null
-  timings: HabitTiming[]
-  reminders: HabitReminder[]
+  timings: HabitTimingWithReminders[]
+  reminders: HabitReminder[] // kept for backward compat, flat list of all reminders
   period: HabitPeriod | null
   products: HabitProduct[]
 }
@@ -133,7 +147,7 @@ export type HabitWithRelations = Habit & {
  * Pour une habitude avec timings, `isCompleted` est `true` uniquement si
  * tous les timings ont été cochés.
  */
-export type TodayProductStock = {
+export type TodayUserProduct = {
   id: string
   productId: string
   dosage: string | null
@@ -146,7 +160,7 @@ export type TodayHabit = {
   habit: Habit
   timings: HabitTiming[]
   checks: HabitCheck[]
-  products: TodayProductStock[]
+  products: TodayUserProduct[]
   isCompleted: boolean
 }
 
@@ -157,6 +171,7 @@ export type ToggleCheckResult = {
   checked: boolean
   check?: HabitCheck
   depletedProducts?: string[]
+  checkProducts?: HabitCheckProduct[]
 }
 
 /**
@@ -204,4 +219,7 @@ export type HabitErrorCode =
   | 'product_not_found'
   | 'unauthorized_access'
   | 'invalid_date_range'
+  | 'product_set_failed'
+  | 'reorder_failed'
+  | 'check_products_query_failed'
   | 'database_error'

@@ -1,11 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
-import { Archive, ArchiveRestore, Trash2 } from 'lucide-react'
+import { Archive, ArchiveRestore, ChevronDown, ChevronUp, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 
 import {
   habitQueries,
   useArchiveHabit,
   useDeleteHabit,
+  useReorderHabits,
   useRestoreHabit,
 } from '../../../lib/queries/habits'
 
@@ -31,9 +32,7 @@ function formatFrequency(freq: {
         ? freq.daysOfWeek.map((d) => DAY_NAMES[d] ?? d).join(', ')
         : 'Hebdo'
     case 'monthly':
-      return freq.daysOfMonth?.length
-        ? `Le ${freq.daysOfMonth.join(', ')} du mois`
-        : 'Mensuel'
+      return freq.daysOfMonth?.length ? `Le ${freq.daysOfMonth.join(', ')} du mois` : 'Mensuel'
     case 'every_n_days':
       return `Tous les ${freq.intervalDays ?? '?'}j`
     default:
@@ -43,17 +42,42 @@ function formatFrequency(freq: {
 
 export function HabitListView({ onSelectHabit }: HabitListViewProps) {
   const [filter, setFilter] = useState<Filter>('active')
-  const { data: habits, isLoading } = useQuery(habitQueries.list())
+  const { data: activeHabits, isLoading: loadingActive } = useQuery({
+    ...habitQueries.list(),
+    enabled: filter === 'active',
+  })
+  const { data: archivedHabits, isLoading: loadingArchived } = useQuery({
+    ...habitQueries.archived(),
+    enabled: filter === 'archived',
+  })
+
+  const habits = filter === 'active' ? activeHabits : archivedHabits
+  const isLoading = filter === 'active' ? loadingActive : loadingArchived
+
   const archiveHabit = useArchiveHabit()
   const restoreHabit = useRestoreHabit()
   const deleteHabit = useDeleteHabit()
 
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null)
 
-  if (isLoading) return <ListSkeleton />
+  const reorderHabits = useReorderHabits()
 
-  const filtered =
-    habits?.filter((h) => (filter === 'active' ? !h.archivedAt : !!h.archivedAt)) ?? []
+  const filtered = habits ?? []
+
+  function handleReorder(index: number, direction: 'up' | 'down') {
+    if (!habits) return
+    const swapIndex = direction === 'up' ? index - 1 : index + 1
+    if (swapIndex < 0 || swapIndex >= filtered.length) return
+
+    const newOrder = filtered.map((h, i) => {
+      if (i === index) return { id: h.id, position: swapIndex }
+      if (i === swapIndex) return { id: h.id, position: index }
+      return { id: h.id, position: i }
+    })
+    reorderHabits.mutate(newOrder)
+  }
+
+  if (isLoading) return <ListSkeleton />
 
   function handleDelete(id: string) {
     deleteHabit.mutate(id, {
@@ -82,7 +106,7 @@ export function HabitListView({ onSelectHabit }: HabitListViewProps) {
         </div>
       ) : (
         <div className="habit-list">
-          {filtered.map((habit) => (
+          {filtered.map((habit, index) => (
             <div key={habit.id} className="habit-list-row">
               {/* Infos */}
               <button
@@ -104,13 +128,29 @@ export function HabitListView({ onSelectHabit }: HabitListViewProps) {
               {/* Actions */}
               <div className="habit-list-row__actions">
                 {filter === 'active' ? (
-                  <ActionButton
-                    title="Archiver"
-                    onClick={() => archiveHabit.mutate(habit.id)}
-                    disabled={archiveHabit.isPending}
-                  >
-                    <Archive />
-                  </ActionButton>
+                  <>
+                    <ActionButton
+                      title="Monter"
+                      onClick={() => handleReorder(index, 'up')}
+                      disabled={index === 0 || reorderHabits.isPending}
+                    >
+                      <ChevronUp size={16} />
+                    </ActionButton>
+                    <ActionButton
+                      title="Descendre"
+                      onClick={() => handleReorder(index, 'down')}
+                      disabled={index === filtered.length - 1 || reorderHabits.isPending}
+                    >
+                      <ChevronDown size={16} />
+                    </ActionButton>
+                    <ActionButton
+                      title="Archiver"
+                      onClick={() => archiveHabit.mutate(habit.id)}
+                      disabled={archiveHabit.isPending}
+                    >
+                      <Archive />
+                    </ActionButton>
+                  </>
                 ) : (
                   <>
                     <ActionButton

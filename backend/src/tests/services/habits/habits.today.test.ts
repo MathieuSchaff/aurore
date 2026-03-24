@@ -24,7 +24,7 @@ describe('Habit Today', () => {
       await createTestHabit(user.id, { name: 'Habit 1' })
       await createTestHabit(user.id, { name: 'Habit 2' })
 
-      const todayHabits = await getTodayHabits(user.id, testDb)
+      const todayHabits = await getTodayHabits(user.id, undefined, testDb)
 
       expect(todayHabits).toHaveLength(2)
       expect(todayHabits[0]?.isCompleted).toBe(false)
@@ -37,7 +37,7 @@ describe('Habit Today', () => {
       const today = getToday()
       await checkHabit({ userId: user.id, habitId: habit.id, date: today }, testDb)
 
-      const todayHabits = await getTodayHabits(user.id, testDb)
+      const todayHabits = await getTodayHabits(user.id, undefined, testDb)
 
       expect(todayHabits).toHaveLength(1)
       expect(todayHabits[0]?.isCompleted).toBe(true)
@@ -64,7 +64,7 @@ describe('Habit Today', () => {
         testDb
       )
 
-      let todayHabits = await getTodayHabits(user.id, testDb)
+      let todayHabits = await getTodayHabits(user.id, undefined, testDb)
       expect(todayHabits[0]?.isCompleted).toBe(false)
       expect(todayHabits[0]?.checks).toHaveLength(1)
 
@@ -74,7 +74,7 @@ describe('Habit Today', () => {
         testDb
       )
 
-      todayHabits = await getTodayHabits(user.id, testDb)
+      todayHabits = await getTodayHabits(user.id, undefined, testDb)
       expect(todayHabits[0]?.isCompleted).toBe(true)
       expect(todayHabits[0]?.checks).toHaveLength(2)
     })
@@ -85,7 +85,7 @@ describe('Habit Today', () => {
       const expired = await createTestHabit(user.id, { name: 'Expired' })
       await setHabitPeriod(expired.id, { startDate: '2020-01-01', endDate: '2020-12-31' }, testDb)
 
-      const todayHabits = await getTodayHabits(user.id, testDb)
+      const todayHabits = await getTodayHabits(user.id, undefined, testDb)
 
       expect(todayHabits).toHaveLength(1)
       expect(todayHabits[0]?.habit.name).toBe('Active')
@@ -95,9 +95,9 @@ describe('Habit Today', () => {
       await createTestHabit(user.id, { name: 'Now' })
 
       const future = await createTestHabit(user.id, { name: 'Future' })
-      await setHabitPeriod(future.id, { startDate: '2099-01-01' }, testDb)
+      await setHabitPeriod(future.id, { startDate: '2099-01-01', endDate: '2099-12-31' }, testDb)
 
-      const todayHabits = await getTodayHabits(user.id, testDb)
+      const todayHabits = await getTodayHabits(user.id, undefined, testDb)
 
       expect(todayHabits).toHaveLength(1)
       expect(todayHabits[0]?.habit.name).toBe('Now')
@@ -111,9 +111,13 @@ describe('Habit Today', () => {
       const inactiveMonth = currentMonth === 12 ? 1 : 12
 
       const seasonal = await createTestHabit(user.id, { name: 'Seasonal' })
-      await setHabitPeriod(seasonal.id, { activeMonths: [inactiveMonth] }, testDb)
+      await setHabitPeriod(
+        seasonal.id,
+        { startDate: '2000-01-01', endDate: '2099-12-31', activeMonths: [inactiveMonth] },
+        testDb
+      )
 
-      const todayHabits = await getTodayHabits(user.id, testDb)
+      const todayHabits = await getTodayHabits(user.id, undefined, testDb)
 
       expect(todayHabits).toHaveLength(1)
       expect(todayHabits[0]?.habit.name).toBe('Always')
@@ -123,9 +127,13 @@ describe('Habit Today', () => {
       const currentMonth = new Date().getMonth() + 1
 
       const seasonal = await createTestHabit(user.id, { name: 'In Season' })
-      await setHabitPeriod(seasonal.id, { activeMonths: [currentMonth] }, testDb)
+      await setHabitPeriod(
+        seasonal.id,
+        { startDate: '2000-01-01', endDate: '2099-12-31', activeMonths: [currentMonth] },
+        testDb
+      )
 
-      const todayHabits = await getTodayHabits(user.id, testDb)
+      const todayHabits = await getTodayHabits(user.id, undefined, testDb)
 
       expect(todayHabits).toHaveLength(1)
       expect(todayHabits[0]?.habit.name).toBe('In Season')
@@ -136,7 +144,7 @@ describe('Habit Today', () => {
       await createTestHabit(user.id, { name: 'Mine' })
       await createTestHabit(stranger.id, { name: 'Not Mine' })
 
-      const todayHabits = await getTodayHabits(user.id, testDb)
+      const todayHabits = await getTodayHabits(user.id, undefined, testDb)
 
       expect(todayHabits).toHaveLength(1)
       expect(todayHabits[0]?.habit.name).toBe('Mine')

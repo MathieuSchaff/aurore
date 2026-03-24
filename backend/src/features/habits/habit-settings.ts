@@ -1,16 +1,18 @@
-import { eq } from 'drizzle-orm'
+import { and, eq } from 'drizzle-orm'
 
+import type { Database } from '../../db'
 import { db } from '../../db'
 import {
   type HabitPeriod,
   type HabitReminder,
   type HabitTiming,
   habitPeriods,
+  habitProducts,
   habitReminders,
   habitSchedules,
+  habits,
   habitTimings,
 } from '../../db/schema/habits'
-import type { Database } from '../../db'
 import { HabitError } from './habit-error'
 
 // ─── FREQUENCY ───────────────────────────────────────────
@@ -101,7 +103,7 @@ export async function setHabitTimings(
 
 export async function setHabitReminders(
   habitId: string,
-  reminders: { beforeMinutes: number }[],
+  reminders: { timingId: string; beforeMinutes: number }[],
   database: Database = db
 ): Promise<HabitReminder[]> {
   // Find the schedule → timings for this habit
@@ -122,21 +124,27 @@ export async function setHabitReminders(
     throw new HabitError('timing_not_found')
   }
 
+  // Validate that all timingIds belong to this habit's schedule
+  const validTimingIds = new Set(timings.map((t) => t.id))
+  for (const r of reminders) {
+    if (!validTimingIds.has(r.timingId)) {
+      throw new HabitError('timing_not_found')
+    }
+  }
+
   return database.transaction(async (tx) => {
     // Delete all existing reminders for all timings of this habit
     for (const timing of timings) {
       await tx.delete(habitReminders).where(eq(habitReminders.timingId, timing.id))
     }
 
-    if (reminders.length === 0 || timings.length === 0) return []
+    if (reminders.length === 0) return []
 
-    // Associate each reminder with the first timing (simple approach)
-    const firstTimingId = timings[0]!.id
     return tx
       .insert(habitReminders)
       .values(
         reminders.map((r) => ({
-          timingId: firstTimingId,
+          timingId: r.timingId,
           beforeMinutes: r.beforeMinutes,
         }))
       )
@@ -183,4 +191,40 @@ export async function setHabitPeriod(
   }
 
   return result
+}
+
+// ─── PRODUCTS ───────────────────────────────────────────
+
+export async function setHabitProducts(
+  habitId: string,
+  userId: string,
+  productsInput: { productId: string; dosage?: string; order?: number }[],
+  database: Database = db
+) {
+  // Verify ownership
+  const habit = await database.query.habits.findFirst({
+    where: and(eq(habits.id, habitId), eq(habits.userId, userId)),
+  })
+
+  if (!habit) {
+    throw new HabitError('habit_not_found')
+  }
+
+  return database.transaction(async (tx) => {
+    await tx.delete(habitProducts).where(eq(habitProducts.habitId, habitId))
+
+    if (productsInput.length === 0) return []
+
+    return tx
+      .insert(habitProducts)
+      .values(
+        productsInput.map((p) => ({
+          habitId,
+          productId: p.productId,
+          dosage: p.dosage ?? null,
+          order: p.order ?? 0,
+        }))
+      )
+      .returning()
+  })
 }

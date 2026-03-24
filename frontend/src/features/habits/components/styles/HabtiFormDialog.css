@@ -59,8 +59,7 @@
 @media (min-width: 640px) {
   .habit-form-dialog {
     border-radius: var(--radius-lg);
-    animation: dialog-in var(--transition-base)
-      cubic-bezier(0.34, 1.56, 0.64, 1);
+    animation: dialog-in var(--transition-base) cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 }
 
@@ -714,13 +713,18 @@
 }
 
 @media (max-width: 640px) {
+  .habit-form-wrapper {
+    align-items: stretch;
+  }
+
   .habit-form-dialog {
-    max-height: 90dvh;
-    overflow-y: auto;
+    max-height: 100dvh;
+    border-radius: 0;
   }
 
   .habit-form {
     padding: var(--space-4);
     gap: var(--space-5);
+    padding-bottom: calc(var(--space-4) + env(safe-area-inset-bottom));
   }
 }

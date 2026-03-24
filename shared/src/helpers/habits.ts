@@ -1,5 +1,5 @@
-import type { HttpStatus } from '../types/api'
 import type { HabitErrorCode } from '../types/habits'
+import type { HttpStatus } from './constants'
 import { HTTP_STATUS } from './constants'
 
 /**
@@ -33,5 +33,8 @@ export const habitErrorMapping = {
   product_not_found: HTTP_STATUS.NOT_FOUND,
   unauthorized_access: HTTP_STATUS.FORBIDDEN,
   invalid_date_range: HTTP_STATUS.BAD_REQUEST,
+  product_set_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+  reorder_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+  check_products_query_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
   database_error: HTTP_STATUS.INTERNAL_SERVER_ERROR,
 } as const satisfies Record<HabitErrorCode, HttpStatus>

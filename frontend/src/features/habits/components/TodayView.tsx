@@ -1,5 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { Check, ChevronRight } from 'lucide-react'
+import { useState } from 'react'
+import { toast } from 'sonner'
 
 import { habitQueries, useToggleCheck } from '../../../lib/queries/habits'
 import { StockBadge } from './StockBadge'
@@ -12,6 +14,7 @@ export function TodayView({ onSelectHabit }: TodayViewProps) {
   const todayStr = new Date().toISOString().split('T')[0]
   const { data: todayData, isLoading, error } = useQuery(habitQueries.today(todayStr))
   const toggleCheck = useToggleCheck()
+  const [editingProductsFor, setEditingProductsFor] = useState<string | null>(null)
 
   if (isLoading) return <HabitsSkeleton />
   if (error) return <ErrorState message="Impossible de charger les habitudes du jour." />
@@ -36,8 +39,11 @@ export function TodayView({ onSelectHabit }: TodayViewProps) {
       })),
       products: (item.products ?? []).map((p) => ({
         id: p.id,
+        habitProductId: p.id,
+        productId: p.productId,
         name: p.product.name,
         unit: p.product.unit,
+        dosage: p.dosage,
         qty: p.stock?.qty ?? null,
         usagesPerDay,
       })),
@@ -48,11 +54,21 @@ export function TodayView({ onSelectHabit }: TodayViewProps) {
   const completed = habits.filter((h) => h.isCompletedToday)
   const progress = habits.length > 0 ? (completed.length / habits.length) * 100 : 0
 
-  function handleToggle(habitId: string, timingId?: string) {
+  function handleToggle(
+    habitId: string,
+    timingId?: string,
+    products?: Array<{ habitProductId: string; productId: string }>
+  ) {
     toggleCheck.mutate({
       habitId,
       date: todayStr,
       timingId,
+      products: products?.map((p) => ({
+        habitProductId: p.habitProductId,
+        productId: p.productId,
+        used: true,
+        actualDosage: undefined,
+      })),
     })
   }
 
@@ -75,13 +91,24 @@ export function TodayView({ onSelectHabit }: TodayViewProps) {
           <h2 className="today-section__heading">A faire</h2>
           <div className="today-section__list">
             {pending.map((habit) => (
-              <HabitRow
-                key={habit.id}
-                habit={habit}
-                onToggle={handleToggle}
-                onSelect={onSelectHabit}
-                isToggling={toggleCheck.isPending}
-              />
+              <>
+                <HabitRow
+                  key={habit.id}
+                  habit={habit}
+                  onToggle={handleToggle}
+                  onSelect={onSelectHabit}
+                  isToggling={toggleCheck.isPending}
+                  isEditingProducts={editingProductsFor === habit.id}
+                  onEditProducts={() => setEditingProductsFor(habit.id)}
+                />
+                {editingProductsFor === habit.id && (
+                  <ProductCheckEditor
+                    habit={habit}
+                    date={todayStr}
+                    onClose={() => setEditingProductsFor(null)}
+                  />
+                )}
+              </>
             ))}
           </div>
         </section>
@@ -93,13 +120,24 @@ export function TodayView({ onSelectHabit }: TodayViewProps) {
           <h2 className="today-section__heading">Termine</h2>
           <div className="today-section__list">
             {completed.map((habit) => (
-              <HabitRow
-                key={habit.id}
-                habit={habit}
-                onToggle={handleToggle}
-                onSelect={onSelectHabit}
-                isToggling={toggleCheck.isPending}
-              />
+              <>
+                <HabitRow
+                  key={habit.id}
+                  habit={habit}
+                  onToggle={handleToggle}
+                  onSelect={onSelectHabit}
+                  isToggling={toggleCheck.isPending}
+                  isEditingProducts={editingProductsFor === habit.id}
+                  onEditProducts={() => setEditingProductsFor(habit.id)}
+                />
+                {editingProductsFor === habit.id && (
+                  <ProductCheckEditor
+                    habit={habit}
+                    date={todayStr}
+                    onClose={() => setEditingProductsFor(null)}
+                  />
+                )}
+              </>
             ))}
           </div>
         </section>
@@ -119,16 +157,38 @@ interface HabitRowProps {
     color?: string | null
     isCompletedToday?: boolean
     timings?: Array<{ id: string; time: string; label?: string | null; isChecked?: boolean }>
-    products?: Array<{ id: string; name: string; unit: string; qty: number | null; usagesPerDay: number }>
+    products?: Array<{
+      id: string
+      habitProductId: string
+      productId: string
+      name: string
+      unit: string
+      dosage: string | null
+      qty: number | null
+      usagesPerDay: number
+    }>
   }
-  onToggle: (habitId: string, timingId?: string) => void
+  onToggle: (
+    habitId: string,
+    timingId?: string,
+    products?: Array<{ habitProductId: string; productId: string }>
+  ) => void
   onSelect: (id: string) => void
   isToggling: boolean
+  isEditingProducts: boolean
+  onEditProducts: () => void
 }
 
-function HabitRow({ habit, onToggle, onSelect, isToggling }: HabitRowProps) {
-  const hasTimings = habit.timings && habit.timings.length > 0
-  const hasProducts = habit.products && habit.products.some((p) => p.qty !== null)
+function HabitRow({
+  habit,
+  onToggle,
+  onSelect,
+  isToggling,
+  isEditingProducts,
+  onEditProducts,
+}: HabitRowProps) {
+  const hasTimings = (habit.timings?.length ?? 0) > 0
+  const hasProducts = habit.products?.some((p) => p.qty !== null) ?? false
   const accentColor = habit.color ?? '#f59e0b'
 
   return (
@@ -138,7 +198,7 @@ function HabitRow({ habit, onToggle, onSelect, isToggling }: HabitRowProps) {
           <button
             type="button"
             disabled={isToggling}
-            onClick={() => onToggle(habit.id)}
+            onClick={() => onToggle(habit.id, undefined, habit.products)}
             className="habit-row__checkbox"
             style={{
               borderColor: habit.isCompletedToday ? accentColor : 'rgb(63 63 70)',
@@ -161,12 +221,12 @@ function HabitRow({ habit, onToggle, onSelect, isToggling }: HabitRowProps) {
       {hasTimings && (
         <div className="habit-row__timings">
           <div className="habit-row__timings-list">
-            {habit.timings!.map((timing) => (
+            {habit.timings?.map((timing) => (
               <button
                 key={timing.id}
                 type="button"
                 disabled={isToggling}
-                onClick={() => onToggle(habit.id, timing.id)}
+                onClick={() => onToggle(habit.id, timing.id, habit.products)}
                 className="habit-timing-btn"
                 style={{
                   backgroundColor: timing.isChecked ? `${accentColor}20` : 'rgb(39 39 42 / 0.5)',
@@ -189,13 +249,131 @@ function HabitRow({ habit, onToggle, onSelect, isToggling }: HabitRowProps) {
       {/* Stock badges */}
       {hasProducts && (
         <div className="habit-row__products">
-          {habit.products!
-            .filter((p) => p.qty !== null)
+          {habit.products
+            ?.filter((p) => p.qty !== null)
             .map((p) => (
-              <StockBadge key={p.id} qty={p.qty!} usagesPerDay={p.usagesPerDay} unit={p.unit} />
+              <StockBadge key={p.id} qty={p.qty ?? 0} usagesPerDay={p.usagesPerDay} unit={p.unit} />
             ))}
         </div>
       )}
+
+      {habit.isCompletedToday &&
+        habit.products &&
+        habit.products.length > 0 &&
+        !isEditingProducts && (
+          <button type="button" onClick={onEditProducts} className="habit-row__edit-products-btn">
+            Modifier les produits
+          </button>
+        )}
+    </div>
+  )
+}
+
+// ── Product Check Editor ──
+
+function ProductCheckEditor({
+  habit,
+  date,
+  onClose,
+}: {
+  habit: {
+    id: string
+    products: Array<{
+      habitProductId: string
+      productId: string
+      name: string
+      dosage: string | null
+    }>
+  }
+  date: string
+  onClose: () => void
+}) {
+  const toggleCheck = useToggleCheck()
+  const [entries, setEntries] = useState(
+    habit.products.map((p) => ({
+      habitProductId: p.habitProductId,
+      productId: p.productId,
+      name: p.name,
+      used: true,
+      actualDosage: p.dosage ?? '',
+    }))
+  )
+
+  function handleSave() {
+    // Two-call approach: uncheck first, then re-check with updated products.
+    // NOTE: This causes a brief visual flicker (habit appears unchecked then rechecked)
+    // because the optimistic update toggles state twice. This is a known trade-off —
+    // the backend has no upsert path, so two calls are required.
+    toggleCheck.mutate(
+      { habitId: habit.id, date: date },
+      {
+        onSuccess: () => {
+          toggleCheck.mutate(
+            {
+              habitId: habit.id,
+              date: date,
+              products: entries.map((e) => ({
+                habitProductId: e.habitProductId,
+                productId: e.productId,
+                used: e.used,
+                actualDosage: e.actualDosage.trim() || undefined,
+              })),
+            },
+            {
+              onSuccess: () => {
+                toast.success('Produits mis a jour')
+                onClose()
+              },
+            }
+          )
+        },
+      }
+    )
+  }
+
+  return (
+    <div className="product-check-editor">
+      {entries.map((entry, i) => (
+        <div key={entry.habitProductId} className="product-check-editor__row">
+          <label className="product-check-editor__label">
+            <input
+              type="checkbox"
+              checked={entry.used}
+              onChange={(e) => {
+                const next = [...entries]
+                next[i] = { ...next[i], used: e.target.checked }
+                setEntries(next)
+              }}
+              className="product-check-editor__checkbox"
+            />
+            {entry.name}
+          </label>
+          <input
+            type="text"
+            value={entry.actualDosage}
+            onChange={(e) => {
+              const next = [...entries]
+              next[i] = { ...next[i], actualDosage: e.target.value }
+              setEntries(next)
+            }}
+            placeholder="Dosage"
+            className="habit-form__input habit-form__input--sm"
+          />
+        </div>
+      ))}
+      <div className="product-check-editor__actions">
+        <button type="button" onClick={onClose} className="habit-form__cancel-btn">
+          Annuler
+        </button>
+        <button
+          type="button"
+          onClick={handleSave}
+          disabled={toggleCheck.isPending}
+          className="habit-form__submit-btn"
+        >
+          {toggleCheck.isPending ? 'Mise a jour...' : 'Enregistrer'}
+        </button>
+      </div>
     </div>
   )
 }
