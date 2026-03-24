@@ -1,6 +1,6 @@
 import { type QueryKey, type UseQueryOptions, useQuery } from '@tanstack/react-query'
 import { Search } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import './SearchCombobox.css'
 
 export interface SearchComboboxResult {
@@ -32,7 +32,9 @@ export function SearchCombobox<TItem, TQueryKey extends QueryKey>({
   const [query, setQuery] = useState('')
   const [debouncedQuery, setDebouncedQuery] = useState('')
   const [isOpen, setIsOpen] = useState(false)
+  const [highlightedIndex, setHighlightedIndex] = useState(-1)
   const containerRef = useRef<HTMLDivElement>(null)
+  const listboxId = useId()
 
   // Simple inline debounce to avoid another dependency or custom hook overhead for now
   useEffect(() => {
@@ -60,47 +62,88 @@ export function SearchCombobox<TItem, TQueryKey extends QueryKey>({
   function handleSelect(result: SearchComboboxResult) {
     setQuery('')
     setIsOpen(false)
+    setHighlightedIndex(-1)
     onSelect(result.slug, result)
   }
 
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (!isOpen || results.length === 0) return
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault()
+      setHighlightedIndex((prev) => (prev < results.length - 1 ? prev + 1 : 0))
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault()
+      setHighlightedIndex((prev) => (prev > 0 ? prev - 1 : results.length - 1))
+    } else if (e.key === 'Enter' || e.key === 'Tab') {
+      if (highlightedIndex >= 0 && highlightedIndex < results.length) {
+        e.preventDefault()
+        handleSelect(results[highlightedIndex])
+      } else if (e.key === 'Enter' && results.length > 0) {
+        e.preventDefault()
+        handleSelect(results[0])
+      }
+    } else if (e.key === 'Escape') {
+      setIsOpen(false)
+      setHighlightedIndex(-1)
+    }
+  }
+
   const showDropdown = isOpen && debouncedQuery.length >= minChars
+  const hasResults = showDropdown && !isFetching && results.length > 0
+  const activeDescendant =
+    highlightedIndex >= 0 ? `${listboxId}-option-${highlightedIndex}` : undefined
 
   return (
     <div className="search-combobox" ref={containerRef}>
       <div className="search-combobox__input-wrap">
-        <Search size={15} className="search-combobox__icon" />
+        <Search size={15} className="search-combobox__icon" aria-hidden="true" />
         <input
           type="text"
+          role="combobox"
           className="search-combobox__input"
           placeholder={placeholder}
           value={query}
           onChange={(e) => {
             setQuery(e.target.value)
             setIsOpen(true)
+            setHighlightedIndex(-1)
           }}
+          onKeyDown={handleKeyDown}
           onFocus={() => query.length >= minChars && setIsOpen(true)}
+          autoComplete="off"
+          aria-expanded={hasResults}
+          aria-controls={listboxId}
+          aria-activedescendant={activeDescendant}
+          aria-autocomplete="list"
         />
       </div>
 
       {showDropdown && (
-        <ul className="search-combobox__dropdown">
+        <ul id={listboxId} role="listbox" className="search-combobox__dropdown">
           {isFetching ? (
-            <li className="search-combobox__state">Recherche…</li>
+            <li className="search-combobox__state" role="status">
+              Recherche…
+            </li>
           ) : results.length === 0 ? (
-            <li className="search-combobox__state">Aucun résultat</li>
+            <li className="search-combobox__state" role="status">
+              Aucun résultat
+            </li>
           ) : (
-            results.map((item) => (
-              <li key={item.id}>
-                <button
-                  type="button"
-                  className="search-combobox__option"
-                  onClick={() => handleSelect(item)}
-                >
-                  <span className="search-combobox__label">{item.label}</span>
-                  {item.sublabel && (
-                    <span className="search-combobox__sublabel">{item.sublabel}</span>
-                  )}
-                </button>
+            results.map((item, index) => (
+              <li
+                key={item.id}
+                id={`${listboxId}-option-${index}`}
+                role="option"
+                aria-selected={index === highlightedIndex}
+                className={`search-combobox__option${index === highlightedIndex ? ' search-combobox__option--highlighted' : ''}`}
+                onMouseDown={(e) => e.preventDefault()}
+                onClick={() => handleSelect(item)}
+              >
+                <span className="search-combobox__label">{item.label}</span>
+                {item.sublabel && (
+                  <span className="search-combobox__sublabel">{item.sublabel}</span>
+                )}
               </li>
             ))
           )}

@@ -6,18 +6,16 @@ import { Check, Eye, EyeOff, Lock, Mail, X } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import z from 'zod'
 
-import { useSignup } from '../../../lib/queries/auth'
+import { useSignup } from '../../../../lib/queries/auth'
 
 type FieldErrors = Partial<Record<keyof AuthInput | 'confirmPassword' | 'form', string>>
 
 const PASSWORD_RULES = [
   { key: 'length', label: '8 caractères minimum', test: (v: string) => v.length >= 8 },
-  { key: 'number', label: 'Un chiffre (0-9) ou symbole', test: (v: string) => /[\d\W]/.test(v) },
-  {
-    key: 'case',
-    label: 'Minuscule (a-z) et majuscule (A-Z)',
-    test: (v: string) => /[a-z]/.test(v) && /[A-Z]/.test(v),
-  },
+  { key: 'lower', label: 'Une minuscule (a-z)', test: (v: string) => /[a-z]/.test(v) },
+  { key: 'upper', label: 'Une majuscule (A-Z)', test: (v: string) => /[A-Z]/.test(v) },
+  { key: 'number', label: 'Un chiffre (0-9)', test: (v: string) => /[0-9]/.test(v) },
+  { key: 'special', label: 'Un caractère spécial', test: (v: string) => /[^a-zA-Z0-9]/.test(v) },
 ] as const
 
 export const SignupPage = () => {

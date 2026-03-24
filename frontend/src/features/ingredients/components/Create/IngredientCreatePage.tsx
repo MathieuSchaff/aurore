@@ -13,7 +13,7 @@ export function IngredientCreatePage() {
 
       <div className="ingredient-edit-page__content">
         <div className="ingredient-edit-page__topbar">
-          <Link to="/ingredients/" className="ingredient-edit-page__back">
+          <Link to="/ingredients" className="ingredient-edit-page__back">
             <ArrowLeft size={16} />
             Retour
           </Link>

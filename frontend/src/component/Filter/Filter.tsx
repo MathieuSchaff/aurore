@@ -90,8 +90,6 @@ function SearchSelect({
   const inputRef = useRef<HTMLInputElement>(null)
   // pour lier l'input a la liste
   const listboxId = useId()
-  //  Les options, je veux pas celle sélectionnés fdéjà
-  const unselectedOptions = options.filter((o) => !selected.includes(o.value))
   // si l'utilisateur a taper quelque chose => on prend les options qui sont pas déjà selectionnés
   const filtered = useMemo(() => {
     const unselected = options.filter((o) => !selected.includes(o.value))
