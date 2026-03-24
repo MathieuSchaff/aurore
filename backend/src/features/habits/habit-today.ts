@@ -1,12 +1,15 @@
-import { and, eq, inArray } from 'drizzle-orm'
+import { and, count, eq, inArray, isNull } from 'drizzle-orm'
 
+import type { Database } from '../../db'
 import { db } from '../../db'
 import type { HabitCheck } from '../../db/schema/habits'
-import { productStock, products } from '../../db/schema/products'
+import { products } from '../../db/schema/products'
+import { purchases } from '../../db/schema/purchases'
+import { userProducts } from '../../db/schema/user-products'
 import { getToday } from '../../utils/dates'
 import { getUserChecksForDate } from './habit-checks'
 import { getUserHabitsWithRelations } from './habit-crud'
-import type { Database } from '../../db'
+import { isHabitDue } from './habit-frequency-logic'
 
 export async function getTodayHabits(userId: string, dateParam?: string, database: Database = db) {
   const today = dateParam ?? getToday()
@@ -15,16 +18,22 @@ export async function getTodayHabits(userId: string, dateParam?: string, databas
 
   const userHabits = await getUserHabitsWithRelations(userId, database)
 
-  // Filtrer par période active
+  // Filtrer par période active ET par fréquence
   const activeHabits = userHabits.filter((h) => {
-    if (!h.period) return true
-
-    if (h.period.activeMonths?.length) {
-      if (!h.period.activeMonths.includes(currentMonth)) return false
+    // 1. Filtrer par periode (startDate, endDate, activeMonths)
+    if (h.period) {
+      if (h.period.activeMonths?.length) {
+        if (!h.period.activeMonths.includes(currentMonth)) return false
+      }
+      if (h.period.startDate && today < h.period.startDate) return false
+      if (h.period.endDate && today > h.period.endDate) return false
     }
 
-    if (h.period.startDate && today < h.period.startDate) return false
-    if (h.period.endDate && today > h.period.endDate) return false
+    // 2. Filtrer par frequence (Daily, Weekly, Monthly, Every N Days)
+    if (h.frequency) {
+      const freq = h.frequency as any
+      if (!isHabitDue(freq, today, h.createdAt)) return false
+    }
 
     return true
   })
@@ -43,24 +52,35 @@ export async function getTodayHabits(userId: string, dateParam?: string, databas
     ...new Set(activeHabits.flatMap((h) => h.products.map((p) => p.productId))),
   ]
 
-  const stockMap = new Map<string, number>()
+  const userProductMap = new Map<string, number>()
   const productInfoMap = new Map<string, { name: string; brand: string; unit: string }>()
 
   if (allProductIds.length > 0) {
-    const [stockRows, productRows] = await Promise.all([
+    const [userProductRows, productRows] = await Promise.all([
       database
-        .select({ productId: productStock.productId, qty: productStock.qty })
-        .from(productStock)
-        .where(
-          and(eq(productStock.userId, userId), inArray(productStock.productId, allProductIds))
-        ),
+        .select({
+          productId: userProducts.productId,
+          stockCount: count(purchases.id),
+        })
+        .from(userProducts)
+        .leftJoin(
+          purchases,
+          and(eq(purchases.userProductId, userProducts.id), isNull(purchases.finishedAt))
+        )
+        .where(and(eq(userProducts.userId, userId), inArray(userProducts.productId, allProductIds)))
+        .groupBy(userProducts.productId),
       database
-        .select({ id: products.id, name: products.name, brand: products.brand, unit: products.unit })
+        .select({
+          id: products.id,
+          name: products.name,
+          brand: products.brand,
+          unit: products.unit,
+        })
         .from(products)
         .where(inArray(products.id, allProductIds)),
     ])
 
-    for (const row of stockRows) stockMap.set(row.productId, row.qty)
+    for (const row of userProductRows) userProductMap.set(row.productId, Number(row.stockCount))
     for (const row of productRows) productInfoMap.set(row.id, row)
   }
 
@@ -88,7 +108,7 @@ export async function getTodayHabits(userId: string, dateParam?: string, databas
         dosage: p.dosage,
         order: p.order,
         product: productInfoMap.get(p.productId) ?? { name: '', brand: '', unit: '' },
-        stock: stockMap.has(p.productId) ? { qty: stockMap.get(p.productId)! } : null,
+        stock: userProductMap.has(p.productId) ? { qty: userProductMap.get(p.productId)! } : null,
       })),
       isCompleted,
     }

@@ -169,7 +169,10 @@ export const habitPeriods = pgTable(
       .defaultNow()
       .$onUpdate(() => new Date()),
   },
-  (t) => [index('habit_periods_habit_idx').on(t.habitId)]
+  (t) => [
+    uniqueIndex('habit_periods_habit_unique').on(t.habitId),
+    index('habit_periods_habit_idx').on(t.habitId),
+  ]
 )
 
 // ─── Checks (logs de complétion) ────────────────────────

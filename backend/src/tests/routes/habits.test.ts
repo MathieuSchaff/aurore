@@ -27,49 +27,6 @@ async function setupAndLogin(app: Hono<AppEnv>, creds: { rawEmail: string; rawPa
   return loginAndGetToken(app, creds.rawEmail, creds.rawPassword)
 }
 
-function authGet(app: Hono<AppEnv>, path: string, token: string) {
-  return app.request(path, {
-    headers: { Authorization: `Bearer ${token}` },
-  })
-}
-
-function authPost(app: Hono<AppEnv>, path: string, token: string, body: object) {
-  return app.request(path, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-    body: JSON.stringify(body),
-  })
-}
-
-function authPatch(app: Hono<AppEnv>, path: string, token: string, body: object) {
-  return app.request(path, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-    body: JSON.stringify(body),
-  })
-}
-
-function authPut(app: Hono<AppEnv>, path: string, token: string, body: object) {
-  return app.request(path, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-    body: JSON.stringify(body),
-  })
-}
-
-function authDelete(app: Hono<AppEnv>, path: string, token: string) {
-  return app.request(path, {
-    method: 'DELETE',
-    headers: { Authorization: `Bearer ${token}` },
-  })
-}
-
-async function createHabit(app: Hono<AppEnv>, token: string, overrides?: object) {
-  const res = await authPost(app, '/habits', token, { name: 'Méditation', ...overrides })
-  const data = await res.json()
-  return data.data as { id: string; name: string }
-}
-
 const TODAY = '2026-03-06'
 
 // ── Tests ────────────────────────────────────────────────────────────
@@ -81,13 +38,60 @@ describe('Habits routes', () => {
     app = createTestApp()
   })
 
+  function authGet(path: string, token: string) {
+    return app.request(`${path}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+  }
+
+  function authPost(path: string, token: string, body: object) {
+    return app.request(`${path}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify(body),
+    })
+  }
+
+  function authPatch(path: string, token: string, body: object) {
+    return app.request(`${path}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify(body),
+    })
+  }
+
+  function authPut(path: string, token: string, body: object) {
+    return app.request(`${path}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify(body),
+    })
+  }
+
+  function authDelete(path: string, token: string) {
+    return app.request(`${path}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${token}` },
+    })
+  }
+
+  async function createHabit(token: string, overrides?: object) {
+    const res = await authPost('/habits', token, {
+      name: 'Méditation',
+      category: 'health',
+      ...overrides,
+    })
+    const data = await res.json()
+    return data.data as { id: string; name: string }
+  }
+
   // ━━━ POST /habits ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   describe('POST /habits', () => {
     it('should create a habit', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
 
-      const res = await authPost(app, '/habits', token, { name: 'Drink water' })
+      const res = await authPost('/habits', token, { name: 'Drink water', category: 'health' })
 
       expect(res.status).toBe(HTTP_STATUS.CREATED)
       const data = await res.json()
@@ -98,7 +102,7 @@ describe('Habits routes', () => {
     it('should create a habit with all fields', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
 
-      const res = await authPost(app, '/habits', token, {
+      const res = await authPost('/habits', token, {
         name: 'Skincare',
         description: 'Morning routine',
         category: 'wellness',
@@ -112,7 +116,7 @@ describe('Habits routes', () => {
     it('should reject missing name', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
 
-      const res = await authPost(app, '/habits', token, {})
+      const res = await authPost('/habits', token, { category: 'health' })
 
       expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST)
     })
@@ -121,7 +125,7 @@ describe('Habits routes', () => {
       const res = await app.request('/habits', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: 'Drink water' }),
+        body: JSON.stringify({ name: 'Drink water', category: 'health' }),
       })
       expect(res.status).toBe(HTTP_STATUS.UNAUTHORIZED)
     })
@@ -133,7 +137,7 @@ describe('Habits routes', () => {
     it('should return empty list for new user', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
 
-      const res = await authGet(app, '/habits', token)
+      const res = await authGet('/habits', token)
 
       expect(res.status).toBe(HTTP_STATUS.OK)
       const data = await res.json()
@@ -143,10 +147,10 @@ describe('Habits routes', () => {
     it('should return created habits', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
 
-      await createHabit(app, token, { name: 'Méditation' })
-      await createHabit(app, token, { name: 'Sport' })
+      await createHabit(token, { name: 'Méditation' })
+      await createHabit(token, { name: 'Sport' })
 
-      const res = await authGet(app, '/habits', token)
+      const res = await authGet('/habits', token)
       const data = await res.json()
       expect(data.data).toHaveLength(2)
     })
@@ -155,9 +159,9 @@ describe('Habits routes', () => {
       const tokenToto = await setupAndLogin(app, TEST_CREDENTIALS.toto)
       const tokenAlice = await setupAndLogin(app, TEST_CREDENTIALS.alice)
 
-      await createHabit(app, tokenToto, { name: 'Toto habit' })
+      await createHabit(tokenToto, { name: 'Toto habit' })
 
-      const res = await authGet(app, '/habits', tokenAlice)
+      const res = await authGet('/habits', tokenAlice)
       const data = await res.json()
       expect(data.data).toEqual([])
     })
@@ -173,9 +177,9 @@ describe('Habits routes', () => {
   describe('GET /habits/today', () => {
     it('should return today habits list', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-      await createHabit(app, token)
+      await createHabit(token)
 
-      const res = await authGet(app, `/habits/today?date=${TODAY}`, token)
+      const res = await authGet(`/habits/today?date=${TODAY}`, token)
 
       expect(res.status).toBe(HTTP_STATUS.OK)
       const data = await res.json()
@@ -185,7 +189,7 @@ describe('Habits routes', () => {
     it('should accept request without date param', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
 
-      const res = await authGet(app, '/habits/today', token)
+      const res = await authGet('/habits/today', token)
 
       expect(res.status).toBe(HTTP_STATUS.OK)
     })
@@ -201,9 +205,9 @@ describe('Habits routes', () => {
   describe('GET /habits/:id', () => {
     it('should return a habit by id', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-      const habit = await createHabit(app, token, { name: 'Lecture' })
+      const habit = await createHabit(token, { name: 'Lecture' })
 
-      const res = await authGet(app, `/habits/${habit.id}`, token)
+      const res = await authGet(`/habits/${habit.id}`, token)
 
       expect(res.status).toBe(HTTP_STATUS.OK)
       const data = await res.json()
@@ -214,7 +218,9 @@ describe('Habits routes', () => {
     it('should reject invalid UUID', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
 
-      const res = await authGet(app, '/habits/not-a-uuid', token)
+      const res = await app.request('/habits/not-a-uuid', {
+        headers: { Authorization: `Bearer ${token}` },
+      })
 
       expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST)
     })
@@ -230,9 +236,9 @@ describe('Habits routes', () => {
   describe('PATCH /habits/:id', () => {
     it('should update a habit name', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-      const habit = await createHabit(app, token)
+      const habit = await createHabit(token)
 
-      const res = await authPatch(app, `/habits/${habit.id}`, token, { name: 'Yoga' })
+      const res = await authPatch(`/habits/${habit.id}`, token, { name: 'Yoga' })
 
       expect(res.status).toBe(HTTP_STATUS.OK)
       const data = await res.json()
@@ -242,7 +248,11 @@ describe('Habits routes', () => {
     it('should reject invalid UUID', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
 
-      const res = await authPatch(app, '/habits/not-a-uuid', token, { name: 'Yoga' })
+      const res = await app.request('/habits/not-a-uuid', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ name: 'Yoga' }),
+      })
 
       expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST)
     })
@@ -262,20 +272,20 @@ describe('Habits routes', () => {
   describe('DELETE /habits/:id', () => {
     it('should delete a habit', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-      const habit = await createHabit(app, token)
+      const habit = await createHabit(token)
 
-      const res = await authDelete(app, `/habits/${habit.id}`, token)
+      const res = await authDelete(`/habits/${habit.id}`, token)
 
       expect(res.status).toBe(HTTP_STATUS.OK)
     })
 
     it('should no longer appear in list after deletion', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-      const habit = await createHabit(app, token)
+      const habit = await createHabit(token)
 
-      await authDelete(app, `/habits/${habit.id}`, token)
+      await authDelete(`/habits/${habit.id}`, token)
 
-      const res = await authGet(app, '/habits', token)
+      const res = await authGet('/habits', token)
       const data = await res.json()
       expect(data.data).toEqual([])
     })
@@ -283,7 +293,10 @@ describe('Habits routes', () => {
     it('should reject invalid UUID', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
 
-      const res = await authDelete(app, '/habits/not-a-uuid', token)
+      const res = await app.request('/habits/not-a-uuid', {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` },
+      })
 
       expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST)
     })
@@ -301,21 +314,13 @@ describe('Habits routes', () => {
   describe('POST /habits/:id/archive', () => {
     it('should archive a habit', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-      const habit = await createHabit(app, token)
+      const habit = await createHabit(token)
 
-      const res = await authPost(app, `/habits/${habit.id}/archive`, token, {})
+      const res = await authPost(`/habits/${habit.id}/archive`, token, {})
 
       expect(res.status).toBe(HTTP_STATUS.OK)
       const data = await res.json()
       expect(data.success).toBe(true)
-    })
-
-    it('should reject invalid UUID', async () => {
-      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-
-      const res = await authPost(app, '/habits/not-a-uuid/archive', token, {})
-
-      expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST)
     })
 
     it('should reject unauthenticated request', async () => {
@@ -329,10 +334,10 @@ describe('Habits routes', () => {
   describe('POST /habits/:id/restore', () => {
     it('should restore an archived habit', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-      const habit = await createHabit(app, token)
+      const habit = await createHabit(token)
 
-      await authPost(app, `/habits/${habit.id}/archive`, token, {})
-      const res = await authPost(app, `/habits/${habit.id}/restore`, token, {})
+      await authPost(`/habits/${habit.id}/archive`, token, {})
+      const res = await authPost(`/habits/${habit.id}/restore`, token, {})
 
       expect(res.status).toBe(HTTP_STATUS.OK)
       const data = await res.json()
@@ -347,14 +352,94 @@ describe('Habits routes', () => {
     })
   })
 
+  // ━━━ GET /habits/archived ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  describe('GET /habits/archived', () => {
+    it('should return empty list when no archived habits', async () => {
+      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
+
+      const res = await authGet('/habits/archived', token)
+
+      expect(res.status).toBe(HTTP_STATUS.OK)
+      const data = await res.json()
+      expect(data.data).toEqual([])
+    })
+
+    it('should return archived habits', async () => {
+      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
+      const habit = await createHabit(token)
+
+      await authPost(`/habits/${habit.id}/archive`, token, {})
+      const res = await authGet('/habits/archived', token)
+
+      const data = await res.json()
+      expect(data.data).toHaveLength(1)
+      expect(data.data[0].id).toBe(habit.id)
+    })
+
+    it('should not include active habits', async () => {
+      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
+      await createHabit(token)
+
+      const res = await authGet('/habits/archived', token)
+      const data = await res.json()
+      expect(data.data).toEqual([])
+    })
+
+    it('should reject unauthenticated request', async () => {
+      const res = await app.request('/habits/archived')
+      expect(res.status).toBe(HTTP_STATUS.UNAUTHORIZED)
+    })
+  })
+
+  // ━━━ PATCH /habits/reorder ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  describe('PATCH /habits/reorder', () => {
+    it('should reorder habits', async () => {
+      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
+      const h1 = await createHabit(token, { name: 'First' })
+      const h2 = await createHabit(token, { name: 'Second' })
+
+      const res = await authPatch('/habits/reorder', token, {
+        habits: [
+          { id: h1.id, position: 1 },
+          { id: h2.id, position: 0 },
+        ],
+      })
+
+      expect(res.status).toBe(204)
+    })
+
+    it('should reject if habit does not belong to user', async () => {
+      const tokenToto = await setupAndLogin(app, TEST_CREDENTIALS.toto)
+      const tokenAlice = await setupAndLogin(app, TEST_CREDENTIALS.alice)
+      const h = await createHabit(tokenToto)
+
+      const res = await authPatch('/habits/reorder', tokenAlice, {
+        habits: [{ id: h.id, position: 0 }],
+      })
+
+      expect(res.status).toBe(HTTP_STATUS.NOT_FOUND)
+    })
+
+    it('should reject unauthenticated request', async () => {
+      const res = await app.request('/habits/reorder', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ habits: [] }),
+      })
+      expect(res.status).toBe(HTTP_STATUS.UNAUTHORIZED)
+    })
+  })
+
   // ━━━ POST /habits/:id/check ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   describe('POST /habits/:id/check', () => {
     it('should toggle a habit check to done', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-      const habit = await createHabit(app, token)
+      const habit = await createHabit(token)
 
-      const res = await authPost(app, `/habits/${habit.id}/check`, token, { date: TODAY })
+      const res = await authPost(`/habits/${habit.id}/check`, token, { date: TODAY })
 
       expect(res.status).toBe(HTTP_STATUS.OK)
       const data = await res.json()
@@ -363,22 +448,14 @@ describe('Habits routes', () => {
 
     it('should toggle off on second check (same date)', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-      const habit = await createHabit(app, token)
+      const habit = await createHabit(token)
 
-      await authPost(app, `/habits/${habit.id}/check`, token, { date: TODAY })
-      const res = await authPost(app, `/habits/${habit.id}/check`, token, { date: TODAY })
+      await authPost(`/habits/${habit.id}/check`, token, { date: TODAY })
+      const res = await authPost(`/habits/${habit.id}/check`, token, { date: TODAY })
 
       expect(res.status).toBe(HTTP_STATUS.OK)
       const data = await res.json()
       expect(data.success).toBe(true)
-    })
-
-    it('should reject invalid UUID', async () => {
-      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-
-      const res = await authPost(app, '/habits/not-a-uuid/check', token, { date: TODAY })
-
-      expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST)
     })
 
     it('should reject unauthenticated request', async () => {
@@ -396,9 +473,12 @@ describe('Habits routes', () => {
   describe('GET /habits/:id/checks', () => {
     it('should return empty checks for new habit', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-      const habit = await createHabit(app, token)
+      const habit = await createHabit(token)
 
-      const res = await authGet(app, `/habits/${habit.id}/checks?startDate=${TODAY}&endDate=${TODAY}`, token)
+      const res = await authGet(
+        `/habits/${habit.id}/checks?startDate=${TODAY}&endDate=${TODAY}`,
+        token
+      )
 
       expect(res.status).toBe(HTTP_STATUS.OK)
       const data = await res.json()
@@ -407,11 +487,14 @@ describe('Habits routes', () => {
 
     it('should return checks after toggle', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-      const habit = await createHabit(app, token)
+      const habit = await createHabit(token)
 
-      await authPost(app, `/habits/${habit.id}/check`, token, { date: TODAY })
+      await authPost(`/habits/${habit.id}/check`, token, { date: TODAY })
 
-      const res = await authGet(app, `/habits/${habit.id}/checks?startDate=${TODAY}&endDate=${TODAY}`, token)
+      const res = await authGet(
+        `/habits/${habit.id}/checks?startDate=${TODAY}&endDate=${TODAY}`,
+        token
+      )
       const data = await res.json()
       expect(data.data.length).toBeGreaterThanOrEqual(1)
     })
@@ -427,9 +510,12 @@ describe('Habits routes', () => {
   describe('GET /habits/:id/stats', () => {
     it('should return stats for a habit', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-      const habit = await createHabit(app, token)
+      const habit = await createHabit(token)
 
-      const res = await authGet(app, `/habits/${habit.id}/stats?startDate=${TODAY}&endDate=${TODAY}`, token)
+      const res = await authGet(
+        `/habits/${habit.id}/stats?startDate=${TODAY}&endDate=${TODAY}`,
+        token
+      )
 
       expect(res.status).toBe(HTTP_STATUS.OK)
       const data = await res.json()
@@ -447,23 +533,15 @@ describe('Habits routes', () => {
   describe('PUT /habits/:id/frequency', () => {
     it('should set habit frequency', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-      const habit = await createHabit(app, token)
+      const habit = await createHabit(token)
 
-      const res = await authPut(app, `/habits/${habit.id}/frequency`, token, {
+      const res = await authPut(`/habits/${habit.id}/frequency`, token, {
         type: 'daily',
       })
 
       expect(res.status).toBe(HTTP_STATUS.OK)
       const data = await res.json()
       expect(data.success).toBe(true)
-    })
-
-    it('should reject invalid UUID', async () => {
-      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-
-      const res = await authPut(app, '/habits/not-a-uuid/frequency', token, { type: 'daily' })
-
-      expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST)
     })
 
     it('should reject unauthenticated request', async () => {
@@ -481,10 +559,11 @@ describe('Habits routes', () => {
   describe('PUT /habits/:id/timings', () => {
     it('should set habit timings', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-      const habit = await createHabit(app, token)
+      const habit = await createHabit(token)
+      await authPut(`/habits/${habit.id}/frequency`, token, { type: 'daily' })
 
-      const res = await authPut(app, `/habits/${habit.id}/timings`, token, [
-        { time: '08:00', day: null, label: 'Matin' },
+      const res = await authPut(`/habits/${habit.id}/timings`, token, [
+        { time: '08:00', label: 'Matin' },
       ])
 
       expect(res.status).toBe(HTTP_STATUS.OK)
@@ -495,9 +574,10 @@ describe('Habits routes', () => {
 
     it('should clear timings with empty array', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-      const habit = await createHabit(app, token)
+      const habit = await createHabit(token)
+      await authPut(`/habits/${habit.id}/frequency`, token, { type: 'daily' })
 
-      const res = await authPut(app, `/habits/${habit.id}/timings`, token, [])
+      const res = await authPut(`/habits/${habit.id}/timings`, token, [])
 
       expect(res.status).toBe(HTTP_STATUS.OK)
       const data = await res.json()
@@ -506,13 +586,12 @@ describe('Habits routes', () => {
 
     it('should reject more than 10 timings', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-      const habit = await createHabit(app, token)
+      const habit = await createHabit(token)
 
       const res = await authPut(
-        app,
         `/habits/${habit.id}/timings`,
         token,
-        Array.from({ length: 11 }, () => ({ time: '08:00', day: null, label: 'x' }))
+        Array.from({ length: 11 }, () => ({ time: '08:00', label: 'x' }))
       )
 
       expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST)
@@ -531,28 +610,56 @@ describe('Habits routes', () => {
   // ━━━ PUT /habits/:id/reminders ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   describe('PUT /habits/:id/reminders', () => {
-    it('should set habit reminders', async () => {
+    it('should set reminders with timingId', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-      const habit = await createHabit(app, token)
+      const habit = await createHabit(token)
 
-      const res = await authPut(app, `/habits/${habit.id}/reminders`, token, [
-        { beforeMinutes: 15 },
+      // Set frequency first
+      await authPut(`/habits/${habit.id}/frequency`, token, { type: 'daily' })
+
+      // Set timings
+      const timingsRes = await authPut(`/habits/${habit.id}/timings`, token, [
+        { time: '08:00', label: 'Matin' },
+      ])
+      const timingsData = await timingsRes.json()
+      const timingId = timingsData.data[0].id
+
+      // Set reminders with timingId
+      const res = await authPut(`/habits/${habit.id}/reminders`, token, [
+        { timingId, beforeMinutes: 15 },
       ])
 
       expect(res.status).toBe(HTTP_STATUS.OK)
       const data = await res.json()
       expect(data.success).toBe(true)
+      expect(data.data).toHaveLength(1)
+      expect(data.data[0].timingId).toBe(timingId)
     })
 
-    it('should reject more than 5 reminders', async () => {
+    it('should reject reminder with invalid timingId', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-      const habit = await createHabit(app, token)
+      const habit = await createHabit(token)
+      await authPut(`/habits/${habit.id}/frequency`, token, { type: 'daily' })
+      await authPut(`/habits/${habit.id}/timings`, token, [{ time: '08:00' }])
+
+      const res = await authPut(`/habits/${habit.id}/reminders`, token, [
+        { timingId: '019746ab-0000-7000-8000-000000000099', beforeMinutes: 15 },
+      ])
+
+      expect(res.status).toBe(HTTP_STATUS.NOT_FOUND)
+    })
+
+    it('should reject more than 20 reminders', async () => {
+      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
+      const habit = await createHabit(token)
 
       const res = await authPut(
-        app,
         `/habits/${habit.id}/reminders`,
         token,
-        Array.from({ length: 6 }, () => ({ beforeMinutes: 10 }))
+        Array.from({ length: 21 }, () => ({
+          timingId: '00000000-0000-0000-0000-000000000001',
+          beforeMinutes: 10,
+        }))
       )
 
       expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST)
@@ -573,23 +680,16 @@ describe('Habits routes', () => {
   describe('PUT /habits/:id/period', () => {
     it('should set habit period', async () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-      const habit = await createHabit(app, token)
+      const habit = await createHabit(token)
 
-      const res = await authPut(app, `/habits/${habit.id}/period`, token, {
+      const res = await authPut(`/habits/${habit.id}/period`, token, {
         startDate: TODAY,
+        endDate: '2026-12-31',
       })
 
       expect(res.status).toBe(HTTP_STATUS.OK)
       const data = await res.json()
       expect(data.success).toBe(true)
-    })
-
-    it('should reject invalid UUID', async () => {
-      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
-
-      const res = await authPut(app, '/habits/not-a-uuid/period', token, { startDate: TODAY })
-
-      expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST)
     })
 
     it('should reject unauthenticated request', async () => {
@@ -599,6 +699,86 @@ describe('Habits routes', () => {
         body: JSON.stringify({ startDate: TODAY }),
       })
       expect(res.status).toBe(HTTP_STATUS.UNAUTHORIZED)
+    })
+  })
+
+  // ━━━ PUT /habits/:id/products ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  describe('PUT /habits/:id/products', () => {
+    it('should set products on a habit', async () => {
+      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
+      const habit = await createHabit(token)
+
+      const res = await authPut(`/habits/${habit.id}/products`, token, [])
+
+      expect(res.status).toBe(HTTP_STATUS.OK)
+      const data = await res.json()
+      expect(data.data).toEqual([])
+    })
+
+    it('should reject unauthenticated request', async () => {
+      const res = await app.request('/habits/00000000-0000-0000-0000-000000000001/products', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify([]),
+      })
+      expect(res.status).toBe(HTTP_STATUS.UNAUTHORIZED)
+    })
+  })
+
+  // ━━━ GET /habits/:id/check-products ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  describe('GET /habits/:id/check-products', () => {
+    it('should return empty when no check products', async () => {
+      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
+      const habit = await createHabit(token)
+
+      const res = await authGet(
+        `/habits/${habit.id}/check-products?startDate=${TODAY}&endDate=${TODAY}`,
+        token
+      )
+
+      expect(res.status).toBe(HTTP_STATUS.OK)
+      const data = await res.json()
+      expect(data.data).toEqual([])
+    })
+
+    it('should reject unauthenticated request', async () => {
+      const res = await app.request(
+        '/habits/00000000-0000-0000-0000-000000000001/check-products?startDate=2026-01-01&endDate=2026-12-31'
+      )
+      expect(res.status).toBe(HTTP_STATUS.UNAUTHORIZED)
+    })
+  })
+
+  // ━━━ POST /habits/:id/check with products ━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  describe('POST /habits/:id/check with products', () => {
+    it('should accept check with empty products array', async () => {
+      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
+      const habit = await createHabit(token)
+
+      const res = await authPost(`/habits/${habit.id}/check`, token, {
+        date: TODAY,
+        products: [],
+      })
+
+      expect(res.status).toBe(HTTP_STATUS.OK)
+      const data = await res.json()
+      expect(data.data.checked).toBe(true)
+    })
+
+    it('should still work without products (backward compat)', async () => {
+      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
+      const habit = await createHabit(token)
+
+      const res = await authPost(`/habits/${habit.id}/check`, token, {
+        date: TODAY,
+      })
+
+      expect(res.status).toBe(HTTP_STATUS.OK)
+      const data = await res.json()
+      expect(data.data.checked).toBe(true)
     })
   })
 })

@@ -13,8 +13,7 @@ export function StockBadge({ qty, usagesPerDay, unit }: StockBadgeProps) {
 
   const daysLeft = Math.floor(qty / Math.max(usagesPerDay, 1))
 
-  const level =
-    daysLeft < 2 ? 'danger' : daysLeft < 7 ? 'warning' : 'ok'
+  const level = daysLeft < 2 ? 'danger' : daysLeft < 7 ? 'warning' : 'ok'
 
   return (
     <span className={clsx('stock-badge', `stock-badge--${level}`)}>

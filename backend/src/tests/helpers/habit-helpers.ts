@@ -14,6 +14,7 @@ export async function createTestHabit(userId: string, overrides?: Partial<Create
     {
       name: 'Habitude test',
       category: 'health',
+      frequency: { type: 'daily' },
       ...overrides,
     },
     userId,

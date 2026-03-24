@@ -1,8 +1,9 @@
 import type {
   CreateHabitInput,
   Frequency,
+  HabitProductInput,
   Period,
-  Reminder,
+  SetRemindersWithTimingInput,
   Timing,
   UpdateHabitInput,
 } from '@habit-tracker/shared'
@@ -21,6 +22,9 @@ export const habitKeys = {
     [...habitKeys.all, 'checks', id, startDate, endDate] as const,
   stats: (id: string, startDate: string, endDate: string) =>
     [...habitKeys.all, 'stats', id, startDate, endDate] as const,
+  archived: () => [...habitKeys.all, 'archived'] as const,
+  checkProducts: (id: string, startDate: string, endDate: string) =>
+    [...habitKeys.all, 'check-products', id, startDate, endDate] as const,
 }
 
 export const habitQueries = {
@@ -88,6 +92,32 @@ export const habitQueries = {
       },
       enabled: !!id && !!startDate && !!endDate,
     }),
+
+  archived: () =>
+    queryOptions({
+      queryKey: habitKeys.archived(),
+      queryFn: async () => {
+        const res = await api.habits.archived.$get()
+        if (!res.ok) throw new Error('Failed to fetch archived habits')
+        const json = await res.json()
+        return json.data
+      },
+    }),
+
+  checkProducts: (id: string, startDate: string, endDate: string) =>
+    queryOptions({
+      queryKey: habitKeys.checkProducts(id, startDate, endDate),
+      queryFn: async () => {
+        const res = await api.habits[':id']['check-products'].$get({
+          param: { id },
+          query: { startDate, endDate },
+        })
+        if (!res.ok) throw new Error('Failed to fetch check products')
+        const json = await res.json()
+        return json.data
+      },
+      enabled: !!id && !!startDate && !!endDate,
+    }),
 }
 
 export function useCreateHabit() {
@@ -146,24 +176,28 @@ export function useToggleCheck() {
       date,
       timingId,
       actualTime,
+      products,
     }: {
       habitId: string
       date: string
       timingId?: string
       actualTime?: string
+      products?: Array<{
+        habitProductId: string
+        productId: string
+        used: boolean
+        actualDosage?: string
+      }>
     }) => {
       const res = await api.habits[':id'].check.$post({
         param: { id: habitId },
-        json: { date, timingId, actualTime },
+        json: { date, timingId, actualTime, products },
       })
       if (!res.ok) throw new Error('Failed to toggle check')
       const json = await res.json()
       return json.data
     },
     onMutate: async ({ habitId, date, timingId }) => {
-      // Optimistic update for toggling checks
-      // Note: This logic is a bit dense because we handle both single checks and scheduled timings.
-      // TODO: See if we can simplify this when we implement the multi-check backend support.
       await qc.cancelQueries({ queryKey: habitKeys.today(date) })
       const todayOpts = habitQueries.today(date)
       const snapshot = qc.getQueryData(todayOpts.queryKey)
@@ -201,13 +235,7 @@ export function useToggleCheck() {
 
       return { snapshot, date }
     },
-    onSuccess: (data) => {
-      if (data.depletedProducts?.length) {
-        for (const name of data.depletedProducts) {
-          toast.warning(`Stock épuisé : ${name}`)
-        }
-      }
-    },
+    onSuccess: () => {},
     onError: (_err, _vars, context) => {
       if (context?.snapshot) {
         qc.setQueryData(habitKeys.today(context.date), context.snapshot)
@@ -285,7 +313,13 @@ export function useSetTimings() {
 export function useSetReminders() {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: async ({ id, reminders }: { id: string; reminders: Reminder[] }) => {
+    mutationFn: async ({
+      id,
+      reminders,
+    }: {
+      id: string
+      reminders: SetRemindersWithTimingInput
+    }) => {
       const res = await api.habits[':id'].reminders.$put({ param: { id }, json: reminders })
       if (!res.ok) throw new Error('Failed to update reminders')
       const json = await res.json()
@@ -308,6 +342,63 @@ export function useSetPeriod() {
     },
     onSuccess: (_, { id }) => {
       qc.invalidateQueries({ queryKey: habitKeys.detail(id) })
+      qc.invalidateQueries({ queryKey: habitKeys.today() })
+    },
+  })
+}
+
+export function useSetProducts() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: async ({ id, products }: { id: string; products: HabitProductInput[] }) => {
+      const res = await api.habits[':id'].products.$put({
+        param: { id },
+        json: products,
+      })
+      if (!res.ok) throw new Error('Failed to update products')
+      const json = await res.json()
+      return json.data
+    },
+    onSuccess: (_, { id }) => {
+      qc.invalidateQueries({ queryKey: habitKeys.detail(id) })
+      qc.invalidateQueries({ queryKey: habitKeys.today() })
+    },
+  })
+}
+
+export function useReorderHabits() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: async (habits: Array<{ id: string; position: number }>) => {
+      const res = await api.habits.reorder.$patch({
+        json: { habits },
+      })
+      if (!res.ok) throw new Error('Failed to reorder habits')
+    },
+    onMutate: async (newOrder) => {
+      await qc.cancelQueries({ queryKey: habitKeys.list() })
+      const snapshot = qc.getQueryData(habitKeys.list())
+      qc.setQueryData(habitKeys.list(), (old: typeof snapshot) => {
+        if (!old || !Array.isArray(old)) return old
+        const posMap = new Map(newOrder.map((h) => [h.id, h.position]))
+        return [...old].sort(
+          (a: { id: string; position: number }, b: { id: string; position: number }) => {
+            const posA = posMap.get(a.id) ?? a.position
+            const posB = posMap.get(b.id) ?? b.position
+            return posA - posB
+          }
+        )
+      })
+      return { snapshot }
+    },
+    onError: (_err, _vars, context) => {
+      if (context?.snapshot) {
+        qc.setQueryData(habitKeys.list(), context.snapshot)
+      }
+      toast.error('Impossible de réordonner.')
+    },
+    onSettled: () => {
+      qc.invalidateQueries({ queryKey: habitKeys.list() })
       qc.invalidateQueries({ queryKey: habitKeys.today() })
     },
   })

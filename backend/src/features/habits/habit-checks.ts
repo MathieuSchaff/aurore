@@ -1,9 +1,10 @@
-import { and, asc, between, eq, isNull, sql } from 'drizzle-orm'
+import { and, asc, between, eq, isNull } from 'drizzle-orm'
 
-import { db } from '../../db'
-import { type HabitCheck, habitChecks, habitProducts } from '../../db/schema/habits'
-import { productStock, products } from '../../db/schema/products'
 import type { Database } from '../../db'
+import { db } from '../../db'
+import { type HabitCheck, habitChecks } from '../../db/schema/habits'
+import { habitCheckProducts } from '../../db/schema/logs'
+import { products } from '../../db/schema/products'
 import { HabitError } from './habit-error'
 
 export async function checkHabit(
@@ -37,12 +38,28 @@ export async function checkHabit(
 }
 
 export async function uncheckHabit(checkId: string, database: Database = db): Promise<void> {
-  const result = await database.delete(habitChecks).where(eq(habitChecks.id, checkId))
+  const result = await database
+    .delete(habitChecks)
+    .where(eq(habitChecks.id, checkId))
+    .returning({ id: habitChecks.id })
 
-  const deleted = (result.rowCount ?? 0) > 0
+  if (result.length === 0) {
+    throw new HabitError('habit_not_found')
+  }
+}
 
-  if (!deleted) {
-    throw new HabitError('check_not_found')
+export async function uncheckHabitByDate(
+  habitId: string,
+  date: string,
+  database: Database = db
+): Promise<void> {
+  const result = await database
+    .delete(habitChecks)
+    .where(and(eq(habitChecks.habitId, habitId), eq(habitChecks.scheduledDate, date)))
+    .returning({ id: habitChecks.id })
+
+  if (result.length === 0) {
+    throw new HabitError('habit_not_found')
   }
 }
 
@@ -67,10 +84,7 @@ export async function getHabitChecks(
     .select()
     .from(habitChecks)
     .where(
-      and(
-        eq(habitChecks.habitId, habitId),
-        between(habitChecks.scheduledDate, startDate, endDate)
-      )
+      and(eq(habitChecks.habitId, habitId), between(habitChecks.scheduledDate, startDate, endDate))
     )
     .orderBy(asc(habitChecks.scheduledDate))
 }
@@ -97,57 +111,99 @@ export async function toggleHabitCheck(
     date: string
     timingId?: string
     actualTime?: string
+    products?: Array<{
+      habitProductId: string
+      productId: string
+      used: boolean
+      actualDosage?: string
+    }>
   },
   database: Database = db
-): Promise<{ checked: boolean; check?: HabitCheck; depletedProducts?: string[] }> {
+): Promise<{
+  checked: boolean
+  check?: HabitCheck
+  checkProducts?: Array<typeof habitCheckProducts.$inferSelect>
+}> {
   return database.transaction(async (tx) => {
     const existing = await isHabitChecked(input.habitId, input.date, input.timingId, tx as any)
 
-    // Get habit products for stock management
-    const linkedProducts = await tx
-      .select({
-        productId: habitProducts.productId,
-        productName: products.name,
-      })
-      .from(habitProducts)
-      .innerJoin(products, eq(habitProducts.productId, products.id))
-      .where(eq(habitProducts.habitId, input.habitId))
-
     if (existing) {
-      // Uncheck → re-increment stock
-      await uncheckHabit(existing.id, tx as any)
+      // uncheck
+      const loggedProducts = await tx
+        .select()
+        .from(habitCheckProducts)
+        .where(eq(habitCheckProducts.checkId, existing.id))
 
-      for (const p of linkedProducts) {
-        await tx
-          .update(productStock)
-          .set({ qty: sql`${productStock.qty} + 1` })
-          .where(
-            and(eq(productStock.userId, input.userId), eq(productStock.productId, p.productId))
-          )
+      if (loggedProducts.length > 0) {
+        await tx.delete(habitCheckProducts).where(eq(habitCheckProducts.checkId, existing.id))
       }
 
+      await uncheckHabit(existing.id, tx as any)
       return { checked: false }
     } else {
-      // Check → decrement stock
+      // check
       const check = await checkHabit(input, tx as any)
+      let insertedCheckProducts: Array<typeof habitCheckProducts.$inferSelect> | undefined
 
-      const depletedProducts: string[] = []
-
-      for (const p of linkedProducts) {
-        const updated = await tx
-          .update(productStock)
-          .set({ qty: sql`GREATEST(${productStock.qty} - 1, 0)` })
-          .where(
-            and(eq(productStock.userId, input.userId), eq(productStock.productId, p.productId))
+      if (input.products && input.products.length > 0) {
+        // granular product logging
+        insertedCheckProducts = await tx
+          .insert(habitCheckProducts)
+          .values(
+            input.products.map((p) => ({
+              checkId: check.id,
+              habitProductId: p.habitProductId,
+              productId: p.productId,
+              used: p.used,
+              actualDosage: p.actualDosage ?? null,
+            }))
           )
-          .returning({ qty: productStock.qty })
+          .returning()
 
-        if (updated[0]?.qty === 0) {
-          depletedProducts.push(p.productName)
+        return {
+          checked: true,
+          check,
+          checkProducts: insertedCheckProducts,
+        }
+      } else {
+        return {
+          checked: true,
+          check,
         }
       }
-
-      return { checked: true, check, depletedProducts }
     }
   })
+}
+
+export async function getCheckProducts(
+  habitId: string,
+  userId: string,
+  startDate: string,
+  endDate: string,
+  database: Database = db
+) {
+  return database
+    .select({
+      id: habitCheckProducts.id,
+      checkId: habitCheckProducts.checkId,
+      scheduledDate: habitChecks.scheduledDate,
+      habitProductId: habitCheckProducts.habitProductId,
+      productId: habitCheckProducts.productId,
+      productName: products.name,
+      productBrand: products.brand,
+      used: habitCheckProducts.used,
+      actualDosage: habitCheckProducts.actualDosage,
+      createdAt: habitCheckProducts.createdAt,
+    })
+    .from(habitCheckProducts)
+    .innerJoin(habitChecks, eq(habitCheckProducts.checkId, habitChecks.id))
+    .innerJoin(products, eq(habitCheckProducts.productId, products.id))
+    .where(
+      and(
+        eq(habitChecks.habitId, habitId),
+        eq(habitChecks.userId, userId),
+        between(habitChecks.scheduledDate, startDate, endDate)
+      )
+    )
+    .orderBy(asc(habitChecks.scheduledDate))
 }
