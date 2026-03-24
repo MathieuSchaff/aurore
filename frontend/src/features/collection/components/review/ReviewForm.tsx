@@ -1,8 +1,9 @@
-import { useState } from 'react'
-import { Star } from 'lucide-react'
 import clsx from 'clsx'
-import type { ReviewCriteria, CriteriaWeights } from '../../../lib/helpers/reviews'
-import { calculateWeightedScore } from '../../../lib/helpers/reviews'
+import { Star } from 'lucide-react'
+import { useState } from 'react'
+
+import type { CriteriaWeights, ReviewCriteria } from '../../../../lib/helpers/reviews'
+import { calculateWeightedScore } from '../../../../lib/helpers/reviews'
 
 const criteriaLabels: Record<keyof ReviewCriteria, string> = {
   tolerance: 'Tolérance',
@@ -33,10 +34,10 @@ export function ReviewForm({ initialValues, weights, onSubmit }: ReviewFormProps
   const score = calculateWeightedScore(criteria, weights, 'out_of_20')
 
   const handleStarClick = (key: keyof ReviewCriteria, value: number) => {
-    setCriteria(prev => ({ ...prev, [key]: value }))
+    setCriteria((prev) => ({ ...prev, [key]: value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.SubmitEvent) => {
     e.preventDefault()
     onSubmit({ ...criteria, comment: comment || null })
   }
@@ -44,16 +45,20 @@ export function ReviewForm({ initialValues, weights, onSubmit }: ReviewFormProps
   return (
     <form onSubmit={handleSubmit} aria-label="Formulaire d'évaluation">
       {score && (
-        <div className="review-form__score" aria-live="polite" aria-label={`Note calculée : ${score}/20`}>
+        <output
+          className="review-form__score"
+          aria-live="polite"
+          aria-label={`Note calculée : ${score}/20`}
+        >
           {score}/20
-        </div>
+        </output>
       )}
 
       <div className="review-form__criteria">
         {(Object.keys(criteriaLabels) as (keyof ReviewCriteria)[]).map((key) => (
-          <div key={key} className="review-form__criterion">
-            <span className="review-form__criterion-label">{criteriaLabels[key]}</span>
-            <div className="review-form__stars" role="group" aria-label={criteriaLabels[key]}>
+          <fieldset key={key} className="review-form__criterion">
+            <legend className="review-form__criterion-label">{criteriaLabels[key]}</legend>
+            <div className="review-form__stars">
               {[1, 2, 3, 4, 5].map((star) => (
                 <button
                   key={star}
@@ -64,12 +69,15 @@ export function ReviewForm({ initialValues, weights, onSubmit }: ReviewFormProps
                 >
                   <Star
                     size={16}
-                    className={clsx('review-form__star', criteria[key] != null && criteria[key]! >= star && 'filled')}
+                    className={clsx(
+                      'review-form__star',
+                      criteria[key] != null && criteria[key] >= star && 'filled'
+                    )}
                   />
                 </button>
               ))}
             </div>
-          </div>
+          </fieldset>
         ))}
       </div>
 

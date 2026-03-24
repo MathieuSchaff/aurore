@@ -1,4 +1,12 @@
-import { Activity, BookMarked, CheckSquare, Droplets, FlaskConical, Package, Sparkles } from 'lucide-react'
+import {
+  Activity,
+  BookMarked,
+  CheckSquare,
+  Droplets,
+  FlaskConical,
+  Package,
+  Sparkles,
+} from 'lucide-react'
 import './HomePage.css'
 
 type Feature = {
@@ -12,17 +20,17 @@ const features: Feature[] = [
   {
     icon: <Droplets size={22} />,
     title: 'Collection skincare',
-    desc: "Ton inventaire de produits, consultable en quelques secondes. Vérifie les ingrédients, explore les actifs, ajoute un produit à ta wishlist.",
+    desc: 'Ton inventaire de produits, consultable en quelques secondes. Vérifie les ingrédients, explore les actifs, ajoute un produit à ta wishlist.',
   },
   {
     icon: <FlaskConical size={22} />,
     title: 'Base ingrédients',
-    desc: "Recherche un actif, lis son profil dermo, compare les risques et bénéfices. INCI rendu lisible.",
+    desc: 'Recherche un actif, lis son profil dermo, compare les risques et bénéfices. INCI rendu lisible.',
   },
   {
     icon: <CheckSquare size={22} />,
     title: 'Habitudes quotidiennes',
-    desc: "Routine matin/soir, eau, méditation, sommeil... Suivi souple, sans streaks, sans culpabilité.",
+    desc: 'Routine matin/soir, eau, méditation, sommeil... Suivi souple, sans streaks, sans culpabilité.',
   },
   {
     icon: <BookMarked size={22} />,
@@ -32,13 +40,13 @@ const features: Feature[] = [
   {
     icon: <Package size={22} />,
     title: 'Suivi du stock',
-    desc: "Voir ce qui est presque vide, éviter les ruptures. Les alertes automatiques arrivent.",
+    desc: 'Voir ce qui est presque vide, éviter les ruptures. Les alertes automatiques arrivent.',
     status: 'en cours',
   },
   {
     icon: <Activity size={22} />,
     title: 'Journal bien-être',
-    desc: "Énergie, sommeil, brouillard mental. Un journal léger pour suivre comment tu vas au fil du temps.",
+    desc: 'Énergie, sommeil, brouillard mental. Un journal léger pour suivre comment tu vas au fil du temps.',
     status: 'en cours',
   },
 ]
@@ -50,11 +58,11 @@ const principles = [
   },
   {
     label: 'Pour cerveau TDAH',
-    desc: "Interface simple, une chose à la fois, feedback positif. Conçu pour fonctionner avec le TDAH, pas contre.",
+    desc: 'Interface simple, une chose à la fois, feedback positif. Conçu pour fonctionner avec le TDAH, pas contre.',
   },
   {
     label: 'Entièrement personnel',
-    desc: "Pas de publicités, pas de tracking, pas de gamification toxique. Juste ton outil, tes données.",
+    desc: 'Pas de publicités, pas de tracking, pas de gamification toxique. Juste ton outil, tes données.',
   },
 ]
 
@@ -85,9 +93,7 @@ export const HomePage = () => {
             <div key={f.title} className="home-feature-card">
               <div className="home-feature-card__header">
                 <div className="home-feature-card__icon">{f.icon}</div>
-                {f.status && (
-                  <span className="home-feature-card__status">{f.status}</span>
-                )}
+                {f.status && <span className="home-feature-card__status">{f.status}</span>}
               </div>
               <h3 className="home-feature-card__title">{f.title}</h3>
               <p className="home-feature-card__desc">{f.desc}</p>
@@ -113,8 +119,8 @@ export const HomePage = () => {
       <section className="home-section home-stack">
         <h2 className="home-section__title">Stack technique</h2>
         <p className="home-stack__desc">
-          Monorepo Bun · Hono API · PostgreSQL 16 + Drizzle ORM · React 19 + TanStack Router ·
-          Auth JWT cookies HttpOnly
+          Monorepo Bun · Hono API · PostgreSQL 16 + Drizzle ORM · React 19 + TanStack Router · Auth
+          JWT cookies HttpOnly
         </p>
         <div className="home-stack__tags">
           {['Bun', 'Hono', 'PostgreSQL', 'Drizzle', 'React 19', 'TanStack Router', 'Zod'].map(
@@ -122,7 +128,7 @@ export const HomePage = () => {
               <span key={t} className="home-stack__tag">
                 {t}
               </span>
-            ),
+            )
           )}
         </div>
       </section>

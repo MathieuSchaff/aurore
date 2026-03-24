@@ -1,6 +1,7 @@
-import type { UserProductStatus, RepurchaseFlag, DisplayScale } from '@habit-tracker/shared'
-import { calculateWeightedScore } from '../lib/helpers/reviews'
+import type { DisplayScale, RepurchaseFlag, UserProductStatus } from '@habit-tracker/shared'
+
 import type { CriteriaWeights, ReviewCriteria } from '../lib/helpers/reviews'
+import { calculateWeightedScore } from '../lib/helpers/reviews'
 
 export interface FilterableProduct {
   id: string
@@ -44,7 +45,7 @@ export const DEFAULT_FILTERS: CollectionFilters = {
 export function applyFilters<T extends FilterableProduct>(
   products: T[],
   filters: CollectionFilters,
-  weights?: CriteriaWeights,
+  weights?: CriteriaWeights
 ): T[] {
   return products.filter((p) => {
     const score = calculateWeightedScore(p.review, weights, 'out_of_20')
@@ -59,11 +60,11 @@ export function applyFilters<T extends FilterableProduct>(
     const matchesBrand = filters.brand === 'all' || p.product.brand === filters.brand
     const matchesKind = filters.kind === 'all' || p.product.kind === filters.kind
     const matchesSentiment = filters.sentiment === 'all' || p.sentiment === filters.sentiment
-    const matchesRepurchase = filters.repurchase === 'all' || p.wouldRepurchase === filters.repurchase
+    const matchesRepurchase =
+      filters.repurchase === 'all' || p.wouldRepurchase === filters.repurchase
     const matchesMinNote = numericScore >= filters.minNote
     const matchesMaxPrice =
-      filters.maxPriceEuros === '' ||
-      (p.product.priceCents ?? 0) / 100 <= filters.maxPriceEuros
+      filters.maxPriceEuros === '' || (p.product.priceCents ?? 0) / 100 <= filters.maxPriceEuros
 
     return (
       matchesStatus &&
@@ -82,7 +83,7 @@ export function sortProducts<T extends FilterableProduct>(
   products: T[],
   sortBy: SortOption,
   weights?: CriteriaWeights,
-  displayScale?: DisplayScale,
+  displayScale?: DisplayScale
 ): T[] {
   return [...products].sort((a, b) => {
     switch (sortBy) {

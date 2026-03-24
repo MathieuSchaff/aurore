@@ -1,6 +1,7 @@
-import type { CriteriaWeights } from '../../../lib/helpers/reviews'
-import { DEFAULT_WEIGHTS } from '../../../lib/helpers/reviews'
 import type { DisplayScale } from '@habit-tracker/shared'
+
+import type { CriteriaWeights } from '../../../../lib/helpers/reviews'
+import { DEFAULT_WEIGHTS } from '../../../../lib/helpers/reviews'
 
 const criteriaLabels: Record<keyof CriteriaWeights, string> = {
   tolerance: 'Tolérance',
@@ -38,10 +39,11 @@ export function WeightPreferences({
   const resetWeights = () => onWeightsChange({ ...DEFAULT_WEIGHTS })
 
   return (
-    <div className="weight-prefs" aria-label="Préférences de pondération">
+    <section className="weight-prefs" aria-label="Préférences de pondération">
       <div className="weight-prefs__scale">
         <span>Affichage de la note</span>
-        <div role="group" aria-label="Échelle d'affichage">
+        <fieldset>
+          <legend className="sr-only">Échelle d'affichage</legend>
           {scaleOptions.map((opt) => (
             <button
               key={opt.value}
@@ -52,7 +54,7 @@ export function WeightPreferences({
               {opt.label}
             </button>
           ))}
-        </div>
+        </fieldset>
       </div>
 
       <div className="weight-prefs__list">
@@ -74,13 +76,9 @@ export function WeightPreferences({
         ))}
       </div>
 
-      <button
-        type="button"
-        onClick={resetWeights}
-        aria-label="Réinitialiser les poids"
-      >
+      <button type="button" onClick={resetWeights} aria-label="Réinitialiser les poids">
         Réinitialiser
       </button>
-    </div>
+    </section>
   )
 }

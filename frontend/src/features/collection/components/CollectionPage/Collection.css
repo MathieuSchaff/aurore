@@ -14,18 +14,21 @@
 }
 
 .coll-topbar {
-  background: oklch(from var(--mango-bright) l c h / 0.8);
+  background: var(--bg-card);
   padding: 0.75rem 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: var(--border-width) solid var(--border-default);
 }
 
 .coll-topbar-title {
-  font-weight: 900;
-  font-size: 1rem;
+  font-family: var(--font-display);
+  font-weight: var(--font-bold);
+  font-feature-settings: "onum" 1;
+  font-size: 1.25rem;
   color: var(--color-primary);
-  letter-spacing: -0.02em;
+  letter-spacing: var(--tracking-tight);
 }
 
 .coll-topbar-add {
@@ -61,9 +64,9 @@
   gap: 0.2rem;
   padding: 0.55rem 0.5rem;
   font-size: 0.6rem;
-  font-weight: 700;
+  font-weight: var(--font-bold);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--tracking-widest);
   color: var(--text-muted);
   background: transparent;
   border: none;
@@ -75,6 +78,7 @@
 .coll-icon-tab-active {
   color: var(--color-primary);
   background: var(--bg-card);
+  font-weight: var(--font-bold);
 }
 
 .coll-tab-badge {
@@ -85,7 +89,7 @@
   color: var(--text-inverse);
   font-size: 0.6rem;
   padding: 0.1rem 0.4rem;
-  border-radius: 2rem;
+  border-radius: var(--radius-full);
   min-width: 1.25rem;
   text-align: center;
 }
@@ -121,29 +125,29 @@
 .coll-search-input {
   width: 100%;
   padding: 0.625rem 0.75rem 0.625rem 2.5rem;
-  border-radius: 0.875rem;
-  border: 2px solid var(--bg-muted);
+  border-radius: var(--radius-md);
+  border: var(--border-width) solid var(--bg-muted);
   background: var(--bg-card);
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: var(--font-medium);
   transition: border-color 0.2s;
   color: var(--text-primary);
   box-sizing: border-box;
 }
 
 .coll-search-input:focus {
-  border-color: oklch(from var(--color-primary) l c h / 0.15);
+  border-color: var(--color-primary);
   outline: none;
-  box-shadow: 0 0 0 3px oklch(from var(--color-primary) l c h / 0.08);
+  box-shadow: 0 0 0 3px oklch(from var(--color-primary) l c h / 0.1);
 }
 
 .coll-sort-btn,
 .coll-filter-toggle {
   width: 40px;
   height: 40px;
-  border-radius: 0.75rem;
+  border-radius: var(--radius-md);
   background: var(--bg-muted);
-  border: 2px solid transparent;
+  border: var(--border-width) solid transparent;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -156,13 +160,14 @@
 .coll-sort-btn:hover,
 .coll-filter-toggle:hover {
   color: var(--text-primary);
-  background: var(--bg-hover);
+  background: var(--bg-muted);
+  border-color: var(--border-strong);
 }
 
 .coll-filter-toggle.active {
   border-color: var(--color-primary);
   color: var(--color-primary);
-  background: oklch(from var(--color-primary) l c h / 0.08);
+  background: var(--bg-card);
 }
 
 .coll-filters {
@@ -184,20 +189,20 @@
   align-items: center;
   gap: 0.4rem;
   padding: 0.4rem 0.875rem;
-  border-radius: 2rem;
+  border-radius: var(--radius-full);
   background: var(--bg-card);
   color: var(--text-muted);
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: var(--font-bold);
   white-space: nowrap;
   transition: all 0.2s;
-  border: 2px solid var(--bg-muted);
+  border: var(--border-width) solid var(--bg-muted);
   cursor: pointer;
   flex-shrink: 0;
 }
 
 .coll-filter-btn:hover {
-  border-color: oklch(from var(--color-primary) l c h / 0.15);
+  border-color: var(--color-primary);
   color: var(--text-primary);
 }
 
@@ -205,7 +210,7 @@
   background: var(--color-primary);
   color: var(--text-inverse);
   border-color: var(--color-primary);
-  box-shadow: 0 4px 12px oklch(from var(--color-primary) l c h / 0.25);
+  box-shadow: var(--shadow-md);
 }
 
 .coll-sheet-overlay {
@@ -218,7 +223,7 @@
 .coll-sheet-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: var(--overlay);
   backdrop-filter: blur(4px);
   z-index: 1000;
   border: none;
@@ -234,10 +239,11 @@
   left: 0;
   right: 0;
   background: var(--bg-card);
-  border-radius: 1.5rem 1.5rem 0 0;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   z-index: 1001;
   padding-bottom: env(safe-area-inset-bottom, 1rem);
   animation: sheetSlideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-top: var(--border-width) solid var(--border-strong);
 }
 
 @keyframes sheetSlideUp {
@@ -253,7 +259,7 @@
   width: 2.5rem;
   height: 4px;
   background: var(--bg-muted);
-  border-radius: 2px;
+  border-radius: var(--radius-full);
   margin: 0.75rem auto 0;
 }
 
@@ -266,10 +272,12 @@
 }
 
 .coll-sheet-header h3 {
-  font-size: 0.75rem;
-  font-weight: 800;
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: var(--font-bold);
+  font-feature-settings: "onum" 1;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: var(--tracking-widest);
   color: var(--text-muted);
   margin: 0;
 }
@@ -277,7 +285,7 @@
 .coll-sheet-close {
   width: 32px;
   height: 32px;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-md);
   background: var(--bg-muted);
   border: none;
   cursor: pointer;
@@ -289,7 +297,8 @@
 }
 
 .coll-sheet-close:hover {
-  background: var(--bg-hover);
+  background: var(--bg-muted);
+  color: var(--text-primary);
 }
 
 .coll-sheet-body {
@@ -313,19 +322,19 @@
 
 .coll-adv-group label {
   font-size: 0.7rem;
-  font-weight: 800;
+  font-weight: var(--font-bold);
   text-transform: uppercase;
   color: var(--text-muted);
-  letter-spacing: 0.05em;
+  letter-spacing: var(--tracking-widest);
 }
 
 .coll-adv-group select,
 .coll-adv-group input[type="number"] {
   padding: 0.5rem 0.625rem;
-  border-radius: 0.75rem;
-  border: 2px solid var(--border-default);
+  border-radius: var(--radius-md);
+  border: var(--border-width) solid var(--border-default);
   background: var(--bg-card);
-  font-weight: 600;
+  font-weight: var(--font-semibold);
   font-size: 0.875rem;
   color: var(--text-primary);
 }
@@ -335,8 +344,9 @@
 }
 
 .coll-range-val {
-  font-family: monospace;
-  font-weight: 800;
+  font-family: var(--font-display);
+  font-feature-settings: "onum" 1;
+  font-weight: var(--font-bold);
   color: var(--color-primary);
   font-size: 0.875rem;
 }
@@ -354,17 +364,17 @@
   border: none;
   color: var(--text-muted);
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: var(--font-bold);
   text-transform: uppercase;
   cursor: pointer;
-  padding: 0.4rem 0.5rem;
-  border-radius: 0.5rem;
+  padding: 0.4rem 0.625rem;
+  border-radius: var(--radius-sm);
   transition: all 0.2s;
 }
 
 .coll-reset-btn:hover {
   color: var(--color-error);
-  background: rgba(239, 68, 68, 0.06);
+  background: var(--color-error-light);
 }
 
 .coll-grid {
@@ -388,18 +398,20 @@
 
 .coll-card {
   background: var(--bg-card);
-  border: 2px solid var(--bg-muted);
-  border-radius: 1rem;
+  border: var(--border-width) solid var(--bg-muted);
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  transition: border-color 0.2s;
+  transition: all 0.2s;
 }
 
 .coll-card:hover {
-  border-color: oklch(from var(--color-primary) l c h / 0.15);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-md);
 }
 
 .coll-card.expanded {
   border-color: var(--color-primary);
+  box-shadow: var(--shadow-lg);
 }
 
 @media (min-width: 640px) {
@@ -429,6 +441,7 @@
   border-radius: 50%;
   background: var(--dot-color);
   flex-shrink: 0;
+  border: 1px solid oklch(0% 0 0 / 0.1);
 }
 
 .coll-card-main {
@@ -437,10 +450,12 @@
 }
 
 .coll-product-name {
-  font-size: 0.9rem;
-  font-weight: 800;
+  font-family: var(--font-display);
+  font-feature-settings: "onum" 1;
+  font-size: 1rem;
+  font-weight: var(--font-bold);
   margin: 0;
-  line-height: 1.3;
+  line-height: 1.2;
   color: var(--text-primary);
   white-space: nowrap;
   overflow: hidden;
@@ -452,8 +467,8 @@
   color: var(--text-muted);
   margin: 0.1rem 0 0;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-weight: 700;
+  letter-spacing: var(--tracking-widest);
+  font-weight: var(--font-medium);
 }
 
 .coll-card-aside {
@@ -467,21 +482,23 @@
 .coll-score-badge {
   background: var(--bg-muted);
   padding: 0.25rem 0.5rem;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-sm);
   display: flex;
   align-items: baseline;
   gap: 1px;
 }
 
 .coll-score-val {
+  font-family: var(--font-display);
+  font-feature-settings: "onum" 1;
   font-size: 0.875rem;
-  font-weight: 900;
+  font-weight: var(--font-bold);
   color: var(--color-primary);
 }
 
 .coll-score-max {
   font-size: 0.65rem;
-  font-weight: 700;
+  font-weight: var(--font-medium);
   color: var(--text-muted);
 }
 
@@ -490,9 +507,9 @@
   align-items: center;
   gap: 0.25rem;
   font-size: 0.6rem;
-  font-weight: 800;
+  font-weight: var(--font-bold);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--tracking-widest);
   white-space: nowrap;
 }
 
@@ -508,7 +525,7 @@
 
 .coll-card-details {
   padding: 1.25rem;
-  border-top: 2px solid var(--bg-muted);
+  border-top: var(--border-width) solid var(--bg-muted);
   background: linear-gradient(to bottom, var(--bg-muted), var(--bg-card));
 }
 
@@ -517,13 +534,16 @@
 }
 
 .coll-section-title {
-  font-size: 0.7rem;
-  font-weight: 800;
+  font-family: var(--font-display);
+  font-feature-settings: "onum" 1;
+  font-size: 0.75rem;
+  font-weight: var(--font-bold);
   color: var(--text-muted);
   margin-bottom: 1rem;
-  letter-spacing: 0.15em;
-  border-left: 3px solid var(--color-primary);
+  letter-spacing: var(--tracking-widest);
+  border-left: var(--border-width) solid var(--color-primary);
   padding-left: 0.625rem;
+  text-transform: uppercase;
 }
 
 .coll-status-picker {
@@ -546,21 +566,21 @@
   gap: 0.4rem;
   padding: 0.75rem 0.5rem;
   background: var(--bg-card);
-  border: 2px solid transparent;
-  border-radius: 0.875rem;
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius-md);
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .coll-status-option:hover {
-  background: var(--bg-hover);
-  border-color: var(--bg-muted);
+  background: var(--bg-muted);
+  border-color: var(--border-default);
 }
 
 .coll-status-option.active {
   background: var(--color-primary);
   color: var(--text-inverse);
-  box-shadow: 0 4px 12px oklch(from var(--color-primary) l c h / 0.25);
+  box-shadow: var(--shadow-md);
 }
 
 .coll-status-option.active .coll-status-opt-label {
@@ -569,9 +589,114 @@
 
 .coll-status-opt-label {
   font-size: 0.65rem;
-  font-weight: 800;
+  font-weight: var(--font-bold);
   text-transform: uppercase;
   color: var(--text-muted);
+  letter-spacing: var(--tracking-wide);
+}
+
+.coll-purchase-form {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: oklch(from var(--color-success) l c h / 0.05);
+  border: 1px dashed oklch(from var(--color-success) l c h / 0.3);
+  border-radius: var(--radius-md);
+  animation: coll-fade-in 0.2s ease-out;
+}
+
+@keyframes coll-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.coll-purchase-fields {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 80px;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 480px) {
+  .coll-purchase-fields {
+    grid-template-columns: 1fr;
+  }
+}
+
+.coll-purchase-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.coll-purchase-field label {
+  font-size: 0.7rem;
+  font-weight: var(--font-bold);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: var(--tracking-wider);
+}
+
+.coll-purchase-field input {
+  padding: 0.5rem 0.625rem;
+  border-radius: var(--radius-sm);
+  border: var(--border-width) solid var(--border-default);
+  background: var(--bg-card);
+  font-size: 0.875rem;
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+  transition: border-color 0.2s;
+}
+
+.coll-purchase-field input:focus {
+  border-color: var(--color-success);
+  outline: none;
+}
+
+.coll-purchase-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.coll-purchase-save {
+  padding: 0.5rem 1rem;
+  background: var(--color-success);
+  color: var(--text-inverse);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: var(--font-bold);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.coll-purchase-save:hover {
+  opacity: 0.9;
+}
+
+.coll-purchase-skip {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  color: var(--text-muted);
+  border: var(--border-width) solid var(--border-default);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: var(--font-bold);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.coll-purchase-skip:hover {
+  background: var(--bg-muted);
+  color: var(--text-primary);
 }
 
 .coll-details-grid {
@@ -587,6 +712,96 @@
   }
 }
 
+.coll-usage-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: var(--bg-card);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-default);
+}
+
+.coll-usage-main-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-radius: var(--radius-sm);
+  font-weight: var(--font-bold);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.coll-usage-main-btn.open {
+  background: var(--color-primary);
+  color: var(--text-inverse);
+}
+
+.coll-usage-main-btn.finish {
+  background: oklch(from var(--color-warning) l c h / 0.1);
+  color: var(--color-warning);
+  border: 1px solid var(--color-warning);
+}
+
+.coll-usage-main-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.coll-active-log-info {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: var(--font-medium);
+  text-align: center;
+  padding: 0.25rem;
+  border-bottom: 1px solid var(--bg-muted);
+}
+
+.coll-usage-history {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.coll-usage-hist-title {
+  font-size: 0.65rem;
+  font-weight: var(--font-bold);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: var(--tracking-widest);
+  margin-bottom: 0.25rem;
+}
+
+.coll-usage-log-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0.625rem;
+  background: var(--bg-muted);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+}
+
+.coll-log-dates {
+  color: var(--text-primary);
+  font-weight: var(--font-medium);
+}
+
+.coll-log-duration {
+  background: var(--bg-card);
+  padding: 0.15rem 0.4rem;
+  border-radius: var(--radius-full);
+  font-weight: var(--font-bold);
+  color: var(--color-primary);
+  font-family: var(--font-display);
+  font-feature-settings: "onum" 1;
+}
+
 .coll-quick-feeling-box {
   display: flex;
   flex-direction: column;
@@ -600,27 +815,28 @@
 
 .coll-sentiment-option {
   flex: 1;
-  height: 3rem;
+  height: 3.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--bg-card);
-  border: 2px solid transparent;
-  border-radius: 0.875rem;
+  border: var(--border-width) solid var(--bg-muted);
+  border-radius: var(--radius-md);
   cursor: pointer;
   transition: all 0.2s;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
 }
 
 .coll-sentiment-option:hover {
-  background: var(--bg-hover);
-  transform: scale(1.05);
+  background: var(--bg-muted);
+  transform: translateY(-2px);
 }
 
 .coll-sentiment-option.active {
   background: var(--bg-card);
   border-color: var(--color-primary);
-  box-shadow: 0 4px 12px oklch(from var(--color-primary) l c h / 0.08);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-2px);
 }
 
 .coll-repurchase-row {
@@ -631,7 +847,7 @@
 
 .coll-repurchase-label {
   font-size: 0.8rem;
-  font-weight: 700;
+  font-weight: var(--font-semibold);
   color: var(--text-muted);
   white-space: nowrap;
 }
@@ -644,50 +860,57 @@
 
 .coll-repurchase-btn {
   flex: 1;
-  padding: 0.4rem;
-  border-radius: 0.75rem;
+  padding: 0.5rem 0.4rem;
+  border-radius: var(--radius-md);
   background: var(--bg-card);
-  border: 2px solid var(--bg-muted);
+  border: var(--border-width) solid var(--bg-muted);
   font-size: 0.7rem;
-  font-weight: 800;
+  font-weight: var(--font-bold);
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.2s;
   color: var(--text-muted);
+  letter-spacing: var(--tracking-wide);
 }
 
 .coll-repurchase-btn:hover {
-  border-color: oklch(from var(--color-primary) l c h / 0.15);
+  border-color: var(--border-strong);
+  color: var(--text-primary);
 }
 
 .coll-repurchase-btn.active-yes {
-  background: #10b981;
-  color: white;
-  border-color: #10b981;
+  background: var(--color-success);
+  color: var(--text-inverse);
+  border-color: var(--color-success);
 }
 .coll-repurchase-btn.active-unsure {
-  background: #f59e0b;
-  color: white;
-  border-color: #f59e0b;
+  background: var(--color-warning);
+  color: var(--text-inverse);
+  border-color: var(--color-warning);
 }
 .coll-repurchase-btn.active-no {
-  background: #ef4444;
-  color: white;
-  border-color: #ef4444;
+  background: var(--color-error);
+  color: var(--text-inverse);
+  border-color: var(--color-error);
 }
 
 .coll-quick-comment {
   width: 100%;
-  min-height: 80px;
+  min-height: 100px;
   padding: 0.75rem;
-  border-radius: 0.875rem;
-  border: 2px solid var(--bg-muted);
+  border-radius: var(--radius-md);
+  border: var(--border-width) solid var(--bg-muted);
   background: var(--bg-card);
   font-size: 0.875rem;
   font-family: inherit;
   resize: vertical;
   color: var(--text-primary);
   box-sizing: border-box;
+}
+
+.coll-quick-comment:focus {
+  border-color: var(--color-primary);
+  outline: none;
 }
 
 .coll-criteria-list {
@@ -701,10 +924,99 @@
   align-items: center;
 }
 
+.coll-criterion-label-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
 .coll-criterion-label {
   font-weight: 600;
   font-size: 0.875rem;
   color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.coll-info-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.coll-info-trigger {
+  background: var(--bg-muted);
+  border: none;
+  color: var(--text-muted);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 0;
+}
+
+.coll-info-trigger:hover {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.coll-info-tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: -10px;
+  width: 220px;
+  background: var(--bg-card);
+  padding: 0.875rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--border-default);
+  z-index: 100;
+  animation: coll-tooltip-in 0.2s ease-out;
+}
+
+@keyframes coll-tooltip-in {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.coll-info-tooltip p {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+
+.coll-info-tooltip b {
+  color: var(--color-primary);
+}
+
+.coll-info-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 15px;
+  border: 6px solid transparent;
+  border-top-color: var(--bg-card);
+}
+
+@media (max-width: 480px) {
+  .coll-info-tooltip {
+    left: -100px;
+    width: 200px;
+  }
+  .coll-info-tooltip::after {
+    left: 105px;
+  }
 }
 
 .coll-criterion-stars {
@@ -729,8 +1041,8 @@
   fill: none;
 }
 .coll-star-icon.filled {
-  color: #ffc107;
-  fill: #ffc107;
+  color: var(--color-warning);
+  fill: var(--color-warning);
 }
 
 .coll-card-footer {
@@ -740,37 +1052,70 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.coll-footer-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.coll-add-purchase-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--color-success);
+  font-size: 0.75rem;
+  font-weight: var(--font-bold);
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--radius-md);
+  background: oklch(from var(--color-success) l c h / 0.08);
+  border: 1px solid oklch(from var(--color-success) l c h / 0.2);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+}
+
+.coll-add-purchase-btn:hover {
+  background: oklch(from var(--color-success) l c h / 0.15);
+  border-color: var(--color-success);
 }
 
 .coll-updated-at {
-  font-size: 0.7rem;
-  font-weight: 600;
+  font-size: 0.65rem;
+  font-weight: var(--font-bold);
   color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
 }
 
 .coll-delete-btn {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  color: #ef4444;
-  font-size: 0.8rem;
-  font-weight: 700;
-  padding: 0.5rem 0.75rem;
-  border-radius: 0.75rem;
+  color: var(--color-error);
+  font-size: 0.75rem;
+  font-weight: var(--font-bold);
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--radius-md);
   transition: all 0.2s;
   background: transparent;
-  border: none;
+  border: 1px solid transparent;
   cursor: pointer;
+  text-transform: uppercase;
 }
 
 .coll-delete-btn:hover {
-  background: #fef2f2;
+  background: var(--color-error-light);
+  border-color: oklch(from var(--color-error) l c h / 0.2);
 }
 
 .coll-history-table {
   background: var(--bg-card);
-  border-radius: 1rem;
-  border: 2px solid var(--bg-muted);
+  border-radius: var(--radius-lg);
+  border: var(--border-width) solid var(--bg-muted);
   overflow: hidden;
 }
 
@@ -781,7 +1126,7 @@
 .coll-history-row {
   display: flex;
   flex-direction: column;
-  padding: 0.875rem 1rem;
+  padding: 1rem;
   border-bottom: 1px solid var(--bg-muted);
   gap: 0.25rem;
 }
@@ -805,10 +1150,10 @@
     padding: 1rem 1.25rem;
     background: var(--bg-muted);
     font-size: 0.7rem;
-    font-weight: 800;
+    font-weight: var(--font-bold);
     color: var(--text-muted);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: var(--tracking-widest);
   }
 
   .coll-history-row {
@@ -828,13 +1173,13 @@
 
 .coll-hist-date {
   font-size: 0.8rem;
-  font-weight: 600;
+  font-weight: var(--font-medium);
   color: var(--text-muted);
 }
 
 .coll-hist-name {
   display: block;
-  font-weight: 700;
+  font-weight: var(--font-bold);
   font-size: 0.9rem;
   color: var(--text-primary);
 }
@@ -843,18 +1188,22 @@
   font-size: 0.7rem;
   color: var(--text-muted);
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wide);
 }
 
 .coll-hist-qty {
-  font-weight: 800;
+  font-weight: var(--font-bold);
   color: var(--color-primary);
   font-size: 0.875rem;
+  font-family: var(--font-display);
+  font-feature-settings: "onum" 1;
 }
 
 .coll-hist-price {
-  font-weight: 700;
-  font-family: monospace;
+  font-family: var(--font-display);
+  font-feature-settings: "onum" 1;
+  font-weight: var(--font-bold);
   font-size: 0.875rem;
   color: var(--text-primary);
   text-align: right;
@@ -886,7 +1235,7 @@
 .coll-spinner {
   width: 44px;
   height: 44px;
-  border: 3px solid var(--bg-muted);
+  border: var(--border-width) solid var(--bg-muted);
   border-top-color: var(--color-primary);
   border-radius: 50%;
   animation: coll-spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
@@ -898,3 +1247,264 @@
     transform: rotate(360deg);
   }
 }
+
+/* Purchase Dialog (inline popover) */
+.coll-footer-actions {
+  position: relative;
+}
+
+.coll-purchase-dialog {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 0;
+  width: 260px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  z-index: 100;
+  padding: 1rem;
+  animation: dialogFadeIn 0.2s ease-out;
+}
+
+@keyframes dialogFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.coll-purchase-dialog::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 20px;
+  border: 8px solid transparent;
+  border-top-color: var(--border-strong);
+}
+
+.coll-purchase-dialog::before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 21px;
+  border: 7px solid transparent;
+  border-top-color: var(--bg-card);
+  z-index: 1;
+}
+
+.coll-purchase-dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--bg-muted);
+}
+
+.coll-purchase-dialog-title {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+.coll-purchase-dialog-close {
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.coll-purchase-dialog-close:hover {
+  background: var(--bg-muted);
+  color: var(--text-primary);
+}
+
+.coll-purchase-dialog-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.coll-purchase-dialog-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.coll-purchase-dialog-field label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.coll-purchase-dialog-field input {
+  padding: 0.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-default);
+  background: var(--bg-muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.coll-purchase-dialog-field input:focus {
+  border-color: var(--color-primary);
+  outline: none;
+  background: var(--bg-card);
+}
+
+.coll-purchase-dialog-save {
+  width: 100%;
+  padding: 0.625rem;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 800;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 0.25rem;
+}
+
+.coll-purchase-dialog-save:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.coll-purchase-dialog-save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Delete Confirmation Dialog */
+.coll-delete-dialog {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  right: 0;
+  width: 220px;
+  background: var(--bg-card);
+  border: 1px solid var(--color-error);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  z-index: 100;
+  padding: 1rem;
+  animation: dialogFadeIn 0.2s ease-out;
+}
+
+.coll-delete-dialog::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  right: 20px;
+  border: 8px solid transparent;
+  border-top-color: var(--color-error);
+}
+
+.coll-delete-dialog::before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  right: 21px;
+  border: 7px solid transparent;
+  border-top-color: var(--bg-card);
+  z-index: 1;
+}
+
+.coll-delete-dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--bg-muted);
+}
+
+.coll-delete-dialog-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.coll-delete-warning-icon {
+  color: var(--color-error);
+}
+
+.coll-delete-dialog-title {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--color-error);
+  letter-spacing: 0.05em;
+}
+
+.coll-delete-dialog-close {
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.coll-delete-dialog-body p {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.4;
+  margin: 0 0 1rem;
+  color: var(--text-primary);
+}
+
+.coll-delete-dialog-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.coll-delete-dialog-cancel,
+.coll-delete-dialog-confirm {
+  padding: 0.5rem;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.coll-delete-dialog-cancel {
+  background: var(--bg-muted);
+  color: var(--text-primary);
+}
+
+.coll-delete-dialog-confirm {
+  background: var(--color-error);
+  color: white;
+}
+
+.coll-delete-dialog-confirm:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.coll-delete-dialog-cancel:hover:not(:disabled) {
+  background: var(--border-default);
+}
+

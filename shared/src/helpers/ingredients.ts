@@ -1,5 +1,5 @@
-import type { HttpStatus } from '../types/api'
 import type { IngredientErrorCode } from '../types/ingredients'
+import type { HttpStatus } from './constants'
 import { HTTP_STATUS } from './constants'
 
 export const ingredientErrorMapping = {

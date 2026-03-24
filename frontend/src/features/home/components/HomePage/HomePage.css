@@ -22,7 +22,7 @@
 
 /* Atmospheric warm mesh background */
 .home-hero::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
@@ -59,10 +59,10 @@
   font-size: var(--text-xs);
   font-weight: var(--font-bold);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: var(--tracking-widest);
   color: var(--color-primary);
   background: color-mix(in oklch, var(--color-primary) 10%, transparent);
-  border: 1.5px solid color-mix(in oklch, var(--color-primary) 30%, transparent);
+  border: var(--border-width) solid color-mix(in oklch, var(--color-primary) 30%, transparent);
   padding: var(--space-1) var(--space-3);
   border-radius: var(--radius-full);
 }
@@ -72,10 +72,10 @@
   z-index: 1;
   font-family: var(--font-display);
   font-size: clamp(3.5rem, 12vw, 5.5rem);
-  font-weight: var(--font-semibold);
+  font-weight: var(--font-bold);
   color: var(--text-primary);
-  line-height: 0.95;
-  letter-spacing: -0.02em;
+  line-height: 0.85;
+  letter-spacing: var(--tracking-tight);
   margin-bottom: var(--space-4);
 }
 
@@ -112,7 +112,7 @@
 }
 
 .home-section__title::after {
-  content: '';
+  content: "";
   flex: 1;
   height: 1px;
   background: var(--border-default);
@@ -135,7 +135,9 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
-  transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+  transition:
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
 }
 
 .home-feature-card:hover {

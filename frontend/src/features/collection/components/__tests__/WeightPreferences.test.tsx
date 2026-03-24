@@ -1,8 +1,9 @@
-import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { describe, expect, it, vi } from 'vitest'
+
+import { DEFAULT_WEIGHTS } from '../../../../lib/helpers/reviews'
 import { WeightPreferences } from '../review/WeightPreferences'
-import { DEFAULT_WEIGHTS } from '../../../lib/helpers/reviews'
 
 const defaultProps = {
   weights: { ...DEFAULT_WEIGHTS },

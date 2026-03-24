@@ -25,10 +25,7 @@ export async function silentRefresh(queryClient: QueryClient): Promise<boolean> 
 
       useAuthStore.getState().setAuth(accessToken, user)
 
-      queryClient.setQueryData(['session'], {
-        success: true as const,
-        data: { authenticated: true, userId: user.id },
-      })
+      queryClient.setQueryData(['session'], { authenticated: true, userId: user.id })
 
       return true
     } catch {

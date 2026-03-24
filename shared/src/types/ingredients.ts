@@ -1,8 +1,3 @@
-export type {
-  CreateIngredientInput,
-  UpdateIngredientInput,
-} from '../schemas/ingredients'
-
 import type { FieldChange } from './common'
 
 export type Ingredient = {

@@ -1,9 +1,10 @@
-import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { describe, expect, it, vi } from 'vitest'
+
+import type { CollectionFilters, SortOption } from '../../../../utils/collectionFilters'
+import { DEFAULT_FILTERS } from '../../../../utils/collectionFilters'
 import { FilterPanel } from '../filters/FilterPanel'
-import type { CollectionFilters, SortOption } from '../../../utils/collectionFilters'
-import { DEFAULT_FILTERS } from '../../../utils/collectionFilters'
 
 const defaultProps = {
   filters: DEFAULT_FILTERS,
@@ -51,12 +52,16 @@ describe('FilterPanel', () => {
   })
 
   it("badge de filtres actifs s'affiche quand filtre actif", () => {
-    const activeFilters: CollectionFilters = { ...DEFAULT_FILTERS, status: 'in_stock', brand: 'CeraVe' }
+    const activeFilters: CollectionFilters = {
+      ...DEFAULT_FILTERS,
+      status: 'in_stock',
+      brand: 'CeraVe',
+    }
     render(<FilterPanel {...defaultProps} filters={activeFilters} />)
     expect(screen.getByLabelText('2 filtre(s) actif(s)')).toBeInTheDocument()
   })
 
-  it("pas de badge quand aucun filtre actif", () => {
+  it('pas de badge quand aucun filtre actif', () => {
     render(<FilterPanel {...defaultProps} />)
     expect(screen.queryByLabelText(/filtre\(s\) actif/)).not.toBeInTheDocument()
   })

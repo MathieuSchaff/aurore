@@ -1,11 +1,16 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen } from '@testing-library/react'
+/** @vitest-environment jsdom */
+import { cleanup, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { renderWithProviders, makeUserProduct } from '../../../test/utils'
-import { CollectionCard } from '../components/CollectionCard'
-import { StatusSelector } from '../components/StatusSelector'
+import { afterEach, describe, expect, it, vi } from 'vitest'
+
+import { makeUserProduct, renderWithProviders } from '../../../test/utils'
+import { CollectionCard } from '../components/card/CollectionCard'
+import { StatusSelector } from '../components/filters/StatusSelector'
 
 describe('Flow : changement de statut', () => {
+  afterEach(() => {
+    cleanup()
+  })
   it('la card affiche le statut initial', () => {
     const item = makeUserProduct({ status: 'in_stock' })
     renderWithProviders(<CollectionCard item={item} />)

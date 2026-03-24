@@ -13,7 +13,7 @@ export const criteriaWeightsSchema = z.object({
 })
 
 export const userPreferencesSchema = z.object({
-  userId: z.string().uuid(),
+  userId: z.uuid(),
   displayScale: displayScaleSchema.default('out_of_20'),
   criteriaWeights: criteriaWeightsSchema.default({
     tolerance: 1,

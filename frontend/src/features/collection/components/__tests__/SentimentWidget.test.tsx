@@ -1,6 +1,7 @@
-import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { describe, expect, it, vi } from 'vitest'
+
 import { SentimentWidget } from '../review/SentimentWidget'
 
 describe('SentimentWidget', () => {
@@ -31,7 +32,7 @@ describe('SentimentWidget', () => {
   it('sans valeur sélectionnée → aucun aria-pressed=true', () => {
     render(<SentimentWidget value={null} onChange={() => {}} />)
     const buttons = screen.getAllByRole('button')
-    expect(buttons.every(b => b.getAttribute('aria-pressed') === 'false')).toBe(true)
+    expect(buttons.every((b) => b.getAttribute('aria-pressed') === 'false')).toBe(true)
   })
 
   it("clic sur l'emoji déjà sélectionné appelle onChange", async () => {

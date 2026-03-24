@@ -1,5 +1,11 @@
-import { describe, it, expect } from 'vitest'
-import { calculateWeightedScore, DEFAULT_WEIGHTS, type ReviewCriteria, type CriteriaWeights } from './reviews'
+import { describe, expect, it } from 'vitest'
+
+import {
+  type CriteriaWeights,
+  calculateWeightedScore,
+  DEFAULT_WEIGHTS,
+  type ReviewCriteria,
+} from './reviews'
 
 const fullReview: ReviewCriteria = {
   tolerance: 4,
@@ -13,11 +19,27 @@ const fullReview: ReviewCriteria = {
 describe('calculateWeightedScore', () => {
   it('calculates simple scores with equal weights', () => {
     expect(calculateWeightedScore(fullReview)).toBe('16.0')
-    
-    const maxReview = { ...fullReview, tolerance: 5, efficacy: 5, sensoriality: 5, stability: 5, mixability: 5, valueForMoney: 5 }
+
+    const maxReview = {
+      ...fullReview,
+      tolerance: 5,
+      efficacy: 5,
+      sensoriality: 5,
+      stability: 5,
+      mixability: 5,
+      valueForMoney: 5,
+    }
     expect(calculateWeightedScore(maxReview)).toBe('20.0')
-    
-    const minReview = { ...fullReview, tolerance: 1, efficacy: 1, sensoriality: 1, stability: 1, mixability: 1, valueForMoney: 1 }
+
+    const minReview = {
+      ...fullReview,
+      tolerance: 1,
+      efficacy: 1,
+      sensoriality: 1,
+      stability: 1,
+      mixability: 1,
+      valueForMoney: 1,
+    }
     expect(calculateWeightedScore(minReview)).toBe('4.0')
   })
 

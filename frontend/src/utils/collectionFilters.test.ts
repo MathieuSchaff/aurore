@@ -1,9 +1,10 @@
-import { describe, it, expect } from 'vitest'
+import { describe, expect, it } from 'vitest'
+
 import {
   applyFilters,
-  sortProducts,
   DEFAULT_FILTERS,
   type FilterableProduct,
+  sortProducts,
 } from './collectionFilters'
 
 const makeProduct = (overrides: Partial<FilterableProduct> = {}): FilterableProduct => ({
@@ -64,7 +65,11 @@ describe('applyFilters', () => {
   })
 
   it('handles combination filters and search', () => {
-    const combined = applyFilters(products, { ...DEFAULT_FILTERS, status: 'in_stock', brand: 'CeraVe' })
+    const combined = applyFilters(products, {
+      ...DEFAULT_FILTERS,
+      status: 'in_stock',
+      brand: 'CeraVe',
+    })
     expect(combined).toHaveLength(2)
 
     expect(applyFilters(products, { ...DEFAULT_FILTERS, search: 'cerave' })).toHaveLength(2)
@@ -74,8 +79,8 @@ describe('applyFilters', () => {
   it('filters by numeric values (price and sentiment)', () => {
     // max 10 euros
     const affordable = applyFilters(products, { ...DEFAULT_FILTERS, maxPriceEuros: 10 })
-    expect(affordable.some(p => p.id === 'p2')).toBe(true) // 5.99
-    expect(affordable.some(p => p.id === 'p1')).toBe(false) // 12.99
+    expect(affordable.some((p) => p.id === 'p2')).toBe(true) // 5.99
+    expect(affordable.some((p) => p.id === 'p1')).toBe(false) // 12.99
 
     expect(applyFilters(products, { ...DEFAULT_FILTERS, sentiment: 5 })).toHaveLength(1)
     expect(applyFilters(products, { ...DEFAULT_FILTERS, minNote: 10 })).toHaveLength(0)
