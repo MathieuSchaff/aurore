@@ -121,12 +121,6 @@ export function ProductPage() {
                 </div>
               </div>
             )}
-            {product.expiresAt && (
-              <div className="product-detail">
-                <div className="product-detail__label">Expiration</div>
-                <div className="product-detail__value">{product.expiresAt}</div>
-              </div>
-            )}
             {product.inci && (
               <div className="product-detail product-detail--full">
                 <div className="product-detail__label">INCI</div>

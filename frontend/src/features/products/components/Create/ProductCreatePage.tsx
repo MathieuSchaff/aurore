@@ -13,7 +13,7 @@ export function ProductCreatePage() {
 
       <div className="product-edit-page__content">
         <div className="product-edit-page__topbar">
-          <Link to="/products/" className="product-edit-page__back">
+          <Link to="/products" className="product-edit-page__back">
             <ArrowLeft size={16} />
             Retour
           </Link>

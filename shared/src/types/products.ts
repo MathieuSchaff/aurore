@@ -1,3 +1,4 @@
+import type { UserProduct } from '../schemas/user-products'
 import type { FieldChange } from './common'
 
 export type Product = {
@@ -18,23 +19,14 @@ export type Product = {
   url: string | null
   notes: string | null
   priceCents: number | null
-  expiresAt: string | null
 
   // Timestamps (en ISO String pour le transit API, ou Date)
   createdAt: string | Date
   updatedAt: string | Date
 }
 
-export type ProductStock = {
-  id: string
-  userId: string
-  productId: string
-  qty: number
-  updatedAt: string | Date
-}
-
 export type ProductWithStock = Product & {
-  stock: ProductStock | null
+  stock: UserProduct | null
 }
 export type EditableProductKeys = Exclude<keyof Product, 'id' | 'createdBy' | 'createdAt' | 'slug'>
 

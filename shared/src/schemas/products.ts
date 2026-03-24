@@ -17,7 +17,6 @@ export const createProductSchema = z.object({
   url: z.url().max(2000).optional(),
   notes: z.string().max(5000).optional(),
   priceCents: z.number().int().min(0).optional(),
-  expiresAt: z.string().max(50).optional(),
 })
 
 export const updateProductSchema = z
@@ -34,7 +33,6 @@ export const updateProductSchema = z
     url: z.url().max(2000).nullable().optional(),
     notes: z.string().max(5000).nullable().optional(),
     priceCents: z.number().int().min(0).nullable().optional(),
-    expiresAt: z.string().max(50).nullable().optional(),
   })
   .strict()
 
@@ -53,7 +51,6 @@ export const productResponseSchema = z.object({
   url: z.string().nullable(),
   notes: z.string().nullable(),
   priceCents: z.number().int().nullable(),
-  expiresAt: z.string().nullable(),
   createdAt: z.date(),
   updatedAt: z.date(),
 })
@@ -107,7 +104,6 @@ const editableProductFields = {
   url: fieldChangeSchema(z.url()),
   notes: fieldChangeSchema(z.string()),
   priceCents: fieldChangeSchema(z.number().int()),
-  expiresAt: fieldChangeSchema(z.string()),
   updatedAt: fieldChangeSchema(z.iso.datetime()),
 }
 

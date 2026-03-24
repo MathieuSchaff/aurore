@@ -1,5 +1,5 @@
-import type { HttpStatus } from '../types/api'
 import type { ProductErrorCode } from '../types/products'
+import type { HttpStatus } from './constants'
 import { HTTP_STATUS } from './constants'
 
 /**

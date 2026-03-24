@@ -317,6 +317,7 @@
   font-size: var(--text-sm);
   font-weight: var(--font-bold);
   color: var(--text-primary);
+  text-transform: none; /* Sécurité */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -334,6 +335,7 @@
   font-size: var(--text-base);
   font-weight: var(--font-semibold);
   color: var(--text-primary);
+  text-transform: none; /* Sécurité */
   line-height: var(--leading-tight);
   display: -webkit-box;
   -webkit-line-clamp: 2;
