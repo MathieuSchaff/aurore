@@ -2,9 +2,9 @@ import type { DisplayScale, UserProductStatus } from '@habit-tracker/shared'
 
 import { useDroppable } from '@dnd-kit/core'
 
-import type { CriteriaWeights } from '../../../../../lib/helpers/reviews'
-import { calculateWeightedScore } from '../../../../../lib/helpers/reviews'
-import type { UserProduct } from '../../../../../lib/queries/user-products'
+import type { CriteriaWeights } from '@/lib/helpers/reviews'
+import { calculateWeightedScore } from '@/lib/helpers/reviews'
+import type { UserProduct } from '@/lib/queries/user-products'
 import { ShelfGrid } from './ShelfGrid'
 import { ShelfHeader } from './ShelfHeader'
 import { ShelfProductCard } from './ShelfProductCard'
@@ -15,8 +15,6 @@ interface ShelfSectionProps {
   isCollapsed: boolean
   onToggleCollapse: () => void
   onProductClick: (productId: string) => void
-  expandedCardId?: string | null
-  renderExpandedCard?: (product: UserProduct) => React.ReactNode
   lastDroppedId?: string | null
   criteriaWeights?: CriteriaWeights
   displayScale?: DisplayScale
@@ -28,8 +26,6 @@ export function ShelfSection({
   isCollapsed,
   onToggleCollapse,
   onProductClick,
-  expandedCardId,
-  renderExpandedCard,
   lastDroppedId,
   criteriaWeights,
   displayScale,
@@ -57,15 +53,14 @@ export function ShelfSection({
               displayScale ?? 'out_of_20'
             )
             return (
-              <div key={product.id}>
-                <ShelfProductCard
-                  product={product}
-                  score={score}
-                  onClick={() => onProductClick(product.id)}
-                  isJustDropped={lastDroppedId === product.id}
-                />
-                {expandedCardId === product.id && renderExpandedCard?.(product)}
-              </div>
+              <ShelfProductCard
+                key={product.id}
+                product={product}
+                score={score}
+                displayScale={displayScale}
+                onClick={() => onProductClick(product.id)}
+                isJustDropped={lastDroppedId === product.id}
+              />
             )
           })}
         </ShelfGrid>
