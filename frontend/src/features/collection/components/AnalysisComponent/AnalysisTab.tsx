@@ -1,13 +1,27 @@
+/**
+ * AnalysisTab — Analyse des ingrédients communs par catégorie.
+ *
+ * Affiche 4 cartes :
+ * - Signature des Saint Graals : ingrédients récurrents dans les favoris
+ * - Alertes Tolérance : ingrédients dans les produits mal tolérés
+ * - Facteurs de déception : ingrédients dans les produits mal notés
+ * - Blacklist : ingrédients dans les produits évités
+ *
+ * Les ingrédients "filler" courants (eau, glycérine, conservateurs...)
+ * sont exclus pour ne montrer que les ingrédients significatifs.
+ */
+
 import { AlertTriangle, Ghost, Heart, Zap } from 'lucide-react'
 import { useMemo } from 'react'
 
 import type { UserProduct } from '../../../../lib/queries/user-products'
-import './CollectionInsights.css'
+import './AnalysisTab.css'
 
-interface CollectionInsightsProps {
+interface AnalysisTabProps {
   userProducts: UserProduct[]
 }
 
+/** Ingrédients trop courants pour être significatifs dans l'analyse */
 const COMMON_FILLERS = [
   'Aqua',
   'Water',
@@ -24,7 +38,7 @@ const COMMON_FILLERS = [
   'Caprylyl Glycol',
 ]
 
-export function CollectionInsights({ userProducts }: CollectionInsightsProps) {
+export function AnalysisTab({ userProducts }: AnalysisTabProps) {
   const analysis = useMemo(() => {
     const holyGrails = userProducts.filter((p) => p.status === 'holy_grail')
     const lowTolerance = userProducts.filter(
@@ -35,6 +49,7 @@ export function CollectionInsights({ userProducts }: CollectionInsightsProps) {
     )
     const avoided = userProducts.filter((p) => p.status === 'avoided')
 
+    /** Compte les ingrédients communs (hors fillers), retourne le top 5 */
     const countIngredients = (products: UserProduct[]) => {
       const counts: Record<string, { name: string; count: number }> = {}
       products.forEach((p) => {

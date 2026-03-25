@@ -1,0 +1,293 @@
+/* ============================================================
+   Collection — Design System Animation
+   ============================================================
+   Fichier centralisé pour toutes les animations de la collection.
+   Chaque composant importe ce fichier au lieu de redéfinir ses
+   propres @keyframes.
+
+   Utilisation :
+     - Classes utilitaires  → .motion-spring, .motion-bounce, etc.
+     - Keyframes             → animation: coll-shake 400ms ease
+     - Variables CSS custom  → var(--ease-spring)
+   ============================================================ */
+
+/* --- EASINGS ------------------------------------------------
+   Centralisés ici pour éviter de copier-coller des cubic-bezier
+   dans chaque composant.
+   ------------------------------------------------------------ */
+:root {
+  /* Rebond élastique — pour les drops, snaps, apparitions */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Sortie douce — pour les disparitions, fermetures */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Entrée rapide, sortie lente — pour les overlays */
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Durées spécifiques aux animations de la collection */
+  --duration-snap: 300ms;
+  --duration-feedback: 400ms;
+  --duration-exit: 250ms;
+}
+
+/* --- KEYFRAMES : FEEDBACK -----------------------------------
+   Animations de retour utilisateur (erreur, succès, attention).
+   ------------------------------------------------------------ */
+
+/* Tremblement horizontal — rollback d'erreur optimistic UI
+   Usage : un PATCH échoue, le produit revient à sa position
+   et tremble pour signaler l'échec */
+@keyframes coll-shake {
+  0%,
+  100% {
+    translate: 0;
+  }
+  20% {
+    translate: -6px;
+  }
+  40% {
+    translate: 5px;
+  }
+  60% {
+    translate: -3px;
+  }
+  80% {
+    translate: 2px;
+  }
+}
+
+/* Pulsation douce — attirer l'attention sur un élément
+   Usage : zone de drop active, bouton "nouveau", badge mis à jour */
+@keyframes coll-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Pulsation avec scale — feedback de confirmation
+   Usage : après un changement de statut réussi */
+@keyframes coll-pulse-scale {
+  0%,
+  100% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.05;
+  }
+}
+
+/* --- KEYFRAMES : ENTRÉES ------------------------------------
+   Apparitions de composants (cards, menus, tooltips).
+   ------------------------------------------------------------ */
+
+/* Fondu + glissement vers le haut — entrée standard */
+@keyframes coll-fade-in {
+  from {
+    opacity: 0;
+    translate: 0 8px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+/* Entrée avec rebond élastique — pour les éléments interactifs */
+@keyframes coll-pop-in {
+  from {
+    opacity: 0;
+    scale: 0.6;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+/* Entrée par scale seul — pour les overlays, modals */
+@keyframes coll-scale-in {
+  from {
+    scale: 0.95;
+    opacity: 0;
+  }
+  to {
+    scale: 1;
+    opacity: 1;
+  }
+}
+
+/* --- KEYFRAMES : SORTIES ------------------------------------
+   Disparitions (archivage, suppression, fermeture).
+   ------------------------------------------------------------ */
+
+/* Fondu de sortie — disparition standard */
+@keyframes coll-fade-out {
+  from {
+    opacity: 1;
+    translate: 0 0;
+  }
+  to {
+    opacity: 0;
+    translate: 0 -4px;
+  }
+}
+
+/* Rétrécissement + fondu — archivage, "rangement" */
+@keyframes coll-shrink-out {
+  from {
+    opacity: 1;
+    scale: 1;
+  }
+  to {
+    opacity: 0;
+    scale: 0.85;
+  }
+}
+
+/* --- KEYFRAMES : BOUCLES ------------------------------------
+   Animations continues (loading, indicateurs d'état).
+   ------------------------------------------------------------ */
+
+/* Skeleton loading — shimmer horizontal */
+@keyframes coll-shimmer {
+  from {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+/* Rotation — spinners */
+@keyframes coll-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+/* Lueur pulsée — halo autour des produits Saint Graal */
+@keyframes coll-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 var(--_glow-color, oklch(0.8 0.15 90 / 0.3));
+  }
+  50% {
+    box-shadow: 0 0 12px 4px var(--_glow-color, oklch(0.8 0.15 90 / 0.15));
+  }
+}
+
+/* --- KEYFRAMES : GESTES & DRAG ------------------------------
+   Animations liées aux interactions tactiles.
+   ------------------------------------------------------------ */
+
+/* Rebond d'atterrissage — quand un produit est "droppé" */
+@keyframes coll-land {
+  0% {
+    scale: 1.1;
+  }
+  50% {
+    scale: 0.95;
+  }
+  100% {
+    scale: 1;
+  }
+}
+
+/* Micro-rebond de confirmation — tap, sélection */
+@keyframes coll-bounce {
+  0%,
+  100% {
+    translate: 0;
+  }
+  40% {
+    translate: 0 -4px;
+  }
+  60% {
+    translate: 0 -2px;
+  }
+}
+
+/* --- CLASSES UTILITAIRES ------------------------------------
+   Appliquer directement sur les éléments pour un comportement
+   d'animation prédéfini.
+   ------------------------------------------------------------ */
+
+/* Transition spring — pour transform, opacity, box-shadow */
+.motion-spring {
+  transition-timing-function: var(--ease-spring);
+  transition-duration: var(--duration-snap);
+}
+
+/* Transition douce — pour les fermetures, fondus */
+.motion-ease-out {
+  transition-timing-function: var(--ease-out);
+  transition-duration: var(--duration-exit);
+}
+
+/* Feedback d'erreur — à ajouter temporairement via JS */
+.motion-shake {
+  animation: coll-shake var(--duration-feedback) ease;
+}
+
+/* Feedback de succès — pulsation scale */
+.motion-confirm {
+  animation: coll-pulse-scale var(--duration-snap) var(--ease-spring);
+}
+
+/* Entrée standard */
+.motion-enter {
+  animation: coll-fade-in var(--duration-snap) var(--ease-out) both;
+}
+
+/* Entrée avec pop */
+.motion-pop {
+  animation: coll-pop-in var(--duration-snap) var(--ease-spring) both;
+}
+
+/* Sortie standard */
+.motion-exit {
+  animation: coll-shrink-out var(--duration-exit) var(--ease-out) forwards;
+}
+
+/* Halo Saint Graal — animation continue */
+.motion-glow {
+  animation: coll-glow 2s ease-in-out infinite;
+}
+
+/* Skeleton shimmer */
+.motion-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-card) 25%,
+    var(--border-default) 50%,
+    var(--bg-card) 75%
+  );
+  background-size: 200% 100%;
+  animation: coll-shimmer 1.5s ease-in-out infinite;
+}
+
+/* Spinner */
+.motion-spin {
+  animation: coll-spin 600ms linear infinite;
+}
+
+/* --- ACCESSIBILITE ------------------------------------------
+   Respecter les préférences utilisateur. Si l'utilisateur a
+   activé "Réduire les animations" dans son OS, on coupe tout
+   sauf les transitions de couleur/opacité essentielles.
+   ------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

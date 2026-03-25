@@ -1,0 +1,131 @@
+.coll-criteria-list {
+  display: grid;
+  gap: 0.875rem;
+}
+
+.coll-criterion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.coll-criterion-label-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.coll-criterion-label {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.coll-info-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.coll-info-trigger {
+  background: var(--bg-muted);
+  border: none;
+  color: var(--text-muted);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 0;
+}
+
+.coll-info-trigger:hover {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.coll-info-tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: -10px;
+  width: 220px;
+  background: var(--bg-card);
+  padding: 0.875rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--border-default);
+  z-index: 100;
+  animation: coll-tooltip-in 0.2s ease-out;
+}
+
+@keyframes coll-tooltip-in {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.coll-info-tooltip p {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+
+.coll-info-tooltip b {
+  color: var(--color-primary);
+}
+
+.coll-info-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 15px;
+  border: 6px solid transparent;
+  border-top-color: var(--bg-card);
+}
+
+@media (max-width: 480px) {
+  .coll-info-tooltip {
+    left: -100px;
+    width: 200px;
+  }
+  .coll-info-tooltip::after {
+    left: 105px;
+  }
+}
+
+.coll-criterion-stars {
+  display: flex;
+  gap: 0.2rem;
+}
+
+.coll-star-btn {
+  background: none;
+  border: none;
+  padding: 0.2rem;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.coll-star-btn:hover {
+  transform: scale(1.2);
+}
+
+.coll-star-icon {
+  color: var(--bg-muted);
+  fill: none;
+}
+.coll-star-icon.filled {
+  color: var(--color-warning);
+  fill: var(--color-warning);
+}

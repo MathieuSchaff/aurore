@@ -1,11 +1,20 @@
+/**
+ * CriteriaList — Grille de notation des 6 critères techniques.
+ *
+ * Chaque critère a une rangée d'étoiles (1 à 5) et un bouton info
+ * qui affiche la définition dans une infobulle.
+ * Le clic extérieur sur l'infobulle la ferme (via useClickOutside).
+ */
+
 import clsx from 'clsx'
 import { Info, Star } from 'lucide-react'
 import { useRef } from 'react'
 
-import { useClickOutside } from '../../../hooks/useClickOutside'
-import type { ReviewCriteria } from '../../../lib/helpers/reviews'
-import type { UserProduct } from '../../../lib/queries/user-products'
-import { criteriaDefinitions, criteriaLabels } from '../constants'
+import { useClickOutside } from '../../../../hooks/useClickOutside'
+import type { ReviewCriteria } from '../../../../lib/helpers/reviews'
+import type { UserProduct } from '../../../../lib/queries/user-products'
+import { criteriaDefinitions, criteriaLabels } from '../../constants'
+import './CriteriaList.css'
 
 interface CriteriaListProps {
   p: UserProduct

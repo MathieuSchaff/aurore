@@ -1,0 +1,97 @@
+.coll-usage-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: var(--bg-card);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-default);
+}
+
+.coll-usage-main-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-radius: var(--radius-sm);
+  font-weight: var(--font-bold);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.coll-usage-main-btn.open {
+  background: var(--color-primary);
+  color: var(--text-inverse);
+}
+
+.coll-usage-main-btn.finish {
+  background: oklch(from var(--color-warning) l c h / 0.1);
+  color: var(--color-warning);
+  border: 1px solid var(--color-warning);
+}
+
+.coll-usage-main-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.coll-active-log-info {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: var(--font-medium);
+  text-align: center;
+  padding: 0.25rem;
+  border-bottom: 1px solid var(--bg-muted);
+}
+
+.coll-usage-history {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.coll-usage-hist-title {
+  font-size: 0.65rem;
+  font-weight: var(--font-bold);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: var(--tracking-widest);
+  margin-bottom: 0.25rem;
+}
+
+.coll-usage-log-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0.625rem;
+  background: var(--bg-muted);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+}
+
+.coll-log-dates {
+  color: var(--text-primary);
+  font-weight: var(--font-medium);
+}
+
+.coll-log-duration {
+  background: var(--bg-card);
+  padding: 0.15rem 0.4rem;
+  border-radius: var(--radius-full);
+  font-weight: var(--font-bold);
+  color: var(--color-primary);
+  font-family: var(--font-display);
+  font-feature-settings: "onum" 1;
+}
+
+.coll-no-purchase-hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+  font-style: italic;
+  padding: 1rem 0;
+}

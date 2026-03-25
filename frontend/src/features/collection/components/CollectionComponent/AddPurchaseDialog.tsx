@@ -1,46 +1,40 @@
+/**
+ * AddPurchaseDialog — Formulaire d'enregistrement d'un achat.
+ *
+ * L'état du formulaire (date, prix) est local au dialog.
+ * La fermeture se fait via clic extérieur ou touche Escape
+ * (géré par useClickOutside qui écoute les deux).
+ */
+
 import { Calendar, Euro, X } from 'lucide-react'
-import { useEffect, useRef } from 'react'
+import { useRef, useState } from 'react'
 import { toast } from 'sonner'
 
-import { useClickOutside } from '../../../hooks/useClickOutside'
-import { useAddPurchase } from '../../../lib/queries/purchases'
-import type { UserProduct } from '../../../lib/queries/user-products'
+import { useClickOutside } from '../../../../hooks/useClickOutside'
+import { useAddPurchase } from '../../../../lib/queries/purchases'
+import './AddPurchaseDialog.css'
 
 interface AddPurchaseDialogProps {
-  p: UserProduct
-  purchaseDate: string
-  setPurchaseDate: (v: string) => void
-  purchasePrice: string
-  setPurchasePrice: (v: string) => void
+  userProductId: string
   onClose: () => void
 }
 
-export function AddPurchaseDialog({
-  p,
-  purchaseDate,
-  setPurchaseDate,
-  purchasePrice,
-  setPurchasePrice,
-  onClose,
-}: AddPurchaseDialogProps) {
+export function AddPurchaseDialog({ userProductId, onClose }: AddPurchaseDialogProps) {
   const addPurchaseMutation = useAddPurchase()
   const ref = useRef<HTMLDivElement>(null)
 
-  useClickOutside(ref, onClose)
+  // État local du formulaire — pas besoin de le remonter au parent
+  const [purchaseDate, setPurchaseDate] = useState(() => new Date().toISOString().split('T')[0])
+  const [purchasePrice, setPurchasePrice] = useState('')
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
-    }
-    document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [onClose])
+  // Ferme sur clic extérieur OU touche Escape
+  useClickOutside(ref, onClose)
 
   const handleSave = (e: React.MouseEvent) => {
     e.stopPropagation()
     addPurchaseMutation.mutate(
       {
-        userProductId: p.id,
+        userProductId,
         input: {
           purchasedAt: purchaseDate,
           pricePaidCents: purchasePrice ? Math.round(parseFloat(purchasePrice) * 100) : undefined,
@@ -66,12 +60,12 @@ export function AddPurchaseDialog({
 
       <div className="coll-purchase-dialog-body">
         <div className="coll-purchase-dialog-field">
-          <label htmlFor={`dialog-date-${p.id}`}>
+          <label htmlFor={`dialog-date-${userProductId}`}>
             <Calendar size={12} />
             Date d'achat
           </label>
           <input
-            id={`dialog-date-${p.id}`}
+            id={`dialog-date-${userProductId}`}
             type="date"
             value={purchaseDate}
             onChange={(e) => setPurchaseDate(e.target.value)}
@@ -79,12 +73,12 @@ export function AddPurchaseDialog({
         </div>
 
         <div className="coll-purchase-dialog-field">
-          <label htmlFor={`dialog-price-${p.id}`}>
+          <label htmlFor={`dialog-price-${userProductId}`}>
             <Euro size={12} />
             Prix payé (€)
           </label>
           <input
-            id={`dialog-price-${p.id}`}
+            id={`dialog-price-${userProductId}`}
             type="number"
             min="0"
             step="0.01"

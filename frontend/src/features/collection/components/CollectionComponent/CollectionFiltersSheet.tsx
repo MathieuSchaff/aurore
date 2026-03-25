@@ -1,10 +1,19 @@
+/**
+ * CollectionFiltersSheet — Panneau de filtres avancés (bottom sheet).
+ *
+ * Filtres disponibles : marque, type, ressenti, rachat, note min, prix max.
+ * Le scroll de la page est verrouillé pendant l'ouverture (useScrollLock).
+ * Se ferme via backdrop, bouton close, ou touche Escape.
+ */
+
 import type { RepurchaseFlag } from '@habit-tracker/shared'
 
 import { X } from 'lucide-react'
 import { useEffect } from 'react'
 
-import { useScrollLock } from '../../../hooks/useScrollLock'
-import { sentimentEmojis } from '../constants'
+import { useScrollLock } from '../../../../hooks/useScrollLock'
+import { sentimentEmojis } from '../../constants'
+import './CollectionFiltersSheet.css'
 
 interface FiltersSheetProps {
   filterOptions: { brands: string[]; kinds: string[] }

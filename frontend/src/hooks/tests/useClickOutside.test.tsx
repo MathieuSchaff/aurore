@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 
-import { useClickOutside } from './useClickOutside'
+import { useClickOutside } from '../useClickOutside'
 
 describe('useClickOutside', () => {
   it('should call handler when clicking outside', () => {

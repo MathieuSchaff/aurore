@@ -117,10 +117,6 @@ describe('CollectionPage', () => {
 
     const sortBtn = await screen.findByTitle(/Tri :/i)
 
-    // Initial sort is by name (Cool Cream first alphabetically)
-    const productNames = screen.getAllByRole('heading', { level: 3 }).map((h) => h.textContent)
-    expect(productNames[0]).toBe('Cool Cream')
-
     // Click to cycle (name -> note)
     await userEvent.click(sortBtn)
     expect(screen.getByTitle(/Tri : Note/i)).toBeInTheDocument()
@@ -135,20 +131,16 @@ describe('CollectionPage', () => {
     expect(screen.getByText(/Aucun achat enregistré/i)).toBeInTheDocument()
   })
 
-  it('filtre les produits par statut', async () => {
+  it('products are grouped by status in shelf sections', async () => {
     renderWithProviders(<CollectionPage />)
 
+    // Both products visible in their respective sections
     expect(await screen.findByText('Super Serum')).toBeInTheDocument()
     expect(screen.getByText('Cool Cream')).toBeInTheDocument()
 
-    const filterButtons = screen.getAllByRole('button', { name: /Wishlist/i })
-    const wishlistFilterBtn = filterButtons.find((btn) => btn.className.includes('coll-filter-btn'))
-    if (!wishlistFilterBtn) throw new Error('Wishlist filter button not found')
-
-    await userEvent.click(wishlistFilterBtn)
-
-    expect(screen.queryByText('Super Serum')).not.toBeInTheDocument()
-    expect(screen.getByText('Cool Cream')).toBeInTheDocument()
+    // Section headers show status labels
+    expect(screen.getByText('En stock')).toBeInTheDocument()
+    expect(screen.getByText('Wishlist')).toBeInTheDocument()
   })
 
   it('recherche un produit par son nom', async () => {
@@ -164,12 +156,14 @@ describe('CollectionPage', () => {
   it("met à jour le ressenti et les critères d'évaluation", async () => {
     renderWithProviders(<CollectionPage />)
 
-    // Expand product
-    const productBtn = await screen.findByRole('button', { name: /Super Serum/i })
-    await userEvent.click(productBtn)
+    // Click on ShelfProductCard to expand the product
+    const shelfCard = (await screen.findByText('Super Serum')).closest('.shelf-card')!
+    await userEvent.click(shelfCard)
 
-    // Change sentiment to "😍"
-    const sentimentBtn = screen.getByText('😍').parentElement!
+    // Change sentiment to "😍" — find within the expanded card details
+    const sentimentBtns = screen.getAllByText('😍')
+    // The one inside the sentiment selector (not the shelf card)
+    const sentimentBtn = sentimentBtns.find((el) => el.closest('.coll-sentiment-option'))!
     await userEvent.click(sentimentBtn)
     expect(mockUpdate).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -189,18 +183,22 @@ describe('CollectionPage', () => {
   })
 
   it('permet de retirer un produit après confirmation', async () => {
-    vi.stubGlobal(
-      'confirm',
-      vi.fn(() => true)
-    )
     renderWithProviders(<CollectionPage />)
 
-    await userEvent.click(await screen.findByRole('button', { name: /Super Serum/i }))
+    // Click on ShelfProductCard to expand
+    const shelfCard = (await screen.findByText('Super Serum')).closest('.shelf-card')!
+    await userEvent.click(shelfCard)
 
     const deleteBtn = screen.getByRole('button', { name: /Retirer/i })
     await userEvent.click(deleteBtn)
 
-    expect(window.confirm).toHaveBeenCalled()
+    // Click "Retirer" in the confirm dialog
+    const confirmBtns = screen.getAllByRole('button', { name: /Retirer/i })
+    const dialogConfirm = confirmBtns.find((btn) =>
+      btn.className.includes('coll-delete-dialog-confirm')
+    )!
+    await userEvent.click(dialogConfirm)
+
     expect(mockDelete).toHaveBeenCalledWith('up-1')
   })
 

@@ -1,3 +1,11 @@
+/**
+ * FilterPanel — Panneau complet de filtres et tri pour la collection.
+ *
+ * Inclut un filtre par statut (en plus des filtres classiques)
+ * et un sélecteur de tri intégré. Affiche un badge avec le nombre
+ * de filtres actifs.
+ */
+
 import type { RepurchaseFlag, UserProductStatus } from '@habit-tracker/shared'
 
 import clsx from 'clsx'
@@ -5,7 +13,7 @@ import { X } from 'lucide-react'
 
 import type { CollectionFilters, SortOption } from '../../../../utils/collectionFilters'
 import { getSentimentEmoji } from '../../../../utils/sentimentMap'
-import { statusConfig } from './StatusSelector'
+import { statusLabels } from '../../constants'
 
 interface FilterPanelProps {
   filters: CollectionFilters
@@ -59,9 +67,9 @@ export function FilterPanel({
             onChange={(e) => update({ status: e.target.value as UserProductStatus | 'all' })}
           >
             <option value="all">Tous</option>
-            {(Object.keys(statusConfig) as UserProductStatus[]).map((s) => (
+            {(Object.keys(statusLabels) as UserProductStatus[]).map((s) => (
               <option key={s} value={s}>
-                {statusConfig[s].label}
+                {statusLabels[s].label}
               </option>
             ))}
           </select>
