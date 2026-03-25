@@ -65,8 +65,9 @@ coverage/
 pgdata/
 
 # =========================
-# Claude Code / AI tools
+#  AI tools ou fichier MD avec mes idées
 # =========================
+idee/
 .superpowers/
 CLAUDE.md
 CLAUDE2.md
