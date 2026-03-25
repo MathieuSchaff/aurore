@@ -1,10 +1,3 @@
-/**
- * ShelfProductCard — Carte produit draggable sur l'étagère.
- *
- * Wrapper autour de ShelfProductCardUI qui ajoute le comportement
- * dnd-kit (useDraggable). Le rendu visuel est délégué au composant UI pur.
- */
-
 import { useDraggable } from '@dnd-kit/core'
 
 import type { UserProduct } from '../../../../../lib/queries/user-products'
@@ -28,7 +21,7 @@ export function ShelfProductCard({
     data: { product },
   })
 
-  const classes = [isDragging ? 'dragging' : '', isJustDropped ? 'shelf-card-just-dropped' : '']
+  const classes = [isDragging ? 'dragging' : '', isJustDropped ? 'prod-card-just-dropped' : '']
     .filter(Boolean)
     .join(' ')
 

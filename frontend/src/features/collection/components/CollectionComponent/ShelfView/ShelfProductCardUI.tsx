@@ -9,31 +9,22 @@ interface ShelfProductCardUIProps {
   onClick?: () => void
 }
 
-/** Score numérique → classe de rareté RPG */
-function getRarityClass(score: string | null): string {
-  if (score == null) return ''
+function getScoreChipClass(score: string | null): string {
+  if (score == null) return 'score-none'
   const n = parseFloat(score)
-  if (n >= 17) return 'rarity-legendary'
-  if (n >= 14) return 'rarity-rare'
-  if (n >= 10) return 'rarity-uncommon'
-  return ''
+  if (n >= 17) return 'score-gold'
+  if (n >= 14) return 'score-rare'
+  if (n >= 10) return 'score-good'
+  return 'score-none'
 }
 
-/** Statut → classe d'animation ambiante */
-function getStatusAnimClass(status: string): string {
+function getStatusClass(status: string): string {
   switch (status) {
-    case 'in_stock':
-      return 'ambient-active'
-    case 'wishlist':
-      return 'ambient-wishlist'
-    case 'holy_grail':
-      return 'ambient-holy-grail'
-    case 'archived':
-      return 'ambient-archived'
-    case 'avoided':
-      return 'ambient-avoided'
-    default:
-      return ''
+    case 'wishlist': return 'status-wishlist'
+    case 'holy_grail': return 'status-holy-grail'
+    case 'archived': return 'status-archived'
+    case 'avoided': return 'status-avoided'
+    default: return ''
   }
 }
 
@@ -47,32 +38,32 @@ export function ShelfProductCardUI({
   const kindColor = kindColorTokens[p.kind] ?? DEFAULT_KIND_COLOR_TOKEN
   const sentiment = product.sentiment ? sentimentEmojis[product.sentiment] : null
   const priceEuros = p.priceCents != null ? `${(p.priceCents / 100).toFixed(0)}€` : null
-
-  const rarityClass = getRarityClass(score)
-  const statusAnimClass = getStatusAnimClass(product.status)
+  const scoreChipClass = getScoreChipClass(score)
+  const statusClass = getStatusClass(product.status)
 
   return (
     <div
-      className={`shelf-card ${statusAnimClass} ${rarityClass} ${className}`}
+      className={`prod-card ${statusClass} ${className}`}
       onClick={onClick}
-      style={{ '--card-kind-color': kindColor } as React.CSSProperties}
+      style={{ '--card-accent': kindColor } as React.CSSProperties}
     >
-      {sentiment && <span className="shelf-card-sentiment">{sentiment}</span>}
-
-      <div className="shelf-card-icon-container">
-        <ProductIcon unit={p.unit} kind={p.kind} size={64} />
+      <div className="prod-icon-box">
+        <ProductIcon unit={p.unit} kind={p.kind} size={20} />
       </div>
 
-      <div className="shelf-card-text">
-        <span className="shelf-card-brand">{p.brand}</span>
-        <span className="shelf-card-name">{p.name}</span>
+      <div className="prod-body">
+        <div className="prod-brand">{p.brand}</div>
+        <div className="prod-name">{p.name}</div>
+        <div className="prod-chips">
+          {p.kind && <span className="prod-chip">{p.kind}</span>}
+          <span className={`prod-chip-score ${scoreChipClass}`}>
+            {score != null ? `${score}/20` : '—'}
+          </span>
+          {sentiment && <span className="prod-chip-sentiment">{sentiment}</span>}
+        </div>
       </div>
 
-      <div className="shelf-card-meta">
-        {score != null && rarityClass && <span className={`shelf-card-rarity-dot ${rarityClass}`} />}
-        <span className="shelf-card-score">{score != null ? `${score}/20` : '—'}</span>
-        {priceEuros && <span className="shelf-card-price">{priceEuros}</span>}
-      </div>
+      {priceEuros && <div className="prod-price">{priceEuros}</div>}
     </div>
   )
 }
