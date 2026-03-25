@@ -1,90 +1,454 @@
-.shelf-view {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
+@layer components {
+  /* === Shelf Design Tokens (OKLCH) === */
+  .shelf-view {
+    /* Wood tones */
+    --shelf-wood-light: oklch(0.72 0.08 70);
+    --shelf-wood-mid: oklch(0.64 0.09 65);
+    --shelf-wood-dark: oklch(0.5 0.08 60);
+    --shelf-wood-deeper: oklch(0.42 0.07 55);
+    --shelf-border: oklch(0.15 0 0);
 
-.shelf-section {
-  display: flex;
-  flex-direction: column;
-}
+    /* Wall */
+    --shelf-bg-wall: oklch(0.95 0.02 75);
 
-.shelf-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 12px;
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: 8px;
-  cursor: pointer;
-  transition:
-    border-color 0.2s,
-    background-color 0.2s;
-  width: 100%;
-  text-align: left;
-}
+    /* Product kind colors */
+    --shelf-color-skincare: oklch(0.75 0.12 180);
+    --shelf-color-complement: oklch(0.7 0.15 25);
+    --shelf-color-huile: oklch(0.82 0.14 90);
+    --shelf-color-vitamine: oklch(0.78 0.12 155);
+    --shelf-color-default: oklch(0.72 0.12 290);
+  }
 
-.shelf-header.drop-target {
-  border-color: var(--shelf-color);
-  background-color: color-mix(in srgb, var(--shelf-color) 10%, transparent);
-}
+  .shelf-view {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-10);
+    min-height: 100vh;
+    padding: var(--space-6) var(--space-4);
+    perspective: 800px;
 
-.shelf-header-label {
-  font-weight: 600;
-  font-size: 13px;
-  color: var(--shelf-color);
-  flex: 1;
-}
+    /* Textured wall background */
+    background-color: var(--shelf-bg-wall);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='none'/%3E%3Ccircle cx='2' cy='2' r='0.8' fill='oklch(0.88 0.02 70 / 0.4)'/%3E%3C/svg%3E");
+    background-size: 6px 6px;
 
-.shelf-header-count {
-  font-size: 12px;
-  color: var(--text-muted);
-}
+    border-radius: var(--space-2);
+  }
 
-.shelf-header-chevron {
-  transition: transform 0.2s;
-  color: var(--text-muted);
-}
+  /* --- Shelf Section --- */
+  .shelf-section {
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateX(2deg);
+  }
 
-.shelf-header-chevron.collapsed {
-  transform: rotate(-90deg);
-}
+  .shelf-plank-wrapper {
+    position: relative;
+    padding-bottom: var(--space-3);
+  }
 
-.shelf-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  padding: 8px 0;
-}
+  /* Wood plank top surface */
+  .shelf-plank {
+    width: 100%;
+    height: var(--space-5);
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 4px,
+        oklch(1 0 0 / 0.08) 4px,
+        oklch(1 0 0 / 0.08) 5px
+      ),
+      linear-gradient(
+        180deg,
+        var(--shelf-wood-light) 0%,
+        var(--shelf-wood-mid) 40%,
+        var(--shelf-wood-dark) 100%
+      );
+    border: var(--border-width) solid var(--shelf-border);
+    box-shadow: 4px 4px 0 var(--shelf-border);
+    position: relative;
+    z-index: 1;
+  }
 
-.shelf-card {
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  cursor: grab;
-  touch-action: none;
-}
+  /* 3D depth face */
+  .shelf-plank-depth {
+    width: 100%;
+    height: var(--space-3);
+    background: linear-gradient(180deg, var(--shelf-wood-dark), var(--shelf-wood-deeper));
+    border-left: var(--border-width) solid var(--shelf-border);
+    border-right: var(--border-width) solid var(--shelf-border);
+    border-bottom: var(--border-width) solid var(--shelf-border);
+    transform: perspective(400px) rotateX(-15deg);
+    transform-origin: top center;
+    box-shadow: 0 6px 12px oklch(0 0 0 / 0.3);
+  }
 
-.shelf-card {
-  transition: none !important;
-}
+  /* --- Shelf Header (The Plaque) --- */
+  .shelf-header {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-3);
+    background: var(--bg-card);
+    border: var(--border-width) solid var(--shelf-border);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: transform var(--transition-slow);
+    font-weight: var(--font-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-widest);
+    font-size: var(--text-xs);
+  }
 
-.shelf-card.dragging {
-  opacity: 0;
-}
+  .shelf-header.drop-target {
+    transform: scale(1.1);
+    background: var(--shelf-color, var(--bg-card));
+  }
 
-.shelf-card-name {
-  font-size: 13px;
-  font-weight: 500;
-}
+  .shelf-header-label {
+    color: var(--text-primary);
+  }
 
-.shelf-card-brand {
-  font-size: 11px;
-  color: var(--text-muted);
-}
+  .shelf-header-count {
+    color: var(--text-muted);
+    font-size: 0.65rem;
+  }
 
-.shelf-card-sentiment {
-  font-size: 12px;
-}
+  .shelf-header-chevron {
+    transition: transform var(--transition-slow);
+  }
+
+  .shelf-header-chevron.collapsed {
+    transform: rotate(-90deg);
+  }
+
+  /* --- Shelf Grid --- */
+  .shelf-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: var(--space-5);
+    align-items: end;
+    min-height: 100px;
+    padding: var(--space-5) var(--space-3) var(--space-3);
+    position: relative;
+  }
+
+  /* === Product Card === */
+  .shelf-card {
+    position: relative;
+    background: var(--bg-card);
+    border: var(--border-width) solid var(--shelf-border);
+    border-radius: var(--space-3) var(--space-3) var(--space-1) var(--space-1);
+    box-shadow: 4px 4px 0 var(--shelf-border);
+    padding: var(--space-4) var(--space-3) var(--space-3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    cursor: pointer;
+    touch-action: none;
+    transition: box-shadow var(--transition-slow), transform var(--transition-slow);
+  }
+
+  .shelf-card:hover {
+    box-shadow:
+      4px 4px 0 var(--shelf-border),
+      0 0 16px var(--card-kind-color, oklch(0.7 0.1 180 / 0.3));
+    transform: translateY(-2px);
+  }
+
+  /* Sentiment badge */
+  .shelf-card-sentiment {
+    position: absolute;
+    top: calc(-1 * var(--space-2));
+    right: calc(-1 * var(--space-2));
+    width: 26px;
+    height: 26px;
+    background: var(--bg-card);
+    border: var(--border-width) solid var(--shelf-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    z-index: 5;
+  }
+
+  /* SVG icon container */
+  .shelf-card-icon-container {
+    width: 100%;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--card-kind-color, var(--shelf-color-default));
+    flex-shrink: 0;
+  }
+
+  /* Text block */
+  .shelf-card-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    width: 100%;
+    min-height: 0;
+  }
+
+  /* Brand label */
+  .shelf-card-brand {
+    font-size: var(--text-sm);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-widest);
+    color: var(--text-muted);
+    text-align: center;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Product name */
+  .shelf-card-name {
+    font-size: var(--text-base);
+    font-weight: var(--font-bold);
+    color: var(--text-primary);
+    text-align: center;
+    width: 100%;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: var(--leading-tight);
+  }
+
+  /* Score + Price row */
+  .shelf-card-meta {
+    display: flex;
+    gap: var(--space-2);
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding-top: var(--space-1);
+    border-top: 1px solid oklch(0.5 0 0 / 0.1);
+    margin-top: auto;
+  }
+
+  .shelf-card-score {
+    font-size: var(--text-base);
+    font-weight: var(--font-bold);
+    color: var(--card-kind-color, var(--text-secondary));
+  }
+
+  .shelf-card-price {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  /* Drop animation */
+  .shelf-card-just-dropped {
+    animation: settle 0.5s ease-out;
+  }
+
+  @keyframes settle {
+    0% {
+      transform: translateY(-30px) scale(1.1);
+    }
+    60% {
+      transform: translateY(5px) scale(0.95);
+    }
+    100% {
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* ================================================
+     §14 — Micro-animations Ambiantes (par statut)
+     ================================================ */
+
+  /* In stock / flacon ouvert → glow pulsé vert doux */
+  .shelf-card.ambient-active {
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 4px 4px 0 var(--shelf-border), 0 0 0 0 oklch(0.65 0.12 155 / 0); }
+    50% { box-shadow: 4px 4px 0 var(--shelf-border), 0 0 14px 4px oklch(0.65 0.12 155 / 0.25); }
+  }
+
+  /* Wishlist → bordure en pointillés */
+  .shelf-card.ambient-wishlist {
+    border-style: dashed;
+    border-color: oklch(0.6 0.12 250);
+  }
+
+  /* Holy Grail → reflet doré qui traverse la carte */
+  .shelf-card.ambient-holy-grail {
+    overflow: hidden;
+  }
+
+  .shelf-card.ambient-holy-grail::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 40%,
+      oklch(0.85 0.12 85 / 0.15) 45%,
+      oklch(0.85 0.12 85 / 0.25) 50%,
+      oklch(0.85 0.12 85 / 0.15) 55%,
+      transparent 60%
+    );
+    animation: shimmer 4s ease-in-out infinite;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  @keyframes shimmer {
+    0% { transform: translateX(-150%); }
+    100% { transform: translateX(250%); }
+  }
+
+  /* Archivé → désaturé + opacité réduite */
+  .shelf-card.ambient-archived {
+    filter: saturate(0.4);
+    opacity: 0.6;
+  }
+
+  /* À éviter → bordure rouge à gauche */
+  .shelf-card.ambient-avoided {
+    border-left: 3px solid oklch(0.55 0.2 25);
+  }
+
+  /* ================================================
+     §10 — Rareté Visuelle RPG (par score)
+     ================================================ */
+
+  /* Uncommon (10-13/20) — bordure verte, glow léger */
+  .shelf-card.rarity-uncommon {
+    border-color: oklch(0.6 0.15 150);
+  }
+
+  /* Rare (14-16/20) — bordure violette, glow pulsé */
+  .shelf-card.rarity-rare {
+    border-color: oklch(0.55 0.18 300);
+    animation: rarity-glow-rare 3s ease-in-out infinite;
+  }
+
+  @keyframes rarity-glow-rare {
+    0%, 100% { box-shadow: 4px 4px 0 var(--shelf-border), 0 0 0 0 oklch(0.55 0.18 300 / 0); }
+    50% { box-shadow: 4px 4px 0 var(--shelf-border), 0 0 12px 3px oklch(0.55 0.18 300 / 0.25); }
+  }
+
+  /* Legendary (17+/20) — bordure dorée, reflet animé */
+  .shelf-card.rarity-legendary {
+    border-color: oklch(0.75 0.15 85);
+    overflow: hidden;
+  }
+
+  .shelf-card.rarity-legendary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 35%,
+      oklch(0.85 0.14 85 / 0.12) 42%,
+      oklch(0.9 0.14 85 / 0.2) 50%,
+      oklch(0.85 0.14 85 / 0.12) 58%,
+      transparent 65%
+    );
+    animation: shimmer 3.5s ease-in-out infinite;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  /* Rareté — le petit dot coloré dans le meta */
+  .shelf-card-rarity-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .shelf-card-rarity-dot.rarity-uncommon {
+    background: oklch(0.6 0.15 150);
+  }
+
+  .shelf-card-rarity-dot.rarity-rare {
+    background: oklch(0.55 0.18 300);
+  }
+
+  .shelf-card-rarity-dot.rarity-legendary {
+    background: oklch(0.75 0.15 85);
+  }
+
+  /* Holy Grail + Legendary : le holy grail gagne (shimmer doré via ::after) */
+  .shelf-card.ambient-holy-grail.rarity-legendary::before {
+    display: none;
+  }
+
+  /* Active + Rare : la rarity gagne l'animation */
+  .shelf-card.ambient-active.rarity-rare {
+    animation: rarity-glow-rare 3s ease-in-out infinite;
+  }
+
+  /* === Responsive === */
+  @media (max-width: 480px) {
+    .shelf-view {
+      padding: var(--space-4) var(--space-2);
+      gap: var(--space-8);
+      perspective: 600px;
+    }
+
+    .shelf-grid {
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: var(--space-3);
+      padding: var(--space-4) var(--space-2) var(--space-2);
+    }
+
+    .shelf-card-icon-container {
+      height: 56px;
+    }
+
+    .shelf-card-icon-container svg {
+      width: 52px;
+      height: 52px;
+    }
+
+    .shelf-plank-depth {
+      transform: perspective(600px) rotateX(-10deg);
+    }
+  }
+
+  @media (min-width: 481px) and (max-width: 768px) {
+    .shelf-grid {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+  }
+
+  /* Accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .shelf-card,
+    .shelf-card.ambient-active,
+    .shelf-card.rarity-rare {
+      animation: none;
+      transition: none;
+    }
+
+    .shelf-card-just-dropped {
+      animation: none;
+    }
+
+    .shelf-card.ambient-holy-grail::after,
+    .shelf-card.rarity-legendary::before {
+      animation: none;
+    }
+
+    .shelf-header,
+    .shelf-header-chevron {
+      transition: none;
+    }
+  }
+} /* close @layer components */

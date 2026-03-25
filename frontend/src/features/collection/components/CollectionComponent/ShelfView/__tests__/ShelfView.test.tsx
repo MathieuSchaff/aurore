@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 
-import type { UserProduct } from '../../../../../lib/queries/user-products'
-import { ShelfView } from './ShelfView'
+import type { UserProduct } from '../../../../../../lib/queries/user-products'
+import { ShelfView } from '../ShelfView'
 
 function makeProduct(id: string, status: string, name: string): UserProduct {
   return {

@@ -74,6 +74,7 @@ export function CriteriaList({
                   type="button"
                   className="coll-star-btn"
                   onClick={() => handleReview(p.id, { [key]: star })}
+                  aria-label={`${label} : ${star} étoiles`}
                 >
                   <Star
                     size={16}

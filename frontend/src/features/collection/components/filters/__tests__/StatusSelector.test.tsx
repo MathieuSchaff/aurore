@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 
-import { StatusSelector } from '../filters/StatusSelector'
+import { StatusSelector } from '../StatusSelector'
 
 describe('StatusSelector', () => {
   it('affiche les 6 options de statut', () => {
