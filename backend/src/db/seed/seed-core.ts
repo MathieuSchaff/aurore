@@ -19,10 +19,10 @@ import {
   cleanDatabase,
   fetchIdMaps,
   flattenTagGroups,
+  type ProductTagGroups,
   seedBatch,
   toNumeric,
   toText,
-  ProductTagGroups,
 } from './utils'
 
 // ── Utilitaires de Validation ─────────────────────────────────────────────────
@@ -144,7 +144,15 @@ export async function seedCore(shouldClean = true) {
 
   console.log('\n🔗 Préparation des relations produit-tags...')
   const productTagPairs = flattenTagGroups(allProductTagsMap as Record<string, ProductTagGroups>)
-  validateRelationshipSlugs(productTagPairs, 'slug', 'tagSlug', productSlugToId, tagSlugToId, 'Produit', 'Tag')
+  validateRelationshipSlugs(
+    productTagPairs,
+    'slug',
+    'tagSlug',
+    productSlugToId,
+    tagSlugToId,
+    'Produit',
+    'Tag'
+  )
   validateNoDuplicates(productTagPairs, 'productTags')
 
   await seedBatch(
@@ -157,7 +165,15 @@ export async function seedCore(shouldClean = true) {
 
   console.log('\n🔗 Préparation des relations produit-ingrédients...')
   const validProductIngredients = allIngredientProductTags.filter((i) => !!i.ingredientSlug)
-  validateRelationshipSlugs(validProductIngredients, 'productSlug', 'ingredientSlug', productSlugToId, ingredientSlugToId, 'Produit', 'Ingrédient')
+  validateRelationshipSlugs(
+    validProductIngredients,
+    'productSlug',
+    'ingredientSlug',
+    productSlugToId,
+    ingredientSlugToId,
+    'Produit',
+    'Ingrédient'
+  )
 
   await seedBatch(
     'productIngredients',
@@ -176,7 +192,15 @@ export async function seedCore(shouldClean = true) {
 
   console.log('\n🔗 Préparation des relations ingrédient-tags...')
   const ingredientTagPairs = flattenTagGroups(ingredientTagMap as Record<string, ProductTagGroups>)
-  validateRelationshipSlugs(ingredientTagPairs, 'slug', 'tagSlug', ingredientSlugToId, tagSlugToId, 'Ingrédient', 'Tag')
+  validateRelationshipSlugs(
+    ingredientTagPairs,
+    'slug',
+    'tagSlug',
+    ingredientSlugToId,
+    tagSlugToId,
+    'Ingrédient',
+    'Tag'
+  )
   validateNoDuplicates(ingredientTagPairs, 'ingredientTags')
 
   await seedBatch(

@@ -1,7 +1,8 @@
 import slugify from '@sindresorhus/slugify'
-import { db } from '..'
+
 import { createProduct } from '../../features/products/service'
 import { addManyTagsToProduct } from '../../features/products/tags/tags.service'
+import { db } from '..'
 import { products } from '../schema'
 import { getOrCreateSeedUser } from './create-user'
 import { INGREDIENT_TAG_MAP, NAME_KEYWORD_TAG_MAP } from './otherdata/tag-associations'
@@ -20,7 +21,11 @@ const CSV_TAG_MAPPER: Record<string, string[]> = {
   Eyes: [TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX, TAG_SLUGS.CONTOUR_YEUX],
   'Lip Care': [TAG_SLUGS.ZONE_LEVRES, TAG_SLUGS.SOIN_LEVRES],
   'Skin Care': [TAG_SLUGS.ZONE_VISAGE],
-  'Eye Cream, Gel, Oils, & Serum': [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX],
+  'Eye Cream, Gel, Oils, & Serum': [
+    TAG_SLUGS.CONTOUR_YEUX,
+    TAG_SLUGS.ZONE_YEUX,
+    TAG_SLUGS.SOIN_YEUX,
+  ],
   Cleansers: [TAG_SLUGS.NETTOYANT],
   Moisturizers: [TAG_SLUGS.EMOLLIENCE, TAG_SLUGS.HYDRATATION],
   Sunscreen: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.CREME_SOLAIRE],
@@ -94,7 +99,7 @@ export async function seedSkincare(csvPath = 'src/db/seed/products/otherData.csv
 
   const productsToCreate = []
   for (const row of rows) {
-    let [_file, rawName, csvBrand, usageType, category, inci, imageUrl, productUrl] = row
+    const [_file, rawName, csvBrand, usageType, category, inci, imageUrl, productUrl] = row
     if (!rawName || !csvBrand) continue
 
     const { name, totalAmount, unit } = extractCapacity(rawName, csvBrand)
