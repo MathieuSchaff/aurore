@@ -1,0 +1,111 @@
+.coll-history-table {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: var(--border-width) solid var(--bg-muted);
+  overflow: hidden;
+}
+
+.coll-history-head {
+  display: none;
+}
+
+.coll-history-row {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border-bottom: 1px solid var(--bg-muted);
+  gap: 0.25rem;
+}
+
+.coll-hist-row-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.coll-hist-row-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (min-width: 640px) {
+  .coll-history-head {
+    display: grid;
+    grid-template-columns: 120px 1fr 80px 100px;
+    padding: 1rem 1.25rem;
+    background: var(--bg-muted);
+    font-size: 0.7rem;
+    font-weight: var(--font-bold);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-widest);
+  }
+
+  .coll-history-row {
+    display: grid;
+    grid-template-columns: 120px 1fr 80px 100px;
+    flex-direction: unset;
+    padding: 1rem 1.25rem;
+    align-items: center;
+    gap: 0;
+  }
+
+  .coll-hist-row-top,
+  .coll-hist-row-bottom {
+    display: contents;
+  }
+}
+
+.coll-hist-date {
+  font-size: 0.8rem;
+  font-weight: var(--font-medium);
+  color: var(--text-muted);
+}
+
+.coll-hist-name {
+  display: block;
+  font-weight: var(--font-bold);
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.coll-hist-brand {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wide);
+}
+
+.coll-hist-qty {
+  font-weight: var(--font-bold);
+  color: var(--color-primary);
+  font-size: 0.875rem;
+  font-family: var(--font-display);
+  font-feature-settings: "onum" 1;
+}
+
+.coll-hist-price {
+  font-family: var(--font-display);
+  font-feature-settings: "onum" 1;
+  font-weight: var(--font-bold);
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  text-align: right;
+}
+
+.coll-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.coll-empty-icon {
+  margin-bottom: 1.25rem;
+  opacity: 0.3;
+}

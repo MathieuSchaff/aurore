@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
-import { useScrollLock } from './useScrollLock'
+import { useScrollLock } from '../useScrollLock'
 
 describe('useScrollLock', () => {
   const originalScrollY = window.scrollY

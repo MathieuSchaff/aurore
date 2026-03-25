@@ -1,0 +1,139 @@
+.coll-purchase-dialog {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 0;
+  width: 260px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  z-index: 100;
+  padding: 1rem;
+  animation: dialogFadeIn 0.2s ease-out;
+}
+
+@keyframes dialogFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.coll-purchase-dialog::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 20px;
+  border: 8px solid transparent;
+  border-top-color: var(--border-strong);
+}
+
+.coll-purchase-dialog::before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 21px;
+  border: 7px solid transparent;
+  border-top-color: var(--bg-card);
+  z-index: 1;
+}
+
+.coll-purchase-dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--bg-muted);
+}
+
+.coll-purchase-dialog-title {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+.coll-purchase-dialog-close {
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.coll-purchase-dialog-close:hover {
+  background: var(--bg-muted);
+  color: var(--text-primary);
+}
+
+.coll-purchase-dialog-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.coll-purchase-dialog-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.coll-purchase-dialog-field label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.coll-purchase-dialog-field input {
+  padding: 0.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-default);
+  background: var(--bg-muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.coll-purchase-dialog-field input:focus {
+  border-color: var(--color-primary);
+  outline: none;
+  background: var(--bg-card);
+}
+
+.coll-purchase-dialog-save {
+  width: 100%;
+  padding: 0.625rem;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 800;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 0.25rem;
+}
+
+.coll-purchase-dialog-save:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.coll-purchase-dialog-save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

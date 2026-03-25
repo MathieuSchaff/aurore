@@ -1,8 +1,19 @@
+/**
+ * QuickAddModal — Modale d'ajout rapide d'un produit à la collection.
+ *
+ * Deux onglets :
+ * - "Produit existant" : recherche dans le catalogue puis sélection du statut
+ * - "Nouveau produit" : création d'un produit + détection de doublons
+ *
+ * Si le statut est "En stock", un formulaire d'achat (date, prix, expiration)
+ * est affiché automatiquement.
+ */
+
 import type { UserProductStatus } from '@habit-tracker/shared'
 
 import { useQuery } from '@tanstack/react-query'
 import clsx from 'clsx'
-import { Archive, Ban, Eye, Heart, type LucideIcon, Package, ShoppingBag, X } from 'lucide-react'
+import { X } from 'lucide-react'
 import type React from 'react'
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
@@ -13,22 +24,13 @@ import { useScrollLock } from '../../../../hooks/useScrollLock'
 import { productQueries, useCreateProduct } from '../../../../lib/queries/products'
 import { useAddPurchase } from '../../../../lib/queries/purchases'
 import { useCreateUserProduct } from '../../../../lib/queries/user-products'
+import { statusLabels } from '../../constants'
 
 import './QuickAddModal.css'
 
 interface QuickAddModalProps {
   onClose: () => void
 }
-
-const statusLabels: Record<UserProductStatus, { label: string; icon: LucideIcon; color: string }> =
-  {
-    in_stock: { label: 'En stock', icon: Package, color: '#10b981' },
-    wishlist: { label: 'Wishlist', icon: ShoppingBag, color: '#3b82f6' },
-    watched: { label: 'Surveille', icon: Eye, color: '#f59e0b' },
-    holy_grail: { label: 'Saint Graal', icon: Heart, color: '#ef4444' },
-    archived: { label: 'Archivé', icon: Archive, color: '#6b7280' },
-    avoided: { label: 'À éviter', icon: Ban, color: '#000000' },
-  }
 
 export function QuickAddModal({ onClose }: QuickAddModalProps) {
   const [activeTab, setActiveTab] = useState<'existing' | 'new'>('existing')

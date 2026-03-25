@@ -1,23 +1,32 @@
-import type { UserProductStatus } from '@habit-tracker/shared'
+/**
+ * CollectionProductCard — Vue détaillée d'un produit dans la collection.
+ *
+ * Ce composant gère :
+ * - L'en-tête avec nom, marque, score et statut
+ * - Le panneau expanded avec : statut, ressenti, critères, cycle de vie
+ * - Les actions : ajouter un achat, supprimer le produit
+ */
 
 import clsx from 'clsx'
-import { Calendar, ChevronDown, Plus, Trash2 } from 'lucide-react'
+import { ChevronDown, Plus, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
-import { calculateWeightedScore } from '../../../lib/helpers/reviews'
-import { useFinishPurchase, useOpenPurchase } from '../../../lib/queries/purchases'
-import type { UserPreferences } from '../../../lib/queries/user-preferences'
-import type { UserProduct } from '../../../lib/queries/user-products'
+import { calculateWeightedScore } from '../../../../lib/helpers/reviews'
+import { useFinishPurchase, useOpenPurchase } from '../../../../lib/queries/purchases'
+import type { UserPreferences } from '../../../../lib/queries/user-preferences'
+import type { UserProduct } from '../../../../lib/queries/user-products'
 import {
   useDeleteUserProduct,
   useUpdateUserProduct,
   useUpsertUserProductReview,
-} from '../../../lib/queries/user-products'
-import { sentimentEmojis, statusLabels } from '../constants'
+} from '../../../../lib/queries/user-products'
+import { sentimentEmojis, statusLabels } from '../../constants'
 import { AddPurchaseDialog } from './AddPurchaseDialog'
 import { CriteriaList } from './CriteriaList'
 import { DeleteConfirmDialog } from './DeleteConfirmDialog'
+import { LifecycleSection } from './LifecycleSection'
+import './CollectionProductCard.css'
 
 interface CollectionProductCardProps {
   p: UserProduct
@@ -36,21 +45,25 @@ export function CollectionProductCard({
   activeTooltip,
   setActiveTooltip,
 }: CollectionProductCardProps) {
+  /* ── Mutations ── */
   const updateMutation = useUpdateUserProduct()
   const deleteMutation = useDeleteUserProduct()
   const reviewMutation = useUpsertUserProductReview()
   const openPurchaseMutation = useOpenPurchase()
   const finishPurchaseMutation = useFinishPurchase()
 
+  /* ── État local ── */
   const [showPurchaseDialog, setShowPurchaseDialog] = useState(false)
   const [showDeleteDialog, setShowDeleteDialog] = useState(false)
-  const [purchaseDate, setPurchaseDate] = useState(() => new Date().toISOString().split('T')[0])
-  const [purchasePrice, setPurchasePrice] = useState('')
 
+  /* ── Données dérivées ── */
   const statusConfig = statusLabels[p.status]
   const StatusIcon = statusConfig.icon
   const score = calculateWeightedScore(p.review, prefs?.criteriaWeights, prefs?.displayScale)
 
+  /* ── Handlers principaux ── */
+
+  /** Met à jour un champ du UserProduct (statut, sentiment, rachat, commentaire) */
   const handleUpdate = (input: Parameters<typeof updateMutation.mutate>[0]['input']) => {
     updateMutation.mutate(
       { id: p.id, input },
@@ -58,6 +71,7 @@ export function CollectionProductCard({
     )
   }
 
+  /** Met à jour un critère de la review (tolérance, efficacité, etc.) */
   const handleReview = (
     id: string,
     input: Parameters<typeof reviewMutation.mutate>[0]['input']
@@ -70,6 +84,7 @@ export function CollectionProductCard({
 
   return (
     <div className={clsx('coll-card', isExpanded && 'expanded')}>
+      {/* ── En-tête : nom, marque, score, statut ── */}
       <button type="button" className="coll-card-header" onClick={onToggleExpand}>
         <div className="coll-card-row">
           <span
@@ -81,20 +96,7 @@ export function CollectionProductCard({
             <p className="coll-product-brand">{p.product.brand}</p>
           </div>
           <div className="coll-card-aside">
-            {score && (
-              <div className="coll-score-badge">
-                <span className="coll-score-val">{score}</span>
-                {prefs?.displayScale !== 'percentage' && (
-                  <span className="coll-score-max">
-                    {prefs?.displayScale === 'out_of_5'
-                      ? '/5'
-                      : prefs?.displayScale === 'out_of_10'
-                        ? '/10'
-                        : '/20'}
-                  </span>
-                )}
-              </div>
-            )}
+            {score && <ScoreBadge score={score} displayScale={prefs?.displayScale} />}
             <span className="coll-status-tag" style={{ color: statusConfig.color }}>
               <StatusIcon size={10} />
               {statusConfig.label}
@@ -104,31 +106,11 @@ export function CollectionProductCard({
         </div>
       </button>
 
+      {/* ── Panneau expanded ── */}
       {isExpanded && (
         <div className="coll-card-details">
-          <section className="coll-status-section">
-            <h4 className="coll-section-title">STATUT DU PRODUIT</h4>
-            <div className="coll-status-picker">
-              {(Object.keys(statusLabels) as UserProductStatus[]).map((s) => {
-                const cfg = statusLabels[s]
-                const Icon = cfg.icon
-                return (
-                  <button
-                    key={s}
-                    type="button"
-                    className={clsx('coll-status-option', p.status === s && 'active')}
-                    onClick={() => handleUpdate({ status: s })}
-                    title={cfg.label}
-                  >
-                    <Icon size={18} style={{ color: p.status === s ? 'white' : cfg.color }} />
-                    <span className="coll-status-opt-label">{cfg.label}</span>
-                  </button>
-                )
-              })}
-            </div>
-          </section>
-
           <div className="coll-details-grid">
+            {/* Ressenti rapide : sentiment + rachat + commentaire */}
             <section className="coll-details-section">
               <h4 className="coll-section-title">RESSENTI RAPIDE</h4>
               <div className="coll-quick-feeling-box">
@@ -173,6 +155,7 @@ export function CollectionProductCard({
               </div>
             </section>
 
+            {/* Évaluation détaillée : 6 critères avec étoiles */}
             <section className="coll-details-section">
               <h4 className="coll-section-title">ÉVALUATION DÉTAILLÉE</h4>
               <CriteriaList
@@ -183,6 +166,7 @@ export function CollectionProductCard({
               />
             </section>
 
+            {/* Cycle de vie : ouvrir / terminer un flacon */}
             <section className="coll-details-section">
               <h4 className="coll-section-title">CYCLE DE VIE</h4>
               <LifecycleSection
@@ -194,6 +178,7 @@ export function CollectionProductCard({
             </section>
           </div>
 
+          {/* Footer : nouvel achat, supprimer, date MAJ */}
           <div className="coll-card-footer">
             <div className="coll-footer-actions">
               <button
@@ -210,11 +195,7 @@ export function CollectionProductCard({
 
               {showPurchaseDialog && (
                 <AddPurchaseDialog
-                  p={p}
-                  purchaseDate={purchaseDate}
-                  setPurchaseDate={setPurchaseDate}
-                  purchasePrice={purchasePrice}
-                  setPurchasePrice={setPurchasePrice}
+                  userProductId={p.id}
                   onClose={() => setShowPurchaseDialog(false)}
                 />
               )}
@@ -245,108 +226,26 @@ export function CollectionProductCard({
           </div>
         </div>
       )}
+
     </div>
   )
 }
 
-function LifecycleSection({
-  purchases,
-  userProductId,
-  openPurchaseMutation,
-  finishPurchaseMutation,
-}: {
-  purchases: UserProduct['purchases']
-  userProductId: string
-  openPurchaseMutation: ReturnType<typeof useOpenPurchase>
-  finishPurchaseMutation: ReturnType<typeof useFinishPurchase>
-}) {
-  const activeLog = purchases?.find((l) => l.openedAt && !l.finishedAt)
-  const finishedLogs = purchases
-    ?.filter((l) => !!l.finishedAt)
-    .sort((a, b) => new Date(b.openedAt ?? 0).getTime() - new Date(a.openedAt ?? 0).getTime())
+/* ────────────────────────────────────────────
+   Sous-composants extraits pour la lisibilité
+   ──────────────────────────────────────────── */
 
+/** Affiche le score avec son échelle (/5, /10, /20 ou %) */
+function ScoreBadge({ score, displayScale }: { score: string; displayScale?: string }) {
   return (
-    <div className="coll-usage-box">
-      {!activeLog ? (
-        (() => {
-          const unopenedPurchase = purchases?.find((l) => !l.openedAt)
-          return unopenedPurchase ? (
-            <button
-              type="button"
-              className="coll-usage-main-btn open"
-              onClick={() =>
-                openPurchaseMutation.mutate(
-                  {
-                    userProductId,
-                    purchaseId: unopenedPurchase.id,
-                    input: {
-                      openedAt: new Date().toISOString().split('T')[0],
-                    },
-                  },
-                  {
-                    onSuccess: () => toast.success('Nouveau flacon commencé !'),
-                  }
-                )
-              }
-            >
-              <Calendar size={16} />
-              Commencer un flacon
-            </button>
-          ) : (
-            <p className="coll-no-purchase-hint">
-              Aucun flacon à ouvrir. Ajoutez un achat d'abord.
-            </p>
-          )
-        })()
-      ) : (
-        <button
-          type="button"
-          className="coll-usage-main-btn finish"
-          onClick={() =>
-            finishPurchaseMutation.mutate(
-              {
-                userProductId,
-                input: {
-                  finishedAt: new Date().toISOString().split('T')[0],
-                },
-              },
-              {
-                onSuccess: () => toast.success('Flacon terminé !'),
-              }
-            )
-          }
-        >
-          <Calendar size={16} />
-          Terminer le flacon
-        </button>
-      )}
-
-      {activeLog && (
-        <div className="coll-active-log-info">
-          En cours d'utilisation depuis le {new Date(activeLog.openedAt ?? '').toLocaleDateString()}
-        </div>
-      )}
-
-      {finishedLogs && finishedLogs.length > 0 && (
-        <div className="coll-usage-history">
-          <span className="coll-usage-hist-title">Historique ({finishedLogs.length})</span>
-          {finishedLogs.map((log) => {
-            const start = new Date(log.openedAt ?? '')
-            const end = new Date(log.finishedAt ?? '')
-            const diffDays = Math.ceil(
-              Math.abs(end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)
-            )
-            return (
-              <div key={log.id} className="coll-usage-log-item">
-                <span className="coll-log-dates">
-                  {start.toLocaleDateString()} → {end.toLocaleDateString()}
-                </span>
-                <span className="coll-log-duration">{diffDays} j</span>
-              </div>
-            )
-          })}
-        </div>
+    <div className="coll-score-badge">
+      <span className="coll-score-val">{score}</span>
+      {displayScale !== 'percentage' && (
+        <span className="coll-score-max">
+          {displayScale === 'out_of_5' ? '/5' : displayScale === 'out_of_10' ? '/10' : '/20'}
+        </span>
       )}
     </div>
   )
 }
+

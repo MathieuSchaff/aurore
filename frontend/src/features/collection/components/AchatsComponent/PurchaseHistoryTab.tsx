@@ -1,6 +1,14 @@
+/**
+ * PurchaseHistoryTab — Historique de tous les achats de la collection.
+ *
+ * Agrège les achats de tous les produits, les trie par date (récent en premier)
+ * et les affiche dans un tableau : date, produit (nom + marque), prix.
+ */
+
 import { History } from 'lucide-react'
 
-import type { UserProduct } from '../../../lib/queries/user-products'
+import type { UserProduct } from '../../../../lib/queries/user-products'
+import './PurchaseHistoryTab.css'
 
 interface PurchaseHistoryTabProps {
   userProducts: UserProduct[]

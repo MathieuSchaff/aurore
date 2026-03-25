@@ -1,7 +1,15 @@
-import { AlertTriangle, X } from 'lucide-react'
-import { useEffect, useRef } from 'react'
+/**
+ * DeleteConfirmDialog — Dialogue de confirmation de suppression.
+ *
+ * Se ferme via clic extérieur ou touche Escape
+ * (géré par useClickOutside qui écoute les deux).
+ */
 
-import { useClickOutside } from '../../../hooks/useClickOutside'
+import { AlertTriangle, X } from 'lucide-react'
+import { useRef } from 'react'
+
+import { useClickOutside } from '../../../../hooks/useClickOutside'
+import './DeleteConfirmDialog.css'
 
 interface DeleteConfirmDialogProps {
   onConfirm: () => void
@@ -12,15 +20,8 @@ interface DeleteConfirmDialogProps {
 export function DeleteConfirmDialog({ onConfirm, onClose, isPending }: DeleteConfirmDialogProps) {
   const ref = useRef<HTMLDivElement>(null)
 
+  // Ferme sur clic extérieur OU touche Escape
   useClickOutside(ref, onClose)
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
-    }
-    document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [onClose])
 
   return (
     <div className="coll-delete-dialog" ref={ref} onClick={(e) => e.stopPropagation()}>

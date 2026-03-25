@@ -1,0 +1,101 @@
+.coll-page-wrapper {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.coll-topbar {
+  background: var(--bg-card);
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: var(--border-width) solid var(--border-default);
+}
+
+.coll-topbar-title {
+  font-family: var(--font-display);
+  font-weight: var(--font-bold);
+  font-feature-settings: "onum" 1;
+  font-size: 1.25rem;
+  color: var(--color-primary);
+  letter-spacing: var(--tracking-tight);
+}
+
+.coll-topbar-add {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--text-inverse);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+
+.coll-topbar-add:hover {
+  opacity: 0.85;
+}
+
+.coll-icon-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: var(--bg-muted);
+}
+
+.coll-icon-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  padding: 0.55rem 0.5rem;
+  font-size: 0.6rem;
+  font-weight: var(--font-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-widest);
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s;
+  position: relative;
+}
+
+.coll-icon-tab-active {
+  color: var(--color-primary);
+  background: var(--bg-card);
+  font-weight: var(--font-bold);
+}
+
+.coll-tab-badge {
+  position: absolute;
+  top: 0.35rem;
+  right: calc(50% - 1.5rem);
+  background: var(--color-primary);
+  color: var(--text-inverse);
+  font-size: 0.6rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: var(--radius-full);
+  min-width: 1.25rem;
+  text-align: center;
+}
+
+.coll-page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.25rem 0.75rem 2rem;
+}
