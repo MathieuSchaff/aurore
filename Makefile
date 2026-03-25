@@ -9,7 +9,7 @@
 	logs logs-api logs-db logs-nginx logs-frontend \
 	lint lint-fix format \
 	shell-api shell-db shell-frontend \
-	db-migrate db-generate db-push db-studio db-backup db-restore db-seed db-clean db-reset \
+	db-migrate db-generate db-push db-studio db-backup db-restore db-seed db-seed-all db-clean db-reset db-reset-all \
 	ssl-init ssl-renew nginx-reload \
 	clean clean-soft clean-images
 
@@ -255,10 +255,15 @@ db-studio: ## Lance l'interface graphique Drizzle Studio
 	@echo "$(CYAN)Lancement de Drizzle Studio sur http://localhost:4983$(NC)"
 	cd backend && export $$(grep -v '^\#' ../.env.dev | xargs) && bun x drizzle-kit studio --port 4983
 
-db-seed: ## Remplit la base de données avec des données de test
-	@echo "$(CYAN)Injection des données (Seed)...$(NC)"
-	$(COMPOSE_DEV) exec api bun run src/db/seed/index.ts
-	@echo "$(GREEN)✓ Seed exécuté avec succès$(NC)"
+db-seed: ## Remplit la base de données avec les données CORE (Tags, Ingrédients, Produits manuels)
+	@echo "$(CYAN)Injection des données CORE (Seed)...$(NC)"
+	$(COMPOSE_DEV) exec api bun run src/db/seed/seed-core.ts
+	@echo "$(GREEN)✓ Seed CORE exécuté avec succès$(NC)"
+
+db-seed-all: ## Remplit la base de données avec TOUTES les données (CORE + CSV Skincare)
+	@echo "$(CYAN)Injection de toutes les données (Full Seed)...$(NC)"
+	cd backend && bun --env-file ../.env.dev src/db/seed/seed-skincare.ts --full
+	@echo "$(GREEN)✓ Full Seed exécuté avec succès$(NC)"
 
 db-clean: ## Vide complètement la base de données (SCHEMA public)
 	@echo "$(YELLOW)⚠ ATTENTION : Toutes les données vont être supprimées !$(NC)"
@@ -267,6 +272,8 @@ db-clean: ## Vide complètement la base de données (SCHEMA public)
 	@echo "$(GREEN)✓ Base de données vidée.$(NC)"
 
 db-reset: db-clean db-push db-seed ## Nettoyage complet + Push schéma + Seed
+
+db-reset-all: db-clean db-push db-seed-all ## Nettoyage complet + Push schéma + Seed Unifié
 
 db-backup: ## Crée une sauvegarde SQL de la base de données
 	@mkdir -p ./backups
