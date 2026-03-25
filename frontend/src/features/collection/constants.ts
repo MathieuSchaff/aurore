@@ -37,6 +37,17 @@ export const SHELF_ORDER: UserProductStatus[] = [
   'avoided',
 ]
 
+/** Maps product kind to its CSS custom property for the shelf card color */
+export const kindColorTokens: Record<string, string> = {
+  skincare: 'var(--shelf-color-skincare)',
+  complément: 'var(--shelf-color-complement)',
+  complement: 'var(--shelf-color-complement)',
+  huile: 'var(--shelf-color-huile)',
+  vitamine: 'var(--shelf-color-vitamine)',
+}
+
+export const DEFAULT_KIND_COLOR_TOKEN = 'var(--shelf-color-default)'
+
 /* ────────────────────────────────────────────
    Sentiments — mapping note (1-5) → emoji
    Réexporté depuis le module utilitaire partagé.

@@ -2,9 +2,9 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 
-import type { CollectionFilters, SortOption } from '../../../../utils/collectionFilters'
-import { DEFAULT_FILTERS } from '../../../../utils/collectionFilters'
-import { FilterPanel } from '../filters/FilterPanel'
+import type { CollectionFilters, SortOption } from '../../../../../utils/collectionFilters'
+import { DEFAULT_FILTERS } from '../../../../../utils/collectionFilters'
+import { FilterPanel } from '../FilterPanel'
 
 const defaultProps = {
   filters: DEFAULT_FILTERS,
@@ -58,12 +58,12 @@ describe('FilterPanel', () => {
       brand: 'CeraVe',
     }
     render(<FilterPanel {...defaultProps} filters={activeFilters} />)
-    expect(screen.getByLabelText('2 filtre(s) actif(s)')).toBeInTheDocument()
+    expect(screen.getByText(/2 filtre\(s\) actif\(s\)/)).toBeInTheDocument()
   })
 
   it('pas de badge quand aucun filtre actif', () => {
     render(<FilterPanel {...defaultProps} />)
-    expect(screen.queryByLabelText(/filtre\(s\) actif/)).not.toBeInTheDocument()
+    expect(screen.queryByText(/filtre\(s\) actif/)).not.toBeInTheDocument()
   })
 
   it('reset désactivé quand aucun filtre actif', () => {

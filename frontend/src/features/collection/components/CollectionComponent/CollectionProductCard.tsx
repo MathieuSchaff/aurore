@@ -226,7 +226,6 @@ export function CollectionProductCard({
           </div>
         </div>
       )}
-
     </div>
   )
 }
@@ -248,4 +247,3 @@ function ScoreBadge({ score, displayScale }: { score: string; displayScale?: str
     </div>
   )
 }
-

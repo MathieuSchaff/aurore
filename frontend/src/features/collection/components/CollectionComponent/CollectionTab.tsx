@@ -172,6 +172,8 @@ export function CollectionTab({ userProducts }: CollectionTabProps) {
         }}
         expandedCardId={expandedId}
         onToggleExpand={(id) => setExpandedId(expandedId === id ? null : id)}
+        criteriaWeights={prefs?.criteriaWeights}
+        displayScale={prefs?.displayScale}
         renderExpandedCard={(p) => (
           <CollectionProductCard
             p={p}

@@ -1,17 +1,8 @@
 /**
  * ShelfView — Vue "étagère" de la collection avec drag-and-drop.
- *
- * Regroupe les produits par statut (SHELF_ORDER) et permet de
- * changer le statut d'un produit en le glissant d'une section à l'autre.
- *
- * Architecture :
- * - ShelfView (DndContext) → orchestre le drag & drop global
- * - ShelfSection (Droppable) → une étagère par statut
- * - ShelfProductCard (Draggable) → carte produit déplaçable
- * - ShelfProductCardUI (pur) → utilisé dans le DragOverlay sans hook dnd
  */
 
-import type { UserProductStatus } from '@habit-tracker/shared'
+import type { DisplayScale, UserProductStatus } from '@habit-tracker/shared'
 
 import {
   DndContext,
@@ -24,6 +15,8 @@ import {
 } from '@dnd-kit/core'
 import { useCallback, useMemo, useState } from 'react'
 
+import type { CriteriaWeights } from '../../../../../lib/helpers/reviews'
+import { calculateWeightedScore } from '../../../../../lib/helpers/reviews'
 import type { UserProduct } from '../../../../../lib/queries/user-products'
 import { SHELF_ORDER } from '../../../constants'
 import { ShelfProductCardUI } from './ShelfProductCardUI'
@@ -37,6 +30,8 @@ interface ShelfViewProps {
   expandedCardId?: string | null
   onToggleExpand?: (productId: string) => void
   renderExpandedCard?: (product: UserProduct) => React.ReactNode
+  criteriaWeights?: CriteriaWeights
+  displayScale?: DisplayScale
 }
 
 export function ShelfView({
@@ -45,18 +40,19 @@ export function ShelfView({
   expandedCardId,
   onToggleExpand,
   renderExpandedCard,
+  criteriaWeights,
+  displayScale,
 }: ShelfViewProps) {
   const [collapsedSections, setCollapsedSections] = useState<Set<UserProductStatus>>(new Set())
   const [activeProduct, setActiveProduct] = useState<UserProduct | null>(null)
+  const [lastDroppedId, setLastDroppedId] = useState<string | null>(null)
 
-  // Contrainte de distance (8px) pour différencier un clic d'un début de drag
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: { distance: 8 },
     })
   )
 
-  // Regroupement des produits par statut (recalculé si la liste change)
   const grouped = useMemo(() => {
     const groups: Record<string, UserProduct[]> = {}
     for (const product of products) {
@@ -93,11 +89,13 @@ export function ShelfView({
       const targetStatus = over.data.current?.status as UserProductStatus | undefined
       if (!targetStatus) return
 
-      // Pas de mutation si le statut n'a pas changé
       const product = products.find((p) => p.id === productId)
       if (!product || product.status === targetStatus) return
 
       onStatusChange(productId, targetStatus)
+
+      setLastDroppedId(productId)
+      setTimeout(() => setLastDroppedId(null), 1000)
     },
     [products, onStatusChange]
   )
@@ -105,23 +103,39 @@ export function ShelfView({
   return (
     <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
       <div className="shelf-view">
-        {SHELF_ORDER.map((status) => (
-          <ShelfSection
-            key={status}
-            status={status}
-            products={grouped[status] ?? []}
-            isCollapsed={collapsedSections.has(status)}
-            onToggleCollapse={() => toggleCollapse(status)}
-            onProductClick={(id) => onToggleExpand?.(id)}
-            expandedCardId={expandedCardId}
-            renderExpandedCard={renderExpandedCard}
-          />
-        ))}
+        {SHELF_ORDER.map((status) => {
+          const sectionProducts = grouped[status] ?? []
+          if (sectionProducts.length === 0) return null
+
+          return (
+            <ShelfSection
+              key={status}
+              status={status}
+              products={sectionProducts}
+              isCollapsed={collapsedSections.has(status)}
+              onToggleCollapse={() => toggleCollapse(status)}
+              onProductClick={(id) => onToggleExpand?.(id)}
+              expandedCardId={expandedCardId}
+              renderExpandedCard={renderExpandedCard}
+              lastDroppedId={lastDroppedId}
+              criteriaWeights={criteriaWeights}
+              displayScale={displayScale}
+            />
+          )
+        })}
       </div>
 
-      {/* Overlay : copie visuelle de la carte pendant le drag (sans hook dnd) */}
       <DragOverlay dropAnimation={null}>
-        {activeProduct && <ShelfProductCardUI product={activeProduct} />}
+        {activeProduct && (
+          <ShelfProductCardUI
+            product={activeProduct}
+            score={calculateWeightedScore(
+              activeProduct.review,
+              criteriaWeights,
+              displayScale ?? 'out_of_20'
+            )}
+          />
+        )}
       </DragOverlay>
     </DndContext>
   )

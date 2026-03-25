@@ -13,21 +13,28 @@ import { ShelfProductCardUI } from './ShelfProductCardUI'
 interface ShelfProductCardProps {
   product: UserProduct
   onClick: () => void
+  isJustDropped?: boolean
+  score: string | null
 }
 
-export function ShelfProductCard({ product, onClick }: ShelfProductCardProps) {
+export function ShelfProductCard({
+  product,
+  onClick,
+  isJustDropped,
+  score,
+}: ShelfProductCardProps) {
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
     id: product.id,
     data: { product },
   })
 
+  const classes = [isDragging ? 'dragging' : '', isJustDropped ? 'shelf-card-just-dropped' : '']
+    .filter(Boolean)
+    .join(' ')
+
   return (
     <div ref={setNodeRef} {...listeners} {...attributes}>
-      <ShelfProductCardUI
-        product={product}
-        className={isDragging ? 'dragging' : ''}
-        onClick={onClick}
-      />
+      <ShelfProductCardUI product={product} score={score} className={classes} onClick={onClick} />
     </div>
   )
 }

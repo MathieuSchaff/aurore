@@ -13,6 +13,31 @@ import {
 import { renderWithProviders } from '../../../test/utils'
 import { CollectionPage } from '../page/CollectionPage'
 
+let mockSearch = {
+  q: '',
+  sort: 'name',
+  brand: 'all',
+  kind: 'all',
+  sentiment: 'all',
+  repurchase: 'all',
+  minNote: 0,
+  maxPrice: '',
+}
+
+vi.mock('@tanstack/react-router', () => ({
+  getRouteApi: () => ({
+    useNavigate: () => (updates: any) => {
+      if (typeof updates.search === 'function') {
+        mockSearch = updates.search(mockSearch)
+      } else {
+        mockSearch = { ...mockSearch, ...updates.search }
+      }
+      // console.log('Mock search updated:', mockSearch)
+    },
+    useSearch: () => mockSearch,
+  }),
+}))
+
 vi.mock('@tanstack/react-query', async (importOriginal) => {
   const actual = await importOriginal<any>()
   return {
@@ -82,6 +107,16 @@ describe('CollectionPage', () => {
 
   beforeEach(() => {
     vi.clearAllMocks()
+    mockSearch = {
+      q: '',
+      sort: 'name',
+      brand: 'all',
+      kind: 'all',
+      sentiment: 'all',
+      repurchase: 'all',
+      minNote: 0,
+      maxPrice: '',
+    }
 
     vi.mocked(useQuery).mockImplementation((options: any) => {
       const key = options.queryKey?.[0]
@@ -113,12 +148,13 @@ describe('CollectionPage', () => {
   })
 
   it('cycle à travers les options de tri', async () => {
-    renderWithProviders(<CollectionPage />)
+    const { rerender } = renderWithProviders(<CollectionPage />)
 
     const sortBtn = await screen.findByTitle(/Tri :/i)
 
     // Click to cycle (name -> note)
     await userEvent.click(sortBtn)
+    rerender(<CollectionPage />)
     expect(screen.getByTitle(/Tri : Note/i)).toBeInTheDocument()
   })
 
@@ -144,10 +180,11 @@ describe('CollectionPage', () => {
   })
 
   it('recherche un produit par son nom', async () => {
-    renderWithProviders(<CollectionPage />)
+    const { rerender } = renderWithProviders(<CollectionPage />)
 
     const searchInput = await screen.findByPlaceholderText(/Rechercher/i)
     await userEvent.type(searchInput, 'Super')
+    rerender(<CollectionPage />)
 
     expect(screen.getByText('Super Serum')).toBeInTheDocument()
     expect(screen.queryByText('Cool Cream')).not.toBeInTheDocument()
@@ -203,13 +240,14 @@ describe('CollectionPage', () => {
   })
 
   it('ouvre le panneau de filtres avancés et filtre par marque', async () => {
-    renderWithProviders(<CollectionPage />)
+    const { rerender } = renderWithProviders(<CollectionPage />)
 
     const filterToggle = await screen.findByTitle(/Filtres avancés/i)
     await userEvent.click(filterToggle)
 
     const brandSelect = screen.getByLabelText(/Marque/i)
     await userEvent.selectOptions(brandSelect, 'Nice Brand')
+    rerender(<CollectionPage />)
 
     const closeButtons = screen.getAllByLabelText(/Fermer les filtres/i)
     const closeBtn = closeButtons.find((btn) => btn.className.includes('coll-sheet-close'))
