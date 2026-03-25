@@ -103,7 +103,9 @@
 
   .prod-card:hover {
     box-shadow: 0 3px 10px oklch(from var(--card-accent, var(--color-primary)) l c h / 0.12);
-    border-color: oklch(from var(--card-accent, var(--color-primary)) l c h / 0.35);
+    border-top-color: oklch(from var(--card-accent, var(--color-primary)) l c h / 0.35);
+    border-right-color: oklch(from var(--card-accent, var(--color-primary)) l c h / 0.35);
+    border-bottom-color: oklch(from var(--card-accent, var(--color-primary)) l c h / 0.35);
   }
 
   /* ── Icon box ── */
@@ -262,6 +264,7 @@
       animation: none;
     }
     .shelf-header-chevron,
+    .shelf-header-dot,
     .prod-card {
       transition: none;
     }
