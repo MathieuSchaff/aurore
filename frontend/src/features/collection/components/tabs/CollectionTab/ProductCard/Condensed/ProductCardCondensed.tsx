@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { DisplayScale } from '@habit-tracker/shared'
 
 import { ProductIcon } from '@/assets/product-icons'
@@ -12,6 +13,7 @@ interface ProductCardCondensedProps {
   displayScale?: DisplayScale
   className?: string
   onClick?: () => void
+  onSentimentChange?: () => void
 }
 
 function getScoreChipClass(score: string | null, displayScale?: DisplayScale): string {
@@ -46,7 +48,10 @@ export function ProductCardCondensed({
   displayScale,
   className = '',
   onClick,
+  onSentimentChange,
 }: ProductCardCondensedProps) {
+  const [isPopping, setIsPopping] = useState(false)
+
   const p = product.product
   const kindColor = kindColorTokens[p.kind] ?? DEFAULT_KIND_COLOR_TOKEN
   const sentiment = product.sentiment ? sentimentEmojis[product.sentiment] : null
@@ -59,6 +64,19 @@ export function ProductCardCondensed({
       : `${score}${displayScale === 'out_of_5' ? '/5' : displayScale === 'out_of_10' ? '/10' : '/20'}`
   const statusClass = getStatusClass(product.status)
 
+  function handleSentimentClick(e: React.MouseEvent) {
+    e.stopPropagation()
+    setIsPopping(true)
+    setTimeout(() => setIsPopping(false), 350)
+    onSentimentChange?.()
+  }
+
+  const badgeClass = [
+    'prod-sentiment-badge',
+    !sentiment ? 'empty' : '',
+    isPopping ? 'popping' : '',
+  ].filter(Boolean).join(' ')
+
   return (
     <div
       className={`prod-card ${statusClass} ${className}`}
@@ -68,8 +86,21 @@ export function ProductCardCondensed({
       {(scoreChipClass === 'score-gold' || scoreChipClass === 'score-rare') && (
         <div className={`prod-score-corner ${scoreChipClass}`} />
       )}
-      <div className="prod-icon-box">
-        <ProductIcon unit={p.unit} kind={p.kind} size={20} />
+
+      <div className="prod-icon-wrap">
+        <div className="prod-icon-box">
+          <ProductIcon unit={p.unit} kind={p.kind} size={20} />
+        </div>
+        {onSentimentChange && (
+          <button
+            type="button"
+            className={badgeClass}
+            onClick={handleSentimentClick}
+            aria-label="Changer le sentiment"
+          >
+            {sentiment ?? '○'}
+          </button>
+        )}
       </div>
 
       <div className="prod-body">
@@ -80,7 +111,6 @@ export function ProductCardCondensed({
           <span className={`prod-chip-score ${scoreChipClass}`}>
             {scoreLabel}
           </span>
-          {sentiment && <span className="prod-chip-sentiment">{sentiment}</span>}
         </div>
       </div>
 

@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from '@testing-library/react'
+import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import type { UserProduct } from '@/lib/queries/user-products'
@@ -59,7 +59,14 @@ describe('ProductCardCondensed', () => {
   })
 
   it('renders sentiment emoji', () => {
-    render(<ProductCardCondensed product={makeProduct({ sentiment: 5 })} score={null} onClick={vi.fn()} />)
+    render(
+      <ProductCardCondensed
+        product={makeProduct({ sentiment: 5 })}
+        score={null}
+        onClick={vi.fn()}
+        onSentimentChange={vi.fn()}
+      />
+    )
     expect(screen.getByText('😍')).toBeInTheDocument()
   })
 
@@ -112,6 +119,74 @@ describe('ProductCardCondensed', () => {
       const corner = container.querySelector('.prod-score-corner')
       expect(corner).toBeInTheDocument()
       expect(corner).toHaveClass('score-rare')
+    })
+  })
+
+  describe('sentiment badge', () => {
+    it('renders badge with emoji when onSentimentChange provided and sentiment set', () => {
+      const { container } = render(
+        <ProductCardCondensed
+          product={makeProduct({ sentiment: 5 })}
+          score={null}
+          onClick={vi.fn()}
+          onSentimentChange={vi.fn()}
+        />
+      )
+      expect(container.querySelector('.prod-sentiment-badge')).toBeInTheDocument()
+      expect(screen.getByText('😍')).toBeInTheDocument()
+    })
+
+    it('renders badge with empty class when sentiment is null', () => {
+      render(
+        <ProductCardCondensed
+          product={makeProduct({ sentiment: null })}
+          score={null}
+          onClick={vi.fn()}
+          onSentimentChange={vi.fn()}
+        />
+      )
+      const badge = screen.getByRole('button', { name: /sentiment/i })
+      expect(badge).toHaveClass('empty')
+      expect(badge).toHaveTextContent('○')
+    })
+
+    it('does not render badge when onSentimentChange is not provided', () => {
+      render(<ProductCardCondensed product={makeProduct({ sentiment: 5 })} score={null} onClick={vi.fn()} />)
+      expect(screen.queryByRole('button')).not.toBeInTheDocument()
+    })
+
+    it('calls onSentimentChange and not onClick when badge is clicked', () => {
+      const onClick = vi.fn()
+      const onSentimentChange = vi.fn()
+      render(
+        <ProductCardCondensed
+          product={makeProduct({ sentiment: 4 })}
+          score={null}
+          onClick={onClick}
+          onSentimentChange={onSentimentChange}
+        />
+      )
+      fireEvent.click(screen.getByRole('button', { name: /sentiment/i }))
+      expect(onSentimentChange).toHaveBeenCalledOnce()
+      expect(onClick).not.toHaveBeenCalled()
+    })
+
+    it('applies and removes popping class after badge click', () => {
+      vi.useFakeTimers()
+      render(
+        <ProductCardCondensed
+          product={makeProduct({ sentiment: 4 })}
+          score={null}
+          onClick={vi.fn()}
+          onSentimentChange={vi.fn()}
+        />
+      )
+      const badge = screen.getByRole('button', { name: /sentiment/i })
+      fireEvent.click(badge)
+      expect(badge).toHaveClass('popping')
+      act(() => { vi.advanceTimersByTime(350) })
+      expect(badge).not.toHaveClass('popping')
+      vi.useRealTimers()
     })
   })
 })
