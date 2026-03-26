@@ -13,43 +13,26 @@ import { useEffect } from 'react'
 
 import { useScrollLock } from '../../../../hooks/useScrollLock'
 import { sentimentEmojis } from '../../constants'
+import { useCollectionFilter } from './CollectionFilterContext'
 import './CollectionFiltersSheet.css'
 
 interface FiltersSheetProps {
-  filterOptions: { brands: string[]; kinds: string[] }
-  filterBrand: string
-  setFilterBrand: (v: string) => void
-  filterKind: string
-  setFilterKind: (v: string) => void
-  filterSentiment: number | 'all'
-  setFilterSentiment: (v: number | 'all') => void
-  filterRepurchase: RepurchaseFlag | 'all'
-  setFilterRepurchase: (v: RepurchaseFlag | 'all') => void
-  filterMinNote: number
-  setFilterMinNote: (v: number) => void
-  filterMaxPrice: number | ''
-  setFilterMaxPrice: (v: number | '') => void
-  onReset: () => void
   onClose: () => void
 }
 
-export function CollectionFiltersSheet({
-  filterOptions,
-  filterBrand,
-  setFilterBrand,
-  filterKind,
-  setFilterKind,
-  filterSentiment,
-  setFilterSentiment,
-  filterRepurchase,
-  setFilterRepurchase,
-  filterMinNote,
-  setFilterMinNote,
-  filterMaxPrice,
-  setFilterMaxPrice,
-  onReset,
-  onClose,
-}: FiltersSheetProps) {
+export function CollectionFiltersSheet({ onClose }: FiltersSheetProps) {
+  const {
+    brand,
+    kind,
+    sentiment,
+    repurchase,
+    minNote,
+    maxPrice,
+    filterOptions,
+    setFilter,
+    resetFilters,
+  } = useCollectionFilter()
+
   useScrollLock(true)
 
   useEffect(() => {
@@ -90,8 +73,8 @@ export function CollectionFiltersSheet({
               <label htmlFor="sheet-filter-brand">Marque</label>
               <select
                 id="sheet-filter-brand"
-                value={filterBrand}
-                onChange={(e) => setFilterBrand(e.target.value)}
+                value={brand}
+                onChange={(e) => setFilter({ brand: e.target.value })}
               >
                 <option value="all">Toutes</option>
                 {filterOptions.brands.map((b) => (
@@ -106,8 +89,8 @@ export function CollectionFiltersSheet({
               <label htmlFor="sheet-filter-kind">Type</label>
               <select
                 id="sheet-filter-kind"
-                value={filterKind}
-                onChange={(e) => setFilterKind(e.target.value)}
+                value={kind}
+                onChange={(e) => setFilter({ kind: e.target.value })}
               >
                 <option value="all">Tous</option>
                 {filterOptions.kinds.map((k) => (
@@ -122,11 +105,11 @@ export function CollectionFiltersSheet({
               <label htmlFor="sheet-filter-sentiment">Ressenti</label>
               <select
                 id="sheet-filter-sentiment"
-                value={filterSentiment}
+                value={sentiment}
                 onChange={(e) =>
-                  setFilterSentiment(
-                    e.target.value === 'all' ? 'all' : parseInt(e.target.value, 10)
-                  )
+                  setFilter({
+                    sentiment: e.target.value === 'all' ? 'all' : parseInt(e.target.value, 10),
+                  })
                 }
               >
                 <option value="all">Tous</option>
@@ -142,8 +125,8 @@ export function CollectionFiltersSheet({
               <label htmlFor="sheet-filter-repurchase">Rachat ?</label>
               <select
                 id="sheet-filter-repurchase"
-                value={filterRepurchase}
-                onChange={(e) => setFilterRepurchase(e.target.value as RepurchaseFlag | 'all')}
+                value={repurchase}
+                onChange={(e) => setFilter({ repurchase: e.target.value as RepurchaseFlag | 'all' })}
               >
                 <option value="all">Indifférent</option>
                 <option value="yes">Oui</option>
@@ -159,10 +142,10 @@ export function CollectionFiltersSheet({
                 type="range"
                 min="0"
                 max="20"
-                value={filterMinNote}
-                onChange={(e) => setFilterMinNote(parseInt(e.target.value, 10))}
+                value={minNote}
+                onChange={(e) => setFilter({ minNote: parseInt(e.target.value, 10) })}
               />
-              <span className="coll-range-val">{filterMinNote}</span>
+              <span className="coll-range-val">{minNote}</span>
             </div>
 
             <div className="coll-adv-group">
@@ -171,9 +154,9 @@ export function CollectionFiltersSheet({
                 id="sheet-filter-price"
                 type="number"
                 placeholder="Sans limite"
-                value={filterMaxPrice}
+                value={maxPrice}
                 onChange={(e) =>
-                  setFilterMaxPrice(e.target.value === '' ? '' : parseFloat(e.target.value))
+                  setFilter({ maxPrice: e.target.value === '' ? '' : parseFloat(e.target.value) })
                 }
               />
             </div>
@@ -181,7 +164,7 @@ export function CollectionFiltersSheet({
         </div>
 
         <div className="coll-sheet-footer">
-          <button type="button" className="coll-reset-btn" onClick={onReset}>
+          <button type="button" className="coll-reset-btn" onClick={resetFilters}>
             <X size={14} />
             Réinitialiser
           </button>
