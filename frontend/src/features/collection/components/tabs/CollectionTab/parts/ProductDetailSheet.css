@@ -1,0 +1,43 @@
+@layer components {
+  .coll-product-sheet-title {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .coll-product-sheet-name {
+    font-family: var(--font-display);
+    font-feature-settings: "onum" 1;
+    font-size: 1rem;
+    font-weight: var(--font-bold);
+    color: var(--text-primary);
+    line-height: 1.2;
+  }
+
+  .coll-product-sheet-brand {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-widest);
+    font-weight: var(--font-medium);
+  }
+
+  /* Le sheet a sa propre hauteur max, plus généreuse que les filtres */
+  .coll-sheet-body.coll-product-sheet {
+    max-height: 85vh;
+  }
+
+  /* Neutraliser le chrome de .coll-card à l'intérieur du sheet */
+  .coll-product-sheet .coll-card {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    overflow: visible;
+  }
+
+  .coll-product-sheet .coll-card:hover {
+    border: none;
+    box-shadow: none;
+  }
+}
