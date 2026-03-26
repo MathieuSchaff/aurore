@@ -281,6 +281,9 @@
     .prod-card {
       transition: none;
     }
+    .prod-card:hover {
+      transform: none;
+    }
     .prod-sentiment-badge {
       transition: none;
     }
