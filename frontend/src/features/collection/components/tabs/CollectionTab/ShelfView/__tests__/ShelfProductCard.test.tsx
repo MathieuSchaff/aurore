@@ -98,5 +98,13 @@ describe('ShelfProductCard', () => {
       fireEvent.click(screen.getByRole('button', { name: /sentiment/i }))
       expect(mutate).toHaveBeenCalledWith({ id: '1', input: { sentiment: null } })
     })
+
+    it('resets to null for unknown sentiment value', () => {
+      renderWithDnd(
+        <ShelfProductCard product={makeProduct({ sentiment: 99 as any })} score={null} onClick={vi.fn()} />
+      )
+      fireEvent.click(screen.getByRole('button', { name: /sentiment/i }))
+      expect(mutate).toHaveBeenCalledWith({ id: '1', input: { sentiment: null } })
+    })
   })
 })

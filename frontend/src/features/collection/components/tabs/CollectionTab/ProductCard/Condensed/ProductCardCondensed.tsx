@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { DisplayScale } from '@habit-tracker/shared'
 
 import { ProductIcon } from '@/assets/product-icons'
@@ -51,6 +51,13 @@ export function ProductCardCondensed({
   onSentimentChange,
 }: ProductCardCondensedProps) {
   const [isPopping, setIsPopping] = useState(false)
+  const poppingTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    return () => {
+      if (poppingTimer.current) clearTimeout(poppingTimer.current)
+    }
+  }, [])
 
   const p = product.product
   const kindColor = kindColorTokens[p.kind] ?? DEFAULT_KIND_COLOR_TOKEN
@@ -66,8 +73,9 @@ export function ProductCardCondensed({
 
   function handleSentimentClick(e: React.MouseEvent) {
     e.stopPropagation()
+    if (poppingTimer.current) clearTimeout(poppingTimer.current)
     setIsPopping(true)
-    setTimeout(() => setIsPopping(false), 350)
+    poppingTimer.current = setTimeout(() => setIsPopping(false), 350)
     onSentimentChange?.()
   }
 
@@ -96,6 +104,7 @@ export function ProductCardCondensed({
             type="button"
             className={badgeClass}
             onClick={handleSentimentClick}
+            onPointerDown={(e) => e.stopPropagation()}
             aria-label="Changer le sentiment"
           >
             {sentiment ?? '○'}

@@ -33,7 +33,7 @@ export function ShelfProductCard({
   function handleSentimentChange() {
     const current = product.sentiment as SentimentValue
     const idx = SENTIMENT_CYCLE.indexOf(current)
-    const next = SENTIMENT_CYCLE[(idx === -1 ? 1 : idx + 1) % SENTIMENT_CYCLE.length]
+    const next = SENTIMENT_CYCLE[(idx === -1 ? 0 : idx + 1) % SENTIMENT_CYCLE.length]
     updateMutation.mutate({ id: product.id, input: { sentiment: next } })
   }
 
