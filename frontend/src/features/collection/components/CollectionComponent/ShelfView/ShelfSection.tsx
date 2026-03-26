@@ -1,10 +1,3 @@
-/**
- * ShelfSection — Une étagère (zone de dépôt) pour un statut donné.
- *
- * Chaque section est une Droppable de dnd-kit.
- * Elle contient un header pliable et une grille de produits.
- */
-
 import type { DisplayScale, UserProductStatus } from '@habit-tracker/shared'
 
 import { useDroppable } from '@dnd-kit/core'
@@ -56,30 +49,26 @@ export function ShelfSection({
         isOver={isOver}
       />
       {!isCollapsed && (
-        <div className="shelf-plank-wrapper">
-          <ShelfGrid>
-            {products.map((product) => {
-              const score = calculateWeightedScore(
-                product.review,
-                criteriaWeights,
-                displayScale ?? 'out_of_20'
-              )
-              return (
-                <div key={product.id}>
-                  <ShelfProductCard
-                    product={product}
-                    score={score}
-                    onClick={() => onProductClick(product.id)}
-                    isJustDropped={lastDroppedId === product.id}
-                  />
-                  {expandedCardId === product.id && renderExpandedCard?.(product)}
-                </div>
-              )
-            })}
-          </ShelfGrid>
-          <div className="shelf-plank" />
-          <div className="shelf-plank-depth" />
-        </div>
+        <ShelfGrid>
+          {products.map((product) => {
+            const score = calculateWeightedScore(
+              product.review,
+              criteriaWeights,
+              displayScale ?? 'out_of_20'
+            )
+            return (
+              <div key={product.id}>
+                <ShelfProductCard
+                  product={product}
+                  score={score}
+                  onClick={() => onProductClick(product.id)}
+                  isJustDropped={lastDroppedId === product.id}
+                />
+                {expandedCardId === product.id && renderExpandedCard?.(product)}
+              </div>
+            )
+          })}
+        </ShelfGrid>
       )}
     </div>
   )
