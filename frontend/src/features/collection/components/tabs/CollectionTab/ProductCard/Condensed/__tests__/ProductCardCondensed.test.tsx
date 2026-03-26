@@ -77,27 +77,41 @@ describe('ProductCardCondensed', () => {
 
   describe('score corner', () => {
     it('renders score corner for gold score (≥17/20)', () => {
-      render(<ProductCardCondensed product={makeProduct()} score="18" onClick={vi.fn()} />)
-      const corner = document.querySelector('.prod-score-corner')
+      const { container } = render(<ProductCardCondensed product={makeProduct()} score="18" onClick={vi.fn()} />)
+      const corner = container.querySelector('.prod-score-corner')
       expect(corner).toBeInTheDocument()
       expect(corner).toHaveClass('score-gold')
     })
 
     it('renders score corner for rare score (≥14/20)', () => {
-      render(<ProductCardCondensed product={makeProduct()} score="15" onClick={vi.fn()} />)
-      const corner = document.querySelector('.prod-score-corner')
+      const { container } = render(<ProductCardCondensed product={makeProduct()} score="15" onClick={vi.fn()} />)
+      const corner = container.querySelector('.prod-score-corner')
       expect(corner).toBeInTheDocument()
       expect(corner).toHaveClass('score-rare')
     })
 
     it('does not render score corner for good score (10-13/20)', () => {
-      render(<ProductCardCondensed product={makeProduct()} score="12" onClick={vi.fn()} />)
-      expect(document.querySelector('.prod-score-corner')).not.toBeInTheDocument()
+      const { container } = render(<ProductCardCondensed product={makeProduct()} score="12" onClick={vi.fn()} />)
+      expect(container.querySelector('.prod-score-corner')).not.toBeInTheDocument()
     })
 
     it('does not render score corner when score is null', () => {
-      render(<ProductCardCondensed product={makeProduct()} score={null} onClick={vi.fn()} />)
-      expect(document.querySelector('.prod-score-corner')).not.toBeInTheDocument()
+      const { container } = render(<ProductCardCondensed product={makeProduct()} score={null} onClick={vi.fn()} />)
+      expect(container.querySelector('.prod-score-corner')).not.toBeInTheDocument()
+    })
+
+    it('renders score-gold corner at exact threshold (17/20)', () => {
+      const { container } = render(<ProductCardCondensed product={makeProduct()} score="17" onClick={vi.fn()} />)
+      const corner = container.querySelector('.prod-score-corner')
+      expect(corner).toBeInTheDocument()
+      expect(corner).toHaveClass('score-gold')
+    })
+
+    it('renders score-rare corner just below gold threshold (16/20)', () => {
+      const { container } = render(<ProductCardCondensed product={makeProduct()} score="16" onClick={vi.fn()} />)
+      const corner = container.querySelector('.prod-score-corner')
+      expect(corner).toBeInTheDocument()
+      expect(corner).toHaveClass('score-rare')
     })
   })
 })
