@@ -1,5 +1,5 @@
 import { getRouteApi } from '@tanstack/react-router'
-import { createContext, useContext, useMemo, type ReactNode } from 'react'
+import { createContext, useCallback, useContext, useMemo, type ReactNode } from 'react'
 
 import type { UserProduct } from '../../../../lib/queries/user-products'
 import type { CollectionSearch } from '../../../../routes/_authenticated/collection'
@@ -36,11 +36,14 @@ export function CollectionFilterProvider({ userProducts, children }: CollectionF
     return { brands, kinds }
   }, [userProducts])
 
-  const setFilter = (updates: Partial<CollectionSearch>) => {
-    navigate({ search: (prev) => ({ ...prev, ...updates }) })
-  }
+  const setFilter = useCallback(
+    (updates: Partial<CollectionSearch>) => {
+      navigate({ search: (prev) => ({ ...prev, ...updates }) })
+    },
+    [navigate],
+  )
 
-  const resetFilters = () => {
+  const resetFilters = useCallback(() => {
     setFilter({
       brand: 'all',
       kind: 'all',
@@ -48,8 +51,9 @@ export function CollectionFilterProvider({ userProducts, children }: CollectionF
       repurchase: 'all',
       minNote: 0,
       maxPrice: '',
+      q: '',
     })
-  }
+  }, [setFilter])
 
   return (
     <CollectionFilterContext.Provider
