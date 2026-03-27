@@ -117,7 +117,7 @@ function CollectionTabContent({ prefs }: { prefs: UserPreferences | undefined })
           prefs={prefs}
           activeTooltip={activeTooltip}
           setActiveTooltip={setActiveTooltip}
-          onClose={() => setExpandedId(null)}
+          onClose={() => { setExpandedId(null); setActiveTooltip(null) }}
         />
       )}
     </>
