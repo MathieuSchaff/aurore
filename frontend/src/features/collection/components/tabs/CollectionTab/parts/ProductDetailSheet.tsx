@@ -1,3 +1,11 @@
+/**
+ * ProductDetailSheet — Panneau détail produit (bottom sheet).
+ *
+ * Affiche les informations complètes d'un produit de la collection.
+ * Le scroll de la page est verrouillé pendant l'ouverture (useScrollLock).
+ * Se ferme via backdrop, bouton close, ou touche Escape.
+ */
+
 import { X } from 'lucide-react'
 import { useEffect } from 'react'
 
@@ -42,11 +50,11 @@ export function ProductDetailSheet({
         onClick={onClose}
         aria-label="Fermer le panneau"
       />
-      <div className="coll-sheet" role="dialog" aria-modal="true" aria-label={p.product.name}>
+      <div className="coll-sheet" role="dialog" aria-modal="true" aria-labelledby="product-sheet-name">
         <div className="coll-sheet-handle" aria-hidden="true" />
         <div className="coll-sheet-header">
           <div className="coll-product-sheet-title">
-            <span className="coll-product-sheet-name">{p.product.name}</span>
+            <h2 id="product-sheet-name" className="coll-product-sheet-name">{p.product.name}</h2>
             <span className="coll-product-sheet-brand">{p.product.brand}</span>
           </div>
           <button
