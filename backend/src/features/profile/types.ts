@@ -13,7 +13,6 @@ export {
 
 // Backend-only types (inferred from Drizzle schema)
 
-/** Profil complet tel que retourné par la base de données. */
 export type Profile = InferSelectModel<typeof profiles>
 
 export type NewProfile = InferInsertModel<typeof profiles>
