@@ -165,13 +165,13 @@ function TestSvgPage() {
             boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.05)',
           }}
         >
-          {/* Nouveau Clip-Path plus précis */}
+          {/* A new clip-path more precise for the look. */}
           <svg width="0" height="0" style={{ position: 'absolute' }}>
             <defs>
               <clipPath id="luxury-jar-clip" clipPathUnits="objectBoundingBox">
-                {/* Couvercle : rectangle légèrement arrondi en haut */}
+                {/* Top part: a rectangle a bit rounded at the top. */}
                 <path d="M 0.2 0.05 Q 0.5 0.0 0.8 0.05 L 0.85 0.25 L 0.15 0.25 Z" />
-                {/* Corps du pot : forme évasée avec base très arrondie */}
+                {/* Pot body: it is large with a very round bottom. */}
                 <path d="M 0.1 0.27 L 0.9 0.27 L 0.9 0.8 Q 0.9 1.0 0.5 1.0 Q 0.1 1.0 0.1 0.8 Z" />
               </clipPath>
             </defs>
@@ -185,7 +185,7 @@ function TestSvgPage() {
               filter: 'drop-shadow(0 30px 40px rgba(0,0,0,0.15))',
             }}
           >
-            {/* Le conteneur principal avec le clip-path */}
+            {/* This is the big box that uses the clip-path. */}
             <div
               style={{
                 width: '100%',
@@ -197,7 +197,7 @@ function TestSvgPage() {
                 backgroundColor: 'white',
               }}
             >
-              {/* SECTION COUVERCLE : Effet Métal Doré */}
+              {/* PART FOR TOP: Like gold metal. */}
               <div
                 style={{
                   height: '27%',
@@ -224,7 +224,7 @@ function TestSvgPage() {
                 </span>
               </div>
 
-              {/* SECTION CORPS : Blanc Crème / Verre dépoli */}
+              {/* PART FOR BODY: Like a cream or glass. */}
               <div
                 style={{
                   height: '73%',
@@ -240,7 +240,7 @@ function TestSvgPage() {
                   position: 'relative',
                 }}
               >
-                {/* Brillance sur le côté du verre */}
+                {/* Some light on the glass side. */}
                 <div
                   style={{
                     position: 'absolute',

@@ -8,7 +8,7 @@ export const Route = createFileRoute('/_authenticated')({
   beforeLoad: async ({ context, location }) => {
     const store = useAuthStore.getState()
 
-    // Token validation and recovery loop
+    // We check if the token is still okay, if not we try to refresh it.
     if (!store.accessToken || store.isTokenExpired()) {
       const refreshed = await silentRefresh(context.queryClient)
 
@@ -27,10 +27,10 @@ export const Route = createFileRoute('/_authenticated')({
     }
 
     try {
-      // Server-side session verification
+      // We ask the server if the session is really correct.
       await context.queryClient.ensureQueryData(authQueries.session())
     } catch {
-      // If server rejects the current token, try one last refresh
+      // The server said no, so we try one last time to refresh before we stop.
       const refreshed = await silentRefresh(context.queryClient)
 
       if (!refreshed) {

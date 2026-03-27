@@ -3,11 +3,8 @@ import type { QueryClient } from '@tanstack/react-query'
 import { useAuthStore } from '../../store/auth'
 import { api } from '../api'
 
-/**
- * Silent refresh via httpOnly cookie.
- * Deduplicated to avoid multiple concurrent calls.
- */
-
+// We save the request here. If many parts of the app ask to refresh 
+// at the same time, we only call the server one time.
 let inflightRefresh: Promise<boolean> | null = null
 
 export async function silentRefresh(queryClient: QueryClient): Promise<boolean> {
@@ -31,6 +28,7 @@ export async function silentRefresh(queryClient: QueryClient): Promise<boolean> 
     } catch {
       return false
     } finally {
+      // When it is done, we reset the variable so we can refresh again later.
       inflightRefresh = null
     }
   })()

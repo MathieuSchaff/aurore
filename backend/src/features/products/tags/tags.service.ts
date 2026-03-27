@@ -85,8 +85,6 @@ export async function deleteTag(db: DB, id: string): Promise<boolean> {
   return result.length > 0
 }
 
-// ─── Product Tags ────────────────────────────────────────
-
 export async function addTagToProduct(
   db: DB,
   productId: string,
@@ -114,9 +112,6 @@ export async function addManyTagsToProduct(
   return db.insert(productTags).values(values).returning()
 }
 
-/**
- * Liste les tags d'un produit avec les infos du tag jointé.
- */
 export async function listTagsByProduct(db: DB, productId: string) {
   return db
     .select({
@@ -136,9 +131,6 @@ export async function listTagsByProduct(db: DB, productId: string) {
     .orderBy(tags.category, tags.name)
 }
 
-/**
- * Liste les produits ayant un tag donné.
- */
 export async function listProductsByTag(db: DB, tagId: string): Promise<Product[]> {
   return db
     .select(getTableColumns(products))
@@ -160,14 +152,12 @@ export async function removeTagFromProduct(
   return result.length > 0
 }
 
-/**
- * Remplace tous les tags d'un produit (transaction).
- */
 export async function replaceProductTags(
   db: DB,
   productId: string,
   tagsInput: (string | { tagId: string; relevance?: 'primary' | 'secondary' | 'avoid' })[]
 ): Promise<ProductTag[]> {
+  // We use a transaction because we must delete all old tags before we save the new list
   return db.transaction(async (tx) => {
     await tx.delete(productTags).where(eq(productTags.productId, productId))
 
@@ -183,8 +173,6 @@ export async function replaceProductTags(
     return tx.insert(productTags).values(values).returning()
   })
 }
-
-// ─── Ingredient Tags ──────────────────────────────────────
 
 export async function addTagToIngredient(
   db: DB,
@@ -216,9 +204,6 @@ export async function addManyTagsToIngredient(
   return db.insert(ingredientTags).values(values).returning()
 }
 
-/**
- * Liste les tags d'un ingrédient avec les infos du tag jointé.
- */
 export async function listTagsByIngredient(db: DB, ingredientId: string) {
   return db
     .select({
@@ -237,9 +222,6 @@ export async function listTagsByIngredient(db: DB, ingredientId: string) {
     .orderBy(tags.category, tags.name)
 }
 
-/**
- * Liste les ingrédients ayant un tag donné.
- */
 export async function listIngredientsByTag(db: DB, tagId: string): Promise<Ingredient[]> {
   return db
     .select(getTableColumns(ingredients))
@@ -261,14 +243,12 @@ export async function removeTagFromIngredient(
   return result.length > 0
 }
 
-/**
- * Remplace tous les tags d'un ingrédient (transaction).
- */
 export async function replaceIngredientTags(
   db: DB,
   ingredientId: string,
   tagsInput: (string | { tagId: string; relevance?: 'primary' | 'secondary' | 'avoid' })[]
 ): Promise<IngredientTag[]> {
+  // Same thing as for the product, we use a transaction to be sure the data is clean
   return db.transaction(async (tx) => {
     await tx.delete(ingredientTags).where(eq(ingredientTags.ingredientId, ingredientId))
 

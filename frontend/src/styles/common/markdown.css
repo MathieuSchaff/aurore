@@ -6,7 +6,7 @@
   word-break: break-word;
   white-space: normal;
 
-  /* Keep container compact by removing outside margins from first/last elements */
+  /* I remove margins for the first and last element so it is more tight in the box */
   & > :first-child {
     margin-top: 0;
   }
@@ -14,7 +14,6 @@
     margin-bottom: 0;
   }
 
-  /* Headings */
   & h1,
   & h2,
   & h3,
@@ -41,7 +40,6 @@
     font-weight: var(--font-semibold);
   }
 
-  /* Text Elements */
   & p {
     margin-bottom: var(--space-3);
     max-width: none;
@@ -55,7 +53,6 @@
     color: var(--text-secondary);
   }
 
-  /* Links */
   & a {
     color: var(--color-primary);
     text-decoration: underline;
@@ -66,7 +63,6 @@
     }
   }
 
-  /* Lists */
   & ul,
   & ol {
     margin-bottom: var(--space-3);
@@ -85,7 +81,6 @@
     }
   }
 
-  /* Quotes & Code */
   & blockquote {
     margin: var(--space-4) 0;
     padding: var(--space-3) var(--space-4);

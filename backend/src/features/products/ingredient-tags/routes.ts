@@ -26,8 +26,6 @@ import { TagError } from '../tags/tags-error'
 const ingredientParams = z.object({ ingredientId: z.uuid() })
 const ingredientTagParams = z.object({ ingredientId: z.uuid(), tagId: z.uuid() })
 
-// ─── App ──────────────────────────────────────────────────
-
 const ingredientTagsApp = new Hono<AppEnv>()
 
 ingredientTagsApp.use('*', async (c, next) => {
@@ -42,8 +40,6 @@ ingredientTagsApp.onError((error, c) => {
   console.error('Unexpected error:', error)
   return c.json(err('server_error'), HTTP_STATUS.INTERNAL_SERVER_ERROR)
 })
-
-// ─── Handlers ─────────────────────────────────────────────
 
 export const ingredientTagRoutes = ingredientTagsApp
 
