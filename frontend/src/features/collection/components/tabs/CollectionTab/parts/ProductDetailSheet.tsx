@@ -12,7 +12,6 @@ import { useEffect } from 'react'
 import { useScrollLock } from '@/hooks/useScrollLock'
 import type { UserPreferences } from '@/lib/queries/user-preferences'
 import type { UserProduct } from '@/lib/queries/user-products'
-
 import { ProductCardDetailed } from '../ProductCard/Detailed/ProductCardDetailed'
 
 import './ProductDetailSheet.css'
@@ -34,6 +33,8 @@ export function ProductDetailSheet({
 }: ProductDetailSheetProps) {
   useScrollLock(true)
 
+  const headingId = `product-sheet-name-${p.id}`
+
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
@@ -50,11 +51,18 @@ export function ProductDetailSheet({
         onClick={onClose}
         aria-label="Fermer le panneau"
       />
-      <div className="coll-sheet" role="dialog" aria-modal="true" aria-labelledby="product-sheet-name">
+      <div
+        className="coll-sheet"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={headingId}
+      >
         <div className="coll-sheet-handle" aria-hidden="true" />
         <div className="coll-sheet-header">
           <div className="coll-product-sheet-title">
-            <h2 id="product-sheet-name" className="coll-product-sheet-name">{p.product.name}</h2>
+            <h2 id={headingId} className="coll-product-sheet-name">
+              {p.product.name}
+            </h2>
             <span className="coll-product-sheet-brand">{p.product.brand}</span>
           </div>
           <button
