@@ -6,16 +6,16 @@ import {
   ingredientErrorMapping,
   ingredientsSearchSchema,
   ok,
-  updateIngredientSchema,
+  updateIngredientRouteSchema,
 } from '@habit-tracker/shared'
 
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
 import { z } from 'zod'
 
-import type { AppEnv } from '../../../app-env'
-import { requireJwtAuth } from '../../auth/middleware'
-import { listProductsByIngredient } from '../product-ingredients/product-ingredients.service'
+import type { AppEnv } from '../../app-env'
+import { requireJwtAuth } from '../auth/middleware'
+import { listProductsByIngredient } from '../products/product-ingredients/product-ingredients.service'
 import { IngredientError } from './ingredients-error'
 import {
   createIngredient,
@@ -42,11 +42,15 @@ const searchQuery = z.object({
 
 const ingredientsApp = new Hono<AppEnv>()
 
+// For ingredients, I let people look at them (GET) without asking who they are.
+// but if they want to create or change something, they must login first.
 ingredientsApp.use('*', async (c, next) => {
   if (c.req.method === 'GET') return next()
   return requireJwtAuth(c, next)
 })
 
+// I catch my IngredientError here to transform it into a nice JSON response.
+// If it is another type of error, I log it and send a "server error" message.
 ingredientsApp.onError((error, c) => {
   if (error instanceof IngredientError) {
     return c.json(err(error.code, error.details), errorToStatus(error.code, ingredientErrorMapping))
@@ -63,7 +67,7 @@ export const ingredientRoutes = ingredientsApp
     const db = c.get('db')
     const { q } = c.req.valid('query')
 
-    const results = await searchIngredients(q, db)
+    const results = await searchIngredients(db, q)
 
     return c.json(ok(results), HTTP_STATUS.OK)
   })
@@ -75,7 +79,7 @@ export const ingredientRoutes = ingredientsApp
   .get('/', zValidator('query', ingredientsSearchSchema), async (c) => {
     const db = c.get('db')
     const query = c.req.valid('query')
-    const { items, total } = await listIngredients(query, db)
+    const { items, total } = await listIngredients(db, query)
     return c.json(ok({ items, total }), HTTP_STATUS.OK)
   })
 
@@ -84,7 +88,7 @@ export const ingredientRoutes = ingredientsApp
     const userId = c.get('userId')
     const input = c.req.valid('json')
 
-    const ingredient = await createIngredient(userId, input, db)
+    const ingredient = await createIngredient(db, userId, input)
 
     return c.json(ok(ingredient), HTTP_STATUS.CREATED)
   })
@@ -93,7 +97,7 @@ export const ingredientRoutes = ingredientsApp
     const db = c.get('db')
     const { slug } = c.req.valid('param')
 
-    const ingredient = await getIngredientBySlug(slug, db)
+    const ingredient = await getIngredientBySlug(db, slug)
 
     return c.json(ok(ingredient), HTTP_STATUS.OK)
   })
@@ -101,23 +105,20 @@ export const ingredientRoutes = ingredientsApp
   .patch(
     '/:id',
     zValidator('param', idParam),
-    zValidator('json', updateIngredientSchema),
+    zValidator('json', updateIngredientRouteSchema),
     async (c) => {
       const db = c.get('db')
       const { id } = c.req.valid('param')
       const userId = c.get('userId')
-      const input = c.req.valid('json')
-
-      const ingredient = await updateIngredient(userId, id, input, undefined, db)
-
+      const { expectedUpdatedAt, summary, ...data } = c.req.valid('json')
+      const ingredient = await updateIngredient(db, userId, id, data, summary, expectedUpdatedAt)
       return c.json(ok(ingredient), HTTP_STATUS.OK)
     }
   )
-
   .delete('/:id', zValidator('param', idParam), async (c) => {
     const db = c.get('db')
     const { id } = c.req.valid('param')
-    await deleteIngredient(id, db)
+    await deleteIngredient(db, id)
     return c.body(null, 204)
   })
 
@@ -125,8 +126,8 @@ export const ingredientRoutes = ingredientsApp
     const db = c.get('db')
     const { slug } = c.req.valid('param')
 
-    const ingredient = await getIngredientBySlug(slug, db)
-    const edits = await listIngredientEdits(ingredient.id, db)
+    const ingredient = await getIngredientBySlug(db, slug)
+    const edits = await listIngredientEdits(db, ingredient.id)
 
     return c.json(ok(edits), HTTP_STATUS.OK)
   })
@@ -135,7 +136,7 @@ export const ingredientRoutes = ingredientsApp
     const db = c.get('db')
     const { slug } = c.req.valid('param')
 
-    const ingredient = await getIngredientBySlug(slug, db)
+    const ingredient = await getIngredientBySlug(db, slug)
 
     const items = await listProductsByIngredient(db, ingredient.id)
 
