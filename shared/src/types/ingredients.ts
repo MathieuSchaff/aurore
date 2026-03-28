@@ -20,6 +20,8 @@ export type IngredientEdit = {
   summary: string | null
   createdAt: string | Date
 }
+
+// only the fields a user is allowed to change (no id, slug, timestamps…)
 export type EditableIngredientKeys = Exclude<
   keyof Ingredient,
   'id' | 'createdBy' | 'createdAt' | 'slug' | 'updatedAt'
@@ -28,6 +30,7 @@ export type EditableIngredientKeys = Exclude<
 export type IngredientChanges = {
   [K in EditableIngredientKeys]?: FieldChange<Ingredient[K]>
 }
+
 export type IngredientErrorCode =
   | 'ingredient_not_found'
   | 'ingredient_creation_failed'
@@ -36,3 +39,5 @@ export type IngredientErrorCode =
   | 'ingredient_already_exists'
   | 'unauthorized_access'
   | 'database_error'
+  | 'slug_already_exists'
+  | 'ingredient_update_conflict'

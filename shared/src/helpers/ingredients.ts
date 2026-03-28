@@ -10,4 +10,6 @@ export const ingredientErrorMapping = {
   ingredient_already_exists: HTTP_STATUS.CONFLICT,
   unauthorized_access: HTTP_STATUS.FORBIDDEN,
   database_error: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+  slug_already_exists: HTTP_STATUS.CONFLICT,
+  ingredient_update_conflict: HTTP_STATUS.CONFLICT,
 } as const satisfies Record<IngredientErrorCode, HttpStatus>

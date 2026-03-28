@@ -4,12 +4,17 @@ import { fieldChangeSchema } from './common'
 
 const uuid = z.uuid()
 
-// ─── Schemas ──────────────────────────────────────────────
+const slugSchema = z
+  .string()
+  .max(100)
+  .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, {
+    message: 'Slug must contain only lowercase letters, numbers, and hyphens',
+  })
 
 export const createIngredientSchema = z.object({
   name: z.string().min(1).max(200),
   description: z.string().max(2000).optional(),
-  slug: z.string().max(100).optional(),
+  slug: slugSchema.optional(),
   content: z.string().max(50000).optional(),
   category: z.string().min(1).max(100).optional(),
 })
@@ -17,7 +22,7 @@ export const createIngredientSchema = z.object({
 export const updateIngredientSchema = z
   .object({
     name: z.string().min(1).max(200).optional(),
-    slug: z.string().max(100).optional(),
+    slug: slugSchema.optional(),
     description: z.string().max(2000).optional(),
     content: z.string().max(50000).optional(),
     category: z.string().min(1).max(100).nullable().optional(),
@@ -58,6 +63,7 @@ export const ingredientEditResponseSchema = z.object({
   createdAt: z.date(),
 })
 
+// partial because an edit can touch only some fields, but at least one is required
 export const ingredientChangesSchema = z
   .object({
     name: fieldChangeSchema(z.string()),
@@ -70,6 +76,7 @@ export const ingredientChangesSchema = z
     message: 'At least one field change is required',
   })
 
+// coerce because query params always arrive as strings
 export const ingredientsSearchSchema = z.object({
   category: z.string().optional(),
   concern: z.string().optional(),
@@ -78,8 +85,11 @@ export const ingredientsSearchSchema = z.object({
   page: z.coerce.number().min(1).default(1),
   limit: z.coerce.number().min(1).max(100).default(20),
 })
-// ─── Types ────────────────────────────────────────────────
-
+export const updateIngredientRouteSchema = updateIngredientSchema.extend({
+  expectedUpdatedAt: z.coerce.date().optional(),
+  summary: z.string().max(500).optional(),
+})
+export type UpdateIngredientRouteInput = z.infer<typeof updateIngredientRouteSchema>
 export type CreateIngredientInput = z.infer<typeof createIngredientSchema>
 export type UpdateIngredientInput = z.infer<typeof updateIngredientSchema>
 export type IngredientResponse = z.infer<typeof ingredientResponseSchema>
