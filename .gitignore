@@ -67,10 +67,11 @@ pgdata/
 # =========================
 #  AI tools ou fichier MD avec mes idées
 # =========================
+garbage/
 idee/
-.superpowers/
 CLAUDE.md
 CLAUDE2.md
 docs/
 .memory/
+.superpowers/
 frontend/.tanstack/tmp/
