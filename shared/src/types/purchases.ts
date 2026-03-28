@@ -3,3 +3,4 @@ export type PurchaseErrorCode =
   | 'active_purchase_exists'
   | 'no_active_purchase'
   | 'user_product_not_found'
+  | 'purchase_creation_failed'
