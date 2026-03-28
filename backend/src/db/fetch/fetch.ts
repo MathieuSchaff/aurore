@@ -348,7 +348,7 @@ const extractAmount = (product: OpenBeautyProduct): { totalAmount: number; amoun
     }
     const numMatch = product.quantity.match(/\d+/)
     if (numMatch) {
-      return { totalAmount: parseInt(numMatch[0]), amountUnit: 'ml' }
+      return { totalAmount: parseInt(numMatch[0], 10), amountUnit: 'ml' }
     }
   }
 

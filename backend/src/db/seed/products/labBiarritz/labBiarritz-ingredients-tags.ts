@@ -1,7 +1,8 @@
+import type { Ingredient } from '../../ingredients'
 import { INGREDIENT_SLUGS } from '../../ingredients/ingredient-slugs'
 import { allProductSlugs } from '../products-slugs'
 
-export const LABBIARRITZ_INGREDIENTS_MAP: Record<string, any[]> = {
+export const LABBIARRITZ_INGREDIENTS_MAP: Record<string, Ingredient[]> = {
   [allProductSlugs.LABORATOIRES_BIARRITZ_CREME_SOLAIRE_VISAGE_SPF50]: [
     {
       slug: INGREDIENT_SLUGS.ZINC_OXIDE,
@@ -127,7 +128,7 @@ export const LABBIARRITZ_INGREDIENTS_MAP: Record<string, any[]> = {
 // Export original pour compatibilité descendante
 export const LAB_BIARRITZ_PRODUCT_INGREDIENTS = Object.entries(LABBIARRITZ_INGREDIENTS_MAP).flatMap(
   ([productSlug, ingredients]) =>
-    ingredients.map((ing: any) => ({
+    ingredients.map((ing) => ({
       productSlug,
       ingredientSlug: ing.slug,
       concentrationValue: ing.value || null,

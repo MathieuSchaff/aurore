@@ -34,7 +34,7 @@ export function toNumeric(val: unknown): string | null {
   const str = String(val).trim()
   if (str === '' || str === 'null' || str === 'undefined') return null
   const num = Number(str)
-  if (isNaN(num)) return null
+  if (Number.isNaN(num)) return null
   return str
 }
 

@@ -1,4 +1,4 @@
-import { differenceInDays, startOfDay } from 'date-fns'
+import { differenceInDays } from 'date-fns'
 import { and, between, desc, eq, sql } from 'drizzle-orm'
 
 import type { Database } from '../../db'

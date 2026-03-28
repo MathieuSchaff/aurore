@@ -1,6 +1,7 @@
+import type { Ingredient } from '../../ingredients'
 import { INGREDIENT_SLUGS } from '../../ingredients/ingredient-slugs'
 import { LRP_PRODUCT_SLUGS } from './laRochePosay'
-export const LRP_INGREDIENTS_MAP: Record<string, any[]> = {
+export const LRP_INGREDIENTS_MAP: Record<string, Ingredient[]> = {
   [LRP_PRODUCT_SLUGS.LIPIKAR_HUILE_LAVANTE_AP_PLUS]: [
     {
       slug: INGREDIENT_SLUGS.NIACINAMIDE,
@@ -324,7 +325,7 @@ export const LRP_INGREDIENTS_MAP: Record<string, any[]> = {
 // Export pour compatibilité descendante
 export const LRP_PRODUCT_INGREDIENTS = Object.entries(LRP_INGREDIENTS_MAP).flatMap(
   ([productSlug, ingredients]) =>
-    ingredients.map((ing: any) => ({
+    ingredients.map((ing) => ({
       productSlug,
       ingredientSlug: ing.slug,
       concentrationValue: ing.value || null,

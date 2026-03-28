@@ -51,7 +51,7 @@ function validateNoDuplicates(
 
   if (duplicates.length > 0) {
     throw new Error(
-      `Doublons détectés dans ${label}:\n` + duplicates.map((d) => `  - ${d}`).join('\n')
+      `Doublons détectés dans ${label}:\n${duplicates.map((d) => `  - ${d}`).join('\n')}`
     )
   }
 }

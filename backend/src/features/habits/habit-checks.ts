@@ -1,9 +1,9 @@
 import { and, asc, between, eq, isNull } from 'drizzle-orm'
 
-import type { Database } from '../../db'
+import type { DB } from '../../db'
 import { db } from '../../db'
 import { type HabitCheck, habitChecks } from '../../db/schema/habits'
-import { habitCheckProducts } from '../../db/schema/logs'
+import { type HabitCheckProduct, habitCheckProducts } from '../../db/schema/logs'
 import { products } from '../../db/schema/products'
 import { HabitError } from './habit-error'
 
@@ -15,7 +15,7 @@ export async function checkHabit(
     timingId?: string
     actualTime?: string
   },
-  database: Database = db
+  database: DB = db
 ): Promise<HabitCheck> {
   const [check] = await database
     .insert(habitChecks)
@@ -37,7 +37,7 @@ export async function checkHabit(
   return check
 }
 
-export async function uncheckHabit(checkId: string, database: Database = db): Promise<void> {
+export async function uncheckHabit(checkId: string, database: DB = db): Promise<void> {
   const result = await database
     .delete(habitChecks)
     .where(eq(habitChecks.id, checkId))
@@ -51,7 +51,7 @@ export async function uncheckHabit(checkId: string, database: Database = db): Pr
 export async function uncheckHabitByDate(
   habitId: string,
   date: string,
-  database: Database = db
+  database: DB = db
 ): Promise<void> {
   const result = await database
     .delete(habitChecks)
@@ -66,7 +66,7 @@ export async function uncheckHabitByDate(
 export async function getUserChecksForDate(
   userId: string,
   date: string,
-  database: Database = db
+  database: DB = db
 ): Promise<HabitCheck[]> {
   return database
     .select()
@@ -78,7 +78,7 @@ export async function getHabitChecks(
   habitId: string,
   startDate: string,
   endDate: string,
-  database: Database = db
+  database: DB = db
 ): Promise<HabitCheck[]> {
   return database
     .select()
@@ -93,7 +93,7 @@ export async function isHabitChecked(
   habitId: string,
   date: string,
   timingId?: string,
-  database: Database = db
+  database: DB = db
 ): Promise<HabitCheck | undefined> {
   return database.query.habitChecks.findFirst({
     where: and(
@@ -118,14 +118,14 @@ export async function toggleHabitCheck(
       actualDosage?: string
     }>
   },
-  database: Database = db
+  database: DB = db
 ): Promise<{
   checked: boolean
   check?: HabitCheck
-  checkProducts?: Array<typeof habitCheckProducts.$inferSelect>
+  checkProducts?: HabitCheckProduct[]
 }> {
   return database.transaction(async (tx) => {
-    const existing = await isHabitChecked(input.habitId, input.date, input.timingId, tx as any)
+    const existing = await isHabitChecked(input.habitId, input.date, input.timingId, tx)
 
     if (existing) {
       // uncheck
@@ -138,12 +138,12 @@ export async function toggleHabitCheck(
         await tx.delete(habitCheckProducts).where(eq(habitCheckProducts.checkId, existing.id))
       }
 
-      await uncheckHabit(existing.id, tx as any)
+      await uncheckHabit(existing.id, tx)
       return { checked: false }
     } else {
       // check
-      const check = await checkHabit(input, tx as any)
-      let insertedCheckProducts: Array<typeof habitCheckProducts.$inferSelect> | undefined
+      const check = await checkHabit(input, tx)
+      let insertedCheckProducts: HabitCheckProduct[] | undefined
 
       if (input.products && input.products.length > 0) {
         // granular product logging
@@ -180,7 +180,7 @@ export async function getCheckProducts(
   userId: string,
   startDate: string,
   endDate: string,
-  database: Database = db
+  database: DB = db
 ) {
   return database
     .select({

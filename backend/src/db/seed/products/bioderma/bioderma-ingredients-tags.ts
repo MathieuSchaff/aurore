@@ -1,6 +1,7 @@
 import { INGREDIENT_SLUGS } from '../../ingredients/ingredient-slugs'
+import type { Ingredient } from '../ingredients'
 import { allProductSlugs } from '../products-slugs'
-export const BIODERMA_INGREDIENTS_MAP: Record<string, any[]> = {
+export const BIODERMA_INGREDIENTS_MAP: Record<string, Ingredient[]> = {
   [allProductSlugs.BIODERMA_ATODERM_CREME_ULTRA]: [
     {
       slug: INGREDIENT_SLUGS.NIACINAMIDE,

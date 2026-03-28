@@ -66,4 +66,6 @@ export const subtasks = pgTable(
 // ─── Types ───────────────────────────────────────────────
 
 export type Task = typeof tasks.$inferSelect
+export type TaskInsert = typeof tasks.$inferInsert
 export type Subtask = typeof subtasks.$inferSelect
+export type SubtaskInsert = typeof subtasks.$inferInsert

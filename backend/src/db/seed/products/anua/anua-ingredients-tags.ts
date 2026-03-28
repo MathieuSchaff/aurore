@@ -1,7 +1,8 @@
 import { INGREDIENT_SLUGS } from '../../ingredients/ingredient-slugs'
+import type { Ingredient } from '../ingredients'
 import { allProductSlugs } from '../products-slugs'
 
-export const ANUA_INGREDIENTS_MAP: Record<string, any[]> = {
+export const ANUA_INGREDIENTS_MAP: Record<string, Ingredient[]> = {
   [allProductSlugs.ANUA_HEARTLEAF_77_SOOTHING]: [
     {
       slug: INGREDIENT_SLUGS.HEARTLEAF,
@@ -144,7 +145,7 @@ export const ANUA_INGREDIENTS_MAP: Record<string, any[]> = {
 // Export pour compatibilité descendante (comme dans A-Derma)
 export const ANUA_PRODUCT_INGREDIENTS = Object.entries(ANUA_INGREDIENTS_MAP).flatMap(
   ([productSlug, ingredients]) =>
-    ingredients.map((ing: any) => ({
+    ingredients.map((ing) => ({
       productSlug,
       ingredientSlug: ing.slug,
       concentrationValue: ing.value || null,

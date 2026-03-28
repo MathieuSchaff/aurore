@@ -1,6 +1,7 @@
 import { INGREDIENT_SLUGS } from '../../ingredients/ingredient-slugs'
+import type { Ingredient } from '../ingredients'
 import { allProductSlugs } from '../products-slugs'
-export const MEMECANCER_INGREDIENTS_MAP: Record<string, any[]> = {
+export const MEMECANCER_INGREDIENTS_MAP: Record<string, Ingredient[]> = {
   [allProductSlugs.MEME_CREME_VISAGE]: [
     {
       slug: INGREDIENT_SLUGS.SHEA_BUTTER,
@@ -43,7 +44,7 @@ export const MEMECANCER_INGREDIENTS_MAP: Record<string, any[]> = {
 // Export original pour compatibilité descendante
 export const MEME_PRODUCT_INGREDIENTS = Object.entries(MEMECANCER_INGREDIENTS_MAP).flatMap(
   ([productSlug, ingredients]) =>
-    ingredients.map((ing: any) => ({
+    ingredients.map((ing) => ({
       productSlug,
       ingredientSlug: ing.slug,
       concentrationValue: ing.value || null,

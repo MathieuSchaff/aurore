@@ -169,7 +169,7 @@ export async function createHabit(
     if (input.reminders?.length && createdTimingIds.length > 0) {
       await tx.insert(habitReminders).values(
         createdTimingIds.flatMap((timingId) =>
-          input.reminders!.map((r) => ({
+          (input.reminders ?? []).map((r) => ({
             timingId,
             beforeMinutes: r.beforeMinutes,
           }))

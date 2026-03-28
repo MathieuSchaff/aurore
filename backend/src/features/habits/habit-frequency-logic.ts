@@ -1,4 +1,4 @@
-import { differenceInDays, getDate, getDay, parseISO, startOfDay } from 'date-fns'
+import { differenceInDays, getDay, parseISO, startOfDay } from 'date-fns'
 
 export interface HabitFrequency {
   type: 'daily' | 'weekly' | 'monthly' | 'every_n_days'

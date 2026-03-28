@@ -1,6 +1,8 @@
 import { INGREDIENT_SLUGS } from '../../ingredients/ingredient-slugs'
+import type { Ingredient } from '../ingredients'
 import { allProductSlugs } from '../products-slugs'
-export const ANTI_ROUGEURS_INGREDIENTS_MAP: Record<string, any[]> = {
+
+export const ANTI_ROUGEURS_INGREDIENTS_MAP: Record<string, Ingredient[]> = {
   [allProductSlugs.ACM_ROSAKALM]: [
     {
       slug: INGREDIENT_SLUGS.GLYCERIN,
@@ -82,7 +84,7 @@ export const ANTI_ROUGEURS_INGREDIENTS_MAP: Record<string, any[]> = {
 // Export original pour compatibilité descendante
 export const AR_PRODUCT_INGREDIENTS = Object.entries(ANTI_ROUGEURS_INGREDIENTS_MAP).flatMap(
   ([productSlug, ingredients]) =>
-    ingredients.map((ing: any) => ({
+    ingredients.map((ing) => ({
       productSlug,
       ingredientSlug: ing.slug,
       concentrationValue: ing.value || null,
