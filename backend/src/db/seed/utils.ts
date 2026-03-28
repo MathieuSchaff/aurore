@@ -8,7 +8,7 @@ import {
   tags,
 } from '../schema'
 
-// ── Types ─────────────────────────────────────────────────────────────────────
+// /* Types for the seed */
 
 export interface ProductTagGroups {
   primary: string[]
@@ -21,7 +21,7 @@ export interface SeedError {
   reason: string
 }
 
-// ── Utilitaires de Formatage ──────────────────────────────────────────────────
+// /* Small helpers for format strings */
 
 export function toNull(value: string | null | undefined): string | null {
   if (value === null || value === undefined || value === '') return null
@@ -29,6 +29,7 @@ export function toNull(value: string | null | undefined): string | null {
 }
 
 export function toNumeric(val: unknown): string | null {
+  // if the value is shit like 'null' string we return real null
   if (val == null) return null
   const str = String(val).trim()
   if (str === '' || str === 'null' || str === 'undefined') return null
@@ -52,7 +53,7 @@ export function flattenTagGroups(
   })
 }
 
-// ── Utilitaires de Seed ───────────────────────────────────────────────────────
+// /* Here the big function for the seed */
 
 export async function seedBatch<T>(
   label: string,
@@ -61,6 +62,7 @@ export async function seedBatch<T>(
   identify: (item: T) => string,
   critical: boolean = false
 ): Promise<{ success: number; failed: SeedError[]; total: number }> {
+  // I use Promise.allSettled because if one item crash, we want to continue the others
   const results = await Promise.allSettled(
     items.map(async (item) => {
       try {
@@ -82,7 +84,7 @@ export async function seedBatch<T>(
 
   if (failed.length > 0) {
     console.error(`\n❌ ${failed.length}/${items.length} ${label} échoué(s) :`)
-    // Limiter l'affichage pour ne pas noyer la console
+    // we show only 10 errors for not explode the terminal
     failed.slice(0, 10).forEach((f, i) => console.error(`  ${i + 1}. [${f.item}] → ${f.reason}`))
     if (failed.length > 10) console.error(`  ... et ${failed.length - 10} autres erreurs.`)
 
@@ -96,7 +98,7 @@ export async function seedBatch<T>(
   return { success: successCount, failed, total: items.length }
 }
 
-// ── Utilitaires CSV & Parsing ────────────────────────────────────────────────
+// /* Utilities for read the CSV files */
 
 export function parseCSV(text: string): string[][] {
   const result: string[][] = []
@@ -104,11 +106,13 @@ export function parseCSV(text: string): string[][] {
   let current = ''
   let inQuotes = false
 
+  // manual parse of CSV because sometimes it's more simple
   for (let i = 0; i < text.length; i++) {
     const char = text[i]
     const next = text[i + 1]
 
     if (char === '"') {
+      // if we have "" inside the quotes it mean it's a real quote
       if (inQuotes && next === '"') {
         current += '"'
         i++
@@ -116,9 +120,11 @@ export function parseCSV(text: string): string[][] {
         inQuotes = !inQuotes
       }
     } else if (char === ',' && !inQuotes) {
+      // separator of column only if we are not inside quotes
       row.push(current.trim())
       current = ''
     } else if ((char === '\r' || char === '\n') && !inQuotes) {
+      // end of the line
       if (current || row.length > 0) {
         row.push(current.trim())
         result.push(row)
@@ -140,7 +146,7 @@ export function parseCSV(text: string): string[][] {
 export function extractCapacity(productName: string, brand: string) {
   let cleanName = productName.trim()
 
-  // Suppression de la marque au début
+  // we remove the brand name if it's at the start
   if (cleanName.toLowerCase().startsWith(brand.toLowerCase())) {
     cleanName = cleanName
       .substring(brand.length)
@@ -148,7 +154,7 @@ export function extractCapacity(productName: string, brand: string) {
       .trim()
   }
 
-  // Regex améliorée pour capturer les nombres décimaux et les unités
+  // this regex is big because it must catch mL, g, count but also oz
   const capacityRegex = /[,(-]?\s*(\d+(?:\.\d+)?)\s*(mL|g|Count|pcs|sheets|fl\s*oz|oz)\b/gi
 
   let totalAmount: number | null = null
@@ -157,23 +163,23 @@ export function extractCapacity(productName: string, brand: string) {
   const matches = [...cleanName.matchAll(capacityRegex)]
 
   if (matches.length > 0) {
-    // On cherche s'il y a du mL ou g en priorité dans les matches
+    // we take the match with mL or g if we can find it
     const metricMatch = matches.find((m) => /mL|g/i.test(m[2]))
     const selectedMatch = metricMatch || matches[matches.length - 1]
 
     let value = parseFloat(selectedMatch[1])
     unit = selectedMatch[2]
 
-    // Conversion fl oz -> mL si nécessaire pour l'uniformité
+    // if it's oz we convert to mL for be uniform
     if (/fl\s*oz|oz/i.test(unit)) {
       value = value * 29.57
       unit = 'mL'
     }
 
-    // On arrondit car le schéma attend un INTEGER
+    // the database want integers so we round
     totalAmount = Math.round(value)
 
-    // Nettoyage final du nom : on enlève tout ce qui ressemble à une capacité
+    // we remove all capacity text from the product name
     cleanName = cleanName
       .replace(capacityRegex, '')
       .replace(/[,-\s/]+$/, '')
@@ -185,6 +191,7 @@ export function extractCapacity(productName: string, brand: string) {
 
 export async function cleanDatabase() {
   console.log('🧹 Nettoyage de la base de données...')
+  // the order is very important because of the foreign keys!
   await db.delete(productTags)
   await db.delete(productIngredients)
   await db.delete(ingredientTags)
