@@ -21,7 +21,19 @@ export const updatePurchaseSchema = z.object({
   pricePaidCents: z.number().int().min(0).nullable().optional(),
 })
 
+export const purchaseSchema = z.object({
+  id: z.string().uuid(),
+  userProductId: z.string().uuid(),
+  purchasedAt: z.string(),
+  pricePaidCents: z.number().int().min(0).nullable(),
+  openedAt: z.string().nullable(),
+  finishedAt: z.string().nullable(),
+  expiresAt: z.string().nullable(),
+  createdAt: z.string(),
+})
+
 export type AddPurchaseInput = z.infer<typeof addPurchaseSchema>
 export type OpenPurchaseInput = z.infer<typeof openPurchaseSchema>
 export type FinishPurchaseInput = z.infer<typeof finishPurchaseSchema>
 export type UpdatePurchaseInput = z.infer<typeof updatePurchaseSchema>
+export type Purchase = z.infer<typeof purchaseSchema>
