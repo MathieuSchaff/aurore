@@ -1,12 +1,12 @@
-import { beforeAll, describe, expect, it } from 'bun:test'
+import { describe, expect, it } from 'bun:test'
 
 import slugify from '@sindresorhus/slugify'
-import { eq, sql } from 'drizzle-orm'
+import { eq } from 'drizzle-orm'
 
-import { ingredients, productIngredients, products } from '../db/schema'
+import { productIngredients } from '../db/schema'
 import { getOrCreateSeedUser } from '../db/seed/create-user'
 import { extractCapacity, parseCSV } from '../db/seed/utils'
-import { createIngredient } from '../features/products/ingredients/service'
+import { createIngredient } from '../features/ingredients/service'
 import { addIngredientToProduct } from '../features/products/product-ingredients/product-ingredients.service'
 import { createProduct } from '../features/products/service'
 import { testDb } from './db.test.config'
@@ -85,20 +85,16 @@ describe('Database Seeding Integration', () => {
       const ingSlug = slugify(ingName)
 
       // Upsert ingredient
-      let ingredient
+      let ingredient: Awaited<ReturnType<typeof createIngredient>> | undefined
       try {
-        ingredient = await createIngredient(
-          user.id,
-          {
-            name: ingName,
-            slug: ingSlug,
-            description: '',
-            content: '',
-            category: 'skincare',
-          },
-          testDb
-        )
-      } catch (e) {
+        ingredient = await createIngredient(testDb, user.id, {
+          name: ingName,
+          slug: ingSlug,
+          description: '',
+          content: '',
+          category: 'skincare',
+        })
+      } catch (_e) {
         // Find existing if create fails
         ingredient = await testDb.query.ingredients.findFirst({
           where: (fields, { eq }) => eq(fields.slug, ingSlug),
