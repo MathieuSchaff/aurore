@@ -1,7 +1,8 @@
 import { INGREDIENT_SLUGS } from '../../ingredients/ingredient-slugs'
+import type { Ingredient } from '../ingredients'
 import { allProductSlugs } from '../products-slugs'
 
-export const MAD_ABOUT_SKIN_INGREDIENTS_MAP: Record<string, any[]> = {
+export const MAD_ABOUT_SKIN_INGREDIENTS_MAP: Record<string, Ingredient[]> = {
   [allProductSlugs.MAD_ABOUT_SKIN_COPPER_PEPTIDE]: [
     {
       slug: INGREDIENT_SLUGS.COPPER_PEPTIDES,
@@ -34,7 +35,7 @@ export const MAD_ABOUT_SKIN_INGREDIENTS_MAP: Record<string, any[]> = {
 export const MAD_ABOUT_SKIN_PRODUCT_INGREDIENTS = Object.entries(
   MAD_ABOUT_SKIN_INGREDIENTS_MAP
 ).flatMap(([productSlug, ingredients]) =>
-  ingredients.map((ing: any) => ({
+  ingredients.map((ing) => ({
     productSlug,
     ingredientSlug: ing.slug,
     concentrationValue: ing.value || null, // Ici on récupère le 1, 2, ou 4

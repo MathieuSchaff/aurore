@@ -1,6 +1,7 @@
+import type { Ingredient } from '../../ingredients'
 import { INGREDIENT_SLUGS } from '../../ingredients/ingredient-slugs'
 import { ISISPHARMA_PRODUCT_SLUGS } from './isispharma'
-export const ISISPHARMA_INGREDIENTS_MAP: Record<string, any[]> = {
+export const ISISPHARMA_INGREDIENTS_MAP: Record<string, Ingredient[]> = {
   [ISISPHARMA_PRODUCT_SLUGS.ISISPHARMA_RUBORIL_EXPERT_S]: [
     {
       slug: INGREDIENT_SLUGS.GLYCERIN,
@@ -76,7 +77,7 @@ export const ISISPHARMA_INGREDIENTS_MAP: Record<string, any[]> = {
 // Export original pour compatibilité descendante
 export const ISISPHARMA_PRODUCT_INGREDIENTS = Object.entries(ISISPHARMA_INGREDIENTS_MAP).flatMap(
   ([productSlug, ingredients]) =>
-    ingredients.map((ing: any) => ({
+    ingredients.map((ing) => ({
       productSlug,
       ingredientSlug: ing.slug,
       concentrationValue: ing.value || null,

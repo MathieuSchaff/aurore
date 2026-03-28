@@ -1,6 +1,8 @@
 import { INGREDIENT_SLUGS } from '../../ingredients/ingredient-slugs'
+import type { Ingredient } from '../ingredients'
 import { allProductSlugs } from '../products-slugs'
-export const BOJ_INGREDIENTS_MAP: Record<string, any[]> = {
+
+export const BOJ_INGREDIENTS_MAP: Record<string, Ingredient[]> = {
   [allProductSlugs.BEAUTY_OF_JOSEON_DYNASTY_CREAM]: [
     {
       slug: INGREDIENT_SLUGS.ORYZA_SATIVA,
@@ -118,7 +120,7 @@ export const BOJ_INGREDIENTS_MAP: Record<string, any[]> = {
 // Export pour compatibilité descendante
 export const BOJ_PRODUCT_INGREDIENTS = Object.entries(BOJ_INGREDIENTS_MAP).flatMap(
   ([productSlug, ingredients]) =>
-    ingredients.map((ing: any) => ({
+    ingredients.map((ing) => ({
       productSlug,
       ingredientSlug: ing.slug,
       concentrationValue: ing.value || null,

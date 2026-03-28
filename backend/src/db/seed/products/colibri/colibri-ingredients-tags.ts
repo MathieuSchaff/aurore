@@ -1,7 +1,8 @@
+import type { Ingredient } from '../../ingredients'
 import { INGREDIENT_SLUGS } from '../../ingredients/ingredient-slugs'
 import { COLIBRI_PRODUCT_SLUGS } from './colibri'
 
-export const COLIBRI_INGREDIENTS_MAP: Record<string, any[]> = {
+export const COLIBRI_INGREDIENTS_MAP: Record<string, Ingredient[]> = {
   [COLIBRI_PRODUCT_SLUGS.COLIBRI_BRIGHTENING_BOOSTER]: [
     {
       slug: INGREDIENT_SLUGS.AZELAIC_ACID,

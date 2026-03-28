@@ -52,7 +52,6 @@ const TAG_MAPPER: Record<string, string[]> = {
  */
 async function getTagIdsBySlugs(slugs: string[]) {
   if (slugs.length === 0) return []
-  const { tags } = await import('../../schema/tags')
   const results = await db.query.tags.findMany({
     where: (fields, { inArray }) => inArray(fields.slug, slugs),
   })
@@ -71,8 +70,12 @@ function getTargetTagSlugs(
   const slugs = new Set<string>()
 
   // 1. Mapping par catégories CSV
-  if (usageType && TAG_MAPPER[usageType]) TAG_MAPPER[usageType].forEach((s) => slugs.add(s))
-  if (category && TAG_MAPPER[category]) TAG_MAPPER[category].forEach((s) => slugs.add(s))
+  if (usageType && TAG_MAPPER[usageType]) {
+    TAG_MAPPER[usageType].forEach((s) => slugs.add(s))
+  }
+  if (category && TAG_MAPPER[category]) {
+    TAG_MAPPER[category].forEach((s) => slugs.add(s))
+  }
 
   // 2. Détection par mots-clés dans le NOM
   const lowerName = rawName.toLowerCase()
@@ -228,7 +231,10 @@ async function seedSkincare() {
     // NORMALISATION DE LA MARQUE
     const lowerBrand = csvBrand.toLowerCase()
     if (brandCache.has(lowerBrand)) {
-      csvBrand = brandCache.get(lowerBrand)! // Utilise le nom canonique déjà connu
+      const cachedBrand = brandCache.get(lowerBrand)
+      if (cachedBrand) {
+        csvBrand = cachedBrand // Utilise le nom canonique déjà connu
+      }
     } else {
       brandCache.set(lowerBrand, csvBrand) // Nouvelle marque rencontrée
     }
@@ -258,7 +264,6 @@ async function seedSkincare() {
         .select()
         .from(productTags)
         .where(sql`product_id = ${existingProduct.id}`)
-      const { tags: tagsTable } = await import('../../schema/tags')
       const currentTagDetails =
         currentTags.length > 0
           ? await db.query.tags.findMany({

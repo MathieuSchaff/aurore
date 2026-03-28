@@ -1,6 +1,7 @@
 import { INGREDIENT_SLUGS } from '../../ingredients/ingredient-slugs'
+import type { Ingredient } from '../ingredients'
 import { allProductSlugs } from '../products-slugs'
-export const MIXA_INGREDIENTS_MAP: Record<string, any[]> = {
+export const MIXA_INGREDIENTS_MAP: Record<string, Ingredient[]> = {
   [allProductSlugs.NIACINAMIDE_CORRECTION_ECLAT]: [
     {
       slug: INGREDIENT_SLUGS.NIACINAMIDE,
@@ -153,7 +154,7 @@ export const MIXA_INGREDIENTS_MAP: Record<string, any[]> = {
 // Export pour compatibilité descendante
 export const MIXA_PRODUCT_INGREDIENTS = Object.entries(MIXA_INGREDIENTS_MAP).flatMap(
   ([productSlug, ingredients]) =>
-    ingredients.map((ing: any) => ({
+    ingredients.map((ing) => ({
       productSlug,
       ingredientSlug: ing.slug,
       concentrationValue: ing.value || null,

@@ -1,6 +1,7 @@
+import type { Ingredient } from '../../ingredients'
 import { INGREDIENT_SLUGS } from '../../ingredients/ingredient-slugs'
 import { allProductSlugs } from '../products-slugs'
-export const KOREAN_INGREDIENTS_MAP: Record<string, any[]> = {
+export const KOREAN_INGREDIENTS_MAP: Record<string, Ingredient[]> = {
   [allProductSlugs.SOME_BY_MI_30_DAYS_MIRACLE_PATCH]: [
     {
       slug: INGREDIENT_SLUGS.SALICYLIC_ACID,
@@ -76,7 +77,7 @@ export const KOREAN_INGREDIENTS_MAP: Record<string, any[]> = {
 // Export pour l'agrégation
 export const KOREAN_PRODUCT_INGREDIENTS = Object.entries(KOREAN_INGREDIENTS_MAP).flatMap(
   ([productSlug, ingredients]) =>
-    ingredients.map((ing: any) => ({
+    ingredients.map((ing) => ({
       productSlug,
       ingredientSlug: ing.slug,
       concentrationValue: ing.value || null,

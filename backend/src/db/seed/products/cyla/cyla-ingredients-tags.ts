@@ -1,6 +1,7 @@
+import type { Ingredient } from '../../ingredients'
 import { INGREDIENT_SLUGS } from '../../ingredients/ingredient-slugs'
 import { allProductSlugs } from '../products-slugs'
-export const CYLA_INGREDIENTS_MAP: Record<string, any[]> = {
+export const CYLA_INGREDIENTS_MAP: Record<string, Ingredient[]> = {
   [allProductSlugs.ESSENCE_INITIALE]: [
     {
       slug: INGREDIENT_SLUGS.SERINE,
@@ -135,7 +136,7 @@ export const CYLA_INGREDIENTS_MAP: Record<string, any[]> = {
 // Export pour compatibilité descendante
 export const CYLA_PRODUCT_INGREDIENTS = Object.entries(CYLA_INGREDIENTS_MAP).flatMap(
   ([productSlug, ingredients]) =>
-    ingredients.map((ing: any) => ({
+    ingredients.map((ing) => ({
       productSlug,
       ingredientSlug: ing.slug,
       concentrationValue: ing.value || null,

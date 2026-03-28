@@ -1,6 +1,8 @@
 import { INGREDIENT_SLUGS } from '../../ingredients/ingredient-slugs'
+import type { Ingredient } from '../ingredients'
 import { allProductSlugs } from '../products-slugs'
-export const ADERMA_INGREDIENTS_MAP: Record<string, any[]> = {
+
+export const ADERMA_INGREDIENTS_MAP: Record<string, Ingredient[]> = {
   [allProductSlugs.ADERMA_LAIT_CORPS_72H]: [
     {
       slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE,
@@ -123,7 +125,7 @@ export const ADERMA_INGREDIENTS_MAP: Record<string, any[]> = {
 // Export original pour compatibilité descendante
 export const ADERMA_PRODUCT_INGREDIENTS = Object.entries(ADERMA_INGREDIENTS_MAP).flatMap(
   ([productSlug, ingredients]) =>
-    ingredients.map((ing: any) => ({
+    ingredients.map((ing) => ({
       productSlug,
       ingredientSlug: ing.slug,
       concentrationValue: ing.value || null,

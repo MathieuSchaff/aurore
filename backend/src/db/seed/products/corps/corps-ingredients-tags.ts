@@ -1,6 +1,7 @@
+import type { Ingredient } from '../../ingredients'
 import { INGREDIENT_SLUGS } from '../../ingredients/ingredient-slugs'
 import { CORPS_PRODUCT_SLUGS } from './corps'
-export const CORPS_INGREDIENTS_MAP: Record<string, any[]> = {
+export const CORPS_INGREDIENTS_MAP: Record<string, Ingredient[]> = {
   [CORPS_PRODUCT_SLUGS.CERAVE_SA_ANTI_RUGOSITES]: [
     {
       slug: INGREDIENT_SLUGS.UREA,
@@ -634,7 +635,7 @@ export const CORPS_INGREDIENTS_MAP: Record<string, any[]> = {
 // Export pour compatibilité descendante
 export const CORPS_PRODUCT_INGREDIENTS = Object.entries(CORPS_INGREDIENTS_MAP).flatMap(
   ([productSlug, ingredients]) =>
-    ingredients.map((ing: any) => ({
+    ingredients.map((ing) => ({
       productSlug,
       ingredientSlug: ing.slug,
       concentrationValue: ing.value || null,

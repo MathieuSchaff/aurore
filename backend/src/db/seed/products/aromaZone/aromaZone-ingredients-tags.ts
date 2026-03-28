@@ -1,12 +1,14 @@
 import { INGREDIENT_SLUGS } from '../../ingredients/ingredient-slugs'
+import type { Ingredient } from '../ingredients'
 import { allProductSlugs } from '../products-slugs'
-export const AZ_INGREDIENTS_MAP: Record<string, any[]> = {
+
+export const AZ_INGREDIENTS_MAP: Record<string, Ingredient[]> = {
   [allProductSlugs.AROMA_ZONE_CONCENTRE_AZELAIC_10]: [
     {
-      slug: INGREDIENT_SLUGS.HYALURONIC_ACID,
-      value: 3.5,
+      slug: INGREDIENT_SLUGS.AZELAIC_ACID,
+      value: 10,
       unit: '%',
-      notes: '10% acide azélaïque – séborégulateur, matifiant, anti-imperfections',
+      notes: 'Acide azélaïque – séborégulateur, matifiant, anti-imperfections',
     },
     {
       slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE,
@@ -18,21 +20,6 @@ export const AZ_INGREDIENTS_MAP: Record<string, any[]> = {
     },
     {
       slug: INGREDIENT_SLUGS.GLYCERIN,
-    },
-  ],
-
-  [allProductSlugs.AROMA_ZONE_CONCENTRE_AZELAIC_10]: [
-    {
-      slug: INGREDIENT_SLUGS.AZELAIC_ACID,
-      notes: '10% acide azélaïque – séborégulateur, matifiant, anti-imperfections',
-    },
-    {
-      slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE,
-      notes: 'Acide hyaluronique – hydratation',
-    },
-    {
-      slug: INGREDIENT_SLUGS.SALIX_NIGRA,
-      notes: 'Extrait écorce de saule noir – BHA naturel, purifiant',
     },
     {
       slug: INGREDIENT_SLUGS.SILICA,
@@ -86,7 +73,7 @@ export const AZ_INGREDIENTS_MAP: Record<string, any[]> = {
 // Export pour compatibilité descendante
 export const AZ_PRODUCT_INGREDIENTS = Object.entries(AZ_INGREDIENTS_MAP).flatMap(
   ([productSlug, ingredients]) =>
-    ingredients.map((ing: any) => ({
+    ingredients.map((ing) => ({
       productSlug,
       ingredientSlug: ing.slug,
       concentrationValue: ing.value || null,

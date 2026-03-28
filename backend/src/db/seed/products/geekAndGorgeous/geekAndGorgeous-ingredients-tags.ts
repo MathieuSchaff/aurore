@@ -1,8 +1,9 @@
+import type { Ingredient } from '../../ingredients'
 import { INGREDIENT_SLUGS } from '../../ingredients/ingredient-slugs'
 import { allProductSlugs } from '../products-slugs'
 import { GG_PRODUCTS_SLUGS } from './geekAndGorgeous'
 
-export const GG_INGREDIENTS_MAP: Record<string, any[]> = {
+export const GG_INGREDIENTS_MAP: Record<string, Ingredient[]> = {
   [allProductSlugs.GEEK_GORGEOUS_POWER_PEPTIDES]: [
     {
       slug: INGREDIENT_SLUGS.PALMITOYL_TRIPEPTIDE_1,
@@ -242,7 +243,7 @@ export const GG_INGREDIENTS_MAP: Record<string, any[]> = {
 // Export pour compatibilité descendante
 export const GG_PRODUCT_INGREDIENTS = Object.entries(GG_INGREDIENTS_MAP).flatMap(
   ([productSlug, ingredients]) =>
-    ingredients.map((ing: any) => ({
+    ingredients.map((ing) => ({
       productSlug,
       ingredientSlug: ing.slug,
       concentrationValue: ing.value || null,

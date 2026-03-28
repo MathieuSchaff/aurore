@@ -323,9 +323,9 @@ export function validateAllIngredients(ingredients: IngredientSeed[]): AllValida
  * @param results - Résultats de validateAllIngredients()
  */
 export function printValidationReport(results: AllValidationResults): void {
-  console.log('\n' + '='.repeat(70))
+  console.log(`\n${'='.repeat(70)}`)
   console.log('📊 RAPPORT DE VALIDATION DES INGRÉDIENTS')
-  console.log('='.repeat(70) + '\n')
+  console.log(`${'='.repeat(70)}\n`)
 
   // ─── Résumé ───────────────────────────────────────────────────────────────
 
@@ -376,7 +376,7 @@ export function printValidationReport(results: AllValidationResults): void {
   if (warningCount > 0) {
     console.log(`📝 ${warningCount} warning(s) à vérifier`)
   }
-  console.log('='.repeat(70) + '\n')
+  console.log(`${'='.repeat(70)}\n`)
 }
 
 /**

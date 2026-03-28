@@ -1,8 +1,9 @@
 import { INGREDIENT_SLUGS } from '../../ingredients/ingredient-slugs'
+import type { Ingredient } from '../ingredients'
 import { allProductSlugs } from '../products-slugs'
 import { AZELAIQUE_PRODUCT_SLUGS } from './azelaique'
 
-export const AZELAIQUE_INGREDIENTS_MAP: Record<string, any[]> = {
+export const AZELAIQUE_INGREDIENTS_MAP: Record<string, Ingredient[]> = {
   [allProductSlugs.NINE_LESS_A_CONTROL_10]: [
     {
       slug: INGREDIENT_SLUGS.AZELAIC_ACID,
@@ -440,7 +441,7 @@ export const AZELAIQUE_INGREDIENTS_MAP: Record<string, any[]> = {
 // Export pour compatibilité descendante
 export const AZELAIQUE_PRODUCT_INGREDIENTS = Object.entries(AZELAIQUE_INGREDIENTS_MAP).flatMap(
   ([productSlug, ingredients]) =>
-    ingredients.map((ing: any) => ({
+    ingredients.map((ing) => ({
       productSlug,
       ingredientSlug: ing.slug,
       concentrationValue: ing.value || null,
