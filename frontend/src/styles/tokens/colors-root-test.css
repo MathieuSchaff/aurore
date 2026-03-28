@@ -1,0 +1,159 @@
+:root {
+  /* ===================================
+     HUES (Digital Premium & Neon)
+     =================================== */
+  --hue-primary: 260deg; /* Indigo Deep */
+  --hue-accent: 35deg; /* Orange Néon */
+  --hue-cyan: 190deg; /* Secondary Cyan */
+  --hue-neutral: 260deg; /* Cold Grey Base */
+  --hue-purple: 280deg;
+  --hue-success: 145deg;
+  --hue-error: 15deg;
+  --hue-warning: 45deg;
+
+  /* ===================================
+     PALETTE PRIMARY (Indigo)
+     =================================== */
+  --primary-20: oklch(25% 0.1 var(--hue-primary));
+  --primary-40: oklch(45% 0.16 var(--hue-primary));
+  --primary-55: oklch(55% 0.2 var(--hue-primary));
+  --primary-60: oklch(62% 0.2 var(--hue-primary));
+  --primary-75: oklch(75% 0.14 var(--hue-primary));
+  --primary-90: oklch(90% 0.08 var(--hue-primary));
+  --primary-97: oklch(97% 0.02 var(--hue-primary));
+
+  /* ===================================
+     PALETTE ACCENT (Orange Neon)
+     =================================== */
+  --accent-20: oklch(25% 0.1 var(--hue-accent));
+  --accent-60: oklch(60% 0.2 var(--hue-accent));
+  --accent-70: oklch(70% 0.25 var(--hue-accent));
+  --accent-80: oklch(80% 0.2 var(--hue-accent));
+  --accent-95: oklch(95% 0.06 var(--hue-accent));
+
+  /* ===================================
+     PALETTE NEUTRAL (Cold Greys)
+     =================================== */
+  --neutral-10: oklch(12% 0.015 var(--hue-neutral));
+  --neutral-20: oklch(22% 0.015 var(--hue-neutral));
+  --neutral-50: oklch(50% 0.01 var(--hue-neutral));
+  --neutral-70: oklch(70% 0.01 var(--hue-neutral));
+  --neutral-90: oklch(90% 0.01 var(--hue-neutral));
+  --neutral-95: oklch(95% 0.005 var(--hue-neutral));
+  --neutral-99: oklch(99% 0.002 var(--hue-neutral));
+
+  /* ===================================
+     STATUS COLORS — feature collection
+     =================================== */
+  --status-color-in-stock: oklch(65% 0.18 145deg);
+  --status-color-wishlist: oklch(58% 0.18 250deg);
+  --status-color-watched: oklch(72% 0.15 60deg);
+  --status-color-holy-grail: oklch(75% 0.18 85deg);
+  --status-color-archived: oklch(52% 0.03 220deg);
+  --status-color-avoided: oklch(52% 0.14 25deg);
+
+  /* ===================================
+     DIMENSIONS
+     =================================== */
+  --border-width: 1px; /* Plus fin, plus moderne */
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  /* LIGHTNESS STOPS */
+  --l-page: 100%;
+  --l-card: 100%;
+  --l-elevated: 100%;
+  --l-muted: 97%;
+  --l-sunken: 94%;
+
+  /* CHROMAS */
+  --c-vibrant: 0.25;
+  --c-rich: 0.2;
+  --c-muted: 0.01;
+  --c-soft: 0.005;
+
+  /* ASSIGNMENTS */
+  --color-primary: var(--primary-55);
+  --color-primary-hover: var(--primary-40);
+  --color-primary-dark: var(--primary-20);
+  --color-primary-text: oklch(100% 0 0);
+
+  --color-accent: var(--accent-70);
+  --color-accent-hover: var(--accent-60);
+  --color-accent-light: var(--accent-95);
+
+  --color-secondary: oklch(75% 0.18 var(--hue-cyan));
+  --color-tertiary: oklch(70% 0.12 var(--hue-cyan));
+
+  /* SIDEBAR (Modern Dark Indigo) */
+  --color-sidebar-bg: oklch(25% 0.08 var(--hue-primary));
+  --color-sidebar-item-hover: oklch(32% 0.1 var(--hue-primary));
+  --color-sidebar-item-active: oklch(35% 0.12 var(--hue-primary));
+  --color-sidebar-icon: var(--color-accent);
+  --color-sidebar-icon-active: oklch(100% 0 0);
+  --color-sidebar-text: oklch(90% 0.02 var(--hue-primary));
+  --color-sidebar-text-active: oklch(100% 0 0);
+
+  /* HEADER */
+  --color-header-bg: oklch(100% 0 0);
+  --color-header-border: var(--neutral-90);
+  --color-header-action: var(--color-primary);
+  --color-header-action-bg-hover: var(--neutral-95);
+  --color-header-action-border: var(--color-primary-dark);
+
+  /* TYPOGRAPHY */
+  --text-primary: var(--neutral-10);
+  --text-secondary: var(--neutral-50);
+  --text-muted: var(--neutral-70);
+  --text-inverse: oklch(100% 0 0);
+
+  /* SEMANTIC COLORS */
+  --color-success: oklch(65% 0.2 var(--hue-success));
+  --color-success-light: oklch(97% 0.02 var(--hue-success));
+  --color-error: oklch(60% 0.22 var(--hue-error));
+  --color-error-light: oklch(97% 0.02 var(--hue-error));
+  --color-info: oklch(65% 0.15 var(--hue-cyan));
+  --color-info-light: oklch(97% 0.02 var(--hue-cyan));
+  --color-warning: oklch(75% 0.15 var(--hue-warning));
+  --color-warning-light: oklch(96% 0.06 var(--hue-warning));
+  --color-warning-text: oklch(40% 0.15 var(--hue-warning));
+
+  /* SURFACES (Pure White) */
+  --bg-page: oklch(var(--l-page) 0 0);
+  --bg-card: oklch(var(--l-card) 0 0);
+  --bg-muted: var(--neutral-95);
+  --bg-elevated: oklch(var(--l-elevated) 0 0);
+  --bg-sunken: var(--neutral-90);
+
+  /* INTERACTIVE STATES */
+  --bg-hover: oklch(from var(--color-primary) l c h / 0.06);
+  --bg-active: oklch(from var(--color-primary) l c h / 0.1);
+  --bg-selected: var(--primary-97);
+
+  /* BORDERS & SHADOWS */
+  --border-default: var(--neutral-90);
+  --border-strong: var(--neutral-70);
+
+  --card-accent-border: var(--color-primary);
+  --card-icon-bg: var(--color-accent-light);
+  --card-icon-color: var(--color-accent);
+
+  /* SHADOWS (Subtle & Blurry) */
+  --shadow-color: oklch(0% 0 0 / 0.06);
+  --shadow-card: 0 4px 16px var(--shadow-color);
+  --shadow-hard: 0 8px 24px oklch(0% 0 0 / 0.08);
+
+  /* TAGS */
+  --tag-default-bg: var(--primary-97);
+  --tag-default-text: oklch(50% 0.18 var(--hue-primary));
+  --tag-active-bg: var(--color-primary);
+  --tag-active-text: oklch(100% 0 0);
+
+  /* MISC */
+  --overlay: oklch(15% 0.05 var(--hue-primary) / 0.4);
+  --color-stat-orange: var(--color-accent);
+  --color-stat-purple: var(--color-primary);
+  --color-focus: var(--color-primary);
+}
