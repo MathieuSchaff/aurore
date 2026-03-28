@@ -9,7 +9,7 @@ import { userProducts } from '../../db/schema/user-products'
 import { getToday } from '../../utils/dates'
 import { getUserChecksForDate } from './habit-checks'
 import { getUserHabitsWithRelations } from './habit-crud'
-import { isHabitDue } from './habit-frequency-logic'
+import { type HabitFrequency, isHabitDue } from './habit-frequency-logic'
 
 export async function getTodayHabits(userId: string, dateParam?: string, database: Database = db) {
   const today = dateParam ?? getToday()
@@ -31,7 +31,7 @@ export async function getTodayHabits(userId: string, dateParam?: string, databas
 
     // 2. Filtrer par frequence (Daily, Weekly, Monthly, Every N Days)
     if (h.frequency) {
-      const freq = h.frequency as any
+      const freq = h.frequency as HabitFrequency
       if (!isHabitDue(freq, today, h.createdAt)) return false
     }
 
@@ -102,14 +102,17 @@ export async function getTodayHabits(userId: string, dateParam?: string, databas
       },
       timings: h.timings,
       checks,
-      products: h.products.map((p) => ({
-        id: p.id,
-        productId: p.productId,
-        dosage: p.dosage,
-        order: p.order,
-        product: productInfoMap.get(p.productId) ?? { name: '', brand: '', unit: '' },
-        stock: userProductMap.has(p.productId) ? { qty: userProductMap.get(p.productId)! } : null,
-      })),
+      products: h.products.map((p) => {
+        const stock = userProductMap.get(p.productId)
+        return {
+          id: p.id,
+          productId: p.productId,
+          dosage: p.dosage,
+          order: p.order,
+          product: productInfoMap.get(p.productId) ?? { name: '', brand: '', unit: '' },
+          stock: stock ? { qty: stock } : null,
+        }
+      }),
       isCompleted,
     }
   })
