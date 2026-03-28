@@ -1,10 +1,10 @@
 .PHONY: help \
 	dev dev-d dev-down dev-fresh dev-rebuild dev-rebuild-api dev-rebuild-frontend \
-	ts-check ts-build ts-clean \
+	ts-check ts-build ts-verify ts-clean \
 	install-deps reinstall-backend reinstall-frontend clean-install install build \
 	prod prod-down prod-logs prod-migrate \
 	test test-db-up test-db-down test-watch test-only test-db-studio test-frontend test-frontend-watch test-frontend-only test-frontend-ui test-all \
-	test-migrate test-migrate-run test-migrate-clean \
+	test-db-reset \
 	stop restart ps health diagnose stats env-check \
 	logs logs-api logs-db logs-nginx logs-frontend \
 	lint lint-fix format \
@@ -88,6 +88,9 @@ ts-build: ## Build les types shared + backend (nécessaire avant Docker)
 	@echo "$(CYAN)Vérification TypeScript globale...$(NC)"
 	bunx tsc -b
 
+ts-verify: ## Vérifie les types sans rebuild ni watch (fin de session)
+	bunx tsc -b --noEmit
+
 ts-clean: ## Supprime tous les dist/ et caches TS
 	@echo "$(YELLOW)Nettoyage des types...$(NC)"
 	rm -rf shared/dist backend/dist frontend/dist
@@ -123,19 +126,25 @@ test-db-up: ## Lance la DB de test et crée les tables
 	@echo "$(CYAN)Attente que la DB soit prête...$(NC)"
 	@sleep 3
 	@until $(COMPOSE_TEST) exec db-test pg_isready -U app -d appdb_test 2>/dev/null; do sleep 1; done
-	@echo "$(CYAN)Synchronisation du schéma (Drizzle Push)...$(NC)"
-	@cd backend && DATABASE_URL=$(TEST_DB_URL) bun x drizzle-kit push --force
+	@echo "$(CYAN)Application des migrations (Drizzle Migrate)...$(NC)"
+	@cd backend && DATABASE_URL=$(TEST_DB_URL) bun run src/db/migrate.ts
 	@echo "$(GREEN)✓ DB de test prête et structurée$(NC)"
 
 test-db-down: ## Arrête la DB de test
 	$(COMPOSE_TEST) down
 
-test: test-db-up ## Lance les tests (backend)
-	@cd backend && DATABASE_URL=$(TEST_DB_URL) bun test || ($(MAKE) test-db-down && exit 1)
+test: test-db-up ## Lance les tests (backend) complets (up, run, down)
+	@DATABASE_URL=$(TEST_DB_URL) bun --cwd ./backend test || ($(MAKE) test-db-down && exit 1)
 	@$(MAKE) test-db-down
 	@echo "$(GREEN)✓ Tests terminés$(NC)"
 
-test-watch: test-db-up ## Lance les tests en mode watch
+test-dev: ## Lance les tests sans couper la DB (plus rapide en dev) - ARGS="pattern"
+	@cd backend && DATABASE_URL=$(TEST_DB_URL) bun test $(ARGS)
+
+test-dev-watch: ## Lance les tests en mode watch (nécessite test-db-up)
+	@cd backend && DATABASE_URL=$(TEST_DB_URL) bun test --watch $(ARGS)
+
+test-watch: test-db-up ## Lance les tests en mode watch avec auto-setup
 	@cd backend && DATABASE_URL=$(TEST_DB_URL) bun test --watch
 
 test-only: test-db-up ## Lance des tests spécifiques (ARGS="pattern")
@@ -160,26 +169,7 @@ test-frontend-ui: ## Lance Vitest avec l'UI web
 
 test-all: test test-frontend ## Lance tous les tests (backend + frontend)
 
-test-migrate-run: ## Lance la DB test, applique les migrations et les tests
-	$(COMPOSE_TEST) up -d
-	@sleep 3
-	@cd backend && DATABASE_URL=$(TEST_DB_URL) bun x drizzle-kit push
-	@cd backend && DATABASE_URL=$(TEST_DB_URL) bun test
-	$(COMPOSE_TEST) down
-	@echo "$(GREEN)✓ Tests terminés$(NC)"
-
-test-migrate: ## Lance la DB test et applique les migrations
-	$(COMPOSE_TEST) up -d
-	@sleep 3
-	@cd backend && DATABASE_URL=$(TEST_DB_URL) bun x drizzle-kit push
-	@echo "$(GREEN)✓ Migrations appliquées$(NC)"
-
-test-migrate-clean: ## Nettoie la DB test, la relance et applique les migrations
-	$(COMPOSE_TEST) down
-	$(COMPOSE_TEST) up -d
-	@sleep 3
-	@cd backend && DATABASE_URL=$(TEST_DB_URL) bun x drizzle-kit push
-	@echo "$(GREEN)✓ DB test nettoyée et migrations appliquées$(NC)"
+test-db-reset: test-db-down test-db-up ## Repart de zéro : arrête, vide et relance la DB de test avec migrations
 
 # =========================
 # Gestion des conteneurs
@@ -241,7 +231,7 @@ shell-frontend: ## Shell dans le conteneur frontend
 # =========================
 db-migrate: ## Applique les migrations Drizzle
 	@echo "$(CYAN)Application des migrations...$(NC)"
-	cd backend && export $$(grep -v '^\#' ../.env.dev | xargs) && bun x drizzle-kit migrate
+	cd backend && export $$(grep -v '^\#' ../.env.dev | xargs) && bun run src/db/migrate.ts
 
 db-generate: ## Génère les fichiers de migration à partir du schéma
 	@echo "$(CYAN)Génération des fichiers de migration...$(NC)"
