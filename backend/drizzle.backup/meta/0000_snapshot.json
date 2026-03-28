@@ -1,101 +1,9 @@
 {
-  "id": "ca39bdf7-7111-4869-965a-6704fda26807",
+  "id": "bc53ce10-2f3c-41a2-a687-568c0cff6ef0",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.email_verifications": {
-      "name": "email_verifications",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "uuidv7()"
-        },
-        "user_id": {
-          "name": "user_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "token_hash": {
-          "name": "token_hash",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "expires_at": {
-          "name": "expires_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "used_at": {
-          "name": "used_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {
-        "email_verifications_token_hash_ux": {
-          "name": "email_verifications_token_hash_ux",
-          "columns": [
-            {
-              "expression": "token_hash",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": true,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "email_verifications_user_id_idx": {
-          "name": "email_verifications_user_id_idx",
-          "columns": [
-            {
-              "expression": "user_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "email_verifications_user_id_users_id_fk": {
-          "name": "email_verifications_user_id_users_id_fk",
-          "tableFrom": "email_verifications",
-          "tableTo": "users",
-          "columnsFrom": ["user_id"],
-          "columnsTo": ["id"],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
     "public.habit_checks": {
       "name": "habit_checks",
       "schema": "",
@@ -310,21 +218,6 @@
         }
       },
       "indexes": {
-        "habit_periods_habit_unique": {
-          "name": "habit_periods_habit_unique",
-          "columns": [
-            {
-              "expression": "habit_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": true,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
         "habit_periods_habit_idx": {
           "name": "habit_periods_habit_idx",
           "columns": [
@@ -811,83 +704,6 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.ingredient_dermo_profiles": {
-      "name": "ingredient_dermo_profiles",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "uuidv7()"
-        },
-        "ingredient_id": {
-          "name": "ingredient_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "irritation_potential": {
-          "name": "irritation_potential",
-          "type": "irritation_potential",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'low'"
-        },
-        "comedogenicity": {
-          "name": "comedogenicity",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "is_filler": {
-          "name": "is_filler",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "functions": {
-          "name": "functions",
-          "type": "text[]",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "'{}'"
-        },
-        "skin_targets": {
-          "name": "skin_targets",
-          "type": "text[]",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "'{}'"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "ingredient_dermo_profiles_ingredient_id_ingredients_id_fk": {
-          "name": "ingredient_dermo_profiles_ingredient_id_ingredients_id_fk",
-          "tableFrom": "ingredient_dermo_profiles",
-          "tableTo": "ingredients",
-          "columnsFrom": ["ingredient_id"],
-          "columnsTo": ["id"],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {
-        "ingredient_dermo_profiles_ingredient_id_unique": {
-          "name": "ingredient_dermo_profiles_ingredient_id_unique",
-          "nullsNotDistinct": false,
-          "columns": ["ingredient_id"]
-        }
-      },
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
     "public.ingredient_edits": {
       "name": "ingredient_edits",
       "schema": "",
@@ -1106,268 +922,6 @@
           "tableFrom": "ingredients",
           "tableTo": "users",
           "columnsFrom": ["created_by"],
-          "columnsTo": ["id"],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.habit_check_products": {
-      "name": "habit_check_products",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "uuidv7()"
-        },
-        "check_id": {
-          "name": "check_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "habit_product_id": {
-          "name": "habit_product_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "product_id": {
-          "name": "product_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "used": {
-          "name": "used",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": true,
-          "default": true
-        },
-        "actual_dosage": {
-          "name": "actual_dosage",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {
-        "habit_check_products_unique": {
-          "name": "habit_check_products_unique",
-          "columns": [
-            {
-              "expression": "check_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            },
-            {
-              "expression": "habit_product_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": true,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "habit_check_products_check_idx": {
-          "name": "habit_check_products_check_idx",
-          "columns": [
-            {
-              "expression": "check_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "habit_check_products_product_idx": {
-          "name": "habit_check_products_product_idx",
-          "columns": [
-            {
-              "expression": "product_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "habit_check_products_check_id_habit_checks_id_fk": {
-          "name": "habit_check_products_check_id_habit_checks_id_fk",
-          "tableFrom": "habit_check_products",
-          "tableTo": "habit_checks",
-          "columnsFrom": ["check_id"],
-          "columnsTo": ["id"],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "habit_check_products_habit_product_id_habit_products_id_fk": {
-          "name": "habit_check_products_habit_product_id_habit_products_id_fk",
-          "tableFrom": "habit_check_products",
-          "tableTo": "habit_products",
-          "columnsFrom": ["habit_product_id"],
-          "columnsTo": ["id"],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "habit_check_products_product_id_products_id_fk": {
-          "name": "habit_check_products_product_id_products_id_fk",
-          "tableFrom": "habit_check_products",
-          "tableTo": "products",
-          "columnsFrom": ["product_id"],
-          "columnsTo": ["id"],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.wellbeing_logs": {
-      "name": "wellbeing_logs",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "uuidv7()"
-        },
-        "user_id": {
-          "name": "user_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "metric": {
-          "name": "metric",
-          "type": "wellbeing_metric",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "value": {
-          "name": "value",
-          "type": "numeric(5, 2)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "unit": {
-          "name": "unit",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "note": {
-          "name": "note",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "logged_at": {
-          "name": "logged_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {
-        "wellbeing_logs_user_metric_logged_idx": {
-          "name": "wellbeing_logs_user_metric_logged_idx",
-          "columns": [
-            {
-              "expression": "user_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            },
-            {
-              "expression": "metric",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            },
-            {
-              "expression": "logged_at",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "wellbeing_logs_user_logged_idx": {
-          "name": "wellbeing_logs_user_logged_idx",
-          "columns": [
-            {
-              "expression": "user_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            },
-            {
-              "expression": "logged_at",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "wellbeing_logs_user_id_users_id_fk": {
-          "name": "wellbeing_logs_user_id_users_id_fk",
-          "tableFrom": "wellbeing_logs",
-          "tableTo": "users",
-          "columnsFrom": ["user_id"],
           "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
@@ -1614,6 +1168,108 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
+    "public.product_stock": {
+      "name": "product_stock",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "product_id": {
+          "name": "product_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "qty": {
+          "name": "qty",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "product_stock_user_product_unique": {
+          "name": "product_stock_user_product_unique",
+          "columns": [
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "product_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "product_stock_user_idx": {
+          "name": "product_stock_user_idx",
+          "columns": [
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "product_stock_user_id_users_id_fk": {
+          "name": "product_stock_user_id_users_id_fk",
+          "tableFrom": "product_stock",
+          "tableTo": "users",
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "product_stock_product_id_products_id_fk": {
+          "name": "product_stock_product_id_products_id_fk",
+          "tableFrom": "product_stock",
+          "tableTo": "products",
+          "columnsFrom": ["product_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.products": {
       "name": "products",
       "schema": "",
@@ -1692,12 +1348,6 @@
           "primaryKey": false,
           "notNull": false
         },
-        "image_url": {
-          "name": "image_url",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
         "notes": {
           "name": "notes",
           "type": "text",
@@ -1707,6 +1357,12 @@
         "price_cents": {
           "name": "price_cents",
           "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
@@ -1760,15 +1416,15 @@
           "name": "products_name_brand_unique",
           "columns": [
             {
-              "expression": "lower(\"name\")",
+              "expression": "name",
+              "isExpression": false,
               "asc": true,
-              "isExpression": true,
               "nulls": "last"
             },
             {
-              "expression": "lower(\"brand\")",
+              "expression": "brand",
+              "isExpression": false,
               "asc": true,
-              "isExpression": true,
               "nulls": "last"
             }
           ],
@@ -1810,116 +1466,6 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.purchases": {
-      "name": "purchases",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "uuidv7()"
-        },
-        "user_product_id": {
-          "name": "user_product_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "purchased_at": {
-          "name": "purchased_at",
-          "type": "date",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "price_paid_cents": {
-          "name": "price_paid_cents",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "opened_at": {
-          "name": "opened_at",
-          "type": "date",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "finished_at": {
-          "name": "finished_at",
-          "type": "date",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "expires_at": {
-          "name": "expires_at",
-          "type": "date",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {
-        "purchases_user_product_idx": {
-          "name": "purchases_user_product_idx",
-          "columns": [
-            {
-              "expression": "user_product_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "purchases_user_product_purchased_idx": {
-          "name": "purchases_user_product_purchased_idx",
-          "columns": [
-            {
-              "expression": "user_product_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            },
-            {
-              "expression": "purchased_at",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "purchases_user_product_id_user_products_id_fk": {
-          "name": "purchases_user_product_id_user_products_id_fk",
-          "tableFrom": "purchases",
-          "tableTo": "user_products",
-          "columnsFrom": ["user_product_id"],
-          "columnsTo": ["id"],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
     "public.ingredient_tags": {
       "name": "ingredient_tags",
       "schema": "",
@@ -1942,14 +1488,6 @@
           "type": "uuid",
           "primaryKey": false,
           "notNull": true
-        },
-        "relevance": {
-          "name": "relevance",
-          "type": "relevance",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "'secondary'"
         },
         "created_at": {
           "name": "created_at",
@@ -2060,14 +1598,6 @@
           "type": "uuid",
           "primaryKey": false,
           "notNull": true
-        },
-        "relevance": {
-          "name": "relevance",
-          "type": "relevance",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "'secondary'"
         },
         "created_at": {
           "name": "created_at",
@@ -2232,228 +1762,6 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.subtasks": {
-      "name": "subtasks",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "uuidv7()"
-        },
-        "task_id": {
-          "name": "task_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "title": {
-          "name": "title",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "completed": {
-          "name": "completed",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": true,
-          "default": false
-        },
-        "order": {
-          "name": "order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {
-        "subtasks_task_order_idx": {
-          "name": "subtasks_task_order_idx",
-          "columns": [
-            {
-              "expression": "task_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            },
-            {
-              "expression": "order",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "subtasks_task_id_tasks_id_fk": {
-          "name": "subtasks_task_id_tasks_id_fk",
-          "tableFrom": "subtasks",
-          "tableTo": "tasks",
-          "columnsFrom": ["task_id"],
-          "columnsTo": ["id"],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.tasks": {
-      "name": "tasks",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "uuidv7()"
-        },
-        "user_id": {
-          "name": "user_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "title": {
-          "name": "title",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "energy": {
-          "name": "energy",
-          "type": "task_energy",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "status": {
-          "name": "status",
-          "type": "task_status",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "'inbox'"
-        },
-        "snoozed_until": {
-          "name": "snoozed_until",
-          "type": "date",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "done_at": {
-          "name": "done_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "focus_duration_minutes": {
-          "name": "focus_duration_minutes",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {
-        "tasks_user_status_idx": {
-          "name": "tasks_user_status_idx",
-          "columns": [
-            {
-              "expression": "user_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            },
-            {
-              "expression": "status",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            },
-            {
-              "expression": "created_at",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "tasks_user_done_idx": {
-          "name": "tasks_user_done_idx",
-          "columns": [
-            {
-              "expression": "user_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            },
-            {
-              "expression": "done_at",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "tasks_user_id_users_id_fk": {
-          "name": "tasks_user_id_users_id_fk",
-          "tableFrom": "tasks",
-          "tableTo": "users",
-          "columnsFrom": ["user_id"],
-          "columnsTo": ["id"],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
     "public.user_bans": {
       "name": "user_bans",
       "schema": "",
@@ -2557,423 +1865,6 @@
           "tableFrom": "user_bans",
           "tableTo": "users",
           "columnsFrom": ["banned_by"],
-          "columnsTo": ["id"],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.user_ingredient_analysis_score": {
-      "name": "user_ingredient_analysis_score",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "uuidv7()"
-        },
-        "user_id": {
-          "name": "user_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "ingredient_id": {
-          "name": "ingredient_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "suspicion_score": {
-          "name": "suspicion_score",
-          "type": "numeric",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'0'"
-        },
-        "favorite_score": {
-          "name": "favorite_score",
-          "type": "numeric",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'0'"
-        },
-        "is_suspect": {
-          "name": "is_suspect",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "is_favorite": {
-          "name": "is_favorite",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "now()"
-        }
-      },
-      "indexes": {
-        "user_ing_intel_idx": {
-          "name": "user_ing_intel_idx",
-          "columns": [
-            {
-              "expression": "user_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            },
-            {
-              "expression": "ingredient_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": true,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "user_ingredient_analysis_score_user_id_users_id_fk": {
-          "name": "user_ingredient_analysis_score_user_id_users_id_fk",
-          "tableFrom": "user_ingredient_analysis_score",
-          "tableTo": "users",
-          "columnsFrom": ["user_id"],
-          "columnsTo": ["id"],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "user_ingredient_analysis_score_ingredient_id_ingredients_id_fk": {
-          "name": "user_ingredient_analysis_score_ingredient_id_ingredients_id_fk",
-          "tableFrom": "user_ingredient_analysis_score",
-          "tableTo": "ingredients",
-          "columnsFrom": ["ingredient_id"],
-          "columnsTo": ["id"],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.user_preferences": {
-      "name": "user_preferences",
-      "schema": "",
-      "columns": {
-        "user_id": {
-          "name": "user_id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "display_scale": {
-          "name": "display_scale",
-          "type": "display_scale",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "'out_of_20'"
-        },
-        "criteria_weights": {
-          "name": "criteria_weights",
-          "type": "jsonb",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "'{\"tolerance\":1,\"efficacy\":1,\"sensoriality\":1,\"stability\":1,\"mixability\":1,\"valueForMoney\":1}'::jsonb"
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "user_preferences_user_id_users_id_fk": {
-          "name": "user_preferences_user_id_users_id_fk",
-          "tableFrom": "user_preferences",
-          "tableTo": "users",
-          "columnsFrom": ["user_id"],
-          "columnsTo": ["id"],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.user_product_reviews": {
-      "name": "user_product_reviews",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "uuidv7()"
-        },
-        "user_product_id": {
-          "name": "user_product_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "tolerance": {
-          "name": "tolerance",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "efficacy": {
-          "name": "efficacy",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "sensoriality": {
-          "name": "sensoriality",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "stability": {
-          "name": "stability",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "mixability": {
-          "name": "mixability",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "value_for_money": {
-          "name": "value_for_money",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "comment": {
-          "name": "comment",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {
-        "user_product_reviews_user_product_idx": {
-          "name": "user_product_reviews_user_product_idx",
-          "columns": [
-            {
-              "expression": "user_product_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "user_product_reviews_user_product_id_user_products_id_fk": {
-          "name": "user_product_reviews_user_product_id_user_products_id_fk",
-          "tableFrom": "user_product_reviews",
-          "tableTo": "user_products",
-          "columnsFrom": ["user_product_id"],
-          "columnsTo": ["id"],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {
-        "user_product_reviews_user_product_id_unique": {
-          "name": "user_product_reviews_user_product_id_unique",
-          "nullsNotDistinct": false,
-          "columns": ["user_product_id"]
-        }
-      },
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.user_products": {
-      "name": "user_products",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "uuidv7()"
-        },
-        "user_id": {
-          "name": "user_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "product_id": {
-          "name": "product_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "status": {
-          "name": "status",
-          "type": "user_product_status",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "'in_stock'"
-        },
-        "sentiment": {
-          "name": "sentiment",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "would_repurchase": {
-          "name": "would_repurchase",
-          "type": "repurchase_flag",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "comment": {
-          "name": "comment",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {
-        "user_products_user_product_unique": {
-          "name": "user_products_user_product_unique",
-          "columns": [
-            {
-              "expression": "user_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            },
-            {
-              "expression": "product_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": true,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "user_products_user_idx": {
-          "name": "user_products_user_idx",
-          "columns": [
-            {
-              "expression": "user_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "user_products_status_idx": {
-          "name": "user_products_status_idx",
-          "columns": [
-            {
-              "expression": "status",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "user_products_user_id_users_id_fk": {
-          "name": "user_products_user_id_users_id_fk",
-          "tableFrom": "user_products",
-          "tableTo": "users",
-          "columnsFrom": ["user_id"],
-          "columnsTo": ["id"],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "user_products_product_id_products_id_fk": {
-          "name": "user_products_product_id_products_id_fk",
-          "tableFrom": "user_products",
-          "tableTo": "products",
-          "columnsFrom": ["product_id"],
           "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
@@ -3294,12 +2185,6 @@
           "notNull": true,
           "default": "now()"
         },
-        "email_verified_at": {
-          "name": "email_verified_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": false
-        },
         "role": {
           "name": "role",
           "type": "user_role",
@@ -3307,27 +2192,20 @@
           "primaryKey": false,
           "notNull": true,
           "default": "'user'"
-        },
-        "deleted_at": {
-          "name": "deleted_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": false
         }
       },
       "indexes": {
-        "users_email_active_unique_idx": {
-          "name": "users_email_active_unique_idx",
+        "users_email_unique": {
+          "name": "users_email_unique",
           "columns": [
             {
-              "expression": "lower(\"email\")",
+              "expression": "email",
+              "isExpression": false,
               "asc": true,
-              "isExpression": true,
               "nulls": "last"
             }
           ],
           "isUnique": true,
-          "where": "deleted_at IS NULL",
           "concurrently": false,
           "method": "btree",
           "with": {}
@@ -3343,7 +2221,21 @@
             }
           ],
           "isUnique": true,
-          "where": "google_sub IS NOT NULL",
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "users_created_at_idx": {
+          "name": "users_created_at_idx",
+          "columns": [
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
           "concurrently": false,
           "method": "btree",
           "with": {}
@@ -3368,55 +2260,15 @@
       "schema": "public",
       "values": ["daily", "weekly", "monthly", "every_n_days"]
     },
-    "public.irritation_potential": {
-      "name": "irritation_potential",
-      "schema": "public",
-      "values": ["low", "moderate", "high"]
-    },
-    "public.wellbeing_metric": {
-      "name": "wellbeing_metric",
-      "schema": "public",
-      "values": ["energy", "sleep", "fog", "stress", "mood", "skin", "pain"]
-    },
     "public.collaborator_role": {
       "name": "collaborator_role",
       "schema": "public",
       "values": ["editor"]
     },
-    "public.relevance": {
-      "name": "relevance",
-      "schema": "public",
-      "values": ["primary", "secondary", "avoid"]
-    },
-    "public.task_energy": {
-      "name": "task_energy",
-      "schema": "public",
-      "values": ["low", "medium", "high"]
-    },
-    "public.task_status": {
-      "name": "task_status",
-      "schema": "public",
-      "values": ["inbox", "active", "done", "snoozed"]
-    },
     "public.ban_scope": {
       "name": "ban_scope",
       "schema": "public",
       "values": ["ingredient_edit", "product_edit", "product_create", "global"]
-    },
-    "public.display_scale": {
-      "name": "display_scale",
-      "schema": "public",
-      "values": ["out_of_5", "out_of_10", "out_of_20", "percentage"]
-    },
-    "public.repurchase_flag": {
-      "name": "repurchase_flag",
-      "schema": "public",
-      "values": ["yes", "no", "unsure"]
-    },
-    "public.user_product_status": {
-      "name": "user_product_status",
-      "schema": "public",
-      "values": ["in_stock", "wishlist", "watched", "holy_grail", "archived", "avoided"]
     },
     "public.user_role": {
       "name": "user_role",
