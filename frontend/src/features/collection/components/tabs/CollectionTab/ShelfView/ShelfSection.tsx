@@ -1,70 +1,43 @@
-import type { DisplayScale, UserProductStatus } from '@habit-tracker/shared'
-
 import { useDroppable } from '@dnd-kit/core'
+import clsx from 'clsx'
+import { type ReactNode, useState } from 'react'
 
-import type { CriteriaWeights } from '@/lib/helpers/reviews'
-import { calculateWeightedScore } from '@/lib/helpers/reviews'
 import type { UserProduct } from '@/lib/queries/user-products'
-import { ShelfGrid } from './ShelfGrid'
 import { ShelfHeader } from './ShelfHeader'
-import { ShelfProductCard } from './ShelfProductCard'
+
+import './ShelfView.css'
 
 interface ShelfSectionProps {
-  status: UserProductStatus
-  products: UserProduct[]
-  isCollapsed: boolean
-  onToggleCollapse: () => void
-  onProductClick: (productId: string) => void
-  lastDroppedId?: string | null
-  criteriaWeights?: CriteriaWeights
-  displayScale?: DisplayScale
+  status: UserProduct['status']
+  count: number
+  children: ReactNode
 }
 
-export function ShelfSection({
-  status,
-  products,
-  isCollapsed,
-  onToggleCollapse,
-  onProductClick,
-  lastDroppedId,
-  criteriaWeights,
-  displayScale,
-}: ShelfSectionProps) {
+export function ShelfSection({ status, count, children }: ShelfSectionProps) {
   const { setNodeRef, isOver } = useDroppable({
-    id: `shelf-${status}`,
+    id: status,
     data: { status },
   })
 
+  const [isCollapsed, setIsCollapsed] = useState(false)
+
+  if (count === 0) return null
+
   return (
-    <div ref={setNodeRef} className="shelf-section">
+    <div
+      ref={setNodeRef}
+      className={clsx('shelf-section', isOver && 'is-over')}
+      style={{
+        borderColor: isOver ? `var(--status-color-${status.replace('_', '-')})` : undefined,
+      }}
+    >
       <ShelfHeader
         status={status}
-        count={products.length}
+        count={count}
         isCollapsed={isCollapsed}
-        onToggle={onToggleCollapse}
-        isOver={isOver}
+        onToggle={() => setIsCollapsed((c) => !c)}
       />
-      {!isCollapsed && (
-        <ShelfGrid>
-          {products.map((product) => {
-            const score = calculateWeightedScore(
-              product.review,
-              criteriaWeights,
-              displayScale ?? 'out_of_20'
-            )
-            return (
-              <ShelfProductCard
-                key={product.id}
-                product={product}
-                score={score}
-                displayScale={displayScale}
-                onClick={() => onProductClick(product.id)}
-                isJustDropped={lastDroppedId === product.id}
-              />
-            )
-          })}
-        </ShelfGrid>
-      )}
+      {!isCollapsed && children}
     </div>
   )
 }
