@@ -103,7 +103,7 @@ function SearchSelect({
   const clickOutsideContainer = useRef<HTMLDivElement>(null)
   const PAGE_SIZE = 50
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
-  useEffect(() => setVisibleCount(PAGE_SIZE), [query])
+  useEffect(() => setVisibleCount(PAGE_SIZE), [])
 
   const inputRef = useRef<HTMLInputElement>(null)
   // pour lier l'input a la liste
