@@ -13,6 +13,7 @@ interface ComboboxPrimitiveProps<T> {
   onKeyDown?: (e: React.KeyboardEvent) => void
   isLoading?: boolean
   emptyMessage?: string
+  keyExtractor?: (item: T, index: number) => string | number
   children: ReactNode // L'input sera passé ici
 }
 
@@ -32,6 +33,7 @@ export function ComboboxPrimitive<T>({
   onKeyDown,
   isLoading,
   emptyMessage = 'Aucun résultat',
+  keyExtractor,
   children,
 }: ComboboxPrimitiveProps<T>) {
   const listboxId = useId()
@@ -86,6 +88,7 @@ export function ComboboxPrimitive<T>({
   }
 
   return (
+    // biome-ignore lint/a11y/noStaticElementInteractions: wrapper for input navigation
     <div className="combobox-primitive" ref={containerRef} onKeyDown={handleKeyDown}>
       {/* 
         On injecte les attributs ARIA sur l'input (l'enfant unique passé via children)
@@ -101,9 +104,7 @@ export function ComboboxPrimitive<T>({
           aria-label="Suggestions"
         >
           {isLoading ? (
-            <div className="combobox-primitive__status" role="status">
-              Chargement...
-            </div>
+            <output className="combobox-primitive__status">Chargement...</output>
           ) : items.length === 0 ? (
             inputValue.trim() !== '' && (
               <div className="combobox-primitive__empty">{emptyMessage}</div>
@@ -111,15 +112,23 @@ export function ComboboxPrimitive<T>({
           ) : (
             items.map((item, index) => {
               const isActive = index === highlightedIndex
+              const key = keyExtractor ? keyExtractor(item, index) : index
               return (
                 <div
-                  key={index}
+                  key={key}
                   id={`${listboxId}-option-${index}`}
                   role="option"
                   aria-selected={isActive}
                   className={`combobox-primitive__option ${isActive ? 'combobox-primitive__option--active' : ''}`}
                   onMouseDown={(e) => e.preventDefault()} // Empêche le blur de l'input
                   onClick={() => onSelect(item)}
+                  tabIndex={-1}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault()
+                      onSelect(item)
+                    }
+                  }}
                 >
                   {renderItem(item, index, isActive)}
                 </div>

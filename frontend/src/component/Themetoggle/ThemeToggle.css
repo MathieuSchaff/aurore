@@ -27,7 +27,7 @@
 }
 
 [data-theme="light"] .theme-toggle__track {
-  background-color: oklch(from var(--color-primary) l c h / 0.55);
+  background-color: var(--primary-40);
 }
 
 .theme-toggle:hover .theme-toggle__track {
@@ -35,7 +35,7 @@
 }
 
 [data-theme="light"] .theme-toggle:hover .theme-toggle__track {
-  background-color: var(--color-primary);
+  background-color: var(--primary-20);
 }
 
 .theme-toggle__icon {
@@ -46,7 +46,7 @@
   width: 14px;
   height: 14px;
   color: var(--color-header-action);
-  opacity: 0.2;
+  opacity: 0.35;
   transition:
     opacity var(--transition-base),
     transform var(--transition-base),
@@ -54,8 +54,8 @@
 }
 
 [data-theme="light"] .theme-toggle__icon {
-  color: var(--text-inverse-warm);
-  opacity: 0.5;
+  color: oklch(100% 0 0);
+  opacity: 0.85;
 }
 
 [aria-checked="false"] .theme-toggle__icon--sun {
@@ -66,7 +66,8 @@
 }
 
 [data-theme="light"] [aria-checked="false"] .theme-toggle__icon--sun {
-  color: var(--color-primary);
+  color: var(--primary-40);
+  opacity: 1;
   filter: none;
 }
 
@@ -78,7 +79,8 @@
 }
 
 [data-theme="light"] [aria-checked="true"] .theme-toggle__icon--moon {
-  color: var(--color-primary);
+  color: var(--primary-40);
+  opacity: 1;
   filter: none;
 }
 
@@ -94,7 +96,7 @@
 }
 
 [data-theme="light"] .theme-toggle__thumb {
-  background-color: var(--text-inverse-warm);
+  background-color: oklch(100% 0 0);
 }
 
 [aria-checked="false"] .theme-toggle__thumb {
