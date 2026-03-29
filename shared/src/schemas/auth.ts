@@ -123,6 +123,7 @@ export const userPublicSchema = z.object({
   email: z.email(),
   createdAt: z.union([z.date(), z.string()]),
   emailVerified: z.boolean(),
+  role: z.enum(['user', 'admin']),
 })
 
 // ─── Auth Result Schemas (OpenAPI) ───────────────────────
@@ -168,6 +169,7 @@ export const mobileRefreshResultSchema = z.object({
 export const sessionResultSchema = z.object({
   authenticated: z.literal(true),
   userId: z.string(),
+  role: z.enum(['user', 'admin']),
 })
 
 /** Body attendu pour les endpoints mobile qui nécessitent un refresh token
