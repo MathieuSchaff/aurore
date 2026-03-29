@@ -1,56 +1,52 @@
-import type { DisplayScale } from '@habit-tracker/shared'
-
 import { useDraggable } from '@dnd-kit/core'
+import { CSS } from '@dnd-kit/utilities'
 
 import type { UserProduct } from '@/lib/queries/user-products'
 import { useUpdateUserProduct } from '@/lib/queries/user-products'
-import { ProductCardCondensed } from '../ProductCard/Condensed/ProductCardCondensed'
+import { sentimentEmojis } from '@/utils/sentimentMap'
+
+import './ShelfView.css'
 
 interface ShelfProductCardProps {
-  product: UserProduct
-  onClick: () => void
-  isJustDropped?: boolean
-  score: string | null
-  displayScale?: DisplayScale
+  p: UserProduct
+  onToggleExpand: () => void
 }
 
-const SENTIMENT_CYCLE = [null, 1, 2, 3, 4, 5] as const
-type SentimentValue = (typeof SENTIMENT_CYCLE)[number]
-
-export function ShelfProductCard({
-  product,
-  onClick,
-  isJustDropped,
-  score,
-  displayScale,
-}: ShelfProductCardProps) {
-  const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
-    id: product.id,
-    data: { product },
-  })
+export function ShelfProductCard({ p, onToggleExpand }: ShelfProductCardProps) {
   const updateMutation = useUpdateUserProduct()
 
-  function handleSentimentChange() {
-    const current = product.sentiment as SentimentValue
-    const idx = SENTIMENT_CYCLE.indexOf(current)
-    const next = SENTIMENT_CYCLE[(idx === -1 ? 0 : idx + 1) % SENTIMENT_CYCLE.length]
-    updateMutation.mutate({ id: product.id, input: { sentiment: next } })
+  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
+    id: p.id,
+    data: { id: p.id, status: p.status },
+  })
+
+  const style = {
+    transform: CSS.Translate.toString(transform),
+    opacity: isDragging ? 0.5 : 1,
   }
 
-  const classes = [isDragging ? 'dragging' : '', isJustDropped ? 'prod-card-just-dropped' : '']
-    .filter(Boolean)
-    .join(' ')
+  const handleNextSentiment = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    // When you click the emoji, it changes to the next one in the list (1 -> 2 -> 3... -> null)
+    const current = p.sentiment || 0
+    const next = current >= 5 ? null : current + 1
+    updateMutation.mutate({ id: p.id, input: { sentiment: next } })
+  }
 
   return (
-    <div ref={setNodeRef} {...listeners} {...attributes}>
-      <ProductCardCondensed
-        product={product}
-        score={score}
-        displayScale={displayScale}
-        className={classes}
-        onClick={onClick}
-        onSentimentChange={handleSentimentChange}
-      />
-    </div>
+    <button
+      type="button"
+      ref={setNodeRef}
+      style={style}
+      className="shelf-product-card"
+      {...attributes}
+      {...listeners}
+      onClick={onToggleExpand}
+    >
+      <div className="shelf-product-name">{p.product.name}</div>
+      <button type="button" className="shelf-sentiment-btn" onClick={handleNextSentiment}>
+        {p.sentiment ? sentimentEmojis[p.sentiment as 1 | 2 | 3 | 4 | 5] : '—'}
+      </button>
+    </button>
   )
 }

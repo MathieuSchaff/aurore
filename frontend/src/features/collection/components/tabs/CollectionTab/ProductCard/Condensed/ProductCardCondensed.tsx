@@ -1,129 +1,131 @@
-import { useEffect, useRef, useState } from 'react'
 import type { DisplayScale } from '@habit-tracker/shared'
 
+import { useDraggable } from '@dnd-kit/core'
+import { CSS } from '@dnd-kit/utilities'
+import clsx from 'clsx'
+import { useState } from 'react'
+
 import { ProductIcon } from '@/assets/product-icons'
+import { statusLabels } from '@/features/collection/constants'
+import { type CriteriaWeights, calculateWeightedScore } from '@/lib/helpers/reviews'
 import type { UserProduct } from '@/lib/queries/user-products'
-import { DEFAULT_KIND_COLOR_TOKEN, kindColorTokens, sentimentEmojis } from '@/features/collection/constants'
+import { useUpdateUserProduct } from '@/lib/queries/user-products'
+import { sentimentEmojis } from '@/utils/sentimentMap'
 
 import './ProductCardCondensed.css'
 
 interface ProductCardCondensedProps {
-  product: UserProduct
-  score: string | null
-  displayScale?: DisplayScale
-  className?: string
-  onClick?: () => void
-  onSentimentChange?: () => void
+  p: UserProduct
+  onToggleExpand: () => void
+  criteriaWeights: CriteriaWeights | undefined
+  displayScale: DisplayScale | undefined
 }
 
-function getScoreChipClass(score: string | null, displayScale?: DisplayScale): string {
+function getScoreChipClass(score: string | null): string {
   if (score == null) return 'score-none'
-  const n = parseFloat(score)
-  let normalized: number
-  switch (displayScale) {
-    case 'out_of_5': normalized = n * 4; break
-    case 'out_of_10': normalized = n * 2; break
-    case 'percentage': normalized = n / 5; break
-    default: normalized = n
-  }
-  if (normalized >= 17) return 'score-gold'
-  if (normalized >= 14) return 'score-rare'
-  if (normalized >= 10) return 'score-good'
+  const n = Number.parseFloat(score)
+  if (n >= 17) return 'score-gold'
+  if (n >= 14) return 'score-rare'
+  if (n >= 10) return 'score-good'
   return 'score-none'
 }
 
 function getStatusClass(status: string): string {
   switch (status) {
-    case 'wishlist': return 'status-wishlist'
-    case 'holy_grail': return 'status-holy-grail'
-    case 'archived': return 'status-archived'
-    case 'avoided': return 'status-avoided'
-    default: return ''
+    case 'wishlist':
+      return 'status-wishlist'
+    case 'holy_grail':
+      return 'status-holy-grail'
+    case 'archived':
+      return 'status-archived'
+    case 'avoided':
+      return 'status-avoided'
+    default:
+      return ''
   }
 }
 
 export function ProductCardCondensed({
-  product,
-  score,
+  p,
+  onToggleExpand,
+  criteriaWeights,
   displayScale,
-  className = '',
-  onClick,
-  onSentimentChange,
 }: ProductCardCondensedProps) {
+  const updateMutation = useUpdateUserProduct()
   const [isPopping, setIsPopping] = useState(false)
-  const poppingTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  useEffect(() => {
-    return () => {
-      if (poppingTimer.current) clearTimeout(poppingTimer.current)
-    }
-  }, [])
+  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
+    id: p.id,
+    data: { id: p.id, status: p.status },
+  })
 
-  const p = product.product
-  const kindColor = kindColorTokens[p.kind] ?? DEFAULT_KIND_COLOR_TOKEN
-  const sentiment = product.sentiment ? sentimentEmojis[product.sentiment] : null
-  const priceEuros = p.priceCents != null ? `${(p.priceCents / 100).toFixed(0)}€` : null
-  const scoreChipClass = getScoreChipClass(score, displayScale)
-  const scoreLabel = score == null
-    ? '—'
-    : displayScale === 'percentage'
-      ? score
-      : `${score}${displayScale === 'out_of_5' ? '/5' : displayScale === 'out_of_10' ? '/10' : '/20'}`
-  const statusClass = getStatusClass(product.status)
+  // Calculate score and price
+  const score = calculateWeightedScore(p.review, criteriaWeights, displayScale || 'out_of_20')
+  const priceEuros = p.product.priceCents ? `${(p.product.priceCents / 100).toFixed(0)}€` : null
 
-  function handleSentimentClick(e: React.MouseEvent) {
+  const scoreChipClass = getScoreChipClass(score)
+  const statusClass = getStatusClass(p.status)
+
+  const handleNextSentiment = (e: React.MouseEvent) => {
     e.stopPropagation()
-    if (poppingTimer.current) clearTimeout(poppingTimer.current)
+    const current = p.sentiment || 0
+    const next = current >= 5 ? null : current + 1
+    updateMutation.mutate({ id: p.id, input: { sentiment: next } })
+
+    // Animation
     setIsPopping(true)
-    poppingTimer.current = setTimeout(() => setIsPopping(false), 350)
-    onSentimentChange?.()
+    setTimeout(() => setIsPopping(false), 350)
   }
 
-  const badgeClass = [
-    'prod-sentiment-badge',
-    !sentiment ? 'empty' : '',
-    isPopping ? 'popping' : '',
-  ].filter(Boolean).join(' ')
+  const dndStyle = {
+    transform: CSS.Translate.toString(transform),
+  }
 
   return (
-    <div
-      className={`prod-card ${statusClass} ${className}`}
-      onClick={onClick}
-      style={{ '--card-accent': kindColor } as React.CSSProperties}
+    <button
+      type="button"
+      ref={setNodeRef}
+      style={
+        {
+          ...dndStyle,
+          '--card-accent': statusLabels[p.status].color,
+        } as React.CSSProperties
+      }
+      className={clsx('prod-card', statusClass, isDragging && 'dragging')}
+      onClick={onToggleExpand}
+      {...attributes}
+      {...listeners}
     >
-      {(scoreChipClass === 'score-gold' || scoreChipClass === 'score-rare') && (
-        <div className={`prod-score-corner ${scoreChipClass}`} />
-      )}
-
       <div className="prod-icon-wrap">
         <div className="prod-icon-box">
-          <ProductIcon unit={p.unit} kind={p.kind} size={20} />
+          <ProductIcon unit={p.product.unit} kind={p.product.kind} size={20} />
         </div>
-        {onSentimentChange && (
-          <button
-            type="button"
-            className={badgeClass}
-            onClick={handleSentimentClick}
-            onPointerDown={(e) => e.stopPropagation()}
-            aria-label="Changer le sentiment"
-          >
-            {sentiment ?? '○'}
-          </button>
-        )}
+        <button
+          type="button"
+          className={clsx('prod-sentiment-badge', isPopping && 'popping', !p.sentiment && 'empty')}
+          onClick={handleNextSentiment}
+          aria-label="Changer le ressenti"
+        >
+          {p.sentiment ? sentimentEmojis[p.sentiment as 1 | 2 | 3 | 4 | 5] : '—'}
+        </button>
       </div>
 
       <div className="prod-body">
-        <div className="prod-brand">{p.brand}</div>
-        <div className="prod-name">{p.name}</div>
+        <div className="prod-brand">{p.product.brand}</div>
+        <div className="prod-name">{p.product.name}</div>
         <div className="prod-chips">
-          {p.kind && <span className="prod-chip">{p.kind}</span>}
-          <span className={`prod-chip-score ${scoreChipClass}`}>
-            {scoreLabel}
+          {p.product.kind && <span className="prod-chip">{p.product.kind}</span>}
+          <span className={clsx('prod-chip-score', scoreChipClass)}>
+            {score != null ? `${score}/20` : '—'}
           </span>
         </div>
       </div>
 
       {priceEuros && <div className="prod-price">{priceEuros}</div>}
-    </div>
+
+      {(scoreChipClass === 'score-gold' || scoreChipClass === 'score-rare') && (
+        <div className={clsx('prod-score-corner', scoreChipClass)} />
+      )}
+    </button>
   )
 }
