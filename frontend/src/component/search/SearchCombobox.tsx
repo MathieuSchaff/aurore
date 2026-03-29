@@ -120,18 +120,18 @@ export function SearchCombobox<TItem, TQueryKey extends QueryKey>({
       </div>
 
       {showDropdown && (
-        <ul id={listboxId} role="listbox" className="search-combobox__dropdown">
+        <div id={listboxId} className="search-combobox__dropdown" role="listbox">
           {isFetching ? (
-            <li className="search-combobox__state" role="status">
-              Recherche…
-            </li>
+            <div className="search-combobox__state">
+              <output>Recherche…</output>
+            </div>
           ) : results.length === 0 ? (
-            <li className="search-combobox__state" role="status">
-              Aucun résultat
-            </li>
+            <div className="search-combobox__state">
+              <output>Aucun résultat</output>
+            </div>
           ) : (
             results.map((item, index) => (
-              <li
+              <div
                 key={item.id}
                 id={`${listboxId}-option-${index}`}
                 role="option"
@@ -139,15 +139,22 @@ export function SearchCombobox<TItem, TQueryKey extends QueryKey>({
                 className={`search-combobox__option${index === highlightedIndex ? ' search-combobox__option--highlighted' : ''}`}
                 onMouseDown={(e) => e.preventDefault()}
                 onClick={() => handleSelect(item)}
+                tabIndex={-1}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    handleSelect(item)
+                  }
+                }}
               >
                 <span className="search-combobox__label">{item.label}</span>
                 {item.sublabel && (
                   <span className="search-combobox__sublabel">{item.sublabel}</span>
                 )}
-              </li>
+              </div>
             ))
           )}
-        </ul>
+        </div>
       )}
     </div>
   )

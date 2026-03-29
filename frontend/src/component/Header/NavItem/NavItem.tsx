@@ -4,10 +4,6 @@ import type { LucideProps } from 'lucide-react'
 import { Atom, Barcode, CheckSquare, Home, ListChecks } from 'lucide-react'
 import { forwardRef } from 'react'
 
-/**
- * Custom icon because Lucide lacks a specific "skincare shelf" graphic.
- * Using forwardRef for compatibility with TanStack Router's Link.
- */
 export const ShelvingUnit = forwardRef<SVGSVGElement, LucideProps>(
   ({ color = 'currentColor', size = 24, strokeWidth = 2, ...props }, ref) => (
     <svg
@@ -39,7 +35,7 @@ ShelvingUnit.displayName = 'ShelvingUnit'
 // Sidebar link definition
 interface NavItem {
   to: LinkProps['to']
-  icon: React.ComponentType<any>
+  icon: React.ComponentType<LucideProps>
   label: string
 }
 

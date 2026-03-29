@@ -5,6 +5,15 @@
   background: var(--color-header-bg);
   color: var(--text-primary);
   border-bottom: 1px solid var(--color-header-border);
+
+  @media (--md) {
+    flex-direction: row-reverse;
+  }
+
+  @media (--mobile) {
+    display: none;
+  }
+
   &:has(.main-nav--open) {
     flex-direction: row-reverse;
   }
@@ -12,6 +21,19 @@
 
 .main-nav {
   position: relative;
+
+  @media (--md) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 3.05rem;
+    height: 100dvh;
+    overflow: hidden;
+    z-index: var(--z-nav, 100);
+    background: var(--color-sidebar-bg);
+    border-right: 2px solid var(--border-default);
+    transition: width var(--transition-base) ease;
+  }
 }
 
 .main-nav__header {
@@ -52,6 +74,17 @@
     outline: 2px solid var(--color-focus);
     outline-offset: -2px;
   }
+
+  @media (--md) {
+    color: var(--color-sidebar-icon);
+    display: inline-flex;
+    padding: 0.5rem 0.3rem;
+    width: 80%;
+
+    &:hover {
+      background: var(--color-sidebar-item-hover);
+    }
+  }
 }
 .main-nav__toggle .main-nav__icon {
   flex-shrink: 0;
@@ -71,6 +104,12 @@
   border-right: 1px solid var(--border-default);
   background: var(--color-sidebar-bg);
 
+  @media (--md) {
+    width: 14rem;
+    overflow-y: auto;
+    padding-top: 0;
+  }
+
   .main-nav__header {
     justify-content: space-between;
     padding-right: var(--space-2);
@@ -88,47 +127,10 @@
     color: var(--color-sidebar-icon);
     transform: rotateY(180deg);
     width: auto;
-  }
-}
 
-@media (min-width: 768px) {
-  .main-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 3.05rem;
-    height: 100dvh;
-    overflow: hidden;
-    z-index: var(--z-nav, 100);
-    background: var(--color-sidebar-bg);
-    border-right: 2px solid var(--border-default);
-    transition: width var(--transition-base) ease;
-  }
-
-  .main-nav__toggle {
-    color: var(--color-sidebar-icon);
-  }
-  .main-header {
-    flex-direction: row-reverse;
-  }
-
-  .main-nav--open {
-    width: 14rem;
-    overflow-y: auto;
-    padding-top: 0;
-    .main-nav__toggle {
+    @media (--md) {
       padding-right: 0.6rem;
       padding-left: 0.6rem;
-    }
-  }
-
-  .main-nav__toggle {
-    display: inline-flex;
-    /*margin-top: 0.7rem;*/
-    padding: 0.5rem 0.3rem;
-    width: 80%;
-    &:hover {
-      background: var(--color-sidebar-item-hover);
     }
   }
 }

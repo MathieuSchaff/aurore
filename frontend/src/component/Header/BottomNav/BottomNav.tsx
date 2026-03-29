@@ -11,10 +11,10 @@ import {
 } from 'lucide-react'
 import { useState } from 'react'
 
-import { useLogout } from '../../lib/queries/auth'
-import { useAuthStore } from '../../store/auth'
-import { ShelvingUnit } from '../Nav/NavItem/NavItem'
-import { ThemeToggle } from '../Themetoggle/Themetoggle'
+import { useLogout } from '../../../lib/queries/auth'
+import { useAuthStore } from '../../../store/auth'
+import { ThemeToggle } from '../../Themetoggle/Themetoggle'
+import { ShelvingUnit } from '../NavItem/NavItem'
 import './BottomNav.css'
 
 export function BottomNav() {

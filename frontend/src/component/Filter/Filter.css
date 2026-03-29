@@ -563,38 +563,39 @@ button:focus-visible {
   }
 }
 
-/* ─── Thème Light — renforcement du contraste ────────────── */
+/* ─── Thème Light ────────────────────────────────────────── */
 
 [data-theme="light"] {
-  /* Panel : fond élevé, border harmonisée avec le header mango */
+  /* Panel : fond teinté indigo + accent top border */
   .filter-drawer__panel {
-    background: var(--bg-elevated);
-    border: 2px solid var(--color-secondary);
-    box-shadow: var(--shadow-hard);
+    background: var(--primary-97);
+    border: 1px solid var(--border-default);
+    border-top: 3px solid var(--color-primary);
+    box-shadow: var(--shadow-card);
   }
 
-  /* Header : fond teinté mango pour marquer la hiérarchie */
+  /* Header : gradient indigo subtil */
   .filter-drawer__header {
-    background: var(--color-secondary);
-    border-bottom-color: var(--color-secondary);
+    background: linear-gradient(to right, var(--primary-97), var(--bg-page));
+    border-bottom-color: var(--border-default);
   }
 
   .filter-drawer__title {
-    color: var(--blue-night-darker, var(--color-primary));
-  }
-
-  .filter-drawer__close {
-    background: oklch(from var(--color-primary) l c h / 0.12);
     color: var(--color-primary);
   }
 
-  .filter-drawer__close:hover {
-    background: oklch(from var(--color-primary) l c h / 0.22);
+  .filter-drawer__close {
+    background: var(--color-primary);
+    color: var(--color-primary-text);
   }
 
-  /* Chips inactives : fond visible, border franche */
+  .filter-drawer__close:hover {
+    background: var(--color-primary-hover);
+  }
+
+  /* Chips inactives */
   .filter-chip {
-    background: var(--bg-card);
+    background: var(--bg-page);
     border-color: var(--border-default);
     color: var(--text-secondary);
     font-weight: var(--font-semibold);
@@ -606,7 +607,7 @@ button:focus-visible {
     color: var(--color-primary);
   }
 
-  /* Chips actives : bleu nuit plein avec texte chaud */
+  /* Chips actives */
   .filter-chip--active {
     background: var(--color-primary);
     border-color: var(--color-primary);
@@ -619,41 +620,42 @@ button:focus-visible {
     color: var(--text-inverse);
   }
 
-  /* Essential tier : fond mango subtil pour distinguer du reste */
+  /* Essential tier : teinte indigo subtile */
   .filter-accordion--essential {
-    background: oklch(from var(--color-secondary) l c h / 0.15);
+    background: oklch(from var(--color-primary) l c h / 0.05);
   }
 
-  /* Label accordion : plus contrasté */
+  /* Label accordion */
   .filter-accordion__label {
     color: var(--text-secondary);
   }
 
-  /* Trigger hover : teinte mango subtile */
+  /* Trigger hover */
   .filter-accordion__trigger:hover {
-    background: oklch(from var(--color-secondary) l c h / 0.3);
+    background: var(--bg-hover);
   }
 
-  /* Footer */
+  /* Footer : fond blanc pour contraster avec le body teinté */
   .filter-drawer__footer {
-    background: var(--bg-card);
+    background: var(--bg-page);
     border-top-color: var(--border-default);
   }
 
-  /* Bouton reset : border franche */
+  /* Bouton reset */
   .filter-drawer__reset {
+    border-color: var(--border-default);
+    color: var(--text-secondary);
+  }
+
+  .filter-drawer__reset:hover {
+    background: var(--bg-hover);
     border-color: var(--color-primary);
     color: var(--color-primary);
   }
 
-  .filter-drawer__reset:hover {
-    background: oklch(from var(--color-primary) l c h / 0.08);
-    color: var(--color-primary);
-  }
-
-  /* Input search-select */
+  /* Input search-select : blanc pour contraster avec le body teinté */
   .search-select__input {
-    background: var(--bg-card);
+    background: var(--bg-page);
     border-color: var(--border-default);
   }
 
@@ -664,9 +666,9 @@ button:focus-visible {
 
   /* Dropdown */
   .search-select__dropdown {
-    background: var(--bg-elevated);
+    background: var(--bg-page);
     border-color: var(--border-default);
-    box-shadow: 0 4px 20px oklch(from var(--color-primary) l c h / 0.15);
+    box-shadow: var(--shadow-card);
   }
 
   /* Subgroup label */
@@ -684,5 +686,13 @@ button:focus-visible {
   .filter-chip--more {
     background: transparent;
     border-color: var(--border-default);
+  }
+}
+
+/* Desktop : accent sur le côté gauche (panel slide depuis la droite) */
+@media (min-width: 640px) {
+  [data-theme="light"] .filter-drawer__panel {
+    border-top: 1px solid var(--border-default);
+    border-left: 3px solid var(--color-primary);
   }
 }

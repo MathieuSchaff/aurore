@@ -3,13 +3,13 @@ import { PanelLeftOpen } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { toast } from 'sonner'
 
-import { useClickOutside } from '../../../hooks/useClickOutside'
-import { useLogout, useResendVerification } from '../../../lib/queries/auth'
-import { useAuthStore } from '../../../store/auth'
-import { Button } from '../../Button/Button'
-import { AuroreLogo } from '../../Logo/Logo'
-import { NavSideList } from '../../Nav/NavItem/NavItem'
-import { ThemeToggle } from '../../Themetoggle/Themetoggle'
+import { useClickOutside } from '../../hooks/useClickOutside'
+import { useLogout, useResendVerification } from '../../lib/queries/auth'
+import { useAuthStore } from '../../store/auth'
+import { Button } from '../Button/Button'
+import { AuroreLogo } from '../Logo/Logo'
+import { ThemeToggle } from '../Themetoggle/Themetoggle'
+import { NavSideList } from './NavItem/NavItem'
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false)
