@@ -3,8 +3,8 @@ import type { QueryClient } from '@tanstack/react-query'
 import { useAuthStore } from '../../store/auth'
 import { api } from '../api'
 
-// We save the request here. If many parts of the app ask to refresh 
-// at the same time, we only call the server one time.
+// Deduplicate refresh requests: if multiple components refresh at same time,
+// we only send one request to the server
 let inflightRefresh: Promise<boolean> | null = null
 
 export async function silentRefresh(queryClient: QueryClient): Promise<boolean> {
@@ -28,7 +28,6 @@ export async function silentRefresh(queryClient: QueryClient): Promise<boolean> 
     } catch {
       return false
     } finally {
-      // When it is done, we reset the variable so we can refresh again later.
       inflightRefresh = null
     }
   })()
