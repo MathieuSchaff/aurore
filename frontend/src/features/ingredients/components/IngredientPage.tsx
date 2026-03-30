@@ -1,15 +1,23 @@
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
 import { getRouteApi, Link } from '@tanstack/react-router'
-import { ArrowLeft, ChevronRight, Leaf, Package, Pencil } from 'lucide-react'
+import { Leaf, Package, Pencil } from 'lucide-react'
 import Markdown from 'react-markdown'
 import rehypeKatex from 'rehype-katex'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
 
+import { BackButton } from '@/component/Button/BackButton'
+import { PillButton } from '@/component/Button/PillButton'
+import { Badge } from '@/component/DataDisplay/Badge/Badge'
+import { NavArrow } from '@/component/DataDisplay/NavArrow/NavArrow'
+import { IconBox } from '@/component/Layout/IconBox/IconBox'
+import { DetailPageLayout } from '@/component/Layout/PageLayout/DetailPageLayout'
+import { PageTopActions, PageTopActionsRight } from '@/component/Layout/PageLayout/PageTopActions'
+import { RichText } from '@/component/Typography/RichText/RichText'
+import { SectionHeader } from '@/component/Typography/SectionHeader/SectionHeader'
 import { ingredientQueries } from '../../../lib/queries/ingredients'
 import './IngredientPage.css'
-import '@/styles/common/shared-components.css'
-import '@/styles/common/markdown.css'
+import '@/component/Typography/RichText/RichText.css'
 
 import { useMemo } from 'react'
 
@@ -25,13 +33,12 @@ export function IngredientPage() {
     () => tags?.filter((t) => t.relevance === 'primary' || t.relevance === 'secondary') ?? [],
     [tags]
   )
-  const primaryTags = useMemo(() => tags?.filter((t) => t.relevance === 'primary') ?? [], [tags])
   const avoidTags = useMemo(() => tags?.filter((t) => t.relevance === 'avoid') ?? [], [tags])
   const renderMarkdown = (rawContent: string) => {
     if (!rawContent) return ''
 
-    // HACK: Targeting LaTeX content between $$ because rehype-katex
-    // struggles with some raw formatting (like unescaped pKa or mathrm).
+    // The LaTeX parser (rehype-katex) needs properly escaped backslashes.
+    // Without this, formulas with pKa, mathrm, etc. break during rendering.
     let cleaned = rawContent
 
     cleaned = cleaned.replace(/\$\$(.*?)\$\$/gs, (_, formula) => {
@@ -50,116 +57,102 @@ export function IngredientPage() {
     return cleaned
   }
   return (
-    <div className="ingredient-page">
-      <div className="ingredient-page__banner" />
+    <DetailPageLayout banner>
+      <PageTopActions>
+        <BackButton to="/ingredients">Ingrédients</BackButton>
 
-      <div className="ingredient-page__content">
-        <div className="ingredient-page__topbar">
-          <Link to="/ingredients" className="btn-pill ingredient-page__back">
-            <ArrowLeft size={16} />
-            Ingrédients
-          </Link>
-
-          <Link
-            to="/ingredients/$slug/edit"
-            params={{ slug }}
-            className="btn-pill ingredient-page__edit-btn"
-          >
+        <PageTopActionsRight>
+          <PillButton to="/ingredients/$slug/edit" params={{ slug }} variant="primary">
             <Pencil size={14} />
             Modifier
-          </Link>
-        </div>
+          </PillButton>
+        </PageTopActionsRight>
+      </PageTopActions>
 
-        <div className="ingredient-hero">
-          <div className="icon-box ingredient-hero__icon">
-            <Leaf size={28} />
+      <div className="ingredient-hero">
+        <IconBox className="ingredient-hero__icon">
+          <Leaf size={28} />
+        </IconBox>
+        <div className="ingredient-hero__info">
+          <h1 className="ingredient-hero__name">{ingredient.name}</h1>
+          <div className="ingredient-hero__tags">
+            {ingredient.category && <Badge variant="default">{ingredient.category}</Badge>}
           </div>
-          <div className="ingredient-hero__info">
-            <h1 className="ingredient-hero__name">{ingredient.name}</h1>
-            <div className="ingredient-hero__tags">
-              {ingredient.category && <span className="category-tag">{ingredient.category}</span>}
-              {primaryTags.map((t) => (
-                <span key={t.id} className="category-tag category-tag--primary">
-                  {t.tagName}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {beneficialTags.length > 0 && (
-          <div className="ingredient-section">
-            <h2 className="section-label">Bénéfices</h2>
-            <div className="ingredient-tags-list">
-              {beneficialTags.map((t) => (
-                <span
-                  key={t.id}
-                  className={`tag-pill ${t.relevance === 'primary' ? 'tag-pill--primary' : ''}`}
-                >
-                  {t.tagName}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {avoidTags.length > 0 && (
-          <div className="ingredient-section">
-            <h2 className="section-label section-label--avoid">À éviter pour</h2>
-            <div className="ingredient-tags-list">
-              {avoidTags.map((t) => (
-                <span key={t.id} className="tag-pill tag-pill--avoid">
-                  {t.tagName}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {ingredient.description && (
-          <div className="ingredient-section">
-            <h2 className="section-label">Description</h2>
-            <div className="rich-text">
-              <Markdown>{ingredient.description}</Markdown>
-            </div>
-          </div>
-        )}
-
-        {ingredient.content && (
-          <div className="ingredient-section">
-            <h2 className="section-label">Contenu</h2>
-            <div className="rich-text">
-              <Markdown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]}>
-                {renderMarkdown(ingredient.content)}
-              </Markdown>
-            </div>
-          </div>
-        )}
-
-        <div className="ingredient-section">
-          <h2 className="section-label">Produits</h2>
-          {products && products.length > 0 ? (
-            <div className="ingredient-products">
-              {products.map((product) => (
-                <Link
-                  key={product.id}
-                  to="/products/$slug"
-                  params={{ slug: product.slug }}
-                  className="ingredient-product-link"
-                >
-                  <div className="icon-box ingredient-product-link__icon">
-                    <Package size={16} />
-                  </div>
-                  <span className="ingredient-product-link__name">{product.name}</span>
-                  <ChevronRight size={16} className="nav-arrow" />
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <p className="ingredient-products-empty">Aucun produit associé à cet ingrédient.</p>
-          )}
         </div>
       </div>
-    </div>
+
+      {beneficialTags.length > 0 && (
+        <div className="ingredient-section">
+          <SectionHeader title="Bénéfices" variant="primary" />
+          <div className="ingredient-tags-list">
+            {beneficialTags.map((t) => (
+              <span
+                key={t.id}
+                className={`tag-pill ${t.relevance === 'primary' ? 'tag-pill--primary' : ''}`}
+              >
+                {t.tagName}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {avoidTags.length > 0 && (
+        <div className="ingredient-section">
+          <SectionHeader title="À éviter pour" variant="error" />
+          <div className="ingredient-tags-list">
+            {avoidTags.map((t) => (
+              <Badge key={t.id} variant="error">
+                {t.tagName}
+              </Badge>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {ingredient.description && (
+        <div className="ingredient-section">
+          <SectionHeader title="Description" variant="primary" />
+          <RichText>
+            <Markdown>{ingredient.description}</Markdown>
+          </RichText>
+        </div>
+      )}
+
+      {ingredient.content && (
+        <div className="ingredient-section">
+          <SectionHeader title="Contenu" variant="primary" />
+          <RichText>
+            <Markdown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]}>
+              {renderMarkdown(ingredient.content)}
+            </Markdown>
+          </RichText>
+        </div>
+      )}
+
+      <div className="ingredient-section">
+        <SectionHeader title="Produits" variant="primary" />
+        {products && products.length > 0 ? (
+          <div className="ingredient-products">
+            {products.map((product) => (
+              <Link
+                key={product.id}
+                to="/products/$slug"
+                params={{ slug: product.slug }}
+                className="ingredient-product-link"
+              >
+                <IconBox className="ingredient-product-link__icon">
+                  <Package size={16} />
+                </IconBox>
+                <span className="ingredient-product-link__name">{product.name}</span>
+                <NavArrow size={16} />
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <p className="ingredient-products-empty">Aucun produit associé à cet ingrédient.</p>
+        )}
+      </div>
+    </DetailPageLayout>
   )
 }

@@ -1,16 +1,23 @@
 import { useQuery } from '@tanstack/react-query'
 import { getRouteApi, Link, useNavigate } from '@tanstack/react-router'
-import { ChevronLeft, ChevronRight, FlaskConical, Plus, SlidersHorizontal } from 'lucide-react'
+import { FlaskConical, Plus, SlidersHorizontal } from 'lucide-react'
 import { useState } from 'react'
 
+import { Badge } from '@/component/DataDisplay/Badge/Badge'
+import { NavArrow } from '@/component/DataDisplay/NavArrow/NavArrow'
+import { ListPagination } from '@/component/DataDisplay/Pagination/ListPagination'
+import { EmptyState } from '@/component/Feedback/EmptyState/EmptyState'
+import { ActiveFiltersBar } from '@/component/Filter/ActiveFiltersBar'
 import { type FilterValues, GroupedFilterDialog } from '@/component/Filter/Filter'
+import { IconBox } from '@/component/Layout/IconBox/IconBox'
+import { PageBanner } from '@/component/Layout/PageBanner/PageBanner'
 import { SearchCombobox } from '@/component/search/SearchCombobox'
+import { useListFilters } from '@/hooks/useListFilters'
 import { ingredientQueries, type ListIngredientsFilters } from '../../../lib/queries/ingredients'
 import { type FilterKey, GROUP_LABELS, INGREDIENT_FILTER_GROUPS } from './filterFieldsIngredients'
 
 import '../../products/components/ListPage.css'
 import './IngredientsPage.css'
-import '@/styles/common/shared-components.css'
 const routeApi = getRouteApi('/ingredients/')
 
 const EMPTY_FILTERS: FilterValues<FilterKey> = {
@@ -31,7 +38,13 @@ export function IngredientsPage() {
 
   const filters: FilterValues<FilterKey> = { category, concern, skinType, attribute }
 
-  const filterCount = category.length + concern.length + skinType.length + attribute.length
+  const { filterCount, activeTags, applyFilters, resetFilters, goToPage, toggleSingleFilter } =
+    useListFilters({
+      from: '/ingredients/',
+      filters,
+      emptyFilters: EMPTY_FILTERS,
+      filterKeys: FILTER_KEYS,
+    })
 
   const apiFilters: ListIngredientsFilters = {
     category: category.length > 0 ? category : undefined,
@@ -51,26 +64,6 @@ export function IngredientsPage() {
   const total = data?.total ?? 0
   const totalPages = Math.ceil(total / PAGE_SIZE)
 
-  function applyFilters(newFilters: FilterValues<FilterKey>) {
-    navigate({ search: (prev) => ({ ...prev, ...newFilters, page: 1 }) })
-  }
-
-  function resetFilters() {
-    navigate({ search: { ...EMPTY_FILTERS, page: 1 }, replace: true })
-  }
-
-  function goToPage(newPage: number) {
-    navigate({ search: (prev) => ({ ...prev, page: newPage }) })
-  }
-
-  function toggleSingleFilter(key: FilterKey, value: string) {
-    const current = filters[key]
-    const next = current.includes(value) ? current.filter((v) => v !== value) : [...current, value]
-    applyFilters({ ...filters, [key]: next })
-  }
-
-  const activeTags = FILTER_KEYS.flatMap((key) => filters[key].map((value) => ({ key, value })))
-
   function getFilterLabel(key: FilterKey, value: string): string {
     for (const group of INGREDIENT_FILTER_GROUPS) {
       for (const sf of group.subFilters) {
@@ -85,58 +78,46 @@ export function IngredientsPage() {
   return (
     <div className="list-page ingredients-page">
       <header className="list-header">
-        <div className="page-banner" />
+        <PageBanner>
+          <div className="list-header__top">
+            <h1 className="list-header__title">
+              Ingrédients
+              {isPlaceholderData && <span className="loader-mini">...</span>}
+            </h1>
 
-        <div className="list-header__top">
-          <h1 className="list-header__title">
-            Ingrédients
-            {isPlaceholderData && <span className="loader-mini">...</span>}
-          </h1>
+            <div className="list-header__search">
+              <SearchCombobox
+                queryFn={ingredientQueries.search}
+                toResult={(item) => ({
+                  id: item.id,
+                  slug: item.slug,
+                  label: item.name,
+                  sublabel: item.category ?? undefined,
+                })}
+                onSelect={(slug) => navigate({ to: '/ingredients/$slug', params: { slug } })}
+              />
+            </div>
 
-          <div className="list-header__search">
-            <SearchCombobox
-              queryFn={ingredientQueries.search}
-              toResult={(item) => ({
-                id: item.id,
-                slug: item.slug,
-                label: item.name,
-                sublabel: item.category ?? undefined,
-              })}
-              onSelect={(slug) => navigate({ to: '/ingredients/$slug', params: { slug } })}
-            />
-          </div>
+            <Link to="/ingredients/new" className="list-filter-btn">
+              <Plus size={16} />
+              <span>Créer</span>
+            </Link>
 
-          <Link to="/ingredients/new" className="list-filter-btn">
-            <Plus size={16} />
-            <span>Créer</span>
-          </Link>
-
-          <button type="button" className="list-filter-btn" onClick={() => setDrawerOpen(true)}>
-            <SlidersHorizontal size={16} />
-            <span>Filtrer</span>
-            {filterCount > 0 && <span className="list-filter-btn__count">{filterCount}</span>}
-          </button>
-        </div>
-
-        {activeTags.length > 0 && (
-          <div className="list-active-filters">
-            {activeTags.map(({ key, value }) => (
-              <button
-                key={`${key}-${value}`}
-                type="button"
-                className="list-active-filter-tag"
-                onClick={() => toggleSingleFilter(key, value)}
-              >
-                <span className="list-active-filter-tag__prefix">{GROUP_LABELS[key]}:</span>
-                {getFilterLabel(key, value)}
-                <span className="list-active-filter-tag__x">&times;</span>
-              </button>
-            ))}
-            <button type="button" className="list-clear-all" onClick={resetFilters}>
-              Tout effacer
+            <button type="button" className="list-filter-btn" onClick={() => setDrawerOpen(true)}>
+              <SlidersHorizontal size={16} />
+              <span>Filtrer</span>
+              {filterCount > 0 && <span className="list-filter-btn__count">{filterCount}</span>}
             </button>
           </div>
-        )}
+        </PageBanner>
+
+        <ActiveFiltersBar
+          activeTags={activeTags}
+          groupLabels={GROUP_LABELS}
+          getFilterLabel={getFilterLabel}
+          onRemoveTag={toggleSingleFilter}
+          onClearAll={resetFilters}
+        />
       </header>
 
       <GroupedFilterDialog
@@ -158,20 +139,13 @@ export function IngredientsPage() {
         }}
       >
         {isLoading && !isPlaceholderData ? (
-          <div className="empty-state">
-            <div className="empty-state__icon">
-              <FlaskConical size={24} />
-            </div>
-            <p className="empty-state__subtitle">Chargement...</p>
-          </div>
+          <EmptyState icon={<FlaskConical size={24} />} subtitle="Chargement..." />
         ) : items.length === 0 ? (
-          <div className="empty-state">
-            <div className="empty-state__icon">
-              <FlaskConical size={24} />
-            </div>
-            <h2 className="empty-state__title">Aucun ingrédient trouvé</h2>
-            <p className="empty-state__subtitle">Essayez de modifier vos filtres.</p>
-          </div>
+          <EmptyState
+            icon={<FlaskConical size={24} />}
+            title="Aucun ingrédient trouvé"
+            subtitle="Essayez de modifier vos filtres."
+          />
         ) : (
           <>
             <div className="list-results-info">
@@ -188,46 +162,24 @@ export function IngredientsPage() {
                   params={{ slug: ingredient.slug }}
                   className="list-card"
                 >
-                  <div className="list-card__icon icon-box">
+                  <IconBox className="list-card__icon">
                     <FlaskConical size={18} />
-                  </div>
+                  </IconBox>
                   <div className="list-card__body">
                     <div className="list-card__name">{ingredient.name}</div>
                     {ingredient.description && (
                       <div className="ingredient-card__description">{ingredient.description}</div>
                     )}
                     <div className="ingredient-card__meta">
-                      <span className="category-tag">{ingredient.category}</span>
+                      <Badge variant="default">{ingredient.category}</Badge>
                     </div>
                   </div>
-                  <ChevronRight size={18} className="nav-arrow" />
+                  <NavArrow size={18} />
                 </Link>
               ))}
             </div>
 
-            {totalPages > 1 && (
-              <div className="list-pagination">
-                <button
-                  type="button"
-                  className="list-pagination__btn"
-                  disabled={page <= 1}
-                  onClick={() => goToPage(page - 1)}
-                >
-                  <ChevronLeft size={16} />
-                </button>
-                <span className="list-pagination__info">
-                  {page} / {totalPages}
-                </span>
-                <button
-                  type="button"
-                  className="list-pagination__btn"
-                  disabled={page >= totalPages}
-                  onClick={() => goToPage(page + 1)}
-                >
-                  <ChevronRight size={16} />
-                </button>
-              </div>
-            )}
+            <ListPagination currentPage={page} totalPages={totalPages} onPageChange={goToPage} />
           </>
         )}
       </main>
