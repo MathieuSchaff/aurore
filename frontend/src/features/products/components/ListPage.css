@@ -7,11 +7,9 @@
   border-bottom: 1px solid var(--border-default);
 }
 
-.page-banner {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
+/* Reset padding when banner is present so it spans full width */
+.list-header:has(.page-banner-component) {
+  padding: 0;
 }
 
 .list-header__top {
@@ -45,7 +43,7 @@
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-2) var(--space-4);
-  border: 2px solid var(--color-primary);
+  border: var(--border-width) solid var(--color-primary);
   border-radius: var(--radius-full);
   background: var(--color-primary);
   font-family: var(--font-sans);
@@ -58,17 +56,11 @@
   transition: all var(--transition-fast) ease;
 }
 
-[data-theme="dark"] .list-filter-btn {
-  background: var(--primary-60);
-  border-color: var(--primary-60);
-  color: var(--text-primary);
-}
-
 .list-filter-btn:hover {
-  background: oklch(from var(--color-primary) calc(l + 0.05) c h);
-  border-color: oklch(from var(--color-primary) calc(l + 0.05) c h);
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
   translate: -1px -1px;
-  box-shadow: 0 2px 8px oklch(from var(--color-primary) l c h / 0.2);
+  box-shadow: var(--shadow-card);
 }
 
 .list-filter-btn__count {
@@ -83,71 +75,6 @@
   color: var(--text-inverse);
   font-size: var(--text-xs);
   font-weight: var(--font-bold);
-}
-
-[data-theme="dark"] .list-filter-btn__count {
-  background: var(--accent-50);
-  color: var(--text-primary);
-}
-
-.list-active-filters {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  flex-wrap: wrap;
-}
-
-.list-active-filter-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-1);
-  padding: var(--space-1) var(--space-3);
-  background: var(--bg-elevated);
-  color: var(--text-primary);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-full);
-  font-family: var(--font-sans);
-  font-size: var(--text-xs);
-  font-weight: var(--font-medium);
-  cursor: pointer;
-  transition: all var(--transition-fast) ease;
-}
-
-.list-active-filter-tag:hover {
-  background: oklch(from var(--color-error) l c h / 0.1);
-  border-color: var(--color-error);
-  color: var(--color-error);
-}
-
-.list-active-filter-tag__prefix {
-  color: var(--text-muted);
-  font-weight: var(--font-medium);
-}
-
-.list-active-filter-tag__x {
-  font-size: var(--text-base);
-  line-height: 1;
-  opacity: 0.5;
-}
-
-.list-clear-all {
-  padding: var(--space-1) var(--space-2);
-  background: none;
-  border: none;
-  font-family: var(--font-sans);
-  font-size: var(--text-xs);
-  font-weight: var(--font-semibold);
-  color: var(--text-muted);
-  cursor: pointer;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-  transition: color var(--transition-fast) ease;
-}
-
-.list-clear-all:hover {
-  color: var(--color-error);
 }
 
 .list-main {
@@ -179,49 +106,12 @@
   gap: var(--space-3);
 }
 
-.list-pagination {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
-  padding-top: var(--space-6);
-}
-
-.list-pagination__btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-sm);
-  background: var(--bg-card);
-  color: var(--text-secondary);
-  cursor: pointer;
-  transition: all var(--transition-fast) ease;
-}
-
-.list-pagination__btn:hover:not(:disabled) {
-  background: var(--bg-hover);
-  color: var(--text-primary);
-  border-color: var(--color-accent);
-}
-
-.list-pagination__btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-.list-pagination__info {
-  font-size: var(--text-sm);
-  color: var(--text-secondary);
-  padding: 0 var(--space-2);
-  font-variant-numeric: tabular-nums;
-}
-
 @media (min-width: 480px) {
   .list-header {
     padding: var(--space-4) var(--space-5);
+  }
+  .list-header:has(.page-banner-component) {
+    padding: 0;
   }
   .list-main {
     padding: var(--space-4) var(--space-5);
@@ -231,6 +121,9 @@
 @media (min-width: 640px) {
   .list-header {
     padding: var(--space-5) var(--space-6) var(--space-4);
+  }
+  .list-header:has(.page-banner-component) {
+    padding: 0;
   }
   .list-header__title {
     font-size: var(--text-xl);
