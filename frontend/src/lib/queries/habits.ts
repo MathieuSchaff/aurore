@@ -198,11 +198,12 @@ export function useToggleCheck() {
       return json.data
     },
     onMutate: async ({ habitId, date, timingId }) => {
+      // Cancel background queries so server response won't overwrite our optimistic update
       await qc.cancelQueries({ queryKey: habitKeys.today(date) })
       const todayOpts = habitQueries.today(date)
       const snapshot = qc.getQueryData(todayOpts.queryKey)
 
-      qc.setQueryData(todayOpts.queryKey, (old: typeof snapshot) => {
+      qc.setQueryData(todayOpts.queryKey, (old) => {
         if (!old) return old
         return old.map((item) => {
           if (item.habit.id !== habitId) return item
@@ -376,9 +377,10 @@ export function useReorderHabits() {
       if (!res.ok) throw new Error('Failed to reorder habits')
     },
     onMutate: async (newOrder) => {
+      // Same optimistic update strategy: update UI immediately before server responds
       await qc.cancelQueries({ queryKey: habitKeys.list() })
       const snapshot = qc.getQueryData(habitKeys.list())
-      qc.setQueryData(habitKeys.list(), (old: typeof snapshot) => {
+      qc.setQueryData(habitKeys.list(), (old) => {
         if (!old || !Array.isArray(old)) return old
         const posMap = new Map(newOrder.map((h) => [h.id, h.position]))
         return [...old].sort(
