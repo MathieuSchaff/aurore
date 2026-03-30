@@ -39,21 +39,17 @@
   justify-content: flex-start;
   gap: var(--space-3);
   width: 100%;
-  border-radius: var(--radius-full) !important; /* Arrondi comme demandé */
-  border: 2px solid var(--border-strong) !important; /* Plus marqué */
-  box-shadow: var(--shadow-hard); /* Brutaliste */
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    background-color 0.2s ease;
-  font-weight: var(--font-bold);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-default);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+  font-weight: var(--font-semibold);
   padding: var(--space-3) var(--space-5);
   background-color: var(--bg-card);
 }
 
 .account-action-btn:hover:not(:disabled) {
-  transform: translate(-2px, -2px);
-  box-shadow: 5px 5px 0px var(--color-primary);
+  border-color: var(--color-primary);
   background-color: var(--bg-hover);
 }
 
@@ -63,19 +59,19 @@
 }
 
 .logout-btn {
-  border-color: var(--color-error) !important;
+  border-color: var(--color-error);
 }
 
 .logout-btn:hover:not(:disabled) {
   background-color: color-mix(in oklch, var(--color-error) 5%, transparent);
   color: var(--color-error);
-  border-color: var(--color-error) !important;
+  border-color: var(--color-error);
   box-shadow: 4px 4px 0px var(--color-error);
 }
 
 .delete-btn {
   color: var(--color-error);
-  border-color: var(--color-error) !important;
+  border-color: var(--color-error);
   opacity: 0.6;
 }
 
@@ -154,8 +150,8 @@
 }
 
 .form-actions .button {
-  border-radius: var(--radius-full) !important;
-  border: 2px solid var(--border-strong) !important;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--border-strong);
   box-shadow: 2px 2px 0px var(--border-strong);
   transition: all 0.2s ease;
   font-weight: var(--font-bold);
