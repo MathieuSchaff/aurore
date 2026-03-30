@@ -1,23 +1,27 @@
 import { useQuery } from '@tanstack/react-query'
 import { getRouteApi, Link, useNavigate } from '@tanstack/react-router'
-import { ChevronLeft, ChevronRight, Package, Plus, Search, SlidersHorizontal } from 'lucide-react'
+import { Package, Plus, Search, SlidersHorizontal } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
+import { ActiveFiltersBar } from '@/component/Filter/ActiveFiltersBar'
 import {
   type FilterGroupConfig,
   type FilterOption,
   type FilterValues,
   GroupedFilterDialog,
 } from '@/component/Filter/Filter'
+import { useListFilters } from '@/hooks/useListFilters'
 import { ProductIcon } from '../../../assets/product-icons'
 import { ingredientQueries } from '../../../lib/queries/ingredients'
 import { type ListProductsFilters, productQueries } from '../../../lib/queries/products'
 
 import './ListPage.css'
 import './ProductsPage.css'
-import '@/styles/common/shared-components.css'
-import '@/styles/common/kinds.css'
+import '@/features/products/styles/kinds.css'
 
+import { ListPagination } from '@/component/DataDisplay/Pagination/ListPagination'
+import { EmptyState } from '@/component/Feedback/EmptyState/EmptyState'
+import { PageBanner } from '@/component/Layout/PageBanner/PageBanner'
 import { SearchCombobox } from '@/component/search/SearchCombobox'
 import { AddToInventoryModal } from './AddToInventoryModal'
 
@@ -199,16 +203,13 @@ export function ProductsPage() {
     'ingredient',
   ]
 
-  const filterCount =
-    kind.length +
-    brand.length +
-    routine_step.length +
-    attribute.length +
-    skin_type.length +
-    skin_zone.length +
-    product_type.length +
-    concern.length +
-    ingredient.length
+  const { filterCount, activeTags, applyFilters, resetFilters, goToPage, toggleSingleFilter } =
+    useListFilters({
+      from: '/products/',
+      filters,
+      emptyFilters: EMPTY_FILTERS,
+      filterKeys,
+    })
 
   const hasFilters = filterCount > 0
 
@@ -346,28 +347,6 @@ export function ProductsPage() {
     ]
   }, [filterOptions, allIngredients])
 
-  function applyFilters(newFilters: FilterValues<FilterKey>) {
-    navigate({
-      search: (prev) => ({ ...prev, ...newFilters, page: 1 }),
-    })
-  }
-
-  function goToPage(newPage: number) {
-    navigate({ search: (prev) => ({ ...prev, page: newPage }) })
-  }
-
-  function toggleSingleFilter(key: FilterKey, value: string) {
-    const current = filters[key]
-    const next = current.includes(value) ? current.filter((v) => v !== value) : [...current, value]
-    applyFilters({ ...filters, [key]: next })
-  }
-
-  function resetFilters() {
-    navigate({ search: EMPTY_FILTERS, replace: true })
-  }
-
-  const activeTags = filterKeys.flatMap((key) => filters[key].map((value) => ({ key, value })))
-
   const getFilterLabel = (key: FilterKey, value: string): string => {
     for (const group of filterGroups) {
       for (const sf of group.subFilters) {
@@ -385,55 +364,48 @@ export function ProductsPage() {
 
   return (
     <>
-      <div className={`list-page${isPlaceholderData ? ' is-syncing' : ''}`}>
+      <div className={`list-page products-page${isPlaceholderData ? ' is-syncing' : ''}`}>
         <header className="list-header">
-          <div className="page-banner" />
+          <PageBanner>
+            <div className="list-header__top">
+              <h1 className="list-header__title">
+                Produits
+                {isPlaceholderData && <span className="loader-mini">...</span>}
+              </h1>
 
-          <div className="list-header__top">
-            <div className="list-header__search">
-              <SearchCombobox
-                queryFn={productQueries.search}
-                toResult={(item) => ({
-                  id: item.id,
-                  slug: item.slug,
-                  label: item.name,
-                  sublabel: item.brand,
-                })}
-                onSelect={(slug) => navigate({ to: '/products/$slug', params: { slug } })}
-              />
-            </div>
+              <div className="list-header__search">
+                <SearchCombobox
+                  queryFn={productQueries.search}
+                  toResult={(item) => ({
+                    id: item.id,
+                    slug: item.slug,
+                    label: item.name,
+                    sublabel: item.brand,
+                  })}
+                  onSelect={(slug) => navigate({ to: '/products/$slug', params: { slug } })}
+                />
+              </div>
 
-            <Link to="/products/new" className="list-filter-btn">
-              <Plus size={16} />
-              <span>Créer</span>
-            </Link>
+              <Link to="/products/new" className="list-filter-btn">
+                <Plus size={16} />
+                <span>Créer</span>
+              </Link>
 
-            <button type="button" className="list-filter-btn" onClick={() => setDrawerOpen(true)}>
-              <SlidersHorizontal size={16} />
-              <span>Filtrer</span>
-              {filterCount > 0 && <span className="list-filter-btn__count">{filterCount}</span>}
-            </button>
-          </div>
-
-          {activeTags.length > 0 && (
-            <div className="list-active-filters">
-              {activeTags.map(({ key, value }) => (
-                <button
-                  key={`${key}-${value}`}
-                  type="button"
-                  className="list-active-filter-tag"
-                  onClick={() => toggleSingleFilter(key, value)}
-                >
-                  <span className="list-active-filter-tag__prefix">{GROUP_LABELS[key]}:</span>
-                  {getFilterLabel(key, value)}
-                  <span className="list-active-filter-tag__x">&times;</span>
-                </button>
-              ))}
-              <button type="button" className="list-clear-all" onClick={resetFilters}>
-                Tout effacer
+              <button type="button" className="list-filter-btn" onClick={() => setDrawerOpen(true)}>
+                <SlidersHorizontal size={16} />
+                <span>Filtrer</span>
+                {filterCount > 0 && <span className="list-filter-btn__count">{filterCount}</span>}
               </button>
             </div>
-          )}
+          </PageBanner>
+
+          <ActiveFiltersBar
+            activeTags={activeTags}
+            groupLabels={GROUP_LABELS}
+            getFilterLabel={getFilterLabel}
+            onRemoveTag={toggleSingleFilter}
+            onClearAll={resetFilters}
+          />
         </header>
 
         <GroupedFilterDialog
@@ -455,33 +427,19 @@ export function ProductsPage() {
           }}
         >
           {!hasFilters ? (
-            <div className="empty-state">
-              <div className="empty-state__icon">
-                <Search size={24} />
-              </div>
-              <h2 className="empty-state__title">Explorez les produits</h2>
-              <p className="empty-state__subtitle">
-                Utilisez le bouton Filtrer pour sélectionner une catégorie, une marque ou un
-                concern.
-              </p>
-            </div>
+            <EmptyState
+              icon={<Search size={24} />}
+              title="Explorez les produits"
+              subtitle="Utilisez le bouton Filtrer pour sélectionner une catégorie, une marque ou un concern."
+            />
           ) : isLoading && !isPlaceholderData ? (
-            <div className="empty-state">
-              <div className="empty-state__icon">
-                <Package size={24} />
-              </div>
-              <p className="empty-state__subtitle">Chargement...</p>
-            </div>
+            <EmptyState icon={<Package size={24} />} subtitle="Chargement..." />
           ) : items.length === 0 ? (
-            <div className="empty-state">
-              <div className="empty-state__icon">
-                <Package size={24} />
-              </div>
-              <h2 className="empty-state__title">Aucun produit trouvé</h2>
-              <p className="empty-state__subtitle">
-                Essayez de modifier vos filtres pour trouver des produits.
-              </p>
-            </div>
+            <EmptyState
+              icon={<Package size={24} />}
+              title="Aucun produit trouvé"
+              subtitle="Essayez de modifier vos filtres pour trouver des produits."
+            />
           ) : (
             <>
               <div className="list-results-info">
@@ -550,31 +508,7 @@ export function ProductsPage() {
                 ))}
               </div>
 
-              {totalPages > 1 && (
-                <div className="list-pagination">
-                  <button
-                    type="button"
-                    className="list-pagination__btn"
-                    disabled={page <= 1}
-                    onClick={() => goToPage(page - 1)}
-                  >
-                    <ChevronLeft size={16} />
-                  </button>
-
-                  <span className="list-pagination__info">
-                    {page} / {totalPages}
-                  </span>
-
-                  <button
-                    type="button"
-                    className="list-pagination__btn"
-                    disabled={page >= totalPages}
-                    onClick={() => goToPage(page + 1)}
-                  >
-                    <ChevronRight size={16} />
-                  </button>
-                </div>
-              )}
+              <ListPagination currentPage={page} totalPages={totalPages} onPageChange={goToPage} />
             </>
           )}
         </main>

@@ -1,8 +1,3 @@
-/* 
-   Inventory Modal 
-   Mobile: fixed at bottom (bottom-sheet style)
-   Desktop: centered modal
-*/
 .inv-modal-wrapper {
   position: fixed;
   inset: 0;

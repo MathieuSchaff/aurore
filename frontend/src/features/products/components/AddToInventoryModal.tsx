@@ -32,7 +32,7 @@ export function AddToInventoryModal({ product, onClose, onSuccess }: AddToInvent
 
   useScrollLock(true)
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault()
     // Backend expects prices in cents
     const pricePaidCents = price !== '' ? Math.round(parseFloat(price) * 100) : undefined
@@ -59,7 +59,7 @@ export function AddToInventoryModal({ product, onClose, onSuccess }: AddToInvent
 
   return (
     <div className="inv-modal-wrapper">
-      {/*biome-ignore lint: we dont need to focus the overlay so no need for handleKey on it.*/}
+      {/* biome-ignore lint: overlay click only, no keyboard handling needed */}
       <div className="inv-modal-overlay" onClick={onClose} />
       <div
         className="inv-modal-dialog"
