@@ -28,9 +28,12 @@ function TestSvgPage() {
   )
   const prodIcons = Object.entries(ProdIcons).filter(([name]) => name.startsWith('Prod'))
 
+  // biome-ignore lint/suspicious/noExplicitAny: icon components have varying prop shapes
   const renderIconCard = (name: string, IconComponent: any) => (
+    // biome-ignore lint/a11y/noStaticElementInteractions: hover effects
     <div
       key={name}
+      role="presentation"
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -112,9 +115,12 @@ function TestSvgPage() {
           style={{ width: '120px' }}
         />
         <div className="input-wrapper">
-          <label className="input-label">Couleur</label>
+          <label className="input-label" htmlFor="color-input">
+            Couleur
+          </label>
           <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
             <input
+              id="color-input"
               type="color"
               value={color}
               onChange={(e) => setColor(e.target.value)}
@@ -167,6 +173,7 @@ function TestSvgPage() {
         >
           {/* A new clip-path more precise for the look. */}
           <svg width="0" height="0" style={{ position: 'absolute' }}>
+            <title>Définitions SVG</title>
             <defs>
               <clipPath id="luxury-jar-clip" clipPathUnits="objectBoundingBox">
                 {/* Top part: a rectangle a bit rounded at the top. */}
