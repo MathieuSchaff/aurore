@@ -108,7 +108,7 @@ function LogHabitCheckForm({ date, onDone }: { date: string; onDone: () => void 
   const [status, setStatus] = useState<'done' | 'skipped'>('done')
   const [actualTime, setActualTime] = useState('')
 
-  function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.SubmitEvent) {
     e.preventDefault()
     if (!selectedHabitId) return
 
@@ -252,8 +252,7 @@ interface WellbeingLog {
   unit: string | null
   note: string | null
 }
-// @ts-expect-error
-function WellbeingSection({ _date, logs }: { date: string; logs: WellbeingLog[] }) {
+function WellbeingSection({ date: _date, logs }: { date: string; logs: WellbeingLog[] }) {
   const logWellbeing = useLogWellbeing()
   const [activeNote, setActiveNote] = useState<WellbeingMetric | null>(null)
   const [noteText, setNoteText] = useState('')
@@ -382,8 +381,12 @@ function WellbeingSection({ _date, logs }: { date: string; logs: WellbeingLog[] 
 function JournalSkeleton() {
   return (
     <div className="journal-skeleton">
-      {Array.from({ length: 4 }).map((_, i) => (
-        <div key={i} className="journal-skeleton__item" style={{ animationDelay: `${i * 75}ms` }} />
+      {['js1', 'sk2', 'sk3', 'sk4'].map((key, i) => (
+        <div
+          key={key}
+          className="journal-skeleton__item"
+          style={{ animationDelay: `${i * 75}ms` }}
+        />
       ))}
     </div>
   )

@@ -275,7 +275,7 @@ export function HabitFormDialog({ habit, onClose, onCreated }: HabitFormDialogPr
     setCategory('')
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault()
     if (!name.trim() || !effectiveCategory.trim()) return
 
@@ -405,7 +405,7 @@ export function HabitFormDialog({ habit, onClose, onCreated }: HabitFormDialogPr
 
   return (
     <div className="habit-form-wrapper">
-      <div className="habit-form-overlay" onClick={onClose} />
+      <button type="button" className="habit-form-overlay" onClick={onClose} aria-label="Fermer" />
 
       <div className="habit-form-dialog">
         <div className="habit-form-dialog__header">
@@ -468,7 +468,6 @@ export function HabitFormDialog({ habit, onClose, onCreated }: HabitFormDialogPr
                 onChange={(e) => setCustomCategory(e.target.value)}
                 placeholder="Ma categorie..."
                 className="habit-form__input"
-                autoFocus
               />
             )}
           </div>

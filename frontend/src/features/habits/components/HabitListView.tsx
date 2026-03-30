@@ -287,8 +287,8 @@ function ConfirmDialog({
 function ListSkeleton() {
   return (
     <div className="list-skeleton">
-      {Array.from({ length: 6 }).map((_, i) => (
-        <div key={i} className="list-skeleton__item" style={{ animationDelay: `${i * 60}ms` }} />
+      {['sk1', 'sk2', 'sk3', 'sk4', 'sk5', 'sk6'].map((key, i) => (
+        <div key={key} className="list-skeleton__item" style={{ animationDelay: `${i * 60}ms` }} />
       ))}
     </div>
   )

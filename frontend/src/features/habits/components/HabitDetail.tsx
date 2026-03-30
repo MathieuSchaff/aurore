@@ -90,10 +90,11 @@ export function HabitDetail({ habitId, onClose }: HabitDetailProps) {
 
   return (
     <>
-      <div
+      <button
+        type="button"
         className="habit-detail-overlay"
         onClick={onClose}
-        onKeyDown={(e) => e.key === 'Escape' && onClose()}
+        aria-label="Fermer"
       />
 
       <div className="habit-detail-panel">

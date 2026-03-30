@@ -381,8 +381,12 @@ function ProductCheckEditor({
 function HabitsSkeleton() {
   return (
     <div className="habits-skeleton">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <div key={i} className="habits-skeleton__item" style={{ animationDelay: `${i * 75}ms` }} />
+      {['ts1', 'sk2', 'sk3', 'sk4', 'sk5'].map((key, i) => (
+        <div
+          key={key}
+          className="habits-skeleton__item"
+          style={{ animationDelay: `${i * 75}ms` }}
+        />
       ))}
     </div>
   )
