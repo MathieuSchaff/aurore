@@ -12,7 +12,7 @@
   font-family: var(--font-display);
   font-size: var(--text-xl);
   font-weight: var(--font-bold);
-  color: var(--text-primary);
+  color: var(--color-primary);
 }
 
 .tasks-page__add-form {
@@ -81,7 +81,7 @@
 .tasks-section__title {
   font-size: var(--text-xs);
   font-weight: var(--font-bold);
-  color: var(--text-muted);
+  color: var(--color-primary);
   text-transform: uppercase;
   letter-spacing: var(--tracking-widest);
 }
