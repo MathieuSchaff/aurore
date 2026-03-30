@@ -40,9 +40,8 @@ export function PreferenceSettings() {
 
   if (isLoading || !prefs) return <div>Chargement des préférences...</div>
 
-  // We're not debouncing this for now to give immediate visual feedback,
-  // but it might trigger many small API calls.
-  // TODO: Add a local state + debounce if the server starts struggling.
+  // We don't use debounce for now because it makes the UI feel fast.
+  // But if the server has too many requests, we will add it later.
   const handleWeightChange = (key: string, value: number) => {
     updateMutation.mutate({
       criteriaWeights: { [key]: value },
@@ -97,7 +96,7 @@ export function PreferenceSettings() {
                 max="10"
                 step="1"
                 value={prefs.criteriaWeights[key as keyof typeof prefs.criteriaWeights]}
-                onChange={(e) => handleWeightChange(key, parseInt(e.target.value))}
+                onChange={(e) => handleWeightChange(key, parseInt(e.target.value, 10))}
                 className="pref-weight-slider"
               />
             </div>
@@ -116,33 +115,44 @@ export function PreferenceSettings() {
             role="radiogroup"
             aria-labelledby="palette-section-title"
           >
-            <button
-              type="button"
-              role="radio"
-              aria-checked={lightVariant === null}
-              aria-label="Terracota"
-              className="pref-palette-swatch"
-              onClick={() => setLightVariant(null)}
-            >
+            <label className="pref-palette-swatch">
+              <input
+                type="radio"
+                name="light-variant"
+                className="sr-only"
+                checked={lightVariant === null}
+                onChange={() => setLightVariant(null)}
+                onClick={() => {
+                  if (lightVariant === null) {
+                    // This is already null, but we might want to keep it consistent
+                    // Actually for Terracota, clicking it again doesn't change anything
+                    setLightVariant(null)
+                  }
+                }}
+              />
               <span
                 className="pref-palette-swatch__circle"
                 style={{ backgroundColor: 'oklch(52% 0.13 32)' }}
               />
               <span className="pref-palette-swatch__label">Terracota</span>
-            </button>
+            </label>
             {PALETTE_SWATCHES.map(({ variant, label, color }) => (
-              <button
-                key={variant}
-                type="button"
-                role="radio"
-                aria-checked={lightVariant === variant}
-                aria-label={label}
-                className="pref-palette-swatch"
-                onClick={() => setLightVariant(variant)}
-              >
+              <label key={variant} className="pref-palette-swatch">
+                <input
+                  type="radio"
+                  name="light-variant"
+                  className="sr-only"
+                  checked={lightVariant === variant}
+                  onChange={() => setLightVariant(variant)}
+                  onClick={() => {
+                    if (lightVariant === variant) {
+                      setLightVariant(null)
+                    }
+                  }}
+                />
                 <span className="pref-palette-swatch__circle" style={{ backgroundColor: color }} />
                 <span className="pref-palette-swatch__label">{label}</span>
-              </button>
+              </label>
             ))}
           </div>
         </section>

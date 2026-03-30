@@ -71,6 +71,7 @@ export const ProfileDashboard = () => {
       {!isEditing && (
         <nav className="profile-tabs">
           <button
+            type="button"
             className={clsx('profile-tab', activeTab === 'overview' && 'active')}
             onClick={() => setActiveTab('overview')}
           >
@@ -78,6 +79,7 @@ export const ProfileDashboard = () => {
             Résumé
           </button>
           <button
+            type="button"
             className={clsx('profile-tab', activeTab === 'preferences' && 'active')}
             onClick={() => setActiveTab('preferences')}
           >
@@ -85,6 +87,7 @@ export const ProfileDashboard = () => {
             Réglages
           </button>
           <button
+            type="button"
             className={clsx('profile-tab', activeTab === 'account' && 'active')}
             onClick={() => setActiveTab('account')}
           >

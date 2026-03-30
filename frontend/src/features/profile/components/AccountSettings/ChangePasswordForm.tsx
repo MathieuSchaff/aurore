@@ -20,11 +20,11 @@ export const ChangePasswordForm = ({ onSuccess, onCancel }: ChangePasswordFormPr
 
   const changePassword = useChangePassword()
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.SubmitEvent) => {
     e.preventDefault()
 
     if (newPassword !== confirmPassword) {
-      // Basic validation handled by Zod on backend, but this is UX
+      // We check this here to help the user, but the backend also verifies with Zod.
       return
     }
 
