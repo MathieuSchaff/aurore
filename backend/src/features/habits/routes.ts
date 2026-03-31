@@ -1,11 +1,8 @@
 import {
   createHabitSchema,
   dateRangeQuerySchema,
-  err,
-  errorToStatus,
   frequencySchema,
   HTTP_STATUS,
-  habitErrorMapping,
   ok,
   periodSchema,
   reminderWithTimingSchema,
@@ -34,7 +31,6 @@ import {
   getHabitStats,
   getTodayHabits,
   getUserHabitsWithRelations,
-  HabitError,
   reorderHabits,
   restoreHabit,
   setHabitPeriod,
@@ -60,14 +56,6 @@ const getUserChecksQuerySchema = z.object({
 const app = new Hono<AppEnv>()
 
 app.use('*', requireJwtAuth)
-
-app.onError((error, c) => {
-  if (error instanceof HabitError) {
-    return c.json(err(error.code, error.details), errorToStatus(error.code, habitErrorMapping))
-  }
-  console.error('Unexpected error:', error)
-  return c.json(err('server_error'), HTTP_STATUS.INTERNAL_SERVER_ERROR)
-})
 
 export const habits = app
 

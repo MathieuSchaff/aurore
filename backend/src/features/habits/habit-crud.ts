@@ -81,8 +81,9 @@ async function loadHabitRelations(
         habitId: schedule.habitId,
         type: schedule.frequency,
         intervalDays: schedule.intervalDays,
-        daysOfWeek: schedule.daysOfWeek ?? null,
-        daysOfMonth: schedule.daysOfMonth,
+        // Int32Array → plain array (Bun returns integer[] columns as Int32Array)
+        daysOfWeek: schedule.daysOfWeek ? Array.from(schedule.daysOfWeek) : null,
+        daysOfMonth: schedule.daysOfMonth ? Array.from(schedule.daysOfMonth) : null,
         createdAt: schedule.createdAt,
         updatedAt: schedule.updatedAt,
       }
@@ -98,11 +99,16 @@ async function loadHabitRelations(
     createdAt: t.createdAt,
   }))
 
+  // Int32Array → plain array for activeMonths (Bun returns integer[] columns as Int32Array)
+  const mappedPeriod = period
+    ? { ...period, activeMonths: period.activeMonths ? Array.from(period.activeMonths) : null }
+    : null
+
   return {
     frequency,
     timings: mappedTimings,
     reminders: allReminders,
-    period: period ?? null,
+    period: mappedPeriod,
     products,
   }
 }
