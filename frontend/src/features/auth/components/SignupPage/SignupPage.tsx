@@ -6,7 +6,9 @@ import { Check, Eye, EyeOff, Lock, Mail, X } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import z from 'zod'
 
-import { useSignup } from '../../../../lib/queries/auth'
+import { Button } from '../../../../component/Button/Button'
+import { useDemo, useSignup } from '../../../../lib/queries/auth'
+import { GoogleAuthButton } from '../GoogleAuthButton/GoogleAuthButton'
 
 type FieldErrors = Partial<Record<keyof AuthInput | 'confirmPassword' | 'form', string>>
 
@@ -28,6 +30,7 @@ export const SignupPage = () => {
 
   const navigate = useNavigate()
   const signup = useSignup()
+  const demo = useDemo()
   const queryClient = useQueryClient()
 
   const passwordChecks = useMemo(
@@ -59,7 +62,7 @@ export const SignupPage = () => {
     signup.mutate(result.data, {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ['session'] })
-        navigate({ to: '/dashboard' })
+        navigate({ to: '/collection' })
       },
       onError: (error) => {
         setErrors({ form: error.message })
@@ -186,10 +189,34 @@ export const SignupPage = () => {
           </div>
         )}
 
-        <button type="submit" className="auth-submit" disabled={signup.isPending}>
-          {signup.isPending ? 'Création...' : 'Créer mon compte'}
-        </button>
+        <Button
+          type="submit"
+          variant="primary"
+          loading={signup.isPending}
+          fullWidth
+          className="auth-submit-btn"
+        >
+          Créer mon compte
+        </Button>
+
+        <div className="auth-divider">
+          <span>ou</span>
+        </div>
+
+        <Button
+          type="button"
+          variant="ghost"
+          fullWidth
+          loading={demo.isPending}
+          onClick={() =>
+            demo.mutate(undefined, { onSuccess: () => navigate({ to: '/collection' }) })
+          }
+        >
+          ✨ Essayer la démo
+        </Button>
       </form>
+
+      <GoogleAuthButton label="S'inscrire avec Google" />
     </>
   )
 }

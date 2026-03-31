@@ -6,7 +6,9 @@ import { Eye, EyeOff, Lock, Mail } from 'lucide-react'
 import { useState } from 'react'
 import z from 'zod'
 
-import { useLogin } from '../../../../lib/queries/auth'
+import { Button } from '../../../../component/Button/Button'
+import { useDemo, useLogin } from '../../../../lib/queries/auth'
+import { GoogleAuthButton } from '../GoogleAuthButton/GoogleAuthButton'
 
 type FieldErrors = Partial<Record<keyof AuthInput | 'form', string>>
 
@@ -16,6 +18,7 @@ export const LoginPage = () => {
 
   const navigate = useNavigate()
   const login = useLogin()
+  const demo = useDemo()
   const queryClient = useQueryClient()
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
@@ -45,7 +48,7 @@ export const LoginPage = () => {
     login.mutate(result.data, {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ['session'] })
-        navigate({ to: '/dashboard' })
+        navigate({ to: '/collection' })
       },
       onError: (error) => {
         if (error.message === 'email_not_verified') {
@@ -119,10 +122,34 @@ export const LoginPage = () => {
         </div>
         {errors.password && <p className="auth-field__error">{errors.password}</p>}
 
-        <button type="submit" className="auth-submit" disabled={login.isPending}>
-          {login.isPending ? 'Connexion...' : 'Se connecter'}
-        </button>
+        <Button
+          type="submit"
+          variant="primary"
+          loading={login.isPending}
+          fullWidth
+          className="auth-submit-btn"
+        >
+          Se connecter
+        </Button>
+
+        <div className="auth-divider">
+          <span>ou</span>
+        </div>
+
+        <Button
+          type="button"
+          variant="ghost"
+          fullWidth
+          loading={demo.isPending}
+          onClick={() =>
+            demo.mutate(undefined, { onSuccess: () => navigate({ to: '/collection' }) })
+          }
+        >
+          ✨ Essayer la démo
+        </Button>
       </form>
+
+      <GoogleAuthButton label="Se connecter avec Google" />
     </div>
   )
 }
