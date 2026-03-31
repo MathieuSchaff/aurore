@@ -142,6 +142,10 @@
   margin-top: calc(var(--space-1) * -0.5);
 }
 
+.auth-submit-btn {
+  margin-top: var(--space-4);
+}
+
 .auth-submit {
   width: 100%;
   margin-top: var(--space-4);
@@ -174,4 +178,24 @@
 .auth-submit:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.5rem 0;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border-default);
+}
+
+.auth-divider span {
+  font-size: 0.75rem;
+  color: var(--text-muted);
 }
