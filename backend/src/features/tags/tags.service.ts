@@ -18,13 +18,6 @@ import {
 import { isUniqueViolation } from '../../lib/helpers'
 import { TagError } from './tags-error'
 
-// type ListTagsParams = {
-//   category?: string
-//   search?: string
-//   limit?: number
-//   offset?: number
-// }
-
 export async function createTag(db: DB, data: CreateTagInput): Promise<Tag> {
   createTagSchema.parse(data)
   const slug = data.slug ?? slugify(data.name)

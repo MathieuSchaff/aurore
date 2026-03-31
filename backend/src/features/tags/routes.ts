@@ -1,11 +1,4 @@
-import {
-  createTagSchema,
-  err,
-  errorToStatus,
-  HTTP_STATUS,
-  ok,
-  tagErrorMapping,
-} from '@habit-tracker/shared'
+import { createTagSchema, HTTP_STATUS, ok } from '@habit-tracker/shared'
 
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
@@ -37,14 +30,6 @@ const tagsApp = new Hono<AppEnv>()
 tagsApp.use('*', async (c, next) => {
   if (c.req.method === 'GET') return next()
   return requireJwtAuth(c, next)
-})
-
-tagsApp.onError((error, c) => {
-  if (error instanceof TagError) {
-    return c.json(err(error.code, error.details), errorToStatus(error.code, tagErrorMapping))
-  }
-  console.error('Unexpected error:', error)
-  return c.json(err('server_error'), HTTP_STATUS.INTERNAL_SERVER_ERROR)
 })
 
 export const tagRoutes = tagsApp

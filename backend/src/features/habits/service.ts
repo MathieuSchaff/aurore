@@ -22,6 +22,11 @@ export {
 } from './habit-crud'
 export { HabitError } from './habit-error'
 export {
+  addHabitReminder,
+  addHabitTiming,
+  deleteHabitPeriod,
+  deleteHabitReminder,
+  deleteHabitTiming,
   setHabitPeriod,
   setHabitProducts,
   setHabitReminders,
