@@ -3,12 +3,13 @@ import { allProductSlugs } from '../products/products-slugs'
 
 /**
  * Vérifie la cohérence entre l'objet des slugs et le tableau de données.
- * @param {Object} slugsObj - L'objet contenant les constantes de slugs (allProductSlugs)
- * @param {Array} dataArray - Le tableau contenant les objets produits (allProductData)
  */
-export const checkDataSlugIntegrity = (slugsObj, dataArray) => {
+export const checkDataSlugIntegrity = (
+  slugsObj: Record<string, string>,
+  dataArray: ReadonlyArray<{ slug?: string }>
+) => {
   const definedSlugs = Object.values(slugsObj)
-  const dataSlugs = dataArray.map((p) => p.slug)
+  const dataSlugs = dataArray.map((p) => p.slug).filter((s): s is string => s !== undefined)
 
   const missingData = definedSlugs.filter((slug) => !dataSlugs.includes(slug))
   const orphans = dataSlugs.filter((slug) => !definedSlugs.includes(slug))

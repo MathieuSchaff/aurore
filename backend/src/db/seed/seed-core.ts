@@ -1,11 +1,11 @@
-import { createIngredient } from '../../features/products/ingredients/service'
+import { createIngredient } from '../../features/ingredients/service'
 import { addIngredientToProduct } from '../../features/products/product-ingredients/product-ingredients.service'
 import { createProduct } from '../../features/products/service'
 import {
   addTagToIngredient,
   addTagToProduct,
   createTag,
-} from '../../features/products/tags/tags.service'
+} from '../../features/tags/tags.service'
 import { db } from '..'
 import { getOrCreateSeedUser } from './create-user'
 import { ingredientTagMap } from './IngredientsTags/seed-ingredients-tags'
@@ -57,7 +57,7 @@ function validateNoDuplicates(
 }
 
 function validateRelationshipSlugs(
-  pairs: any[],
+  pairs: Array<Record<string, unknown>>,
   leftSlugField: string,
   rightSlugField: string,
   leftMap: Map<string, string>,
@@ -71,8 +71,8 @@ function validateRelationshipSlugs(
   for (const pair of pairs) {
     const leftSlug = pair[leftSlugField]
     const rightSlug = pair[rightSlugField]
-    if (!leftMap.has(leftSlug)) missingLeft.add(leftSlug)
-    if (!rightMap.has(rightSlug)) missingRight.add(rightSlug)
+    if (typeof leftSlug === 'string' && !leftMap.has(leftSlug)) missingLeft.add(leftSlug)
+    if (typeof rightSlug === 'string' && !rightMap.has(rightSlug)) missingRight.add(rightSlug)
   }
 
   if (missingLeft.size > 0) {
@@ -95,6 +95,7 @@ function validateRelationshipSlugs(
 export async function seedCore(shouldClean = true) {
   console.log('🌱 Démarrage du seed CORE (Données de base + Produits manuels)...\n')
 
+  // These run outside the transaction: clean first, then atomically insert everything
   if (shouldClean) {
     warnInvalidEntries()
     await cleanDatabase()
@@ -104,7 +105,7 @@ export async function seedCore(shouldClean = true) {
   const user = await getOrCreateSeedUser()
   console.log(`✅ Utilisateur seed : ${user.email} (${user.id})\n`)
 
-  // 1. Validation Markdown & Ingrédients
+  // Validate markdown before touching the DB
   console.log('🔍 Validation du markdown des ingrédients...')
   const ingredientValidation = validateAllIngredients(ingredientData)
   printValidationReport(ingredientValidation)
@@ -114,102 +115,104 @@ export async function seedCore(shouldClean = true) {
   }
   const correctedIngredientData = ingredientValidation.fixed
 
-  // 2. Insertion des Entités Principales
-  await seedBatch(
-    'tags',
-    tagData,
-    (t) => createTag(db, t),
-    (t) => t.slug,
-    true
-  )
-
-  await seedBatch(
-    'ingrédients',
-    correctedIngredientData,
-    (ing) => createIngredient(user.id, ing, db),
-    (ing) => ing.slug,
-    true
-  )
-
-  await seedBatch(
-    'produits (manuels)',
-    [...allProductData],
-    (p) => createProduct(user.id, p, db),
-    (p) => p.slug,
-    true
-  )
-
-  // 3. Relations
-  const { productSlugToId, tagSlugToId, ingredientSlugToId } = await fetchIdMaps()
-
-  console.log('\n🔗 Préparation des relations produit-tags...')
+  // Prepare relation pairs (pure data, no DB) so we can validate before the transaction
   const productTagPairs = flattenTagGroups(allProductTagsMap as Record<string, ProductTagGroups>)
-  validateRelationshipSlugs(
-    productTagPairs,
-    'slug',
-    'tagSlug',
-    productSlugToId,
-    tagSlugToId,
-    'Produit',
-    'Tag'
-  )
   validateNoDuplicates(productTagPairs, 'productTags')
 
-  await seedBatch(
-    'productTags',
-    productTagPairs,
-    ({ slug, tagSlug }) =>
-      addTagToProduct(db, productSlugToId.get(slug)!, tagSlugToId.get(tagSlug)!),
-    ({ slug, tagSlug }) => `${slug} ↔ ${tagSlug}`
-  )
-
-  console.log('\n🔗 Préparation des relations produit-ingrédients...')
   const validProductIngredients = allIngredientProductTags.filter((i) => !!i.ingredientSlug)
-  validateRelationshipSlugs(
-    validProductIngredients,
-    'productSlug',
-    'ingredientSlug',
-    productSlugToId,
-    ingredientSlugToId,
-    'Produit',
-    'Ingrédient'
-  )
 
-  await seedBatch(
-    'productIngredients',
-    validProductIngredients,
-    ({ productSlug, ingredientSlug, notes, concentrationValue, concentrationUnit }) =>
-      addIngredientToProduct(db, {
-        productId: productSlugToId.get(productSlug)!,
-        ingredientId: ingredientSlugToId.get(ingredientSlug!)!,
-        notes: toText(notes),
-        concentrationValue: toNumeric(concentrationValue),
-        concentrationUnit: toText(concentrationUnit),
-        concentrationPer: null,
-      }),
-    ({ productSlug, ingredientSlug }) => `${productSlug} ↔ ${ingredientSlug}`
-  )
-
-  console.log('\n🔗 Préparation des relations ingrédient-tags...')
   const ingredientTagPairs = flattenTagGroups(ingredientTagMap as Record<string, ProductTagGroups>)
-  validateRelationshipSlugs(
-    ingredientTagPairs,
-    'slug',
-    'tagSlug',
-    ingredientSlugToId,
-    tagSlugToId,
-    'Ingrédient',
-    'Tag'
-  )
   validateNoDuplicates(ingredientTagPairs, 'ingredientTags')
 
-  await seedBatch(
-    'ingredientTags',
-    ingredientTagPairs,
-    ({ slug, tagSlug }) =>
-      addTagToIngredient(db, ingredientSlugToId.get(slug)!, tagSlugToId.get(tagSlug)!),
-    ({ slug, tagSlug }) => `${slug} ↔ ${tagSlug}`
-  )
+  // All inserts are atomic: if anything fails mid-way the DB rolls back cleanly
+  await db.transaction(async (tx) => {
+    // 1. Entities
+    await seedBatch('tags', tagData, (t) => createTag(tx, t), (t) => t.slug, true)
+
+    await seedBatch(
+      'ingrédients',
+      correctedIngredientData,
+      (ing) => createIngredient(tx, user.id, ing),
+      (ing) => ing.slug,
+      true
+    )
+
+    await seedBatch(
+      'produits (manuels)',
+      [...allProductData],
+      (p) => createProduct(user.id, p, tx),
+      (p) => p.slug ?? p.name,
+      true
+    )
+
+    // 2. Fetch IDs of just-inserted entities within the same transaction
+    const { productSlugToId, tagSlugToId, ingredientSlugToId } = await fetchIdMaps(tx)
+
+    // 3. Relations
+    console.log('\n🔗 Préparation des relations produit-tags...')
+    validateRelationshipSlugs(
+      productTagPairs,
+      'slug',
+      'tagSlug',
+      productSlugToId,
+      tagSlugToId,
+      'Produit',
+      'Tag'
+    )
+
+    await seedBatch(
+      'productTags',
+      productTagPairs,
+      ({ slug, tagSlug }) =>
+        addTagToProduct(tx, productSlugToId.get(slug)!, tagSlugToId.get(tagSlug)!),
+      ({ slug, tagSlug }) => `${slug} ↔ ${tagSlug}`
+    )
+
+    console.log('\n🔗 Préparation des relations produit-ingrédients...')
+    validateRelationshipSlugs(
+      validProductIngredients,
+      'productSlug',
+      'ingredientSlug',
+      productSlugToId,
+      ingredientSlugToId,
+      'Produit',
+      'Ingrédient'
+    )
+
+    await seedBatch(
+      'productIngredients',
+      validProductIngredients,
+      ({ productSlug, ingredientSlug, notes, concentrationValue, concentrationUnit }) =>
+        addIngredientToProduct(tx, {
+          productId: productSlugToId.get(productSlug)!,
+          ingredientId: ingredientSlugToId.get(ingredientSlug!)!,
+          notes: toText(notes),
+          concentrationValue: toNumeric(concentrationValue),
+          concentrationUnit: toText(concentrationUnit),
+          concentrationPer: null,
+        }),
+      ({ productSlug, ingredientSlug }) => `${productSlug} ↔ ${ingredientSlug}`
+    )
+
+    console.log('\n🔗 Préparation des relations ingrédient-tags...')
+    validateRelationshipSlugs(
+      ingredientTagPairs,
+      'slug',
+      'tagSlug',
+      ingredientSlugToId,
+      tagSlugToId,
+      'Ingrédient',
+      'Tag'
+    )
+
+    await seedBatch(
+      'ingredientTags',
+      ingredientTagPairs,
+      ({ slug, tagSlug }) =>
+        addTagToIngredient(tx, ingredientSlugToId.get(slug)!, tagSlugToId.get(tagSlug)!),
+      ({ slug, tagSlug }) => `${slug} ↔ ${tagSlug}`
+    )
+  })
 
   console.log('\n✨ Seed CORE terminé avec succès !\n')
 }

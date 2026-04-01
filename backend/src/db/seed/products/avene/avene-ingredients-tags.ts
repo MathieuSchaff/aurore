@@ -321,6 +321,17 @@ export const AVENE_INGREDIENTS_MAP: Record<string, Ingredient[]> = {
     },
   ],
 
+  [allProductSlugs.AVENE_THERMAL_SPRING_WATER]: [
+    // Eau thermale Avène seule – aucun actif INCI standard, usage apaisant/calmant
+  ],
+
+  [allProductSlugs.AVENE_HYALURON_ACTIV_PROCEDURE_SERUM_TENSEUR]: [
+    {
+      slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE,
+      notes: 'Acide hyaluronique repulpant et tenseur',
+    },
+  ],
+
   [allProductSlugs.AVENE_HYALURON_ACTIV_PROCEDURE_CREME_MICRO_LIFT_YEUX_LEVRES]: [
     {
       slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE,

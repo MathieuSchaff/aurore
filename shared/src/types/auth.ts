@@ -15,6 +15,7 @@ export type UserPublic = {
   createdAt: Date | string
   emailVerified: boolean
   role: 'user' | 'admin'
+  isDemo: boolean
 }
 
 // ─── Token Types ─────────────────────────────────────────

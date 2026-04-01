@@ -124,6 +124,7 @@ export const userPublicSchema = z.object({
   createdAt: z.union([z.date(), z.string()]),
   emailVerified: z.boolean(),
   role: z.enum(['user', 'admin']),
+  isDemo: z.boolean(),
 })
 
 // ─── Auth Result Schemas (OpenAPI) ───────────────────────

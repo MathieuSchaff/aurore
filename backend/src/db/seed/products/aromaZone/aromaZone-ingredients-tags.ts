@@ -54,6 +54,23 @@ export const AZ_INGREDIENTS_MAP: Record<string, Ingredient[]> = {
     },
   ],
 
+  [allProductSlugs.AZ_SERUM_HYALURONIQUE_3_5]: [
+    {
+      slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE,
+      value: 3.5,
+      unit: '%',
+      notes: 'Acide hyaluronique pur – 3 poids moléculaires pour hydratation en profondeur',
+    },
+    {
+      slug: INGREDIENT_SLUGS.GLYCERIN,
+      notes: 'Humectant de base',
+    },
+    {
+      slug: INGREDIENT_SLUGS.PANTHENOL,
+      notes: 'Provitamine B5 apaisante',
+    },
+  ],
+
   [allProductSlugs.AZ_SERUM_BAKUCHIOL]: [
     {
       slug: INGREDIENT_SLUGS.BAKUCHIOL,

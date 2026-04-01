@@ -1,4 +1,5 @@
 import { db } from '..'
+import type { DB } from '../index'
 import {
   ingredients,
   ingredientTags,
@@ -21,7 +22,6 @@ export interface SeedError {
   reason: string
 }
 
-// /* Small helpers for format strings */
 
 export function toNull(value: string | null | undefined): string | null {
   if (value === null || value === undefined || value === '') return null
@@ -29,7 +29,7 @@ export function toNull(value: string | null | undefined): string | null {
 }
 
 export function toNumeric(val: unknown): string | null {
-  // if the value is shit like 'null' string we return real null
+  // if the value is like 'null' string we return real null
   if (val == null) return null
   const str = String(val).trim()
   if (str === '' || str === 'null' || str === 'undefined') return null
@@ -53,7 +53,6 @@ export function flattenTagGroups(
   })
 }
 
-// /* Here the big function for the seed */
 
 export async function seedBatch<T>(
   label: string,
@@ -201,12 +200,12 @@ export async function cleanDatabase() {
   console.log('✅ Base nettoyée\n')
 }
 
-export async function fetchIdMaps() {
+export async function fetchIdMaps(database: DB) {
   console.log('\n📊 Récupération des IDs...')
   const [allProducts, allTags, allIngredients] = await Promise.all([
-    db.select({ id: products.id, slug: products.slug }).from(products),
-    db.select({ id: tags.id, slug: tags.slug }).from(tags),
-    db.select({ id: ingredients.id, slug: ingredients.slug }).from(ingredients),
+    database.select({ id: products.id, slug: products.slug }).from(products),
+    database.select({ id: tags.id, slug: tags.slug }).from(tags),
+    database.select({ id: ingredients.id, slug: ingredients.slug }).from(ingredients),
   ])
 
   console.log(

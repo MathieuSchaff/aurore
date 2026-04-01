@@ -1,4 +1,5 @@
 import { ADERMA_INGREDIENTS_MAP } from './aDerma/aDerma-ingredients-tags'
+import { DR_IDRISS_INGREDIENTS_MAP } from './drIdriss/drIdriss-ingredients-tags'
 import { ANTI_ROUGEURS_INGREDIENTS_MAP } from './anti-rougeurs/anti-rougeurs-ingredients-tags'
 import { ANUA_INGREDIENTS_MAP } from './anua/anua-ingredients-tags'
 import { AZ_INGREDIENTS_MAP } from './aromaZone/aromaZone-ingredients-tags'
@@ -31,6 +32,7 @@ import { URIAGE_INGREDIENTS_MAP } from './uriage/uriage-ingredients-tags'
 
 export const ALL_PRODUCT_INGREDIENTS_MAP = {
   ...ADERMA_INGREDIENTS_MAP,
+  ...DR_IDRISS_INGREDIENTS_MAP,
   ...ANTI_ROUGEURS_INGREDIENTS_MAP,
   ...ANUA_INGREDIENTS_MAP,
   ...AVENE_INGREDIENTS_MAP,

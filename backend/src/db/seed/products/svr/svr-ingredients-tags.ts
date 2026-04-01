@@ -917,6 +917,33 @@ export const SVR_INGREDIENTS_MAP: Record<string, any[]> = {
     // },
   ],
 
+  [allProductSlugs.GOUTTE_TEINTEE]: [
+    {
+      slug: INGREDIENT_SLUGS.POLYGLUTAMIC_ACID,
+      notes: 'Acide polyglutamique – hydratation longue durée, protection barrière',
+    },
+    {
+      slug: INGREDIENT_SLUGS.FRUCTOOLIGOSACCHARIDES,
+      notes: 'FOS – prébiotiques pour l équilibre du microbiome',
+    },
+    {
+      slug: INGREDIENT_SLUGS.TOCOPHEROL,
+      notes: 'Vitamine E – antioxydant',
+    },
+    {
+      slug: INGREDIENT_SLUGS.GLYCERIN,
+      notes: 'Humectant de base',
+    },
+  ],
+
+  [allProductSlugs.SVR_PHYSIOPURE_GELEE_MOUSSANTE]: [
+    {
+      slug: INGREDIENT_SLUGS.GLYCERIN,
+      notes: 'Maintient le film hydrolipidique post-lavage',
+    },
+    // Tensioactifs doux (Disodium Cocoyl Glutamate, Decyl Glucoside) – pas d actifs INCI distincts dans le système
+  ],
+
   [allProductSlugs.SVR_DENSITIUM_YEUX]: [
     {
       slug: INGREDIENT_SLUGS.CALCIUM_PCA,

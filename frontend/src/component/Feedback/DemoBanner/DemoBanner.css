@@ -1,0 +1,8 @@
+.demo-banner {
+  background: var(--color-warning-light);
+  border-bottom: 1px solid var(--color-warning);
+  color: var(--color-warning-text);
+  padding: 0.5rem 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+}
