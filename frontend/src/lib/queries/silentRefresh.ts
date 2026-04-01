@@ -3,8 +3,8 @@ import type { QueryClient } from '@tanstack/react-query'
 import { useAuthStore } from '../../store/auth'
 import { api } from '../api'
 
-// Deduplicate refresh requests: if multiple components refresh at same time,
-// we only send one request to the server
+// If several components trigger a refresh at the same time, we reuse the same
+// in-flight promise instead of sending multiple requests to the server
 let inflightRefresh: Promise<boolean> | null = null
 
 export async function silentRefresh(queryClient: QueryClient): Promise<boolean> {

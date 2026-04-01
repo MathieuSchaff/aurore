@@ -14,7 +14,7 @@ export const VerifyEmailPage = () => {
   useEffect(() => {
     if (!token) return
     verify.mutate(token, {
-      onSuccess: () => navigate({ to: '/dashboard' }),
+      onSuccess: () => navigate({ to: '/collection' }),
     })
   }, [token, navigate, verify.mutate])
 
