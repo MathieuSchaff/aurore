@@ -1,4 +1,4 @@
-[data-theme="light"] {
+[data-theme="light"][data-variant="terracota"] {
   color-scheme: light;
 
   --h-lime: 128;
@@ -39,6 +39,7 @@
   --color-sidebar-item-active: oklch(from var(--text-inverse-warm) l c h / 0.2);
   --color-sidebar-icon: var(--text-inverse-warm);
   --color-sidebar-icon-active: var(--text-inverse-warm);
+
   --color-secondary: var(--mango-bright);
   --color-tertiary: var(--forest-green);
 
@@ -56,18 +57,21 @@
   --color-accent: oklch(68% 0.2 var(--h-mango));
   --color-accent-light: oklch(92% 0.1 var(--h-mango));
 
-  --color-success: oklch(50% 0.2 var(--h-lime));
+  --color-success: oklch(50% 0.2 128);
+  --color-success-light: oklch(95% 0.05 145deg);
   --color-error: oklch(56% 0.22 var(--h-coral));
   --color-error-light: oklch(93% 0.08 var(--h-coral));
   --color-info: oklch(54% 0.14 var(--h-aqua));
   --color-info-light: oklch(92% var(--c-muted) var(--h-aqua));
+  --color-warning: oklch(75% 0.15 30deg);
+  --color-warning-light: oklch(96% 0.06 30deg);
+  --color-warning-text: oklch(40% 0.15 30deg);
 
   --bg-page: oklch(var(--l-page) var(--c-soft) 75);
   --bg-card: oklch(var(--l-card) var(--c-soft) 75);
   --bg-muted: oklch(var(--l-muted) var(--c-muted) var(--h-mango));
   --bg-elevated: oklch(var(--l-elevated) 0.01 var(--h-mango));
   --bg-sunken: oklch(var(--l-sunken) 0.08 var(--h-papaya));
-
   --bg-hover: oklch(from var(--color-primary) l c h / 0.08);
   --bg-active: oklch(from var(--color-primary) l c h / 0.14);
   --bg-selected: var(--color-secondary);
@@ -78,8 +82,10 @@
 
   --border-default: var(--forest-green);
   --border-strong: oklch(from var(--color-primary-dark) l c h / 0.4);
+  --shadow-color: oklch(0% 0 0 / 0.1);
   --shadow-card: 0 2px 0px var(--forest-green);
   --shadow-hard: 5px 5px 0px var(--forest-green);
+  --border-width: 3px;
 
   --tag-active-bg: oklch(from var(--color-primary-dark) l c h / 0.8);
   --tag-active-text: var(--color-secondary);
@@ -88,14 +94,6 @@
 
   --overlay: oklch(15% 0.08 var(--h-papaya) / 0.45);
 
-  --color-success-light: oklch(95% 0.05 145deg);
-
-  --color-warning: oklch(75% 0.15 30deg);
-  --color-warning-light: oklch(96% 0.06 30deg);
-  --color-warning-text: oklch(40% 0.15 30deg);
-
   --color-stat-orange: oklch(70% 0.18 45deg);
   --color-stat-purple: oklch(65% 0.15 280deg);
-
-  --shadow-color: oklch(0% 0 0 / 0.1);
 }
