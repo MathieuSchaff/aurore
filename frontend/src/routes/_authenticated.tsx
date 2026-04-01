@@ -1,5 +1,7 @@
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
 
+import { DemoBanner } from '../component/Feedback/DemoBanner/DemoBanner'
+import { useTokenRefresh } from '../lib/hooks/useTokenRefresh'
 import { authQueries } from '../lib/queries/auth'
 import { silentRefresh } from '../lib/queries/silentRefresh'
 import { useAuthStore } from '../store/auth'
@@ -45,5 +47,15 @@ export const Route = createFileRoute('/_authenticated')({
       }
     }
   },
-  component: () => <Outlet />,
+  component: AuthenticatedLayout,
 })
+
+function AuthenticatedLayout() {
+  useTokenRefresh()
+  return (
+    <>
+      <DemoBanner />
+      <Outlet />
+    </>
+  )
+}
