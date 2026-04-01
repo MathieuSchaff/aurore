@@ -52,7 +52,7 @@ export function runGlobalSilentAudit(): void {
 
   // --- 3. COHÉRENCE DES TAGS ---
   const configTagSlugs = Object.values(TAG_SLUGS) as string[]
-  const seedTagSlugs = new Set(tagData.map((t) => t.slug))
+  const seedTagSlugs = new Set<string>(tagData.map((t) => t.slug))
 
   const missingTagSeeds = configTagSlugs.filter((slug) => !seedTagSlugs.has(slug))
 

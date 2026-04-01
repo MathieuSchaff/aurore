@@ -166,7 +166,7 @@ export const ANTIOXYDANTS_VITAMINES = {
   TOCOPHERYL_ACETATE: 'tocopheryl-acetate', // INCI: Tocopheryl Acetate | ester stable de vitamine E
   TOCOPHERYL_GLUCOSIDE: 'tocopheryl-glucoside', // INCI: Tocopheryl Glucoside | dérivé hydrophile vitamine E
   CYANOCOBALAMIN: 'cyanocobalamin', // INCI: Cyanocobalamin | vitamine B12
-  NAD: 'NAD', // INCI: NAD+ | coenzyme antioxydant / énergie cellulaire
+  NAD: 'nad', // INCI: NAD+ | coenzyme antioxydant / énergie cellulaire
   RIBOSE: 'ribose', // INCI: Ribose | sucre énergétique cellulaire
   COQ10: 'coq10', // INCI: Ubiquinone | antioxydant mitochondrial
   ERGOTHIONEINE: 'ergothioneine', // INCI: Ergothioneine | antioxydant puissant et stable

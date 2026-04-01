@@ -32,6 +32,9 @@ export async function getOrCreateSeedUser(
 
   if (user) {
     console.log(`Utilisateur seed existant réutilisé : ${email}`)
+    if (user.role !== 'admin') {
+      await ctx.db.update(users).set({ role: 'admin' }).where(eq(users.id, user.id))
+    }
     return user
   }
 
@@ -43,10 +46,10 @@ export async function getOrCreateSeedUser(
     throw new Error(`Échec création utilisateur seed : ${result.error}`)
   }
 
-  // Marquer l'utilisateur comme vérifié immédiatement
+  // Mark as verified and admin so slug is used as-is during ingredient creation
   await ctx.db
     .update(users)
-    .set({ emailVerifiedAt: new Date() })
+    .set({ emailVerifiedAt: new Date(), role: 'admin' })
     .where(eq(users.id, result.data.user.id))
 
   console.log(`Utilisateur seed créé et vérifié : ${email}`)

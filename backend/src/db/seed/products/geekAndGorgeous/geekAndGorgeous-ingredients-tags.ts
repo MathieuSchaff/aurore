@@ -238,6 +238,63 @@ export const GG_INGREDIENTS_MAP: Record<string, Ingredient[]> = {
       notes: 'Dose maximale de BHA pour purifier les pores[cite: 19].',
     },
   ],
+  [GG_PRODUCTS_SLUGS.MIGHTY_MELT]: [
+    // Baume anhydre minimaliste (7 ingrédients) – pas d'actifs clés, focus mécanique
+  ],
+  [GG_PRODUCTS_SLUGS.JELLY_JOKER]: [
+    {
+      slug: INGREDIENT_SLUGS.PANTHENOL,
+      notes: 'Provitamine B5 apaisante et hydratante',
+    },
+    {
+      slug: INGREDIENT_SLUGS.ALLANTOIN,
+      notes: 'Apaisant et cicatrisant',
+    },
+    {
+      slug: INGREDIENT_SLUGS.XYLITOL,
+      notes: 'Prébiotiques (trio xylitylglucoside/anhydroxylitol/xylitol) – microbiome',
+    },
+  ],
+  [GG_PRODUCTS_SLUGS.HA_5_LIGHT]: [
+    {
+      slug: INGREDIENT_SLUGS.HYALURONIC_ACID,
+      notes: 'Hydrolyzed Hyaluronic Acid – faible poids moléculaire, pénètre le derme',
+    },
+    {
+      slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE,
+      notes: 'HA standard + Sodium Hyaluronate Crosspolymer + Snow Mushroom – 5 formes au total',
+    },
+    {
+      slug: INGREDIENT_SLUGS.SNOW_MUSHROOM,
+      notes: 'Tremella Fuciformis – super-humectant naturel, 5e forme HA',
+    },
+    {
+      slug: INGREDIENT_SLUGS.PANTHENOL,
+      notes: 'Apaisant, hydratant',
+    },
+  ],
+  [GG_PRODUCTS_SLUGS.HA_5_RICH]: [
+    {
+      slug: INGREDIENT_SLUGS.HYALURONIC_ACID,
+      notes: 'Hydrolyzed Hyaluronic Acid – faible poids moléculaire',
+    },
+    {
+      slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE,
+      notes: 'HA standard + Crosspolymer + Snow Mushroom – 5 formes au total',
+    },
+    {
+      slug: INGREDIENT_SLUGS.SNOW_MUSHROOM,
+      notes: 'Tremella Fuciformis – super-humectant naturel',
+    },
+    {
+      slug: INGREDIENT_SLUGS.BETAINE,
+      notes: 'Humectant et adoucissant supplémentaire (version Rich)',
+    },
+    {
+      slug: INGREDIENT_SLUGS.PANTHENOL,
+      notes: 'Apaisant, hydratant',
+    },
+  ],
 }
 
 // Export pour compatibilité descendante
