@@ -1,13 +1,14 @@
 import type { ProfileUpdateInput } from '@habit-tracker/shared'
 
 import { useSuspenseQuery } from '@tanstack/react-query'
-import { Calendar, LayoutDashboard, Settings, UserCircle } from 'lucide-react'
+import { Calendar, Droplets, LayoutDashboard, Settings, UserCircle } from 'lucide-react'
 import { Suspense, useState } from 'react'
 
 import { Spinner } from '@/component/Feedback/Spinner/Spinner'
 import { PageTitle } from '@/component/Typography/PageTitle/PageTitle'
 import { profileQueries, useUpdateProfile } from '../../../../lib/queries/profile'
 import { AccountSettings } from '../AccountSettings/AccountSettings'
+import { DermoProfileForm } from '../DermoProfileForm/DermoProfileForm'
 import { PreferenceSettings } from '../PreferenceSettings'
 import { ProfileAvatar } from '../ProfileAvatar/ProfileAvatar'
 import { ProfileForm } from '../ProfileForm/ProfileForm'
@@ -21,7 +22,7 @@ const formatJoinDate = (date?: string | null): string => {
   return new Intl.DateTimeFormat('fr-FR', { month: 'long', year: 'numeric' }).format(new Date(date))
 }
 
-type TabType = 'overview' | 'preferences' | 'account'
+type TabType = 'overview' | 'preferences' | 'account' | 'skin'
 
 export const ProfileDashboard = () => {
   const { data: profile } = useSuspenseQuery(profileQueries.me())
@@ -56,6 +57,11 @@ export const ProfileDashboard = () => {
       id: 'account',
       label: 'Compte',
       icon: <UserCircle size={18} />,
+    },
+    {
+      id: 'skin',
+      label: 'Peau',
+      icon: <Droplets size={18} />,
     },
   ]
 
@@ -127,6 +133,13 @@ export const ProfileDashboard = () => {
             {activeTab === 'account' && (
               <div className="profile-tab-content">
                 <AccountSettings onEditProfile={() => setIsEditing(true)} />
+              </div>
+            )}
+            {activeTab === 'skin' && (
+              <div className="profile-tab-content">
+                <Suspense fallback={<Spinner />}>
+                  <DermoProfileForm />
+                </Suspense>
               </div>
             )}
           </>
