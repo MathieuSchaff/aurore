@@ -91,8 +91,10 @@ services:
       - "443:443"
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/reload-certs.sh:/reload-certs.sh:ro
       - certbot_data:/etc/letsencrypt
       - certbot_www:/var/www/certbot
+    command: ["/bin/sh", "/reload-certs.sh"]
     networks:
       - appnet
 
