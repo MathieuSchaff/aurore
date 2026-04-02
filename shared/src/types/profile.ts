@@ -1,6 +1,6 @@
+import type { ProfileLink } from '../schemas/profile'
 import type { ApiResponse, CommonErrorCode } from './api'
 import type { AuthErrorCode } from './auth'
-import type { ProfileLink } from '../schemas/profile'
 
 // ─── Public Types ────────────────────────────────────────
 

@@ -15,7 +15,12 @@ import type { Database, DB } from '../../db'
 import { habitChecks, habits } from '../../db/schema/habits'
 import { userPreferences } from '../../db/schema/user-preferences'
 import { userProducts } from '../../db/schema/user-products'
-import { type Profile, type UserDermoProfileRow, profiles, userDermoProfiles } from '../../db/schema/users'
+import {
+  type Profile,
+  profiles,
+  type UserDermoProfileRow,
+  userDermoProfiles,
+} from '../../db/schema/users'
 import { getHabitStreak } from '../habits/service'
 
 const DEFAULT_CRITERIA_WEIGHTS: CriteriaWeights = {
