@@ -1,5 +1,6 @@
 import type { ApiResponse, CommonErrorCode } from './api'
 import type { AuthErrorCode } from './auth'
+import type { ProfileLink } from '../schemas/profile'
 
 // ─── Public Types ────────────────────────────────────────
 
@@ -16,6 +17,7 @@ export type ProfilePublic = {
   username?: string | null
   bio?: string | null
   avatarUrl?: string | null
+  links: ProfileLink[]
   createdAt?: string | null
   updatedAt?: string | null
 }
