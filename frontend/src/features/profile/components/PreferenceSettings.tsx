@@ -7,12 +7,14 @@ import {
   userPreferenceQueries,
   useUpdateUserPreferences,
 } from '../../../lib/queries/user-preferences'
-import type { LightVariant } from '../../../store/theme'
+import type { Variant } from '../../../store/theme'
 import { useThemeStore } from '../../../store/theme'
 
 import './PreferenceSettings.css'
 
-const PALETTE_SWATCHES: Array<{ variant: LightVariant; label: string; color: string }> = [
+const PALETTE_SWATCHES: Array<{ variant: Variant; label: string; color: string }> = [
+  { variant: 'bleu', label: 'Bleu', color: 'oklch(55% 0.2 260)' },
+  { variant: 'terracota', label: 'Terracota', color: 'oklch(52% 0.13 32)' },
   { variant: 'foret', label: 'Forêt', color: 'oklch(40% 0.16 140)' },
   { variant: 'ardoise', label: 'Ardoise', color: 'oklch(35% 0.12 240)' },
 ]
@@ -36,12 +38,11 @@ const scaleLabels: Record<DisplayScale, string> = {
 export function PreferenceSettings() {
   const { data: prefs, isLoading } = useQuery(userPreferenceQueries.get())
   const updateMutation = useUpdateUserPreferences()
-  const { theme, lightVariant, setLightVariant } = useThemeStore()
+  const { variant, setVariant } = useThemeStore()
 
   if (isLoading || !prefs) return <div>Chargement des préférences...</div>
 
-  // We don't use debounce for now because it makes the UI feel fast.
-  // But if the server has too many requests, we will add it later.
+  // No debounce — keeps the UI feeling fast.
   const handleWeightChange = (key: string, value: number) => {
     updateMutation.mutate({
       criteriaWeights: { [key]: value },
@@ -104,59 +105,34 @@ export function PreferenceSettings() {
         </div>
       </section>
 
-      {theme === 'light' && (
-        <section className="pref-section">
-          <h3 id="palette-section-title" className="pref-section-title">
-            Palette (mode clair)
-          </h3>
-          <p className="pref-section-desc">Choisissez la palette de couleurs pour le mode clair.</p>
-          <div
-            className="pref-palette-swatches"
-            role="radiogroup"
-            aria-labelledby="palette-section-title"
-          >
-            <label className="pref-palette-swatch">
-              <input
-                type="radio"
-                name="light-variant"
-                className="sr-only"
-                checked={lightVariant === null}
-                onChange={() => setLightVariant(null)}
-                onClick={() => {
-                  if (lightVariant === null) {
-                    // This is already null, but we might want to keep it consistent
-                    // Actually for Terracota, clicking it again doesn't change anything
-                    setLightVariant(null)
-                  }
-                }}
-              />
-              <span
-                className="pref-palette-swatch__circle"
-                style={{ backgroundColor: 'oklch(52% 0.13 32)' }}
-              />
-              <span className="pref-palette-swatch__label">Terracota</span>
-            </label>
-            {PALETTE_SWATCHES.map(({ variant, label, color }) => (
-              <label key={variant} className="pref-palette-swatch">
+      <section className="pref-section">
+        <h3 id="palette-section-title" className="pref-section-title">
+          Palette (mode clair)
+        </h3>
+        <p className="pref-section-desc">Choisissez la palette de couleurs pour le mode clair.</p>
+        <div
+          className="pref-palette-swatches"
+          role="radiogroup"
+          aria-labelledby="palette-section-title"
+        >
+          {PALETTE_SWATCHES.map(({ variant: v, label, color }) => {
+            const isChecked = variant === v
+            return (
+              <label key={v} className="pref-palette-swatch">
                 <input
                   type="radio"
-                  name="light-variant"
+                  name="variant"
                   className="sr-only"
-                  checked={lightVariant === variant}
-                  onChange={() => setLightVariant(variant)}
-                  onClick={() => {
-                    if (lightVariant === variant) {
-                      setLightVariant(null)
-                    }
-                  }}
+                  checked={isChecked}
+                  onChange={() => setVariant(v)}
                 />
                 <span className="pref-palette-swatch__circle" style={{ backgroundColor: color }} />
                 <span className="pref-palette-swatch__label">{label}</span>
               </label>
-            ))}
-          </div>
-        </section>
-      )}
+            )
+          })}
+        </div>
+      </section>
     </div>
   )
 }

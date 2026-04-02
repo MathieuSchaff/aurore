@@ -1,7 +1,8 @@
-import { Link, useNavigate } from '@tanstack/react-router'
-import { ArrowLeft } from 'lucide-react'
+import { useNavigate } from '@tanstack/react-router'
 
-import { PageBanner } from '@/component/Layout/PageBanner/PageBanner'
+import { BackButton } from '@/component/Button/BackButton'
+import { DetailPageLayout } from '@/component/Layout/PageLayout/DetailPageLayout'
+import { PageTopActions } from '@/component/Layout/PageLayout/PageTopActions'
 import { ProductForm } from '../ProductForm/ProductForm'
 import '../Edit/ProductEditPage.css'
 
@@ -9,23 +10,19 @@ export function ProductCreatePage() {
   const navigate = useNavigate()
 
   return (
-    <div className="product-edit-page">
-      <PageBanner className="product-edit-page__banner">
-        <div className="product-edit-page__topbar">
-          <Link to="/products" className="product-edit-page__back">
-            <ArrowLeft size={16} />
-            Retour
-          </Link>
-          <h1 className="product-edit-page__title">Nouveau produit</h1>
-        </div>
-      </PageBanner>
+    <DetailPageLayout banner>
+      <PageTopActions>
+        <BackButton to="/products">Produits</BackButton>
+      </PageTopActions>
 
-      <div className="product-edit-page__content">
-        <ProductForm
-          mode="create"
-          onSuccess={(slug) => navigate({ to: '/products/$slug', params: { slug } })}
-        />
+      <div className="create-page-header">
+        <h1 className="create-page-header__title">Nouveau produit</h1>
       </div>
-    </div>
+
+      <ProductForm
+        mode="create"
+        onSuccess={(slug) => navigate({ to: '/products/$slug', params: { slug } })}
+      />
+    </DetailPageLayout>
   )
 }

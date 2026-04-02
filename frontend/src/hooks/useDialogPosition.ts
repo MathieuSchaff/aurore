@@ -7,7 +7,6 @@ export function useDialogPosition(ref: RefObject<HTMLElement | null>) {
     if (!ref.current) return
 
     const rect = ref.current.getBoundingClientRect()
-    // If the dialog goes above the screen, we move it to the bottom so we can see it.
     if (rect.top < 0) {
       setPosition('bottom')
     } else {

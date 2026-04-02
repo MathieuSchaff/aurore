@@ -101,7 +101,7 @@ export const reminderSchema = z.object({
 })
 
 export const reminderWithTimingSchema = z.object({
-  timingId: z.string().uuid(),
+  timingId: z.uuid(),
   beforeMinutes: z.number().int().min(1).max(10080, 'Maximum 1 semaine (10080 min)'),
 })
 
@@ -229,8 +229,8 @@ export const toggleCheckSchema = z.object({
   products: z
     .array(
       z.object({
-        habitProductId: z.string().uuid(),
-        productId: z.string().uuid(),
+        habitProductId: z.uuid(),
+        productId: z.uuid(),
         used: z.boolean(),
         actualDosage: z.string().max(100).optional(),
       })
@@ -273,7 +273,7 @@ export const reorderHabitsSchema = z.object({
   habits: z
     .array(
       z.object({
-        id: z.string().uuid(),
+        id: z.uuid(),
         position: z.number().int().min(0),
       })
     )

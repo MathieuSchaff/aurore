@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ingredient Card — Luxury Color Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Young+Serif&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Tokens ──────────────────────────────────────────────────────── */
+    :root {
+      --font-sans: "DM Sans", system-ui, sans-serif;
+      --font-display: "Young Serif", serif;
+
+      /* category palette */
+      --c-emollient:    oklch(50% 0.2 135.95);   /* forest green */
+      --c-emollient-l:  oklch(96% 0.05 135.95);
+      --c-emollient-m:  oklch(75% 0.17 135.95);
+      --c-emollient-d:  oklch(34% 0.16 135.95);
+
+      --c-antiox:       oklch(68% 0.2 65);        /* amber-mango */
+      --c-antiox-l:     oklch(97% 0.07 65);
+      --c-antiox-m:     oklch(82% 0.18 65);
+      --c-antiox-d:     oklch(40% 0.18 65);
+
+      --c-actif:        oklch(54% 0.14 185);       /* teal */
+      --c-actif-l:      oklch(96% 0.06 185);
+      --c-actif-m:      oklch(72% 0.14 185);
+      --c-actif-d:      oklch(35% 0.14 185);
+
+      --c-exfo:         oklch(56% 0.22 18);        /* coral-rose */
+      --c-exfo-l:       oklch(97% 0.06 18);
+      --c-exfo-m:       oklch(75% 0.18 18);
+      --c-exfo-d:       oklch(38% 0.22 18);
+
+      --c-nourish:      oklch(60% 0.16 280);       /* violet */
+      --c-nourish-l:    oklch(97% 0.04 280);
+      --c-nourish-m:    oklch(78% 0.12 280);
+      --c-nourish-d:    oklch(38% 0.16 280);
+
+      --bg-page:        oklch(96% 0.015 75);
+      --bg-card:        oklch(99.5% 0.01 75);
+      --text-primary:   oklch(20% 0.07 32);
+      --text-secondary: oklch(40% 0.06 32);
+      --text-muted:     oklch(58% 0.05 65);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-page);
+      color: var(--text-primary);
+      min-height: 100vh;
+      padding: 2.5rem 1.25rem 5rem;
+    }
+
+    /* ── Page header ─────────────────────────────────────────────────── */
+    .page-header {
+      max-width: 900px;
+      margin: 0 auto 3rem;
+      text-align: center;
+    }
+    .page-header__eyebrow {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+    .page-header__title {
+      font-family: var(--font-display);
+      font-size: 2.25rem;
+      color: var(--c-emollient);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+    .page-header__sub {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    /* ── Section wrapper ─────────────────────────────────────────────── */
+    .section {
+      max-width: 900px;
+      margin: 0 auto 4rem;
+    }
+    .section-title {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid oklch(88% 0.04 75);
+    }
+    .section-title__name {
+      font-family: var(--font-display);
+      font-size: 1.125rem;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+    .section-title__hint {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 1rem;
+    }
+    .grid-1 {
+      display: grid;
+      grid-template-columns: 1fr;
+      max-width: 480px;
+      gap: 0.625rem;
+    }
+
+
+    /* ════════════════════════════════════════════════════════════════════
+       OPTION 1 — Gradient Glow Cards
+       Structure A conservée · ombre colorée · fond en dégradé doux ·
+       chaque carte tintée selon sa catégorie
+    ════════════════════════════════════════════════════════════════════ */
+
+    .gc {
+      --accent:   var(--c-emollient);
+      --accent-l: var(--c-emollient-l);
+      --accent-m: var(--c-emollient-m);
+      --accent-d: var(--c-emollient-d);
+    }
+    .gc--antiox  { --accent: var(--c-antiox);  --accent-l: var(--c-antiox-l);  --accent-m: var(--c-antiox-m);  --accent-d: var(--c-antiox-d); }
+    .gc--actif   { --accent: var(--c-actif);   --accent-l: var(--c-actif-l);   --accent-m: var(--c-actif-m);   --accent-d: var(--c-actif-d); }
+    .gc--exfo    { --accent: var(--c-exfo);    --accent-l: var(--c-exfo-l);    --accent-m: var(--c-exfo-m);    --accent-d: var(--c-exfo-d); }
+    .gc--nourish { --accent: var(--c-nourish); --accent-l: var(--c-nourish-l); --accent-m: var(--c-nourish-m); --accent-d: var(--c-nourish-d); }
+
+    .gc {
+      display: flex;
+      flex-direction: column;
+      gap: 0.625rem;
+      padding: 1.125rem 1.25rem 1rem;
+      border-radius: 1.125rem;
+      border: 1px solid oklch(from var(--accent-m) l c h / 0.35);
+      background:
+        linear-gradient(
+          160deg,
+          oklch(from var(--accent-l) l c h / 0.8) 0%,
+          var(--bg-card) 55%
+        );
+      box-shadow:
+        0 2px 8px oklch(from var(--accent) l c h / 0.1),
+        0 0 0 0 oklch(from var(--accent) l c h / 0);
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      overflow: hidden;
+      transition:
+        transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1),
+        box-shadow 0.2s cubic-bezier(0.2, 0.8, 0.2, 1),
+        border-color 0.2s ease;
+    }
+
+    /* Top shimmer stripe */
+    .gc::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2.5px;
+      background: linear-gradient(
+        90deg,
+        var(--accent) 0%,
+        oklch(from var(--accent) calc(l + 0.12) calc(c - 0.04) calc(h + 30)) 100%
+      );
+      border-radius: 1.125rem 1.125rem 0 0;
+    }
+
+    .gc:hover {
+      transform: translateY(-4px);
+      border-color: oklch(from var(--accent-m) l c h / 0.6);
+      box-shadow:
+        0 12px 32px oklch(from var(--accent) l c h / 0.2),
+        0 2px 8px oklch(from var(--accent) l c h / 0.12);
+    }
+
+    .gc__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .gc__badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.2rem 0.6rem;
+      border-radius: 9999px;
+      font-size: 0.67rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      background: oklch(from var(--accent) l c h / 0.12);
+      color: var(--accent-d);
+      border: 1px solid oklch(from var(--accent-m) l c h / 0.5);
+    }
+
+    .gc__arrow {
+      color: oklch(from var(--accent) l c h / 0.4);
+      flex-shrink: 0;
+      transition: transform 0.18s ease, color 0.18s ease;
+      width: 15px; height: 15px;
+    }
+    .gc:hover .gc__arrow {
+      transform: translateX(3px);
+      color: var(--accent);
+    }
+
+    .gc__name {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--accent-d);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+    }
+
+    .gc__desc {
+      font-size: 0.82rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+
+    /* ════════════════════════════════════════════════════════════════════
+       OPTION 2 — Rich Bordered Cards (solid color left bar, no gradient bg)
+       Accent color as thick left border · white card · soft colored shadow
+    ════════════════════════════════════════════════════════════════════ */
+
+    .rc {
+      --accent:   var(--c-emollient);
+      --accent-l: var(--c-emollient-l);
+      --accent-m: var(--c-emollient-m);
+      --accent-d: var(--c-emollient-d);
+    }
+    .rc--antiox  { --accent: var(--c-antiox);  --accent-l: var(--c-antiox-l);  --accent-m: var(--c-antiox-m);  --accent-d: var(--c-antiox-d); }
+    .rc--actif   { --accent: var(--c-actif);   --accent-l: var(--c-actif-l);   --accent-m: var(--c-actif-m);   --accent-d: var(--c-actif-d); }
+    .rc--exfo    { --accent: var(--c-exfo);    --accent-l: var(--c-exfo-l);    --accent-m: var(--c-exfo-m);    --accent-d: var(--c-exfo-d); }
+    .rc--nourish { --accent: var(--c-nourish); --accent-l: var(--c-nourish-l); --accent-m: var(--c-nourish-m); --accent-d: var(--c-nourish-d); }
+
+    .rc {
+      display: flex;
+      align-items: stretch;
+      gap: 1rem;
+      padding: 1rem 1.125rem 1rem 0;
+      border-radius: 0.875rem;
+      background: var(--bg-card);
+      border: 1px solid oklch(from var(--accent-m) l c h / 0.25);
+      box-shadow: 0 2px 6px oklch(from var(--accent) l c h / 0.08);
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      overflow: hidden;
+      transition:
+        transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1),
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+    }
+    .rc:hover {
+      transform: translateY(-3px) translateX(-1px);
+      border-color: oklch(from var(--accent-m) l c h / 0.55);
+      box-shadow:
+        0 10px 28px oklch(from var(--accent) l c h / 0.18),
+        0 2px 6px oklch(from var(--accent) l c h / 0.1);
+    }
+
+    /* Thick color bar on the left */
+    .rc__bar {
+      width: 5px;
+      background: linear-gradient(
+        180deg,
+        var(--accent) 0%,
+        oklch(from var(--accent) calc(l + 0.1) calc(c - 0.05) calc(h + 20)) 100%
+      );
+      border-radius: 0;
+      flex-shrink: 0;
+    }
+
+    .rc__body {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding-top: 0.125rem;
+    }
+
+    .rc__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .rc__badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.175rem 0.55rem;
+      border-radius: 9999px;
+      font-size: 0.66rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      background: oklch(from var(--accent) l c h / 0.1);
+      color: var(--accent-d);
+      border: 1px solid oklch(from var(--accent) l c h / 0.25);
+    }
+
+    .rc__arrow {
+      color: oklch(from var(--accent) l c h / 0.35);
+      flex-shrink: 0;
+      transition: transform 0.18s ease, color 0.18s ease;
+      width: 15px; height: 15px;
+    }
+    .rc:hover .rc__arrow {
+      transform: translateX(3px);
+      color: var(--accent);
+    }
+
+    .rc__name {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--text-primary);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+
+    .rc__desc {
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: var(--text-secondary);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+
+    /* ════════════════════════════════════════════════════════════════════
+       OPTION 3 — Color Block Cards (catégorie = fond saturé, texte inverse)
+       L'en-tête est colorée (block couleur), corps blanc
+    ════════════════════════════════════════════════════════════════════ */
+
+    .bc {
+      --accent:   var(--c-emollient);
+      --accent-l: var(--c-emollient-l);
+      --accent-m: var(--c-emollient-m);
+      --accent-d: var(--c-emollient-d);
+    }
+    .bc--antiox  { --accent: var(--c-antiox);  --accent-l: var(--c-antiox-l);  --accent-m: var(--c-antiox-m);  --accent-d: var(--c-antiox-d); }
+    .bc--actif   { --accent: var(--c-actif);   --accent-l: var(--c-actif-l);   --accent-m: var(--c-actif-m);   --accent-d: var(--c-actif-d); }
+    .bc--exfo    { --accent: var(--c-exfo);    --accent-l: var(--c-exfo-l);    --accent-m: var(--c-exfo-m);    --accent-d: var(--c-exfo-d); }
+    .bc--nourish { --accent: var(--c-nourish); --accent-l: var(--c-nourish-l); --accent-m: var(--c-nourish-m); --accent-d: var(--c-nourish-d); }
+
+    .bc {
+      border-radius: 1rem;
+      overflow: hidden;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      border: 1px solid oklch(from var(--accent-m) l c h / 0.3);
+      box-shadow: 0 2px 10px oklch(from var(--accent) l c h / 0.1);
+      transition:
+        transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1),
+        box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .bc:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 36px oklch(from var(--accent) l c h / 0.25);
+    }
+
+    .bc__top {
+      padding: 0.875rem 1.125rem 0.75rem;
+      background: linear-gradient(
+        135deg,
+        var(--accent) 0%,
+        oklch(from var(--accent) calc(l + 0.08) calc(c - 0.04) calc(h + 25)) 100%
+      );
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .bc__category {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: oklch(from var(--accent-l) l c h / 0.9);
+    }
+    .bc__arrow {
+      color: oklch(from var(--accent-l) l c h / 0.7);
+      width: 15px; height: 15px;
+      flex-shrink: 0;
+      transition: transform 0.18s ease, color 0.18s ease;
+    }
+    .bc:hover .bc__arrow {
+      transform: translateX(3px);
+      color: oklch(from var(--accent-l) l c h / 1);
+    }
+
+    .bc__body {
+      padding: 0.875rem 1.125rem 1rem;
+      background: var(--bg-card);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .bc__name {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--text-primary);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+    .bc__desc {
+      font-size: 0.81rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+
+    /* ════════════════════════════════════════════════════════════════════
+       OPTION 4 — Frosted Tile (dark bg version)
+       Fond sombre semi-transparent · glassmorphism chaud · couleurs vives
+    ════════════════════════════════════════════════════════════════════ */
+    .dark-bg {
+      background: oklch(22% 0.06 135.95);
+      border-radius: 1.25rem;
+      padding: 1.5rem;
+    }
+
+    .ft {
+      --accent:   var(--c-emollient);
+      --accent-l: var(--c-emollient-l);
+      --accent-m: var(--c-emollient-m);
+    }
+    .ft--antiox  { --accent: var(--c-antiox);  --accent-l: var(--c-antiox-l);  --accent-m: var(--c-antiox-m); }
+    .ft--actif   { --accent: var(--c-actif);   --accent-l: var(--c-actif-l);   --accent-m: var(--c-actif-m); }
+    .ft--exfo    { --accent: var(--c-exfo);    --accent-l: var(--c-exfo-l);    --accent-m: var(--c-exfo-m); }
+    .ft--nourish { --accent: var(--c-nourish); --accent-l: var(--c-nourish-l); --accent-m: var(--c-nourish-m); }
+
+    .ft {
+      display: flex;
+      flex-direction: column;
+      gap: 0.625rem;
+      padding: 1rem 1.125rem;
+      border-radius: 0.875rem;
+      background: oklch(from var(--accent) calc(l - 0.3) calc(c * 0.35) h / 0.55);
+      border: 1px solid oklch(from var(--accent) l c h / 0.25);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow:
+        inset 0 1px 0 oklch(from var(--accent-l) l c h / 0.12),
+        0 4px 16px oklch(0% 0 0 / 0.25);
+      cursor: pointer;
+      text-decoration: none;
+      color: white;
+      transition:
+        transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1),
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+    }
+    .ft:hover {
+      transform: translateY(-3px);
+      background: oklch(from var(--accent) calc(l - 0.22) calc(c * 0.45) h / 0.65);
+      box-shadow:
+        inset 0 1px 0 oklch(from var(--accent-l) l c h / 0.2),
+        0 8px 28px oklch(0% 0 0 / 0.35),
+        0 0 0 1px oklch(from var(--accent) l c h / 0.4);
+    }
+
+    .ft__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .ft__badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.18rem 0.55rem;
+      border-radius: 9999px;
+      font-size: 0.66rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      background: oklch(from var(--accent) l c h / 0.25);
+      color: oklch(from var(--accent-m) calc(l + 0.15) c h);
+      border: 1px solid oklch(from var(--accent) l c h / 0.35);
+    }
+    .ft__arrow {
+      color: oklch(from var(--accent-m) l c h / 0.55);
+      width: 15px; height: 15px;
+      flex-shrink: 0;
+      transition: transform 0.18s ease, color 0.18s ease;
+    }
+    .ft:hover .ft__arrow {
+      transform: translateX(3px);
+      color: var(--accent-m);
+    }
+    .ft__name {
+      font-family: var(--font-display);
+      font-size: 1.125rem;
+      font-weight: 400;
+      color: white;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+    }
+    .ft__desc {
+      font-size: 0.81rem;
+      line-height: 1.55;
+      color: oklch(90% 0.02 75 / 0.7);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* ── divider ─────────────────────────────────────────────────────── */
+    hr.div {
+      max-width: 900px;
+      margin: 0 auto 3.5rem;
+      border: none;
+      border-top: 1px solid oklch(88% 0.04 75);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-header">
+    <div class="page-header__eyebrow">Design Preview · Ingrédients</div>
+    <h1 class="page-header__title">Luxury Color Cards</h1>
+    <p class="page-header__sub">Hover pour voir les interactions · layout de la structure A conservé</p>
+  </div>
+
+
+  <!-- ══ OPTION 1 ══ Gradient Glow -->
+  <section class="section">
+    <div class="section-title">
+      <span class="section-title__name">Option 1 — Gradient Glow</span>
+      <span class="section-title__hint">fond teinté par catégorie · ombre colorée au hover · stripe dégradée</span>
+    </div>
+    <div class="grid-2">
+
+      <a class="gc" href="#">
+        <div class="gc__header">
+          <span class="gc__badge">Émollient</span>
+          <svg class="gc__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div class="gc__name">Acide Hyaluronique</div>
+        <div class="gc__desc">Agent hydratant puissant qui retient l'eau dans les couches superficielles de la peau.</div>
+      </a>
+
+      <a class="gc gc--antiox" href="#">
+        <div class="gc__header">
+          <span class="gc__badge">Antioxydant</span>
+          <svg class="gc__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div class="gc__name">Vitamine C</div>
+        <div class="gc__desc">Acide ascorbique, éclat et protection contre les radicaux libres.</div>
+      </a>
+
+      <a class="gc gc--actif" href="#">
+        <div class="gc__header">
+          <span class="gc__badge">Actif</span>
+          <svg class="gc__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div class="gc__name">Niacinamide</div>
+        <div class="gc__desc">Réduit les pores, uniformise le teint et renforce la barrière cutanée.</div>
+      </a>
+
+      <a class="gc gc--exfo" href="#">
+        <div class="gc__header">
+          <span class="gc__badge">Exfoliant</span>
+          <svg class="gc__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div class="gc__name">Acide Salicylique</div>
+        <div class="gc__desc">Exfoliant béta-hydroxy qui pénètre dans les pores pour les désobstruer.</div>
+      </a>
+
+      <a class="gc gc--nourish" href="#">
+        <div class="gc__header">
+          <span class="gc__badge">Nourrissant</span>
+          <svg class="gc__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div class="gc__name">Beurre de Karité</div>
+        <div class="gc__desc">Riche en acides gras, nourrit et répare les peaux sèches et abîmées.</div>
+      </a>
+
+      <a class="gc gc--actif" href="#">
+        <div class="gc__header">
+          <span class="gc__badge">Actif</span>
+          <svg class="gc__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div class="gc__name">Rétinol</div>
+        <div class="gc__desc">Dérivé de vitamine A, anti-âge et régénérant cellulaire reconnu.</div>
+      </a>
+
+    </div>
+  </section>
+
+  <hr class="div" />
+
+  <!-- ══ OPTION 2 ══ Rich Left Bar -->
+  <section class="section">
+    <div class="section-title">
+      <span class="section-title__name">Option 2 — Rich Left Bar</span>
+      <span class="section-title__hint">barre gauche dégradée · fond blanc · ombre colorée douce</span>
+    </div>
+    <div class="grid-2">
+
+      <a class="rc" href="#">
+        <div class="rc__bar"></div>
+        <div class="rc__body">
+          <div class="rc__header">
+            <span class="rc__badge">Émollient</span>
+            <svg class="rc__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+          <div class="rc__name">Acide Hyaluronique</div>
+          <div class="rc__desc">Agent hydratant puissant qui retient l'eau dans les couches superficielles de la peau.</div>
+        </div>
+      </a>
+
+      <a class="rc rc--antiox" href="#">
+        <div class="rc__bar"></div>
+        <div class="rc__body">
+          <div class="rc__header">
+            <span class="rc__badge">Antioxydant</span>
+            <svg class="rc__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+          <div class="rc__name">Vitamine C</div>
+          <div class="rc__desc">Acide ascorbique, éclat et protection contre les radicaux libres.</div>
+        </div>
+      </a>
+
+      <a class="rc rc--actif" href="#">
+        <div class="rc__bar"></div>
+        <div class="rc__body">
+          <div class="rc__header">
+            <span class="rc__badge">Actif</span>
+            <svg class="rc__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+          <div class="rc__name">Niacinamide</div>
+          <div class="rc__desc">Réduit les pores, uniformise le teint et renforce la barrière cutanée.</div>
+        </div>
+      </a>
+
+      <a class="rc rc--exfo" href="#">
+        <div class="rc__bar"></div>
+        <div class="rc__body">
+          <div class="rc__header">
+            <span class="rc__badge">Exfoliant</span>
+            <svg class="rc__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+          <div class="rc__name">Acide Salicylique</div>
+          <div class="rc__desc">Béta-hydroxy qui pénètre dans les pores pour les désobstruer.</div>
+        </div>
+      </a>
+
+      <a class="rc rc--nourish" href="#">
+        <div class="rc__bar"></div>
+        <div class="rc__body">
+          <div class="rc__header">
+            <span class="rc__badge">Nourrissant</span>
+            <svg class="rc__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+          <div class="rc__name">Beurre de Karité</div>
+          <div class="rc__desc">Riche en acides gras, nourrit et répare les peaux sèches.</div>
+        </div>
+      </a>
+
+      <a class="rc rc--antiox" href="#">
+        <div class="rc__bar"></div>
+        <div class="rc__body">
+          <div class="rc__header">
+            <span class="rc__badge">Antioxydant</span>
+            <svg class="rc__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+          <div class="rc__name">Rétinol</div>
+          <div class="rc__desc">Dérivé de vitamine A, anti-âge et régénérant cellulaire reconnu.</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <hr class="div" />
+
+  <!-- ══ OPTION 3 ══ Color Block -->
+  <section class="section">
+    <div class="section-title">
+      <span class="section-title__name">Option 3 — Color Block Header</span>
+      <span class="section-title__hint">header coloré saturé · corps blanc · 2 zones distinctes</span>
+    </div>
+    <div class="grid-3">
+
+      <a class="bc" href="#">
+        <div class="bc__top">
+          <span class="bc__category">Émollient</span>
+          <svg class="bc__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div class="bc__body">
+          <div class="bc__name">Acide Hyaluronique</div>
+          <div class="bc__desc">Agent hydratant qui retient l'eau dans les couches superficielles.</div>
+        </div>
+      </a>
+
+      <a class="bc bc--antiox" href="#">
+        <div class="bc__top">
+          <span class="bc__category">Antioxydant</span>
+          <svg class="bc__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div class="bc__body">
+          <div class="bc__name">Vitamine C</div>
+          <div class="bc__desc">Éclat et protection contre les radicaux libres.</div>
+        </div>
+      </a>
+
+      <a class="bc bc--actif" href="#">
+        <div class="bc__top">
+          <span class="bc__category">Actif</span>
+          <svg class="bc__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div class="bc__body">
+          <div class="bc__name">Niacinamide</div>
+          <div class="bc__desc">Réduit les pores et uniformise le teint.</div>
+        </div>
+      </a>
+
+      <a class="bc bc--exfo" href="#">
+        <div class="bc__top">
+          <span class="bc__category">Exfoliant</span>
+          <svg class="bc__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div class="bc__body">
+          <div class="bc__name">Acide Salicylique</div>
+          <div class="bc__desc">Béta-hydroxy qui pénètre dans les pores.</div>
+        </div>
+      </a>
+
+      <a class="bc bc--nourish" href="#">
+        <div class="bc__top">
+          <span class="bc__category">Nourrissant</span>
+          <svg class="bc__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div class="bc__body">
+          <div class="bc__name">Beurre de Karité</div>
+          <div class="bc__desc">Nourrit et répare les peaux sèches et abîmées.</div>
+        </div>
+      </a>
+
+      <a class="bc bc--actif" href="#">
+        <div class="bc__top">
+          <span class="bc__category">Actif</span>
+          <svg class="bc__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div class="bc__body">
+          <div class="bc__name">Rétinol</div>
+          <div class="bc__desc">Anti-âge et régénérant cellulaire reconnu.</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <hr class="div" />
+
+  <!-- ══ OPTION 4 ══ Frosted Dark -->
+  <section class="section">
+    <div class="section-title">
+      <span class="section-title__name">Option 4 — Dark Frosted Tiles</span>
+      <span class="section-title__hint">fond sombre · glassmorphism · couleurs vives qui ressortent</span>
+    </div>
+    <div class="dark-bg">
+      <div class="grid-2">
+
+        <a class="ft" href="#">
+          <div class="ft__header">
+            <span class="ft__badge">Émollient</span>
+            <svg class="ft__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+          <div class="ft__name">Acide Hyaluronique</div>
+          <div class="ft__desc">Agent hydratant puissant qui retient l'eau dans les couches superficielles.</div>
+        </a>
+
+        <a class="ft ft--antiox" href="#">
+          <div class="ft__header">
+            <span class="ft__badge">Antioxydant</span>
+            <svg class="ft__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+          <div class="ft__name">Vitamine C</div>
+          <div class="ft__desc">Éclat et protection contre les radicaux libres.</div>
+        </a>
+
+        <a class="ft ft--actif" href="#">
+          <div class="ft__header">
+            <span class="ft__badge">Actif</span>
+            <svg class="ft__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+          <div class="ft__name">Niacinamide</div>
+          <div class="ft__desc">Réduit les pores, uniformise le teint et renforce la barrière.</div>
+        </a>
+
+        <a class="ft ft--exfo" href="#">
+          <div class="ft__header">
+            <span class="ft__badge">Exfoliant</span>
+            <svg class="ft__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+          <div class="ft__name">Acide Salicylique</div>
+          <div class="ft__desc">Béta-hydroxy qui pénètre dans les pores pour les désobstruer.</div>
+        </a>
+
+        <a class="ft ft--nourish" href="#">
+          <div class="ft__header">
+            <span class="ft__badge">Nourrissant</span>
+            <svg class="ft__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+          <div class="ft__name">Beurre de Karité</div>
+          <div class="ft__desc">Riche en acides gras, nourrit et répare les peaux sèches.</div>
+        </a>
+
+        <a class="ft ft--actif" href="#">
+          <div class="ft__header">
+            <span class="ft__badge">Actif</span>
+            <svg class="ft__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+          <div class="ft__name">Rétinol</div>
+          <div class="ft__desc">Dérivé de vitamine A, anti-âge et régénérant cellulaire reconnu.</div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

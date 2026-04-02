@@ -1,8 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
 import { getRouteApi, Link, useNavigate } from '@tanstack/react-router'
-import { Package, Plus, Search, SlidersHorizontal } from 'lucide-react'
+import { Package, Plus, SlidersHorizontal } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
+import { Button } from '@/component/Button/Button'
+import { ListPagination } from '@/component/DataDisplay/Pagination/ListPagination'
+import { EmptyState } from '@/component/Feedback/EmptyState/EmptyState'
 import { ActiveFiltersBar } from '@/component/Filter/ActiveFiltersBar'
 import {
   type FilterGroupConfig,
@@ -10,20 +13,17 @@ import {
   type FilterValues,
   GroupedFilterDialog,
 } from '@/component/Filter/Filter'
+import { PageHeader } from '@/component/Layout/PageHeader/PageHeader'
+import { SearchCombobox } from '@/component/search/SearchCombobox'
 import { useListFilters } from '@/hooks/useListFilters'
 import { ProductIcon } from '../../../assets/product-icons'
 import { ingredientQueries } from '../../../lib/queries/ingredients'
 import { type ListProductsFilters, productQueries } from '../../../lib/queries/products'
+import { AddToCollectionModal } from './AddToCollectionModal'
 
 import './ListPage.css'
 import './ProductsPage.css'
 import '@/features/products/styles/kinds.css'
-
-import { ListPagination } from '@/component/DataDisplay/Pagination/ListPagination'
-import { EmptyState } from '@/component/Feedback/EmptyState/EmptyState'
-import { PageBanner } from '@/component/Layout/PageBanner/PageBanner'
-import { SearchCombobox } from '@/component/search/SearchCombobox'
-import { AddToInventoryModal } from './AddToInventoryModal'
 
 const routeApi = getRouteApi('/products/')
 
@@ -230,12 +230,12 @@ export function ProductsPage() {
         page,
         limit: 20,
       }
-    : {}
+    : { sort: 'random', limit: 12 }
 
   const { data, isLoading, isPlaceholderData } = useQuery({
     ...productQueries.list(apiFilters),
     placeholderData: hasFilters ? (prev) => prev : undefined,
-    enabled: hasFilters,
+    staleTime: hasFilters ? 5 * 60 * 1000 : 0,
   })
 
   const filterGroups = useMemo<FilterGroupConfig<FilterKey>[]>(() => {
@@ -360,53 +360,55 @@ export function ProductsPage() {
 
   const items = data?.items ?? []
   const total = data?.total ?? 0
-  const totalPages = Math.ceil((total ?? 0) / 20)
+  const totalPages = Math.ceil((total ?? 0) / 20) // only used when hasFilters (limit: 20)
 
   return (
     <>
       <div className={`list-page products-page${isPlaceholderData ? ' is-syncing' : ''}`}>
-        <header className="list-header">
-          <PageBanner>
-            <div className="list-header__top">
-              <h1 className="list-header__title">
-                Produits
-                {isPlaceholderData && <span className="loader-mini">...</span>}
-              </h1>
-
-              <div className="list-header__search">
-                <SearchCombobox
-                  queryFn={productQueries.search}
-                  toResult={(item) => ({
-                    id: item.id,
-                    slug: item.slug,
-                    label: item.name,
-                    sublabel: item.brand,
-                  })}
-                  onSelect={(slug) => navigate({ to: '/products/$slug', params: { slug } })}
-                />
+        <PageHeader
+          title="Produits"
+          isLoading={isPlaceholderData}
+          meta={hasFilters ? `${total} produit${total > 1 ? 's' : ''}` : 'Découverte'}
+          actions={
+            <>
+              <SearchCombobox
+                queryFn={productQueries.search}
+                toResult={(item) => ({
+                  id: item.id,
+                  slug: item.slug,
+                  label: item.name,
+                  sublabel: item.brand,
+                })}
+                onSelect={(slug) => navigate({ to: '/products/$slug', params: { slug } })}
+              />
+              <div className="list-header__actions-group">
+                <Button
+                  type="button"
+                  variant="primary"
+                  size="md"
+                  onClick={() => setDrawerOpen(true)}
+                  className="list-filter-btn"
+                >
+                  <SlidersHorizontal size={14} />
+                  <span>Filtrer</span>
+                  {filterCount > 0 && <span className="list-filter-btn__count">{filterCount}</span>}
+                </Button>
+                <Button to="/products/new" variant="primary" size="md" className="list-filter-btn">
+                  <Plus size={14} />
+                  <span>Créer</span>
+                </Button>
               </div>
+            </>
+          }
+        />
 
-              <Link to="/products/new" className="list-filter-btn">
-                <Plus size={16} />
-                <span>Créer</span>
-              </Link>
-
-              <button type="button" className="list-filter-btn" onClick={() => setDrawerOpen(true)}>
-                <SlidersHorizontal size={16} />
-                <span>Filtrer</span>
-                {filterCount > 0 && <span className="list-filter-btn__count">{filterCount}</span>}
-              </button>
-            </div>
-          </PageBanner>
-
-          <ActiveFiltersBar
-            activeTags={activeTags}
-            groupLabels={GROUP_LABELS}
-            getFilterLabel={getFilterLabel}
-            onRemoveTag={toggleSingleFilter}
-            onClearAll={resetFilters}
-          />
-        </header>
+        <ActiveFiltersBar
+          activeTags={activeTags}
+          groupLabels={GROUP_LABELS}
+          getFilterLabel={getFilterLabel}
+          onRemoveTag={toggleSingleFilter}
+          onClearAll={resetFilters}
+        />
 
         <GroupedFilterDialog
           open={isDrawerOpen}
@@ -426,13 +428,7 @@ export function ProductsPage() {
             pointerEvents: isPlaceholderData ? 'none' : 'auto',
           }}
         >
-          {!hasFilters ? (
-            <EmptyState
-              icon={<Search size={24} />}
-              title="Explorez les produits"
-              subtitle="Utilisez le bouton Filtrer pour sélectionner une catégorie, une marque ou un concern."
-            />
-          ) : isLoading && !isPlaceholderData ? (
+          {isLoading && !isPlaceholderData ? (
             <EmptyState icon={<Package size={24} />} subtitle="Chargement..." />
           ) : items.length === 0 ? (
             <EmptyState
@@ -442,34 +438,29 @@ export function ProductsPage() {
             />
           ) : (
             <>
-              <div className="list-results-info">
-                <span className="list-results-count">
-                  {total} produit{total > 1 ? 's' : ''} trouvé{total > 1 ? 's' : ''}
-                </span>
-              </div>
-
               <div className="list-grid">
                 {items.map((product) => (
                   <div
                     key={product.id}
                     className={`list-card list-card--product ${kindClass(product.kind)} ${unitClass(product.unit)}`}
                   >
-                    <Link
-                      to="/products/$slug"
-                      params={{ slug: product.slug }}
-                      className="list-card__header"
-                    >
-                      <div className="list-card__icon-wrap">
-                        <ProductIcon unit={product.unit} kind={product.kind} size={22} />
-                      </div>
-                      <div className="list-card__header-text">
-                        <span className="list-card__kind">{product.kind}</span>
+                    <div className="list-card__bar" />
+                    <div className="list-card__inner">
+                      <Link
+                        to="/products/$slug"
+                        params={{ slug: product.slug }}
+                        className="list-card__header"
+                      >
+                        <div className="list-card__header-top">
+                          <span className="list-card__kind">{product.kind}</span>
+                          <div className="list-card__icon-wrap">
+                            <ProductIcon unit={product.unit} kind={product.kind} size={18} />
+                          </div>
+                        </div>
                         <span className="list-card__brand">{product.brand}</span>
-                      </div>
-                    </Link>
+                        <p className="list-card__name">{product.name}</p>
+                      </Link>
 
-                    <div className="list-card__body">
-                      <p className="list-card__name">{product.name}</p>
                       <div className="list-card__footer">
                         <div className="list-card__price-wrap">
                           {product.priceCents != null && (
@@ -487,7 +478,7 @@ export function ProductsPage() {
                         <button
                           type="button"
                           className="list-card__add-btn"
-                          aria-label={`Ajouter ${product.name} à l'inventaire`}
+                          aria-label={`Ajouter ${product.name} à la collection`}
                           onClick={(e) => {
                             e.preventDefault()
                             e.stopPropagation()
@@ -508,14 +499,20 @@ export function ProductsPage() {
                 ))}
               </div>
 
-              <ListPagination currentPage={page} totalPages={totalPages} onPageChange={goToPage} />
+              {hasFilters && (
+                <ListPagination
+                  currentPage={page}
+                  totalPages={totalPages}
+                  onPageChange={goToPage}
+                />
+              )}
             </>
           )}
         </main>
       </div>
 
       {modalProduct && (
-        <AddToInventoryModal
+        <AddToCollectionModal
           product={modalProduct}
           onClose={() => setModalProduct(null)}
           onSuccess={() => setModalProduct(null)}

@@ -1,11 +1,11 @@
 import type { ProfileUpdateInput } from '@habit-tracker/shared'
 
 import { useSuspenseQuery } from '@tanstack/react-query'
-import clsx from 'clsx'
 import { Calendar, LayoutDashboard, Settings, UserCircle } from 'lucide-react'
 import { Suspense, useState } from 'react'
 
 import { Spinner } from '@/component/Feedback/Spinner/Spinner'
+import { PageTitle } from '@/component/Typography/PageTitle/PageTitle'
 import { profileQueries, useUpdateProfile } from '../../../../lib/queries/profile'
 import { AccountSettings } from '../AccountSettings/AccountSettings'
 import { PreferenceSettings } from '../PreferenceSettings'
@@ -13,6 +13,8 @@ import { ProfileAvatar } from '../ProfileAvatar/ProfileAvatar'
 import { ProfileForm } from '../ProfileForm/ProfileForm'
 import { ProfileStats } from '../ProfileStats/ProfileStats'
 import './ProfileDashboard.css'
+
+import { type TabOption, Tabs } from '@/component/Tabs/Tabs'
 
 const formatJoinDate = (date?: string | null): string => {
   if (!date) return ''
@@ -39,6 +41,24 @@ export const ProfileDashboard = () => {
     ? 'Une erreur est survenue lors de la mise à jour.'
     : null
 
+  const tabOptions: TabOption<TabType>[] = [
+    {
+      id: 'overview',
+      label: 'Résumé',
+      icon: <LayoutDashboard size={18} />,
+    },
+    {
+      id: 'preferences',
+      label: 'Réglages',
+      icon: <Settings size={18} />,
+    },
+    {
+      id: 'account',
+      label: 'Compte',
+      icon: <UserCircle size={18} />,
+    },
+  ]
+
   return (
     <main className="profile-dashboard">
       <div className="profile-hero">
@@ -50,10 +70,11 @@ export const ProfileDashboard = () => {
 
           <div className="profile-hero__main">
             <div className="profile-hero__header">
-              <div className="profile-hero__info">
-                <h1 className="profile-hero__name">{displayName}</h1>
-                {profile.username && <p className="profile-hero__handle">@{profile.username}</p>}
-              </div>
+              <PageTitle
+                title={displayName}
+                subtitle={profile.username ? `@${profile.username}` : undefined}
+                className="profile-hero__info"
+              />
             </div>
 
             {profile.bio && <p className="profile-hero__bio">{profile.bio}</p>}
@@ -69,32 +90,12 @@ export const ProfileDashboard = () => {
       </div>
 
       {!isEditing && (
-        <nav className="profile-tabs">
-          <button
-            type="button"
-            className={clsx('profile-tab', activeTab === 'overview' && 'active')}
-            onClick={() => setActiveTab('overview')}
-          >
-            <LayoutDashboard size={18} />
-            Résumé
-          </button>
-          <button
-            type="button"
-            className={clsx('profile-tab', activeTab === 'preferences' && 'active')}
-            onClick={() => setActiveTab('preferences')}
-          >
-            <Settings size={18} />
-            Réglages
-          </button>
-          <button
-            type="button"
-            className={clsx('profile-tab', activeTab === 'account' && 'active')}
-            onClick={() => setActiveTab('account')}
-          >
-            <UserCircle size={18} />
-            Compte
-          </button>
-        </nav>
+        <Tabs
+          options={tabOptions}
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+          className="profile-tabs-container"
+        />
       )}
 
       <div className="profile-dashboard__body">

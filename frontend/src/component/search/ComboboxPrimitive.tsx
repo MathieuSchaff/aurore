@@ -14,13 +14,10 @@ interface ComboboxPrimitiveProps<T> {
   isLoading?: boolean
   emptyMessage?: string
   keyExtractor?: (item: T, index: number) => string | number
-  children: ReactNode // L'input sera passé ici
+  children: ReactNode
 }
 
-/**
- * Une primitive de Combobox accessible qui gère la liste déroulante et la navigation clavier.
- * Suit le pattern WAI-ARIA Combobox (Listbox version).
- */
+// follows the WAI-ARIA Combobox pattern (Listbox version) for keyboard navigation and accessibility
 export function ComboboxPrimitive<T>({
   items,
   isOpen,
@@ -39,7 +36,6 @@ export function ComboboxPrimitive<T>({
   const listboxId = useId()
   const containerRef = useRef<HTMLDivElement>(null)
 
-  // Fermeture au clic à l'extérieur
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
@@ -50,7 +46,6 @@ export function ComboboxPrimitive<T>({
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [onClose])
 
-  // Scroll automatique vers l'élément actif
   useEffect(() => {
     if (highlightedIndex >= 0 && isOpen) {
       const element = document.getElementById(`${listboxId}-option-${highlightedIndex}`)
@@ -59,7 +54,7 @@ export function ComboboxPrimitive<T>({
   }, [highlightedIndex, isOpen, listboxId])
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    // On laisse d'abord le parent gérer ses propres touches (ex: Tab spécial dans BrandCombobox)
+    // let the parent handle its own keys first, so it can intercept things like Tab before we do
     onKeyDown?.(e)
     if (e.defaultPrevented) return
 
@@ -90,10 +85,6 @@ export function ComboboxPrimitive<T>({
   return (
     // biome-ignore lint/a11y/noStaticElementInteractions: wrapper for input navigation
     <div className="combobox-primitive" ref={containerRef} onKeyDown={handleKeyDown}>
-      {/* 
-        On injecte les attributs ARIA sur l'input (l'enfant unique passé via children)
-        Note: On assume que l'enfant est un input ou un wrapper contenant un input.
-      */}
       {children}
 
       {isOpen && (
@@ -120,7 +111,7 @@ export function ComboboxPrimitive<T>({
                   role="option"
                   aria-selected={isActive}
                   className={`combobox-primitive__option ${isActive ? 'combobox-primitive__option--active' : ''}`}
-                  onMouseDown={(e) => e.preventDefault()} // Empêche le blur de l'input
+                  onMouseDown={(e) => e.preventDefault()} // prevents the input from losing focus on click
                   onClick={() => onSelect(item)}
                   tabIndex={-1}
                   onKeyDown={(e) => {
@@ -138,7 +129,6 @@ export function ComboboxPrimitive<T>({
         </div>
       )}
 
-      {/* Annonce Live pour les lecteurs d'écran */}
       <span className="sr-only" aria-live="polite" aria-atomic="true">
         {isOpen ? `${items.length} résultats disponibles. Utilisez les flèches pour naviguer.` : ''}
       </span>

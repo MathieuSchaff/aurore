@@ -1,7 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
-import { Archive, ArchiveRestore, ChevronDown, ChevronUp, Trash2 } from 'lucide-react'
+import { Archive, ArchiveRestore, ChevronDown, ChevronUp, Info, Layers, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 
+import { Button } from '@/component/Button/Button'
+import { SectionHeader } from '@/component/Typography/SectionHeader/SectionHeader'
 import {
   habitQueries,
   useArchiveHabit,
@@ -9,6 +11,7 @@ import {
   useReorderHabits,
   useRestoreHabit,
 } from '../../../lib/queries/habits'
+import './styles/HabitsListView.css'
 
 interface HabitListViewProps {
   onSelectHabit: (id: string) => void
@@ -87,88 +90,102 @@ export function HabitListView({ onSelectHabit }: HabitListViewProps) {
 
   return (
     <div className="habit-list-view">
-      {/* Filter chips */}
-      <div className="habit-list-filters">
-        <FilterChip active={filter === 'active'} onClick={() => setFilter('active')}>
-          Actives
-        </FilterChip>
-        <FilterChip active={filter === 'archived'} onClick={() => setFilter('archived')}>
-          Archivees
-        </FilterChip>
+      {/* Header with Filter chips */}
+      <div className="habit-list-header">
+        <SectionHeader title={filter === 'active' ? 'Mes Habitudes' : 'Habitudes Archivées'}>
+          <div className="habit-list-filters">
+            <FilterChip active={filter === 'active'} onClick={() => setFilter('active')}>
+              Actives
+            </FilterChip>
+            <FilterChip active={filter === 'archived'} onClick={() => setFilter('archived')}>
+              Archivées
+            </FilterChip>
+          </div>
+        </SectionHeader>
       </div>
 
       {/* List */}
       {filtered.length === 0 ? (
-        <div className="habit-list-empty">
-          <p className="habit-list-empty__text">
-            {filter === 'active' ? 'Aucune habitude active.' : 'Aucune habitude archivee.'}
+        <div className="habit-list-empty-state">
+          <Layers size={40} className="habit-list-empty-state__icon" />
+          <p className="habit-list-empty-state__text">
+            {filter === 'active' ? 'Aucune habitude active.' : 'Aucune habitude archivée.'}
           </p>
         </div>
       ) : (
         <div className="habit-list">
           {filtered.map((habit, index) => (
-            <div key={habit.id} className="habit-list-row">
-              {/* Infos */}
-              <button
-                type="button"
-                onClick={() => onSelectHabit(habit.id)}
-                className="habit-list-row__info-btn"
-              >
-                <span className="habit-list-row__name">{habit.name}</span>
-                <span className="habit-row__category">{habit.category}</span>
-              </button>
+            <div key={habit.id} className="habit-list-card">
+              <div className="habit-list-card__main">
+                <div className="habit-list-card__content">
+                  <div className="habit-list-card__title-row">
+                    <span className="habit-list-card__name">{habit.name}</span>
+                    <span className="habit-row__category">{habit.category}</span>
+                  </div>
+                  {habit.frequency && (
+                    <span className="habit-list-card__frequency">
+                      {formatFrequency(habit.frequency)}
+                    </span>
+                  )}
+                </div>
 
-              {/* Frequence badge */}
-              {habit.frequency && (
-                <span className="habit-list-row__frequency">
-                  {formatFrequency(habit.frequency)}
-                </span>
-              )}
+                <div className="habit-list-card__actions">
+                  <button
+                    type="button"
+                    onClick={() => onSelectHabit(habit.id)}
+                    className="action-btn action-btn--info"
+                    title="Détails"
+                  >
+                    <Info size={16} />
+                  </button>
 
-              {/* Actions */}
-              <div className="habit-list-row__actions">
-                {filter === 'active' ? (
-                  <>
-                    <ActionButton
-                      title="Monter"
-                      onClick={() => handleReorder(index, 'up')}
-                      disabled={index === 0 || reorderHabits.isPending}
-                    >
-                      <ChevronUp size={16} />
-                    </ActionButton>
-                    <ActionButton
-                      title="Descendre"
-                      onClick={() => handleReorder(index, 'down')}
-                      disabled={index === filtered.length - 1 || reorderHabits.isPending}
-                    >
-                      <ChevronDown size={16} />
-                    </ActionButton>
-                    <ActionButton
-                      title="Archiver"
-                      onClick={() => archiveHabit.mutate(habit.id)}
-                      disabled={archiveHabit.isPending}
-                    >
-                      <Archive />
-                    </ActionButton>
-                  </>
-                ) : (
-                  <>
-                    <ActionButton
-                      title="Restaurer"
-                      onClick={() => restoreHabit.mutate(habit.id)}
-                      disabled={restoreHabit.isPending}
-                    >
-                      <ArchiveRestore />
-                    </ActionButton>
-                    <ActionButton
-                      title="Supprimer"
-                      onClick={() => setConfirmDeleteId(habit.id)}
-                      variant="danger"
-                    >
-                      <Trash2 />
-                    </ActionButton>
-                  </>
-                )}
+                  {filter === 'active' ? (
+                    <>
+                      <div className="reorder-group">
+                        <ActionButton
+                          title="Monter"
+                          onClick={() => handleReorder(index, 'up')}
+                          disabled={index === 0 || reorderHabits.isPending}
+                        >
+                          <ChevronUp size={16} />
+                        </ActionButton>
+                        <ActionButton
+                          title="Descendre"
+                          onClick={() => handleReorder(index, 'down')}
+                          disabled={index === filtered.length - 1 || reorderHabits.isPending}
+                        >
+                          <ChevronDown size={16} />
+                        </ActionButton>
+                      </div>
+                      <ActionButton
+                        title="Archiver"
+                        onClick={() => archiveHabit.mutate(habit.id)}
+                        disabled={archiveHabit.isPending}
+                        variant="secondary"
+                      >
+                        <Archive size={16} />
+                      </ActionButton>
+                    </>
+                  ) : (
+                    <>
+                      <ActionButton
+                        title="Restaurer"
+                        onClick={() => restoreHabit.mutate(habit.id)}
+                        disabled={restoreHabit.isPending}
+                        variant="primary"
+                      >
+                        <ArchiveRestore size={16} />
+                      </ActionButton>
+                      <ActionButton
+                        title="Supprimer"
+                        onClick={() => setConfirmDeleteId(habit.id)}
+                        variant="danger"
+                      >
+                        <Trash2 size={16} />
+                      </ActionButton>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
           ))}
@@ -179,7 +196,7 @@ export function HabitListView({ onSelectHabit }: HabitListViewProps) {
       {confirmDeleteId && (
         <ConfirmDialog
           title="Supprimer l'habitude ?"
-          description="Cette action est irreversible. Tout l'historique sera perdu."
+          description="Cette action est irréversible. Tout l'historique sera perdu."
           confirmLabel="Supprimer"
           isLoading={deleteHabit.isPending}
           onConfirm={() => handleDelete(confirmDeleteId)}
@@ -202,11 +219,7 @@ function FilterChip({
   children: React.ReactNode
 }) {
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`filter-chip ${active ? 'filter-chip--active' : 'filter-chip--inactive'}`}
-    >
+    <button type="button" onClick={onClick} className={`filter-chip ${active ? 'is-active' : ''}`}>
       {children}
     </button>
   )
@@ -222,7 +235,7 @@ function ActionButton({
   onClick: () => void
   disabled?: boolean
   title: string
-  variant?: 'default' | 'danger'
+  variant?: 'default' | 'danger' | 'primary' | 'secondary'
   children: React.ReactNode
 }) {
   return (
@@ -234,7 +247,7 @@ function ActionButton({
         onClick()
       }}
       disabled={disabled}
-      className={`action-btn ${variant === 'danger' ? 'action-btn--danger' : 'action-btn--default'}`}
+      className={`action-btn action-btn--${variant}`}
     >
       {children}
     </button>
@@ -262,22 +275,12 @@ function ConfirmDialog({
         <h3 className="confirm-dialog__title">{title}</h3>
         <p className="confirm-dialog__description">{description}</p>
         <div className="confirm-dialog__actions">
-          <button
-            type="button"
-            onClick={onCancel}
-            disabled={isLoading}
-            className="confirm-dialog__cancel-btn"
-          >
+          <Button type="button" onClick={onCancel} disabled={isLoading} variant="outline" fullWidth>
             Annuler
-          </button>
-          <button
-            type="button"
-            onClick={onConfirm}
-            disabled={isLoading}
-            className="confirm-dialog__confirm-btn"
-          >
-            {isLoading ? 'Suppression...' : confirmLabel}
-          </button>
+          </Button>
+          <Button type="button" onClick={onConfirm} loading={isLoading} variant="primary" fullWidth>
+            {confirmLabel}
+          </Button>
         </div>
       </div>
     </div>

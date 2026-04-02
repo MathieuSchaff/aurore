@@ -89,7 +89,6 @@
 .filter-drawer__body::-webkit-scrollbar {
   display: none;
 }
-/* Groupes non-accordéon (search-select) */
 .filter-drawer__group {
   display: flex;
   flex-direction: column;
@@ -124,7 +123,7 @@
   flex: 1;
   padding: var(--space-3) var(--space-4);
   border: none;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-full);
   background: var(--color-primary);
   color: var(--text-inverse);
   font-family: var(--font-sans);
@@ -141,7 +140,7 @@
 .filter-drawer__reset {
   padding: var(--space-3) var(--space-4);
   border: 1px solid var(--border-default);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-full);
   background: transparent;
   color: var(--text-secondary);
   font-family: var(--font-sans);
@@ -157,19 +156,6 @@
   background: var(--bg-hover);
   color: var(--text-primary);
 }
-
-/* ─── Accordion ─────────────────────────────────────────────
- *
- * DOM structure :
- *   .filter-accordion
- *     .filter-accordion__trigger   ← bouton cliquable
- *     .filter-accordion__body      ← grid wrapper (0fr→1fr)
- *       .filter-accordion__inner   ← overflow:hidden + min-height:0  ← OBLIGATOIRE ICI
- *         .filter-drawer__chips    ← contenu réel avec padding
- *
- * La règle fondamentale : overflow:hidden doit être sur l'enfant DIRECT du grid,
- * pas sur le grid lui-même. C'est ce qui permet la clip correcte à height 0.
- * ────────────────────────────────────────────────────────── */
 
 .filter-accordion {
   border-bottom: 1px solid var(--border-default);
@@ -231,25 +217,19 @@
 .filter-accordion__chevron {
   color: var(--text-muted);
   flex-shrink: 0;
-  /* La transition du rotate est gérée inline via style prop React pour éviter
-     le conflit avec la valeur initiale CSS */
   transition: transform var(--transition-base) ease;
 }
 
-/* Grid wrapper : c'est lui qui anime la hauteur */
 .filter-accordion__body {
   display: grid;
-  /* grid-template-rows injecté inline depuis React : '0fr' ou '1fr' */
   transition: grid-template-rows var(--transition-base) ease;
 }
 
-/* Inner wrapper : overflow:hidden + min-height:0 — les deux sont requis */
 .filter-accordion__inner {
   overflow: hidden;
   min-height: 0;
 }
 
-/* Reset complet du fieldset UA (border groove, padding, margin, min-inline-size) */
 .filter-accordion__inner fieldset {
   border: none;
   padding: 0;
@@ -257,13 +237,10 @@
   min-inline-size: 0;
 }
 
-/* Chips avec padding — on met le padding ici et non sur __inner
-   pour éviter que le padding ne crée une hauteur visible à 0fr */
 .filter-accordion__inner .filter-drawer__chips {
   padding: var(--space-1) var(--space-5) var(--space-4);
 }
 
-/* Quand les chips sont dans un subgroup, le padding est géré par le parent */
 .filter-accordion__inner > .filter-subgroup .filter-drawer__chips,
 .filter-subgroups .filter-drawer__chips {
   padding: 0;
@@ -272,8 +249,6 @@
 .filter-accordion__inner > .filter-subgroup {
   padding: var(--space-1) var(--space-5) var(--space-3);
 }
-
-/* ─── Subgroups (grouped filters) ────────────────────────── */
 
 .filter-subgroups {
   display: flex;
@@ -313,8 +288,6 @@
   padding: var(--space-1) var(--space-5) var(--space-3);
 }
 
-/* ─── Tier separator ─────────────────────────────────────── */
-
 .filter-drawer__separator {
   display: flex;
   align-items: center;
@@ -338,8 +311,6 @@
   letter-spacing: 0.05em;
   white-space: nowrap;
 }
-
-/* ─── Chips ─────────────────────────────────────────────── */
 
 .filter-chip {
   padding: 0.375rem 0.75rem;
@@ -397,8 +368,6 @@
   color: var(--color-primary);
 }
 
-/* ─── SearchSelect ──────────────────────────────────────── */
-
 .search-select {
   position: relative;
   display: flex;
@@ -424,19 +393,16 @@
   transition: border-color var(--transition-fast) ease;
 }
 
-/* Wrapper relatif pour positionner le bouton dismiss */
 .search-select__input-wrapper {
   position: relative;
   display: flex;
   align-items: center;
 }
 
-/* Quand la liste est ouverte, on laisse de la place à droite pour le bouton */
 .search-select__input-wrapper:has(.search-select__dismiss) .search-select__input {
   padding-right: calc(var(--space-3) + 1.5rem + var(--space-2));
 }
 
-/* Bouton de fermeture de la liste, positionné en absolu dans le wrapper */
 .search-select__dismiss {
   position: absolute;
   right: var(--space-2);
@@ -475,23 +441,35 @@
 }
 
 .search-select__dropdown {
-  position: absolute;
-  top: calc(100% + 4px);
-  left: 0;
-  right: 0;
-  z-index: 10;
+  position: fixed;
+  z-index: 200;
   list-style: none;
   margin: 0;
-  padding: var(--space-1) 0;
+  padding: var(--space-2);
   background: var(--bg-card);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-  max-height: 12rem;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.search-select__option-wrapper {
+  border-radius: var(--radius-sm);
+  transition:
+    background var(--transition-fast) ease,
+    color var(--transition-fast) ease;
+  cursor: pointer;
+}
+
+.search-select__option-wrapper:hover {
+  background: var(--bg-hover);
 }
 
 .search-select__option {
+  display: block;
   width: 100%;
   padding: var(--space-2) var(--space-3);
   border: none;
@@ -500,12 +478,6 @@
   font-family: var(--font-sans);
   font-size: var(--text-sm);
   color: var(--text-primary);
-  cursor: pointer;
-  transition: background var(--transition-fast) ease;
-}
-
-.search-select__option:hover {
-  background: var(--bg-hover);
 }
 
 .search-select__empty {
@@ -514,8 +486,6 @@
   color: var(--text-muted);
   font-style: italic;
 }
-
-/* ─── Desktop (slide depuis la droite) ──────────────────── */
 
 @media (min-width: 640px) {
   .filter-drawer[open] {
@@ -541,12 +511,15 @@
   }
 }
 .search-select__option--active {
-  background-color: var(--color-primary-light);
-  outline: 2px solid var(--color-primary);
-  outline-offset: -2px;
+  background: oklch(from var(--color-primary) l c h / 0.12);
+  color: var(--color-primary);
 }
 
-/* Assurez-vous que les éléments focusables ont un outline visible */
+.search-select__option--active .search-select__option {
+  color: var(--color-primary);
+  font-weight: var(--font-semibold);
+}
+
 .filter-chip:focus-visible,
 .search-select__input:focus,
 .filter-accordion__trigger:focus-visible,
@@ -555,7 +528,6 @@ button:focus-visible {
   outline-offset: 2px;
 }
 
-/* Réduire le motion pour les utilisateurs qui le préfèrent */
 @media (prefers-reduced-motion: reduce) {
   .filter-accordion__chevron,
   .filter-accordion__body {
@@ -563,10 +535,7 @@ button:focus-visible {
   }
 }
 
-/* ─── Thème Light ────────────────────────────────────────── */
-
 [data-theme="light"] {
-  /* Panel : fond teinté indigo + accent top border */
   .filter-drawer__panel {
     background: var(--primary-97);
     border: 1px solid var(--border-default);
@@ -574,7 +543,6 @@ button:focus-visible {
     box-shadow: var(--shadow-card);
   }
 
-  /* Header : gradient indigo subtil */
   .filter-drawer__header {
     background: linear-gradient(to right, var(--primary-97), var(--bg-page));
     border-bottom-color: var(--border-default);
@@ -607,7 +575,6 @@ button:focus-visible {
     color: var(--color-primary);
   }
 
-  /* Chips actives */
   .filter-chip--active {
     background: var(--color-primary);
     border-color: var(--color-primary);
@@ -620,28 +587,23 @@ button:focus-visible {
     color: var(--text-inverse);
   }
 
-  /* Essential tier : teinte indigo subtile */
   .filter-accordion--essential {
     background: oklch(from var(--color-primary) l c h / 0.05);
   }
 
-  /* Label accordion */
   .filter-accordion__label {
     color: var(--text-secondary);
   }
 
-  /* Trigger hover */
   .filter-accordion__trigger:hover {
     background: var(--bg-hover);
   }
 
-  /* Footer : fond blanc pour contraster avec le body teinté */
   .filter-drawer__footer {
     background: var(--bg-page);
     border-top-color: var(--border-default);
   }
 
-  /* Bouton reset */
   .filter-drawer__reset {
     border-color: var(--border-default);
     color: var(--text-secondary);
@@ -653,7 +615,6 @@ button:focus-visible {
     color: var(--color-primary);
   }
 
-  /* Input search-select : blanc pour contraster avec le body teinté */
   .search-select__input {
     background: var(--bg-page);
     border-color: var(--border-default);
@@ -664,32 +625,27 @@ button:focus-visible {
     box-shadow: 0 0 0 2px oklch(from var(--color-primary) l c h / 0.15);
   }
 
-  /* Dropdown */
   .search-select__dropdown {
     background: var(--bg-page);
     border-color: var(--border-default);
     box-shadow: var(--shadow-card);
   }
 
-  /* Subgroup label */
   .filter-subgroup__label {
     color: var(--color-primary);
     background: oklch(from var(--color-primary) l c h / 0.06);
   }
 
-  /* Separator */
   .filter-drawer__separator-label {
     color: var(--text-muted);
   }
 
-  /* "Voir tout" chip */
   .filter-chip--more {
     background: transparent;
     border-color: var(--border-default);
   }
 }
 
-/* Desktop : accent sur le côté gauche (panel slide depuis la droite) */
 @media (min-width: 640px) {
   [data-theme="light"] .filter-drawer__panel {
     border-top: 1px solid var(--border-default);

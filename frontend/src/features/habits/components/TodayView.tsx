@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
-import { Check, ChevronRight } from 'lucide-react'
+import { Check, Info } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
+import { SectionHeader } from '@/component/Typography/SectionHeader/SectionHeader'
 import { habitQueries, useToggleCheck } from '../../../lib/queries/habits'
 import { StockBadge } from './StockBadge'
 
@@ -75,8 +76,11 @@ export function TodayView({ onSelectHabit }: TodayViewProps) {
   return (
     <div className="today-view">
       <div className="today-progress">
-        <div className="today-progress__label">
-          <span className="today-progress__title">Progression</span>
+        <div className="today-progress__header">
+          <div className="today-progress__info">
+            <span className="today-progress__title">Progression quotidienne</span>
+            <span className="today-progress__subtitle">C'est une excellente journée !</span>
+          </div>
           <span className="today-progress__count">
             {completed.length}/{habits.length}
           </span>
@@ -85,15 +89,15 @@ export function TodayView({ onSelectHabit }: TodayViewProps) {
           <div className="today-progress__fill" style={{ width: `${progress}%` }} />
         </div>
       </div>
+
       {/* Habitudes en attente */}
       {pending.length > 0 && (
         <section className="today-section">
-          <h2 className="today-section__heading">A faire</h2>
+          <SectionHeader title="À faire" variant="primary" />
           <div className="today-section__list">
             {pending.map((habit) => (
-              <>
+              <div key={habit.id} className="habit-row-container">
                 <HabitRow
-                  key={habit.id}
                   habit={habit}
                   onToggle={handleToggle}
                   onSelect={onSelectHabit}
@@ -108,7 +112,7 @@ export function TodayView({ onSelectHabit }: TodayViewProps) {
                     onClose={() => setEditingProductsFor(null)}
                   />
                 )}
-              </>
+              </div>
             ))}
           </div>
         </section>
@@ -117,12 +121,11 @@ export function TodayView({ onSelectHabit }: TodayViewProps) {
       {/* Habitudes complétées */}
       {completed.length > 0 && (
         <section className="today-section today-section--completed">
-          <h2 className="today-section__heading">Termine</h2>
+          <SectionHeader title="Terminé" variant="default" />
           <div className="today-section__list">
             {completed.map((habit) => (
-              <>
+              <div key={habit.id} className="habit-row-container">
                 <HabitRow
-                  key={habit.id}
                   habit={habit}
                   onToggle={handleToggle}
                   onSelect={onSelectHabit}
@@ -137,7 +140,7 @@ export function TodayView({ onSelectHabit }: TodayViewProps) {
                     onClose={() => setEditingProductsFor(null)}
                   />
                 )}
-              </>
+              </div>
             ))}
           </div>
         </section>
@@ -189,10 +192,10 @@ function HabitRow({
 }: HabitRowProps) {
   const hasTimings = (habit.timings?.length ?? 0) > 0
   const hasProducts = habit.products?.some((p) => p.qty !== null) ?? false
-  const accentColor = habit.color ?? '#f59e0b'
+  const accentColor = habit.color ?? 'var(--color-primary)'
 
   return (
-    <div className="habit-row">
+    <div className={`habit-row${habit.isCompletedToday ? ' is-completed' : ''}`}>
       <div className="habit-row__main">
         {!hasTimings && (
           <button
@@ -201,7 +204,7 @@ function HabitRow({
             onClick={() => onToggle(habit.id, undefined, habit.products)}
             className="habit-row__checkbox"
             style={{
-              borderColor: habit.isCompletedToday ? accentColor : 'rgb(63 63 70)',
+              borderColor: habit.isCompletedToday ? accentColor : 'var(--border-strong)',
               backgroundColor: habit.isCompletedToday ? accentColor : 'transparent',
             }}
           >
@@ -209,62 +212,72 @@ function HabitRow({
           </button>
         )}
         {habit.emoji && <span className="habit-row__emoji">{habit.emoji}</span>}
-        <button type="button" onClick={() => onSelect(habit.id)} className="habit-row__name-btn">
-          <span>{habit.name}</span>
-          <span className="habit-row__category">{habit.category}</span>
-        </button>
 
-        <ChevronRight className="habit-row__detail-icon" />
+        <div className="habit-row__content">
+          <div className="habit-row__title-row">
+            <span className="habit-row__name">{habit.name}</span>
+            <span className="habit-row__category">{habit.category}</span>
+          </div>
+
+          {/* Timings summary or small pills */}
+          {hasTimings && (
+            <div className="habit-row__timings-pills">
+              {habit.timings?.map((timing) => (
+                <button
+                  key={timing.id}
+                  type="button"
+                  disabled={isToggling}
+                  onClick={() => onToggle(habit.id, timing.id, habit.products)}
+                  className={`habit-timing-pill${timing.isChecked ? ' is-checked' : ''}`}
+                >
+                  {timing.label ?? timing.time}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <button
+          type="button"
+          onClick={() => onSelect(habit.id)}
+          className="habit-row__info-btn"
+          title="Voir les détails"
+        >
+          <Info size={18} />
+        </button>
       </div>
 
-      {/* Sous-timings (matin, soir, etc.) */}
-      {hasTimings && (
-        <div className="habit-row__timings">
-          <div className="habit-row__timings-list">
-            {habit.timings?.map((timing) => (
+      {/* Stock badges and edit button if needed */}
+      {(hasProducts || (habit.isCompletedToday && habit.products && habit.products.length > 0)) && (
+        <div className="habit-row__footer">
+          {hasProducts && (
+            <div className="habit-row__products">
+              {habit.products
+                ?.filter((p) => p.qty !== null)
+                .map((p) => (
+                  <StockBadge
+                    key={p.id}
+                    qty={p.qty ?? 0}
+                    usagesPerDay={p.usagesPerDay}
+                    unit={p.unit}
+                  />
+                ))}
+            </div>
+          )}
+          {habit.isCompletedToday &&
+            habit.products &&
+            habit.products.length > 0 &&
+            !isEditingProducts && (
               <button
-                key={timing.id}
                 type="button"
-                disabled={isToggling}
-                onClick={() => onToggle(habit.id, timing.id, habit.products)}
-                className="habit-timing-btn"
-                style={{
-                  backgroundColor: timing.isChecked ? `${accentColor}20` : 'rgb(39 39 42 / 0.5)',
-                  color: timing.isChecked ? accentColor : 'rgb(161 161 170)',
-                }}
+                onClick={onEditProducts}
+                className="habit-row__edit-products-link"
               >
-                <span
-                  className="habit-timing--btn__dot"
-                  style={{
-                    backgroundColor: timing.isChecked ? accentColor : 'rgb(82 82 91)',
-                  }}
-                />
-                {timing.label ?? timing.time}
+                Modifier les produits
               </button>
-            ))}
-          </div>
+            )}
         </div>
       )}
-
-      {/* Stock badges */}
-      {hasProducts && (
-        <div className="habit-row__products">
-          {habit.products
-            ?.filter((p) => p.qty !== null)
-            .map((p) => (
-              <StockBadge key={p.id} qty={p.qty ?? 0} usagesPerDay={p.usagesPerDay} unit={p.unit} />
-            ))}
-        </div>
-      )}
-
-      {habit.isCompletedToday &&
-        habit.products &&
-        habit.products.length > 0 &&
-        !isEditingProducts && (
-          <button type="button" onClick={onEditProducts} className="habit-row__edit-products-btn">
-            Modifier les produits
-          </button>
-        )}
     </div>
   )
 }

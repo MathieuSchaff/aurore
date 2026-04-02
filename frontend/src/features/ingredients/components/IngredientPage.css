@@ -21,6 +21,9 @@
 .ingredient-hero__info {
   flex: 1;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
 }
 
 .ingredient-hero__name {
@@ -35,7 +38,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2);
-  margin-top: var(--space-3);
 }
 
 .category-tag--primary {
@@ -56,21 +58,37 @@
   align-items: center;
   padding: var(--space-1) var(--space-3);
   background: var(--bg-card);
-  border: 1px solid var(--border-default);
+  border: var(--border-width) solid var(--border-default);
   border-radius: var(--radius-full);
-  font-size: var(--text-sm);
-  color: var(--text-primary);
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-widest);
+  color: var(--text-secondary);
+  transition:
+    color var(--transition-fast) ease,
+    border-color var(--transition-fast) ease,
+    transform var(--transition-fast) ease,
+    box-shadow var(--transition-fast) ease;
+}
+
+.tag-pill:hover {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: translate(-1px, -1px);
+  box-shadow: 2px 2px 0 oklch(from var(--color-primary) l c h / 0.25);
 }
 
 .tag-pill--primary {
   border-color: var(--color-primary);
-  background: oklch(from var(--color-primary) l c h / 0.05);
+  background: oklch(from var(--color-primary) l c h / 0.06);
+  color: var(--color-primary);
 }
 
 .tag-pill--avoid {
   border-color: var(--color-error);
   color: var(--color-error);
-  background: oklch(from var(--color-error) l c h / 0.05);
+  background: oklch(from var(--color-error) l c h / 0.06);
 }
 
 .section-label--avoid {

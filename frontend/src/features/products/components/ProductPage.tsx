@@ -11,13 +11,13 @@ import './ProductPage.css'
 import '@/features/products/styles/kinds.css'
 
 import { BackButton } from '@/component/Button/BackButton'
-import { PillButton } from '@/component/Button/PillButton'
+import { Button } from '@/component/Button/Button'
 import { Badge, type BadgeVariant } from '@/component/DataDisplay/Badge/Badge'
 import { DetailPageLayout } from '@/component/Layout/PageLayout/DetailPageLayout'
 import { PageTopActions, PageTopActionsRight } from '@/component/Layout/PageLayout/PageTopActions'
 import { RichText } from '@/component/Typography/RichText/RichText'
 import { SectionHeader } from '@/component/Typography/SectionHeader/SectionHeader'
-import { AddToInventoryModal } from './AddToInventoryModal'
+import { AddToCollectionModal } from './AddToCollectionModal'
 
 const route = getRouteApi('/products/$slug')
 
@@ -67,17 +67,16 @@ export function ProductPage() {
       <PageTopActions>
         <BackButton onClick={() => window.history.back()}>Produits</BackButton>
         <PageTopActionsRight>
-          <PillButton to="/products/$slug/edit" params={{ slug }} variant="primary">
+          <Button to="/products/$slug/edit" params={{ slug }} variant="primary">
             <Pencil size={14} />
             Modifier
-          </PillButton>
-          <PillButton onClick={() => setShowAddModal(true)} variant="accent">
+          </Button>
+          <Button onClick={() => setShowAddModal(true)} variant="accent">
             <Plus size={16} />
-            Ajouter au stock
-          </PillButton>
+            Ajouter à la collection
+          </Button>
         </PageTopActionsRight>
       </PageTopActions>
-
       <div className="product-hero">
         <div className={`product-hero__icon kind-icon kind--${getBadgeVariant(product.kind)}`}>
           <Package size={28} />
@@ -97,7 +96,7 @@ export function ProductPage() {
             <Badge variant={getBadgeVariant(product.kind)} className="product-hero__kind">
               {product.kind}
             </Badge>
-            <span className="product-hero__tag">{product.unit}</span>
+            {product.unit && <span className="product-hero__tag">{product.unit}</span>}
           </div>
         </div>
         {priceFormatted && <span className="product-price">{priceFormatted}</span>}
@@ -193,7 +192,7 @@ export function ProductPage() {
       )}
 
       {showAddModal && (
-        <AddToInventoryModal
+        <AddToCollectionModal
           product={{
             id: product.id,
             name: product.name,
