@@ -1,5 +1,6 @@
 import { relations } from 'drizzle-orm'
 
+import { discussionReplies, discussionThreads } from './discussions'
 import { ingredients } from './ingredients'
 import { productIngredients } from './product-ingredients'
 import { products } from './products'
@@ -40,4 +41,23 @@ export const productIngredientsRelations = relations(productIngredients, ({ one 
 
 export const ingredientsRelations = relations(ingredients, ({ many }) => ({
   productIngredients: many(productIngredients),
+}))
+
+export const discussionThreadsRelations = relations(discussionThreads, ({ one, many }) => ({
+  product: one(products, {
+    fields: [discussionThreads.productId],
+    references: [products.id],
+  }),
+  ingredient: one(ingredients, {
+    fields: [discussionThreads.ingredientId],
+    references: [ingredients.id],
+  }),
+  replies: many(discussionReplies),
+}))
+
+export const discussionRepliesRelations = relations(discussionReplies, ({ one }) => ({
+  thread: one(discussionThreads, {
+    fields: [discussionReplies.threadId],
+    references: [discussionThreads.id],
+  }),
 }))
