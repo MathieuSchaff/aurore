@@ -4,13 +4,15 @@
 	install-deps reinstall-backend reinstall-frontend clean-install install build \
 	prod prod-down prod-logs prod-migrate \
 	test test-db-up test-db-down test-watch test-only test-db-studio test-frontend test-frontend-watch test-frontend-only test-frontend-ui test-all \
-	test-db-reset \
+	test-db-reset test-db-seed \
 	stop restart ps health diagnose stats env-check \
 	logs logs-api logs-db logs-nginx logs-frontend \
 	lint lint-fix format \
 	shell-api shell-db shell-frontend \
-	db-migrate db-generate db-push db-studio db-backup db-restore db-seed db-seed-all db-clean db-reset db-reset-all \
+	db-migrate db-generate db-push db-studio db-backup db-restore db-seed db-seed-all db-seed-dev db-clean db-reset db-reset-all \
+	db-backup-prod db-backup-clean backup-cron-install \
 	ssl-init ssl-renew nginx-reload \
+	firewall-setup firewall-status \
 	clean clean-soft clean-images
 
 # Couleurs pour l'affichage
@@ -43,20 +45,26 @@ dev-down: ## Arrête l'environnement de développement
 dev-d: ts-build ## Lance le dev en arrière-plan (build les types d'abord)
 	$(COMPOSE_DEV) up -d --build
 
-dev-fresh: ts-clean install-deps ts-build ## Clean total + install + types + docker
-	$(COMPOSE_DEV) down -v 2>/dev/null || true
-	docker volume rm habit-tracker_backend_node_modules habit-tracker_frontend_node_modules habit-tracker_root_node_modules 2>/dev/null || true
+dev-fresh: ts-clean install-deps ts-build ## Clean total + install + types + docker (préserve pgdata)
+	$(COMPOSE_DEV) down 2>/dev/null || true
+	docker volume rm habit-tracker_root_node_modules habit-tracker_backend_node_modules habit-tracker_frontend_node_modules 2>/dev/null || true
 	$(COMPOSE_DEV) up --build
 
 dev-rebuild: ## Rebuild complet sans cache (après ajout de dépendances)
+	$(COMPOSE_DEV) down
+	docker volume rm habit-tracker_root_node_modules habit-tracker_backend_node_modules habit-tracker_frontend_node_modules 2>/dev/null || true
 	$(COMPOSE_DEV) build --no-cache
 	$(COMPOSE_DEV) up
 
 dev-rebuild-api: ## Rebuild uniquement l'API sans cache
+	$(COMPOSE_DEV) down
+	docker volume rm habit-tracker_root_node_modules habit-tracker_backend_node_modules 2>/dev/null || true
 	$(COMPOSE_DEV) build --no-cache api
 	$(COMPOSE_DEV) up
 
 dev-rebuild-frontend: ## Rebuild uniquement le frontend sans cache
+	$(COMPOSE_DEV) down
+	docker volume rm habit-tracker_root_node_modules habit-tracker_frontend_node_modules 2>/dev/null || true
 	$(COMPOSE_DEV) build --no-cache frontend
 	$(COMPOSE_DEV) up
 
@@ -133,8 +141,8 @@ test-db-up: ## Lance la DB de test et crée les tables
 test-db-down: ## Arrête la DB de test
 	$(COMPOSE_TEST) down
 
-test: test-db-up ## Lance les tests (backend) complets (up, run, down)
-	@DATABASE_URL=$(TEST_DB_URL) bun --cwd ./backend test || ($(MAKE) test-db-down && exit 1)
+test: test-db-up ## Lance les tests (backend) complets (up, run, down) - ARGS="pattern"
+	@DATABASE_URL=$(TEST_DB_URL) bun --cwd ./backend test $(ARGS) || ($(MAKE) test-db-down && exit 1)
 	@$(MAKE) test-db-down
 	@echo "$(GREEN)✓ Tests terminés$(NC)"
 
@@ -170,6 +178,11 @@ test-frontend-ui: ## Lance Vitest avec l'UI web
 test-all: test test-frontend ## Lance tous les tests (backend + frontend)
 
 test-db-reset: test-db-down test-db-up ## Repart de zéro : arrête, vide et relance la DB de test avec migrations
+
+test-db-seed: ## Seed CORE dans la DB de test (nécessite test-db-up)
+	@echo "$(CYAN)Injection des données CORE dans la DB de test...$(NC)"
+	@cd backend && export $$(grep -v '^\#' ../.env.dev | xargs) && DATABASE_URL=$(TEST_DB_URL) bun run src/db/seed/seed-core.ts
+	@echo "$(GREEN)✓ Seed CORE exécuté sur la DB de test$(NC)"
 
 # =========================
 # Gestion des conteneurs
@@ -252,8 +265,13 @@ db-seed: ## Remplit la base de données avec les données CORE (Tags, Ingrédien
 
 db-seed-all: ## Remplit la base de données avec TOUTES les données (CORE + CSV Skincare)
 	@echo "$(CYAN)Injection de toutes les données (Full Seed)...$(NC)"
-	cd backend && bun --env-file ../.env.dev src/db/seed/seed-skincare.ts --full
+	$(COMPOSE_DEV) exec api bun run src/db/seed/seed-skincare.ts --full
 	@echo "$(GREEN)✓ Full Seed exécuté avec succès$(NC)"
+
+db-seed-dev: ## Seed rapide pour le développement (CORE + 100 produits CSV max)
+	@echo "$(CYAN)Seed développement (limité à 100 produits CSV)...$(NC)"
+	$(COMPOSE_DEV) exec api bun run src/db/seed/seed-skincare.ts --full --limit=100
+	@echo "$(GREEN)✓ Seed dev exécuté avec succès$(NC)"
 
 db-clean: ## Vide complètement la base de données (SCHEMA public)
 	@echo "$(YELLOW)⚠ ATTENTION : Toutes les données vont être supprimées !$(NC)"
@@ -279,6 +297,22 @@ db-restore: ## Restaure une sauvegarde (Usage: make db-restore FILE=./backups/xx
 	docker compose exec -T db psql -U app appdb < $(FILE)
 	@echo "$(GREEN)✓ Restauration terminée$(NC)"
 
+db-backup-prod: ## [PROD] Sauvegarde compressée de la DB de production dans ./backups/
+	@mkdir -p ./backups
+	$(COMPOSE_PROD) exec -T db pg_dump -U app appdb | gzip > ./backups/backup_$(shell date +%Y%m%d_%H%M%S).sql.gz
+	@echo "$(GREEN)✓ Backup prod créé$(NC)"
+
+db-backup-clean: ## [PROD] Supprime les sauvegardes de plus de 7 jours
+	@find ./backups -name "*.sql.gz" -mtime +7 -delete
+	@echo "$(GREEN)✓ Anciens backups supprimés$(NC)"
+
+backup-cron-install: ## [PROD] Installe un cron quotidien (3h du matin) pour les sauvegardes
+	@echo "$(YELLOW)Installation du cron de backup dans /etc/cron.d/aurore-backup$(NC)"
+	@echo "0 3 * * * root cd $(shell pwd) && make db-backup-prod db-backup-clean >> /var/log/aurore-backup.log 2>&1" \
+		| sudo tee /etc/cron.d/aurore-backup > /dev/null
+	@sudo chmod 644 /etc/cron.d/aurore-backup
+	@echo "$(GREEN)✓ Cron installé — sauvegarde quotidienne à 3h$(NC)"
+
 db-push-prod: ## [PROD] Push le schéma sur la DB de production
 	@echo "$(YELLOW)⚠ ATTENTION : Vous allez modifier le schéma de PRODUCTION !$(NC)"
 	@read -p "Êtes-vous sûr ? [y/N] " confirm && [ "$$confirm" = "y" ] || exit 1
@@ -297,8 +331,24 @@ ssl-init: ## Génère les certificats SSL
 		--agree-tos \
 		--no-eff-email
 
-ssl-renew: ## Renouvelle les certificats SSL
+ssl-renew: ## Renouvelle les certificats SSL et recharge nginx
 	$(COMPOSE_PROD) exec certbot certbot renew
+	$(COMPOSE_PROD) exec nginx nginx -s reload
+
+# =========================
+# Firewall (VPS uniquement)
+# =========================
+firewall-setup: ## Configure ufw : autorise SSH/HTTP/HTTPS, bloque tout le reste
+	@echo "$(YELLOW)⚠ SSH (port 22) sera autorisé en premier — ne pas interrompre$(NC)"
+	@read -p "Continuer ? [y/N] " confirm && [ "$$confirm" = "y" ] || exit 1
+	ufw allow OpenSSH
+	ufw allow 80/tcp
+	ufw allow 443/tcp
+	ufw --force enable
+	ufw status verbose
+
+firewall-status: ## Affiche l'état du firewall
+	ufw status verbose
 
 # =========================
 # Maintenance & Installation

@@ -74,11 +74,11 @@ services:
       - ./backend/tsconfig.json:/app/backend/tsconfig.json:ro
 
     environment:
-      - VITE_API_URL=http://localhost:3000
+      - VITE_API_URL=http://api:3000
 
     # command: sh -c "cd /app/backend && bun --watch src/index.ts"
     # command: sh -c "cd /app && bun install && cd /app/frontend && bun run dev --host 0.0.0.0"
-    command: sh -c "cd /app && bun install --frozen-lockfile --ignore-scripts || echo '⚠ bun install failed, continuing...'; cd /app/frontend && bun run dev --host 0.0.0.0"
+    command: sh -c "cd /app/frontend && bun run dev --host 0.0.0.0"
     healthcheck:
       test: ["CMD-SHELL", "wget -qO- http://localhost:5173 || exit 1"]
       interval: 30s

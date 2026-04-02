@@ -4,7 +4,7 @@ WORKDIR /app
 
 # ---------- deps ----------
 FROM base AS deps
-COPY package.json bun.lock tsconfig.json ./
+COPY package.json bun.lock tsconfig.json bunfig.toml ./
 COPY backend/package.json backend/
 COPY shared/package.json shared/
 COPY frontend/package.json frontend/
@@ -13,7 +13,6 @@ RUN bun install --frozen-lockfile
 # ---------- dev ----------
 FROM base AS dev
 COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/backend/node_modules ./backend/node_modules
 
 COPY tsconfig.json ./
 COPY backend/ ./backend/
@@ -31,17 +30,21 @@ FROM oven/bun:1.3.10-debian AS prod
 WORKDIR /app
 ENV NODE_ENV=production
 
-# On copie les fichiers de configuration racine
-COPY package.json bun.lock tsconfig.json ./
+# 1. On copie les fichiers de configuration racine
+COPY package.json bun.lock tsconfig.json bunfig.toml ./
 
-# On prépare les dossiers pour les packages
-RUN mkdir -p backend shared
+# 2. On prépare TOUS les dossiers (y compris frontend)
+RUN mkdir -p backend shared frontend
 
-# On copie les manifestes pour l'installation des dépendances
+# 3. On copie les manifestes de TOUS les packages
 COPY backend/package.json backend/
 COPY shared/package.json shared/
+COPY frontend/package.json frontend/
+
+# 4. L'installation fonctionnera maintenant
 RUN bun install --frozen-lockfile
 
+# 5. On continue le reste
 COPY backend/ ./backend/
 COPY shared/ ./shared/
 
