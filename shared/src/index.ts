@@ -186,6 +186,15 @@ export {
   type UpdateTagInput,
 } from './schemas/tags'
 export {
+  type CreateThreadInput,
+  type CreateReplyInput,
+  createThreadSchema,
+  createReplySchema,
+  replyResponseSchema,
+  threadResponseSchema,
+  threadWithRepliesResponseSchema,
+} from './schemas/discussions'
+export {
   type CreateSubtaskInput,
   type CreateTaskInput,
   createSubtaskSchema,
@@ -270,6 +279,12 @@ export type {
   ToggleCheckResult,
 } from './types/habits'
 export type {
+  DiscussionThread,
+  DiscussionReply,
+  DiscussionThreadWithReplies,
+  DiscussionErrorCode,
+} from './types/discussions'
+export type {
   EditableIngredientKeys,
   Ingredient,
   IngredientEdit,
@@ -321,6 +336,7 @@ export {
   ok,
 } from './helpers/api'
 export { authErrorMapping } from './helpers/auth'
+export { discussionErrorMapping } from './helpers/discussions'
 export {
   baseErrorMapping,
   type ContentfulHttpStatus,
