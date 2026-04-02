@@ -1,5 +1,4 @@
 import type { SkinConcern, SkinType, UserDermoProfileUpdateInput } from '@habit-tracker/shared'
-
 import { SKIN_CONCERNS, SKIN_TYPES } from '@habit-tracker/shared'
 
 import { useQuery } from '@tanstack/react-query'
@@ -114,7 +113,10 @@ export function DermoProfileForm() {
             <button
               key={type}
               type="button"
-              className={clsx('dermo-type-pill', skinTypes.includes(type) && 'dermo-type-pill--active')}
+              className={clsx(
+                'dermo-type-pill',
+                skinTypes.includes(type) && 'dermo-type-pill--active'
+              )}
               onClick={() => toggleSkinType(type)}
               aria-pressed={skinTypes.includes(type)}
               disabled={!skinTypes.includes(type) && skinTypes.length >= 3}
@@ -132,7 +134,10 @@ export function DermoProfileForm() {
           {FITZPATRICK_ITEMS.map(({ value, label, description }) => (
             <label
               key={value}
-              className={clsx('dermo-fitz-item', fitzpatrickType === value && 'dermo-fitz-item--active')}
+              className={clsx(
+                'dermo-fitz-item',
+                fitzpatrickType === value && 'dermo-fitz-item--active'
+              )}
             >
               <input
                 type="radio"
