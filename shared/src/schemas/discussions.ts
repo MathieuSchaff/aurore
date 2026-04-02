@@ -32,7 +32,7 @@ export const threadResponseSchema = z.object({
   createdAt: z.date(),
 })
 
-export const threadWithRepliesResponseSchema = threadResponseSchema.omit({ replyCount: true }).extend({
+export const threadWithRepliesResponseSchema = threadResponseSchema.extend({
   replies: z.array(replyResponseSchema),
 })
 
