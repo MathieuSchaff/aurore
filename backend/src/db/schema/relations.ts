@@ -2,6 +2,7 @@ import { relations } from 'drizzle-orm'
 
 import { discussionReplies, discussionThreads } from './discussions'
 import { ingredients } from './ingredients'
+import { profiles } from './users'
 import { productIngredients } from './product-ingredients'
 import { products } from './products'
 import { productTags, tags } from './tags'
@@ -52,6 +53,10 @@ export const discussionThreadsRelations = relations(discussionThreads, ({ one, m
     fields: [discussionThreads.ingredientId],
     references: [ingredients.id],
   }),
+  author: one(profiles, {
+    fields: [discussionThreads.authorId],
+    references: [profiles.userId],
+  }),
   replies: many(discussionReplies),
 }))
 
@@ -59,5 +64,9 @@ export const discussionRepliesRelations = relations(discussionReplies, ({ one })
   thread: one(discussionThreads, {
     fields: [discussionReplies.threadId],
     references: [discussionThreads.id],
+  }),
+  author: one(profiles, {
+    fields: [discussionReplies.authorId],
+    references: [profiles.userId],
   }),
 }))
