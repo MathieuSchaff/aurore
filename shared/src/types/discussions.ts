@@ -29,3 +29,4 @@ export type DiscussionErrorCode =
   | 'unauthorized_access'
   | 'thread_creation_failed'
   | 'reply_creation_failed'
+  | 'entity_not_found'

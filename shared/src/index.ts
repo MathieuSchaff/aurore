@@ -25,6 +25,15 @@ export {
   verifyEmailBodySchema,
 } from './schemas/auth'
 export {
+  type CreateReplyInput,
+  type CreateThreadInput,
+  createReplySchema,
+  createThreadSchema,
+  replyResponseSchema,
+  threadResponseSchema,
+  threadWithRepliesResponseSchema,
+} from './schemas/discussions'
+export {
   type CheckHabitInput,
   type CreateHabitInput,
   checkHabitSchema,
@@ -149,11 +158,11 @@ export {
   SKIN_TYPES,
   type SkinConcern,
   type SkinType,
+  USERNAME_MAX_LENGTH,
   type UserDermoProfile,
   type UserDermoProfileUpdateInput,
   userDermoProfileSchema,
   userDermoProfileUpdateSchema,
-  USERNAME_MAX_LENGTH,
 } from './schemas/profile'
 export {
   type AddPurchaseInput,
@@ -185,15 +194,6 @@ export {
   tagResponseSchema,
   type UpdateTagInput,
 } from './schemas/tags'
-export {
-  type CreateThreadInput,
-  type CreateReplyInput,
-  createThreadSchema,
-  createReplySchema,
-  replyResponseSchema,
-  threadResponseSchema,
-  threadWithRepliesResponseSchema,
-} from './schemas/discussions'
 export {
   type CreateSubtaskInput,
   type CreateTaskInput,
@@ -236,6 +236,8 @@ export {
 
 // ─── Types (entity types, error codes, composed types) ───────────────────────
 
+// ─── Types (entity types, error codes, composed types) ───────────────────────
+
 export type {
   ApiError,
   ApiResponse,
@@ -261,6 +263,12 @@ export type {
 } from './types/auth'
 export type { FieldChange } from './types/common'
 export type {
+  DiscussionErrorCode,
+  DiscussionReply,
+  DiscussionThread,
+  DiscussionThreadWithReplies,
+} from './types/discussions'
+export type {
   Habit,
   HabitCheck,
   HabitCheckProduct,
@@ -278,12 +286,6 @@ export type {
   TodayUserProduct,
   ToggleCheckResult,
 } from './types/habits'
-export type {
-  DiscussionThread,
-  DiscussionReply,
-  DiscussionThreadWithReplies,
-  DiscussionErrorCode,
-} from './types/discussions'
 export type {
   EditableIngredientKeys,
   Ingredient,
@@ -328,6 +330,8 @@ export type { UserProductErrorCode } from './types/user-products'
 
 // ─── Helpers (error mappings, constants, utilities) ──────────────────────────
 
+// ─── Helpers (error mappings, constants, utilities) ──────────────────────────
+
 export {
   err,
   errorToStatus,
@@ -336,13 +340,13 @@ export {
   ok,
 } from './helpers/api'
 export { authErrorMapping } from './helpers/auth'
-export { discussionErrorMapping } from './helpers/discussions'
 export {
   baseErrorMapping,
   type ContentfulHttpStatus,
   HTTP_STATUS,
   type HttpStatus,
 } from './helpers/constants'
+export { discussionErrorMapping } from './helpers/discussions'
 export { habitErrorMapping } from './helpers/habits'
 export { ingredientErrorMapping } from './helpers/ingredients'
 export { logsErrorMapping } from './helpers/logs'

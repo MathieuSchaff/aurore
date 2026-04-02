@@ -2,11 +2,11 @@ import { relations } from 'drizzle-orm'
 
 import { discussionReplies, discussionThreads } from './discussions'
 import { ingredients } from './ingredients'
-import { profiles } from './users'
 import { productIngredients } from './product-ingredients'
 import { products } from './products'
 import { productTags, tags } from './tags'
 import { userProducts } from './user-products'
+import { profiles } from './users'
 
 export const productsRelations = relations(products, ({ many }) => ({
   productIngredients: many(productIngredients),

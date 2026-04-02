@@ -8,4 +8,5 @@ export const discussionErrorMapping = {
   unauthorized_access: HTTP_STATUS.FORBIDDEN,
   thread_creation_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
   reply_creation_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+  entity_not_found: HTTP_STATUS.NOT_FOUND,
 } as const satisfies Record<DiscussionErrorCode, HttpStatus>
