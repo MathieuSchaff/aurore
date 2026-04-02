@@ -5,7 +5,6 @@ import './Hero.css'
 export function Hero() {
   return (
     <section className="hero-container">
-      {/* Abstract 3D Shapes Background */}
       <div className="hero-visuals" aria-hidden="true">
         <div className="shape sphere frosted" />
         <div className="shape cube quartz" />
@@ -19,18 +18,18 @@ export function Hero() {
             <span className="hero-badge">Bêta Ouverte</span>
           </div>
           <h1 className="hero-title">
-            Votre collection skincare, <br />
-            <span>enfin sous contrôle.</span>
+            Arrêtez d'oublier <br />
+            <span>ce que vous avez.</span>
           </h1>
           <p className="hero-subtitle">
-            Gérez votre inventaire, décryptez les ingrédients et optimisez votre routine. Un outil
-            multifonction, conçu pour la clarté et sans distraction.
+            Notez vos produits, lisez ce qu'il y a dedans, suivez votre routine. Sans streaks, sans
+            pression, sans notifications inutiles.
           </p>
         </header>
 
         <div className="hero-actions">
           <Link to="/signup" className="btn-primary">
-            Commencer mon voyage
+            Créer un compte
             <ArrowRight size={18} />
           </Link>
           <button
@@ -40,7 +39,7 @@ export function Hero() {
               document.getElementById('philosophy')?.scrollIntoView({ behavior: 'smooth' })
             }
           >
-            Découvrir la philosophie
+            Comment ça marche
           </button>
         </div>
       </div>
