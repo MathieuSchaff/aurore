@@ -22,8 +22,8 @@ export const updatePurchaseSchema = z.object({
 })
 
 export const purchaseSchema = z.object({
-  id: z.string().uuid(),
-  userProductId: z.string().uuid(),
+  id: z.uuid(),
+  userProductId: z.uuid(),
   purchasedAt: z.string(),
   pricePaidCents: z.number().int().min(0).nullable(),
   openedAt: z.string().nullable(),

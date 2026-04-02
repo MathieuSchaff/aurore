@@ -7,7 +7,6 @@ import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
 
 import { BackButton } from '@/component/Button/BackButton'
-import { PillButton } from '@/component/Button/PillButton'
 import { Badge } from '@/component/DataDisplay/Badge/Badge'
 import { NavArrow } from '@/component/DataDisplay/NavArrow/NavArrow'
 import { IconBox } from '@/component/Layout/IconBox/IconBox'
@@ -20,6 +19,8 @@ import './IngredientPage.css'
 import '@/component/Typography/RichText/RichText.css'
 
 import { useMemo } from 'react'
+
+import { Button } from '@/component/Button/Button'
 
 const route = getRouteApi('/ingredients/$slug')
 
@@ -62,10 +63,10 @@ export function IngredientPage() {
         <BackButton to="/ingredients">Ingrédients</BackButton>
 
         <PageTopActionsRight>
-          <PillButton to="/ingredients/$slug/edit" params={{ slug }} variant="primary">
+          <Button to="/ingredients/$slug/edit" params={{ slug }} variant="primary">
             <Pencil size={14} />
             Modifier
-          </PillButton>
+          </Button>
         </PageTopActionsRight>
       </PageTopActions>
 

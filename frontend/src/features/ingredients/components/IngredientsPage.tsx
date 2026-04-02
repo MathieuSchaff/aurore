@@ -3,14 +3,13 @@ import { getRouteApi, Link, useNavigate } from '@tanstack/react-router'
 import { FlaskConical, Plus, SlidersHorizontal } from 'lucide-react'
 import { useState } from 'react'
 
+import { Button } from '@/component/Button/Button'
 import { Badge } from '@/component/DataDisplay/Badge/Badge'
-import { NavArrow } from '@/component/DataDisplay/NavArrow/NavArrow'
 import { ListPagination } from '@/component/DataDisplay/Pagination/ListPagination'
 import { EmptyState } from '@/component/Feedback/EmptyState/EmptyState'
 import { ActiveFiltersBar } from '@/component/Filter/ActiveFiltersBar'
 import { type FilterValues, GroupedFilterDialog } from '@/component/Filter/Filter'
-import { IconBox } from '@/component/Layout/IconBox/IconBox'
-import { PageBanner } from '@/component/Layout/PageBanner/PageBanner'
+import { PageHeader } from '@/component/Layout/PageHeader/PageHeader'
 import { SearchCombobox } from '@/component/search/SearchCombobox'
 import { useListFilters } from '@/hooks/useListFilters'
 import { ingredientQueries, type ListIngredientsFilters } from '../../../lib/queries/ingredients'
@@ -18,6 +17,7 @@ import { type FilterKey, GROUP_LABELS, INGREDIENT_FILTER_GROUPS } from './filter
 
 import '../../products/components/ListPage.css'
 import './IngredientsPage.css'
+
 const routeApi = getRouteApi('/ingredients/')
 
 const EMPTY_FILTERS: FilterValues<FilterKey> = {
@@ -46,18 +46,23 @@ export function IngredientsPage() {
       filterKeys: FILTER_KEYS,
     })
 
-  const apiFilters: ListIngredientsFilters = {
-    category: category.length > 0 ? category : undefined,
-    concern: concern.length > 0 ? concern : undefined,
-    skinType: skinType.length > 0 ? skinType : undefined,
-    attribute: attribute.length > 0 ? attribute : undefined,
-    page,
-    limit: PAGE_SIZE,
-  }
+  const hasFilters = filterCount > 0
+
+  const apiFilters: ListIngredientsFilters = hasFilters
+    ? {
+        category: category.length > 0 ? category : undefined,
+        concern: concern.length > 0 ? concern : undefined,
+        skinType: skinType.length > 0 ? skinType : undefined,
+        attribute: attribute.length > 0 ? attribute : undefined,
+        page,
+        limit: PAGE_SIZE,
+      }
+    : { sort: 'random', limit: 12 }
 
   const { data, isLoading, isPlaceholderData } = useQuery({
     ...ingredientQueries.list(apiFilters),
-    placeholderData: (prev) => prev,
+    placeholderData: hasFilters ? (prev) => prev : undefined,
+    staleTime: hasFilters ? 5 * 60 * 1000 : 0,
   })
 
   const items = data?.items ?? []
@@ -77,48 +82,50 @@ export function IngredientsPage() {
 
   return (
     <div className="list-page ingredients-page">
-      <header className="list-header">
-        <PageBanner>
-          <div className="list-header__top">
-            <h1 className="list-header__title">
-              Ingrédients
-              {isPlaceholderData && <span className="loader-mini">...</span>}
-            </h1>
-
-            <div className="list-header__search">
-              <SearchCombobox
-                queryFn={ingredientQueries.search}
-                toResult={(item) => ({
-                  id: item.id,
-                  slug: item.slug,
-                  label: item.name,
-                  sublabel: item.category ?? undefined,
-                })}
-                onSelect={(slug) => navigate({ to: '/ingredients/$slug', params: { slug } })}
-              />
+      <PageHeader
+        title="Ingrédients"
+        isLoading={isPlaceholderData}
+        meta={hasFilters ? `${total} ingrédient${total > 1 ? 's' : ''}` : 'Découverte'}
+        actions={
+          <>
+            <SearchCombobox
+              queryFn={ingredientQueries.search}
+              toResult={(item) => ({
+                id: item.id,
+                slug: item.slug,
+                label: item.name,
+                sublabel: item.category ?? undefined,
+              })}
+              onSelect={(slug) => navigate({ to: '/ingredients/$slug', params: { slug } })}
+            />
+            <div className="list-header__actions-group">
+              <Button
+                type="button"
+                variant="primary"
+                size="md"
+                onClick={() => setDrawerOpen(true)}
+                className="list-filter-btn"
+              >
+                <SlidersHorizontal size={14} />
+                <span>Filtrer</span>
+                {filterCount > 0 && <span className="list-filter-btn__count">{filterCount}</span>}
+              </Button>
+              <Button to="/ingredients/new" variant="primary" size="md" className="list-filter-btn">
+                <Plus size={14} />
+                <span>Créer</span>
+              </Button>
             </div>
+          </>
+        }
+      />
 
-            <Link to="/ingredients/new" className="list-filter-btn">
-              <Plus size={16} />
-              <span>Créer</span>
-            </Link>
-
-            <button type="button" className="list-filter-btn" onClick={() => setDrawerOpen(true)}>
-              <SlidersHorizontal size={16} />
-              <span>Filtrer</span>
-              {filterCount > 0 && <span className="list-filter-btn__count">{filterCount}</span>}
-            </button>
-          </div>
-        </PageBanner>
-
-        <ActiveFiltersBar
-          activeTags={activeTags}
-          groupLabels={GROUP_LABELS}
-          getFilterLabel={getFilterLabel}
-          onRemoveTag={toggleSingleFilter}
-          onClearAll={resetFilters}
-        />
-      </header>
+      <ActiveFiltersBar
+        activeTags={activeTags}
+        groupLabels={GROUP_LABELS}
+        getFilterLabel={getFilterLabel}
+        onRemoveTag={toggleSingleFilter}
+        onClearAll={resetFilters}
+      />
 
       <GroupedFilterDialog
         open={isDrawerOpen}
@@ -148,12 +155,6 @@ export function IngredientsPage() {
           />
         ) : (
           <>
-            <div className="list-results-info">
-              <span className="list-results-count">
-                {total} ingrédient{total > 1 ? 's' : ''}
-              </span>
-            </div>
-
             <div className="list-grid">
               {items.map((ingredient) => (
                 <Link
@@ -162,24 +163,36 @@ export function IngredientsPage() {
                   params={{ slug: ingredient.slug }}
                   className="list-card"
                 >
-                  <IconBox className="list-card__icon">
-                    <FlaskConical size={18} />
-                  </IconBox>
+                  <div className="list-card__bar" />
                   <div className="list-card__body">
+                    <div className="list-card__header">
+                      <Badge variant="default">{ingredient.category}</Badge>
+                      <svg
+                        className="list-card__arrow"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        role="img"
+                        aria-label="Voir l'ingrédient"
+                      >
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </svg>
+                    </div>
                     <div className="list-card__name">{ingredient.name}</div>
                     {ingredient.description && (
                       <div className="ingredient-card__description">{ingredient.description}</div>
                     )}
-                    <div className="ingredient-card__meta">
-                      <Badge variant="default">{ingredient.category}</Badge>
-                    </div>
                   </div>
-                  <NavArrow size={18} />
                 </Link>
               ))}
             </div>
 
-            <ListPagination currentPage={page} totalPages={totalPages} onPageChange={goToPage} />
+            {hasFilters && (
+              <ListPagination currentPage={page} totalPages={totalPages} onPageChange={goToPage} />
+            )}
           </>
         )}
       </main>

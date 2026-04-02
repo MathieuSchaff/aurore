@@ -89,7 +89,23 @@ export const productsPageSchema = z.object({
   limit: z.number().int(),
 })
 
+export const listProductsQuery = z.object({
+  kind: z.string().optional(),
+  brand: z.string().optional(),
+  routine_step: z.string().optional(),
+  attribute: z.string().optional(),
+  skin_type: z.string().optional(),
+  concern: z.string().optional(),
+  product_type: z.string().optional(),
+  ingredient: z.string().optional(),
+  skin_zone: z.string().optional(),
+  page: z.coerce.number().int().min(1).default(1),
+  limit: z.coerce.number().int().min(1).max(100).default(20),
+  sort: z.enum(['name', 'random']).optional(),
+})
+
 export type ProductsPage = z.infer<typeof productsPageSchema>
+export type ListProductsFilters = z.infer<typeof listProductsQuery>
 
 const editableProductFields = {
   name: fieldChangeSchema(z.string()),

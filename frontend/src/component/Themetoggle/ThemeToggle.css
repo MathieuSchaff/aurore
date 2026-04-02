@@ -106,3 +106,23 @@
 [aria-checked="true"] .theme-toggle__thumb {
   transform: translateX(calc(2.85rem - 1.1rem - 6px));
 }
+
+.main-nav__footer .theme-toggle__track {
+  flex-direction: column;
+  width: 1.55rem;
+  height: 2.85rem;
+  padding: 0.3rem 0;
+}
+
+.main-nav__footer .theme-toggle__thumb {
+  top: 3px;
+  left: calc((1.55rem - 1.1rem) / 2);
+}
+
+.main-nav__footer [aria-checked="false"] .theme-toggle__thumb {
+  transform: translateY(0);
+}
+
+.main-nav__footer [aria-checked="true"] .theme-toggle__thumb {
+  transform: translateY(calc(2.85rem - 1.1rem - 6px));
+}

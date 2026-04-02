@@ -2,10 +2,11 @@ import { useQuery } from '@tanstack/react-query'
 import { CheckSquare, Plus } from 'lucide-react'
 import { useState } from 'react'
 
+import { PageHeader } from '@/component/Layout/PageHeader/PageHeader'
 import { taskQueries, useCreateTask } from '../../../../lib/queries/tasks'
 import { TaskItem } from '../TaskItem'
 
-import './TasksPage.css'
+// import './TasksPage.css'
 
 export function TasksPage() {
   const { data: tasks, isLoading } = useQuery(taskQueries.list())
@@ -26,14 +27,20 @@ export function TasksPage() {
 
   if (isLoading) return <div className="tasks-page-loading">Chargement des tâches...</div>
 
+  const pendingCount = tasks?.length ?? 0
+
   return (
     <div className="tasks-page">
-      <header className="tasks-page__header">
-        <h1 className="tasks-page__title">Mes Tâches</h1>
-      </header>
+      <PageHeader
+        title="Mes Tâches"
+        meta={`${pendingCount} tâche${pendingCount > 1 ? 's' : ''} à faire`}
+        className="tasks-page__header"
+      />
 
       <form className="tasks-page__add-form" onSubmit={handleCreateTask}>
         <input
+          id="new-task"
+          name="new-task"
           type="text"
           value={newTitle}
           onChange={(e) => setNewTitle(e.target.value)}
@@ -41,7 +48,7 @@ export function TasksPage() {
           className="tasks-page__add-input"
         />
         <button type="submit" disabled={createTask.isPending} className="tasks-page__add-btn">
-          <Plus size={20} />
+          <Plus size={14} />
         </button>
       </form>
 

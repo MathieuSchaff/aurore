@@ -1,0 +1,61 @@
+.global-error-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  background-color: var(--c-bg-subtle);
+}
+
+.global-error-card {
+  max-width: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 3rem 2rem;
+}
+
+.global-error-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.global-error-description {
+  text-align: center;
+  color: var(--c-text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.global-error-actions button,
+.global-error-actions a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.error-details {
+  background-color: var(--c-bg-hover);
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px dashed var(--c-border);
+  font-family: monospace;
+  font-size: 0.875rem;
+  word-break: break-all; /* error messages can be very long URLs or stack traces, we need to break them */
+  color: var(--c-error);
+}
+
+.global-error-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+@media (max-width: 480px) {
+  .global-error-actions {
+    flex-direction: column;
+  }
+}

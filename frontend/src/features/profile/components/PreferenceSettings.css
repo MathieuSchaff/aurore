@@ -101,7 +101,6 @@
   cursor: pointer;
   -webkit-appearance: none;
   appearance: none;
-  /* We make the slider taller so it is easier to touch with a finger. */
   height: 24px;
   background: transparent;
   outline: none;

@@ -5,7 +5,7 @@ import {
   calculateWeightedScore,
   DEFAULT_WEIGHTS,
   type ReviewCriteria,
-} from './reviews'
+} from '../reviews'
 
 const fullReview: ReviewCriteria = {
   tolerance: 4,

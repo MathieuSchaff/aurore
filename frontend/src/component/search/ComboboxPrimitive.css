@@ -62,7 +62,7 @@
   font-style: italic;
 }
 
-/* Thème Light - Renforcement du contraste comme dans Filter.css */
+/* light theme needs a bit more contrast on the dropdown, same approach as Filter.css */
 [data-theme="light"] .combobox-primitive__dropdown {
   background: var(--bg-elevated);
   box-shadow: 0 4px 20px oklch(from var(--color-primary) l c h / 0.15);

@@ -1,7 +1,8 @@
-import { Link, useNavigate } from '@tanstack/react-router'
-import { ArrowLeft } from 'lucide-react'
+import { useNavigate } from '@tanstack/react-router'
 
-import { PageBanner } from '@/component/Layout/PageBanner/PageBanner'
+import { BackButton } from '@/component/Button/BackButton'
+import { DetailPageLayout } from '@/component/Layout/PageLayout/DetailPageLayout'
+import { PageTopActions } from '@/component/Layout/PageLayout/PageTopActions'
 import { IngredientForm } from '../IngredientForm/IngredientForm'
 import '../Edit/IngredientPageEditable.css'
 
@@ -9,24 +10,20 @@ function IngredientCreatePage() {
   const navigate = useNavigate()
 
   return (
-    <div className="ingredient-edit-page">
-      <PageBanner className="ingredient-edit-page__banner">
-        <div className="ingredient-edit-page__topbar">
-          <Link to="/ingredients" className="ingredient-edit-page__back">
-            <ArrowLeft size={16} />
-            Retour
-          </Link>
-          <h1 className="ingredient-edit-page__title">Nouvel ingredient</h1>
-        </div>
-      </PageBanner>
+    <DetailPageLayout banner>
+      <PageTopActions>
+        <BackButton to="/ingredients">Ingrédients</BackButton>
+      </PageTopActions>
 
-      <div className="ingredient-edit-page__content">
-        <IngredientForm
-          mode="create"
-          onSuccess={(slug) => navigate({ to: '/ingredients/$slug', params: { slug } })}
-        />
+      <div className="create-page-header">
+        <h1 className="create-page-header__title">Nouvel ingrédient</h1>
       </div>
-    </div>
+
+      <IngredientForm
+        mode="create"
+        onSuccess={(slug) => navigate({ to: '/ingredients/$slug', params: { slug } })}
+      />
+    </DetailPageLayout>
   )
 }
 

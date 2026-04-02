@@ -198,7 +198,7 @@ export function useToggleCheck() {
       return json.data
     },
     onMutate: async ({ habitId, date, timingId }) => {
-      // Cancel background queries so server response won't overwrite our optimistic update
+      // Cancel ongoing fetches so a stale server response doesn't overwrite our optimistic UI update
       await qc.cancelQueries({ queryKey: habitKeys.today(date) })
       const todayOpts = habitQueries.today(date)
       const snapshot = qc.getQueryData(todayOpts.queryKey)
@@ -377,7 +377,7 @@ export function useReorderHabits() {
       if (!res.ok) throw new Error('Failed to reorder habits')
     },
     onMutate: async (newOrder) => {
-      // Same optimistic update strategy: update UI immediately before server responds
+      // Cancel ongoing list fetches so the reordered snapshot we set below is not overwritten
       await qc.cancelQueries({ queryKey: habitKeys.list() })
       const snapshot = qc.getQueryData(habitKeys.list())
       qc.setQueryData(habitKeys.list(), (old) => {
