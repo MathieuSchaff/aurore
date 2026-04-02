@@ -138,11 +138,21 @@ export {
 } from './schemas/products'
 export {
   BIO_MAX_LENGTH,
+  type ProfileLink,
   type ProfileStats,
   type ProfileUpdateInput,
+  profileLinkSchema,
   profilePublicSchema,
   profileStatsSchema,
   profileUpdateSchema,
+  SKIN_CONCERNS,
+  SKIN_TYPES,
+  type SkinConcern,
+  type SkinType,
+  type UserDermoProfile,
+  type UserDermoProfileUpdateInput,
+  userDermoProfileSchema,
+  userDermoProfileUpdateSchema,
   USERNAME_MAX_LENGTH,
 } from './schemas/profile'
 export {
