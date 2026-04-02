@@ -1,86 +1,80 @@
 import { Link } from '@tanstack/react-router'
-import {
-  Activity,
-  BookMarked,
-  CheckSquare,
-  Droplets,
-  FlaskConical,
-  ListChecks,
-  Package,
-} from 'lucide-react'
 
-import { ShelvingUnit } from '@/component/Header/NavItem/NavItem'
 import { Hero } from '../Hero/Hero'
+import { ObjDropper, ObjJar, ObjPerfume, ObjSpray, ObjTarget, ObjVial } from './FeatureObjects'
 import './HomePage.css'
 
-const navItems = [
-  { to: '/collection', icon: <ShelvingUnit size={22} />, label: 'Collection' },
-  { to: '/products', icon: <Package size={22} />, label: 'Produits' },
-  { to: '/ingredients', icon: <FlaskConical size={22} />, label: 'Ingrédients' },
-  { to: '/habits', icon: <ListChecks size={22} />, label: 'Habitudes' },
-  { to: '/tasks', icon: <CheckSquare size={22} />, label: 'Tâches' },
-]
-
 const features = [
-  // ... (rest of features remains same)
   {
-    icon: <Droplets size={26} />,
-    title: 'Collection skincare',
-    desc: 'Votre inventaire de produits, consultable en quelques secondes. Vérifiez les ingrédients, explorez les actifs, ajoutez un produit à votre wishlist.',
-    to: '/collection',
-    featured: true,
+    id: 'collection',
+    to: '/collection' as const,
+    frontLabel: 'Collection',
+    object: <ObjJar />,
+    backTitle: 'Ma collection',
+    backDesc: 'Tous vos produits au même endroit. Retrouvez-les en deux secondes.',
+    backCta: 'Voir ma collection',
   },
   {
-    icon: <FlaskConical size={26} />,
-    title: 'Base ingrédients',
-    desc: 'Recherchez un actif, lisez son profil dermo, comparez les risques et bénéfices. INCI rendu lisible.',
-    to: '/ingredients',
-    featured: false,
+    id: 'ingredients',
+    to: '/ingredients' as const,
+    frontLabel: 'Ingrédients',
+    object: <ObjDropper />,
+    backTitle: 'Ingrédients',
+    backDesc: "Lisez ce qu'il y a dans vos produits, en clair. Plus besoin de décoder l'INCI seul.",
+    backCta: 'Explorer',
   },
   {
-    icon: <ListChecks size={26} />,
-    title: 'Habitudes quotidiennes',
-    desc: 'Routine matin/soir, eau, méditation, sommeil. Suivi souple, sans streaks, sans culpabilité.',
-    to: '/habits',
-    featured: false,
+    id: 'habits',
+    to: '/habits' as const,
+    frontLabel: 'Routine',
+    object: <ObjSpray />,
+    backTitle: 'Habitudes',
+    backDesc: 'Votre routine matin et soir. Cochez ce que vous avez fait, rien de plus.',
+    backCta: 'Mes habitudes',
   },
   {
-    icon: <BookMarked size={26} />,
-    title: 'Wishlist',
-    desc: "Sauvegardez les produits qui vous intéressent avant d'acheter. Vérifiez les ingrédients avant de vous décider.",
-    to: '/collection',
-    featured: true,
+    id: 'wishlist',
+    to: '/collection' as const,
+    frontLabel: 'Wishlist',
+    object: <ObjPerfume />,
+    backTitle: 'Wishlist',
+    backDesc:
+      "Un produit vous intéresse ? Sauvegardez-le, vérifiez les ingrédients avant d'acheter.",
+    backCta: 'Ma wishlist',
   },
   {
-    icon: <Package size={26} />,
-    title: 'Suivi du stock',
-    desc: 'Voir ce qui est presque vide, éviter les ruptures.',
-    to: '/collection',
-    featured: false,
-    status: 'en cours' as const,
+    id: 'tasks',
+    to: '/tasks' as const,
+    frontLabel: 'Tâches',
+    object: <ObjTarget />,
+    backTitle: 'Tâches',
+    backDesc: "Ce que vous voulez faire aujourd'hui. Simple, sans score, sans pression.",
+    backCta: 'Mes tâches',
   },
   {
-    icon: <Activity size={26} />,
-    title: 'Journal bien-être',
-    desc: 'Énergie, sommeil, brouillard mental. Un journal léger pour suivre comment vous allez.',
-    to: '/habits',
-    featured: false,
-    status: 'en cours' as const,
+    id: 'stock',
+    to: '/collection' as const,
+    frontLabel: 'Stock',
+    object: <ObjVial />,
+    backTitle: 'Suivi du stock',
+    backDesc: 'Savoir ce qui est presque vide avant de se retrouver à court.',
+    backCta: 'Bientôt',
+    wip: true,
   },
 ]
 
 const principles = [
   {
     label: 'Sans pression',
-    desc: "Pas de streaks, pas de notifications agressives, pas de score de performance. L'outil s'adapte à vous.",
+    desc: "Pas de streaks. Pas de score. Si vous ratez un jour, l'app s'en fiche — et vous devriez aussi.",
   },
   {
-    label: 'Pour cerveau TDAH',
-    desc: 'Interface simple, une chose à la fois, feedback positif. Conçu pour fonctionner avec le TDAH, pas contre.',
+    label: 'Pensé pour le TDAH',
+    desc: 'Une chose à la fois, interface sans bruit. Conçu pour un cerveau qui oublie facilement, pas pour le punir.',
   },
   {
-    label: 'Entièrement personnel',
-    desc: 'Pas de publicités, pas de tracking, pas de gamification toxique. Juste votre outil, vos données.',
+    label: "Vos données, c'est tout",
+    desc: 'Pas de pub, pas de revente, pas de gamification qui crée de la dépendance. Un outil, pas un produit.',
   },
 ]
 
@@ -89,46 +83,54 @@ export const HomePage = () => {
     <div className="home-page">
       <Hero />
 
-      {/* Glass nav moved below Hero */}
-      <div className="home-nav-container">
-        <nav className="home-nav" aria-label="Navigation principale">
-          {navItems.map((item) => (
-            <Link key={item.label} to={item.to} className="home-nav__card">
-              <div className="home-nav__icon">{item.icon}</div>
-              <span className="home-nav__label">{item.label}</span>
-            </Link>
-          ))}
-        </nav>
-      </div>
-
-      {/* ── Features ────────────────────────────────────────────── */}
       <div className="home-content">
         <section className="home-section">
           <h2 className="home-section__title">Fonctionnalités</h2>
           <div className="home-features">
-            {features.map((f, i) => (
-              <Link
-                key={f.title}
-                to={f.to}
-                className={`home-feature-card ${f.featured ? 'home-feature-card--featured' : ''} ${f.status ? 'home-feature-card--wip' : ''}`}
-                style={{ animationDelay: `${i * 0.07}s` }}
-              >
-                <div className="home-feature-card__icon">{f.icon}</div>
-                <div className="home-feature-card__body">
-                  <div className="home-feature-card__header">
-                    <h3 className="home-feature-card__title">{f.title}</h3>
-                    {f.status && <span className="home-feature-card__status">{f.status}</span>}
+            {features.map((f) => {
+              return (
+                // biome-ignore lint/a11y/noStaticElementInteractions: touch-only flip, keyboard users navigate via the inner Link
+                // biome-ignore lint/a11y/useKeyWithClickEvents: touch-only flip, keyboard users navigate via the inner Link
+                <div
+                  key={f.id}
+                  className={`home-flip-card${f.wip ? ' home-flip-card--wip' : ''}`}
+                  onClick={(e) => {
+                    // on touch devices, tap flips the card instead of navigating
+                    if (window.matchMedia('(hover: none)').matches) {
+                      e.currentTarget.classList.toggle('flipped')
+                    }
+                  }}
+                >
+                  <div className="home-flip-inner">
+                    <div className="home-flip-front">
+                      {f.wip && <span className="home-flip-badge">bientôt</span>}
+                      <div aria-hidden="true">{f.object}</div>
+                      <span className="home-flip-card__name">{f.frontLabel}</span>
+                    </div>
+                    <div className="home-flip-back">
+                      <div className="home-flip-back__title">{f.backTitle}</div>
+                      <div className="home-flip-back__desc">{f.backDesc}</div>
+                      {f.wip ? (
+                        <span className="home-flip-back__cta">{f.backCta}</span>
+                      ) : (
+                        <Link
+                          to={f.to}
+                          className="home-flip-back__cta"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          {f.backCta}
+                        </Link>
+                      )}
+                    </div>
                   </div>
-                  <p className="home-feature-card__desc">{f.desc}</p>
                 </div>
-              </Link>
-            ))}
+              )
+            })}
           </div>
         </section>
 
-        {/* ── Philosophy ──────────────────────────────────────────── */}
         <section className="home-section" id="philosophy">
-          <h2 className="home-section__title">Philosophie</h2>
+          <h2 className="home-section__title">Pourquoi cet outil</h2>
           <div className="home-principles">
             {principles.map((p, i) => (
               <div
