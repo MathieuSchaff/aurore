@@ -174,31 +174,6 @@
   box-shadow: inset 0 0 0 2px oklch(from var(--fitz-bg) clamp(0, (l - 0.6) * -999, 1) 0 0 / 0.45);
 }
 
-/* Barre de soulignement — apparaît en scale depuis le centre */
-.dermo-fitz-item--active::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 10%;
-  right: 10%;
-  height: 2px;
-  background: oklch(from var(--fitz-bg) clamp(0, (l - 0.6) * -999, 1) 0 0 / 0.7);
-  border-radius: var(--radius-full);
-  transform-origin: center;
-  animation: fitz-bar-in var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1) both;
-}
-
-@keyframes fitz-bar-in {
-  from {
-    transform: scaleX(0);
-    opacity: 0;
-  }
-  to {
-    transform: scaleX(1);
-    opacity: 1;
-  }
-}
-
 .dermo-fitz-label {
   font-size: var(--text-sm);
   font-weight: var(--font-bold);
@@ -208,27 +183,33 @@
   font-family: var(--font-display);
 }
 
+/* Description en position absolute : hors du flow, le label reste toujours centré */
 .dermo-fitz-desc {
-  /* 0.5625rem = 9px — taille serrée nécessaire pour le conteneur 3.5rem */
+  position: absolute;
+  bottom: var(--space-2);
+  left: 0;
+  right: 0;
+  /* 0.5625rem = 9px — taille serrée nécessaire pour tenir dans 3.5rem de hauteur */
   font-size: 0.5625rem;
   color: oklch(from var(--fitz-bg) clamp(0, (l - 0.6) * -999, 1) 0 0 / 0.8);
   line-height: 1.2;
+  text-align: center;
   padding: 0 var(--space-1);
-  display: none;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .dermo-fitz-item--active .dermo-fitz-desc {
-  display: block;
-  animation: fitz-desc-in var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1) 60ms both;
+  animation: fitz-desc-in var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1) 80ms both;
 }
 
 @keyframes fitz-desc-in {
   from {
     opacity: 0;
-    transform: translateY(4px);
+    transform: translateY(3px);
   }
   to {
-    opacity: 1;
+    opacity: 0.8;
     transform: translateY(0);
   }
 }
