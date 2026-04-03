@@ -14,7 +14,7 @@
 }
 
 .dermo-form__loading {
-  color: var(--color-text-muted);
+  color: var(--text-muted);
   padding: var(--space-4);
 }
 
@@ -28,11 +28,12 @@
 .dermo-section + .dermo-section {
   border-top: 1px solid;
   border-image: linear-gradient(
-    90deg,
-    transparent,
-    color-mix(in oklch, var(--color-primary) 30%, transparent),
-    transparent
-  ) 1;
+      90deg,
+      transparent,
+      color-mix(in oklch, var(--color-primary) 30%, transparent),
+      transparent
+    )
+    1;
 }
 
 .dermo-section__title {
@@ -47,8 +48,8 @@
 }
 
 .dermo-section__desc {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
   margin: 0;
 }
 
@@ -137,12 +138,24 @@
 }
 
 /* Teintes de peau réelles — OKLCH (l/c/h fixes, pas des tokens thème) */
-.dermo-fitz-item:nth-child(1) { background: oklch(88% 0.06 50); }
-.dermo-fitz-item:nth-child(2) { background: oklch(78% 0.1 45); }
-.dermo-fitz-item:nth-child(3) { background: oklch(66% 0.13 40); }
-.dermo-fitz-item:nth-child(4) { background: oklch(52% 0.14 35); }
-.dermo-fitz-item:nth-child(5) { background: oklch(36% 0.1 30); }
-.dermo-fitz-item:nth-child(6) { background: oklch(22% 0.06 25); }
+.dermo-fitz-item:nth-child(1) {
+  background: oklch(88% 0.06 50);
+}
+.dermo-fitz-item:nth-child(2) {
+  background: oklch(78% 0.1 45);
+}
+.dermo-fitz-item:nth-child(3) {
+  background: oklch(66% 0.13 40);
+}
+.dermo-fitz-item:nth-child(4) {
+  background: oklch(52% 0.14 35);
+}
+.dermo-fitz-item:nth-child(5) {
+  background: oklch(36% 0.1 30);
+}
+.dermo-fitz-item:nth-child(6) {
+  background: oklch(22% 0.06 25);
+}
 
 .dermo-fitz-item--active {
   flex: 2;
@@ -222,14 +235,15 @@
   padding-top: var(--space-4);
   border-top: 1px solid;
   border-image: linear-gradient(
-    90deg,
-    transparent,
-    color-mix(in oklch, var(--color-primary) 30%, transparent),
-    transparent
-  ) 1;
+      90deg,
+      transparent,
+      color-mix(in oklch, var(--color-primary) 30%, transparent),
+      transparent
+    )
+    1;
 }
 
 .dermo-form__error {
-  font-size: var(--font-size-sm);
+  font-size: var(--text-sm);
   color: var(--color-error);
 }
