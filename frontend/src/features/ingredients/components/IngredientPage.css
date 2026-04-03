@@ -155,6 +155,20 @@
   color: var(--text-primary);
 }
 
+.ingredient-products-more {
+  display: inline-block;
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: opacity var(--transition-fast) ease;
+
+  &:hover {
+    opacity: 0.75;
+  }
+}
+
 .ingredient-products-empty {
   font-size: var(--text-sm);
   color: var(--text-muted);

@@ -22,6 +22,8 @@ import { useMemo } from 'react'
 
 import { Button } from '@/component/Button/Button'
 
+const MAX_VISIBLE_PRODUCTS = 5
+
 const route = getRouteApi('/ingredients/$slug')
 
 export function IngredientPage() {
@@ -135,7 +137,7 @@ export function IngredientPage() {
         <SectionHeader title="Produits" variant="primary" />
         {products && products.length > 0 ? (
           <div className="ingredient-products">
-            {products.map((product) => (
+            {products.slice(0, MAX_VISIBLE_PRODUCTS).map((product) => (
               <Link
                 key={product.id}
                 to="/products/$slug"
@@ -149,6 +151,15 @@ export function IngredientPage() {
                 <NavArrow size={16} />
               </Link>
             ))}
+            {products.length > MAX_VISIBLE_PRODUCTS && (
+              <Link
+                to="/products/$slug"
+                params={{ slug: ingredient.name }}
+                className="ingredient-products-more"
+              >
+                Voir tous les produits ({products.length})
+              </Link>
+            )}
           </div>
         ) : (
           <p className="ingredient-products-empty">Aucun produit associé à cet ingrédient.</p>
