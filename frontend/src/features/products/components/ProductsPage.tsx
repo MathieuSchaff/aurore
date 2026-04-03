@@ -8,10 +8,12 @@ import { ListPagination } from '@/component/DataDisplay/Pagination/ListPaginatio
 import { EmptyState } from '@/component/Feedback/EmptyState/EmptyState'
 import { ActiveFiltersBar } from '@/component/Filter/ActiveFiltersBar'
 import {
+  emptyFilters,
   type FilterGroupConfig,
   type FilterOption,
   type FilterValues,
   GroupedFilterDialog,
+  getFilterLabel,
 } from '@/component/Filter/Filter'
 import { PageHeader } from '@/component/Layout/PageHeader/PageHeader'
 import { SearchCombobox } from '@/component/search/SearchCombobox'
@@ -19,6 +21,14 @@ import { useListFilters } from '@/hooks/useListFilters'
 import { ProductIcon } from '../../../assets/product-icons'
 import { ingredientQueries } from '../../../lib/queries/ingredients'
 import { type ListProductsFilters, productQueries } from '../../../lib/queries/products'
+import {
+  ATTRIBUTE_SUBGROUPS,
+  FILTER_KEYS,
+  type FilterKey,
+  GROUP_LABELS,
+  LABEL_OVERRIDES,
+  TAG_CATEGORY_TO_KEY,
+} from '../filters'
 import { AddToCollectionModal } from './AddToCollectionModal'
 
 import './ListPage.css'
@@ -26,17 +36,6 @@ import './ProductsPage.css'
 import '@/features/products/styles/kinds.css'
 
 const routeApi = getRouteApi('/products/')
-
-type FilterKey =
-  | 'kind'
-  | 'brand'
-  | 'concern'
-  | 'skin_type'
-  | 'skin_zone'
-  | 'product_type'
-  | 'routine_step'
-  | 'attribute'
-  | 'ingredient'
 
 function kindClass(kind: string): string {
   switch (kind) {
@@ -64,97 +63,7 @@ function unitClass(unit: string | null | undefined): string {
   return ''
 }
 
-const TAG_CATEGORY_TO_KEY: Record<string, FilterKey> = {
-  routine_step: 'routine_step',
-  attribute: 'attribute',
-  skin_type: 'skin_type',
-  skin_zone: 'skin_zone',
-  product_type: 'product_type',
-  concern: 'concern',
-}
-
-const LABEL_OVERRIDES: Record<string, string> = {
-  humectant: 'Hydratant',
-  emollient: 'Nourrissant',
-  'sebo-regulateur': 'Anti-sébum',
-  'barriere-alteree': 'Peau sensibilisée',
-}
-
-const ATTRIBUTE_SUBGROUPS = [
-  {
-    label: 'Formulation',
-    slugs: [
-      'bio-naturel',
-      'vegan',
-      'cruelty-free',
-      'sans-parfum',
-      'sans-savon',
-      'hypoallergenique',
-      'non-comedogene',
-      'grossesse-compatible',
-    ],
-    maxVisible: 6,
-  },
-  {
-    label: 'Texture',
-    slugs: ['texture-legere', 'texture-riche'],
-  },
-  {
-    label: 'Action',
-    slugs: [
-      'apaisant',
-      'humectant',
-      'anti-oxydant',
-      'matifiant',
-      'sebo-regulateur',
-      'reparateur',
-      'protection-cutanee',
-      'prebiotique',
-    ],
-    maxVisible: 6,
-  },
-  {
-    label: 'Technique',
-    slugs: [
-      'keratolytique',
-      'astringent',
-      'antiseptique',
-      'anti-bacterien',
-      'biomimetique',
-      'emollient',
-      'barriere-alteree',
-      'filtres-chimiques',
-      'filtres-mineraux',
-      'pigments-verts',
-      'comedogene',
-    ],
-    maxVisible: 4,
-  },
-]
-
-const GROUP_LABELS: Record<FilterKey, string> = {
-  skin_type: 'Peau',
-  skin_zone: 'Zone',
-  concern: 'Objectif',
-  kind: 'Catégorie',
-  product_type: 'Type',
-  routine_step: 'Étape',
-  attribute: 'Préf.',
-  brand: 'Marque',
-  ingredient: 'Ingr.',
-}
-
-const EMPTY_FILTERS = {
-  kind: [] as string[],
-  brand: [] as string[],
-  routine_step: [] as string[],
-  attribute: [] as string[],
-  skin_type: [] as string[],
-  skin_zone: [] as string[],
-  product_type: [] as string[],
-  concern: [] as string[],
-  ingredient: [] as string[],
-} satisfies FilterValues<FilterKey>
+const EMPTY_FILTERS = emptyFilters(FILTER_KEYS)
 
 export function ProductsPage() {
   const [isDrawerOpen, setDrawerOpen] = useState(false)
@@ -166,7 +75,6 @@ export function ProductsPage() {
   } | null>(null)
 
   const {
-    kind,
     brand,
     routine_step,
     attribute,
@@ -180,7 +88,6 @@ export function ProductsPage() {
   const navigate = useNavigate({ from: '/products/' })
 
   const filters: FilterValues<FilterKey> = {
-    kind,
     brand,
     routine_step,
     attribute,
@@ -191,24 +98,12 @@ export function ProductsPage() {
     ingredient,
   }
 
-  const filterKeys: FilterKey[] = [
-    'kind',
-    'brand',
-    'routine_step',
-    'attribute',
-    'skin_type',
-    'skin_zone',
-    'product_type',
-    'concern',
-    'ingredient',
-  ]
-
   const { filterCount, activeTags, applyFilters, resetFilters, goToPage, toggleSingleFilter } =
     useListFilters({
       from: '/products/',
       filters,
       emptyFilters: EMPTY_FILTERS,
-      filterKeys,
+      filterKeys: FILTER_KEYS,
     })
 
   const hasFilters = filterCount > 0
@@ -218,7 +113,6 @@ export function ProductsPage() {
 
   const apiFilters: ListProductsFilters = hasFilters
     ? {
-        kind: kind.length > 0 ? kind : undefined,
         brand: brand.length > 0 ? brand : undefined,
         concern: concern.length > 0 ? concern : undefined,
         skin_type: skin_type.length > 0 ? skin_type : undefined,
@@ -288,14 +182,8 @@ export function ProductsPage() {
         tier: 'advanced',
         subFilters: [
           {
-            key: 'kind',
-            label: 'Catégorie',
-            placeholder: 'Toutes',
-            options: filterOptions.kinds.map((k) => ({ value: k, label: k })),
-          },
-          {
             key: 'product_type',
-            label: 'Format',
+            label: 'Type',
             placeholder: 'Tous',
             options: getOpts('product_type'),
           },
@@ -347,17 +235,6 @@ export function ProductsPage() {
     ]
   }, [filterOptions, allIngredients])
 
-  const getFilterLabel = (key: FilterKey, value: string): string => {
-    for (const group of filterGroups) {
-      for (const sf of group.subFilters) {
-        if (sf.key === key) {
-          return sf.options.find((o) => o.value === value)?.label ?? value
-        }
-      }
-    }
-    return value
-  }
-
   const items = data?.items ?? []
   const total = data?.total ?? 0
   const totalPages = Math.ceil((total ?? 0) / 20) // only used when hasFilters (limit: 20)
@@ -405,7 +282,7 @@ export function ProductsPage() {
         <ActiveFiltersBar
           activeTags={activeTags}
           groupLabels={GROUP_LABELS}
-          getFilterLabel={getFilterLabel}
+          getFilterLabel={(key, value) => getFilterLabel(filterGroups, key, value)}
           onRemoveTag={toggleSingleFilter}
           onClearAll={resetFilters}
         />
@@ -458,7 +335,12 @@ export function ProductsPage() {
                           </div>
                         </div>
                         <span className="list-card__brand">{product.brand}</span>
-                        <p className="list-card__name">{product.name}</p>
+                        <p
+                          className="list-card__name"
+                          style={{ viewTransitionName: `product-name-${product.slug}` }}
+                        >
+                          {product.name}
+                        </p>
                       </Link>
 
                       <div className="list-card__footer">
