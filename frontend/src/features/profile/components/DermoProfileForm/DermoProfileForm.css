@@ -171,7 +171,6 @@
 
 .dermo-fitz-item--active {
   flex-grow: 2;
-  box-shadow: inset 0 0 0 2px oklch(from var(--fitz-bg) clamp(0, (l - 0.6) * -999, 1) 0 0 / 0.45);
 }
 
 .dermo-fitz-label {
