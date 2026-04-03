@@ -1,42 +1,42 @@
 import { useQuery } from '@tanstack/react-query'
 import { getRouteApi, Link, useNavigate } from '@tanstack/react-router'
 import { FlaskConical, Plus, SlidersHorizontal } from 'lucide-react'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
 import { Badge } from '@/component/DataDisplay/Badge/Badge'
 import { ListPagination } from '@/component/DataDisplay/Pagination/ListPagination'
 import { EmptyState } from '@/component/Feedback/EmptyState/EmptyState'
 import { ActiveFiltersBar } from '@/component/Filter/ActiveFiltersBar'
-import { type FilterValues, GroupedFilterDialog } from '@/component/Filter/Filter'
+import {
+  emptyFilters,
+  type FilterGroupConfig,
+  type FilterOption,
+  type FilterValues,
+  GroupedFilterDialog,
+  getFilterLabel,
+} from '@/component/Filter/Filter'
 import { PageHeader } from '@/component/Layout/PageHeader/PageHeader'
 import { SearchCombobox } from '@/component/search/SearchCombobox'
 import { useListFilters } from '@/hooks/useListFilters'
 import { ingredientQueries, type ListIngredientsFilters } from '../../../lib/queries/ingredients'
-import { type FilterKey, GROUP_LABELS, INGREDIENT_FILTER_GROUPS } from './filterFieldsIngredients'
+import { ATTRIBUTE_SUBGROUPS, FILTER_KEYS, type FilterKey, GROUP_LABELS } from '../filters'
 
 import '../../products/components/ListPage.css'
 import './IngredientsPage.css'
 
 const routeApi = getRouteApi('/ingredients/')
 
-const EMPTY_FILTERS: FilterValues<FilterKey> = {
-  category: [],
-  concern: [],
-  skinType: [],
-  attribute: [],
-}
-
-const FILTER_KEYS: FilterKey[] = ['category', 'concern', 'skinType', 'attribute']
+const EMPTY_FILTERS = emptyFilters(FILTER_KEYS)
 const PAGE_SIZE = 20
 
 export function IngredientsPage() {
   const [isDrawerOpen, setDrawerOpen] = useState(false)
 
-  const { category, concern, skinType, attribute, page } = routeApi.useSearch()
+  const { category, concern, skin_type, attribute, page } = routeApi.useSearch()
   const navigate = useNavigate({ from: '/ingredients/' })
 
-  const filters: FilterValues<FilterKey> = { category, concern, skinType, attribute }
+  const filters: FilterValues<FilterKey> = { category, concern, skin_type, attribute }
 
   const { filterCount, activeTags, applyFilters, resetFilters, goToPage, toggleSingleFilter } =
     useListFilters({
@@ -52,7 +52,7 @@ export function IngredientsPage() {
     ? {
         category: category.length > 0 ? category : undefined,
         concern: concern.length > 0 ? concern : undefined,
-        skinType: skinType.length > 0 ? skinType : undefined,
+        skin_type: skin_type.length > 0 ? skin_type : undefined,
         attribute: attribute.length > 0 ? attribute : undefined,
         page,
         limit: PAGE_SIZE,
@@ -65,20 +65,76 @@ export function IngredientsPage() {
     staleTime: hasFilters ? 5 * 60 * 1000 : 0,
   })
 
+  const { data: filterOptions } = useQuery(ingredientQueries.filterOptions())
+
   const items = data?.items ?? []
   const total = data?.total ?? 0
   const totalPages = Math.ceil(total / PAGE_SIZE)
 
-  function getFilterLabel(key: FilterKey, value: string): string {
-    for (const group of INGREDIENT_FILTER_GROUPS) {
-      for (const sf of group.subFilters) {
-        if (sf.key === key) {
-          return sf.options.find((o) => o.value === value)?.label ?? value
-        }
-      }
-    }
-    return value
-  }
+  const filterGroups = useMemo<FilterGroupConfig<FilterKey>[]>(() => {
+    const toOpts = (arr: { name: string; slug: string }[]): FilterOption[] =>
+      arr.map((t) => ({ value: t.slug, label: t.name }))
+
+    return [
+      {
+        id: 'skin',
+        label: 'Ma peau',
+        defaultOpen: true,
+        tier: 'essential',
+        subFilters: [
+          {
+            key: 'skin_type',
+            label: 'Type de peau',
+            placeholder: 'Tous types',
+            options: toOpts(filterOptions?.tags.skin_type ?? []),
+          },
+        ],
+      },
+      {
+        id: 'concern',
+        label: 'Problématique',
+        defaultOpen: true,
+        tier: 'essential',
+        subFilters: [
+          {
+            key: 'concern',
+            label: 'Problématique',
+            placeholder: 'Toutes',
+            options: toOpts(filterOptions?.tags.concern ?? []),
+          },
+        ],
+      },
+      {
+        id: 'properties',
+        label: 'Propriétés & actions',
+        defaultOpen: false,
+        tier: 'advanced',
+        subFilters: [
+          {
+            key: 'attribute',
+            label: 'Propriétés',
+            placeholder: 'Toutes',
+            options: toOpts(filterOptions?.tags.attribute ?? []),
+            subGroups: ATTRIBUTE_SUBGROUPS,
+          },
+        ],
+      },
+      {
+        id: 'category',
+        label: 'Catégorie technique',
+        defaultOpen: false,
+        tier: 'advanced',
+        subFilters: [
+          {
+            key: 'category',
+            label: 'Catégorie',
+            placeholder: 'Toutes',
+            options: (filterOptions?.categories ?? []).map((c) => ({ value: c, label: c })),
+          },
+        ],
+      },
+    ]
+  }, [filterOptions])
 
   return (
     <div className="list-page ingredients-page">
@@ -122,7 +178,7 @@ export function IngredientsPage() {
       <ActiveFiltersBar
         activeTags={activeTags}
         groupLabels={GROUP_LABELS}
-        getFilterLabel={getFilterLabel}
+        getFilterLabel={(key, value) => getFilterLabel(filterGroups, key, value)}
         onRemoveTag={toggleSingleFilter}
         onClearAll={resetFilters}
       />
@@ -130,7 +186,7 @@ export function IngredientsPage() {
       <GroupedFilterDialog
         open={isDrawerOpen}
         onClose={() => setDrawerOpen(false)}
-        groups={INGREDIENT_FILTER_GROUPS}
+        groups={filterGroups}
         currentFilters={filters}
         initialFilters={EMPTY_FILTERS}
         onApply={applyFilters}
@@ -181,7 +237,12 @@ export function IngredientsPage() {
                         <path d="M5 12h14M12 5l7 7-7 7" />
                       </svg>
                     </div>
-                    <div className="list-card__name">{ingredient.name}</div>
+                    <div
+                      className="list-card__name"
+                      style={{ viewTransitionName: `ingredient-name-${ingredient.slug}` }}
+                    >
+                      {ingredient.name}
+                    </div>
                     {ingredient.description && (
                       <div className="ingredient-card__description">{ingredient.description}</div>
                     )}
