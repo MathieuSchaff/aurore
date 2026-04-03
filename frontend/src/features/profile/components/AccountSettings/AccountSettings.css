@@ -69,6 +69,26 @@
   color: white;
 }
 
+.delete-confirm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  background-color: color-mix(in oklch, var(--color-error) 5%, transparent);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in oklch, var(--color-error) 30%, transparent);
+}
+
+.delete-confirm-text {
+  font-size: var(--text-sm);
+  color: var(--color-error);
+}
+
+.delete-confirm-actions {
+  display: flex;
+  gap: var(--space-3);
+}
+
 .btn-badge {
   margin-left: auto;
   font-size: 10px;
