@@ -106,6 +106,7 @@ export function DermoProfileForm() {
   return (
     <div className="dermo-form">
       <section className="dermo-section">
+        <span className="dermo-section__overline">Type de peau</span>
         <h3 className="dermo-section__title">Type de peau</h3>
         <p className="dermo-section__desc">Sélectionnez jusqu'à 3 types.</p>
         <div className="dermo-skin-types">
@@ -128,6 +129,7 @@ export function DermoProfileForm() {
       </section>
 
       <section className="dermo-section">
+        <span className="dermo-section__overline">Phototype</span>
         <h3 className="dermo-section__title">Phototype de Fitzpatrick</h3>
         <p className="dermo-section__desc">Réaction de votre peau au soleil.</p>
         <div className="dermo-fitzpatrick" role="radiogroup" aria-label="Phototype de Fitzpatrick">
@@ -157,6 +159,7 @@ export function DermoProfileForm() {
       </section>
 
       <section className="dermo-section">
+        <span className="dermo-section__overline">Conditions</span>
         <h3 className="dermo-section__title">Problématiques & conditions</h3>
         <div className="dermo-concerns">
           {SKIN_CONCERNS.map((concern) => (
@@ -177,6 +180,7 @@ export function DermoProfileForm() {
       </section>
 
       <section className="dermo-section">
+        <span className="dermo-section__overline">Privé</span>
         <h3 className="dermo-section__title">Notes privées</h3>
         <p className="dermo-section__desc">
           Ces notes sont privées et utilisées uniquement pour les recommandations personnalisées.
