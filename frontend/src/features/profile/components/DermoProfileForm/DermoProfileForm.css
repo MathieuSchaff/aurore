@@ -1,7 +1,16 @@
 .dermo-form {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: 0;
+  background: radial-gradient(
+    ellipse at 15% 0%,
+    color-mix(in oklch, var(--color-primary) 8%, transparent) 0%,
+    transparent 60%
+  );
+  border: 1px solid color-mix(in oklch, var(--border-default) 60%, transparent);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-md);
 }
 
 .dermo-form__loading {
@@ -13,6 +22,17 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
+  padding: var(--space-6) 0;
+}
+
+.dermo-section + .dermo-section {
+  border-top: 1px solid;
+  border-image: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklch, var(--color-primary) 30%, transparent),
+    transparent
+  ) 1;
 }
 
 .dermo-section__title {
@@ -135,6 +155,14 @@
 .dermo-form__actions {
   display: flex;
   justify-content: flex-end;
+  padding-top: var(--space-4);
+  border-top: 1px solid;
+  border-image: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklch, var(--color-primary) 30%, transparent),
+    transparent
+  ) 1;
 }
 
 .dermo-form__error {
