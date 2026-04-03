@@ -137,32 +137,40 @@
   text-align: center;
 }
 
-/* Teintes de peau réelles — OKLCH (l/c/h fixes, pas des tokens thème) */
+/* Teintes de peau réelles — OKLCH (l/c/h fixes, pas des tokens thème).
+   --fitz-bg est exposé comme custom property pour que les enfants
+   puissent dériver leur couleur de texte via relative color syntax. */
 .dermo-fitz-item:nth-child(1) {
-  background: oklch(88% 0.06 50);
+  --fitz-bg: oklch(88% 0.06 50);
+  background: var(--fitz-bg);
 }
 .dermo-fitz-item:nth-child(2) {
-  background: oklch(78% 0.1 45);
+  --fitz-bg: oklch(78% 0.1 45);
+  background: var(--fitz-bg);
 }
 .dermo-fitz-item:nth-child(3) {
-  background: oklch(66% 0.13 40);
+  --fitz-bg: oklch(66% 0.13 40);
+  background: var(--fitz-bg);
 }
 .dermo-fitz-item:nth-child(4) {
-  background: oklch(52% 0.14 35);
+  --fitz-bg: oklch(52% 0.14 35);
+  background: var(--fitz-bg);
 }
 .dermo-fitz-item:nth-child(5) {
-  background: oklch(36% 0.1 30);
+  --fitz-bg: oklch(36% 0.1 30);
+  background: var(--fitz-bg);
 }
 .dermo-fitz-item:nth-child(6) {
-  background: oklch(22% 0.06 25);
+  --fitz-bg: oklch(22% 0.06 25);
+  background: var(--fitz-bg);
 }
 
 .dermo-fitz-item--active {
   flex: 2;
-  box-shadow: inset 0 0 0 2px oklch(100% 0 0 / 0.5);
+  box-shadow: inset 0 0 0 2px oklch(from var(--fitz-bg) clamp(0, (l - 0.6) * -999, 1) 0 0 / 0.5);
 }
 
-/* Barre blanche en bas du segment actif */
+/* Barre de soulignement du segment actif — couleur opposée au fond */
 .dermo-fitz-item--active::after {
   content: "";
   position: absolute;
@@ -170,23 +178,25 @@
   left: 10%;
   right: 10%;
   height: 2px;
-  background: oklch(100% 0 0 / 0.8);
+  background: oklch(from var(--fitz-bg) clamp(0, (l - 0.6) * -999, 1) 0 0 / 0.8);
   border-radius: var(--radius-full);
 }
 
 .dermo-fitz-label {
   font-size: var(--text-sm);
   font-weight: var(--font-bold);
-  color: oklch(100% 0 0);
-  text-shadow: 0 1px 3px oklch(0% 0 0 / 0.4);
+  /* Auto-contrast via lightness: seuil à 60% → noir au-dessus, blanc en-dessous */
+  color: oklch(from var(--fitz-bg) clamp(0, (l - 0.6) * -999, 1) 0 0);
+  text-shadow: none;
   line-height: 1;
   font-family: var(--font-display);
 }
 
 .dermo-fitz-desc {
   font-size: 0.5625rem;
-  color: oklch(100% 0 0 / 0.85);
-  text-shadow: 0 1px 2px oklch(0% 0 0 / 0.35);
+  /* Même dérivation que le label, légèrement transparent */
+  color: oklch(from var(--fitz-bg) clamp(0, (l - 0.6) * -999, 1) 0 0 / 0.8);
+  text-shadow: none;
   line-height: 1.2;
   display: none;
   padding: 0 var(--space-1);
