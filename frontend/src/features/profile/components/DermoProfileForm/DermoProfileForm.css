@@ -107,44 +107,80 @@
 }
 
 .dermo-fitzpatrick {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-2);
+  display: flex;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  height: 3.5rem;
+  border: 1px solid color-mix(in oklch, var(--border-default) 50%, transparent);
+  box-shadow: var(--shadow-sm);
 }
 
+/* Les 6 segments reçoivent leurs couleurs de peau via des sélecteurs nth-child */
 .dermo-fitz-item {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-1);
-  padding: var(--space-3) var(--space-2);
-  border-radius: var(--radius-md);
-  border: 1.5px solid var(--color-border);
-  background: var(--color-surface);
+  justify-content: center;
+  gap: 0.125rem;
   cursor: pointer;
-  transition: all 0.15s;
+  transition:
+    flex var(--transition-slow) ease,
+    box-shadow var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  padding: var(--space-2) var(--space-1);
   text-align: center;
 }
 
-.dermo-fitz-item:hover {
-  border-color: var(--color-primary);
-}
+/* Teintes de peau réelles — OKLCH (l/c/h fixes, pas des tokens thème) */
+.dermo-fitz-item:nth-child(1) { background: oklch(88% 0.06 50); }
+.dermo-fitz-item:nth-child(2) { background: oklch(78% 0.1 45); }
+.dermo-fitz-item:nth-child(3) { background: oklch(66% 0.13 40); }
+.dermo-fitz-item:nth-child(4) { background: oklch(52% 0.14 35); }
+.dermo-fitz-item:nth-child(5) { background: oklch(36% 0.1 30); }
+.dermo-fitz-item:nth-child(6) { background: oklch(22% 0.06 25); }
 
 .dermo-fitz-item--active {
-  border-color: var(--color-primary);
-  background: var(--color-primary-subtle);
+  flex: 2;
+  box-shadow: inset 0 0 0 2px oklch(100% 0 0 / 0.5);
+}
+
+/* Barre blanche en bas du segment actif */
+.dermo-fitz-item--active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: oklch(100% 0 0 / 0.8);
+  border-radius: var(--radius-full);
 }
 
 .dermo-fitz-label {
-  font-size: var(--font-size-base);
-  font-weight: 700;
-  color: var(--color-text-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: oklch(100% 0 0);
+  text-shadow: 0 1px 3px oklch(0% 0 0 / 0.4);
+  line-height: 1;
+  font-family: var(--font-display);
 }
 
 .dermo-fitz-desc {
-  font-size: var(--font-size-xs);
-  color: var(--color-text-muted);
-  line-height: 1.3;
+  font-size: 0.5625rem;
+  color: oklch(100% 0 0 / 0.85);
+  text-shadow: 0 1px 2px oklch(0% 0 0 / 0.35);
+  line-height: 1.2;
+  display: none;
+  padding: 0 var(--space-1);
+}
+
+.dermo-fitz-item--active .dermo-fitz-desc {
+  display: block;
 }
 
 .dermo-concerns {
