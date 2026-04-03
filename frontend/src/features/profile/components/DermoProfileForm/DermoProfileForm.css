@@ -116,18 +116,25 @@
   box-shadow: var(--shadow-sm);
 }
 
-/* Les 6 segments reçoivent leurs couleurs de peau via des sélecteurs nth-child */
+/* Les 6 segments reçoivent leurs couleurs de peau via des sélecteurs nth-child.
+   --fitz-bg est exposé pour que les enfants dérivent leur couleur de texte
+   via relative color syntax. */
 .dermo-fitz-item {
-  flex: 1;
+  /* flex-grow explicite pour une transition fiable (pas le shorthand flex) */
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 0.125rem;
   cursor: pointer;
+  /* box-shadow initialisé à 0 spread transparent pour éviter le saut au premier clic */
+  box-shadow: inset 0 0 0 0 oklch(0% 0 0 / 0);
   transition:
-    flex var(--transition-slow) ease,
-    box-shadow var(--transition-fast);
+    flex-grow var(--transition-slower) cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow var(--transition-base) ease-out;
   position: relative;
   overflow: hidden;
   border: none;
@@ -137,9 +144,6 @@
   text-align: center;
 }
 
-/* Teintes de peau réelles — OKLCH (l/c/h fixes, pas des tokens thème).
-   --fitz-bg est exposé comme custom property pour que les enfants
-   puissent dériver leur couleur de texte via relative color syntax. */
 .dermo-fitz-item:nth-child(1) {
   --fitz-bg: oklch(88% 0.06 50);
   background: var(--fitz-bg);
@@ -166,11 +170,11 @@
 }
 
 .dermo-fitz-item--active {
-  flex: 2;
-  box-shadow: inset 0 0 0 2px oklch(from var(--fitz-bg) clamp(0, (l - 0.6) * -999, 1) 0 0 / 0.5);
+  flex-grow: 2;
+  box-shadow: inset 0 0 0 2px oklch(from var(--fitz-bg) clamp(0, (l - 0.6) * -999, 1) 0 0 / 0.45);
 }
 
-/* Barre de soulignement du segment actif — couleur opposée au fond */
+/* Barre de soulignement — apparaît en scale depuis le centre */
 .dermo-fitz-item--active::after {
   content: "";
   position: absolute;
@@ -178,32 +182,55 @@
   left: 10%;
   right: 10%;
   height: 2px;
-  background: oklch(from var(--fitz-bg) clamp(0, (l - 0.6) * -999, 1) 0 0 / 0.8);
+  background: oklch(from var(--fitz-bg) clamp(0, (l - 0.6) * -999, 1) 0 0 / 0.7);
   border-radius: var(--radius-full);
+  transform-origin: center;
+  animation: fitz-bar-in var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes fitz-bar-in {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
 }
 
 .dermo-fitz-label {
   font-size: var(--text-sm);
   font-weight: var(--font-bold);
-  /* Auto-contrast via lightness: seuil à 60% → noir au-dessus, blanc en-dessous */
+  /* Auto-contrast : noir au-dessus de 60% lightness, blanc en-dessous */
   color: oklch(from var(--fitz-bg) clamp(0, (l - 0.6) * -999, 1) 0 0);
-  text-shadow: none;
   line-height: 1;
   font-family: var(--font-display);
 }
 
 .dermo-fitz-desc {
+  /* 0.5625rem = 9px — taille serrée nécessaire pour le conteneur 3.5rem */
   font-size: 0.5625rem;
-  /* Même dérivation que le label, légèrement transparent */
   color: oklch(from var(--fitz-bg) clamp(0, (l - 0.6) * -999, 1) 0 0 / 0.8);
-  text-shadow: none;
   line-height: 1.2;
-  display: none;
   padding: 0 var(--space-1);
+  display: none;
 }
 
 .dermo-fitz-item--active .dermo-fitz-desc {
   display: block;
+  animation: fitz-desc-in var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1) 60ms both;
+}
+
+@keyframes fitz-desc-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .dermo-concerns {
