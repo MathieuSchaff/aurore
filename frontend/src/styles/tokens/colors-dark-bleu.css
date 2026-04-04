@@ -18,6 +18,9 @@
 
   --color-primary: var(--primary-60);
   --color-primary-hover: var(--primary-75);
+  --color-primary-dark: oklch(50% 0.18 230deg);
+  --color-primary-deeper: oklch(38% 0.15 230deg);
+  --color-primary-light: oklch(28% 0.08 230deg);
   --color-focus: var(--color-primary);
 
   --color-accent: var(--accent-60);
@@ -44,19 +47,19 @@
   --color-header-action: var(--primary-60);
   --color-header-action-bg-hover: oklch(from var(--primary-60) l c h / 0.15);
 
-  --color-sidebar-bg: oklch(20% 0.06 235deg);
-  --color-sidebar-item-hover: oklch(26% 0.08 235deg);
-  --color-sidebar-item-active: oklch(30% 0.1 235deg);
-  --color-sidebar-icon: oklch(75% 0.08 230deg);
-  --color-sidebar-icon-active: oklch(88% 0.15 195deg);
-  --color-sidebar-text: oklch(78% 0.06 230deg);
-  --color-sidebar-text-active: oklch(90% 0.15 195deg);
+  --color-sidebar-bg: oklch(20% 0.14 28);
+  --color-sidebar-item-hover: oklch(28% 0.16 28);
+  --color-sidebar-item-active: oklch(36% 0.18 35);
+  --color-sidebar-icon: oklch(90% 0.01 28);
+  --color-sidebar-icon-active: oklch(100% 0 0);
+  --color-sidebar-text: oklch(88% 0.01 28);
+  --color-sidebar-text-active: oklch(100% 0 0);
 
-  --bg-page: oklch(18% 0.02 230deg);
-  --bg-card: oklch(22% 0.03 230deg);
-  --bg-muted: oklch(14% 0.02 230deg);
-  --bg-elevated: oklch(28% 0.04 230deg);
-  --bg-sunken: oklch(12% 0.02 230deg);
+  --bg-page: oklch(18% 0.05 230deg);
+  --bg-card: oklch(22% 0.06 230deg);
+  --bg-muted: oklch(14% 0.04 230deg);
+  --bg-elevated: oklch(28% 0.07 230deg);
+  --bg-sunken: oklch(12% 0.03 230deg);
   --bg-hover: oklch(30% 0.04 230deg);
   --bg-active: oklch(34% 0.05 230deg);
   --bg-selected: oklch(28% 0.14 var(--hue-primary) / 0.3);
@@ -75,11 +78,12 @@
   --tag-active-bg: oklch(from var(--primary-40) l c h / 0.5);
   --tag-active-text: var(--primary-75);
 
-  --border-default: oklch(45% 0.06 var(--hue-primary));
+  --border-default: oklch(50% 0.18 230);
   --border-strong: var(--primary-60);
   --shadow-color: oklch(0% 0 0 / 0.6);
-  --shadow-hard: 0 8px 24px var(--shadow-color);
+  --shadow-hard: 4px 4px 0px oklch(68% 0.23 230);
   --shadow-card: 0 4px 16px var(--shadow-color);
   --overlay: oklch(10% 0.04 230deg / 0.85);
   --hero-glow: oklch(25% 0.08 230deg);
+  --surface-bright: oklch(99% 0.002 0deg);
 }
