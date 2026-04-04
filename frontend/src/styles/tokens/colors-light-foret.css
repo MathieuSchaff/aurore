@@ -20,8 +20,8 @@
   --color-tertiary: oklch(74% 0.2 88);
 
   /* ── Sidebar ── */
-  --color-sidebar-bg: oklch(30% 0.16 55);
-  --color-sidebar-item-hover: oklch(38% 0.18 55);
+  --color-sidebar-bg: oklch(28% 0.18 8);
+  --color-sidebar-item-hover: oklch(36% 0.20 8);
   --color-sidebar-item-active: oklch(from oklch(100% 0 0) l c h / 0.2);
   --color-sidebar-icon: oklch(100% 0 0);
   --color-sidebar-icon-active: oklch(100% 0 0);

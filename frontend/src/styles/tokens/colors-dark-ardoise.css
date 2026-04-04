@@ -42,9 +42,9 @@
   --color-header-action: var(--primary-60);
   --color-header-action-bg-hover: oklch(from var(--primary-60) l c h / 0.15);
 
-  --color-sidebar-bg: oklch(22% 0.14 45deg);
-  --color-sidebar-item-hover: oklch(30% 0.17 45deg);
-  --color-sidebar-item-active: oklch(38% 0.18 55deg);
+  --color-sidebar-bg: oklch(22% 0.16 65);
+  --color-sidebar-item-hover: oklch(30% 0.18 65);
+  --color-sidebar-item-active: oklch(38% 0.18 65);
   --color-sidebar-icon: oklch(100% 0 0);
   --color-sidebar-icon-active: oklch(100% 0 0);
   --color-sidebar-text: oklch(100% 0 0);

@@ -45,12 +45,12 @@
   /* ===================================
      SIDEBAR — Sombre clay/terracota chaud
      =================================== */
-  --color-sidebar-bg: oklch(26% 0.14 25deg);
-  --color-sidebar-item-hover: oklch(34% 0.16 25deg);
+  --color-sidebar-bg: oklch(26% 0.18 35);
+  --color-sidebar-item-hover: oklch(34% 0.20 35);
   --color-sidebar-item-active: oklch(from oklch(100% 0 0) l c h / 0.2);
-  --color-sidebar-icon: oklch(90% 0.01 25deg);
+  --color-sidebar-icon: oklch(100% 0 0);
   --color-sidebar-icon-active: oklch(100% 0 0);
-  --color-sidebar-text: oklch(95% 0.005 25deg);
+  --color-sidebar-text: oklch(95% 0.005 35);
   --color-sidebar-text-active: oklch(100% 0 0);
 
   /* ===================================
