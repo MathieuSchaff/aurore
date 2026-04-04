@@ -70,16 +70,19 @@ export const productEditResponseSchema = z.object({
   createdAt: z.date(),
 })
 
+const tagItemSchema = z.object({ name: z.string(), slug: z.string() })
+
 export const filterOptionsSchema = z.object({
   kinds: z.array(z.string()),
   brands: z.array(z.string()),
-  tags: z.array(
-    z.object({
-      name: z.string(),
-      slug: z.string(),
-      category: z.string().nullable(),
-    })
-  ),
+  tags: z.object({
+    routine_step: z.array(tagItemSchema),
+    attribute: z.array(tagItemSchema),
+    skin_type: z.array(tagItemSchema),
+    skin_zone: z.array(tagItemSchema),
+    product_type: z.array(tagItemSchema),
+    concern: z.array(tagItemSchema),
+  }),
 })
 
 export const productsPageSchema = z.object({

@@ -76,11 +76,23 @@ export const ingredientChangesSchema = z
     message: 'At least one field change is required',
   })
 
+const ingredientTagItemSchema = z.object({ name: z.string(), slug: z.string() })
+
+export const ingredientFilterOptionsSchema = z.object({
+  categories: z.array(z.string()),
+  tags: z.object({
+    concern: z.array(ingredientTagItemSchema),
+    skin_type: z.array(ingredientTagItemSchema),
+    attribute: z.array(ingredientTagItemSchema),
+  }),
+})
+export type IngredientFilterOptions = z.infer<typeof ingredientFilterOptionsSchema>
+
 // coerce because query params always arrive as strings
 export const ingredientsSearchSchema = z.object({
   category: z.string().optional(),
   concern: z.string().optional(),
-  skinType: z.string().optional(),
+  skin_type: z.string().optional(),
   attribute: z.string().optional(),
   page: z.coerce.number().min(1).default(1),
   limit: z.coerce.number().min(1).max(100).default(20),
