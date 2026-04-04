@@ -2,11 +2,14 @@
   color-scheme: light;
 
   /* ── Primary (Forêt — deep forest green) ── */
-  --color-primary: oklch(40% 0.16 140);
-  --color-primary-hover: oklch(50% 0.16 140);
-  --color-primary-dark: oklch(28% 0.16 140);
+  --color-primary: oklch(40% 0.20 140);
+  --color-primary-hover: oklch(50% 0.20 140);
+  --color-primary-dark: oklch(28% 0.18 140);
   --color-primary-text: oklch(99% 0.005 140);
-  --color-focus: oklch(40% 0.16 140);
+  --color-focus: oklch(40% 0.20 140);
+  --color-primary-deeper: oklch(22% 0.14 140);
+  --color-primary-light: oklch(90% 0.06 140);
+  --color-primary-subtle: oklch(97% 0.008 140);
 
   /* ── Accent (citron-lime) ── */
   --color-accent: oklch(74% 0.2 88);
@@ -17,8 +20,8 @@
   --color-tertiary: oklch(74% 0.2 88);
 
   /* ── Sidebar ── */
-  --color-sidebar-bg: oklch(28% 0.14 140);
-  --color-sidebar-item-hover: oklch(34% 0.14 140);
+  --color-sidebar-bg: oklch(30% 0.16 55deg);
+  --color-sidebar-item-hover: oklch(38% 0.18 55deg);
   --color-sidebar-item-active: oklch(from oklch(100% 0 0) l c h / 0.2);
   --color-sidebar-icon: oklch(100% 0 0);
   --color-sidebar-icon-active: oklch(100% 0 0);
@@ -67,14 +70,14 @@
   --card-icon-color: oklch(35% 0.22 140);
 
   /* ── Borders ── */
-  --border-default: oklch(82% 0.07 140);
-  --border-strong: oklch(40% 0.16 140);
+  --border-default: oklch(55% 0.20 140);
+  --border-strong: oklch(40% 0.20 140);
 
   /* ── Shadows ── */
   --shadow-color: oklch(0% 0 0 / 0.1);
-  --shadow-hard: 3px 3px 0px oklch(40% 0.16 140);
-  --shadow-card: 0 2px 0px oklch(40% 0.16 140);
-  --border-width: 2px;
+  --shadow-hard: 4px 4px 0px oklch(40% 0.20 140);
+  --shadow-card: 0 2px 0px oklch(40% 0.20 140);
+  --border-width: 3px;
 
   /* ── Tags ── */
   --tag-active-bg: oklch(40% 0.16 140);
@@ -84,4 +87,5 @@
 
   /* ── Overlay ── */
   --overlay: oklch(15% 0.08 140 / 0.45);
+  --surface-bright: oklch(99% 0.002 0deg);
 }
