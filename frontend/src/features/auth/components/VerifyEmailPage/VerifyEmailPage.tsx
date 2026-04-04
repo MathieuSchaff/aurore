@@ -5,7 +5,7 @@ import { toast } from 'sonner'
 import { useResendVerification, useVerifyEmail } from '../../../../lib/queries/auth'
 
 export const VerifyEmailPage = () => {
-  const search = useSearch({ from: '/verify-email' })
+  const search = useSearch({ from: '/auth/verify-email' })
   const token = (search as Record<string, string>).token ?? ''
   const navigate = useNavigate()
   const verify = useVerifyEmail()

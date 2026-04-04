@@ -1,9 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { AuthLayout } from '../component/Layout/AuthLayout/AuthLayout'
-import { LoginPage } from '../features/auth/components/LoginPage/LoginPage'
+import { AuthLayout } from '@/component/Layout/AuthLayout/AuthLayout'
+import { LoginPage } from '@/features/auth/components/LoginPage/LoginPage'
 
-export const Route = createFileRoute('/login')({
+export const Route = createFileRoute('/auth/login')({
   component: RouteComponent,
 })
 
@@ -12,7 +12,7 @@ function RouteComponent() {
     <AuthLayout
       footer={{
         text: 'Pas encore de compte?',
-        to: '/signup',
+        to: '/auth/signup',
         label: `S'enregistrer`,
       }}
     >

@@ -19,13 +19,13 @@ export const GoogleCallbackPage = () => {
 
     // No token param = direct navigation, not a failed OAuth — redirect silently
     if (!token) {
-      navigate({ to: '/login', replace: true })
+      navigate({ to: '/auth/login', replace: true })
       return
     }
 
     // OAuth came from Google (token param present) but silentRefresh failed
     toast.error('Connexion Google échouée, veuillez réessayer')
-    navigate({ to: '/login', replace: true })
+    navigate({ to: '/auth/login', replace: true })
   }, [])
 
   return (
