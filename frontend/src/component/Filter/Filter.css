@@ -337,12 +337,12 @@
 .filter-chip--active {
   background: var(--color-primary);
   border-color: var(--color-primary);
-  color: #fff;
+  color: var(--text-inverse);
 }
 
 .filter-chip--active:hover {
   opacity: 0.85;
-  color: #fff;
+  color: var(--text-inverse);
 }
 
 .filter-chip--removable {
@@ -449,7 +449,7 @@
   background: var(--bg-card);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--shadow-card);
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -537,14 +537,14 @@ button:focus-visible {
 
 [data-theme="light"] {
   .filter-drawer__panel {
-    background: var(--primary-97);
+    background: var(--color-primary-subtle);
     border: 1px solid var(--border-default);
     border-top: 3px solid var(--color-primary);
     box-shadow: var(--shadow-card);
   }
 
   .filter-drawer__header {
-    background: linear-gradient(to right, var(--primary-97), var(--bg-page));
+    background: linear-gradient(to right, var(--color-primary-subtle), var(--bg-page));
     border-bottom-color: var(--border-default);
   }
 
