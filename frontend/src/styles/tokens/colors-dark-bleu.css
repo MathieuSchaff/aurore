@@ -47,12 +47,12 @@
   --color-header-action: var(--primary-60);
   --color-header-action-bg-hover: oklch(from var(--primary-60) l c h / 0.15);
 
-  --color-sidebar-bg: oklch(20% 0.18 35);
-  --color-sidebar-item-hover: oklch(28% 0.20 35);
-  --color-sidebar-item-active: oklch(36% 0.20 35);
+  --color-sidebar-bg: oklch(20% 0.18 50);
+  --color-sidebar-item-hover: oklch(28% 0.20 50);
+  --color-sidebar-item-active: oklch(36% 0.20 50);
   --color-sidebar-icon: oklch(100% 0 0);
   --color-sidebar-icon-active: oklch(100% 0 0);
-  --color-sidebar-text: oklch(92% 0.01 35);
+  --color-sidebar-text: oklch(92% 0.01 50);
   --color-sidebar-text-active: oklch(100% 0 0);
   --color-sidebar-accent: oklch(100% 0 0);
 
