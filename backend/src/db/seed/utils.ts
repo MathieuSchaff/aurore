@@ -46,11 +46,12 @@ export function toText(val: unknown): string | null {
 
 export function flattenTagGroups(
   map: Record<string, ProductTagGroups>
-): Array<{ slug: string; tagSlug: string }> {
-  return Object.entries(map).flatMap(([slug, groups]) => {
-    const allTagSlugs = [...groups.primary, ...groups.secondary, ...groups.avoid]
-    return allTagSlugs.map((tagSlug) => ({ slug, tagSlug }))
-  })
+): Array<{ slug: string; tagSlug: string; relevance: 'primary' | 'secondary' | 'avoid' }> {
+  return Object.entries(map).flatMap(([slug, groups]) => [
+    ...groups.primary.map((tagSlug) => ({ slug, tagSlug, relevance: 'primary' as const })),
+    ...groups.secondary.map((tagSlug) => ({ slug, tagSlug, relevance: 'secondary' as const })),
+    ...groups.avoid.map((tagSlug) => ({ slug, tagSlug, relevance: 'avoid' as const })),
+  ])
 }
 
 
@@ -172,6 +173,8 @@ export function extractCapacity(productName: string, brand: string) {
     // if it's oz we convert to mL for be uniform
     if (/fl\s*oz|oz/i.test(unit)) {
       value = value * 29.57
+      unit = 'mL'
+    } else if (unit.toLowerCase() === 'ml') {
       unit = 'mL'
     }
 

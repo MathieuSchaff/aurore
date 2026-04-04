@@ -38,11 +38,7 @@ import { URIAGE_PRODUCT_TAGS } from './uriage/uriage-product-tags'
 
 // import { VICHY_PRODUCT_TAGS } from './vichy/vichy-product-tags'
 
-interface ProductTagGroups {
-  primary: string[]
-  secondary: string[]
-  avoid: string[]
-}
+import type { ProductTagGroups } from '../utils'
 
 type AllProductTags = Record<string, ProductTagGroups>
 
