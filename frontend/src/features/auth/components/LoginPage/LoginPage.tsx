@@ -52,7 +52,7 @@ export const LoginPage = () => {
       },
       onError: (error) => {
         if (error.message === 'email_not_verified') {
-          navigate({ to: '/verify-pending' })
+          navigate({ to: '/auth/verify-pending' })
           return
         }
         setErrors({

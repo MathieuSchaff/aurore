@@ -28,7 +28,7 @@ export function Hero() {
         </header>
 
         <div className="hero-actions">
-          <Link to="/signup" className="btn-primary">
+          <Link to="/auth/signup" className="btn-primary">
             Créer un compte
             <ArrowRight size={18} />
           </Link>

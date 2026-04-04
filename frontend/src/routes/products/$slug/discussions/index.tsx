@@ -1,12 +1,15 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, getRouteApi } from '@tanstack/react-router'
 
 import { ThreadList } from '@/features/discussions/components/ThreadList'
+import { ProductDiscussionSkeleton } from '@/features/products/components/skeletons/ProductLayoutSkeleton'
 import { discussionQueries } from '@/lib/queries/discussions'
 import { useAuthStore } from '@/store/auth'
 
+const route = getRouteApi('/products/$slug/discussions/')
+
 function ProductDiscussionIndex() {
-  const { slug } = Route.useParams()
+  const { slug } = route.useParams()
   const { data: threads } = useSuspenseQuery(discussionQueries.threads('product', slug))
   const user = useAuthStore((s) => s.user)
 
@@ -24,5 +27,6 @@ function ProductDiscussionIndex() {
 export const Route = createFileRoute('/products/$slug/discussions/')({
   loader: ({ context, params }) =>
     context.queryClient.ensureQueryData(discussionQueries.threads('product', params.slug)),
+  pendingComponent: () => <ProductDiscussionSkeleton />,
   component: ProductDiscussionIndex,
 })
