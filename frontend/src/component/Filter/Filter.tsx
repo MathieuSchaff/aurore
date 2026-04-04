@@ -3,6 +3,7 @@
 import './Filter.css'
 
 export { GroupedFilterDialog } from './GroupedFilterDialog'
+export { emptyFilters, filterSearchSchema, filtersToQuery, getFilterLabel } from './helpers'
 export type {
   FilterFieldConfig,
   FilterGroupConfig,
