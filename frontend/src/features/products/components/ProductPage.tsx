@@ -1,40 +1,14 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { getRouteApi, Link } from '@tanstack/react-router'
-import { ExternalLink, FlaskConical, Package, Pencil, Plus } from 'lucide-react'
-import { useState } from 'react'
+import { ExternalLink, FlaskConical } from 'lucide-react'
 import Markdown from 'react-markdown'
 
-import { productQueries } from '../../../lib/queries/products'
-
-import './ListPage.css'
-import './ProductPage.css'
-import '@/features/products/styles/kinds.css'
-
-import { BackButton } from '@/component/Button/BackButton'
-import { Button } from '@/component/Button/Button'
-import { Badge, type BadgeVariant } from '@/component/DataDisplay/Badge/Badge'
-import { DetailPageLayout } from '@/component/Layout/PageLayout/DetailPageLayout'
-import { PageTopActions, PageTopActionsRight } from '@/component/Layout/PageLayout/PageTopActions'
 import { RichText } from '@/component/Typography/RichText/RichText'
 import { SectionHeader } from '@/component/Typography/SectionHeader/SectionHeader'
-import { AddToCollectionModal } from './AddToCollectionModal'
+import { productQueries } from '../../../lib/queries/products'
+import './ProductPage.css'
 
-const route = getRouteApi('/products/$slug')
-
-function getBadgeVariant(kind: string): BadgeVariant {
-  switch (kind) {
-    case 'complement':
-      return 'complement'
-    case 'skincare':
-      return 'skincare'
-    case 'huile':
-      return 'huile'
-    case 'vitamine':
-      return 'vitamine'
-    default:
-      return 'default'
-  }
-}
+const route = getRouteApi('/products/$slug/')
 
 function formatConcentration(
   value: string | null,
@@ -48,60 +22,13 @@ function formatConcentration(
   return result
 }
 
-export function ProductPage() {
+export function ProductInfoTab() {
   const { slug } = route.useParams()
   const { data: product } = useSuspenseQuery(productQueries.bySlug(slug))
-  const [showAddModal, setShowAddModal] = useState(false)
-
-  const priceFormatted =
-    product.priceCents != null
-      ? new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(
-          product.priceCents / 100
-        )
-      : null
-
   const hasIngredients = product.ingredients && product.ingredients.length > 0
 
   return (
-    <DetailPageLayout banner={true}>
-      <PageTopActions>
-        <BackButton onClick={() => window.history.back()}>Produits</BackButton>
-        <PageTopActionsRight>
-          <Button to="/products/$slug/edit" params={{ slug }} variant="primary">
-            <Pencil size={14} />
-            Modifier
-          </Button>
-          <Button onClick={() => setShowAddModal(true)} variant="accent">
-            <Plus size={16} />
-            Ajouter à la collection
-          </Button>
-        </PageTopActionsRight>
-      </PageTopActions>
-      <div className="product-hero">
-        <div className={`product-hero__icon kind-icon kind--${getBadgeVariant(product.kind)}`}>
-          <Package size={28} />
-        </div>
-        <div className="product-hero__info">
-          <h1 className="product-hero__name">{product.name}</h1>
-          <Link
-            to="/products"
-            search={{
-              brand: [product.brand],
-            }}
-            className="product-hero__brand"
-          >
-            {product.brand}
-          </Link>
-          <div className="product-hero__tags">
-            <Badge variant={getBadgeVariant(product.kind)} className="product-hero__kind">
-              {product.kind}
-            </Badge>
-            {product.unit && <span className="product-hero__tag">{product.unit}</span>}
-          </div>
-        </div>
-        {priceFormatted && <span className="product-price">{priceFormatted}</span>}
-      </div>
-
+    <>
       <div className="product-section">
         <SectionHeader title="Informations" variant="primary" />
         <div className="product-details">
@@ -190,19 +117,6 @@ export function ProductPage() {
           </a>
         </div>
       )}
-
-      {showAddModal && (
-        <AddToCollectionModal
-          product={{
-            id: product.id,
-            name: product.name,
-            brand: product.brand,
-            priceCents: product.priceCents,
-          }}
-          onClose={() => setShowAddModal(false)}
-          onSuccess={() => setShowAddModal(false)}
-        />
-      )}
-    </DetailPageLayout>
+    </>
   )
 }

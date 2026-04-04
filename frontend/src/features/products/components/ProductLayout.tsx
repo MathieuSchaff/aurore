@@ -85,10 +85,7 @@ export function ProductLayout() {
           <Package size={28} />
         </div>
         <div className="product-hero__info">
-          <h1
-            className="product-hero__name"
-            style={{ viewTransitionName: `product-name-${slug}` }}
-          >
+          <h1 className="product-hero__name" style={{ viewTransitionName: `product-name-${slug}` }}>
             {product.name}
           </h1>
           <Link to="/products" search={{ brand: [product.brand] }} className="product-hero__brand">

@@ -166,6 +166,7 @@
 }
 
 .product-section {
+  margin-top: var(--space-8);
   margin-bottom: var(--space-8);
 }
 
