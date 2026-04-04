@@ -76,7 +76,7 @@
   --border-default: oklch(50% 0.18 240);
   --border-strong: var(--primary-60);
   --shadow-color: oklch(0% 0 0 / 0.5);
-  --shadow-hard: 0 8px 24px var(--shadow-color);
+  --shadow-hard: 4px 4px 0px oklch(60% 0.22 240);
   --shadow-card: 0 4px 16px var(--shadow-color);
   --overlay: oklch(5% 0.05 240deg / 0.7);
   --hero-glow: oklch(25% 0.06 240deg);
