@@ -33,6 +33,9 @@
   --color-primary-text: var(--text-inverse-warm);
   --color-primary-dark: oklch(34% 0.16 var(--h-forest));
   --color-focus: oklch(62% 0.14 var(--h-forest));
+  --color-primary-deeper: oklch(22% 0.1 var(--h-forest));
+  --color-primary-light: oklch(90% 0.08 var(--h-forest));
+  --color-primary-subtle: oklch(97% 0.01 var(--h-forest));
 
   --color-sidebar-bg: var(--oxydized-iron);
   --color-sidebar-item-hover: oklch(54% 0.16 var(--h-iron));
@@ -98,4 +101,5 @@
 
   --color-stat-orange: oklch(70% 0.18 45deg);
   --color-stat-purple: oklch(65% 0.15 280deg);
+  --surface-bright: oklch(99% 0.002 0deg);
 }

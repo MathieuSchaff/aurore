@@ -113,7 +113,7 @@
   /* ===================================
      BORDERS & SHADOWS
      =================================== */
-  --border-default: oklch(60% 0.20 260);
+  --border-default: oklch(60% 0.2 260);
   --border-strong: oklch(48% 0.24 260);
   --shadow-hard: 4px 4px 0px oklch(48% 0.24 260);
   --shadow-card: 0 2px 8px oklch(20% 0.05 258 / 0.15);

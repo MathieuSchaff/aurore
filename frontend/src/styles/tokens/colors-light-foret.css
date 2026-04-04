@@ -2,11 +2,11 @@
   color-scheme: light;
 
   /* ── Primary (Forêt — deep forest green) ── */
-  --color-primary: oklch(40% 0.20 140);
-  --color-primary-hover: oklch(50% 0.20 140);
+  --color-primary: oklch(40% 0.2 140);
+  --color-primary-hover: oklch(50% 0.2 140);
   --color-primary-dark: oklch(28% 0.18 140);
   --color-primary-text: oklch(99% 0.005 140);
-  --color-focus: oklch(40% 0.20 140);
+  --color-focus: oklch(40% 0.2 140);
   --color-primary-deeper: oklch(22% 0.14 140);
   --color-primary-light: oklch(90% 0.06 140);
   --color-primary-subtle: oklch(97% 0.008 140);
@@ -70,13 +70,13 @@
   --card-icon-color: oklch(35% 0.22 140);
 
   /* ── Borders ── */
-  --border-default: oklch(55% 0.20 140);
-  --border-strong: oklch(40% 0.20 140);
+  --border-default: oklch(55% 0.2 140);
+  --border-strong: oklch(40% 0.2 140);
 
   /* ── Shadows ── */
   --shadow-color: oklch(0% 0 0 / 0.1);
-  --shadow-hard: 4px 4px 0px oklch(40% 0.20 140);
-  --shadow-card: 0 2px 0px oklch(40% 0.20 140);
+  --shadow-hard: 4px 4px 0px oklch(40% 0.2 140);
+  --shadow-card: 0 2px 0px oklch(40% 0.2 140);
   --border-width: 3px;
 
   /* ── Tags ── */

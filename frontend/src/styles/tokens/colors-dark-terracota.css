@@ -123,7 +123,7 @@
        BORDERS
     ========================= */
   --border-default: oklch(45% 0.16 var(--h-forest));
-  --border-strong: oklch(55% 0.20 var(--h-forest));
+  --border-strong: oklch(55% 0.2 var(--h-forest));
 
   /* =========================
        SHADOWS (moins harsh en dark)

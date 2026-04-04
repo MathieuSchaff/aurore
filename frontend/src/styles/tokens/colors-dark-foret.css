@@ -33,6 +33,9 @@
 
   --color-primary: var(--primary-60);
   --color-primary-hover: var(--primary-75);
+  --color-primary-dark: oklch(50% 0.16 95deg);
+  --color-primary-deeper: oklch(38% 0.12 95deg);
+  --color-primary-light: oklch(25% 0.06 95deg);
   --color-primary-contrast: var(--neutral-10);
   --color-focus: var(--color-primary);
 
@@ -94,4 +97,5 @@
   --shadow-card: 0 4px 16px var(--shadow-color);
   --overlay: oklch(5% 0.05 var(--hue-deep) / 0.7);
   --hero-glow: oklch(25% 0.06 var(--hue-primary));
+  --surface-bright: oklch(99% 0.002 0deg);
 }
