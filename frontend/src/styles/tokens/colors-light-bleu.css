@@ -1,89 +1,149 @@
 [data-theme="light"][data-variant="bleu"] {
   color-scheme: light;
-  --hue-primary: 230deg;
-  --hue-accent: 195deg;
 
-  --l-page: 100%;
-  --l-card: 100%;
-  --l-elevated: 100%;
-  --l-muted: 97%;
-  --l-sunken: 94%;
+  /* ===================================
+     HUES
+     bleu primaire  : 260deg
+     ambre accent   : 45deg  (complémentaire chaud)
+     émeraude split : 155deg (split-complémentaire)
+     rose stat      : 340deg
+     =================================== */
+  --hue-primary: 260deg;
+  --hue-accent: 45deg;
+  --hue-accent2: 155deg;
 
-  --c-vibrant: 0.25;
-  --c-rich: 0.2;
-  --c-muted: 0.01;
-  --c-soft: 0.005;
-
-  --color-primary: oklch(60% 0.2 var(--hue-primary));
-  --color-primary-hover: oklch(50% 0.18 var(--hue-primary));
-  --color-primary-dark: oklch(30% 0.15 var(--hue-primary));
-  --color-primary-text: oklch(100% 0 0);
+  /* ===================================
+     PRIMARY — Bleu électrique (blue-500/600/700)
+     =================================== */
+  --color-primary: oklch(62.3% 0.214 259.815);
+  --color-primary-hover: oklch(54.6% 0.245 262.881);
+  --color-primary-dark: oklch(48.8% 0.243 264.376);
+  --color-primary-light: oklch(94% 0.04 260deg);
+  --color-primary-deeper: oklch(38% 0.18 260deg);
+  --color-primary-subtle: oklch(97.5% 0.008 260deg);
+  --color-primary-text: #fff;
   --color-focus: var(--color-primary);
 
-  --color-accent: oklch(65% 0.18 var(--hue-accent));
-  --color-accent-hover: oklch(55% 0.16 var(--hue-accent));
-  --color-accent-light: oklch(96% 0.03 var(--hue-accent));
+  /* ===================================
+     ACCENT — Ambre / Mango chaud
+     Complémentaire du bleu, chaleureux
+     =================================== */
+  --color-accent: oklch(72% 0.18 48deg);
+  --color-accent-hover: oklch(63% 0.2 46deg);
+  --color-accent-light: oklch(96% 0.05 50deg);
+  --color-accent-text: oklch(30% 0.08 45deg);
 
-  --color-secondary: oklch(75% 0.15 var(--hue-accent));
-  --color-tertiary: oklch(70% 0.12 var(--hue-accent));
+  /* ===================================
+     SECONDARY — Émeraude / Sauge
+     Split-complémentaire, frais et naturel
+     =================================== */
+  --color-secondary: oklch(62% 0.18 155deg);
+  --color-secondary-hover: oklch(54% 0.18 155deg);
+  --color-secondary-light: oklch(95% 0.04 155deg);
+  --color-tertiary: oklch(68% 0.12 160deg);
 
-  --color-sidebar-bg: oklch(98.5% 0.01 230deg);
-  --color-sidebar-item-hover: oklch(96% 0.02 230deg);
-  --color-sidebar-item-active: oklch(94% 0.03 230deg);
-  --color-sidebar-icon: oklch(45% 0.12 230deg);
-  --color-sidebar-icon-active: var(--color-primary);
-  --color-sidebar-text: oklch(35% 0.08 230deg);
-  --color-sidebar-text-active: var(--color-primary);
-  --color-sidebar-accent: var(--color-primary);
+  /* ===================================
+     SIDEBAR — Sombre clay/terracota chaud
+     =================================== */
+  --color-sidebar-bg: oklch(26% 0.14 25deg);
+  --color-sidebar-item-hover: oklch(34% 0.16 25deg);
+  --color-sidebar-item-active: oklch(from oklch(100% 0 0) l c h / 0.2);
+  --color-sidebar-icon: oklch(90% 0.01 25deg);
+  --color-sidebar-icon-active: oklch(100% 0 0);
+  --color-sidebar-text: oklch(95% 0.005 25deg);
+  --color-sidebar-text-active: oklch(100% 0 0);
 
+  /* ===================================
+     HEADER
+     =================================== */
   --color-header-bg: oklch(100% 0 0);
-  --color-header-border: oklch(92% 0.02 230deg);
+  --color-header-border: oklch(91% 0.008 258deg);
   --color-header-action: var(--color-primary);
-  --color-header-action-bg-hover: oklch(97% 0.01 230deg);
-  --color-header-action-border: oklch(85% 0.05 230deg);
+  --color-header-action-bg-hover: oklch(96.5% 0.005 260deg);
+  --color-header-action-border: oklch(86% 0.012 258deg);
 
-  --text-primary: oklch(25% 0.02 230deg);
-  --text-secondary: oklch(45% 0.04 230deg);
-  --text-muted: oklch(65% 0.04 230deg);
-  --text-inverse: oklch(100% 0 0);
+  /* ===================================
+     TEXTES — Neutres légèrement bleutés
+     =================================== */
+  --text-primary: oklch(22% 0.02 258deg);
+  --text-secondary: oklch(42% 0.025 258deg);
+  --text-muted: oklch(62% 0.015 258deg);
+  --text-inverse: #fff;
 
-  --color-success: oklch(65% 0.2 145deg);
-  --color-success-light: oklch(97% 0.02 145deg);
-  --color-error: oklch(60% 0.22 15deg);
-  --color-error-light: oklch(97% 0.02 15deg);
-  --color-info: oklch(65% 0.15 195deg);
-  --color-info-light: oklch(97% 0.02 195deg);
-  --color-warning: oklch(75% 0.15 45deg);
-  --color-warning-light: oklch(96% 0.06 45deg);
-  --color-warning-text: oklch(40% 0.15 45deg);
+  /* ===================================
+     STATUS
+     =================================== */
+  --color-success: oklch(62% 0.18 155deg);
+  --color-success-light: oklch(95.5% 0.04 155deg);
+  --color-error: oklch(63.7% 0.237 25.331);
+  --color-error-light: oklch(97% 0.025 20deg);
+  --color-info: oklch(62.3% 0.214 259.815);
+  --color-info-light: oklch(94% 0.04 260deg);
+  --color-warning: oklch(72% 0.18 48deg);
+  --color-warning-light: oklch(96% 0.05 50deg);
+  --color-warning-text: oklch(35% 0.1 45deg);
 
-  --bg-page: oklch(100% 0 0);
-  --bg-card: oklch(100% 0 0);
-  --bg-muted: oklch(97% 0.005 230deg);
+  /* ===================================
+     BACKGROUNDS — Légèrement crémeux/chauds
+     Évite le blanc froid monolithique
+     =================================== */
+  --bg-page: oklch(99% 0.003 80deg); /* blanc cassé très légèrement chaud */
+  --bg-card: oklch(100% 0 0); /* blanc pur pour les cards */
+  --bg-muted: oklch(97% 0.006 258deg); /* gris-bleuté très doux */
   --bg-elevated: oklch(100% 0 0);
-  --bg-sunken: oklch(94% 0.01 230deg);
+  --bg-sunken: oklch(94.5% 0.01 258deg);
 
   --bg-hover: oklch(from var(--color-primary) l c h / 0.06);
-  --bg-active: oklch(from var(--color-primary) l c h / 0.1);
-  --bg-selected: oklch(96% 0.02 230deg);
+  --bg-active: oklch(from var(--color-primary) l c h / 0.12);
+  --bg-selected: oklch(93% 0.025 260deg);
 
+  /* ===================================
+     CARDS
+     =================================== */
   --card-accent-border: var(--color-primary);
-  --card-icon-bg: oklch(96% 0.04 230deg);
+  --card-icon-bg: oklch(93% 0.025 260deg);
   --card-icon-color: var(--color-primary);
 
-  --border-default: oklch(90% 0.02 230deg);
-  --border-strong: oklch(80% 0.05 230deg);
-  --shadow-color: oklch(0% 0 0 / 0.04);
-  --shadow-card: 0 4px 16px var(--shadow-color);
-  --shadow-hard: 0 8px 24px oklch(0% 0 0 / 0.06);
+  /* Variantes accent pour les cards thématiques */
+  --card-icon-bg-amber: oklch(94% 0.05 50deg);
+  --card-icon-color-amber: oklch(55% 0.18 46deg);
+  --card-icon-bg-emerald: oklch(94% 0.04 155deg);
+  --card-icon-color-emerald: var(--color-secondary);
 
-  --tag-default-bg: oklch(96% 0.02 230deg);
-  --tag-default-text: oklch(45% 0.12 230deg);
+  /* ===================================
+     BORDERS & SHADOWS
+     =================================== */
+  --border-default: oklch(60% 0.20 260);
+  --border-strong: oklch(48% 0.24 260);
+  --shadow-hard: 4px 4px 0px oklch(48% 0.24 260);
+  --shadow-card: 0 2px 8px oklch(20% 0.05 258 / 0.15);
+  --border-width: 3px;
+
+  /* ===================================
+     TAGS
+     =================================== */
+  --tag-default-bg: oklch(93% 0.015 260deg);
+  --tag-default-text: oklch(42% 0.04 258deg);
   --tag-active-bg: var(--color-primary);
-  --tag-active-text: oklch(100% 0 0);
+  --tag-active-text: #fff;
 
-  --overlay: oklch(15% 0.05 230deg / 0.4);
-  --hero-glow: oklch(97% 0.02 195deg);
-  --color-stat-orange: oklch(65% 0.2 45deg);
-  --color-stat-purple: oklch(60% 0.2 280deg);
+  /* Tags variantes thématiques */
+  --tag-amber-bg: oklch(94% 0.05 50deg);
+  --tag-amber-text: oklch(40% 0.15 46deg);
+  --tag-emerald-bg: oklch(94% 0.04 155deg);
+  --tag-emerald-text: oklch(35% 0.14 155deg);
+
+  /* ===================================
+     MISC
+     =================================== */
+  --overlay: oklch(15% 0.04 258deg / 0.45);
+  --hero-glow: oklch(95% 0.03 80deg); /* glow chaud pour le hero */
+  --surface-bright: oklch(99% 0.002 0deg);
+
+  /* Stats — couleurs distinctes et variées */
+  --color-stat-amber: oklch(72% 0.18 48deg);
+  --color-stat-emerald: oklch(62% 0.18 155deg);
+  --color-stat-rose: oklch(65% 0.2 340deg);
+  --color-stat-purple: oklch(60% 0.2 290deg);
+  --color-stat-orange: oklch(68% 0.2 32deg);
 }
