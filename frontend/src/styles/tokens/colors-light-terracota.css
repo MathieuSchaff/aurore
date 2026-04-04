@@ -44,6 +44,7 @@
   --color-sidebar-icon-active: oklch(100% 0 0);
   --color-sidebar-text: oklch(100% 0 0);
   --color-sidebar-text-active: oklch(100% 0 0);
+  --color-sidebar-accent: oklch(100% 0 0);
 
   --color-secondary: var(--mango-bright);
   --color-tertiary: var(--forest-green);

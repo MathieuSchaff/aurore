@@ -70,6 +70,7 @@
   --color-sidebar-icon-active: oklch(92% 0.16 65deg);
   --color-sidebar-text: oklch(80% 0.06 65deg);
   --color-sidebar-text-active: oklch(95% 0.03 65deg);
+  --color-sidebar-accent: oklch(95% 0.03 65deg);
 
   --bg-page: oklch(18% 0.04 var(--hue-deep));
   --bg-card: oklch(22% 0.05 var(--hue-deep));

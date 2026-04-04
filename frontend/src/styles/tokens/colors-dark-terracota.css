@@ -76,6 +76,7 @@
 
   --color-sidebar-text: oklch(80% 0.03 var(--h-papaya));
   --color-sidebar-text-active: oklch(95% 0.02 var(--h-papaya));
+  --color-sidebar-accent: oklch(95% 0.02 var(--h-papaya));
 
   /* =========================
        HEADER

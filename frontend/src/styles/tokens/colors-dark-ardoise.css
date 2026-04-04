@@ -49,6 +49,7 @@
   --color-sidebar-icon-active: oklch(100% 0 0);
   --color-sidebar-text: oklch(100% 0 0);
   --color-sidebar-text-active: oklch(100% 0 0);
+  --color-sidebar-accent: oklch(100% 0 0);
 
   --bg-page: oklch(18% 0.06 240deg);
   --bg-card: oklch(22% 0.07 240deg);

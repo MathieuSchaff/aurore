@@ -52,6 +52,7 @@
   --color-sidebar-icon-active: oklch(100% 0 0);
   --color-sidebar-text: oklch(95% 0.005 35);
   --color-sidebar-text-active: oklch(100% 0 0);
+  --color-sidebar-accent: oklch(100% 0 0);
 
   /* ===================================
      HEADER
