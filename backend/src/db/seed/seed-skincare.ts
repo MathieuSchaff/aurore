@@ -1,10 +1,13 @@
 import slugify from '@sindresorhus/slugify'
 
 import { createProduct } from '../../features/products/service'
+import { addManyIngredientsToProduct } from '../../features/products/product-ingredients/product-ingredients.service'
 import { addManyTagsToProduct } from '../../features/tags/tags.service'
 import { db } from '..'
 import type { DB } from '../index'
-import { products } from '../schema'
+import { inArray } from 'drizzle-orm'
+
+import { ingredients, products, tags } from '../schema'
 import { getOrCreateSeedUser } from './create-user'
 import {
   CSV_CATEGORY_TAG_MAP,
@@ -13,6 +16,64 @@ import {
 } from './otherdata/tag-associations'
 import { seedCore } from './seed-core'
 import { extractCapacity, parseCSV, seedBatch } from './utils'
+
+// ── INCI → Ingredient matching ────────────────────────────────────────────────
+
+// Builds a map from normalized INCI token → ingredient ID.
+// For a name like "Soufre (Sulfur)" we add keys: "soufre (sulfur)", "soufre", "sulfur".
+async function buildInciIndex(database: DB): Promise<Map<string, string>> {
+  const allIngredients = await database.select({ id: ingredients.id, name: ingredients.name }).from(ingredients)
+  const index = new Map<string, string>()
+
+  for (const ing of allIngredients) {
+    const full = ing.name.toLowerCase().trim()
+    index.set(full, ing.id)
+
+    // Extract content inside parens as an alternate key, e.g. "sulfur" from "Soufre (Sulfur)"
+    const parenMatch = full.match(/\(([^)]+)\)/)
+    if (parenMatch) {
+      const inner = parenMatch[1].trim()
+      index.set(inner, ing.id)
+      // Also add the part before the paren
+      const outer = full.replace(/\s*\([^)]+\)/, '').trim()
+      if (outer) index.set(outer, ing.id)
+    }
+  }
+
+  return index
+}
+
+// Splits a CSV INCI string and returns ingredient IDs for matched entries.
+function matchInciIngredients(inciString: string, index: Map<string, string>): string[] {
+  if (!inciString) return []
+  const seen = new Set<string>()
+  const matched: string[] = []
+
+  for (const token of inciString.split(',')) {
+    // strip percentage annotations like "10%", "[1]" and extra whitespace
+    const normalized = token.toLowerCase().trim().replace(/\s*\d+(\.\d+)?%.*$/, '').replace(/\[.*?\]/g, '').trim()
+    if (!normalized) continue
+
+    const id = index.get(normalized)
+    if (id && !seen.has(id)) {
+      seen.add(id)
+      matched.push(id)
+    }
+  }
+
+  return matched
+}
+
+// ── Kind normalization ────────────────────────────────────────────────────────
+
+const CSV_KIND_MAP: Record<string, string> = {
+  Body: 'bodycare',
+  Hand: 'bodycare',
+}
+
+function normalizeKind(usageType: string): string {
+  return CSV_KIND_MAP[usageType] ?? 'skincare'
+}
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -36,9 +97,7 @@ type CsvProductEntry = {
 
 async function getTagIdsBySlugs(database: DB, slugs: string[]) {
   if (slugs.length === 0) return []
-  const results = await database.query.tags.findMany({
-    where: (fields, { inArray }) => inArray(fields.slug, slugs),
-  })
+  const results = await database.select({ id: tags.id }).from(tags).where(inArray(tags.slug, slugs))
   return results.map((t) => t.id)
 }
 
@@ -123,23 +182,28 @@ export async function seedSkincare(
 
   console.log(`🆕 ${productsToCreate.length} nouveaux produits à créer.`)
 
-  await db.transaction(async (tx) => {
-    await seedBatch(
-      'produits CSV',
-      productsToCreate,
-      async (item) => {
+  const inciIndex = await buildInciIndex(db)
+  console.log(`🔬 Index INCI : ${inciIndex.size} entrées`)
+
+  let inciMatchCount = 0
+  let inciNoMatchCount = 0
+
+  await seedBatch(
+    'produits CSV',
+    productsToCreate,
+    async (item) => {
+      await db.transaction(async (tx) => {
         const product = await createProduct(
           item.user.id,
           {
             name: item.name,
             brand: item.brand,
-            kind: item.usageType || 'Pas spécifié',
+            kind: normalizeKind(item.usageType),
             unit: item.unit,
             totalAmount: item.totalAmount ?? undefined,
             inci: item.inci,
             url: item.productUrl,
             slug: item.targetSlug,
-            notes: item.category ? `Category: ${item.category}` : undefined,
           },
           tx
         )
@@ -152,10 +216,25 @@ export async function seedSkincare(
         )
         const tagIds = await getTagIdsBySlugs(tx, targetSlugs)
         if (tagIds.length > 0) await addManyTagsToProduct(tx, product.id, tagIds)
-      },
-      (item) => item.targetSlug
-    )
-  })
+
+        const matchedIngredientIds = matchInciIngredients(item.inci, inciIndex)
+        if (matchedIngredientIds.length > 0) {
+          await addManyIngredientsToProduct(
+            tx,
+            matchedIngredientIds.map((ingredientId) => ({ productId: product.id, ingredientId }))
+          )
+          inciMatchCount++
+        } else if (item.inci) {
+          inciNoMatchCount++
+        }
+      })
+    },
+    (item) => item.targetSlug
+  )
+
+  console.log(
+    `🔬 INCI : ${inciMatchCount} produits liés à des ingrédients, ${inciNoMatchCount} sans correspondance`
+  )
 
   console.log('\n✨ Seed SKINCARE terminé avec succès !')
 }

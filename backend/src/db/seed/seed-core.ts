@@ -163,8 +163,8 @@ export async function seedCore(shouldClean = true) {
     await seedBatch(
       'productTags',
       productTagPairs,
-      ({ slug, tagSlug }) =>
-        addTagToProduct(tx, productSlugToId.get(slug)!, tagSlugToId.get(tagSlug)!),
+      ({ slug, tagSlug, relevance }) =>
+        addTagToProduct(tx, productSlugToId.get(slug)!, tagSlugToId.get(tagSlug)!, relevance),
       ({ slug, tagSlug }) => `${slug} ↔ ${tagSlug}`
     )
 
@@ -208,8 +208,8 @@ export async function seedCore(shouldClean = true) {
     await seedBatch(
       'ingredientTags',
       ingredientTagPairs,
-      ({ slug, tagSlug }) =>
-        addTagToIngredient(tx, ingredientSlugToId.get(slug)!, tagSlugToId.get(tagSlug)!),
+      ({ slug, tagSlug, relevance }) =>
+        addTagToIngredient(tx, ingredientSlugToId.get(slug)!, tagSlugToId.get(tagSlug)!, relevance),
       ({ slug, tagSlug }) => `${slug} ↔ ${tagSlug}`
     )
   })

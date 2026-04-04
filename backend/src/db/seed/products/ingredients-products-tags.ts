@@ -73,6 +73,6 @@ export const allIngredientProductTags = Object.entries(ALL_PRODUCT_INGREDIENTS_M
       ingredientSlug: ing.slug,
       concentrationValue: ing.value || null,
       concentrationUnit: ing.unit || null,
-      notes: ing.notes || '',
+      notes: ing.notes ?? null,
     }))
 )
