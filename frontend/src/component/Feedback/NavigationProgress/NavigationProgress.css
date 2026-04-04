@@ -1,0 +1,34 @@
+.navigation-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 3px;
+  pointer-events: none;
+}
+
+.navigation-progress__bar {
+  height: 100%;
+  background: var(--color-primary);
+  animation: progress 1.8s ease-out forwards;
+  transform-origin: left;
+}
+
+@keyframes progress {
+  0% {
+    width: 0%;
+  }
+  20% {
+    width: 40%;
+  }
+  50% {
+    width: 70%;
+  }
+  80% {
+    width: 85%;
+  }
+  100% {
+    width: 95%;
+  }
+}
