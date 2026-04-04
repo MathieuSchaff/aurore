@@ -27,7 +27,7 @@
 }
 
 [data-theme="light"] .theme-toggle__track {
-  background-color: var(--primary-40);
+  background-color: var(--color-primary-dark);
 }
 
 .theme-toggle:hover .theme-toggle__track {
@@ -35,7 +35,7 @@
 }
 
 [data-theme="light"] .theme-toggle:hover .theme-toggle__track {
-  background-color: var(--primary-20);
+  background-color: var(--color-primary-deeper);
 }
 
 .theme-toggle__icon {
@@ -66,7 +66,7 @@
 }
 
 [data-theme="light"] [aria-checked="false"] .theme-toggle__icon--sun {
-  color: var(--primary-40);
+  color: var(--color-primary-dark);
   opacity: 1;
   filter: none;
 }
@@ -79,7 +79,7 @@
 }
 
 [data-theme="light"] [aria-checked="true"] .theme-toggle__icon--moon {
-  color: var(--primary-40);
+  color: var(--color-primary-dark);
   opacity: 1;
   filter: none;
 }
