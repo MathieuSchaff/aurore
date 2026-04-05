@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
 import { ExternalLink } from 'lucide-react'
 
+import { Toggle } from '../../../../component/Input/Toggle/Toggle'
 import { privacySettingsQueries, useUpdatePrivacySettings } from '../../../../lib/queries/profile'
 import './PrivacySettings.css'
 
@@ -9,7 +10,12 @@ export function PrivacySettings() {
   const { data, isLoading, isError } = useQuery(privacySettingsQueries.get())
   const updateMutation = useUpdatePrivacySettings()
 
-  if (isError) return <p className="privacy-error" role="alert">Impossible de charger les réglages. Veuillez réessayer.</p>
+  if (isError)
+    return (
+      <p className="privacy-error" role="alert">
+        Impossible de charger les réglages. Veuillez réessayer.
+      </p>
+    )
   if (isLoading || !data) return <div className="privacy-loading">Chargement...</div>
 
   const handleToggle = (key: 'profilePublic' | 'aiConsent', value: boolean) => {
@@ -22,22 +28,13 @@ export function PrivacySettings() {
         <h3 className="privacy-section-title">Visibilité</h3>
         <p className="privacy-section-desc">Contrôlez ce que les autres peuvent voir de vous.</p>
 
-        <label className="privacy-toggle">
-          <div className="privacy-toggle__info">
-            <span className="privacy-toggle__label">Profil public</span>
-            <span className="privacy-toggle__hint">
-              Votre nom et avatar visibles par les autres utilisateurs.
-            </span>
-          </div>
-          <input
-            type="checkbox"
-            className="privacy-toggle__input sr-only"
-            checked={data.profilePublic}
-            onChange={(e) => handleToggle('profilePublic', e.target.checked)}
-            disabled={updateMutation.isPending}
-          />
-          <span className="privacy-toggle__switch" aria-hidden="true" />
-        </label>
+        <Toggle
+          label="Profil public"
+          hint="Votre nom et avatar visibles par les autres utilisateurs."
+          checked={data.profilePublic}
+          onChange={(checked) => handleToggle('profilePublic', checked)}
+          disabled={updateMutation.isPending}
+        />
       </section>
 
       <section className="privacy-section">
@@ -47,22 +44,13 @@ export function PrivacySettings() {
           ne quittent pas l'Europe. <span className="privacy-badge">Fonctionnalité à venir</span>
         </p>
 
-        <label className="privacy-toggle">
-          <div className="privacy-toggle__info">
-            <span className="privacy-toggle__label">Activer l'analyse IA</span>
-            <span className="privacy-toggle__hint">
-              Peut être révoqué à tout moment. Aucune donnée envoyée sans ce consentement.
-            </span>
-          </div>
-          <input
-            type="checkbox"
-            className="privacy-toggle__input sr-only"
-            checked={data.aiConsent}
-            onChange={(e) => handleToggle('aiConsent', e.target.checked)}
-            disabled={updateMutation.isPending}
-          />
-          <span className="privacy-toggle__switch" aria-hidden="true" />
-        </label>
+        <Toggle
+          label="Activer l'analyse IA"
+          hint="Peut être révoqué à tout moment. Aucune donnée envoyée sans ce consentement."
+          checked={data.aiConsent}
+          onChange={(checked) => handleToggle('aiConsent', checked)}
+          disabled={updateMutation.isPending}
+        />
       </section>
 
       <section className="privacy-section privacy-section--link">
