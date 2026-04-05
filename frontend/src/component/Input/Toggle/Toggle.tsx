@@ -33,12 +33,12 @@ export function Toggle({
         {hint && <span className="toggle__hint">{hint}</span>}
       </div>
       <input
+        {...props}
         ref={ref}
         id={inputId}
         type="checkbox"
         className="sr-only"
-        onChange={(e) => onChange?.(e.target.checked)}
-        {...props}
+        onChange={(e) => { if (!e.target.disabled) onChange?.(e.target.checked) }}
       />
       <span className="toggle__switch" aria-hidden="true" />
     </label>
