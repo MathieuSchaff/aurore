@@ -66,7 +66,7 @@ export const ProfileDashboard = () => {
     },
     {
       id: 'privacy',
-      label: 'Privacy',
+      label: 'Confidentialité',
       icon: <Shield size={18} />,
     },
   ]
