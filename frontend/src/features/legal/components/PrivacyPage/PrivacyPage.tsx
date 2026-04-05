@@ -7,7 +7,7 @@ export function PrivacyPage() {
       <div className="privacy-page__inner">
         <header className="privacy-header">
           <h1 className="privacy-title">Politique de confidentialité</h1>
-          <p className="privacy-meta">Aurore — Dernière mise à jour : avril 2025</p>
+          <p className="privacy-meta">Aurore — Dernière mise à jour : avril 2026</p>
         </header>
 
         <section className="privacy-block">
@@ -68,9 +68,9 @@ export function PrivacyPage() {
               marketing.
             </li>
             <li>
-              <strong>Analyse IA (optionnel) :</strong> Mistral AI, entreprise française.
-              L'analyse de votre routine par IA n'est activée que si vous donnez votre consentement
-              explicite dans vos réglages Confidentialité. Vous pouvez le révoquer à tout moment.
+              <strong>Analyse IA (optionnel) :</strong> Mistral AI, entreprise française. L'analyse
+              de votre routine par IA n'est activée que si vous donnez votre consentement explicite
+              dans vos réglages Confidentialité. Vous pouvez le révoquer à tout moment.
             </li>
           </ul>
         </section>
