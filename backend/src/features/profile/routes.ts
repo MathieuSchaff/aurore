@@ -100,12 +100,16 @@ export const profileRoute = app
     const settings = await getPrivacySettings(db, userId)
     return c.json(ok(settings), HTTP_STATUS.OK)
   })
-
   .patch('/privacy-settings', zValidator('json', updatePrivacySettingsSchema), async (c) => {
     const db = c.get('db')
     const userId = c.get('userId')
     const data = c.req.valid('json')
     const updated = await updatePrivacySettings(db, userId, data)
+
+    if (!updated) {
+      return c.json(err('not_found'), HTTP_STATUS.NOT_FOUND)
+    }
+
     return c.json(ok(updated), HTTP_STATUS.OK)
   })
 

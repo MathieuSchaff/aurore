@@ -249,17 +249,29 @@ export async function updatePrivacySettings(
   db: DB,
   userId: string,
   data: UpdatePrivacySettingsInput
-): Promise<PrivacySettings> {
+): Promise<PrivacySettings | null> {
+  let profilePublic: boolean | undefined
+
   if (data.profilePublic !== undefined) {
-    await db
+    const [updated] = await db
       .update(profiles)
       .set({ profilePublic: data.profilePublic, updatedAt: new Date() })
       .where(eq(profiles.userId, userId))
+      .returning({ profilePublic: profiles.profilePublic })
+
+    // null signals the caller that the profile row was not found
+    if (!updated) return null
+    profilePublic = updated.profilePublic
   }
+
+  let aiConsent: boolean | undefined
 
   if (data.aiConsent !== undefined) {
     const [existing] = await db
-      .select()
+      .select({
+        displayScale: userPreferences.displayScale,
+        criteriaWeights: userPreferences.criteriaWeights,
+      })
       .from(userPreferences)
       .where(eq(userPreferences.userId, userId))
       .limit(1)
@@ -276,7 +288,15 @@ export async function updatePrivacySettings(
         target: userPreferences.userId,
         set: { aiConsent: data.aiConsent, updatedAt: new Date() },
       })
+
+    aiConsent = data.aiConsent
   }
 
-  return getPrivacySettings(db, userId)
+  // Read only the fields that were NOT updated (to get their current values)
+  const current = await getPrivacySettings(db, userId)
+
+  return {
+    profilePublic: profilePublic ?? current.profilePublic,
+    aiConsent: aiConsent ?? current.aiConsent,
+  }
 }
