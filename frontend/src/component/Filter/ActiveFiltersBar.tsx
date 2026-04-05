@@ -20,14 +20,15 @@ export function ActiveFiltersBar<T extends string>({
   }
 
   return (
-    <div className="list-active-filters">
+    // polite so screen readers announce when filters change
+    <div className="list-active-filters" aria-live="polite">
       {activeTags.map(({ key, value }) => (
         <button
           key={`${key}-${value}`}
           type="button"
           className="list-active-filter-tag"
           onClick={() => onRemoveTag(key, value)}
-          aria-label={`Remove filter ${getFilterLabel(key, value)}`}
+          aria-label={`Retirer le filtre ${getFilterLabel(key, value)}`}
         >
           <span className="list-active-filter-tag__prefix">{groupLabels[key]}:</span>
           {getFilterLabel(key, value)}
@@ -40,7 +41,7 @@ export function ActiveFiltersBar<T extends string>({
         type="button"
         className="list-clear-all"
         onClick={onClearAll}
-        aria-label="Remove all filters"
+        aria-label="Retirer tous les filtres"
       >
         Tout effacer
       </button>

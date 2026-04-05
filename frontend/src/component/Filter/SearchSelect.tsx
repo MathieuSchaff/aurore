@@ -23,12 +23,18 @@ export function SearchSelect({
   const [query, setQuery] = useState('')
   const [isOpen, setIsOpen] = useState(false)
   const [activeIndex, setActiveIndex] = useState(-1)
+  const [announcement, setAnnouncement] = useState('')
+  useEffect(() => {
+    if (!announcement) return
+    const timer = setTimeout(() => setAnnouncement(''), 1000)
+    return () => clearTimeout(timer)
+  }, [announcement])
   const clickOutsideContainer = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const listboxId = useId()
 
-  // lazy-load long lists so the DOM stays small on first render
+  // lazy load long lists so the DOM stays small on first render
   const PAGE_SIZE = 50
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
   useEffect(() => setVisibleCount(PAGE_SIZE), [])
@@ -73,6 +79,7 @@ export function SearchSelect({
         case 'Enter':
           e.preventDefault()
           if (isOpen && activeIndex >= 0 && filtered[activeIndex]) {
+            setAnnouncement(`${filtered[activeIndex].label} ajouté`)
             onToggle(filtered[activeIndex].value)
             setQuery('')
             setActiveIndex(-1)
@@ -223,6 +230,7 @@ export function SearchSelect({
             aria-activedescendant={
               activeIndex >= 0 ? `${listboxId}-option-${activeIndex}` : undefined
             }
+            aria-label={ariaLabelledBy ? undefined : label}
             aria-labelledby={ariaLabelledBy}
           />
           {isOpen && (
@@ -263,18 +271,18 @@ export function SearchSelect({
                 tabIndex={-1}
                 className={`search-select__option-wrapper ${index === activeIndex ? 'search-select__option--active' : ''}`}
                 onClick={() => {
+                  setAnnouncement(`${opt.label} ajouté`)
                   onToggle(opt.value)
                   setQuery('')
-                  setIsOpen(false)
                   setActiveIndex(-1)
                   inputRef.current?.focus()
                 }}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault()
+                    setAnnouncement(`${opt.label} ajouté`)
                     onToggle(opt.value)
                     setQuery('')
-                    setIsOpen(false)
                     setActiveIndex(-1)
                     inputRef.current?.focus()
                   }
@@ -289,6 +297,15 @@ export function SearchSelect({
         {isOpen && query && filtered.length === 0 && (
           <output className="search-select__empty">Aucun résultat</output>
         )}
+
+        <div className="sr-only" aria-live="polite" aria-atomic="true">
+          {announcement ||
+            (isOpen && query.length > 0
+              ? filtered.length > 0
+                ? `${filtered.length} résultat${filtered.length > 1 ? 's' : ''} disponible${filtered.length > 1 ? 's' : ''}`
+                : 'Aucun résultat'
+              : '')}
+        </div>
       </div>
     </div>
   )

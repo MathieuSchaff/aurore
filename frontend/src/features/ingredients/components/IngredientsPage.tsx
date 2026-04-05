@@ -145,6 +145,7 @@ export function IngredientsPage() {
         actions={
           <>
             <SearchCombobox
+              label="Rechercher un ingrédient"
               queryFn={ingredientQueries.search}
               toResult={(item) => ({
                 id: item.id,
