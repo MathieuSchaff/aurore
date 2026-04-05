@@ -103,20 +103,25 @@
   padding-right: 2.75rem;
 }
 
-.auth-field__toggle {
+.auth-field__toggle.button {
   flex-shrink: 0;
   display: grid;
   place-items: center;
   width: 2.25rem;
   height: 2.25rem;
+  min-height: unset;
+  padding: 0;
   border-radius: var(--radius-sm);
   color: var(--text-secondary);
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: normal;
   transition:
     color var(--transition-fast),
     background var(--transition-fast);
 }
 
-.auth-field__toggle:hover {
+.auth-field__toggle.button:hover:not(:disabled) {
   color: var(--text-primary);
   background: var(--bg-hover);
 }

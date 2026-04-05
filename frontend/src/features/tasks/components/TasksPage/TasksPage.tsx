@@ -2,7 +2,10 @@ import { useQuery } from '@tanstack/react-query'
 import { CheckSquare, Plus } from 'lucide-react'
 import { useState } from 'react'
 
+import { EmptyState } from '@/component/Feedback/EmptyState/EmptyState'
+import { Spinner } from '@/component/Feedback/Spinner/Spinner'
 import { PageHeader } from '@/component/Layout/PageHeader/PageHeader'
+import { SectionHeader } from '@/component/Typography/SectionHeader/SectionHeader'
 import { taskQueries, useCreateTask } from '../../../../lib/queries/tasks'
 import { TaskItem } from '../TaskItem'
 
@@ -25,7 +28,7 @@ export function TasksPage() {
     )
   }
 
-  if (isLoading) return <div className="tasks-page-loading">Chargement des tâches...</div>
+  if (isLoading) return <div className="tasks-page__loading"><Spinner /></div>
 
   const pendingCount = tasks?.length ?? 0
 
@@ -54,7 +57,7 @@ export function TasksPage() {
 
       <main className="tasks-page__main">
         <section className="tasks-section">
-          <h2 className="tasks-section__title">À faire</h2>
+          <SectionHeader title="À faire" variant="primary" />
           {tasks && tasks.length > 0 ? (
             <div className="tasks-list">
               {tasks.map((task) => (
@@ -62,16 +65,17 @@ export function TasksPage() {
               ))}
             </div>
           ) : (
-            <div className="tasks-page__empty">
-              <CheckSquare size={48} className="tasks-page__empty-icon" />
-              <p>Toutes les tâches sont terminées ! 🎉</p>
-            </div>
+            <EmptyState
+              icon={<CheckSquare size={24} />}
+              title="Toutes les tâches sont terminées !"
+              subtitle="Profite de ce moment 🎉"
+            />
           )}
         </section>
 
         {todayTasks && todayTasks.length > 0 && (
           <section className="tasks-section tasks-section--done">
-            <h2 className="tasks-section__title">Terminées aujourd'hui</h2>
+            <SectionHeader title="Terminées aujourd'hui" variant="primary" />
             <div className="tasks-list">
               {todayTasks.map((task) => (
                 <TaskItem key={task.id} task={task} />

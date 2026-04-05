@@ -2,13 +2,16 @@ import { type AuthInput, authSchema } from '@habit-tracker/shared'
 
 import { useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
-import { Check, Eye, EyeOff, Lock, Mail, X } from 'lucide-react'
+import { Check, Lock, Mail, X } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import z from 'zod'
 
 import { Button } from '../../../../component/Button/Button'
 import { FormMessage } from '../../../../component/Feedback/FormMessage/FormMessage'
-import { useDemo, useSignup } from '../../../../lib/queries/auth'
+import { useSignup } from '../../../../lib/queries/auth'
+import { AuthDivider } from '../AuthDivider/AuthDivider'
+import { AuthField } from '../AuthField/AuthField'
+import { DemoButton } from '../DemoButton/DemoButton'
 import { GoogleAuthButton } from '../GoogleAuthButton/GoogleAuthButton'
 
 type FieldErrors = Partial<Record<keyof AuthInput | 'confirmPassword' | 'form', string>>
@@ -25,13 +28,9 @@ export const SignupPage = () => {
   const [errors, setErrors] = useState<FieldErrors>({})
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [showPassword, setShowPassword] = useState(false)
-  const [showConfirm, setShowConfirm] = useState(false)
-  const [touched, setTouched] = useState(false)
 
   const navigate = useNavigate()
   const signup = useSignup()
-  const demo = useDemo()
   const queryClient = useQueryClient()
 
   const passwordChecks = useMemo(
@@ -42,7 +41,6 @@ export const SignupPage = () => {
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    // Check confirm password match
     if (password !== confirmPassword) {
       setErrors({ confirmPassword: 'Les mots de passe ne correspondent pas' })
       return
@@ -81,97 +79,57 @@ export const SignupPage = () => {
       <form className="auth-form" onSubmit={handleSubmit} noValidate>
         {errors.form && <FormMessage variant="error">{errors.form}</FormMessage>}
 
-        <div className={`auth-field ${errors.email ? 'auth-field--error' : ''}`}>
-          <Mail size={18} className="auth-field__icon" aria-hidden="true" />
-          <div className="auth-field__body">
-            <label htmlFor="signup-email" className="auth-field__label">
-              Email
-            </label>
-            <input
-              id="signup-email"
-              name="email"
-              type="email"
-              className="auth-field__input"
-              placeholder="nom@exemple.com"
-              required
-              autoComplete="email"
-            />
-          </div>
-        </div>
-        {errors.email && <p className="auth-field__error">{errors.email}</p>}
+        <AuthField
+          id="signup-email"
+          name="email"
+          type="email"
+          label="Email"
+          icon={<Mail size={18} />}
+          placeholder="nom@exemple.com"
+          error={errors.email}
+          required
+          autoComplete="email"
+        />
 
-        <div className={`auth-field ${errors.password ? 'auth-field--error' : ''}`}>
-          <Lock size={18} className="auth-field__icon" aria-hidden="true" />
-          <div className="auth-field__body">
-            <label htmlFor="signup-password" className="auth-field__label">
-              Mot de passe
-            </label>
-            <input
-              id="signup-password"
-              name="password"
-              type={showPassword ? 'text' : 'password'}
-              className="auth-field__input"
-              placeholder="••••••••"
-              required
-              autoComplete="new-password"
-              value={password}
-              onFocus={() => setTouched(true)}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <button
-            type="button"
-            className="auth-field__toggle"
-            onClick={() => setShowPassword((v) => !v)}
-            aria-label={showPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'}
-          >
-            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-          </button>
-        </div>
-        {errors.password && <p className="auth-field__error">{errors.password}</p>}
+        <AuthField
+          id="signup-password"
+          name="password"
+          label="Mot de passe"
+          icon={<Lock size={18} />}
+          placeholder="••••••••"
+          error={errors.password}
+          required
+          autoComplete="new-password"
+          passwordToggle
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
-        {touched && (
-          <ul className="signup__rules" aria-label="Règles du mot de passe">
-            {passwordChecks.map(({ key, label, valid }) => (
-              <li key={key} className={`signup__rule ${valid ? 'signup__rule--valid' : ''}`}>
-                {valid ? (
-                  <Check size={14} className="signup__rule-icon" />
-                ) : (
-                  <X size={14} className="signup__rule-icon" />
-                )}
-                {label}
-              </li>
-            ))}
-          </ul>
-        )}
+        <ul className="signup__rules" aria-label="Règles du mot de passe">
+          {passwordChecks.map(({ key, label, valid }) => (
+            <li key={key} className={`signup__rule ${valid ? 'signup__rule--valid' : ''}`}>
+              {valid ? (
+                <Check size={14} className="signup__rule-icon" />
+              ) : (
+                <X size={14} className="signup__rule-icon" />
+              )}
+              {label}
+            </li>
+          ))}
+        </ul>
 
-        <div className={`auth-field ${errors.confirmPassword ? 'auth-field--error' : ''}`}>
-          <Lock size={18} className="auth-field__icon" aria-hidden="true" />
-          <div className="auth-field__body">
-            <label htmlFor="signup-confirm" className="auth-field__label">
-              Confirmer le mot de passe
-            </label>
-            <input
-              id="signup-confirm"
-              type={showConfirm ? 'text' : 'password'}
-              className="auth-field__input"
-              placeholder="••••••••"
-              required
-              autoComplete="new-password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-          </div>
-          <button
-            type="button"
-            className="auth-field__toggle"
-            onClick={() => setShowConfirm((v) => !v)}
-            aria-label={showConfirm ? 'Masquer la confirmation' : 'Afficher la confirmation'}
-          >
-            {showConfirm ? <EyeOff size={18} /> : <Eye size={18} />}
-          </button>
-        </div>
-        {errors.confirmPassword && <p className="auth-field__error">{errors.confirmPassword}</p>}
+        <AuthField
+          id="signup-confirm"
+          label="Confirmer le mot de passe"
+          icon={<Lock size={18} />}
+          placeholder="••••••••"
+          error={errors.confirmPassword}
+          required
+          autoComplete="new-password"
+          passwordToggle
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
 
         {confirmPassword.length > 0 && (
           <div
@@ -196,27 +154,11 @@ export const SignupPage = () => {
           Créer mon compte
         </Button>
 
-        <div className="auth-divider">
-          <span>ou</span>
-        </div>
-
-        <Button
-          type="button"
-          variant="ghost"
-          fullWidth
-          loading={demo.isPending}
-          onClick={() =>
-            demo.mutate(undefined, { onSuccess: () => navigate({ to: '/collection' }) })
-          }
-        >
-          ✨ Essayer la démo
-        </Button>
+        <AuthDivider />
+        <DemoButton />
       </form>
 
-      <div className="auth-divider">
-        <span>ou</span>
-      </div>
-
+      <AuthDivider />
       <GoogleAuthButton label="S'inscrire avec Google" />
     </>
   )

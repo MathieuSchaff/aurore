@@ -2,30 +2,30 @@ import { type AuthInput, authSchema } from '@habit-tracker/shared'
 
 import { useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
-import { Eye, EyeOff, Lock, Mail } from 'lucide-react'
+import { Lock, Mail } from 'lucide-react'
 import { useState } from 'react'
 import z from 'zod'
 
 import { Button } from '../../../../component/Button/Button'
 import { FormMessage } from '../../../../component/Feedback/FormMessage/FormMessage'
-import { useDemo, useLogin } from '../../../../lib/queries/auth'
+import { useLogin } from '../../../../lib/queries/auth'
+import { AuthDivider } from '../AuthDivider/AuthDivider'
+import { AuthField } from '../AuthField/AuthField'
+import { DemoButton } from '../DemoButton/DemoButton'
 import { GoogleAuthButton } from '../GoogleAuthButton/GoogleAuthButton'
 
 type FieldErrors = Partial<Record<keyof AuthInput | 'form', string>>
 
 export const LoginPage = () => {
   const [errors, setErrors] = useState<FieldErrors>({})
-  const [showPassword, setShowPassword] = useState(false)
 
   const navigate = useNavigate()
   const login = useLogin()
-  const demo = useDemo()
   const queryClient = useQueryClient()
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    // get form data
     const formData = Object.fromEntries(new FormData(e.currentTarget))
     const result = authSchema.safeParse(formData)
 
@@ -64,7 +64,7 @@ export const LoginPage = () => {
   }
 
   return (
-    <div className="login">
+    <>
       <div className="auth-page__header">
         <h1 className="auth-page__title">Connexion</h1>
         <p className="auth-page__subtitle">Content de vous revoir sur Aurore</p>
@@ -73,51 +73,29 @@ export const LoginPage = () => {
       <form className="auth-form" onSubmit={handleSubmit} noValidate>
         {errors.form && <FormMessage variant="error">{errors.form}</FormMessage>}
 
-        <div className={`auth-field ${errors.email ? 'auth-field--error' : ''}`}>
-          <Mail size={18} className="auth-field__icon" aria-hidden="true" />
-          <div className="auth-field__body">
-            <label htmlFor="login-email" className="auth-field__label">
-              Email
-            </label>
-            <input
-              id="login-email"
-              name="email"
-              type="email"
-              className="auth-field__input"
-              placeholder="nom@exemple.com"
-              required
-              autoComplete="email"
-            />
-          </div>
-        </div>
-        {errors.email && <p className="auth-field__error">{errors.email}</p>}
+        <AuthField
+          id="login-email"
+          name="email"
+          type="email"
+          label="Email"
+          icon={<Mail size={18} />}
+          placeholder="nom@exemple.com"
+          error={errors.email}
+          required
+          autoComplete="email"
+        />
 
-        <div className={`auth-field ${errors.password ? 'auth-field--error' : ''}`}>
-          <Lock size={18} className="auth-field__icon" aria-hidden="true" />
-          <div className="auth-field__body">
-            <label htmlFor="login-password" className="auth-field__label">
-              Mot de passe
-            </label>
-            <input
-              id="login-password"
-              name="password"
-              type={showPassword ? 'text' : 'password'}
-              className="auth-field__input"
-              placeholder="••••••••"
-              required
-              autoComplete="current-password"
-            />
-          </div>
-          <button
-            type="button"
-            className="auth-field__toggle"
-            onClick={() => setShowPassword((v) => !v)}
-            aria-label={showPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'}
-          >
-            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-          </button>
-        </div>
-        {errors.password && <p className="auth-field__error">{errors.password}</p>}
+        <AuthField
+          id="login-password"
+          name="password"
+          label="Mot de passe"
+          icon={<Lock size={18} />}
+          placeholder="••••••••"
+          error={errors.password}
+          required
+          autoComplete="current-password"
+          passwordToggle
+        />
 
         <Button
           type="submit"
@@ -129,28 +107,12 @@ export const LoginPage = () => {
           Se connecter
         </Button>
 
-        <div className="auth-divider">
-          <span>ou</span>
-        </div>
-
-        <Button
-          type="button"
-          variant="ghost"
-          fullWidth
-          loading={demo.isPending}
-          onClick={() =>
-            demo.mutate(undefined, { onSuccess: () => navigate({ to: '/collection' }) })
-          }
-        >
-          ✨ Essayer la démo
-        </Button>
+        <AuthDivider />
+        <DemoButton />
       </form>
 
-      <div className="auth-divider">
-        <span>ou</span>
-      </div>
-
+      <AuthDivider />
       <GoogleAuthButton label="Se connecter avec Google" />
-    </div>
+    </>
   )
 }
