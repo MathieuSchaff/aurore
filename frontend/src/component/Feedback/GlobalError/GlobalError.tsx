@@ -21,31 +21,11 @@ const DropperIllustration = () => (
     aria-hidden="true"
   >
     {/* Spill blob */}
-    <ellipse
-      cx="55"
-      cy="215"
-      rx="42"
-      ry="11"
-      fill="var(--color-primary-light)"
-      opacity="0.7"
-    />
-    <ellipse
-      cx="55"
-      cy="213"
-      rx="28"
-      ry="7"
-      fill="var(--color-primary-light)"
-      opacity="0.5"
-    />
+    <ellipse cx="55" cy="215" rx="42" ry="11" fill="var(--color-primary-light)" opacity="0.7" />
+    <ellipse cx="55" cy="213" rx="28" ry="7" fill="var(--color-primary-light)" opacity="0.5" />
 
     {/* Animated drops — fall from tip (y=170) toward the spill */}
-    <circle
-      className="dropper-drop"
-      cx="55"
-      cy="171"
-      r="4"
-      fill="var(--color-primary)"
-    />
+    <circle className="dropper-drop" cx="55" cy="171" r="4" fill="var(--color-primary)" />
     <circle
       className="dropper-drop dropper-drop-2"
       cx="55"
@@ -62,10 +42,7 @@ const DropperIllustration = () => (
     />
 
     {/* Tip — narrow point */}
-    <path
-      d="M 49 158 L 55 172 L 61 158 Z"
-      fill="var(--color-primary)"
-    />
+    <path d="M 49 158 L 55 172 L 61 158 Z" fill="var(--color-primary)" />
 
     {/* Bottle body — glass rectangle */}
     <rect
@@ -91,15 +68,7 @@ const DropperIllustration = () => (
     />
 
     {/* Highlight on glass */}
-    <rect
-      x="43"
-      y="74"
-      width="6"
-      height="30"
-      rx="3"
-      fill="var(--bg-card)"
-      opacity="0.6"
-    />
+    <rect x="43" y="74" width="6" height="30" rx="3" fill="var(--bg-card)" opacity="0.6" />
 
     {/* Neck */}
     <rect
@@ -114,22 +83,9 @@ const DropperIllustration = () => (
     />
 
     {/* Rubber bulb */}
-    <ellipse
-      cx="55"
-      cy="40"
-      rx="20"
-      ry="15"
-      fill="var(--color-accent)"
-    />
+    <ellipse cx="55" cy="40" rx="20" ry="15" fill="var(--color-accent)" />
     {/* Bulb highlight */}
-    <ellipse
-      cx="48"
-      cy="34"
-      rx="5"
-      ry="4"
-      fill="var(--color-accent-light)"
-      opacity="0.5"
-    />
+    <ellipse cx="48" cy="34" rx="5" ry="4" fill="var(--color-accent-light)" opacity="0.5" />
   </svg>
 )
 
@@ -141,9 +97,7 @@ export const GlobalError = ({ error, reset, is404 = false }: GlobalErrorProps) =
     reportError(error, { component: 'GlobalError' })
   }, [])
 
-  const title = is404
-    ? "Cette page n'est pas dans notre routine."
-    : 'On a renversé quelque chose.'
+  const title = is404 ? "Cette page n'est pas dans notre routine." : 'On a renversé quelque chose.'
 
   const subtitle = is404
     ? "Elle a peut-être changé d'adresse, ou n'a jamais existé."
@@ -159,11 +113,7 @@ export const GlobalError = ({ error, reset, is404 = false }: GlobalErrorProps) =
       <p className="global-error-subtitle">{subtitle}</p>
 
       <div className="global-error-actions">
-        {reset && (
-          <Button onClick={() => reset()}>
-            Réessayer
-          </Button>
-        )}
+        {reset && <Button onClick={() => reset()}>Réessayer</Button>}
         <Button variant="outline" onClick={() => navigate({ to: '/' })}>
           Retour à l'accueil
         </Button>
