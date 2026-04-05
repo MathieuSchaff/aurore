@@ -31,7 +31,7 @@ export const VerifyEmailPage = () => {
   if (verify.isPending) {
     return (
       <div className="auth-page__header">
-        <p className="auth-page__subtitle">Vérification en cours...</p>
+        <output className="auth-page__subtitle">Vérification en cours...</output>
       </div>
     )
   }
@@ -72,7 +72,7 @@ export const VerifyEmailPage = () => {
 
   return (
     <div className="auth-page__header">
-      <p className="auth-page__subtitle">Vérification en cours...</p>
+      <output className="auth-page__subtitle">Vérification en cours...</output>
     </div>
   )
 }

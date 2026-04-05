@@ -26,11 +26,11 @@ export const GoogleCallbackPage = () => {
     // OAuth came from Google (token param present) but silentRefresh failed
     toast.error('Connexion Google échouée, veuillez réessayer')
     navigate({ to: '/auth/login', replace: true })
-  }, [])
+  }, [token, navigate])
 
   return (
     <div className="auth-page__header">
-      <p className="auth-page__subtitle">Connexion en cours...</p>
+      <output className="auth-page__subtitle">Connexion en cours...</output>
     </div>
   )
 }

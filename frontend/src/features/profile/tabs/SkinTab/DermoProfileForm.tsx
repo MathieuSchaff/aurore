@@ -45,7 +45,7 @@ export function DermoProfileForm() {
     updateMutation.mutate(data, { onSuccess: () => setIsDirty(false) })
   }
 
-  if (isLoading) return <div className="dermo-form__loading">Chargement...</div>
+  if (isLoading) return <output className="dermo-form__loading">Chargement...</output>
 
   return (
     <div className="dermo-form">
@@ -54,7 +54,9 @@ export function DermoProfileForm() {
           Type de peau
         </span>
         <h3 className="dermo-section__title">Type de peau</h3>
-        <p className="dermo-section__desc">Sélectionnez jusqu'à 3 types.</p>
+        <p className="dermo-section__desc" id="skin-type-desc">
+          Sélectionnez jusqu'à 3 types.
+        </p>
         <ChipGroup
           options={skinTypeOptions}
           selected={skinTypes}
@@ -63,6 +65,8 @@ export function DermoProfileForm() {
             setIsDirty(true)
           }}
           max={3}
+          aria-label="Type de peau"
+          aria-describedby="skin-type-desc"
         />
       </section>
 
@@ -71,8 +75,15 @@ export function DermoProfileForm() {
           Phototype
         </span>
         <h3 className="dermo-section__title">Phototype de Fitzpatrick</h3>
-        <p className="dermo-section__desc">Réaction de votre peau au soleil.</p>
-        <div className="dermo-fitzpatrick" role="radiogroup" aria-label="Phototype de Fitzpatrick">
+        <p className="dermo-section__desc" id="fitzpatrick-desc">
+          Réaction de votre peau au soleil.
+        </p>
+        <div
+          className="dermo-fitzpatrick"
+          role="radiogroup"
+          aria-label="Phototype de Fitzpatrick"
+          aria-describedby="fitzpatrick-desc"
+        >
           {FITZPATRICK_ITEMS.map(({ value, label, description }) => (
             <label
               key={value}
@@ -111,6 +122,7 @@ export function DermoProfileForm() {
             setIsDirty(true)
           }}
           size="sm"
+          aria-label="Problématiques et conditions"
         />
       </section>
 
@@ -118,12 +130,15 @@ export function DermoProfileForm() {
         <span className="dermo-section__overline" aria-hidden="true">
           Privé
         </span>
-        <h3 className="dermo-section__title">Notes privées</h3>
+        <h3 className="dermo-section__title" id="dermo-notes-title">
+          Notes privées
+        </h3>
         <p className="dermo-section__desc">
           Ces notes sont privées et utilisées uniquement pour les recommandations personnalisées.
         </p>
         <Textarea
           label=""
+          aria-labelledby="dermo-notes-title"
           value={privateNotes}
           onChange={(e) => {
             setPrivateNotes(e.target.value)
@@ -138,6 +153,9 @@ export function DermoProfileForm() {
 
       {updateMutation.isError && (
         <FormMessage variant="error">Une erreur est survenue lors de la sauvegarde.</FormMessage>
+      )}
+      {updateMutation.isSuccess && !isDirty && (
+        <FormMessage variant="success">Profil dermato enregistré.</FormMessage>
       )}
 
       <div className="dermo-form__actions">

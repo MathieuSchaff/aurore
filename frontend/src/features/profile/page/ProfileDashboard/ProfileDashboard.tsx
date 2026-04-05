@@ -7,13 +7,13 @@ import { Suspense, useState } from 'react'
 import { Spinner } from '@/component/Feedback/Spinner/Spinner'
 import { PageTitle } from '@/component/Typography/PageTitle/PageTitle'
 import { profileQueries, useUpdateProfile } from '../../../../lib/queries/profile'
-import { AccountSettings } from '../AccountSettings/AccountSettings'
-import { DermoProfileForm } from '../DermoProfileForm/DermoProfileForm'
-import { PreferenceSettings } from '../PreferenceSettings'
-import { PrivacySettings } from '../PrivacySettings/PrivacySettings'
-import { ProfileAvatar } from '../ProfileAvatar/ProfileAvatar'
-import { ProfileForm } from '../ProfileForm/ProfileForm'
-import { ProfileStats } from '../ProfileStats/ProfileStats'
+import { ProfileAvatar } from '../../components/ProfileAvatar/ProfileAvatar'
+import { ProfileForm } from '../../components/ProfileForm/ProfileForm'
+import { AccountSettings } from '../../tabs/AccountTab/AccountSettings'
+import { ProfileStats } from '../../tabs/OverviewTab/ProfileStats'
+import { PreferenceSettings } from '../../tabs/PreferencesTab/PreferenceSettings'
+import { PrivacySettings } from '../../tabs/PrivacyTab/PrivacySettings'
+import { DermoProfileForm } from '../../tabs/SkinTab/DermoProfileForm'
 import './ProfileDashboard.css'
 
 import { type TabOption, Tabs } from '@/component/Tabs/Tabs'
@@ -107,6 +107,7 @@ export const ProfileDashboard = () => {
           activeTab={activeTab}
           onTabChange={setActiveTab}
           className="profile-tabs-container"
+          idPrefix="profile-tab"
         />
       )}
 
@@ -125,31 +126,56 @@ export const ProfileDashboard = () => {
         ) : (
           <>
             {activeTab === 'overview' && (
-              <div className="profile-tab-content">
+              <div
+                className="profile-tab-content"
+                role="tabpanel"
+                id="profile-tab-panel-overview"
+                aria-labelledby="profile-tab-overview"
+              >
                 <Suspense fallback={<Spinner />}>
                   <ProfileStats />
                 </Suspense>
               </div>
             )}
             {activeTab === 'preferences' && (
-              <div className="profile-tab-content">
+              <div
+                className="profile-tab-content"
+                role="tabpanel"
+                id="profile-tab-panel-preferences"
+                aria-labelledby="profile-tab-preferences"
+              >
                 <PreferenceSettings />
               </div>
             )}
             {activeTab === 'account' && (
-              <div className="profile-tab-content">
+              <div
+                className="profile-tab-content"
+                role="tabpanel"
+                id="profile-tab-panel-account"
+                aria-labelledby="profile-tab-account"
+              >
                 <AccountSettings onEditProfile={() => setIsEditing(true)} />
               </div>
             )}
             {activeTab === 'skin' && (
-              <div className="profile-tab-content">
+              <div
+                className="profile-tab-content"
+                role="tabpanel"
+                id="profile-tab-panel-skin"
+                aria-labelledby="profile-tab-skin"
+              >
                 <Suspense fallback={<Spinner />}>
                   <DermoProfileForm />
                 </Suspense>
               </div>
             )}
             {activeTab === 'privacy' && (
-              <div className="profile-tab-content">
+              <div
+                className="profile-tab-content"
+                role="tabpanel"
+                id="profile-tab-panel-privacy"
+                aria-labelledby="profile-tab-privacy"
+              >
                 <PrivacySettings />
               </div>
             )}

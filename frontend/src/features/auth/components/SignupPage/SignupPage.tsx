@@ -76,7 +76,12 @@ export const SignupPage = () => {
         <p className="auth-page__subtitle">Commencez à suivre vos habitudes</p>
       </div>
 
-      <form className="auth-form" onSubmit={handleSubmit} noValidate>
+      <form
+        className="auth-form"
+        onSubmit={handleSubmit}
+        noValidate
+        aria-label="Formulaire d'inscription"
+      >
         {errors.form && <FormMessage variant="error">{errors.form}</FormMessage>}
 
         <AuthField
@@ -107,11 +112,15 @@ export const SignupPage = () => {
 
         <ul className="signup__rules" aria-label="Règles du mot de passe">
           {passwordChecks.map(({ key, label, valid }) => (
-            <li key={key} className={`signup__rule ${valid ? 'signup__rule--valid' : ''}`}>
+            <li
+              key={key}
+              className={`signup__rule ${valid ? 'signup__rule--valid' : ''}`}
+              aria-label={`${label} : ${valid ? 'validé' : 'non validé'}`}
+            >
               {valid ? (
-                <Check size={14} className="signup__rule-icon" />
+                <Check size={14} className="signup__rule-icon" aria-hidden="true" />
               ) : (
-                <X size={14} className="signup__rule-icon" />
+                <X size={14} className="signup__rule-icon" aria-hidden="true" />
               )}
               {label}
             </li>
@@ -132,16 +141,17 @@ export const SignupPage = () => {
         />
 
         {confirmPassword.length > 0 && (
-          <div
+          <output
             className={`signup__rule ${password === confirmPassword ? 'signup__rule--valid' : ''}`}
+            aria-label={`Les mots de passe correspondent : ${password === confirmPassword ? 'validé' : 'non validé'}`}
           >
             {password === confirmPassword ? (
-              <Check size={14} className="signup__rule-icon" />
+              <Check size={14} className="signup__rule-icon" aria-hidden="true" />
             ) : (
-              <X size={14} className="signup__rule-icon" />
+              <X size={14} className="signup__rule-icon" aria-hidden="true" />
             )}
             Les mots de passe correspondent
-          </div>
+          </output>
         )}
 
         <Button

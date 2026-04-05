@@ -94,12 +94,12 @@
   letter-spacing: -0.01em;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   margin: 0;
 }
 
-/* Footer: price + add button (outside the Link) */
 .list-card--product .list-card__footer {
   display: flex;
   align-items: center;

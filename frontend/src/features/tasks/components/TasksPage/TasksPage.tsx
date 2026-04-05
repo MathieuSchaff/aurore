@@ -30,9 +30,9 @@ export function TasksPage() {
 
   if (isLoading)
     return (
-      <div className="tasks-page__loading">
+      <output className="tasks-page__loading" aria-label="Chargement des tâches">
         <Spinner />
-      </div>
+      </output>
     )
 
   const pendingCount = tasks?.length ?? 0
@@ -46,6 +46,9 @@ export function TasksPage() {
       />
 
       <form className="tasks-page__add-form" onSubmit={handleCreateTask}>
+        <label htmlFor="new-task" className="sr-only">
+          Nouvelle tâche
+        </label>
         <input
           id="new-task"
           name="new-task"
@@ -55,8 +58,13 @@ export function TasksPage() {
           placeholder="Ajouter une nouvelle tâche..."
           className="tasks-page__add-input"
         />
-        <button type="submit" disabled={createTask.isPending} className="tasks-page__add-btn">
-          <Plus size={14} />
+        <button
+          type="submit"
+          disabled={createTask.isPending}
+          className="tasks-page__add-btn"
+          aria-label="Ajouter la tâche"
+        >
+          <Plus size={14} aria-hidden="true" />
         </button>
       </form>
 
