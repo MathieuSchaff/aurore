@@ -1,7 +1,7 @@
 import type { CriteriaWeights } from '@habit-tracker/shared'
 
 import { sql } from 'drizzle-orm'
-import { jsonb, pgEnum, pgTable, timestamp, uuid } from 'drizzle-orm/pg-core'
+import { boolean, jsonb, pgEnum, pgTable, timestamp, uuid } from 'drizzle-orm/pg-core'
 
 import { users } from './users'
 
@@ -23,6 +23,7 @@ export const userPreferences = pgTable('user_preferences', {
     .default(
       sql`'{"tolerance":1,"efficacy":1,"sensoriality":1,"stability":1,"mixability":1,"valueForMoney":1}'::jsonb`
     ),
+  aiConsent: boolean('ai_consent').notNull().default(false),
   updatedAt: timestamp('updated_at', { withTimezone: true })
     .notNull()
     .defaultNow()
