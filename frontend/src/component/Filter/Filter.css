@@ -161,6 +161,11 @@
   border-bottom: 1px solid var(--border-default);
 }
 
+.filter-accordion__heading {
+  margin: 0;
+  font: inherit;
+}
+
 .filter-accordion--essential {
   background: oklch(from var(--color-secondary) l c h / 0.08);
 }

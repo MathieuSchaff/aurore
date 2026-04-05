@@ -10,6 +10,10 @@ interface SkeletonProps {
 
 export function Skeleton({ width, height, radius, className }: SkeletonProps) {
   return (
-    <div className={clsx('skeleton', className)} style={{ width, height, borderRadius: radius }} />
+    <output
+      className={clsx('skeleton', className)}
+      style={{ width, height, borderRadius: radius }}
+      aria-label="Chargement"
+    />
   )
 }

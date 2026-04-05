@@ -17,6 +17,7 @@ interface SearchComboboxProps<TItem, TQueryKey extends QueryKey> {
   toResult: (item: NoInfer<TItem>) => SearchComboboxResult
   onSelect: (slug: string, result: SearchComboboxResult) => void
   placeholder?: string
+  label: string
   minChars?: number
   debounce?: number
 }
@@ -26,6 +27,7 @@ export function SearchCombobox<TItem, TQueryKey extends QueryKey>({
   toResult,
   onSelect,
   placeholder = 'Rechercher...',
+  label,
   minChars = 2,
   debounce = 300,
 }: SearchComboboxProps<TItem, TQueryKey>) {
@@ -33,8 +35,15 @@ export function SearchCombobox<TItem, TQueryKey extends QueryKey>({
   const [debouncedQuery, setDebouncedQuery] = useState('')
   const [isOpen, setIsOpen] = useState(false)
   const [highlightedIndex, setHighlightedIndex] = useState(-1)
+  const [announcement, setAnnouncement] = useState('')
   const containerRef = useRef<HTMLDivElement>(null)
   const listboxId = useId()
+
+  useEffect(() => {
+    if (!announcement) return
+    const timer = setTimeout(() => setAnnouncement(''), 1000)
+    return () => clearTimeout(timer)
+  }, [announcement])
 
   // Simple inline debounce to avoid another dependency or custom hook overhead for now
   useEffect(() => {
@@ -60,6 +69,7 @@ export function SearchCombobox<TItem, TQueryKey extends QueryKey>({
   const results = rawResults.map(toResult)
 
   function handleSelect(result: SearchComboboxResult) {
+    setAnnouncement(`${result.label} sélectionné`)
     setQuery('')
     setIsOpen(false)
     setHighlightedIndex(-1)
@@ -75,14 +85,17 @@ export function SearchCombobox<TItem, TQueryKey extends QueryKey>({
     } else if (e.key === 'ArrowUp') {
       e.preventDefault()
       setHighlightedIndex((prev) => (prev > 0 ? prev - 1 : results.length - 1))
-    } else if (e.key === 'Enter' || e.key === 'Tab') {
+    } else if (e.key === 'Enter') {
       if (highlightedIndex >= 0 && highlightedIndex < results.length) {
         e.preventDefault()
         handleSelect(results[highlightedIndex])
-      } else if (e.key === 'Enter' && results.length > 0) {
+      } else if (results.length > 0) {
         e.preventDefault()
         handleSelect(results[0])
       }
+    } else if (e.key === 'Tab') {
+      setIsOpen(false)
+      setHighlightedIndex(-1)
     } else if (e.key === 'Escape') {
       setIsOpen(false)
       setHighlightedIndex(-1)
@@ -90,7 +103,6 @@ export function SearchCombobox<TItem, TQueryKey extends QueryKey>({
   }
 
   const showDropdown = isOpen && debouncedQuery.length >= minChars
-  const hasResults = showDropdown && !isFetching && results.length > 0
   const activeDescendant =
     highlightedIndex >= 0 ? `${listboxId}-option-${highlightedIndex}` : undefined
 
@@ -112,7 +124,8 @@ export function SearchCombobox<TItem, TQueryKey extends QueryKey>({
           onKeyDown={handleKeyDown}
           onFocus={() => query.length >= minChars && setIsOpen(true)}
           autoComplete="off"
-          aria-expanded={hasResults}
+          aria-label={label}
+          aria-expanded={showDropdown}
           aria-controls={listboxId}
           aria-activedescendant={activeDescendant}
           aria-autocomplete="list"
@@ -136,10 +149,10 @@ export function SearchCombobox<TItem, TQueryKey extends QueryKey>({
                 id={`${listboxId}-option-${index}`}
                 role="option"
                 aria-selected={index === highlightedIndex}
+                tabIndex={-1}
                 className={`search-combobox__option${index === highlightedIndex ? ' search-combobox__option--highlighted' : ''}`}
                 onMouseDown={(e) => e.preventDefault()}
                 onClick={() => handleSelect(item)}
-                tabIndex={-1}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault()
@@ -156,6 +169,15 @@ export function SearchCombobox<TItem, TQueryKey extends QueryKey>({
           )}
         </div>
       )}
+
+      <div className="sr-only" aria-live="polite" aria-atomic="true">
+        {announcement ||
+          (showDropdown && !isFetching
+            ? results.length > 0
+              ? `${results.length} résultat${results.length > 1 ? 's' : ''} disponible${results.length > 1 ? 's' : ''}`
+              : 'Aucun résultat'
+            : '')}
+      </div>
     </div>
   )
 }

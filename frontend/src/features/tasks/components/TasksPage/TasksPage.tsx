@@ -28,7 +28,12 @@ export function TasksPage() {
     )
   }
 
-  if (isLoading) return <div className="tasks-page__loading"><Spinner /></div>
+  if (isLoading)
+    return (
+      <div className="tasks-page__loading">
+        <Spinner />
+      </div>
+    )
 
   const pendingCount = tasks?.length ?? 0
 

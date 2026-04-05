@@ -249,6 +249,7 @@ export function ProductsPage() {
           actions={
             <>
               <SearchCombobox
+                label="Rechercher un produit"
                 queryFn={productQueries.search}
                 toResult={(item) => ({
                   id: item.id,

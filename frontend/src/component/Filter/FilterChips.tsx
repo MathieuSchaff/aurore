@@ -11,6 +11,7 @@ export function ChipsWithLimit({
   maxVisible,
   isAccordionOpen,
   escapeHandler,
+  groupLabel,
 }: {
   options: FilterOption[]
   selected: string[]
@@ -18,6 +19,7 @@ export function ChipsWithLimit({
   maxVisible?: number
   isAccordionOpen: boolean
   escapeHandler: (e: React.KeyboardEvent) => void
+  groupLabel: string
 }) {
   const [expanded, setExpanded] = useState(false)
   const limit = maxVisible ?? options.length
@@ -48,6 +50,7 @@ export function ChipsWithLimit({
           className="filter-chip filter-chip--more"
           onClick={() => setExpanded(true)}
           tabIndex={isAccordionOpen ? 0 : -1}
+          aria-label={`Voir les ${options.length} options pour ${groupLabel}`}
         >
           Voir tout ({options.length})
         </button>
@@ -56,8 +59,8 @@ export function ChipsWithLimit({
   )
 }
 
-// When a filter field has sub-groups (e.g. "Vitamins" > "A, B, C"),
-// we render each sub-group with its own label and chip limit.
+// When a filter field has sub-groups (formulation/texture etc)
+// we render each sub group with its own label and chip limit.
 export function SubGroupedChips<T extends string>({
   field,
   selected,
@@ -81,6 +84,7 @@ export function SubGroupedChips<T extends string>({
           onToggle={onToggle}
           isAccordionOpen={isAccordionOpen}
           escapeHandler={escapeHandler}
+          groupLabel={field.label}
         />
       </fieldset>
     )
@@ -106,6 +110,7 @@ export function SubGroupedChips<T extends string>({
                 maxVisible={sg.maxVisible}
                 isAccordionOpen={isAccordionOpen}
                 escapeHandler={escapeHandler}
+                groupLabel={sg.label}
               />
             </div>
           </fieldset>

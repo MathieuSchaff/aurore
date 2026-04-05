@@ -7,5 +7,5 @@ type SpinnerProps = {
 }
 
 export const Spinner = ({ className }: SpinnerProps) => {
-  return <span className={clsx('spinner', className)} />
+  return <output className={clsx('spinner', className)} aria-label="Chargement" />
 }

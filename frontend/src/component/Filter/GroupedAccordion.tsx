@@ -39,36 +39,42 @@ export function GroupedAccordion<T extends string>({
 
   return (
     <div className={`filter-accordion filter-accordion--${group.tier}`}>
-      <button
-        type="button"
-        id={headerId}
-        className="filter-accordion__trigger"
-        onClick={() => setIsOpen((v) => !v)}
-        aria-expanded={isOpen}
-        aria-controls={contentId}
-        ref={buttonRef}
-      >
-        <span className="filter-accordion__label">{group.label}</span>
-        <div className="filter-accordion__meta">
-          {totalSelected > 0 && (
-            <span className="filter-accordion__count" title={`${totalSelected} filtres actifs`}>
-              {totalSelected}
-            </span>
-          )}
-          <ChevronDown
-            size={14}
-            className="filter-accordion__chevron"
-            style={{ transform: isOpen ? 'rotate(0deg)' : 'rotate(-90deg)' }}
-            aria-hidden="true"
-          />
-        </div>
-      </button>
+      {/* h3 wraps the trigger so screen readers can navigate between sections via headings */}
+      <h3 className="filter-accordion__heading">
+        <button
+          type="button"
+          id={headerId}
+          className="filter-accordion__trigger"
+          onClick={() => setIsOpen((v) => !v)}
+          aria-expanded={isOpen}
+          aria-controls={contentId}
+          ref={buttonRef}
+        >
+          <span className="filter-accordion__label">{group.label}</span>
+          <div className="filter-accordion__meta">
+            {totalSelected > 0 && (
+              <span className="filter-accordion__count" title={`${totalSelected} filtres actifs`}>
+                {totalSelected}
+              </span>
+            )}
+            <ChevronDown
+              size={14}
+              className="filter-accordion__chevron"
+              style={{ transform: isOpen ? 'rotate(0deg)' : 'rotate(-90deg)' }}
+              aria-hidden="true"
+            />
+          </div>
+        </button>
+      </h3>
+      {/* inert blocks focus + screen readers when closed, like hidden does,
+          but keeps the element in the DOM so the CSS grid animation still works */}
       <section
         id={contentId}
         className="filter-accordion__body"
         aria-labelledby={headerId}
         style={{ gridTemplateRows: isOpen ? '1fr' : '0fr' }}
         aria-hidden={!isOpen}
+        inert={!isOpen ? true : undefined}
       >
         <div className="filter-accordion__inner">
           {group.subFilters.map((sf) => {
@@ -118,6 +124,7 @@ export function GroupedAccordion<T extends string>({
                     onToggle={(value) => onToggle(sf.key, value)}
                     isAccordionOpen={isOpen}
                     escapeHandler={escapeHandler}
+                    groupLabel={sf.label}
                   />
                 </div>
               </fieldset>

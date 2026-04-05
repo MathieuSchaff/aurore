@@ -139,7 +139,7 @@ export function GroupedFilterDialog<T extends string>({
           ))}
 
           {advancedGroups.length > 0 && (
-            <div className="filter-drawer__separator" aria-hidden="true">
+            <div className="filter-drawer__separator">
               <span className="filter-drawer__separator-label">Avancé</span>
             </div>
           )}

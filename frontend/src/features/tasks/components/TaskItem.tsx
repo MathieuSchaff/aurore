@@ -100,6 +100,7 @@ export function TaskItem({ task }: TaskItemProps) {
                 data: { status: task.status === 'done' ? 'active' : 'done' },
               })
             }
+            label={`Marquer "${task.title}" comme ${task.status === 'done' ? 'à faire' : 'terminée'}`}
           />
         </div>
 
@@ -204,6 +205,7 @@ export function TaskItem({ task }: TaskItemProps) {
                     })
                   }
                   size="sm"
+                  label={`Marquer "${subtask.title}" comme ${subtask.completed ? 'à faire' : 'terminée'}`}
                 />
                 <span
                   className={`subtask-item__title ${subtask.completed ? 'subtask-item__title--done' : ''}`}
