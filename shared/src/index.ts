@@ -216,6 +216,12 @@ export {
   userPreferencesSchema,
 } from './schemas/user-preferences'
 export {
+  type PrivacySettings,
+  privacySettingsSchema,
+  type UpdatePrivacySettingsInput,
+  updatePrivacySettingsSchema,
+} from './schemas/privacy'
+export {
   type CreateUserProductInput,
   createUserProductSchema,
   type RepurchaseFlag,
