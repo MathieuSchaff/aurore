@@ -7,6 +7,7 @@ import { useMemo, useState } from 'react'
 import z from 'zod'
 
 import { Button } from '../../../../component/Button/Button'
+import { FormMessage } from '../../../../component/Feedback/FormMessage/FormMessage'
 import { useDemo, useSignup } from '../../../../lib/queries/auth'
 import { GoogleAuthButton } from '../GoogleAuthButton/GoogleAuthButton'
 
@@ -78,11 +79,7 @@ export const SignupPage = () => {
       </div>
 
       <form className="auth-form" onSubmit={handleSubmit} noValidate>
-        {errors.form && (
-          <p className="auth-error-banner" role="alert">
-            {errors.form}
-          </p>
-        )}
+        {errors.form && <FormMessage variant="error">{errors.form}</FormMessage>}
 
         <div className={`auth-field ${errors.email ? 'auth-field--error' : ''}`}>
           <Mail size={18} className="auth-field__icon" aria-hidden="true" />
@@ -215,6 +212,10 @@ export const SignupPage = () => {
           ✨ Essayer la démo
         </Button>
       </form>
+
+      <div className="auth-divider">
+        <span>ou</span>
+      </div>
 
       <GoogleAuthButton label="S'inscrire avec Google" />
     </>

@@ -1,18 +1,12 @@
 .tasks-page {
-  padding: var(--space-4);
+  width: 100%;
   max-width: 40rem;
   margin: 0 auto;
+  padding: var(--space-4);
 }
 
 .tasks-page__header {
   margin-bottom: var(--space-3);
-}
-
-.tasks-page__title {
-  font-family: var(--font-display);
-  font-size: var(--text-xl);
-  font-weight: var(--font-bold);
-  color: var(--color-primary);
 }
 
 .tasks-page__add-form {

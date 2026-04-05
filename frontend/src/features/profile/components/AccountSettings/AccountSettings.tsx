@@ -3,6 +3,7 @@ import { LogOut, Pencil, ShieldCheck, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 
 import { Button } from '../../../../component/Button/Button'
+import { SettingsSection } from '../../../../component/Layout/SettingsSection/SettingsSection'
 import { useLogout } from '../../../../lib/queries/auth'
 import { useDeleteUser } from '../../../../lib/queries/profile'
 import { ChangePasswordForm } from './ChangePasswordForm'
@@ -28,12 +29,10 @@ export const AccountSettings = ({ onEditProfile }: AccountSettingsProps) => {
 
   return (
     <div className="account-settings">
-      <section className="account-section">
-        <h3 className="account-section-title">Profil</h3>
-        <p className="account-section-desc">
-          Modifiez vos informations publiques, votre bio et votre avatar.
-        </p>
-
+      <SettingsSection
+        title="Profil"
+        description="Modifiez vos informations publiques, votre bio et votre avatar."
+      >
         <div className="account-actions">
           <Button
             type="button"
@@ -45,14 +44,12 @@ export const AccountSettings = ({ onEditProfile }: AccountSettingsProps) => {
             Modifier mes informations
           </Button>
         </div>
-      </section>
+      </SettingsSection>
 
-      <section className="account-section">
-        <h3 className="account-section-title">Sécurité</h3>
-        <p className="account-section-desc">
-          Gérez l'accès à votre compte et vos données personnelles.
-        </p>
-
+      <SettingsSection
+        title="Sécurité"
+        description="Gérez l'accès à votre compte et vos données personnelles."
+      >
         <div className="account-actions">
           {!showPasswordForm ? (
             <Button
@@ -73,12 +70,9 @@ export const AccountSettings = ({ onEditProfile }: AccountSettingsProps) => {
             />
           )}
         </div>
-      </section>
+      </SettingsSection>
 
-      <section className="account-section">
-        <h3 className="account-section-title">Session</h3>
-        <p className="account-section-desc">Déconnectez-vous de cet appareil.</p>
-
+      <SettingsSection title="Session" description="Déconnectez-vous de cet appareil.">
         <div className="account-actions">
           <Button
             type="button"
@@ -90,12 +84,13 @@ export const AccountSettings = ({ onEditProfile }: AccountSettingsProps) => {
             Se déconnecter
           </Button>
         </div>
-      </section>
+      </SettingsSection>
 
-      <section className="account-section danger-zone">
-        <h3 className="account-section-title danger">Zone de danger</h3>
-        <p className="account-section-desc">Actions irréversibles sur votre compte.</p>
-
+      <SettingsSection
+        title="Zone de danger"
+        description="Actions irréversibles sur votre compte."
+        variant="danger"
+      >
         <div className="account-actions">
           {!confirmDelete ? (
             <Button
@@ -140,7 +135,7 @@ export const AccountSettings = ({ onEditProfile }: AccountSettingsProps) => {
             </div>
           )}
         </div>
-      </section>
+      </SettingsSection>
     </div>
   )
 }

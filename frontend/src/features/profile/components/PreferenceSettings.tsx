@@ -1,8 +1,9 @@
 import type { DisplayScale } from '@habit-tracker/shared'
 
 import { useQuery } from '@tanstack/react-query'
-import clsx from 'clsx'
 
+import { ChipGroup } from '../../../component/Input/ChipGroup/ChipGroup'
+import { SettingsSection } from '../../../component/Layout/SettingsSection/SettingsSection'
 import {
   userPreferenceQueries,
   useUpdateUserPreferences,
@@ -49,39 +50,31 @@ export function PreferenceSettings() {
     })
   }
 
-  const handleScaleChange = (scale: DisplayScale) => {
-    updateMutation.mutate({
-      displayScale: scale,
-    })
-  }
+  const scaleOptions = (Object.keys(scaleLabels) as DisplayScale[]).map((s) => ({
+    value: s,
+    label: scaleLabels[s],
+  }))
 
   return (
     <div className="pref-settings">
-      <section className="pref-section">
-        <h3 className="pref-section-title">Échelle d'affichage</h3>
-        <p className="pref-section-desc">
-          Choisissez comment les notes de vos produits sont affichées.
-        </p>
-        <div className="pref-scale-grid">
-          {(Object.keys(scaleLabels) as DisplayScale[]).map((s) => (
-            <button
-              key={s}
-              type="button"
-              className={clsx('pref-scale-btn', prefs.displayScale === s && 'active')}
-              onClick={() => handleScaleChange(s)}
-            >
-              {scaleLabels[s]}
-            </button>
-          ))}
-        </div>
-      </section>
+      <SettingsSection
+        title="Échelle d'affichage"
+        description="Choisissez comment les notes de vos produits sont affichées."
+      >
+        <ChipGroup
+          options={scaleOptions}
+          selected={prefs.displayScale ? [prefs.displayScale] : []}
+          onChange={([scale]) => {
+            if (scale) updateMutation.mutate({ displayScale: scale })
+          }}
+          mode="exclusive"
+        />
+      </SettingsSection>
 
-      <section className="pref-section">
-        <h3 className="pref-section-title">Pondération des critères</h3>
-        <p className="pref-section-desc">
-          Ajustez l'importance de chaque critère dans le calcul de la note finale. Un poids de 0
-          ignore le critère.
-        </p>
+      <SettingsSection
+        title="Pondération des critères"
+        description="Ajustez l'importance de chaque critère dans le calcul de la note finale. Un poids de 0 ignore le critère."
+      >
         <div className="pref-weights-list">
           {Object.entries(criteriaLabels).map(([key, label]) => (
             <div key={key} className="pref-weight-item">
@@ -103,18 +96,13 @@ export function PreferenceSettings() {
             </div>
           ))}
         </div>
-      </section>
+      </SettingsSection>
 
-      <section className="pref-section">
-        <h3 id="palette-section-title" className="pref-section-title">
-          Palette (mode clair)
-        </h3>
-        <p className="pref-section-desc">Choisissez la palette de couleurs pour le mode clair.</p>
-        <div
-          className="pref-palette-swatches"
-          role="radiogroup"
-          aria-labelledby="palette-section-title"
-        >
+      <SettingsSection
+        title="Palette (mode clair)"
+        description="Choisissez la palette de couleurs pour le mode clair."
+      >
+        <div className="pref-palette-swatches" role="radiogroup" aria-label="Palette de couleurs">
           {PALETTE_SWATCHES.map(({ variant: v, label, color }) => {
             const isChecked = variant === v
             return (
@@ -132,7 +120,7 @@ export function PreferenceSettings() {
             )
           })}
         </div>
-      </section>
+      </SettingsSection>
     </div>
   )
 }

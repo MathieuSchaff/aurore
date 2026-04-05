@@ -6,7 +6,7 @@ import { PageHeader } from '@/component/Layout/PageHeader/PageHeader'
 import { taskQueries, useCreateTask } from '../../../../lib/queries/tasks'
 import { TaskItem } from '../TaskItem'
 
-// import './TasksPage.css'
+import './TasksPage.css'
 
 export function TasksPage() {
   const { data: tasks, isLoading } = useQuery(taskQueries.list())

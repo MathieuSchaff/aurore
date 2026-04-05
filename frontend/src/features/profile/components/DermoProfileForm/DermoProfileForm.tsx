@@ -6,55 +6,12 @@ import clsx from 'clsx'
 import { useEffect, useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
+import { FormMessage } from '@/component/Feedback/FormMessage/FormMessage'
+import { ChipGroup } from '@/component/Input/ChipGroup/ChipGroup'
 import { Textarea } from '@/component/Textarea/Textarea'
+import { FITZPATRICK_ITEMS, SKIN_CONCERN_LABELS, SKIN_TYPE_LABELS } from '@/constants/skin'
 import { profileQueries, useUpdateDermoProfile } from '../../../../lib/queries/profile'
 import './DermoProfileForm.css'
-
-const SKIN_TYPE_LABELS: Record<SkinType, string> = {
-  dry: 'Sèche',
-  oily: 'Grasse',
-  combination: 'Mixte',
-  normal: 'Normale',
-  sensitive: 'Sensible',
-}
-
-const SKIN_CONCERN_LABELS: Record<SkinConcern, string> = {
-  acne: 'Acné',
-  blackheads: 'Points noirs',
-  enlarged_pores: 'Pores dilatés',
-  hyperpigmentation: 'Hyperpigmentation',
-  dark_spots: 'Taches brunes',
-  uneven_skin_tone: 'Teint irrégulier',
-  dullness: 'Teint terne',
-  dehydration: 'Déshydratation',
-  fine_lines: 'Ridules',
-  wrinkles: 'Rides',
-  loss_of_firmness: 'Perte de fermeté',
-  dark_circles: 'Cernes',
-  puffiness: 'Gonflement',
-  rosacea: 'Rosacée',
-  atopic_dermatitis: 'Dermatite atopique',
-  perioral_dermatitis: 'Dermatite périorale',
-  seborrheic_dermatitis: 'Dermatite séborrhéique',
-  eczema: 'Eczéma',
-  psoriasis: 'Psoriasis',
-  acne_vulgaris: 'Acné vulgaire',
-  acne_cystic: 'Acné kystique',
-  keratosis_pilaris: 'Kératose pilaire',
-  vitiligo: 'Vitiligo',
-  melasma: 'Mélasma',
-  contact_dermatitis: 'Dermatite de contact',
-  couperose: 'Couperose',
-}
-
-const FITZPATRICK_ITEMS = [
-  { value: 1, label: 'I', description: 'Toujours brûle, jamais bronze' },
-  { value: 2, label: 'II', description: 'Brûle facilement, bronze peu' },
-  { value: 3, label: 'III', description: 'Brûle modérément, bronze' },
-  { value: 4, label: 'IV', description: 'Brûle peu, bronze bien' },
-  { value: 5, label: 'V', description: 'Brûle rarement' },
-  { value: 6, label: 'VI', description: 'Ne brûle jamais' },
-]
 
 export function DermoProfileForm() {
   const { data: dermo, isLoading } = useQuery(profileQueries.dermo())
@@ -75,21 +32,8 @@ export function DermoProfileForm() {
     }
   }, [dermo])
 
-  const toggleSkinType = (type: SkinType) => {
-    setSkinTypes((prev) => {
-      if (prev.includes(type)) return prev.filter((t) => t !== type)
-      if (prev.length >= 3) return prev
-      return [...prev, type]
-    })
-    setIsDirty(true)
-  }
-
-  const toggleConcern = (concern: SkinConcern) => {
-    setSkinConcerns((prev) =>
-      prev.includes(concern) ? prev.filter((c) => c !== concern) : [...prev, concern]
-    )
-    setIsDirty(true)
-  }
+  const skinTypeOptions = SKIN_TYPES.map((t) => ({ value: t, label: SKIN_TYPE_LABELS[t] }))
+  const skinConcernOptions = SKIN_CONCERNS.map((c) => ({ value: c, label: SKIN_CONCERN_LABELS[c] }))
 
   const handleSave = () => {
     const data: UserDermoProfileUpdateInput = {
@@ -111,23 +55,15 @@ export function DermoProfileForm() {
         </span>
         <h3 className="dermo-section__title">Type de peau</h3>
         <p className="dermo-section__desc">Sélectionnez jusqu'à 3 types.</p>
-        <div className="dermo-skin-types">
-          {SKIN_TYPES.map((type) => (
-            <button
-              key={type}
-              type="button"
-              className={clsx(
-                'dermo-type-pill',
-                skinTypes.includes(type) && 'dermo-type-pill--active'
-              )}
-              onClick={() => toggleSkinType(type)}
-              aria-pressed={skinTypes.includes(type)}
-              disabled={!skinTypes.includes(type) && skinTypes.length >= 3}
-            >
-              {SKIN_TYPE_LABELS[type]}
-            </button>
-          ))}
-        </div>
+        <ChipGroup
+          options={skinTypeOptions}
+          selected={skinTypes}
+          onChange={(v) => {
+            setSkinTypes(v as SkinType[])
+            setIsDirty(true)
+          }}
+          max={3}
+        />
       </section>
 
       <section className="dermo-section">
@@ -167,22 +103,15 @@ export function DermoProfileForm() {
           Conditions
         </span>
         <h3 className="dermo-section__title">Problématiques & conditions</h3>
-        <div className="dermo-concerns">
-          {SKIN_CONCERNS.map((concern) => (
-            <button
-              key={concern}
-              type="button"
-              className={clsx(
-                'dermo-concern-chip',
-                skinConcerns.includes(concern) && 'dermo-concern-chip--active'
-              )}
-              onClick={() => toggleConcern(concern)}
-              aria-pressed={skinConcerns.includes(concern)}
-            >
-              {SKIN_CONCERN_LABELS[concern]}
-            </button>
-          ))}
-        </div>
+        <ChipGroup
+          options={skinConcernOptions}
+          selected={skinConcerns}
+          onChange={(v) => {
+            setSkinConcerns(v as SkinConcern[])
+            setIsDirty(true)
+          }}
+          size="sm"
+        />
       </section>
 
       <section className="dermo-section">
@@ -208,9 +137,7 @@ export function DermoProfileForm() {
       </section>
 
       {updateMutation.isError && (
-        <p className="dermo-form__error" role="alert">
-          Une erreur est survenue lors de la sauvegarde.
-        </p>
+        <FormMessage variant="error">Une erreur est survenue lors de la sauvegarde.</FormMessage>
       )}
 
       <div className="dermo-form__actions">

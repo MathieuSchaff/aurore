@@ -1,9 +1,10 @@
 import type { ChangePasswordInput } from '@habit-tracker/shared'
 
-import { Check, Eye, EyeOff, X } from 'lucide-react'
+import { Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
 
-import { Button } from '../../../../component/Button/Button'
+import { FormMessage } from '../../../../component/Feedback/FormMessage/FormMessage'
+import { FormActions } from '../../../../component/Input/FormActions/FormActions'
 import { Input } from '../../../../component/Input/Input'
 import { useChangePassword } from '../../../../lib/queries/auth'
 
@@ -91,39 +92,24 @@ export const ChangePasswordForm = ({ onSuccess, onCancel }: ChangePasswordFormPr
       </div>
 
       {changePassword.isError && (
-        <p className="form-error">
+        <FormMessage variant="error">
           {changePassword.error.message === 'invalid_credentials'
             ? 'Mot de passe actuel incorrect'
             : changePassword.error.message}
-        </p>
+        </FormMessage>
       )}
 
       {changePassword.isSuccess && (
-        <p className="form-success">Mot de passe mis à jour avec succès !</p>
+        <FormMessage variant="success">Mot de passe mis à jour avec succès !</FormMessage>
       )}
 
-      <div className="form-actions">
-        <Button
-          type="button"
-          variant="outline"
-          size="sm"
-          onClick={onCancel}
-          disabled={changePassword.isPending}
-        >
-          <X size={14} />
-          Annuler
-        </Button>
-        <Button
-          type="submit"
-          variant="primary"
-          size="sm"
-          loading={changePassword.isPending}
-          disabled={!canSubmit}
-        >
-          <Check size={14} />
-          Confirmer
-        </Button>
-      </div>
+      <FormActions
+        onCancel={onCancel}
+        submitLabel="Confirmer"
+        isPending={changePassword.isPending}
+        disabled={!canSubmit}
+        size="sm"
+      />
     </form>
   )
 }
