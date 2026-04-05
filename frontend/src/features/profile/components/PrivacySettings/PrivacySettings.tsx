@@ -6,9 +6,10 @@ import { privacySettingsQueries, useUpdatePrivacySettings } from '../../../../li
 import './PrivacySettings.css'
 
 export function PrivacySettings() {
-  const { data, isLoading } = useQuery(privacySettingsQueries.get())
+  const { data, isLoading, isError } = useQuery(privacySettingsQueries.get())
   const updateMutation = useUpdatePrivacySettings()
 
+  if (isError) return <p className="privacy-error" role="alert">Impossible de charger les réglages. Veuillez réessayer.</p>
   if (isLoading || !data) return <div className="privacy-loading">Chargement...</div>
 
   const handleToggle = (key: 'profilePublic' | 'aiConsent', value: boolean) => {
