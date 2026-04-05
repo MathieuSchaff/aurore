@@ -1,4 +1,5 @@
 import { ExternalLink } from 'lucide-react'
+import { Link } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
 
 import { privacySettingsQueries, useUpdatePrivacySettings } from '../../../../lib/queries/profile'
@@ -65,11 +66,10 @@ export function PrivacySettings() {
       </section>
 
       <section className="privacy-section privacy-section--link">
-        {/* TODO(task-9): replace with <Link to="/privacy"> once the route is created */}
-        <a href="/privacy" className="privacy-policy-link">
+        <Link to="/privacy" className="privacy-policy-link">
           Lire la politique de confidentialité complète
           <ExternalLink size={14} aria-hidden="true" />
-        </a>
+        </Link>
       </section>
 
       {updateMutation.isError && (
