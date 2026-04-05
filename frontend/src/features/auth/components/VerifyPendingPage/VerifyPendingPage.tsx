@@ -1,5 +1,6 @@
 import { toast } from 'sonner'
 
+import { Button } from '../../../../component/Button/Button'
 import { useResendVerification } from '../../../../lib/queries/auth'
 
 export const VerifyPendingPage = () => {
@@ -19,14 +20,15 @@ export const VerifyPendingPage = () => {
         Un lien de vérification vous a été envoyé. Cliquez dessus pour activer votre compte.
       </p>
       <p className="auth-page__subtitle">Le lien expire dans 1 heure.</p>
-      <button
+      <Button
         type="button"
-        className="auth-submit"
+        variant="primary"
+        fullWidth
+        loading={resend.isPending}
         onClick={handleResend}
-        disabled={resend.isPending}
       >
-        {resend.isPending ? 'Envoi...' : "Renvoyer l'email"}
-      </button>
+        Renvoyer l'email
+      </Button>
     </div>
   )
 }

@@ -1,6 +1,8 @@
 import type { ProfilePublic } from '@habit-tracker/shared'
 
 import { AtSign, Calendar, FileText } from 'lucide-react'
+
+import { SettingsSection } from '../../../../component/Layout/SettingsSection/SettingsSection'
 import './ProfileInfoCard.css'
 
 type ProfileInfoCardProps = {
@@ -18,9 +20,7 @@ const formatDate = (date?: string | null): string => {
 
 export const ProfileInfoCard = ({ profile }: ProfileInfoCardProps) => {
   return (
-    <div className="profile-info-card">
-      <h3 className="profile-info-card__title">Informations</h3>
-
+    <SettingsSection title="Informations">
       <dl className="profile-info-card__list">
         <div className="profile-info-card__item">
           <dt className="profile-info-card__label">
@@ -50,6 +50,6 @@ export const ProfileInfoCard = ({ profile }: ProfileInfoCardProps) => {
           <dd className="profile-info-card__value">{formatDate(profile.createdAt)}</dd>
         </div>
       </dl>
-    </div>
+    </SettingsSection>
   )
 }

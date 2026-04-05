@@ -2,6 +2,7 @@ import { useNavigate, useSearch } from '@tanstack/react-router'
 import { useEffect } from 'react'
 import { toast } from 'sonner'
 
+import { Button } from '../../../../component/Button/Button'
 import { useResendVerification, useVerifyEmail } from '../../../../lib/queries/auth'
 
 export const VerifyEmailPage = () => {
@@ -42,19 +43,20 @@ export const VerifyEmailPage = () => {
       <div className="auth-page__header">
         <h1 className="auth-page__title">Lien expiré</h1>
         <p className="auth-page__subtitle">Ce lien de vérification a expiré.</p>
-        <button
+        <Button
           type="button"
-          className="auth-submit"
+          variant="primary"
+          fullWidth
+          loading={resend.isPending}
           onClick={() =>
             resend.mutate(undefined, {
               onSuccess: () => toast.success('Email envoyé ! Vérifiez votre boîte mail.'),
               onError: () => toast.error("Impossible d'envoyer l'email, réessayez plus tard."),
             })
           }
-          disabled={resend.isPending}
         >
-          {resend.isPending ? 'Envoi...' : 'Demander un nouveau lien'}
-        </button>
+          Demander un nouveau lien
+        </Button>
       </div>
     )
   }

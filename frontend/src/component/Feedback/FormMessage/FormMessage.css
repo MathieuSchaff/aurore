@@ -1,0 +1,12 @@
+.form-message {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+}
+
+.form-message--error {
+  color: var(--color-error);
+}
+
+.form-message--success {
+  color: var(--color-success);
+}

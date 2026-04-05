@@ -2,7 +2,9 @@ import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
 import { ExternalLink } from 'lucide-react'
 
+import { FormMessage } from '../../../../component/Feedback/FormMessage/FormMessage'
 import { Toggle } from '../../../../component/Input/Toggle/Toggle'
+import { SettingsSection } from '../../../../component/Layout/SettingsSection/SettingsSection'
 import { privacySettingsQueries, useUpdatePrivacySettings } from '../../../../lib/queries/profile'
 import './PrivacySettings.css'
 
@@ -12,9 +14,9 @@ export function PrivacySettings() {
 
   if (isError)
     return (
-      <p className="privacy-error" role="alert">
+      <FormMessage variant="error">
         Impossible de charger les réglages. Veuillez réessayer.
-      </p>
+      </FormMessage>
     )
   if (isLoading || !data) return <div className="privacy-loading">Chargement...</div>
 
@@ -24,10 +26,10 @@ export function PrivacySettings() {
 
   return (
     <div className="privacy-settings">
-      <section className="privacy-section">
-        <h3 className="privacy-section-title">Visibilité</h3>
-        <p className="privacy-section-desc">Contrôlez ce que les autres peuvent voir de vous.</p>
-
+      <SettingsSection
+        title="Visibilité"
+        description="Contrôlez ce que les autres peuvent voir de vous."
+      >
         <Toggle
           label="Profil public"
           hint="Votre nom et avatar visibles par les autres utilisateurs."
@@ -35,10 +37,9 @@ export function PrivacySettings() {
           onChange={(checked) => handleToggle('profilePublic', checked)}
           disabled={updateMutation.isPending}
         />
-      </section>
+      </SettingsSection>
 
-      <section className="privacy-section">
-        <h3 className="privacy-section-title">Analyse IA</h3>
+      <SettingsSection title="Analyse IA">
         <p className="privacy-section-desc">
           Autoriser Aurore à analyser votre routine avec Mistral AI — hébergé en France, vos données
           ne quittent pas l'Europe. <span className="privacy-badge">Fonctionnalité à venir</span>
@@ -51,19 +52,17 @@ export function PrivacySettings() {
           onChange={(checked) => handleToggle('aiConsent', checked)}
           disabled={updateMutation.isPending}
         />
-      </section>
+      </SettingsSection>
 
-      <section className="privacy-section privacy-section--link">
+      <SettingsSection compact>
         <Link to="/privacy" className="privacy-policy-link">
           Lire la politique de confidentialité complète
           <ExternalLink size={14} aria-hidden="true" />
         </Link>
-      </section>
+      </SettingsSection>
 
       {updateMutation.isError && (
-        <p className="privacy-error" role="alert">
-          La mise à jour a échoué. Veuillez réessayer.
-        </p>
+        <FormMessage variant="error">La mise à jour a échoué. Veuillez réessayer.</FormMessage>
       )}
     </div>
   )
