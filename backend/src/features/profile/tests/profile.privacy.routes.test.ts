@@ -97,9 +97,9 @@ describe('Privacy Settings Routes', () => {
       const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
 
       await authPatch(app, '/profile/privacy-settings', token, { aiConsent: true })
-      await authPatch(app, '/profile/privacy-settings', token, { profilePublic: true })
 
-      const res = await authGet(app, '/profile/privacy-settings', token)
+      // PATCH response itself must carry aiConsent: true (partial update must not reset it)
+      const res = await authPatch(app, '/profile/privacy-settings', token, { profilePublic: true })
       const data = await res.json()
       expect(data.data.aiConsent).toBe(true)
       expect(data.data.profilePublic).toBe(true)
