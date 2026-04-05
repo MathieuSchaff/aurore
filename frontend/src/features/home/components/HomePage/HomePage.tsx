@@ -144,6 +144,12 @@ export const HomePage = () => {
             ))}
           </div>
         </section>
+
+        <div className="home-privacy-link">
+          <Link to="/privacy" className="home-privacy-link__text">
+            Politique de confidentialité
+          </Link>
+        </div>
       </div>
     </div>
   )
