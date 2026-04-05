@@ -1,6 +1,6 @@
-import { ExternalLink } from 'lucide-react'
-import { Link } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
+import { Link } from '@tanstack/react-router'
+import { ExternalLink } from 'lucide-react'
 
 import { privacySettingsQueries, useUpdatePrivacySettings } from '../../../../lib/queries/profile'
 import './PrivacySettings.css'
@@ -43,8 +43,7 @@ export function PrivacySettings() {
         <h3 className="privacy-section-title">Analyse IA</h3>
         <p className="privacy-section-desc">
           Autoriser Aurore à analyser votre routine avec Mistral AI — hébergé en France, vos données
-          ne quittent pas l'Europe.{' '}
-          <span className="privacy-badge">Fonctionnalité à venir</span>
+          ne quittent pas l'Europe. <span className="privacy-badge">Fonctionnalité à venir</span>
         </p>
 
         <label className="privacy-toggle">

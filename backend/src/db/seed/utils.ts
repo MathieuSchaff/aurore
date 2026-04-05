@@ -159,6 +159,7 @@ export function extractCapacity(productName: string, brand: string) {
 
   let totalAmount: number | null = null
   let unit = 'Pas spécifié'
+  let amountUnit: string | null = null
 
   const matches = [...cleanName.matchAll(capacityRegex)]
 
@@ -168,15 +169,23 @@ export function extractCapacity(productName: string, brand: string) {
     const selectedMatch = metricMatch || matches[matches.length - 1]
 
     let value = parseFloat(selectedMatch[1])
-    unit = selectedMatch[2]
+    const rawUnit = selectedMatch[2]
+
+    // unit keeps the raw matched value for backward compat
+    unit = rawUnit
 
     // if it's oz we convert to mL for be uniform
-    if (/fl\s*oz|oz/i.test(unit)) {
+    if (/fl\s*oz|oz/i.test(rawUnit)) {
       value = value * 29.57
       unit = 'mL'
-    } else if (unit.toLowerCase() === 'ml') {
+      amountUnit = 'mL'
+    } else if (rawUnit.toLowerCase() === 'ml') {
       unit = 'mL'
+      amountUnit = 'mL'
+    } else if (rawUnit.toLowerCase() === 'g') {
+      amountUnit = 'g'
     }
+    // count/pcs/sheets are not real amount units, amountUnit stays null
 
     // the database want integers so we round
     totalAmount = Math.round(value)
@@ -188,7 +197,29 @@ export function extractCapacity(productName: string, brand: string) {
       .trim()
   }
 
-  return { name: cleanName, totalAmount, unit }
+  return { name: cleanName, totalAmount, unit, amountUnit }
+}
+
+// Maps CSV category to the most likely container format
+const CATEGORY_UNIT_MAP: Record<string, string> = {
+  'Creams': 'pot',
+  'Balms': 'pot',
+  'Serums': 'dropper',
+  'Moisturizing Serums': 'dropper',
+  'Essence': 'pump',
+  'Lotions': 'pump',
+  'Moisturizers with SPF': 'pump',
+  'Facial Cleansing Oil': 'pump',
+  'Micellar Water': 'bottle',
+  'Toners': 'bottle',
+  'Gels': 'tube',
+  'Exfoliators': 'tube',
+  'Facial Masks': 'pack',
+  'Acne Care (OTC)': 'pack',
+}
+
+export function unitFromCategory(category: string): string {
+  return CATEGORY_UNIT_MAP[category] ?? 'tube'
 }
 
 export async function cleanDatabase() {

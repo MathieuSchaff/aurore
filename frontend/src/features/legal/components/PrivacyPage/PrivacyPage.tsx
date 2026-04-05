@@ -68,9 +68,9 @@ export function PrivacyPage() {
               marketing.
             </li>
             <li>
-              <strong>Analyse IA (optionnel) :</strong> Mistral AI, entreprise française.
-              L'analyse de votre routine par IA n'est activée que si vous donnez votre consentement
-              explicite dans vos réglages Confidentialité. Vous pouvez le révoquer à tout moment.
+              <strong>Analyse IA (optionnel) :</strong> Mistral AI, entreprise française. L'analyse
+              de votre routine par IA n'est activée que si vous donnez votre consentement explicite
+              dans vos réglages Confidentialité. Vous pouvez le révoquer à tout moment.
             </li>
           </ul>
         </section>

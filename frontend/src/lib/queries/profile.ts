@@ -1,4 +1,8 @@
-import type { ProfileUpdateInput, UpdatePrivacySettingsInput, UserDermoProfileUpdateInput } from '@habit-tracker/shared'
+import type {
+  ProfileUpdateInput,
+  UpdatePrivacySettingsInput,
+  UserDermoProfileUpdateInput,
+} from '@habit-tracker/shared'
 
 import { queryOptions, useMutation, useQueryClient } from '@tanstack/react-query'
 

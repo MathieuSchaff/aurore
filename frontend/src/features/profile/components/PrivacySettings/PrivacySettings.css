@@ -86,11 +86,13 @@
   background: var(--bg-muted);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-full);
-  transition: background var(--transition-fast), border-color var(--transition-fast);
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast);
 }
 
 .privacy-toggle__switch::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 2px;
   left: 2px;
@@ -98,7 +100,9 @@
   height: 16px;
   background: var(--text-muted);
   border-radius: 50%;
-  transition: transform var(--transition-fast), background var(--transition-fast);
+  transition:
+    transform var(--transition-fast),
+    background var(--transition-fast);
 }
 
 .privacy-toggle__input:checked ~ .privacy-toggle__switch {
