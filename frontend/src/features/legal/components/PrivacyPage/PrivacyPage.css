@@ -172,11 +172,11 @@
 }
 
 .privacy-legal__trigger::before {
-  content: '▸ ';
+  content: "▸ ";
 }
 
 .privacy-legal[open] > .privacy-legal__trigger::before {
-  content: '▾ ';
+  content: "▾ ";
 }
 
 .privacy-legal__content {
