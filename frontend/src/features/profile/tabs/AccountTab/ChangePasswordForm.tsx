@@ -3,6 +3,7 @@ import type { ChangePasswordInput } from '@habit-tracker/shared'
 import { Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
 
+import { Button } from '@/component/Button/Button'
 import { FormMessage } from '../../../../component/Feedback/FormMessage/FormMessage'
 import { FormActions } from '../../../../component/Input/FormActions/FormActions'
 import { Input } from '../../../../component/Input/Input'
@@ -51,13 +52,19 @@ export const ChangePasswordForm = ({ onSuccess, onCancel }: ChangePasswordFormPr
     <form onSubmit={handleSubmit} className="change-password-form">
       <div className="form-header">
         <h4 className="form-title">Changer le mot de passe</h4>
-        <button
+        <Button
           type="button"
           onClick={() => setShowPasswords(!showPasswords)}
           className="show-passwords-btn"
+          aria-label={showPasswords ? 'Masquer les mots de passe' : 'Afficher les mots de passe'}
+          aria-pressed={showPasswords}
         >
-          {showPasswords ? <EyeOff size={16} /> : <Eye size={16} />}
-        </button>
+          {showPasswords ? (
+            <EyeOff size={16} aria-hidden="true" />
+          ) : (
+            <Eye size={16} aria-hidden="true" />
+          )}
+        </Button>
       </div>
 
       <div className="form-fields">

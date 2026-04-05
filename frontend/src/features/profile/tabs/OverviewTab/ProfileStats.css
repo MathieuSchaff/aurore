@@ -3,6 +3,9 @@
   grid-template-columns: repeat(2, 1fr);
   gap: var(--space-4);
   width: 100%;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .stat-card {
@@ -14,14 +17,6 @@
   flex-direction: column;
   gap: var(--space-2);
   box-shadow: var(--shadow-sm);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.stat-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
 }
 
 .stat-card__header {

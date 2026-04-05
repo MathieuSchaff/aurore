@@ -18,7 +18,7 @@ export function PrivacySettings() {
         Impossible de charger les réglages. Veuillez réessayer.
       </FormMessage>
     )
-  if (isLoading || !data) return <div className="privacy-loading">Chargement...</div>
+  if (isLoading || !data) return <output className="privacy-loading">Chargement...</output>
 
   const handleToggle = (key: 'profilePublic' | 'aiConsent', value: boolean) => {
     updateMutation.mutate({ [key]: value })

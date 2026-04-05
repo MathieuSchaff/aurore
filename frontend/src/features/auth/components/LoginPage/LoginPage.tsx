@@ -70,7 +70,12 @@ export const LoginPage = () => {
         <p className="auth-page__subtitle">Content de vous revoir sur Aurore</p>
       </div>
 
-      <form className="auth-form" onSubmit={handleSubmit} noValidate>
+      <form
+        className="auth-form"
+        onSubmit={handleSubmit}
+        noValidate
+        aria-label="Formulaire de connexion"
+      >
         {errors.form && <FormMessage variant="error">{errors.form}</FormMessage>}
 
         <AuthField

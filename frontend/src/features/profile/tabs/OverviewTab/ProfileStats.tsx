@@ -23,19 +23,21 @@ export const ProfileStats = () => {
   ]
 
   return (
-    <div className="profile-stats-grid">
+    <ul className="profile-stats-grid" aria-label="Statistiques du profil">
       {statItems.map((item) => (
-        <div key={item.label} className="stat-card">
+        <li key={item.label} className="stat-card" aria-label={`${item.label} : ${item.value}`}>
           <div className="stat-card__header">
             <span className="stat-card__label">{item.label}</span>
-            <div className="stat-card__icon-wrapper">{item.icon}</div>
+            <div className="stat-card__icon-wrapper" aria-hidden="true">
+              {item.icon}
+            </div>
           </div>
           <div className="stat-card__body">
             <span className="stat-card__value">{item.value}</span>
             <span className="stat-card__desc">{item.description}</span>
           </div>
-        </div>
+        </li>
       ))}
-    </div>
+    </ul>
   )
 }

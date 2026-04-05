@@ -103,7 +103,7 @@ export const AccountSettings = ({ onEditProfile }: AccountSettingsProps) => {
               Supprimer mon compte
             </Button>
           ) : (
-            <div className="delete-confirm">
+            <div className="delete-confirm" role="alert">
               <p className="delete-confirm-text">
                 Cette action est irréversible. Toutes vos données seront supprimées.
               </p>

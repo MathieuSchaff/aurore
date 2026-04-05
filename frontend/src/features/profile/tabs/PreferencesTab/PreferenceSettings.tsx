@@ -2,14 +2,14 @@ import type { DisplayScale } from '@habit-tracker/shared'
 
 import { useQuery } from '@tanstack/react-query'
 
-import { ChipGroup } from '../../../component/Input/ChipGroup/ChipGroup'
-import { SettingsSection } from '../../../component/Layout/SettingsSection/SettingsSection'
+import { ChipGroup } from '../../../../component/Input/ChipGroup/ChipGroup'
+import { SettingsSection } from '../../../../component/Layout/SettingsSection/SettingsSection'
 import {
   userPreferenceQueries,
   useUpdateUserPreferences,
-} from '../../../lib/queries/user-preferences'
-import type { Variant } from '../../../store/theme'
-import { useThemeStore } from '../../../store/theme'
+} from '../../../../lib/queries/user-preferences'
+import type { Variant } from '../../../../store/theme'
+import { useThemeStore } from '../../../../store/theme'
 
 import './PreferenceSettings.css'
 
@@ -41,7 +41,7 @@ export function PreferenceSettings() {
   const updateMutation = useUpdateUserPreferences()
   const { variant, setVariant } = useThemeStore()
 
-  if (isLoading || !prefs) return <div>Chargement des préférences...</div>
+  if (isLoading || !prefs) return <output>Chargement des préférences...</output>
 
   // No debounce — keeps the UI feeling fast.
   const handleWeightChange = (key: string, value: number) => {
@@ -68,6 +68,7 @@ export function PreferenceSettings() {
             if (scale) updateMutation.mutate({ displayScale: scale })
           }}
           mode="exclusive"
+          aria-label="Échelle d'affichage"
         />
       </SettingsSection>
 
@@ -92,6 +93,7 @@ export function PreferenceSettings() {
                 value={prefs.criteriaWeights[key as keyof typeof prefs.criteriaWeights]}
                 onChange={(e) => handleWeightChange(key, parseInt(e.target.value, 10))}
                 className="pref-weight-slider"
+                aria-label={`Pondération ${label}`}
               />
             </div>
           ))}
