@@ -15,6 +15,7 @@ interface TabsProps<T extends string> {
   onTabChange: (id: T) => void
   className?: string
   containerClassName?: string
+  idPrefix?: string
 }
 
 export const Tabs = <T extends string>({
@@ -23,6 +24,7 @@ export const Tabs = <T extends string>({
   onTabChange,
   className,
   containerClassName,
+  idPrefix = 'tab',
 }: TabsProps<T>) => {
   const activeIndex = options.findIndex((opt) => opt.id === activeTab)
 
@@ -72,9 +74,11 @@ export const Tabs = <T extends string>({
               key={option.id}
               type="button"
               role="tab"
+              id={`${idPrefix}-${option.id}`}
               className={clsx('icon-tab', isActive && 'icon-tab-active')}
               onClick={() => onTabChange(option.id)}
               aria-selected={isActive}
+              aria-controls={`${idPrefix}-panel-${option.id}`}
               tabIndex={isActive ? 0 : -1}
             >
               {option.icon}
