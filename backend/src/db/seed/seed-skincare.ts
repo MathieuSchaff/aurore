@@ -15,7 +15,7 @@ import {
   NAME_KEYWORD_TAG_MAP,
 } from './otherdata/tag-associations'
 import { seedCore } from './seed-core'
-import { extractCapacity, parseCSV, seedBatch } from './utils'
+import { extractCapacity, parseCSV, seedBatch, unitFromCategory } from './utils'
 
 // ── INCI → Ingredient matching ────────────────────────────────────────────────
 
@@ -89,6 +89,7 @@ type CsvProductEntry = {
   productUrl: string
   targetSlug: string
   totalAmount: number | null
+  amountUnit: string | null
   unit: string
   rawName: string
 }
@@ -160,7 +161,8 @@ export async function seedSkincare(
     const [_file, rawName, csvBrand, usageType, category, inci, , productUrl] = row
     if (!rawName || !csvBrand) continue
 
-    const { name, totalAmount, unit } = extractCapacity(rawName, csvBrand)
+    const { name, totalAmount, amountUnit } = extractCapacity(rawName, csvBrand)
+    const unit = unitFromCategory(category)
     const targetSlug = slugify(`${csvBrand}-${name}`)
 
     if (existingSlugs.has(targetSlug)) continue
@@ -175,6 +177,7 @@ export async function seedSkincare(
       productUrl,
       targetSlug,
       totalAmount,
+      amountUnit,
       unit,
       rawName,
     })
@@ -201,6 +204,7 @@ export async function seedSkincare(
             kind: normalizeKind(item.usageType),
             unit: item.unit,
             totalAmount: item.totalAmount ?? undefined,
+            amountUnit: item.amountUnit ?? undefined,
             inci: item.inci,
             url: item.productUrl,
             slug: item.targetSlug,

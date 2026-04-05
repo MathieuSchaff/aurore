@@ -6,7 +6,7 @@
   background: var(--bg-card);
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-default);
-  border-top: 3px solid var(--color-primary);
+  border-top: 3px solid var(--color-accent);
   margin-bottom: var(--space-6);
 }
 
@@ -14,8 +14,8 @@
   width: 3.5rem;
   height: 3.5rem;
   border-radius: var(--radius-lg);
-  background: oklch(from var(--color-primary) l c h / 0.12);
-  color: var(--color-primary);
+  background: oklch(from var(--color-info) l c h / 0.12);
+  color: var(--color-info);
 }
 
 .ingredient-hero__info {
@@ -30,7 +30,7 @@
   font-family: var(--font-display);
   font-size: var(--text-2xl);
   font-weight: var(--font-bold);
-  color: var(--color-primary);
+  color: var(--text-primary);
   line-height: var(--leading-tight);
 }
 
@@ -105,7 +105,7 @@
   background: var(--bg-card);
   border-radius: var(--radius-md);
   border: 1px solid var(--border-default);
-  border-left: 3px solid var(--color-primary);
+  border-left: 3px solid var(--color-accent);
 }
 
 .ingredient-products {
@@ -122,7 +122,7 @@
   background: var(--bg-card);
   border-radius: var(--radius-md);
   border: 1px solid var(--border-default);
-  border-left: 3px solid var(--color-primary);
+  border-left: 3px solid var(--color-accent);
   text-decoration: none;
   color: inherit;
   transition:
@@ -132,7 +132,7 @@
   &:hover {
     background: var(--bg-hover);
     border-color: var(--color-primary);
-    border-left-color: var(--color-accent);
+    border-left-color: var(--color-primary);
   }
 
   &:hover .nav-arrow {

@@ -20,7 +20,7 @@
   --color-primary-light: oklch(94% 0.04 260deg);
   --color-primary-deeper: oklch(38% 0.18 260deg);
   --color-primary-subtle: oklch(97.5% 0.008 260deg);
-  --color-primary-text: #fff;
+  --color-primary-text: oklch(100% 0 0);
   --color-focus: var(--color-primary);
 
   /* ===================================
@@ -64,7 +64,7 @@
   --text-primary: oklch(20% 0.005 50deg);
   --text-secondary: oklch(40% 0.01 50deg);
   --text-muted: oklch(58% 0.008 50deg);
-  --text-inverse: #fff;
+  --text-inverse: oklch(100% 0 0);
 
   /* ===================================
      STATUS — Couleurs variées et distinctes
@@ -97,9 +97,7 @@
   --border-default: oklch(60% 0.2 260);
   --border-strong: oklch(48% 0.24 260);
   --shadow-color: oklch(0% 0 0 / 0.1);
-  --shadow-hard: 4px 4px 0px oklch(48% 0.24 260);
   --shadow-card: 0 2px 8px oklch(20% 0.03 40 / 0.12);
-  --border-width: 3px;
 
   /* ===================================
      TAGS — Teinte chaude par défaut
@@ -107,7 +105,7 @@
   --tag-default-bg: oklch(94% 0.012 75deg);
   --tag-default-text: oklch(40% 0.03 50deg);
   --tag-active-bg: var(--color-primary);
-  --tag-active-text: #fff;
+  --tag-active-text: oklch(100% 0 0);
 
   /* ===================================
      MISC
@@ -115,8 +113,4 @@
   --overlay: oklch(15% 0.02 40deg / 0.45);
   --hero-glow: oklch(95% 0.03 75deg);
   --surface-bright: oklch(99% 0.003 75deg);
-
-  /* Stats — couleurs variées, chacune sa personnalité */
-  --color-stat-purple: oklch(60% 0.2 290deg);
-  --color-stat-orange: oklch(68% 0.2 32deg);
 }

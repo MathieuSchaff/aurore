@@ -102,7 +102,9 @@ export function ProductLayout() {
 
       <Tabs options={tabOptions} activeTab={activeTab} onTabChange={handleTabChange} />
 
-      <Outlet />
+      <div style={{ viewTransitionName: 'tab-content' }}>
+        <Outlet />
+      </div>
 
       {showAddModal && (
         <AddToCollectionModal

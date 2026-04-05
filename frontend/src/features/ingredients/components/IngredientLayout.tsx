@@ -69,7 +69,9 @@ export function IngredientLayout() {
 
       <Tabs options={tabOptions} activeTab={activeTab} onTabChange={handleTabChange} />
 
-      <Outlet />
+      <div style={{ viewTransitionName: 'tab-content' }}>
+        <Outlet />
+      </div>
     </DetailPageLayout>
   )
 }

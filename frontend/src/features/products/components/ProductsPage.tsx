@@ -345,16 +345,20 @@ export function ProductsPage() {
 
                       <div className="list-card__footer">
                         <div className="list-card__price-wrap">
-                          {product.priceCents != null && (
+                          {product.priceCents != null ? (
                             <span className="list-card__price">
                               {new Intl.NumberFormat('fr-FR', {
                                 style: 'currency',
                                 currency: 'EUR',
                               }).format(product.priceCents / 100)}
                             </span>
+                          ) : (
+                            <span className="list-card__price list-card__price--empty">—</span>
                           )}
-                          {product.unit && (
-                            <span className="list-card__unit-chip">{product.unit}</span>
+                          {product.totalAmount && (
+                            <span className="list-card__unit-chip">
+                              {product.totalAmount} {product.amountUnit ?? product.unit}
+                            </span>
                           )}
                         </div>
                         <button
