@@ -1,7 +1,7 @@
 import type { ProfileUpdateInput } from '@habit-tracker/shared'
 
 import { useSuspenseQuery } from '@tanstack/react-query'
-import { Calendar, Droplets, LayoutDashboard, Settings, UserCircle } from 'lucide-react'
+import { Calendar, Droplets, LayoutDashboard, Settings, Shield, UserCircle } from 'lucide-react'
 import { Suspense, useState } from 'react'
 
 import { Spinner } from '@/component/Feedback/Spinner/Spinner'
@@ -10,6 +10,7 @@ import { profileQueries, useUpdateProfile } from '../../../../lib/queries/profil
 import { AccountSettings } from '../AccountSettings/AccountSettings'
 import { DermoProfileForm } from '../DermoProfileForm/DermoProfileForm'
 import { PreferenceSettings } from '../PreferenceSettings'
+import { PrivacySettings } from '../PrivacySettings/PrivacySettings'
 import { ProfileAvatar } from '../ProfileAvatar/ProfileAvatar'
 import { ProfileForm } from '../ProfileForm/ProfileForm'
 import { ProfileStats } from '../ProfileStats/ProfileStats'
@@ -22,7 +23,7 @@ const formatJoinDate = (date?: string | null): string => {
   return new Intl.DateTimeFormat('fr-FR', { month: 'long', year: 'numeric' }).format(new Date(date))
 }
 
-type TabType = 'overview' | 'preferences' | 'account' | 'skin'
+type TabType = 'overview' | 'preferences' | 'account' | 'skin' | 'privacy'
 
 export const ProfileDashboard = () => {
   const { data: profile } = useSuspenseQuery(profileQueries.me())
@@ -62,6 +63,11 @@ export const ProfileDashboard = () => {
       id: 'skin',
       label: 'Peau',
       icon: <Droplets size={18} />,
+    },
+    {
+      id: 'privacy',
+      label: 'Privacy',
+      icon: <Shield size={18} />,
     },
   ]
 
@@ -140,6 +146,11 @@ export const ProfileDashboard = () => {
                 <Suspense fallback={<Spinner />}>
                   <DermoProfileForm />
                 </Suspense>
+              </div>
+            )}
+            {activeTab === 'privacy' && (
+              <div className="profile-tab-content">
+                <PrivacySettings />
               </div>
             )}
           </>
