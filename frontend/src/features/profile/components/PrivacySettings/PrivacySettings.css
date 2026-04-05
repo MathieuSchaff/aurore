@@ -142,3 +142,15 @@
 .privacy-policy-link:hover {
   text-decoration: underline;
 }
+
+/* ── Disabled / pending state ─────────────────────── */
+
+.privacy-toggle:has(.privacy-toggle__input:disabled) {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.privacy-error {
+  font-size: var(--text-sm);
+  color: var(--color-error);
+}

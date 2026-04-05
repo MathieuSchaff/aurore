@@ -86,6 +86,7 @@ export const privacySettingsQueries = {
       queryFn: async () => {
         const res = await api.profile['privacy-settings'].$get()
         const json = await res.json()
+        if (!json.success) throw new Error('error' in json ? String(json.error) : 'Request failed')
         return json.data
       },
       staleTime: 1000 * 60 * 5,
