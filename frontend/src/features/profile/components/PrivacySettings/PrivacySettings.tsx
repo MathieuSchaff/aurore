@@ -32,6 +32,7 @@ export function PrivacySettings() {
             className="privacy-toggle__input sr-only"
             checked={data.profilePublic}
             onChange={(e) => handleToggle('profilePublic', e.target.checked)}
+            disabled={updateMutation.isPending}
           />
           <span className="privacy-toggle__switch" aria-hidden="true" />
         </label>
@@ -57,17 +58,25 @@ export function PrivacySettings() {
             className="privacy-toggle__input sr-only"
             checked={data.aiConsent}
             onChange={(e) => handleToggle('aiConsent', e.target.checked)}
+            disabled={updateMutation.isPending}
           />
           <span className="privacy-toggle__switch" aria-hidden="true" />
         </label>
       </section>
 
       <section className="privacy-section privacy-section--link">
+        {/* TODO(task-9): replace with <Link to="/privacy"> once the route is created */}
         <a href="/privacy" className="privacy-policy-link">
           Lire la politique de confidentialité complète
           <ExternalLink size={14} aria-hidden="true" />
         </a>
       </section>
+
+      {updateMutation.isError && (
+        <p className="privacy-error" role="alert">
+          La mise à jour a échoué. Veuillez réessayer.
+        </p>
+      )}
     </div>
   )
 }
