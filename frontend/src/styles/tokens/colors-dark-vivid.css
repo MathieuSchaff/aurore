@@ -1,0 +1,110 @@
+[data-theme="dark"][data-variant="vivid"] {
+  color-scheme: dark;
+
+  /* ===================================
+     HUES
+     =================================== */
+  --hue-primary: 145deg;
+  --hue-accent-warm: 25deg;
+  --hue-accent-bright: 85deg;
+  --hue-deep: 160deg;
+
+  /* ===================================
+     PRIMARY — Luminous green on dark
+     =================================== */
+  --color-primary: oklch(72% 0.22 145);
+  --color-primary-hover: oklch(80% 0.2 145);
+  --color-primary-dark: oklch(50% 0.18 145);
+  --color-primary-deeper: oklch(38% 0.14 145);
+  --color-primary-light: oklch(25% 0.08 145);
+  --color-primary-subtle: oklch(20% 0.05 160);
+  --color-primary-text: oklch(15% 0.04 145);
+  --color-focus: var(--color-primary);
+
+  /* ===================================
+     ACCENT — Warm yellow
+     =================================== */
+  --color-accent: oklch(80% 0.18 85);
+  --color-accent-hover: oklch(86% 0.16 85);
+  --color-accent-light: oklch(25% 0.08 85);
+
+  /* ===================================
+     SECONDARY / TERTIARY
+     =================================== */
+  --color-secondary: oklch(72% 0.18 25);
+  --color-tertiary: oklch(78% 0.14 85);
+
+  /* ===================================
+     STATUS
+     =================================== */
+  --color-success: oklch(76% 0.18 145);
+  --color-success-light: oklch(25% 0.08 145);
+  --color-error: oklch(78% 0.2 25);
+  --color-error-light: oklch(25% 0.07 25 / 0.3);
+  --color-info: oklch(74% 0.14 240);
+  --color-warning: oklch(80% 0.18 85);
+  --color-warning-light: oklch(25% 0.08 85);
+  --color-warning-text: oklch(86% 0.14 85);
+
+  /* ===================================
+     HEADER
+     =================================== */
+  --color-header-bg: oklch(18% 0.04 160);
+  --color-header-action: oklch(72% 0.22 145);
+  --color-header-action-bg-hover: oklch(from oklch(72% 0.22 145) l c h / 0.15);
+
+  /* ===================================
+     SIDEBAR — Deep teal-green
+     =================================== */
+  --color-sidebar-bg: oklch(24% 0.1 145);
+  --color-sidebar-item-hover: oklch(32% 0.12 145);
+  --color-sidebar-item-active: oklch(80% 0.18 85);
+  --color-sidebar-icon: oklch(78% 0.1 145);
+  --color-sidebar-icon-active: oklch(90% 0.14 85);
+  --color-sidebar-text: oklch(78% 0.06 145);
+  --color-sidebar-text-active: oklch(95% 0.03 85);
+  --color-sidebar-accent: oklch(95% 0.03 85);
+
+  /* ===================================
+     BACKGROUNDS — Deep green-tinted darks
+     =================================== */
+  --bg-page: oklch(14% 0.04 160);
+  --bg-card: oklch(20% 0.05 160);
+  --bg-muted: oklch(12% 0.03 160);
+  --bg-elevated: oklch(24% 0.06 160);
+  --bg-sunken: oklch(10% 0.03 160);
+  --bg-hover: oklch(26% 0.06 160);
+  --bg-active: oklch(30% 0.08 160);
+  --bg-selected: oklch(28% 0.12 145 / 0.3);
+
+  /* ===================================
+     TEXTES
+     =================================== */
+  --text-primary: oklch(96% 0.01 145);
+  --text-secondary: oklch(82% 0.03 145);
+  --text-muted: oklch(58% 0.04 160);
+  --text-inverse: oklch(15% 0.04 145);
+
+  /* ===================================
+     TAGS
+     =================================== */
+  --tag-default-bg: oklch(28% 0.08 145);
+  --tag-default-text: oklch(78% 0.12 145);
+  --tag-active-bg: oklch(from oklch(50% 0.18 145) l c h / 0.5);
+  --tag-active-text: oklch(82% 0.2 145);
+
+  /* ===================================
+     BORDERS & SHADOWS
+     =================================== */
+  --border-default: oklch(40% 0.08 145);
+  --border-strong: oklch(60% 0.14 145);
+  --shadow-color: oklch(0% 0 0 / 0.5);
+  --shadow-card: 0 4px 16px var(--shadow-color);
+
+  /* ===================================
+     MISC
+     =================================== */
+  --overlay: oklch(5% 0.04 160 / 0.7);
+  --hero-glow: oklch(22% 0.06 145);
+  --surface-bright: oklch(99% 0.002 0deg);
+}
