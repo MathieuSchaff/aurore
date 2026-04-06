@@ -15,6 +15,15 @@ vi.mock('@/lib/queries/user-products', async (importOriginal) => {
   }
 })
 
+// Card now reads prefs directly via useQuery — stub it out.
+vi.mock('@tanstack/react-query', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@tanstack/react-query')>()
+  return {
+    ...actual,
+    useQuery: () => ({ data: { criteriaWeights: undefined, displayScale: 'out_of_20' } }),
+  }
+})
+
 function makeProduct(overrides: Partial<UserProduct> = {}): UserProduct {
   return {
     id: '1',
@@ -63,54 +72,26 @@ describe('ProductCardCondensed', () => {
   afterEach(() => cleanup())
 
   it('renders product name and brand', () => {
-    render(
-      <ProductCardCondensed
-        p={makeProduct()}
-        onToggleExpand={vi.fn()}
-        criteriaWeights={undefined}
-        displayScale={undefined}
-      />
-    )
+    render(<ProductCardCondensed p={makeProduct()} onToggleExpand={vi.fn()} />)
     expect(screen.getByText('Sérum HA')).toBeInTheDocument()
     expect(screen.getByText('The Ordinary')).toBeInTheDocument()
   })
 
   it('renders sentiment emoji', () => {
-    render(
-      <ProductCardCondensed
-        p={makeProduct({ sentiment: 5 })}
-        onToggleExpand={vi.fn()}
-        criteriaWeights={undefined}
-        displayScale={undefined}
-      />
-    )
+    render(<ProductCardCondensed p={makeProduct({ sentiment: 5 })} onToggleExpand={vi.fn()} />)
     expect(screen.getByText('😍')).toBeInTheDocument()
   })
 
   it('calls onToggleExpand when clicked', () => {
     const onToggleExpand = vi.fn()
-    render(
-      <ProductCardCondensed
-        p={makeProduct()}
-        onToggleExpand={onToggleExpand}
-        criteriaWeights={undefined}
-        displayScale={undefined}
-      />
-    )
+    render(<ProductCardCondensed p={makeProduct()} onToggleExpand={onToggleExpand} />)
     fireEvent.click(screen.getByText('Sérum HA'))
     expect(onToggleExpand).toHaveBeenCalled()
   })
 
   it('renders score', () => {
     // With all 4/5, score should be 16/20 (if unweighted)
-    render(
-      <ProductCardCondensed
-        p={makeProduct()}
-        onToggleExpand={vi.fn()}
-        criteriaWeights={undefined}
-        displayScale="out_of_20"
-      />
-    )
+    render(<ProductCardCondensed p={makeProduct()} onToggleExpand={vi.fn()} />)
     expect(screen.getByText(/16/)).toBeInTheDocument()
   })
 })
