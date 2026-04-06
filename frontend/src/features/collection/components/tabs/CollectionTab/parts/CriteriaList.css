@@ -53,6 +53,11 @@
   color: var(--color-primary);
 }
 
+.pds-help-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
 .pds-tooltip {
   position: absolute;
   bottom: calc(100% + 10px);
@@ -132,10 +137,17 @@
 
 .pds-star.filled::before {
   color: var(--color-accent);
+  filter: drop-shadow(0 0 3px oklch(from var(--color-accent) l c h / 0.4));
 }
 
 .pds-star:hover {
   transform: scale(1.2);
+}
+
+.pds-star:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
 }
 
 .pds-star:not(.filled):hover::before {

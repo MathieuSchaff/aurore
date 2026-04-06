@@ -38,28 +38,36 @@ export function CriteriaList({
                 className="pds-help-btn"
                 onMouseEnter={() => setActiveTooltip(key)}
                 onMouseLeave={() => setActiveTooltip(null)}
+                onFocus={() => setActiveTooltip(key)}
+                onBlur={() => setActiveTooltip(null)}
                 onClick={() => setActiveTooltip(activeTooltip === key ? null : key)}
                 aria-label={`Aide pour ${label}`}
+                aria-describedby={activeTooltip === key ? `pds-tooltip-${key}` : undefined}
               >
-                <HelpCircle size={12} />
+                <HelpCircle size={12} aria-hidden="true" />
               </button>
               {activeTooltip === key && (
-                <div className="pds-tooltip" role="tooltip">
+                <div className="pds-tooltip" role="tooltip" id={`pds-tooltip-${key}`}>
                   {criteriaDefinitions[key as keyof typeof criteriaDefinitions]}
                 </div>
               )}
             </div>
           </div>
           <div className="pds-stars">
-            {[1, 2, 3, 4, 5].map((star) => (
-              <button
-                key={star}
-                type="button"
-                className={`pds-star ${review?.[key] && (review[key] as number) >= star ? 'filled' : ''}`}
-                onClick={() => handleRate(key, star)}
-                aria-label={`Noter ${star} sur 5`}
-              />
-            ))}
+            {[1, 2, 3, 4, 5].map((star) => {
+              const current = (review?.[key] as number | null | undefined) ?? 0
+              const isFilled = current >= star
+              return (
+                <button
+                  key={star}
+                  type="button"
+                  className={`pds-star ${isFilled ? 'filled' : ''}`}
+                  onClick={() => handleRate(key, star)}
+                  aria-label={`Noter ${label} ${star} sur 5`}
+                  aria-pressed={current === star}
+                />
+              )
+            })}
           </div>
         </div>
       ))}

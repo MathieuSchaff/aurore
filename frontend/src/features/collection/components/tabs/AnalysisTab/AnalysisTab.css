@@ -11,13 +11,14 @@
 
 .insight-card {
   background: var(--bg-card);
-  border: 1px solid var(--border-default);
-  border-left: 4px solid var(--_insight-color, var(--border-default));
+  border: 1px solid oklch(from var(--_insight-color, var(--color-primary)) l c h / 0.2);
+  border-left: 4px solid var(--_insight-color, var(--color-primary));
   border-radius: var(--radius-lg);
   padding: var(--space-5);
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
+  box-shadow: 0 2px 12px oklch(from var(--_insight-color, var(--color-primary)) l c h / 0.08);
 }
 
 .insight-card--positive {
@@ -44,8 +45,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: oklch(from var(--_insight-color, var(--color-primary)) l c h / 0.12);
+  background: oklch(from var(--_insight-color, var(--color-primary)) l c h / 0.18);
   color: var(--_insight-color, var(--color-primary));
+  box-shadow: 0 2px 8px oklch(from var(--_insight-color, var(--color-primary)) l c h / 0.15);
 }
 
 .insight-title {

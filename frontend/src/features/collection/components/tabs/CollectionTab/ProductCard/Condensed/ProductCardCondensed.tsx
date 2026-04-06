@@ -1,13 +1,15 @@
-import type { DisplayScale } from '@habit-tracker/shared'
-
 import { useDraggable } from '@dnd-kit/core'
-import { CSS } from '@dnd-kit/utilities'
+import { useQuery } from '@tanstack/react-query'
 import clsx from 'clsx'
+import { SmilePlus } from 'lucide-react'
 import { useState } from 'react'
 
 import { ProductIcon } from '@/assets/product-icons'
-import { statusLabels } from '@/features/collection/constants'
-import { type CriteriaWeights, calculateWeightedScore } from '@/lib/helpers/reviews'
+import { Card } from '@/component/Card/Card'
+import { Badge } from '@/component/DataDisplay/Badge/Badge'
+import { SCORE_THRESHOLDS, statusLabels } from '@/features/collection/constants'
+import { calculateWeightedScore } from '@/lib/helpers/reviews'
+import { userPreferenceQueries } from '@/lib/queries/user-preferences'
 import type { UserProduct } from '@/lib/queries/user-products'
 import { useUpdateUserProduct } from '@/lib/queries/user-products'
 import { sentimentEmojis } from '@/utils/sentimentMap'
@@ -17,29 +19,26 @@ import './ProductCardCondensed.css'
 interface ProductCardCondensedProps {
   p: UserProduct
   onToggleExpand: () => void
-  criteriaWeights: CriteriaWeights | undefined
-  displayScale: DisplayScale | undefined
+  // When true, the card is rendered inside a DragOverlay portal: no draggable
+  // hook, no interactions — it's just a visual clone following the pointer.
+  isOverlay?: boolean
 }
 
 function getScoreChipClass(score: string | null): string {
   if (score == null) return 'score-none'
   const n = Number.parseFloat(score)
-  if (n >= 17) return 'score-gold'
-  if (n >= 14) return 'score-rare'
-  if (n >= 10) return 'score-good'
+  if (n >= SCORE_THRESHOLDS.gold) return 'score-gold'
+  if (n >= SCORE_THRESHOLDS.rare) return 'score-rare'
+  if (n >= SCORE_THRESHOLDS.good) return 'score-good'
   return 'score-none'
 }
 
 function getStatusClass(status: string): string {
   switch (status) {
-    case 'wishlist':
-      return 'status-wishlist'
     case 'holy_grail':
       return 'status-holy-grail'
     case 'archived':
       return 'status-archived'
-    case 'avoided':
-      return 'status-avoided'
     default:
       return ''
   }
@@ -48,19 +47,25 @@ function getStatusClass(status: string): string {
 export function ProductCardCondensed({
   p,
   onToggleExpand,
-  criteriaWeights,
-  displayScale,
+  isOverlay = false,
 }: ProductCardCondensedProps) {
   const updateMutation = useUpdateUserProduct()
+  const { data: prefs } = useQuery(userPreferenceQueries.get())
   const [isPopping, setIsPopping] = useState(false)
 
-  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
-    id: p.id,
+  // When rendered in a DragOverlay we use a different id + disabled to avoid
+  // colliding with the real draggable that still lives in the grid.
+  const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
+    id: isOverlay ? `overlay-${p.id}` : p.id,
     data: { id: p.id, status: p.status },
+    disabled: isOverlay,
   })
 
-  // Calculate score and price
-  const score = calculateWeightedScore(p.review, criteriaWeights, displayScale || 'out_of_20')
+  const score = calculateWeightedScore(
+    p.review,
+    prefs?.criteriaWeights,
+    prefs?.displayScale || 'out_of_20'
+  )
   const priceEuros = p.product.priceCents ? `${(p.product.priceCents / 100).toFixed(0)}€` : null
 
   const scoreChipClass = getScoreChipClass(score)
@@ -72,63 +77,59 @@ export function ProductCardCondensed({
     const next = current >= 5 ? null : current + 1
     updateMutation.mutate({ id: p.id, input: { sentiment: next } })
 
-    // Animation
     setIsPopping(true)
     setTimeout(() => setIsPopping(false), 350)
   }
 
-  const dndStyle = {
-    transform: CSS.Translate.toString(transform),
-  }
+  const dragProps = isOverlay ? {} : { ref: setNodeRef, ...attributes, ...listeners }
 
   return (
-    <div
-      ref={setNodeRef}
-      style={
-        {
-          ...dndStyle,
-          '--card-accent': statusLabels[p.status].color,
-        } as React.CSSProperties
-      }
-      className={clsx('card', 'prod-card', statusClass, isDragging && 'dragging')}
-      {...attributes}
-      {...listeners}
-    >
-      <div className="prod-icon-wrap">
-        <div className="prod-icon-box">
-          <ProductIcon unit={p.product.unit} kind={p.product.kind} size={20} />
-        </div>
-        <button
-          type="button"
-          className={clsx('prod-sentiment-badge', isPopping && 'popping', !p.sentiment && 'empty')}
-          onClick={handleNextSentiment}
-          aria-label={`Changer le ressenti pour ${p.product.name}`}
-        >
-          {p.sentiment ? sentimentEmojis[p.sentiment as 1 | 2 | 3 | 4 | 5] : '—'}
-        </button>
-      </div>
-
+    <div className={clsx('prod-card-wrapper', isDragging && 'is-source-dragging')} {...dragProps}>
       <button
         type="button"
-        className="prod-body"
-        onClick={onToggleExpand}
-        aria-label={`Voir les détails de ${p.product.name} par ${p.product.brand}`}
+        className={clsx('prod-sentiment-badge', isPopping && 'popping', !p.sentiment && 'empty')}
+        onClick={handleNextSentiment}
+        aria-label={`Changer le ressenti pour ${p.product.name}`}
       >
-        <div className="prod-brand">{p.product.brand}</div>
-        <div className="prod-name">{p.product.name}</div>
-        <div className="prod-chips">
-          {p.product.kind && <span className="prod-chip">{p.product.kind}</span>}
-          <span className={clsx('prod-chip-score', scoreChipClass)}>
-            {score != null ? `${score}/20` : '—'}
-          </span>
-        </div>
+        {p.sentiment ? (
+          sentimentEmojis[p.sentiment as 1 | 2 | 3 | 4 | 5]
+        ) : (
+          <SmilePlus size={16} aria-hidden="true" />
+        )}
       </button>
+      <Card accent={statusLabels[p.status].color} className={clsx('prod-card', statusClass)}>
+        <div className="prod-card-top">
+          <div className="prod-icon-wrap">
+            <div className="prod-icon-box">
+              <ProductIcon unit={p.product.unit} kind={p.product.kind} size={20} />
+            </div>
+          </div>
 
-      {priceEuros && <div className="prod-price">{priceEuros}</div>}
+          <button
+            type="button"
+            className="prod-body"
+            onClick={onToggleExpand}
+            aria-label={`Voir les détails de ${p.product.name} par ${p.product.brand}`}
+          >
+            <div className="prod-brand">{p.product.brand}</div>
+            <div className="prod-name">{p.product.name}</div>
+          </button>
+        </div>
 
-      {(scoreChipClass === 'score-gold' || scoreChipClass === 'score-rare') && (
-        <div className={clsx('prod-score-corner', scoreChipClass)} />
-      )}
+        <Card.Footer>
+          <div className="prod-chips">
+            {p.product.kind && <Badge variant="chip">{p.product.kind}</Badge>}
+            {score != null && (
+              <span className={clsx('prod-chip-score', scoreChipClass)}>{score}/20</span>
+            )}
+          </div>
+          {priceEuros && <div className="prod-price">{priceEuros}</div>}
+        </Card.Footer>
+
+        {(scoreChipClass === 'score-gold' || scoreChipClass === 'score-rare') && (
+          <div className={clsx('prod-score-corner', scoreChipClass)} />
+        )}
+      </Card>
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import { ChevronDown } from 'lucide-react'
+import type { CSSProperties } from 'react'
 
 import { statusLabels } from '@/features/collection/constants'
 import type { UserProduct } from '@/lib/queries/user-products'
@@ -20,7 +21,7 @@ export function ShelfHeader({ status, count, isCollapsed, onToggle }: ShelfHeade
     <button
       type="button"
       className={clsx('shelf-header', isCollapsed && 'is-collapsed')}
-      style={{ borderLeftColor: cfg.color }}
+      style={{ '--shelf-accent': cfg.color } as CSSProperties}
       onClick={onToggle}
       aria-expanded={!isCollapsed}
     >
