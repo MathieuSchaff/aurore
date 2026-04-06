@@ -1,64 +1,3 @@
-/* === Overlay & Backdrop === */
-
-.pds-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 300;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-
-.pds-backdrop {
-  position: absolute;
-  inset: 0;
-  background: var(--overlay);
-  border: none;
-  cursor: pointer;
-}
-
-/* === Sheet === */
-
-.pds-sheet {
-  position: relative;
-  background: var(--bg-card);
-  border-radius: 1.25rem 1.25rem 0 0;
-  border-top: 2px solid var(--color-primary);
-  max-height: 90vh;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  animation: pdsSlideUp var(--transition-slow) cubic-bezier(0.32, 0.72, 0, 1);
-  box-shadow: 0 -12px 48px oklch(0% 0 0 / 0.14);
-}
-
-@media (min-width: 640px) {
-  .pds-overlay {
-    align-items: center;
-    justify-content: center;
-  }
-
-  .pds-sheet {
-    width: 100%;
-    max-width: 680px;
-    border-radius: var(--radius-lg);
-    max-height: 88vh;
-    box-shadow:
-      var(--shadow-lg),
-      0 0 0 1px var(--border-default);
-  }
-}
-
-@keyframes pdsSlideUp {
-  from {
-    transform: translateY(60px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
 /* === Header (sticky) === */
 
 .pds-header {
@@ -94,6 +33,20 @@
 .pds-close-btn:hover {
   background: var(--border-default);
   color: var(--text-primary);
+}
+
+.pds-close-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.pds-status-chip:focus-visible,
+.pds-sentiment-btn:focus-visible,
+.pds-repurchase-btn:focus-visible,
+.pds-remove-btn:focus-visible,
+.pds-inci-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 /* === Title section === */
@@ -223,9 +176,10 @@
 }
 
 .pds-status-chip.active {
-  background: oklch(from var(--color-primary) l c h / 0.08);
+  background: oklch(from var(--color-primary) l c h / 0.15);
   color: var(--color-primary);
-  border-color: oklch(from var(--color-primary) l c h / 0.25);
+  border-color: oklch(from var(--color-primary) l c h / 0.4);
+  box-shadow: 0 1px 4px oklch(from var(--color-primary) l c h / 0.15);
 }
 
 /* === Grid === */
@@ -327,9 +281,9 @@
 }
 
 .pds-sentiment-btn.active {
-  background: oklch(from var(--color-primary) l c h / 0.06);
+  background: oklch(from var(--color-primary) l c h / 0.12);
   border-color: var(--color-primary);
-  box-shadow: 0 2px 8px oklch(from var(--color-primary) l c h / 0.18);
+  box-shadow: 0 4px 12px oklch(from var(--color-primary) l c h / 0.25);
   transform: translateY(-2px);
 }
 
@@ -405,21 +359,24 @@
 }
 
 .pds-repurchase-btn.active.yes {
-  background: oklch(from var(--color-success) l c h / 0.08);
+  background: oklch(from var(--color-success) l c h / 0.15);
   color: var(--color-success);
-  border-color: oklch(from var(--color-success) l c h / 0.4);
+  border-color: oklch(from var(--color-success) l c h / 0.5);
+  box-shadow: 0 2px 6px oklch(from var(--color-success) l c h / 0.15);
 }
 
 .pds-repurchase-btn.active.unsure {
-  background: oklch(from var(--color-warning) l c h / 0.08);
+  background: oklch(from var(--color-warning) l c h / 0.15);
   color: var(--color-warning);
-  border-color: oklch(from var(--color-warning) l c h / 0.4);
+  border-color: oklch(from var(--color-warning) l c h / 0.5);
+  box-shadow: 0 2px 6px oklch(from var(--color-warning) l c h / 0.15);
 }
 
 .pds-repurchase-btn.active.no {
-  background: oklch(from var(--color-error) l c h / 0.08);
+  background: oklch(from var(--color-error) l c h / 0.15);
   color: var(--color-error);
-  border-color: oklch(from var(--color-error) l c h / 0.4);
+  border-color: oklch(from var(--color-error) l c h / 0.5);
+  box-shadow: 0 2px 6px oklch(from var(--color-error) l c h / 0.15);
 }
 
 /* === Ingredients === */
@@ -529,39 +486,11 @@
 
 /* === INCI popup === */
 
-.pds-inci-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 400;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.25rem;
-  background: var(--overlay);
-}
-
 .pds-inci-dialog {
-  width: 100%;
-  max-width: 520px;
-  background: var(--bg-card);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border-default);
-  box-shadow: var(--shadow-lg);
   display: flex;
   flex-direction: column;
   max-height: 70vh;
-  animation: pdsInciIn var(--transition-base) cubic-bezier(0.32, 0.72, 0, 1);
-}
-
-@keyframes pdsInciIn {
-  from {
-    opacity: 0;
-    transform: scale(0.96) translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
+  padding: 0;
 }
 
 .pds-inci-header {

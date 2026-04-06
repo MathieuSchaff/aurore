@@ -36,27 +36,6 @@
   font-size: 0.6rem;
 }
 
-.pds-add-hist-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-  border-radius: var(--radius-full);
-  background: var(--bg-muted);
-  border: 1px solid var(--border-default);
-  cursor: pointer;
-  color: var(--text-muted);
-  transition: all var(--transition-fast);
-  flex-shrink: 0;
-}
-
-.pds-add-hist-btn:hover {
-  background: oklch(from var(--color-primary) l c h / 0.08);
-  border-color: oklch(from var(--color-primary) l c h / 0.3);
-  color: var(--color-primary);
-}
-
 .pds-purchase-list {
   display: flex;
   flex-direction: column;
