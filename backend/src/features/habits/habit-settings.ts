@@ -279,7 +279,7 @@ export async function setHabitReminders(
       .insert(habitReminders)
       .values(
         reminders.map((r) => ({
-          timingId: r.timingId ?? defaultTimingId!,
+          timingId: r.timingId ?? (defaultTimingId as string),
           beforeMinutes: r.beforeMinutes,
         }))
       )

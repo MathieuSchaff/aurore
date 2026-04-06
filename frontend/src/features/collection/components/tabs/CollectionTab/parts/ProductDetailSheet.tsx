@@ -113,7 +113,12 @@ export function ProductDetailSheet({
   return (
     <div className="pds-overlay">
       <button type="button" className="pds-backdrop" onClick={onClose} aria-label="Fermer" />
-      <div className="pds-sheet coll-product-sheet" role="dialog" aria-modal="true">
+      <div
+        className="pds-sheet coll-product-sheet"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="pds-product-title"
+      >
         <div className="pds-header">
           <div className="pds-header-top">
             <button
@@ -136,7 +141,9 @@ export function ProductDetailSheet({
                 <span>Fiche produit</span>
               </Link>
             </div>
-            <h2 className="pds-name">{p.product.name}</h2>
+            <h2 id="pds-product-title" className="pds-name">
+              {p.product.name}
+            </h2>
             <div className="pds-meta">
               <span className="pds-kind">{p.product.kind}</span>
               {priceEuros && <span className="pds-price">{priceEuros}</span>}
@@ -147,7 +154,7 @@ export function ProductDetailSheet({
         <div className="pds-content">
           <div className="pds-section">
             <span className="pds-section-title">Statut</span>
-            <div className="pds-status-chips">
+            <fieldset className="pds-status-chips" aria-label="Statut du produit">
               {(Object.keys(statusLabels) as UserProduct['status'][]).map((s) => {
                 const cfg = statusLabels[s]
                 const Icon = cfg.icon
@@ -156,6 +163,7 @@ export function ProductDetailSheet({
                     key={s}
                     type="button"
                     className={clsx('pds-status-chip', p.status === s && 'active')}
+                    aria-pressed={p.status === s}
                     onClick={() => handleStatusChange(s)}
                   >
                     <Icon size={14} />
@@ -163,7 +171,7 @@ export function ProductDetailSheet({
                   </button>
                 )
               })}
-            </div>
+            </fieldset>
           </div>
 
           <div className="pds-grid">
@@ -176,18 +184,20 @@ export function ProductDetailSheet({
                 </div>
 
                 <span className="pds-section-title">Ressenti rapide</span>
-                <div className="pds-sentiment-row">
+                <fieldset className="pds-sentiment-row" aria-label="Ressenti rapide">
                   {[1, 2, 3, 4, 5].map((val) => (
                     <button
                       key={val}
                       type="button"
                       className={clsx('pds-sentiment-btn', p.sentiment === val && 'active')}
+                      aria-label={`Ressenti ${val} sur 5`}
+                      aria-pressed={p.sentiment === val}
                       onClick={() => updateMutation.mutate({ id: p.id, input: { sentiment: val } })}
                     >
                       <span className="pds-emoji">{sentimentEmojis[val as 1 | 2 | 3 | 4 | 5]}</span>
                     </button>
                   ))}
-                </div>
+                </fieldset>
 
                 <CriteriaList
                   userProductId={p.id}
@@ -211,7 +221,7 @@ export function ProductDetailSheet({
 
                 <div className="pds-repurchase-section">
                   <span className="pds-section-title">Racheter ?</span>
-                  <div className="pds-repurchase-btns">
+                  <fieldset className="pds-repurchase-btns" aria-label="Racheter ?">
                     {(['yes', 'unsure', 'no'] as const).map((val) => (
                       <button
                         key={val}
@@ -221,6 +231,7 @@ export function ProductDetailSheet({
                           val,
                           p.wouldRepurchase === val && 'active'
                         )}
+                        aria-pressed={p.wouldRepurchase === val}
                         onClick={() =>
                           updateMutation.mutate({ id: p.id, input: { wouldRepurchase: val } })
                         }
@@ -230,7 +241,7 @@ export function ProductDetailSheet({
                         {val === 'no' && 'Non'}
                       </button>
                     ))}
-                  </div>
+                  </fieldset>
                 </div>
               </div>
 
@@ -300,6 +311,7 @@ export function ProductDetailSheet({
               type="button"
               className="pds-remove-btn"
               onClick={() => setShowDeleteConfirm(true)}
+              aria-label={`Retirer ${p.product.name} de ma collection`}
             >
               <Trash2 size={15} />
               Retirer de ma collection
@@ -329,9 +341,16 @@ export function ProductDetailSheet({
             onClick={() => setShowInci(false)}
             aria-label="Fermer"
           />
-          <div className="pds-inci-dialog" role="dialog" aria-modal="true">
+          <div
+            className="pds-inci-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="pds-inci-title"
+          >
             <div className="pds-inci-header">
-              <span className="pds-section-title">Liste INCI</span>
+              <span id="pds-inci-title" className="pds-section-title">
+                Liste INCI
+              </span>
               <div className="pds-inci-actions">
                 <button
                   type="button"

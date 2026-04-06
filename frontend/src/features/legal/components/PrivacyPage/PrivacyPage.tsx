@@ -22,7 +22,7 @@ export function PrivacyPage() {
               <span className="privacy-summary__icon" aria-hidden="true">
                 🔑
               </span>
-              <strong>Compte</strong>
+              <h3 className="privacy-summary__card-title">Compte</h3>
               <p>
                 Email, pseudo, avatar — le minimum pour que votre espace existe. Base légale :
                 exécution du contrat.
@@ -33,7 +33,7 @@ export function PrivacyPage() {
               <span className="privacy-summary__icon" aria-hidden="true">
                 📋
               </span>
-              <strong>Vos données d'usage</strong>
+              <h3 className="privacy-summary__card-title">Vos données d'usage</h3>
               <p>
                 Habitudes, produits, tâches, profil de peau — c'est le cœur du service que vous avez
                 demandé. Rien n'est partagé.
@@ -44,7 +44,7 @@ export function PrivacyPage() {
               <span className="privacy-summary__icon" aria-hidden="true">
                 🤖
               </span>
-              <strong>Analyse IA</strong>
+              <h3 className="privacy-summary__card-title">Analyse IA</h3>
               <p>
                 Mistral AI (entreprise française) — uniquement si vous l'activez. Vous pouvez
                 révoquer ce consentement à tout moment.
@@ -55,7 +55,9 @@ export function PrivacyPage() {
               <span className="privacy-summary__icon" aria-hidden="true">
                 🇪🇺
               </span>
-              <strong>Tout reste en Europe 🇪🇺</strong>
+              <h3 className="privacy-summary__card-title">
+                Tout reste en Europe <span aria-hidden="true">🇪🇺</span>
+              </h3>
               <p>
                 Serveur chez Hostinger (Lituanie, UE), médias sur Bunny CDN (Slovénie, UE), emails
                 via Brevo (France). Aucune donnée ne quitte l'UE.
@@ -66,7 +68,7 @@ export function PrivacyPage() {
               <span className="privacy-summary__icon" aria-hidden="true">
                 🗑️
               </span>
-              <strong>Suppression totale</strong>
+              <h3 className="privacy-summary__card-title">Suppression totale</h3>
               <p>
                 Vous pouvez effacer l'intégralité de votre compte et de vos données à tout moment
                 depuis votre profil.
@@ -77,7 +79,7 @@ export function PrivacyPage() {
               <span className="privacy-summary__icon" aria-hidden="true">
                 🚫
               </span>
-              <strong>Ni pub, ni tracking</strong>
+              <h3 className="privacy-summary__card-title">Ni pub, ni tracking</h3>
               <p>
                 Aucune donnée publicitaire, aucun tracking comportemental, aucune revente à des
                 tiers. Jamais.
@@ -139,6 +141,7 @@ export function PrivacyPage() {
                   rel="noopener noreferrer"
                 >
                   article 6 du RGPD
+                  <span className="sr-only"> (nouvelle fenêtre)</span>
                 </a>
                 , chaque traitement de données personnelles doit reposer sur une base légale. Voici
                 celles que nous appliquons :
@@ -263,6 +266,7 @@ export function PrivacyPage() {
                     rel="noopener noreferrer"
                   >
                     CNIL — Le règlement européen en 10 points
+                    <span className="sr-only"> (nouvelle fenêtre)</span>
                   </a>{' '}
                   — une introduction claire au RGPD par l'autorité française de protection des
                   données.
@@ -275,6 +279,7 @@ export function PrivacyPage() {
                     rel="noopener noreferrer"
                   >
                     CNIL — Chapitre II : Principes
+                    <span className="sr-only"> (nouvelle fenêtre)</span>
                   </a>{' '}
                   — les principes fondamentaux encadrant tout traitement de données.
                 </li>
@@ -286,6 +291,7 @@ export function PrivacyPage() {
                     rel="noopener noreferrer"
                   >
                     Article 6 RGPD — Licéité du traitement
+                    <span className="sr-only"> (nouvelle fenêtre)</span>
                   </a>{' '}
                   — le texte complet de l'article définissant les bases légales.
                 </li>
@@ -297,6 +303,7 @@ export function PrivacyPage() {
                     rel="noopener noreferrer"
                   >
                     Texte officiel du RGPD (EUR-Lex, version française)
+                    <span className="sr-only"> (nouvelle fenêtre)</span>
                   </a>{' '}
                   — le règlement complet publié au Journal officiel de l'UE.
                 </li>

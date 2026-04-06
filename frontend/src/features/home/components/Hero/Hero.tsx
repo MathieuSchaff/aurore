@@ -1,5 +1,6 @@
-import { Link } from '@tanstack/react-router'
 import { ArrowRight } from 'lucide-react'
+
+import { Button } from '../../../../component/Button/Button'
 import './Hero.css'
 
 export function Hero() {
@@ -28,19 +29,20 @@ export function Hero() {
         </header>
 
         <div className="hero-actions">
-          <Link to="/auth/signup" className="btn-primary">
+          <Button to="/auth/signup" size="lg" className="hero-btn">
             Créer un compte
             <ArrowRight size={18} />
-          </Link>
-          <button
-            type="button"
-            className="btn-secondary"
+          </Button>
+          <Button
+            variant="secondary"
+            size="lg"
+            className="hero-btn"
             onClick={() =>
               document.getElementById('philosophy')?.scrollIntoView({ behavior: 'smooth' })
             }
           >
             Comment ça marche
-          </button>
+          </Button>
         </div>
       </div>
     </section>

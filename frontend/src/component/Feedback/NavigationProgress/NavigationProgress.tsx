@@ -8,7 +8,7 @@ export const NavigationProgress = () => {
   if (!isLoading) return null
 
   return (
-    <div className="navigation-progress">
+    <div className="navigation-progress" role="progressbar" aria-label="Chargement de la page">
       <div className="navigation-progress__bar" />
     </div>
   )

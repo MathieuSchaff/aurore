@@ -10,7 +10,7 @@ import { DetailPageLayout } from '@/component/Layout/PageLayout/DetailPageLayout
 import { PageTopActions, PageTopActionsRight } from '@/component/Layout/PageLayout/PageTopActions'
 import { type TabOption, Tabs } from '@/component/Tabs/Tabs'
 import { ingredientQueries } from '@/lib/queries/ingredients'
-import '@/features/ingredients/components/IngredientPage.css'
+import '@/features/ingredients/components/IngredientInfoTab.css'
 
 const route = getRouteApi('/ingredients/$slug')
 

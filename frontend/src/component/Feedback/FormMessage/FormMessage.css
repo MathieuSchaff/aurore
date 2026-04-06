@@ -10,3 +10,11 @@
 .form-message--success {
   color: var(--color-success);
 }
+
+.form-message--warning {
+  padding: 0.75rem 1rem;
+  background: var(--color-warning-light);
+  color: var(--color-warning-text);
+  border: 1px solid var(--color-warning-border);
+  border-radius: var(--radius-lg);
+}

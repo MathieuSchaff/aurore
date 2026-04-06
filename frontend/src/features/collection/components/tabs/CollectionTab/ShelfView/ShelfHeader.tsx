@@ -22,7 +22,9 @@ export function ShelfHeader({ status, count, isCollapsed, onToggle }: ShelfHeade
       className={clsx('shelf-header', isCollapsed && 'is-collapsed')}
       style={{ borderLeftColor: cfg.color }}
       onClick={onToggle}
+      aria-expanded={!isCollapsed}
     >
+      <cfg.icon size={14} aria-hidden="true" />
       <h3 className="shelf-header-label">{cfg.label}</h3>
       <span
         className="shelf-header-count"

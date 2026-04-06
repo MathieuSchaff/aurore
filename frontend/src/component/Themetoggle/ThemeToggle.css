@@ -7,8 +7,9 @@
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   border-radius: var(--radius-full);
+  min-height: 2.75rem;
   &:focus-visible {
-    outline: 2px solid var(--bg-hover);
+    outline: 2px solid var(--color-primary);
     outline-offset: 2px;
   }
 }
@@ -125,4 +126,12 @@
 
 .main-nav__footer [aria-checked="true"] .theme-toggle__thumb {
   transform: translateY(calc(2.85rem - 1.1rem - 6px));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle__thumb,
+  .theme-toggle__icon,
+  .theme-toggle__track {
+    transition-duration: 0.01ms;
+  }
 }

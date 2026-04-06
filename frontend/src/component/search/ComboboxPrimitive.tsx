@@ -1,6 +1,11 @@
 import { type ReactNode, useEffect, useId, useRef } from 'react'
 import './ComboboxPrimitive.css'
 
+export interface ComboboxAriaProps {
+  listboxId: string
+  activeDescendant: string | undefined
+}
+
 interface ComboboxPrimitiveProps<T> {
   items: T[]
   isOpen: boolean
@@ -14,7 +19,7 @@ interface ComboboxPrimitiveProps<T> {
   isLoading?: boolean
   emptyMessage?: string
   keyExtractor?: (item: T, index: number) => string | number
-  children: ReactNode
+  children: (ariaProps: ComboboxAriaProps) => ReactNode
 }
 
 // follows the WAI-ARIA Combobox pattern (Listbox version) for keyboard navigation and accessibility
@@ -82,10 +87,13 @@ export function ComboboxPrimitive<T>({
     }
   }
 
+  const activeDescendant =
+    highlightedIndex >= 0 ? `${listboxId}-option-${highlightedIndex}` : undefined
+
   return (
     // biome-ignore lint/a11y/noStaticElementInteractions: wrapper for input navigation
     <div className="combobox-primitive" ref={containerRef} onKeyDown={handleKeyDown}>
-      {children}
+      {children({ listboxId, activeDescendant })}
 
       {isOpen && (
         <div
@@ -98,28 +106,23 @@ export function ComboboxPrimitive<T>({
             <output className="combobox-primitive__status">Chargement...</output>
           ) : items.length === 0 ? (
             inputValue.trim() !== '' && (
-              <div className="combobox-primitive__empty">{emptyMessage}</div>
+              <output className="combobox-primitive__empty">{emptyMessage}</output>
             )
           ) : (
             items.map((item, index) => {
               const isActive = index === highlightedIndex
               const key = keyExtractor ? keyExtractor(item, index) : index
               return (
+                // biome-ignore lint/a11y/useKeyWithClickEvents: keyboard nav handled on container
                 <div
                   key={key}
                   id={`${listboxId}-option-${index}`}
                   role="option"
                   aria-selected={isActive}
                   className={`combobox-primitive__option ${isActive ? 'combobox-primitive__option--active' : ''}`}
-                  onMouseDown={(e) => e.preventDefault()} // prevents the input from losing focus on click
+                  onMouseDown={(e) => e.preventDefault()}
                   onClick={() => onSelect(item)}
                   tabIndex={-1}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault()
-                      onSelect(item)
-                    }
-                  }}
                 >
                   {renderItem(item, index, isActive)}
                 </div>

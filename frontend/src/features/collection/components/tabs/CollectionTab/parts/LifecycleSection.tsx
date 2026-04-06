@@ -2,6 +2,8 @@ import { useQuery } from '@tanstack/react-query'
 import { Calendar, CheckCircle2, FlaskConical, History, PlayCircle, Plus } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
+import { Button } from '@/component/Button/Button'
+import { Badge } from '@/component/DataDisplay/Badge/Badge'
 import { purchaseQueries, useFinishPurchase, useOpenPurchase } from '@/lib/queries/purchases'
 import type { UserProduct } from '@/lib/queries/user-products'
 import { AddPurchaseDialog, type PurchaseToEdit } from './AddPurchaseDialog'
@@ -42,9 +44,9 @@ export function LifecycleSection({ p, onAddPurchase }: LifecycleSectionProps) {
 
       <div className="pds-lifecycle-actions">
         {openPurchase ? (
-          <button
-            type="button"
+          <Button
             className="pds-lifecycle-btn finish"
+            fullWidth
             onClick={() =>
               finishMutation.mutate({
                 userProductId: p.id,
@@ -54,11 +56,11 @@ export function LifecycleSection({ p, onAddPurchase }: LifecycleSectionProps) {
           >
             <CheckCircle2 size={16} />
             <span>Terminer le flacon</span>
-          </button>
+          </Button>
         ) : (
-          <button
-            type="button"
+          <Button
             className="pds-lifecycle-btn start"
+            fullWidth
             disabled={!purchases || purchases.every((purch) => purch.finishedAt)}
             onClick={() => {
               const nextToOpen = purchases?.find((purch) => !purch.openedAt)
@@ -73,7 +75,7 @@ export function LifecycleSection({ p, onAddPurchase }: LifecycleSectionProps) {
           >
             <PlayCircle size={16} />
             <span>Entamer un flacon</span>
-          </button>
+          </Button>
         )}
       </div>
 
@@ -101,21 +103,17 @@ export function LifecycleSection({ p, onAddPurchase }: LifecycleSectionProps) {
                   </div>
                   <div className="pds-purch-status">
                     {purch.finishedAt ? (
-                      <span className="pds-badge finished">Terminé</span>
+                      <Badge className="pds-badge-finished">Terminé</Badge>
                     ) : purch.openedAt ? (
-                      <span className="pds-badge opened">En cours</span>
+                      <Badge className="pds-badge-opened">En cours</Badge>
                     ) : (
-                      <span className="pds-badge stock">En stock</span>
+                      <Badge className="pds-badge-stock">En stock</Badge>
                     )}
                   </div>
                 </div>
-                <button
-                  type="button"
-                  className="pds-edit-purch"
-                  onClick={() => setEditingPurchaseId(purch.id)}
-                >
+                <Button variant="ghost" size="sm" onClick={() => setEditingPurchaseId(purch.id)}>
                   Modifier
-                </button>
+                </Button>
               </div>
             ))}
           </div>
@@ -123,10 +121,10 @@ export function LifecycleSection({ p, onAddPurchase }: LifecycleSectionProps) {
           <p className="pds-empty-history">Aucun achat enregistré</p>
         )}
 
-        <button type="button" className="pds-add-purchase-btn" onClick={onAddPurchase}>
+        <Button variant="ghost" fullWidth className="pds-add-purchase-btn" onClick={onAddPurchase}>
           <Plus size={14} />
           Enregistrer un achat
-        </button>
+        </Button>
       </div>
 
       {editingPurchaseId && (
