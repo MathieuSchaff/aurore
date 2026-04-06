@@ -9,10 +9,10 @@
   left: 0;
   right: 0;
   z-index: 50;
-  background: var(--bg-card);
+  background: var(--bg-elevated);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 20px oklch(from var(--color-primary) l c h / 0.15);
   max-height: 12rem;
   overflow-y: auto;
   list-style: none;
@@ -49,7 +49,7 @@
 }
 
 .combobox-primitive__option--active {
-  background: var(--bg-hover);
+  background: oklch(from var(--color-primary) l c h / 0.08);
 }
 
 .combobox-primitive__empty,
@@ -58,14 +58,4 @@
   font-size: var(--text-sm);
   color: var(--text-muted);
   font-style: italic;
-}
-
-/* light theme needs a bit more contrast on the dropdown, same approach as Filter.css */
-[data-theme="light"] .combobox-primitive__dropdown {
-  background: var(--bg-elevated);
-  box-shadow: 0 4px 20px oklch(from var(--color-primary) l c h / 0.15);
-}
-
-[data-theme="light"] .combobox-primitive__option--active {
-  background: oklch(from var(--color-primary) l c h / 0.08);
 }

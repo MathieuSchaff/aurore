@@ -5,10 +5,18 @@
 
 .form-message--error {
   color: var(--color-error);
+  padding: 0.5rem 0.75rem;
+  background: oklch(from var(--color-error) l c h / 0.08);
+  border-left: 3px solid var(--color-error);
+  border-radius: var(--radius-sm);
 }
 
 .form-message--success {
   color: var(--color-success);
+  padding: 0.5rem 0.75rem;
+  background: oklch(from var(--color-success) l c h / 0.08);
+  border-left: 3px solid var(--color-success);
+  border-radius: var(--radius-sm);
 }
 
 .form-message--warning {

@@ -15,7 +15,7 @@
 .search-combobox__input {
   width: 100%;
   padding: var(--space-2) var(--space-3) var(--space-2) calc(var(--space-3) + 15px + var(--space-2));
-  border: 1px solid var(--border-default);
+  border: 1px solid oklch(from var(--color-primary) l c h / 0.2);
   border-radius: var(--radius-md);
   background: var(--bg-card);
   font-family: var(--font-sans);
@@ -34,7 +34,7 @@
 .search-combobox__input:focus {
   outline: none;
   border-color: var(--color-focus);
-  box-shadow: 0 0 0 3px oklch(from var(--color-focus) l c h / 0.15);
+  box-shadow: 0 0 0 3px oklch(from var(--color-focus) l c h / 0.2);
 }
 
 /* renderItem content styles */
