@@ -12,9 +12,10 @@
   /* ===================================
      PRIMARY — Luminous green on dark
      =================================== */
-  --color-primary: oklch(72% 0.22 145);
-  --color-primary-hover: oklch(80% 0.2 145);
-  --color-primary-dark: oklch(50% 0.18 145);
+  /* Complementary: coral contrasts vivid green cards */
+  --color-primary: oklch(72% 0.22 25);
+  --color-primary-hover: oklch(80% 0.2 25);
+  --color-primary-dark: oklch(58% 0.22 25);
   --color-primary-deeper: oklch(38% 0.14 145);
   --color-primary-light: oklch(25% 0.08 145);
   --color-primary-subtle: oklch(20% 0.05 160);
@@ -68,11 +69,13 @@
   /* ===================================
      BACKGROUNDS — Deep green-tinted darks
      =================================== */
-  --bg-page: oklch(14% 0.04 160);
-  --bg-card: oklch(20% 0.05 160);
-  --bg-muted: oklch(12% 0.03 160);
-  --bg-elevated: oklch(24% 0.06 160);
-  --bg-sunken: oklch(10% 0.03 160);
+  /* Colored dark: cards clearly lighter and tinted */
+  --bg-page: oklch(12% 0.01 60);
+  --bg-card: oklch(30% 0.07 145);
+  --bg-elevated: oklch(34% 0.08 145);
+  --bg-sunken: oklch(22% 0.06 145);
+  /* Interactive-in-card: lighter than card */
+  --bg-muted: oklch(40% 0.06 145);
   --bg-hover: oklch(26% 0.06 160);
   --bg-active: oklch(30% 0.08 160);
   --bg-selected: oklch(28% 0.12 145 / 0.3);
@@ -96,10 +99,10 @@
   /* ===================================
      BORDERS & SHADOWS
      =================================== */
-  --border-default: oklch(40% 0.08 145);
+  --border-default: oklch(48% 0.09 145);
   --border-strong: oklch(60% 0.14 145);
   --shadow-color: oklch(0% 0 0 / 0.5);
-  --shadow-card: 0 4px 16px var(--shadow-color);
+  --shadow-card: 0 4px 16px oklch(0% 0 0 / 0.4), 0 1px 4px oklch(0% 0 0 / 0.25);
 
   /* ===================================
      MISC
@@ -107,4 +110,22 @@
   --overlay: oklch(5% 0.04 160 / 0.7);
   --hero-glow: oklch(22% 0.06 145);
   --surface-bright: oklch(99% 0.002 0deg);
+
+  /* Toggle */
+  --toggle-track-bg: oklch(from var(--color-header-action) l c h / 0.15);
+  --toggle-track-hover-bg: var(--color-header-action-bg-hover);
+  --toggle-fg: var(--color-header-action);
+  --toggle-fg-opacity: 0.35;
+  --toggle-active-icon: var(--color-header-bg);
+  --toggle-active-filter: drop-shadow(0 0 3px oklch(from var(--color-header-action) l c h / 0.6));
+
+  /* Card / page overrides — defaults equivalent to component fallbacks */
+  --page-title-color: var(--color-primary);
+  --card-footer-bg: var(--bg-sunken);
+  --card-footer-border: var(--border-default);
+  --card-footer-color: var(--text-primary);
+  --card-footer-color-muted: var(--text-muted);
+  --product-unit-chip-bg: transparent;
+  --product-unit-chip-text: var(--text-secondary);
+  --product-unit-chip-border: var(--bg-muted);
 }
