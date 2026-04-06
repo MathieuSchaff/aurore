@@ -1,5 +1,6 @@
 import { AlertTriangle, Ban, Heart, Package, TrendingDown } from 'lucide-react'
 
+import { EmptyState } from '@/component/Feedback/EmptyState/EmptyState'
 import { useCollectionAnalysis } from '@/features/collection/hooks/useCollectionAnalysis'
 import type { UserProduct } from '@/lib/queries/user-products'
 
@@ -14,10 +15,10 @@ export function AnalysisTab({ userProducts }: AnalysisTabProps) {
 
   if (userProducts.length === 0) {
     return (
-      <div className="insight-empty" style={{ padding: '4rem 2rem' }}>
-        <Package size={48} style={{ opacity: 0.2, marginBottom: '1rem' }} />
-        <p>Ajoutez des produits à votre collection pour voir l'analyse des ingrédients.</p>
-      </div>
+      <EmptyState
+        icon={<Package size={48} />}
+        subtitle="Ajoutez des produits à votre collection pour voir l'analyse des ingrédients."
+      />
     )
   }
 
@@ -91,7 +92,7 @@ function AnalysisCard({
 
       <div className="insight-list">
         {data.length > 0 ? (
-          data.slice(0, 6).map((ing) => (
+          data.map((ing) => (
             <div key={ing.name} className="insight-item">
               <span className="insight-ing-name">{ing.name}</span>
               <span className="insight-ing-count">

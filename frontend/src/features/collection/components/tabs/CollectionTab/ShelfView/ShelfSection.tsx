@@ -26,7 +26,11 @@ export function ShelfSection({ status, count, children }: ShelfSectionProps) {
   return (
     <div
       ref={setNodeRef}
-      className={clsx('shelf-section', isOver && 'is-over')}
+      className={clsx(
+        'shelf-section',
+        `shelf-section--${status.replace('_', '-')}`,
+        isOver && 'is-over'
+      )}
       style={{
         borderColor: isOver ? `var(--status-color-${status.replace('_', '-')})` : undefined,
       }}

@@ -81,7 +81,7 @@
   /* ===================================
      BACKGROUNDS — Crème chaud, zéro bleu
      =================================== */
-  --bg-page: oklch(98.5% 0.005 75deg);
+  --bg-page: oklch(96.5% 0.008 75deg);
   --bg-card: oklch(100% 0 0);
   --bg-muted: oklch(96.5% 0.006 75deg);
   --bg-elevated: oklch(100% 0 0);
@@ -94,8 +94,8 @@
   /* ===================================
      BORDERS & SHADOWS
      =================================== */
-  --border-default: oklch(60% 0.2 260);
-  --border-strong: oklch(48% 0.24 260);
+  --border-default: oklch(88% 0.025 260);
+  --border-strong: oklch(74% 0.06 260);
   --shadow-color: oklch(0% 0 0 / 0.1);
   --shadow-card: 0 2px 8px oklch(20% 0.03 40 / 0.12);
 

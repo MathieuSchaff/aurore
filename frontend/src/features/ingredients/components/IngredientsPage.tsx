@@ -1,28 +1,30 @@
 import { useQuery } from '@tanstack/react-query'
 import { getRouteApi, Link, useNavigate } from '@tanstack/react-router'
 import { FlaskConical, Plus, SlidersHorizontal } from 'lucide-react'
+import type React from 'react'
 import { useMemo, useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
+import { Card } from '@/component/Card/Card'
 import { Badge } from '@/component/DataDisplay/Badge/Badge'
 import { ListPagination } from '@/component/DataDisplay/Pagination/ListPagination'
 import { EmptyState } from '@/component/Feedback/EmptyState/EmptyState'
-import { ActiveFiltersBar } from '@/component/Filter/ActiveFiltersBar'
 import {
+  ActiveFiltersBar,
   emptyFilters,
+  FilterDrawer,
   type FilterGroupConfig,
   type FilterOption,
   type FilterValues,
-  GroupedFilterDialog,
   getFilterLabel,
-} from '@/component/Filter/Filter'
+} from '@/component/Filter'
 import { PageHeader } from '@/component/Layout/PageHeader/PageHeader'
 import { SearchCombobox } from '@/component/search/SearchCombobox'
 import { useListFilters } from '@/hooks/useListFilters'
 import { ingredientQueries, type ListIngredientsFilters } from '../../../lib/queries/ingredients'
 import { ATTRIBUTE_SUBGROUPS, FILTER_KEYS, type FilterKey, GROUP_LABELS } from '../filters'
 
-import '../../products/components/ListPage.css'
+import '@/component/Layout/PageLayout/ListPage.css'
 import './IngredientsPage.css'
 
 const routeApi = getRouteApi('/ingredients/')
@@ -184,7 +186,7 @@ export function IngredientsPage() {
         onClearAll={resetFilters}
       />
 
-      <GroupedFilterDialog
+      <FilterDrawer
         open={isDrawerOpen}
         onClose={() => setDrawerOpen(false)}
         groups={filterGroups}
@@ -194,14 +196,7 @@ export function IngredientsPage() {
         onReset={resetFilters}
       />
 
-      <main
-        className="list-main"
-        style={{
-          opacity: isPlaceholderData ? 0.6 : 1,
-          transition: 'opacity 0.2s ease-in-out',
-          pointerEvents: isPlaceholderData ? 'none' : 'auto',
-        }}
-      >
+      <main className={`list-main${isPlaceholderData ? ' list-main--syncing' : ''}`}>
         {isLoading && !isPlaceholderData ? (
           <EmptyState icon={<FlaskConical size={24} />} subtitle="Chargement..." />
         ) : items.length === 0 ? (
@@ -214,13 +209,14 @@ export function IngredientsPage() {
           <>
             <div className="list-grid">
               {items.map((ingredient) => (
-                <Link
+                <Card
                   key={ingredient.id}
+                  as={Link as React.ElementType}
                   to="/ingredients/$slug"
                   params={{ slug: ingredient.slug }}
                   className="list-card"
+                  accent="var(--color-info)"
                 >
-                  <div className="list-card__bar" />
                   <div className="list-card__body">
                     <div className="list-card__header">
                       <Badge variant="default">{ingredient.category}</Badge>
@@ -248,7 +244,7 @@ export function IngredientsPage() {
                       <div className="ingredient-card__description">{ingredient.description}</div>
                     )}
                   </div>
-                </Link>
+                </Card>
               ))}
             </div>
 

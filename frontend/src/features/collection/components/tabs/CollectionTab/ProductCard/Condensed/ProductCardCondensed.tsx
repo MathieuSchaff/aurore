@@ -82,8 +82,7 @@ export function ProductCardCondensed({
   }
 
   return (
-    <button
-      type="button"
+    <div
       ref={setNodeRef}
       style={
         {
@@ -91,8 +90,7 @@ export function ProductCardCondensed({
           '--card-accent': statusLabels[p.status].color,
         } as React.CSSProperties
       }
-      className={clsx('prod-card', statusClass, isDragging && 'dragging')}
-      onClick={onToggleExpand}
+      className={clsx('card', 'prod-card', statusClass, isDragging && 'dragging')}
       {...attributes}
       {...listeners}
     >
@@ -104,13 +102,18 @@ export function ProductCardCondensed({
           type="button"
           className={clsx('prod-sentiment-badge', isPopping && 'popping', !p.sentiment && 'empty')}
           onClick={handleNextSentiment}
-          aria-label="Changer le ressenti"
+          aria-label={`Changer le ressenti pour ${p.product.name}`}
         >
           {p.sentiment ? sentimentEmojis[p.sentiment as 1 | 2 | 3 | 4 | 5] : '—'}
         </button>
       </div>
 
-      <div className="prod-body">
+      <button
+        type="button"
+        className="prod-body"
+        onClick={onToggleExpand}
+        aria-label={`Voir les détails de ${p.product.name} par ${p.product.brand}`}
+      >
         <div className="prod-brand">{p.product.brand}</div>
         <div className="prod-name">{p.product.name}</div>
         <div className="prod-chips">
@@ -119,13 +122,13 @@ export function ProductCardCondensed({
             {score != null ? `${score}/20` : '—'}
           </span>
         </div>
-      </div>
+      </button>
 
       {priceEuros && <div className="prod-price">{priceEuros}</div>}
 
       {(scoreChipClass === 'score-gold' || scoreChipClass === 'score-rare') && (
         <div className={clsx('prod-score-corner', scoreChipClass)} />
       )}
-    </button>
+    </div>
   )
 }

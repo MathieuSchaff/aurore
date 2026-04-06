@@ -4,43 +4,10 @@
   margin-bottom: 1rem;
 }
 
-.pds-lifecycle-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  width: 100%;
-  padding: 0.75rem;
-  border-radius: var(--radius-md);
-  font-weight: var(--font-bold);
-  font-size: 0.8125rem;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  border: none;
-  letter-spacing: var(--tracking-wide);
-  text-transform: uppercase;
-}
-
-.pds-lifecycle-btn.start {
-  background: var(--color-primary);
-  color: var(--color-primary-text);
-  box-shadow: 0 2px 8px oklch(from var(--color-primary) l c h / 0.25);
-}
-
 .pds-lifecycle-btn.finish {
   background: oklch(from var(--color-warning) l c h / 0.08);
   color: var(--color-warning);
   border: 1px solid oklch(from var(--color-warning) l c h / 0.4);
-}
-
-.pds-lifecycle-btn:hover:not(:disabled) {
-  filter: brightness(1.08);
-  transform: translateY(-1px);
-}
-
-.pds-lifecycle-btn:disabled {
-  opacity: 0.35;
-  cursor: not-allowed;
 }
 
 /* Purchase history */
@@ -142,81 +109,35 @@
   margin-top: 0.1rem;
 }
 
-/* Badges */
+/* Badge color overrides */
 
-.pds-badge {
-  font-size: 0.6rem;
-  font-weight: var(--font-bold);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-wide);
-  padding: 0.15rem 0.5rem;
-  border-radius: var(--radius-full);
-}
-
-.pds-badge.finished {
+.pds-badge-finished {
   background: var(--bg-muted);
   color: var(--text-muted);
   border: 1px solid var(--border-default);
 }
 
-.pds-badge.opened {
+.pds-badge-opened {
   background: oklch(from var(--color-success) l c h / 0.08);
   color: var(--color-success);
   border: 1px solid oklch(from var(--color-success) l c h / 0.3);
 }
 
-.pds-badge.stock {
+.pds-badge-stock {
   background: oklch(from var(--color-info) l c h / 0.08);
   color: var(--color-info);
   border: 1px solid oklch(from var(--color-info) l c h / 0.3);
 }
 
-/* Edit button */
-
-.pds-edit-purch {
-  font-size: 0.7rem;
-  font-weight: var(--font-semibold);
-  color: var(--text-muted);
-  background: none;
-  border: 1px solid transparent;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  padding: 0.25rem 0.5rem;
-  transition: all var(--transition-fast);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.pds-edit-purch:hover {
-  background: var(--bg-card);
-  border-color: var(--border-default);
-  color: var(--text-primary);
-}
-
-/* Add purchase button */
+/* Add purchase button override */
 
 .pds-add-purchase-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.375rem;
-  width: 100%;
-  padding: 0.625rem;
   margin-top: 0.625rem;
-  border-radius: var(--radius-md);
-  font-size: 0.7rem;
-  font-weight: var(--font-bold);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-wide);
   color: var(--color-primary);
-  background: oklch(from var(--color-primary) l c h / 0.05);
   border: 1px dashed oklch(from var(--color-primary) l c h / 0.3);
-  cursor: pointer;
-  transition: all var(--transition-fast);
 }
 
 .pds-add-purchase-btn:hover {
-  background: oklch(from var(--color-primary) l c h / 0.1);
   border-color: var(--color-primary);
   border-style: solid;
 }

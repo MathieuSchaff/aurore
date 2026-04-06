@@ -72,8 +72,8 @@
 /* ── Note ─────────────────────────────────────────── */
 
 .privacy-note {
-  font-size: var(--text-sm) !important;
-  color: var(--text-muted) !important;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
   background: var(--bg-sunken);
   border-left: 3px solid var(--border-default);
   padding: var(--space-3) var(--space-4);
@@ -126,10 +126,11 @@
   border-radius: var(--radius-sm);
 }
 
-.privacy-summary__card strong {
+.privacy-summary__card-title {
   font-size: var(--text-sm);
   font-weight: var(--font-semibold);
   color: var(--text-primary);
+  margin: 0;
 }
 
 .privacy-summary__card p {

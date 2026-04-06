@@ -7,15 +7,16 @@ import { Badge, type BadgeVariant } from '@/component/DataDisplay/Badge/Badge'
 import { DetailPageLayout } from '@/component/Layout/PageLayout/DetailPageLayout'
 import { PageTopActions, PageTopActionsRight } from '@/component/Layout/PageLayout/PageTopActions'
 import { type TabOption, Tabs } from '@/component/Tabs/Tabs'
-import { AddToCollectionModal } from '@/features/products/components/AddToCollectionModal'
+import { AddToCollectionModal } from '@/features/products/components/AddToCollectionModal/AddToCollectionModal'
 import { productQueries } from '@/lib/queries/products'
 import '@/features/products/styles/kinds.css'
-import '@/features/products/components/ProductPage.css'
+import '@/features/products/components/ProductInfoTab.css'
 
 import { BackButton } from '@/component/Button/BackButton'
 import { Button } from '@/component/Button/Button'
 
 const route = getRouteApi('/products/$slug')
+const eurFormatter = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' })
 
 function getBadgeVariant(kind: string): BadgeVariant {
   switch (kind) {
@@ -45,11 +46,7 @@ export function ProductLayout() {
   const activeTab: ProductTab = isDiscussions ? 'discussions' : 'infos'
 
   const priceFormatted =
-    product.priceCents != null
-      ? new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(
-          product.priceCents / 100
-        )
-      : null
+    product.priceCents != null ? eurFormatter.format(product.priceCents / 100) : null
 
   const tabOptions: TabOption<ProductTab>[] = [
     { id: 'infos', label: 'Infos' },
@@ -67,7 +64,7 @@ export function ProductLayout() {
   return (
     <DetailPageLayout banner={true}>
       <PageTopActions>
-        <BackButton onClick={() => window.history.back()}>Produits</BackButton>
+        <BackButton to="/products">Produits</BackButton>
         <PageTopActionsRight>
           <Button to="/products/$slug/edit" params={{ slug }} variant="primary">
             <Pencil size={14} />
@@ -81,7 +78,10 @@ export function ProductLayout() {
       </PageTopActions>
 
       <div className="product-hero">
-        <div className={`product-hero__icon kind-icon kind--${getBadgeVariant(product.kind)}`}>
+        <div
+          className={`product-hero__icon kind-icon kind--${getBadgeVariant(product.kind)}`}
+          aria-hidden="true"
+        >
           <Package size={28} />
         </div>
         <div className="product-hero__info">

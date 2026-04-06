@@ -1,0 +1,50 @@
+.editable-section {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-sm);
+}
+
+.editable-section--editing {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary);
+}
+
+.editable-section__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+
+.editable-section__title {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+  letter-spacing: var(--tracking-tight);
+  margin: 0;
+}
+
+.editable-section__edit-btn {
+  color: var(--text-muted);
+  padding: var(--space-1);
+}
+
+.editable-section__edit-btn:hover {
+  color: var(--color-primary);
+}
+
+.editable-section__body {
+  animation: editable-section-fade 0.2s ease;
+}
+
+@keyframes editable-section-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -4,17 +4,18 @@ import { Package, Plus, SlidersHorizontal } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
+import { Card } from '@/component/Card/Card'
 import { ListPagination } from '@/component/DataDisplay/Pagination/ListPagination'
 import { EmptyState } from '@/component/Feedback/EmptyState/EmptyState'
-import { ActiveFiltersBar } from '@/component/Filter/ActiveFiltersBar'
 import {
+  ActiveFiltersBar,
   emptyFilters,
+  FilterDrawer,
   type FilterGroupConfig,
   type FilterOption,
   type FilterValues,
-  GroupedFilterDialog,
   getFilterLabel,
-} from '@/component/Filter/Filter'
+} from '@/component/Filter'
 import { PageHeader } from '@/component/Layout/PageHeader/PageHeader'
 import { SearchCombobox } from '@/component/search/SearchCombobox'
 import { useListFilters } from '@/hooks/useListFilters'
@@ -29,9 +30,9 @@ import {
   LABEL_OVERRIDES,
   TAG_CATEGORY_TO_KEY,
 } from '../filters'
-import { AddToCollectionModal } from './AddToCollectionModal'
+import { AddToCollectionModal } from './AddToCollectionModal/AddToCollectionModal'
 
-import './ListPage.css'
+import '@/component/Layout/PageLayout/ListPage.css'
 import './ProductsPage.css'
 import '@/features/products/styles/kinds.css'
 
@@ -62,6 +63,8 @@ function unitClass(unit: string | null | undefined): string {
   if (u === 'spf' || u === 'sunscreen' || u === 'solaire') return 'unit--spf'
   return ''
 }
+
+const eurFormatter = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' })
 
 const EMPTY_FILTERS = emptyFilters(FILTER_KEYS)
 
@@ -237,11 +240,11 @@ export function ProductsPage() {
 
   const items = data?.items ?? []
   const total = data?.total ?? 0
-  const totalPages = Math.ceil((total ?? 0) / 20) // only used when hasFilters (limit: 20)
+  const totalPages = Math.ceil(total / 20)
 
   return (
     <>
-      <div className={`list-page products-page${isPlaceholderData ? ' is-syncing' : ''}`}>
+      <div className="list-page products-page">
         <PageHeader
           title="Produits"
           isLoading={isPlaceholderData}
@@ -266,13 +269,22 @@ export function ProductsPage() {
                   size="md"
                   onClick={() => setDrawerOpen(true)}
                   className="list-filter-btn"
+                  aria-label={
+                    filterCount > 0
+                      ? `Filtrer (${filterCount} actif${filterCount > 1 ? 's' : ''})`
+                      : 'Filtrer'
+                  }
                 >
-                  <SlidersHorizontal size={14} />
+                  <SlidersHorizontal size={14} aria-hidden="true" />
                   <span>Filtrer</span>
-                  {filterCount > 0 && <span className="list-filter-btn__count">{filterCount}</span>}
+                  {filterCount > 0 && (
+                    <span className="list-filter-btn__count" aria-hidden="true">
+                      {filterCount}
+                    </span>
+                  )}
                 </Button>
                 <Button to="/products/new" variant="primary" size="md" className="list-filter-btn">
-                  <Plus size={14} />
+                  <Plus size={14} aria-hidden="true" />
                   <span>Créer</span>
                 </Button>
               </div>
@@ -288,7 +300,7 @@ export function ProductsPage() {
           onClearAll={resetFilters}
         />
 
-        <GroupedFilterDialog
+        <FilterDrawer
           open={isDrawerOpen}
           onClose={() => setDrawerOpen(false)}
           groups={filterGroups}
@@ -298,13 +310,9 @@ export function ProductsPage() {
           onReset={resetFilters}
         />
 
-        <main
-          className="list-main"
-          style={{
-            opacity: isPlaceholderData ? 0.6 : 1,
-            transition: 'opacity 0.2s ease-in-out',
-            pointerEvents: isPlaceholderData ? 'none' : 'auto',
-          }}
+        <section
+          className={`list-main${isPlaceholderData ? ' list-main--syncing' : ''}`}
+          aria-label="Liste des produits"
         >
           {isLoading && !isPlaceholderData ? (
             <EmptyState icon={<Package size={24} />} subtitle="Chargement..." />
@@ -316,13 +324,15 @@ export function ProductsPage() {
             />
           ) : (
             <>
-              <div className="list-grid">
+              <ul className="list-grid">
                 {items.map((product) => (
-                  <div
+                  <Card
+                    as="li"
                     key={product.id}
+                    interactive
+                    accent="var(--_kind-color)"
                     className={`list-card list-card--product ${kindClass(product.kind)} ${unitClass(product.unit)}`}
                   >
-                    <div className="list-card__bar" />
                     <div className="list-card__inner">
                       <Link
                         to="/products/$slug"
@@ -331,7 +341,7 @@ export function ProductsPage() {
                       >
                         <div className="list-card__header-top">
                           <span className="list-card__kind">{product.kind}</span>
-                          <div className="list-card__icon-wrap">
+                          <div className="list-card__icon-wrap" aria-hidden="true">
                             <ProductIcon unit={product.unit} kind={product.kind} size={18} />
                           </div>
                         </div>
@@ -348,13 +358,18 @@ export function ProductsPage() {
                         <div className="list-card__price-wrap">
                           {product.priceCents != null ? (
                             <span className="list-card__price">
-                              {new Intl.NumberFormat('fr-FR', {
-                                style: 'currency',
-                                currency: 'EUR',
-                              }).format(product.priceCents / 100)}
+                              {eurFormatter.format(product.priceCents / 100)}
                             </span>
                           ) : (
-                            <span className="list-card__price list-card__price--empty">—</span>
+                            <>
+                              <span
+                                className="list-card__price list-card__price--empty"
+                                aria-hidden="true"
+                              >
+                                —
+                              </span>
+                              <span className="sr-only">Prix non renseigné</span>
+                            </>
                           )}
                           {product.totalAmount && (
                             <span className="list-card__unit-chip">
@@ -362,13 +377,11 @@ export function ProductsPage() {
                             </span>
                           )}
                         </div>
-                        <button
-                          type="button"
-                          className="list-card__add-btn"
+                        <Button
+                          variant="primary"
+                          size="sm"
                           aria-label={`Ajouter ${product.name} à la collection`}
-                          onClick={(e) => {
-                            e.preventDefault()
-                            e.stopPropagation()
+                          onClick={() => {
                             setModalProduct({
                               id: product.id,
                               name: product.name,
@@ -377,14 +390,14 @@ export function ProductsPage() {
                             })
                           }}
                         >
-                          <Plus size={14} />
+                          <Plus size={14} aria-hidden="true" />
                           <span>Ajouter</span>
-                        </button>
+                        </Button>
                       </div>
                     </div>
-                  </div>
+                  </Card>
                 ))}
-              </div>
+              </ul>
 
               {hasFilters && (
                 <ListPagination
@@ -395,9 +408,8 @@ export function ProductsPage() {
               )}
             </>
           )}
-        </main>
+        </section>
       </div>
-
       {modalProduct && (
         <AddToCollectionModal
           product={modalProduct}
