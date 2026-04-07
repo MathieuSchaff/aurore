@@ -12,8 +12,10 @@
   padding: var(--space-6);
   background: var(--bg-card);
   border-radius: var(--radius-xl);
-  border: 1px solid var(--border-default);
-  box-shadow: var(--shadow-sm);
+  border: 1px solid oklch(from var(--color-primary) l c h / 0.15);
+  box-shadow:
+    var(--shadow-sm),
+    0 4px 16px oklch(from var(--color-primary) l c h / 0.06);
 }
 
 .today-progress__header {
@@ -96,7 +98,7 @@
 
 .habit-row {
   background: var(--bg-card);
-  border: 1px solid var(--border-default);
+  border: 1px solid oklch(from var(--color-primary) l c h / 0.12);
   border-radius: var(--radius-lg);
   transition: all var(--transition-base) ease;
   position: relative;
@@ -127,7 +129,7 @@
   height: 2.25rem;
   border-radius: var(--radius-lg);
   border: 2px solid var(--border-strong);
-  background: transparent;
+  background: oklch(from var(--color-primary) l c h / 0.05);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -189,9 +191,10 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--color-primary);
-  background: oklch(from var(--color-primary) l c h / 0.1);
+  background: oklch(from var(--color-primary) l c h / 0.18);
   padding: 2px 8px;
   border-radius: var(--radius-full);
+  border: 1px solid oklch(from var(--color-primary) l c h / 0.2);
 }
 
 /* ── Timing Pills ── */
@@ -219,9 +222,10 @@
 }
 
 .habit-timing-pill.is-checked {
-  background: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
   border-color: var(--color-primary);
   color: white;
+  box-shadow: 0 2px 6px oklch(from var(--color-primary) l c h / 0.25);
 }
 
 /* ── Info Button ── */
@@ -315,7 +319,7 @@
   gap: var(--space-4);
   background: var(--bg-card);
   border-radius: var(--radius-xl);
-  border: 2px dashed var(--border-default);
+  border: 2px dashed oklch(from var(--color-primary) l c h / 0.25);
 }
 
 .today-empty__icon {
