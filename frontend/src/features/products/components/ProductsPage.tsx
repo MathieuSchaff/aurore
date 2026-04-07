@@ -346,15 +346,16 @@ export function ProductsPage() {
                           </div>
                         </div>
                         <span className="list-card__brand">{product.brand}</span>
-                        <p
+                        <Card.Title
+                          as="p"
                           className="list-card__name"
                           style={{ viewTransitionName: `product-name-${product.slug}` }}
                         >
                           {product.name}
-                        </p>
+                        </Card.Title>
                       </Link>
 
-                      <div className="list-card__footer">
+                      <Card.Footer>
                         <div className="list-card__price-wrap">
                           {product.priceCents != null ? (
                             <span className="list-card__price">
@@ -393,7 +394,7 @@ export function ProductsPage() {
                           <Plus size={14} aria-hidden="true" />
                           <span>Ajouter</span>
                         </Button>
-                      </div>
+                      </Card.Footer>
                     </div>
                   </Card>
                 ))}
