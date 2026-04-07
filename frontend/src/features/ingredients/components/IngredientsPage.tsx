@@ -214,36 +214,34 @@ export function IngredientsPage() {
                   as={Link as React.ElementType}
                   to="/ingredients/$slug"
                   params={{ slug: ingredient.slug }}
-                  className="list-card"
                   accent="var(--color-info)"
                 >
-                  <div className="list-card__body">
-                    <div className="list-card__header">
-                      <Badge variant="default">{ingredient.category}</Badge>
-                      <svg
-                        className="list-card__arrow"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        role="img"
-                        aria-label="Voir l'ingrédient"
-                      >
-                        <path d="M5 12h14M12 5l7 7-7 7" />
-                      </svg>
-                    </div>
-                    <div
-                      className="list-card__name"
+                  <Card.Body>
+                    <Card.Title
                       style={{ viewTransitionName: `ingredient-name-${ingredient.slug}` }}
                     >
                       {ingredient.name}
-                    </div>
+                    </Card.Title>
                     {ingredient.description && (
-                      <div className="ingredient-card__description">{ingredient.description}</div>
+                      <Card.Description>{ingredient.description}</Card.Description>
                     )}
-                  </div>
+                  </Card.Body>
+                  <Card.Footer>
+                    <Badge variant="chip">{ingredient.category}</Badge>
+                    <svg
+                      className="ingredients-page__card-arrow"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      role="img"
+                      aria-label="Voir l'ingrédient"
+                    >
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </Card.Footer>
                 </Card>
               ))}
             </div>
