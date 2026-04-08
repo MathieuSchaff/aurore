@@ -12,7 +12,7 @@ export function FormMessage({ variant, children }: FormMessageProps) {
   return (
     <div
       className={clsx('form-message', `form-message--${variant}`)}
-      role={variant === 'error' ? 'alert' : 'status'}
+      role={variant === 'success' ? 'status' : 'alert'}
     >
       {children}
     </div>
