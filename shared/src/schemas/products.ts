@@ -1,12 +1,14 @@
 import { z } from 'zod'
 
 import { fieldChangeSchema } from './common'
+import { PRODUCT_CATEGORY_VALUES } from './product-kinds'
 
 const uuid = z.uuid()
 
 export const createProductSchema = z.object({
   name: z.string().min(1).max(200),
   brand: z.string().min(1).max(200),
+  category: z.enum(PRODUCT_CATEGORY_VALUES).nullable().optional(),
   kind: z.string().min(1).max(100),
   unit: z.string().min(1).max(50),
   slug: z.string().max(100).optional(),
@@ -23,6 +25,7 @@ export const updateProductSchema = z
   .object({
     name: z.string().min(1).max(200).optional(),
     brand: z.string().min(1).max(200).optional(),
+    category: z.enum(PRODUCT_CATEGORY_VALUES).nullable().optional(),
     kind: z.string().min(1).max(100).optional(),
     unit: z.string().min(1).max(50).optional(),
     slug: z.string().max(100).optional(),
@@ -42,6 +45,7 @@ export const productResponseSchema = z.object({
   name: z.string(),
   slug: z.string(),
   brand: z.string(),
+  category: z.enum(PRODUCT_CATEGORY_VALUES).nullable(),
   kind: z.string(),
   unit: z.string(),
   inci: z.string().nullable(),
@@ -102,6 +106,7 @@ export const listProductsQuery = z.object({
   product_type: z.string().optional(),
   ingredient: z.string().optional(),
   skin_zone: z.string().optional(),
+  avoid_for: z.string().optional(),
   page: z.coerce.number().int().min(1).default(1),
   limit: z.coerce.number().int().min(1).max(100).default(20),
   sort: z.enum(['name', 'random']).optional(),
@@ -113,6 +118,7 @@ export type ListProductsFilters = z.infer<typeof listProductsQuery>
 const editableProductFields = {
   name: fieldChangeSchema(z.string()),
   brand: fieldChangeSchema(z.string()),
+  category: fieldChangeSchema(z.enum(PRODUCT_CATEGORY_VALUES)),
   kind: fieldChangeSchema(z.string()),
   unit: fieldChangeSchema(z.string()),
   slug: fieldChangeSchema(z.string()),
