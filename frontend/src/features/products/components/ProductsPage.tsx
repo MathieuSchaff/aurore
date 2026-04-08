@@ -125,6 +125,13 @@ export function ProductsPage() {
       filterKeys: FILTER_KEYS,
     })
 
+  const effectiveFilterCount = filterCount + (profile_filter ? 1 : 0)
+
+  const handleReset = () => {
+    resetFilters()
+    navigate({ search: (prev) => ({ ...prev, profile_filter: false }), replace: true })
+  }
+
   const hasFilters = filterCount > 0
 
   const { data: filterOptions } = useQuery(productQueries.filterOptions())
@@ -303,16 +310,16 @@ export function ProductsPage() {
                   onClick={() => setDrawerOpen(true)}
                   className="list-filter-btn"
                   aria-label={
-                    filterCount > 0
-                      ? `Filtrer (${filterCount} actif${filterCount > 1 ? 's' : ''})`
+                    effectiveFilterCount > 0
+                      ? `Filtrer (${effectiveFilterCount} actif${effectiveFilterCount > 1 ? 's' : ''})`
                       : 'Filtrer'
                   }
                 >
                   <SlidersHorizontal size={14} aria-hidden="true" />
                   <span>Filtrer</span>
-                  {filterCount > 0 && (
+                  {effectiveFilterCount > 0 && (
                     <span className="list-filter-btn__count" aria-hidden="true">
-                      {filterCount}
+                      {effectiveFilterCount}
                     </span>
                   )}
                 </Button>
@@ -340,7 +347,7 @@ export function ProductsPage() {
           currentFilters={filters}
           initialFilters={EMPTY_FILTERS}
           onApply={applyFilters}
-          onReset={resetFilters}
+          onReset={handleReset}
         >
           {profileToggle}
         </FilterDrawer>
