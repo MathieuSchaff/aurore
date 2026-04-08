@@ -5,7 +5,6 @@ import { useMemo, useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
 import { Card } from '@/component/Card/Card'
-import { Toggle } from '@/component/Input/Toggle/Toggle'
 import { ListPagination } from '@/component/DataDisplay/Pagination/ListPagination'
 import { EmptyState } from '@/component/Feedback/EmptyState/EmptyState'
 import {
@@ -17,6 +16,7 @@ import {
   type FilterValues,
   getFilterLabel,
 } from '@/component/Filter'
+import { Toggle } from '@/component/Input/Toggle/Toggle'
 import { PageHeader } from '@/component/Layout/PageHeader/PageHeader'
 import { SearchCombobox } from '@/component/search/SearchCombobox'
 import { useListFilters } from '@/hooks/useListFilters'

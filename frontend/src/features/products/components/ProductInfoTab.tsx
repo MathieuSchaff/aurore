@@ -1,7 +1,7 @@
-import { useMemo } from 'react'
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
 import { getRouteApi, Link } from '@tanstack/react-router'
 import { ExternalLink, FlaskConical } from 'lucide-react'
+import { useMemo } from 'react'
 import Markdown from 'react-markdown'
 
 import { FormMessage } from '@/component/Feedback/FormMessage/FormMessage'
@@ -49,9 +49,7 @@ export function ProductInfoTab() {
       ...(dermoProfile.skinTypes ?? []),
       ...dermoProfile.skinConcerns,
     ])
-    return productTagsData.filter(
-      (t) => t.relevance === 'avoid' && profileSlugs.has(t.tagSlug)
-    )
+    return productTagsData.filter((t) => t.relevance === 'avoid' && profileSlugs.has(t.tagSlug))
   }, [productTagsData, dermoProfile])
 
   return (
