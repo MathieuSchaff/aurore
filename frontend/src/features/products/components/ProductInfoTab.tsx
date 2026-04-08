@@ -1,11 +1,15 @@
-import { useSuspenseQuery } from '@tanstack/react-query'
+import { useMemo } from 'react'
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
 import { getRouteApi, Link } from '@tanstack/react-router'
 import { ExternalLink, FlaskConical } from 'lucide-react'
 import Markdown from 'react-markdown'
 
+import { FormMessage } from '@/component/Feedback/FormMessage/FormMessage'
 import { RichText } from '@/component/Typography/RichText/RichText'
 import { SectionHeader } from '@/component/Typography/SectionHeader/SectionHeader'
 import { productQueries } from '../../../lib/queries/products'
+import { profileQueries } from '../../../lib/queries/profile'
+import { useAuthStore } from '../../../store/auth'
 import './ProductInfoTab.css'
 
 const route = getRouteApi('/products/$slug/')
@@ -27,8 +31,36 @@ export function ProductInfoTab() {
   const { data: product } = useSuspenseQuery(productQueries.bySlug(slug))
   const hasIngredients = product.ingredients && product.ingredients.length > 0
 
+  const user = useAuthStore((s) => s.user)
+
+  const { data: productTagsData } = useQuery({
+    ...productQueries.tags(product.id),
+    enabled: !!user,
+  })
+
+  const { data: dermoProfile } = useQuery({
+    ...profileQueries.dermo(),
+    enabled: !!user,
+  })
+
+  const warnings = useMemo(() => {
+    if (!productTagsData || !dermoProfile) return []
+    const profileSlugs = new Set<string>([
+      ...(dermoProfile.skinTypes ?? []),
+      ...dermoProfile.skinConcerns,
+    ])
+    return productTagsData.filter(
+      (t) => t.relevance === 'avoid' && profileSlugs.has(t.tagSlug)
+    )
+  }, [productTagsData, dermoProfile])
+
   return (
     <>
+      {warnings.length > 0 && (
+        <FormMessage variant="warning">
+          Ce produit peut ne pas convenir à votre profil cutané.
+        </FormMessage>
+      )}
       <div className="product-section">
         <SectionHeader title="Informations" variant="primary" />
         <dl className="product-details">
