@@ -5,6 +5,7 @@ import { useMemo, useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
 import { Card } from '@/component/Card/Card'
+import { Toggle } from '@/component/Input/Toggle/Toggle'
 import { ListPagination } from '@/component/DataDisplay/Pagination/ListPagination'
 import { EmptyState } from '@/component/Feedback/EmptyState/EmptyState'
 import {
@@ -22,6 +23,8 @@ import { useListFilters } from '@/hooks/useListFilters'
 import { ProductIcon } from '../../../assets/product-icons'
 import { ingredientQueries } from '../../../lib/queries/ingredients'
 import { type ListProductsFilters, productQueries } from '../../../lib/queries/products'
+import { profileQueries } from '../../../lib/queries/profile'
+import { useAuthStore } from '../../../store/auth'
 import {
   ATTRIBUTE_SUBGROUPS,
   FILTER_KEYS,
@@ -87,8 +90,21 @@ export function ProductsPage() {
     concern,
     ingredient,
     page,
+    profile_filter,
   } = routeApi.useSearch()
   const navigate = useNavigate({ from: '/products/' })
+
+  const user = useAuthStore((s) => s.user)
+
+  const { data: dermoProfile } = useQuery({
+    ...profileQueries.dermo(),
+    enabled: !!user && profile_filter,
+  })
+
+  const avoidFor =
+    profile_filter && dermoProfile
+      ? [...(dermoProfile.skinTypes ?? []), ...dermoProfile.skinConcerns]
+      : []
 
   const filters: FilterValues<FilterKey> = {
     brand,
@@ -109,6 +125,13 @@ export function ProductsPage() {
       filterKeys: FILTER_KEYS,
     })
 
+  const effectiveFilterCount = filterCount + (profile_filter ? 1 : 0)
+
+  const handleReset = () => {
+    resetFilters()
+    navigate({ search: (prev) => ({ ...prev, profile_filter: false }), replace: true })
+  }
+
   const hasFilters = filterCount > 0
 
   const { data: filterOptions } = useQuery(productQueries.filterOptions())
@@ -124,10 +147,15 @@ export function ProductsPage() {
         attribute: attribute.length > 0 ? attribute : undefined,
         routine_step: routine_step.length > 0 ? routine_step : undefined,
         ingredient: ingredient.length > 0 ? ingredient : undefined,
+        avoid_for: avoidFor.length > 0 ? avoidFor : undefined,
         page,
         limit: 20,
       }
-    : { sort: 'random', limit: 12 }
+    : {
+        sort: 'random',
+        limit: 12,
+        avoid_for: avoidFor.length > 0 ? avoidFor : undefined,
+      }
 
   const { data, isLoading, isPlaceholderData } = useQuery({
     ...productQueries.list(apiFilters),
@@ -242,6 +270,18 @@ export function ProductsPage() {
   const total = data?.total ?? 0
   const totalPages = Math.ceil(total / 20)
 
+  const profileToggle = user ? (
+    <Toggle
+      label="Selon mon profil"
+      hint="Masque les produits contre-indiqués pour votre type de peau"
+      checked={profile_filter}
+      onChange={(checked) =>
+        navigate({ search: (prev) => ({ ...prev, profile_filter: checked, page: 1 }) })
+      }
+      size="sm"
+    />
+  ) : null
+
   return (
     <>
       <div className="list-page products-page">
@@ -270,16 +310,16 @@ export function ProductsPage() {
                   onClick={() => setDrawerOpen(true)}
                   className="list-filter-btn"
                   aria-label={
-                    filterCount > 0
-                      ? `Filtrer (${filterCount} actif${filterCount > 1 ? 's' : ''})`
+                    effectiveFilterCount > 0
+                      ? `Filtrer (${effectiveFilterCount} actif${effectiveFilterCount > 1 ? 's' : ''})`
                       : 'Filtrer'
                   }
                 >
                   <SlidersHorizontal size={14} aria-hidden="true" />
                   <span>Filtrer</span>
-                  {filterCount > 0 && (
+                  {effectiveFilterCount > 0 && (
                     <span className="list-filter-btn__count" aria-hidden="true">
-                      {filterCount}
+                      {effectiveFilterCount}
                     </span>
                   )}
                 </Button>
@@ -307,8 +347,10 @@ export function ProductsPage() {
           currentFilters={filters}
           initialFilters={EMPTY_FILTERS}
           onApply={applyFilters}
-          onReset={resetFilters}
-        />
+          onReset={handleReset}
+        >
+          {profileToggle}
+        </FilterDrawer>
 
         <section
           className={`list-main${isPlaceholderData ? ' list-main--syncing' : ''}`}
