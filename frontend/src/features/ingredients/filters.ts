@@ -1,24 +1,16 @@
-// Filter keys for the ingredients list page. Mirrors the 5 buckets
-// exposed by the backend `getIngredientFilterOptions`. The old `category`
-// filter (native ingredients.category column) was dropped in favour of
-// the attribute tag bucket — same info, single source, auto-backfilled
-// at seed time from the native column. See shared/schemas/tag-taxonomy.ts
-// and idee/tags/tags.md §6 for the taxonomy this derives from.
+// Filter keys for the ingredients list page. Derived from the shared
+// taxonomy: one filter key per TagCategory that is filterable on an
+// ingredient (scope='ingredient' or 'both'). No hand-maintained list.
 
-export type FilterKey = 'skin_type' | 'concern' | 'attribute' | 'skin_effect' | 'comedogenicity'
+import { filterCategoriesFor, TAG_CATEGORY_META, type TagCategory } from '@habit-tracker/shared'
 
-export const FILTER_KEYS = [
-  'skin_type',
-  'concern',
-  'attribute',
-  'skin_effect',
-  'comedogenicity',
-] as const satisfies readonly FilterKey[]
+export type FilterKey = Extract<
+  TagCategory,
+  'skin_type' | 'concern' | 'ingredient_attribute' | 'skin_effect' | 'shared_label'
+>
 
-export const GROUP_LABELS: Record<FilterKey, string> = {
-  skin_type: 'Peau',
-  concern: 'Problème',
-  attribute: 'Rôle',
-  skin_effect: 'Effet peau',
-  comedogenicity: 'Comédogénicité',
-}
+export const FILTER_KEYS = filterCategoriesFor('ingredient') as readonly FilterKey[]
+
+export const GROUP_LABELS: Record<FilterKey, string> = Object.fromEntries(
+  FILTER_KEYS.map((key) => [key, TAG_CATEGORY_META[key].label])
+) as Record<FilterKey, string>
