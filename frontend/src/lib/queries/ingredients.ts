@@ -11,9 +11,9 @@ import { api } from '../api'
 export type ListIngredientsFilters = {
   skin_type?: string[]
   concern?: string[]
-  attribute?: string[]
+  ingredient_attribute?: string[]
   skin_effect?: string[]
-  comedogenicity?: string[]
+  shared_label?: string[]
   sort?: 'name' | 'random'
   page?: number
   limit?: number
@@ -51,9 +51,10 @@ export const ingredientQueries = {
 
         if (filters.skin_type?.length) query.skin_type = filters.skin_type.join(',')
         if (filters.concern?.length) query.concern = filters.concern.join(',')
-        if (filters.attribute?.length) query.attribute = filters.attribute.join(',')
+        if (filters.ingredient_attribute?.length)
+          query.ingredient_attribute = filters.ingredient_attribute.join(',')
         if (filters.skin_effect?.length) query.skin_effect = filters.skin_effect.join(',')
-        if (filters.comedogenicity?.length) query.comedogenicity = filters.comedogenicity.join(',')
+        if (filters.shared_label?.length) query.shared_label = filters.shared_label.join(',')
         if (filters.sort !== undefined) query.sort = filters.sort
         if (filters.page) query.page = String(filters.page)
         if (filters.limit) query.limit = String(filters.limit)

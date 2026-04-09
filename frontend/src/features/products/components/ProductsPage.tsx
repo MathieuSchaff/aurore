@@ -12,7 +12,6 @@ import {
   emptyFilters,
   FilterDrawer,
   type FilterGroupConfig,
-  type FilterOption,
   type FilterValues,
   getFilterLabel,
 } from '@/component/Filter'
@@ -20,6 +19,7 @@ import { Toggle } from '@/component/Input/Toggle/Toggle'
 import { PageHeader } from '@/component/Layout/PageHeader/PageHeader'
 import { SearchCombobox } from '@/component/search/SearchCombobox'
 import { useListFilters } from '@/hooks/useListFilters'
+import { useTagFilterGroups } from '@/hooks/useTagFilterGroups'
 import { ProductIcon } from '../../../assets/product-icons'
 import { ingredientQueries } from '../../../lib/queries/ingredients'
 import { type ListProductsFilters, productQueries } from '../../../lib/queries/products'
@@ -30,7 +30,7 @@ import {
   type FilterKey,
   GROUP_LABELS,
   LABEL_OVERRIDES,
-  TAG_CATEGORY_TO_KEY,
+  TAG_FILTER_KEYS,
 } from '../filters'
 import { AddToCollectionModal } from './AddToCollectionModal/AddToCollectionModal'
 
@@ -79,20 +79,8 @@ export function ProductsPage() {
     priceCents?: number | null
   } | null>(null)
 
-  const {
-    brand,
-    routine_step,
-    skin_effect,
-    product_label,
-    shared_label,
-    skin_type,
-    skin_zone,
-    product_type,
-    concern,
-    ingredient,
-    page,
-    profile_filter,
-  } = routeApi.useSearch()
+  const search = routeApi.useSearch()
+  const { page, profile_filter } = search
   const navigate = useNavigate({ from: '/products/' })
 
   const user = useAuthStore((s) => s.user)
@@ -107,18 +95,9 @@ export function ProductsPage() {
       ? [...(dermoProfile.skinTypes ?? []), ...dermoProfile.skinConcerns]
       : []
 
-  const filters: FilterValues<FilterKey> = {
-    brand,
-    routine_step,
-    skin_effect,
-    product_label,
-    shared_label,
-    skin_type,
-    skin_zone,
-    product_type,
-    concern,
-    ingredient,
-  }
+  const filters: FilterValues<FilterKey> = Object.fromEntries(
+    FILTER_KEYS.map((k) => [k, search[k] ?? []])
+  ) as FilterValues<FilterKey>
 
   const { filterCount, activeTags, applyFilters, resetFilters, goToPage, toggleSingleFilter } =
     useListFilters({
@@ -142,16 +121,9 @@ export function ProductsPage() {
 
   const apiFilters: ListProductsFilters = hasFilters
     ? {
-        brand: brand.length > 0 ? brand : undefined,
-        concern: concern.length > 0 ? concern : undefined,
-        skin_type: skin_type.length > 0 ? skin_type : undefined,
-        skin_zone: skin_zone.length > 0 ? skin_zone : undefined,
-        product_type: product_type.length > 0 ? product_type : undefined,
-        skin_effect: skin_effect.length > 0 ? skin_effect : undefined,
-        product_label: product_label.length > 0 ? product_label : undefined,
-        shared_label: shared_label.length > 0 ? shared_label : undefined,
-        routine_step: routine_step.length > 0 ? routine_step : undefined,
-        ingredient: ingredient.length > 0 ? ingredient : undefined,
+        ...(Object.fromEntries(
+          FILTER_KEYS.map((k) => [k, filters[k].length > 0 ? filters[k] : undefined])
+        ) as Partial<ListProductsFilters>),
         avoid_for: avoidFor.length > 0 ? avoidFor : undefined,
         page,
         limit: 20,
@@ -168,95 +140,12 @@ export function ProductsPage() {
     staleTime: hasFilters ? 5 * 60 * 1000 : 0,
   })
 
+  const tagGroups = useTagFilterGroups(TAG_FILTER_KEYS, filterOptions?.tags, LABEL_OVERRIDES)
+
   const filterGroups = useMemo<FilterGroupConfig<FilterKey>[]>(() => {
     if (!filterOptions) return []
-
-    const tagsByKey = new Map<FilterKey, FilterOption[]>()
-    for (const [category, tagList] of Object.entries(filterOptions.tags)) {
-      const key = TAG_CATEGORY_TO_KEY[category]
-      if (!key) continue
-      tagsByKey.set(
-        key,
-        tagList.map((tag) => ({
-          value: tag.slug,
-          label: LABEL_OVERRIDES[tag.slug] ?? tag.name,
-        }))
-      )
-    }
-
-    const getOpts = (key: FilterKey): FilterOption[] => tagsByKey.get(key) ?? []
-
     return [
-      {
-        id: 'skin',
-        label: 'Ma peau',
-        defaultOpen: true,
-        tier: 'essential',
-        subFilters: [
-          {
-            key: 'skin_type',
-            label: 'Type de peau',
-            placeholder: 'Tous',
-            options: getOpts('skin_type'),
-          },
-          { key: 'skin_zone', label: 'Zone', placeholder: 'Toutes', options: getOpts('skin_zone') },
-        ],
-      },
-      {
-        id: 'objective',
-        label: 'Objectif',
-        defaultOpen: true,
-        tier: 'essential',
-        subFilters: [
-          { key: 'concern', label: 'Cibles', placeholder: 'Tous', options: getOpts('concern') },
-        ],
-      },
-      {
-        id: 'product',
-        label: 'Type de produit',
-        defaultOpen: false,
-        tier: 'advanced',
-        subFilters: [
-          {
-            key: 'product_type',
-            label: 'Type',
-            placeholder: 'Tous',
-            options: getOpts('product_type'),
-          },
-          {
-            key: 'routine_step',
-            label: 'Étape routine',
-            placeholder: 'Toutes',
-            options: getOpts('routine_step'),
-          },
-        ],
-      },
-      {
-        id: 'preferences',
-        label: 'Préférences',
-        defaultOpen: false,
-        tier: 'advanced',
-        subFilters: [
-          {
-            key: 'skin_effect',
-            label: 'Rendu sur peau',
-            placeholder: 'Tous',
-            options: getOpts('skin_effect'),
-          },
-          {
-            key: 'product_label',
-            label: 'Formulation & labels',
-            placeholder: 'Tous',
-            options: getOpts('product_label'),
-          },
-          {
-            key: 'shared_label',
-            label: 'Comédogénicité',
-            placeholder: 'Tous',
-            options: getOpts('shared_label'),
-          },
-        ],
-      },
+      ...(tagGroups as FilterGroupConfig<FilterKey>[]),
       {
         id: 'search',
         label: 'Recherche précise',
@@ -280,7 +169,7 @@ export function ProductsPage() {
         ],
       },
     ]
-  }, [filterOptions, allIngredients])
+  }, [filterOptions, allIngredients, tagGroups])
 
   const items = data?.items ?? []
   const total = data?.total ?? 0
