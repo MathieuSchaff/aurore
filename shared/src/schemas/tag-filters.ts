@@ -10,7 +10,7 @@
 // FR labels live here because the app is FR-only. If i18n lands later
 // we move labels to a locale file and keep tier/order here.
 
-import { TAG_TAXONOMY, type TagCategory, TAG_CATEGORIES } from './tag-taxonomy'
+import { TAG_CATEGORIES, TAG_TAXONOMY, type TagCategory } from './tag-taxonomy'
 
 export type FilterTier = 'essential' | 'advanced'
 
@@ -55,5 +55,5 @@ export function filterCategoriesFor(entity: 'ingredient' | 'product'): TagCatego
   )
 }
 
-export { TAG_CATEGORIES } from './tag-taxonomy'
 export type { TagCategory } from './tag-taxonomy'
+export { TAG_CATEGORIES } from './tag-taxonomy'
