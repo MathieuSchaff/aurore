@@ -196,6 +196,12 @@ export {
   type UpdatePurchaseInput,
   updatePurchaseSchema,
 } from './schemas/purchases'
+export {
+  type FilterTier,
+  filterCategoriesFor,
+  TAG_CATEGORY_META,
+  type TagCategoryMeta,
+} from './schemas/tag-filters'
 export { TAG_SLUGS, type TagSlug } from './schemas/tag-slugs'
 export {
   canTagEntity,
@@ -207,12 +213,6 @@ export {
   type TagMeta,
   type TagScope,
 } from './schemas/tag-taxonomy'
-export {
-  filterCategoriesFor,
-  TAG_CATEGORY_META,
-  type FilterTier,
-  type TagCategoryMeta,
-} from './schemas/tag-filters'
 export {
   type AddIngredientTagInput,
   type AddProductTagInput,

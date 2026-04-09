@@ -13,9 +13,10 @@ export const TAG_FILTER_KEYS = filterCategoriesFor('product') as readonly TagFil
 export const FILTER_KEYS = [...TAG_FILTER_KEYS, 'brand', 'ingredient'] as const
 
 export const GROUP_LABELS: Record<FilterKey, string> = {
-  ...(Object.fromEntries(
-    TAG_FILTER_KEYS.map((k) => [k, TAG_CATEGORY_META[k].label])
-  ) as Record<TagFilterKey, string>),
+  ...(Object.fromEntries(TAG_FILTER_KEYS.map((k) => [k, TAG_CATEGORY_META[k].label])) as Record<
+    TagFilterKey,
+    string
+  >),
   brand: 'Marque',
   ingredient: 'Ingr.',
 }

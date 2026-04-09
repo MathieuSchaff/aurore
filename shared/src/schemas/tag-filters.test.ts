@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
-import { TAG_CATEGORIES } from './tag-taxonomy'
 import { filterCategoriesFor, TAG_CATEGORY_META } from './tag-filters'
+import { TAG_CATEGORIES } from './tag-taxonomy'
 
 describe('TAG_CATEGORY_META', () => {
   it('has one entry per TagCategory', () => {

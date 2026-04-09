@@ -1,6 +1,6 @@
-import { useMemo } from 'react'
-
 import { TAG_CATEGORY_META, type TagCategory } from '@habit-tracker/shared'
+
+import { useMemo } from 'react'
 
 import type { FilterGroupConfig, FilterOption } from '@/component/Filter'
 
