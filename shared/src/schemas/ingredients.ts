@@ -79,21 +79,29 @@ export const ingredientChangesSchema = z
 const ingredientTagItemSchema = z.object({ name: z.string(), slug: z.string() })
 
 export const ingredientFilterOptionsSchema = z.object({
-  categories: z.array(z.string()),
   tags: z.object({
-    concern: z.array(ingredientTagItemSchema),
     skin_type: z.array(ingredientTagItemSchema),
+    concern: z.array(ingredientTagItemSchema),
+    // Rôle fonctionnel (ingredient_attribute). Flat list — le split
+    // Actions/Technique/Formulation était un découpage UI arbitraire, viré.
     attribute: z.array(ingredientTagItemSchema),
+    // Rendu sur peau — slugs scope='both' de skin_effect uniquement
+    // (occlusif, matifiant, repulpant, protection-cutanee).
+    skin_effect: z.array(ingredientTagItemSchema),
+    // Comédogénicité — bucket dédié (shared_label), pair orthogonal
+    // (comedogene / non-comedogene).
+    comedogenicity: z.array(ingredientTagItemSchema),
   }),
 })
 export type IngredientFilterOptions = z.infer<typeof ingredientFilterOptionsSchema>
 
 // coerce because query params always arrive as strings
 export const ingredientsSearchSchema = z.object({
-  category: z.string().optional(),
   concern: z.string().optional(),
   skin_type: z.string().optional(),
   attribute: z.string().optional(),
+  skin_effect: z.string().optional(),
+  comedogenicity: z.string().optional(),
   page: z.coerce.number().min(1).default(1),
   limit: z.coerce.number().min(1).max(100).default(20),
   sort: z.enum(['name', 'random']).optional(),

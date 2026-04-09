@@ -1,3 +1,4 @@
+import { INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
 import { INGREDIENT_SLUGS } from './ingredient-slugs'
 import type { IngredientInput } from './seed-ingredients'
 
@@ -5,7 +6,7 @@ export const ANTIOXYDANTS_VITAMINES: IngredientInput[] = [
   {
     name: 'Beet Root Extract (Beta Vulgaris Root Extract)',
     slug: INGREDIENT_SLUGS.BEET_ROOT_EXTRACT,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait de betterave riche en antioxydants et vitamines, hydrate, illumine et protège la peau.',
     content: `
@@ -39,7 +40,7 @@ Souvent utilisé pour couleur naturelle + antioxydants. Synergie avec vitamine C
   {
     name: 'Gardenia Fruit Extract (Gardenia Jasminoides Fruit Extract)',
     slug: INGREDIENT_SLUGS.GARDENIA_FRUIT_EXTRACT,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait de fruit aux propriétés antioxydantes et protectrices, illumine, apaise et protège contre la lumière bleue et le stress environnemental.',
     content: `
@@ -72,7 +73,7 @@ Effet melatonin-like pour protection nocturne. Synergie avec antioxydants comme 
   {
     name: 'Hibiscus Sabdariffa (Hibiscus Sabdariffa Flower Extract)',
     slug: INGREDIENT_SLUGS.HIBISCUS_SABDARIFFA,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Extrait floral riche en antioxydants et acides organiques, utilisé pour booster l'éclat, raffermir et protéger la peau contre le vieillissement oxydatif.",
     content: `
@@ -106,7 +107,7 @@ L'hibiscus sabdariffa excelle en synergie avec la vitamine C ou les niacinamides
   {
     name: 'Vitamine K1 (Phytonadione)',
     slug: INGREDIENT_SLUGS.VITAMIN_K1,
-    category: 'Vasculaire & Réparateur',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une vitamine essentielle pour la micro-circulation, reconnue pour atténuer les rougeurs diffuses et les cernes vasculaires.',
     content: `
@@ -136,7 +137,7 @@ La **Vitamine K1** est un actif liposoluble célèbre pour son action sur la coa
   {
     name: 'Acide Férulique',
     slug: INGREDIENT_SLUGS.FERULIC_ACID,
-    category: 'Antioxydant & Bouclier',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un antioxydant végétal puissant qui neutralise les radicaux libres et booste l’efficacité des vitamines C et E.',
     content: `
@@ -166,7 +167,7 @@ La **Vitamine K1** est un actif liposoluble célèbre pour son action sur la coa
   {
     name: 'Astaxanthine (Haematococcus Pluvialis)',
     slug: INGREDIENT_SLUGS.ASTAXANTHINE,
-    category: 'Antioxydant Surpuissant',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une micro-algue d’eau douce, source de l’astaxanthine, l’antioxydant le plus puissant de la nature, protégeant la peau contre le stress oxydatif et le vieillissement prématuré.',
     content: `
@@ -319,7 +320,7 @@ L'**Haematococcus Pluvialis** est une micro-algue capable de synthétiser l'asta
   {
     name: 'Grenade (Punica Granatum)',
     slug: INGREDIENT_SLUGS.PUNICA_GRANATUM,
-    category: 'Vitalité & Éclat',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un "super-fruit" riche en acide punicique et en polyphénols, offrant une action régénérante intense et un soutien précieux aux peaux matures.',
     content: `
@@ -349,7 +350,7 @@ Utilisée depuis l'Antiquité, la **Grenade** est un concentré de vitalité pou
   {
     name: 'Ergothionéine',
     slug: INGREDIENT_SLUGS.ERGOTHIONEINE,
-    category: 'antioxydant ultra-puissant',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Acide aminé rare d’origine fongique qui protège les mitochondries et prévient le vieillissement prématuré lié aux UV et à la pollution.',
     content: `
@@ -376,7 +377,7 @@ Ingrédient de prestige utilisé pour la protection urbaine et la longévité ce
   {
     name: 'Ginseng (Panax Ginseng)',
     slug: INGREDIENT_SLUGS.PANAX_GINSENG,
-    category: 'énergisant & régénérant',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Racine adaptogène légendaire qui booste la microcirculation, stimule la production de collagène et revitalise les peaux fatiguées.',
     content: `
@@ -403,7 +404,7 @@ C'est l'ingrédient phare des soins revitalisants et des cures "anti-fatigue". I
   {
     name: 'NAD (Nicotinamide Adénine Dinucléotide)',
     slug: INGREDIENT_SLUGS.NAD,
-    category: 'longévité cellulaire',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Coenzyme essentielle au métabolisme énergétique cellulaire, elle aide à réparer l’ADN et à ralentir le vieillissement biologique.',
     content: `
@@ -430,7 +431,7 @@ Actif de pointe en "Longevity Science", utilisé dans les formules premium pour 
   {
     name: 'Vitamine B12 (Cyanocobalamine)',
     slug: INGREDIENT_SLUGS.CYANOCOBALAMIN,
-    category: 'apaisant & anti-rougeurs',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Vitamine essentielle reconnaissable à sa couleur rose naturelle, elle apaise les inflammations chroniques comme l’eczéma ou la rosacée.',
     content: `
@@ -557,7 +558,7 @@ La vitamine B12 s'impose en 2026 comme l'actif "expert" pour les peaux fragiles 
   {
     name: 'Coenzyme Q10',
     slug: INGREDIENT_SLUGS.COQ10,
-    category: 'antioxydant & anti-âge',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Puissant antioxydant naturellement présent dans la peau qui protège contre le stress oxydatif et booste l’énergie cellulaire.',
     content: `
@@ -584,7 +585,7 @@ Idéal pour prévenir le vieillissement prématuré, revitaliser les teints tern
   {
     name: 'Ribose',
     slug: INGREDIENT_SLUGS.RIBOSE,
-    category: 'énergisant & anti-âge',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Sucre naturel (pentose) qui stimule la synthèse d’ATP pour redonner de l’énergie et de l’éclat aux cellules cutanées.',
     content: `
@@ -611,7 +612,7 @@ Particulièrement efficace dans les soins "anti-fatigue" pour restaurer une appa
   {
     name: 'Tocopheryl Acetate',
     slug: INGREDIENT_SLUGS.TOCOPHERYL_ACETATE,
-    category: 'antioxydant & protecteur',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Forme stabilisée de la vitamine E, utilisée pour protéger la peau du stress oxydatif et renforcer la barrière cutanée.',
     content: `
@@ -652,7 +653,7 @@ Il est particulièrement utile pour stabiliser les formules riches en acides gra
   {
     name: 'Resvératrol',
     slug: INGREDIENT_SLUGS.RESVERATROL,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Polyphénol antioxydant puissant issu notamment du raisin, aux propriétés anti-âge, anti-inflammatoires et photoprotectrices. Sirotuines-activateur avec un recul clinique croissant en cosmétique.',
     content: `
@@ -690,7 +691,7 @@ Il est particulièrement utile pour stabiliser les formules riches en acides gra
   {
     name: 'Pré-tocophéryl (Tocopheryl glucoside)',
     slug: INGREDIENT_SLUGS.TOCOPHERYL_GLUCOSIDE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Précurseur photostable de la Vitamine E offrant une protection antioxydante continue et prolongée contre le stress oxydatif.',
     content: `
@@ -723,7 +724,7 @@ Il est particulièrement utile pour stabiliser les formules riches en acides gra
   {
     name: 'Curcuma Longa Root Extract (Curcuma)',
     slug: INGREDIENT_SLUGS.CURCUMA_LONGA_ROOT_EXTRACT,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Puissant antioxydant et anti-inflammatoire naturel qui booste l'éclat du teint et protège la peau du stress oxydatif.",
     content: `
@@ -764,7 +765,7 @@ Il est particulièrement utile pour stabiliser les formules riches en acides gra
   {
     name: 'Ascophyllum Nodosum Extract (Algue Brune)',
     slug: INGREDIENT_SLUGS.ASCOPHYLLUM_NODOSUM_EXTRACT,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Algue précieuse aux vertus détoxifiantes et éclaircissantes, idéale pour drainer les poches et illuminer le regard.',
     content: `
@@ -805,7 +806,7 @@ Il est particulièrement utile pour stabiliser les formules riches en acides gra
   {
     name: 'Romarin (Rosmarinus officinalis)',
     slug: INGREDIENT_SLUGS.ROMARIN,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Actif antioxydant et purifiant puissant, idéal pour protéger la peau du stress oxydatif et réguler les peaux mixtes.',
     content: `
@@ -847,7 +848,7 @@ Il est particulièrement utile pour stabiliser les formules riches en acides gra
   {
     name: 'Extrait de Sauge Rouge (Salvia miltiorrhiza)',
     slug: INGREDIENT_SLUGS.SALVIA_MILTIORRHIZA,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       "L'actif d'élite de la pharmacopée asiatique : un régulateur de la microcirculation et un bouclier anti-inflammatoire pour les peaux sensibles et urbaines.",
     content: `# La Sauge Rouge (Danshen) : L'Or Pourpre de la Neuro-Cosmétique
@@ -898,7 +899,7 @@ Cet extrait est reconnu pour son excellente tolérance cutanée :
   {
     name: 'L-Carnosine (Beta-alanyl-L-histidine)',
     slug: INGREDIENT_SLUGS.CARNOSINE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Le bouclier anti-glycation par excellence : un dipeptide biomimétique protégeant le collagène du vieillissement prématuré et du stress oxydatif.',
     content: `# La Carnosine : Gardienne de l'Architecture Dermique
@@ -947,7 +948,7 @@ La carnosine brille par son profil de sécurité exceptionnel :
   {
     name: 'Hélichryse Italienne ou Immortelle (Helichrysum italicum (Roth) G. Don)',
     slug: INGREDIENT_SLUGS.HELICHRYSE_IMMORTELLE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       "L'actif botanique d'exception du maquis méditerranéen : une signature biochimique unique dominée par les italidiones et l'acétate de néryle, offrant une action anti-hématome sans équivalent, un soutien documenté de la microcirculation, une stimulation de la synthèse de céramides et d'acide hyaluronique endogène, et une protection anti-oxydante dermique de premier plan.",
     content: `# L'Hélichryse Italienne : L'Or Corse de la Régénération Vasculaire et Cutanée
@@ -1337,7 +1338,7 @@ La carnosine brille par son profil de sécurité exceptionnel :
   {
     name: 'Tocopherol (Vitamine E)',
     slug: INGREDIENT_SLUGS.TOCOPHEROL,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Vitamine E liposoluble naturelle, puissant antioxydant qui protège les lipides cutanés contre le stress oxydatif, renforce la barrière et apaise les peaux sensibles ou exposées aux agressions environnementales.',
     content: `
@@ -1382,7 +1383,7 @@ La carnosine brille par son profil de sécurité exceptionnel :
   {
     name: 'Schisandra sphenanthera',
     slug: INGREDIENT_SLUGS.SCHISANDRA,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Baie adaptogène riche en lignanes, utilisée pour réduire les rougeurs chroniques et protéger la peau du stress oxydatif.',
     content: `
@@ -1421,7 +1422,7 @@ La carnosine brille par son profil de sécurité exceptionnel :
   {
     name: 'Extrait de plancton',
     slug: INGREDIENT_SLUGS.PLANKTON_EXTRACT,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Actif d’origine marine riche en nutriments, utilisé pour ses propriétés apaisantes, régénérantes et protectrices.',
     content: `
@@ -1461,7 +1462,7 @@ La carnosine brille par son profil de sécurité exceptionnel :
   {
     name: 'Myrtille (Vaccinium myrtillus)',
     slug: INGREDIENT_SLUGS.VACCINIUM_MYRTILLUS,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait végétal riche en anthocyanes, utilisé pour protéger les micro-vaisseaux et lutter contre le stress oxydatif.',
     content: `
@@ -1500,7 +1501,7 @@ La carnosine brille par son profil de sécurité exceptionnel :
   {
     name: 'Argousier',
     slug: INGREDIENT_SLUGS.HUILE_ARGOUSIER,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait végétal riche en vitamines C et E, caroténoïdes et acides gras, utilisé pour ses propriétés antioxydantes et régénérantes.',
     content: `
@@ -1539,7 +1540,7 @@ La carnosine brille par son profil de sécurité exceptionnel :
   {
     name: 'Vitamine C',
     slug: INGREDIENT_SLUGS.VITAMIN_C,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description: 'Antioxydant puissant qui illumine et protège contre les radicaux libres.',
     content: `
      # Vitamine C
@@ -2191,7 +2192,7 @@ La carnosine brille par son profil de sécurité exceptionnel :
   {
     name: 'Ascorbyl Glucoside',
     slug: INGREDIENT_SLUGS.ASCORBYL_GLUCOSIDE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description: 'Dérivé stable et doux, libère lentement la vitamine C pour un éclat progressif.',
     content: `# Ascorbyl Glucoside
 
@@ -2206,7 +2207,7 @@ ASCORBYL GLUCOSIDE
   {
     name: 'Sodium Ascorbyl Phosphate (SAP)',
     slug: INGREDIENT_SLUGS.SODIUM_ASCORBYL_PHOSPHATE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description: 'Dérivé stable, anti-acné et brighten, très doux pour peaux sensibles.',
     content: `# Sodium Ascorbyl Phosphate
 
@@ -2221,7 +2222,7 @@ SODIUM ASCORBYL PHOSPHATE
   {
     name: 'Magnesium Ascorbyl Phosphate (MAP)',
     slug: INGREDIENT_SLUGS.MAGNESIUM_ASCORBYL_PHOSPHATE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description: 'Dérivé stable et hydratant, booste collagène et hydrate.',
     content: `# Magnesium Ascorbyl Phosphate
 
@@ -2236,7 +2237,7 @@ MAGNESIUM ASCORBYL PHOSPHATE
   {
     name: 'THD Ascorbate (Ascorbyl Tetraisopalmitate)',
     slug: INGREDIENT_SLUGS.THD_ASCORBATE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Dérivé liposoluble stable de vitamine C : pénétration profonde, éclat, réduction taches et anti-âge doux. Faible irritation, idéal peaux sèches/sensibles, mais antioxydant in vitro limité.',
     content: `
@@ -2442,7 +2443,7 @@ MAGNESIUM ASCORBYL PHOSPHATE
   {
     name: '3-O-Ethyl Ascorbic Acid',
     slug: INGREDIENT_SLUGS.THREE_O_ETHYL_ASCORBIC_ACID,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description: 'Dérivé éthylé ultra-stable, bonne pénétration et activité proche de la pure.',
     content: `# 3-O-Ethyl Ascorbic Acid
 
@@ -2457,7 +2458,7 @@ Dérivé liposoluble/hydrosoluble hybride, très stable, pénètre efficacement,
   {
     name: 'Ascorbyl Palmitate',
     slug: INGREDIENT_SLUGS.ASCORBYL_PALMITATE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description: 'Dérivé liposoluble basique, antioxydant dans les formules huileuses.',
     content: `# Ascorbyl Palmitate
 
@@ -2472,7 +2473,7 @@ ASCORBYL PALMITATE
   {
     name: 'Thé Vert',
     slug: INGREDIENT_SLUGS.GREEN_TEA,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Puissant antioxydant naturel riche en polyphénols, idéal pour apaiser, protéger et purifier la peau.',
     content: `
@@ -2527,5 +2528,59 @@ ASCORBYL PALMITATE
        **Conseil expert** : Pour un effet "coup de fouet" immédiat sur les yeux gonflés le matin, conservez votre sérum ou vos patchs au thé vert au réfrigérateur. Le froid combiné à la caféine naturelle du thé vert offre un drainage lymphatique express.
 
        `,
+  },
+  {
+    name: '3-O-Glyceryl Ascorbate',
+    slug: INGREDIENT_SLUGS.GLYCERYL_ASCORBATE,
+    category: INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Dérivé stable et hydrophile de la vitamine C, combinant les bénéfices antioxydants de l\'ascorbate avec les propriétés hydratantes du glycérol.',
+    content: `
+# 3-O-Glyceryl Ascorbate
+
+Le **3-O-Glyceryl Ascorbate** est un dérivé de vitamine C de nouvelle génération qui combine l'acide ascorbique (vitamine C) et le glycérol dans une molécule unique. Il est particulièrement apprécié pour sa stabilité et sa double action antioxydante + hydratante.
+
+## INCI
+**3-O-GLYCERYL ASCORBATE** (aussi noté Glyceryl Ascorbate)
+
+## Mécanisme d'action
+- Une fois absorbé, il se convertit en vitamine C active (acide ascorbique) dans la peau
+- Le fragment glycérol libéré contribue à l'hydratation cutanée
+- Très stable à l'oxydation comparé à la vitamine C pure (acide ascorbique)
+
+## Bienfaits
+- **Éclat et teint unifié** : Inhibe la tyrosinase, réduit les taches pigmentaires
+- **Anti-âge** : Stimule la synthèse de collagène
+- **Antioxydant** : Neutralise les radicaux libres et photodommages UV
+- **Hydratant** : Double action éclaircissante + hydratation via le glycérol
+- **Tolérance** : Mieux toléré que la vitamine C pure, adapté aux peaux sensibles
+
+## Utilisation
+- Utilisable matin et soir (plus stable que l'acide ascorbique pur au contact de l'air/lumière)
+- Compatible avec la plupart des actifs (contrairement à la vitamine C pure qui peut interagir avec la niacinamide à fort pH)
+- Concentrations cosmétiques typiques : 1-5%
+
+## Note
+Cette forme est parfois commercialisée sous des noms propriétaires. Elle représente une évolution logique des dérivés Vc "glycoside" (comme l'ascorbyl glucoside) avec l'avantage supplémentaire d'une composante hydratante.
+    `,
+  },
+  {
+    name: 'EGCG Glucoside (Epigallocatechin Gallatyl Glucoside)',
+    slug: INGREDIENT_SLUGS.EPIGALLOCATECHIN_GALLATYL_GLUCOSIDE,
+    category: INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Une forme stabilisée de l’EGCG, le polyphénol le plus actif du thé vert, offrant des propriétés antioxydantes et anti-inflammatoires exceptionnelles.',
+    content: `
+# EGCG Glucoside : La Puissance du Thé Vert Stabilisée
+L'**EGCG Glucoside** est une forme glycosylée de l'épigallocatéchine gallate (EGCG), l'actif majeur du thé vert. Cette modification chimique permet de stabiliser cette molécule très fragile tout en conservant son exceptionnelle puissance biologique.
+
+## ✨ Points Forts & Bénéfices
+* **Antioxydant Ultra-Puissant** : Protège la peau du stress oxydatif induit par les UV et la pollution.
+* **Anti-inflammatoire & Apaisant** : Calme les rougeurs et les micro-inflammations cutanées.
+* **Action sur le contour des yeux** : Très efficace pour réduire l'apparence des poches et des cernes.
+
+## 🛡️ Précautions & Sécurité
+* Excellente tolérance, convient à tous les types de peau, y compris les plus sensibles.
+`,
   },
 ]

@@ -1,4 +1,9 @@
 import slugify from '@sindresorhus/slugify'
+import {
+  PRODUCT_CATEGORIES,
+  PRODUCT_KINDS,
+  type ProductCategory,
+} from '@habit-tracker/shared'
 
 import { createProduct } from '../../features/products/service'
 import { addManyIngredientsToProduct } from '../../features/products/product-ingredients/product-ingredients.service'
@@ -14,42 +19,56 @@ import {
   INGREDIENT_TAG_MAP,
   NAME_KEYWORD_TAG_MAP,
 } from './otherdata/tag-associations'
+import { getProductKind, unitFromCategory } from './otherdata/product-associations'
 import { seedCore } from './seed-core'
-import { extractCapacity, parseCSV, seedBatch, unitFromCategory } from './utils'
+import { extractCapacity, parseCSV, seedBatch } from './utils'
 
 // ── INCI → Ingredient matching ────────────────────────────────────────────────
 
 // Builds a map from normalized INCI token → ingredient ID.
 // For a name like "Soufre (Sulfur)" we add keys: "soufre (sulfur)", "soufre", "sulfur".
 async function buildInciIndex(database: DB): Promise<Map<string, string>> {
-  const allIngredients = await database.select({ id: ingredients.id, name: ingredients.name }).from(ingredients)
+  const allIngredients = await database
+    .select({ id: ingredients.id, name: ingredients.name, slug: ingredients.slug })
+    .from(ingredients)
   const index = new Map<string, string>()
+
+  // First-writer wins — ingredient files are ordered so the canonical name is added first.
+  const add = (key: string, id: string) => {
+    const k = key.trim()
+    if (!k) return
+    if (!index.has(k)) index.set(k, id)
+  }
 
   for (const ing of allIngredients) {
     const full = ing.name.toLowerCase().trim()
-    index.set(full, ing.id)
+    add(full, ing.id)
 
-    // Extract content inside parens as an alternate key, e.g. "sulfur" from "Soufre (Sulfur)"
+    // "Soufre (Sulfur)" → also index "sulfur" and "soufre"
     const parenMatch = full.match(/\(([^)]+)\)/)
     if (parenMatch) {
-      const inner = parenMatch[1].trim()
-      index.set(inner, ing.id)
-      // Also add the part before the paren
-      const outer = full.replace(/\s*\([^)]+\)/, '').trim()
-      if (outer) index.set(outer, ing.id)
+      add(parenMatch[1], ing.id)
+      add(full.replace(/\s*\([^)]+\)/, ''), ing.id)
     }
+
+    // Slug variants: "azelaic-acid" → "azelaic acid"
+    const slug = ing.slug.toLowerCase()
+    add(slug, ing.id)
+    add(slug.replace(/-/g, ' '), ing.id)
   }
 
   return index
 }
 
-// Splits a CSV INCI string and returns ingredient IDs for matched entries.
+// Splits a CSV INCI string and returns ingredient IDs for matched entries (max 5).
 function matchInciIngredients(inciString: string, index: Map<string, string>): string[] {
   if (!inciString) return []
   const seen = new Set<string>()
   const matched: string[] = []
 
   for (const token of inciString.split(',')) {
+    if (matched.length >= 5) break
+
     // strip percentage annotations like "10%", "[1]" and extra whitespace
     const normalized = token.toLowerCase().trim().replace(/\s*\d+(\.\d+)?%.*$/, '').replace(/\[.*?\]/g, '').trim()
     if (!normalized) continue
@@ -64,16 +83,8 @@ function matchInciIngredients(inciString: string, index: Map<string, string>): s
   return matched
 }
 
-// ── Kind normalization ────────────────────────────────────────────────────────
-
-const CSV_KIND_MAP: Record<string, string> = {
-  Body: 'bodycare',
-  Hand: 'bodycare',
-}
-
-function normalizeKind(usageType: string): string {
-  return CSV_KIND_MAP[usageType] ?? 'skincare'
-}
+// CSV rows we cannot cleanly represent as a single product.
+const SKIPPED_CATEGORIES = new Set(['Sets & Kits'])
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -160,12 +171,15 @@ export async function seedSkincare(
   for (const row of dataRows) {
     const [_file, rawName, csvBrand, usageType, category, inci, , productUrl] = row
     if (!rawName || !csvBrand) continue
+    if (SKIPPED_CATEGORIES.has(category)) continue
 
     const { name, totalAmount, amountUnit } = extractCapacity(rawName, csvBrand)
     const unit = unitFromCategory(category)
     const targetSlug = slugify(`${csvBrand}-${name}`)
 
-    if (existingSlugs.has(targetSlug)) continue
+    if (!name || existingSlugs.has(targetSlug)) continue
+    // Avoid creating two rows that would collapse onto the same slug within the batch.
+    existingSlugs.add(targetSlug)
 
     productsToCreate.push({
       user,
@@ -196,12 +210,30 @@ export async function seedSkincare(
     productsToCreate,
     async (item) => {
       await db.transaction(async (tx) => {
+        const productKind = getProductKind(item.usageType, item.category)
+        
+        let productCategory: ProductCategory = PRODUCT_CATEGORIES.SKINCARE
+        if (
+          ['Body', 'Hand', 'Feet'].includes(item.usageType) ||
+          productKind === PRODUCT_KINDS.bodycare.HAND_CREAM ||
+          productKind === PRODUCT_KINDS.bodycare.FOOT_CREAM ||
+          productKind === PRODUCT_KINDS.bodycare.BODY_LOTION ||
+          productKind === PRODUCT_KINDS.bodycare.BODY_WASH ||
+          productKind === PRODUCT_KINDS.bodycare.BODY_SCRUB ||
+          productKind === PRODUCT_KINDS.bodycare.BODY_OIL ||
+          productKind === PRODUCT_KINDS.bodycare.DEODORANT
+        ) {
+          productCategory = PRODUCT_CATEGORIES.BODYCARE
+        } else if (productKind === PRODUCT_KINDS.solaire.SUNSCREEN) {
+          productCategory = PRODUCT_CATEGORIES.SOLAIRE
+        }
         const product = await createProduct(
           item.user.id,
           {
             name: item.name,
             brand: item.brand,
-            kind: normalizeKind(item.usageType),
+            category: productCategory,
+            kind: productKind,
             unit: item.unit,
             totalAmount: item.totalAmount ?? undefined,
             amountUnit: item.amountUnit ?? undefined,

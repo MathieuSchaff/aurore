@@ -2,9 +2,9 @@ import { TAG_SLUGS } from '../../tags/seed-tags'
 import { DERMACEUTIC_PRODUCTS_SLUG } from './dermaceutic'
 
 interface ProductTagGroups {
-  primary: string[] // Préoccupations majeures + actions clés
-  secondary: string[] // Type de produit, étapes routine, propriétés, labels
-  avoid: string[] // Exclusions (incompatibilités avec le produit)
+  primary: string[] 
+  secondary: string[] 
+  avoid: string[] 
 }
 
 export const DERMACEUTIC_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
@@ -15,7 +15,6 @@ export const DERMACEUTIC_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.EXFOLIATION,
       TAG_SLUGS.SOIR,
       TAG_SLUGS.PEAU_GRASSE,
-      TAG_SLUGS.KERATOLYTIQUE,
       TAG_SLUGS.ZONE_VISAGE,
     ],
     avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.GROSSESSE_COMPATIBLE],
@@ -44,7 +43,6 @@ export const DERMACEUTIC_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.SOIR,
       TAG_SLUGS.PEAU_TOUS_TYPES,
       TAG_SLUGS.VEGAN,
-      TAG_SLUGS.HUMECTANT,
     ],
     avoid: [],
   },
@@ -72,7 +70,6 @@ export const DERMACEUTIC_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.PEAU_GRASSE,
       TAG_SLUGS.SANS_PARFUM,
       TAG_SLUGS.VEGAN,
-      TAG_SLUGS.KERATOLYTIQUE,
     ],
     avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE],
   },
@@ -84,8 +81,6 @@ export const DERMACEUTIC_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.TRAITEMENT,
       TAG_SLUGS.SOIR,
       TAG_SLUGS.PEAU_GRASSE,
-      TAG_SLUGS.SEBO_REGULATEUR,
-      TAG_SLUGS.KERATOLYTIQUE,
     ],
     avoid: [TAG_SLUGS.PEAU_REACTIVE],
   },
@@ -97,7 +92,6 @@ export const DERMACEUTIC_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.TRAITEMENT,
       TAG_SLUGS.SOIR,
       TAG_SLUGS.ECLAT,
-      TAG_SLUGS.ANTI_OXYDANT,
       TAG_SLUGS.EXFOLIANT_CHIMIQUE,
     ],
     avoid: [TAG_SLUGS.PEAU_SENSIBLE],
@@ -155,8 +149,6 @@ export const DERMACEUTIC_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.SOIR,
       TAG_SLUGS.PEAU_TOUS_TYPES,
       TAG_SLUGS.SANS_PARFUM,
-      TAG_SLUGS.REPARATEUR,
-      TAG_SLUGS.ANTI_OXYDANT,
     ],
     avoid: [],
   },
@@ -183,8 +175,6 @@ export const DERMACEUTIC_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.CREME_SOLAIRE,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.PEAU_REACTIVE,
-      TAG_SLUGS.APAISANT,
-      TAG_SLUGS.REPARATEUR,
       TAG_SLUGS.HYPOALLERGENIQUE,
       TAG_SLUGS.SANS_PARFUM,
     ],
@@ -200,9 +190,7 @@ export const DERMACEUTIC_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.SOIR,
       TAG_SLUGS.PEAU_SECHE,
       TAG_SLUGS.PEAU_ATOPIQUE,
-      TAG_SLUGS.REPARATEUR,
       TAG_SLUGS.SANS_PARFUM,
-      TAG_SLUGS.APAISANT,
     ],
     avoid: [],
   },
@@ -214,7 +202,6 @@ export const DERMACEUTIC_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.TRAITEMENT,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.PEAU_TOUS_TYPES,
-      TAG_SLUGS.ANTI_OXYDANT,
       TAG_SLUGS.PHOTO_VIEILLISSEMENT,
       TAG_SLUGS.TEINT_TERNE,
     ],
@@ -230,7 +217,6 @@ export const DERMACEUTIC_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.PEAU_NORMALE,
       TAG_SLUGS.PEAU_MIXTE,
       TAG_SLUGS.REPULPANT,
-      TAG_SLUGS.ANTI_OXYDANT,
     ],
     avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE],
   },
@@ -258,7 +244,6 @@ export const DERMACEUTIC_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.SOIR,
       TAG_SLUGS.PEAU_TOUS_TYPES,
       TAG_SLUGS.SANS_PARFUM,
-      TAG_SLUGS.ANTI_OXYDANT,
     ],
     avoid: [],
   },
@@ -272,7 +257,6 @@ export const DERMACEUTIC_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.SOIR,
       TAG_SLUGS.PEAU_TOUS_TYPES,
       TAG_SLUGS.ECLAT,
-      TAG_SLUGS.HUMECTANT,
     ],
     avoid: [],
   },

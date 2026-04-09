@@ -81,11 +81,17 @@ export const filterOptionsSchema = z.object({
   brands: z.array(z.string()),
   tags: z.object({
     routine_step: z.array(tagItemSchema),
-    attribute: z.array(tagItemSchema),
     skin_type: z.array(tagItemSchema),
     skin_zone: z.array(tagItemSchema),
     product_type: z.array(tagItemSchema),
     concern: z.array(tagItemSchema),
+    // Attributs ex-'attribute' éclatés en 3 seaux distincts :
+    //   - skin_effect   : rendu sur peau (matifiant, occlusif, repulpant, …)
+    //   - product_label : labels de formulation (sans-parfum, vegan, …)
+    //   - shared_label  : labels molécule+produit (comedogene, non-comedogene)
+    skin_effect: z.array(tagItemSchema),
+    product_label: z.array(tagItemSchema),
+    shared_label: z.array(tagItemSchema),
   }),
 })
 
@@ -100,12 +106,14 @@ export const listProductsQuery = z.object({
   kind: z.string().optional(),
   brand: z.string().optional(),
   routine_step: z.string().optional(),
-  attribute: z.string().optional(),
   skin_type: z.string().optional(),
   concern: z.string().optional(),
   product_type: z.string().optional(),
   ingredient: z.string().optional(),
   skin_zone: z.string().optional(),
+  skin_effect: z.string().optional(),
+  product_label: z.string().optional(),
+  shared_label: z.string().optional(),
   avoid_for: z.string().optional(),
   page: z.coerce.number().int().min(1).default(1),
   limit: z.coerce.number().int().min(1).max(100).default(20),

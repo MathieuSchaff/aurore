@@ -1,11 +1,12 @@
 import { INGREDIENT_SLUGS } from './ingredient-slugs'
+import { INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
 import type { IngredientInput } from './seed-ingredients'
 
 export const BARRIERE_EMOLLIENTS_OCCLUSIFS: IngredientInput[] = [
   {
     name: 'Camelina Seed Oil (Camelina Sativa Seed Oil)',
     slug: INGREDIENT_SLUGS.CAMELINA_SEED_OIL,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Huile légère riche en oméga-3, antioxydante et réparatrice, parfaite pour peaux sèches, sensibles ou inflammées.',
     content: `
@@ -39,7 +40,7 @@ Texture sèche malgré richesse en oméga-3. Synergie avec squalane ou céramide
   {
     name: 'Rosehip Seed Oil (Rosa Canina Seed Oil)',
     slug: INGREDIENT_SLUGS.ROSEHIP_SEED_OIL,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "Huile de graines d'églantier régénérante, riche en acides gras essentiels et vitamines, idéale pour cicatriser, hydrater et lutter contre les signes de l'âge.",
     content: `
@@ -72,7 +73,7 @@ Non comédogène malgré sa richesse, elle pénètre vite. Excellente en synergi
   {
     name: "Huile d'Avocat (Persea Gratissima Oil)",
     slug: INGREDIENT_SLUGS.AVOCADO_OIL,
-    category: 'Barrière & Émollients',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Une huile végétale riche en acides gras insaturés et en vitamine E, très nourrissante et régénérante, idéale pour les peaux sèches et matures.',
     content: `
@@ -98,7 +99,7 @@ L'**huile d'avocat** est extraite de la chair du fruit *Persea gratissima*. C'es
   {
     name: 'Glycéryl Stéarate (Glyceryl Stearate)',
     slug: INGREDIENT_SLUGS.GLYCERYL_STEARATE,
-    category: 'Barrière & Émollients',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Un émulsifiant émollient naturel qui stabilise les formules crème et renforce le film hydrolipidique de la peau.',
     content: `
@@ -122,7 +123,7 @@ Le **Glyceryl Stearate** est un ester de glycérol et d'acide stéarique, nature
   {
     name: 'Alcool Cétéarylique (Cetearyl Alcohol)',
     slug: INGREDIENT_SLUGS.CETEARYL_ALCOHOL,
-    category: 'Barrière & Émollients',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "Un alcool gras émollient et épaississant qui nourrit et adoucit la peau sans l'assécher, souvent confondu à tort avec les alcools irritants.",
     content: `
@@ -146,7 +147,7 @@ Malgré son nom, le **Cetearyl Alcohol** n'a rien à voir avec l'alcool éthyliq
   {
     name: 'Triglycérides Caprylique/Caprique (Caprylic/Capric Triglyceride)',
     slug: INGREDIENT_SLUGS.CAPRYLIC_CAPRIC_TRIGLYCERIDE,
-    category: 'emollient',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Huile estérifiée issue de la noix de coco, offrant un toucher soyeux non gras et une excellente protection de la barrière cutanée.',
     content: `
@@ -174,7 +175,7 @@ Malgré son nom, le **Cetearyl Alcohol** n'a rien à voir avec l'alcool éthyliq
   {
     name: 'Huile de Colza (Canola Oil)',
     slug: INGREDIENT_SLUGS.HUILE_COLZA,
-    category: 'emollient',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Huile végétale riche en Oméga-3 et Vitamine E, idéale pour nourrir intensément et apaiser les peaux sèches à atopiques.',
     content: `
@@ -203,7 +204,7 @@ Malgré son nom, le **Cetearyl Alcohol** n'a rien à voir avec l'alcool éthyliq
   {
     name: 'Butylene Glycol',
     slug: INGREDIENT_SLUGS.BUTYLENE_GLYCOL,
-    category: 'Hydratation & Texture',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "Humectant synthétique multifonction, qui attire l'humidité et améliore la sensorialité des formules skincare sans alourdir.",
     content: `
@@ -231,7 +232,7 @@ Le **Butylene Glycol** (1,3-butanediol) est un alcool organique léger et non ir
   {
     name: 'Acide Oléique (Oméga-9)',
     slug: INGREDIENT_SLUGS.OLEIC_ACID,
-    category: 'Nutrition & Pénétration',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'L’acide gras le plus abondant de notre film hydrolipidique, essentiel pour la souplesse de la peau et l’absorption des actifs.',
     content: `
@@ -261,7 +262,7 @@ L'**Acide Oléique** est un acide gras mono-insaturé présent dans de nombreuse
   {
     name: 'Huile de Soja (Glycine Soja)',
     slug: INGREDIENT_SLUGS.HUILE_SOJA,
-    category: 'Émollient & Antioxydant',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Une huile fluide et pénétrante, riche en lécithine et vitamine E, qui assouplit la peau tout en la protégeant des radicaux libres.',
     content: `
@@ -291,7 +292,7 @@ L'huile de **Glycine Soja** est une source précieuse d'acides gras essentiels e
   {
     name: 'Beurre de Cacao (Theobroma Cacao)',
     slug: INGREDIENT_SLUGS.BEURRE_CACAO,
-    category: 'Nutrition & Réconfort',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Un beurre végétal généreux, riche en polyphénols antioxydants, offrant une protection barrière exceptionnelle et un parfum naturellement gourmand.',
     content: `
@@ -321,7 +322,7 @@ Extrait des fèves de cacao, le **Theobroma Cacao Butter** est l'un des émollie
   {
     name: 'Acide Linoléique (Oméga-6)',
     slug: INGREDIENT_SLUGS.LINOLEIC_ACID,
-    category: 'Nutrition & Anti-Imperfections',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Un acide gras essentiel que le corps ne sait pas produire, crucial pour la fluidité du sébum et la santé de la barrière protectrice.',
     content: `
@@ -671,7 +672,7 @@ D’autres points de débat :
   {
     name: 'Ceramide NG',
     slug: INGREDIENT_SLUGS.CERAMIDE_NG,
-    category: 'Barrière & Protection',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Un lipide intercellulaire essentiel (anciennement Céramide 2) qui renforce le ciment de la peau pour empêcher la déshydratation et l’intrusion d’irritants.',
     content: `
@@ -701,7 +702,7 @@ Le **Ceramide NG** est l'un des piliers du "ciment" de notre barrière cutanée.
   {
     name: 'Safflower Seed Oil',
     slug: INGREDIENT_SLUGS.HUILE_CARTHAME,
-    category: 'anti-rougeurs & relipidant',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'L’huile la plus riche en acide linoléique, idéale pour apaiser les peaux réactives et traiter les rougeurs grâce à ses propriétés vasoconstrictrices.',
     content: `
@@ -723,7 +724,7 @@ Le **Ceramide NG** est l'un des piliers du "ciment" de notre barrière cutanée.
   {
     name: 'Camellia Japonica Seed Oil',
     slug: INGREDIENT_SLUGS.CAMELLIA_JAPONICA_OIL,
-    category: 'nourrissant & protecteur',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Une huile précieuse utilisée par les Japonaises depuis des siècles pour ses vertus antioxydantes, nourrissantes et sa texture ultra-fine.',
     content: `
@@ -745,7 +746,7 @@ Le **Ceramide NG** est l'un des piliers du "ciment" de notre barrière cutanée.
   {
     name: 'Cire d’Abeille',
     slug: INGREDIENT_SLUGS.CIRE_ABEILLE,
-    category: 'agent de texture & barrière',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Un ingrédient naturel protecteur qui forme un film non-occlusif à la surface de la peau pour prévenir le dessèchement.',
     content: `
@@ -767,7 +768,7 @@ Le **Ceramide NG** est l'un des piliers du "ciment" de notre barrière cutanée.
   {
     name: 'Prunus Armeniaca Kernel Oil',
     slug: INGREDIENT_SLUGS.APRICOT_KERNEL_OIL,
-    category: 'assouplissant & illuminateur',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Une huile illuminatrice qui redonne du peps aux peaux ternes tout en renforçant le film hydrolipidique.',
     content: `
@@ -789,7 +790,7 @@ Le **Ceramide NG** est l'un des piliers du "ciment" de notre barrière cutanée.
   {
     name: 'Huile de coco (Coconut Oil)',
     slug: INGREDIENT_SLUGS.HUILE_DE_COCO,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Huile végétale occlusive riche en acides gras saturés (laurique principalement), aux propriétés hydratantes et antimicrobiennes — mais controversée en raison de son potentiel comédogène élevé.',
     content: `
@@ -828,7 +829,7 @@ Le **Ceramide NG** est l'un des piliers du "ciment" de notre barrière cutanée.
   {
     name: 'Huile d’Onagre (Oenothera biennis oil)',
     slug: INGREDIENT_SLUGS.HUILE_ONAGRE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "Huile végétale précieuse, source exceptionnelle d'oméga-6, qui restaure la barrière lipidique et apaise les peaux sèches et atopiques.",
     content: `
@@ -862,7 +863,7 @@ Le **Ceramide NG** est l'un des piliers du "ciment" de notre barrière cutanée.
   {
     name: 'Ricinus Communis Seed Oil (Huile de Ricin)',
     slug: INGREDIENT_SLUGS.HUILE_DE_RICIN,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Huile végétale dense et protectrice, reconnue pour ses propriétés fortifiantes, adoucissantes et purifiantes.',
     content: `
@@ -903,7 +904,7 @@ Le **Ceramide NG** est l'un des piliers du "ciment" de notre barrière cutanée.
   {
     name: "Prunus Amygdalus Dulcis Oil (Huile d'Amande Douce)",
     slug: INGREDIENT_SLUGS.PRUNUS_AMYGDALUS_DULCIS_OIL,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Huile onctueuse et apaisante, idéale pour nourrir les peaux fragiles et prévenir les vergetures.',
     content: `
@@ -945,7 +946,7 @@ Le **Ceramide NG** est l'un des piliers du "ciment" de notre barrière cutanée.
   {
     name: 'Palmitamide MEA (N-palmitoyl monoéthanolamine)',
     slug: INGREDIENT_SLUGS.PALMITAMIDE_MEA,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Lipoaminoacide biomimétique apaisant, renforce la barrière et réduit l’inconfort cutané.',
     content: `
@@ -988,7 +989,7 @@ Le **Ceramide NG** est l'un des piliers du "ciment" de notre barrière cutanée.
   {
     name: 'Bourrache (Borago officinalis)',
     slug: INGREDIENT_SLUGS.BOURRACHE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "Actif relipidant et régénérant d'exception, indispensable pour restaurer la barrière cutanée des peaux sèches à atopiques.",
     content: `
@@ -1029,7 +1030,7 @@ L'huile de Bourrache est particulièrement sensible à l'oxydation ; elle néces
   {
     name: 'Huile de Pépins de Raisin (Vitis vinifera) – Upcyclée',
     slug: INGREDIENT_SLUGS.HUILE_DE_PEPINS_DE_RAISIN,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "L'huile upcyclée antioxydante et régénérante issue des sous-produits viticoles, pour protéger, hydrater et lutter contre le vieillissement des peaux mixtes, grasses et sensibles.",
     content: `
@@ -1073,7 +1074,7 @@ L'huile de Bourrache est particulièrement sensible à l'oxydation ; elle néces
   {
     name: 'Huile de Pépins de Figue de Barbarie (Opuntia ficus-indica)',
     slug: INGREDIENT_SLUGS.HUILE_DE_PEPINS_DE_FIGUE_DE_BARBARIE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "L'huile anti-âge la plus puissante et rare, ultra-concentrée en vitamine E et acides gras essentiels, pour régénérer, raffermir et protéger les peaux matures, sèches et sensibles.",
     content: `
@@ -1117,7 +1118,7 @@ L'huile de Bourrache est particulièrement sensible à l'oxydation ; elle néces
   {
     name: 'Huile de Jojoba (Simmondsia chinensis)',
     slug: INGREDIENT_SLUGS.HUILE_DE_JOJOBA,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "L'huile-cire mimétique du sébum humain, régulatrice, hydratante et apaisante, parfaite pour équilibrer, réparer et protéger tous les types de peaux, y compris sensibles et atopiques.",
     content: `
@@ -1160,7 +1161,7 @@ L'huile de Bourrache est particulièrement sensible à l'oxydation ; elle néces
   {
     name: 'Huile d’Argan (Argania spinosa)',
     slug: INGREDIENT_SLUGS.HUILE_D_ARGAN,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'L’huile nourrissante, réparatrice et antioxydante par excellence, issue de l’arganier marocain, pour hydrater, apaiser et protéger les peaux sèches, sensibles et matures.',
     content: `
@@ -1203,7 +1204,7 @@ L'huile de Bourrache est particulièrement sensible à l'oxydation ; elle néces
   {
     name: 'Tournesol (Helianthus annuus L.)',
     slug: INGREDIENT_SLUGS.HUILE_GRAINES_TOURNESOL,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "Le pilier de la barrière cutanée : une source exceptionnelle d'acide linoléique (Omega-6) pour restaurer, nourrir et protéger l'homéostasie des peaux sèches à atopiques. Variante hybride high-oleic disponible pour une stabilité oxydative supérieure et une conservation prolongée des formules.",
     content: `# L'Helianthus Annuus : L'Or Jaune de la Restructuration Lipidique
@@ -1318,7 +1319,7 @@ L'huile de Bourrache est particulièrement sensible à l'oxydation ; elle néces
   {
     name: 'Diméthicone (Polydiméthylsiloxane)',
     slug: INGREDIENT_SLUGS.DIMETHICONE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Le bouclier protecteur haute performance : un polymère de silicone inerte offrant un fini soyeux inégalé et une protection barrière contre les agressions extérieures.',
     content: `# Le Diméthicone : L'Expert du Conditionnement et de la Protection Cutanée
@@ -1365,7 +1366,7 @@ Le Diméthicone est considéré comme l'un des ingrédients les plus sûrs au mo
   {
     name: 'Polyisobutène Hydrogéné (Hydrogenated Polyisobutene)',
     slug: INGREDIENT_SLUGS.HYDROGENATED_POLYISOBUTENE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "L'émollient de haute pureté au fini brillant : une alternative synthétique au squalane offrant une protection barrière supérieure et un toucher soyeux.",
     content: `# Le Polyisobutène Hydrogéné : L'Émollient Sublimateur de Barrière
@@ -1412,7 +1413,7 @@ Le Polyisobutène Hydrogéné est l'un des émollients les plus sûrs du répert
   {
     name: 'Tribehenin (Glyceryl Tribehenate)',
     slug: INGREDIENT_SLUGS.TRIBEHENIN,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "L'expert de la structuration lipidique : un triglycéride à longue chaîne qui scelle l'hydratation et apporte une onctuosité sophistiquée aux formules barrières.",
     content: `# La Tribehenin : L'Agent de Cohésion et de Protection Cutanée
@@ -1458,7 +1459,7 @@ La Tribehenin n'est pas qu'un simple "épaississant", elle participe activement 
   {
     name: 'Glyceryl Dibehenate',
     slug: INGREDIENT_SLUGS.GLYCERYL_DIBEHENATE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "L'architecte de la texture et du confort : un ester de glycérol haute performance qui structure les formules et offre un fini velouté longue durée.",
     content: `# Le Glyceryl Dibehenate : L'Agent de Texture aux Vertus Émollientes
@@ -1505,7 +1506,7 @@ Cet ingrédient est reconnu pour son innocuité totale :
   {
     name: 'Dicaprylyl Ether',
     slug: INGREDIENT_SLUGS.DICAPRYLYL_ETHER,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "L'alternative végétale aux silicones : un émolllient au toucher 'dry-touch' exceptionnel qui sublime la sensorialité sans alourdir la formule.",
     content: `# Le Dicaprylyl Ether : L'Élégance Sensorielle Haute Performance
@@ -1552,7 +1553,7 @@ Le Dicaprylyl Ether présente un profil d'innocuité exemplaire :
   {
     name: 'Squalane (Squalane)',
     slug: INGREDIENT_SLUGS.SQUALANE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "Émollient biomimétique d'exception qui restaure le film hydrolipidique, adoucit la peau et prévient la déshydratation sans fini gras.",
     content: `
@@ -1591,7 +1592,7 @@ Le Dicaprylyl Ether présente un profil d'innocuité exemplaire :
   {
     name: 'Beurre de Karité (Butyrospermum parkii)',
     slug: INGREDIENT_SLUGS.SHEA_BUTTER,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Actif relipidant et apaisant universel, riche en vitamines et acides gras, idéal pour nourrir et protéger les peaux les plus sèches.',
     content: `
@@ -1631,7 +1632,7 @@ Le Dicaprylyl Ether présente un profil d'innocuité exemplaire :
   {
     name: 'Cholestérol (Cholesterol)',
     slug: INGREDIENT_SLUGS.CHOLESTEROL,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Lipide biomimétique fondamental qui rétablit la cohésion de la barrière cutanée et optimise la souplesse des peaux matures et sèches.',
     content: `
@@ -1670,7 +1671,7 @@ Le Dicaprylyl Ether présente un profil d'innocuité exemplaire :
   {
     name: 'Glycosphingolipides (Glycosphingolipids)',
     slug: INGREDIENT_SLUGS.GLYCOSPHINGOLIPIDS,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "Lipides biomimétiques essentiels qui restaurent la barrière cutanée, améliorent l'hydratation profonde et renforcent la résilience des peaux sensibles.",
     content: `
@@ -1710,7 +1711,7 @@ Le Dicaprylyl Ether présente un profil d'innocuité exemplaire :
   {
     name: 'Phytosphingosine',
     slug: INGREDIENT_SLUGS.PHYTOSPHINGOSINE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Lipide sphingoid naturel et skin-identical, précurseur des céramides, renforçant la barrière cutanée, antimicrobien, anti-inflammatoire et apaisant pour peaux sensibles, atopiques ou acnéiques.',
     content: `
@@ -1755,7 +1756,7 @@ Le Dicaprylyl Ether présente un profil d'innocuité exemplaire :
   {
     name: 'Céramide NP',
     slug: INGREDIENT_SLUGS.CERAMIDE_NP,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description: 'Lipide clé de la barrière cutanée (anciennement Céramide 3).',
     content: `# Céramide NP
 
@@ -1767,7 +1768,7 @@ CERAMIDE NP`,
   {
     name: 'Céramide NS',
     slug: INGREDIENT_SLUGS.CERAMIDE_NS,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description: 'Céramide non-hydroxylé. Composant majeur des lipides intercellulaires.',
     content: `# Céramide NS
 
@@ -1779,7 +1780,7 @@ CERAMIDE NS`,
   {
     name: 'Céramide EOP',
     slug: INGREDIENT_SLUGS.CERAMIDE_EOP,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description: "Céramide à longue chaîne. Ancre les lamelles lipidiques à l'enveloppe cornée.",
     content: `# Céramide EOP
 
@@ -1791,7 +1792,7 @@ CERAMIDE EOP`,
   {
     name: 'Céramide AP',
     slug: INGREDIENT_SLUGS.CERAMIDE_AP,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description: 'Céramide alpha-hydroxylé. Renforce la cohésion de la barrière cutanée.',
     content: `# Céramide AP
 
@@ -1803,7 +1804,7 @@ CERAMIDE AP`,
   {
     name: 'Suif de bœuf (Beef Tallow)',
     slug: INGREDIENT_SLUGS.BEEF_TALLOW,
-    category: 'émollient',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Graisse animale rendue, émollient et occlusif efficace pour les peaux très sèches. Comparable au karité en comportement. Les allégations marketing (similitude au sébum, richesse vitaminique) sont largement exagérées et peu étayées scientifiquement.',
     content: `## Origine
@@ -1880,7 +1881,7 @@ CERAMIDE AP`,
   {
     name: 'Céramides',
     slug: INGREDIENT_SLUGS.CERAMIDES,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "Lipides naturels qui constituent 30 à 40% du poids de la couche cornée et forment le ciment de la barrière cutanée. Retiennent l'hydratation, protègent des agressions et améliorent la pénétration des actifs.",
     content: `## Rôle dans la peau
@@ -2015,7 +2016,7 @@ CERAMIDE AP`,
   {
     name: 'Evening Primrose Oil (Oenothera Biennis Oil)',
     slug: INGREDIENT_SLUGS.EVENING_PRIMROSE_OIL,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Huile d’onagre riche en acides gras essentiels (oméga-6), idéale pour nourrir les peaux sèches et apaiser les inflammations.',
     content: `
@@ -2026,5 +2027,86 @@ L'**Huile d'Onagre** est l'une des sources les plus riches en acide gamma-linol�
 * **Restauration Barrière** : Compense les carences en lipides essentiels de la peau.
 * **Apaisement** : Aide à calmer les rougeurs et l'inconfort cutané.
     `,
+  },
+  {
+    name: 'Hemp Oil (Cannabis Sativa Seed Oil)',
+    slug: INGREDIENT_SLUGS.HEMP_OIL,
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    description:
+      'Huile de chanvre riche en oméga-3 et oméga-6 (ratio idéal 1:3), apaisante et réparatrice, adaptée aux peaux sèches, sensibles et atopiques.',
+    content: `
+# Huile de Chanvre (Cannabis Sativa Seed Oil)
+
+L'**Huile de Chanvre** est extraite des graines de cannabis (sans THC ni CBD dans l'huile végétale pressée à froid). Elle est reconnue pour son profil lipidique exceptionnel et ses propriétés apaisantes.
+
+## INCI
+**CANNABIS SATIVA SEED OIL**
+
+## Composition
+- **Acide linoléique (oméga-6)** : ~55% — anti-inflammatoire, renforce la barrière
+- **Acide alpha-linolénique (oméga-3)** : ~15-20% — répare, apaise
+- **Acide gamma-linolénique (GLA)** : trace — anti-inflammatoire
+- Ratio oméga-6/oméga-3 proche de 3:1, considéré optimal pour la peau
+
+## Bienfaits
+- **Réparation de la barrière cutanée** : Compensations en lipides essentiels manquants
+- **Apaisement** : Réduit les inflammations et démangeaisons
+- **Hydratation** : Texture sèche et légère, non comédogène
+- **Anti-eczéma** : Études positives sur les peaux atopiques
+
+## Utilisation
+- Cible : Peaux sèches, sensibles, atopiques, eczémateuses
+- Peut être appliquée pure ou en mélange dans des soins corps ou visage
+- Texture légère et sèche, absorb bien sans effet gras
+
+## Note
+À ne pas confondre avec l'huile de CBD (extrait des fleurs) — l'huile de chanvre pure est l'huile extraite des graines et ne contient pas de cannabinoïdes actifs.
+    `,
+  },
+  {
+    name: 'Huile de Coton (Gossypium Herbaceum Seed Oil)',
+    slug: INGREDIENT_SLUGS.HUILE_COTON,
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    description:
+      'Une huile végétale douce et riche en acides gras essentiels, particulièrement appréciée pour son action relipidante et adoucissante sur les peaux fragiles.',
+    content: `
+# Huile de Coton : La Douceur Relipidante
+L'**Huile de Coton** est extraite des graines de la plante de coton (*Gossypium herbaceum*). En dermo-cosmétique, elle est reconnue pour sa richesse en acide linoléique (Oméga-6) et en vitamine E, ce qui en fait un excellent agent restructurant pour la barrière cutanée.
+
+## ✨ Points Forts & Bénéfices
+* **Action Relipidante** : Aide à restaurer le film hydrolipidique des peaux sèches et atopiques.
+* **Douceur Extrême** : Apporte un toucher soyeux et velouté aux formules nettoyantes et aux soins corporels.
+* **Apaisante** : Calme les sensations d'inconfort et de tiraillement.
+
+## ⚖️ Transparence Scientifique & Limites
+* **Sensibilité à l'Oxydation** : Comme beaucoup d'huiles riches en oméga-6, elle doit être stabilisée avec des antioxydants pour éviter le rancissement.
+* **Usage** : Très utilisée dans les huiles lavantes (ex: SVR Topialyse) pour compenser l'effet desséchant du nettoyage.
+
+## 🛡️ Précautions & Sécurité
+* Excellente tolérance cutanée, adaptée aux nourrissons et aux peaux atopiques.
+`,
+  },
+  {
+    name: 'Ethylhexyl Palmitate',
+    slug: INGREDIENT_SLUGS.ETHYLHEXYL_PALMITATE,
+    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    description:
+      'Un ester émollient polyvalent offrant une texture soyeuse et une excellente capacité d’étalement, souvent utilisé comme alternative aux silicones.',
+    content: `
+# Ethylhexyl Palmitate : L'Agent de Texture Soyeux
+L'**Ethylhexyl Palmitate** est un ester d'alcool éthylhexylique et d'acide palmitique. C'est un ingrédient multifonction très utilisé en cosmétique pour améliorer la sensorialité des produits et faciliter l'application.
+
+## ✨ Points Forts & Bénéfices
+* **Texture "Silicon-like"** : Offre un fini lisse et soyeux sans le côté gras des huiles végétales pures.
+* **Solvant d'Actifs** : Aide à solubiliser les filtres solaires et les pigments dans les formules de maquillage.
+* **Émollient efficace** : Adoucit la surface de la peau et limite la déshydratation superficielle.
+
+## ⚖️ Transparence Scientifique & Limites
+* **Comédogénicité** : Son indice comédogène est souvent cité comme modéré (2-4). Les peaux très sujettes à l'acné doivent être attentives à sa concentration dans les produits visage non rincés.
+* **Origine** : Peut être synthétique ou dérivé de l'huile de palme.
+
+## 🛡️ Précautions & Sécurité
+* Très sûr en usage cosmétique classique. Large spectre d'utilisation des soins bébé au maquillage professionnel.
+`,
   },
 ]

@@ -7,9 +7,11 @@ import {
   createTag,
 } from '../../features/tags/tags.service'
 import { db } from '..'
+import { ingredientDermoProfiles } from '../schema'
 import { getOrCreateSeedUser } from './create-user'
 import { ingredientTagMap } from './IngredientsTags/seed-ingredients-tags'
 import { ingredientData } from './ingredients/ingredient-data'
+import { FILLER_SLUGS } from './ingredients/seed-dermo-profiles-fillers'
 import { printValidationReport, validateAllIngredients } from './markdown-validator'
 import { allProductData } from './products'
 import { allIngredientProductTags } from './products/ingredients-products-tags'
@@ -122,6 +124,31 @@ export async function seedCore(shouldClean = true) {
   const validProductIngredients = allIngredientProductTags.filter((i) => !!i.ingredientSlug)
 
   const ingredientTagPairs = flattenTagGroups(ingredientTagMap as Record<string, ProductTagGroups>)
+
+  // Backfill: every ingredient with a native `category` matching an
+  // ingredient_attribute slug (actif, humectant, emollient, filtre-uv,
+  // tensioactif, excipient…) gets a synthetic 'primary' tag pair if the
+  // manual map doesn't already list it. This way the attribute filter
+  // bucket stays in sync with the native column without hand-editing
+  // hundreds of entries. The shared-schemas-vs-tags test guarantees
+  // INGREDIENT_CATEGORY_VALUES ↔ ingredient_attribute tag slugs.
+  const existing = new Set(
+    ingredientTagPairs.map((p) => `${p.slug}::${p.tagSlug}`)
+  )
+  let backfilled = 0
+  for (const ing of correctedIngredientData) {
+    const category = ing.category
+    if (!category) continue
+    const key = `${ing.slug}::${category}`
+    if (existing.has(key)) continue
+    ingredientTagPairs.push({ slug: ing.slug, tagSlug: category, relevance: 'primary' })
+    existing.add(key)
+    backfilled++
+  }
+  if (backfilled > 0) {
+    console.log(`🔁 Backfill: +${backfilled} ingredient_attribute tags depuis la colonne native`)
+  }
+
   validateNoDuplicates(ingredientTagPairs, 'ingredientTags')
 
   // All inserts are atomic: if anything fails mid-way the DB rolls back cleanly
@@ -212,6 +239,31 @@ export async function seedCore(shouldClean = true) {
         addTagToIngredient(tx, ingredientSlugToId.get(slug)!, tagSlugToId.get(tagSlug)!, relevance),
       ({ slug, tagSlug }) => `${slug} ↔ ${tagSlug}`
     )
+
+    // 4. Dermo profiles — mark all fillers
+    console.log('\n🧪 Seed des profils dermo fillers...')
+    const fillerProfiles = FILLER_SLUGS.flatMap((slug) => {
+      const id = ingredientSlugToId.get(slug)
+      if (!id) return []
+      return [{ ingredientId: id, isFiller: true }]
+    })
+
+    if (fillerProfiles.length > 0) {
+      await tx
+        .insert(ingredientDermoProfiles)
+        .values(fillerProfiles)
+        .onConflictDoUpdate({
+          target: ingredientDermoProfiles.ingredientId,
+          set: { isFiller: true },
+        })
+      console.log(`✅ ${fillerProfiles.length} profils dermo fillers insérés`)
+    }
+
+    const missingFillers = FILLER_SLUGS.filter((s) => !ingredientSlugToId.has(s))
+    if (missingFillers.length > 0) {
+      console.warn(`⚠️  ${missingFillers.length} slugs fillers non trouvés en DB :`)
+      missingFillers.forEach((s) => console.warn(`   - ${s}`))
+    }
   })
 
   console.log('\n✨ Seed CORE terminé avec succès !\n')

@@ -2,18 +2,16 @@ import { TAG_SLUGS } from '../../tags/seed-tags'
 import { SKIN1004_PRODUCT_SLUGS } from './skin1004'
 
 interface ProductTagGroups {
-  primary: string[] // Tags principaux (Actions, Problématiques)
-  secondary: string[] // Tags secondaires (Type de peau, Format, Propriétés)
-  avoid: string[] // Tags à éviter/exclure
+  primary: string[] 
+  secondary: string[] 
+  avoid: string[] 
 }
 
 export const SKIN1004_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
-  // ── Madagascar Centella Probio-Cica Enrich Cream : Occlusion riche + probiotiques
+  
   [SKIN1004_PRODUCT_SLUGS.SKIN1004_MADAGASCAR_CENTELLA_PROBIO_CICA]: {
     primary: [
       TAG_SLUGS.BARRIERE_CUTANEE,
-      TAG_SLUGS.REPARATEUR,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.DESHYDRATATION,
     ],
     secondary: [
@@ -27,18 +25,15 @@ export const SKIN1004_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.SOIR,
       TAG_SLUGS.TEXTURE_RICHE,
       TAG_SLUGS.SANS_PARFUM,
-      TAG_SLUGS.PREBIOTIQUE,
-      TAG_SLUGS.HUMECTANT,
-      TAG_SLUGS.BIOMIMETIQUE,
     ],
     avoid: [
-      TAG_SLUGS.PEAU_GRASSE, // Texture trop riche
+      TAG_SLUGS.PEAU_GRASSE,
     ],
   },
 
-  // ── Madagascar Centella Soothing Cream : Gel-crème léger apaisant
+  
   [SKIN1004_PRODUCT_SLUGS.SKIN1004_MADAGASCAR_CENTELLA_SOOTHING_CREAM]: {
-    primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE],
+    primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.BARRIERE_CUTANEE],
     secondary: [
       TAG_SLUGS.PEAU_SENSIBLE,
       TAG_SLUGS.PEAU_REACTIVE,
@@ -50,23 +45,20 @@ export const SKIN1004_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.SANS_PARFUM,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
-      TAG_SLUGS.HUMECTANT,
       TAG_SLUGS.EMOLLIENCE,
     ],
     avoid: [],
   },
 
-  // ── Tea-Trica Relief Ampoule Mini : Anti-acné + antiseptique
+  
   [SKIN1004_PRODUCT_SLUGS.SKIN1004_TEA_TRICA_RELIEF_MINI]: {
-    primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ANTISEPTIQUE, TAG_SLUGS.ANTI_ROUGEURS],
+    primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ANTI_ROUGEURS],
     secondary: [
       TAG_SLUGS.AMPOULE,
       TAG_SLUGS.PEAU_SENSIBLE,
       TAG_SLUGS.PEAU_REACTIVE,
       TAG_SLUGS.SERUM,
       TAG_SLUGS.SANS_PARFUM,
-      TAG_SLUGS.HUMECTANT,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.TEXTURE_LEGERE,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
@@ -75,16 +67,15 @@ export const SKIN1004_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
     avoid: [],
   },
 
-  // ── Madagascar Centella Asiatica 100 Ampoule : Minimaliste ultra-apaisant
+  
   [SKIN1004_PRODUCT_SLUGS.SKIN1004_MADAGASCAR_CENTELLA_100]: {
-    primary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.APAISANT],
+    primary: [TAG_SLUGS.BARRIERE_CUTANEE],
     secondary: [
       TAG_SLUGS.AMPOULE,
       TAG_SLUGS.SERUM,
       TAG_SLUGS.SANS_PARFUM,
       TAG_SLUGS.PEAU_SENSIBLE,
       TAG_SLUGS.PEAU_REACTIVE,
-      TAG_SLUGS.HUMECTANT,
       TAG_SLUGS.HYPOALLERGENIQUE,
       TAG_SLUGS.TEXTURE_LEGERE,
       TAG_SLUGS.MATIN,
@@ -94,7 +85,7 @@ export const SKIN1004_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
     avoid: [],
   },
 
-  // ── Spot Cover Patch : Patchs hydrocolloïdes couvrants
+  
   [SKIN1004_PRODUCT_SLUGS.SKIN1004_SPOT_COVER_PATCH]: {
     primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PROTECTION_CUTANEE, TAG_SLUGS.CICATRISATION],
     secondary: [
@@ -109,9 +100,9 @@ export const SKIN1004_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
     avoid: [],
   },
 
-  // ── Madagascar Centella Probio-Cica Essence Toner : Hydratation + barrière
+  
   [SKIN1004_PRODUCT_SLUGS.SKIN1004_CENTELLA_PROBIO_CICA_ESSENCE]: {
-    primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.APAISANT],
+    primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.DESHYDRATATION],
     secondary: [
       TAG_SLUGS.ESSENCE,
       TAG_SLUGS.TONIQUE,
@@ -119,9 +110,7 @@ export const SKIN1004_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.PEAU_SENSIBLE,
       TAG_SLUGS.PEAU_REACTIVE,
       TAG_SLUGS.PEAU_TOUS_TYPES,
-      TAG_SLUGS.HUMECTANT,
       TAG_SLUGS.TEXTURE_LEGERE,
-      TAG_SLUGS.PREBIOTIQUE,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
       TAG_SLUGS.PREPARATION,
@@ -129,9 +118,9 @@ export const SKIN1004_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
     avoid: [],
   },
 
-  // ── Madagascar Centella Toning Toner : Exfoliant doux PHA
+  
   [SKIN1004_PRODUCT_SLUGS.SKIN1004_MADAGASCAR_CENTELLA_TONING]: {
-    primary: [TAG_SLUGS.EXFOLIANT_CHIMIQUE, TAG_SLUGS.ECLAT, TAG_SLUGS.APAISANT],
+    primary: [TAG_SLUGS.EXFOLIANT_CHIMIQUE, TAG_SLUGS.ECLAT],
     secondary: [
       TAG_SLUGS.TONIQUE,
       TAG_SLUGS.ESSENCE,
@@ -139,7 +128,6 @@ export const SKIN1004_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.PEAU_SENSIBLE,
       TAG_SLUGS.PEAU_REACTIVE,
       TAG_SLUGS.PEAU_TOUS_TYPES,
-      TAG_SLUGS.HUMECTANT,
       TAG_SLUGS.TEXTURE_LEGERE,
       TAG_SLUGS.EXFOLIATION,
       TAG_SLUGS.MATIN,

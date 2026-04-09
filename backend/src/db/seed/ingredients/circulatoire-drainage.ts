@@ -1,11 +1,12 @@
 import { INGREDIENT_SLUGS } from './ingredient-slugs'
+import { INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
 import type { IngredientInput } from './seed-ingredients'
 
 export const CIRCULATOIRE_DRAINAGE: IngredientInput[] = [
   {
     name: 'Caféine',
     slug: INGREDIENT_SLUGS.CAFFEINE,
-    category: 'drainant & énergisant',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Alcaloïde végétal réputé pour son action stimulante sur la microcirculation et ses propriétés lipolytiques (brûle-graisses).',
     content: `
@@ -32,7 +33,7 @@ C'est l'ingrédient star des contours des yeux "anti-fatigue" et des gels minceu
   {
     name: 'Arnica des Montagnes (Arnica montana L.)',
     slug: INGREDIENT_SLUGS.ARNICA,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       "L'or jaune des alpages : un trésor botanique aux propriétés anti-inflammatoires et apaisantes, soutenu par une tradition millénaire et des recherches scientifiques prometteuses, pour une récupération cutanée optimisée.",
     content: `# L'Arnica Montana : L'Alliée Naturelle pour une Récupération Harmonieuse
@@ -86,7 +87,7 @@ C'est l'ingrédient star des contours des yeux "anti-fatigue" et des gels minceu
   {
     name: 'Escin (Aesculus hippocastanum)',
     slug: INGREDIENT_SLUGS.ESCIN,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Saponine triterpénique d'exception issue du marron d'Inde. Veinotonique, anti-œdémateuse et anti-inflammatoire, elle intègre désormais des propriétés antivirales, anticancérigènes et une biodisponibilité cutanée prouvée pour les peaux fragiles.",
     content: `
@@ -153,7 +154,7 @@ C'est l'ingrédient star des contours des yeux "anti-fatigue" et des gels minceu
   {
     name: 'Ruscus aculeatus (Petit-houx)',
     slug: INGREDIENT_SLUGS.RUSCUS_ACULEATUS,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait racinaire du Petit-houx, arbuste sempervirent méditerranéen aux vertus veinotoniques reconnues. Riche en saponines stéroïdiennes, il améliore la microcirculation, réduit rougeurs et œdèmes, et apaise les peaux sensibles ou sujettes à couperose — un pilier discret mais puissant de la phytothérapie vasculaire européenne.',
     content: `

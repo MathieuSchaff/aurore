@@ -2,9 +2,9 @@ import { TAG_SLUGS } from '../../tags/seed-tags'
 import { NOREVA_PRODUCT_SLUGS } from './noreva'
 
 interface ProductTagGroups {
-  primary: string[] // Tags principaux (Bénéfices correctifs)
-  secondary: string[] // Tags secondaires (Routine, Format, Texture)
-  avoid: string[] // Tags à éviter/exclure
+  primary: string[] 
+  secondary: string[] 
+  avoid: string[] 
 }
 export const PRODUCT_TAGS: Record<string, ProductTagGroups> = {
   [NOREVA_PRODUCT_SLUGS.SENSIDIANE_HUILE_DEMAQUILLANTE]: {
@@ -13,7 +13,6 @@ export const PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.HUILE_DEMAQUILLANTE,
       TAG_SLUGS.DOUBLE_NETTOYAGE_1,
       TAG_SLUGS.SOIR,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.SANS_PARFUM,
       TAG_SLUGS.PEAU_NORMALE,
       TAG_SLUGS.PEAU_TOUS_TYPES,
@@ -29,7 +28,6 @@ export const PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
       TAG_SLUGS.PEAU_SENSIBLE,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.NON_COMEDOGENE,
       TAG_SLUGS.HYDRATATION,
     ],
@@ -56,7 +54,6 @@ export const PRODUCT_TAGS: Record<string, ProductTagGroups> = {
     secondary: [
       TAG_SLUGS.GEL_CREME,
       TAG_SLUGS.MATIFIANT,
-      TAG_SLUGS.SEBO_REGULATEUR,
       TAG_SLUGS.EXFOLIANT_CHIMIQUE,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
@@ -83,9 +80,6 @@ export const PRODUCT_TAGS: Record<string, ProductTagGroups> = {
     primary: [TAG_SLUGS.ECZEMA, TAG_SLUGS.PEAU_ATOPIQUE],
     secondary: [
       TAG_SLUGS.BRUME,
-      TAG_SLUGS.REPARATEUR,
-      TAG_SLUGS.EMOLLIENT,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.BARRIERE_CUTANEE,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
@@ -99,7 +93,6 @@ export const PRODUCT_TAGS: Record<string, ProductTagGroups> = {
     secondary: [
       TAG_SLUGS.BAUME,
       TAG_SLUGS.HYDRATATION,
-      TAG_SLUGS.REPARATEUR,
       TAG_SLUGS.MICROBIOME,
       TAG_SLUGS.SANS_PARFUM,
       TAG_SLUGS.GROSSESSE_COMPATIBLE,
@@ -114,8 +107,6 @@ export const PRODUCT_TAGS: Record<string, ProductTagGroups> = {
     secondary: [
       TAG_SLUGS.SERUM,
       TAG_SLUGS.HYDRATATION,
-      TAG_SLUGS.REPARATEUR,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
       TAG_SLUGS.SANS_PARFUM,
@@ -130,7 +121,6 @@ export const PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.SERUM,
       TAG_SLUGS.EXFOLIANT_CHIMIQUE,
       TAG_SLUGS.MATIFIANT,
-      TAG_SLUGS.SEBO_REGULATEUR,
       TAG_SLUGS.PORES_DILATES,
       TAG_SLUGS.ECLAT,
       TAG_SLUGS.MATIN,
@@ -144,13 +134,11 @@ export const PRODUCT_TAGS: Record<string, ProductTagGroups> = {
     secondary: [
       TAG_SLUGS.CREME_HYDRATANTE,
       TAG_SLUGS.TEXTURE_RICHE,
-      TAG_SLUGS.EMOLLIENT,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.SANS_PARFUM,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
     ],
-    avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.TEXTURE_LEGERE],
+    avoid: [TAG_SLUGS.PEAU_GRASSE],
   },
 
   [NOREVA_PRODUCT_SLUGS.STRIVADIANE_ANTI_VERGETURES]: {
@@ -158,7 +146,6 @@ export const PRODUCT_TAGS: Record<string, ProductTagGroups> = {
     secondary: [
       TAG_SLUGS.LAIT_CORPS,
       TAG_SLUGS.GROSSESSE_COMPATIBLE,
-      TAG_SLUGS.REPARATEUR,
       TAG_SLUGS.HYDRATATION,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,

@@ -1,3 +1,4 @@
+import { INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
 import { INGREDIENT_SLUGS } from './ingredient-slugs'
 import type { IngredientInput } from './seed-ingredients'
 
@@ -5,7 +6,7 @@ export const ANTI_ACNE_SEBUM: IngredientInput[] = [
   {
     name: 'Pea Extract (Pisum Sativum Extract)',
     slug: INGREDIENT_SLUGS.PEA_EXTRACT,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Extrait de pois riche en antioxydants et protéines, utilisé pour renforcer l'élasticité, apaiser et protéger la peau sensible.",
     content: `
@@ -39,7 +40,7 @@ Polyvalent et très bien toléré, il fonctionne en synergie avec les céramides
   {
     name: 'Arbre à thé',
     slug: INGREDIENT_SLUGS.TEA_TREE,
-    category: 'purifiant & apaisant',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Huile essentielle réputée pour ses propriétés antibactériennes et assainissantes, idéale pour les peaux à imperfections.',
     content: `
@@ -66,7 +67,7 @@ C'est l'ingrédient phare des routines pour peaux acnéiques ou à imperfections
   {
     name: 'Copper Gluconate',
     slug: INGREDIENT_SLUGS.COPPER_GLUCONATE,
-    category: 'antibactérien & réparateur',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un sel de cuivre essentiel qui aide à purifier la peau tout en favorisant la régénération des tissus.',
     content: `
@@ -92,7 +93,7 @@ Souvent associé au Zinc, il assainit la zone lésée pour éviter les infection
   {
     name: 'Zinc PCA',
     slug: INGREDIENT_SLUGS.ZINC_PCA,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Actif séborégulateur et antibactérien combinant zinc et PCA pour équilibrer les peaux grasses à imperfections, tout en hydratant sans assécher.',
     content: `
@@ -345,7 +346,7 @@ Souvent associé au Zinc, il assainit la zone lésée pour éviter les infection
   {
     name: 'Extrait de lentille (Lens esculenta seed extract)',
     slug: INGREDIENT_SLUGS.LENS_ESCULENTA_SEED_EXTRACT,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Actif d'origine naturelle riche en oligosaccharides, conçu pour resserrer les pores et affiner durablement le grain de peau.",
     content: `
@@ -379,7 +380,7 @@ Souvent associé au Zinc, il assainit la zone lésée pour éviter les infection
   {
     name: 'Comedoclastin™ (Extrait de Silybum marianum)',
     slug: INGREDIENT_SLUGS.COMEDOCLASTIN,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Actif végétal breveté issu du Chardon-marie qui réduit les imperfections et limite leur réapparition en agissant à la racine.',
     content: `
@@ -413,7 +414,7 @@ Souvent associé au Zinc, il assainit la zone lésée pour éviter les infection
   {
     name: 'Copper Sulfate',
     slug: INGREDIENT_SLUGS.COPPER_SULFATE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Sulfate de cuivre aux propriétés antimicrobiennes, astringentes et séborégulatrices, utilisé en faible concentration dans les soins purifiants, anti-acné et assainissants pour peaux grasses à imperfections.',
     content: `
@@ -461,7 +462,7 @@ Souvent associé au Zinc, il assainit la zone lésée pour éviter les infection
   {
     name: 'Zinc Sulfate (sulfate de zinc)',
     slug: INGREDIENT_SLUGS.ZINC_SULFATE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Sel minéral astringent et antimicrobien, régule le sébum et apaise les peaux à imperfections.',
     content: `
@@ -504,7 +505,7 @@ Souvent associé au Zinc, il assainit la zone lésée pour éviter les infection
   {
     name: 'Piroctone Olamine',
     slug: INGREDIENT_SLUGS.PIROCTONE_OLAMINE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Agent antifongique puissant ciblant Malassezia, efficace contre pellicules, démangeaisons et irritations du cuir chevelu, très bien toléré même par les peaux sensibles.',
     content: `
@@ -553,7 +554,7 @@ Souvent associé au Zinc, il assainit la zone lésée pour éviter les infection
   {
     name: 'Gluconate de Zinc (Zinc Gluconate)',
     slug: INGREDIENT_SLUGS.ZINC_GLUCONATE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       "L'oligo-élément régulateur de l'homéostasie cutanée : une action sébo-régulatrice, purifiante et cicatrisante incontournable pour les peaux à imperfections.",
     content: `# Le Gluconate de Zinc : Le Gardien de la Pureté Cutanée
@@ -600,7 +601,7 @@ Le Gluconate de Zinc présente un excellent profil d'innocuité :
   {
     name: 'Acide azélaïque',
     slug: INGREDIENT_SLUGS.AZELAIC_ACID,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Acide dicarboxylique naturel approuvé FDA pour l'acné et la rosacée. Très efficace sur l'hyperpigmentation, le melasma et l'érythème post-inflammatoire. Excellent profil de tolérance, safe grossesse.",
     content: `## Qu'est-ce que c'est ?
@@ -896,7 +897,7 @@ Le Gluconate de Zinc présente un excellent profil d'innocuité :
   {
     name: 'Acide hypochloreux',
     slug: INGREDIENT_SLUGS.HYPOCHLOROUS_ACID,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Composé naturellement produit par les globules blancs via la myéloperoxydase. Antimicrobien puissant à large spectre et anti-inflammatoire, mais extrêmement doux. Idéal pour peaux réactives, acnéiques, rosacée, eczéma et post-procédures.',
     content: `## Qu'est-ce que c'est ?
@@ -980,7 +981,7 @@ Le Gluconate de Zinc présente un excellent profil d'innocuité :
   {
     name: 'Niacinamide',
     slug: INGREDIENT_SLUGS.NIACINAMIDE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Dérivé amide de la vitamine B3 (nicotinamide). Ingrédient hydrosoluble, ultra-stable, \"jack-of-all-trades\" avec des centaines d'études. Agit sur la barrière cutanée, l'hyperpigmentation, les rougeurs, le sébum, les pores et les rides. Excellent support qui rend les autres actifs plus performants et tolérables. Sur la liste des médicaments essentiels de l'OMS.",
     content: `## Nature et origine
@@ -1106,7 +1107,7 @@ Le Gluconate de Zinc présente un excellent profil d'innocuité :
   {
     name: 'Soufre (Sulfur)',
     slug: INGREDIENT_SLUGS.SULFUR,
-    category: 'ingredient',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Actif anti-acné parmi les plus anciens en dermatologie. Kératolytique, séborégulateur et antibactérien, il cible comédons, points noirs et inflammations — particulièrement efficace sur les peaux grasses et acnéiques.',
     content: `## Contexte historique & réglementaire
@@ -1191,7 +1192,7 @@ Le Gluconate de Zinc présente un excellent profil d'innocuité :
   {
     name: 'Acide Salicylique',
     slug: INGREDIENT_SLUGS.SALICYLIC_ACID,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       "BHA liposoluble, pénètre les pores pour lutter contre l'acné et les points noirs.",
     content: `
@@ -1467,7 +1468,7 @@ Le Gluconate de Zinc présente un excellent profil d'innocuité :
   {
     name: 'Charcoal Powder',
     slug: INGREDIENT_SLUGS.CHARCOAL_POWDER,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Charbon activé à haut pouvoir absorbant, idéal pour purifier les pores et détoxifier la peau.',
     content: `
@@ -1482,7 +1483,7 @@ Le **Charbon Activé** est une poudre de carbone traitée pour augmenter sa poro
   {
     name: 'Kaolin',
     slug: INGREDIENT_SLUGS.KAOLIN,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Argile blanche douce, absorbante et purifiante, adaptée même aux peaux sensibles.',
     content: `
@@ -1497,7 +1498,7 @@ Le **Kaolin** est une argile minérale naturelle. Moins "agressive" que d'autres
   {
     name: 'Bentonite',
     slug: INGREDIENT_SLUGS.BENTONITE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Argile montmorillonite puissante, reconnue pour son action purifiante intense sur les pores obstrués.',
     content: `
@@ -1512,7 +1513,7 @@ La **Bentonite** est une argile issue de cendres volcaniques. Elle possède une 
   {
     name: 'Acnesyl-X-Pro',
     slug: INGREDIENT_SLUGS.ACNESYL_X_PRO,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Complexe anti-acné multi-actif pour le contrôle du sébum, l’action antibactérienne et anti-comédogène.',
     content: `
@@ -1527,7 +1528,7 @@ La **Bentonite** est une argile issue de cendres volcaniques. Elle possède une 
   {
     name: 'Sarcosine',
     slug: INGREDIENT_SLUGS.SARCOSINE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Acide aminé naturel qui aide à réduire la production de sébum et à affiner le grain de peau.',
     content: `
@@ -1538,5 +1539,29 @@ La **Sarcosine** est un acide aminé qui inhibe l'enzyme 5-alpha réductase, res
 * **Grain de peau** : Aide à minimiser l'apparence des pores dilatés.
 * **Équilibre** : Contribue à une peau plus saine et moins grasse.
     `,
+  },
+  {
+    name: 'Zinc Lactate',
+    slug: INGREDIENT_SLUGS.ZINC_LACTATE,
+    category: INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Un sel de zinc et d’acide lactique offrant une action séborégulatrice et antibactérienne, particulièrement efficace pour assainir les peaux grasses.',
+    content: `
+# Zinc Lactate : La Pureté Minérale
+Le **Zinc Lactate** est une forme organique de zinc. Il combine les bienfaits purifiants du zinc à la douceur de l'acide lactique, ce qui en fait un actif de choix pour traiter les peaux sujettes aux imperfections tout en préservant leur confort.
+
+## ✨ Points Forts & Bénéfices
+* **Séborégulateur** : Aide à contrôler la production de sébum et à limiter la brillance.
+* **Antibactérien** : Aide à assainir l'épiderme en limitant la prolifération des bactéries responsables de l'acné.
+* **Apaisant** : Réduit l'inflammation associée aux imperfections.
+* **Biodisponibilité** : Sa forme lactate assure une excellente affinité avec la peau.
+
+## ⚖️ Transparence Scientifique & Limites
+* **Complémentarité** : Très efficace en association avec d'autres sels de zinc (gluconate, sulfate) pour une action purifiante renforcée.
+* **Usage** : Ingrédient clé de nombreuses gammes pour peaux grasses (ex: Uriage Hyséac).
+
+## 🛡️ Précautions & Sécurité
+* Très bien toléré, non comédogène.
+`,
   },
 ]

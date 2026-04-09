@@ -2,13 +2,13 @@ import { TAG_SLUGS } from '../../tags/seed-tags'
 import { GG_PRODUCTS_SLUGS } from './geekAndGorgeous'
 
 interface ProductTagGroups {
-  primary: string[] // Tags principaux (Actions ciblées)
-  secondary: string[] // Tags secondaires (Types de peau, labels, routine)
-  avoid: string[] // Tags à exclure/contre-indications
+  primary: string[] 
+  secondary: string[] 
+  avoid: string[] 
 }
 
 export const GG_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
-  // ── Power Peptides Serum : Focus fermeté et boost collagène
+  
   [GG_PRODUCTS_SLUGS.GEEK_GORGEOUS_POWER_PEPTIDES]: {
     primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
     secondary: [
@@ -17,8 +17,6 @@ export const GG_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.PEAU_NORMALE,
       TAG_SLUGS.PEAU_MIXTE,
       TAG_SLUGS.PEAU_SECHE,
-      TAG_SLUGS.REPARATEUR,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.TRAITEMENT,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
@@ -26,7 +24,7 @@ export const GG_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
     avoid: [],
   },
 
-  // ── A-Game 20 : Rétinal haute puissance (0.2%)
+  
   [GG_PRODUCTS_SLUGS.GG_A_GAME_20]: {
     primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.POST_ACNE],
     secondary: [
@@ -41,16 +39,16 @@ export const GG_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.TEXTURE_LEGERE,
     ],
     avoid: [
-      TAG_SLUGS.GROSSESSE_COMPATIBLE, // Les rétinoïdes sont contre-indiqués
-      TAG_SLUGS.PEAU_REACTIVE, // Concentration trop élevée pour peaux novices/réactives
+      TAG_SLUGS.GROSSESSE_COMPATIBLE,
+      TAG_SLUGS.PEAU_REACTIVE,
       TAG_SLUGS.ECZEMA,
-      TAG_SLUGS.PEAU_SECHE, // Rétinal peut assêcher
+      TAG_SLUGS.PEAU_SECHE,
     ],
   },
 
-  // ── Hydration Station : Hydratation légère et barrière cutanée
+  
   [GG_PRODUCTS_SLUGS.GG_HYDRATION_STATION]: {
-    primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PREBIOTIQUE],
+    primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
     secondary: [
       TAG_SLUGS.PEAU_SENSIBLE,
       TAG_SLUGS.PEAU_MIXTE,
@@ -58,64 +56,55 @@ export const GG_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.PEAU_NORMALE,
       TAG_SLUGS.GEL_CREME,
       TAG_SLUGS.SANS_PARFUM,
-      TAG_SLUGS.REPARATEUR,
       TAG_SLUGS.TEXTURE_LEGERE,
       TAG_SLUGS.VEGAN,
       TAG_SLUGS.HYPOALLERGENIQUE,
-      TAG_SLUGS.HUMECTANT,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
       TAG_SLUGS.HYDRATATION,
       TAG_SLUGS.EMOLLIENCE,
     ],
     avoid: [
-      TAG_SLUGS.PEAU_SECHE, // Texture gel-crème souvent insuffisante pour peaux très sèches
-      TAG_SLUGS.TEXTURE_RICHE,
+      TAG_SLUGS.PEAU_SECHE,
     ],
   },
   [GG_PRODUCTS_SLUGS.CALM_DOWN]: {
-    primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ANTI_ROUGEURS], // [cite: 5, 8]
+    primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ANTI_ROUGEURS], 
     secondary: [
       TAG_SLUGS.LOTION,
       TAG_SLUGS.EXFOLIATION,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
-      TAG_SLUGS.APAISANT,
-      TAG_SLUGS.HUMECTANT,
       TAG_SLUGS.ROSACEE,
       TAG_SLUGS.PEAU_TOUS_TYPES,
       TAG_SLUGS.SANS_PARFUM,
       TAG_SLUGS.GROSSESSE_COMPATIBLE,
-    ], // [cite: 5, 9]
+    ], 
     avoid: [],
   },
 
   [GG_PRODUCTS_SLUGS.CHEER_UP]: {
-    primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.ANTI_ACNE], // [cite: 5, 8]
+    primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.ANTI_ACNE], 
     secondary: [
       TAG_SLUGS.LOTION,
       TAG_SLUGS.EXFOLIATION,
       TAG_SLUGS.PEAU_MIXTE,
       TAG_SLUGS.PEAU_GRASSE,
-      TAG_SLUGS.ANTI_BACTERIEN,
-      TAG_SLUGS.SEBO_REGULATEUR,
       TAG_SLUGS.POST_ACNE,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
       TAG_SLUGS.GROSSESSE_COMPATIBLE,
       TAG_SLUGS.VEGAN,
-    ], // [cite: 5, 9]
+    ], 
     avoid: [],
   },
 
   [GG_PRODUCTS_SLUGS.SMOOTH_OUT]: {
-    primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT], // [cite: 5, 8]
+    primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT], 
     secondary: [
       TAG_SLUGS.LOTION,
       TAG_SLUGS.EXFOLIATION,
-      TAG_SLUGS.SOIR, // [cite: 20]
-      TAG_SLUGS.KERATOLYTIQUE,
+      TAG_SLUGS.SOIR,
       TAG_SLUGS.ANTI_TACHES,
       TAG_SLUGS.GRAIN_PEAU,
       TAG_SLUGS.PEAU_NORMALE,
@@ -123,220 +112,200 @@ export const GG_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.PEAU_GRASSE,
       TAG_SLUGS.VEGAN,
       TAG_SLUGS.GROSSESSE_COMPATIBLE,
-    ], // [cite: 5, 9]
+    ], 
     avoid: [
-      TAG_SLUGS.PEAU_SENSIBLE, // [cite: 9]
+      TAG_SLUGS.PEAU_SENSIBLE,
       TAG_SLUGS.PEAU_REACTIVE,
-      TAG_SLUGS.MATIN, // [cite: 20]
     ],
   },
 
   [GG_PRODUCTS_SLUGS.MIGHTY_MELT]: {
-    primary: [TAG_SLUGS.PEAU_TOUS_TYPES], // [cite: 5]
+    primary: [TAG_SLUGS.PEAU_TOUS_TYPES], 
     secondary: [
       TAG_SLUGS.BAUME_DEMAQUILLANT,
       TAG_SLUGS.DOUBLE_NETTOYAGE_1,
       TAG_SLUGS.SOIR,
-      TAG_SLUGS.EMOLLIENT,
       TAG_SLUGS.SANS_PARFUM,
       TAG_SLUGS.VEGAN,
       TAG_SLUGS.GROSSESSE_COMPATIBLE,
-    ], // [cite: 5, 9]
+    ], 
     avoid: [],
   },
 
   [GG_PRODUCTS_SLUGS.JELLY_JOKER]: {
-    primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE], // [cite: 5, 8]
+    primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE], 
     secondary: [
       TAG_SLUGS.GEL_NETTOYANT,
       TAG_SLUGS.DOUBLE_NETTOYAGE_2,
       TAG_SLUGS.NETTOYANT,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.PEAU_TOUS_TYPES,
       TAG_SLUGS.VEGAN,
       TAG_SLUGS.GROSSESSE_COMPATIBLE,
-    ], // [cite: 5, 9]
+    ], 
     avoid: [],
   },
 
   [GG_PRODUCTS_SLUGS.LIQUID_HYDRATION]: {
-    primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.PEAU_SENSIBLE], // [cite: 5, 8]
+    primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.PEAU_SENSIBLE], 
     secondary: [
       TAG_SLUGS.BRUME,
       TAG_SLUGS.TONIQUE,
       TAG_SLUGS.PREPARATION,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
-      TAG_SLUGS.APAISANT,
-      TAG_SLUGS.HUMECTANT,
-      TAG_SLUGS.REPARATEUR,
       TAG_SLUGS.BARRIERE_CUTANEE,
       TAG_SLUGS.VEGAN,
       TAG_SLUGS.GROSSESSE_COMPATIBLE,
-    ], // [cite: 5, 9]
+    ], 
     avoid: [],
   },
 
   [GG_PRODUCTS_SLUGS.HAPPIER_BARRIER]: {
-    primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PEAU_SENSIBLE], // [cite: 5, 8]
+    primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PEAU_SENSIBLE], 
     secondary: [
       TAG_SLUGS.CREME_HYDRATANTE,
       TAG_SLUGS.HYDRATATION,
       TAG_SLUGS.EMOLLIENCE,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
-      TAG_SLUGS.EMOLLIENT,
-      TAG_SLUGS.REPARATEUR,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.VEGAN,
       TAG_SLUGS.PEAU_NORMALE,
       TAG_SLUGS.PEAU_MIXTE,
       TAG_SLUGS.PEAU_SECHE,
-    ], // [cite: 5, 9]
+    ], 
     avoid: [],
   },
 
   [GG_PRODUCTS_SLUGS.A_GAME_10]: {
-    primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.HYPERPIGMENTATION], // [cite: 5, 8]
+    primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.HYPERPIGMENTATION], 
     secondary: [
       TAG_SLUGS.SERUM,
       TAG_SLUGS.TRAITEMENT,
-      TAG_SLUGS.SOIR, // [cite: 20]
+      TAG_SLUGS.SOIR,
       TAG_SLUGS.REPULPANT,
       TAG_SLUGS.ECLAT,
       TAG_SLUGS.GRAIN_PEAU,
       TAG_SLUGS.PEAU_TOUS_TYPES,
       TAG_SLUGS.VEGAN,
-    ], // [cite: 5, 9]
+    ], 
     avoid: [
       TAG_SLUGS.GROSSESSE_COMPATIBLE,
       TAG_SLUGS.PEAU_REACTIVE,
-      TAG_SLUGS.MATIN, // [cite: 20]
     ],
   },
 
   [GG_PRODUCTS_SLUGS.C_GLOW]: {
-    primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_AGE], // [cite: 5, 8]
+    primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_AGE], 
     secondary: [
       TAG_SLUGS.SERUM,
       TAG_SLUGS.TRAITEMENT,
       TAG_SLUGS.MATIN,
-      TAG_SLUGS.ANTI_OXYDANT,
       TAG_SLUGS.ANTI_TACHES,
       TAG_SLUGS.TEINT_TERNE,
       TAG_SLUGS.PHOTO_VIEILLISSEMENT,
       TAG_SLUGS.SANS_PARFUM,
       TAG_SLUGS.VEGAN,
       TAG_SLUGS.GROSSESSE_COMPATIBLE,
-    ], // [cite: 5, 9]
-    avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE], // [cite: 9]
+    ], 
+    avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE], 
   },
 
   [GG_PRODUCTS_SLUGS.STRESS_LESS]: {
-    primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.CICATRISATION], // [cite: 5, 8]
+    primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.CICATRISATION], 
     secondary: [
       TAG_SLUGS.SERUM,
       TAG_SLUGS.TRAITEMENT,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
-      TAG_SLUGS.APAISANT,
-      TAG_SLUGS.REPARATEUR,
       TAG_SLUGS.DESHYDRATATION,
       TAG_SLUGS.BARRIERE_CUTANEE,
       TAG_SLUGS.VEGAN,
       TAG_SLUGS.GROSSESSE_COMPATIBLE,
-    ], // [cite: 5, 9]
+    ], 
     avoid: [],
   },
 
   [GG_PRODUCTS_SLUGS.APAD]: {
-    primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ANTI_TACHES], // [cite: 5, 8]
+    primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ANTI_TACHES], 
     secondary: [
       TAG_SLUGS.SERUM,
       TAG_SLUGS.TRAITEMENT,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
-      TAG_SLUGS.SEBO_REGULATEUR,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.ROSACEE,
       TAG_SLUGS.HYPERPIGMENTATION,
       TAG_SLUGS.PEAU_SENSIBLE,
       TAG_SLUGS.VEGAN,
       TAG_SLUGS.GROSSESSE_COMPATIBLE,
-    ], // [cite: 5, 9]
+    ], 
     avoid: [],
   },
 
   [GG_PRODUCTS_SLUGS.B_BOMB]: {
-    primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BRILLANCE], // [cite: 5, 8]
+    primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BRILLANCE], 
     secondary: [
       TAG_SLUGS.SERUM,
       TAG_SLUGS.TRAITEMENT,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
-      TAG_SLUGS.SEBO_REGULATEUR,
       TAG_SLUGS.MATIFIANT,
       TAG_SLUGS.ANTI_ACNE,
       TAG_SLUGS.PEAU_GRASSE,
       TAG_SLUGS.PEAU_MIXTE,
       TAG_SLUGS.VEGAN,
       TAG_SLUGS.GROSSESSE_COMPATIBLE,
-    ], // [cite: 5, 9]
+    ], 
     avoid: [],
   },
 
   [GG_PRODUCTS_SLUGS.POREFECTLY_CLEAR]: {
-    primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES], // [cite: 5, 8]
+    primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES], 
     secondary: [
       TAG_SLUGS.SERUM,
       TAG_SLUGS.EXFOLIATION,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
-      TAG_SLUGS.SEBO_REGULATEUR,
       TAG_SLUGS.PEAU_GRASSE,
       TAG_SLUGS.PEAU_MIXTE,
-      TAG_SLUGS.KERATOLYTIQUE,
       TAG_SLUGS.VEGAN,
       TAG_SLUGS.GROSSESSE_COMPATIBLE,
-    ], // [cite: 5, 9]
+    ], 
     avoid: [],
   },
 
   [GG_PRODUCTS_SLUGS.HA_5_LIGHT]: {
-    primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE], // [cite: 5, 8]
+    primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE], 
     secondary: [
       TAG_SLUGS.SERUM,
       TAG_SLUGS.HYDRATATION,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
-      TAG_SLUGS.HUMECTANT,
       TAG_SLUGS.REPULPANT,
       TAG_SLUGS.PEAU_MIXTE,
       TAG_SLUGS.PEAU_GRASSE,
       TAG_SLUGS.TEXTURE_LEGERE,
       TAG_SLUGS.VEGAN,
       TAG_SLUGS.GROSSESSE_COMPATIBLE,
-    ], // [cite: 5, 9]
+    ], 
     avoid: [],
   },
 
   [GG_PRODUCTS_SLUGS.HA_5_RICH]: {
-    primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE], // [cite: 5, 8]
+    primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE], 
     secondary: [
       TAG_SLUGS.SERUM,
       TAG_SLUGS.HYDRATATION,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
-      TAG_SLUGS.HUMECTANT,
       TAG_SLUGS.REPULPANT,
       TAG_SLUGS.PEAU_SECHE,
       TAG_SLUGS.PEAU_NORMALE,
       TAG_SLUGS.TEXTURE_RICHE,
       TAG_SLUGS.VEGAN,
       TAG_SLUGS.GROSSESSE_COMPATIBLE,
-    ], // [cite: 5, 9]
+    ], 
     avoid: [],
   },
 
@@ -351,6 +320,6 @@ export const GG_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.PEAU_TOUS_TYPES,
       TAG_SLUGS.VEGAN,
     ],
-    avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE, TAG_SLUGS.MATIN],
+    avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE],
   },
 }

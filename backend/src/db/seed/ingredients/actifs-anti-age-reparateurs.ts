@@ -1,11 +1,12 @@
 import { INGREDIENT_SLUGS } from './ingredient-slugs'
+import { INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
 import type { IngredientInput } from './seed-ingredients'
 
 export const ACTIFS_ANTI_AGE_REPARATEURS: IngredientInput[] = [
   {
     name: 'Acmella Oleracea Extract',
     slug: INGREDIENT_SLUGS.ACMELLA_OLERACEA_EXTRACT,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Extrait végétal 'Botox-like' naturel, relaxe les muscles faciaux pour lisser rides d'expression et raffermir la peau.",
     content: `
@@ -38,7 +39,7 @@ Effet visible rapide (minutes), cumulatif sur 4-8 semaines. Synergie idéale ave
   {
     name: 'Complexe de Protéoglycanes',
     slug: INGREDIENT_SLUGS.PROTEOGLYCAN_COMPLEX,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Complexe de protéoglycanes (décorines, versicane, perlécane) imitant les composants structurels naturels de la peau. Restaure densité et élasticité cutanée, hydrate profondément, retarde vieillissement visible.',
     content: `
@@ -178,7 +179,7 @@ Protéoglycanes hydrolysés (réduits poids moléculaire) pénètrent mieux épi
   {
     name: 'Adénosine (Adenosine)',
     slug: INGREDIENT_SLUGS.ADENOSINE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Nucléoside naturellement présent dans l'organisme, reconnu pour son action lissante, anti-rides et énergisante cellulaire.",
     content: `
@@ -211,7 +212,7 @@ Protéoglycanes hydrolysés (réduits poids moléculaire) pénètrent mieux épi
   {
     name: 'Acide Asiatique (Asiatic Acid)',
     slug: INGREDIENT_SLUGS.ASIATIC_ACID,
-    category: 'Réparation & Apaisement',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Fraction pure et cristalline extraite de la Centella Asiatica, l’acide asiatique est un architecte de la reconstruction cutanée, stimulant la synthèse du collagène tout en apaisant les inflammations.',
     content: `
@@ -266,7 +267,7 @@ Protéoglycanes hydrolysés (réduits poids moléculaire) pénètrent mieux épi
   {
     name: '2-Oleamido-1,3-Octadecanediol',
     slug: INGREDIENT_SLUGS.TWO_OLEAMIDO_1_3_OCTADECANEDIOL,
-    category: 'Réparation Capillaire & Cutanée',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un lipide synthétique biomimétique (Céramide R) agissant comme un renfort structurel pour protéger la fibre capillaire et le ciment intercellulaire.',
     content: `
@@ -296,7 +297,7 @@ Protéoglycanes hydrolysés (réduits poids moléculaire) pénètrent mieux épi
   {
     name: 'Chardon-Marie (Silybum marianum)',
     slug: INGREDIENT_SLUGS.CHARDON_MARIE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Actif végétal breveté d’Avène issu des achènes du Chardon-Marie. Nourrissant intense, renforce la barrière cutanée, limite les imperfections et apaise les peaux sèches, atopiques ou acnéiques.',
     content: `
@@ -346,7 +347,7 @@ Protéoglycanes hydrolysés (réduits poids moléculaire) pénètrent mieux épi
   {
     name: 'Hydroxypalmitoyl Sphinganine',
     slug: INGREDIENT_SLUGS.HYDROXYPALMITOYL_SPHINGANINE,
-    category: 'Céramides & Barrière Cutanée',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un précurseur de céramide biomimétique conçu pour relancer la production naturelle de lipides et restaurer l’étanchéité de la barrière cutanée.',
     content: `
@@ -376,7 +377,7 @@ Protéoglycanes hydrolysés (réduits poids moléculaire) pénètrent mieux épi
   {
     name: 'Acide Madécassique (Madecassic Acid)',
     slug: INGREDIENT_SLUGS.MADECASSIC_ACID,
-    category: 'Réparation & Cicatrisation',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une fraction purifiée de Centella Asiatica dédiée à la restructuration des tissus et à la réduction des micro-inflammations cutanées.',
     content: `
@@ -408,7 +409,7 @@ Protéoglycanes hydrolysés (réduits poids moléculaire) pénètrent mieux épi
   {
     name: 'Panthenol (Provitamine B5)',
     slug: INGREDIENT_SLUGS.PANTHENOL,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Provitamine B5 hydratante et réparatrice, convertie en acide pantothénique dans la peau, apaise, renforce la barrière cutanée et accélère la cicatrisation pour peaux sensibles, irritées ou lésées.',
     content: `
@@ -453,7 +454,7 @@ Protéoglycanes hydrolysés (réduits poids moléculaire) pénètrent mieux épi
   {
     name: 'Allantoïne',
     slug: INGREDIENT_SLUGS.ALLANTOIN,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Actif apaisant de référence qui calme les irritations, adoucit la peau et accélère la régénération cellulaire.',
     content: `

@@ -2,15 +2,15 @@ import { TAG_SLUGS } from '../../tags/seed-tags'
 import { KOREAN_PRODUCT_SLUGS } from './koreanSkincare'
 
 interface ProductTagGroups {
-  primary: string[] // Tags principaux (Actions correctives & Bénéfices cibles)
-  secondary: string[] // Tags secondaires (Format, Type de peau, Caractéristiques techniques)
-  avoid: string[] // Tags à éviter/exclure
+  primary: string[] 
+  secondary: string[] 
+  avoid: string[] 
 }
 
 export const KOREAN_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
-  // ── COSRX - Advanced Snail 96 Mucin Essence
+  
   [KOREAN_PRODUCT_SLUGS.COSRX_ADVANCED_SNAIL_96]: {
-    primary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.ECLAT],
+    primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.ECLAT],
     secondary: [
       TAG_SLUGS.ESSENCE,
       TAG_SLUGS.PREPARATION,
@@ -20,28 +20,26 @@ export const KOREAN_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.PEAU_SENSIBLE,
       TAG_SLUGS.PEAU_TOUS_TYPES,
       TAG_SLUGS.SANS_PARFUM,
-      TAG_SLUGS.HUMECTANT,
       TAG_SLUGS.ZONE_VISAGE,
     ],
     avoid: [],
   },
 
-  // ── SOME BY MI - 30 Days Miracle Clear Spot Patch
+  
   [KOREAN_PRODUCT_SLUGS.SOME_BY_MI_30_DAYS_MIRACLE_PATCH]: {
-    primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.REPARATEUR],
+    primary: [TAG_SLUGS.ANTI_ACNE],
     secondary: [
       TAG_SLUGS.PATCH,
       TAG_SLUGS.SOIN_LOCALISE,
-      TAG_SLUGS.ANTI_BACTERIEN,
       TAG_SLUGS.CICATRISATION,
       TAG_SLUGS.ZONE_VISAGE,
     ],
     avoid: [],
   },
 
-  // ── Dr.G - R.E.D Blemish Cica Soothing Cream
+  
   [KOREAN_PRODUCT_SLUGS.DRG_RED_BLEMISH_CICA_SOOTHING]: {
-    primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.REPARATEUR, TAG_SLUGS.APAISANT],
+    primary: [TAG_SLUGS.ANTI_ROUGEURS],
     secondary: [
       TAG_SLUGS.CREME_HYDRATANTE,
       TAG_SLUGS.PEAU_REACTIVE,
@@ -59,9 +57,9 @@ export const KOREAN_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
     avoid: [],
   },
 
-  // ── Purito SEOUL - Oat-In Calming Gel Cream
+  
   [KOREAN_PRODUCT_SLUGS.PURITO_OAT_IN_CALMING_GEL]: {
-    primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.APAISANT],
+    primary: [TAG_SLUGS.PEAU_SENSIBLE],
     secondary: [
       TAG_SLUGS.GEL_CREME,
       TAG_SLUGS.PEAU_MIXTE,
@@ -78,12 +76,12 @@ export const KOREAN_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.HYPOALLERGENIQUE,
       TAG_SLUGS.ZONE_VISAGE,
     ],
-    avoid: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.TEXTURE_RICHE],
+    avoid: [TAG_SLUGS.PEAU_SECHE],
   },
 
-  // ── COSRX - Advanced Snail 92 All In One Cream
+  
   [KOREAN_PRODUCT_SLUGS.COSRX_ADVANCED_SNAIL_92]: {
-    primary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_AGE],
+    primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_AGE],
     secondary: [
       TAG_SLUGS.CREME_HYDRATANTE,
       TAG_SLUGS.PEAU_SECHE,
@@ -94,17 +92,15 @@ export const KOREAN_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.EMOLLIENCE,
       TAG_SLUGS.OCCLUSION,
       TAG_SLUGS.SANS_PARFUM,
-      TAG_SLUGS.HUMECTANT,
-      TAG_SLUGS.EMOLLIENT,
       TAG_SLUGS.OCCLUSIF,
       TAG_SLUGS.ZONE_VISAGE,
     ],
     avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.BRILLANCE],
   },
 
-  // ── Isntree - Hyaluronic Acid Moist Cream
+  
   [KOREAN_PRODUCT_SLUGS.ISNTREE_HYALURONIC_ACID_MOIST]: {
-    primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.HUMECTANT],
+    primary: [TAG_SLUGS.DESHYDRATATION],
     secondary: [
       TAG_SLUGS.CREME_HYDRATANTE,
       TAG_SLUGS.PEAU_NORMALE,
@@ -115,7 +111,6 @@ export const KOREAN_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.EMOLLIENCE,
       TAG_SLUGS.SANS_PARFUM,
       TAG_SLUGS.HYPOALLERGENIQUE,
-      TAG_SLUGS.EMOLLIENT,
       TAG_SLUGS.ZONE_VISAGE,
     ],
     avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.BRILLANCE],

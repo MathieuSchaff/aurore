@@ -1,3 +1,18 @@
+/**
+ * Ce fichier sert de dictionnaire de règles d'association automatique pour catégoriser (tagger)
+ * les produits cosmétiques lors de l'import des données.
+ *
+ * But : Définir des correspondances (mappings) entre des informations brutes issues de sources
+ * externes (fichiers CSV, noms d'ingrédients, etc.) et les "Tags" internes de l'application.
+ *
+ * Utilisation : Principalement utilisé dans le script d'initialisation de la base de données
+ * (`@backend/src/db/seed/seed-skincare.ts`) au sein de la fonction `getTargetTagSlugs()`.
+ *
+ * Raison d'être : Automatiser intelligemment l'enrichissement des données lors de leur import.
+ * Cela permet d'attribuer automatiquement toutes les étiquettes pertinentes (nettoyant visage,
+ * peau sensible, etc.) aux produits pour que le filtrage et la recherche dans l'application
+ * soient fonctionnels immédiatement, évitant ainsi un taggage manuel fastidieux de milliers de produits.
+ */
 import { TAG_SLUGS } from '../tags/seed-tags'
 
 /**
@@ -26,7 +41,7 @@ export const INGREDIENT_TAG_MAP: Record<string, string[]> = {
     TAG_SLUGS.KERATOLYTIQUE,
   ],
   'glycolic acid': [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ECLAT, TAG_SLUGS.KERATOLYTIQUE],
-  'lactic acid': [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.HYDRATATION, TAG_SLUGS.KERATOLYTIQUE],
+  'lactic acid': [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.HUMECTANT, TAG_SLUGS.KERATOLYTIQUE],
   'mandelic acid': [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_ACNE],
   gluconolactone: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.PEAU_SENSIBLE],
   'lactobionic acid': [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.PEAU_SENSIBLE],
@@ -51,10 +66,10 @@ export const INGREDIENT_TAG_MAP: Record<string, string[]> = {
   matrixyl: [TAG_SLUGS.ANTI_AGE],
 
   // Hydratation / Barrière / Microbiome
-  'hyaluronic acid': [TAG_SLUGS.HYDRATATION, TAG_SLUGS.REPULPANT],
-  'sodium hyaluronate': [TAG_SLUGS.HYDRATATION],
-  'hydrolyzed hyaluronic acid': [TAG_SLUGS.HYDRATATION],
-  glycerin: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.HUMECTANT],
+  'hyaluronic acid': [TAG_SLUGS.HUMECTANT, TAG_SLUGS.REPULPANT],
+  'sodium hyaluronate': [TAG_SLUGS.HUMECTANT],
+  'hydrolyzed hyaluronic acid': [TAG_SLUGS.HUMECTANT],
+  glycerin: [TAG_SLUGS.HUMECTANT],
   panthenol: [TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.REPARATEUR],
   niacinamide: [
     TAG_SLUGS.BARRIERE_CUTANEE,
@@ -62,14 +77,14 @@ export const INGREDIENT_TAG_MAP: Record<string, string[]> = {
     TAG_SLUGS.SEBO_REGULATEUR,
     TAG_SLUGS.PORES_DILATES,
   ],
-  ceramide: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.EMOLLIENCE],
+  ceramide: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.EMOLLIENT],
   'ceramide np': [TAG_SLUGS.BARRIERE_CUTANEE],
   'ceramide ap': [TAG_SLUGS.BARRIERE_CUTANEE],
   'ceramide eop': [TAG_SLUGS.BARRIERE_CUTANEE],
   phytosphingosine: [TAG_SLUGS.BARRIERE_CUTANEE],
-  cholesterol: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.EMOLLIENCE],
+  cholesterol: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.EMOLLIENT],
   squalane: [TAG_SLUGS.EMOLLIENCE, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.TEXTURE_LEGERE],
-  urea: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.KERATOLYTIQUE],
+  urea: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.KERATOLYTIQUE],
   'bifida ferment': [TAG_SLUGS.MICROBIOME, TAG_SLUGS.REPARATEUR],
   lactobacillus: [TAG_SLUGS.MICROBIOME],
 
@@ -102,56 +117,54 @@ export const INGREDIENT_TAG_MAP: Record<string, string[]> = {
  * Mapping des catégories/types CSV (colonne usage_type / category) vers les tags
  */
 export const CSV_CATEGORY_TAG_MAP: Record<string, string[]> = {
-  // ── usage_type values ───────────────────────────────────────────────────────
+  // ── usage_type only (not present as CSV category) ────────────────────────────
   Face: [TAG_SLUGS.ZONE_VISAGE],
-  'Skin Treatments': [TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ZONE_VISAGE],
   'Skin Care': [TAG_SLUGS.ZONE_VISAGE],
   Body: [TAG_SLUGS.ZONE_CORPS],
-  'Facial Cleansers': [TAG_SLUGS.NETTOYANT, TAG_SLUGS.ZONE_VISAGE, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
   Cleansers: [TAG_SLUGS.NETTOYANT],
-  'Toners & Astringents': [TAG_SLUGS.TONIQUE, TAG_SLUGS.PREPARATION, TAG_SLUGS.ZONE_VISAGE],
   Eyes: [TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX, TAG_SLUGS.CONTOUR_YEUX],
   'Lip Care': [TAG_SLUGS.ZONE_LEVRES, TAG_SLUGS.SOIN_LEVRES],
-  'Eye Cream, Gel, Oils, & Serum': [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX],
-  Moisturizers: [TAG_SLUGS.EMOLLIENCE, TAG_SLUGS.HYDRATATION],
-  Sunscreen: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.CREME_SOLAIRE],
-  'Anti-Aging/Anti-Wrinkle': [TAG_SLUGS.ANTI_AGE],
-  'Exfoliators, Polishes, & Scrubs': [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ZONE_VISAGE],
-  Hand: [TAG_SLUGS.ZONE_MAINS, TAG_SLUGS.CREME_MAINS],
   'Cloths, Towelettes, & Wipes': [TAG_SLUGS.NETTOYANT],
-  'Acids & Peels': [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.EXFOLIANT_CHIMIQUE, TAG_SLUGS.TRAITEMENT],
-  'Pore Treatments': [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.SOIN_LOCALISE],
-  'Sets & Kits': [],
+  'Alternative/Natural Skin Care': [TAG_SLUGS.BIO_NATUREL],
 
-  // ── category values ─────────────────────────────────────────────────────────
-  // Nettoyage
+  // ── Nettoyage ─────────────────────────────────────────────────────────────
+  'Facial Cleansers': [TAG_SLUGS.NETTOYANT, TAG_SLUGS.ZONE_VISAGE, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
   'Facial Washes': [TAG_SLUGS.NETTOYANT, TAG_SLUGS.MOUSSE_NETTOYANTE, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
   'Facial Foaming Cleansers': [TAG_SLUGS.NETTOYANT, TAG_SLUGS.MOUSSE_NETTOYANTE, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
   'Foaming Cleansers': [TAG_SLUGS.NETTOYANT, TAG_SLUGS.MOUSSE_NETTOYANTE],
   'Bar Soaps': [TAG_SLUGS.NETTOYANT],
+  'Facial Bar Soap': [TAG_SLUGS.NETTOYANT, TAG_SLUGS.ZONE_VISAGE],
   'Liquid Cleansers & Soaps': [TAG_SLUGS.NETTOYANT],
   'Liquid or Cream Hand Soaps': [TAG_SLUGS.NETTOYANT, TAG_SLUGS.ZONE_MAINS],
-  'Facial Cleansers': [TAG_SLUGS.NETTOYANT, TAG_SLUGS.ZONE_VISAGE, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
   'Facial Cleansing Oil': [TAG_SLUGS.HUILE_NETTOYANTE, TAG_SLUGS.DOUBLE_NETTOYAGE_1, TAG_SLUGS.ZONE_VISAGE],
   'Facial Cleansing Milks': [TAG_SLUGS.LAIT_NETTOYANT, TAG_SLUGS.NETTOYANT, TAG_SLUGS.ZONE_VISAGE],
   'Facial Wipes': [TAG_SLUGS.NETTOYANT, TAG_SLUGS.ZONE_VISAGE],
+  'Body Wipes': [TAG_SLUGS.NETTOYANT, TAG_SLUGS.ZONE_CORPS],
   'Micellar Water': [TAG_SLUGS.EAU_MICELLAIRE, TAG_SLUGS.DOUBLE_NETTOYAGE_1],
-  // Préparation
+  Flushable: [TAG_SLUGS.NETTOYANT],
+
+  // ── Préparation ───────────────────────────────────────────────────────────
   Toners: [TAG_SLUGS.TONIQUE, TAG_SLUGS.PREPARATION],
+  Astringents: [TAG_SLUGS.ASTRINGENT, TAG_SLUGS.TONIQUE],
   'Toners & Astringents': [TAG_SLUGS.TONIQUE, TAG_SLUGS.PREPARATION, TAG_SLUGS.ZONE_VISAGE],
   Essence: [TAG_SLUGS.ESSENCE, TAG_SLUGS.PREPARATION],
   Mists: [TAG_SLUGS.BRUME, TAG_SLUGS.PREPARATION],
   'Spray Moisturizers': [TAG_SLUGS.BRUME, TAG_SLUGS.HYDRATATION],
   'Spray Moisturizer': [TAG_SLUGS.BRUME, TAG_SLUGS.HYDRATATION],
-  // Traitements / Sérums
+
+  // ── Traitements / Sérums ──────────────────────────────────────────────────
   Serums: [TAG_SLUGS.SERUM, TAG_SLUGS.TRAITEMENT],
+  Serum: [TAG_SLUGS.SERUM, TAG_SLUGS.TRAITEMENT],
   'Moisturizing Serums': [TAG_SLUGS.SERUM, TAG_SLUGS.HYDRATATION],
   'Skin Treatments': [TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ZONE_VISAGE],
+  Complexes: [TAG_SLUGS.SERUM, TAG_SLUGS.TRAITEMENT],
+  Drops: [TAG_SLUGS.SERUM, TAG_SLUGS.TRAITEMENT],
   'Anti-Aging': [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.TRAITEMENT],
   'Anti-Wrinkle': [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.TRAITEMENT],
   'Anti-Aging/Anti-Wrinkle': [TAG_SLUGS.ANTI_AGE],
   'Anti-Wrinkle Treatments': [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.TRAITEMENT],
   'Firming Treatments': [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.TRAITEMENT],
+  Retinol: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.TRAITEMENT],
   'Dark Spot Corrector & Pigment Corrector': [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.TRAITEMENT],
   'Skin Lightening': [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION],
   'Spot Treatments': [TAG_SLUGS.SPOT_TREATMENT, TAG_SLUGS.SOIN_LOCALISE],
@@ -159,7 +172,9 @@ export const CSV_CATEGORY_TAG_MAP: Record<string, string[]> = {
   'Pore Cleansing': [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.NETTOYANT],
   'Pore Refining': [TAG_SLUGS.PORES_DILATES],
   'Pore Treatments': [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.SOIN_LOCALISE],
-  // Hydratation / Soin
+  'Pore Strips': [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.SOIN_LOCALISE, TAG_SLUGS.PATCH],
+
+  // ── Hydratation / Soin ────────────────────────────────────────────────────
   Creams: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.EMOLLIENCE],
   Moisturizers: [TAG_SLUGS.EMOLLIENCE, TAG_SLUGS.HYDRATATION],
   'Moisturizers with SPF': [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.CREME_SOLAIRE, TAG_SLUGS.MATIN],
@@ -172,16 +187,23 @@ export const CSV_CATEGORY_TAG_MAP: Record<string, string[]> = {
   Oils: [TAG_SLUGS.HUILE_VISAGE, TAG_SLUGS.EMOLLIENCE],
   Balms: [TAG_SLUGS.BAUME],
   'Balms, Ointments & Salves': [TAG_SLUGS.BAUME, TAG_SLUGS.OCCLUSIF, TAG_SLUGS.REPARATEUR],
+  OIntments: [TAG_SLUGS.BAUME, TAG_SLUGS.OCCLUSIF, TAG_SLUGS.REPARATEUR],
   Butters: [TAG_SLUGS.OCCLUSIF, TAG_SLUGS.EMOLLIENCE, TAG_SLUGS.TEXTURE_RICHE],
   Emulsions: [TAG_SLUGS.EMOLLIENCE, TAG_SLUGS.CREME_HYDRATANTE],
-  // Yeux / Lèvres
+  'Ethnic Creams, Lotions & Oils': [TAG_SLUGS.EMOLLIENCE, TAG_SLUGS.TEXTURE_RICHE],
+
+  // ── Yeux / Lèvres ────────────────────────────────────────────────────────
   'Eye Cream, Gel, Oils, & Serum': [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX],
   'Eye Masks & Pads': [TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX, TAG_SLUGS.MASQUE_HEBDO, TAG_SLUGS.PATCH],
   'Puffiness Treatments': [TAG_SLUGS.CERNES_POCHES, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX],
   'Dark Circle Treatments': [TAG_SLUGS.CERNES_POCHES, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX],
+  'Lash & Brow Growth': [TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.TRAITEMENT],
   'Lip Balms, Gels, Moisturizers & Oils': [TAG_SLUGS.SOIN_LEVRES, TAG_SLUGS.ZONE_LEVRES, TAG_SLUGS.BAUME],
   'Lip Mask': [TAG_SLUGS.SOIN_LEVRES, TAG_SLUGS.SLEEPING_MASK, TAG_SLUGS.ZONE_LEVRES],
-  // Exfoliants
+  Lips: [TAG_SLUGS.ZONE_LEVRES],
+  'Lip Exfoliators + Scrubs': [TAG_SLUGS.ZONE_LEVRES, TAG_SLUGS.SOIN_LEVRES, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.EXFOLIANT_PHYSIQUE],
+
+  // ── Exfoliants ────────────────────────────────────────────────────────────
   Exfoliators: [TAG_SLUGS.EXFOLIATION],
   'Exfoliators & Scrubs': [TAG_SLUGS.EXFOLIATION],
   'Exfoliators, Polishes, & Scrubs': [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ZONE_VISAGE],
@@ -190,12 +212,24 @@ export const CSV_CATEGORY_TAG_MAP: Record<string, string[]> = {
   Polishes: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.EXFOLIANT_PHYSIQUE],
   Peels: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.EXFOLIANT_CHIMIQUE],
   'Acids & Peels': [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.EXFOLIANT_CHIMIQUE, TAG_SLUGS.TRAITEMENT],
-  // Masques
+  'Alpha Beta': [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.EXFOLIANT_CHIMIQUE],
+  'Glycolic Acid': [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.EXFOLIANT_CHIMIQUE],
+  'Salicylic Acid': [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.EXFOLIANT_CHIMIQUE],
+  Microdermabrasion: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.EXFOLIANT_PHYSIQUE, TAG_SLUGS.GRAIN_PEAU],
+
+  // ── Masques ───────────────────────────────────────────────────────────────
   'Facial Masks': [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.MASQUE_HEBDO],
-  // Solaires
+
+  // ── Solaires ──────────────────────────────────────────────────────────────
   Sunscreen: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.CREME_SOLAIRE],
-  // Corps / Mains
+
+  // ── Corps / Mains ─────────────────────────────────────────────────────────
   Hand: [TAG_SLUGS.ZONE_MAINS, TAG_SLUGS.CREME_MAINS],
+  'Hand Masks': [TAG_SLUGS.ZONE_MAINS, TAG_SLUGS.MASQUE_HEBDO, TAG_SLUGS.PATCH],
+  'Moisturizing Gloves': [TAG_SLUGS.ZONE_MAINS, TAG_SLUGS.MASQUE_HEBDO],
+  Feet: [TAG_SLUGS.ZONE_CORPS],
+  'Foot Mask': [TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.MASQUE_HEBDO],
+  'Neck & Décolleté': [TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.ANTI_AGE],
   'Sets & Kits': [],
 }
 
@@ -211,6 +245,7 @@ export const NAME_KEYWORD_TAG_MAP: Record<string, string[]> = {
     TAG_SLUGS.NETTOYANT,
     TAG_SLUGS.BAUME_DEMAQUILLANT,
   ],
+  'cleansing water': [TAG_SLUGS.EAU_MICELLAIRE, TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_1],
   micellar: [TAG_SLUGS.EAU_MICELLAIRE, TAG_SLUGS.DOUBLE_NETTOYAGE_1],
   cleanser: [TAG_SLUGS.NETTOYANT],
   wash: [TAG_SLUGS.NETTOYANT],
@@ -238,5 +273,10 @@ export const NAME_KEYWORD_TAG_MAP: Record<string, string[]> = {
   exfoliat: [TAG_SLUGS.EXFOLIATION],
   night: [TAG_SLUGS.SOIR, TAG_SLUGS.CREME_DE_NUIT],
   day: [TAG_SLUGS.MATIN],
-  tinted: [TAG_SLUGS.PIGMENTS_VERTS], // Ou autre selon contexte, mais souvent maquillage/correction
+  tinted: [TAG_SLUGS.PIGMENTS_VERTS],
+  bha: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIANT_CHIMIQUE],
+  aha: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.EXFOLIANT_CHIMIQUE],
+  pha: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.EXFOLIANT_CHIMIQUE, TAG_SLUGS.PEAU_SENSIBLE],
+  cica: [TAG_SLUGS.APAISANT, TAG_SLUGS.CICATRISATION],
+  ceramide: [TAG_SLUGS.BARRIERE_CUTANEE],
 }

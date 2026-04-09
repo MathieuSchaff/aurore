@@ -1,3 +1,4 @@
+import { INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
 import { INGREDIENT_SLUGS } from './ingredient-slugs'
 import type { IngredientInput } from './seed-ingredients'
 
@@ -5,7 +6,7 @@ export const FILTRES_UV: IngredientInput[] = [
   {
     name: 'Drometrizole Trisiloxane (Mexoryl XL)',
     slug: INGREDIENT_SLUGS.DROMETRIZOLE_TRISILOXANE,
-    category: 'Protection Solaire & Photostabilité',
+    category: INGREDIENT_CATEGORIES.FILTRE_UV,
     description:
       'Un système filtrant lipophile breveté, offrant une protection à large spectre contre les UVA et UVB avec une photostabilité exceptionnelle.',
     content: `
@@ -37,7 +38,7 @@ Plus connu sous le nom de **Mexoryl XL**, le **Drometrizole Trisiloxane** est un
   {
     name: 'Avobenzone (Butyl Methoxydibenzoylmethane)',
     slug: INGREDIENT_SLUGS.BUTYL_METHOXYDIBENZOYLMETHANE,
-    category: 'Protection UVA',
+    category: INGREDIENT_CATEGORIES.FILTRE_UV,
     description:
       'Le filtre de référence pour l’absorption des UVA longs, protégeant les structures profondes de la peau contre le vieillissement actinique.',
     content: `
@@ -68,7 +69,7 @@ L'**Avobenzone** est l'un des rares filtres organiques capables d'absorber l'int
   {
     name: 'Octocrylene',
     slug: INGREDIENT_SLUGS.OCTOCRYLENE,
-    category: 'Stabilisateur & Protection UVB',
+    category: INGREDIENT_CATEGORIES.FILTRE_UV,
     description:
       'Un filtre UVB liquide qui joue un rôle crucial de stabilisateur pour les autres filtres solaires, tout en renforçant la résistance à l’eau des formules.',
     content: `
@@ -99,7 +100,7 @@ L'**Octocrylene** est un filtre organique polyvalent. Bien qu'il protège contre
   {
     name: 'Homosalate',
     slug: INGREDIENT_SLUGS.HOMOSALATE,
-    category: 'Protection UVB',
+    category: INGREDIENT_CATEGORIES.FILTRE_UV,
     description:
       'Un filtre organique liquide spécialisé dans l’absorption des rayons UVB, souvent utilisé pour ajuster la fluidité des protections solaires.',
     content: `
@@ -129,7 +130,7 @@ L'**Homosalate** est un ingrédient classique des formulations solaires. Sa natu
   {
     name: 'Ethylhexyl Salicylate (Octisalate)',
     slug: INGREDIENT_SLUGS.ETHYLHEXYL_SALICYLATE,
-    category: 'Protection UVB & Boosteur de SPF',
+    category: INGREDIENT_CATEGORIES.FILTRE_UV,
     description:
       'Un filtre UVB complémentaire qui agit également comme un solvant pour stabiliser et homogénéiser les mélanges de filtres solaires.',
     content: `
@@ -159,7 +160,7 @@ L'**Ethylhexyl Salicylate** (ou Octisalate) est un ester d'acide salicylique. S'
   {
     name: 'Ethylhexyl Triazone',
     slug: INGREDIENT_SLUGS.ETHYLHEXYL_TRIAZONE,
-    category: 'filtre uv',
+    category: INGREDIENT_CATEGORIES.FILTRE_UV,
     description:
       'L’un des filtres UVB les plus puissants et les plus stables au monde, permettant d’atteindre des indices SPF élevés avec une excellente tolérance cutanée.',
     content: `
@@ -183,7 +184,7 @@ L'**Ethylhexyl Salicylate** (ou Octisalate) est un ester d'acide salicylique. S'
   {
     name: 'Diethylamino Hydroxybenzoyl Hexyl Benzoate',
     slug: INGREDIENT_SLUGS.DIETHYLAMINO_HYDROXYBENZOYL_HEXYL_BENZOATE,
-    category: 'filtre uv',
+    category: INGREDIENT_CATEGORIES.FILTRE_UV,
     description:
       'Filtre solaire organique de nouvelle génération, extrêmement stable, offrant une protection haute performance contre les rayons UVA responsables du photovieillissement.',
     content: `
@@ -208,7 +209,7 @@ L'**Ethylhexyl Salicylate** (ou Octisalate) est un ester d'acide salicylique. S'
   {
     name: 'Dioxyde de titane (Titanium Dioxide)',
     slug: INGREDIENT_SLUGS.TITANIUM_DIOXIDE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.FILTRE_UV,
     description:
       'Filtre minéral physique offrant une protection solaire large spectre UVB et UVA courts, opacifiant et apaisant, particulièrement adapté aux peaux sensibles et aux formulations minérales.',
     content: `
@@ -242,7 +243,7 @@ L'**Ethylhexyl Salicylate** (ou Octisalate) est un ester d'acide salicylique. S'
   {
     name: 'Oxyde de zinc (Zinc Oxide)',
     slug: INGREDIENT_SLUGS.ZINC_OXIDE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.FILTRE_UV,
     description:
       'Filtre minéral physique offrant une protection solaire large spectre UVA/UVB, apaisant et protecteur pour les peaux sensibles, irritées ou à imperfections.',
     content: `
@@ -282,9 +283,44 @@ L'**Ethylhexyl Salicylate** (ou Octisalate) est un ester d'acide salicylique. S'
   `,
   },
   {
+    name: 'Diethylhexyl Butamido Triazone (Uvasorb HEB)',
+    slug: INGREDIENT_SLUGS.DIETHYLHEXYL_BUTAMIDO_TRIAZONE,
+    category: INGREDIENT_CATEGORIES.FILTRE_UV,
+    description:
+      'Filtre UV organique à large spectre UVB/UVA, très photostable et résistant à l\'eau, utilisé dans les formules solaires haute performance.',
+    content: `
+# Diethylhexyl Butamido Triazone (Uvasorb HEB)
+
+Le **Diethylhexyl Butamido Triazone**, commercialisé sous le nom **Uvasorb HEB**, est un filtre UV organique lipophile de nouvelle génération. Il offre une couverture large spectre couvrant les UVB et une partie des UVA, avec une photostabilité exceptionnelle.
+
+## INCI
+**DIETHYLHEXYL BUTAMIDO TRIAZONE**
+
+## Mécanisme d'action
+- **Absorption UVB** : Pic d'absorption principal autour de 310 nm (UVB).
+- **Couverture UVA courte** : Protection partielle sur les UVA courts (320-340 nm).
+- **Photostabilité** : Très stable à l'exposition solaire, sans dégradation notable.
+- **Lipophile** : S'intègre parfaitement dans les phases huileuses et résiste à la transpiration.
+
+## Bienfaits
+- Protection efficace contre les coups de soleil (UVB).
+- Améliore la photostabilité des formules contenant d'autres filtres moins stables.
+- Bonne tolérance cutanée, non irritant.
+- Compatible avec les peaux sensibles à condition d'être formellement évalué en formule complète.
+
+## Utilisation
+- Souvent combiné avec d'autres filtres (Tinosorb S, Uvinul A Plus, Octinoxate) pour une protection large spectre complète.
+- Présent dans les formules solaires "haute résistance" type sport ou aquatiques.
+- Contre-indiqué en grossesse (filtre chimique, précaution de principe).
+
+## Note technique
+Bien que principalement UVB, Uvasorb HEB est apprécié pour sa robustesse en formulation et sa compatibilité avec des émulsions riches. À distinguer de l'Uvasorb K2A (ancienne dénomination d'un autre filtre). Approuvé en Europe et dans de nombreux marchés asiatiques.
+    `,
+  },
+  {
     name: 'Oxydes de fer (Iron oxides)',
     slug: INGREDIENT_SLUGS.IRON_OXIDE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.FILTRE_UV,
     description:
       'Pigments minéraux naturels assurant la coloration des soins et offrant une protection complémentaire contre la lumière bleue.',
     content: `
@@ -317,7 +353,7 @@ L'**Ethylhexyl Salicylate** (ou Octisalate) est un ester d'acide salicylique. S'
   {
     name: 'TriAsorB™ (Phénylène Bis-Diphényltriazine)',
     slug: INGREDIENT_SLUGS.TRIASORB,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.FILTRE_UV,
     description:
       'Filtre solaire ultra-large spectre protégeant contre les rayons UVB, UVA et la lumière bleue haute énergie.',
     content: `
@@ -350,7 +386,7 @@ L'**Ethylhexyl Salicylate** (ou Octisalate) est un ester d'acide salicylique. S'
   {
     name: 'Bis-Ethylhexyloxyphenol Methoxyphenyl Triazine',
     slug: INGREDIENT_SLUGS.BIS_ETHYLHEXYLOXYPHENOL_METHOXYPHENYL_TRIAZINE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.FILTRE_UV,
     description:
       "Filtre UV chimique organique large spectre breveté (Tinosorb® S / Bemotrizinol), photostable et efficace contre UVA/UVB, protège durablement contre le photo-vieillissement et les dommages solaires tout en stabilisant d'autres filtres comme l'avobenzone.",
     content: `
@@ -397,5 +433,101 @@ L'**Ethylhexyl Salicylate** (ou Octisalate) est un ester d'acide salicylique. S'
 
     Filtre UV référence (Tinosorb® S), hautement photostable et photoprotecteur (études depuis 2001 démontrant stabilisation avobenzone et maintien SPF/UVA après irradiation). Breveté, autorisé mondialement (Europe, Asie, Australie ; en attente GRASE US), très faible risque d'allergie ou perturbation endocrinienne. Actif signature des solaires modernes haute performance, souvent associé à Tinosorb M, avobenzone ou filtres minéraux pour une protection optimale et textures innovantes.
   `,
+  },
+  {
+    name: 'Isoamyl p-Methoxycinnamate (Amiloxate)',
+    slug: INGREDIENT_SLUGS.ISOAMYL_P_METHOXYCINNAMATE,
+    category: INGREDIENT_CATEGORIES.FILTRE_UV,
+    description: 'Filtre UVB organique liposoluble, couramment utilisé dans les formules à filtres chimiques pour sa bonne efficacité UVB et sa texture légère.',
+    content: `
+# Isoamyl p-Methoxycinnamate (Amiloxate)
+
+L'**Amiloxate** est un ester cinnamique liposoluble offrant une absorption UVB efficace. Il est souvent associé à d'autres filtres pour couvrir le spectre UVA.
+
+## INCI
+**ISOAMYL P-METHOXYCINNAMATE**
+
+## Points forts
+- **Absorption UVB** : Couvre principalement le spectre 290–320 nm.
+- **Texture légère** : Liposoluble, s'intègre bien dans des formules fluides.
+
+## Sécurité
+- Autorisé en Europe jusqu'à 10% en crème solaire.
+- Peu de données sur l'impact environnemental ; généralement considéré à faible risque.
+`,
+  },
+  {
+    name: 'Ethylhexyl Methoxycinnamate (Octinoxate)',
+    slug: INGREDIENT_SLUGS.ETHYLHEXYL_METHOXYCINNAMATE,
+    category: INGREDIENT_CATEGORIES.FILTRE_UV,
+    description: "Filtre UVB organique parmi les plus répandus au monde, liposoluble et efficace, bien que controversé pour son impact sur les coraux et son potentiel perturbateur endocrinien.",
+    content: `
+# Ethylhexyl Methoxycinnamate (Octinoxate)
+
+L'**Octinoxate** est l'un des filtres UV chimiques les plus utilisés historiquement. Sa haute efficacité UVB et son excellente miscibilité en font un composant clé de nombreuses formules solaires.
+
+## INCI
+**ETHYLHEXYL METHOXYCINNAMATE**
+
+## Points forts
+- **Haute efficacité UVB** : Absorption maximale autour de 310 nm.
+- **Solubilité** : Très liposoluble, permet des textures fluides et légères sans résidu gras.
+
+## Limites & controverses
+- **Photodégradation** : Se dégrade sous irradiation UV, nécessite une stabilisation (par ex. Octocrylene, Tinosorb S).
+- **Perturbateur endocrinien suspecté** : Des études in vitro ont montré une activité œstrogénique faible ; réglementé en conséquence.
+- **Toxicité corallienne** : Interdit dans certains États/pays (Hawaii, Palaos) pour son impact sur les écosystèmes marins.
+
+## Autorisation
+- Autorisé en Europe jusqu'à 7,5% ; limites variables selon les régions.
+`,
+  },
+  {
+    name: 'Méthylène Bis-Benzotriazolyl Tétraméthylbutylphénol (Tinosorb M)',
+    slug: INGREDIENT_SLUGS.METHYLENE_BIS_BENZOTRIAZOLYL_TETRAMETHYLBUTYLPHENOL,
+    category: INGREDIENT_CATEGORIES.FILTRE_UV,
+    description: 'Filtre UV hybride (organique/minéral-like) à large spectre UVA/UVB, photostable, faible pénétration cutanée grâce à ses particules micronisées.',
+    content: `
+# Méthylène Bis-Benzotriazolyl Tétraméthylbutylphénol (Tinosorb M)
+
+Le **Tinosorb M** est un filtre UV de nouvelle génération combinant les mécanismes d'absorption des filtres organiques et de réflexion/diffusion des filtres minéraux grâce à sa forme particulaire micronisée.
+
+## INCI
+**METHYLENE BIS-BENZOTRIAZOLYL TETRAMETHYLBUTYLPHENOL**
+
+## Points forts
+- **Large spectre** : Couvre UVA et UVB (280–400 nm) avec deux pics d'absorption (~305 nm et ~360 nm).
+- **Photostabilité** : Reste actif sous exposition UV prolongée.
+- **Faible pénétration** : Taille des particules > 100 nm limitant l'absorption cutanée.
+- **Stabilisateur** : Améliore la stabilité de l'Avobenzone et d'autres filtres.
+
+## Sécurité
+- Autorisé en Europe jusqu'à 10% en crème solaire.
+- Non perturbateur endocrinien ; profil de sécurité favorable selon le SCCS.
+`,
+  },
+  {
+    name: 'Tris-Biphényl Triazine (Tinosorb A2B)',
+    slug: INGREDIENT_SLUGS.TRIS_BIPHENYL_TRIAZINE,
+    category: INGREDIENT_CATEGORIES.FILTRE_UV,
+    description: 'Filtre UV large spectre sous forme nanoparticulaire (Tinosorb A2B), photostable, à faible pénétration cutanée, offrant une protection UVA/UVB sans voile blanc.',
+    content: `
+# Tris-Biphényl Triazine (Tinosorb A2B)
+
+Le **Tinosorb A2B** est un filtre UV particulaire inorganique-like de dernière génération, connu sous sa forme nano pour allier haute efficacité large spectre et texture invisible.
+
+## INCI
+**TRIS-BIPHENYL TRIAZINE**
+
+## Points forts
+- **Large spectre** : Protection efficace de 280 à 400 nm (UVB + UVA I/II).
+- **Photostabilité** : Ne se dégrade pas sous irradiation UV.
+- **Nano form** : Particules de l'ordre de 100–200 nm permettant des textures légères et transparentes.
+- **Faible absorption cutanée** : Reste en surface, minimisant tout risque systémique.
+
+## Sécurité
+- Évalué par le SCCS (European Scientific Committee on Consumer Safety) : profil de sécurité favorable.
+- Autorisé en Europe jusqu'à 10%.
+`,
   },
 ]

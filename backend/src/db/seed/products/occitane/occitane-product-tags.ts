@@ -8,7 +8,7 @@ export interface ProductTagGroups {
 }
 
 export const OCCITANE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
-  // ── CLEANSERS ──────────────────────────────────────────────────────────────
+  
 
   [OCCITANE_PRODUCT_SLUGS.IMMORTELLE_MOUSSE_NETTOYANTE]: {
     primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.GRAIN_PEAU],
@@ -17,21 +17,18 @@ export const OCCITANE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.MOUSSE_NETTOYANTE,
       TAG_SLUGS.NETTOYANT,
       TAG_SLUGS.PEAU_TOUS_TYPES,
-      TAG_SLUGS.KERATOLYTIQUE,
-      TAG_SLUGS.ANTI_OXYDANT,
       TAG_SLUGS.ZONE_VISAGE,
     ],
     avoid: [],
   },
 
   [OCCITANE_PRODUCT_SLUGS.IMMORTELLE_BAUME_DEMAQUILLANT]: {
-    primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.EMOLLIENT],
+    primary: [TAG_SLUGS.ANTI_AGE],
     secondary: [
       TAG_SLUGS.DOUBLE_NETTOYAGE_1,
       TAG_SLUGS.BAUME_DEMAQUILLANT,
       TAG_SLUGS.NETTOYANT,
       TAG_SLUGS.PEAU_TOUS_TYPES,
-      TAG_SLUGS.ANTI_OXYDANT,
       TAG_SLUGS.TEXTURE_RICHE,
       TAG_SLUGS.ZONE_VISAGE,
     ],
@@ -45,14 +42,12 @@ export const OCCITANE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.HUILE_DEMAQUILLANTE,
       TAG_SLUGS.NETTOYANT,
       TAG_SLUGS.PEAU_TOUS_TYPES,
-      TAG_SLUGS.ANTI_OXYDANT,
-      TAG_SLUGS.HUMECTANT,
       TAG_SLUGS.ZONE_VISAGE,
     ],
     avoid: [],
   },
 
-  // ── TONER / ESSENCE ────────────────────────────────────────────────────────
+  
 
   [OCCITANE_PRODUCT_SLUGS.IMMORTELLE_EAU_ESSENTIELLE]: {
     primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.ECLAT],
@@ -61,8 +56,6 @@ export const OCCITANE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.TONIQUE,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
-      TAG_SLUGS.HUMECTANT,
-      TAG_SLUGS.ANTI_OXYDANT,
       TAG_SLUGS.PORES_DILATES,
       TAG_SLUGS.ZONE_VISAGE,
     ],
@@ -76,9 +69,6 @@ export const OCCITANE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.ESSENCE,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
-      TAG_SLUGS.APAISANT,
-      TAG_SLUGS.PREBIOTIQUE,
-      TAG_SLUGS.ANTI_OXYDANT,
       TAG_SLUGS.ECLAT,
       TAG_SLUGS.PEAU_TOUS_TYPES,
       TAG_SLUGS.ZONE_VISAGE,
@@ -86,7 +76,7 @@ export const OCCITANE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
     avoid: [],
   },
 
-  // ── SERUMS ────────────────────────────────────────────────────────────────
+  
 
   [OCCITANE_PRODUCT_SLUGS.IMMORTELLE_SERUM_PRO_FERMETE]: {
     primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
@@ -95,8 +85,6 @@ export const OCCITANE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.SERUM,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
-      TAG_SLUGS.HUMECTANT,
-      TAG_SLUGS.REPARATEUR,
       TAG_SLUGS.ECLAT,
       TAG_SLUGS.ZONE_VISAGE,
     ],
@@ -110,8 +98,6 @@ export const OCCITANE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.SERUM,
       TAG_SLUGS.SOIR,
       TAG_SLUGS.BARRIERE_CUTANEE,
-      TAG_SLUGS.ANTI_OXYDANT,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.TEINT_TERNE,
       TAG_SLUGS.ZONE_VISAGE,
     ],
@@ -125,8 +111,6 @@ export const OCCITANE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.HUILE_VISAGE,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
-      TAG_SLUGS.EMOLLIENT,
-      TAG_SLUGS.ANTI_OXYDANT,
       TAG_SLUGS.ECLAT,
       TAG_SLUGS.PEAU_SECHE,
       TAG_SLUGS.ZONE_VISAGE,
@@ -134,7 +118,7 @@ export const OCCITANE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
     avoid: [],
   },
 
-  // ── MOISTURISERS ──────────────────────────────────────────────────────────
+  
 
   [OCCITANE_PRODUCT_SLUGS.IMMORTELLE_CREME_JEUNESSE]: {
     primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ANTI_TACHES],
@@ -161,14 +145,13 @@ export const OCCITANE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.SOIR,
       TAG_SLUGS.REPULPANT,
       TAG_SLUGS.PORES_DILATES,
-      TAG_SLUGS.ANTI_OXYDANT,
       TAG_SLUGS.PEAU_SECHE,
       TAG_SLUGS.ZONE_VISAGE,
     ],
     avoid: [],
   },
 
-  // ── EYE / LIP CARE ────────────────────────────────────────────────────────
+  
 
   [OCCITANE_PRODUCT_SLUGS.IMMORTELLE_BAUME_REGARD]: {
     primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.CERNES_POCHES],
@@ -194,14 +177,13 @@ export const OCCITANE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
       TAG_SLUGS.REPULPANT,
-      TAG_SLUGS.EMOLLIENT,
       TAG_SLUGS.ZONE_YEUX,
       TAG_SLUGS.ZONE_LEVRES,
     ],
     avoid: [],
   },
 
-  // ── NECK ─────────────────────────────────────────────────────────────────
+  
 
   [OCCITANE_PRODUCT_SLUGS.IMMORTELLE_CREME_COU]: {
     primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
@@ -210,15 +192,12 @@ export const OCCITANE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.CREME_HYDRATANTE,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
-      TAG_SLUGS.HUMECTANT,
-      TAG_SLUGS.EMOLLIENT,
-      TAG_SLUGS.REPARATEUR,
       TAG_SLUGS.ZONE_VISAGE,
     ],
     avoid: [],
   },
 
-  // ── BODY ──────────────────────────────────────────────────────────────────
+  
 
   [OCCITANE_PRODUCT_SLUGS.IMMORTELLE_HUILE_CORPS_RAFFERMISSANTE]: {
     primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
@@ -226,8 +205,6 @@ export const OCCITANE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.HUILE_CORPS,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
-      TAG_SLUGS.EMOLLIENT,
-      TAG_SLUGS.ANTI_OXYDANT,
       TAG_SLUGS.ECLAT,
       TAG_SLUGS.PEAU_TOUS_TYPES,
       TAG_SLUGS.ZONE_CORPS,
@@ -241,7 +218,6 @@ export const OCCITANE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.CREME_CORPS,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
-      TAG_SLUGS.EMOLLIENT,
       TAG_SLUGS.REPULPANT,
       TAG_SLUGS.ECLAT,
       TAG_SLUGS.PEAU_TOUS_TYPES,
@@ -250,7 +226,7 @@ export const OCCITANE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
     avoid: [],
   },
 
-  // ── HANDS ────────────────────────────────────────────────────────────────
+  
 
   [OCCITANE_PRODUCT_SLUGS.IMMORTELLE_SERUM_CREME_MAINS]: {
     primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ANTI_TACHES],
@@ -258,9 +234,7 @@ export const OCCITANE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.CREME_MAINS,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
-      TAG_SLUGS.EMOLLIENT,
       TAG_SLUGS.REPULPANT,
-      TAG_SLUGS.ANTI_OXYDANT,
       TAG_SLUGS.HYPERPIGMENTATION,
       TAG_SLUGS.ZONE_MAINS,
     ],

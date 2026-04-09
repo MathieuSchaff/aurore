@@ -1,3 +1,4 @@
+import { INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
 import { INGREDIENT_SLUGS } from './ingredient-slugs'
 import type { IngredientInput } from './seed-ingredients'
 
@@ -5,7 +6,7 @@ export const ECLAIRCISSANTS_DEPIGMENTANTS: IngredientInput[] = [
   {
     name: 'Gallyl Glucoside',
     slug: INGREDIENT_SLUGS.GALLYL_GLUCOSIDE,
-    category: 'Apaisement & Anti-Rougeurs',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un actif biotechnologique issu de l’acide gallique, conçu pour réguler la réponse inflammatoire et réduire visiblement les rougeurs cutanées.',
     content: `
@@ -35,7 +36,7 @@ Le **Gallyl Glucoside** est une molécule stabilisée par biotechnologie. Elle c
   {
     name: 'La Réglisse (Famille des Glycyrrhiza)',
     slug: INGREDIENT_SLUGS.REGLISSE,
-    category: 'actif multi-performant',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Véritable "couteau suisse" de la dermo-cosmétique, la réglisse regroupe des actifs majeurs (Glabridine, Enoxolone, Licochalcone) agissant sur les taches, l’inflammation et le stress oxydatif.',
     content: `
@@ -258,7 +259,7 @@ La force de la réglisse est d'être **holistique**. Elle traite la tache (le pi
   {
     name: 'Hexylresorcinol',
     slug: INGREDIENT_SLUGS.HEXYLRESORCINOL,
-    category: 'anti-taches & éclaircissant',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Actif de référence pour corriger l’hyperpigmentation, uniformiser le teint et protéger contre le stress oxydatif.',
     content: `
@@ -285,7 +286,7 @@ C'est un ingrédient clé pour traiter les désordres pigmentaires et redonner d
   {
     name: 'Mélitane',
     slug: INGREDIENT_SLUGS.MELITANE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Peptide pro-pigmentant (Acetyl Hexapeptide-1) qui stimule la mélanogenèse cutanée via les récepteurs MC1-R, favorisant un bronzage naturel et une meilleure photoprotection endogène.',
     content: `
@@ -319,7 +320,7 @@ C'est un ingrédient clé pour traiter les désordres pigmentaires et redonner d
   {
     name: 'Diacetyl Boldine',
     slug: INGREDIENT_SLUGS.DIACETYL_BOLDINE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Dérivé acétylé de la boldine issu de l'écorce du boldo chilien, Diacetyl Boldine (Lumiskin™) est un actif éclaircissant et antioxydant qui inhibe la tyrosinase, réduit la pigmentation et protège contre le stress oxydatif pour un teint plus uniforme et lumineux.",
     content: `
@@ -370,7 +371,7 @@ C'est un ingrédient clé pour traiter les désordres pigmentaires et redonner d
   {
     name: 'Sepiwhite™ (Undecylenoyl Phenylalanine)',
     slug: INGREDIENT_SLUGS.SEPIWHITE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Actif éclaircissant de référence qui régule la pigmentation à la source pour un teint uniforme et une réduction visible des taches.',
     content: `
@@ -412,7 +413,7 @@ C'est un ingrédient clé pour traiter les désordres pigmentaires et redonner d
   {
     name: 'Melasyl™ (La Molécule Multi-Brevets)',
     slug: INGREDIENT_SLUGS.MELASYL,
-    category: 'Éclat & Anti-taches',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une innovation de rupture en neuro-cosmétique, conçue pour intercepter les précurseurs de mélanine avant qu’ils ne marquent la peau, offrant une correction pigmentaire d’une précision inédite.',
     content: `
@@ -467,7 +468,7 @@ C'est un ingrédient clé pour traiter les désordres pigmentaires et redonner d
   {
     name: 'Alpha-arbutine',
     slug: INGREDIENT_SLUGS.ALPHA_ARBUTIN,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Dérivé glycosylé de l'hydroquinone, inhibiteur de la tyrosinase. Anti-taches et éclaircissant progressif, plus doux que l'hydroquinone. Préférer l'alpha sur la bêta, max 2 %.",
     content: `## Mécanisme d'action
@@ -555,7 +556,7 @@ C'est un ingrédient clé pour traiter les désordres pigmentaires et redonner d
   {
     name: 'Acide kojique',
     slug: INGREDIENT_SLUGS.KOJIC_ACID,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Produit par fermentation fongique (Aspergillus). Inhibe la tyrosinase pour réduire l'hyperpigmentation. Alternative plus douce à l'hydroquinone, mais instable et photosensibilisant. Max 1 % en UE (2024).",
     content: `## Origine
@@ -617,7 +618,7 @@ C'est un ingrédient clé pour traiter les désordres pigmentaires et redonner d
   {
     name: 'Acide tranexamique',
     slug: INGREDIENT_SLUGS.TRANEXAMIC_ACID,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Dérivé synthétique de la lysine, développé comme antihémorragique dans les années 1960 par des chercheurs japonais. Reconverti en actif dépigmentant après observation fortuite dans les années 1970 d'une réduction du mélasma chez des patients traités par voie orale. Aujourd'hui considéré comme un actif phare en cosmétique, avec une efficacité comparable à l'hydroquinone et un bien meilleur profil de tolérance en topique (2–5 %). Tendance forte en 2025–2026 (recherches +107 % fin 2024).",
     content: `## Origine et historique
@@ -1220,7 +1221,7 @@ C'est un ingrédient clé pour traiter les désordres pigmentaires et redonner d
   {
     name: 'Glutathion',
     slug: INGREDIENT_SLUGS.GLUTATHION,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Tripeptide antioxydant naturel (glutamate, cystéine, glycine). Inhibe la tyrosinase et recycle la vitamine C. Très instable (pH < 4, sensible à la chaleur/oxydation). Données cliniques encore faibles pour le blanchiment cutané en 2026 — plutôt un antioxydant secondaire qu'un actif anti-taches de premier plan.",
     content: `## Structure & rôle biologique
@@ -1292,7 +1293,7 @@ C'est un ingrédient clé pour traiter les désordres pigmentaires et redonner d
   {
     name: '4-Butylresorcinol',
     slug: INGREDIENT_SLUGS.BUTYLRESORCINOL,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Inhibiteur de tyrosinase extrêmement puissant, l’un des actifs les plus efficaces contre l’hyperpigmentation.',
     content: `
@@ -1307,7 +1308,7 @@ Le **4-Butylresorcinol** est un dérivé du résorcinol reconnu pour son action 
   {
     name: 'Iris Florentina Root Extract',
     slug: INGREDIENT_SLUGS.IRIS_EXTRACT,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait naturel de racine d’iris aux propriétés éclaircissantes, purifiantes et anti-âge.',
     content: `
@@ -1318,5 +1319,29 @@ L'**Extrait d'Iris** est traditionnellement utilisé pour ses vertus purifiantes
 * **Purification** : Aide à réguler les imperfections légères.
 * **Anti-âge** : Riche en isoflavones, il aide à maintenir la tonicité cutanée.
     `,
+  },
+  {
+    name: 'Phenylethyl Resorcinol (SymWhite 377)',
+    slug: INGREDIENT_SLUGS.PHENYLETHYL_RESORCINOL,
+    category: INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Un actif éclaircissant ultra-performant inspiré d’un composé naturel du pin sylvestre, reconnu pour son exceptionnelle capacité à réduire les taches et illuminer le teint.',
+    content: `
+# Phenylethyl Resorcinol : La Haute Précision Anti-Taches
+Le **Phenylethyl Resorcinol**, souvent connu sous le nom commercial **SymWhite® 377**, est l'un des inhibiteurs de tyrosinase les plus puissants du marché. Sa structure est inspirée du pin sylvestre, offrant une efficacité éclaircissante supérieure à celle de l'acide kojique ou de l'arbutine.
+
+## ✨ Points Forts & Bénéfices
+* **Inhibiteur Puissant** : Bloque très efficacement la synthèse de mélanine à la source.
+* **Antioxydant Majeur** : Protège contre le stress oxydatif qui déclenche la formation des taches.
+* **Efficacité à faible dose** : Très performant dès 0,1 à 0,5% de concentration.
+* **Uniformité** : Réduit visiblement l'apparence des taches brunes et améliore l'éclat global.
+
+## ⚖️ Transparence Scientifique & Limites
+* **Sensibilité** : Bien que plus doux que l'hydroquinone, il peut nécessiter une attention particulière sur les peaux extrêmement sensibles.
+* **Stabilité** : Doit être correctement formulé pour conserver toute son efficacité dans le temps.
+
+## 🛡️ Précautions & Sécurité
+* SPF indispensable en journée pour protéger les résultats et éviter de nouvelles pigmentations.
+`,
   },
 ]
