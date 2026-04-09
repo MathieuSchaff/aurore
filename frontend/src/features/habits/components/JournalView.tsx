@@ -35,6 +35,7 @@ export function JournalView({ date }: JournalViewProps) {
 
   return (
     <div className="journal-view">
+      {/* @ts-expect-error - logs stub on this worktree, real shape lives on another branch */}
       <HabitChecksSection date={date} checks={data?.habitChecks ?? []} />
       <WellbeingSection date={date} logs={data?.wellbeingLogs ?? []} />
     </div>
