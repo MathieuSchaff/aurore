@@ -4,6 +4,7 @@ import type {
   ProductSearchResult,
   UpdateProductInput,
 } from '@habit-tracker/shared'
+import { filterCategoriesFor, type TagCategory } from '@habit-tracker/shared'
 
 import slugify from '@sindresorhus/slugify'
 import { and, asc, count, eq, ilike, inArray, notInArray, or, type SQL, sql } from 'drizzle-orm'
@@ -309,23 +310,16 @@ export async function listProducts(
   const total = countResult[0]?.total ?? 0
   return { items, total, page, limit }
 }
-type TagsByCategory = {
-  routine_step: { name: string; slug: string }[]
-  skin_type: { name: string; slug: string }[]
-  skin_zone: { name: string; slug: string }[]
-  product_type: { name: string; slug: string }[]
-  concern: { name: string; slug: string }[]
-  skin_effect: { name: string; slug: string }[]
-  product_label: { name: string; slug: string }[]
-  shared_label: { name: string; slug: string }[]
-}
+type ProductFilterCategory = Exclude<TagCategory, 'ingredient_attribute'>
+
+const PRODUCT_FILTER_CATEGORIES = filterCategoriesFor('product') as ProductFilterCategory[]
+
 export type FilterOptions = {
   kinds: string[]
   brands: string[]
-  tags: TagsByCategory
+  tags: Record<ProductFilterCategory, { name: string; slug: string }[]>
 }
 
-// We get everything the user can use to filter the list
 export async function getFilterOptions(database: Database = db): Promise<FilterOptions> {
   const [kindRows, brandRows, tagRows] = await Promise.all([
     database.selectDistinct({ kind: products.kind }).from(products).orderBy(products.kind),
@@ -334,26 +328,21 @@ export async function getFilterOptions(database: Database = db): Promise<FilterO
       .selectDistinct({ name: tags.name, slug: tags.slug, category: tags.category })
       .from(tags)
       .innerJoin(productTags, eq(tags.id, productTags.tagId))
+      .where(inArray(tags.category, PRODUCT_FILTER_CATEGORIES))
       .orderBy(tags.category, tags.name),
   ])
 
-  const tagsByCategory = tagRows.reduce(
-    (acc, tag) => {
-      if (!tag.category || !(tag.category in acc)) return acc
-      acc[tag.category as keyof TagsByCategory].push({ name: tag.name, slug: tag.slug })
-      return acc
-    },
-    {
-      routine_step: [],
-      skin_type: [],
-      skin_zone: [],
-      product_type: [],
-      concern: [],
-      skin_effect: [],
-      product_label: [],
-      shared_label: [],
-    } as TagsByCategory
-  )
+  const tagsByCategory = Object.fromEntries(
+    PRODUCT_FILTER_CATEGORIES.map((c) => [c, []])
+  ) as unknown as FilterOptions['tags']
+
+  for (const tag of tagRows) {
+    if (!tag.category) continue
+    const bucket = tag.category as ProductFilterCategory
+    if (bucket in tagsByCategory) {
+      tagsByCategory[bucket].push({ name: tag.name, slug: tag.slug })
+    }
+  }
 
   return {
     kinds: kindRows.map((r) => r.kind),

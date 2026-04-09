@@ -7,7 +7,9 @@ import type {
 } from '@habit-tracker/shared'
 import {
   createIngredientSchema,
+  filterCategoriesFor,
   ingredientChangesSchema,
+  type TagCategory,
   updateIngredientSchema,
 } from '@habit-tracker/shared'
 
@@ -38,9 +40,9 @@ export async function listIngredients(database: DB, filters: IngredientSearchFil
   // Filters arrive as comma-joined strings from the query params.
   const concerns = filters.concern?.split(',').filter(Boolean) ?? []
   const skinTypes = filters.skin_type?.split(',').filter(Boolean) ?? []
-  const attributes = filters.attribute?.split(',').filter(Boolean) ?? []
+  const ingredientAttributes = filters.ingredient_attribute?.split(',').filter(Boolean) ?? []
   const skinEffects = filters.skin_effect?.split(',').filter(Boolean) ?? []
-  const comedogenicity = filters.comedogenicity?.split(',').filter(Boolean) ?? []
+  const sharedLabels = filters.shared_label?.split(',').filter(Boolean) ?? []
 
   // All tag filters share the same sub-query shape: "ingredient has at
   // least one row in ingredient_tags whose tag slug is in this list".
@@ -61,9 +63,9 @@ export async function listIngredients(database: DB, filters: IngredientSearchFil
 
   addTagGroup(concerns)
   addTagGroup(skinTypes)
-  addTagGroup(attributes)
+  addTagGroup(ingredientAttributes)
   addTagGroup(skinEffects)
-  addTagGroup(comedogenicity)
+  addTagGroup(sharedLabels)
 
   const where = conditions.length > 0 ? and(...conditions) : undefined
 
@@ -304,69 +306,37 @@ export async function searchIngredients(database: DB, query: string, limit = 10)
 }
 
 export type IngredientFilterOptions = {
-  tags: {
-    skin_type: { name: string; slug: string }[]
-    concern: { name: string; slug: string }[]
-    attribute: { name: string; slug: string }[]
-    skin_effect: { name: string; slug: string }[]
-    comedogenicity: { name: string; slug: string }[]
-  }
+  tags: Record<IngredientFilterCategory, { name: string; slug: string }[]>
 }
 
-// Exposes 5 buckets derived directly from TAG_TAXONOMY:
-// - skin_type + concern : both-scoped, core profile axes
-// - attribute : ingredient_attribute (flat — no more artificial
-//   Actions/Technique/Formulation split)
-// - skin_effect : only the scope='both' slugs (occlusif, matifiant,
-//   repulpant, protection-cutanee) that make sense on a molecule
-// - comedogenicity : shared_label pair (comedogene/non-comedogene),
-//   orthogonal to attribute so it gets its own bucket
-// The native `ingredients.category` column is no longer exposed as a
-// filter — the same info lives in the attribute bucket via an auto
-// backfill at seed time.
-export async function getIngredientFilterOptions(database: DB): Promise<IngredientFilterOptions> {
-  const QUERIED_CATEGORIES = [
-    'concern',
-    'skin_type',
-    'ingredient_attribute',
-    'skin_effect',
-    'shared_label',
-  ] as const
+type IngredientFilterCategory = Extract<
+  TagCategory,
+  'skin_type' | 'concern' | 'ingredient_attribute' | 'skin_effect' | 'shared_label'
+>
 
+const INGREDIENT_FILTER_CATEGORIES = filterCategoriesFor('ingredient') as IngredientFilterCategory[]
+
+export async function getIngredientFilterOptions(database: DB): Promise<IngredientFilterOptions> {
   const tagRows = await database
     .selectDistinct({ name: tags.name, slug: tags.slug, category: tags.category })
     .from(tags)
     .innerJoin(ingredientTags, eq(tags.id, ingredientTags.tagId))
-    .where(inArray(tags.category, [...QUERIED_CATEGORIES]))
+    .where(inArray(tags.category, INGREDIENT_FILTER_CATEGORIES))
     .orderBy(tags.category, tags.name)
 
-  const empty: IngredientFilterOptions['tags'] = {
-    skin_type: [],
-    concern: [],
-    attribute: [],
-    skin_effect: [],
-    comedogenicity: [],
-  }
-  const tagsByCategory = tagRows.reduce((acc, tag) => {
-    if (!tag.category) return acc
-    const bucket: keyof IngredientFilterOptions['tags'] | null =
-      tag.category === 'skin_type'
-        ? 'skin_type'
-        : tag.category === 'concern'
-          ? 'concern'
-          : tag.category === 'ingredient_attribute'
-            ? 'attribute'
-            : tag.category === 'skin_effect'
-              ? 'skin_effect'
-              : tag.category === 'shared_label'
-                ? 'comedogenicity'
-                : null
-    if (!bucket) return acc
-    acc[bucket].push({ name: tag.name, slug: tag.slug })
-    return acc
-  }, empty)
+  const empty = Object.fromEntries(
+    INGREDIENT_FILTER_CATEGORIES.map((c) => [c, []])
+  ) as unknown as IngredientFilterOptions['tags']
 
-  return { tags: tagsByCategory }
+  for (const tag of tagRows) {
+    if (!tag.category) continue
+    const bucket = tag.category as IngredientFilterCategory
+    if (bucket in empty) {
+      empty[bucket].push({ name: tag.name, slug: tag.slug })
+    }
+  }
+
+  return { tags: empty }
 }
 
 // This list is very light, I use it just to fill the small select boxes.
