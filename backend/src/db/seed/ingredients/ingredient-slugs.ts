@@ -81,18 +81,23 @@ export const BARRIERE_EMOLLIENTS_OCCLUSIFS = {
   BUTYLENE_GLYCOL: 'butylene-glycol',
   ROSEHIP_SEED_OIL: 'rosehip-seed-oil', // INCI: Rosa Canina Seed Oil | huile d'églantier, régénérante, cicatrisante, riche en vitamine A/C
   CAMELINA_SEED_OIL: 'camelina-seed-oil', // INCI: Camelina Sativa Seed Oil | huile de cameline, oméga-3, légère et antioxydante
+  HEMP_OIL: 'cannabis-sativa-seed-oil', // INCI: Cannabis Sativa Seed Oil | huile de chanvre, riche en oméga-3/6, anti-inflammatoire, apaisante
+  HUILE_COTON: 'huile-coton', // INCI: Gossypium Herbaceum Seed Oil | huile de coton
+  ETHYLHEXYL_PALMITATE: 'ethylhexyl-palmitate', // INCI: Ethylhexyl Palmitate | émollient estérifié
 } as const
 
 export const EXFOLIANTS = {
   GLYCOLIC_ACID: 'glycolic-acid', // INCI: Glycolic Acid | AHA star (exfoliant)
   LACTIC_ACID: 'lactic-acid', // INCI: Lactic Acid | AHA doux + humectant
   MANDELIC_ACID: 'mandelic-acid', // INCI: Mandelic Acid | AHA doux, antibactérien
+  MALIC_ACID: 'malic-acid', // INCI: Malic Acid | AHA pur
   MALIC_ACID_ESTER: 'malic-acid-ester', // INCI: Malic Acid | AHA doux
   PHA: 'pha', // Poly-Hydroxy Acid | INCI le plus courant: Gluconolactone
   PAPAIN: 'papain', // INCI: Papain | enzyme exfoliante (papaye)
   PROTEASE: 'protease', // INCI: Protease | enzyme exfoliante protéolytique
   CAPRYLOYL_SALICYLIC_ACID: 'capryloyl-salicylic-acid', // INCI: Capryloyl Salicylic Acid | BHA lipophile, exfoliant doux
   CITRUS_LIMON_FRUIT_WATER: 'citrus-limon-fruit-water', // INCI: Citrus Limon Fruit Water
+  SUCCINIC_ACID: 'succinic-acid', // INCI: Succinic Acid | exfoliant doux, régulateur sébum
   AHA_ESTERS: 'aha-esters', // Esters d'AHA (acides hydroxy-carboxyliques éstérifiés) | libération prolongée
   ESTER_ACIDE_MALIQUE: 'ester-acide-malique', // Ester d'acide malique | AHA doux à libération modérée
 } as const
@@ -184,12 +189,15 @@ export const ANTIOXYDANTS_VITAMINES = {
   ASCOPHYLLUM_NODOSUM_EXTRACT: 'ascophyllum-nodosum-extract', // INCI: Ascophyllum Nodosum Extract | algue, antioxydant
   HUILE_ARGOUSIER: 'hippophae-rhamnoides', // INCI: Hippophae Rhamnoides Fruit Oil / Extract (argousier) | riche en antioxydants
   ASTAXANTHINE: 'astaxanthine', // INCI: Haematococcus Pluvialis Extract | algue riche en astaxanthine (antioxydant puissant)
+  HAEMATOCOCCUS_PLUVIALIS: 'astaxanthine', // Alias
+  EPIGALLOCATECHIN_GALLATYL_GLUCOSIDE: 'egcg-glucoside', // INCI: Epigallocatechin Gallatyl Glucoside | EGCG stable
   PUNICA_GRANATUM: 'punica-granatum', // INCI: Punica Granatum Fruit Extract | grenade, antioxydant anti-âge
   VITAMIN_K1: 'vitamine-k1',
   FERULIC_ACID: 'ferulic-acid',
   HIBISCUS_SABDARIFFA: 'hibiscus-sabdariffa', // INCI: Hibiscus Sabdariffa Flower Extract | antioxydant, éclat, anti-âge
   BEET_ROOT_EXTRACT: 'beet-root-extract', // INCI: Beta Vulgaris Root Extract | betterave, bétalaïnes antioxydantes
   GARDENIA_FRUIT_EXTRACT: 'gardenia-fruit-extract', // INCI: Gardenia Jasminoides Fruit Extract | éclaircissant / antioxydant
+  GLYCERYL_ASCORBATE: '3-glyceryl-ascorbate', // INCI: 3-O-Glyceryl Ascorbate | dérivé vitamine C stable et hydrophile
 } as const
 
 export const APAISANTS_ANTI_INFLAMMATOIRES = {
@@ -223,6 +231,7 @@ export const APAISANTS_ANTI_INFLAMMATOIRES = {
   ZINGIBER_OFFICINALE: 'zingiber-officinale', // INCI: Zingiber Officinale Root Extract | gingembre, tonifiant/antioxydant
   MORINDA_CITRIFOLIA: 'morinda-citrifolia', // INCI: Morinda Citrifolia Fruit Extract | Noni, protecteur/antioxydant
   ENOXOLONE: 'enoxolone', // INCI: Enoxolone | dérivé glycyrrhizinique, anti-inflammatoire puissant
+  DIPOTASSIUM_GLYCYRRHIZATE: 'dipotassium-glycyrrhizate', // INCI: Dipotassium Glycyrrhizate | apaisant puissant issu de la réglisse
   NEUTRAZEN: 'neutrazen', // INCI: (composant appaisant spécialisé) | complexe pour peaux réactives / couperose
 } as const
 
@@ -230,6 +239,7 @@ export const ECLAIRCISSANTS_DEPIGMENTANTS = {
   ALPHA_ARBUTIN: 'alpha-arbutin', // INCI: Alpha-Arbutin | anti-taches pigmentaires
   KOJIC_ACID: 'kojic-acid', // INCI: Kojic Acid | inhibiteur de tyrosinase
   TRANEXAMIC_ACID: 'tranexamic-acid', // INCI: Tranexamic Acid | anti-taches, anti-inflammatoire
+  PHENYLETHYL_RESORCINOL: 'phenylethyl-resorcinol', // INCI: Phenylethyl Resorcinol | SymWhite 377
   SEPIWHITE: 'sepiwhite', // INCI: Undecylenoyl Phenylalanine | Sepiwhite™
   HEXYLRESORCINOL: 'hexylresorcinol', // INCI: Hexylresorcinol | éclaircissant, inhibiteur de tyrosinase
   BUTYLRESORCINOL: 'butylresorcinol', // INCI: 4-Butylresorcinol | éclaircissant puissant, inhibiteur de tyrosinase
@@ -251,6 +261,7 @@ export const ANTI_ACNE_SEBUM = {
   ACNESYL_X_PRO: 'acnesyl-x-pro', // Complexe anti-acné multi-actif | contrôle sébum, antibactérien, anti-comédogène
   ZINC_PCA: 'zinc-pca', // INCI: Zinc PCA | séborégulateur
   ZINC_GLUCONATE: 'zinc-gluconate', // INCI: Zinc Gluconate | anti-inflammatoire / séborégulateur
+  ZINC_LACTATE: 'zinc-lactate', // INCI: Zinc Lactate | séborégulateur, anti-imperfections
   ZINC_SULFATE: 'zinc-sulfate', // INCI: Zinc Sulfate | astringent, antimicrobien, séborégulateur
   COPPER_SULFATE: 'copper-sulfate', // INCI: Copper Sulfate | antimicrobien, astringent
   COPPER_GLUCONATE: 'copper-gluconate', // INCI: Copper Gluconate | régulateur sébum / anti-bactérien
@@ -284,9 +295,15 @@ export const FILTRES_UV = {
   IRON_OXIDE: 'oxide-de-fer', // INCI: Iron Oxides | pigments minéraux, protection lumière visible / HEV
   DROMETRIZOLE_TRISILOXANE: 'drometrizole-trisiloxane', // INCI: Drometrizole Trisiloxane | filtre UVA photostable (Mexoryl XL)
   BUTYL_METHOXYDIBENZOYLMETHANE: 'butyl-methoxydibenvoylmethane', // INCI: Butyl Methoxydibenzoylmethane | filtre UVA (Avobenzone)
+  AVOBENZONE: 'butyl-methoxydibenvoylmethane', // Alias
   OCTOCRYLENE: 'octocrylene', // INCI: Octocrylene | filtre UVB stabilisant
   HOMOSALATE: 'homosalate', // INCI: Homosalate | filtre UVB
   ETHYLHEXYL_SALICYLATE: 'ethylhexyl-salicylate', // INCI: Ethylhexyl Salicylate | filtre UVB (Octisalate)
+  ISOAMYL_P_METHOXYCINNAMATE: 'isoamyl-p-methoxycinnamate', // INCI: Isoamyl p-Methoxycinnamate | filtre UVB (Amiloxate)
+  ETHYLHEXYL_METHOXYCINNAMATE: 'ethylhexyl-methoxycinnamate', // INCI: Ethylhexyl Methoxycinnamate | filtre UVB (Octinoxate)
+  METHYLENE_BIS_BENZOTRIAZOLYL_TETRAMETHYLBUTYLPHENOL: 'methylene-bis-benzotriazolyl-tetramethylbutylphenol', // Tinosorb M – UVA/UVB, minéral-like
+  TRIS_BIPHENYL_TRIAZINE: 'tris-biphenyl-triazine', // Tinosorb A2B nano – large spectre
+  DIETHYLHEXYL_BUTAMIDO_TRIAZONE: 'diethylhexyl-butamido-triazone', // INCI: Diethylhexyl Butamido Triazone | Uvasorb HEB – filtre UVB/UVA large spectre, très photostable
 } as const
 
 export const PROBIOTIQUES_PREBIOTIQUES_POSTBIOTIQUES = {
@@ -333,6 +350,7 @@ export const TENSIOACTIFS_NETTOYANTS = {
   SODIUM_LAUROYL_METHYL_ISETHIONATE: 'sodium-lauroyl-methyl-isethionate', // INCI: Sodium Lauroyl Methyl Isethionate | tensioactif doux
   SODIUM_COCOYL_ISETHIONATE: 'sodium-cocoyl-isethionate', // INCI: Sodium Cocoyl Isethionate | tensioactif doux dérivé de coco
   GLEDITSIA_TRIACANTHOS_SEED_EXTRACT: 'gleditsia-seed-extract', // INCI: Gleditsia Triacanthos Seed Extract | tensioactif / épaississant naturel doux
+  PEG_20_GLYCERYL_TRIISOSTEARATE: 'peg-20-glyceryl-triisostearate', // INCI: PEG-20 Glyceryl Triisostearate | émulsifiant huileux (nettoyants)
 } as const
 
 export const TEXTURANTS_FONCTIONNELS = {
@@ -376,10 +394,67 @@ export const DIVERS_NON_CLASSES = {
   ALARIA_ESCULENTA: 'alaria-esculenta', // INCI: Alaria Esculenta Extract | algue brune, booster de collagène et d'élastine (fermeté)
   UNDARIA_PINNATIFIDA: 'undaria-pinnatifida', // INCI: Undaria Pinnatifida Extract | Wakamé, protecteur de la matrice extracellulaire et antioxydant
   NMN: 'nmn',
+  SPINACIA_OLERACEA: 'spinacia-oleracea', // INCI: Spinacia Oleracea Leaf Extract | épinard, antioxydant anti-pollution
+  TARAXACUM_OFFICINALE: 'taraxacum-officinale', // INCI: Taraxacum Officinale Leaf Extract | pissenlit, détoxifiant anti-pollution
+  ARISTOTELIA_CHILENSIS: 'aristotelia-chilensis', // INCI: Aristotelia Chilensis Fruit Extract | maqui berry, antioxydant puissant
+  TEPHROSIA_PURPUREA: 'tephrosia-purpurea', // INCI: Tephrosia Purpurea Seed Extract | anti-pollution urbaine
+  AVENE_THERMAL_SPRING_WATER: 'avene-thermal-spring-water', // Eau thermale Avène | apaisante, anti-irritante
   TRIPTERYGIUM_WILFORDII_CALLUS_EXTRACT: 'tripterygium-wilfordii-callus-extract',
   MYRTUS_COMMUNIS_LEAF_EXTRACT: 'myrtus-communis-leaf-extract',
   TASMANNIA_LANCEOLATA: 'tasmannia-lanceolata', // INCI: Tasmannia Lanceolata Fruit Extract | épice australienne, matifiante et tonifiante anti-âge
   AQUABIOME: 'aquabiome', // Complexe d'actifs marins | protecteur du microbiome cutané marin / barrière cutanée
+} as const
+
+export const FILLERS = {
+  // Solvants aqueux
+  AQUA: 'aqua', // INCI: Aqua (Water) | solvant universel, inerte
+  PROPANEDIOL: 'propanediol', // INCI: Propanediol | solvant/véhicule neutre
+
+  // Ajusteurs de pH & chélateurs
+  CITRIC_ACID: 'citric-acid', // INCI: Citric Acid | ajusteur pH, traces
+  SODIUM_HYDROXIDE: 'sodium-hydroxide', // INCI: Sodium Hydroxide | ajusteur pH, neutralisé dans la formule
+  POTASSIUM_HYDROXIDE: 'potassium-hydroxide', // INCI: Potassium Hydroxide | ajusteur pH
+  TRIETHANOLAMINE: 'triethanolamine', // INCI: Triethanolamine | ajusteur pH
+  TROMETHAMINE: 'tromethamine', // INCI: Tromethamine | ajusteur pH
+  SODIUM_CITRATE: 'sodium-citrate', // INCI: Sodium Citrate | tampon pH
+  DISODIUM_EDTA: 'disodium-edta', // INCI: Disodium EDTA | chélateur, traces, inerte cutanément
+  TETRASODIUM_EDTA: 'tetrasodium-edta', // INCI: Tetrasodium EDTA | chélateur, traces
+
+  // Épaississants / gélifiants
+  CARBOMER: 'carbomer', // INCI: Carbomer | gélifiant inerte, haute tolérance
+  XANTHAN_GUM: 'xanthan-gum', // INCI: Xanthan Gum | gélifiant inerte
+  ACRYLATES_CROSSPOLYMER: 'acrylates-c10-30-alkyl-acrylate-crosspolymer', // INCI: Acrylates/C10-30 Alkyl Acrylate Crosspolymer | gélifiant inerte
+  HYDROXYETHYLCELLULOSE: 'hydroxyethylcellulose', // INCI: Hydroxyethylcellulose | épaississant inerte
+  HYDROXYPROPYL_METHYLCELLULOSE: 'hydroxypropyl-methylcellulose', // INCI: Hydroxypropyl Methylcellulose | épaississant inerte
+  SODIUM_POLYACRYLATE: 'sodium-polyacrylate', // INCI: Sodium Polyacrylate | épaississant inerte
+  SCLEROTIUM_GUM: 'sclerotium-gum', // INCI: Sclerotium Gum | gélifiant inerte
+
+  // Alcools gras & émulsifiants structurels
+  CETYL_ALCOHOL: 'cetyl-alcohol', // INCI: Cetyl Alcohol | structurel émulsion, inerte
+  STEARYL_ALCOHOL: 'stearyl-alcohol', // INCI: Stearyl Alcohol | structurel émulsion, inerte
+  BEHENYL_ALCOHOL: 'behenyl-alcohol', // INCI: Behenyl Alcohol | structurel émulsion, inerte
+  PEG_100_STEARATE: 'peg-100-stearate', // INCI: PEG-100 Stearate | émulsifiant structurel
+  CETEARETH_20: 'ceteareth-20', // INCI: Ceteareth-20 | émulsifiant structurel
+
+  // Silicones véhicules
+  DIMETHICONOL: 'dimethiconol', // INCI: Dimethiconol | véhicule/texture inerte
+  CYCLOPENTASILOXANE: 'cyclopentasiloxane', // INCI: Cyclopentasiloxane (D5) | véhicule inerte
+  CYCLOHEXASILOXANE: 'cyclohexasiloxane', // INCI: Cyclohexasiloxane (D6) | véhicule inerte
+  PHENYL_TRIMETHICONE: 'phenyl-trimethicone', // INCI: Phenyl Trimethicone | véhicule inerte
+
+  // Huiles minérales & hydrocarbures inertes
+  MINERAL_OIL: 'mineral-oil', // INCI: Mineral Oil (Paraffinum Liquidum) | occlusif inerte
+  PETROLATUM: 'petrolatum', // INCI: Petrolatum | occlusif inerte
+  ISOHEXADECANE: 'isohexadecane', // INCI: Isohexadecane | véhicule léger inerte
+  ISODODECANE: 'isododecane', // INCI: Isododecane | véhicule léger inerte
+
+  // Esters synthétiques véhicules
+  DICAPRYLYL_CARBONATE: 'dicaprylyl-carbonate', // INCI: Dicaprylyl Carbonate | émollient véhicule inerte
+  COCO_CAPRYLATE_CAPRATE: 'coco-caprylate-caprate', // INCI: Coco-Caprylate/Caprate | émollient véhicule inerte
+
+  // Sels ioniques inertes
+  SODIUM_CHLORIDE: 'sodium-chloride', // INCI: Sodium Chloride | sel basique, inerte
+  POTASSIUM_CHLORIDE: 'potassium-chloride', // INCI: Potassium Chloride | sel basique, inerte
 } as const
 
 export const INGREDIENT_SLUGS = {
@@ -400,4 +475,5 @@ export const INGREDIENT_SLUGS = {
   ...ANTI_ACNE_SEBUM,
   ...ANTI_ROSACEE_VASOCONSTRICTEURS,
   ...FILTRES_UV,
+  ...FILLERS,
 } as const

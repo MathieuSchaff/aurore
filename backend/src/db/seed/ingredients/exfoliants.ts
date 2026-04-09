@@ -1,3 +1,4 @@
+import { INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
 import { INGREDIENT_SLUGS } from './ingredient-slugs'
 import type { IngredientInput } from './seed-ingredients'
 
@@ -5,7 +6,7 @@ export const EXFOLIANTS: IngredientInput[] = [
   {
     name: 'Eau de fruit de Citron (Citrus Limon Fruit Water)',
     slug: INGREDIENT_SLUGS.CITRUS_LIMON_FRUIT_WATER,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Hydrosol de citron obtenu par distillation vapeur, riche en vitamine C, acides citrique et acides de fruits (AHA). Exfoliant doux naturel, purifiant et clarifiant, réduisant pores et prévenant comédons.',
     content: `
@@ -118,7 +119,7 @@ Certification : EWG score 2 (très faible toxicité), CIR rating B (sûr en cosm
   {
     name: 'LHA (Capryloyl Salicylic Acid)',
     slug: INGREDIENT_SLUGS.CAPRYLOYL_SALICYLIC_ACID,
-    category: 'Exfoliation Précise',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un dérivé de l’acide salicylique à chaîne grasse, offrant une exfoliation cellule par cellule d’une précision chirurgicale, sans aucune irritation.',
     content: `
@@ -149,7 +150,7 @@ Le **LHA (Lipo-Hydroxy Acid)** est une innovation qui repense le peeling chimiqu
   {
     name: 'Protéase',
     slug: INGREDIENT_SLUGS.PROTEASE,
-    category: 'exfoliant enzymatique',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Enzyme naturelle qui digère les protéines de surface pour éliminer les cellules mortes en douceur, sans irritation acide.',
     content: `
@@ -176,7 +177,7 @@ Alternative idéale aux gommages mécaniques ou chimiques pour les peaux ultra-s
   {
     name: 'Papain',
     slug: INGREDIENT_SLUGS.PAPAIN,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Enzyme protéolytique naturelle extraite de la papaye, Papain offre une exfoliation enzymatique douce, élimine les cellules mortes, affine le grain de peau, apaise et illumine tout en étant adaptée aux peaux sensibles.',
     content: `
@@ -227,7 +228,7 @@ Alternative idéale aux gommages mécaniques ou chimiques pour les peaux ultra-s
   {
     name: 'Malic Acid Ester (ester d’acide malique)',
     slug: INGREDIENT_SLUGS.MALIC_ACID_ESTER,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Dérivé estérifié de l’acide malique, agent conditionneur et modulateur de texture haute tolérance.',
     content: `
@@ -270,7 +271,7 @@ Alternative idéale aux gommages mécaniques ou chimiques pour les peaux ultra-s
   {
     name: 'Gluconolactone (PHA)',
     slug: INGREDIENT_SLUGS.PHA,
-    category: 'ingredient',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       "PHA (polyhydroxy acid) dérivé de l'acide gluconique, naturellement présent dans les fruits, le miel et le vin. Exfoliant chimique de nouvelle génération — plus doux que les AHAs grâce à sa grande molécule, avec en bonus des propriétés humectantes, antioxydantes et chélatantes.",
     content: `## Mécanisme d'action
@@ -335,7 +336,7 @@ Alternative idéale aux gommages mécaniques ou chimiques pour les peaux ultra-s
   {
     name: 'Acide Glycolique',
     slug: INGREDIENT_SLUGS.GLYCOLIC_ACID,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description: 'AHA le plus petit, exfolie en surface pour lisser et éclaircir le teint.',
     content: `
      # Acide Glycolique
@@ -593,7 +594,7 @@ Alternative idéale aux gommages mécaniques ou chimiques pour les peaux ultra-s
   {
     name: 'Acide Lactique',
     slug: INGREDIENT_SLUGS.LACTIC_ACID,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description: 'AHA hydratant, doux exfoliant et humectant.',
     content: `
      # Acide Lactique
@@ -669,7 +670,7 @@ Alternative idéale aux gommages mécaniques ou chimiques pour les peaux ultra-s
   {
     name: 'Acide Mandélique',
     slug: INGREDIENT_SLUGS.MANDELIC_ACID,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Le plus doux des AHA. Exfolie en surface, purifie les pores et unifie le teint, idéal pour les peaux sensibles ou mates.',
     content: `
@@ -706,7 +707,7 @@ Alternative idéale aux gommages mécaniques ou chimiques pour les peaux ultra-s
   {
     name: 'AHA Esters',
     slug: INGREDIENT_SLUGS.AHA_ESTERS,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Esters d’AHA à libération prolongée pour une exfoliation douce et continue sans irritation.',
     content: `
@@ -721,7 +722,7 @@ Les **AHA Esters** sont des formes estérifiées d'acides hydroxy-carboxyliques.
   {
     name: 'Ester d’Acide Malique',
     slug: INGREDIENT_SLUGS.ESTER_ACIDE_MALIQUE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'AHA doux à libération modérée qui lisse le grain de peau tout en maintenant l’hydratation.',
     content: `
@@ -736,7 +737,7 @@ L'**Ester d'Acide Malique** combine les bienfaits de l'acide malique (issu des f
   {
     name: 'Ammonium Lactate',
     slug: INGREDIENT_SLUGS.AMMONIUM_LACTATE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Kératolytique doux et hydratant, particulièrement efficace pour les peaux sèches et rugueuses.',
     content: `
@@ -751,7 +752,7 @@ L'**Ammonium Lactate** est un sel d'acide lactique reconnu pour sa double action
   {
     name: 'Phytic Acid',
     slug: INGREDIENT_SLUGS.PHYTIC_ACID,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Acide phytique, antioxydant et chélateur de métaux, offrant une exfoliation très douce et protectrice.',
     content: `
@@ -762,5 +763,51 @@ L'**Acide Phytique** est un ingrédient multifonctionnel. En plus de ses propri�
 * **Exfoliation Douce** : Aide à clarifier le teint sans sensibiliser la peau.
 * **Protection** : Aide à prévenir les dommages causés par les radicaux libres.
     `,
+  },
+  {
+    name: 'Acide Malique (Malic Acid)',
+    slug: INGREDIENT_SLUGS.MALIC_ACID,
+    category: INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Un AHA naturel issu des pommes, offrant une exfoliation douce tout en favorisant le métabolisme énergétique cellulaire.',
+    content: `
+# Acide Malique : L'Éclat du Verger
+L'**Acide Malique** est un acide alpha-hydroxylé (AHA) que l'on trouve naturellement dans de nombreux fruits, en particulier les pommes. Moins connu que l'acide glycolique, il offre une exfoliation efficace mais plus douce en raison de sa taille moléculaire plus importante.
+
+## ✨ Points Forts & Bénéfices
+* **Exfoliation Douce** : Élimine les cellules mortes pour affiner le grain de peau et raviver l'éclat.
+* **Hydratation** : Comme beaucoup d'AHAs, il aide à maintenir l'hydratation de la couche cornée.
+* **Équilibre du pH** : Souvent utilisé comme régulateur de pH dans les formules cosmétiques.
+
+## ⚖️ Transparence Scientifique & Limites
+* **Synergie** : Souvent associé à d'autres AHAs pour un effet exfoliant multi-niveaux.
+* **Stabilité** : Très stable dans les formules à pH modérément acide.
+
+## 🛡️ Précautions & Sécurité
+* **Photosensibilité** : Comme tout exfoliant acide, il augmente la sensibilité au soleil. SPF obligatoire.
+`,
+  },
+  {
+    name: 'Acide Succinique (Succinic Acid)',
+    slug: INGREDIENT_SLUGS.SUCCINIC_ACID,
+    category: INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Un actif polyvalent aux propriétés antibactériennes et exfoliantes douces, idéal pour les peaux sujettes aux imperfections.',
+    content: `
+# Acide Succinique : L'Allié des Peaux à Imperfections
+L'**Acide Succinique** est un acide organique naturellement présent dans la nature (ambre, canne à sucre). En cosmétique, il gagne en popularité comme alternative douce à l'acide salicylique pour traiter les peaux sujettes à l'acné.
+
+## ✨ Points Forts & Bénéfices
+* **Antibactérien & Antimicrobien** : Aide à limiter la prolifération des bactéries responsables des imperfections.
+* **Exfoliation très douce** : Favorise le renouvellement cellulaire sans l'irritation souvent associée aux AHAs/BHAs classiques.
+* **Régulateur de Sébum** : Aide à équilibrer la production de gras.
+
+## ⚖️ Transparence Scientifique & Limites
+* **Douceur** : Excellent pour les peaux qui ne tolèrent pas l'acide salicylique.
+* **Innovation** : Considéré comme un ingrédient "nouvelle génération" dans le traitement des imperfections.
+
+## 🛡️ Précautions & Sécurité
+* Très bien toléré, même par les peaux sensibles.
+`,
   },
 ]

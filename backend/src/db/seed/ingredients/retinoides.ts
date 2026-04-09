@@ -1,11 +1,12 @@
 import { INGREDIENT_SLUGS } from './ingredient-slugs'
+import { INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
 import type { IngredientInput } from './seed-ingredients'
 
 export const RETINOIDES: IngredientInput[] = [
   {
     name: 'Retinyl Acetate',
     slug: INGREDIENT_SLUGS.RETINYL_ACETATE,
-    category: 'initiation douce au renouvellement',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Ester de vitamine A stable et discret, offrant une introduction tout en douceur au monde des rétinoïdes pour les peaux qui privilégient la sérénité et la constance.',
     content: `
@@ -36,7 +37,7 @@ Ingrédient discret mais fiable dans les crèmes jour, les laits corporels et le
   {
     name: 'Retinyl Linoleate',
     slug: INGREDIENT_SLUGS.RETINYL_LINOLLEATE,
-    category: 'initiation douce au renouvellement',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Ester rare et raffiné de vitamine A, lié à l’acide linoléique pour une touche de confort lipidique et une douceur renforcée dans les soins les plus attentifs.',
     content: `
@@ -67,7 +68,7 @@ Présent dans certaines crèmes premium ou formules « clean beauty » qui valor
   {
     name: 'Isotretinoin (topique)',
     slug: INGREDIENT_SLUGS.ISOTRETINOIN,
-    category: 'action ciblée & prescription',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Isomère 13-cis de l’acide rétinoïque, utilisé en topique pour des indications spécifiques sévères, sous contrôle médical strict.',
     content: `
@@ -97,7 +98,7 @@ Actif médical rare en topique, principalement pour acné nodulaire ou conglobat
   {
     name: 'Alitretinoin',
     slug: INGREDIENT_SLUGS.ALITRETINOIN,
-    category: 'régénération & apaisement ciblé',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Rétinoïde pan-agoniste (9-cis-acide rétinoïque), référence systémique pour l’eczéma chronique sévère des mains, avec un profil d’efficacité reconnu.',
     content: `
@@ -128,7 +129,7 @@ Traitement de recours dermatologique pour eczéma chronique des mains invalidant
   {
     name: 'Retinyl Palmitate',
     slug: INGREDIENT_SLUGS.RETINYL_PALMITATE,
-    category: 'initiation douce au renouvellement',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Ester de vitamine A le plus doux et stable, entrée élégante et progressive dans l’univers des rétinoïdes pour les peaux sensibles en quête d’éclat subtil et de texture affinée.',
     content: `
@@ -159,7 +160,7 @@ Traitement de recours dermatologique pour eczéma chronique des mains invalidant
   {
     name: 'Hydroxypinacolone Retinoate (HPR)',
     slug: INGREDIENT_SLUGS.HYDROXYPINACOLONE_RETINOATE,
-    category: 'renouvellement cellulaire & anti-âge',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Rétinoïde de nouvelle génération à action directe, alliant efficacité prouvée et tolérance exceptionnelle pour un renouvellement cutané harmonieux et sans compromis.',
     content: `
@@ -190,7 +191,7 @@ Traitement de recours dermatologique pour eczéma chronique des mains invalidant
   {
     name: 'Tazarotene',
     slug: INGREDIENT_SLUGS.TAZAROTENE,
-    category: 'puissance prescription & régénération intense',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Rétinoïde de synthèse ultra-puissant, reconnu pour son action ciblée et profonde sur l’acné sévère, le psoriasis et le photo-vieillissement marqué.',
     content: `
@@ -221,7 +222,7 @@ Traitement de recours dermatologique pour eczéma chronique des mains invalidant
   {
     name: 'Trifarotene',
     slug: INGREDIENT_SLUGS.TRIFAROTENE,
-    category: 'régénération sélective & anti-acné corps',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Rétinoïde de 4e génération ultra-sélectif (RAR-γ), conçu pour une action précise sur l’acné du visage et du corps avec une tolérance améliorée.',
     content: `
@@ -252,7 +253,7 @@ Traitement de recours dermatologique pour eczéma chronique des mains invalidant
   {
     name: 'Retinyl Propionate',
     slug: INGREDIENT_SLUGS.RETINYL_PROPIONATE,
-    category: 'initiation douce au renouvellement',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Ester de rétinol plus stable et légèrement plus actif que le palmitate, offrant un équilibre subtil entre douceur et efficacité progressive.',
     content: `
@@ -283,7 +284,7 @@ Traitement de recours dermatologique pour eczéma chronique des mains invalidant
   {
     name: 'Granactive Retinoid (HPR)',
     slug: INGREDIENT_SLUGS.GRANACTIVE_RETINOID,
-    category: 'Anti-Âge & Imperfections',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un ester d’acide rétinoïque direct qui offre les bénéfices de la vitamine A avec un risque d’irritation proche de zéro.',
     content: `
@@ -313,7 +314,7 @@ Le **Granactive Retinoid** (Hydroxypinacolone Retinoate) est une forme de vitami
   {
     name: 'Sodium Retinoyl Hyaluronate',
     slug: INGREDIENT_SLUGS.SODIUM_RETINOYL_HYALURONATE,
-    category: 'Hydratation & Renouvellement',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un ingrédient innovant liant l’acide hyaluronique à l’acide rétinoïque pour hydrater tout en lissant le grain de peau.',
     content: `
@@ -343,7 +344,7 @@ Cette molécule intelligente fusionne l'effet repulpant de l'**Acide Hyaluroniqu
   {
     name: 'Rétinyl Rétinoate',
     slug: INGREDIENT_SLUGS.RETINYL_RETINOATE,
-    category: 'Anti-Âge Révolutionnaire',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une molécule hybride de nouvelle génération, plus puissante que le rétinol classique mais beaucoup mieux tolérée par la peau.',
     content: `
@@ -373,7 +374,7 @@ Le **Rétinyl Rétinoate** est une molécule brevetée combinant l'acide rétino
   {
     name: 'Rétinol',
     slug: INGREDIENT_SLUGS.RETINOL,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Dérivé de la vitamine A, puissant anti-âge qui accélère le renouvellement cellulaire.',
     content: `
@@ -438,7 +439,7 @@ Le **Rétinyl Rétinoate** est une molécule brevetée combinant l'acide rétino
   {
     name: 'Bakuchiol',
     slug: INGREDIENT_SLUGS.BAKUCHIOL,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description: 'Alternative végétale douce au rétinol, anti-âge sans irritation.',
     content: `
      # Bakuchiol
@@ -793,7 +794,7 @@ Le **Rétinyl Rétinoate** est une molécule brevetée combinant l'acide rétino
   {
     name: 'Adapalène (Adapalene)',
     slug: INGREDIENT_SLUGS.ADAPALENE,
-    category: 'actif pharmaceutique',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Rétinoïde de troisième génération hautement ciblé, utilisé pour réguler la kératinisation et traiter les lésions acnéiques.',
     content: `
@@ -1065,7 +1066,7 @@ Le **Rétinyl Rétinoate** est une molécule brevetée combinant l'acide rétino
   {
     name: 'Trétinoïne (Acide rétinoïque all-trans)',
     slug: INGREDIENT_SLUGS.TRETINOINE,
-    category: 'actif pharmaceutique',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       "L'actif de référence absolue en dermatologie pour le traitement de l'acné sévère et le photo-vieillissement cutané profond.",
     content: `
@@ -1104,7 +1105,7 @@ Le **Rétinyl Rétinoate** est une molécule brevetée combinant l'acide rétino
   {
     name: 'Rétinal',
     slug: INGREDIENT_SLUGS.RETINAL,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Précurseur direct de l’acide rétinoïque, jusqu’à 11 fois plus rapide que le rétinol pour transformer la texture de la peau.',
     content: `

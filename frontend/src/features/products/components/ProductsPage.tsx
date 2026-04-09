@@ -26,7 +26,6 @@ import { type ListProductsFilters, productQueries } from '../../../lib/queries/p
 import { profileQueries } from '../../../lib/queries/profile'
 import { useAuthStore } from '../../../store/auth'
 import {
-  ATTRIBUTE_SUBGROUPS,
   FILTER_KEYS,
   type FilterKey,
   GROUP_LABELS,
@@ -83,7 +82,9 @@ export function ProductsPage() {
   const {
     brand,
     routine_step,
-    attribute,
+    skin_effect,
+    product_label,
+    shared_label,
     skin_type,
     skin_zone,
     product_type,
@@ -109,7 +110,9 @@ export function ProductsPage() {
   const filters: FilterValues<FilterKey> = {
     brand,
     routine_step,
-    attribute,
+    skin_effect,
+    product_label,
+    shared_label,
     skin_type,
     skin_zone,
     product_type,
@@ -144,7 +147,9 @@ export function ProductsPage() {
         skin_type: skin_type.length > 0 ? skin_type : undefined,
         skin_zone: skin_zone.length > 0 ? skin_zone : undefined,
         product_type: product_type.length > 0 ? product_type : undefined,
-        attribute: attribute.length > 0 ? attribute : undefined,
+        skin_effect: skin_effect.length > 0 ? skin_effect : undefined,
+        product_label: product_label.length > 0 ? product_label : undefined,
+        shared_label: shared_label.length > 0 ? shared_label : undefined,
         routine_step: routine_step.length > 0 ? routine_step : undefined,
         ingredient: ingredient.length > 0 ? ingredient : undefined,
         avoid_for: avoidFor.length > 0 ? avoidFor : undefined,
@@ -159,7 +164,7 @@ export function ProductsPage() {
 
   const { data, isLoading, isPlaceholderData } = useQuery({
     ...productQueries.list(apiFilters),
-    placeholderData: hasFilters ? (prev) => prev : undefined,
+    placeholderData: (prev) => prev,
     staleTime: hasFilters ? 5 * 60 * 1000 : 0,
   })
 
@@ -233,11 +238,22 @@ export function ProductsPage() {
         tier: 'advanced',
         subFilters: [
           {
-            key: 'attribute',
-            label: 'Caractéristiques',
+            key: 'skin_effect',
+            label: 'Rendu sur peau',
             placeholder: 'Tous',
-            options: getOpts('attribute'),
-            subGroups: ATTRIBUTE_SUBGROUPS,
+            options: getOpts('skin_effect'),
+          },
+          {
+            key: 'product_label',
+            label: 'Formulation & labels',
+            placeholder: 'Tous',
+            options: getOpts('product_label'),
+          },
+          {
+            key: 'shared_label',
+            label: 'Comédogénicité',
+            placeholder: 'Tous',
+            options: getOpts('shared_label'),
           },
         ],
       },

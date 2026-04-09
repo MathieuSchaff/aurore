@@ -2,13 +2,13 @@ import { TAG_SLUGS } from '../../tags/seed-tags'
 import { SOLAIRES_PRODUCT_SLUGS } from './solaires'
 
 interface ProductTagGroups {
-  primary: string[] // Tags principaux
-  secondary: string[] // Tags secondaires
-  avoid: string[] // Tags à éviter/exclure
+  primary: string[] 
+  secondary: string[] 
+  avoid: string[] 
 }
 
 export const SOLAIRES_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
-  // ── Actinica
+  
   [SOLAIRES_PRODUCT_SLUGS.ACTINICA_LOTION_SPF50_LOT3]: {
     primary: [
       TAG_SLUGS.PROTECTION_SOLAIRE,
@@ -26,7 +26,7 @@ export const SOLAIRES_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
     avoid: [],
   },
 
-  // ── Eucerin
+  
   [SOLAIRES_PRODUCT_SLUGS.EUCERIN_PHOTOAGING_CONTROL_FLUIDE_SPF50]: {
     primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.PHOTO_VIEILLISSEMENT],
     secondary: [
@@ -50,13 +50,12 @@ export const SOLAIRES_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.ZONE_CORPS,
       TAG_SLUGS.TEXTURE_LEGERE,
       TAG_SLUGS.FILTRES_CHIMIQUES,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.MATIN,
     ],
     avoid: [],
   },
 
-  // ── Riemann P20
+  
   [SOLAIRES_PRODUCT_SLUGS.RIEMANN_P20_SENSITIVE_FACE_SPF50]: {
     primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE],
     secondary: [
@@ -64,7 +63,6 @@ export const SOLAIRES_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.ZONE_VISAGE,
       TAG_SLUGS.SANS_PARFUM,
       TAG_SLUGS.FILTRES_CHIMIQUES,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.HYPOALLERGENIQUE,
       TAG_SLUGS.MATIN,
     ],
@@ -72,7 +70,7 @@ export const SOLAIRES_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
   },
 
   [SOLAIRES_PRODUCT_SLUGS.RIEMANN_P20_URBAN_SHIELD_SPF50]: {
-    primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.POLLUTION, TAG_SLUGS.ANTI_OXYDANT],
+    primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.POLLUTION],
     secondary: [
       TAG_SLUGS.CREME_SOLAIRE,
       TAG_SLUGS.ZONE_VISAGE,

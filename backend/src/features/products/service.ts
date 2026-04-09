@@ -239,11 +239,13 @@ export async function listProducts(
 
   const TAG_FILTERS = [
     'routine_step',
-    'attribute',
     'skin_type',
     'concern',
     'product_type',
     'skin_zone',
+    'skin_effect',
+    'product_label',
+    'shared_label',
   ] as const
 
   for (const category of TAG_FILTERS) {
@@ -309,11 +311,13 @@ export async function listProducts(
 }
 type TagsByCategory = {
   routine_step: { name: string; slug: string }[]
-  attribute: { name: string; slug: string }[]
   skin_type: { name: string; slug: string }[]
   skin_zone: { name: string; slug: string }[]
   product_type: { name: string; slug: string }[]
   concern: { name: string; slug: string }[]
+  skin_effect: { name: string; slug: string }[]
+  product_label: { name: string; slug: string }[]
+  shared_label: { name: string; slug: string }[]
 }
 export type FilterOptions = {
   kinds: string[]
@@ -341,11 +345,13 @@ export async function getFilterOptions(database: Database = db): Promise<FilterO
     },
     {
       routine_step: [],
-      attribute: [],
       skin_type: [],
       skin_zone: [],
       product_type: [],
       concern: [],
+      skin_effect: [],
+      product_label: [],
+      shared_label: [],
     } as TagsByCategory
   )
 

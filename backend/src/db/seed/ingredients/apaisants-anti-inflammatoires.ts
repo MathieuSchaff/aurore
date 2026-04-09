@@ -1,3 +1,4 @@
+import { INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
 import { INGREDIENT_SLUGS } from './ingredient-slugs'
 import type { IngredientInput } from './seed-ingredients'
 
@@ -5,7 +6,7 @@ export const APAISANTS_ANTI_INFLAMMATOIRES: IngredientInput[] = [
   {
     name: 'Sulfate de Dextran Sodique (Sodium Dextran Sulfate)',
     slug: INGREDIENT_SLUGS.SODIUM_DEXTRAN_SULFATE,
-    category: 'Apaisants & Anti-inflammatoires',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Un polysaccharide sulfaté apaisant et décongestionnant, qui cible les rougeurs et l'inconfort vasculaire des peaux sensibles et réactives.",
     content: `
@@ -29,7 +30,7 @@ Le **Sodium Dextran Sulfate** est un polysaccharide (sucre complexe) d'origine m
   {
     name: 'Noni (Morinda Citrifolia)',
     slug: INGREDIENT_SLUGS.MORINDA_CITRIFOLIA,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait de fruit de Noni riche en vitamines, polysaccharides et antioxydants puissants (flavonoïdes, coumarines, iridoïdes). Protecteur cutané et régénérant traditionnel polynésien utilisé depuis 2000 ans.',
     content: `
@@ -160,7 +161,7 @@ Aucune autre fruit n'offre cette combinaison, faisant Noni véritablement "super
   {
     name: 'Gingembre (Zingiber Officinale)',
     slug: INGREDIENT_SLUGS.ZINGIBER_OFFICINALE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait de rhizome de gingembre riche en gingérols et shogaols, reconnu pour ses propriétés tonifiantes, antioxydantes, anti-inflammatoires et stimulatrices de microcirculation cutanée.',
     content: `
@@ -241,7 +242,7 @@ Arôme caractéristique piquant/épicé : idéal pour formulations "revitalisant
   {
     name: 'Boswellia Serrata (Encens indien)',
     slug: INGREDIENT_SLUGS.BOSWELLIA_SERRATA,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Extrait de résine d'Encens indien riche en acides boswelliques, reconnu pour ses puissantes propriétés apaisantes, anti-inflammatoires et régénérantes. Traditionnellement utilisé en médecine Ayurvédique depuis des millénaires.",
     content: `
@@ -320,7 +321,7 @@ Récolte durable certifiée Fairtrade : plus de 400 collecteurs bénéficiaires 
   {
     name: 'Avoine Colloïdale',
     slug: INGREDIENT_SLUGS.COLLOIDAL_OATMEAL,
-    category: 'Apaisement & Protection',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une poudre d’avoine ultra-fine reconnue pour ses propriétés anti-inflammatoires et protectrices des peaux atopiques.',
     content: `
@@ -350,7 +351,7 @@ L'**Avoine Colloïdale** est obtenue par le broyage très fin du grain d'avoine 
   {
     name: 'Complexe de Centella (Centella Complex)',
     slug: INGREDIENT_SLUGS.CENTELLA_COMPLEX,
-    category: 'Réparation & Apaisement',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une synergie de haute précision combinant les quatre molécules actives de l’Herbe du Tigre pour une régénération tissulaire et un apaisement hors pair.',
     content: `
@@ -383,7 +384,7 @@ Le **Centella Complex** est l'expression ultime de la phytothérapie moderne. Ce
   {
     name: 'Bêta-Glucane (Beta-Glucan)',
     slug: INGREDIENT_SLUGS.BETA_GLUCAN,
-    category: 'Défense & Hydratation',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un polysaccharide naturel extrait de l’avoine ou de la levure, capable de stimuler les défenses immunitaires de la peau tout en offrant une hydratation 20% supérieure à l’acide hyaluronique.',
     content: `
@@ -414,7 +415,7 @@ Le **Bêta-Glucane** est une molécule de survie issue de la paroi cellulaire de
   {
     name: 'Poivre du Sichuan (Zanthoxylum Bungeanum)',
     slug: INGREDIENT_SLUGS.ZANTHOXYLUM_BUNGEANUM,
-    category: 'Lissage & Apaisement Sensoriel',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un extrait botanique aux propriétés "Botox-like" immédiates, agissant sur les micro-tensions cutanées pour un effet lissant et apaisant instantané.',
     content: `
@@ -446,7 +447,7 @@ Extrait des enveloppes du Poivre du Sichuan, cet actif contient des hydroxy-alph
   {
     name: 'Cypres Toujours Vert (Cupressus Sempervirens)',
     slug: INGREDIENT_SLUGS.CYPRES,
-    category: 'Tonus & Circulation',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une essence boisée noble, reconnue pour ses propriétés décongestionnantes et tonifiantes, idéale pour restaurer la légèreté et la vitalité cutanée.',
     content: `
@@ -477,7 +478,7 @@ Le **Cyprès Toujours Vert** est le symbole de la vitalité éternelle. En dermo
   {
     name: 'Bisabolol',
     slug: INGREDIENT_SLUGS.BISABOLOL,
-    category: 'apaisant & réparateur',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Actif issu de la Camomille reconnu pour ses vertus calmantes puissantes, idéal pour les peaux sensibles ou irritées.',
     content: `
@@ -583,7 +584,7 @@ Interactions précises avec le microbiote cutané : études récentes montrent n
   {
     name: 'Extrait de Pourpier',
     slug: INGREDIENT_SLUGS.PORTULACA_OLERACEA,
-    category: 'actif végétal & apaisant intense',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Plante riche en antioxydants et en oméga-3, connue pour ses propriétés apaisantes et anti-inflammatoires.',
     content: `
@@ -610,7 +611,7 @@ Très présent dans les soins pour peaux sensibles et réactives, notamment en d
   {
     name: 'Extrait de Concombre',
     slug: INGREDIENT_SLUGS.CUCUMBER_EXTRACT,
-    category: 'hydratant & rafraîchissant',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un extrait végétal riche en vitamines et minéraux, idéal pour apaiser les poches et hydrater les zones délicates.',
     content: `
@@ -637,7 +638,7 @@ Il apaise instantanément les peaux échauffées ou fatiguées. Dans un soin con
   {
     name: 'Madecassoside',
     slug: INGREDIENT_SLUGS.MADECASSOSIDE,
-    category: 'réparateur & apaisant',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une molécule pure issue de la Centella Asiatica, reconnue pour ses propriétés exceptionnelles dans la cicatrisation et la réduction de l’inflammation.',
     content: `
@@ -663,7 +664,7 @@ Il agit comme un "architecte" de la peau pour refermer les micro-fissures et cal
   {
     name: 'Royal Jelly Extract',
     slug: INGREDIENT_SLUGS.ROYAL_JELLY_EXTRACT,
-    category: 'revitalisant & régénérant',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un trésor de la ruche riche en nutriments essentiels qui booste la vitalité cellulaire et la synthèse de collagène.',
     content: `
@@ -685,7 +686,7 @@ Il agit comme un "architecte" de la peau pour refermer les micro-fissures et cal
   {
     name: 'Ectoin (Ectoïne)',
     slug: INGREDIENT_SLUGS.ECTOIN,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrémolyte naturel puissant produit par des micro-organismes extrémophiles, Ectoin protège les cellules cutanées contre le stress environnemental, renforce la barrière, hydrate en profondeur, apaise les irritations et offre une défense anti-pollution et anti-UV exceptionnelle.',
     content: `
@@ -730,7 +731,7 @@ Ingrédient biotech signature (Ectoin® natural par bitop), produit par fermenta
   {
     name: 'Mauve (Malva sylvestris)',
     slug: INGREDIENT_SLUGS.MAUVE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Actif émollient et protecteur de référence, idéal pour apaiser les muqueuses et les peaux ultra-sensibles.',
     content: `
@@ -774,7 +775,7 @@ Ingrédient biotech signature (Ectoin® natural par bitop), produit par fermenta
   {
     name: 'Pâquerette (Bellis perennis)',
     slug: INGREDIENT_SLUGS.PAQUERETTE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Actif tenseur et éclaircissant de référence, idéal pour redessiner l'ovale du visage et unifier le teint.",
     content: `
@@ -815,7 +816,7 @@ Ingrédient biotech signature (Ectoin® natural par bitop), produit par fermenta
   {
     name: 'Gluconate de Manganèse (Manganese Gluconate)',
     slug: INGREDIENT_SLUGS.MANGANESE_GLUCONATE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       "L'oligo-élément catalyseur de la régénération dermique : un booster de la synthèse de collagène et un antioxydant cellulaire majeur pour la résilience cutanée.",
     content: `# Le Gluconate de Manganèse : Le Catalyseur de la Jeunesse Cellulaire
@@ -863,7 +864,7 @@ Le Gluconate de Manganèse présente une sécurité d'emploi totale :
   {
     name: 'Bleuet des Champs (Centaurea cyanus L.)',
     slug: INGREDIENT_SLUGS.BLEUET,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'L’allié délicat du regard et des peaux fragiles : un hydrolat traditionnellement chéri pour apaiser, rafraîchir et décongestionner le contour des yeux, tout en caressant les épidermes sensibles d’une douceur naturelle.',
     content: `# Le Bleuet des Champs : Douceur Bleutée pour le Regard et la Peau
@@ -930,7 +931,7 @@ Le Gluconate de Manganèse présente une sécurité d'emploi totale :
   {
     name: 'Hamamélis de Virginie (Hamamelis virginiana L.)',
     slug: INGREDIENT_SLUGS.HAMAMELIS,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait végétal astringent riche en tanins. Peut apporter un effet tonique et décongestionnant léger, mais nécessite prudence sur peaux sensibles ou rosacée en raison de son potentiel asséchant et irritant.',
     content: `# L’Hamamélis de Virginie : Astringent Botanique à Usage Ciblé
@@ -1062,7 +1063,7 @@ Le Gluconate de Manganèse présente une sécurité d'emploi totale :
   {
     name: 'Hydrolat de Rose de Damas (Rosa damascena Miller)',
     slug: INGREDIENT_SLUGS.EAU_DE_ROSE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Hydrolat aromatique traditionnel aux propriétés légèrement apaisantes et tonifiantes. Apporte une dimension sensorielle mais peut être irritant chez les peaux très réactives ou rosacées.',
     content: `# L'Eau de Rose de Damas : Hydrolat Traditionnel à Usage Cosmétique
@@ -1170,7 +1171,7 @@ Le Gluconate de Manganèse présente une sécurité d'emploi totale :
   {
     name: 'Centella asiatica',
     slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Plante tropicale signature en dermocosmétique, riche en triterpènes (asiaticoside, madécassoside), réparatrice, apaisante et stimulante de collagène pour peaux sensibles, irritées ou lésées.',
     content: `
@@ -1215,7 +1216,7 @@ Le Gluconate de Manganèse présente une sécurité d'emploi totale :
   {
     name: 'Asiaticoside (Centella asiatica)',
     slug: INGREDIENT_SLUGS.ASIATICOSIDE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Triterpène signature de Centella asiatica, puissant cicatrisant, stimulant la synthèse de collagène et apaisant pour peaux irritées, sensibles ou lésées.',
     content: `
@@ -1260,7 +1261,7 @@ Le Gluconate de Manganèse présente une sécurité d'emploi totale :
   {
     name: 'Avoine Rhealba®',
     slug: INGREDIENT_SLUGS.AVENA_SATIVA,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Extrait d'avoine spécifique sélectionné pour sa haute concentration en molécules apaisantes et sa pureté.",
     content: `
@@ -1300,7 +1301,7 @@ Le Gluconate de Manganèse présente une sécurité d'emploi totale :
   {
     name: 'Calendula',
     slug: INGREDIENT_SLUGS.CALENDULA,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait floral reconnu pour ses vertus apaisantes, anti-inflammatoires et sa capacité à favoriser la réparation cutanée.',
     content: `
@@ -1340,7 +1341,7 @@ Le Gluconate de Manganèse présente une sécurité d'emploi totale :
   {
     name: 'Rhamnose',
     slug: INGREDIENT_SLUGS.RHAMNOSE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Sucre végétal haute performance qui réveille les fibroblastes pour relancer la production de collagène et de fibres élastiques.',
     content: `
@@ -1384,7 +1385,7 @@ Le Gluconate de Manganèse présente une sécurité d'emploi totale :
   {
     name: 'Heartleaf (Houttuynia cordata)',
     slug: INGREDIENT_SLUGS.HEARTLEAF,
-    category: 'ingredient',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Plante herbacée originaire d'Asie de l'Est, utilisée depuis des siècles en médecine traditionnelle coréenne et japonaise. Riche en flavonoïdes, polysaccharides et polyphénols, c'est un actif apaisant, antioxydant et antibactérien — star de la K-beauty pour les peaux sensibles et réactives.",
     content: `## Origine & identité
@@ -1445,7 +1446,7 @@ Le Gluconate de Manganèse présente une sécurité d'emploi totale :
   {
     name: 'Aloe Vera',
     slug: INGREDIENT_SLUGS.ALOE_VERA,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Hydratant exceptionnel et réparateur naturel, riche en vitamines et minéraux pour apaiser et régénérer la peau.',
     content: `
@@ -1497,7 +1498,7 @@ Le Gluconate de Manganèse présente une sécurité d'emploi totale :
   {
     name: "Extrait d'Épilobe",
     slug: INGREDIENT_SLUGS.EXTRAIT_EPILOBE,
-    category: 'Apaisement & Anti-inflammatoire',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait de la plante Epilobium angustifolium (aussi appelée épilobe à feuilles étroites ou fireweed), réputé pour calmer les inflammations et les rougeurs cutanées.',
     content: `
@@ -1525,7 +1526,7 @@ Le Gluconate de Manganèse présente une sécurité d'emploi totale :
   {
     name: 'Extrait de Camomille',
     slug: INGREDIENT_SLUGS.EXTRAIT_CAMOMILLE,
-    category: 'Apaisement & Anti-inflammatoire',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait des fleurs de camomille (Matricaria chamomilla), reconnu pour ses puissantes propriétés calmantes, anti-inflammatoires et antioxydantes en soin de la peau.',
     content: `
@@ -1553,7 +1554,7 @@ Le Gluconate de Manganèse présente une sécurité d'emploi totale :
   {
     name: 'Tasmannia Lanceolata Fruit Extract',
     slug: INGREDIENT_SLUGS.TASMANNIA_LANCEOLATA,
-    category: 'Apaisement & Anti-inflammatoire',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait de poivre de Tasmanie aux propriétés apaisantes immédiates, particulièrement efficace contre les démangeaisons et l’inconfort.',
     content: `
@@ -1568,7 +1569,7 @@ L'**Extrait de Tasmannia Lanceolata** (Poivre de Tasmanie) contient de la polygo
   {
     name: 'Enoxolone',
     slug: INGREDIENT_SLUGS.ENOXOLONE,
-    category: 'Apaisement & Anti-inflammatoire',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Dérivé de l’acide glycyrrhizique (réglisse), reconnu pour son puissant effet anti-inflammatoire et apaisant.',
     content: `
@@ -1583,7 +1584,7 @@ L'**Enoxolone** (Acide Beta-Glycyrrhétinique) est un actif majeur pour traiter 
   {
     name: 'Neutrazen',
     slug: INGREDIENT_SLUGS.NEUTRAZEN,
-    category: 'Apaisement & Anti-inflammatoire',
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Neuropeptide conçu pour prévenir et réduire les signes de l’inflammation neurophage, idéal pour les peaux ultra-sensibles.',
     content: `
@@ -1594,5 +1595,29 @@ L'**Enoxolone** (Acide Beta-Glycyrrhétinique) est un actif majeur pour traiter 
 * **Préventif** : Aide la peau à moins réagir aux agressions futures.
 * **Confort** : Redonne du confort aux peaux qui "ne supportent plus rien".
     `,
+  },
+  {
+    name: 'Dipotassium Glycyrrhizate',
+    slug: INGREDIENT_SLUGS.DIPOTASSIUM_GLYCYRRHIZATE,
+    category: INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Un sel dérivé de la racine de réglisse, hautement efficace pour apaiser les peaux irritées, réduire les rougeurs et réguler l’inflammation.',
+    content: `
+# Dipotassium Glycyrrhizate : La Douceur de la Réglisse
+Le **Dipotassium Glycyrrhizate** est un actif extrait de la plante de réglisse (*Glycyrrhiza glabra*). Il est extrêmement prisé en dermo-cosmétique pour son profil de tolérance parfait et ses capacités apaisantes polyvalentes.
+
+## ✨ Points Forts & Bénéfices
+* **Apaisement Intense** : Calme rapidement les irritations, les démangeaisons et les sensations d'échauffement.
+* **Anti-Rougeurs** : Aide à réduire l'inflammation vasculaire et les rougeurs diffuses.
+* **Régulateur de Sébum** : Des études suggèrent une action complémentaire sur la régulation du gras cutané.
+* **Amélioration de la Barrière** : Soutient l'intégrité de l'épiderme face aux agressions.
+
+## ⚖️ Transparence Scientifique & Limites
+* **Synergie** : Souvent utilisé en association avec d'autres actifs apaisants (Allantoïne, Pantthénol) pour un effet "anti-crise" complet.
+* **Usage** : Très courant dans les soins post-actes (laser, peeling) et les produits pour peaux atopiques.
+
+## 🛡️ Précautions & Sécurité
+* Ingrédient extrêmement sûr, adapté aux peaux les plus sensibles et aux bébés.
+`,
   },
 ]

@@ -22,7 +22,7 @@ import { PageHeader } from '@/component/Layout/PageHeader/PageHeader'
 import { SearchCombobox } from '@/component/search/SearchCombobox'
 import { useListFilters } from '@/hooks/useListFilters'
 import { ingredientQueries, type ListIngredientsFilters } from '../../../lib/queries/ingredients'
-import { ATTRIBUTE_SUBGROUPS, FILTER_KEYS, type FilterKey, GROUP_LABELS } from '../filters'
+import { FILTER_KEYS, type FilterKey, GROUP_LABELS } from '../filters'
 
 import '@/component/Layout/PageLayout/ListPage.css'
 import './IngredientsPage.css'
@@ -35,10 +35,16 @@ const PAGE_SIZE = 20
 export function IngredientsPage() {
   const [isDrawerOpen, setDrawerOpen] = useState(false)
 
-  const { category, concern, skin_type, attribute, page } = routeApi.useSearch()
+  const { skin_type, concern, attribute, skin_effect, comedogenicity, page } = routeApi.useSearch()
   const navigate = useNavigate({ from: '/ingredients/' })
 
-  const filters: FilterValues<FilterKey> = { category, concern, skin_type, attribute }
+  const filters: FilterValues<FilterKey> = {
+    skin_type,
+    concern,
+    attribute,
+    skin_effect,
+    comedogenicity,
+  }
 
   const { filterCount, activeTags, applyFilters, resetFilters, goToPage, toggleSingleFilter } =
     useListFilters({
@@ -52,10 +58,11 @@ export function IngredientsPage() {
 
   const apiFilters: ListIngredientsFilters = hasFilters
     ? {
-        category: category.length > 0 ? category : undefined,
-        concern: concern.length > 0 ? concern : undefined,
         skin_type: skin_type.length > 0 ? skin_type : undefined,
+        concern: concern.length > 0 ? concern : undefined,
         attribute: attribute.length > 0 ? attribute : undefined,
+        skin_effect: skin_effect.length > 0 ? skin_effect : undefined,
+        comedogenicity: comedogenicity.length > 0 ? comedogenicity : undefined,
         page,
         limit: PAGE_SIZE,
       }
@@ -107,31 +114,44 @@ export function IngredientsPage() {
         ],
       },
       {
-        id: 'properties',
-        label: 'Propriétés & actions',
+        id: 'attribute',
+        label: 'Rôle fonctionnel',
         defaultOpen: false,
         tier: 'advanced',
         subFilters: [
           {
             key: 'attribute',
-            label: 'Propriétés',
-            placeholder: 'Toutes',
+            label: 'Rôle',
+            placeholder: 'Tous',
             options: toOpts(filterOptions?.tags.attribute ?? []),
-            subGroups: ATTRIBUTE_SUBGROUPS,
           },
         ],
       },
       {
-        id: 'category',
-        label: 'Catégorie technique',
+        id: 'skin_effect',
+        label: 'Effet peau',
         defaultOpen: false,
         tier: 'advanced',
         subFilters: [
           {
-            key: 'category',
-            label: 'Catégorie',
-            placeholder: 'Toutes',
-            options: (filterOptions?.categories ?? []).map((c) => ({ value: c, label: c })),
+            key: 'skin_effect',
+            label: 'Effet',
+            placeholder: 'Tous',
+            options: toOpts(filterOptions?.tags.skin_effect ?? []),
+          },
+        ],
+      },
+      {
+        id: 'comedogenicity',
+        label: 'Comédogénicité',
+        defaultOpen: false,
+        tier: 'advanced',
+        subFilters: [
+          {
+            key: 'comedogenicity',
+            label: 'Comédogénicité',
+            placeholder: 'Indifférent',
+            options: toOpts(filterOptions?.tags.comedogenicity ?? []),
           },
         ],
       },

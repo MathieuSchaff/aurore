@@ -1,4 +1,5 @@
 import { ACTIFS_ANTI_AGE_REPARATEURS } from './actifs-anti-age-reparateurs'
+import { FILLERS } from './fillers'
 import { ANTI_ACNE_SEBUM } from './anti-acne-sebum'
 import { ANTI_ROSACEE_VASOCONSTRICTEURS } from './anti-rosacee-vasoconstricteurs'
 import { ANTIOXYDANTS_VITAMINES } from './antioxydants-vitamines'
@@ -41,5 +42,6 @@ export const ingredientData: IngredientInput[] = [
   ...RETINOIDES,
   ...TENSIOACTIFS_NETTOYANTS,
   ...TEXTURANTS_FONCTIONNELS,
+  ...FILLERS,
 ]
 console.log(ingredientData.length)

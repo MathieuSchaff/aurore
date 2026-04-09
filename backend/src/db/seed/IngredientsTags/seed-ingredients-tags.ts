@@ -1,3 +1,42 @@
+// ─── Règles strictes pour tagger un ingrédient ──────────────────────
+//
+// Depuis le refactor de la taxonomie (avril 2026), chaque slug porte un
+// `scope` dans TAG_TAXONOMY (`ingredient` | `product` | `both`). Le test
+// `shared-schemas-vs-tags` vérifie automatiquement que tout slug utilisé
+// ici a un scope compatible avec une molécule — plus besoin de tenir une
+// liste noire à la main, TAG_TAXONOMY est la source de vérité.
+//
+// Catégories interdites sur un ingrédient (scope = 'product') :
+//   ❌ product_type   (ex: serum, creme-hydratante)
+//   ❌ routine_step   (ex: matin, hydratation, emollience)
+//   ❌ skin_zone      (ex: zone-visage, zone-yeux)
+//   ❌ la plupart des product_label (sans-parfum, vegan, hypoallergenique…)
+//   ❌ skin_effect "produit fini" (texture-riche, texture-legere)
+//
+// Scope = 'both' : autorisés ici parce qu'ils décrivent AUSSI une
+// propriété intrinsèque de molécule :
+//   ✅ ingredient_attribute  (actif, humectant, filtre-uv, tensioactif…)
+//   ✅ skin_effect (OCCLUSIF, REPULPANT, MATIFIANT, PROTECTION_CUTANEE)
+//   ✅ product_label (FILTRES_CHIMIQUES, FILTRES_MINERAUX)
+//   ✅ shared_label  (COMEDOGENE, NON_COMEDOGENE)
+//   ✅ concern, skin_type
+//
+// Règle `avoid` (voir idee/tags/tags-associations.md) :
+//   ✅ uniquement skin_type ou concern.
+//   ❌ jamais d'attribut, de label, de product_type ni de routine_step.
+//   ⚠️  exception conventionnelle : `grossesse-compatible` (scope=product)
+//       est toléré dans `avoid` pour signifier "contre-indiqué pendant
+//       la grossesse" — le test le sait.
+//
+// Convention comédogénicité :
+//   - `comedogene` / `non-comedogene` sont des FAITS moléculaires →
+//     ils vont en `secondary`, jamais en `avoid`.
+//   - La contre-indication clinique correspondante se traduit par
+//     `avoid: [peau-grasse, anti-acne]` sur l'ingrédient concerné.
+//
+// Documentation complète : idee/tags/tags.md (section 3) et
+// idee/tags/tags-associations.md.
+
 import { INGREDIENT_SLUGS } from '../ingredients/ingredient-slugs'
 import { TAG_SLUGS } from '../tags/seed-tags'
 
@@ -20,7 +59,7 @@ export const ingredientTagMap: IngredientTagMap = {
   },
   [INGREDIENT_SLUGS.CHLORELLA_VULGARIS]: {
     primary: [TAG_SLUGS.CERNES_POCHES, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPARATEUR],
-    secondary: [TAG_SLUGS.POLLUTION, TAG_SLUGS.MICROBIOME, TAG_SLUGS.ZONE_YEUX],
+    secondary: [TAG_SLUGS.POLLUTION, TAG_SLUGS.MICROBIOME],
     avoid: [],
   },
   [INGREDIENT_SLUGS.SPIRULINA_PLATENSIS]: {
@@ -55,7 +94,7 @@ export const ingredientTagMap: IngredientTagMap = {
   },
   [INGREDIENT_SLUGS.FUCUS_VESICULOSUS]: {
     primary: [TAG_SLUGS.CERNES_POCHES, TAG_SLUGS.POLLUTION, TAG_SLUGS.ANTI_OXYDANT],
-    secondary: [TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.PEAU_GRASSE],
+    secondary: [TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.PEAU_GRASSE],
     avoid: [],
   },
   [INGREDIENT_SLUGS.ALARIA_ESCULENTA]: {
@@ -112,21 +151,19 @@ export const ingredientTagMap: IngredientTagMap = {
     secondary: [
       TAG_SLUGS.ECZEMA,
       TAG_SLUGS.ANTI_OXYDANT,
-      TAG_SLUGS.TEXTURE_RICHE,
-      TAG_SLUGS.GROSSESSE_COMPATIBLE,
     ],
     avoid: [],
   },
 
   [INGREDIENT_SLUGS.BUTYLENE_GLYCOL]: {
     primary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.DESHYDRATATION],
-    secondary: [TAG_SLUGS.TEXTURE_LEGERE, TAG_SLUGS.PEAU_TOUS_TYPES],
+    secondary: [TAG_SLUGS.PEAU_TOUS_TYPES],
     avoid: [],
   },
 
   [INGREDIENT_SLUGS.EXTRAIT_CAMOMILLE]: {
     primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.PEAU_REACTIVE],
-    secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BIO_NATUREL, TAG_SLUGS.GROSSESSE_COMPATIBLE],
+    secondary: [TAG_SLUGS.PEAU_SENSIBLE],
     avoid: [],
   },
 
@@ -148,13 +185,13 @@ export const ingredientTagMap: IngredientTagMap = {
   },
 
   [INGREDIENT_SLUGS.DIETHYLAMINO_HYDROXYBENZOYL_HEXYL_BENZOATE]: {
-    primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_AGE],
+    primary: [TAG_SLUGS.PHOTO_PROTECTION, TAG_SLUGS.ANTI_AGE],
     secondary: [TAG_SLUGS.FILTRES_CHIMIQUES],
     avoid: [],
   },
 
   [INGREDIENT_SLUGS.ETHYLHEXYL_TRIAZONE]: {
-    primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
+    primary: [TAG_SLUGS.PHOTO_PROTECTION],
     secondary: [TAG_SLUGS.FILTRES_CHIMIQUES],
     avoid: [],
   },
@@ -233,7 +270,7 @@ export const ingredientTagMap: IngredientTagMap = {
 
   [INGREDIENT_SLUGS.COLLAGEN_AMINO_ACIDS]: {
     primary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.ANTI_AGE],
-    secondary: [],
+    secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.BIOMIMETIQUE, TAG_SLUGS.PEAU_TOUS_TYPES],
     avoid: [],
   },
 
@@ -252,12 +289,12 @@ export const ingredientTagMap: IngredientTagMap = {
   [INGREDIENT_SLUGS.CURCUMA_LONGA_ROOT_EXTRACT]: {
     primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ECLAT],
     secondary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.TEINT_TERNE],
-    avoid: [],
+    avoid: [TAG_SLUGS.PEAU_REACTIVE],
   },
 
   [INGREDIENT_SLUGS.D_SENSINOSE]: {
     primary: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.APAISANT],
-    secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.HYPOALLERGENIQUE],
+    secondary: [TAG_SLUGS.PEAU_SENSIBLE],
     avoid: [],
   },
 
@@ -269,19 +306,19 @@ export const ingredientTagMap: IngredientTagMap = {
 
   [INGREDIENT_SLUGS.GLYCERYL_GLUCOSIDE]: {
     primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.HUMECTANT],
-    secondary: [],
+    secondary: [TAG_SLUGS.BIOMIMETIQUE, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PEAU_TOUS_TYPES],
     avoid: [],
   },
 
   [INGREDIENT_SLUGS.HUILE_ONAGRE]: {
     primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_ATOPIQUE],
-    secondary: [TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.ZONE_VISAGE, TAG_SLUGS.EMOLLIENT],
-    avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.COMEDOGENE, TAG_SLUGS.ANTI_ACNE],
+    secondary: [TAG_SLUGS.EMOLLIENT, TAG_SLUGS.COMEDOGENE],
+    avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.ANTI_ACNE],
   },
 
   [INGREDIENT_SLUGS.IRON_OXIDE]: {
-    primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.HYPERPIGMENTATION],
-    secondary: [],
+    primary: [TAG_SLUGS.PHOTO_PROTECTION, TAG_SLUGS.HYPERPIGMENTATION],
+    secondary: [TAG_SLUGS.LUMIERE_BLEUE],
     avoid: [],
   },
 
@@ -292,13 +329,13 @@ export const ingredientTagMap: IngredientTagMap = {
   },
 
   [INGREDIENT_SLUGS.MALIC_ACID_ESTER]: {
-    primary: [TAG_SLUGS.EXFOLIANT_CHIMIQUE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ECLAT],
+    primary: [TAG_SLUGS.KERATOLYTIQUE, TAG_SLUGS.ECLAT],
     secondary: [TAG_SLUGS.TEINT_TERNE],
     avoid: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.ROSACEE],
   },
 
   [INGREDIENT_SLUGS.MELITANE]: {
-    primary: [TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.PROTECTION_SOLAIRE],
+    primary: [TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.PHOTO_PROTECTION],
     secondary: [TAG_SLUGS.ANTI_TACHES],
     avoid: [],
   },
@@ -310,8 +347,8 @@ export const ingredientTagMap: IngredientTagMap = {
   },
 
   [INGREDIENT_SLUGS.PAPAIN]: {
-    primary: [TAG_SLUGS.EXFOLIANT_CHIMIQUE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ECLAT],
-    secondary: [TAG_SLUGS.KERATOLYTIQUE, TAG_SLUGS.TEINT_TERNE],
+    primary: [TAG_SLUGS.KERATOLYTIQUE, TAG_SLUGS.ECLAT],
+    secondary: [TAG_SLUGS.TEINT_TERNE],
     avoid: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.PEAU_SENSIBLE],
   },
 
@@ -322,9 +359,9 @@ export const ingredientTagMap: IngredientTagMap = {
   },
 
   [INGREDIENT_SLUGS.PRUNUS_AMYGDALUS_DULCIS_OIL]: {
-    primary: [TAG_SLUGS.EMOLLIENT, TAG_SLUGS.APAISANT, TAG_SLUGS.HUILE_VISAGE],
-    secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.TEXTURE_RICHE],
-    avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.COMEDOGENE],
+    primary: [TAG_SLUGS.EMOLLIENT, TAG_SLUGS.APAISANT],
+    secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.COMEDOGENE],
+    avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.ANTI_ACNE],
   },
 
   [INGREDIENT_SLUGS.RESVERATROL]: {
@@ -334,9 +371,9 @@ export const ingredientTagMap: IngredientTagMap = {
   },
 
   [INGREDIENT_SLUGS.HUILE_DE_RICIN]: {
-    primary: [TAG_SLUGS.HUILE_VISAGE, TAG_SLUGS.OCCLUSIF],
-    secondary: [TAG_SLUGS.REPARATEUR],
-    avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.COMEDOGENE, TAG_SLUGS.ANTI_ACNE],
+    primary: [TAG_SLUGS.EMOLLIENT, TAG_SLUGS.PROTECTION_CUTANEE],
+    secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.COMEDOGENE],
+    avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.ANTI_ACNE],
   },
 
   [INGREDIENT_SLUGS.SEPIWHITE]: {
@@ -364,8 +401,8 @@ export const ingredientTagMap: IngredientTagMap = {
     avoid: [],
   },
   [INGREDIENT_SLUGS.TITANIUM_DIOXIDE]: {
-    primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.FILTRES_MINERAUX],
-    secondary: [],
+    primary: [TAG_SLUGS.PHOTO_PROTECTION, TAG_SLUGS.FILTRES_MINERAUX],
+    secondary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.PHOTO_VIEILLISSEMENT, TAG_SLUGS.PEAU_SENSIBLE],
     avoid: [],
   },
 
@@ -376,13 +413,13 @@ export const ingredientTagMap: IngredientTagMap = {
   },
 
   [INGREDIENT_SLUGS.TRIASORB]: {
-    primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.LUMIERE_BLEUE],
+    primary: [TAG_SLUGS.PHOTO_PROTECTION, TAG_SLUGS.LUMIERE_BLEUE],
     secondary: [TAG_SLUGS.ANTI_TACHES],
     avoid: [],
   },
 
   [INGREDIENT_SLUGS.ZINC_OXIDE]: {
-    primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.FILTRES_MINERAUX],
+    primary: [TAG_SLUGS.PHOTO_PROTECTION, TAG_SLUGS.FILTRES_MINERAUX],
     secondary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.APAISANT],
     avoid: [],
   },
@@ -428,7 +465,7 @@ export const ingredientTagMap: IngredientTagMap = {
 
   // --- ASCORBYL PALMITATE ---
   [INGREDIENT_SLUGS.ASCORBYL_PALMITATE]: {
-    primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.TEXTURE_RICHE],
+    primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.PEAU_SECHE],
     secondary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT],
     avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.BRILLANCE],
   },
@@ -455,8 +492,8 @@ export const ingredientTagMap: IngredientTagMap = {
   // --- THD ASCORBATE ---
   [INGREDIENT_SLUGS.THD_ASCORBATE]: {
     primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.PHOTO_VIEILLISSEMENT],
-    secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ECLAT],
-    avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.COMEDOGENE],
+    secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ECLAT, TAG_SLUGS.COMEDOGENE],
+    avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.ANTI_ACNE],
   },
 
   // --- ALPHA ARBUTIN ---
@@ -487,7 +524,6 @@ export const ingredientTagMap: IngredientTagMap = {
       TAG_SLUGS.ECZEMA,
       TAG_SLUGS.BARRIERE_CUTANEE,
       TAG_SLUGS.BIOMIMETIQUE,
-      TAG_SLUGS.GROSSESSE_COMPATIBLE,
     ],
     avoid: [],
   },
@@ -513,11 +549,9 @@ export const ingredientTagMap: IngredientTagMap = {
   // --- CITRUS LIMON FRUIT WATER ---
   [INGREDIENT_SLUGS.CITRUS_LIMON_FRUIT_WATER]: {
     primary: [
-      TAG_SLUGS.EXFOLIANT_CHIMIQUE,
-      TAG_SLUGS.EXFOLIATION,
+      TAG_SLUGS.KERATOLYTIQUE,
       TAG_SLUGS.ECLAT,
       TAG_SLUGS.MICROBIOME,
-      TAG_SLUGS.PEAU_GRASSE,
     ],
     secondary: [
       TAG_SLUGS.ANTI_ACNE,
@@ -529,7 +563,6 @@ export const ingredientTagMap: IngredientTagMap = {
     ],
     avoid: [
       TAG_SLUGS.PEAU_SENSIBLE,
-      TAG_SLUGS.GROSSESSE_COMPATIBLE,
       TAG_SLUGS.ECZEMA,
       TAG_SLUGS.ROSACEE,
       TAG_SLUGS.COUPEROSE,
@@ -617,7 +650,6 @@ export const ingredientTagMap: IngredientTagMap = {
       TAG_SLUGS.PORES_DILATES,
       TAG_SLUGS.MICROBIOME,
       TAG_SLUGS.MATIFIANT,
-      TAG_SLUGS.GROSSESSE_COMPATIBLE,
     ],
     avoid: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
   },
@@ -643,7 +675,6 @@ export const ingredientTagMap: IngredientTagMap = {
       TAG_SLUGS.PEAU_GRASSE,
       TAG_SLUGS.PEAU_SENSIBLE,
       TAG_SLUGS.PEAU_REACTIVE,
-      TAG_SLUGS.GROSSESSE_COMPATIBLE,
     ],
     avoid: [],
   },
@@ -657,7 +688,6 @@ export const ingredientTagMap: IngredientTagMap = {
       TAG_SLUGS.ANTI_ACNE,
       TAG_SLUGS.POST_ACNE,
       TAG_SLUGS.ECLAT,
-      TAG_SLUGS.BIO_NATUREL,
     ],
     avoid: [],
   },
@@ -670,7 +700,6 @@ export const ingredientTagMap: IngredientTagMap = {
       TAG_SLUGS.PEAU_REACTIVE,
       TAG_SLUGS.ROSACEE,
       TAG_SLUGS.ANTI_ROUGEURS,
-      TAG_SLUGS.HYPOALLERGENIQUE,
       TAG_SLUGS.PHOTO_VIEILLISSEMENT,
       TAG_SLUGS.BIOMIMETIQUE,
     ],
@@ -704,7 +733,6 @@ export const ingredientTagMap: IngredientTagMap = {
       TAG_SLUGS.CICATRISATION,
       TAG_SLUGS.POST_ACNE,
       TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
-      TAG_SLUGS.HYPOALLERGENIQUE,
     ],
     avoid: [],
   },
@@ -745,7 +773,6 @@ export const ingredientTagMap: IngredientTagMap = {
       TAG_SLUGS.PEAU_REACTIVE,
       TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
       TAG_SLUGS.MICROBIOME,
-      TAG_SLUGS.BIO_NATUREL,
     ],
     avoid: [],
   },
@@ -753,7 +780,7 @@ export const ingredientTagMap: IngredientTagMap = {
   // --- CALENDULA ---
   [INGREDIENT_SLUGS.CALENDULA]: {
     primary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.APAISANT],
-    secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BIO_NATUREL],
+    secondary: [TAG_SLUGS.PEAU_SENSIBLE],
     avoid: [],
   },
 
@@ -770,7 +797,6 @@ export const ingredientTagMap: IngredientTagMap = {
       TAG_SLUGS.ECLAT,
       TAG_SLUGS.POLLUTION,
       TAG_SLUGS.PHOTO_VIEILLISSEMENT,
-      TAG_SLUGS.BIO_NATUREL,
     ],
     avoid: [],
   },
@@ -803,7 +829,6 @@ export const ingredientTagMap: IngredientTagMap = {
       TAG_SLUGS.ANTI_AGE,
       TAG_SLUGS.REPULPANT,
       TAG_SLUGS.BARRIERE_CUTANEE,
-      TAG_SLUGS.TEXTURE_LEGERE,
     ],
     avoid: [],
   },
@@ -817,7 +842,6 @@ export const ingredientTagMap: IngredientTagMap = {
       TAG_SLUGS.ECLAT,
       TAG_SLUGS.BARRIERE_CUTANEE,
       TAG_SLUGS.CICATRISATION,
-      TAG_SLUGS.BIO_NATUREL,
     ],
     avoid: [],
   },
@@ -831,7 +855,10 @@ export const ingredientTagMap: IngredientTagMap = {
       TAG_SLUGS.PEAU_SENSIBLE,
       TAG_SLUGS.DESHYDRATATION,
     ],
-    avoid: [TAG_SLUGS.EXFOLIANT_CHIMIQUE, TAG_SLUGS.EXFOLIATION],
+    // Note: argireline's effect is neutralized by strong acids (AHA/BHA).
+    // This is an application incompatibility, not a skin-type contraindication,
+    // so it doesn't belong in `avoid` (which is reserved for skin_type/concern).
+    avoid: [],
   },
 
   // --- BAKUCHIOL ---
@@ -846,14 +873,13 @@ export const ingredientTagMap: IngredientTagMap = {
       TAG_SLUGS.PEAU_REACTIVE,
       TAG_SLUGS.ANTI_OXYDANT,
       TAG_SLUGS.APAISANT,
-      TAG_SLUGS.BIO_NATUREL,
     ],
     avoid: [],
   },
   [INGREDIENT_SLUGS.BEEF_TALLOW]: {
-    primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.OCCLUSIF],
-    secondary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.EMOLLIENT, TAG_SLUGS.HUMECTANT],
-    avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.COMEDOGENE],
+    primary: [TAG_SLUGS.EMOLLIENT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PROTECTION_CUTANEE],
+    secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.HUMECTANT, TAG_SLUGS.COMEDOGENE],
+    avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.ANTI_ACNE],
   },
 
   [INGREDIENT_SLUGS.CERAMIDE_AP]: {
@@ -923,14 +949,12 @@ export const ingredientTagMap: IngredientTagMap = {
   [INGREDIENT_SLUGS.ESCIN]: {
     primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ROSACEE, TAG_SLUGS.CERNES_POCHES],
     secondary: [
-      TAG_SLUGS.ZONE_YEUX,
       TAG_SLUGS.PEAU_REACTIVE,
       TAG_SLUGS.ECLAT,
       TAG_SLUGS.APAISANT,
       TAG_SLUGS.PEAU_SENSIBLE,
       TAG_SLUGS.COUPEROSE,
       TAG_SLUGS.ANTI_OXYDANT,
-      TAG_SLUGS.BIO_NATUREL,
     ],
     avoid: [],
   },
@@ -947,9 +971,9 @@ export const ingredientTagMap: IngredientTagMap = {
       TAG_SLUGS.ANTI_AGE,
       TAG_SLUGS.BARRIERE_CUTANEE,
       TAG_SLUGS.PEAU_SECHE,
-      TAG_SLUGS.HUILE_VISAGE,
+      TAG_SLUGS.EMOLLIENT,
     ],
-    avoid: [],
+    avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.ANTI_ACNE],
   },
 
   [INGREDIENT_SLUGS.PLANKTON_EXTRACT]: {
@@ -996,10 +1020,11 @@ export const ingredientTagMap: IngredientTagMap = {
       TAG_SLUGS.BARRIERE_CUTANEE,
       TAG_SLUGS.REPARATEUR,
       TAG_SLUGS.PEAU_ATOPIQUE,
-      TAG_SLUGS.OCCLUSIF,
+      TAG_SLUGS.PROTECTION_CUTANEE,
       TAG_SLUGS.PEAU_SENSIBLE,
+      TAG_SLUGS.COMEDOGENE,
     ],
-    avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.COMEDOGENE],
+    avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.ANTI_ACNE],
   },
 
   [INGREDIENT_SLUGS.SNOW_MUSHROOM]: {
@@ -1053,9 +1078,7 @@ export const ingredientTagMap: IngredientTagMap = {
       TAG_SLUGS.REPARATEUR,
       TAG_SLUGS.DESHYDRATATION,
       TAG_SLUGS.NON_COMEDOGENE,
-      TAG_SLUGS.TEXTURE_LEGERE,
       TAG_SLUGS.PEAU_REACTIVE,
-      TAG_SLUGS.HYPOALLERGENIQUE,
     ],
     avoid: [],
   },
@@ -1129,7 +1152,6 @@ export const ingredientTagMap: IngredientTagMap = {
       TAG_SLUGS.PEAU_SENSIBLE,
       TAG_SLUGS.ROSACEE,
       TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
-      TAG_SLUGS.PROTECTION_SOLAIRE,
     ],
   },
 
@@ -1147,37 +1169,39 @@ export const ingredientTagMap: IngredientTagMap = {
     ],
     avoid: [
       TAG_SLUGS.PEAU_REACTIVE,
+      TAG_SLUGS.PEAU_SENSIBLE,
+      TAG_SLUGS.ROSACEE,
       TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
-      TAG_SLUGS.PROTECTION_SOLAIRE,
     ],
   },
 
   [INGREDIENT_SLUGS.SALICYLIC_ACID]: {
     primary: [
       TAG_SLUGS.ANTI_ACNE,
-      TAG_SLUGS.EXFOLIANT_CHIMIQUE,
-      TAG_SLUGS.EXFOLIATION,
+      TAG_SLUGS.KERATOLYTIQUE,
       TAG_SLUGS.PORES_DILATES,
     ],
     secondary: [
       TAG_SLUGS.SEBO_REGULATEUR,
-      TAG_SLUGS.KERATOLYTIQUE,
       TAG_SLUGS.PEAU_GRASSE,
       TAG_SLUGS.BRILLANCE,
       TAG_SLUGS.POST_ACNE,
       TAG_SLUGS.PEAU_MIXTE,
       TAG_SLUGS.NON_COMEDOGENE,
     ],
-    avoid: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
+    avoid: [
+      TAG_SLUGS.PEAU_SECHE,
+      TAG_SLUGS.PEAU_REACTIVE,
+      TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
+    ],
   },
 
   [INGREDIENT_SLUGS.GLYCOLIC_ACID]: {
-    primary: [TAG_SLUGS.EXFOLIANT_CHIMIQUE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ECLAT],
+    primary: [TAG_SLUGS.KERATOLYTIQUE, TAG_SLUGS.ECLAT],
     secondary: [
       TAG_SLUGS.ANTI_AGE,
       TAG_SLUGS.ANTI_TACHES,
       TAG_SLUGS.HYPERPIGMENTATION,
-      TAG_SLUGS.KERATOLYTIQUE,
       TAG_SLUGS.PORES_DILATES,
       TAG_SLUGS.TEINT_TERNE,
       TAG_SLUGS.PHOTO_VIEILLISSEMENT,
@@ -1187,20 +1211,17 @@ export const ingredientTagMap: IngredientTagMap = {
       TAG_SLUGS.PEAU_REACTIVE,
       TAG_SLUGS.ROSACEE,
       TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
-      TAG_SLUGS.PROTECTION_SOLAIRE,
     ],
   },
 
   [INGREDIENT_SLUGS.LACTIC_ACID]: {
     primary: [
-      TAG_SLUGS.EXFOLIANT_CHIMIQUE,
-      TAG_SLUGS.EXFOLIATION,
+      TAG_SLUGS.KERATOLYTIQUE,
       TAG_SLUGS.HUMECTANT,
       TAG_SLUGS.ECLAT,
     ],
     secondary: [
       TAG_SLUGS.ANTI_AGE,
-      TAG_SLUGS.KERATOLYTIQUE,
       TAG_SLUGS.PEAU_SECHE,
       TAG_SLUGS.BIOMIMETIQUE,
       TAG_SLUGS.TEINT_TERNE,
@@ -1211,25 +1232,21 @@ export const ingredientTagMap: IngredientTagMap = {
 
   [INGREDIENT_SLUGS.MANDELIC_ACID]: {
     primary: [
-      TAG_SLUGS.EXFOLIANT_CHIMIQUE,
-      TAG_SLUGS.EXFOLIATION,
+      TAG_SLUGS.KERATOLYTIQUE,
       TAG_SLUGS.ANTI_ACNE,
       TAG_SLUGS.PEAU_SENSIBLE,
     ],
     secondary: [
       TAG_SLUGS.ANTI_TACHES,
-      TAG_SLUGS.KERATOLYTIQUE,
       TAG_SLUGS.POST_ACNE,
       TAG_SLUGS.HYPERPIGMENTATION,
-      TAG_SLUGS.TEXTURE_LEGERE,
     ],
     avoid: [TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
   },
 
   [INGREDIENT_SLUGS.PHA]: {
     primary: [
-      TAG_SLUGS.EXFOLIANT_CHIMIQUE,
-      TAG_SLUGS.EXFOLIATION,
+      TAG_SLUGS.KERATOLYTIQUE,
       TAG_SLUGS.PEAU_SENSIBLE,
       TAG_SLUGS.HUMECTANT,
     ],
@@ -1237,7 +1254,6 @@ export const ingredientTagMap: IngredientTagMap = {
       TAG_SLUGS.BARRIERE_CUTANEE,
       TAG_SLUGS.ECLAT,
       TAG_SLUGS.ANTI_AGE,
-      TAG_SLUGS.KERATOLYTIQUE,
       TAG_SLUGS.PEAU_REACTIVE,
       TAG_SLUGS.ROSACEE,
     ],
@@ -1322,13 +1338,13 @@ export const ingredientTagMap: IngredientTagMap = {
 
   [INGREDIENT_SLUGS.HUMECTANTS_EMOLLIENTS_OCCLUSIFS]: {
     primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.BARRIERE_CUTANEE],
-    secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.EMOLLIENT, TAG_SLUGS.OCCLUSIF],
+    secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.EMOLLIENT, TAG_SLUGS.PROTECTION_CUTANEE],
     avoid: [],
   },
 
   [INGREDIENT_SLUGS.HUILE_D_ARGAN]: {
     primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.ANTI_AGE],
-    secondary: [TAG_SLUGS.EMOLLIENT, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ZONE_CORPS],
+    secondary: [TAG_SLUGS.EMOLLIENT, TAG_SLUGS.ANTI_OXYDANT],
     avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.ANTI_ACNE],
   },
 
@@ -1337,8 +1353,6 @@ export const ingredientTagMap: IngredientTagMap = {
     secondary: [
       TAG_SLUGS.PEAU_GRASSE,
       TAG_SLUGS.EMOLLIENT,
-      TAG_SLUGS.ZONE_VISAGE,
-      TAG_SLUGS.ZONE_CORPS,
       TAG_SLUGS.NON_COMEDOGENE,
     ],
     avoid: [],
@@ -1346,7 +1360,7 @@ export const ingredientTagMap: IngredientTagMap = {
 
   [INGREDIENT_SLUGS.HUILE_DE_PEPINS_DE_FIGUE_DE_BARBARIE]: {
     primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ANTI_OXYDANT],
-    secondary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ZONE_VISAGE, TAG_SLUGS.REPARATEUR],
+    secondary: [TAG_SLUGS.ECLAT, TAG_SLUGS.REPARATEUR],
     avoid: [],
   },
 
@@ -1355,7 +1369,6 @@ export const ingredientTagMap: IngredientTagMap = {
     secondary: [
       TAG_SLUGS.PORES_DILATES,
       TAG_SLUGS.EMOLLIENT,
-      TAG_SLUGS.ZONE_VISAGE,
       TAG_SLUGS.SEBO_REGULATEUR,
     ],
     avoid: [],
@@ -1367,12 +1380,10 @@ export const ingredientTagMap: IngredientTagMap = {
       TAG_SLUGS.ECLAT,
       TAG_SLUGS.ANTISEPTIQUE,
       TAG_SLUGS.SEBO_REGULATEUR,
-      TAG_SLUGS.BIO_NATUREL,
     ],
     avoid: [
       TAG_SLUGS.PEAU_SENSIBLE,
       TAG_SLUGS.PEAU_REACTIVE,
-      TAG_SLUGS.ZONE_YEUX,
       TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
     ],
   },
@@ -1384,14 +1395,13 @@ export const ingredientTagMap: IngredientTagMap = {
       TAG_SLUGS.PEAU_MIXTE,
       TAG_SLUGS.SEBO_REGULATEUR,
       TAG_SLUGS.PORES_DILATES,
-      TAG_SLUGS.BIO_NATUREL,
     ],
     avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE],
   },
 
   [INGREDIENT_SLUGS.VERVEINE]: {
     primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.APAISANT],
-    secondary: [TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.BIO_NATUREL],
+    secondary: [TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.ANTI_OXYDANT],
     avoid: [],
   },
 
@@ -1402,14 +1412,13 @@ export const ingredientTagMap: IngredientTagMap = {
       TAG_SLUGS.PEAU_SECHE,
       TAG_SLUGS.ANTI_AGE,
       TAG_SLUGS.PEAU_SENSIBLE,
-      TAG_SLUGS.BIO_NATUREL,
     ],
     avoid: [],
   },
 
   [INGREDIENT_SLUGS.PAQUERETTE]: {
     primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_AGE],
-    secondary: [TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.BIO_NATUREL, TAG_SLUGS.REPULPANT],
+    secondary: [TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.REPULPANT],
     avoid: [],
   },
 
@@ -1420,14 +1429,13 @@ export const ingredientTagMap: IngredientTagMap = {
       TAG_SLUGS.DESHYDRATATION,
       TAG_SLUGS.PEAU_REACTIVE,
       TAG_SLUGS.BARRIERE_CUTANEE,
-      TAG_SLUGS.BIO_NATUREL,
     ],
     avoid: [],
   },
 
   [INGREDIENT_SLUGS.MANGANESE_GLUCONATE]: {
     primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_OXYDANT],
-    secondary: [],
+    secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.TEINT_TERNE],
     avoid: [],
   },
 
@@ -1445,7 +1453,7 @@ export const ingredientTagMap: IngredientTagMap = {
 
   [INGREDIENT_SLUGS.PROPYLENE_GLYCOL]: {
     primary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.DESHYDRATATION],
-    secondary: [],
+    secondary: [TAG_SLUGS.PEAU_TOUS_TYPES],
     avoid: [TAG_SLUGS.PEAU_REACTIVE],
   },
 
@@ -1485,7 +1493,7 @@ export const ingredientTagMap: IngredientTagMap = {
 
   [INGREDIENT_SLUGS.TYROSINE]: {
     primary: [TAG_SLUGS.HUMECTANT],
-    secondary: [],
+    secondary: [TAG_SLUGS.BIOMIMETIQUE, TAG_SLUGS.PEAU_TOUS_TYPES],
     avoid: [],
   },
 
@@ -1508,8 +1516,8 @@ export const ingredientTagMap: IngredientTagMap = {
   },
 
   [INGREDIENT_SLUGS.DIMETHICONE]: {
-    primary: [TAG_SLUGS.OCCLUSIF, TAG_SLUGS.BARRIERE_CUTANEE],
-    secondary: [TAG_SLUGS.EMOLLIENT, TAG_SLUGS.PROTECTION_CUTANEE, TAG_SLUGS.TEXTURE_LEGERE],
+    primary: [TAG_SLUGS.PROTECTION_CUTANEE, TAG_SLUGS.BARRIERE_CUTANEE],
+    secondary: [TAG_SLUGS.EMOLLIENT],
     avoid: [],
   },
 
@@ -1538,16 +1546,13 @@ export const ingredientTagMap: IngredientTagMap = {
       TAG_SLUGS.PEAU_GRASSE,
       TAG_SLUGS.SEBO_REGULATEUR,
       TAG_SLUGS.ECLAT,
-      TAG_SLUGS.BIO_NATUREL,
     ],
     avoid: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
   },
 
   [INGREDIENT_SLUGS.HUILE_GRAINES_TOURNESOL]: {
-    primary: [TAG_SLUGS.EMOLLIENT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.BIO_NATUREL],
+    primary: [TAG_SLUGS.EMOLLIENT, TAG_SLUGS.BARRIERE_CUTANEE],
     secondary: [
-      TAG_SLUGS.ZONE_VISAGE,
-      TAG_SLUGS.ZONE_CORPS,
       TAG_SLUGS.ANTI_OXYDANT,
       TAG_SLUGS.PEAU_SECHE,
       TAG_SLUGS.PEAU_SENSIBLE,
@@ -1585,7 +1590,7 @@ export const ingredientTagMap: IngredientTagMap = {
 
   [INGREDIENT_SLUGS.HYDROGENATED_POLYISOBUTENE]: {
     primary: [TAG_SLUGS.EMOLLIENT, TAG_SLUGS.PEAU_SECHE],
-    secondary: [TAG_SLUGS.TEXTURE_RICHE],
+    secondary: [],
     avoid: [],
   },
 
@@ -1597,7 +1602,7 @@ export const ingredientTagMap: IngredientTagMap = {
 
   [INGREDIENT_SLUGS.LYSINE_HCL]: {
     primary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.REPARATEUR],
-    secondary: [],
+    secondary: [TAG_SLUGS.BIOMIMETIQUE, TAG_SLUGS.BARRIERE_CUTANEE],
     avoid: [],
   },
 
@@ -1639,7 +1644,7 @@ export const ingredientTagMap: IngredientTagMap = {
   },
 
   [INGREDIENT_SLUGS.BLEUET]: {
-    primary: [TAG_SLUGS.CERNES_POCHES, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.APAISANT],
+    primary: [TAG_SLUGS.CERNES_POCHES, TAG_SLUGS.APAISANT],
     secondary: [
       TAG_SLUGS.PEAU_SENSIBLE,
       TAG_SLUGS.PEAU_REACTIVE,
@@ -1657,7 +1662,7 @@ export const ingredientTagMap: IngredientTagMap = {
 
   [INGREDIENT_SLUGS.DICAPRYLYL_ETHER]: {
     primary: [TAG_SLUGS.EMOLLIENT, TAG_SLUGS.NON_COMEDOGENE],
-    secondary: [TAG_SLUGS.TEXTURE_LEGERE],
+    secondary: [],
     avoid: [],
   },
 
@@ -1668,7 +1673,7 @@ export const ingredientTagMap: IngredientTagMap = {
   },
 
   [INGREDIENT_SLUGS.BIS_ETHYLHEXYLOXYPHENOL_METHOXYPHENYL_TRIAZINE]: {
-    primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
+    primary: [TAG_SLUGS.PHOTO_PROTECTION],
     secondary: [TAG_SLUGS.FILTRES_CHIMIQUES],
     avoid: [],
   },
@@ -1680,19 +1685,14 @@ export const ingredientTagMap: IngredientTagMap = {
   },
 
   [INGREDIENT_SLUGS.HUILE_DE_COCO]: {
-    primary: [TAG_SLUGS.EMOLLIENT, TAG_SLUGS.OCCLUSIF],
-    secondary: [TAG_SLUGS.ZONE_CORPS],
-    avoid: [
-      TAG_SLUGS.PEAU_GRASSE,
-      TAG_SLUGS.ANTI_ACNE,
-      TAG_SLUGS.COMEDOGENE,
-      TAG_SLUGS.PORES_DILATES,
-    ],
+    primary: [TAG_SLUGS.EMOLLIENT, TAG_SLUGS.PROTECTION_CUTANEE],
+    secondary: [TAG_SLUGS.COMEDOGENE],
+    avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
   },
   // ── Cupressus Sempervirens (Cyprès - Tonique circulatoire) ──
   [INGREDIENT_SLUGS.CYPRES]: {
     primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ASTRINGENT],
-    secondary: [TAG_SLUGS.COUPEROSE, TAG_SLUGS.TONIQUE],
+    secondary: [TAG_SLUGS.COUPEROSE, TAG_SLUGS.PEAU_MIXTE],
     avoid: [],
   },
 
@@ -1733,36 +1733,36 @@ export const ingredientTagMap: IngredientTagMap = {
 
   // ── Drometrizole Trisiloxane (Mexoryl XL - Filtre UV) ──
   [INGREDIENT_SLUGS.DROMETRIZOLE_TRISILOXANE]: {
-    primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.FILTRES_CHIMIQUES],
+    primary: [TAG_SLUGS.PHOTO_PROTECTION, TAG_SLUGS.FILTRES_CHIMIQUES],
     secondary: [TAG_SLUGS.PHOTO_VIEILLISSEMENT],
     avoid: [],
   },
 
   // ── Butyl Methoxydibenzoylmethane (Avobenzone - Filtre UVA) ──
   [INGREDIENT_SLUGS.BUTYL_METHOXYDIBENZOYLMETHANE]: {
-    primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.FILTRES_CHIMIQUES],
+    primary: [TAG_SLUGS.PHOTO_PROTECTION, TAG_SLUGS.FILTRES_CHIMIQUES],
     secondary: [TAG_SLUGS.PHOTO_VIEILLISSEMENT],
     avoid: [],
   },
 
   // ── Octocrylene (Filtre UV stabilisateur) ──
   [INGREDIENT_SLUGS.OCTOCRYLENE]: {
-    primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.FILTRES_CHIMIQUES],
-    secondary: [],
+    primary: [TAG_SLUGS.PHOTO_PROTECTION, TAG_SLUGS.FILTRES_CHIMIQUES],
+    secondary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.PHOTO_VIEILLISSEMENT],
     avoid: [TAG_SLUGS.PEAU_REACTIVE],
   },
 
   // ── Homosalate (Filtre UVB) ──
   [INGREDIENT_SLUGS.HOMOSALATE]: {
-    primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.FILTRES_CHIMIQUES],
-    secondary: [],
+    primary: [TAG_SLUGS.PHOTO_PROTECTION, TAG_SLUGS.FILTRES_CHIMIQUES],
+    secondary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.PHOTO_VIEILLISSEMENT],
     avoid: [],
   },
 
   // ── Ethylhexyl Salicylate (Octisalate - Filtre UVB) ──
   [INGREDIENT_SLUGS.ETHYLHEXYL_SALICYLATE]: {
-    primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.FILTRES_CHIMIQUES],
-    secondary: [],
+    primary: [TAG_SLUGS.PHOTO_PROTECTION, TAG_SLUGS.FILTRES_CHIMIQUES],
+    secondary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.PHOTO_VIEILLISSEMENT],
     avoid: [],
   },
   [INGREDIENT_SLUGS.SNAIL_MUCIN]: {
@@ -1816,34 +1816,34 @@ export const ingredientTagMap: IngredientTagMap = {
   // ── Caffeine (Drainant / Éclat) ──
   [INGREDIENT_SLUGS.CAFFEINE]: {
     primary: [TAG_SLUGS.CERNES_POCHES, TAG_SLUGS.ECLAT],
-    secondary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.CONTOUR_YEUX],
+    secondary: [TAG_SLUGS.ANTI_OXYDANT],
     avoid: [],
   },
 
   // ── Coco Glucoside (Tensioactif doux dérivé de la coco) ──
   [INGREDIENT_SLUGS.COCO_GLUCOSIDE]: {
-    primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.SANS_SAVON],
+    primary: [TAG_SLUGS.TENSIOACTIF],
     secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.NON_COMEDOGENE],
     avoid: [],
   },
 
   // ── Decyl Glucoside (Tensioactif très doux) ──
   [INGREDIENT_SLUGS.DECYL_GLUCOSIDE]: {
-    primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.HYPOALLERGENIQUE],
-    secondary: [TAG_SLUGS.PEAU_ATOPIQUE, TAG_SLUGS.SANS_SAVON],
+    primary: [TAG_SLUGS.TENSIOACTIF],
+    secondary: [TAG_SLUGS.PEAU_ATOPIQUE],
     avoid: [],
   },
 
   // ── Sodium Lauroyl Methyl Isethionate (Nettoyant doux / "Sulfate-free") ──
   [INGREDIENT_SLUGS.SODIUM_LAUROYL_METHYL_ISETHIONATE]: {
-    primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.TEXTURE_LEGERE],
+    primary: [TAG_SLUGS.TENSIOACTIF],
     secondary: [TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.PEAU_GRASSE],
     avoid: [],
   },
 
   // ── Sodium Cocoyl Isethionate (Nettoyant crémeux doux) ──
   [INGREDIENT_SLUGS.SODIUM_COCOYL_ISETHIONATE]: {
-    primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.SANS_SAVON],
+    primary: [TAG_SLUGS.TENSIOACTIF],
     secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_NORMALE],
     avoid: [],
   },
@@ -1851,7 +1851,7 @@ export const ingredientTagMap: IngredientTagMap = {
   // ── Silica (Silice - Matifiant / Texturisant) ──
   [INGREDIENT_SLUGS.SILICA]: {
     primary: [TAG_SLUGS.MATIFIANT, TAG_SLUGS.BRILLANCE],
-    secondary: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.TEXTURE_LEGERE],
+    secondary: [TAG_SLUGS.PEAU_GRASSE],
     avoid: [],
   },
 
@@ -1862,7 +1862,7 @@ export const ingredientTagMap: IngredientTagMap = {
     avoid: [],
   },
   [INGREDIENT_SLUGS.ORYZA_SATIVA]: {
-    primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.BIO_NATUREL],
+    primary: [TAG_SLUGS.APAISANT],
     secondary: [TAG_SLUGS.MATIFIANT, TAG_SLUGS.PEAU_SENSIBLE],
     avoid: [],
   },
@@ -1870,7 +1870,7 @@ export const ingredientTagMap: IngredientTagMap = {
   // ── Salix Nigra (Saule Noir - Acide salicylique naturel) ──
   [INGREDIENT_SLUGS.SALIX_NIGRA]: {
     primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.KERATOLYTIQUE],
-    secondary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BIO_NATUREL],
+    secondary: [TAG_SLUGS.PORES_DILATES],
     avoid: [TAG_SLUGS.PEAU_REACTIVE],
   },
 
@@ -1897,7 +1897,7 @@ export const ingredientTagMap: IngredientTagMap = {
 
   // ── Amaranthus (Amarante - Nourrissant) ──
   [INGREDIENT_SLUGS.AMARANTHUS_CAUDATUS]: {
-    primary: [TAG_SLUGS.EMOLLIENT, TAG_SLUGS.TEXTURE_RICHE],
+    primary: [TAG_SLUGS.EMOLLIENT],
     secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.BARRIERE_CUTANEE],
     avoid: [],
   },
@@ -1918,16 +1918,16 @@ export const ingredientTagMap: IngredientTagMap = {
 
   // ── Orbignya Oleifera (Huile de Babassu) ──
   [INGREDIENT_SLUGS.HUILE_BABASSU]: {
-    primary: [TAG_SLUGS.EMOLLIENT, TAG_SLUGS.HUILE_VISAGE],
-    secondary: [TAG_SLUGS.PEAU_MIXTE],
-    avoid: [],
+    primary: [TAG_SLUGS.EMOLLIENT],
+    secondary: [TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.NON_COMEDOGENE],
+    avoid: [TAG_SLUGS.PEAU_GRASSE],
   },
 
   // ── Pinus Palustris (Pin des Marais - Purifiant / Résine) ──
   [INGREDIENT_SLUGS.PINUS_PALUSTRIS]: {
     primary: [TAG_SLUGS.ANTISEPTIQUE, TAG_SLUGS.ASTRINGENT],
     secondary: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.ANTI_BACTERIEN],
-    avoid: [],
+    avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE],
   },
 
   // ── Vetiveria Zizanoides (Vétiver - Régénérant) ──
@@ -1940,7 +1940,7 @@ export const ingredientTagMap: IngredientTagMap = {
   // ── Aphanizomenon Flos-Aquae (Algue Bleue - "Rétinol-like" naturel) ──
   [INGREDIENT_SLUGS.APHANIZOMENON_FLOS_AQUAE]: {
     primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
-    secondary: [TAG_SLUGS.ECLAT, TAG_SLUGS.BIO_NATUREL],
+    secondary: [TAG_SLUGS.ECLAT],
     avoid: [],
   },
 
@@ -1991,20 +1991,20 @@ export const ingredientTagMap: IngredientTagMap = {
 
   // ── Cera Alba (Cire d'abeille) ──
   [INGREDIENT_SLUGS.CIRE_ABEILLE]: {
-    primary: [TAG_SLUGS.OCCLUSIF, TAG_SLUGS.PROTECTION_CUTANEE],
-    secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.TEXTURE_RICHE],
-    avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.COMEDOGENE],
+    primary: [TAG_SLUGS.PROTECTION_CUTANEE, TAG_SLUGS.BARRIERE_CUTANEE],
+    secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.COMEDOGENE],
+    avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.ANTI_ACNE],
   },
 
   [INGREDIENT_SLUGS.CAMELLIA_JAPONICA_OIL]: {
     primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.EMOLLIENT],
-    secondary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.HUILE_VISAGE, TAG_SLUGS.HUILE_CORPS],
-    avoid: [],
+    secondary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.PEAU_SECHE],
+    avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.ANTI_ACNE],
   },
   [INGREDIENT_SLUGS.APRICOT_KERNEL_OIL]: {
     primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.EMOLLIENT],
     secondary: [TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.PEAU_SECHE],
-    avoid: [],
+    avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.ANTI_ACNE],
   },
   [INGREDIENT_SLUGS.HUILE_CARTHAME]: {
     primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.EMOLLIENT],
@@ -2014,7 +2014,7 @@ export const ingredientTagMap: IngredientTagMap = {
   [INGREDIENT_SLUGS.HUILE_SOJA]: {
     primary: [TAG_SLUGS.EMOLLIENT, TAG_SLUGS.REPARATEUR],
     secondary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.PEAU_SECHE],
-    avoid: [],
+    avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.ANTI_ACNE],
   },
 
   // ── Ceramide NG (Céramide 2 - Réparation barrière) ──
@@ -2031,21 +2031,21 @@ export const ingredientTagMap: IngredientTagMap = {
     avoid: [],
   },
   [INGREDIENT_SLUGS.OLEIC_ACID]: {
-    primary: [TAG_SLUGS.EMOLLIENT, TAG_SLUGS.TEXTURE_RICHE],
+    primary: [TAG_SLUGS.EMOLLIENT],
     secondary: [TAG_SLUGS.PEAU_SECHE],
     avoid: [TAG_SLUGS.PEAU_GRASSE],
   },
 
   // ── Theobroma Cacao Butter (Beurre de cacao) ──
   [INGREDIENT_SLUGS.BEURRE_CACAO]: {
-    primary: [TAG_SLUGS.EMOLLIENT, TAG_SLUGS.TEXTURE_RICHE],
-    secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.OCCLUSIF],
-    avoid: [TAG_SLUGS.NON_COMEDOGENE], // Car il est potentiellement comédogène
+    primary: [TAG_SLUGS.EMOLLIENT],
+    secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PROTECTION_CUTANEE, TAG_SLUGS.COMEDOGENE],
+    avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.ANTI_ACNE],
   },
 
   // ── Protease (Enzyme exfoliante) ──
   [INGREDIENT_SLUGS.PROTEASE]: {
-    primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.KERATOLYTIQUE],
+    primary: [TAG_SLUGS.KERATOLYTIQUE],
     secondary: [TAG_SLUGS.ECLAT, TAG_SLUGS.TEINT_TERNE],
     avoid: [TAG_SLUGS.PEAU_REACTIVE],
   },
@@ -2064,7 +2064,7 @@ export const ingredientTagMap: IngredientTagMap = {
     avoid: [],
   },
   [INGREDIENT_SLUGS.ACETYL_TETRAPEPTIDE_5]: {
-    primary: [TAG_SLUGS.CERNES_POCHES, TAG_SLUGS.CONTOUR_YEUX],
+    primary: [TAG_SLUGS.CERNES_POCHES],
     secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.DESHYDRATATION],
     avoid: [],
   },
@@ -2197,15 +2197,14 @@ export const ingredientTagMap: IngredientTagMap = {
 
   // ── Haematococcus Pluvialis (Source d'Astaxanthine) ──
   [INGREDIENT_SLUGS.ASTAXANTHINE]: {
-    primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.PHOTO_VIEILLISSEMENT],
-    secondary: [TAG_SLUGS.ECLAT, TAG_SLUGS.PROTECTION_CUTANEE],
+    primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.PHOTO_VIEILLISSEMENT, TAG_SLUGS.ECLAT],
+    secondary: [TAG_SLUGS.POLLUTION, TAG_SLUGS.LUMIERE_BLEUE, TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.PROTECTION_CUTANEE],
     avoid: [],
   },
-
   // ── Punica Granatum (Grenade - Antioxydant) ──
   [INGREDIENT_SLUGS.PUNICA_GRANATUM]: {
     primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ASTRINGENT],
-    secondary: [TAG_SLUGS.ECLAT, TAG_SLUGS.BIO_NATUREL],
+    secondary: [TAG_SLUGS.ECLAT],
     avoid: [],
   },
 
@@ -2231,7 +2230,7 @@ export const ingredientTagMap: IngredientTagMap = {
   // ── Bisabolol (Actif apaisant de la Camomille) ──
   [INGREDIENT_SLUGS.BISABOLOL]: {
     primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_ROUGEURS],
-    secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.HYPOALLERGENIQUE],
+    secondary: [TAG_SLUGS.PEAU_SENSIBLE],
     avoid: [],
   },
 
@@ -2252,7 +2251,7 @@ export const ingredientTagMap: IngredientTagMap = {
   // ── Royal Jelly Extract (Gelée Royale) ──
   [INGREDIENT_SLUGS.ROYAL_JELLY_EXTRACT]: {
     primary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.ANTI_AGE],
-    secondary: [TAG_SLUGS.EMOLLIENT, TAG_SLUGS.TEXTURE_RICHE],
+    secondary: [TAG_SLUGS.EMOLLIENT],
     avoid: [],
   },
 
@@ -2276,17 +2275,17 @@ export const ingredientTagMap: IngredientTagMap = {
   [INGREDIENT_SLUGS.RETINYL_RETINOATE]: {
     primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.REPULPANT],
     secondary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ECLAT, TAG_SLUGS.PEAU_SENSIBLE],
-    avoid: [],
+    avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE], // Rétinoïde direct (ester rétinol-acide rétinoïque), prudence grossesse par précaution
   },
   [INGREDIENT_SLUGS.SODIUM_RETINOYL_HYALURONATE]: {
     primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.DESHYDRATATION],
     secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.REPULPANT, TAG_SLUGS.POST_ACNE],
-    avoid: [],
+    avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE], // Rétinoïde, eviter par precaution en grossesse
   },
   [INGREDIENT_SLUGS.GRANACTIVE_RETINOID]: {
     primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
-    secondary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.TEXTURE_LEGERE, TAG_SLUGS.ECLAT],
-    avoid: [],
+    secondary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.ECLAT],
+    avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE], // Rétinoïde (HPR), eviter par precaution en grossesse
   },
   [INGREDIENT_SLUGS.COLLOIDAL_OATMEAL]: {
     primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PEAU_ATOPIQUE],
@@ -2296,12 +2295,12 @@ export const ingredientTagMap: IngredientTagMap = {
   [INGREDIENT_SLUGS.RETINYL_ACETATE]: {
     primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT, TAG_SLUGS.PEAU_SENSIBLE],
     secondary: [TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
-    avoid: [],
+    avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE], // Rétinoïde ester, evite en grossesse par precaution
   },
   [INGREDIENT_SLUGS.RETINYL_LINOLLEATE]: {
     primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE],
     secondary: [TAG_SLUGS.ECLAT, TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.REPARATEUR],
-    avoid: [],
+    avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE], // Rétinoïde ester, evite en grossesse par precaution
   },
   [INGREDIENT_SLUGS.ISOTRETINOIN]: {
     primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.POST_ACNE, TAG_SLUGS.KERATOLYTIQUE],
@@ -2354,13 +2353,13 @@ export const ingredientTagMap: IngredientTagMap = {
 
   // ── Microbiome ──────────────────────────────────────────────────────
   [INGREDIENT_SLUGS.PSEUDOALTEROMONAS_FERMENT]: {
-    primary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.HYDRATATION],
+    primary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.HUMECTANT],
     secondary: [TAG_SLUGS.POLLUTION, TAG_SLUGS.MICROBIOME, TAG_SLUGS.PEAU_SENSIBLE],
     avoid: [],
   },
   [INGREDIENT_SLUGS.INULINE]: {
-    primary: [TAG_SLUGS.MICROBIOME, TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
-    secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PREPARATION, TAG_SLUGS.APAISANT],
+    primary: [TAG_SLUGS.MICROBIOME, TAG_SLUGS.PREBIOTIQUE, TAG_SLUGS.BARRIERE_CUTANEE],
+    secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.HUMECTANT, TAG_SLUGS.APAISANT],
     avoid: [],
   },
   [INGREDIENT_SLUGS.MICROBIOTA_REGULATOR]: {
@@ -2370,11 +2369,11 @@ export const ingredientTagMap: IngredientTagMap = {
   },
   [INGREDIENT_SLUGS.MELABIOME_XP]: {
     primary: [TAG_SLUGS.MICROBIOME, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.REPARATEUR],
-    secondary: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
+    secondary: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.APAISANT, TAG_SLUGS.DESHYDRATATION],
     avoid: [],
   },
   [INGREDIENT_SLUGS.AQUABIOME]: {
-    primary: [TAG_SLUGS.MICROBIOME, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.HYDRATATION],
+    primary: [TAG_SLUGS.MICROBIOME, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.HUMECTANT],
     secondary: [TAG_SLUGS.POLLUTION, TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.APAISANT],
     avoid: [],
   },
@@ -2382,51 +2381,51 @@ export const ingredientTagMap: IngredientTagMap = {
   // ── Anti-âge / Fermeté ──────────────────────────────────────────────
   [INGREDIENT_SLUGS.ACMELLA_OLERACEA_EXTRACT]: {
     primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.GRAIN_PEAU],
-    secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.SOIN_YEUX, TAG_SLUGS.TRAITEMENT],
+    secondary: [TAG_SLUGS.PEAU_SENSIBLE],
     avoid: [],
   },
   [INGREDIENT_SLUGS.GLEDITSIA_TRIACANTHOS_SEED_EXTRACT]: {
     primary: [TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT],
-    secondary: [TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.SOIN_YEUX, TAG_SLUGS.PEAU_TOUS_TYPES],
+    secondary: [TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.PEAU_TOUS_TYPES],
     avoid: [],
   },
 
   // ── Exfoliants ──────────────────────────────────────────────────────
   [INGREDIENT_SLUGS.PHYTIC_ACID]: {
-    primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ECLAT, TAG_SLUGS.EXFOLIANT_CHIMIQUE],
+    primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ECLAT, TAG_SLUGS.KERATOLYTIQUE],
     secondary: [TAG_SLUGS.POLLUTION, TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.PEAU_SENSIBLE],
     avoid: [],
   },
   [INGREDIENT_SLUGS.AHA_ESTERS]: {
-    primary: [TAG_SLUGS.EXFOLIANT_CHIMIQUE, TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.ECLAT],
+    primary: [TAG_SLUGS.KERATOLYTIQUE, TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.ECLAT],
     secondary: [TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.ANTI_ACNE],
     avoid: [],
   },
   [INGREDIENT_SLUGS.ESTER_ACIDE_MALIQUE]: {
-    primary: [TAG_SLUGS.EXFOLIANT_CHIMIQUE, TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.TEINT_TERNE],
+    primary: [TAG_SLUGS.KERATOLYTIQUE, TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.TEINT_TERNE],
     secondary: [TAG_SLUGS.ECLAT, TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.PEAU_NORMALE],
     avoid: [],
   },
   [INGREDIENT_SLUGS.AMMONIUM_LACTATE]: {
-    primary: [TAG_SLUGS.EXFOLIANT_CHIMIQUE, TAG_SLUGS.KERATOSE_PILAIRE, TAG_SLUGS.PEAU_RUGUEUSE],
-    secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.PEAU_SECHE],
+    primary: [TAG_SLUGS.KERATOLYTIQUE, TAG_SLUGS.KERATOSE_PILAIRE, TAG_SLUGS.PEAU_RUGUEUSE],
+    secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.PEAU_SECHE],
     avoid: [],
   },
 
   // ── Acné / Sébum ──────────────────────────────────────────────────
   [INGREDIENT_SLUGS.CHARCOAL_POWDER]: {
     primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BRILLANCE],
-    secondary: [TAG_SLUGS.MASQUE_ARGILE, TAG_SLUGS.POLLUTION, TAG_SLUGS.PEAU_GRASSE],
+    secondary: [TAG_SLUGS.ASTRINGENT, TAG_SLUGS.POLLUTION, TAG_SLUGS.PEAU_GRASSE],
     avoid: [],
   },
   [INGREDIENT_SLUGS.KAOLIN]: {
-    primary: [TAG_SLUGS.MASQUE_ARGILE, TAG_SLUGS.BRILLANCE, TAG_SLUGS.ANTI_ACNE],
+    primary: [TAG_SLUGS.MATIFIANT, TAG_SLUGS.BRILLANCE, TAG_SLUGS.ANTI_ACNE],
     secondary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.PEAU_GRASSE],
     avoid: [],
   },
   [INGREDIENT_SLUGS.BENTONITE]: {
-    primary: [TAG_SLUGS.MASQUE_ARGILE, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
-    secondary: [TAG_SLUGS.BRILLANCE, TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.NETTOYANT],
+    primary: [TAG_SLUGS.MATIFIANT, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
+    secondary: [TAG_SLUGS.BRILLANCE, TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.ASTRINGENT],
     avoid: [],
   },
   [INGREDIENT_SLUGS.SARCOSINE]: {
@@ -2459,33 +2458,33 @@ export const ingredientTagMap: IngredientTagMap = {
 
   // ── Hydratation / Barrière ──────────────────────────────────────────
   [INGREDIENT_SLUGS.HYDROXYETHYL_UREA]: {
-    primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.HUMECTANT, TAG_SLUGS.DESHYDRATATION],
+    primary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
     secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.BIOMIMETIQUE, TAG_SLUGS.PEAU_TOUS_TYPES],
     avoid: [],
   },
   [INGREDIENT_SLUGS.GLUCOSAMINE_HCL]: {
-    primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.HYDRATATION, TAG_SLUGS.ECLAT],
+    primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.HUMECTANT, TAG_SLUGS.ECLAT],
     secondary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.TEINT_TERNE],
     avoid: [],
   },
   [INGREDIENT_SLUGS.SODIUM_LACTATE]: {
-    primary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.HYDRATATION, TAG_SLUGS.DESHYDRATATION],
-    secondary: [TAG_SLUGS.BIOMIMETIQUE, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.PROTECTION_CUTANEE],
+    primary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.BIOMIMETIQUE, TAG_SLUGS.DESHYDRATATION],
+    secondary: [TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.PROTECTION_CUTANEE],
     avoid: [],
   },
   [INGREDIENT_SLUGS.ALANINE]: {
-    primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.REPARATEUR, TAG_SLUGS.BIOMIMETIQUE],
+    primary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.REPARATEUR, TAG_SLUGS.BIOMIMETIQUE],
     secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PEAU_TOUS_TYPES],
     avoid: [],
   },
   [INGREDIENT_SLUGS.CETEARYL_ALCOHOL]: {
     primary: [TAG_SLUGS.EMOLLIENT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PEAU_SECHE],
-    secondary: [TAG_SLUGS.OCCLUSIF, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.CREME_HYDRATANTE],
+    secondary: [TAG_SLUGS.PROTECTION_CUTANEE, TAG_SLUGS.PEAU_TOUS_TYPES],
     avoid: [],
   },
   [INGREDIENT_SLUGS.GLYCERYL_STEARATE]: {
     primary: [TAG_SLUGS.EMOLLIENT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PEAU_SECHE],
-    secondary: [TAG_SLUGS.OCCLUSIF, TAG_SLUGS.PEAU_NORMALE, TAG_SLUGS.PEAU_TOUS_TYPES],
+    secondary: [TAG_SLUGS.PROTECTION_CUTANEE, TAG_SLUGS.PEAU_NORMALE, TAG_SLUGS.PEAU_TOUS_TYPES],
     avoid: [],
   },
 
@@ -2517,18 +2516,13 @@ export const ingredientTagMap: IngredientTagMap = {
     secondary: [TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.PHOTO_VIEILLISSEMENT, TAG_SLUGS.ANTI_OXYDANT],
     avoid: [],
   },
-  [INGREDIENT_SLUGS.ASTAXANTHINE]: {
-    primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.PHOTO_VIEILLISSEMENT, TAG_SLUGS.ECLAT],
-    secondary: [TAG_SLUGS.POLLUTION, TAG_SLUGS.LUMIERE_BLEUE, TAG_SLUGS.TEINT_TERNE],
-    avoid: [],
-  },
   [INGREDIENT_SLUGS.HIBISCUS_SABDARIFFA]: {
-    primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ECLAT, TAG_SLUGS.EXFOLIANT_CHIMIQUE],
+    primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ECLAT, TAG_SLUGS.KERATOLYTIQUE],
     secondary: [TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.ANTI_AGE],
     avoid: [],
   },
   [INGREDIENT_SLUGS.BEET_ROOT_EXTRACT]: {
-    primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ECLAT],
+    primary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ECLAT],
     secondary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.TEINT_TERNE],
     avoid: [],
   },
@@ -2541,12 +2535,12 @@ export const ingredientTagMap: IngredientTagMap = {
   // ── Autres ──────────────────────────────────────────────────────────
   [INGREDIENT_SLUGS.SODIUM_DEXTRAN_SULFATE]: {
     primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.CERNES_POCHES, TAG_SLUGS.APAISANT],
-    secondary: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.ROSACEE],
+    secondary: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.ROSACEE],
     avoid: [],
   },
   [INGREDIENT_SLUGS.BUTYLRESORCINOL]: {
     primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.ECLAT],
-    secondary: [TAG_SLUGS.POST_ACNE, TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.TRAITEMENT],
+    secondary: [TAG_SLUGS.POST_ACNE, TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.PEAU_TOUS_TYPES],
     avoid: [],
   },
   [INGREDIENT_SLUGS.IRIS_EXTRACT]: {
@@ -2566,7 +2560,127 @@ export const ingredientTagMap: IngredientTagMap = {
   },
   [INGREDIENT_SLUGS.AZECOGLYCINE]: {
     primary: [TAG_SLUGS.SEBO_REGULATEUR, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ANTI_ACNE],
-    secondary: [TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.HYDRATATION, TAG_SLUGS.BRILLANCE],
+    secondary: [TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.HUMECTANT, TAG_SLUGS.BRILLANCE],
+    avoid: [],
+  },
+
+  // ── New ingredients ──────────────────────────────────────────────────────
+  [INGREDIENT_SLUGS.DIETHYLHEXYL_BUTAMIDO_TRIAZONE]: {
+    primary: [TAG_SLUGS.PHOTO_PROTECTION, TAG_SLUGS.PHOTO_VIEILLISSEMENT],
+    secondary: [TAG_SLUGS.FILTRES_CHIMIQUES, TAG_SLUGS.ANTI_OXYDANT],
+    avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE],
+  },
+  [INGREDIENT_SLUGS.HEMP_OIL]: {
+    primary: [TAG_SLUGS.PEAU_ATOPIQUE, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.APAISANT],
+    secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.REPARATEUR, TAG_SLUGS.EMOLLIENT],
+    avoid: [],
+  },
+  [INGREDIENT_SLUGS.GLYCERYL_ASCORBATE]: {
+    primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.ANTI_OXYDANT],
+    secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ANTI_AGE],
+    avoid: [],
+  },
+  [INGREDIENT_SLUGS.SPINACIA_OLERACEA]: {
+    primary: [TAG_SLUGS.POLLUTION, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ECLAT],
+    secondary: [TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.PHOTO_VIEILLISSEMENT, TAG_SLUGS.TEINT_TERNE],
+    avoid: [],
+  },
+  [INGREDIENT_SLUGS.TARAXACUM_OFFICINALE]: {
+    primary: [TAG_SLUGS.POLLUTION, TAG_SLUGS.ANTI_OXYDANT],
+    secondary: [TAG_SLUGS.ECLAT, TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.PEAU_TOUS_TYPES],
+    avoid: [],
+  },
+  [INGREDIENT_SLUGS.ARISTOTELIA_CHILENSIS]: {
+    primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.POLLUTION, TAG_SLUGS.ECLAT],
+    secondary: [TAG_SLUGS.PHOTO_VIEILLISSEMENT, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.PEAU_TOUS_TYPES],
+    avoid: [],
+  },
+  [INGREDIENT_SLUGS.TEPHROSIA_PURPUREA]: {
+    primary: [TAG_SLUGS.POLLUTION, TAG_SLUGS.ANTI_OXYDANT],
+    secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PHOTO_VIEILLISSEMENT, TAG_SLUGS.PEAU_TOUS_TYPES],
+    avoid: [],
+  },
+  [INGREDIENT_SLUGS.AVENE_THERMAL_SPRING_WATER]: {
+    primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ANTI_ROUGEURS],
+    secondary: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PEAU_ATOPIQUE],
+    avoid: [],
+  },
+
+  [INGREDIENT_SLUGS.PEG_20_GLYCERYL_TRIISOSTEARATE]: {
+    primary: [TAG_SLUGS.TENSIOACTIF, TAG_SLUGS.EMOLLIENT],
+    secondary: [TAG_SLUGS.PEAU_TOUS_TYPES],
+    avoid: [],
+  },
+
+  [INGREDIENT_SLUGS.HUILE_COTON]: {
+    primary: [TAG_SLUGS.EMOLLIENT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PEAU_ATOPIQUE],
+    secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.APAISANT, TAG_SLUGS.PEAU_SENSIBLE],
+    avoid: [],
+  },
+
+  [INGREDIENT_SLUGS.ETHYLHEXYL_PALMITATE]: {
+    primary: [TAG_SLUGS.EMOLLIENT],
+    secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_NORMALE],
+    avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.ANTI_ACNE],
+  },
+
+  [INGREDIENT_SLUGS.MALIC_ACID]: {
+    primary: [TAG_SLUGS.KERATOLYTIQUE, TAG_SLUGS.ECLAT],
+    secondary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.PEAU_NORMALE],
+    avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
+  },
+
+  [INGREDIENT_SLUGS.SUCCINIC_ACID]: {
+    primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PURIFIANT, TAG_SLUGS.SEBO_REGULATEUR],
+    secondary: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.POST_ACNE, TAG_SLUGS.PEAU_MIXTE],
+    avoid: [],
+  },
+
+  [INGREDIENT_SLUGS.EPIGALLOCATECHIN_GALLATYL_GLUCOSIDE]: {
+    primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.APAISANT],
+    secondary: [TAG_SLUGS.ANTI_INFLAMMATOIRE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PHOTO_VIEILLISSEMENT],
+    avoid: [],
+  },
+
+  [INGREDIENT_SLUGS.DIPOTASSIUM_GLYCYRRHIZATE]: {
+    primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_INFLAMMATOIRE, TAG_SLUGS.ANTI_ROUGEURS],
+    secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.PEAU_ATOPIQUE],
+    avoid: [],
+  },
+
+  [INGREDIENT_SLUGS.PHENYLETHYL_RESORCINOL]: {
+    primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.ECLAT, TAG_SLUGS.HYPERPIGMENTATION],
+    secondary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.ANTI_AGE],
+    avoid: [],
+  },
+
+  [INGREDIENT_SLUGS.ZINC_LACTATE]: {
+    primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.SEBO_REGULATEUR, TAG_SLUGS.PURIFIANT],
+    secondary: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.BRILLANCE, TAG_SLUGS.PEAU_MIXTE],
+    avoid: [],
+  },
+
+  [INGREDIENT_SLUGS.ISOAMYL_P_METHOXYCINNAMATE]: {
+    primary: [TAG_SLUGS.FILTRE_UV, TAG_SLUGS.PHOTO_PROTECTION],
+    secondary: [TAG_SLUGS.PEAU_TOUS_TYPES],
+    avoid: [],
+  },
+
+  [INGREDIENT_SLUGS.ETHYLHEXYL_METHOXYCINNAMATE]: {
+    primary: [TAG_SLUGS.FILTRE_UV, TAG_SLUGS.PHOTO_PROTECTION],
+    secondary: [TAG_SLUGS.PEAU_TOUS_TYPES],
+    avoid: [],
+  },
+
+  [INGREDIENT_SLUGS.METHYLENE_BIS_BENZOTRIAZOLYL_TETRAMETHYLBUTYLPHENOL]: {
+    primary: [TAG_SLUGS.FILTRE_UV, TAG_SLUGS.PHOTO_PROTECTION],
+    secondary: [TAG_SLUGS.PEAU_TOUS_TYPES],
+    avoid: [],
+  },
+
+  [INGREDIENT_SLUGS.TRIS_BIPHENYL_TRIAZINE]: {
+    primary: [TAG_SLUGS.FILTRE_UV, TAG_SLUGS.PHOTO_PROTECTION],
+    secondary: [TAG_SLUGS.PEAU_TOUS_TYPES],
     avoid: [],
   },
 }

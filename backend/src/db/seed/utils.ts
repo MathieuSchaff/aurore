@@ -200,26 +200,80 @@ export function extractCapacity(productName: string, brand: string) {
   return { name: cleanName, totalAmount, unit, amountUnit }
 }
 
-// Maps CSV category to the most likely container format
-const CATEGORY_UNIT_MAP: Record<string, string> = {
-  'Creams': 'pot',
-  'Balms': 'pot',
-  'Serums': 'dropper',
-  'Moisturizing Serums': 'dropper',
-  'Essence': 'pump',
-  'Lotions': 'pump',
-  'Moisturizers with SPF': 'pump',
-  'Facial Cleansing Oil': 'pump',
-  'Micellar Water': 'bottle',
-  'Toners': 'bottle',
-  'Gels': 'tube',
-  'Exfoliators': 'tube',
-  'Facial Masks': 'pack',
-  'Acne Care (OTC)': 'pack',
+import { PRODUCT_UNITS, type ProductUnit } from '@habit-tracker/shared'
+
+// Maps CSV category to the most likely container format.
+// Fallback is TUBE — the most generic container used across skincare/bodycare.
+const CATEGORY_UNIT_MAP: Record<string, ProductUnit> = {
+  // Pot/Jar — rich textures
+  Creams: PRODUCT_UNITS.JAR,
+  'Nighttime Moisturizers': PRODUCT_UNITS.JAR,
+  'Daytime Moisturizers': PRODUCT_UNITS.JAR,
+  Balms: PRODUCT_UNITS.JAR,
+  'Balms, Ointments & Salves': PRODUCT_UNITS.JAR,
+  Butters: PRODUCT_UNITS.JAR,
+  'Eye Cream, Gel, Oils, & Serum': PRODUCT_UNITS.JAR,
+
+  // Dropper — serums/oils with pipette
+  Serums: PRODUCT_UNITS.DROPPER,
+  Serum: PRODUCT_UNITS.DROPPER,
+  'Moisturizing Serums': PRODUCT_UNITS.DROPPER,
+  Oils: PRODUCT_UNITS.DROPPER,
+  Drops: PRODUCT_UNITS.DROPPER,
+
+  // Pump — fluid/lotion-y
+  Essence: PRODUCT_UNITS.PUMP,
+  Lotions: PRODUCT_UNITS.PUMP,
+  Emulsions: PRODUCT_UNITS.PUMP,
+  Moisturizers: PRODUCT_UNITS.PUMP,
+  'Moisturizers with SPF': PRODUCT_UNITS.PUMP,
+  'Tinted Moisturizers': PRODUCT_UNITS.PUMP,
+  'Facial Cleansing Oil': PRODUCT_UNITS.PUMP,
+  'Facial Cleansing Milks': PRODUCT_UNITS.PUMP,
+  'Liquid Cleansers & Soaps': PRODUCT_UNITS.PUMP,
+  'Liquid or Cream Hand Soaps': PRODUCT_UNITS.PUMP,
+  'Foaming Cleansers': PRODUCT_UNITS.PUMP,
+  'Facial Foaming Cleansers': PRODUCT_UNITS.PUMP,
+  'Facial Washes': PRODUCT_UNITS.PUMP,
+
+  // Bottle — runnier liquids
+  'Micellar Water': PRODUCT_UNITS.BOTTLE,
+  Toners: PRODUCT_UNITS.BOTTLE,
+  'Toners & Astringents': PRODUCT_UNITS.BOTTLE,
+  Astringents: PRODUCT_UNITS.BOTTLE,
+
+  // Spray — mists
+  Mists: PRODUCT_UNITS.SPRAY,
+  'Spray Moisturizer': PRODUCT_UNITS.SPRAY,
+  'Spray Moisturizers': PRODUCT_UNITS.SPRAY,
+
+  // Tube — gels, exfoliants, scrubs, cleansers (standard)
+  Gels: PRODUCT_UNITS.TUBE,
+  'Facial Gels': PRODUCT_UNITS.TUBE,
+  Exfoliators: PRODUCT_UNITS.TUBE,
+  'Exfoliators & Scrubs': PRODUCT_UNITS.TUBE,
+  'Exfoliators, Polishes, & Scrubs': PRODUCT_UNITS.TUBE,
+  Scrubs: PRODUCT_UNITS.TUBE,
+  'Facial Scrubs': PRODUCT_UNITS.TUBE,
+  Peels: PRODUCT_UNITS.TUBE,
+  'Acids & Peels': PRODUCT_UNITS.TUBE,
+  'Facial Cleansers': PRODUCT_UNITS.TUBE,
+
+  // Pack — single-use items
+  'Facial Masks': PRODUCT_UNITS.PACK,
+  'Eye Masks & Pads': PRODUCT_UNITS.PACK,
+  'Lip Mask': PRODUCT_UNITS.PACK,
+  'Foot Mask': PRODUCT_UNITS.PACK,
+  'Hand Masks': PRODUCT_UNITS.PACK,
+  'Facial Wipes': PRODUCT_UNITS.PACK,
+  'Cloths, Towelettes, & Wipes': PRODUCT_UNITS.PACK,
+  'Body Wipes': PRODUCT_UNITS.PACK,
+  'Pore Strips': PRODUCT_UNITS.PACK,
+  'Acne Care (OTC)': PRODUCT_UNITS.PACK,
 }
 
-export function unitFromCategory(category: string): string {
-  return CATEGORY_UNIT_MAP[category] ?? 'tube'
+export function unitFromCategory(category: string): ProductUnit {
+  return CATEGORY_UNIT_MAP[category] ?? PRODUCT_UNITS.TUBE
 }
 
 export async function cleanDatabase() {

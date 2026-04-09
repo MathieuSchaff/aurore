@@ -1,11 +1,12 @@
 import { INGREDIENT_SLUGS } from './ingredient-slugs'
+import { INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
 import type { IngredientInput } from './seed-ingredients'
 
 export const HUMECTANTS: IngredientInput[] = [
   {
     name: 'Alanine',
     slug: INGREDIENT_SLUGS.ALANINE,
-    category: 'Humectants',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       "Un acide aminé essentiel du Facteur Naturel d'Hydratation (NMF), qui hydrate, soutient la réparation cutanée et renforce la cohésion du stratum corneum.",
     content: `
@@ -30,7 +31,7 @@ L'**Alanine** est l'un des acides aminés les plus simples et les plus abondants
   {
     name: 'Lactate de Sodium (Sodium Lactate)',
     slug: INGREDIENT_SLUGS.SODIUM_LACTATE,
-    category: 'Humectants',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       "Le sel sodique de l'acide lactique, composant majeur du Facteur Naturel d'Hydratation (NMF), humectant puissant et régulateur de pH naturel.",
     content: `
@@ -55,7 +56,7 @@ Le **Sodium Lactate** est le sel de sodium de l'acide lactique. Il est naturelle
   {
     name: 'Glucosamine HCl',
     slug: INGREDIENT_SLUGS.GLUCOSAMINE_HCL,
-    category: 'Humectants',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       "Un précurseur naturel de l'acide hyaluronique qui hydrate, soutient la synthèse des glycosaminoglycanes et offre un effet exfoliant très doux.",
     content: `
@@ -80,7 +81,7 @@ La **Glucosamine HCl** est un aminosucre naturellement présent dans le cartilag
   {
     name: 'Hydroxyéthyl Urée (Hydroxyethyl Urea)',
     slug: INGREDIENT_SLUGS.HYDROXYETHYL_UREA,
-    category: 'Humectants',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       "Un dérivé de l'urée particulièrement bien toléré, qui hydrate en profondeur et améliore l'élasticité cutanée sans l'effet kératolytique de l'urée pure.",
     content: `
@@ -104,7 +105,7 @@ L'**Hydroxyethyl Urea** est un dérivé synthétique de l'urée, où un groupeme
   {
     name: 'Glycine',
     slug: INGREDIENT_SLUGS.GLYCINE,
-    category: 'Régénération & Structure',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       'Le plus petit des acides aminés, mais un géant de la structure cutanée, constituant majeur du collagène pour une peau plus ferme et élastique.',
     content: `
@@ -134,7 +135,7 @@ La **Glycine** est l'unité de base de la vie cutanée. Représentant environ un
   {
     name: 'PCA (Pyrrolidone Carboxylic Acid)',
     slug: INGREDIENT_SLUGS.PCA,
-    category: 'Hydratation Physiologique',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       'Un composant naturel du facteur d’hydratation de la peau (NMF), essentiel pour maintenir la souplesse et l’élasticité de l’épiderme.',
     content: `
@@ -165,7 +166,7 @@ Le **PCA** est une molécule naturellement présente à hauteur de 12% dans notr
   {
     name: 'Tréhalose',
     slug: INGREDIENT_SLUGS.TREHALOSE,
-    category: 'Protection & Cryo-préservation',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       'Surnommé "le sucre de la résurrection", il protège les cellules contre les chocs thermiques et la déshydratation extrême.',
     content: `
@@ -195,7 +196,7 @@ Le **Tréhalose** tire son nom de sa capacité fascinante à permettre à certai
   {
     name: 'Xylitol',
     slug: INGREDIENT_SLUGS.XYLITOL,
-    category: 'Humectant & Équilibre Microbiome',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       'Un sucre de bouleau aux vertus hygroscopiques puissantes, capable de capter l’humidité tout en limitant la prolifération des bactéries indésirables.',
     content: `
@@ -226,7 +227,7 @@ Bien connu comme substitut du sucre, le **Xylitol** est un polyol aux propriét�
   {
     name: 'Anhydroxylitol',
     slug: INGREDIENT_SLUGS.ANHYDROXYLITOL,
-    category: 'Régulation Hydrique',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       'Dérivé déshydraté du xylitol, cet actif stabilise l’hydratation cutanée en agissant sur la cohésion des cellules de l’épiderme.',
     content: `
@@ -256,7 +257,7 @@ L'**Anhydroxylitol** est le partenaire indispensable de la gestion des flux hydr
   {
     name: 'Xylitylglucoside',
     slug: INGREDIENT_SLUGS.XYLITYLGLUCOSIDE,
-    category: 'Hydratation 3D',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       'Un sucre végétal innovant qui agit comme un architecte de l’eau, harmonisant les flux d’hydratation et renforçant la barrière cutanée pour une peau durablement désaltérée.',
     content: `
@@ -286,7 +287,7 @@ Le **Xylitylglucoside** est un actif de "chimie verte" issu de la technologie de
   {
     name: 'Betaine',
     slug: INGREDIENT_SLUGS.BETAINE,
-    category: 'humectant & protecteur cellulaire',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       'Actif hydratant d’origine végétale (souvent issu de la betterave) qui aide la peau à retenir l’eau et à mieux résister au stress environnemental.',
     content: `
@@ -324,7 +325,7 @@ Elle est souvent utilisée pour :
   {
     name: 'Collagen Amino Acids',
     slug: INGREDIENT_SLUGS.COLLAGEN_AMINO_ACIDS,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       "Complexe d'acides aminés issus de l'hydrolyse du collagène, Collagen Amino Acids hydrate intensément, renforce la barrière cutanée, soutient la fermeté et apaise les peaux déshydratées ou matures pour un effet repulpant et confort immédiat.",
     content: `
@@ -375,7 +376,7 @@ Elle est souvent utilisée pour :
   {
     name: 'Glyceryl Glucoside',
     slug: INGREDIENT_SLUGS.GLYCERYL_GLUCOSIDE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       "Humectant naturel et biomimétique (souvent issu de biotechnologie), Glyceryl Glucoside stimule l'expression d'AQP3, booste l'hydratation cellulaire profonde, renforce la barrière et offre un confort longue durée pour peaux déshydratées et sensibles.",
     content: `
@@ -426,7 +427,7 @@ Elle est souvent utilisée pour :
   {
     name: 'Calcium PCA',
     slug: INGREDIENT_SLUGS.CALCIUM_PCA,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       "Sel de calcium de l'acide pyrrolidone carboxylique (PCA), composant NMF qui hydrate intensément, renforce la barrière cutanée, stimule le renouvellement cellulaire et restructure les peaux matures ou endommagées.",
     content: `
@@ -475,7 +476,7 @@ Elle est souvent utilisée pour :
   {
     name: 'Arginine PCA',
     slug: INGREDIENT_SLUGS.ARGININE_PCA,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       "Humectant puissant issu du facteur naturel d'hydratation (NMF), Arginine PCA hydrate en profondeur, équilibre le pH cutané, apaise et renforce la barrière pour les peaux déshydratées, sensibles ou atopiques.",
     content: `
@@ -524,7 +525,7 @@ Elle est souvent utilisée pour :
   {
     name: 'Sodium PCA (Sodium Pyrrolidone Carboxylic Acid)',
     slug: INGREDIENT_SLUGS.SODIUM_PCA,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       'Humectant physiologique issu du NMF, hydrate intensément et maintient l’équilibre cutané.',
     content: `
@@ -567,7 +568,7 @@ Elle est souvent utilisée pour :
   {
     name: 'L-Tyrosine (Tyrosine)',
     slug: INGREDIENT_SLUGS.TYROSINE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       "L'acide aminé de la mélanogenèse et de l'éclat : le précurseur direct du pigment cutané pour une protection naturelle et un teint sublimé.",
     content: `# La Tyrosine : Le Précurseur Vital de la Mélanine et de la Photoprotection
@@ -620,7 +621,7 @@ L'action de la tyrosine est particulièrement recherchée pour deux objectifs di
   {
     name: 'L-Phénylalanine (Phenylalanine)',
     slug: INGREDIENT_SLUGS.PHENYLALANINE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       "L'acide aminé régulateur de la pigmentation : un précurseur de la mélanine essentiel pour l'uniformité du teint et le traitement des troubles pigmentaires.",
     content: `# La Phénylalanine : Le Chef d'Orchestre de la Pigmentation Cutanée
@@ -666,7 +667,7 @@ L'action de la phénylalanine est duale selon l'objectif de la formule :
   {
     name: 'L-Leucine (Leucine)',
     slug: INGREDIENT_SLUGS.LEUCINE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       "L'acide aminé de la résilience structurelle : un activateur de la synthèse protéique et un agent de comblement naturel pour les rides de surface.",
     content: `# La Leucine : L'Expert de la Redensification et de la Souplesse
@@ -712,7 +713,7 @@ L'action de la leucine est particulièrement visible sur les peaux matures ou af
   {
     name: 'L-Glutamine (Glutamine)',
     slug: INGREDIENT_SLUGS.GLUTAMINE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       'Le carburant de la régénération cellulaire : un acide aminé essentiel à la synthèse des protéines et au maintien de la fermeté cutanée sous stress.',
     content: `# La Glutamine : La Source d'Énergie de la Réparation Cutanée
@@ -758,7 +759,7 @@ L'application topique de glutamine permet de contrer les effets du "vieillisseme
   {
     name: 'L-Arginine (Arginine)',
     slug: INGREDIENT_SLUGS.ARGININE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       "L'acide aminé activateur de microcirculation : un précurseur d'oxyde nitrique qui booste la régénération cellulaire et la synthèse du collagène.",
     content: `# L'Arginine : Le Carburant de la Régénération et de l'Éclat
@@ -806,7 +807,7 @@ L'arginine intervient sur les mécanismes de survie et de réparation de la peau
   {
     name: 'Acétyl Glucosamine (N-Acetyl Glucosamine / NAG)',
     slug: INGREDIENT_SLUGS.ACETYL_GLUCOSAMINE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       "Le précurseur d'acide hyaluronique et correcteur de teint : un sucre aminé haute performance qui booste l'hydratation endogène et réduit l'hyperpigmentation.",
     content: `# L'Acétyl Glucosamine : L'Architecte de l'Hydratation et de la Clarté
@@ -853,7 +854,7 @@ La NAG est reconnue pour sa synergie spectaculaire avec certains actifs :
   {
     name: 'Lysine HCl (Chlorhydrate de Lysine)',
     slug: INGREDIENT_SLUGS.LYSINE_HCL,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       "L'acide aminé bâtisseur : un précurseur indispensable à la synthèse du collagène et un agent de renforcement structurel pour les tissus cutanés.",
     content: `# La Lysine HCl : L'Architecture et la Vitalité des Protéines Cutanées
@@ -899,7 +900,7 @@ L'apport topique de Lysine HCl soutient la peau sur plusieurs fronts :
   {
     name: 'L-Histidine (Histidine)',
     slug: INGREDIENT_SLUGS.HISTIDINE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       "L'acide aminé régulateur de barrière : un précurseur de l'acide urocanique qui assure la protection UV naturelle et l'équilibre du pH cutané.",
     content: `# L'Histidine : Le Pilier de la Protection Solaire et du pH Physiologique
@@ -945,7 +946,7 @@ L'apport topique d'Histidine permet de restaurer les fonctions défaillantes des
   {
     name: 'L-Sérine (Serine)',
     slug: INGREDIENT_SLUGS.SERINE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       "L'architecte de l'hydratation naturelle : un acide aminé clé pour la synthèse des céramides et le maintien du NMF (Natural Moisturizing Factor).",
     content: `# La Sérine : Le Pilier de l'Hydratation Biologique et de la Barrière Cutanée
@@ -992,7 +993,7 @@ La Sérine bénéficie d'un profil de sécurité exceptionnel :
   {
     name: 'Propylène Glycol (Monopropylène Glycol)',
     slug: INGREDIENT_SLUGS.PROPYLENE_GLYCOL,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       "L'agent de vectorisation polyvalent : un humectant haute performance qui optimise la pénétration des actifs tout en stabilisant les formules dermo-cosmétiques.",
     content: `# Le Propylène Glycol : Le Vecteur d'Efficacité Moléculaire
@@ -1037,7 +1038,7 @@ Le propylène glycol fait l'objet d'une surveillance rigoureuse par le SCCS (Sci
   {
     name: 'Glycérine (Glycerin)',
     slug: INGREDIENT_SLUGS.GLYCERIN,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       "L'hydratant de référence, capable de retenir son poids en eau pour assurer une hydratation continue et protéger la barrière cutanée.",
     content: `
@@ -1076,7 +1077,7 @@ Le propylène glycol fait l'objet d'une surveillance rigoureuse par le SCCS (Sci
   {
     name: 'Pentylène Glycol (Pentylene Glycol)',
     slug: INGREDIENT_SLUGS.PENTYLENE_GLYCOL,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       "Humectant multifonctionnel d'origine végétale qui booste l'hydratation, améliore la pénétration des actifs et stabilise les formules haute tolérance.",
     content: `
@@ -1115,7 +1116,7 @@ Le propylène glycol fait l'objet d'une surveillance rigoureuse par le SCCS (Sci
   {
     name: 'Acide hyaluronique (Sodium Hyaluronate)',
     slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description: 'Humectant capable de retenir 1000x son poids en eau.',
     content: `# Sodium Hyaluronate
 
@@ -1127,7 +1128,7 @@ SODIUM HYALURONATE`,
   {
     name: 'Urée',
     slug: INGREDIENT_SLUGS.UREA,
-    category: 'ingredient',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       'Composé naturellement présent dans le stratum corneum, membre des Natural Moisturizing Factors (NMF). À faible concentration, humectant puissant. À haute concentration, kératolytique — dissout et ramollit la kératine accumulée. Un actif unique qui hydrate et exfolie selon sa formulation.',
     content: `## Origine & identité
@@ -1194,7 +1195,7 @@ SODIUM HYALURONATE`,
   {
     name: 'Acide Hyaluronique',
     slug: INGREDIENT_SLUGS.HYALURONIC_ACID,
-    category: 'excipient',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description: "Humectant star capable de retenir jusqu'à 1000× son poids en eau.",
     content: `# Acide Hyaluronique
 
@@ -1209,7 +1210,7 @@ SODIUM HYALURONATE / HYALURONIC ACID (multi-masse souvent)
   {
     name: 'Snow Mushroom',
     slug: INGREDIENT_SLUGS.SNOW_MUSHROOM,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       'Alternative naturelle à l’acide hyaluronique, capable de retenir jusqu’à 500 fois son poids en eau pour une hydratation profonde et repulpante.',
     content: `
@@ -1249,7 +1250,7 @@ SODIUM HYALURONATE / HYALURONIC ACID (multi-masse souvent)
   {
     name: 'Acide Polyglutamique',
     slug: INGREDIENT_SLUGS.POLYGLUTAMIC_ACID,
-    category: 'actif',
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       'Un hydratant ultra-puissant capable de retenir 4 à 5 fois plus d’eau que l’acide hyaluronique.',
     content: `

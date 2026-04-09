@@ -8,7 +8,7 @@ interface ProductTagGroups {
 }
 
 export const ISISPHARMA_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
-  // ── Ruboril Expert S (Peaux sèches)
+  
   [ISISPHARMA_PRODUCT_SLUGS.ISISPHARMA_RUBORIL_EXPERT_S]: {
     primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ROSACEE, TAG_SLUGS.COUPEROSE],
     secondary: [
@@ -17,14 +17,13 @@ export const ISISPHARMA_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.EMOLLIENCE,
       TAG_SLUGS.BARRIERE_CUTANEE,
       TAG_SLUGS.TEXTURE_RICHE,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.SANS_PARFUM,
       TAG_SLUGS.ZONE_VISAGE,
     ],
     avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.PEAU_MIXTE],
   },
 
-  // ── Ruboril Expert M (Peaux normales à mixtes)
+  
   [ISISPHARMA_PRODUCT_SLUGS.ISISPHARMA_RUBORIL_EXPERT_M]: {
     primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ROSACEE, TAG_SLUGS.COUPEROSE],
     secondary: [
@@ -33,7 +32,6 @@ export const ISISPHARMA_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.PEAU_SENSIBLE,
       TAG_SLUGS.HYDRATATION,
       TAG_SLUGS.TEXTURE_LEGERE,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.SANS_PARFUM,
       TAG_SLUGS.ZONE_VISAGE,
     ],

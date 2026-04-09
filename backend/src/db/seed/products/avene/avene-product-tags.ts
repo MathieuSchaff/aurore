@@ -2,13 +2,13 @@ import { TAG_SLUGS } from '../../tags/seed-tags'
 import { AVENE_PRODUCT_SLUGS } from './avene'
 
 interface ProductTagGroups {
-  primary: string[] // Pathologies, cibles principales, types de peau
-  secondary: string[] // Bénéfices secondaires, textures, catégories, actifs
-  avoid: string[] // Tags à exclure
+  primary: string[] 
+  secondary: string[] 
+  avoid: string[] 
 }
 
 export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
-  // ─── Cleanance ────────────────────────────────────────────────────────────
+  
 
   [AVENE_PRODUCT_SLUGS.AVENE_CLEANANCE_COMEDOMED_SERUM_INTENSIF]: {
     primary: [
@@ -24,9 +24,6 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
       TAG_SLUGS.TRAITEMENT,
-      TAG_SLUGS.KERATOLYTIQUE,
-      TAG_SLUGS.SEBO_REGULATEUR,
-      TAG_SLUGS.ANTI_OXYDANT,
       TAG_SLUGS.ZONE_VISAGE,
     ],
     avoid: [
@@ -38,7 +35,7 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
     ],
   },
   [AVENE_PRODUCT_SLUGS.AVENE_CLEANANCE_COMEDOMED_SOIN_INTENSIF_ANTI_IMPERFECTION]: {
-    primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.SEBO_REGULATEUR],
+    primary: [TAG_SLUGS.ANTI_ACNE],
     secondary: [
       TAG_SLUGS.PEAU_GRASSE,
       TAG_SLUGS.PEAU_MIXTE,
@@ -61,7 +58,6 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.DOUBLE_NETTOYAGE_2,
       TAG_SLUGS.PORES_DILATES,
       TAG_SLUGS.BRILLANCE,
-      TAG_SLUGS.SEBO_REGULATEUR,
       TAG_SLUGS.MATIFIANT,
       TAG_SLUGS.SANS_SAVON,
       TAG_SLUGS.ZONE_VISAGE,
@@ -89,7 +85,6 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.PORES_DILATES,
       TAG_SLUGS.BRILLANCE,
       TAG_SLUGS.MATIN,
-      TAG_SLUGS.SEBO_REGULATEUR,
       TAG_SLUGS.MATIFIANT,
       TAG_SLUGS.FILTRES_CHIMIQUES,
       TAG_SLUGS.NON_COMEDOGENE,
@@ -98,7 +93,6 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
     avoid: [
       TAG_SLUGS.PEAU_SECHE,
       TAG_SLUGS.ROSACEE,
-      TAG_SLUGS.FILTRES_MINERAUX,
       TAG_SLUGS.GROSSESSE_COMPATIBLE,
     ],
   },
@@ -118,7 +112,6 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.POST_ACNE,
       TAG_SLUGS.PORES_DILATES,
       TAG_SLUGS.MATIN,
-      TAG_SLUGS.SEBO_REGULATEUR,
       TAG_SLUGS.MATIFIANT,
       TAG_SLUGS.FILTRES_CHIMIQUES,
       TAG_SLUGS.SANS_PARFUM,
@@ -128,12 +121,11 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
     avoid: [
       TAG_SLUGS.PEAU_SECHE,
       TAG_SLUGS.ROSACEE,
-      TAG_SLUGS.FILTRES_MINERAUX,
       TAG_SLUGS.GROSSESSE_COMPATIBLE,
     ],
   },
 
-  // ─── XeraCalm A.D ─────────────────────────────────────────────────────────
+  
 
   [AVENE_PRODUCT_SLUGS.AVENE_XERACALM_AD_CREME_RELIPIDANTE]: {
     primary: [
@@ -148,18 +140,19 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
       TAG_SLUGS.EMOLLIENCE,
-      TAG_SLUGS.REPARATEUR,
-      TAG_SLUGS.EMOLLIENT,
       TAG_SLUGS.OCCLUSIF,
-      TAG_SLUGS.HUMECTANT,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.SANS_PARFUM,
       TAG_SLUGS.NON_COMEDOGENE,
       TAG_SLUGS.GROSSESSE_COMPATIBLE,
       TAG_SLUGS.ZONE_VISAGE,
       TAG_SLUGS.ZONE_CORPS,
     ],
-    avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.BRILLANCE],
+    avoid: [
+      TAG_SLUGS.PEAU_GRASSE,
+      TAG_SLUGS.PEAU_MIXTE,
+      TAG_SLUGS.ANTI_ACNE,
+      TAG_SLUGS.BRILLANCE,
+    ],
   },
 
   [AVENE_PRODUCT_SLUGS.AVENE_XERACALM_AD_BAUME]: {
@@ -176,18 +169,20 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.SOIR,
       TAG_SLUGS.EMOLLIENCE,
       TAG_SLUGS.OCCLUSION,
-      TAG_SLUGS.REPARATEUR,
-      TAG_SLUGS.EMOLLIENT,
       TAG_SLUGS.OCCLUSIF,
       TAG_SLUGS.TEXTURE_RICHE,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.SANS_PARFUM,
       TAG_SLUGS.NON_COMEDOGENE,
       TAG_SLUGS.GROSSESSE_COMPATIBLE,
       TAG_SLUGS.ZONE_VISAGE,
       TAG_SLUGS.ZONE_CORPS,
     ],
-    avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.BRILLANCE],
+    avoid: [
+      TAG_SLUGS.PEAU_GRASSE,
+      TAG_SLUGS.PEAU_MIXTE,
+      TAG_SLUGS.ANTI_ACNE,
+      TAG_SLUGS.BRILLANCE,
+    ],
   },
 
   [AVENE_PRODUCT_SLUGS.AVENE_XERACALM_HUILE_LAVANTE]: {
@@ -201,9 +196,7 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.HUILE_NETTOYANTE,
       TAG_SLUGS.DOUBLE_NETTOYAGE_1,
       TAG_SLUGS.BARRIERE_CUTANEE,
-      TAG_SLUGS.EMOLLIENT,
       TAG_SLUGS.MICROBIOME,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.SANS_PARFUM,
       TAG_SLUGS.SANS_SAVON,
       TAG_SLUGS.NON_COMEDOGENE,
@@ -223,21 +216,23 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.SOIR,
       TAG_SLUGS.EMOLLIENCE,
       TAG_SLUGS.OCCLUSION,
-      TAG_SLUGS.REPARATEUR,
-      TAG_SLUGS.EMOLLIENT,
       TAG_SLUGS.OCCLUSIF,
       TAG_SLUGS.TEXTURE_RICHE,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.SANS_PARFUM,
       TAG_SLUGS.NON_COMEDOGENE,
       TAG_SLUGS.GROSSESSE_COMPATIBLE,
       TAG_SLUGS.ZONE_VISAGE,
       TAG_SLUGS.ZONE_CORPS,
     ],
-    avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.BRILLANCE],
+    avoid: [
+      TAG_SLUGS.PEAU_GRASSE,
+      TAG_SLUGS.PEAU_MIXTE,
+      TAG_SLUGS.ANTI_ACNE,
+      TAG_SLUGS.BRILLANCE,
+    ],
   },
 
-  // ─── Hydrance ─────────────────────────────────────────────────────────────
+  
 
   [AVENE_PRODUCT_SLUGS.AVENE_HYDRANCE_RICHE_CREME_HYDRATANTE]: {
     primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.DESHYDRATATION],
@@ -248,13 +243,15 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.SOIR,
       TAG_SLUGS.EMOLLIENCE,
       TAG_SLUGS.CREME_HYDRATANTE,
-      TAG_SLUGS.HUMECTANT,
-      TAG_SLUGS.EMOLLIENT,
       TAG_SLUGS.TEXTURE_RICHE,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.ZONE_VISAGE,
     ],
-    avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.BRILLANCE, TAG_SLUGS.ANTI_ACNE],
+    avoid: [
+      TAG_SLUGS.PEAU_GRASSE,
+      TAG_SLUGS.PEAU_MIXTE,
+      TAG_SLUGS.BRILLANCE,
+      TAG_SLUGS.ANTI_ACNE,
+    ],
   },
 
   [AVENE_PRODUCT_SLUGS.AVENE_HYDRANCE_LIGHT_CREME_HYDRATANTE]: {
@@ -266,10 +263,7 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.SOIR,
       TAG_SLUGS.EMOLLIENCE,
       TAG_SLUGS.GEL_CREME,
-      TAG_SLUGS.HUMECTANT,
-      TAG_SLUGS.EMOLLIENT,
       TAG_SLUGS.TEXTURE_LEGERE,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.ZONE_VISAGE,
     ],
     avoid: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.BRILLANCE],
@@ -286,19 +280,16 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
       TAG_SLUGS.HYDRATATION,
-      TAG_SLUGS.HUMECTANT,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.TEXTURE_LEGERE,
       TAG_SLUGS.ZONE_VISAGE,
     ],
-    avoid: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIANT_CHIMIQUE],
+    avoid: [TAG_SLUGS.ANTI_ACNE],
   },
 
-  // ─── Cicalfate ────────────────────────────────────────────────────────────
+  
 
   [AVENE_PRODUCT_SLUGS.AVENE_CICALFATE_CREME_REPARATRICE]: {
     primary: [
-      TAG_SLUGS.REPARATEUR,
       TAG_SLUGS.CICATRISATION,
       TAG_SLUGS.PEAU_SENSIBLE,
       TAG_SLUGS.PEAU_ATOPIQUE,
@@ -311,22 +302,17 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.SOIR,
       TAG_SLUGS.SOIN_LOCALISE,
       TAG_SLUGS.CREME_HYDRATANTE,
-      TAG_SLUGS.HUMECTANT,
-      TAG_SLUGS.EMOLLIENT,
       TAG_SLUGS.OCCLUSIF,
-      TAG_SLUGS.ANTISEPTIQUE,
-      TAG_SLUGS.ANTI_BACTERIEN,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.SANS_PARFUM,
       TAG_SLUGS.NON_COMEDOGENE,
       TAG_SLUGS.GROSSESSE_COMPATIBLE,
       TAG_SLUGS.ZONE_VISAGE,
       TAG_SLUGS.ZONE_CORPS,
     ],
-    avoid: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIANT_CHIMIQUE],
+    avoid: [TAG_SLUGS.ANTI_ACNE],
   },
 
-  // ─── Hyaluron Activ B3 ────────────────────────────────────────────────────
+  
 
   [AVENE_PRODUCT_SLUGS.AVENE_HYALURON_ACTIV_B3_CREME_REGENERATION]: {
     primary: [
@@ -343,9 +329,6 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.SOIR,
       TAG_SLUGS.EMOLLIENCE,
       TAG_SLUGS.CREME_HYDRATANTE,
-      TAG_SLUGS.HUMECTANT,
-      TAG_SLUGS.EMOLLIENT,
-      TAG_SLUGS.ANTI_OXYDANT,
       TAG_SLUGS.ZONE_VISAGE,
     ],
     avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.BRILLANCE, TAG_SLUGS.ANTI_ACNE],
@@ -362,15 +345,13 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
       TAG_SLUGS.HYDRATATION,
-      TAG_SLUGS.HUMECTANT,
-      TAG_SLUGS.ANTI_OXYDANT,
       TAG_SLUGS.TEXTURE_LEGERE,
       TAG_SLUGS.ZONE_VISAGE,
     ],
     avoid: [TAG_SLUGS.ANTI_ACNE],
   },
 
-  // ─── Hyaluron Activ Procedure ─────────────────────────────────────────────
+  
 
   [AVENE_PRODUCT_SLUGS.AVENE_HYALURON_ACTIV_PROCEDURE_CREME_LIFTING_0_1_RETINAL]: {
     primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.PHOTO_VIEILLISSEMENT, TAG_SLUGS.PEAU_SENSIBLE],
@@ -383,11 +364,6 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
       TAG_SLUGS.EMOLLIENCE,
-
-      TAG_SLUGS.HUMECTANT,
-      TAG_SLUGS.EMOLLIENT,
-      TAG_SLUGS.KERATOLYTIQUE,
-      TAG_SLUGS.ANTI_OXYDANT,
       TAG_SLUGS.ZONE_VISAGE,
     ],
     avoid: [
@@ -408,8 +384,6 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
       TAG_SLUGS.HYDRATATION,
-      TAG_SLUGS.HUMECTANT,
-      TAG_SLUGS.ANTI_OXYDANT,
       TAG_SLUGS.ZONE_VISAGE,
     ],
     avoid: [
@@ -426,15 +400,13 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.REPULPANT,
       TAG_SLUGS.CONTOUR_YEUX,
       TAG_SLUGS.SOIN_LEVRES,
-      TAG_SLUGS.HUMECTANT,
-      TAG_SLUGS.ANTI_OXYDANT,
       TAG_SLUGS.ZONE_YEUX,
       TAG_SLUGS.ZONE_LEVRES,
     ],
     avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE],
   },
 
-  // ─── Vitamin Activ C ──────────────────────────────────────────────────────
+  
 
   [AVENE_PRODUCT_SLUGS.AVENE_VITAMIN_ACTIV_C_SERUM_ECLAT]: {
     primary: [
@@ -452,14 +424,12 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.PEAU_MIXTE,
       TAG_SLUGS.SERUM,
       TAG_SLUGS.MATIN,
-      TAG_SLUGS.ANTI_OXYDANT,
-      TAG_SLUGS.HUMECTANT,
       TAG_SLUGS.ZONE_VISAGE,
     ],
     avoid: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.ROSACEE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
   },
 
-  // ─── Tolérance Control ────────────────────────────────────────────────────
+  
 
   [AVENE_PRODUCT_SLUGS.AVENE_TOLERANCE_CONTROL_CREME]: {
     primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
@@ -471,10 +441,7 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.SOIR,
       TAG_SLUGS.EMOLLIENCE,
       TAG_SLUGS.CREME_HYDRATANTE,
-      TAG_SLUGS.HUMECTANT,
-      TAG_SLUGS.EMOLLIENT,
       TAG_SLUGS.OCCLUSIF,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.SANS_PARFUM,
       TAG_SLUGS.HYPOALLERGENIQUE,
       TAG_SLUGS.NON_COMEDOGENE,
@@ -498,20 +465,23 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.SOIR,
       TAG_SLUGS.EMOLLIENCE,
       TAG_SLUGS.OCCLUSION,
-      TAG_SLUGS.EMOLLIENT,
       TAG_SLUGS.OCCLUSIF,
       TAG_SLUGS.TEXTURE_RICHE,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.SANS_PARFUM,
       TAG_SLUGS.HYPOALLERGENIQUE,
       TAG_SLUGS.NON_COMEDOGENE,
       TAG_SLUGS.GROSSESSE_COMPATIBLE,
       TAG_SLUGS.ZONE_VISAGE,
     ],
-    avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.BRILLANCE],
+    avoid: [
+      TAG_SLUGS.PEAU_GRASSE,
+      TAG_SLUGS.PEAU_MIXTE,
+      TAG_SLUGS.ANTI_ACNE,
+      TAG_SLUGS.BRILLANCE,
+    ],
   },
 
-  // ─── Antirougeurs ─────────────────────────────────────────────────────────
+  
 
   [AVENE_PRODUCT_SLUGS.AVENE_ROSAMED]: {
     primary: [
@@ -527,23 +497,20 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.MATIN,
       TAG_SLUGS.SOIR,
       TAG_SLUGS.TRAITEMENT,
-      TAG_SLUGS.HUMECTANT,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.SANS_PARFUM,
       TAG_SLUGS.NON_COMEDOGENE,
       TAG_SLUGS.ZONE_VISAGE,
     ],
-    avoid: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIANT_CHIMIQUE, TAG_SLUGS.KERATOLYTIQUE],
+    avoid: [TAG_SLUGS.ANTI_ACNE],
   },
 
-  // ─── Eau thermale ─────────────────────────────────────────────────────────
+  
 
   [AVENE_PRODUCT_SLUGS.AVENE_THERMAL_SPRING_WATER]: {
     primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.ANTI_ROUGEURS],
     secondary: [
       TAG_SLUGS.BRUME,
       TAG_SLUGS.PREPARATION,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.SANS_PARFUM,
       TAG_SLUGS.HYPOALLERGENIQUE,
       TAG_SLUGS.GROSSESSE_COMPATIBLE,
@@ -553,7 +520,7 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
     avoid: [],
   },
 
-  // ─── Solaires ─────────────────────────────────────────────────────────────
+  
 
   [AVENE_PRODUCT_SLUGS.AVENE_SUNSIMED_KA_SPF50]: {
     primary: [
@@ -566,11 +533,10 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.PHOTO_VIEILLISSEMENT,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.FILTRES_CHIMIQUES,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.NON_COMEDOGENE,
       TAG_SLUGS.ZONE_VISAGE,
     ],
-    avoid: [TAG_SLUGS.FILTRES_MINERAUX, TAG_SLUGS.GROSSESSE_COMPATIBLE],
+    avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE],
   },
 
   [AVENE_PRODUCT_SLUGS.AVENE_TEINTEE_ANTI_LUMIERE_BLEUE_SPF50]: {
@@ -584,7 +550,6 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.ECLAT,
       TAG_SLUGS.FILTRES_CHIMIQUES,
       TAG_SLUGS.FILTRES_MINERAUX,
-      TAG_SLUGS.APAISANT,
       TAG_SLUGS.ZONE_VISAGE,
     ],
     avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.BRILLANCE, TAG_SLUGS.GROSSESSE_COMPATIBLE],
@@ -598,7 +563,6 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.BRILLANCE,
       TAG_SLUGS.PORES_DILATES,
       TAG_SLUGS.MATIN,
-      TAG_SLUGS.SEBO_REGULATEUR,
       TAG_SLUGS.MATIFIANT,
       TAG_SLUGS.FILTRES_CHIMIQUES,
       TAG_SLUGS.NON_COMEDOGENE,
@@ -607,7 +571,6 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
     avoid: [
       TAG_SLUGS.PEAU_SECHE,
       TAG_SLUGS.ROSACEE,
-      TAG_SLUGS.FILTRES_MINERAUX,
       TAG_SLUGS.GROSSESSE_COMPATIBLE,
     ],
   },
@@ -625,14 +588,12 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.PHOTO_VIEILLISSEMENT,
       TAG_SLUGS.MATIN,
       TAG_SLUGS.FILTRES_CHIMIQUES,
-      TAG_SLUGS.ANTI_OXYDANT,
       TAG_SLUGS.NON_COMEDOGENE,
       TAG_SLUGS.ZONE_VISAGE,
     ],
     avoid: [
       TAG_SLUGS.PEAU_SECHE,
       TAG_SLUGS.ROSACEE,
-      TAG_SLUGS.FILTRES_MINERAUX,
       TAG_SLUGS.GROSSESSE_COMPATIBLE,
     ],
   },
@@ -674,6 +635,6 @@ export const AVENE_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.NON_COMEDOGENE,
       TAG_SLUGS.ZONE_VISAGE,
     ],
-    avoid: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.FILTRES_MINERAUX, TAG_SLUGS.GROSSESSE_COMPATIBLE],
+    avoid: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.GROSSESSE_COMPATIBLE],
   },
 }

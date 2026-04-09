@@ -8,36 +8,48 @@ export const USERNAME_MAX_LENGTH = 32
 /** Longueur maximale de la bio. */
 export const BIO_MAX_LENGTH = 500
 
-export const SKIN_TYPES = ['dry', 'oily', 'combination', 'normal', 'sensitive'] as const
+// These values are tag slugs from the `skin_type` category in the tags table.
+// They must stay in sync with seed-tags.ts. `tous-types` is excluded — it's a
+// product tag ("suitable for all"), not a valid user skin type.
+export const SKIN_TYPES = [
+  'peau-seche',
+  'peau-mixte',
+  'peau-grasse',
+  'peau-reactive',
+  'peau-normale',
+  'peau-atopique',
+  'peau-rugueuse',
+  'peau-sensible',
+] as const
 export type SkinType = (typeof SKIN_TYPES)[number]
 
+// These values are tag slugs from the `concern` category in the tags table.
+// They must stay in sync with seed-tags.ts. Excluded: `lumiere-bleue`,
+// `pollution`, `photo-protection` — product marketing claims, not user conditions.
 export const SKIN_CONCERNS = [
-  'acne',
-  'blackheads',
-  'enlarged_pores',
-  'hyperpigmentation',
-  'dark_spots',
-  'uneven_skin_tone',
-  'dullness',
-  'dehydration',
-  'fine_lines',
-  'wrinkles',
-  'loss_of_firmness',
-  'dark_circles',
-  'puffiness',
-  'rosacea',
-  'atopic_dermatitis',
-  'perioral_dermatitis',
-  'seborrheic_dermatitis',
-  'eczema',
-  'psoriasis',
-  'acne_vulgaris',
-  'acne_cystic',
-  'keratosis_pilaris',
-  'vitiligo',
-  'melasma',
-  'contact_dermatitis',
+  'anti-rougeurs',
+  'rosacee',
   'couperose',
+  'flushs',
+  'barriere-cutanee',
+  'anti-taches',
+  'anti-acne',
+  'anti-age',
+  'hyperpigmentation',
+  'deshydratation',
+  'pores-dilates',
+  'cernes-poches',
+  'brillance',
+  'eclat',
+  'post-acne',
+  'cicatrisation',
+  'microbiome',
+  'photo-vieillissement',
+  'teint-terne',
+  'repulpant',
+  'eczema',
+  'grain-peau',
+  'keratose-pilaire',
 ] as const
 export type SkinConcern = (typeof SKIN_CONCERNS)[number]
 

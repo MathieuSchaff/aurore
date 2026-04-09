@@ -8,13 +8,12 @@ interface ProductTagGroups {
 }
 
 export const LAB_BIARRITZ_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
-  // ── SOLAIRES (Protection Minérale) ────────────────────────────────
+  
   [LAB_BIARRITZ_PRODUCT_SLUGS.LABORATOIRES_BIARRITZ_CREME_SOLAIRE_TEINTEE_SPF50]: {
     primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.FILTRES_MINERAUX, TAG_SLUGS.ECLAT],
     secondary: [
       TAG_SLUGS.ZONE_VISAGE,
       TAG_SLUGS.BIO_NATUREL,
-      TAG_SLUGS.ANTI_OXYDANT,
       TAG_SLUGS.PHOTO_VIEILLISSEMENT,
       TAG_SLUGS.NON_COMEDOGENE,
       TAG_SLUGS.MATIN,
@@ -28,15 +27,14 @@ export const LAB_BIARRITZ_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.ZONE_VISAGE,
       TAG_SLUGS.BIO_NATUREL,
       TAG_SLUGS.VEGAN,
-      TAG_SLUGS.ANTI_OXYDANT,
       TAG_SLUGS.HYPOALLERGENIQUE,
     ],
     avoid: [],
   },
 
-  // ── RÉPARATION & HYDRATATION ──────────────────────────────────────
+  
   [LAB_BIARRITZ_PRODUCT_SLUGS.LABORATOIRES_BIARRITZ_CICA_REPA_CREME_REPARATRICE]: {
-    primary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CICATRISATION],
+    primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CICATRISATION],
     secondary: [
       TAG_SLUGS.SANS_PARFUM,
       TAG_SLUGS.BIO_NATUREL,
@@ -48,7 +46,7 @@ export const LAB_BIARRITZ_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
   },
 
   [LAB_BIARRITZ_PRODUCT_SLUGS.LABORATOIRES_BIARRITZ_CREME_VISAGE]: {
-    primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.PHOTO_VIEILLISSEMENT],
+    primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.PHOTO_VIEILLISSEMENT],
     secondary: [
       TAG_SLUGS.PEAU_NORMALE,
       TAG_SLUGS.BIO_NATUREL,
@@ -70,16 +68,15 @@ export const LAB_BIARRITZ_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
     avoid: [],
   },
 
-  // ── SOINS CIBLÉS (Anti-taches & Repulpant) ────────────────────────
+  
   [LAB_BIARRITZ_PRODUCT_SLUGS.LABORATOIRES_BIARRITZ_SERUM_ANTI_TACHES]: {
     primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.ECLAT],
     secondary: [
       TAG_SLUGS.SERUM,
       TAG_SLUGS.BIO_NATUREL,
-      TAG_SLUGS.PREBIOTIQUE,
       TAG_SLUGS.MICROBIOME,
       TAG_SLUGS.ZONE_VISAGE,
-      TAG_SLUGS.CERNES_POCHES, // Indiqué pour cernes hyperpigmentés
+      TAG_SLUGS.CERNES_POCHES,
     ],
     avoid: [],
   },
@@ -112,7 +109,6 @@ export const LAB_BIARRITZ_PRODUCT_TAGS: Record<string, ProductTagGroups> = {
     secondary: [
       TAG_SLUGS.ZONE_VISAGE,
       TAG_SLUGS.BIO_NATUREL,
-      TAG_SLUGS.ANTI_OXYDANT,
       TAG_SLUGS.PHOTO_VIEILLISSEMENT,
       TAG_SLUGS.NON_COMEDOGENE,
       TAG_SLUGS.MATIN,

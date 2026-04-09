@@ -1,68 +1,24 @@
-import type { FilterSubGroup } from '@/component/Filter'
+// Filter keys for the ingredients list page. Mirrors the 5 buckets
+// exposed by the backend `getIngredientFilterOptions`. The old `category`
+// filter (native ingredients.category column) was dropped in favour of
+// the attribute tag bucket — same info, single source, auto-backfilled
+// at seed time from the native column. See shared/schemas/tag-taxonomy.ts
+// and idee/tags/tags.md §6 for the taxonomy this derives from.
 
-export type FilterKey = 'category' | 'concern' | 'skin_type' | 'attribute'
+export type FilterKey = 'skin_type' | 'concern' | 'attribute' | 'skin_effect' | 'comedogenicity'
 
 export const FILTER_KEYS = [
-  'category',
-  'concern',
   'skin_type',
+  'concern',
   'attribute',
+  'skin_effect',
+  'comedogenicity',
 ] as const satisfies readonly FilterKey[]
 
 export const GROUP_LABELS: Record<FilterKey, string> = {
   skin_type: 'Peau',
   concern: 'Problème',
-  attribute: 'Propriété',
-  category: 'Catégorie',
+  attribute: 'Rôle',
+  skin_effect: 'Effet peau',
+  comedogenicity: 'Comédogénicité',
 }
-
-export const ATTRIBUTE_SUBGROUPS: FilterSubGroup[] = [
-  {
-    label: 'Actions',
-    slugs: [
-      'apaisant',
-      'humectant',
-      'anti-oxydant',
-      'emollient',
-      'occlusif',
-      'matifiant',
-      'sebo-regulateur',
-      'reparateur',
-      'protection-cutanee',
-      'prebiotique',
-    ],
-    maxVisible: 6,
-  },
-  {
-    label: 'Technique',
-    slugs: [
-      'keratolytique',
-      'astringent',
-      'antiseptique',
-      'anti-bacterien',
-      'biomimetique',
-      'filtres-chimiques',
-      'filtres-mineraux',
-      'pigments-verts',
-      'comedogene',
-    ],
-    maxVisible: 4,
-  },
-  {
-    label: 'Formulation',
-    slugs: [
-      'bio-naturel',
-      'vegan',
-      'cruelty-free',
-      'sans-parfum',
-      'sans-savon',
-      'hypoallergenique',
-      'non-comedogene',
-      'grossesse-compatible',
-      'texture-legere',
-      'texture-riche',
-      'barriere-cutanee-alteree',
-    ],
-    maxVisible: 6,
-  },
-]

@@ -1,5 +1,3 @@
-import type { FilterSubGroup } from '@/component/Filter'
-
 export type FilterKey =
   | 'brand'
   | 'concern'
@@ -7,7 +5,9 @@ export type FilterKey =
   | 'skin_zone'
   | 'product_type'
   | 'routine_step'
-  | 'attribute'
+  | 'skin_effect'
+  | 'product_label'
+  | 'shared_label'
   | 'ingredient'
 
 export const FILTER_KEYS = [
@@ -17,7 +17,9 @@ export const FILTER_KEYS = [
   'skin_zone',
   'product_type',
   'routine_step',
-  'attribute',
+  'skin_effect',
+  'product_label',
+  'shared_label',
   'ingredient',
 ] as const satisfies readonly FilterKey[]
 
@@ -27,75 +29,24 @@ export const GROUP_LABELS: Record<FilterKey, string> = {
   concern: 'Objectif',
   product_type: 'Type',
   routine_step: 'Étape',
-  attribute: 'Préf.',
+  skin_effect: 'Rendu',
+  product_label: 'Label',
+  shared_label: 'Comédo.',
   brand: 'Marque',
   ingredient: 'Ingr.',
 }
 
 export const TAG_CATEGORY_TO_KEY: Record<string, FilterKey> = {
   routine_step: 'routine_step',
-  attribute: 'attribute',
   skin_type: 'skin_type',
   skin_zone: 'skin_zone',
   product_type: 'product_type',
   concern: 'concern',
+  skin_effect: 'skin_effect',
+  product_label: 'product_label',
+  shared_label: 'shared_label',
 }
 
 export const LABEL_OVERRIDES: Record<string, string> = {
-  humectant: 'Hydratant',
-  emollient: 'Nourrissant',
-  'sebo-regulateur': 'Anti-sébum',
   'barriere-alteree': 'Peau sensibilisée',
 }
-
-export const ATTRIBUTE_SUBGROUPS: FilterSubGroup[] = [
-  {
-    label: 'Formulation',
-    slugs: [
-      'bio-naturel',
-      'vegan',
-      'cruelty-free',
-      'sans-parfum',
-      'sans-savon',
-      'hypoallergenique',
-      'non-comedogene',
-      'grossesse-compatible',
-    ],
-    maxVisible: 6,
-  },
-  {
-    label: 'Texture',
-    slugs: ['texture-legere', 'texture-riche'],
-  },
-  {
-    label: 'Action',
-    slugs: [
-      'apaisant',
-      'humectant',
-      'anti-oxydant',
-      'matifiant',
-      'sebo-regulateur',
-      'reparateur',
-      'protection-cutanee',
-      'prebiotique',
-    ],
-    maxVisible: 6,
-  },
-  {
-    label: 'Technique',
-    slugs: [
-      'keratolytique',
-      'astringent',
-      'antiseptique',
-      'anti-bacterien',
-      'biomimetique',
-      'emollient',
-      'barriere-alteree',
-      'filtres-chimiques',
-      'filtres-mineraux',
-      'pigments-verts',
-      'comedogene',
-    ],
-    maxVisible: 4,
-  },
-]
