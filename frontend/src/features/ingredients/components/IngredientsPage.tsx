@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { getRouteApi, Link, useNavigate } from '@tanstack/react-router'
 import { FlaskConical, Plus, SlidersHorizontal } from 'lucide-react'
 import type React from 'react'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
 import { Card } from '@/component/Card/Card'
@@ -13,14 +13,13 @@ import {
   ActiveFiltersBar,
   emptyFilters,
   FilterDrawer,
-  type FilterGroupConfig,
-  type FilterOption,
   type FilterValues,
   getFilterLabel,
 } from '@/component/Filter'
 import { PageHeader } from '@/component/Layout/PageHeader/PageHeader'
 import { SearchCombobox } from '@/component/search/SearchCombobox'
 import { useListFilters } from '@/hooks/useListFilters'
+import { useTagFilterGroups } from '@/hooks/useTagFilterGroups'
 import { ingredientQueries, type ListIngredientsFilters } from '../../../lib/queries/ingredients'
 import { FILTER_KEYS, type FilterKey, GROUP_LABELS } from '../filters'
 
@@ -35,16 +34,13 @@ const PAGE_SIZE = 20
 export function IngredientsPage() {
   const [isDrawerOpen, setDrawerOpen] = useState(false)
 
-  const { skin_type, concern, attribute, skin_effect, comedogenicity, page } = routeApi.useSearch()
+  const search = routeApi.useSearch()
+  const { page } = search
   const navigate = useNavigate({ from: '/ingredients/' })
 
-  const filters: FilterValues<FilterKey> = {
-    skin_type,
-    concern,
-    attribute,
-    skin_effect,
-    comedogenicity,
-  }
+  const filters: FilterValues<FilterKey> = Object.fromEntries(
+    FILTER_KEYS.map((k) => [k, search[k] ?? []])
+  ) as FilterValues<FilterKey>
 
   const { filterCount, activeTags, applyFilters, resetFilters, goToPage, toggleSingleFilter } =
     useListFilters({
@@ -58,11 +54,9 @@ export function IngredientsPage() {
 
   const apiFilters: ListIngredientsFilters = hasFilters
     ? {
-        skin_type: skin_type.length > 0 ? skin_type : undefined,
-        concern: concern.length > 0 ? concern : undefined,
-        attribute: attribute.length > 0 ? attribute : undefined,
-        skin_effect: skin_effect.length > 0 ? skin_effect : undefined,
-        comedogenicity: comedogenicity.length > 0 ? comedogenicity : undefined,
+        ...(Object.fromEntries(
+          FILTER_KEYS.map((k) => [k, filters[k].length > 0 ? filters[k] : undefined])
+        ) as Partial<ListIngredientsFilters>),
         page,
         limit: PAGE_SIZE,
       }
@@ -80,83 +74,7 @@ export function IngredientsPage() {
   const total = data?.total ?? 0
   const totalPages = Math.ceil(total / PAGE_SIZE)
 
-  const filterGroups = useMemo<FilterGroupConfig<FilterKey>[]>(() => {
-    const toOpts = (arr: { name: string; slug: string }[]): FilterOption[] =>
-      arr.map((t) => ({ value: t.slug, label: t.name }))
-
-    return [
-      {
-        id: 'skin',
-        label: 'Ma peau',
-        defaultOpen: true,
-        tier: 'essential',
-        subFilters: [
-          {
-            key: 'skin_type',
-            label: 'Type de peau',
-            placeholder: 'Tous types',
-            options: toOpts(filterOptions?.tags.skin_type ?? []),
-          },
-        ],
-      },
-      {
-        id: 'concern',
-        label: 'Problématique',
-        defaultOpen: true,
-        tier: 'essential',
-        subFilters: [
-          {
-            key: 'concern',
-            label: 'Problématique',
-            placeholder: 'Toutes',
-            options: toOpts(filterOptions?.tags.concern ?? []),
-          },
-        ],
-      },
-      {
-        id: 'attribute',
-        label: 'Rôle fonctionnel',
-        defaultOpen: false,
-        tier: 'advanced',
-        subFilters: [
-          {
-            key: 'attribute',
-            label: 'Rôle',
-            placeholder: 'Tous',
-            options: toOpts(filterOptions?.tags.attribute ?? []),
-          },
-        ],
-      },
-      {
-        id: 'skin_effect',
-        label: 'Effet peau',
-        defaultOpen: false,
-        tier: 'advanced',
-        subFilters: [
-          {
-            key: 'skin_effect',
-            label: 'Effet',
-            placeholder: 'Tous',
-            options: toOpts(filterOptions?.tags.skin_effect ?? []),
-          },
-        ],
-      },
-      {
-        id: 'comedogenicity',
-        label: 'Comédogénicité',
-        defaultOpen: false,
-        tier: 'advanced',
-        subFilters: [
-          {
-            key: 'comedogenicity',
-            label: 'Comédogénicité',
-            placeholder: 'Indifférent',
-            options: toOpts(filterOptions?.tags.comedogenicity ?? []),
-          },
-        ],
-      },
-    ]
-  }, [filterOptions])
+  const filterGroups = useTagFilterGroups(FILTER_KEYS, filterOptions?.tags)
 
   return (
     <div className="list-page ingredients-page">
