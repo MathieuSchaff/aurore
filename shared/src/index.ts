@@ -208,6 +208,12 @@ export {
   type TagScope,
 } from './schemas/tag-taxonomy'
 export {
+  filterCategoriesFor,
+  TAG_CATEGORY_META,
+  type FilterTier,
+  type TagCategoryMeta,
+} from './schemas/tag-filters'
+export {
   type AddIngredientTagInput,
   type AddProductTagInput,
   addIngredientTagSchema,
