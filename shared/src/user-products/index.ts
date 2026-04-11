@@ -43,11 +43,6 @@ export const userProductReviewSchema = z.object({
   updatedAt: z.date(),
 })
 
-export type UserProductStatus = z.infer<typeof userProductStatusSchema>
-export type RepurchaseFlag = z.infer<typeof repurchaseFlagSchema>
-export type UserProduct = z.infer<typeof userProductSchema>
-export type UserProductReview = z.infer<typeof userProductReviewSchema>
-
 export const createUserProductSchema = z.object({
   productId: z.uuid(),
   status: userProductStatusSchema.default('in_stock'),
@@ -73,11 +68,15 @@ export const updateUserProductReviewSchema = z.object({
   comment: z.string().max(5000).nullable().optional(),
 })
 
+// ─── TYPES ────────────────────────────────────────────────
+
+export type UserProductStatus = z.infer<typeof userProductStatusSchema>
+export type RepurchaseFlag = z.infer<typeof repurchaseFlagSchema>
+export type UserProduct = z.infer<typeof userProductSchema>
+export type UserProductReview = z.infer<typeof userProductReviewSchema>
 export type CreateUserProductInput = z.infer<typeof createUserProductSchema>
 export type UpdateUserProductInput = z.infer<typeof updateUserProductSchema>
 export type UpdateUserProductReviewInput = z.infer<typeof updateUserProductReviewSchema>
-
-// ─── TYPES ────────────────────────────────────────────────
 
 export type UserProductErrorCode =
   | 'user_product_not_found'
