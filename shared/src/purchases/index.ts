@@ -1,4 +1,7 @@
 import { z } from 'zod'
+import { type HttpStatus, HTTP_STATUS } from '../core'
+
+// ─── SCHEMAS ─────────────────────────────────────────────────────────────────
 
 const dateString = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Format YYYY-MM-DD requis')
 
@@ -32,8 +35,27 @@ export const purchaseSchema = z.object({
   createdAt: z.string(),
 })
 
+// ─── TYPES ───────────────────────────────────────────────────────────────────
+
 export type AddPurchaseInput = z.infer<typeof addPurchaseSchema>
 export type OpenPurchaseInput = z.infer<typeof openPurchaseSchema>
 export type FinishPurchaseInput = z.infer<typeof finishPurchaseSchema>
 export type UpdatePurchaseInput = z.infer<typeof updatePurchaseSchema>
 export type Purchase = z.infer<typeof purchaseSchema>
+
+export type PurchaseErrorCode =
+  | 'purchase_not_found'
+  | 'active_purchase_exists'
+  | 'no_active_purchase'
+  | 'user_product_not_found'
+  | 'purchase_creation_failed'
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+
+export const purchaseErrorMapping: Record<PurchaseErrorCode, HttpStatus> = {
+  purchase_not_found: HTTP_STATUS.NOT_FOUND,
+  active_purchase_exists: HTTP_STATUS.CONFLICT,
+  no_active_purchase: HTTP_STATUS.NOT_FOUND,
+  user_product_not_found: HTTP_STATUS.NOT_FOUND,
+  purchase_creation_failed: HTTP_STATUS.BAD_REQUEST,
+}

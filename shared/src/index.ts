@@ -92,7 +92,7 @@ export {
   signupSchema,
   userPublicSchema,
   verifyEmailBodySchema,
-} from './schemas/auth'
+} from './auth'
 export {
   type CreateReplyInput,
   type CreateThreadInput,
@@ -101,7 +101,7 @@ export {
   replyResponseSchema,
   threadResponseSchema,
   threadWithRepliesResponseSchema,
-} from './schemas/discussions'
+} from './discussions'
 export {
   type CheckHabitInput,
   type CreateHabitInput,
@@ -155,7 +155,7 @@ export {
   uncheckHabitSchema,
   updateFrequencySchema,
   updateHabitSchema,
-} from './schemas/habits'
+} from './habits'
 export {
   type CreateIngredientInput,
   createIngredientSchema,
@@ -210,7 +210,7 @@ export {
   wellbeingLogResponseSchema,
   wellbeingMetricSchema,
   wellbeingMetrics,
-} from './schemas/logs'
+} from './logs'
 export {
   type PrivacySettings,
   privacySettingsSchema,
@@ -247,7 +247,7 @@ export {
   purchaseSchema,
   type UpdatePurchaseInput,
   updatePurchaseSchema,
-} from './schemas/purchases'
+} from './purchases'
 export {
   type AddIngredientTagInput,
   type AddProductTagInput,
@@ -265,7 +265,7 @@ export {
   replaceProductTagsSchema,
   tagResponseSchema,
   type UpdateTagInput,
-} from './schemas/tags'
+} from './tags'
 export {
   type CreateSubtaskInput,
   type CreateTaskInput,
@@ -275,7 +275,7 @@ export {
   type UpdateTaskInput,
   updateSubtaskSchema,
   updateTaskSchema,
-} from './schemas/tasks'
+} from './tasks'
 export {
   type CriteriaWeights,
   criteriaWeightsSchema,
@@ -326,13 +326,13 @@ export type {
   RefreshTokenPayload,
   SignupResult,
   UserPublic,
-} from './types/auth'
+} from './auth'
 export type {
   DiscussionErrorCode,
   DiscussionReply,
   DiscussionThread,
   DiscussionThreadWithReplies,
-} from './types/discussions'
+} from './discussions'
 export type {
   Habit,
   HabitCheck,
@@ -350,8 +350,8 @@ export type {
   TodayHabit,
   TodayUserProduct,
   ToggleCheckResult,
-} from './types/habits'
-export type { LogsErrorCode } from './types/logs'
+} from './habits'
+export type { LogsErrorCode } from './logs'
 export type {
   MeResponse,
   ProfileErrorCode,
@@ -359,28 +359,28 @@ export type {
   ProfileStatsResponse,
   ProfileUpdateResponse,
 } from './types/profile'
-export type { PurchaseErrorCode } from './types/purchases'
+export type { PurchaseErrorCode } from './purchases'
 export type {
   IngredientTag,
   ProductTag,
   Tag,
   TagErrorCode,
-} from './types/tags'
+} from './tags'
 export type {
   Subtask,
   Task,
   TaskEnergy,
   TaskErrorCode,
   TaskStatus,
-} from './types/tasks'
+} from './tasks'
 
 // ─── Helpers (error mappings, constants, utilities) ──────────────────────────
 
-export { authErrorMapping } from './helpers/auth'
-export { discussionErrorMapping } from './helpers/discussions'
-export { habitErrorMapping } from './helpers/habits'
-export { logsErrorMapping } from './helpers/logs'
+export { authErrorMapping } from './auth'
+export { discussionErrorMapping } from './discussions'
+export { habitErrorMapping } from './habits'
+export { logsErrorMapping } from './logs'
 export { profileErrorMapping } from './helpers/profile'
-export { purchaseErrorMapping } from './helpers/purchases'
-export { tagErrorMapping } from './helpers/tags'
-export { taskErrorMapping } from './helpers/tasks'
+export { purchaseErrorMapping } from './purchases'
+export { tagErrorMapping } from './tags'
+export { taskErrorMapping } from './tasks'

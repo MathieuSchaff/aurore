@@ -1,4 +1,7 @@
 import { z } from 'zod'
+import { type HttpStatus, HTTP_STATUS } from '../core'
+
+// ─── SCHEMAS ─────────────────────────────────────────────────────────────────
 
 const uuid = z.uuid()
 const dateFormat = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Format YYYY-MM-DD requis')
@@ -92,7 +95,7 @@ export const todayLogsResponseSchema = z.object({
   wellbeingLogs: z.array(wellbeingLogResponseSchema),
 })
 
-// ─── Types ──────────────────────────────────────────────
+// ─── TYPES ───────────────────────────────────────────────────────────────────
 
 export type LogWellbeingInput = z.infer<typeof logWellbeingSchema>
 export type LogHabitCheckInput = z.infer<typeof logHabitCheckSchema>
@@ -100,3 +103,18 @@ export type WellbeingLogResponse = z.infer<typeof wellbeingLogResponseSchema>
 export type HabitCheckProductResponse = z.infer<typeof habitCheckProductResponseSchema>
 export type HabitCheckWithProductsResponse = z.infer<typeof habitCheckWithProductsResponseSchema>
 export type TodayLogsResponse = z.infer<typeof todayLogsResponseSchema>
+
+export type LogsErrorCode =
+  | 'habit_not_found'
+  | 'check_not_found'
+  | 'invalid_input'
+  | 'database_error'
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+
+export const logsErrorMapping = {
+  habit_not_found: HTTP_STATUS.NOT_FOUND,
+  check_not_found: HTTP_STATUS.NOT_FOUND,
+  invalid_input: HTTP_STATUS.BAD_REQUEST,
+  database_error: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+} as const satisfies Record<LogsErrorCode, HttpStatus>

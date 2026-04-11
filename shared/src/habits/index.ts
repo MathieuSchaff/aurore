@@ -1,4 +1,7 @@
 import { z } from 'zod'
+import { type HttpStatus, HTTP_STATUS } from '../core'
+
+// ─── SCHEMAS ─────────────────────────────────────────────────────────────────
 
 // ─── Primitives réutilisables ────────────────────────────────────────────────
 
@@ -15,16 +18,6 @@ const timeFormat = z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/, 'Format HH:MM r
  * @example '2025-01-15'
  */
 const dateFormat = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Format YYYY-MM-DD requis')
-
-// const dayOfWeek = z.enum([
-//   'monday',
-//   'tuesday',
-//   'wednesday',
-//   'thursday',
-//   'friday',
-//   'saturday',
-//   'sunday',
-// ])
 
 const dayOfWeek = z.number().int().min(0).max(6) // 0=lun, 6=dim
 /** Jour du mois — 1 à 31. Pas de validation calendaire (ex: 31 février accepté). */
@@ -49,7 +42,6 @@ const habitCheckStatus = z.enum(['pending', 'done', 'skipped'])
  * { type: 'monthly', daysOfMonth: [1, 15] }
  * { type: 'interval', intervalDays: 3 }
  */
-
 export const frequencySchema = z.discriminatedUnion('type', [
   z.object({ type: z.literal('daily') }),
   z.object({
@@ -65,6 +57,7 @@ export const frequencySchema = z.discriminatedUnion('type', [
     intervalDays: z.number().int().min(1, 'Intervalle minimum: 1 jour'),
   }),
 ])
+
 // ─── Timing ──────────────────────────────────────────────────────────────────
 
 /**
@@ -281,30 +274,6 @@ export const reorderHabitsSchema = z.object({
     .max(100),
 })
 
-// ─── Types inférés ───────────────────────────────────────────────────────────
-
-export type Frequency = z.infer<typeof frequencySchema>
-export type Timing = z.infer<typeof timingSchema>
-export type Reminder = z.infer<typeof reminderSchema>
-export type Period = z.infer<typeof periodSchema>
-export type HabitProductInput = z.infer<typeof habitProductSchema>
-
-export type CreateHabitInput = z.infer<typeof createHabitSchema>
-export type UpdateHabitInput = z.infer<typeof updateHabitSchema>
-export type CheckHabitInput = z.infer<typeof checkHabitSchema>
-export type ToggleCheckInput = z.infer<typeof toggleCheckSchema>
-
-export type GetUserChecksQuery = z.infer<typeof getUserChecksQuerySchema>
-export type DateRangeQuery = z.infer<typeof dateRangeQuerySchema>
-
-export type UpdateFrequencyInput = z.infer<typeof updateFrequencySchema>
-export type SetTimingsInput = z.infer<typeof setTimingsSchema>
-export type SetRemindersInput = z.infer<typeof setRemindersSchema>
-export type SetPeriodInput = z.infer<typeof setPeriodSchema>
-export type SetProductsInput = z.infer<typeof setProductsSchema>
-export type ReorderHabitsInput = z.infer<typeof reorderHabitsSchema>
-export type SetRemindersWithTimingInput = z.infer<typeof setRemindersSchema>
-
 // ─── Entity Response Schemas ─────────────────────────────────────────────────
 
 export const habitResponseSchema = z.object({
@@ -331,7 +300,6 @@ export const habitFrequencyResponseSchema = z.object({
   habitId: uuid,
   type: z.string(),
   intervalDays: z.number().int().nullable(),
-  // daysOfWeek: z.array(z.string()).nullable(),
   daysOfWeek: z.array(z.number().int()).nullable(),
   daysOfMonth: z.array(z.number().int()).nullable(),
   createdAt: z.date(),
@@ -444,3 +412,271 @@ export const toggleCheckResultResponseSchema = z.object({
   depletedProducts: z.array(z.string()).optional(),
   checkProducts: z.array(habitCheckProductResponseSchema).optional(),
 })
+
+// ─── TYPES ───────────────────────────────────────────────────────────────────
+
+export type Frequency = z.infer<typeof frequencySchema>
+export type Timing = z.infer<typeof timingSchema>
+export type Reminder = z.infer<typeof reminderSchema>
+export type Period = z.infer<typeof periodSchema>
+export type HabitProductInput = z.infer<typeof habitProductSchema>
+
+export type CreateHabitInput = z.infer<typeof createHabitSchema>
+export type UpdateHabitInput = z.infer<typeof updateHabitSchema>
+export type CheckHabitInput = z.infer<typeof checkHabitSchema>
+export type ToggleCheckInput = z.infer<typeof toggleCheckSchema>
+
+export type GetUserChecksQuery = z.infer<typeof getUserChecksQuerySchema>
+export type DateRangeQuery = z.infer<typeof dateRangeQuerySchema>
+
+export type UpdateFrequencyInput = z.infer<typeof updateFrequencySchema>
+export type SetTimingsInput = z.infer<typeof setTimingsSchema>
+export type SetRemindersInput = z.infer<typeof setRemindersSchema>
+export type SetPeriodInput = z.infer<typeof setPeriodSchema>
+export type SetProductsInput = z.infer<typeof setProductsSchema>
+export type ReorderHabitsInput = z.infer<typeof reorderHabitsSchema>
+export type SetRemindersWithTimingInput = z.infer<typeof setRemindersSchema>
+
+// ─── Enums ────────────────────────────────────────────────────────────────────
+
+export type HabitCheckStatus = 'pending' | 'done' | 'skipped'
+
+// ─── Entity Types ─────────────────────────────────────────────────────────────
+// Types standalone mirrorant le schéma Drizzle.
+// Définis ici (pas importés du backend) pour garder shared indépendant de l'ORM.
+
+export type Habit = {
+  id: string
+  name: string
+  createdAt: Date
+  updatedAt: Date
+  userId: string
+  category: string
+  position: number
+  archivedAt: Date | null
+}
+
+export type HabitProduct = {
+  id: string
+  habitId: string
+  productId: string
+  /** Ex: "2 gouttes", "1 comprimé", "1 noisette" */
+  dosage: string | null
+  order: number
+  createdAt: Date
+}
+
+export type HabitFrequency = {
+  habitId: string
+  /** "daily" | "weekly" | "monthly" | "interval" */
+  type: string
+  intervalDays: number | null
+  daysOfWeek: number[] | null
+  daysOfMonth: number[] | null
+  createdAt: Date
+  updatedAt: Date
+}
+
+export type HabitTiming = {
+  id: string
+  /** Résolu par l'API à partir du schedule — le front ne voit pas scheduleId */
+  habitId: string
+  /**
+   * Jour concerné, sémantique selon la fréquence :
+   * - weekly → 0-6 (lun-dim)
+   * - monthly → 1-31
+   * - daily/every_n_days → null
+   */
+  day: number | null
+  /** Format HH:MM */
+  time: string
+  label: string | null
+  createdAt: Date
+}
+
+export type HabitReminder = {
+  id: string
+  timingId: string
+  beforeMinutes: number
+  createdAt: Date
+}
+
+export type HabitTimingWithReminders = HabitTiming & {
+  reminders: HabitReminder[]
+}
+
+export type HabitPeriod = {
+  habitId: string
+  /** Format YYYY-MM-DD */
+  startDate: string
+  /** Format YYYY-MM-DD */
+  endDate: string
+  activeMonths: number[] | null
+  createdAt: Date
+  updatedAt: Date
+}
+
+export type HabitCheck = {
+  id: string
+  userId: string
+  habitId: string
+  /** Format YYYY-MM-DD — date pour laquelle le check compte */
+  scheduledDate: string
+  timingId: string | null
+  /** Format HH:MM — heure réelle d'exécution */
+  actualTime: string | null
+  /** null si status !== 'done' */
+  completedAt: Date | null
+  status: HabitCheckStatus
+  createdAt: Date
+}
+
+export type HabitCheckProduct = {
+  id: string
+  checkId: string
+  habitProductId: string
+  productId: string
+  used: boolean
+  actualDosage: string | null
+  createdAt: Date
+}
+
+// ─── Composed Types ───────────────────────────────────────────────────────────
+
+/**
+ * Habitude avec toutes ses relations chargées.
+ *
+ * @remarks
+ * Utilisé pour les réponses détaillées (GET /habits/:id).
+ * `frequency` et `period` sont `null` si non configurés —
+ * une habitude sans fréquence est considérée comme quotidienne par défaut.
+ */
+export type HabitWithRelations = Habit & {
+  frequency: HabitFrequency | null
+  timings: HabitTimingWithReminders[]
+  reminders: HabitReminder[] // kept for backward compat, flat list of all reminders
+  period: HabitPeriod | null
+  products: HabitProduct[]
+}
+
+/**
+ * Représentation d'une habitude pour la vue du jour (GET /habits/today).
+ *
+ * @remarks
+ * `isCompleted` est calculé côté serveur selon la fréquence et les checks du jour.
+ * Pour une habitude avec timings, `isCompleted` est `true` uniquement si
+ * tous les timings ont été cochés.
+ */
+export type TodayUserProduct = {
+  id: string
+  productId: string
+  dosage: string | null
+  order: number
+  product: { name: string; brand: string; unit: string }
+  stock: { qty: number } | null
+}
+
+export type TodayHabit = {
+  habit: Habit
+  timings: HabitTiming[]
+  checks: HabitCheck[]
+  products: TodayUserProduct[]
+  isCompleted: boolean
+}
+
+/**
+ * Résultat du toggle check (POST /habits/:id/check).
+ */
+export type ToggleCheckResult = {
+  checked: boolean
+  check?: HabitCheck
+  depletedProducts?: string[]
+  checkProducts?: HabitCheckProduct[]
+}
+
+/**
+ * Statistiques agrégées d'une habitude sur une période donnée.
+ *
+ * @remarks
+ * Retourné par GET /habits/:id/stats?startDate=...&endDate=...
+ * - `currentStreak` — nombre de jours consécutifs jusqu'à aujourd'hui
+ * - `completionRate` — ratio entre 0 et 1 (ex: 0.85 = 85%)
+ */
+export type HabitStats = {
+  totalChecks: number
+  currentStreak: number
+  completionRate: number
+}
+
+/**
+ * Codes d'erreur spécifiques au domaine habits.
+ *
+ * @remarks
+ * Ne pas étendre `CommonErrorCode` ici — les codes communs
+ * (`unauthorized`, `server_error`, etc.) sont gérés au niveau du handler.
+ * @see {@link habitErrorMapping}
+ */
+export type HabitErrorCode =
+  | 'habit_not_found'
+  | 'habit_creation_failed'
+  | 'habit_update_failed'
+  | 'habit_delete_failed'
+  | 'frequency_update_failed'
+  | 'timing_not_found'
+  | 'timing_creation_failed'
+  | 'timing_delete_failed'
+  | 'reminder_not_found'
+  | 'reminder_creation_failed'
+  | 'reminder_delete_failed'
+  | 'period_update_failed'
+  | 'period_delete_failed'
+  | 'check_creation_failed'
+  | 'check_not_found'
+  | 'check_delete_failed'
+  | 'product_association_failed'
+  | 'product_not_found'
+  | 'unauthorized_access'
+  | 'invalid_date_range'
+  | 'product_set_failed'
+  | 'reorder_failed'
+  | 'check_products_query_failed'
+  | 'database_error'
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+
+/**
+ * Mapping des codes d'erreur habits vers les status HTTP correspondants.
+ *
+ * @remarks
+ * Utilisé avec {@link errorToStatus} pour résoudre le status HTTP
+ * à partir d'un code d'erreur habit.
+ * @example
+ * const status = errorToStatus(error.code, habitErrorMapping)
+ * return c.json(err(error.code), status)
+ */
+export const habitErrorMapping = {
+  habit_not_found: HTTP_STATUS.NOT_FOUND,
+  habit_creation_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+  habit_update_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+  habit_delete_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+  frequency_update_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+  timing_not_found: HTTP_STATUS.NOT_FOUND,
+  timing_creation_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+  timing_delete_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+  reminder_not_found: HTTP_STATUS.NOT_FOUND,
+  reminder_creation_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+  reminder_delete_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+  period_update_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+  period_delete_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+  check_creation_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+  check_not_found: HTTP_STATUS.NOT_FOUND,
+  check_delete_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+  product_association_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+  product_not_found: HTTP_STATUS.NOT_FOUND,
+  unauthorized_access: HTTP_STATUS.FORBIDDEN,
+  invalid_date_range: HTTP_STATUS.BAD_REQUEST,
+  product_set_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+  reorder_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+  check_products_query_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+  database_error: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+} as const satisfies Record<HabitErrorCode, HttpStatus>
