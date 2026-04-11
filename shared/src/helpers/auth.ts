@@ -2,9 +2,6 @@ import type { AuthErrorCode } from '../types/auth'
 import type { HttpStatus } from '../core'
 import { HTTP_STATUS } from '../core'
 
-// POUR L'INSTANT je redéclare, car y'a un soucis dans les imports......
-// TODO: gérer ce prob
-// type HttpStatus2 = (typeof HTTP_STATUS)[keyof typeof HTTP_STATUS]
 /**
  * Mapping des codes d'erreur auth vers les status HTTP correspondants.
  *
