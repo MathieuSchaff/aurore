@@ -3,6 +3,8 @@ import { type HttpStatus, HTTP_STATUS } from '../core'
 
 // ─── SCHEMAS ─────────────────────────────────────────────────────────────────
 
+const uuid = z.uuid()
+
 export const createThreadSchema = z.object({
   title: z.string().min(1).max(120),
   content: z.string().min(1),
@@ -11,8 +13,6 @@ export const createThreadSchema = z.object({
 export const createReplySchema = z.object({
   content: z.string().min(1),
 })
-
-const uuid = z.uuid()
 
 export const replyResponseSchema = z.object({
   id: uuid,
