@@ -1,6 +1,6 @@
-import type { AuthErrorCode } from '../types/auth'
 import type { HttpStatus } from '../core'
 import { HTTP_STATUS } from '../core'
+import type { AuthErrorCode } from '../types/auth'
 
 /**
  * Mapping des codes d'erreur auth vers les status HTTP correspondants.

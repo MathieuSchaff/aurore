@@ -2,6 +2,8 @@ import { z } from 'zod'
 
 import { fieldChangeSchema } from '../core'
 
+// ─── SCHEMAS ─────────────────────────────────────────────────────────────────
+
 const uuid = z.uuid()
 
 const slugSchema = z
@@ -91,7 +93,6 @@ export const ingredientFilterOptionsSchema = z.object({
     shared_label: z.array(ingredientTagItemSchema),
   }),
 })
-export type IngredientFilterOptions = z.infer<typeof ingredientFilterOptionsSchema>
 
 // coerce because query params always arrive as strings
 export const ingredientsSearchSchema = z.object({
@@ -104,15 +105,8 @@ export const ingredientsSearchSchema = z.object({
   limit: z.coerce.number().min(1).max(100).default(20),
   sort: z.enum(['name', 'random']).optional(),
 })
+
 export const updateIngredientRouteSchema = updateIngredientSchema.extend({
   expectedUpdatedAt: z.coerce.date().optional(),
   summary: z.string().max(500).optional(),
 })
-export type UpdateIngredientRouteInput = z.infer<typeof updateIngredientRouteSchema>
-export type CreateIngredientInput = z.infer<typeof createIngredientSchema>
-export type UpdateIngredientInput = z.infer<typeof updateIngredientSchema>
-export type IngredientResponse = z.infer<typeof ingredientResponseSchema>
-export type IngredientSearchResult = z.infer<typeof ingredientSearchResultSchema>
-export type IngredientEditResponse = z.infer<typeof ingredientEditResponseSchema>
-export type IngredientChanges = z.infer<typeof ingredientChangesSchema>
-export type IngredientSearchFilters = z.infer<typeof ingredientsSearchSchema>

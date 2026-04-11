@@ -1,11 +1,12 @@
 // ─── Core (HTTP constants, response types, schemas, factories, OpenAPI helpers) ──
 
+export type { ApiError, ApiResponse, ApiSuccess } from './core'
 export {
   baseErrorMapping,
   type CommonErrorCode,
   type ContentfulHttpStatus,
-  err,
   ErrorResponseSchema,
+  err,
   errorResponse,
   errorResponseWithOptionnalErrorCode,
   errorToStatus,
@@ -16,11 +17,58 @@ export {
   isApiError,
   isApiSuccess,
   ok,
-  successResponse,
   SuccessResponseSchema,
+  successResponse,
 } from './core'
-export type { ApiError, ApiResponse, ApiSuccess } from './core'
-
+export {
+  type CreateProductIngredientInput,
+  type CreateProductInput,
+  createProductIngredientSchema,
+  createProductSchema,
+  type EditableProductKeys,
+  type FilterTier,
+  filterOptionsSchema,
+  getProductTagCategory,
+  type ListProductsFilters,
+  listProductsQuery,
+  PRODUCT_CATEGORIES,
+  PRODUCT_CATEGORY_VALUES,
+  PRODUCT_KINDS,
+  PRODUCT_TAG_CATEGORIES,
+  PRODUCT_TAG_CATEGORY_META,
+  PRODUCT_TAG_SLUGS,
+  PRODUCT_TAG_TAXONOMY,
+  PRODUCT_UNITS,
+  type Product,
+  type ProductCategory,
+  type ProductChanges,
+  type ProductEdit,
+  type ProductEditResponseSchema,
+  type ProductErrorCode,
+  type ProductIngredient,
+  type ProductIngredientErrorCode,
+  type ProductKind,
+  type ProductKindsMap,
+  type ProductSearchResult,
+  type ProductsPage,
+  type ProductTagCategory,
+  type ProductTagMeta,
+  type ProductTagSlug,
+  type ProductUnit,
+  type ProductWithStock,
+  productChangesSchema,
+  productEditResponseSchema,
+  productErrorMapping,
+  productFilterCategories,
+  productIngredientErrorMapping,
+  productIngredientResponseSchema,
+  productResponseSchema,
+  productsPageSchema,
+  searchProductsQuery,
+  type TagCategoryMeta,
+  type UpdateProductInput,
+  updateProductSchema,
+} from './products'
 // ─── Schemas (runtime validators + inferred types) ───────────────────────────
 export {
   type AuthFieldErrors,
@@ -109,43 +157,42 @@ export {
   updateHabitSchema,
 } from './schemas/habits'
 export {
-  INGREDIENT_CATEGORIES,
-  INGREDIENT_CATEGORY_VALUES,
-  type IngredientCategory,
-} from './schemas/ingredient-categories'
-export {
-  INGREDIENT_TAG_CATEGORY_META,
-  ingredientFilterCategories,
-} from './schemas/ingredient-tag-filters'
-export {
-  INGREDIENT_TAG_SLUGS,
-  type IngredientTagSlug,
-} from './schemas/ingredient-tag-slugs'
-export {
-  getIngredientTagCategory,
-  INGREDIENT_TAG_CATEGORIES,
-  INGREDIENT_TAG_TAXONOMY,
-  type IngredientTagCategory,
-  type IngredientTagMeta,
-} from './schemas/ingredient-tag-taxonomy'
-export {
   type CreateIngredientInput,
   createIngredientSchema,
+  type EditableIngredientKeys,
+  getIngredientTagCategory,
+  type Ingredient,
+  type IngredientCategory,
+  INGREDIENT_CATEGORIES,
+  INGREDIENT_CATEGORY_VALUES,
   type IngredientChanges,
+  type IngredientEdit,
   type IngredientEditResponse,
-  type IngredientResponse,
-  type IngredientSearchFilters,
-  type IngredientSearchResult,
   ingredientChangesSchema,
   ingredientEditResponseSchema,
+  type IngredientErrorCode,
+  ingredientErrorMapping,
+  ingredientFilterCategories,
+  type IngredientFilterOptions,
+  ingredientFilterOptionsSchema,
   ingredientResponseSchema,
   ingredientSearchResultSchema,
   ingredientsSearchSchema,
+  type IngredientResponse,
+  type IngredientSearchFilters,
+  type IngredientSearchResult,
+  INGREDIENT_TAG_CATEGORIES,
+  INGREDIENT_TAG_CATEGORY_META,
+  INGREDIENT_TAG_SLUGS,
+  INGREDIENT_TAG_TAXONOMY,
+  type IngredientTagCategory,
+  type IngredientTagMeta,
+  type IngredientTagSlug,
   type UpdateIngredientInput,
   type UpdateIngredientRouteInput,
   updateIngredientRouteSchema,
   updateIngredientSchema,
-} from './schemas/ingredients'
+} from './ingredients'
 export {
   type HabitCheckProductResponse,
   type HabitCheckWithProductsResponse,
@@ -170,55 +217,6 @@ export {
   type UpdatePrivacySettingsInput,
   updatePrivacySettingsSchema,
 } from './schemas/privacy'
-export {
-  PRODUCT_CATEGORIES,
-  PRODUCT_CATEGORY_VALUES,
-  PRODUCT_KINDS,
-  type ProductCategory,
-  type ProductKind,
-  type ProductKindsMap,
-  PRODUCT_UNITS,
-  type ProductUnit,
-  PRODUCT_TAG_SLUGS,
-  type ProductTagSlug,
-  getProductTagCategory,
-  PRODUCT_TAG_CATEGORIES,
-  PRODUCT_TAG_TAXONOMY,
-  type ProductTagCategory,
-  type ProductTagMeta,
-  type FilterTier,
-  PRODUCT_TAG_CATEGORY_META,
-  productFilterCategories,
-  type TagCategoryMeta,
-  createProductSchema,
-  updateProductSchema,
-  productResponseSchema,
-  productEditResponseSchema,
-  filterOptionsSchema,
-  productsPageSchema,
-  listProductsQuery,
-  productChangesSchema,
-  searchProductsQuery,
-  type CreateProductIngredientInput,
-  createProductIngredientSchema,
-  productIngredientResponseSchema,
-  type ProductIngredient,
-  type ProductIngredientErrorCode,
-  productIngredientErrorMapping,
-  type Product,
-  type ProductWithStock,
-  type EditableProductKeys,
-  type ProductEdit,
-  type ProductSearchResult,
-  type ProductErrorCode,
-  type CreateProductInput,
-  type UpdateProductInput,
-  type ProductEditResponseSchema,
-  type ProductChanges,
-  type ProductsPage,
-  type ListProductsFilters,
-  productErrorMapping,
-} from './products'
 export {
   BIO_MAX_LENGTH,
   type ProfileLink,
@@ -353,12 +351,6 @@ export type {
   TodayUserProduct,
   ToggleCheckResult,
 } from './types/habits'
-export type {
-  EditableIngredientKeys,
-  Ingredient,
-  IngredientEdit,
-  IngredientErrorCode,
-} from './types/ingredients'
 export type { LogsErrorCode } from './types/logs'
 export type {
   MeResponse,
@@ -387,10 +379,8 @@ export type {
 export { authErrorMapping } from './helpers/auth'
 export { discussionErrorMapping } from './helpers/discussions'
 export { habitErrorMapping } from './helpers/habits'
-export { ingredientErrorMapping } from './helpers/ingredients'
 export { logsErrorMapping } from './helpers/logs'
 export { profileErrorMapping } from './helpers/profile'
 export { purchaseErrorMapping } from './helpers/purchases'
 export { tagErrorMapping } from './helpers/tags'
 export { taskErrorMapping } from './helpers/tasks'
-

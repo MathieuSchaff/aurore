@@ -1,6 +1,6 @@
-import type { TagErrorCode } from '../types/tags'
 import type { HttpStatus } from '../core'
 import { HTTP_STATUS } from '../core'
+import type { TagErrorCode } from '../types/tags'
 
 export const tagErrorMapping = {
   tag_not_found: HTTP_STATUS.NOT_FOUND,

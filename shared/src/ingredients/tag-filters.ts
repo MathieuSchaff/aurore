@@ -1,7 +1,5 @@
-import { INGREDIENT_TAG_CATEGORIES, type IngredientTagCategory } from './ingredient-tag-taxonomy'
-import type { TagCategoryMeta } from '../products/tag-filters'
-
-export type { TagCategoryMeta } from '../products/tag-filters'
+import type { TagCategoryMeta } from '../core'
+import { INGREDIENT_TAG_CATEGORIES, type IngredientTagCategory } from './tag-taxonomy'
 
 export const INGREDIENT_TAG_CATEGORY_META: Record<IngredientTagCategory, TagCategoryMeta> = {
   skin_type: { label: 'Peau', placeholder: 'Tous types', tier: 'essential', order: 1 },

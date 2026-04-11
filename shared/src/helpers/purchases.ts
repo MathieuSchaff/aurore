@@ -1,5 +1,5 @@
-import type { PurchaseErrorCode } from '../types/purchases'
 import { HTTP_STATUS, type HttpStatus } from '../core'
+import type { PurchaseErrorCode } from '../types/purchases'
 
 export const purchaseErrorMapping: Record<PurchaseErrorCode, HttpStatus> = {
   purchase_not_found: HTTP_STATUS.NOT_FOUND,

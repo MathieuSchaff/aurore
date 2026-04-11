@@ -1,13 +1,7 @@
+import { type FilterTier, type TagCategoryMeta } from '../core'
 import { PRODUCT_TAG_CATEGORIES, type ProductTagCategory } from './tag-taxonomy'
 
-export type FilterTier = 'essential' | 'advanced'
-
-export interface TagCategoryMeta {
-  label: string
-  placeholder: string
-  tier: FilterTier
-  order: number
-}
+export type { FilterTier, TagCategoryMeta }
 
 export const PRODUCT_TAG_CATEGORY_META: Record<ProductTagCategory, TagCategoryMeta> = {
   skin_type: { label: 'Peau', placeholder: 'Tous types', tier: 'essential', order: 1 },

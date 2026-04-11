@@ -99,6 +99,16 @@ export type FieldChange<T> = {
   new: T | null
 }
 
+// Shared by both products and ingredients tag-filter modules.
+export type FilterTier = 'essential' | 'advanced'
+
+export interface TagCategoryMeta {
+  label: string
+  placeholder: string
+  tier: FilterTier
+  order: number
+}
+
 // ─── Schemas ─────────────────────────────────────────────
 
 export const fieldChangeSchema = <T extends z.ZodTypeAny>(valueSchema: T) =>
