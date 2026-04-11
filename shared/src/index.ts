@@ -197,22 +197,37 @@ export {
   updatePurchaseSchema,
 } from './schemas/purchases'
 export {
-  type FilterTier,
-  filterCategoriesFor,
-  TAG_CATEGORY_META,
-  type TagCategoryMeta,
-} from './schemas/tag-filters'
-export { TAG_SLUGS, type TagSlug } from './schemas/tag-slugs'
+  INGREDIENT_TAG_SLUGS,
+  type IngredientTagSlug,
+} from './schemas/ingredient-tag-slugs'
 export {
-  canTagEntity,
-  getTagCategory,
-  isValidAvoidTag,
-  TAG_CATEGORIES,
-  TAG_TAXONOMY,
-  type TagCategory,
-  type TagMeta,
-  type TagScope,
-} from './schemas/tag-taxonomy'
+  PRODUCT_TAG_SLUGS,
+  type ProductTagSlug,
+} from './schemas/product-tag-slugs'
+export {
+  INGREDIENT_TAG_CATEGORIES,
+  INGREDIENT_TAG_TAXONOMY,
+  type IngredientTagCategory,
+  type IngredientTagMeta,
+  getIngredientTagCategory,
+} from './schemas/ingredient-tag-taxonomy'
+export {
+  PRODUCT_TAG_CATEGORIES,
+  PRODUCT_TAG_TAXONOMY,
+  type ProductTagCategory,
+  type ProductTagMeta,
+  getProductTagCategory,
+} from './schemas/product-tag-taxonomy'
+export {
+  INGREDIENT_TAG_CATEGORY_META,
+  ingredientFilterCategories,
+} from './schemas/ingredient-tag-filters'
+export {
+  type FilterTier,
+  type TagCategoryMeta,
+  PRODUCT_TAG_CATEGORY_META,
+  productFilterCategories,
+} from './schemas/product-tag-filters'
 export {
   type AddIngredientTagInput,
   type AddProductTagInput,
