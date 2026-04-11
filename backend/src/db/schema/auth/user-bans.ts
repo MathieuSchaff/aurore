@@ -3,8 +3,6 @@ import { index, pgEnum, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-co
 
 import { users } from './users'
 
-// ─── Enums ───────────────────────────────────────────────
-
 export const banScopeEnum = pgEnum('ban_scope', [
   'ingredient_edit',
   'product_edit',
@@ -12,12 +10,9 @@ export const banScopeEnum = pgEnum('ban_scope', [
   'global',
 ])
 
-// ─── User Bans (modération) ──────────────────────────────
-
 export const userBans = pgTable(
   'user_bans',
   {
-    // id: uuid('id').defaultRandom().primaryKey(),
     id: uuid('id').primaryKey().default(sql`uuidv7()`),
     userId: uuid('user_id')
       .notNull()
@@ -35,7 +30,5 @@ export const userBans = pgTable(
     index('user_bans_user_scope_idx').on(t.userId, t.scope),
   ]
 )
-
-// ─── Types ───────────────────────────────────────────────
 
 export type UserBan = typeof userBans.$inferSelect

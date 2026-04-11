@@ -1,8 +1,8 @@
 import { sql } from 'drizzle-orm'
 import { boolean, numeric, pgTable, timestamp, uniqueIndex, uuid } from 'drizzle-orm/pg-core'
 
+import { users } from '../auth/users'
 import { ingredients } from './ingredients'
-import { users } from './users'
 
 export const userIngredientAnalysisScore = pgTable(
   'user_ingredient_analysis_score',
@@ -22,3 +22,6 @@ export const userIngredientAnalysisScore = pgTable(
   },
   (t) => [uniqueIndex('user_ing_intel_idx').on(t.userId, t.ingredientId)]
 )
+
+export type UserIngredientAnalysisScore = typeof userIngredientAnalysisScore.$inferSelect
+export type UserIngredientAnalysisScoreInsert = typeof userIngredientAnalysisScore.$inferInsert

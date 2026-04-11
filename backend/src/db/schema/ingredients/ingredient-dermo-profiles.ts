@@ -3,7 +3,7 @@ import { boolean, integer, pgEnum, pgTable, text, uuid } from 'drizzle-orm/pg-co
 import { ingredients } from './ingredients'
 
 export const irritationEnum = pgEnum('irritation_potential', ['low', 'moderate', 'high'])
-// TODO
+
 export const ingredientDermoProfiles = pgTable('ingredient_dermo_profiles', {
   ingredientId: uuid('ingredient_id')
     .primaryKey()
@@ -16,3 +16,6 @@ export const ingredientDermoProfiles = pgTable('ingredient_dermo_profiles', {
   functions: text('functions').array().notNull().default([]),
   skinTargets: text('skin_targets').array().notNull().default([]),
 })
+
+export type IngredientDermoProfile = typeof ingredientDermoProfiles.$inferSelect
+export type IngredientDermoProfileInsert = typeof ingredientDermoProfiles.$inferInsert

@@ -1,10 +1,18 @@
 import { sql } from 'drizzle-orm'
-import { index, pgEnum, pgTable, primaryKey, text, timestamp, uniqueIndex, uuid } from 'drizzle-orm/pg-core'
+import {
+  index,
+  pgEnum,
+  pgTable,
+  primaryKey,
+  text,
+  timestamp,
+  uniqueIndex,
+  uuid,
+} from 'drizzle-orm/pg-core'
 
-import { ingredients } from './ingredients'
-import { products } from './products'
+import { ingredients } from '../ingredients/ingredients'
+import { products } from '../products/products'
 
-// ── Tag definition tables ────────────────────────────────────────────
 // Each domain has its own tag table. Slugs can be identical across
 // domains (e.g. 'peau-grasse' exists in both) — they are independent rows.
 
@@ -38,9 +46,7 @@ export const productTagsDefs = pgTable(
   ]
 )
 
-// ── Junction tables ──────────────────────────────────────────────────
-// Composite PK = uniqueness constraint. No surrogate id, no created_at.
-
+// Junction tables — composite PK = uniqueness constraint
 export const relevanceEnum = pgEnum('relevance', ['primary', 'secondary', 'avoid'])
 
 export const tagIngredients = pgTable(
