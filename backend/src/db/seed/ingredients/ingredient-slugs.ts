@@ -33,6 +33,7 @@ export const HUMECTANTS = {
   PCA: 'pca', // INCI: PCA | facteur d'hydratation naturel (NMF)
   TREHALOSE: 'trehalose', // INCI: Trehalose | osmolyte protecteur, hydratant stabilisant
   GLYCINE: 'glycine', // INCI: Glycine | acide aminé hydratant et apaisant
+  MANNITOL: 'mannitol', // INCI: Mannitol | humectant sucre, souvent utilisé dans les complexes apaisants
 } as const
 
 export const BARRIERE_EMOLLIENTS_OCCLUSIFS = {
@@ -186,8 +187,10 @@ export const ANTIOXYDANTS_VITAMINES = {
   SALVIA_MILTIORRHIZA: 'salvia-miltiorrhiza', // INCI: Salvia Miltiorrhiza Root Extract (sauge chinoise) | antioxydant
   PANAX_GINSENG: 'panax-ginseng', // INCI: Panax Ginseng Root Extract | adaptogène / antioxydant
   PLANKTON_EXTRACT: 'plankton-extract', // INCI: Plankton Extract | antioxydant / hydratant marin
-  ASCOPHYLLUM_NODOSUM_EXTRACT: 'ascophyllum-nodosum-extract', // INCI: Ascophyllum Nodosum Extract | algue, antioxydant
+  ASCOPHYLLUM_NODOSUM_EXTRACT: 'ascophyllum-nodosum-extract', // INCI: Ascophyllum Nodosum Extract | algue, antioxant
+  ASPARAGOPSIS_ARMATA_EXTRACT: 'asparagopsis-armata-extract', // INCI: Asparagopsis Armata Extract | algue rouge, anti-rougeurs
   HUILE_ARGOUSIER: 'hippophae-rhamnoides', // INCI: Hippophae Rhamnoides Fruit Oil / Extract (argousier) | riche en antioxydants
+
   ASTAXANTHINE: 'astaxanthine', // INCI: Haematococcus Pluvialis Extract | algue riche en astaxanthine (antioxydant puissant)
   HAEMATOCOCCUS_PLUVIALIS: 'astaxanthine', // Alias
   EPIGALLOCATECHIN_GALLATYL_GLUCOSIDE: 'egcg-glucoside', // INCI: Epigallocatechin Gallatyl Glucoside | EGCG stable
@@ -223,6 +226,7 @@ export const APAISANTS_ANTI_INFLAMMATOIRES = {
   MANGANESE_GLUCONATE: 'manganese-gluconate', // INCI: Manganese Gluconate | oligo-élément, apaisant
   EAU_DE_ROSE: 'eau-de-rose', // INCI: Rosa Damascena Flower Water | apaisant, tonique
   ROYAL_JELLY_EXTRACT: 'royal-jelly-extract', // INCI: Royal Jelly Extract | apaisant / nourrissant
+  PROPOLIS: 'propolis-extract', // INCI: Propolis Extract | apaisant / antioxydant / cicatrisant
   ZANTHOXYLUM_BUNGEANUM: 'zanthoxylum-bungeanum', // INCI: Zanthoxylum Bungeanum Fruit Extract | poivre Sichuan, anti-démangeaisons
   COLLOIDAL_OATMEAL: 'colloidal-oatmeal',
   EXTRAIT_CAMOMILLE: 'extrait-camomille',
@@ -233,6 +237,11 @@ export const APAISANTS_ANTI_INFLAMMATOIRES = {
   ENOXOLONE: 'enoxolone', // INCI: Enoxolone | dérivé glycyrrhizinique, anti-inflammatoire puissant
   DIPOTASSIUM_GLYCYRRHIZATE: 'dipotassium-glycyrrhizate', // INCI: Dipotassium Glycyrrhizate | apaisant puissant issu de la réglisse
   NEUTRAZEN: 'neutrazen', // INCI: (composant appaisant spécialisé) | complexe pour peaux réactives / couperose
+  SYMSITIVE: 'symsitive', // INCI: 4-t-Butylcyclohexanol | régulateur de sensibilité cutanée
+  LICOCHALCONE_A: 'licochalcone-a', // INCI: Glycyrrhiza Inflata Root Extract | antioxydant et apaisant puissant issu de la réglisse chinoise
+  ASTER_TRIPOLIUM: 'aster-tripolium', // INCI: Aster Tripolium Extract | aster maritime, apaisant et anti-rougeurs
+  SAMBUCUS_NIGRA: 'sambucus-nigra', // INCI: Sambucus Nigra Flower Extract | sureau noir, apaisant
+  DAUCUS_CAROTA: 'daucus-carota', // INCI: Daucus Carota Sativa Root Extract | carotte, apaisant
 } as const
 
 export const ECLAIRCISSANTS_DEPIGMENTANTS = {
@@ -320,6 +329,7 @@ export const PROBIOTIQUES_PREBIOTIQUES_POSTBIOTIQUES = {
   INULINE: 'inuline', // INCI: Cichorium Intybus Root Extract | racine de chicorée, source d'inuline prébiotique
   MICROBIOTA_REGULATOR: 'microbiota-regulator', // Régulateur du microbiote cutané | équilibre flore bactérienne cutanée
   MELABIOME_XP: 'melabiome-xp', // Complexe de postbiotiques et prébiotiques | rééquilibrage et protection microbiote
+  GALACTOMYCES_FERMENT_FILTRATE: 'galactomyces-ferment-filtrate', // INCI: Galactomyces Ferment Filtrate | Pitera (SK-II), ferment riche en nutriments
 } as const
 
 export const ACTIFS_ANTI_AGE_REPARATEURS = {
@@ -399,6 +409,7 @@ export const DIVERS_NON_CLASSES = {
   ARISTOTELIA_CHILENSIS: 'aristotelia-chilensis', // INCI: Aristotelia Chilensis Fruit Extract | maqui berry, antioxydant puissant
   TEPHROSIA_PURPUREA: 'tephrosia-purpurea', // INCI: Tephrosia Purpurea Seed Extract | anti-pollution urbaine
   AVENE_THERMAL_SPRING_WATER: 'avene-thermal-spring-water', // Eau thermale Avène | apaisante, anti-irritante
+  URIAGE_THERMAL_SPRING_WATER: 'uriage-thermal-spring-water', // Eau thermale Uriage | apaisante, reminéralisante naturelle
   TRIPTERYGIUM_WILFORDII_CALLUS_EXTRACT: 'tripterygium-wilfordii-callus-extract',
   MYRTUS_COMMUNIS_LEAF_EXTRACT: 'myrtus-communis-leaf-extract',
   TASMANNIA_LANCEOLATA: 'tasmannia-lanceolata', // INCI: Tasmannia Lanceolata Fruit Extract | épice australienne, matifiante et tonifiante anti-âge

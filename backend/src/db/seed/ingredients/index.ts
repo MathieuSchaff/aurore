@@ -16,6 +16,7 @@ import { RETINOIDES } from './retinoides'
 import type { IngredientInput } from './seed-ingredients'
 import { TENSIOACTIFS_NETTOYANTS } from './tensioactifs-nettoyants'
 import { TEXTURANTS_FONCTIONNELS } from './texturants-fonctionnels'
+import { FILLERS } from './fillers'
 
 export const ingredientData: IngredientInput[] = [
   ...HUMECTANTS,
@@ -34,5 +35,6 @@ export const ingredientData: IngredientInput[] = [
   ...CIRCULATOIRE_DRAINAGE,
   ...TENSIOACTIFS_NETTOYANTS,
   ...TEXTURANTS_FONCTIONNELS,
+  ...FILLERS,
   ...DIVERS_NON_CLASSES,
 ]

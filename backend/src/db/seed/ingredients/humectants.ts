@@ -4,6 +4,33 @@ import type { IngredientInput } from './seed-ingredients'
 
 export const HUMECTANTS: IngredientInput[] = [
   {
+    name: 'Mannitol',
+    slug: INGREDIENT_SLUGS.MANNITOL,
+    category: INGREDIENT_CATEGORIES.HUMECTANT,
+    description:
+      "Sucre naturel (polyol) utilisé pour ses propriétés hydratantes et sa capacité à protéger d'autres actifs contre l'oxydation.",
+    content: `
+# Mannitol
+Le Mannitol est un polyol (sucre-alcool) présent naturellement dans de nombreux végétaux (algues, champignons, arbres). En dermo-cosmétique, il est apprécié pour sa double action : humectant efficace et piégeur de radicaux libres.
+
+## INCI
+**MANNITOL**
+
+## Points forts
+- **Hydratation ciblée** : Capte l'eau dans les couches superficielles de l'épiderme.
+- **Protection antioxydante** : Aide à neutraliser les radicaux hydroxyles, protégeant ainsi l'acide hyaluronique et d'autres structures cutanées de la dégradation.
+- **Aide à la tolérance** : Souvent associé à d'autres sucres (comme le rhamnose ou le xylitol) dans des complexes apaisants pour augmenter le seuil de tolérance des peaux sensibles.
+- **Stabilité** : Très stable en formulation.
+
+## Rôle dans les soins
+Utilisé dans les soins pour peaux sensibles, les produits solaires et les formules hydratantes haute tolérance.
+
+## Utilisation
+- **Cible** : Peaux déshydratées, peaux sensibles, peaux exposées au soleil.
+- **Type de soin** : Eaux micellaires, sérums hydratants, soins après-soleil.
+`,
+  },
+  {
     name: 'Alanine',
     slug: INGREDIENT_SLUGS.ALANINE,
     category: INGREDIENT_CATEGORIES.HUMECTANT,

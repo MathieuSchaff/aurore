@@ -636,6 +636,147 @@ Il apaise instantanément les peaux échauffées ou fatiguées. Dans un soin con
 `,
   },
   {
+    name: 'Eau thermale Uriage',
+    slug: INGREDIENT_SLUGS.URIAGE_THERMAL_SPRING_WATER,
+    category: INGREDIENT_CATEGORIES.APAISANT,
+    description:
+      'Eau thermale isotonique unique, naturellement riche en minéraux et oligo-éléments, qui apaise, hydrate et renforce la barrière cutanée.',
+    content: `
+# Eau thermale Uriage
+L'Eau thermale Uriage est une eau de cure isotonique, ce qui signifie qu'elle est en équilibre osmotique avec les cellules de la peau. Elle ne nécessite pas d'être tamponnée après application.
+
+## Points forts
+- **Isotonicité** : Respecte l'intégrité des cellules cutanées (pas de gonflement ou de rétrécissement).
+- **Richesse minérale** : Contient 11g/L de résidu sec (calcium, magnésium, silicium...).
+- **Barrière cutanée** : Renforce le film hydrolipidique et stimule la synthèse de protéines de structure.
+- **Apaisement** : Calme les irritations, les rougeurs et les échauffements.
+
+## Utilisation
+- **Cible** : Toutes peaux, peaux réactives, peaux fragiles.
+- **Type de soin** : Sprays, soins hydratants, soins pour peaux sensibles.
+`,
+  },
+  {
+    name: 'Asparagopsis Armata Extract',
+    slug: INGREDIENT_SLUGS.ASPARAGOPSIS_ARMATA_EXTRACT,
+    category: INGREDIENT_CATEGORIES.APAISANT,
+    description:
+      'Extrait d’algue rouge reconnu pour ses propriétés anti-rougeurs et sa capacité à inhiber les médiateurs de l’inflammation.',
+    content: `
+# Asparagopsis Armata Extract
+Algue rouge de la famille des Bonnemaisoniaceae. En cosmétique, elle est utilisée pour sa richesse en polysaccharides sulfatés.
+
+## Points forts
+- **Anti-rougeurs** : Aide à réduire la micro-vascularisation excessive.
+- **Anti-inflammatoire** : Inhibe la libération de prostaglandines et de cytokines pro-inflammatoires.
+- **Protection vasculaire** : Renforce les parois des petits vaisseaux.
+
+## Utilisation
+- **Cible** : Peaux sujettes à la couperose et à la rosacée.
+- **Type de soin** : Sérums anti-rougeurs, crèmes apaisantes.
+`,
+  },
+  {
+    name: 'SymSitive (4-t-Butylcyclohexanol)',
+    slug: INGREDIENT_SLUGS.SYMSITIVE,
+    category: INGREDIENT_CATEGORIES.APAISANT,
+    description:
+      'Régulateur de sensibilité cutanée de nouvelle génération qui agit directement sur les récepteurs sensoriels pour calmer instantanément les sensations d’inconfort.',
+    content: `
+# SymSitive (4-t-Butylcyclohexanol)
+Actif breveté par Symrise, conçu pour les peaux hypersensibles.
+
+## Points forts
+- **Action rapide** : Calme les sensations de picotement, de brûlure et de tiraillement en quelques minutes.
+- **Régulation nerveuse** : Agit sur les récepteurs TRPV1, responsables de la transmission de la douleur et de l'inconfort au niveau cutané.
+- **Amélioration du confort** : Augmente le seuil de tolérance de la peau face aux agressions.
+
+## Utilisation
+- **Cible** : Peaux hypersensibles, peaux réactives, peaux intolérantes.
+- **Type de soin** : Crèmes barrière, soins SOS, gammes pour peaux intolérantes (ex: Eucerin UltraSensitive).
+`,
+  },
+  {
+    name: 'Licochalcone A',
+    slug: INGREDIENT_SLUGS.LICOCHALCONE_A,
+    category: INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Antioxydant et apaisant puissant issu de la réglisse chinoise (Glycyrrhiza Inflata), particulièrement efficace contre les rougeurs induites par les UV.',
+    content: `
+# Licochalcone A
+Molécule extraite de la racine de Glycyrrhiza Inflata.
+
+## Points forts
+- **Anti-inflammatoire** : Réduit les rougeurs et l'inflammation cutanée de manière significative.
+- **Antioxydant** : Protège les cellules contre le stress oxydatif, notamment celui causé par les UV et la lumière visible de haute énergie (HEVIS).
+- **Apaisement durable** : Calme les peaux sujettes à l'acné, à la rosacée et aux irritations solaires.
+
+## Utilisation
+- **Cible** : Peaux avec rougeurs, peaux acnéiques, peaux exposées au soleil.
+- **Type de soin** : Soins solaires haute protection, crèmes anti-rougeurs, soins pour peaux acnéiques.
+`,
+  },
+  {
+    name: 'Aster Tripolium Extract',
+    slug: INGREDIENT_SLUGS.ASTER_TRIPOLIUM,
+    category: INGREDIENT_CATEGORIES.APAISANT,
+    description:
+      'Extrait d’aster maritime qui renforce la microcirculation et calme les rougeurs diffuses.',
+    content: `
+# Aster Tripolium Extract (Aster Maritime)
+Plante halophyte (résistante au sel) qui survit dans des environnements côtiers hostiles.
+
+## Points forts
+- **Vasoconstricteur** : Aide à réguler la microcirculation et réduit les rougeurs diffuses.
+- **Apaisant** : Diminue la réactivité cutanée.
+- **Protection barrière** : Renforce la résistance de la peau.
+
+## Utilisation
+- **Cible** : Peaux sujettes à la couperose et à la rosacée.
+- **Type de soin** : Sérums anti-rougeurs.
+`,
+  },
+  {
+    name: 'Sambucus Nigra Flower Extract',
+    slug: INGREDIENT_SLUGS.SAMBUCUS_NIGRA,
+    category: INGREDIENT_CATEGORIES.APAISANT,
+    description:
+      'Extrait de fleur de sureau noir reconnu pour ses propriétés adoucissantes, apaisantes et drainantes.',
+    content: `
+# Sambucus Nigra Flower Extract (Sureau Noir)
+Riche en flavonoïdes et en acides phénoliques.
+
+## Points forts
+- **Adoucissant** : Laisse la peau douce et souple.
+- **Anti-inflammatoire** : Calme les irritations et les rougeurs.
+- **Action décongestionnante** : Aide à drainer les tissus gonflés.
+
+## Utilisation
+- **Cible** : Peaux sensibles, peaux fatiguées, contours des yeux.
+- **Type de soin** : Lotions apaisantes, gels contour des yeux.
+`,
+  },
+  {
+    name: 'Daucus Carota Sativa Root Extract',
+    slug: INGREDIENT_SLUGS.DAUCUS_CAROTA,
+    category: INGREDIENT_CATEGORIES.APAISANT,
+    description:
+      'Extrait de carotte riche en bêta-carotène et vitamines, qui apaise, régénère et apporte un effet "bonne mine" naturel.',
+    content: `
+# Daucus Carota Sativa (Carotte)
+Utilisé pour sa richesse en précurseurs de la vitamine A (caroténoïdes).
+
+## Points forts
+- **Régénérant** : Aide à la réparation des tissus cutanés.
+- **Apaisant** : Calme les peaux irritées ou agressées par le soleil.
+- **Éclat** : Ravive les teints ternes grâce à sa couleur naturelle.
+
+## Utilisation
+- **Cible** : Peaux ternes, peaux sèches, peaux matures.
+- **Type de soin** : Huiles visage, soins éclat, baumes réparateurs.
+`,
+  },
+  {
     name: 'Madecassoside',
     slug: INGREDIENT_SLUGS.MADECASSOSIDE,
     category: INGREDIENT_CATEGORIES.ACTIF,
