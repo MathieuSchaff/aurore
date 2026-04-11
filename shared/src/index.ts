@@ -1,6 +1,27 @@
-// ─── Schemas (runtime validators + inferred types) ───────────────────────────
+// ─── Core (HTTP constants, response types, schemas, factories, OpenAPI helpers) ──
 
-export { ErrorResponseSchema, SuccessResponseSchema } from './schemas/api'
+export {
+  baseErrorMapping,
+  type CommonErrorCode,
+  type ContentfulHttpStatus,
+  err,
+  ErrorResponseSchema,
+  errorResponse,
+  errorResponseWithOptionnalErrorCode,
+  errorToStatus,
+  type FieldChange,
+  fieldChangeSchema,
+  HTTP_STATUS,
+  type HttpStatus,
+  isApiError,
+  isApiSuccess,
+  ok,
+  successResponse,
+  SuccessResponseSchema,
+} from './core'
+export type { ApiError, ApiResponse, ApiSuccess } from './core'
+
+// ─── Schemas (runtime validators + inferred types) ───────────────────────────
 export {
   type AuthFieldErrors,
   type AuthInput,
@@ -93,6 +114,21 @@ export {
   type IngredientCategory,
 } from './schemas/ingredient-categories'
 export {
+  INGREDIENT_TAG_CATEGORY_META,
+  ingredientFilterCategories,
+} from './schemas/ingredient-tag-filters'
+export {
+  INGREDIENT_TAG_SLUGS,
+  type IngredientTagSlug,
+} from './schemas/ingredient-tag-slugs'
+export {
+  getIngredientTagCategory,
+  INGREDIENT_TAG_CATEGORIES,
+  INGREDIENT_TAG_TAXONOMY,
+  type IngredientTagCategory,
+  type IngredientTagMeta,
+} from './schemas/ingredient-tag-taxonomy'
+export {
   type CreateIngredientInput,
   createIngredientSchema,
   type IngredientChanges,
@@ -147,6 +183,23 @@ export {
   type ProductKind,
   type ProductKindsMap,
 } from './schemas/product-kinds'
+export {
+  type FilterTier,
+  PRODUCT_TAG_CATEGORY_META,
+  productFilterCategories,
+  type TagCategoryMeta,
+} from './schemas/product-tag-filters'
+export {
+  PRODUCT_TAG_SLUGS,
+  type ProductTagSlug,
+} from './schemas/product-tag-slugs'
+export {
+  getProductTagCategory,
+  PRODUCT_TAG_CATEGORIES,
+  PRODUCT_TAG_TAXONOMY,
+  type ProductTagCategory,
+  type ProductTagMeta,
+} from './schemas/product-tag-taxonomy'
 export { PRODUCT_UNITS, type ProductUnit } from './schemas/product-units'
 export {
   type CreateProductInput,
@@ -196,38 +249,6 @@ export {
   type UpdatePurchaseInput,
   updatePurchaseSchema,
 } from './schemas/purchases'
-export {
-  INGREDIENT_TAG_SLUGS,
-  type IngredientTagSlug,
-} from './schemas/ingredient-tag-slugs'
-export {
-  PRODUCT_TAG_SLUGS,
-  type ProductTagSlug,
-} from './schemas/product-tag-slugs'
-export {
-  INGREDIENT_TAG_CATEGORIES,
-  INGREDIENT_TAG_TAXONOMY,
-  type IngredientTagCategory,
-  type IngredientTagMeta,
-  getIngredientTagCategory,
-} from './schemas/ingredient-tag-taxonomy'
-export {
-  PRODUCT_TAG_CATEGORIES,
-  PRODUCT_TAG_TAXONOMY,
-  type ProductTagCategory,
-  type ProductTagMeta,
-  getProductTagCategory,
-} from './schemas/product-tag-taxonomy'
-export {
-  INGREDIENT_TAG_CATEGORY_META,
-  ingredientFilterCategories,
-} from './schemas/ingredient-tag-filters'
-export {
-  type FilterTier,
-  type TagCategoryMeta,
-  PRODUCT_TAG_CATEGORY_META,
-  productFilterCategories,
-} from './schemas/product-tag-filters'
 export {
   type AddIngredientTagInput,
   type AddProductTagInput,
@@ -288,14 +309,6 @@ export {
 
 // ─── Types (entity types, error codes, composed types) ───────────────────────
 
-// ─── Types (entity types, error codes, composed types) ───────────────────────
-
-export type {
-  ApiError,
-  ApiResponse,
-  ApiSuccess,
-  CommonErrorCode,
-} from './types/api'
 export type {
   AccessTokenPayload,
   AuthErrorCode,
@@ -313,7 +326,6 @@ export type {
   SignupResult,
   UserPublic,
 } from './types/auth'
-export type { FieldChange } from './types/common'
 export type {
   DiscussionErrorCode,
   DiscussionReply,
@@ -382,22 +394,7 @@ export type { UserProductErrorCode } from './types/user-products'
 
 // ─── Helpers (error mappings, constants, utilities) ──────────────────────────
 
-// ─── Helpers (error mappings, constants, utilities) ──────────────────────────
-
-export {
-  err,
-  errorToStatus,
-  isApiError,
-  isApiSuccess,
-  ok,
-} from './helpers/api'
 export { authErrorMapping } from './helpers/auth'
-export {
-  baseErrorMapping,
-  type ContentfulHttpStatus,
-  HTTP_STATUS,
-  type HttpStatus,
-} from './helpers/constants'
 export { discussionErrorMapping } from './helpers/discussions'
 export { habitErrorMapping } from './helpers/habits'
 export { ingredientErrorMapping } from './helpers/ingredients'
@@ -410,10 +407,3 @@ export { tagErrorMapping } from './helpers/tags'
 export { taskErrorMapping } from './helpers/tasks'
 export { userProductErrorMapping } from './helpers/user-products'
 
-// ─── OpenAPI ─────────────────────────────────────────────────────────────────
-
-export {
-  errorResponse,
-  errorResponseWithOptionnalErrorCode,
-  successResponse,
-} from './openapi/responses'

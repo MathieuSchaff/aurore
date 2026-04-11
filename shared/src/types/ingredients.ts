@@ -1,4 +1,4 @@
-import type { FieldChange } from './common'
+import type { FieldChange } from '../core'
 
 export type Ingredient = {
   id: string

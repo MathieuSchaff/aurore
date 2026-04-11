@@ -1,4 +1,4 @@
-import type { ApiResponse, CommonErrorCode } from './api'
+import type { ApiResponse, CommonErrorCode } from '../core'
 
 // ─── Public Types ────────────────────────────────────────
 

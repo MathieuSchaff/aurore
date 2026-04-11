@@ -1,6 +1,6 @@
 import type { LogsErrorCode } from '../types/logs'
-import type { HttpStatus } from './constants'
-import { HTTP_STATUS } from './constants'
+import type { HttpStatus } from '../core'
+import { HTTP_STATUS } from '../core'
 
 export const logsErrorMapping = {
   habit_not_found: HTTP_STATUS.NOT_FOUND,

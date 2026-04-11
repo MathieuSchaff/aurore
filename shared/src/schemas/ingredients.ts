@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { fieldChangeSchema } from './common'
+import { fieldChangeSchema } from '../core'
 
 const uuid = z.uuid()
 

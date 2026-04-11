@@ -1,6 +1,6 @@
 import type { ProductIngredientErrorCode } from '../types/product-ingredients'
-import type { HttpStatus } from './constants'
-import { HTTP_STATUS } from './constants'
+import type { HttpStatus } from '../core'
+import { HTTP_STATUS } from '../core'
 
 export const productIngredientErrorMapping = {
   product_ingredient_not_found: HTTP_STATUS.NOT_FOUND,

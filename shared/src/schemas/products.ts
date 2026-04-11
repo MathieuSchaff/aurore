@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { fieldChangeSchema } from './common'
+import { fieldChangeSchema } from '../core'
 import { PRODUCT_CATEGORY_VALUES } from './product-kinds'
 
 const uuid = z.uuid()

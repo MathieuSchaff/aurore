@@ -1,6 +1,6 @@
 import type { HabitErrorCode } from '../types/habits'
-import type { HttpStatus } from './constants'
-import { HTTP_STATUS } from './constants'
+import type { HttpStatus } from '../core'
+import { HTTP_STATUS } from '../core'
 
 /**
  * Mapping des codes d'erreur habits vers les status HTTP correspondants.

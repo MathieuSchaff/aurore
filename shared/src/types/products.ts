@@ -1,5 +1,5 @@
 import type { UserProduct } from '../schemas/user-products'
-import type { FieldChange } from './common'
+import type { FieldChange } from '../core'
 
 export type Product = {
   id: string

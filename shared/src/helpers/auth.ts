@@ -1,6 +1,6 @@
 import type { AuthErrorCode } from '../types/auth'
-import type { HttpStatus } from './constants'
-import { HTTP_STATUS } from './constants'
+import type { HttpStatus } from '../core'
+import { HTTP_STATUS } from '../core'
 
 // POUR L'INSTANT je redéclare, car y'a un soucis dans les imports......
 // TODO: gérer ce prob
