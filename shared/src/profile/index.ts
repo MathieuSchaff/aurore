@@ -1,7 +1,8 @@
 import { z } from 'zod'
+
+import type { AuthErrorCode } from '../auth'
 import type { ApiResponse, CommonErrorCode, HttpStatus } from '../core'
 import { HTTP_STATUS } from '../core'
-import type { AuthErrorCode } from '../auth'
 
 // ─── SCHEMAS ─────────────────────────────────────────────────────────────────
 
@@ -68,7 +69,6 @@ export const profileLinkSchema = z.object({
  * Ne contient jamais de données sensibles.
  * Utilisé dans les réponses API et les schemas OpenAPI.
  *
- * @see {@link ProfilePublic} pour le type TS équivalent.
  */
 export const profilePublicSchema = z.object({
   userId: z.uuid(),
@@ -217,23 +217,7 @@ export type UpdateUserPreferencesInput = z.infer<typeof updateUserPreferencesSch
 
 // ── profile entity types ──────────────────────────────────────────────────────
 
-/**
- * Représentation publique d'un profil utilisateur.
- *
- * @remarks
- * Ce type est le pendant TS de {@link profilePublicSchema} (Zod).
- * Ne contient aucune donnée sensible — utilisable côté client.
- * Relation 1:1 avec `users` via `userId`.
- */
-export type ProfilePublic = {
-  userId: string
-  username?: string | null
-  bio?: string | null
-  avatarUrl?: string | null
-  links: ProfileLink[]
-  createdAt?: string | null
-  updatedAt?: string | null
-}
+export type ProfilePublic = z.infer<typeof profilePublicSchema>
 
 // ── error codes ───────────────────────────────────────────────────────────────
 
