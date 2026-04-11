@@ -297,15 +297,17 @@ export {
   type UpdateUserProductInput,
   type UpdateUserProductReviewInput,
   type UserProduct,
+  type UserProductErrorCode,
   type UserProductReview,
   type UserProductStatus,
   updateUserProductReviewSchema,
   updateUserProductSchema,
+  userProductErrorMapping,
   userProductReviewSchema,
   userProductSchema,
   userProductStatus,
   userProductStatusSchema,
-} from './schemas/user-products'
+} from './user-products'
 
 // ─── Types (entity types, error codes, composed types) ───────────────────────
 
@@ -390,7 +392,6 @@ export type {
   TaskErrorCode,
   TaskStatus,
 } from './types/tasks'
-export type { UserProductErrorCode } from './types/user-products'
 
 // ─── Helpers (error mappings, constants, utilities) ──────────────────────────
 
@@ -405,5 +406,4 @@ export { profileErrorMapping } from './helpers/profile'
 export { purchaseErrorMapping } from './helpers/purchases'
 export { tagErrorMapping } from './helpers/tags'
 export { taskErrorMapping } from './helpers/tasks'
-export { userProductErrorMapping } from './helpers/user-products'
 

@@ -1,4 +1,7 @@
 import { z } from 'zod'
+import { type HttpStatus, HTTP_STATUS } from '../core'
+
+// ─── SCHEMAS ──────────────────────────────────────────────
 
 export const userProductStatus = [
   'in_stock',
@@ -73,3 +76,22 @@ export const updateUserProductReviewSchema = z.object({
 export type CreateUserProductInput = z.infer<typeof createUserProductSchema>
 export type UpdateUserProductInput = z.infer<typeof updateUserProductSchema>
 export type UpdateUserProductReviewInput = z.infer<typeof updateUserProductReviewSchema>
+
+// ─── TYPES ────────────────────────────────────────────────
+
+export type UserProductErrorCode =
+  | 'user_product_not_found'
+  | 'user_product_creation_failed'
+  | 'user_product_update_failed'
+  | 'user_product_delete_failed'
+  | 'database_error'
+
+// ─── HELPERS ──────────────────────────────────────────────
+
+export const userProductErrorMapping = {
+  user_product_not_found: HTTP_STATUS.NOT_FOUND,
+  user_product_creation_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+  user_product_update_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+  user_product_delete_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+  database_error: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+} as const satisfies Record<UserProductErrorCode, HttpStatus>

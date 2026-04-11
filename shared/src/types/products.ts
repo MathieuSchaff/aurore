@@ -1,4 +1,4 @@
-import type { UserProduct } from '../schemas/user-products'
+import type { UserProduct } from '../user-products'
 import type { FieldChange } from '../core'
 
 export type Product = {
