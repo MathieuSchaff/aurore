@@ -1,14 +1,14 @@
 import { INGREDIENT_TAG_CATEGORIES, type IngredientTagCategory } from './ingredient-tag-taxonomy'
-import type { TagCategoryMeta } from './product-tag-filters'
+import type { TagCategoryMeta } from '../products/tag-filters'
 
-export type { TagCategoryMeta } from './product-tag-filters'
+export type { TagCategoryMeta } from '../products/tag-filters'
 
 export const INGREDIENT_TAG_CATEGORY_META: Record<IngredientTagCategory, TagCategoryMeta> = {
-  skin_type:            { label: 'Peau',           placeholder: 'Tous types',  tier: 'essential', order: 1 },
-  concern:              { label: 'Problème',        placeholder: 'Toutes',      tier: 'essential', order: 2 },
-  ingredient_attribute: { label: 'Rôle',            placeholder: 'Tous',        tier: 'advanced',  order: 3 },
-  skin_effect:          { label: 'Rendu',           placeholder: 'Tous',        tier: 'advanced',  order: 4 },
-  shared_label:         { label: 'Comédogénicité',  placeholder: 'Indifférent', tier: 'advanced',  order: 5 },
+  skin_type: { label: 'Peau', placeholder: 'Tous types', tier: 'essential', order: 1 },
+  concern: { label: 'Problème', placeholder: 'Toutes', tier: 'essential', order: 2 },
+  ingredient_attribute: { label: 'Rôle', placeholder: 'Tous', tier: 'advanced', order: 3 },
+  skin_effect: { label: 'Rendu', placeholder: 'Tous', tier: 'advanced', order: 4 },
+  shared_label: { label: 'Comédogénicité', placeholder: 'Indifférent', tier: 'advanced', order: 5 },
 }
 
 export function ingredientFilterCategories(): IngredientTagCategory[] {

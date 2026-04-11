@@ -1,5 +1,18 @@
+import { z } from 'zod'
+
 import type { UserProduct } from '../user-products'
 import type { FieldChange } from '../core'
+
+import {
+  createProductSchema,
+  updateProductSchema,
+  productEditResponseSchema,
+  productChangesSchema,
+  productsPageSchema,
+  listProductsQuery,
+} from './schemas'
+
+// ─── TYPES ───────────────────────────────────────────────────────────────────
 
 export type Product = {
   id: string
@@ -29,9 +42,11 @@ export type Product = {
 export type ProductWithStock = Product & {
   stock: UserProduct | null
 }
+
 export type EditableProductKeys = Exclude<keyof Product, 'id' | 'createdBy' | 'createdAt' | 'slug'>
 
-export type ProductChanges = {
+// Manual type used by the edit system (distinct from the Zod-inferred ProductChanges below)
+type ProductEditChanges = {
   [K in EditableProductKeys]?: FieldChange<Product[K]>
 }
 
@@ -40,10 +55,11 @@ export type ProductEdit = {
   productId: string
   editedBy: string
   // changes: Record<string, { old: string | null; new: string | null }>
-  changes: ProductChanges
+  changes: ProductEditChanges
   summary: string | null
   createdAt: string | Date
 }
+
 export type ProductSearchResult = {
   id: string
   name: string
@@ -51,6 +67,7 @@ export type ProductSearchResult = {
   kind: string
   slug: string
 }
+
 export type ProductErrorCode =
   | 'product_not_found'
   | 'product_creation_failed'
@@ -61,3 +78,12 @@ export type ProductErrorCode =
   | 'unauthorized_access'
   | 'database_error'
   | 'no_updatable_fields'
+
+// z.infer<> aliases moved from schemas.ts
+
+export type CreateProductInput = z.infer<typeof createProductSchema>
+export type UpdateProductInput = z.infer<typeof updateProductSchema>
+export type ProductEditResponseSchema = z.infer<typeof productEditResponseSchema>
+export type ProductChanges = z.infer<typeof productChangesSchema>
+export type ProductsPage = z.infer<typeof productsPageSchema>
+export type ListProductsFilters = z.infer<typeof listProductsQuery>

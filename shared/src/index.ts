@@ -171,53 +171,54 @@ export {
   updatePrivacySettingsSchema,
 } from './schemas/privacy'
 export {
-  type CreateProductIngredientInput,
-  createProductIngredientSchema,
-  productIngredientResponseSchema,
-} from './schemas/product-ingredients'
-export {
   PRODUCT_CATEGORIES,
   PRODUCT_CATEGORY_VALUES,
   PRODUCT_KINDS,
   type ProductCategory,
   type ProductKind,
   type ProductKindsMap,
-} from './schemas/product-kinds'
-export {
-  type FilterTier,
-  PRODUCT_TAG_CATEGORY_META,
-  productFilterCategories,
-  type TagCategoryMeta,
-} from './schemas/product-tag-filters'
-export {
+  PRODUCT_UNITS,
+  type ProductUnit,
   PRODUCT_TAG_SLUGS,
   type ProductTagSlug,
-} from './schemas/product-tag-slugs'
-export {
   getProductTagCategory,
   PRODUCT_TAG_CATEGORIES,
   PRODUCT_TAG_TAXONOMY,
   type ProductTagCategory,
   type ProductTagMeta,
-} from './schemas/product-tag-taxonomy'
-export { PRODUCT_UNITS, type ProductUnit } from './schemas/product-units'
-export {
-  type CreateProductInput,
+  type FilterTier,
+  PRODUCT_TAG_CATEGORY_META,
+  productFilterCategories,
+  type TagCategoryMeta,
   createProductSchema,
-  filterOptionsSchema,
-  type ListProductsFilters,
-  listProductsQuery,
-  type ProductChanges,
-  type ProductEditResponseSchema,
-  type ProductsPage,
-  productChangesSchema,
-  productEditResponseSchema,
-  productResponseSchema,
-  productsPageSchema,
-  searchProductsQuery,
-  type UpdateProductInput,
   updateProductSchema,
-} from './schemas/products'
+  productResponseSchema,
+  productEditResponseSchema,
+  filterOptionsSchema,
+  productsPageSchema,
+  listProductsQuery,
+  productChangesSchema,
+  searchProductsQuery,
+  type CreateProductIngredientInput,
+  createProductIngredientSchema,
+  productIngredientResponseSchema,
+  type ProductIngredient,
+  type ProductIngredientErrorCode,
+  productIngredientErrorMapping,
+  type Product,
+  type ProductWithStock,
+  type EditableProductKeys,
+  type ProductEdit,
+  type ProductSearchResult,
+  type ProductErrorCode,
+  type CreateProductInput,
+  type UpdateProductInput,
+  type ProductEditResponseSchema,
+  type ProductChanges,
+  type ProductsPage,
+  type ListProductsFilters,
+  productErrorMapping,
+} from './products'
 export {
   BIO_MAX_LENGTH,
   type ProfileLink,
@@ -360,18 +361,6 @@ export type {
 } from './types/ingredients'
 export type { LogsErrorCode } from './types/logs'
 export type {
-  ProductIngredient,
-  ProductIngredientErrorCode,
-} from './types/product-ingredients'
-export type {
-  EditableProductKeys,
-  Product,
-  ProductEdit,
-  ProductErrorCode,
-  ProductSearchResult,
-  ProductWithStock,
-} from './types/products'
-export type {
   MeResponse,
   ProfileErrorCode,
   ProfilePublic,
@@ -400,8 +389,6 @@ export { discussionErrorMapping } from './helpers/discussions'
 export { habitErrorMapping } from './helpers/habits'
 export { ingredientErrorMapping } from './helpers/ingredients'
 export { logsErrorMapping } from './helpers/logs'
-export { productIngredientErrorMapping } from './helpers/product-ingredients'
-export { productErrorMapping } from './helpers/products'
 export { profileErrorMapping } from './helpers/profile'
 export { purchaseErrorMapping } from './helpers/purchases'
 export { tagErrorMapping } from './helpers/tags'

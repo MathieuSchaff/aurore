@@ -1,4 +1,4 @@
-import type { ProductErrorCode } from '../types/products'
+import type { ProductErrorCode } from './types'
 import type { HttpStatus } from '../core'
 import { HTTP_STATUS } from '../core'
 

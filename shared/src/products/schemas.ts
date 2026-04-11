@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 import { fieldChangeSchema } from '../core'
-import { PRODUCT_CATEGORY_VALUES } from './product-kinds'
+import { PRODUCT_CATEGORY_VALUES } from './kinds'
 
 const uuid = z.uuid()
 
@@ -120,9 +120,6 @@ export const listProductsQuery = z.object({
   sort: z.enum(['name', 'random']).optional(),
 })
 
-export type ProductsPage = z.infer<typeof productsPageSchema>
-export type ListProductsFilters = z.infer<typeof listProductsQuery>
-
 const editableProductFields = {
   name: fieldChangeSchema(z.string()),
   brand: fieldChangeSchema(z.string()),
@@ -151,7 +148,3 @@ export const searchProductsQuery = z.object({
   q: z.string().trim().min(1).max(100),
   limit: z.coerce.number().int().min(1).max(20).default(8),
 })
-export type ProductChanges = z.infer<typeof productChangesSchema>
-export type CreateProductInput = z.infer<typeof createProductSchema>
-export type UpdateProductInput = z.infer<typeof updateProductSchema>
-export type ProductEditResponseSchema = z.infer<typeof productEditResponseSchema>
