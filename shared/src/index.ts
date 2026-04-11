@@ -212,16 +212,23 @@ export {
   wellbeingMetrics,
 } from './logs'
 export {
+  BIO_MAX_LENGTH,
+  type CriteriaWeights,
+  criteriaWeightsSchema,
+  type DisplayScale,
+  displayScale,
+  displayScaleSchema,
+  type MeResponse,
   type PrivacySettings,
   privacySettingsSchema,
-  type UpdatePrivacySettingsInput,
-  updatePrivacySettingsSchema,
-} from './schemas/privacy'
-export {
-  BIO_MAX_LENGTH,
+  type ProfileErrorCode,
   type ProfileLink,
+  type ProfilePublic,
   type ProfileStats,
+  type ProfileStatsResponse,
   type ProfileUpdateInput,
+  type ProfileUpdateResponse,
+  profileErrorMapping,
   profileLinkSchema,
   profilePublicSchema,
   profileStatsSchema,
@@ -230,12 +237,18 @@ export {
   SKIN_TYPES,
   type SkinConcern,
   type SkinType,
-  USERNAME_MAX_LENGTH,
+  type UpdatePrivacySettingsInput,
+  type UpdateUserPreferencesInput,
+  updatePrivacySettingsSchema,
+  updateUserPreferencesSchema,
   type UserDermoProfile,
   type UserDermoProfileUpdateInput,
+  type UserPreferences,
   userDermoProfileSchema,
   userDermoProfileUpdateSchema,
-} from './schemas/profile'
+  userPreferencesSchema,
+  USERNAME_MAX_LENGTH,
+} from './profile'
 export {
   type AddPurchaseInput,
   addPurchaseSchema,
@@ -276,17 +289,6 @@ export {
   updateSubtaskSchema,
   updateTaskSchema,
 } from './tasks'
-export {
-  type CriteriaWeights,
-  criteriaWeightsSchema,
-  type DisplayScale,
-  displayScale,
-  displayScaleSchema,
-  type UpdateUserPreferencesInput,
-  type UserPreferences,
-  updateUserPreferencesSchema,
-  userPreferencesSchema,
-} from './schemas/user-preferences'
 export {
   type CreateUserProductInput,
   createUserProductSchema,
@@ -352,13 +354,6 @@ export type {
   ToggleCheckResult,
 } from './habits'
 export type { LogsErrorCode } from './logs'
-export type {
-  MeResponse,
-  ProfileErrorCode,
-  ProfilePublic,
-  ProfileStatsResponse,
-  ProfileUpdateResponse,
-} from './types/profile'
 export type { PurchaseErrorCode } from './purchases'
 export type {
   IngredientTag,
@@ -380,7 +375,6 @@ export { authErrorMapping } from './auth'
 export { discussionErrorMapping } from './discussions'
 export { habitErrorMapping } from './habits'
 export { logsErrorMapping } from './logs'
-export { profileErrorMapping } from './helpers/profile'
 export { purchaseErrorMapping } from './purchases'
 export { tagErrorMapping } from './tags'
 export { taskErrorMapping } from './tasks'
