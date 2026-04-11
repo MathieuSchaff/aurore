@@ -7,14 +7,15 @@ import { z } from 'zod'
 import type { AppEnv } from '../../app-env'
 import { requireJwtAuth } from '../auth/middleware'
 import {
-  createTag,
-  deleteTag,
-  getTagById,
-  getTagBySlug,
+  createProductTag,
+  deleteProductTag,
+  getIngredientTagBySlug,
+  getProductTagById,
+  getProductTagBySlug,
   listIngredientsByTag,
   listProductsByTag,
-  listTags,
-  updateTag,
+  listProductTags,
+  updateProductTag,
 } from './tags.service'
 import { TagError } from './tags-error'
 
@@ -37,21 +38,21 @@ export const tagRoutes = tagsApp
   .get('/', zValidator('query', listTagsQuery), async (c) => {
     const db = c.get('db')
     const query = c.req.valid('query')
-    const tags = await listTags(db, query)
+    const tags = await listProductTags(db, query)
     return c.json(ok(tags), HTTP_STATUS.OK)
   })
 
   .post('/', zValidator('json', createTagSchema), async (c) => {
     const db = c.get('db')
     const input = c.req.valid('json')
-    const tag = await createTag(db, input)
+    const tag = await createProductTag(db, input)
     return c.json(ok(tag), HTTP_STATUS.CREATED)
   })
 
   .get('/:id', zValidator('param', idParam), async (c) => {
     const db = c.get('db')
     const { id } = c.req.valid('param')
-    const tag = await getTagById(db, id)
+    const tag = await getProductTagById(db, id)
     if (!tag) throw new TagError('tag_not_found')
     return c.json(ok(tag), HTTP_STATUS.OK)
   })
@@ -60,14 +61,14 @@ export const tagRoutes = tagsApp
     const db = c.get('db')
     const { id } = c.req.valid('param')
     const input = c.req.valid('json')
-    const tag = await updateTag(db, id, input)
+    const tag = await updateProductTag(db, id, input)
     return c.json(ok(tag), HTTP_STATUS.OK)
   })
 
   .delete('/:id', zValidator('param', idParam), async (c) => {
     const db = c.get('db')
     const { id } = c.req.valid('param')
-    const deleted = await deleteTag(db, id)
+    const deleted = await deleteProductTag(db, id)
     if (!deleted) throw new TagError('tag_not_found')
     return c.json(ok(null), HTTP_STATUS.OK)
   })
@@ -75,7 +76,7 @@ export const tagRoutes = tagsApp
   .get('/:slug/products', zValidator('param', slugParam), async (c) => {
     const db = c.get('db')
     const { slug } = c.req.valid('param')
-    const tag = await getTagBySlug(db, slug)
+    const tag = await getProductTagBySlug(db, slug)
     if (!tag) throw new TagError('tag_not_found')
     const items = await listProductsByTag(db, tag.id)
     return c.json(ok(items), HTTP_STATUS.OK)
@@ -84,7 +85,8 @@ export const tagRoutes = tagsApp
   .get('/:slug/ingredients', zValidator('param', slugParam), async (c) => {
     const db = c.get('db')
     const { slug } = c.req.valid('param')
-    const tag = await getTagBySlug(db, slug)
+    // Ingredient tags live in their own table
+    const tag = await getIngredientTagBySlug(db, slug)
     if (!tag) throw new TagError('tag_not_found')
     const items = await listIngredientsByTag(db, tag.id)
     return c.json(ok(items), HTTP_STATUS.OK)
