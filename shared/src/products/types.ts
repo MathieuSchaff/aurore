@@ -1,15 +1,14 @@
-import { z } from 'zod'
+import type { z } from 'zod'
 
-import type { UserProduct } from '../user-products'
 import type { FieldChange } from '../core'
-
-import {
+import type { UserProduct } from '../user-products'
+import type {
   createProductSchema,
-  updateProductSchema,
-  productEditResponseSchema,
-  productChangesSchema,
-  productsPageSchema,
   listProductsQuery,
+  productChangesSchema,
+  productEditResponseSchema,
+  productsPageSchema,
+  updateProductSchema,
 } from './schemas'
 
 // ─── TYPES ───────────────────────────────────────────────────────────────────
@@ -54,7 +53,6 @@ export type ProductEdit = {
   id: string
   productId: string
   editedBy: string
-  // changes: Record<string, { old: string | null; new: string | null }>
   changes: ProductEditChanges
   summary: string | null
   createdAt: string | Date

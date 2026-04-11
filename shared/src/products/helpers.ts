@@ -1,6 +1,6 @@
-import type { ProductErrorCode } from './types'
 import type { HttpStatus } from '../core'
 import { HTTP_STATUS } from '../core'
+import type { ProductErrorCode } from './types'
 
 /**
  * Mapping des codes d'erreur products vers les status HTTP correspondants.
@@ -21,6 +21,5 @@ export const productErrorMapping = {
   stock_update_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
   unauthorized_access: HTTP_STATUS.FORBIDDEN,
   database_error: HTTP_STATUS.INTERNAL_SERVER_ERROR,
-  // A TESTEQR
   no_updatable_fields: HTTP_STATUS.BAD_REQUEST,
 } as const satisfies Record<ProductErrorCode, HttpStatus>
