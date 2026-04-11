@@ -3,24 +3,20 @@ import type { IngredientChanges } from '@habit-tracker/shared'
 import { sql } from 'drizzle-orm'
 import { index, jsonb, pgTable, text, timestamp, uniqueIndex, uuid } from 'drizzle-orm/pg-core'
 
-import { users } from './users'
-
-// Tout le monde peut lire et éditer (sauf users bannis via userBans)
+import { users } from '../auth/users'
 
 export const ingredients = pgTable(
   'ingredients',
   {
-    // id: uuid('id').defaultRandom().primaryKey(),
     id: uuid('id').primaryKey().default(sql`uuidv7()`),
     createdBy: uuid('created_by')
       .notNull()
       .references(() => users.id, { onDelete: 'cascade' }),
     name: text('name').notNull(),
     slug: text('slug').notNull(), // URL-friendly: "retinol", "azelaic-acid"
-    description: text('description').notNull().default(''), // description courte
-    content: text('content').notNull().default(''), // contenu wiki (markdown)
+    description: text('description').notNull().default(''), // short description
+    content: text('content').notNull().default(''), // wiki content (markdown)
     category: text('category'), // "actif", "excipient", "vitamine", "minéral"
-
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp('updated_at', { withTimezone: true })
       .notNull()

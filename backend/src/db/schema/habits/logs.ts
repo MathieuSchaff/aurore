@@ -11,11 +11,9 @@ import {
   uuid,
 } from 'drizzle-orm/pg-core'
 
+import { users } from '../auth/users'
+import { products } from '../products/products'
 import { habitChecks, habitProducts } from './habits'
-import { products } from './products'
-import { users } from './users'
-
-// ─── Enums ──────────────────────────────────────────────
 
 export const wellbeingMetricEnum = pgEnum('wellbeing_metric', [
   'energy',
@@ -26,8 +24,6 @@ export const wellbeingMetricEnum = pgEnum('wellbeing_metric', [
   'skin',
   'pain',
 ])
-
-// ─── Habit Check Products ───────────────────────────────
 
 export const habitCheckProducts = pgTable(
   'habit_check_products',
@@ -53,8 +49,6 @@ export const habitCheckProducts = pgTable(
   ]
 )
 
-// ─── Wellbeing Logs ─────────────────────────────────────
-
 export const wellbeingLogs = pgTable(
   'wellbeing_logs',
   {
@@ -74,8 +68,6 @@ export const wellbeingLogs = pgTable(
     index('wellbeing_logs_user_logged_idx').on(t.userId, t.loggedAt),
   ]
 )
-
-// ─── Types ──────────────────────────────────────────────
 
 export type HabitCheckProduct = typeof habitCheckProducts.$inferSelect
 export type HabitCheckProductInsert = typeof habitCheckProducts.$inferInsert

@@ -11,7 +11,7 @@ import {
   uuid,
 } from 'drizzle-orm/pg-core'
 
-import { users } from './users'
+import { users } from '../auth/users'
 
 export const errorSourceEnum = pgEnum('error_source', ['backend', 'frontend'])
 

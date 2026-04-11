@@ -1,4 +1,4 @@
-import { relations, sql } from 'drizzle-orm'
+import { sql } from 'drizzle-orm'
 import { date, index, integer, pgTable, timestamp, uuid } from 'drizzle-orm/pg-core'
 
 import { userProducts } from './user-products'
@@ -22,13 +22,6 @@ export const purchases = pgTable(
     index('purchases_user_product_purchased_idx').on(t.userProductId, t.purchasedAt),
   ]
 )
-
-export const purchasesRelations = relations(purchases, ({ one }) => ({
-  userProduct: one(userProducts, {
-    fields: [purchases.userProductId],
-    references: [userProducts.id],
-  }),
-}))
 
 export type Purchase = typeof purchases.$inferSelect
 export type PurchaseInsert = typeof purchases.$inferInsert

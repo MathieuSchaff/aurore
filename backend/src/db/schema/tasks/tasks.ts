@@ -11,15 +11,11 @@ import {
   uuid,
 } from 'drizzle-orm/pg-core'
 
-import { users } from './users'
-
-// ─── Enums ───────────────────────────────────────────────
+import { users } from '../auth/users'
 
 export const taskEnergyEnum = pgEnum('task_energy', ['low', 'medium', 'high'])
 
 export const taskStatusEnum = pgEnum('task_status', ['inbox', 'active', 'done', 'snoozed'])
-
-// ─── Tasks ───────────────────────────────────────────────
 
 export const tasks = pgTable(
   'tasks',
@@ -46,8 +42,6 @@ export const tasks = pgTable(
   ]
 )
 
-// ─── Subtasks ─────────────────────────────────────────────
-
 export const subtasks = pgTable(
   'subtasks',
   {
@@ -62,8 +56,6 @@ export const subtasks = pgTable(
   },
   (t) => [index('subtasks_task_order_idx').on(t.taskId, t.order)]
 )
-
-// ─── Types ───────────────────────────────────────────────
 
 export type Task = typeof tasks.$inferSelect
 export type TaskInsert = typeof tasks.$inferInsert

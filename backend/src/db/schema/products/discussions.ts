@@ -1,9 +1,9 @@
 import { sql } from 'drizzle-orm'
 import { check, index, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core'
 
-import { ingredients } from './ingredients'
+import { users } from '../auth/users'
+import { ingredients } from '../ingredients/ingredients'
 import { products } from './products'
-import { users } from './users'
 
 export const discussionThreads = pgTable(
   'discussion_threads',
