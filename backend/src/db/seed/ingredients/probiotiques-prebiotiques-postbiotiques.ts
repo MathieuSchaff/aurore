@@ -451,4 +451,45 @@ Le **Melabiome-XP** est un complexe de nouvelle génération combinant des préb
 * **Hydratation** : Améliore la rétention d'eau en synergie avec les bonnes bactéries.
     `,
   },
+  {
+    name: 'Galactomyces Ferment Filtrate (Pitera)',
+    slug: INGREDIENT_SLUGS.GALACTOMYCES_FERMENT_FILTRATE,
+    category: INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Un ferment riche en nutriments, vitamines et acides aminés qui améliore la texture, l’éclat et la barrière cutanée.',
+    content: `
+# Galactomyces Ferment Filtrate : L’Élixir de Jeunesse (Pitera)
+
+Le **Galactomyces Ferment Filtrate**, mondialement connu sous le nom de **Pitera** (actif signature de SK-II), est un liquide riche en nutriments obtenu par la fermentation d'une levure spécifique du genre *Galactomyces*. Découvert suite à l'observation de la jeunesse frappante des mains des brasseurs de saké au Japon, cet ingrédient est devenu un pilier de la J-Beauty et de la K-Beauty pour son action transformatrice sur la peau.
+
+---
+
+## 🔬 Composition & Expertise
+Ce filtrat n'est pas un actif isolé mais un cocktail biologique complexe comprenant :
+* **Vitamines & Acides Aminés** : Essentiels à la vitalité cellulaire.
+* **Minéraux & Acides Organiques** : Soutiennent le métabolisme cutané.
+* **Peptides de Levure** : Favorisent la régénération et la synthèse de collagène.
+
+---
+
+## ✨ Points Forts & Bénéfices
+* **Éclat Cristallin** : Améliore visiblement la transparence et la luminosité du teint.
+* **Affinement du Grain** : Lisse la texture de la peau et réduit l'apparence des pores.
+* **Régulation du Sébum** : Aide à équilibrer la production d'huile des peaux mixtes à grasses.
+* **Hydratation & Barrière** : Renforce la fonction barrière et booste la rétention d'eau naturelle (NMF).
+* **Action Anti-Âge** : Aide à préserver la fermeté et à atténuer les ridules.
+
+---
+
+## ⚖️ Transparence Scientifique & Limites
+* **Sensibilité de la Levure** : Les bénéfices dépendent énormément de la qualité et du procédé de fermentation. Tous les ferments de Galactomyces ne sont pas équivalents au Pitera original.
+* **Odeur Caractéristique** : Possède parfois une légère odeur de "fermentation" ou de levure, bien que souvent masquée en formulation.
+
+---
+
+## 🛡️ Précautions & Sécurité
+* **Excellente Tolérance** : Convient à la majorité des types de peaux, y compris sensibles.
+* **Fungal Acne** : Bien que rare, certains individus sujets à la "folliculite à Malassezia" (acné fongique) peuvent réagir aux ferments de levure. Un test patch est recommandé en cas de doute.
+`,
+  },
 ]
