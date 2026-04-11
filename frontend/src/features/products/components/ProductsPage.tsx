@@ -1,3 +1,4 @@
+import { PRODUCT_TAG_CATEGORY_META } from '@habit-tracker/shared'
 import { useQuery } from '@tanstack/react-query'
 import { getRouteApi, Link, useNavigate } from '@tanstack/react-router'
 import { Package, Plus, SlidersHorizontal } from 'lucide-react'
@@ -140,7 +141,7 @@ export function ProductsPage() {
     staleTime: hasFilters ? 5 * 60 * 1000 : 0,
   })
 
-  const tagGroups = useTagFilterGroups(TAG_FILTER_KEYS, filterOptions?.tags, LABEL_OVERRIDES)
+  const tagGroups = useTagFilterGroups(TAG_FILTER_KEYS, filterOptions?.tags, PRODUCT_TAG_CATEGORY_META, LABEL_OVERRIDES)
 
   const filterGroups = useMemo<FilterGroupConfig<FilterKey>[]>(() => {
     if (!filterOptions) return []

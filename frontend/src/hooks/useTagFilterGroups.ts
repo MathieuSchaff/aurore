@@ -1,30 +1,29 @@
-import { TAG_CATEGORY_META, type TagCategory } from '@habit-tracker/shared'
-
 import { useMemo } from 'react'
 
 import type { FilterGroupConfig, FilterOption } from '@/component/Filter'
+import type { TagCategoryMeta } from '@habit-tracker/shared'
 
 type TagItem = { name: string; slug: string }
 
 /**
- * Build FilterGroupConfig[] from shared TAG_CATEGORY_META and a filter-options payload.
- * Replaces hand-maintained useMemo blocks in IngredientsPage and ProductsPage.
+ * Build FilterGroupConfig[] from domain category metadata and a filter-options payload.
  *
- * @param categories — TagCategory[] of the categories to include
- * @param tagsByCategory — Partial<Record<K, TagItem[]>> with tag items per category
- * @param labelOverrides — Record<slug, label> to override tag names (e.g. LABEL_OVERRIDES in ProductsPage)
- * @returns FilterGroupConfig<K>[] — one group per category, flat list
+ * @param categories — category keys to include (product or ingredient)
+ * @param tagsByCategory — tag items per category (from API filter-options)
+ * @param categoryMeta — PRODUCT_TAG_CATEGORY_META or INGREDIENT_TAG_CATEGORY_META
+ * @param labelOverrides — slug → label overrides (optional)
  */
-export function useTagFilterGroups<K extends TagCategory>(
+export function useTagFilterGroups<K extends string>(
   categories: readonly K[],
   tagsByCategory: Partial<Record<K, TagItem[]>> | undefined,
+  categoryMeta: Record<K, TagCategoryMeta>,
   labelOverrides: Record<string, string> = {}
 ): FilterGroupConfig<K>[] {
   return useMemo(() => {
     if (!tagsByCategory) return []
 
     return categories.map((cat) => {
-      const meta = TAG_CATEGORY_META[cat]
+      const meta = categoryMeta[cat]
       const options: FilterOption[] = (tagsByCategory[cat] ?? []).map((t) => ({
         value: t.slug,
         label: labelOverrides[t.slug] ?? t.name,
@@ -45,5 +44,5 @@ export function useTagFilterGroups<K extends TagCategory>(
         ],
       }
     })
-  }, [categories, tagsByCategory, labelOverrides])
+  }, [categories, tagsByCategory, categoryMeta, labelOverrides])
 }
