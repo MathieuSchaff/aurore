@@ -4,7 +4,7 @@ import { Hono } from 'hono'
 
 import type { AppEnv } from '../../app-env'
 import type { HabitCheck } from '../../db/schema/habits'
-import type { WellbeingLog } from '../../db/schema/logs'
+import type { WellbeingLog } from '../../db/schema/habits/logs'
 
 // Minimal stub to unblock ts-build in this worktree. The real logs
 // feature doesn't exist yet on this branch; these endpoints are just

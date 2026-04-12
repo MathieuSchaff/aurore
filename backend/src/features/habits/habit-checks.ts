@@ -3,7 +3,7 @@ import { and, asc, between, eq, isNull } from 'drizzle-orm'
 import type { DB } from '../../db'
 import { db } from '../../db'
 import { type HabitCheck, habitChecks } from '../../db/schema/habits'
-import { type HabitCheckProduct, habitCheckProducts } from '../../db/schema/logs'
+import { type HabitCheckProduct, habitCheckProducts } from '../../db/schema/habits/logs'
 import { products } from '../../db/schema/products'
 import { HabitError } from './habit-error'
 
