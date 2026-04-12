@@ -1,7 +1,8 @@
+import type { TagCategoryMeta } from '@habit-tracker/shared'
+
 import { useMemo } from 'react'
 
 import type { FilterGroupConfig, FilterOption } from '@/component/Filter'
-import type { TagCategoryMeta } from '@habit-tracker/shared'
 
 type TagItem = { name: string; slug: string }
 

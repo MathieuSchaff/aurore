@@ -28,7 +28,7 @@ export function IngredientEditPage() {
         mode="edit"
         ingredient={ingredient}
         initialTags={currentTags.map((t) => ({
-          tagId: t.tagId,
+          tagId: t.ingredientTagId,
           tagName: t.tagName,
           relevance: (t.relevance || 'secondary') as 'primary' | 'secondary' | 'avoid',
         }))}

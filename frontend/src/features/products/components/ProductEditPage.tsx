@@ -27,7 +27,7 @@ export function ProductEditPage() {
         mode="edit"
         product={product}
         initialTags={currentTags.map((t) => ({
-          tagId: t.tagId,
+          tagId: t.productTagId,
           tagName: t.tagName,
           relevance: (t.relevance || 'secondary') as 'primary' | 'secondary' | 'avoid',
         }))}

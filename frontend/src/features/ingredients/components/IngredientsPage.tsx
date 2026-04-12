@@ -1,4 +1,5 @@
 import { INGREDIENT_TAG_CATEGORY_META } from '@habit-tracker/shared'
+
 import { useQuery } from '@tanstack/react-query'
 import { getRouteApi, Link, useNavigate } from '@tanstack/react-router'
 import { FlaskConical, Plus, SlidersHorizontal } from 'lucide-react'
@@ -75,7 +76,11 @@ export function IngredientsPage() {
   const total = data?.total ?? 0
   const totalPages = Math.ceil(total / PAGE_SIZE)
 
-  const filterGroups = useTagFilterGroups(FILTER_KEYS, filterOptions?.tags, INGREDIENT_TAG_CATEGORY_META)
+  const filterGroups = useTagFilterGroups(
+    FILTER_KEYS,
+    filterOptions?.tags,
+    INGREDIENT_TAG_CATEGORY_META
+  )
 
   return (
     <div className="list-page ingredients-page">
