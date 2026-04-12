@@ -71,14 +71,14 @@ export function ProductDetailSheet({
 
   const tagsByCategory = useMemo(() => {
     const map: Record<string, string[]> = {}
-    if (!p.product.productTags) return map
-    for (const pt of p.product.productTags) {
-      const cat = pt.tag.category || 'other'
+    if (!p.product.tagProducts) return map
+    for (const pt of p.product.tagProducts) {
+      const cat = pt.productTag?.tagType || 'other'
       if (!map[cat]) map[cat] = []
-      map[cat].push(pt.tag.name)
+      map[cat].push(pt.productTag?.label ?? '')
     }
     return map
-  }, [p.product.productTags])
+  }, [p.product.tagProducts])
 
   const zone = tagsByCategory.skin_zone?.join(', ') || 'Non spécifiée'
   const type = tagsByCategory.product_type?.join(', ') || 'Non spécifié'

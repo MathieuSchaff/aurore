@@ -63,7 +63,7 @@ export function IngredientInfoTab() {
           <div className="ingredient-tags-list">
             {beneficialTags.map((t) => (
               <span
-                key={t.id}
+                key={t.ingredientTagId}
                 className={`tag-pill ${t.relevance === 'primary' ? 'tag-pill--primary' : ''}`}
               >
                 {t.tagName}
@@ -78,7 +78,7 @@ export function IngredientInfoTab() {
           <SectionHeader title="À éviter pour" variant="error" />
           <div className="ingredient-tags-list">
             {avoidTags.map((t) => (
-              <Badge key={t.id} variant="error">
+              <Badge key={t.ingredientTagId} variant="error">
                 {t.tagName}
               </Badge>
             ))}
