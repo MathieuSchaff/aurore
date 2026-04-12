@@ -5,8 +5,8 @@ import slugify from '@sindresorhus/slugify'
 import { and, eq, getTableColumns } from 'drizzle-orm'
 
 import type { DB } from '../../db/index'
-import { type Ingredient, ingredients } from '../../db/schema/ingredients'
-import { type Product, products } from '../../db/schema/products'
+import { type Ingredient, ingredients } from '../../db/schema/ingredients/ingredients'
+import { type Product, products } from '../../db/schema/products/products'
 import {
   type IngredientTagDef,
   ingredientTagsDefs,
@@ -14,7 +14,7 @@ import {
   productTagsDefs,
   tagIngredients,
   tagProducts,
-} from '../../db/schema/tags'
+} from '../../db/schema/tags/tags'
 import { isUniqueViolation } from '../../lib/helpers'
 import { TagError } from './tags-error'
 
@@ -42,8 +42,15 @@ export async function getProductTagById(db: DB, id: string): Promise<ProductTagD
   return tag
 }
 
-export async function getProductTagBySlug(db: DB, slug: string): Promise<ProductTagDef | undefined> {
-  const [tag] = await db.select().from(productTagsDefs).where(eq(productTagsDefs.slug, slug)).limit(1)
+export async function getProductTagBySlug(
+  db: DB,
+  slug: string
+): Promise<ProductTagDef | undefined> {
+  const [tag] = await db
+    .select()
+    .from(productTagsDefs)
+    .where(eq(productTagsDefs.slug, slug))
+    .limit(1)
   return tag
 }
 
@@ -53,10 +60,20 @@ export async function listProductTags(
 ) {
   const { category, limit = 100, offset = 0 } = params
   const where = category ? eq(productTagsDefs.tagType, category) : undefined
-  return db.select().from(productTagsDefs).where(where).limit(limit).offset(offset).orderBy(productTagsDefs.label)
+  return db
+    .select()
+    .from(productTagsDefs)
+    .where(where)
+    .limit(limit)
+    .offset(offset)
+    .orderBy(productTagsDefs.label)
 }
 
-export async function updateProductTag(db: DB, id: string, data: UpdateTagInput): Promise<ProductTagDef> {
+export async function updateProductTag(
+  db: DB,
+  id: string,
+  data: UpdateTagInput
+): Promise<ProductTagDef> {
   createTagSchema.parse(data)
   try {
     const [tag] = await db
@@ -74,7 +91,10 @@ export async function updateProductTag(db: DB, id: string, data: UpdateTagInput)
 }
 
 export async function deleteProductTag(db: DB, id: string): Promise<boolean> {
-  const result = await db.delete(productTagsDefs).where(eq(productTagsDefs.id, id)).returning({ id: productTagsDefs.id })
+  const result = await db
+    .delete(productTagsDefs)
+    .where(eq(productTagsDefs.id, id))
+    .returning({ id: productTagsDefs.id })
   return result.length > 0
 }
 
@@ -97,13 +117,27 @@ export async function createIngredientTag(db: DB, data: CreateTagInput): Promise
   }
 }
 
-export async function getIngredientTagById(db: DB, id: string): Promise<IngredientTagDef | undefined> {
-  const [tag] = await db.select().from(ingredientTagsDefs).where(eq(ingredientTagsDefs.id, id)).limit(1)
+export async function getIngredientTagById(
+  db: DB,
+  id: string
+): Promise<IngredientTagDef | undefined> {
+  const [tag] = await db
+    .select()
+    .from(ingredientTagsDefs)
+    .where(eq(ingredientTagsDefs.id, id))
+    .limit(1)
   return tag
 }
 
-export async function getIngredientTagBySlug(db: DB, slug: string): Promise<IngredientTagDef | undefined> {
-  const [tag] = await db.select().from(ingredientTagsDefs).where(eq(ingredientTagsDefs.slug, slug)).limit(1)
+export async function getIngredientTagBySlug(
+  db: DB,
+  slug: string
+): Promise<IngredientTagDef | undefined> {
+  const [tag] = await db
+    .select()
+    .from(ingredientTagsDefs)
+    .where(eq(ingredientTagsDefs.slug, slug))
+    .limit(1)
   return tag
 }
 
@@ -113,10 +147,20 @@ export async function listIngredientTags(
 ) {
   const { category, limit = 100, offset = 0 } = params
   const where = category ? eq(ingredientTagsDefs.tagType, category) : undefined
-  return db.select().from(ingredientTagsDefs).where(where).limit(limit).offset(offset).orderBy(ingredientTagsDefs.label)
+  return db
+    .select()
+    .from(ingredientTagsDefs)
+    .where(where)
+    .limit(limit)
+    .offset(offset)
+    .orderBy(ingredientTagsDefs.label)
 }
 
-export async function updateIngredientTag(db: DB, id: string, data: UpdateTagInput): Promise<IngredientTagDef> {
+export async function updateIngredientTag(
+  db: DB,
+  id: string,
+  data: UpdateTagInput
+): Promise<IngredientTagDef> {
   createTagSchema.parse(data)
   try {
     const [tag] = await db
@@ -134,7 +178,10 @@ export async function updateIngredientTag(db: DB, id: string, data: UpdateTagInp
 }
 
 export async function deleteIngredientTag(db: DB, id: string): Promise<boolean> {
-  const result = await db.delete(ingredientTagsDefs).where(eq(ingredientTagsDefs.id, id)).returning({ id: ingredientTagsDefs.id })
+  const result = await db
+    .delete(ingredientTagsDefs)
+    .where(eq(ingredientTagsDefs.id, id))
+    .returning({ id: ingredientTagsDefs.id })
   return result.length > 0
 }
 
@@ -146,7 +193,10 @@ export async function addTagToProduct(
   productTagId: string,
   relevance: 'primary' | 'secondary' | 'avoid' = 'secondary'
 ) {
-  const [link] = await db.insert(tagProducts).values({ productId, productTagId, relevance }).returning()
+  const [link] = await db
+    .insert(tagProducts)
+    .values({ productId, productTagId, relevance })
+    .returning()
   return link
 }
 
@@ -192,7 +242,11 @@ export async function listProductsByTag(db: DB, productTagId: string): Promise<P
     .orderBy(products.name)
 }
 
-export async function removeTagFromProduct(db: DB, productId: string, productTagId: string): Promise<boolean> {
+export async function removeTagFromProduct(
+  db: DB,
+  productId: string,
+  productTagId: string
+): Promise<boolean> {
   const result = await db
     .delete(tagProducts)
     .where(and(eq(tagProducts.productId, productId), eq(tagProducts.productTagId, productTagId)))
@@ -229,7 +283,10 @@ export async function addTagToIngredient(
   ingredientTagId: string,
   relevance: 'primary' | 'secondary' | 'avoid' = 'secondary'
 ) {
-  const [link] = await db.insert(tagIngredients).values({ ingredientId, ingredientTagId, relevance }).returning()
+  const [link] = await db
+    .insert(tagIngredients)
+    .values({ ingredientId, ingredientTagId, relevance })
+    .returning()
   return link
 }
 
@@ -244,7 +301,11 @@ export async function addManyTagsToIngredient(
     if (typeof t === 'string') {
       return { ingredientId, ingredientTagId: t, relevance: 'secondary' as const }
     }
-    return { ingredientId, ingredientTagId: t.tagId, relevance: t.relevance ?? ('secondary' as const) }
+    return {
+      ingredientId,
+      ingredientTagId: t.tagId,
+      relevance: t.relevance ?? ('secondary' as const),
+    }
   })
 
   return db.insert(tagIngredients).values(values).returning()
@@ -275,10 +336,19 @@ export async function listIngredientsByTag(db: DB, ingredientTagId: string): Pro
     .orderBy(ingredients.name)
 }
 
-export async function removeTagFromIngredient(db: DB, ingredientId: string, ingredientTagId: string): Promise<boolean> {
+export async function removeTagFromIngredient(
+  db: DB,
+  ingredientId: string,
+  ingredientTagId: string
+): Promise<boolean> {
   const result = await db
     .delete(tagIngredients)
-    .where(and(eq(tagIngredients.ingredientId, ingredientId), eq(tagIngredients.ingredientTagId, ingredientTagId)))
+    .where(
+      and(
+        eq(tagIngredients.ingredientId, ingredientId),
+        eq(tagIngredients.ingredientTagId, ingredientTagId)
+      )
+    )
     .returning({ ingredientTagId: tagIngredients.ingredientTagId })
   return result.length > 0
 }
@@ -297,7 +367,11 @@ export async function replaceIngredientTags(
       if (typeof t === 'string') {
         return { ingredientId, ingredientTagId: t, relevance: 'secondary' as const }
       }
-      return { ingredientId, ingredientTagId: t.tagId, relevance: t.relevance ?? ('secondary' as const) }
+      return {
+        ingredientId,
+        ingredientTagId: t.tagId,
+        relevance: t.relevance ?? ('secondary' as const),
+      }
     })
 
     return tx.insert(tagIngredients).values(values).returning()

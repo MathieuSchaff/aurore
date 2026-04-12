@@ -31,8 +31,8 @@
 import { and, eq, inArray, sql } from 'drizzle-orm'
 
 import type { DB } from '../db'
-import { ingredientDermoProfiles } from '../db/schema/ingredient_dermo_profiles'
-import { userIngredientAnalysisScore } from '../db/schema/user-ingredient-analysis-score'
+import { ingredientDermoProfiles } from '../db/schema/ingredients/ingredient-dermo-profiles'
+import { userIngredientAnalysisScore } from '../db/schema/ingredients/user-ingredient-analysis-score'
 import { userProducts } from '../db/schema/user-products'
 
 // Need at least this many products in a bucket before we trust the ratio.
