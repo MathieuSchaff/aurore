@@ -141,13 +141,18 @@ test-db-up: ## Lance la DB de test et crée les tables
 test-db-down: ## Arrête la DB de test
 	$(COMPOSE_TEST) down
 
-test: test-db-up ## Lance les tests (backend) complets (up, run, down) - ARGS="pattern"
-	@DATABASE_URL=$(TEST_DB_URL) bun --cwd ./backend test $(ARGS) || ($(MAKE) test-db-down && exit 1)
-	@$(MAKE) test-db-down
+test: test-db-up ## Lance les tests (backend) complets - ARGS="pattern"
+	@DATABASE_URL=$(TEST_DB_URL) bun --cwd ./backend test $(ARGS)
 	@echo "$(GREEN)✓ Tests terminés$(NC)"
 
 test-dev: ## Lance les tests sans couper la DB (plus rapide en dev) - ARGS="pattern"
 	@cd backend && DATABASE_URL=$(TEST_DB_URL) bun test $(ARGS)
+
+test-failures: test-db-up ## Affiche uniquement les tests qui échouent - ARGS="pattern"
+	@DATABASE_URL=$(TEST_DB_URL) bun --cwd ./backend test $(ARGS) 2>&1 \
+		| grep -E "^\s*(✗|×|fail|error:|at )" \
+		| grep -v "node_modules" \
+		|| true
 
 test-dev-watch: ## Lance les tests en mode watch (nécessite test-db-up)
 	@cd backend && DATABASE_URL=$(TEST_DB_URL) bun test --watch $(ARGS)
@@ -157,7 +162,6 @@ test-watch: test-db-up ## Lance les tests en mode watch avec auto-setup
 
 test-only: test-db-up ## Lance des tests spécifiques (ARGS="pattern")
 	@cd backend && DATABASE_URL=$(TEST_DB_URL) bun test "$(ARGS)"
-	@$(MAKE) test-db-down
 
 test-db-studio: ## Lance Drizzle Studio pour la DB de test
 	cd backend && DATABASE_URL="$(TEST_DB_URL)" bun x drizzle-kit studio --port 4982
