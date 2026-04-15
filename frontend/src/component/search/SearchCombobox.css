@@ -37,7 +37,6 @@
   box-shadow: 0 0 0 3px oklch(from var(--color-focus) l c h / 0.2);
 }
 
-/* renderItem content styles */
 .search-combobox__label {
   font-size: var(--text-sm);
   font-weight: var(--font-medium);
