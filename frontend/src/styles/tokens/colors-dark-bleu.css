@@ -1,93 +1,166 @@
 [data-theme="dark"][data-variant="bleu"] {
   color-scheme: dark;
 
-  --hue-primary: 260deg;
-  --hue-accent: 38deg;
-  --hue-deep: 260deg;
-  --hue-orange: 32deg;
-  --hue-error: 18deg;
-  --hue-info: 260deg;
+  /* =========================
+       HUES (mirror light)
+     ========================= */
+  --h-cerulean: 240;
+  --h-tangerine: 40;
+  --h-turquoise: 195;
+  --h-coral: 20;
+  --h-ink: 225;
 
-  --primary-40: oklch(40% 0.18 var(--hue-primary));
-  --primary-60: oklch(68% 0.2 var(--hue-primary));
-  --primary-75: oklch(78% 0.16 var(--hue-primary));
+  /* =========================
+       CHROMA — boosted for dark
+     ========================= */
+  --c-muted: 0.07;
+  --c-soft: 0.025;
 
-  --accent-60: oklch(72% 0.19 var(--hue-accent));
-  --accent-80: oklch(82% 0.15 var(--hue-accent));
-  --accent-95: oklch(28% 0.1 var(--hue-accent));
+  /* =========================
+       LIGHTNESS — page deep ocean, cards lifted blue
+     ========================= */
+  --l-page: 13%;
+  --l-card: 28%;
+  --l-elevated: 32%;
+  --l-sunken: 20%;
+  --l-muted: 38%;
 
-  /* Complementary: orange contrasts blue cards */
-  --color-primary: oklch(72% 0.19 38);
-  --color-primary-hover: oklch(80% 0.18 38);
-  --color-primary-dark: oklch(58% 0.2 38);
-  --color-primary-deeper: oklch(38% 0.15 260deg);
-  --color-primary-light: oklch(28% 0.08 260deg);
-  --color-primary-text: oklch(15% 0.02 260deg);
-  --color-focus: var(--color-primary);
+  /* =========================
+       NAMED COLORS
+     ========================= */
+  --cerulean-bright: oklch(72% 0.18 var(--h-cerulean));
+  --cerulean-deep: oklch(50% 0.18 var(--h-cerulean));
+  --tangerine-warm: oklch(78% 0.18 var(--h-tangerine));
+  --tangerine-deep: oklch(68% 0.21 var(--h-tangerine));
+  --turquoise-fresh: oklch(75% 0.13 var(--h-turquoise));
+  --text-inverse-warm: oklch(10% 0.02 var(--h-ink));
 
-  --color-accent: var(--accent-60);
-  --color-accent-hover: var(--accent-80);
-  --color-accent-light: var(--accent-95);
+  /* =========================
+       PRIMARY — Tangerine CTA pops on blue cards
+     ========================= */
+  --color-primary: var(--tangerine-warm);
+  --color-primary-hover: oklch(85% 0.16 var(--h-tangerine));
+  --color-primary-text: oklch(15% 0.04 var(--h-ink));
+  --color-primary-dark: var(--tangerine-deep);
+  --color-focus: var(--tangerine-warm);
+  --color-primary-deeper: oklch(45% 0.18 var(--h-tangerine));
+  --color-primary-light: oklch(28% 0.08 var(--h-cerulean));
+  --color-primary-subtle: oklch(20% 0.04 var(--h-cerulean));
 
-  --color-secondary: oklch(65% 0.16 155deg);
-  --color-tertiary: oklch(55% 0.13 170deg);
+  /* =========================
+       SIDEBAR — Deepest navy
+     ========================= */
+  --color-sidebar-bg: oklch(16% 0.1 var(--h-cerulean));
+  --color-sidebar-item-hover: oklch(26% 0.12 var(--h-cerulean));
+  --color-sidebar-item-active: oklch(from var(--tangerine-warm) l c h / 0.22);
+  --color-sidebar-icon: oklch(85% 0.04 var(--h-tangerine));
+  --color-sidebar-icon-active: var(--tangerine-warm);
+  --color-sidebar-text: oklch(82% 0.03 var(--h-tangerine));
+  --color-sidebar-text-active: var(--tangerine-warm);
+  --color-sidebar-accent: var(--tangerine-warm);
 
-  --color-success: oklch(75% 0.15 155deg);
-  --color-success-light: oklch(22% 0.08 155deg);
-  --color-warning: oklch(76% 0.16 70deg);
-  --color-warning-light: oklch(24% 0.08 70deg);
-  --color-warning-text: oklch(86% 0.13 70deg);
-  --color-error: oklch(68% 0.2 var(--hue-error));
-  --color-error-light: oklch(20% 0.07 var(--hue-error));
-  --color-info: oklch(68% 0.18 var(--hue-info));
+  /* =========================
+       SECONDARY / TERTIARY
+     ========================= */
+  --color-secondary: var(--tangerine-warm);
+  --color-tertiary: var(--turquoise-fresh);
 
-  --color-header-bg: oklch(20% 0.03 260deg);
-  --color-header-action: var(--primary-60);
-  --color-header-action-bg-hover: oklch(from var(--primary-60) l c h / 0.15);
+  /* =========================
+       HEADER — Deep cerulean band, white actions
+     ========================= */
+  --color-header-bg: oklch(22% 0.1 var(--h-cerulean));
+  --color-header-action: oklch(96% 0.02 var(--h-tangerine));
+  --color-header-action-bg-hover: oklch(from var(--tangerine-warm) l c h / 0.15);
 
-  /* Sidebar — Orange chaud profond */
-  --color-sidebar-bg: oklch(22% 0.14 32);
-  --color-sidebar-item-hover: oklch(30% 0.16 34);
-  --color-sidebar-item-active: oklch(38% 0.16 34);
-  --color-sidebar-icon: oklch(100% 0 0);
-  --color-sidebar-icon-active: oklch(100% 0 0);
-  --color-sidebar-text: oklch(93% 0.01 40);
-  --color-sidebar-text-active: oklch(100% 0 0);
-  --color-sidebar-accent: oklch(100% 0 0);
+  /* =========================
+       TEXT — Warm-neutral on dark blue
+     ========================= */
+  --text-inverse: oklch(15% 0.04 var(--h-ink));
+  --text-primary: oklch(95% 0.015 var(--h-tangerine));
+  --text-secondary: oklch(78% 0.025 var(--h-tangerine));
+  --text-muted: oklch(60% var(--c-muted) var(--h-cerulean));
 
-  /* Backgrounds — Neutres sombres, teinte chaude subtile */
-  /* Colored dark: cards clearly lighter and tinted */
-  --bg-page: oklch(12% 0.01 60);
-  --bg-card: oklch(30% 0.06 259);
-  --bg-elevated: oklch(34% 0.07 259);
-  --bg-sunken: oklch(22% 0.05 259);
-  /* Interactive-in-card: lighter than card */
-  --bg-muted: oklch(40% 0.05 259);
-  --bg-hover: oklch(28% 0.03 260deg);
-  --bg-active: oklch(32% 0.04 260deg);
-  --bg-selected: oklch(28% 0.12 var(--hue-primary) / 0.3);
+  /* =========================
+       ACCENT — Tangerine
+     ========================= */
+  --color-accent: var(--tangerine-warm);
+  --color-accent-light: oklch(28% 0.1 var(--h-tangerine));
+  --color-accent-hover: oklch(85% 0.16 var(--h-tangerine));
 
-  /* Textes — Neutres chauds */
-  --text-primary: oklch(97% 0.005 50deg);
-  --text-secondary: oklch(82% 0.01 50deg);
-  --text-muted: oklch(58% 0.01 50deg);
-  --text-inverse: oklch(15% 0.005 50deg);
+  /* =========================
+       STATUS
+     ========================= */
+  --color-success: oklch(74% 0.16 152);
+  --color-success-light: oklch(25% 0.08 152);
+  --color-error: oklch(70% 0.22 var(--h-coral));
+  --color-error-light: oklch(25% 0.09 var(--h-coral));
+  --color-info: var(--cerulean-bright);
+  --color-warning: oklch(78% 0.16 70);
+  --color-warning-light: oklch(25% 0.08 70);
+  --color-warning-text: oklch(85% 0.14 70);
 
-  /* Tags — Teinte chaude par défaut */
-  --tag-default-bg: oklch(26% 0.06 50deg);
-  --tag-default-text: oklch(78% 0.08 50deg);
-  --tag-active-bg: oklch(from var(--primary-40) l c h / 0.5);
-  --tag-active-text: var(--primary-75);
+  /* =========================
+       BACKGROUNDS — Page abyss, cards tinted blue
+     ========================= */
+  --bg-page: oklch(var(--l-page) 0.015 var(--h-cerulean));
+  --bg-card: oklch(var(--l-card) 0.06 var(--h-cerulean));
+  --bg-elevated: oklch(var(--l-elevated) 0.07 var(--h-cerulean));
+  --bg-sunken: oklch(var(--l-sunken) 0.05 var(--h-cerulean));
+  --bg-muted: oklch(var(--l-muted) 0.04 var(--h-cerulean));
 
-  --border-default: oklch(45% 0.08 259);
-  --border-strong: var(--primary-60);
-  --shadow-color: oklch(0% 0 0 / 0.6);
-  --shadow-card: 0 4px 16px oklch(0% 0 0 / 0.4), 0 1px 4px oklch(0% 0 0 / 0.25);
-  --overlay: oklch(8% 0.02 40deg / 0.85);
-  --hero-glow: oklch(22% 0.05 260deg);
+  /* =========================
+       PAGE TITLE — Tangerine pop
+     ========================= */
+  --page-title-color: var(--tangerine-warm);
+
+  /* =========================
+       CARD FOOTER — Deeper blue with turquoise text
+     ========================= */
+  --card-footer-bg: oklch(18% 0.07 var(--h-turquoise));
+  --card-footer-border: oklch(35% 0.08 var(--h-turquoise));
+  --card-footer-color: oklch(92% 0.05 var(--h-turquoise));
+  --card-footer-color-muted: oklch(65% 0.05 var(--h-turquoise));
+
+  /* =========================
+       PRODUCT UNIT CHIP — Tangerine glow
+     ========================= */
+  --product-unit-chip-bg: oklch(from var(--tangerine-warm) l c h / 0.12);
+  --product-unit-chip-text: var(--tangerine-warm);
+  --product-unit-chip-border: oklch(from var(--tangerine-warm) l c h / 0.3);
+
+  /* =========================
+       HOVER / ACTIVE / SELECTED
+     ========================= */
+  --bg-hover: oklch(from var(--tangerine-warm) l c h / 0.1);
+  --bg-active: oklch(from var(--tangerine-warm) l c h / 0.18);
+  --bg-selected: oklch(30% 0.14 var(--h-tangerine));
+
+  /* =========================
+       BORDERS
+     ========================= */
+  --border-default: oklch(42% 0.07 var(--h-cerulean));
+  --border-strong: oklch(58% 0.1 var(--h-cerulean));
+
+  /* =========================
+       SHADOWS
+     ========================= */
+  --shadow-color: oklch(0% 0 0 / 0.55);
+  --shadow-card: 0 4px 16px oklch(0% 0 0 / 0.45), 0 1px 4px oklch(0% 0 0 / 0.3);
+
+  /* =========================
+       TAGS
+     ========================= */
+  --tag-active-bg: oklch(45% 0.16 var(--h-tangerine));
+  --tag-active-text: oklch(96% 0.04 var(--h-tangerine));
+  --tag-default-bg: oklch(25% 0.06 var(--h-cerulean));
+  --tag-default-text: oklch(72% 0.07 var(--h-tangerine));
+
+  /* =========================
+       MISC
+     ========================= */
+  --overlay: oklch(6% 0.04 var(--h-cerulean) / 0.78);
   --surface-bright: oklch(99% 0.002 0deg);
-
-  --color-primary-subtle: oklch(20% 0.03 260deg);
+  --hero-glow: oklch(22% 0.08 var(--h-cerulean));
 
   /* Toggle */
   --toggle-track-bg: oklch(from var(--color-header-action) l c h / 0.15);
@@ -96,14 +169,4 @@
   --toggle-fg-opacity: 0.35;
   --toggle-active-icon: var(--color-header-bg);
   --toggle-active-filter: drop-shadow(0 0 3px oklch(from var(--color-header-action) l c h / 0.6));
-
-  /* Card / page overrides — defaults equivalent to component fallbacks */
-  --page-title-color: var(--color-primary);
-  --card-footer-bg: var(--bg-sunken);
-  --card-footer-border: var(--border-default);
-  --card-footer-color: var(--text-primary);
-  --card-footer-color-muted: var(--text-muted);
-  --product-unit-chip-bg: transparent;
-  --product-unit-chip-text: var(--text-secondary);
-  --product-unit-chip-border: var(--bg-muted);
 }

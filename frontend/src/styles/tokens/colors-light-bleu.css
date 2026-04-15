@@ -1,120 +1,166 @@
 [data-theme="light"][data-variant="bleu"] {
   color-scheme: light;
 
-  /* ===================================
-     HUES
-     bleu primaire  : 260deg
-     orange accent  : 32deg  (complémentaire chaud)
-     émeraude split : 155deg (split-complémentaire)
-     corail stat    : 18deg
-     =================================== */
-  --hue-primary: 260deg;
-  --hue-accent: 32deg;
+  /* =========================
+       HUES — Cerulean + tangerine + turquoise
+     ========================= */
+  --h-cerulean: 240;
+  --h-tangerine: 40;
+  --h-turquoise: 195;
+  --h-coral: 20;
+  --h-ink: 225;
 
-  /* ===================================
-     PRIMARY — Bleu électrique
-     =================================== */
-  /* Complementary action color: orange contrasts blue cards */
-  --color-primary: oklch(62% 0.2 38);
-  --color-primary-hover: oklch(56% 0.22 38);
-  --color-primary-dark: oklch(48% 0.2 38);
-  --color-primary-light: oklch(94% 0.04 260deg);
-  --color-primary-deeper: oklch(38% 0.18 260deg);
-  --color-primary-subtle: oklch(97.5% 0.008 260deg);
+  /* =========================
+       CHROMA
+     ========================= */
+  --c-muted: 0.06;
+  --c-soft: 0.018;
+
+  /* =========================
+       LIGHTNESS — page frost, cards pure white
+     ========================= */
+  --l-page: 98.5%;
+  --l-card: 100%;
+  --l-elevated: 100%;
+  --l-sunken: 95%;
+  --l-muted: 97%;
+
+  /* =========================
+       NAMED COLORS
+     ========================= */
+  --cerulean-bright: oklch(60% 0.21 var(--h-cerulean));
+  --cerulean-deep: oklch(40% 0.18 var(--h-cerulean));
+  --tangerine-warm: oklch(75% 0.19 var(--h-tangerine));
+  --tangerine-deep: oklch(62% 0.22 var(--h-tangerine));
+  --turquoise-fresh: oklch(72% 0.14 var(--h-turquoise));
+  --text-inverse-warm: oklch(100% 0 0);
+
+  /* =========================
+       PRIMARY — Cerulean CTA
+     ========================= */
+  --color-primary: var(--cerulean-bright);
+  --color-primary-hover: oklch(54% 0.23 var(--h-cerulean));
   --color-primary-text: oklch(100% 0 0);
-  --color-focus: var(--color-primary);
+  --color-primary-dark: var(--cerulean-deep);
+  --color-focus: var(--cerulean-bright);
+  --color-primary-deeper: oklch(26% 0.14 var(--h-cerulean));
+  --color-primary-light: oklch(92% 0.06 var(--h-cerulean));
+  --color-primary-subtle: oklch(97% 0.01 var(--h-cerulean));
 
-  /* ===================================
-     ACCENT — Orange tangerine vif
-     Complémentaire chaud du bleu
-     =================================== */
-  --color-accent: oklch(72% 0.19 38deg);
-  --color-accent-hover: oklch(64% 0.21 35deg);
-  --color-accent-light: oklch(95% 0.05 40deg);
+  /* =========================
+       SIDEBAR — Deep navy, tangerine accent
+     ========================= */
+  --color-sidebar-bg: oklch(24% 0.12 var(--h-cerulean));
+  --color-sidebar-item-hover: oklch(32% 0.14 var(--h-cerulean));
+  --color-sidebar-item-active: oklch(from var(--tangerine-warm) l c h / 0.22);
+  --color-sidebar-icon: oklch(90% 0.03 var(--h-tangerine));
+  --color-sidebar-icon-active: var(--tangerine-warm);
+  --color-sidebar-text: oklch(88% 0.02 var(--h-tangerine));
+  --color-sidebar-text-active: var(--tangerine-warm);
+  --color-sidebar-accent: var(--tangerine-warm);
 
-  /* ===================================
-     SECONDARY — Émeraude frais
-     Split-complémentaire, naturel
-     =================================== */
-  --color-secondary: oklch(62% 0.18 155deg);
-  --color-tertiary: oklch(65% 0.14 170deg);
+  /* =========================
+       SECONDARY / TERTIARY
+     ========================= */
+  --color-secondary: var(--tangerine-warm);
+  --color-tertiary: var(--turquoise-fresh);
 
-  /* ===================================
-     SIDEBAR — Orange chaud & profond
-     =================================== */
-  --color-sidebar-bg: oklch(56% 0.18 32);
-  --color-sidebar-item-hover: oklch(62% 0.16 35);
-  --color-sidebar-item-active: oklch(from oklch(100% 0 0) l c h / 0.2);
-  --color-sidebar-icon: oklch(100% 0 0);
-  --color-sidebar-icon-active: oklch(100% 0 0);
-  --color-sidebar-text: oklch(96% 0.01 40);
-  --color-sidebar-text-active: oklch(100% 0 0);
-  --color-sidebar-accent: oklch(100% 0 0);
+  /* =========================
+       HEADER — Cerulean bold band, white actions
+     ========================= */
+  --color-header-bg: var(--cerulean-bright);
+  --color-header-action: oklch(100% 0 0);
+  --color-header-action-bg-hover: oklch(from oklch(100% 0 0) l c h / 0.18);
 
-  /* ===================================
-     HEADER
-     =================================== */
-  --color-header-bg: oklch(100% 0 0);
-  --color-header-action: var(--color-primary);
-  --color-header-action-bg-hover: oklch(96.5% 0.005 260deg);
+  /* =========================
+       TEXT — Warm-neutral ink, no blue tint
+     ========================= */
+  --text-inverse: var(--text-inverse-warm);
+  --text-primary: oklch(20% 0.03 var(--h-ink));
+  --text-secondary: oklch(42% 0.03 var(--h-ink));
+  --text-muted: oklch(56% var(--c-muted) var(--h-ink));
 
-  /* ===================================
-     TEXTES — Neutres chauds, presque noirs
-     Pas de teinte bleu dans les textes
-     =================================== */
-  --text-primary: oklch(20% 0.005 50deg);
-  --text-secondary: oklch(40% 0.01 50deg);
-  --text-muted: oklch(58% 0.008 50deg);
-  --text-inverse: oklch(100% 0 0);
+  /* =========================
+       ACCENT — Tangerine highlight
+     ========================= */
+  --color-accent: var(--tangerine-deep);
+  --color-accent-light: oklch(95% 0.06 var(--h-tangerine));
+  --color-accent-hover: oklch(55% 0.24 var(--h-tangerine));
 
-  /* ===================================
-     STATUS — Couleurs variées et distinctes
-     =================================== */
-  --color-success: oklch(62% 0.18 155deg);
-  --color-success-light: oklch(95.5% 0.04 155deg);
-  --color-error: oklch(63% 0.22 18deg);
-  --color-error-light: oklch(96% 0.03 18deg);
-  --color-info: oklch(62.3% 0.214 259.815);
-  --color-warning: oklch(74% 0.17 70deg);
-  --color-warning-light: oklch(96% 0.04 72deg);
-  --color-warning-text: oklch(38% 0.1 68deg);
+  /* =========================
+       STATUS
+     ========================= */
+  --color-success: oklch(55% 0.18 152);
+  --color-success-light: oklch(95% 0.05 152);
+  --color-error: oklch(58% 0.22 var(--h-coral));
+  --color-error-light: oklch(94% 0.07 var(--h-coral));
+  --color-info: var(--cerulean-bright);
+  --color-warning: oklch(75% 0.16 70);
+  --color-warning-light: oklch(96% 0.06 70);
+  --color-warning-text: oklch(42% 0.14 70);
 
-  /* ===================================
-     BACKGROUNDS — Crème chaud, zéro bleu
-     =================================== */
-  /* Page quasi-white, card = tinted blue block */
-  --bg-page: oklch(98.5% 0.006 75);
-  --bg-card: oklch(89% 0.055 259);
-  --bg-elevated: oklch(88% 0.065 259);
-  --bg-sunken: oklch(82% 0.06 259);
-  --bg-muted: oklch(98% 0.006 75);
+  /* =========================
+       BACKGROUNDS — Page frost whisper, cards pure white
+     ========================= */
+  --bg-page: oklch(var(--l-page) var(--c-soft) var(--h-cerulean));
+  --bg-card: oklch(var(--l-card) 0 0);
+  --bg-elevated: oklch(var(--l-elevated) 0 0);
+  --bg-sunken: oklch(var(--l-sunken) 0.025 var(--h-cerulean));
+  --bg-muted: oklch(var(--l-muted) 0.012 var(--h-cerulean));
 
-  --bg-hover: oklch(from var(--color-primary) l c h / 0.06);
-  --bg-active: oklch(from var(--color-primary) l c h / 0.12);
-  --bg-selected: oklch(93.5% 0.02 260deg);
+  /* =========================
+       PAGE TITLE — Tangerine pop on cool base
+     ========================= */
+  --page-title-color: var(--tangerine-deep);
 
-  /* ===================================
-     BORDERS & SHADOWS
-     =================================== */
-  --border-default: oklch(75% 0.05 259);
-  --border-strong: oklch(60% 0.1 259);
+  /* =========================
+       CARD FOOTER — Icy turquoise tint
+     ========================= */
+  --card-footer-bg: oklch(95% 0.025 var(--h-turquoise));
+  --card-footer-border: oklch(85% 0.05 var(--h-turquoise));
+  --card-footer-color: var(--text-primary);
+  --card-footer-color-muted: var(--text-muted);
+
+  /* =========================
+       PRODUCT UNIT CHIP — White bg, cerulean text
+     ========================= */
+  --product-unit-chip-bg: oklch(100% 0 0);
+  --product-unit-chip-text: var(--cerulean-deep);
+  --product-unit-chip-border: oklch(100% 0 0);
+
+  /* =========================
+       HOVER / ACTIVE / SELECTED
+     ========================= */
+  --bg-hover: oklch(from var(--color-primary) l c h / 0.08);
+  --bg-active: oklch(from var(--color-primary) l c h / 0.14);
+  --bg-selected: var(--color-secondary);
+
+  /* =========================
+       BORDERS
+     ========================= */
+  --border-default: oklch(78% 0.04 var(--h-cerulean));
+  --border-strong: oklch(60% 0.1 var(--h-cerulean));
+
+  /* =========================
+       SHADOWS
+     ========================= */
   --shadow-color: oklch(0% 0 0 / 0.1);
   --shadow-card: 0 4px 16px oklch(0% 0 0 / 0.1), 0 1px 4px oklch(0% 0 0 / 0.06);
 
-  /* ===================================
-     TAGS — Teinte chaude par défaut
-     =================================== */
-  --tag-default-bg: oklch(94% 0.012 75deg);
-  --tag-default-text: oklch(40% 0.03 50deg);
-  --tag-active-bg: var(--color-primary);
-  --tag-active-text: oklch(100% 0 0);
+  /* =========================
+       TAGS
+     ========================= */
+  --tag-active-bg: var(--cerulean-deep);
+  --tag-active-text: var(--tangerine-warm);
+  --tag-default-bg: oklch(90% 0.04 var(--h-cerulean));
+  --tag-default-text: oklch(40% 0.08 var(--h-cerulean));
 
-  /* ===================================
-     MISC
-     =================================== */
-  --overlay: oklch(15% 0.02 40deg / 0.45);
-  --hero-glow: oklch(95% 0.03 75deg);
-  --surface-bright: oklch(99% 0.003 75deg);
+  /* =========================
+       MISC
+     ========================= */
+  --overlay: oklch(15% 0.08 var(--h-cerulean) / 0.45);
+  --surface-bright: oklch(99% 0.002 0deg);
+  --hero-glow: oklch(94% 0.04 var(--h-cerulean));
 
   /* Toggle */
   --toggle-track-bg: var(--color-primary-dark);
@@ -123,14 +169,4 @@
   --toggle-fg-opacity: 0.85;
   --toggle-active-icon: var(--color-primary-dark);
   --toggle-active-filter: none;
-
-  /* Card / page overrides — defaults equivalent to component fallbacks */
-  --page-title-color: var(--color-primary);
-  --card-footer-bg: var(--bg-sunken);
-  --card-footer-border: var(--border-default);
-  --card-footer-color: var(--text-primary);
-  --card-footer-color-muted: var(--text-muted);
-  --product-unit-chip-bg: transparent;
-  --product-unit-chip-text: var(--text-secondary);
-  --product-unit-chip-border: var(--bg-muted);
 }
