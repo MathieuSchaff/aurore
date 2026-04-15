@@ -9,7 +9,6 @@ import {
   tags,
 } from '../schema'
 
-// /* Types for the seed */
 
 export interface ProductTagGroups {
   primary: string[]
@@ -98,7 +97,6 @@ export async function seedBatch<T>(
   return { success: successCount, failed, total: items.length }
 }
 
-// /* Utilities for read the CSV files */
 
 export function parseCSV(text: string): string[][] {
   const result: string[][] = []

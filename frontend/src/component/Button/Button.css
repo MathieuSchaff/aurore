@@ -24,7 +24,6 @@
   cursor: not-allowed;
 }
 
-/* Sizing */
 .button.sm {
   padding: var(--space-1) var(--space-3);
   font-size: var(--text-xs);
