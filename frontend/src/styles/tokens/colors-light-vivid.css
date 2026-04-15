@@ -1,121 +1,166 @@
 [data-theme="light"][data-variant="vivid"] {
   color-scheme: light;
 
-  /* ===================================
-     HUES
-     vert primaire : 145deg
-     jaune accent  : 85deg  (vif, lumineux)
-     corail accent : 25deg  (chaud, dynamique)
-     =================================== */
-  --hue-primary: 145deg;
-  --hue-accent-warm: 25deg;
-  --hue-accent-bright: 85deg;
+  /* =========================
+       HUES — Electric emerald + hot coral + acid lime
+     ========================= */
+  --h-emerald: 145;
+  --h-coral: 18;
+  --h-lime: 125;
+  --h-cobalt: 250;
+  --h-ink: 145;
 
-  /* ===================================
-     PRIMARY — Vert saturé, punchy
-     =================================== */
-  /* Complementary action color: coral contrasts vivid green cards */
-  --color-primary: oklch(60% 0.22 25);
-  --color-primary-hover: oklch(54% 0.24 25);
-  --color-primary-dark: oklch(46% 0.2 25);
-  --color-primary-deeper: oklch(28% 0.16 145);
-  --color-primary-light: oklch(92% 0.08 145);
-  --color-primary-subtle: oklch(97% 0.015 145);
+  /* =========================
+       CHROMA — punchy
+     ========================= */
+  --c-muted: 0.08;
+  --c-soft: 0.022;
+
+  /* =========================
+       LIGHTNESS — page mint whisper, cards pure white
+     ========================= */
+  --l-page: 98.5%;
+  --l-card: 100%;
+  --l-elevated: 100%;
+  --l-sunken: 95%;
+  --l-muted: 97%;
+
+  /* =========================
+       NAMED COLORS
+     ========================= */
+  --emerald-bright: oklch(60% 0.24 var(--h-emerald));
+  --emerald-deep: oklch(42% 0.2 var(--h-emerald));
+  --coral-hot: oklch(64% 0.24 var(--h-coral));
+  --coral-deep: oklch(54% 0.24 var(--h-coral));
+  --lime-acid: oklch(86% 0.2 var(--h-lime));
+  --text-inverse-warm: oklch(100% 0 0);
+
+  /* =========================
+       PRIMARY — Electric emerald CTA
+     ========================= */
+  --color-primary: var(--emerald-bright);
+  --color-primary-hover: oklch(54% 0.26 var(--h-emerald));
   --color-primary-text: oklch(100% 0 0);
-  --color-focus: var(--color-primary);
+  --color-primary-dark: var(--emerald-deep);
+  --color-focus: var(--emerald-bright);
+  --color-primary-deeper: oklch(26% 0.14 var(--h-emerald));
+  --color-primary-light: oklch(92% 0.1 var(--h-emerald));
+  --color-primary-subtle: oklch(97% 0.018 var(--h-emerald));
 
-  /* ===================================
-     ACCENT — Jaune vif (badges, chips)
-     =================================== */
-  --color-accent: oklch(82% 0.18 85);
-  --color-accent-hover: oklch(75% 0.2 85);
-  --color-accent-light: oklch(95% 0.08 85);
+  /* =========================
+       SIDEBAR — Deep emerald, lime accent
+     ========================= */
+  --color-sidebar-bg: oklch(28% 0.13 var(--h-emerald));
+  --color-sidebar-item-hover: oklch(36% 0.15 var(--h-emerald));
+  --color-sidebar-item-active: oklch(from var(--lime-acid) l c h / 0.25);
+  --color-sidebar-icon: oklch(94% 0.05 var(--h-lime));
+  --color-sidebar-icon-active: var(--lime-acid);
+  --color-sidebar-text: oklch(92% 0.04 var(--h-lime));
+  --color-sidebar-text-active: var(--lime-acid);
+  --color-sidebar-accent: var(--lime-acid);
 
-  /* ===================================
-     SECONDARY — Corail vif (prix, highlights)
-     TERTIARY — Jaune doré
-     =================================== */
-  --color-secondary: oklch(68% 0.2 25);
-  --color-tertiary: oklch(78% 0.16 85);
+  /* =========================
+       SECONDARY / TERTIARY
+     ========================= */
+  --color-secondary: var(--coral-hot);
+  --color-tertiary: var(--lime-acid);
 
-  /* ===================================
-     SIDEBAR — Vert profond, dense
-     =================================== */
-  --color-sidebar-bg: oklch(30% 0.16 145);
-  --color-sidebar-item-hover: oklch(38% 0.16 145);
-  --color-sidebar-item-active: oklch(from oklch(100% 0 0) l c h / 0.22);
-  --color-sidebar-icon: oklch(100% 0 0);
-  --color-sidebar-icon-active: oklch(100% 0 0);
-  --color-sidebar-text: oklch(96% 0.01 145);
-  --color-sidebar-text-active: oklch(100% 0 0);
-  --color-sidebar-accent: oklch(82% 0.18 85);
+  /* =========================
+       HEADER — Emerald bold band, white actions
+     ========================= */
+  --color-header-bg: var(--emerald-bright);
+  --color-header-action: oklch(100% 0 0);
+  --color-header-action-bg-hover: oklch(from oklch(100% 0 0) l c h / 0.18);
 
-  /* ===================================
-     HEADER — White, green accent actions
-     =================================== */
-  --color-header-bg: oklch(100% 0 0);
-  --color-header-action: oklch(38% 0.18 145);
-  --color-header-action-bg-hover: oklch(from oklch(52% 0.22 145) l c h / 0.08);
+  /* =========================
+       TEXT — Deep ink with green undertone
+     ========================= */
+  --text-inverse: var(--text-inverse-warm);
+  --text-primary: oklch(18% 0.06 var(--h-ink));
+  --text-secondary: oklch(40% 0.06 var(--h-ink));
+  --text-muted: oklch(56% var(--c-muted) var(--h-ink));
 
-  /* ===================================
-     TEXTES — Tinted green, not flat gray
-     =================================== */
-  --text-primary: oklch(16% 0.04 145);
-  --text-secondary: oklch(38% 0.06 145);
-  --text-muted: oklch(52% 0.04 145);
-  --text-inverse: oklch(100% 0 0);
+  /* =========================
+       ACCENT — Hot coral pop
+     ========================= */
+  --color-accent: var(--coral-hot);
+  --color-accent-light: oklch(94% 0.08 var(--h-coral));
+  --color-accent-hover: oklch(56% 0.26 var(--h-coral));
 
-  /* ===================================
-     STATUS — Saturated, distinct
-     =================================== */
-  --color-success: oklch(55% 0.22 145);
-  --color-success-light: oklch(94% 0.06 145);
-  --color-error: oklch(60% 0.24 25);
-  --color-error-light: oklch(95% 0.06 25);
-  --color-info: oklch(58% 0.18 240);
-  --color-warning: oklch(78% 0.18 85);
-  --color-warning-light: oklch(96% 0.06 85);
-  --color-warning-text: oklch(38% 0.14 85);
+  /* =========================
+       STATUS
+     ========================= */
+  --color-success: oklch(54% 0.22 var(--h-emerald));
+  --color-success-light: oklch(94% 0.08 var(--h-emerald));
+  --color-error: var(--coral-deep);
+  --color-error-light: oklch(94% 0.08 var(--h-coral));
+  --color-info: oklch(58% 0.18 var(--h-cobalt));
+  --color-warning: oklch(78% 0.18 80);
+  --color-warning-light: oklch(96% 0.08 80);
+  --color-warning-text: oklch(40% 0.16 80);
 
-  /* ===================================
-     BACKGROUNDS — Pure white, tinted surfaces
-     =================================== */
-  /* Page quasi-white, card = tinted vivid-green block */
-  --bg-page: oklch(98.5% 0.006 75);
-  --bg-card: oklch(89% 0.07 145);
-  --bg-elevated: oklch(88% 0.08 145);
-  --bg-sunken: oklch(82% 0.08 145);
-  --bg-muted: oklch(98% 0.006 75);
-  --bg-hover: oklch(from oklch(52% 0.22 145) l c h / 0.07);
-  --bg-active: oklch(from oklch(52% 0.22 145) l c h / 0.13);
-  --bg-selected: oklch(92% 0.08 85);
+  /* =========================
+       BACKGROUNDS — Page mint mist, cards pure white
+     ========================= */
+  --bg-page: oklch(var(--l-page) var(--c-soft) var(--h-emerald));
+  --bg-card: oklch(var(--l-card) 0 0);
+  --bg-elevated: oklch(var(--l-elevated) 0 0);
+  --bg-sunken: oklch(var(--l-sunken) 0.03 var(--h-emerald));
+  --bg-muted: oklch(var(--l-muted) 0.014 var(--h-emerald));
 
-  /* ===================================
-     BORDERS — Green-tinted, not gray
-     =================================== */
-  --border-default: oklch(75% 0.06 145);
-  --border-strong: oklch(60% 0.12 145);
+  /* =========================
+       PAGE TITLE — Hot coral pop
+     ========================= */
+  --page-title-color: var(--coral-deep);
 
-  /* ===================================
-     SHADOWS
-     =================================== */
-  --shadow-color: oklch(0% 0 0 / 0.08);
+  /* =========================
+       CARD FOOTER — Acid lime whisper
+     ========================= */
+  --card-footer-bg: oklch(95% 0.05 var(--h-lime));
+  --card-footer-border: oklch(82% 0.12 var(--h-lime));
+  --card-footer-color: var(--text-primary);
+  --card-footer-color-muted: var(--text-muted);
+
+  /* =========================
+       PRODUCT UNIT CHIP — White bg, emerald text
+     ========================= */
+  --product-unit-chip-bg: oklch(100% 0 0);
+  --product-unit-chip-text: var(--emerald-deep);
+  --product-unit-chip-border: oklch(100% 0 0);
+
+  /* =========================
+       HOVER / ACTIVE / SELECTED
+     ========================= */
+  --bg-hover: oklch(from var(--color-primary) l c h / 0.08);
+  --bg-active: oklch(from var(--color-primary) l c h / 0.14);
+  --bg-selected: var(--color-secondary);
+
+  /* =========================
+       BORDERS
+     ========================= */
+  --border-default: oklch(78% 0.07 var(--h-emerald));
+  --border-strong: oklch(58% 0.14 var(--h-emerald));
+
+  /* =========================
+       SHADOWS
+     ========================= */
+  --shadow-color: oklch(0% 0 0 / 0.1);
   --shadow-card: 0 4px 16px oklch(0% 0 0 / 0.1), 0 1px 4px oklch(0% 0 0 / 0.06);
 
-  /* ===================================
-     TAGS — Vivid green active, light muted default
-     =================================== */
-  --tag-active-bg: oklch(52% 0.22 145);
-  --tag-active-text: oklch(100% 0 0);
-  --tag-default-bg: oklch(93% 0.04 145);
-  --tag-default-text: oklch(36% 0.06 145);
+  /* =========================
+       TAGS
+     ========================= */
+  --tag-active-bg: var(--emerald-deep);
+  --tag-active-text: var(--lime-acid);
+  --tag-default-bg: oklch(92% 0.06 var(--h-emerald));
+  --tag-default-text: oklch(38% 0.1 var(--h-emerald));
 
-  /* ===================================
-     MISC
-     =================================== */
-  --overlay: oklch(12% 0.06 145 / 0.5);
-  --hero-glow: oklch(95% 0.04 145);
-  --surface-bright: oklch(100% 0 0);
+  /* =========================
+       MISC
+     ========================= */
+  --overlay: oklch(15% 0.08 var(--h-emerald) / 0.5);
+  --surface-bright: oklch(99% 0.002 0deg);
+  --hero-glow: oklch(94% 0.08 var(--h-lime));
 
   /* Toggle */
   --toggle-track-bg: var(--color-primary-dark);
@@ -124,14 +169,4 @@
   --toggle-fg-opacity: 0.85;
   --toggle-active-icon: var(--color-primary-dark);
   --toggle-active-filter: none;
-
-  /* Card / page overrides — defaults equivalent to component fallbacks */
-  --page-title-color: var(--color-primary);
-  --card-footer-bg: var(--bg-sunken);
-  --card-footer-border: var(--border-default);
-  --card-footer-color: var(--text-primary);
-  --card-footer-color-muted: var(--text-muted);
-  --product-unit-chip-bg: transparent;
-  --product-unit-chip-text: var(--text-secondary);
-  --product-unit-chip-border: var(--bg-muted);
 }
