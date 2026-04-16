@@ -77,9 +77,17 @@ CLAUDE2.md
 docs/
 .memory/
 .superpowers/
+.claude/
 frontend/.tanstack/tmp/
 .worktrees/
 PROMPT_LOG.md
+scripts/*
+
+# =========================
+# Local seed notes (VRAC)
+# =========================
+backend/src/db/seed/VRAC/
+backend/src/db/seed/VRAC-INGREDIENTS/
 
 # Test results (generated in CI)
 **/test-results/
