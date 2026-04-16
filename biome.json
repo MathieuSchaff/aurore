@@ -14,7 +14,11 @@
       "!backend/src/**/*.js",
       "!**/drizzle.backup",
       "!.superpowers/**/*",
-      "!.worktrees/**/*"
+      "!.worktrees/**/*",
+      "!.claude/**/*",
+      "!**/*.test.ts",
+      "!**/*.test.tsx",
+      "!**/__tests__/**"
     ]
   },
   "formatter": {

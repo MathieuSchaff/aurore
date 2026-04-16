@@ -222,14 +222,16 @@ logs-frontend: ## Logs du frontend
 # =========================
 # Qualité du code
 # =========================
-lint: ## Vérifie le code avec Biome
-	bunx biome check .
+BIOME_CONFIG = $(if $(TESTS),--config-path=biome.tests.json,)
 
-lint-fix: ## Corrige les problèmes de lint
-	bunx biome check --write .
+lint: ## Vérifie le code avec Biome (TESTS=1 pour cibler les tests)
+	bunx biome check $(BIOME_CONFIG) .
 
-format: ## Formate le code avec Biome
-	bunx biome format --write .
+lint-fix: ## Corrige les problèmes de lint (TESTS=1 pour cibler les tests)
+	bunx biome check --write $(BIOME_CONFIG) .
+
+format: ## Formate le code avec Biome (TESTS=1 pour cibler les tests)
+	bunx biome format --write $(BIOME_CONFIG) .
 
 # =========================
 # Shell interactif
