@@ -135,6 +135,17 @@ export const PRODUCT_TAG_SLUGS = {
   PROTECTION_CUTANEE: 'protection-cutanee',
   TEXTURE_RICHE: 'texture-riche',
   TEXTURE_LEGERE: 'texture-legere',
+  // Ingredient-attribute effects surfaced at product level ("this product
+  // contains an antioxidant / soothing / purifying active"). They map to
+  // the matching ingredient_attribute slugs on the ingredient side but
+  // live as independent rows in the product_tags table.
+  ANTI_OXYDANT: 'anti-oxydant',
+  APAISANT: 'apaisant',
+  SEBO_REGULATEUR: 'sebo-regulateur',
+  REPARATEUR: 'reparateur',
+  PURIFIANT: 'purifiant',
+  PREBIOTIQUE: 'prebiotique',
+  KERATOLYTIQUE: 'keratolytique',
 
   // ── Product labels ─────────────────────────────────────────────────
   SANS_PARFUM: 'sans-parfum',
