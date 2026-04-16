@@ -19,6 +19,7 @@ export const createIngredientSchema = z.object({
   slug: slugSchema.optional(),
   content: z.string().max(50000).optional(),
   category: z.string().min(1).max(100).optional(),
+  supplementCategory: z.string().min(1).max(100).optional(),
 })
 
 export const updateIngredientSchema = z
@@ -28,6 +29,7 @@ export const updateIngredientSchema = z
     description: z.string().max(2000).optional(),
     content: z.string().max(50000).optional(),
     category: z.string().min(1).max(100).nullable().optional(),
+    supplementCategory: z.string().min(1).max(100).nullable().optional(),
   })
   .strict()
 
@@ -39,6 +41,7 @@ export const ingredientResponseSchema = z.object({
   description: z.string(),
   content: z.string(),
   category: z.string().nullable(),
+  supplementCategory: z.string().nullable(),
   createdAt: z.date(),
   updatedAt: z.date(),
 })

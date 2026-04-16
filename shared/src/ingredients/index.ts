@@ -1,4 +1,5 @@
 export * from './categories'
+export * from './supplement-categories'
 export * from './helpers'
 export * from './schemas'
 export * from './tag-filters'

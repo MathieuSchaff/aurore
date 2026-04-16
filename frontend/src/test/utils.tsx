@@ -97,6 +97,7 @@ export function makeUserProduct(
           name: string
           slug: string
           category: string | null
+          supplementCategory: string | null
           description: string
           content: string
           createdBy: string
