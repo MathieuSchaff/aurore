@@ -34,6 +34,7 @@ export type Ingredient = {
   slug: string
   description: string
   content: string
+  type: string
   category: string | null
   supplementCategory: string | null
   createdAt: string | Date

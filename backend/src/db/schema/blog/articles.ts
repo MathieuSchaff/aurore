@@ -1,7 +1,11 @@
+import { BLOG_CATEGORY_VALUES } from '@habit-tracker/shared'
+
 import { sql } from 'drizzle-orm'
-import { index, pgTable, text, timestamp, uniqueIndex, uuid } from 'drizzle-orm/pg-core'
+import { index, pgEnum, pgTable, text, timestamp, uniqueIndex, uuid } from 'drizzle-orm/pg-core'
 
 import { users } from '../auth/users'
+
+export const blogCategoryEnum = pgEnum('blog_category', BLOG_CATEGORY_VALUES)
 
 export const articles = pgTable(
   'articles',
@@ -14,7 +18,7 @@ export const articles = pgTable(
     slug: text('slug').notNull(),
     excerpt: text('excerpt'),
     content: text('content').notNull().default(''),
-    category: text('category').notNull(),
+    category: blogCategoryEnum('category').notNull(),
     coverImageUrl: text('cover_image_url'),
     // null = brouillon, sinon date de publication
     publishedAt: timestamp('published_at', { withTimezone: true }),
