@@ -70,9 +70,17 @@ export const INGREDIENT_TAG_SLUGS = {
   MATIFIANT: 'matifiant',
   PROTECTION_CUTANEE: 'protection-cutanee',
 
+  // UV filter subtype — describes the filter nature of a sunscreen
+  // molecule (chemical vs. mineral). Shared with product tags.
+  FILTRES_CHIMIQUES: 'filtres-chimiques',
+  FILTRES_MINERAUX: 'filtres-mineraux',
+
   // ── Shared labels ──────────────────────────────────────────────────
   COMEDOGENE: 'comedogene',
   NON_COMEDOGENE: 'non-comedogene',
+  // Contra-indication flag — used in `avoid:` arrays on retinoids and
+  // other pregnancy-restricted actives.
+  GROSSESSE_COMPATIBLE: 'grossesse-compatible',
 } as const
 
 export type IngredientTagSlug = (typeof INGREDIENT_TAG_SLUGS)[keyof typeof INGREDIENT_TAG_SLUGS]
