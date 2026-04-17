@@ -20,6 +20,7 @@ export const purchases = pgTable(
   (t) => [
     index('purchases_user_product_idx').on(t.userProductId),
     index('purchases_user_product_purchased_idx').on(t.userProductId, t.purchasedAt),
+    // Explicit user_id check keeps policy correct for owner role (bypasses RLS until FORCE RLS in T7).
     pgPolicy('purchases_tenant_isolation', {
       as: 'permissive',
       for: 'all',

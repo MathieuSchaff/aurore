@@ -66,6 +66,7 @@ export const subtasks = pgTable(
   },
   (t) => [
     index('subtasks_task_order_idx').on(t.taskId, t.order),
+    // Explicit user_id check keeps policy correct for owner role (bypasses RLS until FORCE RLS in T7).
     pgPolicy('subtasks_tenant_isolation', {
       as: 'permissive',
       for: 'all',

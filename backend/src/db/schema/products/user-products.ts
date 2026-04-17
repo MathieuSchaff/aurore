@@ -83,6 +83,7 @@ export const userProductReviews = pgTable(
   },
   (t) => [
     index('user_product_reviews_user_product_idx').on(t.userProductId),
+    // Explicit user_id check keeps policy correct for owner role (bypasses RLS until FORCE RLS in T7).
     pgPolicy('user_product_reviews_tenant_isolation', {
       as: 'permissive',
       for: 'all',

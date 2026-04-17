@@ -73,6 +73,7 @@ export const habitProducts = pgTable(
   (t) => [
     uniqueIndex('habit_products_unique').on(t.habitId, t.productId),
     index('habit_products_habit_idx').on(t.habitId),
+    // Explicit user_id check keeps policy correct for owner role (bypasses RLS until FORCE RLS in T7).
     pgPolicy('habit_products_tenant_isolation', {
       as: 'permissive',
       for: 'all',
