@@ -3,6 +3,8 @@ import {
   index,
   integer,
   pgEnum,
+  pgPolicy,
+  pgRole,
   pgTable,
   text,
   timestamp,
@@ -48,8 +50,15 @@ export const userProducts = pgTable(
     uniqueIndex('user_products_user_product_unique').on(t.userId, t.productId),
     index('user_products_user_idx').on(t.userId),
     index('user_products_status_idx').on(t.status),
+    pgPolicy('user_products_tenant_isolation', {
+      as: 'permissive',
+      for: 'all',
+      to: pgRole('app_runtime').existing(),
+      using: sql`${t.userId} = (SELECT current_setting('app.user_id', true)::uuid)`,
+      withCheck: sql`${t.userId} = (SELECT current_setting('app.user_id', true)::uuid)`,
+    }),
   ]
-)
+).enableRLS()
 
 export const userProductReviews = pgTable(
   'user_product_reviews',
