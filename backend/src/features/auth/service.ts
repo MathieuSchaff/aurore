@@ -50,8 +50,12 @@ export type AuthContext = {
 // Dummy hash to prevent timing attacks when user doesn't exist (takes same time to verify a wrong password)
 const DUMMY_HASH = await Bun.password.hash('timing-safe-dummy')
 
-export async function createTokenPair(ctx: AuthContext, userId: string) {
-  const accessToken = await generateAccessToken(userId, ctx.jwtSecret)
+export async function createTokenPair(
+  ctx: AuthContext,
+  userId: string,
+  role: 'user' | 'admin' = 'user'
+) {
+  const accessToken = await generateAccessToken(userId, role, ctx.jwtSecret)
   const {
     token: refreshToken,
     jti,
@@ -92,7 +96,7 @@ export async function signup(
       return user
     })
 
-    const tokens = await createTokenPair(ctx, user.id)
+    const tokens = await createTokenPair(ctx, user.id, user.role)
 
     let rawToken: string | null = null
     try {
@@ -138,7 +142,7 @@ export async function login(
       if (graceExpired) return err('email_not_verified')
     }
 
-    const tokens = await createTokenPair(ctx, user.id)
+    const tokens = await createTokenPair(ctx, user.id, user.role)
 
     cleanupUserRefreshTokens(ctx.db, user.id).catch((e) => console.error('Cleanup failed:', e))
 
@@ -184,7 +188,7 @@ export async function refresh(ctx: AuthContext, rawRefreshToken: string): Promis
     }
     await cleanupUserRefreshTokens(ctx.db, payload.sub)
 
-    const tokens = await createTokenPair(ctx, payload.sub)
+    const tokens = await createTokenPair(ctx, payload.sub, user.role)
     await revokeRefreshToken(ctx.db, payload.jti)
 
     return ok({
@@ -260,7 +264,7 @@ export async function createDemo(
 
     await seedDemoData(user.id, ctx.db as Database)
 
-    const tokens = await createTokenPair(ctx, user.id)
+    const tokens = await createTokenPair(ctx, user.id, user.role)
 
     return ok({
       user: toPublicUser(user),

@@ -31,7 +31,7 @@ describe('withRlsContext', () => {
 
     app.route('/__test__', probe)
 
-    const token = await generateAccessToken(userId, JWT_SECRET)
+    const token = await generateAccessToken(userId, 'user', JWT_SECRET)
     const res = await app.request('/__test__/rls-probe', {
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -72,7 +72,7 @@ describe('withRlsContext', () => {
 
     app.route('/__test_rollback__', probe)
 
-    const token = await generateAccessToken(user.id, JWT_SECRET)
+    const token = await generateAccessToken(user.id, 'user', JWT_SECRET)
     const res = await app.request('/__test_rollback__/fail-after-insert', {
       method: 'POST',
       headers: { Authorization: `Bearer ${token}` },
