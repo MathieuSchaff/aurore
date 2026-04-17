@@ -53,7 +53,7 @@ const DUMMY_HASH = await Bun.password.hash('timing-safe-dummy')
 export async function createTokenPair(
   ctx: AuthContext,
   userId: string,
-  role: 'user' | 'admin' = 'user'
+  role: 'user' | 'admin'
 ) {
   const accessToken = await generateAccessToken(userId, role, ctx.jwtSecret)
   const {
@@ -256,13 +256,13 @@ export async function createDemo(
         emailVerifiedAt: new Date(),
         isDemo: true,
       })
-      // Set RLS context so the profiles insert passes WITH CHECK on app_runtime.
+      // Set RLS context so all inserts in this transaction pass WITH CHECK on app_runtime.
       await bindRlsContext(tx, created.id)
       await createProfile(tx, created.id)
+      // Seed inside the transaction so app.user_id is still set for RLS-protected tables.
+      await seedDemoData(created.id, tx as unknown as Database)
       return created
     })
-
-    await seedDemoData(user.id, ctx.db as Database)
 
     const tokens = await createTokenPair(ctx, user.id, user.role)
 
