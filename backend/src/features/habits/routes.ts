@@ -20,6 +20,7 @@ import { z } from 'zod'
 import type { AppEnv } from '../../app-env'
 import { getToday } from '../../utils/dates'
 import { requireJwtAuth } from '../auth/middleware'
+import { withRlsContext } from '../auth/rls-context.middleware'
 import {
   archiveHabit,
   createHabit,
@@ -56,6 +57,7 @@ const getUserChecksQuerySchema = z.object({
 const app = new Hono<AppEnv>()
 
 app.use('*', requireJwtAuth)
+app.use('*', withRlsContext)
 
 export const habits = app
 
