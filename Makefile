@@ -162,7 +162,7 @@ test-watch: test-db-up ## Lance les tests en mode watch avec auto-setup
 	@cd backend && DATABASE_URL=$(TEST_DB_URL) APP_DATABASE_URL=$(APP_TEST_DB_URL) bun test --watch
 
 test-only: test-db-up ## Lance des tests spécifiques (ARGS="pattern")
-	@cd backend && DATABASE_URL=$(TEST_DB_URL) bun test "$(ARGS)"
+	@cd backend && DATABASE_URL=$(TEST_DB_URL) APP_DATABASE_URL=$(APP_TEST_DB_URL) bun test "$(ARGS)"
 
 test-db-studio: ## Lance Drizzle Studio pour la DB de test
 	cd backend && DATABASE_URL="$(TEST_DB_URL)" bun x drizzle-kit studio --port 4982
