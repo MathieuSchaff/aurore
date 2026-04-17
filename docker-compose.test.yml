@@ -23,6 +23,8 @@ services:
     # Pas de volume = données perdues au redémarrage (voulu pour les tests)
     tmpfs:
       - /var/lib/postgresql
+    volumes:
+      - ./backend/drizzle-init:/docker-entrypoint-initdb.d:ro
 
 networks:
   testnet:
