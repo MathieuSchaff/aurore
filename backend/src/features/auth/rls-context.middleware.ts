@@ -13,6 +13,12 @@ import type { AppEnv } from '../../app-env'
 // We detect this via c.error (set by Hono when onError fires) and trigger an explicit
 // rollback via tx.rollback() — then suppress the resulting TransactionRollbackError
 // so the already-set error response (e.g. 409) is returned cleanly.
+//
+// INVARIANT: Services that touch the DB MUST re-throw Postgres errors (or domain
+// errors derived from them). If a service catches a DB error and returns a normal
+// response, Hono's onError does not fire, c.error stays null, and this middleware
+// attempts to COMMIT an already-aborted Postgres transaction — which throws 500.
+// Every service in this codebase currently re-throws; keep it that way.
 export const withRlsContext = async (c: Context<AppEnv>, next: Next) => {
   const userId = c.get('userId')
 

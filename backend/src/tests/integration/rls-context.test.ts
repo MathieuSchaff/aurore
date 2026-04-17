@@ -1,13 +1,16 @@
 import { describe, expect, it } from 'bun:test'
 
-import { sql } from 'drizzle-orm'
+import { eq, sql } from 'drizzle-orm'
 import { Hono } from 'hono'
 
 import type { AppEnv } from '../../app-env'
 import { generateAccessToken } from '../../features/auth/jwt.utils'
 import { requireJwtAuth } from '../../features/auth/middleware'
 import { withRlsContext } from '../../features/auth/rls-context.middleware'
+import { tasks } from '../../db/schema'
 import { createTestApp } from '../helpers/createTestApp'
+import { createTestUser } from '../helpers/test-factories'
+import { testDb } from '../db.test.config'
 import { JWT_SECRET } from '../helpers/secrets'
 
 describe('withRlsContext', () => {
@@ -50,5 +53,39 @@ describe('withRlsContext', () => {
 
     const res = await app.request('/__test_public__/rls-probe-public')
     expect(res.status).toBe(200)
+  })
+
+  it('rolls back the tx when the handler throws after a DB insert', async () => {
+    // Use a real seeded user so the FK on tasks.user_id is satisfied.
+    const user = await createTestUser('rls-rollback-probe@test.local', 'Azerty123!')
+
+    const app = await createTestApp()
+
+    const probe = new Hono<AppEnv>()
+    probe.use('*', requireJwtAuth)
+    probe.use('*', withRlsContext)
+    probe.post('/fail-after-insert', async (c) => {
+      const db = c.get('db')
+      await db.insert(tasks).values({ userId: user.id, title: 'should-not-persist' })
+      throw new Error('simulated failure')
+    })
+
+    app.route('/__test_rollback__', probe)
+
+    const token = await generateAccessToken(user.id, JWT_SECRET)
+    const res = await app.request('/__test_rollback__/fail-after-insert', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}` },
+    })
+
+    // globalErrorHandler returns 500 for generic (non-domain) errors.
+    expect(res.status).toBeGreaterThanOrEqual(500)
+
+    // Confirm the tx rolled back: the row must not exist outside the request tx.
+    const persisted = await testDb
+      .select()
+      .from(tasks)
+      .where(eq(tasks.title, 'should-not-persist'))
+    expect(persisted).toHaveLength(0)
   })
 })
