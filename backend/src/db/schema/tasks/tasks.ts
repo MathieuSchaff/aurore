@@ -64,8 +64,25 @@ export const subtasks = pgTable(
     order: integer('order').notNull(),
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   },
-  (t) => [index('subtasks_task_order_idx').on(t.taskId, t.order)]
-)
+  (t) => [
+    index('subtasks_task_order_idx').on(t.taskId, t.order),
+    pgPolicy('subtasks_tenant_isolation', {
+      as: 'permissive',
+      for: 'all',
+      to: pgRole('app_runtime').existing(),
+      using: sql`EXISTS (
+        SELECT 1 FROM ${tasks} p
+        WHERE p.id = ${t.taskId}
+          AND p.user_id = (SELECT current_setting('app.user_id', true)::uuid)
+      )`,
+      withCheck: sql`EXISTS (
+        SELECT 1 FROM ${tasks} p
+        WHERE p.id = ${t.taskId}
+          AND p.user_id = (SELECT current_setting('app.user_id', true)::uuid)
+      )`,
+    }),
+  ]
+).enableRLS()
 
 export type Task = typeof tasks.$inferSelect
 export type TaskInsert = typeof tasks.$inferInsert

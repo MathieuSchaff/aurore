@@ -73,8 +73,23 @@ export const habitProducts = pgTable(
   (t) => [
     uniqueIndex('habit_products_unique').on(t.habitId, t.productId),
     index('habit_products_habit_idx').on(t.habitId),
+    pgPolicy('habit_products_tenant_isolation', {
+      as: 'permissive',
+      for: 'all',
+      to: pgRole('app_runtime').existing(),
+      using: sql`EXISTS (
+        SELECT 1 FROM ${habits} p
+        WHERE p.id = ${t.habitId}
+          AND p.user_id = (SELECT current_setting('app.user_id', true)::uuid)
+      )`,
+      withCheck: sql`EXISTS (
+        SELECT 1 FROM ${habits} p
+        WHERE p.id = ${t.habitId}
+          AND p.user_id = (SELECT current_setting('app.user_id', true)::uuid)
+      )`,
+    }),
   ]
-)
+).enableRLS()
 
 export const habitSchedules = pgTable(
   'habit_schedules',
@@ -98,8 +113,23 @@ export const habitSchedules = pgTable(
   },
   (t) => [
     uniqueIndex('habit_schedules_habit_unique').on(t.habitId), // force 1:1
+    pgPolicy('habit_schedules_tenant_isolation', {
+      as: 'permissive',
+      for: 'all',
+      to: pgRole('app_runtime').existing(),
+      using: sql`EXISTS (
+        SELECT 1 FROM ${habits} p
+        WHERE p.id = ${t.habitId}
+          AND p.user_id = (SELECT current_setting('app.user_id', true)::uuid)
+      )`,
+      withCheck: sql`EXISTS (
+        SELECT 1 FROM ${habits} p
+        WHERE p.id = ${t.habitId}
+          AND p.user_id = (SELECT current_setting('app.user_id', true)::uuid)
+      )`,
+    }),
   ]
-)
+).enableRLS()
 
 // Each timing = a time slot for a given day.
 // Ex: wednesday 8am + wednesday 8pm = 2 timings with day=2
@@ -119,8 +149,29 @@ export const habitTimings = pgTable(
     label: text('label'), // "matin", "aprem", "soir"
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   },
-  (t) => [index('habit_timings_schedule_idx').on(t.scheduleId)]
-)
+  (t) => [
+    index('habit_timings_schedule_idx').on(t.scheduleId),
+    pgPolicy('habit_timings_tenant_isolation', {
+      as: 'permissive',
+      for: 'all',
+      to: pgRole('app_runtime').existing(),
+      using: sql`EXISTS (
+        SELECT 1
+        FROM ${habitSchedules} s
+        JOIN ${habits} h ON h.id = s.habit_id
+        WHERE s.id = ${t.scheduleId}
+          AND h.user_id = (SELECT current_setting('app.user_id', true)::uuid)
+      )`,
+      withCheck: sql`EXISTS (
+        SELECT 1
+        FROM ${habitSchedules} s
+        JOIN ${habits} h ON h.id = s.habit_id
+        WHERE s.id = ${t.scheduleId}
+          AND h.user_id = (SELECT current_setting('app.user_id', true)::uuid)
+      )`,
+    }),
+  ]
+).enableRLS()
 
 export const habitReminders = pgTable(
   'habit_reminders',
@@ -132,8 +183,31 @@ export const habitReminders = pgTable(
     beforeMinutes: integer('before_minutes').notNull(), // 60, 120, 1440
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   },
-  (t) => [index('habit_reminders_timing_idx').on(t.timingId)]
-)
+  (t) => [
+    index('habit_reminders_timing_idx').on(t.timingId),
+    pgPolicy('habit_reminders_tenant_isolation', {
+      as: 'permissive',
+      for: 'all',
+      to: pgRole('app_runtime').existing(),
+      using: sql`EXISTS (
+        SELECT 1
+        FROM ${habitTimings} ht
+        JOIN ${habitSchedules} hs ON hs.id = ht.schedule_id
+        JOIN ${habits} h ON h.id = hs.habit_id
+        WHERE ht.id = ${t.timingId}
+          AND h.user_id = (SELECT current_setting('app.user_id', true)::uuid)
+      )`,
+      withCheck: sql`EXISTS (
+        SELECT 1
+        FROM ${habitTimings} ht
+        JOIN ${habitSchedules} hs ON hs.id = ht.schedule_id
+        JOIN ${habits} h ON h.id = hs.habit_id
+        WHERE ht.id = ${t.timingId}
+          AND h.user_id = (SELECT current_setting('app.user_id', true)::uuid)
+      )`,
+    }),
+  ]
+).enableRLS()
 
 export const habitPeriods = pgTable(
   'habit_periods',
@@ -154,8 +228,23 @@ export const habitPeriods = pgTable(
   (t) => [
     uniqueIndex('habit_periods_habit_unique').on(t.habitId),
     index('habit_periods_habit_idx').on(t.habitId),
+    pgPolicy('habit_periods_tenant_isolation', {
+      as: 'permissive',
+      for: 'all',
+      to: pgRole('app_runtime').existing(),
+      using: sql`EXISTS (
+        SELECT 1 FROM ${habits} p
+        WHERE p.id = ${t.habitId}
+          AND p.user_id = (SELECT current_setting('app.user_id', true)::uuid)
+      )`,
+      withCheck: sql`EXISTS (
+        SELECT 1 FROM ${habits} p
+        WHERE p.id = ${t.habitId}
+          AND p.user_id = (SELECT current_setting('app.user_id', true)::uuid)
+      )`,
+    }),
   ]
-)
+).enableRLS()
 
 export const habitChecks = pgTable(
   'habit_checks',

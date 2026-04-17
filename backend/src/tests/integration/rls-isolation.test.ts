@@ -2,10 +2,19 @@ import { afterAll, beforeEach, describe, expect, it } from 'bun:test'
 import { SQL } from 'bun'
 
 import { testDb } from '../db.test.config'
-import { tasks } from '../../db/schema/tasks/tasks'
-import { habits, habitChecks } from '../../db/schema/habits/habits'
-import { wellbeingLogs } from '../../db/schema/habits/logs'
-import { userProducts } from '../../db/schema/products/user-products'
+import { tasks, subtasks } from '../../db/schema/tasks/tasks'
+import {
+  habits,
+  habitChecks,
+  habitProducts,
+  habitSchedules,
+  habitTimings,
+  habitReminders,
+  habitPeriods,
+} from '../../db/schema/habits/habits'
+import { wellbeingLogs, habitCheckProducts } from '../../db/schema/habits/logs'
+import { userProducts, userProductReviews } from '../../db/schema/products/user-products'
+import { purchases } from '../../db/schema/products/purchases'
 import { products } from '../../db/schema/products/products'
 import { userIngredientAnalysisScore } from '../../db/schema/ingredients/user-ingredient-analysis-score'
 import { ingredients } from '../../db/schema/ingredients/ingredients'
@@ -347,5 +356,330 @@ describe('RLS — user_bans tenant isolation', () => {
     })
     const ids = (rows as Array<{ id: string }>).map((r) => r.id)
     expect(ids).not.toContain(banOfA.id)
+  })
+})
+
+describe('RLS — subtasks (owned via tasks)', () => {
+  let userA: { id: string }
+  let userB: { id: string }
+  let childId: string
+
+  beforeEach(async () => {
+    userA = await createTestUser('rls-sub-a@test.local', 'Azerty123!')
+    userB = await createTestUser('rls-sub-b@test.local', 'Azerty123!')
+
+    const [parent] = await testDb
+      .insert(tasks)
+      .values({ userId: userA.id, title: 'A parent task', status: 'inbox' })
+      .returning()
+    const [child] = await testDb
+      .insert(subtasks)
+      .values({ taskId: parent!.id, title: 'A subtask', order: 0 })
+      .returning()
+    childId = child!.id
+  })
+
+  it('user B cannot see user A subtask via app_runtime pool', async () => {
+    const rows = await appRuntimePool.begin(async (tx) => {
+      await tx`SELECT set_config('app.user_id', ${userB.id}, true)`
+      return tx`SELECT id FROM subtasks WHERE id = ${childId}::uuid`
+    })
+    expect((rows as Array<{ id: string }>).length).toBe(0)
+  })
+})
+
+describe('RLS — habit_products (owned via habits)', () => {
+  let userA: { id: string }
+  let userB: { id: string }
+  let childId: string
+
+  beforeEach(async () => {
+    userA = await createTestUser('rls-hp-a@test.local', 'Azerty123!')
+    userB = await createTestUser('rls-hp-b@test.local', 'Azerty123!')
+
+    const [parent] = await testDb
+      .insert(habits)
+      .values({ userId: userA.id, name: 'A habit', category: 'health' })
+      .returning()
+    const [product] = await testDb
+      .insert(products)
+      .values({
+        createdBy: userA.id,
+        name: 'Test RLS HP',
+        brand: 'Brand',
+        unit: 'ml',
+        slug: `rls-hp-${userA.id}`,
+      })
+      .returning()
+    const [child] = await testDb
+      .insert(habitProducts)
+      .values({ habitId: parent!.id, productId: product!.id })
+      .returning()
+    childId = child!.id
+  })
+
+  it('user B cannot see user A habit_product via app_runtime pool', async () => {
+    const rows = await appRuntimePool.begin(async (tx) => {
+      await tx`SELECT set_config('app.user_id', ${userB.id}, true)`
+      return tx`SELECT id FROM habit_products WHERE id = ${childId}::uuid`
+    })
+    expect((rows as Array<{ id: string }>).length).toBe(0)
+  })
+})
+
+describe('RLS — habit_schedules (owned via habits)', () => {
+  let userA: { id: string }
+  let userB: { id: string }
+  let childId: string
+
+  beforeEach(async () => {
+    userA = await createTestUser('rls-hs-a@test.local', 'Azerty123!')
+    userB = await createTestUser('rls-hs-b@test.local', 'Azerty123!')
+
+    const [parent] = await testDb
+      .insert(habits)
+      .values({ userId: userA.id, name: 'A habit', category: 'health' })
+      .returning()
+    const [child] = await testDb
+      .insert(habitSchedules)
+      .values({ habitId: parent!.id, frequency: 'daily' })
+      .returning()
+    childId = child!.id
+  })
+
+  it('user B cannot see user A habit_schedule via app_runtime pool', async () => {
+    const rows = await appRuntimePool.begin(async (tx) => {
+      await tx`SELECT set_config('app.user_id', ${userB.id}, true)`
+      return tx`SELECT id FROM habit_schedules WHERE id = ${childId}::uuid`
+    })
+    expect((rows as Array<{ id: string }>).length).toBe(0)
+  })
+})
+
+describe('RLS — habit_periods (owned via habits)', () => {
+  let userA: { id: string }
+  let userB: { id: string }
+  let childId: string
+
+  beforeEach(async () => {
+    userA = await createTestUser('rls-hperiod-a@test.local', 'Azerty123!')
+    userB = await createTestUser('rls-hperiod-b@test.local', 'Azerty123!')
+
+    const [parent] = await testDb
+      .insert(habits)
+      .values({ userId: userA.id, name: 'A habit', category: 'health' })
+      .returning()
+    const [child] = await testDb
+      .insert(habitPeriods)
+      .values({ habitId: parent!.id, startDate: '2026-01-01', endDate: '2026-12-31' })
+      .returning()
+    childId = child!.id
+  })
+
+  it('user B cannot see user A habit_period via app_runtime pool', async () => {
+    const rows = await appRuntimePool.begin(async (tx) => {
+      await tx`SELECT set_config('app.user_id', ${userB.id}, true)`
+      return tx`SELECT id FROM habit_periods WHERE id = ${childId}::uuid`
+    })
+    expect((rows as Array<{ id: string }>).length).toBe(0)
+  })
+})
+
+describe('RLS — habit_timings (owned via habits → habit_schedules)', () => {
+  let userA: { id: string }
+  let userB: { id: string }
+  let childId: string
+
+  beforeEach(async () => {
+    userA = await createTestUser('rls-ht-a@test.local', 'Azerty123!')
+    userB = await createTestUser('rls-ht-b@test.local', 'Azerty123!')
+
+    const [habit] = await testDb
+      .insert(habits)
+      .values({ userId: userA.id, name: 'A habit', category: 'health' })
+      .returning()
+    const [schedule] = await testDb
+      .insert(habitSchedules)
+      .values({ habitId: habit!.id, frequency: 'daily' })
+      .returning()
+    const [child] = await testDb
+      .insert(habitTimings)
+      .values({ scheduleId: schedule!.id, time: '08:00' })
+      .returning()
+    childId = child!.id
+  })
+
+  it('user B cannot see user A habit_timing via app_runtime pool', async () => {
+    const rows = await appRuntimePool.begin(async (tx) => {
+      await tx`SELECT set_config('app.user_id', ${userB.id}, true)`
+      return tx`SELECT id FROM habit_timings WHERE id = ${childId}::uuid`
+    })
+    expect((rows as Array<{ id: string }>).length).toBe(0)
+  })
+})
+
+describe('RLS — habit_reminders (owned via habits → habit_schedules → habit_timings)', () => {
+  let userA: { id: string }
+  let userB: { id: string }
+  let childId: string
+
+  beforeEach(async () => {
+    userA = await createTestUser('rls-hr-a@test.local', 'Azerty123!')
+    userB = await createTestUser('rls-hr-b@test.local', 'Azerty123!')
+
+    const [habit] = await testDb
+      .insert(habits)
+      .values({ userId: userA.id, name: 'A habit', category: 'health' })
+      .returning()
+    const [schedule] = await testDb
+      .insert(habitSchedules)
+      .values({ habitId: habit!.id, frequency: 'daily' })
+      .returning()
+    const [timing] = await testDb
+      .insert(habitTimings)
+      .values({ scheduleId: schedule!.id, time: '08:00' })
+      .returning()
+    const [child] = await testDb
+      .insert(habitReminders)
+      .values({ timingId: timing!.id, beforeMinutes: 60 })
+      .returning()
+    childId = child!.id
+  })
+
+  it('user B cannot see user A habit_reminder via app_runtime pool', async () => {
+    const rows = await appRuntimePool.begin(async (tx) => {
+      await tx`SELECT set_config('app.user_id', ${userB.id}, true)`
+      return tx`SELECT id FROM habit_reminders WHERE id = ${childId}::uuid`
+    })
+    expect((rows as Array<{ id: string }>).length).toBe(0)
+  })
+})
+
+describe('RLS — habit_check_products (owned via habit_checks)', () => {
+  let userA: { id: string }
+  let userB: { id: string }
+  let childId: string
+
+  beforeEach(async () => {
+    userA = await createTestUser('rls-hcp-a@test.local', 'Azerty123!')
+    userB = await createTestUser('rls-hcp-b@test.local', 'Azerty123!')
+
+    const [habit] = await testDb
+      .insert(habits)
+      .values({ userId: userA.id, name: 'A habit', category: 'health' })
+      .returning()
+    const [product] = await testDb
+      .insert(products)
+      .values({
+        createdBy: userA.id,
+        name: 'Test RLS HCP',
+        brand: 'Brand',
+        unit: 'ml',
+        slug: `rls-hcp-${userA.id}`,
+      })
+      .returning()
+    const [habitProduct] = await testDb
+      .insert(habitProducts)
+      .values({ habitId: habit!.id, productId: product!.id })
+      .returning()
+    const [check] = await testDb
+      .insert(habitChecks)
+      .values({ userId: userA.id, habitId: habit!.id, scheduledDate: '2026-01-01', status: 'pending' })
+      .returning()
+    const [child] = await testDb
+      .insert(habitCheckProducts)
+      .values({
+        checkId: check!.id,
+        habitProductId: habitProduct!.id,
+        productId: product!.id,
+      })
+      .returning()
+    childId = child!.id
+  })
+
+  it('user B cannot see user A habit_check_product via app_runtime pool', async () => {
+    const rows = await appRuntimePool.begin(async (tx) => {
+      await tx`SELECT set_config('app.user_id', ${userB.id}, true)`
+      return tx`SELECT id FROM habit_check_products WHERE id = ${childId}::uuid`
+    })
+    expect((rows as Array<{ id: string }>).length).toBe(0)
+  })
+})
+
+describe('RLS — user_product_reviews (owned via user_products)', () => {
+  let userA: { id: string }
+  let userB: { id: string }
+  let childId: string
+
+  beforeEach(async () => {
+    userA = await createTestUser('rls-upr-a@test.local', 'Azerty123!')
+    userB = await createTestUser('rls-upr-b@test.local', 'Azerty123!')
+
+    const [product] = await testDb
+      .insert(products)
+      .values({
+        createdBy: userA.id,
+        name: 'Test RLS UPR',
+        brand: 'Brand',
+        unit: 'ml',
+        slug: `rls-upr-${userA.id}`,
+      })
+      .returning()
+    const [userProduct] = await testDb
+      .insert(userProducts)
+      .values({ userId: userA.id, productId: product!.id, status: 'in_stock' })
+      .returning()
+    const [child] = await testDb
+      .insert(userProductReviews)
+      .values({ userProductId: userProduct!.id })
+      .returning()
+    childId = child!.id
+  })
+
+  it('user B cannot see user A user_product_review via app_runtime pool', async () => {
+    const rows = await appRuntimePool.begin(async (tx) => {
+      await tx`SELECT set_config('app.user_id', ${userB.id}, true)`
+      return tx`SELECT id FROM user_product_reviews WHERE id = ${childId}::uuid`
+    })
+    expect((rows as Array<{ id: string }>).length).toBe(0)
+  })
+})
+
+describe('RLS — purchases (owned via user_products)', () => {
+  let userA: { id: string }
+  let userB: { id: string }
+  let childId: string
+
+  beforeEach(async () => {
+    userA = await createTestUser('rls-purch-a@test.local', 'Azerty123!')
+    userB = await createTestUser('rls-purch-b@test.local', 'Azerty123!')
+
+    const [product] = await testDb
+      .insert(products)
+      .values({
+        createdBy: userA.id,
+        name: 'Test RLS Purch',
+        brand: 'Brand',
+        unit: 'ml',
+        slug: `rls-purch-${userA.id}`,
+      })
+      .returning()
+    const [userProduct] = await testDb
+      .insert(userProducts)
+      .values({ userId: userA.id, productId: product!.id, status: 'in_stock' })
+      .returning()
+    const [child] = await testDb
+      .insert(purchases)
+      .values({ userProductId: userProduct!.id, purchasedAt: '2026-01-01' })
+      .returning()
+    childId = child!.id
+  })
+
+  it('user B cannot see user A purchase via app_runtime pool', async () => {
+    const rows = await appRuntimePool.begin(async (tx) => {
+      await tx`SELECT set_config('app.user_id', ${userB.id}, true)`
+      return tx`SELECT id FROM purchases WHERE id = ${childId}::uuid`
+    })
+    expect((rows as Array<{ id: string }>).length).toBe(0)
   })
 })

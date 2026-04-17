@@ -81,8 +81,25 @@ export const userProductReviews = pgTable(
       .defaultNow()
       .$onUpdate(() => new Date()),
   },
-  (t) => [index('user_product_reviews_user_product_idx').on(t.userProductId)]
-)
+  (t) => [
+    index('user_product_reviews_user_product_idx').on(t.userProductId),
+    pgPolicy('user_product_reviews_tenant_isolation', {
+      as: 'permissive',
+      for: 'all',
+      to: pgRole('app_runtime').existing(),
+      using: sql`EXISTS (
+        SELECT 1 FROM ${userProducts} p
+        WHERE p.id = ${t.userProductId}
+          AND p.user_id = (SELECT current_setting('app.user_id', true)::uuid)
+      )`,
+      withCheck: sql`EXISTS (
+        SELECT 1 FROM ${userProducts} p
+        WHERE p.id = ${t.userProductId}
+          AND p.user_id = (SELECT current_setting('app.user_id', true)::uuid)
+      )`,
+    }),
+  ]
+).enableRLS()
 
 export type UserProduct = typeof userProducts.$inferSelect
 export type UserProductInsert = typeof userProducts.$inferInsert

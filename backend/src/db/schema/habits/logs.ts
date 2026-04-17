@@ -48,8 +48,23 @@ export const habitCheckProducts = pgTable(
     uniqueIndex('habit_check_products_unique').on(t.checkId, t.habitProductId),
     index('habit_check_products_check_idx').on(t.checkId),
     index('habit_check_products_product_idx').on(t.productId),
+    pgPolicy('habit_check_products_tenant_isolation', {
+      as: 'permissive',
+      for: 'all',
+      to: pgRole('app_runtime').existing(),
+      using: sql`EXISTS (
+        SELECT 1 FROM ${habitChecks} p
+        WHERE p.id = ${t.checkId}
+          AND p.user_id = (SELECT current_setting('app.user_id', true)::uuid)
+      )`,
+      withCheck: sql`EXISTS (
+        SELECT 1 FROM ${habitChecks} p
+        WHERE p.id = ${t.checkId}
+          AND p.user_id = (SELECT current_setting('app.user_id', true)::uuid)
+      )`,
+    }),
   ]
-)
+).enableRLS()
 
 export const wellbeingLogs = pgTable(
   'wellbeing_logs',
