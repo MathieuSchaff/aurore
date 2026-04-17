@@ -5,6 +5,8 @@ import {
   index,
   integer,
   pgEnum,
+  pgPolicy,
+  pgRole,
   pgTable,
   text,
   timestamp,
@@ -39,8 +41,16 @@ export const tasks = pgTable(
   (t) => [
     index('tasks_user_status_idx').on(t.userId, t.status, t.createdAt),
     index('tasks_user_done_idx').on(t.userId, t.doneAt),
+    // Subquery form enables initPlan caching — faster on repeated row evaluations.
+    pgPolicy('tasks_tenant_isolation', {
+      as: 'permissive',
+      for: 'all',
+      to: pgRole('app_runtime').existing(),
+      using: sql`${t.userId} = (SELECT current_setting('app.user_id', true)::uuid)`,
+      withCheck: sql`${t.userId} = (SELECT current_setting('app.user_id', true)::uuid)`,
+    }),
   ]
-)
+).enableRLS()
 
 export const subtasks = pgTable(
   'subtasks',
