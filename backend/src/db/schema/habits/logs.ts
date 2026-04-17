@@ -4,6 +4,8 @@ import {
   index,
   numeric,
   pgEnum,
+  pgPolicy,
+  pgRole,
   pgTable,
   text,
   timestamp,
@@ -66,8 +68,15 @@ export const wellbeingLogs = pgTable(
   (t) => [
     index('wellbeing_logs_user_metric_logged_idx').on(t.userId, t.metric, t.loggedAt),
     index('wellbeing_logs_user_logged_idx').on(t.userId, t.loggedAt),
+    pgPolicy('wellbeing_logs_tenant_isolation', {
+      as: 'permissive',
+      for: 'all',
+      to: pgRole('app_runtime').existing(),
+      using: sql`${t.userId} = (SELECT current_setting('app.user_id', true)::uuid)`,
+      withCheck: sql`${t.userId} = (SELECT current_setting('app.user_id', true)::uuid)`,
+    }),
   ]
-)
+).enableRLS()
 
 export type HabitCheckProduct = typeof habitCheckProducts.$inferSelect
 export type HabitCheckProductInsert = typeof habitCheckProducts.$inferInsert

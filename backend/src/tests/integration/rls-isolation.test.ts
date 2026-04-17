@@ -3,6 +3,15 @@ import { SQL } from 'bun'
 
 import { testDb } from '../db.test.config'
 import { tasks } from '../../db/schema/tasks/tasks'
+import { habits, habitChecks } from '../../db/schema/habits/habits'
+import { wellbeingLogs } from '../../db/schema/habits/logs'
+import { userProducts } from '../../db/schema/products/user-products'
+import { products } from '../../db/schema/products/products'
+import { userIngredientAnalysisScore } from '../../db/schema/ingredients/user-ingredient-analysis-score'
+import { ingredients } from '../../db/schema/ingredients/ingredients'
+import { userPreferences } from '../../db/schema/auth/user-preferences'
+import { profiles, userDermoProfiles } from '../../db/schema/auth/users'
+import { userBans } from '../../db/schema/auth/user-bans'
 import { createTestUser } from '../helpers/test-factories'
 
 // appRuntimePool is shared across tests, closed once at the end.
@@ -65,5 +74,278 @@ describe('RLS — tasks tenant isolation', () => {
       threw = true
     }
     expect(threw).toBe(true)
+  })
+})
+
+describe('RLS — habits tenant isolation', () => {
+  let userA: { id: string }
+  let userB: { id: string }
+  let habitOfA: { id: string }
+
+  beforeEach(async () => {
+    userA = await createTestUser('rls-habits-a@test.local', 'Azerty123!')
+    userB = await createTestUser('rls-habits-b@test.local', 'Azerty123!')
+
+    const [inserted] = await testDb
+      .insert(habits)
+      .values({ userId: userA.id, name: 'A private habit', category: 'health' })
+      .returning()
+    habitOfA = inserted!
+  })
+
+  it('raw app_runtime query with user B context cannot see user A habit', async () => {
+    const rows = await appRuntimePool.begin(async (tx) => {
+      await tx`SELECT set_config('app.user_id', ${userB.id}, true)`
+      return tx`SELECT id FROM habits`
+    })
+    const ids = (rows as Array<{ id: string }>).map((r) => r.id)
+    expect(ids).not.toContain(habitOfA.id)
+  })
+
+  it('raw app_runtime query with user A context sees user A habit', async () => {
+    const rows = await appRuntimePool.begin(async (tx) => {
+      await tx`SELECT set_config('app.user_id', ${userA.id}, true)`
+      return tx`SELECT id FROM habits WHERE id = ${habitOfA.id}::uuid`
+    })
+    expect((rows as Array<{ id: string }>).map((r) => r.id)).toEqual([habitOfA.id])
+  })
+
+  it('raw app_runtime query with NO user context sees zero rows', async () => {
+    const rows = await appRuntimePool.begin(async (tx) => {
+      return tx`SELECT id FROM habits`
+    })
+    expect((rows as Array<{ id: string }>).length).toBe(0)
+  })
+
+  it('app_runtime cannot INSERT a habit for another user (WITH CHECK enforcement)', async () => {
+    let threw = false
+    try {
+      await appRuntimePool.begin(async (tx) => {
+        await tx`SELECT set_config('app.user_id', ${userB.id}, true)`
+        await tx`INSERT INTO habits (id, user_id, name, category) VALUES (gen_random_uuid(), ${userA.id}::uuid, 'B forges for A', 'health')`
+      })
+    } catch {
+      threw = true
+    }
+    expect(threw).toBe(true)
+  })
+})
+
+describe('RLS — habit_checks tenant isolation', () => {
+  let userA: { id: string }
+  let userB: { id: string }
+  let habitCheckOfA: { id: string }
+
+  beforeEach(async () => {
+    userA = await createTestUser('rls-hc-a@test.local', 'Azerty123!')
+    userB = await createTestUser('rls-hc-b@test.local', 'Azerty123!')
+
+    // Need a parent habit first (owned by userA, bypassing RLS via testDb superuser)
+    const [parentHabit] = await testDb
+      .insert(habits)
+      .values({ userId: userA.id, name: 'Parent habit', category: 'health' })
+      .returning()
+
+    const [inserted] = await testDb
+      .insert(habitChecks)
+      .values({
+        userId: userA.id,
+        habitId: parentHabit!.id,
+        scheduledDate: '2026-01-01',
+        status: 'pending',
+      })
+      .returning()
+    habitCheckOfA = inserted!
+  })
+
+  it('raw app_runtime query with user B context cannot see user A habit_check', async () => {
+    const rows = await appRuntimePool.begin(async (tx) => {
+      await tx`SELECT set_config('app.user_id', ${userB.id}, true)`
+      return tx`SELECT id FROM habit_checks`
+    })
+    const ids = (rows as Array<{ id: string }>).map((r) => r.id)
+    expect(ids).not.toContain(habitCheckOfA.id)
+  })
+})
+
+describe('RLS — wellbeing_logs tenant isolation', () => {
+  let userA: { id: string }
+  let userB: { id: string }
+  let logOfA: { id: string }
+
+  beforeEach(async () => {
+    userA = await createTestUser('rls-wl-a@test.local', 'Azerty123!')
+    userB = await createTestUser('rls-wl-b@test.local', 'Azerty123!')
+
+    const [inserted] = await testDb
+      .insert(wellbeingLogs)
+      .values({ userId: userA.id, metric: 'energy', value: '7' })
+      .returning()
+    logOfA = inserted!
+  })
+
+  it('raw app_runtime query with user B context cannot see user A wellbeing_log', async () => {
+    const rows = await appRuntimePool.begin(async (tx) => {
+      await tx`SELECT set_config('app.user_id', ${userB.id}, true)`
+      return tx`SELECT id FROM wellbeing_logs`
+    })
+    const ids = (rows as Array<{ id: string }>).map((r) => r.id)
+    expect(ids).not.toContain(logOfA.id)
+  })
+})
+
+describe('RLS — user_products tenant isolation', () => {
+  let userA: { id: string }
+  let userB: { id: string }
+  let userProductOfA: { id: string }
+
+  beforeEach(async () => {
+    userA = await createTestUser('rls-up-a@test.local', 'Azerty123!')
+    userB = await createTestUser('rls-up-b@test.local', 'Azerty123!')
+
+    // Insert a product (public catalogue record owned by userA)
+    const [product] = await testDb
+      .insert(products)
+      .values({ createdBy: userA.id, name: 'Test Product RLS', brand: 'Brand', unit: 'ml', slug: `test-product-rls-${userA.id}` })
+      .returning()
+
+    const [inserted] = await testDb
+      .insert(userProducts)
+      .values({ userId: userA.id, productId: product!.id, status: 'in_stock' })
+      .returning()
+    userProductOfA = inserted!
+  })
+
+  it('raw app_runtime query with user B context cannot see user A user_product', async () => {
+    const rows = await appRuntimePool.begin(async (tx) => {
+      await tx`SELECT set_config('app.user_id', ${userB.id}, true)`
+      return tx`SELECT id FROM user_products`
+    })
+    const ids = (rows as Array<{ id: string }>).map((r) => r.id)
+    expect(ids).not.toContain(userProductOfA.id)
+  })
+})
+
+describe('RLS — user_ingredient_analysis_score tenant isolation', () => {
+  let userA: { id: string }
+  let userB: { id: string }
+  let scoreOfA: { id: string }
+
+  beforeEach(async () => {
+    userA = await createTestUser('rls-uias-a@test.local', 'Azerty123!')
+    userB = await createTestUser('rls-uias-b@test.local', 'Azerty123!')
+
+    // Insert an ingredient (public catalogue record owned by userA)
+    const [ingredient] = await testDb
+      .insert(ingredients)
+      .values({ createdBy: userA.id, name: 'Test Ingredient RLS', slug: `test-ing-rls-${userA.id}` })
+      .returning()
+
+    const [inserted] = await testDb
+      .insert(userIngredientAnalysisScore)
+      .values({ userId: userA.id, ingredientId: ingredient!.id })
+      .returning()
+    scoreOfA = inserted!
+  })
+
+  it('raw app_runtime query with user B context cannot see user A ingredient score', async () => {
+    const rows = await appRuntimePool.begin(async (tx) => {
+      await tx`SELECT set_config('app.user_id', ${userB.id}, true)`
+      return tx`SELECT id FROM user_ingredient_analysis_score`
+    })
+    const ids = (rows as Array<{ id: string }>).map((r) => r.id)
+    expect(ids).not.toContain(scoreOfA.id)
+  })
+})
+
+describe('RLS — user_preferences tenant isolation', () => {
+  let userA: { id: string }
+  let userB: { id: string }
+
+  beforeEach(async () => {
+    userA = await createTestUser('rls-pref-a@test.local', 'Azerty123!')
+    userB = await createTestUser('rls-pref-b@test.local', 'Azerty123!')
+  })
+
+  it('raw app_runtime query with user B context cannot see user A preferences', async () => {
+    const rows = await appRuntimePool.begin(async (tx) => {
+      await tx`SELECT set_config('app.user_id', ${userB.id}, true)`
+      return tx`SELECT user_id FROM user_preferences`
+    })
+    const ids = (rows as Array<{ user_id: string }>).map((r) => r.user_id)
+    expect(ids).not.toContain(userA.id)
+  })
+})
+
+describe('RLS — profiles tenant isolation', () => {
+  let userA: { id: string }
+  let userB: { id: string }
+
+  beforeEach(async () => {
+    userA = await createTestUser('rls-prof-a@test.local', 'Azerty123!')
+    userB = await createTestUser('rls-prof-b@test.local', 'Azerty123!')
+  })
+
+  it('raw app_runtime query with user B context cannot see user A profile', async () => {
+    const rows = await appRuntimePool.begin(async (tx) => {
+      await tx`SELECT set_config('app.user_id', ${userB.id}, true)`
+      return tx`SELECT user_id FROM profiles`
+    })
+    const ids = (rows as Array<{ user_id: string }>).map((r) => r.user_id)
+    expect(ids).not.toContain(userA.id)
+  })
+})
+
+describe('RLS — user_dermo_profiles tenant isolation', () => {
+  let userA: { id: string }
+  let userB: { id: string }
+
+  beforeEach(async () => {
+    userA = await createTestUser('rls-dermo-a@test.local', 'Azerty123!')
+    userB = await createTestUser('rls-dermo-b@test.local', 'Azerty123!')
+
+    // Insert a dermo profile for userA
+    await testDb.insert(userDermoProfiles).values({ userId: userA.id })
+  })
+
+  it('raw app_runtime query with user B context cannot see user A dermo profile', async () => {
+    const rows = await appRuntimePool.begin(async (tx) => {
+      await tx`SELECT set_config('app.user_id', ${userB.id}, true)`
+      return tx`SELECT user_id FROM user_dermo_profiles`
+    })
+    const ids = (rows as Array<{ user_id: string }>).map((r) => r.user_id)
+    expect(ids).not.toContain(userA.id)
+  })
+})
+
+describe('RLS — user_bans tenant isolation', () => {
+  let userA: { id: string }
+  let userB: { id: string }
+  let banOfA: { id: string }
+
+  beforeEach(async () => {
+    userA = await createTestUser('rls-ban-a@test.local', 'Azerty123!')
+    userB = await createTestUser('rls-ban-b@test.local', 'Azerty123!')
+
+    // userB bans userA (banned_by = userB)
+    const [inserted] = await testDb
+      .insert(userBans)
+      .values({
+        userId: userA.id,
+        bannedBy: userB.id,
+        scope: 'product_edit',
+        reason: 'test ban',
+      })
+      .returning()
+    banOfA = inserted!
+  })
+
+  it('raw app_runtime query with user B context cannot see user A ban record', async () => {
+    const rows = await appRuntimePool.begin(async (tx) => {
+      await tx`SELECT set_config('app.user_id', ${userB.id}, true)`
+      return tx`SELECT id FROM user_bans`
+    })
+    const ids = (rows as Array<{ id: string }>).map((r) => r.id)
+    expect(ids).not.toContain(banOfA.id)
   })
 })

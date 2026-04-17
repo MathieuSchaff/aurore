@@ -2,7 +2,7 @@ import type { GoogleCallbackResult } from '@habit-tracker/shared'
 import { emailSchema, err, ok } from '@habit-tracker/shared'
 
 import { decodeIdToken, generateCodeVerifier, generateState, type OAuth2Tokens } from 'arctic'
-import { eq } from 'drizzle-orm'
+import { eq, sql } from 'drizzle-orm'
 
 import { users } from '../../db/schema'
 import { getGoogleInstance } from '../../lib/artic'
@@ -62,6 +62,7 @@ export async function handleGoogleCallback(
         emailVerifiedAt: new Date(),
       })
       await tx.update(users).set({ googleSub }).where(eq(users.id, newUser.id))
+      await tx.execute(sql`SELECT set_config('app.user_id', ${newUser.id}, true)`)
       await createProfile(tx, newUser.id, { avatarUrl: picture ?? null })
       return newUser
     })

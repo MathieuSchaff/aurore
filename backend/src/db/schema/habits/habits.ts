@@ -4,6 +4,8 @@ import {
   index,
   integer,
   pgEnum,
+  pgPolicy,
+  pgRole,
   pgTable,
   text,
   timestamp,
@@ -43,8 +45,16 @@ export const habits = pgTable(
   (t) => [
     index('habits_user_idx').on(t.userId),
     index('habits_user_category_idx').on(t.userId, t.category),
+    // Subquery form enables initPlan caching — faster on repeated row evaluations.
+    pgPolicy('habits_tenant_isolation', {
+      as: 'permissive',
+      for: 'all',
+      to: pgRole('app_runtime').existing(),
+      using: sql`${t.userId} = (SELECT current_setting('app.user_id', true)::uuid)`,
+      withCheck: sql`${t.userId} = (SELECT current_setting('app.user_id', true)::uuid)`,
+    }),
   ]
-)
+).enableRLS()
 
 export const habitProducts = pgTable(
   'habit_products',
@@ -170,8 +180,15 @@ export const habitChecks = pgTable(
     uniqueIndex('habit_checks_unique').on(t.habitId, t.scheduledDate, t.timingId), // anti-doublon
     index('habit_checks_user_date_idx').on(t.userId, t.scheduledDate),
     index('habit_checks_habit_idx').on(t.habitId),
+    pgPolicy('habit_checks_tenant_isolation', {
+      as: 'permissive',
+      for: 'all',
+      to: pgRole('app_runtime').existing(),
+      using: sql`${t.userId} = (SELECT current_setting('app.user_id', true)::uuid)`,
+      withCheck: sql`${t.userId} = (SELECT current_setting('app.user_id', true)::uuid)`,
+    }),
   ]
-)
+).enableRLS()
 
 export type Habit = typeof habits.$inferSelect
 export type HabitProduct = typeof habitProducts.$inferSelect
