@@ -49,6 +49,13 @@ export const tasks = pgTable(
       using: sql`${t.userId} = (SELECT current_setting('app.user_id', true)::uuid)`,
       withCheck: sql`${t.userId} = (SELECT current_setting('app.user_id', true)::uuid)`,
     }),
+    pgPolicy('tasks_admin_bypass', {
+      as: 'permissive',
+      for: 'all',
+      to: pgRole('app_runtime').existing(),
+      using: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
+      withCheck: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
+    }),
   ]
 ).enableRLS()
 
@@ -81,6 +88,13 @@ export const subtasks = pgTable(
         WHERE p.id = ${t.taskId}
           AND p.user_id = (SELECT current_setting('app.user_id', true)::uuid)
       )`,
+    }),
+    pgPolicy('subtasks_admin_bypass', {
+      as: 'permissive',
+      for: 'all',
+      to: pgRole('app_runtime').existing(),
+      using: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
+      withCheck: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
     }),
   ]
 ).enableRLS()

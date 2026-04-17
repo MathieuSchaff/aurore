@@ -39,6 +39,13 @@ export const userPreferences = pgTable(
       using: sql`${t.userId} = (SELECT current_setting('app.user_id', true)::uuid)`,
       withCheck: sql`${t.userId} = (SELECT current_setting('app.user_id', true)::uuid)`,
     }),
+    pgPolicy('user_preferences_admin_bypass', {
+      as: 'permissive',
+      for: 'all',
+      to: pgRole('app_runtime').existing(),
+      using: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
+      withCheck: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
+    }),
   ]
 ).enableRLS()
 

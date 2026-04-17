@@ -120,6 +120,20 @@
       "when": 1776422059912,
       "tag": "0016_adorable_shriek",
       "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1776422500000,
+      "tag": "0017_force_rls",
+      "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1776422922922,
+      "tag": "0018_violet_storm",
+      "breakpoints": true
     }
   ]
 }
