@@ -6,6 +6,7 @@ import { z } from 'zod'
 
 import type { AppEnv } from '../../app-env'
 import { requireJwtAuth } from '../auth/middleware'
+import { withRlsContext } from '../auth/rls-context.middleware'
 import {
   createProductTag,
   deleteProductTag,
@@ -32,6 +33,7 @@ tagsApp.use('*', async (c, next) => {
   if (c.req.method === 'GET') return next()
   return requireJwtAuth(c, next)
 })
+tagsApp.use('*', withRlsContext)
 
 export const tagRoutes = tagsApp
 
