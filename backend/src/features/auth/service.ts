@@ -14,7 +14,7 @@ import { err, ok } from '@habit-tracker/shared'
 
 import { eq } from 'drizzle-orm'
 
-import type { Database, DB } from '../../db/index'
+import type { DB } from '../../db/index'
 import { bindRlsContext } from '../../db/rls'
 import { users } from '../../db/schema'
 import { isUniqueViolation } from '../../lib/helpers'
@@ -256,13 +256,13 @@ export async function createDemo(
         emailVerifiedAt: new Date(),
         isDemo: true,
       })
-      // Set RLS context so the profiles insert passes WITH CHECK on app_runtime.
+      // Set RLS context so all inserts in this transaction pass WITH CHECK on app_runtime.
       await bindRlsContext(tx, created.id)
       await createProfile(tx, created.id)
+      // Seed inside the transaction so app.user_id is still set for RLS-protected tables.
+      await seedDemoData(created.id, tx)
       return created
     })
-
-    await seedDemoData(user.id, ctx.db as Database)
 
     const tokens = await createTokenPair(ctx, user.id, user.role)
 

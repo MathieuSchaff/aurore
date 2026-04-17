@@ -1,6 +1,6 @@
 import { addDays, format, subDays, subMonths } from 'date-fns'
 
-import type { Database } from '../../db/index'
+import type { DB } from '../../db/index'
 import { checkHabit } from '../habits/habit-checks'
 import { createHabit } from '../habits/habit-crud'
 import { listProducts } from '../products/service'
@@ -10,7 +10,7 @@ import { createUserProduct, upsertUserProductReview } from '../user-products/ser
 
 const d = (date: Date) => format(date, 'yyyy-MM-dd')
 
-export async function seedDemoData(userId: string, db: Database) {
+export async function seedDemoData(userId: string, db: DB) {
   console.log(`🌱 Seeding demo data for user ${userId}...`)
 
   await seedDemoHabits(userId, db)
@@ -20,7 +20,7 @@ export async function seedDemoData(userId: string, db: Database) {
   console.log(`✅ Demo data seeded successfully for user ${userId}`)
 }
 
-async function seedDemoHabits(userId: string, db: Database) {
+async function seedDemoHabits(userId: string, db: DB) {
   const habitsToCreate = [
     {
       name: 'Méditation',
@@ -70,7 +70,7 @@ async function seedDemoHabits(userId: string, db: Database) {
   }
 }
 
-async function seedDemoTasks(userId: string, db: Database) {
+async function seedDemoTasks(userId: string, db: DB) {
   // Active tasks with subtasks
   const tRoutine = await createTask(
     { title: 'Tester la routine du soir', energy: 'low' },
@@ -132,7 +132,7 @@ async function seedDemoTasks(userId: string, db: Database) {
   await updateTask(tDone2.id, userId, { status: 'done' }, db)
 }
 
-async function seedDemoCollection(userId: string, db: Database) {
+async function seedDemoCollection(userId: string, db: DB) {
   const { items: products } = await listProducts({ page: 1, limit: 15, sort: 'random' }, db)
 
   if (products.length === 0) {
@@ -244,7 +244,7 @@ async function seedDemoPurchases(
   userId: string,
   userProductId: string,
   status: 'in_stock' | 'holy_grail' | 'archived',
-  db: Database
+  db: DB
 ) {
   if (status === 'archived') {
     // One finished purchase in the past
