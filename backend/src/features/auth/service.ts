@@ -14,7 +14,7 @@ import { err, ok } from '@habit-tracker/shared'
 
 import { eq } from 'drizzle-orm'
 
-import type { DB } from '../../db/index'
+import type { Database, DB } from '../../db/index'
 import { bindRlsContext } from '../../db/rls'
 import { users } from '../../db/schema'
 import { isUniqueViolation } from '../../lib/helpers'
@@ -260,7 +260,7 @@ export async function createDemo(
       await bindRlsContext(tx, created.id)
       await createProfile(tx, created.id)
       // Seed inside the transaction so app.user_id is still set for RLS-protected tables.
-      await seedDemoData(created.id, tx)
+      await seedDemoData(created.id, tx as unknown as Database)
       return created
     })
 
