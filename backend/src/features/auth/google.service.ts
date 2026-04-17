@@ -2,9 +2,10 @@ import type { GoogleCallbackResult } from '@habit-tracker/shared'
 import { emailSchema, err, ok } from '@habit-tracker/shared'
 
 import { decodeIdToken, generateCodeVerifier, generateState, type OAuth2Tokens } from 'arctic'
-import { eq, sql } from 'drizzle-orm'
+import { eq } from 'drizzle-orm'
 
 import { users } from '../../db/schema'
+import { bindRlsContext } from '../../db/rls'
 import { getGoogleInstance } from '../../lib/artic'
 import { type AuthContext, createTokenPair } from './service'
 import { createProfile, createUser, getUser, toPublicUser } from './user.utils'
@@ -62,7 +63,8 @@ export async function handleGoogleCallback(
         emailVerifiedAt: new Date(),
       })
       await tx.update(users).set({ googleSub }).where(eq(users.id, newUser.id))
-      await tx.execute(sql`SELECT set_config('app.user_id', ${newUser.id}, true)`)
+      // Set RLS context so the profiles insert passes WITH CHECK on app_runtime.
+      await bindRlsContext(tx, newUser.id)
       await createProfile(tx, newUser.id, { avatarUrl: picture ?? null })
       return newUser
     })

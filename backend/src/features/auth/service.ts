@@ -12,9 +12,10 @@ import type {
 } from '@habit-tracker/shared'
 import { err, ok } from '@habit-tracker/shared'
 
-import { eq, sql } from 'drizzle-orm'
+import { eq } from 'drizzle-orm'
 
 import type { Database, DB } from '../../db/index'
+import { bindRlsContext } from '../../db/rls'
 import { users } from '../../db/schema'
 import { isUniqueViolation } from '../../lib/helpers'
 import { seedDemoData } from './demo-seed'
@@ -86,7 +87,7 @@ export async function signup(
         emailVerifiedAt: null,
       })
       // Set RLS context so the profiles insert passes WITH CHECK on app_runtime.
-      await tx.execute(sql`SELECT set_config('app.user_id', ${user.id}, true)`)
+      await bindRlsContext(tx, user.id)
       await createProfile(tx, user.id)
       return user
     })
@@ -251,7 +252,8 @@ export async function createDemo(
         emailVerifiedAt: new Date(),
         isDemo: true,
       })
-      await tx.execute(sql`SELECT set_config('app.user_id', ${created.id}, true)`)
+      // Set RLS context so the profiles insert passes WITH CHECK on app_runtime.
+      await bindRlsContext(tx, created.id)
       await createProfile(tx, created.id)
       return created
     })
