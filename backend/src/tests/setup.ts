@@ -6,6 +6,8 @@ process.env.JWT_SECRET = 'test-secret-at-least-32-chars-long-for-zod'
 process.env.REFRESH_SECRET = 'test-refresh-at-least-32-chars-long-for-zod'
 process.env.DATABASE_URL =
   process.env.DATABASE_URL || 'postgres://app:testpassword@localhost:5433/appdb_test'
+process.env.APP_DATABASE_URL =
+  process.env.APP_DATABASE_URL || 'postgres://app_runtime:testpassword@localhost:5433/appdb_test'
 process.env.RESEND_API_KEY = 're_test'
 process.env.FRONTEND_URL = 'http://localhost:5173'
 process.env.GOOGLE_CLIENT_ID = 'test-client-id'

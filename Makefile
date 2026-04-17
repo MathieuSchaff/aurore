@@ -128,6 +128,7 @@ nginx-reload: ## Recharge la configuration Nginx sans interruption
 # Tests
 # =========================
 TEST_DB_URL=postgres://app:testpassword@localhost:5433/appdb_test
+APP_TEST_DB_URL=postgres://app_runtime:testpassword@localhost:5433/appdb_test
 
 test-db-up: ## Lance la DB de test et crée les tables
 	$(COMPOSE_TEST) up -d
@@ -135,30 +136,30 @@ test-db-up: ## Lance la DB de test et crée les tables
 	@sleep 3
 	@until $(COMPOSE_TEST) exec db-test pg_isready -U app -d appdb_test 2>/dev/null; do sleep 1; done
 	@echo "$(CYAN)Application des migrations (Drizzle Migrate)...$(NC)"
-	@cd backend && DATABASE_URL=$(TEST_DB_URL) bun run src/db/migrate.ts
+	@cd backend && DATABASE_URL=$(TEST_DB_URL) APP_DATABASE_URL=$(APP_TEST_DB_URL) bun run src/db/migrate.ts
 	@echo "$(GREEN)✓ DB de test prête et structurée$(NC)"
 
 test-db-down: ## Arrête la DB de test
 	$(COMPOSE_TEST) down
 
 test: test-db-up ## Lance les tests (backend) complets - ARGS="pattern"
-	@DATABASE_URL=$(TEST_DB_URL) bun --cwd ./backend test $(ARGS)
+	@DATABASE_URL=$(TEST_DB_URL) APP_DATABASE_URL=$(APP_TEST_DB_URL) bun --cwd ./backend test $(ARGS)
 	@echo "$(GREEN)✓ Tests terminés$(NC)"
 
 test-dev: ## Lance les tests sans couper la DB (plus rapide en dev) - ARGS="pattern"
-	@cd backend && DATABASE_URL=$(TEST_DB_URL) bun test $(ARGS)
+	@cd backend && DATABASE_URL=$(TEST_DB_URL) APP_DATABASE_URL=$(APP_TEST_DB_URL) bun test $(ARGS)
 
 test-failures: test-db-up ## Affiche uniquement les tests qui échouent - ARGS="pattern"
-	@DATABASE_URL=$(TEST_DB_URL) bun --cwd ./backend test $(ARGS) 2>&1 \
+	@DATABASE_URL=$(TEST_DB_URL) APP_DATABASE_URL=$(APP_TEST_DB_URL) bun --cwd ./backend test $(ARGS) 2>&1 \
 		| grep -E "^\s*(✗|×|fail|error:|at )" \
 		| grep -v "node_modules" \
 		|| true
 
 test-dev-watch: ## Lance les tests en mode watch (nécessite test-db-up)
-	@cd backend && DATABASE_URL=$(TEST_DB_URL) bun test --watch $(ARGS)
+	@cd backend && DATABASE_URL=$(TEST_DB_URL) APP_DATABASE_URL=$(APP_TEST_DB_URL) bun test --watch $(ARGS)
 
 test-watch: test-db-up ## Lance les tests en mode watch avec auto-setup
-	@cd backend && DATABASE_URL=$(TEST_DB_URL) bun test --watch
+	@cd backend && DATABASE_URL=$(TEST_DB_URL) APP_DATABASE_URL=$(APP_TEST_DB_URL) bun test --watch
 
 test-only: test-db-up ## Lance des tests spécifiques (ARGS="pattern")
 	@cd backend && DATABASE_URL=$(TEST_DB_URL) bun test "$(ARGS)"
