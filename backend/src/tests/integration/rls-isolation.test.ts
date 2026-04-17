@@ -645,6 +645,63 @@ describe('RLS — user_product_reviews (owned via user_products)', () => {
   })
 })
 
+describe('RLS — FORCE RLS and admin bypass', () => {
+  let userA: { id: string }
+  let userB: { id: string }
+  let taskOfA: { id: string }
+
+  beforeEach(async () => {
+    userA = await createTestUser('rls-force-a@test.local', 'Azerty123!')
+    userB = await createTestUser('rls-force-b@test.local', 'Azerty123!')
+
+    const [inserted] = await testDb
+      .insert(tasks)
+      .values({ userId: userA.id, title: 'A private task for FORCE RLS', status: 'inbox' })
+      .returning()
+    taskOfA = inserted!
+  })
+
+  it('FORCE ROW LEVEL SECURITY is set on tasks in pg_class', async () => {
+    // Verifies the DDL was applied — superuser connections still bypass RLS by Postgres design,
+    // but FORCE RLS ensures non-superuser table owners cannot bypass policies.
+    const pool = new SQL(process.env.APP_DATABASE_URL!)
+    try {
+      const rows = await pool`SELECT relforcerowsecurity FROM pg_class WHERE relname = 'tasks'`
+      expect((rows as Array<{ relforcerowsecurity: boolean }>)[0]?.relforcerowsecurity).toBe(true)
+    } finally {
+      await pool.close()
+    }
+  })
+
+  it('admin role sees cross-tenant rows via app.role=admin', async () => {
+    const pool = new SQL(process.env.APP_DATABASE_URL!)
+    try {
+      const rows = await pool.begin(async (tx) => {
+        await tx`SELECT set_config('app.user_id', ${userB.id}, true)`
+        await tx`SELECT set_config('app.role', 'admin', true)`
+        return tx`SELECT id FROM tasks WHERE id = ${taskOfA.id}::uuid`
+      })
+      expect((rows as Array<{ id: string }>).map((r) => r.id)).toEqual([taskOfA.id])
+    } finally {
+      await pool.close()
+    }
+  })
+
+  it('rows stay filtered if app.role is unset', async () => {
+    const pool = new SQL(process.env.APP_DATABASE_URL!)
+    try {
+      const rows = await pool.begin(async (tx) => {
+        await tx`SELECT set_config('app.user_id', ${userB.id}, true)`
+        // Do NOT set app.role
+        return tx`SELECT id FROM tasks`
+      })
+      expect((rows as Array<{ id: string }>).map((r) => r.id)).not.toContain(taskOfA.id)
+    } finally {
+      await pool.close()
+    }
+  })
+})
+
 describe('RLS — purchases (owned via user_products)', () => {
   let userA: { id: string }
   let userB: { id: string }

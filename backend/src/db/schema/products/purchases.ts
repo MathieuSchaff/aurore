@@ -36,6 +36,13 @@ export const purchases = pgTable(
           AND p.user_id = (SELECT current_setting('app.user_id', true)::uuid)
       )`,
     }),
+    pgPolicy('purchases_admin_bypass', {
+      as: 'permissive',
+      for: 'all',
+      to: pgRole('app_runtime').existing(),
+      using: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
+      withCheck: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
+    }),
   ]
 ).enableRLS()
 

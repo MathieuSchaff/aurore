@@ -53,6 +53,13 @@ export const habits = pgTable(
       using: sql`${t.userId} = (SELECT current_setting('app.user_id', true)::uuid)`,
       withCheck: sql`${t.userId} = (SELECT current_setting('app.user_id', true)::uuid)`,
     }),
+    pgPolicy('habits_admin_bypass', {
+      as: 'permissive',
+      for: 'all',
+      to: pgRole('app_runtime').existing(),
+      using: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
+      withCheck: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
+    }),
   ]
 ).enableRLS()
 
@@ -88,6 +95,13 @@ export const habitProducts = pgTable(
         WHERE p.id = ${t.habitId}
           AND p.user_id = (SELECT current_setting('app.user_id', true)::uuid)
       )`,
+    }),
+    pgPolicy('habit_products_admin_bypass', {
+      as: 'permissive',
+      for: 'all',
+      to: pgRole('app_runtime').existing(),
+      using: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
+      withCheck: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
     }),
   ]
 ).enableRLS()
@@ -128,6 +142,13 @@ export const habitSchedules = pgTable(
         WHERE p.id = ${t.habitId}
           AND p.user_id = (SELECT current_setting('app.user_id', true)::uuid)
       )`,
+    }),
+    pgPolicy('habit_schedules_admin_bypass', {
+      as: 'permissive',
+      for: 'all',
+      to: pgRole('app_runtime').existing(),
+      using: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
+      withCheck: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
     }),
   ]
 ).enableRLS()
@@ -171,6 +192,13 @@ export const habitTimings = pgTable(
           AND h.user_id = (SELECT current_setting('app.user_id', true)::uuid)
       )`,
     }),
+    pgPolicy('habit_timings_admin_bypass', {
+      as: 'permissive',
+      for: 'all',
+      to: pgRole('app_runtime').existing(),
+      using: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
+      withCheck: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
+    }),
   ]
 ).enableRLS()
 
@@ -206,6 +234,13 @@ export const habitReminders = pgTable(
         WHERE ht.id = ${t.timingId}
           AND h.user_id = (SELECT current_setting('app.user_id', true)::uuid)
       )`,
+    }),
+    pgPolicy('habit_reminders_admin_bypass', {
+      as: 'permissive',
+      for: 'all',
+      to: pgRole('app_runtime').existing(),
+      using: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
+      withCheck: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
     }),
   ]
 ).enableRLS()
@@ -244,6 +279,13 @@ export const habitPeriods = pgTable(
           AND p.user_id = (SELECT current_setting('app.user_id', true)::uuid)
       )`,
     }),
+    pgPolicy('habit_periods_admin_bypass', {
+      as: 'permissive',
+      for: 'all',
+      to: pgRole('app_runtime').existing(),
+      using: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
+      withCheck: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
+    }),
   ]
 ).enableRLS()
 
@@ -276,6 +318,13 @@ export const habitChecks = pgTable(
       to: pgRole('app_runtime').existing(),
       using: sql`${t.userId} = (SELECT current_setting('app.user_id', true)::uuid)`,
       withCheck: sql`${t.userId} = (SELECT current_setting('app.user_id', true)::uuid)`,
+    }),
+    pgPolicy('habit_checks_admin_bypass', {
+      as: 'permissive',
+      for: 'all',
+      to: pgRole('app_runtime').existing(),
+      using: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
+      withCheck: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
     }),
   ]
 ).enableRLS()

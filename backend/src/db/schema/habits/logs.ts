@@ -64,6 +64,13 @@ export const habitCheckProducts = pgTable(
           AND p.user_id = (SELECT current_setting('app.user_id', true)::uuid)
       )`,
     }),
+    pgPolicy('habit_check_products_admin_bypass', {
+      as: 'permissive',
+      for: 'all',
+      to: pgRole('app_runtime').existing(),
+      using: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
+      withCheck: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
+    }),
   ]
 ).enableRLS()
 
@@ -90,6 +97,13 @@ export const wellbeingLogs = pgTable(
       to: pgRole('app_runtime').existing(),
       using: sql`${t.userId} = (SELECT current_setting('app.user_id', true)::uuid)`,
       withCheck: sql`${t.userId} = (SELECT current_setting('app.user_id', true)::uuid)`,
+    }),
+    pgPolicy('wellbeing_logs_admin_bypass', {
+      as: 'permissive',
+      for: 'all',
+      to: pgRole('app_runtime').existing(),
+      using: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
+      withCheck: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
     }),
   ]
 ).enableRLS()
