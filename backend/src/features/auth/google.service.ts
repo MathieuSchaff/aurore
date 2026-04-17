@@ -42,7 +42,7 @@ export async function handleGoogleCallback(
       .limit(1)
 
     if (existingByGoogle) {
-      const tokenPair = await createTokenPair(ctx, existingByGoogle.id)
+      const tokenPair = await createTokenPair(ctx, existingByGoogle.id, existingByGoogle.role)
       return ok({ user: toPublicUser(existingByGoogle), ...tokenPair })
     }
 
@@ -51,7 +51,7 @@ export async function handleGoogleCallback(
 
     if (existingByEmail) {
       await ctx.db.update(users).set({ googleSub }).where(eq(users.id, existingByEmail.id))
-      const tokenPair = await createTokenPair(ctx, existingByEmail.id)
+      const tokenPair = await createTokenPair(ctx, existingByEmail.id, existingByEmail.role)
       return ok({ user: toPublicUser(existingByEmail), ...tokenPair })
     }
 
@@ -69,7 +69,7 @@ export async function handleGoogleCallback(
       return newUser
     })
 
-    const tokenPair = await createTokenPair(ctx, user.id)
+    const tokenPair = await createTokenPair(ctx, user.id, user.role)
     return ok({ user: toPublicUser(user), ...tokenPair })
   } catch (e) {
     console.error('Google callback failed:', e)

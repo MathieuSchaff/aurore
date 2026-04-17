@@ -29,7 +29,7 @@ export const withRlsContext = async (c: Context<AppEnv>, next: Next) => {
   }
 
   const baseDb = c.get('db')
-  const role = c.get('userRole') ?? 'user' // fallback for unauthenticated code paths that somehow reach here
+  const role = c.get('userRole') // required per AppEnv; always set by requireJwtAuth before this middleware
 
   try {
     await baseDb.transaction(async (tx) => {

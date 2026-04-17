@@ -53,7 +53,7 @@ const DUMMY_HASH = await Bun.password.hash('timing-safe-dummy')
 export async function createTokenPair(
   ctx: AuthContext,
   userId: string,
-  role: 'user' | 'admin' = 'user'
+  role: 'user' | 'admin'
 ) {
   const accessToken = await generateAccessToken(userId, role, ctx.jwtSecret)
   const {
