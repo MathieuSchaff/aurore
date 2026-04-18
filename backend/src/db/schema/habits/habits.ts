@@ -309,7 +309,12 @@ export const habitChecks = pgTable(
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [
-    uniqueIndex('habit_checks_unique').on(t.habitId, t.scheduledDate, t.timingId), // anti-doublon
+    uniqueIndex('habit_checks_unique_with_timing')
+      .on(t.habitId, t.scheduledDate, t.timingId)
+      .where(sql`timing_id IS NOT NULL`),
+    uniqueIndex('habit_checks_unique_no_timing')
+      .on(t.habitId, t.scheduledDate)
+      .where(sql`timing_id IS NULL`),
     index('habit_checks_user_date_idx').on(t.userId, t.scheduledDate),
     index('habit_checks_habit_idx').on(t.habitId),
     pgPolicy('habit_checks_tenant_isolation', {

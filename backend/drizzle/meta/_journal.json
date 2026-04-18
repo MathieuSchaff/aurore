@@ -134,6 +134,13 @@
       "when": 1776422922922,
       "tag": "0018_violet_storm",
       "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1776515745193,
+      "tag": "0019_awesome_mysterio",
+      "breakpoints": true
     }
   ]
 }
