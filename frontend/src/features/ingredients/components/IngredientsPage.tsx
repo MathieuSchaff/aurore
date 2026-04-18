@@ -10,7 +10,7 @@ import { Button } from '@/component/Button/Button'
 import { Card } from '@/component/Card/Card'
 import { Badge } from '@/component/DataDisplay/Badge/Badge'
 import { ListPagination } from '@/component/DataDisplay/Pagination/ListPagination'
-import { EmptyState } from '@/component/Feedback/EmptyState/EmptyState'
+import { EmptyState } from '@/component/Feedback/ui/EmptyState/EmptyState'
 import {
   ActiveFiltersBar,
   emptyFilters,
@@ -19,7 +19,7 @@ import {
   getFilterLabel,
 } from '@/component/Filter'
 import { PageHeader } from '@/component/Layout/PageHeader/PageHeader'
-import { SearchCombobox } from '@/component/search/SearchCombobox'
+import { SearchCombobox } from '@/component/Search/SearchCombobox'
 import { useListFilters } from '@/hooks/useListFilters'
 import { useTagFilterGroups } from '@/hooks/useTagFilterGroups'
 import { ingredientQueries, type ListIngredientsFilters } from '../../../lib/queries/ingredients'

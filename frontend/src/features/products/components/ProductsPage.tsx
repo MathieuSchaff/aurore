@@ -8,7 +8,7 @@ import { useMemo, useState } from 'react'
 import { Button } from '@/component/Button/Button'
 import { Card } from '@/component/Card/Card'
 import { ListPagination } from '@/component/DataDisplay/Pagination/ListPagination'
-import { EmptyState } from '@/component/Feedback/EmptyState/EmptyState'
+import { EmptyState } from '@/component/Feedback/ui/EmptyState/EmptyState'
 import {
   ActiveFiltersBar,
   emptyFilters,
@@ -19,7 +19,7 @@ import {
 } from '@/component/Filter'
 import { Toggle } from '@/component/Input/Toggle/Toggle'
 import { PageHeader } from '@/component/Layout/PageHeader/PageHeader'
-import { SearchCombobox } from '@/component/search/SearchCombobox'
+import { SearchCombobox } from '@/component/Search/SearchCombobox'
 import { useListFilters } from '@/hooks/useListFilters'
 import { useTagFilterGroups } from '@/hooks/useTagFilterGroups'
 import { ProductIcon } from '../../../assets/product-icons'

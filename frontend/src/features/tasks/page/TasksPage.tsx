@@ -2,12 +2,12 @@ import { useQuery } from '@tanstack/react-query'
 import { CheckSquare, Plus } from 'lucide-react'
 import { useState } from 'react'
 
-import { EmptyState } from '@/component/Feedback/EmptyState/EmptyState'
-import { Spinner } from '@/component/Feedback/Spinner/Spinner'
+import { EmptyState } from '@/component/Feedback/ui/EmptyState/EmptyState'
+import { Spinner } from '@/component/Feedback/ui/Spinner/Spinner'
 import { PageHeader } from '@/component/Layout/PageHeader/PageHeader'
 import { SectionHeader } from '@/component/Typography/SectionHeader/SectionHeader'
-import { taskQueries, useCreateTask } from '../../../../lib/queries/tasks'
-import { TaskItem } from '../TaskItem'
+import { taskQueries, useCreateTask } from '../../../lib/queries/tasks'
+import { TaskItem } from '../components/TaskItem'
 
 import './TasksPage.css'
 
