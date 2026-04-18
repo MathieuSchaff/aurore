@@ -7,7 +7,7 @@ import { useState } from 'react'
 import z from 'zod'
 
 import { Button } from '../../../../component/Button/Button'
-import { FormMessage } from '../../../../component/Feedback/FormMessage/FormMessage'
+import { FormMessage } from '../../../../component/Feedback/ui/FormMessage/FormMessage'
 import { useLogin } from '../../../../lib/queries/auth'
 import { AuthDivider } from '../AuthDivider/AuthDivider'
 import { AuthField } from '../AuthField/AuthField'

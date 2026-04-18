@@ -4,7 +4,7 @@ import { ExternalLink, FlaskConical } from 'lucide-react'
 import { useMemo } from 'react'
 import Markdown from 'react-markdown'
 
-import { FormMessage } from '@/component/Feedback/FormMessage/FormMessage'
+import { FormMessage } from '@/component/Feedback/ui/FormMessage/FormMessage'
 import { RichText } from '@/component/Typography/RichText/RichText'
 import { SectionHeader } from '@/component/Typography/SectionHeader/SectionHeader'
 import { productQueries } from '../../../lib/queries/products'
