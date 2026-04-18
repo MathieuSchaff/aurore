@@ -12,10 +12,10 @@ export const VT_SEED: UnifiedProductSeed[] = [
     totalAmount: 30,
     amountUnit: 'ml',
     priceCents: 1905,
-    description: `Ampoule apaisante à l'acide azélaïque enrichie en exosomes de Centella Asiatica. Régule la production de sébum, calme les rougeurs et affine le grain de peau. Formule légèrement acide pour équilibrer le pH, sans fragrance artificielle.`,
+    description: `Ampoule apaisante à l'acide azélaïque(20%) enrichie en exosomes de Centella Asiatica. Régule la production de sébum, calme les rougeurs et affine le grain de peau. Formule légèrement acide pour équilibrer le pH, sans fragrance artificielle.`,
     notes: 'Contient de la Cyanocobalamine (B12) et un complexe hyaluronique multi-poids (sodium hyaluronate, acide hyaluronique hydrolysé, sodium hyaluronate crosspolymer). Idéal peaux sensibles et acnéiques.',
     inci: 'WATER, PROPYLENE GLYCOL, AZELAIC ACID, TROMETHAMINE, 1,2-HEXANEDIOL, PANTHENOL, POLYGLYCERYL-10 LAURATE, ETHYLHEXYLGLYCERIN, XANTHAN GUM, CYANOCOBALAMIN, DIPOTASSIUM GLYCYRRHIZATE, LACTOBACILLUS/SOYMILK FERMENT FILTRATE, BUTYLENE GLYCOL, SODIUM HYALURONATE, XYLITYLGLUCOSIDE, ANHYDROXYLITOL, PENTYLENE GLYCOL, XYLITOL, MELALEUCA ALTERNIFOLIA (TEA TREE) LEAF EXTRACT, HYDROXYPROPYLTRIMONIUM HYALURONATE, HOUTTUYNIA CORDATA EXTRACT, CENTELLA ASIATICA EXTRACT, TOCOPHEROL, MADECASSOSIDE, HYDROLYZED HYALURONIC ACID, SODIUM ACETYLATED HYALURONATE, DEXTRIN, HYALURONIC ACID, ASIATICOSIDE, HYDROLYZED SODIUM HYALURONATE, SODIUM HYALURONATE CROSSPOLYMER, POTASSIUM HYALURONATE',
-    url: 'https://www.zalando.fr',
+    url:"https://www.yesstyle.com/fr/tcuc.EUR/coc.FR/info.html/pid.1134366027?utm_source=GoogleAds&utm_campaign=1432964344&utm_term=&utm_content=61606046332_275208218560&utm_medium=Shopping&bac=J1ZE5O8M&mcg=paidsearch&gad_source=1&gad_campaignid=1432964344&gbraid=0AAAAAD3WTkkpBonIFgUbA8-3YKJlF8y5y&gclid=CjwKCAjw14zPBhAuEiwAP3-EbzJlAPZVo5iM0gstmvB2prSvmF_kdNYixKnrGJBW3-z7OCS3EAPsCBoCbO0QAvD_BwE",
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
@@ -33,6 +33,8 @@ export const VT_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.AZELAIC_ACID,
+        concentrationValue: 20,
+        concentrationUnit: "%",
         notes: 'Régule la production de sébum, calme rougeurs, affine le grain de peau.',},
       {
         slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA,

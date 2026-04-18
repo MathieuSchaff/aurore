@@ -30,6 +30,8 @@ export const ALLIES_OF_SKIN_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.AZELAIC_ACID,
+        concentrationValue: 10,
+        concentrationUnit: "%",
         notes: '10% acide azélaïque – exfoliant doux, anti-rougeurs/pigmentation',},
       { slug: INGREDIENT_SLUGS.KOJIC_ACID, notes: '1% kojic acid – éclaircissant',},
       { slug: INGREDIENT_SLUGS.HEXYLRESORCINOL, notes: '3% hexylresorcinol – puissant anti-taches',},
