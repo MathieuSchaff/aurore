@@ -286,9 +286,9 @@ db-clean: ## Vide complètement la base de données (SCHEMA public)
 	@docker compose exec -T db psql -U app -d appdb -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public; GRANT ALL ON SCHEMA public TO app; GRANT ALL ON SCHEMA public TO public;"
 	@echo "$(GREEN)✓ Base de données vidée.$(NC)"
 
-db-reset: db-clean db-push db-seed ## Nettoyage complet + Push schéma + Seed
+db-reset: db-clean db-migrate db-seed ## Nettoyage complet + Migrations + Seed
 
-db-reset-all: db-clean db-push db-seed-all ## Nettoyage complet + Push schéma + Seed Unifié
+db-reset-all: db-clean db-migrate db-seed-all ## Nettoyage complet + Migrations + Seed Unifié
 
 db-backup: ## Crée une sauvegarde SQL de la base de données
 	@mkdir -p ./backups
@@ -319,11 +319,6 @@ backup-cron-install: ## [PROD] Installe un cron quotidien (3h du matin) pour les
 		| sudo tee /etc/cron.d/aurore-backup > /dev/null
 	@sudo chmod 644 /etc/cron.d/aurore-backup
 	@echo "$(GREEN)✓ Cron installé — sauvegarde quotidienne à 3h$(NC)"
-
-db-push-prod: ## [PROD] Push le schéma sur la DB de production
-	@echo "$(YELLOW)⚠ ATTENTION : Vous allez modifier le schéma de PRODUCTION !$(NC)"
-	@read -p "Êtes-vous sûr ? [y/N] " confirm && [ "$$confirm" = "y" ] || exit 1
-	cd backend && bun --env-file=../.env.prod x drizzle-kit push
 
 # =========================
 # SSL (production)
