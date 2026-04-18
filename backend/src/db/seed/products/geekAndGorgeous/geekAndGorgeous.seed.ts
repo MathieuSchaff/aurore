@@ -86,6 +86,9 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
       avoid: [
         TAG_SLUGS.GROSSESSE_COMPATIBLE,
         TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
+        TAG_SLUGS.ROSACEE,
+        TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
         TAG_SLUGS.ECZEMA,
         TAG_SLUGS.PEAU_SECHE,
       ],
@@ -93,6 +96,8 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.RETINAL,
+        concentrationValue: 0.2,
+        concentrationUnit: "%",
         notes: '0.2% retinal stabilisé (sustained-delivery) – anti-âge puissant, rides/texture/éclat',},
       {
         slug: INGREDIENT_SLUGS.ECTOIN,
@@ -200,9 +205,13 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.PHA,
+        concentrationValue: 3.2,
+        concentrationUnit: "%",
         notes: '3.2% - Acide PHA doux qui exfolie et hydrate',},
       {
         slug: INGREDIENT_SLUGS.SALICYLIC_ACID,
+        concentrationValue: 0.8,
+        concentrationUnit: "%",
         notes: '0.8% - BHA à faible dose pour une action anti-inflammatoire douce',},
       {
         slug: INGREDIENT_SLUGS.PANTHENOL,
@@ -235,14 +244,18 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.GROSSESSE_COMPATIBLE,
         TAG_SLUGS.VEGAN,
       ],
-      avoid: [],
+      avoid: [TAG_SLUGS.PEAU_REACTIVE],
     },
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.MANDELIC_ACID,
+        concentrationValue: 5,
+        concentrationUnit: "%",
         notes: '5% - AHA antibactérien idéal pour les imperfections',},
       {
         slug: INGREDIENT_SLUGS.SALICYLIC_ACID,
+        concentrationValue: 1,
+        concentrationUnit: "%",
         notes: '1% - Nettoie l’intérieur des pores',},
       {
         slug: INGREDIENT_SLUGS.SARCOSINE,
@@ -276,14 +289,22 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.VEGAN,
         TAG_SLUGS.GROSSESSE_COMPATIBLE,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE],
+      avoid: [
+        TAG_SLUGS.PEAU_SENSIBLE,
+        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
+      ],
     },
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.GLYCOLIC_ACID,
+        concentrationValue: 10,
+        concentrationUnit: "%",
         notes: '10% - AHA le plus puissant pour booster le collagène',},
       {
         slug: INGREDIENT_SLUGS.LACTIC_ACID,
+        concentrationValue: 2,
+        concentrationUnit: "%",
         notes: '2% - AHA doux et humectant',},
     ],
   },
@@ -382,6 +403,8 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.PANTHENOL,
+        concentrationValue: 5,
+        concentrationUnit: "%",
         notes: '5% - Pro-vitamine B5 pour apaiser et réparer',},
       {
         slug: INGREDIENT_SLUGS.ALLANTOIN,
@@ -450,11 +473,19 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.VEGAN,
       ],
-      avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE, TAG_SLUGS.PEAU_REACTIVE],
+      avoid: [
+        TAG_SLUGS.GROSSESSE_COMPATIBLE,
+        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
+        TAG_SLUGS.ROSACEE,
+        TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
+      ],
     },
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.RETINAL,
+        concentrationValue: 0.1,
+        concentrationUnit: "%",
         notes: '0.1% - Rétinaldéhyde hautement dosé pour le smart-aging',},
     ],
   },
@@ -482,11 +513,19 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.VEGAN,
       ],
-      avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE],
+      avoid: [
+        TAG_SLUGS.GROSSESSE_COMPATIBLE,
+        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
+        TAG_SLUGS.ROSACEE,
+        TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
+      ],
     },
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.RETINAL,
+        concentrationValue: 0.05,
+        concentrationUnit: "%",
         notes: '0.05% - Dosage moyen pour habituer la peau aux rétinoïdes',},
     ],
   },
@@ -521,6 +560,8 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.VITAMIN_C,
+        concentrationValue: 15,
+        concentrationUnit: "%",
         notes: '15% - Vitamine C pure pour l’éclat et le collagène',},
       {
         slug: INGREDIENT_SLUGS.FERULIC_ACID,
@@ -557,10 +598,14 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.MADECASSOSIDE,
+        concentrationValue: 0.3,
+        concentrationUnit: "%",
         notes: '0.3% - Molécule de Centella Asiatica pour la cicatrisation',},
       {
         slug: INGREDIENT_SLUGS.BETA_GLUCAN,
-        notes: '0.2% - Extrait d’avoine réparateur et hydratant',},
+        concentrationValue: 0.2,
+        concentrationUnit: "%",
+        notes: '0.2% - Ingrédient d’avoine réparateur et hydratant',},
     ],
   },
   {
@@ -594,6 +639,8 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.AZELAIC_ACID,
+        concentrationValue: 20,
+        concentrationUnit: "%",
         notes: '20% - Solution contenant 6% de PAD pur pour les rougeurs',},
     ],
   },
@@ -629,6 +676,8 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.NIACINAMIDE,
+        concentrationValue: 10,
+        concentrationUnit: "%",
         notes: '10% - Vitamine B3 multi-fonctions pour les pores et barrière',},
       {
         slug: INGREDIENT_SLUGS.ZINC_PCA,
@@ -660,11 +709,13 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.VEGAN,
         TAG_SLUGS.GROSSESSE_COMPATIBLE,
       ],
-      avoid: [],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE],
     },
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.SALICYLIC_ACID,
+        concentrationValue: 2,
+        concentrationUnit: "%",
         notes: '2% - Dose maximale de BHA pour purifier les pores',},
     ],
   },

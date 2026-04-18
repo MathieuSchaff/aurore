@@ -106,8 +106,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.ANTI_ACNE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, value: 6, unit: "%", notes: 'Vitamine B3 anti-âge et repulpante',},
-      { slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE, value: 1.5, unit: "%", notes: 'Acide hyaluronique pur repulpant',},
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, concentrationValue: 6, concentrationUnit: "%", notes: 'Vitamine B3 anti-âge et repulpante',},
+      { slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE, concentrationValue: 1.5, concentrationUnit: "%", notes: 'Acide hyaluronique pur repulpant',},
       { slug: INGREDIENT_SLUGS.ADENOSINE, notes: 'Actif anti-rides et tenseur',},
     ],
   },
@@ -141,7 +141,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, value: 4, unit: "%", notes: 'Limite les marques et régule le sébum',},
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, concentrationValue: 4, concentrationUnit: "%", notes: 'Limite les marques et régule le sébum',},
       { slug: INGREDIENT_SLUGS.CHARDON_MARIE, notes: 'Comedoclastin™ — réduit comédons et pores',},
     ],
   },
@@ -171,7 +171,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.ROSACEE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE, TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.CHARDON_MARIE, value: 25, unit: "%", notes: 'Comedoclastin™ : actif breveté issu du Chardon-marie',},
+      { slug: INGREDIENT_SLUGS.CHARDON_MARIE, concentrationValue: 25, concentrationUnit: "%", notes: 'Comedoclastin™ : actif breveté issu du Chardon-marie',},
       { slug: INGREDIENT_SLUGS.GLYCOLIC_ACID, notes: 'Exfoliant AHA pour lisser le grain de peau',},
       { slug: INGREDIENT_SLUGS.BAKUCHIOL, notes: 'Alternative végétale au rétinol',},
     ],
@@ -325,8 +325,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.ROSACEE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE, TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.RETINAL, value: 0.1, unit: "%", notes: `Précurseur direct de l'acide rétinoïque`,},
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, value: 2, unit: "%", notes: 'Stimule la régénération cellulaire',},
+      { slug: INGREDIENT_SLUGS.RETINAL, concentrationValue: 0.1, concentrationUnit: "%", notes: `Précurseur direct de l'acide rétinoïque`,},
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, concentrationValue: 2, concentrationUnit: "%", notes: 'Stimule la régénération cellulaire',},
       { slug: INGREDIENT_SLUGS.HYALURONIC_ACID, notes: 'Action lissante et hydratante',},
     ],
   },
@@ -556,8 +556,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.BRILLANCE, TAG_SLUGS.ANTI_ACNE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, value: 6, unit: "%", notes: 'Stimule la régénération cellulaire',},
-      { slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE, value: 0.2, unit: "%", notes: 'Acide hyaluronique pur et naturel',},
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, concentrationValue: 6, concentrationUnit: "%", notes: 'Stimule la régénération cellulaire',},
+      { slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE, concentrationValue: 0.2, concentrationUnit: "%", notes: 'Acide hyaluronique pur et naturel',},
       { slug: INGREDIENT_SLUGS.ADENOSINE, notes: 'Actif anti-rides',},
     ],
   },
@@ -931,7 +931,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.ANTI_ACNE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.ANGIOPAUSINE, value: 6, unit: "%", notes: `Réduit l'hypervascularisation à la source`,},
+      { slug: INGREDIENT_SLUGS.ANGIOPAUSINE, concentrationValue: 6, concentrationUnit: "%", notes: `Réduit l'hypervascularisation à la source`,},
       { slug: INGREDIENT_SLUGS.AVENE_THERMAL_SPRING_WATER, notes: 'Apaisante et anti-irritante',},
       { slug: INGREDIENT_SLUGS.TOCOPHEROL, notes: 'Vitamine E antioxydante',},
     ],

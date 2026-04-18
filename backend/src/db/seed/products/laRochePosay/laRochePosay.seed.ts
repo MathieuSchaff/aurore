@@ -188,6 +188,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
         notes: 'LHA – exfoliant doux',},
       {
         slug: INGREDIENT_SLUGS.SALICYLIC_ACID,
+        concentrationValue: 0.5,
+        concentrationUnit: "%",
         notes: 'Acide salicylique – anti-boutons',},
       {
         slug: INGREDIENT_SLUGS.VITREOSCILLA_FERMENT,
@@ -539,6 +541,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.VITAMIN_C,
+        concentrationValue: 12,
+        concentrationUnit: "%",
         notes: '12% Acide ascorbique pur – éclat, anti-taches',},
       {
         slug: INGREDIENT_SLUGS.SALICYLIC_ACID,
@@ -583,6 +587,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.SHEA_BUTTER,
+        concentrationValue: 20,
+        concentrationUnit: "%",
         notes: '20% beurre de karité – nutrition intense',},
       {
         slug: INGREDIENT_SLUGS.NIACINAMIDE,
@@ -625,8 +631,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.SHEA_BUTTER,
-        value: 20,
-        unit: "%",
+        concentrationValue: 20,
+        concentrationUnit: "%",
         notes: 'Beurre de karité relipidant',},
       {
         slug: INGREDIENT_SLUGS.NIACINAMIDE,
@@ -722,6 +728,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.NIACINAMIDE,
+        concentrationValue: 10,
+        concentrationUnit: "%",
         notes: '10% Niacinamide – anti-taches, barrière',},
       {
         slug: INGREDIENT_SLUGS.MELASYL,
@@ -766,6 +774,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.RETINOL,
+        concentrationValue: 0.3,
+        concentrationUnit: "%",
         notes: 'Rétinol pur + libération graduelle – anti-rides',},
       {
         slug: INGREDIENT_SLUGS.NIACINAMIDE,

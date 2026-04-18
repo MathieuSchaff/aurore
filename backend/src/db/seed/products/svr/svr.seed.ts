@@ -264,7 +264,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.ANTI_ACNE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.PANTHENOL, value: 5, unit: "%", notes: 'Apaise et hydrate intensément',},
+      { slug: INGREDIENT_SLUGS.PANTHENOL, concentrationValue: 5, concentrationUnit: "%", notes: 'Apaise et hydrate intensément',},
       { slug: INGREDIENT_SLUGS.HUILE_DE_PEPINS_DE_RAISIN, notes: 'Huile végétale protectrice',},
     ],
   },
@@ -534,8 +534,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_ATOPIQUE, TAG_SLUGS.ANTI_ACNE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.PHA, value: 8, unit: "%", notes: 'Exfoliant',},
-      { slug: INGREDIENT_SLUGS.LACTIC_ACID, value: 5, unit: "%", notes: 'Exfoliant',},
+      { slug: INGREDIENT_SLUGS.PHA, concentrationValue: 8, concentrationUnit: "%", notes: 'Exfoliant',},
+      { slug: INGREDIENT_SLUGS.LACTIC_ACID, concentrationValue: 5, concentrationUnit: "%", notes: 'Exfoliant',},
       { slug: INGREDIENT_SLUGS.POLYGLUTAMIC_ACID },
     ],
   },
@@ -562,7 +562,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.UREA, value: 10, unit: "%", notes: 'Urée pure brevetée',},
+      { slug: INGREDIENT_SLUGS.UREA, concentrationValue: 10, concentrationUnit: "%", notes: 'Urée pure brevetée',},
       { slug: INGREDIENT_SLUGS.PANTHENOL, notes: 'Apaise et hydrate',},
       { slug: INGREDIENT_SLUGS.HUILE_DE_COCO, notes: 'Emollient',},
       { slug: INGREDIENT_SLUGS.SHEA_BUTTER, notes: 'Apaise, protège, emollient',},
@@ -592,7 +592,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.UREA, value: 50, unit: "%", notes: 'Urée kératolytique ultra-concentrée',},
+      { slug: INGREDIENT_SLUGS.UREA, concentrationValue: 50, concentrationUnit: "%", notes: 'Urée kératolytique ultra-concentrée',},
     ],
   },
   {
@@ -617,7 +617,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.UREA, value: 40, unit: "%", notes: 'Urée réparatrice haute concentration',},
+      { slug: INGREDIENT_SLUGS.UREA, concentrationValue: 40, concentrationUnit: "%", notes: 'Urée réparatrice haute concentration',},
       { slug: INGREDIENT_SLUGS.PANTHENOL, notes: 'Cicatrisation et apaisement',},
     ],
   },
@@ -645,7 +645,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.UREA, value: 30, unit: "%", notes: 'Urée lissante',},
+      { slug: INGREDIENT_SLUGS.UREA, concentrationValue: 30, concentrationUnit: "%", notes: 'Urée lissante',},
       { slug: INGREDIENT_SLUGS.LACTIC_ACID, notes: 'Exfoliation douce',},
     ],
   },
@@ -671,7 +671,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.ANTI_ACNE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.UREA, value: 10, unit: "%", notes: 'Urée kératolytique',},
+      { slug: INGREDIENT_SLUGS.UREA, concentrationValue: 10, concentrationUnit: "%", notes: 'Urée kératolytique',},
       { slug: INGREDIENT_SLUGS.SALICYLIC_ACID, notes: 'Exfoliant kératolytique',},
     ],
   },
@@ -697,7 +697,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.UREA, value: 30, unit: "%", notes: 'Urée adoucissante et lissante',},
+      { slug: INGREDIENT_SLUGS.UREA, concentrationValue: 30, concentrationUnit: "%", notes: 'Urée adoucissante et lissante',},
       { slug: INGREDIENT_SLUGS.PANTHENOL, notes: 'Apaise et hydrate',},
     ],
   },
@@ -728,7 +728,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.ROSACEE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE, TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.RETINOL, value: 0.3, unit: "%", notes: 'Rétinol pur',},
+      { slug: INGREDIENT_SLUGS.RETINOL, concentrationValue: 0.3, concentrationUnit: "%", notes: 'Rétinol pur',},
       { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: 'Protège la barrière',},
     ],
   },
@@ -761,9 +761,9 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.ROSACEE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE, TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.AZELAIC_ACID, value: 15, unit: "%", notes: 'Régule le sébum et réduit les imperfections',},
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, value: 2, unit: "%", notes: 'Hydrate et apaise',},
-      { slug: INGREDIENT_SLUGS.ZINC_GLUCONATE, value: 2, unit: "%", notes: `Régule l'excès de sébum`,},
+      { slug: INGREDIENT_SLUGS.AZELAIC_ACID, concentrationValue: 15, concentrationUnit: "%", notes: 'Régule le sébum et réduit les imperfections',},
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, concentrationValue: 2, concentrationUnit: "%", notes: 'Hydrate et apaise',},
+      { slug: INGREDIENT_SLUGS.ZINC_GLUCONATE, concentrationValue: 2, concentrationUnit: "%", notes: `Régule l'excès de sébum`,},
       { slug: INGREDIENT_SLUGS.SALICYLIC_ACID, notes: 'Purifie et lisse le grain de peau',},
     ],
   },
@@ -862,8 +862,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.ROSACEE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE, TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.AZELAIC_ACID, value: 5, unit: "%", notes: 'Réduit les imperfections et rougeurs',},
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, value: 5, unit: "%", notes: 'Apaise les irritations et limite les marques',},
+      { slug: INGREDIENT_SLUGS.AZELAIC_ACID, concentrationValue: 5, concentrationUnit: "%", notes: 'Réduit les imperfections et rougeurs',},
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, concentrationValue: 5, concentrationUnit: "%", notes: 'Apaise les irritations et limite les marques',},
     ],
   },
   {
@@ -888,10 +888,10 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE, TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.PHA, value: 8, unit: "%", notes: 'Purifie et lisse la peau',},
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, value: 5, unit: "%", notes: 'Diminue la production de sébum',},
-      { slug: INGREDIENT_SLUGS.LACTIC_ACID, value: 2, unit: "%", notes: 'Affine et lisse le grain de peau',},
-      { slug: INGREDIENT_SLUGS.ZINC_GLUCONATE, value: 1, unit: "%", notes: `Régule l'excès de sébum`,},
+      { slug: INGREDIENT_SLUGS.PHA, concentrationValue: 8, concentrationUnit: "%", notes: 'Purifie et lisse la peau',},
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, concentrationValue: 5, concentrationUnit: "%", notes: 'Diminue la production de sébum',},
+      { slug: INGREDIENT_SLUGS.LACTIC_ACID, concentrationValue: 2, concentrationUnit: "%", notes: 'Affine et lisse le grain de peau',},
+      { slug: INGREDIENT_SLUGS.ZINC_GLUCONATE, concentrationValue: 1, concentrationUnit: "%", notes: `Régule l'excès de sébum`,},
     ],
   },
   {
@@ -924,8 +924,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.LACTIC_ACID, notes: `Duo d'acides exfoliant`,},
       { slug: INGREDIENT_SLUGS.SALICYLIC_ACID, notes: `Duo d'acides exfoliant`,},
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, value: 4, unit: "%", notes: 'Apaise et élimine les imperfections',},
-      { slug: INGREDIENT_SLUGS.ZINC_GLUCONATE, value: 1, unit: "%", notes: `Régule l'excès de sébum`,},
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, concentrationValue: 4, concentrationUnit: "%", notes: 'Apaise et élimine les imperfections',},
+      { slug: INGREDIENT_SLUGS.ZINC_GLUCONATE, concentrationValue: 1, concentrationUnit: "%", notes: `Régule l'excès de sébum`,},
     ],
   },
   {
@@ -957,7 +957,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.ROSACEE, TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.PHA, value: 4, unit: "%", notes: 'Purifie et désincruste les pores',},
+      { slug: INGREDIENT_SLUGS.PHA, concentrationValue: 4, concentrationUnit: "%", notes: 'Purifie et désincruste les pores',},
       { slug: INGREDIENT_SLUGS.SALICYLIC_ACID, notes: 'Exfolie et resserre les pores',},
     ],
   },
@@ -990,8 +990,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.ROSACEE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE, TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.PHA, value: 14, unit: "%", notes: 'PHA affine le grain de peau',},
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, value: 4, unit: "%", notes: 'Limite la prolifération bactérienne',},
+      { slug: INGREDIENT_SLUGS.PHA, concentrationValue: 14, concentrationUnit: "%", notes: 'PHA affine le grain de peau',},
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, concentrationValue: 4, concentrationUnit: "%", notes: 'Limite la prolifération bactérienne',},
       { slug: INGREDIENT_SLUGS.HYALURONIC_ACID, notes: 'Protège et repulpe',},
     ],
   },
@@ -1055,7 +1055,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, value: 5, unit: "%", notes: 'Apaise les irritations et prévient les marques',},
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, concentrationValue: 5, concentrationUnit: "%", notes: 'Apaise les irritations et prévient les marques',},
       { slug: INGREDIENT_SLUGS.HYALURONIC_ACID, notes: 'Hydrate en profondeur',},
     ],
   },
@@ -1087,8 +1087,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.ROSACEE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE, TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.PHA, value: 14, unit: "%", notes: 'Libère les pores obstrués',},
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, value: 4, unit: "%", notes: 'Limite la prolifération bactérienne',},
+      { slug: INGREDIENT_SLUGS.PHA, concentrationValue: 14, concentrationUnit: "%", notes: 'Libère les pores obstrués',},
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, concentrationValue: 4, concentrationUnit: "%", notes: 'Limite la prolifération bactérienne',},
     ],
   },
   {
@@ -1119,8 +1119,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.ROSACEE, TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.PHA, value: 4, unit: "%", notes: 'Purifie et désincruste',},
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, value: 4, unit: "%", notes: 'Réduit les imperfections',},
+      { slug: INGREDIENT_SLUGS.PHA, concentrationValue: 4, concentrationUnit: "%", notes: 'Purifie et désincruste',},
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, concentrationValue: 4, concentrationUnit: "%", notes: 'Réduit les imperfections',},
     ],
   },
   {
@@ -1154,7 +1154,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.ROSACEE, TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, value: 4, unit: "%", notes: 'Régule le sébum et limite les marques UV',},
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, concentrationValue: 4, concentrationUnit: "%", notes: 'Régule le sébum et limite les marques UV',},
       { slug: INGREDIENT_SLUGS.SALICYLIC_ACID, notes: 'Lisse le grain de peau',},
     ],
   },
@@ -1215,8 +1215,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.ROSACEE, TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.PHA, value: 14, unit: "%", notes: 'PHA exfoliant doux',},
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, value: 4, unit: "%", notes: 'Anti-imperfections et anti-marques',},
+      { slug: INGREDIENT_SLUGS.PHA, concentrationValue: 14, concentrationUnit: "%", notes: 'PHA exfoliant doux',},
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, concentrationValue: 4, concentrationUnit: "%", notes: 'Anti-imperfections et anti-marques',},
       { slug: INGREDIENT_SLUGS.SALICYLIC_ACID, notes: 'Purifie les pores',},
     ],
   },
@@ -1245,7 +1245,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.ANTI_ACNE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.THD_ASCORBATE, value: 5, unit: "%", notes: 'Vitamine C optimisée',},
+      { slug: INGREDIENT_SLUGS.THD_ASCORBATE, concentrationValue: 5, concentrationUnit: "%", notes: 'Vitamine C optimisée',},
       { slug: INGREDIENT_SLUGS.ARGIRELINE, notes: 'Peptide lissant',},
       { slug: INGREDIENT_SLUGS.PROBIOTICS, notes: 'Probiotiques pasteurisés',},
       { slug: INGREDIENT_SLUGS.HYALURONIC_ACID, notes: 'Acide hyaluronique bas poids moléculaire',},
@@ -1280,7 +1280,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.BRILLANCE, TAG_SLUGS.ANTI_ACNE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.COLLAGEN_AMINO_ACIDS, value: 2, unit: "%", notes: 'Collagène végétal',},
+      { slug: INGREDIENT_SLUGS.COLLAGEN_AMINO_ACIDS, concentrationValue: 2, concentrationUnit: "%", notes: 'Collagène végétal',},
       { slug: INGREDIENT_SLUGS.THD_ASCORBATE, notes: 'Vitamine C optimisée',},
       { slug: INGREDIENT_SLUGS.PROBIOTICS, notes: 'Probiotiques pasteurisés',},
     ],
@@ -1384,7 +1384,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.BRILLANCE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.THD_ASCORBATE, value: 20, unit: "%", notes: 'Vitamine C optimisée',},
+      { slug: INGREDIENT_SLUGS.THD_ASCORBATE, concentrationValue: 20, concentrationUnit: "%", notes: 'Vitamine C optimisée',},
       { slug: INGREDIENT_SLUGS.PROBIOTICS, notes: 'Probiotiques pasteurisés',},
       { slug: INGREDIENT_SLUGS.HYALURONIC_ACID, notes: 'Acide hyaluronique',},
     ],
@@ -1456,7 +1456,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SECHE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.THD_ASCORBATE, value: 20, unit: "%", notes: 'Vitamine C optimisée',},
+      { slug: INGREDIENT_SLUGS.THD_ASCORBATE, concentrationValue: 20, concentrationUnit: "%", notes: 'Vitamine C optimisée',},
       { slug: INGREDIENT_SLUGS.GLYCERYL_GLUCOSIDE, notes: `Booster d'aquaporines`,},
       { slug: INGREDIENT_SLUGS.PROBIOTICS, notes: 'Probiotiques pasteurisés',},
     ],
@@ -1637,7 +1637,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.ANTI_ACNE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.DIMETHICONE, value: 53, unit: "%", notes: 'Complexe silicone barrière',},
+      { slug: INGREDIENT_SLUGS.DIMETHICONE, concentrationValue: 53, concentrationUnit: "%", notes: 'Complexe silicone barrière',},
     ],
   },
   {
@@ -1667,7 +1667,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.ROSACEE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.THD_ASCORBATE, value: 2, unit: "%", notes: 'Vitamine C optimisée',},
+      { slug: INGREDIENT_SLUGS.THD_ASCORBATE, concentrationValue: 2, concentrationUnit: "%", notes: 'Vitamine C optimisée',},
       { slug: INGREDIENT_SLUGS.DIACETYL_BOLDINE, notes: 'Complexe dépigmentant',},
       { slug: INGREDIENT_SLUGS.ASCOPHYLLUM_NODOSUM_EXTRACT, notes: `Extrait d'algue brune anti-pollution`,},
     ],
@@ -1697,7 +1697,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.ROSACEE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.THD_ASCORBATE, value: 2, unit: "%", notes: 'Vitamine C optimisée',},
+      { slug: INGREDIENT_SLUGS.THD_ASCORBATE, concentrationValue: 2, concentrationUnit: "%", notes: 'Vitamine C optimisée',},
       { slug: INGREDIENT_SLUGS.SEPIWHITE, notes: 'Inhibiteur de mélanine',},
       { slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE, notes: 'Acide hyaluronique HPM',},
     ],

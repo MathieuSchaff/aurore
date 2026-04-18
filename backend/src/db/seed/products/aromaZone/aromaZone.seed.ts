@@ -42,8 +42,8 @@ export const AROMA_ZONE_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.AZELAIC_ACID,
-        value: 10,
-        unit: "%",
+        concentrationValue: 10,
+        concentrationUnit: "%",
         notes: 'Acide azélaïque – séborégulateur, matifiant, anti-imperfections',},
       {
         slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE,
@@ -151,7 +151,9 @@ export const AROMA_ZONE_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.BAKUCHIOL,
-        notes: 'Bakuchiol – alternative douce au rétinol, anti-âge, collagène',},
+        concentrationValue: 1,
+        concentrationUnit: "%",
+        notes: 'alternative douce au rétinol, anti-âge, collagène',},
       {
         slug: INGREDIENT_SLUGS.SQUALANE,
         notes: 'Squalane – hydratant, barrière (base minimaliste)',},
@@ -194,8 +196,8 @@ export const AROMA_ZONE_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE,
-        value: 3.5,
-        unit: "%",
+        concentrationValue: 3.5,
+        concentrationUnit: "%",
         notes: 'Acide hyaluronique pur – 3 poids moléculaires pour hydratation en profondeur',},
       {
         slug: INGREDIENT_SLUGS.GLYCERIN,

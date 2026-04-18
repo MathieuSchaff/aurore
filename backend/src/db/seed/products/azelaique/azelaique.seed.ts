@@ -24,7 +24,7 @@ export const AZELAIQUE_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.NON_COMEDOGENE,
         TAG_SLUGS.SANS_PARFUM,
       ],
-      avoid: [],
+      avoid: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
       {
@@ -61,7 +61,7 @@ export const AZELAIQUE_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
-      avoid: [],
+      avoid: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
       {
@@ -104,7 +104,11 @@ export const AZELAIQUE_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE],
+      avoid: [
+        TAG_SLUGS.PEAU_SENSIBLE,
+        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
+      ],
     },
     keyIngredients: [
       {
@@ -139,7 +143,7 @@ export const AZELAIQUE_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
-      avoid: [],
+      avoid: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
       {

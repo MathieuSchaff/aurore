@@ -14,6 +14,7 @@ import { inArray } from 'drizzle-orm'
 
 import { ingredients, products, tags } from '../schema'
 import { getOrCreateSeedUser } from './create-user'
+n
 import {
   CSV_CATEGORY_TAG_MAP,
   INGREDIENT_TAG_MAP,
@@ -159,6 +160,7 @@ export async function seedSkincare(
   }
 
   console.log(`📂 Importation CSV : ${csvPath}`)
+
   const content = await file.text()
   const rows = parseCSV(content).slice(1) // Skip header
 
@@ -211,7 +213,7 @@ export async function seedSkincare(
     async (item) => {
       await db.transaction(async (tx) => {
         const productKind = getProductKind(item.usageType, item.category)
-        
+
         let productCategory: ProductCategory = PRODUCT_CATEGORIES.SKINCARE
         if (
           ['Body', 'Hand', 'Feet'].includes(item.usageType) ||

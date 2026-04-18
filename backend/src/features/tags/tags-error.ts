@@ -6,6 +6,6 @@ export class TagError extends Error {
     public details?: unknown
   ) {
     super(code)
-    this.name = 'IngredientError'
+    this.name = 'TagError'
   }
 }

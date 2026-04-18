@@ -1,4 +1,4 @@
-import { createTagSchema, HTTP_STATUS, ok } from '@habit-tracker/shared'
+import { createTagSchema, HTTP_STATUS, ok, updateTagSchema } from '@habit-tracker/shared'
 
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
@@ -59,7 +59,7 @@ export const tagRoutes = tagsApp
     return c.json(ok(tag), HTTP_STATUS.OK)
   })
 
-  .patch('/:id', zValidator('param', idParam), zValidator('json', createTagSchema), async (c) => {
+  .patch('/:id', zValidator('param', idParam), zValidator('json', updateTagSchema), async (c) => {
     const db = c.get('db')
     const { id } = c.req.valid('param')
     const input = c.req.valid('json')
