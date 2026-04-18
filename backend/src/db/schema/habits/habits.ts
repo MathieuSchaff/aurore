@@ -263,7 +263,6 @@ export const habitPeriods = pgTable(
   },
   (t) => [
     uniqueIndex('habit_periods_habit_unique').on(t.habitId),
-    index('habit_periods_habit_idx').on(t.habitId),
     pgPolicy('habit_periods_tenant_isolation', {
       as: 'permissive',
       for: 'all',
