@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 
-import type { Variant } from '../../store/theme'
-import { useThemeStore } from '../../store/theme'
+import type { Variant } from '../../../store/theme'
+import { useThemeStore } from '../../../store/theme'
 import './DevThemeSwitcher.css'
 
 const VARIANTS: Array<{ value: Variant; label: string; color: string }> = [

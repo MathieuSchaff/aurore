@@ -1,4 +1,4 @@
-import { useAuthStore } from '../../../store/auth'
+import { useAuthStore } from '../../../../store/auth'
 import './DemoBanner.css'
 
 export function DemoBanner() {
