@@ -9,10 +9,10 @@ import z from 'zod'
 import { Button } from '../../../../component/Button/Button'
 import { FormMessage } from '../../../../component/Feedback/ui/FormMessage/FormMessage'
 import { useLogin } from '../../../../lib/queries/auth'
-import { AuthDivider } from '../AuthDivider/AuthDivider'
-import { AuthField } from '../AuthField/AuthField'
-import { DemoButton } from '../DemoButton/DemoButton'
-import { GoogleAuthButton } from '../GoogleAuthButton/GoogleAuthButton'
+import { AuthDivider } from '../../components/AuthDivider/AuthDivider'
+import { AuthField } from '../../components/AuthField/AuthField'
+import { DemoButton } from '../../components/DemoButton/DemoButton'
+import { GoogleAuthButton } from '../../components/GoogleAuthButton/GoogleAuthButton'
 
 type FieldErrors = Partial<Record<keyof AuthInput | 'form', string>>
 
