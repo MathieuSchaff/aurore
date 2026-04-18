@@ -1,40 +1,38 @@
-import { ACTIFS_ANTI_AGE_REPARATEURS } from './actifs-anti-age-reparateurs'
-import { ANTI_ACNE_SEBUM } from './anti-acne-sebum'
-import { ANTI_ROSACEE_VASOCONSTRICTEURS } from './anti-rosacee-vasoconstricteurs'
-import { ANTIOXYDANTS_VITAMINES } from './antioxydants-vitamines'
-import { APAISANTS_ANTI_INFLAMMATOIRES } from './apaisants-anti-inflammatoires'
-import { BARRIERE_EMOLLIENTS_OCCLUSIFS } from './barriere-emollients-occlusifs'
-import { CIRCULATOIRE_DRAINAGE } from './circulatoire-drainage'
-import { DIVERS_NON_CLASSES } from './divers-non-classes'
-import { ECLAIRCISSANTS_DEPIGMENTANTS } from './eclaircissants-depigmentants'
-import { EXFOLIANTS } from './exfoliants'
-import { FILTRES_UV } from './filtres-uv'
-import { HUMECTANTS } from './humectants'
-import { PEPTIDES } from './peptides'
-import { PROBIOTIQUES_PREBIOTIQUES_POSTBIOTIQUES } from './probiotiques-prebiotiques-postbiotiques'
-import { RETINOIDES } from './retinoides'
 import type { IngredientInput } from './seed-ingredients'
-import { TENSIOACTIFS_NETTOYANTS } from './tensioactifs-nettoyants'
-import { TEXTURANTS_FONCTIONNELS } from './texturants-fonctionnels'
-import { FILLERS } from './fillers'
+import { dentalIngredients } from './dental'
+import { haircareIngredients } from './haircare'
+import { skincareIngredients } from './skincare'
+import { supplementIngredients } from './supplements'
 
-export const ingredientData: IngredientInput[] = [
-  ...HUMECTANTS,
-  ...BARRIERE_EMOLLIENTS_OCCLUSIFS,
-  ...EXFOLIANTS,
-  ...RETINOIDES,
-  ...PEPTIDES,
-  ...ANTIOXYDANTS_VITAMINES,
-  ...APAISANTS_ANTI_INFLAMMATOIRES,
-  ...ECLAIRCISSANTS_DEPIGMENTANTS,
-  ...ANTI_ACNE_SEBUM,
-  ...ANTI_ROSACEE_VASOCONSTRICTEURS,
-  ...FILTRES_UV,
-  ...PROBIOTIQUES_PREBIOTIQUES_POSTBIOTIQUES,
-  ...ACTIFS_ANTI_AGE_REPARATEURS,
-  ...CIRCULATOIRE_DRAINAGE,
-  ...TENSIOACTIFS_NETTOYANTS,
-  ...TEXTURANTS_FONCTIONNELS,
-  ...FILLERS,
-  ...DIVERS_NON_CLASSES,
-]
+export type { IngredientInput }
+export { INGREDIENT_SLUGS } from './ingredient-slugs'
+
+// Some haircare stubs reuse slugs that are already defined (with full content)
+// in skincare/supplements/dental — first occurrence wins so the curated entry
+// is kept and stubs collapse silently instead of poisoning the seed tx.
+function dedupeBySlug(entries: IngredientInput[]): IngredientInput[] {
+  const seen = new Set<string>()
+  const kept: IngredientInput[] = []
+  const dropped: string[] = []
+  for (const entry of entries) {
+    if (seen.has(entry.slug)) {
+      dropped.push(entry.slug)
+      continue
+    }
+    seen.add(entry.slug)
+    kept.push(entry)
+  }
+  if (dropped.length > 0) {
+    console.warn(
+      `⚠️  ${dropped.length} ingrédient(s) seed ignoré(s) (slug déjà défini plus tôt) : ${dropped.join(', ')}`
+    )
+  }
+  return kept
+}
+
+export const ingredientData: IngredientInput[] = dedupeBySlug([
+  ...skincareIngredients,
+  ...supplementIngredients,
+  ...dentalIngredients,
+  ...haircareIngredients,
+])
