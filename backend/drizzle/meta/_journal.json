@@ -141,6 +141,13 @@
       "when": 1776515745193,
       "tag": "0019_awesome_mysterio",
       "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1776526365907,
+      "tag": "0020_acoustic_umar",
+      "breakpoints": true
     }
   ]
 }
