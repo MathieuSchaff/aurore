@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router'
 
-import { DemoBanner } from '../component/Feedback/DemoBanner/DemoBanner'
+import { DemoBanner } from '../component/Feedback/app/DemoBanner/DemoBanner'
 import { requireAuth } from '../lib/auth/requireAuth'
 import { useTokenRefresh } from '../lib/hooks/useTokenRefresh'
 

@@ -1,8 +1,8 @@
 import { useNavigate } from '@tanstack/react-router'
 import { useEffect } from 'react'
 
-import { reportError } from '../../../lib/errorReporter'
-import { Button } from '../../Button/Button'
+import { reportError } from '../../../../lib/errorReporter'
+import { Button } from '../../../Button/Button'
 import './GlobalError.css'
 
 interface GlobalErrorProps {
