@@ -1,6 +1,6 @@
 import { AlertTriangle, Ban, Heart, Package, TrendingDown } from 'lucide-react'
 
-import { EmptyState } from '@/component/Feedback/EmptyState/EmptyState'
+import { EmptyState } from '@/component/Feedback/ui/EmptyState/EmptyState'
 import { useCollectionAnalysis } from '@/features/collection/hooks/useCollectionAnalysis'
 import type { UserProduct } from '@/lib/queries/user-products'
 
