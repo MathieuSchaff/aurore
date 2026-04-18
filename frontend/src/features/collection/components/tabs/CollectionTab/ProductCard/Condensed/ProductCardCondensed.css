@@ -7,15 +7,40 @@
     --shelf-color-default: var(--color-accent);
   }
 
+  .prod-card-wrapper {
+    --pcc-accent: var(--color-primary);
+    position: relative;
+    transition:
+      transform var(--transition-fast) ease,
+      filter var(--transition-fast) ease;
+  }
+
+  .prod-card-wrapper.pcc--select-mode:not(.pcc--selected) {
+    opacity: 0.88;
+  }
+
+  .prod-card-wrapper.pcc--selected {
+    transform: scale(0.98);
+  }
+
   .prod-card {
     display: flex;
     flex-direction: column;
     cursor: pointer;
-    /* Needed so touch drag works on phones */
     touch-action: manipulation;
     width: 100%;
     /*biome-ignore lint: this feature exist*/
     corner-top-right-shape: scoop;
+    transition:
+      box-shadow var(--transition-fast) ease,
+      border-color var(--transition-fast) ease;
+  }
+
+  .prod-card-wrapper.pcc--selected .prod-card {
+    border-color: var(--pcc-accent);
+    box-shadow:
+      0 0 0 1.5px var(--pcc-accent),
+      0 6px 18px color-mix(in oklch, var(--pcc-accent) 22%, transparent);
   }
 
   .prod-card-top {
@@ -80,6 +105,42 @@
     z-index: 10;
   }
 
+  /* Select-mode checkbox overlay (top-left) */
+  .pcc-check {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    background: var(--bg-card);
+    border: 1.5px solid var(--border-strong);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: oklch(100% 0 0);
+    opacity: 0;
+    transform: scale(0.85);
+    transition:
+      opacity var(--transition-fast) ease,
+      transform var(--transition-fast) ease,
+      background var(--transition-fast) ease,
+      border-color var(--transition-fast) ease;
+    z-index: 99;
+    pointer-events: none;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .pcc-check--visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .pcc--selected .pcc-check {
+    background: var(--pcc-accent);
+    border-color: var(--pcc-accent);
+  }
+
   .prod-body {
     flex: 1;
     min-width: 0;
@@ -90,6 +151,11 @@
     text-align: left;
     gap: 6px;
     overflow: hidden;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
   }
 
   .prod-card .card__footer {
@@ -97,6 +163,7 @@
     border-top: 1px solid var(--border-default);
     color: var(--text-primary);
     padding: var(--space-3) var(--space-5);
+    position: relative;
   }
 
   .prod-brand {
@@ -124,7 +191,6 @@
     max-width: 100%;
     min-width: 0;
     overflow: hidden;
-    /* 2-line clamp so long names stay readable */
     display: -webkit-box;
     -webkit-line-clamp: 2;
     line-clamp: 2;
@@ -138,6 +204,44 @@
     gap: var(--space-2);
     flex-wrap: wrap;
     align-items: center;
+  }
+
+  .pcc-status-wrap {
+    display: inline-flex;
+  }
+
+  .pcc-status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    background: color-mix(in oklch, var(--pcc-accent) 12%, transparent);
+    color: var(--pcc-accent);
+    border: 1px solid color-mix(in oklch, var(--pcc-accent) 25%, transparent);
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: var(--font-semibold);
+    font-family: inherit;
+    cursor: pointer;
+    transition:
+      background var(--transition-fast) ease,
+      transform var(--transition-fast) ease;
+  }
+
+  .pcc-status-pill:hover,
+  .pcc-status-pill:focus-visible {
+    background: color-mix(in oklch, var(--pcc-accent) 20%, transparent);
+    outline: none;
+  }
+
+  .pcc-status-pill:active {
+    transform: scale(0.96);
+  }
+
+  .pcc-picker {
+    /* DropdownMenu.Content owns absolute positioning (side="top" align="start").
+       Cap width on narrow viewports to avoid overflow past the card edge. */
+    max-width: calc(100vw - 32px);
   }
 
   .prod-chip-score {
@@ -171,6 +275,7 @@
     color: var(--text-muted);
     border: var(--border-width) solid var(--border-default);
   }
+
   .prod-price {
     font-size: 0.9rem;
     color: var(--text-secondary);
@@ -182,6 +287,7 @@
     filter: saturate(0.4);
     opacity: 0.65;
   }
+
   .prod-score-corner {
     position: absolute;
     top: 0;
@@ -225,21 +331,16 @@
   .prod-sentiment-badge.popping {
     animation: sentimentPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
-  .prod-card-wrapper {
-    position: relative;
-  }
-  /* Hide the source card while its clone is flying in the DragOverlay. */
-  .prod-card-wrapper.is-source-dragging {
-    opacity: 0;
-  }
 
-  /* Reduced motion: stop all animations and hover movements */
   @media (--reduced-motion) {
     .prod-sentiment-badge.popping {
       animation: none;
     }
     .prod-card,
-    .prod-sentiment-badge {
+    .prod-card-wrapper,
+    .prod-sentiment-badge,
+    .pcc-check,
+    .pcc-status-pill {
       transition: none;
     }
     .prod-card:hover .prod-icon-wrap {
