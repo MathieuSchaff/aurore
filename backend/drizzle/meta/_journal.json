@@ -162,6 +162,13 @@
       "when": 1776527790749,
       "tag": "0022_flawless_komodo",
       "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "7",
+      "when": 1776527891423,
+      "tag": "0023_parallel_vargas",
+      "breakpoints": true
     }
   ]
 }
