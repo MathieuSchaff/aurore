@@ -2,11 +2,12 @@ import { db } from '..'
 import type { DB } from '../index'
 import {
   ingredients,
-  ingredientTags,
+  ingredientTagsDefs,
   productIngredients,
   products,
-  productTags,
-  tags,
+  productTagsDefs,
+  tagIngredients,
+  tagProducts,
 } from '../schema'
 
 
@@ -276,31 +277,36 @@ export function unitFromCategory(category: string): ProductUnit {
 
 export async function cleanDatabase() {
   console.log('🧹 Nettoyage de la base de données...')
-  // the order is very important because of the foreign keys!
-  await db.delete(productTags)
+  // Order matters because of the FKs: junctions first, then owners.
+  await db.delete(tagProducts)
   await db.delete(productIngredients)
-  await db.delete(ingredientTags)
+  await db.delete(tagIngredients)
   await db.delete(products)
   await db.delete(ingredients)
-  await db.delete(tags)
+  await db.delete(productTagsDefs)
+  await db.delete(ingredientTagsDefs)
   console.log('✅ Base nettoyée\n')
 }
 
 export async function fetchIdMaps(database: DB) {
   console.log('\n📊 Récupération des IDs...')
-  const [allProducts, allTags, allIngredients] = await Promise.all([
+  const [allProducts, allProductTags, allIngredientTags, allIngredients] = await Promise.all([
     database.select({ id: products.id, slug: products.slug }).from(products),
-    database.select({ id: tags.id, slug: tags.slug }).from(tags),
+    database.select({ id: productTagsDefs.id, slug: productTagsDefs.slug }).from(productTagsDefs),
+    database
+      .select({ id: ingredientTagsDefs.id, slug: ingredientTagsDefs.slug })
+      .from(ingredientTagsDefs),
     database.select({ id: ingredients.id, slug: ingredients.slug }).from(ingredients),
   ])
 
   console.log(
-    `   Produits : ${allProducts.length} | Tags : ${allTags.length} | Ingrédients : ${allIngredients.length}`
+    `   Produits : ${allProducts.length} | ProductTags : ${allProductTags.length} | IngredientTags : ${allIngredientTags.length} | Ingrédients : ${allIngredients.length}`
   )
 
   return {
     productSlugToId: new Map(allProducts.map((p) => [p.slug, p.id])),
-    tagSlugToId: new Map(allTags.map((t) => [t.slug, t.id])),
+    productTagSlugToId: new Map(allProductTags.map((t) => [t.slug, t.id])),
+    ingredientTagSlugToId: new Map(allIngredientTags.map((t) => [t.slug, t.id])),
     ingredientSlugToId: new Map(allIngredients.map((i) => [i.slug, i.id])),
   }
 }

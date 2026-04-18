@@ -12,9 +12,9 @@ import { db } from '..'
 import type { DB } from '../index'
 import { inArray } from 'drizzle-orm'
 
-import { ingredients, products, tags } from '../schema'
+import { ingredients, products, productTagsDefs } from '../schema'
 import { getOrCreateSeedUser } from './create-user'
-n
+
 import {
   CSV_CATEGORY_TAG_MAP,
   INGREDIENT_TAG_MAP,
@@ -110,7 +110,10 @@ type CsvProductEntry = {
 
 async function getTagIdsBySlugs(database: DB, slugs: string[]) {
   if (slugs.length === 0) return []
-  const results = await database.select({ id: tags.id }).from(tags).where(inArray(tags.slug, slugs))
+  const results = await database
+    .select({ id: productTagsDefs.id })
+    .from(productTagsDefs)
+    .where(inArray(productTagsDefs.slug, slugs))
   return results.map((t) => t.id)
 }
 

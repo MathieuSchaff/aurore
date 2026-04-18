@@ -4,7 +4,7 @@ import type { UnifiedProductSeed } from '../unified-types'
 
 export const INNISFREE_SEED: UnifiedProductSeed[] = [
   {
-    slug: 'innisfree_green_tea_seed_serum',
+    slug: 'innisfree-green-tea-seed-serum',
     name: 'Green Tea Seed Serum',
     brand: 'Innisfree',
     kind: 'skincare',
@@ -30,7 +30,7 @@ export const INNISFREE_SEED: UnifiedProductSeed[] = [
     ],
   },
   {
-    slug: 'innisfree_green_tea_seed_hyaluronic_cream',
+    slug: 'innisfree-green-tea-seed-hyaluronic-cream',
     name: 'Green Tea Seed Hyaluronic Acid Cream',
     brand: 'Innisfree',
     kind: 'skincare',
@@ -56,7 +56,7 @@ export const INNISFREE_SEED: UnifiedProductSeed[] = [
     ],
   },
   {
-    slug: 'innisfree_super_volcanic_pore_clay_mask',
+    slug: 'innisfree-super-volcanic-pore-clay-mask',
     name: 'Super Volcanic Pore Clay Mask',
     brand: 'Innisfree',
     kind: 'skincare',
@@ -76,7 +76,7 @@ export const INNISFREE_SEED: UnifiedProductSeed[] = [
     },
   },
   {
-    slug: 'innisfree_volcanic_bha_pore_cleansing_foam',
+    slug: 'innisfree-volcanic-bha-pore-cleansing-foam',
     name: 'Volcanic BHA Pore Cleansing Foam',
     brand: 'Innisfree',
     kind: 'skincare',
@@ -99,7 +99,7 @@ export const INNISFREE_SEED: UnifiedProductSeed[] = [
     ],
   },
   {
-    slug: 'innisfree_retinol_cica_repair_ampoule',
+    slug: 'innisfree-retinol-cica-repair-ampoule',
     name: 'Retinol Cica Repair Ampoule',
     brand: 'Innisfree',
     kind: 'skincare',
@@ -126,7 +126,7 @@ export const INNISFREE_SEED: UnifiedProductSeed[] = [
     ],
   },
   {
-    slug: 'innisfree_cherry_blossom_glow_jelly_cream',
+    slug: 'innisfree-cherry-blossom-glow-jelly-cream',
     name: 'Cherry Blossom Glow Jelly Cream',
     brand: 'Innisfree',
     kind: 'skincare',

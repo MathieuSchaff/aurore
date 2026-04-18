@@ -10,7 +10,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
   // ── Pai Skincare ────────────────────────────────────────────────────────────
 
   {
-    slug: 'pai_bio-regenerate-oil-rosehip-30ml',
+    slug: 'pai-bio-regenerate-oil-rosehip-30ml',
     name: 'Bio Regenerate Oil, Rosehip Seed & Fruit',
     brand: 'Pai Skincare',
     kind: 'skincare',
@@ -33,7 +33,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     ],
   },
   {
-    slug: 'pai_calming-day-cream-chamomile-rosehip',
+    slug: 'pai-calming-day-cream-chamomile-rosehip',
     name: 'Calming Day Cream, Chamomile & Rosehip',
     brand: 'Pai Skincare',
     kind: 'skincare',
@@ -56,7 +56,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     ],
   },
   {
-    slug: 'pai_camellia-rose-gentle-hydrating-cleanser',
+    slug: 'pai-camellia-rose-gentle-hydrating-cleanser',
     name: 'Camellia & Rose Gentle Hydrating Cleanser for Sensitive Skin',
     brand: 'Pai Skincare',
     kind: 'skincare',
@@ -76,7 +76,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     },
   },
   {
-    slug: 'pai_landmark-edition-rosehip-oil-15ml',
+    slug: 'pai-landmark-edition-rosehip-oil-15ml',
     name: 'The Landmark Edition Rosehip BioRegenerate Oil',
     brand: 'Pai Skincare',
     kind: 'skincare',
@@ -99,7 +99,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     ],
   },
   {
-    slug: 'pai_chamomile-rosehip-calming-day-cream',
+    slug: 'pai-chamomile-rosehip-calming-day-cream',
     name: 'Chamomile & Rosehip Calming Day Cream',
     brand: 'Pai Skincare',
     kind: 'skincare',
@@ -122,7 +122,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     ],
   },
   {
-    slug: 'pai_bring-sensitive-skin-back-to-life',
+    slug: 'pai-bring-sensitive-skin-back-to-life',
     name: 'Bring Sensitive Skin Back To Life Serum',
     brand: 'Pai Skincare',
     kind: 'skincare',
@@ -146,7 +146,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     ],
   },
   {
-    slug: 'pai_system-d-calm-schisandra-ceramide-eye-serum',
+    slug: 'pai-system-d-calm-schisandra-ceramide-eye-serum',
     name: 'System D Calm Schisandra & Ceramide Cooling Eye Serum',
     brand: 'Pai Skincare',
     kind: 'skincare',
@@ -170,7 +170,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     ],
   },
   {
-    slug: 'pai_double-cleanse-kit',
+    slug: 'pai-double-cleanse-kit',
     name: 'Double Cleanse Kit',
     brand: 'Pai Skincare',
     kind: 'skincare',
@@ -190,7 +190,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     },
   },
   {
-    slug: 'pai_all-day-hydration-moisturizer-avocado-jojoba',
+    slug: 'pai-all-day-hydration-moisturizer-avocado-jojoba',
     name: 'All Day Hydration Moisturizer Cream, Avocado & Jojoba',
     brand: 'Pai Skincare',
     kind: 'skincare',
@@ -210,7 +210,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     },
   },
   {
-    slug: 'pai_instant-calm-redness-serum-sea-aster-wild-oat',
+    slug: 'pai-instant-calm-redness-serum-sea-aster-wild-oat',
     name: 'Instant Calm Redness Serum, Sea Aster & Wild Oat',
     brand: 'Pai Skincare',
     kind: 'skincare',
@@ -234,7 +234,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     ],
   },
   {
-    slug: 'pai_gentle-cream-cleanser-middlemist-seven',
+    slug: 'pai-gentle-cream-cleanser-middlemist-seven',
     name: 'Gentle Cream Cleanser + Twin Flyer Cloth, Middlemist Seven Camellia & Rose',
     brand: 'Pai Skincare',
     kind: 'skincare',
@@ -254,7 +254,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     },
   },
   {
-    slug: 'pai_feather-canyon-eye-cream',
+    slug: 'pai-feather-canyon-eye-cream',
     name: 'Feather Canyon Eye Cream',
     brand: 'Pai Skincare',
     kind: 'skincare',
@@ -281,7 +281,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
   // ── Lion Pair ────────────────────────────────────────────────────────────────
 
   {
-    slug: 'lion-pair_acne-cream-14g',
+    slug: 'lion-pair-acne-cream-14g',
     name: 'Acne Cream',
     brand: 'Lion Pair',
     kind: 'skincare',
@@ -304,7 +304,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
   // ── Propaira ─────────────────────────────────────────────────────────────────
 
   {
-    slug: 'propaira_extra-strength-serum-hyaluronic-acid',
+    slug: 'propaira-extra-strength-serum-hyaluronic-acid',
     name: 'Extra Strength Serum, Hyaluronic Acid',
     brand: 'Propaira',
     kind: 'skincare',
@@ -329,7 +329,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     ],
   },
   {
-    slug: 'propaira_skin-defense-serum-10-niacinamide',
+    slug: 'propaira-skin-defense-serum-10-niacinamide',
     name: 'Skin Defense Serum, 10% Niacinamide',
     brand: 'Propaira',
     kind: 'skincare',
@@ -356,7 +356,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
   // ── Barrier Repair ───────────────────────────────────────────────────────────
 
   {
-    slug: 'barrier-repair_sheet-mask-5-count',
+    slug: 'barrier-repair-sheet-mask-5-count',
     name: 'Barrier Repair Sheet Mask',
     brand: 'Barrier Repair',
     kind: 'skincare',
@@ -383,7 +383,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
   // ── Power Repair ─────────────────────────────────────────────────────────────
 
   {
-    slug: 'power-repair_multi-action-eye-lift',
+    slug: 'power-repair-multi-action-eye-lift',
     name: 'Power Repair Multi-Action Eye Lift',
     brand: 'Power Repair',
     kind: 'skincare',
@@ -407,7 +407,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     ],
   },
   {
-    slug: 'power-repair_skin-serum',
+    slug: 'power-repair-skin-serum',
     name: 'Power Repair Skin Serum',
     brand: 'Power Repair',
     kind: 'skincare',
@@ -430,7 +430,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     ],
   },
   {
-    slug: 'power-repair_hydrating-soothing-facial-toner',
+    slug: 'power-repair-hydrating-soothing-facial-toner',
     name: 'Power Repair Hydrating and Soothing Facial Toner',
     brand: 'Power Repair',
     kind: 'skincare',
@@ -453,7 +453,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
   // ── Receutics Active Skin Repair ─────────────────────────────────────────────
 
   {
-    slug: 'receutics_clear-tone-complexion-corrector',
+    slug: 'receutics-clear-tone-complexion-corrector',
     name: 'Step 3: Clear Tone and Complexion Corrector',
     brand: 'Receutics Active Skin Repair',
     kind: 'skincare',
@@ -478,7 +478,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     ],
   },
   {
-    slug: 'receutics_intense-hydration-repair-treatment',
+    slug: 'receutics-intense-hydration-repair-treatment',
     name: 'Therapeutic Intense Hydration & Repair Treatment',
     brand: 'Receutics Active Skin Repair',
     kind: 'skincare',
@@ -505,7 +505,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     ],
   },
   {
-    slug: 'receutics_rapid-wrinkle-corrector',
+    slug: 'receutics-rapid-wrinkle-corrector',
     name: 'Rapid Wrinkle Corrector',
     brand: 'Receutics Active Skin Repair',
     kind: 'skincare',
@@ -531,7 +531,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     ],
   },
   {
-    slug: 'receutics_gentle-hydrating-cleanser',
+    slug: 'receutics-gentle-hydrating-cleanser',
     name: 'Gentle Hydrating Cleanser',
     brand: 'Receutics Active Skin Repair',
     kind: 'skincare',
@@ -555,7 +555,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     ],
   },
   {
-    slug: 'receutics_breakout-treatment',
+    slug: 'receutics-breakout-treatment',
     name: 'Step 2: Breakout Treatment',
     brand: 'Receutics Active Skin Repair',
     kind: 'skincare',
@@ -575,7 +575,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     },
   },
   {
-    slug: 'receutics_acne-clearing',
+    slug: 'receutics-acne-clearing',
     name: 'Acne Clearing',
     brand: 'Receutics Active Skin Repair',
     kind: 'skincare',
@@ -599,7 +599,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     ],
   },
   {
-    slug: 'receutics_clear-skin-cleanser',
+    slug: 'receutics-clear-skin-cleanser',
     name: 'Step 1: Clear Skin Cleanser',
     brand: 'Receutics Active Skin Repair',
     kind: 'skincare',
@@ -626,7 +626,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
   // ── Skin Repair Rx ───────────────────────────────────────────────────────────
 
   {
-    slug: 'skin-repair-rx_dermatological-moisturizing-lotion',
+    slug: 'skin-repair-rx-dermatological-moisturizing-lotion',
     name: 'Dermatological Moisturizing Lotion',
     brand: 'Skin Repair Rx',
     kind: 'skincare',
@@ -649,7 +649,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
   // ── Repair Beauty ────────────────────────────────────────────────────────────
 
   {
-    slug: 'repair-beauty_under-eye-patches-ha-niacinamide',
+    slug: 'repair-beauty-under-eye-patches-ha-niacinamide',
     name: 'Under Eye Patches, Hyaluronic Acid & Niacinamide',
     brand: 'Repair Beauty',
     kind: 'skincare',
@@ -673,7 +673,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     ],
   },
   {
-    slug: 'repair-beauty_advanced-repair-foot-masks-mint-tea-tree',
+    slug: 'repair-beauty-advanced-repair-foot-masks-mint-tea-tree',
     name: 'Advanced Repair Foot Masks, Mint & Tea Tree',
     brand: 'Repair Beauty',
     kind: 'skincare',
@@ -699,7 +699,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
   // ── Air Repair ───────────────────────────────────────────────────────────────
 
   {
-    slug: 'air-repair_complexion-boosting-moisturizer',
+    slug: 'air-repair-complexion-boosting-moisturizer',
     name: 'Complexion Boosting Moisturizer',
     brand: 'Air Repair',
     kind: 'skincare',
@@ -724,7 +724,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     ],
   },
   {
-    slug: 'air-repair_super-hydrating-eye-cream',
+    slug: 'air-repair-super-hydrating-eye-cream',
     name: 'Super-Hydrating Eye Cream',
     brand: 'Air Repair',
     kind: 'skincare',
@@ -750,7 +750,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     ],
   },
   {
-    slug: 'air-repair_rescue-balm',
+    slug: 'air-repair-rescue-balm',
     name: 'Rescue Balm All-Purpose Skin Salve & Lip Balm',
     brand: 'Air Repair',
     kind: 'skincare',

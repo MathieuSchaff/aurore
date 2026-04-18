@@ -6,5 +6,6 @@ export type IngredientInput = {
   description: string
   slug: IngredientSlug
   content: string
+  type?: string
   category: string
 }

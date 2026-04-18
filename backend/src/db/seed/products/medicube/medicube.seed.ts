@@ -681,7 +681,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
   },
   {
     slug: 'medicube-collagen-jelly-cream-50ml',
-    name: 'Collagen Jelly Cream',
+    name: 'Collagen Jelly Cream 50ml',
     brand: 'Medicube',
     kind: 'moisturizer',
     unit: 'jar',
