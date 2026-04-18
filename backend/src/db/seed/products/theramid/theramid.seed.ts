@@ -22,10 +22,10 @@ export const THERAMID_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.TRANEXAMIC_ACID, notes: '2% - Partie du complexe TXA-Kojic 4%',},
-      { slug: INGREDIENT_SLUGS.KOJIC_ACID, notes: '2% - Partie du complexe TXA-Kojic 4%',},
-      { slug: INGREDIENT_SLUGS.ALPHA_ARBUTIN, notes: '2%',},
-      { slug: INGREDIENT_SLUGS.ACETYL_GLUCOSAMINE, notes: '2% - NAG Amino Monosaccharide',},
+      { slug: INGREDIENT_SLUGS.TRANEXAMIC_ACID, concentrationValue: 2, concentrationUnit: "%", notes: 'Partie du complexe TXA-Kojic 4%',},
+      { slug: INGREDIENT_SLUGS.KOJIC_ACID, concentrationValue: 2, concentrationUnit: "%", notes: 'Partie du complexe TXA-Kojic 4%',},
+      { slug: INGREDIENT_SLUGS.ALPHA_ARBUTIN, concentrationValue: 2, concentrationUnit: "%", notes: '',},
+      { slug: INGREDIENT_SLUGS.ACETYL_GLUCOSAMINE, concentrationValue: 2, concentrationUnit: "%", notes: 'NAG Amino Monosaccharide',},
     ],
   },
   {
@@ -47,9 +47,9 @@ export const THERAMID_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.VITAMIN_C, notes: '20% - Vitamine C Tetra (liposoluble), Ascorbosilane et Ascorbyl Glucoside',},
-      { slug: INGREDIENT_SLUGS.TOCOPHEROL, notes: '1%',},
-      { slug: INGREDIENT_SLUGS.FERULIC_ACID, notes: '0.5%',},
+      { slug: INGREDIENT_SLUGS.VITAMIN_C, concentrationValue: 20, concentrationUnit: "%", notes: '- Vitamine C Tetra (liposoluble), Ascorbosilane et Ascorbyl Glucoside',},
+      { slug: INGREDIENT_SLUGS.TOCOPHEROL, concentrationValue: 1, concentrationUnit: "%", notes: '',},
+      { slug: INGREDIENT_SLUGS.FERULIC_ACID, concentrationValue: 0.5, concentrationUnit: "%", notes: '',},
     ],
   },
   {
@@ -71,9 +71,9 @@ export const THERAMID_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.RETINAL, notes: '0.1% - Pur encapsulé liposomal',},
-      { slug: INGREDIENT_SLUGS.RETINYL_RETINOATE, notes: '0.06% - Encapsulé liposomal',},
-      { slug: INGREDIENT_SLUGS.SODIUM_RETINOYL_HYALURONATE, notes: '0.06% - HyRetin TM',},
+      { slug: INGREDIENT_SLUGS.RETINAL, concentrationValue: 0.1, concentrationUnit: "%", notes: 'Pur encapsulé liposomal',},
+      { slug: INGREDIENT_SLUGS.RETINYL_RETINOATE, concentrationValue: 0.06, concentrationUnit: "%", notes: 'Encapsulé liposomal',},
+      { slug: INGREDIENT_SLUGS.SODIUM_RETINOYL_HYALURONATE, concentrationValue: 0.06, concentrationUnit: "%", notes: 'HyRetin TM',},
     ],
   },
   {
@@ -95,8 +95,8 @@ export const THERAMID_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.COPPER_PEPTIDES, notes: '3%',},
-      { slug: INGREDIENT_SLUGS.PEPTIDE_COMPLEX, notes: '13% - Munapsys, Peptides Bio, NeoclairPro et Progeline',},
+      { slug: INGREDIENT_SLUGS.COPPER_PEPTIDES, concentrationValue: 3, concentrationUnit: "%", notes: '',},
+      { slug: INGREDIENT_SLUGS.PEPTIDE_COMPLEX, concentrationValue: 13, concentrationUnit: "%", notes: '- Munapsys, Peptides Bio, NeoclairPro et Progeline',},
     ],
   },
   {
@@ -118,14 +118,14 @@ export const THERAMID_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.CERAMIDES, notes: '3% - Céramides purs (NG, NP, AP, AS, NS, EOP)',},
-      { slug: INGREDIENT_SLUGS.CERAMIDE_NS, notes: 'Céramides purs (NG, NP, AP, AS, NS, EOP)',},
-      { slug: INGREDIENT_SLUGS.CERAMIDE_AP, notes: 'Céramides purs (NG, NP, AP, AS, NS, EOP)',},
-      { slug: INGREDIENT_SLUGS.CERAMIDE_EOP, notes: 'Céramides purs (NG, NP, AP, AS, NS, EOP)',},
-      { slug: INGREDIENT_SLUGS.CERAMIDE_NG, notes: 'Céramides purs (NG, NP, AP, AS, NS, EOP)',},
-      { slug: INGREDIENT_SLUGS.CERAMIDE_NP, notes: 'Céramides purs (NG, NP, AP, AS, NS, EOP)',},
-      { slug: INGREDIENT_SLUGS.ECTOIN, notes: '1%',},
-      { slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA, notes: '1% - CICA',},
+      { slug: INGREDIENT_SLUGS.CERAMIDES, concentrationValue: 3, concentrationUnit: "%", notes: '- Céramides purs (NG, NP, AP, AS, NS, EOP)',},
+      { slug: INGREDIENT_SLUGS.CERAMIDE_NS, concentrationValue: 3, concentrationUnit: "%", notes: '- Céramides purs (NG, NP, AP, AS, NS, EOP)',},
+      { slug: INGREDIENT_SLUGS.CERAMIDE_AP, concentrationValue: 3, concentrationUnit: "%", notes: '- Céramides purs (NG, NP, AP, AS, NS, EOP)',},
+      { slug: INGREDIENT_SLUGS.CERAMIDE_EOP, concentrationValue: 3, concentrationUnit: "%", notes: '- Céramides purs (NG, NP, AP, AS, NS, EOP)',},
+      { slug: INGREDIENT_SLUGS.CERAMIDE_NG, concentrationValue: 3, concentrationUnit: "%", notes: '- Céramides purs (NG, NP, AP, AS, NS, EOP)',},
+      { slug: INGREDIENT_SLUGS.CERAMIDE_NP, concentrationValue: 3, concentrationUnit: "%", notes: '- Céramides purs (NG, NP, AP, AS, NS, EOP)',},
+      { slug: INGREDIENT_SLUGS.ECTOIN, concentrationValue: 1, concentrationUnit: "%", notes: '',},
+      { slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA, concentrationValue: 1, concentrationUnit: "%", notes: '- CICA',},
     ],
   },
   {
@@ -147,9 +147,9 @@ export const THERAMID_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.GRANACTIVE_RETINOID, notes: '5%',},
-      { slug: INGREDIENT_SLUGS.RETINOL, notes: '0.3% - Encapsulé',},
-      { slug: INGREDIENT_SLUGS.RETINAL, notes: '0.1% - Pur encapsulé liposomal',},
+      { slug: INGREDIENT_SLUGS.GRANACTIVE_RETINOID, concentrationValue: 5, concentrationUnit: "%", notes: '',},
+      { slug: INGREDIENT_SLUGS.RETINOL, concentrationValue: 0.3, concentrationUnit: "%", notes: 'Encapsulé',},
+      { slug: INGREDIENT_SLUGS.RETINAL, concentrationValue: 0.1, concentrationUnit: "%", notes: 'Pur encapsulé liposomal',},
     ],
   },
   {
@@ -171,9 +171,9 @@ export const THERAMID_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.AZELAIC_ACID, notes: '15%',},
-      { slug: INGREDIENT_SLUGS.COLLOIDAL_OATMEAL, notes: '1%',},
-      { slug: INGREDIENT_SLUGS.CARNOSINE, notes: '1%',},
+      { slug: INGREDIENT_SLUGS.AZELAIC_ACID, concentrationValue: 15, concentrationUnit: "%", notes: '',},
+      { slug: INGREDIENT_SLUGS.COLLOIDAL_OATMEAL, concentrationValue: 1, concentrationUnit: "%", notes: '',},
+      { slug: INGREDIENT_SLUGS.CARNOSINE, concentrationValue: 1, concentrationUnit: "%", notes: '',},
     ],
   },
   {
@@ -195,9 +195,9 @@ export const THERAMID_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.LINOLEIC_ACID, notes: '8% - Acides Linoléique et Linolénique',},
-      { slug: INGREDIENT_SLUGS.VITAMIN_K1, notes: '1%',},
-      { slug: INGREDIENT_SLUGS.COQ10, notes: '1%',},
+      { slug: INGREDIENT_SLUGS.LINOLEIC_ACID, concentrationValue: 8, concentrationUnit: "%", notes: '- Acides Linoléique et Linolénique',},
+      { slug: INGREDIENT_SLUGS.VITAMIN_K1, concentrationValue: 1, concentrationUnit: "%", notes: '',},
+      { slug: INGREDIENT_SLUGS.COQ10, concentrationValue: 1, concentrationUnit: "%", notes: '',},
     ],
   },
   {
@@ -219,9 +219,9 @@ export const THERAMID_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SENSIBLE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.PHA, notes: '10% - PHA',},
-      { slug: INGREDIENT_SLUGS.MANDELIC_ACID, notes: '10% - AHA',},
-      { slug: INGREDIENT_SLUGS.PEPTIDE_COMPLEX, notes: '5%',},
+      { slug: INGREDIENT_SLUGS.PHA, concentrationValue: 10, concentrationUnit: "%", notes: 'PHA',},
+      { slug: INGREDIENT_SLUGS.MANDELIC_ACID, concentrationValue: 10, concentrationUnit: "%", notes: 'AHA',},
+      { slug: INGREDIENT_SLUGS.PEPTIDE_COMPLEX, concentrationValue: 5, concentrationUnit: "%", notes: '',},
     ],
   },
   {
@@ -243,7 +243,7 @@ export const THERAMID_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.PEPTIDE_COMPLEX, notes: '35% - Mélange de 9 peptides biomimétiques (Matrixyl, Munapsys, etc.)',},
+      { slug: INGREDIENT_SLUGS.PEPTIDE_COMPLEX, concentrationValue: 35, concentrationUnit: "%", notes: '- Mélange de 9 peptides biomimétiques (Matrixyl, Munapsys, etc.)',},
     ],
   },
   {
@@ -265,8 +265,8 @@ export const THERAMID_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.SODIUM_PCA, notes: '5%',},
-      { slug: INGREDIENT_SLUGS.HYALURONIC_ACID, notes: '3% - Inclut Primalhyal Ultrafiller (1%) et Primalhyal 3K (2%)',},
+      { slug: INGREDIENT_SLUGS.SODIUM_PCA, concentrationValue: 5, concentrationUnit: "%", notes: '',},
+      { slug: INGREDIENT_SLUGS.HYALURONIC_ACID, concentrationValue: 3, concentrationUnit: "%", notes: '- Inclut Primalhyal Ultrafiller (1%) et Primalhyal 3K (2%)',},
     ],
   },
   {
@@ -288,9 +288,9 @@ export const THERAMID_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.BAKUCHIOL, notes: '1% - Alternative végétale au rétinol, réduit rides et ridules, stimule fermeté',},
-      { slug: INGREDIENT_SLUGS.PEPTIDE_COMPLEX, notes: '1% - Combat perte de fermeté, stimule synthèse collagène',},
-      { slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA, notes: '1% - Cellules souches, hydratation, apaisement cutané',},
+      { slug: INGREDIENT_SLUGS.BAKUCHIOL, concentrationValue: 1, concentrationUnit: "%", notes: '- Alternative végétale au rétinol, réduit rides et ridules, stimule fermeté',},
+      { slug: INGREDIENT_SLUGS.PEPTIDE_COMPLEX, concentrationValue: 1, concentrationUnit: "%", notes: '- Combat perte de fermeté, stimule synthèse collagène',},
+      { slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA, concentrationValue: 1, concentrationUnit: "%", notes: '- Cellules souches, hydratation, apaisement cutané',},
       { slug: INGREDIENT_SLUGS.CERAMIDES, notes: 'Restaure barrière cutanée, améliore hydratation',},
       { slug: INGREDIENT_SLUGS.HYALURONIC_ACID, notes: 'Hydratation en profondeur, repulpant immédiat',},
     ],
@@ -314,11 +314,11 @@ export const THERAMID_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: '5% - Vitamine B3, éclat et apaisement cutané',},
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, concentrationValue: 5, concentrationUnit: "%", notes: '- Vitamine B3, éclat et apaisement cutané',},
       { slug: INGREDIENT_SLUGS.VITAMIN_C, notes: 'Vitamines A, C, E antioxydantes pour nuit anti-âge',},
       { slug: INGREDIENT_SLUGS.TOCOPHEROL, notes: 'Vitamines A, C, E antioxydantes pour nuit anti-âge',},
-      { slug: INGREDIENT_SLUGS.HYALURONIC_ACID, notes: '1% - Encapsulé, hydratation profonde, 0,02% pur',},
-      { slug: INGREDIENT_SLUGS.RETINOL, notes: '0.2% - Régénération cellulaire, production collagène',},
+      { slug: INGREDIENT_SLUGS.HYALURONIC_ACID, concentrationValue: 1, concentrationUnit: "%", notes: '- Encapsulé, hydratation profonde, 0,02% pur',},
+      { slug: INGREDIENT_SLUGS.RETINOL, concentrationValue: 0.2, concentrationUnit: "%", notes: '- Régénération cellulaire, production collagène',},
     ],
   },
   {
@@ -340,10 +340,10 @@ export const THERAMID_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SENSIBLE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.RETINAL, notes: '0.03% - Encapsulé, forme la plus puissante de vit. A, effet régénérant maximal',},
-      { slug: INGREDIENT_SLUGS.HYALURONIC_ACID, notes: '3% - Complexe hautement pénétrant, 0,06% pur',},
-      { slug: INGREDIENT_SLUGS.PEPTIDE_COMPLEX, notes: '2% - Anti-âge multi-peptides, stimule collagène et élastine',},
-      { slug: INGREDIENT_SLUGS.BAKUCHIOL, notes: '1% - Complément rétinal, sans irritation additionnelle',},
+      { slug: INGREDIENT_SLUGS.RETINAL, concentrationValue: 0.03, concentrationUnit: "%", notes: 'Encapsulé, forme la plus puissante de vit. A, effet régénérant maximal',},
+      { slug: INGREDIENT_SLUGS.HYALURONIC_ACID, concentrationValue: 3, concentrationUnit: "%", notes: '- Complexe hautement pénétrant, 0,06% pur',},
+      { slug: INGREDIENT_SLUGS.PEPTIDE_COMPLEX, concentrationValue: 2, concentrationUnit: "%", notes: '- Anti-âge multi-peptides, stimule collagène et élastine',},
+      { slug: INGREDIENT_SLUGS.BAKUCHIOL, concentrationValue: 1, concentrationUnit: "%", notes: '- Complément rétinal, sans irritation additionnelle',},
     ],
   },
   {
@@ -365,9 +365,9 @@ export const THERAMID_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: '5% - Vitamine B3 pur, éclat, réduction imperfections, uniformité teint',},
-      { slug: INGREDIENT_SLUGS.COLLAGEN_AMINO_ACIDS, notes: '2% - Stimule production collagène, lisse rides et ridules',},
-      { slug: INGREDIENT_SLUGS.CERAMIDES, notes: '0.1% - Fortifie barrière lipidique, prévient déshydratation',},
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, concentrationValue: 5, concentrationUnit: "%", notes: '- Vitamine B3 pur, éclat, réduction imperfections, uniformité teint',},
+      { slug: INGREDIENT_SLUGS.COLLAGEN_AMINO_ACIDS, concentrationValue: 2, concentrationUnit: "%", notes: '- Stimule production collagène, lisse rides et ridules',},
+      { slug: INGREDIENT_SLUGS.CERAMIDES, concentrationValue: 0.1, concentrationUnit: "%", notes: '- Fortifie barrière lipidique, prévient déshydratation',},
       { slug: INGREDIENT_SLUGS.GLYCERIN, notes: 'Humectant puissant, rétention hydratation naturelle',},
     ],
   },
@@ -390,9 +390,9 @@ export const THERAMID_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.COLLAGEN_AMINO_ACIDS, notes: '4% - Fragments collagène bio petits (haute pénétration), blocs construction derme',},
-      { slug: INGREDIENT_SLUGS.PROTEOGLYCAN_COMPLEX, notes: '2% - Renforce derme, stimule synthèse collagène naturelle, densité cutanée',},
-      { slug: INGREDIENT_SLUGS.CARNOSINE, notes: '1% - Peptide anti-glycation, protège collagène et élastine',},
+      { slug: INGREDIENT_SLUGS.COLLAGEN_AMINO_ACIDS, concentrationValue: 4, concentrationUnit: "%", notes: '- Fragments collagène bio petits (haute pénétration), blocs construction derme',},
+      { slug: INGREDIENT_SLUGS.PROTEOGLYCAN_COMPLEX, concentrationValue: 2, concentrationUnit: "%", notes: '- Renforce derme, stimule synthèse collagène naturelle, densité cutanée',},
+      { slug: INGREDIENT_SLUGS.CARNOSINE, concentrationValue: 1, concentrationUnit: "%", notes: '- Peptide anti-glycation, protège collagène et élastine',},
     ],
   },
   {
@@ -414,11 +414,11 @@ export const THERAMID_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.CITRUS_LIMON_FRUIT_WATER, notes: '10% - Exfoliant naturel, réduit formation points noirs',},
-      { slug: INGREDIENT_SLUGS.GLYCOLIC_ACID, notes: '2.8% - AHA exfoliant, assèche boutons sans irritation',},
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: '5% - Apaisement, sebo-régulation, confort cutané',},
-      { slug: INGREDIENT_SLUGS.BOSWELLIA_SERRATA, notes: '0.1% - Propriétés purifiantes et apaisantes',},
-      { slug: INGREDIENT_SLUGS.ZINGIBER_OFFICINALE, notes: '0.1% - Gingembre, propriétés anti-inflammatoires et purifiantes',},
+      { slug: INGREDIENT_SLUGS.CITRUS_LIMON_FRUIT_WATER, concentrationValue: 10, concentrationUnit: "%", notes: '- Exfoliant naturel, réduit formation points noirs',},
+      { slug: INGREDIENT_SLUGS.GLYCOLIC_ACID, concentrationValue: 2.8, concentrationUnit: "%", notes: '- AHA exfoliant, assèche boutons sans irritation',},
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, concentrationValue: 5, concentrationUnit: "%", notes: '- Apaisement, sebo-régulation, confort cutané',},
+      { slug: INGREDIENT_SLUGS.BOSWELLIA_SERRATA, concentrationValue: 0.1, concentrationUnit: "%", notes: '- Propriétés purifiantes et apaisantes',},
+      { slug: INGREDIENT_SLUGS.ZINGIBER_OFFICINALE, concentrationValue: 0.1, concentrationUnit: "%", notes: '- Gingembre, propriétés anti-inflammatoires et purifiantes',},
     ],
   },
   {
@@ -440,8 +440,8 @@ export const THERAMID_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.GLYCERIN, notes: '15% - Humectant puissant, empêche perte eau transépidermique, hydratation durable',},
-      { slug: INGREDIENT_SLUGS.COLLAGEN_AMINO_ACIDS, notes: '5% - Stimule production collagène, lisse rides et ridules visiblement',},
+      { slug: INGREDIENT_SLUGS.GLYCERIN, concentrationValue: 15, concentrationUnit: "%", notes: '- Humectant puissant, empêche perte eau transépidermique, hydratation durable',},
+      { slug: INGREDIENT_SLUGS.COLLAGEN_AMINO_ACIDS, concentrationValue: 5, concentrationUnit: "%", notes: '- Stimule production collagène, lisse rides et ridules visiblement',},
     ],
   },
   {
@@ -463,12 +463,12 @@ export const THERAMID_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.HYALURONIC_ACID, notes: '5% - Encapsulé haute pénétration, 0,1% pur, hydratation multi-couches',},
-      { slug: INGREDIENT_SLUGS.VITAMIN_C, notes: '3% - Vitamines A, C, E antioxydantes protection contre vieillissement',},
+      { slug: INGREDIENT_SLUGS.HYALURONIC_ACID, concentrationValue: 5, concentrationUnit: "%", notes: '- Encapsulé haute pénétration, 0,1% pur, hydratation multi-couches',},
+      { slug: INGREDIENT_SLUGS.VITAMIN_C, concentrationValue: 3, concentrationUnit: "%", notes: '- Vitamines A, C, E antioxydantes protection contre vieillissement',},
       { slug: INGREDIENT_SLUGS.TOCOPHEROL, notes: 'Vitamines A, C, E antioxydantes protection contre vieillissement',},
-      { slug: INGREDIENT_SLUGS.MADECASSOSIDE, notes: '0.1% - Centella Asiatica, apaisement et régénération barrière',},
-      { slug: INGREDIENT_SLUGS.CERAMIDES, notes: '0.1% - Restaure film hydrolipidique, prévient irritation',},
-      { slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA, notes: '0.1% - Complexe Centella Asiatica, réparation cutanée avancée',},
+      { slug: INGREDIENT_SLUGS.MADECASSOSIDE, concentrationValue: 0.1, concentrationUnit: "%", notes: '- Centella Asiatica, apaisement et régénération barrière',},
+      { slug: INGREDIENT_SLUGS.CERAMIDES, concentrationValue: 0.1, concentrationUnit: "%", notes: '- Restaure film hydrolipidique, prévient irritation',},
+      { slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA, concentrationValue: 0.1, concentrationUnit: "%", notes: '- Complexe Centella Asiatica, réparation cutanée avancée',},
     ],
   },
   {
@@ -615,9 +615,9 @@ export const THERAMID_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SENSIBLE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.VITAMIN_C, notes: '15% - Acide L-ascorbique pur, antioxydant le plus puissant',},
-      { slug: INGREDIENT_SLUGS.GLUTATHION, notes: '5% - Antioxydant maître, stabilise et amplifie vitamine C',},
-      { slug: INGREDIENT_SLUGS.GREEN_TEA, notes: '1% - EGCG, antioxydant supplémentaire',},
+      { slug: INGREDIENT_SLUGS.VITAMIN_C, concentrationValue: 15, concentrationUnit: "%", notes: '- Acide L-ascorbique pur, antioxydant le plus puissant',},
+      { slug: INGREDIENT_SLUGS.GLUTATHION, concentrationValue: 5, concentrationUnit: "%", notes: '- Antioxydant maître, stabilise et amplifie vitamine C',},
+      { slug: INGREDIENT_SLUGS.GREEN_TEA, concentrationValue: 1, concentrationUnit: "%", notes: '- EGCG, antioxydant supplémentaire',},
     ],
   },
   {
@@ -664,9 +664,9 @@ export const THERAMID_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: '4% - Vitamine B3, renouvellement cellulaire et uniformité teint',},
-      { slug: INGREDIENT_SLUGS.TOCOPHEROL, notes: '3% - Tocophéryl acétate, protection antioxydante contre radicaux libres',},
-      { slug: INGREDIENT_SLUGS.RETINAL, notes: '0.06% - Liposomé encapsulé, stimule synthèse collagène, réduit rides',},
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, concentrationValue: 4, concentrationUnit: "%", notes: '- Vitamine B3, renouvellement cellulaire et uniformité teint',},
+      { slug: INGREDIENT_SLUGS.TOCOPHEROL, concentrationValue: 3, concentrationUnit: "%", notes: '- Tocophéryl acétate, protection antioxydante contre radicaux libres',},
+      { slug: INGREDIENT_SLUGS.RETINAL, concentrationValue: 0.06, concentrationUnit: "%", notes: '- Liposomé encapsulé, stimule synthèse collagène, réduit rides',},
     ],
   },
   {
@@ -688,9 +688,9 @@ export const THERAMID_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SENSIBLE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.GLYCOLIC_ACID, notes: '10% - AHA puissant, exfolie et lisse texture, élimine cellules mortes',},
-      { slug: INGREDIENT_SLUGS.PEPTIDE_COMPLEX, notes: '1% - Peptides apaisants (Palmitoyl Tripeptide-8), calme irritation post-exfoliation',},
-      { slug: INGREDIENT_SLUGS.ECTOIN, notes: '0.5% - Apaisement et renforcement barrière après exfoliation chimique',},
+      { slug: INGREDIENT_SLUGS.GLYCOLIC_ACID, concentrationValue: 10, concentrationUnit: "%", notes: '- AHA puissant, exfolie et lisse texture, élimine cellules mortes',},
+      { slug: INGREDIENT_SLUGS.PEPTIDE_COMPLEX, concentrationValue: 1, concentrationUnit: "%", notes: '- Peptides apaisants (Palmitoyl Tripeptide-8), calme irritation post-exfoliation',},
+      { slug: INGREDIENT_SLUGS.ECTOIN, concentrationValue: 0.5, concentrationUnit: "%", notes: '- Apaisement et renforcement barrière après exfoliation chimique',},
     ],
   },
   {

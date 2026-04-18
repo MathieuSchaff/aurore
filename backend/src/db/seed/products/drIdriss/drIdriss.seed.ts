@@ -229,7 +229,11 @@ export const DR_IDRISS_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.MASQUE_HEBDO,
         TAG_SLUGS.ZONE_VISAGE,
       ],
-      avoid: [],
+      avoid: [
+        TAG_SLUGS.PEAU_SENSIBLE,
+        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
+      ],
     },
     keyIngredients: [
       {

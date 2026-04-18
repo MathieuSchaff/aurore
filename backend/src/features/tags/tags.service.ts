@@ -1,5 +1,5 @@
 import type { CreateTagInput, UpdateTagInput } from '@habit-tracker/shared'
-import { createTagSchema } from '@habit-tracker/shared'
+import { createTagSchema, updateTagSchema } from '@habit-tracker/shared'
 
 import slugify from '@sindresorhus/slugify'
 import { and, eq, getTableColumns } from 'drizzle-orm'
@@ -74,11 +74,14 @@ export async function updateProductTag(
   id: string,
   data: UpdateTagInput
 ): Promise<ProductTagDef> {
-  createTagSchema.parse(data)
+  updateTagSchema.parse(data)
+  const patch: Partial<{ label: string; tagType: string }> = {}
+  if (data.name !== undefined) patch.label = data.name
+  if (data.category !== undefined) patch.tagType = data.category
   try {
     const [tag] = await db
       .update(productTagsDefs)
-      .set({ label: data.name, tagType: data.category ?? '' })
+      .set(patch)
       .where(eq(productTagsDefs.id, id))
       .returning()
     if (!tag) throw new TagError('tag_not_found')
@@ -161,11 +164,14 @@ export async function updateIngredientTag(
   id: string,
   data: UpdateTagInput
 ): Promise<IngredientTagDef> {
-  createTagSchema.parse(data)
+  updateTagSchema.parse(data)
+  const patch: Partial<{ label: string; tagType: string }> = {}
+  if (data.name !== undefined) patch.label = data.name
+  if (data.category !== undefined) patch.tagType = data.category
   try {
     const [tag] = await db
       .update(ingredientTagsDefs)
-      .set({ label: data.name, tagType: data.category ?? '' })
+      .set(patch)
       .where(eq(ingredientTagsDefs.id, id))
       .returning()
     if (!tag) throw new TagError('tag_not_found')

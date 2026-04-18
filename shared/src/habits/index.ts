@@ -20,8 +20,6 @@ const dayOfMonth = z.number().int().min(1).max(31)
 
 const month = z.number().int().min(1).max(12)
 
-const habitCheckStatus = z.enum(['pending', 'done', 'skipped'])
-
 // ─── Fréquence ───────────────────────────────────────────────────────────────
 
 /* No frequency configured = daily by default. */
@@ -113,22 +111,6 @@ export const updateHabitSchema = z.object({
 
 // ─── Checks ──────────────────────────────────────────────────────────────────
 
-/* timingId is required when the habit has timings. date defaults to today. */
-export const checkHabitSchema = z.object({
-  timingId: uuid.optional(),
-  actualTime: timeFormat.optional(),
-  date: dateFormat.optional(),
-  status: habitCheckStatus.default('done'),
-})
-
-export const uncheckHabitSchema = z.object({
-  checkId: uuid,
-})
-
-export const uncheckByDateSchema = z.object({
-  date: dateFormat,
-})
-
 /* Prefer toggle over separate check/uncheck to avoid race conditions in the UI. */
 export const toggleCheckSchema = z.object({
   timingId: uuid.optional(),
@@ -154,19 +136,7 @@ export const dateRangeQuerySchema = z.object({
   endDate: dateFormat,
 })
 
-export const getUserChecksQuerySchema = z.object({
-  date: dateFormat.optional(),
-})
-
-// ─── Mises à jour des sous-entités ───────────────────────────────────────────
-
-export const updateFrequencySchema = frequencySchema
-
-export const setTimingsSchema = z.array(timingSchema).max(10)
-
 export const setRemindersSchema = z.array(reminderWithTimingSchema).max(20)
-
-export const setPeriodSchema = periodSchema
 
 export const setProductsSchema = z.array(habitProductSchema).max(20)
 
@@ -182,145 +152,6 @@ export const reorderHabitsSchema = z.object({
     .max(100),
 })
 
-// ─── Entity Response Schemas ─────────────────────────────────────────────────
-
-export const habitResponseSchema = z.object({
-  id: uuid,
-  userId: uuid,
-  name: z.string(),
-  category: z.string(),
-  position: z.number().int(),
-  archivedAt: z.date().nullable(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
-})
-
-export const habitProductResponseSchema = z.object({
-  id: uuid,
-  habitId: uuid,
-  productId: uuid,
-  dosage: z.string().nullable(),
-  order: z.number().int(),
-  createdAt: z.date(),
-})
-
-export const habitFrequencyResponseSchema = z.object({
-  habitId: uuid,
-  type: z.string(),
-  intervalDays: z.number().int().nullable(),
-  daysOfWeek: z.array(z.number().int()).nullable(),
-  daysOfMonth: z.array(z.number().int()).nullable(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
-})
-
-export const habitReminderResponseSchema = z.object({
-  id: uuid,
-  timingId: uuid,
-  beforeMinutes: z.number().int(),
-  createdAt: z.date(),
-})
-
-export const habitTimingResponseSchema = z.object({
-  id: uuid,
-  habitId: uuid,
-  day: z.number().int().nullable(),
-  time: z.string(),
-  label: z.string().nullable(),
-  reminders: z.array(habitReminderResponseSchema),
-  createdAt: z.date(),
-})
-
-export const habitPeriodResponseSchema = z.object({
-  habitId: uuid,
-  startDate: z.string(),
-  endDate: z.string(),
-  activeMonths: z.array(z.number().int()).nullable(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
-})
-
-export const habitCheckResponseSchema = z.object({
-  id: uuid,
-  userId: uuid,
-  habitId: uuid,
-  scheduledDate: z.string(),
-  timingId: uuid.nullable(),
-  actualTime: z.string().nullable(),
-  completedAt: z.date().nullable(),
-  status: habitCheckStatus,
-  createdAt: z.date(),
-})
-
-export const habitWithRelationsResponseSchema = habitResponseSchema.extend({
-  frequency: habitFrequencyResponseSchema.nullable(),
-  timings: z.array(habitTimingResponseSchema),
-  reminders: z.array(habitReminderResponseSchema),
-  period: habitPeriodResponseSchema.nullable(),
-  products: z.array(habitProductResponseSchema),
-})
-
-export const todayUserProductSchema = z.object({
-  id: uuid,
-  productId: uuid,
-  dosage: z.string().nullable(),
-  order: z.number().int(),
-  product: z.object({
-    name: z.string(),
-    brand: z.string(),
-    unit: z.string(),
-  }),
-  stock: z
-    .object({
-      qty: z.number().int(),
-    })
-    .nullable(),
-})
-
-export const todayHabitResponseSchema = z.object({
-  habit: habitResponseSchema,
-  timings: z.array(habitTimingResponseSchema),
-  checks: z.array(habitCheckResponseSchema),
-  products: z.array(todayUserProductSchema),
-  isCompleted: z.boolean(),
-})
-
-export const habitStatsResponseSchema = z.object({
-  totalChecks: z.number().int(),
-  currentStreak: z.number().int(),
-  completionRate: z.number(),
-})
-
-export const habitCheckProductResponseSchema = z.object({
-  id: uuid,
-  checkId: uuid,
-  habitProductId: uuid,
-  productId: uuid,
-  used: z.boolean(),
-  actualDosage: z.string().nullable(),
-  createdAt: z.date(),
-})
-
-export const checkProductHistoryResponseSchema = z.object({
-  id: uuid,
-  checkId: uuid,
-  scheduledDate: z.string(),
-  habitProductId: uuid,
-  productId: uuid,
-  productName: z.string(),
-  productBrand: z.string().nullable(),
-  used: z.boolean(),
-  actualDosage: z.string().nullable(),
-  createdAt: z.date(),
-})
-
-export const toggleCheckResultResponseSchema = z.object({
-  checked: z.boolean(),
-  check: habitCheckResponseSchema.optional(),
-  depletedProducts: z.array(z.string()).optional(),
-  checkProducts: z.array(habitCheckProductResponseSchema).optional(),
-})
-
 // ─── TYPES ───────────────────────────────────────────────────────────────────
 
 export type Frequency = z.infer<typeof frequencySchema>
@@ -331,26 +162,19 @@ export type HabitProductInput = z.infer<typeof habitProductSchema>
 
 export type CreateHabitInput = z.infer<typeof createHabitSchema>
 export type UpdateHabitInput = z.infer<typeof updateHabitSchema>
-export type CheckHabitInput = z.infer<typeof checkHabitSchema>
 export type ToggleCheckInput = z.infer<typeof toggleCheckSchema>
 
-export type GetUserChecksQuery = z.infer<typeof getUserChecksQuerySchema>
 export type DateRangeQuery = z.infer<typeof dateRangeQuerySchema>
 
-export type UpdateFrequencyInput = z.infer<typeof updateFrequencySchema>
-export type SetTimingsInput = z.infer<typeof setTimingsSchema>
-export type SetRemindersInput = z.infer<typeof setRemindersSchema>
-export type SetPeriodInput = z.infer<typeof setPeriodSchema>
+export type SetRemindersWithTimingInput = z.infer<typeof setRemindersSchema>
 export type SetProductsInput = z.infer<typeof setProductsSchema>
 export type ReorderHabitsInput = z.infer<typeof reorderHabitsSchema>
-export type SetRemindersWithTimingInput = z.infer<typeof setRemindersSchema>
 
 // ─── Enums ────────────────────────────────────────────────────────────────────
 
 export type HabitCheckStatus = 'pending' | 'done' | 'skipped'
 
 // ─── Entity Types ─────────────────────────────────────────────────────────────
-// Defined here (not imported from backend) to keep shared independent of the ORM.
 
 export type Habit = {
   id: string
@@ -367,7 +191,6 @@ export type HabitProduct = {
   id: string
   habitId: string
   productId: string
-  // e.g. "2 gouttes", "1 noisette"
   dosage: string | null
   order: number
   createdAt: Date
@@ -385,7 +208,7 @@ export type HabitFrequency = {
 
 export type HabitTiming = {
   id: string
-  habitId: string
+  scheduleId: string
   // weekly → 0-6, monthly → 1-31, daily → null
   day: number | null
   time: string
@@ -413,69 +236,15 @@ export type HabitPeriod = {
   updatedAt: Date
 }
 
-export type HabitCheck = {
-  id: string
-  userId: string
-  habitId: string
-  scheduledDate: string
-  timingId: string | null
-  actualTime: string | null
-  completedAt: Date | null
-  status: HabitCheckStatus
-  createdAt: Date
-}
-
-export type HabitCheckProduct = {
-  id: string
-  checkId: string
-  habitProductId: string
-  productId: string
-  used: boolean
-  actualDosage: string | null
-  createdAt: Date
-}
-
 // ─── Composed Types ───────────────────────────────────────────────────────────
 
 /* null frequency = daily by default. null period = always active. */
 export type HabitWithRelations = Habit & {
   frequency: HabitFrequency | null
   timings: HabitTimingWithReminders[]
-  reminders: HabitReminder[] // flat list of all reminders (kept for backward compat)
+  reminders: HabitReminder[]
   period: HabitPeriod | null
   products: HabitProduct[]
-}
-
-/* isCompleted is true only when ALL timings are checked (computed server-side). */
-export type TodayUserProduct = {
-  id: string
-  productId: string
-  dosage: string | null
-  order: number
-  product: { name: string; brand: string; unit: string }
-  stock: { qty: number } | null
-}
-
-export type TodayHabit = {
-  habit: Habit
-  timings: HabitTiming[]
-  checks: HabitCheck[]
-  products: TodayUserProduct[]
-  isCompleted: boolean
-}
-
-export type ToggleCheckResult = {
-  checked: boolean
-  check?: HabitCheck
-  depletedProducts?: string[]
-  checkProducts?: HabitCheckProduct[]
-}
-
-/* completionRate is 0–1 (e.g. 0.85 = 85%). currentStreak counts consecutive days until today. */
-export type HabitStats = {
-  totalChecks: number
-  currentStreak: number
-  completionRate: number
 }
 
 /* Don't add CommonErrorCode here — common errors are handled at the handler level. */

@@ -46,5 +46,5 @@ export const MAD_ABOUT_SKIN_SEED: UnifiedProductSeed[] = [
         slug: INGREDIENT_SLUGS.PANTHENOL,
         notes: 'Vitamine B5 : Répare la barrière cutanée',},
     ],
-  },
+    },
 ];

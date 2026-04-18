@@ -1,5 +1,3 @@
-import type { HabitWithRelations } from '@habit-tracker/shared'
-
 import { useQuery } from '@tanstack/react-query'
 import { X } from 'lucide-react'
 import { useMemo, useState } from 'react'
@@ -263,12 +261,7 @@ export function HabitDetail({ habitId, onClose }: HabitDetailProps) {
         </div>
       </div>
 
-      {showEdit && habit && (
-        <HabitFormDialog
-          habit={habit as unknown as HabitWithRelations}
-          onClose={() => setShowEdit(false)}
-        />
-      )}
+      {showEdit && habit && <HabitFormDialog habit={habit} onClose={() => setShowEdit(false)} />}
     </>
   )
 }

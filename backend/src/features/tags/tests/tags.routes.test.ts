@@ -33,9 +33,9 @@ describe('Tag Routes', () => {
       const data = await res.json()
       expect(data.success).toBe(true)
       expect(data.data.id).toBeDefined()
-      expect(data.data.name).toBe('Anti-âge')
+      expect(data.data.label).toBe('Anti-âge')
       expect(data.data.slug).toBe('anti-age')
-      expect(data.data.category).toBeNull()
+      expect(data.data.tagType).toBe('')
     })
 
     it('should create a tag with a category', async () => {
@@ -48,8 +48,8 @@ describe('Tag Routes', () => {
 
       expect(res.status).toBe(HTTP_STATUS.CREATED)
       const data = await res.json()
-      expect(data.data.name).toBe('Peau grasse')
-      expect(data.data.category).toBe('skin_type')
+      expect(data.data.label).toBe('Peau grasse')
+      expect(data.data.tagType).toBe('skin_type')
     })
 
     it('should auto-generate slug from name', async () => {
@@ -129,7 +129,7 @@ describe('Tag Routes', () => {
       const data = await res.json()
       expect(data.success).toBe(true)
       expect(data.data.id).toBe(created.id)
-      expect(data.data.name).toBe('Anti-âge')
+      expect(data.data.label).toBe('Anti-âge')
     })
 
     it('should also work when authenticated', async () => {
@@ -178,8 +178,8 @@ describe('Tag Routes', () => {
       expect(res.status).toBe(HTTP_STATUS.OK)
       const data = await res.json()
       expect(data.success).toBe(true)
-      expect(data.data.name).toBe('Rides et Ridules')
-      expect(data.data.category).toBe('concern')
+      expect(data.data.label).toBe('Rides et Ridules')
+      expect(data.data.tagType).toBe('concern')
     })
 
     it('should persist updates across requests', async () => {
@@ -192,7 +192,7 @@ describe('Tag Routes', () => {
 
       const res = await app.request(`/tags/${created.id}`)
       const data = await res.json()
-      expect(data.data.name).toBe('Anti-âge Pro')
+      expect(data.data.label).toBe('Anti-âge Pro')
     })
 
     it('should return 404 for unknown id', async () => {

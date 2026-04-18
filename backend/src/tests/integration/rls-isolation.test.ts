@@ -1,26 +1,26 @@
 import { afterAll, beforeEach, describe, expect, it } from 'bun:test'
 import { SQL } from 'bun'
 
-import { testDb } from '../db.test.config'
-import { tasks, subtasks } from '../../db/schema/tasks/tasks'
-import {
-  habits,
-  habitChecks,
-  habitProducts,
-  habitSchedules,
-  habitTimings,
-  habitReminders,
-  habitPeriods,
-} from '../../db/schema/habits/habits'
-import { wellbeingLogs, habitCheckProducts } from '../../db/schema/habits/logs'
-import { userProducts, userProductReviews } from '../../db/schema/products/user-products'
-import { purchases } from '../../db/schema/products/purchases'
-import { products } from '../../db/schema/products/products'
-import { userIngredientAnalysisScore } from '../../db/schema/ingredients/user-ingredient-analysis-score'
-import { ingredients } from '../../db/schema/ingredients/ingredients'
+import { userBans } from '../../db/schema/auth/user-bans'
 import { userPreferences } from '../../db/schema/auth/user-preferences'
 import { profiles, userDermoProfiles } from '../../db/schema/auth/users'
-import { userBans } from '../../db/schema/auth/user-bans'
+import {
+  habitChecks,
+  habitPeriods,
+  habitProducts,
+  habitReminders,
+  habitSchedules,
+  habits,
+  habitTimings,
+} from '../../db/schema/habits/habits'
+import { habitCheckProducts, wellbeingLogs } from '../../db/schema/habits/logs'
+import { ingredients } from '../../db/schema/ingredients/ingredients'
+import { userIngredientAnalysisScore } from '../../db/schema/ingredients/user-ingredient-analysis-score'
+import { products } from '../../db/schema/products/products'
+import { purchases } from '../../db/schema/products/purchases'
+import { userProductReviews, userProducts } from '../../db/schema/products/user-products'
+import { subtasks, tasks } from '../../db/schema/tasks/tasks'
+import { testDb } from '../db.test.config'
 import { createTestUser } from '../helpers/test-factories'
 
 // appRuntimePool is shared across tests, closed once at the end.
@@ -215,7 +215,13 @@ describe('RLS — user_products tenant isolation', () => {
     // Insert a product (public catalogue record owned by userA)
     const [product] = await testDb
       .insert(products)
-      .values({ createdBy: userA.id, name: 'Test Product RLS', brand: 'Brand', unit: 'ml', slug: `test-product-rls-${userA.id}` })
+      .values({
+        createdBy: userA.id,
+        name: 'Test Product RLS',
+        brand: 'Brand',
+        unit: 'ml',
+        slug: `test-product-rls-${userA.id}`,
+      })
       .returning()
 
     const [inserted] = await testDb
@@ -247,7 +253,11 @@ describe('RLS — user_ingredient_analysis_score tenant isolation', () => {
     // Insert an ingredient (public catalogue record owned by userA)
     const [ingredient] = await testDb
       .insert(ingredients)
-      .values({ createdBy: userA.id, name: 'Test Ingredient RLS', slug: `test-ing-rls-${userA.id}` })
+      .values({
+        createdBy: userA.id,
+        name: 'Test Ingredient RLS',
+        slug: `test-ing-rls-${userA.id}`,
+      })
       .returning()
 
     const [inserted] = await testDb
@@ -584,7 +594,12 @@ describe('RLS — habit_check_products (owned via habit_checks)', () => {
       .returning()
     const [check] = await testDb
       .insert(habitChecks)
-      .values({ userId: userA.id, habitId: habit!.id, scheduledDate: '2026-01-01', status: 'pending' })
+      .values({
+        userId: userA.id,
+        habitId: habit!.id,
+        scheduledDate: '2026-01-01',
+        status: 'pending',
+      })
       .returning()
     const [child] = await testDb
       .insert(habitCheckProducts)

@@ -7,10 +7,11 @@ import { allProductData } from '../products/index'
 import { allIngredientProductTags } from '../products/ingredients-products-tags'
 import { allProductTagsMap } from '../products/product-tags'
 import { allProductSlugs } from '../products/products-slugs'
-import { TAG_SLUGS, tagData } from '../tags/seed-tags'
+import { TAG_SLUGS, ingredientTagData, productTagData } from '../tags/seed-tags'
 
 const definedIngredientSlugs = new Set(Object.values(INGREDIENT_SLUGS) as string[])
-const definedTagSlugs = new Set(Object.values(TAG_SLUGS) as string[])
+const definedIngredientTagSlugs = new Set(ingredientTagData.map((t) => t.slug))
+const definedProductTagSlugs = new Set(productTagData.map((t) => t.slug))
 const definedProductSlugs = new Set(Object.values(allProductSlugs) as string[])
 
 describe('Seed data integrity', () => {
@@ -27,12 +28,12 @@ describe('Seed data integrity', () => {
       expect(unknownSlugs).toEqual([])
     })
 
-    it('references only known tag slugs', () => {
+    it('references only known ingredient tag slugs', () => {
       const unknownTags: string[] = []
       for (const [ingSlug, groups] of Object.entries(ingredientTagMap)) {
         const allTags = [...groups.primary, ...groups.secondary, ...groups.avoid]
         for (const tag of allTags) {
-          if (tag === undefined || !definedTagSlugs.has(tag as string)) {
+          if (tag === undefined || !definedIngredientTagSlugs.has(tag as string)) {
             unknownTags.push(`${ingSlug} → ${tag}`)
           }
         }
@@ -63,12 +64,12 @@ describe('Seed data integrity', () => {
       expect(unknownSlugs).toEqual([])
     })
 
-    it('references only known tag slugs', () => {
+    it('references only known product tag slugs', () => {
       const unknownTags: string[] = []
       for (const [prodSlug, groups] of Object.entries(allProductTagsMap) as [string, any][]) {
         const allTags = [...groups.primary, ...groups.secondary, ...groups.avoid]
         for (const tag of allTags) {
-          if (tag === undefined || !definedTagSlugs.has(tag as string)) {
+          if (tag === undefined || !definedProductTagSlugs.has(tag as string)) {
             unknownTags.push(`${prodSlug} → ${tag}`)
           }
         }
@@ -131,11 +132,14 @@ describe('Seed data integrity', () => {
     })
   })
 
-  describe('TAG_SLUGS vs tagData', () => {
+  describe('TAG_SLUGS vs seed tag data', () => {
     it('every slug in TAG_SLUGS has a data entry', () => {
-      const seedTagSlugSet = new Set(tagData.map((t) => t.slug))
+      const allSeedSlugs = new Set([
+        ...ingredientTagData.map((t) => t.slug),
+        ...productTagData.map((t) => t.slug),
+      ])
       const missing = (Object.values(TAG_SLUGS) as string[]).filter(
-        (slug) => !seedTagSlugSet.has(slug)
+        (slug) => !allSeedSlugs.has(slug)
       )
       expect(missing).toEqual([])
     })

@@ -91,7 +91,7 @@ async function loadHabitRelations(
 
   const mappedTimings = timings.map((t) => ({
     id: t.id,
-    habitId,
+    scheduleId: scheduleId ?? t.scheduleId,
     day: t.day,
     time: t.time,
     label: t.label,

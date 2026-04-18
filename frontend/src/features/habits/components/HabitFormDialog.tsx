@@ -1,12 +1,20 @@
 import type {
   CreateHabitInput,
   HabitProductInput,
-  HabitWithRelations,
   Reminder,
   SetRemindersWithTimingInput,
   Timing,
 } from '@habit-tracker/shared'
 import { REMINDER_PRESETS } from '@habit-tracker/shared'
+
+import type { InferResponseType } from 'hono/client'
+
+import type { api } from '../../../lib/api'
+
+type HabitDetail = Extract<
+  InferResponseType<(typeof api)['habits'][':id']['$get']>,
+  { data: unknown }
+>['data']
 
 import { Bell, Calendar, Clock, Package, Plus, Trash2, X } from 'lucide-react'
 import { useState } from 'react'
@@ -24,7 +32,7 @@ import {
 import { useProducts } from '../../../lib/queries/products'
 
 interface HabitFormDialogProps {
-  habit?: HabitWithRelations
+  habit?: HabitDetail
   onClose: () => void
   onCreated?: () => void
 }

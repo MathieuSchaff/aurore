@@ -4,7 +4,9 @@ import { HTTP_STATUS, type HttpStatus } from '../core'
 
 // ─── SCHEMAS ─────────────────────────────────────────────────────────────────
 
-export const relevanceEnum = z.enum(['primary', 'secondary', 'avoid'])
+export const relevanceValues = ['primary', 'secondary', 'avoid'] as const
+
+export const relevanceEnum = z.enum(relevanceValues)
 
 export const createTagSchema = z.object({
   name: z.string().min(1).max(100),
@@ -12,21 +14,7 @@ export const createTagSchema = z.object({
   slug: z.string().max(100).optional(),
 })
 
-export const tagResponseSchema = z.object({
-  id: z.uuid(),
-  name: z.string(),
-  slug: z.string(),
-  category: z.string().nullable(),
-  createdAt: z.date(),
-})
-
-export const ingredientTagResponseSchema = z.object({
-  id: z.uuid(),
-  ingredientId: z.uuid(),
-  tagId: z.uuid(),
-  relevance: relevanceEnum,
-  createdAt: z.date(),
-})
+export const updateTagSchema = createTagSchema.partial()
 
 export const addIngredientTagSchema = z.object({
   tagId: z.uuid(),
@@ -42,11 +30,6 @@ export const replaceIngredientTagsSchema = z.object({
   ),
 })
 
-export const addProductTagSchema = z.object({
-  tagId: z.uuid(),
-  relevance: relevanceEnum.optional().default('secondary'),
-})
-
 export const replaceProductTagsSchema = z.object({
   tags: z.array(
     z.object({
@@ -59,47 +42,9 @@ export const replaceProductTagsSchema = z.object({
 // ─── TYPES ───────────────────────────────────────────────────────────────────
 
 export type CreateTagInput = z.infer<typeof createTagSchema>
-export type UpdateTagInput = z.infer<typeof createTagSchema>
-export type Relevance = z.infer<typeof relevanceEnum>
-export type IngredientTagResponse = z.infer<typeof ingredientTagResponseSchema>
-export type AddIngredientTagInput = z.infer<typeof addIngredientTagSchema>
+export type UpdateTagInput = z.infer<typeof updateTagSchema>
 export type ReplaceIngredientTagsInput = z.infer<typeof replaceIngredientTagsSchema>
-export type AddProductTagInput = z.infer<typeof addProductTagSchema>
 export type ReplaceProductTagsInput = z.infer<typeof replaceProductTagsSchema>
-
-export type IngredientTagDef = {
-  id: string
-  slug: string
-  label: string
-  tagType: string
-  createdAt: string | Date
-}
-
-export type ProductTagDef = {
-  id: string
-  slug: string
-  label: string
-  tagType: string
-  createdAt: string | Date
-}
-
-export type TagIngredient = {
-  ingredientTagId: string
-  ingredientId: string
-  relevance: 'primary' | 'secondary' | 'avoid'
-}
-
-export type TagProduct = {
-  productTagId: string
-  productId: string
-  relevance: 'primary' | 'secondary' | 'avoid'
-}
-
-// Keep legacy aliases to avoid breaking imports elsewhere until
-// downstream callers are updated.
-export type Tag = IngredientTagDef | ProductTagDef
-export type ProductTag = TagProduct
-export type IngredientTag = TagIngredient
 
 export type TagErrorCode =
   | 'tag_not_found'
