@@ -21,7 +21,7 @@ export const createIngredientSchema = z.object({
   description: z.string().max(2000).optional(),
   slug: slugSchema.optional(),
   content: z.string().max(50000).optional(),
-  type: ingredientTypeSchema.optional(),
+  type: ingredientTypeSchema,
   category: z.string().min(1).max(100).optional(),
 })
 

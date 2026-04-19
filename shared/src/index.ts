@@ -95,6 +95,7 @@ export {
   type Ingredient,
   type IngredientCategory,
   type IngredientChanges,
+  type IngredientType,
   type IngredientEdit,
   type IngredientErrorCode,
   type IngredientFilterOptions,
