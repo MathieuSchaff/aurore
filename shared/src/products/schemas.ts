@@ -2,15 +2,16 @@ import { z } from 'zod'
 
 import { fieldChangeSchema, tagItemSchema } from '../core'
 import { PRODUCT_CATEGORY_VALUES } from './kinds'
+import { PRODUCT_UNIT_VALUES } from './units'
 
 const uuid = z.uuid()
 
 export const createProductSchema = z.object({
   name: z.string().min(1).max(200),
   brand: z.string().min(1).max(200),
-  category: z.enum(PRODUCT_CATEGORY_VALUES).nullable().optional(),
+  category: z.enum(PRODUCT_CATEGORY_VALUES).optional(),
   kind: z.string().min(1).max(100),
-  unit: z.string().min(1).max(50),
+  unit: z.enum(PRODUCT_UNIT_VALUES),
   slug: z.string().max(100).optional(),
   inci: z.string().max(5000).optional(),
   description: z.string().max(5000).optional(),
@@ -26,9 +27,9 @@ export const updateProductSchema = z
   .object({
     name: z.string().min(1).max(200).optional(),
     brand: z.string().min(1).max(200).optional(),
-    category: z.enum(PRODUCT_CATEGORY_VALUES).nullable().optional(),
+    category: z.enum(PRODUCT_CATEGORY_VALUES).optional(),
     kind: z.string().min(1).max(100).optional(),
-    unit: z.string().min(1).max(50).optional(),
+    unit: z.enum(PRODUCT_UNIT_VALUES).optional(),
     slug: z.string().max(100).optional(),
     inci: z.string().max(5000).nullable().optional(),
     description: z.string().max(5000).nullable().optional(),
@@ -49,7 +50,7 @@ export const productResponseSchema = z.object({
   brand: z.string(),
   category: z.enum(PRODUCT_CATEGORY_VALUES).nullable(),
   kind: z.string(),
-  unit: z.string(),
+  unit: z.enum(PRODUCT_UNIT_VALUES),
   inci: z.string().nullable(),
   description: z.string().nullable(),
   totalAmount: z.number().int().nullable(),

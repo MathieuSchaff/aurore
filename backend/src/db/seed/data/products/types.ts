@@ -18,6 +18,7 @@ export interface UnifiedProductSeed {
   slug: string
   name: string
   brand: string
+  category?: string
   kind: string
   unit: string
   totalAmount: number

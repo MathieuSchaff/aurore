@@ -3,7 +3,9 @@ import { describe, expect, it } from 'bun:test'
 import {
   INGREDIENT_CATEGORY_VALUES,
   INGREDIENT_TYPE_VALUES,
+  PRODUCT_CATEGORY_VALUES,
   PRODUCT_KINDS,
+  PRODUCT_UNITS,
   SUPPLEMENT_CATEGORY_VALUES,
 } from '@habit-tracker/shared'
 
@@ -180,6 +182,22 @@ describe('Seed data integrity', () => {
       const bad = Object.entries(allProductTagsMap)
         .filter(([, groups]) => groups.primary.length === 0)
         .map(([slug]) => slug)
+      expect(bad).toEqual([])
+    })
+
+    it('every product has a valid ProductCategory', () => {
+      const validCategories = new Set<string>(PRODUCT_CATEGORY_VALUES)
+      const bad = allProductData
+        .filter((p) => !(p as any).category || !validCategories.has((p as any).category))
+        .map((p) => `${p.slug} → ${(p as any).category ?? '(missing)'}`)
+      expect(bad).toEqual([])
+    })
+
+    it('every product has a valid ProductUnit', () => {
+      const validUnits = new Set<string>(Object.values(PRODUCT_UNITS))
+      const bad = allProductData
+        .filter((p) => !validUnits.has(p.unit))
+        .map((p) => `${p.slug} → ${p.unit}`)
       expect(bad).toEqual([])
     })
 

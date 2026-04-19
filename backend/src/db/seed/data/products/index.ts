@@ -1,4 +1,12 @@
+import type { ProductCategory } from '@habit-tracker/shared'
+import { PRODUCT_KINDS } from '@habit-tracker/shared'
 import type { UnifiedProductSeed, Ingredient, ProductTagGroups } from './types'
+
+const kindToCategory: Record<string, ProductCategory> = Object.fromEntries(
+  (Object.entries(PRODUCT_KINDS) as [ProductCategory, Record<string, string>][]).flatMap(
+    ([cat, kinds]) => Object.values(kinds).map((k) => [k, cat]),
+  ),
+)
 
 // ── Brand imports ─────────────────────────────────────────────────────────────
 import { ABIB_SEED } from './abib/abib.seed'
@@ -171,9 +179,10 @@ const allUnified: UnifiedProductSeed[] = [
 
 // ── Derived exports (previously split across 4 files) ─────────────────────────
 
-export const allProductData = allUnified.map(
-  ({ tags: _tags, keyIngredients: _ki, ...product }) => product,
-)
+export const allProductData = allUnified.map(({ tags: _tags, keyIngredients: _ki, ...product }) => ({
+  category: kindToCategory[product.kind],
+  ...product,
+}))
 
 export const allProductTagsMap: Record<string, ProductTagGroups> = Object.fromEntries(
   allUnified.map((p) => [p.slug, p.tags]),
