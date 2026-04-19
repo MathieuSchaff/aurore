@@ -1,6 +1,6 @@
-import { TAG_SLUGS } from '../../tags/seed-tags'
-import { INGREDIENT_SLUGS } from '../../ingredients/ingredient-slugs'
-import type { UnifiedProductSeed } from '../unified-types'
+import { TAG_SLUGS } from '../../../data/tags'
+import { INGREDIENT_SLUGS } from '../../../data/ingredients/ingredient-slugs'
+import type { UnifiedProductSeed } from '../types'
 
 export const FILORGA_SEED: UnifiedProductSeed[] = [
   {

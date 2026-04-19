@@ -1,6 +1,6 @@
-import type { UnifiedProductSeed } from '../unified-types'
-import { TAG_SLUGS } from '../../tags/seed-tags'
-import { INGREDIENT_SLUGS } from '../../ingredients/ingredient-slugs'
+import type { UnifiedProductSeed } from '../types'
+import { TAG_SLUGS } from '../../../data/tags'
+import { INGREDIENT_SLUGS } from '../../../data/ingredients/ingredient-slugs'
 
 export const ROUND_LAB_PRODUCT_SLUGS = {
   MUGWORT_CALMING_SERUM: 'round-lab-mugwort-calming-serum',
