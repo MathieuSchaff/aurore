@@ -1,4 +1,4 @@
-import type { IngredientChanges, IngredientType } from '@habit-tracker/shared'
+import type { IngredientCategory, IngredientChanges, IngredientType, SupplementCategory } from '@habit-tracker/shared'
 
 import { sql } from 'drizzle-orm'
 import { index, jsonb, pgTable, text, timestamp, uniqueIndex, uuid } from 'drizzle-orm/pg-core'
@@ -20,7 +20,7 @@ export const ingredients = pgTable(
     // Free-text. Values depend on `type`: skincare/haircare/dental → "actif",
     // "humectant", "emollient", "filtre-uv", "tensioactif", "excipient".
     // supplement → "vitamine", "mineral", "carotenoide", "plante", etc.
-    category: text('category'),
+    category: text('category').$type<IngredientCategory | SupplementCategory>(),
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp('updated_at', { withTimezone: true })
       .notNull()

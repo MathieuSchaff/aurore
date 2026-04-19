@@ -127,7 +127,7 @@ const editableProductFields = {
   brand: fieldChangeSchema(z.string()),
   category: fieldChangeSchema(z.enum(PRODUCT_CATEGORY_VALUES)),
   kind: fieldChangeSchema(z.string()),
-  unit: fieldChangeSchema(z.string()),
+  unit: fieldChangeSchema(z.enum(PRODUCT_UNIT_VALUES)),
   slug: fieldChangeSchema(z.string()),
   inci: fieldChangeSchema(z.string()),
   description: fieldChangeSchema(z.string()),
