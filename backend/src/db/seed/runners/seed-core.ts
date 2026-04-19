@@ -1,28 +1,28 @@
 import { INGREDIENT_CATEGORY_VALUES } from '@habit-tracker/shared'
-import { createIngredient } from '../../features/ingredients/service'
-import { addIngredientToProduct } from '../../features/products/product-ingredients/product-ingredients.service'
-import { createProduct } from '../../features/products/service'
-import { addTagToIngredient, addTagToProduct } from '../../features/tags/tags.service'
-import { db } from '..'
-import { ingredientDermoProfiles, ingredientTagsDefs, productTagsDefs } from '../schema'
+import { createIngredient } from '../../../features/ingredients/service'
+import { addIngredientToProduct } from '../../../features/products/product-ingredients/product-ingredients.service'
+import { createProduct } from '../../../features/products/service'
+import { addTagToIngredient, addTagToProduct } from '../../../features/tags/tags.service'
+import { db } from '../..'
+import { ingredientDermoProfiles, ingredientTagsDefs, productTagsDefs } from '../../schema'
 import { getOrCreateSeedUser } from './create-user'
-import { ingredientTagMap } from './IngredientsTags/seed-ingredients-tags'
-import { ingredientData } from './ingredients'
-import { FILLER_SLUGS } from './ingredients/skincare/seed-dermo-profiles-fillers'
-import { printValidationReport, validateAllIngredients } from './markdown-validator'
-import { allProductData } from './products'
-import { allIngredientProductTags } from './products/ingredients-products-tags'
-import { allProductTagsMap } from './products/product-tags'
-import { ingredientTagData, productTagData } from './tags/seed-tags'
+import { ingredientTagMap } from '../data/ingredient-tags'
+import { ingredientData } from '../data/ingredients'
+import { FILLER_SLUGS } from '../data/ingredients/skincare/seed-dermo-profiles-fillers'
+import { printValidationReport, validateAllIngredients } from '../utils/markdown-validator'
+import { allProductData, allIngredientProductTags, allProductTagsMap } from '../data/products'
+import { ingredientTagData, productTagData } from '../data/tags'
 import {
   cleanDatabase,
   fetchIdMaps,
   flattenTagGroups,
-  type ProductTagGroups,
+} from '../utils/id-maps'
+import {
   seedBatch,
   toNumeric,
   toText,
-} from './utils'
+  type ProductTagGroups,
+} from '../utils/batch'
 
 // ── Utilitaires de Validation ─────────────────────────────────────────────────
 
