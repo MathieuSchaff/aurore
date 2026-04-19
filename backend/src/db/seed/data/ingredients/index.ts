@@ -31,7 +31,7 @@ function dedupeBySlug(entries: IngredientInput[]): IngredientInput[] {
 }
 
 export const ingredientData: IngredientInput[] = dedupeBySlug([
-  ...skincareIngredients,
+  ...skincareIngredients.map((i) => ({ type: 'skincare' as const, ...i })),
   ...supplementIngredients,
   ...dentalIngredients,
   ...haircareIngredients,
