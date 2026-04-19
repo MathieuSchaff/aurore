@@ -90,6 +90,8 @@ export {
   INGREDIENT_TAG_CATEGORY_META,
   INGREDIENT_TAG_SLUGS,
   INGREDIENT_TAG_TAXONOMY,
+  SKINCARE_INGREDIENT_TAG_SLUGS,
+  SKINCARE_INGREDIENT_TAG_TAXONOMY,
   INGREDIENT_TYPE_VALUES,
   INGREDIENT_TYPES,
   type Ingredient,
@@ -139,6 +141,8 @@ export {
   PRODUCT_TAG_CATEGORY_META,
   PRODUCT_TAG_SLUGS,
   PRODUCT_TAG_TAXONOMY,
+  SKINCARE_PRODUCT_TAG_SLUGS,
+  SKINCARE_PRODUCT_TAG_TAXONOMY,
   PRODUCT_UNIT_VALUES,
   PRODUCT_UNITS,
   type Product,
@@ -164,6 +168,12 @@ export {
   type UpdateProductInput,
   updateProductSchema,
 } from './products'
+export { HAIRCARE_INGREDIENT_TAG_SLUGS, type HaircareIngredientTagSlug } from './haircare/ingredient-tag-slugs'
+export { HAIRCARE_PRODUCT_TAG_SLUGS, type HaircareProductTagSlug } from './haircare/product-tag-slugs'
+export { DENTAL_INGREDIENT_TAG_SLUGS, type DentalIngredientTagSlug } from './dental/ingredient-tag-slugs'
+export { DENTAL_PRODUCT_TAG_SLUGS, type DentalProductTagSlug } from './dental/product-tag-slugs'
+export { SUPPLEMENT_INGREDIENT_TAG_SLUGS, type SupplementIngredientTagSlug } from './supplement/ingredient-tag-slugs'
+export { SUPPLEMENT_PRODUCT_TAG_SLUGS, type SupplementProductTagSlug } from './supplement/product-tag-slugs'
 export {
   BIO_MAX_LENGTH,
   type CriteriaWeights,
