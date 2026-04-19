@@ -83,6 +83,7 @@ frontend/.tanstack/tmp/
 .worktrees/
 PROMPT_LOG.md
 scripts/*
+.claude
 
 # =========================
 # Local seed notes (VRAC)
