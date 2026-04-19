@@ -1,6 +1,6 @@
 // ─── Supplement Categories ────────────────────────────────
 // Functional classification for compléments alimentaires (oral supplements).
-// Distinct from INGREDIENT_CATEGORIES (which classifies skincare ingredients
+// Distinct from SKINCARE_INGREDIENT_CATEGORIES (which classifies skincare ingredients
 // by formulation role: actif, humectant, émollient, etc.).
 
 export const SUPPLEMENT_CATEGORIES = {

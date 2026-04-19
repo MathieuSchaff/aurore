@@ -105,10 +105,13 @@ export {
   type HaircareProductTagSlug,
 } from './haircare/product-tag-slugs'
 export {
+  SKINCARE_INGREDIENT_CATEGORIES,
+  SKINCARE_INGREDIENT_CATEGORY_VALUES,
+  type SkincareIngredientCategory,
+} from './skincare/ingredient-categories'
+export {
   type CreateIngredientInput,
   createIngredientSchema,
-  INGREDIENT_CATEGORIES,
-  INGREDIENT_CATEGORY_VALUES,
   INGREDIENT_TAG_CATEGORIES,
   INGREDIENT_TAG_CATEGORY_META,
   INGREDIENT_TAG_SLUGS,
@@ -116,7 +119,6 @@ export {
   INGREDIENT_TYPE_VALUES,
   INGREDIENT_TYPES,
   type Ingredient,
-  type IngredientCategory,
   type IngredientChanges,
   type IngredientEdit,
   type IngredientErrorCode,
@@ -132,11 +134,9 @@ export {
   ingredientFilterOptionsSchema,
   ingredientResponseSchema,
   ingredientsSearchSchema,
+  INGREDIENT_TYPE_LABELS,
   SKINCARE_INGREDIENT_TAG_SLUGS,
   SKINCARE_INGREDIENT_TAG_TAXONOMY,
-  SUPPLEMENT_CATEGORIES,
-  SUPPLEMENT_CATEGORY_VALUES,
-  type SupplementCategory,
   type UpdateIngredientInput,
   type UpdateIngredientRouteInput,
   updateIngredientRouteSchema,
@@ -231,13 +231,18 @@ export {
   updatePurchaseSchema,
 } from './purchases'
 export {
+  SUPPLEMENT_CATEGORIES,
+  SUPPLEMENT_CATEGORY_VALUES,
+  type SupplementCategory,
+} from './supplement/supplement-categories'
+export {
   SUPPLEMENT_INGREDIENT_TAG_SLUGS,
   type SupplementIngredientTagSlug,
-} from './supplement/ingredient-tag-slugs'
+} from './supplement/supplement-ingredient-tag-slugs'
 export {
   SUPPLEMENT_PRODUCT_TAG_SLUGS,
   type SupplementProductTagSlug,
-} from './supplement/product-tag-slugs'
+} from './supplement/supplement-product-tag-slugs'
 export {
   addIngredientTagSchema,
   type CreateTagInput,
