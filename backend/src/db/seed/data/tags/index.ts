@@ -1,7 +1,7 @@
 import {
-  INGREDIENT_TAG_SLUGS,
-  INGREDIENT_TAG_TAXONOMY,
-  type IngredientTagSlug,
+  SKINCARE_INGREDIENT_TAG_SLUGS,
+  SKINCARE_INGREDIENT_TAG_TAXONOMY,
+  type SkincareIngredientTagSlug,
   PRODUCT_TAG_SLUGS,
   PRODUCT_TAG_TAXONOMY,
   type ProductTagSlug,
@@ -9,7 +9,7 @@ import {
 
 // Combined legacy alias — still consumed by other seed modules that have not
 // been migrated to the split slug maps yet.
-export const TAG_SLUGS = { ...INGREDIENT_TAG_SLUGS, ...PRODUCT_TAG_SLUGS } as const
+export const TAG_SLUGS = { ...SKINCARE_INGREDIENT_TAG_SLUGS, ...PRODUCT_TAG_SLUGS } as const
 export type TagSlug = (typeof TAG_SLUGS)[keyof typeof TAG_SLUGS]
 
 // Shared labels (slug → FR display name). Defined once; reused for both
@@ -191,11 +191,11 @@ function labelFor(slug: string): string {
 
 // Seed rows consumed by createIngredientTag / createProductTag. Category
 // (`tagType`) is derived from the shared taxonomy, so it cannot drift.
-export const ingredientTagData = (Object.values(INGREDIENT_TAG_SLUGS) as IngredientTagSlug[]).map(
+export const ingredientTagData = (Object.values(SKINCARE_INGREDIENT_TAG_SLUGS) as SkincareIngredientTagSlug[]).map(
   (slug) => ({
     slug,
     label: labelFor(slug),
-    tagType: INGREDIENT_TAG_TAXONOMY[slug].category,
+    tagType: SKINCARE_INGREDIENT_TAG_TAXONOMY[slug].category,
   })
 )
 

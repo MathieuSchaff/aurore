@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 import { tagItemSchema } from '../../core'
 
-export const ingredientFilterOptionsSchema = z.object({
+export const skincareIngredientFilterOptionsSchema = z.object({
   tags: z.object({
     skin_type: z.array(tagItemSchema),
     concern: z.array(tagItemSchema),
@@ -17,7 +17,7 @@ export const ingredientFilterOptionsSchema = z.object({
 })
 
 // coerce because query params always arrive as strings
-export const ingredientsSearchSchema = z.object({
+export const skincareIngredientsSearchSchema = z.object({
   concern: z.string().optional(),
   skin_type: z.string().optional(),
   ingredient_attribute: z.string().optional(),
@@ -29,5 +29,5 @@ export const ingredientsSearchSchema = z.object({
   sort: z.enum(['name', 'random']).optional(),
 })
 
-export type IngredientFilterOptions = z.infer<typeof ingredientFilterOptionsSchema>
-export type IngredientSearchFilters = z.infer<typeof ingredientsSearchSchema>
+export type SkincareIngredientFilterOptions = z.infer<typeof skincareIngredientFilterOptionsSchema>
+export type SkincareIngredientSearchFilters = z.infer<typeof skincareIngredientsSearchSchema>

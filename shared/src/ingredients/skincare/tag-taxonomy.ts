@@ -1,6 +1,6 @@
-import { type IngredientTagSlug, SKINCARE_INGREDIENT_TAG_SLUGS } from './tag-slugs'
+import { type SkincareIngredientTagSlug, SKINCARE_INGREDIENT_TAG_SLUGS } from './tag-slugs'
 
-export const INGREDIENT_TAG_CATEGORIES = [
+export const SKINCARE_INGREDIENT_TAG_CATEGORIES = [
   'concern',
   'skin_type',
   'ingredient_attribute',
@@ -8,13 +8,13 @@ export const INGREDIENT_TAG_CATEGORIES = [
   'shared_label',
 ] as const
 
-export type IngredientTagCategory = (typeof INGREDIENT_TAG_CATEGORIES)[number]
+export type SkincareIngredientTagCategory = (typeof SKINCARE_INGREDIENT_TAG_CATEGORIES)[number]
 
-export interface IngredientTagMeta {
-  category: IngredientTagCategory
+export interface SkincareIngredientTagMeta {
+  category: SkincareIngredientTagCategory
 }
 
-const CONCERN: IngredientTagSlug[] = [
+const CONCERN: SkincareIngredientTagSlug[] = [
   SKINCARE_INGREDIENT_TAG_SLUGS.ANTI_ROUGEURS,
   SKINCARE_INGREDIENT_TAG_SLUGS.ROSACEE,
   SKINCARE_INGREDIENT_TAG_SLUGS.COUPEROSE,
@@ -43,7 +43,7 @@ const CONCERN: IngredientTagSlug[] = [
   SKINCARE_INGREDIENT_TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
 ]
 
-const SKIN_TYPE: IngredientTagSlug[] = [
+const SKIN_TYPE: SkincareIngredientTagSlug[] = [
   SKINCARE_INGREDIENT_TAG_SLUGS.PEAU_SECHE,
   SKINCARE_INGREDIENT_TAG_SLUGS.PEAU_MIXTE,
   SKINCARE_INGREDIENT_TAG_SLUGS.PEAU_GRASSE,
@@ -55,7 +55,7 @@ const SKIN_TYPE: IngredientTagSlug[] = [
   SKINCARE_INGREDIENT_TAG_SLUGS.PEAU_TOUS_TYPES,
 ]
 
-const INGREDIENT_ATTRIBUTE: IngredientTagSlug[] = [
+const INGREDIENT_ATTRIBUTE: SkincareIngredientTagSlug[] = [
   SKINCARE_INGREDIENT_TAG_SLUGS.ANTI_OXYDANT,
   SKINCARE_INGREDIENT_TAG_SLUGS.HUMECTANT,
   SKINCARE_INGREDIENT_TAG_SLUGS.EMOLLIENT,
@@ -78,46 +78,36 @@ const INGREDIENT_ATTRIBUTE: IngredientTagSlug[] = [
   SKINCARE_INGREDIENT_TAG_SLUGS.ACTIF,
 ]
 
-const SKIN_EFFECT: IngredientTagSlug[] = [
+const SKIN_EFFECT: SkincareIngredientTagSlug[] = [
   SKINCARE_INGREDIENT_TAG_SLUGS.OCCLUSIF,
   SKINCARE_INGREDIENT_TAG_SLUGS.REPULPANT,
   SKINCARE_INGREDIENT_TAG_SLUGS.MATIFIANT,
   SKINCARE_INGREDIENT_TAG_SLUGS.PROTECTION_CUTANEE,
 ]
 
-const SHARED_LABEL: IngredientTagSlug[] = [
+const SHARED_LABEL: SkincareIngredientTagSlug[] = [
   SKINCARE_INGREDIENT_TAG_SLUGS.COMEDOGENE,
   SKINCARE_INGREDIENT_TAG_SLUGS.NON_COMEDOGENE,
   SKINCARE_INGREDIENT_TAG_SLUGS.GROSSESSE_COMPATIBLE,
 ]
 
-const entries: [IngredientTagSlug, IngredientTagMeta][] = [
-  ...CONCERN.map((s): [IngredientTagSlug, IngredientTagMeta] => [s, { category: 'concern' }]),
-  ...SKIN_TYPE.map((s): [IngredientTagSlug, IngredientTagMeta] => [s, { category: 'skin_type' }]),
-  ...INGREDIENT_ATTRIBUTE.map((s): [IngredientTagSlug, IngredientTagMeta] => [
-    s,
-    { category: 'ingredient_attribute' },
-  ]),
-  ...SKIN_EFFECT.map((s): [IngredientTagSlug, IngredientTagMeta] => [
-    s,
-    { category: 'skin_effect' },
-  ]),
-  ...SHARED_LABEL.map((s): [IngredientTagSlug, IngredientTagMeta] => [
-    s,
-    { category: 'shared_label' },
-  ]),
+type Entry = [SkincareIngredientTagSlug, SkincareIngredientTagMeta]
+
+const entries: Entry[] = [
+  ...CONCERN.map((s): Entry => [s, { category: 'concern' }]),
+  ...SKIN_TYPE.map((s): Entry => [s, { category: 'skin_type' }]),
+  ...INGREDIENT_ATTRIBUTE.map((s): Entry => [s, { category: 'ingredient_attribute' }]),
+  ...SKIN_EFFECT.map((s): Entry => [s, { category: 'skin_effect' }]),
+  ...SHARED_LABEL.map((s): Entry => [s, { category: 'shared_label' }]),
 ]
 
 export const SKINCARE_INGREDIENT_TAG_TAXONOMY = Object.fromEntries(entries) as Record<
-  IngredientTagSlug,
-  IngredientTagMeta
+  SkincareIngredientTagSlug,
+  SkincareIngredientTagMeta
 >
 
-// Legacy alias — remove once all consumers use SKINCARE_INGREDIENT_TAG_TAXONOMY
-export const INGREDIENT_TAG_TAXONOMY = SKINCARE_INGREDIENT_TAG_TAXONOMY
-
-export function getIngredientTagCategory(
-  slug: IngredientTagSlug
-): IngredientTagCategory | undefined {
+export function getSkincareIngredientTagCategory(
+  slug: SkincareIngredientTagSlug
+): SkincareIngredientTagCategory | undefined {
   return SKINCARE_INGREDIENT_TAG_TAXONOMY[slug]?.category
 }

@@ -11,7 +11,7 @@ type TagItem = { name: string; slug: string }
  *
  * @param categories — category keys to include (product or ingredient)
  * @param tagsByCategory — tag items per category (from API filter-options)
- * @param categoryMeta — PRODUCT_TAG_CATEGORY_META or INGREDIENT_TAG_CATEGORY_META
+ * @param categoryMeta — PRODUCT_TAG_CATEGORY_META or SKINCARE_INGREDIENT_TAG_CATEGORY_META
  * @param labelOverrides — slug → label overrides (optional)
  */
 export function useTagFilterGroups<K extends string>(

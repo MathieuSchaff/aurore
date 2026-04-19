@@ -81,8 +81,5 @@ export const SKINCARE_INGREDIENT_TAG_SLUGS = {
   GROSSESSE_COMPATIBLE: 'grossesse-compatible',
 } as const
 
-export type IngredientTagSlug =
+export type SkincareIngredientTagSlug =
   (typeof SKINCARE_INGREDIENT_TAG_SLUGS)[keyof typeof SKINCARE_INGREDIENT_TAG_SLUGS]
-
-// Legacy alias — remove once all consumers use SKINCARE_INGREDIENT_TAG_SLUGS
-export const INGREDIENT_TAG_SLUGS = SKINCARE_INGREDIENT_TAG_SLUGS

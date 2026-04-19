@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'bun:test'
 
 import {
-  INGREDIENT_CATEGORY_VALUES,
-  INGREDIENT_TAG_TAXONOMY,
+  SKINCARE_INGREDIENT_CATEGORY_VALUES,
+  SKINCARE_INGREDIENT_TAG_TAXONOMY,
   PRODUCT_KINDS,
   PRODUCT_TAG_TAXONOMY,
 } from '@habit-tracker/shared'
@@ -17,7 +17,7 @@ const productTypeTagSlugs = new Set(
 )
 // "attribute-ish" categories — the old single 'attribute' bucket was split
 // into ingredient_attribute + skin_effect + product_label + shared_label.
-// INGREDIENT_CATEGORY_VALUES still lives in the ingredient_attribute slice.
+// SKINCARE_INGREDIENT_CATEGORY_VALUES still lives in the ingredient_attribute slice.
 const ingredientAttributeTagSlugs = new Set(
   ingredientTagData.filter((t) => t.tagType === 'ingredient_attribute').map((t) => t.slug)
 )
@@ -57,9 +57,9 @@ describe('Shared schemas ↔ seed tags integrity', () => {
   // Why: ingredient categories (actif, humectant, filtre-uv, …) are used both
   // as a DB column on ingredients and as attribute tags. A rename on one side
   // without the other would break filtering by ingredient role.
-  describe('INGREDIENT_CATEGORY_VALUES vs ingredient_attribute tags', () => {
+  describe('SKINCARE_INGREDIENT_CATEGORY_VALUES vs ingredient_attribute tags', () => {
     it('every ingredient category has a matching ingredient_attribute tag', () => {
-      const missing = INGREDIENT_CATEGORY_VALUES.filter(
+      const missing = SKINCARE_INGREDIENT_CATEGORY_VALUES.filter(
         (cat) => !ingredientAttributeTagSlugs.has(cat)
       )
       expect(missing).toEqual([])
@@ -70,7 +70,7 @@ describe('Shared schemas ↔ seed tags integrity', () => {
   // slug whose taxonomy scope is 'product' — those describe a finished
   // product, not a molecule. And `avoid` on an ingredient accepts only
   // skin_type or concern slugs (+ 'grossesse-compatible' as a conventional
-  // exception). The scope check is derived directly from INGREDIENT_TAG_TAXONOMY
+  // exception). The scope check is derived directly from SKINCARE_INGREDIENT_TAG_TAXONOMY
   // so adding a new tag can never silently drift.
   describe('ingredientTagMap respects the strict scope rules', () => {
     const AVOID_EXCEPTION = 'grossesse-compatible'
@@ -89,7 +89,7 @@ describe('Shared schemas ↔ seed tags integrity', () => {
             .map((t) => t as string),
         ]
         for (const slug of toCheck) {
-          const inIngredient = slug in INGREDIENT_TAG_TAXONOMY
+          const inIngredient = slug in SKINCARE_INGREDIENT_TAG_TAXONOMY
           const inProduct = slug in PRODUCT_TAG_TAXONOMY
           if (!inIngredient && !inProduct) {
             bad.push(`${ingSlug} → ${slug} (unknown slug)`)
@@ -133,7 +133,7 @@ describe('Shared schemas ↔ seed tags integrity', () => {
         ]
         for (const slug of toCheck) {
           const inProduct = slug in PRODUCT_TAG_TAXONOMY
-          const inIngredient = slug in INGREDIENT_TAG_TAXONOMY
+          const inIngredient = slug in SKINCARE_INGREDIENT_TAG_TAXONOMY
           if (!inProduct && !inIngredient) {
             bad.push(`${prodSlug} → ${slug} (unknown slug)`)
           } else if (!inProduct) {
