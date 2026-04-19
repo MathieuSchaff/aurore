@@ -4,7 +4,7 @@ import {
   SKINCARE_INGREDIENT_CATEGORY_VALUES,
   SKINCARE_INGREDIENT_TAG_TAXONOMY,
   PRODUCT_KINDS,
-  PRODUCT_TAG_TAXONOMY,
+  SKINCARE_PRODUCT_TAG_TAXONOMY,
 } from '@habit-tracker/shared'
 
 import { ingredientTagMap } from '../data/ingredient-tags'
@@ -90,7 +90,7 @@ describe('Shared schemas ↔ seed tags integrity', () => {
         ]
         for (const slug of toCheck) {
           const inIngredient = slug in SKINCARE_INGREDIENT_TAG_TAXONOMY
-          const inProduct = slug in PRODUCT_TAG_TAXONOMY
+          const inProduct = slug in SKINCARE_PRODUCT_TAG_TAXONOMY
           if (!inIngredient && !inProduct) {
             bad.push(`${ingSlug} → ${slug} (unknown slug)`)
           } else if (!inIngredient) {
@@ -132,7 +132,7 @@ describe('Shared schemas ↔ seed tags integrity', () => {
           ...groups.avoid.filter((t) => t !== AVOID_EXCEPTION),
         ]
         for (const slug of toCheck) {
-          const inProduct = slug in PRODUCT_TAG_TAXONOMY
+          const inProduct = slug in SKINCARE_PRODUCT_TAG_TAXONOMY
           const inIngredient = slug in SKINCARE_INGREDIENT_TAG_TAXONOMY
           if (!inProduct && !inIngredient) {
             bad.push(`${prodSlug} → ${slug} (unknown slug)`)

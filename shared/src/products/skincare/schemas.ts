@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 import { tagItemSchema } from '../../core'
 
-export const filterOptionsSchema = z.object({
+export const skincareProductFilterOptionsSchema = z.object({
   kinds: z.array(z.string()),
   brands: z.array(z.string()),
   tags: z.object({
@@ -21,7 +21,7 @@ export const filterOptionsSchema = z.object({
   }),
 })
 
-export const listProductsQuery = z.object({
+export const skincareListProductsQuery = z.object({
   kind: z.string().optional(),
   brand: z.string().optional(),
   routine_step: z.string().optional(),
@@ -39,5 +39,5 @@ export const listProductsQuery = z.object({
   sort: z.enum(['name', 'random']).optional(),
 })
 
-export type FilterOptions = z.infer<typeof filterOptionsSchema>
-export type ListProductsFilters = z.infer<typeof listProductsQuery>
+export type SkincareProductFilterOptions = z.infer<typeof skincareProductFilterOptionsSchema>
+export type SkincareListProductsFilters = z.infer<typeof skincareListProductsQuery>

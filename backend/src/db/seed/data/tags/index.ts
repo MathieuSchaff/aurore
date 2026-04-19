@@ -2,14 +2,14 @@ import {
   SKINCARE_INGREDIENT_TAG_SLUGS,
   SKINCARE_INGREDIENT_TAG_TAXONOMY,
   type SkincareIngredientTagSlug,
-  PRODUCT_TAG_SLUGS,
-  PRODUCT_TAG_TAXONOMY,
-  type ProductTagSlug,
+  SKINCARE_PRODUCT_TAG_SLUGS,
+  SKINCARE_PRODUCT_TAG_TAXONOMY,
+  type SkincareProductTagSlug,
 } from '@habit-tracker/shared'
 
 // Combined legacy alias — still consumed by other seed modules that have not
 // been migrated to the split slug maps yet.
-export const TAG_SLUGS = { ...SKINCARE_INGREDIENT_TAG_SLUGS, ...PRODUCT_TAG_SLUGS } as const
+export const TAG_SLUGS = { ...SKINCARE_INGREDIENT_TAG_SLUGS, ...SKINCARE_PRODUCT_TAG_SLUGS } as const
 export type TagSlug = (typeof TAG_SLUGS)[keyof typeof TAG_SLUGS]
 
 // Shared labels (slug → FR display name). Defined once; reused for both
@@ -199,8 +199,8 @@ export const ingredientTagData = (Object.values(SKINCARE_INGREDIENT_TAG_SLUGS) a
   })
 )
 
-export const productTagData = (Object.values(PRODUCT_TAG_SLUGS) as ProductTagSlug[]).map((slug) => ({
+export const productTagData = (Object.values(SKINCARE_PRODUCT_TAG_SLUGS) as SkincareProductTagSlug[]).map((slug) => ({
   slug,
   label: labelFor(slug),
-  tagType: PRODUCT_TAG_TAXONOMY[slug].category,
+  tagType: SKINCARE_PRODUCT_TAG_TAXONOMY[slug].category,
 }))

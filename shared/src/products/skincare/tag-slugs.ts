@@ -159,8 +159,5 @@ export const SKINCARE_PRODUCT_TAG_SLUGS = {
   NON_COMEDOGENE: 'non-comedogene',
 } as const
 
-export type ProductTagSlug =
+export type SkincareProductTagSlug =
   (typeof SKINCARE_PRODUCT_TAG_SLUGS)[keyof typeof SKINCARE_PRODUCT_TAG_SLUGS]
-
-// Legacy alias — remove once all consumers use SKINCARE_PRODUCT_TAG_SLUGS
-export const PRODUCT_TAG_SLUGS = SKINCARE_PRODUCT_TAG_SLUGS

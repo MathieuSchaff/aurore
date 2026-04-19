@@ -1,7 +1,13 @@
 import type { TagCategoryMeta } from '../../core'
-import { PRODUCT_TAG_CATEGORIES, type ProductTagCategory } from './tag-taxonomy'
+import {
+  SKINCARE_PRODUCT_TAG_CATEGORIES,
+  type SkincareProductTagCategory,
+} from './tag-taxonomy'
 
-export const PRODUCT_TAG_CATEGORY_META: Record<ProductTagCategory, TagCategoryMeta> = {
+export const SKINCARE_PRODUCT_TAG_CATEGORY_META: Record<
+  SkincareProductTagCategory,
+  TagCategoryMeta
+> = {
   skin_type: { label: 'Peau', placeholder: 'Tous types', tier: 'essential', order: 1 },
   concern: { label: 'Problème', placeholder: 'Toutes', tier: 'essential', order: 2 },
   skin_zone: { label: 'Zone', placeholder: 'Toutes', tier: 'essential', order: 3 },
@@ -12,8 +18,10 @@ export const PRODUCT_TAG_CATEGORY_META: Record<ProductTagCategory, TagCategoryMe
   shared_label: { label: 'Comédogénicité', placeholder: 'Indifférent', tier: 'advanced', order: 8 },
 }
 
-export function productFilterCategories(): ProductTagCategory[] {
-  return [...PRODUCT_TAG_CATEGORIES].sort(
-    (a, b) => PRODUCT_TAG_CATEGORY_META[a].order - PRODUCT_TAG_CATEGORY_META[b].order
+export function skincareProductFilterCategories(): SkincareProductTagCategory[] {
+  return [...SKINCARE_PRODUCT_TAG_CATEGORIES].sort(
+    (a, b) =>
+      SKINCARE_PRODUCT_TAG_CATEGORY_META[a].order -
+      SKINCARE_PRODUCT_TAG_CATEGORY_META[b].order
   )
 }

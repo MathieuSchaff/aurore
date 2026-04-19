@@ -1,4 +1,4 @@
-import { PRODUCT_TAG_CATEGORY_META } from '@habit-tracker/shared'
+import { SKINCARE_PRODUCT_TAG_CATEGORY_META } from '@habit-tracker/shared'
 
 import { useQuery } from '@tanstack/react-query'
 import { getRouteApi, Link, useNavigate } from '@tanstack/react-router'
@@ -145,7 +145,7 @@ export function ProductsPage() {
   const tagGroups = useTagFilterGroups(
     TAG_FILTER_KEYS,
     filterOptions?.tags,
-    PRODUCT_TAG_CATEGORY_META,
+    SKINCARE_PRODUCT_TAG_CATEGORY_META,
     LABEL_OVERRIDES
   )
 

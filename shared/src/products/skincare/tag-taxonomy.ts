@@ -1,6 +1,6 @@
-import { type ProductTagSlug, SKINCARE_PRODUCT_TAG_SLUGS } from './tag-slugs'
+import { type SkincareProductTagSlug, SKINCARE_PRODUCT_TAG_SLUGS } from './tag-slugs'
 
-export const PRODUCT_TAG_CATEGORIES = [
+export const SKINCARE_PRODUCT_TAG_CATEGORIES = [
   'concern',
   'skin_type',
   'skin_zone',
@@ -11,13 +11,13 @@ export const PRODUCT_TAG_CATEGORIES = [
   'shared_label',
 ] as const
 
-export type ProductTagCategory = (typeof PRODUCT_TAG_CATEGORIES)[number]
+export type SkincareProductTagCategory = (typeof SKINCARE_PRODUCT_TAG_CATEGORIES)[number]
 
-export interface ProductTagMeta {
-  category: ProductTagCategory
+export interface SkincareProductTagMeta {
+  category: SkincareProductTagCategory
 }
 
-const CONCERN: ProductTagSlug[] = [
+const CONCERN: SkincareProductTagSlug[] = [
   SKINCARE_PRODUCT_TAG_SLUGS.ANTI_ROUGEURS,
   SKINCARE_PRODUCT_TAG_SLUGS.ROSACEE,
   SKINCARE_PRODUCT_TAG_SLUGS.COUPEROSE,
@@ -46,7 +46,7 @@ const CONCERN: ProductTagSlug[] = [
   SKINCARE_PRODUCT_TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
 ]
 
-const SKIN_TYPE: ProductTagSlug[] = [
+const SKIN_TYPE: SkincareProductTagSlug[] = [
   SKINCARE_PRODUCT_TAG_SLUGS.PEAU_SECHE,
   SKINCARE_PRODUCT_TAG_SLUGS.PEAU_MIXTE,
   SKINCARE_PRODUCT_TAG_SLUGS.PEAU_GRASSE,
@@ -58,7 +58,7 @@ const SKIN_TYPE: ProductTagSlug[] = [
   SKINCARE_PRODUCT_TAG_SLUGS.PEAU_TOUS_TYPES,
 ]
 
-const SKIN_ZONE: ProductTagSlug[] = [
+const SKIN_ZONE: SkincareProductTagSlug[] = [
   SKINCARE_PRODUCT_TAG_SLUGS.ZONE_VISAGE,
   SKINCARE_PRODUCT_TAG_SLUGS.ZONE_CORPS,
   SKINCARE_PRODUCT_TAG_SLUGS.ZONE_YEUX,
@@ -66,7 +66,7 @@ const SKIN_ZONE: ProductTagSlug[] = [
   SKINCARE_PRODUCT_TAG_SLUGS.ZONE_MAINS,
 ]
 
-const PRODUCT_TYPE: ProductTagSlug[] = [
+const PRODUCT_TYPE: SkincareProductTagSlug[] = [
   SKINCARE_PRODUCT_TAG_SLUGS.BAUME_DEMAQUILLANT,
   SKINCARE_PRODUCT_TAG_SLUGS.HUILE_DEMAQUILLANTE,
   SKINCARE_PRODUCT_TAG_SLUGS.HUILE_NETTOYANTE,
@@ -127,7 +127,7 @@ const PRODUCT_TYPE: ProductTagSlug[] = [
   SKINCARE_PRODUCT_TAG_SLUGS.OUTIL_MASSAGE,
 ]
 
-const ROUTINE_STEP: ProductTagSlug[] = [
+const ROUTINE_STEP: SkincareProductTagSlug[] = [
   SKINCARE_PRODUCT_TAG_SLUGS.MATIN,
   SKINCARE_PRODUCT_TAG_SLUGS.SOIR,
   SKINCARE_PRODUCT_TAG_SLUGS.NETTOYANT,
@@ -145,7 +145,7 @@ const ROUTINE_STEP: ProductTagSlug[] = [
   SKINCARE_PRODUCT_TAG_SLUGS.MASQUE_HEBDO,
 ]
 
-const SKIN_EFFECT: ProductTagSlug[] = [
+const SKIN_EFFECT: SkincareProductTagSlug[] = [
   SKINCARE_PRODUCT_TAG_SLUGS.OCCLUSIF,
   SKINCARE_PRODUCT_TAG_SLUGS.REPULPANT,
   SKINCARE_PRODUCT_TAG_SLUGS.MATIFIANT,
@@ -161,7 +161,7 @@ const SKIN_EFFECT: ProductTagSlug[] = [
   SKINCARE_PRODUCT_TAG_SLUGS.KERATOLYTIQUE,
 ]
 
-const PRODUCT_LABEL: ProductTagSlug[] = [
+const PRODUCT_LABEL: SkincareProductTagSlug[] = [
   SKINCARE_PRODUCT_TAG_SLUGS.SANS_PARFUM,
   SKINCARE_PRODUCT_TAG_SLUGS.BIO_NATUREL,
   SKINCARE_PRODUCT_TAG_SLUGS.VEGAN,
@@ -174,30 +174,31 @@ const PRODUCT_LABEL: ProductTagSlug[] = [
   SKINCARE_PRODUCT_TAG_SLUGS.GROSSESSE_COMPATIBLE,
 ]
 
-const SHARED_LABEL: ProductTagSlug[] = [
+const SHARED_LABEL: SkincareProductTagSlug[] = [
   SKINCARE_PRODUCT_TAG_SLUGS.COMEDOGENE,
   SKINCARE_PRODUCT_TAG_SLUGS.NON_COMEDOGENE,
 ]
 
-const entries: [ProductTagSlug, ProductTagMeta][] = [
-  ...CONCERN.map((s): [ProductTagSlug, ProductTagMeta] => [s, { category: 'concern' }]),
-  ...SKIN_TYPE.map((s): [ProductTagSlug, ProductTagMeta] => [s, { category: 'skin_type' }]),
-  ...SKIN_ZONE.map((s): [ProductTagSlug, ProductTagMeta] => [s, { category: 'skin_zone' }]),
-  ...PRODUCT_TYPE.map((s): [ProductTagSlug, ProductTagMeta] => [s, { category: 'product_type' }]),
-  ...ROUTINE_STEP.map((s): [ProductTagSlug, ProductTagMeta] => [s, { category: 'routine_step' }]),
-  ...SKIN_EFFECT.map((s): [ProductTagSlug, ProductTagMeta] => [s, { category: 'skin_effect' }]),
-  ...PRODUCT_LABEL.map((s): [ProductTagSlug, ProductTagMeta] => [s, { category: 'product_label' }]),
-  ...SHARED_LABEL.map((s): [ProductTagSlug, ProductTagMeta] => [s, { category: 'shared_label' }]),
+type Entry = [SkincareProductTagSlug, SkincareProductTagMeta]
+
+const entries: Entry[] = [
+  ...CONCERN.map((s): Entry => [s, { category: 'concern' }]),
+  ...SKIN_TYPE.map((s): Entry => [s, { category: 'skin_type' }]),
+  ...SKIN_ZONE.map((s): Entry => [s, { category: 'skin_zone' }]),
+  ...PRODUCT_TYPE.map((s): Entry => [s, { category: 'product_type' }]),
+  ...ROUTINE_STEP.map((s): Entry => [s, { category: 'routine_step' }]),
+  ...SKIN_EFFECT.map((s): Entry => [s, { category: 'skin_effect' }]),
+  ...PRODUCT_LABEL.map((s): Entry => [s, { category: 'product_label' }]),
+  ...SHARED_LABEL.map((s): Entry => [s, { category: 'shared_label' }]),
 ]
 
 export const SKINCARE_PRODUCT_TAG_TAXONOMY = Object.fromEntries(entries) as Record<
-  ProductTagSlug,
-  ProductTagMeta
+  SkincareProductTagSlug,
+  SkincareProductTagMeta
 >
 
-// Legacy alias — remove once all consumers use SKINCARE_PRODUCT_TAG_TAXONOMY
-export const PRODUCT_TAG_TAXONOMY = SKINCARE_PRODUCT_TAG_TAXONOMY
-
-export function getProductTagCategory(slug: ProductTagSlug): ProductTagCategory | undefined {
+export function getSkincareProductTagCategory(
+  slug: SkincareProductTagSlug
+): SkincareProductTagCategory | undefined {
   return SKINCARE_PRODUCT_TAG_TAXONOMY[slug]?.category
 }

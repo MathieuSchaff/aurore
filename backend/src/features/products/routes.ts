@@ -1,7 +1,7 @@
 import {
   createProductSchema,
   HTTP_STATUS,
-  listProductsQuery,
+  skincareListProductsQuery,
   ok,
   searchProductsQuery,
   updateProductSchema,
@@ -67,7 +67,7 @@ export const productRoutes = productsApp
     const result = await searchProducts({ q, limit }, db)
     return c.json(ok(result), HTTP_STATUS.OK)
   })
-  .get('/', zValidator('query', listProductsQuery), async (c) => {
+  .get('/', zValidator('query', skincareListProductsQuery), async (c) => {
     const db = c.get('db')
     const filters = c.req.valid('query')
 

@@ -1,12 +1,15 @@
 import type {
   CreateProductInput,
-  ListProductsFilters,
   ProductKind,
   ProductSearchResult,
   ProductUnit,
+  SkincareListProductsFilters,
   UpdateProductInput,
 } from '@habit-tracker/shared'
-import { type ProductTagCategory, productFilterCategories } from '@habit-tracker/shared'
+import {
+  type SkincareProductTagCategory,
+  skincareProductFilterCategories,
+} from '@habit-tracker/shared'
 
 import slugify from '@sindresorhus/slugify'
 import { and, asc, count, eq, ilike, inArray, notInArray, or, type SQL, sql } from 'drizzle-orm'
@@ -57,6 +60,7 @@ async function getProductRow(condition: SQL, database: Database) {
       slug: products.slug,
       name: products.name,
       brand: products.brand,
+      category: products.category,
       description: products.description,
       inci: products.inci,
       totalAmount: products.totalAmount,
@@ -100,6 +104,7 @@ const EXCLUDED_KEYS = new Set(['id', 'createdBy', 'createdAt'])
 const TRACKED_FIELDS = [
   'name',
   'brand',
+  'category',
   'kind',
   'unit',
   'inci',
@@ -199,7 +204,7 @@ export type ProductsPage = {
 
 // This is the search with many filters
 export async function listProducts(
-  filters: ListProductsFilters = { page: 1, limit: 20 },
+  filters: SkincareListProductsFilters = { page: 1, limit: 20 },
   database: Database = db
 ): Promise<ProductsPage> {
   const page = filters.page ?? 1
@@ -314,9 +319,9 @@ export async function listProducts(
   const total = countResult[0]?.total ?? 0
   return { items, total, page, limit }
 }
-type ProductFilterCategory = ProductTagCategory
+type ProductFilterCategory = SkincareProductTagCategory
 
-const PRODUCT_FILTER_CATEGORIES = productFilterCategories()
+const PRODUCT_FILTER_CATEGORIES = skincareProductFilterCategories()
 
 export type FilterOptions = {
   kinds: string[]
