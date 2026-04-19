@@ -123,8 +123,11 @@ export function PrivacyPage() {
                 </li>
                 <li>
                   <strong>Logs techniques :</strong> méthode HTTP, chemin de la route, code de
-                  statut, temps de réponse. <strong>Aucun contenu de requête, email ou identifiant
-                  personnel n'est enregistré dans les logs.</strong>
+                  statut, temps de réponse.{' '}
+                  <strong>
+                    Aucun contenu de requête, email ou identifiant personnel n'est enregistré dans
+                    les logs.
+                  </strong>
                 </li>
               </ul>
               <p>Nous ne collectons aucune donnée publicitaire ni de tracking comportemental.</p>
@@ -216,9 +219,9 @@ export function PrivacyPage() {
                 </li>
                 <li>
                   <strong>En cas d'incident technique urgent</strong> (corruption, faille de
-                  sécurité, indisponibilité bloquante) : un accès administrateur reste possible
-                  pour diagnostiquer et corriger. Vous en êtes alors informé·e par email (date,
-                  raison, données consultées, action effectuée).
+                  sécurité, indisponibilité bloquante) : un accès administrateur reste possible pour
+                  diagnostiquer et corriger. Vous en êtes alors informé·e par email (date, raison,
+                  données consultées, action effectuée).
                 </li>
                 <li>
                   <strong>Jamais</strong> pour de la curiosité, de l'analyse d'usage ou de la veille
@@ -233,8 +236,8 @@ export function PrivacyPage() {
                 Une sauvegarde compressée de la base est générée quotidiennement et stockée sur le
                 serveur d'hébergement, derrière les protections d'accès du VPS. Les sauvegardes de
                 plus de 7 jours sont supprimées automatiquement. Lors d'une suppression de compte,
-                vos données peuvent subsister jusqu'à 7 jours dans les sauvegardes avant
-                disparition définitive.
+                vos données peuvent subsister jusqu'à 7 jours dans les sauvegardes avant disparition
+                définitive.
               </p>
             </section>
 
@@ -269,9 +272,9 @@ export function PrivacyPage() {
                   attendant, vous pouvez en faire la demande par email.
                 </li>
                 <li>
-                  <strong>Opposition :</strong> vous pouvez retirer votre consentement au
-                  traitement des données dermatologiques en vidant les champs de votre profil de
-                  peau depuis les paramètres.
+                  <strong>Opposition :</strong> vous pouvez retirer votre consentement au traitement
+                  des données dermatologiques en vidant les champs de votre profil de peau depuis
+                  les paramètres.
                 </li>
               </ul>
             </section>
