@@ -71,11 +71,22 @@ Valeurs dépendantes du `type` :
    - `conditionneur` : silicones, huiles, BTMS, protéines (coat + démêle)
    - `filmogene` : polymères coiffants, fixants
 
-   **À implémenter :**
-   - Créer `shared/src/dental/ingredient-categories.ts` → `DENTAL_INGREDIENT_CATEGORIES` + `DENTAL_INGREDIENT_CATEGORY_VALUES`
-   - Créer `shared/src/haircare/ingredient-categories.ts` → `HAIRCARE_INGREDIENT_CATEGORIES` + `HAIRCARE_INGREDIENT_CATEGORY_VALUES`
-   - Mettre à jour le test `ingredient type and category are consistent` pour utiliser ces sets au lieu de `INGREDIENT_CATEGORY_VALUES` pour `haircare` et `dental`
-   - Exporter depuis `shared/src/index.ts`
+   **Implémenté — commit `cd05aab` (avril 2026) :**
+
+   - ✅ `shared/src/dental/ingredient-categories.ts` — `DENTAL_INGREDIENT_CATEGORIES` + `DENTAL_INGREDIENT_CATEGORY_VALUES`
+   - ✅ `shared/src/haircare/ingredient-categories.ts` — `HAIRCARE_INGREDIENT_CATEGORIES` + `HAIRCARE_INGREDIENT_CATEGORY_VALUES`
+   - ✅ Exportés depuis `shared/src/index.ts`
+   - ✅ Test `ingredient type and category are consistent` : 4 branches séparées par domaine
+     (avant : skincare/haircare/dental partageaient `INGREDIENT_CATEGORY_VALUES`)
+   - ✅ Test `every ingredient category is a valid category for its domain` : union des 4 sets
+   - ✅ Seed haircare : `INGREDIENT_CATEGORIES.EMOLLIENT` → `HAIRCARE_INGREDIENT_CATEGORIES.CONDITIONNEUR`
+     dans 4 fichiers (`beurres-vegetaux`, `conditionneurs`, `huiles-minerales`, `huiles-vegetales`)
+
+   **Pourquoi `emollient` → `conditionneur` dans haircare :**
+   `emollient` décrit un mécanisme chimique (lisse une surface en comblant les aspérités).
+   `conditionneur` décrit la fonction dans le contexte capillaire (coat + démêlage).
+   Les huiles, beurres et silicones haircare sont classifiés comme `conditionneur`
+   car leur rôle est fonctionnel (confort du cheveu), pas seulement mécanique.
 
 Les données seed sont dans `backend/src/db/seed/data/ingredients/`.
 

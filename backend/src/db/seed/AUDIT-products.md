@@ -121,8 +121,9 @@ Exporté depuis `shared/src/index.ts` (ligne 153).
 )
 ```
 
-**`updateProductSchema` : ⚠️ pas de validation croisée.** `category` et `kind` sont
-optionnels indépendants — un PATCH `{ kind: 'shampoo' }` sans `category` passe sans erreur.
+**`updateProductSchema` : ✅ réglé — commit `cd05aab` (avril 2026).** `superRefine` ajouté :
+`category` et `kind` doivent voyager ensemble. Si l'un est présent sans l'autre → erreur.
+Si les deux sont présents → validation croisée via `PRODUCT_KINDS[category]`.
 
 **Seed test : ✅ actif.** `every product kind is consistent with its category`
 (ligne 204 de `seed-data-integrity.test.ts`) couvre toute la data seed depuis étape 2.
