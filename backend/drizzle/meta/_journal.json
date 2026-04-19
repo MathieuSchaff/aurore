@@ -169,6 +169,13 @@
       "when": 1776527891423,
       "tag": "0023_parallel_vargas",
       "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1776528696726,
+      "tag": "0024_public_wolfpack",
+      "breakpoints": true
     }
   ]
 }
