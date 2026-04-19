@@ -47,7 +47,6 @@ export {
   ok,
   type TagCategoryMeta,
 } from './core'
-export { DENTAL_PRODUCT_TAG_SLUGS, type DentalProductTagSlug } from './dental/product-tag-slugs'
 export {
   type CreateReplyInput,
   type CreateThreadInput,
@@ -82,10 +81,6 @@ export {
   type UpdateHabitInput,
   updateHabitSchema,
 } from './habits'
-export {
-  HAIRCARE_PRODUCT_TAG_SLUGS,
-  type HaircareProductTagSlug,
-} from './haircare/product-tag-slugs'
 export {
   type CreateIngredientInput,
   createIngredientSchema,
@@ -149,7 +144,12 @@ export {
   type CreateProductInput,
   createProductIngredientSchema,
   createProductSchema,
+  DENTAL_PRODUCT_TAG_SLUGS,
+  type DentalProductTagSlug,
+  type FilterOptions,
   filterOptionsSchema,
+  HAIRCARE_PRODUCT_TAG_SLUGS,
+  type HaircareProductTagSlug,
   type ListProductsFilters,
   listProductsQuery,
   PRODUCT_CATEGORIES,
@@ -182,6 +182,8 @@ export {
   productsPageSchema,
   SKINCARE_PRODUCT_TAG_SLUGS,
   SKINCARE_PRODUCT_TAG_TAXONOMY,
+  SUPPLEMENT_PRODUCT_TAG_SLUGS,
+  type SupplementProductTagSlug,
   searchProductsQuery,
   type UpdateProductInput,
   updateProductSchema,
@@ -225,10 +227,6 @@ export {
   type UpdatePurchaseInput,
   updatePurchaseSchema,
 } from './purchases'
-export {
-  SUPPLEMENT_PRODUCT_TAG_SLUGS,
-  type SupplementProductTagSlug,
-} from './supplement/supplement-product-tag-slugs'
 export {
   addIngredientTagSchema,
   type CreateTagInput,

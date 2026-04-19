@@ -1,4 +1,4 @@
-import type { TagCategoryMeta } from '../core'
+import type { TagCategoryMeta } from '../../core'
 import { INGREDIENT_TAG_CATEGORIES, type IngredientTagCategory } from './tag-taxonomy'
 
 export const INGREDIENT_TAG_CATEGORY_META: Record<IngredientTagCategory, TagCategoryMeta> = {
