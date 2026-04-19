@@ -33,7 +33,7 @@ export const PRODUCT_DATA = [
   {
     name: 'Sensidiane® Huile Démaquillante Apaisante',
     brand: 'Noreva',
-    kind: 'skincare',
+    kind: 'cleanser',
     unit: 'bottle',
     slug: NOREVA_PRODUCT_SLUGS.SENSIDIANE_HUILE_DEMAQUILLANTE,
     totalAmount: 150,
@@ -49,7 +49,7 @@ export const PRODUCT_DATA = [
   {
     name: 'Sensidiane® AR+ Soin Concentré',
     brand: 'Noreva',
-    kind: 'skincare',
+    kind: 'serum',
     unit: 'tube',
     slug: NOREVA_PRODUCT_SLUGS.SENSIDIANE_AR_PLUS_SOIN_CONCENTRE,
     totalAmount: 30,
@@ -64,7 +64,7 @@ export const PRODUCT_DATA = [
   {
     name: 'Alpha KM®+ Soin Raffermissant Corps',
     brand: 'Noreva',
-    kind: 'skincare',
+    kind: 'body-lotion',
     unit: 'bottle',
     slug: NOREVA_PRODUCT_SLUGS.ALPHA_KM_PLUS_SOIN_CORPS,
     totalAmount: 200,
@@ -78,7 +78,7 @@ export const PRODUCT_DATA = [
   {
     name: 'Alpha KM®+ Sérum Repulpant Fermeté',
     brand: 'Noreva',
-    kind: 'skincare',
+    kind: 'serum',
     unit: 'dropper',
     slug: NOREVA_PRODUCT_SLUGS.ALPHA_KM_PLUS_SERUM,
     totalAmount: 30,
@@ -92,7 +92,7 @@ export const PRODUCT_DATA = [
   {
     name: 'Exfoliac® Global X-PRO',
     brand: 'Noreva',
-    kind: 'skincare',
+    kind: 'spot-treatment',
     unit: 'tube',
     slug: NOREVA_PRODUCT_SLUGS.EXFOLIAC_GLOBAL_X_PRO,
     totalAmount: 30,
@@ -106,7 +106,7 @@ export const PRODUCT_DATA = [
   {
     name: 'Trio White® MELA Sérum Anti-taches',
     brand: 'Noreva',
-    kind: 'skincare',
+    kind: 'serum',
     unit: 'dropper',
     slug: NOREVA_PRODUCT_SLUGS.TRIO_WHITE_MELA_SERUM,
     totalAmount: 30,
@@ -120,7 +120,7 @@ export const PRODUCT_DATA = [
   {
     name: 'Iklen®+ [Pure-C-Reverse] Sérum',
     brand: 'Noreva',
-    kind: 'skincare',
+    kind: 'serum',
     unit: 'dropper',
     slug: NOREVA_PRODUCT_SLUGS.IKLEN_PURE_C_REVERSE_SERUM,
     totalAmount: 24, // 3x8ml
@@ -135,7 +135,7 @@ export const PRODUCT_DATA = [
   {
     name: 'Strivadiane® Concentré Anti-vergetures',
     brand: 'Noreva',
-    kind: 'skincare',
+    kind: 'body-lotion',
     unit: 'tube',
     slug: NOREVA_PRODUCT_SLUGS.STRIVADIANE_ANTI_VERGETURES,
     totalAmount: 125,
@@ -149,7 +149,7 @@ export const PRODUCT_DATA = [
   {
     name: 'Xerodiane® CERA+ Baume Nutritif',
     brand: 'Noreva',
-    kind: 'skincare',
+    kind: 'body-lotion',
     unit: 'bottle',
     slug: NOREVA_PRODUCT_SLUGS.XERODIANE_CERA_PLUS_BAUME,
     totalAmount: 400,

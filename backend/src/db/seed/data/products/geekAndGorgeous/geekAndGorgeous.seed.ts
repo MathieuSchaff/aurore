@@ -516,7 +516,6 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
       avoid: [
         TAG_SLUGS.GROSSESSE_COMPATIBLE,
         TAG_SLUGS.PEAU_REACTIVE,
-        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ROSACEE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
       ],

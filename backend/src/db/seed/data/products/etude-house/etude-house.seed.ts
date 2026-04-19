@@ -159,7 +159,7 @@ export const ETUDE_HOUSE_SEED: UnifiedProductSeed[] = [
   {
     name: 'SoonJung 5-Panthensoside Cica Balm',
     brand: 'Etude House',
-    kind: 'skincare',
+    kind: 'balm',
     unit: 'jar',
     slug: 'etude-house-soonjung-cica-balm',
     totalAmount: 40,

@@ -95,9 +95,9 @@ export const COSRX_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/cosrx-advanced-snail-mucin-gel-cleanser-5-07-fl-oz-150-ml',
     imageUrl: 'https://cdn1.skinsafeproducts.com/photo/1E8C01C78AB0E7/large_1650540029.png?1650540029',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.GEL_NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.ZONE_VISAGE],
-      avoid: [TAG_SLUGS.SANS_PARFUM],
+      primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.PEAU_TOUS_TYPES],
+      secondary: [TAG_SLUGS.GEL_NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
+      avoid: [],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.SNAIL_MUCIN, notes: `Filtrat de mucine d'escargot – actif signature`,},
@@ -144,7 +144,7 @@ export const COSRX_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/cosrx-low-ph-first-cleansing-milk-gel-150-ml-5-07-oz',
     imageUrl: 'https://cdn1.skinsafeproducts.com/photo/61DB21CF221C6D/large_1551719449.jpeg?1551719449',
     tags: {
-      primary: [],
+      primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [TAG_SLUGS.LAIT_NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_1, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.PEAU_NORMALE, TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
@@ -196,7 +196,7 @@ export const COSRX_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES],
       secondary: [TAG_SLUGS.GEL_NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.ZONE_VISAGE],
-      avoid: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.SANS_PARFUM],
+      avoid: [TAG_SLUGS.PEAU_SECHE],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.SALICYLIC_ACID, notes: 'BHA – exfoliation douce quotidienne, pores',},
@@ -1765,8 +1765,8 @@ export const COSRX_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/cosrx-lip-sleep-propolis-lip-sleeping-mask-0-70-oz-20-g',
     imageUrl: 'https://cdn1.skinsafeproducts.com/photo/F089A13CC98C16/large_1699552771.jpeg?1699552771',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.BAUME, TAG_SLUGS.SOIR, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.ZONE_LEVRES],
+      primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.PEAU_SECHE],
+      secondary: [TAG_SLUGS.BAUME, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_LEVRES],
       avoid: [],
     },
     keyIngredients: [

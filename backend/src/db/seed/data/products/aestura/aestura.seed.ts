@@ -78,7 +78,7 @@ export const AESTURA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/aestura-atobarrier-365-cream-80-ml',
     imageUrl: 'https://cdn1.skinsafeproducts.com/photo/D56D38670C8A4B/large_1744620573.png?1744620573',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.PEAU_TRES_SECHE],
+      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.PEAU_SECHE],
       secondary: [TAG_SLUGS.TEXTURE_RICHE, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
@@ -129,7 +129,7 @@ export const AESTURA_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://cdn1.skinsafeproducts.com/photo/82A6E999E15525/large_1744620478.png?1744620478',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.PEAU_SECHE],
-      secondary: [TAG_SLUGS.LOTION_VISAGE, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE, TAG_SLUGS.ZONE_CORPS],
+      secondary: [TAG_SLUGS.LOTION, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [

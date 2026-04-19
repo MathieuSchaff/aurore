@@ -6,7 +6,7 @@ export const ISNTREE_SEED: UnifiedProductSeed[] = [
   {
     name: 'Aloe Fresh Type Soothing Gel',
     brand: 'IsNtree',
-    kind: 'skincare',
+    kind: 'body-lotion',
     unit: 'tube',
     slug: 'isntree-aloe-fresh-type-soothing-gel',
     totalAmount: 300,
@@ -27,7 +27,7 @@ export const ISNTREE_SEED: UnifiedProductSeed[] = [
   {
     name: 'Moisture Soothing Gel Aloe',
     brand: 'IsNtree',
-    kind: 'skincare',
+    kind: 'moisturizer',
     unit: 'tube',
     slug: 'isntree-moisture-soothing-gel-aloe',
     totalAmount: 150,

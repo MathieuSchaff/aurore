@@ -148,7 +148,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
   {
     name: 'Cicapair Tiger Grass Color Correcting Treatment',
     brand: 'Dr. Jart+',
-    kind: 'skincare',
+    kind: 'primer',
     unit: 'jar',
     slug: 'dr-jart-cicapair-tiger-grass-color-correcting-treatment',
     totalAmount: 50,
@@ -196,7 +196,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
   {
     name: 'Ceramidin Lip Balm',
     brand: 'Dr. Jart+',
-    kind: 'skincare',
+    kind: 'lip-care',
     unit: 'tube',
     slug: 'dr-jart-ceramidin-lip-balm',
     totalAmount: 7,

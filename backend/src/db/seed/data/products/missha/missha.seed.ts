@@ -152,7 +152,7 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT],
       secondary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.SOIR, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.ZONE_VISAGE],
-      avoid: [TAG_SLUGS.SANS_PARFUM],
+      avoid: [],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.PANAX_GINSENG },
@@ -177,7 +177,7 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.HUILE_NETTOYANTE, TAG_SLUGS.DOUBLE_NETTOYAGE_1, TAG_SLUGS.SOIR, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.ZONE_VISAGE],
-      avoid: [TAG_SLUGS.SANS_PARFUM],
+      avoid: [],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.HUILE_DE_COCO },
@@ -204,7 +204,7 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.MOUSSE_NETTOYANTE, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.ZONE_VISAGE],
-      avoid: [TAG_SLUGS.SANS_PARFUM],
+      avoid: [],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.GLYCERIN },
@@ -228,7 +228,7 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.MOUSSE_NETTOYANTE, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.ZONE_VISAGE],
-      avoid: [TAG_SLUGS.SANS_PARFUM],
+      avoid: [],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.GLYCERIN },
@@ -277,8 +277,8 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://cdn1.skinsafeproducts.com/photo/E476698A176019/large_1567279398.jpegjpg?1567279398',
     tags: {
       primary: [TAG_SLUGS.ECLAT],
-      secondary: [TAG_SLUGS.MASQUE_ECLAT, TAG_SLUGS.SOIR, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.ZONE_VISAGE],
-      avoid: [TAG_SLUGS.SANS_PARFUM],
+      secondary: [TAG_SLUGS.MASQUE_HYDRATANT, TAG_SLUGS.SOIR, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.ZONE_VISAGE],
+      avoid: [],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.PANAX_GINSENG },
@@ -303,7 +303,7 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.CICATRISATION, TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.SLEEPING_MASK, TAG_SLUGS.SOIR, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.ZONE_VISAGE],
-      avoid: [TAG_SLUGS.SANS_PARFUM],
+      avoid: [],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.SNAIL_MUCIN },
@@ -328,7 +328,7 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECLAT],
       secondary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.SOIR, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.ZONE_VISAGE],
-      avoid: [TAG_SLUGS.SANS_PARFUM],
+      avoid: [],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.PUNICA_GRANATUM },
@@ -353,7 +353,7 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.SOIR, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.ZONE_VISAGE],
-      avoid: [TAG_SLUGS.SANS_PARFUM],
+      avoid: [],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.ALOE_VERA },
@@ -378,7 +378,7 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.ZONE_VISAGE],
-      avoid: [TAG_SLUGS.SANS_PARFUM],
+      avoid: [],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.NIACINAMIDE },
@@ -404,7 +404,7 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECLAT],
       secondary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.SOIR, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.ZONE_VISAGE],
-      avoid: [TAG_SLUGS.SANS_PARFUM],
+      avoid: [],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.REGLISSE },
@@ -429,7 +429,7 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.SERUM, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.ZONE_VISAGE],
-      avoid: [TAG_SLUGS.SANS_PARFUM],
+      avoid: [],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.NIACINAMIDE },
@@ -455,7 +455,7 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.SLEEPING_MASK, TAG_SLUGS.SOIR, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.ZONE_VISAGE],
-      avoid: [TAG_SLUGS.SANS_PARFUM],
+      avoid: [],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE },
@@ -481,7 +481,7 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.HUILE_NETTOYANTE, TAG_SLUGS.DOUBLE_NETTOYAGE_1, TAG_SLUGS.SOIR, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.ZONE_VISAGE],
-      avoid: [TAG_SLUGS.SANS_PARFUM],
+      avoid: [],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.APRICOT_KERNEL_OIL },
@@ -603,7 +603,7 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.SOIR, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.ZONE_VISAGE],
-      avoid: [TAG_SLUGS.SANS_PARFUM],
+      avoid: [],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.SHEA_BUTTER },
@@ -629,7 +629,7 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.CICATRISATION, TAG_SLUGS.ANTI_AGE],
       secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.SOIR, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.ZONE_VISAGE],
-      avoid: [TAG_SLUGS.SANS_PARFUM],
+      avoid: [],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.SNAIL_MUCIN },
@@ -683,7 +683,7 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.GRAIN_PEAU],
       secondary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.SOIR, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.ZONE_VISAGE],
-      avoid: [TAG_SLUGS.SANS_PARFUM],
+      avoid: [],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.ALOE_VERA },

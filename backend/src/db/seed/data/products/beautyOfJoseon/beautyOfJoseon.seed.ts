@@ -285,7 +285,7 @@ export const BEAUTY_OF_JOSEON_SEED: UnifiedProductSeed[] = [
     slug: 'beauty-of-joseon-refreshing-pore-mask-red-bean',
     name: 'Refreshing Pore Mask Red Bean',
     brand: 'Beauty of Joseon',
-    kind: 'skincare',
+    kind: 'mask',
     unit: 'jar',
     totalAmount: 140,
     amountUnit: 'ml',

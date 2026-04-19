@@ -144,7 +144,7 @@ export const NIOD_SEED: UnifiedProductSeed[] = [
     imageUrl: "https://cdn1.skinsafeproducts.com/photo/097133E1CE4328/large_1553368929.jpeg?1553368929",
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.MASQUE_ECLAT, TAG_SLUGS.SOIR, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.MASQUE_HYDRATANT, TAG_SLUGS.SOIR, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -221,7 +221,7 @@ export const NIOD_SEED: UnifiedProductSeed[] = [
     imageUrl: "https://cdn1.skinsafeproducts.com/photo/0213504C36C3E3/large_1606011152.jpeg?1606011152",
     tags: {
       primary: [TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.ECLAT],
-      secondary: [TAG_SLUGS.EXFOLIANT, TAG_SLUGS.SOIR, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.EXFOLIANT_CHIMIQUE, TAG_SLUGS.SOIR, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [

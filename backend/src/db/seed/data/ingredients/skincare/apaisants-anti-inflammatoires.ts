@@ -662,7 +662,7 @@ Il apaise instantanément les peaux échauffées ou fatiguées. Dans un soin con
   {
     name: 'Eau thermale Uriage',
     slug: INGREDIENT_SLUGS.URIAGE_THERMAL_SPRING_WATER,
-    category: INGREDIENT_CATEGORIES.APAISANT,
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Eau thermale isotonique unique, naturellement riche en minéraux et oligo-éléments, qui apaise, hydrate et renforce la barrière cutanée.',
     content: `
@@ -683,7 +683,7 @@ L'Eau thermale Uriage est une eau de cure isotonique, ce qui signifie qu'elle es
   {
     name: 'Asparagopsis Armata Extract',
     slug: INGREDIENT_SLUGS.ASPARAGOPSIS_ARMATA_EXTRACT,
-    category: INGREDIENT_CATEGORIES.APAISANT,
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait d’algue rouge reconnu pour ses propriétés anti-rougeurs et sa capacité à inhiber les médiateurs de l’inflammation.',
     content: `
@@ -703,7 +703,7 @@ Algue rouge de la famille des Bonnemaisoniaceae. En cosmétique, elle est utilis
   {
     name: 'SymSitive (4-t-Butylcyclohexanol)',
     slug: INGREDIENT_SLUGS.SYMSITIVE,
-    category: INGREDIENT_CATEGORIES.APAISANT,
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Régulateur de sensibilité cutanée de nouvelle génération qui agit directement sur les récepteurs sensoriels pour calmer instantanément les sensations d’inconfort.',
     content: `
@@ -745,7 +745,7 @@ Molécule extraite de la racine de Glycyrrhiza Inflata.
   {
     name: 'Aster Tripolium Extract',
     slug: INGREDIENT_SLUGS.ASTER_TRIPOLIUM,
-    category: INGREDIENT_CATEGORIES.APAISANT,
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait d’aster maritime qui renforce la microcirculation et calme les rougeurs diffuses.',
     content: `
@@ -765,7 +765,7 @@ Plante halophyte (résistante au sel) qui survit dans des environnements côtier
   {
     name: 'Sambucus Nigra Flower Extract',
     slug: INGREDIENT_SLUGS.SAMBUCUS_NIGRA,
-    category: INGREDIENT_CATEGORIES.APAISANT,
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait de fleur de sureau noir reconnu pour ses propriétés adoucissantes, apaisantes et drainantes.',
     content: `
@@ -785,7 +785,7 @@ Riche en flavonoïdes et en acides phénoliques.
   {
     name: 'Daucus Carota Sativa Root Extract',
     slug: INGREDIENT_SLUGS.DAUCUS_CAROTA,
-    category: INGREDIENT_CATEGORIES.APAISANT,
+    category: INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait de carotte riche en bêta-carotène et vitamines, qui apaise, régénère et apporte un effet "bonne mine" naturel.',
     content: `
