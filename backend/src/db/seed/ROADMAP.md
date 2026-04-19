@@ -79,14 +79,27 @@ Règle : **une étape = une session = un commit propre.** Pas de chaînage.
 
 ---
 
+## Étape 4.1 — Fixes post-refacto tags (suite directe étape 4)
+
+*Commits : `f2305a2`, `4d9d03a`, `63e337a`*
+
+- [x] `productChangesSchema.unit` → `z.enum(PRODUCT_UNIT_VALUES)`
+- [x] `ingredients.category` Drizzle column → `.$type<IngredientCategory | SupplementCategory>()`
+      (retiré ensuite dans `63e337a` car casse les spreads — laissé sans `$type`)
+- [x] CHECK constraint DB sur `ingredients.type` (migration `0027`) — 4 valeurs dupliquées intentionnellement
+- [x] Fixtures tests mises à jour (`category`, `type`, casts `ProductKind[]` / `IngredientType[]`)
+
+---
+
 ## Hors scope / design debt noté
 
 - `haircare` et `dental` sans catégories propres (empruntent `INGREDIENT_CATEGORIES`)
   → à traiter si ces domaines deviennent prioritaires
-- Cohérence `category → kind` produits sans Zod `.refine()` ni check constraint DB
-  → noté dans AUDIT-products.md §5, solution pas arrêtée
+- `updateProductSchema` : cohérence `category → kind` non validée — solution décidée :
+  `superRefine` qui force les deux champs à voyager ensemble (cf. AUDIT-products.md §5)
+  → **à implémenter** (vérifier impact frontend avant)
 - `shared/dist/` ne contient pas de JS → drizzle-kit ne peut pas importer les valeurs
-  runtime depuis shared → duplication manuelle si pgEnum nécessaire
+  runtime depuis shared → duplication manuelle si pgEnum nécessaire (décision : laisser ainsi)
   → noté dans AUDIT-products.md §6
-- `productResponseSchema.category` reste `.nullable()` par précaution — à rendre strict
-  quand on est sûr que toutes les lignes DB ont une catégorie
+- `productResponseSchema.category` reste `.nullable()` — sans impact (Hono RPC type les
+  réponses depuis le handler, ce schema n'est utilisé dans aucune route)
