@@ -38,7 +38,7 @@
 // idee/tags/tags-associations.md.
 
 import { INGREDIENT_SLUGS } from '../ingredients/ingredient-slugs'
-import { TAG_SLUGS } from '../tags/seed-tags'
+import { TAG_SLUGS } from '../tags'
 
 export interface IngredientAssociation {
   /** Tags principaux : bénéfices majeurs prouvés de l'actif */
