@@ -7,7 +7,7 @@ export function PrivacyPage() {
       <div className="privacy-page__inner">
         <header className="privacy-header">
           <h1 className="privacy-title">Politique de confidentialité</h1>
-          <p className="privacy-meta">Aurore — Dernière mise à jour : avril 2026</p>
+          <p className="privacy-meta">Aurore — Dernière mise à jour : 19 avril 2026</p>
         </header>
 
         <section className="privacy-summary">
@@ -42,12 +42,12 @@ export function PrivacyPage() {
 
             <div className="privacy-summary__card">
               <span className="privacy-summary__icon" aria-hidden="true">
-                🤖
+                🔒
               </span>
-              <h3 className="privacy-summary__card-title">Analyse IA</h3>
+              <h3 className="privacy-summary__card-title">Cloisonnement par utilisateur</h3>
               <p>
-                Mistral AI (entreprise française) — uniquement si vous l'activez. Vous pouvez
-                révoquer ce consentement à tout moment.
+                PostgreSQL Row-Level Security : même en cas de faille applicative, vos données
+                restent isolées des autres comptes au niveau de la base.
               </p>
             </div>
 
@@ -59,8 +59,8 @@ export function PrivacyPage() {
                 Tout reste en Europe <span aria-hidden="true">🇪🇺</span>
               </h3>
               <p>
-                Serveur chez Hostinger (Lituanie, UE), médias sur Bunny CDN (Slovénie, UE), emails
-                via Brevo (France). Aucune donnée ne quitte l'UE.
+                Serveur Hostinger (Francfort, UE), emails transactionnels via Brevo (France). Aucune
+                donnée ne quitte l'UE.
               </p>
             </div>
 
@@ -111,20 +111,23 @@ export function PrivacyPage() {
               <h2 className="privacy-block__title">Données collectées</h2>
               <ul className="privacy-list">
                 <li>
-                  <strong>Compte :</strong> adresse email, nom d'utilisateur, avatar (photo de
-                  profil facultative).
+                  <strong>Compte :</strong> adresse email, nom d'utilisateur. Mot de passe stocké
+                  sous forme de condensat (hachage Argon2, jamais en clair).
                 </li>
                 <li>
                   <strong>Usage :</strong> habitudes, produits cosmétiques, tâches, notes
                   personnelles, profil de peau.
                 </li>
                 <li>
-                  <strong>Médias :</strong> images téléversées (stockées sur Bunny Object Storage,
-                  Europe).
+                  <strong>Connexion :</strong> tokens de session (cookies HttpOnly, Secure).
                 </li>
                 <li>
-                  <strong>Connexion :</strong> tokens de session (cookies httpOnly), logs d'erreurs
-                  anonymisés.
+                  <strong>Logs techniques :</strong> méthode HTTP, chemin de la route, code de
+                  statut, temps de réponse.{' '}
+                  <strong>
+                    Aucun contenu de requête, email ou identifiant personnel n'est enregistré dans
+                    les logs.
+                  </strong>
                 </li>
               </ul>
               <p>Nous ne collectons aucune donnée publicitaire ni de tracking comportemental.</p>
@@ -161,18 +164,9 @@ export function PrivacyPage() {
                   nécessaires pour vérifier votre adresse email.
                 </li>
                 <li>
-                  <strong>Analyse IA (Mistral) :</strong> consentement explicite (Art. 6(1)(a)) —
-                  uniquement si vous l'activez dans vos réglages. Vous pouvez révoquer ce
-                  consentement à tout moment depuis{' '}
-                  <Link to="/profile" className="privacy-link">
-                    Profil → Confidentialité
-                  </Link>
-                  .
-                </li>
-                <li>
-                  <strong>Logs de session et d'erreurs :</strong> intérêt légitime (Art. 6(1)(f)) —
-                  sécurité et stabilité du service. Ces données sont anonymisées et ne permettent
-                  pas de vous identifier.
+                  <strong>Logs techniques :</strong> intérêt légitime (Art. 6(1)(f)) — sécurité et
+                  stabilité du service. Les logs enregistrent uniquement des méta-données de requête
+                  (méthode, chemin, statut, durée) et ne contiennent aucune donnée personnelle.
                 </li>
               </ul>
               <p className="privacy-note">
@@ -192,24 +186,59 @@ export function PrivacyPage() {
               <ul className="privacy-list">
                 <li>
                   <strong>Serveur principal :</strong> VPS Hostinger (entreprise lituanienne, UE),
-                  Frankfurt, Allemagne.
-                </li>
-                <li>
-                  <strong>Médias et CDN :</strong> Bunny CDN / Object Storage (entreprise slovène,
-                  UE), infrastructure Europe uniquement.
+                  datacenter de Francfort, Allemagne.
                 </li>
                 <li>
                   <strong>Emails de confirmation :</strong> Brevo (anciennement Sendinblue),
-                  entreprise française. Seuls les emails de confirmation de compte sont envoyés —
-                  aucun email marketing.
+                  entreprise française. Seuls les emails de confirmation de compte et de
+                  réinitialisation de mot de passe sont envoyés — aucun email marketing.
                 </li>
                 <li>
-                  <strong>Analyse IA (optionnel) :</strong> Mistral AI, entreprise française.
-                  L'analyse de votre routine par IA n'est activée que si vous donnez votre
-                  consentement explicite dans vos réglages Confidentialité. Vous pouvez le révoquer
-                  à tout moment.
+                  <strong>Google OAuth :</strong> uniquement si vous choisissez la connexion via
+                  Google. Dans ce cas, Google reçoit votre demande d'authentification.
                 </li>
               </ul>
+            </section>
+
+            <section className="privacy-block">
+              <h2 className="privacy-block__title">Cloisonnement et accès aux données</h2>
+              <p>
+                Aurore est développée par une seule personne. Aucun accès de routine aux données
+                utilisateur n'est prévu, y compris par le développeur.
+              </p>
+              <ul className="privacy-list">
+                <li>
+                  <strong>Row-Level Security (PostgreSQL) :</strong> le backend se connecte à la
+                  base avec un rôle restreint, soumis à des politiques de cloisonnement par
+                  utilisateur. Chaque requête est limitée au propriétaire de la donnée — une faille
+                  applicative ne permet pas de lire les données d'un autre compte.
+                </li>
+                <li>
+                  <strong>Sur signalement d'un bug :</strong> si vous signalez un problème, votre
+                  accord explicite est demandé par email avant que je consulte votre ligne.
+                </li>
+                <li>
+                  <strong>En cas d'incident technique urgent</strong> (corruption, faille de
+                  sécurité, indisponibilité bloquante) : un accès administrateur reste possible pour
+                  diagnostiquer et corriger. Vous en êtes alors informé·e par email (date, raison,
+                  données consultées, action effectuée).
+                </li>
+                <li>
+                  <strong>Jamais</strong> pour de la curiosité, de l'analyse d'usage ou de la veille
+                  produit.
+                </li>
+              </ul>
+            </section>
+
+            <section className="privacy-block">
+              <h2 className="privacy-block__title">Sauvegardes</h2>
+              <p>
+                Une sauvegarde compressée de la base est générée quotidiennement et stockée sur le
+                serveur d'hébergement, derrière les protections d'accès du VPS. Les sauvegardes de
+                plus de 7 jours sont supprimées automatiquement. Lors d'une suppression de compte,
+                vos données peuvent subsister jusqu'à 7 jours dans les sauvegardes avant disparition
+                définitive.
+              </p>
             </section>
 
             <section className="privacy-block">
@@ -238,8 +267,14 @@ export function PrivacyPage() {
                   .
                 </li>
                 <li>
-                  <strong>Portabilité et opposition :</strong> contactez-nous par email pour toute
-                  demande.
+                  <strong>Portabilité :</strong> un export JSON complet de vos données est prévu
+                  depuis votre profil (<em>fonctionnalité en cours de développement</em>). En
+                  attendant, vous pouvez en faire la demande par email.
+                </li>
+                <li>
+                  <strong>Opposition :</strong> vous pouvez retirer votre consentement au traitement
+                  des données dermatologiques en vidant les champs de votre profil de peau depuis
+                  les paramètres.
                 </li>
               </ul>
             </section>
