@@ -5,24 +5,25 @@ import {
   type ProductCategory,
 } from '@habit-tracker/shared'
 
-import { createProduct } from '../../features/products/service'
-import { addManyIngredientsToProduct } from '../../features/products/product-ingredients/product-ingredients.service'
-import { addManyTagsToProduct } from '../../features/tags/tags.service'
-import { db } from '..'
-import type { DB } from '../index'
+import { createProduct } from '../../../features/products/service'
+import { addManyIngredientsToProduct } from '../../../features/products/product-ingredients/product-ingredients.service'
+import { addManyTagsToProduct } from '../../../features/tags/tags.service'
+import { db } from '../..'
+import type { DB } from '../../index'
 import { inArray } from 'drizzle-orm'
 
-import { ingredients, products, productTagsDefs } from '../schema'
+import { ingredients, products, productTagsDefs } from '../../schema'
 import { getOrCreateSeedUser } from './create-user'
 
 import {
   CSV_CATEGORY_TAG_MAP,
   INGREDIENT_TAG_MAP,
   NAME_KEYWORD_TAG_MAP,
-} from './otherdata/tag-associations'
-import { getProductKind, unitFromCategory } from './otherdata/product-associations'
+} from '../otherdata/tag-associations'
+import { getProductKind, unitFromCategory } from '../otherdata/product-associations'
 import { seedCore } from './seed-core'
-import { extractCapacity, parseCSV, seedBatch } from './utils'
+import { extractCapacity, parseCSV } from '../utils/csv'
+import { seedBatch } from '../utils/batch'
 
 // ── INCI → Ingredient matching ────────────────────────────────────────────────
 

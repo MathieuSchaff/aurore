@@ -2,12 +2,12 @@ import type { Email, RawPassword } from '@habit-tracker/shared'
 
 import { eq } from 'drizzle-orm'
 
-import { env } from '../../config/env'
-import { users } from '../../db/schema/users'
-import type { AuthContext } from '../../features/auth/service'
-import { signup } from '../../features/auth/service'
-import { getUser } from '../../features/auth/user.utils'
-import { db } from '../index'
+import { env } from '../../../config/env'
+import { users } from '../../../db/schema/users'
+import type { AuthContext } from '../../../features/auth/service'
+import { signup } from '../../../features/auth/service'
+import { getUser } from '../../../features/auth/user.utils'
+import { db } from '../../index'
 
 export function createCtx(overrides?: Partial<AuthContext>): AuthContext {
   return {

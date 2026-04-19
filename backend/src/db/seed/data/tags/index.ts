@@ -1,15 +1,22 @@
 import {
-  INGREDIENT_TAG_SLUGS,
-  INGREDIENT_TAG_TAXONOMY,
-  type IngredientTagSlug,
-  PRODUCT_TAG_SLUGS,
-  PRODUCT_TAG_TAXONOMY,
-  type ProductTagSlug,
+  SKINCARE_INGREDIENT_TAG_SLUGS,
+  SKINCARE_INGREDIENT_TAG_TAXONOMY,
+  type SkincareIngredientTagSlug,
+  SKINCARE_PRODUCT_TAG_SLUGS,
+  SKINCARE_PRODUCT_TAG_TAXONOMY,
+  type SkincareProductTagSlug,
+  SUPPLEMENT_INGREDIENT_TAG_SLUGS,
+  SUPPLEMENT_INGREDIENT_TAG_TAXONOMY,
+  type SupplementIngredientTagSlug,
 } from '@habit-tracker/shared'
 
 // Combined legacy alias — still consumed by other seed modules that have not
 // been migrated to the split slug maps yet.
-export const TAG_SLUGS = { ...INGREDIENT_TAG_SLUGS, ...PRODUCT_TAG_SLUGS } as const
+export const TAG_SLUGS = {
+  ...SKINCARE_INGREDIENT_TAG_SLUGS,
+  ...SKINCARE_PRODUCT_TAG_SLUGS,
+  ...SUPPLEMENT_INGREDIENT_TAG_SLUGS,
+} as const
 export type TagSlug = (typeof TAG_SLUGS)[keyof typeof TAG_SLUGS]
 
 // Shared labels (slug → FR display name). Defined once; reused for both
@@ -183,6 +190,55 @@ const TAG_LABELS: Record<string, string> = {
   // Shared labels
   comedogene: 'Comédogène',
   'non-comedogene': 'Non comédogène',
+
+  // ── Supplement goals ───────────────────────────────────────────────
+  sommeil: 'Sommeil',
+  energie: 'Énergie',
+  cognition: 'Cognition',
+  memoire: 'Mémoire',
+  focus: 'Concentration',
+  immunite: 'Immunité',
+  longevite: 'Longévité',
+  stress: 'Stress',
+  anxiete: 'Anxiété',
+  'sport-performance': 'Sport — performance',
+  'sport-recuperation': 'Sport — récupération',
+  articulations: 'Articulations',
+  digestion: 'Digestion',
+  cardiovasculaire: 'Cardiovasculaire',
+  hormonal: 'Équilibre hormonal',
+  os: 'Os',
+  vision: 'Vision',
+  detox: 'Détox',
+  'peau-orale': 'Peau (voie orale)',
+  'cheveux-orale': 'Cheveux (voie orale)',
+
+  // ── Supplement moment ──────────────────────────────────────────────
+  // `matin` / `soir` labels already defined above (routine steps) — shared.
+  'avec-repas': 'Avec repas',
+  'a-jeun': 'À jeun',
+  'pre-entrainement': 'Pré-entraînement',
+  'post-entrainement': 'Post-entraînement',
+
+  // ── Supplement restrictions ────────────────────────────────────────
+  'grossesse-incompatible': 'Contre-indiqué grossesse',
+  'allaitement-incompatible': 'Contre-indiqué allaitement',
+  'enfant-non-adapte': 'Non adapté enfant',
+  'interaction-anticoagulants': 'Interaction anticoagulants',
+  'insuffisance-hepatique': 'Insuffisance hépatique',
+  'insuffisance-renale': 'Insuffisance rénale',
+
+  // ── Supplement biochemical attributes ──────────────────────────────
+  antioxydant: 'Antioxydant',
+  adaptogene: 'Adaptogène',
+  nootrope: 'Nootrope',
+  // `anti-inflammatoire` already defined above (skincare ingredient attribute).
+  'immuno-modulateur': 'Immuno-modulateur',
+  'precurseur-neurotransmetteur': 'Précurseur neurotransmetteur',
+  'donneur-methyle': 'Donneur de méthyle',
+  'cofacteur-enzymatique': 'Cofacteur enzymatique',
+  stimulant: 'Stimulant',
+  calmant: 'Calmant',
 }
 
 function labelFor(slug: string): string {
@@ -191,16 +247,38 @@ function labelFor(slug: string): string {
 
 // Seed rows consumed by createIngredientTag / createProductTag. Category
 // (`tagType`) is derived from the shared taxonomy, so it cannot drift.
-export const ingredientTagData = (Object.values(INGREDIENT_TAG_SLUGS) as IngredientTagSlug[]).map(
-  (slug) => ({
-    slug,
-    label: labelFor(slug),
-    tagType: INGREDIENT_TAG_TAXONOMY[slug].category,
-  })
-)
-
-export const productTagData = (Object.values(PRODUCT_TAG_SLUGS) as ProductTagSlug[]).map((slug) => ({
+//
+// Ingredient tag rows come from every domain taxonomy. De-dup by slug when
+// the same slug exists in multiple taxonomies with the same category (e.g.
+// `anti-inflammatoire` lives in both skincare and supplement ingredient
+// attributes) — first occurrence wins, the assertion keeps the invariant.
+const skincareIngredientTags = (
+  Object.values(SKINCARE_INGREDIENT_TAG_SLUGS) as SkincareIngredientTagSlug[]
+).map((slug) => ({
   slug,
   label: labelFor(slug),
-  tagType: PRODUCT_TAG_TAXONOMY[slug].category,
+  tagType: SKINCARE_INGREDIENT_TAG_TAXONOMY[slug].category as string,
+}))
+
+const supplementIngredientTags = (
+  Object.values(SUPPLEMENT_INGREDIENT_TAG_SLUGS) as SupplementIngredientTagSlug[]
+).map((slug) => ({
+  slug,
+  label: labelFor(slug),
+  tagType: SUPPLEMENT_INGREDIENT_TAG_TAXONOMY[slug].category as string,
+}))
+
+const seenIngredientSlugs = new Set<string>()
+export const ingredientTagData = [...skincareIngredientTags, ...supplementIngredientTags].filter(
+  (row) => {
+    if (seenIngredientSlugs.has(row.slug)) return false
+    seenIngredientSlugs.add(row.slug)
+    return true
+  }
+)
+
+export const productTagData = (Object.values(SKINCARE_PRODUCT_TAG_SLUGS) as SkincareProductTagSlug[]).map((slug) => ({
+  slug,
+  label: labelFor(slug),
+  tagType: SKINCARE_PRODUCT_TAG_TAXONOMY[slug].category,
 }))

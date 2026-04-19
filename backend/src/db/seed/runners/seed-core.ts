@@ -1,28 +1,21 @@
-import { INGREDIENT_CATEGORY_VALUES } from '@habit-tracker/shared'
-import { createIngredient } from '../../features/ingredients/service'
-import { addIngredientToProduct } from '../../features/products/product-ingredients/product-ingredients.service'
-import { createProduct } from '../../features/products/service'
-import { addTagToIngredient, addTagToProduct } from '../../features/tags/tags.service'
-import { db } from '..'
-import { ingredientDermoProfiles, ingredientTagsDefs, productTagsDefs } from '../schema'
+import { SKINCARE_INGREDIENT_CATEGORY_VALUES } from '@habit-tracker/shared'
+
+import { createIngredient } from '../../../features/ingredients/service'
+import { addIngredientToProduct } from '../../../features/products/product-ingredients/product-ingredients.service'
+import { createProduct } from '../../../features/products/service'
+import { addTagToIngredient, addTagToProduct } from '../../../features/tags/tags.service'
+import { db } from '../..'
+import { ingredientDermoProfiles, ingredientTagsDefs, productTagsDefs } from '../../schema'
+import { ingredientTagMap } from '../data/ingredient-tags'
+import { ingredientData } from '../data/ingredients'
+import { FILLER_SLUGS } from '../data/ingredients/skincare/seed-dermo-profiles-fillers'
+import { allIngredientProductTags, allProductData, allProductTagsMap } from '../data/products'
+import { ingredientTagData, productTagData } from '../data/tags'
+import { type ProductTagGroups, seedBatch, toNumeric, toText } from '../utils/batch'
+import { cleanDatabase, fetchIdMaps, flattenTagGroups } from '../utils/id-maps'
+import { printValidationReport, validateAllIngredients } from '../utils/markdown-validator'
 import { getOrCreateSeedUser } from './create-user'
-import { ingredientTagMap } from './IngredientsTags/seed-ingredients-tags'
-import { ingredientData } from './ingredients'
-import { FILLER_SLUGS } from './ingredients/skincare/seed-dermo-profiles-fillers'
-import { printValidationReport, validateAllIngredients } from './markdown-validator'
-import { allProductData } from './products'
-import { allIngredientProductTags } from './products/ingredients-products-tags'
-import { allProductTagsMap } from './products/product-tags'
-import { ingredientTagData, productTagData } from './tags/seed-tags'
-import {
-  cleanDatabase,
-  fetchIdMaps,
-  flattenTagGroups,
-  type ProductTagGroups,
-  seedBatch,
-  toNumeric,
-  toText,
-} from './utils'
+import { seedBlog } from './seed-blog'
 
 // ── Utilitaires de Validation ─────────────────────────────────────────────────
 
@@ -161,15 +154,13 @@ export async function seedCore(shouldClean = true) {
   // manual map doesn't already list it. This way the attribute filter
   // bucket stays in sync with the native column without hand-editing
   // hundreds of entries. The shared-schemas-vs-tags test guarantees
-  // INGREDIENT_CATEGORY_VALUES ↔ ingredient_attribute tag slugs.
-  const existing = new Set(
-    ingredientTagPairs.map((p) => `${p.slug}::${p.tagSlug}`)
-  )
+  // SKINCARE_INGREDIENT_CATEGORY_VALUES ↔ ingredient_attribute tag slugs.
+  const existing = new Set(ingredientTagPairs.map((p) => `${p.slug}::${p.tagSlug}`))
   // Whitelist of skincare formulation roles that exist as ingredient_attribute
   // tag slugs. Supplement ingredients store their functional class in the same
   // `category` column (carotenoide, plante, neuroactif…) — skip them here so
   // the backfill never emits tags that aren't in the ingredient taxonomy.
-  const validCategorySlugs = new Set<string>(INGREDIENT_CATEGORY_VALUES)
+  const validCategorySlugs = new Set<string>(SKINCARE_INGREDIENT_CATEGORY_VALUES)
   let backfilled = 0
   for (const ing of correctedIngredientData) {
     const category = ing.category
@@ -219,12 +210,8 @@ export async function seedCore(shouldClean = true) {
     )
 
     // 2. Fetch IDs of just-inserted entities within the same transaction
-    const {
-      productSlugToId,
-      productTagSlugToId,
-      ingredientTagSlugToId,
-      ingredientSlugToId,
-    } = await fetchIdMaps(tx)
+    const { productSlugToId, productTagSlugToId, ingredientTagSlugToId, ingredientSlugToId } =
+      await fetchIdMaps(tx)
 
     // 3. Relations
     console.log('\n🔗 Préparation des relations produit-tags...')
@@ -242,7 +229,12 @@ export async function seedCore(shouldClean = true) {
       'productTags',
       prunedProductTagPairs,
       ({ slug, tagSlug, relevance }) =>
-        addTagToProduct(tx, productSlugToId.get(slug)!, productTagSlugToId.get(tagSlug)!, relevance),
+        addTagToProduct(
+          tx,
+          productSlugToId.get(slug)!,
+          productTagSlugToId.get(tagSlug)!,
+          relevance
+        ),
       ({ slug, tagSlug }) => `${slug} ↔ ${tagSlug}`
     )
 
@@ -321,6 +313,8 @@ export async function seedCore(shouldClean = true) {
       missingFillers.forEach((s) => console.warn(`   - ${s}`))
     }
   })
+
+  await seedBlog()
 
   console.log('\n✨ Seed CORE terminé avec succès !\n')
 }
