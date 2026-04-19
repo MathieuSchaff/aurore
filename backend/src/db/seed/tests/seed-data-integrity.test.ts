@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'bun:test'
 
 import {
+  DENTAL_INGREDIENT_CATEGORY_VALUES,
+  HAIRCARE_INGREDIENT_CATEGORY_VALUES,
   INGREDIENT_CATEGORY_VALUES,
   INGREDIENT_TYPE_VALUES,
   PRODUCT_CATEGORY_VALUES,
@@ -242,23 +244,26 @@ describe('Seed data integrity', () => {
     })
 
     it('ingredient type and category are consistent', () => {
-      const skincareTypes = new Set(['skincare', 'haircare', 'dental'])
       const bad = ingredientData
         .filter((i) => {
           const type = (i as any).type as string | undefined
           if (!type) return false
+          if (type === 'skincare') return !INGREDIENT_CATEGORY_VALUES.includes(i.category as any)
+          if (type === 'haircare') return !HAIRCARE_INGREDIENT_CATEGORY_VALUES.includes(i.category as any)
+          if (type === 'dental') return !DENTAL_INGREDIENT_CATEGORY_VALUES.includes(i.category as any)
           if (type === 'supplement') return !SUPPLEMENT_CATEGORY_VALUES.includes(i.category as any)
-          if (skincareTypes.has(type)) return !INGREDIENT_CATEGORY_VALUES.includes(i.category as any)
           return false
         })
         .map((i) => `${i.slug} → type:${(i as any).type} category:${i.category}`)
       expect(bad).toEqual([])
     })
 
-    it('every ingredient category is a valid skincare or supplement category', () => {
+    it('every ingredient category is a valid category for its domain', () => {
       const validCategories = new Set<string>([
         ...INGREDIENT_CATEGORY_VALUES,
         ...SUPPLEMENT_CATEGORY_VALUES,
+        ...HAIRCARE_INGREDIENT_CATEGORY_VALUES,
+        ...DENTAL_INGREDIENT_CATEGORY_VALUES,
       ])
       const bad = ingredientData
         .filter((i) => !validCategories.has(i.category))

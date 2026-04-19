@@ -48,6 +48,11 @@ export {
   type TagCategoryMeta,
 } from './core'
 export {
+  DENTAL_INGREDIENT_CATEGORIES,
+  DENTAL_INGREDIENT_CATEGORY_VALUES,
+  type DentalIngredientCategory,
+} from './dental/ingredient-categories'
+export {
   DENTAL_INGREDIENT_TAG_SLUGS,
   type DentalIngredientTagSlug,
 } from './dental/ingredient-tag-slugs'
@@ -86,6 +91,11 @@ export {
   type UpdateHabitInput,
   updateHabitSchema,
 } from './habits'
+export {
+  HAIRCARE_INGREDIENT_CATEGORIES,
+  HAIRCARE_INGREDIENT_CATEGORY_VALUES,
+  type HaircareIngredientCategory,
+} from './haircare/ingredient-categories'
 export {
   HAIRCARE_INGREDIENT_TAG_SLUGS,
   type HaircareIngredientTagSlug,

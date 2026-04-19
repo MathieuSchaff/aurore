@@ -49,6 +49,24 @@ export const updateProductSchema = z
     priceCents: z.number().int().min(0).nullable().optional(),
   })
   .strict()
+  .superRefine((d, ctx) => {
+    const hasCategory = d.category !== undefined
+    const hasKind = d.kind !== undefined
+    if (hasCategory !== hasKind) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'category and kind must be updated together',
+        path: [hasCategory ? 'kind' : 'category'],
+      })
+      return
+    }
+    if (hasCategory && hasKind) {
+      const validKinds = PRODUCT_KINDS[d.category!]
+      if (!validKinds || !Object.values(validKinds).includes(d.kind as never)) {
+        ctx.addIssue({ code: 'custom', message: 'kind is not valid for the given category', path: ['kind'] })
+      }
+    }
+  })
 
 export const productResponseSchema = z.object({
   id: uuid,
