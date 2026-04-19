@@ -438,7 +438,7 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
         slug: INGREDIENT_SLUGS.VITAMIN_C,
         notes: 'Sodium Ascorbyl Phosphate, protection antioxydante.',},
       {
-        slug: INGREDIENT_SLUGS.VITAMIN_E,
+        slug: INGREDIENT_SLUGS.TOCOPHEROL,
         notes: 'Tocopherol, protection antioxydante.',},
       {
         slug: INGREDIENT_SLUGS.HYALURONIC_ACID,
@@ -556,7 +556,7 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
         slug: INGREDIENT_SLUGS.VITAMIN_C,
         notes: 'Protection antioxydante.',},
       {
-        slug: INGREDIENT_SLUGS.VITAMIN_E,
+        slug: INGREDIENT_SLUGS.TOCOPHEROL,
         notes: 'Protection antioxydante.',},
     ],
   },
@@ -597,7 +597,7 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
         slug: INGREDIENT_SLUGS.VITAMIN_C,
         notes: 'Protection antioxydante.',},
       {
-        slug: INGREDIENT_SLUGS.VITAMIN_E,
+        slug: INGREDIENT_SLUGS.TOCOPHEROL,
         notes: 'Protection antioxydante.',},
     ],
   },
@@ -637,7 +637,7 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
         slug: INGREDIENT_SLUGS.VITAMIN_C,
         notes: 'Antioxydant.',},
       {
-        slug: INGREDIENT_SLUGS.VITAMIN_E,
+        slug: INGREDIENT_SLUGS.TOCOPHEROL,
         notes: 'Antioxydant.',},
     ],
   },
@@ -667,9 +667,6 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      {
-        slug: INGREDIENT_SLUGS.CX_COMPLEX,
-        notes: '5%, Cible les signes de fatigue et de vieillissement.',},
       {
         slug: INGREDIENT_SLUGS.CAFFEINE,
         notes: '3%, Propriétés drainantes pour les poches.',},

@@ -78,10 +78,10 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.THREE_O_ETHYL_ASCORBIC_ACID },
-      { slug: INGREDIENT_SLUGS.ASCORBIC_ACID },
+      { slug: INGREDIENT_SLUGS.VITAMIN_C },
       { slug: INGREDIENT_SLUGS.NIACINAMIDE },
       { slug: INGREDIENT_SLUGS.TRANEXAMIC_ACID },
-      { slug: INGREDIENT_SLUGS.ARBUTIN },
+      { slug: INGREDIENT_SLUGS.ALPHA_ARBUTIN },
       { slug: INGREDIENT_SLUGS.CERAMIDE_NP },
       { slug: INGREDIENT_SLUGS.ALLANTOIN },
     ],
@@ -281,7 +281,6 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.SANS_PARFUM],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.GOLD },
       { slug: INGREDIENT_SLUGS.PANAX_GINSENG },
       { slug: INGREDIENT_SLUGS.GREEN_TEA },
       { slug: INGREDIENT_SLUGS.PANTHENOL },
@@ -635,7 +634,7 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.SNAIL_MUCIN },
       { slug: INGREDIENT_SLUGS.ADENOSINE },
-      { slug: INGREDIENT_SLUGS.ARBUTIN },
+      { slug: INGREDIENT_SLUGS.ALPHA_ARBUTIN },
       { slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA },
       { slug: INGREDIENT_SLUGS.GLYCERIN },
     ],
