@@ -47,15 +47,6 @@ export {
   ok,
   type TagCategoryMeta,
 } from './core'
-export {
-  DENTAL_INGREDIENT_CATEGORIES,
-  DENTAL_INGREDIENT_CATEGORY_VALUES,
-  type DentalIngredientCategory,
-} from './dental/ingredient-categories'
-export {
-  DENTAL_INGREDIENT_TAG_SLUGS,
-  type DentalIngredientTagSlug,
-} from './dental/ingredient-tag-slugs'
 export { DENTAL_PRODUCT_TAG_SLUGS, type DentalProductTagSlug } from './dental/product-tag-slugs'
 export {
   type CreateReplyInput,
@@ -92,30 +83,27 @@ export {
   updateHabitSchema,
 } from './habits'
 export {
-  HAIRCARE_INGREDIENT_CATEGORIES,
-  HAIRCARE_INGREDIENT_CATEGORY_VALUES,
-  type HaircareIngredientCategory,
-} from './haircare/ingredient-categories'
-export {
-  HAIRCARE_INGREDIENT_TAG_SLUGS,
-  type HaircareIngredientTagSlug,
-} from './haircare/ingredient-tag-slugs'
-export {
   HAIRCARE_PRODUCT_TAG_SLUGS,
   type HaircareProductTagSlug,
 } from './haircare/product-tag-slugs'
 export {
-  SKINCARE_INGREDIENT_CATEGORIES,
-  SKINCARE_INGREDIENT_CATEGORY_VALUES,
-  type SkincareIngredientCategory,
-} from './skincare/ingredient-categories'
-export {
   type CreateIngredientInput,
   createIngredientSchema,
+  DENTAL_INGREDIENT_CATEGORIES,
+  DENTAL_INGREDIENT_CATEGORY_VALUES,
+  DENTAL_INGREDIENT_TAG_SLUGS,
+  type DentalIngredientCategory,
+  type DentalIngredientTagSlug,
+  HAIRCARE_INGREDIENT_CATEGORIES,
+  HAIRCARE_INGREDIENT_CATEGORY_VALUES,
+  HAIRCARE_INGREDIENT_TAG_SLUGS,
+  type HaircareIngredientCategory,
+  type HaircareIngredientTagSlug,
   INGREDIENT_TAG_CATEGORIES,
   INGREDIENT_TAG_CATEGORY_META,
   INGREDIENT_TAG_SLUGS,
   INGREDIENT_TAG_TAXONOMY,
+  INGREDIENT_TYPE_LABELS,
   INGREDIENT_TYPE_VALUES,
   INGREDIENT_TYPES,
   type Ingredient,
@@ -134,9 +122,16 @@ export {
   ingredientFilterOptionsSchema,
   ingredientResponseSchema,
   ingredientsSearchSchema,
-  INGREDIENT_TYPE_LABELS,
+  SKINCARE_INGREDIENT_CATEGORIES,
+  SKINCARE_INGREDIENT_CATEGORY_VALUES,
   SKINCARE_INGREDIENT_TAG_SLUGS,
   SKINCARE_INGREDIENT_TAG_TAXONOMY,
+  type SkincareIngredientCategory,
+  SUPPLEMENT_CATEGORIES,
+  SUPPLEMENT_CATEGORY_VALUES,
+  SUPPLEMENT_INGREDIENT_TAG_SLUGS,
+  type SupplementCategory,
+  type SupplementIngredientTagSlug,
   type UpdateIngredientInput,
   type UpdateIngredientRouteInput,
   updateIngredientRouteSchema,
@@ -230,15 +225,6 @@ export {
   type UpdatePurchaseInput,
   updatePurchaseSchema,
 } from './purchases'
-export {
-  SUPPLEMENT_CATEGORIES,
-  SUPPLEMENT_CATEGORY_VALUES,
-  type SupplementCategory,
-} from './supplement/supplement-categories'
-export {
-  SUPPLEMENT_INGREDIENT_TAG_SLUGS,
-  type SupplementIngredientTagSlug,
-} from './supplement/supplement-ingredient-tag-slugs'
 export {
   SUPPLEMENT_PRODUCT_TAG_SLUGS,
   type SupplementProductTagSlug,
