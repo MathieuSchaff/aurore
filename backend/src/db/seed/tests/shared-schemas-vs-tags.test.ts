@@ -7,9 +7,9 @@ import {
   PRODUCT_TAG_TAXONOMY,
 } from '@habit-tracker/shared'
 
-import { ingredientTagMap } from '../IngredientsTags/seed-ingredients-tags'
-import { allProductTagsMap } from '../products/product-tags'
-import { ingredientTagData, productTagData } from '../tags/seed-tags'
+import { ingredientTagMap } from '../data/ingredient-tags'
+import { allProductTagsMap } from '../data/products'
+import { ingredientTagData, productTagData } from '../data/tags'
 
 // Tags from seed grouped by category, used to check cross-refs with shared schemas.
 const productTypeTagSlugs = new Set(

@@ -1,6 +1,8 @@
-import type { ProductTagGroups } from '../../utils/batch'
-
-export type { ProductTagGroups }
+export interface ProductTagGroups {
+  primary: string[]
+  secondary: string[]
+  avoid: string[]
+}
 
 export interface Ingredient {
   slug: string

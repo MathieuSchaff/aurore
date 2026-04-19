@@ -185,6 +185,8 @@ const allProductIngredientsMap: Record<string, Ingredient[]> = Object.fromEntrie
     .map((p) => [p.slug, p.keyIngredients!]),
 )
 
+export { allProductIngredientsMap as ALL_PRODUCT_INGREDIENTS_MAP }
+
 export const allIngredientProductTags = Object.entries(allProductIngredientsMap).flatMap(
   ([productSlug, ings]) =>
     ings.map((ing) => ({

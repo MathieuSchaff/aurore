@@ -1,13 +1,11 @@
 import { describe, expect, it } from 'bun:test'
 
-import { ingredientTagMap } from '../IngredientsTags/seed-ingredients-tags'
-import { ingredientData } from '../ingredients/index'
-import { INGREDIENT_SLUGS } from '../ingredients/ingredient-slugs'
-import { allProductData } from '../products/index'
-import { allIngredientProductTags } from '../products/ingredients-products-tags'
-import { allProductTagsMap } from '../products/product-tags'
+import { ingredientTagMap } from '../data/ingredient-tags'
+import { ingredientData } from '../data/ingredients'
+import { INGREDIENT_SLUGS } from '../data/ingredients/ingredient-slugs'
+import { allProductData, allIngredientProductTags, allProductTagsMap } from '../data/products'
 import { allProductSlugs } from '../products/products-slugs'
-import { TAG_SLUGS, ingredientTagData, productTagData } from '../tags/seed-tags'
+import { TAG_SLUGS, ingredientTagData, productTagData } from '../data/tags'
 
 const definedIngredientSlugs = new Set(Object.values(INGREDIENT_SLUGS) as string[])
 const definedIngredientTagSlugs = new Set(ingredientTagData.map((t) => t.slug))

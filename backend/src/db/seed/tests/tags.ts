@@ -1,5 +1,5 @@
-import { ingredientTagMap } from '../IngredientsTags/seed-ingredients-tags'
-import { INGREDIENT_SLUGS } from '../ingredients/ingredient-slugs'
+import { ingredientTagMap } from '../data/ingredient-tags'
+import { INGREDIENT_SLUGS } from '../data/ingredients/ingredient-slugs'
 
 function ChecIngredientsSlugs() {
   const allSlugs = new Set(Object.values(INGREDIENT_SLUGS))
