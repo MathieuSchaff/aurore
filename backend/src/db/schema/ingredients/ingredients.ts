@@ -1,7 +1,7 @@
 import type { IngredientCategory, IngredientChanges, IngredientType, SupplementCategory } from '@habit-tracker/shared'
 
 import { sql } from 'drizzle-orm'
-import { index, jsonb, pgTable, text, timestamp, uniqueIndex, uuid } from 'drizzle-orm/pg-core'
+import { check, index, jsonb, pgTable, text, timestamp, uniqueIndex, uuid } from 'drizzle-orm/pg-core'
 
 import { users } from '../auth/users'
 
@@ -32,6 +32,7 @@ export const ingredients = pgTable(
     index('ingredients_name_idx').on(t.name),
     index('ingredients_type_idx').on(t.type),
     index('ingredients_category_idx').on(t.category),
+    check('ingredients_type_check', sql`${t.type} IN ('skincare', 'haircare', 'dental', 'supplement')`),
   ]
 )
 
