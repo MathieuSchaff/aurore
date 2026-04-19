@@ -1,4 +1,4 @@
-import { SKINCARE_INGREDIENT_TAG_SLUGS, type IngredientTagSlug } from './ingredient-tag-slugs'
+import { type IngredientTagSlug, SKINCARE_INGREDIENT_TAG_SLUGS } from './ingredient-tag-slugs'
 
 export const INGREDIENT_TAG_CATEGORIES = [
   'concern',

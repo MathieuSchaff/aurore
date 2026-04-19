@@ -48,6 +48,11 @@ export {
   type TagCategoryMeta,
 } from './core'
 export {
+  DENTAL_INGREDIENT_TAG_SLUGS,
+  type DentalIngredientTagSlug,
+} from './dental/ingredient-tag-slugs'
+export { DENTAL_PRODUCT_TAG_SLUGS, type DentalProductTagSlug } from './dental/product-tag-slugs'
+export {
   type CreateReplyInput,
   type CreateThreadInput,
   createReplySchema,
@@ -82,6 +87,14 @@ export {
   updateHabitSchema,
 } from './habits'
 export {
+  HAIRCARE_INGREDIENT_TAG_SLUGS,
+  type HaircareIngredientTagSlug,
+} from './haircare/ingredient-tag-slugs'
+export {
+  HAIRCARE_PRODUCT_TAG_SLUGS,
+  type HaircareProductTagSlug,
+} from './haircare/product-tag-slugs'
+export {
   type CreateIngredientInput,
   createIngredientSchema,
   INGREDIENT_CATEGORIES,
@@ -90,14 +103,11 @@ export {
   INGREDIENT_TAG_CATEGORY_META,
   INGREDIENT_TAG_SLUGS,
   INGREDIENT_TAG_TAXONOMY,
-  SKINCARE_INGREDIENT_TAG_SLUGS,
-  SKINCARE_INGREDIENT_TAG_TAXONOMY,
   INGREDIENT_TYPE_VALUES,
   INGREDIENT_TYPES,
   type Ingredient,
   type IngredientCategory,
   type IngredientChanges,
-  type IngredientType,
   type IngredientEdit,
   type IngredientErrorCode,
   type IngredientFilterOptions,
@@ -105,12 +115,15 @@ export {
   type IngredientSearchFilters,
   type IngredientTagCategory,
   type IngredientTagSlug,
+  type IngredientType,
   ingredientChangesSchema,
   ingredientErrorMapping,
   ingredientFilterCategories,
   ingredientFilterOptionsSchema,
   ingredientResponseSchema,
   ingredientsSearchSchema,
+  SKINCARE_INGREDIENT_TAG_SLUGS,
+  SKINCARE_INGREDIENT_TAG_TAXONOMY,
   SUPPLEMENT_CATEGORIES,
   SUPPLEMENT_CATEGORY_VALUES,
   type SupplementCategory,
@@ -141,8 +154,6 @@ export {
   PRODUCT_TAG_CATEGORY_META,
   PRODUCT_TAG_SLUGS,
   PRODUCT_TAG_TAXONOMY,
-  SKINCARE_PRODUCT_TAG_SLUGS,
-  SKINCARE_PRODUCT_TAG_TAXONOMY,
   PRODUCT_UNIT_VALUES,
   PRODUCT_UNITS,
   type Product,
@@ -164,16 +175,12 @@ export {
   productIngredientErrorMapping,
   productResponseSchema,
   productsPageSchema,
+  SKINCARE_PRODUCT_TAG_SLUGS,
+  SKINCARE_PRODUCT_TAG_TAXONOMY,
   searchProductsQuery,
   type UpdateProductInput,
   updateProductSchema,
 } from './products'
-export { HAIRCARE_INGREDIENT_TAG_SLUGS, type HaircareIngredientTagSlug } from './haircare/ingredient-tag-slugs'
-export { HAIRCARE_PRODUCT_TAG_SLUGS, type HaircareProductTagSlug } from './haircare/product-tag-slugs'
-export { DENTAL_INGREDIENT_TAG_SLUGS, type DentalIngredientTagSlug } from './dental/ingredient-tag-slugs'
-export { DENTAL_PRODUCT_TAG_SLUGS, type DentalProductTagSlug } from './dental/product-tag-slugs'
-export { SUPPLEMENT_INGREDIENT_TAG_SLUGS, type SupplementIngredientTagSlug } from './supplement/ingredient-tag-slugs'
-export { SUPPLEMENT_PRODUCT_TAG_SLUGS, type SupplementProductTagSlug } from './supplement/product-tag-slugs'
 export {
   BIO_MAX_LENGTH,
   type CriteriaWeights,
@@ -213,6 +220,14 @@ export {
   type UpdatePurchaseInput,
   updatePurchaseSchema,
 } from './purchases'
+export {
+  SUPPLEMENT_INGREDIENT_TAG_SLUGS,
+  type SupplementIngredientTagSlug,
+} from './supplement/ingredient-tag-slugs'
+export {
+  SUPPLEMENT_PRODUCT_TAG_SLUGS,
+  type SupplementProductTagSlug,
+} from './supplement/product-tag-slugs'
 export {
   addIngredientTagSchema,
   type CreateTagInput,

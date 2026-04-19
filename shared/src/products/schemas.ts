@@ -1,27 +1,35 @@
 import { z } from 'zod'
 
 import { fieldChangeSchema, tagItemSchema } from '../core'
-import { PRODUCT_CATEGORY_VALUES } from './kinds'
+import { PRODUCT_CATEGORY_VALUES, PRODUCT_KINDS } from './kinds'
 import { PRODUCT_UNIT_VALUES } from './units'
 
 const uuid = z.uuid()
 
-export const createProductSchema = z.object({
-  name: z.string().min(1).max(200),
-  brand: z.string().min(1).max(200),
-  category: z.enum(PRODUCT_CATEGORY_VALUES).optional(),
-  kind: z.string().min(1).max(100),
-  unit: z.enum(PRODUCT_UNIT_VALUES),
-  slug: z.string().max(100).optional(),
-  inci: z.string().max(5000).optional(),
-  description: z.string().max(5000).optional(),
-  totalAmount: z.number().int().min(1).optional(),
-  amountUnit: z.string().min(1).max(50).optional(),
-  url: z.url().max(2000).optional(),
-  imageUrl: z.url().max(2000).optional(),
-  notes: z.string().max(5000).optional(),
-  priceCents: z.number().int().min(0).optional(),
-})
+export const createProductSchema = z
+  .object({
+    name: z.string().min(1).max(200),
+    brand: z.string().min(1).max(200),
+    category: z.enum(PRODUCT_CATEGORY_VALUES),
+    kind: z.string().min(1).max(100),
+    unit: z.enum(PRODUCT_UNIT_VALUES),
+    slug: z.string().max(100).optional(),
+    inci: z.string().max(5000).optional(),
+    description: z.string().max(5000).optional(),
+    totalAmount: z.number().int().min(1).optional(),
+    amountUnit: z.string().min(1).max(50).optional(),
+    url: z.url().max(2000).optional(),
+    imageUrl: z.url().max(2000).optional(),
+    notes: z.string().max(5000).optional(),
+    priceCents: z.number().int().min(0).optional(),
+  })
+  .refine(
+    (d) => {
+      const validKinds = PRODUCT_KINDS[d.category as keyof typeof PRODUCT_KINDS]
+      return validKinds ? Object.values(validKinds).includes(d.kind as never) : false
+    },
+    { message: 'kind is not valid for the given category' }
+  )
 
 export const updateProductSchema = z
   .object({
