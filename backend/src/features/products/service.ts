@@ -1,7 +1,9 @@
 import type {
   CreateProductInput,
   ListProductsFilters,
+  ProductKind,
   ProductSearchResult,
+  ProductUnit,
   UpdateProductInput,
 } from '@habit-tracker/shared'
 import { type ProductTagCategory, productFilterCategories } from '@habit-tracker/shared'
@@ -32,8 +34,8 @@ export async function createProduct(userId: string, input: CreateProductInput, d
         createdBy: userId,
         name,
         brand,
-        kind: normalize(input.kind),
-        unit: normalize(input.unit),
+        kind: normalize(input.kind) as ProductKind,
+        unit: normalize(input.unit) as ProductUnit,
         amountUnit: input.amountUnit ? normalize(input.amountUnit) : input.amountUnit,
         slug: slugify(slug),
       })
@@ -209,7 +211,9 @@ export async function listProducts(
   if (filters.kind) {
     const kinds = Array.isArray(filters.kind) ? filters.kind : filters.kind.split(',')
     conditions.push(
-      kinds.length === 1 ? eq(products.kind, kinds[0]) : inArray(products.kind, kinds)
+      kinds.length === 1
+        ? eq(products.kind, kinds[0] as ProductKind)
+        : inArray(products.kind, kinds as ProductKind[])
     )
   }
 

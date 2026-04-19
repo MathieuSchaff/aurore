@@ -65,8 +65,9 @@ describe('Database Seeding Integration', () => {
       {
         name,
         brand,
-        kind: usageType,
-        unit,
+        category: 'skincare',
+        kind: 'serum',
+        unit: 'pack',
         totalAmount,
         imageUrl,
         url: productUrl,
@@ -89,10 +90,10 @@ describe('Database Seeding Integration', () => {
       try {
         ingredient = await createIngredient(testDb, user.id, {
           name: ingName,
+          type: 'skincare',
           slug: ingSlug,
           description: '',
           content: '',
-          category: 'skincare',
         })
       } catch (_e) {
         // Find existing if create fails

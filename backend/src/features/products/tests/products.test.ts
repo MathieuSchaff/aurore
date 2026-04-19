@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it } from 'bun:test'
 
+import { createProductSchema } from '@habit-tracker/shared'
 import { eq } from 'drizzle-orm'
 
 import { productEdits } from '../../../db/schema/products'
@@ -28,15 +29,16 @@ let user: any
 async function makeProduct(
   name: string,
   brand: string,
-  kind = 'skincare',
+  kind = 'serum',
   unit = 'pump',
   extra: Record<string, unknown> = {}
 ) {
-  return createProduct(user.id, { name, brand, kind, unit, ...extra }, testDb)
+  const category = extra.category ?? 'skincare'
+  return createProduct(user.id, { name, brand, kind, unit, category, ...extra }, testDb)
 }
 
 async function makeIngredient(name: string) {
-  return createIngredient(testDb, user.id, { name })
+  return createIngredient(testDb, user.id, { name, type: 'skincare' })
 }
 
 async function _makeTag(name: string, category?: string) {
@@ -192,5 +194,28 @@ describe('Product Service', () => {
       expect(result.ingredients).toHaveLength(1)
       expect(result.ingredients[0]?.ingredientName).toBe('Niacinamide')
     })
+  })
+})
+
+describe('createProductSchema validation', () => {
+  it('requires category', () => {
+    const result = createProductSchema.safeParse({
+      name: 'Test', brand: 'Brand', kind: 'serum', unit: 'pump',
+    })
+    expect(result.success).toBe(false)
+  })
+
+  it('rejects mismatched category and kind', () => {
+    const result = createProductSchema.safeParse({
+      name: 'Test', brand: 'Brand', category: 'skincare', kind: 'gelule', unit: 'pump',
+    })
+    expect(result.success).toBe(false)
+  })
+
+  it('accepts valid category and kind pair', () => {
+    const result = createProductSchema.safeParse({
+      name: 'Test', brand: 'Brand', category: 'skincare', kind: 'serum', unit: 'pump',
+    })
+    expect(result.success).toBe(true)
   })
 })

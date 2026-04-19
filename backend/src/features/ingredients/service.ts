@@ -4,6 +4,7 @@ import type {
   IngredientChanges,
   IngredientFilterOptions,
   IngredientSearchFilters,
+  IngredientType,
   UpdateIngredientInput,
 } from '@habit-tracker/shared'
 import {
@@ -70,7 +71,7 @@ export async function listIngredients(database: DB, filters: IngredientSearchFil
   addTagGroup(sharedLabels)
 
   if (ingredientTypes.length > 0) {
-    conditions.push(inArray(ingredients.type, ingredientTypes))
+    conditions.push(inArray(ingredients.type, ingredientTypes as IngredientType[]))
   }
 
   const where = conditions.length > 0 ? and(...conditions) : undefined

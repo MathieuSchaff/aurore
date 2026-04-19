@@ -1,4 +1,9 @@
-import type { ProductCategory, ProductChanges, ProductKind, ProductUnit } from '@habit-tracker/shared'
+import type {
+  ProductCategory,
+  ProductChanges,
+  ProductKind,
+  ProductUnit,
+} from '@habit-tracker/shared'
 
 import { sql } from 'drizzle-orm'
 import {
