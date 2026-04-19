@@ -85,6 +85,7 @@ export function extractCapacity(productName: string, brand: string) {
 // Maps CSV category to the most likely container format.
 // Fallback is TUBE — the most generic container used across skincare/bodycare.
 const CATEGORY_UNIT_MAP: Record<string, ProductUnit> = {
+  // Jar — rich textures
   Creams: PRODUCT_UNITS.JAR,
   'Nighttime Moisturizers': PRODUCT_UNITS.JAR,
   'Daytime Moisturizers': PRODUCT_UNITS.JAR,
@@ -92,11 +93,15 @@ const CATEGORY_UNIT_MAP: Record<string, ProductUnit> = {
   'Balms, Ointments & Salves': PRODUCT_UNITS.JAR,
   Butters: PRODUCT_UNITS.JAR,
   'Eye Cream, Gel, Oils, & Serum': PRODUCT_UNITS.JAR,
+
+  // Dropper — serums/oils with pipette
   Serums: PRODUCT_UNITS.DROPPER,
   Serum: PRODUCT_UNITS.DROPPER,
   'Moisturizing Serums': PRODUCT_UNITS.DROPPER,
   Oils: PRODUCT_UNITS.DROPPER,
   Drops: PRODUCT_UNITS.DROPPER,
+
+  // Pump — fluid/lotion-y
   Essence: PRODUCT_UNITS.PUMP,
   Lotions: PRODUCT_UNITS.PUMP,
   Emulsions: PRODUCT_UNITS.PUMP,
@@ -110,13 +115,19 @@ const CATEGORY_UNIT_MAP: Record<string, ProductUnit> = {
   'Foaming Cleansers': PRODUCT_UNITS.PUMP,
   'Facial Foaming Cleansers': PRODUCT_UNITS.PUMP,
   'Facial Washes': PRODUCT_UNITS.PUMP,
+
+  // Bottle — runnier liquids
   'Micellar Water': PRODUCT_UNITS.BOTTLE,
   Toners: PRODUCT_UNITS.BOTTLE,
   'Toners & Astringents': PRODUCT_UNITS.BOTTLE,
   Astringents: PRODUCT_UNITS.BOTTLE,
+
+  // Spray — mists
   Mists: PRODUCT_UNITS.SPRAY,
   'Spray Moisturizer': PRODUCT_UNITS.SPRAY,
   'Spray Moisturizers': PRODUCT_UNITS.SPRAY,
+
+  // Tube — gels, exfoliants, scrubs, cleansers (standard)
   Gels: PRODUCT_UNITS.TUBE,
   'Facial Gels': PRODUCT_UNITS.TUBE,
   Exfoliators: PRODUCT_UNITS.TUBE,
@@ -127,6 +138,8 @@ const CATEGORY_UNIT_MAP: Record<string, ProductUnit> = {
   Peels: PRODUCT_UNITS.TUBE,
   'Acids & Peels': PRODUCT_UNITS.TUBE,
   'Facial Cleansers': PRODUCT_UNITS.TUBE,
+
+  // Pack — single-use items
   'Facial Masks': PRODUCT_UNITS.PACK,
   'Eye Masks & Pads': PRODUCT_UNITS.PACK,
   'Lip Mask': PRODUCT_UNITS.PACK,

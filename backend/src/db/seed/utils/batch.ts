@@ -36,6 +36,7 @@ export async function seedBatch<T>(
   identify: (item: T) => string,
   critical: boolean = false
 ): Promise<{ success: number; failed: SeedError[]; total: number }> {
+  // allSettled lets one item fail without aborting the rest of the batch
   const results = await Promise.allSettled(
     items.map(async (item) => {
       try {
