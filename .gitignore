@@ -76,6 +76,7 @@ idee/
 CLAUDE.md
 CLAUDE2.md
 docs/
+!backend/src/db/seed/docs/
 .memory/
 .superpowers/
 .claude/
