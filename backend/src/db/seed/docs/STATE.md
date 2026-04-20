@@ -1,5 +1,7 @@
 # Seed & Taxonomie — État des lieux
 
+> **À propos :** Architecture du seed et de la taxonomie. *Où* tout vit : paths shared, layout `backend/src/db/seed/`, schéma DB, comptages réels. Répond à « c'est où dans le code ? ».
+
 Document de référence stable. Décrit le contrat architectural du seed et de la
 taxonomie des tags — ce qui est vrai aujourd'hui dans le code. Les évolutions
 en cours sont dans [`ROADMAP.md`](./ROADMAP.md).

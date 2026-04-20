@@ -1,5 +1,7 @@
 # AUDIT — Ingrédients, Produits, Tags : que représente chaque axe ?
 
+> **À propos :** Glossaire sémantique cross-entité. Les mots `type`, `category`, `kind`, `tagType` ont des sens différents selon la table où on les trouve — ce fichier pose qui a quoi et évite les pièges. Répond à « ce champ, ça veut dire quoi ? ».
+
 Document de clarification. Les trois entités partagent un vocabulaire
 (`type`, `category`, `kind`, `tagType`) dont la signification change selon
 le contexte. Ce fichier pose qui a quoi et évite les confusions.

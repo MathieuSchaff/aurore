@@ -1,5 +1,7 @@
 # Prompt — Backfill concentrations dans un seed produit
 
+> **À propos :** Prompt réutilisable à donner à Claude. Pour chaque produit d'un fichier seed de marque, Claude extrait les concentrations d'ingrédients mentionnées en texte libre (name/description/notes) et les matérialise dans `keyIngredients[n].concentrationValue/Unit`. Pas de la doc — un outil exécutable.
+>
 > Usage : fournir le chemin d'un seed file (`<brand>/<brand>.seed.ts`) et exécuter ce prompt.
 > Ex : « applique `_PROMPT_backfill-concentrations.md` sur `theOrdinary/theOrdinary.seed.ts` »
 

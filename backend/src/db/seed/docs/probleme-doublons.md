@@ -1,5 +1,7 @@
 # Analyse du Problème de Doublons et de Langue (Seed Backend)
 
+> **À propos :** Note d'analyse d'un problème spécifique — les produits importés du CSV (anglais) et les produits seed manuels (français) génèrent des slugs différents pour le même produit, créant des doublons visuels côté UI. Liste les pistes de solutions. Lire quand on touche à l'import CSV.
+
 ## 1. État des lieux
 Le système de seeding du backend utilise deux sources de données qui entrent en conflit linguistique :
 - **Source Manuelle (`seed-core.ts`)** : Données principalement en français, saisies avec soin.

@@ -1,5 +1,7 @@
 # Seed produits — Guide complet
 
+> **À propos :** Guide contributeur pour ajouter une marque/un produit dans le seed. Décrit le format `UnifiedProductSeed`, les champs requis, les conventions de tags et d'ingrédients, avec exemples. Répond à « comment j'ajoute un produit ? ».
+>
 > **Audience** : Claude Code (contexte CLAUDE.md)
 > **Format** : Unified seed — un seul fichier `.seed.ts` par marque
 

@@ -1,5 +1,7 @@
 # Seed & Taxonomie — Roadmap
 
+> **À propos :** TODO list du seed + historique. Sections : dette ouverte (Infra / Ingrédients / Produits / Tags / Tests) et tableau des corrections récentes (avec SHAs). Répond à « qu'est-ce qui reste à faire ? » et « ça, c'est déjà fait ? ».
+
 Dette et tâches ouvertes. Pour l'architecture actuelle (stable), voir
 [`STATE.md`](./STATE.md).
 

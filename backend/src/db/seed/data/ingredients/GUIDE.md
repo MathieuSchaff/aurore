@@ -1,5 +1,7 @@
 # Guide : Ajouter des Ingredients (seed)
 
+> **À propos :** Guide contributeur pour ajouter un ingrédient au seed. Décrit la structure (type, category, slug, description, content markdown), où placer le fichier selon le domaine, comment enregistrer le slug, brancher dans les index, et (optionnel) associer des tags. Répond à « comment j'ajoute un ingrédient ? ».
+
 Ce guide explique comment creer de nouveaux ingredients dans le seed.
 A lire **en entier** avant de commencer.
 
