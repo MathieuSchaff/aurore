@@ -9,17 +9,19 @@ A lire **en entier** avant de commencer.
 
 ```
 ingredients/
-├── ingredient-slugs.ts    # Registre central de TOUS les slugs (partagé)
+├── ingredient-slugs.ts    # Agregat `INGREDIENT_SLUGS` + re-export des groupes par domaine
 ├── seed-ingredients.ts    # Type IngredientInput (NE PAS MODIFIER)
 ├── index.ts               # Re-exporte ingredientData (tous types confondus)
 ├── GUIDE.md               # Ce fichier
 ├── skincare/              # Ingredients topiques peau
 │   ├── index.ts           # exporte skincareIngredients
+│   ├── ingredient-slugs.ts  # Groupes de slugs skincare (HUMECTANTS, RETINOIDES, …)
 │   ├── humectants.ts
 │   ├── retinoides.ts
 │   └── ...
 ├── supplements/           # Complements alimentaires oraux
 │   ├── index.ts           # exporte supplementIngredients
+│   ├── ingredient-slugs.ts  # Groupes de slugs supplements (SUPPLEMENTS_VITAMINES, …)
 │   ├── astaxanthine.ts
 │   ├── berberine.ts
 │   ├── beta-carotene.ts
@@ -35,9 +37,11 @@ ingredients/
 │   ├── zeaxanthine.ts
 │   └── ...
 ├── haircare/              # Ingredients capillaires
-│   └── index.ts           # exporte haircareIngredients
+│   ├── index.ts           # exporte haircareIngredients
+│   └── ingredient-slugs.ts  # Groupes de slugs haircare (HAIR_CONDITIONNEURS, …)
 └── dental/                # Ingredients bucco-dentaires
-    └── index.ts           # exporte dentalIngredients
+    ├── index.ts           # exporte dentalIngredients
+    └── ingredient-slugs.ts  # Groupes de slugs dental (DENTAL_ABRASIFS, …)
 ```
 
 **Regle** : chaque fichier seed va dans le dossier correspondant a son `type`.
@@ -120,23 +124,18 @@ Valeurs : `VITAMINE`, `MINERAL`, `ACIDE_AMINE`, `ACIDE_GRAS`, `ANTIOXYDANT`, `CA
 
 ### Etape 1 : Enregistrer les slugs
 
-Fichier : `ingredients/ingredient-slugs.ts` (a la racine, PAS dans un sous-dossier)
+Fichier : `ingredients/<domaine>/ingredient-slugs.ts` (domaine = `skincare`, `supplements`, `dental` ou `haircare`).
 
-Ajouter une nouvelle section const ou completer une existante :
+Ajouter une nouvelle section const ou completer une existante dans le fichier de domaine. Le fichier racine `ingredients/ingredient-slugs.ts` re-exporte automatiquement tous les groupes de chaque sous-dossier — pas besoin d'y toucher pour ajouter un slug a un groupe existant.
+
+Si vous creez un *nouveau* groupe de slugs, il faut en plus :
+1. Importer le nouveau groupe dans le bloc `import { ... } from './<domaine>/ingredient-slugs'` du fichier racine.
+2. Ajouter `...NOUVEAU_GROUPE` dans l'agregat `INGREDIENT_SLUGS` (en bas du fichier racine).
 
 ```ts
 export const SUPPLEMENTS_VITAMINES = {
   BIOTINE: 'biotine',
   VITAMINE_D3: 'vitamine-d3',
-} as const
-```
-
-Puis l'ajouter au spread final `INGREDIENT_SLUGS` en bas du fichier :
-
-```ts
-export const INGREDIENT_SLUGS = {
-  ...SUPPLEMENTS_VITAMINES,
-  // ... autres
 } as const
 ```
 
@@ -211,7 +210,7 @@ export const ingredientData: IngredientInput[] = [
 | Fichier | Raison |
 |---------|--------|
 | `seed-ingredients.ts` | Type `IngredientInput` — source de verite |
-| `ingredient-slugs.ts` | Modifier = ajouter des slugs, pas changer la structure |
+| `ingredient-slugs.ts` (racine) | Re-export + agregat. Pour ajouter un slug, editer `<domaine>/ingredient-slugs.ts` a la place. |
 
 ---
 
