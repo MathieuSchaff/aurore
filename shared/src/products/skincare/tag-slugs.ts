@@ -1,10 +1,9 @@
-// ─── Product Tag Slugs ────────────────────────────────────────────
-// Slugs for tags that can be applied to products.
+// ─── Skincare Product Tag Slugs ───────────────────────────────────────────────
+// Tags applicable to skincare products.
 // Categories: concern, skin_type, skin_zone, product_type, routine_step,
 //             skin_effect, product_label, shared_label.
-// Does NOT include ingredient_attribute slugs (humectant, keratolytique…).
 
-export const PRODUCT_TAG_SLUGS = {
+export const SKINCARE_PRODUCT_TAG_SLUGS = {
   // ── Concerns ───────────────────────────────────────────────────────
   ANTI_ROUGEURS: 'anti-rougeurs',
   ROSACEE: 'rosacee',
@@ -135,10 +134,6 @@ export const PRODUCT_TAG_SLUGS = {
   PROTECTION_CUTANEE: 'protection-cutanee',
   TEXTURE_RICHE: 'texture-riche',
   TEXTURE_LEGERE: 'texture-legere',
-  // Ingredient-attribute effects surfaced at product level ("this product
-  // contains an antioxidant / soothing / purifying active"). They map to
-  // the matching ingredient_attribute slugs on the ingredient side but
-  // live as independent rows in the product_tags table.
   ANTI_OXYDANT: 'anti-oxydant',
   APAISANT: 'apaisant',
   SEBO_REGULATEUR: 'sebo-regulateur',
@@ -164,4 +159,5 @@ export const PRODUCT_TAG_SLUGS = {
   NON_COMEDOGENE: 'non-comedogene',
 } as const
 
-export type ProductTagSlug = (typeof PRODUCT_TAG_SLUGS)[keyof typeof PRODUCT_TAG_SLUGS]
+export type SkincareProductTagSlug =
+  (typeof SKINCARE_PRODUCT_TAG_SLUGS)[keyof typeof SKINCARE_PRODUCT_TAG_SLUGS]
