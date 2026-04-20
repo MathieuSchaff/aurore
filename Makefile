@@ -283,11 +283,11 @@ db-seed-dev: ## Seed rapide pour le développement (CORE + 100 produits CSV max)
 db-clean: ## Vide complètement la base de données (SCHEMA public)
 	@echo "$(YELLOW)⚠ ATTENTION : Toutes les données vont être supprimées !$(NC)"
 	@read -p "Confirmer le nettoyage de la DB locale ? [y/N] " confirm && [ "$$confirm" = "y" ] || exit 1
-	@docker compose exec -T db psql -U app -d appdb -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public; GRANT ALL ON SCHEMA public TO app; GRANT ALL ON SCHEMA public TO public;"
+	@docker compose exec -T db psql -U app -d appdb -c "DROP SCHEMA public CASCADE; DROP SCHEMA IF EXISTS auth CASCADE; CREATE SCHEMA public; GRANT ALL ON SCHEMA public TO app; GRANT ALL ON SCHEMA public TO public; TRUNCATE drizzle.__drizzle_migrations;"
 	@echo "$(GREEN)✓ Base de données vidée.$(NC)"
 
 db-reset: db-clean db-migrate db-seed ## Nettoyage complet + Migrations + Seed
-
+db-reset-dev: db-clean db-migrate db-seed-dev ## Nettoyage complet + Migrations + Seed dev (100 produits)
 db-reset-all: db-clean db-migrate db-seed-all ## Nettoyage complet + Migrations + Seed Unifié
 
 db-backup: ## Crée une sauvegarde SQL de la base de données
