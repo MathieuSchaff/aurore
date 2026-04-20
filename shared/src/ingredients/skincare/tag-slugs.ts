@@ -1,10 +1,8 @@
-// ─── Ingredient Tag Slugs ──────────────────────────────────────────
-// Slugs for tags that can be applied to ingredients.
+// ─── Skincare Ingredient Tag Slugs ────────────────────────────────────────────
+// Tags applicable to skincare/haircare/dental ingredients.
 // Categories: concern, skin_type, ingredient_attribute, skin_effect, shared_label.
-// Slugs shared with product-tag-slugs.ts (concern, skin_type, etc.) are
-// intentional — they map to independent rows in the ingredient_tags table.
 
-export const INGREDIENT_TAG_SLUGS = {
+export const SKINCARE_INGREDIENT_TAG_SLUGS = {
   // ── Concerns ───────────────────────────────────────────────────────
   ANTI_ROUGEURS: 'anti-rougeurs',
   ROSACEE: 'rosacee',
@@ -83,4 +81,5 @@ export const INGREDIENT_TAG_SLUGS = {
   GROSSESSE_COMPATIBLE: 'grossesse-compatible',
 } as const
 
-export type IngredientTagSlug = (typeof INGREDIENT_TAG_SLUGS)[keyof typeof INGREDIENT_TAG_SLUGS]
+export type SkincareIngredientTagSlug =
+  (typeof SKINCARE_INGREDIENT_TAG_SLUGS)[keyof typeof SKINCARE_INGREDIENT_TAG_SLUGS]
