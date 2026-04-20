@@ -1,7 +1,6 @@
-import { ALL_PRODUCT_INGREDIENTS_MAP } from '../products/ingredients-products-tags'
+import { ALL_PRODUCT_INGREDIENTS_MAP, allProductData } from '../data/products'
 import { allProductSlugs } from '../products/products-slugs'
-import { INGREDIENT_SLUGS } from '../ingredients/ingredient-slugs'
-import { allProductData } from '../products/index'
+import { INGREDIENT_SLUGS } from '../data/ingredients/ingredient-slugs'
 
 /**
  * Ce script vérifie que :
