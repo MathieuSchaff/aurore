@@ -40,6 +40,7 @@
 import { INGREDIENT_SLUGS } from '../ingredients/ingredient-slugs'
 import { TAG_SLUGS } from '../tags'
 import { dentalTagMap } from '../ingredients/dental/ingredient-tags'
+import { haircareTagMap } from '../ingredients/haircare/ingredient-tags'
 import { skincareTagMap } from '../ingredients/skincare/ingredient-tags'
 import { supplementTagMap } from '../ingredients/supplements/ingredient-tags'
 
@@ -56,6 +57,7 @@ export type IngredientTagMap = Record<string, IngredientAssociation>
 
 export const ingredientTagMap: IngredientTagMap = {
   ...dentalTagMap,
+  ...haircareTagMap,
   ...skincareTagMap,
   ...supplementTagMap,
 }

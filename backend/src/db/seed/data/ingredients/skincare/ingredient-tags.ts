@@ -146,11 +146,6 @@ export const skincareTagMap: IngredientTagMap = {
     secondary: [TAG_SLUGS.PEAU_TOUS_TYPES],
     avoid: [],
   },
-  [INGREDIENT_SLUGS.TETRASODIUM_EDTA]: {
-    primary: [TAG_SLUGS.EXCIPIENT],
-    secondary: [TAG_SLUGS.PEAU_TOUS_TYPES],
-    avoid: [],
-  },
   [INGREDIENT_SLUGS.CARBOMER]: {
     primary: [TAG_SLUGS.EXCIPIENT],
     secondary: [TAG_SLUGS.PEAU_TOUS_TYPES],
@@ -166,22 +161,7 @@ export const skincareTagMap: IngredientTagMap = {
     secondary: [TAG_SLUGS.PEAU_TOUS_TYPES],
     avoid: [],
   },
-  [INGREDIENT_SLUGS.HYDROXYETHYLCELLULOSE]: {
-    primary: [TAG_SLUGS.EXCIPIENT],
-    secondary: [TAG_SLUGS.PEAU_TOUS_TYPES],
-    avoid: [],
-  },
-  [INGREDIENT_SLUGS.HYDROXYPROPYL_METHYLCELLULOSE]: {
-    primary: [TAG_SLUGS.EXCIPIENT],
-    secondary: [TAG_SLUGS.PEAU_TOUS_TYPES],
-    avoid: [],
-  },
   [INGREDIENT_SLUGS.SODIUM_POLYACRYLATE]: {
-    primary: [TAG_SLUGS.EXCIPIENT],
-    secondary: [TAG_SLUGS.PEAU_TOUS_TYPES],
-    avoid: [],
-  },
-  [INGREDIENT_SLUGS.SCLEROTIUM_GUM]: {
     primary: [TAG_SLUGS.EXCIPIENT],
     secondary: [TAG_SLUGS.PEAU_TOUS_TYPES],
     avoid: [],
@@ -196,11 +176,6 @@ export const skincareTagMap: IngredientTagMap = {
     secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_TOUS_TYPES],
     avoid: [],
   },
-  [INGREDIENT_SLUGS.BEHENYL_ALCOHOL]: {
-    primary: [TAG_SLUGS.EMOLLIENT, TAG_SLUGS.EXCIPIENT],
-    secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_TOUS_TYPES],
-    avoid: [],
-  },
   [INGREDIENT_SLUGS.PEG_100_STEARATE]: {
     primary: [TAG_SLUGS.TENSIOACTIF, TAG_SLUGS.EXCIPIENT],
     secondary: [TAG_SLUGS.PEAU_TOUS_TYPES],
@@ -211,23 +186,8 @@ export const skincareTagMap: IngredientTagMap = {
     secondary: [TAG_SLUGS.PEAU_TOUS_TYPES],
     avoid: [],
   },
-  [INGREDIENT_SLUGS.DIMETHICONOL]: {
-    primary: [TAG_SLUGS.EMOLLIENT, TAG_SLUGS.OCCLUSIF],
-    secondary: [TAG_SLUGS.PEAU_SECHE],
-    avoid: [],
-  },
-  [INGREDIENT_SLUGS.CYCLOPENTASILOXANE]: {
-    primary: [TAG_SLUGS.EXCIPIENT, TAG_SLUGS.EMOLLIENT],
-    secondary: [TAG_SLUGS.PEAU_TOUS_TYPES],
-    avoid: [],
-  },
   [INGREDIENT_SLUGS.CYCLOHEXASILOXANE]: {
     primary: [TAG_SLUGS.EXCIPIENT, TAG_SLUGS.EMOLLIENT],
-    secondary: [TAG_SLUGS.PEAU_TOUS_TYPES],
-    avoid: [],
-  },
-  [INGREDIENT_SLUGS.PHENYL_TRIMETHICONE]: {
-    primary: [TAG_SLUGS.EMOLLIENT, TAG_SLUGS.ECLAT],
     secondary: [TAG_SLUGS.PEAU_TOUS_TYPES],
     avoid: [],
   },
@@ -519,12 +479,6 @@ export const skincareTagMap: IngredientTagMap = {
     primary: [TAG_SLUGS.KERATOLYTIQUE, TAG_SLUGS.ECLAT],
     secondary: [TAG_SLUGS.TEINT_TERNE],
     avoid: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.PEAU_SENSIBLE],
-  },
-
-  [INGREDIENT_SLUGS.PIROCTONE_OLAMINE]: {
-    primary: [TAG_SLUGS.ANTISEPTIQUE],
-    secondary: [TAG_SLUGS.ANTI_ACNE],
-    avoid: [],
   },
 
   [INGREDIENT_SLUGS.PRUNUS_AMYGDALUS_DULCIS_OIL]: {
@@ -1989,31 +1943,10 @@ export const skincareTagMap: IngredientTagMap = {
     avoid: [],
   },
 
-  // ── Coco Glucoside (Tensioactif doux dérivé de la coco) ──
-  [INGREDIENT_SLUGS.COCO_GLUCOSIDE]: {
-    primary: [TAG_SLUGS.TENSIOACTIF],
-    secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.NON_COMEDOGENE],
-    avoid: [],
-  },
-
-  // ── Decyl Glucoside (Tensioactif très doux) ──
-  [INGREDIENT_SLUGS.DECYL_GLUCOSIDE]: {
-    primary: [TAG_SLUGS.TENSIOACTIF],
-    secondary: [TAG_SLUGS.PEAU_ATOPIQUE],
-    avoid: [],
-  },
-
   // ── Sodium Lauroyl Methyl Isethionate (Nettoyant doux / "Sulfate-free") ──
   [INGREDIENT_SLUGS.SODIUM_LAUROYL_METHYL_ISETHIONATE]: {
     primary: [TAG_SLUGS.TENSIOACTIF],
     secondary: [TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.PEAU_GRASSE],
-    avoid: [],
-  },
-
-  // ── Sodium Cocoyl Isethionate (Nettoyant crémeux doux) ──
-  [INGREDIENT_SLUGS.SODIUM_COCOYL_ISETHIONATE]: {
-    primary: [TAG_SLUGS.TENSIOACTIF],
-    secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_NORMALE],
     avoid: [],
   },
 
