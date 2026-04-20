@@ -20,59 +20,18 @@ import {
   TEXTURANTS_FONCTIONNELS,
 } from './skincare/ingredient-slugs'
 
-// ─── Supplements ──────────────────────────────────────────
-export const SUPPLEMENTS_ANTIOXYDANTS = {
-  ERGOTHIONEINE_SUPPLEMENT: 'ergothioneine-supplement',
-} as const
-
-export const SUPPLEMENTS_CAROTENOIDES = {
-  ASTAXANTHINE_SUPPLEMENT: 'astaxanthine-supplement',
-  BETA_CAROTENE: 'beta-carotene',
-  LUTEINE: 'luteine',
-  ZEAXANTHINE: 'zeaxanthine',
-} as const
-
-export const SUPPLEMENTS_ACIDES_AMINES = {
-  CREATINE: 'creatine',
-  GAA: 'gaa',
-  GLUCOSAMINE: 'glucosamine-supplement',
-  GLYCINE_SUPPLEMENT: 'glycine-supplement',
-} as const
-
-export const SUPPLEMENTS_MINERAUX = {
-  MAGNESIUM: 'magnesium-supplement',
-} as const
-
-export const SUPPLEMENTS_NEUROACTIFS = {
-  CDP_CHOLINE: 'cdp-choline',
-  CHOLINE: 'choline',
-} as const
-
-export const SUPPLEMENTS_PLANTES = {
-  BERBERINE: 'berberine',
-} as const
-
-export const SUPPLEMENTS_VITAMINES = {
-  VITAMINE_D3: 'vitamine-d3',
-  VITAMINE_C: 'vitamine-c-supplement',
-  VITAMINE_K2: 'vitamine-k2',
-  VITAMINE_B12: 'vitamine-b12',
-} as const
-
-export const SUPPLEMENTS_ACIDES_GRAS = {
-  OMEGA_3: 'omega-3',
-} as const
-
-export const SUPPLEMENTS_DIVERS = {
-  TAURINE: 'taurine-supplement',
-  NAC: 'nac',
-  PSYLLIUM: 'psyllium',
-  SPIRULINE: 'spiruline',
-  PHOSPHATIDYLSERINE: 'phosphatidylserine',
-  PHOSPHATIDYLETHANOLAMINE: 'phosphatidylethanolamine',
-  PHOSPHATIDYLINOSITOL: 'phosphatidylinositol',
-  TMG: 'tmg',
-} as const
+export * from './supplements/ingredient-slugs'
+import {
+  SUPPLEMENTS_ACIDES_AMINES,
+  SUPPLEMENTS_ACIDES_GRAS,
+  SUPPLEMENTS_ANTIOXYDANTS,
+  SUPPLEMENTS_CAROTENOIDES,
+  SUPPLEMENTS_DIVERS,
+  SUPPLEMENTS_MINERAUX,
+  SUPPLEMENTS_NEUROACTIFS,
+  SUPPLEMENTS_PLANTES,
+  SUPPLEMENTS_VITAMINES,
+} from './supplements/ingredient-slugs'
 
 export const DENTAL_ABRASIFS = {
   HYDRATED_SILICA: 'hydrated-silica', // INCI: Hydrated Silica | abrasif doux, polish émail sans éroder
