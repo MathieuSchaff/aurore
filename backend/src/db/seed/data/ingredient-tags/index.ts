@@ -37,8 +37,6 @@
 // Documentation complète : idee/tags/tags.md (section 3) et
 // idee/tags/tags-associations.md.
 
-import { INGREDIENT_SLUGS } from '../ingredients/ingredient-slugs'
-import { TAG_SLUGS } from '../tags'
 import { dentalTagMap } from '../ingredients/dental/ingredient-tags'
 import { haircareTagMap } from '../ingredients/haircare/ingredient-tags'
 import { skincareTagMap } from '../ingredients/skincare/ingredient-tags'
