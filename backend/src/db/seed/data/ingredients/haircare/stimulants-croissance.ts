@@ -1,0 +1,86 @@
+import { SKINCARE_INGREDIENT_CATEGORIES, INGREDIENT_TYPES } from '@habit-tracker/shared'
+import { INGREDIENT_SLUGS } from '../ingredient-slugs'
+import type { IngredientInput } from '../seed-ingredients'
+
+export const HAIR_STIMULANTS_CROISSANCE: IngredientInput[] = [
+  {
+    name: 'Caféine (Caffeine)',
+    slug: INGREDIENT_SLUGS.CAFFEINE_HAIR,
+    type: INGREDIENT_TYPES.HAIRCARE,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description: '',
+    content: '',
+  },
+  {
+    name: 'Niacinamide',
+    slug: INGREDIENT_SLUGS.NIACINAMIDE_HAIR,
+    type: INGREDIENT_TYPES.HAIRCARE,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description: '',
+    content: '',
+  },
+  {
+    name: 'Biotine (Biotin / Vitamine H)',
+    slug: INGREDIENT_SLUGS.BIOTIN_HAIR,
+    type: INGREDIENT_TYPES.HAIRCARE,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description: '',
+    content: '',
+  },
+  {
+    name: 'Minoxidil',
+    slug: INGREDIENT_SLUGS.MINOXIDIL,
+    type: INGREDIENT_TYPES.HAIRCARE,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description: '',
+    content: '',
+  },
+  {
+    name: 'Capixyl (Acetyl Tetrapeptide-3)',
+    slug: INGREDIENT_SLUGS.CAPIXYL,
+    type: INGREDIENT_TYPES.HAIRCARE,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description: '',
+    content: '',
+  },
+  {
+    name: 'Redensyl',
+    slug: INGREDIENT_SLUGS.REDENSYL,
+    type: INGREDIENT_TYPES.HAIRCARE,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description: '',
+    content: '',
+  },
+  {
+    name: 'Procapil',
+    slug: INGREDIENT_SLUGS.PROCAPIL,
+    type: INGREDIENT_TYPES.HAIRCARE,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description: '',
+    content: '',
+  },
+  {
+    name: 'Extrait de Ginseng (Panax Ginseng Root Extract)',
+    slug: INGREDIENT_SLUGS.GINSENG_EXTRACT_HAIR,
+    type: INGREDIENT_TYPES.HAIRCARE,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description: '',
+    content: '',
+  },
+  {
+    name: 'Extrait de Cresson / Capucine',
+    slug: INGREDIENT_SLUGS.CRESSON_CAPUCINE_EXTRACT,
+    type: INGREDIENT_TYPES.HAIRCARE,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description: '',
+    content: '',
+  },
+  {
+    name: 'Saw Palmetto (Serenoa Serrulata)',
+    slug: INGREDIENT_SLUGS.SAW_PALMETTO,
+    type: INGREDIENT_TYPES.HAIRCARE,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description: '',
+    content: '',
+  },
+]
