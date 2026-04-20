@@ -470,11 +470,11 @@ export const FILLERS = {
 
 // ─── Supplements ──────────────────────────────────────────
 export const SUPPLEMENTS_ANTIOXYDANTS = {
-  ERGOTHIONEINE: 'ergothioneine-supplement',
+  ERGOTHIONEINE_SUPPLEMENT: 'ergothioneine-supplement',
 } as const
 
 export const SUPPLEMENTS_CAROTENOIDES = {
-  ASTAXANTHINE: 'astaxanthine-supplement',
+  ASTAXANTHINE_SUPPLEMENT: 'astaxanthine-supplement',
   BETA_CAROTENE: 'beta-carotene',
   LUTEINE: 'luteine',
   ZEAXANTHINE: 'zeaxanthine',
@@ -484,7 +484,7 @@ export const SUPPLEMENTS_ACIDES_AMINES = {
   CREATINE: 'creatine',
   GAA: 'gaa',
   GLUCOSAMINE: 'glucosamine-supplement',
-  GLYCINE: 'glycine-supplement',
+  GLYCINE_SUPPLEMENT: 'glycine-supplement',
 } as const
 
 export const SUPPLEMENTS_MINERAUX = {

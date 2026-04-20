@@ -1,4 +1,4 @@
-import { INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
+import { SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
 import type { IngredientInput } from '../seed-ingredients'
 
@@ -7,7 +7,7 @@ export const ANTI_ROSACEE_VASOCONSTRICTEURS: IngredientInput[] = [
     name: 'Endothelyol®',
     slug: INGREDIENT_SLUGS.ENDOTHELYOL,
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Complexe biotechnologique breveté ciblant les micro-vaisseaux et l’inflammation pour réduire les rougeurs chroniques et passagères.',
     content: `
@@ -35,7 +35,7 @@ export const ANTI_ROSACEE_VASOCONSTRICTEURS: IngredientInput[] = [
     name: 'Brimonidine',
     slug: INGREDIENT_SLUGS.BRIMONIDINE,
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Vasoconstricteur topique agoniste α2-adrénergique (prescription), traitement de l'érythème facial persistant de la rosacée. Réduction rapide des rougeurs en ~30 minutes.",
     content: `
@@ -69,7 +69,7 @@ export const ANTI_ROSACEE_VASOCONSTRICTEURS: IngredientInput[] = [
     slug: INGREDIENT_SLUGS.OXYMETAZOLINE,
     type: 'skincare',
 
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Vasoconstricteur topique agoniste α1/α2-adrénergique (prescription), traitement de l'érythème facial persistant de la rosacée. Effet rapide mais rebond vasculaire plus marqué que la brimonidine.",
     content: `
@@ -103,7 +103,7 @@ export const ANTI_ROSACEE_VASOCONSTRICTEURS: IngredientInput[] = [
     slug: INGREDIENT_SLUGS.METRONIDAZOLE,
     type: 'skincare',
 
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Antibiotique et antiparasitaire topique (prescription), traitement de référence de la rosacée papulo-pustuleuse. Anti-inflammatoire cutané avec une longue histoire d'efficacité clinique.",
     content: `
@@ -139,7 +139,7 @@ export const ANTI_ROSACEE_VASOCONSTRICTEURS: IngredientInput[] = [
     slug: INGREDIENT_SLUGS.IVERMECTINE,
     type: 'skincare',
 
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Antiparasitaire topique anti-Demodex (prescription), traitement de référence de la rosacée papulo-pustuleuse. Action combinée antiparasitaire et anti-inflammatoire supérieure au métronidazole dans les études comparatives.',
     content: `
@@ -173,7 +173,7 @@ export const ANTI_ROSACEE_VASOCONSTRICTEURS: IngredientInput[] = [
     slug: INGREDIENT_SLUGS.ANGIOPAUSINE,
     type: 'skincare',
 
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Actif breveté d'origine naturelle qui réduit la néovascularisation pour traiter les rougeurs installées et la couperose.",
     content: `
@@ -208,7 +208,7 @@ export const ANTI_ROSACEE_VASOCONSTRICTEURS: IngredientInput[] = [
     slug: INGREDIENT_SLUGS.AZELOCALM,
     type: 'skincare',
 
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Acide azélaïque complexé pour une meilleure tolérance, offrant tous les bienfaits anti-rougeurs sans irritation.',
     content: `
@@ -225,7 +225,7 @@ export const ANTI_ROSACEE_VASOCONSTRICTEURS: IngredientInput[] = [
     slug: INGREDIENT_SLUGS.AZECOGLYCINE,
     type: 'skincare',
 
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Complexe d’acide azélaïque et de glycine agissant en synergie pour réguler le sébum et apaiser les rougeurs.',
     content: `

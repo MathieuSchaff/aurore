@@ -1,5 +1,5 @@
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
-import { INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
+import { SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
 import type { IngredientInput } from '../seed-ingredients'
 
 export const DIVERS_NON_CLASSES: IngredientInput[] = [
@@ -9,7 +9,7 @@ export const DIVERS_NON_CLASSES: IngredientInput[] = [
 
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un nucléotide précurseur du NAD+ qui booste l’énergie cellulaire et répare les dommages à l’ADN pour un effet anti-âge systémique.',
     content: `
@@ -43,7 +43,7 @@ Le **Nicotinamide Mononucléotide (NMN)** est la nouvelle frontière de la cosm�
 
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un extrait végétal méditerranéen qui stimule les protéines de longévité cellulaire et limite la glycation des tissus.',
     content: `
@@ -77,7 +77,7 @@ L'extrait de feuilles de **Myrte** est un actif puissant qui agit sur les marque
 
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un extrait de culture cellulaire (callus) utilisé en médecine traditionnelle pour ses propriétés anti-inflammatoires puissantes et sa capacité de régénération.',
     content: `
@@ -110,7 +110,7 @@ Cet extrait issu de la culture de cellules souches (callus) de la "Vigne du Tonn
 
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une algue brune riche en alginates et sels minéraux, idéale pour revitaliser la barrière cutanée et maintenir l’équilibre osmotique.',
     content: `
@@ -144,7 +144,7 @@ Surnommée "fouet des sorcières", cette algue brune concentre les oligo-éléme
 
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une algue brune riche en iode et polyphénols, utilisée pour drainer les tissus et décongestionner les zones gonflées comme le contour des yeux.',
     content: `
@@ -178,7 +178,7 @@ Le Fucus est une algue de bord de mer qui contient des fucoïdanes, des molécul
 
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une algue brune surnommée "Wakamé de l’Atlantique", capable de booster la synthèse de collagène et de protéger l’élasticité de la peau.',
     content: `
@@ -212,7 +212,7 @@ Cette algue survit dans des courants forts, développant des molécules de rési
 
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une algue brune emblématique qui protège la matrice extracellulaire et réactive les gènes de jeunesse de la peau.',
     content: `
@@ -246,7 +246,7 @@ Le Wakamé contient du fucose sulfaté, une molécule qui aide à maintenir l'ar
 
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une algue rouge filmogène qui protège la peau de la déshydratation et apporte un fini soyeux naturel aux formules.',
     content: `
@@ -280,7 +280,7 @@ Cette algue rouge, source de carraghénanes, est la référence pour créer un f
 
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une algue rouge reconnue pour ses propriétés tonifiantes qui favorisent une peau lumineuse et unifiée.',
     content: `
@@ -314,7 +314,7 @@ La Dulse est riche en vitamines (A, B12) et en minéraux. Elle est utilisée pou
 
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une algue rouge rare à structure calcaire, capable de recharger les cellules en énergie et d’offrir une hydratation ultra-ciblée.',
     content: `
@@ -348,7 +348,7 @@ Cette algue pompon est unique par sa concentration en minéraux et sa capacité 
 
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une algue verte riche en magnésium et acides aminés, qui aide à maintenir l’élasticité de la peau en limitant sa dégradation.',
     content: `
@@ -382,7 +382,7 @@ La Laitue de Mer est une algue verte qui possède des propriétés "élastine-li
 
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une micro-algue verte riche en chlorophylle et peptides, utilisée pour réduire la visibilité des vaisseaux (cernes) et raffermir la peau.',
     content: `
@@ -416,7 +416,7 @@ La Chlorelle est une micro-algue reconnue pour sa capacité à stimuler la synth
 
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une micro-algue bleue (cyanobactérie) considérée comme un super-aliment, offrant une dose massive de protéines et d’antioxydants.',
     content: `
@@ -450,7 +450,7 @@ La Spiruline est l'un des ingrédients les plus complets pour nourrir la peau et
 
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une micro-algue qui survit dans les milieux hypersalins en produisant une quantité phénoménale de bêta-carotène.',
     content: `
@@ -483,7 +483,7 @@ Cette micro-algue produit des caroténoïdes pour se protéger des UV intenses. 
 
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une cyanobactérie sauvage du lac Klamath, considérée comme un "super-aliment" cutané offrant un effet lissant comparable au rétinol sans l’irritation.',
     content: `
@@ -516,7 +516,7 @@ L’**Aphanizomenon Flos-aquae (AFA)** est l'une des formes de vie les plus anci
 
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une racine d’ancrage aux propriétés cicatrisantes et apaisantes, reconnue pour favoriser la régénération tissulaire tout en équilibrant le sébum.',
     content: `
@@ -550,7 +550,7 @@ Le **Vetiveria Zizanoides** est une racine profonde dont l'huile essentielle est
 
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un extrait résineux aux vertus tonifiantes et purifiantes, apportant la force des forêts boréales pour revitaliser les peaux ternes et fatiguées.',
     content: `
@@ -583,7 +583,7 @@ L'huile de **Pin des Marais** est reconnue pour ses propriétés aromatiques et 
 
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une huile précieuse d’Amazonie, alternative légère à l’huile de coco, offrant une nutrition intense et une action protectrice sans fini gras.',
     content: `
@@ -616,7 +616,7 @@ L'huile de **Pin des Marais** est reconnue pour ses propriétés aromatiques et 
 
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un cocktail de micro-nutriments essentiels issus de la protéine de riz, agissant comme des briques élémentaires pour reconstruire la barrière cutanée et fortifier la fibre capillaire.',
     content: `
@@ -649,7 +649,7 @@ L'huile de **Pin des Marais** est reconnue pour ses propriétés aromatiques et 
 
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un "boosteur" d’hydratation bio-sourcé qui régule l’expression des aquaporines pour optimiser la circulation de l’eau entre les couches de la peau.',
     content: `
@@ -679,7 +679,7 @@ L'huile de **Pin des Marais** est reconnue pour ses propriétés aromatiques et 
   {
     name: 'Amarante (Amaranthus Caudatus)',
     slug: INGREDIENT_SLUGS.AMARANTHUS_CAUDATUS,
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Source exceptionnelle de squalène naturel et d’acides gras, elle renforce la barrière lipidique et adoucit la peau.',
     content: `
@@ -709,7 +709,7 @@ Utilisé pour nourrir intensément et protéger la peau contre la déshydratatio
 
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "L'actif 'Sun-Prep' et perfecteur : un concentré de caroténoïdes pour une protection antioxydante naturelle et un effet flouteur de pores immédiat.",
     content: `# Le Roucou (Urucum) : L'Actif Protecteur et Sublimateur du Teint
@@ -761,7 +761,7 @@ L'extrait de Bixa Orellana agit comme un véritable filtre de beauté biologique
 
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait racinaire utilisé pour ses propriétés hydratantes, apaisantes et sa capacité à réguler les sensations d’échauffement.',
     content: `
@@ -798,7 +798,7 @@ L'extrait de Bixa Orellana agit comme un véritable filtre de beauté biologique
   {
     name: 'Humectants, émollients et occlusifs',
     slug: INGREDIENT_SLUGS.HUMECTANTS_EMOLLIENTS_OCCLUSIFS,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       "Les trois piliers de l'hydratation cutanée. Les humectants attirent l'eau, les émollients lissent et renforcent la barrière, les occlusifs scellent l'hydratation et limitent la TEWL.",
     content: `## Les trois catégories
@@ -834,7 +834,7 @@ Forment un film protecteur limitant la perte d'eau transépidermique (TEWL). Peu
 
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description: "Chaînes d'acides aminés qui boostent le collagène et raffermissent.",
     content: `# Peptides
 
@@ -852,7 +852,7 @@ variable selon le type (souvent 1-5%).`,
 
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait de feuilles d\'épinard riche en antioxydants (flavonoïdes, caroténoïdes), protège la peau des agressions environnementales et de la pollution.',
     content: `
@@ -876,7 +876,7 @@ Extrait aqueux ou glycériné des feuilles d'épinard, riche en flavonoïdes (lu
 
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait de pissenlit aux propriétés détoxifiantes et antioxydantes, aide à purifier la peau des toxines environnementales.',
     content: `
@@ -900,7 +900,7 @@ Extrait issu des feuilles et racines de pissenlit, plante aux vertus dépurative
 
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait de maqui berry du Chili, l\'un des antioxydants les plus puissants connus, protège contre le stress oxydatif et la pollution.',
     content: `
@@ -928,7 +928,7 @@ Le **Maqui Berry** (Aristotelia chilensis) est un superfruit chilien avec l'un d
 
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait de graines de Tephrosia purpurea aux propriétés anti-pollution et protectrices contre les facteurs environnementaux.',
     content: `
@@ -952,7 +952,7 @@ Actif d'origine botanique issu d'une légumineuse utilisée dans la médecine ay
 
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Eau thermale unique d\'Avène (Hérault), reconnue pour ses propriétés apaisantes et anti-irritantes exceptionnelles sur les peaux sensibles et réactives.',
     content: `

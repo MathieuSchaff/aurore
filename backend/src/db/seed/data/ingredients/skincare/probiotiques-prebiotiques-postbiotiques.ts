@@ -1,4 +1,4 @@
-import { INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
+import { SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
 import type { IngredientInput } from '../seed-ingredients'
 
@@ -6,7 +6,7 @@ export const PROBIOTIQUES_PREBIOTIQUES_POSTBIOTIQUES: IngredientInput[] = [
   {
     name: 'Chicory Root Extract (Cichorium Intybus Root Extract)',
     slug: INGREDIENT_SLUGS.INULINE,
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait de racine de chicorée prébiotique, hydrate, équilibre le microbiome et renforce la barrière cutanée.',
     content: `
@@ -39,7 +39,7 @@ Effet "vitamin D-like" sur barrière. Synergie avec postbiotiques ou hyaluroniqu
   {
     name: 'Pseudoalteromonas Ferment Extract',
     slug: INGREDIENT_SLUGS.PSEUDOALTEROMONAS_FERMENT,
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un postbiotique marin issu de bactéries des grands fonds, reconnu pour ses propriétés hydratantes et protectrices contre le stress environnemental.',
     content: `
@@ -63,7 +63,7 @@ Le **Pseudoalteromonas Ferment Extract** est obtenu par fermentation d'une bact�
   {
     name: 'Vitreoscilla Ferment',
     slug: INGREDIENT_SLUGS.VITREOSCILLA_FERMENT,
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un extrait biotechnologique issu d’une bactérie thermale, agissant comme un coach cellulaire pour renforcer les défenses immunitaires de la peau et apaiser les états inflammatoires.',
     content: `
@@ -97,7 +97,7 @@ Le Vitreoscilla Ferment agit comme un véritable médiateur cutané :
   {
     name: 'Fructo-oligosaccharides (FOS)',
     slug: INGREDIENT_SLUGS.FRUCTOOLIGOSACCHARIDES,
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Sucres complexes agissant comme des prébiotiques sélectifs pour nourrir la flore cutanée bénéfique et sceller l’hydratation au cœur de l’épiderme.',
     content: `
@@ -127,7 +127,7 @@ Le Vitreoscilla Ferment agit comme un véritable médiateur cutané :
   {
     name: 'Filtrat de Bave d’Escargot (Snail Mucin)',
     slug: INGREDIENT_SLUGS.SNAIL_MUCIN,
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une alliance biologique unique de mucopolysaccharides, d’allantoïne et d’acide glycolique pour une réparation cutanée profonde et une hydratation durable.',
     content: `
@@ -188,7 +188,7 @@ Actif polyvalent par excellence, il s'intègre parfaitement dans les formulation
   {
     name: "D-Sensinose™ (Extrait de fermentation d'Aquaphilus dolomiae)",
     slug: INGREDIENT_SLUGS.D_SENSINOSE,
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Actif postbiotique ultra-calmant breveté agissant directement sur les neurones sensoriels pour apaiser l'hyper-réactivité cutanée.",
     content: `
@@ -222,7 +222,7 @@ Actif polyvalent par excellence, il s'intègre parfaitement dans les formulation
   {
     name: 'C+ Restore™ (Aquaphilus dolomiae ferment filtrate)',
     slug: INGREDIENT_SLUGS.AQUAPHILUS_DOLOMIAE_FERMENT_FILTRATE,
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Actif postbiotique breveté issu de l'Eau thermale d'Avène, favorisant la réparation épidermique et le renforcement des défenses cutanées.",
     content: `
@@ -256,7 +256,7 @@ Actif polyvalent par excellence, il s'intègre parfaitement dans les formulation
   {
     name: 'Extrait d’Aquaphilus dolomiae (I-modulia®)',
     slug: INGREDIENT_SLUGS.AQUAPHILUS_DOLOMIAE_EXTRACT,
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Actif biotechnologique postbiotique apaisant et anti-démangeaisons, issu de l’eau thermale d’Avène, idéal pour les peaux sèches et atopiques.',
     content: `
@@ -299,7 +299,7 @@ Actif polyvalent par excellence, il s'intègre parfaitement dans les formulation
   {
     name: 'Alpha-Glucan Oligosaccharide (BioEcolia®)',
     slug: INGREDIENT_SLUGS.ALPHA_GLUCAN_OLIGOSACCHARIDE,
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Prébiotique protecteur qui rééquilibre le microbiome cutané, renforce les défenses naturelles et préserve l'écosystème de la peau.",
     content: `
@@ -341,7 +341,7 @@ Actif polyvalent par excellence, il s'intègre parfaitement dans les formulation
   {
     name: 'Postbiotiques',
     slug: INGREDIENT_SLUGS.POSTBIOTICS,
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Substances actives produites par les bactéries bénéfiques, offrant une action ciblée sur l’apaisement et la régénération cutanée.',
     content: `
@@ -375,7 +375,7 @@ Actif polyvalent par excellence, il s'intègre parfaitement dans les formulation
   {
     name: 'Probiotiques',
     slug: INGREDIENT_SLUGS.PROBIOTICS,
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Micro-organismes bénéfiques (sous forme de lysats) qui renforcent le microbiome cutané et les défenses naturelles de la peau.',
     content: `
@@ -409,7 +409,7 @@ Actif polyvalent par excellence, il s'intègre parfaitement dans les formulation
   {
     name: 'Microbiota Regulator',
     slug: INGREDIENT_SLUGS.MICROBIOTA_REGULATOR,
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Actif régulateur du microbiote cutané qui aide à maintenir l'équilibre de la flore bactérienne pour une peau saine.",
     content: `
@@ -424,7 +424,7 @@ Le **Microbiota Regulator** est un actif conçu pour stabiliser l'écosystème m
   {
     name: 'Melabiome-XP',
     slug: INGREDIENT_SLUGS.MELABIOME_XP,
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Complexe avancé de postbiotiques et prébiotiques pour le rééquilibrage et la protection du microbiome.',
     content: `
@@ -439,7 +439,7 @@ Le **Melabiome-XP** est un complexe de nouvelle génération combinant des préb
   {
     name: 'Aquabiome',
     slug: INGREDIENT_SLUGS.AQUABIOME,
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Complexe d’actifs marins protecteur du microbiome cutané et de la barrière cutanée.',
     content: `
@@ -454,7 +454,7 @@ Le **Melabiome-XP** est un complexe de nouvelle génération combinant des préb
   {
     name: 'Galactomyces Ferment Filtrate (Pitera)',
     slug: INGREDIENT_SLUGS.GALACTOMYCES_FERMENT_FILTRATE,
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un ferment riche en nutriments, vitamines et acides aminés qui améliore la texture, l’éclat et la barrière cutanée.',
     content: `

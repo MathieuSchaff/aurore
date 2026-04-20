@@ -1,4 +1,4 @@
-import { INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
+import { SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
 import type { IngredientInput } from '../seed-ingredients'
 
@@ -8,7 +8,7 @@ export const FILTRES_UV: IngredientInput[] = [
     slug: INGREDIENT_SLUGS.DROMETRIZOLE_TRISILOXANE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.FILTRE_UV,
+    category: SKINCARE_INGREDIENT_CATEGORIES.FILTRE_UV,
     description:
       'Un système filtrant lipophile breveté, offrant une protection à large spectre contre les UVA et UVB avec une photostabilité exceptionnelle.',
     content: `
@@ -42,7 +42,7 @@ Plus connu sous le nom de **Mexoryl XL**, le **Drometrizole Trisiloxane** est un
     slug: INGREDIENT_SLUGS.BUTYL_METHOXYDIBENZOYLMETHANE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.FILTRE_UV,
+    category: SKINCARE_INGREDIENT_CATEGORIES.FILTRE_UV,
     description:
       'Le filtre de référence pour l’absorption des UVA longs, protégeant les structures profondes de la peau contre le vieillissement actinique.',
     content: `
@@ -75,7 +75,7 @@ L'**Avobenzone** est l'un des rares filtres organiques capables d'absorber l'int
     slug: INGREDIENT_SLUGS.OCTOCRYLENE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.FILTRE_UV,
+    category: SKINCARE_INGREDIENT_CATEGORIES.FILTRE_UV,
     description:
       'Un filtre UVB liquide qui joue un rôle crucial de stabilisateur pour les autres filtres solaires, tout en renforçant la résistance à l’eau des formules.',
     content: `
@@ -108,7 +108,7 @@ L'**Octocrylene** est un filtre organique polyvalent. Bien qu'il protège contre
     slug: INGREDIENT_SLUGS.HOMOSALATE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.FILTRE_UV,
+    category: SKINCARE_INGREDIENT_CATEGORIES.FILTRE_UV,
     description:
       'Un filtre organique liquide spécialisé dans l’absorption des rayons UVB, souvent utilisé pour ajuster la fluidité des protections solaires.',
     content: `
@@ -140,7 +140,7 @@ L'**Homosalate** est un ingrédient classique des formulations solaires. Sa natu
     slug: INGREDIENT_SLUGS.ETHYLHEXYL_SALICYLATE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.FILTRE_UV,
+    category: SKINCARE_INGREDIENT_CATEGORIES.FILTRE_UV,
     description:
       'Un filtre UVB complémentaire qui agit également comme un solvant pour stabiliser et homogénéiser les mélanges de filtres solaires.',
     content: `
@@ -172,7 +172,7 @@ L'**Ethylhexyl Salicylate** (ou Octisalate) est un ester d'acide salicylique. S'
     slug: INGREDIENT_SLUGS.ETHYLHEXYL_TRIAZONE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.FILTRE_UV,
+    category: SKINCARE_INGREDIENT_CATEGORIES.FILTRE_UV,
     description:
       'L’un des filtres UVB les plus puissants et les plus stables au monde, permettant d’atteindre des indices SPF élevés avec une excellente tolérance cutanée.',
     content: `
@@ -198,7 +198,7 @@ L'**Ethylhexyl Salicylate** (ou Octisalate) est un ester d'acide salicylique. S'
     slug: INGREDIENT_SLUGS.DIETHYLAMINO_HYDROXYBENZOYL_HEXYL_BENZOATE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.FILTRE_UV,
+    category: SKINCARE_INGREDIENT_CATEGORIES.FILTRE_UV,
     description:
       'Filtre solaire organique de nouvelle génération, extrêmement stable, offrant une protection haute performance contre les rayons UVA responsables du photovieillissement.',
     content: `
@@ -225,7 +225,7 @@ L'**Ethylhexyl Salicylate** (ou Octisalate) est un ester d'acide salicylique. S'
     slug: INGREDIENT_SLUGS.TITANIUM_DIOXIDE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.FILTRE_UV,
+    category: SKINCARE_INGREDIENT_CATEGORIES.FILTRE_UV,
     description:
       'Filtre minéral physique offrant une protection solaire large spectre UVB et UVA courts, opacifiant et apaisant, particulièrement adapté aux peaux sensibles et aux formulations minérales.',
     content: `
@@ -261,7 +261,7 @@ L'**Ethylhexyl Salicylate** (ou Octisalate) est un ester d'acide salicylique. S'
     slug: INGREDIENT_SLUGS.ZINC_OXIDE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.FILTRE_UV,
+    category: SKINCARE_INGREDIENT_CATEGORIES.FILTRE_UV,
     description:
       'Filtre minéral physique offrant une protection solaire large spectre UVA/UVB, apaisant et protecteur pour les peaux sensibles, irritées ou à imperfections.',
     content: `
@@ -305,7 +305,7 @@ L'**Ethylhexyl Salicylate** (ou Octisalate) est un ester d'acide salicylique. S'
     slug: INGREDIENT_SLUGS.DIETHYLHEXYL_BUTAMIDO_TRIAZONE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.FILTRE_UV,
+    category: SKINCARE_INGREDIENT_CATEGORIES.FILTRE_UV,
     description:
       'Filtre UV organique à large spectre UVB/UVA, très photostable et résistant à l\'eau, utilisé dans les formules solaires haute performance.',
     content: `
@@ -342,7 +342,7 @@ Bien que principalement UVB, Uvasorb HEB est apprécié pour sa robustesse en fo
     slug: INGREDIENT_SLUGS.IRON_OXIDE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.FILTRE_UV,
+    category: SKINCARE_INGREDIENT_CATEGORIES.FILTRE_UV,
     description:
       'Pigments minéraux naturels assurant la coloration des soins et offrant une protection complémentaire contre la lumière bleue.',
     content: `
@@ -377,7 +377,7 @@ Bien que principalement UVB, Uvasorb HEB est apprécié pour sa robustesse en fo
     slug: INGREDIENT_SLUGS.TRIASORB,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.FILTRE_UV,
+    category: SKINCARE_INGREDIENT_CATEGORIES.FILTRE_UV,
     description:
       'Filtre solaire ultra-large spectre protégeant contre les rayons UVB, UVA et la lumière bleue haute énergie.',
     content: `
@@ -412,7 +412,7 @@ Bien que principalement UVB, Uvasorb HEB est apprécié pour sa robustesse en fo
     slug: INGREDIENT_SLUGS.BIS_ETHYLHEXYLOXYPHENOL_METHOXYPHENYL_TRIAZINE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.FILTRE_UV,
+    category: SKINCARE_INGREDIENT_CATEGORIES.FILTRE_UV,
     description:
       "Filtre UV chimique organique large spectre breveté (Tinosorb® S / Bemotrizinol), photostable et efficace contre UVA/UVB, protège durablement contre le photo-vieillissement et les dommages solaires tout en stabilisant d'autres filtres comme l'avobenzone.",
     content: `
@@ -465,7 +465,7 @@ Bien que principalement UVB, Uvasorb HEB est apprécié pour sa robustesse en fo
     slug: INGREDIENT_SLUGS.ISOAMYL_P_METHOXYCINNAMATE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.FILTRE_UV,
+    category: SKINCARE_INGREDIENT_CATEGORIES.FILTRE_UV,
     description: 'Filtre UVB organique liposoluble, couramment utilisé dans les formules à filtres chimiques pour sa bonne efficacité UVB et sa texture légère.',
     content: `
 # Isoamyl p-Methoxycinnamate (Amiloxate)
@@ -489,7 +489,7 @@ L'**Amiloxate** est un ester cinnamique liposoluble offrant une absorption UVB e
     slug: INGREDIENT_SLUGS.ETHYLHEXYL_METHOXYCINNAMATE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.FILTRE_UV,
+    category: SKINCARE_INGREDIENT_CATEGORIES.FILTRE_UV,
     description: "Filtre UVB organique parmi les plus répandus au monde, liposoluble et efficace, bien que controversé pour son impact sur les coraux et son potentiel perturbateur endocrinien.",
     content: `
 # Ethylhexyl Methoxycinnamate (Octinoxate)
@@ -517,7 +517,7 @@ L'**Octinoxate** est l'un des filtres UV chimiques les plus utilisés historique
     slug: INGREDIENT_SLUGS.METHYLENE_BIS_BENZOTRIAZOLYL_TETRAMETHYLBUTYLPHENOL,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.FILTRE_UV,
+    category: SKINCARE_INGREDIENT_CATEGORIES.FILTRE_UV,
     description: 'Filtre UV hybride (organique/minéral-like) à large spectre UVA/UVB, photostable, faible pénétration cutanée grâce à ses particules micronisées.',
     content: `
 # Méthylène Bis-Benzotriazolyl Tétraméthylbutylphénol (Tinosorb M)
@@ -543,7 +543,7 @@ Le **Tinosorb M** est un filtre UV de nouvelle génération combinant les mécan
     slug: INGREDIENT_SLUGS.TRIS_BIPHENYL_TRIAZINE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.FILTRE_UV,
+    category: SKINCARE_INGREDIENT_CATEGORIES.FILTRE_UV,
     description: 'Filtre UV large spectre sous forme nanoparticulaire (Tinosorb A2B), photostable, à faible pénétration cutanée, offrant une protection UVA/UVB sans voile blanc.',
     content: `
 # Tris-Biphényl Triazine (Tinosorb A2B)

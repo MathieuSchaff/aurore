@@ -1,4 +1,4 @@
-import { INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
+import { SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
 import type { IngredientInput } from '../seed-ingredients'
 
@@ -8,7 +8,7 @@ export const APAISANTS_ANTI_INFLAMMATOIRES: IngredientInput[] = [
     slug: INGREDIENT_SLUGS.SODIUM_DEXTRAN_SULFATE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Un polysaccharide sulfaté apaisant et décongestionnant, qui cible les rougeurs et l'inconfort vasculaire des peaux sensibles et réactives.",
     content: `
@@ -34,7 +34,7 @@ Le **Sodium Dextran Sulfate** est un polysaccharide (sucre complexe) d'origine m
     slug: INGREDIENT_SLUGS.MORINDA_CITRIFOLIA,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait de fruit de Noni riche en vitamines, polysaccharides et antioxydants puissants (flavonoïdes, coumarines, iridoïdes). Protecteur cutané et régénérant traditionnel polynésien utilisé depuis 2000 ans.',
     content: `
@@ -167,7 +167,7 @@ Aucune autre fruit n'offre cette combinaison, faisant Noni véritablement "super
     slug: INGREDIENT_SLUGS.ZINGIBER_OFFICINALE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait de rhizome de gingembre riche en gingérols et shogaols, reconnu pour ses propriétés tonifiantes, antioxydantes, anti-inflammatoires et stimulatrices de microcirculation cutanée.',
     content: `
@@ -250,7 +250,7 @@ Arôme caractéristique piquant/épicé : idéal pour formulations "revitalisant
     slug: INGREDIENT_SLUGS.BOSWELLIA_SERRATA,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Extrait de résine d'Encens indien riche en acides boswelliques, reconnu pour ses puissantes propriétés apaisantes, anti-inflammatoires et régénérantes. Traditionnellement utilisé en médecine Ayurvédique depuis des millénaires.",
     content: `
@@ -331,7 +331,7 @@ Récolte durable certifiée Fairtrade : plus de 400 collecteurs bénéficiaires 
     slug: INGREDIENT_SLUGS.COLLOIDAL_OATMEAL,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une poudre d’avoine ultra-fine reconnue pour ses propriétés anti-inflammatoires et protectrices des peaux atopiques.',
     content: `
@@ -363,7 +363,7 @@ L'**Avoine Colloïdale** est obtenue par le broyage très fin du grain d'avoine 
     slug: INGREDIENT_SLUGS.CENTELLA_COMPLEX,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une synergie de haute précision combinant les quatre molécules actives de l’Herbe du Tigre pour une régénération tissulaire et un apaisement hors pair.',
     content: `
@@ -398,7 +398,7 @@ Le **Centella Complex** est l'expression ultime de la phytothérapie moderne. Ce
     slug: INGREDIENT_SLUGS.BETA_GLUCAN,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un polysaccharide naturel extrait de l’avoine ou de la levure, capable de stimuler les défenses immunitaires de la peau tout en offrant une hydratation 20% supérieure à l’acide hyaluronique.',
     content: `
@@ -431,7 +431,7 @@ Le **Bêta-Glucane** est une molécule de survie issue de la paroi cellulaire de
     slug: INGREDIENT_SLUGS.ZANTHOXYLUM_BUNGEANUM,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un extrait botanique aux propriétés "Botox-like" immédiates, agissant sur les micro-tensions cutanées pour un effet lissant et apaisant instantané.',
     content: `
@@ -465,7 +465,7 @@ Extrait des enveloppes du Poivre du Sichuan, cet actif contient des hydroxy-alph
     slug: INGREDIENT_SLUGS.CYPRES,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une essence boisée noble, reconnue pour ses propriétés décongestionnantes et tonifiantes, idéale pour restaurer la légèreté et la vitalité cutanée.',
     content: `
@@ -498,7 +498,7 @@ Le **Cyprès Toujours Vert** est le symbole de la vitalité éternelle. En dermo
     slug: INGREDIENT_SLUGS.BISABOLOL,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Actif issu de la Camomille reconnu pour ses vertus calmantes puissantes, idéal pour les peaux sensibles ou irritées.',
     content: `
@@ -606,7 +606,7 @@ Interactions précises avec le microbiote cutané : études récentes montrent n
     slug: INGREDIENT_SLUGS.PORTULACA_OLERACEA,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Plante riche en antioxydants et en oméga-3, connue pour ses propriétés apaisantes et anti-inflammatoires.',
     content: `
@@ -635,7 +635,7 @@ Très présent dans les soins pour peaux sensibles et réactives, notamment en d
     slug: INGREDIENT_SLUGS.CUCUMBER_EXTRACT,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un extrait végétal riche en vitamines et minéraux, idéal pour apaiser les poches et hydrater les zones délicates.',
     content: `
@@ -662,7 +662,7 @@ Il apaise instantanément les peaux échauffées ou fatiguées. Dans un soin con
   {
     name: 'Eau thermale Uriage',
     slug: INGREDIENT_SLUGS.URIAGE_THERMAL_SPRING_WATER,
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Eau thermale isotonique unique, naturellement riche en minéraux et oligo-éléments, qui apaise, hydrate et renforce la barrière cutanée.',
     content: `
@@ -683,7 +683,7 @@ L'Eau thermale Uriage est une eau de cure isotonique, ce qui signifie qu'elle es
   {
     name: 'Asparagopsis Armata Extract',
     slug: INGREDIENT_SLUGS.ASPARAGOPSIS_ARMATA_EXTRACT,
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait d’algue rouge reconnu pour ses propriétés anti-rougeurs et sa capacité à inhiber les médiateurs de l’inflammation.',
     content: `
@@ -703,7 +703,7 @@ Algue rouge de la famille des Bonnemaisoniaceae. En cosmétique, elle est utilis
   {
     name: 'SymSitive (4-t-Butylcyclohexanol)',
     slug: INGREDIENT_SLUGS.SYMSITIVE,
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Régulateur de sensibilité cutanée de nouvelle génération qui agit directement sur les récepteurs sensoriels pour calmer instantanément les sensations d’inconfort.',
     content: `
@@ -725,7 +725,7 @@ Actif breveté par Symrise, conçu pour les peaux hypersensibles.
     slug: INGREDIENT_SLUGS.LICOCHALCONE_A,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Antioxydant et apaisant puissant issu de la réglisse chinoise (Glycyrrhiza Inflata), particulièrement efficace contre les rougeurs induites par les UV.',
     content: `
@@ -745,7 +745,7 @@ Molécule extraite de la racine de Glycyrrhiza Inflata.
   {
     name: 'Aster Tripolium Extract',
     slug: INGREDIENT_SLUGS.ASTER_TRIPOLIUM,
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait d’aster maritime qui renforce la microcirculation et calme les rougeurs diffuses.',
     content: `
@@ -765,7 +765,7 @@ Plante halophyte (résistante au sel) qui survit dans des environnements côtier
   {
     name: 'Sambucus Nigra Flower Extract',
     slug: INGREDIENT_SLUGS.SAMBUCUS_NIGRA,
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait de fleur de sureau noir reconnu pour ses propriétés adoucissantes, apaisantes et drainantes.',
     content: `
@@ -785,7 +785,7 @@ Riche en flavonoïdes et en acides phénoliques.
   {
     name: 'Daucus Carota Sativa Root Extract',
     slug: INGREDIENT_SLUGS.DAUCUS_CAROTA,
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait de carotte riche en bêta-carotène et vitamines, qui apaise, régénère et apporte un effet "bonne mine" naturel.',
     content: `
@@ -807,7 +807,7 @@ Utilisé pour sa richesse en précurseurs de la vitamine A (caroténoïdes).
     slug: INGREDIENT_SLUGS.MADECASSOSIDE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une molécule pure issue de la Centella Asiatica, reconnue pour ses propriétés exceptionnelles dans la cicatrisation et la réduction de l’inflammation.',
     content: `
@@ -835,7 +835,7 @@ Il agit comme un "architecte" de la peau pour refermer les micro-fissures et cal
     slug: INGREDIENT_SLUGS.ROYAL_JELLY_EXTRACT,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un trésor de la ruche riche en nutriments essentiels qui booste la vitalité cellulaire et la synthèse de collagène.',
     content: `
@@ -858,7 +858,7 @@ Il agit comme un "architecte" de la peau pour refermer les micro-fissures et cal
     name: 'Propolis Extract',
     slug: INGREDIENT_SLUGS.PROPOLIS,
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Résine aromatique récoltée par les abeilles, riche en flavonoïdes, aux propriétés apaisantes, cicatrisantes et antibactériennes.',
     content: `# Propolis Extract
@@ -881,7 +881,7 @@ Allergène potentiel chez les personnes sensibles aux produits de la ruche. Cont
     slug: INGREDIENT_SLUGS.ECTOIN,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrémolyte naturel puissant produit par des micro-organismes extrémophiles, Ectoin protège les cellules cutanées contre le stress environnemental, renforce la barrière, hydrate en profondeur, apaise les irritations et offre une défense anti-pollution et anti-UV exceptionnelle.',
     content: `
@@ -928,7 +928,7 @@ Ingrédient biotech signature (Ectoin® natural par bitop), produit par fermenta
     slug: INGREDIENT_SLUGS.MAUVE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Actif émollient et protecteur de référence, idéal pour apaiser les muqueuses et les peaux ultra-sensibles.',
     content: `
@@ -974,7 +974,7 @@ Ingrédient biotech signature (Ectoin® natural par bitop), produit par fermenta
     slug: INGREDIENT_SLUGS.PAQUERETTE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Actif tenseur et éclaircissant de référence, idéal pour redessiner l'ovale du visage et unifier le teint.",
     content: `
@@ -1017,7 +1017,7 @@ Ingrédient biotech signature (Ectoin® natural par bitop), produit par fermenta
     slug: INGREDIENT_SLUGS.MANGANESE_GLUCONATE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "L'oligo-élément catalyseur de la régénération dermique : un booster de la synthèse de collagène et un antioxydant cellulaire majeur pour la résilience cutanée.",
     content: `# Le Gluconate de Manganèse : Le Catalyseur de la Jeunesse Cellulaire
@@ -1067,7 +1067,7 @@ Le Gluconate de Manganèse présente une sécurité d'emploi totale :
     slug: INGREDIENT_SLUGS.BLEUET,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'L’allié délicat du regard et des peaux fragiles : un hydrolat traditionnellement chéri pour apaiser, rafraîchir et décongestionner le contour des yeux, tout en caressant les épidermes sensibles d’une douceur naturelle.',
     content: `# Le Bleuet des Champs : Douceur Bleutée pour le Regard et la Peau
@@ -1136,7 +1136,7 @@ Le Gluconate de Manganèse présente une sécurité d'emploi totale :
     slug: INGREDIENT_SLUGS.HAMAMELIS,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait végétal astringent riche en tanins. Peut apporter un effet tonique et décongestionnant léger, mais nécessite prudence sur peaux sensibles ou rosacée en raison de son potentiel asséchant et irritant.',
     content: `# L’Hamamélis de Virginie : Astringent Botanique à Usage Ciblé
@@ -1270,7 +1270,7 @@ Le Gluconate de Manganèse présente une sécurité d'emploi totale :
     slug: INGREDIENT_SLUGS.EAU_DE_ROSE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Hydrolat aromatique traditionnel aux propriétés légèrement apaisantes et tonifiantes. Apporte une dimension sensorielle mais peut être irritant chez les peaux très réactives ou rosacées.',
     content: `# L'Eau de Rose de Damas : Hydrolat Traditionnel à Usage Cosmétique
@@ -1380,7 +1380,7 @@ Le Gluconate de Manganèse présente une sécurité d'emploi totale :
     slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Plante tropicale signature en dermocosmétique, riche en triterpènes (asiaticoside, madécassoside), réparatrice, apaisante et stimulante de collagène pour peaux sensibles, irritées ou lésées.',
     content: `
@@ -1427,7 +1427,7 @@ Le Gluconate de Manganèse présente une sécurité d'emploi totale :
     slug: INGREDIENT_SLUGS.ASIATICOSIDE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Triterpène signature de Centella asiatica, puissant cicatrisant, stimulant la synthèse de collagène et apaisant pour peaux irritées, sensibles ou lésées.',
     content: `
@@ -1474,7 +1474,7 @@ Le Gluconate de Manganèse présente une sécurité d'emploi totale :
     slug: INGREDIENT_SLUGS.AVENA_SATIVA,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Extrait d'avoine spécifique sélectionné pour sa haute concentration en molécules apaisantes et sa pureté.",
     content: `
@@ -1516,7 +1516,7 @@ Le Gluconate de Manganèse présente une sécurité d'emploi totale :
     slug: INGREDIENT_SLUGS.CALENDULA,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait floral reconnu pour ses vertus apaisantes, anti-inflammatoires et sa capacité à favoriser la réparation cutanée.',
     content: `
@@ -1558,7 +1558,7 @@ Le Gluconate de Manganèse présente une sécurité d'emploi totale :
     slug: INGREDIENT_SLUGS.RHAMNOSE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Sucre végétal haute performance qui réveille les fibroblastes pour relancer la production de collagène et de fibres élastiques.',
     content: `
@@ -1604,7 +1604,7 @@ Le Gluconate de Manganèse présente une sécurité d'emploi totale :
     slug: INGREDIENT_SLUGS.HEARTLEAF,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Plante herbacée originaire d'Asie de l'Est, utilisée depuis des siècles en médecine traditionnelle coréenne et japonaise. Riche en flavonoïdes, polysaccharides et polyphénols, c'est un actif apaisant, antioxydant et antibactérien — star de la K-beauty pour les peaux sensibles et réactives.",
     content: `## Origine & identité
@@ -1667,7 +1667,7 @@ Le Gluconate de Manganèse présente une sécurité d'emploi totale :
     slug: INGREDIENT_SLUGS.ALOE_VERA,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Hydratant exceptionnel et réparateur naturel, riche en vitamines et minéraux pour apaiser et régénérer la peau.',
     content: `
@@ -1721,7 +1721,7 @@ Le Gluconate de Manganèse présente une sécurité d'emploi totale :
     slug: INGREDIENT_SLUGS.EXTRAIT_EPILOBE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait de la plante Epilobium angustifolium (aussi appelée épilobe à feuilles étroites ou fireweed), réputé pour calmer les inflammations et les rougeurs cutanées.',
     content: `
@@ -1751,7 +1751,7 @@ Le Gluconate de Manganèse présente une sécurité d'emploi totale :
     slug: INGREDIENT_SLUGS.EXTRAIT_CAMOMILLE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait des fleurs de camomille (Matricaria chamomilla), reconnu pour ses puissantes propriétés calmantes, anti-inflammatoires et antioxydantes en soin de la peau.',
     content: `
@@ -1781,7 +1781,7 @@ Le Gluconate de Manganèse présente une sécurité d'emploi totale :
     slug: INGREDIENT_SLUGS.TASMANNIA_LANCEOLATA,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait de poivre de Tasmanie aux propriétés apaisantes immédiates, particulièrement efficace contre les démangeaisons et l’inconfort.',
     content: `
@@ -1798,7 +1798,7 @@ L'**Extrait de Tasmannia Lanceolata** (Poivre de Tasmanie) contient de la polygo
     slug: INGREDIENT_SLUGS.ENOXOLONE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Dérivé de l’acide glycyrrhizique (réglisse), reconnu pour son puissant effet anti-inflammatoire et apaisant.',
     content: `
@@ -1815,7 +1815,7 @@ L'**Enoxolone** (Acide Beta-Glycyrrhétinique) est un actif majeur pour traiter 
     slug: INGREDIENT_SLUGS.NEUTRAZEN,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Neuropeptide conçu pour prévenir et réduire les signes de l’inflammation neurophage, idéal pour les peaux ultra-sensibles.',
     content: `
@@ -1832,7 +1832,7 @@ L'**Enoxolone** (Acide Beta-Glycyrrhétinique) est un actif majeur pour traiter 
     slug: INGREDIENT_SLUGS.DIPOTASSIUM_GLYCYRRHIZATE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un sel dérivé de la racine de réglisse, hautement efficace pour apaiser les peaux irritées, réduire les rougeurs et réguler l’inflammation.',
     content: `

@@ -1,5 +1,5 @@
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
-import { INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
+import { SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
 import type { IngredientInput } from '../seed-ingredients'
 
 export const BARRIERE_EMOLLIENTS_OCCLUSIFS: IngredientInput[] = [
@@ -11,7 +11,7 @@ export const BARRIERE_EMOLLIENTS_OCCLUSIFS: IngredientInput[] = [
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Huile légère riche en oméga-3, antioxydante et réparatrice, parfaite pour peaux sèches, sensibles ou inflammées.',
     content: `
@@ -50,7 +50,7 @@ Texture sèche malgré richesse en oméga-3. Synergie avec squalane ou céramide
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "Huile de graines d'églantier régénérante, riche en acides gras essentiels et vitamines, idéale pour cicatriser, hydrater et lutter contre les signes de l'âge.",
     content: `
@@ -88,7 +88,7 @@ Non comédogène malgré sa richesse, elle pénètre vite. Excellente en synergi
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Une huile végétale riche en acides gras insaturés et en vitamine E, très nourrissante et régénérante, idéale pour les peaux sèches et matures.',
     content: `
@@ -119,7 +119,7 @@ L'**huile d'avocat** est extraite de la chair du fruit *Persea gratissima*. C'es
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Un émulsifiant émollient naturel qui stabilise les formules crème et renforce le film hydrolipidique de la peau.',
     content: `
@@ -148,7 +148,7 @@ Le **Glyceryl Stearate** est un ester de glycérol et d'acide stéarique, nature
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "Un alcool gras émollient et épaississant qui nourrit et adoucit la peau sans l'assécher, souvent confondu à tort avec les alcools irritants.",
     content: `
@@ -177,7 +177,7 @@ Malgré son nom, le **Cetearyl Alcohol** n'a rien à voir avec l'alcool éthyliq
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Huile estérifiée issue de la noix de coco, offrant un toucher soyeux non gras et une excellente protection de la barrière cutanée.',
     content: `
@@ -210,7 +210,7 @@ Malgré son nom, le **Cetearyl Alcohol** n'a rien à voir avec l'alcool éthyliq
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Huile végétale riche en Oméga-3 et Vitamine E, idéale pour nourrir intensément et apaiser les peaux sèches à atopiques.',
     content: `
@@ -244,7 +244,7 @@ Malgré son nom, le **Cetearyl Alcohol** n'a rien à voir avec l'alcool éthyliq
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "Humectant synthétique multifonction, qui attire l'humidité et améliore la sensorialité des formules skincare sans alourdir.",
     content: `
@@ -277,7 +277,7 @@ Le **Butylene Glycol** (1,3-butanediol) est un alcool organique léger et non ir
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'L’acide gras le plus abondant de notre film hydrolipidique, essentiel pour la souplesse de la peau et l’absorption des actifs.',
     content: `
@@ -312,7 +312,7 @@ L'**Acide Oléique** est un acide gras mono-insaturé présent dans de nombreuse
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Une huile fluide et pénétrante, riche en lécithine et vitamine E, qui assouplit la peau tout en la protégeant des radicaux libres.',
     content: `
@@ -347,7 +347,7 @@ L'huile de **Glycine Soja** est une source précieuse d'acides gras essentiels e
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Un beurre végétal généreux, riche en polyphénols antioxydants, offrant une protection barrière exceptionnelle et un parfum naturellement gourmand.',
     content: `
@@ -382,7 +382,7 @@ Extrait des fèves de cacao, le **Theobroma Cacao Butter** est l'un des émollie
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Un acide gras essentiel que le corps ne sait pas produire, crucial pour la fluidité du sébum et la santé de la barrière protectrice.',
     content: `
@@ -737,7 +737,7 @@ D’autres points de débat :
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Un lipide intercellulaire essentiel (anciennement Céramide 2) qui renforce le ciment de la peau pour empêcher la déshydratation et l’intrusion d’irritants.',
     content: `
@@ -772,7 +772,7 @@ Le **Ceramide NG** est l'un des piliers du "ciment" de notre barrière cutanée.
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'L’huile la plus riche en acide linoléique, idéale pour apaiser les peaux réactives et traiter les rougeurs grâce à ses propriétés vasoconstrictrices.',
     content: `
@@ -799,7 +799,7 @@ Le **Ceramide NG** est l'un des piliers du "ciment" de notre barrière cutanée.
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Une huile précieuse utilisée par les Japonaises depuis des siècles pour ses vertus antioxydantes, nourrissantes et sa texture ultra-fine.',
     content: `
@@ -826,7 +826,7 @@ Le **Ceramide NG** est l'un des piliers du "ciment" de notre barrière cutanée.
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Un ingrédient naturel protecteur qui forme un film non-occlusif à la surface de la peau pour prévenir le dessèchement.',
     content: `
@@ -853,7 +853,7 @@ Le **Ceramide NG** est l'un des piliers du "ciment" de notre barrière cutanée.
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Une huile illuminatrice qui redonne du peps aux peaux ternes tout en renforçant le film hydrolipidique.',
     content: `
@@ -880,7 +880,7 @@ Le **Ceramide NG** est l'un des piliers du "ciment" de notre barrière cutanée.
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Huile végétale occlusive riche en acides gras saturés (laurique principalement), aux propriétés hydratantes et antimicrobiennes — mais controversée en raison de son potentiel comédogène élevé.',
     content: `
@@ -924,7 +924,7 @@ Le **Ceramide NG** est l'un des piliers du "ciment" de notre barrière cutanée.
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "Huile végétale précieuse, source exceptionnelle d'oméga-6, qui restaure la barrière lipidique et apaise les peaux sèches et atopiques.",
     content: `
@@ -963,7 +963,7 @@ Le **Ceramide NG** est l'un des piliers du "ciment" de notre barrière cutanée.
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Huile végétale dense et protectrice, reconnue pour ses propriétés fortifiantes, adoucissantes et purifiantes.',
     content: `
@@ -1009,7 +1009,7 @@ Le **Ceramide NG** est l'un des piliers du "ciment" de notre barrière cutanée.
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Huile onctueuse et apaisante, idéale pour nourrir les peaux fragiles et prévenir les vergetures.',
     content: `
@@ -1056,7 +1056,7 @@ Le **Ceramide NG** est l'un des piliers du "ciment" de notre barrière cutanée.
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Lipoaminoacide biomimétique apaisant, renforce la barrière et réduit l’inconfort cutané.',
     content: `
@@ -1104,7 +1104,7 @@ Le **Ceramide NG** est l'un des piliers du "ciment" de notre barrière cutanée.
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "Actif relipidant et régénérant d'exception, indispensable pour restaurer la barrière cutanée des peaux sèches à atopiques.",
     content: `
@@ -1150,7 +1150,7 @@ L'huile de Bourrache est particulièrement sensible à l'oxydation ; elle néces
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "L'huile upcyclée antioxydante et régénérante issue des sous-produits viticoles, pour protéger, hydrater et lutter contre le vieillissement des peaux mixtes, grasses et sensibles.",
     content: `
@@ -1199,7 +1199,7 @@ L'huile de Bourrache est particulièrement sensible à l'oxydation ; elle néces
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "L'huile anti-âge la plus puissante et rare, ultra-concentrée en vitamine E et acides gras essentiels, pour régénérer, raffermir et protéger les peaux matures, sèches et sensibles.",
     content: `
@@ -1248,7 +1248,7 @@ L'huile de Bourrache est particulièrement sensible à l'oxydation ; elle néces
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "L'huile-cire mimétique du sébum humain, régulatrice, hydratante et apaisante, parfaite pour équilibrer, réparer et protéger tous les types de peaux, y compris sensibles et atopiques.",
     content: `
@@ -1296,7 +1296,7 @@ L'huile de Bourrache est particulièrement sensible à l'oxydation ; elle néces
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'L’huile nourrissante, réparatrice et antioxydante par excellence, issue de l’arganier marocain, pour hydrater, apaiser et protéger les peaux sèches, sensibles et matures.',
     content: `
@@ -1344,7 +1344,7 @@ L'huile de Bourrache est particulièrement sensible à l'oxydation ; elle néces
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "Le pilier de la barrière cutanée : une source exceptionnelle d'acide linoléique (Omega-6) pour restaurer, nourrir et protéger l'homéostasie des peaux sèches à atopiques. Variante hybride high-oleic disponible pour une stabilité oxydative supérieure et une conservation prolongée des formules.",
     content: `# L'Helianthus Annuus : L'Or Jaune de la Restructuration Lipidique
@@ -1464,7 +1464,7 @@ L'huile de Bourrache est particulièrement sensible à l'oxydation ; elle néces
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Le bouclier protecteur haute performance : un polymère de silicone inerte offrant un fini soyeux inégalé et une protection barrière contre les agressions extérieures.',
     content: `# Le Diméthicone : L'Expert du Conditionnement et de la Protection Cutanée
@@ -1516,7 +1516,7 @@ Le Diméthicone est considéré comme l'un des ingrédients les plus sûrs au mo
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "L'émollient de haute pureté au fini brillant : une alternative synthétique au squalane offrant une protection barrière supérieure et un toucher soyeux.",
     content: `# Le Polyisobutène Hydrogéné : L'Émollient Sublimateur de Barrière
@@ -1568,7 +1568,7 @@ Le Polyisobutène Hydrogéné est l'un des émollients les plus sûrs du répert
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "L'expert de la structuration lipidique : un triglycéride à longue chaîne qui scelle l'hydratation et apporte une onctuosité sophistiquée aux formules barrières.",
     content: `# La Tribehenin : L'Agent de Cohésion et de Protection Cutanée
@@ -1619,7 +1619,7 @@ La Tribehenin n'est pas qu'un simple "épaississant", elle participe activement 
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "L'architecte de la texture et du confort : un ester de glycérol haute performance qui structure les formules et offre un fini velouté longue durée.",
     content: `# Le Glyceryl Dibehenate : L'Agent de Texture aux Vertus Émollientes
@@ -1671,7 +1671,7 @@ Cet ingrédient est reconnu pour son innocuité totale :
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "L'alternative végétale aux silicones : un émolllient au toucher 'dry-touch' exceptionnel qui sublime la sensorialité sans alourdir la formule.",
     content: `# Le Dicaprylyl Ether : L'Élégance Sensorielle Haute Performance
@@ -1723,7 +1723,7 @@ Le Dicaprylyl Ether présente un profil d'innocuité exemplaire :
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "Émollient biomimétique d'exception qui restaure le film hydrolipidique, adoucit la peau et prévient la déshydratation sans fini gras.",
     content: `
@@ -1767,7 +1767,7 @@ Le Dicaprylyl Ether présente un profil d'innocuité exemplaire :
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Actif relipidant et apaisant universel, riche en vitamines et acides gras, idéal pour nourrir et protéger les peaux les plus sèches.',
     content: `
@@ -1812,7 +1812,7 @@ Le Dicaprylyl Ether présente un profil d'innocuité exemplaire :
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Lipide biomimétique fondamental qui rétablit la cohésion de la barrière cutanée et optimise la souplesse des peaux matures et sèches.',
     content: `
@@ -1856,7 +1856,7 @@ Le Dicaprylyl Ether présente un profil d'innocuité exemplaire :
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "Lipides biomimétiques essentiels qui restaurent la barrière cutanée, améliorent l'hydratation profonde et renforcent la résilience des peaux sensibles.",
     content: `
@@ -1901,7 +1901,7 @@ Le Dicaprylyl Ether présente un profil d'innocuité exemplaire :
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Lipide sphingoid naturel et skin-identical, précurseur des céramides, renforçant la barrière cutanée, antimicrobien, anti-inflammatoire et apaisant pour peaux sensibles, atopiques ou acnéiques.',
     content: `
@@ -1951,7 +1951,7 @@ Le Dicaprylyl Ether présente un profil d'innocuité exemplaire :
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description: 'Lipide clé de la barrière cutanée (anciennement Céramide 3).',
     content: `# Céramide NP
 
@@ -1968,7 +1968,7 @@ CERAMIDE NP`,
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description: 'Céramide non-hydroxylé. Composant majeur des lipides intercellulaires.',
     content: `# Céramide NS
 
@@ -1985,7 +1985,7 @@ CERAMIDE NS`,
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description: "Céramide à longue chaîne. Ancre les lamelles lipidiques à l'enveloppe cornée.",
     content: `# Céramide EOP
 
@@ -2002,7 +2002,7 @@ CERAMIDE EOP`,
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description: 'Céramide alpha-hydroxylé. Renforce la cohésion de la barrière cutanée.',
     content: `# Céramide AP
 
@@ -2019,7 +2019,7 @@ CERAMIDE AP`,
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Graisse animale rendue, émollient et occlusif efficace pour les peaux très sèches. Comparable au karité en comportement. Les allégations marketing (similitude au sébum, richesse vitaminique) sont largement exagérées et peu étayées scientifiquement.',
     content: `## Origine
@@ -2101,7 +2101,7 @@ CERAMIDE AP`,
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       "Lipides naturels qui constituent 30 à 40% du poids de la couche cornée et forment le ciment de la barrière cutanée. Retiennent l'hydratation, protègent des agressions et améliorent la pénétration des actifs.",
     content: `## Rôle dans la peau
@@ -2241,7 +2241,7 @@ CERAMIDE AP`,
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Huile d’onagre riche en acides gras essentiels (oméga-6), idéale pour nourrir les peaux sèches et apaiser les inflammations.',
     content: `
@@ -2261,7 +2261,7 @@ L'**Huile d'Onagre** est l'une des sources les plus riches en acide gamma-linol�
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Huile de chanvre riche en oméga-3 et oméga-6 (ratio idéal 1:3), apaisante et réparatrice, adaptée aux peaux sèches, sensibles et atopiques.',
     content: `
@@ -2301,7 +2301,7 @@ L'**Huile de Chanvre** est extraite des graines de cannabis (sans THC ni CBD dan
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Une huile végétale douce et riche en acides gras essentiels, particulièrement appréciée pour son action relipidante et adoucissante sur les peaux fragiles.',
     content: `
@@ -2329,7 +2329,7 @@ L'**Huile de Coton** est extraite des graines de la plante de coton (*Gossypium 
     type: 'skincare',
     type: 'skincare',
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.EMOLLIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Un ester émollient polyvalent offrant une texture soyeuse et une excellente capacité d’étalement, souvent utilisé comme alternative aux silicones.',
     content: `

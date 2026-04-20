@@ -1,4 +1,4 @@
-import { INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
+import { SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
 import type { IngredientInput } from '../seed-ingredients'
 
@@ -8,7 +8,7 @@ export const EXFOLIANTS: IngredientInput[] = [
     slug: INGREDIENT_SLUGS.CITRUS_LIMON_FRUIT_WATER,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Hydrosol de citron obtenu par distillation vapeur, riche en vitamine C, acides citrique et acides de fruits (AHA). Exfoliant doux naturel, purifiant et clarifiant, réduisant pores et prévenant comédons.',
     content: `
@@ -123,7 +123,7 @@ Certification : EWG score 2 (très faible toxicité), CIR rating B (sûr en cosm
     slug: INGREDIENT_SLUGS.CAPRYLOYL_SALICYLIC_ACID,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un dérivé de l’acide salicylique à chaîne grasse, offrant une exfoliation cellule par cellule d’une précision chirurgicale, sans aucune irritation.',
     content: `
@@ -156,7 +156,7 @@ Le **LHA (Lipo-Hydroxy Acid)** est une innovation qui repense le peeling chimiqu
     slug: INGREDIENT_SLUGS.PROTEASE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Enzyme naturelle qui digère les protéines de surface pour éliminer les cellules mortes en douceur, sans irritation acide.',
     content: `
@@ -185,7 +185,7 @@ Alternative idéale aux gommages mécaniques ou chimiques pour les peaux ultra-s
     slug: INGREDIENT_SLUGS.PAPAIN,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Enzyme protéolytique naturelle extraite de la papaye, Papain offre une exfoliation enzymatique douce, élimine les cellules mortes, affine le grain de peau, apaise et illumine tout en étant adaptée aux peaux sensibles.',
     content: `
@@ -238,7 +238,7 @@ Alternative idéale aux gommages mécaniques ou chimiques pour les peaux ultra-s
     slug: INGREDIENT_SLUGS.MALIC_ACID_ESTER,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Dérivé estérifié de l’acide malique, agent conditionneur et modulateur de texture haute tolérance.',
     content: `
@@ -283,7 +283,7 @@ Alternative idéale aux gommages mécaniques ou chimiques pour les peaux ultra-s
     slug: INGREDIENT_SLUGS.PHA,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "PHA (polyhydroxy acid) dérivé de l'acide gluconique, naturellement présent dans les fruits, le miel et le vin. Exfoliant chimique de nouvelle génération — plus doux que les AHAs grâce à sa grande molécule, avec en bonus des propriétés humectantes, antioxydantes et chélatantes.",
     content: `## Mécanisme d'action
@@ -350,7 +350,7 @@ Alternative idéale aux gommages mécaniques ou chimiques pour les peaux ultra-s
     slug: INGREDIENT_SLUGS.GLYCOLIC_ACID,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description: 'AHA le plus petit, exfolie en surface pour lisser et éclaircir le teint.',
     content: `
      # Acide Glycolique
@@ -610,7 +610,7 @@ Alternative idéale aux gommages mécaniques ou chimiques pour les peaux ultra-s
     slug: INGREDIENT_SLUGS.LACTIC_ACID,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description: 'AHA hydratant, doux exfoliant et humectant.',
     content: `
      # Acide Lactique
@@ -688,7 +688,7 @@ Alternative idéale aux gommages mécaniques ou chimiques pour les peaux ultra-s
     slug: INGREDIENT_SLUGS.MANDELIC_ACID,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Le plus doux des AHA. Exfolie en surface, purifie les pores et unifie le teint, idéal pour les peaux sensibles ou mates.',
     content: `
@@ -727,7 +727,7 @@ Alternative idéale aux gommages mécaniques ou chimiques pour les peaux ultra-s
     slug: INGREDIENT_SLUGS.AHA_ESTERS,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Esters d’AHA à libération prolongée pour une exfoliation douce et continue sans irritation.',
     content: `
@@ -744,7 +744,7 @@ Les **AHA Esters** sont des formes estérifiées d'acides hydroxy-carboxyliques.
     slug: INGREDIENT_SLUGS.ESTER_ACIDE_MALIQUE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'AHA doux à libération modérée qui lisse le grain de peau tout en maintenant l’hydratation.',
     content: `
@@ -761,7 +761,7 @@ L'**Ester d'Acide Malique** combine les bienfaits de l'acide malique (issu des f
     slug: INGREDIENT_SLUGS.AMMONIUM_LACTATE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Kératolytique doux et hydratant, particulièrement efficace pour les peaux sèches et rugueuses.',
     content: `
@@ -778,7 +778,7 @@ L'**Ammonium Lactate** est un sel d'acide lactique reconnu pour sa double action
     slug: INGREDIENT_SLUGS.PHYTIC_ACID,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Acide phytique, antioxydant et chélateur de métaux, offrant une exfoliation très douce et protectrice.',
     content: `
@@ -795,7 +795,7 @@ L'**Acide Phytique** est un ingrédient multifonctionnel. En plus de ses propri�
     slug: INGREDIENT_SLUGS.MALIC_ACID,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un AHA naturel issu des pommes, offrant une exfoliation douce tout en favorisant le métabolisme énergétique cellulaire.',
     content: `
@@ -820,7 +820,7 @@ L'**Acide Malique** est un acide alpha-hydroxylé (AHA) que l'on trouve naturell
     slug: INGREDIENT_SLUGS.SUCCINIC_ACID,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un actif polyvalent aux propriétés antibactériennes et exfoliantes douces, idéal pour les peaux sujettes aux imperfections.',
     content: `

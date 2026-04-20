@@ -1,4 +1,4 @@
-import { INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
+import { SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
 import type { IngredientInput } from '../seed-ingredients'
 
@@ -8,7 +8,7 @@ export const ANTIOXYDANTS_VITAMINES: IngredientInput[] = [
     slug: INGREDIENT_SLUGS.BEET_ROOT_EXTRACT,
     type: 'skincare',
 
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait de betterave riche en antioxydants et vitamines, hydrate, illumine et protège la peau.',
     content: `
@@ -44,7 +44,7 @@ Souvent utilisé pour couleur naturelle + antioxydants. Synergie avec vitamine C
     slug: INGREDIENT_SLUGS.GARDENIA_FRUIT_EXTRACT,
     type: 'skincare',
 
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait de fruit aux propriétés antioxydantes et protectrices, illumine, apaise et protège contre la lumière bleue et le stress environnemental.',
     content: `
@@ -79,7 +79,7 @@ Effet melatonin-like pour protection nocturne. Synergie avec antioxydants comme 
     slug: INGREDIENT_SLUGS.HIBISCUS_SABDARIFFA,
     type: 'skincare',
 
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Extrait floral riche en antioxydants et acides organiques, utilisé pour booster l'éclat, raffermir et protéger la peau contre le vieillissement oxydatif.",
     content: `
@@ -115,7 +115,7 @@ L'hibiscus sabdariffa excelle en synergie avec la vitamine C ou les niacinamides
     slug: INGREDIENT_SLUGS.VITAMIN_K1,
     type: 'skincare',
 
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une vitamine essentielle pour la micro-circulation, reconnue pour atténuer les rougeurs diffuses et les cernes vasculaires.',
     content: `
@@ -147,7 +147,7 @@ La **Vitamine K1** est un actif liposoluble célèbre pour son action sur la coa
     slug: INGREDIENT_SLUGS.FERULIC_ACID,
     type: 'skincare',
 
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un antioxydant végétal puissant qui neutralise les radicaux libres et booste l’efficacité des vitamines C et E.',
     content: `
@@ -179,7 +179,7 @@ La **Vitamine K1** est un actif liposoluble célèbre pour son action sur la coa
     slug: INGREDIENT_SLUGS.ASTAXANTHINE,
     type: 'skincare',
 
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une micro-algue d’eau douce, source de l’astaxanthine, l’antioxydant le plus puissant de la nature, protégeant la peau contre le stress oxydatif et le vieillissement prématuré.',
     content: `
@@ -334,7 +334,7 @@ L'**Haematococcus Pluvialis** est une micro-algue capable de synthétiser l'asta
     slug: INGREDIENT_SLUGS.PUNICA_GRANATUM,
     type: 'skincare',
 
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un "super-fruit" riche en acide punicique et en polyphénols, offrant une action régénérante intense et un soutien précieux aux peaux matures.',
     content: `
@@ -366,7 +366,7 @@ Utilisée depuis l'Antiquité, la **Grenade** est un concentré de vitalité pou
     slug: INGREDIENT_SLUGS.ERGOTHIONEINE,
     type: 'skincare',
 
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Acide aminé rare d’origine fongique qui protège les mitochondries et prévient le vieillissement prématuré lié aux UV et à la pollution.',
     content: `
@@ -395,7 +395,7 @@ Ingrédient de prestige utilisé pour la protection urbaine et la longévité ce
     slug: INGREDIENT_SLUGS.PANAX_GINSENG,
     type: 'skincare',
 
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Racine adaptogène légendaire qui booste la microcirculation, stimule la production de collagène et revitalise les peaux fatiguées.',
     content: `
@@ -424,7 +424,7 @@ C'est l'ingrédient phare des soins revitalisants et des cures "anti-fatigue". I
     slug: INGREDIENT_SLUGS.NAD,
     type: 'skincare',
 
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Coenzyme essentielle au métabolisme énergétique cellulaire, elle aide à réparer l’ADN et à ralentir le vieillissement biologique.',
     content: `
@@ -453,7 +453,7 @@ Actif de pointe en "Longevity Science", utilisé dans les formules premium pour 
     slug: INGREDIENT_SLUGS.CYANOCOBALAMIN,
     type: 'skincare',
 
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Vitamine essentielle reconnaissable à sa couleur rose naturelle, elle apaise les inflammations chroniques comme l’eczéma ou la rosacée.',
     content: `
@@ -582,7 +582,7 @@ La vitamine B12 s'impose en 2026 comme l'actif "expert" pour les peaux fragiles 
     slug: INGREDIENT_SLUGS.COQ10,
     type: 'skincare',
 
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Puissant antioxydant naturellement présent dans la peau qui protège contre le stress oxydatif et booste l’énergie cellulaire.',
     content: `
@@ -611,7 +611,7 @@ Idéal pour prévenir le vieillissement prématuré, revitaliser les teints tern
     slug: INGREDIENT_SLUGS.RIBOSE,
     type: 'skincare',
 
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Sucre naturel (pentose) qui stimule la synthèse d’ATP pour redonner de l’énergie et de l’éclat aux cellules cutanées.',
     content: `
@@ -640,7 +640,7 @@ Particulièrement efficace dans les soins "anti-fatigue" pour restaurer une appa
     slug: INGREDIENT_SLUGS.TOCOPHERYL_ACETATE,
     type: 'skincare',
 
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Forme stabilisée de la vitamine E, utilisée pour protéger la peau du stress oxydatif et renforcer la barrière cutanée.',
     content: `
@@ -683,7 +683,7 @@ Il est particulièrement utile pour stabiliser les formules riches en acides gra
     slug: INGREDIENT_SLUGS.RESVERATROL,
     type: 'skincare',
 
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Polyphénol antioxydant puissant issu notamment du raisin, aux propriétés anti-âge, anti-inflammatoires et photoprotectrices. Sirotuines-activateur avec un recul clinique croissant en cosmétique.',
     content: `
@@ -723,7 +723,7 @@ Il est particulièrement utile pour stabiliser les formules riches en acides gra
     slug: INGREDIENT_SLUGS.TOCOPHERYL_GLUCOSIDE,
     type: 'skincare',
 
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Précurseur photostable de la Vitamine E offrant une protection antioxydante continue et prolongée contre le stress oxydatif.',
     content: `
@@ -758,7 +758,7 @@ Il est particulièrement utile pour stabiliser les formules riches en acides gra
     slug: INGREDIENT_SLUGS.CURCUMA_LONGA_ROOT_EXTRACT,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Puissant antioxydant et anti-inflammatoire naturel qui booste l'éclat du teint et protège la peau du stress oxydatif.",
     content: `
@@ -801,7 +801,7 @@ Il est particulièrement utile pour stabiliser les formules riches en acides gra
     slug: INGREDIENT_SLUGS.ASCOPHYLLUM_NODOSUM_EXTRACT,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Algue précieuse aux vertus détoxifiantes et éclaircissantes, idéale pour drainer les poches et illuminer le regard.',
     content: `
@@ -844,7 +844,7 @@ Il est particulièrement utile pour stabiliser les formules riches en acides gra
     slug: INGREDIENT_SLUGS.ROMARIN,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Actif antioxydant et purifiant puissant, idéal pour protéger la peau du stress oxydatif et réguler les peaux mixtes.',
     content: `
@@ -888,7 +888,7 @@ Il est particulièrement utile pour stabiliser les formules riches en acides gra
     slug: INGREDIENT_SLUGS.SALVIA_MILTIORRHIZA,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "L'actif d'élite de la pharmacopée asiatique : un régulateur de la microcirculation et un bouclier anti-inflammatoire pour les peaux sensibles et urbaines.",
     content: `# La Sauge Rouge (Danshen) : L'Or Pourpre de la Neuro-Cosmétique
@@ -941,7 +941,7 @@ Cet extrait est reconnu pour son excellente tolérance cutanée :
     slug: INGREDIENT_SLUGS.CARNOSINE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Le bouclier anti-glycation par excellence : un dipeptide biomimétique protégeant le collagène du vieillissement prématuré et du stress oxydatif.',
     content: `# La Carnosine : Gardienne de l'Architecture Dermique
@@ -992,7 +992,7 @@ La carnosine brille par son profil de sécurité exceptionnel :
     slug: INGREDIENT_SLUGS.HELICHRYSE_IMMORTELLE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "L'actif botanique d'exception du maquis méditerranéen : une signature biochimique unique dominée par les italidiones et l'acétate de néryle, offrant une action anti-hématome sans équivalent, un soutien documenté de la microcirculation, une stimulation de la synthèse de céramides et d'acide hyaluronique endogène, et une protection anti-oxydante dermique de premier plan.",
     content: `# L'Hélichryse Italienne : L'Or Corse de la Régénération Vasculaire et Cutanée
@@ -1384,7 +1384,7 @@ La carnosine brille par son profil de sécurité exceptionnel :
     slug: INGREDIENT_SLUGS.TOCOPHEROL,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Vitamine E liposoluble naturelle, puissant antioxydant qui protège les lipides cutanés contre le stress oxydatif, renforce la barrière et apaise les peaux sensibles ou exposées aux agressions environnementales.',
     content: `
@@ -1431,7 +1431,7 @@ La carnosine brille par son profil de sécurité exceptionnel :
     slug: INGREDIENT_SLUGS.SCHISANDRA,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Baie adaptogène riche en lignanes, utilisée pour réduire les rougeurs chroniques et protéger la peau du stress oxydatif.',
     content: `
@@ -1472,7 +1472,7 @@ La carnosine brille par son profil de sécurité exceptionnel :
     slug: INGREDIENT_SLUGS.PLANKTON_EXTRACT,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Actif d’origine marine riche en nutriments, utilisé pour ses propriétés apaisantes, régénérantes et protectrices.',
     content: `
@@ -1514,7 +1514,7 @@ La carnosine brille par son profil de sécurité exceptionnel :
     slug: INGREDIENT_SLUGS.VACCINIUM_MYRTILLUS,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait végétal riche en anthocyanes, utilisé pour protéger les micro-vaisseaux et lutter contre le stress oxydatif.',
     content: `
@@ -1555,7 +1555,7 @@ La carnosine brille par son profil de sécurité exceptionnel :
     slug: INGREDIENT_SLUGS.HUILE_ARGOUSIER,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait végétal riche en vitamines C et E, caroténoïdes et acides gras, utilisé pour ses propriétés antioxydantes et régénérantes.',
     content: `
@@ -1596,7 +1596,7 @@ La carnosine brille par son profil de sécurité exceptionnel :
     slug: INGREDIENT_SLUGS.VITAMIN_C,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description: 'Antioxydant puissant qui illumine et protège contre les radicaux libres.',
     content: `
      # Vitamine C
@@ -2250,7 +2250,7 @@ La carnosine brille par son profil de sécurité exceptionnel :
     slug: INGREDIENT_SLUGS.ASCORBYL_GLUCOSIDE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description: 'Dérivé stable et doux, libère lentement la vitamine C pour un éclat progressif.',
     content: `# Ascorbyl Glucoside
 
@@ -2267,7 +2267,7 @@ ASCORBYL GLUCOSIDE
     slug: INGREDIENT_SLUGS.SODIUM_ASCORBYL_PHOSPHATE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description: 'Dérivé stable, anti-acné et brighten, très doux pour peaux sensibles.',
     content: `# Sodium Ascorbyl Phosphate
 
@@ -2284,7 +2284,7 @@ SODIUM ASCORBYL PHOSPHATE
     slug: INGREDIENT_SLUGS.MAGNESIUM_ASCORBYL_PHOSPHATE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description: 'Dérivé stable et hydratant, booste collagène et hydrate.',
     content: `# Magnesium Ascorbyl Phosphate
 
@@ -2301,7 +2301,7 @@ MAGNESIUM ASCORBYL PHOSPHATE
     slug: INGREDIENT_SLUGS.THD_ASCORBATE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Dérivé liposoluble stable de vitamine C : pénétration profonde, éclat, réduction taches et anti-âge doux. Faible irritation, idéal peaux sèches/sensibles, mais antioxydant in vitro limité.',
     content: `
@@ -2509,7 +2509,7 @@ MAGNESIUM ASCORBYL PHOSPHATE
     slug: INGREDIENT_SLUGS.THREE_O_ETHYL_ASCORBIC_ACID,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description: 'Dérivé éthylé ultra-stable, bonne pénétration et activité proche de la pure.',
     content: `# 3-O-Ethyl Ascorbic Acid
 
@@ -2526,7 +2526,7 @@ Dérivé liposoluble/hydrosoluble hybride, très stable, pénètre efficacement,
     slug: INGREDIENT_SLUGS.ASCORBYL_PALMITATE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description: 'Dérivé liposoluble basique, antioxydant dans les formules huileuses.',
     content: `# Ascorbyl Palmitate
 
@@ -2543,7 +2543,7 @@ ASCORBYL PALMITATE
     slug: INGREDIENT_SLUGS.GREEN_TEA,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Puissant antioxydant naturel riche en polyphénols, idéal pour apaiser, protéger et purifier la peau.',
     content: `
@@ -2604,7 +2604,7 @@ ASCORBYL PALMITATE
     slug: INGREDIENT_SLUGS.GLYCERYL_ASCORBATE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Dérivé stable et hydrophile de la vitamine C, combinant les bénéfices antioxydants de l\'ascorbate avec les propriétés hydratantes du glycérol.',
     content: `
@@ -2641,7 +2641,7 @@ Cette forme est parfois commercialisée sous des noms propriétaires. Elle repr�
     slug: INGREDIENT_SLUGS.EPIGALLOCATECHIN_GALLATYL_GLUCOSIDE,
 
     type: 'skincare',
-    category: INGREDIENT_CATEGORIES.ACTIF,
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une forme stabilisée de l’EGCG, le polyphénol le plus actif du thé vert, offrant des propriétés antioxydantes et anti-inflammatoires exceptionnelles.',
     content: `

@@ -1,5 +1,5 @@
 import { FILLERS as FILLER_SLUGS } from '../ingredient-slugs'
-import { INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
+import { SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
 import type { IngredientInput } from '../seed-ingredients'
 
 export const FILLERS: IngredientInput[] = [
@@ -7,7 +7,7 @@ export const FILLERS: IngredientInput[] = [
   {
     name: 'Aqua (Water)',
     slug: FILLER_SLUGS.AQUA,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: 'Solvant universel et phase aqueuse de base de la quasi-totalité des formules cosmétiques.',
     content: `# Aqua (Water)
 
@@ -26,7 +26,7 @@ Inerte. Aucune contre-indication connue.`,
   {
     name: 'Propanediol',
     slug: FILLER_SLUGS.PROPANEDIOL,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       "Solvant et véhicule d'origine végétale (maïs), alternatif naturel au propylène glycol.",
     content: `# Propanediol
@@ -48,7 +48,7 @@ Excellente. Non irritant, non comédogène.`,
   {
     name: 'Citric Acid',
     slug: FILLER_SLUGS.CITRIC_ACID,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: 'Acide organique naturel utilisé en traces pour ajuster le pH des formules.',
     content: `# Citric Acid
 
@@ -67,7 +67,7 @@ Inerte aux concentrations d'usage. Ne pas confondre avec un usage exfoliant (né
   {
     name: 'Sodium Hydroxide',
     slug: FILLER_SLUGS.SODIUM_HYDROXIDE,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: 'Base forte utilisée pour neutraliser les acides et ajuster le pH dans les formules.',
     content: `# Sodium Hydroxide
 
@@ -86,7 +86,7 @@ Sans risque dans un produit fini correctement formulé.`,
   {
     name: 'Potassium Hydroxide',
     slug: FILLER_SLUGS.POTASSIUM_HYDROXIDE,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: 'Base forte utilisée pour ajuster le pH, notamment dans les crèmes et savons.',
     content: `# Potassium Hydroxide
 
@@ -105,7 +105,7 @@ Inerte dans le produit formulé.`,
   {
     name: 'Triethanolamine',
     slug: FILLER_SLUGS.TRIETHANOLAMINE,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: 'Base organique classique pour ajuster le pH des formules gélifiées au carbomer.',
     content: `# Triethanolamine (TEA)
 
@@ -124,7 +124,7 @@ Bonne à l'usage normal. Des questions sur son potentiel allergisant existent à
   {
     name: 'Tromethamine',
     slug: FILLER_SLUGS.TROMETHAMINE,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: 'Base organique douce utilisée pour neutraliser les gélifiants et ajuster le pH.',
     content: `# Tromethamine (TRIS)
 
@@ -143,7 +143,7 @@ Excellente. Non irritant, non sensibilisant aux concentrations d'usage.`,
   {
     name: 'Sodium Citrate',
     slug: FILLER_SLUGS.SODIUM_CITRATE,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       "Sel de sodium de l'acide citrique utilisé comme tampon pour stabiliser le pH.",
     content: `# Sodium Citrate
@@ -163,7 +163,7 @@ Inerte. Aucune contre-indication.`,
   {
     name: 'Disodium EDTA',
     slug: FILLER_SLUGS.DISODIUM_EDTA,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: 'Chélateur séquestrant les ions métalliques pour stabiliser les formules.',
     content: `# Disodium EDTA
 
@@ -182,7 +182,7 @@ Inerte aux concentrations d'usage. Aucune action pharmacologique sur la peau.`,
   {
     name: 'Tetrasodium EDTA',
     slug: FILLER_SLUGS.TETRASODIUM_EDTA,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: "Version tétrabasique de l'EDTA, chélateur de métaux dans les formules aqueuses.",
     content: `# Tetrasodium EDTA
 
@@ -203,7 +203,7 @@ Inerte aux concentrations d'usage.`,
   {
     name: 'Carbomer',
     slug: FILLER_SLUGS.CARBOMER,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: 'Polymère acrylique inerte qui forme des gels transparents une fois neutralisé.',
     content: `# Carbomer
 
@@ -222,7 +222,7 @@ Excellente. L'un des gélifiants les mieux tolérés, y compris sur peaux sensib
   {
     name: 'Xanthan Gum',
     slug: FILLER_SLUGS.XANTHAN_GUM,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: 'Polysaccharide naturel issu de la fermentation, utilisé pour épaissir et texturer.',
     content: `# Xanthan Gum
 
@@ -241,7 +241,7 @@ Excellente. Non irritant, non sensibilisant. Convient aux peaux sensibles.`,
   {
     name: 'Acrylates/C10-30 Alkyl Acrylate Crosspolymer',
     slug: FILLER_SLUGS.ACRYLATES_CROSSPOLYMER,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: 'Gélifiant polymère permettant des textures légères, non grasses, très tolérées.',
     content: `# Acrylates/C10-30 Alkyl Acrylate Crosspolymer
 
@@ -260,7 +260,7 @@ Très bonne. Couramment utilisé dans les soins pour peaux sensibles et acnéiqu
   {
     name: 'Hydroxyethylcellulose',
     slug: FILLER_SLUGS.HYDROXYETHYLCELLULOSE,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: "Épaississant cellulosique d'origine naturelle, inerte et très bien toléré.",
     content: `# Hydroxyethylcellulose
 
@@ -279,7 +279,7 @@ Inerte. Aucun potentiel irritant ou sensibilisant connu.`,
   {
     name: 'Hydroxypropyl Methylcellulose',
     slug: FILLER_SLUGS.HYDROXYPROPYL_METHYLCELLULOSE,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: 'Épaississant cellulosique utilisé pour texturer les formules aqueuses.',
     content: `# Hydroxypropyl Methylcellulose (HPMC)
 
@@ -298,7 +298,7 @@ Inerte. Hypoallergénique.`,
   {
     name: 'Sodium Polyacrylate',
     slug: FILLER_SLUGS.SODIUM_POLYACRYLATE,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: 'Super-absorbant polymérique utilisé pour les textures gel aériennes et légères.',
     content: `# Sodium Polyacrylate
 
@@ -317,7 +317,7 @@ Très bonne. Utilisé dans les soins pour peaux sensibles et les gels anti-âge 
   {
     name: 'Sclerotium Gum',
     slug: FILLER_SLUGS.SCLEROTIUM_GUM,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: 'Polysaccharide issu de la fermentation fongique, alternatif naturel au carbomer.',
     content: `# Sclerotium Gum
 
@@ -338,7 +338,7 @@ Excellente. Non irritant.`,
   {
     name: 'Cetyl Alcohol',
     slug: FILLER_SLUGS.CETYL_ALCOHOL,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: 'Alcool gras solide structurant les émulsions, émollient doux et non asséchant.',
     content: `# Cetyl Alcohol
 
@@ -357,7 +357,7 @@ Très bonne. Non irritant, non comédogène. Rare sensibilisation possible chez 
   {
     name: 'Stearyl Alcohol',
     slug: FILLER_SLUGS.STEARYL_ALCOHOL,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: 'Alcool gras en C18 structurant les crèmes épaisses, émollient léger.',
     content: `# Stearyl Alcohol
 
@@ -376,7 +376,7 @@ Très bonne. Même profil de tolérance que le cetyl alcohol.`,
   {
     name: 'Behenyl Alcohol',
     slug: FILLER_SLUGS.BEHENYL_ALCOHOL,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: 'Alcool gras en C22 utilisé dans les crèmes riches et les soins capillaires.',
     content: `# Behenyl Alcohol
 
@@ -395,7 +395,7 @@ Excellente. Non comédogène, non irritant.`,
   {
     name: 'PEG-100 Stearate',
     slug: FILLER_SLUGS.PEG_100_STEARATE,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: 'Émulsifiant non ionique classique pour émulsions H/E stables et douces.',
     content: `# PEG-100 Stearate
 
@@ -414,7 +414,7 @@ Très bonne. Inerte aux concentrations d'usage.`,
   {
     name: 'Ceteareth-20',
     slug: FILLER_SLUGS.CETEARETH_20,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: "Émulsifiant éthoxylé pour émulsions stables, souvent associé à l'alcool cétéarylique.",
     content: `# Ceteareth-20
 
@@ -435,7 +435,7 @@ Bonne. Inerte cutanément. La présence potentielle de 1,4-dioxane (impureté de
   {
     name: 'Dimethiconol',
     slug: FILLER_SLUGS.DIMETHICONOL,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: 'Silicone hydroxylé apportant lissage et protection de surface.',
     content: `# Dimethiconol
 
@@ -454,7 +454,7 @@ Inerte. Non comédogène aux concentrations habituelles.`,
   {
     name: 'Cyclopentasiloxane (D5)',
     slug: FILLER_SLUGS.CYCLOPENTASILOXANE,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: "Silicone cyclique volatil vecteur d'actifs, texture ultra-légère.",
     content: `# Cyclopentasiloxane (D5)
 
@@ -473,7 +473,7 @@ Excellente sur la peau. Préoccupations environnementales (bioaccumulation) entr
   {
     name: 'Cyclohexasiloxane (D6)',
     slug: FILLER_SLUGS.CYCLOHEXASILOXANE,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: 'Silicone cyclique volatil similaire au D5, vecteur léger.',
     content: `# Cyclohexasiloxane (D6)
 
@@ -492,7 +492,7 @@ Inerte cutanément.`,
   {
     name: 'Phenyl Trimethicone',
     slug: FILLER_SLUGS.PHENYL_TRIMETHICONE,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: 'Silicone non volatil apportant brillance et protection occlusive légère.',
     content: `# Phenyl Trimethicone
 
@@ -513,7 +513,7 @@ Excellente. Inerte, non irritant.`,
   {
     name: 'Mineral Oil (Paraffinum Liquidum)',
     slug: FILLER_SLUGS.MINERAL_OIL,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: 'Huile minérale occlusive inerte, protège la barrière cutanée en limitant la TEWL.',
     content: `# Mineral Oil (Paraffinum Liquidum)
 
@@ -532,7 +532,7 @@ Excellente. C'est l'un des ingrédients les mieux tolérés en dermatologie. Non
   {
     name: 'Petrolatum',
     slug: FILLER_SLUGS.PETROLATUM,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: 'Occlusif de référence (vaseline), le plus efficace pour limiter la perte en eau.',
     content: `# Petrolatum (Vaseline)
 
@@ -551,7 +551,7 @@ Excellente. Inerte, hypoallergénique. Recommandé en dermatologie pédiatrique.
   {
     name: 'Isohexadecane',
     slug: FILLER_SLUGS.ISOHEXADECANE,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: 'Hydrocarbure isoparaffinique léger, véhicule non gras pour actifs lipophiles.',
     content: `# Isohexadecane
 
@@ -570,7 +570,7 @@ Excellente. Inerte, non comédogène.`,
   {
     name: 'Isododecane',
     slug: FILLER_SLUGS.ISODODECANE,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: 'Solvant volatile léger utilisé dans les produits de maquillage et les fonds de teint.',
     content: `# Isododecane
 
@@ -591,7 +591,7 @@ Inerte. Non irritant aux concentrations habituelles.`,
   {
     name: 'Dicaprylyl Carbonate',
     slug: FILLER_SLUGS.DICAPRYLYL_CARBONATE,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: 'Émollient ester léger à toucher sec, alternative aux silicones pour textures fluides.',
     content: `# Dicaprylyl Carbonate
 
@@ -610,7 +610,7 @@ Excellente. Non comédogène, bien toléré.`,
   {
     name: 'Coco-Caprylate/Caprate',
     slug: FILLER_SLUGS.COCO_CAPRYLATE_CAPRATE,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: "Ester naturel d'huile de coco, émollient léger à toucher sec et soyeux.",
     content: `# Coco-Caprylate/Caprate
 
@@ -631,7 +631,7 @@ Excellente. Non comédogène, certifiable COSMOS.`,
   {
     name: 'Sodium Chloride',
     slug: FILLER_SLUGS.SODIUM_CHLORIDE,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: 'Sel de table. Ajuste la viscosité et la tonicité des formules aqueuses.',
     content: `# Sodium Chloride
 
@@ -650,7 +650,7 @@ Inerte. Aucune contre-indication.`,
   {
     name: 'Potassium Chloride',
     slug: FILLER_SLUGS.POTASSIUM_CHLORIDE,
-    category: INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: 'Sel de potassium utilisé pour ajuster la tonicité des formules.',
     content: `# Potassium Chloride
 
