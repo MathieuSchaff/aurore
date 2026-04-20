@@ -16,12 +16,14 @@ ingredients/
 ├── skincare/              # Ingredients topiques peau
 │   ├── index.ts           # exporte skincareIngredients
 │   ├── ingredient-slugs.ts  # Groupes de slugs skincare (HUMECTANTS, RETINOIDES, …)
+│   ├── ingredient-tags.ts   # Mappings slug → tags (primary/secondary/avoid) pour skincare
 │   ├── humectants.ts
 │   ├── retinoides.ts
 │   └── ...
 ├── supplements/           # Complements alimentaires oraux
 │   ├── index.ts           # exporte supplementIngredients
 │   ├── ingredient-slugs.ts  # Groupes de slugs supplements (SUPPLEMENTS_VITAMINES, …)
+│   ├── ingredient-tags.ts   # Mappings slug → tags (primary/secondary/avoid) pour supplements
 │   ├── astaxanthine.ts
 │   ├── berberine.ts
 │   ├── beta-carotene.ts
@@ -38,10 +40,12 @@ ingredients/
 │   └── ...
 ├── haircare/              # Ingredients capillaires
 │   ├── index.ts           # exporte haircareIngredients
-│   └── ingredient-slugs.ts  # Groupes de slugs haircare (HAIR_CONDITIONNEURS, …)
+│   ├── ingredient-slugs.ts  # Groupes de slugs haircare (HAIR_CONDITIONNEURS, …)
+│   └── ingredient-tags.ts   # Mappings slug → tags (primary/secondary/avoid) pour haircare
 └── dental/                # Ingredients bucco-dentaires
     ├── index.ts           # exporte dentalIngredients
-    └── ingredient-slugs.ts  # Groupes de slugs dental (DENTAL_ABRASIFS, …)
+    ├── ingredient-slugs.ts  # Groupes de slugs dental (DENTAL_ABRASIFS, …)
+    └── ingredient-tags.ts   # Mappings slug → tags (primary/secondary/avoid) pour dental
 ```
 
 **Regle** : chaque fichier seed va dans le dossier correspondant a son `type`.
@@ -193,6 +197,26 @@ export const ingredientData: IngredientInput[] = [
 ]
 ```
 
+### Etape 5 : Associer des tags (optionnel)
+
+Si l'ingredient merite des tags (primary/secondary/avoid), ajouter une entree dans
+le fichier `ingredients/<domaine>/ingredient-tags.ts`, par exemple :
+
+```ts
+[INGREDIENT_SLUGS.BIOTINE]: {
+  primary: [TAG_SLUGS.ANTI_CHUTE, TAG_SLUGS.KERATINE],
+  secondary: [TAG_SLUGS.ONGLES, TAG_SLUGS.PEAU_ORALE],
+  avoid: [],
+},
+```
+
+Les regles strictes (scopes autorises, convention comedogene, regle `avoid`)
+sont documentees en tete de `ingredient-tags/index.ts`. A lire avant de tagger
+un ingredient.
+
+L'agregat `ingredientTagMap` est reconstruit automatiquement a partir des
+quatre fichiers de domaine — inutile de toucher `ingredient-tags/index.ts`.
+
 ---
 
 ## 6. Regles de contenu
@@ -211,6 +235,7 @@ export const ingredientData: IngredientInput[] = [
 |---------|--------|
 | `seed-ingredients.ts` | Type `IngredientInput` — source de verite |
 | `ingredient-slugs.ts` (racine) | Re-export + agregat. Pour ajouter un slug, editer `<domaine>/ingredient-slugs.ts` a la place. |
+| `ingredient-tags/index.ts` (shell) | Re-export + agregat. Pour ajouter un tag mapping, editer `<domaine>/ingredient-tags.ts` a la place. |
 
 ---
 
