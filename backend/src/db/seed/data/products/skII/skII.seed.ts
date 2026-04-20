@@ -1,0 +1,80 @@
+import type { UnifiedProductSeed } from '../types'
+import { TAG_SLUGS } from '../../../data/tags'
+import { INGREDIENT_SLUGS } from '../../../data/ingredients/ingredient-slugs'
+
+export const SK_II_SEED: UnifiedProductSeed[] = [
+  {
+    name: 'Brightening Derm Revival Mask',
+    brand: 'SK-II',
+    kind: 'mask',
+    unit: 'pack',
+    slug: 'sk-ii-brightening-derm-revival-mask',
+    totalAmount: 10,
+    amountUnit: 'ct',
+    priceCents: 0,
+    description: `Un masque en tissu intensif qui cible les taches brunes et le teint terne pour révéler un éclat cristallin.`,
+    notes: `Enrichi en Pitera et Niacinamide, idéal pour les peaux en quête de luminosité.`,
+    inci: 'ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, ASCORBYL GLUCOSIDE, BENZYL ALCOHOL, BUTYLENE GLYCOL, DISODIUM EDTA, GALACTOMYCES FERMENT FILTRATE, GLYCERIN, INOSITOL, METHYLPARABEN, NIACINAMIDE, PENTYLENE GLYCOL, PHENOXYETHANOL, SODIUM HYDROXIDE, WATER, YEAST EXTRACT',
+    url: 'https://www.skinsafeproducts.com/sk-ii-brightening-derm-revival-masks-10-count',
+    imageUrl: 'https://cdn1.skinsafeproducts.com/photo/77BE7E9BB88C1B/large_1731099267.jpeg?1731099267',
+    tags: {
+      primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES],
+      secondary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
+      avoid: [],
+    },
+    keyIngredients: [
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: 'Éclat et barrière' },
+      { slug: INGREDIENT_SLUGS.GALACTOMYCES_FERMENT_FILTRATE, notes: 'Pitera - Actif signature' },
+    ],
+  },
+  {
+    name: 'Facial Treatment Essence',
+    brand: 'SK-II',
+    kind: 'essence',
+    unit: 'bottle',
+    slug: 'sk-ii-facial-treatment-essence',
+    totalAmount: 75,
+    amountUnit: 'ml',
+    priceCents: 0,
+    description: `L'essence iconique de SK-II, formulée avec plus de 90% de Pitera, pour transformer la peau en un teint cristallin.`,
+    notes: `Produit culte. Texture liquide comme de l'eau. Améliore la texture, l'éclat et la fermeté.`,
+    inci: 'BUTYLENE GLYCOL, GALACTOMYCES FERMENT FILTRATE, METHYLPARABEN, PENTYLENE GLYCOL, SODIUM BENZOATE, SORBIC ACID, WATER',
+    url: 'https://www.skinsafeproducts.com/sk-ii-facial-treatment-essence-75-ml',
+    imageUrl: 'https://cdn1.skinsafeproducts.com/photo/7B27C6C9C22C9C/large_1677112046.png?1677112046',
+    tags: {
+      primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.GRAIN_PEAU],
+      secondary: [TAG_SLUGS.ESSENCE, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
+      avoid: [],
+    },
+    keyIngredients: [
+      { slug: INGREDIENT_SLUGS.GALACTOMYCES_FERMENT_FILTRATE, notes: 'Pitera à haute concentration' },
+    ],
+  },
+  {
+    name: 'Skinpower Cream',
+    brand: 'SK-II',
+    kind: 'moisturizer',
+    unit: 'jar',
+    slug: 'sk-ii-skinpower-cream',
+    totalAmount: 50,
+    amountUnit: 'g',
+    priceCents: 0,
+    description: `Une crème hydratante révolutionnaire qui booste l'énergie de la peau pour un aspect plus lisse, plus ferme et plus radieux.`,
+    notes: `Texture onctueuse, parfum floral léger. Idéale pour les peaux matures ou fatiguées.`,
+    inci: '1,2-HEXANEDIOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, AMMONIUM POLYACRYLATE, BEHENYL ALCOHOL, BUTYLENE GLYCOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CETEARYL ALCOHOL, CETEARYL GLUCOSIDE, CETYL ALCOHOL, DIMETHICONE, DIMETHICONOL, DISODIUM EDTA, ETHYLHEXYL PALMITATE, FRAGRANCE, GALACTOMYCES FERMENT FILTRATE, GLYCERIN, HYDROLYZED SOY PROTEIN, HYDROLYZED WHEAT PROTEIN, ISOHEXADECANE, ISOPROPYL ISOSTEARATE, METHYLPARABEN, NIACINAMIDE, PAEONIA ALBIFLORA ROOT EXTRACT, PALMITIC ACID, PANTHENOL, PEG-100 STEARATE, PENTYLENE GLYCOL, PHENOXYETHANOL, POLYACRYLAMIDE, POLYMETHYLSILSESQUIOXANE, POLYSORBATE 80, PROPYLPARABEN, QUERCETIN, SODIUM BENZOATE, SODIUM HYALURONATE, SODIUM HYDROXIDE, SORBITAN STEARATE, STEARIC ACID, STEARYL ALCOHOL, TOCOPHERYL ACETATE, WATER, ZANTEDESCHIA AETHIOPICA FLOWER/STEM EXTRACT',
+    url: 'https://www.skinsafeproducts.com/sk-ii-skinpower-cream-50-g',
+    imageUrl: 'https://cdn1.skinsafeproducts.com/photo/82E11E999E1552/large_1677112022.png?1677112022',
+    tags: {
+      primary: [ TAG_SLUGS.ANTI_AGE, TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.TEXTURE_RICHE, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
+      avoid: [],
+    },
+    keyIngredients: [
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: 'Vitamine B3 polyvalente' },
+      { slug: INGREDIENT_SLUGS.PANTHENOL, notes: 'Apaisant vitamine B5' },
+      { slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE, notes: 'Hydratation' },
+      { slug: INGREDIENT_SLUGS.TOCOPHERYL_ACETATE, notes: 'Vitamine E antioxydante' },
+      { slug: INGREDIENT_SLUGS.GALACTOMYCES_FERMENT_FILTRATE, notes: 'Pitera signature' },
+    ],
+  },
+]
