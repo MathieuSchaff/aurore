@@ -3,7 +3,7 @@ import { describe, expect, it } from 'bun:test'
 import {
   DENTAL_INGREDIENT_CATEGORY_VALUES,
   HAIRCARE_INGREDIENT_CATEGORY_VALUES,
-  INGREDIENT_CATEGORY_VALUES,
+  SKINCARE_INGREDIENT_CATEGORY_VALUES,
   INGREDIENT_TYPE_VALUES,
   PRODUCT_CATEGORY_VALUES,
   PRODUCT_KINDS,
@@ -248,7 +248,7 @@ describe('Seed data integrity', () => {
         .filter((i) => {
           const type = (i as any).type as string | undefined
           if (!type) return false
-          if (type === 'skincare') return !INGREDIENT_CATEGORY_VALUES.includes(i.category as any)
+          if (type === 'skincare') return !SKINCARE_INGREDIENT_CATEGORY_VALUES.includes(i.category as any)
           if (type === 'haircare') return !HAIRCARE_INGREDIENT_CATEGORY_VALUES.includes(i.category as any)
           if (type === 'dental') return !DENTAL_INGREDIENT_CATEGORY_VALUES.includes(i.category as any)
           if (type === 'supplement') return !SUPPLEMENT_CATEGORY_VALUES.includes(i.category as any)
@@ -260,7 +260,7 @@ describe('Seed data integrity', () => {
 
     it('every ingredient category is a valid category for its domain', () => {
       const validCategories = new Set<string>([
-        ...INGREDIENT_CATEGORY_VALUES,
+        ...SKINCARE_INGREDIENT_CATEGORY_VALUES,
         ...SUPPLEMENT_CATEGORY_VALUES,
         ...HAIRCARE_INGREDIENT_CATEGORY_VALUES,
         ...DENTAL_INGREDIENT_CATEGORY_VALUES,

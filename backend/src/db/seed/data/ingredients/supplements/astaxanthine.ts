@@ -2,14 +2,12 @@ import { INGREDIENT_TYPES, SUPPLEMENT_CATEGORIES } from '@habit-tracker/shared'
 import { SUPPLEMENTS_CAROTENOIDES } from '../ingredient-slugs'
 import type { IngredientInput } from '../seed-ingredients'
 
-// Uses the carotenoid-specific slug ('astaxanthine-supplement') because
-// INGREDIENT_SLUGS.ASTAXANTHINE is shadowed by the skincare entry
-// ('astaxanthine') — sourcing directly from the supplement group avoids
-// the slug collision during seeding.
+// TS key is ASTAXANTHINE_SUPPLEMENT (not ASTAXANTHINE) to avoid the
+// skincare-side collision inside INGREDIENT_SLUGS.
 export const ASTAXANTHINE: IngredientInput[] = [
   {
     name: 'Astaxanthine',
-    slug: SUPPLEMENTS_CAROTENOIDES.ASTAXANTHINE,
+    slug: SUPPLEMENTS_CAROTENOIDES.ASTAXANTHINE_SUPPLEMENT,
     type: INGREDIENT_TYPES.SUPPLEMENT,
     category: SUPPLEMENT_CATEGORIES.CAROTENOIDE,
     description:

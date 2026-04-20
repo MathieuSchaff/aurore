@@ -5,6 +5,7 @@ import {
   SKINCARE_INGREDIENT_TAG_TAXONOMY,
   PRODUCT_KINDS,
   SKINCARE_PRODUCT_TAG_TAXONOMY,
+  SUPPLEMENT_INGREDIENT_TAG_TAXONOMY,
 } from '@habit-tracker/shared'
 
 import { ingredientTagMap } from '../data/ingredient-tags'
@@ -89,11 +90,13 @@ describe('Shared schemas ↔ seed tags integrity', () => {
             .map((t) => t as string),
         ]
         for (const slug of toCheck) {
-          const inIngredient = slug in SKINCARE_INGREDIENT_TAG_TAXONOMY
+          const inSkincareIngredient = slug in SKINCARE_INGREDIENT_TAG_TAXONOMY
+          const inSupplementIngredient = slug in SUPPLEMENT_INGREDIENT_TAG_TAXONOMY
           const inProduct = slug in SKINCARE_PRODUCT_TAG_TAXONOMY
-          if (!inIngredient && !inProduct) {
+          const inAnyIngredient = inSkincareIngredient || inSupplementIngredient
+          if (!inAnyIngredient && !inProduct) {
             bad.push(`${ingSlug} → ${slug} (unknown slug)`)
-          } else if (!inIngredient) {
+          } else if (!inAnyIngredient) {
             bad.push(`${ingSlug} → ${slug} (product-only slug)`)
           }
         }
@@ -101,13 +104,23 @@ describe('Shared schemas ↔ seed tags integrity', () => {
       expect(bad).toEqual([])
     })
 
-    it('avoid contains only skin_type or concern slugs (+ grossesse-compatible)', () => {
+    // `restriction` slugs (supplement) act as the supplement equivalent of
+    // skincare `skin_type` / `concern` for the `avoid` bucket — they mark
+    // "do not take if the user matches X".
+    const restrictionTagSlugs = new Set(
+      ingredientTagData.filter((t) => t.tagType === 'restriction').map((t) => t.slug)
+    )
+
+    it('avoid contains only skin_type, concern or restriction slugs (+ grossesse-compatible)', () => {
       const bad: string[] = []
       for (const [ingSlug, groups] of Object.entries(ingredientTagMap)) {
         for (const tag of groups.avoid) {
           const slug = tag as string
           const ok =
-            skinTypeTagSlugs.has(slug) || concernTagSlugs.has(slug) || slug === AVOID_EXCEPTION
+            skinTypeTagSlugs.has(slug) ||
+            concernTagSlugs.has(slug) ||
+            restrictionTagSlugs.has(slug) ||
+            slug === AVOID_EXCEPTION
           if (!ok) bad.push(`${ingSlug} → ${slug}`)
         }
       }

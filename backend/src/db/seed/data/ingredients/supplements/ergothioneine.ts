@@ -8,7 +8,7 @@ import type { IngredientInput } from '../seed-ingredients'
 export const ERGOTHIONEINE: IngredientInput[] = [
   {
     name: 'Ergothionéine',
-    slug: SUPPLEMENTS_ANTIOXYDANTS.ERGOTHIONEINE,
+    slug: SUPPLEMENTS_ANTIOXYDANTS.ERGOTHIONEINE_SUPPLEMENT,
     type: INGREDIENT_TYPES.SUPPLEMENT,
     category: SUPPLEMENT_CATEGORIES.ANTIOXYDANT,
     description:

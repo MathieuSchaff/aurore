@@ -7,7 +7,6 @@ export const SUPPLEMENT_INGREDIENT_TAG_SLUGS = {
   FOCUS: 'focus',
   IMMUNITE: 'immunite',
   LONGEVITE: 'longevite',
-  ANTI_AGE: 'anti-age',
   STRESS: 'stress',
   ANXIETE: 'anxiete',
   SPORT_PERFORMANCE: 'sport-performance',

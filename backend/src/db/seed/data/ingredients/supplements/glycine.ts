@@ -7,7 +7,7 @@ import type { IngredientInput } from '../seed-ingredients'
 export const GLYCINE: IngredientInput[] = [
   {
     name: 'Glycine',
-    slug: SUPPLEMENTS_ACIDES_AMINES.GLYCINE,
+    slug: SUPPLEMENTS_ACIDES_AMINES.GLYCINE_SUPPLEMENT,
     type: INGREDIENT_TYPES.SUPPLEMENT,
     category: SUPPLEMENT_CATEGORIES.ACIDE_AMINE,
     description:

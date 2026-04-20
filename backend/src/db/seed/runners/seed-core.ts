@@ -1,4 +1,4 @@
-import { INGREDIENT_CATEGORY_VALUES } from '@habit-tracker/shared'
+import { SKINCARE_INGREDIENT_CATEGORY_VALUES } from '@habit-tracker/shared'
 import { createIngredient } from '../../../features/ingredients/service'
 import { addIngredientToProduct } from '../../../features/products/product-ingredients/product-ingredients.service'
 import { createProduct } from '../../../features/products/service'
@@ -161,7 +161,7 @@ export async function seedCore(shouldClean = true) {
   // manual map doesn't already list it. This way the attribute filter
   // bucket stays in sync with the native column without hand-editing
   // hundreds of entries. The shared-schemas-vs-tags test guarantees
-  // INGREDIENT_CATEGORY_VALUES ↔ ingredient_attribute tag slugs.
+  // SKINCARE_INGREDIENT_CATEGORY_VALUES ↔ ingredient_attribute tag slugs.
   const existing = new Set(
     ingredientTagPairs.map((p) => `${p.slug}::${p.tagSlug}`)
   )
@@ -169,7 +169,7 @@ export async function seedCore(shouldClean = true) {
   // tag slugs. Supplement ingredients store their functional class in the same
   // `category` column (carotenoide, plante, neuroactif…) — skip them here so
   // the backfill never emits tags that aren't in the ingredient taxonomy.
-  const validCategorySlugs = new Set<string>(INGREDIENT_CATEGORY_VALUES)
+  const validCategorySlugs = new Set<string>(SKINCARE_INGREDIENT_CATEGORY_VALUES)
   let backfilled = 0
   for (const ing of correctedIngredientData) {
     const category = ing.category
