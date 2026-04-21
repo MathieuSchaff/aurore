@@ -1,4 +1,8 @@
-import { SKINCARE_PRODUCT_TAG_CATEGORY_META } from '@habit-tracker/shared'
+import {
+  PRODUCT_DOMAIN_TAB_META,
+  type ProductDomainTab,
+  SKINCARE_PRODUCT_TAG_CATEGORY_META,
+} from '@habit-tracker/shared'
 
 import { useQuery } from '@tanstack/react-query'
 import { getRouteApi, Link, useNavigate } from '@tanstack/react-router'
@@ -38,8 +42,14 @@ import {
   LABEL_OVERRIDES,
   TAG_FILTER_KEYS,
 } from '../filters'
-import { buildProductsApiFilters, buildResetSearchParams, hasActivePriceRange } from '../helpers'
+import {
+  buildDomainSwitchSearch,
+  buildProductsApiFilters,
+  buildResetSearchParams,
+  hasActivePriceRange,
+} from '../helpers'
 import { AddToCollectionModal } from './AddToCollectionModal/AddToCollectionModal'
+import { DomainTabs } from './DomainTabs/DomainTabs'
 import { PriceRangeFilter } from './PriceRangeFilter/PriceRangeFilter'
 import { SortControl } from './SortControl/SortControl'
 
@@ -48,6 +58,10 @@ import './ProductsPage.css'
 import '@/features/products/styles/kinds.css'
 
 const routeApi = getRouteApi('/products/')
+
+// Only tag keys — omits brand/ingredient/kind — so domain switch resets tags
+// without clobbering ingredient (which buildDomainSwitchSearch preserves explicitly).
+const EMPTY_TAG_FILTERS = emptyFilters(TAG_FILTER_KEYS) as Record<string, string[]>
 
 function kindClass(kind: string): string {
   switch (kind) {
@@ -89,7 +103,7 @@ export function ProductsPage() {
   } | null>(null)
 
   const search = routeApi.useSearch()
-  const { page, profile_filter, sort, priceMin, priceMax } = search
+  const { page, profile_filter, sort, priceMin, priceMax, category } = search
   const navigate = useNavigate({ from: '/products/' })
 
   const user = useAuthStore((s) => s.user)
@@ -126,7 +140,7 @@ export function ProductsPage() {
 
   const hasFilters = filterCount > 0
 
-  const { data: filterOptions } = useQuery(productQueries.filterOptions())
+  const { data: filterOptions } = useQuery(productQueries.filterOptions(category))
   const { data: allIngredients } = useQuery(ingredientQueries.options())
 
   const apiFilters: ListProductsFilters = buildProductsApiFilters({
@@ -138,6 +152,10 @@ export function ProductsPage() {
     page,
     hasFilters,
   })
+  apiFilters.category = category
+  if (search.kind && search.kind.length > 0) {
+    apiFilters.kind = search.kind
+  }
 
   const handleSortChange = (next: ProductSort) => {
     navigate({ search: (prev) => ({ ...prev, sort: next, page: 1 }), replace: true })
@@ -165,14 +183,48 @@ export function ProductsPage() {
 
   const filterGroups = useMemo<FilterGroupConfig<FilterKey>[]>(() => {
     if (!filterOptions) return []
+
+    if (category === 'skincare') {
+      return [
+        ...(tagGroups as FilterGroupConfig<FilterKey>[]),
+        {
+          id: 'search',
+          label: 'Recherche précise',
+          defaultOpen: false,
+          tier: 'advanced',
+          subFilters: [
+            {
+              key: 'brand',
+              label: 'Marque',
+              placeholder: 'Rechercher une marque...',
+              variant: 'search-select',
+              options: filterOptions.brands.map((b) => ({ value: b, label: b })),
+            },
+            {
+              key: 'ingredient',
+              label: 'Ingrédient',
+              placeholder: 'Rechercher un ingrédient...',
+              variant: 'search-select',
+              options: allIngredients?.map((i) => ({ value: i.slug, label: i.name })) ?? [],
+            },
+          ],
+        },
+      ]
+    }
+
+    // Non-skincare tabs: minimal drawer with kind / brand / ingredient.
     return [
-      ...(tagGroups as FilterGroupConfig<FilterKey>[]),
       {
         id: 'search',
         label: 'Recherche précise',
-        defaultOpen: false,
-        tier: 'advanced',
+        defaultOpen: true,
+        tier: 'essential',
         subFilters: [
+          {
+            key: 'kind' as FilterKey,
+            label: 'Type',
+            options: filterOptions.kinds.map((k) => ({ value: k, label: k })),
+          },
           {
             key: 'brand',
             label: 'Marque',
@@ -190,23 +242,32 @@ export function ProductsPage() {
         ],
       },
     ]
-  }, [filterOptions, allIngredients, tagGroups])
+  }, [filterOptions, allIngredients, tagGroups, category])
 
   const items = data?.items ?? []
   const total = data?.total ?? 0
   const totalPages = Math.ceil(total / 20)
 
-  const profileToggle = user ? (
-    <Toggle
-      label="Selon mon profil"
-      hint="Masque les produits contre-indiqués pour votre type de peau"
-      checked={profile_filter}
-      onChange={(checked) =>
-        navigate({ search: (prev) => ({ ...prev, profile_filter: checked, page: 1 }) })
-      }
-      size="sm"
-    />
-  ) : null
+  // Profile toggle is only meaningful on the skincare tab.
+  const profileToggle =
+    user && category === 'skincare' ? (
+      <Toggle
+        label="Selon mon profil"
+        hint="Masque les produits contre-indiqués pour votre type de peau"
+        checked={profile_filter}
+        onChange={(checked) =>
+          navigate({ search: (prev) => ({ ...prev, profile_filter: checked, page: 1 }) })
+        }
+        size="sm"
+      />
+    ) : null
+
+  const handleDomainChange = (next: ProductDomainTab) => {
+    navigate({
+      search: (prev) => buildDomainSwitchSearch(prev, next, EMPTY_TAG_FILTERS),
+      replace: true,
+    })
+  }
 
   return (
     <>
@@ -259,6 +320,8 @@ export function ProductsPage() {
           }
         />
 
+        <DomainTabs value={category} onChange={handleDomainChange} />
+
         <ActiveFiltersBar
           activeTags={activeTags}
           groupLabels={GROUP_LABELS}
@@ -289,8 +352,12 @@ export function ProductsPage() {
           ) : items.length === 0 ? (
             <EmptyState
               icon={<Package size={24} />}
-              title="Aucun produit trouvé"
-              subtitle="Essayez de modifier vos filtres pour trouver des produits."
+              title={`Aucun produit ${PRODUCT_DOMAIN_TAB_META[category].label.toLowerCase()} pour l'instant`}
+              subtitle={
+                category === 'skincare'
+                  ? 'Essayez de modifier vos filtres pour trouver des produits.'
+                  : "Le catalogue s'enrichit régulièrement — revenez plus tard."
+              }
             />
           ) : (
             <>

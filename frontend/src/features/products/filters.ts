@@ -16,11 +16,11 @@ import { filterSearchSchema } from '@/component/Filter'
 
 export type TagFilterKey = SkincareProductTagCategory
 
-export type FilterKey = TagFilterKey | 'brand' | 'ingredient'
+export type FilterKey = TagFilterKey | 'brand' | 'ingredient' | 'kind'
 
 export const TAG_FILTER_KEYS = skincareProductFilterCategories() as readonly TagFilterKey[]
 
-export const FILTER_KEYS = [...TAG_FILTER_KEYS, 'brand', 'ingredient'] as const
+export const FILTER_KEYS = [...TAG_FILTER_KEYS, 'brand', 'ingredient', 'kind'] as const
 
 export const GROUP_LABELS: Record<FilterKey, string> = {
   ...(Object.fromEntries(
@@ -28,6 +28,7 @@ export const GROUP_LABELS: Record<FilterKey, string> = {
   ) as Record<TagFilterKey, string>),
   brand: 'Marque',
   ingredient: 'Ingr.',
+  kind: 'Type',
 }
 
 // Kept as explicit overrides — these are special-case display tweaks,
