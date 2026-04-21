@@ -1,3 +1,4 @@
+import type { ProductDomainTab } from '@habit-tracker/shared'
 import type { FilterValues } from '@/component/Filter'
 import type { ListProductsFilters, ProductSort } from '@/lib/queries/products'
 import { FILTER_KEYS, type FilterKey } from './filters'
@@ -55,5 +56,24 @@ export function buildResetSearchParams<T extends Record<string, unknown>>(prev: 
     profile_filter: false,
     priceMin: undefined,
     priceMax: undefined,
+  }
+}
+
+// On domain switch: reset the domain-specific filters and pagination.
+// Shared controls (sort, price, ingredient) carry over because they make
+// sense across all tabs.
+export function buildDomainSwitchSearch<T extends Record<string, unknown>>(
+  prev: T,
+  next: ProductDomainTab,
+  emptyTagFilters: Record<string, string[]>
+) {
+  return {
+    ...prev,
+    ...emptyTagFilters,
+    category: next,
+    brand: [] as string[],
+    kind: [] as string[],
+    profile_filter: false,
+    page: 1,
   }
 }

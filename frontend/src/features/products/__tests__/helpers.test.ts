@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import type { FilterValues } from '@/component/Filter'
 import { type FilterKey, FILTER_KEYS } from '../filters'
 import {
+  buildDomainSwitchSearch,
   buildProductsApiFilters,
   buildResetSearchParams,
   hasActivePriceRange,
@@ -10,7 +11,7 @@ import {
 } from '../helpers'
 
 function emptyTagFilters(): FilterValues<FilterKey> {
-  return Object.fromEntries(FILTER_KEYS.map((k) => [k, []])) as FilterValues<FilterKey>
+  return Object.fromEntries(FILTER_KEYS.map((k) => [k, []])) as unknown as FilterValues<FilterKey>
 }
 
 describe('hasActivePriceRange', () => {
@@ -155,5 +156,61 @@ describe('buildResetSearchParams', () => {
     expect(next.sort).toBe('price_asc')
     expect(next.page).toBe(2)
     expect(next.concern).toEqual(['acne'])
+  })
+})
+
+describe('buildDomainSwitchSearch', () => {
+  const EMPTY_TAGS = {
+    skin_type: [] as string[],
+    concern: [] as string[],
+    skin_zone: [] as string[],
+    product_type: [] as string[],
+    routine_step: [] as string[],
+    skin_effect: [] as string[],
+    product_label: [] as string[],
+    shared_label: [] as string[],
+  }
+
+  it('switches category and resets tag filters', () => {
+    const prev = {
+      category: 'skincare' as const,
+      skin_type: ['peau-grasse'],
+      concern: ['anti-acne'],
+      brand: ['Cosrx'],
+      kind: ['serum'],
+      ingredient: ['niacinamide'],
+      priceMin: 1000,
+      priceMax: 5000,
+      sort: 'price_asc' as const,
+      profile_filter: true,
+      page: 3,
+    }
+
+    const next = buildDomainSwitchSearch(prev, 'haircare', EMPTY_TAGS)
+
+    expect(next.category).toBe('haircare')
+    expect(next.skin_type).toEqual([])
+    expect(next.concern).toEqual([])
+    expect(next.brand).toEqual([])
+    expect(next.kind).toEqual([])
+    expect(next.profile_filter).toBe(false)
+    expect(next.page).toBe(1)
+  })
+
+  it('preserves sort, priceMin, priceMax, and ingredient', () => {
+    const prev = {
+      category: 'skincare' as const,
+      sort: 'price_desc' as const,
+      priceMin: 500,
+      priceMax: 2000,
+      ingredient: ['acide-hyaluronique'],
+    }
+
+    const next = buildDomainSwitchSearch(prev, 'dental', EMPTY_TAGS)
+
+    expect(next.sort).toBe('price_desc')
+    expect(next.priceMin).toBe(500)
+    expect(next.priceMax).toBe(2000)
+    expect(next.ingredient).toEqual(['acide-hyaluronique'])
   })
 })
