@@ -1,4 +1,8 @@
-import type { CreateProductInput, UpdateProductInput } from '@habit-tracker/shared'
+import type {
+  CreateProductInput,
+  ProductDomainTab,
+  UpdateProductInput,
+} from '@habit-tracker/shared'
 
 import { queryOptions, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
@@ -7,6 +11,8 @@ import { api } from '../api'
 export type ProductSort = 'name' | 'random' | 'price_asc' | 'price_desc' | 'newest'
 
 export type ListProductsFilters = {
+  category?: ProductDomainTab
+  kind?: string | string[]
   brand?: string | string[]
   skin_type?: string | string[]
   skin_zone?: string | string[]
@@ -41,6 +47,9 @@ export function buildListProductsQuery(
     }
   }
 
+  if (filters.category !== undefined) query.category = filters.category
+
+  addParam('kind', filters.kind)
   addParam('brand', filters.brand)
   addParam('skin_type', filters.skin_type)
   addParam('skin_zone', filters.skin_zone)
@@ -74,11 +83,13 @@ export const productKeys = {
 }
 
 export const productQueries = {
-  filterOptions: () =>
+  filterOptions: (category?: ProductDomainTab) =>
     queryOptions({
-      queryKey: [...productKeys.all, 'filter-options'] as const,
+      queryKey: [...productKeys.all, 'filter-options', category ?? 'all'] as const,
       queryFn: async () => {
-        const res = await api.products['filter-options'].$get()
+        const query: Record<string, string> = {}
+        if (category) query.category = category
+        const res = await api.products['filter-options'].$get({ query })
         if (!res.ok) throw new Error('Failed to fetch filter options')
         const json = await res.json()
         return json.data

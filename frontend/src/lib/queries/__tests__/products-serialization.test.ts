@@ -103,3 +103,30 @@ describe('buildListProductsQuery — pagination', () => {
     expect(q.limit).toBeUndefined()
   })
 })
+
+describe('buildListProductsQuery — category and kind', () => {
+  it('serializes a domain tab category', () => {
+    const q = buildListProductsQuery({ category: 'haircare' })
+    expect(q.category).toBe('haircare')
+  })
+
+  it('omits category when undefined', () => {
+    const q = buildListProductsQuery({})
+    expect(q.category).toBeUndefined()
+  })
+
+  it('serializes a single kind value', () => {
+    const q = buildListProductsQuery({ kind: 'toothpaste' })
+    expect(q.kind).toBe('toothpaste')
+  })
+
+  it('serializes multiple kind values as CSV', () => {
+    const q = buildListProductsQuery({ kind: ['toothpaste', 'mouthwash'] })
+    expect(q.kind).toBe('toothpaste,mouthwash')
+  })
+
+  it('omits kind when array is empty', () => {
+    const q = buildListProductsQuery({ kind: [] })
+    expect(q.kind).toBeUndefined()
+  })
+})
