@@ -1,5 +1,5 @@
-import { ingredientData as newData } from '../ingredients/index'
-import { INGREDIENT_SLUGS } from '../ingredients/ingredient-slugs'
+import { ingredientData as newData } from '../data/ingredients'
+import { INGREDIENT_SLUGS } from '../data/ingredients/ingredient-slugs'
 
 /**
  * Audit de synchronisation du système d'ingrédients

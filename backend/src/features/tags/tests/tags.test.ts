@@ -29,13 +29,13 @@ import { TagError } from '../tags-error'
 async function makeProduct(userId: string, name = 'Produit Test') {
   return createProduct(
     userId,
-    { name, brand: 'Generic', kind: 'complément', unit: 'gélule' },
+    { name, brand: 'Generic', category: 'skincare', kind: 'serum', unit: 'pump' },
     testDb
   )
 }
 
 async function makeIngredient(userId: string, name = 'Ingrédient Test') {
-  return createIngredient(testDb, userId, { name })
+  return createIngredient(testDb, userId, { name, type: 'skincare' })
 }
 
 describe('Tags Service', () => {

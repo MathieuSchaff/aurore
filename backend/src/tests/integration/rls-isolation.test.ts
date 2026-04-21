@@ -219,7 +219,9 @@ describe('RLS — user_products tenant isolation', () => {
         createdBy: userA.id,
         name: 'Test Product RLS',
         brand: 'Brand',
-        unit: 'ml',
+        category: 'skincare',
+        kind: 'serum',
+        unit: 'pump',
         slug: `test-product-rls-${userA.id}`,
       })
       .returning()
@@ -256,6 +258,7 @@ describe('RLS — user_ingredient_analysis_score tenant isolation', () => {
       .values({
         createdBy: userA.id,
         name: 'Test Ingredient RLS',
+        type: 'skincare',
         slug: `test-ing-rls-${userA.id}`,
       })
       .returning()
@@ -417,7 +420,9 @@ describe('RLS — habit_products (owned via habits)', () => {
         createdBy: userA.id,
         name: 'Test RLS HP',
         brand: 'Brand',
-        unit: 'ml',
+        category: 'skincare',
+        kind: 'serum',
+        unit: 'pump',
         slug: `rls-hp-${userA.id}`,
       })
       .returning()
@@ -584,7 +589,9 @@ describe('RLS — habit_check_products (owned via habit_checks)', () => {
         createdBy: userA.id,
         name: 'Test RLS HCP',
         brand: 'Brand',
-        unit: 'ml',
+        category: 'skincare',
+        kind: 'serum',
+        unit: 'pump',
         slug: `rls-hcp-${userA.id}`,
       })
       .returning()
@@ -636,7 +643,9 @@ describe('RLS — user_product_reviews (owned via user_products)', () => {
         createdBy: userA.id,
         name: 'Test RLS UPR',
         brand: 'Brand',
-        unit: 'ml',
+        category: 'skincare',
+        kind: 'serum',
+        unit: 'pump',
         slug: `rls-upr-${userA.id}`,
       })
       .returning()
@@ -732,7 +741,9 @@ describe('RLS — purchases (owned via user_products)', () => {
         createdBy: userA.id,
         name: 'Test RLS Purch',
         brand: 'Brand',
-        unit: 'ml',
+        category: 'skincare',
+        kind: 'serum',
+        unit: 'pump',
         slug: `rls-purch-${userA.id}`,
       })
       .returning()

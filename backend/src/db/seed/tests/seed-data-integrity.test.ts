@@ -1,18 +1,27 @@
 import { describe, expect, it } from 'bun:test'
 
-import { ingredientTagMap } from '../IngredientsTags/seed-ingredients-tags'
-import { ingredientData } from '../ingredients/index'
-import { INGREDIENT_SLUGS } from '../ingredients/ingredient-slugs'
-import { allProductData } from '../products/index'
-import { allIngredientProductTags } from '../products/ingredients-products-tags'
-import { allProductTagsMap } from '../products/product-tags'
-import { allProductSlugs } from '../products/products-slugs'
-import { TAG_SLUGS, ingredientTagData, productTagData } from '../tags/seed-tags'
+import {
+  DENTAL_INGREDIENT_CATEGORY_VALUES,
+  HAIRCARE_INGREDIENT_CATEGORY_VALUES,
+  SKINCARE_INGREDIENT_CATEGORY_VALUES,
+  INGREDIENT_TYPE_VALUES,
+  PRODUCT_CATEGORY_VALUES,
+  PRODUCT_KINDS,
+  PRODUCT_UNITS,
+  SUPPLEMENT_CATEGORY_VALUES,
+} from '@habit-tracker/shared'
+
+import { ingredientTagMap } from '../data/ingredient-tags'
+import { ingredientData } from '../data/ingredients'
+import { INGREDIENT_SLUGS } from '../data/ingredients/ingredient-slugs'
+import { skincareIngredients } from '../data/ingredients/skincare'
+import { allProductData, allIngredientProductTags, allProductTagsMap } from '../data/products'
+import { TAG_SLUGS, ingredientTagData, productTagData } from '../data/tags'
 
 const definedIngredientSlugs = new Set(Object.values(INGREDIENT_SLUGS) as string[])
 const definedIngredientTagSlugs = new Set(ingredientTagData.map((t) => t.slug))
 const definedProductTagSlugs = new Set(productTagData.map((t) => t.slug))
-const definedProductSlugs = new Set(Object.values(allProductSlugs) as string[])
+const definedProductSlugs = new Set(allProductData.map((p) => p.slug))
 
 describe('Seed data integrity', () => {
   describe('ingredientTagMap', () => {
@@ -145,15 +154,139 @@ describe('Seed data integrity', () => {
     })
   })
 
-  describe('allProductSlugs vs allProductData', () => {
-    it('every declared product slug has a data entry', () => {
-      const dataSlugs = new Set(
-        allProductData.map((p) => p.slug).filter((s): s is string => typeof s === 'string')
+  describe('allProductData slugs', () => {
+    it('has no duplicate slugs', () => {
+      const slugs = allProductData.map((p) => p.slug)
+      const duplicates = slugs.filter((slug, idx) => slugs.indexOf(slug) !== idx)
+      expect([...new Set(duplicates)]).toEqual([])
+    })
+  })
+
+  describe('allProductData field completeness', () => {
+    it('every product has a non-empty name and brand', () => {
+      const bad = allProductData
+        .filter((p) => !p.name || !p.brand)
+        .map((p) => p.slug)
+      expect(bad).toEqual([])
+    })
+
+    it('every product kind is a valid ProductKind', () => {
+      const validKinds = new Set(
+        Object.values(PRODUCT_KINDS).flatMap((group) => Object.values(group))
       )
-      const missing = (Object.values(allProductSlugs) as string[]).filter(
-        (slug) => !dataSlugs.has(slug)
-      )
-      expect(missing).toEqual([])
+      const bad = allProductData
+        .filter((p) => !validKinds.has(p.kind))
+        .map((p) => `${p.slug} → ${p.kind}`)
+      expect(bad).toEqual([])
+    })
+
+    it('every product has at least one primary tag', () => {
+      const bad = Object.entries(allProductTagsMap)
+        .filter(([, groups]) => groups.primary.length === 0)
+        .map(([slug]) => slug)
+      expect(bad).toEqual([])
+    })
+
+    it('every product has a valid ProductCategory', () => {
+      const validCategories = new Set<string>(PRODUCT_CATEGORY_VALUES)
+      const bad = allProductData
+        .filter((p) => !(p as any).category || !validCategories.has((p as any).category))
+        .map((p) => `${p.slug} → ${(p as any).category ?? '(missing)'}`)
+      expect(bad).toEqual([])
+    })
+
+    it('every product has a valid ProductUnit', () => {
+      const validUnits = new Set<string>(Object.values(PRODUCT_UNITS))
+      const bad = allProductData
+        .filter((p) => !validUnits.has(p.unit))
+        .map((p) => `${p.slug} → ${p.unit}`)
+      expect(bad).toEqual([])
+    })
+
+    it('every product kind is consistent with its category', () => {
+      const bad = allProductData
+        .filter((p) => (p as any).category)
+        .filter((p) => {
+          const validKinds = new Set(
+            Object.values(PRODUCT_KINDS[(p as any).category as keyof typeof PRODUCT_KINDS] ?? {})
+          )
+          return !validKinds.has(p.kind)
+        })
+        .map((p) => `${p.slug} → category:${(p as any).category} kind:${p.kind}`)
+      expect(bad).toEqual([])
+    })
+  })
+
+  describe('ingredientData field completeness', () => {
+    it('every ingredient has a non-empty name and slug', () => {
+      const bad = ingredientData
+        .filter((i) => !i.name || !i.slug || i.name.trim() === '' || i.slug.trim() === '')
+        .map((i) => i.slug ?? '(no slug)')
+      expect(bad).toEqual([])
+    })
+
+    it('every skincare ingredient has at least one primary tag in ingredientTagMap', () => {
+      const bad = skincareIngredients
+        .filter((i) => {
+          const tags = ingredientTagMap[i.slug]
+          return !tags || tags.primary.length === 0
+        })
+        .map((i) => i.slug)
+      expect(bad).toEqual([])
+    })
+
+    it('every ingredient has a valid IngredientType', () => {
+      const validTypes = new Set<string>(INGREDIENT_TYPE_VALUES)
+      const bad = ingredientData
+        .filter((i) => !(i as any).type || !validTypes.has((i as any).type))
+        .map((i) => `${i.slug} → ${(i as any).type ?? '(missing)'}`)
+      expect(bad).toEqual([])
+    })
+
+    it('ingredient type and category are consistent', () => {
+      const bad = ingredientData
+        .filter((i) => {
+          const type = (i as any).type as string | undefined
+          if (!type) return false
+          if (type === 'skincare') return !SKINCARE_INGREDIENT_CATEGORY_VALUES.includes(i.category as any)
+          if (type === 'haircare') return !HAIRCARE_INGREDIENT_CATEGORY_VALUES.includes(i.category as any)
+          if (type === 'dental') return !DENTAL_INGREDIENT_CATEGORY_VALUES.includes(i.category as any)
+          if (type === 'supplement') return !SUPPLEMENT_CATEGORY_VALUES.includes(i.category as any)
+          return false
+        })
+        .map((i) => `${i.slug} → type:${(i as any).type} category:${i.category}`)
+      expect(bad).toEqual([])
+    })
+
+    it('every ingredient category is a valid category for its domain', () => {
+      const validCategories = new Set<string>([
+        ...SKINCARE_INGREDIENT_CATEGORY_VALUES,
+        ...SUPPLEMENT_CATEGORY_VALUES,
+        ...HAIRCARE_INGREDIENT_CATEGORY_VALUES,
+        ...DENTAL_INGREDIENT_CATEGORY_VALUES,
+      ])
+      const bad = ingredientData
+        .filter((i) => !validCategories.has(i.category))
+        .map((i) => `${i.slug} → ${i.category}`)
+      expect(bad).toEqual([])
+    })
+  })
+
+  describe('TAG_LABELS coverage', () => {
+    // labelFor() silently falls back to the raw slug when no label is defined.
+    // A missing label means the UI shows the slug string instead of a readable name.
+    it('every ingredient tag slug has a human-readable label defined', () => {
+      const missingLabels = ingredientTagData
+        .filter((t) => t.label === t.slug)
+        .map((t) => t.slug)
+      expect(missingLabels).toEqual([])
+    })
+
+    it('every product tag slug has a human-readable label defined', () => {
+      const missingLabels = productTagData
+        .filter((t) => t.label === t.slug)
+        .map((t) => t.slug)
+      expect(missingLabels).toEqual([])
     })
   })
 })

@@ -1,4 +1,4 @@
-import { allProductData } from '../products'
+import { allProductData } from '../data/products'
 import { allProductSlugs } from '../products/products-slugs'
 
 /**
