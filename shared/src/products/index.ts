@@ -1,4 +1,5 @@
 export * from './dental'
+export * from './domain-tabs'
 export * from './haircare'
 export * from './helpers'
 export * from './ingredients'
