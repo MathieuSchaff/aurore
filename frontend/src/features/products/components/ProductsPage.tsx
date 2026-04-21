@@ -24,7 +24,11 @@ import { useListFilters } from '@/hooks/useListFilters'
 import { useTagFilterGroups } from '@/hooks/useTagFilterGroups'
 import { ProductIcon } from '../../../assets/product-icons'
 import { ingredientQueries } from '../../../lib/queries/ingredients'
-import { type ListProductsFilters, productQueries } from '../../../lib/queries/products'
+import {
+  type ListProductsFilters,
+  type ProductSort,
+  productQueries,
+} from '../../../lib/queries/products'
 import { profileQueries } from '../../../lib/queries/profile'
 import { useAuthStore } from '../../../store/auth'
 import {
@@ -34,7 +38,10 @@ import {
   LABEL_OVERRIDES,
   TAG_FILTER_KEYS,
 } from '../filters'
+import { buildProductsApiFilters, buildResetSearchParams, hasActivePriceRange } from '../helpers'
 import { AddToCollectionModal } from './AddToCollectionModal/AddToCollectionModal'
+import { PriceRangeFilter } from './PriceRangeFilter/PriceRangeFilter'
+import { SortControl } from './SortControl/SortControl'
 
 import '@/component/Layout/PageLayout/ListPage.css'
 import './ProductsPage.css'
@@ -82,7 +89,7 @@ export function ProductsPage() {
   } | null>(null)
 
   const search = routeApi.useSearch()
-  const { page, profile_filter } = search
+  const { page, profile_filter, sort, priceMin, priceMax } = search
   const navigate = useNavigate({ from: '/products/' })
 
   const user = useAuthStore((s) => s.user)
@@ -109,11 +116,12 @@ export function ProductsPage() {
       filterKeys: FILTER_KEYS,
     })
 
-  const effectiveFilterCount = filterCount + (profile_filter ? 1 : 0)
+  const hasPriceRange = hasActivePriceRange(priceMin, priceMax)
+  const effectiveFilterCount = filterCount + (profile_filter ? 1 : 0) + (hasPriceRange ? 1 : 0)
 
   const handleReset = () => {
     resetFilters()
-    navigate({ search: (prev) => ({ ...prev, profile_filter: false }), replace: true })
+    navigate({ search: buildResetSearchParams, replace: true })
   }
 
   const hasFilters = filterCount > 0
@@ -121,20 +129,26 @@ export function ProductsPage() {
   const { data: filterOptions } = useQuery(productQueries.filterOptions())
   const { data: allIngredients } = useQuery(ingredientQueries.options())
 
-  const apiFilters: ListProductsFilters = hasFilters
-    ? {
-        ...(Object.fromEntries(
-          FILTER_KEYS.map((k) => [k, filters[k].length > 0 ? filters[k] : undefined])
-        ) as Partial<ListProductsFilters>),
-        avoid_for: avoidFor.length > 0 ? avoidFor : undefined,
-        page,
-        limit: 20,
-      }
-    : {
-        sort: 'random',
-        limit: 12,
-        avoid_for: avoidFor.length > 0 ? avoidFor : undefined,
-      }
+  const apiFilters: ListProductsFilters = buildProductsApiFilters({
+    filters,
+    avoidFor,
+    sort,
+    priceMin,
+    priceMax,
+    page,
+    hasFilters,
+  })
+
+  const handleSortChange = (next: ProductSort) => {
+    navigate({ search: (prev) => ({ ...prev, sort: next, page: 1 }), replace: true })
+  }
+
+  const handlePriceChange = ({ min, max }: { min?: number; max?: number }) => {
+    navigate({
+      search: (prev) => ({ ...prev, priceMin: min, priceMax: max, page: 1 }),
+      replace: true,
+    })
+  }
 
   const { data, isLoading, isPlaceholderData } = useQuery({
     ...productQueries.list(apiFilters),
@@ -215,6 +229,7 @@ export function ProductsPage() {
                 onSelect={(slug) => navigate({ to: '/products/$slug', params: { slug } })}
               />
               <div className="list-header__actions-group">
+                <SortControl value={sort} onChange={handleSortChange} />
                 <Button
                   type="button"
                   variant="primary"
@@ -262,6 +277,7 @@ export function ProductsPage() {
           onReset={handleReset}
         >
           {profileToggle}
+          <PriceRangeFilter min={priceMin} max={priceMax} onChange={handlePriceChange} />
         </FilterDrawer>
 
         <section

@@ -4,6 +4,8 @@ import { queryOptions, useMutation, useQuery, useQueryClient } from '@tanstack/r
 
 import { api } from '../api'
 
+export type ProductSort = 'name' | 'random' | 'price_asc' | 'price_desc' | 'newest'
+
 export type ListProductsFilters = {
   brand?: string | string[]
   skin_type?: string | string[]
@@ -16,9 +18,50 @@ export type ListProductsFilters = {
   routine_step?: string | string[]
   ingredient?: string | string[]
   avoid_for?: string | string[]
-  sort?: 'name' | 'random'
+  sort?: ProductSort
+  priceMin?: number
+  priceMax?: number
   page?: number
   limit?: number
+}
+
+// The list API accepts comma-separated strings, not real arrays, so arrays
+// are joined before sending. Numeric params are stringified. Keys are omitted
+// entirely when the corresponding filter is undefined / empty.
+export function buildListProductsQuery(
+  filters: ListProductsFilters
+): Record<string, string | string[]> {
+  const query: Record<string, string | string[]> = {}
+
+  const addParam = (key: string, value: string | string[] | undefined) => {
+    if (!value) return
+    const arr = Array.isArray(value) ? value : [value]
+    if (arr.length > 0) {
+      query[key] = arr.join(',')
+    }
+  }
+
+  addParam('brand', filters.brand)
+  addParam('skin_type', filters.skin_type)
+  addParam('skin_zone', filters.skin_zone)
+  addParam('product_type', filters.product_type)
+  addParam('concern', filters.concern)
+  addParam('skin_effect', filters.skin_effect)
+  addParam('product_label', filters.product_label)
+  addParam('shared_label', filters.shared_label)
+  addParam('routine_step', filters.routine_step)
+  addParam('ingredient', filters.ingredient)
+  addParam('avoid_for', filters.avoid_for)
+
+  if (filters.sort !== undefined) query.sort = filters.sort
+
+  if (filters.priceMin !== undefined) query.priceMin = String(filters.priceMin)
+  if (filters.priceMax !== undefined) query.priceMax = String(filters.priceMax)
+
+  if (filters.page !== undefined) query.page = String(filters.page)
+  if (filters.limit !== undefined) query.limit = String(filters.limit)
+
+  return query
 }
 
 export const productKeys = {
@@ -47,34 +90,7 @@ export const productQueries = {
     queryOptions({
       queryKey: productKeys.list(filters),
       queryFn: async () => {
-        const query: Record<string, string | string[]> = {}
-
-        // The API only accepts comma-separated strings, not real arrays, so we join before sending
-        const addParam = (key: string, value: string | string[] | undefined) => {
-          if (!value) return
-          const arr = Array.isArray(value) ? value : [value]
-          if (arr.length > 0) {
-            query[key] = arr.join(',')
-          }
-        }
-
-        addParam('brand', filters.brand)
-        addParam('skin_type', filters.skin_type)
-        addParam('skin_zone', filters.skin_zone)
-        addParam('product_type', filters.product_type)
-        addParam('concern', filters.concern)
-        addParam('skin_effect', filters.skin_effect)
-        addParam('product_label', filters.product_label)
-        addParam('shared_label', filters.shared_label)
-        addParam('routine_step', filters.routine_step)
-        addParam('ingredient', filters.ingredient)
-        addParam('avoid_for', filters.avoid_for)
-
-        if (filters.sort !== undefined) query.sort = filters.sort
-
-        if (filters.page !== undefined) query.page = String(filters.page)
-        if (filters.limit !== undefined) query.limit = String(filters.limit)
-
+        const query = buildListProductsQuery(filters)
         const res = await api.products.$get({ query })
         if (!res.ok) throw new Error('Failed to fetch products')
         const json = await res.json()

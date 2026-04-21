@@ -4,7 +4,7 @@ import { useMemo } from 'react'
 
 import type { FilterGroupConfig, FilterOption } from '@/component/Filter'
 
-type TagItem = { name: string; slug: string }
+type TagItem = { name: string; slug: string; count?: number }
 
 /**
  * Build FilterGroupConfig[] from domain category metadata and a filter-options payload.
@@ -28,6 +28,7 @@ export function useTagFilterGroups<K extends string>(
       const options: FilterOption[] = (tagsByCategory[cat] ?? []).map((t) => ({
         value: t.slug,
         label: labelOverrides[t.slug] ?? t.name,
+        count: t.count,
       }))
 
       return {

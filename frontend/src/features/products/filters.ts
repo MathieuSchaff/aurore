@@ -8,6 +8,10 @@ import {
   skincareProductFilterCategories,
 } from '@habit-tracker/shared'
 
+import { z } from 'zod'
+
+import { filterSearchSchema } from '@/component/Filter'
+
 export type TagFilterKey = SkincareProductTagCategory
 
 export type FilterKey = TagFilterKey | 'brand' | 'ingredient'
@@ -28,4 +32,21 @@ export const GROUP_LABELS: Record<FilterKey, string> = {
 // not derivable from the taxonomy.
 export const LABEL_OVERRIDES: Record<string, string> = {
   'barriere-cutanee-alteree': 'Peau sensibilisée',
+}
+
+// Route search params schema — isolated here so it can be unit-tested
+// without going through TanStack Router's route file.
+const { schema: baseSchema, defaultValues } = filterSearchSchema(FILTER_KEYS)
+
+export const productsSearchSchema = baseSchema.extend({
+  profile_filter: z.boolean().default(false),
+  sort: z.enum(['name', 'random', 'price_asc', 'price_desc', 'newest']).default('random'),
+  priceMin: z.number().int().min(0).optional(),
+  priceMax: z.number().int().min(0).optional(),
+})
+
+export const productsSearchDefaults = {
+  ...defaultValues,
+  profile_filter: false,
+  sort: 'random' as const,
 }
