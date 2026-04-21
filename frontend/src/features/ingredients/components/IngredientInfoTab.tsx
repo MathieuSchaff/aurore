@@ -12,36 +12,13 @@ import { NavArrow } from '@/component/DataDisplay/NavArrow/NavArrow'
 import { IconBox } from '@/component/Layout/IconBox/IconBox'
 import { RichText } from '@/component/Typography/RichText/RichText'
 import { SectionHeader } from '@/component/Typography/SectionHeader/SectionHeader'
+import { normalizeLatexMarkdown } from '@/lib/markdown'
 import { ingredientQueries } from '../../../lib/queries/ingredients'
 import './IngredientInfoTab.css'
-import '@/component/Typography/RichText/RichText.css'
 
 const MAX_VISIBLE_PRODUCTS = 5
 
 const route = getRouteApi('/ingredients/$slug/')
-
-function renderMarkdown(rawContent: string): string {
-  if (!rawContent) return ''
-
-  // The LaTeX parser (rehype-katex) needs properly escaped backslashes.
-  // Without this, formulas with pKa, mathrm, etc. break during rendering.
-  let cleaned = rawContent
-
-  cleaned = cleaned.replace(/\$\$(.*?)\$\$/gs, (_, formula) => {
-    const fixedFormula = formula
-      .replace(/mathrm/g, '\\mathrm')
-      .replace(/pKa/g, '\\mathrm{pK}_a')
-      .replace(/log/g, '\\log')
-      .replace(/left/g, '\\left')
-      .replace(/right/g, '\\right')
-      .replace(/frac/g, '\\frac')
-      .replace(/[\r\n]+/g, ' ')
-
-    return `$$${fixedFormula}$$`
-  })
-
-  return cleaned
-}
 
 export function IngredientInfoTab() {
   const { slug } = route.useParams()
@@ -100,7 +77,7 @@ export function IngredientInfoTab() {
           <SectionHeader title="Contenu" variant="primary" />
           <RichText>
             <Markdown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]}>
-              {renderMarkdown(ingredient.content)}
+              {normalizeLatexMarkdown(ingredient.content)}
             </Markdown>
           </RichText>
         </div>

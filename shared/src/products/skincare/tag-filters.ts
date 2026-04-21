@@ -1,8 +1,5 @@
 import type { TagCategoryMeta } from '../../core'
-import {
-  SKINCARE_PRODUCT_TAG_CATEGORIES,
-  type SkincareProductTagCategory,
-} from './tag-taxonomy'
+import { SKINCARE_PRODUCT_TAG_CATEGORIES, type SkincareProductTagCategory } from './tag-taxonomy'
 
 export const SKINCARE_PRODUCT_TAG_CATEGORY_META: Record<
   SkincareProductTagCategory,
@@ -21,7 +18,6 @@ export const SKINCARE_PRODUCT_TAG_CATEGORY_META: Record<
 export function skincareProductFilterCategories(): SkincareProductTagCategory[] {
   return [...SKINCARE_PRODUCT_TAG_CATEGORIES].sort(
     (a, b) =>
-      SKINCARE_PRODUCT_TAG_CATEGORY_META[a].order -
-      SKINCARE_PRODUCT_TAG_CATEGORY_META[b].order
+      SKINCARE_PRODUCT_TAG_CATEGORY_META[a].order - SKINCARE_PRODUCT_TAG_CATEGORY_META[b].order
   )
 }

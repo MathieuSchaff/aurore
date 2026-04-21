@@ -16,15 +16,16 @@ export {
 } from './auth'
 export {
   type Article,
-  articleErrorMapping,
   type ArticleErrorCode,
   type ArticleListItem,
   type ArticleResponse,
   type ArticleSearchFilters,
+  articleErrorMapping,
   articleListItemSchema,
   articleResponseSchema,
   articleSearchSchema,
   BLOG_CATEGORIES,
+  BLOG_CATEGORY_LABELS,
   BLOG_CATEGORY_VALUES,
   type BlogCategory,
   type CreateArticleInput,

@@ -1,4 +1,4 @@
-import { type SkincareProductTagSlug, SKINCARE_PRODUCT_TAG_SLUGS } from './tag-slugs'
+import { SKINCARE_PRODUCT_TAG_SLUGS, type SkincareProductTagSlug } from './tag-slugs'
 
 export const SKINCARE_PRODUCT_TAG_CATEGORIES = [
   'concern',

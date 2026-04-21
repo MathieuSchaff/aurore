@@ -8,10 +8,7 @@ export interface DentalProductTagMeta {
   category: DentalProductTagCategory
 }
 
-export const DENTAL_PRODUCT_TAG_TAXONOMY = {} as Record<
-  DentalProductTagSlug,
-  DentalProductTagMeta
->
+export const DENTAL_PRODUCT_TAG_TAXONOMY = {} as Record<DentalProductTagSlug, DentalProductTagMeta>
 
 export function getDentalProductTagCategory(
   _slug: DentalProductTagSlug

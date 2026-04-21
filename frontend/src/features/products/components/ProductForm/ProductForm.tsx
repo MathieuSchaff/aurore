@@ -8,9 +8,9 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
 import { FormMessage } from '@/component/Feedback/ui/FormMessage/FormMessage'
+import { ChipGroup } from '@/component/Input/ChipGroup/ChipGroup'
 import { FormField } from '@/component/Input/FormField/FormField'
 import { Input } from '@/component/Input/Input'
-import { ChipGroup } from '@/component/Input/ChipGroup/ChipGroup'
 import { TagManager } from '@/component/Input/TagManager/TagManager'
 import { type TagState, useFormTags } from '@/hooks/useFormTags'
 import {

@@ -1,9 +1,9 @@
 import {
   createProductSchema,
   HTTP_STATUS,
-  skincareListProductsQuery,
   ok,
   searchProductsQuery,
+  skincareListProductsQuery,
   updateProductSchema,
 } from '@habit-tracker/shared'
 

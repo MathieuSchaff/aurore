@@ -1,15 +1,15 @@
+import type { IngredientType } from '@habit-tracker/shared'
+import { INGREDIENT_TYPE_LABELS, INGREDIENT_TYPE_VALUES } from '@habit-tracker/shared'
+
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { AlertTriangle, ClipboardCopy, Save, X as XIcon } from 'lucide-react'
 import { useCallback, useState } from 'react'
 
-import type { IngredientType } from '@habit-tracker/shared'
-import { INGREDIENT_TYPE_LABELS, INGREDIENT_TYPE_VALUES } from '@habit-tracker/shared'
-
 import { Button } from '@/component/Button/Button'
 import { FormMessage } from '@/component/Feedback/ui/FormMessage/FormMessage'
+import { ChipGroup } from '@/component/Input/ChipGroup/ChipGroup'
 import { FormField } from '@/component/Input/FormField/FormField'
 import { Input } from '@/component/Input/Input'
-import { ChipGroup } from '@/component/Input/ChipGroup/ChipGroup'
 import { TagManager } from '@/component/Input/TagManager/TagManager'
 import { type TagState, useFormTags } from '@/hooks/useFormTags'
 import { isHttpError } from '@/lib/helpers/isHttpError'
@@ -260,7 +260,10 @@ export function IngredientForm({
 
       <FormField label="Type" htmlFor="ingredient-type">
         <ChipGroup
-          options={INGREDIENT_TYPE_VALUES.map((v) => ({ value: v, label: INGREDIENT_TYPE_LABELS[v] }))}
+          options={INGREDIENT_TYPE_VALUES.map((v) => ({
+            value: v,
+            label: INGREDIENT_TYPE_LABELS[v],
+          }))}
           selected={[ingredientType]}
           onChange={([v]) => v && setIngredientType(v)}
           mode="exclusive"

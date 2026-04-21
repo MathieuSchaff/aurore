@@ -7,8 +7,7 @@ export const SUPPLEMENT_INGREDIENT_TAG_CATEGORIES = [
   'ingredient_attribute',
 ] as const
 
-export type SupplementIngredientTagCategory =
-  (typeof SUPPLEMENT_INGREDIENT_TAG_CATEGORIES)[number]
+export type SupplementIngredientTagCategory = (typeof SUPPLEMENT_INGREDIENT_TAG_CATEGORIES)[number]
 
 export interface SupplementIngredientTagMeta {
   category: SupplementIngredientTagCategory

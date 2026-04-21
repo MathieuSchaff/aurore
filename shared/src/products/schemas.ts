@@ -63,7 +63,11 @@ export const updateProductSchema = z
     if (hasCategory && hasKind) {
       const validKinds = PRODUCT_KINDS[d.category!]
       if (!validKinds || !Object.values(validKinds).includes(d.kind as never)) {
-        ctx.addIssue({ code: 'custom', message: 'kind is not valid for the given category', path: ['kind'] })
+        ctx.addIssue({
+          code: 'custom',
+          message: 'kind is not valid for the given category',
+          path: ['kind'],
+        })
       }
     }
   })

@@ -10,6 +10,7 @@ export const DENTAL_INGREDIENT_CATEGORIES = {
 export type DentalIngredientCategory =
   (typeof DENTAL_INGREDIENT_CATEGORIES)[keyof typeof DENTAL_INGREDIENT_CATEGORIES]
 
-export const DENTAL_INGREDIENT_CATEGORY_VALUES = Object.values(
-  DENTAL_INGREDIENT_CATEGORIES
-) as [DentalIngredientCategory, ...DentalIngredientCategory[]]
+export const DENTAL_INGREDIENT_CATEGORY_VALUES = Object.values(DENTAL_INGREDIENT_CATEGORIES) as [
+  DentalIngredientCategory,
+  ...DentalIngredientCategory[],
+]
