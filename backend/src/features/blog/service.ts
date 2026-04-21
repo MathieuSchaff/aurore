@@ -1,4 +1,8 @@
-import type { ArticleSearchFilters, CreateArticleInput, UpdateArticleInput } from '@habit-tracker/shared'
+import type {
+  ArticleSearchFilters,
+  CreateArticleInput,
+  UpdateArticleInput,
+} from '@habit-tracker/shared'
 
 import slugify from '@sindresorhus/slugify'
 import { and, asc, eq, ilike, isNotNull, type SQL, sql } from 'drizzle-orm'
@@ -8,11 +12,7 @@ import { articles } from '../../db/schema/blog/articles'
 import { isUniqueViolation } from '../../lib/helpers'
 import { BlogError } from './blog-error'
 
-export async function listArticles(
-  db: DB,
-  filters: ArticleSearchFilters,
-  isAdmin = false
-) {
+export async function listArticles(db: DB, filters: ArticleSearchFilters, isAdmin = false) {
   const page = filters.page ?? 1
   const limit = Math.min(filters.limit ?? 20, 50)
   const offset = (page - 1) * limit

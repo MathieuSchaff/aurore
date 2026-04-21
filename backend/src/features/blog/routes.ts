@@ -13,7 +13,13 @@ import { z } from 'zod'
 
 import type { AppEnv } from '../../app-env'
 import { requireJwtAuth } from '../auth/middleware'
-import { createArticle, deleteArticle, getArticleBySlug, listArticles, updateArticle } from './service'
+import {
+  createArticle,
+  deleteArticle,
+  getArticleBySlug,
+  listArticles,
+  updateArticle,
+} from './service'
 
 const slugParam = z.object({ slug: z.string().min(1).max(150) })
 
@@ -42,25 +48,33 @@ export const articleRoutes = articlesApp
 
   .post('/', zValidator('json', createArticleSchema), async (c) => {
     const db = c.get('db')
-    if (c.get('userRole') !== 'admin') return c.json(err('unauthorized_access'), HTTP_STATUS.FORBIDDEN)
+    if (c.get('userRole') !== 'admin')
+      return c.json(err('unauthorized_access'), HTTP_STATUS.FORBIDDEN)
     const userId = c.get('userId')
     const input = c.req.valid('json')
     const article = await createArticle(db, userId, input)
     return c.json(ok(article), HTTP_STATUS.CREATED)
   })
 
-  .patch('/:slug', zValidator('param', slugParam), zValidator('json', updateArticleSchema), async (c) => {
-    const db = c.get('db')
-    if (c.get('userRole') !== 'admin') return c.json(err('unauthorized_access'), HTTP_STATUS.FORBIDDEN)
-    const { slug } = c.req.valid('param')
-    const input = c.req.valid('json')
-    const article = await updateArticle(db, slug, input)
-    return c.json(ok(article), HTTP_STATUS.OK)
-  })
+  .patch(
+    '/:slug',
+    zValidator('param', slugParam),
+    zValidator('json', updateArticleSchema),
+    async (c) => {
+      const db = c.get('db')
+      if (c.get('userRole') !== 'admin')
+        return c.json(err('unauthorized_access'), HTTP_STATUS.FORBIDDEN)
+      const { slug } = c.req.valid('param')
+      const input = c.req.valid('json')
+      const article = await updateArticle(db, slug, input)
+      return c.json(ok(article), HTTP_STATUS.OK)
+    }
+  )
 
   .delete('/:slug', zValidator('param', slugParam), async (c) => {
     const db = c.get('db')
-    if (c.get('userRole') !== 'admin') return c.json(err('unauthorized_access'), HTTP_STATUS.FORBIDDEN)
+    if (c.get('userRole') !== 'admin')
+      return c.json(err('unauthorized_access'), HTTP_STATUS.FORBIDDEN)
     const { slug } = c.req.valid('param')
     await deleteArticle(db, slug)
     return c.body(null, 204)

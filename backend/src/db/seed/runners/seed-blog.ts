@@ -1,6 +1,6 @@
+import { createArticle } from '../../../features/blog/service'
 import { db } from '../..'
 import { articleData } from '../blog'
-import { createArticle } from '../../../features/blog/service'
 import { seedBatch } from '../utils/batch'
 import { getOrCreateSeedUser } from './create-user'
 
