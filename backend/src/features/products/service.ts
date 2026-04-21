@@ -12,7 +12,20 @@ import {
 } from '@habit-tracker/shared'
 
 import slugify from '@sindresorhus/slugify'
-import { and, asc, count, eq, ilike, inArray, notInArray, or, type SQL, sql } from 'drizzle-orm'
+import {
+  and,
+  asc,
+  count,
+  eq,
+  gte,
+  ilike,
+  inArray,
+  lte,
+  notInArray,
+  or,
+  type SQL,
+  sql,
+} from 'drizzle-orm'
 import { ingredients, productIngredients } from 'src/db/schema'
 import { listIngredientsByProduct } from 'src/features/products/product-ingredients/product-ingredients.service'
 
@@ -275,6 +288,15 @@ export async function listProducts(
     )
   }
 
+  // Price range — NULL priceCents is excluded when either bound is active
+  // (NULL comparisons in SQL are falsy, so gte/lte naturally drops them).
+  if (filters.priceMin !== undefined) {
+    conditions.push(gte(products.priceCents, filters.priceMin))
+  }
+  if (filters.priceMax !== undefined) {
+    conditions.push(lte(products.priceCents, filters.priceMax))
+  }
+
   if (filters.avoid_for) {
     const slugs = filters.avoid_for.split(',').filter(Boolean)
     if (slugs.length > 0) {
@@ -293,7 +315,22 @@ export async function listProducts(
 
   const where = conditions.length > 0 ? and(...conditions) : undefined
 
-  const orderBy = filters.sort === 'random' ? sql`random()` : products.name
+  // NULLS LAST on price/date sorts so products without the field
+  // don't surface at the top of the list.
+  const orderBy = (() => {
+    switch (filters.sort) {
+      case 'random':
+        return sql`random()`
+      case 'price_asc':
+        return sql`${products.priceCents} ASC NULLS LAST`
+      case 'price_desc':
+        return sql`${products.priceCents} DESC NULLS LAST`
+      case 'newest':
+        return sql`${products.createdAt} DESC NULLS LAST`
+      default:
+        return products.name
+    }
+  })()
 
   const [items, countResult] = await Promise.all([
     database
@@ -326,22 +363,32 @@ const PRODUCT_FILTER_CATEGORIES = skincareProductFilterCategories()
 export type FilterOptions = {
   kinds: string[]
   brands: string[]
-  tags: Record<ProductFilterCategory, { name: string; slug: string }[]>
+  tags: Record<ProductFilterCategory, { name: string; slug: string; count: number }[]>
 }
 
 export async function getFilterOptions(database: Database = db): Promise<FilterOptions> {
+  // count is the number of distinct products associated with a given tag,
+  // all relevances combined — aligned with the current tag filter logic in
+  // listProducts (no relevance filter on positive filters).
   const [kindRows, brandRows, tagRows] = await Promise.all([
     database.selectDistinct({ kind: products.kind }).from(products).orderBy(products.kind),
     database.selectDistinct({ brand: products.brand }).from(products).orderBy(products.brand),
     database
-      .selectDistinct({
+      .select({
         name: productTagsDefs.label,
         slug: productTagsDefs.slug,
         category: productTagsDefs.tagType,
+        count: count(tagProducts.productId),
       })
       .from(productTagsDefs)
       .innerJoin(tagProducts, eq(productTagsDefs.id, tagProducts.productTagId))
       .where(inArray(productTagsDefs.tagType, PRODUCT_FILTER_CATEGORIES))
+      .groupBy(
+        productTagsDefs.id,
+        productTagsDefs.label,
+        productTagsDefs.slug,
+        productTagsDefs.tagType
+      )
       .orderBy(productTagsDefs.tagType, productTagsDefs.label),
   ])
 
@@ -353,7 +400,7 @@ export async function getFilterOptions(database: Database = db): Promise<FilterO
     if (!tag.category) continue
     const bucket = tag.category as ProductFilterCategory
     if (bucket in tagsByCategory) {
-      tagsByCategory[bucket].push({ name: tag.name, slug: tag.slug })
+      tagsByCategory[bucket].push({ name: tag.name, slug: tag.slug, count: tag.count })
     }
   }
 

@@ -34,9 +34,11 @@ export const skincareListProductsQuery = z.object({
   product_label: z.string().optional(),
   shared_label: z.string().optional(),
   avoid_for: z.string().optional(),
+  priceMin: z.coerce.number().int().min(0).optional(),
+  priceMax: z.coerce.number().int().min(0).optional(),
   page: z.coerce.number().int().min(1).default(1),
   limit: z.coerce.number().int().min(1).max(100).default(20),
-  sort: z.enum(['name', 'random']).optional(),
+  sort: z.enum(['name', 'random', 'price_asc', 'price_desc', 'newest']).optional(),
 })
 
 export type SkincareProductFilterOptions = z.infer<typeof skincareProductFilterOptionsSchema>
