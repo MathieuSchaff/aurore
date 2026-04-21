@@ -434,6 +434,38 @@ describe('Product Routes', () => {
     })
   })
 
+  describe('GET /products/filter-options?category=', () => {
+    it('scopes brands and kinds to the requested tab', async () => {
+      const token = await setupAndLogin(app, TEST_CREDENTIALS.toto)
+      await authPost(app, '/products', token, {
+        name: 'Sérum Vitamine C',
+        brand: 'Brand-Skincare',
+        category: 'skincare',
+        kind: 'serum',
+        unit: 'pump',
+      })
+      await authPost(app, '/products', token, {
+        name: 'Shampoo Doux',
+        brand: 'Brand-Haircare',
+        category: 'haircare',
+        kind: 'shampoo',
+        unit: 'bottle',
+      })
+
+      const res = await app.request('/products/filter-options?category=haircare')
+      expect(res.status).toBe(200)
+      const data = await res.json()
+      expect(data.success).toBe(true)
+      expect(data.data.brands).toEqual(['Brand-Haircare'])
+      expect(data.data.kinds).toEqual(['shampoo'])
+    })
+
+    it('rejects unknown category value', async () => {
+      const res = await app.request('/products/filter-options?category=nope')
+      expect(res.status).toBe(400)
+    })
+  })
+
   describe('GET /products/check-duplicate', () => {
     it('should return an empty array when no similar products exist', async () => {
       const res = await app.request('/products/check-duplicate?name=Niacinamide&brand=CeraVe')

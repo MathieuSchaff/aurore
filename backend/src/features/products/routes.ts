@@ -2,6 +2,7 @@ import {
   createProductSchema,
   HTTP_STATUS,
   ok,
+  PRODUCT_DOMAIN_TABS,
   searchProductsQuery,
   skincareListProductsQuery,
   updateProductSchema,
@@ -44,11 +45,16 @@ productsApp.use('*', withRlsContext)
 
 export const productRoutes = productsApp
 
-  .get('/filter-options', async (c) => {
-    const db = c.get('db')
-    const options = await getFilterOptions(db)
-    return c.json(ok(options), HTTP_STATUS.OK)
-  })
+  .get(
+    '/filter-options',
+    zValidator('query', z.object({ category: z.enum(PRODUCT_DOMAIN_TABS).optional() })),
+    async (c) => {
+      const db = c.get('db')
+      const { category } = c.req.valid('query')
+      const options = await getFilterOptions(db, category)
+      return c.json(ok(options), HTTP_STATUS.OK)
+    }
+  )
   // I put this route here because if I put it below, the slug route will take the request
   .get('/brands', async (c) => {
     const db = c.get('db')
