@@ -78,3 +78,29 @@ describe('productsSearchSchema — profile_filter', () => {
     expect(productsSearchSchema.parse({ profile_filter: true }).profile_filter).toBe(true)
   })
 })
+
+describe('productsSearchSchema — category', () => {
+  it('defaults category to skincare', () => {
+    const parsed = productsSearchSchema.parse({})
+    expect(parsed.category).toBe('skincare')
+  })
+
+  it.each(['skincare', 'haircare', 'dental', 'complement'])(
+    'accepts category = %s',
+    (value) => {
+      const parsed = productsSearchSchema.parse({ category: value })
+      expect(parsed.category).toBe(value)
+    }
+  )
+
+  it('rejects unknown category', () => {
+    expect(() => productsSearchSchema.parse({ category: 'nope' })).toThrow()
+  })
+})
+
+describe('productsSearchSchema — kind', () => {
+  it('defaults kind to an empty array', () => {
+    const parsed = productsSearchSchema.parse({})
+    expect(parsed.kind).toEqual([])
+  })
+})

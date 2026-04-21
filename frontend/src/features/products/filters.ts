@@ -3,6 +3,8 @@
 // not tag categories.
 
 import {
+  PRODUCT_DOMAIN_TABS,
+  type ProductDomainTab,
   SKINCARE_PRODUCT_TAG_CATEGORY_META,
   type SkincareProductTagCategory,
   skincareProductFilterCategories,
@@ -39,6 +41,8 @@ export const LABEL_OVERRIDES: Record<string, string> = {
 const { schema: baseSchema, defaultValues } = filterSearchSchema(FILTER_KEYS)
 
 export const productsSearchSchema = baseSchema.extend({
+  category: z.enum(PRODUCT_DOMAIN_TABS).default('skincare'),
+  kind: z.array(z.string()).default([]),
   profile_filter: z.boolean().default(false),
   sort: z.enum(['name', 'random', 'price_asc', 'price_desc', 'newest']).default('random'),
   priceMin: z.number().int().min(0).optional(),
@@ -47,6 +51,8 @@ export const productsSearchSchema = baseSchema.extend({
 
 export const productsSearchDefaults = {
   ...defaultValues,
+  category: 'skincare' as ProductDomainTab,
+  kind: [] as string[],
   profile_filter: false,
   sort: 'random' as const,
 }
