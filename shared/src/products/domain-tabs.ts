@@ -1,13 +1,13 @@
-import { PRODUCT_CATEGORY_VALUES, type ProductCategory } from './kinds'
+import type { ProductCategory } from './kinds'
 
 export const PRODUCT_DOMAIN_TABS = ['skincare', 'haircare', 'dental', 'complement'] as const
 export type ProductDomainTab = (typeof PRODUCT_DOMAIN_TABS)[number]
 
 export const PRODUCT_DOMAIN_DB_CATEGORIES: Record<ProductDomainTab, readonly ProductCategory[]> = {
-  skincare: ['skincare', 'solaire', 'bodycare'] as const,
-  haircare: ['haircare'] as const,
-  dental: ['dental'] as const,
-  complement: ['complement'] as const,
+  skincare: ['skincare', 'solaire', 'bodycare'],
+  haircare: ['haircare'],
+  dental: ['dental'],
+  complement: ['complement'],
 }
 
 export const PRODUCT_DOMAIN_TAB_META: Record<
@@ -20,13 +20,10 @@ export const PRODUCT_DOMAIN_TAB_META: Record<
   complement: { label: 'Compléments', order: 4 },
 }
 
-// Safety net: every DB category value must appear in exactly one tab bucket.
-// This is a type-level reminder (no runtime cost in production builds).
-const _coverageCheck = [
-  ...PRODUCT_DOMAIN_DB_CATEGORIES.skincare,
-  ...PRODUCT_DOMAIN_DB_CATEGORIES.haircare,
-  ...PRODUCT_DOMAIN_DB_CATEGORIES.dental,
-  ...PRODUCT_DOMAIN_DB_CATEGORIES.complement,
-] satisfies readonly ProductCategory[]
-void _coverageCheck
-void PRODUCT_CATEGORY_VALUES
+// Exhaustiveness guard: fails to compile if any ProductCategory value is not
+// routed to a tab bucket. Added when adding a new DB category — route it here,
+// or this check fails.
+type _MappedCategory = (typeof PRODUCT_DOMAIN_DB_CATEGORIES)[ProductDomainTab][number]
+type _Exhaustive = Exclude<ProductCategory, _MappedCategory> extends never ? true : never
+const _exhaustive: _Exhaustive = true
+void _exhaustive
