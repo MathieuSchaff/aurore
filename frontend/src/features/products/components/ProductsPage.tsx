@@ -223,6 +223,7 @@ export function ProductsPage() {
           {
             key: 'kind' as FilterKey,
             label: 'Type',
+            placeholder: 'Tous',
             options: filterOptions.kinds.map((k) => ({ value: k, label: k })),
           },
           {
