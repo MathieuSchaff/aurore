@@ -1,4 +1,4 @@
-import { INGREDIENT_TAG_CATEGORY_META } from '@habit-tracker/shared'
+import { SKINCARE_INGREDIENT_TAG_CATEGORY_META } from '@habit-tracker/shared'
 
 import { useQuery } from '@tanstack/react-query'
 import { getRouteApi, Link, useNavigate } from '@tanstack/react-router'
@@ -79,7 +79,7 @@ export function IngredientsPage() {
   const filterGroups = useTagFilterGroups(
     FILTER_KEYS,
     filterOptions?.tags,
-    INGREDIENT_TAG_CATEGORY_META
+    SKINCARE_INGREDIENT_TAG_CATEGORY_META
   )
 
   return (
