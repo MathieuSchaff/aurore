@@ -7,6 +7,7 @@ import type {
   UpdateProductInput,
 } from '@habit-tracker/shared'
 import {
+  PRODUCT_DOMAIN_DB_CATEGORIES,
   type SkincareProductTagCategory,
   skincareProductFilterCategories,
 } from '@habit-tracker/shared'
@@ -225,6 +226,12 @@ export async function listProducts(
   const offset = (page - 1) * limit
 
   const conditions: SQL[] = []
+
+  if (filters.category) {
+    conditions.push(
+      inArray(products.category, [...PRODUCT_DOMAIN_DB_CATEGORIES[filters.category]])
+    )
+  }
 
   if (filters.kind) {
     const kinds = Array.isArray(filters.kind) ? filters.kind : filters.kind.split(',')

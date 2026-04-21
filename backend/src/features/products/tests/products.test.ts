@@ -334,6 +334,68 @@ describe('Product Service', () => {
       })
     })
 
+    describe('domain tab scoping', () => {
+      it('skincare tab returns skincare + solaire + bodycare products', async () => {
+        await makeProduct('Sérum', 'A', 'serum', 'pump', { category: 'skincare' })
+        await makeProduct('SPF 50', 'B', 'sunscreen', 'tube', { category: 'solaire' })
+        await makeProduct('Lait corps', 'C', 'body-lotion', 'pump', { category: 'bodycare' })
+        await makeProduct('Shampoing', 'D', 'shampoo', 'bottle', { category: 'haircare' })
+
+        const result = await listProducts({ category: 'skincare' }, testDb)
+        expect(result.total).toBe(3)
+        expect(result.items.map((p) => p.name).sort()).toEqual(['Lait corps', 'SPF 50', 'Sérum'])
+      })
+
+      it('haircare tab returns only haircare products', async () => {
+        await makeProduct('Sérum', 'A', 'serum', 'pump', { category: 'skincare' })
+        await makeProduct('Shampoing', 'B', 'shampoo', 'bottle', { category: 'haircare' })
+
+        const result = await listProducts({ category: 'haircare' }, testDb)
+        expect(result.total).toBe(1)
+        expect(result.items[0]?.name).toBe('Shampoing')
+      })
+
+      it('dental tab returns only dental products', async () => {
+        await makeProduct('Sérum', 'A', 'serum', 'pump', { category: 'skincare' })
+        await makeProduct('Dentifrice', 'B', 'toothpaste', 'tube', { category: 'dental' })
+
+        const result = await listProducts({ category: 'dental' }, testDb)
+        expect(result.total).toBe(1)
+        expect(result.items[0]?.name).toBe('Dentifrice')
+      })
+
+      it('complement tab returns only complement products', async () => {
+        await makeProduct('Sérum', 'A', 'serum', 'pump', { category: 'skincare' })
+        await makeProduct('Zinc', 'B', 'gelule', 'jar', { category: 'complement' })
+
+        const result = await listProducts({ category: 'complement' }, testDb)
+        expect(result.total).toBe(1)
+        expect(result.items[0]?.name).toBe('Zinc')
+      })
+
+      it('omitting category keeps current (unscoped) behavior', async () => {
+        await makeProduct('Sérum', 'A', 'serum', 'pump', { category: 'skincare' })
+        await makeProduct('Shampoing', 'B', 'shampoo', 'bottle', { category: 'haircare' })
+
+        const result = await listProducts({}, testDb)
+        expect(result.total).toBe(2)
+      })
+
+      it('combines with tag filters (AND)', async () => {
+        const product = await makeProduct('Sérum acné', 'A', 'serum', 'pump', { category: 'skincare' })
+        await makeProduct('Shampoing', 'B', 'shampoo', 'bottle', { category: 'haircare' })
+        const tag = await createProductTag(testDb, { name: 'Acné', slug: 'acne', category: 'concern' })
+        await replaceProductTags(testDb, product.id, [{ tagId: tag.id, relevance: 'primary' }])
+
+        const result = await listProducts(
+          { category: 'skincare', concern: 'acne' },
+          testDb
+        )
+        expect(result.total).toBe(1)
+        expect(result.items[0]?.name).toBe('Sérum acné')
+      })
+    })
+
     describe('avoid_for filter', () => {
       it('should exclude products flagged as avoid for the given profile slugs', async () => {
         const reactive = await createProductTag(testDb, {
