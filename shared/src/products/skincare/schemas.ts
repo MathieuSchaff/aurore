@@ -1,5 +1,6 @@
 import { z } from 'zod'
 
+import { PRODUCT_DOMAIN_TABS } from '../domain-tabs'
 import { tagItemSchema } from '../../core'
 
 export const skincareProductFilterOptionsSchema = z.object({
@@ -22,6 +23,7 @@ export const skincareProductFilterOptionsSchema = z.object({
 })
 
 export const skincareListProductsQuery = z.object({
+  category: z.enum(PRODUCT_DOMAIN_TABS).optional(),
   kind: z.string().optional(),
   brand: z.string().optional(),
   routine_step: z.string().optional(),
