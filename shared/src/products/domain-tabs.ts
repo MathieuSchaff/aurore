@@ -10,10 +10,7 @@ export const PRODUCT_DOMAIN_DB_CATEGORIES: Record<ProductDomainTab, readonly Pro
   complement: ['complement'],
 }
 
-export const PRODUCT_DOMAIN_TAB_META: Record<
-  ProductDomainTab,
-  { label: string; order: number }
-> = {
+export const PRODUCT_DOMAIN_TAB_META: Record<ProductDomainTab, { label: string; order: number }> = {
   skincare: { label: 'Skincare', order: 1 },
   haircare: { label: 'Cheveux', order: 2 },
   dental: { label: 'Dents', order: 3 },

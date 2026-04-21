@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
-import { PRODUCT_DOMAIN_TABS } from '../domain-tabs'
 import { tagItemSchema } from '../../core'
+import { PRODUCT_DOMAIN_TABS } from '../domain-tabs'
 
 export const skincareProductFilterOptionsSchema = z.object({
   kinds: z.array(z.string()),

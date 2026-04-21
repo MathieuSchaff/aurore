@@ -1,4 +1,9 @@
-import { PRODUCT_DOMAIN_TAB_META, PRODUCT_DOMAIN_TABS, type ProductDomainTab } from '@habit-tracker/shared'
+import {
+  PRODUCT_DOMAIN_TAB_META,
+  PRODUCT_DOMAIN_TABS,
+  type ProductDomainTab,
+} from '@habit-tracker/shared'
+
 import { useRef } from 'react'
 
 import './DomainTabs.css'
@@ -19,8 +24,7 @@ export function DomainTabs({ value, onChange }: Props) {
     if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return
     e.preventDefault()
     const len = ORDERED_TABS.length
-    const nextIndex =
-      e.key === 'ArrowRight' ? (index + 1) % len : (index - 1 + len) % len
+    const nextIndex = e.key === 'ArrowRight' ? (index + 1) % len : (index - 1 + len) % len
     refs.current[nextIndex]?.focus()
   }
 

@@ -229,9 +229,7 @@ export async function listProducts(
   const conditions: SQL[] = []
 
   if (filters.category) {
-    conditions.push(
-      inArray(products.category, [...PRODUCT_DOMAIN_DB_CATEGORIES[filters.category]])
-    )
+    conditions.push(inArray(products.category, [...PRODUCT_DOMAIN_DB_CATEGORIES[filters.category]]))
   }
 
   if (filters.kind) {

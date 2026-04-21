@@ -39,7 +39,7 @@
 }
 
 .domain-tabs__tab--active::after {
-  content: '';
+  content: "";
   position: absolute;
   left: var(--space-4);
   right: var(--space-4);

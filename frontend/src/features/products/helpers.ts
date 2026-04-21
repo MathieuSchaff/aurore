@@ -1,4 +1,5 @@
 import type { ProductDomainTab } from '@habit-tracker/shared'
+
 import type { FilterValues } from '@/component/Filter'
 import type { ListProductsFilters, ProductSort } from '@/lib/queries/products'
 import { FILTER_KEYS, type FilterKey } from './filters'
