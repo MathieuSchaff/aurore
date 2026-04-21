@@ -1,4 +1,8 @@
-import { PRODUCT_TAG_CATEGORY_META } from '@habit-tracker/shared'
+import {
+  PRODUCT_DOMAIN_TAB_META,
+  type ProductDomainTab,
+  SKINCARE_PRODUCT_TAG_CATEGORY_META,
+} from '@habit-tracker/shared'
 
 import { useQuery } from '@tanstack/react-query'
 import { getRouteApi, Link, useNavigate } from '@tanstack/react-router'
@@ -24,7 +28,11 @@ import { useListFilters } from '@/hooks/useListFilters'
 import { useTagFilterGroups } from '@/hooks/useTagFilterGroups'
 import { ProductIcon } from '../../../assets/product-icons'
 import { ingredientQueries } from '../../../lib/queries/ingredients'
-import { type ListProductsFilters, productQueries } from '../../../lib/queries/products'
+import {
+  type ListProductsFilters,
+  type ProductSort,
+  productQueries,
+} from '../../../lib/queries/products'
 import { profileQueries } from '../../../lib/queries/profile'
 import { useAuthStore } from '../../../store/auth'
 import {
@@ -34,13 +42,26 @@ import {
   LABEL_OVERRIDES,
   TAG_FILTER_KEYS,
 } from '../filters'
+import {
+  buildDomainSwitchSearch,
+  buildProductsApiFilters,
+  buildResetSearchParams,
+  hasActivePriceRange,
+} from '../helpers'
 import { AddToCollectionModal } from './AddToCollectionModal/AddToCollectionModal'
+import { DomainTabs } from './DomainTabs/DomainTabs'
+import { PriceRangeFilter } from './PriceRangeFilter/PriceRangeFilter'
+import { SortControl } from './SortControl/SortControl'
 
 import '@/component/Layout/PageLayout/ListPage.css'
 import './ProductsPage.css'
 import '@/features/products/styles/kinds.css'
 
 const routeApi = getRouteApi('/products/')
+
+// Only tag keys — omits brand/ingredient/kind — so domain switch resets tags
+// without clobbering ingredient (which buildDomainSwitchSearch preserves explicitly).
+const EMPTY_TAG_FILTERS = emptyFilters(TAG_FILTER_KEYS) as Record<string, string[]>
 
 function kindClass(kind: string): string {
   switch (kind) {
@@ -82,7 +103,7 @@ export function ProductsPage() {
   } | null>(null)
 
   const search = routeApi.useSearch()
-  const { page, profile_filter } = search
+  const { page, profile_filter, sort, priceMin, priceMax, category } = search
   const navigate = useNavigate({ from: '/products/' })
 
   const user = useAuthStore((s) => s.user)
@@ -109,32 +130,43 @@ export function ProductsPage() {
       filterKeys: FILTER_KEYS,
     })
 
-  const effectiveFilterCount = filterCount + (profile_filter ? 1 : 0)
+  const hasPriceRange = hasActivePriceRange(priceMin, priceMax)
+  const effectiveFilterCount = filterCount + (profile_filter ? 1 : 0) + (hasPriceRange ? 1 : 0)
 
   const handleReset = () => {
     resetFilters()
-    navigate({ search: (prev) => ({ ...prev, profile_filter: false }), replace: true })
+    navigate({ search: buildResetSearchParams, replace: true })
   }
 
   const hasFilters = filterCount > 0
 
-  const { data: filterOptions } = useQuery(productQueries.filterOptions())
+  const { data: filterOptions } = useQuery(productQueries.filterOptions(category))
   const { data: allIngredients } = useQuery(ingredientQueries.options())
 
-  const apiFilters: ListProductsFilters = hasFilters
-    ? {
-        ...(Object.fromEntries(
-          FILTER_KEYS.map((k) => [k, filters[k].length > 0 ? filters[k] : undefined])
-        ) as Partial<ListProductsFilters>),
-        avoid_for: avoidFor.length > 0 ? avoidFor : undefined,
-        page,
-        limit: 20,
-      }
-    : {
-        sort: 'random',
-        limit: 12,
-        avoid_for: avoidFor.length > 0 ? avoidFor : undefined,
-      }
+  const apiFilters: ListProductsFilters = buildProductsApiFilters({
+    filters,
+    avoidFor,
+    sort,
+    priceMin,
+    priceMax,
+    page,
+    hasFilters,
+  })
+  apiFilters.category = category
+  if (search.kind && search.kind.length > 0) {
+    apiFilters.kind = search.kind
+  }
+
+  const handleSortChange = (next: ProductSort) => {
+    navigate({ search: (prev) => ({ ...prev, sort: next, page: 1 }), replace: true })
+  }
+
+  const handlePriceChange = ({ min, max }: { min?: number; max?: number }) => {
+    navigate({
+      search: (prev) => ({ ...prev, priceMin: min, priceMax: max, page: 1 }),
+      replace: true,
+    })
+  }
 
   const { data, isLoading, isPlaceholderData } = useQuery({
     ...productQueries.list(apiFilters),
@@ -145,20 +177,55 @@ export function ProductsPage() {
   const tagGroups = useTagFilterGroups(
     TAG_FILTER_KEYS,
     filterOptions?.tags,
-    PRODUCT_TAG_CATEGORY_META,
+    SKINCARE_PRODUCT_TAG_CATEGORY_META,
     LABEL_OVERRIDES
   )
 
   const filterGroups = useMemo<FilterGroupConfig<FilterKey>[]>(() => {
     if (!filterOptions) return []
+
+    if (category === 'skincare') {
+      return [
+        ...(tagGroups as FilterGroupConfig<FilterKey>[]),
+        {
+          id: 'search',
+          label: 'Recherche précise',
+          defaultOpen: false,
+          tier: 'advanced',
+          subFilters: [
+            {
+              key: 'brand',
+              label: 'Marque',
+              placeholder: 'Rechercher une marque...',
+              variant: 'search-select',
+              options: filterOptions.brands.map((b) => ({ value: b, label: b })),
+            },
+            {
+              key: 'ingredient',
+              label: 'Ingrédient',
+              placeholder: 'Rechercher un ingrédient...',
+              variant: 'search-select',
+              options: allIngredients?.map((i) => ({ value: i.slug, label: i.name })) ?? [],
+            },
+          ],
+        },
+      ]
+    }
+
+    // Non-skincare tabs: minimal drawer with kind / brand / ingredient.
     return [
-      ...(tagGroups as FilterGroupConfig<FilterKey>[]),
       {
         id: 'search',
         label: 'Recherche précise',
-        defaultOpen: false,
-        tier: 'advanced',
+        defaultOpen: true,
+        tier: 'essential',
         subFilters: [
+          {
+            key: 'kind' as FilterKey,
+            label: 'Type',
+            placeholder: 'Tous',
+            options: filterOptions.kinds.map((k) => ({ value: k, label: k })),
+          },
           {
             key: 'brand',
             label: 'Marque',
@@ -176,23 +243,32 @@ export function ProductsPage() {
         ],
       },
     ]
-  }, [filterOptions, allIngredients, tagGroups])
+  }, [filterOptions, allIngredients, tagGroups, category])
 
   const items = data?.items ?? []
   const total = data?.total ?? 0
   const totalPages = Math.ceil(total / 20)
 
-  const profileToggle = user ? (
-    <Toggle
-      label="Selon mon profil"
-      hint="Masque les produits contre-indiqués pour votre type de peau"
-      checked={profile_filter}
-      onChange={(checked) =>
-        navigate({ search: (prev) => ({ ...prev, profile_filter: checked, page: 1 }) })
-      }
-      size="sm"
-    />
-  ) : null
+  // Profile toggle is only meaningful on the skincare tab.
+  const profileToggle =
+    user && category === 'skincare' ? (
+      <Toggle
+        label="Selon mon profil"
+        hint="Masque les produits contre-indiqués pour votre type de peau"
+        checked={profile_filter}
+        onChange={(checked) =>
+          navigate({ search: (prev) => ({ ...prev, profile_filter: checked, page: 1 }) })
+        }
+        size="sm"
+      />
+    ) : null
+
+  const handleDomainChange = (next: ProductDomainTab) => {
+    navigate({
+      search: (prev) => buildDomainSwitchSearch(prev, next, EMPTY_TAG_FILTERS),
+      replace: true,
+    })
+  }
 
   return (
     <>
@@ -215,6 +291,7 @@ export function ProductsPage() {
                 onSelect={(slug) => navigate({ to: '/products/$slug', params: { slug } })}
               />
               <div className="list-header__actions-group">
+                <SortControl value={sort} onChange={handleSortChange} />
                 <Button
                   type="button"
                   variant="primary"
@@ -244,6 +321,8 @@ export function ProductsPage() {
           }
         />
 
+        <DomainTabs value={category} onChange={handleDomainChange} />
+
         <ActiveFiltersBar
           activeTags={activeTags}
           groupLabels={GROUP_LABELS}
@@ -262,6 +341,7 @@ export function ProductsPage() {
           onReset={handleReset}
         >
           {profileToggle}
+          <PriceRangeFilter min={priceMin} max={priceMax} onChange={handlePriceChange} />
         </FilterDrawer>
 
         <section
@@ -273,8 +353,12 @@ export function ProductsPage() {
           ) : items.length === 0 ? (
             <EmptyState
               icon={<Package size={24} />}
-              title="Aucun produit trouvé"
-              subtitle="Essayez de modifier vos filtres pour trouver des produits."
+              title={`Aucun produit ${PRODUCT_DOMAIN_TAB_META[category].label.toLowerCase()} pour l'instant`}
+              subtitle={
+                category === 'skincare'
+                  ? 'Essayez de modifier vos filtres pour trouver des produits.'
+                  : "Le catalogue s'enrichit régulièrement — revenez plus tard."
+              }
             />
           ) : (
             <>

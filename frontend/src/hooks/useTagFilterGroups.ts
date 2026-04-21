@@ -4,14 +4,14 @@ import { useMemo } from 'react'
 
 import type { FilterGroupConfig, FilterOption } from '@/component/Filter'
 
-type TagItem = { name: string; slug: string }
+type TagItem = { name: string; slug: string; count?: number }
 
 /**
  * Build FilterGroupConfig[] from domain category metadata and a filter-options payload.
  *
  * @param categories — category keys to include (product or ingredient)
  * @param tagsByCategory — tag items per category (from API filter-options)
- * @param categoryMeta — PRODUCT_TAG_CATEGORY_META or INGREDIENT_TAG_CATEGORY_META
+ * @param categoryMeta — SKINCARE_PRODUCT_TAG_CATEGORY_META or SKINCARE_INGREDIENT_TAG_CATEGORY_META
  * @param labelOverrides — slug → label overrides (optional)
  */
 export function useTagFilterGroups<K extends string>(
@@ -28,6 +28,7 @@ export function useTagFilterGroups<K extends string>(
       const options: FilterOption[] = (tagsByCategory[cat] ?? []).map((t) => ({
         value: t.slug,
         label: labelOverrides[t.slug] ?? t.name,
+        count: t.count,
       }))
 
       return {
