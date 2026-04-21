@@ -560,6 +560,38 @@ describe('Product Service', () => {
       expect(slugs).toContain(linked.slug)
       expect(slugs).not.toContain(orphan.slug)
     })
+
+    describe('domain tab scoping', () => {
+      it('scopes brands and kinds to the skincare tab categories', async () => {
+        await makeProduct('Sérum', 'Brand-Skincare', 'serum', 'pump', { category: 'skincare' })
+        await makeProduct('SPF', 'Brand-Solaire', 'sunscreen', 'tube', { category: 'solaire' })
+        await makeProduct('Shampoing', 'Brand-Haircare', 'shampoo', 'bottle', { category: 'haircare' })
+
+        const options = await getFilterOptions(testDb, 'skincare')
+        expect(options.brands.sort()).toEqual(['Brand-Skincare', 'Brand-Solaire'])
+        expect(options.kinds.sort()).toEqual(['serum', 'sunscreen'])
+      })
+
+      it('returns empty tags for non-skincare tabs (taxonomy not yet seeded)', async () => {
+        await makeProduct('Shampoing', 'Brand', 'shampoo', 'bottle', { category: 'haircare' })
+
+        const options = await getFilterOptions(testDb, 'haircare')
+        expect(options.brands).toEqual(['Brand'])
+        expect(options.kinds).toEqual(['shampoo'])
+        for (const bucket of Object.values(options.tags)) {
+          expect(bucket).toEqual([])
+        }
+      })
+
+      it('omitting category keeps current (unscoped) behavior', async () => {
+        await makeProduct('Sérum', 'A', 'serum', 'pump', { category: 'skincare' })
+        await makeProduct('Shampoing', 'B', 'shampoo', 'bottle', { category: 'haircare' })
+
+        const options = await getFilterOptions(testDb)
+        expect(options.brands.sort()).toEqual(['A', 'B'])
+        expect(options.kinds.sort()).toEqual(['serum', 'shampoo'])
+      })
+    })
   })
 
   describe('getProductWithIngredientsBySlug', () => {

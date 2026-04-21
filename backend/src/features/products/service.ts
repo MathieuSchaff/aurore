@@ -8,6 +8,7 @@ import type {
 } from '@habit-tracker/shared'
 import {
   PRODUCT_DOMAIN_DB_CATEGORIES,
+  type ProductDomainTab,
   type SkincareProductTagCategory,
   skincareProductFilterCategories,
 } from '@habit-tracker/shared'
@@ -373,30 +374,57 @@ export type FilterOptions = {
   tags: Record<ProductFilterCategory, { name: string; slug: string; count: number }[]>
 }
 
-export async function getFilterOptions(database: Database = db): Promise<FilterOptions> {
+export async function getFilterOptions(
+  database: Database = db,
+  category?: ProductDomainTab
+): Promise<FilterOptions> {
+  const dbCategories = category ? [...PRODUCT_DOMAIN_DB_CATEGORIES[category]] : null
+  const productScope = dbCategories ? inArray(products.category, dbCategories) : undefined
+
   // count is the number of distinct products associated with a given tag,
   // all relevances combined — aligned with the current tag filter logic in
   // listProducts (no relevance filter on positive filters).
   const [kindRows, brandRows, tagRows] = await Promise.all([
-    database.selectDistinct({ kind: products.kind }).from(products).orderBy(products.kind),
-    database.selectDistinct({ brand: products.brand }).from(products).orderBy(products.brand),
     database
-      .select({
-        name: productTagsDefs.label,
-        slug: productTagsDefs.slug,
-        category: productTagsDefs.tagType,
-        count: count(tagProducts.productId),
-      })
-      .from(productTagsDefs)
-      .innerJoin(tagProducts, eq(productTagsDefs.id, tagProducts.productTagId))
-      .where(inArray(productTagsDefs.tagType, PRODUCT_FILTER_CATEGORIES))
-      .groupBy(
-        productTagsDefs.id,
-        productTagsDefs.label,
-        productTagsDefs.slug,
-        productTagsDefs.tagType
-      )
-      .orderBy(productTagsDefs.tagType, productTagsDefs.label),
+      .selectDistinct({ kind: products.kind })
+      .from(products)
+      .where(productScope)
+      .orderBy(products.kind),
+    database
+      .selectDistinct({ brand: products.brand })
+      .from(products)
+      .where(productScope)
+      .orderBy(products.brand),
+    // Non-skincare tabs have no product tag taxonomy yet — short-circuit the JOIN.
+    category && category !== 'skincare'
+      ? Promise.resolve(
+          [] as { name: string; slug: string; category: string | null; count: number }[]
+        )
+      : database
+          .select({
+            name: productTagsDefs.label,
+            slug: productTagsDefs.slug,
+            category: productTagsDefs.tagType,
+            count: count(tagProducts.productId),
+          })
+          .from(productTagsDefs)
+          .innerJoin(tagProducts, eq(productTagsDefs.id, tagProducts.productTagId))
+          .innerJoin(products, eq(tagProducts.productId, products.id))
+          .where(
+            dbCategories
+              ? and(
+                  inArray(productTagsDefs.tagType, PRODUCT_FILTER_CATEGORIES),
+                  inArray(products.category, dbCategories)
+                )
+              : inArray(productTagsDefs.tagType, PRODUCT_FILTER_CATEGORIES)
+          )
+          .groupBy(
+            productTagsDefs.id,
+            productTagsDefs.label,
+            productTagsDefs.slug,
+            productTagsDefs.tagType
+          )
+          .orderBy(productTagsDefs.tagType, productTagsDefs.label),
   ])
 
   const tagsByCategory = Object.fromEntries(
