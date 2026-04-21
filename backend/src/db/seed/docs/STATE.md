@@ -617,7 +617,7 @@ Comportements limites :
 
 ### 5.5 Frontend — paramétrage pages
 
-**ProductsPage** — 10 clés de filtre (8 catégories tag + `brand` + `ingredient`).
+**ProductsPage** — 10 clés de filtre tag/brand (8 catégories tag + `brand` + `ingredient`) + 3 contrôles hors-drawer (`sort`, `priceMin`, `priceMax`).
 
 | Groupe | Tier | Filtres |
 |---|---|---|
@@ -627,10 +627,20 @@ Comportements limites :
 | Labels | advanced | product_label, shared_label |
 | Recherche précise | advanced | brand, ingredient (SearchSelect) |
 
+**Contrôles supplémentaires** (état URL, hors `FilterGroupConfig`) :
+
+| Contrôle | Composant | Emplacement | Options / format |
+|---|---|---|---|
+| Tri | `SortControl` (`features/products/components/SortControl/`) | `PageHeader` à gauche du bouton Filtrer | Dropdown 5 valeurs : `random` (Découverte), `name`, `price_asc`, `price_desc`, `newest` |
+| Prix range | `PriceRangeFilter` (`features/products/components/PriceRangeFilter/`) | Injecté dans `FilterDrawer` via `children` (à côté du toggle profil) | 2 inputs `number` en euros, commit `onBlur`/`Enter`, stockés en centimes dans l'URL |
+| Profil dermo | `Toggle` "Selon mon profil" | Idem, via `children` | `profile_filter: boolean` → `avoid_for` à l'API |
+
 Override label : `{ 'barriere-cutanee-alteree': 'Peau sensibilisée' }`.
 
-Mode Découverte (aucun filtre actif) : `sort=random, limit=12`.
-Mode Filtré : `sort=name, limit=20, page=N`.
+Counts par tag affichés dans les chips (badge sobre après le label, source `GET /products/filter-options` — cf. §5.4).
+
+Mode Découverte (aucun filtre tag + pas de range prix + `sort === 'random'`) : `limit=12`, pas de pagination.
+Toute intention utilisateur (filtre, range prix, ou sort explicite) → `limit=20, page=N`.
 
 **IngredientsPage** — 5 clés de filtre.
 
