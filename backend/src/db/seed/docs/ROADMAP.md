@@ -165,8 +165,8 @@ shared mais leurs slugs ne sont pas seedés.
 
 - [ ] **haircare** — étendre `ingredientTagData` pour inclure
       `HAIRCARE_INGREDIENT_TAG_TAXONOMY`
-- [ ] **dental** — étendre `ingredientTagData` pour inclure
-      `DENTAL_INGREDIENT_TAG_TAXONOMY`
+- [x] **dental** — `ingredientTagData` inclut `DENTAL_INGREDIENT_TAG_TAXONOMY`
+      (34 slugs : concerns + age_group + ingredient_attribute + dental_effect)
 - [ ] **produits non-skincare** — `productTagData` ne couvre que skincare ;
       étendre quand les stubs haircare/dental/supplement produits seront remplis
 
@@ -210,6 +210,7 @@ initiale : l'appliquer également aux ingrédients.
 | P7 | 🟡 Moyen | camelCase `skinType` (ingrédients) vs snake_case `skin_type` (produits) | Harmoniser |
 | P8 | 🟢 Faible | Pas de filtre prix. `products.priceCents` existe en DB mais aucun paramètre `priceMin`/`priceMax` dans `skincareListProductsQuery`. Pas d'UI range côté frontend. | Ajouter params range backend + composant range/input frontend |
 | P9 | 🟢 Faible | `GET /products/filter-options` retourne les tags sans compteur (`{ slug, name }`). UI ne peut pas afficher `"Acné (12)"`. Même limite côté ingrédients. | Enrichir la réponse avec `count` agrégé via junction |
+| P10 | 🟡 Moyen | Tabs `haircare` / `dental` / `complement` affichés mais taxonomie tag produit vide (cf. §4.1). Drawer minimal kind/brand/ingredient seulement. | Remplir `HAIRCARE_PRODUCT_TAG_TAXONOMY` etc., puis étendre `productTagData` (§4.1) |
 
 ---
 
@@ -340,6 +341,32 @@ Validation :
 - Types : `bunx tsc --noEmit` clean.
 - Lint biome : propre après autofix (imports reformatés).
 - Vitest : 222/240 pass (18 fails pré-existants stricts sur `collection/__integration__`, `Toggle`, `PaletteSettings`, `ProductDetailSheet`, `useQuickAdd`, `CriteriaList` — aucun rapport avec mes modifs, confirmé via l'invariance pré/post changes).
+
+### 2026-04-21 — Tabs de domaine produits (frontend + backend)
+
+Ajout d'un switcher de domaine sur `/products`. 4 tabs : Skincare (merge
+`skincare`+`solaire`+`bodycare`), Cheveux, Dents, Compléments.
+
+- **Shared** : `shared/src/products/domain-tabs.ts` — `PRODUCT_DOMAIN_TABS`,
+  `PRODUCT_DOMAIN_DB_CATEGORIES`, `PRODUCT_DOMAIN_TAB_META`.
+  `skincareListProductsQuery` étendue avec `category?` optionnel.
+- **Backend** : `listProducts` filtre par domaine si `category` présent.
+  `getFilterOptions(db, category?)` scope `brands`/`kinds`/`tags` ;
+  short-circuit du JOIN tag pour les 3 tabs non-skincare.
+  Route `/products/filter-options` valide `?category=` via Zod.
+- **Frontend** : composant `DomainTabs` (role=tablist, arrow-key nav),
+  drawer conditionnel (skincare inchangé, non-skincare = kind/brand/ingredient),
+  profile toggle gated skincare-only, empty states adaptés par tab.
+  Helper `buildDomainSwitchSearch` — reset tags/brand/kind/profile, garde
+  sort/price/ingredient, `page = 1`.
+
+Hors scope (déferré dans §4.1 / §8.5) : remplir `HAIRCARE_PRODUCT_TAG_TAXONOMY`,
+`DENTAL_PRODUCT_TAG_TAXONOMY`, `SUPPLEMENT_PRODUCT_TAG_TAXONOMY` + tagger les
+produits correspondants. Tant que ces domaines n'ont pas de produits seedés,
+les 3 tabs non-skincare montrent un `EmptyState`.
+
+Tests : ~15 nouveaux (backend 6 listProducts + 3 getFilterOptions + 2 routes ;
+frontend 4 DomainTabs + 5 serialization + 4 filters-schema + 2 helpers).
 
 ### 2026-04-21 — Couverture tests backend complète (listProducts + getFilterOptions)
 

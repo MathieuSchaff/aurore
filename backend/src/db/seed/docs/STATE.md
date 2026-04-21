@@ -32,12 +32,14 @@ backend/src/db/seed/
 │   ├── products/            # seeds produits, un dossier par marque
 │   │   ├── types.ts          # UnifiedProductSeed
 │   │   ├── index.ts          # agrégation toutes marques
+│   │   ├── products-slugs.ts # allProductSlugs dérivé (consommé par tests)
 │   │   └── <brand>/<brand>.seed.ts   # 81 fichiers actifs
-│   └── tags/                # seed-tags : ingredientTagData + productTagData (284L)
-│       └── index.ts
-├── runners/                 # seed-core.ts, seed-skincare.ts, etc.
+│   ├── tags/                # seed-tags : ingredientTagData + productTagData (284L)
+│   │   └── index.ts
+│   ├── blog/                # article-data.ts + 8 catégories (articles seed)
+│   └── otherdata/           # product-associations.ts, tag-associations.ts (CSV)
+├── runners/                 # seed-core.ts, seed-skincare.ts, seed-blog.ts, etc.
 ├── tests/                   # seed-data-integrity, shared-schemas-vs-tags, etc.
-├── otherdata/               # product-associations.ts, tag-associations.ts (CSV)
 └── docs/                    # ← ici
 ```
 
@@ -248,7 +250,7 @@ signature du produit. Trop de primary → information diluée.
 ### 3.7 Source de données seed
 
 - **CSV (skinsafeproducts.com)** — ~8 000 produits, traduction CSV→interne
-  via `data/products/types.ts` et `otherdata/product-associations.ts`
+  via `data/products/types.ts` et `data/otherdata/product-associations.ts`
   (mapping catégorie/kind/unit anglais → interne).
 - **Saisie manuelle** — marques soigneusement curées, FR, dans
   `data/products/<brand>/<brand>.seed.ts`.
@@ -649,6 +651,36 @@ Toute intention utilisateur (filtre, range prix, ou sort explicite) → `limit=2
 | Type de peau & Problèmes | essential | skin_type, concern |
 | Attributs & Effets | advanced | ingredient_attribute, skin_effect, shared_label |
 
+### 5.6 Tabs de domaine (frontend)
+
+`/products` est scopé par un tab de domaine passé en query param `?category=`.
+4 tabs sous `PageHeader` : Skincare / Cheveux / Dents / Compléments.
+
+| Tab frontend | DB categories couvertes |
+|---|---|
+| `skincare` (défaut) | `skincare`, `solaire`, `bodycare` |
+| `haircare` | `haircare` |
+| `dental` | `dental` |
+| `complement` | `complement` |
+
+Meta des tabs : `shared/src/products/domain-tabs.ts`
+(`PRODUCT_DOMAIN_TABS`, `PRODUCT_DOMAIN_DB_CATEGORIES`, `PRODUCT_DOMAIN_TAB_META`).
+
+Backend : `GET /products` et `GET /products/filter-options` acceptent un param
+optionnel `category`. Quand absent, comportement inchangé. Quand présent,
+`listProducts` ajoute `inArray(products.category, PRODUCT_DOMAIN_DB_CATEGORIES[tab])`
+et `getFilterOptions` scope `brands` / `kinds` / `tags` au même set.
+
+Frontend : sur le tab `skincare`, drawer identique à l'actuel (8 accordions tag
++ brand + ingredient). Sur les 3 autres tabs, drawer minimal (kind + brand +
+ingredient) — la taxonomie produit `haircare/dental/complement` n'est pas
+encore seedée (cf. §8.5). Le toggle profil dermo ne s'affiche que sur le tab
+skincare.
+
+Reset au switch de tab : tag filters, `brand`, `kind`, `profile_filter` → reset ;
+`sort`, `priceMin`, `priceMax`, `ingredient` → préservés ; `page` → 1.
+Helper : `frontend/src/features/products/helpers.ts` → `buildDomainSwitchSearch`.
+
 ---
 
 ## 6. Tagging — sources
@@ -662,22 +694,22 @@ Les tags en DB sont statiques — créés au seed, jamais à la volée par l'API
 insérer. Labels FR définis localement dans `TAG_LABELS` (dict slug → string, ~200
 entrées). Le `tagType` est dérivé de la taxonomie shared.
 
-- `ingredientTagData` : agrégat skincare + supplement (déduplification first-occurrence).
-  Les slugs haircare-natifs et dental ne sont pas encore insérés en DB.
+- `ingredientTagData` : agrégat skincare + supplement + dental (déduplification
+  first-occurrence). Les slugs haircare-natifs ne sont pas encore insérés en DB.
 - `productTagData` : construit depuis `SKINCARE_PRODUCT_TAG_TAXONOMY` uniquement — les
   3 autres domaines produit ont des stubs vides.
 
 ### 6.2 Associations ingrédient↔tag — manuel
 
 `data/ingredient-tags/index.ts` (61L, shell post-refactor) → `ingredientTagMap`.
-414 ingrédients taggués à la main, répartis en 4 fichiers domaine :
+432 ingrédients taggués à la main, répartis en 4 fichiers domaine :
 
 | Domaine | Const | Entries | Fichier |
 |---|---|---|---|
-| `skincare` | `skincareTagMap` | 376 | `ingredients/skincare/ingredient-tags.ts` |
-| `supplements` | `supplementTagMap` | 26 | `ingredients/supplements/ingredient-tags.ts` |
-| `haircare` | `haircareTagMap` | 12 | `ingredients/haircare/ingredient-tags.ts` |
-| `dental` | `dentalTagMap` | 0 | `ingredients/dental/ingredient-tags.ts` |
+| `skincare` | `skincareTagMap` | 376 | `ingredients/skincare/INGREDIENT-TAGS.ts` |
+| `supplements` | `supplementTagMap` | 26 | `ingredients/supplements/INGREDIENT-TAGS.ts` |
+| `haircare` | `haircareTagMap` | 12 | `ingredients/haircare/INGREDIENT-TAGS.ts` |
+| `dental` | `dentalTagMap` | 18 | `ingredients/dental/INGREDIENT-TAGS.ts` |
 
 Les 12 entries haircare sont des tensioactifs/silicones dual-domain : ils réutilisent
 des slugs skincare via `TAG_SLUGS` (slugs skincare), pas les slugs haircare-natifs.
@@ -700,7 +732,7 @@ Exception : `noreva-product-tags.ts` est un fichier séparé hérité de l'ancie
 
 ### 6.4 Associations produit↔tag — CSV (auto)
 
-`otherdata/tag-associations.ts` + `getTargetTagSlugs()` dans
+`data/otherdata/tag-associations.ts` + `getTargetTagSlugs()` dans
 `runners/seed-skincare.ts`. Trois signaux combinés :
 
 1. **Catégorie CSV** → tags (`"Serum"` → `serum`, `traitement`)
@@ -761,7 +793,7 @@ Les tests vivent dans `backend/src/db/seed/tests/`. Ils tournent via
 
 ### 7.4 `ingredient-tags-split.test.ts`
 
-4 blocs. Snapshot `ingredientTagMap` (414 entries) + routing par domaine.
+4 blocs. Snapshot `ingredientTagMap` (432 entries) + routing par domaine.
 
 ### 7.5 Script utilitaire
 
@@ -803,10 +835,13 @@ Un payload `{ type: 'skincare', category: 'vitamine' }` passe le Zod (category e
 skincare/supp/dental. 12 slugs tensioactifs/chelateurs/silicones partagés. Warning
 console à l'exécution, pas d'erreur. Comportement voulu, mais masqué.
 
-### 8.4 Aucun tag dental
+### 8.4 ~~Aucun tag dental~~ — résolu
 
-`dentalTagMap` est vide (placeholder). Les ingrédients dental n'ont aucun mapping
-primary/secondary/avoid. Les slugs dental ne sont pas non plus insérés en DB.
+`dentalTagMap` contient 18 entries (reminéralisation, antimicrobiens, anti-sensibilité,
+abrasifs, blanchissants, divers). Les 34 slugs dental sont insérés via
+`ingredientTagData` (aggregate skincare + supplement + dental). `productTagData`
+reste skincare uniquement — tant que les produits dentaires ne nécessitent pas de
+filtres dédiés.
 
 ### 8.5 `productTagData` ne couvre que skincare
 
@@ -866,4 +901,4 @@ sur `category` — filtrage par catégorie sur grande table fera un seq scan.
   `INGREDIENT_TAG_SLUGS` → `SKINCARE_INGREDIENT_TAG_SLUGS`, etc.
 - Split `ingredient-slugs.ts` (842L → 120L root + 4 fichiers domaine, avril 2026)
 - Split `ingredient-tags/index.ts` (3069L → 61L shell + 4 fichiers domaine, avril 2026) :
-  376 entries skincare + 26 supplement + 12 haircare + 0 dental = 414 total
+  376 entries skincare + 26 supplement + 12 haircare + 18 dental = 432 total
