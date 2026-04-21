@@ -1,6 +1,4 @@
-import { allProductData } from '../products/index'
-// Remplace par le bon chemin vers ton fichier d'ingrédients
-import { allIngredientProductTags } from '../products/ingredients-products-tags'
+import { allProductData, allIngredientProductTags } from '../data/products'
 
 type ProductWithSlug = (typeof allProductData)[number] & { slug: string }
 

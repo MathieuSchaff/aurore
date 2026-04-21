@@ -1,5 +1,4 @@
-import { allProductData } from '../products/index'
-import { allProductTagsMap } from '../products/product-tags'
+import { allProductData, allProductTagsMap } from '../data/products'
 
 type ProductTagGroups = {
   primary: string[]

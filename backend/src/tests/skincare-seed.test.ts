@@ -4,8 +4,8 @@ import slugify from '@sindresorhus/slugify'
 import { eq } from 'drizzle-orm'
 
 import { productIngredients } from '../db/schema'
-import { getOrCreateSeedUser } from '../db/seed/create-user'
-import { extractCapacity, parseCSV } from '../db/seed/utils'
+import { getOrCreateSeedUser } from '../db/seed/runners/create-user'
+import { extractCapacity, parseCSV } from '../db/seed/utils/csv'
 import { createIngredient } from '../features/ingredients/service'
 import { addIngredientToProduct } from '../features/products/product-ingredients/product-ingredients.service'
 import { createProduct } from '../features/products/service'
@@ -65,8 +65,9 @@ describe('Database Seeding Integration', () => {
       {
         name,
         brand,
-        kind: usageType,
-        unit,
+        category: 'skincare',
+        kind: 'serum',
+        unit: 'pack',
         totalAmount,
         imageUrl,
         url: productUrl,
@@ -89,10 +90,10 @@ describe('Database Seeding Integration', () => {
       try {
         ingredient = await createIngredient(testDb, user.id, {
           name: ingName,
+          type: 'skincare',
           slug: ingSlug,
           description: '',
           content: '',
-          category: 'skincare',
         })
       } catch (_e) {
         // Find existing if create fails
