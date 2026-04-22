@@ -54,19 +54,23 @@ describe('isDiscoveryMode', () => {
 })
 
 describe('buildProductsApiFilters', () => {
-  it('returns discovery payload (sort=random, limit=12) when in discovery mode', () => {
+  it('returns discovery payload when in discovery mode', () => {
     const out = buildProductsApiFilters({
+      category: 'skincare',
+      kind: [],
       filters: emptyTagFilters(),
       avoidFor: [],
       sort: 'random',
       page: 1,
       hasFilters: false,
     })
-    expect(out).toEqual({ sort: 'random', limit: 12, avoid_for: undefined })
+    expect(out).toEqual({ category: 'skincare', sort: 'random', limit: 12, avoid_for: undefined })
   })
 
   it('includes avoid_for in discovery mode when the profile has slugs', () => {
     const out = buildProductsApiFilters({
+      category: 'skincare',
+      kind: [],
       filters: emptyTagFilters(),
       avoidFor: ['peau-reactive'],
       sort: 'random',
@@ -77,10 +81,12 @@ describe('buildProductsApiFilters', () => {
     expect(out.limit).toBe(12)
   })
 
-  it('switches to paginated mode (limit=20 + sort + price) when filters are active', () => {
+  it('switches to paginated mode when filters are active', () => {
     const filters = emptyTagFilters()
     filters.concern = ['acne']
     const out = buildProductsApiFilters({
+      category: 'skincare',
+      kind: [],
       filters,
       avoidFor: [],
       sort: 'name',
@@ -97,11 +103,12 @@ describe('buildProductsApiFilters', () => {
     expect(out.limit).toBe(20)
   })
 
-  it('leaves empty tag arrays as undefined rather than sending "[]"', () => {
+  it('leaves empty tag arrays as undefined', () => {
     const filters = emptyTagFilters()
     filters.concern = ['acne']
-    // skin_type stays []
     const out = buildProductsApiFilters({
+      category: 'skincare',
+      kind: [],
       filters,
       avoidFor: [],
       sort: 'name',
@@ -112,8 +119,53 @@ describe('buildProductsApiFilters', () => {
     expect(out.skin_type).toBeUndefined()
   })
 
-  it('switches out of discovery when only sort is changed (no filters, no price)', () => {
+  it('forwards only domain-relevant keys — haircare does not include skin_type', () => {
+    const filters = emptyTagFilters()
+    filters.hair_type = ['cheveux-boucles']
+    filters.skin_type = ['peau-grasse'] // ignored for haircare
     const out = buildProductsApiFilters({
+      category: 'haircare',
+      kind: [],
+      filters,
+      avoidFor: [],
+      sort: 'name',
+      page: 1,
+      hasFilters: true,
+    })
+    expect(out.hair_type).toEqual(['cheveux-boucles'])
+    expect(out.skin_type).toBeUndefined()
+  })
+
+  it('includes kind when provided', () => {
+    const out = buildProductsApiFilters({
+      category: 'haircare',
+      kind: ['shampoo', 'conditioner'],
+      filters: emptyTagFilters(),
+      avoidFor: [],
+      sort: 'name',
+      page: 1,
+      hasFilters: true,
+    })
+    expect(out.kind).toEqual(['shampoo', 'conditioner'])
+  })
+
+  it('omits kind when array is empty', () => {
+    const out = buildProductsApiFilters({
+      category: 'skincare',
+      kind: [],
+      filters: emptyTagFilters(),
+      avoidFor: [],
+      sort: 'name',
+      page: 1,
+      hasFilters: true,
+    })
+    expect(out.kind).toBeUndefined()
+  })
+
+  it('switches out of discovery when only sort is changed', () => {
+    const out = buildProductsApiFilters({
+      category: 'skincare',
+      kind: [],
       filters: emptyTagFilters(),
       avoidFor: [],
       sort: 'price_asc',
@@ -126,6 +178,8 @@ describe('buildProductsApiFilters', () => {
 
   it('switches out of discovery when only a price range is set', () => {
     const out = buildProductsApiFilters({
+      category: 'skincare',
+      kind: [],
       filters: emptyTagFilters(),
       avoidFor: [],
       sort: 'random',
@@ -160,15 +214,13 @@ describe('buildResetSearchParams', () => {
 })
 
 describe('buildDomainSwitchSearch', () => {
-  const EMPTY_TAGS = {
-    skin_type: [] as string[],
-    concern: [] as string[],
-    skin_zone: [] as string[],
-    product_type: [] as string[],
-    routine_step: [] as string[],
-    skin_effect: [] as string[],
-    product_label: [] as string[],
-    shared_label: [] as string[],
+  // All domain tag keys — so domain switch resets every tag regardless of domain
+  const EMPTY_TAGS: Record<string, string[]> = {
+    skin_type: [], concern: [], skin_zone: [], product_type: [], routine_step: [],
+    skin_effect: [], product_label: [], shared_label: [],
+    hair_type: [], hair_effect: [],
+    age_group: [], dental_effect: [],
+    goal: [], moment: [], restriction: [],
   }
 
   it('switches category and resets tag filters', () => {
