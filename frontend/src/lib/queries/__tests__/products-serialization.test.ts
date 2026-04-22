@@ -28,7 +28,7 @@ describe('buildListProductsQuery — array filters', () => {
     })
   })
 
-  it('serializes all 11 array-style filter keys', () => {
+  it('serializes skincare tag filter keys', () => {
     const q = buildListProductsQuery({
       brand: ['A'],
       skin_type: ['peau-grasse'],
@@ -54,6 +54,47 @@ describe('buildListProductsQuery — array filters', () => {
       routine_step: 'matin',
       ingredient: 'niacinamide',
       avoid_for: 'peau-reactive',
+    })
+  })
+
+  it('serializes haircare tag filter keys', () => {
+    const q = buildListProductsQuery({
+      category: 'haircare',
+      hair_type: ['cheveux-boucles'],
+      hair_effect: ['hydratant'],
+    })
+    expect(q).toEqual({
+      category: 'haircare',
+      hair_type: 'cheveux-boucles',
+      hair_effect: 'hydratant',
+    })
+  })
+
+  it('serializes dental tag filter keys', () => {
+    const q = buildListProductsQuery({
+      category: 'dental',
+      age_group: ['adulte'],
+      dental_effect: ['blanchissant'],
+    })
+    expect(q).toEqual({
+      category: 'dental',
+      age_group: 'adulte',
+      dental_effect: 'blanchissant',
+    })
+  })
+
+  it('serializes supplement tag filter keys', () => {
+    const q = buildListProductsQuery({
+      category: 'complement',
+      goal: ['immunite'],
+      moment: ['matin'],
+      restriction: ['vegan'],
+    })
+    expect(q).toEqual({
+      category: 'complement',
+      goal: 'immunite',
+      moment: 'matin',
+      restriction: 'vegan',
     })
   })
 })
