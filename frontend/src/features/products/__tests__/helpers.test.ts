@@ -213,6 +213,173 @@ describe('buildResetSearchParams', () => {
   })
 })
 
+describe('buildProductsApiFilters — domain isolation (dental + complement)', () => {
+  it('dental: excludes skincare, haircare, and supplement tag keys', () => {
+    const filters = emptyTagFilters()
+    filters.concern = ['gencives']
+    filters.skin_type = ['peau-grasse'] // skincare — must be excluded
+    filters.hair_type = ['cheveux-boucles'] // haircare — must be excluded
+    filters.goal = ['immunite'] // supplement — must be excluded
+    const out = buildProductsApiFilters({
+      category: 'dental',
+      kind: [],
+      filters,
+      avoidFor: [],
+      sort: 'name',
+      page: 1,
+      hasFilters: true,
+    })
+    expect(out.concern).toEqual(['gencives'])
+    expect(out.skin_type).toBeUndefined()
+    expect(out.hair_type).toBeUndefined()
+    expect(out.goal).toBeUndefined()
+  })
+
+  it('complement: excludes skincare, haircare, and dental tag keys', () => {
+    const filters = emptyTagFilters()
+    filters.goal = ['energie']
+    filters.skin_type = ['peau-grasse'] // skincare — must be excluded
+    filters.hair_type = ['cheveux-fins'] // haircare — must be excluded
+    filters.dental_effect = ['blanchissant'] // dental — must be excluded
+    const out = buildProductsApiFilters({
+      category: 'complement',
+      kind: [],
+      filters,
+      avoidFor: [],
+      sort: 'name',
+      page: 1,
+      hasFilters: true,
+    })
+    expect(out.goal).toEqual(['energie'])
+    expect(out.skin_type).toBeUndefined()
+    expect(out.hair_type).toBeUndefined()
+    expect(out.dental_effect).toBeUndefined()
+  })
+})
+
+describe('buildProductsApiFilters — edge cases / adversarial inputs', () => {
+  // Discovery mode silently drops `kind` — document this contract explicitly
+  it('discovery mode ignores kind even when kind is provided', () => {
+    const out = buildProductsApiFilters({
+      category: 'haircare',
+      kind: ['shampoo'],
+      filters: emptyTagFilters(),
+      avoidFor: [],
+      sort: 'random',
+      page: 1,
+      hasFilters: false,
+    })
+    // Discovery payload only has category, sort, limit, avoid_for
+    expect(out.kind).toBeUndefined()
+    expect(out.limit).toBe(12)
+  })
+
+  // avoidFor: [''] has length > 0 so it passes through — caller must sanitize
+  it('avoidFor with a single empty string is forwarded as-is', () => {
+    const out = buildProductsApiFilters({
+      category: 'skincare',
+      kind: [],
+      filters: emptyTagFilters(),
+      avoidFor: [''],
+      sort: 'name',
+      page: 1,
+      hasFilters: true,
+    })
+    expect(out.avoid_for).toEqual([''])
+  })
+
+  // val.length > 0 for ['', 'acne'] is true so the mixed array passes through
+  it('tag filter with empty strings mixed in is forwarded as-is', () => {
+    const filters = emptyTagFilters()
+    filters.concern = ['', 'acne']
+    const out = buildProductsApiFilters({
+      category: 'skincare',
+      kind: [],
+      filters,
+      avoidFor: [],
+      sort: 'name',
+      page: 1,
+      hasFilters: true,
+    })
+    expect(out.concern).toEqual(['', 'acne'])
+  })
+
+  // The function does not check priceMin <= priceMax — backend validates
+  it('passes inverted price range through without throwing', () => {
+    expect(() =>
+      buildProductsApiFilters({
+        category: 'skincare',
+        kind: [],
+        filters: emptyTagFilters(),
+        avoidFor: [],
+        sort: 'name',
+        priceMin: 5000,
+        priceMax: 100,
+        page: 1,
+        hasFilters: false,
+      })
+    ).not.toThrow()
+  })
+
+  it('inverted price range exits discovery mode (price bound is set)', () => {
+    const out = buildProductsApiFilters({
+      category: 'skincare',
+      kind: [],
+      filters: emptyTagFilters(),
+      avoidFor: [],
+      sort: 'random',
+      priceMin: 5000,
+      priceMax: 100,
+      page: 1,
+      hasFilters: false,
+    })
+    expect(out.limit).toBe(20) // paginated, not discovery
+    expect(out.priceMin).toBe(5000)
+    expect(out.priceMax).toBe(100)
+  })
+
+  // Negative/zero page passes through — backend validates
+  it('passes negative page through without throwing', () => {
+    const out = buildProductsApiFilters({
+      category: 'skincare',
+      kind: [],
+      filters: emptyTagFilters(),
+      avoidFor: [],
+      sort: 'name',
+      page: -1,
+      hasFilters: true,
+    })
+    expect(out.page).toBe(-1)
+  })
+
+  it('passes page=0 through without throwing', () => {
+    const out = buildProductsApiFilters({
+      category: 'skincare',
+      kind: [],
+      filters: emptyTagFilters(),
+      avoidFor: [],
+      sort: 'name',
+      page: 0,
+      hasFilters: true,
+    })
+    expect(out.page).toBe(0)
+  })
+
+  // avoidFor with duplicate slugs — passed through, dedup is backend concern
+  it('passes duplicate avoidFor slugs through without deduplication', () => {
+    const out = buildProductsApiFilters({
+      category: 'skincare',
+      kind: [],
+      filters: emptyTagFilters(),
+      avoidFor: ['peau-reactive', 'peau-reactive'],
+      sort: 'name',
+      page: 1,
+      hasFilters: true,
+    })
+    expect(out.avoid_for).toEqual(['peau-reactive', 'peau-reactive'])
+  })
+})
+
 describe('buildDomainSwitchSearch', () => {
   // All domain tag keys — so domain switch resets every tag regardless of domain
   const EMPTY_TAGS: Record<string, string[]> = {
