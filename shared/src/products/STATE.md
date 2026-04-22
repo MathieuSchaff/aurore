@@ -264,7 +264,10 @@ Note : `/brands` placé **avant** `/:slug` pour éviter que le router slug attra
   diff via `buildChanges`, persiste `product_edits`.
 - `listProducts(filters: ListProductsFilters)` — voir §11.
 - `getFilterOptions(db, category?)` — renvoie `{ kinds, brands, tags }`. Tags groupés
-  par category. **Actuellement branché skincare seulement** (voir §12).
+  par category. Dispatch via `DOMAIN_PRODUCT_FILTER_CATEGORIES[category]` (shared).
+  Sans `category` → union dédupliquée des 4 domaines. `FilterOptions.tags` typé
+  `Partial<Record<AllProductTagCategory, TagItem[]>>` — seules les clés du domaine
+  demandé sont présentes dans la réponse.
 - `getDistinctBrands`, `deleteProduct`.
 - `findSimilarProducts(name, brand)` — pour la détection de doublons côté UI.
 - `searchProducts({ q, limit })` — LIKE sur name/brand pour autocomplete.
@@ -406,13 +409,11 @@ discriminated union). La conversion est localisée dans `buildListProductsQuery`
 - `AllProductTagCategory` + `DOMAIN_PRODUCT_FILTER_CATEGORIES` ajoutés dans `helpers.ts`.
 - `list-products-query.ts` exposé via `products/index.ts` (4 exports sélectifs).
 
-### Backend
+### Backend — ✅ propre
 - [x] `listProducts` : dispatch par domaine via `*_PRODUCT_TAG_CATEGORIES` (source unique shared).
-- [ ] **`getFilterOptions` : hard-codé skincare** (`service.ts`).
-      `const PRODUCT_FILTER_CATEGORIES = skincareProductFilterCategories()` — pour
-      `category=haircare|dental|complement`, la réponse garde la shape skincare avec
-      tags vides. À dispatcher par `ProductDomainTab` en utilisant
-      `DOMAIN_PRODUCT_FILTER_CATEGORIES` (déjà dans shared).
+- [x] `getFilterOptions` : dispatch par domaine via `DOMAIN_PRODUCT_FILTER_CATEGORIES`.
+      `FilterOptions.tags` → `Partial<Record<AllProductTagCategory, TagItem[]>>`.
+      `{haircare,dental,supplement}/schemas.ts` `filterOptionsSchema.tags` remplis.
 - [ ] `Array.isArray(filters.kind|brand|ingredient)` dans `listProducts` — dead code,
       Zod `z.string().optional()` ne produit jamais un array. Cosmétique, garder OK.
 - [ ] Validation `kind` contre `PRODUCT_KINDS[category]` : aujourd'hui `filters.kind`
@@ -431,13 +432,18 @@ discriminated union). La conversion est localisée dans `buildListProductsQuery`
 - [x] **`buildProductsApiFilters` domain-aware** — isole les clés par `DOMAIN_PRODUCT_FILTER_CATEGORIES[category]`.
 
 ### Tests (snapshot 2026-04-22)
-`frontend/src/features/products/__tests__/helpers.test.ts` et
-`frontend/src/lib/queries/__tests__/products-serialization.test.ts` — 66 tests :
+
+**Frontend** — `features/products/__tests__/helpers.test.ts` + `lib/queries/__tests__/products-serialization.test.ts` — 66 tests :
 - Isolation cross-domain vérifiée pour les 4 domaines.
 - Discovery mode (mode/non-mode, kind silencieusement ignoré en discovery).
 - Edge cases : `avoidFor: ['']`, filtres avec strings vides, prix inversés, page négative.
 - `buildListProductsQuery` adversarial : `['']` vs `''`, trailing comma, comma embarquée,
   `NaN`/`Infinity`/négatifs, large array, duplicates.
+
+**Backend** — `features/products/tests/products.test.ts` — 79 tests :
+- `getFilterOptions` domain scoping : haircare renvoie `hair_type/concern/…` et pas `skin_type` ;
+  skincare ne renvoie pas les tags haircare ; tags orphelins exclus ; catégories inconnues exclues.
+- `listProducts` : filtres par domaine, pagination, tri, prix, ingredient, avoid_for.
 
 ### Seed (hors scope shared mais lié taxonomie)
 - [ ] Migrer `nutripure` (supplement) : `unit: 'pack'` générique → `'tablet' | 'capsule' | 'powder'`
