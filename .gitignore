@@ -76,6 +76,7 @@ idee/
 CLAUDE.md
 CLAUDE2.md
 docs/
+!backend/src/db/seed/docs/
 .memory/
 .superpowers/
 .claude/
@@ -83,6 +84,7 @@ frontend/.tanstack/tmp/
 .worktrees/
 PROMPT_LOG.md
 scripts/*
+.claude
 
 # =========================
 # Local seed notes (VRAC)
