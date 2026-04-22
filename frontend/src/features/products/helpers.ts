@@ -1,11 +1,8 @@
-import {
-  DOMAIN_PRODUCT_FILTER_CATEGORIES,
-  type ProductDomainTab,
-} from '@habit-tracker/shared'
+import { DOMAIN_PRODUCT_FILTER_CATEGORIES, type ProductDomainTab } from '@habit-tracker/shared'
 
 import type { FilterValues } from '@/component/Filter'
 import type { ListProductsFilters, ProductSort } from '@/lib/queries/products'
-import { type TagFilterKey } from './filters'
+import type { TagFilterKey } from './filters'
 
 export function hasActivePriceRange(priceMin?: number, priceMax?: number): boolean {
   return priceMin !== undefined || priceMax !== undefined

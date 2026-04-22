@@ -1,12 +1,12 @@
 import {
+  type AllProductTagCategory,
   DENTAL_PRODUCT_TAG_CATEGORY_META,
   DOMAIN_PRODUCT_FILTER_CATEGORIES,
   HAIRCARE_PRODUCT_TAG_CATEGORY_META,
   PRODUCT_DOMAIN_TABS,
+  type ProductDomainTab,
   SKINCARE_PRODUCT_TAG_CATEGORY_META,
   SUPPLEMENT_PRODUCT_TAG_CATEGORY_META,
-  type AllProductTagCategory,
-  type ProductDomainTab,
   type TagCategoryMeta,
 } from '@habit-tracker/shared'
 

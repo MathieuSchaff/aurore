@@ -175,6 +175,7 @@ export {
   todayLogsQuerySchema,
 } from './logs'
 export {
+  type AllProductTagCategory,
   type ComplementListProductsFilters,
   type CreateProductInput,
   complementListProductsQuery,
@@ -189,6 +190,7 @@ export {
   type DentalProductTagCategory,
   type DentalProductTagMeta,
   type DentalProductTagSlug,
+  DOMAIN_PRODUCT_FILTER_CATEGORIES,
   dentalListProductsQuery,
   dentalProductFilterCategories,
   dentalProductFilterOptionsSchema,
@@ -208,8 +210,6 @@ export {
   haircareListProductsQuery,
   haircareProductFilterCategories,
   haircareProductFilterOptionsSchema,
-  type AllProductTagCategory,
-  DOMAIN_PRODUCT_FILTER_CATEGORIES,
   type ListProductsFilters,
   listProductsQuery,
   PRODUCT_CATEGORIES,

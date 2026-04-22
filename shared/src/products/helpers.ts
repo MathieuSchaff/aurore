@@ -1,10 +1,10 @@
 import type { HttpStatus } from '../core'
 import { HTTP_STATUS } from '../core'
+import { type DentalProductTagCategory, dentalProductFilterCategories } from './dental'
 import type { ProductDomainTab } from './domain-tabs'
-import { dentalProductFilterCategories, type DentalProductTagCategory } from './dental'
-import { haircareProductFilterCategories, type HaircareProductTagCategory } from './haircare'
-import { skincareProductFilterCategories, type SkincareProductTagCategory } from './skincare'
-import { supplementProductFilterCategories, type SupplementProductTagCategory } from './supplement'
+import { type HaircareProductTagCategory, haircareProductFilterCategories } from './haircare'
+import { type SkincareProductTagCategory, skincareProductFilterCategories } from './skincare'
+import { type SupplementProductTagCategory, supplementProductFilterCategories } from './supplement'
 import type { ProductErrorCode } from './types'
 
 export const productErrorMapping = {
