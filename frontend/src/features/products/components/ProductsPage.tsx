@@ -1,7 +1,7 @@
 import {
   PRODUCT_DOMAIN_TAB_META,
+  PRODUCT_DOMAIN_TABS,
   type ProductDomainTab,
-  SKINCARE_PRODUCT_TAG_CATEGORY_META,
 } from '@habit-tracker/shared'
 
 import { useQuery } from '@tanstack/react-query'
@@ -24,6 +24,7 @@ import {
 import { Toggle } from '@/component/Input/Toggle/Toggle'
 import { PageHeader } from '@/component/Layout/PageHeader/PageHeader'
 import { SearchCombobox } from '@/component/Search/SearchCombobox'
+import { type TabOption, Tabs } from '@/component/Tabs/Tabs'
 import { useListFilters } from '@/hooks/useListFilters'
 import { useTagFilterGroups } from '@/hooks/useTagFilterGroups'
 import { ProductIcon } from '../../../assets/product-icons'
@@ -36,6 +37,8 @@ import {
 import { profileQueries } from '../../../lib/queries/profile'
 import { useAuthStore } from '../../../store/auth'
 import {
+  DOMAIN_TAG_KEYS,
+  DOMAIN_TAG_META,
   FILTER_KEYS,
   type FilterKey,
   GROUP_LABELS,
@@ -49,7 +52,6 @@ import {
   hasActivePriceRange,
 } from '../helpers'
 import { AddToCollectionModal } from './AddToCollectionModal/AddToCollectionModal'
-import { DomainTabs } from './DomainTabs/DomainTabs'
 import { PriceRangeFilter } from './PriceRangeFilter/PriceRangeFilter'
 import { SortControl } from './SortControl/SortControl'
 
@@ -92,6 +94,10 @@ function unitClass(unit: string | null | undefined): string {
 const eurFormatter = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' })
 
 const EMPTY_FILTERS = emptyFilters(FILTER_KEYS)
+
+const DOMAIN_TAB_OPTIONS: TabOption<ProductDomainTab>[] = [...PRODUCT_DOMAIN_TABS]
+  .sort((a, b) => PRODUCT_DOMAIN_TAB_META[a].order - PRODUCT_DOMAIN_TAB_META[b].order)
+  .map((id) => ({ id, label: PRODUCT_DOMAIN_TAB_META[id].label }))
 
 export function ProductsPage() {
   const [isDrawerOpen, setDrawerOpen] = useState(false)
@@ -144,6 +150,8 @@ export function ProductsPage() {
   const { data: allIngredients } = useQuery(ingredientQueries.options())
 
   const apiFilters: ListProductsFilters = buildProductsApiFilters({
+    category,
+    kind: search.kind ?? [],
     filters,
     avoidFor,
     sort,
@@ -152,10 +160,6 @@ export function ProductsPage() {
     page,
     hasFilters,
   })
-  apiFilters.category = category
-  if (search.kind && search.kind.length > 0) {
-    apiFilters.kind = search.kind
-  }
 
   const handleSortChange = (next: ProductSort) => {
     navigate({ search: (prev) => ({ ...prev, sort: next, page: 1 }), replace: true })
@@ -175,9 +179,9 @@ export function ProductsPage() {
   })
 
   const tagGroups = useTagFilterGroups(
-    TAG_FILTER_KEYS,
+    DOMAIN_TAG_KEYS[category],
     filterOptions?.tags,
-    SKINCARE_PRODUCT_TAG_CATEGORY_META,
+    DOMAIN_TAG_META[category],
     LABEL_OVERRIDES
   )
 
@@ -212,13 +216,14 @@ export function ProductsPage() {
       ]
     }
 
-    // Non-skincare tabs: minimal drawer with kind / brand / ingredient.
+    // Non-skincare tabs: domain tag groups + kind / brand / ingredient
     return [
+      ...(tagGroups as FilterGroupConfig<FilterKey>[]),
       {
         id: 'search',
         label: 'Recherche précise',
-        defaultOpen: true,
-        tier: 'essential',
+        defaultOpen: false,
+        tier: 'advanced',
         subFilters: [
           {
             key: 'kind' as FilterKey,
@@ -321,7 +326,14 @@ export function ProductsPage() {
           }
         />
 
-        <DomainTabs value={category} onChange={handleDomainChange} />
+        <div className="products-page__tabs">
+          <Tabs
+            options={DOMAIN_TAB_OPTIONS}
+            activeTab={category}
+            onTabChange={handleDomainChange}
+            ariaLabel="Catégorie de produits"
+          />
+        </div>
 
         <ActiveFiltersBar
           activeTags={activeTags}
@@ -395,7 +407,7 @@ export function ProductsPage() {
 
                       <Card.Footer>
                         <div className="list-card__price-wrap">
-                          {product.priceCents != null ? (
+                          {product.priceCents != null && product.priceCents > 0 ? (
                             <span className="list-card__price">
                               {eurFormatter.format(product.priceCents / 100)}
                             </span>
