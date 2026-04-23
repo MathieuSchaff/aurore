@@ -37,11 +37,15 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.NIACINAMIDE,
-        notes: '10% – régule sébum, réduit imperfections, éclaircit, renforce barrière',
+        concentrationValue: 10,
+        concentrationUnit: '%',
+        notes: 'régule sébum, réduit imperfections, éclaircit, renforce barrière',
       },
       {
         slug: INGREDIENT_SLUGS.ZINC_PCA,
-        notes: '1% – anti-imperfections, matifiant',
+        concentrationValue: 1,
+        concentrationUnit: '%',
+        notes: 'anti-imperfections, matifiant',
       },
     ],
   },
@@ -78,6 +82,8 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE,
+        concentrationValue: 2,
+        concentrationUnit: '%',
         notes: 'Multi-moléculaire HA (2% total) – hydratation multi-couches',
       },
       { slug: INGREDIENT_SLUGS.HYALURONIC_ACID },
@@ -124,7 +130,9 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.CAFFEINE,
-        notes: '5% caféine – décongestionne, réduit poches et cernes',
+        concentrationValue: 5,
+        concentrationUnit: '%',
+        notes: 'caféine – décongestionne, réduit poches et cernes',
       },
       {
         slug: INGREDIENT_SLUGS.GREEN_TEA,
@@ -169,7 +177,9 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.AZELAIC_ACID,
-        notes: '10% – anti-imperfections, anti-rougeurs, éclaircissant',
+        concentrationValue: 10,
+        concentrationUnit: '%',
+        notes: 'anti-imperfections, anti-rougeurs, éclaircissant',
       },
     ],
   },
@@ -207,7 +217,9 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.COPPER_PEPTIDES,
-        notes: '1% GHK-Cu (Copper Tripeptide-1) – réparation, anti-âge, antioxydant puissant',
+        concentrationValue: 1,
+        concentrationUnit: '%',
+        notes: 'GHK-Cu (Copper Tripeptide-1) – réparation, anti-âge, antioxydant puissant',
       },
       {
         slug: INGREDIENT_SLUGS.ARGIRELINE,
@@ -252,6 +264,8 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
       { slug: INGREDIENT_SLUGS.PALMITOYL_TRIPEPTIDE_1 },
       {
         slug: INGREDIENT_SLUGS.PALMITOYL_TETRAPEPTIDE_7,
+        concentrationValue: 10,
+        concentrationUnit: '%',
         notes: 'Matrixyl 3000 – anti-rides',
       },
       {
@@ -418,6 +432,8 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.NICOTIANA_BENTHAMIANA_HEXAPEPTIDE_40_SH_OLIGOPEPTIDE_1,
+        concentrationValue: 15,
+        concentrationUnit: '%',
         notes: 'EGF mimic – facteurs de croissance',
       },
       {
@@ -460,11 +476,15 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.GLYCOLIC_ACID,
-        notes: '30% AHA – exfoliant puissant, lisse texture',
+        concentrationValue: 30,
+        concentrationUnit: '%',
+        notes: 'AHA – exfoliant puissant, lisse texture',
       },
       {
         slug: INGREDIENT_SLUGS.SALICYLIC_ACID,
-        notes: '2% BHA – pénètre les pores, anti-imperfections',
+        concentrationValue: 2,
+        concentrationUnit: '%',
+        notes: 'BHA – pénètre les pores, anti-imperfections',
       },
       { slug: INGREDIENT_SLUGS.LACTIC_ACID, notes: 'AHA complémentaire' },
       { slug: INGREDIENT_SLUGS.PANTHENOL, notes: 'Apaisant post-exfoliation' },
@@ -499,7 +519,7 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.LACTIC_ACID, notes: '5% – exfoliant doux + humectant' },
+      { slug: INGREDIENT_SLUGS.LACTIC_ACID, concentrationValue: 5, concentrationUnit: '%', notes: '– exfoliant doux + humectant' },
       {
         slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE,
         notes: 'Crosspolymère HA – hydratation barrière',
@@ -535,7 +555,7 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.LACTIC_ACID, notes: '10% – exfoliant puissant' },
+      { slug: INGREDIENT_SLUGS.LACTIC_ACID, concentrationValue: 10, concentrationUnit: '%', notes: '– exfoliant puissant' },
       {
         slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE,
         notes: 'Crosspolymère HA – hydratation barrière',
@@ -579,7 +599,9 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.GRANACTIVE_RETINOID,
-        notes: '5% HPR – rétinoïde direct, faible irritation',
+        concentrationValue: 5,
+        concentrationUnit: '%',
+        notes: 'HPR – rétinoïde direct, faible irritation',
       },
       { slug: INGREDIENT_SLUGS.SQUALANE, notes: 'Base émolliente non-comédogène' },
       { slug: INGREDIENT_SLUGS.BISABOLOL, notes: 'Apaisant' },
@@ -619,7 +641,7 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
       ],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.RETINOL, notes: `0.2% – dose d"initiation, anti-âge doux` },
+      { slug: INGREDIENT_SLUGS.RETINOL, concentrationValue: 0.2, concentrationUnit: '%', notes: '– dose d"initiation, anti-âge doux' },
       { slug: INGREDIENT_SLUGS.SQUALANE },
     ],
   },
@@ -656,7 +678,7 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
       ],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.RETINOL, notes: '0.5% – concentration modérée' },
+      { slug: INGREDIENT_SLUGS.RETINOL, concentrationValue: 0.5, concentrationUnit: '%', notes: '– concentration modérée' },
       { slug: INGREDIENT_SLUGS.SQUALANE },
     ],
   },
@@ -695,7 +717,7 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
       ],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.RETINOL, notes: '1% – concentration haute, anti-âge avancé' },
+      { slug: INGREDIENT_SLUGS.RETINOL, concentrationValue: 1, concentrationUnit: '%', notes: '– concentration haute, anti-âge avancé' },
       { slug: INGREDIENT_SLUGS.SQUALANE },
     ],
   },
@@ -727,7 +749,7 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.GRANACTIVE_RETINOID, notes: '2% HPR – rétinoïde direct' },
+      { slug: INGREDIENT_SLUGS.GRANACTIVE_RETINOID, concentrationValue: 2, concentrationUnit: '%', notes: 'HPR – rétinoïde direct' },
       { slug: INGREDIENT_SLUGS.RETINOL, notes: `Dose d"appoint` },
       { slug: INGREDIENT_SLUGS.BISABOLOL },
     ],
@@ -770,7 +792,9 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.RETINAL,
-        notes: '0.2% rétinaldéhyde stabilisé – rétinoïde haute performance',
+        concentrationValue: 0.2,
+        concentrationUnit: '%',
+        notes: 'rétinaldéhyde stabilisé – rétinoïde haute performance',
       },
       { slug: INGREDIENT_SLUGS.ERGOTHIONEINE, notes: 'Antioxydant puissant' },
       { slug: INGREDIENT_SLUGS.BISABOLOL },
@@ -806,7 +830,7 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.GLYCOLIC_ACID, notes: '7% AHA – exfoliant, éclat, lisse texture' },
+      { slug: INGREDIENT_SLUGS.GLYCOLIC_ACID, concentrationValue: 7, concentrationUnit: '%', notes: 'AHA – exfoliant, éclat, lisse texture' },
       { slug: INGREDIENT_SLUGS.UREA, notes: 'NMF – humectant, renforce barrière' },
     ],
   },
@@ -879,7 +903,9 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.ASCORBYL_GLUCOSIDE,
-        notes: '12% – vitamine C stable, éclat et anti-taches',
+        concentrationValue: 12,
+        concentrationUnit: '%',
+        notes: '– vitamine C stable, éclat et anti-taches',
       },
     ],
   },
@@ -914,9 +940,11 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.VITAMIN_C,
-        notes: '23% acide ascorbique pur – vitamine C la plus efficace',
+        concentrationValue: 23,
+        concentrationUnit: '%',
+        notes: 'acide ascorbique pur – vitamine C la plus efficace',
       },
-      { slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE, notes: 'Sphères HA 2%' },
+      { slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE, concentrationValue: 2, concentrationUnit: '%', notes: 'Sphères HA' },
       { slug: INGREDIENT_SLUGS.SQUALANE },
     ],
   },
@@ -953,7 +981,9 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.VITAMIN_C,
-        notes: '20% Tetrahexyldecyl Ascorbate – vitamine C liposoluble stable',
+        concentrationValue: 20,
+        concentrationUnit: '%',
+        notes: 'Tetrahexyldecyl Ascorbate – vitamine C liposoluble stable',
       },
       { slug: INGREDIENT_SLUGS.SQUALANE },
     ],
@@ -985,7 +1015,7 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.PHA, notes: '5% PHA – exfoliant doux lèvres' },
+      { slug: INGREDIENT_SLUGS.PHA, concentrationValue: 5, concentrationUnit: '%', notes: '– exfoliant doux lèvres' },
       { slug: INGREDIENT_SLUGS.ECTOIN, notes: 'Protecteur barrière, anti-irritation' },
     ],
   },
@@ -1018,7 +1048,7 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SENSIBLE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.SALICYLIC_ACID, notes: '2% BHA – pénètre pores, exfoliant' },
+      { slug: INGREDIENT_SLUGS.SALICYLIC_ACID, concentrationValue: 2, concentrationUnit: '%', notes: 'BHA – pénètre pores, exfoliant' },
       { slug: INGREDIENT_SLUGS.KAOLIN, notes: 'Argile absorbante, purifiante' },
       { slug: INGREDIENT_SLUGS.CHARCOAL_POWDER, notes: 'Charbon actif – détoxifiant' },
     ],
@@ -1052,7 +1082,7 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.SALICYLIC_ACID, notes: '2% BHA – anti-imperfections, pores' },
+      { slug: INGREDIENT_SLUGS.SALICYLIC_ACID, concentrationValue: 2, concentrationUnit: '%', notes: 'BHA – anti-imperfections, pores' },
       { slug: INGREDIENT_SLUGS.SQUALANE },
     ],
   },
@@ -1085,7 +1115,7 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.SALICYLIC_ACID, notes: '0.5% BHA corps – kératose pilaire, pores' },
+      { slug: INGREDIENT_SLUGS.SALICYLIC_ACID, concentrationValue: 0.5, concentrationUnit: '%', notes: 'BHA corps – kératose pilaire, pores' },
     ],
   },
   {
@@ -1119,7 +1149,7 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_REACTIVE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.MANDELIC_ACID, notes: '10% – AHA doux, anti-taches, antibactérien' },
+      { slug: INGREDIENT_SLUGS.MANDELIC_ACID, concentrationValue: 10, concentrationUnit: '%', notes: '– AHA doux, anti-taches, antibactérien' },
       { slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE, notes: 'Crosspolymère HA' },
     ],
   },
@@ -1155,7 +1185,7 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: '5% – anti-taches, éclat, régulation sébum' },
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, concentrationValue: 5, concentrationUnit: '%', notes: '– anti-taches, éclat, régulation sébum' },
       { slug: INGREDIENT_SLUGS.TOCOPHEROL },
     ],
   },
@@ -1265,7 +1295,7 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
         slug: INGREDIENT_SLUGS.MADECASSIC_ACID,
         notes: 'Acide madécassique – Centella, anti-inflammatoire',
       },
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: '5% – barrière, anti-rougeurs' },
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, concentrationValue: 5, concentrationUnit: '%', notes: '– barrière, anti-rougeurs' },
       { slug: INGREDIENT_SLUGS.CYANOCOBALAMIN, notes: 'Vitamine B12 – apaisant, anti-rougeurs' },
       { slug: INGREDIENT_SLUGS.BISABOLOL },
       { slug: INGREDIENT_SLUGS.GREEN_TEA, notes: 'EGCG – antioxydant' },
@@ -1301,7 +1331,7 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_REACTIVE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.SULFUR, notes: '10% – kératolytique, anti-acné, antibactérien' },
+      { slug: INGREDIENT_SLUGS.SULFUR, concentrationValue: 10, concentrationUnit: '%', notes: '– kératolytique, anti-acné, antibactérien' },
       { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: 'Sébo-régulateur, anti-inflammatoire' },
       { slug: INGREDIENT_SLUGS.KAOLIN },
     ],

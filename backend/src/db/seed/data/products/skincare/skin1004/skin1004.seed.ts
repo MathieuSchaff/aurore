@@ -90,7 +90,9 @@ export const SKIN1004_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA,
-        notes: '72% extrait Centella Madagascar – apaisant intense, signature produit',
+        concentrationValue: 72,
+        concentrationUnit: '%',
+        notes: 'extrait Centella Madagascar – apaisant intense, signature produit',
       },
       { slug: INGREDIENT_SLUGS.CERAMIDE_EOP },
       { slug: INGREDIENT_SLUGS.CERAMIDE_NS },
@@ -134,7 +136,9 @@ export const SKIN1004_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA,
-        notes: '55% extrait Centella – apaisant, réparateur',
+        concentrationValue: 55,
+        concentrationUnit: '%',
+        notes: 'extrait Centella – apaisant, réparateur',
       },
       {
         slug: INGREDIENT_SLUGS.TEA_TREE,
@@ -184,7 +188,9 @@ export const SKIN1004_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA,
-        notes: '100% extrait Centella Madagascar – ultra-minimaliste, apaisant pur',
+        concentrationValue: 100,
+        concentrationUnit: '%',
+        notes: 'extrait Centella Madagascar – ultra-minimaliste, apaisant pur',
       },
     ],
   },
@@ -303,7 +309,9 @@ export const SKIN1004_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA,
-        notes: '84% extrait Centella – apaisant, hydratant',
+        concentrationValue: 84,
+        concentrationUnit: '%',
+        notes: 'extrait Centella – apaisant, hydratant',
       },
       { slug: INGREDIENT_SLUGS.PHA, notes: 'PHA doux – exfoliation légère, hydratant' },
       { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: 'Éclaircissant, barrière' },

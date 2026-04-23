@@ -79,7 +79,9 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.AVENA_SATIVA,
-        notes: `77% d'eau d'avoine apaisante pour réduire les rougeurs`,
+        concentrationValue: 77,
+        concentrationUnit: '%',
+        notes: `eau d'avoine apaisante pour réduire les rougeurs`,
       },
       { slug: INGREDIENT_SLUGS.SQUALANE, notes: 'Hydratation légère non grasse' },
       { slug: INGREDIENT_SLUGS.PANTHENOL, notes: 'Renforce la barrière cutanée' },
@@ -640,7 +642,9 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.AZELAIC_ACID,
-        notes: '10% acide azélaïque – signature anti-acné/marks',
+        concentrationValue: 10,
+        concentrationUnit: '%',
+        notes: 'acide azélaïque – signature anti-acné/marks',
       },
       { slug: INGREDIENT_SLUGS.KOJIC_ACID, notes: 'Éclaircissant puissant (pigmentation)' },
       {

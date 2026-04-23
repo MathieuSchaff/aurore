@@ -115,9 +115,9 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.PANTHENOL, notes: 'Apaisant, hydratant' },
-      { slug: INGREDIENT_SLUGS.SALICYLIC_ACID, notes: 'BHA, exfoliant' },
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: 'Régulateur, éclaircissant' },
+      { slug: INGREDIENT_SLUGS.PANTHENOL, concentrationValue: 5, concentrationUnit: '%', notes: 'Apaisant, hydratant' },
+      { slug: INGREDIENT_SLUGS.SALICYLIC_ACID, concentrationValue: 0.1, concentrationUnit: '%', notes: 'BHA, exfoliant' },
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, concentrationValue: 2, concentrationUnit: '%', notes: 'Régulateur, éclaircissant' },
     ],
   },
   {
@@ -197,7 +197,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.AZELAIC_ACID, notes: '16% - Anti-rougeurs, anti-acné' },
+      { slug: INGREDIENT_SLUGS.AZELAIC_ACID, concentrationValue: 16, concentrationUnit: '%', notes: 'Anti-rougeurs, anti-acné' },
       { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: 'Apaisant' },
       { slug: INGREDIENT_SLUGS.CERAMIDE_NP, notes: 'Réparateur' },
     ],
@@ -501,7 +501,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.PROBIOTICS, notes: 'Exosomes Lactobacillus' },
+      { slug: INGREDIENT_SLUGS.PROBIOTICS, concentrationValue: 2000, concentrationUnit: 'ppm', notes: 'Exosomes Lactobacillus' },
       { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: 'Apaisant' },
       { slug: INGREDIENT_SLUGS.PANTHENOL, notes: 'Hydratant' },
     ],
@@ -610,7 +610,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.PROBIOTICS, notes: 'Exosomes Lactobacillus' },
+      { slug: INGREDIENT_SLUGS.PROBIOTICS, concentrationValue: 7500, concentrationUnit: 'ppm', notes: 'Exosomes Lactobacillus' },
       { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: 'Apaisant' },
       { slug: INGREDIENT_SLUGS.PHA, notes: 'Gluconolactone' },
     ],

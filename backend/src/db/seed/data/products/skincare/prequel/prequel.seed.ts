@@ -105,7 +105,9 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.ECTOIN,
-        notes: 'Ectoïne 5% – protecteur cellulaire, anti-pollution, renforcement barrière',
+        concentrationValue: 5,
+        concentrationUnit: '%',
+        notes: 'protecteur cellulaire, anti-pollution, renforcement barrière',
       },
       { slug: INGREDIENT_SLUGS.PANTHENOL, notes: 'Apaisant et hydratant' },
       { slug: INGREDIENT_SLUGS.UREA, notes: 'Humectant kératolytique doux' },
@@ -174,7 +176,9 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.UREA,
-        notes: 'Urée 10% – humectant kératolytique, lisse les rugosités',
+        concentrationValue: 10,
+        concentrationUnit: '%',
+        notes: 'humectant kératolytique, lisse les rugosités',
       },
       {
         slug: INGREDIENT_SLUGS.SHEA_BUTTER,

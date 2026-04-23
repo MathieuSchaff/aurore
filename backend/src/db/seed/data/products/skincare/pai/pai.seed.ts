@@ -475,7 +475,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: '10% — pores, sébo-régulation, unification' },
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: 'pores, sébo-régulation, unification', concentrationValue: 10, concentrationUnit: '%' },
       {
         slug: INGREDIENT_SLUGS.COPPER_PEPTIDES,
         notes: 'Copper Tripeptide-1 — réparation / anti-âge',
@@ -803,7 +803,9 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.SALICYLIC_ACID,
-        notes: '2% — BHA, kératolytique, désobstructeur de pores',
+        notes: 'BHA, kératolytique, désobstructeur de pores',
+        concentrationValue: 2,
+        concentrationUnit: '%',
       },
       { slug: INGREDIENT_SLUGS.PANTHENOL, notes: `Atténue l"irritation post-acide` },
     ],

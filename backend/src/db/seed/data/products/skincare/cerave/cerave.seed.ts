@@ -37,7 +37,12 @@ export const CERAVE_SEED: UnifiedProductSeed[] = [
       ],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.UREA, notes: 'Urée 10% – exfolie, hydrate kératose pilaire' },
+      {
+        slug: INGREDIENT_SLUGS.UREA,
+        concentrationValue: 10,
+        concentrationUnit: '%',
+        notes: 'exfolie, hydrate kératose pilaire',
+      },
       { slug: INGREDIENT_SLUGS.SALICYLIC_ACID, notes: 'Acide salicylique – lisse rugosités' },
       { slug: INGREDIENT_SLUGS.CERAMIDE_NP },
       { slug: INGREDIENT_SLUGS.CERAMIDE_AP },

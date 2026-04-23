@@ -44,7 +44,9 @@ export const AMLACTIN_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.LACTIC_ACID,
-        notes: 'Ammonium lactate 12% – AHA exfoliant + humectant',
+        concentrationValue: 12,
+        concentrationUnit: '%',
+        notes: 'AHA exfoliant + humectant',
       },
       { slug: INGREDIENT_SLUGS.GLYCERIN, notes: 'Glycérine – humectant' },
     ],

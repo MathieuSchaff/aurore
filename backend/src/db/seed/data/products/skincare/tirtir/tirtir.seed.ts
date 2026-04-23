@@ -33,8 +33,9 @@ export const TIRTIR_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.AZELAIC_ACID,
-        notes:
-          '12% — régule le sébum et apaise les rougeurs. Concentration intermédiaire efficace.',
+        concentrationValue: 12,
+        concentrationUnit: '%',
+        notes: 'Régule le sébum et apaise les rougeurs. Concentration intermédiaire efficace.',
       },
       {
         slug: INGREDIENT_SLUGS.CERAMIDE_NP,

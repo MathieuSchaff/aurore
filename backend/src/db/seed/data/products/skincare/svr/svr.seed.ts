@@ -528,7 +528,12 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.SHEA_BUTTER, notes: 'Nourrissant intense' },
+      {
+        slug: INGREDIENT_SLUGS.SHEA_BUTTER,
+        concentrationValue: 7,
+        concentrationUnit: '%',
+        notes: 'Nourrissant intense',
+      },
       { slug: INGREDIENT_SLUGS.GLYCERIN, notes: 'Hydratant' },
       { slug: INGREDIENT_SLUGS.CERAMIDES, notes: 'Réparation de la barrière' },
     ],
@@ -885,7 +890,12 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.BRILLANCE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.DAUCUS_CAROTA, notes: '1% Sensia Carota apaisant' },
+      {
+        slug: INGREDIENT_SLUGS.DAUCUS_CAROTA,
+        concentrationValue: 1,
+        concentrationUnit: '%',
+        notes: 'Sensia Carota apaisant',
+      },
       { slug: INGREDIENT_SLUGS.OPHIOPOGON_JAPONICUS, notes: 'Actif thermorégulateur anti-flush' },
       {
         slug: INGREDIENT_SLUGS.SPHINGOMONAS_FERMENT,

@@ -160,7 +160,7 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.RETINAL },
+      { slug: INGREDIENT_SLUGS.RETINAL, concentrationValue: 0.1, concentrationUnit: '%' },
       { slug: INGREDIENT_SLUGS.THD_ASCORBATE },
       { slug: INGREDIENT_SLUGS.SQUALANE },
       { slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE },
@@ -402,7 +402,7 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.RETINAL },
+      { slug: INGREDIENT_SLUGS.RETINAL, concentrationValue: 0.24, concentrationUnit: '%' },
       { slug: INGREDIENT_SLUGS.THD_ASCORBATE },
       { slug: INGREDIENT_SLUGS.SQUALANE },
     ],
@@ -479,7 +479,10 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
       secondary: [TAG_SLUGS.SOIR],
       avoid: [],
     },
-    keyIngredients: [{ slug: INGREDIENT_SLUGS.RETINOL }, { slug: INGREDIENT_SLUGS.SQUALANE }],
+    keyIngredients: [
+      { slug: INGREDIENT_SLUGS.RETINOL, concentrationValue: 0.3, concentrationUnit: '%' },
+      { slug: INGREDIENT_SLUGS.SQUALANE },
+    ],
   },
   {
     slug: 'medik8-c-tetra-lipid-vitamin-c-radiance-cream',
@@ -554,7 +557,7 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.RETINAL },
+      { slug: INGREDIENT_SLUGS.RETINAL, concentrationValue: 0.06, concentrationUnit: '%' },
       { slug: INGREDIENT_SLUGS.CERAMIDE_NP },
       { slug: INGREDIENT_SLUGS.SQUALANE },
     ],
@@ -637,7 +640,7 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.RETINAL },
+      { slug: INGREDIENT_SLUGS.RETINAL, concentrationValue: 0.03, concentrationUnit: '%' },
       { slug: INGREDIENT_SLUGS.THD_ASCORBATE },
       { slug: INGREDIENT_SLUGS.SQUALANE },
       { slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE },
@@ -665,7 +668,7 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.RETINAL },
+      { slug: INGREDIENT_SLUGS.RETINAL, concentrationValue: 0.03, concentrationUnit: '%' },
       { slug: INGREDIENT_SLUGS.CERAMIDE_NP },
       { slug: INGREDIENT_SLUGS.SQUALANE },
     ],
@@ -849,7 +852,10 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
       ],
       avoid: [],
     },
-    keyIngredients: [{ slug: INGREDIENT_SLUGS.THD_ASCORBATE }, { slug: INGREDIENT_SLUGS.SQUALANE }],
+    keyIngredients: [
+      { slug: INGREDIENT_SLUGS.THD_ASCORBATE, concentrationValue: 20, concentrationUnit: '%' },
+      { slug: INGREDIENT_SLUGS.SQUALANE },
+    ],
   },
   {
     slug: 'medik8-retinol-alternative-bakuchiol-peptides-serum',

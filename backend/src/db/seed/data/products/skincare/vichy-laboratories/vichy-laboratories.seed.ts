@@ -63,7 +63,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.VITAMIN_C, notes: '15% Acide Ascorbique' },
+      { slug: INGREDIENT_SLUGS.VITAMIN_C, concentrationValue: 15, concentrationUnit: '%', notes: 'Acide Ascorbique' },
       { slug: INGREDIENT_SLUGS.GLYCERIN },
       { slug: INGREDIENT_SLUGS.TOCOPHEROL, notes: 'Vitamine E' },
     ],
@@ -446,7 +446,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.RHAMNOSE, notes: '10%' },
+      { slug: INGREDIENT_SLUGS.RHAMNOSE, concentrationValue: 10, concentrationUnit: '%' },
       { slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE },
       { slug: INGREDIENT_SLUGS.ADENOSINE },
     ],

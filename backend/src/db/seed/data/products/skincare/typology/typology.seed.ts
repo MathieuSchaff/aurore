@@ -34,6 +34,8 @@ export const TYPOLOGY_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.AZELAIC_ACID,
+        concentrationValue: 10,
+        concentrationUnit: '%',
         notes: `Actif principal d'origine végétale. Régule la production de sébum, propriétés antibactériennes et kératolytiques.`,
       },
       {

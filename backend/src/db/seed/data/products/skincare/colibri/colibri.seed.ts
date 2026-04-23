@@ -37,7 +37,9 @@ export const COLIBRI_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.AZELAIC_ACID,
-        notes: '10% — Anti-taches, anti-rougeurs et kératolytique',
+        concentrationValue: 10,
+        concentrationUnit: '%',
+        notes: 'Anti-taches, anti-rougeurs et kératolytique',
       },
       {
         slug: INGREDIENT_SLUGS.MANDELIC_ACID,
@@ -95,11 +97,15 @@ export const COLIBRI_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.NIACINAMIDE,
-        notes: '8% — Resserre pores et régule sébum',
+        concentrationValue: 8,
+        concentrationUnit: '%',
+        notes: 'Resserre pores et régule sébum',
       },
       {
         slug: INGREDIENT_SLUGS.NMN,
-        notes: '4% — NMN précurseur NAD+ anti-âge cellulaire',
+        concentrationValue: 4,
+        concentrationUnit: '%',
+        notes: 'NMN précurseur NAD+ anti-âge cellulaire',
       },
       {
         slug: INGREDIENT_SLUGS.POLYGLUTAMIC_ACID,
@@ -261,7 +267,9 @@ export const COLIBRI_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.THREE_O_ETHYL_ASCORBIC_ACID,
-        notes: '15% — 3-O-Ethyl Ascorbic Acid — vitamine C stable',
+        concentrationValue: 15,
+        concentrationUnit: '%',
+        notes: '3-O-Ethyl Ascorbic Acid — vitamine C stable',
       },
       {
         slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE,

@@ -37,7 +37,9 @@ export const NOOANCE_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.COPPER_PEPTIDES,
-        notes: '2% GHK-Cu (Copper Tripeptide-1) – réparation, anti-âge, barrière, collagène',
+        concentrationValue: 2,
+        concentrationUnit: '%',
+        notes: 'GHK-Cu (Copper Tripeptide-1) – réparation, anti-âge, barrière, collagène',
       },
       {
         slug: INGREDIENT_SLUGS.PALMITOYL_TRIPEPTIDE_1,
@@ -48,11 +50,15 @@ export const NOOANCE_SEED: UnifiedProductSeed[] = [
       },
       {
         slug: INGREDIENT_SLUGS.TRIFLUOROACETYL_TRIPEPTIDE_2,
-        notes: '2% Trifluoroacetyl Tripeptide-2 – anti-relâchement, fermeté (Progeline-like)',
+        concentrationValue: 2,
+        concentrationUnit: '%',
+        notes: 'Trifluoroacetyl Tripeptide-2 – anti-relâchement, fermeté (Progeline-like)',
       },
       {
         slug: INGREDIENT_SLUGS.TRIPEPTIDE_1,
-        notes: '2% Tripeptide-1 – stimulation collagène',
+        concentrationValue: 2,
+        concentrationUnit: '%',
+        notes: 'Tripeptide-1 – stimulation collagène',
       },
       {
         slug: INGREDIENT_SLUGS.PANTHENOL,
@@ -100,7 +106,9 @@ export const NOOANCE_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.AZELAIC_ACID,
-        notes: '15% acide azélaïque – concentration max cosmétique, anti-glycation/imperfections',
+        concentrationValue: 15,
+        concentrationUnit: '%',
+        notes: 'Acide azélaïque – concentration max cosmétique, anti-glycation/imperfections',
       },
       {
         slug: INGREDIENT_SLUGS.CARNOSINE,

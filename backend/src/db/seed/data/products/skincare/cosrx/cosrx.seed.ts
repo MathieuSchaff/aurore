@@ -73,7 +73,7 @@ export const COSRX_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: '1% – séborégulateur, éclat' },
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: 'séborégulateur, éclat', concentrationValue: 1, concentrationUnit: '%' },
       { slug: INGREDIENT_SLUGS.ZINC_PCA, notes: 'Séborégulateur' },
       { slug: INGREDIENT_SLUGS.MADECASSOSIDE, notes: 'Triterpène Centella – apaisant' },
       { slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE },
@@ -750,7 +750,7 @@ export const COSRX_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_SENSIBLE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.GLYCOLIC_ACID, notes: 'AHA 7% – exfoliation efficace des comédons' },
+      { slug: INGREDIENT_SLUGS.GLYCOLIC_ACID, notes: 'AHA 7% – exfoliation efficace des comédons', concentrationValue: 7, concentrationUnit: '%' },
       { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: 'Éclaircissant et séborégulateur' },
       { slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE },
       { slug: INGREDIENT_SLUGS.PANTHENOL },
@@ -789,7 +789,9 @@ export const COSRX_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.SNAIL_MUCIN,
-        notes: '96% – Filtrat de sécrétion d’escargot ultra-concentré pour la réparation',
+        notes: "Filtrat de sécrétion d’escargot ultra-concentré pour la réparation",
+        concentrationValue: 96,
+        concentrationUnit: "%",
       },
       { slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE, notes: 'Hydratation repulpante' },
       { slug: INGREDIENT_SLUGS.PANTHENOL, notes: 'Apaisant (Vitamine B5)' },
@@ -943,7 +945,9 @@ export const COSRX_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.NIACINAMIDE,
-        notes: '15% – haute concentration, anti-taches et sébum',
+        notes: 'haute concentration, anti-taches et sébum',
+        concentrationValue: 15,
+        concentrationUnit: '%',
       },
       { slug: INGREDIENT_SLUGS.ACETYL_GLUCOSAMINE, notes: 'Humectant + éclaircissant doux' },
       { slug: INGREDIENT_SLUGS.ZINC_PCA, notes: 'Séborégulateur ciblé' },
@@ -1062,7 +1066,7 @@ export const COSRX_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.VITAMIN_C, notes: '23% acide ascorbique pur – éclat intense' },
+      { slug: INGREDIENT_SLUGS.VITAMIN_C, notes: 'acide ascorbique pur – éclat intense', concentrationValue: 23, concentrationUnit: '%' },
       { slug: INGREDIENT_SLUGS.TOCOPHEROL, notes: 'Vitamine E – antioxydant synergique' },
       { slug: INGREDIENT_SLUGS.NIACINAMIDE },
       { slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE },
@@ -1102,7 +1106,9 @@ export const COSRX_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.THREE_O_ETHYL_ASCORBIC_ACID,
-        notes: '13% – vitamine C stable et pénétrante',
+        notes: 'vitamine C stable et pénétrante',
+        concentrationValue: 13,
+        concentrationUnit: '%',
       },
       { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: 'Uniformisant' },
       { slug: INGREDIENT_SLUGS.GLUTATHION, notes: 'Antioxydant éclaircissant' },
@@ -1141,7 +1147,7 @@ export const COSRX_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.RETINOL, notes: '0.5% – rétinol pur, formule anhydre' },
+      { slug: INGREDIENT_SLUGS.RETINOL, notes: 'rétinol pur, formule anhydre', concentrationValue: 0.5, concentrationUnit: '%' },
       { slug: INGREDIENT_SLUGS.SQUALANE, notes: 'Base huileuse stable et douce' },
       { slug: INGREDIENT_SLUGS.TOCOPHEROL },
     ],
@@ -1246,8 +1252,8 @@ export const COSRX_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_SENSIBLE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.GLYCOLIC_ACID, notes: 'AHA 2% – exfoliation de surface' },
-      { slug: INGREDIENT_SLUGS.SALICYLIC_ACID, notes: '2% – pores et anti-acné' },
+      { slug: INGREDIENT_SLUGS.GLYCOLIC_ACID, notes: 'AHA 2% – exfoliation de surface', concentrationValue: 2, concentrationUnit: '%' },
+      { slug: INGREDIENT_SLUGS.SALICYLIC_ACID, notes: 'pores et anti-acné', concentrationValue: 2, concentrationUnit: '%' },
       { slug: INGREDIENT_SLUGS.PHA, notes: 'Gluconolactone – adoucit la formule' },
       { slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE },
       { slug: INGREDIENT_SLUGS.ZINC_PCA, notes: 'Séborégulateur' },
@@ -1356,9 +1362,9 @@ export const COSRX_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.ALPHA_ARBUTIN, notes: '2% – dépigmentant' },
-      { slug: INGREDIENT_SLUGS.TRANEXAMIC_ACID, notes: '3% – anti-taches et anti-inflammatoire' },
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: '5% – uniformisant' },
+      { slug: INGREDIENT_SLUGS.ALPHA_ARBUTIN, notes: 'dépigmentant', concentrationValue: 2, concentrationUnit: '%' },
+      { slug: INGREDIENT_SLUGS.TRANEXAMIC_ACID, notes: 'anti-taches et anti-inflammatoire', concentrationValue: 3, concentrationUnit: '%' },
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: 'uniformisant', concentrationValue: 5, concentrationUnit: '%' },
       { slug: INGREDIENT_SLUGS.MADECASSOSIDE, notes: 'Anti-inflammatoire' },
       { slug: INGREDIENT_SLUGS.FERULIC_ACID },
       { slug: INGREDIENT_SLUGS.GLUTATHION },
@@ -1549,7 +1555,9 @@ export const COSRX_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.SNAIL_MUCIN,
-        notes: '92% – Hydratation et cicatrisation intense',
+        notes: 'Hydratation et cicatrisation intense',
+        concentrationValue: 92,
+        concentrationUnit: '%',
       },
       { slug: INGREDIENT_SLUGS.ADENOSINE, notes: 'Actif anti-âge et lissant' },
       { slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE },
@@ -2084,7 +2092,7 @@ export const COSRX_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.RETINOL, notes: '0.1% – doux, idéal débutants' },
+      { slug: INGREDIENT_SLUGS.RETINOL, notes: 'doux, idéal débutants', concentrationValue: 0.1, concentrationUnit: '%' },
       { slug: INGREDIENT_SLUGS.CERAMIDE_NP },
       { slug: INGREDIENT_SLUGS.CHOLESTEROL },
       { slug: INGREDIENT_SLUGS.HYALURONIC_ACID },

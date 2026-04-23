@@ -2130,7 +2130,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     },
 
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.UREA, notes: 'Uree 10% — hydratant keratolytique' },
+      { slug: INGREDIENT_SLUGS.UREA, concentrationValue: 10, concentrationUnit: '%', notes: 'hydratant keratolytique' },
       { slug: INGREDIENT_SLUGS.LACTIC_ACID, notes: 'AHA keratolytique et hydratant' },
       { slug: INGREDIENT_SLUGS.SHEA_BUTTER, notes: 'Karite nourrissant' },
       {
@@ -2607,7 +2607,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     },
 
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.UREA, notes: 'Uree 50% — keratolytique maximum' },
+      { slug: INGREDIENT_SLUGS.UREA, concentrationValue: 50, concentrationUnit: '%', notes: 'keratolytique maximum' },
       { slug: INGREDIENT_SLUGS.GLYCOLIC_ACID, notes: 'AHA synergique exfoliant' },
       { slug: INGREDIENT_SLUGS.LACTIC_ACID, notes: 'AHA keratolytique et hydratant' },
       { slug: INGREDIENT_SLUGS.SHEA_BUTTER, notes: 'Karite nourrissant et protecteur' },

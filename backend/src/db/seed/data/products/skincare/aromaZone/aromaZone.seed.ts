@@ -92,7 +92,9 @@ export const AROMA_ZONE_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.ASCORBYL_GLUCOSIDE,
-        notes: '10% ascorbyl glucoside (vitamine C stable) – éclat, antioxydant, anti-taches',
+        concentrationValue: 10,
+        concentrationUnit: '%',
+        notes: 'ascorbyl glucoside (vitamine C stable) – éclat, antioxydant, anti-taches',
       },
       {
         slug: INGREDIENT_SLUGS.HAEMATOCOCCUS_PLUVIALIS,

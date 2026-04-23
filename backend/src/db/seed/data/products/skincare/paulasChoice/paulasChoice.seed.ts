@@ -40,7 +40,7 @@ export const PAULAS_CHOICE_SEED: UnifiedProductSeed[] = [
       ],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.GLYCOLIC_ACID },
+      { slug: INGREDIENT_SLUGS.GLYCOLIC_ACID, concentrationValue: 10, concentrationUnit: '%' },
       { slug: INGREDIENT_SLUGS.GREEN_TEA },
       { slug: INGREDIENT_SLUGS.GLYCERIN },
       { slug: INGREDIENT_SLUGS.SHEA_BUTTER },

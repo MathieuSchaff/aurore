@@ -460,8 +460,8 @@ export const BIODERMA_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.PEAU_SENSIBLE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.SALICYLIC_ACID, notes: '1.8% – BHA exfoliant' },
-      { slug: INGREDIENT_SLUGS.MALIC_ACID_ESTER, notes: `10% – Ester d'acide malique (AHA)` },
+      { slug: INGREDIENT_SLUGS.SALICYLIC_ACID, concentrationValue: 1.8, concentrationUnit: '%', notes: 'BHA exfoliant' },
+      { slug: INGREDIENT_SLUGS.MALIC_ACID_ESTER, concentrationValue: 10, concentrationUnit: '%', notes: `Ester d'acide malique (AHA)` },
     ],
   },
   {

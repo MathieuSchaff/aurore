@@ -37,8 +37,10 @@ export const NIOD_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.COPPER_TRIPEPTIDE_1_PALMITAMIDE,
+        concentrationValue: 1,
+        concentrationUnit: '%',
         notes:
-          '1% GHK-Cu lipophile (Pal-GHK-Cu) – réparation profonde, anti-âge, collagène/élastine',
+          'GHK-Cu lipophile (Pal-GHK-Cu) – réparation profonde, anti-âge, collagène/élastine',
       },
       {
         slug: INGREDIENT_SLUGS.SQUALANE,
@@ -87,7 +89,14 @@ export const NIOD_SEED: UnifiedProductSeed[] = [
       ],
       avoid: [],
     },
-    keyIngredients: [{ slug: INGREDIENT_SLUGS.VITAMIN_C, notes: '30% Ethyl Ascorbic Acid' }],
+    keyIngredients: [
+      {
+        slug: INGREDIENT_SLUGS.VITAMIN_C,
+        concentrationValue: 30,
+        concentrationUnit: '%',
+        notes: 'Ethyl Ascorbic Acid',
+      },
+    ],
   },
   {
     slug: 'niod-multi-molecular-hyaluronic-complex',

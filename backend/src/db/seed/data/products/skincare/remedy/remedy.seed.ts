@@ -26,7 +26,12 @@ export const REMEDY_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.THREE_O_ETHYL_ASCORBIC_ACID, notes: '15% Vitamin C Complex' },
+      {
+        slug: INGREDIENT_SLUGS.THREE_O_ETHYL_ASCORBIC_ACID,
+        concentrationValue: 15,
+        concentrationUnit: '%',
+        notes: 'Vitamin C Complex',
+      },
       { slug: INGREDIENT_SLUGS.FERULIC_ACID, notes: 'Booste et stabilise les antioxydants' },
       { slug: INGREDIENT_SLUGS.ECTOIN, notes: 'Protecteur cellulaire, hydratant' },
       { slug: INGREDIENT_SLUGS.PLANKTON_EXTRACT, notes: 'Antioxydant marin' },

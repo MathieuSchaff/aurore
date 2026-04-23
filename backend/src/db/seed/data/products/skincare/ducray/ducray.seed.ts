@@ -326,10 +326,14 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.AZELAIC_ACID,
-        notes: '8% — dépigmentant, anti-taches et anti-inflammatoire.',
+        concentrationValue: 8,
+        concentrationUnit: '%',
+        notes: 'dépigmentant, anti-taches et anti-inflammatoire.',
       },
       {
         slug: INGREDIENT_SLUGS.GLYCOLIC_ACID,
+        concentrationValue: 3,
+        concentrationUnit: '%',
         notes: `3% AHA lissant. Associé à l'acide azélaïque pour améliorer la texture cutanée.`,
       },
       {

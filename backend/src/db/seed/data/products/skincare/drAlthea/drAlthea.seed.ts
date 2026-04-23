@@ -273,7 +273,12 @@ export const DR_ALTHEA_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.RETINOL, notes: '0.1% — entrée en matière douce, anti-âge' },
+      {
+        slug: INGREDIENT_SLUGS.RETINOL,
+        concentrationValue: 0.1,
+        concentrationUnit: '%',
+        notes: 'entrée en matière douce, anti-âge',
+      },
       {
         slug: INGREDIENT_SLUGS.BAKUCHIOL,
         notes: 'Synergie rétinol, anti-âge naturel sans irritation',

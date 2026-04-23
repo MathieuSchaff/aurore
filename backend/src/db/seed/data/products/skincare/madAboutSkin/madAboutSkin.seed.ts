@@ -36,6 +36,8 @@ export const MAD_ABOUT_SKIN_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.COPPER_PEPTIDES,
+        concentrationValue: 3,
+        concentrationUnit: '%',
         notes: 'GHK-Cu : Régénération intense et synthèse de collagène',
       },
       {

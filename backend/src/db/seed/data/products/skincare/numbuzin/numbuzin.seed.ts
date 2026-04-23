@@ -282,7 +282,9 @@ export const NUMBUZIN_SEED: UnifiedProductSeed[] = [
       { slug: INGREDIENT_SLUGS.NAD, notes: 'NAD+ — anti-âge, boost turnover cellulaire, énergie' },
       {
         slug: INGREDIENT_SLUGS.PDRN,
-        notes: 'PDRN saumon (1000 ppm) — régénérant, barrière, éclat',
+        concentrationValue: 1000,
+        concentrationUnit: 'ppm',
+        notes: 'PDRN saumon — régénérant, barrière, éclat',
       },
       { slug: INGREDIENT_SLUGS.NIACINAMIDE },
       { slug: INGREDIENT_SLUGS.CERAMIDE_NP },
@@ -323,9 +325,9 @@ export const NUMBUZIN_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA, notes: '39% Centella — apaisant' },
-      { slug: INGREDIENT_SLUGS.HEARTLEAF, notes: '28% Heartleaf — anti-inflammatoire' },
-      { slug: INGREDIENT_SLUGS.REGLISSE, notes: '25% Réglisse — calmant rougeurs' },
+      { slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA, concentrationValue: 39, concentrationUnit: '%', notes: 'apaisant' },
+      { slug: INGREDIENT_SLUGS.HEARTLEAF, concentrationValue: 28, concentrationUnit: '%', notes: 'anti-inflammatoire' },
+      { slug: INGREDIENT_SLUGS.REGLISSE, concentrationValue: 25, concentrationUnit: '%', notes: 'calmant rougeurs' },
       { slug: INGREDIENT_SLUGS.ALLANTOIN },
       { slug: INGREDIENT_SLUGS.PANTHENOL },
     ],
@@ -358,7 +360,7 @@ export const NUMBUZIN_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: '50 000 ppm — éclaircissant puissant' },
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, concentrationValue: 50000, concentrationUnit: 'ppm', notes: 'éclaircissant puissant' },
       { slug: INGREDIENT_SLUGS.GLUTATHION, notes: 'Antioxydant, anti-taches' },
       { slug: INGREDIENT_SLUGS.THREE_O_ETHYL_ASCORBIC_ACID, notes: 'Vitamine C stable — éclat' },
       { slug: INGREDIENT_SLUGS.ALPHA_ARBUTIN },

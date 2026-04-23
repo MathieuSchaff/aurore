@@ -75,8 +75,9 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.AZELAIC_ACID,
-        notes:
-          '15% — antibactérien, kératolytique, anti-taches, anti-inflammatoire et sebum-control.',
+        concentrationValue: 15,
+        concentrationUnit: '%',
+        notes: 'antibactérien, kératolytique, anti-taches, anti-inflammatoire et sebum-control.',
       },
       {
         slug: INGREDIENT_SLUGS.NIACINAMIDE,

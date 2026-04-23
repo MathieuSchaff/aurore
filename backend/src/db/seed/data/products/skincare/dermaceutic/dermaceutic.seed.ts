@@ -13,7 +13,7 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     amountUnit: 'ml',
     priceCents: 4590,
     description:
-      'Masque visage purifiant qui réduit l’apparence des imperfections et les cellules mortes.',
+      'Masque visage purifiant qui réduit l\'apparence des imperfections et les cellules mortes.',
     notes: 'Action kératolytique. Laisser agir 2 à 4 minutes. Déconseillé pendant la grossesse.',
     inci: 'WATER, GLYCOLIC ACID, BENTONITE, KAOLIN, CETYL PALMITATE, CETEARYL ALCOHOL, ETHYLHEXYL PALMITATE, GLYCERIN, TITANIUM DIOXIDE (CI77891), SALICYLIC ACID, STEARETH 21, GLYCERYL STEARATE, PEG-100 STEARATE, COCAMIDOPROPYL BETAINE, DISODIUM COCOAMPHODIACETATE, XANTHAN GUM, SODIUM CHLORIDE, TETRASODIUM EDTA, OCTADECYL DI-T-BUTYL-4 HYDROXYHYDROCINNAMATE',
     url: 'https://www.dermaceutic.com/fr/mask-15.html',
@@ -31,11 +31,15 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.GLYCOLIC_ACID,
-        notes: '15%, AHA pour stimuler le renouvellement cellulaire.',
+        concentrationValue: 15,
+        concentrationUnit: '%',
+        notes: 'AHA pour stimuler le renouvellement cellulaire.',
       },
       {
         slug: INGREDIENT_SLUGS.SALICYLIC_ACID,
-        notes: '2%, BHA lipophile pour libérer les pores.',
+        concentrationValue: 2,
+        concentrationUnit: '%',
+        notes: 'BHA lipophile pour libérer les pores.',
       },
       {
         slug: INGREDIENT_SLUGS.BENTONITE,
@@ -72,7 +76,9 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.MICROBIOTA_REGULATOR,
-        notes: '2%, Mélange de nutriments pour soutenir le microbiote.',
+        concentrationValue: 2,
+        concentrationUnit: '%',
+        notes: 'Mélange de nutriments pour soutenir le microbiote.',
       },
       {
         slug: INGREDIENT_SLUGS.ZINC_GLUCONATE,
@@ -93,7 +99,7 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     totalAmount: 150,
     amountUnit: 'ml',
     priceCents: 2590,
-    description: 'Mousse nettoyante douce qui élimine les impuretés et l’excès de sébum.',
+    description: 'Mousse nettoyante douce qui élimine les impuretés et l\'excès de sébum.',
     notes: 'Texture légère. Vegan.',
     inci: 'WATER, COCAMIDOPROPYL BETAINE, GLYCERIN, SODIUM COCOYL GLUTAMATE, XYLITYLGLUCOSIDE, PENTYLENE GLYCOL, XYLITOL, ANHYDROXYLITOL, UREA, ZINC PCA, TOCOPHEROL, COCO-GLUCOSIDE, GLYCERYL OLEATE, CAPRYLOYL GLYCINE, FRAGRANCE (PARFUM), TETRASODIUM GLUTAMATE DIACETATE, PROPYLENE GLYCOL, HYDROGENATED PALM GLYCERIDES CITRATE, ETHYLHEXYLGLYCERIN, CITRIC ACID, O-CYMEN-5-OL, SODIUM BENZOATE',
     url: 'https://www.dermaceutic.com/fr/advanced-cleanser.html',
@@ -139,7 +145,9 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.GLYCOLIC_ACID,
-        notes: '5%, Exfoliation douce pour le renouvellement cellulaire.',
+        concentrationValue: 5,
+        concentrationUnit: '%',
+        notes: 'Exfoliation douce pour le renouvellement cellulaire.',
       },
       {
         slug: INGREDIENT_SLUGS.ENOXOLONE,
@@ -175,7 +183,9 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.GLYCOLIC_ACID,
-        notes: '15%, Exfoliation intense pour purifier la peau.',
+        concentrationValue: 15,
+        concentrationUnit: '%',
+        notes: 'Exfoliation intense pour purifier la peau.',
       },
       {
         slug: INGREDIENT_SLUGS.ENOXOLONE,
@@ -209,15 +219,21 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.GLYCOLIC_ACID,
-        notes: '7%, Action kératolytique pour affiner le grain de peau.',
+        concentrationValue: 7,
+        concentrationUnit: '%',
+        notes: 'Action kératolytique pour affiner le grain de peau.',
       },
       {
         slug: INGREDIENT_SLUGS.SALICYLIC_ACID,
-        notes: '1%, Action comédolytique pour désobstruer les pores.',
+        concentrationValue: 1,
+        concentrationUnit: '%',
+        notes: 'Action comédolytique pour désobstruer les pores.',
       },
       {
         slug: INGREDIENT_SLUGS.MICROBIOTA_REGULATOR,
-        notes: '2%, Réduit les rougeurs et l’inflammation.',
+        concentrationValue: 2,
+        concentrationUnit: '%',
+        notes: 'Réduit les rougeurs et l\'inflammation.',
       },
     ],
   },
@@ -230,8 +246,8 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     totalAmount: 40,
     amountUnit: 'ml',
     priceCents: 4290,
-    description: 'Crème de nuit unifiante qui réduit l’apparence des taches pigmentaires.',
-    notes: 'Combinaison d’acides glycolique, phytique et Vitamine C.',
+    description: 'Crème de nuit unifiante qui réduit l\'apparence des taches pigmentaires.',
+    notes: 'Combinaison d\'acides glycolique, phytique et Vitamine C.',
     inci: 'WATER, CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCOLIC ACID, GLYCERIN, SODIUM HYDROXIDE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, PHYTIC ACID, STEARETH-21, GLUCONOLACTONE, STEARETH-2, ASCORBYL METHYLSILANOL PECTINATE, TOCOPHERYL ACETATE, TOCOPHEROL, CHOLESTEROL, SCLEROTIUM GUM, LECITHIN, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, SILICA, CALCIUM GLUCONATE, XANTHAN GUM, SQUALANE, PULLULAN, SORBITAN ISOSTEARATE, TETRASODIUM GLUTAMATE DIACETATE, ETHYLHEXYLGLYCERIN, POLYSORBATE 60, CITRONELLYL METHYLCROTONATE, PHENETHYL ALCOHOL, METHYLPROPANEDIOL, SODIUM BENZOATE, FRAGRANCE (PARFUM)',
     url: 'https://www.dermaceutic.com/fr/light-ceutic.html',
     tags: {
@@ -248,11 +264,15 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.GLYCOLIC_ACID,
-        notes: '8%, Solution AHA pour stimuler le renouvellement.',
+        concentrationValue: 8,
+        concentrationUnit: '%',
+        notes: 'Solution AHA pour stimuler le renouvellement.',
       },
       {
         slug: INGREDIENT_SLUGS.PHYTIC_ACID,
-        notes: '4%, Agent éclaircissant et antioxydant.',
+        concentrationValue: 4,
+        concentrationUnit: '%',
+        notes: 'Agent éclaircissant et antioxydant.',
       },
       {
         slug: INGREDIENT_SLUGS.VITAMIN_C,
@@ -289,7 +309,9 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.GLYCOLIC_ACID,
-        notes: '10.5%, Élimine les cellules mortes et réduit les rides.',
+        concentrationValue: 10.5,
+        concentrationUnit: '%',
+        notes: 'Élimine les cellules mortes et réduit les rides.',
       },
     ],
   },
@@ -322,7 +344,9 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.GLYCOLIC_ACID,
-        notes: '15%, Action exfoliante intensive (pH 3.0 – 3.5).',
+        concentrationValue: 15,
+        concentrationUnit: '%',
+        notes: 'Action exfoliante intensive (pH 3.0 – 3.5).',
       },
     ],
   },
@@ -336,7 +360,7 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     amountUnit: 'ml',
     priceCents: 4890,
     description:
-      'Crème hydratante intense à l’acide hyaluronique de haut et bas poids moléculaire.',
+      'Crème hydratante intense à l\'acide hyaluronique de haut et bas poids moléculaire.',
     notes: 'Non-comédogène. Sans parfum. Vegan.',
     inci: 'WATER, ETHYLHEXYL PALMITATE, BUTYROSPERMUM PARKII (SHEA) BUTTER, HYDROLYZED SOY PROTEIN, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, TRITICUM VULGARE (WHEAT) GERM OIL, ISOPROPYL PALMITATE, POLYACRYLAMIDE, PROPYLENE GLYCOL, C13-14 ISOPARAFFIN, SODIUM HYALURONATE, ALOE BARBADENSIS LEAF EXTRACT, TOCOPHERYL ACETATE, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF EXTRACT, PENTYLENE GLYCOL, CHLORPHENESIN, LAURETH-7, O-CYMEN-5-OL, BENZOIC ACID, SORBIC ACID',
     url: 'https://www.dermaceutic.com/fr/hyal-ceutic.html',
@@ -357,11 +381,15 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.HYALURONIC_ACID,
-        notes: '5.5%, Combinaison de hauts et bas poids moléculaires.',
+        concentrationValue: 5.5,
+        concentrationUnit: '%',
+        notes: 'Combinaison de hauts et bas poids moléculaires.',
       },
       {
         slug: INGREDIENT_SLUGS.ALOE_VERA,
-        notes: '10%, Gel hydratant, cicatrisant et apaisant.',
+        concentrationValue: 10,
+        concentrationUnit: '%',
+        notes: 'Gel hydratant, cicatrisant et apaisant.',
       },
     ],
   },
@@ -415,7 +443,7 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     amountUnit: 'ml',
     priceCents: 5590,
     description: 'Crème redensifiante riche pour peaux matures ciblant la zone SENEB.',
-    notes: 'Acide polyglutamique et 3 poids d’acide hyaluronique. Sans parfum.',
+    notes: 'Acide polyglutamique et 3 poids d\'acide hyaluronique. Sans parfum.',
     inci: 'WATER, GLYCERIN, CAPRYLIC/CAPRIC TRIGLYCERIDE, CETEARYL ALCOHOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, GLYCERYL STEARATE, GLYCERYL STEARATE CITRATE, OLUS OIL (VEGETABLE OIL), SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, PENTYLENE GLYCOL, MYRISTYL MYRISTATE, HYDROLYZED HYALURONIC ACID, SODIUM HYALURONATE, NATTO GUM, SALICYLOYL PHYTOSPHINGOSINE, PISTACIA LENTISCUS (MASTIC) GUM, HYDROLYZED RHODOPHYCEAE EXTRACT, TOCOPHERYL ACETATE, GLYCINE SOJA (SOYBEAN) OIL, CANDELILLA CERA (EUPHORBIA CERIFERA (CANDELILLA) WAX), GLYCERYL CAPRYLATE, SODIUM STEAROYL GLUTAMATE, MICROCRYSTALLINE CELLULOSE, HYDROGENATED VEGETABLE OIL, BUTYLENE GLYCOL, POLYACRYLATE CROSSPOLYMER-6, SODIUM BENZOATE, XANTHAN GUM, CELLULOSE GUM, SODIUM CHLORIDE, CITRIC ACID',
     url: 'https://www.dermaceutic.com/fr/hyal-ceutic-redens.html',
     tags: {
@@ -506,11 +534,15 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.PANTHENOL,
-        notes: '5%, Effet calmant immédiat sur peau irritée.',
+        concentrationValue: 5,
+        concentrationUnit: '%',
+        notes: 'Effet calmant immédiat sur peau irritée.',
       },
       {
         slug: INGREDIENT_SLUGS.BISABOLOL,
-        notes: '1%, Actif cicatrisant et anti-inflammatoire.',
+        concentrationValue: 1,
+        concentrationUnit: '%',
+        notes: 'Actif cicatrisant et anti-inflammatoire.',
       },
     ],
   },
@@ -542,11 +574,15 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.VITAMIN_C,
-        notes: '25%, Protection contre le photovieillissement.',
+        concentrationValue: 25,
+        concentrationUnit: '%',
+        notes: 'Protection contre le photovieillissement.',
       },
       {
         slug: INGREDIENT_SLUGS.PANTHENOL,
-        notes: '2%, Agent hydratant et calmant.',
+        concentrationValue: 2,
+        concentrationUnit: '%',
+        notes: 'Agent hydratant et calmant.',
       },
       {
         slug: INGREDIENT_SLUGS.RETINYL_PALMITATE,
@@ -582,11 +618,15 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.RETINOL,
-        notes: '0.2%, Rétinol pur pour stimuler le collagène.',
+        concentrationValue: 0.2,
+        concentrationUnit: '%',
+        notes: 'Rétinol pur pour stimuler le collagène.',
       },
       {
         slug: INGREDIENT_SLUGS.CERAMIDES,
-        notes: '1%, Renforce la fonction barrière.',
+        concentrationValue: 1,
+        concentrationUnit: '%',
+        notes: 'Renforce la fonction barrière.',
       },
       {
         slug: INGREDIENT_SLUGS.VITAMIN_C,
@@ -627,7 +667,9 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.RETINOL,
-        notes: '0.3%, Sérum intense pour rides avancées.',
+        concentrationValue: 0.3,
+        concentrationUnit: '%',
+        notes: 'Sérum intense pour rides avancées.',
       },
       {
         slug: INGREDIENT_SLUGS.CERAMIDES,
@@ -671,11 +713,15 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.PEPTIDE_COMPLEX,
-        notes: '5%, Stimule la synthèse du collagène.',
+        concentrationValue: 5,
+        concentrationUnit: '%',
+        notes: 'Stimule la synthèse du collagène.',
       },
       {
         slug: INGREDIENT_SLUGS.BAKUCHIOL,
-        notes: '0.5%, Alternative végétale au rétinol.',
+        concentrationValue: 0.5,
+        concentrationUnit: '%',
+        notes: 'Alternative végétale au rétinol.',
       },
       {
         slug: INGREDIENT_SLUGS.VITAMIN_C,
@@ -715,7 +761,9 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.CAFFEINE,
-        notes: '3%, Propriétés drainantes pour les poches.',
+        concentrationValue: 3,
+        concentrationUnit: '%',
+        notes: 'Propriétés drainantes pour les poches.',
       },
       {
         slug: INGREDIENT_SLUGS.NIACINAMIDE,
@@ -736,7 +784,7 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     totalAmount: 30,
     amountUnit: 'ml',
     priceCents: 5490,
-    description: 'Crème éclaircissante qui exfolie en douceur et redonne de l’éclat.',
+    description: 'Crème éclaircissante qui exfolie en douceur et redonne de l\'éclat.',
     notes: 'Contient Acide Kojique et Arbutine. Sans parfum.',
     inci: 'WATER, COCO-CAPRYLATE/CAPRATE, BEHENYL ALCOHOL, ARBUTIN, NIACINAMIDE, HYDROXYPHENOXY PROPIONIC ACID, MANDELIC ACID, SALICYLIC ACID, CETEARYL ALCOHOL, SODIUM HYDROXIDE, ARACHIDYL ALCOHOL, KOJIC ACID, GLYCYRRHETINIC ACID, HYDROXYACETOPHENONE, CETEARYL GLUCOSIDE, ARACHIDYL GLUCOSIDE, XANTHAN GUM, 1,2 HEXANEDIOL, CAPRYLYL GLYCOL, SODIUM GLUCONATE, TOCOPHEROL, CITRIC ACID',
     url: 'https://www.dermaceutic.com/fr/radiance.html',

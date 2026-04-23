@@ -113,11 +113,13 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
         concentrationValue: 0.2,
         concentrationUnit: '%',
         notes:
-          '0.2% retinal stabilisé (sustained-delivery) – anti-âge puissant, rides/texture/éclat',
+          'Retinal stabilisé (sustained-delivery) – anti-âge puissant, rides/texture/éclat',
       },
       {
         slug: INGREDIENT_SLUGS.ECTOIN,
-        notes: '1% ectoin – protecteur, apaisant, barrière (minimise irritations rétinoides)',
+        concentrationValue: 1,
+        concentrationUnit: '%',
+        notes: 'Protecteur, apaisant, barrière (minimise irritations rétinoides)',
       },
       {
         slug: INGREDIENT_SLUGS.PANTHENOL,
@@ -171,8 +173,10 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.ECTOIN,
+        concentrationValue: 1,
+        concentrationUnit: '%',
         notes:
-          '1% ectoin – hydratant, protecteur environnemental (pollution, lumière bleue), apaisant',
+          'Hydratant, protecteur environnemental (pollution, lumière bleue), apaisant',
       },
       {
         slug: INGREDIENT_SLUGS.XYLITYLGLUCOSIDE,
@@ -193,7 +197,9 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
       },
       {
         slug: INGREDIENT_SLUGS.GLYCERIN,
-        notes: '5% glycérine – hydratation gold standard',
+        concentrationValue: 5,
+        concentrationUnit: '%',
+        notes: 'Hydratation gold standard',
       },
       {
         slug: INGREDIENT_SLUGS.TOCOPHEROL,
@@ -233,13 +239,13 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
         slug: INGREDIENT_SLUGS.PHA,
         concentrationValue: 3.2,
         concentrationUnit: '%',
-        notes: '3.2% - Acide PHA doux qui exfolie et hydrate',
+        notes: 'Acide PHA doux qui exfolie et hydrate',
       },
       {
         slug: INGREDIENT_SLUGS.SALICYLIC_ACID,
         concentrationValue: 0.8,
         concentrationUnit: '%',
-        notes: '0.8% - BHA à faible dose pour une action anti-inflammatoire douce',
+        notes: 'BHA à faible dose pour une action anti-inflammatoire douce',
       },
       {
         slug: INGREDIENT_SLUGS.PANTHENOL,
@@ -280,13 +286,13 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
         slug: INGREDIENT_SLUGS.MANDELIC_ACID,
         concentrationValue: 5,
         concentrationUnit: '%',
-        notes: '5% - AHA antibactérien idéal pour les imperfections',
+        notes: 'AHA antibactérien idéal pour les imperfections',
       },
       {
         slug: INGREDIENT_SLUGS.SALICYLIC_ACID,
         concentrationValue: 1,
         concentrationUnit: '%',
-        notes: '1% - Nettoie l’intérieur des pores',
+        notes: 'Nettoie l\'intérieur des pores',
       },
       {
         slug: INGREDIENT_SLUGS.SARCOSINE,
@@ -328,13 +334,13 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
         slug: INGREDIENT_SLUGS.GLYCOLIC_ACID,
         concentrationValue: 10,
         concentrationUnit: '%',
-        notes: '10% - AHA le plus puissant pour booster le collagène',
+        notes: 'AHA le plus puissant pour booster le collagène',
       },
       {
         slug: INGREDIENT_SLUGS.LACTIC_ACID,
         concentrationValue: 2,
         concentrationUnit: '%',
-        notes: '2% - AHA doux et humectant',
+        notes: 'AHA doux et humectant',
       },
     ],
   },
@@ -438,7 +444,7 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
         slug: INGREDIENT_SLUGS.PANTHENOL,
         concentrationValue: 5,
         concentrationUnit: '%',
-        notes: '5% - Pro-vitamine B5 pour apaiser et réparer',
+        notes: 'Pro-vitamine B5 pour apaiser et réparer',
       },
       {
         slug: INGREDIENT_SLUGS.ALLANTOIN,
@@ -478,11 +484,15 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.SQUALANE,
-        notes: '7% - Maintient l’hydratation sans fini gras',
+        concentrationValue: 7,
+        concentrationUnit: '%',
+        notes: 'Maintient l\'hydratation sans fini gras',
       },
       {
         slug: INGREDIENT_SLUGS.CERAMIDE_NG,
-        notes: '0.1% - Céramide pur pour une barrière forte',
+        concentrationValue: 0.1,
+        concentrationUnit: '%',
+        notes: 'Céramide pur pour une barrière forte',
       },
     ],
   },
@@ -524,7 +534,7 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
         slug: INGREDIENT_SLUGS.RETINAL,
         concentrationValue: 0.1,
         concentrationUnit: '%',
-        notes: '0.1% - Rétinaldéhyde hautement dosé pour le smart-aging',
+        notes: 'Rétinaldéhyde hautement dosé pour le smart-aging',
       },
     ],
   },
@@ -564,7 +574,7 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
         slug: INGREDIENT_SLUGS.RETINAL,
         concentrationValue: 0.05,
         concentrationUnit: '%',
-        notes: '0.05% - Dosage moyen pour habituer la peau aux rétinoïdes',
+        notes: 'Dosage moyen pour habituer la peau aux rétinoïdes',
       },
     ],
   },
@@ -601,7 +611,7 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
         slug: INGREDIENT_SLUGS.VITAMIN_C,
         concentrationValue: 15,
         concentrationUnit: '%',
-        notes: '15% - Vitamine C pure pour l’éclat et le collagène',
+        notes: 'Vitamine C pure pour l\'éclat et le collagène',
       },
       {
         slug: INGREDIENT_SLUGS.FERULIC_ACID,
@@ -641,13 +651,13 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
         slug: INGREDIENT_SLUGS.MADECASSOSIDE,
         concentrationValue: 0.3,
         concentrationUnit: '%',
-        notes: '0.3% - Molécule de Centella Asiatica pour la cicatrisation',
+        notes: 'Molécule de Centella Asiatica pour la cicatrisation',
       },
       {
         slug: INGREDIENT_SLUGS.BETA_GLUCAN,
         concentrationValue: 0.2,
         concentrationUnit: '%',
-        notes: '0.2% - Ingrédient d’avoine réparateur et hydratant',
+        notes: 'Ingrédient d\'avoine réparateur et hydratant',
       },
     ],
   },
@@ -684,7 +694,7 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
         slug: INGREDIENT_SLUGS.AZELAIC_ACID,
         concentrationValue: 20,
         concentrationUnit: '%',
-        notes: '20% - Solution contenant 6% de PAD pur pour les rougeurs',
+        notes: 'Solution contenant 6% de PAD pur pour les rougeurs',
       },
     ],
   },
@@ -722,7 +732,7 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
         slug: INGREDIENT_SLUGS.NIACINAMIDE,
         concentrationValue: 10,
         concentrationUnit: '%',
-        notes: '10% - Vitamine B3 multi-fonctions pour les pores et barrière',
+        notes: 'Vitamine B3 multi-fonctions pour les pores et barrière',
       },
       {
         slug: INGREDIENT_SLUGS.ZINC_PCA,
@@ -762,7 +772,7 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
         slug: INGREDIENT_SLUGS.SALICYLIC_ACID,
         concentrationValue: 2,
         concentrationUnit: '%',
-        notes: '2% - Dose maximale de BHA pour purifier les pores',
+        notes: 'Dose maximale de BHA pour purifier les pores',
       },
     ],
   },

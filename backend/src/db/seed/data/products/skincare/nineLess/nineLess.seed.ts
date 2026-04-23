@@ -25,7 +25,9 @@ export const NINE_LESS_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.AZELAIC_ACID,
-        notes: '10% acide azélaïque – anti-imperfections, anti-rougeurs, éclaircissant',
+        concentrationValue: 10,
+        concentrationUnit: '%',
+        notes: 'anti-imperfections, anti-rougeurs, éclaircissant',
       },
       { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: 'Régulateur de sébum, barrière, éclaircissant' },
       {

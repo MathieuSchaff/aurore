@@ -31,7 +31,9 @@ export const AZELAIQUE_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.AZELAIC_ACID,
-        notes: '10% acide azélaïque – éclaircissant, anti-imperfections',
+        concentrationValue: 10,
+        concentrationUnit: '%',
+        notes: 'éclaircissant, anti-imperfections',
       },
       { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: 'Multi-tâches : barrière, sébum, teint' },
       {
@@ -119,8 +121,10 @@ export const AZELAIQUE_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.AZELAIC_ACID,
+        concentrationValue: 30,
+        concentrationUnit: '%',
         notes:
-          '30% — concentration professionnelle. Exfoliation, renouvellement cellulaire, anti-pigmentation et anti-sébum.',
+          'concentration professionnelle. Exfoliation, renouvellement cellulaire, anti-pigmentation et anti-sébum.',
       },
     ],
   },
@@ -156,7 +160,9 @@ export const AZELAIQUE_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.AZELAIC_ACID,
-        notes: `10% — efface cicatrices d'acné, améliore l'hyperpigmentation et traite la rosacée.`,
+        concentrationValue: 10,
+        concentrationUnit: '%',
+        notes: `efface cicatrices d'acné, améliore l'hyperpigmentation et traite la rosacée.`,
       },
       {
         slug: INGREDIENT_SLUGS.ALOE_VERA,

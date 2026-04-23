@@ -38,7 +38,9 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.AZELAIC_ACID,
-        notes: '3% acide azélaïque – clarifiant doux',
+        concentrationValue: 3,
+        concentrationUnit: '%',
+        notes: 'acide azélaïque – clarifiant doux',
       },
       {
         slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA,
@@ -98,7 +100,9 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.AZELAIC_ACID,
-        notes: '10% acide azélaïque – anti-imperfections, anti-rougeurs, post-IPL',
+        concentrationValue: 10,
+        concentrationUnit: '%',
+        notes: 'acide azélaïque – anti-imperfections, anti-rougeurs, post-IPL',
       },
       {
         slug: INGREDIENT_SLUGS.CERAMIDE_NP,
@@ -159,7 +163,9 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.ORYZA_SATIVA,
-        notes: '70%+ eau de riz / extraits de riz – éclaircissant, hydratant, équilibrant sébum',
+        concentrationValue: 70,
+        concentrationUnit: '%',
+        notes: 'eau de riz / extraits de riz – éclaircissant, hydratant, équilibrant sébum',
       },
       {
         slug: INGREDIENT_SLUGS.NIACINAMIDE,
@@ -216,7 +222,9 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.HEARTLEAF,
-        notes: '77% extrait de Heartleaf – apaisant, anti-inflammatoire, signature du produit',
+        concentrationValue: 77,
+        concentrationUnit: '%',
+        notes: 'extrait de Heartleaf – apaisant, anti-inflammatoire, signature du produit',
       },
       {
         slug: INGREDIENT_SLUGS.PANTHENOL,
@@ -270,6 +278,8 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.HEARTLEAF,
+        concentrationValue: 80,
+        concentrationUnit: '%',
         notes: 'Extrait de heartleaf concentré – apaisant intense',
       },
       {
@@ -317,11 +327,15 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.NIACINAMIDE,
-        notes: '10% – éclaircissant, régulateur de sébum, anti-imperfections',
+        concentrationValue: 10,
+        concentrationUnit: '%',
+        notes: 'éclaircissant, régulateur de sébum, anti-imperfections',
       },
       {
         slug: INGREDIENT_SLUGS.TRANEXAMIC_ACID,
-        notes: '4% – anti-taches et inhibiteur de mélanogénèse',
+        concentrationValue: 4,
+        concentrationUnit: '%',
+        notes: 'anti-taches et inhibiteur de mélanogénèse',
       },
       {
         slug: INGREDIENT_SLUGS.THREE_O_ETHYL_ASCORBIC_ACID,
@@ -434,6 +448,8 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.HEARTLEAF,
+        concentrationValue: 70,
+        concentrationUnit: '%',
         notes: 'Extrait de heartleaf – apaisant quotidien',
       },
       {
@@ -486,6 +502,8 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.HEARTLEAF,
+        concentrationValue: 70,
+        concentrationUnit: '%',
         notes: 'Extrait de heartleaf – calmant intense',
       },
       {
@@ -540,6 +558,8 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.HEARTLEAF,
+        concentrationValue: 70,
+        concentrationUnit: '%',
         notes: 'Extrait de heartleaf – apaisant rougeurs',
       },
       {
@@ -593,7 +613,9 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.NIACINAMIDE,
-        notes: '5% – éclaircissant et régulateur de sébum',
+        concentrationValue: 5,
+        concentrationUnit: '%',
+        notes: 'éclaircissant et régulateur de sébum',
       },
       {
         slug: INGREDIENT_SLUGS.TRANEXAMIC_ACID,
@@ -641,6 +663,8 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.HEARTLEAF,
+        concentrationValue: 80,
+        concentrationUnit: '%',
         notes: 'Extrait concentré de heartleaf – apaisant puissant',
       },
       {
@@ -782,6 +806,8 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.ORYZA_SATIVA,
+        concentrationValue: 70,
+        concentrationUnit: '%',
         notes: 'Eau de riz + extraits de riz – hydratant et éclaircissant',
       },
       {
@@ -882,6 +908,8 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.ORYZA_SATIVA,
+        concentrationValue: 70,
+        concentrationUnit: '%',
         notes: 'Eau de riz 70% + huile de riz – hydratant et nourrissant',
       },
       { slug: INGREDIENT_SLUGS.CERAMIDE_NP },
@@ -1035,7 +1063,9 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.AZELAIC_ACID,
-        notes: '10% – anti-rougeurs, anti-imperfections, anti-taches',
+        concentrationValue: 10,
+        concentrationUnit: '%',
+        notes: 'anti-rougeurs, anti-imperfections, anti-taches',
       },
       {
         slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA,
@@ -1091,6 +1121,8 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.HEARTLEAF,
+        concentrationValue: 77,
+        concentrationUnit: '%',
         notes: 'Eau florale de heartleaf 77% – apaisant signature',
       },
       {
@@ -1203,6 +1235,8 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
       },
       {
         slug: INGREDIENT_SLUGS.ORYZA_SATIVA,
+        concentrationValue: 7,
+        concentrationUnit: '%',
         notes: 'Extraits de riz – hydratant et apaisant',
       },
       { slug: INGREDIENT_SLUGS.HYALURONIC_ACID },
@@ -1243,6 +1277,8 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.HEARTLEAF,
+        concentrationValue: 77,
+        concentrationUnit: '%',
         notes: 'Apaisant anti-inflammatoire',
       },
       {

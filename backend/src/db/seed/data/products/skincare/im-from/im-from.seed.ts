@@ -36,7 +36,9 @@ export const IM_FROM_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.ORYZA_SATIVA,
-        notes: '77.78% extrait de riz Goami — hydratant, anti-rides, illumine',
+        concentrationValue: 77.78,
+        concentrationUnit: '%',
+        notes: 'extrait de riz Goami — hydratant, anti-rides, illumine',
       },
       { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: 'Éclaircissant, barrière, régulateur sébum' },
       { slug: INGREDIENT_SLUGS.PORTULACA_OLERACEA, notes: 'Extrait de pourpier — apaisant' },

@@ -80,7 +80,7 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
       ],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.UREA, notes: 'Urée 10% – exfolie, hydrate intensif' },
+      { slug: INGREDIENT_SLUGS.UREA, concentrationValue: 10, concentrationUnit: '%', notes: 'exfolie, hydrate intensif' },
       { slug: INGREDIENT_SLUGS.CERAMIDE_NP, notes: 'Céramide NP – barrière' },
       { slug: INGREDIENT_SLUGS.SODIUM_PCA, notes: 'NMF (lactate, PCA, etc.) – hydratation' },
       { slug: INGREDIENT_SLUGS.ARGININE },
@@ -123,7 +123,7 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.UREA, notes: 'Urée 5% – hydrate, lisse' },
+      { slug: INGREDIENT_SLUGS.UREA, concentrationValue: 5, concentrationUnit: '%', notes: 'hydrate, lisse' },
       { slug: INGREDIENT_SLUGS.CERAMIDE_NP },
     ],
   },

@@ -223,7 +223,10 @@ export const IUNIK_SEED: UnifiedProductSeed[] = [
       ],
       avoid: [],
     },
-    keyIngredients: [{ slug: INGREDIENT_SLUGS.BETA_GLUCAN }, { slug: INGREDIENT_SLUGS.ADENOSINE }],
+    keyIngredients: [
+      { slug: INGREDIENT_SLUGS.BETA_GLUCAN, concentrationValue: 98, concentrationUnit: '%' },
+      { slug: INGREDIENT_SLUGS.ADENOSINE },
+    ],
   },
   {
     slug: 'iunik-centella-calming-gel-cream',
@@ -253,8 +256,8 @@ export const IUNIK_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA },
-      { slug: INGREDIENT_SLUGS.TEA_TREE },
+      { slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA, concentrationValue: 72, concentrationUnit: '%' },
+      { slug: INGREDIENT_SLUGS.TEA_TREE, concentrationValue: 10, concentrationUnit: '%' },
       { slug: INGREDIENT_SLUGS.NIACINAMIDE },
     ],
   },

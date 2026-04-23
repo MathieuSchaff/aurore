@@ -35,6 +35,8 @@ export const CYLA_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.SERINE,
+        concentrationValue: 15,
+        concentrationUnit: '%',
         notes: 'NMF biomimétique 15% – hydratation, restauration pH physiologique',
       },
       { slug: INGREDIENT_SLUGS.GLYCINE },
@@ -154,13 +156,15 @@ export const CYLA_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SECHE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.SERINE, notes: 'NMF biomimétique 5% – hydratation' },
+      { slug: INGREDIENT_SLUGS.SERINE, concentrationValue: 5, concentrationUnit: '%', notes: 'NMF biomimétique 5% – hydratation' },
       { slug: INGREDIENT_SLUGS.PCA },
       { slug: INGREDIENT_SLUGS.UREA },
       { slug: INGREDIENT_SLUGS.CERAMIDE_AP },
       { slug: INGREDIENT_SLUGS.CERAMIDE_NG },
       {
         slug: INGREDIENT_SLUGS.CERAMIDE_NP,
+        concentrationValue: 2,
+        concentrationUnit: '%',
         notes: 'Complexe lipides 2% (céramides + cholestérol + acides gras) – barrière',
       },
       { slug: INGREDIENT_SLUGS.CHOLESTEROL },
@@ -200,12 +204,14 @@ export const CYLA_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.PEAU_MIXTE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.SERINE, notes: 'NMF biomimétique 5% – hydratation' },
+      { slug: INGREDIENT_SLUGS.SERINE, concentrationValue: 5, concentrationUnit: '%', notes: 'NMF biomimétique 5% – hydratation' },
       { slug: INGREDIENT_SLUGS.PCA },
       { slug: INGREDIENT_SLUGS.CERAMIDE_AP },
       { slug: INGREDIENT_SLUGS.CERAMIDE_NG },
       {
         slug: INGREDIENT_SLUGS.CERAMIDE_NP,
+        concentrationValue: 2,
+        concentrationUnit: '%',
         notes: 'Complexe lipides 2% – nutrition intense, barrière',
       },
       { slug: INGREDIENT_SLUGS.CHOLESTEROL },

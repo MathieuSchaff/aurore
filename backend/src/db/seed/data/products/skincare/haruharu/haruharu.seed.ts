@@ -278,6 +278,8 @@ export const HARUHARU_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.ORYZA_SATIVA,
+        concentrationValue: 2000,
+        concentrationUnit: 'ppm',
         notes: 'Extrait de riz noir fermenté (2000 ppm) — antioxydant, régénérant, illumine',
       },
       { slug: INGREDIENT_SLUGS.HYALURONIC_ACID, notes: 'Hydratation intense, repulpe la peau' },
@@ -307,7 +309,7 @@ export const HARUHARU_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.TRANEXAMIC_ACID },
+      { slug: INGREDIENT_SLUGS.TRANEXAMIC_ACID, concentrationValue: 4, concentrationUnit: '%' },
       { slug: INGREDIENT_SLUGS.NIACINAMIDE },
       { slug: INGREDIENT_SLUGS.VITAMIN_C },
     ],

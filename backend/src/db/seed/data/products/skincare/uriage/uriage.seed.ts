@@ -54,6 +54,8 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
       {
         slug: INGREDIENT_SLUGS.SHEA_BUTTER,
         notes: 'Beurre de karité relipidant (10%)',
+        concentrationValue: 10,
+        concentrationUnit: '%',
       },
       {
         slug: INGREDIENT_SLUGS.CHOLESTEROL,
@@ -125,6 +127,8 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
       {
         slug: INGREDIENT_SLUGS.SHEA_BUTTER,
         notes: 'Beurre de karité (10%)',
+        concentrationValue: 10,
+        concentrationUnit: '%',
       },
       {
         slug: INGREDIENT_SLUGS.SQUALANE,
@@ -344,6 +348,8 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
       {
         slug: INGREDIENT_SLUGS.THD_ASCORBATE,
         notes: 'Complexe 20% Vitamine C (ascorbyl tetraisopalmitate), unifiant et éclatant',
+        concentrationValue: 20,
+        concentrationUnit: '%',
       },
       {
         slug: INGREDIENT_SLUGS.NIACINAMIDE,
@@ -481,6 +487,8 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
       {
         slug: INGREDIENT_SLUGS.SHEA_BUTTER,
         notes: 'Relipidant majeur (10%)',
+        concentrationValue: 10,
+        concentrationUnit: '%',
       },
       {
         slug: INGREDIENT_SLUGS.CHOLESTEROL,
@@ -666,7 +674,9 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.UREA,
-        notes: '30% — action kératolytique puissante',
+        notes: 'action kératolytique puissante',
+        concentrationValue: 30,
+        concentrationUnit: '%',
       },
       {
         slug: INGREDIENT_SLUGS.GLYCINE,

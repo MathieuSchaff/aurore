@@ -222,19 +222,27 @@ export const DR_IDRISS_SEED: UnifiedProductSeed[] = [
       },
       {
         slug: INGREDIENT_SLUGS.AVOBENZONE,
-        notes: '3% - Filtre UVA chimique',
+        concentrationValue: 3,
+        concentrationUnit: '%',
+        notes: 'Filtre UVA chimique',
       },
       {
         slug: INGREDIENT_SLUGS.HOMOSALATE,
-        notes: '7% - Filtre UVB chimique',
+        concentrationValue: 7,
+        concentrationUnit: '%',
+        notes: 'Filtre UVB chimique',
       },
       {
         slug: INGREDIENT_SLUGS.OCTOCRYLENE,
-        notes: '10% - Filtre UVB chimique stabilisant',
+        concentrationValue: 10,
+        concentrationUnit: '%',
+        notes: 'Filtre UVB chimique stabilisant',
       },
       {
         slug: INGREDIENT_SLUGS.ETHYLHEXYL_SALICYLATE,
-        notes: '5% - Octisalate – filtre UVB chimique',
+        concentrationValue: 5,
+        concentrationUnit: '%',
+        notes: 'Octisalate – filtre UVB chimique',
       },
     ],
   },
@@ -267,11 +275,15 @@ export const DR_IDRISS_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.GLYCOLIC_ACID,
-        notes: '15% - AHA exfoliant puissant – renouvellement cellulaire, anti-taches',
+        concentrationValue: 15,
+        concentrationUnit: '%',
+        notes: 'AHA exfoliant puissant – renouvellement cellulaire, anti-taches',
       },
       {
         slug: INGREDIENT_SLUGS.LACTIC_ACID,
-        notes: '3% - AHA doux – exfoliant et hydratant',
+        concentrationValue: 3,
+        concentrationUnit: '%',
+        notes: 'AHA doux – exfoliant et hydratant',
       },
       {
         slug: INGREDIENT_SLUGS.TRANEXAMIC_ACID,
@@ -313,7 +325,9 @@ export const DR_IDRISS_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.AZELAIC_ACID,
-        notes: '10% - Acide azélaïque – séborégulateur, anti-rougeurs, anti-rosacée',
+        concentrationValue: 10,
+        concentrationUnit: '%',
+        notes: 'Acide azélaïque – séborégulateur, anti-rougeurs, anti-rosacée',
       },
       {
         slug: INGREDIENT_SLUGS.ENOXOLONE,

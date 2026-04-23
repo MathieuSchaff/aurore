@@ -94,7 +94,9 @@ export const THE_INKEY_LIST_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.AZELAIC_ACID,
-        notes: '10% — réduit les rougeurs, unifie le teint, apaise la peau.',
+        concentrationValue: 10,
+        concentrationUnit: '%',
+        notes: 'réduit les rougeurs, unifie le teint, apaise la peau.',
       },
       {
         slug: INGREDIENT_SLUGS.ALLANTOIN,
