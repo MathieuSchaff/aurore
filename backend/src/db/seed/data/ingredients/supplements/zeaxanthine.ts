@@ -1,6 +1,7 @@
 import { INGREDIENT_TYPES, SUPPLEMENT_CATEGORIES } from '@habit-tracker/shared'
+
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
-import type { IngredientInput } from '../seed-ingredients'
+import type { IngredientInput } from '../types'
 
 export const ZEAXANTHINE: IngredientInput[] = [
   {
@@ -9,7 +10,7 @@ export const ZEAXANTHINE: IngredientInput[] = [
     type: INGREDIENT_TYPES.SUPPLEMENT,
     category: SUPPLEMENT_CATEGORIES.CAROTENOIDE,
     description:
-      "Caroténoïde xanthophylle isomère de la lutéine, concentré au centre de la macula où il assure la protection des photorécepteurs contre la lumière bleue.",
+      'Caroténoïde xanthophylle isomère de la lutéine, concentré au centre de la macula où il assure la protection des photorécepteurs contre la lumière bleue.',
     content: `
 # Zéaxanthine
 

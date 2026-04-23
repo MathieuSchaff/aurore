@@ -1,7 +1,7 @@
 import type { ArticleInput } from '../seed-articles'
 
 export const axeIntestinCerveau: ArticleInput = {
-  title: "Axe intestin-cerveau : SCFA, nerf vague et neurotransmetteurs",
+  title: 'Axe intestin-cerveau : SCFA, nerf vague et neurotransmetteurs',
   slug: 'axe-intestin-cerveau',
   category: 'science',
   excerpt:

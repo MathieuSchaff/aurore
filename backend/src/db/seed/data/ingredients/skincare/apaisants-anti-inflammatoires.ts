@@ -1,6 +1,7 @@
 import { SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
+
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
-import type { IngredientInput } from '../seed-ingredients'
+import type { IngredientInput } from '../types'
 
 export const APAISANTS_ANTI_INFLAMMATOIRES: IngredientInput[] = [
   {
@@ -662,6 +663,7 @@ Il apaise instantanément les peaux échauffées ou fatiguées. Dans un soin con
   {
     name: 'Eau thermale Uriage',
     slug: INGREDIENT_SLUGS.URIAGE_THERMAL_SPRING_WATER,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Eau thermale isotonique unique, naturellement riche en minéraux et oligo-éléments, qui apaise, hydrate et renforce la barrière cutanée.',
@@ -683,6 +685,7 @@ L'Eau thermale Uriage est une eau de cure isotonique, ce qui signifie qu'elle es
   {
     name: 'Asparagopsis Armata Extract',
     slug: INGREDIENT_SLUGS.ASPARAGOPSIS_ARMATA_EXTRACT,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait d’algue rouge reconnu pour ses propriétés anti-rougeurs et sa capacité à inhiber les médiateurs de l’inflammation.',
@@ -703,6 +706,7 @@ Algue rouge de la famille des Bonnemaisoniaceae. En cosmétique, elle est utilis
   {
     name: 'SymSitive (4-t-Butylcyclohexanol)',
     slug: INGREDIENT_SLUGS.SYMSITIVE,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Régulateur de sensibilité cutanée de nouvelle génération qui agit directement sur les récepteurs sensoriels pour calmer instantanément les sensations d’inconfort.',
@@ -745,6 +749,7 @@ Molécule extraite de la racine de Glycyrrhiza Inflata.
   {
     name: 'Aster Tripolium Extract',
     slug: INGREDIENT_SLUGS.ASTER_TRIPOLIUM,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait d’aster maritime qui renforce la microcirculation et calme les rougeurs diffuses.',
@@ -765,6 +770,7 @@ Plante halophyte (résistante au sel) qui survit dans des environnements côtier
   {
     name: 'Sambucus Nigra Flower Extract',
     slug: INGREDIENT_SLUGS.SAMBUCUS_NIGRA,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait de fleur de sureau noir reconnu pour ses propriétés adoucissantes, apaisantes et drainantes.',
@@ -785,6 +791,7 @@ Riche en flavonoïdes et en acides phénoliques.
   {
     name: 'Daucus Carota Sativa Root Extract',
     slug: INGREDIENT_SLUGS.DAUCUS_CAROTA,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait de carotte riche en bêta-carotène et vitamines, qui apaise, régénère et apporte un effet "bonne mine" naturel.',
@@ -1851,6 +1858,26 @@ Le **Dipotassium Glycyrrhizate** est un actif extrait de la plante de réglisse 
 
 ## 🛡️ Précautions & Sécurité
 * Ingrédient extrêmement sûr, adapté aux peaux les plus sensibles et aux bébés.
+`,
+  },
+  {
+    name: 'Artemisia Annua Extract',
+    slug: INGREDIENT_SLUGS.ARTEMISIA_ANNUA,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      "Extrait d'armoise annuelle (*Artemisia annua*), actif K-beauty apaisant et anti-rougeurs aux propriétés anti-inflammatoires et antioxydantes reconnues.",
+    content: `
+# Artemisia Annua Extract : L'Actif Apaisant K-Beauty
+L'**Artemisia Annua Extract** est un extrait de plante issu de l'armoise annuelle, largement utilisé dans la cosmétique coréenne pour ses propriétés apaisantes exceptionnelles.
+
+## ✨ Points Forts & Bénéfices
+* **Apaisement Intense** : Calme les rougeurs, les irritations et les réactions inflammatoires cutanées.
+* **Antioxydant** : Protège les cellules du stress oxydatif grâce à ses polyphénols naturels.
+* **Renforcement de la Barrière** : Soutient l'intégrité cutanée sur les peaux sensibles et réactives.
+
+## 🛡️ Précautions & Sécurité
+* Excellente tolérance. Convient aux peaux sensibles, réactives et atopiques.
 `,
   },
 ]

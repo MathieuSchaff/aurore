@@ -1,6 +1,7 @@
 import { INGREDIENT_TYPES, SUPPLEMENT_CATEGORIES } from '@habit-tracker/shared'
+
 import { SUPPLEMENTS_CAROTENOIDES } from '../ingredient-slugs'
-import type { IngredientInput } from '../seed-ingredients'
+import type { IngredientInput } from '../types'
 
 // TS key is ASTAXANTHINE_SUPPLEMENT (not ASTAXANTHINE) to avoid the
 // skincare-side collision inside INGREDIENT_SLUGS.

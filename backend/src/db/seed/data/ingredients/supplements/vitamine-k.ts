@@ -1,6 +1,7 @@
 import { INGREDIENT_TYPES, SUPPLEMENT_CATEGORIES } from '@habit-tracker/shared'
+
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
-import type { IngredientInput } from '../seed-ingredients'
+import type { IngredientInput } from '../types'
 
 export const VITAMINE_K: IngredientInput[] = [
   {
@@ -9,7 +10,7 @@ export const VITAMINE_K: IngredientInput[] = [
     type: INGREDIENT_TYPES.SUPPLEMENT,
     category: SUPPLEMENT_CATEGORIES.VITAMINE,
     description:
-      "Vitamine liposoluble essentielle a la fixation du calcium dans les os et a la prevention des calcifications vasculaires. Souvent associee a la vitamine D3 en supplementation.",
+      'Vitamine liposoluble essentielle a la fixation du calcium dans les os et a la prevention des calcifications vasculaires. Souvent associee a la vitamine D3 en supplementation.',
     content: `
 # Vitamine K2 (Menaquinone)
 

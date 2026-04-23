@@ -1,7 +1,7 @@
 import type { ArticleInput } from '../seed-articles'
 
 export const safran: ArticleInput = {
-  title: "Safran (Crocus sativus) : humeur, cycle, pharmacologie et dose utile",
+  title: 'Safran (Crocus sativus) : humeur, cycle, pharmacologie et dose utile',
   slug: 'safran-crocus-sativus-guide',
   category: 'phytotherapie',
   excerpt:

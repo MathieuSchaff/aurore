@@ -31,14 +31,18 @@ backend/src/db/seed/
 │   │   └── index.ts
 │   ├── products/            # seeds produits, un dossier par marque
 │   │   ├── types.ts          # UnifiedProductSeed
-│   │   ├── index.ts          # agrégation toutes marques
+│   │   ├── index.ts          # agrégation toutes marques (skincare + haircare + dental + supplement)
 │   │   ├── products-slugs.ts # allProductSlugs dérivé (consommé par tests)
-│   │   └── <brand>/<brand>.seed.ts   # 81 fichiers actifs
+│   │   ├── skincare/         # ~81 marques actives
+│   │   ├── haircare/         # 50 marques actives
+│   │   ├── dental/           # 25 marques actives
+│   │   └── supplement/       # 1 marque active (nutripure)
 │   ├── tags/                # seed-tags : ingredientTagData + productTagData (284L)
 │   │   └── index.ts
 │   ├── blog/                # article-data.ts + 8 catégories (articles seed)
 │   └── otherdata/           # product-associations.ts, tag-associations.ts (CSV)
 ├── runners/                 # seed-core.ts, seed-skincare.ts, seed-blog.ts, etc.
+├── scripts/                 # outils data quality (ex: auto-tag.ts)
 ├── tests/                   # seed-data-integrity, shared-schemas-vs-tags, etc.
 └── docs/                    # ← ici
 ```
@@ -694,10 +698,10 @@ Les tags en DB sont statiques — créés au seed, jamais à la volée par l'API
 insérer. Labels FR définis localement dans `TAG_LABELS` (dict slug → string, ~200
 entrées). Le `tagType` est dérivé de la taxonomie shared.
 
-- `ingredientTagData` : agrégat skincare + supplement + dental (déduplification
-  first-occurrence). Les slugs haircare-natifs ne sont pas encore insérés en DB.
-- `productTagData` : construit depuis `SKINCARE_PRODUCT_TAG_TAXONOMY` uniquement — les
-  3 autres domaines produit ont des stubs vides.
+- `ingredientTagData` : agrégat skincare + supplement + dental + haircare (déduplification
+  first-occurrence). 4 domaines insérés en DB.
+- `productTagData` : construit depuis `SKINCARE_PRODUCT_TAG_TAXONOMY` + `DENTAL_PRODUCT_TAG_TAXONOMY` —
+  haircare et supplement produit ont des stubs vides.
 
 ### 6.2 Associations ingrédient↔tag — manuel
 
@@ -741,6 +745,36 @@ Exception : `noreva-product-tags.ts` est un fichier séparé hérité de l'ancie
 
 Limite connue (voir ROADMAP P1) : couvre bien `product_type` et
 `routine_step`, mais pas assez `concern` et `skin_type`.
+
+### 6.5 Script de tagging initial — `scripts/auto-tag.ts`
+
+Script one-shot utilisé en avril 2026 pour pré-remplir les 1 017 produits CSV
+dont `tags: { primary: [], secondary: [], avoid: [] }`.
+
+Logique par domaine :
+
+| Domaine | primary | secondary | avoid |
+|---|---|---|---|
+| skincare | INCI → `INGREDIENT_TAG_MAP` → concern tags (top 3 par score) | effets fonctionnels INCI + kind-based (zone, type produit) | ingrédients agressifs (retinol, SA, BHA, BP) |
+| haircare | `kind` → type produit (`shampoing`, `serum-cheveux`…) | — | — |
+| dental | `kind` → type produit (`dentifrice`, `fil-dentaire`…) | — | — |
+
+Détection domaine : path (`/haircare/`, `/dental/`) ou `kind` (détecte les
+shampoings stockés sous `skincare/` chez des marques multi-domaines).
+
+État après exécution :
+- **875 produits** : primary + secondary (± avoid) remplis
+- **142 produits** : secondary rempli, primary encore vide (INCI absent ou aucun
+  ingrédient connu ne mappe sur un concern primaire)
+- **90 fichiers** seed ont reçu l'import `{ TAG_SLUGS }` manquant automatiquement
+
+Les 142 restants sont à traiter manuellement (voir ROADMAP §3.2).
+
+Usage (idempotent, skip les produits déjà taggués) :
+```sh
+bun run backend/src/db/seed/scripts/auto-tag.ts           # dry run
+bun run backend/src/db/seed/scripts/auto-tag.ts --write   # apply
+```
 
 ---
 
@@ -840,14 +874,16 @@ console à l'exécution, pas d'erreur. Comportement voulu, mais masqué.
 `dentalTagMap` contient 18 entries (reminéralisation, antimicrobiens, anti-sensibilité,
 abrasifs, blanchissants, divers). Les 34 slugs dental sont insérés via
 `ingredientTagData` (aggregate skincare + supplement + dental). `productTagData`
-reste skincare uniquement — tant que les produits dentaires ne nécessitent pas de
-filtres dédiés.
+inclut désormais les tags dental produit (36 slugs, dedup — 25 nouveaux rows en DB).
 
-### 8.5 `productTagData` ne couvre que skincare
+### 8.5 ~~`productTagData` ne couvre que skincare~~ — résolu pour dental
 
-`ingredientTagData` agrège skincare + supplement. `productTagData` n'agrège que
-`SKINCARE_PRODUCT_TAG_TAXONOMY` — les slugs haircare/dental/supplement produits sont
-vides. À étendre manuellement si ces slugs sont un jour remplis.
+`productTagData` agrège skincare + dental (dedup par slug — first-occurrence gagne).
+`DENTAL_PRODUCT_TAG_SLUGS` (36 slugs) et `DENTAL_PRODUCT_TAG_TAXONOMY` sont remplis.
+5 catégories : `concern`, `age_group`, `product_type`, `dental_effect`, `product_label`.
+Les 10 slugs partagés avec skincare (`dentifrice`, `bain-de-bouche`, `sans-parfum`…)
+ne créent pas de nouvelles rows — le dedup les filtre.
+Haircare et supplement produit restent vides.
 
 ### 8.6 `TAG_SLUGS` legacy toujours consommé
 

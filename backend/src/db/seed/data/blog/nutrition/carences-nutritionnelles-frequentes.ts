@@ -1,11 +1,11 @@
 import type { ArticleInput } from '../seed-articles'
 
 export const carencesNutritionnellesFrequentes: ArticleInput = {
-  title: "Carences nutritionnelles fréquentes en France",
+  title: 'Carences nutritionnelles fréquentes en France',
   slug: 'carences-nutritionnelles-frequentes',
   category: 'nutrition',
   excerpt:
-    "Les 15 carences les plus courantes en France : prévalence, rôles, sources alimentaires, populations à risque. Magnésium, vitamine D, oméga-3, iode, fer, zinc, sélénium, calcium, B9, B12, K2, choline, fibres, caroténoïdes, oligo-éléments.",
+    'Les 15 carences les plus courantes en France : prévalence, rôles, sources alimentaires, populations à risque. Magnésium, vitamine D, oméga-3, iode, fer, zinc, sélénium, calcium, B9, B12, K2, choline, fibres, caroténoïdes, oligo-éléments.',
   publishedAt: null,
   content: `Les apports nutritionnels en France restent marqués par des **carences récurrentes**, souvent sous-évaluées parce qu'elles ne produisent pas de symptôme aigu. La majorité se jouent sur des mécanismes lents : fatigue, immunité faible, qualité du sommeil, métabolisme osseux.
 

@@ -1,6 +1,7 @@
 import { INGREDIENT_TYPES, SUPPLEMENT_CATEGORIES } from '@habit-tracker/shared'
+
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
-import type { IngredientInput } from '../seed-ingredients'
+import type { IngredientInput } from '../types'
 
 export const BERBERINE: IngredientInput[] = [
   {
@@ -9,7 +10,7 @@ export const BERBERINE: IngredientInput[] = [
     type: INGREDIENT_TYPES.SUPPLEMENT,
     category: SUPPLEMENT_CATEGORIES.PLANTE,
     description:
-      "Alcaloïde végétal isoquinoléique, principalement étudié pour ses effets sur la glycémie, les lipides sanguins et le syndrome métabolique.",
+      'Alcaloïde végétal isoquinoléique, principalement étudié pour ses effets sur la glycémie, les lipides sanguins et le syndrome métabolique.',
     content: `
 # Berbérine
 

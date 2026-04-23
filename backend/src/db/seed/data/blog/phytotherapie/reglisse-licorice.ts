@@ -1,7 +1,7 @@
 import type { ArticleInput } from '../seed-articles'
 
 export const reglisseLicorice: ArticleInput = {
-  title: "Réglisse (licorice) et acide glycyrrhétinique : actif apaisant en cosmétique",
+  title: 'Réglisse (licorice) et acide glycyrrhétinique : actif apaisant en cosmétique',
   slug: 'reglisse-licorice-cosmetique-guide',
   category: 'phytotherapie',
   excerpt:

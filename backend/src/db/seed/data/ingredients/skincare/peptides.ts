@@ -1,11 +1,13 @@
-import { INGREDIENT_SLUGS } from '../ingredient-slugs'
 import { SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
-import type { IngredientInput } from '../seed-ingredients'
+
+import { INGREDIENT_SLUGS } from '../ingredient-slugs'
+import type { IngredientInput } from '../types'
 
 export const PEPTIDES: IngredientInput[] = [
   {
     name: 'Palmitoyl Oligopeptide',
     slug: INGREDIENT_SLUGS.PALMITOYL_OLIGOPEPTIDE,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Un peptide de signal anti-âge qui stimule la synthèse de collagène et d'élastine pour réduire les rides et raffermir le tissu cutané.",
@@ -30,6 +32,7 @@ Le **Palmitoyl Oligopeptide** est un peptide de signal composé d'une chaîne d'
   {
     name: 'Complexe de Peptides (Peptide Complex)',
     slug: INGREDIENT_SLUGS.PEPTIDE_COMPLEX,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une synergie de messagers cellulaires conçue pour orchestrer la communication entre les couches de la peau et relancer les mécanismes de jeunesse.',
@@ -62,6 +65,7 @@ Le **Peptide Complex** n'est pas un ingrédient unique, mais une ingénierie mol
   {
     name: 'Tetrapeptide-21',
     slug: INGREDIENT_SLUGS.TETRAPEPTIDE_21,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un peptide de communication de nouvelle génération, spécifiquement conçu pour booster la synthèse de collagène et réduire l’apparence des rides.',
@@ -93,6 +97,7 @@ Le **Tetrapeptide-21** est une séquence courte de quatre acides aminés (Gly-Gl
   {
     name: 'Copper Palmitoyl Heptapeptide-14',
     slug: INGREDIENT_SLUGS.COPPER_PALMITOYL_HEPTAPEPTIDE_14,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un peptide "intelligent" encapsulé utilisant un système de drone pour délivrer du cuivre directement aux cellules productrices de collagène.',
@@ -124,6 +129,7 @@ L'innovation de cet ingrédient réside dans sa technologie de délivrance : le 
   {
     name: 'Heptapeptide-15 Palmitate',
     slug: INGREDIENT_SLUGS.HEPTAPEPTIDE_15_PALMITATE,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Partie intégrante de la technologie de drone, ce peptide aide à lisser les rides d’expression en ciblant les neurones cutanés.',
@@ -150,6 +156,7 @@ Souvent couplé au Copper Heptapeptide, l'**Heptapeptide-15 Palmitate** appartie
   {
     name: 'Copper Tripeptide-1 Palmitamide',
     slug: INGREDIENT_SLUGS.COPPER_TRIPEPTIDE_1_PALMITAMIDE,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Une forme stabilisée du peptide de cuivre, célèbre pour ses propriétés exceptionnelles de réparation tissulaire et de remodelage cutané.',
@@ -181,6 +188,7 @@ Le **Copper Tripeptide-1 (GHK-Cu)** est l'un des actifs les plus célèbres de l
   {
     name: 'Trifluoroacetyl Tripeptide-2',
     slug: INGREDIENT_SLUGS.TRIFLUOROACETYL_TRIPEPTIDE_2,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un peptide inhibiteur de la Progérine, la protéine marqueur du vieillissement cellulaire, pour lutter contre le relâchement et la ptose cutanée.',
@@ -207,6 +215,7 @@ Le **Trifluoroacetyl Tripeptide-2** est une innovation majeure qui s'attaque à 
   {
     name: 'Tripeptide-1',
     slug: INGREDIENT_SLUGS.TRIPEPTIDE_1,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Un peptide messager qui stimule la synthèse de protéines clés et aide à protéger la peau contre les dommages induits par l’environnement.',
@@ -237,6 +246,7 @@ Le **Tripeptide-1 (GHK)** est une séquence de trois acides aminés naturellemen
   {
     name: 'IGF-1 (Plant-derived)',
     slug: INGREDIENT_SLUGS.NICOTIANA_BENTHAMIANA_OCTAPEPTIDE_30_SH_OLIGOPEPTIDE_2,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Facteur de croissance biomimétique (IGF-1) produit par biotechnologie végétale, stimulant la prolifération cellulaire et la densité du derme.',
@@ -264,6 +274,7 @@ Actif de bio-ingénierie utilisé pour inverser l'atrophie cutanée liée à l'�
   {
     name: 'Phyto-Rétinol (TGF-beta2)',
     slug: INGREDIENT_SLUGS.NICOTIANA_BENTHAMIANA_HEXAPEPTIDE_40_SH_POLYPEPTIDE_76,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Facteur de croissance végétal agissant comme un "rétinol-like" booster de collagène, sans les effets irritants du rétinol classique.',
@@ -291,6 +302,7 @@ L'actif idéal pour les peaux qui ne supportent pas le rétinol mais recherchent
   {
     name: 'EGF (Plant-derived)',
     slug: INGREDIENT_SLUGS.NICOTIANA_BENTHAMIANA_HEXAPEPTIDE_40_SH_OLIGOPEPTIDE_1,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Epidermal Growth Factor (EGF) végétal qui accélère le renouvellement cellulaire et répare la barrière cutanée pour une peau visiblement plus jeune.',
@@ -318,6 +330,7 @@ Ingrédient de pointe pour la cicatrisation et la régénération cellulaire int
   {
     name: 'Myristoyl Nonapeptide-3',
     slug: INGREDIENT_SLUGS.MYRISTOYL_NONAPEPTIDE_3,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Peptide de nouvelle génération mimant les effets du rétinol pour stimuler le renouvellement cellulaire sans aucune irritation.',
@@ -345,6 +358,7 @@ Idéal pour les routines anti-âge quotidiennes qui cherchent l'efficacité du r
   {
     name: 'Acetyl Tetrapeptide-5',
     slug: INGREDIENT_SLUGS.ACETYL_TETRAPEPTIDE_5,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Peptide spécifique (Eyeseryl) qui lutte contre l’oedème et la glycation pour réduire les poches sous les yeux en un temps record.',
@@ -372,6 +386,7 @@ Actif hautement spécialisé pour les problématiques du regard marqué par le g
   {
     name: 'Palmitoyl Tripeptide-38',
     slug: INGREDIENT_SLUGS.PALMITOYL_TRIPEPTIDE_38,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Peptide puissant (Matrixyl Synthe’6) qui stimule les 6 constituants majeurs de la matrice cutanée pour combler les rides de l’intérieur.',
@@ -399,6 +414,7 @@ C'est l'un des peptides les plus reconnus pour les soins anti-âge profonds et l
   {
     name: 'Acetyl Tetrapeptide-2',
     slug: INGREDIENT_SLUGS.ACETYL_TETRAPEPTIDE_2,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Peptide biomimétique (Uplevity) qui stimule l’élastine et les protéines d’ancrage pour lutter contre l’affaissement du visage.',
@@ -426,6 +442,7 @@ Actif privilégié pour les soins "Lift" et les formules destinées à redéfini
   {
     name: 'Acetyl Dipeptide-1 Cetyl Ester (Calmosensine™ / Idealift™)',
     slug: INGREDIENT_SLUGS.ACETYL_DIPEPTIDE_1_CETYL_ESTER,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Peptide neurosensoriel de pointe alliant apaisement immédiat des peaux hypersensibles et renforcement structurel anti-relâchement.',
@@ -468,6 +485,7 @@ Actif privilégié pour les soins "Lift" et les formules destinées à redéfini
   {
     name: 'Palmitoyl Tetrapeptide-10',
     slug: INGREDIENT_SLUGS.PALMITOYL_TETRAPEPTIDE_10,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "L'architecte de la clarté cristalline : un peptide biomimétique qui régule l'épigénétique cutanée pour un teint uniforme, lisse et intensément lumineux.",
@@ -515,6 +533,7 @@ En tant que peptide biomimétique, il présente une affinité naturelle avec la 
   {
     name: 'PDRN (Polydeoxyribonucleotide)',
     slug: INGREDIENT_SLUGS.PDRN,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Fragments d'ADN issus principalement de saumon. Agit sur les récepteurs A2A (inflammation, prolifération cellulaire, collagène). Prometteur en injection médicale, mais preuves très limitées en application topique (crème/sérum). Tendance 2025-2026 largement portée par le marketing.",
@@ -581,6 +600,7 @@ En tant que peptide biomimétique, il présente une affinité naturelle avec la 
   {
     name: 'Matrixyl 3000',
     slug: INGREDIENT_SLUGS.MATRIXYL_3000,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Le complexe peptidique de référence combinant deux molécules messagères pour une action anti-âge globale et une fermeté retrouvée.',
@@ -624,6 +644,7 @@ En tant que peptide biomimétique, il présente une affinité naturelle avec la 
   {
     name: 'Acetyl Hexapeptide-8',
     slug: INGREDIENT_SLUGS.ARGIRELINE,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Peptide de pointe surnommé "Botox en flacon", conçu pour détendre les rides d’expression.',
@@ -676,6 +697,7 @@ En tant que peptide biomimétique, il présente une affinité naturelle avec la 
   {
     name: 'Copper Tripeptide-1 (GHK-Cu)',
     slug: INGREDIENT_SLUGS.COPPER_PEPTIDES,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description: 'Peptide cuivré régénérant qui booste collagène, élasticité et cicatrisation.',
     content: `
@@ -755,6 +777,7 @@ En tant que peptide biomimétique, il présente une affinité naturelle avec la 
   {
     name: 'Palmitoyl Tripeptide-1',
     slug: INGREDIENT_SLUGS.PALMITOYL_TRIPEPTIDE_1,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Peptide messager de haute précision qui ordonne à la peau de produire plus de collagène et de se réparer.',
@@ -796,6 +819,7 @@ En tant que peptide biomimétique, il présente une affinité naturelle avec la 
   {
     name: 'Palmitoyl Tetrapeptide-7',
     slug: INGREDIENT_SLUGS.PALMITOYL_TETRAPEPTIDE_7,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Peptide anti-inflammatoire majeur qui freine le vieillissement prématuré et préserve la fermeté de la peau.',
@@ -838,6 +862,7 @@ En tant que peptide biomimétique, il présente une affinité naturelle avec la 
   {
     name: 'Palmitoyl Pentapeptide-4',
     slug: INGREDIENT_SLUGS.PALMITOYL_PENTAPEPTIDE_4,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Le célèbre Matrixyl original : un peptide messager qui relance la production de collagène pour une peau visiblement plus ferme et lisse.',
@@ -882,6 +907,7 @@ En tant que peptide biomimétique, il présente une affinité naturelle avec la 
   {
     name: 'Syn-Ake',
     slug: INGREDIENT_SLUGS.SYN_AKE,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Peptide inspiré du venin de serpent, relaxe les muscles pour effet anti-rides expressifs.',

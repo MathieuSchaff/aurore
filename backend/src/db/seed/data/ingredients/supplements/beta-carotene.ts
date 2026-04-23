@@ -1,6 +1,7 @@
 import { INGREDIENT_TYPES, SUPPLEMENT_CATEGORIES } from '@habit-tracker/shared'
+
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
-import type { IngredientInput } from '../seed-ingredients'
+import type { IngredientInput } from '../types'
 
 export const BETA_CAROTENE: IngredientInput[] = [
   {

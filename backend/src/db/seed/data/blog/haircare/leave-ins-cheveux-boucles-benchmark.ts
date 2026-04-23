@@ -5,7 +5,7 @@ export const leaveInsCheveuxBouclesBenchmark: ArticleInput = {
   slug: 'leave-ins-cheveux-boucles-benchmark',
   category: 'haircare',
   excerpt:
-    "Comparatif de 14 leave-ins (crèmes/sprays sans rinçage) pour cheveux bouclés, ondulés, crépus : formulations cleans vs silicones, classement par nutrition et prix, recommandations selon fréquence (quotidien vs ponctuel). Inclut Activilong, SheaMoisture, Camille Rose, As I Am, Moroccanoil, Redken, Wella…",
+    'Comparatif de 14 leave-ins (crèmes/sprays sans rinçage) pour cheveux bouclés, ondulés, crépus : formulations cleans vs silicones, classement par nutrition et prix, recommandations selon fréquence (quotidien vs ponctuel). Inclut Activilong, SheaMoisture, Camille Rose, As I Am, Moroccanoil, Redken, Wella…',
   publishedAt: null,
   content: `## Ce qu'on cherche dans un leave-in
 

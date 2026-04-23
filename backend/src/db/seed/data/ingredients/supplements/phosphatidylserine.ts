@@ -1,6 +1,7 @@
 import { INGREDIENT_TYPES, SUPPLEMENT_CATEGORIES } from '@habit-tracker/shared'
+
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
-import type { IngredientInput } from '../seed-ingredients'
+import type { IngredientInput } from '../types'
 
 export const PHOSPHATIDYLSERINE: IngredientInput[] = [
   {
@@ -9,7 +10,7 @@ export const PHOSPHATIDYLSERINE: IngredientInput[] = [
     type: INGREDIENT_TYPES.SUPPLEMENT,
     category: SUPPLEMENT_CATEGORIES.NEUROACTIF,
     description:
-      "Phospholipide constitutif des membranes neuronales, implique dans la neurotransmission, la memoire et la regulation du cortisol. Benefices documentes sur le declin cognitif, le TDAH et le stress.",
+      'Phospholipide constitutif des membranes neuronales, implique dans la neurotransmission, la memoire et la regulation du cortisol. Benefices documentes sur le declin cognitif, le TDAH et le stress.',
     content: `
 # Phosphatidylserine (PS)
 

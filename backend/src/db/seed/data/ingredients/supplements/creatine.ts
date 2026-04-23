@@ -1,6 +1,7 @@
 import { INGREDIENT_TYPES, SUPPLEMENT_CATEGORIES } from '@habit-tracker/shared'
+
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
-import type { IngredientInput } from '../seed-ingredients'
+import type { IngredientInput } from '../types'
 
 export const CREATINE: IngredientInput[] = [
   {
@@ -9,7 +10,7 @@ export const CREATINE: IngredientInput[] = [
     type: INGREDIENT_TYPES.SUPPLEMENT,
     category: SUPPLEMENT_CATEGORIES.ACIDE_AMINE,
     description:
-      "Composé azoté naturel servant de réserve énergétique rapide (phosphocréatine). Supplément ergogénique le plus étudié et le plus efficace pour la force, la masse maigre et la performance de haute intensité.",
+      'Composé azoté naturel servant de réserve énergétique rapide (phosphocréatine). Supplément ergogénique le plus étudié et le plus efficace pour la force, la masse maigre et la performance de haute intensité.',
     content: `
 # Créatine (Monohydrate)
 

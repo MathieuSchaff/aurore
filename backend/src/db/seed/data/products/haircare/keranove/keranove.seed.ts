@@ -1,0 +1,91 @@
+import { TAG_SLUGS } from '../../../tags'
+import type { UnifiedProductSeed } from '../../types'
+
+export const K_RANOVE_SEED: UnifiedProductSeed[] = [
+  {
+    slug: 'keranove-blond-vacances-shampoing-eclaircissant-250ml-253972',
+    name: 'Kéranove Blond Vacances Shampoing Eclaircissant 250ml',
+    brand: 'Kéranove',
+    kind: 'shampoo',
+    unit: 'bottle',
+    totalAmount: 250,
+    amountUnit: 'ml',
+    priceCents: 454,
+    description: '',
+    notes: '',
+    inci: 'Aqua, sodium laureth sulfate, cocamidopropyl betaine, sodium trideceth sulfate, polysorbate 80, glycol distearate, peg/ppg-120/10 trimethylolpropane trioleate, sodium lauroamphoacetate,glycerin, sodium chloride,parfum, laureth-2, laureth-4, cocamide mea,cocos nucifera oil, cetrimonium chloride, polyacrylate-1 crosspolymer, hydroxypropyl guar hydroxypropyltrimonium chloride, dmdm hydantoin, lactic acid, chamomilla recutita flower extract, crocus sativus flower extract, sodium benzoate, potassium sorbate, linalool, tocopherol , glycine soja oil,citric acid, curcuma longa root extract, formic acid,gardenia taitensis flower extract',
+    url: 'https://www.atida.fr/keranove-blond-vacances-shampoing-eclaircissant-250ml.html',
+    imageUrl:
+      'https://assets.atida.com/transform/ff7f22ed-3f26-4196-a52c-00c8cabd6c65/Keranove-Blond-Vacances-Shampoing-Eclaircissant-250ml?io=transform:extend,width:600,height:600',
+    tags: {
+      primary: [TAG_SLUGS.SHAMPOING],
+      secondary: [],
+      avoid: [],
+    },
+    keyIngredients: [
+      { slug: 'cocamidopropyl-betaine' },
+      { slug: 'coconut-oil-hair' },
+      { slug: 'cetrimonium-chloride' },
+      { slug: 'hydroxypropyl-guar' },
+      { slug: 'tocopherol-hair' },
+    ],
+  },
+  {
+    slug: 'keranove-naturanove-coloration-n-4-chatain-profond-254560',
+    name: 'Kéranove Naturanove Coloration n°4 Châtain Profond',
+    brand: 'Kéranove',
+    kind: 'shampoo',
+    unit: 'bottle',
+    totalAmount: 60,
+    amountUnit: 'ml',
+    priceCents: 1292,
+    description: '',
+    notes: '',
+    inci: 'Aqua/water/eau, vitis vinifera (grape) seed extract, cetearyl alcohol, glyceryl stearate, glycerin, ethanolamine, toluene-2.5-diamine sulfate, coco-glucoside, sodium metasilicate, sodium metabisulfite, xanthan gum, p-aminophenol, resorcinol, m-aminophenol, ascorbic acid, hydrolyzed wheat protein, persea gratissima (avocado) fruit oil, simmondsia chinensis (jojoba) seed oil, aloe barbadensis leaf juice, 2,4-diaminophenoxyethanol hci, macadamia ternifolia seed oil, macadamia integrifolia seed oil, tetrasodium glutamate diacetate, crocus sativus flower extract, curcuma longa (turmeric) root extract, sodium benzoate, phenoxyethanol, potassium sorbate (f01). contient de la résorcine, des phénylènediamines (toluènediamines)/bevat resorcinol, fenyleendiaminen (tolueendiamine). révélateur : aqua/water/eau, hydrogen peroxide, cetearyl alcohol, trideceth-2 carboxamide mea, parfum (fragrance), ceteareth-33, glycerin, phosphoric acid, tetrasodium glutamate diacetate, hexyl cinnamal, sodium stannate, tetrasodium pyrophosphate. (f01). soin post-coloration : aqua/water/eau, cetearyl alcohol, cocamidopropyl betaine, distearoylethyl, hydroxyethylmonium methosulfate, sodium laureth sulfate, glycerin, ceteareth-33, sodium chloride, parfum (fragrance), amodimethicone/morpholinomethyl silsesquioxane copolymer, imidazolidinyl urea, guar hydroxypropyltrimonium chloride, trideceth-5, simmondsia chinensis (jojoba) seed oil, persea gratissima (avocado) fruit oil, macadamia ternifolia seed oil, macadamia integrifolia seed oil, benzyl salicylate, phenoxyethanol, linalool, alpha-isomethyl ionone, citronellol, geraniol, bis-ethylhexyl hydroxydimethoxy benzylmalonate, limonene, hydroxycitronellal, coumarin, citric acid. (f01)',
+    url: 'https://www.atida.fr/keranove-naturanove-coloration-n-4-chatain-profond.html',
+    imageUrl:
+      'https://assets.atida.com/transform/2e3581a9-60f9-4e19-89aa-587c94673ddc/Keranove-Naturanove-Coloration-n-4-Chatain-Profond?io=transform:extend,width:600,height:600',
+    tags: {
+      primary: [TAG_SLUGS.SHAMPOING],
+      secondary: [],
+      avoid: [],
+    },
+    keyIngredients: [
+      { slug: 'hydrolyzed-wheat-protein' },
+      { slug: 'avocado-oil-hair' },
+      { slug: 'jojoba-oil-hair' },
+      { slug: 'macadamia-oil-hair' },
+      { slug: 'aloe-vera-hair' },
+      { slug: 'amodimethicone', notes: 'in post-color conditioner' },
+      { slug: 'guar-hydroxypropyltrimonium-chloride' },
+    ],
+  },
+  {
+    slug: 'keranove-naturanove-coloration-n-5-15-chocolat-254563',
+    name: 'Kéranove Naturanove Coloration n°5,15 Chocolat',
+    brand: 'Kéranove',
+    kind: 'shampoo',
+    unit: 'bottle',
+    totalAmount: 60,
+    amountUnit: 'ml',
+    priceCents: 1299,
+    description: '',
+    notes: '',
+    inci: 'Aqua/water/eau, vitis vinifera (grape) seed extract, cetearyl alcohol, glyceryl stearate, glycerin, ethanolamine, coco-glucoside, sodium metasilicate, toluene-2,5-diamine sulfate, sodium metabisulfite, xanthan gum, resorcinol, ascorbic acid, hydrolyzed wheat protein, p-aminophenol, persea gratissima (avocado) fruit oil, simmondsia chinensis (jojoba) seed oil, aloe barbadensis leaf juice, m-aminophenol, 4-amino-2-hydroxytoluene, macadamia ternifolia seed oil, macadamia integrifolia seed oil, tetrasodium glutamate diacetate, crocus sativus flower extract, 2,4-diaminophenoxyethanol hcl, curcuma longa (turmeric) root extract, sodium benzoate, phenoxyethanol, potassium sorbate. (f01)',
+    url: 'https://www.atida.fr/keranove-naturanove-coloration-n-5-15-chocolat.html',
+    imageUrl:
+      'https://assets.atida.com/transform/ff386bce-0dff-414c-88f5-958e1feb2031/Keranove-Naturanove-Coloration-n-5-15-Chocolat?io=transform:extend,width:600,height:600',
+    tags: {
+      primary: [TAG_SLUGS.SHAMPOING],
+      secondary: [],
+      avoid: [],
+    },
+    keyIngredients: [
+      { slug: 'hydrolyzed-wheat-protein' },
+      { slug: 'avocado-oil-hair' },
+      { slug: 'jojoba-oil-hair' },
+      { slug: 'macadamia-oil-hair' },
+      { slug: 'aloe-vera-hair' },
+    ],
+  },
+]

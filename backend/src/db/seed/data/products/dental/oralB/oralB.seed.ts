@@ -1,0 +1,93 @@
+import { TAG_SLUGS } from '../../../tags'
+import type { UnifiedProductSeed } from '../../types'
+
+export const ORAL_B_SEED: UnifiedProductSeed[] = [
+  {
+    slug: 'oral-b-brossette-de-rechange-sensitive-clean-3-unites-271192',
+    name: 'Oral-B Brossette de Rechange Sensitive Clean 3 unités',
+    brand: 'Oral-B',
+    kind: 'floss',
+    unit: 'pack',
+    totalAmount: 3,
+    amountUnit: 'unités',
+    priceCents: 2618,
+    description: '',
+    notes: '',
+    inci: 'Fibres synthétiques.',
+    url: 'https://www.atida.fr/oral-b-brossettes-sensi-ultra-thin-lot-de-3-brossettes.html',
+    imageUrl:
+      'https://assets.atida.com/transform/ccf27b76-2858-4a04-940f-e7c3d10402df/Oral-B-Brossette-de-Rechange-Sensitive-Clean-3-unites?io=transform:extend,width:600,height:600',
+    tags: {
+      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      secondary: [],
+      avoid: [],
+    },
+    keyIngredients: [],
+  },
+  {
+    slug: 'oral-b-brossette-crossaction-avec-technologie-cleanmaximiser-3-unites-271193',
+    name: 'Oral-B Brossette CrossAction avec Technologie CleanMaximiser 3 unités',
+    brand: 'Oral-B',
+    kind: 'floss',
+    unit: 'pack',
+    totalAmount: 0,
+    amountUnit: '',
+    priceCents: 3103,
+    description: '',
+    notes: '',
+    inci: '',
+    url: 'https://www.atida.fr/oral-b-brossettes-cross-action-lot-de-3-brossettes.html',
+    imageUrl:
+      'https://assets.atida.com/transform/3624a87a-818c-416d-a130-22ae58ced8c6/Oral-B-Brossette-CrossAction-avec-Technologie-CleanMaximiser-3-unites?io=transform:extend,width:600,height:600',
+    tags: {
+      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      secondary: [],
+      avoid: [],
+    },
+    keyIngredients: [],
+  },
+  {
+    slug: 'oral-b-fil-dentaire-pro-expert-50m-278827',
+    name: 'Oral-B fil dentaire Pro-Expert 50M',
+    brand: 'Oral-B',
+    kind: 'floss',
+    unit: 'pack',
+    totalAmount: 0,
+    amountUnit: '',
+    priceCents: 550,
+    description: '',
+    notes: '',
+    inci: '',
+    url: 'https://www.atida.fr/oral-b-fil-dentaire-pro-expert-premium-40m.html',
+    imageUrl:
+      'https://assets.atida.com/transform/0de257ab-b36b-4a9e-8968-c9553ae31b6f/Oral-B-fil-dentaire-Pro-Expert-50M?io=transform:extend,width:600,height:600',
+    tags: {
+      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      secondary: [],
+      avoid: [],
+    },
+    keyIngredients: [],
+  },
+  {
+    slug: 'oral-b-brossette-crossaction-avec-technologie-cleanmaximiser-8-unites-271194',
+    name: 'Oral-B Brossette CrossAction avec Technologie CleanMaximiser 8 unités',
+    brand: 'Oral-B',
+    kind: 'floss',
+    unit: 'pack',
+    totalAmount: 0,
+    amountUnit: '',
+    priceCents: 3297,
+    description: '',
+    notes: '',
+    inci: '',
+    url: 'https://www.atida.fr/oral-b-brossettes-cross-action-lot-de-8-brossettes.html',
+    imageUrl:
+      'https://assets.atida.com/transform/c01a1f00-7af6-47ea-9407-e584dae9e9e0/Oral-B-Brossette-CrossAction-avec-Technologie-CleanMaximiser-8-unites?io=transform:extend,width:600,height:600',
+    tags: {
+      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      secondary: [],
+      avoid: [],
+    },
+    keyIngredients: [],
+  },
+]

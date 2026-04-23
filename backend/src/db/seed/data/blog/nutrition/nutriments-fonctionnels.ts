@@ -5,7 +5,7 @@ export const nutrimentsFonctionnels: ArticleInput = {
   slug: 'guide-nutriments-fonctionnels',
   category: 'nutrition',
   excerpt:
-    "Objectifs quotidiens et sources concrètes pour 10 familles de composés bioactifs : sulforaphane, caroténoïdes, polyphénols et anthocyanes, ergothionéine (détail 10 espèces de champignons), allicine, fibres/prébiotiques, spermidine, niacine (NAD+), flavanols du cacao, choline. Matrice molécules/aliments + plan type journalier.",
+    'Objectifs quotidiens et sources concrètes pour 10 familles de composés bioactifs : sulforaphane, caroténoïdes, polyphénols et anthocyanes, ergothionéine (détail 10 espèces de champignons), allicine, fibres/prébiotiques, spermidine, niacine (NAD+), flavanols du cacao, choline. Matrice molécules/aliments + plan type journalier.',
   publishedAt: null,
   content: `Ce guide liste les **composés bioactifs utiles** avec leurs **cibles journalières** et les **portions concrètes** pour les atteindre. Angle : santé globale et longévité, pas juste macro/calories.
 

@@ -1,7 +1,7 @@
 import type { ArticleInput } from '../seed-articles'
 
 export const aubepine: ArticleInput = {
-  title: "Aubépine : la plante du cœur et du calme (guide complet)",
+  title: 'Aubépine : la plante du cœur et du calme (guide complet)',
   slug: 'aubepine-guide-complet',
   category: 'phytotherapie',
   excerpt:

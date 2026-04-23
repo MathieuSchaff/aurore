@@ -5,7 +5,7 @@ export const grainesLegumineusesNutrition: ArticleInput = {
   slug: 'graines-legumineuses-nutrition',
   category: 'nutrition',
   excerpt:
-    "Profils nutritionnels et usages concrets des légumineuses (génistéine, fibres, protéines), graines de courge (zinc, prostate), tournesol (tryptophane, humeur), féverole (lécithine, attention favisme), noix du Brésil (sélénium, dose max 2/j). Trempage, digestibilité, interactions.",
+    'Profils nutritionnels et usages concrets des légumineuses (génistéine, fibres, protéines), graines de courge (zinc, prostate), tournesol (tryptophane, humeur), féverole (lécithine, attention favisme), noix du Brésil (sélénium, dose max 2/j). Trempage, digestibilité, interactions.',
   publishedAt: null,
   content: `Les légumineuses et graines sont parmi les aliments au meilleur rapport **densité nutritionnelle / prix** du supermarché. Elles apportent protéines végétales, fibres, minéraux et composés bioactifs sous-utilisés dans l'alimentation occidentale moderne. Cet article détaille cinq catégories — **légumineuses, graines de courge, graines de tournesol, féverole, noix du Brésil** — avec leurs intérêts réels, leurs dosages sûrs, et les pièges à éviter (favisme, toxicité sélénium, interactions médicamenteuses).
 

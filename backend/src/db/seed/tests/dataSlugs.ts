@@ -1,5 +1,5 @@
 import { allProductData } from '../data/products'
-import { allProductSlugs } from '../products/products-slugs'
+import { allProductSlugs } from '../data/products/products-slugs'
 
 /**
  * Vérifie la cohérence entre l'objet des slugs et le tableau de données.

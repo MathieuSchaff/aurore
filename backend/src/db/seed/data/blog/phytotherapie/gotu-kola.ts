@@ -1,7 +1,7 @@
 import type { ArticleInput } from '../seed-articles'
 
 export const gotuKola: ArticleInput = {
-  title: "Gotu Kola (Centella asiatica) : cicatrisation, peau et circulation veineuse",
+  title: 'Gotu Kola (Centella asiatica) : cicatrisation, peau et circulation veineuse',
   slug: 'gotu-kola-centella-asiatica-guide',
   category: 'phytotherapie',
   excerpt:

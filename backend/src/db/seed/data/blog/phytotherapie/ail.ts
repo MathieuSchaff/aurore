@@ -1,7 +1,7 @@
 import type { ArticleInput } from '../seed-articles'
 
 export const ail: ArticleInput = {
-  title: "Ail : guide complet (allicine, cardio, dosages, formes)",
+  title: 'Ail : guide complet (allicine, cardio, dosages, formes)',
   slug: 'ail-guide-complet',
   category: 'phytotherapie',
   excerpt:

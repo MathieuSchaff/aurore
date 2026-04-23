@@ -1,7 +1,7 @@
 import type { ArticleInput } from '../seed-articles'
 
 export const fruitsSaisonActifs: ArticleInput = {
-  title: "Fruits de saison : actifs clés, effets et tips pratiques",
+  title: 'Fruits de saison : actifs clés, effets et tips pratiques',
   slug: 'fruits-saison-actifs',
   category: 'nutrition',
   excerpt:

@@ -1,6 +1,7 @@
 import { INGREDIENT_TYPES, SUPPLEMENT_CATEGORIES } from '@habit-tracker/shared'
+
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
-import type { IngredientInput } from '../seed-ingredients'
+import type { IngredientInput } from '../types'
 
 export const SPIRULINE: IngredientInput[] = [
   {
@@ -9,7 +10,7 @@ export const SPIRULINE: IngredientInput[] = [
     type: INGREDIENT_TYPES.SUPPLEMENT,
     category: SUPPLEMENT_CATEGORIES.AUTRE,
     description:
-      "Cyanobacterie riche en proteines, fer et phycocyanine. Source nutritionnelle dense mais controversee en raison des risques de contamination et de sa pseudo-vitamine B12 inactive.",
+      'Cyanobacterie riche en proteines, fer et phycocyanine. Source nutritionnelle dense mais controversee en raison des risques de contamination et de sa pseudo-vitamine B12 inactive.',
     content: `
 # Spiruline
 

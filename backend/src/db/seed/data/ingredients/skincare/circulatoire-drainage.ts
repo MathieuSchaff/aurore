@@ -1,12 +1,13 @@
-import { INGREDIENT_SLUGS } from '../ingredient-slugs'
 import { SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
-import type { IngredientInput } from '../seed-ingredients'
+
+import { INGREDIENT_SLUGS } from '../ingredient-slugs'
+import type { IngredientInput } from '../types'
 
 export const CIRCULATOIRE_DRAINAGE: IngredientInput[] = [
   {
     name: 'Caféine',
     slug: INGREDIENT_SLUGS.CAFFEINE,
-
+    type: 'skincare',
 
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
@@ -35,7 +36,7 @@ C'est l'ingrédient star des contours des yeux "anti-fatigue" et des gels minceu
   {
     name: 'Arnica des Montagnes (Arnica montana L.)',
     slug: INGREDIENT_SLUGS.ARNICA,
-
+    type: 'skincare',
 
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
@@ -91,7 +92,7 @@ C'est l'ingrédient star des contours des yeux "anti-fatigue" et des gels minceu
   {
     name: 'Escin (Aesculus hippocastanum)',
     slug: INGREDIENT_SLUGS.ESCIN,
-
+    type: 'skincare',
 
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
@@ -160,7 +161,7 @@ C'est l'ingrédient star des contours des yeux "anti-fatigue" et des gels minceu
   {
     name: 'Ruscus aculeatus (Petit-houx)',
     slug: INGREDIENT_SLUGS.RUSCUS_ACULEATUS,
-
+    type: 'skincare',
 
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
