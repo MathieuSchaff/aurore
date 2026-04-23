@@ -196,14 +196,14 @@ export async function seedCore(shouldClean = true) {
     await seedBatch(
       'ingrédients',
       correctedIngredientData,
-      (ing) => createIngredient(tx, user.id, ing),
+      (ing) => createIngredient(tx, user.id, ing as Parameters<typeof createIngredient>[2]),
       (ing) => ing.slug,
       true
     )
 
     await seedBatch(
       'produits (manuels)',
-      [...allProductData],
+      [...allProductData] as Parameters<typeof createProduct>[1][],
       (p) => createProduct(user.id, p, tx),
       (p) => p.slug ?? p.name,
       true

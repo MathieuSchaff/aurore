@@ -1,7 +1,7 @@
 import type { ArticleInput } from '../seed-articles'
 
 export const ginkgoBiloba: ArticleInput = {
-  title: "Ginkgo biloba : circulation cérébrale et mémoire (guide complet)",
+  title: 'Ginkgo biloba : circulation cérébrale et mémoire (guide complet)',
   slug: 'ginkgo-biloba-guide',
   category: 'phytotherapie',
   excerpt:

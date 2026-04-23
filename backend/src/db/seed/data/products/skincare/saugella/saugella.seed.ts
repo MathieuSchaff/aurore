@@ -1,0 +1,90 @@
+import { TAG_SLUGS } from '../../../tags'
+import type { UnifiedProductSeed } from '../../types'
+
+export const SAUGELLA_SEED: UnifiedProductSeed[] = [
+  {
+    slug: 'saugella-dermoliquide-soin-lavant-hygiene-intime-femmes-sauge-flacon-500ml-272060',
+    name: 'Saugella Dermoliquide Soin lavant hygiène intime femmes Sauge - Flacon 500ml',
+    brand: 'Saugella',
+    kind: 'moisturizer',
+    unit: 'bottle',
+    totalAmount: 500,
+    amountUnit: 'ml',
+    priceCents: 986,
+    description: '',
+    notes: '',
+    inci: 'Aqua, TEA-Lauryl Sulfate, Ammonium Lauryl Sulfate, Salvia officinals Leaf Extract, Ketoglutaric Acid, Lactic Acid, Whey, PEG-2 Stearate, Hydrogenated Coconut Oil, Hydroxyethylcellulose, Propylene Glycol, Glycol Stearate, Parfum, Sodium Benzoate, Cholesterol, Sodium Dehydroacetate, Polysorbate 60, Disodium Phosphate, Citronellol, Hexyl Cynnamal.',
+    url: 'https://www.atida.fr/saugella-dermoliquide-500ml.html',
+    imageUrl:
+      'https://assets.atida.com/transform/b1e0b5c1-5ae8-454b-991e-afd7ccada442/Saugella-Dermoliquide-Soin-Lavant-Intime-et-Corps-500ml?io=transform:extend,width:600,height:600',
+    tags: {
+      primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.BARRIERE_CUTANEE],
+      secondary: [
+        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.KERATOLYTIQUE,
+        TAG_SLUGS.EMOLLIENT,
+        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.ZONE_VISAGE,
+        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+      ],
+      avoid: [],
+    },
+    keyIngredients: [],
+  },
+  {
+    slug: 'saugella-dermoliquide-soin-lavant-hygiene-intime-femmes-sauge-2x500ml-248362',
+    name: 'Saugella Dermoliquide Soin lavant hygiène intime femmes Sauge - 2x500ml',
+    brand: 'Saugella',
+    kind: 'moisturizer',
+    unit: 'jar',
+    totalAmount: 500,
+    amountUnit: 'ml',
+    priceCents: 1558,
+    description: '',
+    notes: '',
+    inci: 'Aqua, TEA-Lauryl Sulfate, Ammonium Lauryl Sulfate, Salvia officinals Leaf Extract, Ketoglutaric Acid, Lactic Acid, Whey, PEG-2 Stearate, Hydrogenated Coconut Oil, Hydroxyethylcellulose, Propylene Glycol, Glycol Stearate, Parfum, Sodium Benzoate, Cholesterol, Sodium Dehydroacetate, Polysorbate 60, Disodium Phosphate, Citronellol, Hexyl Cynnamal.',
+    url: 'https://www.atida.fr/saugella-dermoliquide-lot-de-2-x-500ml.html',
+    imageUrl:
+      'https://assets.atida.com/transform/8ec06873-b268-48c6-84ec-d332a89128c2/Saugella-Dermoliquide-Soin-Lavant-Intime-et-Corps-Lot-de-2-x-500ml?io=transform:extend,width:600,height:600',
+    tags: {
+      primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.BARRIERE_CUTANEE],
+      secondary: [
+        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.KERATOLYTIQUE,
+        TAG_SLUGS.EMOLLIENT,
+        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.ZONE_VISAGE,
+        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+      ],
+      avoid: [],
+    },
+    keyIngredients: [],
+  },
+  {
+    slug: 'saugella-homme-soin-lavant-intime-et-corps-special-hygiene-masculine-200ml-257460',
+    name: 'Saugella Homme Soin Lavant Intime et Corps spécial hygiène masculine - 200ml',
+    brand: 'Saugella',
+    kind: 'moisturizer',
+    unit: 'jar',
+    totalAmount: 200,
+    amountUnit: 'ml',
+    priceCents: 630,
+    description: '',
+    notes: '',
+    inci: 'Aqua, TEA-Lauryl Sulfate, Propylene Glycol, Ammonium Lauryl Sulfate, Eugenia Caryophyllus Flower Extract, Helichrysum Italicum Extract, Whey, PEG-2 Stearate, Hydrogenated Coconut Oil, Hydroxyethylcellulose, Phenoxyethanol, Sodium Benzoate, Citric Acid, Parfum, Ethylhexylglycerin, Glycol Stearate, Cholesterol, CI 19140, CI 42051, Limonene.',
+    url: 'https://www.atida.fr/saugella-homme-solution-nettoyante-intime-200ml.html',
+    imageUrl:
+      'https://assets.atida.com/transform/ab6fee6f-9bc4-4013-8ec0-9a946c8aa3b5/Saugella-Homme-Soin-Lavant-Intime-et-Corps-200ml?io=transform:extend,width:600,height:600',
+    tags: {
+      primary: [TAG_SLUGS.BARRIERE_CUTANEE],
+      secondary: [
+        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.EMOLLIENT,
+        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
+      avoid: [],
+    },
+    keyIngredients: [],
+  },
+]

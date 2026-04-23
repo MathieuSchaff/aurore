@@ -1,0 +1,102 @@
+import { TAG_SLUGS } from '../../../tags'
+import type { UnifiedProductSeed } from '../../types'
+
+export const SENSODYNE_SEED: UnifiedProductSeed[] = [
+  {
+    slug: 'sensodyne-dentifrice-protection-complete-lot-de-2-x-75ml-271626',
+    name: 'Sensodyne Dentifrice Protection Complète Lot de 2 x 75ml',
+    brand: 'Sensodyne',
+    kind: 'toothpaste',
+    unit: 'pack',
+    totalAmount: 75,
+    amountUnit: 'ml',
+    priceCents: 921,
+    description: '',
+    notes: '',
+    inci: 'Aqua, Sorbitol, Hydrated Silica, Glycerin, Potassium Nitrate, Cocamidopropyl Betaine, Aroma, Cocamidopropyl Betaine, Xanthan Gum, Sodium Saccharin, Sodium Fluoride, Mica, Titanium Dioxide, Sodium Hydroxide, Limonene, Eugenol. Contient du Fluorure de Sodium (1450 ppmF).',
+    url: 'https://www.atida.fr/sensodyne-dentifrice-protection-complete-lot-de-2-x-75ml.html',
+    imageUrl:
+      'https://assets.atida.com/transform/694bd68d-3c5b-4196-bc2b-3c624043c51b/Sensodyne-Dentifrice-Protection-Complete-Lot-de-2-x-75ml?io=transform:extend,width:600,height:600',
+    tags: {
+      primary: [TAG_SLUGS.DENTIFRICE],
+      secondary: [],
+      avoid: [],
+    },
+    keyIngredients: [
+      { slug: 'potassium-nitrate' },
+      { slug: 'sodium-fluoride' },
+      { slug: 'clove-oil-eugenol' },
+      { slug: 'cocamidopropyl-betaine-dental' },
+    ],
+  },
+  {
+    slug: 'sensodyne-dentifrice-traitement-sensibilite-lot-de-2-x-75ml-248667',
+    name: 'Sensodyne Dentifrice Traitement Sensibilité Lot de 2 x 75ml',
+    brand: 'Sensodyne',
+    kind: 'toothpaste',
+    unit: 'pack',
+    totalAmount: 75,
+    amountUnit: 'ml',
+    priceCents: 921,
+    description: '',
+    notes: '',
+    inci: 'Aqua, Sorbitol, hydrated silica, potassium nitrate, glycerin, sodium lauryl sulfate, aroma, xanthan gum, titanium dioxide, sodium fluoride, sodium saccharin, sodium hydroxide, limonene.',
+    url: 'https://www.atida.fr/sensodyne-dentifrice-pro-traitement-sensibilite-lot-de-2-x-75ml.html',
+    imageUrl:
+      'https://assets.atida.com/transform/7cd336dd-14dc-454e-97e6-e0aa1c1115eb/Sensodyne-Dentifrice-Traitement-Sensibilite-Lot-de-2-x-75ml?io=transform:extend,width:600,height:600',
+    tags: {
+      primary: [TAG_SLUGS.DENTIFRICE],
+      secondary: [],
+      avoid: [],
+    },
+    keyIngredients: [{ slug: 'potassium-nitrate' }, { slug: 'sodium-fluoride' }],
+  },
+  {
+    slug: 'sensodyne-dentifrice-rapide-action-sensibilite-dentaire-lot-de-2-x-75ml-249115',
+    name: 'Sensodyne Dentifrice Rapide Action Sensibilité Dentaire Lot de 2 x 75ml',
+    brand: 'Sensodyne',
+    kind: 'toothpaste',
+    unit: 'pack',
+    totalAmount: 75,
+    amountUnit: 'ml',
+    priceCents: 1049,
+    description: '',
+    notes: '',
+    inci: '',
+    url: 'https://www.atida.fr/sensodyne-dentifrice-rapide-lot-de-2-x-75ml.html',
+    imageUrl:
+      'https://assets.atida.com/transform/7fb5f72f-0acb-48c7-aac7-67077b2a67c1/Sensodyne-Dentifrice-Rapide-Action-Sensibilite-Dentaire-Lot-de-2-x-75ml?io=transform:extend,width:600,height:600',
+    tags: {
+      primary: [TAG_SLUGS.DENTIFRICE],
+      secondary: [],
+      avoid: [],
+    },
+    keyIngredients: [],
+  },
+  {
+    slug: 'sensodyne-dentifrice-repare-et-protege-menthe-fraiche-lot-de-2-x-75ml-236986',
+    name: 'Sensodyne Dentifrice Répare et Protége Menthe Fraiche Lot de 2 x 75ml',
+    brand: 'Sensodyne',
+    kind: 'toothpaste',
+    unit: 'pack',
+    totalAmount: 75,
+    amountUnit: 'ml',
+    priceCents: 1049,
+    description: '',
+    notes: '',
+    inci: 'Glycerin, PEG-8, Silica, Calcium Sodium Phosphosilicate (Novamin), Cocamidopropyl Betaine, Sodium Methyl Cocoyl Taurate, Aroma, Titanium Dioxide, Carbomer, Sodium Fluoride, Sodium Saccharin, Limonene. Contient du fluorure de sodium (1450 ppm de fluor).',
+    url: 'https://www.atida.fr/sensodyne-dentifrice-repare-et-protege-menthe-fraiche-lot-de-2-x-75ml.html',
+    imageUrl:
+      'https://assets.atida.com/transform/db5c0ae3-54f1-4be7-bb07-fcde063634a2/Sensodyne-Dentifrice-Repare-et-Protege-Menthe-Fraiche-Lot-de-2-x-75ml?io=transform:extend,width:600,height:600',
+    tags: {
+      primary: [TAG_SLUGS.DENTIFRICE],
+      secondary: [],
+      avoid: [],
+    },
+    keyIngredients: [
+      { slug: 'calcium-sodium-phosphosilicate', notes: 'Novamin® — reminéralisation avancée' },
+      { slug: 'sodium-fluoride' },
+      { slug: 'cocamidopropyl-betaine-dental' },
+    ],
+  },
+]

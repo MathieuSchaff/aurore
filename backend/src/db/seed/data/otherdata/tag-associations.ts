@@ -13,7 +13,7 @@
  * peau sensible, etc.) aux produits pour que le filtrage et la recherche dans l'application
  * soient fonctionnels immédiatement, évitant ainsi un taggage manuel fastidieux de milliers de produits.
  */
-import { TAG_SLUGS } from '../tags/seed-tags'
+import { TAG_SLUGS } from '../tags'
 
 /**
  * Mapping des ingrédients (INCI) vers les tags
@@ -129,14 +129,28 @@ export const CSV_CATEGORY_TAG_MAP: Record<string, string[]> = {
 
   // ── Nettoyage ─────────────────────────────────────────────────────────────
   'Facial Cleansers': [TAG_SLUGS.NETTOYANT, TAG_SLUGS.ZONE_VISAGE, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
-  'Facial Washes': [TAG_SLUGS.NETTOYANT, TAG_SLUGS.MOUSSE_NETTOYANTE, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
-  'Facial Foaming Cleansers': [TAG_SLUGS.NETTOYANT, TAG_SLUGS.MOUSSE_NETTOYANTE, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
+  'Facial Washes': [
+    TAG_SLUGS.NETTOYANT,
+    TAG_SLUGS.MOUSSE_NETTOYANTE,
+    TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+    TAG_SLUGS.ZONE_VISAGE,
+  ],
+  'Facial Foaming Cleansers': [
+    TAG_SLUGS.NETTOYANT,
+    TAG_SLUGS.MOUSSE_NETTOYANTE,
+    TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+    TAG_SLUGS.ZONE_VISAGE,
+  ],
   'Foaming Cleansers': [TAG_SLUGS.NETTOYANT, TAG_SLUGS.MOUSSE_NETTOYANTE],
   'Bar Soaps': [TAG_SLUGS.NETTOYANT],
   'Facial Bar Soap': [TAG_SLUGS.NETTOYANT, TAG_SLUGS.ZONE_VISAGE],
   'Liquid Cleansers & Soaps': [TAG_SLUGS.NETTOYANT],
   'Liquid or Cream Hand Soaps': [TAG_SLUGS.NETTOYANT, TAG_SLUGS.ZONE_MAINS],
-  'Facial Cleansing Oil': [TAG_SLUGS.HUILE_NETTOYANTE, TAG_SLUGS.DOUBLE_NETTOYAGE_1, TAG_SLUGS.ZONE_VISAGE],
+  'Facial Cleansing Oil': [
+    TAG_SLUGS.HUILE_NETTOYANTE,
+    TAG_SLUGS.DOUBLE_NETTOYAGE_1,
+    TAG_SLUGS.ZONE_VISAGE,
+  ],
   'Facial Cleansing Milks': [TAG_SLUGS.LAIT_NETTOYANT, TAG_SLUGS.NETTOYANT, TAG_SLUGS.ZONE_VISAGE],
   'Facial Wipes': [TAG_SLUGS.NETTOYANT, TAG_SLUGS.ZONE_VISAGE],
   'Body Wipes': [TAG_SLUGS.NETTOYANT, TAG_SLUGS.ZONE_CORPS],
@@ -165,7 +179,11 @@ export const CSV_CATEGORY_TAG_MAP: Record<string, string[]> = {
   'Anti-Wrinkle Treatments': [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.TRAITEMENT],
   'Firming Treatments': [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.TRAITEMENT],
   Retinol: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.TRAITEMENT],
-  'Dark Spot Corrector & Pigment Corrector': [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.TRAITEMENT],
+  'Dark Spot Corrector & Pigment Corrector': [
+    TAG_SLUGS.ANTI_TACHES,
+    TAG_SLUGS.HYPERPIGMENTATION,
+    TAG_SLUGS.TRAITEMENT,
+  ],
   'Skin Lightening': [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION],
   'Spot Treatments': [TAG_SLUGS.SPOT_TREATMENT, TAG_SLUGS.SOIN_LOCALISE],
   'Acne Care (OTC)': [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.SPOT_TREATMENT, TAG_SLUGS.SOIN_LOCALISE],
@@ -177,7 +195,12 @@ export const CSV_CATEGORY_TAG_MAP: Record<string, string[]> = {
   // ── Hydratation / Soin ────────────────────────────────────────────────────
   Creams: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.EMOLLIENCE],
   Moisturizers: [TAG_SLUGS.EMOLLIENCE, TAG_SLUGS.HYDRATATION],
-  'Moisturizers with SPF': [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.CREME_SOLAIRE, TAG_SLUGS.MATIN],
+  'Moisturizers with SPF': [
+    TAG_SLUGS.CREME_HYDRATANTE,
+    TAG_SLUGS.PROTECTION_SOLAIRE,
+    TAG_SLUGS.CREME_SOLAIRE,
+    TAG_SLUGS.MATIN,
+  ],
   'Nighttime Moisturizers': [TAG_SLUGS.CREME_DE_NUIT, TAG_SLUGS.EMOLLIENCE, TAG_SLUGS.SOIR],
   'Daytime Moisturizers': [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.EMOLLIENCE, TAG_SLUGS.MATIN],
   'Tinted Moisturizers': [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.PIGMENTS_VERTS],
@@ -193,15 +216,33 @@ export const CSV_CATEGORY_TAG_MAP: Record<string, string[]> = {
   'Ethnic Creams, Lotions & Oils': [TAG_SLUGS.EMOLLIENCE, TAG_SLUGS.TEXTURE_RICHE],
 
   // ── Yeux / Lèvres ────────────────────────────────────────────────────────
-  'Eye Cream, Gel, Oils, & Serum': [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX],
-  'Eye Masks & Pads': [TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX, TAG_SLUGS.MASQUE_HEBDO, TAG_SLUGS.PATCH],
+  'Eye Cream, Gel, Oils, & Serum': [
+    TAG_SLUGS.CONTOUR_YEUX,
+    TAG_SLUGS.ZONE_YEUX,
+    TAG_SLUGS.SOIN_YEUX,
+  ],
+  'Eye Masks & Pads': [
+    TAG_SLUGS.ZONE_YEUX,
+    TAG_SLUGS.SOIN_YEUX,
+    TAG_SLUGS.MASQUE_HEBDO,
+    TAG_SLUGS.PATCH,
+  ],
   'Puffiness Treatments': [TAG_SLUGS.CERNES_POCHES, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX],
   'Dark Circle Treatments': [TAG_SLUGS.CERNES_POCHES, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX],
   'Lash & Brow Growth': [TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.TRAITEMENT],
-  'Lip Balms, Gels, Moisturizers & Oils': [TAG_SLUGS.SOIN_LEVRES, TAG_SLUGS.ZONE_LEVRES, TAG_SLUGS.BAUME],
+  'Lip Balms, Gels, Moisturizers & Oils': [
+    TAG_SLUGS.SOIN_LEVRES,
+    TAG_SLUGS.ZONE_LEVRES,
+    TAG_SLUGS.BAUME,
+  ],
   'Lip Mask': [TAG_SLUGS.SOIN_LEVRES, TAG_SLUGS.SLEEPING_MASK, TAG_SLUGS.ZONE_LEVRES],
   Lips: [TAG_SLUGS.ZONE_LEVRES],
-  'Lip Exfoliators + Scrubs': [TAG_SLUGS.ZONE_LEVRES, TAG_SLUGS.SOIN_LEVRES, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.EXFOLIANT_PHYSIQUE],
+  'Lip Exfoliators + Scrubs': [
+    TAG_SLUGS.ZONE_LEVRES,
+    TAG_SLUGS.SOIN_LEVRES,
+    TAG_SLUGS.EXFOLIATION,
+    TAG_SLUGS.EXFOLIANT_PHYSIQUE,
+  ],
 
   // ── Exfoliants ────────────────────────────────────────────────────────────
   Exfoliators: [TAG_SLUGS.EXFOLIATION],

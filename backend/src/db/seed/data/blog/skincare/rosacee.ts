@@ -5,7 +5,7 @@ export const rosacee: ArticleInput = {
   slug: 'rosacee-guide-complet',
   category: 'skincare',
   excerpt:
-    "Affection inflammatoire chronique touchant ~10 % de la population : sous-types, déclencheurs, routine skincare, traitements topiques/oraux et approche fonctionnelle (microbiome, intestin). Protocole complet pour reprendre le contrôle sans agresser la barrière.",
+    'Affection inflammatoire chronique touchant ~10 % de la population : sous-types, déclencheurs, routine skincare, traitements topiques/oraux et approche fonctionnelle (microbiome, intestin). Protocole complet pour reprendre le contrôle sans agresser la barrière.',
   publishedAt: null,
   content: `## Comprendre la rosacée
 

@@ -1,7 +1,7 @@
 import type { ArticleInput } from '../seed-articles'
 
 export const bacopaMonnieri: ArticleInput = {
-  title: "Bacopa monnieri (Brahmi) : nootropique ayurvédique à effets modestes",
+  title: 'Bacopa monnieri (Brahmi) : nootropique ayurvédique à effets modestes',
   slug: 'bacopa-monnieri-guide',
   category: 'phytotherapie',
   excerpt:

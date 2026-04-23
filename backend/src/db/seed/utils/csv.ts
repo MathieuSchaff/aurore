@@ -43,7 +43,10 @@ export function extractCapacity(productName: string, brand: string) {
   let cleanName = productName.trim()
 
   if (cleanName.toLowerCase().startsWith(brand.toLowerCase())) {
-    cleanName = cleanName.substring(brand.length).replace(/^[,-\s]+/, '').trim()
+    cleanName = cleanName
+      .substring(brand.length)
+      .replace(/^[,-\s]+/, '')
+      .trim()
   }
 
   const capacityRegex = /[,(-]?\s*(\d+(?:\.\d+)?)\s*(mL|g|Count|pcs|sheets|fl\s*oz|oz)\b/gi
@@ -76,7 +79,10 @@ export function extractCapacity(productName: string, brand: string) {
 
     totalAmount = Math.round(value)
 
-    cleanName = cleanName.replace(capacityRegex, '').replace(/[,-\s/]+$/, '').trim()
+    cleanName = cleanName
+      .replace(capacityRegex, '')
+      .replace(/[,-\s/]+$/, '')
+      .trim()
   }
 
   return { name: cleanName, totalAmount, unit, amountUnit }

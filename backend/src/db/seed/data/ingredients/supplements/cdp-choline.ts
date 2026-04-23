@@ -1,6 +1,7 @@
 import { INGREDIENT_TYPES, SUPPLEMENT_CATEGORIES } from '@habit-tracker/shared'
+
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
-import type { IngredientInput } from '../seed-ingredients'
+import type { IngredientInput } from '../types'
 
 export const CDP_CHOLINE: IngredientInput[] = [
   {
@@ -9,7 +10,7 @@ export const CDP_CHOLINE: IngredientInput[] = [
     type: INGREDIENT_TYPES.SUPPLEMENT,
     category: SUPPLEMENT_CATEGORIES.NEUROACTIF,
     description:
-      "Intermédiaire naturel de la biosynthèse de la phosphatidylcholine, fournissant choline et uridine au cerveau pour soutenir les membranes neuronales et la neurotransmission.",
+      'Intermédiaire naturel de la biosynthèse de la phosphatidylcholine, fournissant choline et uridine au cerveau pour soutenir les membranes neuronales et la neurotransmission.',
     content: `
 # CDP-Choline (Citicoline)
 

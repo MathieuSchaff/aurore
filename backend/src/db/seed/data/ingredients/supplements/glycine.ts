@@ -1,6 +1,7 @@
 import { INGREDIENT_TYPES, SUPPLEMENT_CATEGORIES } from '@habit-tracker/shared'
+
 import { SUPPLEMENTS_ACIDES_AMINES } from '../ingredient-slugs'
-import type { IngredientInput } from '../seed-ingredients'
+import type { IngredientInput } from '../types'
 
 // Supplement-specific slug ('glycine-supplement') — skincare already owns
 // 'glycine' as the humectant amino-acid entry.
@@ -11,7 +12,7 @@ export const GLYCINE: IngredientInput[] = [
     type: INGREDIENT_TYPES.SUPPLEMENT,
     category: SUPPLEMENT_CATEGORIES.ACIDE_AMINE,
     description:
-      "Acide aminé conditionnellement essentiel (synthèse endogène insuffisante), composant majeur du collagène et co-agoniste des récepteurs NMDA, avec des effets documentés sur le sommeil, le collagène et le métabolisme.",
+      'Acide aminé conditionnellement essentiel (synthèse endogène insuffisante), composant majeur du collagène et co-agoniste des récepteurs NMDA, avec des effets documentés sur le sommeil, le collagène et le métabolisme.',
     content: `
 # Glycine
 

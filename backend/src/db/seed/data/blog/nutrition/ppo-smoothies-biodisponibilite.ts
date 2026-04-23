@@ -1,7 +1,7 @@
 import type { ArticleInput } from '../seed-articles'
 
 export const ppoSmoothiesBiodisponibilite: ArticleInput = {
-  title: "Smoothies : pourquoi la banane détruit les polyphénols du cacao",
+  title: 'Smoothies : pourquoi la banane détruit les polyphénols du cacao',
   slug: 'ppo-smoothies-biodisponibilite',
   category: 'nutrition',
   excerpt:

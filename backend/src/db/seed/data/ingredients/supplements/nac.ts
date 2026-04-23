@@ -1,6 +1,7 @@
 import { INGREDIENT_TYPES, SUPPLEMENT_CATEGORIES } from '@habit-tracker/shared'
+
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
-import type { IngredientInput } from '../seed-ingredients'
+import type { IngredientInput } from '../types'
 
 export const NAC: IngredientInput[] = [
   {
@@ -9,7 +10,7 @@ export const NAC: IngredientInput[] = [
     type: INGREDIENT_TYPES.SUPPLEMENT,
     category: SUPPLEMENT_CATEGORIES.ACIDE_AMINE,
     description:
-      "Derive synthetique de la cysteine, precurseur du glutathion (principal antioxydant endogene). Medicament essentiel OMS, utilise en pneumologie, toxicologie et psychiatrie.",
+      'Derive synthetique de la cysteine, precurseur du glutathion (principal antioxydant endogene). Medicament essentiel OMS, utilise en pneumologie, toxicologie et psychiatrie.',
     content: `
 # NAC (N-Acetylcysteine)
 

@@ -1,0 +1,93 @@
+import { TAG_SLUGS } from '../../../tags'
+import type { UnifiedProductSeed } from '../../types'
+
+export const SOW__SEED: UnifiedProductSeed[] = [
+  {
+    slug: 'sowe-huile-de-chanvre-pure-bio-50ml-245266',
+    name: 'Sowé Huile de Chanvre Pure Bio 50ml',
+    brand: 'Sowé',
+    kind: 'shampoo',
+    unit: 'bottle',
+    totalAmount: 50,
+    amountUnit: 'ml',
+    priceCents: 1697,
+    description: '',
+    notes: '',
+    inci: 'Cannabis sativa seed oil* * Matière biologique première certifiée COSMOS par Ecocert Greenlife',
+    url: 'https://www.atida.fr/sowe-huile-de-chanvre-pure-bio-50ml.html',
+    imageUrl:
+      'https://assets.atida.com/transform/c78b7ef3-6478-45e9-a290-ede1c4c5f0d1/Sowe-Huile-de-Chanvre-Pure-Bio-50ml?io=transform:extend,width:600,height:600',
+    tags: {
+      primary: [TAG_SLUGS.SHAMPOING],
+      secondary: [],
+      avoid: [],
+    },
+    keyIngredients: [{ slug: 'hemp-oil-hair' }],
+  },
+  {
+    slug: 'sowe-huile-de-jojoba-pure-bio-50ml-245268',
+    name: 'Sowé Huile de Jojoba Pure Bio 50ml',
+    brand: 'Sowé',
+    kind: 'shampoo',
+    unit: 'bottle',
+    totalAmount: 50,
+    amountUnit: 'ml',
+    priceCents: 1873,
+    description: '',
+    notes: '',
+    inci: 'Simmondsia chinensis seed oil* * Matière biologique première certifiée COSMOS par Ecocert Greenlife',
+    url: 'https://www.atida.fr/sowe-huile-de-jojoba-pure-bio-50ml.html',
+    imageUrl:
+      'https://assets.atida.com/transform/9fdcafac-e712-4884-98c5-4b994fb552c9/Sowe-Huile-de-Jojoba-Pure-Bio-50ml?io=transform:extend,width:600,height:600',
+    tags: {
+      primary: [TAG_SLUGS.SHAMPOING],
+      secondary: [],
+      avoid: [],
+    },
+    keyIngredients: [{ slug: 'jojoba-oil-hair' }],
+  },
+  {
+    slug: 'sowe-huile-pure-de-macadamia-bio-50ml-245270',
+    name: 'Sowé Huile Pure de Macadamia Bio 50ml',
+    brand: 'Sowé',
+    kind: 'shampoo',
+    unit: 'bottle',
+    totalAmount: 0,
+    amountUnit: '',
+    priceCents: 1745,
+    description: '',
+    notes: '',
+    inci: "INCI: 100% Macadamia integrifolia seed oil*  * Issu de l'agriculture biologique et certifié Cosmos par Ecocert Greenlife SAS (F-32600)",
+    url: 'https://www.atida.fr/sowe-huile-pure-de-macadamia-bio-50ml.html',
+    imageUrl:
+      'https://assets.atida.com/transform/b9452558-f3d4-46f4-90e3-c8f6231c3dec/EAN_IMG_FR_3770020690693_1?io=transform:extend,width:600,height:600',
+    tags: {
+      primary: [TAG_SLUGS.SHAMPOING],
+      secondary: [],
+      avoid: [],
+    },
+    keyIngredients: [{ slug: 'macadamia-oil-hair' }],
+  },
+  {
+    slug: 'sowe-huile-de-figue-de-barbarie-et-argan-bio-50ml-245269',
+    name: 'Sowé Huile de Figue de Barbarie et Argan Bio 50ml',
+    brand: 'Sowé',
+    kind: 'shampoo',
+    unit: 'bottle',
+    totalAmount: 50,
+    amountUnit: 'ml',
+    priceCents: 2327,
+    description: '',
+    notes: '',
+    inci: 'Argania spinosa kernel oil*, opuntia ficus-indica flower extract* * Matière biologique première certifiée COSMOS par Ecocert Greenlife',
+    url: 'https://www.atida.fr/sowe-huile-de-figue-de-barbarie-et-argan-bio-50ml.html',
+    imageUrl:
+      'https://assets.atida.com/transform/53e660c0-1e8b-45ca-9ac8-394644eda7c1/Sowe-Huile-de-Figue-de-Barbarie-et-Argan-Bio-50ml?io=transform:extend,width:600,height:600',
+    tags: {
+      primary: [TAG_SLUGS.SHAMPOING],
+      secondary: [],
+      avoid: [],
+    },
+    keyIngredients: [{ slug: 'argan-oil-hair' }],
+  },
+]

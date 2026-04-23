@@ -1,29 +1,24 @@
-import slugify from '@sindresorhus/slugify'
-import {
-  PRODUCT_CATEGORIES,
-  PRODUCT_KINDS,
-  type ProductCategory,
-} from '@habit-tracker/shared'
+import { PRODUCT_CATEGORIES, PRODUCT_KINDS, type ProductCategory } from '@habit-tracker/shared'
 
-import { createProduct } from '../../../features/products/service'
+import slugify from '@sindresorhus/slugify'
+import { inArray } from 'drizzle-orm'
+
 import { addManyIngredientsToProduct } from '../../../features/products/product-ingredients/product-ingredients.service'
+import { createProduct } from '../../../features/products/service'
 import { addManyTagsToProduct } from '../../../features/tags/tags.service'
 import { db } from '../..'
 import type { DB } from '../../index'
-import { inArray } from 'drizzle-orm'
-
 import { ingredients, products, productTagsDefs } from '../../schema'
-import { getOrCreateSeedUser } from './create-user'
-
+import { getProductKind, unitFromCategory } from '../data/otherdata/product-associations'
 import {
   CSV_CATEGORY_TAG_MAP,
   INGREDIENT_TAG_MAP,
   NAME_KEYWORD_TAG_MAP,
-} from '../otherdata/tag-associations'
-import { getProductKind, unitFromCategory } from '../otherdata/product-associations'
-import { seedCore } from './seed-core'
-import { extractCapacity, parseCSV } from '../utils/csv'
+} from '../data/otherdata/tag-associations'
 import { seedBatch } from '../utils/batch'
+import { extractCapacity, parseCSV } from '../utils/csv'
+import { getOrCreateSeedUser } from './create-user'
+import { seedCore } from './seed-core'
 
 // ── INCI → Ingredient matching ────────────────────────────────────────────────
 
@@ -72,7 +67,12 @@ function matchInciIngredients(inciString: string, index: Map<string, string>): s
     if (matched.length >= 5) break
 
     // strip percentage annotations like "10%", "[1]" and extra whitespace
-    const normalized = token.toLowerCase().trim().replace(/\s*\d+(\.\d+)?%.*$/, '').replace(/\[.*?\]/g, '').trim()
+    const normalized = token
+      .toLowerCase()
+      .trim()
+      .replace(/\s*\d+(\.\d+)?%.*$/, '')
+      .replace(/\[.*?\]/g, '')
+      .trim()
     if (!normalized) continue
 
     const id = index.get(normalized)
@@ -147,10 +147,7 @@ function getTargetTagSlugs(
 
 // ── Fonction Principale ───────────────────────────────────────────────────────
 
-export async function seedSkincare(
-  csvPath = 'src/db/seed/products/otherData.csv',
-  limit?: number
-) {
+export async function seedSkincare(csvPath = 'src/db/seed/products/otherData.csv', limit?: number) {
   console.log('🚀 DÉMARRAGE DU SEED SKINCARE (Import CSV)\n')
 
   const user = await getOrCreateSeedUser()
@@ -240,7 +237,18 @@ export async function seedSkincare(
             brand: item.brand,
             category: productCategory,
             kind: productKind,
-            unit: item.unit,
+            unit: item.unit as
+              | 'pump'
+              | 'dropper'
+              | 'tube'
+              | 'jar'
+              | 'spray'
+              | 'aerosol'
+              | 'bottle'
+              | 'roller'
+              | 'pack'
+              | 'cartridge'
+              | 'bar',
             totalAmount: item.totalAmount ?? undefined,
             amountUnit: item.amountUnit ?? undefined,
             inci: item.inci,

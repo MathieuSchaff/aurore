@@ -1,7 +1,7 @@
 import type { ArticleInput } from '../seed-articles'
 
 export const alimentationCerveau: ArticleInput = {
-  title: "Alimentation et cerveau : guide des 8 piliers",
+  title: 'Alimentation et cerveau : guide des 8 piliers',
   slug: 'alimentation-cerveau-guide',
   category: 'nutrition',
   excerpt:

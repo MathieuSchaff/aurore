@@ -1,0 +1,284 @@
+import { INGREDIENT_SLUGS } from '../../../../data/ingredients/ingredient-slugs'
+import { TAG_SLUGS } from '../../../../data/tags'
+import type { UnifiedProductSeed } from '../../types'
+
+export const DR_ALTHEA_SEED: UnifiedProductSeed[] = [
+  {
+    slug: 'dr-althea-oasis-soothing-mask',
+    name: 'Oasis Soothing Mask',
+    brand: 'Dr.Althea',
+    kind: 'mask',
+    unit: 'pack',
+    totalAmount: 5,
+    amountUnit: 'ct',
+    priceCents: 0,
+    description:
+      'Un masque en tissu intensément hydratant conçu pour apaiser instantanément les peaux assoiffées et stressées.',
+    notes: `Contient de l"huile de rose de Damas (ROSA DAMASCENA FLOWER OIL). Céramides, Rose de Jéricho et 5 formes d'HA — Idéal pour peaux déshydratées et sensibles.`,
+    inci: '1,2-HEXANEDIOL, ANASTATICA HIEROCHUNTICA EXTRACT, ANTHEMIS NOBILIS FLOWER EXTRACT, ARGININE, BETAINE, BETULA PLATYPHYLLA JAPONICA JUICE, BUTYLENE GLYCOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CARBOMER, CENTELLA ASIATICA EXTRACT, CERAMIDE NP, CETEARYL OLIVATE, CHOLESTEROL, DIPROPYLENE GLYCOL, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, GLYCERIN, HYALURONIC ACID, HYDROGENATED LECITHIN, HYDROLYZED HYALURONIC ACID, HYDROLYZED JOJOBA ESTERS, HYDROLYZED SODIUM HYALURONATE, HYDROXYACETOPHENONE, HYDROXYETHYLCELLULOSE, HYDROXYPROPYLTRIMONIUM HYALURONATE, PENTYLENE GLYCOL, POLYGLYCERYL-10 LAURATE, POLYGLYCERYL-10 MYRISTATE, POTASSIUM HYALURONATE, PROPANEDIOL, ROSA CENTIFOLIA FLOWER EXTRACT, ROSA DAMASCENA FLOWER OIL, SODIUM ACETYLATED HYALURONATE, SODIUM HYALURONATE, SODIUM HYALURONATE CROSSPOLYMER, SORBITAN OLIVATE, TREHALOSE, WATER, XANTHAN GUM',
+    url: 'https://www.skinsafeproducts.com/dr-althea-oasis-soothing-mask-pack-of-5',
+    imageUrl:
+      'https://cdn1.skinsafeproducts.com/photo/5D8562D79C6F26/large_1748112761.jpeg?1748112761',
+    tags: {
+      primary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
+      secondary: [
+        TAG_SLUGS.PEAU_SENSIBLE,
+        TAG_SLUGS.PEAU_SECHE,
+        TAG_SLUGS.MASQUE_HEBDO,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
+      avoid: [],
+    },
+    keyIngredients: [
+      { slug: INGREDIENT_SLUGS.CERAMIDE_NP, notes: 'Barrière lipidique' },
+      {
+        slug: INGREDIENT_SLUGS.HYALURONIC_ACID,
+        notes: '5 formes HA — hydratation multi-profondeur',
+      },
+      { slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA, notes: 'Apaisant, anti-inflammatoire' },
+    ],
+  },
+  {
+    slug: 'dr-althea-jelly-seal-dewy-mask',
+    name: 'Jelly Seal Dewy Mask',
+    brand: 'Dr.Althea',
+    kind: 'mask',
+    unit: 'pack',
+    totalAmount: 4,
+    amountUnit: 'ct',
+    priceCents: 0,
+    description: `Masque gélifié apportant un éclat immédiat et une hydratation profonde pour un fini "dewy" durable.`,
+    notes: `Complexe d"Acide Hyaluronique 6 formes + Extrait de Lotus — Idéal pour peaux ternes en manque d'éclat.`,
+    inci: '1,2-HEXANEDIOL, ALLANTOIN, ARGININE, BUTYLENE GLYCOL, CARBOMER, DIGLYCERIN, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, HYALURONIC ACID, HYDROLYZED HYALURONIC ACID, HYDROLYZED SODIUM HYALURONATE, HYDROXYPROPYLTRIMONIUM HYALURONATE, NELUMBO NUCIFERA LEAF EXTRACT, POLYGLYCERIN-3, POLYGLYCERYL-10 LAURATE, POTASSIUM HYALURONATE, SODIUM ACETYLATED HYALURONATE, SODIUM DNA, SODIUM HYALURONATE, SODIUM HYALURONATE CROSSPOLYMER, WATER, XANTHAN GUM',
+    url: 'https://www.skinsafeproducts.com/dr-althea-jelly-seal-dewy-mask-0-99-oz-28-g-pack-of-4',
+    imageUrl:
+      'https://cdn1.skinsafeproducts.com/photo/DEC84EDCBB4B8F/large_1750175831.jpeg?1750175831',
+    tags: {
+      primary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.HYDRATATION, TAG_SLUGS.ECLAT],
+      secondary: [
+        TAG_SLUGS.PEAU_NORMALE,
+        TAG_SLUGS.PEAU_MIXTE,
+        TAG_SLUGS.SANS_PARFUM,
+        TAG_SLUGS.MASQUE_HEBDO,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
+      avoid: [],
+    },
+    keyIngredients: [
+      {
+        slug: INGREDIENT_SLUGS.HYALURONIC_ACID,
+        notes: '6 formes HA — hydratation intense, repulpant',
+      },
+    ],
+  },
+  {
+    slug: 'dr-althea-345-relief-cream',
+    name: '345 Relief Cream',
+    brand: 'Dr.Althea',
+    kind: 'moisturizer',
+    unit: 'tube',
+    totalAmount: 50,
+    amountUnit: 'ml',
+    priceCents: 0,
+    description:
+      'Crème régénérante post-acné qui apaise les irritations et aide à restaurer la barrière cutanée.',
+    notes:
+      'Centella Asiatica, Céramide NP, Niacinamide, Bêta-Glucane, Panthenol et Resvératrol. Idéal pour peaux sensibles ou à imperfections.',
+    inci: '1,2-HEXANEDIOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, ADENOSINE, AGAVE TEQUILANA LEAF EXTRACT, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, BETA-GLUCAN, BUTYLENE GLYCOL, C12-20 ALKYL GLUCOSIDE, C14-22 ALCOHOL, CALENDULA OFFICINALIS FLOWER EXTRACT, CAPRYLIC/CAPRIC TRIGLYCERIDE, CENTELLA ASIATICA LEAF EXTRACT, CERAMIDE NP, CORALLINA OFFICINALIS EXTRACT, CURCUMA LONGA (TURMERIC) ROOT EXTRACT, CYCLOHEXASILOXANE, DICAPRYLYL CARBONATE, DIPROPYLENE GLYCOL, ECLIPTA PROSTRATA LEAF EXTRACT, EMPETRUM NIGRUM FRUIT JUICE, ETHYLHEXYLGLYCERIN, FRUCTOOLIGOSACCHARIDES, GARDENIA FLORIDA FRUIT EXTRACT, GLYCERIN, GLYCINE SOJA (SOYBEAN) STEROLS, HIBISCUS SABDARIFFA FLOWER EXTRACT, HOUTTUYNIA CORDATA EXTRACT, HYDROGENATED LECITHIN, HYDROGENATED POLY(C6-14 OLEFIN), HYDROGENATED POLYDECENE, HYDROLYZED HYALURONIC ACID, LAMINARIA JAPONICA EXTRACT, LAVANDULA ANGUSTIFOLIA (LAVENDER) FLOWER EXTRACT, MELIA AZADIRACHTA FLOWER EXTRACT, MELIA AZADIRACHTA LEAF EXTRACT, NIACINAMIDE, OCIMUM SANCTUM LEAF EXTRACT, OENOTHERA BIENNIS (EVENING PRIMROSE) FLOWER EXTRACT, OLIGOPEPTIDE-1, OPUNTIA FICUS-INDICA STEM EXTRACT, PANTHENOL, PEG-40 CASTOR OIL, PERILLA OCYMOIDES LEAF EXTRACT, PHENOXYETHANOL, POLYGLYCERIN-3, POLYGLYCERYL-10 STEARATE, POLYMETHYLSILSESQUIOXANE, POLYQUATERNIUM-51, POTASSIUM SORBATE, PROPANEDIOL, RESVERATROL, SARGASSUM FULVELLUM EXTRACT, SODIUM HYALURONATE, TOCOPHEROL, TROMETHAMINE, WATER',
+    url: 'https://www.skinsafeproducts.com/dr-althea-345-relief-cream-1-69-fl-oz-50-ml',
+    imageUrl:
+      'https://cdn1.skinsafeproducts.com/photo/C1E7AEB84B2EFE/large_1753852595.png?1753852595',
+    tags: {
+      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.BARRIERE_CUTANEE],
+      secondary: [
+        TAG_SLUGS.PEAU_SENSIBLE,
+        TAG_SLUGS.POST_ACNE,
+        TAG_SLUGS.CICATRISATION,
+        TAG_SLUGS.SANS_PARFUM,
+        TAG_SLUGS.ZONE_VISAGE,
+        TAG_SLUGS.MATIN,
+        TAG_SLUGS.SOIR,
+      ],
+      avoid: [],
+    },
+    keyIngredients: [
+      { slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA, notes: 'Apaisant, cicatrisant' },
+      { slug: INGREDIENT_SLUGS.CERAMIDE_NP, notes: 'Barrière lipidique' },
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: 'Anti-taches, sébo-régulation' },
+      { slug: INGREDIENT_SLUGS.BETA_GLUCAN, notes: 'Apaisant immunomodulateur' },
+      { slug: INGREDIENT_SLUGS.PANTHENOL, notes: 'Réparateur / apaisant' },
+      { slug: INGREDIENT_SLUGS.RESVERATROL, notes: 'Anti-oxydant polyphénol' },
+    ],
+  },
+  {
+    slug: 'dr-althea-gentle-serum-vitamin-c',
+    name: 'Gentle Serum Vitamin C',
+    brand: 'Dr.Althea',
+    kind: 'serum',
+    unit: 'bottle',
+    totalAmount: 30,
+    amountUnit: 'ml',
+    priceCents: 0,
+    description: `Un sérum illuminateur doux conçu pour unifier le teint sans causer d"irritations.`,
+    notes: `3-O-Ethyl Ascorbic Acid (Vitamine C stable) + Niacinamide + Bifida Ferment Filtrate. Idéal pour peaux sensibles cherchant de l"éclat.`,
+    inci: '1,2-HEXANEDIOL, 3-O-ETHYL ASCORBIC ACID, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, ADENOSINE, ALLANTOIN, BIFIDA FERMENT FILTRATE, BUTYLENE GLYCOL, CAMELLIA SINENSIS LEAF WATER, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CASTOR OIL/IPDI COPOLYMER, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, HIPPOPHAE RHAMNOIDES FRUIT WATER, MELALEUCA ALTERNIFOLIA (TEA TREE) LEAF EXTRACT, NIACINAMIDE, PROPANEDIOL, TROMETHAMINE, WATER, XANTHAN GUM',
+    url: 'https://www.skinsafeproducts.com/dr-althea-gentle-serum-vitamin-c-1-01-fl-oz-30-ml',
+    imageUrl:
+      'https://cdn1.skinsafeproducts.com/photo/C6F31DB6480DE3/large_1749952787.jpeg?1749952787',
+    tags: {
+      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ECLAT],
+      secondary: [
+        TAG_SLUGS.PEAU_SENSIBLE,
+        TAG_SLUGS.ANTI_TACHES,
+        TAG_SLUGS.SANS_PARFUM,
+        TAG_SLUGS.ZONE_VISAGE,
+        TAG_SLUGS.MATIN,
+        TAG_SLUGS.SOIR,
+      ],
+      avoid: [],
+    },
+    keyIngredients: [
+      { slug: INGREDIENT_SLUGS.VITAMIN_C, notes: '3-O-Ethyl Ascorbic Acid — stable, illuminateur' },
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: 'Unification teint, éclat' },
+      { slug: INGREDIENT_SLUGS.PROBIOTICS, notes: 'Bifida Ferment Filtrate — microbiome, éclat' },
+    ],
+  },
+  {
+    slug: 'dr-althea-vitamin-c-boosting-serum',
+    name: 'Vitamin C Boosting Serum',
+    brand: 'Dr.Althea',
+    kind: 'serum',
+    unit: 'bottle',
+    totalAmount: 30,
+    amountUnit: 'ml',
+    priceCents: 0,
+    description: `Sérum booster hautement concentré pour corriger l"hyperpigmentation et revitaliser la peau.`,
+    notes:
+      'Synergie Vitamine C, Niacinamide, Acide Tranexamique et Alpha-Arbutine pour tous types de peaux avec taches.',
+    inci: '1,2-HEXANEDIOL, 3-0-ETHYL ASCORBIC ACID, ADENOSINE, ALPHA-ARBUTIN, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, ASCORBIC ACID, BETA-GLUCAN, BETAINE, BIFIDA FERMENT LYSATE, BISABOLOL, BUTYLENE GLYCOL, C12-14 PARETH-12, CARBOMER, CENTELLA ASIATICA EXTRACT, CENTELLA ASIATICA LEAF WATER, CERAMIDE NP, DIPROPYLENE GLYCOL, DISODIUM EDTA, ECLIPTA PROSTRATA LEAF EXTRACT, ETHYLHEXYLGLYCERIN, FICUS CARICA (FIG) FRUIT EXTRACT, FRUCTOOLIGOSACCHARIDES, GLYCERIN, HIPPOPHAE RHAMNOIDES WATER, HYDROGENATED LECITHIN, HYDROLYZED HYALURONIC ACID, HYDROXYDECYL UBIQUINONE, HYDROXYETHYL UREA, LAMINARIA JAPONICA EXTRACT, METHYL GLUCETH-20, METHYLPROPANEDIOL, NIACINAMIDE, PANTHENOL, PENTYLENE GLYCOL, PROPANEDIOL, SODIUM ACETYLATED HYALURONATE, SODIUM HYALURONATE, TOCOPHEROL, TRANEXAMIC ACID, TROMETHAMINE, UBIQUINONE, WATER, XANTHAN GUM',
+    url: 'https://www.skinsafeproducts.com/dr-althea-vitamin-c-boosting-serum-1-01-fl-oz-30-ml',
+    imageUrl:
+      'https://cdn1.skinsafeproducts.com/photo/9A9D578C859D63/large_1744383622.jpeg?1744383622',
+    tags: {
+      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ANTI_TACHES],
+      secondary: [
+        TAG_SLUGS.HYPERPIGMENTATION,
+        TAG_SLUGS.ECLAT,
+        TAG_SLUGS.SANS_PARFUM,
+        TAG_SLUGS.ZONE_VISAGE,
+        TAG_SLUGS.MATIN,
+        TAG_SLUGS.SOIR,
+      ],
+      avoid: [],
+    },
+    keyIngredients: [
+      {
+        slug: INGREDIENT_SLUGS.VITAMIN_C,
+        notes: '3-O-Ethyl Ascorbic Acid + Ascorbic Acid — double dose',
+      },
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: 'Anti-taches, unification teint' },
+      { slug: INGREDIENT_SLUGS.TRANEXAMIC_ACID, notes: 'Anti-taches, anti-inflammatoire' },
+      { slug: INGREDIENT_SLUGS.ALPHA_ARBUTIN, notes: 'Anti-pigmentation' },
+      { slug: INGREDIENT_SLUGS.CERAMIDE_NP, notes: 'Barrière lipidique' },
+      { slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA, notes: 'Apaisant, anti-irritation' },
+    ],
+  },
+  {
+    slug: 'dr-althea-pure-grinding-cleansing-balm',
+    name: 'Pure Grinding Cleansing Balm',
+    brand: 'Dr.Althea',
+    kind: 'cleanser',
+    unit: 'jar',
+    totalAmount: 50,
+    amountUnit: 'ml',
+    priceCents: 0,
+    description:
+      'Baume nettoyant innovant à moudre qui élimine efficacement le maquillage et les impuretés.',
+    notes:
+      'Madécassoside + Centella Asiatica + huile de Pépins de Raisin — Idéal pour un double nettoyage respectueux des peaux sensibles.',
+    inci: 'ASIATICOSIDE, CAMELLIA SINENSIS SEED OIL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CENTELLA ASIATICA EXTRACT, CETYL ETHYLHEXANOATE, ETHYLHEXYLGLYCERIN, MADECASSOSIDE, PEG-10 ISOSTEARATE, PEG-20 GLYCERYL TRIISOSTEARATE, SORBITAN SESQUIOLEATE, SYNTHETIC WAX, VITIS VINIFERA (GRAPE) SEED OIL, WATER',
+    url: 'https://www.skinsafeproducts.com/dr-althea-pure-grinding-cleansing-balm-1-69-fl-oz-50-ml',
+    imageUrl:
+      'https://cdn1.skinsafeproducts.com/photo/FF19022320690A/large_1738314546.png?1738314546',
+    tags: {
+      primary: [TAG_SLUGS.BAUME_DEMAQUILLANT, TAG_SLUGS.DOUBLE_NETTOYAGE_1, TAG_SLUGS.NETTOYANT],
+      secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.ZONE_VISAGE],
+      avoid: [],
+    },
+    keyIngredients: [
+      {
+        slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA,
+        notes: 'Madécassoside + Asiaticoside — apaisant pendant le nettoyage',
+      },
+    ],
+  },
+  {
+    slug: 'dr-althea-premium-squalane-silk-mask',
+    name: 'Premium Squalane Silk Mask',
+    brand: 'Dr.Althea',
+    kind: 'mask',
+    unit: 'pack',
+    totalAmount: 5,
+    amountUnit: 'ct',
+    priceCents: 0,
+    description:
+      'Masque de luxe à la soie apportant une nutrition intense et un effet lissant immédiat.',
+    notes:
+      'Contient du parfum. Squalane + Protéines de Soie + Sodium Hyaluronate — Idéal pour peaux sèches et matures.',
+    inci: '1,2-HEXANEDIOL, ACORUS CALAMUS ROOT EXTRACT, ALCOHOL DENAT., ANHYDROXYLITOL, ARGININE, BETAINE, BUTYLENE GLYCOL, CAMELLIA SINENSIS LEAF EXTRACT, CAPRYLYL GLYCOL, CARBOMER, CITRUS GRANDIS (GRAPEFRUIT) SEED EXTRACT, COPTIS JAPONICA ROOT EXTRACT, CYCLOHEXASILOXANE, CYCLOPENTASILOXANE, DIPOTASSIUM GLYCYRRHIZATE, DIPROPYLENE GLYCOL, DISODIUM EDTA, FRAGRANCE, GLUCOSE, GLYCERIN, GLYCYRRHIZA GLABRA (LICORICE) ROOT EXTRACT, HYDROLYZED COLLAGEN, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, HYDROXYETHYLCELLULOSE, METHYLPROPANEDIOL, PANTHENOL, PEG-10 DIMETHICONE/VINYL DIMETHICONE CROSSPOLYMER, PEG-60 HYDROGENATED CASTOR OIL, PERILLA OCYMOIDES LEAF EXTRACT, PHENOXYETHANOL, POLYSORBATE 60, PROPANEDIOL, SCHISANDRA CHINENSIS FRUIT EXTRACT, SILK EXTRACT, SODIUM HYALURONATE, SORBITAN ISOSTEARATE, SQUALANE, WATER, XANTHAN GUM, XYLITOL, XYLITYLGLUCOSIDE, ZINGIBER OFFICINALE (GINGER) ROOT EXTRACT',
+    url: 'https://www.skinsafeproducts.com/dr-althea-premium-squalane-silk-mask-0-98-oz-28-g-pack-of-5',
+    imageUrl:
+      'https://cdn1.skinsafeproducts.com/photo/64FFB77AEFF349/large_1727817764.jpeg?1727817764',
+    tags: {
+      primary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.HYDRATATION, TAG_SLUGS.EMOLLIENCE],
+      secondary: [
+        TAG_SLUGS.PEAU_SECHE,
+        TAG_SLUGS.ANTI_AGE,
+        TAG_SLUGS.MASQUE_HEBDO,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
+      avoid: [],
+    },
+    keyIngredients: [
+      { slug: INGREDIENT_SLUGS.SQUALANE, notes: 'Émollient biomimétique, nourrissant' },
+      { slug: INGREDIENT_SLUGS.HYALURONIC_ACID, notes: 'Sodium Hyaluronate — hydratation' },
+      { slug: INGREDIENT_SLUGS.PANTHENOL, notes: 'Apaisant / réparateur' },
+    ],
+  },
+  {
+    slug: 'dr-althea-gentle-retinol-serum-01',
+    name: '0.1% Gentle Retinol Serum',
+    brand: 'Dr.Althea',
+    kind: 'serum',
+    unit: 'bottle',
+    totalAmount: 30,
+    amountUnit: 'ml',
+    priceCents: 0,
+    description:
+      'Un traitement anti-âge doux pour introduire le rétinol dans sa routine sans irritation.',
+    notes:
+      'Rétinol 0.1% + Bakuchiol — Idéal pour lisser les rides des peaux débutantes ou sensibles au rétinol.',
+    inci: '1,2-HEXANEDIOL, ALLANTOIN, BAKUCHIOL, BETULA ALBA (WHITE BIRCH) JUICE, BORAGO OFFICINALIS EXTRACT, BUTYLENE GLYCOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL/CAPRYL GLUCOSIDE, CENTAUREA CYANUS FLOWER EXTRACT, CHAMOMILLA RECUTITA (MATRICARIA) FLOWER EXTRACT, DIBUTYL ADIPATE, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, GLYCERIN, GLYCERYL ACRYLATE/ACRYLIC ACID COPOLYMER, GLYCINE SOJA (SOYBEAN) OIL, HYACINTHUS ORIENTALIS (HYACINTH) EXTRACT, HYDROGENATED LECITHIN, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, LAVANDULA ANGUSTIFOLIA (LAVENDER) FLOWER EXTRACT, PANTHENOL, POLYGLYCERYL-3 METHYLGLUCOSE DISTEARATE, POLYISOBUTENE, PVM/MA COPOLYMER, RETINOL, SALVIA SCLAREA (CLARY) EXTRACT, SODIUM ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, SODIUM POLYACRYLATE, SORBITAN ISOSTEARATE, SORBITAN OLEATE, TOCOPHEROL, WATER',
+    url: 'https://www.skinsafeproducts.com/dr-althea-0-1-gentle-retinol-serum-1-01-fl-oz-30-ml',
+    imageUrl:
+      'https://cdn1.skinsafeproducts.com/photo/8860A4E108D645/large_1753463256.jpeg?1753463256',
+    tags: {
+      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ANTI_AGE],
+      secondary: [
+        TAG_SLUGS.PEAU_SENSIBLE,
+        TAG_SLUGS.SANS_PARFUM,
+        TAG_SLUGS.ZONE_VISAGE,
+        TAG_SLUGS.SOIR,
+      ],
+      avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE],
+    },
+    keyIngredients: [
+      { slug: INGREDIENT_SLUGS.RETINOL, notes: '0.1% — entrée en matière douce, anti-âge' },
+      {
+        slug: INGREDIENT_SLUGS.BAKUCHIOL,
+        notes: 'Synergie rétinol, anti-âge naturel sans irritation',
+      },
+      { slug: INGREDIENT_SLUGS.PANTHENOL, notes: `Atténue l"irritation rétinol` },
+    ],
+  },
+]

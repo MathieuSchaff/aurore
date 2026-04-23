@@ -1,6 +1,7 @@
-import { INGREDIENT_SLUGS } from '../ingredient-slugs'
 import { SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
-import type { IngredientInput } from '../seed-ingredients'
+
+import { INGREDIENT_SLUGS } from '../ingredient-slugs'
+import type { IngredientInput } from '../types'
 
 export const ACTIFS_ANTI_AGE_REPARATEURS: IngredientInput[] = [
   {

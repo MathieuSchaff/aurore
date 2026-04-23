@@ -1,7 +1,7 @@
 import type { ArticleInput } from '../seed-articles'
 
 export const arnica: ArticleInput = {
-  title: "Arnica : usage traditionnel vs preuves scientifiques",
+  title: 'Arnica : usage traditionnel vs preuves scientifiques',
   slug: 'arnica-guide',
   category: 'phytotherapie',
   excerpt:

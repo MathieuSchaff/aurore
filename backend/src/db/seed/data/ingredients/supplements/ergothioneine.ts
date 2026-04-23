@@ -1,6 +1,7 @@
 import { INGREDIENT_TYPES, SUPPLEMENT_CATEGORIES } from '@habit-tracker/shared'
+
 import { SUPPLEMENTS_ANTIOXYDANTS } from '../ingredient-slugs'
-import type { IngredientInput } from '../seed-ingredients'
+import type { IngredientInput } from '../types'
 
 // Supplement-specific slug ('ergothioneine-supplement') disambiguates
 // from a skincare ERGOTHIONEINE entry that otherwise produces a duplicate
@@ -12,7 +13,7 @@ export const ERGOTHIONEINE: IngredientInput[] = [
     type: INGREDIENT_TYPES.SUPPLEMENT,
     category: SUPPLEMENT_CATEGORIES.ANTIOXYDANT,
     description:
-      "Acide aminé soufré non synthétisé par les mammifères, transporté par un système dédié (OCTN1) et considéré comme une potentielle « vitamine de longévité » grâce à sa stabilité antioxydante exceptionnelle.",
+      'Acide aminé soufré non synthétisé par les mammifères, transporté par un système dédié (OCTN1) et considéré comme une potentielle « vitamine de longévité » grâce à sa stabilité antioxydante exceptionnelle.',
     content: `
 # Ergothionéine
 

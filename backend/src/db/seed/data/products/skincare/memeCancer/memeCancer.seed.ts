@@ -1,0 +1,172 @@
+import { INGREDIENT_SLUGS } from '../../../../data/ingredients/ingredient-slugs'
+import { TAG_SLUGS } from '../../../../data/tags'
+import type { UnifiedProductSeed } from '../../types'
+
+export const MEME_CANCER_SEED: UnifiedProductSeed[] = [
+  {
+    slug: 'meme-creme-visage',
+    name: 'Crème pour le Visage',
+    brand: 'Même',
+    kind: 'moisturizer',
+    unit: 'pump',
+    totalAmount: 50,
+    amountUnit: 'ml',
+    priceCents: 2400,
+    description:
+      'Soin quotidien hydratant pour peaux très sèches, sensibles, atopiques ou fragilisées par traitements anticancéreux.',
+    notes:
+      '98% origine naturelle. Karité + allantoïne + huile de camélia. Texture fluide, fini non gras, base maquillage.',
+    inci: 'WATER, CAPRYLIC/CAPRIC TRIGLYCERIDE, COCO-CAPRYLATE/CAPRATE, GLYCERIN, GLYCERYL STEARATE CITRATE, BUTYROSPERMUM PARKII (SHEA) BUTTER, CETEARYL ALCOHOL, MYRISTYL MYRISTATE, CAMELLIA JAPONICA SEED OIL, 1,2-HEXANEDIOL, CERA ALBA (BEESWAX), ALLANTOIN, XANTHAN GUM, PARFUM (FRAGRANCE), TOCOPHERYL ACETATE, TOCOPHEROL, SODIUM PHYTATE, O-CYMEN-5-OL, SODIUM DEHYDROACETATE, SODIUM HYDROXIDE, CITRIC ACID',
+    url: 'https://www.meme-cosmetics.com',
+    tags: {
+      primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.DESHYDRATATION],
+      secondary: [
+        TAG_SLUGS.PEAU_SECHE,
+        TAG_SLUGS.PEAU_SENSIBLE,
+        TAG_SLUGS.PEAU_ATOPIQUE,
+        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.MATIN,
+        TAG_SLUGS.SOIR,
+        TAG_SLUGS.HYPOALLERGENIQUE,
+        TAG_SLUGS.BIO_NATUREL,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
+      avoid: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BRILLANCE],
+    },
+    keyIngredients: [
+      {
+        slug: INGREDIENT_SLUGS.SHEA_BUTTER,
+        notes: 'Nourrit en profondeur',
+      },
+      {
+        slug: INGREDIENT_SLUGS.ALLANTOIN,
+        notes: 'Apaisant et adoucissant',
+      },
+      {
+        slug: INGREDIENT_SLUGS.ALOE_VERA,
+        notes: 'Apaisant et protecteur',
+      },
+      {
+        slug: INGREDIENT_SLUGS.GLYCERIN,
+        notes: 'Hydratant humectant',
+      },
+      {
+        slug: INGREDIENT_SLUGS.NIACINAMIDE,
+        notes: 'Apaisante, vitamine B',
+      },
+    ],
+  },
+  {
+    slug: 'meme-gelee-demaquillante',
+    name: 'Gelée Fondante Démaquillante',
+    brand: 'Même',
+    kind: 'cleanser',
+    unit: 'pump',
+    totalAmount: 50,
+    amountUnit: 'ml',
+    priceCents: 1500,
+    description:
+      'Gelée démaquillante à double transformation. Haute tolérance pour peaux sensibles, atopiques ou fragilisées.',
+    notes:
+      '100% origine naturelle. Non comédogène. Aloe vera + glycérine + huile de tournesol. Sans coton. Dès 10 ans.',
+    inci: 'CAPRYLIC/CAPRIC TRIGLYCERIDE, OCTYLDODECANOL, GLYCERIN, HELIANTHUS ANNUUS HYBRID OIL, WATER, COCO-CAPRYLATE/CAPRATE, SUCROSE STEARATE, SUCROSE LAURATE, ALOE BARBADENSIS LEAF JUICE POWDER, TOCOPHEROL, PARFUM (FRAGRANCE)',
+    url: 'https://www.meme-cosmetics.com',
+    tags: {
+      primary: [TAG_SLUGS.DOUBLE_NETTOYAGE_1, TAG_SLUGS.PEAU_REACTIVE],
+      secondary: [
+        TAG_SLUGS.PEAU_SENSIBLE,
+        TAG_SLUGS.PEAU_ATOPIQUE,
+        TAG_SLUGS.NON_COMEDOGENE,
+        TAG_SLUGS.BIO_NATUREL,
+        TAG_SLUGS.HYPOALLERGENIQUE,
+        TAG_SLUGS.BAUME_DEMAQUILLANT,
+        TAG_SLUGS.SOIR,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
+      avoid: [],
+    },
+    keyIngredients: [
+      { slug: INGREDIENT_SLUGS.ALOE_VERA, notes: 'Apaisant et protecteur' },
+      { slug: INGREDIENT_SLUGS.GLYCERIN, notes: 'Hydratant' },
+      {
+        slug: INGREDIENT_SLUGS.HUILE_GRAINES_TOURNESOL,
+        notes: 'Dissout le maquillage en douceur',
+      },
+    ],
+  },
+  {
+    slug: 'meme-huile-lavante',
+    name: 'Huile Lavante Visage et Corps',
+    brand: 'Même',
+    kind: 'body-wash',
+    unit: 'pump',
+    totalAmount: 500,
+    amountUnit: 'ml',
+    priceCents: 1800,
+    description:
+      'Huile lavante sans savon surgras au pH physiologique pour peaux atopiques ou fragilisées par traitements anticancéreux.',
+    notes:
+      '96% origine naturelle. Niacinamide + gelée royale bio + concombre bio. Ne mousse pas beaucoup. Visage et corps.',
+    inci: 'WATER, GLYCERIN, LAURYL GLUCOSIDE, SODIUM COCOAMPHOACETATE, SODIUM CHLORIDE, COCO-GLUCOSIDE, GLYCERYL OLEATE, SODIUM COCOYL GLUTAMATE, SODIUM LAURYL GLUCOSE CARBOXYLATE, NIACINAMIDE, CUCUMIS SATIVUS (CUCUMBER) FRUIT EXTRACT, ROYAL JELY EXTRACT, CAPRYLYL/CAPRYL GLUCOSIDE, SODIUM COTTONSEEDAMPHOACETATE, HYDROGENATED PALM GLYCERIDES CITRATE, LECITHIN, ISOPROPYL ALCOHOL, PARFUM (FRAGRANCE), TOCOPHEROL, ASCORBYL PALMITATE, POTASSIUM SORBATE, SODIUM BENZOATE, CITRIC ACID',
+    url: 'https://www.meme-cosmetics.com',
+    tags: {
+      primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.BARRIERE_CUTANEE],
+      secondary: [
+        TAG_SLUGS.PEAU_SENSIBLE,
+        TAG_SLUGS.PEAU_ATOPIQUE,
+        TAG_SLUGS.PEAU_SECHE,
+        TAG_SLUGS.SANS_SAVON,
+        TAG_SLUGS.BIO_NATUREL,
+        TAG_SLUGS.HUILE_NETTOYANTE,
+        TAG_SLUGS.HYPOALLERGENIQUE,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.ZONE_VISAGE,
+        TAG_SLUGS.MATIN,
+        TAG_SLUGS.SOIR,
+      ],
+      avoid: [],
+    },
+    keyIngredients: [
+      { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: 'Apaisante, vitamine B3' },
+      { slug: INGREDIENT_SLUGS.GLYCERIN, notes: 'Agent hydratant' },
+      { slug: INGREDIENT_SLUGS.CUCUMBER_EXTRACT, notes: 'Rafraîchissant et apaisant' },
+    ],
+  },
+  {
+    slug: 'meme-baume-multi-usage',
+    name: 'Baume Multi-Usages',
+    brand: 'Même',
+    kind: 'balm',
+    unit: 'jar',
+    totalAmount: 40,
+    amountUnit: 'ml',
+    priceCents: 1600,
+    description:
+      'Baume réparateur effet pansement pour zones sèches, sensibles et cicatrices. Adapté aux traitements anticancéreux.',
+    notes: `98% origine naturelle. Amande douce + karité + cire de mimosa + cire d'abeilles. Dès 3 ans. Femmes enceintes/allaitantes OK.`,
+    inci: 'PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, POLYGLYCERYL-3 DIISOSTEARATE, BUTYROSPERMUM PARKII (SHEA) BUTTER, CERA ALBA (BEESWAX), DICAPRYLYL CARBONATE, JOJOBA ESTERS, POLYGLYCERYL-4 ISOSTEARATE, COCO-CAPRYLATE/CAPRATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX, ACACIA DECURRENS FLOWER WAX, STEVIOSIDE, POLYGLYCERIN-3, POLYGLYCERYL-3 POLYRICINOLEATE, SORBITAN ISOSTEARATE, GLYCERYL OLEATE, STEARALKONIUM HECTORITE, DISTEARDIMONIUM HECTORITE, PROPYLENE CARBONATE, TOCOPHERYL ACETATE, TOCOPHEROL, ASCORBYL PALMITATE, CITRIC ACID',
+    url: 'https://www.meme-cosmetics.com',
+    tags: {
+      primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CICATRISATION],
+      secondary: [
+        TAG_SLUGS.PEAU_SECHE,
+        TAG_SLUGS.PEAU_SENSIBLE,
+        TAG_SLUGS.PEAU_ATOPIQUE,
+        TAG_SLUGS.BAUME,
+        TAG_SLUGS.BIO_NATUREL,
+        TAG_SLUGS.HYPOALLERGENIQUE,
+        TAG_SLUGS.GROSSESSE_COMPATIBLE,
+        TAG_SLUGS.ZONE_VISAGE,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
+      avoid: [TAG_SLUGS.PEAU_GRASSE],
+    },
+    keyIngredients: [
+      { slug: INGREDIENT_SLUGS.SHEA_BUTTER, notes: 'Réparateur et protecteur' },
+      {
+        slug: INGREDIENT_SLUGS.PRUNUS_AMYGDALUS_DULCIS_OIL,
+        notes: 'Adoucissante et assouplissante',
+      },
+    ],
+  },
+]

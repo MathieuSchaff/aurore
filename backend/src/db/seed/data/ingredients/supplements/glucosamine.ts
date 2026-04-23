@@ -1,6 +1,7 @@
 import { INGREDIENT_TYPES, SUPPLEMENT_CATEGORIES } from '@habit-tracker/shared'
+
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
-import type { IngredientInput } from '../seed-ingredients'
+import type { IngredientInput } from '../types'
 
 export const GLUCOSAMINE: IngredientInput[] = [
   {
@@ -9,7 +10,7 @@ export const GLUCOSAMINE: IngredientInput[] = [
     type: INGREDIENT_TYPES.SUPPLEMENT,
     category: SUPPLEMENT_CATEGORIES.AUTRE,
     description:
-      "Aminosaccharide naturellement présent dans le cartilage, étudié pour le soutien articulaire et associé dans des études observationnelles à une réduction de la mortalité cardiovasculaire.",
+      'Aminosaccharide naturellement présent dans le cartilage, étudié pour le soutien articulaire et associé dans des études observationnelles à une réduction de la mortalité cardiovasculaire.',
     content: `
 # Glucosamine
 

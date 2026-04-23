@@ -97,9 +97,19 @@ n'est utilisé dans aucune route. À nettoyer par cohérence quand on touche.
 - [ ] Retirer `.nullable()` sur `productResponseSchema.category` + aligner
       `Product.category` sur `ProductCategory` (non nullable) dans `shared/src/products/types.ts`.
 
-### 3.2 Tags `avoid` produits — data quality
+### 3.2 Tags produits — data quality résiduelle
 
-Plusieurs marques ont `avoid: []` vides sur des produits avec rétinol/AHA
+**Auto-tagging effectué (2026-04-23)** — 1 017 produits CSV traités par `scripts/auto-tag.ts` :
+- 875 avec primary + secondary (± avoid) remplis
+- 142 avec secondary rempli, **primary encore vide** → traitement manuel requis
+- avoid auto-rempli pour : retinol, retinal, salicylic acid, capryloyl salicylic acid, glycolic acid, benzoyl peroxide
+
+Reste à couvrir manuellement :
+
+**142 produits sans primary** — skin care principalement sans INCI ou INCI sans
+ingrédient connu. Traiter par lot en lisant description/notes.
+
+**Tags `avoid` manquants sur marques curatées** — produits avec rétinol/AHA
 forts / filtres chimiques. Règles de rattrapage (rappel) :
 
 - Rétinoïde → `peau-reactive` + `barriere-cutanee-alteree` +
@@ -112,13 +122,13 @@ forts / filtres chimiques. Règles de rattrapage (rappel) :
 
 Marques non traitées :
 
-- [ ] `labBiarritz` (10 produits)
-- [ ] `occitane` (16 produits)
-- [ ] `solaires` (17 produits — principalement filtres chimiques)
-- [ ] `toners` (7 produits)
-- [ ] `uriage` (11 produits)
-- [ ] `noreva` — concentrations + avoid
-- [ ] `drIdriss` — concentrations étiquettes restantes
+- [x] `labBiarritz` (10 produits) — vérifié, filtres minéraux uniquement, rien à ajouter
+- [x] `occitane` (16 produits) — vérifié, pas de filtres chimiques ni rétinoïdes
+- [x] `solaires` (14 trouvés/17 estimés) — `grossesse-compatible` ajouté sur 14 solaires filtres chimiques : riemann ×3, bioderma ×2, eucerin ×2, dermaceutic, dermalogica, drIdriss, etude-house, skin1004, uriage, vichy
+- [ ] `toners` (6 restants/7) — 1 corrigé (filorga-time-filler-essence, retinyl acetate). 6 restants non identifiés — aucun retinol/filtre chimique détecté dans les toners scannés ; à revoir manuellement
+- [x] `uriage` (11 produits) — `roseliane-soin-teinte-spf50` corrigé (inclus dans solaires)
+- [x] `noreva` — avoid déjà présents dans `noreva-product-tags.ts`
+- [x] `drIdriss` — `disco-block-spf50-teintee` corrigé (inclus dans solaires)
 
 Bioderma : ajouter **Sebium Global** (niacinamide 5/10%) et
 **Pigmentbio C-Concentrate** (AA 10%) avant concentrations.
@@ -163,8 +173,8 @@ shared mais leurs slugs ne sont pas seedés.
 
 À définir par domaine quand un cas d'usage frontend l'exigera :
 
-- [ ] **haircare** — étendre `ingredientTagData` pour inclure
-      `HAIRCARE_INGREDIENT_TAG_TAXONOMY`
+- [x] **haircare** — `ingredientTagData` inclut `HAIRCARE_INGREDIENT_TAG_TAXONOMY`
+      (50 slugs : concern + hair_type + ingredient_attribute + hair_effect)
 - [x] **dental** — `ingredientTagData` inclut `DENTAL_INGREDIENT_TAG_TAXONOMY`
       (34 slugs : concerns + age_group + ingredient_attribute + dental_effect)
 - [ ] **produits non-skincare** — `productTagData` ne couvre que skincare ;
@@ -203,7 +213,7 @@ initiale : l'appliquer également aux ingrédients.
 
 | ID | Sévérité | Problème | Piste |
 |----|---|---|---|
-| P1 | 🔴 Bloquant | Couverture tags faible sur produits CSV (288–792 / 8 053 pour `concern`/`skin_type`/`attribute`). AND multi-filtres retourne peu de résultats. | Améliorer l'algo de tagging (position INCI + claims marketing) |
+| P1 | 🟡 Moyen | Couverture tags faible sur produits CSV — partiellement résolu (auto-tag avril 2026 : 875/1017 produits primary rempli, 142 restants sans primary). AND multi-filtres mieux couvert ; points ouverts : skin_type peu rempli, labels absents (sans-parfum, etc.), concentration INCI non utilisée. | 142 produits manuels restants ; enrichir `INCI_TO_SKINCARE` avec les ingrédients fréquents non matchés |
 | P2 | 🔴 Bloquant | `products.kind` : 25 valeurs, 2 sources, 2 langues → inutilisable en filtre. | Remplacer par `product_type` tag (§3.3 point 1) |
 | P5 | 🟡 Moyen | Recherche texte incohérente : fuzzy (produits, pg_trgm) vs simple (ingrédients) | Harmoniser |
 | P6 | 🟢 Faible | Tri minimal : seulement `name` et `random`. Pas de tri date/popularité/prix. | — |
@@ -260,10 +270,52 @@ initiale : l'appliquer également aux ingrédients.
 | `88e6514` | Tags | Ajout taxonomie supplement (`SUPPLEMENT_INGREDIENT_TAG_TAXONOMY`, 4 catégories) |
 | `ffc9d7f`..`c6058f5` | Ingrédients | Split `ingredient-slugs.ts` par domaine — 4 fichiers (`skincare/`, `supplements/`, `haircare/`, `dental/`) + barrel root 120L + 2 snapshot tests (597 clés, 595 slugs uniques) |
 | `cae8526`..`03ba20f` | Tags | Split `ingredient-tags/index.ts` par domaine — 4 fichiers `ingredient-tags.ts` (376/26/12/0 entries) + shell 61L + 4 snapshot tests (414 entries totales) |
+| (non-commité) | Produits | Connexion haircare (50 marques) + dental (25 marques) dans `data/products/index.ts` — tabs Cheveux/Dents passent de empty state à peuplés |
+| (non-commité) | Ingrédients | Ajout entrées `artemisia-annua` + `ginkgo-biloba` dans les fichiers seed skincare (slugs déclarés sans données) |
+| (non-commité) | Tags | `ingredientTagData` étendu pour inclure `HAIRCARE_INGREDIENT_TAG_TAXONOMY` (50 slugs, 4 catégories) + labels FR dans `TAG_LABELS` |
 
 ---
 
 ## Journal de chantier (non-commité)
+
+### 2026-04-23 — §3.2 Tags avoid filtres chimiques (P1 suite)
+
+`grossesse-compatible` ajouté en `avoid` sur **14 solaires** curatés contenant des filtres UV chimiques :
+
+| Fichier | Produits |
+|---------|----------|
+| riemann | p20-sensitive-face, p20-urban-shield, p20-sensitive-skin |
+| bioderma | photoderm-xdefense-spf50, cicabio-creme-plus-spf50 |
+| eucerin | sun-photoaging-control-spf50, sun-leb-protect-spf50 |
+| dermaceutic | k-ceutic |
+| dermalogica | dynamic-skin-recovery-spf50 |
+| drIdriss | major-fade-disco-block-spf50-teintee |
+| etude-house | soonjung-moisture-sun-cream |
+| skin1004 | hyalu-cica-water-fit-sun-serum-spf50 |
+| uriage | roseliane-soin-teinte-anti-rougeurs-spf50 |
+| vichy-laboratories | capital-soleil-spf50-foaming-lotion |
+
+`filorga-time-filler-essence` (toner) : `grossesse-compatible` + `peau-reactive` + `barriere-cutanee-alteree` ajoutés (RETINYL_ACETATE confirmé en INCI).
+
+labBiarritz et L'Occitane vérifiés : rien à corriger (filtres minéraux / pas de rétinoïdes).
+noreva vérifié : avoid déjà en place dans `noreva-product-tags.ts`.
+
+Reste ouvert : 6 toners non identifiés — aucun rétinoïde/filtre chimique détecté dans les 50+ toners scannés. Nécessite relecture manuelle des fiches produit.
+
+---
+
+### 2026-04-23 — Auto-tagging 1 017 produits CSV (P1 partiel)
+
+Script `backend/src/db/seed/scripts/auto-tag.ts` — pré-remplit `primary`, `secondary`, `avoid`
+sur tous les produits dont les trois tableaux étaient vides.
+
+- **1 017 produits traités** (skincare 554, haircare 342, dental 121)
+- **875** : primary + secondary + avoid calculés depuis INCI + kind
+- **142** : secondary rempli (kind-based), primary encore vide (INCI absent ou sans match concern)
+- **90 fichiers** seed : import `{ TAG_SLUGS }` ajouté automatiquement (manquait dans les seeds CSV)
+- Domaine détecté par path ET par `kind` (shampoings stockés sous `skincare/` correctement routés)
+- P1 rétrogradé de 🔴 Bloquant à 🟡 Moyen
+- TS : `bunx tsc --noEmit` clean après fix imports
 
 ### 2026-04-21 — P6 sort étendu (backend)
 

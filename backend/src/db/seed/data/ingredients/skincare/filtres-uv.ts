@@ -1,6 +1,7 @@
 import { SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
+
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
-import type { IngredientInput } from '../seed-ingredients'
+import type { IngredientInput } from '../types'
 
 export const FILTRES_UV: IngredientInput[] = [
   {
@@ -307,7 +308,7 @@ L'**Ethylhexyl Salicylate** (ou Octisalate) est un ester d'acide salicylique. S'
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.FILTRE_UV,
     description:
-      'Filtre UV organique à large spectre UVB/UVA, très photostable et résistant à l\'eau, utilisé dans les formules solaires haute performance.',
+      "Filtre UV organique à large spectre UVB/UVA, très photostable et résistant à l'eau, utilisé dans les formules solaires haute performance.",
     content: `
 # Diethylhexyl Butamido Triazone (Uvasorb HEB)
 
@@ -466,7 +467,8 @@ Bien que principalement UVB, Uvasorb HEB est apprécié pour sa robustesse en fo
 
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.FILTRE_UV,
-    description: 'Filtre UVB organique liposoluble, couramment utilisé dans les formules à filtres chimiques pour sa bonne efficacité UVB et sa texture légère.',
+    description:
+      'Filtre UVB organique liposoluble, couramment utilisé dans les formules à filtres chimiques pour sa bonne efficacité UVB et sa texture légère.',
     content: `
 # Isoamyl p-Methoxycinnamate (Amiloxate)
 
@@ -490,7 +492,8 @@ L'**Amiloxate** est un ester cinnamique liposoluble offrant une absorption UVB e
 
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.FILTRE_UV,
-    description: "Filtre UVB organique parmi les plus répandus au monde, liposoluble et efficace, bien que controversé pour son impact sur les coraux et son potentiel perturbateur endocrinien.",
+    description:
+      'Filtre UVB organique parmi les plus répandus au monde, liposoluble et efficace, bien que controversé pour son impact sur les coraux et son potentiel perturbateur endocrinien.',
     content: `
 # Ethylhexyl Methoxycinnamate (Octinoxate)
 
@@ -518,7 +521,8 @@ L'**Octinoxate** est l'un des filtres UV chimiques les plus utilisés historique
 
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.FILTRE_UV,
-    description: 'Filtre UV hybride (organique/minéral-like) à large spectre UVA/UVB, photostable, faible pénétration cutanée grâce à ses particules micronisées.',
+    description:
+      'Filtre UV hybride (organique/minéral-like) à large spectre UVA/UVB, photostable, faible pénétration cutanée grâce à ses particules micronisées.',
     content: `
 # Méthylène Bis-Benzotriazolyl Tétraméthylbutylphénol (Tinosorb M)
 
@@ -544,7 +548,8 @@ Le **Tinosorb M** est un filtre UV de nouvelle génération combinant les mécan
 
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.FILTRE_UV,
-    description: 'Filtre UV large spectre sous forme nanoparticulaire (Tinosorb A2B), photostable, à faible pénétration cutanée, offrant une protection UVA/UVB sans voile blanc.',
+    description:
+      'Filtre UV large spectre sous forme nanoparticulaire (Tinosorb A2B), photostable, à faible pénétration cutanée, offrant une protection UVA/UVB sans voile blanc.',
     content: `
 # Tris-Biphényl Triazine (Tinosorb A2B)
 

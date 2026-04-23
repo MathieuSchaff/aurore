@@ -1,6 +1,7 @@
 import { SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
+
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
-import type { IngredientInput } from '../seed-ingredients'
+import type { IngredientInput } from '../types'
 
 export const ANTIOXYDANTS_VITAMINES: IngredientInput[] = [
   {
@@ -2606,7 +2607,7 @@ ASCORBYL PALMITATE
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
-      'Dérivé stable et hydrophile de la vitamine C, combinant les bénéfices antioxydants de l\'ascorbate avec les propriétés hydratantes du glycérol.',
+      "Dérivé stable et hydrophile de la vitamine C, combinant les bénéfices antioxydants de l'ascorbate avec les propriétés hydratantes du glycérol.",
     content: `
 # 3-O-Glyceryl Ascorbate
 
@@ -2655,6 +2656,26 @@ L'**EGCG Glucoside** est une forme glycosylée de l'épigallocatéchine gallate 
 
 ## 🛡️ Précautions & Sécurité
 * Excellente tolérance, convient à tous les types de peau, y compris les plus sensibles.
+`,
+  },
+  {
+    name: 'Ginkgo Biloba Leaf Extract',
+    slug: INGREDIENT_SLUGS.GINKGO_BILOBA,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Extrait de feuilles de ginkgo biloba, antioxydant puissant qui améliore la microcirculation, illumine le teint et ralentit le vieillissement cutané.',
+    content: `
+# Ginkgo Biloba Leaf Extract : L'Antioxydant Circulatoire
+Le **Ginkgo Biloba Leaf Extract** est un extrait de l'une des plantes les plus anciennes au monde, riche en flavonoïdes et en terpénoïdes aux propriétés antioxydantes et vasculaires éprouvées.
+
+## ✨ Points Forts & Bénéfices
+* **Antioxydant Puissant** : Neutralise les radicaux libres et protège le collagène cutané du stress oxydatif.
+* **Action Circulatoire** : Améliore la microcirculation, ce qui réduit les cernes et les poches.
+* **Anti-Âge** : Contribue à maintenir l'éclat et à prévenir le vieillissement prématuré lié à la pollution.
+
+## 🛡️ Précautions & Sécurité
+* Bonne tolérance générale. Rare sensibilisation possible chez les personnes allergiques aux plantes de la famille Ginkgoaceae.
 `,
   },
 ]

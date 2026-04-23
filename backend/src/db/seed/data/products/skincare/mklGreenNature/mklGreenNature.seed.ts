@@ -1,0 +1,98 @@
+import { TAG_SLUGS } from '../../../tags'
+import type { UnifiedProductSeed } from '../../types'
+
+export const MKL_GREEN_NATURE_SEED: UnifiedProductSeed[] = [
+  {
+    slug: 'mkl-green-nature-gel-douche-surgras-lait-d-anesse-bio-1l-270691',
+    name: "MKL Green Nature Gel Douche Surgras Lait d'Ânesse Bio 1L",
+    brand: 'MKL Green Nature',
+    kind: 'body-wash',
+    unit: 'pump',
+    totalAmount: 1,
+    amountUnit: 'l',
+    priceCents: 639,
+    description: '',
+    notes: '',
+    inci: 'Aqua, coco-glucoside, sodium coco-sulfate, coco-betaine, donkey milk*, aloe barbadensis leaf juice powder*, argan oil polyglyceryl-6 esters**, glycerin, glyceryl oleate, parfum, citric acid, sodium benzoate, sodium gluconate, potassium sorbate.',
+    url: 'https://www.atida.fr/mkl-green-nature-gel-douche-surgras-lait-d-anesse-bio-1l.html',
+    imageUrl:
+      'https://assets.atida.com/transform/17ca2df2-f8db-410b-ae03-3d7f73cebf2b/MKL-Green-Nature-Gel-Douche-Surgras-Lait-d-Anesse-Bio-1L?io=transform:extend,width:600,height:600',
+    tags: {
+      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      avoid: [],
+    },
+    keyIngredients: [],
+  },
+  {
+    slug: 'mkl-green-nature-cosm-ethik-gel-douche-monoi-de-tahiti-1l-270623',
+    name: "MKL Green Nature Cosm'Ethik Gel Douche Monoï de Tahiti 1L",
+    brand: 'MKL Green Nature',
+    kind: 'body-wash',
+    unit: 'pump',
+    totalAmount: 1,
+    amountUnit: 'l',
+    priceCents: 585,
+    description: '',
+    notes: '',
+    inci: 'Aqua (water), Sodium laureth sulfate, Cocamide dea, Cocamidopropyl, Betaine, Glycerin, Hydrolized wheat protein, Polyquaternium-22, Tocopherol, Gardenia tahitensis flower extract, Sodium chloride, Parfum (fragrance), Benzyl alcohol, Sodium benzoate, Cocos nucifera (coconut) oil, Potassium sorbate, Citric acid, Benzophenone-4, Benzyl salicylate, Geraniol, Linalool, ci 19140, ci 15985.',
+    url: 'https://www.atida.fr/mkl-green-nature-gel-douche-monoi-de-tahiti-1l.html',
+    imageUrl:
+      'https://assets.atida.com/transform/7bdacbd0-e44c-4679-bdec-762f0066c697/MKL-Green-Nature-Cosm-Ethik-Gel-Douche-Monoi-de-Tahiti-1L?io=transform:extend,width:600,height:600',
+    tags: {
+      primary: [TAG_SLUGS.ANTI_OXYDANT],
+      secondary: [
+        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.REPARATEUR,
+        TAG_SLUGS.NETTOYANT_CORPS,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
+      avoid: [],
+    },
+    keyIngredients: [],
+  },
+  {
+    slug: 'mkl-green-nature-cosm-ethik-gel-douche-aloe-vera-du-mexique-1l-270621',
+    name: "MKL Green Nature Cosm'Ethik Gel Douche Aloe Vera du Mexique 1L",
+    brand: 'MKL Green Nature',
+    kind: 'body-wash',
+    unit: 'pump',
+    totalAmount: 1,
+    amountUnit: 'l',
+    priceCents: 637,
+    description: '',
+    notes: '',
+    inci: "Aqua (eau), laureth sulfate de sodium, glycérine, cocamide dea, chlorure de sodium, poudre de jus de feuilles d'aloe barbadensis*, protéine de riz hydrolysée, cocamidopropyl bétaïne, parfum (parfum), benzoate de sodium, sorbate de potassium, diacétate de glutamate tétrasodique, acide citrique, coco -glucoside, oléate de glycéryle, tocophérol, CI 19140 (jaune 5), CI 17200 (laque rouge 33), CI 42090 (bleu 1), hexyl cinnamal, linalol.",
+    url: 'https://www.atida.fr/mkl-green-nature-gel-douche-aloe-vera-du-mexique-1l.html',
+    imageUrl:
+      'https://assets.atida.com/transform/55ae3b3d-8e89-47f6-98e3-fc753a43ca2b/MKL-Green-Nature-Cosm-Ethik-Gel-Douche-Aloe-Vera-du-Mexique-1L?io=transform:extend,width:600,height:600',
+    tags: {
+      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      avoid: [],
+    },
+    keyIngredients: [],
+  },
+  {
+    slug: 'mkl-green-nature-aqua-huile-de-douche-dermo-apaisante-bio-1l-270791',
+    name: 'MKL Green Nature - Aqua : Huile de Douche Dermo-Apaisante BIO** 1L',
+    brand: '',
+    kind: 'body-wash',
+    unit: 'pump',
+    totalAmount: 1,
+    amountUnit: 'l',
+    priceCents: 899,
+    description: '',
+    notes: '',
+    inci: '',
+    url: 'https://www.atida.fr/mkl-green-nature-aqua-huile-de-douche-dermo-apaisante-bio-1l.html',
+    imageUrl:
+      'https://assets.atida.com/transform/1c9264a2-5daa-4034-ba46-3c40f63ea2d9/MKL-Green-Nature-Aqua-Huile-de-Douche-Dermo-Apaisante-BIO-1L?format=webp&quality=80&io=transform:extend,width:310,height:310',
+    tags: {
+      primary: [],
+      secondary: [TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      avoid: [],
+    },
+    keyIngredients: [],
+  },
+]

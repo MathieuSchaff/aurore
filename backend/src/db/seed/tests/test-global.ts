@@ -1,9 +1,9 @@
 import { ingredientTagMap } from '../data/ingredient-tags'
 import { ingredientData } from '../data/ingredients'
 import { INGREDIENT_SLUGS } from '../data/ingredients/ingredient-slugs'
-import { allProductData, allIngredientProductTags, allProductTagsMap } from '../data/products'
-import { allProductSlugs } from '../products/products-slugs'
-import { TAG_SLUGS, ingredientTagData, productTagData } from '../data/tags'
+import { allIngredientProductTags, allProductData, allProductTagsMap } from '../data/products'
+import { allProductSlugs } from '../data/products/products-slugs'
+import { ingredientTagData, productTagData, TAG_SLUGS } from '../data/tags'
 
 /**
  * Audit global du système de données (Silencieux).

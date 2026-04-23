@@ -1,12 +1,12 @@
-import { INGREDIENT_SLUGS } from '../ingredient-slugs'
 import { SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
-import type { IngredientInput } from '../seed-ingredients'
+
+import { INGREDIENT_SLUGS } from '../ingredient-slugs'
+import type { IngredientInput } from '../types'
 
 export const DIVERS_NON_CLASSES: IngredientInput[] = [
   {
     name: 'NMN (Nicotinamide Mononucléotide)',
     slug: INGREDIENT_SLUGS.NMN,
-
 
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
@@ -41,7 +41,6 @@ Le **Nicotinamide Mononucléotide (NMN)** est la nouvelle frontière de la cosm�
     name: 'Myrte Commun (Myrtus Communis Leaf Extract)',
     slug: INGREDIENT_SLUGS.MYRTUS_COMMUNIS_LEAF_EXTRACT,
 
-
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
@@ -75,7 +74,6 @@ L'extrait de feuilles de **Myrte** est un actif puissant qui agit sur les marque
     name: 'Vigne du Tonnerre (Tripterygium Wilfordii Callus Extract)',
     slug: INGREDIENT_SLUGS.TRIPTERYGIUM_WILFORDII_CALLUS_EXTRACT,
 
-
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
@@ -107,7 +105,6 @@ Cet extrait issu de la culture de cellules souches (callus) de la "Vigne du Tonn
   {
     name: 'Laminaire (Laminaria Digitata)',
     slug: INGREDIENT_SLUGS.LAMINARIA_DIGITATA,
-
 
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
@@ -142,7 +139,6 @@ Surnommée "fouet des sorcières", cette algue brune concentre les oligo-éléme
     name: 'Fucus (Fucus Vesiculosus)',
     slug: INGREDIENT_SLUGS.FUCUS_VESICULOSUS,
 
-
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
@@ -175,7 +171,6 @@ Le Fucus est une algue de bord de mer qui contient des fucoïdanes, des molécul
   {
     name: 'Alaria (Alaria Esculenta)',
     slug: INGREDIENT_SLUGS.ALARIA_ESCULENTA,
-
 
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
@@ -210,7 +205,6 @@ Cette algue survit dans des courants forts, développant des molécules de rési
     name: 'Wakamé (Undaria Pinnatifida)',
     slug: INGREDIENT_SLUGS.UNDARIA_PINNATIFIDA,
 
-
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
@@ -243,7 +237,6 @@ Le Wakamé contient du fucose sulfaté, une molécule qui aide à maintenir l'ar
   {
     name: "Mousse d'Irlande (Chondrus Crispus)",
     slug: INGREDIENT_SLUGS.CHONDRUS_CRISPUS,
-
 
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
@@ -278,7 +271,6 @@ Cette algue rouge, source de carraghénanes, est la référence pour créer un f
     name: 'Dulse (Palmaria Palmata)',
     slug: INGREDIENT_SLUGS.PALMARIA_PALMATA,
 
-
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
@@ -311,7 +303,6 @@ La Dulse est riche en vitamines (A, B12) et en minéraux. Elle est utilisée pou
   {
     name: 'Jania Rubens (Algue Rouge Calcaire)',
     slug: INGREDIENT_SLUGS.JANIA_RUBENS,
-
 
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
@@ -346,7 +337,6 @@ Cette algue pompon est unique par sa concentration en minéraux et sa capacité 
     name: 'Laitue de Mer (Ulva Lactuca)',
     slug: INGREDIENT_SLUGS.ULVA_LACTUCA,
 
-
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
@@ -379,7 +369,6 @@ La Laitue de Mer est une algue verte qui possède des propriétés "élastine-li
   {
     name: 'Chlorelle (Chlorella Vulgaris)',
     slug: INGREDIENT_SLUGS.CHLORELLA_VULGARIS,
-
 
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
@@ -414,7 +403,6 @@ La Chlorelle est une micro-algue reconnue pour sa capacité à stimuler la synth
     name: 'Spiruline (Spirulina Platensis)',
     slug: INGREDIENT_SLUGS.SPIRULINA_PLATENSIS,
 
-
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
@@ -448,7 +436,6 @@ La Spiruline est l'un des ingrédients les plus complets pour nourrir la peau et
     name: 'Dunaliella Salina (Micro-algue Orangée)',
     slug: INGREDIENT_SLUGS.DUNALIELLA_SALINA,
 
-
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
@@ -481,7 +468,6 @@ Cette micro-algue produit des caroténoïdes pour se protéger des UV intenses. 
     name: 'Algue Bleue (Aphanizomenon Flos-aquae)',
     slug: INGREDIENT_SLUGS.APHANIZOMENON_FLOS_AQUAE,
 
-
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
@@ -513,7 +499,6 @@ L’**Aphanizomenon Flos-aquae (AFA)** est l'une des formes de vie les plus anci
   {
     name: 'Vétiver (Vetiveria Zizanoides)',
     slug: INGREDIENT_SLUGS.VETIVERIA_ZIZANOIDES,
-
 
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
@@ -548,7 +533,6 @@ Le **Vetiveria Zizanoides** est une racine profonde dont l'huile essentielle est
     name: 'Huile de Pin des Marais (Pinus Palustris)',
     slug: INGREDIENT_SLUGS.PINUS_PALUSTRIS,
 
-
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
@@ -580,7 +564,6 @@ L'huile de **Pin des Marais** est reconnue pour ses propriétés aromatiques et 
   {
     name: 'Huile de Babassu (Orbignya Oleifera)',
     slug: INGREDIENT_SLUGS.HUILE_BABASSU,
-
 
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
@@ -614,7 +597,6 @@ L'huile de **Pin des Marais** est reconnue pour ses propriétés aromatiques et 
     name: 'Acides Aminés de Riz (Rice Amino Acids)',
     slug: INGREDIENT_SLUGS.RICE_AMINO_ACIDS,
 
-
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
@@ -647,7 +629,6 @@ L'huile de **Pin des Marais** est reconnue pour ses propriétés aromatiques et 
     name: 'Isosorbide Dicaprylate',
     slug: INGREDIENT_SLUGS.ISOSORBIDE_DICAPRYLATE,
 
-
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
@@ -679,6 +660,7 @@ L'huile de **Pin des Marais** est reconnue pour ses propriétés aromatiques et 
   {
     name: 'Amarante (Amaranthus Caudatus)',
     slug: INGREDIENT_SLUGS.AMARANTHUS_CAUDATUS,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
     description:
       'Source exceptionnelle de squalène naturel et d’acides gras, elle renforce la barrière lipidique et adoucit la peau.',
@@ -706,7 +688,6 @@ Utilisé pour nourrir intensément et protéger la peau contre la déshydratatio
   {
     name: 'Extrait de Graines de Roucou (Bixa Orellana Seed Extract)',
     slug: INGREDIENT_SLUGS.BIXA_ORELLANA,
-
 
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
@@ -759,7 +740,6 @@ L'extrait de Bixa Orellana agit comme un véritable filtre de beauté biologique
     name: 'Ophiopogon japonicus',
     slug: INGREDIENT_SLUGS.OPHIOPOGON_JAPONICUS,
 
-
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
@@ -798,6 +778,7 @@ L'extrait de Bixa Orellana agit comme un véritable filtre de beauté biologique
   {
     name: 'Humectants, émollients et occlusifs',
     slug: INGREDIENT_SLUGS.HUMECTANTS_EMOLLIENTS_OCCLUSIFS,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       "Les trois piliers de l'hydratation cutanée. Les humectants attirent l'eau, les émollients lissent et renforcent la barrière, les occlusifs scellent l'hydratation et limitent la TEWL.",
@@ -832,7 +813,6 @@ Forment un film protecteur limitant la perte d'eau transépidermique (TEWL). Peu
     name: 'Peptides',
     slug: INGREDIENT_SLUGS.PEPTIDES,
 
-
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description: "Chaînes d'acides aminés qui boostent le collagène et raffermissent.",
@@ -850,11 +830,10 @@ variable selon le type (souvent 1-5%).`,
     name: 'Spinacia Oleracea (Spinach) Leaf Extract',
     slug: INGREDIENT_SLUGS.SPINACIA_OLERACEA,
 
-
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
-      'Extrait de feuilles d\'épinard riche en antioxydants (flavonoïdes, caroténoïdes), protège la peau des agressions environnementales et de la pollution.',
+      "Extrait de feuilles d'épinard riche en antioxydants (flavonoïdes, caroténoïdes), protège la peau des agressions environnementales et de la pollution.",
     content: `
 # Spinacia Oleracea (Extrait d'Épinard)
 
@@ -873,7 +852,6 @@ Extrait aqueux ou glycériné des feuilles d'épinard, riche en flavonoïdes (lu
   {
     name: 'Taraxacum Officinale (Dandelion) Leaf Extract',
     slug: INGREDIENT_SLUGS.TARAXACUM_OFFICINALE,
-
 
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
@@ -898,11 +876,10 @@ Extrait issu des feuilles et racines de pissenlit, plante aux vertus dépurative
     name: 'Aristotelia Chilensis (Maqui Berry) Fruit Extract',
     slug: INGREDIENT_SLUGS.ARISTOTELIA_CHILENSIS,
 
-
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
-      'Extrait de maqui berry du Chili, l\'un des antioxydants les plus puissants connus, protège contre le stress oxydatif et la pollution.',
+      "Extrait de maqui berry du Chili, l'un des antioxydants les plus puissants connus, protège contre le stress oxydatif et la pollution.",
     content: `
 # Aristotelia Chilensis (Maqui Berry)
 
@@ -925,7 +902,6 @@ Le **Maqui Berry** (Aristotelia chilensis) est un superfruit chilien avec l'un d
   {
     name: 'Tephrosia Purpurea Seed Extract',
     slug: INGREDIENT_SLUGS.TEPHROSIA_PURPUREA,
-
 
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
@@ -950,11 +926,10 @@ Actif d'origine botanique issu d'une légumineuse utilisée dans la médecine ay
     name: 'Eau Thermale Avène (Avène Thermal Spring Water)',
     slug: INGREDIENT_SLUGS.AVENE_THERMAL_SPRING_WATER,
 
-
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
-      'Eau thermale unique d\'Avène (Hérault), reconnue pour ses propriétés apaisantes et anti-irritantes exceptionnelles sur les peaux sensibles et réactives.',
+      "Eau thermale unique d'Avène (Hérault), reconnue pour ses propriétés apaisantes et anti-irritantes exceptionnelles sur les peaux sensibles et réactives.",
     content: `
 # Eau Thermale Avène
 

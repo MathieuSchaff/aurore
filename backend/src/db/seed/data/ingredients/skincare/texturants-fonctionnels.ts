@@ -1,11 +1,13 @@
 import { SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
+
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
-import type { IngredientInput } from '../seed-ingredients'
+import type { IngredientInput } from '../types'
 
 export const TEXTURANTS_FONCTIONNELS: IngredientInput[] = [
   {
     name: 'Ahnfeltia Concinna Extract',
     slug: INGREDIENT_SLUGS.AHNFELTIA_CONCINNA,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       'Un extrait d’algue rouge des eaux profondes de l’Océan Pacifique, riche en minéraux et en polymères marins pour une hydratation longue durée.',
@@ -36,6 +38,7 @@ L'**Ahnfeltia Concinna** est une algue rouge précieuse dont l'extrait concentre
   {
     name: 'Biosaccharide Gum-1',
     slug: INGREDIENT_SLUGS.BIOSACCHARIDE_GUM_1,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       'Un sucre biotechnologique (Fucose) offrant un effet apaisant immédiat et une hydratation sensorielle unique, agissant comme un "S.O.S." pour les peaux stressées.',
@@ -66,6 +69,7 @@ Issu de la fermentation bactérienne de substrats végétaux, le **Biosaccharide
   {
     name: 'Silica',
     slug: INGREDIENT_SLUGS.SILICA,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       'Minéral utilisé pour absorber l’excès de sébum, matifier la peau et améliorer la texture des formules.',
@@ -93,6 +97,7 @@ Très utilisée dans les poudres, fonds de teint, soins matifiants et produits p
   {
     name: 'Extrait d’Écorce de Saule Noir',
     slug: INGREDIENT_SLUGS.SALIX_NIGRA,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       'Extrait végétal naturellement riche en dérivés salicylés, utilisé pour purifier la peau et favoriser le renouvellement cellulaire.',
@@ -121,6 +126,7 @@ Le saule noir contient naturellement des composés salicylés proches de l’aci
   {
     name: 'Extrait de Riz',
     slug: INGREDIENT_SLUGS.ORYZA_SATIVA,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       'Extrait issu du riz, reconnu pour ses propriétés apaisantes, antioxydantes et éclaircissantes douces.',
@@ -148,6 +154,7 @@ Souvent utilisé dans les soins asiatiques traditionnels pour illuminer et adouc
   {
     name: 'Orange Douce',
     slug: INGREDIENT_SLUGS.CITRUS_AURANTIUM_DULCIS,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       'Extrait ou huile essentielle d’orange douce, utilisée pour ses propriétés tonifiantes, antioxydantes et son parfum naturel frais.',
@@ -177,6 +184,7 @@ Issue du zeste ou du fruit de l’orange douce, cette matière première peut ê
   {
     name: 'Hydrocolloïde',
     slug: INGREDIENT_SLUGS.HYDROCOLLOID,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       'Une technologie de gel absorbant qui crée un milieu humide optimal pour la cicatrisation tout en protégeant la plaie des agressions extérieures.',
@@ -200,6 +208,7 @@ Issue du zeste ou du fruit de l’orange douce, cette matière première peut ê
   {
     name: 'Verveine Officinale (Verbena officinalis)',
     slug: INGREDIENT_SLUGS.VERVEINE,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       "Actif tonifiant et clarifiant aux vertus apaisantes, idéal pour réveiller l'éclat des peaux fatiguées et stressées.",
@@ -241,6 +250,7 @@ L'hydrolat de Verveine est particulièrement apprécié pour sa stabilité et sa
   {
     name: 'Menthe Poivrée (Mentha piperita)',
     slug: INGREDIENT_SLUGS.MENTHE_POIVREE,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       "Actif purifiant et rafraîchissant majeur, idéal pour rééquilibrer les peaux mixtes à grasses et stimuler l'éclat.",
@@ -282,6 +292,7 @@ La Menthe Poivrée utilisée dans les laboratoires dermo-cosmétiques (comme ceu
   {
     name: 'Amidon de Maïs (Zea Mays Starch)',
     slug: INGREDIENT_SLUGS.ZEA_MAYS_STARCH,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       "L'alternative végétale haute performance au talc : un agent matifiant naturel qui absorbe l'excès de sébum tout en apportant un fini velouté unique.",
@@ -329,6 +340,7 @@ Le Zea Mays Starch est l'un des ingrédients les plus inertes et sécuritaires :
   {
     name: 'Sphingomonas Ferment Extract',
     slug: INGREDIENT_SLUGS.SPHINGOMONAS_FERMENT,
+    type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description: 'Postbiotique. Rééquilibre le microbiome cutané.',
     content: `# Sphingomonas Ferment Extract

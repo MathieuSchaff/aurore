@@ -1,6 +1,7 @@
 import { INGREDIENT_TYPES, SUPPLEMENT_CATEGORIES } from '@habit-tracker/shared'
+
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
-import type { IngredientInput } from '../seed-ingredients'
+import type { IngredientInput } from '../types'
 
 export const PSYLLIUM: IngredientInput[] = [
   {
@@ -9,7 +10,7 @@ export const PSYLLIUM: IngredientInput[] = [
     type: INGREDIENT_TYPES.SUPPLEMENT,
     category: SUPPLEMENT_CATEGORIES.PREBIOTIQUE,
     description:
-      "Fibre soluble naturelle issue des teguments de Plantago ovata. Ameliore le transit, le cholesterol, la glycemie et la sante du microbiote intestinal avec un niveau de preuve eleve.",
+      'Fibre soluble naturelle issue des teguments de Plantago ovata. Ameliore le transit, le cholesterol, la glycemie et la sante du microbiote intestinal avec un niveau de preuve eleve.',
     content: `
 # Psyllium (Ispaghul)
 

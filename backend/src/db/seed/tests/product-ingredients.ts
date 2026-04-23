@@ -1,4 +1,4 @@
-import { allProductData, allIngredientProductTags } from '../data/products'
+import { allIngredientProductTags, allProductData } from '../data/products'
 
 type ProductWithSlug = (typeof allProductData)[number] & { slug: string }
 

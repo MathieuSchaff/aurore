@@ -1,11 +1,11 @@
 import type { ArticleInput } from '../seed-articles'
 
 export const fruitsBenchmark: ArticleInput = {
-  title: "Fruits : tier list par densité nutritionnelle",
+  title: 'Fruits : tier list par densité nutritionnelle',
   slug: 'fruits-benchmark',
   category: 'nutrition',
   excerpt:
-    "Classement des 30+ fruits courants par densité en antioxydants, fibres, vitamines et composés bioactifs. Du S-tier (avocat, baies, grenade) au D-tier (fruits secs très sucrés). Angle nutritionnel, pas médical.",
+    'Classement des 30+ fruits courants par densité en antioxydants, fibres, vitamines et composés bioactifs. Du S-tier (avocat, baies, grenade) au D-tier (fruits secs très sucrés). Angle nutritionnel, pas médical.',
   publishedAt: null,
   content: `Tous les fruits ne se valent pas sur le plan nutritionnel. Certains combinent densité en micronutriments, fibres et polyphénols **bioactifs** ; d'autres sont surtout sources de sucres avec peu de cofacteurs. Ce benchmark classe 30+ fruits courants sur une échelle **S → D**.
 

@@ -1,7 +1,7 @@
 import type { ArticleInput } from '../seed-articles'
 
 export const gingembre: ArticleInput = {
-  title: "Gingembre : anti-inflammatoire, digestif, cardio (guide complet)",
+  title: 'Gingembre : anti-inflammatoire, digestif, cardio (guide complet)',
   slug: 'gingembre-guide-complet',
   category: 'phytotherapie',
   excerpt:

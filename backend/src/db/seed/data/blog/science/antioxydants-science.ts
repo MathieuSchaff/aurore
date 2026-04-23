@@ -1,7 +1,7 @@
 import type { ArticleInput } from '../seed-articles'
 
 export const antioxydantsScience: ArticleInput = {
-  title: "Antioxydants : ce qui aide, ce qui éteint les signaux utiles",
+  title: 'Antioxydants : ce qui aide, ce qui éteint les signaux utiles',
   slug: 'antioxydants-science',
   category: 'science',
   excerpt:
