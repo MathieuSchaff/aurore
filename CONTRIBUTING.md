@@ -27,7 +27,7 @@ type(scope): short description
 
 **Types:** `feat`, `fix`, `refactor`, `chore`, `docs`, `test`, `style`
 
-**Scopes:** `auth`, `habits`, `products`, `shared`, `api`, `ui`
+**Scopes:** `auth`, `products`, `shared`, `api`, `ui`
 
 Examples from this repo:
 

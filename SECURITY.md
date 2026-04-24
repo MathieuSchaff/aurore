@@ -45,7 +45,7 @@ A global error handler sanitizes all error responses. In production, internal st
 ## Database Security
 
 ### Row-Level Security (defense in depth)
-Tenant-scoped tables (`habits`, `tasks`, `profiles`, `user_products`, `purchases`, `user_preferences`, `user_dermo_profiles`, `user_bans`, …) run with `FORCE ROW LEVEL SECURITY`. Policies filter on `auth.uid()` / `auth.role()`, two `SECURITY INVOKER` SQL functions (schema `auth`) that read per-transaction GUCs `app.user_id` and `app.role`.
+Tenant-scoped tables (`tasks`, `profiles`, `user_products`, `purchases`, `user_preferences`, `user_dermo_profiles`, `user_bans`, …) run with `FORCE ROW LEVEL SECURITY`. Policies filter on `auth.uid()` / `auth.role()`, two `SECURITY INVOKER` SQL functions (schema `auth`) that read per-transaction GUCs `app.user_id` and `app.role`.
 
 Each authenticated request is wrapped in a transaction by the `withRlsContext` middleware (`backend/src/features/auth/rls-context.middleware.ts`), which binds those GUCs via `set_config(...)` before handing control to the route. Pre-identity flows (signup, OAuth, demo, email confirmation) call the `bindRlsContext` helper (`backend/src/db/rls.ts`) to set the same context inside their own transaction.
 
