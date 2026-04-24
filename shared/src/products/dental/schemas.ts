@@ -14,15 +14,4 @@ export const dentalProductFilterOptionsSchema = z.object({
   }),
 })
 
-export const dentalListProductsQuery = z.object({
-  kind: z.string().optional(),
-  brand: z.string().optional(),
-  ingredient: z.string().optional(),
-  avoid_for: z.string().optional(),
-  page: z.coerce.number().int().min(1).default(1),
-  limit: z.coerce.number().int().min(1).max(100).default(20),
-  sort: z.enum(['name', 'random']).optional(),
-})
-
 export type DentalProductFilterOptions = z.infer<typeof dentalProductFilterOptionsSchema>
-export type DentalListProductsFilters = z.infer<typeof dentalListProductsQuery>
