@@ -6,7 +6,7 @@
  * externes (fichiers CSV, noms d'ingrédients, etc.) et les "Tags" internes de l'application.
  *
  * Utilisation : Principalement utilisé dans le script d'initialisation de la base de données
- * (`@backend/src/db/seed/seed-skincare.ts`) au sein de la fonction `getTargetTagSlugs()`.
+ * (`@backend/src/db/seed/runners/seed-skincare.ts`) au sein de la fonction `getTargetTagSlugs()`.
  *
  * Raison d'être : Automatiser intelligemment l'enrichissement des données lors de leur import.
  * Cela permet d'attribuer automatiquement toutes les étiquettes pertinentes (nettoyant visage,

@@ -133,7 +133,7 @@ export const CATEGORY_UNIT_MAP: Record<string, ProductUnit> = {
   Mists: PRODUCT_UNITS.skincare.SPRAY,
   'Spray Moisturizer': PRODUCT_UNITS.skincare.SPRAY,
   'Spray Moisturizers': PRODUCT_UNITS.skincare.SPRAY,
-  Sunscreen: PRODUCT_UNITS.skincare.TUBE, // Defaults to tube, though some are sprays or pumps
+  Sunscreen: PRODUCT_UNITS.solaire.TUBE, // Defaults to tube, though some are sprays or pumps
 
   // Droppers
   Serums: PRODUCT_UNITS.skincare.DROPPER,
@@ -160,7 +160,7 @@ export const CATEGORY_UNIT_MAP: Record<string, ProductUnit> = {
   'Exfoliators, Polishes, & Scrubs': PRODUCT_UNITS.skincare.JAR,
 
   // Solid
-  'Bar Soaps': PRODUCT_UNITS.skincare.BAR,
+  'Bar Soaps': PRODUCT_UNITS.bodycare.BAR,
   'Facial Bar Soap': PRODUCT_UNITS.skincare.BAR,
 
   // Packs / Patches (Single use or sheets)
