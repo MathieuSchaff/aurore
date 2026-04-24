@@ -10,9 +10,9 @@ Ingredients data (70 files): 7 adopted (dental content fill, commit
 `817cc6c`), 63 skipped. Products data (201 diff entries → 87 unique
 stash paths): 1 type narrow (`23fda57`) + 24 stash-only products
 across 5 brands (`91eca78`). Doc sync: `shared/products/STATE.md`
-§12 + seed `ROADMAP.md` updated. Only remaining task is the
-post-salvage **RLS tightening** (non-stash-driven, deferred to when
-the public-profile feature ships).
+§12 + seed `ROADMAP.md` updated. Post-salvage RLS tightening also
+done (commit `414df53`, migration `0031_little_komodo.sql`).
+**Salvage complete — no remaining tasks.**
 
 ## Context
 
@@ -367,10 +367,12 @@ restructure). Stash is often stale here. Rules:
   Minor off-topic: §3.3 says "81 fichiers actifs" but `find … *.seed.ts`
   returns 181 post-reorg. Not fixed here — outside salvage scope.
 
-### Post-salvage tightening (not stash-driven)
-- `profiles_select_public` RLS policy currently uses `USING (true)` (from
-  stash). Tighten to `USING (${t.profilePublic})` when the public-profile
-  feature actually ships. Generate a new migration at that point.
+### Post-salvage tightening — ✅ done (commit `414df53`)
+- `profiles_select_public` RLS tightened from `USING (true)` to
+  `USING (${t.profilePublic})`. Public-profile feature (profile_public
+  column + `/profile/privacy-settings` PATCH/GET) had already shipped,
+  so the stash's overly-permissive policy was a latent security gap.
+  Migration `0031_little_komodo.sql`.
 
 ## How to resume (fresh Claude session)
 
