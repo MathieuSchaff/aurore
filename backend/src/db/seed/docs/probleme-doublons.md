@@ -23,7 +23,7 @@ Un même produit présent dans les deux sources aura deux noms différents à ca
 - **Données de santé/sécurité** : Les listes d'ingrédients (INCI) sont universelles, mais les conseils d'utilisation ou les catégories pourraient être mal interprétés si la langue n'est pas maîtrisée par l'utilisateur.
 
 ## 4. Ce qui fonctionne techniquement (mais ne règle pas le fond)
-Le code dans `backend/src/db/seed/otherdata/product-associations.ts` est déjà "préparé" pour l'anglais. Il contient des maps de correspondance qui traduisent les termes anglais du CSV vers les types internes de l'application :
+Le code dans `backend/src/db/seed/data/otherdata/product-associations.ts` est déjà "préparé" pour l'anglais. Il contient des maps de correspondance qui traduisent les termes anglais du CSV vers les types internes de l'application :
 - `Facial Cleansers` (CSV) → `PRODUCT_KINDS.skincare.CLEANSER` (Interne)
 - `Moisturizers` (CSV) → `PRODUCT_KINDS.skincare.MOISTURIZER` (Interne)
 - `Jar` / `Pump` / `Tube` (CSV) → Unités internes.
