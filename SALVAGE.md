@@ -10,14 +10,72 @@ falsely marked as ✅ done. See `AUDIT.md` for the full 260-file inventory.
 
 ## Resources
 
-| Item | Location |
-|------|----------|
-| Stash tag | `lost-stash-2026-04-22` (hash `0f6252e`) |
-| Offline bundle | `~/Mathieu/backups/aurore-stash/lost-stash-2026-04-22.bundle` |
-| Worktree | `../aurore-stash-recovery/` (detached HEAD at stash) |
-| Full inventory | `AUDIT.md` (committed) |
-| Per-file decisions | `SALVAGE_INVENTORY.md` (shared zone only) |
-| Callers map | `SALVAGE_CALLERS.md` (dead-type blast radius) |
+| Item | Location | Purpose |
+|------|----------|---------|
+| Stash commit hash | `0f6252e663054e4f7ee76d229717027ddff6fe62` | Immutable git object in `.git/objects/0f/6252e…` |
+| Stash tag | `lost-stash-2026-04-22` | Named pointer so `git gc` never prunes it |
+| Worktree | `../aurore-stash-recovery/` | Detached HEAD at stash — browse files visually |
+| Offline bundle | `~/Mathieu/backups/aurore-stash/lost-stash-2026-04-22.bundle` (5.3 MB) | Self-contained backup, works even if the repo is nuked |
+| Full file inventory | `AUDIT.md` (committed) | All 260 files listed, grouped by zone |
+| Per-file decisions | `SALVAGE_INVENTORY.md` | Stash-vs-main diff analysis, shared zone |
+| Callers map | `SALVAGE_CALLERS.md` | Blast radius of dead-type deletions |
+
+### Why three layers of redundancy
+
+- **Tag** = fast access, local, survives anything short of `git gc --prune=now` or `git tag -d`.
+- **Worktree** = visual side-by-side comparison without switching branches.
+- **Bundle** = disaster recovery. Portable single file. Survives full repo loss, disk wipe, etc.
+
+## Recovery scenarios
+
+### Normal case — everything still in place
+
+```bash
+# Verify tag
+git rev-parse lost-stash-2026-04-22          # → 0f6252e66305…
+
+# Verify worktree
+git worktree list | grep aurore-stash-recovery
+
+# Verify bundle
+ls -lh ~/Mathieu/backups/aurore-stash/lost-stash-2026-04-22.bundle
+git bundle verify ~/Mathieu/backups/aurore-stash/lost-stash-2026-04-22.bundle
+```
+
+### Worktree was removed
+
+Just recreate it:
+
+```bash
+git worktree add ../aurore-stash-recovery lost-stash-2026-04-22
+```
+
+### Tag was deleted (but repo intact)
+
+The commit object is still in `.git/objects/` — find it with fsck and retag:
+
+```bash
+git fsck --dangling | grep "dangling commit"
+# Look for the one dated 2026-04-22 21:15 with "WIP on main: d7e8524"
+git tag lost-stash-2026-04-22 0f6252e663054e4f7ee76d229717027ddff6fe62
+```
+
+### Everything is gone from the repo (worst case)
+
+Restore from the bundle:
+
+```bash
+cd /home/schaff/Mathieu/projets/aurore
+git bundle verify ~/Mathieu/backups/aurore-stash/lost-stash-2026-04-22.bundle
+git fetch ~/Mathieu/backups/aurore-stash/lost-stash-2026-04-22.bundle lost-stash-2026-04-22:lost-stash-2026-04-22
+# Now the tag is back, hash 0f6252e66…
+git worktree add ../aurore-stash-recovery lost-stash-2026-04-22
+```
+
+### Bundle is also gone
+
+Unrecoverable. Accept the loss. The commit history of what was done is still in
+`AUDIT.md` (committed) and this doc.
 
 ## What has been salvaged
 
