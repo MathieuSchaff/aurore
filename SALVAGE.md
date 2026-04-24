@@ -2,9 +2,13 @@
 
 Entry point for resuming the salvage work across Claude sessions.
 
-**Status (2026-04-25):** shared, backend-non-seed and frontend zones are
-done. Only the **seed zone (209 files)** and **doc sync** remain —
-jump straight to [Zone seed](#zone-seed---remaining-209-files) below.
+**Status (2026-04-25):** shared, backend-non-seed, frontend, seed
+**infra**, **blog data** and **ingredients data** zones done. Seed
+infra (21 files) salvaged in 5 commits: 14 adopted, 4 deferred,
+3 skipped. Blog data (31 files): 0 adopted — main superseded. Ingredients
+data (70 files): 7 adopted (dental content fill, commit `817cc6c`),
+63 skipped — main ahead everywhere else. Remain: **products seed (87)**
++ doc sync. Jump to [Zone seed](#zone-seed---remaining).
 
 ## Context
 
@@ -126,6 +130,61 @@ Unrecoverable. Accept the loss. The commit history of what was done is still in
 
 Pre-salvage safety commit with user's uncommitted WIP + `AUDIT.md`.
 
+### Commit `0077eb2` — `refactor(seed): type IngredientSeed.type with IngredientType`
+
+**Infra utils (1 file)** — `seed/utils/markdown-validator.ts`:
+narrow loose `string` to shared `IngredientType` union; replace
+`.forEach(x => warnings.push(x))` with `warnings.push(...arr)`.
+
+### Commit `bd0dc78` — `refactor(seed): fail loud on missing slug IDs + fix skincare CSV path`
+
+**Infra runners (2 files)**:
+- `seed-core.ts` — `requireId()` helper replaces `!` non-null
+  assertions; miss throws named error instead of undefined crash.
+  Preserved main's `as Parameters<typeof createProduct>[1][]` cast
+  (stash dropped it, broke inference).
+- `seed-skincare.ts` — default `csvPath` aligned with current
+  `data/products/` layout; inline `ProductUnit` union → shared type.
+
+### Commit `907a7a0` — `test(seed): cover dental/haircare/supplement tag taxonomies`
+
+**Infra tests (3 files)**:
+- `shared-schemas-vs-tags.test.ts` — scope check now accepts all four
+  ingredient taxonomies + all four product taxonomies; `avoid` bucket
+  also accepts `hair_type` slugs. Kept main's
+  `KNOWN_MISSING = ['huile', 'ampoule']` (stash regressed to `['huile']`).
+- `seed-data-integrity.test.ts` — `PRODUCT_UNITS` → `PRODUCT_UNIT_VALUES`
+  (main's PRODUCT_UNITS is nested per-category after `0bebaf3`).
+- `verify-ingredient-slugs.ts` — `Set<string>` typing, drop `any`.
+
+Rejected from stash: `ingredient-slugs-split.test.ts` count bumps
+(597→599) and `ingredient-tags-split.test.ts` (414→597) — depend on
+ingredient seed data still pending. `skincare/INDEX` import rename
+(case-only, breaks on Linux).
+
+Test baseline: 7 fails (≤ 10).
+
+### Commit `b81591e` — `refactor(seed): wire haircare tags + fix unit domain for sunscreen/bar`
+
+**Infra otherdata/tags (3 files)**:
+- `tags/index.ts` — `TAG_SLUGS` spreads `DENTAL_INGREDIENT_TAG_SLUGS`,
+  `HAIRCARE_INGREDIENT_TAG_SLUGS`, `HAIRCARE_PRODUCT_TAG_SLUGS`;
+  `productTagData` adds `haircareProductTags`; full haircare coverage
+  added to `TAG_LABELS` (product types, routine steps, effects, labels).
+  Completes `55a91f5` taxonomy wiring.
+- `otherdata/product-associations.ts` — `Sunscreen` →
+  `PRODUCT_UNITS.solaire.TUBE`, `Bar Soaps` → `bodycare.BAR`
+  (post `0bebaf3` nested unit restructure).
+- `otherdata/tag-associations.ts` — docstring path fix.
+
+Rejected: `ingredient-tags/index.ts` case-only rename
+(`ingredient-tags` → `INGREDIENT-TAGS`) breaks Linux fs.
+
+### Commit `083c688` — `docs(seed): fix stale product-associations.ts path`
+
+**Infra docs (1 file)** — `probleme-doublons.md`: `otherdata/` →
+`data/otherdata/` path fix.
+
 ## What was REJECTED from the stash
 
 The stash was partially out-of-date vs main. These changes were NOT adopted:
@@ -175,15 +234,57 @@ Use `git diff HEAD lost-stash-2026-04-22 -- <path>` to inspect each.
 - `package.json` adds `react-router-dom` (project uses TanStack Router)
 - `routes/ingredients|products/new.tsx` flat structure (main keeps `_authenticated/` layout)
 
-### Zone seed — ⏳ remaining (209 files)
+### Zone seed — ⏳ remaining
 
-Session stopped here. Pick this up in a fresh Claude session.
+**Infra (21)** — ✅ done this session. 14 adopted, 4 deferred,
+3 skipped. See commits `0077eb2`, `bd0dc78`, `907a7a0`, `b81591e`,
+`083c688` above.
 
-**Breakdown** (per `AUDIT.md`):
+Deferred infra (pick up with the matching data zone):
+- `ingredient-slugs-split.test.ts` + `ingredient-tags-split.test.ts` —
+  hardcoded counts (597, 599, 414, 597) depend on ingredient data.
+  Adopt when salvaging `data/ingredients/`.
+- `docs/ROADMAP.md` + `docs/STATE.md` — rewrite post-data-salvage to
+  reflect actual state, not stash's view.
+
+Skipped infra (no value in adopting):
+- `seed/utils/batch.ts` — `.forEach` arrow-body cosmetic only.
+- `seed/runners/seed-blog.ts` — `.forEach` → `for...of` cosmetic only.
+- `seed/data/ingredient-tags/index.ts` — case-only rename
+  (`ingredient-tags` → `INGREDIENT-TAGS`), breaks Linux fs.
+
+**Data remaining (87 files)** per `AUDIT.md`:
 - 87 products seed (`backend/src/db/seed/data/products/**`)
-- 70 ingredients seed (`backend/src/db/seed/data/ingredients/**`)
-- 31 blog seed (`backend/src/db/seed/data/blog/**`)
-- 21 seed infra (runners, tests, utils, docs)
+
+**Ingredients data (70) — ✅ done this session (commit `817cc6c`).**
+- 7 dental data files adopted: `remineralisation.ts`, `antimicrobiens.ts`,
+  `excipients.ts`, `divers.ts`, `abrasifs.ts`, `anti-sensibilite.ts`,
+  `blanchissants.ts`. Main had empty `description`/`content` placeholders
+  and wrong `SKINCARE_INGREDIENT_CATEGORIES` references; stash filled
+  real FR copy + valid `DENTAL_INGREDIENT_CATEGORIES`. `excipients.ts`
+  merged per-entry (main's extra Cellulose Gum entry preserved).
+- 63 skipped (all regressive vs main):
+  - Top-level (`index.ts`, `ingredient-slugs.ts`): case renames
+    (`ingredient-slugs` → `INGREDIENT-SLUGS`, breaks Linux fs) and drops
+    new dental slugs (zinc, actifs-complementaires, tensioactifs-doux).
+  - `supplements/*` (3): pure deletions, 0 stash additions.
+  - `haircare/*` (20): main 6× larger content (sample `huiles-vegetales`
+    966 vs 151 lines). Haircare fleshed out post-stash.
+  - `skincare/*` (21): cosmetic `'skincare'` → `INGREDIENT_TYPES.SKINCARE`
+    const only; no content gain.
+  - Dental top-level (`index.ts`, `ingredient-slugs.ts`,
+    `ingredient-tags.ts`, HEAD-only `ingredient.md`, `zinc.ts`,
+    `actifs-complementaires.ts`, `tensioactifs-doux.ts`): main ahead.
+
+**Blog data (31) — ✅ skipped this session.** Main fully superseded:
+- `article-data.ts`, `nutrition/index.ts` — stash regressively removed
+  entries main added (`routinesArticles`, `planAlimentationOptimale`).
+- `science/index.ts` + `skincare/index.ts` — main relocated
+  `humectants-emollients-occlusifs` from skincare→science; stash still
+  on old layout. Content byte-identical between the two locations.
+- Stash-only file `skincare/humectants-emollients-occlusifs.ts` =
+  duplicate of main's `science/…` version. No adoption.
+- 0 commits needed.
 
 **⚠️ Most at-risk zone.** Main has re-done a lot of seed since Apr 22
 (category-split reorg, dental/supplement domains fleshed out, blog
@@ -193,18 +294,14 @@ restructure). Stash is often stale here. Rules:
 - If main has clearly evolved past the stash (new structure, new domain
   split), favor main. Stash only wins when it fixes something main still
   has wrong OR adds data main never got.
-- Seed test baseline: **10 pre-existing fails** in `make test-dev
-  ARGS="seed/tests"` (see commit `55a91f5` summary). Any salvage must
-  stay at or below this count.
+- Seed test baseline: **7 pre-existing fails** in `make test-dev
+  ARGS="seed/tests"` (post-infra salvage, down from 10). Any data
+  salvage must stay at or below this count.
 
 **Suggested order** (lowest risk first):
-1. **Seed infra** (21) — runners/utils/docs. Diff first; some may already
-   match main (stash was derived from it).
-2. **Blog seed** (31) — check if main's blog restructure supersedes.
-3. **Ingredients seed** (70) — dental/supplement taxonomies now fleshed
-   out post-`55a91f5`; stash may have useful ingredient rows, especially
-   for the new tag slugs (email-affaibli, secheresse-buccale, etc.).
-4. **Products seed** (87) — last. Depends on tag taxonomies from the
+1. ~~Blog seed~~ — done (skipped, main superseded).
+2. ~~Ingredients seed~~ — done (7 dental files adopted, rest skipped).
+3. **Products seed** (87) — last. Depends on tag taxonomies from the
    shared zone, so must come after ingredients.
 
 **Known cascading data decisions** from `55a91f5`:
@@ -220,10 +317,13 @@ restructure). Stash is often stale here. Rules:
 
 ### Doc sync — ⏳ remaining
 - `shared/src/products/STATE.md` §12 — update to reflect what is actually
-  ✅ now (the taxonomies implemented by `55a91f5` + the dental/supplement
-  product slug rules). Today it still over-claims.
+  ✅ now (the taxonomies implemented by `55a91f5` + `b81591e` haircare
+  wiring + the dental/supplement product slug rules). Today it still
+  over-claims.
 - `backend/src/db/seed/docs/STATE.md` + `ROADMAP.md` — expect updates
-  once the seed zone lands (per CLAUDE.md seed workflow).
+  once the seed **data** zones land (per CLAUDE.md seed workflow).
+  Stash versions deferred: they describe stash's seed-world, not
+  current reality.
 
 ### Post-salvage tightening (not stash-driven)
 - `profiles_select_public` RLS policy currently uses `USING (true)` (from
