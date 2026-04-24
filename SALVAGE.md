@@ -101,6 +101,23 @@ Unrecoverable. Accept the loss. The commit history of what was done is still in
 
 **Test result:** `make test-dev ARGS="products/tests/products"` → 115/115 pass.
 
+### Commit `55a91f5` — `refactor(products): salvage shared tag taxonomies per domain`
+
+**Shared (11 files)** — per-domain taxonomy adoptions:
+- `haircare/{tag-slugs,tag-taxonomy}.ts` — empty stubs → full impls (concerns, hair_type, product_type, routine_step, hair_effect, product_label)
+- `supplement/{tag-slugs,tag-taxonomy}.ts` — empty stubs → full impls (goals, moment, restriction, product_type, product_label) + 4 new product forms (comprime, ampoule-buvable, huile-orale, spray-sublingual)
+- `dental/{tag-slugs,tag-taxonomy}.ts` — added email-affaibli, secheresse-buccale, ado, brossette, kit-blanchiment, remineralisation, sans-edulcorants-artificiels; blanchiment-dentaire superseded by kit-blanchiment
+- `skincare/{tag-slugs,tag-taxonomy}.ts` — removed 10 misfiled slugs (dental product_types + supplement forms now in their respective domains)
+- `{dental,haircare,supplement}/tag-filters.ts` — UX label refinements (Effet→Bénéfice, Type→Forme, Restriction→Contre-indication)
+
+**Backend (4 files)** — caller patches:
+- `seed/data/tags/index.ts` — `TAG_SLUGS` spreads `DENTAL_PRODUCT_TAG_SLUGS` + `SUPPLEMENT_PRODUCT_TAG_SLUGS`; `productTagData` adds `supplementProductTags`; 19 new TAG_LABELS entries for new slugs
+- `seed/data/products/dental/gum/gum.seed.ts` — `BLANCHIMENT_DENTAIRE` → `KIT_BLANCHIMENT`
+- `seed/scripts/auto-tag.ts` — same rename + kind mapping
+- `seed/tests/shared-schemas-vs-tags.test.ts` — `KNOWN_MISSING` adds `'ampoule'` (superseded by `ampoule-buvable`)
+
+**Test result:** products 115/115 pass; seed tests back to baseline (10 pre-existing fails unchanged, 0 delta).
+
 ### Commit `493872c` — `wip: snapshot before salvaging lost stash 2026-04-22`
 
 Pre-salvage safety commit with user's uncommitted WIP + `AUDIT.md`.
@@ -117,25 +134,7 @@ The stash was partially out-of-date vs main. These changes were NOT adopted:
 
 Use `git diff HEAD lost-stash-2026-04-22 -- <path>` to inspect each.
 
-### Zone shared — 11 files remaining
-
-Taxonomy data + filter-meta enrichment. Small per-file, mostly mechanical.
-
-```
-shared/src/products/dental/tag-filters.ts
-shared/src/products/dental/tag-slugs.ts
-shared/src/products/dental/tag-taxonomy.ts
-shared/src/products/haircare/tag-filters.ts
-shared/src/products/haircare/tag-slugs.ts
-shared/src/products/haircare/tag-taxonomy.ts
-shared/src/products/skincare/tag-slugs.ts
-shared/src/products/skincare/tag-taxonomy.ts
-shared/src/products/supplement/tag-filters.ts
-shared/src/products/supplement/tag-slugs.ts
-shared/src/products/supplement/tag-taxonomy.ts
-```
-
-Decisions pre-computed in `SALVAGE_INVENTORY.md` → mostly "adopt stash" (data fills STATE.md §12 claims as done).
+### Zone shared — ✅ done (commit `55a91f5`)
 
 ### Zone backend (non-seed) — 6 files remaining
 
