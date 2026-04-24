@@ -104,7 +104,7 @@ const SLUG_TO_KEY: Record<string, string> = {
   'produit-coiffant': 'PRODUIT_COIFFANT',
   dentifrice: 'DENTIFRICE',
   'bain-de-bouche': 'BAIN_DE_BOUCHE',
-  'blanchiment-dentaire': 'BLANCHIMENT_DENTAIRE',
+  'kit-blanchiment': 'KIT_BLANCHIMENT',
   'fil-dentaire': 'FIL_DENTAIRE',
   patch: 'PATCH',
   // Routine steps
@@ -344,7 +344,7 @@ const KIND_HAIRCARE_PRIMARY: Record<string, string> = {
 const KIND_DENTAL_PRIMARY: Record<string, string> = {
   toothpaste: 'dentifrice',
   mouthwash: 'bain-de-bouche',
-  'teeth-whitening': 'blanchiment-dentaire',
+  'teeth-whitening': 'kit-blanchiment',
   floss: 'fil-dentaire',
 }
 
