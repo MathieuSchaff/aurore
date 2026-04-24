@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router'
 
 import { Hero } from '../Hero/Hero'
-import { ObjDropper, ObjJar, ObjPerfume, ObjSpray, ObjTarget, ObjVial } from './FeatureObjects'
+import { ObjDropper, ObjJar, ObjPerfume, ObjTarget, ObjVial } from './FeatureObjects'
 import './HomePage.css'
 
 const features = [
@@ -22,15 +22,6 @@ const features = [
     backTitle: 'Ingrédients',
     backDesc: "Lisez ce qu'il y a dans vos produits, en clair. Plus besoin de décoder l'INCI seul.",
     backCta: 'Explorer',
-  },
-  {
-    id: 'habits',
-    to: '/habits' as const,
-    frontLabel: 'Routine',
-    object: <ObjSpray />,
-    backTitle: 'Habitudes',
-    backDesc: 'Votre routine matin et soir. Cochez ce que vous avez fait, rien de plus.',
-    backCta: 'Mes habitudes',
   },
   {
     id: 'wishlist',
