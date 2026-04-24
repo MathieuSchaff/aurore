@@ -395,7 +395,7 @@ discriminated union). La conversion est localisée dans `buildListProductsQuery`
 
 ---
 
-## 12. Dette / TODO cross-layer (snapshot 2026-04-22)
+## 12. Dette / TODO cross-layer (snapshot 2026-04-25)
 
 ### Shared — ✅ propre
 - Units restructurées par category (mirror kinds).
@@ -446,8 +446,11 @@ discriminated union). La conversion est localisée dans `buildListProductsQuery`
 - `listProducts` : filtres par domaine, pagination, tri, prix, ingredient, avoid_for.
 
 ### Seed (hors scope shared mais lié taxonomie)
+- [x] `UnifiedProductSeed.unit` typé `ProductUnit` (commit `23fda57`).
+      Un typo unit échoue désormais à la compile plutôt qu'au runtime.
 - [ ] Migrer `nutripure` (supplement) : `unit: 'pack'` générique → `'tablet' | 'capsule' | 'powder'`
-      selon le kind.
+      selon le kind. Type-valide aujourd'hui (`pack ∈ ProductUnit`) mais
+      sémantiquement incorrect pour un supplement.
 
 ### Option future
 - [ ] Discriminated union `unit ↔ category` dans `createProductSchema` /

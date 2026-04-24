@@ -2,15 +2,17 @@
 
 Entry point for resuming the salvage work across Claude sessions.
 
-**Status (2026-04-25):** shared, backend-non-seed, frontend, seed
-**infra**, **blog data**, **ingredients data** and **products data**
-zones done. Seed infra (21 files) salvaged in 5 commits: 14 adopted,
-4 deferred, 3 skipped. Blog data (31 files): 0 adopted — main
-superseded. Ingredients data (70 files): 7 adopted (dental content
-fill, commit `817cc6c`), 63 skipped. Products data (201 diff
-entries → 87 unique stash paths): 1 type narrow (`23fda57`) +
-24 stash-only products across 5 brands (`91eca78`). Remain:
-**doc sync** only. Jump to [Doc sync](#doc-sync--%EF%B8%8F-remaining).
+**Status (2026-04-25):** all zones done — shared, backend-non-seed,
+frontend, seed **infra/blog/ingredients/products** data, doc sync.
+Seed infra (21 files) salvaged in 5 commits: 14 adopted, 4 deferred,
+3 skipped. Blog data (31 files): 0 adopted — main superseded.
+Ingredients data (70 files): 7 adopted (dental content fill, commit
+`817cc6c`), 63 skipped. Products data (201 diff entries → 87 unique
+stash paths): 1 type narrow (`23fda57`) + 24 stash-only products
+across 5 brands (`91eca78`). Doc sync: `shared/products/STATE.md`
+§12 + seed `ROADMAP.md` updated. Only remaining task is the
+post-salvage **RLS tightening** (non-stash-driven, deferred to when
+the public-profile feature ships).
 
 ## Context
 
@@ -351,15 +353,19 @@ restructure). Stash is often stale here. Rules:
   `gummy` moved out of skincare tag-slugs. Any skincare seed using
   them must switch domain tag or drop the tag.
 
-### Doc sync — ⏳ remaining
-- `shared/src/products/STATE.md` §12 — update to reflect what is actually
-  ✅ now (the taxonomies implemented by `55a91f5` + `b81591e` haircare
-  wiring + the dental/supplement product slug rules). Today it still
-  over-claims.
-- `backend/src/db/seed/docs/STATE.md` + `ROADMAP.md` — expect updates
-  once the seed **data** zones land (per CLAUDE.md seed workflow).
-  Stash versions deferred: they describe stash's seed-world, not
-  current reality.
+### Doc sync — ✅ done
+- `shared/src/products/STATE.md` §12 — date bumped to 2026-04-25,
+  added ✅ entry for `UnifiedProductSeed.unit: ProductUnit` narrow,
+  kept nutripure semantic-migration TODO (type-valide, sémantiquement
+  toujours à migrer). Rest of §12 claims verified against main
+  (taxonomies + meta confirmed populated post `55a91f5` + `b81591e`).
+- `backend/src/db/seed/docs/ROADMAP.md` — 2 entries added to
+  "Corrigés récemment" (`23fda57`, `91eca78`).
+- `backend/src/db/seed/docs/STATE.md` — unchanged. §3.3 already
+  described post-narrow state (`unit: ProductUnit`) and §8.9
+  `drSam/` stub still factually stale (2 empty files, unimported).
+  Minor off-topic: §3.3 says "81 fichiers actifs" but `find … *.seed.ts`
+  returns 181 post-reorg. Not fixed here — outside salvage scope.
 
 ### Post-salvage tightening (not stash-driven)
 - `profiles_select_public` RLS policy currently uses `USING (true)` (from

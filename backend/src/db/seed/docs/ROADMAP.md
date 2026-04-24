@@ -268,6 +268,8 @@ initiale : l'appliquer également aux ingrédients.
 | `876f494` | Tags | Prefix `SKINCARE_INGREDIENT_*` sur les exports tag slugs/taxonomy, ajout stubs domaine |
 | `ddd35b7` | Tags | Split tag slugs produit en fichiers par domaine (`shared/src/products/<domaine>/tag-slugs.ts`) |
 | `88e6514` | Tags | Ajout taxonomie supplement (`SUPPLEMENT_INGREDIENT_TAG_TAXONOMY`, 4 catégories) |
+| `23fda57` | Produits | `UnifiedProductSeed.unit` typé `ProductUnit` (avant `string` free-form). Un typo unit échoue désormais à la compile |
+| `91eca78` | Produits | Salvage de 24 produits skincare (stash 2026-04-22) sur 5 marques — nooance +14, azelaique +5, dr-g +2, vt +2, eqqualberry +1 |
 | `ffc9d7f`..`c6058f5` | Ingrédients | Split `ingredient-slugs.ts` par domaine — 4 fichiers (`skincare/`, `supplements/`, `haircare/`, `dental/`) + barrel root 120L + 2 snapshot tests (597 clés, 595 slugs uniques) |
 | `cae8526`..`03ba20f` | Tags | Split `ingredient-tags/index.ts` par domaine — 4 fichiers `ingredient-tags.ts` (376/26/12/0 entries) + shell 61L + 4 snapshot tests (414 entries totales) |
 | (non-commité) | Produits | Connexion haircare (50 marques) + dental (25 marques) dans `data/products/index.ts` — tabs Cheveux/Dents passent de empty state à peuplés |
