@@ -48,12 +48,15 @@ return c.json(err('not_found'), HTTP_STATUS.NOT_FOUND)
 `withRlsContext` wraps the request in a Postgres RLS transaction — must run **after** `requireJwtAuth`.
 
 ```typescript
+// Paths assume features/your-feature/routes.ts — adjust depth if nested differently
 import { requireJwtAuth } from '../auth/middleware'
 import { withRlsContext } from '../auth/rls-context.middleware'
 
 app.use('*', requireJwtAuth)
 app.use('*', withRlsContext)
 ```
+
+**withRlsContext invariant:** Services must re-throw Postgres errors. If a service catches a DB error and returns a normal response, `onError` never fires, `c.error` stays null, and `withRlsContext` attempts to COMMIT an already-aborted transaction → 500. Never swallow DB errors silently.
 
 ## Route → Service → DB
 
