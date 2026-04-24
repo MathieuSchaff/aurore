@@ -1,1 +1,0 @@
-export { logsRoutes } from './routes'
