@@ -7,7 +7,7 @@ import {
   INGREDIENT_TYPE_VALUES,
   PRODUCT_CATEGORY_VALUES,
   PRODUCT_KINDS,
-  PRODUCT_UNITS,
+  PRODUCT_UNIT_VALUES,
   SUPPLEMENT_CATEGORY_VALUES,
 } from '@habit-tracker/shared'
 
@@ -196,7 +196,7 @@ describe('Seed data integrity', () => {
     })
 
     it('every product has a valid ProductUnit', () => {
-      const validUnits = new Set<string>(Object.values(PRODUCT_UNITS))
+      const validUnits = new Set<string>(PRODUCT_UNIT_VALUES)
       const bad = allProductData
         .filter((p) => !validUnits.has(p.unit))
         .map((p) => `${p.slug} → ${p.unit}`)

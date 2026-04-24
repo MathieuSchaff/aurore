@@ -19,12 +19,22 @@ import { seedBlog } from './seed-blog'
 
 // ── Utilitaires de Validation ─────────────────────────────────────────────────
 
+// Lookup in a slug→id map after `pruneRelationshipPairs` guaranteed the key
+// exists. A miss here means the prune step is broken, so throw loudly.
+function requireId(map: Map<string, string>, key: string, entity: string): string {
+  const id = map.get(key)
+  if (id === undefined) throw new Error(`Missing ${entity} id for slug "${key}"`)
+  return id
+}
+
 function warnInvalidEntries() {
   const invalid = allIngredientProductTags.filter((i) => !i.ingredientSlug)
   if (invalid.length === 0) return
 
   console.warn(`\n⚠️  ${invalid.length} entrée(s) avec ingredientSlug manquant :`)
-  invalid.forEach((i) => console.warn(`  → product=${i.productSlug}`))
+  for (const i of invalid) {
+    console.warn(`  → product=${i.productSlug}`)
+  }
   console.warn('  Vérifie que la propriété est bien nommée "slug" dans les fichiers source.\n')
 }
 
@@ -79,14 +89,18 @@ function pruneRelationshipPairs<T extends Record<string, unknown>>(
     console.warn(
       `\n⚠️  ${missingLeft.size} ${leftEntityName}(s) référencés mais non créés (ignorés) :`
     )
-    missingLeft.forEach((s) => console.warn(`   - ${s}`))
+    for (const s of missingLeft) {
+      console.warn(`   - ${s}`)
+    }
   }
 
   if (missingRight.size > 0) {
     console.warn(
       `\n⚠️  ${missingRight.size} ${rightEntityName}(s) référencés mais non créés (ignorés) :`
     )
-    missingRight.forEach((s) => console.warn(`   - ${s}`))
+    for (const s of missingRight) {
+      console.warn(`   - ${s}`)
+    }
   }
 
   return kept
@@ -196,7 +210,7 @@ export async function seedCore(shouldClean = true) {
     await seedBatch(
       'ingrédients',
       correctedIngredientData,
-      (ing) => createIngredient(tx, user.id, ing as Parameters<typeof createIngredient>[2]),
+      (ing) => createIngredient(tx, user.id, ing),
       (ing) => ing.slug,
       true
     )
@@ -231,8 +245,8 @@ export async function seedCore(shouldClean = true) {
       ({ slug, tagSlug, relevance }) =>
         addTagToProduct(
           tx,
-          productSlugToId.get(slug)!,
-          productTagSlugToId.get(tagSlug)!,
+          requireId(productSlugToId, slug, 'product'),
+          requireId(productTagSlugToId, tagSlug, 'productTag'),
           relevance
         ),
       ({ slug, tagSlug }) => `${slug} ↔ ${tagSlug}`
@@ -252,15 +266,17 @@ export async function seedCore(shouldClean = true) {
     await seedBatch(
       'productIngredients',
       prunedProductIngredients,
-      ({ productSlug, ingredientSlug, notes, concentrationValue, concentrationUnit }) =>
-        addIngredientToProduct(tx, {
-          productId: productSlugToId.get(productSlug)!,
-          ingredientId: ingredientSlugToId.get(ingredientSlug!)!,
+      ({ productSlug, ingredientSlug, notes, concentrationValue, concentrationUnit }) => {
+        if (!ingredientSlug) throw new Error(`Missing ingredientSlug for product ${productSlug}`)
+        return addIngredientToProduct(tx, {
+          productId: requireId(productSlugToId, productSlug, 'product'),
+          ingredientId: requireId(ingredientSlugToId, ingredientSlug, 'ingredient'),
           notes: toText(notes),
           concentrationValue: toNumeric(concentrationValue),
           concentrationUnit: toText(concentrationUnit),
           concentrationPer: null,
-        }),
+        })
+      },
       ({ productSlug, ingredientSlug }) => `${productSlug} ↔ ${ingredientSlug}`
     )
 
@@ -281,8 +297,8 @@ export async function seedCore(shouldClean = true) {
       ({ slug, tagSlug, relevance }) =>
         addTagToIngredient(
           tx,
-          ingredientSlugToId.get(slug)!,
-          ingredientTagSlugToId.get(tagSlug)!,
+          requireId(ingredientSlugToId, slug, 'ingredient'),
+          requireId(ingredientTagSlugToId, tagSlug, 'ingredientTag'),
           relevance
         ),
       ({ slug, tagSlug }) => `${slug} ↔ ${tagSlug}`
@@ -310,7 +326,9 @@ export async function seedCore(shouldClean = true) {
     const missingFillers = FILLER_SLUGS.filter((s) => !ingredientSlugToId.has(s))
     if (missingFillers.length > 0) {
       console.warn(`⚠️  ${missingFillers.length} slugs fillers non trouvés en DB :`)
-      missingFillers.forEach((s) => console.warn(`   - ${s}`))
+      for (const s of missingFillers) {
+        console.warn(`   - ${s}`)
+      }
     }
   })
 

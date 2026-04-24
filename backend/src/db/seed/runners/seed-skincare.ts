@@ -1,4 +1,9 @@
-import { PRODUCT_CATEGORIES, PRODUCT_KINDS, type ProductCategory } from '@habit-tracker/shared'
+import {
+  PRODUCT_CATEGORIES,
+  PRODUCT_KINDS,
+  type ProductCategory,
+  type ProductUnit,
+} from '@habit-tracker/shared'
 
 import slugify from '@sindresorhus/slugify'
 import { inArray } from 'drizzle-orm'
@@ -126,20 +131,24 @@ function getTargetTagSlugs(
 ): string[] {
   const slugs = new Set<string>()
 
-  CSV_CATEGORY_TAG_MAP[usageType]?.forEach((s) => slugs.add(s))
-  CSV_CATEGORY_TAG_MAP[category]?.forEach((s) => slugs.add(s))
+  for (const s of CSV_CATEGORY_TAG_MAP[usageType] ?? []) slugs.add(s)
+  for (const s of CSV_CATEGORY_TAG_MAP[category] ?? []) slugs.add(s)
 
   const lowerName = rawName.toLowerCase()
-  Object.entries(NAME_KEYWORD_TAG_MAP).forEach(([kw, tagSlugs]) => {
-    if (lowerName.includes(kw)) tagSlugs.forEach((s) => slugs.add(s))
-  })
+  for (const [kw, tagSlugs] of Object.entries(NAME_KEYWORD_TAG_MAP)) {
+    if (lowerName.includes(kw)) {
+      for (const s of tagSlugs) slugs.add(s)
+    }
+  }
 
   if (inci) {
     const lowerInci = inci.toLowerCase()
-    Object.entries(INGREDIENT_TAG_MAP).forEach(([ing, tagSlugs]) => {
+    for (const [ing, tagSlugs] of Object.entries(INGREDIENT_TAG_MAP)) {
       const regex = new RegExp(`\\b${ing}\\b`, 'i')
-      if (regex.test(lowerInci)) tagSlugs.forEach((s) => slugs.add(s))
-    })
+      if (regex.test(lowerInci)) {
+        for (const s of tagSlugs) slugs.add(s)
+      }
+    }
   }
 
   return Array.from(slugs)
@@ -147,7 +156,10 @@ function getTargetTagSlugs(
 
 // ── Fonction Principale ───────────────────────────────────────────────────────
 
-export async function seedSkincare(csvPath = 'src/db/seed/products/otherData.csv', limit?: number) {
+export async function seedSkincare(
+  csvPath = 'src/db/seed/data/products/otherData.csv',
+  limit?: number
+) {
   console.log('🚀 DÉMARRAGE DU SEED SKINCARE (Import CSV)\n')
 
   const user = await getOrCreateSeedUser()
@@ -237,18 +249,7 @@ export async function seedSkincare(csvPath = 'src/db/seed/products/otherData.csv
             brand: item.brand,
             category: productCategory,
             kind: productKind,
-            unit: item.unit as
-              | 'pump'
-              | 'dropper'
-              | 'tube'
-              | 'jar'
-              | 'spray'
-              | 'aerosol'
-              | 'bottle'
-              | 'roller'
-              | 'pack'
-              | 'cartridge'
-              | 'bar',
+            unit: item.unit as ProductUnit,
             totalAmount: item.totalAmount ?? undefined,
             amountUnit: item.amountUnit ?? undefined,
             inci: item.inci,

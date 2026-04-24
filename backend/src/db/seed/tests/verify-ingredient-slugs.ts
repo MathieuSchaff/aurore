@@ -13,8 +13,8 @@ import { allProductSlugs } from '../data/products/products-slugs'
 function verifyIngredientProductSlugs() {
   console.log('🚀 DÉBUT DE LA VÉRIFICATION DES SLUGS PRODUITS DANS LES INGRÉDIENTS...\n')
 
-  const productSlugsValues = new Set(Object.values(allProductSlugs))
-  const ingredientSlugsValues = new Set(Object.values(INGREDIENT_SLUGS))
+  const productSlugsValues = new Set<string>(Object.values(allProductSlugs))
+  const ingredientSlugsValues = new Set<string>(Object.values(INGREDIENT_SLUGS))
   const dataProductSlugs = new Set(allProductData.map((p) => p.slug).filter(Boolean))
 
   let errorCount = 0
@@ -54,7 +54,7 @@ function verifyIngredientProductSlugs() {
       return
     }
 
-    ingredients.forEach((ing: any, index: number) => {
+    ingredients.forEach((ing, index) => {
       if (!ing.slug) {
         console.error(
           `❌ ERREUR : L'ingrédient à l'index ${index} pour le produit '${productSlug}' n'a pas de slug.`
