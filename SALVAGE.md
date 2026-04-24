@@ -2,6 +2,10 @@
 
 Entry point for resuming the salvage work across Claude sessions.
 
+**Status (2026-04-25):** shared, backend-non-seed and frontend zones are
+done. Only the **seed zone (209 files)** and **doc sync** remain —
+jump straight to [Zone seed](#zone-seed---remaining-209-files) below.
+
 ## Context
 
 A WIP stash (2026-04-22 21:15) was lost during reset operations on 2026-04-23. It
@@ -144,21 +148,87 @@ Use `git diff HEAD lost-stash-2026-04-22 -- <path>` to inspect each.
 - `drizzle/meta/_journal.json` — skipped (main's 0028/0029 ahead of stash)
 - Migration `drizzle/0030_watery_harpoon.sql` — generated for the RLS changes
 
-### Zone frontend — 16 files
+### Zone frontend — ✅ done (commits `cc797be` + `d381caf`)
 
-Components + `products/filters.ts` + `products/helpers.ts`. Includes 3 DELETED files (`DomainTabs/*`) — verify main no longer imports them.
+**Products (`cc797be`)** — 7 files:
+- `filters.ts`, `filters-schema.test.ts` — strict validation (drop `.catch()` fallbacks)
+- `ProductLayout.tsx` — `priceCents > 0` guard against "0 €" display
+- `ProductsPage.css` — add missing `.products-page__tabs` rule
+- `DomainTabs/**` (3 files) — deleted (dead code, no imports)
+- Rejected stash deletions of `helpers.test.ts` + `products-serialization.test.ts` (66 passing tests)
 
-### Zone seed — 209 files
+**Ambient (`d381caf`)** — 13 files:
+- `vite.config.ts` — `allowedHosts: true`
+- `AppLayout.tsx` — re-enable `DevThemeSwitcher` in dev
+- `RichText.css`, `PageHeader.css`, `BlogArticlePage.css` — mobile responsive fixes
+- `FirstTimeEmpty.{css,tsx}` — glassy bottles with product icons
+- `routes/_authenticated/collection.tsx`, `routes/blog/*.tsx` — strict search schema
+- `features/legal/PrivacyPage/` → `features/legal/components/PrivacyPage/` (folder convention)
 
-- 87 products seed
-- 70 ingredients seed
-- 31 blog seed
+**Rejected from the stash** (security / main-ahead / habits):
+- Router-context regression: stash pulls `auth` out of `RouterContext` (main added it via `InnerApp`)
+- OAuth `?token=${accessToken}` redirect flow (leaks token via referer/history)
+- `sanitizeRedirect()` removal on `/auth/login` (open redirect vuln)
+- `silentRefresh.ts` exponential backoff removal (refresh-storm risk)
+- All habits feature files + nav/stats/home entries
+- BottomNav/NavItem UX rework (Blog as tab vs sheet)
+- `package.json` adds `react-router-dom` (project uses TanStack Router)
+- `routes/ingredients|products/new.tsx` flat structure (main keeps `_authenticated/` layout)
+
+### Zone seed — ⏳ remaining (209 files)
+
+Session stopped here. Pick this up in a fresh Claude session.
+
+**Breakdown** (per `AUDIT.md`):
+- 87 products seed (`backend/src/db/seed/data/products/**`)
+- 70 ingredients seed (`backend/src/db/seed/data/ingredients/**`)
+- 31 blog seed (`backend/src/db/seed/data/blog/**`)
 - 21 seed infra (runners, tests, utils, docs)
 
-⚠️ Zone most at-risk: main has re-done a lot of seed since the stash (category-split reorg). Case-by-case only, never bulk adopt.
+**⚠️ Most at-risk zone.** Main has re-done a lot of seed since Apr 22
+(category-split reorg, dental/supplement domains fleshed out, blog
+restructure). Stash is often stale here. Rules:
+- **Never** bulk `git checkout` the whole zone.
+- For each file, run `git diff HEAD lost-stash-2026-04-22 -- <file>` first.
+- If main has clearly evolved past the stash (new structure, new domain
+  split), favor main. Stash only wins when it fixes something main still
+  has wrong OR adds data main never got.
+- Seed test baseline: **10 pre-existing fails** in `make test-dev
+  ARGS="seed/tests"` (see commit `55a91f5` summary). Any salvage must
+  stay at or below this count.
 
-### Doc sync
-- `shared/src/products/STATE.md` §12 — update to reflect what is actually ✅ now (after the refactor commit).
+**Suggested order** (lowest risk first):
+1. **Seed infra** (21) — runners/utils/docs. Diff first; some may already
+   match main (stash was derived from it).
+2. **Blog seed** (31) — check if main's blog restructure supersedes.
+3. **Ingredients seed** (70) — dental/supplement taxonomies now fleshed
+   out post-`55a91f5`; stash may have useful ingredient rows, especially
+   for the new tag slugs (email-affaibli, secheresse-buccale, etc.).
+4. **Products seed** (87) — last. Depends on tag taxonomies from the
+   shared zone, so must come after ingredients.
+
+**Known cascading data decisions** from `55a91f5`:
+- Dental concerns dropped from main: `parodontite`, `erosion-acide`,
+  `bruxisme`, `aphtes`, `implants`, `dents-lait`, `blanchiment-dentaire`,
+  `reduction-sensibilite`, 6 labels. If stash ingredient/product seeds
+  still reference these, adapt to the new slugs (`email-affaibli`,
+  `secheresse-buccale`, `kit-blanchiment`, etc.) or drop the reference.
+- Skincare: `dentifrice`, `bain-de-bouche`, `fil-dentaire`,
+  `blanchiment-dentaire`, `gelule`, `capsule`, `poudre`, `sirop`,
+  `gummy` moved out of skincare tag-slugs. Any skincare seed using
+  them must switch domain tag or drop the tag.
+
+### Doc sync — ⏳ remaining
+- `shared/src/products/STATE.md` §12 — update to reflect what is actually
+  ✅ now (the taxonomies implemented by `55a91f5` + the dental/supplement
+  product slug rules). Today it still over-claims.
+- `backend/src/db/seed/docs/STATE.md` + `ROADMAP.md` — expect updates
+  once the seed zone lands (per CLAUDE.md seed workflow).
+
+### Post-salvage tightening (not stash-driven)
+- `profiles_select_public` RLS policy currently uses `USING (true)` (from
+  stash). Tighten to `USING (${t.profilePublic})` when the public-profile
+  feature actually ships. Generate a new migration at that point.
 
 ## How to resume (fresh Claude session)
 
