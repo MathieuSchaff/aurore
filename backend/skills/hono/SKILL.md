@@ -18,11 +18,11 @@ const app = new Hono<AppEnv>()
 
 ## Context Variables
 
-Read variables injected by middleware via `c.get()`:
+Read variables injected by middleware via `c.get()`. Variables are only available if the middleware that sets them has run — e.g. `userId` is only set after an auth middleware executes:
 
 ```typescript
-const db = c.get('db')
-const userId = c.get('userId')
+const db = c.get('db')           // set by setup middleware
+const userId = c.get('userId')   // set by auth middleware — undefined on public routes
 ```
 
 ## Middleware Order
