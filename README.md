@@ -159,6 +159,19 @@ aurore/
 
 ---
 
+## License
+
+Copyright (c) 2026 Mathieu Schaff.
+
+Aurore is released under the **MIT License** — see [`LICENSE`](./LICENSE).
+
+You may use, copy, modify, merge, publish, distribute, sublicense and sell
+copies of the software, including for commercial purposes, as long as the
+copyright notice and permission notice are kept in all copies or substantial
+portions of the software.
+
+---
+
 ## Troubleshooting
 
 **Editor shows errors / Docker crashes at startup**
