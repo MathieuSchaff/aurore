@@ -1,3 +1,14 @@
+.products-page__tabs {
+  padding: var(--space-2) var(--space-4) 0;
+  display: flex;
+  justify-content: center;
+}
+
+.products-page__tabs > * {
+  width: 100%;
+  max-width: 520px;
+}
+
 .list-card--product {
   display: flex;
   flex-direction: row;
