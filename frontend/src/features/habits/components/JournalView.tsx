@@ -3,7 +3,6 @@ import { ChevronDown, ChevronRight, Plus } from 'lucide-react'
 import { useState } from 'react'
 
 import { habitQueries } from '../../../lib/queries/habits'
-import { logQueries, useLogHabitCheck, useLogWellbeing } from '../../../lib/queries/logs'
 
 // ── Wellbeing config ──
 
