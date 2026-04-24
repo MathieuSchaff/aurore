@@ -46,7 +46,9 @@ export function ProductLayout() {
   const activeTab: ProductTab = isDiscussions ? 'discussions' : 'infos'
 
   const priceFormatted =
-    product.priceCents != null ? eurFormatter.format(product.priceCents / 100) : null
+    product.priceCents != null && product.priceCents > 0
+      ? eurFormatter.format(product.priceCents / 100)
+      : null
 
   const tabOptions: TabOption<ProductTab>[] = [
     { id: 'infos', label: 'Infos' },
