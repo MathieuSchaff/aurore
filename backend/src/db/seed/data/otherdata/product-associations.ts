@@ -116,64 +116,64 @@ export const BODYCARE_KIND_MAP: Record<string, string> = {
 
 export const CATEGORY_UNIT_MAP: Record<string, ProductUnit> = {
   // Liquids
-  Toners: PRODUCT_UNITS.BOTTLE,
-  'Toners & Astringents': PRODUCT_UNITS.BOTTLE,
-  Astringents: PRODUCT_UNITS.BOTTLE,
-  'Micellar Water': PRODUCT_UNITS.BOTTLE,
+  Toners: PRODUCT_UNITS.skincare.BOTTLE,
+  'Toners & Astringents': PRODUCT_UNITS.skincare.BOTTLE,
+  Astringents: PRODUCT_UNITS.skincare.BOTTLE,
+  'Micellar Water': PRODUCT_UNITS.skincare.BOTTLE,
 
   // Pumps / Sprays
-  'Facial Cleansers': PRODUCT_UNITS.PUMP,
-  'Facial Washes': PRODUCT_UNITS.PUMP,
-  'Facial Foaming Cleansers': PRODUCT_UNITS.PUMP,
-  'Foaming Cleansers': PRODUCT_UNITS.PUMP,
-  'Facial Cleansing Oil': PRODUCT_UNITS.PUMP,
-  'Facial Cleansing Milks': PRODUCT_UNITS.PUMP,
-  'Liquid Cleansers & Soaps': PRODUCT_UNITS.PUMP,
-  'Liquid or Cream Hand Soaps': PRODUCT_UNITS.PUMP,
-  Mists: PRODUCT_UNITS.SPRAY,
-  'Spray Moisturizer': PRODUCT_UNITS.SPRAY,
-  'Spray Moisturizers': PRODUCT_UNITS.SPRAY,
-  Sunscreen: PRODUCT_UNITS.TUBE, // Defaults to tube, though some are sprays or pumps
+  'Facial Cleansers': PRODUCT_UNITS.skincare.PUMP,
+  'Facial Washes': PRODUCT_UNITS.skincare.PUMP,
+  'Facial Foaming Cleansers': PRODUCT_UNITS.skincare.PUMP,
+  'Foaming Cleansers': PRODUCT_UNITS.skincare.PUMP,
+  'Facial Cleansing Oil': PRODUCT_UNITS.skincare.PUMP,
+  'Facial Cleansing Milks': PRODUCT_UNITS.skincare.PUMP,
+  'Liquid Cleansers & Soaps': PRODUCT_UNITS.skincare.PUMP,
+  'Liquid or Cream Hand Soaps': PRODUCT_UNITS.skincare.PUMP,
+  Mists: PRODUCT_UNITS.skincare.SPRAY,
+  'Spray Moisturizer': PRODUCT_UNITS.skincare.SPRAY,
+  'Spray Moisturizers': PRODUCT_UNITS.skincare.SPRAY,
+  Sunscreen: PRODUCT_UNITS.skincare.TUBE, // Defaults to tube, though some are sprays or pumps
 
   // Droppers
-  Serums: PRODUCT_UNITS.DROPPER,
-  Serum: PRODUCT_UNITS.DROPPER,
-  'Moisturizing Serums': PRODUCT_UNITS.DROPPER,
-  Complexes: PRODUCT_UNITS.DROPPER,
-  Drops: PRODUCT_UNITS.DROPPER,
-  Essence: PRODUCT_UNITS.DROPPER,
-  Oils: PRODUCT_UNITS.DROPPER,
-  'Lash & Brow Growth': PRODUCT_UNITS.TUBE, // Often a brush/tube, default to tube for now
+  Serums: PRODUCT_UNITS.skincare.DROPPER,
+  Serum: PRODUCT_UNITS.skincare.DROPPER,
+  'Moisturizing Serums': PRODUCT_UNITS.skincare.DROPPER,
+  Complexes: PRODUCT_UNITS.skincare.DROPPER,
+  Drops: PRODUCT_UNITS.skincare.DROPPER,
+  Essence: PRODUCT_UNITS.skincare.DROPPER,
+  Oils: PRODUCT_UNITS.skincare.DROPPER,
+  'Lash & Brow Growth': PRODUCT_UNITS.skincare.TUBE, // Often a brush/tube, default to tube for now
 
   // Jars
-  Creams: PRODUCT_UNITS.JAR,
-  Balms: PRODUCT_UNITS.JAR,
-  'Balms, Ointments & Salves': PRODUCT_UNITS.JAR,
-  OIntments: PRODUCT_UNITS.JAR,
-  Butters: PRODUCT_UNITS.JAR,
-  'Facial Masks': PRODUCT_UNITS.JAR, // Often jars, sometimes packs
-  Scrubs: PRODUCT_UNITS.JAR,
-  'Facial Scrubs': PRODUCT_UNITS.JAR,
-  Polishes: PRODUCT_UNITS.JAR,
-  Exfoliators: PRODUCT_UNITS.JAR, // Default
-  'Exfoliators & Scrubs': PRODUCT_UNITS.JAR,
-  'Exfoliators, Polishes, & Scrubs': PRODUCT_UNITS.JAR,
+  Creams: PRODUCT_UNITS.skincare.JAR,
+  Balms: PRODUCT_UNITS.skincare.JAR,
+  'Balms, Ointments & Salves': PRODUCT_UNITS.skincare.JAR,
+  OIntments: PRODUCT_UNITS.skincare.JAR,
+  Butters: PRODUCT_UNITS.skincare.JAR,
+  'Facial Masks': PRODUCT_UNITS.skincare.JAR, // Often jars, sometimes packs
+  Scrubs: PRODUCT_UNITS.skincare.JAR,
+  'Facial Scrubs': PRODUCT_UNITS.skincare.JAR,
+  Polishes: PRODUCT_UNITS.skincare.JAR,
+  Exfoliators: PRODUCT_UNITS.skincare.JAR, // Default
+  'Exfoliators & Scrubs': PRODUCT_UNITS.skincare.JAR,
+  'Exfoliators, Polishes, & Scrubs': PRODUCT_UNITS.skincare.JAR,
 
   // Solid
-  'Bar Soaps': PRODUCT_UNITS.BAR,
-  'Facial Bar Soap': PRODUCT_UNITS.BAR,
+  'Bar Soaps': PRODUCT_UNITS.skincare.BAR,
+  'Facial Bar Soap': PRODUCT_UNITS.skincare.BAR,
 
   // Packs / Patches (Single use or sheets)
-  'Eye Masks & Pads': PRODUCT_UNITS.PACK,
-  'Lip Mask': PRODUCT_UNITS.PACK,
-  'Foot Mask': PRODUCT_UNITS.PACK,
-  'Hand Masks': PRODUCT_UNITS.PACK,
-  'Moisturizing Gloves': PRODUCT_UNITS.PACK,
-  'Facial Wipes': PRODUCT_UNITS.PACK,
-  'Cloths, Towelettes, & Wipes': PRODUCT_UNITS.PACK,
-  'Body Wipes': PRODUCT_UNITS.PACK,
-  Flushable: PRODUCT_UNITS.PACK,
-  'Pore Strips': PRODUCT_UNITS.PACK,
+  'Eye Masks & Pads': PRODUCT_UNITS.skincare.PACK,
+  'Lip Mask': PRODUCT_UNITS.skincare.PACK,
+  'Foot Mask': PRODUCT_UNITS.skincare.PACK,
+  'Hand Masks': PRODUCT_UNITS.skincare.PACK,
+  'Moisturizing Gloves': PRODUCT_UNITS.skincare.PACK,
+  'Facial Wipes': PRODUCT_UNITS.skincare.PACK,
+  'Cloths, Towelettes, & Wipes': PRODUCT_UNITS.skincare.PACK,
+  'Body Wipes': PRODUCT_UNITS.skincare.PACK,
+  Flushable: PRODUCT_UNITS.skincare.PACK,
+  'Pore Strips': PRODUCT_UNITS.skincare.PACK,
 }
 
 export function getProductKind(usageType: string, category: string): string {
@@ -196,5 +196,5 @@ export function getProductKind(usageType: string, category: string): string {
 }
 
 export function unitFromCategory(category: string): ProductUnit {
-  return CATEGORY_UNIT_MAP[category] ?? PRODUCT_UNITS.TUBE
+  return CATEGORY_UNIT_MAP[category] ?? PRODUCT_UNITS.skincare.TUBE
 }
