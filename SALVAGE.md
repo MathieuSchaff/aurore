@@ -3,12 +3,14 @@
 Entry point for resuming the salvage work across Claude sessions.
 
 **Status (2026-04-25):** shared, backend-non-seed, frontend, seed
-**infra**, **blog data** and **ingredients data** zones done. Seed
-infra (21 files) salvaged in 5 commits: 14 adopted, 4 deferred,
-3 skipped. Blog data (31 files): 0 adopted — main superseded. Ingredients
-data (70 files): 7 adopted (dental content fill, commit `817cc6c`),
-63 skipped — main ahead everywhere else. Remain: **products seed (87)**
-+ doc sync. Jump to [Zone seed](#zone-seed---remaining).
+**infra**, **blog data**, **ingredients data** and **products data**
+zones done. Seed infra (21 files) salvaged in 5 commits: 14 adopted,
+4 deferred, 3 skipped. Blog data (31 files): 0 adopted — main
+superseded. Ingredients data (70 files): 7 adopted (dental content
+fill, commit `817cc6c`), 63 skipped. Products data (201 diff
+entries → 87 unique stash paths): 1 type narrow (`23fda57`) +
+24 stash-only products across 5 brands (`91eca78`). Remain:
+**doc sync** only. Jump to [Doc sync](#doc-sync--%EF%B8%8F-remaining).
 
 ## Context
 
@@ -234,7 +236,7 @@ Use `git diff HEAD lost-stash-2026-04-22 -- <path>` to inspect each.
 - `package.json` adds `react-router-dom` (project uses TanStack Router)
 - `routes/ingredients|products/new.tsx` flat structure (main keeps `_authenticated/` layout)
 
-### Zone seed — ⏳ remaining
+### Zone seed — ✅ done (commits `91eca78` + `23fda57`)
 
 **Infra (21)** — ✅ done this session. 14 adopted, 4 deferred,
 3 skipped. See commits `0077eb2`, `bd0dc78`, `907a7a0`, `b81591e`,
@@ -253,8 +255,43 @@ Skipped infra (no value in adopting):
 - `seed/data/ingredient-tags/index.ts` — case-only rename
   (`ingredient-tags` → `INGREDIENT-TAGS`), breaks Linux fs.
 
-**Data remaining (87 files)** per `AUDIT.md`:
-- 87 products seed (`backend/src/db/seed/data/products/**`)
+**Products data (201 diff entries) — ✅ done this session.**
+Triage:
+- 113 `D` (delete-in-stash) — brand files main added post-stash
+  (dental/haircare/supplement domains, `skincare/<brand>/` reorg).
+  Not salvage candidates.
+- 75 `R` renames — main moved flat `products/<brand>/` into
+  `skincare/<brand>/` + added products. Spot-checked low-similarity
+  renames (weleda, uriage, laRochePosay, acm) — main strict superset.
+  Skipped wholesale.
+- 3 `R100` pure path moves (drSam, noreva) — skipped.
+- 2 `M`:
+  - `types.ts` — adopted: narrow `unit: string` → `unit: ProductUnit`
+    (commit `23fda57`). All 11 unit literals used by seeds already
+    in `PRODUCT_UNIT` union, zero TS error delta.
+  - `index.ts` — skipped: stash predates nested subfolder layout
+    (flat `./abib/…` vs main's `./skincare/abib/…`) and spread order
+    change (`category: kindToCategory[kind]` before vs after
+    `...product`) would regress main's kind-derived override.
+- 11 `A` (rename-threshold misses) — 5 brands where stash had more
+  products than main (commit `91eca78`, +24 products total):
+  - `nooance`: +14 (retinol nuit 0.6%/1%, contour yeux, anti-taches,
+    serum VitC, HA, multi-actifs, bulles hydratation, clarifiant,
+    créme éclat/jour, prébiotiques élixir, etc.)
+  - `azelaique`: +5 (cos-de-baha AZ20/jumbo, celdyque 12%,
+    kisocare 20%, quality-first ulthera)
+  - `dr-g`: +2 (clear soothing essence, tranexamic serum)
+  - `vt`: +2 (az-care cleansing oil, toner pad)
+  - `eqqualberry`: +1 (vitamin illuminating serum)
+  - 6 brands where stash was a strict subset (aDerma, cerave,
+    ducray, garancia, isdin, isispharma) — skipped.
+
+All refs verified against `src/db/seed/data/ingredients/` +
+`shared/src/{ingredients,products}/skincare/tag-slugs.ts`. Kinds
+(`serum`, `moisturizer`, `eye-cream`, `oil`, `essence`, `cleanser`,
+`toner`) + units (`bottle`, `pump`, `dropper`, `jar`, `tube`, `spray`)
+all valid post-reorg. Seed test baseline preserved: 7 fails,
+0 regression.
 
 **Ingredients data (70) — ✅ done this session (commit `817cc6c`).**
 - 7 dental data files adopted: `remineralisation.ts`, `antimicrobiens.ts`,
@@ -298,11 +335,10 @@ restructure). Stash is often stale here. Rules:
   ARGS="seed/tests"` (post-infra salvage, down from 10). Any data
   salvage must stay at or below this count.
 
-**Suggested order** (lowest risk first):
-1. ~~Blog seed~~ — done (skipped, main superseded).
-2. ~~Ingredients seed~~ — done (7 dental files adopted, rest skipped).
-3. **Products seed** (87) — last. Depends on tag taxonomies from the
-   shared zone, so must come after ingredients.
+**Order** (all done):
+1. ~~Blog seed~~ — skipped, main superseded.
+2. ~~Ingredients seed~~ — 7 dental files adopted, rest skipped.
+3. ~~Products seed~~ — types narrow + 24 stash-only products adopted.
 
 **Known cascading data decisions** from `55a91f5`:
 - Dental concerns dropped from main: `parodontite`, `erosion-acide`,
