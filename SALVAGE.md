@@ -144,9 +144,32 @@ Use `git diff HEAD lost-stash-2026-04-22 -- <path>` to inspect each.
 - `drizzle/meta/_journal.json` — skipped (main's 0028/0029 ahead of stash)
 - Migration `drizzle/0030_watery_harpoon.sql` — generated for the RLS changes
 
-### Zone frontend — 16 files
+### Zone frontend — ✅ done (commits `cc797be` + `d381caf`)
 
-Components + `products/filters.ts` + `products/helpers.ts`. Includes 3 DELETED files (`DomainTabs/*`) — verify main no longer imports them.
+**Products (`cc797be`)** — 7 files:
+- `filters.ts`, `filters-schema.test.ts` — strict validation (drop `.catch()` fallbacks)
+- `ProductLayout.tsx` — `priceCents > 0` guard against "0 €" display
+- `ProductsPage.css` — add missing `.products-page__tabs` rule
+- `DomainTabs/**` (3 files) — deleted (dead code, no imports)
+- Rejected stash deletions of `helpers.test.ts` + `products-serialization.test.ts` (66 passing tests)
+
+**Ambient (`d381caf`)** — 13 files:
+- `vite.config.ts` — `allowedHosts: true`
+- `AppLayout.tsx` — re-enable `DevThemeSwitcher` in dev
+- `RichText.css`, `PageHeader.css`, `BlogArticlePage.css` — mobile responsive fixes
+- `FirstTimeEmpty.{css,tsx}` — glassy bottles with product icons
+- `routes/_authenticated/collection.tsx`, `routes/blog/*.tsx` — strict search schema
+- `features/legal/PrivacyPage/` → `features/legal/components/PrivacyPage/` (folder convention)
+
+**Rejected from the stash** (security / main-ahead / habits):
+- Router-context regression: stash pulls `auth` out of `RouterContext` (main added it via `InnerApp`)
+- OAuth `?token=${accessToken}` redirect flow (leaks token via referer/history)
+- `sanitizeRedirect()` removal on `/auth/login` (open redirect vuln)
+- `silentRefresh.ts` exponential backoff removal (refresh-storm risk)
+- All habits feature files + nav/stats/home entries
+- BottomNav/NavItem UX rework (Blog as tab vs sheet)
+- `package.json` adds `react-router-dom` (project uses TanStack Router)
+- `routes/ingredients|products/new.tsx` flat structure (main keeps `_authenticated/` layout)
 
 ### Zone seed — 209 files
 
