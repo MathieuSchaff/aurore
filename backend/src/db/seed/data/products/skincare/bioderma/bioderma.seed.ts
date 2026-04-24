@@ -460,8 +460,18 @@ export const BIODERMA_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.PEAU_SENSIBLE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.SALICYLIC_ACID, concentrationValue: 1.8, concentrationUnit: '%', notes: 'BHA exfoliant' },
-      { slug: INGREDIENT_SLUGS.MALIC_ACID_ESTER, concentrationValue: 10, concentrationUnit: '%', notes: `Ester d'acide malique (AHA)` },
+      {
+        slug: INGREDIENT_SLUGS.SALICYLIC_ACID,
+        concentrationValue: 1.8,
+        concentrationUnit: '%',
+        notes: 'BHA exfoliant',
+      },
+      {
+        slug: INGREDIENT_SLUGS.MALIC_ACID_ESTER,
+        concentrationValue: 10,
+        concentrationUnit: '%',
+        notes: `Ester d'acide malique (AHA)`,
+      },
     ],
   },
   {
@@ -773,7 +783,21 @@ export const BIODERMA_SEED: UnifiedProductSeed[] = [
     priceCents: 1800,
     description:
       'Soin anti-rougeurs intense qui réduit les rougeurs et prévient leur réapparition.',
-    notes: 'Technologie Rosactiv 2.0. Lipides biomimétiques.',
+    notes: `Technologie Rosactiv 2.0. Lipides biomimétiques.
+    Réduit les rougeurs et l'inconfort
+    Cible à la source les mécanismes biologiques impliqués dans les différents types de rougeurs et d'inconfort et réduit visiblement ces effets durablement grâce à :
+
+    - Un actif neuro-apaisant qui contribue à réduire la réponse nerveuse excessive**
+
+    - Des polysaccharides apaisants, actifs biomimétiques qui contribuent à limiter l'activation anormale des défenses naturelles**
+
+    *Demande de brevet en cours
+
+    **Mécanisme in vitro des actifs
+
+    NAOS ecobiology
+    Technologie brevetée Rosactiv™ 2.0*
+    `,
     inci: 'WATER, GLYCERIN, C15-19 ALKANE, C10-18 TRIGLYCERIDES, DIPROPYLENE GLYCOL, GLYCERYL STEARATE CITRATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX, PENTYLENE GLYCOL, SQUALANE, SUCROSE STEARATE, CORN STARCH MODIFIED, COCOS NUCIFERA (COCONUT) OIL, MALTOOLIGOSYL GLUCOSIDE, GLYCERYL CAPRYLATE/CAPRATE, SCLEROTIUM GUM, GLYCYRRHETINIC ACID, HYDROGENATED STARCH HYDROLYSATE, XANTHAN GUM, 1-METHYLHYDANTOIN-2-IMIDE, PHYTOSPHINGOSINE, SODIUM CITRATE, CITRIC ACID, MANNITOL, XYLITOL, O-CYMEN-5-OL, BENZOTRIAZOLYL DODECYL P-CRESOL, RHAMNOSE, TOCOPHEROL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL',
     tags: {
       primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ROSACEE],
@@ -789,8 +813,34 @@ export const BIODERMA_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.REGLISSE, notes: 'Actif neuro-apaisant' },
-      { slug: INGREDIENT_SLUGS.PHYTOSPHINGOSINE, notes: 'Lipide biomimétique' },
+      { slug: INGREDIENT_SLUGS.C15_19_ALKANE, notes: 'Émollient biomimétique' },
+      { slug: INGREDIENT_SLUGS.SQUALANE, notes: 'Émollient biomimétique' },
+      { slug: INGREDIENT_SLUGS.C10_18_TRIGLYCERIDES, notes: 'Lipide biomimétique' },
+      { slug: INGREDIENT_SLUGS.HUILE_DE_COCO, notes: 'Émollient occlusif' },
+      { slug: INGREDIENT_SLUGS.REGLISSE, notes: 'Anti-rougeurs, anti-inflammatoire' },
+      {
+        slug: INGREDIENT_SLUGS.PHYTOSPHINGOSINE,
+        notes: 'Lipide biomimétique, renforcement barrière',
+      },
+      { slug: INGREDIENT_SLUGS.GLYCERYL_STEARATE_CITRATE, notes: 'Émulsifiant doux' },
+      { slug: INGREDIENT_SLUGS.SUCROSE_STEARATE, notes: 'Émulsifiant doux' },
+      { slug: INGREDIENT_SLUGS.HELIANTHUS_ANNUUS_SEED_WAX, notes: 'Agent structurant' },
+      { slug: INGREDIENT_SLUGS.CORN_STARCH_MODIFIED, notes: 'Texturant, matifiant' },
+      {
+        slug: INGREDIENT_SLUGS.MALTOOLIGOSYL_GLUCOSIDE,
+        notes: 'Polysaccharide apaisant (Rosactiv 2.0)',
+      },
+      { slug: INGREDIENT_SLUGS.RHAMNOSE, notes: 'Actif matrice extracellulaire' },
+      {
+        slug: INGREDIENT_SLUGS.METHYLHYDANTOIN_IMIDE,
+        notes: 'Actif neuro-apaisant TRPV1 (Rosactiv 2.0)',
+      },
+      { slug: INGREDIENT_SLUGS.SCLEROTIUM_GUM, notes: 'Polysaccharide apaisant, gélifiant' },
+      { slug: INGREDIENT_SLUGS.TOCOPHEROL, notes: 'Antioxydant (vitamine E)' },
+      { slug: INGREDIENT_SLUGS.BENZOTRIAZOLYL_DODECYL_P_CRESOL, notes: 'Antioxydant stabilisant' },
+      { slug: INGREDIENT_SLUGS.O_CYMEN_5_OL, notes: 'Conservateur doux' },
+      { slug: INGREDIENT_SLUGS.GLYCERYL_CAPRYLATE_CAPRATE, notes: 'Conservateur naturel' },
+      {},
     ],
   },
   {

@@ -17,7 +17,7 @@ Nous collectons les informations suivantes pour assurer le bon fonctionnement de
 
 ### Données de Profil et d'Usage
 *   **Profil Public :** Nom d'utilisateur, biographie, liens (visibles par les autres utilisateurs si vous le choisissez).
-*   **Suivi des Habitudes :** Vos tâches, produits utilisés, journaux de bord (logs) et tags associés.
+*   **Données d'Usage :** Vos tâches, produits utilisés, journaux de bord (logs) et tags associés.
 
 ### Données Sensibles (Dermatologiques)
 *   **Profil de peau :** Type de peau, score de Fitzpatrick, préoccupations cutanées et notes privées.
@@ -47,7 +47,7 @@ L'application utilise uniquement des cookies **strictement nécessaires** au fon
 ## 4. Conservation et Suppression des données
 
 *   **Compte actif :** Les données sont conservées tant que le compte est actif.
-*   **Suppression définitive :** Lorsque vous choisissez de supprimer votre compte via les paramètres de l'application, **l'intégralité de vos données personnelles est immédiatement et définitivement effacée** de nos bases de données (profil, historique de produits, logs, habitudes) via les contraintes de cascade PostgreSQL. Cette action est irréversible.
+*   **Suppression définitive :** Lorsque vous choisissez de supprimer votre compte via les paramètres de l'application, **l'intégralité de vos données personnelles est immédiatement et définitivement effacée** de nos bases de données (profil, historique de produits, logs) via les contraintes de cascade PostgreSQL. Cette action est irréversible.
 
 ---
 
