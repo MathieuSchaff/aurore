@@ -1,5 +1,5 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
-import { Package, Target } from 'lucide-react'
+import { Package } from 'lucide-react'
 
 import { profileQueries } from '../../../../lib/queries/profile'
 import './ProfileStats.css'
@@ -8,12 +8,6 @@ export const ProfileStats = () => {
   const { data: stats } = useSuspenseQuery(profileQueries.stats())
 
   const statItems = [
-    {
-      label: 'Habitudes actives',
-      value: stats.totalHabits,
-      icon: <Target className="stat-icon--habits" size={20} />,
-      description: 'Vos routines actuelles',
-    },
     {
       label: 'Produits',
       value: stats.totalProducts,
