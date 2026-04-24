@@ -136,16 +136,13 @@ Use `git diff HEAD lost-stash-2026-04-22 -- <path>` to inspect each.
 
 ### Zone shared — ✅ done (commit `55a91f5`)
 
-### Zone backend (non-seed) — 6 files remaining
+### Zone backend (non-seed) — ✅ done (commit `414f0d4`)
 
-```
-backend/src/db/schema/auth/users.ts
-backend/src/features/auth/routes.ts
-backend/src/utils/errors/error-handler.ts
-backend/drizzle/meta/_journal.json         # already updated by 0029
-```
-
-(auth/demo-seed.ts and products/* already done)
+- `auth/users.ts` — adopted `NULLIF` RLS guard + new `profiles_select_public` policy (stash had `USING (true)`; will be tightened to `profile_public = true` once public-profile feature lands)
+- `auth/routes.ts` — adopted `X-Forwarded-For` comma-split. Rejected stash's `csrf` middleware removal and OAuth-callback `?token=...` query param (both security regressions)
+- `utils/errors/error-handler.ts` — skipped entirely (habits/logs feature dropped by user)
+- `drizzle/meta/_journal.json` — skipped (main's 0028/0029 ahead of stash)
+- Migration `drizzle/0030_watery_harpoon.sql` — generated for the RLS changes
 
 ### Zone frontend — 16 files
 
