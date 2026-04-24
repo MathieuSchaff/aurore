@@ -40,7 +40,7 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/c07d773f-df71-4b7a-84c0-0d526b30ec95/Gum-Dentifrice-Original-White-Blancheur-Lot-de-3-x-75ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.BLANCHIMENT_DENTAIRE],
+      primary: [TAG_SLUGS.KIT_BLANCHIMENT],
       secondary: [],
       avoid: [],
     },
