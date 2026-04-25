@@ -1,4 +1,4 @@
-import type { IngredientInput } from '../seed-ingredients'
+import type { IngredientInput } from '../types'
 import { ASTAXANTHINE } from './astaxanthine'
 import { BERBERINE } from './berberine'
 import { BETA_CAROTENE } from './beta-carotene'

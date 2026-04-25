@@ -1,3 +1,5 @@
+import type { IngredientTagMap } from '../../ingredient-tags'
+import { TAG_SLUGS } from '../../tags'
 import {
   SUPPLEMENTS_ACIDES_AMINES,
   SUPPLEMENTS_ACIDES_GRAS,
@@ -9,11 +11,8 @@ import {
   SUPPLEMENTS_PLANTES,
   SUPPLEMENTS_VITAMINES,
 } from './ingredient-slugs'
-import type { IngredientTagMap } from '../../ingredient-tags'
-import { TAG_SLUGS } from '../../tags'
 
 export const supplementTagMap: IngredientTagMap = {
-
   // SUPPLEMENTS (voie orale)
   // Use SUPPLEMENTS_* directly: three keys (ASTAXANTHINE, ERGOTHIONEINE,
   // GLYCINE) collide with skincare molecule slugs, and INGREDIENT_SLUGS
@@ -40,7 +39,11 @@ export const supplementTagMap: IngredientTagMap = {
   },
   [SUPPLEMENTS_NEUROACTIFS.CHOLINE]: {
     primary: [TAG_SLUGS.COGNITION, TAG_SLUGS.MEMOIRE],
-    secondary: [TAG_SLUGS.PRECURSEUR_NEUROTRANSMETTEUR, TAG_SLUGS.DONNEUR_METHYLE, TAG_SLUGS.AVEC_REPAS],
+    secondary: [
+      TAG_SLUGS.PRECURSEUR_NEUROTRANSMETTEUR,
+      TAG_SLUGS.DONNEUR_METHYLE,
+      TAG_SLUGS.AVEC_REPAS,
+    ],
     avoid: [],
   },
   [SUPPLEMENTS_ACIDES_AMINES.CREATINE]: {

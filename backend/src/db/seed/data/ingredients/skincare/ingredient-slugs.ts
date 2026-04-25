@@ -243,6 +243,8 @@ export const APAISANTS_ANTI_INFLAMMATOIRES = {
   ASTER_TRIPOLIUM: 'aster-tripolium', // INCI: Aster Tripolium Extract | aster maritime, apaisant et anti-rougeurs
   SAMBUCUS_NIGRA: 'sambucus-nigra', // INCI: Sambucus Nigra Flower Extract | sureau noir, apaisant
   DAUCUS_CAROTA: 'daucus-carota', // INCI: Daucus Carota Sativa Root Extract | carotte, apaisant
+  ARTEMISIA_ANNUA: 'artemisia-annua', // INCI: Artemisia Annua Extract | armoise apaisante (signature K-beauty)
+  GINKGO_BILOBA: 'ginkgo-biloba', // INCI: Ginkgo Biloba Leaf Extract | antioxydant / circulatoire
 } as const
 
 export const ECLAIRCISSANTS_DEPIGMENTANTS = {
@@ -311,7 +313,8 @@ export const FILTRES_UV = {
   ETHYLHEXYL_SALICYLATE: 'ethylhexyl-salicylate', // INCI: Ethylhexyl Salicylate | filtre UVB (Octisalate)
   ISOAMYL_P_METHOXYCINNAMATE: 'isoamyl-p-methoxycinnamate', // INCI: Isoamyl p-Methoxycinnamate | filtre UVB (Amiloxate)
   ETHYLHEXYL_METHOXYCINNAMATE: 'ethylhexyl-methoxycinnamate', // INCI: Ethylhexyl Methoxycinnamate | filtre UVB (Octinoxate)
-  METHYLENE_BIS_BENZOTRIAZOLYL_TETRAMETHYLBUTYLPHENOL: 'methylene-bis-benzotriazolyl-tetramethylbutylphenol', // Tinosorb M – UVA/UVB, minéral-like
+  METHYLENE_BIS_BENZOTRIAZOLYL_TETRAMETHYLBUTYLPHENOL:
+    'methylene-bis-benzotriazolyl-tetramethylbutylphenol', // Tinosorb M – UVA/UVB, minéral-like
   TRIS_BIPHENYL_TRIAZINE: 'tris-biphenyl-triazine', // Tinosorb A2B nano – large spectre
   DIETHYLHEXYL_BUTAMIDO_TRIAZONE: 'diethylhexyl-butamido-triazone', // INCI: Diethylhexyl Butamido Triazone | Uvasorb HEB – filtre UVB/UVA large spectre, très photostable
 } as const
@@ -468,4 +471,3 @@ export const FILLERS = {
   SODIUM_CHLORIDE: 'sodium-chloride', // INCI: Sodium Chloride | sel basique, inerte
   POTASSIUM_CHLORIDE: 'potassium-chloride', // INCI: Potassium Chloride | sel basique, inerte
 } as const
-

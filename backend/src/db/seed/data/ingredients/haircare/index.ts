@@ -1,4 +1,4 @@
-import type { IngredientInput } from '../seed-ingredients'
+import type { IngredientInput } from '../types'
 import { HAIR_AGENTS_NACRANTS } from './agents-nacrants'
 import { HAIR_ANTIPELLICULAIRES } from './antipelliculaires'
 import { HAIR_BEURRES_VEGETAUX } from './beurres-vegetaux'

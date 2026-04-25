@@ -85,6 +85,10 @@ export const HAIR_HUMECTANTS = {
   FRUCTOSE_HAIR: 'fructose-hair', // sucre humectant naturel
   TREHALOSE_HAIR: 'trehalose-hair', // osmolyte protecteur, stabilise la fibre
   ALLANTOIN_HAIR: 'allantoin-hair', // apaisant cuir chevelu, keratolytique doux
+  AQUAXYL_COMPLEX: 'aquaxyl-complex', // complexe breveté Sederma, rétention eau biomimétique dans la fibre
+  XYLITYLGLUCOSIDE: 'xylitylglucoside', // composant Aquaxyl
+  ANHYDROXYLITOL: 'anhydroxylitol', // composant Aquaxyl
+  XYLITOL_HAIR: 'xylitol-hair', // composant Aquaxyl, humectant sucre
 } as const
 
 export const HAIR_HUILES_VEGETALES = {
@@ -106,6 +110,7 @@ export const HAIR_HUILES_VEGETALES = {
   SAFFLOWER_OIL_HAIR: 'safflower-oil-hair', // Carthamus Tinctorius, linoléique élevé
   HYDROGENATED_CASTOR_OIL_HAIR: 'hydrogenated-castor-oil-hair', // forme solide du ricin, agent de lustre
   BAOBAB_OIL_HAIR: 'baobab-oil-hair', // Adansonia Digitata, oméga 3/6/9, pénétrant
+  CRAMBE_ABYSSINICA_OIL: 'crambe-abyssinica-seed-oil', // huile d'Abyssinie, légère, protection thermique
 } as const
 
 export const HAIR_BEURRES_VEGETAUX = {
@@ -128,6 +133,17 @@ export const HAIR_PROTEINES = {
   WHEAT_AMINO_ACIDS: 'wheat-amino-acids', // acides aminés blé, pénétration profonde
   SILK_AMINO_ACIDS: 'silk-amino-acids', // acides aminés soie, brillance
   ARGININE_HAIR: 'arginine-hair', // acide aminé, répare les ponts disulfures
+  HYDROLYZED_JOJOBA_PROTEIN: 'hydrolyzed-jojoba-protein', // protéine jojoba hydrolysée, brillance + douceur
+  CREATINE_HAIR: 'creatine-hair', // renforce liaisons internes de la fibre
+  PROLINE_HAIR: 'proline-hair', // acide aminé libre, réparation kératine
+  THREONINE_HAIR: 'threonine-hair', // acide aminé libre, réparation kératine
+  SERINE_HAIR: 'serine-hair', // acide aminé libre, réparation kératine
+  GLYCINE_HAIR: 'glycine-hair', // acide aminé libre haircare (supplément séparé)
+  ALANINE_HAIR: 'alanine-hair', // acide aminé libre
+  VALINE_HAIR: 'valine-hair', // acide aminé libre
+  HISTIDINE_HAIR: 'histidine-hair', // acide aminé libre
+  PHENYLALANINE_HAIR: 'phenylalanine-hair', // acide aminé libre
+  ASPARTIC_ACID_HAIR: 'aspartic-acid-hair', // acide aminé libre
 } as const
 
 export const HAIR_CERAMIDES_LIPIDES = {
@@ -143,6 +159,9 @@ export const HAIR_CERAMIDES_LIPIDES = {
   LINOLEIC_ACID_HAIR: 'linoleic-acid-hair', // oméga-6, composant lipides intercellulaires
   OLEIC_ACID_HAIR: 'oleic-acid-hair', // oméga-9, pénètre le cortex
   BEHENIC_ACID: 'behenic-acid', // acide gras C22, conditionneur de surface
+  SQUALANE_HAIR: 'squalane-hair', // émollient léger analogue sébum, pénètre le cortex
+  PHOSPHOLIPIDS_HAIR: 'phospholipids-hair', // restauration lipidique membranaire fibre
+  PHOSPHATIDYLCHOLINE_HAIR: 'phosphatidylcholine-hair', // phospholipide membranaire, restauration cuticule
 } as const
 
 export const HAIR_EPAISSISSANTS = {
@@ -220,4 +239,11 @@ export const HAIR_DIVERS = {
   SHIKAKAI_HAIR: 'shikakai-hair', // Acacia Concinna, tensioactif ayurvédique naturel
   REETHA_HAIR: 'reetha-hair', // Sapindus Mukorossi, saponines moussantes naturelles
   AMLA_HAIR: 'amla-hair', // Phyllanthus Emblica, vitamine C, anti-chute ayurvédique
+  BIS_AMINOPROPYL_DIGLYCOL_DIMALEATE: 'bis-aminopropyl-diglycol-dimaleate', // molécule Olaplex, reconnecte ponts disulfure cassés
+  HYDROXYPROPYL_CYCLODEXTRIN: 'hydroxypropyl-cyclodextrin', // complexe délivrance, potentialise pénétration actifs
+  PHYTANTRIOL_HAIR: 'phytantriol-hair', // antioxydant stabilisant, améliore pénétration
+  MORINDA_CITRIFOLIA_EXTRACT: 'morinda-citrifolia-extract', // noni, antioxydant polyphénols
+  EUTERPE_OLERACEA_EXTRACT: 'euterpe-oleracea-extract', // açaï, antioxydant polyphénols
+  PUNICA_GRANATUM_EXTRACT: 'punica-granatum-extract', // grenade, antioxydant polyphénols
+  PALMITOYL_MYRISTYL_SERINATE: 'palmitoyl-myristyl-serinate', // peptide conditionneur filmogène
 } as const
