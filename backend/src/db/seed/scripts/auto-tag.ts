@@ -203,7 +203,6 @@ const SPECIFICITY: Record<string, number> = {
 }
 
 // ─── INCI ingredient → skincare tags ─────────────────────────────────────────
-// Mirrors INGREDIENT_TAG_MAP from otherdata/tag-associations.ts
 
 const INCI_TO_SKINCARE: Record<string, string[]> = {
   // Rétinoids / anti-âge
@@ -354,7 +353,7 @@ function extractField(block: string, field: string): string {
   const sq = new RegExp(`${field}:\\s*'([^']*)'`)
   const dq = new RegExp(`${field}:\\s*"([^"]*)"`)
   const m = block.match(sq) ?? block.match(dq)
-  if (m) return m[1]!
+  if (m?.[1] !== undefined) return m[1]
   // Backtick: find manually to avoid regex escaping issues
   const marker = `${field}: \``
   const start = block.indexOf(marker)
@@ -544,14 +543,13 @@ function processFile(filePath: string): { changed: number; noMatch: number } {
     if (WRITE) {
       // Apply from end to start to keep indices valid
       let newContent = content
-      for (let i = changes.length - 1; i >= 0; i--) {
-        const c = changes[i]!
+      for (const c of [...changes].reverse()) {
         newContent =
           newContent.slice(0, c.index) + c.replacement + newContent.slice(c.index + c.length)
       }
       writeFileSync(filePath, newContent)
     } else {
-      const rel = filePath.replace(SEED_ROOT + '/', '')
+      const rel = filePath.replace(`${SEED_ROOT}/`, '')
       console.log(`\n📄 ${rel} (+${changes.length})`)
       for (const c of changes.slice(0, 2)) {
         console.log(`  [${c.slug || '?'}]`)

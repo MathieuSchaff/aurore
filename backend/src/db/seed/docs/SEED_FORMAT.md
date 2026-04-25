@@ -130,27 +130,11 @@ Lors de la conversion d'une marque existante vers le format unifié, suivez ces 
 
 ## 6. Sources de données et transformation
 
-### 6a. Depuis un CSV (skinsafeproducts.com)
-
-| Colonne CSV    | → Champ seed                | Transformation                                            |
-| -------------- | --------------------------- | --------------------------------------------------------- |
-| `product_name` | `name`                      | Retirer la marque et le volume                            |
-| `brand`        | `brand`                     | PascalCase                                                |
-| `category`     | `kind`                      | Mapping (voir §7)                                         |
-| `ingredients`  | `inci`                      | Tout en MAJUSCULES, séparateur `, `                       |
-| `product_url`  | `url`                       | Tel quel si présent                                       |
-| `image_url`    | `imageUrl`                  | Tel quel si présent, omettre si vide                      |
-| —              | `slug`                      | Générer en kebab-case depuis brand + name                 |
-| —              | `unit`                      | Déduire du type de produit ou du packaging                |
-| —              | `totalAmount`, `amountUnit` | Extraire du `product_name` si présent, sinon `0` / `'ml'` |
-| —              | `description`, `notes`      | Rédiger en français                                       |
-| —              | `tags`, `keyIngredients`    | Analyse de l'INCI et du type de produit                   |
-
-### 6b. Depuis une saisie manuelle
+### 6a. Depuis une saisie manuelle
 
 L'utilisateur fournit un nom de marque + une liste de produits (noms, volumes, types). Remplir chaque champ en suivant les règles ci-dessous. Si l'INCI n'est pas fourni, omettre le champ `inci`.
 
-### 6c. Depuis du texte brut (Copier-coller web)
+### 6b. Depuis du texte brut (Copier-coller web)
 
 - **Priorité INCI** : Toujours chercher la liste complète. Si absente, omettre le champ `inci` mais remplir le reste des métadonnées.
 - **Inférence du `unit`** : Si non précisé explicitement, déduire du nom ou de la description ("Spray hydratant" → `'spray'`, "Pot" → `'jar'`, "Flacon-pompe" → `'pump'`).
@@ -286,7 +270,7 @@ Inclure systématiquement :
 
 Quand l'utilisateur demande de vérifier, compléter ou mettre à jour une marque :
 
-1.  **Audit comparatif** : Comparer les données fournies (texte brut, CSV) avec le fichier `.seed.ts` existant.
+1.  **Audit comparatif** : Comparer les données fournies (texte brut) avec le fichier `.seed.ts` existant.
 2.  **Champs prioritaires** : Si la nouvelle source contient un prix, un volume ou un INCI plus récent/précis, mettre à jour le produit existant.
 3.  **Préservation** : Ne pas supprimer les produits existants dans le fichier sauf instruction explicite. Ajouter les nouveaux produits à la suite de la liste.
 4.  **Audit Qualité** : Vérifier systématiquement la cohérence du `kind`, de l'`unit`, et du format INCI selon les règles des sections 7, 8 et 9.

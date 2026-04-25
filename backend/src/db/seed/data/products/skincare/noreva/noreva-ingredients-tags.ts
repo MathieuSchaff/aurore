@@ -1,7 +1,8 @@
 import { INGREDIENT_SLUGS } from '../../../../data/ingredients/ingredient-slugs'
+import type { Ingredient } from '../../types'
 import { NOREVA_PRODUCT_SLUGS } from './noreva'
 
-export const INGREDIENTS_MAP: Record<string, any[]> = {
+export const INGREDIENTS_MAP: Record<string, Ingredient[]> = {
   [NOREVA_PRODUCT_SLUGS.SENSIDIANE_HUILE_DEMAQUILLANTE]: [
     {
       slug: INGREDIENT_SLUGS.NEUTRAZEN,

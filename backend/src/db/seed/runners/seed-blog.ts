@@ -20,7 +20,7 @@ export async function seedBlog() {
   console.log(`✅ ${result.success}/${result.total} articles insérés`)
   if (result.failed.length > 0) {
     console.warn(`⚠️  ${result.failed.length} article(s) en échec :`)
-    result.failed.forEach((f) => console.warn(`   - ${f.item}: ${f.reason}`))
+    for (const f of result.failed) console.warn(`   - ${f.item}: ${f.reason}`)
   }
 }
 

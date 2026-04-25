@@ -39,9 +39,8 @@ backend/src/db/seed/
 │   │   └── supplement/       # 1 marque active (nutripure)
 │   ├── tags/                # seed-tags : ingredientTagData + productTagData (284L)
 │   │   └── index.ts
-│   ├── blog/                # article-data.ts + 8 catégories (articles seed)
-│   └── otherdata/           # product-associations.ts, tag-associations.ts (CSV)
-├── runners/                 # seed-core.ts, seed-skincare.ts, seed-blog.ts, etc.
+│   └── blog/                # article-data.ts + 8 catégories (articles seed)
+├── runners/                 # seed-core.ts, seed-blog.ts, etc.
 ├── scripts/                 # outils data quality (ex: auto-tag.ts)
 ├── tests/                   # seed-data-integrity, shared-schemas-vs-tags, etc.
 └── docs/                    # ← ici
@@ -253,11 +252,8 @@ signature du produit. Trop de primary → information diluée.
 
 ### 3.7 Source de données seed
 
-- **CSV (skinsafeproducts.com)** — ~8 000 produits, traduction CSV→interne
-  via `data/products/types.ts` et `data/otherdata/product-associations.ts`
-  (mapping catégorie/kind/unit anglais → interne).
 - **Saisie manuelle** — marques soigneusement curées, FR, dans
-  `data/products/<brand>/<brand>.seed.ts`.
+  `data/products/<brand>/<brand>.seed.ts` (seule source désormais).
 - **Texte brut (copier-coller web)** — suivre les règles §3.4. Si INCI absent,
   omettre `inci`. Pour `unit`, déduire du nom ("Spray" → `spray`, "Pot" → `jar`).
 
@@ -427,7 +423,7 @@ zone-visage, zone-corps, zone-yeux, zone-levres, zone-mains
 ##### `product_type` — scope product
 
 Ce qu'est physiquement le produit (texture, format). Plus fiable que
-`products.kind` (qui vient du CSV anglais avec 25 valeurs hétérogènes).
+`products.kind` (granularité plus fine, indépendante des regroupements UI).
 
 Liste non exhaustive — ~55 slugs couvrant skincare, solaire, corps, cheveux,
 dental, compléments. Voir `SKINCARE_PRODUCT_TAG_SLUGS`.
@@ -734,21 +730,9 @@ Les tags `avoid` sont critiques pour les produits à acides forts, rétinoïdes,
 Exception : `noreva-product-tags.ts` est un fichier séparé hérité de l'ancienne convention
 (tous les autres brands intègrent les tags inline).
 
-### 6.4 Associations produit↔tag — CSV (auto)
+### 6.4 Script de tagging initial — `scripts/auto-tag.ts`
 
-`data/otherdata/tag-associations.ts` + `getTargetTagSlugs()` dans
-`runners/seed-skincare.ts`. Trois signaux combinés :
-
-1. **Catégorie CSV** → tags (`"Serum"` → `serum`, `traitement`)
-2. **Mots-clés dans le nom** → tags (`"éclat"` → `eclat`)
-3. **Ingrédients INCI** → tags (`retinol` → `anti-age`, `traitement`)
-
-Limite connue (voir ROADMAP P1) : couvre bien `product_type` et
-`routine_step`, mais pas assez `concern` et `skin_type`.
-
-### 6.5 Script de tagging initial — `scripts/auto-tag.ts`
-
-Script one-shot utilisé en avril 2026 pour pré-remplir les 1 017 produits CSV
+Script one-shot utilisé en avril 2026 pour pré-remplir les 1 017 produits seed
 dont `tags: { primary: [], secondary: [], avoid: [] }`.
 
 Logique par domaine :
@@ -917,10 +901,6 @@ sur `category` — filtrage par catégorie sur grande table fera un seq scan.
 - `PEAU_SENSIBLE` déplacé de `concern` → `skin_type`
 - `SPOT_TREATMENT` renommé "Traitement ciblé" pour le distinguer de
   `SOIN_LOCALISE` ("Soin localisé")
-- `INGREDIENT_TAG_MAP` : `EMOLLIENCE` → `EMOLLIENT`, `HYDRATATION` → `HUMECTANT`
-  sur les ingrédients
-- `CSV_CATEGORY_TAG_MAP` : 12 clés dupliquées supprimées (JS écrasait
-  silencieusement la première par la dernière)
 - `BEURRE_CACAO` : `avoid: [NON_COMEDOGENE]` → `avoid: [PEAU_GRASSE, ANTI_ACNE]`
   + `secondary: [COMEDOGENE]`
 - 792 violations de scope (slugs product-only sur ingrédients et vice versa)

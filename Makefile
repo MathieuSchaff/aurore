@@ -9,7 +9,7 @@
 	logs logs-api logs-db logs-nginx logs-frontend \
 	lint lint-fix format \
 	shell-api shell-db shell-frontend \
-	db-migrate db-generate db-push db-studio db-backup db-restore db-seed db-seed-all db-seed-dev db-clean db-reset db-reset-all \
+	db-migrate db-generate db-push db-studio db-backup db-restore db-seed db-clean db-reset \
 	db-backup-prod db-backup-clean backup-cron-install \
 	ssl-init ssl-renew nginx-reload \
 	firewall-setup firewall-status \
@@ -270,16 +270,6 @@ db-seed: ## Remplit la base de données avec les données CORE (Tags, Ingrédien
 	$(COMPOSE_DEV) exec api bun run src/db/seed/seed-core.ts
 	@echo "$(GREEN)✓ Seed CORE exécuté avec succès$(NC)"
 
-db-seed-all: ## Remplit la base de données avec TOUTES les données (CORE + CSV Skincare)
-	@echo "$(CYAN)Injection de toutes les données (Full Seed)...$(NC)"
-	$(COMPOSE_DEV) exec api bun run src/db/seed/seed-skincare.ts --full
-	@echo "$(GREEN)✓ Full Seed exécuté avec succès$(NC)"
-
-db-seed-dev: ## Seed rapide pour le développement (CORE + 100 produits CSV max)
-	@echo "$(CYAN)Seed développement (limité à 100 produits CSV)...$(NC)"
-	$(COMPOSE_DEV) exec api bun run src/db/seed/seed-skincare.ts --full --limit=100
-	@echo "$(GREEN)✓ Seed dev exécuté avec succès$(NC)"
-
 db-clean: ## Vide complètement la base de données (SCHEMA public)
 	@echo "$(YELLOW)⚠ ATTENTION : Toutes les données vont être supprimées !$(NC)"
 	@read -p "Confirmer le nettoyage de la DB locale ? [y/N] " confirm && [ "$$confirm" = "y" ] || exit 1
@@ -287,8 +277,6 @@ db-clean: ## Vide complètement la base de données (SCHEMA public)
 	@echo "$(GREEN)✓ Base de données vidée.$(NC)"
 
 db-reset: db-clean db-migrate db-seed ## Nettoyage complet + Migrations + Seed
-db-reset-dev: db-clean db-migrate db-seed-dev ## Nettoyage complet + Migrations + Seed dev (100 produits)
-db-reset-all: db-clean db-migrate db-seed-all ## Nettoyage complet + Migrations + Seed Unifié
 
 db-backup: ## Crée une sauvegarde SQL de la base de données
 	@mkdir -p ./backups
