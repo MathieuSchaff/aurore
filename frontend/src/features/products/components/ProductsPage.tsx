@@ -1,12 +1,15 @@
 import {
+  getProductKindLabel,
   PRODUCT_DOMAIN_TAB_META,
   PRODUCT_DOMAIN_TABS,
+  PRODUCT_KINDS,
+  PRODUCT_UNITS,
   type ProductDomainTab,
 } from '@habit-tracker/shared'
 
 import { useQuery } from '@tanstack/react-query'
 import { getRouteApi, Link, useNavigate } from '@tanstack/react-router'
-import { Package, Plus, SlidersHorizontal } from 'lucide-react'
+import { AlertTriangle, Package, Plus, SlidersHorizontal } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
@@ -15,6 +18,7 @@ import { ListPagination } from '@/component/DataDisplay/Pagination/ListPaginatio
 import { EmptyState } from '@/component/Feedback/ui/EmptyState/EmptyState'
 import {
   ActiveFiltersBar,
+  type ExtraChip,
   emptyFilters,
   FilterDrawer,
   type FilterGroupConfig,
@@ -26,8 +30,9 @@ import { PageHeader } from '@/component/Layout/PageHeader/PageHeader'
 import { SearchCombobox } from '@/component/Search/SearchCombobox'
 import { type TabOption, Tabs } from '@/component/Tabs/Tabs'
 import { useListFilters } from '@/hooks/useListFilters'
-import { useTagFilterGroups } from '@/hooks/useTagFilterGroups'
+import { useProductTagFilterGroups } from '@/hooks/useProductTagFilterGroups'
 import { ProductIcon } from '../../../assets/product-icons'
+import { SKIN_CONCERN_LABELS, SKIN_TYPE_LABELS } from '../../../constants/skin'
 import { ingredientQueries } from '../../../lib/queries/ingredients'
 import {
   type ListProductsFilters,
@@ -37,12 +42,12 @@ import {
 import { profileQueries } from '../../../lib/queries/profile'
 import { useAuthStore } from '../../../store/auth'
 import {
-  DOMAIN_TAG_KEYS,
-  DOMAIN_TAG_META,
   FILTER_KEYS,
   type FilterKey,
   GROUP_LABELS,
   LABEL_OVERRIDES,
+  NON_TAG_FILTER_LABELS,
+  NON_TAG_FILTER_PLACEHOLDERS,
   TAG_FILTER_KEYS,
 } from '../filters'
 import {
@@ -65,30 +70,29 @@ const routeApi = getRouteApi('/products/')
 // without clobbering ingredient (which buildDomainSwitchSearch preserves explicitly).
 const EMPTY_TAG_FILTERS = emptyFilters(TAG_FILTER_KEYS) as Record<string, string[]>
 
+// Reverse lookup kind → category, derived from the shared taxonomy.
+// Card hue is picked per product category; missing CSS rules fall back to default.
+const KIND_TO_CATEGORY = Object.fromEntries(
+  Object.entries(PRODUCT_KINDS).flatMap(([category, kinds]) =>
+    Object.values(kinds).map((kind) => [kind, category])
+  )
+) as Record<string, string>
+
+// Only categories with a dedicated CSS rule produce a category-specific class.
+const CATEGORIES_WITH_HUE = new Set(['skincare', 'complement'])
+
+const KNOWN_UNITS = new Set<string>(
+  Object.values(PRODUCT_UNITS).flatMap((domain) => Object.values(domain))
+)
+
 function kindClass(kind: string): string {
-  switch (kind) {
-    case 'complément':
-      return 'kind--complement'
-    case 'skincare':
-      return 'kind--skincare'
-    case 'huile':
-      return 'kind--huile'
-    case 'vitamine':
-      return 'kind--vitamine'
-    default:
-      return 'kind--default'
-  }
+  const category = KIND_TO_CATEGORY[kind]
+  return category && CATEGORIES_WITH_HUE.has(category) ? `kind--${category}` : 'kind--default'
 }
 
 function unitClass(unit: string | null | undefined): string {
   const u = unit?.toLowerCase().trim() ?? ''
-  if (u === 'pump' || u === 'pompe') return 'unit--pump'
-  if (u === 'dropper' || u === 'pipette' || u === 'compte-gouttes') return 'unit--dropper'
-  if (u === 'jar' || u === 'pot' || u === 'crème' || u === 'cream') return 'unit--jar'
-  if (u === 'tube') return 'unit--tube'
-  if (u === 'spray' || u === 'brume' || u === 'brumisateur') return 'unit--spray'
-  if (u === 'spf' || u === 'sunscreen' || u === 'solaire') return 'unit--spf'
-  return ''
+  return KNOWN_UNITS.has(u) ? `unit--${u}` : ''
 }
 
 const eurFormatter = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' })
@@ -147,7 +151,6 @@ export function ProductsPage() {
   const hasFilters = filterCount > 0
 
   const { data: filterOptions } = useQuery(productQueries.filterOptions(category))
-  const { data: allIngredients } = useQuery(ingredientQueries.options())
 
   const apiFilters: ListProductsFilters = buildProductsApiFilters({
     category,
@@ -172,51 +175,20 @@ export function ProductsPage() {
     })
   }
 
+  // Random sort: keep result stable across back-nav so order doesn't reshuffle
+  // (random() is non-deterministic — without staleTime, refetch yields a new sequence).
+  const staleTime = sort === 'random' ? 5 * 60 * 1000 : hasFilters ? 5 * 60 * 1000 : 0
   const { data, isLoading, isPlaceholderData } = useQuery({
     ...productQueries.list(apiFilters),
     placeholderData: (prev) => prev,
-    staleTime: hasFilters ? 5 * 60 * 1000 : 0,
+    staleTime,
   })
 
-  const tagGroups = useTagFilterGroups(
-    DOMAIN_TAG_KEYS[category],
-    filterOptions?.tags,
-    DOMAIN_TAG_META[category],
-    LABEL_OVERRIDES
-  )
+  const tagGroups = useProductTagFilterGroups(category, filterOptions?.tagCounts, LABEL_OVERRIDES)
 
   const filterGroups = useMemo<FilterGroupConfig<FilterKey>[]>(() => {
     if (!filterOptions) return []
 
-    if (category === 'skincare') {
-      return [
-        ...(tagGroups as FilterGroupConfig<FilterKey>[]),
-        {
-          id: 'search',
-          label: 'Recherche précise',
-          defaultOpen: false,
-          tier: 'advanced',
-          subFilters: [
-            {
-              key: 'brand',
-              label: 'Marque',
-              placeholder: 'Rechercher une marque...',
-              variant: 'search-select',
-              options: filterOptions.brands.map((b) => ({ value: b, label: b })),
-            },
-            {
-              key: 'ingredient',
-              label: 'Ingrédient',
-              placeholder: 'Rechercher un ingrédient...',
-              variant: 'search-select',
-              options: allIngredients?.map((i) => ({ value: i.slug, label: i.name })) ?? [],
-            },
-          ],
-        },
-      ]
-    }
-
-    // Non-skincare tabs: domain tag groups + kind / brand / ingredient
     return [
       ...(tagGroups as FilterGroupConfig<FilterKey>[]),
       {
@@ -227,28 +199,38 @@ export function ProductsPage() {
         subFilters: [
           {
             key: 'kind' as FilterKey,
-            label: 'Type',
-            placeholder: 'Tous',
-            options: filterOptions.kinds.map((k) => ({ value: k, label: k })),
+            label: NON_TAG_FILTER_LABELS.kind,
+            placeholder: NON_TAG_FILTER_PLACEHOLDERS.kind,
+            options: filterOptions.kinds.map((k) => ({ value: k, label: getProductKindLabel(k) })),
           },
           {
             key: 'brand',
-            label: 'Marque',
-            placeholder: 'Rechercher une marque...',
+            label: NON_TAG_FILTER_LABELS.brand,
+            placeholder: NON_TAG_FILTER_PLACEHOLDERS.brand,
             variant: 'search-select',
             options: filterOptions.brands.map((b) => ({ value: b, label: b })),
           },
           {
             key: 'ingredient',
-            label: 'Ingrédient',
-            placeholder: 'Rechercher un ingrédient...',
-            variant: 'search-select',
-            options: allIngredients?.map((i) => ({ value: i.slug, label: i.name })) ?? [],
+            label: NON_TAG_FILTER_LABELS.ingredient,
+            placeholder: NON_TAG_FILTER_PLACEHOLDERS.ingredient,
+            variant: 'async-search-select',
+            options: [],
+            loadOptionsQuery: (q: string) => ({
+              ...ingredientQueries.search(q),
+              select: (data: { slug: string; name: string }[]) =>
+                data.map((i) => ({ value: i.slug, label: i.name })),
+            }),
+            resolveValuesQuery: (slugs: string[]) => ({
+              ...ingredientQueries.bySlugs(slugs),
+              select: (data: { slug: string; name: string }[]) =>
+                data.map((i) => ({ value: i.slug, label: i.name })),
+            }),
           },
         ],
       },
     ]
-  }, [filterOptions, allIngredients, tagGroups, category])
+  }, [filterOptions, tagGroups])
 
   const items = data?.items ?? []
   const total = data?.total ?? 0
@@ -259,7 +241,7 @@ export function ProductsPage() {
     user && category === 'skincare' ? (
       <Toggle
         label="Selon mon profil"
-        hint="Masque les produits contre-indiqués pour votre type de peau"
+        hint="Signale les produits déconseillés pour votre type de peau"
         checked={profile_filter}
         onChange={(checked) =>
           navigate({ search: (prev) => ({ ...prev, profile_filter: checked, page: 1 }) })
@@ -267,6 +249,40 @@ export function ProductsPage() {
         size="sm"
       />
     ) : null
+
+  const extraChips: ExtraChip[] = []
+  if (hasPriceRange) {
+    const minLabel = priceMin != null ? eurFormatter.format(priceMin / 100) : null
+    const maxLabel = priceMax != null ? eurFormatter.format(priceMax / 100) : null
+    const label =
+      minLabel && maxLabel
+        ? `${minLabel} – ${maxLabel}`
+        : minLabel
+          ? `≥ ${minLabel}`
+          : `≤ ${maxLabel}`
+    extraChips.push({
+      id: 'price',
+      prefix: 'Prix',
+      label,
+      onRemove: () =>
+        navigate({
+          search: (prev) => ({ ...prev, priceMin: undefined, priceMax: undefined, page: 1 }),
+          replace: true,
+        }),
+    })
+  }
+  if (profile_filter) {
+    extraChips.push({
+      id: 'profile',
+      prefix: 'Profil',
+      label: 'Selon mon profil',
+      onRemove: () =>
+        navigate({
+          search: (prev) => ({ ...prev, profile_filter: false, page: 1 }),
+          replace: true,
+        }),
+    })
+  }
 
   const handleDomainChange = (next: ProductDomainTab) => {
     navigate({
@@ -340,7 +356,8 @@ export function ProductsPage() {
           groupLabels={GROUP_LABELS}
           getFilterLabel={(key, value) => getFilterLabel(filterGroups, key, value)}
           onRemoveTag={toggleSingleFilter}
-          onClearAll={resetFilters}
+          onClearAll={handleReset}
+          extraChips={extraChips}
         />
 
         <FilterDrawer
@@ -363,15 +380,23 @@ export function ProductsPage() {
           {isLoading && !isPlaceholderData ? (
             <EmptyState icon={<Package size={24} />} subtitle="Chargement..." />
           ) : items.length === 0 ? (
-            <EmptyState
-              icon={<Package size={24} />}
-              title={`Aucun produit ${PRODUCT_DOMAIN_TAB_META[category].label.toLowerCase()} pour l'instant`}
-              subtitle={
-                category === 'skincare'
-                  ? 'Essayez de modifier vos filtres pour trouver des produits.'
-                  : "Le catalogue s'enrichit régulièrement — revenez plus tard."
-              }
-            />
+            effectiveFilterCount > 0 ? (
+              <EmptyState
+                icon={<Package size={24} />}
+                title="Aucun produit ne correspond à vos filtres"
+                subtitle="Essayez d'élargir vos critères ou de tout réinitialiser."
+              >
+                <Button variant="outline" size="sm" onClick={handleReset}>
+                  Tout effacer
+                </Button>
+              </EmptyState>
+            ) : (
+              <EmptyState
+                icon={<Package size={24} />}
+                title={`Aucun produit ${PRODUCT_DOMAIN_TAB_META[category].label.toLowerCase()} pour l'instant`}
+                subtitle="Le catalogue s'enrichit régulièrement — revenez plus tard."
+              />
+            )
           ) : (
             <>
               <ul className="list-grid">
@@ -390,7 +415,27 @@ export function ProductsPage() {
                         className="list-card__header"
                       >
                         <div className="list-card__header-top">
-                          <span className="list-card__kind">{product.kind}</span>
+                          <div className="list-card__top-meta">
+                            <span className="list-card__kind">
+                              {getProductKindLabel(product.kind)}
+                            </span>
+                            {product.profileMatches.length > 0 && (
+                              <span
+                                className="list-card__avoid-badge"
+                                title={`Déconseillé pour : ${product.profileMatches
+                                  .map(
+                                    (s) =>
+                                      SKIN_TYPE_LABELS[s as keyof typeof SKIN_TYPE_LABELS] ??
+                                      SKIN_CONCERN_LABELS[s as keyof typeof SKIN_CONCERN_LABELS] ??
+                                      s
+                                  )
+                                  .join(', ')}`}
+                              >
+                                <AlertTriangle size={12} aria-hidden="true" />
+                                Éviter
+                              </span>
+                            )}
+                          </div>
                           <div className="list-card__icon-wrap" aria-hidden="true">
                             <ProductIcon unit={product.unit} kind={product.kind} size={18} />
                           </div>
@@ -422,7 +467,7 @@ export function ProductsPage() {
                               <span className="sr-only">Prix non renseigné</span>
                             </>
                           )}
-                          {product.totalAmount && (
+                          {product.totalAmount != null && product.totalAmount > 0 && (
                             <span className="list-card__unit-chip">
                               {product.totalAmount} {product.amountUnit ?? product.unit}
                             </span>
@@ -450,7 +495,7 @@ export function ProductsPage() {
                 ))}
               </ul>
 
-              {hasFilters && (
+              {totalPages > 1 && sort !== 'random' && (
                 <ListPagination
                   currentPage={page}
                   totalPages={totalPages}

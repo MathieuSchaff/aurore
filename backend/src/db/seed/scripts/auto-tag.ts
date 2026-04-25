@@ -96,12 +96,6 @@ const SLUG_TO_KEY: Record<string, string> = {
   'nettoyant-corps': 'NETTOYANT_CORPS',
   deodorant: 'DEODORANT',
   'creme-pieds': 'CREME_PIEDS',
-  shampoing: 'SHAMPOING',
-  'apres-shampoing': 'APRES_SHAMPOING',
-  'masque-cheveux': 'MASQUE_CHEVEUX',
-  'serum-cheveux': 'SERUM_CHEVEUX',
-  'huile-cheveux': 'HUILE_CHEVEUX',
-  'produit-coiffant': 'PRODUIT_COIFFANT',
   dentifrice: 'DENTIFRICE',
   'bain-de-bouche': 'BAIN_DE_BOUCHE',
   'kit-blanchiment': 'KIT_BLANCHIMENT',
@@ -328,14 +322,25 @@ const KIND_SKINCARE_SEC: Record<string, string[]> = {
 }
 
 // ─── kind → haircare primary (mirrors existing curated pattern) ───────────────
+// styling intentionally omitted: too many subtypes (creme/gel/cire/spray/mousse
+// coiffante) — let the seed author pick manually.
 
 const KIND_HAIRCARE_PRIMARY: Record<string, string> = {
-  shampoo: 'shampoing',
-  conditioner: 'apres-shampoing',
-  'hair-mask': 'masque-cheveux',
-  'hair-oil': 'huile-cheveux',
-  'hair-serum': 'serum-cheveux',
-  styling: 'produit-coiffant',
+  shampoo: 'shampooing',
+  conditioner: 'apres-shampooing',
+  'hair-mask': 'masque-capillaire',
+  'hair-oil': 'huile-capillaire',
+  'hair-serum': 'serum-capillaire',
+}
+
+// Haircare slugs live under HAIRCARE_PRODUCT_TAG_SLUGS, not TAG_SLUGS.
+// slugToCode() emits the right namespace depending on which map matches.
+const HAIRCARE_SLUG_TO_KEY: Record<string, string> = {
+  shampooing: 'SHAMPOOING',
+  'apres-shampooing': 'APRES_SHAMPOOING',
+  'masque-capillaire': 'MASQUE_CAPILLAIRE',
+  'serum-capillaire': 'SERUM_CAPILLAIRE',
+  'huile-capillaire': 'HUILE_CAPILLAIRE',
 }
 
 // ─── kind → dental primary ────────────────────────────────────────────────────
@@ -472,6 +477,8 @@ function computeTags(
 // ─── Code generation ──────────────────────────────────────────────────────────
 
 function slugToCode(slug: string): string {
+  const haircareKey = HAIRCARE_SLUG_TO_KEY[slug]
+  if (haircareKey) return `HAIRCARE_PRODUCT_TAG_SLUGS.${haircareKey}`
   const key = SLUG_TO_KEY[slug]
   return key ? `TAG_SLUGS.${key}` : `/* unknown: '${slug}' */`
 }
