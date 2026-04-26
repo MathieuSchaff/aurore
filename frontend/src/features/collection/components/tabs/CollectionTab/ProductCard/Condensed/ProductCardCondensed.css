@@ -29,6 +29,7 @@
     cursor: pointer;
     touch-action: manipulation;
     width: 100%;
+    border-top: 3px solid var(--pcc-accent);
     /*biome-ignore lint: this feature exist*/
     corner-top-right-shape: scoop;
     transition:
@@ -65,9 +66,9 @@
     width: 44px;
     height: 44px;
     border-radius: var(--radius-md);
-    background: var(--bg-card);
-    border: 2px solid var(--card-footer-bg, var(--color-primary));
-    color: var(--card-footer-bg, var(--color-primary));
+    background: oklch(from var(--pcc-accent) l c h / 0.08);
+    border: 2px solid oklch(from var(--pcc-accent) l c h / 0.3);
+    color: var(--pcc-accent);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -196,7 +197,6 @@
     line-clamp: 2;
     -webkit-box-orient: vertical;
     word-break: break-word;
-    min-height: calc(1.3em * 2);
   }
 
   .prod-chips {
@@ -244,36 +244,58 @@
     max-width: calc(100vw - 32px);
   }
 
-  .prod-chip-score {
+  .prod-score-bar-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .prod-score-bar-track {
+    width: 48px;
+    height: 5px;
+    border-radius: var(--radius-full);
+    background: var(--bg-muted, oklch(92% 0.01 220deg));
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .prod-score-bar-fill {
+    width: var(--score-pct, 0%);
+    height: 100%;
+    border-radius: var(--radius-full);
+    transition: width 0.4s ease;
+  }
+
+  .prod-score-num {
     font-size: 11px;
     font-weight: var(--font-bold);
-    padding: 3px 12px;
-    border-radius: var(--radius-full);
-    box-shadow: 0 1px 2px oklch(0% 0 0 / 0.05);
   }
 
-  .prod-chip-score.score-gold {
-    background: var(--color-warning-light, oklch(93% 0.12 80));
-    color: var(--color-warning-text, oklch(40% 0.15 75));
-    border: var(--border-width) solid var(--color-warning, oklch(85% 0.12 80));
+  .prod-score-bar-wrap.score-gold .prod-score-bar-fill {
+    background: oklch(75% 0.18 80);
+  }
+  .prod-score-bar-wrap.score-rare .prod-score-bar-fill {
+    background: oklch(65% 0.2 300);
+  }
+  .prod-score-bar-wrap.score-good .prod-score-bar-fill {
+    background: var(--color-success);
+  }
+  .prod-score-bar-wrap.score-none .prod-score-bar-fill {
+    background: var(--text-muted);
   }
 
-  .prod-chip-score.score-rare {
-    background: oklch(92% 0.1 300);
+  .prod-score-bar-wrap.score-gold .prod-score-num {
+    color: oklch(40% 0.15 75);
+  }
+  .prod-score-bar-wrap.score-rare .prod-score-num {
     color: oklch(40% 0.2 300);
-    border: var(--border-width) solid oklch(85% 0.1 300);
   }
-
-  .prod-chip-score.score-good {
-    background: var(--color-success-light);
+  .prod-score-bar-wrap.score-good .prod-score-num {
     color: var(--color-success);
-    border: var(--border-width) solid var(--color-success);
   }
-
-  .prod-chip-score.score-none {
-    background: var(--bg-muted);
+  .prod-score-bar-wrap.score-none .prod-score-num {
     color: var(--text-muted);
-    border: var(--border-width) solid var(--border-default);
   }
 
   .prod-price {

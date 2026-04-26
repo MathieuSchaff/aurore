@@ -132,11 +132,9 @@ export function ProductCardCondensed({
     setTimeout(() => setIsPopping(false), 350)
   }
 
-  const score = calculateWeightedScore(
-    p.review,
-    prefs?.criteriaWeights,
-    prefs?.displayScale || 'out_of_20'
-  )
+  const displayScale = prefs?.displayScale ?? 'out_of_20'
+  const score = calculateWeightedScore(p.review, prefs?.criteriaWeights, displayScale)
+  const scoreMax = displayScale === 'out_of_10' ? 10 : 20
   const priceEuros = p.product.priceCents ? `${(p.product.priceCents / 100).toFixed(0)}€` : null
 
   const scoreChipClass = getScoreChipClass(score)
@@ -224,7 +222,19 @@ export function ProductCardCondensed({
             </span>
             {p.product.kind && <Badge variant="chip">{p.product.kind}</Badge>}
             {score != null && (
-              <span className={clsx('prod-chip-score', scoreChipClass)}>{score}/20</span>
+              <div className={clsx('prod-score-bar-wrap', scoreChipClass)}>
+                <div className="prod-score-bar-track">
+                  <div
+                    className="prod-score-bar-fill"
+                    style={
+                      {
+                        '--score-pct': `${(Number.parseFloat(score) / scoreMax) * 100}%`,
+                      } as React.CSSProperties
+                    }
+                  />
+                </div>
+                <span className="prod-score-num">{score}</span>
+              </div>
             )}
           </div>
           {priceEuros && <div className="prod-price">{priceEuros}</div>}
