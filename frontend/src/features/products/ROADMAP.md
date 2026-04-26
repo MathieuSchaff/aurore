@@ -16,6 +16,19 @@
 
 ### 1. `concentrationUnit` et `unit` — champs libres à contraindre
 
+**✅ 1a/1b implémentés 2026-04-26.**
+- `unit` (conditionnement) : `productEditFormSchema` (`ProductForm.schema.ts:20-26`) valide via `.refine(v => PRODUCT_UNIT_VALUES.includes(v))`. Cast `as ProductUnit` conservé (refine ne narrow pas le type). UI : `ChipGroup` lié à `PRODUCT_UNITS[form.category]` (`ProductForm.tsx:333-344`).
+- `amountUnit` (contenance) : enum partagé `PRODUCT_AMOUNT_UNIT_VALUES` (`shared/src/products/units.ts:100-110`) + map par catégorie `PRODUCT_AMOUNT_UNITS`. Validation Zod (`ProductForm.schema.ts:39-44`). UI : `ChipGroup` (`ProductForm.tsx:359-368`).
+
+**✅ 1c — `concentrationUnit` implémenté 2026-04-26.**
+- Constante shared `PRODUCT_CONCENTRATION_UNIT_VALUES` (`['%', 'IU', 'mg', 'mcg', 'mg/mL']`) + type `ProductConcentrationUnit` + `PRODUCT_CONCENTRATION_UNIT_LABELS` (FR : `%`, `UI`, `mg`, `µg`, `mg/mL`) ajoutés dans `shared/src/products/units.ts`. Ré-exportés depuis `shared/src/index.ts`.
+- `createProductIngredientSchema` (`shared/src/products/ingredients.ts:11`) consomme la constante via `z.enum(PRODUCT_CONCENTRATION_UNIT_VALUES)`.
+- `updateProductIngredientSchema` côté backend (`backend/.../product-ingredients/routes.ts:26`) idem — duplication supprimée.
+- UI inline dans `ProductForm.tsx` : composant interne `IngredientRow` avec `<Input type="number">` (dose) + `<ChipGroup>` (unité). Champs optionnels.
+  - `create` : stocké dans `pendingIngredients`, envoyé via `addIngredient.mutateAsync` au submit.
+  - `edit` : nouvelle mutation `useUpdateProductIngredient` (PATCH) sur blur du value et change de l'unit.
+- Couvre `products/new` et `product/$slug/edit` (composant unique `ProductForm`).
+
 **Contexte**
 
 Dans les formulaires `products/new` et `product/$slug/edit`, deux champs acceptent actuellement n'importe quelle chaîne saisie librement :
@@ -49,6 +62,13 @@ Vérifié en navigateur sur `products/new` et `product/$slug/edit` (Abib Glutath
 
 ### 2. Tags non filtrés par catégorie dans les formulaires
 
+**✅ Implémenté 2026-04-26.**
+- `validTagTypes` dérivé de `DOMAIN_PRODUCT_FILTER_CATEGORIES[domain]` (`ProductForm.tsx:99-102`).
+- `domainTags = allTags.filter(t => validTagTypes.has(t.category))` passé à `useFormTags` (`ProductForm.tsx:104-113`) → le dropdown "Ajouter un tag" ne propose que les catégories du domaine.
+- Reset des tags incompatibles au switch de catégorie (`ProductForm.tsx:285-290`).
+- Note : `tagQueries.list()` charge toujours tous les tags (pas de paramètre `category` passé). Filtrage côté client. Pas de pagination backend (`backend/src/features/tags/routes.ts:40`) → tous les tags sont disponibles. Optimisation possible (passer `category` à la query) mais pas un bug.
+- **Reste ouvert** : aucune validation backend que les tags attachés correspondent à la catégorie du produit. Côté serveur, on peut toujours rattacher n'importe quel tag à n'importe quel produit. Dette data, orthogonale au fix UI.
+
 **Contexte**
 
 Dans `products/new` et `product/$slug/edit`, le sélecteur de tags charge et affiche **tous les tags de toutes les catégories** sans tenir compte de la catégorie choisie pour le produit. On peut donc attacher un tag `hair_type: cheveux bouclés` à un produit skincare, ou un tag `skin_concern: anti-âge` à un shampoing.
@@ -79,6 +99,11 @@ Ce qui existe et n'est pas utilisé : `GET /api/tags?category=<tagType>` support
 ---
 
 ### 3. Glitch visuel lors du switch d'onglet (page liste produits)
+
+**✅ Implémenté 2026-04-26.**
+- `handleDomainChange` wrappé dans `startTransition` (`ProductsPage.tsx:146-153`) → React traite le `navigate` comme non-urgent, garde la liste précédente jusqu'à résolution de la nouvelle query.
+- `page-header__loader` rendu en slot fixed-width 8px avec `visibility: hidden/visible` (`PageHeader.css:55-66`) → le mount/unmount du dot ne shift plus le layout. Le `<span>` est toujours dans le DOM, seule la visibilité bascule.
+- Plus de "ce qui apparaît à gauche de l'input" : le slot est réservé en permanence.
 
 **Contexte**
 
@@ -111,6 +136,8 @@ Structure du search dans le header : `.page-header__actions` (flex row) → `.co
 
 ### 4. Ajout produit depuis une card — champ "en stock"
 
+**✅ Implémenté 2026-04-26.** `AddToCollectionModal` : étape 2 (date + prix) ouverte pour les statuts "possédés" (`in_stock | holy_grail | archived | avoided` — constante `OWNED_STATUSES`). `wishlist` et `watched` restent un ajout direct (produit pas encore acquis). Bouton "Plus tard" sur l'étape 2 → crée le `userProduct` sans `purchase`. `selectedStatus` propagé dans `handlePurchaseSubmit` (plus de hardcode `'in_stock'`). `archived` ré-inclus dans `STATUS_OPTIONS`.
+
 **Contexte**
 
 Quand l'utilisateur clique sur "Ajouter" depuis une card produit dans la liste, une modale ou un panneau s'ouvre pour lier ce produit à sa collection avec un statut (En cours, Surveillé, Évité, Saint-graal…). Actuellement, on ne peut pas indiquer si le produit est **en stock** ou non au moment de l'ajout.
@@ -138,6 +165,8 @@ Modal `AddToCollectionModal` confirmé en navigateur (produit haircare, utilisat
 ---
 
 ### 5. Dropdown de recherche d'ingrédients (edit) — ouvrir vers le haut si manque de place
+
+**✅ Implémenté.** Hook `useFlipPlacement` extrait dans `frontend/src/component/Search/useFlipPlacement.ts` et consommé par `ComboboxPrimitive`, `AsyncSearchSelect`, `SearchSelect`. Le dropdown bascule au-dessus si la place sous le trigger est insuffisante. Recompute sur scroll de `.filter-drawer__body` et resize fenêtre.
 
 **Contexte**
 
@@ -169,6 +198,8 @@ Sur écran plus petit ou avec plus d'ingrédients existants, le débordement dev
 ---
 
 ### 6. Dropdown Marque + Ingrédient dans le drawer — scroll parasite et position incorrecte
+
+**✅ Implémenté.** `scrollIntoView` window-scroll supprimé de `SearchSelect.tsx` et `AsyncSearchSelect.tsx` à l'ouverture du dropdown. Le hook `useFlipPlacement` lit `getBoundingClientRect()` et écoute le scroll de `.filter-drawer__body` pour suivre le trigger sans polluer le scroll page. Reste un `scrollIntoView({ block: 'nearest' })` sur l'option active du listbox — ça c'est la nav clavier, pas le bug.
 
 **Contexte**
 
@@ -206,6 +237,8 @@ Confirmé par mesure : brand input à viewport y=1199 après maxScroll du drawer
 ---
 
 ### 7. Filtres Marque et Ingrédient non transmis au backend
+
+**✅ Implémenté.** `buildProductsApiFilters` (`frontend/src/features/products/helpers.ts:53-61`) lit `filters.brand` et `filters.ingredient` et les propage dans la valeur de retour. Backend déjà supportait. Le schema d'URL côté frontend accepte `string[]` (cf. `filterSearchSchema`).
 
 **Contexte**
 
@@ -248,6 +281,27 @@ Naviguer vers `?brand=Av%C3%A8ne` (format string) → error page (schema Zod att
 
 ### 8. Header search — résultats limités à 8, pas de navigation vers la liste filtrée
 
+**✅ Implémenté 2026-04-26.**
+
+- **Étape A** : `productQueries.search` passe `limit: '20'` (`frontend/src/lib/queries/products.ts:122`). Schema `searchProductsQuery` a `max(20)`.
+- **Étape B1** : entrée "Voir tous les produits {Marque}" en bas du dropdown quand le query matche une marque connue (case-insensitive, exact). Click → `navigate({ to: '/products', search: { brand: [match], page: 1 } })`. Implémentation :
+  - `ComboboxPrimitive` reçoit un nouveau prop `footer?: ReactNode` rendu en bas de la listbox.
+  - `SearchCombobox` reçoit `extraEntry?: (q) => { id, label, onSelect } | null` exposé en footer stylisé. Click clear le query + ferme.
+  - `ProductsHeader` consomme `productQueries.brands()` et passe la fonction `extraEntry`.
+- **Étape C** : load-more serveur (pagination par `offset`).
+  - Backend : `searchProductsQuery` schema accepte `offset` (default 0). `searchProducts` fetch `limit + 1` pour détecter `hasMore` sans COUNT(*) séparé. Retourne `{ items, hasMore, nextOffset }`. Tests `searchProducts` adaptés (les deux existants + un nouveau pour la pagination).
+  - Shared : nouveau type `ProductSearchPage`.
+  - Frontend `productQueries.search` : passé en `infiniteQueryOptions` (`getNextPageParam` lit `lastPage.hasMore`).
+  - `ingredientQueries.searchInfinite` : wrapper single-page (pas de pagination backend pour ingrédients) — distinct de `ingredientQueries.search` (toujours `queryOptions`, utilisé par `IngredientSearch` et `useProductsFilterGroups`).
+  - `SearchCombobox` : passé sur `useInfiniteQuery`, flatten `data.pages.flatMap(p => p.items)`. Expose `hasNextPage` + `fetchNextPage` à `ComboboxPrimitive`.
+  - `ComboboxPrimitive` : sentinel `<div ref={sentinelRef}>` en bas du listbox + `IntersectionObserver` (root = dropdown, rootMargin 40px). Quand le sentinel intersecte → `onLoadMore()`. Status "Chargement..." si `isLoadingMore`.
+  - Consommateurs migrés : `ProductsHeader`, `QuickAdd`, `IngredientsPage` (passe `searchInfinite`).
+
+**Limitations connues étape B1**
+- Match marque exact uniquement (pas de fuzzy / startsWith) → typer "av" ne déclenche pas l'entrée. Volontaire pour éviter les faux positifs.
+- Pas de count par marque dans l'entrée ("Voir tous les produits Avène (36)") — `getDistinctBrands` retourne `string[]`. Si besoin, ajouter un endpoint `/brands?withCount=1` ou enrichir `getDistinctBrands`.
+- L'entrée extra n'est pas accessible au clavier (arrows skip le footer). Souris/tap uniquement pour v1. À ré-évaluer si usage clavier devient un signal.
+
 **Contexte**
 
 La barre de recherche dans le header de la page produits (`SearchCombobox`) est un autocomplete de navigation : taper un terme affiche ~8 suggestions, cliquer sur l'une d'elles navigue vers la fiche du produit. L'utilisateur s'attend à trouver tous les produits correspondants (ex: "Avène" → tous les produits Avène), avec scroll ou pagination.
@@ -271,3 +325,231 @@ Il existe **36 produits Avène** en DB skincare. La recherche "avène" en retour
 **Audit 2026-04-26**
 
 `curl /api/products/search?q=avène` → `count=8`. `curl /api/products?brand=Avène` → `total=36`. Confirme : le header search ne montre qu'une fraction des résultats réels.
+
+---
+
+### 9. Soumission de la recherche (Enter) — filtre liste plutôt que navigation
+
+---
+
+#### Journal D1 — 2026-04-26 ✅ shippé
+
+**Le problème en une phrase**
+
+Quand on tapait "vitamine C" dans la barre de recherche du header produits, on voyait seulement les produits dont le **nom** contient "vitamine C" (genre "Sérum Vitamine C 10%"). On ne voyait **pas** les 30 autres produits qui contiennent l'ingrédient vitamine C dans leur formule mais sans le mot dans le nom. L'utilisateur ratait l'essentiel.
+
+**La solution choisie**
+
+Garder l'autocomplete actuel (qui cherche dans le nom + la marque), mais **ajouter en bas du dropdown une entrée raccourci** : "Voir tous les produits avec Vitamine C". Cliquer dessus filtre la page produits par ingrédient. Pareil pour la marque (déjà fait en B1) — maintenant pareil pour les ingrédients.
+
+**Plan d'attaque en 5 étapes**
+
+Le travail a été découpé en 5 commits pour qu'on puisse revenir en arrière facilement si quelque chose casse, et pour que chaque commit fasse une seule chose claire.
+
+---
+
+##### Étape 1 — Outil "foldText" pour comparer les mots sans accents
+
+**Commits :** `4995d839` puis `20f6925e` (polish)
+
+Avant de comparer "Avène" et "avene", il faut les normaliser. La fonction `foldText` enlève les accents, met tout en minuscules, vire les espaces autour. Comme ça `foldText('Avène') === foldText('avene')` est vrai.
+
+C'est une petite fonction de 5 lignes, plus 5 tests qui vérifient qu'elle fait bien son boulot. Le commit polish `20f6925e` a juste rendu le code plus lisible (les caractères "marque combinante" Unicode étaient invisibles, on les a remplacés par leur forme `̀-ͯ` lisible).
+
+**Fichier créé :** `frontend/src/component/Search/text-fold.ts`
+
+---
+
+##### Étape 2 — Bug du dropdown qui restait collé à l'écran
+
+**Commits :** `4a0b788f` puis `af40156c` (polish)
+
+Bug constaté : on ouvrait le dropdown de recherche, on scrollait la page, et le dropdown ne suivait pas l'input — il restait fixe au milieu de l'écran, coupé du champ de saisie. Pas joli.
+
+**La cause** : le dropdown utilise `position: fixed` et un calcul de position basé sur le viewport. Le code écoutait le scroll du tiroir de filtres et le redimensionnement de la fenêtre — mais pas le scroll de la page elle-même. Donc quand on scrollait la page, rien ne disait au dropdown de se repositionner.
+
+**Le fix** : ajouter un écouteur `window.addEventListener('scroll', ...)` (en mode `passive` pour ne pas ralentir le scroll). Plus un cleanup symétrique pour ne pas créer de fuite mémoire quand le dropdown se ferme.
+
+Bonus dans le même commit : le `MAX_HEIGHT` du dropdown passe de "240px sur desktop / 200px sur mobile" à `min(50% de la hauteur écran, 400px)`. Plus adaptatif. Le polish `af40156c` ajoute juste `passive: true` aussi sur l'écouteur resize, par cohérence avec le scroll.
+
+**Fichier modifié :** `frontend/src/component/Search/useFlipPlacement.ts`
+
+---
+
+##### Étape 3 — Couper le dropdown en 2 zones (items qui scrollent + footer fixe)
+
+**Commit :** `abfefec4`
+
+Bug constaté : l'entrée "Voir tous les produits Avène" (le footer brand B1 déjà existant) était noyée tout en bas du dropdown, après les 8+ suggestions produits. Il fallait scroller pour la voir. Pas découvrable.
+
+**La cause** : le dropdown était une seule grosse boîte qui scrollait, avec les items + le footer dedans. Le footer scrollait avec.
+
+**Le fix** : restructurer la boîte en deux compartiments empilés (flex column) :
+- **Zone du haut** : les items produits, qui scrollent (`overflow-y: auto`)
+- **Zone du bas** : le footer (les "Voir tous"), qui ne scrolle pas, toujours visible
+
+Côté ARIA accessibility, la zone du haut garde le `role="listbox"` (c'est elle qui contient les vraies options sélectionnables). Le footer sort du listbox, ce qui est correct sémantiquement (les entrées footer sont des actions de navigation, pas des "options").
+
+**Fichiers modifiés :** `frontend/src/component/Search/ComboboxPrimitive.tsx` et `.css`
+
+---
+
+##### Étape 4 — Permettre PLUSIEURS entrées footer (pas juste une)
+
+**Commit :** `bcac04b9`
+
+Avant : `SearchCombobox` acceptait `extraEntry` (singulier) — une seule entrée bonus possible (la marque B1).
+
+Maintenant : `extraEntries` (pluriel) — un tableau d'entrées. Comme ça on peut empiler marque + ingrédient quand les deux matchent.
+
+Au passage on ajoute un champ `icon?: ReactNode` à chaque entrée pour pouvoir mettre une petite icône Lucide à gauche du label.
+
+**Détail CSS** : avant, chaque bouton `.search-combobox__extra` avait un `border-top` à lui. Avec la nouvelle zone footer (étape 3) qui a déjà son propre `border-top`, on aurait eu une double bordure. Fix : enlever le `border-top` du bouton, et le mettre uniquement entre boutons adjacents via `.search-combobox__extra + .search-combobox__extra { border-top: ... }`.
+
+**Fichiers modifiés :**
+- `frontend/src/component/Search/SearchCombobox.tsx` (l'API)
+- `frontend/src/component/Search/SearchCombobox.css` (le fix bordure)
+- `frontend/src/features/products/components/ProductsHeader/ProductsHeader.tsx` (mise à jour conso : passe un tableau d'un seul élément pour la marque, en attendant l'étape 5)
+
+---
+
+##### Étape 5 — La vraie feature D1 : brancher le match ingrédient
+
+**Commit :** `e3540c92`
+
+Maintenant qu'on a tous les outils, on les assemble dans `ProductsHeader` :
+
+1. On charge la liste de tous les ingrédients via `ingredientQueries.options()` (déjà existant dans le code mais sans consommateur jusqu'ici — cache 10 minutes, ~7 KB gzippé pour ~427 ingrédients skincare).
+
+2. Dans le callback `extraEntries(q)` qu'on passe au `SearchCombobox`, on fait :
+   - Fold le query
+   - Si trop court (< 2 caractères) → tableau vide
+   - Cherche un match marque exact → si trouvé, ajoute une entrée (icône `Tag`)
+   - Cherche un match ingrédient exact (par nom OU par slug) → si trouvé, ajoute une entrée (icône `FlaskConical`)
+   - Retourne le tableau (0, 1 ou 2 entrées)
+
+3. Click sur une entrée → `navigate({ to: '/products', search: (prev) => ({ ...prev, brand: [X], page: 1 }) })` (préserve les autres filtres actifs).
+
+**Pourquoi inline et pas un hook `useProductFacetMatch` ?** Le spec proposait un hook. Mais le callback `extraEntries(q)` du `SearchCombobox` est appelé sur chaque keystroke debouncé — appeler un hook React dedans casserait les Rules of Hooks (un hook doit être appelé au top-level d'un composant, pas dans un callback). Solution : on hoist `useQuery` au body du composant (légal), et on fait la comparaison synchrone fold-and-find dans le callback (pure, pas un hook). Plus simple, moins de fichiers.
+
+**Tests intégration ajoutés** dans `ProductsHeader.test.tsx` (4 tests) :
+- Tape "avène" → l'entrée marque apparaît
+- Tape "vitamine c" → l'entrée ingrédient apparaît
+- Tape "xyzqwerty" → aucune entrée
+- Click sur l'entrée ingrédient → `navigate` est bien appelé avec `ingredient: ['vitamine-c'], page: 1`
+
+**Fichiers :**
+- `frontend/src/features/products/components/ProductsHeader/ProductsHeader.tsx` (modifié)
+- `frontend/src/features/products/components/ProductsHeader/__tests__/ProductsHeader.test.tsx` (nouveau)
+
+---
+
+#### Résumé du résultat final
+
+L'utilisateur tape un terme dans la barre de recherche du header produits. Le dropdown s'affiche en deux zones :
+
+```
+┌─ Suggestions produits (scrollables) ──────┐
+│  • Sérum Vitamine C — The Ordinary        │
+│  • Booster Vitamine C — Paula's Choice    │
+│  • ... (charge plus en scrollant)         │
+├────────────────────────────────────────────┤
+│  🧪  Voir tous les produits avec Vitamine C │  ← footer fixe
+└────────────────────────────────────────────┘
+```
+
+- **Click sur un produit** → fiche produit (comme avant)
+- **Click sur le footer "Voir tous"** → page liste filtrée (`/products?ingredient=vitamine-c`)
+- **Scroll de la page** → dropdown suit l'input (bug fixé)
+
+Tests : **+9 tests verts** (5 unitaires `foldText` + 4 intégration `ProductsHeader`). 0 régression sur la baseline de 19 fails préexistants (Toggle / FilterDrawer / etc., orthogonaux).
+
+#### Ce qui reste à faire (pas urgent)
+
+- **D2 — Enter handler** : appuyer sur Entrée sans cliquer = trigger la première entrée footer dispo. Cohérent avec convention e-commerce (Amazon, Sephora). Architecture déjà prête (footer hors listbox, primitive peut intercepter Enter sans highlight).
+- **D3 — Filtre `q` texte libre** : pour les recherches qui ne matchent ni marque ni ingrédient (ex: "matifiant"). Plus lourd (touche le schéma list partagé). À éviter tant que D1+D2 couvrent bien.
+- **D4 — Sections multi-facettes dans le dropdown** : "Produits / Ingrédients / Marques" en sections séparées. UX plus riche mais plus complexe. Optionnel, à ouvrir si D1+D2+D3 ne suffisent pas.
+
+#### Coverage gaps mineurs (à hardener un jour)
+
+- Test no-match (`xyzqwerty`) : assertion négative faible — passerait même si `extraEntries` retournait toujours `[]`. À durcir en confirmant d'abord que le dropdown s'ouvre, puis que le footer est absent.
+- Pas de test intégration "tape sans accent → matche avec accent" (ex: `avene` → `Avène`). Couvert indirectement par les tests unitaires `foldText`, mais l'intégration mériterait un test explicite.
+
+#### Références
+
+- **Spec** : `docs/superpowers/specs/2026-04-26-search-d1-design.md`
+- **Plan d'implémentation** : `docs/superpowers/plans/2026-04-26-search-d1.md`
+- **Commits** : `4995d839` → `e3540c92` (5 commits feature + 2 polish + 1 docs)
+
+---
+
+#### Contexte original (préservé)
+
+**Scénario observé**
+
+L'utilisateur tape "vitamine C" dans le header search. Le dropdown affiche les produits dont le **nom** contient "vitamine C" (ILIKE sur `name` + `brand`). Mais l'intention réelle est souvent : "montre-moi les produits qui *contiennent* de la vitamine C" — pas ceux dont le nom mentionne "vitamine C".
+
+Idem pour "rétinol", "niacinamide", "acide salicylique" : ce sont des **ingrédients**, pas des noms de produits. Le pattern "marque" (couvert en B1 par l'entrée "Voir tous les produits Avène") doit s'étendre à d'autres facettes : **ingrédient**, **type de produit**, **type de peau**.
+
+**Le bon pattern UX : "submit search"**
+
+Convention universelle en e-commerce et catalogues (Amazon, Sephora, Beautypedia, Skinsort) :
+
+1. **Click sur une suggestion** → navigation vers la fiche d'UN produit (l'utilisateur sait lequel il veut).
+2. **Appui sur Enter sans suggestion sélectionnée** → soumission de la recherche → page liste filtrée par le terme.
+3. **Lien "Voir tous les résultats pour X"** en bas du dropdown → équivalent visuel de la touche Enter, pour les utilisateurs qui n'utilisent pas le clavier.
+
+L'autocomplete reste un raccourci (latence faible, peu de résultats), la liste filtrée reste l'outil de "browse" (pagination, filtres combinés, tri).
+
+**Pourquoi c'est important pour Aurore**
+
+Aurore n'est pas un site qui fait acheter un produit précis. C'est un outil de **découverte de routine**. L'utilisateur arrive avec :
+- une **problématique** ("anti-âge", "rougeurs"),
+- un **ingrédient** qu'on lui a recommandé,
+- un **type de produit** ("sérum hydratant"),
+- ou une **marque** qu'il connaît.
+
+Dans aucun de ces cas il ne tape un nom de produit complet. Le header search devrait donc traiter le terme comme un signal multi-facettes, pas un préfixe `name LIKE '%X%'`.
+
+**Mappings souhaités**
+
+| Type de match | Action sur Enter / clic "Voir tous" |
+|---------------|-------------------------------------|
+| Marque connue (Avène, Bioderma…) | navigate `/products?brand=[X]` (déjà fait — étape B1) |
+| Ingrédient connu (vitamine c, rétinol, niacinamide…) | navigate `/products?ingredient=[slug]` |
+| Type de produit (sérum, crème, baume…) | navigate `/products?kind=[slug]` ou `?product_type=[slug]` selon taxonomie |
+| Tag taxonomie (anti-âge, peau sèche…) | navigate `/products?<tagCategory>=[slug]` |
+| Aucun match facette → texte libre | navigate `/products?q=[term]` (nécessite filtre `q` côté list endpoint — pas implémenté) |
+
+**Bonnes pratiques**
+
+1. **Hiérarchie des intentions** : autocomplete (nav) > raccourcis facettes (filter via match) > recherche texte libre (filter via `q`). Jamais l'inverse.
+2. **Disambiguation visible** : afficher dans le dropdown des sections distinctes :
+   - "Produits" (suggestions navigables)
+   - "Ingrédients" (Voir produits avec X)
+   - "Marques" (Voir produits Y)
+   - "Voir tous les résultats" (texte libre)
+3. **Enter = soumission** : implicite et universel. L'utilisateur attend ce comportement même sans le savoir. Si la touche ne fait rien (ou navigue vers le 1er résultat sans choix), c'est une friction TDAH classique : "j'ai tapé, j'ai validé, il s'est rien passé d'utile".
+4. **Slug-first matching** : `getDistinctIngredients()` doit comparer sur `slug` ou `name` insensiblement, accent-fold, trim. Sinon "vitamine c" ≠ "Vitamine C" ≠ "vitamine-c".
+5. **Conserver le query dans l'URL** : `?q=vitamine c` permet le partage de lien et l'historique navigateur.
+6. **Empty state utile** : si aucun produit ne contient l'ingrédient cherché, ne pas montrer "0 résultat" mais "Aucun produit ne contient encore X — voir la fiche ingrédient" + lien fiche ingrédient. La fiche ingrédient est un autre point d'entrée valide.
+
+**Recommandation pragmatique pour aurore**
+
+Phase par phase, avec valeur visible à chaque étape :
+
+1. **Étape D1 — Match ingrédient (analogue à B1 marque)** : query `ingredientQueries.list({ q })` ou un endpoint léger `/api/ingredients/match-name?q=`. Si match exact (slug/name fold), entrée "Voir tous les produits avec X" → `navigate({ to: '/products', search: { ingredient: [slug] } })`. Couvre 80% du besoin "rétinol" / "niacinamide" / "vitamine c". Coût modéré (un endpoint match + handler dropdown).
+
+2. **Étape D2 — Submit-on-enter** : si Enter pressé sans suggestion sélectionnée, déclencher la même logique de match-and-navigate (marque → filtre brand, ingrédient → filtre ingredient). Si aucun match, fallback vers étape D3.
+
+3. **Étape D3 — Filtre `q` texte libre sur list endpoint** : pour les recherches qui ne matchent ni marque ni ingrédient (ex: "matifiant" qui n'est ni une marque ni un ingrédient mais peut être un nom de produit ou un tag). Ajouter `q` dans `listProductsQuery` schema, ILIKE name+brand côté service. Stocker dans URL `?q=...`. Plus lourd (touche le schéma list partagé, le builder URL frontend, le drawer pour afficher le query actif comme une "puce").
+
+4. **Étape D4 (optionnelle) — Sections multi-facettes dans le dropdown** : "Produits" / "Ingrédients" / "Marques" / "Voir tous". UX plus riche, mais aussi plus complexe à maintenir (3-4 sources async, ordering, gestion clavier). À ouvrir seulement si D1+D2+D3 ne suffisent pas.
+
+**Mon avis honnête**
+
+L'utilisateur cherchait initialement "voir plus de résultats" (étape C — load-more — fait). Mais le vrai pain produit, c'est cette confusion entre *autocomplete de navigation* et *filtre de liste*. Tant que la SearchCombobox traite "vitamine C" comme un préfixe de nom, elle est un mauvais outil de découverte.
+
+L'étape D1 (match ingrédient) est le meilleur ratio impact/coût — elle débloque tout de suite le cas le plus fréquent (ingrédients) en suivant un pattern déjà éprouvé (B1 marque). Ne pas faire D3 tout de suite : la search texte libre sur la liste est tentante mais redondante si D1+D2 couvrent bien les facettes nommées.
+
+**Risque à éviter** : empiler trois mécanismes de recherche concurrents (autocomplete + filtre brand + filtre ingredient + filtre q + filtres tags du drawer) sans hiérarchie claire. La page liste devient un sapin de Noël et l'utilisateur ne sait plus quel canal donne quel résultat. Préférer une seule barre de recherche **intelligente** qui dispatche selon le match, plutôt que trois inputs qui font des choses différentes.

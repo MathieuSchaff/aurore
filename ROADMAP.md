@@ -15,22 +15,34 @@
 
 > **Before touching anything: read `frontend/src/features/products/AUDIT.md`** (32 issues, severity-ranked, with file:line + fix per item) and `frontend/src/features/products/ROADMAP.md` (8 known bugs with browser-verified diagnoses). The audit cross-references against Vercel React best practices and confirms / corrects every entry in the products ROADMAP.
 
+> **Status 2026-04-26 (end of session)** — Phases 1, 2, 3 mostly done. Bug 9 D1 (ingredient footer match in header search) ✅ shipped — see plan `docs/superpowers/plans/2026-04-26-search-d1.md`. Remaining: Bug 1c (Phase 2), Phases 4–6, Bug 9 D2/D3/D4 (deferred). Pre-existing test baseline: 19 unrelated failures (Toggle, FilterDrawer resync, CollectionPage, PurchaseFlow, ProductDetailSheet, Layout/Card) — none block products work, do not touch unless asked.
+
+> **Important — file paths in AUDIT.md are stale after Phase 3.** Sub-components moved out of `pages/ProductsPage/`:
+> - `ProductCard.tsx` → `features/products/components/ProductCard/ProductCard.{tsx,css}`
+> - `ProductsHeader.tsx`, `ProductsActiveBar.tsx`, `ProductsFilterDrawerContent.tsx` → `features/products/components/<Name>/`
+> - `useProductsFilterGroups.ts`, `useProductsExtraChips.ts` → `features/products/hooks/`
+> - `ProductsPage.tsx` is now ~255 lines (orchestrator only). Card CSS extracted to `ProductCard.css`.
+> Audit line refs to `ProductsPage.tsx:396-491` (card render), `ProductsPage.tsx:185-229` (filterGroups), `ProductsPage.tsx:249-281` (extraChips) → now live in their respective extracted files. Re-grep before fixing.
+
 Execute in phases — each phase is independently shippable. Pick any phase, no prerequisites between them except where noted.
 
 ### Phase 1 — Surgical fixes (cheap, high-value, ~1h)
-- [ ] **Bug 7** — `helpers.ts:21-64` forward `brand` + `ingredient` to API. Widen signature to `FilterValues<FilterKey>`. Add 2 tests in `__tests__/helpers.test.ts`.
-- [ ] **Mutation cache hygiene** — `lib/queries/products.ts` lines 252, 277, 298 invalidate `productKeys.bySlug(...)` (currently silent stale data on detail page after tag/ingredient edits). Line 227 (`useDeleteProduct`) invalidate brands + remove bySlug.
-- [ ] **Bug 6** — drop `scrollIntoView` `useEffect` in `SearchSelect.tsx:114-118` and `AsyncSearchSelect.tsx:150-154` (kills page scroll glitch in drawer).
+- [x] **Bug 7** — `helpers.ts:21-64` forward `brand` + `ingredient` to API. Widen signature to `FilterValues<FilterKey>`. Add 2 tests in `__tests__/helpers.test.ts`.
+- [x] **Mutation cache hygiene** — `lib/queries/products.ts` lines 252, 277, 298 invalidate `productKeys.bySlug(...)` (currently silent stale data on detail page after tag/ingredient edits). Line 227 (`useDeleteProduct`) invalidate brands + remove bySlug.
+- [x] **Bug 6** — drop `scrollIntoView` `useEffect` in `SearchSelect.tsx:114-118` and `AsyncSearchSelect.tsx:150-154` (kills page scroll glitch in drawer).
 
 ### Phase 2 — UX glitches (~2h, browser verification per change)
-- [ ] **Bug 3** — `ProductsPage.tsx:283-288` wrap `navigate` in `startTransition`. `PageHeader.css:55-62` reserve fixed-width loader slot. Verify INP < 200ms.
-- [ ] **Bug 2** — `ProductForm.tsx:82` pass `form.category` to `tagQueries.list(category)`, drop tags whose `tagType` is invalid on category change.
+- [x] **Bug 3** — `ProductsPage.tsx:283-288` wrap `navigate` in `startTransition`. `PageHeader.css:55-62` reserve fixed-width loader slot. Verify INP < 200ms.
+- [x] **Bug 2** — `ProductForm.tsx:82` pass `form.category` to `tagQueries.list(category)`, drop tags whose `tagType` is invalid on category change.
 - [ ] **Bug 1** — `ProductForm.schema.ts:17` enum-ify `unit`. New `PRODUCT_AMOUNT_UNITS` shared constant + `ChipGroup` for `amountUnit`. Move `concentrationUnit` enum to one shared constant + add edit UI.
+  - [x] 1a — enum-ify `unit` (refine against `PRODUCT_UNIT_VALUES`).
+  - [x] 1b — `PRODUCT_AMOUNT_UNITS` shared (per-domain) + ChipGroup; backend `createProductSchema` / `updateProductSchema` / `productChangesSchema` use enum.
+  - [ ] 1c — `concentrationUnit` shared constant + edit UI in ingredient row (deferred — UX decision needed: edit in product form or per-ingredient page?).
 
 ### Phase 3 — Architecture refactors (~3h, single feature branch)
-- [ ] **Bug 5 / extract `useFlipPlacement`** — lift the flip `useEffect` from `AsyncSearchSelect.tsx:161-203` to a hook in `frontend/src/component/Search/`. Apply to `ComboboxPrimitive` (fixes `IngredientSearch` + `BrandCombobox` for free). Migrate `AsyncSearchSelect` + `SearchSelect` to consume it. **Note**: do not collapse `IngredientSearch` and `AsyncSearchSelect` into one component — the audit explains why their APIs intentionally differ (see Bug 5 section).
-- [ ] **Split `ProductsPage`** (514 → ~150 lines) into `<ProductCard>` (memoized), `<ProductsHeader>`, `<ProductsActiveBar>`, `<ProductsFilterDrawerContent>`. Existing integration test should pass unchanged.
-- [ ] **`ProductForm` form-state sync** — `key={mode === 'edit' ? product.id : 'create'}` on `<form>` so post-mutation `product` updates re-seed the form. Same pattern for `useFormTags(initialTags)`.
+- [x] **Bug 5 / extract `useFlipPlacement`** — lift the flip `useEffect` from `AsyncSearchSelect.tsx:161-203` to a hook in `frontend/src/component/Search/`. Apply to `ComboboxPrimitive` (fixes `IngredientSearch` + `BrandCombobox` for free). Migrate `AsyncSearchSelect` + `SearchSelect` to consume it. **Note**: do not collapse `IngredientSearch` and `AsyncSearchSelect` into one component — the audit explains why their APIs intentionally differ (see Bug 5 section).
+- [x] **Split `ProductsPage`** (514 → 255 lines) into `<ProductCard>` (memoized), `<ProductsHeader>`, `<ProductsActiveBar>`, `<ProductsFilterDrawerContent>` + `useProductsFilterGroups` / `useProductsExtraChips` hooks. Integration test passes unchanged.
+- [x] **`ProductForm` form-state sync** — `key={mode === 'edit' ? product.id : 'create'}` on `<form>` so post-mutation `product` updates re-seed the form. Same pattern for `useFormTags(initialTags)`.
 
 ### Phase 4 — Async waterfalls (~1h)
 - [ ] **`ProductEditPage`** — `productQueries.tags(slug)` instead of `tags(productId)` so both queries parallelize via `useSuspenseQueries`.
