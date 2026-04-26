@@ -1,167 +1,273 @@
-# Roadmap - Filtres Produits
+# Roadmap - Products
 
-Ce document liste les améliorations, correctifs et évolutions identifiés pour le système de filtrage de la page produits.
+## 🚧 Reste actif
 
-## 🚨 Régression TS — Résolue (effondrement AppType Hono RPC)
-
-- [x] **~50 erreurs `ts-verify` / ~195 `ts-build` sur features non touchées (`blog/`, `collection/`, `profile/`, `ProductsPage.tsx`).** Symptôme dominant : `implicit any` (TS7006), `'item' is of type 'unknown'` (TS18046), `Property X does not exist on type '{ id: string; name: string; }'` (TS2339). Tous les fichiers pointaient vers des appels Hono RPC dont le type retour s'était dégradé en `any`/`unknown`.
-
-### Diagnostic
-
-1. **Inspection des `.d.ts` émis** : dans `backend/dist/index.d.ts`, `AppType` était collapsé à `HonoBase<AppEnv, BlankSchema | MergeSchemaPath<{}, "/api/auth"> | MergeSchemaPath<{}, "/api/health"> | …>` — **tous les schemas de routes vides (`{}`)**. Le frontend, qui consomme ce type via `hc<AppType>`, perdait toute info de routes/payloads → tout retombait en `any`.
-2. **Vérification cache TS** : nettoyage de `shared/dist`, `shared/tsconfig.tsbuildinfo`, `backend/dist`, `backend/tsconfig.tsbuildinfo`, `frontend/tsconfig.tsbuildinfo` puis rebuild complet (`bunx tsc -b`). L'effondrement persistait → ce n'était pas un cache stale.
-3. **Bisect du working tree** (105 fichiers WIP) : stash de tous les fichiers backend non-seed/non-test + `shared/src/products/list-products-query.ts` + schemas DB (13 fichiers ciblés). Résultat post-stash : passage de ~50 erreurs à **4 erreurs propres** (toutes attendues : `profileMatches` manquant, route `by-slugs` absente). Confirmation que le coupable est dans ces 13 fichiers, pas dans le frontend WIP.
-4. **Bisect raffiné** : application progressive des fichiers stashés. Lorsque `backend/src/features/products/service.ts` a été ré-introduit, des erreurs `Cannot find module 'src/db/schema'` et `Cannot find module 'src/features/products/product-ingredients/product-ingredients.service'` sont apparues. Ces imports utilisent un style **path absolu** s'appuyant sur `baseUrl: "."` du `backend/tsconfig.json`.
-
-### Cause racine
-
-Trois imports absolus `'src/...'` dans le backend (présents depuis HEAD `bc8d5d4`, **pas introduits par la WIP**, mais réveillés par les modifs adjacentes WIP qui forcent une nouvelle inférence) :
-
-| Fichier | Ligne | Import absolu |
-|---|---|---|
-| `backend/src/features/auth/routes.ts` | 21 | `from 'src/features/auth/google.service'` |
-| `backend/src/features/products/service.ts` | 35 | `from 'src/db/schema'` |
-| `backend/src/features/products/service.ts` | 36 | `from 'src/features/products/product-ingredients/product-ingredients.service'` |
-
-Avec `moduleResolution: "Bundler"` + `composite: true` + références TS, ces imports résolvaient mal côté `tsc -b`. Quand l'inférence Hono RPC traversait `auth/routes.ts` ou `products/service.ts`, elle rencontrait des modules non résolus, et **propageait silencieusement un schema `{}` à toute la chaîne `app.route(...)`**, contaminant l'union `AppType` entière (toutes les routes, pas seulement auth/products).
-
-### Fix appliqué
-
-Conversion des 3 imports absolus en relatifs :
-
-```diff
-- import { getGoogleAuthUrl, handleGoogleCallback } from 'src/features/auth/google.service'
-+ import { getGoogleAuthUrl, handleGoogleCallback } from './google.service'
-```
-
-```diff
-- import { ingredients, productIngredients } from 'src/db/schema'
-- import { listIngredientsByProduct } from 'src/features/products/product-ingredients/product-ingredients.service'
-+ import { ingredients, productIngredients } from '../../db/schema'
-+ import { listIngredientsByProduct } from './product-ingredients/product-ingredients.service'
-```
-
-### Avant / Après
-
-| Commande | Avant fix | Après fix |
-|---|---|---|
-| `bunx tsc -b` (= `make ts-build`) | passait silencieusement mais émettait un `AppType` cassé | ✅ passe, émet `AppType` complet (routes typées) |
-| `make ts-verify` (`bunx tsc -b --noEmit`) | ~50 erreurs (cascade `implicit any` frontend) | ❌ 1 erreur résiduelle (TS6310 — voir ci-dessous) |
-| `frontend/dist/...` AppType inféré | `MergeSchemaPath<{}, "/api/auth"> \| …` (tous vides) | schemas complets par route |
-
-### Problème résiduel (pré-existant, non lié à la roadmap) — Résolu
-
-- [x] **`TS6310: Referenced project '/shared' may not disable emit`** sur `backend/tsconfig.json(40,5)`. Faux positif déclenché par `bunx tsc -b --noEmit` quand un projet référencé en `composite` a `emitDeclarationOnly: true` (cas de `shared/`). Bug connu TS 5.6+. **Fix** : `Makefile` → `ts-verify: bunx tsc -b` (sans `--noEmit`). `tsc -b` est incrémental, donc reste rapide en fin de session, et émet les `.d.ts` à jour comme effet bord utile. `ts-check` (`tsc -b --watch`) inchangé — n'avait jamais le flag `--noEmit`.
-
-## 🐛 Bugs à corriger
-
-- [x] **Pagination masquée** : ~~La pagination ne s'affiche pas si seuls les filtres de prix ou de profil sont actifs (car `hasFilters` ne prend en compte que les tags).~~ Gate remplacée par `totalPages > 1 && sort !== 'random'` dans `ProductsPage.tsx`.
-- [x] **Filtre `kind` manquant en Skincare** : ~~L'onglet "Soin visage" n'affiche pas le filtre de type de produit (`kind`), contrairement aux autres domaines (Cheveux, Dents, etc.).~~ Branches skincare/non-skincare unifiées dans `filterGroups` (`ProductsPage.tsx`) — `kind` exposé sur tous les onglets.
-- [x] **Instabilité du tri Random** : ~~Le tri `random()` en backend change à chaque changement de page, rendant la pagination incohérente en mode "Découverte".~~ Default sort = `newest` (stable, paginable). Random reste opt-in via `SortControl` mais la pagination se cache automatiquement quand `sort === 'random'`.
-- [x] **Chip quantité affiche `0` parasite** : `{product.totalAmount && (...)}` rendait le littéral `0` quand `totalAmount === 0`. Remplacé par `product.totalAmount != null && product.totalAmount > 0` dans `ProductsPage.tsx`.
-
-## 💄 Améliorations UX / UI
-
-- [x] **Filtres actifs manquants** : ~~Afficher les filtres de **Prix** et de **Profil** dans la `ActiveFiltersBar`.~~ Ajout d'un prop `extraChips` à `ActiveFiltersBar` ; chips Prix (range / borne) et Profil rendus côté `ProductsPage`. `onClearAll` recâblé sur `handleReset` pour réinitialiser aussi prix + profil.
-- [x] **Indicateurs de profil sur les cartes** : ~~Afficher un badge de compatibilité (ex: "Éviter") directement sur les cartes dans la liste pour les utilisateurs connectés.~~ Backend `listProducts` ne masque plus les produits via `avoid_for` ; il calcule `profileMatches: string[]` (slugs `relevance='avoid'` ∩ profil) par produit. Frontend rend un badge `list-card__avoid-badge` (icône `AlertTriangle` + tooltip listant les concerns FR via `SKIN_TYPE_LABELS` / `SKIN_CONCERN_LABELS`). Toggle « Selon mon profil » repositionné en hint « Signale… » au lieu de « Masque… ».
-- [x] **Expérience "Découverte" (Sort: random)** : ~~Augmenter le `staleTime` (actuellement à 0) pour éviter les changements de liste trop fréquents lors de la navigation retour.~~ `staleTime` passe à 5 min quand `sort === 'random'` (sinon comportement inchangé : 5 min si filtres actifs, 0 sinon). Évite que `random()` reshuffle l'ordre au retour.
-- [x] **Messages d'état vide (Empty State)** : ~~Ajuster le message pour suggérer de modifier les filtres si des filtres sont actifs.~~ Empty state branché sur `effectiveFilterCount` dans `ProductsPage.tsx` : message + bouton "Tout effacer" si filtres actifs ; message "catalogue s'enrichit" sinon. Plus dépendant de `category`.
-
-## 🛠️ Dette Technique & Refactoring
-
-### Frontend
-- [x] **Alignement taxonomique** : ~~Remplacer les chaînes en dur dans `unitClass` et `kindClass` par les constantes issues de `shared/src/products/` (`PRODUCT_UNITS`, `PRODUCT_KINDS`).~~ `kindClass` dérive la category via reverse lookup `PRODUCT_KINDS` ; `unitClass` valide contre `PRODUCT_UNITS`. Les anciennes chaînes FR (`pompe`, `crème`, `compte-gouttes`…) et les pseudo-kinds (`vitamine`, `complément`) supprimés. Effet visuel : produits skincare/complement adoptent la couleur de catégorie (CSS existant) au lieu de retomber en `kind--default`.
-- [x] **Validation stricte `kind` / `category`** : ~~Renforcer le schéma Zod des filtres pour valider la cohérence entre la catégorie et le type de produit (éviter `?category=dental&kind=serum`).~~ `kind` per-domaine validé via `kindFilterFor(domain)` dans `shared/src/products/list-products-query.ts` ; valide chaque token CSV contre l'union des `PRODUCT_KINDS` des DB-categories du tab (`PRODUCT_DOMAIN_DB_CATEGORIES`). Skincare accepte donc `serum` + `sunscreen` (solaire) + `body-lotion` (bodycare), refuse `shampoo`. Tests : `products.routes.test.ts` (rejet cross-domaine + accept solaire sur skincare).
-- [x] **Performance du filtre Ingrédients** : ~~Passer à une recherche asynchrone (autocomplete API) pour le filtre ingrédients au lieu de charger la liste complète (`allIngredients`) en mémoire.~~ Filtre `ingredient` passe en variant `async-search-select`. Nouveau composant `AsyncSearchSelect` (clone UX de `SearchSelect` + debounce 250 ms + 2 requêtes via TanStack : `loadOptionsQuery` pour la recherche + `resolveValuesQuery` pour résoudre les labels des chips déjà sélectionnés depuis l'URL). Backend route `GET /ingredients/by-slugs?slugs=...` ajoutée pour la résolution batch (cap 50 slugs, ILIKE non requis car lookup exact). `ingredientQueries.options()` (chargement complet) plus consommé par `ProductsPage`. Cache labels mergé : ce qui passe par la recherche ou la résolution est mémorisé côté composant pour ne pas re-fetch après toggle.
-- [x] **BrandCombobox (Race Condition)** : ~~Remplacer le `setTimeout` dans `handleBlur` par une solution robuste (gestion du focus via `onMouseDown`).~~ Le `mousedown.preventDefault` sur les options du `ComboboxPrimitive` empêche déjà le blur via clic ; le `setTimeout(200)` masquait en fait une closure périmée sur Tab-autocomplete (`handleSelect` → `setInputValue` async, blur natif lit `inputValue` stale → confirm parasite sur sélection valide). Remplacé par `latestValueRef` (sync, mis à jour dans `handleInputChange` / `handleSelect` / `useEffect` sur prop `value`) lu par `handleBlur`. Plus de delay artificiel.
-- [x] **Cohérence du switch de domaine** : ~~Décider si le filtre `brand` doit être conservé lors du changement d'onglet (actuellement réinitialisé, contrairement aux ingrédients).~~ `brand` persiste désormais (cohérence avec `ingredient`). Justifié : nombreuses marques cross-domaine (Avène, Bioderma, La Roche-Posay…). Marque mono-domaine sur onglet incompatible → empty state + bouton « Tout effacer » (pas un dead-end). `buildDomainSwitchSearch` ne reset plus que `kind` (taxonomie domaine-spécifique), tags du domaine, `profile_filter`, `page`. Test mis à jour dans `helpers.test.ts`.
-
-### Backend
-- [x] **Normalisation des données** : ~~Centraliser la normalisation des textes (trim, espaces multiples) pour qu'elle soit appliquée aussi lors des `updateProduct` (actuellement uniquement en `create`).~~ `normalizeString` hissé au module ; `NORMALIZED_STRING_FIELDS` (`name`, `brand`, `kind`, `unit`, `amountUnit`) appliqué dans `updateProduct` avant calcul du slug et build des `setEntries`.
-- [x] **Optimisation SQL (Filters)** : ~~Évaluer le remplacement des sous-requêtes `IN (...)` par des `EXISTS` ou `JOIN` pour les filtres de tags et d'ingrédients.~~ Sous-requêtes `IN (SELECT ... FROM productIngredients/tagProducts ...)` dans `listProducts` remplacées par `exists(...)` corrélé sur `products.id`. Le planner peut court-circuiter au premier match par produit et utiliser `product_ingredients_product_idx` / index sur `tag_products.product_id` comme driver.
-- [x] **Indexation Fuzzy Search** : ~~Vérifier la présence d'index `pg_trgm` (GIST/GIN) pour `findSimilarProducts` et `searchProducts` afin de garantir les performances.~~ Extension `pg_trgm` déjà présente (baseline 0000) mais aucun index trigram. Ajout dans schemas Drizzle : `products_name_trgm_idx`, `products_brand_trgm_idx` (GIN `gin_trgm_ops`) pour `similarity()` + `ILIKE %q%` de `searchProducts` / `findSimilarProducts`. Migration `0032_parched_wiccan.sql`. Ajout également de `ingredients_name_trgm_idx` + `ingredients_slug_trgm_idx` pour préparer l'autocomplete async (`searchIngredients` ILIKE `%q%`).
-
-## 🧹 Nettoyage labels (2026-04-25) — Fait
-
-- [x] **Labels FR non-tag dupliqués** : ~~`'Marque'`, `'Ingrédient'`, `'Type'` hardcodés à la fois dans `filters.ts` (`GROUP_LABELS`) et dans `ProductsPage.tsx` (`filterGroups`).~~ Extraction de `NON_TAG_FILTER_LABELS` + `NON_TAG_FILTER_PLACEHOLDERS` dans `filters.ts`. `GROUP_LABELS` les compose (au lieu de re-écrire). `ProductsPage.tsx` consomme les constantes pour `label` + `placeholder` des filtres `kind` / `brand` / `ingredient`. Plus de drift possible entre `ActiveFiltersBar` (qui lit `GROUP_LABELS`) et le drawer.
-
-## 🧩 Filtres shared-driven (2026-04-25) — Fait
-
-Refacto plan : `PLAN_shared_filters.md` (terminé).
-
-- [x] **Phase A** — Lift labels FR dans `shared/src/products/{skincare,haircare,dental,supplement}/tag-taxonomy.ts` (`*_PRODUCT_TAG_LABELS`). Helpers `getProductTagLabel` + `getProductTagsByCategory` exposés depuis `@habit-tracker/shared`. Backend seed (`tags/index.ts`) split en `labelForIngredient` (lookup local `INGREDIENT_TAG_LABELS`) + `labelForProduct` (lookup shared).
-- [x] **Phase B** — `getFilterOptions` retourne `tagCounts: Record<string, number>` (slug → count) au lieu d'un `tags: Record<TagCategory, …[]>`. Query SQL simplifiée (plus de filtrage par `tagType`). Tests `products.test.ts` réécrits, 76/76 ✅. Hono RPC propage automatiquement le nouveau shape.
-- [x] **Phase C** — Nouveau hook `useProductTagFilterGroups(domain, tagCounts, labelOverrides?)` (fork de `useTagFilterGroups`, ce dernier reste pour `IngredientsPage` en mode DB-driven). Drawer itère la taxonomy shared → tous les axes haircare (`hair_type`, `concern`, `routine_step`, `hair_effect`, `product_label`) toujours visibles, même sans produits liés ; chips `count=0` rendus disabled. `FilterOption.disabled?: boolean` ajouté + propagation dans `ChipGroup` (variantes radio + button). Tests `useProductTagFilterGroups` 5/5 ✅.
-- [x] **Cleanup** — `DOMAIN_TAG_META` inliné dans `useProductTagFilterGroups.ts` (seul consommateur). `DOMAIN_TAG_KEYS` supprimé (orphelin). `filters.ts` allégé.
-
-**Validation visuelle** : drawer haircare confirme les 6 accordéons + chips count=0 grayed (utilisateur 2026-04-25). Skincare no-regress.
-
-**Reste** :
-- `make db-seed` non relancé — diff DB labels attendu nul (Phase A préserve les chaînes, source change).
-
-## 🚧 Tab Cheveux — État des lieux (2026-04-25)
-
-Audit visuel du drawer haircare. Tags vides + UX confuse côté kind.
-
-### 🐛 Frontend (à fixer)
-
-- [x] **Doublon "Type" dans le drawer** : ~~deux filtres portent le label "Type" (tag `product_type` + `kind` "Recherche précise").~~ `NON_TAG_FILTER_LABELS.kind` renommé "Type" → "Format" (`filters.ts`). Placeholder ajusté à "Tous formats". `product_type` (taxonomy fonctionnelle) garde "Type", `kind` (galénique / sous-type produit) devient "Format".
-- [x] **`kind` affiche les slugs bruts** : ~~`ProductsPage.tsx:208` rendait `hair-serum`, `shampoo`, `styling` etc.~~ Map `PRODUCT_KIND_LABELS` (FR par slug, couvre les 6 catégories DB) ajoutée dans `shared/src/products/kinds.ts` + helper `getProductKindLabel`. Consommée dans `ProductsPage.tsx` pour les options du filtre `kind` et le chip `list-card__kind` sur les cartes. Re-export depuis `@habit-tracker/shared`.
-
-### 🌱 Seed haircare — Root cause
-
-Backend `getFilterOptions` renvoie `[]` pour `hair_type`, `concern`, `routine_step`, `hair_effect`, `product_label`. Cause **pas un bug d'affichage** : aucun produit haircare n'est lié à un tag de la taxonomy haircare.
-
-#### Diagnostic
-
-`backend/src/db/seed/data/tags/index.ts:30-45` — l'alias legacy `TAG_SLUGS` spread :
-```ts
-SKINCARE_INGREDIENT_TAG_SLUGS, SKINCARE_PRODUCT_TAG_SLUGS,
-SUPPLEMENT_INGREDIENT_TAG_SLUGS, DENTAL_INGREDIENT_TAG_SLUGS,
-HAIRCARE_INGREDIENT_TAG_SLUGS, DENTAL_PRODUCT_TAG_SLUGS,
-SUPPLEMENT_PRODUCT_TAG_SLUGS,
-```
-**`HAIRCARE_PRODUCT_TAG_SLUGS` est absent.**
-
-Conséquence : quand un seed haircare écrit `TAG_SLUGS.SHAMPOING`, c'est le slug **skincare** `'shampoing'` (legacy hérité de l'époque où skincare contenait `shampoing`, `apres-shampoing`, `masque-cheveux`, `serum-cheveux`, `huile-cheveux`, `produit-coiffant` — cf. `shared/src/products/skincare/tag-slugs.ts:95-100`). Insertion DB : `tagType='product_type'` via `SKINCARE_PRODUCT_TAG_TAXONOMY`, label `'Shampoing'`.
-
-Pipeline (`backend/src/db/seed/data/tags/index.ts:525-531`) insère bien les définitions `HAIRCARE_PRODUCT_TAG_*` dans `productTagsDefs`, mais aucun produit n'y est lié. `getFilterOptions` (`INNER JOIN tagProducts`) ne renvoie que les tags avec ≥1 produit lié → 5 catégories haircare retournent `[]`.
-
-`product_type` apparaît parce que ce tagType est partagé skincare/haircare ; les 9 produits haircare portent les slugs skincare legacy → 3 chips ("Shampoing", "Sérum cheveux", "Produit coiffant").
-
-#### Plan de fix
-
-- [x] **Migration mécanique des 50 seeds haircare (2026-04-25)** :
-  - Ajout `export { HAIRCARE_PRODUCT_TAG_SLUGS } from '@habit-tracker/shared'` dans `backend/src/db/seed/data/tags/index.ts` (avec note expliquant pourquoi PAS via spread dans `TAG_SLUGS` : collision `BRILLANCE` / `HYDRATATION` qui ont des slug values différentes côté skincare et haircare → `'brillance'` vs `'brillance-cheveux'`).
-  - Bulk replace via `sed` sur 50 fichiers `haircare/*/*.seed.ts` :
-    - `TAG_SLUGS.SHAMPOING` → `HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING` (262 occ)
-    - `TAG_SLUGS.APRES_SHAMPOING` → `…APRES_SHAMPOOING` (41 occ)
-    - `TAG_SLUGS.SERUM_CHEVEUX` → `…SERUM_CAPILLAIRE` (33 occ)
-    - `TAG_SLUGS.MASQUE_CHEVEUX` → `…MASQUE_CAPILLAIRE` (3 occ)
-    - `TAG_SLUGS.HUILE_CHEVEUX` → `…HUILE_CAPILLAIRE` (3 occ)
-  - 6 occurrences `PRODUIT_COIFFANT` mappées manuellement (slug absent de `HAIRCARE_PRODUCT_TAG_SLUGS`) :
-    - `biorene` Crème de Coiffage → `CREME_COIFFANTE`.
-    - `olaplex` N°6 Bond Smoother (Crème Coiffante) → `CREME_COIFFANTE`.
-    - `lesSecretsDeLoly` Gelée Boost Curl → `GEL_COIFFANT`.
-    - `redken` Pommade Maneuver + Pommade Clay → `CIRE_COIFFANTE` (×2).
-    - `cinqSurCinq` Kit Anti-Poux Spray → `SPRAY_COIFFANT` *(mauvaise catégorisation, voir flag ci-dessous)*.
-  - Imports `import { TAG_SLUGS } from …` remplacés par `import { HAIRCARE_PRODUCT_TAG_SLUGS } from …` (paths préservés).
-  - `tsc -b` ✅, `biome check` ✅. **À faire : re-seed DB pour appliquer les nouveaux slugs** (sinon le frontend continue à lire les anciens slugs skincare-flavored attachés aux produits haircare).
-- [ ] **Enrichir tags haircare** : ajouter `hair_type` / `concern` / `routine_step` / `hair_effect` / `product_label` sur chaque produit haircare (au moins 1 tag par axe pertinent). Phase 2 — sémantique, demande lecture produit par produit.
-- [x] **Slugs hair legacy côté skincare supprimés (2026-04-25)** : ~~`shampoing`, `apres-shampoing`, `masque-cheveux`, `serum-cheveux`, `huile-cheveux`, `produit-coiffant` dans `SKINCARE_PRODUCT_TAG_SLUGS`.~~ Vérification DB : 6 rows existent en `product_tags` (type `product_type`) avec `used = 0` (aucune ref `tag_products`) → safe. Suppression :
-  - `shared/src/products/skincare/tag-slugs.ts:95-100` (6 keys)
-  - `shared/src/products/skincare/tag-taxonomy.ts:110-115` (labels FR)
-  - `shared/src/products/skincare/tag-taxonomy.ts:259-264` (bucket `product_type`)
-  - `backend/src/db/seed/scripts/auto-tag.ts` : retrait des 6 entries `SLUG_TO_KEY`, refacto `KIND_HAIRCARE_PRIMARY` (5 mappings sur slugs `HAIRCARE_PRODUCT_TAG_SLUGS` corrects, `styling` retiré car ambigu), ajout `HAIRCARE_SLUG_TO_KEY` + `slugToCode` namespace-aware → émet `HAIRCARE_PRODUCT_TAG_SLUGS.X` pour slugs haircare, `TAG_SLUGS.X` sinon.
-  - `backend/src/db/seed/data/tags/index.ts:151-156` (legacy `INGREDIENT_TAG_LABELS` dead).
-  - **Reste** : DB cleanup (`DELETE FROM product_tags WHERE slug IN (...) AND type = 'product_type'`) — rows orphelines après suppression du source, à exécuter manuellement.
+### Seed haircare
+- [ ] **Enrichir tags haircare** : ajouter `hair_type` / `concern` / `routine_step` / `hair_effect` / `product_label` sur chaque produit haircare (≥1 tag par axe pertinent). Phase sémantique — lecture produit par produit.
+- [ ] **DB cleanup** : `DELETE FROM product_tags WHERE slug IN ('shampoing', 'apres-shampoing', 'masque-cheveux', 'serum-cheveux', 'huile-cheveux', 'produit-coiffant') AND type = 'product_type'` — rows orphelines depuis suppression du source.
+- [ ] **db-seed non relancé** — diff DB labels attendu nul (Phase A préserve les chaînes), mais à relancer pour valider.
 
 #### Flag
+- **`cinqSurCinq` mal catégorisé** : marque anti-poux (pediculicide), pas capillaire d'usage courant. `SPRAY_COIFFANT` est une approximation. Reclasser en `traitement-cuir-chevelu` ou exclure du domaine haircare.
 
-- **`cinqSurCinq` mal catégorisé** : c'est une marque anti-poux (insecticide / pediculicide), pas un produit capillaire d'usage courant. Forcer dans `SPRAY_COIFFANT` / `SHAMPOOING` est une approximation. À reclasser proprement (nouvelle catégorie `treatment-cuir-chevelu` ou exclusion du domaine haircare).
+---
 
-### Priorité
+## 🆕 Nouveaux chantiers
 
-1. **Seed haircare** : migrer les slugs + enrichir tags (débloque les 5 groupes vides).
-2. **Frontend `kind` labels FR** : mapping shared.
-3. **Clarté UX `kind` vs `product_type`** : renommer ou masquer (orthogonal au fix seed).
+### 1. `concentrationUnit` et `unit` — champs libres à contraindre
+
+**Contexte**
+
+Dans les formulaires `products/new` et `product/$slug/edit`, deux champs acceptent actuellement n'importe quelle chaîne saisie librement :
+
+- **`unit`** (contenance physique du produit) : ex. `ml`, `g`, `mg`. Ce champ est déjà géré via `PRODUCT_UNITS` dans shared, mais le formulaire ne le contraint pas suffisamment — on peut y saisir `grammes`, `kilogrammes`, `kilos`, etc.
+- **`concentrationUnit`** (unité de la concentration d'un ingrédient actif) : ex. `mg`, `g`, `%`, `UI`. Ce champ est entièrement libre, ce qui rend les données inconsistantes et inexploitables pour des comparaisons ou des filtrages futurs.
+
+**Problème**
+
+Un champ libre sur des données qui ont une sémantique fermée est une dette data. On ne peut pas filtrer, trier, ni afficher proprement `"2 grammes"` vs `"2g"` vs `"2 G"`. La correction devient exponentiellement plus coûteuse avec le volume de produits.
+
+**Solution envisagée**
+
+Même approche que `kind` et `unit` déjà contraints par `PRODUCT_UNITS` dans shared :
+
+1. Définir une liste canonique fermée pour `concentrationUnit` dans `shared/` : `mg | g | µg | ml | % | UI | IU | ppm`.
+2. Exposer cette liste comme enum Zod + constante de labels FR.
+3. Remplacer l'input libre par un **ChipGroup** ou un **Select** fermé dans les deux formulaires.
+
+Impacte : `products/new` **et** `product/$slug/edit`.
+
+**Audit 2026-04-26**
+
+Vérifié en navigateur sur `products/new` et `product/$slug/edit` (Abib Glutathiosome Dark Spot Serum) :
+
+- `amountUnit` : input texte libre avec placeholder `"ml, g..."`. Aucune contrainte côté frontend. Valeur `"ml"` visible dans edit — saisie libre confirmée. Zod backend : `z.string().min(1).max(50)` dans `shared/src/products/schemas.ts:18`. Aucune constante partagée n'existe pour ce champ.
+- `concentrationUnit` : enum Zod strict `['%', 'IU', 'mg', 'mcg', 'mg/mL']` dans `shared/src/products/ingredients.ts:11` — mais hardcodé en double dans `backend/src/features/products/product-ingredients/routes.ts:26`. Aucun composant d'édition frontend existant pour ce champ.
+- `unit` (conditionnement) : ChipGroup correct côté UI, mais `ProductForm.schema.ts:17` utilise `z.string().max(50)` au lieu de `z.enum(PRODUCT_UNIT_VALUES)` → cast `as ProductUnit` aux lignes 105/146. Backend valide, frontend ne valide pas.
+
+---
+
+### 2. Tags non filtrés par catégorie dans les formulaires
+
+**Contexte**
+
+Dans `products/new` et `product/$slug/edit`, le sélecteur de tags charge et affiche **tous les tags de toutes les catégories** sans tenir compte de la catégorie choisie pour le produit. On peut donc attacher un tag `hair_type: cheveux bouclés` à un produit skincare, ou un tag `skin_concern: anti-âge` à un shampoing.
+
+**Problème**
+
+Deux sous-problèmes distincts :
+
+1. **Chargement incomplet** : la requête ne ramène pas la totalité des tags disponibles (à investiguer côté query — probablement un filtre ou une pagination manquante).
+2. **Absence de filtrage par catégorie** : les tags affichés devraient être limités à la taxonomie de la catégorie du produit en cours d'édition. La taxonomie shared (`getProductTagsByCategory`) existe déjà et est utilisée côté liste/filtres — elle n'est pas encore appliquée côté formulaires.
+
+**Solution envisagée**
+
+- Corriger le chargement pour s'assurer que tous les tags de la catégorie sont disponibles.
+- Lier le sélecteur de tags à la catégorie sélectionnée dans le formulaire : quand la catégorie change, la liste de tags proposés se met à jour en conséquence.
+- Utiliser `getProductTagsByCategory(category)` (shared) comme source de vérité pour les options affichées.
+
+Impacte : `products/new` **et** `product/$slug/edit`.
+
+**Audit 2026-04-26**
+
+Vérifié en navigateur sur `products/new` (Soin visage) et `product/abib-glutathiosome-dark-spot-serum/edit` :
+
+Le dropdown "Ajouter un tag" expose en vrac pour un produit skincare : `hair_type` (Cheveux bouclés, Cheveux fins…), `dental_effect` (Anti-plaque, Blancheur, Carie…), `goal` suppléments (Cognition, Digestion, Énergie…), `moment` suppléments (À jeun, Avec repas…), `hair_effect` (Anti-frisottis, Brillance…). Identique dans new et edit. La liste ne change pas en sélectionnant "Cheveux" — `tagQueries.list()` est appelé sans paramètre de catégorie (`ProductForm.tsx:82`).
+
+Ce qui existe et n'est pas utilisé : `GET /api/tags?category=<tagType>` supporte le filtre (`tags/routes.ts:40`, `tags.service.ts:62`). `getProductTagsByCategory()` dans `shared/src/products/helpers.ts:90` fonctionne — utilisée uniquement dans `useProductTagFilterGroups.ts:42` (filtres liste). Aucune validation backend que les tags attachés correspondent à la catégorie du produit.
+
+---
+
+### 3. Glitch visuel lors du switch d'onglet (page liste produits)
+
+**Contexte**
+
+Sur la page liste des produits (`/products`), lors du changement d'onglet de domaine (Skincare → Cheveux, Dents, Compléments…), un glitch visuel bref est visible :
+
+- L'input de recherche "saute" ou change de position pendant un court instant.
+- Quelque chose apparaît fugacement à gauche de l'input (probablement une icône ou un élément de layout).
+
+**Hypothèse**
+
+Vraisemblablement un état intermédiaire rendu visible entre deux renders : soit un mount/unmount de l'icône de recherche (ex. icône loupe vs icône clear), soit un layout shift lié à la réinitialisation de la valeur de l'input lors du changement de domaine. Le composant passe par un état "vide puis re-rempli" qui se matérialise visuellement.
+
+**À investiguer**
+
+- Identifier ce qui se monte/démonte autour de l'input de recherche lors du changement d'onglet.
+- Vérifier si le glitch est lié à un changement de `key` React qui force un remount complet du composant.
+- Potentiellement : stabiliser le layout en gardant le composant monté et en réinitialisant seulement sa valeur interne, sans le détruire.
+
+**Audit 2026-04-26 — cause identifiée**
+
+Trace de performance capturée pendant le click sur l'onglet "Cheveux" :
+
+- **ForcedReflow : 133ms** dans `setValueForKnownAttribute` (react-dom:1466). Se produit parce que React met à jour des attributs DOM après invalidation de style, forçant un recalcul de layout synchrone sur un DOM large (18+ cards × ~10 nœuds).
+- **INP total : 328ms** (seuil "needs improvement" = 200ms). Décomposition : input delay 1ms / processing 292ms / presentation 35ms. Les 292ms de processing sont dominés par le reflow.
+- **`page-header__loader`** : le dot animé (8px, `PageHeader.tsx:29`) apparaît dans le `<h2>` pendant `isPlaceholderData=true`. En layout desktop row, il est visuellement à gauche du bloc search → c'est "ce qui apparaît à gauche de l'input".
+
+Structure du search dans le header : `.page-header__actions` (flex row) → `.combobox-primitive` → `.search-combobox__input-wrap` (flex, relative) → icône (position absolute, left 12px) + input (padding-left 35px). Pas de `key` React sur le SearchCombobox → pas de remount.
+
+---
+
+### 4. Ajout produit depuis une card — champ "en stock"
+
+**Contexte**
+
+Quand l'utilisateur clique sur "Ajouter" depuis une card produit dans la liste, une modale ou un panneau s'ouvre pour lier ce produit à sa collection avec un statut (En cours, Surveillé, Évité, Saint-graal…). Actuellement, on ne peut pas indiquer si le produit est **en stock** ou non au moment de l'ajout.
+
+**Besoin**
+
+Permettre de cocher "en stock / pas en stock" directement lors de l'ajout, sans avoir à repasser par l'édition du produit lié.
+
+**Question ouverte — à trancher avant d'implémenter**
+
+La sémantique "stock" est orthogonale au statut collection, mais pas forcément indépendante :
+
+- Un produit **Évité** peut-il être en stock ? (On l'a mais on ne l'utilise plus / on ne veut plus l'utiliser.)
+- Un produit **Surveillé** peut-il être en stock ? (On l'a, on attend de voir comment la peau réagit.)
+- Un produit **Saint-graal** peut-il être épuisé ? (Oui, clairement.)
+
+Décision à prendre : est-ce que "en stock" a du sens pour tous les statuts, ou seulement pour certains ? Si tous → le champ est toujours visible. Si seulement certains → le champ est conditionnel au statut sélectionné.
+
+**Audit 2026-04-26**
+
+Modal `AddToCollectionModal` confirmé en navigateur (produit haircare, utilisateur connecté). Étape 1 : 5 boutons de statut — "En stock", "Liste de souhaits", "Surveillé", "Saint Graal", "Évité". Seul "En stock" ouvre l'étape 2 (date d'achat requis + prix optionnel pré-rempli). Les autres statuts ajoutent directement sans champ stock.
+
+**Il n'existe pas de colonne `in_stock` booléenne en DB.** La colonne `status` dans `user_products` est une enum : `in_stock | wishlist | watched | holy_grail | archived | avoided`. Le stock IS le statut — les deux sont mutuellement exclusifs par construction. Pour introduire un "en stock" orthogonal (ex: j'ai ce produit mais je le surveille), il faudrait une colonne `in_stock boolean` séparée + migration. Le schéma Zod supporte déjà `sentiment`, `wouldRepurchase`, `comment` non exposés dans le modal.
+
+---
+
+### 5. Dropdown de recherche d'ingrédients (edit) — ouvrir vers le haut si manque de place
+
+**Contexte**
+
+Dans `product/$slug/edit`, la recherche d'ingrédients utilise un composant `AsyncSearchSelect` qui affiche ses résultats dans un dropdown. Ce dropdown s'ouvre systématiquement **vers le bas**, même lorsque le champ est positionné en bas du formulaire et que la place est insuffisante. Le dropdown se retrouve alors rogné ou sort de l'écran visible.
+
+**Solution standard**
+
+Implémenter un hook de détection de place disponible (pattern "flip") :
+
+1. Au moment de l'ouverture du dropdown, mesurer `getBoundingClientRect()` du champ déclencheur.
+2. Comparer l'espace disponible en dessous (`window.innerHeight - rect.bottom`) avec la hauteur estimée du dropdown.
+3. Si insuffisant → ouvrir vers le haut (`bottom: 100%` au lieu de `top: 100%`).
+
+Ce pattern est déjà courant dans les librairies de Select/Combobox (Radix, Headless UI, etc.). L'implémentation peut être un hook `useDropdownPlacement` réutilisable — ce composant n'est probablement pas le seul concerné.
+
+**Audit 2026-04-26**
+
+Vérifié en navigateur sur `product/abib-glutathiosome-dark-spot-serum/edit`, formulaire scrollé en bas. Recherche "niac" saisie dans `IngredientSearch`.
+
+Mesures réelles (viewport 876px) :
+- Input : top=703px, bottom=754px
+- Dropdown : top=758px, bottom=876px, height=117px — `position: absolute; top: 55.475px`
+- Débordement : 0.1px (limite exacte du viewport à cette résolution)
+
+Sur écran plus petit ou avec plus d'ingrédients existants, le débordement devient significatif — les résultats sont coupés sous le bord.
+
+`ComboboxPrimitive.css:6` : `position: absolute; top: calc(100% + 4px)` — pas de flip. `AsyncSearchSelect` a déjà le mécanisme complet (`position: fixed` + `getBoundingClientRect` + comparaison espace haut/bas) aux lignes 156-203 de `AsyncSearchSelect.tsx`. C'est ce code qu'il faut porter sur `ComboboxPrimitive` ou extraire en hook partagé.
+
+---
+
+### 6. Dropdown Marque + Ingrédient dans le drawer — scroll parasite et position incorrecte
+
+**Contexte**
+
+Dans le filter drawer (`/products`), les filtres "Marque" (`SearchSelect`) et "Ingrédient" (`AsyncSearchSelect`) déclenchent un scroll visible de la page au moment où leur dropdown s'ouvre. Le dropdown apparaît ensuite en dehors de la zone visible du drawer, en dessous des boutons "Appliquer" / "Réinitialiser", voire complètement hors écran.
+
+**Cause racine identifiée**
+
+`SearchSelect.tsx:116` et `AsyncSearchSelect.tsx:152` partagent la même ligne :
+```ts
+inputRef.current.scrollIntoView({ block: 'start', behavior: 'smooth' })
+```
+Cette ligne s'exécute dans un `useEffect` qui se déclenche quand `isOpen` passe à `true`. L'intention (commentaire en place) est de ramener l'input en haut de la zone scrollable du drawer pour libérer de l'espace en dessous. Mais `scrollIntoView` traverse TOUS les ancêtres scrollables — pas seulement `.filter-drawer__body`, mais aussi le `window`. Résultat : la page entière scrolle en douceur (`behavior: 'smooth'`), l'utilisateur voit la page descendre sous le drawer fixe.
+
+Le dropdown utilise `position: fixed` et recalcule sa position via `getBoundingClientRect()` à l'ouverture. Si le scroll se produit AVANT le repositionnement du dropdown (effet non synchronisé), le dropdown se place à une position calculée avant ou pendant le scroll, ce qui le fait atterrir hors de la zone visible.
+
+**Problème complémentaire — input hors de la zone visible du drawer**
+
+La zone "Marque" et la zone "Ingrédient" sont en bas de la liste du drawer, après tous les accordéons de tags. Le `.filter-drawer__body` (`scrollHeight: 2066px`, `clientHeight: 737px`, `maxScroll: 1329px`) ne peut pas ramener ces inputs dans sa zone visible même après scroll max — les inputs dépassent le bas du drawer visible (viewport y ≈ 1199px vs bottom du drawer à y=808px). Le scroll de la page déclenché par `scrollIntoView` ne résout pas ce problème structurel.
+
+**Solution**
+
+1. Remplacer `scrollIntoView` par un scroll manuel ciblé sur `.filter-drawer__body` uniquement :
+   ```ts
+   const scrollable = inputRef.current.closest('.filter-drawer__body')
+   scrollable?.scrollTo({ top: scrollable.scrollTop + delta, behavior: 'smooth' })
+   ```
+   Ou simplement supprimer cet effet maintenant que le dropdown est `position: fixed` — il n'a pas besoin que l'input soit en haut de l'écran pour se positionner correctement (il lit `getBoundingClientRect()` directement).
+
+2. Vérifier que le `scroll` listener sur `.filter-drawer__body` (lignes 161-162 `SearchSelect.tsx`, idem `AsyncSearchSelect.tsx`) recalcule bien la position du dropdown quand le drawer scrolle — la logique `updatePosition` est en place, il faut juste que `scrollIntoView` ne pollue plus le `window`.
+
+**Audit 2026-04-26**
+
+Confirmé par mesure : brand input à viewport y=1199 après maxScroll du drawer (1329px), drawer bottom à y=808. Scroll de la page détecté via `scrollIntoView`. `SearchSelect.css:76` : `.search-select__dropdown { position: fixed; z-index: 200 }` — la position fixed est correcte, c'est le `scrollIntoView` qui casse l'expérience.
+
+---
+
+### 7. Filtres Marque et Ingrédient non transmis au backend
+
+**Contexte**
+
+Sélectionner une marque (ex: Avène, Mixa) ou un ingrédient dans le filter drawer ne filtre pas la liste de produits — tous les produits sont toujours affichés.
+
+**Cause racine**
+
+`buildProductsApiFilters` (`frontend/src/features/products/helpers.ts:21`) ne transmet jamais `brand` ni `ingredient` au backend.
+
+La fonction reçoit `filters: FilterValues<TagFilterKey>` et construit `tagFields` uniquement à partir de `DOMAIN_PRODUCT_FILTER_CATEGORIES[category]` (les clés de taxonomie comme `skin_type`, `concern`…). Les clés `brand` et `ingredient` sont dans l'objet `filters` passé en argument, mais ne sont jamais extraites ni incluses dans l'objet retourné.
+
+```ts
+// helpers.ts — ce qui est retourné :
+return {
+  category, ...tagFields, kind, avoid_for, sort, priceMin, priceMax, page, limit
+  // ← brand et ingredient absents
+}
+```
+
+Conséquence : `brand` et `ingredient` se retrouvent dans l'URL (le router TanStack les persiste), mais l'API est appelée sans eux.
+
+**Proof**
+
+Backend fonctionne parfaitement : `GET /api/products?category=skincare&brand=Avène` → 36 produits Avène (confirmé en curl). Le bug est exclusivement dans le mapping frontend → API call.
+
+**Fix**
+
+Ajouter `brand` et `ingredient` dans la valeur de retour de `buildProductsApiFilters` :
+```ts
+brand: filters['brand']?.length > 0 ? filters['brand'].join(',') : undefined,
+ingredient: filters['ingredient']?.length > 0 ? filters['ingredient'].join(',') : undefined,
+```
+Vérifier que `ListProductsFilters` (type partagé) accepte ces deux champs — le backend les supporte déjà (`service.ts:262-264`).
+
+**Audit 2026-04-26**
+
+Naviguer vers `?brand=Av%C3%A8ne` (format string) → error page (schema Zod attend `string[]`). API curl directe : `?brand=Avène` → 36 produits. Le schema URL frontend est `z.string().array().default([])` pour `brand` (via `filterSearchSchema`). Le backend accepte `brand` en string (séparés par virgule possible d'après `service.ts:263`).
+
+---
+
+### 8. Header search — résultats limités à 8, pas de navigation vers la liste filtrée
+
+**Contexte**
+
+La barre de recherche dans le header de la page produits (`SearchCombobox`) est un autocomplete de navigation : taper un terme affiche ~8 suggestions, cliquer sur l'une d'elles navigue vers la fiche du produit. L'utilisateur s'attend à trouver tous les produits correspondants (ex: "Avène" → tous les produits Avène), avec scroll ou pagination.
+
+**Ce qui existe**
+
+`searchProducts` (`backend/src/features/products/service.ts:527`) : `limit: 8` hardcodé. Recherche ILIKE sur `name` + `brand`, retourne 8 résultats maximum, sans total ni pagination.
+
+Il existe **36 produits Avène** en DB skincare. La recherche "avène" en retourne 8 — les 28 autres sont invisibles.
+
+**Deux usages distincts à clarifier**
+
+1. **Autocomplete de navigation** (comportement actuel) : trouver un produit précis et naviguer vers sa fiche. Limite basse (8) adaptée.
+2. **Filtre de liste** (comportement attendu par l'utilisateur) : voir tous les produits d'une marque/correspondant à un terme, avec pagination. → Ce besoin est couvert par le filtre "Marque" du drawer (bug #7 à corriger), pas par la SearchCombobox.
+
+**Action**
+
+- Court terme : corriger le bug #7 (brand filter). L'utilisateur pourra filtrer par marque via le drawer.
+- Moyen terme : clarifier l'UX de la SearchCombobox — ajouter une entrée "Voir tous les résultats pour X" qui applique un filtre de texte libre sur la liste, ou augmenter la limite à 15-20.
+
+**Audit 2026-04-26**
+
+`curl /api/products/search?q=avène` → `count=8`. `curl /api/products?brand=Avène` → `total=36`. Confirme : le header search ne montre qu'une fraction des résultats réels.
