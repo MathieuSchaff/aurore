@@ -5,6 +5,7 @@
 	prod prod-down prod-logs prod-migrate \
 	test test-db-up test-db-down test-watch test-only test-db-studio test-frontend test-frontend-watch test-frontend-only test-frontend-ui test-all \
 	test-db-reset test-db-seed \
+	e2e e2e-up e2e-down e2e-ui e2e-logs e2e-reset \
 	stop restart ps health diagnose stats env-check \
 	logs logs-api logs-db logs-nginx logs-frontend \
 	lint lint-fix format \
@@ -25,6 +26,7 @@ NC     := \033[0m
 COMPOSE_DEV = docker compose -f docker-compose.yml -f docker-compose.dev.yml --env-file .env.dev
 COMPOSE_PROD = docker compose -f docker-compose.yml -f docker-compose.prod.yml --env-file .env.prod
 COMPOSE_TEST = docker compose -f docker-compose.test.yml
+COMPOSE_E2E = docker compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.e2e.yml --env-file .env.dev
 
 help: ## Affiche cette aide
 	@echo "$(GREEN)━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━$(NC)"
@@ -96,8 +98,8 @@ ts-build: ## Build les types shared + backend (nécessaire avant Docker)
 	@echo "$(CYAN)Vérification TypeScript globale...$(NC)"
 	bunx tsc -b
 
-ts-verify: ## Vérifie les types sans rebuild ni watch (fin de session)
-	bunx tsc -b --noEmit
+ts-verify: ## Vérifie les types sans watch (fin de session, incrémental)
+	bunx tsc -b
 
 ts-clean: ## Supprime tous les dist/ et caches TS
 	@echo "$(YELLOW)Nettoyage des types...$(NC)"
@@ -182,11 +184,41 @@ test-frontend-ui: ## Lance Vitest avec l'UI web
 
 test-all: test test-frontend ## Lance tous les tests (backend + frontend)
 
+# =========================
+# E2E (Playwright)
+# Stack dev avec DB tmpfs seedée. Couper `make dev` avant (ports 5432/3000/5173 partagés).
+# =========================
+e2e-up: ts-build ## Lance la stack E2E (DB tmpfs + migrate + seed) et attend que le frontend réponde
+	$(COMPOSE_E2E) up -d --build
+	@echo "$(CYAN)Attente DB...$(NC)"
+	@until $(COMPOSE_E2E) exec -T db pg_isready -U app -d appdb >/dev/null 2>&1; do sleep 1; done
+	@echo "$(CYAN)Migrations...$(NC)"
+	@$(COMPOSE_E2E) exec -T api bun run src/db/migrate.ts
+	@echo "$(CYAN)Seed CORE...$(NC)"
+	@$(COMPOSE_E2E) exec -T api bun run src/db/seed/runners/seed-core.ts
+	@echo "$(CYAN)Attente frontend...$(NC)"
+	@until curl -sf http://localhost:5173 >/dev/null; do sleep 1; done
+	@echo "$(GREEN)✓ Stack E2E prête sur http://localhost:5173$(NC)"
+
+e2e-down: ## Arrête la stack E2E (DB tmpfs perdue)
+	$(COMPOSE_E2E) down
+
+e2e-reset: e2e-down e2e-up ## Recrée la stack E2E from scratch
+
+e2e-logs: ## Logs de la stack E2E
+	$(COMPOSE_E2E) logs -f
+
+e2e: ## Lance Playwright (suppose `make e2e-up` déjà fait)
+	cd frontend && bunx playwright test
+
+e2e-ui: ## Lance Playwright en mode UI interactif
+	cd frontend && bunx playwright test --ui
+
 test-db-reset: test-db-down test-db-up ## Repart de zéro : arrête, vide et relance la DB de test avec migrations
 
 test-db-seed: ## Seed CORE dans la DB de test (nécessite test-db-up)
 	@echo "$(CYAN)Injection des données CORE dans la DB de test...$(NC)"
-	@cd backend && export $$(grep -v '^\#' ../.env.dev | xargs) && DATABASE_URL=$(TEST_DB_URL) bun run src/db/seed/seed-core.ts
+	@cd backend && export $$(grep -v '^\#' ../.env.dev | xargs) && DATABASE_URL=$(TEST_DB_URL) bun run src/db/seed/runners/seed-core.ts
 	@echo "$(GREEN)✓ Seed CORE exécuté sur la DB de test$(NC)"
 
 # =========================
@@ -267,7 +299,7 @@ db-studio: ## Lance l'interface graphique Drizzle Studio
 
 db-seed: ## Remplit la base de données avec les données CORE (Tags, Ingrédients, Produits manuels)
 	@echo "$(CYAN)Injection des données CORE (Seed)...$(NC)"
-	$(COMPOSE_DEV) exec api bun run src/db/seed/seed-core.ts
+	$(COMPOSE_DEV) exec api bun run src/db/seed/runners/seed-core.ts
 	@echo "$(GREEN)✓ Seed CORE exécuté avec succès$(NC)"
 
 db-clean: ## Vide complètement la base de données (SCHEMA public)
