@@ -1,7 +1,7 @@
 import { mock } from 'bun:test'
 
 // Set environment variables for tests
-process.env.NODE_ENV = 'development'
+process.env.NODE_ENV = 'test'
 process.env.JWT_SECRET = 'test-secret-at-least-32-chars-long-for-zod'
 process.env.REFRESH_SECRET = 'test-refresh-at-least-32-chars-long-for-zod'
 process.env.DATABASE_URL =
