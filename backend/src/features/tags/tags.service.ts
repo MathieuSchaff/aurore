@@ -75,9 +75,10 @@ export async function updateProductTag(
   data: UpdateTagInput
 ): Promise<ProductTagDef> {
   updateTagSchema.parse(data)
-  const patch: Partial<{ label: string; tagType: string }> = {}
+  const patch: Partial<{ label: string; tagType: string; slug: string }> = {}
   if (data.name !== undefined) patch.label = data.name
   if (data.category !== undefined) patch.tagType = data.category
+  if (data.slug !== undefined) patch.slug = data.slug
   try {
     const [tag] = await db
       .update(productTagsDefs)
@@ -165,9 +166,10 @@ export async function updateIngredientTag(
   data: UpdateTagInput
 ): Promise<IngredientTagDef> {
   updateTagSchema.parse(data)
-  const patch: Partial<{ label: string; tagType: string }> = {}
+  const patch: Partial<{ label: string; tagType: string; slug: string }> = {}
   if (data.name !== undefined) patch.label = data.name
   if (data.category !== undefined) patch.tagType = data.category
+  if (data.slug !== undefined) patch.slug = data.slug
   try {
     const [tag] = await db
       .update(ingredientTagsDefs)
