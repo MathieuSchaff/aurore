@@ -921,4 +921,40 @@ DIPEPTIDE DIAMINOBUTYROYL BENZYLAMIDE DIACETATE
 ## Concentration typique
 1-4% (effet visible à 4%).`,
   },
+  {
+    name: 'Acetyl Tetrapeptide-15',
+    slug: INGREDIENT_SLUGS.ACETYL_TETRAPEPTIDE_15,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Peptide neuro-apaisant qui réduit la sensibilité cutanée en abaissant le seuil de réaction des terminaisons nerveuses (Skinasensyl™-like).',
+    content: `# Acetyl Tetrapeptide-15
+
+## INCI
+**ACETYL TETRAPEPTIDE-15**
+
+## Rôle
+Apaisant neuro-cosmétique pour peaux réactives. Réduit picotements, rougeurs sensorielles, intolérances.
+
+## Tolérance
+Excellente, conçu pour peaux les plus sensibles.`,
+  },
+  {
+    name: 'Acetyl Hexapeptide-51 Amide',
+    slug: INGREDIENT_SLUGS.ACETYL_HEXAPEPTIDE_51_AMIDE,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      "Peptide modulateur de l'inflamm-aging qui rééquilibre la réponse immunitaire cutanée et favorise un teint uniforme.",
+    content: `# Acetyl Hexapeptide-51 Amide
+
+## INCI
+**ACETYL HEXAPEPTIDE-51 AMIDE**
+
+## Rôle
+Module l'inflammation chronique (inflamm-aging), atténue rougeurs et irrégularités du teint.
+
+## Tolérance
+Bonne tolérance, usage premium.`,
+  },
 ]

@@ -1670,6 +1670,29 @@ Le Gluconate de Manganèse présente une sécurité d'emploi totale :
   - **Goodal Houttuynia Cordata Calming Moisture Serum** : sérum hydratant et soothing`,
   },
   {
+    name: 'Eau de Heartleaf',
+    slug: INGREDIENT_SLUGS.HEARTLEAF_WATER,
+
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Distillat aqueux (hydrolat) obtenu à partir des fleurs, feuilles et tiges de Heartleaf, offrant un apaisement immédiat et une base hydratante très douce.',
+    content: `
+# Eau de Heartleaf (Houttuynia Cordata Flower/Leaf/Stem Water)
+L'eau de Heartleaf est obtenue par distillation à la vapeur d'eau des parties aériennes de la plante. Elle est souvent utilisée comme base aqueuse principale dans les toners et essences apaisantes de K-beauty.
+
+## INCI
+**Houttuynia Cordata Flower/Leaf/Stem Water**
+
+## Points forts
+- **Base ultra-douce** : Remplace souvent l'eau déminéralisée classique pour apporter des bénéfices apaisants dès la base de la formule.
+- **Rafraîchissant** : Calme instantanément les sensations d'échauffement.
+- **Pureté** : Distillat léger, sans résidus denses d'extraction alcoolique, idéal pour les peaux les plus réactives.
+
+## Différence avec l'Extrait
+Alors que l'**Extrait (Extract)** est une forme concentrée riche en flavonoïdes lourds, l'**Eau (Water)** contient les composants hydrosolubles volatils et offre une concentration plus diluée, parfaite pour une hydratation en "layering" (méthode des 7 toners).`,
+  },
+  {
     name: 'Aloe Vera',
     slug: INGREDIENT_SLUGS.ALOE_VERA,
 
@@ -1775,13 +1798,41 @@ Le Gluconate de Manganèse présente une sécurité d'emploi totale :
     ---
     ## ⚖️ Transparence Scientifique & Limites
     * **Preuves Solides** : De nombreuses études (revues ethnopharmacologiques et in vitro) confirment ses effets anti-inflammatoires, antioxydants et apaisants ; efficace en application topique pour les rougeurs et la photo-protection.
-    * **Limites** : Les bénéfices sont plus marqués en combinaison avec d'autres actifs ; seul, il n'est pas un traitement miracle pour les inflammations sévères. Certaines personnes très allergiques aux Astéracées (comme l'arnica) peuvent réagir (rare).
+    * **Limites** : Les bénéfices sont plus marqués en combinaison avec d'autres actifs ; seul, il n'est pas un traitement miracle pour les inflammations sévères.
+    * **Alerte Allergies** : Risque de réaction croisée pour les personnes sensibles aux **Astéracées** (Arnica, Calendula, Bardane, etc.).
 
     ---
     ## 🛡️ Précautions & Sécurité
     * **Très Doux** : Considéré comme l'un des extraits végétaux les plus sûrs et hypoallergéniques en cosmétique ; adapté aux peaux sensibles, bébés et femmes enceintes (sauf allergie connue).
     * **Patch Test Recommandé** : Toujours tester sur une petite zone en cas d'antécédents d'allergie aux plantes de la famille des marguerites.
     `,
+  },
+  {
+    name: 'Extrait de Bardane (Burdock Root)',
+    slug: INGREDIENT_SLUGS.EXTRAIT_BARDANE,
+
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      "Extrait de racine d'Arctium Lappa, reconnu pour ses vertus purifiantes, apaisantes et équilibrantes pour les peaux mixtes à grasses ou sujettes aux imperfections.",
+    content: `
+# Extrait de Bardane (Arctium Lappa Root Extract)
+La Bardane est une plante bisannuelle dont les racines sont utilisées depuis l'Antiquité pour leurs vertus médicinales "détoxifiantes". En cosmétique, elle est l'alliée des peaux à problèmes grâce à ses propriétés séborégulatrices et antibactériennes.
+
+## INCI
+**ARCTIUM LAPPA ROOT EXTRACT**
+
+## Points forts
+- **Purifiant & Antibactérien** : Aide à assainir l'épiderme et à lutter contre les micro-organismes responsables de l'acné.
+- **Apaisant** : Calme les inflammations cutanées et les démangeaisons.
+- **Régulateur de sébum** : Aide à matifier la peau et à resserrer les pores.
+
+## ⚠️ Alerte Allergies (Astéracées)
+Comme la Camomille ou le Calendula, la Bardane appartient à la famille des **Astéracées**. Elle peut provoquer des réactions allergiques chez les personnes sensibles à cette famille de plantes.
+
+## Utilisation
+- **Cible** : Peaux mixtes, grasses, acnéiques ou sujettes à l'eczéma et au psoriasis.
+- **Type de soin** : Nettoyants purifiants, lotions toniques, sérums imperfections.`,
   },
   {
     name: 'Tasmannia Lanceolata Fruit Extract',
@@ -1878,6 +1929,56 @@ L'**Artemisia Annua Extract** est un extrait de plante issu de l'armoise annuell
 
 ## 🛡️ Précautions & Sécurité
 * Excellente tolérance. Convient aux peaux sensibles, réactives et atopiques.
+`,
+  },
+  {
+    name: 'Maltooligosyl Glucoside',
+    slug: INGREDIENT_SLUGS.MALTOOLIGOSYL_GLUCOSIDE,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      "Polysaccharide biomimétique apaisant qui module la réponse inflammatoire et limite l'activation anormale des défenses naturelles des peaux sensibles à tendance rosacée.",
+    content: `
+# Maltooligosyl Glucoside : Le Polysaccharide Apaisant
+
+Le **Maltooligosyl Glucoside** est un oligosaccharide obtenu par hydrolyse contrôlée d'amidon. Il est utilisé dans des complexes apaisants haut de gamme (notamment Rosactiv™ 2.0 chez Bioderma) pour cibler l'hyperréactivité cutanée.
+
+## ✨ Points Forts & Bénéfices
+* **Module l'immunité innée cutanée** : limite la libération excessive de médiateurs pro-inflammatoires.
+* **Apaisant sensoriel** : réduit la sensation d'inconfort sur peaux réactives, couperose, rosacée.
+* **Hydratant filmogène** : forme un voile sucré qui retient l'eau en surface.
+
+## ⚖️ Transparence Scientifique & Limites
+* **Données in vitro** majoritairement, validation clinique en synergie de complexe.
+* **Effet doux** : ne remplace pas un traitement de fond de la rosacée vasculaire.
+
+## 🛡️ Précautions & Sécurité
+* Très bien toléré, conçu pour peaux les plus sensibles.
+`,
+  },
+  {
+    name: '1-Methylhydantoin-2-Imide',
+    slug: INGREDIENT_SLUGS.METHYLHYDANTOIN_IMIDE,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Actif neuro-apaisant qui réduit la réponse nerveuse excessive (modulation TRPV1) responsable des sensations de chaleur, picotements et rougeurs sur peaux hyperréactives.',
+    content: `
+# 1-Methylhydantoin-2-Imide : L'Actif Neuro-Apaisant
+
+Le **1-Methylhydantoin-2-Imide** est une petite molécule apaisante qui agit sur les récepteurs sensoriels cutanés (canal TRPV1), impliqués dans la perception de la chaleur, des picotements et des sensations d'inconfort caractéristiques des peaux sensibles et rosacéiques.
+
+## ✨ Points Forts & Bénéfices
+* **Anti-inconfort sensoriel** : abaisse le seuil de réaction nerveuse cutanée.
+* **Anti-rougeurs** : limite la composante neurogène de l'érythème.
+* **Synergique** avec polysaccharides apaisants et lipides biomimétiques.
+
+## ⚖️ Transparence Scientifique & Limites
+* **Action ciblée TRPV1** : pas d'effet sur la composante vasculaire pure de la rosacée.
+* **Souvent en complexe breveté** (ex: Rosactiv™ 2.0) plutôt qu'en mono-actif.
+
+## 🛡️ Précautions & Sécurité
+* Tolérance élevée, formulé spécifiquement pour peaux les plus réactives.
 `,
   },
 ]

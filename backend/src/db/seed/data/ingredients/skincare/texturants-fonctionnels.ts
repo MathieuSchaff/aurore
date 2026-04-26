@@ -353,4 +353,47 @@ SPHINGOMONAS FERMENT EXTRACT
 ## Présent dans
 SVR Sensifine AR, La Roche-Posay Rosaliac AR.`,
   },
+  {
+    name: 'Corn Starch Modified (Amidon de Maïs Modifié)',
+    slug: INGREDIENT_SLUGS.CORN_STARCH_MODIFIED,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
+    description:
+      'Amidon de maïs réticulé (Distarch Phosphate) utilisé comme texturant absorbant qui matifie la peau et donne un toucher poudré sans dessécher.',
+    content: `
+# Corn Starch Modified : Le Matifiant Végétal
+
+L'**amidon de maïs modifié** est un polysaccharide réticulé chimiquement (souvent en Distarch Phosphate) pour résister à l'humidité tout en gardant un fort pouvoir absorbant. C'est un texturant naturel courant dans les soins matifiants et les sticks.
+
+## ✨ Points Forts & Bénéfices
+* **Effet matifiant immédiat** : absorbe sébum et excès d'eau de surface.
+* **Toucher poudré soyeux** : fini "soft focus" qui floute légèrement les pores.
+* **Tolérance** : alternative douce au talc minéral.
+
+## ⚖️ Transparence Scientifique & Limites
+* **Action de surface uniquement** : ne régule pas la production sébacée.
+* **Granulométrie variable** : la sensorialité dépend du grade utilisé.
+
+## 🛡️ Précautions & Sécurité
+* Très bien toléré. Origine végétale, vegan.
+`,
+  },
+  {
+    name: 'Biosaccharide Gum-4',
+    slug: INGREDIENT_SLUGS.BIOSACCHARIDE_GUM_4,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
+    description:
+      "Polysaccharide biotechnologique anti-pollution qui forme un film protecteur souple à la surface de la peau et limite l'adhésion des particules.",
+    content: `# Biosaccharide Gum-4
+
+## INCI
+**BIOSACCHARIDE GUM-4**
+
+## Rôle
+Film anti-pollution, lissant et hydratant. Protège la peau contre PM2.5 et HEV.
+
+## Tolérance
+Excellente.`,
+  },
 ]

@@ -556,4 +556,94 @@ Protéoglycanes hydrolysés (réduits poids moléculaire) pénètrent mieux épi
        **Conseil expert** : Si votre peau "chauffe" après l'application de vos soins habituels, recherchez l'allantoïne dans votre liste d'ingrédients. Elle agit comme un agent de confort qui rend les routines complexes beaucoup plus tolérables sur le long terme.
        `,
   },
+  {
+    name: 'Calcium Pantothenate (Provitamine B5 calcique)',
+    slug: INGREDIENT_SLUGS.CALCIUM_PANTOTHENATE,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      "Sel calcique de l'acide pantothénique (provitamine B5), apaisant, hydratant et réparateur — équivalent ionique du panthénol.",
+    content: `# Calcium Pantothenate
+
+## INCI
+**CALCIUM PANTOTHENATE**
+
+## Rôle
+Provitamine B5 calcique, soutient la cicatrisation et la barrière cutanée.
+
+## Tolérance
+Excellente.`,
+  },
+  {
+    name: 'Biotine (Vitamine B8 topique)',
+    slug: INGREDIENT_SLUGS.BIOTIN,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Vitamine B8 utilisée en topique pour soutenir le métabolisme lipidique de la barrière cutanée et renforcer le confort des peaux fragiles.',
+    content: `# Biotine (Topique)
+
+## INCI
+**BIOTIN**
+
+## Rôle
+Cofacteur enzymatique des lipides cutanés, conforte la barrière sur peaux sèches/atopiques.
+
+## Tolérance
+Excellente.`,
+  },
+  {
+    name: 'Hydrolyzed Lupine Protein',
+    slug: INGREDIENT_SLUGS.HYDROLYZED_LUPINE_PROTEIN,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Hydrolysat de protéines de lupin riche en peptides végétaux, stimule la fermeté et lisse les rides par activation de la synthèse de fibrilline.',
+    content: `# Hydrolyzed Lupine Protein
+
+## INCI
+**HYDROLYZED LUPINE PROTEIN**
+
+## Rôle
+Peptides végétaux fermeté, stimule fibrilline et réseau élastique dermique.
+
+## Tolérance
+Bonne. Vegan.`,
+  },
+  {
+    name: 'Trimethoxybenzyl Acetylsinapate',
+    slug: INGREDIENT_SLUGS.TRIMETHOXYBENZYL_ACETYLSINAPATE,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Ester sinapique anti-glycation et photoprotecteur antioxydant, protège les fibres collagène/élastine du vieillissement induit par le sucre.',
+    content: `# Trimethoxybenzyl Acetylsinapate
+
+## INCI
+**TRIMETHOXYBENZYL ACETYLSINAPATE**
+
+## Rôle
+Anti-glycation et photoprotecteur antioxydant, préserve l'intégrité des fibres dermiques.
+
+## Tolérance
+Bonne.`,
+  },
+  {
+    name: 'Onopordum Acanthium Extract (Chardon argenté)',
+    slug: INGREDIENT_SLUGS.ONOPORDUM_ACANTHIUM_EXTRACT,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Extrait floral de chardon écossais riche en composés phénoliques, anti-glycation et raffermissant pour peaux matures.',
+    content: `# Onopordum Acanthium Extract
+
+## INCI
+**ONOPORDUM ACANTHIUM FLOWER/LEAF/STEM EXTRACT**
+
+## Rôle
+Anti-glycation, raffermissant, protecteur des fibres collagène matures.
+
+## Tolérance
+Bonne.`,
+  },
 ]

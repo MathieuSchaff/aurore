@@ -955,4 +955,90 @@ L'**Eau Thermale d'Avène** est captée à la source Saint-Odile, dans le villag
 - Convient grossesse, bébés, peaux post-actes (laser, peelings, chirurgie)
     `,
   },
+  {
+    name: 'o-Cymen-5-ol (Biosol)',
+    slug: INGREDIENT_SLUGS.O_CYMEN_5_OL,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
+    description:
+      'Conservateur doux antimicrobien à large spectre, alternative bien tolérée aux parabènes utilisée dans les soins peaux sensibles.',
+    content: `
+# o-Cymen-5-ol : Le Conservateur Doux
+
+L'**o-Cymen-5-ol** (commercialisé Biosol™) est un dérivé phénolique antimicrobien actif sur bactéries Gram+ et levures. Il est listé Annexe V du règlement cosmétique européen (limite 0,1 %).
+
+## ✨ Points Forts & Bénéfices
+* **Spectre large** : protège la formule de la contamination microbienne dans le temps.
+* **Stable** sur une plage de pH étendue.
+* **Bonne tolérance** comparé aux conservateurs phénoliques classiques.
+
+## ⚖️ Transparence Scientifique & Limites
+* **Conservateur**, pas un actif cutané.
+* **Limite réglementaire** : 0,1 % maximum.
+
+## 🛡️ Précautions & Sécurité
+* Profil sécurité validé Annexe V Cosmétiques UE.
+`,
+  },
+  {
+    name: 'Glyceryl Caprylate/Caprate',
+    slug: INGREDIENT_SLUGS.GLYCERYL_CAPRYLATE_CAPRATE,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
+    description:
+      "Mono-ester de glycérine et d'acides gras moyens à action conservatrice douce et émolliente, souvent utilisé en système de conservation naturel.",
+    content: `
+# Glyceryl Caprylate/Caprate : Le Conservateur Naturel
+
+Le **Glyceryl Caprylate/Caprate** est un ester de glycérine et d'acides caprylique/caprique (C8/C10), d'origine végétale. Il joue un double rôle : émollient léger et **booster de conservation** par perturbation membranaire des micro-organismes.
+
+## ✨ Points Forts & Bénéfices
+* **Conservation douce** : compatible avec formulations "clean beauty" et certifications bio.
+* **Émollient léger** : améliore la sensorialité.
+* **Co-emulsifiant** : stabilise certaines émulsions huile-dans-eau.
+
+## ⚖️ Transparence Scientifique & Limites
+* **Booster** : rarement suffisant seul, associé à d'autres conservateurs (acide lévulinique, p-anisate).
+* **Sensible au pH** : optimal en milieu légèrement acide.
+
+## 🛡️ Précautions & Sécurité
+* Bien toléré, adapté peaux sensibles. Origine végétale, vegan.
+`,
+  },
+  {
+    name: 'Melanin (Mélanine biomimétique)',
+    slug: INGREDIENT_SLUGS.MELANIN,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Mélanine biomimétique utilisée comme pigment teintant et protecteur contre les UV et la lumière visible (HEV/lumière bleue).',
+    content: `# Mélanine (Topique)
+
+## INCI
+**MELANIN**
+
+## Rôle
+Pigment biomimétique. Protège des rayonnements HEV et UV résiduels en complément des filtres solaires classiques.
+
+## Tolérance
+Bonne, peut teinter légèrement la peau.`,
+  },
+  {
+    name: 'Hydrolyzed Yeast Protein',
+    slug: INGREDIENT_SLUGS.HYDROLYZED_YEAST_PROTEIN,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Hydrolysat de protéines de levure riche en bêta-glucanes et acides aminés, fortifiant et stimulant des défenses cutanées.',
+    content: `# Hydrolyzed Yeast Protein
+
+## INCI
+**HYDROLYZED YEAST PROTEIN**
+
+## Rôle
+Apporte bêta-glucanes et peptides, soutient la résilience cutanée et la cicatrisation.
+
+## Tolérance
+Bonne.`,
+  },
 ]

@@ -2206,4 +2206,97 @@ L'**Ethylhexyl Palmitate** est un ester d'alcool éthylhexylique et d'acide palm
 * Très sûr en usage cosmétique classique. Large spectre d'utilisation des soins bébé au maquillage professionnel.
 `,
   },
+  {
+    name: 'C15-19 Alkane',
+    slug: INGREDIENT_SLUGS.C15_19_ALKANE,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
+    description:
+      "Alcane biomimétique d'origine végétale (canne à sucre / olive), émollient sec qui remplace silicones et huiles minérales avec un toucher fluide et non gras.",
+    content: `
+# C15-19 Alkane : L'Émollient Sec Biomimétique
+
+Le **C15-19 Alkane** est un alcane végétal renouvelable issu de la fermentation de sucres (canne à sucre, betterave) ou raffiné depuis l'huile d'olive. Il reproduit la structure des hydrocarbures naturels du sébum sans aucune trace de pétrole.
+
+## ✨ Points Forts & Bénéfices
+* **Toucher sec et fluide** : pénètre rapidement, ne laisse pas de film gras.
+* **Alternative biosourcée** aux silicones volatils (cyclopentasiloxane) et au mineral oil.
+* **Stable et inerte** : ne s'oxyde pas, compatible avec actifs sensibles.
+
+## ⚖️ Transparence Scientifique & Limites
+* **Émollient pur** : pas d'effet hydratant ou réparateur intrinsèque, support de formulation.
+* **Comédogénicité** : faible (0-1) selon les indices disponibles.
+
+## 🛡️ Précautions & Sécurité
+* Très bien toléré, adapté peaux sensibles et enfants.
+`,
+  },
+  {
+    name: 'C10-18 Triglycerides',
+    slug: INGREDIENT_SLUGS.C10_18_TRIGLYCERIDES,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
+    description:
+      'Triglycérides solides à chaînes moyennes-longues, lipides biomimétiques qui structurent la phase grasse et apportent un confort cutané proche du sébum.',
+    content: `
+# C10-18 Triglycerides : Lipide Biomimétique Structurant
+
+Les **C10-18 Triglycerides** sont des esters de glycérol et d'acides gras de longueur 10 à 18 carbones, naturellement solides à température ambiante. Ils miment la fraction triglycéride du sébum humain.
+
+## ✨ Points Forts & Bénéfices
+* **Structurant gras** : épaissit la phase huileuse, donne du corps aux baumes et crèmes riches.
+* **Compatibilité barrière** : reconnu par la peau, contribue à la cohésion lipidique du stratum corneum.
+* **Fini soyeux** : laisse un voile protecteur non collant.
+
+## ⚖️ Transparence Scientifique & Limites
+* **Pas un actif** : rôle exclusivement émollient et structurant.
+* **Origine variable** : peut être d'origine végétale (palme, coco) ou synthèse, selon le fournisseur.
+
+## 🛡️ Précautions & Sécurité
+* Bonne tolérance, utilisé dans les soins relipidants pour peaux atopiques.
+`,
+  },
+  {
+    name: 'Helianthus Annuus Seed Wax (Cire de Tournesol)',
+    slug: INGREDIENT_SLUGS.HELIANTHUS_ANNUUS_SEED_WAX,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
+    description:
+      "Cire végétale issue des graines de tournesol, agent structurant et film occlusif souple qui retient l'hydratation et stabilise les baumes.",
+    content: `
+# Helianthus Annuus Seed Wax : La Cire Végétale Filmogène
+
+La **cire de tournesol** est obtenue par hivernage de l'huile de tournesol : la fraction cireuse cristallise au froid puis est filtrée. Riche en esters d'acides gras à longue chaîne, elle est 100 % végétale et souvent valorisée comme alternative aux cires animales (cire d'abeille).
+
+## ✨ Points Forts & Bénéfices
+* **Film occlusif souple** : limite la perte insensible en eau (TEWL) sans effet "plastique".
+* **Structurant** : épaissit baumes, sticks et émulsions riches.
+* **Vegan** et issu de filières agricoles européennes courtes.
+
+## ⚖️ Transparence Scientifique & Limites
+* **Effet barrière mécanique**, pas d'action biologique propre sur la peau.
+* **Point de fusion modéré** (~70 °C) : peut ramollir dans des produits exposés à la chaleur.
+
+## 🛡️ Précautions & Sécurité
+* Excellente tolérance, utilisée en soins dermo-cosmétiques pour peaux atopiques.
+`,
+  },
+  {
+    name: 'Lanolin Oil',
+    slug: INGREDIENT_SLUGS.LANOLIN_OIL,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
+    description:
+      'Fraction huileuse purifiée de la lanoline (cire issue de la laine de mouton), émollient occlusif riche en esters cireux mimant les lipides cutanés.',
+    content: `# Lanolin Oil
+
+## INCI
+**LANOLIN OIL**
+
+## Rôle
+Émollient occlusif puissant. Reconstitue le film hydrolipidique, scelle l'hydratation et nourrit les peaux très sèches.
+
+## Tolérance
+Bien toléré aux concentrations cosmétiques. Rares allergies de contact à la lanoline brute, la fraction huileuse purifiée est mieux tolérée.`,
+  },
 ]

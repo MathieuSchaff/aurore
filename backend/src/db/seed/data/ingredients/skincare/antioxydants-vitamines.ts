@@ -2678,4 +2678,119 @@ Le **Ginkgo Biloba Leaf Extract** est un extrait de l'une des plantes les plus a
 * Bonne tolérance générale. Rare sensibilisation possible chez les personnes allergiques aux plantes de la famille Ginkgoaceae.
 `,
   },
+  {
+    name: 'Benzotriazolyl Dodecyl p-Cresol (Tinogard TT)',
+    slug: INGREDIENT_SLUGS.BENZOTRIAZOLYL_DODECYL_P_CRESOL,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      "Antioxydant stabilisant de formule (HALS / phénol encombré) qui protège les huiles, parfums et actifs sensibles à l'oxydation et à la lumière, prolongeant la durée de vie des produits.",
+    content: `
+# Benzotriazolyl Dodecyl p-Cresol : Le Stabilisant de Formule
+
+Connu sous le nom commercial **Tinogard™ TT**, le **Benzotriazolyl Dodecyl p-Cresol** est un antioxydant stérique appartenant à la famille des phénols encombrés. Son rôle principal est de protéger la formulation cosmétique elle-même, pas la peau.
+
+## ✨ Points Forts & Bénéfices
+* **Stabilisant de phase huileuse** : limite l'oxydation des esters, parfums et filtres UV.
+* **Photoprotection des actifs** : ralentit la dégradation lumineuse de la formule.
+* **Faible dose efficace** (0,05–0,2 %).
+
+## ⚖️ Transparence Scientifique & Limites
+* **Pas d'effet cutané direct** : agit sur la conservation, pas sur la biologie de la peau.
+* **Synthétique** : non retenu par les formulateurs naturels / biologiques.
+
+## 🛡️ Précautions & Sécurité
+* Profil de tolérance bien établi aux doses réglementaires.
+`,
+  },
+  {
+    name: 'Superoxide Dismutase (SOD)',
+    slug: INGREDIENT_SLUGS.SUPEROXIDE_DISMUTASE,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Enzyme antioxydante endogène qui neutralise les superoxydes générés par UV et stress oxydatif, protégeant les fibroblastes et le collagène.',
+    content: `# Superoxide Dismutase (SOD)
+
+## INCI
+**SUPEROXIDE DISMUTASE**
+
+## Rôle
+Première ligne de défense antioxydante de la peau. Catalyse la conversion du superoxyde en peroxyde d'hydrogène, ralentit le photovieillissement.
+
+## Tolérance
+Excellente, biocompatible.`,
+  },
+  {
+    name: 'Sophora Japonica Flower Extract',
+    slug: INGREDIENT_SLUGS.SOPHORA_JAPONICA_FLOWER_EXTRACT,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Extrait floral riche en rutine et flavonoïdes, antioxydant et veinotonique qui protège la microcirculation cutanée.',
+    content: `# Sophora Japonica Flower Extract
+
+## INCI
+**SOPHORA JAPONICA FLOWER EXTRACT**
+
+## Rôle
+Antioxydant flavonoïde, renforce les capillaires fragiles, atténue rougeurs diffuses.
+
+## Tolérance
+Excellente.`,
+  },
+  {
+    name: 'Ascorbyl Tetraisopalmitate (VC-IP)',
+    slug: INGREDIENT_SLUGS.ASCORBYL_TETRAISOPALMITATE,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Dérivé liposoluble de la vitamine C, ultra-stable et excellente pénétration cutanée, antioxydant et anti-taches sans irritation.',
+    content: `# Ascorbyl Tetraisopalmitate
+
+## INCI
+**ASCORBYL TETRAISOPALMITATE**
+
+## Rôle
+Vitamine C estérifiée stable. Pénètre la couche lipidique du stratum corneum, agit sur l'éclat, l'unification et la photoprotection antioxydante.
+
+## Tolérance
+Très bonne, alternative douce à l'acide ascorbique pur.`,
+  },
+  {
+    name: 'Polygonum Cuspidatum Extract',
+    slug: INGREDIENT_SLUGS.POLYGONUM_CUSPIDATUM_EXTRACT,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Source naturelle de resvératrol et de stilbénoïdes, antioxydant puissant et activateur des sirtuines de longévité cellulaire.',
+    content: `# Polygonum Cuspidatum Extract
+
+## INCI
+**POLYGONUM CUSPIDATUM ROOT EXTRACT**
+
+## Rôle
+Antioxydant longévité (resvératrol). Module SIRT-1, protège du photovieillissement.
+
+## Tolérance
+Bonne, à doses cosmétiques standard.`,
+  },
+  {
+    name: 'Cistus Monspeliensis Extract',
+    slug: INGREDIENT_SLUGS.CISTUS_MONSPELIENSIS_EXTRACT,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Extrait de ciste de Montpellier, plante méditerranéenne riche en polyphénols, antioxydant et astringent doux.',
+    content: `# Cistus Monspeliensis Extract
+
+## INCI
+**CISTUS MONSPELIENSIS EXTRACT**
+
+## Rôle
+Antioxydant polyphénolique, anti-pollution, resserre l'apparence des pores.
+
+## Tolérance
+Bonne.`,
+  },
 ]

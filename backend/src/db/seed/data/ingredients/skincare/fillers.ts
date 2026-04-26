@@ -188,7 +188,10 @@ Chélateur. Capture les ions métalliques (Ca²⁺, Mg²⁺, Fe²⁺) qui désta
 Sel disodique de l'acide éthylènediaminetétraacétique. Présent en traces (0,01–0,1 %).
 
 ## Tolérance
-Inerte aux concentrations d'usage. Aucune action pharmacologique sur la peau.`,
+Inerte aux concentrations d'usage. Aucune action pharmacologique sur la peau.
+
+## Controverse Environnementale
+Bien que sûr pour la santé humaine, le Disodium EDTA est critiqué pour sa **faible biodégradabilité**. Il persiste dans l'environnement et peut contribuer à la mobilisation de métaux lourds dans les écosystèmes aquatiques.`,
   },
   {
     name: 'Tetrasodium EDTA',
@@ -271,7 +274,10 @@ Gélifiant émulsifiant. Permet de formuler des gels-crèmes légers et stables 
 Copolymère acrylique modifié à chaînes alkyles. Stable sur une large plage de pH après neutralisation.
 
 ## Tolérance
-Très bonne. Couramment utilisé dans les soins pour peaux sensibles et acnéiques.`,
+Très bonne. Couramment utilisé dans les soins pour peaux sensibles et acnéiques.
+
+## Controverse Environnementale
+Ce polymère synthétique est souvent classé comme **microplastique liquide**. Bien que sans danger pour la santé, sa dégradation dans l'environnement est très lente, ce qui peut poser des problèmes écologiques à long terme.`,
   },
   {
     name: 'Hydroxyethylcellulose',
@@ -706,5 +712,47 @@ Chlorure de potassium. Sel inorganique inerte.
 
 ## Tolérance
 Inerte. Aucune contre-indication.`,
+  },
+  {
+    name: 'Glyceryl Stearate Citrate',
+    slug: FILLER_SLUGS.GLYCERYL_STEARATE_CITRATE,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
+    description:
+      "Émulsifiant doux issu d'acide stéarique et d'acide citrique, biocompatible avec la barrière cutanée et adapté aux soins peaux sensibles.",
+    content: `# Glyceryl Stearate Citrate
+
+## INCI
+**GLYCERYL STEARATE CITRATE**
+
+## Rôle
+Émulsifiant huile-dans-eau de structure proche des lipides cutanés. Forme des cristaux liquides lamellaires qui miment l'organisation du stratum corneum.
+
+## Ce que c'est
+Ester mixte de glycérine, acide stéarique et acide citrique. Origine végétale (palme/coco) ou synthèse.
+
+## Tolérance
+Très bien toléré, utilisé dans les dermo-cosmétiques pour peaux sensibles, atopiques, post-actes.`,
+  },
+  {
+    name: 'Sucrose Stearate',
+    slug: FILLER_SLUGS.SUCROSE_STEARATE,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
+    description:
+      "Ester de sucre et d'acide stéarique, émulsifiant ultra-doux et biodégradable adapté aux soins clean beauty et peaux les plus réactives.",
+    content: `# Sucrose Stearate
+
+## INCI
+**SUCROSE STEARATE**
+
+## Rôle
+Émulsifiant non-ionique doux (HLB ~15). Donne un toucher soyeux et léger aux émulsions.
+
+## Ce que c'est
+Mono-ester de saccharose et d'acide stéarique. 100 % végétal, biodégradable.
+
+## Tolérance
+Excellente tolérance, non irritant, non comédogène. Adapté peaux sensibles, bébés, formulations bio.`,
   },
 ]

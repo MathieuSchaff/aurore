@@ -1619,4 +1619,22 @@ Le **Zinc Lactate** est une forme organique de zinc. Il combine les bienfaits pu
 * Très bien toléré, non comédogène.
 `,
   },
+  {
+    name: 'Copper PCA',
+    slug: INGREDIENT_SLUGS.COPPER_PCA,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      "Sel de cuivre du PCA, régulateur du microbiome cutané et séborégulateur, limite la prolifération des bactéries impliquées dans l'acné.",
+    content: `# Copper PCA
+
+## INCI
+**COPPER PCA**
+
+## Rôle
+Régulation microbienne, séborégulateur, anti-imperfections.
+
+## Tolérance
+Bonne, dosage faible (oligo-élément).`,
+  },
 ]

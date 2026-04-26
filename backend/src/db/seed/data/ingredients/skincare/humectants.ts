@@ -1305,6 +1305,95 @@ SODIUM HYALURONATE / HYALURONIC ACID (multi-masse souvent)
 0.1-2%.`,
   },
   {
+    name: 'Acide Hyaluronique Hydrolysé',
+    slug: INGREDIENT_SLUGS.HYDROLYZED_HYALURONIC_ACID,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.HUMECTANT,
+    description:
+      "Forme fragmentée d'acide hyaluronique à très bas poids moléculaire pour une pénétration plus profonde dans l'épiderme.",
+    content: `# Acide Hyaluronique Hydrolysé (Hydrolyzed Hyaluronic Acid)
+L'acide hyaluronique hydrolysé est obtenu par hydrolyse (fragmentation) de molécules d'HA de haut poids moléculaire. Cette réduction de taille lui permet de franchir plus efficacement la barrière cutanée pour hydrater les couches plus profondes.
+
+## INCI
+**HYDROLYZED HYALURONIC ACID**
+
+## Points forts
+- **Pénétration accrue** : Atteint des couches que l'HA classique ne peut toucher.
+- **Réparation tissulaire** : Stimule les mécanismes de régénération endogènes.
+- **Effet repulpant durable** : Hydrate la structure interne de l'épiderme.`,
+  },
+  {
+    name: 'Sodium Hyaluronate Crosspolymer',
+    slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE_CROSSPOLYMER,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.HUMECTANT,
+    description:
+      'Acide hyaluronique réticulé formant un maillage 3D à la surface de la peau pour une hydratation continue et longue durée.',
+    content: `# Sodium Hyaluronate Crosspolymer
+Cette forme "réticulée" d'acide hyaluronique crée un film protecteur et hydratant qui reste plus longtemps à la surface de la peau. Elle agit comme un réservoir d'eau libérant progressivement l'hydratation.
+
+## INCI
+**SODIUM HYALURONATE CROSSPOLYMER**
+
+## Points forts
+- **Hydratation 24h** : Libération prolongée des molécules d'eau.
+- **Bouclier anti-pollution** : Forme un maillage protecteur non occlusif.
+- **Effet lissant immédiat** : Comble les micro-reliefs en surface.`,
+  },
+  {
+    name: 'Sodium Acetylated Hyaluronate',
+    slug: INGREDIENT_SLUGS.SODIUM_ACETYLATED_HYALURONATE,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.HUMECTANT,
+    description:
+      "Surnommé 'Super Acide Hyaluronique', il offre une affinité exceptionnelle avec la peau pour une hydratation renforcée et une réparation de la barrière.",
+    content: `# Sodium Acetylated Hyaluronate (Super HA)
+En remplaçant certains groupements hydroxyles par des groupements acétyles, cette forme devient à la fois hydrophile et lipophile. Elle "ancre" l'hydratation dans la barrière lipidique.
+
+## INCI
+**SODIUM ACETYLATED HYALURONATE**
+
+## Points forts
+- **Adhérence maximale** : Reste sur la peau même après rinçage (idéal nettoyants).
+- **Double hydratation** : Retient deux fois plus d'eau que l'HA standard.
+- **Réparation barrière** : Améliore la cohésion des cellules du stratum corneum.`,
+  },
+  {
+    name: 'Hydroxypropyltrimonium Hyaluronate',
+    slug: INGREDIENT_SLUGS.HYDROXYPROPYLTRIMONIUM_HYALURONATE,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.HUMECTANT,
+    description:
+      "Forme cationique (chargée positivement) de l'acide hyaluronique qui 'colle' littéralement à la peau et aux cheveux par attraction électrostatique.",
+    content: `# Hydroxypropyltrimonium Hyaluronate
+Cette version "adhésive" possède une charge positive qui l'attire vers la surface de la peau (chargée négativement). Elle est particulièrement efficace dans les produits rincés.
+
+## INCI
+**HYDROXYPROPYLTRIMONIUM_HYALURONATE**
+
+## Points forts
+- **Résistance au rinçage** : Continue d'hydrater après le nettoyage.
+- **Douceur immédiate** : Laisse un fini soyeux unique.
+- **Soin capillaire** : Très utilisé pour hydrater la fibre capillaire sans l'alourdir.`,
+  },
+  {
+    name: 'Hyaluronate de Potassium',
+    slug: INGREDIENT_SLUGS.POTASSIUM_HYALURONATE,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.HUMECTANT,
+    description:
+      "Sel de potassium de l'acide hyaluronique, favorise l'équilibre hydrique constant dans les couches externes de l'épiderme.",
+    content: `# Hyaluronate de Potassium (Potassium Hyaluronate)
+Le sel de potassium aide à drainer l'eau vers la surface de la peau de manière continue. On le trouve souvent en fin de liste des complexes multi-HA.
+
+## INCI
+**POTASSIUM HYALURONATE**
+
+## Points forts
+- **Hydratation de surface** : Maintient un niveau d'eau constant.
+- **Équilibre osmotique** : Participe à la bonne santé des cellules épidermiques.`,
+  },
+  {
     name: 'Snow Mushroom',
     slug: INGREDIENT_SLUGS.SNOW_MUSHROOM,
     type: 'skincare',
@@ -1384,5 +1473,41 @@ SODIUM HYALURONATE / HYALURONIC ACID (multi-masse souvent)
 
        **Conseil expert** : Si votre peau reste sèche malgré l'utilisation de sérums à l'acide hyaluronique, c'est que l'eau s'évapore trop vite. L'ajout d'Acide Polyglutamique réglera ce problème instantanément.
        `,
+  },
+  {
+    name: 'Imperata Cylindrica Root Extract',
+    slug: INGREDIENT_SLUGS.IMPERATA_CYLINDRICA_ROOT,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.HUMECTANT,
+    description:
+      "Extrait de racine de l'herbe à paillote, riche en potassium et en sucres osmolytes, qui régule le bilan hydrique cutané comme un humectant naturel.",
+    content: `# Imperata Cylindrica Root Extract
+
+## INCI
+**IMPERATA CYLINDRICA ROOT EXTRACT**
+
+## Rôle
+Hydratant osmolyte. Mobilise les réserves d'eau cutanées pour réhydrater les couches superficielles de l'épiderme.
+
+## Tolérance
+Excellente, adapté peaux sensibles et déshydratées.`,
+  },
+  {
+    name: 'Disodium Acetyl Glucosamine Phosphate',
+    slug: INGREDIENT_SLUGS.DISODIUM_ACETYL_GLUCOSAMINE_PHOSPHATE,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.HUMECTANT,
+    description:
+      "Dérivé phosphaté de la N-acétyl glucosamine, hydratant et précurseur d'acide hyaluronique avec un effet éclaircissant doux par modulation de la mélanogenèse.",
+    content: `# Disodium Acetyl Glucosamine Phosphate
+
+## INCI
+**DISODIUM ACETYL GLUCOSAMINE PHOSPHATE**
+
+## Rôle
+Booster d'acide hyaluronique endogène, hydratant et éclat. Module l'expression de la tyrosinase, réduit les taches.
+
+## Tolérance
+Très bonne tolérance, non irritant.`,
   },
 ]
