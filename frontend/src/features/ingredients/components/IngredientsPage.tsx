@@ -92,7 +92,7 @@ export function IngredientsPage() {
           <>
             <SearchCombobox
               label="Rechercher un ingrédient"
-              queryFn={ingredientQueries.search}
+              queryFn={ingredientQueries.searchInfinite}
               toResult={(item) => ({
                 id: item.id,
                 slug: item.slug,
