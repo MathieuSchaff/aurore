@@ -1,5 +1,6 @@
 import type { ProductCategory } from '@habit-tracker/shared'
 import {
+  PRODUCT_CATEGORY_LABELS,
   PRODUCT_CATEGORY_VALUES,
   PRODUCT_KIND_LABELS,
   PRODUCT_KINDS,
@@ -40,7 +41,6 @@ import {
   productEditFormToUpdateInput,
   productToEditForm,
 } from './ProductForm.schema'
-import { CATEGORY_LABELS } from '@/constants/products'
 
 type ProductWithIngredients = {
   id: string
@@ -253,7 +253,7 @@ export function ProductForm({ mode, product, initialTags = [], onSuccess }: Prod
 
       <FormField label="Domaine" htmlFor="edit-category" required>
         <ChipGroup
-          options={PRODUCT_CATEGORY_VALUES.map((v) => ({ value: v, label: CATEGORY_LABELS[v] }))}
+          options={PRODUCT_CATEGORY_VALUES.map((v) => ({ value: v, label: PRODUCT_CATEGORY_LABELS[v]}))}
           selected={[form.category]}
           onChange={([v]) =>
             v &&
