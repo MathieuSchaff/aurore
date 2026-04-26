@@ -61,3 +61,34 @@ export function ObjVial() {
     </div>
   )
 }
+
+export function ObjDiscussion() {
+  return (
+    <div className="obj-discussion">
+      <div className="obj-discussion__bubble obj-discussion__bubble--main">
+        <div className="obj-discussion__dots">
+          <div className="obj-discussion__dot" />
+          <div className="obj-discussion__dot" />
+          <div className="obj-discussion__dot" />
+        </div>
+      </div>
+      <div className="obj-discussion__bubble obj-discussion__bubble--reply" />
+    </div>
+  )
+}
+
+export function ObjCompare() {
+  return (
+    <div className="obj-compare">
+      <div className="obj-compare__item">
+        <div className="obj-compare__cap obj-compare__cap--a" />
+        <div className="obj-compare__body obj-compare__body--a" />
+      </div>
+      <div className="obj-compare__divider" />
+      <div className="obj-compare__item">
+        <div className="obj-compare__cap obj-compare__cap--b" />
+        <div className="obj-compare__body obj-compare__body--b" />
+      </div>
+    </div>
+  )
+}

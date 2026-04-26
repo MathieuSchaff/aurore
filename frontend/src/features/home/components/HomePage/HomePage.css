@@ -134,7 +134,7 @@
   padding: var(--space-12) var(--space-6) var(--space-16);
   display: flex;
   flex-direction: column;
-  gap: var(--space-14);
+  gap: var(--space-20);
 }
 
 .home-section__title {
@@ -161,7 +161,6 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-4);
-  margin-bottom: var(--space-10);
 }
 
 .home-flip-card {
@@ -553,4 +552,171 @@
 .home-privacy-link__text:hover {
   color: var(--text-secondary);
   text-decoration: underline;
+}
+
+/* ─── How it works ─────────────────────────────────────────── */
+
+.home-how__steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+.home-how__step {
+  padding: var(--space-6);
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-default);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  position: relative;
+  overflow: hidden;
+  animation: home-fade-up 0.5s ease both;
+}
+
+.home-how__step::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--color-accent), var(--color-primary));
+}
+
+.home-how__num {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-widest);
+}
+
+.home-how__title {
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+  line-height: var(--leading-tight);
+}
+
+.home-how__desc {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  flex: 1;
+}
+
+/* ─── Object: Discussion ────────────────────────────────────── */
+
+.obj-discussion {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  animation: float-obj 3.6s ease-in-out infinite 0.8s;
+}
+
+.obj-discussion__bubble--main {
+  width: 64px;
+  height: 46px;
+  background: linear-gradient(135deg, oklch(72% 0.14 265), oklch(56% 0.2 265));
+  border-radius: 10px 10px 10px 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.obj-discussion__bubble--reply {
+  width: 44px;
+  height: 30px;
+  background: linear-gradient(135deg, oklch(80% 0.08 265 / 0.7), oklch(68% 0.14 265 / 0.7));
+  border-radius: 10px 10px 2px 10px;
+  align-self: flex-end;
+}
+
+.obj-discussion__dots {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.obj-discussion__dot {
+  width: 6px;
+  height: 6px;
+  background: oklch(96% 0.01 265 / 0.9);
+  border-radius: 50%;
+}
+
+/* ─── Object: Compare ───────────────────────────────────────── */
+
+.obj-compare {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  animation: float-obj 3.3s ease-in-out infinite 1.4s;
+}
+
+.obj-compare__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.obj-compare__cap--a {
+  width: 26px;
+  height: 8px;
+  background: oklch(55% 0.18 160);
+  border-radius: 3px 3px 0 0;
+}
+
+.obj-compare__body--a {
+  width: 32px;
+  height: 64px;
+  background: linear-gradient(160deg, oklch(78% 0.1 160), oklch(55% 0.18 160));
+  border-radius: 0 0 8px 8px;
+}
+
+.obj-compare__divider {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, transparent, var(--border-default), transparent);
+  align-self: center;
+}
+
+.obj-compare__cap--b {
+  width: 22px;
+  height: 7px;
+  background: oklch(60% 0.2 65);
+  border-radius: 3px 3px 0 0;
+}
+
+.obj-compare__body--b {
+  width: 28px;
+  height: 52px;
+  background: linear-gradient(160deg, oklch(86% 0.1 65 / 0.55), oklch(68% 0.18 65 / 0.55));
+  border: 1.5px solid oklch(60% 0.2 65 / 0.5);
+  border-radius: 0 0 7px 7px;
+}
+
+/* ─── Responsive additions ──────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .home-how__steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .home-how__steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .obj-discussion,
+  .obj-compare {
+    animation: none;
+  }
 }
