@@ -8,7 +8,7 @@ import { ingredientQueries } from '../../../lib/queries/ingredients'
 import { IngredientForm } from './IngredientForm/IngredientForm'
 import './IngredientPageEditable.css'
 
-const route = getRouteApi('/ingredients/$slug/edit')
+const route = getRouteApi('/ingredients/$slug_/edit')
 
 export function IngredientEditPage() {
   const { slug } = route.useParams()
