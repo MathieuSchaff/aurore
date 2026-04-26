@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const ITEM_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const ITEM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/c87a0584-d88a-4785-a44f-b9c87de07499/Item-Alphacade-PSO-Shampoing-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

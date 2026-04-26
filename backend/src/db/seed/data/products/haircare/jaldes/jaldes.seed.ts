@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const JALDES_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const JALDES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/1fc60dae-a687-4ee9-b774-2621c6a453c2/Jaldes-Silettum-Expert-Traitement-Anti-Chute-Cure-de-3-mois-3-x-40ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

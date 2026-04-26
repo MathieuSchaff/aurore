@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const WELLA_PROFESSIONALS_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const WELLA_PROFESSIONALS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/a5147ea6-56e9-4ab7-8de9-5bd952186d16/Wella-Professionals-Fusion-Intense-Repair-Masque-Reparation-Intense-150ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

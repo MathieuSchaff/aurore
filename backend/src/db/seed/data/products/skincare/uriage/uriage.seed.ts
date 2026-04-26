@@ -739,7 +739,7 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/26803436-f70f-47c0-a987-e07265d62ff9/Uriage-DS-Hair-Shampooing-Doux-Equilibrant-Apaisant-500ml?io=transform:extend,width:600,height:600',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.APAISANT],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -762,11 +762,10 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.TEXTURE_LEGERE,
-        TAG_SLUGS.EMOLLIENT,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -791,7 +790,7 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/ae087a47-8a77-4e93-bf13-96d121f70515/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.APAISANT],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -813,7 +812,7 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/e5f7e21d-acb4-4c0e-87e7-361fad46cc4a/Uriage-DS-Hair-Shampooing-Traitant-Antipelliculaire-Purifiant-Apaisant-200ml?io=transform:extend,width:600,height:600',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.APAISANT],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -836,7 +835,7 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -863,8 +862,8 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/f01fba5b-757b-4456-8770-cca8d5f193c9/Uriage-Huile-Lavante-Nourrissante-Sans-Savon-Peaux-Sensibles-Corps-1L?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.HUILE_CORPS, TAG_SLUGS.ZONE_CORPS],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.HUILE_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],
@@ -887,10 +886,10 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.EMOLLIENT,
+        TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.EXFOLIANT_CHIMIQUE,
@@ -915,8 +914,8 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/bab1b40e-3509-4297-9dcd-aa7bd3ef5167/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.HUILE_CORPS, TAG_SLUGS.ZONE_CORPS],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.HUILE_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],
@@ -937,8 +936,8 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/d312a471-1482-42ac-835d-1ec91ba348a6/Uriage-Gel-Surgras-Dermatologique-Doux-Sans-Savon-Peaux-Sensibles-Corps-1L?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -960,7 +959,7 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/a81c8e25-3813-4268-b4ca-9554fc812483/Uriage-Creme-Lavante-et-Nourissante-Visage-Corps-1L?io=transform:extend,width:600,height:600',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],
@@ -981,8 +980,8 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/9840423b-e4b3-4eca-bfac-6f1b738eee23/Uriage-Xemose-Huile-Lavante-Apaisante-Corps-Peaux-Seches-Atopiques-1L-Lot-de-2?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.HUILE_CORPS, TAG_SLUGS.ZONE_CORPS],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.HUILE_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],
@@ -1004,7 +1003,7 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/b3144d4e-d71f-4f72-bac4-188518ff9ea5/Uriage-Eau-Thermale-Lait-Veloute-Corps-500ml-Creme-Lavante-200ml-Offerte?io=transform:extend,width:600,height:600',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],
@@ -1027,10 +1026,10 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.EMOLLIENT,
+        TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.EXFOLIANT_CHIMIQUE,
@@ -1057,7 +1056,7 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -1085,7 +1084,7 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.APAISANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.NETTOYANT,
         TAG_SLUGS.DOUBLE_NETTOYAGE_2,

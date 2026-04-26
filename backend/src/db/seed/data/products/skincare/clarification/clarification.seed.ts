@@ -20,7 +20,7 @@ export const CLARIFICATION_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.APAISANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -48,7 +48,7 @@ export const CLARIFICATION_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.APAISANT],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
       ],

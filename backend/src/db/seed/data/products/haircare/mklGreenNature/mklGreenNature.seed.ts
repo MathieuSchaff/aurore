@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const MKL_GREEN_NATURE_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const MKL_GREEN_NATURE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/f03e141f-00f9-4ac7-85be-3994852bed4a/MKL-Shampoing-Solide-Ortie-et-Charbon-Cheveux-Gras-65g?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

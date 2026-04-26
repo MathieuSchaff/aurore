@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const CUT_BY_FRED_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const CUT_BY_FRED_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/24122404-e963-4d5f-afd7-c9803b26d5e8/Cut-By-Fred-Vegan-Hydratation-mask-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

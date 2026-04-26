@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const HERBATINT_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const HERBATINT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/dd5c2cb3-6782-4620-a1d2-b3731a88a5f9/EAN_IMG_FR_8016744807784_1?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -44,7 +44,7 @@ export const HERBATINT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/b24de97c-527d-4682-a81a-a010889e8d8c/EAN_IMG_FR_8016744807777_1?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -70,7 +70,7 @@ export const HERBATINT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/992964c5-07c0-4463-b846-79fae6a395c1/EAN_IMG_FR_8016744807753_1?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -96,7 +96,7 @@ export const HERBATINT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/43a97235-b4d5-42fc-afff-62dd411a0cdc/EAN_IMG_FR_8016744807807_1?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -122,7 +122,7 @@ export const HERBATINT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/4932e59c-1fca-4688-b667-851344899a79/EAN_IMG_FR_8016744807852_1?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

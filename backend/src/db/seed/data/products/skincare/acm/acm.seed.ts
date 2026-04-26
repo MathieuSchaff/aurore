@@ -110,8 +110,8 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/af7b91dc-5e1b-4880-b977-34cb9cd5e332/ACM-Novophane-Protocole-Anti-Chute-Chronique-In-Out?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.EXFOLIATION],
+      secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -134,7 +134,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.EXFOLIATION,
         TAG_SLUGS.ZONE_VISAGE,
@@ -159,8 +159,8 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/291b6398-0eb8-45d5-b1a4-5e8bda813d51/ACM-Novophane-60-gelules?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.EXFOLIATION],
+      secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],

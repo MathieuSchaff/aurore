@@ -19,7 +19,7 @@ export const ROG__CAVAILL_S_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/e07f5c65-77af-46f4-b635-0bb04bc67387/Roge-Cavailles-Gel-Bain-Douche-Surgras-L-Original-Eco-Recharge-1L?io=transform:extend,width:600,height:600',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],
@@ -41,7 +41,7 @@ export const ROG__CAVAILL_S_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/72e7dab7-2654-4f6b-b6f3-e8bbfca0cc80/Roge-Cavailles-Gel-Bain-Douche-Surgras-Amande-Verte-1L?io=transform:extend,width:600,height:600',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],
@@ -63,7 +63,7 @@ export const ROG__CAVAILL_S_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/ab145717-ff5f-46cd-b30f-c26e5cf6f9ce/Roge-Cavailles-Gel-Bain-Douche-Surgras-Fleur-de-Coton-1L?io=transform:extend,width:600,height:600',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],
@@ -85,7 +85,7 @@ export const ROG__CAVAILL_S_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/1bf420a2-9958-4c22-a85a-dd400be00dde/Roge-Cavailles-Huile-de-Douche-Veloutante-750ml?io=transform:extend,width:600,height:600',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],
@@ -108,7 +108,7 @@ export const ROG__CAVAILL_S_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.NETTOYANT_CORPS,
         TAG_SLUGS.ZONE_CORPS,
@@ -135,7 +135,7 @@ export const ROG__CAVAILL_S_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -161,7 +161,7 @@ export const ROG__CAVAILL_S_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/f9bcefed-4075-4450-aeac-687a88761295/Roge-Cavailles-Gel-Bain-Douche-Surgras-Aloe-Vera-Eco-Recharge-Bio-1L?io=transform:extend,width:600,height:600',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],

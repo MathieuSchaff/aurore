@@ -211,7 +211,7 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -238,7 +238,7 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.NETTOYANT,
@@ -267,7 +267,7 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -296,7 +296,7 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -323,7 +323,7 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.NETTOYANT,
@@ -353,7 +353,7 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.EXFOLIATION],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.NETTOYANT,
         TAG_SLUGS.DOUBLE_NETTOYAGE_2,
@@ -411,7 +411,7 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.NETTOYANT_CORPS,
@@ -439,7 +439,7 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
@@ -471,7 +471,7 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -499,7 +499,7 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.NETTOYANT,

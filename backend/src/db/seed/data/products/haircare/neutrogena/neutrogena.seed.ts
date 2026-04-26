@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const NEUTROGENA_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const NEUTROGENA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/bc6575df-8122-4ae2-8bb2-336e13b54e92/Neutrogena-T-GEL-Fort-Demangeaisons-Severes-250ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

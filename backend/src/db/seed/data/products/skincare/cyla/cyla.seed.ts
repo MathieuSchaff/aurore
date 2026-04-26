@@ -156,7 +156,12 @@ export const CYLA_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SECHE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.SERINE, concentrationValue: 5, concentrationUnit: '%', notes: 'NMF biomimétique 5% – hydratation' },
+      {
+        slug: INGREDIENT_SLUGS.SERINE,
+        concentrationValue: 5,
+        concentrationUnit: '%',
+        notes: 'NMF biomimétique 5% – hydratation',
+      },
       { slug: INGREDIENT_SLUGS.PCA },
       { slug: INGREDIENT_SLUGS.UREA },
       { slug: INGREDIENT_SLUGS.CERAMIDE_AP },
@@ -204,7 +209,12 @@ export const CYLA_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.PEAU_MIXTE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.SERINE, concentrationValue: 5, concentrationUnit: '%', notes: 'NMF biomimétique 5% – hydratation' },
+      {
+        slug: INGREDIENT_SLUGS.SERINE,
+        concentrationValue: 5,
+        concentrationUnit: '%',
+        notes: 'NMF biomimétique 5% – hydratation',
+      },
       { slug: INGREDIENT_SLUGS.PCA },
       { slug: INGREDIENT_SLUGS.CERAMIDE_AP },
       { slug: INGREDIENT_SLUGS.CERAMIDE_NG },

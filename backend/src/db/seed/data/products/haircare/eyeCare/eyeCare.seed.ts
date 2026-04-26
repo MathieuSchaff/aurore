@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const EYE_CARE_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const EYE_CARE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/6bc84f96-281b-4de2-b195-f3126a0afff9/Eye-Care-Soins-Capillaire-UltraCapil-Serum-Capillaire-75ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },

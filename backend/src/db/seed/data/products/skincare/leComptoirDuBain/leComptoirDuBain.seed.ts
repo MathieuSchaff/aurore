@@ -19,7 +19,7 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/4e1ccd92-351b-484f-85f3-be30eff4c979/Le-Comptoir-du-Bain-Savon-de-Marseille-Fleur-d-Oranger-Extra-Doux-1L?io=transform:extend,width:600,height:600',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],
@@ -42,7 +42,7 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.NETTOYANT_CORPS,
         TAG_SLUGS.ZONE_CORPS,
@@ -68,7 +68,7 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/3f9178cb-f0e4-40d6-93db-838bd531dc22/Le-comptoir-du-Bain-Savon-Traditionnel-de-Marseille-Citron-Menthe-1L?io=transform:extend,width:600,height:600',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],
@@ -90,7 +90,7 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/fdfbdd02-d724-4d1c-b3b3-3a9744ff78d6/Le-Comptoir-du-Bain-Savon-de-Marseille-Aloe-Vera-Extra-Doux-1L?io=transform:extend,width:600,height:600',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],
@@ -113,7 +113,7 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.NETTOYANT_CORPS,
         TAG_SLUGS.ZONE_CORPS,
@@ -139,7 +139,7 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/596677e7-6de5-46dc-b3f9-95e16f0f10e5/Le-Comptoir-du-Bain-Savon-de-Marseille-Olive-Lavande-Extra-Doux-1L?io=transform:extend,width:600,height:600',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],
@@ -161,7 +161,7 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/3672d330-8886-4e42-a565-d56b2de68994/Le-Comptoir-du-Bain-Savon-de-Marseille-Verveine-Extra-Doux-1L?io=transform:extend,width:600,height:600',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],
@@ -183,7 +183,7 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/30a683e6-bb00-4d60-b5f4-99a1786e9496/Le-Comptoir-du-Bain-Savon-de-Marseille-Vanille-Miel-Extra-Doux-1L?io=transform:extend,width:600,height:600',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],

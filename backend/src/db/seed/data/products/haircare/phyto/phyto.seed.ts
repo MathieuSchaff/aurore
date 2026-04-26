@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const PHYTO_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const PHYTO_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/bc37eace-0fc0-4c40-86c0-1ed044f74191/Phyto-PhytoCyane-Traitement-Anti-Chute-Men-Chute-Severe-12-fioles?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -40,7 +40,7 @@ export const PHYTO_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/0e9c5ab4-6710-4d2d-8d89-81634e8540f2/Phyto-Volume-Spray-Brushing-Volumateur150ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -62,7 +62,7 @@ export const PHYTO_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/475b1097-d102-4987-a682-ee5137284f35/Phyto-PhytoColor-Coloration-Permanente-N-4-Chatain?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -90,7 +90,7 @@ export const PHYTO_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/dafc1bb3-7806-4167-9172-7ccb33aedfd2/Phyto-Reparation-Spray-Thermo-Protecteur-230-Anti-Casse-150ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -117,7 +117,7 @@ export const PHYTO_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/e62b6775-e0b0-4203-940e-0248e579e12a/Phyto-PhytoColor-Coloration-Permanente-N-5-Chatain-Clair?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

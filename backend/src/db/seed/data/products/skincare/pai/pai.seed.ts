@@ -475,7 +475,12 @@ export const PAI_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: 'pores, sébo-régulation, unification', concentrationValue: 10, concentrationUnit: '%' },
+      {
+        slug: INGREDIENT_SLUGS.NIACINAMIDE,
+        notes: 'pores, sébo-régulation, unification',
+        concentrationValue: 10,
+        concentrationUnit: '%',
+      },
       {
         slug: INGREDIENT_SLUGS.COPPER_PEPTIDES,
         notes: 'Copper Tripeptide-1 — réparation / anti-âge',

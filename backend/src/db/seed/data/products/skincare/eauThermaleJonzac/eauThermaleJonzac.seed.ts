@@ -20,7 +20,7 @@ export const EAU_THERMALE_JONZAC_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.BRUME,
         TAG_SLUGS.PREPARATION,

@@ -872,7 +872,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -903,7 +903,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.EXFOLIANT_CHIMIQUE,
@@ -930,7 +930,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -959,7 +959,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -986,7 +986,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -1013,7 +1013,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -1040,7 +1040,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -1065,8 +1065,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/23049435-0939-459b-9fe5-933826a10924/La-Roche-Posay-Lipikar-Routine-Peau-Seche-Huile-Lavante-AP-Anti-Irritation-1L-Baume-AP-M-Triple-Reparation-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.SOIN_LEVRES, TAG_SLUGS.ZONE_LEVRES],
+      primary: [TAG_SLUGS.SOIN_LEVRES],
+      secondary: [TAG_SLUGS.ZONE_LEVRES],
       avoid: [],
     },
     keyIngredients: [],
@@ -1089,7 +1089,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -1138,7 +1138,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.NETTOYANT,
         TAG_SLUGS.DOUBLE_NETTOYAGE_2,
@@ -1166,7 +1166,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.NETTOYANT,
         TAG_SLUGS.DOUBLE_NETTOYAGE_2,
@@ -1194,7 +1194,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -1219,8 +1219,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/7f77bd14-6653-4e46-b8cd-870d01b3587d/La-Roche-Posay-Lipikar-Pain-Surgras-Anti-Dessechement-150g?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1243,7 +1243,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -1270,7 +1270,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -1297,7 +1297,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -1322,8 +1322,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/402b1168-2021-4350-aead-c22b53cf7ef5/La-Roche-Posay-Lipikar-Routine-Peau-Seche-Syndet-AP-Creme-Lavante-400ml-Baume-AP-M-Triple-Reparation-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.SOIN_LEVRES, TAG_SLUGS.ZONE_LEVRES],
+      primary: [TAG_SLUGS.SOIN_LEVRES],
+      secondary: [TAG_SLUGS.ZONE_LEVRES],
       avoid: [],
     },
     keyIngredients: [],
@@ -1346,7 +1346,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,

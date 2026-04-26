@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const L_OR_AL_PROFESSIONNEL_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const L_OR_AL_PROFESSIONNEL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/4e55b560-5ebc-4cba-98c1-44dda426b234/L-Oreal-Professionnel-Serie-Expert-Vitamino-Color-Shampoing-Fixateur-de-Couleur-500ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -47,7 +47,7 @@ export const L_OR_AL_PROFESSIONNEL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/f40be910-8c4b-4a72-ba33-2fbb1c69017a/L-Oreal-Professionnel-Serie-Expert-Vitamino-Color-Shampoing-Fixateur-de-Couleur-300ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -76,7 +76,7 @@ export const L_OR_AL_PROFESSIONNEL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/b23e32ca-26d1-486a-8031-5e839fe21bce/L-Oreal-Professionnel-Serie-Expert-Absolut-Repair-Shampoing-Restructurant-500ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -106,7 +106,7 @@ export const L_OR_AL_PROFESSIONNEL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/0783634a-9414-4186-a3c2-92bcd6c34df8/L-Oreal-Professionnel-Serie-Expert-Absolut-Repair-Masque-250ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -134,7 +134,7 @@ export const L_OR_AL_PROFESSIONNEL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/5fee7a10-8a69-4abe-85a4-596731bcb981/L-Oreal-Professionnel-Serie-Expert-Vitamino-Color-Masque-Fixateur-de-Couleur-250ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

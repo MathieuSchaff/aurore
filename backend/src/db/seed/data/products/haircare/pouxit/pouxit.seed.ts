@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const POUXIT_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const POUXIT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/54417b38-bd37-4834-9dd2-20bea42dd72d/Pouxit-Spray-Preventif-Anti-Poux-Protege-des-Infestations-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -42,7 +42,7 @@ export const POUXIT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/5d056248-8c60-43b3-afad-ae1cda6deed8/Pouxit-Extra-Fort-Lotion-anti-poux-et-lentes-Agit-en-1-seule-application-de-15-minutes-Lot-2x100-ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -64,7 +64,7 @@ export const POUXIT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/cca1341a-6111-4206-9a64-ffb50b0312cf/Pouxit-Flash-Lotion-Spray-Anti-Poux-et-Lentes-150ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -89,7 +89,7 @@ export const POUXIT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/86f13183-09cf-48ae-af28-088711981dc0/Pouxit-Extra-Fort-Lotion-Traitement-Anti-poux-et-lentes-du-cuir-chevelu-Lot-2x200-ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -111,7 +111,7 @@ export const POUXIT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/455f900d-9bf0-4561-a579-73d85abffc4e/Pouxit-XF-Lotion-Anti-Poux-et-Lentes-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -138,7 +138,7 @@ export const POUXIT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/cb1f8a61-b5ec-4246-b365-fad84523a805/Pouxit-Baume-Decolleur-de-Lentes-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../../data/tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../../data/tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const KLORANE_SEED: UnifiedProductSeed[] = [
@@ -14,7 +14,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     description: 'Sérum fortifiant antichute à la quinine + edelweiss bio.',
     url: 'https://www.atida.fr/klorane-serum-anti-chute-quinine-edelweiss-bio-100ml.html',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -31,7 +31,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     description: 'Shampoing fortifiant quinine + edelweiss bio.',
     url: 'https://www.atida.fr/klorane-quinine-edelweiss-shampoing-fortifiant-400ml.html',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -52,7 +52,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/7566cce5-fa89-49db-bf10-2b38e554ba0f/Klorane-Bebe-Calendula-Creme-Nutritive-Cold-Cream-125ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -79,7 +79,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/88bb485c-4142-4c9d-8df6-faf50bf066cc/Klorane-Maman-Huile-de-Soin-Vergetures-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -105,7 +105,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/b2cc1048-f2da-45ac-8077-ebaafa26e8db/Klorane-Bebe-Petit-Brin-Eau-Parfumee-50ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -127,7 +127,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/d1ef702b-90ee-4eb9-97a5-0992c3335bbc/Klorane-Monoi-Tamanu-Spray-Solaire-Sublime-Corps-SPF50-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -154,7 +154,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/2324fe49-30f1-4036-96a0-eea2db6a27f4/Klorane-Bebe-Calendula-Lait-de-Toilette-Sans-Rincage-750ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -181,7 +181,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/be59dc67-2349-42cb-bb77-b09c27600540/Klorane-Beurre-de-Mangue-Shampoing-Solide-Nutrition-80g?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -210,7 +210,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/407752bb-5b76-4a3b-8adc-98dd279e74d0/Klorane-Junior-Shampoing-Demelant-Peche-500ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -237,7 +237,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/bc50e6f3-a070-47ae-82e3-431d77ffe28e/Klorane-Bebe-Calendula-Gel-Lavant-Doux-Lot-de-2-x-500ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -265,7 +265,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/b26d2114-4844-48ca-be24-90cc4ec319ca/Klorane-Pivoine-Creme-Riche-Apaisante-40ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -297,7 +297,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/4909c74d-5cf9-4f4b-84ce-3e534dd69f97/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -323,7 +323,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/0537584d-6b52-4114-a616-c46922c8a75a/Klorane-Centauree-Apres-Shampoing-Dejaunissant-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -350,7 +350,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/a33dbd3d-fcd2-48c8-b4e2-8f8772121a2d/Klorane-Antichute-Force-et-Vitalite-Complement-alimentaire-90-capsules?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -376,7 +376,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/f1a317b9-408b-4fea-9f43-ea8305d20ec3/Klorane-Bebe-Creme-Pour-Le-Change-Bio-100g?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -403,7 +403,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/e72cc23a-737b-4436-b341-cd6502bb8ee4/Klorane-Amande-Douce-Bande-de-Cire-Froide-Visage-6-unites?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -425,7 +425,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/03fbad09-9480-4fe8-bb96-809892d30731/Klorane-Monoi-Tamanu-Huile-Seche-Solaire-SPF30-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -451,7 +451,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/29771927-65e1-46a9-8ca6-c78757aac040/Klorane-Monoi-Tamanu-Creme-Sublimatrice-Apres-Soleil-Visage-et-Corps-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -478,7 +478,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/898e1cf5-22fa-4641-b397-12c6275e8993/Klorane-Bebe-Calendula-Lait-de-Toilette-Sans-Rincage-500ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -505,7 +505,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/7529be29-a5fd-4d70-9fb6-3a257188b655/Klorane-Grenade-Baume-Apres-Shampoing-Eclat-Cheveux-Colores-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -531,7 +531,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/e9481c3f-d3db-4f3c-96b3-055994ef3ff5/Klorane-Menthe-Aquatique-Masque-Purifiant-en-Stick-Bio-25g?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -553,7 +553,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/a594f695-070d-4a1d-91cf-6df4cf4ef85e/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -579,7 +579,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/870c78df-976e-4786-b573-d0324472e5ca/Klorane-Amande-Douce-Creme-Depilatoire-Lot-de-2-x-150ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -601,7 +601,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/012888ce-d044-42c3-9b5c-c1cc3a5cd25d/EAN_IMG_FR_3282770399752_1?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -627,7 +627,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/8c80f5b6-ec9b-441c-9b88-775c665f0ba6/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -654,7 +654,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/c9bd6e46-4a38-4ff2-9625-4d1d6d1e35c7/Klorane-Bebe-Calendula-Lingette-Nettoyante-Douce-Lot-de-6-x-70-unites?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -676,7 +676,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/21d480d5-bf29-429b-9e7e-23b626264191/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -703,7 +703,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/fcf77944-f7b4-4693-84d4-0c50c71bcc4c/Klorane-Bleuet-Lotion-Florale-Demaquillant-Yeux-Sensibles-Lot-de-2-x-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -725,7 +725,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/a7846971-71f5-4199-a414-67a878f05028/Klorane-Amande-Douce-Creme-Depilatoire-150ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -747,7 +747,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/edadf36d-e893-4ccb-b3e3-42a8aa430f2a/Klorane-Monoi-Tamanu-Huile-Reparatrice-Apres-Soleil-Visage-et-Corps-150ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -773,7 +773,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/eb3af0ad-3fec-4b37-8563-7d058c1f1484/Klorane-Bebe-Calendula-Shampoing-Demelant-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -801,7 +801,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/f8be73eb-2075-42c4-8ab5-39610bbec2d8/Klorane-Lingettes-nettoyantes-a-l-eau-pour-le-corps-Bebe-Peau-normale-a-seche-60-lingettes?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -827,7 +827,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/7015ea9c-8287-4bd6-89b9-19082f57aec0/Klorane-Bebe-Calendula-Creme-Lavante-Cold-Cream-500ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -856,7 +856,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/220f6854-0eb4-45e9-ad1b-0ed530933344/Klorane-Beurre-de-Mangue-Creme-de-Jour-Cheveux-Nutrition-125ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -884,7 +884,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/c6ff17c8-c741-418f-8e63-fa9899eb1d4b/Klorane-Monoi-Tamanu-Shampooing-Nutritif-Apres-Soleil-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -916,7 +916,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/7a664fb4-b0b9-42e5-bf22-4d420ab5ddde/Klorane-Lin-Shampoing-Sec-Volume-Lot-de-2-x-150ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -938,7 +938,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/00eac723-82da-4b08-a4b6-30eb9db867f1/Klorane-Lait-d-Avoine-Baume-Apres-Shampoing-Revitalisant-50ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -965,7 +965,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/1606a53c-5874-4cdf-99aa-debcb8c6e41f/Klorane-Poudre-protectrice-au-Calendula-Bio-75gr?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -987,7 +987,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/3137fece-31b4-4b80-99ad-edd43dbacd47/Klorane-Avoine-Shampoing-Solide-80g?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1014,7 +1014,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/5f48e4d9-1bfe-43ff-bfc5-ee672a1d40c6/Klorane-Junior-Shampoing-Demelant-Peche-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1041,7 +1041,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/615dfd84-94c5-473d-9d1d-c9d40f235af4/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1067,7 +1067,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/520f50b6-f383-4b8b-900d-6a1f4c6c2bdc/Klorane-Bebe-Huile-Massage-Multi-Usages-Bio-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1089,7 +1089,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/65b6ef7e-85a0-4e1f-a72a-0fbc15269a4e/Klorane-Amande-Douce-Creme-Depilatoire-75ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1111,7 +1111,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/fb47c524-f533-44ae-940f-4bd7523236ce/Klorane-Bebe-Calendula-Creme-Lavante-Cold-Cream-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1140,7 +1140,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/e10ca7d8-f0cb-4f2f-b92c-28090ffe80a4/Klorane-Menthe-Aquatique-Shampoing-Anti-Pollution-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1165,7 +1165,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/d138dc21-df35-4c7e-ab45-ddd5d7f6ec0c/Klorane-Shampoing-Solide-au-Cedrat-80g?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1192,7 +1192,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/d659dc2f-80c7-4a7f-a03b-d14dd89544b3/Klorane-Monoi-Tamanu-Baume-Riche-Reparateur-Apres-Soleil-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1221,7 +1221,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/952aec4d-0798-458d-a1f6-2fd745606d2f/Klorane-Amande-Douce-Bande-de-Cire-Froide-6-unites?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1243,7 +1243,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/1519407a-03e8-4709-a41d-437822fce620/Klorane-Lin-Shampoing-Volume-Cheveux-Fins-Bio-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1265,7 +1265,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/e5bb8c43-c04d-4aae-ba69-2bf78a747371/Klorane-Pivoine-Spray-Serum-Apaisant-SOS-Cuir-Chevelu-Sensible-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -1292,7 +1292,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/5db6a4ca-8136-4a15-b78c-ea0fb46e65b6/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1319,7 +1319,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/ed8ef68c-6598-4a56-86d7-1ced4a9f12f5/Klorane-Bebe-Calendula-Gel-Lavant-Doux-500ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1347,7 +1347,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/2da6ce29-d5fe-43bc-a037-221cca19d739/Klorane-Routine-Bebe-Gel-Lavant-et-Creme-Nutritive-au-Calendula?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1369,7 +1369,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/1ed624c8-69a8-4a60-be37-70e05a1fc1ae/Klorane-Bleuet-Patchs-Lissants-Defatiguants-Express-2-unites?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1395,7 +1395,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/3be43638-b293-40fa-a9db-ca6e0ff6e196/Klorane-Centauree-Shampoing-Dejaunissant-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1424,7 +1424,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/70336620-468c-4eb7-a448-01cb7d0eb1fe/Klorane-Camomille-Spray-Illumine-Cheveux-Blonds-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -1452,7 +1452,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/29310891-6d7c-4260-bd76-2b87059d0d47/EAN_IMG_FR_3282770394528_1?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1479,7 +1479,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/2e6e14a0-6090-4bea-b763-44bcf7525195/Klorane-Avoine-Ceramide-Cheveux-Bruns-Shampoing-Sec-150ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1501,7 +1501,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/ea46c493-36b0-481d-940b-d0b3a0a1c98b/Klorane-Grenade-Shampoing-Eclat-Cheveux-Colores-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1527,7 +1527,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/e90731f6-2cc4-44c8-abcc-61bde0d995e0/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1553,7 +1553,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/c28aeed1-4d0a-459b-96c7-7d9781a29e8e/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1581,7 +1581,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/76ae221b-5b61-4979-a9cb-e2a7eda9a709/Klorane-Bebe-Calendula-Gel-Lavant-Doux-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1609,7 +1609,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/6d6d0000-0db0-44c5-86e6-40d47adbd233/Klorane-Ortie-Shampoing-Sec-Sebo-Regulateur-Cheveux-Bruns-150ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1631,7 +1631,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/b810a4d9-8c11-430f-a7f2-4e19595199c7/Klorane-Bebe-Calendula-Creme-Nutritive-Cold-Cream-40ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1658,7 +1658,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/f63bde6c-5d5d-4980-a459-8ff5ddac7962/Klorane-Bebe-Calendula-Lingette-Nettoyante-Douce-Lot-de-3-x-70-unites?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1680,7 +1680,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/8e8e68a4-cc0b-4747-a6d9-a75f79d1259b/EAN_IMG_FR_3282770394580_1?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1707,7 +1707,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/361abd94-8545-4519-b5fc-6576e9340d94/Klorane-Galanga-Lotion-Anti-demangeaisons-Antipelliculaire-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1733,7 +1733,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/d4886112-7208-4e67-bd3f-a8189d6d6cef/Klorane-Avoine-Ceramide-Shampoing-Sec-50ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1755,7 +1755,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/c8421558-bd53-475f-bd42-98f149e98cc8/Klorane-Beurre-de-Mangue-Masque-Capillaire-Nutrition-150ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.MASQUE_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -1783,7 +1783,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/f994497c-f8b9-4e3a-ac41-7fdbf1ce5d2c/Klorane-Quinine-Edelweiss-Shampoing-Fortifiant-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1810,7 +1810,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/77038282-d191-44e8-88f8-3dc7ad3c767f/Klorane-Bebe-Calendula-Eau-Fraiche-Parfumee-500ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1832,7 +1832,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/60f4be08-ad31-4ead-8694-9f52b8b4146d/Klorane-Avoine-Ceramide-Cheveux-Bruns-Shampoing-Sec-50ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1854,7 +1854,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/a7da5d7b-7c2b-426b-980a-47b1dcffa22d/Klorane-Bleuet-Demaquillant-Yeux-Sensibles-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1876,7 +1876,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/009aeca1-5e51-40b9-9146-69bd4ff861a9/Klorane-Monoi-Tamanu-Huile-Capillaire-Protection-Soleil-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.HUILE_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.HUILE_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -1902,7 +1902,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/a8152a63-6f96-4b2a-80c9-9955dc549f1d/Klorane-Bleuet-Eau-Micellaire-Visage-Yeux-Levres-Bio-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1929,7 +1929,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/6139d52e-a9c5-44f2-b122-8ec58d93172c/Klorane-Bebe-Creme-Hydratante-Bio-50ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1956,7 +1956,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/b80863c0-da48-4c31-972a-ab08136cea0d/Klorane-Bleuet-Demaquillant-Yeux-Sensibles-Waterproof-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -1978,7 +1978,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/7670f6ab-5a34-4eb0-b9b2-d2a082c1d80c/Klorane-Bebe-Lingette-Lavable-Edition-Limitee-Hamac-12-x-14cm-5-unites?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2000,7 +2000,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/c262e900-1718-4f1c-935d-c0921b1da2aa/Klorane-Beurre-de-Mangue-Baume-Apres-Shampoing-Nutrition-50ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2029,7 +2029,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/5d915768-fb8c-4942-8cb3-86e0f5b17bed/Klorane-Bebe-Lingette-Lavable-Edition-Limitee-Hamac-10-x-12cm-5-unites?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2051,7 +2051,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/4237a6c7-8610-4a91-89ed-7462b14748f5/Klorane-Bleuet-Demaquillant-Yeux-Sensibles-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2073,7 +2073,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/db65ede1-887f-4c6e-a92c-0fb29dae5ff1/Klorane-Junior-Gel-Douche-Corps-Cheveux-Poire-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -2100,7 +2100,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/7126a3b4-77a1-49ab-96da-dcc0b59ba4d4/Klorane-Beurre-de-Cupuacu-Gel-Douche-Nutritif-Eau-de-Tiare-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2127,7 +2127,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/d352b6a3-4dd6-4e92-b9c3-8f34a6548448/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2149,7 +2149,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/ad47a966-d8d9-4355-9a1f-1ec48ee6bb57/Klorane-Beurre-de-Mangue-Huile-Capillaire-Nutrition-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.HUILE_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.HUILE_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -2171,7 +2171,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/a3a5394d-9083-46f6-a208-3e7ba9431bdf/Klorane-Quinine-Edelweiss-Shampoing-Fortifiant-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2198,7 +2198,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/2cb58567-1040-4871-973d-013bf9937141/Klorane-Menthe-Aquatique-Shampoing-Sec-Detox-Anti-Pollution-Lot-de-2-x-150ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2220,7 +2220,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/a62d3ca7-afff-4182-a6ec-842eb107b760/Klorane-Monoi-Tamanu-Spray-Solaire-Sublime-Corps-SPF30-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2247,7 +2247,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/7bcd5885-9eaa-4d06-aee5-47078cd57abd/Klorane-Beurre-de-Cupuacu-Gel-Douche-Nutritif-Fleur-d-Hibiscus-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2274,7 +2274,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/e23a5a3c-f56b-4b97-911e-e9d294669fb3/Klorane-Beurre-de-Cupuacu-Gel-Douche-Nutritif-Zeste-d-Agrumes-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2301,7 +2301,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/d682be6c-0be5-4e87-87c7-7238d9282db0/Klorane-Bleuet-Creme-Nettoyante-Demaquillante-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2331,7 +2331,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/774b2210-aa26-4992-b1f1-54a75dccd67e/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2360,7 +2360,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/e2bbffe0-b1b7-41cf-a191-bc9217b3bee8/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2389,7 +2389,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/6ff8f06f-9a92-4987-9330-5e83618e0764/Klorane-Lin-Shampoing-Volume-Cheveux-Fins-Bio-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2411,7 +2411,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/a9b71f8c-32c2-47cf-ae8b-1e78d63361da/Klorane-Bleuet-Eau-Micellaire-Visage-Yeux-Levres-Bio-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2438,7 +2438,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/7b56603d-035f-420d-a638-05e0dcdf542f/Klorane-Beurre-de-Cupuacu-Gel-Douche-Nutritif-Ecorce-de-Cedre-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2465,7 +2465,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/32f3f3dc-d88b-4f7b-aab1-2c947deee797/Klorane-Monoi-Tamanu-Creme-Solaire-Sublime-Visage-SPF50-50ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2492,7 +2492,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/0f3ecff8-23c1-4871-a328-f2082557d9be/Klorane-Bleuet-Bain-d-Hydratation-Nuit-50ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2520,7 +2520,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/b8933428-fa2a-4d64-a4ed-e24efa93157f/Klorane-Monoi-Tamanu-Gel-Creme-Solaire-Sublime-Visage-et-Corps-SPF30-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2547,7 +2547,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/306f47bf-0636-431d-aaaf-eee1e23a6739/Klorane-Althea-Blanc-Deodorant-Spray-24h-125ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2569,7 +2569,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/fd80c92f-b75e-42c9-88c2-5aae289a4c90/Klorane-Avoine-Shampoing-Extra-Doux-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2599,7 +2599,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/b4155ddc-3c4f-4dd5-9309-3590615ace53/Klorane-Beurre-de-Cupuacu-Gel-Douche-Nutritif-Feve-de-Tonka-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2626,7 +2626,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/1acfc864-0529-472b-8c4a-d33cd4b76538/Klorane-Beurre-de-Cupuacu-Gel-Douche-Nutritif-Feuille-de-Figuier-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2653,7 +2653,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/b9a64f82-52ac-49e7-85bd-94cd50be27d2/Klorane-Beurre-de-Capuacu-Gel-Douche-Parfum-Fleur-d-Oranger-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2680,7 +2680,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/206f502d-77d9-4a77-88d6-d48adb1eea2d/Klorane-Beurre-de-Cupuacu-Gel-Douche-Parfum-Seve-de-Bambou-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2707,7 +2707,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/53fcd894-c0e2-46f2-9280-99b13fcfb236/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2737,7 +2737,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/b6a5d63a-3bc4-49b5-b006-8c32bbbb78db/Klorane-Bleuet-Serum-Reveil-Tonique-50ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2765,7 +2765,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/b3b4596c-d743-4b39-b37f-467c6ab203d4/Klorane-Ortie-Shampoing-Seboreducteur-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2787,7 +2787,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/73e1e7b8-6737-491e-8c01-0612b594673d/Klorane-Ortie-Shampoing-Seboreducteur-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2809,7 +2809,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/622b98c3-4d04-4d67-b5ec-1c2c5ba15793/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2838,7 +2838,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/1029f370-33c8-4aeb-9e07-f32cd3ae4ca1/Klorane-Beurre-de-Cupuacu-Creme-Douche-Nutritive-Feuille-de-Frangipanier-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2866,7 +2866,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/a4f21d10-0df2-445e-92c3-30d1503b565f/Klorane-Beurre-de-Cupuacu-Creme-de-Douche-Nutritive-Fleur-de-Cupuacu-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2894,7 +2894,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/8b034558-6275-480f-9e3b-b325e7ba0092/Klorane-Shampooing-a-la-Pulpe-de-Cedrat-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2921,7 +2921,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/73806855-2699-4012-beb0-ae0e8afd68cd/Klorane-Avoine-Baume-Apres-Shampoing-Extra-Doux-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2948,7 +2948,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/8924348c-d23e-46d5-90df-9f1336e60322/Klorane-Pulpe-de-Cedrat-Shampooing-Purifiant-Legerete-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -2975,7 +2975,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/b9ef49b5-7737-4c96-9adc-90d4ed5b4987/Klorane-Quinine-Edelweiss-Serum-Antichute-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -3003,7 +3003,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/23359820-50c0-497f-aada-fb735226e2ba/Klorane-Quinine-Edelweiss-Shampoing-Fortifiant-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -3033,7 +3033,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/86cdd9de-7c26-4815-901c-6f8c54415166/Klorane-Quinine-Edelweiss-Shampoing-Fortifiant-Lot-de-2-x-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -3063,7 +3063,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/c45298cc-b184-4386-a653-8ec37f329244/Klorane-Pivoine-Shampoing-Apaisant-Cuir-Chevelu-Sensible-Lot-de-2-x-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -3085,7 +3085,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/aa06503f-666a-44b6-9b1a-b9acb3974b01/Klorane-Pivoine-Shampoing-Apaisant-Cuir-Chevelu-Sensible-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -3107,7 +3107,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/0dabd77f-4a57-4fe8-be8b-f740085377e9/Klorane-Avoine-Shampoing-Extra-Doux-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -3137,7 +3137,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/6db4cd47-a3c1-4c00-88c3-43295fcdab52/Klorane-Avoine-Shampoing-Extra-Doux-Lot-de-2-x-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -3159,7 +3159,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/9adcceaf-0d83-4969-86b4-23ead11e0d77/Klorane-Duo-Spray-Shampoing-Sec-a-l-Ortie-Cheveux-Gras-Lot-de-2-x-150ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -3181,7 +3181,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/9f9e9f60-48fc-4c00-a82d-ba57d8a03ab7/Klorane-Quinine-Edelweiss-Apres-Shampoing-Fortifiant-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -3212,7 +3212,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/3a97cb72-0140-47c6-aa9f-641deceabc18/Klorane-Cedrat-Shampoing-Purifiant-Legerete-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -3236,7 +3236,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/3a0773e6-3cfb-43c6-8581-a4b1f1b70867/Klorane-Camomille-Shampooing-Illuminateur-Cheveux-Blonds-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -3264,7 +3264,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/c622c292-7694-4ba7-a20b-9810e0ec115f/Klorane-Routine-Antichute-In-Out-3-mois-a-la-Quinine-a-l-Edelweiss-Bio?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -3286,7 +3286,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/97d69f8b-4f8c-4b39-bcc0-018e6fca73aa/Klorane-Beurre-de-Mangue-Baume-Apres-Shampoing-Nutrition-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -3316,7 +3316,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/81487b87-3745-46f7-b74a-9f9079afe7ed/Klorane-Duo-Spray-Shampoing-Sec-Extra-Doux-a-l-Avoine-Ceramide-Lot-de-2-x-150ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -3338,7 +3338,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/b745bf99-1214-4743-8672-26a97bc123e2/Klorane-Grenade-Shampoing-Eclat-Cheveux-Colores-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -3364,7 +3364,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/98f6822a-6d32-4514-b2d2-1bb50fa731a5/Klorane-Pivoine-Apres-Shampoing-Apaisant-Cuir-Chevelu-Sensible-150ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -3391,7 +3391,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/003ddc67-9118-4f01-9b86-25b7a2b699d3/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -3422,7 +3422,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/62f36ec0-9e91-49fa-87f1-ad3d6e1c5358/Klorane-Ortie-Shampoing-Sec-Sebo-Regulateur-Cheveux-Gras-150ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -3444,7 +3444,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/748a1f7f-9823-4da1-be7a-030d3484f8f0/Klorane-Shampoing-Gainant-a-l-Amande-Tous-types-de-cheveux-400-ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -3475,7 +3475,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/38a71d8f-97bb-4601-bda4-96f318e060cd/Klorane-Duo-Spray-Shampoing-Sec-a-l-Ortie-Teinte-Cheveux-Gras-Chatains-a-Bruns-Lot-de-2-x-150ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -3497,7 +3497,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/67e121b1-d664-4e5d-b2ac-f376a8e22c41/Klorane-Figuier-de-Barbarie-Masque-repulpant-72h-Hydratation-brillance-250ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -3525,7 +3525,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/d81834dd-838d-4ac0-b09b-3e23e2563d38/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -3552,7 +3552,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/db1f2eb5-f9c4-4cc8-b480-6f141eb2ed7c/Klorane-Figuier-de-Barbarie-Shampooing-desalterant-72h-Hydratation-brillance-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -3579,7 +3579,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/ac0639ef-63a9-41a8-9e92-1d506f5f6952/Klorane-Lait-d-Avoine-Shampoing-Sec-Extra-Doux-50g?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -3601,7 +3601,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/e82bb9d8-685b-4af3-a935-6ec174a59293/Klorane-Duo-Spray-Shampoing-Sec-Teinte-Extra-Doux-Avoine-Ceramide-Cheveux-Chatains-a-Bruns-Lot-de-2-x-150ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -3623,7 +3623,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/152f54ac-56a4-41bb-abad-f14c586f05e8/Klorane-Figuier-de-Barbarie-Serum-ultra-desalterant-72h-Hydratation-brillance-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -3649,7 +3649,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/ff74845c-c987-4dbd-bc94-5c5c0ff97e38/Klorane-Pivoine-Shampoing-Apaisant-Cuir-Chevelu-Sensible-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -3671,7 +3671,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/7b86debd-a420-4780-bdfe-72f2c5032f99/Klorane-Avoine-Ceramide-Shampoing-Sec-150ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -3693,7 +3693,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/b89e07b6-9b05-4626-84a0-0c668379e645/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -3722,7 +3722,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/0346d7d4-dbf1-4d29-96a9-1b50cf55f946/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

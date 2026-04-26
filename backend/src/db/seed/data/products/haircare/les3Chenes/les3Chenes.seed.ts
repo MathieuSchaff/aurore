@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const LES_3_CH_NES_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const LES_3_CH_NES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/00fa7dd2-28d3-49da-bf83-f1cd3d291369/Les-3-Chenes-Color-Soin-Coloration-Permanente-N-4N-Chatain-Naturel?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -46,7 +46,7 @@ export const LES_3_CH_NES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/9963f994-cc59-407b-9d4c-600baaa62901/Les-3-Chenes-Color-Soin-Coloration-Permanente-N-3N-Chatain-Fonce?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -74,7 +74,7 @@ export const LES_3_CH_NES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/b6d98652-556a-4601-a35b-e743452deeb3/Les-3-Chenes-Color-Soin-Coloration-Permanente-N-5N-Chatain-Clair?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -102,7 +102,7 @@ export const LES_3_CH_NES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/ecd47764-c7db-441d-9d1b-6af54e176596/Les-3-Chenes-Color-Soin-Coloration-Permanente-N-5G-Chatain-Clair-Dore?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -130,7 +130,7 @@ export const LES_3_CH_NES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/b1686963-2de6-46b2-a6da-a86871b9d43f/Les-3-Chenes-Color-Soin-Coloration-Permanente-N-5B-Marron-Chocolat?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

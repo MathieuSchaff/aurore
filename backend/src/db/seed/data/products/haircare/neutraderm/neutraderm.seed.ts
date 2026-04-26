@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const NEUTRADERM_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const NEUTRADERM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/64df304d-af04-47a4-8028-e94c63c4ca57/Neutraderm-Shampoing-Extra-Doux-Dermo-Respect-500ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -47,7 +47,7 @@ export const NEUTRADERM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/7b14a800-cc92-4046-af8f-470be41056a0/Neutraderm-Shampoing-Extra-Doux-Dermo-Respect-Lot-de-2-x-500ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

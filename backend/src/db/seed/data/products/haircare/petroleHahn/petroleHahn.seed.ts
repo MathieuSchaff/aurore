@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const PETROLE_HAHN_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const PETROLE_HAHN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/7a55d6f5-8d16-456b-9132-16e64d81ef1d/Petrole-Hahn-Creme-Colorante-Douce-Sans-Ammoniaque-n-50-Chatain-Clair?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -40,7 +40,7 @@ export const PETROLE_HAHN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/1c2549d1-77de-4d5e-bf7d-6b05bdd22b30/Petrole-Hahn-Creme-Colorante-Douce-Sans-Ammoniaque-n-40-Chatain-Naturel?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -62,7 +62,7 @@ export const PETROLE_HAHN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/eb0ed805-5643-47bd-a71e-0f4cf09d1315/Petrole-Hahn-Creme-Colorante-Douce-Sans-Ammoniaque-n-30-Chatain-Fonce?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -84,7 +84,7 @@ export const PETROLE_HAHN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/c1343ef7-daef-4ebf-ac6d-abda8385ca8d/Petrole-Hahn-Gel-Creme-Colorante-Douce-Sans-Ammoniaque-n-20-Brun?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -112,7 +112,7 @@ export const PETROLE_HAHN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/59214781-cf45-4359-8e39-be473b8ec89e/Petrole-Hahn-Vert-Lotion-Tonique-Force-5-Vitalite-Cheveux-Normaux-300ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -134,7 +134,7 @@ export const PETROLE_HAHN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/523019ae-c98d-4f29-bca4-ee9da9f94a23/Petrole-Hahn-Bleu-Lotion-Tonique-Force-5-Protection-Cheveux-Blancs-ou-Gris-300ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -156,7 +156,7 @@ export const PETROLE_HAHN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/1c8f237f-0b16-4c2a-9053-528803378ca1/Petrole-Hahn-Creme-Colorante-Douce-Sans-Ammoniaque-n-10-Noir?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

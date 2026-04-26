@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const LED_NOREVA_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const LED_NOREVA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/3c9e17ea-0e21-4846-9555-3dfbbc927ba0/Noreva-Psoriane-Shampoing-Quotidien-Apaisant-125ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -40,7 +40,7 @@ export const LED_NOREVA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/fd7fbdd3-1e0a-4abd-8510-27486653b283/Noreva-Psoriane-Shampoing-Intensif-Apaisant-125ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -68,7 +68,7 @@ export const LED_NOREVA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/ac9572a1-da56-4a92-a613-cdc5f8117a62/Noreva-Sebodiane-DS-Serum-LP-Seboregulateur-8ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

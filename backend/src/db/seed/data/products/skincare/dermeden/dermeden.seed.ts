@@ -32,7 +32,12 @@ export const DERMEDEN_SEED: UnifiedProductSeed[] = [
         slug: INGREDIENT_SLUGS.GLYCOLIC_ACID,
         notes: '20% (étape PEEL), 0.2% (étape PRE-PEEL), encapsulé',
       },
-      { slug: INGREDIENT_SLUGS.PANTHENOL, concentrationValue: 0.5, concentrationUnit: '%', notes: 'pro-vitamine B5 apaisante' },
+      {
+        slug: INGREDIENT_SLUGS.PANTHENOL,
+        concentrationValue: 0.5,
+        concentrationUnit: '%',
+        notes: 'pro-vitamine B5 apaisante',
+      },
     ],
   },
   {
@@ -63,8 +68,18 @@ export const DERMEDEN_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.TRANEXAMIC_ACID, concentrationValue: 5, concentrationUnit: '%', notes: `traite l'hyperpigmentation` },
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, concentrationValue: 10, concentrationUnit: '%', notes: 'bloque le transfert de mélanine' },
+      {
+        slug: INGREDIENT_SLUGS.TRANEXAMIC_ACID,
+        concentrationValue: 5,
+        concentrationUnit: '%',
+        notes: `traite l'hyperpigmentation`,
+      },
+      {
+        slug: INGREDIENT_SLUGS.NIACINAMIDE,
+        concentrationValue: 10,
+        concentrationUnit: '%',
+        notes: 'bloque le transfert de mélanine',
+      },
     ],
   },
   {
@@ -93,7 +108,12 @@ export const DERMEDEN_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.HYALURONIC_ACID, concentrationValue: 1, concentrationUnit: '%', notes: 'hydratation intense' },
+      {
+        slug: INGREDIENT_SLUGS.HYALURONIC_ACID,
+        concentrationValue: 1,
+        concentrationUnit: '%',
+        notes: 'hydratation intense',
+      },
       { slug: INGREDIENT_SLUGS.PANTHENOL, notes: 'apaisant, réparateur' },
     ],
   },
@@ -126,8 +146,18 @@ export const DERMEDEN_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_SECHE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, concentrationValue: 5, concentrationUnit: '%', notes: 'grade S' },
-      { slug: INGREDIENT_SLUGS.HYALURONIC_ACID, concentrationValue: 1, concentrationUnit: '%', notes: 'haut poids moléculaire' },
+      {
+        slug: INGREDIENT_SLUGS.NIACINAMIDE,
+        concentrationValue: 5,
+        concentrationUnit: '%',
+        notes: 'grade S',
+      },
+      {
+        slug: INGREDIENT_SLUGS.HYALURONIC_ACID,
+        concentrationValue: 1,
+        concentrationUnit: '%',
+        notes: 'haut poids moléculaire',
+      },
     ],
   },
   {
@@ -157,8 +187,18 @@ export const DERMEDEN_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.BRILLANCE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, concentrationValue: 5, concentrationUnit: '%', notes: 'régule et apaise' },
-      { slug: INGREDIENT_SLUGS.AVOCADO_OIL, concentrationValue: 1, concentrationUnit: '%', notes: 'nourrit les peaux sèches' },
+      {
+        slug: INGREDIENT_SLUGS.NIACINAMIDE,
+        concentrationValue: 5,
+        concentrationUnit: '%',
+        notes: 'régule et apaise',
+      },
+      {
+        slug: INGREDIENT_SLUGS.AVOCADO_OIL,
+        concentrationValue: 1,
+        concentrationUnit: '%',
+        notes: 'nourrit les peaux sèches',
+      },
     ],
   },
   {
@@ -187,9 +227,24 @@ export const DERMEDEN_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE, TAG_SLUGS.PEAU_REACTIVE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.RETINOL, concentrationValue: 1, concentrationUnit: '%', notes: 'encapsulé' },
-      { slug: INGREDIENT_SLUGS.GLYCOLIC_ACID, concentrationValue: 4, concentrationUnit: '%', notes: 'action exfoliante' },
-      { slug: INGREDIENT_SLUGS.SALICYLIC_ACID, concentrationValue: 0.1, concentrationUnit: '%', notes: 'désincruste les pores' },
+      {
+        slug: INGREDIENT_SLUGS.RETINOL,
+        concentrationValue: 1,
+        concentrationUnit: '%',
+        notes: 'encapsulé',
+      },
+      {
+        slug: INGREDIENT_SLUGS.GLYCOLIC_ACID,
+        concentrationValue: 4,
+        concentrationUnit: '%',
+        notes: 'action exfoliante',
+      },
+      {
+        slug: INGREDIENT_SLUGS.SALICYLIC_ACID,
+        concentrationValue: 0.1,
+        concentrationUnit: '%',
+        notes: 'désincruste les pores',
+      },
     ],
   },
   {
@@ -217,8 +272,18 @@ export const DERMEDEN_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.RETINOL, concentrationValue: 1, concentrationUnit: '%', notes: 'encapsulé' },
-      { slug: INGREDIENT_SLUGS.VITAMIN_C, concentrationValue: 2, concentrationUnit: '%', notes: 'encapsulée (Magnesium Ascorbyl Phosphate)' },
+      {
+        slug: INGREDIENT_SLUGS.RETINOL,
+        concentrationValue: 1,
+        concentrationUnit: '%',
+        notes: 'encapsulé',
+      },
+      {
+        slug: INGREDIENT_SLUGS.VITAMIN_C,
+        concentrationValue: 2,
+        concentrationUnit: '%',
+        notes: 'encapsulée (Magnesium Ascorbyl Phosphate)',
+      },
     ],
   },
   {
@@ -247,8 +312,18 @@ export const DERMEDEN_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.VITAMIN_C, concentrationValue: 2, concentrationUnit: '%', notes: '3-O-Ethyl Ascorbic Acid stabilisée' },
-      { slug: INGREDIENT_SLUGS.GLYCOLIC_ACID, concentrationValue: 4, concentrationUnit: '%', notes: 'lisse les ridules' },
+      {
+        slug: INGREDIENT_SLUGS.VITAMIN_C,
+        concentrationValue: 2,
+        concentrationUnit: '%',
+        notes: '3-O-Ethyl Ascorbic Acid stabilisée',
+      },
+      {
+        slug: INGREDIENT_SLUGS.GLYCOLIC_ACID,
+        concentrationValue: 4,
+        concentrationUnit: '%',
+        notes: 'lisse les ridules',
+      },
       { slug: INGREDIENT_SLUGS.RETINOL, notes: 'encapsulé' },
     ],
   },
@@ -298,7 +373,14 @@ export const DERMEDEN_SEED: UnifiedProductSeed[] = [
       ],
       avoid: [],
     },
-    keyIngredients: [{ slug: INGREDIENT_SLUGS.NIACINAMIDE, concentrationValue: 5, concentrationUnit: '%', notes: 'prévient les taches' }],
+    keyIngredients: [
+      {
+        slug: INGREDIENT_SLUGS.NIACINAMIDE,
+        concentrationValue: 5,
+        concentrationUnit: '%',
+        notes: 'prévient les taches',
+      },
+    ],
   },
   {
     slug: 'dermeden-lait-corps-eclat',
@@ -324,8 +406,18 @@ export const DERMEDEN_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.SHEA_BUTTER, concentrationValue: 3, concentrationUnit: '%', notes: 'nourrissant' },
-      { slug: INGREDIENT_SLUGS.GLYCERIN, concentrationValue: 5, concentrationUnit: '%', notes: 'humectant' },
+      {
+        slug: INGREDIENT_SLUGS.SHEA_BUTTER,
+        concentrationValue: 3,
+        concentrationUnit: '%',
+        notes: 'nourrissant',
+      },
+      {
+        slug: INGREDIENT_SLUGS.GLYCERIN,
+        concentrationValue: 5,
+        concentrationUnit: '%',
+        notes: 'humectant',
+      },
     ],
   },
   {
@@ -353,8 +445,18 @@ export const DERMEDEN_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.GLYCOLIC_ACID, concentrationValue: 2, concentrationUnit: '%', notes: 'améliore la texture' },
-      { slug: INGREDIENT_SLUGS.RETINOL, concentrationValue: 1, concentrationUnit: '%', notes: 'encapsulé' },
+      {
+        slug: INGREDIENT_SLUGS.GLYCOLIC_ACID,
+        concentrationValue: 2,
+        concentrationUnit: '%',
+        notes: 'améliore la texture',
+      },
+      {
+        slug: INGREDIENT_SLUGS.RETINOL,
+        concentrationValue: 1,
+        concentrationUnit: '%',
+        notes: 'encapsulé',
+      },
     ],
   },
   {
@@ -513,7 +615,12 @@ export const DERMEDEN_SEED: UnifiedProductSeed[] = [
         slug: INGREDIENT_SLUGS.HYALURONIC_ACID,
         notes: 'Hydrolyzed + Sodium Hyaluronate, double poids moléculaire',
       },
-      { slug: INGREDIENT_SLUGS.SILICA, concentrationValue: 4, concentrationUnit: '%', notes: 'effet matifiant' },
+      {
+        slug: INGREDIENT_SLUGS.SILICA,
+        concentrationValue: 4,
+        concentrationUnit: '%',
+        notes: 'effet matifiant',
+      },
     ],
   },
   {
@@ -543,7 +650,12 @@ export const DERMEDEN_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.BRILLANCE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.HYALURONIC_ACID, concentrationValue: 3, concentrationUnit: '%', notes: 'Hydrolyzed + Sodium Hyaluronate' },
+      {
+        slug: INGREDIENT_SLUGS.HYALURONIC_ACID,
+        concentrationValue: 3,
+        concentrationUnit: '%',
+        notes: 'Hydrolyzed + Sodium Hyaluronate',
+      },
     ],
   },
   {
@@ -599,7 +711,8 @@ export const DERMEDEN_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       {
         slug: INGREDIENT_SLUGS.HYALURONIC_ACID,
-        concentrationValue: 5.2, concentrationUnit: '%',
+        concentrationValue: 5.2,
+        concentrationUnit: '%',
         notes: 'multi-moléculaire (Sodium Hyaluronate + Sodium Acetylated Hyaluronate)',
       },
     ],
@@ -629,8 +742,18 @@ export const DERMEDEN_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.RETINAL, concentrationValue: 4, concentrationUnit: '%', notes: 'Rétinal Stabilisé (complexe)' },
-      { slug: INGREDIENT_SLUGS.RETINOL, concentrationValue: 2, concentrationUnit: '%', notes: 'Rétinol Encapsulé (complexe)' },
+      {
+        slug: INGREDIENT_SLUGS.RETINAL,
+        concentrationValue: 4,
+        concentrationUnit: '%',
+        notes: 'Rétinal Stabilisé (complexe)',
+      },
+      {
+        slug: INGREDIENT_SLUGS.RETINOL,
+        concentrationValue: 2,
+        concentrationUnit: '%',
+        notes: 'Rétinol Encapsulé (complexe)',
+      },
     ],
   },
 ]

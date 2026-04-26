@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const ARKOPHARMA_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const ARKOPHARMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/76ebebbc-fa0e-48b9-85a1-d6dccc649f91/Arkopharma-Forcapil-Routine-Anti-Chute-Cheveux?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -49,7 +49,7 @@ export const ARKOPHARMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/b2a0529a-a730-4033-8e0b-f74c89b85099/Arkopharma-Forcapil-Spray-Anti-Chute-Cheveux-125ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -76,7 +76,7 @@ export const ARKOPHARMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/65db1171-62a9-4c1a-b9e8-b6e7cec3e53a/Arkopharma-Forcapil-Shampoing-Anti-Chute-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -104,7 +104,7 @@ export const ARKOPHARMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/e7f18b54-41d4-4b35-bbf3-77ad06916acf/Arkopharma-Forcapil-Elixir-Croissance-Cheveux-10-ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -131,7 +131,7 @@ export const ARKOPHARMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/d72c165f-98a8-4751-ba40-4cc218b415ca/Arkopharma-Forcapil-Shampoing-Fortifiant-Cheveux-Keratine-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

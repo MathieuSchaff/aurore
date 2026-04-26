@@ -20,9 +20,9 @@ export const SAUGELLA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.EMOLLIENT,
+        TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.EXFOLIANT_CHIMIQUE,
@@ -49,9 +49,9 @@ export const SAUGELLA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.EMOLLIENT,
+        TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.EXFOLIANT_CHIMIQUE,
@@ -78,8 +78,8 @@ export const SAUGELLA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
-        TAG_SLUGS.EMOLLIENT,
+        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
       ],

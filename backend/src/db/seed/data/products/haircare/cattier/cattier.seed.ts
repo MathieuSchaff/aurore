@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const CATTIER_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const CATTIER_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/4bc1271d-b3ef-45dc-b854-2698a9ab39bc/Cattier-Beurre-de-Karite-100-Bio-100g?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -40,7 +40,7 @@ export const CATTIER_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/6dc62350-80d3-4f71-adf3-1e3d70fbdf03/Cattier-Shampoing-Extra-Doux-Lait-d-Avoine-Bio-1L?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

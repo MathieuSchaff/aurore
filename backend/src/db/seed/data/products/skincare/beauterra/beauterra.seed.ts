@@ -20,7 +20,7 @@ export const BEAUTERRA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.NETTOYANT_CORPS,
         TAG_SLUGS.ZONE_CORPS,

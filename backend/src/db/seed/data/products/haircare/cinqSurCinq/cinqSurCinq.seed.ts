@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../../data/tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../../data/tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const CINQ_SUR_CINQ_SEED: UnifiedProductSeed[] = [
@@ -14,7 +14,7 @@ export const CINQ_SUR_CINQ_SEED: UnifiedProductSeed[] = [
     description: 'Kit traitement environnement anti-poux : spray 250 ml + additif lessive 150 ml.',
     url: 'https://www.atida.fr/cinq-sur-cinq-kit-traitement-environnement-anti-poux-et-lentes-spray-250ml-additif-lessive-150ml.html',
     tags: {
-      primary: [TAG_SLUGS.PRODUIT_COIFFANT],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SPRAY_COIFFANT],
       secondary: [],
       avoid: [],
     },
@@ -35,7 +35,7 @@ export const CINQ_SUR_CINQ_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/8df4739c-1e9b-4783-acdf-b9017a3c2d97/Cinq-sur-Cinq-Kit-Traitement-Environnement-Anti-Poux-et-Lentes-Spray-250ml-Additif-Lessive-150ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -57,7 +57,7 @@ export const CINQ_SUR_CINQ_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/5009f542-0e77-42fb-b06d-ed8b89227386/Cinq-sur-Cinq-Baume-Decolleur-de-Lentes-60ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -79,7 +79,7 @@ export const CINQ_SUR_CINQ_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/d8d69d92-3487-47d1-b318-d75888c1fd4b/Cinq-sur-Cinq-Anti-Poux-Lentes-Spray-Repulsif-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -101,7 +101,7 @@ export const CINQ_SUR_CINQ_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/cbf31312-6da1-45f0-b983-1b878039fa31/Cinq-sur-Cinq-Shampooing-Gel-Anti-Poux-et-Lentes-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const CAUDALIE_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const CAUDALIE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/8f5fca71-1d7f-4cea-ab80-7f434fb51450/Caudalie-Vinohydra-Masque-Creme-Hydratant-75-ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

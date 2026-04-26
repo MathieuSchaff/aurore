@@ -19,7 +19,7 @@ export const MKL_GREEN_NATURE_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/17ca2df2-f8db-410b-ae03-3d7f73cebf2b/MKL-Green-Nature-Gel-Douche-Surgras-Lait-d-Anesse-Bio-1L?io=transform:extend,width:600,height:600',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],
@@ -42,7 +42,7 @@ export const MKL_GREEN_NATURE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.NETTOYANT_CORPS,
         TAG_SLUGS.ZONE_CORPS,

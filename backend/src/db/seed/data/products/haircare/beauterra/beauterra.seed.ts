@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const BEAUTERRA_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const BEAUTERRA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/27d1db44-613e-4267-8664-d6e6fd3afd91/Beauterra-Shampoing-Solide-Cheveux-Normaux-75g?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -45,7 +45,7 @@ export const BEAUTERRA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/a56d3247-cf40-4941-bb48-b345697e324b/EAN_IMG_FR_3770008167865_1?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const NATESSANCE_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const NATESSANCE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/a896e52b-ffb8-48d2-a1c7-320024ef5b6e/Natessance-Shampoing-Reparateur-Fortifiant-Ricin-500ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -47,7 +47,7 @@ export const NATESSANCE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/ac82c16a-0b9f-4c01-a76b-fc2115285c15/Natessance-Shampoing-Fortifiant-Ricin-Bio-et-Keratine-Vegetale-500ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -78,7 +78,7 @@ export const NATESSANCE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/d472613b-0a45-41b5-91e2-ccf6b09c29b4/Natessance-Apres-Shampoing-Fortifiant-Ricin-Bio-et-Keratine-Vegetale-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },

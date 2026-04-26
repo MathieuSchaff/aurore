@@ -183,8 +183,8 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/4ee182bc-d17c-4899-9559-7b29bb1a598e/Isdin-Warts-Verrutop-Traitement-Topique-4-ampoules?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -208,7 +208,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.CREME_SOLAIRE,
@@ -238,7 +238,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.MATIN,
@@ -267,7 +267,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.ZONE_VISAGE,
@@ -295,7 +295,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.MATIN,
@@ -352,7 +352,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.ZONE_VISAGE,
@@ -377,13 +377,8 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/7a6c94eb-963c-4532-8490-55f2778186ac/ISDIN-Fotoprotector-Gel-Cream-Pediatrics-Creme-Solaire-Corps-pour-Enfants-SPF50-250ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.PROTECTION_SOLAIRE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      primary: [TAG_SLUGS.CREME_SOLAIRE],
+      secondary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.MATIN, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -407,7 +402,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.MATIN,
@@ -438,7 +433,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.ZONE_VISAGE,
@@ -467,7 +462,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.MATIN,
@@ -527,7 +522,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.MATIN,
@@ -556,7 +551,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ECLAT],
       secondary: [
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -637,8 +632,8 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/81266e51-b87f-4f61-bff7-c41f19658246/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -663,7 +658,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.MATIN,
@@ -692,7 +687,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.MATIN,
@@ -723,7 +718,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.MATIN,
@@ -752,7 +747,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.REPULPANT],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.MATIN,
@@ -834,13 +829,8 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/a5d9aad5-d293-45ec-8c0c-4a4929225d53/ISDIN-Fotoprotector-Fusion-Water-Pediatrics-Creme-Solaire-Visage-pour-Enfants-SPF50-50ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.PROTECTION_SOLAIRE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      primary: [TAG_SLUGS.CREME_SOLAIRE],
+      secondary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.MATIN, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -861,8 +851,8 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/0229d9b9-1468-4cfe-a16b-f98486c602ab/ISDIN-Isdinceutics-Vital-Eyes-Creme-Contour-des-Yeux-Anti-Rides-15g?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX],
+      primary: [TAG_SLUGS.CONTOUR_YEUX],
+      secondary: [TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX],
       avoid: [],
     },
     keyIngredients: [],
@@ -965,8 +955,8 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/b6a20cc5-26ac-4ccb-9bc3-85af479527e8/Isdin-Nutradeica-Shampoing-Pellicules-Grasses-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1014,8 +1004,8 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/a0429639-ed7f-46da-9e39-78c2f63f1fa0/ISDIN-Isdinceutics-Glicoisdin-25-Intense-Gel-Exfoliant-Gommage-Visage-50g?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.EXFOLIATION],
+      secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1036,8 +1026,8 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/09df0712-0c3b-4194-9d20-82244cc629a5/Isdin-Si-Nails-Durcisseur-d-Ongles-2-5ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1085,13 +1075,8 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/2c2cf0d4-bd4b-4bd3-b4ec-4978d1d009f0/ISDIN-Fotoprotector-Gel-Cream-Creme-Solaire-Corps-SPF50-250ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.PROTECTION_SOLAIRE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      primary: [TAG_SLUGS.CREME_SOLAIRE],
+      secondary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.MATIN, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1115,7 +1100,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.MATIN,
@@ -1144,7 +1129,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.PROTECTION_SOLAIRE,
@@ -1171,13 +1156,8 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/22c28711-bdfd-4dc2-840d-85aa21b6e511/ISDIN-Micellar-Solution-Eau-Micellaire-Demaquillante-4-en-1-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [
-        TAG_SLUGS.HUMECTANT,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1223,7 +1203,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ANTI_AGE],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.MATIN,
@@ -1251,7 +1231,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.CICATRISATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.PROTECTION_SOLAIRE,
@@ -1331,7 +1311,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ECLAT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.CREME_SOLAIRE,
@@ -1390,7 +1370,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT, TAG_SLUGS.EXFOLIATION],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.SERUM,
         TAG_SLUGS.TRAITEMENT,
@@ -1420,7 +1400,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT, TAG_SLUGS.PORES_DILATES],
       secondary: [
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.TRAITEMENT,
         TAG_SLUGS.SERUM,
@@ -1448,7 +1428,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.SERUM,
@@ -1477,7 +1457,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.EXFOLIATION],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.PEAU_SENSIBLE,
@@ -1507,7 +1487,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.MASQUE_HEBDO,
@@ -1587,7 +1567,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -1616,7 +1596,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT, TAG_SLUGS.PORES_DILATES],
       secondary: [
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -1673,7 +1653,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT, TAG_SLUGS.PORES_DILATES],
       secondary: [
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.TRAITEMENT,
         TAG_SLUGS.FILTRES_MINERAUX,
@@ -1700,13 +1680,8 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/7a67b034-5ff6-4710-a750-0c9d9fd1c4d1/Isdin-Ureadin-Gel-huile-hydratant-Pieds-75-ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [
-        TAG_SLUGS.HUMECTANT,
-        TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.KERATOLYTIQUE, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1757,7 +1732,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.APAISANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.EXFOLIANT_CHIMIQUE,
@@ -1784,7 +1759,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.REPULPANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CONTOUR_YEUX,
@@ -1814,7 +1789,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.REPULPANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.SERUM,
@@ -1844,7 +1819,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.MATIN,
@@ -1873,7 +1848,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.APAISANT],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.MATIN,
@@ -1901,7 +1876,6 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [
-        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.TRAITEMENT,
         TAG_SLUGS.REPARATEUR,
@@ -1933,7 +1907,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.ZONE_VISAGE,
@@ -2126,7 +2100,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.SERUM,
@@ -2155,7 +2129,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.REPULPANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SERUM,
         TAG_SLUGS.TRAITEMENT,
         TAG_SLUGS.ZONE_VISAGE,
@@ -2182,7 +2156,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.NETTOYANT,
@@ -2211,7 +2185,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
@@ -2267,8 +2241,8 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/f653c901-1494-46f7-a2e2-01063e1823a4/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -2313,7 +2287,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT, TAG_SLUGS.EXFOLIATION],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.SERUM,
         TAG_SLUGS.TRAITEMENT,
@@ -2340,8 +2314,8 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/305fc245-4b63-47e4-abad-4878d84fe71c/Isdin-Nutradeica-Gel-Creme-Visage-Peau-Seborrheique-50ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.BRUME, TAG_SLUGS.PREPARATION, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.BRUME],
+      secondary: [TAG_SLUGS.PREPARATION, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -2365,7 +2339,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.MATIN,
@@ -2415,7 +2389,6 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [
-        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.TRAITEMENT,
         TAG_SLUGS.REPARATEUR,
@@ -2500,7 +2473,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
@@ -2529,8 +2502,8 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/7cda6b1d-0266-4a53-896f-b9a8d1256afd/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.SOIN_LEVRES, TAG_SLUGS.ZONE_LEVRES],
+      primary: [TAG_SLUGS.SOIN_LEVRES],
+      secondary: [TAG_SLUGS.ZONE_LEVRES],
       avoid: [],
     },
     keyIngredients: [],
@@ -2555,7 +2528,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.TRAITEMENT,
         TAG_SLUGS.SERUM,
@@ -2581,8 +2554,8 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/b6757a4e-5a79-468f-a2f2-43d801f960c9/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.NETTOYANT],
+      secondary: [TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -2635,7 +2608,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.MATIN,
@@ -2663,7 +2636,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -2691,7 +2664,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.EMOLLIENCE,
@@ -2722,7 +2695,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.EMOLLIENCE,
@@ -2753,7 +2726,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.CREME_MAINS,
@@ -2781,7 +2754,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.EXFOLIATION],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -2810,7 +2783,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT, TAG_SLUGS.PORES_DILATES],
       secondary: [
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.TRAITEMENT,
         TAG_SLUGS.FILTRES_MINERAUX,
@@ -2838,8 +2811,8 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/d19aa135-9c55-4f14-878d-022e2abdaa80/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.SOIN_LEVRES, TAG_SLUGS.ZONE_LEVRES],
+      primary: [TAG_SLUGS.SOIN_LEVRES],
+      secondary: [TAG_SLUGS.ZONE_LEVRES],
       avoid: [],
     },
     keyIngredients: [],
@@ -2860,8 +2833,8 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/3f787145-60c8-4de5-9334-bbbaeb9ee1b9/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.SOIN_LEVRES, TAG_SLUGS.ZONE_LEVRES],
+      primary: [TAG_SLUGS.SOIN_LEVRES],
+      secondary: [TAG_SLUGS.ZONE_LEVRES],
       avoid: [],
     },
     keyIngredients: [],
@@ -2884,7 +2857,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.APAISANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -2912,7 +2885,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.CICATRISATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -2940,7 +2913,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -2966,8 +2939,8 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/b2c19744-bfb6-4791-9a2d-2619a4ccd0c6/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],

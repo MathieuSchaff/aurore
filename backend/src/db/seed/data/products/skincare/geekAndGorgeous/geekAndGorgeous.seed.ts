@@ -112,8 +112,7 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
         slug: INGREDIENT_SLUGS.RETINAL,
         concentrationValue: 0.2,
         concentrationUnit: '%',
-        notes:
-          'Retinal stabilisé (sustained-delivery) – anti-âge puissant, rides/texture/éclat',
+        notes: 'Retinal stabilisé (sustained-delivery) – anti-âge puissant, rides/texture/éclat',
       },
       {
         slug: INGREDIENT_SLUGS.ECTOIN,
@@ -175,8 +174,7 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
         slug: INGREDIENT_SLUGS.ECTOIN,
         concentrationValue: 1,
         concentrationUnit: '%',
-        notes:
-          'Hydratant, protecteur environnemental (pollution, lumière bleue), apaisant',
+        notes: 'Hydratant, protecteur environnemental (pollution, lumière bleue), apaisant',
       },
       {
         slug: INGREDIENT_SLUGS.XYLITYLGLUCOSIDE,
@@ -292,7 +290,7 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
         slug: INGREDIENT_SLUGS.SALICYLIC_ACID,
         concentrationValue: 1,
         concentrationUnit: '%',
-        notes: 'Nettoie l\'intérieur des pores',
+        notes: "Nettoie l'intérieur des pores",
       },
       {
         slug: INGREDIENT_SLUGS.SARCOSINE,
@@ -486,7 +484,7 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
         slug: INGREDIENT_SLUGS.SQUALANE,
         concentrationValue: 7,
         concentrationUnit: '%',
-        notes: 'Maintient l\'hydratation sans fini gras',
+        notes: "Maintient l'hydratation sans fini gras",
       },
       {
         slug: INGREDIENT_SLUGS.CERAMIDE_NG,
@@ -611,7 +609,7 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
         slug: INGREDIENT_SLUGS.VITAMIN_C,
         concentrationValue: 15,
         concentrationUnit: '%',
-        notes: 'Vitamine C pure pour l\'éclat et le collagène',
+        notes: "Vitamine C pure pour l'éclat et le collagène",
       },
       {
         slug: INGREDIENT_SLUGS.FERULIC_ACID,
@@ -657,7 +655,7 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
         slug: INGREDIENT_SLUGS.BETA_GLUCAN,
         concentrationValue: 0.2,
         concentrationUnit: '%',
-        notes: 'Ingrédient d\'avoine réparateur et hydratant',
+        notes: "Ingrédient d'avoine réparateur et hydratant",
       },
     ],
   },

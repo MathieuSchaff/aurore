@@ -19,7 +19,7 @@ export const PUR_ALO__SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/39c3c955-a176-47e7-a708-0f697da5e6ea/Pur-Aloe-Gel-Douche-Aloe-Vera-20-Bio-500ml?io=transform:extend,width:600,height:600',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.APAISANT, TAG_SLUGS.ECLAT],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],

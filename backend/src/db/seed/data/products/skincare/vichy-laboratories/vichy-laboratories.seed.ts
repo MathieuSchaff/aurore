@@ -63,7 +63,12 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.VITAMIN_C, concentrationValue: 15, concentrationUnit: '%', notes: 'Acide Ascorbique' },
+      {
+        slug: INGREDIENT_SLUGS.VITAMIN_C,
+        concentrationValue: 15,
+        concentrationUnit: '%',
+        notes: 'Acide Ascorbique',
+      },
       { slug: INGREDIENT_SLUGS.GLYCERIN },
       { slug: INGREDIENT_SLUGS.TOCOPHEROL, notes: 'Vitamine E' },
     ],
@@ -633,7 +638,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.REPARATEUR,
@@ -663,7 +668,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -692,7 +697,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -721,7 +726,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -778,7 +783,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -805,8 +810,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/a2433759-d62d-4bf6-9b7c-9faa55545e0b/Vichy-Dercos-Shampoing-Mineral-Doux-Fortifiant-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -829,7 +834,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.SERUM,
@@ -859,7 +864,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.APAISANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.SEBO_REGULATEUR,
@@ -917,7 +922,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -946,7 +951,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.CREME_HYDRATANTE,

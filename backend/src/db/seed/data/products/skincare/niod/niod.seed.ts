@@ -39,8 +39,7 @@ export const NIOD_SEED: UnifiedProductSeed[] = [
         slug: INGREDIENT_SLUGS.COPPER_TRIPEPTIDE_1_PALMITAMIDE,
         concentrationValue: 1,
         concentrationUnit: '%',
-        notes:
-          'GHK-Cu lipophile (Pal-GHK-Cu) – réparation profonde, anti-âge, collagène/élastine',
+        notes: 'GHK-Cu lipophile (Pal-GHK-Cu) – réparation profonde, anti-âge, collagène/élastine',
       },
       {
         slug: INGREDIENT_SLUGS.SQUALANE,

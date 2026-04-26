@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const BIOCYTE_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const BIOCYTE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/91ec7cb0-5e51-4fd7-91ff-f6e9386ba356/Biocyte-Keratine-Anti-chute-Serum-Lot-de-3-x-5-ampoules?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },

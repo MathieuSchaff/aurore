@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const COSLYS_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const COSLYS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/14d11ff6-321f-4713-8947-c68aab3cbc5a/Coslys-Shampoing-Anti-Jaunissement-Bio-500ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -44,7 +44,7 @@ export const COSLYS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/3541398e-7cc8-4f4a-a990-cabf14eed443/Coslys-Shampoing-Ultra-Doux-Bio-1L?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -71,7 +71,7 @@ export const COSLYS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/c1a98a1d-1dd4-4815-aac2-355133bf5a77/Coslys-Shampoing-Famille-Aloe-Vera-Bio-Doypack-1L?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

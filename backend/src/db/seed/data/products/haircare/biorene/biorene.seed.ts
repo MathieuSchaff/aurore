@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const BIORENE_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const BIORENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/13b3cf01-4b07-4bb2-b207-6e7b38cd9dd8/Biorene-Coiffant-Creme-de-Coiffage-25ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.PRODUIT_COIFFANT],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.CREME_COIFFANTE],
       secondary: [],
       avoid: [],
     },

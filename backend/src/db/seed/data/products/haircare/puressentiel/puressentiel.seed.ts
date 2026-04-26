@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const PURESSENTIEL_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const PURESSENTIEL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/4a1aaa35-5023-44f4-b67f-474de2012fcf/Puressentiel-Anti-Poux-Repulsif-Poux-Spray-75ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -40,7 +40,7 @@ export const PURESSENTIEL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/27488689-bf60-4646-9072-1cb4f590075b/Puressentiel-Anti-Poux-Pouxdoux-Shampoing-Quotidien-Certifie-Bio-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -68,7 +68,7 @@ export const PURESSENTIEL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/f8d9de8f-df65-4187-a98c-cd9ca3de6902/Puressentiel-Anti-Poux-Repulsif-Poux-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

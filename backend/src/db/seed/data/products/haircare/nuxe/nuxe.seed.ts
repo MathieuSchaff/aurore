@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const NUXE_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/20192363-3451-4235-b592-91076ee847ea/Nuxe-Huile-Prodigieuse-Florale-Multi-Fonctions-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -49,7 +49,7 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/5e289908-5dbf-4638-ba6a-80c341f4f271/Nuxe-Huile-Prodigieuse-50ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -80,7 +80,7 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/b46d766f-ea88-40d3-b4d0-239ae8ce3d83/Nuxe-Hair-Prodigieux-Le-Shampooing-Brillance-Miroir-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -109,7 +109,7 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/170f1873-1720-44cc-9b70-7514552a5d84/Nuxe-Sun-Huile-Lactee-Capillaire-Protectrice-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -136,7 +136,7 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/edf234d8-0aff-4e15-ade8-8d198a62b488/Nuxe-Huile-Prodigieuse-Or-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -167,7 +167,7 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/e9232a40-0088-466c-8a1f-d7e296dc3636/Nuxe-Huile-Prodigieuse-Or-Florale-50ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -198,7 +198,7 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/8298368b-10ac-4991-93c2-58f9dbf35d2c/Nuxe-Hair-Prodigieux-Demelant-Brillance-Miroir-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -225,7 +225,7 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/57b6f4b8-c444-445d-8a7b-9ebc4d6dc15a/Nuxe-Huile-Prodigieuse-Riche-Multi-Fonctions-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -256,7 +256,7 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/c96e08c6-f67a-44f3-b2dd-e7b34cf636bd/Nuxe-Hair-Prodigieux-Le-Masque-Huile-Nutrition-Avant-Shampooing-125ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.MASQUE_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -286,7 +286,7 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/df8d96b6-6b28-47fe-86af-cae7290b5368/Nuxe-Hair-Prodigieux-Le-Shampooing-Brillance-Miroir-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -315,7 +315,7 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/32f8789d-51b5-4cde-89fc-684006e9878f/Nuxe-Huile-Prodigieuse-Or-50ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -346,7 +346,7 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/ac6a6891-2c0d-4707-9a6d-6754c3bc2243/Nuxe-Hair-Prodigieux-Le-Soin-Capillaire-Nutrition-Intense-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },

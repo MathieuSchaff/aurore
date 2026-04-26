@@ -20,7 +20,7 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.NETTOYANT,
@@ -50,7 +50,7 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.PROTECTION_SOLAIRE,
         TAG_SLUGS.MATIN,
@@ -78,7 +78,7 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.NETTOYANT_CORPS,
@@ -107,7 +107,7 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.PROTECTION_SOLAIRE,
         TAG_SLUGS.MATIN,
@@ -134,7 +134,7 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/e86749ed-a9ed-47e0-a925-d00426bad4ac/Nuxe-Prodigieux-Floral-Gelee-de-Douche-Parfumee-200ml?io=transform:extend,width:600,height:600',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],

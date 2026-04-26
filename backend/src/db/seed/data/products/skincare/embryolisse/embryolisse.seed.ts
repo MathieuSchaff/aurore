@@ -19,12 +19,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/59047d8b-c4a8-4577-89a6-3ccee98a5d06/EAN_IMG_FR_3350900002787_1?io=transform:extend,width:600,height:600',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.HYDRATATION],
-      secondary: [
-        TAG_SLUGS.HUMECTANT,
-        TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -70,7 +65,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_SOLAIRE,
@@ -128,7 +123,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.TEXTURE_LEGERE,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.LAIT_CORPS,
         TAG_SLUGS.ZONE_CORPS,
       ],
@@ -154,7 +149,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.FILTRES_MINERAUX,
@@ -206,7 +201,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.CICATRISATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CONTOUR_YEUX,
         TAG_SLUGS.ZONE_YEUX,
@@ -234,7 +229,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.FILTRES_MINERAUX,
@@ -290,12 +285,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/a041848f-4ec6-4070-a1ab-4bd682b2f8e9/Embryolisse-Les-Hydratants-Lait-Creme-Sensitive-100ml?io=transform:extend,width:600,height:600',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.HYDRATATION],
-      secondary: [
-        TAG_SLUGS.HUMECTANT,
-        TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.LAIT_CORPS,
-        TAG_SLUGS.ZONE_CORPS,
-      ],
+      secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],
@@ -318,7 +308,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -389,7 +379,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.APAISANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -440,7 +430,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.APAISANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -492,7 +482,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -517,12 +507,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/c02e19d3-69a0-4e9b-b540-8a69980846ad/EAN_IMG_FR_2559061671332_1?io=transform:extend,width:600,height:600',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
-      secondary: [
-        TAG_SLUGS.HUMECTANT,
-        TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -546,7 +531,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -572,7 +557,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.APAISANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -622,7 +607,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/ceb113bd-34e6-4274-ab20-d87c1e1bbe7e/Embryolisse-Les-Hydratants-Masque-Hydratation-Intense-50ml?io=transform:extend,width:600,height:600',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.MASQUE_HEBDO, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.MASQUE_HEBDO, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -646,7 +631,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -675,7 +660,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -701,7 +686,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SERUM,
         TAG_SLUGS.TRAITEMENT,
         TAG_SLUGS.ZONE_VISAGE,
@@ -728,7 +713,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.CONTOUR_YEUX,
         TAG_SLUGS.ZONE_YEUX,
         TAG_SLUGS.SOIN_YEUX,
@@ -754,12 +739,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/244ca1d7-53fa-455c-917f-96adc0886009/Embryolisse-Visage-Routine-Bonne-Mine-Doree-et-Hydratation?io=transform:extend,width:600,height:600',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.HYDRATATION],
-      secondary: [
-        TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HUMECTANT,
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -783,7 +763,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -809,7 +789,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.MASQUE_HEBDO,
         TAG_SLUGS.ZONE_VISAGE,
@@ -836,7 +816,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.APAISANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -866,7 +846,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SERUM,
         TAG_SLUGS.TRAITEMENT,
         TAG_SLUGS.ZONE_VISAGE,
@@ -892,7 +872,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/7edee306-80dd-489f-9f70-1826995ae528/Embryolisse-Active-Peeling-Nuit-40ml?io=transform:extend,width:600,height:600',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -915,7 +895,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SERUM,
         TAG_SLUGS.TRAITEMENT,
         TAG_SLUGS.ZONE_VISAGE,
@@ -942,7 +922,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.SERUM,
         TAG_SLUGS.TRAITEMENT,
@@ -971,7 +951,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.CONTOUR_YEUX,
         TAG_SLUGS.ZONE_YEUX,
@@ -998,12 +978,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/46bee24b-1a96-4338-b5b2-39f1fbcb1da8/Embryolisse-Les-Nourrissants-Creme-Restauratrice-Cicalisse-40ml?io=transform:extend,width:600,height:600',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
-      secondary: [
-        TAG_SLUGS.HUMECTANT,
-        TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1025,12 +1000,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/c1b739bf-57b8-41ff-9640-186dfe984461/Embryolisse-Les-Nettoyants-Lait-Doux-Demaquillant-Waterproof-200ml?io=transform:extend,width:600,height:600',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
-      secondary: [
-        TAG_SLUGS.HUMECTANT,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1082,7 +1052,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -1108,7 +1078,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -1134,12 +1104,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/de9adef8-36b3-4ce7-9ad7-c2a895a484af/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION, TAG_SLUGS.ANTI_OXYDANT],
-      secondary: [
-        TAG_SLUGS.HUMECTANT,
-        TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1161,12 +1126,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/b342f31d-a785-46bb-81fa-7b908f85f5ab/Embryolisse-Lait-Creme-Fluide-400ml?io=transform:extend,width:600,height:600',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION, TAG_SLUGS.ANTI_OXYDANT],
-      secondary: [
-        TAG_SLUGS.HUMECTANT,
-        TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1188,12 +1148,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/c4dd9db5-8294-4a45-bb05-e453360b3815/Embryolisse-Secret-de-Maquilleurs-Eclat-du-Regard-Soin-Fraicheur-4-5g?io=transform:extend,width:600,height:600',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
-      secondary: [
-        TAG_SLUGS.HUMECTANT,
-        TAG_SLUGS.CONTOUR_YEUX,
-        TAG_SLUGS.ZONE_YEUX,
-        TAG_SLUGS.SOIN_YEUX,
-      ],
+      secondary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX],
       avoid: [],
     },
     keyIngredients: [],
@@ -1215,12 +1170,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/73d967da-2fbc-4c4d-a5c2-8b347e50e7fd/Embryolisse-Visage-Routine-Bonne-mine-rosee-et-hydratation?io=transform:extend,width:600,height:600',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.HYDRATATION],
-      secondary: [
-        TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HUMECTANT,
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1242,7 +1192,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/9fbeaff0-26df-42e2-bc7b-a8bdd4ea4834/Embryolisse-Les-Hydratants-Hydra-Creme-Legere-40ml?io=transform:extend,width:600,height:600',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1264,12 +1214,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/6f20fb2c-4a0c-4859-9425-4f372fbb94b1/Embryolisse-Lait-Creme-Multi-Protection-40ml?io=transform:extend,width:600,height:600',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
-      secondary: [
-        TAG_SLUGS.HUMECTANT,
-        TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1292,7 +1237,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.NETTOYANT,
         TAG_SLUGS.DOUBLE_NETTOYAGE_2,

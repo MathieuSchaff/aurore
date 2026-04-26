@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const OLAPLEX_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/47f1a857-3a35-4da4-8262-346c3ac304af/Olaplex-N-0-Soin-Intense-Bond-Building-155ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -45,7 +45,7 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/212daf7c-a37c-42ad-ab26-758acb36f944/OIaplex-N-3-Soin-Perfecteur-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -77,7 +77,7 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/adb9d881-f13a-4997-a9dd-1ae4023bfb6c/Olaplex-Hair-Perfector-N-3-250ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -104,7 +104,7 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/e702ec47-5519-4931-889a-931bf85821fd/OIaplex-N-4-Shampoing-250ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -137,7 +137,7 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/459b040e-a392-4029-a57a-90bb22a3ecb7/Olaplex-N-4P-Shampooing-Blonde-Enhancer-250ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -165,7 +165,7 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/336d6c5f-42fc-464b-8444-c63ac4816016/OIaplex-N-5-Apres-Shampoing-250ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -201,7 +201,7 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/1f0f88c6-1a2d-4689-b559-a779991d71ac/OIaplex-N-6-Creme-Coiffante-Soin-Bond-Smoother-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.PRODUIT_COIFFANT],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.CREME_COIFFANTE],
       secondary: [],
       avoid: [],
     },
@@ -233,7 +233,7 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/d8159f75-f650-4afd-a3d3-bce58119450e/OIaplex-N-7-Bonding-Oil-Huile-Concentree-30ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.HUILE_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.HUILE_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -263,7 +263,7 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/617b1e3a-070f-40d7-807a-147092f528da/Olaplex-Masque-Hydratant-4-en-1-370ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.MASQUE_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -307,7 +307,7 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/dcece7eb-e7ea-4d53-b3d0-2b77951c040d/Olaplex-N-9-Serum-Capillaire-Nourrissant-Bond-Protector-90ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },

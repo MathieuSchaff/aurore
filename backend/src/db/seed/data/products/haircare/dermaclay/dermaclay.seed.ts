@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const DERMACLAY_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const DERMACLAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/774aaabf-9c14-45d0-b433-8f6e0d673f27/Dermaclay-Shampoing-Traitant-Bio-Anti-Chute-Argile-Blanche-250ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

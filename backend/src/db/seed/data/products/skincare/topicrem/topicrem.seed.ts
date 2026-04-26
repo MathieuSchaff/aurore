@@ -127,8 +127,8 @@ export const TOPICREM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/82f5e21b-bc02-4cb8-a840-3fb6d88c628b/Topicrem-DA-PROTECT-Huile-Lavante-Relipidante-1L?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],

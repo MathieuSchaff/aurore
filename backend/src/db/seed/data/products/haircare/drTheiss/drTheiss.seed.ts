@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const DR_THEISS_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const DR_THEISS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/36973dfe-c37e-4421-98a4-4edb909380eb/Dr-Theiss-Shampoing-a-La-Silice-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

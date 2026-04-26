@@ -270,8 +270,8 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/8a25b0fa-12f9-4eca-855d-99e5e881b7e9/Weleda-Romarin-Lotion-Capillaire-Tonifiante-Bio-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.PREPARATION, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.TONIQUE],
+      secondary: [TAG_SLUGS.PREPARATION, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -292,8 +292,8 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/3b18410a-d27d-4a8f-b839-0f0aaab9c7c2/Weleda-Calendula-Savon-Vegetal-Bio-Lot-de-2-x-100g?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -314,8 +314,8 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/4fead393-c9a6-44d9-ac27-02d413dd4dd3/Weleda-Soin-Bucco-Dentaire-Pate-Dentifrice-Saline-Lot-de-2-x-75ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -336,8 +336,8 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/ef8fab6d-4f99-46c1-9546-ec158f21a802/Weleda-Soin-Bucco-Dentaire-Pate-Dentifrice-au-Ratanhia-Lot-de-2-x-75ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -358,8 +358,8 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/6ed92fbe-17aa-4cbe-91d4-f8ee3ab4a273/Weleda-Soin-Bucco-Dentaire-Gel-Dentifrice-Vegetal-Lot-de-2-x-75ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -380,8 +380,8 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/6ed7539b-e043-45ea-93af-493b23e27394/Weleda-Soin-Bucco-Dentaire-Gel-Dentifrice-pour-Enfant-Lot-de-2-x-50ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -402,8 +402,8 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/ebb54c2f-9c37-491f-ab6d-719724167022/Weleda-Soin-Bucco-Dentaire-Bain-de-Bouche-a-la-Myrrhe-Bio-50ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -424,8 +424,8 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/bb72eb4c-fe2c-43d2-8000-205a1fe2680e/Weleda-Soin-Bucco-Dentaire-Pate-Dentifrice-au-Calendula-Lot-de-2-x-75ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],

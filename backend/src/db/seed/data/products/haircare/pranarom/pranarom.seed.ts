@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const PRANAROM_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const PRANAROM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/1c831557-6ed5-40e0-b999-8202ee13f901/Pranarom-Huile-Vegetale-Nigelle-60-capsules?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -40,7 +40,7 @@ export const PRANAROM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/e96ae433-b915-4d75-b80c-9eaa8af863ad/Pranarom-Huile-Vegetale-Bio-Argan-50ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -62,7 +62,7 @@ export const PRANAROM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/67ceb197-1264-4f98-a99f-9db184e1e4ba/Pranarom-Huile-Vegetale-Bio-Onagre-50ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

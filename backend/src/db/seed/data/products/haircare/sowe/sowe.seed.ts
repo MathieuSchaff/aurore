@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const SOW__SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const SOW__SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/c78b7ef3-6478-45e9-a290-ede1c4c5f0d1/Sowe-Huile-de-Chanvre-Pure-Bio-50ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -40,7 +40,7 @@ export const SOW__SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/9fdcafac-e712-4884-98c5-4b994fb552c9/Sowe-Huile-de-Jojoba-Pure-Bio-50ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -62,7 +62,7 @@ export const SOW__SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/b9452558-f3d4-46f4-90e3-c8f6231c3dec/EAN_IMG_FR_3770020690693_1?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -84,7 +84,7 @@ export const SOW__SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/53e660c0-1e8b-45ca-9ac8-394644eda7c1/Sowe-Huile-de-Figue-de-Barbarie-et-Argan-Bio-50ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

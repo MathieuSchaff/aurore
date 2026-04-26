@@ -2329,7 +2329,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -2354,13 +2354,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/35d4e59d-6618-46d2-b7f9-47c017beab65/SVR-Topialyse-Gel-Lavant-Eco-Recharge-1L?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [
-        TAG_SLUGS.HUMECTANT,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -2383,7 +2378,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -2410,7 +2405,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -2435,13 +2430,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/f4342367-05d3-4632-9dec-8abadf56a35d/SVR-Topialyse-Gel-Lavant-1L-Eco-Recharge-1L-Peaux-Atopiques-et-Sensibles?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [
-        TAG_SLUGS.HUMECTANT,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -2462,13 +2452,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/862219f3-1ab8-43be-aa47-3aa8698daf75/SVR-Topialyse-Gel-Lavant-1L?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [
-        TAG_SLUGS.HUMECTANT,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -2491,7 +2476,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.NETTOYANT_CORPS,
@@ -2519,7 +2504,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/3da0a4f0-6f75-4b07-821d-3f86c69c8014/SVR-Routine-Topialyse-Hygiene-et-Soin-peaux-Atopiques-et-Sensibles-Huile-lavante-Baume-Protect?io=transform:extend,width:600,height:600',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.SEBO_REGULATEUR, TAG_SLUGS.BAUME],
+      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.SEBO_REGULATEUR, TAG_SLUGS.BAUME],
       avoid: [],
     },
     keyIngredients: [],
@@ -2542,7 +2527,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.BAUME,
@@ -2567,13 +2552,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/c7282f19-8ed9-48d8-971e-9c9c989cb719/SVR-Topialyse-Gel-Lavant-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [
-        TAG_SLUGS.HUMECTANT,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -2596,7 +2576,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.NETTOYANT_CORPS,
@@ -2625,7 +2605,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.DEODORANT,
@@ -2653,7 +2633,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.NETTOYANT_CORPS,
@@ -2680,8 +2660,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/3ad68061-ce6c-48cf-99be-a1f40fcf120d/SVR-Routine-Spirial-Anti-Transpirante-Deo-douche-400ml-et-Roll-on?format=webp&quality=80&io=transform:extend,width:310,height:310',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.DEODORANT],
+      primary: [TAG_SLUGS.DEODORANT],
+      secondary: [],
       avoid: [],
     },
     keyIngredients: [],

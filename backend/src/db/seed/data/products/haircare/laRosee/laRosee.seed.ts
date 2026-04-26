@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/6cfaf892-8172-424e-8f88-bdf7564ebffa/La-Rosee-Huile-de-Soin-Nourrissante-aux-Huiles-Vegetales-Bio-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

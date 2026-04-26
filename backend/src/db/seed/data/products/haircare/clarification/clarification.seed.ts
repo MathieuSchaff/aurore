@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const CLARIFICATION_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const CLARIFICATION_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/509651e8-fc09-4582-97bb-d0907533cc9c/Clarification-Coffret-Cheveux-Mes-Chouchous-Edition-Limitee?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },

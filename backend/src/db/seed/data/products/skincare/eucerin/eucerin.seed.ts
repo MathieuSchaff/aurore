@@ -80,7 +80,12 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
       ],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.UREA, concentrationValue: 10, concentrationUnit: '%', notes: 'exfolie, hydrate intensif' },
+      {
+        slug: INGREDIENT_SLUGS.UREA,
+        concentrationValue: 10,
+        concentrationUnit: '%',
+        notes: 'exfolie, hydrate intensif',
+      },
       { slug: INGREDIENT_SLUGS.CERAMIDE_NP, notes: 'Céramide NP – barrière' },
       { slug: INGREDIENT_SLUGS.SODIUM_PCA, notes: 'NMF (lactate, PCA, etc.) – hydratation' },
       { slug: INGREDIENT_SLUGS.ARGININE },
@@ -123,7 +128,12 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
       avoid: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.UREA, concentrationValue: 5, concentrationUnit: '%', notes: 'hydrate, lisse' },
+      {
+        slug: INGREDIENT_SLUGS.UREA,
+        concentrationValue: 5,
+        concentrationUnit: '%',
+        notes: 'hydrate, lisse',
+      },
       { slug: INGREDIENT_SLUGS.CERAMIDE_NP },
     ],
   },
@@ -327,8 +337,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/89f9e4ed-baa2-41d6-8a22-336340d04b5d/Eucerin-Dermo-Capillaire-Shampoing-Calmant-5-Uree-Cuir-Chevelu-Irrite-250ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -351,7 +361,7 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -421,8 +431,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/04c94350-4010-4bb4-a3a7-79a4472cf469/Eucerin-Atopi-Control-Huile-Bain-et-Douche-Peaux-Atopiques-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      primary: [TAG_SLUGS.NETTOYANT_CORPS],
+      secondary: [TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],
@@ -446,7 +456,7 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.NETTOYANT,
         TAG_SLUGS.DOUBLE_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,

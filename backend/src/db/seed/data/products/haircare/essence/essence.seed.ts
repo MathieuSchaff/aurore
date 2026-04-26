@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const ESSENCE_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const ESSENCE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/1a81645e-eb72-4c98-bf6b-8e8c7fd85e9b/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

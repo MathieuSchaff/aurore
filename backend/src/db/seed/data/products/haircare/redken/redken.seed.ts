@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const REDKEN_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/f8da123f-58c6-4c8a-849e-9fd64b731038/Redken-Cerafill-Retaliate-Soin-Anti-Chute-90ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -40,7 +40,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/8501a48a-16b3-4342-9d80-02ff7da8ed71/Redken-Acidic-Bonding-Concentrate-Apres-Shampoing-Reparateur-300ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -71,7 +71,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/3a52bd4e-08eb-4628-88fb-6b071493b186/Redken-Acidic-Color-Gloss-Soin-Sans-Rincage-190ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -103,7 +103,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/bf89fd50-cfdb-4ce7-aa6d-0a5672cdaaa1/Redken-Pate-de-Definition-de-longue-duree?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -133,7 +133,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/9108a7ab-99ff-4c46-b79e-710e22b78463/Redken-Acidic-Color-Gloss-Apres-Shampoing-Nourrissant-300ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -168,7 +168,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/e2fed4f4-72e1-4272-874c-899786bb01c0/Redken-Apres-Shampooing-All-Soft-Mega-Curls?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -205,7 +205,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/a9d458b3-0410-4b9b-81e2-9634484a8592/Redken-Acidic-Color-Gloss-Huile-Brillance-Legere-Pour-Tous-Types-de-Cheveux?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -231,7 +231,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/3bde56c1-1359-4569-9331-84ca7ec461bc/Redken-Acidic-Color-Gloss-Traitement-Brillance-Professionnelle-237ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -265,7 +265,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/d1d2ea2c-f47b-4cf0-a429-20d367c249a7/Redken-Brews-Pommade-Coiffante-Clay-Fini-Mat-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.PRODUIT_COIFFANT],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.CIRE_COIFFANTE],
       secondary: [],
       avoid: [],
     },
@@ -293,7 +293,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/12ab46dd-3c12-4059-baba-2e8a5dd85161/Redken-Extreme-Masque-Reparateur-250ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -328,7 +328,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/b04ce5f1-b33e-4d8f-b5b7-ae1c24589d85/Redken-Soin-sans-rincage-nourissant-Hydramelt?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -358,7 +358,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/475845a6-cedc-48d0-9530-425d13c380d2/Redken-Spray-Multi-Benefices-One-United?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -386,7 +386,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/1499ec42-48f3-4f83-9bf4-ec9c63d27b4a/Redken-Acidic-Color-Gloss-Apres-shampoing-pour-cheveux-colores?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -421,7 +421,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/b281bb4d-bceb-4c53-899d-a14a1ba5e6de/Redken-Brews-Pommade-Coiffante-Maneuver-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.PRODUIT_COIFFANT],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.CIRE_COIFFANTE],
       secondary: [],
       avoid: [],
     },
@@ -449,7 +449,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/6d695c1a-32d2-40de-a0d2-65bed03dbe4c/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -475,7 +475,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/2e46b741-0070-4bd5-b5fb-c5db33d5731a/Redken-Poudre-densifiante?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -497,7 +497,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/2efa1c0b-f739-4328-bd6a-be7b36fc6fd5/Redken-Acidic-Color-Gloss-Shampoing-Doux-Couleur-300ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -531,7 +531,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/a59e4998-beeb-4dab-8bf1-42ad1d525448/Redken-Acidic-Bonding-Concentrate-Apres-shampoing-reparateur-pour-cheveux-sensibilises?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -562,7 +562,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/4265038d-e550-4c82-9b72-d06bad984f4f/Redken-All-Soft-Apres-Shampoing-Hydratant?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -596,7 +596,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/07495ab4-3f1f-46e9-98cf-17f5b3c843e2/Redken-Holiday-Coffret-All-Soft?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -630,7 +630,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/4a9f2593-0ada-4f1a-8cac-27e675e876bd/Redken-Soin-sans-rincage-All-Soft?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -660,7 +660,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/0fa000f4-7774-47b5-9c41-f2ce93481de2/Redken-Extreme-Shampoing-fortifiant-pour-cheveux-abimes?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -694,7 +694,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/a9b455a3-6b3a-4074-9067-3be29b62eb19/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -725,7 +725,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/43a9ce25-82a0-4c0b-86d8-106a32d899cd/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -751,7 +751,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/8c31aa84-fd8b-4f13-b156-33af43247bfc/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -781,7 +781,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/5acda597-4fe5-489f-a543-697ed313bb61/Redken-All-Soft-Shampoing-hydratant-pour-cheveux-secs?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -817,7 +817,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/521f7a60-db4e-4446-91ca-902d3a37e7aa/Redken-Gel-Sculptant-Fixation-Maximal?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -839,7 +839,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/9116c28b-7348-434f-8e44-31a559d644f5/Gel-de-definition-pour-cheveux-boucles-Hybrid-Curl-Stylers?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -866,7 +866,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/8325657b-91ce-46cb-9564-6bd3c9578ef2/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -893,7 +893,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/a8b92857-b982-481d-b537-cef0f6861767/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/677bc861-e246-443a-904a-552c16c4090c/Ducray-Extra-Doux-Shampoing-Dermo-Protecteur-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -45,7 +45,7 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/34ec186d-8674-411a-bcbc-795f68ca43cd/Ducray-Kelual-DS-Shampoing-Traitant-Etats-Pelliculaires-Severes-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -67,7 +67,7 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/018716de-e794-426d-888b-50591a73310a/Ducray-Neoptide-Expert-Serum-Capillaire-Anti-Chute-Croissance-Lot-de-2-x-50ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -93,7 +93,7 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/10b27c89-5526-4722-9721-d36bdcaf8f7c/Ducray-Kertyol-P-S-O-Concentre-Corps-et-Cuir-Chevelu-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -119,7 +119,7 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/4b8785bd-1293-42ac-ad4c-187b8f2aa6d3/Ducray-Kertyol-P-S-O-Shampoing-Traitant-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -145,7 +145,7 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/fff48e6a-cea4-41e0-8925-9b7781835cf5/Ducray-Anaphase-Shampoing-Complement-Anti-Chute-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -173,7 +173,7 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/0fb24828-d119-44f1-9a9b-58bfd3b313ff/Ducray-Anaphase-Shampoing-Complement-Anti-Chute-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -201,7 +201,7 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/c530a796-880d-4186-bb43-d175695376c4/Ducray-Anaphase-Shampoing-Antichute-et-croissance-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -230,7 +230,7 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/46204a95-583f-448b-8e58-9c76421d5ea0/Ducray-Extra-Doux-Shampoing-Dermo-Protecteur-Lot-de-2-x-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -252,7 +252,7 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/5f74a48a-3b1a-4d4f-b178-faff679bbfd5/Ducray-Densiage-Shampoing-Redensifiant-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -282,7 +282,7 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/34304d8e-710f-4848-a5a0-3fda084f59d1/Ducray-Extra-Doux-Shampoing-Dermo-Protecteur-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -309,7 +309,7 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/40a31d9c-83f0-4338-9f27-b1c68656ae8b/Ducray-Extra-Doux-Shampoing-Dermo-Protecteur-Flacon-Pompe-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -336,7 +336,7 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/e39080c9-51e9-47bb-831a-fe1aee395556/Ducray-Gel-Rubefiant-Tonique-Capillaire-30ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -358,7 +358,7 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/b302b59f-649b-4a7d-b0c2-19dee1674903/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -386,7 +386,7 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/7935c0da-9c13-43ff-9edb-99350680436c/Ducray-Anacaps-Expert-Chute-de-Cheveux-Chronique-90-gelules?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },

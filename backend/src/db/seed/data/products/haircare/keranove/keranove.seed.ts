@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const K_RANOVE_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const K_RANOVE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/ff7f22ed-3f26-4196-a52c-00c8cabd6c65/Keranove-Blond-Vacances-Shampoing-Eclaircissant-250ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -46,7 +46,7 @@ export const K_RANOVE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/2e3581a9-60f9-4e19-89aa-587c94673ddc/Keranove-Naturanove-Coloration-n-4-Chatain-Profond?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -76,7 +76,7 @@ export const K_RANOVE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/ff386bce-0dff-414c-88f5-958e1feb2031/Keranove-Naturanove-Coloration-n-5-15-Chocolat?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

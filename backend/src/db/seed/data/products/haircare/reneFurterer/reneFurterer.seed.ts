@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../../data/tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../../data/tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
@@ -14,7 +14,7 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     description: 'Coffret 12 ampoules antichute réactionnelle (5 ml chacune).',
     url: 'https://www.atida.fr/rene-furterer-triphasic-reactional-traitement-antichute-reactionnelle-12-ampoules.html',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -32,7 +32,7 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     description: 'Coffret 8 flacons sérum antichute progressive (5,5 ml chacun).',
     url: 'https://www.atida.fr/furterer-triphasic-8-ampoules.html',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -54,7 +54,7 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/7754f2a8-c983-403a-b308-9a21973c8beb/Rene-Furterer-Triphasic-Reactional-Coffret-ampoules-12x5ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -82,7 +82,7 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/89a96e6f-c434-4fc9-9311-8855acf43843/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -114,7 +114,7 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/19c7c653-3e84-4de2-a74b-a0c56a5ad020/Rene-Furterer-Complexe-5-Head-Spa-Concentre-Vegetal-Stimulant-50ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -136,7 +136,7 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/841e2e47-2c70-46ff-9b7d-bdd110d02671/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -165,7 +165,7 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/f3a072c1-e29c-40d6-9790-a3fbd7ce4a65/Rene-Furterer-Triphasic-Progressive-serum-antichute-Cure-de-3-Mois-Lot-de-2-X-8?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -197,7 +197,7 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/10bf46fa-5e1b-4f56-ad8f-1e1aaa882406/Rene-furterer-Serum-accelerateur-de-pousse-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -227,7 +227,7 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/a578fd14-8f63-497f-a940-101b204177d8/Rene-Furterer-Naturia-Shampooing-Douceur-Eco-Recharge-Bio-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -253,7 +253,7 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/47e21693-61fb-4fc7-967e-0e9caa2805ff/Rene-Furterer-Forticea-Shampoing-fortifiant-d-origine-naturel-doux-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -283,7 +283,7 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/22b2f497-cc93-454a-b38b-a8bb6e5882f6/Rene-Furterer-Absolue-Keratine-Shampoing-Soin-Reparateur-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -312,7 +312,7 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/f3944906-d49e-4610-a4d4-56b49772d0c1/Rene-Furterer-Sublime-Karite-Masque-Hydratant-gainant-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -344,7 +344,7 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/b41fde5e-1b48-4442-a929-7109d815cfdc/Rene-Furterer-Color-Glow-Shampooing-Cheveux-Colores-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -371,7 +371,7 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/9c178139-78bf-4eb7-829f-560e0072631d/Rene-Furterer-Sublime-Curl-Spray-Activateur-de-Boucles-150ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -400,7 +400,7 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/bb638679-8c9a-4ed9-b2e8-34d8a9d7ee65/Rene-Furterer-Sublime-Curl-Baume-Demelant-Activateur-de-Boucles-150ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -427,7 +427,7 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/d217a3a2-8702-4b09-afd0-b2b833aa51fd/Rene-Furterer-Volumea-Shampooing-Expanseur-250ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -455,7 +455,7 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/7158f1cb-ada4-4c1f-be34-ee468f3a7317/Rene-Furterer-Sublime-Curl-Shampoing-Sublimateur-de-Boucles-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -485,7 +485,7 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/dc369c46-73d1-4129-901c-d7968cdeb755/Rene-Furterer-Naturia-Shampoing-Micellaire-Douceur-Bio-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -511,7 +511,7 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/354738ee-4e18-4468-b4bb-41217d397d6d/Rene-Furterer-Curbicia-Shampoing-Purifiant-Legerete-150ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -542,7 +542,7 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/cdf87191-20e8-4d98-b150-48d7f0977798/Rene-Furterer-Neopur-Shampoing-Equilibrant-Pellicules-Grasses-150ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

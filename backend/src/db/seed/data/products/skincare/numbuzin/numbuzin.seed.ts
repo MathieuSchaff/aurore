@@ -325,9 +325,24 @@ export const NUMBUZIN_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA, concentrationValue: 39, concentrationUnit: '%', notes: 'apaisant' },
-      { slug: INGREDIENT_SLUGS.HEARTLEAF, concentrationValue: 28, concentrationUnit: '%', notes: 'anti-inflammatoire' },
-      { slug: INGREDIENT_SLUGS.REGLISSE, concentrationValue: 25, concentrationUnit: '%', notes: 'calmant rougeurs' },
+      {
+        slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA,
+        concentrationValue: 39,
+        concentrationUnit: '%',
+        notes: 'apaisant',
+      },
+      {
+        slug: INGREDIENT_SLUGS.HEARTLEAF,
+        concentrationValue: 28,
+        concentrationUnit: '%',
+        notes: 'anti-inflammatoire',
+      },
+      {
+        slug: INGREDIENT_SLUGS.REGLISSE,
+        concentrationValue: 25,
+        concentrationUnit: '%',
+        notes: 'calmant rougeurs',
+      },
       { slug: INGREDIENT_SLUGS.ALLANTOIN },
       { slug: INGREDIENT_SLUGS.PANTHENOL },
     ],
@@ -360,7 +375,12 @@ export const NUMBUZIN_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, concentrationValue: 50000, concentrationUnit: 'ppm', notes: 'éclaircissant puissant' },
+      {
+        slug: INGREDIENT_SLUGS.NIACINAMIDE,
+        concentrationValue: 50000,
+        concentrationUnit: 'ppm',
+        notes: 'éclaircissant puissant',
+      },
       { slug: INGREDIENT_SLUGS.GLUTATHION, notes: 'Antioxydant, anti-taches' },
       { slug: INGREDIENT_SLUGS.THREE_O_ETHYL_ASCORBIC_ACID, notes: 'Vitamine C stable — éclat' },
       { slug: INGREDIENT_SLUGS.ALPHA_ARBUTIN },

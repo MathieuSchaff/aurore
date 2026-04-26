@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const ARGILETZ_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const ARGILETZ_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/1c588400-34e8-4bcf-b3f6-fb381ae5aaaf/Argiletz-Pate-Argile-Ghassoul-Prete-a-l-Emploi-150g?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

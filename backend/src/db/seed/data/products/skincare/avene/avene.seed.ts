@@ -1265,7 +1265,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
@@ -1296,7 +1296,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.BRUME,
         TAG_SLUGS.PREPARATION,
@@ -1322,13 +1322,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/60483547-1ff8-4bd9-841d-1b0d29f122dc/Avene-Cicalfate-Gel-Nettoyant-Assainissant-Visage-et-Corps-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [
-        TAG_SLUGS.HUMECTANT,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1352,7 +1347,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.NETTOYANT,
         TAG_SLUGS.DOUBLE_NETTOYAGE_2,
@@ -1381,7 +1376,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.NETTOYANT,
         TAG_SLUGS.DOUBLE_NETTOYAGE_2,
@@ -1408,7 +1403,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/5ffd4d6c-1ea6-4023-8b96-51330f634824/Avene-Body-Gommage-Douceur-200ml?io=transform:extend,width:600,height:600',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],

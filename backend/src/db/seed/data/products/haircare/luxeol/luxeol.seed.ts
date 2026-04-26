@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const LUX_OL_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const LUX_OL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/6dd8b751-d7a6-4220-ae6c-55244587563d/Luxeol-Shampoing-Antichute-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -47,7 +47,7 @@ export const LUX_OL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/f4269e71-677f-442b-b019-d4950109763a/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -81,7 +81,7 @@ export const LUX_OL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/2699494e-8d80-44cf-ac39-595c8edaa4b2/Luxeol-Traitement-Antichute-Progressive-3en1?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -108,7 +108,7 @@ export const LUX_OL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/7527b5cf-9bd6-40fc-aa18-cd26e5333d95/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -137,7 +137,7 @@ export const LUX_OL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/e5bbc4f2-1c60-453b-97cc-56d62c5ee2e0/Luxeol-Traitement-Antichute-Reactionnelle-3en1?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -163,7 +163,7 @@ export const LUX_OL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/8df84acb-a130-4fd4-98fa-cc51b9432ac2/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },

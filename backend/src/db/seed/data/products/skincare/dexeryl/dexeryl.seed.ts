@@ -19,7 +19,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/674402ac-2f4a-4d13-bf82-1b5ae02ef967/Dexeryl-Creme-Secheresses-Cutanees-250g?io=transform:extend,width:600,height:600',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -42,7 +42,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.APAISANT, TAG_SLUGS.EXFOLIATION],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.KERATOLYTIQUE,
@@ -71,7 +71,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/840089a6-b538-4154-afd0-047202a8a2ea/Dexeryl-Creme-Secheresses-Cutanees-500g?io=transform:extend,width:600,height:600',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -94,7 +94,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.NETTOYANT_CORPS,
         TAG_SLUGS.ZONE_CORPS,
@@ -122,7 +122,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -150,7 +150,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -178,7 +178,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -206,7 +206,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.APAISANT, TAG_SLUGS.EXFOLIATION],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.KERATOLYTIQUE,
@@ -236,7 +236,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.NETTOYANT_CORPS,
         TAG_SLUGS.ZONE_CORPS,
@@ -286,7 +286,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.NETTOYANT_CORPS,
         TAG_SLUGS.ZONE_CORPS,
       ],
@@ -343,7 +343,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -394,7 +394,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.NETTOYANT,
         TAG_SLUGS.DOUBLE_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
@@ -425,7 +425,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.NETTOYANT,
         TAG_SLUGS.DOUBLE_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,

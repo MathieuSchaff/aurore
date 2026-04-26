@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const SANOFLORE_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const SANOFLORE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/541b3a2b-6694-4409-bda4-c760b956271e/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

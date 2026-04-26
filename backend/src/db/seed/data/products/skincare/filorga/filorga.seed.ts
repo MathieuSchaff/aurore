@@ -70,8 +70,18 @@ export const FILORGA_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.LACTIC_ACID, concentrationValue: 10, concentrationUnit: '%', notes: 'Complexe Advanced Peel' },
-      { slug: INGREDIENT_SLUGS.MANDELIC_ACID, concentrationValue: 10, concentrationUnit: '%', notes: 'Complexe Advanced Peel' },
+      {
+        slug: INGREDIENT_SLUGS.LACTIC_ACID,
+        concentrationValue: 10,
+        concentrationUnit: '%',
+        notes: 'Complexe Advanced Peel',
+      },
+      {
+        slug: INGREDIENT_SLUGS.MANDELIC_ACID,
+        concentrationValue: 10,
+        concentrationUnit: '%',
+        notes: 'Complexe Advanced Peel',
+      },
       { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: 'Apaise et renforce la barrière cutanée' },
       { slug: INGREDIENT_SLUGS.ERGOTHIONEINE, notes: 'Antioxydant protecteur' },
     ],
@@ -106,8 +116,18 @@ export const FILORGA_SEED: UnifiedProductSeed[] = [
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.LACTIC_ACID, notes: 'AHA exfoliant quotidien' },
       { slug: INGREDIENT_SLUGS.MANDELIC_ACID, notes: 'AHA doux, antibactérien' },
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE, concentrationValue: 5, concentrationUnit: '%', notes: 'anti-taches et éclat' },
-      { slug: INGREDIENT_SLUGS.TRANEXAMIC_ACID, concentrationValue: 2, concentrationUnit: '%', notes: 'corrige les taches pigmentaires' },
+      {
+        slug: INGREDIENT_SLUGS.NIACINAMIDE,
+        concentrationValue: 5,
+        concentrationUnit: '%',
+        notes: 'anti-taches et éclat',
+      },
+      {
+        slug: INGREDIENT_SLUGS.TRANEXAMIC_ACID,
+        concentrationValue: 2,
+        concentrationUnit: '%',
+        notes: 'corrige les taches pigmentaires',
+      },
       { slug: INGREDIENT_SLUGS.ERGOTHIONEINE, notes: 'Antioxydant protecteur' },
     ],
   },
@@ -171,8 +191,18 @@ export const FILORGA_SEED: UnifiedProductSeed[] = [
       avoid: [],
     },
     keyIngredients: [
-      { slug: INGREDIENT_SLUGS.GLYCOLIC_ACID, concentrationValue: 4.5, concentrationUnit: '%', notes: 'complexe AHA/BHA' },
-      { slug: INGREDIENT_SLUGS.SALICYLIC_ACID, concentrationValue: 4.5, concentrationUnit: '%', notes: 'complexe AHA/BHA' },
+      {
+        slug: INGREDIENT_SLUGS.GLYCOLIC_ACID,
+        concentrationValue: 4.5,
+        concentrationUnit: '%',
+        notes: 'complexe AHA/BHA',
+      },
+      {
+        slug: INGREDIENT_SLUGS.SALICYLIC_ACID,
+        concentrationValue: 4.5,
+        concentrationUnit: '%',
+        notes: 'complexe AHA/BHA',
+      },
       { slug: INGREDIENT_SLUGS.PALMITOYL_TRIPEPTIDE_1, notes: 'Stimule la synthèse de collagène' },
       { slug: INGREDIENT_SLUGS.PALMITOYL_TETRAPEPTIDE_7, notes: 'Anti-inflammatoire' },
       { slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE },

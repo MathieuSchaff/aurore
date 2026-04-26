@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const TOPPIK_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const TOPPIK_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/201c00fe-1239-4572-b9ae-cdc18acc7ddc/Toppik-Fibre-Chatain-Fonce-12g?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

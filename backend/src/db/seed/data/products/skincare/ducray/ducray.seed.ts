@@ -367,8 +367,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/71ea5412-8006-4659-a228-cd533ccbeb0b/Ducray-Ictyane-Lait-Hydratant-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],
@@ -389,8 +389,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/88851d2c-6eee-4061-b412-e3c1df172d5a/Ducray-Hidrosis-Control-Anti-Transpirant-Roll-On-40ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.DEODORANT],
+      primary: [TAG_SLUGS.DEODORANT],
+      secondary: [],
       avoid: [],
     },
     keyIngredients: [],
@@ -411,8 +411,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/dd873733-7714-430b-aafd-0a3c110c467c/Ducray-Keracnyl-Gel-Moussant-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.NETTOYANT],
+      secondary: [TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -435,7 +435,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.SOIN_LEVRES,
@@ -461,8 +461,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/86e0a1f7-43b6-4f8c-a987-508c9e534921/EAN_IMG_FR_3282770394139_1?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -483,8 +483,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/638df193-657c-4c61-9473-cf283408bf32/Ducray-Kertyol-P-S-O-Baume-Hydratant-Quotidien-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.BAUME],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.BAUME],
       avoid: [],
     },
     keyIngredients: [],
@@ -505,8 +505,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/058d2b67-85a4-4de1-95dc-13a0c229cf54/Ducray-Kertyol-P-S-O-Baume-Hydratant-Quotidien-Anti-Grattage-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.BAUME],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.BAUME],
       avoid: [],
     },
     keyIngredients: [],
@@ -533,7 +533,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.SERUM,
@@ -561,7 +561,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/32922531-75c5-40c5-9176-40367a14e669/Ducray-Dexyane-Creme-Emolliente-Anti-Grattage-400ml?io=transform:extend,width:600,height:600',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -584,7 +584,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -609,8 +609,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/39f96d24-db3b-4846-afa6-a28b78e6314a/Ducray-Hidrosis-Control-Anti-Transpirant-Roll-On-Lot-de-2-x-40ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.DEODORANT],
+      primary: [TAG_SLUGS.DEODORANT],
+      secondary: [],
       avoid: [],
     },
     keyIngredients: [],
@@ -634,7 +634,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -659,8 +659,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/134ea6c4-64d7-409d-827e-f88ec2761017/Ducray-Dexyane-Creme-Barriere-Isolante-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -685,7 +685,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.TRAITEMENT,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.PROTECTION_SOLAIRE,
         TAG_SLUGS.MATIN,
@@ -741,7 +741,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/f17b499f-f633-4bd7-9d92-cc95cf383f37/Ducray-Dexyane-Baume-Emollient-Anti-Grattage-400ml?io=transform:extend,width:600,height:600',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.BAUME],
+      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BAUME],
       avoid: [],
     },
     keyIngredients: [],
@@ -764,7 +764,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.NETTOYANT,
         TAG_SLUGS.DOUBLE_NETTOYAGE_2,
@@ -790,8 +790,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/040cc5d8-2095-4b15-8f0c-9b0cfdccca38/Ducray-Dexyane-MeD-Creme-Reparatrice-Apaisante-Traitement-des-Eczemas-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -815,7 +815,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ECLAT],
       secondary: [
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.TONIQUE,
         TAG_SLUGS.PREPARATION,
@@ -842,8 +842,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/43eaa556-5dc6-4c9e-bd0b-a53d51636dee/Ducray-Anacaps-Reactiv-90-capsules?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -867,7 +867,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.PROTECTION_SOLAIRE,
@@ -898,7 +898,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.TRAITEMENT,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.PROTECTION_SOLAIRE,
         TAG_SLUGS.MATIN,
@@ -948,7 +948,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -979,7 +979,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SERUM,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.EXFOLIANT_CHIMIQUE,
@@ -1004,8 +1004,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/d8198e8a-43ac-486c-bbe7-26e5c50dbf38/Ducray-Kelual-Emulsion-Keratoreductrice-50ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1028,7 +1028,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -1053,8 +1053,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/db99afa4-9153-40aa-bbdd-0606258c0204/Ducray-Sensinol-Lait-Apaisant-Physioprotecteur-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1077,7 +1077,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -1103,8 +1103,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/43d496e1-5a98-4ad4-9df7-492270744ae8/Ducray-Dexyane-Baume-Emollient-Anti-Grattage-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.BAUME],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.BAUME],
       avoid: [],
     },
     keyIngredients: [],
@@ -1127,7 +1127,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -1152,13 +1152,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/4a3d64ea-dde9-4b77-98cb-7a0ac9f8b2eb/Ducray-Melascreen-Contour-des-Yeux-Antitaches-15-ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [
-        TAG_SLUGS.HUMECTANT,
-        TAG_SLUGS.CONTOUR_YEUX,
-        TAG_SLUGS.ZONE_YEUX,
-        TAG_SLUGS.SOIN_YEUX,
-      ],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX],
       avoid: [],
     },
     keyIngredients: [],
@@ -1179,8 +1174,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/e15e9f04-7a96-4e17-b0ab-da2ad9d6b7d3/EAN_IMG_FR_3282770394931_1?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1203,7 +1198,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -1228,8 +1223,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/204bca31-ef8a-42c5-a58d-833ca8c1e641/Ducray-Kelual-DS-Shampoing-Traitant-Etats-Pelliculaires-Severes-Lot-2x100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1252,7 +1247,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
@@ -1279,8 +1274,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/688ce825-036e-42a4-9c1b-6fb731ab87af/EAN_IMG_FR_3282770396508_1?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1301,8 +1296,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/e561a831-78b6-469c-8a4d-9dbe09fb6b33/EAN_IMG_FR_3282770394948_1?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1323,8 +1318,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/8eb3c091-9fd4-4b40-a80b-8b6eeb7b1121/EAN_IMG_FR_3282770394993_1?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.SERUM, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.SERUM],
+      secondary: [TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1346,7 +1341,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/613a4762-a349-4693-aea4-d6d812d9afd8/Ducray-Anaphase-Shampoing-Antichute-et-croissance-400ml?io=transform:extend,width:600,height:600',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1368,7 +1363,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/44caf259-0245-4500-a6e1-0c808a581263/EAN_IMG_FR_3282770396423_1?io=transform:extend,width:600,height:600',
     tags: {
       primary: [TAG_SLUGS.APAISANT],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1390,7 +1385,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/c45cd3a4-09b4-4a20-8b00-42fcfc2653ef/EAN_IMG_FR_3282770396430_1?io=transform:extend,width:600,height:600',
     tags: {
       primary: [TAG_SLUGS.APAISANT],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1411,8 +1406,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/e6aa3398-d5c7-428d-824e-94e7fcc336e8/EAN_IMG_FR_3282770400786_1?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1433,8 +1428,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/670fecd4-8966-4830-a415-a70d684381b1/EAN_IMG_FR_3282770396515_1?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1455,13 +1450,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/b9e0d751-9c70-4be8-a6bb-593b7df17182/Ducray-Keracnyl-Gel-Moussant-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [
-        TAG_SLUGS.HUMECTANT,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1484,7 +1474,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.NETTOYANT,
         TAG_SLUGS.DOUBLE_NETTOYAGE_2,
@@ -1512,7 +1502,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.NETTOYANT,
         TAG_SLUGS.DOUBLE_NETTOYAGE_2,
@@ -1540,7 +1530,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,

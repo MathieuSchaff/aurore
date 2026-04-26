@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../../data/tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../../data/tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const LAZARTIGUE_SEED: UnifiedProductSeed[] = [
@@ -14,7 +14,7 @@ export const LAZARTIGUE_SEED: UnifiedProductSeed[] = [
     description: 'Sérum anti-chute progressive, action densifiante.',
     url: 'https://www.atida.fr/lazartigue-anti-chute-serum-anti-chute-progressive-thicker-50ml.html',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -35,7 +35,7 @@ export const LAZARTIGUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/03a63a6c-4083-4536-9a60-ffe0dc8ba753/Lazartigue-Anti-Chute-Serum-Anti-chute-Progressive-Thicker-50ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -64,7 +64,7 @@ export const LAZARTIGUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/fde91735-07d4-4c5b-9d37-c05c2b0fc6b1/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -93,7 +93,7 @@ export const LAZARTIGUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/6d2d5a80-0ac6-475b-8ad3-73df2fc146c7/Lazartigue-Extra-Gentle-Shampooing-Detox-250ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -121,7 +121,7 @@ export const LAZARTIGUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/7dfa8f59-fc93-41af-a6f6-4254636a33a2/Generated-image?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

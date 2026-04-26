@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const BIOKAP_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const BIOKAP_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/9d0f2002-a5a1-435c-83b7-5971f2b600f9/Biokap-Lotion-Fortifiante-Anti-Chute-50ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -48,7 +48,7 @@ export const BIOKAP_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/b4834384-e73c-4125-8f55-330d8fdf9aa5/Biokap-Nutricolor-Delicato-Teinture-pour-Cheveux-2-9-Chatain-Fonce-Chocolat-140ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -77,7 +77,7 @@ export const BIOKAP_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/af29ae1e-ac7b-4618-b538-44ccd2098341/Biokap-Shampoing-Anti-Pelliculaire-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

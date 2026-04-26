@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const BAILLEUL_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const BAILLEUL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/d49857b5-5956-487d-8f2f-205b4d26697b/Cystiphane-Lotion-Antichute-100ml-Resistance-et-croissance-des-cheveux?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },

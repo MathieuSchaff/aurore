@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/07dc39a6-56d3-461c-b935-ccd046efad34/Les-Secrets-de-Loly-Coiffants-Leave-In-Gelee-Capillaire-Boost-Curl-250ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.PRODUIT_COIFFANT],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.GEL_COIFFANT],
       secondary: [],
       avoid: [],
     },
@@ -50,7 +50,7 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/86bef7d0-ed4a-4fed-8732-19959902746c/Les-Secrets-de-Loly-Apres-Shampoing-Pink-Paradise-250ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -82,7 +82,7 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/74afa4cb-7f83-4b1e-8447-a36e2aaaf6c6/Les-Secrets-de-Loly-Coiffants-Leave-In-Soin-Sans-Rincage-Kurl-Nectar-250ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -114,7 +114,7 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/f5a0bad5-c4b7-4182-9eee-77e0a493e123/Les-Secrets-de-Loly-Routine-Cheveux-Epais-Boucles?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SERUM_CHEVEUX],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
       avoid: [],
     },
@@ -136,7 +136,7 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/23103a04-b302-44dc-b2e8-89977573ea6b/Les-Secrets-de-Loly-Soin-Masque-Hydratant-Repair-Time-230ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -166,7 +166,7 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/187c8014-cd9c-46e2-afdb-3f1c80ce347d/Les-Secrets-de-Loly-Shampoing-Perfect-Clean-250ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -192,7 +192,7 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/08fe5154-55af-4a9c-838b-bded1060b8ee/EAN_IMG_FR_0633710473569_1?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.APRES_SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -220,7 +220,7 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/f0dc6c7b-75a2-4e6d-9f72-9daac131e2c5/EAN_IMG_FR_0633710473552_1?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

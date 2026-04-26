@@ -60,7 +60,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BRILLANCE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.NETTOYANT,
         TAG_SLUGS.DOUBLE_NETTOYAGE_2,
         TAG_SLUGS.GEL_NETTOYANT,
@@ -94,7 +94,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ECLAT, TAG_SLUGS.REPULPANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.TEXTURE_LEGERE,
@@ -124,7 +124,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.MICROBIOME, TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.TEINT_TERNE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.EXFOLIATION,
         TAG_SLUGS.EXFOLIANT_CHIMIQUE,
@@ -153,7 +153,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.REPULPANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -182,7 +182,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.KERATOSE_PILAIRE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.LAIT_CORPS,
@@ -212,7 +212,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.PHOTO_PROTECTION, TAG_SLUGS.PHOTO_VIEILLISSEMENT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.CREME_SOLAIRE_TEINTEE,
@@ -243,7 +243,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.MICROBIOME, TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.TEINT_TERNE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.EXFOLIATION,
         TAG_SLUGS.EXFOLIANT_CHIMIQUE,
@@ -272,7 +272,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.FILTRES_MINERAUX,
@@ -301,8 +301,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/bb224236-ccc2-4902-bc16-ca4a9617fad6/Garancia-Fee-Moi-Fondre-Boostee-Mousse-Crepitante-Anti-Capitons-Express-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],
@@ -323,8 +323,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/abb35dce-a11e-4540-bfa0-3264bc9ba5bf/Garancia-Fee-Moi-Fondre-La-Nuit-Mousse-Crepitante-Anti-Capitons-Express-400ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_CORPS],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],
@@ -353,7 +353,6 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.MICROBIOME,
       ],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.SERUM,
         TAG_SLUGS.TRAITEMENT,
@@ -383,7 +382,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -413,7 +412,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.AUTO_BRONZANT,
         TAG_SLUGS.MASQUE_HYDRATANT,
         TAG_SLUGS.SLEEPING_MASK,
@@ -445,7 +444,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ECLAT, TAG_SLUGS.REPULPANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.TEXTURE_RICHE,
@@ -476,7 +475,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -508,7 +507,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.BRUME,
         TAG_SLUGS.PREPARATION,
         TAG_SLUGS.TRAITEMENT,
@@ -543,7 +542,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ANTI_ACNE,
       ],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.EMOLLIENCE,
@@ -575,7 +574,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PHOTO_PROTECTION, TAG_SLUGS.PHOTO_VIEILLISSEMENT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.PROTECTION_SOLAIRE,
         TAG_SLUGS.FILTRES_CHIMIQUES,
@@ -603,9 +602,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/efd36cc1-7b1c-46c9-8b37-4b9c7cc37b93/Garancia-Solaire-Brume-Lactee-Fraicheur-Express-Apres-Solaire-150ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
+      primary: [TAG_SLUGS.BRUME],
       secondary: [
-        TAG_SLUGS.BRUME,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.APRES_SOLEIL,
         TAG_SLUGS.ZONE_VISAGE,
@@ -633,7 +631,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PHOTO_PROTECTION, TAG_SLUGS.PHOTO_VIEILLISSEMENT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.PROTECTION_SOLAIRE,
         TAG_SLUGS.FILTRES_CHIMIQUES,
@@ -662,8 +660,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/e99a539b-1dcf-4fd9-a78e-4633ac2d9d39/Garancia-Offre-FEE-MOI-FONDRE?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],
@@ -692,7 +690,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ECLAT,
       ],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -728,7 +726,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ANTI_AGE,
       ],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.SERUM,
         TAG_SLUGS.TRAITEMENT,
@@ -759,7 +757,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.MICROBIOME, TAG_SLUGS.GRAIN_PEAU],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.EXFOLIATION,
         TAG_SLUGS.EXFOLIANT_CHIMIQUE,
@@ -787,9 +785,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/d808bbb2-d789-44ad-9669-91b968fbee1c/Garancia-En-Deux-Coups-de-Baguette-Creme-Demaquillante-Visage-et-Yeux-Rose-120g-Serviette-Offerte?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
+      primary: [TAG_SLUGS.HYDRATATION],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
         TAG_SLUGS.NETTOYANT,
         TAG_SLUGS.DOUBLE_NETTOYAGE_1,
         TAG_SLUGS.CREME_NETTOYANTE,
@@ -820,7 +817,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.TEXTURE_LEGERE,
@@ -848,8 +845,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/24ac0bcd-3bbc-4fc8-9de2-f297dbc990bd/Garancia-Fee-Moi-Dorer-Mousse-Crepitante-Corps-Auto-Bronzante-Hydratante-200ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.AUTO_BRONZANT, TAG_SLUGS.ZONE_CORPS],
+      primary: [TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.AUTO_BRONZANT, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],
@@ -878,7 +875,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.TEINT_TERNE,
       ],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.SERUM,
         TAG_SLUGS.TRAITEMENT,
@@ -908,7 +905,6 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.HYDRATATION],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
         TAG_SLUGS.PREBIOTIQUE,
         TAG_SLUGS.GEL_CREME,
         TAG_SLUGS.TEXTURE_LEGERE,
@@ -943,7 +939,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.APAISANT,
       ],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.PATCH,
@@ -979,7 +975,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.APAISANT,
       ],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CONTOUR_YEUX,
@@ -1009,7 +1005,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.MATIN,
@@ -1038,7 +1034,6 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.HYDRATATION],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
         TAG_SLUGS.PREBIOTIQUE,
         TAG_SLUGS.GEL_CREME,
         TAG_SLUGS.TEXTURE_LEGERE,
@@ -1073,7 +1068,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ANTI_AGE,
       ],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CONTOUR_YEUX,
         TAG_SLUGS.ZONE_YEUX,
@@ -1102,7 +1097,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ECLAT, TAG_SLUGS.MICROBIOME],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.TEXTURE_LEGERE,
@@ -1139,7 +1134,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.BARRIERE_CUTANEE,
       ],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.SERUM,
         TAG_SLUGS.TRAITEMENT,
@@ -1178,7 +1173,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.TEXTURE_LEGERE,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.MATIN,
@@ -1206,7 +1201,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.MICROBIOME],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.NETTOYANT,
         TAG_SLUGS.DOUBLE_NETTOYAGE_1,
         TAG_SLUGS.EAU_MICELLAIRE,
@@ -1237,7 +1232,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.MASQUE_HYDRATANT,
@@ -1274,7 +1269,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.TEINT_TERNE,
       ],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.SERUM,
         TAG_SLUGS.TRAITEMENT,
@@ -1304,7 +1299,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -1340,7 +1335,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ANTI_OXYDANT,
       ],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -1372,7 +1367,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.MICROBIOME, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -1403,7 +1398,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.SERUM,
         TAG_SLUGS.TRAITEMENT,
@@ -1438,7 +1433,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ANTI_OXYDANT,
       ],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.SERUM,
@@ -1474,7 +1469,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.BRILLANCE,
       ],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.SPOT_TREATMENT,
         TAG_SLUGS.SOIN_LOCALISE,
@@ -1506,7 +1501,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.REPULPANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -1542,7 +1537,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.TEINT_TERNE,
       ],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
@@ -1571,9 +1566,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/cb2941b9-3e9c-4fe1-b0f6-93698b7a3037/Garancia-Solaire-L-Eau-Metamorphosante-Protectrice-SPF50-150ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
+      primary: [TAG_SLUGS.HYDRATATION],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.PROTECTION_SOLAIRE,
         TAG_SLUGS.MATIN,
@@ -1601,7 +1595,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.SERUM,
         TAG_SLUGS.TRAITEMENT,
@@ -1632,7 +1626,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/7905028a-7b1c-4ec4-929b-a49b5d6b099a/Garancia-A-la-Belle-Etoile-Creme-Supreme-de-Nuit-Regeneratrice-Visage-et-Cou-Recharge-40ml?io=transform:extend,width:600,height:600',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
-      secondary: [TAG_SLUGS.HUMECTANT, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1655,7 +1649,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.REPULPANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.POUDRE,
         TAG_SLUGS.TRAITEMENT,
@@ -1684,7 +1678,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ANTI_AGE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.PROTECTION_SOLAIRE,
@@ -1722,7 +1716,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ANTI_OXYDANT,
       ],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -1761,7 +1755,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
       ],
       secondary: [
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.SERUM,
         TAG_SLUGS.TRAITEMENT,
@@ -1826,7 +1820,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ANTI_OXYDANT,
       ],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.SERUM,
@@ -1858,7 +1852,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.PHOTO_PROTECTION, TAG_SLUGS.PHOTO_VIEILLISSEMENT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.PROTECTION_SOLAIRE,
@@ -1889,7 +1883,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.MICROBIOME],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.NETTOYANT,
         TAG_SLUGS.DOUBLE_NETTOYAGE_1,
         TAG_SLUGS.EAU_MICELLAIRE,
@@ -1925,7 +1919,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.BARRIERE_CUTANEE,
       ],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -1954,7 +1948,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.MICROBIOME],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.NETTOYANT,
         TAG_SLUGS.DOUBLE_NETTOYAGE_1,
         TAG_SLUGS.EAU_MICELLAIRE,
@@ -1983,9 +1977,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/cc22e228-3154-4810-ad50-cc75af3a0936/Garancia-En-Deux-Coups-de-Baguette-Creme-Demaquillante-Visage-et-Yeux-Amande-120g?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [],
+      primary: [TAG_SLUGS.HYDRATATION],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.NETTOYANT,
         TAG_SLUGS.DOUBLE_NETTOYAGE_1,
@@ -2022,7 +2015,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ANTI_OXYDANT,
       ],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.SERUM,
         TAG_SLUGS.TRAITEMENT,
@@ -2062,7 +2055,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
       ],
       secondary: [
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.SERUM,
         TAG_SLUGS.TRAITEMENT,
@@ -2092,7 +2085,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.KERATOSE_PILAIRE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.LAIT_CORPS,
@@ -2122,7 +2115,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PHOTO_PROTECTION, TAG_SLUGS.PHOTO_VIEILLISSEMENT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.PROTECTION_SOLAIRE,
         TAG_SLUGS.FILTRES_CHIMIQUES,
@@ -2157,7 +2150,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.CICATRISATION,
       ],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.SERUM,
         TAG_SLUGS.TRAITEMENT,
@@ -2192,7 +2185,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.MICROBIOME,
       ],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.NETTOYANT,
         TAG_SLUGS.EAU_MICELLAIRE,
@@ -2222,7 +2215,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.CERNES_POCHES],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CONTOUR_YEUX,
         TAG_SLUGS.ZONE_YEUX,
@@ -2251,42 +2244,11 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.CREME_DE_NUIT,
         TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.BIO_NATUREL,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
-      avoid: [],
-    },
-    keyIngredients: [],
-  },
-  {
-    slug: 'garancia-coffret-mysterieux-mille-et-un-jours-30ml-mysterieuses-mille-et-une-nuits-10ml-offert-304279',
-    name: 'Garancia Coffret Mystérieux Mille et Un Jours 30ml + Mystérieuses Mille et Une nuits 10ml offert',
-    brand: 'Garancia',
-    kind: 'moisturizer',
-    unit: 'jar',
-    totalAmount: 2,
-    amountUnit: 'unités',
-    priceCents: 4986,
-    description: '',
-    notes: '',
-    inci: '[MYSTÉRIEUX Mille et Un Jours] : AQUA (WATER/EAU)*, GLYCERIN*, CETEARYL OLIVATE*, ORYZA SATIVA (RICE) STARCH*, SORBITAN OLIVATE*, CAPRYLIC/CAPRIC TRIGLYCERIDE*, MICROCRYSTALLINE CELLULOSE*, ALARIA ESCULENTA EXTRACT*, HYDROLYZED HYALURONIC ACID*, CAESALPINIA SPINOSA FRUIT EXTRACT*, KAPPAPHYCUS ALVAREZII EXTRACT*, COPPER TRIPEPTIDE-1, DIPEPTIDE DIAMINOBUTYROYL BENZYLAMIDE DIACETATE, PALMITOYL TETRAPEPTIDE-7*, PALMITOYL TRIPEPTIDE-1*, POLYGLYCERYL-10 OLEATE*, XANTHAN GUM*, CELLULOSE GUM*, CAPRYLIC ACID*, 1,5-PENTANEDIOL, PARFUM (FRAGRANCE), VANILLIN, CAPRYLYL GLYCOL, SODIUM LACTATE*, SODIUM HYDROXIDE *Origine Naturelle / Natural Origin  [MYSTÉRIEUSES Mille et Une Nuits] : AQUA (WATER/EAU)*, HEPTYL UNDECYLENATE*, CAPRYLIC/CAPRIC TRIGLYCERIDE*, GLYCERIN*, CETYL ALCOHOL*, CETEARYL OLIVATE*, SORBITAN OLIVATE*, PENTYLENE GLYCOL*, PROPANEDIOL*, METHYLPROPANEDIOL, ALCOHOL*, BENTONITE*, TOCOPHEROL*, HYDROLYZED HYALURONIC ACID*, BOROJOA PATINOI FRUIT JUICE*, ACMELLA OLERACEA EXTRACT*, ULVA LACTUCA EXTRACT*, MONTMORILLONITE*, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL*, PARFUM (FRAGRANCE), DIPEPTIDE DIAMINOBUTYROYL BENZYLAMIDE DIACETATE, XANTHAN GUM*, SODIUM HYDROXIDE, HYDROXYPROPYL CYCLODEXTRIN, PALMITOYL TRIPEPTIDE-38, BENZOIC ACID, SODIUM PHYTATE* *Origine Naturelle / Natural Origin',
-    url: 'https://www.atida.fr/garancia-coffret-mysterieux-mille-et-un-jours-30ml-mysterieuses-mille-et-une-nuits-10ml-offert-1.html',
-    imageUrl:
-      'https://assets.atida.com/transform/5746023d-117e-4296-90a0-954050ee00e7/Garancia-Coffret-Mysterieux-Mille-et-Un-Jours-30ml-Mysterieuses-Mille-et-Une-nuits-10ml-offert?io=transform:extend,width:600,height:600',
-    tags: {
-      primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
-      secondary: [
-        TAG_SLUGS.HUMECTANT,
-        TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.CREME_DE_NUIT,
         TAG_SLUGS.SOIR,
         TAG_SLUGS.BIO_NATUREL,
         TAG_SLUGS.ZONE_VISAGE,
@@ -2313,7 +2275,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -2340,7 +2302,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -2370,7 +2332,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.MATIN,
@@ -2401,7 +2363,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.KERATOSE_PILAIRE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.LAIT_CORPS,
@@ -2433,7 +2395,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.CREME_HYDRATANTE,
@@ -2463,7 +2425,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.NETTOYANT_CORPS,
@@ -2498,7 +2460,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.CICATRISATION,
       ],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.SERUM,
         TAG_SLUGS.TRAITEMENT,
@@ -2534,7 +2496,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.PHOTO_PROTECTION,
       ],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
@@ -2572,7 +2534,6 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.HYDRATATION,
       ],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
         TAG_SLUGS.PREBIOTIQUE,
         TAG_SLUGS.GEL_CREME,
         TAG_SLUGS.TEXTURE_LEGERE,
@@ -2602,7 +2563,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.MASQUE_HYDRATANT,
         TAG_SLUGS.MASQUE_HEBDO,
@@ -2632,7 +2593,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.MASQUE_HYDRATANT,
@@ -2663,7 +2624,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.KERATOSE_PILAIRE],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.LAIT_CORPS,
@@ -2693,7 +2654,7 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HUMECTANT,
+        TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.MASQUE_HYDRATANT,

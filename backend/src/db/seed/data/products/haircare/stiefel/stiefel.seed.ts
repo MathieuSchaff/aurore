@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const STIEFEL_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const STIEFEL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/e9c54ef2-d01b-4510-8d54-2843ca3f0e77/Stiproxal-Shampoing-Antipelliculaire-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
@@ -46,7 +46,7 @@ export const STIEFEL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/3d5a06a6-6b3e-46e5-8382-f0ff8c4884e6/Stiprox-1-5-Shampoing-Antipelliculaire-100ml?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },

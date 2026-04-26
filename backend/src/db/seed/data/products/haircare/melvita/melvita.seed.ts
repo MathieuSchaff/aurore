@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const MELVITA_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const MELVITA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/e0679cbd-7a66-490e-85a1-aefe8c38481a/Melvita-Les-Essentiels-Shampoing-Douche-Extra-Doux-Bio-1L?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.SHAMPOING],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
       avoid: [],
     },
