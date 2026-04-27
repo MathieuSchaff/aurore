@@ -10,7 +10,7 @@
 	logs logs-api logs-db logs-nginx logs-frontend \
 	lint lint-fix format \
 	shell-api shell-db shell-frontend \
-	db-migrate db-generate db-push db-studio db-backup db-restore db-seed db-clean db-reset \
+	db-migrate db-generate db-push db-studio db-backup db-restore db-seed db-clean db-reset audit-db db-seed-safe \
 	db-backup-prod db-backup-clean backup-cron-install \
 	ssl-init ssl-renew nginx-reload \
 	firewall-setup firewall-status \
@@ -309,6 +309,12 @@ db-clean: ## Vide complètement la base de données (SCHEMA public)
 	@echo "$(GREEN)✓ Base de données vidée.$(NC)"
 
 db-reset: db-clean db-migrate db-seed ## Nettoyage complet + Migrations + Seed
+
+audit-db: ## Audite la cohérence de la DB (drift seed, intégrité relationnelle)
+	@echo "$(CYAN)Audit DB en cours...$(NC)"
+	$(COMPOSE_DEV) exec api bun run src/db/audit/audit-db.ts
+
+db-seed-safe: db-seed audit-db ## Seed + audit (recommandé après reseed)
 
 db-backup: ## Crée une sauvegarde SQL de la base de données
 	@mkdir -p ./backups
