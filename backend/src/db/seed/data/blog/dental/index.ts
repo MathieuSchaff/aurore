@@ -1,4 +1,4 @@
 import type { ArticleInput } from '../seed-articles'
-import { hydroxyapatiteBlanchiment } from './hydroxyapatite-blanchiment'
+import { HYDROXYAPATITE_DENTIFRICE_GUIDE } from './hydroxyapatite-blanchiment'
 
-export const dentalArticles: ArticleInput[] = [hydroxyapatiteBlanchiment]
+export const dentalArticles: ArticleInput[] = [HYDROXYAPATITE_DENTIFRICE_GUIDE]
