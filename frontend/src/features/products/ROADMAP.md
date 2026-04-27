@@ -67,7 +67,11 @@ Vérifié en navigateur sur `products/new` et `product/$slug/edit` (Abib Glutath
 - `domainTags = allTags.filter(t => validTagTypes.has(t.category))` passé à `useFormTags` (`ProductForm.tsx:104-113`) → le dropdown "Ajouter un tag" ne propose que les catégories du domaine.
 - Reset des tags incompatibles au switch de catégorie (`ProductForm.tsx:285-290`).
 - Note : `tagQueries.list()` charge toujours tous les tags (pas de paramètre `category` passé). Filtrage côté client. Pas de pagination backend (`backend/src/features/tags/routes.ts:40`) → tous les tags sont disponibles. Optimisation possible (passer `category` à la query) mais pas un bug.
-- **Reste ouvert** : aucune validation backend que les tags attachés correspondent à la catégorie du produit. Côté serveur, on peut toujours rattacher n'importe quel tag à n'importe quel produit. Dette data, orthogonale au fix UI.
+- **✅ Validation backend shippée 2026-04-27.**
+  - `assertTagsMatchProductDomain` (`backend/src/features/products/product-tags/domain-validation.ts`) : fetch product.category → derive domain via `PRODUCT_CATEGORY_TO_DOMAIN_TAB` → compare chaque `tag.tagType` à `DOMAIN_PRODUCT_FILTER_CATEGORIES[domain]`. Throw `ProductError('tag_domain_mismatch')` si mismatch.
+  - Hookée dans `PUT /products/:productId/tags` (`product-tags/routes.ts:38-39`) avant `replaceProductTags`. Code mappé en `400 BAD_REQUEST` (`shared/products/helpers.ts:34`).
+  - Pas de partial commit : la validation court-circuite `replaceProductTags` → les liens existants sont préservés en cas de mismatch.
+  - **Limite connue** : seed-core utilise `addTagToProduct` (service direct), pas la route. La validation API ne couvre pas le seed. Filet de sécurité = `make audit-db` (script umbrella `backend/src/db/audit/audit-db.ts` avec checker `checkTagProductDomainConsistency`) + chain `make db-seed-safe = db-seed + audit-db`. Run initial sur DB actuelle = 0 violation.
 
 **Contexte**
 
@@ -464,16 +468,142 @@ L'utilisateur tape un terme dans la barre de recherche du header produits. Le dr
 
 Tests : **+9 tests verts** (5 unitaires `foldText` + 4 intégration `ProductsHeader`). 0 régression sur la baseline de 19 fails préexistants (Toggle / FilterDrawer / etc., orthogonaux).
 
-#### Ce qui reste à faire (pas urgent)
+#### Journal D2 — 2026-04-27 ✅ shippé
 
-- **D2 — Enter handler** : appuyer sur Entrée sans cliquer = trigger la première entrée footer dispo. Cohérent avec convention e-commerce (Amazon, Sephora). Architecture déjà prête (footer hors listbox, primitive peut intercepter Enter sans highlight).
-- **D3 — Filtre `q` texte libre** : pour les recherches qui ne matchent ni marque ni ingrédient (ex: "matifiant"). Plus lourd (touche le schéma list partagé). À éviter tant que D1+D2 couvrent bien.
-- **D4 — Sections multi-facettes dans le dropdown** : "Produits / Ingrédients / Marques" en sections séparées. UX plus riche mais plus complexe. Optionnel, à ouvrir si D1+D2+D3 ne suffisent pas.
+**Le problème en une phrase**
 
-#### Coverage gaps mineurs (à hardener un jour)
+Taper "niacinamide" puis Enter ne faisait rien — l'utilisateur devait cliquer sur le footer "Voir tous les produits avec Niacinamide" à la souris. Sur mobile ou clavier, c'était une friction inutile.
 
-- Test no-match (`xyzqwerty`) : assertion négative faible — passerait même si `extraEntries` retournait toujours `[]`. À durcir en confirmant d'abord que le dropdown s'ouvre, puis que le footer est absent.
-- Pas de test intégration "tape sans accent → matche avec accent" (ex: `avene` → `Avène`). Couvert indirectement par les tests unitaires `foldText`, mais l'intégration mériterait un test explicite.
+**La solution**
+
+`SearchCombobox.handleKeyDown` s'étend : quand Enter est pressé sans item highlight (`highlightedIndex === -1`), le dropdown est ouvert (`showDropdown`), et une entrée footer existe (`extras[0]`) → `e.preventDefault()` + déclenche `handleExtraSelect(extras[0])`. Le `ComboboxPrimitive` voit `defaultPrevented=true` et passe — aucune modif du Primitive.
+
+Comportement complet :
+- Enter + item highlight → navigation produit (inchangé)
+- Enter + pas de highlight + footer → déclenche `extras[0].onSelect()` (marque ou ingrédient selon ce qui matche)
+- Enter + pas de highlight + pas de footer → rien (inchangé)
+
+**Fichier modifié :** `frontend/src/component/Search/SearchCombobox.tsx` (+4 lignes)
+
+Tests : **+2 tests verts** dans `SearchCombobox.test.tsx` (keyboard suite) :
+- "Enter with no highlight triggers first footer entry"
+- "Enter with highlighted item selects item, not footer"
+
+#### Journal D3 — 2026-04-27 ✅ shippé
+
+**Le problème en une phrase**
+
+Taper un terme qui n'est ni une marque ni un ingrédient (ex: "matifiant") ne ramenait que ~8 produits via l'autocomplete header (`searchProducts`, ILIKE name+brand limit 8). Aucun moyen depuis la barre de recherche d'obtenir la **liste complète** des produits dont le nom contient ce mot.
+
+**La solution**
+
+Paramètre `q` texte libre ajouté au list endpoint (ILIKE name OR brand). Le header `SearchCombobox` propose une entrée footer fallback **"Voir tous les résultats pour 'X'"** quand la query ne matche ni marque ni ingrédient. Click ou Enter → `/products?q=X` → liste paginée filtrée.
+
+Comportement complet en cascade :
+- Match marque exact → entrée brand footer
+- Match ingrédient exact (name OU slug, fold) → entrée ingredient footer
+- **Aucun match facette → entrée fallback `q`** (mutuellement exclusive avec les facettes)
+
+**Implémentation (12 fichiers)**
+
+Backend / shared :
+- `shared/src/products/list-products-query.ts` : `q: z.string().trim().min(1).max(100).optional()` dans `baseListProductsQuery` (propagé aux 4 branches discriminées).
+- `backend/src/features/products/service.ts` : `if (filters.q) conditions.push(or(ilike(name, %q%), ilike(brand, %q%)))`. `escapeLike` pour échapper les wildcards LIKE dans l'input utilisateur.
+- `backend/src/features/products/tests/products.test.ts` : 3 tests (match name, match brand, no match).
+
+Frontend :
+- `frontend/src/features/products/filters.ts` : `q` dans `productsSearchSchema` (URL state).
+- `frontend/src/features/products/helpers.ts` : `q` dans `buildProductsApiFilters`. `isDiscoveryMode` étendu avec `hasQuery` — un `q` actif sort du discovery (intent utilisateur). `buildResetSearchParams` + `buildDomainSwitchSearch` clear `q`.
+- `frontend/src/features/products/__tests__/helpers.test.ts` : signature `hasQuery` propagée + 2 nouveaux tests (forward `q`, sort discovery).
+- `frontend/src/features/products/hooks/useProductsExtraChips.ts` : chip `Recherche : "X"`, onRemove → set `q: undefined`.
+- `frontend/src/features/products/pages/ProductsPage/ProductsPage.tsx` : lit `q` du search, passe au builder + `useProductsExtraChips` + `effectiveFilterCount`.
+- `frontend/src/features/products/components/ProductsHeader/ProductsHeader.tsx` : fallback footer (icône `Search`) quand `entries.length === 0`. Click/Enter navigate avec `q: trimmed`.
+- `frontend/src/features/products/components/ProductsHeader/__tests__/ProductsHeader.test.tsx` : 4 nouveaux tests (no-match → fallback positive, mutex facette/fallback, click fallback, Enter fallback).
+- `frontend/src/lib/queries/products.ts` : `q` dans `ListProductsFilters` + serializer `buildListProductsQuery`.
+- `frontend/e2e/products.spec.ts` : "matifiant" → footer fallback → URL `?q=matifiant` + chip visible.
+
+**Limitations connues**
+
+- D3 ne matche **que** `products.name` + `products.brand`. Pas les **tags**. Un produit taggué `product_label: matifiant` mais sans le mot dans son nom reste invisible via D3. Couvrir aussi les tags = scope D4 (multi-facettes) ou nouveau chantier.
+- ILIKE simple, pas de `pg_trgm`. Volontaire : prédictabilité (le user a tapé un mot exact, on cherche ce mot, pas une approximation). Si besoin de tolérance fautes plus tard, switch vers `similarity()` comme `searchProducts`.
+- Pas d'empty state spécifique au mode `q` — fallback sur l'EmptyState générique "Aucun produit ne correspond à vos filtres".
+
+**Tests**
+- Backend: 80/80 (+3 tests `q free-text`)
+- Frontend: 94/94 (+4 helpers, +4 ProductsHeader)
+- E2E: 1 nouveau spec (compile, listé, à valider via `make e2e`)
+
+#### Journal D4 — 2026-04-27 ✅ shippé
+
+**Le problème en une phrase**
+
+D1+D2+D3 ne montraient qu'**un** match par facette (le match exact via `===` après fold). Taper "vita" ne ramenait que la "Vitamine C" si elle existait, masquant Vitamine E, A, B3. Une seule entrée mélangée dans un footer plat (au plus 2-3 entrées toutes confondues), sans hiérarchie visuelle entre marques / ingrédients / fallback texte.
+
+**La solution**
+
+Le dropdown bascule en **sections labellisées** : Ingrédients (top 3) / Marques (top 3) / Recherche (fallback toujours présent). Match passe d'`===` à `contains` après fold (multi-match). Sections vides filtrées avant rendu. Navigation clavier traverse tout le contenu (items principaux + items de sections) via un index global. ARIA: `role="group"` + `aria-labelledby` par section, items toujours `role="option"` dans le `role="listbox"` parent.
+
+```
+┌─ items produits scrollables ────────┐
+│ • Sérum Vitamine C — The Ordinary  │
+│ • Vitamin C Booster — Paula's      │
+├─ INGRÉDIENTS ───────────────────────┤
+│ 🧪 Voir tous produits avec Vitamine C│
+│ 🧪 Voir tous produits avec Vitamine E│
+│ 🧪 Voir tous produits avec Vitamine A│
+├─ RECHERCHE ─────────────────────────┤
+│ 🔍 Voir tous résultats "vita"      │
+└─────────────────────────────────────┘
+```
+
+**Implémentation (8 fichiers)**
+
+`frontend/src/component/Search/` :
+- `ComboboxPrimitive.tsx` : nouveau prop `sections?: ComboboxSection[]` + types `ComboboxSection` / `ComboboxSectionItem`. Flat keyboard nav (`totalEntries = items + section items`, indices contigus). Render sections après items dans le même listbox. ARIA group + aria-labelledby sur chaque section. `useFlipPlacement` deps trigger sur `totalEntries`.
+- `ComboboxPrimitive.css` : styles `__section` (border-top + spacing) et `__section-label` (uppercase, muted, xs).
+- `SearchCombobox.tsx` : API `extraEntries` remplacée par `sections: (q) => ComboboxSection[]`. Wrap chaque `item.onSelect` via `handleSectionSelect` pour cleanup automatique (clear input, close, reset highlight). Filter empty sections. Enter sans highlight → premier item du premier section visible (cascade D2 préservée).
+- `SearchCombobox.css` : suppression `__extra`/`__extra+__extra`, ajout `__section-entry` (flex icon+label).
+- `index.ts` : ré-export `ComboboxSection` / `ComboboxSectionItem`.
+
+`frontend/src/features/products/components/ProductsHeader/ProductsHeader.tsx` :
+- 3 sections (Ingrédients / Marques / Recherche). Match passe à `foldText(name).includes(folded) || slug.includes(slugFolded)` pour ingrédients, `foldText(b).includes(folded)` pour marques. Top 3 par section (`FACET_SECTION_LIMIT`). Fallback toujours présent (plus mutex avec facets).
+
+**Tests** :
+- `SearchCombobox.test.tsx` : 4 tests sections (header label, empty filter, click+close, keyboard nav inter-sections) + 2 keyboard adaptés (`extraEntries` → `sections`).
+- `ProductsHeader.test.tsx` : mock ingredients passe à 4 vitamines pour tester top-3. Test mutex D3 supprimé, remplacé par "fallback alongside facet". Nouveaux : "section header labels", "caps ingredient section at FACET_SECTION_LIMIT".
+
+**Comportement Enter (cascade D2 préservée)**
+- Enter avec highlight → onSelect ou item.onSelect (item ciblé)
+- Enter sans highlight + ingredient match → premier ingredient (best semantic)
+- Enter sans highlight + brand match seul → première brand
+- Enter sans highlight + ni facet → fallback (`q=...`)
+
+**Limitations connues**
+- Match alphabétique (`Array.filter` order par `ingredients`/`brands` query order). Pas de scoring relevance. Suffisant tant que les listes restent courtes (~427 ingrédients, ~70 marques).
+- Section "Marques" peut sembler redondante avec D1 brand match exact (qui ramenait 1 entrée). Maintenant top 3 brands `contains` — par exemple taper "der" matche "Bioderma" + "Biodermabrush". Plus utile pour les marques composées.
+- Pas d'announcer aria-live pour le changement de sections (le total est annoncé via `${totalEntries} résultats disponibles`).
+
+**Tests**
+- Backend: 80/80 (inchangé)
+- Frontend: 114/114 (sur Search + products) — 0 régression sur la baseline 19 fails préexistants
+- E2E spec D3 toujours valide (footer fallback texte préservé via section "Recherche")
+
+#### Ce qui reste à faire
+
+- _(Vide — D1/D2/D3/D4 tous shippés.)_
+
+#### Coverage gaps — ✅ addressé 2026-04-27
+
+**Unit / intégration** (`ProductsHeader.test.tsx`)
+- ✅ Test no-match durci : `aria-expanded=true` confirmé avant la négative. Renommé "renders fallback footer" depuis D3 (la négative pure n'a plus de sens, le fallback est positif).
+- ✅ Test intégration accent fold : `avene` → `Avène` (mock `brands: ['Avène']`).
+- ✅ Test intégration Enter → navigate : `vitamine c` + Enter → asserte `navigate({ to: '/products', search: ... ingredient: ['vitamine-c'] ... })`.
+
+**E2E** (`frontend/e2e/products.spec.ts`)
+- ✅ D1 : tape "vitamine c" → footer ingrédient → click → URL `?ingredient=vitamin-c` + cards visibles.
+- ✅ D2 : tape "niacinamide" → footer visible → Enter → URL `?ingredient=niacinamide` + cards.
+- ✅ Brand footer : tape "avène" → footer marque → click → URL `?brand=Av%C3%A8ne` + cards.
+- ✅ D3 : tape "matifiant" → footer fallback → click → URL `?q=matifiant` + cards + chip "Recherche".
 
 #### Références
 
@@ -553,3 +683,28 @@ L'utilisateur cherchait initialement "voir plus de résultats" (étape C — loa
 L'étape D1 (match ingrédient) est le meilleur ratio impact/coût — elle débloque tout de suite le cas le plus fréquent (ingrédients) en suivant un pattern déjà éprouvé (B1 marque). Ne pas faire D3 tout de suite : la search texte libre sur la liste est tentante mais redondante si D1+D2 couvrent bien les facettes nommées.
 
 **Risque à éviter** : empiler trois mécanismes de recherche concurrents (autocomplete + filtre brand + filtre ingredient + filtre q + filtres tags du drawer) sans hiérarchie claire. La page liste devient un sapin de Noël et l'utilisateur ne sait plus quel canal donne quel résultat. Préférer une seule barre de recherche **intelligente** qui dispatche selon le match, plutôt que trois inputs qui font des choses différentes.
+
+---
+
+### 10. Flash visuel du dropdown SearchCombobox au re-fetch
+
+**✅ Implémenté 2026-04-27.**
+
+**Cause**
+
+À chaque frappe (après debounce), `debouncedQuery` changeait → TanStack Query vidait `data` et passait `isFetching=true` → `ComboboxPrimitive` swappait les items contre le spinner "Chargement..." → items de retour à la résolution. Flash visible à chaque keystroke.
+
+**Fix (`frontend/src/component/Search/SearchCombobox.tsx`)**
+
+- `placeholderData: (prev) => prev` sur `useInfiniteQuery` : les résultats précédents restent visibles (`isPlaceholderData=true`) pendant que la nouvelle query charge.
+- `isLoading={isFetching && !isFetchingNextPage && !isPlaceholderData}` : le spinner n'apparaît que lors du tout premier fetch (aucune donnée en cache) — jamais entre deux frappes.
+
+**Tests ajoutés (`frontend/src/component/Search/__tests__/SearchCombobox.test.tsx`)**
+
+9 tests couvrant `SearchCombobox` (composant non testé jusqu'ici) :
+- `results` : items affichés après minChars, `onSelect` appelé avec slug + result, input vidé + dropdown fermé après sélection.
+- `loading states` : spinner sur premier fetch / **items précédents visibles pendant re-fetch** (régression directe du fix).
+- `keyboard` : Escape ferme, ArrowDown + Enter sélectionne le premier item.
+- `footer` : `extraEntries` rendues, `onSelect` + fermeture au clic.
+
+Infrastructure : stub `IntersectionObserver` (jsdom) ajouté en tête du fichier ; `debounce={0}` utilisé comme prop pour les tests (contourne le timer sans fake-timers). Le flag `abcStarted` dans le test "no flash" garantit que la re-fetch a bien démarré avant l'assertion.

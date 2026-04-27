@@ -5,16 +5,39 @@ Scope : `frontend/src/features/products/**` + immediate dependencies (`useListFi
 
 ---
 
+## Status — 2026-04-26 (end of session)
+
+**Done** (root `ROADMAP.md` is the source of truth):
+- Phase 1 entirely (Bug 7, mutation cache hygiene, Bug 6).
+- Phase 2 — Bug 3 (startTransition + loader slot), Bug 2 (form tags filtered by category), Bug 1a/1b (`unit` enum, `PRODUCT_AMOUNT_UNITS` + ChipGroup), **Bug 1c** (`concentrationUnit` shared constant + inline edit UI — `IngredientRow` in `ProductForm`, `useUpdateProductIngredient` PATCH on blur).
+- Phase 3 entirely — `useFlipPlacement` extracted (`frontend/src/component/Search/useFlipPlacement.ts`), `ProductsPage` split + folder cleanup, `ProductForm` form-state sync via `key` reset.
+
+**Stale line/file refs in this audit (Phase 3 fallout)** — re-grep before fixing:
+- `ProductsPage.tsx:396-491` (card render) → `features/products/components/ProductCard/ProductCard.tsx`.
+- `ProductsPage.tsx:185-229` (filterGroups memo) → `features/products/hooks/useProductsFilterGroups.ts`.
+- `ProductsPage.tsx:249-281` (extraChips builder) → `features/products/hooks/useProductsExtraChips.ts`.
+- Header actions (search + sort + filter btn + create) → `features/products/components/ProductsHeader/ProductsHeader.tsx`.
+- ActiveFiltersBar wrapper → `features/products/components/ProductsActiveBar/ProductsActiveBar.tsx`.
+- FilterDrawer + profile toggle + price range → `features/products/components/ProductsFilterDrawerContent/ProductsFilterDrawerContent.tsx`.
+- Card CSS rules (`.list-card--product …`) extracted from `ProductsPage.css` → `ProductCard.css`. `ProductsPage.css` now only owns `.products-page__tabs` + responsive media query.
+- `ProductsPage.tsx` is ~255 lines (orchestration only). Issues described in audit MEDIUM rows 102-103 (component-split + memoize `filters`/`apiFilters`) — split is done; memoization (Phase 5) still pending.
+- Mutation cache hygiene rows (CRITICAL, lines 95-97) — fixed (`useUpdateProductTags`, `useAddProductIngredient`, `useRemoveProductIngredient`, `useDeleteProduct`).
+- HIGH row 101 (`ProductForm` form-state sync) — fixed via `key` reset.
+- Bug 5 partial diagnosis (line 47) — confirmed and fixed via `useFlipPlacement` extraction.
+
+**Pre-existing test baseline** — 19 failing tests (Toggle, FilterDrawer resync, CollectionPage, PurchaseFlow, ProductDetailSheet, a few Layout/Card). All pre-date this audit; none block products work. Skip unless explicitly asked.
+
+**Build note** — after edits to `shared/src/`: `bun run --filter '@habit-tracker/shared' build` then `bunx tsc -b` (or `cd frontend && bunx tsc --noEmit`).
+
+---
+
 ## Known bugs (from ROADMAP.md) — root cause analysis
 
-### Bug 1 — `concentrationUnit` and `unit` (form free-text fields)
-- **File** : `components/ProductForm/ProductForm.tsx:329-336` (`amountUnit` input), `components/ProductForm/ProductForm.schema.ts:17` (`unit: z.string().max(50)`), `components/ProductForm/ProductForm.schema.ts:105`/`146` (`as ProductUnit` casts).
-- **Root cause** : `unit` (conditionnement) is rendered as a `ChipGroup` bound to `PRODUCT_UNITS[category]`, so the UI is constrained — but the form schema accepts any `string` and casts to `ProductUnit` at serialization. `amountUnit` (contenance) is a fully-free `<Input>` (placeholder `"ml, g…"`). `concentrationUnit` has no editing UI in the form at all; the shared enum (`shared/src/products/ingredients.ts:11` — `['%', 'IU', 'mg', 'mcg', 'mg/mL']`) is duplicated in `backend/src/features/products/product-ingredients/routes.ts:26`.
-- **Diagnosis match** : yes (matches roadmap audit notes).
-- **Fix** :
-  1. Replace `z.string().max(50)` for `unit` by `z.enum(PRODUCT_UNIT_VALUES)` and drop `as ProductUnit` casts.
-  2. Promote `amountUnit` to a closed enum (`PRODUCT_AMOUNT_UNITS` in shared) + `ChipGroup`.
-  3. Move the concentrationUnit enum to a single `shared/` constant + label map; expose a `<ChipGroup>` or `<Select>` in the ingredient sub-form; remove the duplicate enum in backend route.
+### Bug 1 — `concentrationUnit` and `unit` (form free-text fields) — **✅ FIXED 2026-04-26**
+- **Originally** : `unit` schema accepted `string`, `amountUnit` was free input, `concentrationUnit` had no UI + enum duplicated backend↔shared.
+- **1a — `unit`** : `productEditFormSchema.unit` now validates via `.refine(v => PRODUCT_UNIT_VALUES.includes(v))` (`ProductForm.schema.ts:20-26`). Cast `as ProductUnit` retained because `refine` does not narrow.
+- **1b — `amountUnit`** : closed enum `PRODUCT_AMOUNT_UNIT_VALUES` + per-category map `PRODUCT_AMOUNT_UNITS` in `shared/src/products/units.ts`. Form uses `ChipGroup` (`ProductForm.tsx:359-368`).
+- **1c — `concentrationUnit`** : shared constant `PRODUCT_CONCENTRATION_UNIT_VALUES` + `ProductConcentrationUnit` type + `PRODUCT_CONCENTRATION_UNIT_LABELS` (FR : `%`, `UI`, `mg`, `µg`, `mg/mL`) in `shared/src/products/units.ts`. Backend route enum dedup'd. Inline edit UI : `IngredientRow` component in `ProductForm.tsx` (per-row `<Input number>` + `<ChipGroup>`). Persistence : `addIngredient` for create-mode (submit-time), `useUpdateProductIngredient` (PATCH) on blur/unit-change for edit-mode.
 
 ### Bug 2 — Tags not filtered by category in product forms
 - **File** : `components/ProductForm/ProductForm.tsx:82` (`useQuery(tagQueries.list())`), `lib/queries/tags.ts:12-26` (the `category` parameter exists but is never passed by `ProductForm`).
