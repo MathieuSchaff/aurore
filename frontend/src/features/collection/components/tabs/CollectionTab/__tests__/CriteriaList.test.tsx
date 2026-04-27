@@ -41,7 +41,7 @@ describe('CriteriaList', () => {
 
   it('affiche 5 étoiles par critère', () => {
     render(<CriteriaList {...defaultProps} />)
-    const starButtons = screen.getAllByRole('button', { name: /Noter \d sur 5/i })
+    const starButtons = screen.getAllByRole('button', { name: /Noter .+ \d sur 5/i })
     expect(starButtons).toHaveLength(30)
   })
 

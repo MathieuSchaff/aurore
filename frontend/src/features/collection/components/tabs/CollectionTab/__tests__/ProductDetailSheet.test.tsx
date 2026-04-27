@@ -1,4 +1,4 @@
-import { cleanup, screen } from '@testing-library/react'
+import { cleanup, fireEvent, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
@@ -58,24 +58,23 @@ describe('ProductDetailSheet', () => {
   it('appelle onClose au clic sur le bouton X', async () => {
     const onClose = vi.fn()
     renderWithProviders(<ProductDetailSheet {...defaultProps} onClose={onClose} />)
-    // There are two "Fermer" buttons: the backdrop and the X button.
-    // The X button is the second one in the DOM.
-    const closeBtns = screen.getAllByRole('button', { name: /Fermer/i })
-    await userEvent.click(closeBtns[1])
+    await userEvent.click(screen.getByRole('button', { name: /Fermer/i }))
     expect(onClose).toHaveBeenCalled()
   })
 
   it('appelle onClose au clic sur le backdrop', async () => {
     const onClose = vi.fn()
     renderWithProviders(<ProductDetailSheet {...defaultProps} onClose={onClose} />)
-    await userEvent.click(screen.getByLabelText('Fermer'))
+    // backdrop = click on the <dialog> element itself (not a child)
+    fireEvent.click(screen.getByRole('dialog'))
     expect(onClose).toHaveBeenCalled()
   })
 
   it('appelle onClose sur la touche Escape', async () => {
     const onClose = vi.fn()
     renderWithProviders(<ProductDetailSheet {...defaultProps} onClose={onClose} />)
-    await userEvent.keyboard('{Escape}')
+    // jsdom doesn't convert keydown Escape to a cancel event — fire it directly
+    fireEvent(screen.getByRole('dialog'), new Event('cancel', { bubbles: false, cancelable: true }))
     expect(onClose).toHaveBeenCalled()
   })
 })
