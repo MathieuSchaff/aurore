@@ -10,7 +10,7 @@
 	logs logs-api logs-db logs-nginx logs-frontend \
 	lint lint-fix format \
 	shell-api shell-db shell-frontend \
-	db-migrate db-generate db-push db-studio db-backup db-restore db-seed db-clean db-reset audit-db db-seed-safe \
+	db-migrate db-generate db-push db-studio db-backup db-restore db-seed db-clean db-reset audit-db db-seed-safe db-stats \
 	db-backup-prod db-backup-clean backup-cron-install \
 	ssl-init ssl-renew nginx-reload \
 	firewall-setup firewall-status \
@@ -313,6 +313,10 @@ db-reset: db-clean db-migrate db-seed ## Nettoyage complet + Migrations + Seed
 audit-db: ## Audite la cohérence de la DB (drift seed, intégrité relationnelle)
 	@echo "$(CYAN)Audit DB en cours...$(NC)"
 	$(COMPOSE_DEV) exec api bun run src/db/audit/audit-db.ts
+
+db-stats: ## Statistiques DB (comptages produits, ingrédients, tags, users)
+	@echo "$(CYAN)Stats DB...$(NC)"
+	$(COMPOSE_DEV) exec api bun run src/db/audit/stats-db.ts
 
 db-seed-safe: db-seed audit-db ## Seed + audit (recommandé après reseed)
 
