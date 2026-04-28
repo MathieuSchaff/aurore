@@ -1,4 +1,5 @@
 import { type ReactNode, useEffect, useId, useMemo, useRef } from 'react'
+import { createPortal } from 'react-dom'
 
 import { useFlipPlacement } from './useFlipPlacement'
 import './ComboboxPrimitive.css'
@@ -83,14 +84,24 @@ export function ComboboxPrimitive<T>({
   useFlipPlacement(containerRef, dropdownRef, isOpen, [totalEntries])
 
   useEffect(() => {
+    if (!isOpen) return
     function handleClickOutside(e: MouseEvent) {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      const target = e.target as Node
+      const inTrigger = containerRef.current?.contains(target)
+      // Dropdown is portaled — also exempt clicks on it from "outside".
+      const inDropdown = dropdownRef.current?.contains(target)
+      if (!inTrigger && !inDropdown) {
+        // Capture-phase intercept so an outside tap dismisses the dropdown
+        // without firing the underlying link/button (common on mobile where
+        // there's no Escape key — accidental navigation was the alternative).
+        e.preventDefault()
+        e.stopPropagation()
         onClose()
       }
     }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [onClose])
+    document.addEventListener('click', handleClickOutside, true)
+    return () => document.removeEventListener('click', handleClickOutside, true)
+  }, [isOpen, onClose])
 
   useEffect(() => {
     if (highlightedIndex >= 0 && isOpen) {
@@ -165,7 +176,7 @@ export function ComboboxPrimitive<T>({
     <div className="combobox-primitive" ref={containerRef} onKeyDown={handleKeyDown}>
       {children({ listboxId, activeDescendant })}
 
-      {isOpen && (
+      {isOpen && createPortal(
         <div ref={dropdownRef} className="combobox-primitive__dropdown">
           {isLoading ? (
             <output className="combobox-primitive__status">Chargement...</output>
@@ -253,7 +264,8 @@ export function ComboboxPrimitive<T>({
               {footer && <div className="combobox-primitive__footer">{footer}</div>}
             </>
           )}
-        </div>
+        </div>,
+        document.body
       )}
 
       <span className="sr-only" aria-live="polite" aria-atomic="true">
