@@ -49,24 +49,24 @@ dev-d: ts-build ## Lance le dev en arrière-plan (build les types d'abord)
 
 dev-fresh: ts-clean install-deps ts-build ## Clean total + install + types + docker (préserve pgdata)
 	$(COMPOSE_DEV) down 2>/dev/null || true
-	docker volume rm habit-tracker_root_node_modules habit-tracker_backend_node_modules habit-tracker_frontend_node_modules 2>/dev/null || true
+	docker volume rm aurore_root_node_modules aurore_backend_node_modules aurore_frontend_node_modules 2>/dev/null || true
 	$(COMPOSE_DEV) up --build
 
 dev-rebuild: ## Rebuild complet sans cache (après ajout de dépendances)
 	$(COMPOSE_DEV) down
-	docker volume rm habit-tracker_root_node_modules habit-tracker_backend_node_modules habit-tracker_frontend_node_modules 2>/dev/null || true
+	docker volume rm aurore_root_node_modules aurore_backend_node_modules aurore_frontend_node_modules 2>/dev/null || true
 	$(COMPOSE_DEV) build --no-cache
 	$(COMPOSE_DEV) up
 
 dev-rebuild-api: ## Rebuild uniquement l'API sans cache
 	$(COMPOSE_DEV) down
-	docker volume rm habit-tracker_root_node_modules habit-tracker_backend_node_modules 2>/dev/null || true
+	docker volume rm aurore_root_node_modules aurore_backend_node_modules 2>/dev/null || true
 	$(COMPOSE_DEV) build --no-cache api
 	$(COMPOSE_DEV) up
 
 dev-rebuild-frontend: ## Rebuild uniquement le frontend sans cache
 	$(COMPOSE_DEV) down
-	docker volume rm habit-tracker_root_node_modules habit-tracker_frontend_node_modules 2>/dev/null || true
+	docker volume rm aurore_root_node_modules aurore_frontend_node_modules 2>/dev/null || true
 	$(COMPOSE_DEV) build --no-cache frontend
 	$(COMPOSE_DEV) up
 
@@ -77,14 +77,14 @@ install-deps: ## Installe les deps depuis la racine (Hôte)
 
 reinstall-backend: ## Rebuild complet backend (volumes + image)
 	$(COMPOSE_DEV) down
-	docker volume rm habit-tracker_backend_node_modules habit-tracker_root_node_modules 2>/dev/null || true
+	docker volume rm aurore_backend_node_modules aurore_root_node_modules 2>/dev/null || true
 	$(COMPOSE_DEV) build --no-cache api
 	$(COMPOSE_DEV) up -d
 	@echo "$(GREEN)✓ Backend réinstallé$(NC)"
 
 reinstall-frontend: ## Rebuild complet frontend (volumes + image)
 	$(COMPOSE_DEV) down
-	docker volume rm habit-tracker_frontend_node_modules habit-tracker_root_node_modules 2>/dev/null || true
+	docker volume rm aurore_frontend_node_modules aurore_root_node_modules 2>/dev/null || true
 	$(COMPOSE_DEV) build --no-cache frontend
 	$(COMPOSE_DEV) up -d
 	@echo "$(GREEN)✓ Frontend réinstallé$(NC)"
@@ -397,7 +397,7 @@ clean-soft: ## Supprime les conteneurs (garde les volumes)
 
 clean-images: ## Supprime les images du projet (force rebuild)
 	$(COMPOSE_DEV) down 2>/dev/null || true
-	docker rmi habit-tracker-frontend habit-tracker-api 2>/dev/null || true
+	docker rmi aurore-frontend aurore-api 2>/dev/null || true
 	@echo "$(GREEN)✓ Images supprimées.$(NC)"
 
 health: ## Vérifie la santé des services
@@ -432,4 +432,4 @@ diagnose: ## Diagnostique les problèmes de types et Docker
 	@docker compose ps 2>/dev/null || echo "$(YELLOW)Docker compose non actif$(NC)"
 	@echo ""
 	@echo "$(CYAN)=== Volumes Docker ===$(NC)"
-	@docker volume ls | grep habit-tracker || echo "$(YELLOW)Pas de volumes habit-tracker$(NC)"
+	@docker volume ls | grep aurore || echo "$(YELLOW)Pas de volumes aurore$(NC)"
