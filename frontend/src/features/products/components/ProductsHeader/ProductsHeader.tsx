@@ -227,13 +227,24 @@ type FloatingFilterButtonProps = {
 const FLOATING_FILTER_Y_KEY = 'products-floating-filter-y'
 // Distance px before pointer-down counts as drag (not click)
 const DRAG_THRESHOLD = 6
-// Margin from viewport edges so the pill never clips out
-const VIEWPORT_MARGIN = 40
+// Pill is 56px tall, centered on viewport mid; halfH = 28
+const PILL_HALF_HEIGHT = 28
+// Visual buffer between pill edge and any obstacle (viewport / nav)
+const EDGE_BUFFER = 8
+
+function getBottomNavHeight() {
+  if (typeof document === 'undefined') return 0
+  const nav = document.querySelector<HTMLElement>('.bottom-nav')
+  // Mobile-only — desktop has no bottom-nav rendered
+  return nav?.getBoundingClientRect().height ?? 0
+}
 
 function clampY(value: number) {
   if (typeof window === 'undefined') return value
-  const max = window.innerHeight / 2 - VIEWPORT_MARGIN
-  return Math.max(-max, Math.min(max, value))
+  const halfV = window.innerHeight / 2
+  const minY = -(halfV - PILL_HALF_HEIGHT - EDGE_BUFFER)
+  const maxY = halfV - PILL_HALF_HEIGHT - EDGE_BUFFER - getBottomNavHeight()
+  return Math.max(minY, Math.min(maxY, value))
 }
 
 function FloatingFilterButton({ visible, count, onClick }: FloatingFilterButtonProps) {
