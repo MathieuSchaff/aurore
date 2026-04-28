@@ -41,11 +41,17 @@ export function IngredientLayout() {
   return (
     <DetailPageLayout banner>
       <PageTopActions>
-        <BackButton to="/ingredients">Ingredients</BackButton>
+        <BackButton to="/ingredients">Ingrédients</BackButton>
         <PageTopActionsRight>
-          <Button to="/ingredients/$slug/edit" params={{ slug }} variant="primary">
+          <Button
+            to="/ingredients/$slug/edit"
+            params={{ slug }}
+            variant="secondary"
+            className="action-edit"
+            aria-label="Modifier cet ingrédient"
+          >
             <Pencil size={14} />
-            Modifier
+            <span className="action-edit__label">Modifier</span>
           </Button>
         </PageTopActionsRight>
       </PageTopActions>
@@ -67,7 +73,13 @@ export function IngredientLayout() {
         </div>
       </div>
 
-      <Tabs options={tabOptions} activeTab={activeTab} onTabChange={handleTabChange} />
+      <Tabs
+        options={tabOptions}
+        activeTab={activeTab}
+        onTabChange={handleTabChange}
+        variant="underline"
+        ariaLabel="Sections de l'ingrédient"
+      />
 
       <div style={{ viewTransitionName: 'tab-content' }}>
         <Outlet />
