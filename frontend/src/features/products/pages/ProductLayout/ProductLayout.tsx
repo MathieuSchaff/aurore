@@ -1,6 +1,8 @@
+import { getProductKindLabel } from '@habit-tracker/shared'
+
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { getRouteApi, Link, Outlet, useNavigate, useRouterState } from '@tanstack/react-router'
-import { MessageSquare, Package, Pencil, Plus } from 'lucide-react'
+import { MessageSquare, Pencil, Plus } from 'lucide-react'
 import { useState } from 'react'
 
 import { Badge, type BadgeVariant } from '@/component/DataDisplay/Badge/Badge'
@@ -12,6 +14,7 @@ import { productQueries } from '@/lib/queries/products'
 import '@/features/products/styles/kinds.css'
 import '@/features/products/pages/ProductInfoTab/ProductInfoTab.css'
 
+import { ProductIcon } from '@/assets/product-icons'
 import { BackButton } from '@/component/Button/BackButton'
 import { Button } from '@/component/Button/Button'
 
@@ -68,9 +71,15 @@ export function ProductLayout() {
       <PageTopActions>
         <BackButton to="/products">Produits</BackButton>
         <PageTopActionsRight>
-          <Button to="/products/$slug/edit" params={{ slug }} variant="primary">
+          <Button
+            to="/products/$slug/edit"
+            params={{ slug }}
+            variant="secondary"
+            className="action-edit"
+            aria-label="Modifier ce produit"
+          >
             <Pencil size={14} />
-            Modifier
+            <span className="action-edit__label">Modifier</span>
           </Button>
           <Button onClick={() => setShowAddModal(true)} variant="accent">
             <Plus size={16} />
@@ -84,25 +93,41 @@ export function ProductLayout() {
           className={`product-hero__icon kind-icon kind--${getBadgeVariant(product.kind)}`}
           aria-hidden="true"
         >
-          <Package size={28} />
+          <ProductIcon unit={product.unit} kind={product.kind} size={28} />
         </div>
         <div className="product-hero__info">
           <h1 className="product-hero__name" style={{ viewTransitionName: `product-name-${slug}` }}>
             {product.name}
           </h1>
-          <Link to="/products" search={{ brand: [product.brand] }} className="product-hero__brand">
+          <Link
+            to="/products"
+            search={{ brand: [product.brand] }}
+            className="product-hero__brand"
+            aria-label={`Voir tous les produits ${product.brand}`}
+          >
             {product.brand}
           </Link>
           <div className="product-hero__tags">
             <Badge variant={getBadgeVariant(product.kind)} className="product-hero__kind">
-              {product.kind}
+              {getProductKindLabel(product.kind)}
             </Badge>
+            {product.totalAmount != null && product.totalAmount > 0 && (
+              <span className="product-hero__amount">
+                {product.totalAmount} {product.amountUnit ?? product.unit}
+              </span>
+            )}
           </div>
         </div>
         {priceFormatted && <span className="product-price">{priceFormatted}</span>}
       </div>
 
-      <Tabs options={tabOptions} activeTab={activeTab} onTabChange={handleTabChange} />
+      <Tabs
+        options={tabOptions}
+        activeTab={activeTab}
+        onTabChange={handleTabChange}
+        variant="underline"
+        ariaLabel="Sections du produit"
+      />
 
       <div style={{ viewTransitionName: 'tab-content' }}>
         <Outlet />
