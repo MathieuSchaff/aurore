@@ -34,7 +34,7 @@ export function useTagFilterGroups<K extends string>(
       return {
         id: cat,
         label: meta.label,
-        defaultOpen: meta.tier === 'essential',
+        defaultOpen: meta.defaultOpen ?? meta.tier === 'essential',
         tier: meta.tier,
         subFilters: [
           {
