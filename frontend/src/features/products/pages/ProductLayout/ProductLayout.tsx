@@ -14,9 +14,9 @@ import { productQueries } from '@/lib/queries/products'
 import '@/features/products/styles/kinds.css'
 import '@/features/products/pages/ProductInfoTab/ProductInfoTab.css'
 
-import { ProductIcon } from '@/assets/product-icons'
 import { BackButton } from '@/component/Button/BackButton'
 import { Button } from '@/component/Button/Button'
+import { ProductImage } from '@/features/products/components/ProductImage/ProductImage'
 
 const route = getRouteApi('/products/$slug')
 const eurFormatter = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' })
@@ -89,12 +89,14 @@ export function ProductLayout() {
       </PageTopActions>
 
       <div className="product-hero">
-        <div
-          className={`product-hero__icon kind-icon kind--${getBadgeVariant(product.kind)}`}
-          aria-hidden="true"
-        >
-          <ProductIcon unit={product.unit} kind={product.kind} size={28} />
-        </div>
+        <ProductImage
+          slug={slug}
+          kind={product.kind}
+          unit={product.unit}
+          imageUrl={product.imageUrl}
+          size={96}
+          className="product-hero__image"
+        />
         <div className="product-hero__info">
           <h1 className="product-hero__name" style={{ viewTransitionName: `product-name-${slug}` }}>
             {product.name}

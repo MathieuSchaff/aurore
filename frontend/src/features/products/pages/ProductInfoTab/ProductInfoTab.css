@@ -29,17 +29,15 @@
   );
 }
 
-.product-hero__icon {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 4rem;
-  height: 4rem;
+.product-hero__image {
   border-radius: var(--radius-lg);
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-  color: var(--text-inverse);
-  box-shadow: 0 8px 16px -4px oklch(from var(--color-primary) l c h / 0.35);
+  background: oklch(98% 0 0);
+  border: 1px solid var(--border-default);
+  box-shadow: 0 8px 16px -4px oklch(from var(--color-primary) l c h / 0.15);
+}
+
+.product-hero__image .product-image__img {
+  padding: var(--space-2);
 }
 
 .product-hero__info {

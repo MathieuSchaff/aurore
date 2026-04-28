@@ -98,3 +98,8 @@ backend/src/db/seed/VRAC-INGREDIENTS/
 
 # Test results (generated in CI)
 **/test-results/
+
+# =========================
+# Local mock product images (symlink to ../scrapper-para/output/images)
+# =========================
+frontend/public/mock-products
