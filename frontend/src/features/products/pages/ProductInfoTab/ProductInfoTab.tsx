@@ -1,7 +1,7 @@
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
 import { getRouteApi, Link } from '@tanstack/react-router'
 import { Check, Copy, ExternalLink, FlaskConical } from 'lucide-react'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo } from 'react'
 import Markdown from 'react-markdown'
 
 import { Button } from '@/component/Button/Button'
@@ -9,6 +9,7 @@ import { FormMessage } from '@/component/Feedback/ui/FormMessage/FormMessage'
 import { RichText } from '@/component/Typography/RichText/RichText'
 import { SectionHeader } from '@/component/Typography/SectionHeader/SectionHeader'
 import { SKIN_CONCERN_LABELS, SKIN_TYPE_LABELS } from '@/constants/skin'
+import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
 import { productQueries } from '@/lib/queries/products'
 import { profileQueries } from '@/lib/queries/profile'
 import { useAuthStore } from '@/store/auth'
@@ -40,9 +41,9 @@ export function ProductInfoTab() {
   const { slug } = route.useParams()
   const { data: product } = useSuspenseQuery(productQueries.bySlug(slug))
   const hasIngredients = product.ingredients && product.ingredients.length > 0
-  const [copied, setCopied] = useState(false)
+  const { copied, copy } = useCopyToClipboard()
 
-  const handleCopyIngredients = useCallback(async () => {
+  const handleCopyIngredients = useCallback(() => {
     if (!product.ingredients?.length) return
     const text = product.ingredients
       .map((ing) => {
@@ -54,14 +55,8 @@ export function ProductInfoTab() {
         return conc ? `${ing.ingredientName} (${conc})` : ing.ingredientName
       })
       .join(', ')
-    try {
-      await navigator.clipboard.writeText(text)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    } catch {
-      // clipboard access can be denied (insecure context, permissions); silent
-    }
-  }, [product.ingredients])
+    void copy(text)
+  }, [product.ingredients, copy])
 
   const user = useAuthStore((s) => s.user)
 

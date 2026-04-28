@@ -1,8 +1,8 @@
 import clsx from 'clsx'
 import { Check, Clipboard, X } from 'lucide-react'
-import { useState } from 'react'
 
 import { Modal } from '@/component/Dialog/Modal'
+import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
 
 interface InciPopupProps {
   inci: string
@@ -10,14 +10,7 @@ interface InciPopupProps {
 }
 
 export function InciPopup({ inci, onClose }: InciPopupProps) {
-  const [copied, setCopied] = useState(false)
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(inci).then(() => {
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    })
-  }
+  const { copied, copy } = useCopyToClipboard()
 
   return (
     <Modal onClose={onClose} size="lg" className="pds-inci-dialog">
@@ -27,7 +20,7 @@ export function InciPopup({ inci, onClose }: InciPopupProps) {
           <button
             type="button"
             className={clsx('pds-inci-copy-btn', copied && 'copied')}
-            onClick={handleCopy}
+            onClick={() => copy(inci)}
           >
             {copied ? <Check size={14} /> : <Clipboard size={14} />}
             {copied ? 'Copié !' : 'Copier'}
