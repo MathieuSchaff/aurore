@@ -1,6 +1,7 @@
 import { ArrowUp } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
+import { Button } from '../Button/Button'
 import './BackToTopButton.css'
 
 const SCROLL_THRESHOLD = 600
@@ -21,8 +22,10 @@ export function BackToTopButton() {
   }
 
   return (
-    <button
+    <Button
       type="button"
+      variant="primary"
+      size="md"
       className={`back-to-top${visible ? ' back-to-top--visible' : ''}`}
       aria-label="Revenir en haut de la page"
       aria-hidden={!visible}
@@ -30,6 +33,6 @@ export function BackToTopButton() {
       onClick={handleClick}
     >
       <ArrowUp size={20} aria-hidden="true" />
-    </button>
+    </Button>
   )
 }
