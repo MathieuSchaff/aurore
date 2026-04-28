@@ -91,6 +91,7 @@ function ProductCardImpl({ product, onAdd }: Props) {
               slug={product.slug}
               kind={product.kind}
               unit={product.unit}
+              imageUrl={product.imageUrl}
               size={48}
               className="list-card__icon-wrap"
             />
