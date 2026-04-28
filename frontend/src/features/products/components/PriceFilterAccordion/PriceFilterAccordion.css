@@ -1,0 +1,3 @@
+.filter-accordion__body--padded {
+  padding: var(--space-3) var(--space-5) var(--space-4);
+}
