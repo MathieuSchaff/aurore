@@ -57,8 +57,12 @@
 }
 
 @keyframes drawer-slide-up {
-  from { translate: 0 100%; }
-  to   { translate: 0 0; }
+  from {
+    translate: 0 100%;
+  }
+  to {
+    translate: 0 0;
+  }
 }
 
 .filter-drawer__header {
@@ -86,11 +90,7 @@
   right: 0;
   bottom: -1px;
   height: 2px;
-  background: linear-gradient(
-    90deg,
-    var(--color-primary) 0%,
-    var(--color-accent) 100%
-  );
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-accent) 100%);
   opacity: 0.6;
 }
 
@@ -174,11 +174,7 @@
   content: "";
   flex: 1;
   height: 1px;
-  background: linear-gradient(
-    90deg,
-    var(--color-primary) 0%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg, var(--color-primary) 0%, transparent 100%);
   opacity: 0.4;
 }
 
@@ -214,11 +210,7 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(
-    90deg,
-    var(--color-accent) 0%,
-    var(--color-primary) 100%
-  );
+  background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-primary) 100%);
   opacity: 0.55;
 }
 
@@ -351,7 +343,11 @@
   }
 
   @keyframes drawer-slide-left {
-    from { translate: 100% 0; }
-    to   { translate: 0 0; }
+    from {
+      translate: 100% 0;
+    }
+    to {
+      translate: 0 0;
+    }
   }
 }

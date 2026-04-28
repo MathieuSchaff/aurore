@@ -204,7 +204,10 @@ export function ProductsPage() {
           tabOptions={DOMAIN_TAB_OPTIONS}
         />
 
-        <CollapsibleFiltersStrip count={effectiveFilterCount} onOpenDrawer={() => setDrawerOpen(true)}>
+        <CollapsibleFiltersStrip
+          count={effectiveFilterCount}
+          onOpenDrawer={() => setDrawerOpen(true)}
+        >
           <ProductsActiveBar
             activeTags={activeTags}
             filterGroups={filterGroups}
@@ -309,11 +312,7 @@ function CollapsibleFiltersStrip({ count, onOpenDrawer, children }: CollapsibleF
         aria-expanded={open}
         aria-label={`${count} filtre${count > 1 ? 's' : ''} actif${count > 1 ? 's' : ''} — ${open ? 'masquer' : 'voir les filtres'}`}
       >
-        <SlidersHorizontal
-          size={13}
-          className="products-chips-toggle__icon"
-          aria-hidden="true"
-        />
+        <SlidersHorizontal size={13} className="products-chips-toggle__icon" aria-hidden="true" />
         <span>
           <strong>{count}</strong> filtre{count > 1 ? 's' : ''} actif{count > 1 ? 's' : ''}
         </span>
@@ -334,10 +333,7 @@ function CollapsibleFiltersStrip({ count, onOpenDrawer, children }: CollapsibleF
           Modifier
         </button>
       </button>
-      <div
-        className="products-chips-body"
-        aria-hidden={!open}
-      >
+      <div className="products-chips-body" aria-hidden={!open}>
         <div className="products-chips-inner">{children}</div>
       </div>
     </div>

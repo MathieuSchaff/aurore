@@ -19,8 +19,12 @@
 }
 
 /* Suppress the default disclosure marker on every engine */
-.filter-accordion__trigger::-webkit-details-marker { display: none; }
-.filter-accordion__trigger::marker { content: ""; }
+.filter-accordion__trigger::-webkit-details-marker {
+  display: none;
+}
+.filter-accordion__trigger::marker {
+  content: "";
+}
 
 .filter-accordion__trigger:hover {
   background: oklch(from var(--color-primary) l c h / 0.08);
