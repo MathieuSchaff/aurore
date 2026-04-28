@@ -1,9 +1,10 @@
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
 import { getRouteApi, Link } from '@tanstack/react-router'
-import { ExternalLink, FlaskConical } from 'lucide-react'
-import { useMemo } from 'react'
+import { Check, Copy, ExternalLink, FlaskConical } from 'lucide-react'
+import { useCallback, useMemo, useState } from 'react'
 import Markdown from 'react-markdown'
 
+import { Button } from '@/component/Button/Button'
 import { FormMessage } from '@/component/Feedback/ui/FormMessage/FormMessage'
 import { RichText } from '@/component/Typography/RichText/RichText'
 import { SectionHeader } from '@/component/Typography/SectionHeader/SectionHeader'
@@ -39,6 +40,28 @@ export function ProductInfoTab() {
   const { slug } = route.useParams()
   const { data: product } = useSuspenseQuery(productQueries.bySlug(slug))
   const hasIngredients = product.ingredients && product.ingredients.length > 0
+  const [copied, setCopied] = useState(false)
+
+  const handleCopyIngredients = useCallback(async () => {
+    if (!product.ingredients?.length) return
+    const text = product.ingredients
+      .map((ing) => {
+        const conc = formatConcentration(
+          ing.concentrationValue,
+          ing.concentrationUnit,
+          ing.concentrationPer
+        )
+        return conc ? `${ing.ingredientName} (${conc})` : ing.ingredientName
+      })
+      .join(', ')
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      // clipboard access can be denied (insecure context, permissions); silent
+    }
+  }, [product.ingredients])
 
   const user = useAuthStore((s) => s.user)
 
@@ -90,7 +113,27 @@ export function ProductInfoTab() {
 
       {hasIngredients && (
         <div className="product-section">
-          <SectionHeader title="Ingrédients" count={product.ingredients.length} variant="primary" />
+          <SectionHeader title="Ingrédients" count={product.ingredients.length} variant="primary">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleCopyIngredients}
+              aria-label="Copier la liste des ingrédients"
+              className="ingredient-copy"
+            >
+              {copied ? (
+                <>
+                  <Check size={14} aria-hidden="true" />
+                  <span>Copié</span>
+                </>
+              ) : (
+                <>
+                  <Copy size={14} aria-hidden="true" />
+                  <span>Copier</span>
+                </>
+              )}
+            </Button>
+          </SectionHeader>
           <ul className="ingredient-list">
             {product.ingredients.map((ing) => {
               const concentration = formatConcentration(
