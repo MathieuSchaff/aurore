@@ -54,55 +54,11 @@ L'ordre vertical perçu par l'utilisateur quand il ouvre le drawer.
 
 ## 3. Problèmes d'organisation
 
-### 3.1 Profile toggle + Prix flottent hors hiérarchie *(partiellement résolu)*
+### 3.1 Profile toggle flottant hors hiérarchie *(partiel)*
 
-> ✅ Prix : promu en accordéon (`PriceFilterAccordion`), rendu via `essentialExtras` après les essentiels tag.
-> ⏳ Profile toggle : toujours flottant en tête. Le CSS `.filter-drawer__body > .toggle` lui donne une allure de shelf, mais sans label « Essentiel » qui rattache l'ensemble.
+✅ Prix → `PriceFilterAccordion` via `essentialExtras` après les essentiels tag.
 
-Avant le fix, `children` (toggle profil + prix) étaient rendus **avant** la première section taggée, **sans en-tête ni étiquette de groupe**. Visuellement c'est :
-
-```
-[Toggle "Selon mon profil"]
-[Prix (€) min — max]
-[Accordéon "Peau"]   ← même niveau visuel, pas le même type d'interaction
-...
-```
-
-Conséquence :
-- Mélange de deux modèles mentaux : *contrôles libres (toggle / range)* et *sélection de tags*.
-- Pas de label « Essentiel » pour rattacher prix/profil au reste.
-- Le toggle profil a un **fort poids fonctionnel** (filtre selon dermo profile) mais aucun cadrage visuel ; il est aussi facile à manquer qu'une bordure.
-
-→ **Recommandation** : soit envelopper prix/profil dans un sous-bloc "essentiel non-tag" identifié, soit promouvoir « Prix » et « Selon mon profil » dans des accordéons à part (cohérence du pattern). Le mode "tout est un accordéon" reste plus prévisible.
-
-### 3.2 Hiérarchie des essentiels — Prix avant les filtres sémantiques *(résolu)*
-
-> ✅ Prix maintenant rendu *après* les essentiels tag (via `essentialExtras` dans `FilterDrawer.tsx:165`). Profile toggle reste en tête (justifié comme super-filtre).
-
-L'utilisateur TDAH/dermo arrive avec une intention typique : « **pour quel type de peau / quel problème ?** », pas « combien je veux dépenser ? ». Mettre **Prix** au-dessus de **Peau / Problème** privilégie un pattern e-commerce générique alors que la vision du produit est *l'outil bienveillant qui guide selon le profil dermo*.
-
-→ **Recommandation** : descendre le bloc Prix sous les essentiels tag (ou en bas d'« Essentiel », au-dessus du séparateur « Avancé »). Garder le toggle profil tout en haut **est** justifié — c'est un super-filtre — mais alors il mérite un cadrage visuel propre (cf. 3.1).
-
-### 3.3 Ingrédient et marque relégués en "Avancé" *(résolu)*
-
-> ✅ Ingrédient promu en `tier: 'essential'` dans son propre accordéon (`useProductsFilterGroups.ts:35-59`), `defaultOpen: false` (l'async-search est plus lourd qu'un chip group). Marque + Kind restent dans « Recherche précise » (advanced).
-
-Avant le fix, `Recherche précise` (kind / brand / ingredient) était marquée `tier: 'advanced'`.
-
-- Pour un débutant : juste, ingrédient = bruit.
-- Pour l'utilisateur dermo informé (cible explicite du projet) : **ingrédient est l'un des filtres à plus forte valeur** (« contient niacinamide », « éviter alcool »). Le cacher sous « Avancé » + accordéon fermé = 2 clics minimum pour atteindre le filtre clé.
-
-→ **Recommandation à brainstormer** : promouvoir au moins **Ingrédient** en essentiel (ou créer un tier intermédiaire), tout en laissant Marque/Kind dans Recherche précise. Aligné avec le moteur dermo signal qui est au cœur du produit.
-
-### 3.4 Quatre essentiels ouverts simultanément en skincare = pic cognitif *(résolu)*
-
-> ✅ En skincare, seuls Peau + Problème sont `defaultOpen: true`. Type + Zone démarrent fermés (`shared/.../skincare/tag-filters.ts`). Prix démarre fermé sauf si une valeur est déjà posée. Première vue : ~2 nuages de chips, plus calme.
-
-Avant le fix, à l'ouverture du drawer skincare : **4 nuages de chips visibles d'un coup** (Peau + Problème + Zone + Type) + Prix + Toggle. Beaucoup de scroll dès le premier regard. Contre-vision « réduction de la charge cognitive ».
-
-→ **Pistes** :
-- N'ouvrir par défaut que les 2 premiers (Peau, Problème) ; laisser Zone/Type fermés.
-- Ou afficher max 6–8 chips par groupe + un « Voir tout (N) » pour rester compact.
+⏳ Profile toggle toujours flottant en tête hors accordéon. Le CSS `.filter-drawer__body > .toggle` lui donne une apparence de shelf, mais sans label de groupe qui rattache l'ensemble. Recommandation : envelopper dans un sous-bloc "essentiel non-tag" identifié, ou promouvoir en accordéon pour cohérence de pattern.
 
 ### 3.5 Recouvrement sémantique « Type » (essentiel) vs « Étape » (avancé)
 
@@ -113,40 +69,24 @@ En skincare : `product_type` (sérum / crème / nettoyant…) et `routine_step` 
 
 → **À clarifier produit** (pas une décision drawer) : faut-il garder les deux ? Si oui, libellés/placeholders qui explicitent la différence.
 
-### 3.6 Ordre `Zone` avant `Type` en skincare *(résolu)*
-
-> ✅ Permuté : `product_type` order=3, `skin_zone` order=4. Hypothèse retenue : « je veux un sérum » (type) > « je veux pour les yeux » (zone) sur le flow de découverte.
-
-### 3.7 Pas de compteur "résultats" en live *(résolu)*
-
-> ✅ Le bouton Appliquer affiche `Voir N produit(s)` en temps réel (`FilterDrawer.tsx:204-207`). Le parent (`ProductsPage.tsx:137-143`) lance une query préview gated sur `isDrawerOpen` avec `placeholderData` pour éviter le clignotement.
-
 ### 3.8 Sémantique « Reset » vs « Apply »
 
 - `Apply` = ferme + applique le brouillon local.
 - `Reset` = reset local **et** appelle `onReset` qui navigue (commit immédiat). Le drawer reste ouvert avec un form vide.
 - `X` / backdrop / Échap = applique le brouillon (`handleClose`).
 
-Pas de chemin **« annuler les modifs locales sans appliquer »**. C'est cohérent dans la pratique (filtres = action non destructive), mais Reset commit immédiatement alors que Apply est nécessaire ailleurs : **deux logiques de commit dans le même footer**. À documenter au minimum, à uniformiser idéalement.
+Pas de chemin **« annuler les modifs locales sans appliquer »**. C'est cohérent dans la pratique (filtres = action non destructive), mais Reset commit immédiatement alors que Apply est nécessaire ailleurs : **deux logiques de commit dans le même footer**. À documenter au minimum, à uniformiser idéalement (décision produit requise avant refacto).
 
-### 3.9 Prix non collapsible *(résolu)*
-
-> ✅ `PriceFilterAccordion` enveloppe `PriceRangeFilter` dans un `<details>` aligné sur la même DSL CSS que `FilterAccordion`. `defaultOpen` = `hasValue` (verrouillé au mount). Espace libéré au-dessus de Peau / Problème.
+> Résolu sans note : 3.2 (prix après tags), 3.3 (ingrédient en essentiel `useProductsFilterGroups.ts:35-59`), 3.4 (defaultOpen réduit skincare), 3.6 (Zone/Type permuté), 3.7 (compteur live, voir §6), 3.9 (`PriceFilterAccordion`).
 
 ---
 
-## 4. Synthèse priorisée
+## 4. Synthèse — points ouverts
 
-| Priorité | Sujet                                                                 | État     |
-|----------|-----------------------------------------------------------------------|----------|
-| 🔴       | Promouvoir `Ingrédient` hors de "Avancé" (cible dermo cœur produit)    | ✅ Fait — `useProductsFilterGroups.ts:35-59` (tier `essential`, `defaultOpen: false`) |
-| 🔴       | Compteur live « Voir N produits » sur Appliquer                        | ✅ Fait — `FilterDrawer.tsx:204-207` + `ProductsPage.tsx:137-143` (query préview, `enabled: isDrawerOpen`) |
-| 🟠       | Homogénéiser : Prix dans un accordéon                                 | ✅ Fait — `PriceFilterAccordion.tsx`, intégré via `essentialExtras` |
-| 🟠       | Réduire `defaultOpen` à 2 essentiels en skincare (charge cognitive)    | ✅ Fait — `shared/.../skincare/tag-filters.ts` (Peau + Problème ouverts, Type + Zone fermés) |
-| 🟠       | Descendre Prix sous les filtres sémantiques tag                       | ✅ Fait — `essentialExtras` rendu après les essentiels dans `FilterDrawer.tsx:165` |
-| 🟡       | Permuter Zone / Type en skincare                                      | ✅ Fait — `product_type` order=3, `skin_zone` order=4 |
-| 🟡       | Clarifier `product_type` vs `routine_step` (libellés / décision produit) | ⏳ Pas une décision drawer (libellés / produit) |
-| 🟡       | Uniformiser sémantique Reset/Apply                                    | ⏳ À débattre — Reset commit immédiatement (navigation), Apply commit local. Cohérence à clarifier produit avant refacto. |
+| Priorité | Sujet | État |
+|----------|-------|------|
+| 🟡 | Clarifier `product_type` vs `routine_step` (libellés / décision produit) | ⏳ Décision produit requise |
+| 🟡 | Uniformiser sémantique Reset/Apply | ⏳ Cohérence à clarifier produit avant refacto |
 
 ---
 
@@ -183,7 +123,7 @@ Pas de chemin **« annuler les modifs locales sans appliquer »**. C'est cohére
 
 ### 5.2 « Maximum update depth exceeded » à l'ouverture du drawer
 
-**Symptôme** : warning React `Maximum update depth exceeded` répété en boucle dans la console dès l'ouverture du drawer (apparu après l'introduction du compteur live `Voir N produits`, cf. 3.7). UI réactive mais le main thread est saturé tant que le drawer est ouvert.
+**Symptôme** : warning React `Maximum update depth exceeded` répété en boucle dans la console dès l'ouverture du drawer (apparu après l'introduction du compteur live `Voir N produits`, cf. §6). UI réactive mais le main thread est saturé tant que le drawer est ouvert.
 
 **Cause racine** — boucle de feedback à trois étages :
 
@@ -228,8 +168,6 @@ scrollbar-width: none;            /* Firefox / standards */
 
 Le scroll reste fonctionnel (molette, trackpad, touch). Pas de gutter à réserver puisque rien n'est rendu. Choix assumé : la cohérence visuelle prime sur l'affordance « il y a du contenu en dessous » — l'utilisateur le découvre en scrollant, et le drawer est suffisamment court pour que ce soit non bloquant.
 
-**Alternative non retenue** : `scrollbar-gutter: stable both-edges` — réserve l'espace mais affiche quand même la barre, donc ne résout que partiellement le « c'est moche ».
-
 ---
 
 ## 6. Mécanique du compteur live (`Voir N produits`)
@@ -256,7 +194,7 @@ commitLocal(next)
                                              └─ drawer re-render ("Voir 23")
 ```
 
-C'est le **prix** du compteur live : un re-render parent par clic. Pas un bug, juste pas infini (cf. 5.2 pour la version cassée).
+C'est le **prix** du compteur live : un re-render parent par clic. Pas un bug, juste pas infini (cf. §5.2 pour la version cassée).
 
 ### 6.3 Deux queries, deux clés, deux entries de cache
 
@@ -278,35 +216,16 @@ const { data: previewData } = useQuery({
 })
 ```
 
-Tant que le brouillon ≠ URL, les `queryKey` divergent → **deux cellules** distinctes en cache :
-
-```
-Cache RAM :
-  ['products','list',{concern:['acne']}]            → entry A   (grille)
-  ['products','list',{concern:['acne','anti-age']}] → entry B   (preview)
-```
-
-A et B sont indépendantes : ce que B fetch ne touche pas A. La grille derrière le drawer reste figée tant que l'URL ne bouge pas.
+Tant que le brouillon ≠ URL, les `queryKey` divergent → **deux cellules** distinctes en cache. A et B sont indépendantes : ce que B fetch ne touche pas A. La grille derrière le drawer reste figée tant que l'URL ne bouge pas.
 
 ### 6.4 Apply = convergence des clés → cache hit gratuit
 
 Quand l'utilisateur clique `Appliquer` :
 
 1. `applyFilters(localFilters)` → `navigate({ search: ... })` → URL change.
-2. Le hook `useSearch` re-run, `filters` (memoïsé sur `[search]`) reflète le nouveau brouillon.
+2. `filters` (memoïsé sur `[search]`) reflète le nouveau brouillon.
 3. `apiFilters` est reconstruit → sa `queryKey` devient **identique** à celle qu'avait `previewApiFilters`.
-4. La grille `useQuery` fait `cache.get(key)` → HIT sur l'entry B → data affichée instantanément, **zéro fetch**.
-
-```
-T0  Drawer ouvert, user coche "anti-age"
-    preview useQuery(key=X) → cache vide → fetch → cache.set(X, data)
-    cache : { X: data }
-
-T1  User clique Appliquer
-    URL = X
-    main useQuery(key=X) → cache.get(X) → HIT, instantané
-    cache : { X: data }
-```
+4. La grille `useQuery` fait `cache.get(key)` → HIT sur l'entry preview → data affichée instantanément, **zéro fetch**.
 
 Le « prefetch » émerge de la coïncidence des clés, pas d'un appel `prefetchQuery` explicite. Deux `useQuery` qui partagent une clé partagent l'entry — la première remplit, la seconde lit.
 
@@ -319,17 +238,15 @@ La clé inclut **tout** ce qui est dans `buildProductsApiFilters` : `category`, 
 - `filters` : preview = `draftFilters ?? filters`. Apply commit `localFilters` (= `draftFilters`) dans l'URL. Match.
 - `staleTime` : preview = 5 min ; main = 5 min quand `hasFilters` true. La preview reste fraîche au moment du switch.
 
-Si on introduisait plus tard un filtre du drawer qui ne passe pas par l'URL (ou un `staleTime` court), le cache hit pourrait casser silencieusement. À surveiller.
+Si on introduisait un filtre du drawer qui ne passe pas par l'URL (ou un `staleTime` court), le cache hit pourrait casser silencieusement. À surveiller.
 
 ### 6.6 Note sur `previewQuery.items` jeté
 
-L'endpoint renvoie `{ items, total }`. Pour le compteur on n'utilise que `total`, mais la réponse charge quand même 20 items. C'est de la bande passante perdue. Optimisation possible : ajouter un endpoint `productQueries.count(filters)` qui renvoie juste `{ total }`. Trade-off : on perd l'effet prefetch (les 20 items pré-chargés ne nourriraient plus la grille à l'apply) sauf si on lance les deux requêtes en parallèle. Pas critique tant que le payload reste petit.
+L'endpoint renvoie `{ items, total }`. Pour le compteur on n'utilise que `total`, mais la réponse charge quand même 20 items. Optimisation possible : ajouter un endpoint `productQueries.count(filters)` qui renvoie juste `{ total }`. Trade-off : on perd l'effet prefetch (les 20 items pré-chargés ne nourriraient plus la grille à l'apply) sauf si on lance les deux requêtes en parallèle. Pas critique tant que le payload reste petit.
 
 ---
 
 ## 7. Couverture de tests — audit
-
-État de la couverture sur le composant et son intégration. Honnête : il y a des trous, listés par criticité.
 
 ### 7.1 Couverture actuelle
 
@@ -346,7 +263,7 @@ L'endpoint renvoie `{ items, total }`. Pour le compteur on n'utilise que `total`
 
 #### 🔴 7.2.1 Pas de test de régression sur la boucle « Maximum update depth »
 
-Le bug fixé en 5.2 n'a aucun garde-fou. Si quelqu'un re-introduit l'émission via `useEffect`, **rien ne casse** dans la suite — le warning React n'échoue pas un test par défaut.
+Le bug fixé en §5.2 n'a aucun garde-fou. Si quelqu'un re-introduit l'émission via `useEffect`, **rien ne casse** dans la suite — le warning React n'échoue pas un test par défaut.
 
 À ajouter dans `FilterDrawer.test.tsx` :
 
@@ -375,7 +292,7 @@ it('does not warn "Maximum update depth"', () => {
 
 #### 🔴 7.2.2 Le compteur live n'a aucun test
 
-Pas testé : le bouton `Voir N produits`, le gating `enabled: isDrawerOpen`, le reset `setDraftFilters(null)` à la fermeture, le cache hit à l'apply (cf. §6.4). Tout le path 6.x du doc est non couvert.
+Pas testé : le bouton `Voir N produits`, le gating `enabled: isDrawerOpen`, le reset `setDraftFilters(null)` à la fermeture, le cache hit à l'apply (cf. §6.4).
 
 À ajouter dans `__integration__/ProductsPage.filter.test.tsx` :
 
@@ -387,17 +304,17 @@ it('apply does not refetch when preview key matches main key (cache hit)', ...)
 
 #### 🟠 7.2.3 `useMemo` sur `filters` dans ProductsPage non protégé
 
-Si quelqu'un retire le `useMemo` (`ProductsPage.tsx:79-86`), la boucle revient. Indirectement couvert si on ajoute le test #7.2.1 au niveau intégration plutôt qu'unitaire — sinon zéro garde-fou.
+Si quelqu'un retire le `useMemo` (`ProductsPage.tsx:79-86`), la boucle revient. Indirectement couvert si on ajoute le test #7.2.1 au niveau intégration plutôt qu'unitaire.
 
 #### 🟠 7.2.4 `PriceFilterAccordion` zéro test
 
-Aucun test sur le composant : `defaultOpen` lockée au mount via `useState(() => hasValue)`, détection de `hasValue`, intégration avec `PriceRangeFilter` (qui modifie l'URL directement, hors `commitLocal`).
+Aucun test : `defaultOpen` lockée au mount via `useState(() => hasValue)`, détection de `hasValue`, intégration avec `PriceRangeFilter`.
 
 À créer : `PriceFilterAccordion.test.tsx`.
 
 #### 🟡 7.2.5 Domain switch pendant que le drawer est ouvert
 
-Que se passe-t-il si l'utilisateur change `category` (skincare → haircare) avec le drawer ouvert ? Les groupes du drawer changent ; le brouillon reste-t-il cohérent ? Le `currentFilters` change de structure. Comportement non testé, sémantique non documentée.
+Que se passe-t-il si l'utilisateur change `category` (skincare → haircare) avec le drawer ouvert ? Les groupes du drawer changent ; le brouillon reste-t-il cohérent ? Comportement non testé, sémantique non documentée.
 
 #### 🟡 7.2.6 Profile toggle ↔ drawer
 
@@ -405,7 +322,7 @@ Le toggle `Selon mon profil` modifie l'URL directement (`onProfileFilterChange` 
 
 #### 🟡 7.2.7 E2E filter drawer minimal
 
-Un seul test E2E touche le drawer (`products.spec.ts`). Pas de scénario complexe : multi-tags + preview count en live, reset commit immédiat (cf. §3.8), profile toggle, prix range, async ingredient search.
+Un seul test E2E touche le drawer. Pas de scénario complexe : multi-tags + preview count en live, reset commit immédiat (cf. §3.8), profile toggle, prix range, async ingredient search.
 
 ### 7.3 Priorité d'action
 
