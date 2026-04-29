@@ -75,25 +75,35 @@ function walkSeedFiles(dir: string): string[] {
 
 const PRODUCT_RE = /(\binci:\s*'((?:\\.|[^'\\])*)',[\s\S]*?\bkeyIngredients:\s*)\[\]([^\n]*)/g
 
+// Reset previously-inferred arrays so re-runs reflect the current blocklist.
+// Human-reviewed entries lose the AUTO-INFERRED marker, so they aren't matched.
+// `\[\s*\{` requires a non-empty array — otherwise the non-greedy body would
+// backtrack past empty `keyIngredients: []` lines and merge multiple products.
+const AUTO_INFERRED_RE = /(\bkeyIngredients:\s*)\[\s*\{[\s\S]*?\]\s*\/\*\s*AUTO-INFERRED[^*]*\*\//g
+
 interface FileResult {
   path: string
   productsTotal: number
   productsRewritten: number
   productsAlreadyFilled: number
   productsNoMatch: number
+  productsReset: number
 }
 
 function rewriteFile(text: string, index: InciIndex): { text: string; result: Omit<FileResult, 'path'> } {
-  let productsTotal = 0
   let productsRewritten = 0
-  let productsAlreadyFilled = 0
   let productsNoMatch = 0
+  let productsReset = 0
 
-  // Count already-filled (non-empty) keyIngredients arrays
+  text = text.replace(AUTO_INFERRED_RE, () => {
+    productsReset++
+    return 'keyIngredients: []'
+  })
+
   const allKeyMatches = text.match(/\bkeyIngredients:\s*\[/g) || []
-  productsTotal = allKeyMatches.length
+  const productsTotal = allKeyMatches.length
   const emptyMatches = text.match(/\bkeyIngredients:\s*\[\]/g) || []
-  productsAlreadyFilled = productsTotal - emptyMatches.length
+  const productsAlreadyFilled = productsTotal - emptyMatches.length
 
   const rewritten = text.replace(PRODUCT_RE, (_full, prefix: string, inciRaw: string, _trailing: string) => {
     const inci = unescapeInci(inciRaw)
@@ -126,7 +136,7 @@ function rewriteFile(text: string, index: InciIndex): { text: string; result: Om
 
   return {
     text: final,
-    result: { productsTotal, productsRewritten, productsAlreadyFilled, productsNoMatch },
+    result: { productsTotal, productsRewritten, productsAlreadyFilled, productsNoMatch, productsReset },
   }
 }
 
@@ -193,7 +203,14 @@ function main(): void {
     console.log(`  ${DRY_RUN ? '[would update]' : '✓'} output/types.ts (re-export INGREDIENT_SLUGS)`)
   }
 
-  let totals = { files: 0, productsTotal: 0, productsRewritten: 0, productsAlreadyFilled: 0, productsNoMatch: 0 }
+  let totals = {
+    files: 0,
+    productsTotal: 0,
+    productsRewritten: 0,
+    productsAlreadyFilled: 0,
+    productsNoMatch: 0,
+    productsReset: 0,
+  }
   const perFile: FileResult[] = []
 
   for (const path of files) {
@@ -205,6 +222,7 @@ function main(): void {
     totals.productsRewritten += result.productsRewritten
     totals.productsAlreadyFilled += result.productsAlreadyFilled
     totals.productsNoMatch += result.productsNoMatch
+    totals.productsReset += result.productsReset
 
     if (result.productsRewritten === 0) continue
     perFile.push({ path, ...result })
@@ -217,8 +235,9 @@ function main(): void {
   console.log(`  files scanned             ${totals.files}`)
   console.log(`  files with rewrites       ${perFile.length}`)
   console.log(`  products total            ${totals.productsTotal}`)
+  console.log(`  products auto-inferred reset  ${totals.productsReset} (re-processed)`)
   console.log(`  products rewritten        ${totals.productsRewritten}`)
-  console.log(`  products already filled   ${totals.productsAlreadyFilled} (preserved)`)
+  console.log(`  products already filled   ${totals.productsAlreadyFilled} (preserved — human review)`)
   console.log(`  products no INCI match    ${totals.productsNoMatch} (left empty)`)
 
   if (perFile.length > 0 && perFile.length <= 20) {

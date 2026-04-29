@@ -16,21 +16,64 @@ import { join } from 'node:path'
 import { ingredientData } from '../../data/ingredients'
 import { INGREDIENT_SLUGS } from '../../data/ingredients/ingredient-slugs'
 
-export const EXCIPIENT_BLOCKLIST = new Set<string>([
-  'AQUA', 'WATER', 'EAU',
-  'GLYCERIN', 'GLYCERINE',
-  'ALCOHOL', 'ALCOHOL DENAT', 'DENATURED ALCOHOL', 'ETHANOL',
-  'BUTYLENE GLYCOL', 'PROPYLENE GLYCOL', 'PENTYLENE GLYCOL',
-  'PARFUM', 'FRAGRANCE',
-  'PHENOXYETHANOL', 'BENZYL ALCOHOL', 'ETHYLHEXYLGLYCERIN',
-  'CITRIC ACID',
-  'SODIUM HYDROXIDE',
-  'DISODIUM EDTA', 'EDTA', 'TETRASODIUM EDTA',
-  'BHT',
-  'XANTHAN GUM',
-  'CARBOMER',
-  'SODIUM CHLORIDE',
-])
+// Entries are normalised at module load via normalizeInciToken to match real
+// INCI conventions (dashes, slashes, parens, accents). Source list keeps the
+// original INCI orthography so it stays grep-friendly.
+const EXCIPIENT_BLOCKLIST_SOURCE: string[] = [
+  // Solvents / pH adjusters
+  'Aqua', 'Water', 'Eau',
+  'Glycerin', 'Glycerine',
+  'Alcohol', 'Alcohol Denat', 'Denatured Alcohol', 'Ethanol',
+  'Butylene Glycol', 'Propylene Glycol', 'Pentylene Glycol',
+  'Parfum', 'Fragrance',
+  'Phenoxyethanol', 'Benzyl Alcohol', 'Ethylhexylglycerin',
+  'Citric Acid',
+  'Sodium Hydroxide', 'Triethanolamine',
+  'Disodium EDTA', 'EDTA', 'Tetrasodium EDTA', 'Trisodium EDTA',
+  'BHT', 'BHA',
+  'Sodium Chloride',
+  'Potassium Sorbate', 'Sodium Benzoate',
+  // Texture / rheology polymers
+  'Xanthan Gum',
+  'Carbomer',
+  'Sclerotium Gum',
+  'Hydroxyethylcellulose', 'Hydroxypropyl Methylcellulose', 'Hydroxypropyl Cellulose',
+  'Acrylates Copolymer', 'Acrylates/C10-30 Alkyl Acrylate Crosspolymer',
+  'Ammonium Acryloyldimethyltaurate/VP Copolymer',
+  // Silicones
+  'Dimethicone', 'Dimethiconol',
+  'Cyclomethicone', 'Cyclopentasiloxane', 'Cyclohexasiloxane',
+  'Phenyl Trimethicone',
+  // Fatty alcohols / emulsifying waxes
+  'Cetearyl Alcohol', 'Cetyl Alcohol', 'Stearyl Alcohol',
+  'Behenyl Alcohol', 'Arachidyl Alcohol',
+  // Common emulsifiers
+  'Glyceryl Stearate', 'Glyceryl Stearate SE',
+  'PEG-100 Stearate', 'PEG-40 Stearate',
+  'PEG-40 Hydrogenated Castor Oil', 'PEG-60 Hydrogenated Castor Oil',
+  'Cetearyl Glucoside', 'Arachidyl Glucoside',
+  'Polysorbate 20', 'Polysorbate 60', 'Polysorbate 80',
+  'Sorbitan Stearate', 'Sorbitan Olivate',
+  // Bland emollient oils / esters
+  'Mineral Oil', 'Paraffinum Liquidum', 'Petrolatum',
+  'Ethylhexyl Palmitate', 'Isopropyl Myristate', 'Isopropyl Palmitate',
+  'Caprylic/Capric Triglyceride', 'Coco-Caprylate', 'Coco-Caprylate/Caprate',
+  'Octyldodecanol',
+  'C12-15 Alkyl Benzoate', 'C13-14 Isoparaffin',
+  // Mild surfactants present in nearly every wash/shampoo
+  'Cocamidopropyl Betaine',
+  'Sodium Cocoamphoacetate', 'Disodium Cocoamphodiacetate',
+  'Decyl Glucoside', 'Coco-Glucoside', 'Lauryl Glucoside', 'Caprylyl/Capryl Glucoside',
+  // Generic shampoo conditioning polymers (cationic)
+  'Polyquaternium-10', 'Polyquaternium-7', 'Polyquaternium-4', 'Polyquaternium-22',
+  'Guar Hydroxypropyltrimonium Chloride',
+  // Vitamin E / derivatives — almost always trace-level stabilisers
+  'Tocopherol', 'Tocopheryl Acetate', 'Tocopheryl Glucoside',
+]
+
+export const EXCIPIENT_BLOCKLIST = new Set<string>(
+  EXCIPIENT_BLOCKLIST_SOURCE.map((s) => normalizeInciToken(s))
+)
 
 export type InciIndex = Map<string, string>
 
