@@ -249,6 +249,10 @@ signature du produit. Trop de primary → information diluée.
 - **Concentration** : préférer les champs dédiés
   (`concentrationValue` + `concentrationUnit`) plutôt que le `notes`.
   Voir `docs/prompts/backfill-concentrations.md` pour l'extraction auto.
+- **Pré-remplissage candidats** : `scripts/infer-key-ingredients.ts` parse l'INCI
+  des fichiers `output/candidates/` et insère les slugs reconnus, marqués
+  `/* AUTO-INFERRED */`. Toujours review avant de déplacer vers `data/products/`.
+  Détails dans `output/MIGRATION.md` § Pipeline keyIngredients.
 
 ### 3.7 Source de données seed
 
