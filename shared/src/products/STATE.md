@@ -178,7 +178,7 @@ branche sur les filtres autorisés. Interdit `skin_type` en haircare, etc.
 | dental     | concern, age_group, product_type, dental_effect, product_label                                      |
 | complement | goal, product_type, moment, restriction, product_label                                              |
 
-Base commune : `kind, brand, ingredient, avoid_for, priceMin, priceMax, page, limit, sort`.
+Base commune : `kind, brand, ingredient, avoid_for, q, priceMin, priceMax, page, limit, sort`.
 
 Types exposés : `SkincareListProductsFilters`, `HaircareListProductsFilters`,
 `DentalListProductsFilters`, `ComplementListProductsFilters`, `ListProductsFilters` (union).
@@ -221,13 +221,13 @@ Même shape pour `skincare/ | haircare/ | dental/ | supplement/` :
 
 - `tag-slugs.ts` — constantes de slug (DB-facing, immutables)
 - `tag-taxonomy.ts` — `{DOMAIN}_PRODUCT_TAG_CATEGORIES` — **toutes remplies** (les arrays haircare/dental/supplement étaient des stubs `[] as const`, corrigé 2026-04-22)
-- `tag-filters.ts` — `{DOMAIN}_PRODUCT_TAG_CATEGORY_META` (label, placeholder, tier, order) + `{domain}ProductFilterCategories()` retournant les clés triées — **toutes remplies**
+- `tag-filters.ts` — `{DOMAIN}_PRODUCT_TAG_CATEGORY_META` (label, placeholder, tier, order, defaultOpen?) + `{domain}ProductFilterCategories()` retournant les clés triées — **toutes remplies**
 - `schemas.ts` — `{domain}ProductFilterOptionsSchema` (forme réponse `/filter-options`)
 - `index.ts` — barrel
 
 | Domaine    | Catégories tag                                                             |
 |------------|---------------------------------------------------------------------------|
-| skincare   | skin_type, concern, skin_zone, product_type, routine_step, skin_effect, product_label, shared_label |
+| skincare   | skin_type, concern, product_type, skin_zone, routine_step, skin_effect, product_label, shared_label |
 | haircare   | hair_type, concern, product_type, routine_step, hair_effect, product_label |
 | dental     | concern, age_group, product_type, dental_effect, product_label             |
 | supplement | goal, product_type, moment, restriction, product_label                     |
@@ -416,8 +416,8 @@ discriminated union). La conversion est localisée dans `buildListProductsQuery`
       `{haircare,dental,supplement}/schemas.ts` `filterOptionsSchema.tags` remplis.
 - [ ] `Array.isArray(filters.kind|brand|ingredient)` dans `listProducts` — dead code,
       Zod `z.string().optional()` ne produit jamais un array. Cosmétique, garder OK.
-- [ ] Validation `kind` contre `PRODUCT_KINDS[category]` : aujourd'hui `filters.kind`
-      est validé `z.string()`, un typo (`?kind=xyz`) passe silencieusement (0 résultats).
+- [x] Validation `kind` contre `PRODUCT_KINDS[category]` : `kindFilterFor(domain)` valide
+      chaque valeur CSV contre l'union des kinds du domaine — typo rejette avec message d'erreur.
 
 ### Frontend — ✅ dette principale résolue
 - [x] **`FILTER_KEYS` / `productsSearchSchema` all-domain** — URL state couvre toutes
