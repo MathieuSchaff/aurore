@@ -17,9 +17,9 @@ import { readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 import {
-  SKINCARE_PRODUCT_TAG_SLUGS,
-  HAIRCARE_PRODUCT_TAG_SLUGS,
   DENTAL_PRODUCT_TAG_SLUGS,
+  HAIRCARE_PRODUCT_TAG_SLUGS,
+  SKINCARE_PRODUCT_TAG_SLUGS,
 } from '@habit-tracker/shared'
 
 const WRITE = process.argv.includes('--write')
@@ -452,9 +452,15 @@ function computeTagsFromName(name: string): TagResult {
   const avoid = new Set<string>()
   for (const [pattern, tags] of NAME_PATTERNS) {
     if (!pattern.test(name)) continue
-    tags.primary?.forEach((t) => primary.add(t))
-    tags.secondary?.forEach((t) => secondary.add(t))
-    tags.avoid?.forEach((t) => avoid.add(t))
+    tags.primary?.forEach((t) => {
+      primary.add(t)
+    })
+    tags.secondary?.forEach((t) => {
+      secondary.add(t)
+    })
+    tags.avoid?.forEach((t) => {
+      avoid.add(t)
+    })
   }
   return { primary: [...primary], secondary: [...secondary], avoid: [...avoid] }
 }
@@ -571,7 +577,10 @@ function computeSkincareTagsFromInci(inci: string, kind: string): TagResult {
   }
 }
 
-function applyDomainWhitelist(result: TagResult, domain: 'skincare' | 'haircare' | 'dental'): TagResult {
+function applyDomainWhitelist(
+  result: TagResult,
+  domain: 'skincare' | 'haircare' | 'dental'
+): TagResult {
   const allowed = PRODUCT_TAG_WHITELIST[domain]
   if (!allowed || allowed.size === 0) return { primary: [], secondary: [], avoid: [] }
   return {

@@ -19,28 +19,27 @@
  *   bun run backend/src/db/seed/scripts/migrate-pharmashop.ts --apply --force          # overwrite existing candidates
  */
 
-import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync, statSync } from 'node:fs'
+import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { join, relative } from 'node:path'
 
 import {
-  parseAmountFromName,
-  cleanSlug,
-  cleanName,
+  brandToSlug,
   cleanInci,
+  cleanName,
+  cleanSlug,
+  detectOutOfScope,
+  generateCandidateFile,
+  getEnrichableFields,
   inferKind,
   inferKindFallback,
   inferUnit,
-  detectOutOfScope,
-  brandToSlug,
   KIND_TO_CATEGORY,
-  generateCandidateFile,
-  getEnrichableFields,
   loadExistingSlugs,
-  type NormalizedProduct,
   type MigrationEntry,
+  type NormalizedProduct,
+  parseAmountFromName,
 } from './lib/migration-helpers'
-
-import { parsePharmashopDescription, type ParsedPharmashopProduct } from './lib/pharmashop-parser'
+import { type ParsedPharmashopProduct, parsePharmashopDescription } from './lib/pharmashop-parser'
 
 // ─── Paths ───────────────────────────────────────────────────────────────────
 
@@ -54,7 +53,13 @@ const DRY_RUN = !process.argv.includes('--apply')
 const FORCE = process.argv.includes('--force')
 const ONLY = (() => {
   const arg = process.argv.find((a) => a.startsWith('--only='))
-  return arg ? arg.slice('--only='.length).split(',').map((s) => s.trim().toLowerCase()).filter(Boolean) : null
+  return arg
+    ? arg
+        .slice('--only='.length)
+        .split(',')
+        .map((s) => s.trim().toLowerCase())
+        .filter(Boolean)
+    : null
 })()
 
 // ─── Source file discovery ──────────────────────────────────────────────────
@@ -108,7 +113,12 @@ function normalizeBrand(brand: string): string {
   return trimmed
     .toLowerCase()
     .split(/\s+/)
-    .map((w) => w.split('-').map((s) => (s ? s[0].toUpperCase() + s.slice(1) : s)).join('-'))
+    .map((w) =>
+      w
+        .split('-')
+        .map((s) => (s ? s[0].toUpperCase() + s.slice(1) : s))
+        .join('-')
+    )
     .join(' ')
 }
 
@@ -334,7 +344,9 @@ async function main() {
 
       const outPath = join(dir, `${brandSlug}.pharmashop.seed.ts`)
       if (existsSync(outPath) && !FORCE) {
-        console.log(`  ⊘ candidates/${category}/${brandSlug}.pharmashop.seed.ts (exists — pass --force to overwrite)`)
+        console.log(
+          `  ⊘ candidates/${category}/${brandSlug}.pharmashop.seed.ts (exists — pass --force to overwrite)`
+        )
         skipped++
         continue
       }
@@ -346,10 +358,14 @@ async function main() {
         }),
         'utf-8'
       )
-      console.log(`  ✓ candidates/${category}/${brandSlug}.pharmashop.seed.ts  (${products.length} products)`)
+      console.log(
+        `  ✓ candidates/${category}/${brandSlug}.pharmashop.seed.ts  (${products.length} products)`
+      )
       written++
     }
-    console.log(`\n✓ ${written} candidate files written${skipped ? ` · ${skipped} skipped (already exist)` : ''}\n`)
+    console.log(
+      `\n✓ ${written} candidate files written${skipped ? ` · ${skipped} skipped (already exist)` : ''}\n`
+    )
   } else {
     console.log(`\n  Dry-run: ${toCreate.size} candidate file groups pending (pass --apply)\n`)
   }

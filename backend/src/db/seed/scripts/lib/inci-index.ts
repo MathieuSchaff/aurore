@@ -21,54 +21,103 @@ import { INGREDIENT_SLUGS } from '../../data/ingredients/ingredient-slugs'
 // original INCI orthography so it stays grep-friendly.
 const EXCIPIENT_BLOCKLIST_SOURCE: string[] = [
   // Solvents / pH adjusters
-  'Aqua', 'Water', 'Eau',
-  'Glycerin', 'Glycerine',
-  'Alcohol', 'Alcohol Denat', 'Denatured Alcohol', 'Ethanol',
-  'Butylene Glycol', 'Propylene Glycol', 'Pentylene Glycol',
-  'Parfum', 'Fragrance',
-  'Phenoxyethanol', 'Benzyl Alcohol', 'Ethylhexylglycerin',
+  'Aqua',
+  'Water',
+  'Eau',
+  'Glycerin',
+  'Glycerine',
+  'Alcohol',
+  'Alcohol Denat',
+  'Denatured Alcohol',
+  'Ethanol',
+  'Butylene Glycol',
+  'Propylene Glycol',
+  'Pentylene Glycol',
+  'Parfum',
+  'Fragrance',
+  'Phenoxyethanol',
+  'Benzyl Alcohol',
+  'Ethylhexylglycerin',
   'Citric Acid',
-  'Sodium Hydroxide', 'Triethanolamine',
-  'Disodium EDTA', 'EDTA', 'Tetrasodium EDTA', 'Trisodium EDTA',
-  'BHT', 'BHA',
+  'Sodium Hydroxide',
+  'Triethanolamine',
+  'Disodium EDTA',
+  'EDTA',
+  'Tetrasodium EDTA',
+  'Trisodium EDTA',
+  'BHT',
+  'BHA',
   'Sodium Chloride',
-  'Potassium Sorbate', 'Sodium Benzoate',
+  'Potassium Sorbate',
+  'Sodium Benzoate',
   // Texture / rheology polymers
   'Xanthan Gum',
   'Carbomer',
   'Sclerotium Gum',
-  'Hydroxyethylcellulose', 'Hydroxypropyl Methylcellulose', 'Hydroxypropyl Cellulose',
-  'Acrylates Copolymer', 'Acrylates/C10-30 Alkyl Acrylate Crosspolymer',
+  'Hydroxyethylcellulose',
+  'Hydroxypropyl Methylcellulose',
+  'Hydroxypropyl Cellulose',
+  'Acrylates Copolymer',
+  'Acrylates/C10-30 Alkyl Acrylate Crosspolymer',
   'Ammonium Acryloyldimethyltaurate/VP Copolymer',
   // Silicones
-  'Dimethicone', 'Dimethiconol',
-  'Cyclomethicone', 'Cyclopentasiloxane', 'Cyclohexasiloxane',
+  'Dimethicone',
+  'Dimethiconol',
+  'Cyclomethicone',
+  'Cyclopentasiloxane',
+  'Cyclohexasiloxane',
   'Phenyl Trimethicone',
   // Fatty alcohols / emulsifying waxes
-  'Cetearyl Alcohol', 'Cetyl Alcohol', 'Stearyl Alcohol',
-  'Behenyl Alcohol', 'Arachidyl Alcohol',
+  'Cetearyl Alcohol',
+  'Cetyl Alcohol',
+  'Stearyl Alcohol',
+  'Behenyl Alcohol',
+  'Arachidyl Alcohol',
   // Common emulsifiers
-  'Glyceryl Stearate', 'Glyceryl Stearate SE',
-  'PEG-100 Stearate', 'PEG-40 Stearate',
-  'PEG-40 Hydrogenated Castor Oil', 'PEG-60 Hydrogenated Castor Oil',
-  'Cetearyl Glucoside', 'Arachidyl Glucoside',
-  'Polysorbate 20', 'Polysorbate 60', 'Polysorbate 80',
-  'Sorbitan Stearate', 'Sorbitan Olivate',
+  'Glyceryl Stearate',
+  'Glyceryl Stearate SE',
+  'PEG-100 Stearate',
+  'PEG-40 Stearate',
+  'PEG-40 Hydrogenated Castor Oil',
+  'PEG-60 Hydrogenated Castor Oil',
+  'Cetearyl Glucoside',
+  'Arachidyl Glucoside',
+  'Polysorbate 20',
+  'Polysorbate 60',
+  'Polysorbate 80',
+  'Sorbitan Stearate',
+  'Sorbitan Olivate',
   // Bland emollient oils / esters
-  'Mineral Oil', 'Paraffinum Liquidum', 'Petrolatum',
-  'Ethylhexyl Palmitate', 'Isopropyl Myristate', 'Isopropyl Palmitate',
-  'Caprylic/Capric Triglyceride', 'Coco-Caprylate', 'Coco-Caprylate/Caprate',
+  'Mineral Oil',
+  'Paraffinum Liquidum',
+  'Petrolatum',
+  'Ethylhexyl Palmitate',
+  'Isopropyl Myristate',
+  'Isopropyl Palmitate',
+  'Caprylic/Capric Triglyceride',
+  'Coco-Caprylate',
+  'Coco-Caprylate/Caprate',
   'Octyldodecanol',
-  'C12-15 Alkyl Benzoate', 'C13-14 Isoparaffin',
+  'C12-15 Alkyl Benzoate',
+  'C13-14 Isoparaffin',
   // Mild surfactants present in nearly every wash/shampoo
   'Cocamidopropyl Betaine',
-  'Sodium Cocoamphoacetate', 'Disodium Cocoamphodiacetate',
-  'Decyl Glucoside', 'Coco-Glucoside', 'Lauryl Glucoside', 'Caprylyl/Capryl Glucoside',
+  'Sodium Cocoamphoacetate',
+  'Disodium Cocoamphodiacetate',
+  'Decyl Glucoside',
+  'Coco-Glucoside',
+  'Lauryl Glucoside',
+  'Caprylyl/Capryl Glucoside',
   // Generic shampoo conditioning polymers (cationic)
-  'Polyquaternium-10', 'Polyquaternium-7', 'Polyquaternium-4', 'Polyquaternium-22',
+  'Polyquaternium-10',
+  'Polyquaternium-7',
+  'Polyquaternium-4',
+  'Polyquaternium-22',
   'Guar Hydroxypropyltrimonium Chloride',
   // Vitamin E / derivatives — almost always trace-level stabilisers
-  'Tocopherol', 'Tocopheryl Acetate', 'Tocopheryl Glucoside',
+  'Tocopherol',
+  'Tocopheryl Acetate',
+  'Tocopheryl Glucoside',
 ]
 
 export const EXCIPIENT_BLOCKLIST = new Set<string>(
@@ -147,7 +196,10 @@ export function parseInciFromContent(content: string): string[] {
     candidates = firstLine ? [firstLine] : []
   }
 
-  return candidates.flatMap((c) => c.split(/\s+ou\s+|\s*\/\s*|,/i)).map((t) => t.trim()).filter(Boolean)
+  return candidates
+    .flatMap((c) => c.split(/\s+ou\s+|\s*\/\s*|,/i))
+    .map((t) => t.trim())
+    .filter(Boolean)
 }
 
 /** Parse `SLUG_KEY: 'slug-value', // [INCI:] Token / Token | desc`. Returns null when format unfamiliar. */
@@ -156,7 +208,7 @@ export function parseInciFromSlugLine(line: string): { slug: string; tokens: str
   if (!m) return null
 
   const slug = m[2]
-  let comment = m[3]
+  const comment = m[3]
 
   let inciSegment = comment
   if (/^INCI:\s*/i.test(comment)) {
@@ -175,7 +227,7 @@ export function parseInciFromSlugLine(line: string): { slug: string; tokens: str
   const allowedLowercase = new Set(['or', 'and'])
   const words = inciSegment.split(/\s+/).filter(Boolean)
   for (const w of words) {
-    const cleaned = w.replace(/[(),./&\-]/g, '')
+    const cleaned = w.replace(/[(),./&-]/g, '')
     if (!cleaned) continue
     if (/^[a-z]/.test(cleaned) && !allowedLowercase.has(cleaned.toLowerCase())) return null
   }
@@ -261,10 +313,7 @@ export function inferKeyIngredients(
 
   const allowed = getDomainAllowlist(options.candidateCategory)
 
-  const tokens = inci
-    .split(/[,;]/)
-    .map(normalizeInciToken)
-    .filter(Boolean)
+  const tokens = inci.split(/[,;]/).map(normalizeInciToken).filter(Boolean)
 
   const seen = new Set<string>()
   const result: string[] = []

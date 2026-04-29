@@ -97,7 +97,10 @@ export function parsePharmashopDescription(text: string): ParsedPharmashopProduc
   let brand = ''
   const marqueHeader = lines.find((l) => /^LA\s+MARQUE\s+.+/.test(l.trim()))
   if (marqueHeader) {
-    brand = marqueHeader.trim().replace(/^LA\s+MARQUE\s+/, '').trim()
+    brand = marqueHeader
+      .trim()
+      .replace(/^LA\s+MARQUE\s+/, '')
+      .trim()
   }
   if (!brand) brand = extractBrandFromUrl(url)
   if (!brand) brand = extractBrandFromBreadcrumb(lines, ajouterIdx)
@@ -164,7 +167,9 @@ export function parseRefLine(line: string): { ref: string; formatText: string } 
   // "Ref : 4005800350504 -  Tube 50ml -  Prix au kg/L : 293,25 €"
   // "Ref : 3574661618869 -  Flacon Pompe 1L - "          ← no price-per-L
   // The format block always sits between the first " - " and the next " - ".
-  const refMatch = line.match(/^Ref\s*:\s*([^\s-][^-]*?)\s+-\s+(.+?)(?:\s+-\s*(?:Prix\s+au|$).*)?$/i)
+  const refMatch = line.match(
+    /^Ref\s*:\s*([^\s-][^-]*?)\s+-\s+(.+?)(?:\s+-\s*(?:Prix\s+au|$).*)?$/i
+  )
   if (!refMatch) return { ref: '', formatText: '' }
   return { ref: refMatch[1].trim(), formatText: refMatch[2].trim() }
 }
@@ -185,14 +190,21 @@ const FORMAT_KEYWORDS: Array<[RegExp, string]> = [
   // schema — leave the hint empty so downstream inferUnit picks the right one from kind.
 ]
 
-export function parseFormat(formatText: string): { totalAmount: number; amountUnit: string; unitHint: string } {
+export function parseFormat(formatText: string): {
+  totalAmount: number
+  amountUnit: string
+  unitHint: string
+} {
   const m = formatText.match(/(\d+(?:[.,]\d+)?)\s*(ml|cl|l|kg|mg|oz|g)\b/i)
   const totalAmount = m ? parseFloat(m[1].replace(',', '.')) : 0
   const amountUnit = m ? m[2].toLowerCase() : ''
 
   let unitHint = ''
   for (const [re, u] of FORMAT_KEYWORDS) {
-    if (re.test(formatText)) { unitHint = u; break }
+    if (re.test(formatText)) {
+      unitHint = u
+      break
+    }
   }
   return { totalAmount, amountUnit, unitHint }
 }
@@ -210,7 +222,10 @@ export function parseEuroToCents(s: string): number {
 // All-caps anchors only — Pharmashop section headings are reliably uppercase. Matching
 // case-insensitively would catch lowercase prose mentions (e.g. "La marque X propose…")
 // inside the DESCRIPTION block and split sections incorrectly.
-const SECTION_HEADERS: Array<{ key: 'DESCRIPTION' | 'COMPOSITION' | 'CONSEILS' | 'MARQUE' | 'BESTSELLERS' | 'AVIS' | 'POINTS'; re: RegExp }> = [
+const SECTION_HEADERS: Array<{
+  key: 'DESCRIPTION' | 'COMPOSITION' | 'CONSEILS' | 'MARQUE' | 'BESTSELLERS' | 'AVIS' | 'POINTS'
+  re: RegExp
+}> = [
   { key: 'DESCRIPTION', re: /^DESCRIPTION$/ },
   { key: 'COMPOSITION', re: /^COMPOSITION$/ },
   { key: 'CONSEILS', re: /^CONSEILS\s+D[' ’‘`]\s*UTILISATION$/ },
@@ -220,7 +235,14 @@ const SECTION_HEADERS: Array<{ key: 'DESCRIPTION' | 'COMPOSITION' | 'CONSEILS' |
   { key: 'POINTS', re: /^\s*POINTS\s+FID[ÉE]LIT[ÉE]\s*$/ },
 ]
 
-export function extractSections(lines: string[]): Partial<Record<'DESCRIPTION' | 'COMPOSITION' | 'CONSEILS' | 'MARQUE' | 'BESTSELLERS' | 'AVIS' | 'POINTS', string>> {
+export function extractSections(
+  lines: string[]
+): Partial<
+  Record<
+    'DESCRIPTION' | 'COMPOSITION' | 'CONSEILS' | 'MARQUE' | 'BESTSELLERS' | 'AVIS' | 'POINTS',
+    string
+  >
+> {
   const sections: Record<string, string> = {}
   let currentKey = ''
   let buffer: string[] = []
@@ -266,7 +288,8 @@ const INCI_PARAGRAPH_BLOCKERS: RegExp[] = [
 
 // Common ingredient tokens. A paragraph containing any of these is almost certainly
 // the INCI list, regardless of which separator the source uses (`,`, `. `, ` - `, `•`).
-const INCI_HALLMARK = /\b(?:aqua|water|glycerin|cetearyl\s+alcohol|sodium\s+(?:laureth|lauryl|cocoate|olivate)|helianthus|butyrospermum|caprylic\/capric|alcohol\s+denat|dimethicone|phenoxyethanol|tocopherol|titanium\s+dioxide|parfum|fragrance|niacinamide|prunus\s+amygdalus|olea\s+europaea|cocos\s+nucifera|paraffinum\s+liquidum)\b/i
+const INCI_HALLMARK =
+  /\b(?:aqua|water|glycerin|cetearyl\s+alcohol|sodium\s+(?:laureth|lauryl|cocoate|olivate)|helianthus|butyrospermum|caprylic\/capric|alcohol\s+denat|dimethicone|phenoxyethanol|tocopherol|titanium\s+dioxide|parfum|fragrance|niacinamide|prunus\s+amygdalus|olea\s+europaea|cocos\s+nucifera|paraffinum\s+liquidum)\b/i
 
 // Token separators: commas, periods, bullets, " - " (dash with surrounding spaces).
 const INCI_SEP_RE = /[,•]|\.\s+|\s+-\s+/g

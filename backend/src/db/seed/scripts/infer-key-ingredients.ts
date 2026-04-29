@@ -22,11 +22,11 @@
  *   bun run backend/src/db/seed/scripts/infer-key-ingredients.ts --max=10       # cap matches per product
  */
 
-import { readdirSync, readFileSync, writeFileSync, statSync } from 'node:fs'
+import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 import { INGREDIENT_SLUGS } from '../data/ingredients/ingredient-slugs'
-import { buildInciIndex, inferKeyIngredients, type InciIndex } from './lib/inci-index'
+import { buildInciIndex, type InciIndex, inferKeyIngredients } from './lib/inci-index'
 
 const SEED_ROOT = join(import.meta.dir, '..')
 const CANDIDATES_DIR = join(SEED_ROOT, 'output', 'candidates')
@@ -36,7 +36,13 @@ const STUB_TYPES_PATH = join(SEED_ROOT, 'output', 'types.ts')
 const DRY_RUN = !process.argv.includes('--apply')
 const ONLY = (() => {
   const arg = process.argv.find((a) => a.startsWith('--only='))
-  return arg ? arg.slice('--only='.length).split(',').map((s) => s.trim()).filter(Boolean) : null
+  return arg
+    ? arg
+        .slice('--only='.length)
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean)
+    : null
 })()
 const MAX = (() => {
   const arg = process.argv.find((a) => a.startsWith('--max='))
@@ -95,7 +101,11 @@ function categoryFromPath(filePath: string): string {
   return m?.[1] ?? ''
 }
 
-function rewriteFile(text: string, index: InciIndex, category: string): { text: string; result: Omit<FileResult, 'path'> } {
+function rewriteFile(
+  text: string,
+  index: InciIndex,
+  category: string
+): { text: string; result: Omit<FileResult, 'path'> } {
   let productsRewritten = 0
   let productsNoMatch = 0
   let productsReset = 0
@@ -110,27 +120,35 @@ function rewriteFile(text: string, index: InciIndex, category: string): { text: 
   const emptyMatches = text.match(/\bkeyIngredients:\s*\[\]/g) || []
   const productsAlreadyFilled = productsTotal - emptyMatches.length
 
-  const rewritten = text.replace(PRODUCT_RE, (_full, prefix: string, inciRaw: string, _trailing: string) => {
-    const inci = unescapeInci(inciRaw)
-    const slugs = inferKeyIngredients(inci, index, { max: MAX, candidateCategory: category })
-    if (slugs.length === 0) {
-      productsNoMatch++
-      return `${prefix}[]`
+  const rewritten = text.replace(
+    PRODUCT_RE,
+    (_full, prefix: string, inciRaw: string, _trailing: string) => {
+      const inci = unescapeInci(inciRaw)
+      const slugs = inferKeyIngredients(inci, index, { max: MAX, candidateCategory: category })
+      if (slugs.length === 0) {
+        productsNoMatch++
+        return `${prefix}[]`
+      }
+      productsRewritten++
+      const lines = slugs.map((s) => {
+        const constName = SLUG_TO_CONST[s] ?? s.toUpperCase().replace(/-/g, '_')
+        return `      { slug: INGREDIENT_SLUGS.${constName} },`
+      })
+      return `${prefix}[\n${lines.join('\n')}\n    ] /* AUTO-INFERRED — review: add notes/concentrations, prune false positives */`
     }
-    productsRewritten++
-    const lines = slugs.map((s) => {
-      const constName = SLUG_TO_CONST[s] ?? s.toUpperCase().replace(/-/g, '_')
-      return `      { slug: INGREDIENT_SLUGS.${constName} },`
-    })
-    return `${prefix}[\n${lines.join('\n')}\n    ] /* AUTO-INFERRED — review: add notes/concentrations, prune false positives */`
-  })
+  )
 
   // Ensure import line is present when at least one product was rewritten.
   let final = rewritten
-  if (productsRewritten > 0 && !/import\s*\{[^}]*INGREDIENT_SLUGS[^}]*\}\s*from\s*['"]\.\.\/\.\.\/types['"]/.test(final)) {
+  if (
+    productsRewritten > 0 &&
+    !/import\s*\{[^}]*INGREDIENT_SLUGS[^}]*\}\s*from\s*['"]\.\.\/\.\.\/types['"]/.test(final)
+  ) {
     const importLine = `import { INGREDIENT_SLUGS } from '../../types'\n`
     // Insert right after the existing `import type { UnifiedProductSeed } …` line.
-    const m = final.match(/^import\s+type\s+\{\s*UnifiedProductSeed\s*\}\s+from\s+'\.\.\/\.\.\/types'\s*\n/m)
+    const m = final.match(
+      /^import\s+type\s+\{\s*UnifiedProductSeed\s*\}\s+from\s+'\.\.\/\.\.\/types'\s*\n/m
+    )
     if (m) {
       const idx = final.indexOf(m[0]) + m[0].length
       final = final.slice(0, idx) + importLine + final.slice(idx)
@@ -141,7 +159,13 @@ function rewriteFile(text: string, index: InciIndex, category: string): { text: 
 
   return {
     text: final,
-    result: { productsTotal, productsRewritten, productsAlreadyFilled, productsNoMatch, productsReset },
+    result: {
+      productsTotal,
+      productsRewritten,
+      productsAlreadyFilled,
+      productsNoMatch,
+      productsReset,
+    },
   }
 }
 
@@ -202,13 +226,17 @@ function main(): void {
 
   const reexport = ensureTypesReexports()
   if (reexport.productsTypesUpdated) {
-    console.log(`  ${DRY_RUN ? '[would update]' : '✓'} data/products/types.ts (re-export INGREDIENT_SLUGS)`)
+    console.log(
+      `  ${DRY_RUN ? '[would update]' : '✓'} data/products/types.ts (re-export INGREDIENT_SLUGS)`
+    )
   }
   if (reexport.stubUpdated) {
-    console.log(`  ${DRY_RUN ? '[would update]' : '✓'} output/types.ts (re-export INGREDIENT_SLUGS)`)
+    console.log(
+      `  ${DRY_RUN ? '[would update]' : '✓'} output/types.ts (re-export INGREDIENT_SLUGS)`
+    )
   }
 
-  let totals = {
+  const totals = {
     files: 0,
     productsTotal: 0,
     productsRewritten: 0,
@@ -243,7 +271,9 @@ function main(): void {
   console.log(`  products total            ${totals.productsTotal}`)
   console.log(`  products auto-inferred reset  ${totals.productsReset} (re-processed)`)
   console.log(`  products rewritten        ${totals.productsRewritten}`)
-  console.log(`  products already filled   ${totals.productsAlreadyFilled} (preserved — human review)`)
+  console.log(
+    `  products already filled   ${totals.productsAlreadyFilled} (preserved — human review)`
+  )
   console.log(`  products no INCI match    ${totals.productsNoMatch} (left empty)`)
 
   if (perFile.length > 0 && perFile.length <= 20) {
