@@ -17,6 +17,7 @@ import { readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 const WRITE = process.argv.includes('--write')
+const CANDIDATES = process.argv.includes('--candidates')
 const SEED_ROOT = join(import.meta.dir, '..')
 
 // ─── Slug → TAG_SLUGS key (for code generation) ───────────────────────────────
@@ -352,6 +353,72 @@ const KIND_DENTAL_PRIMARY: Record<string, string> = {
   floss: 'fil-dentaire',
 }
 
+// ─── Name (FR claims) → skincare tags ─────────────────────────────────────────
+// French cosmetic claims are regulated, so explicit tokens in the name are
+// high-precision signals. Substring match on lowercased name. Negations
+// ("sans X") are not handled — false positives are caught by review.
+
+const NAME_PATTERNS: Array<[RegExp, Partial<TagResult>]> = [
+  [/anti[\s-]?imperfection/i, { primary: ['anti-acne'] }],
+  [/anti[\s-]?(rides?|age|âge)/i, { primary: ['anti-age'] }],
+  [/anti[\s-]?rougeur/i, { primary: ['anti-rougeurs'] }],
+  [
+    /anti[\s-]?tache|d[eé]pigmentant|d[eé]pigment\b/i,
+    { primary: ['anti-taches', 'hyperpigmentation'] },
+  ],
+  [
+    /anti[\s-]?d[eé]mangeaison|atopi/i,
+    { primary: ['eczema'], secondary: ['peau-atopique', 'apaisant'] },
+  ],
+  [/anti[\s-]?cerne/i, { primary: ['cernes-poches'] }],
+  [/apaisant|calmant/i, { primary: ['apaisant'] }],
+  [/hydratant|moisturiz/i, { primary: ['hydratation'] }],
+  [/matifiant|s[eé]bo[\s-]?r[eé]gul/i, { primary: ['sebo-regulateur'] }],
+  [/[eé]clat|radiance|illuminat/i, { primary: ['eclat'] }],
+  [/repulpant|plumping/i, { primary: ['repulpant'] }],
+  [/cicatris|r[eé]parat/i, { primary: ['cicatrisation'], secondary: ['reparateur'] }],
+  [/exfoliant|gommage|peeling/i, { primary: ['exfoliation'] }],
+  [
+    /\bspf\s?\d|solaire|sun[\s-]?screen/i,
+    { primary: ['protection-solaire'], secondary: ['matin'] },
+  ],
+  [/pores? (dilat|resserr)/i, { primary: ['pores-dilates'] }],
+  [/grain (de|inégal|inegal)/i, { primary: ['grain-peau'] }],
+  [/micro[\s-]?biome/i, { primary: ['microbiome'] }],
+  [/k[eé]ratose|pilaire/i, { primary: ['keratose-pilaire'] }],
+  [/peaux? sensibles?/i, { secondary: ['peau-sensible'] }],
+  [/peaux? r[eé]actives?/i, { secondary: ['peau-reactive'] }],
+  [/peaux? atopiques?/i, { secondary: ['peau-atopique'] }],
+  [/peaux? s[eé]ches?/i, { secondary: ['peau-seche'] }],
+  [/peaux? grasses?/i, { secondary: ['peau-grasse'] }],
+  [/peaux? mixtes?/i, { secondary: ['peau-mixte'] }],
+  [/peaux? matures?/i, { primary: ['anti-age'] }],
+]
+
+const PRIMARY_CAP = 4
+
+function computeTagsFromName(name: string): TagResult {
+  const primary = new Set<string>()
+  const secondary = new Set<string>()
+  const avoid = new Set<string>()
+  for (const [pattern, tags] of NAME_PATTERNS) {
+    if (!pattern.test(name)) continue
+    tags.primary?.forEach((t) => primary.add(t))
+    tags.secondary?.forEach((t) => secondary.add(t))
+    tags.avoid?.forEach((t) => avoid.add(t))
+  }
+  return { primary: [...primary], secondary: [...secondary], avoid: [...avoid] }
+}
+
+function mergeResults(a: TagResult, b: TagResult): TagResult {
+  const primary = [...new Set([...a.primary, ...b.primary])].slice(0, PRIMARY_CAP)
+  const secondary = [...new Set([...a.secondary, ...b.secondary])].filter(
+    (t) => !primary.includes(t)
+  )
+  const avoid = [...new Set([...a.avoid, ...b.avoid])]
+  return { primary, secondary, avoid }
+}
+
 // ─── Parsing helpers ──────────────────────────────────────────────────────────
 
 function extractField(block: string, field: string): string {
@@ -453,6 +520,7 @@ function computeSkincareTagsFromInci(inci: string, kind: string): TagResult {
 
 function computeTags(
   inci: string,
+  name: string,
   kind: string,
   domain: 'skincare' | 'haircare' | 'dental'
 ): TagResult {
@@ -466,17 +534,21 @@ function computeTags(
     return { primary: p ? [p] : [], secondary: [], avoid: [] }
   }
 
-  // Skincare with no INCI: only kind-based secondary, no primary
-  if (!inci.trim()) {
-    return { primary: [], secondary: KIND_SKINCARE_SEC[kind] ?? [], avoid: [] }
-  }
+  const inciResult = inci.trim()
+    ? computeSkincareTagsFromInci(inci, kind)
+    : { primary: [], secondary: KIND_SKINCARE_SEC[kind] ?? [], avoid: [] }
 
-  return computeSkincareTagsFromInci(inci, kind)
+  if (!name.trim()) return inciResult
+  return mergeResults(inciResult, computeTagsFromName(name))
 }
 
 // ─── Code generation ──────────────────────────────────────────────────────────
 
 function slugToCode(slug: string): string {
+  // Candidates have no TAG_SLUGS import (path differs pre/post promotion to data/products).
+  // tags.primary is typed `string[]`, so literals compile. Reviewer can migrate to
+  // TAG_SLUGS during review for auto-complete + typo detection.
+  if (CANDIDATES) return `'${slug}'`
   const haircareKey = HAIRCARE_SLUG_TO_KEY[slug]
   if (haircareKey) return `HAIRCARE_PRODUCT_TAG_SLUGS.${haircareKey}`
   const key = SLUG_TO_KEY[slug]
@@ -493,15 +565,20 @@ function renderArray(slugs: string[]): string {
 
 const EMPTY_TAGS_STR = 'tags: { primary: [], secondary: [], avoid: [] }'
 
+// Multi-line shape emitted by migrate-output.ts / migrate-pharmashop.ts for candidates.
+// Matched literally (no whitespace tolerance) — both scripts emit this exact string.
+const CANDIDATE_EMPTY_TAGS_STR =
+  'tags: {\n      primary: [], // TODO — slugs from data/tags/ only\n      secondary: [], // TODO\n      avoid: [], // TODO\n    }'
+
 function renderTags(result: TagResult): string {
-  if (!result.primary.length && !result.secondary.length && !result.avoid.length) {
-    return EMPTY_TAGS_STR
-  }
+  const empty = !result.primary.length && !result.secondary.length && !result.avoid.length
+  if (empty) return CANDIDATES ? CANDIDATE_EMPTY_TAGS_STR : EMPTY_TAGS_STR
+  const note = CANDIDATES ? ' // auto-suggested, verify' : ''
   return [
     'tags: {',
-    `      primary: ${renderArray(result.primary)},`,
-    `      secondary: ${renderArray(result.secondary)},`,
-    `      avoid: ${renderArray(result.avoid)},`,
+    `      primary: ${renderArray(result.primary)},${note}`,
+    `      secondary: ${renderArray(result.secondary)},${note}`,
+    `      avoid: ${renderArray(result.avoid)},${note}`,
     '    }',
   ].join('\n')
 }
@@ -520,30 +597,33 @@ function processFile(filePath: string): { changed: number; noMatch: number } {
   const changes: Change[] = []
   let noMatch = 0
 
+  const matchStr = CANDIDATES ? CANDIDATE_EMPTY_TAGS_STR : EMPTY_TAGS_STR
+
   let searchFrom = 0
   while (true) {
-    const idx = content.indexOf(EMPTY_TAGS_STR, searchFrom)
+    const idx = content.indexOf(matchStr, searchFrom)
     if (idx === -1) break
-    searchFrom = idx + EMPTY_TAGS_STR.length
+    searchFrom = idx + matchStr.length
 
     const before = content.slice(0, idx)
     const lastSlugIdx = before.lastIndexOf('\n    slug:')
     const context = lastSlugIdx >= 0 ? before.slice(lastSlugIdx) : before.slice(-2000)
 
     const slug = extractField(context, 'slug')
+    const name = extractField(context, 'name')
     const kind = extractField(context, 'kind')
     const inci = extractField(context, 'inci')
     const domain = getDomain(filePath, kind)
 
-    const result = computeTags(inci, kind, domain)
+    const result = computeTags(inci, name, kind, domain)
     const replacement = renderTags(result)
 
-    if (replacement === EMPTY_TAGS_STR) {
+    if (replacement === matchStr) {
       noMatch++
       continue
     }
 
-    changes.push({ slug, index: idx, length: EMPTY_TAGS_STR.length, replacement })
+    changes.push({ slug, index: idx, length: matchStr.length, replacement })
   }
 
   if (changes.length > 0) {
@@ -571,7 +651,9 @@ function processFile(filePath: string): { changed: number; noMatch: number } {
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
-const glob = new Bun.Glob('data/products/**/*.seed.ts')
+const glob = new Bun.Glob(
+  CANDIDATES ? 'output/candidates/**/*.seed.ts' : 'data/products/**/*.seed.ts'
+)
 let totalChanged = 0
 let totalNoMatch = 0
 const byDomain: Record<string, number> = { skincare: 0, haircare: 0, dental: 0 }
