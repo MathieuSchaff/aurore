@@ -179,7 +179,11 @@ export function cleanSlug(slug: string, totalAmount: number, amountUnit: string)
     const pattern = new RegExp(`-${amountStr}[-_]?${amountUnit}s?$`, 'i')
     s = s.replace(pattern, '')
   }
+  // Multipack tail (`-2x4g`, `-lot-de-2x500ml`)
+  s = s.replace(/-(?:lot-de-)?\d+x\d+(?:[.,]?\d+)?[-_]?(?:ml|cl|kg|mg|oz|g|l)s?$/i, '')
   s = s.replace(/-\d+(?:-?\d+)?[-_]?(?:ml|cl|kg|mg|oz|g|l)s?$/i, '')
+  // Volume in the middle of slug (`-200ml-anti-grattage` → `-anti-grattage`)
+  s = s.replace(/-\d+(?:[.,]?\d+)?-?(?:ml|cl|kg|mg|oz|g|l)(?=-)/gi, '')
   s = s.replace(/-(?:lot|pack|duo|trio)-de-\d+(?:-x)?$/i, '')
   return s.trim()
 }
@@ -254,6 +258,8 @@ export function cleanInci(inci: string): string {
   s = s.toUpperCase()
   s = s.replace(/\s*•\s*/g, ', ')
   s = s.replace(/\.\s+(?=[A-Z0-9])/g, ', ')
+  // Pharmashop source occasionally drops the leading 'A' of AQUA (`qua, Zinc Oxide…`).
+  s = s.replace(/^QUA(?=\s*,)/, 'AQUA')
   const INCI_STARTER = /\b(?:AQUA|WATER|EAU|AQUA\/WATER|WATER\/AQUA|GLYCERIN|ALCOHOL\s+DENAT|HYDROGENATED|SODIUM\s+LAURET|SODIUM\s+LAURYL|SODIUM\s+COCOATE|SODIUM\s+OLIVATE|CETEARYL\s+ALCOHOL|CAPRYLIC\/CAPRIC|RICINUS\s+COMMUNIS|BUTYROSPERMUM|HELIANTHUS\s+ANNUUS|PRUNUS\s+AMYGDALUS|COCOS\s+NUCIFERA|OLEA\s+EUROPAEA|PARAFFINUM\s+LIQUIDUM|TRITICUM\s+VULGARE|DIMETHICONE)\b/
 
   const stripped = s.replace(INCI_MARKETING_TAIL, '')

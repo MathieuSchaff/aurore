@@ -83,11 +83,11 @@ describe('parseInciFromSlugLine', () => {
 })
 
 describe('inferKeyIngredients', () => {
-  const index = new Map<string, string>([
-    ['SODIUM HYALURONATE', 'sodium-hyaluronate'],
-    ['NIACINAMIDE', 'niacinamide'],
-    ['BUTYROSPERMUM PARKII BUTTER', 'shea-butter'],
-    ['TOCOPHEROL', 'tocopherol'],
+  const index = new Map<string, { slug: string; domain: 'skincare' | 'haircare' | 'dental' | 'supplements' }>([
+    ['SODIUM HYALURONATE', { slug: 'sodium-hyaluronate', domain: 'skincare' }],
+    ['NIACINAMIDE', { slug: 'niacinamide', domain: 'skincare' }],
+    ['BUTYROSPERMUM PARKII BUTTER', { slug: 'shea-butter', domain: 'skincare' }],
+    ['TOCOPHEROL', { slug: 'tocopherol', domain: 'skincare' }],
   ])
 
   it('matches tokens in INCI string and preserves order', () => {
@@ -107,17 +107,17 @@ describe('inferKeyIngredients', () => {
   })
 
   it('caps result at max', () => {
-    const big = new Map<string, string>(
-      Array.from({ length: 12 }, (_, i) => [`TOK${i}`, `slug-${i}`])
+    const big = new Map<string, { slug: string; domain: 'skincare' }>(
+      Array.from({ length: 12 }, (_, i) => [`TOK${i}`, { slug: `slug-${i}`, domain: 'skincare' as const }])
     )
     const inci = Array.from({ length: 12 }, (_, i) => `TOK${i}`).join(', ')
     expect(inferKeyIngredients(inci, big, { max: 5 })).toHaveLength(5)
   })
 
   it('dedupes when same slug is hit by multiple synonyms', () => {
-    const idx = new Map<string, string>([
-      ['HYALURONIC ACID', 'sodium-hyaluronate'],
-      ['SODIUM HYALURONATE', 'sodium-hyaluronate'],
+    const idx = new Map<string, { slug: string; domain: 'skincare' }>([
+      ['HYALURONIC ACID', { slug: 'sodium-hyaluronate', domain: 'skincare' }],
+      ['SODIUM HYALURONATE', { slug: 'sodium-hyaluronate', domain: 'skincare' }],
     ])
     const inci = 'HYALURONIC ACID, SODIUM HYALURONATE'
     expect(inferKeyIngredients(inci, idx)).toEqual(['sodium-hyaluronate'])

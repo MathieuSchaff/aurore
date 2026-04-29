@@ -74,6 +74,28 @@ function listSourceFiles(dir: string): string[] {
   return out.sort()
 }
 
+// ─── URL context → category override ────────────────────────────────────────
+// Pharmashop URLs encode placement (`/bebe/maman/vergetures/`, `/soins-corps/`). When a
+// skincare-leaning kind is parked in a bodycare URL, remap to the body-* equivalent so
+// the candidate lands in `output/candidates/bodycare/` instead of `skincare/`.
+
+const URL_BODYCARE_RE = /\/(?:bebe\/maman\/vergetures|soins?-corps|corps|hygiene-corps)\//i
+
+const SKINCARE_TO_BODYCARE: Record<string, string> = {
+  oil: 'body-oil',
+  moisturizer: 'body-lotion',
+  cleanser: 'body-wash',
+  exfoliant: 'body-scrub',
+  balm: 'body-lotion',
+}
+
+function applyUrlContext(url: string, kind: string): string {
+  if (URL_BODYCARE_RE.test(url) && kind in SKINCARE_TO_BODYCARE) {
+    return SKINCARE_TO_BODYCARE[kind]
+  }
+  return kind
+}
+
 // ─── Brand normalization ────────────────────────────────────────────────────
 // Pharmashop emits brand in CAPS (`LA MARQUE EUCERIN` → `EUCERIN`). Existing seeds use
 // Title Case (`Eucerin`, `La Roche-Posay`). Short all-caps tokens (≤4 chars) are kept as
@@ -106,7 +128,8 @@ function normalize(parsed: ParsedPharmashopProduct, sourceFile: string): Normali
   }
 
   const cleanedName = cleanName(parsed.title, brand, totalAmount, amountUnit)
-  const kind = inferKind(cleanedName) || inferKindFallback(cleanedName)
+  const inferredKind = inferKind(cleanedName) || inferKindFallback(cleanedName)
+  const kind = applyUrlContext(parsed.url, inferredKind)
   const unit = parsed.unitHint || inferUnit(cleanedName, kind)
 
   return {
@@ -227,7 +250,14 @@ async function main() {
     } else {
       const groupKey = `${p.category}/${p.brandSlug}`
       if (!toCreate.has(groupKey)) toCreate.set(groupKey, [])
-      toCreate.get(groupKey)!.push(p)
+      const group = toCreate.get(groupKey)!
+      // Pharmashop ships separate fiches per format (50ml + 100ml of same SKU). The
+      // slug derives from the cleaned name and collides; suffix with volume so each
+      // candidate gets a unique slug.
+      if (group.some((x) => x.slug === p.slug) && p.totalAmount > 0 && p.amountUnit) {
+        p.slug = `${p.slug}-${p.totalAmount}${p.amountUnit}`
+      }
+      group.push(p)
       entry = {
         action: 'create',
         slug: p.slug,

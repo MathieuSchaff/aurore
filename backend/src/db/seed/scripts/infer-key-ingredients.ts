@@ -90,7 +90,12 @@ interface FileResult {
   productsReset: number
 }
 
-function rewriteFile(text: string, index: InciIndex): { text: string; result: Omit<FileResult, 'path'> } {
+function categoryFromPath(filePath: string): string {
+  const m = filePath.match(/[/\\]candidates[/\\]([^/\\]+)[/\\]/)
+  return m?.[1] ?? ''
+}
+
+function rewriteFile(text: string, index: InciIndex, category: string): { text: string; result: Omit<FileResult, 'path'> } {
   let productsRewritten = 0
   let productsNoMatch = 0
   let productsReset = 0
@@ -107,7 +112,7 @@ function rewriteFile(text: string, index: InciIndex): { text: string; result: Om
 
   const rewritten = text.replace(PRODUCT_RE, (_full, prefix: string, inciRaw: string, _trailing: string) => {
     const inci = unescapeInci(inciRaw)
-    const slugs = inferKeyIngredients(inci, index, { max: MAX })
+    const slugs = inferKeyIngredients(inci, index, { max: MAX, candidateCategory: category })
     if (slugs.length === 0) {
       productsNoMatch++
       return `${prefix}[]`
@@ -215,7 +220,8 @@ function main(): void {
 
   for (const path of files) {
     const text = readFileSync(path, 'utf-8')
-    const { text: nextText, result } = rewriteFile(text, index)
+    const category = categoryFromPath(path)
+    const { text: nextText, result } = rewriteFile(text, index, category)
 
     totals.files++
     totals.productsTotal += result.productsTotal

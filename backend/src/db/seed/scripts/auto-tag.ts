@@ -16,9 +16,26 @@
 import { readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
+import {
+  SKINCARE_PRODUCT_TAG_SLUGS,
+  HAIRCARE_PRODUCT_TAG_SLUGS,
+  DENTAL_PRODUCT_TAG_SLUGS,
+} from '@habit-tracker/shared'
+
 const WRITE = process.argv.includes('--write')
 const CANDIDATES = process.argv.includes('--candidates')
 const SEED_ROOT = join(import.meta.dir, '..')
+
+// ─── Per-domain product tag whitelist (slugs allowed on a product) ────────────
+// Sourced from the shared taxonomy so a typo or ingredient-only slug never lands on a
+// product. Empty domain set ⇒ no auto-tagging emitted (haircare/supplement product tag
+// slug files are still empty in shared as of writing).
+
+const PRODUCT_TAG_WHITELIST: Record<'skincare' | 'haircare' | 'dental', Set<string>> = {
+  skincare: new Set<string>(Object.values(SKINCARE_PRODUCT_TAG_SLUGS)),
+  haircare: new Set<string>(Object.values(HAIRCARE_PRODUCT_TAG_SLUGS)),
+  dental: new Set<string>(Object.values(DENTAL_PRODUCT_TAG_SLUGS)),
+}
 
 // ─── Slug → TAG_SLUGS key (for code generation) ───────────────────────────────
 
@@ -210,7 +227,7 @@ const INCI_TO_SKINCARE: Record<string, string[]> = {
   'azelaic acid': ['anti-acne', 'anti-rougeurs', 'traitement', 'sebo-regulateur'],
   'salicylic acid': ['anti-acne', 'exfoliation', 'sebo-regulateur', 'keratolytique'],
   'glycolic acid': ['exfoliation', 'eclat', 'keratolytique'],
-  'lactic acid': ['exfoliation', 'humectant', 'keratolytique'],
+  'lactic acid': ['exfoliation', 'hydratation', 'keratolytique'],
   'mandelic acid': ['exfoliation', 'anti-acne'],
   gluconolactone: ['exfoliation', 'peau-sensible'],
   'lactobionic acid': ['exfoliation', 'peau-sensible'],
@@ -232,20 +249,22 @@ const INCI_TO_SKINCARE: Record<string, string[]> = {
   'acetyl hexapeptide': ['anti-age'],
   matrixyl: ['anti-age'],
   // Hydratation / barrière / microbiome
-  'hyaluronic acid': ['humectant', 'repulpant'],
-  'sodium hyaluronate': ['humectant'],
-  'hydrolyzed hyaluronic acid': ['humectant'],
-  glycerin: ['humectant'],
+  // `humectant`/`emollient` are ingredient-only attributes — on a product, the closest
+  // routine-step tags are `hydratation` / `emollience`.
+  'hyaluronic acid': ['hydratation', 'repulpant'],
+  'sodium hyaluronate': ['hydratation'],
+  'hydrolyzed hyaluronic acid': ['hydratation'],
+  glycerin: ['hydratation'],
   panthenol: ['apaisant', 'barriere-cutanee', 'reparateur'],
   niacinamide: ['barriere-cutanee', 'eclat', 'sebo-regulateur', 'pores-dilates'],
-  ceramide: ['barriere-cutanee', 'emollient'],
+  ceramide: ['barriere-cutanee', 'emollience'],
   'ceramide np': ['barriere-cutanee'],
   'ceramide ap': ['barriere-cutanee'],
   'ceramide eop': ['barriere-cutanee'],
   phytosphingosine: ['barriere-cutanee'],
-  cholesterol: ['barriere-cutanee', 'emollient'],
+  cholesterol: ['barriere-cutanee', 'emollience'],
   squalane: ['emollience', 'barriere-cutanee', 'texture-legere'],
-  urea: ['humectant', 'keratolytique'],
+  urea: ['hydratation', 'keratolytique'],
   'bifida ferment': ['microbiome', 'reparateur'],
   lactobacillus: ['microbiome'],
   // Apaisement / cicatrisation / anti-rougeurs
@@ -261,8 +280,10 @@ const INCI_TO_SKINCARE: Record<string, string[]> = {
   'dipotassium glycyrrhizate': ['apaisant', 'anti-rougeurs'],
   'tranexamic acid': ['anti-taches', 'hyperpigmentation', 'traitement'],
   // Filtres solaires
-  'zinc oxide': ['protection-solaire', 'filtres-mineraux', 'apaisant'],
-  'titanium dioxide': ['protection-solaire', 'filtres-mineraux'],
+  // ZnO/TiO2 also serve as soothing pigments / colorants in non-SPF formulas (cica creams,
+  // dentifrices, makeup), so we don't auto-tag them as sunscreen — NAME_PATTERNS catches
+  // SPF/solaire claims explicitly. Organic UV filters below are SPF-only and stay tagged.
+  'zinc oxide': ['apaisant'],
   avobenzone: ['protection-solaire', 'filtres-chimiques'],
   octocrylene: ['protection-solaire', 'filtres-chimiques'],
   'ethylhexyl methoxycinnamate': ['protection-solaire', 'filtres-chimiques'],
@@ -367,7 +388,7 @@ const NAME_PATTERNS: Array<[RegExp, Partial<TagResult>]> = [
     { primary: ['anti-taches', 'hyperpigmentation'] },
   ],
   [
-    /anti[\s-]?d[eé]mangeaison|atopi/i,
+    /anti[\s-]?d[eé]mangeaison|atopi|exomega|anti[\s-]?grattage/i,
     { primary: ['eczema'], secondary: ['peau-atopique', 'apaisant'] },
   ],
   [/anti[\s-]?cerne/i, { primary: ['cernes-poches'] }],
@@ -396,6 +417,34 @@ const NAME_PATTERNS: Array<[RegExp, Partial<TagResult>]> = [
 ]
 
 const PRIMARY_CAP = 4
+
+// AHA/BHA in low position (< top 6) are pH adjusters / preservatives, not active
+// exfoliants. Skip exfoliation/keratolytique tags from these mappings when the INCI
+// position exceeds the threshold. The mappings still emit other tags (humectant for
+// lactic acid → hydratation), just not the exfoliation claims.
+const POSITION_GUARDED_KEYS = new Set([
+  'lactic acid',
+  'glycolic acid',
+  'mandelic acid',
+  'salicylic acid',
+  'capryloyl salicylic acid',
+  'gluconolactone',
+  'lactobionic acid',
+])
+const POSITION_GUARD_THRESHOLD = 6
+const POSITION_GUARDED_TAGS = new Set(['exfoliation', 'keratolytique'])
+
+// Atopie / eczema-targeting products carry oat extract + urea + niacinamide which the
+// INCI mapping otherwise reads as anti-acné/séborrégulateur/pores. When the name signals
+// atopie, drop those incompatible primaries.
+const ATOPIE_NAME_RE = /\b(?:atopi[eé]?|exomega|anti[\s-]?grattage|peaux?\s+atopiques?)\b/i
+const ATOPIE_INCOMPATIBLE = new Set([
+  'sebo-regulateur',
+  'pores-dilates',
+  'eclat',
+  'matifiant',
+  'anti-acne',
+])
 
 function computeTagsFromName(name: string): TagResult {
   const primary = new Set<string>()
@@ -469,13 +518,17 @@ function computeSkincareTagsFromInci(inci: string, kind: string): TagResult {
   const secondary = new Set<string>()
   const avoid = new Set<string>()
 
+  let position = 0
   for (const ingredient of ingredients) {
     const trimmed = ingredient.trim()
     if (!trimmed) continue
+    position++
 
     for (const [key, tags] of Object.entries(INCI_TO_SKINCARE)) {
       if (trimmed === key || trimmed.includes(key)) {
+        const guarded = POSITION_GUARDED_KEYS.has(key) && position > POSITION_GUARD_THRESHOLD
         for (const tag of tags) {
+          if (guarded && POSITION_GUARDED_TAGS.has(tag)) continue
           if (SKINCARE_PRIMARY.has(tag)) {
             const spec = SPECIFICITY[tag] ?? 1
             tagScores.set(tag, (tagScores.get(tag) ?? 0) + spec)
@@ -518,6 +571,16 @@ function computeSkincareTagsFromInci(inci: string, kind: string): TagResult {
   }
 }
 
+function applyDomainWhitelist(result: TagResult, domain: 'skincare' | 'haircare' | 'dental'): TagResult {
+  const allowed = PRODUCT_TAG_WHITELIST[domain]
+  if (!allowed || allowed.size === 0) return { primary: [], secondary: [], avoid: [] }
+  return {
+    primary: result.primary.filter((t) => allowed.has(t)),
+    secondary: result.secondary.filter((t) => allowed.has(t)),
+    avoid: result.avoid.filter((t) => allowed.has(t)),
+  }
+}
+
 function computeTags(
   inci: string,
   name: string,
@@ -526,20 +589,29 @@ function computeTags(
 ): TagResult {
   if (domain === 'haircare') {
     const p = KIND_HAIRCARE_PRIMARY[kind]
-    return { primary: p ? [p] : [], secondary: [], avoid: [] }
+    return applyDomainWhitelist({ primary: p ? [p] : [], secondary: [], avoid: [] }, domain)
   }
 
   if (domain === 'dental') {
     const p = KIND_DENTAL_PRIMARY[kind]
-    return { primary: p ? [p] : [], secondary: [], avoid: [] }
+    return applyDomainWhitelist({ primary: p ? [p] : [], secondary: [], avoid: [] }, domain)
   }
 
   const inciResult = inci.trim()
     ? computeSkincareTagsFromInci(inci, kind)
     : { primary: [], secondary: KIND_SKINCARE_SEC[kind] ?? [], avoid: [] }
 
-  if (!name.trim()) return inciResult
-  return mergeResults(inciResult, computeTagsFromName(name))
+  let merged = name.trim() ? mergeResults(inciResult, computeTagsFromName(name)) : inciResult
+
+  if (ATOPIE_NAME_RE.test(name)) {
+    merged = {
+      primary: merged.primary.filter((t) => !ATOPIE_INCOMPATIBLE.has(t)),
+      secondary: merged.secondary.filter((t) => !ATOPIE_INCOMPATIBLE.has(t)),
+      avoid: merged.avoid,
+    }
+  }
+
+  return applyDomainWhitelist(merged, domain)
 }
 
 // ─── Code generation ──────────────────────────────────────────────────────────

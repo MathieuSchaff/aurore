@@ -75,16 +75,39 @@ export const EXCIPIENT_BLOCKLIST = new Set<string>(
   EXCIPIENT_BLOCKLIST_SOURCE.map((s) => normalizeInciToken(s))
 )
 
-export type InciIndex = Map<string, string>
+export type IngredientDomain = 'skincare' | 'haircare' | 'dental' | 'supplements'
+
+export interface InciIndexEntry {
+  slug: string
+  /** Source file domain. Lets a per-product call exclude foreign-domain slugs. */
+  domain: IngredientDomain
+}
+
+export type InciIndex = Map<string, InciIndexEntry>
 
 const INGREDIENTS_ROOT = join(import.meta.dir, '..', '..', 'data', 'ingredients')
 
-const SLUG_FILES = [
-  'skincare/ingredient-slugs.ts',
-  'haircare/ingredient-slugs.ts',
-  'dental/ingredient-slugs.ts',
-  'supplements/ingredient-slugs.ts',
+const SLUG_FILES: Array<{ rel: string; domain: IngredientDomain }> = [
+  { rel: 'skincare/ingredient-slugs.ts', domain: 'skincare' },
+  { rel: 'haircare/ingredient-slugs.ts', domain: 'haircare' },
+  { rel: 'dental/ingredient-slugs.ts', domain: 'dental' },
+  { rel: 'supplements/ingredient-slugs.ts', domain: 'supplements' },
 ]
+
+/**
+ * For a given product category, which ingredient domains should be considered when
+ * inferring keyIngredients. Skincare is a generic base — included for non-skincare
+ * categories so shared actives (vitamins, soothing extracts) still match. Bodycare and
+ * solaire ride the skincare ingredient taxonomy; their candidates only match skincare slugs.
+ */
+const CATEGORY_DOMAIN_ALLOWLIST: Record<string, IngredientDomain[]> = {
+  skincare: ['skincare'],
+  bodycare: ['skincare'],
+  solaire: ['skincare'],
+  haircare: ['haircare', 'skincare'],
+  dental: ['dental', 'skincare'],
+  complement: ['supplements', 'skincare'],
+}
 
 export function normalizeInciToken(s: string): string {
   return s
@@ -169,20 +192,20 @@ export function buildInciIndex(): InciIndex {
   const index: InciIndex = new Map()
   const validSlugs = new Set<string>(Object.values(INGREDIENT_SLUGS))
 
-  const add = (rawToken: string, slug: string): void => {
+  const add = (rawToken: string, slug: string, domain: IngredientDomain): void => {
     if (!validSlugs.has(slug)) return
     const norm = normalizeInciToken(rawToken)
     if (norm.length < 2) return
     if (!/^[A-Z]/.test(norm)) return
     if (EXCIPIENT_BLOCKLIST.has(norm)) return
-    if (!index.has(norm)) index.set(norm, slug)
+    if (!index.has(norm)) index.set(norm, { slug, domain })
   }
 
   // Source 1: slug-file inline comments first — explicit `INCI:` prefix is the most
   // predictable signal, and the file order (skincare → haircare → dental → supplements)
   // resolves shared tokens like NIACINAMIDE to the canonical skincare slug rather than
   // a domain-suffixed variant (niacinamide-hair, etc.).
-  for (const rel of SLUG_FILES) {
+  for (const { rel, domain } of SLUG_FILES) {
     const path = join(INGREDIENTS_ROOT, rel)
     let text: string
     try {
@@ -193,20 +216,38 @@ export function buildInciIndex(): InciIndex {
     for (const line of text.split('\n')) {
       const parsed = parseInciFromSlugLine(line)
       if (!parsed) continue
-      for (const tok of parsed.tokens) add(tok, parsed.slug)
+      for (const tok of parsed.tokens) add(tok, parsed.slug, domain)
     }
   }
 
   // Source 2: markdown `## INCI` blocks fill any token the slug-file pass missed.
+  // ingredientData lives under data/ingredients/; the type field carries the domain
+  // (skincare/haircare/dental/supplement). Map `supplement` → `supplements` to align
+  // with the SLUG_FILES key — file dir is plural, ingredient.type is singular.
   for (const ing of ingredientData) {
-    for (const tok of parseInciFromContent(ing.content)) add(tok, ing.slug)
+    const rawType = (ing as { type?: string }).type
+    const domain: IngredientDomain =
+      rawType === 'haircare' || rawType === 'dental'
+        ? rawType
+        : rawType === 'supplement'
+          ? 'supplements'
+          : 'skincare'
+    for (const tok of parseInciFromContent(ing.content)) add(tok, ing.slug, domain)
   }
 
   return index
 }
 
+export function getDomainAllowlist(category: string | undefined): Set<IngredientDomain> | null {
+  if (!category) return null
+  const list = CATEGORY_DOMAIN_ALLOWLIST[category]
+  return list ? new Set(list) : null
+}
+
 export interface InferKeyIngredientsOptions {
   max?: number
+  /** Product category (skincare/haircare/…). Drops index entries from foreign domains. */
+  candidateCategory?: string
 }
 
 /** Match each comma-separated token in `inci` against the index. Order = INCI order. */
@@ -218,6 +259,8 @@ export function inferKeyIngredients(
   const max = options.max ?? 8
   if (!inci) return []
 
+  const allowed = getDomainAllowlist(options.candidateCategory)
+
   const tokens = inci
     .split(/[,;]/)
     .map(normalizeInciToken)
@@ -227,10 +270,11 @@ export function inferKeyIngredients(
   const result: string[] = []
   for (const tok of tokens) {
     if (EXCIPIENT_BLOCKLIST.has(tok)) continue
-    const slug = index.get(tok)
-    if (!slug || seen.has(slug)) continue
-    seen.add(slug)
-    result.push(slug)
+    const entry = index.get(tok)
+    if (!entry || seen.has(entry.slug)) continue
+    if (allowed && !allowed.has(entry.domain)) continue
+    seen.add(entry.slug)
+    result.push(entry.slug)
     if (result.length >= max) break
   }
   return result
