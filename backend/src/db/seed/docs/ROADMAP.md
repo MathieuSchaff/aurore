@@ -136,6 +136,20 @@ Bioderma : ajouter **Sebium Global** (niacinamide 5/10%) et
 Solaires absents du seed à évaluer quand ajoutés : Actinica Lotion,
 Colibri Daily SPF50 (vérifier absence `grossesse-compatible`, filtres chimiques).
 
+### 3.3 Doublons produits scrapés
+
+Les imports `*.atida.seed.ts` / `*.pharmashop.seed.ts` contiennent des doublons —
+cross-source (vs `*.seed.ts` curé) et intra-source (même produit plusieurs fois
+dans le même fichier). Détecté par `scripts/audit-imported-products.ts`.
+
+Snapshot 2026-04-29 : **1 104 paires cross-source** (559 auto-merge / 245 review /
+300 weak) + **1 152 paires intra-source**. 1 277 produits importés concernés sur
+2 036.
+
+- [ ] Workflow + règles de décision documentés dans [`DEDUP.md`](./DEDUP.md). Lire avant campagne de fusion.
+- [ ] Review marque par marque, en commençant par les top fichiers : `svr.pharmashop`, `isdin.atida`, `laRochePosay.pharmashop`, `garancia.atida`, `avene.pharmashop`.
+- [ ] Pour chaque marque : traiter intra-source d'abord (bugs purs), puis cross-source `auto-merge`, puis `review`.
+
 ---
 
 ## 4. Tags

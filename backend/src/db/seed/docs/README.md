@@ -13,6 +13,8 @@
 | Savoir **ce qui reste à faire** ou **ce qui est déjà fait** | [`ROADMAP.md`](./ROADMAP.md) | Dette ouverte + tableau des corrections récentes avec SHAs |
 | **Ajouter un ingrédient** au seed | [`../data/ingredients/GUIDE.md`](../data/ingredients/GUIDE.md) | Guide contributeur ingrédients (type, category, slug, contenu, tag) |
 | **Ajouter un produit / une marque** | [`SEED_FORMAT.md`](./SEED_FORMAT.md) | Guide contributeur produits (`UnifiedProductSeed`, champs, exemples) |
+| **Relancer l'import scrapper Atida/Pharmashop** | [`IMPORT_PIPELINE.md`](./IMPORT_PIPELINE.md) | Pipeline simple : sources, scripts, reset, rebuild, audit |
+| **Détecter / fusionner les doublons** entre fichiers seed | [`DEDUP.md`](./DEDUP.md) | Détecteur 3-tier (INCI Jaccard + nom + flags anti-FP), workflow review par marque, règles de décision |
 | **Backfiller les concentrations** d'ingrédients dans un seed produit | [`prompts/backfill-concentrations.md`](./prompts/backfill-concentrations.md) | Prompt réutilisable à donner à Claude |
 
 ---
