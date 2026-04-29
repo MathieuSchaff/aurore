@@ -1,5 +1,7 @@
 import { SKINCARE_INGREDIENT_CATEGORY_VALUES } from '@habit-tracker/shared'
 
+import { sql } from 'drizzle-orm'
+
 import { createIngredient } from '../../../features/ingredients/service'
 import { addIngredientToProduct } from '../../../features/products/product-ingredients/product-ingredients.service'
 import { createProduct } from '../../../features/products/service'
@@ -16,6 +18,7 @@ import { cleanDatabase, fetchIdMaps, flattenTagGroups } from '../utils/id-maps'
 import { printValidationReport, validateAllIngredients } from '../utils/markdown-validator'
 import { getOrCreateSeedUser } from './create-user'
 import { seedBlog } from './seed-blog'
+import { seedUserCollection } from './seed-user-collection'
 
 // ── Utilitaires de Validation ─────────────────────────────────────────────────
 
@@ -111,89 +114,91 @@ function pruneRelationshipPairs<T extends Record<string, unknown>>(
 export async function seedCore(shouldClean = true) {
   console.log('🌱 Démarrage du seed CORE (Données de base + Produits manuels)...\n')
 
-  // These run outside the transaction: clean first, then atomically insert everything
-  if (shouldClean) {
-    warnInvalidEntries()
-    await cleanDatabase()
-  }
-
-  console.log("👤 Création de l'utilisateur seed...")
-  const user = await getOrCreateSeedUser()
-  console.log(`✅ Utilisateur seed : ${user.email} (${user.id})\n`)
-
-  // Validate markdown before touching the DB
-  console.log('🔍 Validation du markdown des ingrédients...')
-  const ingredientValidation = validateAllIngredients(ingredientData)
-  printValidationReport(ingredientValidation)
-
-  if (ingredientValidation.summary.valid === 0 && ingredientData.length > 0) {
-    throw new Error('Aucun ingrédient valide - Seed interrompu')
-  }
-  const correctedIngredientData = ingredientValidation.fixed
-
-  // Prepare relation pairs (pure data, no DB) so we can validate before the transaction
-  const productTagPairs = dedupPairs(
-    flattenTagGroups(allProductTagsMap as Record<string, ProductTagGroups>),
-    'productTags'
-  )
-
-  const validProductIngredients = allIngredientProductTags.filter((i) => !!i.ingredientSlug)
-
-  const rawIngredientTagPairs = flattenTagGroups(
-    ingredientTagMap as Record<string, ProductTagGroups>
-  )
-
-  // Drop entries whose tagSlug resolved to `undefined` — these originate
-  // from `TAG_SLUGS.FOO` references in ingredientTagMap pointing at slugs
-  // removed during the tag split (AJUSTEUR_PH, SOLVANT, AHA, ACNE…). We
-  // warn once with a unique key list so the taxonomy can be reconciled
-  // manually; the seed keeps running.
-  const droppedTagKeys = new Set<string>()
-  const ingredientTagPairs = rawIngredientTagPairs.filter((p) => {
-    if (typeof p.tagSlug !== 'string' || p.tagSlug.length === 0) {
-      droppedTagKeys.add(String(p.tagSlug))
-      return false
-    }
-    return true
-  })
-  if (droppedTagKeys.size > 0) {
-    console.warn(
-      `⚠️  ${rawIngredientTagPairs.length - ingredientTagPairs.length} pair(s) ingredientTags ignorée(s) — slugs inexistants: ${[...droppedTagKeys].join(', ')}`
-    )
-  }
-
-  // Backfill: every ingredient with a native `category` matching an
-  // ingredient_attribute slug (actif, humectant, emollient, filtre-uv,
-  // tensioactif, excipient…) gets a synthetic 'primary' tag pair if the
-  // manual map doesn't already list it. This way the attribute filter
-  // bucket stays in sync with the native column without hand-editing
-  // hundreds of entries. The shared-schemas-vs-tags test guarantees
-  // SKINCARE_INGREDIENT_CATEGORY_VALUES ↔ ingredient_attribute tag slugs.
-  const existing = new Set(ingredientTagPairs.map((p) => `${p.slug}::${p.tagSlug}`))
-  // Whitelist of skincare formulation roles that exist as ingredient_attribute
-  // tag slugs. Supplement ingredients store their functional class in the same
-  // `category` column (carotenoide, plante, neuroactif…) — skip them here so
-  // the backfill never emits tags that aren't in the ingredient taxonomy.
-  const validCategorySlugs = new Set<string>(SKINCARE_INGREDIENT_CATEGORY_VALUES)
-  let backfilled = 0
-  for (const ing of correctedIngredientData) {
-    const category = ing.category
-    if (!category) continue
-    if (!validCategorySlugs.has(category)) continue
-    const key = `${ing.slug}::${category}`
-    if (existing.has(key)) continue
-    ingredientTagPairs.push({ slug: ing.slug, tagSlug: category, relevance: 'primary' })
-    existing.add(key)
-    backfilled++
-  }
-  if (backfilled > 0) {
-    console.log(`🔁 Backfill: +${backfilled} ingredient_attribute tags depuis la colonne native`)
-  }
-
-  const dedupedIngredientTagPairs = dedupPairs(ingredientTagPairs, 'ingredientTags')
-
   // All inserts are atomic: if anything fails mid-way the DB rolls back cleanly
   await db.transaction(async (tx) => {
+    // Bypass RLS for the seeder session (owner role)
+    await tx.execute(sql`SET LOCAL app.role = 'admin'`)
+
+    if (shouldClean) {
+      warnInvalidEntries()
+      await cleanDatabase(tx)
+    }
+
+    console.log("👤 Création de l'utilisateur seed...")
+    const user = await getOrCreateSeedUser()
+    console.log(`✅ Utilisateur seed : ${user.email} (${user.id})\n`)
+
+    // Validate markdown before touching the DB
+    console.log('🔍 Validation du markdown des ingrédients...')
+    const ingredientValidation = validateAllIngredients(ingredientData)
+    printValidationReport(ingredientValidation)
+
+    if (ingredientValidation.summary.valid === 0 && ingredientData.length > 0) {
+      throw new Error('Aucun ingrédient valide - Seed interrompu')
+    }
+    const correctedIngredientData = ingredientValidation.fixed
+
+    // Prepare relation pairs (pure data, no DB) so we can validate before the transaction
+    const productTagPairs = dedupPairs(
+      flattenTagGroups(allProductTagsMap as Record<string, ProductTagGroups>),
+      'productTags'
+    )
+
+    const validProductIngredients = allIngredientProductTags.filter((i) => !!i.ingredientSlug)
+
+    const rawIngredientTagPairs = flattenTagGroups(
+      ingredientTagMap as Record<string, ProductTagGroups>
+    )
+
+    // Drop entries whose tagSlug resolved to `undefined` — these originate
+    // from `TAG_SLUGS.FOO` references in ingredientTagMap pointing at slugs
+    // removed during the tag split (AJUSTEUR_PH, SOLVANT, AHA, ACNE…). We
+    // warn once with a unique key list so the taxonomy can be reconciled
+    // manually; the seed keeps running.
+    const droppedTagKeys = new Set<string>()
+    const ingredientTagPairs = rawIngredientTagPairs.filter((p) => {
+      if (typeof p.tagSlug !== 'string' || p.tagSlug.length === 0) {
+        droppedTagKeys.add(String(p.tagSlug))
+        return false
+      }
+      return true
+    })
+    if (droppedTagKeys.size > 0) {
+      console.warn(
+        `⚠️  ${rawIngredientTagPairs.length - ingredientTagPairs.length} pair(s) ingredientTags ignorée(s) — slugs inexistants: ${[...droppedTagKeys].join(', ')}`
+      )
+    }
+
+    // Backfill: every ingredient with a native `category` matching an
+    // ingredient_attribute slug (actif, humectant, emollient, filtre-uv,
+    // tensioactif, excipient…) gets a synthetic 'primary' tag pair if the
+    // manual map doesn't already list it. This way the attribute filter
+    // bucket stays in sync with the native column without hand-editing
+    // hundreds of entries. The shared-schemas-vs-tags test guarantees
+    // SKINCARE_INGREDIENT_CATEGORY_VALUES ↔ ingredient_attribute tag slugs.
+    const existing = new Set(ingredientTagPairs.map((p) => `${p.slug}::${p.tagSlug}`))
+    // Whitelist of skincare formulation roles that exist as ingredient_attribute
+    // tag slugs. Supplement ingredients store their functional class in the same
+    // `category` column (carotenoide, plante, neuroactif…) — skip them here so
+    // the backfill never emits tags that aren't in the ingredient taxonomy.
+    const validCategorySlugs = new Set<string>(SKINCARE_INGREDIENT_CATEGORY_VALUES)
+    let backfilled = 0
+    for (const ing of correctedIngredientData) {
+      const category = ing.category
+      if (!category) continue
+      if (!validCategorySlugs.has(category)) continue
+      const key = `${ing.slug}::${category}`
+      if (existing.has(key)) continue
+      ingredientTagPairs.push({ slug: ing.slug, tagSlug: category, relevance: 'primary' })
+      existing.add(key)
+      backfilled++
+    }
+    if (backfilled > 0) {
+      console.log(`🔁 Backfill: +${backfilled} ingredient_attribute tags depuis la colonne native`)
+    }
+
+    const dedupedIngredientTagPairs = dedupPairs(ingredientTagPairs, 'ingredientTags')
+
     // 1. Tag definitions (ingredient + product domains are independent).
     // Bulk insert bypasses per-row service calls because seed data is already
     // in the `{slug, label, tagType}` shape the schema expects.
@@ -330,6 +335,9 @@ export async function seedCore(shouldClean = true) {
         console.warn(`   - ${s}`)
       }
     }
+
+    // 5. User collection
+    await seedUserCollection(tx, user.id, productSlugToId)
   })
 
   await seedBlog()
