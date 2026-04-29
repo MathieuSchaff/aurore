@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { TAG_SLUGS } from '../../../../data/tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const GUM_SEED: UnifiedProductSeed[] = [

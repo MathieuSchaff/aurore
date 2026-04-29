@@ -1,6 +1,6 @@
-import { INGREDIENT_SLUGS } from '../../../../data/ingredients/ingredient-slugs'
 import { TAG_SLUGS } from '../../../../data/tags'
 import type { UnifiedProductSeed } from '../../types'
+import { INGREDIENT_SLUGS } from '../../types'
 
 export const DUCRAY_SEED: UnifiedProductSeed[] = [
   {

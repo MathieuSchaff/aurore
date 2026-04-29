@@ -213,7 +213,7 @@ export function parseEuroToCents(s: string): number {
   // "1 260,83" → 1260.83 ; "14,66" → 14.66 ; "12.85" → 12.85
   const cleaned = s.replace(/\s/g, '').replace(',', '.')
   const n = parseFloat(cleaned)
-  if (!isFinite(n) || n < 0) return 0
+  if (!Number.isFinite(n) || n < 0) return 0
   return Math.round(n * 100)
 }
 

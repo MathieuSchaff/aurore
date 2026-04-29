@@ -18,6 +18,7 @@
 
 import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { pathToFileURL } from 'node:url'
 
 import type { UnifiedProductSeed } from '../data/products/types'
 import { INGREDIENT_SLUGS } from '../data/products/types'
@@ -102,18 +103,62 @@ function findExistingBrandDir(brandSlug: string): { parent: string; name: string
 
 // ─── Existing slug index ─────────────────────────────────────────────────────
 
-const SLUG_RE = /\bslug:\s*['"]([^'"]+)['"]/g
+const PRODUCT_SLUG_RE = /^ {4}slug:\s*['"]([^'"]+)['"]/gm
+const INDEX_NAMED_IMPORT_RE = /import\s+\{\s*([^}]+)\s*\}\s+from '\.\/([^']+)'/g
 
-function loadExistingSlugs(): Set<string> {
+function indexedProductSeedImports(): Array<{ filePath: string; exportName: string }> {
+  if (!existsSync(PRODUCTS_INDEX)) return []
+  const text = readFileSync(PRODUCTS_INDEX, 'utf-8')
+  return [...text.matchAll(INDEX_NAMED_IMPORT_RE)]
+    .map((m) => {
+      const exportName = m[1].split(/\s+as\s+/)[0]?.trim()
+      return exportName ? { filePath: join(PRODUCTS_DIR, `${m[2]}.ts`), exportName } : null
+    })
+    .filter((entry): entry is { filePath: string; exportName: string } => entry !== null)
+}
+
+function addProductSlugs(slugs: Set<string>, filePath: string): void {
+  const text = readFileSync(filePath, 'utf-8')
+  for (const m of text.matchAll(PRODUCT_SLUG_RE)) slugs.add(m[1])
+}
+
+async function addProductSlugsFromExport(
+  slugs: Set<string>,
+  filePath: string,
+  exportName: string
+): Promise<boolean> {
+  try {
+    const mod = (await import(pathToFileURL(filePath).href)) as Record<string, unknown>
+    const products = mod[exportName]
+    if (!Array.isArray(products)) return false
+    for (const product of products as UnifiedProductSeed[]) {
+      if (typeof product.slug === 'string') slugs.add(product.slug)
+    }
+    return true
+  } catch {
+    return false
+  }
+}
+
+async function loadExistingSlugs(): Promise<Set<string>> {
   const slugs = new Set<string>()
+  const indexedImports = indexedProductSeedImports()
+  if (indexedImports.length > 0) {
+    for (const { filePath, exportName } of indexedImports) {
+      if (!existsSync(filePath)) continue
+      const loaded = await addProductSlugsFromExport(slugs, filePath, exportName)
+      if (!loaded) addProductSlugs(slugs, filePath)
+    }
+    return slugs
+  }
+
   function walk(dir: string): void {
     for (const name of readdirSync(dir)) {
       const full = join(dir, name)
       const st = statSync(full)
       if (st.isDirectory()) walk(full)
       else if (name.endsWith('.seed.ts') || name === 'noreva.ts') {
-        const text = readFileSync(full, 'utf-8')
-        for (const m of text.matchAll(SLUG_RE)) slugs.add(m[1])
+        addProductSlugs(slugs, full)
       }
     }
   }
@@ -142,19 +187,78 @@ function titleCaseName(name: string, brand: string): string {
   }
 
   const rest = tokens.slice(stripped)
-  return rest
-    .map((w) => {
-      if (/^[A-Z]{1,4}\+?$/.test(w)) return w // acronyms HA+, BB, CC, SOS, AC, AH, C
-      if (/^\d/.test(w)) return w.toLowerCase() // "40ML" → "40ml"
-      return w[0].toUpperCase() + w.slice(1).toLowerCase()
-    })
-    .join(' ')
+  return rest.map(normalizeNameToken).join(' ')
+}
+
+const UPPERCASE_NAME_TOKENS = new Set([
+  'AC',
+  'AH',
+  'AHA',
+  'AP',
+  'AR',
+  'BB',
+  'BHA',
+  'CC',
+  'CICA',
+  'DS',
+  'HA',
+  'LP',
+  'PHA',
+  'PSO',
+  'SOS',
+  'SPF',
+  'UVA',
+  'UVB',
+  'UV',
+])
+
+const LOWERCASE_NAME_TOKENS = new Set([
+  'a',
+  'à',
+  'au',
+  'aux',
+  'avec',
+  'd',
+  'de',
+  'des',
+  'du',
+  'en',
+  'et',
+  'la',
+  'le',
+  'les',
+  'l',
+  'pour',
+  'sans',
+  'sur',
+])
+
+function normalizeNameToken(token: string, index: number): string {
+  if (/^\d/.test(token)) return token.toLowerCase()
+  if (/^spf\d*\+?$/i.test(token)) return token.toUpperCase()
+
+  const lower = token.toLocaleLowerCase('fr-FR')
+  if (index > 0 && LOWERCASE_NAME_TOKENS.has(lower)) return lower
+
+  const trailing = token.match(/^(.+?)([.,;:!?]*)$/)
+  const body = trailing?.[1] ?? token
+  const suffix = trailing?.[2] ?? ''
+  const upperBody = body.toUpperCase()
+  if (UPPERCASE_NAME_TOKENS.has(upperBody)) return `${upperBody}${suffix}`
+
+  return (
+    body
+      .toLocaleLowerCase('fr-FR')
+      .replace(/(^|[-'’])(\p{L})/gu, (_m, sep: string, letter: string) => {
+        return `${sep}${letter.toLocaleUpperCase('fr-FR')}`
+      }) + suffix
+  )
 }
 
 // ─── TS emit ─────────────────────────────────────────────────────────────────
 
 function escSingle(s: string): string {
-  return s.replace(/\\/g, '\\\\').replace(/'/g, "\\'")
+  return s.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\r/g, '\\r').replace(/\n/g, '\\n')
 }
 
 function emitProduct(p: UnifiedProductSeed): string {
@@ -234,7 +338,7 @@ function buildExportName(brandFsName: string, isPharmashop: boolean): string {
 async function main(): Promise<void> {
   console.log(`import-candidates — ${APPLY ? 'APPLY' : 'DRY-RUN'}`)
 
-  const seenSlugs = loadExistingSlugs()
+  const seenSlugs = await loadExistingSlugs()
   console.log(`  existing slugs in data/products/: ${seenSlugs.size}`)
 
   const outputs = new Map<string, OutputGroup>()
@@ -427,9 +531,9 @@ async function main(): Promise<void> {
     '\n// ── Imported candidates (bulk via scripts/import-candidates.ts) ──────────────\n' +
     newImports.join('\n') +
     '\n'
-  const spreadBlock = '  // imported candidates\n' + newSpreads.join('\n') + '\n'
+  const spreadBlock = `\n  // imported candidates\n${newSpreads.join('\n')}`
 
-  const next = before + importBlock + middle + spreadBlock + after
+  const next = `${before}${importBlock}${middle}${spreadBlock}${after}`
   writeFileSync(PRODUCTS_INDEX, next, 'utf-8')
   console.log(`  ✓ index.ts updated (+${newImports.length} imports, +${newSpreads.length} spreads)`)
 }

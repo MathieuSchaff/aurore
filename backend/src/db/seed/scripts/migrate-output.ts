@@ -14,26 +14,26 @@
  *   bun run backend/src/db/seed/scripts/migrate-output.ts --apply --force          # overwrite existing candidates
  */
 
-import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs'
-import { join, basename } from 'node:path'
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { basename, join } from 'node:path'
 
 import {
-  STANDARD_AMOUNT_UNITS,
-  parseAmountFromName,
-  cleanSlug,
-  cleanName,
+  brandToSlug,
   cleanInci,
+  cleanName,
+  cleanSlug,
+  detectOutOfScope,
+  generateCandidateFile,
+  getEnrichableFields,
   inferKind,
   inferKindFallback,
   inferUnit,
-  detectOutOfScope,
-  brandToSlug,
   KIND_TO_CATEGORY,
-  generateCandidateFile,
-  getEnrichableFields,
   loadExistingSlugs,
-  type NormalizedProduct,
   type MigrationEntry,
+  type NormalizedProduct,
+  parseAmountFromName,
+  STANDARD_AMOUNT_UNITS,
 } from './lib/migration-helpers'
 
 // ─── Paths ───────────────────────────────────────────────────────────────────
@@ -48,7 +48,13 @@ const DRY_RUN = !process.argv.includes('--apply')
 const FORCE = process.argv.includes('--force')
 const ONLY = (() => {
   const arg = process.argv.find((a) => a.startsWith('--only='))
-  return arg ? arg.slice('--only='.length).split(',').map((s) => s.trim()).filter(Boolean) : null
+  return arg
+    ? arg
+        .slice('--only='.length)
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean)
+    : null
 })()
 
 // ─── Atida raw shape (mirrors the pre-processed output/seeds/*.ts records) ──
@@ -100,8 +106,14 @@ function extractObjectBlocks(text: string): string[] {
     const ch = text[i]
 
     if (inString) {
-      if (escaped) { escaped = false; continue }
-      if (ch === '\\') { escaped = true; continue }
+      if (escaped) {
+        escaped = false
+        continue
+      }
+      if (ch === '\\') {
+        escaped = true
+        continue
+      }
       if (ch === stringChar) inString = false
       continue
     }
@@ -208,7 +220,12 @@ async function main() {
     seedFiles = seedFiles.filter((f) => ONLY.includes(basename(f, '.ts')))
     console.log(`→ --only=${ONLY.join(',')} → ${seedFiles.length}/${before} source files`)
     if (seedFiles.length === 0) {
-      console.warn(`  ⚠  No matching source file. Available: ${readdirSync(OUTPUT_SEEDS_DIR).filter((f) => f.endsWith('.ts')).map((f) => basename(f, '.ts')).join(', ')}`)
+      console.warn(
+        `  ⚠  No matching source file. Available: ${readdirSync(OUTPUT_SEEDS_DIR)
+          .filter((f) => f.endsWith('.ts'))
+          .map((f) => basename(f, '.ts'))
+          .join(', ')}`
+      )
       return
     }
   }
@@ -258,8 +275,12 @@ async function main() {
         }
       } else {
         const groupKey = `${p.category}/${p.brandSlug}`
-        if (!toCreate.has(groupKey)) toCreate.set(groupKey, [])
-        toCreate.get(groupKey)!.push(p)
+        let group = toCreate.get(groupKey)
+        if (!group) {
+          group = []
+          toCreate.set(groupKey, group)
+        }
+        group.push(p)
         entry = {
           action: 'create',
           slug: p.slug,
@@ -332,7 +353,9 @@ async function main() {
 
       const outPath = join(dir, `${brandSlug}.seed.ts`)
       if (existsSync(outPath) && !FORCE) {
-        console.log(`  ⊘ candidates/${category}/${brandSlug}.seed.ts (exists — pass --force to overwrite)`)
+        console.log(
+          `  ⊘ candidates/${category}/${brandSlug}.seed.ts (exists — pass --force to overwrite)`
+        )
         skipped++
         continue
       }
@@ -340,7 +363,9 @@ async function main() {
       console.log(`  ✓ candidates/${category}/${brandSlug}.seed.ts  (${products.length} products)`)
       written++
     }
-    console.log(`\n✓ ${written} candidate files written${skipped ? ` · ${skipped} skipped (already exist)` : ''}`)
+    console.log(
+      `\n✓ ${written} candidate files written${skipped ? ` · ${skipped} skipped (already exist)` : ''}`
+    )
     console.log('  Review → move to data/products/{category}/{brand}/ when ready\n')
   } else {
     console.log(`\n  Dry-run: ${toCreate.size} candidate file groups pending (pass --apply)\n`)

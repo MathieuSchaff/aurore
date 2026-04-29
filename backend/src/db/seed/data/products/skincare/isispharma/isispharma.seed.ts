@@ -1,6 +1,6 @@
-import { INGREDIENT_SLUGS } from '../../../../data/ingredients/ingredient-slugs'
 import { TAG_SLUGS } from '../../../../data/tags'
 import type { UnifiedProductSeed } from '../../types'
+import { INGREDIENT_SLUGS } from '../../types'
 
 export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
   {
@@ -3182,6 +3182,34 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
       { slug: INGREDIENT_SLUGS.HUILE_GRAINES_TOURNESOL, notes: 'Huile tournesol emolliente' },
       { slug: INGREDIENT_SLUGS.HUILE_COTON, notes: 'Huile coton riche en linoleique' },
       { slug: INGREDIENT_SLUGS.TOCOPHEROL, notes: 'Vitamine E antioxydante' },
+    ],
+  },
+  {
+    slug: 'isispharma-uveblock-fluide-invisible-spf50',
+    name: 'Uveblock Fluide Invisible SPF50+',
+    brand: 'Isispharma',
+    kind: 'sunscreen',
+    unit: 'tube',
+    totalAmount: 40,
+    amountUnit: 'ml',
+    priceCents: 1332,
+    description: '',
+    notes: '',
+    inci: 'AQUA (WATER), ETHYLHEXYL METHOXY­CINNAMATE, ISODECYL NEOPENTANOATE, METHYLENE BIS-BENZOTRIAZOLYL TETRAMETHYLBUTYLPHENOL [NANO], PROPANEDIOL, BUTYL METHOXYDIBENZOYL­METHANE, DIISOPROPYL SEBACATE, ETHYLHEXYL SALICYLATE, TITANIUM DIOXIDE [NANO], DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, ETHYLHEXYL TRIAZONE, TRIETHYLHEXANOIN, DIISOPROPYL ADIPATE, POTASSIUM CETYL PHOSPHATE, CETEARYL ALCOHOL, GLYCERIN, GLYCERYL STÉARATE DECYL GLUCOSIDE, HYDROXYETHYL ACRYLATE SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, SILICA, ISOHEXADECANE ETHYLHEXYLGLYCERIN, TOCOPHERYL ACETATE P/HEXADECENE COPOLYMER, CAPRYLYL GLYCOL, CHLORPHENESIN, XANTHAN GUM, PEG, 40 CASTOR OR_ DIMETHICONE, SOD1UN CETEARYL SULFATE, POLYSORBATE 60, ECTOIN 0-CYMEN-5.-OL, CAPRYLHYDROXAMIC ACID PROPYLENE GLYCOL, SORBITAN ISOSTEARATE SOPHORA JAPONICA FLOWER EXTRACT',
+    url: 'https://www.atida.fr/isispharma-uveblock-fluide-invisible-spf50-40ml.html',
+    imageUrl:
+      'https://assets.atida.com/transform/befb5c61-c682-4c6e-a5e5-f75d64de68a5/Isispharma-Uveblock-Fluide-Invisible-SPF50-40ml?io=transform:extend,width:600,height:600',
+    tags: {
+      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
+      secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      avoid: [],
+    },
+    keyIngredients: [
+      { slug: INGREDIENT_SLUGS.PROPANEDIOL },
+      { slug: INGREDIENT_SLUGS.ETHYLHEXYL_SALICYLATE },
+      { slug: INGREDIENT_SLUGS.DIETHYLAMINO_HYDROXYBENZOYL_HEXYL_BENZOATE },
+      { slug: INGREDIENT_SLUGS.ETHYLHEXYL_TRIAZONE },
+      { slug: INGREDIENT_SLUGS.SILICA },
     ],
   },
 ]

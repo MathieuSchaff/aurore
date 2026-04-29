@@ -232,6 +232,7 @@ describe('Seed data integrity', () => {
           return !tags || tags.primary.length === 0
         })
         .map((i) => i.slug)
+      console.warn("bad: ", bad)
       expect(bad).toEqual([])
     })
 

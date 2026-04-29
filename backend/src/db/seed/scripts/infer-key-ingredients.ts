@@ -189,7 +189,7 @@ function ensureTypesReexports(): { productsTypesUpdated: boolean; stubUpdated: b
   const productsTypes = readFileSync(PRODUCTS_TYPES_PATH, 'utf-8')
   if (!productsTypes.includes(PRODUCTS_TYPES_REEXPORT)) {
     if (!DRY_RUN) {
-      const next = productsTypes.trimEnd() + '\n\n' + PRODUCTS_TYPES_REEXPORT + '\n'
+      const next = `${productsTypes.trimEnd()}\n\n${PRODUCTS_TYPES_REEXPORT}\n`
       writeFileSync(PRODUCTS_TYPES_PATH, next, 'utf-8')
     }
     productsTypesUpdated = true

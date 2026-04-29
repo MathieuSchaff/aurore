@@ -1,4 +1,4 @@
-import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../../data/tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const K_RANOVE_SEED: UnifiedProductSeed[] = [

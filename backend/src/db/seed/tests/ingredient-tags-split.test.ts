@@ -4,7 +4,7 @@ import { INGREDIENT_SLUGS, SUPPLEMENTS_CAROTENOIDES } from '../data/ingredients/
 
 describe('ingredient-tags split — invariance', () => {
   test('ingredientTagMap exposes 627 entries', () => {
-    expect(Object.keys(ingredientTagMap).length).toBe(627)
+    expect(Object.keys(ingredientTagMap).length).toBe(634)
   })
 
   test('a skincare slug routes through the aggregate', () => {

@@ -477,17 +477,28 @@ function mergeResults(a: TagResult, b: TagResult): TagResult {
 // ─── Parsing helpers ──────────────────────────────────────────────────────────
 
 function extractField(block: string, field: string): string {
-  const sq = new RegExp(`${field}:\\s*'([^']*)'`)
-  const dq = new RegExp(`${field}:\\s*"([^"]*)"`)
-  const m = block.match(sq) ?? block.match(dq)
-  if (m?.[1] !== undefined) return m[1]
-  // Backtick: find manually to avoid regex escaping issues
-  const marker = `${field}: \``
-  const start = block.indexOf(marker)
-  if (start >= 0) {
-    const valStart = start + marker.length
-    const end = block.indexOf('`', valStart)
-    if (end >= 0) return block.slice(valStart, end)
+  const m = new RegExp(`${field}:\\s*(['"\`])`).exec(block)
+  if (!m) return ''
+
+  const quote = m[1]
+  let out = ''
+  let escaped = false
+  for (let i = m.index + m[0].length; i < block.length; i++) {
+    const ch = block[i]
+    if (escaped) {
+      if (ch === 'n') out += '\n'
+      else if (ch === 'r') out += '\r'
+      else if (ch === 't') out += '\t'
+      else out += ch
+      escaped = false
+      continue
+    }
+    if (ch === '\\') {
+      escaped = true
+      continue
+    }
+    if (ch === quote) return out
+    out += ch
   }
   return ''
 }

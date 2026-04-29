@@ -10,8 +10,9 @@
  * raw input shapes differ.
  */
 
-import { readFileSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { pathToFileURL } from 'node:url'
 
 // ─── Out-of-scope detection ──────────────────────────────────────────────────
 
@@ -820,7 +821,7 @@ export function parseAmountFromName(name: string): { amount: number; unit: strin
   const m = name.match(/(\d+(?:[.,]\d+)?)\s*(ml|cl|kg|mg|oz|g|l)\b/i)
   if (!m) return null
   const amount = parseFloat(m[1].replace(',', '.'))
-  if (!isFinite(amount) || amount <= 0) return null
+  if (!Number.isFinite(amount) || amount <= 0) return null
   return { amount, unit: m[2].toLowerCase() }
 }
 
@@ -1148,7 +1149,7 @@ export function generateCandidateFile(
     totalAmount: ${p.totalAmount},
     amountUnit: '${p.amountUnit}',
     priceCents: ${p.priceCents},
-    description: '', // TODO
+    description: '${escapeStr(p.description)}',
     notes: '',
     inci: '${escapeStr(p.inci)}',
     url: '${escapeStr(p.url)}',
@@ -1188,22 +1189,71 @@ ${blocks},
 
 // ─── Existing slug index ────────────────────────────────────────────────────
 
-const SLUG_RE = /\bslug:\s*['"]([^'"]+)['"]/g
+const PRODUCT_SLUG_RE = /^ {4}slug:\s*['"]([^'"]+)['"]/gm
+const INDEX_IMPORT_RE = /import\s+\{\s*([^}]+)\s*\}\s+from '\.\/([^']+)'/g
+
+function indexedSeedImports(productsDir: string): Array<{ rel: string; exportName: string }> {
+  const indexPath = join(productsDir, 'index.ts')
+  if (!existsSync(indexPath)) return []
+  const text = readFileSync(indexPath, 'utf-8')
+  return [...text.matchAll(INDEX_IMPORT_RE)]
+    .map((m) => {
+      const exportName = m[1].split(/\s+as\s+/)[0]?.trim()
+      return exportName ? { rel: `${m[2]}.ts`, exportName } : null
+    })
+    .filter((entry): entry is { rel: string; exportName: string } => entry !== null)
+}
+
+function addProductSlugs(result: Map<string, string>, productsDir: string, rel: string): void {
+  const absPath = join(productsDir, rel)
+  if (!existsSync(absPath)) return
+  const text = readFileSync(absPath, 'utf-8')
+  for (const m of text.matchAll(PRODUCT_SLUG_RE)) {
+    result.set(m[1], rel)
+  }
+}
+
+async function addProductSlugsFromExport(
+  result: Map<string, string>,
+  productsDir: string,
+  rel: string,
+  exportName: string
+): Promise<boolean> {
+  const absPath = join(productsDir, rel)
+  if (!existsSync(absPath)) return true
+  try {
+    const mod = (await import(pathToFileURL(absPath).href)) as Record<string, unknown>
+    const products = mod[exportName]
+    if (!Array.isArray(products)) return false
+    for (const product of products as Array<{ slug?: unknown }>) {
+      if (typeof product.slug === 'string') result.set(product.slug, rel)
+    }
+    return true
+  } catch {
+    return false
+  }
+}
 
 /**
- * Scan all `*.seed.ts` under {productsDir} and return slug → relative path.
+ * Scan active product seed imports and return slug → relative path.
+ * Falls back to all `*.seed.ts` files when no product index is present.
  * Used to detect which scrapped products already exist in the seed (action=enrich).
  */
 export async function loadExistingSlugs(productsDir: string): Promise<Map<string, string>> {
   const result = new Map<string, string>()
+  const indexed = indexedSeedImports(productsDir)
+  if (indexed.length > 0) {
+    for (const { rel, exportName } of indexed) {
+      const loaded = await addProductSlugsFromExport(result, productsDir, rel, exportName)
+      if (!loaded) addProductSlugs(result, productsDir, rel)
+    }
+    return result
+  }
+
   const glob = new Bun.Glob('**/*.seed.ts')
 
   for await (const rel of glob.scan({ cwd: productsDir })) {
-    const absPath = join(productsDir, rel)
-    const text = readFileSync(absPath, 'utf-8')
-    for (const m of text.matchAll(SLUG_RE)) {
-      result.set(m[1], rel)
-    }
+    addProductSlugs(result, productsDir, rel)
   }
   return result
 }

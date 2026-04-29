@@ -259,8 +259,11 @@ async function main() {
       }
     } else {
       const groupKey = `${p.category}/${p.brandSlug}`
-      if (!toCreate.has(groupKey)) toCreate.set(groupKey, [])
-      const group = toCreate.get(groupKey)!
+      let group = toCreate.get(groupKey)
+      if (!group) {
+        group = []
+        toCreate.set(groupKey, group)
+      }
       // Pharmashop ships separate fiches per format (50ml + 100ml of same SKU). The
       // slug derives from the cleaned name and collides; suffix with volume so each
       // candidate gets a unique slug.
