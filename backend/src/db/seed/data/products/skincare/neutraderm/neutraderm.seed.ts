@@ -231,29 +231,4 @@ export const NEUTRADERM_SEED: UnifiedProductSeed[] = [
       { slug: INGREDIENT_SLUGS.SODIUM_CITRATE },
     ],
   },
-  {
-    slug: 'neutraderm-gel-douche-surgras',
-    name: 'Gel Douche Surgras Dermo Protecteur',
-    brand: 'Neutraderm',
-    kind: 'sunscreen',
-    unit: 'bottle',
-    totalAmount: 1,
-    amountUnit: 'l',
-    priceCents: 695,
-    description:
-      'Le gel douche Surgras dermo-protecteur NEUTRADERM discount des laboratoires GILBERT, L’expertise au meilleur prix dans un soin haute-tolérance dans votre parapharmacie en ligne à prix discount, conçu pour l’hygiène quotidienne des peaux sèches et sensibles. Visage et corps, pour toute la famille\n\nDepuis plus d’un siècle, Les laboratoires GILBERT développent un large choix de produits destiné à la santé et au bien-être de la famille, avec un souci constant d’innovation, de qualité, d’efficacité et de sécurité au meilleur prix pour tous.\n\nLa gamme NEUTRADERM propose des soins spécialement conçus pour l’hygiène des peaux fragiles et délicates. Le gel douche Surgras dermo-protecteur NEUTRADERM lave en douceur les peaux sèches et sensibles de toute la famille : nourrisson, enfant et adulte. Sa formule à la base lavante sans savon et au complexe ACTIVE OLIGO SKIN COMPLEX (actif breveté) lutte contre le dessèchement cutané, rétablit le microbiome cutané, reminéralise et restructure la peau, et apporte douceur et hydratation à la peau. Hypoallergénique, pH neutre, testé sous contrôle dermatologique',
-    notes: '',
-    inci: 'AQUA (WATER) / EAU, OLIGOACTIVE WATER(3), SODIUM LAURETH SULFATE, GLYCERIN, PARFUM (FRAGRANCE), PEG-7 GLYCERYL COCOATE, DISODIUM LAURETH SULFOSUCCINATE, COCAMIDOPROPYL BETAINE, LAURETH-2, PANTHENOL, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, PROPYLENE GLYCOL, TOCOPHEROL, OLEA EUROPAEA (OLIVE) LEAF EXTRACT, HYDROGENATED PALM GLYCERIDES CITRATE, COCO-GLUCOSIDE, GLYCERYL OLEATE, PEG-120 METHYL GLUCOSE DIOLEATE, PEG-6, SODIUM CHLORIDE, TETRASODIUM GLUTAMATE DIACETATE, CITRIC ACID, SODIUM BENZOATE, POTASSIUM SORBATE, CARAMEL',
-    url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-produits/bain-et-douche/gel-douche/neutraderm-gel-douche-surgras-1-l.html',
-    imageUrl: '',
-    tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
-      secondary: ['reparateur', 'creme-solaire', 'protection-solaire', 'matin', 'zone-visage'],
-      avoid: [],
-    },
-    keyIngredients: [
-      { slug: INGREDIENT_SLUGS.PANTHENOL },
-      { slug: INGREDIENT_SLUGS.PRUNUS_AMYGDALUS_DULCIS_OIL },
-    ],
-  },
 ]

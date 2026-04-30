@@ -1,6 +1,5 @@
 import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../../data/tags'
 import type { UnifiedProductSeed } from '../../types'
-import { INGREDIENT_SLUGS } from '../../types'
 
 export const NATESSANCE_SEED: UnifiedProductSeed[] = [
   {
@@ -90,35 +89,6 @@ export const NATESSANCE_SEED: UnifiedProductSeed[] = [
       { slug: 'arginine-hair' },
       { slug: 'hydrolyzed-rice-protein' },
       { slug: 'phytic-acid-hair' },
-    ],
-  },
-  {
-    slug: 'natessance-shampoing-fortifiant-ricin-bio-et-keratine-vegetale',
-    name: 'Shampoing Fortifiant Ricin Bio et Kératine Végétale',
-    brand: 'Natessance',
-    kind: 'shampoo',
-    unit: 'bottle',
-    totalAmount: 500,
-    amountUnit: 'ml',
-    priceCents: 1098,
-    description: '',
-    notes: '',
-    inci: 'AQUA/WATER/EAU, DECYL GLUCOSIDE, COCAMIDOPROPYL BETAINE, GLYCERIN, COCOS NUCIFERA (COCONUT) OIL*, RICINUS COMMUNIS (CASTOR) SEED OIL*, XANTHAN GUM, ALOE BARBADENSIS LEAF JUICE*, ALOE BARBADENSIS LEAF JUICE POWDER*, HYDROLYZED WHEAT PROTEIN, HYDROLYZED MORINGA OLEIFERA SEED EXTRACT, ARGININE, ORYZA SATIVA (RICE) SEED PROTEIN, ORYZA SATIVA (RICE HULL POWDER) EXTRACT, LITSEA CUBEBA FRUIT OIL*, ARACHIDYL GLUCOSIDE, KAOLIN, ARACHIDYL ALCOHOL, BEHENYL ALCOHOL, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, PARFUM (FRAGRANCE), SODIUM LEVULINATE, PHYTIC ACID, GLUCONOLACTONE, BENZYL ALCOHOL, SODIUM BENZOATE, CALCIUM GLUCONATE, SODIUM CHLORIDE, LACTIC ACID, SODIUM HYDROXIDE, CITRIC ACID, LINALOOL, LIMONENE, CITRAL',
-    url: 'https://www.atida.fr/natessance-shampooing-fortifiant-ricin-bio-et-keratine-vegetale-500ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/ac82c16a-0b9f-4c01-a76b-fc2115285c15/Natessance-Shampoing-Fortifiant-Ricin-Bio-et-Keratine-Vegetale-500ml?io=transform:extend,width:600,height:600',
-    tags: {
-      primary: ['shampooing'],
-      secondary: [],
-      avoid: [],
-    },
-    keyIngredients: [
-      { slug: INGREDIENT_SLUGS.HYDROLYZED_WHEAT_PROTEIN },
-      { slug: INGREDIENT_SLUGS.ARGININE },
-      { slug: INGREDIENT_SLUGS.ORYZA_SATIVA },
-      { slug: INGREDIENT_SLUGS.KAOLIN },
-      { slug: INGREDIENT_SLUGS.PHYTIC_ACID },
-      { slug: INGREDIENT_SLUGS.LACTIC_ACID },
     ],
   },
 ]
