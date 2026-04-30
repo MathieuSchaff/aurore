@@ -258,7 +258,8 @@ function normalizeKeyPart(s: string): string {
 // ---------- Duplicate detection helpers ----------
 
 const VOLUME_RE = /\b\d+\s*(ml|l|g|kg|gr)\b/g
-const FORMAT_RE = /\b(eco[-\s]?recharge|recharge|eco|format|nomade|lot|pack|x\s*\d+|de\s+\d+|flacon)\b/g
+const FORMAT_RE =
+  /\b(eco[-\s]?recharge|recharge|eco|format|nomade|lot|pack|x\s*\d+|de\s+\d+|flacon)\b/g
 
 function deburr(s: string): string {
   return s.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase()
@@ -280,7 +281,11 @@ function stripName(s: string, brand: string): string {
 }
 
 function nameTokens(name: string, brand: string): Set<string> {
-  return new Set(stripName(name, brand).split(/\s+/).filter((t) => t.length > 2))
+  return new Set(
+    stripName(name, brand)
+      .split(/\s+/)
+      .filter((t) => t.length > 2)
+  )
 }
 
 function inciTokens(inci: string | undefined): string[] {
@@ -316,8 +321,21 @@ function symmetricDiff<T>(a: Set<T>, b: Set<T>): Set<T> {
 }
 
 const TINT_WORDS = new Set([
-  'light', 'medium', 'dark', 'fonce', 'clair', 'claire', 'natural', 'naturel',
-  'beige', 'sable', 'dore', 'doree', 'ivoire', 'porcelaine', 'teinte',
+  'light',
+  'medium',
+  'dark',
+  'fonce',
+  'clair',
+  'claire',
+  'natural',
+  'naturel',
+  'beige',
+  'sable',
+  'dore',
+  'doree',
+  'ivoire',
+  'porcelaine',
+  'teinte',
 ])
 
 function semanticNumbers(name: string): Set<string> {
@@ -350,7 +368,8 @@ interface ClassifyResult {
 }
 
 function classifyPair(a: UnifiedProductSeed, b: UnifiedProductSeed): ClassifyResult {
-  if (deburr(a.brand) !== deburr(b.brand)) return { tier: null, score: 0, inci: 0, name: 0, flags: [] }
+  if (deburr(a.brand) !== deburr(b.brand))
+    return { tier: null, score: 0, inci: 0, name: 0, flags: [] }
 
   const inci = jaccardArr(inciTokens(a.inci), inciTokens(b.inci))
   const name = jaccardSet(nameTokens(a.name, a.brand), nameTokens(b.name, b.brand))
@@ -538,7 +557,9 @@ function renderMarkdown(report: AuditReport): string {
   lines.push(`| Empty imageUrl | ${report.summary.emptyImageUrl} |`)
   lines.push(`| Missing keyIngredients | ${report.summary.missingKeyIngredients} |`)
   lines.push(`| Suspicious name casing | ${report.summary.suspiciousNameCasing} |`)
-  lines.push(`| Imported products w/ a dup candidate | ${report.summary.semanticDuplicateProducts} |`)
+  lines.push(
+    `| Imported products w/ a dup candidate | ${report.summary.semanticDuplicateProducts} |`
+  )
   lines.push(`| Cross-source duplicate pairs | ${report.crossSourceDuplicates.length} |`)
   lines.push(`| Intra-source duplicate pairs | ${report.intraSourceDuplicates.length} |`)
   lines.push(`| Unindexed imported files | ${report.summary.unindexedImportedFiles} |`)
@@ -618,11 +639,7 @@ function renderMarkdown(report: AuditReport): string {
       `Auto-merge: **${intraCounts['auto-merge']}** &middot; Review: **${intraCounts.review}** &middot; Weak: **${intraCounts.weak}**`
     )
     lines.push('')
-    renderDupSection(
-      'Intra-source pairs',
-      [...report.intraSourceDuplicates].sort(sortByScore),
-      40
-    )
+    renderDupSection('Intra-source pairs', [...report.intraSourceDuplicates].sort(sortByScore), 40)
   }
 
   if (report.importErrors.length > 0) {
@@ -775,8 +792,11 @@ async function main(): Promise<void> {
   console.log(`  empty descriptions       : ${report.summary.emptyDescription}`)
   console.log(`  missing keyIngredients   : ${report.summary.missingKeyIngredients}`)
   console.log(`  suspicious name casing   : ${report.summary.suspiciousNameCasing}`)
-  const tier = (t: DupTier): number => report.crossSourceDuplicates.filter((p) => p.tier === t).length
-  console.log(`  cross-source dup pairs   : ${report.crossSourceDuplicates.length} (auto:${tier('auto-merge')} review:${tier('review')} weak:${tier('weak')})`)
+  const tier = (t: DupTier): number =>
+    report.crossSourceDuplicates.filter((p) => p.tier === t).length
+  console.log(
+    `  cross-source dup pairs   : ${report.crossSourceDuplicates.length} (auto:${tier('auto-merge')} review:${tier('review')} weak:${tier('weak')})`
+  )
   console.log(`  intra-source dup pairs   : ${report.intraSourceDuplicates.length}`)
   console.log(`  imported prods w/ dup    : ${report.summary.semanticDuplicateProducts}`)
   console.log(`  unindexed imported files : ${report.summary.unindexedImportedFiles}`)
