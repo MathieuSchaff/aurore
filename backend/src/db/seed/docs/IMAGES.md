@@ -122,16 +122,14 @@ scrape Pharmashop ──┬──> output/images/<slug>.jpg               (thumb
 
 ### 4.2 Env vars
 
-**upload-images.ts** :
+**upload-images.ts** (Bunny Storage HTTP native API) :
 
 | Var | Default | Notes |
 |---|---|---|
-| `S3_BUCKET` | — | requis |
-| `S3_ACCESS_KEY_ID` | — | requis |
-| `S3_SECRET_ACCESS_KEY` | — | requis |
-| `S3_REGION` | `auto` | |
-| `S3_ENDPOINT` | (AWS std) | custom pour Bunny Edge Storage / Backblaze B2 |
-| `S3_PREFIX` | `products/` | trailing slash auto |
+| `BUNNY_STORAGE_ZONE` | — | requis. Nom du Storage Zone (ex: `aurore-images`). |
+| `BUNNY_STORAGE_PASSWORD` | — | requis. Storage Zone → FTP & API Access → Password. |
+| `BUNNY_STORAGE_HOSTNAME` | `storage.bunnycdn.com` | hostname régional (DE par défaut, sinon `ny.storage.bunnycdn.com`, etc.). |
+| `BUNNY_STORAGE_PREFIX` | `products/` | trailing slash auto |
 | `DRY_RUN` | `0` | `1` = preview |
 | `CONCURRENCY` | `16` | uploads parallèles |
 
@@ -139,7 +137,7 @@ scrape Pharmashop ──┬──> output/images/<slug>.jpg               (thumb
 
 | Var | Default | Notes |
 |---|---|---|
-| `IMAGE_CDN_BASE` | — | requis sauf `--dry`. Ex : `https://cdn.aurore.app`. URL absolue résolue au patch-time. |
+| `IMAGE_CDN_BASE` | — | requis sauf `--dry`. Ex : `https://aurore-cdn.b-cdn.net`. URL absolue résolue au patch-time. |
 
 ### 4.3 Workflow
 
@@ -150,15 +148,12 @@ scrape Pharmashop ──┬──> output/images/<slug>.jpg               (thumb
 # 2. compléter avec downloads externes (Atida / Skinsafe)
 bun run backend/src/db/seed/scripts/download-external-images.ts
 
-# 3. upload S3
-S3_BUCKET=aurore-images \
-  S3_ENDPOINT=https://storage.bunnycdn.com \
-  S3_ACCESS_KEY_ID=… S3_SECRET_ACCESS_KEY=… \
-  bun run backend/src/db/seed/scripts/upload-images.ts
+# 3. upload Bunny Storage (env vars depuis .env.dev)
+set -a; source .env.dev; set +a
+bun run backend/src/db/seed/scripts/upload-images.ts
 
-# 4. patch seeds
-IMAGE_CDN_BASE=https://aurore.b-cdn.net \
-  bun run backend/src/db/seed/scripts/patch-image-urls.ts
+# 4. patch seeds (IMAGE_CDN_BASE déjà dans .env.dev)
+bun run backend/src/db/seed/scripts/patch-image-urls.ts
 
 # 5. vérif
 make ts-verify
