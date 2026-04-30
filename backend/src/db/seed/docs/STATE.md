@@ -222,6 +222,11 @@ en majuscules sauf nom officiel (ex: `'SVR'`).
 
 **`url` / `imageUrl`** — commencent par `https://`, omis si vides.
 
+`imageUrl` est servi via CDN (Bunny) une fois les images uploadées en S3.
+Format cible : `${IMAGE_CDN_BASE}/products/<slug>.webp`. Le patch est appliqué
+par `scripts/patch-image-urls.ts` à partir de `output/image-mapping.json`.
+Détails et état : [`IMAGES.md`](./IMAGES.md).
+
 ### 3.5 Règles de tagging
 
 **`primary` — 1 à 3 tags max.** Le problème principal traité ou le bénéfice
@@ -249,10 +254,11 @@ signature du produit. Trop de primary → information diluée.
 - **Concentration** : préférer les champs dédiés
   (`concentrationValue` + `concentrationUnit`) plutôt que le `notes`.
   Voir `docs/prompts/backfill-concentrations.md` pour l'extraction auto.
-- **Pré-remplissage candidats** : `scripts/infer-key-ingredients.ts` parse l'INCI
-  des fichiers `output/candidates/` et insère les slugs reconnus, marqués
-  `/* AUTO-INFERRED */`. Toujours review avant de déplacer vers `data/products/`.
-  Détails dans `output/MIGRATION.md` § Pipeline keyIngredients.
+- **Pré-remplissage historique** : `scripts/infer-key-ingredients.ts` parsait
+  l'INCI des candidats du pipeline `migrate-*` (archivé, cf. `IMPORT_PIPELINE.md`)
+  et marquait les slugs auto-détectés `/* AUTO-INFERRED */`. Le pipeline n'est
+  plus relancé ; les marqueurs restants dans `data/products/**/*.seed.ts` sont
+  des reliquats à curer manuellement.
 
 ### 3.7 Source de données seed
 

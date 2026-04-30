@@ -135,6 +135,7 @@ make test-dev ARGS="seed-data-integrity"
 | Voir la dette ouverte | `docs/ROADMAP.md` |
 | Voir le dernier audit local des imports générés | `output/imported-products-audit.md` |
 | Voir l'ancien détail technique des migrations Atida/Pharmashop | `output/MIGRATION.md` |
+| Comprendre le pipeline images produit (CDN, S3) | [`IMAGES.md`](./IMAGES.md) |
 
 ---
 

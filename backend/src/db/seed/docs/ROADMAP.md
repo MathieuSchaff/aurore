@@ -242,212 +242,32 @@ initiale : l'appliquer également aux ingrédients.
 
 ---
 
-## Corrigés récemment
+## 7. Images & CDN
 
-| Commit | Section | Correction |
-|---|---|---|
-| `d0c0cd6` | Ingrédients | Injection `type: 'skincare'` par défaut dans agrégation — 120 ingrédients skincare sans type explicite |
-| `7505926` | Ingrédients | Migration 0026 — suppression `DEFAULT 'skincare'` + Zod `type` obligatoire |
-| `cd05aab` | Ingrédients | 4 sets de catégories par domaine (skincare/haircare/dental/supplement) au lieu d'un set commun |
-| `876f494` | Ingrédients | Prefix `SKINCARE_` / `HAIRCARE_` / `DENTAL_` sur les exports shared pour disambiguer |
-| `ee95c32` | Shared | Regroupement `shared/src/ingredients/<domaine>/` et `shared/src/products/<domaine>/` |
-| `c553a65` | Produits | Injection `category` via reverse-map `kindToCategory` — `category` n'est plus à renseigner dans les fichiers `.seed.ts` |
-| `4d740d3` | Produits | `category` obligatoire dans `createProductSchema` (enum strict) ; ajout du `.refine()` category↔kind |
-| `cd05aab` | Produits | `superRefine` dans `updateProductSchema` — `category` et `kind` doivent voyager ensemble |
-| `c28371b` | Tags | Prefix `SKINCARE_PRODUCT_*` sur les exports tag slugs/taxonomy, ajout stubs domaine |
-| `876f494` | Tags | Prefix `SKINCARE_INGREDIENT_*` sur les exports tag slugs/taxonomy, ajout stubs domaine |
-| `ddd35b7` | Tags | Split tag slugs produit en fichiers par domaine (`shared/src/products/<domaine>/tag-slugs.ts`) |
-| `88e6514` | Tags | Ajout taxonomie supplement (`SUPPLEMENT_INGREDIENT_TAG_TAXONOMY`, 4 catégories) |
-| `23fda57` | Produits | `UnifiedProductSeed.unit` typé `ProductUnit` (avant `string` free-form). Un typo unit échoue désormais à la compile |
-| `91eca78` | Produits | Salvage de 24 produits skincare (stash 2026-04-22) sur 5 marques — nooance +14, azelaique +5, dr-g +2, vt +2, eqqualberry +1 |
-| `ffc9d7f`..`c6058f5` | Ingrédients | Split `ingredient-slugs.ts` par domaine — 4 fichiers (`skincare/`, `supplements/`, `haircare/`, `dental/`) + barrel root 120L + 2 snapshot tests (597 clés, 595 slugs uniques) |
-| `cae8526`..`03ba20f` | Tags | Split `ingredient-tags/index.ts` par domaine — 4 fichiers `ingredient-tags.ts` (376/26/12/0 entries) + shell 61L + 4 snapshot tests (414 entries totales) |
-| (non-commité) | Produits | Connexion haircare (50 marques) + dental (25 marques) dans `data/products/index.ts` — tabs Cheveux/Dents passent de empty state à peuplés |
-| (non-commité) | Ingrédients | Ajout entrées `artemisia-annua` + `ginkgo-biloba` dans les fichiers seed skincare (slugs déclarés sans données) |
-| (non-commité) | Tags | `ingredientTagData` étendu pour inclure `HAIRCARE_INGREDIENT_TAG_TAXONOMY` (50 slugs, 4 catégories) + labels FR dans `TAG_LABELS` |
-| `0c477591` | Produits | Fusion des `*.atida.seed.ts` / `*.pharmashop.seed.ts` dans des `<brand>.seed.ts` unifiés. 140 fichiers source-tagués supprimés, 31 fichiers scope créés. Le pipeline `rebuild-imported-products.ts` est désormais archivé (cf. `IMPORT_PIPELINE.md`). |
-| (non-commité) | Produits | Cleanup post-merge (§3.3) : 5 fichiers unreferenced traités — nutripure (16 prods supplement) indexé via section dédiée dans `data/products/index.ts` ; tade/tena/myleuca/lauralep supprimés (hors scope, mauvais kind). 6 cross-source duplicates résolus (neutraderm-haircare, ducray ×2 misclassés, phyto-solaire, florame shampoo). Cross-source 7 → 1 (faux positif vichy résiduel). |
+État du pipeline image : voir [`IMAGES.md`](./IMAGES.md).
 
----
+### 7.1 Provisionnement infra
 
-## Journal de chantier (non-commité)
+- [ ] Créer le bucket S3 (Bunny Edge Storage ou Backblaze B2 + Bunny CDN devant). Décider : `aurore-images` flat ou par env (`aurore-images-prod` / `-dev`).
+- [ ] Configurer Bunny pull zone (origin → bucket). Vérifier transformation à la volée (resize/format) si on veut servir du `?width=200` etc.
+- [ ] Stocker `S3_ENDPOINT` / `IMAGE_CDN_BASE` (et keys pour CI) dans le secret manager.
 
-### 2026-04-23 — §3.2 Tags avoid filtres chimiques (P1 suite)
+### 7.2 Premier upload
 
-`grossesse-compatible` ajouté en `avoid` sur **14 solaires** curatés contenant des filtres UV chimiques :
+- [ ] Lancer `bun run scripts/upload-images.ts` (2229 webp, ~51 MB).
+- [ ] Lancer `IMAGE_CDN_BASE=… bun run scripts/patch-image-urls.ts`. Commit le diff sur les 80+ `*.seed.ts`.
+- [ ] `make ts-verify` + `make test-dev ARGS="seed-data-integrity"`.
 
-| Fichier | Produits |
-|---------|----------|
-| riemann | p20-sensitive-face, p20-urban-shield, p20-sensitive-skin |
-| bioderma | photoderm-xdefense-spf50, cicabio-creme-plus-spf50 |
-| eucerin | sun-photoaging-control-spf50, sun-leb-protect-spf50 |
-| dermaceutic | k-ceutic |
-| dermalogica | dynamic-skin-recovery-spf50 |
-| drIdriss | major-fade-disco-block-spf50-teintee |
-| etude-house | soonjung-moisture-sun-cream |
-| skin1004 | hyalu-cica-water-fit-sun-serum-spf50 |
-| uriage | roseliane-soin-teinte-anti-rougeurs-spf50 |
-| vichy-laboratories | capital-soleil-spf50-foaming-lotion |
+### 7.3 Couverture image — gaps connus
 
-`filorga-time-filler-essence` (toner) : `grossesse-compatible` + `peau-reactive` + `barriere-cutanee-alteree` ajoutés (RETINYL_ACETATE confirmé en INCI).
+État : **2700 / 3303 (82%)** après DL Atida + Skinsafe.
 
-labBiarritz et L'Occitane vérifiés : rien à corriger (filtres minéraux / pas de rétinoïdes).
-noreva vérifié : avoid déjà en place dans `noreva-product-tags.ts`.
+- [x] **Atida-only** — 58/60 récupérés via `scripts/download-external-images.ts`. 2 × 404 résiduels.
+- [x] **Skinsafe-only** — 413/532 récupérés (78%). 119 × 403 sur PNG (protection per-asset Skinsafe).
+- [ ] **119 PNG Skinsafe en 403** — nécessite browser automation (cookies session) via `scrapper-para`. Liste dans `output/image-download-failures.json`.
+- [ ] **Sans image** (~603 produits) — `the-ordinary` (35), résidus svr/avene/bioderma, etc. Mix de marques jamais scrappées + variantes hors scope Pharmashop. Scrap source à choisir (sites marques, Yesstyle…).
 
-Reste ouvert : 6 toners non identifiés — aucun rétinoïde/filtre chimique détecté dans les 50+ toners scannés. Nécessite relecture manuelle des fiches produit.
+### 7.4 Outils
 
----
-
-### 2026-04-29 — Pré-remplissage `keyIngredients` candidats (P1 partiel)
-
-Script `backend/src/db/seed/scripts/infer-key-ingredients.ts` — pré-remplit
-`keyIngredients: []` sur les 225 fichiers `output/candidates/**/*.seed.ts` à
-partir de l'INCI nettoyé.
-
-- **2 285 produits candidats** scannés (Atida 800 + Pharmashop 1 485).
-- **1 815 (79 %) auto-pré-remplis** — slugs en ordre INCI, capés à 8 par
-  produit, dédupliqués.
-- **470 (21 %)** laissés vides : INCI absent ou aucun token reconnu.
-- **Index** 556 tokens : commentaires `// INCI: …` des `ingredient-slugs.ts`
-  (ordre skincare → haircare → dental → supplements pour canoniser
-  `NIACINAMIDE → niacinamide` plutôt que `niacinamide-hair`) + fallback
-  markdown `## INCI **TOKEN**`.
-- **Blocklist** 89 entrées normalisées : silicones, alcools gras, émulsifiants
-  PEG, polysorbates, glucosides doux, polyquaterniums, vitamine E traces,
-  paraffines. Ne polluent plus le top-8 actifs.
-- Idempotent : marqueur `/* AUTO-INFERRED */` permet un re-run après
-  ajustement de la blocklist sans toucher les reviews humaines.
-- Tests parser : 21/21 pass. `make ts-verify` ok.
-- Plumbing : `data/products/types.ts` et stub `output/types.ts` re-exportent
-  `INGREDIENT_SLUGS` pour que les candidats compilent pré- et post-move.
-- Détails complets dans `output/MIGRATION.md` § Pipeline keyIngredients.
-
-### 2026-04-23 — Auto-tagging 1 017 produits seed (P1 partiel)
-
-Script `backend/src/db/seed/scripts/auto-tag.ts` — pré-remplit `primary`, `secondary`, `avoid`
-sur tous les produits dont les trois tableaux étaient vides.
-
-- **1 017 produits traités** (skincare 554, haircare 342, dental 121)
-- **875** : primary + secondary + avoid calculés depuis INCI + kind
-- **142** : secondary rempli (kind-based), primary encore vide (INCI absent ou sans match concern)
-- **90 fichiers** seed : import `{ TAG_SLUGS }` ajouté automatiquement
-- Domaine détecté par path ET par `kind` (shampoings stockés sous `skincare/` correctement routés)
-- P1 rétrogradé de 🔴 Bloquant à 🟡 Moyen
-- TS : `bunx tsc --noEmit` clean après fix imports
-
-### 2026-04-21 — P6 sort étendu (backend)
-
-- `shared/src/products/skincare/schemas.ts` : `sort` enum étendu avec `price_asc`, `price_desc`, `newest` (en plus de `name`, `random`).
-- `backend/src/features/products/service.ts` (`listProducts`) : switch sur `filters.sort`. `price_asc`/`price_desc` → `NULLS LAST` pour ne pas faire remonter les produits sans prix. `newest` → `createdAt DESC NULLS LAST`.
-- `backend/src/features/products/tests/products.test.ts` : 3 tests sort (`price_asc` NULLs last, `price_desc` NULLs last, `newest` par `createdAt`).
-- Tests : 172/172 pass.
-- Frontend : non touché à cette étape — UI sort à câbler plus tard.
-
-### 2026-04-21 — P8 filtre prix range (backend)
-
-- `shared/src/products/skincare/schemas.ts` : ajout `priceMin?` / `priceMax?` (integer ≥ 0, en centimes).
-- `backend/src/features/products/service.ts` : conditions `gte(priceCents, priceMin)` / `lte(priceCents, priceMax)`. Les produits sans `priceCents` sortent naturellement (NULL en SQL rend les comparaisons falsy) — conforme à l'intention d'un filtre range.
-- Import drizzle élargi : ajout `gte`, `lte`.
-- `backend/src/features/products/tests/products.test.ts` : 4 tests range (`priceMin`, `priceMax`, bornes combinées, exclusion NULL).
-- Tests : 176/176 pass.
-- Frontend : non touché — UI range à câbler plus tard.
-
-### 2026-04-21 — P9 counts par tag dans filter-options (backend)
-
-- `shared/src/core/index.ts` : `tagItemSchema` enrichi d'un `count?: number` optionnel. Choix d'optionnel pour ne pas forcer les endpoints non-agrégés (filter-options ingrédients) à fournir des comptes.
-- `backend/src/features/products/service.ts` (`getFilterOptions`) : requête SQL passe de `selectDistinct` à `select ... count(tagProducts.productId) ... GROUP BY`. Le type `FilterOptions` rend `count` obligatoire côté produit (contrat strict pour ce domaine).
-- Décision : comptes **absolus** (ignorent les autres filtres actifs) et toutes relevances confondues — aligné sur le comportement actuel de `listProducts` qui ne filtre pas sur `relevance`. Des comptes contextuels seraient bien plus coûteux et nécessiteraient de passer l'état de filtre à `/filter-options`.
-- `backend/src/features/products/tests/products.test.ts` : 1 test `getFilterOptions > should include product counts per tag`.
-- Tests produits : 177/177 pass. Tests tags : 71 pass / 11 fail pré-existants (stash confirmé, aucun rapport avec les modifs P9).
-- Frontend : types OK via structural typing (le `TagItem` local dans `useTagFilterGroups.ts` n'a pas `count` mais accepte un objet qui le contient). UI d'affichage des comptes à câbler plus tard.
-
-### 2026-04-21 — Branchement frontend P6/P8/P9
-
-Après le backend, câblage côté frontend.
-
-- **Type + route search params**
-  - `frontend/src/lib/queries/products.ts` : type `ProductSort` exporté, `ListProductsFilters` étendu (`sort` enum 5 valeurs, `priceMin?`, `priceMax?`). Sérialisation dans la query API pour les deux bornes prix.
-  - `frontend/src/routes/products/index.tsx` : `extendedSchema` gagne `sort` (default `'random'`), `priceMin`, `priceMax` (optionnels). `extendedDefaults` aussi.
-- **Sort UI**
-  - Nouveau composant `frontend/src/features/products/components/SortControl/` — dropdown via `DropdownMenu` compound, 5 options (Découverte, Nom A-Z, Prix croissant/décroissant, Nouveautés).
-  - Placé dans `PageHeader` de `ProductsPage` avant le bouton Filtrer. Déclenche `navigate({ sort, page: 1 })`.
-  - Règle Découverte assouplie : `isDiscovery` = pas de filtre + pas de range prix + `sort === 'random'`. N'importe quelle intention utilisateur bascule en mode paginé (limit 20).
-- **Prix range UI**
-  - Nouveau composant `frontend/src/features/products/components/PriceRangeFilter/` — 2 inputs number (euros), commit `onBlur` ou `Enter`, conversion €↔centimes.
-  - Injecté dans `FilterDrawer` via `children` (à côté du toggle profil). Le drawer ignore ces contrôles — ils naviguent directement.
-  - `handleReset` nettoie aussi `priceMin`/`priceMax`.
-  - `effectiveFilterCount` inclut `+1` si un range prix est actif.
-- **Counts par tag**
-  - `frontend/src/component/Filter/types.ts` : `FilterOption.count?: number`.
-  - `frontend/src/hooks/useTagFilterGroups.ts` : propage `count` depuis le payload API.
-  - `frontend/src/component/Input/ChipGroup/ChipGroup.tsx` : rend un `<span className="chip__count">` avec `aria-hidden` + texte `sr-only` pour les lecteurs d'écran. Style discret (opacity 0.65, tabular-nums).
-- **Validation**
-  - Types : frontend tsc clean, shared tsc clean, backend tsc clean.
-  - Lint biome : 0 erreur / 0 warning sur fichiers touchés.
-  - Tests frontend vitest : **159 pass** / 18 fail — les 18 fails sont **pré-existants** (confirmé via `git stash`). +13 nouveaux tests ajoutés :
-    - `SortControl` (4 tests) : rendu label courant, fallback sur valeur inconnue, les 5 options dans le menu, onChange au clic
-    - `PriceRangeFilter` (9 tests) : rendu vide/pré-rempli, sync avec props (reset), commit on blur, commit on Enter, clear sur input vidé, no-op si valeur inchangée, no-op sur négatif, clear bound existant sur négatif
-  - Browser : **non testé en session** — rebuild docker pas lancé. À valider manuellement en ouvrant `/products` : dropdown Sort dans header, inputs prix dans drawer, counts dans les chips.
-  - `STATE.md` §5.5 mis à jour pour refléter les 3 contrôles hors-drawer (Sort, PriceRange, profile toggle) + nouvelle règle Découverte + counts.
-
-### 2026-04-21 — Couverture tests frontend complète
-
-Comblé tous les trous côté frontend après audit matrice. **222/240 pass** (+63 nouveaux), 18 fails pré-existants inchangés.
-
-Refactos pour rendre les choses testables :
-- `productsSearchSchema` + `productsSearchDefaults` extraits de `routes/products/index.tsx` vers `features/products/filters.ts` (import depuis la route).
-- Logique métier de `ProductsPage` extraite vers `features/products/helpers.ts` : `hasActivePriceRange`, `isDiscoveryMode`, `buildProductsApiFilters`, `buildResetSearchParams`.
-- Sérialisation de la query API extraite vers `buildListProductsQuery` exporté depuis `lib/queries/products.ts`.
-
-Nouveaux tests :
-- **ChipGroup counts** (`component/Input/ChipGroup/__tests__/ChipGroup.test.tsx`, 5 tests) : pas de span sans count, rendu label+badge, sr-only "(N résultats)", count=0 affiché, click toujours fonctionnel.
-- **useTagFilterGroups** (`hooks/tests/useTagFilterGroups.test.tsx`, 5 tests) : undefined payload, propagation count, count absent, labelOverrides + count, structure FilterGroupConfig.
-- **productsSearchSchema** (`features/products/__tests__/filters-schema.test.ts`, 13 tests) : defaults, 5 valeurs sort acceptées (it.each) + rejet valeur inconnue, priceMin/Max positifs, zéro accepté, négatif rejeté, non-entier rejeté, tag arrays, profile_filter.
-- **buildListProductsQuery** (`lib/queries/__tests__/products-serialization.test.ts`, 12 tests) : empty, string vs array, 11 clés array, sort, priceMin/Max (avec zéro), page/limit.
-- **ProductsPage helpers** (`features/products/__tests__/helpers.test.ts`, 18 tests) : `hasActivePriceRange` × 4, `isDiscoveryMode` × 4, `buildProductsApiFilters` × 6 (discovery, avoidFor, paginated, tag arrays vides, sort seul, price seul), `buildResetSearchParams` × 2.
-- **FilterDrawer flow** (`component/Filter/FilterDrawer/__tests__/FilterDrawer.test.tsx`, 6 tests) : pas d'apply à l'ouverture, modify + apply, toggle off, OR intra-catégorie, reset wipe state, children rendus. Polyfill `HTMLDialogElement.showModal`/`close` local au fichier (jsdom ne les implémente pas).
-
-Validation :
-- Types : `bunx tsc --noEmit` clean.
-- Lint biome : propre après autofix (imports reformatés).
-- Vitest : 222/240 pass (18 fails pré-existants stricts sur `collection/__integration__`, `Toggle`, `PaletteSettings`, `ProductDetailSheet`, `useQuickAdd`, `CriteriaList` — aucun rapport avec mes modifs, confirmé via l'invariance pré/post changes).
-
-### 2026-04-21 — Tabs de domaine produits (frontend + backend)
-
-Ajout d'un switcher de domaine sur `/products`. 4 tabs : Skincare (merge
-`skincare`+`solaire`+`bodycare`), Cheveux, Dents, Compléments.
-
-- **Shared** : `shared/src/products/domain-tabs.ts` — `PRODUCT_DOMAIN_TABS`,
-  `PRODUCT_DOMAIN_DB_CATEGORIES`, `PRODUCT_DOMAIN_TAB_META`.
-  `skincareListProductsQuery` étendue avec `category?` optionnel.
-- **Backend** : `listProducts` filtre par domaine si `category` présent.
-  `getFilterOptions(db, category?)` scope `brands`/`kinds`/`tags` ;
-  short-circuit du JOIN tag pour les 3 tabs non-skincare.
-  Route `/products/filter-options` valide `?category=` via Zod.
-- **Frontend** : composant `DomainTabs` (role=tablist, arrow-key nav),
-  drawer conditionnel (skincare inchangé, non-skincare = kind/brand/ingredient),
-  profile toggle gated skincare-only, empty states adaptés par tab.
-  Helper `buildDomainSwitchSearch` — reset tags/brand/kind/profile, garde
-  sort/price/ingredient, `page = 1`.
-
-Hors scope (déferré dans §4.1 / §8.5) : remplir `HAIRCARE_PRODUCT_TAG_TAXONOMY`,
-`DENTAL_PRODUCT_TAG_TAXONOMY`, `SUPPLEMENT_PRODUCT_TAG_TAXONOMY` + tagger les
-produits correspondants. Tant que ces domaines n'ont pas de produits seedés,
-les 3 tabs non-skincare montrent un `EmptyState`.
-
-Tests : ~15 nouveaux (backend 6 listProducts + 3 getFilterOptions + 2 routes ;
-frontend 4 DomainTabs + 5 serialization + 4 filters-schema + 2 helpers).
-
-### 2026-04-21 — Couverture tests backend complète (listProducts + getFilterOptions)
-
-Après l'audit "qu'est-ce qui n'est PAS testé", comblé tous les trous dans `listProducts` et `getFilterOptions`. +22 tests, **199/199 pass**.
-
-- **Sort** (3 nouveaux) : `sort=name` explicite, default (sans param) = name ASC, `sort=random` retourne tous les items sans erreur.
-- **Ingredient filter** (2) : slug unique → filtre OK, slugs multiples → OR.
-- **8 tag categories** (paramétrés) : `skin_type, concern, skin_zone, product_type, routine_step, skin_effect, product_label, shared_label` — un test par catégorie, tous vérifient que seuls les produits taggés ressortent.
-- **Logique AND/OR** (2) : OR intra-catégorie (2 slugs concern → union), AND inter-catégories (skin_type × concern → intersection).
-- **avoid_for** (2) : produits `relevance='avoid'` exclus ; produits `relevance='primary'` sur le même slug **non** exclus (confirme le scope limité au relevance='avoid').
-- **Pagination** (3) : `limit` respecté, page hors bornes retourne items vides avec total correct, pages 1 et 2 sans chevauchement.
-- **getFilterOptions scope** (2) : tags hors `PRODUCT_FILTER_CATEGORIES` (ex: catégorie inventée) n'apparaissent pas ; tags orphelins (définis mais sans lien produit) exclus par l'INNER JOIN.
-
-Aucune régression : tests produits 199/199 pass, lint 0/0, types clean.
+- [ ] Scripter `build-image-mapping.ts` (actuellement Python one-shot). Ré-runnable à chaque update du scrap.
+- [ ] Optionnel : route backend `/seed-images/<slug>.webp` servant `output/images-normalized/` en dev pour découpler test du CDN prod.

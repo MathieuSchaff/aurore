@@ -12,10 +12,10 @@
 Chaque marque est représentée par **un seul fichier** :
 
 ```
-backend/src/db/seed/products/<brand>/<brand>.seed.ts
+backend/src/db/seed/data/products/<scope>/<brand>/<brand>.seed.ts
 ```
 
-Ce fichier contient les données produit, les tags et les ingrédients clés. Il est enregistré dans `unified.ts`.
+`<scope>` ∈ `skincare` / `haircare` / `dental` / `supplement`. Le fichier contient les données produit, les tags et les ingrédients clés. Il est enregistré dans `data/products/index.ts`.
 
 ---
 
@@ -96,45 +96,30 @@ export const BRAND_SEED: UnifiedProductSeed[] = [
 
 ---
 
-## 4. Enregistrement dans `unified.ts`
+## 4. Enregistrement dans `data/products/index.ts`
 
 Deux lignes à ajouter :
 
 ```ts
-import { BRAND_SEED } from "./<brand>/<brand>.seed";
+import { BRAND_SEED } from './<scope>/<brand>/<brand>.seed'
 
 const allUnified: UnifiedProductSeed[] = [
   // ... autres marques ...
   ...BRAND_SEED,
-];
+]
 ```
 
----
-
-## 5. Workflow de Migration (Format Legacy → Unifié)
-
-Lors de la conversion d'une marque existante vers le format unifié, suivez ces étapes :
-
-1.  **Extraction** : Consolider les données de `brand.ts`, `brand-ingredients-tags.ts` et `brand-product-tags.ts`.
-2.  **Création** : Créer `brand.seed.ts` avec les données nettoyées.
-3.  **Enregistrement** : Ajouter la marque dans `unified.ts`.
-4.  **Nettoyage Central** : Supprimer l'import et l'entrée de la marque dans les fichiers suivants :
-    *   `backend/src/db/seed/products/index.ts`
-    *   `backend/src/db/seed/products/products-slugs.ts`
-    *   `backend/src/db/seed/products/product-tags.ts`
-    *   `backend/src/db/seed/products/ingredients-products-tags.ts`
-5.  **Suppression** : Supprimer les anciens fichiers `.ts` de la marque (ne garder que le `.seed.ts`).
-6.  **Vérification** : Lancer `make ts-verify`.
+`category` est dérivée automatiquement de `kind` à l'agrégation — pas besoin de la renseigner dans le `.seed.ts`.
 
 ---
 
-## 6. Sources de données et transformation
+## 5. Sources de données et transformation
 
-### 6a. Depuis une saisie manuelle
+### 5a. Depuis une saisie manuelle
 
 L'utilisateur fournit un nom de marque + une liste de produits (noms, volumes, types). Remplir chaque champ en suivant les règles ci-dessous. Si l'INCI n'est pas fourni, omettre le champ `inci`.
 
-### 6b. Depuis du texte brut (Copier-coller web)
+### 5b. Depuis du texte brut (Copier-coller web)
 
 - **Priorité INCI** : Toujours chercher la liste complète. Si absente, omettre le champ `inci` mais remplir le reste des métadonnées.
 - **Inférence du `unit`** : Si non précisé explicitement, déduire du nom ou de la description ("Spray hydratant" → `'spray'`, "Pot" → `'jar'`, "Flacon-pompe" → `'pump'`).
@@ -143,7 +128,7 @@ L'utilisateur fournit un nom de marque + une liste de produits (noms, volumes, t
 
 ---
 
-## 7. Valeurs `kind` (type de produit)
+## 6. Valeurs `kind` (type de produit)
 
 ### Skincare
 
@@ -188,7 +173,7 @@ L'utilisateur fournit un nom de marque + une liste de produits (noms, volumes, t
 
 ---
 
-## 8. Valeurs `unit` (contenant)
+## 7. Valeurs `unit` (contenant)
 
 | Valeur        | Usage                               |
 | ------------- | ----------------------------------- |
@@ -206,7 +191,7 @@ L'utilisateur fournit un nom de marque + une liste de produits (noms, volumes, t
 
 ---
 
-## 9. Règles de nettoyage des champs
+## 8. Règles de nettoyage des champs
 
 ### `name`
 
@@ -238,7 +223,7 @@ L'utilisateur fournit un nom de marque + une liste de produits (noms, volumes, t
 
 ---
 
-## 10. Règles de tagging (`tags`)
+## 9. Règles de tagging (`tags`)
 
 ### `primary` — 1 à 3 tags max
 
@@ -255,7 +240,7 @@ Inclure systématiquement :
 
 ---
 
-## 11. Règles ingrédients clés (`keyIngredients`)
+## 10. Règles ingrédients clés (`keyIngredients`)
 
 - **Source de vérité** : Utiliser uniquement les slugs définis dans l'objet `INGREDIENT_SLUGS` du fichier `backend/src/db/seed/ingredients/ingredient-slugs.ts`.
 - **Slug manquant** : Si un actif important n'a pas de slug existant, **ne pas l'inventer**. Demandez à l'utilisateur de l'ajouter au fichier des slugs ou omettez-le pour cette fois.
@@ -266,7 +251,7 @@ Inclure systématiquement :
 
 ---
 
-## 12. Mise à jour et Vérification
+## 11. Mise à jour et Vérification
 
 Quand l'utilisateur demande de vérifier, compléter ou mettre à jour une marque :
 
@@ -278,7 +263,7 @@ Quand l'utilisateur demande de vérifier, compléter ou mettre à jour une marqu
 
 ---
 
-## 13. Checklist de fin de session
+## 12. Checklist de fin de session
 
 - [ ] Fichier `<brand>.seed.ts` créé.
 - [ ] Tous les `name` sans marque ni volume.
