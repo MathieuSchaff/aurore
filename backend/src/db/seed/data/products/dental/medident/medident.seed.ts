@@ -15,7 +15,8 @@ export const MEDIDENT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/medident-dinabase-7-gel-adhesif-effet-ventous-pour-prothese-dentaire-20g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/medident-dinabase-7-gel-adhesif-effet-ventouse-pour-prothese-dentaire-20g-267492.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/medident-dinabase-7-gel-adhesif-effet-ventouse-pour-prothese-dentaire-20g-267492.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],

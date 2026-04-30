@@ -337,7 +337,8 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
       'Actifs clés : Céramides (AP, AS, EOP, NP, NS), Cholestérol, Lécithine Hydrogénée & Squalane. Idéal pour peaux sèches, sensibles ou à barrière cutanée fragilisée.',
     inci: '1,2-HEXANEDIOL, ALLANTOIN, AMMONIUM ACRYLOYLDIMETHYLTAURATE VP COPOLYMER, BEHENYL ALCOHOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, CANDIDA/GARCINIA CAMBOGIA FERMENT, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CERAMIDE AP, CERAMIDE AS, CERAMIDE EOP, CERAMIDE NP, CERAMIDE NS, CETYL ALCOHOL, CHOLESTEROL, DIPROPYLENE GLYCOL, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, GLYCERIN, GLYCERYL STEARATE, HYDROGENATED LECITHIN, HYDROGENATED POLY(C6-14 OLEFIN), LIMNANTHES ALBA (MEADOW FOAM) SEED OIL, MACADAMIA TERNIFOLIA SEED OIL, PANTHENOL, POLYGLYCERYL-6 BEHENATE, POLYGLYCERYL-6 STEARATE, PROPANEDIOL, SQUALANE, WATER, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/purito-dermide-relief-barrier-moisturizer-ceramides-3-38-fl-oz-100-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-dermide-relief-barrier-moisturizer.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/purito-dermide-relief-barrier-moisturizer.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CREME_HYDRATANTE],
       secondary: [
@@ -374,7 +375,8 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
       'Actifs clés : Bifida Ferment Lysate, Lactobacillus/Riz & Soja fermentés, Niacinamide & Sodium Hyaluronate. Idéal pour peaux ternes cherchant éclat et densité.',
     inci: '1,2-HEXANEDIOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, ADENOSINE, ALLANTOIN, ARGININE, BIFIDA FERMENT LYSATE, BUTYLENE GLYCOL, CAMELLIA SINENSIS LEAF EXTRACT, CAPRYLYL GLYCOL, DIPOTASSIUM GLYCYRRHIZATE, DISODIUM EDTA, GLYCERIN, LACTOBACILLUS/RICE FERMENT FILTRATE, LACTOBACILLUS/SOYBEAN FERMENT EXTRACT, MORUS ALBA BARK EXTRACT, NELUMBO NUCIFERA FLOWER EXTRACT, NIACINAMIDE, PERILLA OCYMOIDES SEED EXTRACT, PORTULACA OLERACEA EXTRACT, SACCHAROMYCES/IMPERATA CYLINDRICA ROOT FERMENT EXTRACT, SACCHAROMYCES/VISCUM ALBUM (MISTLETOE) FERMENT EXTRACT, SODIUM HYALURONATE, TARAXACUM PLATYCARPUM EXTRACT, VISCUM ALBUM (MISTLETOE) LEAF EXTRACT',
     url: 'https://www.skinsafeproducts.com/purito-fermented-complex-94-boosting-essence-150-ml-5-1-fl-oz',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-fermented-complex-94-boosting-essence.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/purito-fermented-complex-94-boosting-essence.webp',
     tags: {
       primary: [TAG_SLUGS.ESSENCE, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.PREPARATION],
       secondary: [
@@ -448,7 +450,8 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
       'Contient des huiles essentielles (bergamote, rose, géranium, ylang-ylang). Actifs clés : Centella Asiatica, Portulaca Oleracea, Sodium Hyaluronate, Panthénol & Tréhalose.',
     inci: '1,2-HEXANEDIOL, ALLANTOIN, ARGININE, BUTYLENE GLYCOL, CANANGA ODORATA FLOWER OIL, CARBOMER, CENTELLA ASIATICA EXTRACT, CITRONELLOL, CITRUS AURANTIUM BERGAMIA (BERGAMOT) FRUIT OIL, DIPROPYLENE GLYCOL, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, GLYCERIN, LIMONENE, LINALOOL, PANTHENOL, PELARGONIUM GRAVEOLENS FLOWER OIL, PENTYLENE GLYCOL, POLYGLYCERYL-10 LAURATE, POLYGLYCERYL-10 MYRISTATE, PORTULACA OLERACEA EXTRACT, ROSE FLOWER OIL, SODIUM HYALURONATE, TREHALOSE, WATER',
     url: 'https://www.skinsafeproducts.com/purito-centella-green-level-calming-toner-6-76-fl-oz-200-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-centella-green-level-calming-toner.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/purito-centella-green-level-calming-toner.webp',
     tags: {
       primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.PREPARATION, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ZONE_VISAGE, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
@@ -578,7 +581,8 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
       'Actifs clés : Centella Asiatica, Madecassoside, Sodium Hyaluronate, Panthénol & Tréhalose. Idéal pour peaux ultra-sensibles ou réactives aux fragrances.',
     inci: '1,2-HEXANEDIOL, ALLANTOIN, ARGININE, ASIATIC ACID, ASIATICOSIDE, BUTYLENE GLYCOL, CARBOMER, CENTELLA ASIATICA EXTRACT, DIPROPYLENE GLYCOL, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, MADECASSIC ACID, MADECASSOSIDE, PANTHENOL, PENTYLENE GLYCOL, PORTULACA OLERACEA EXTRACT, SODIUM HYALURONATE, TREHALOSE, WATER',
     url: 'https://www.skinsafeproducts.com/purito-seoul-wonder-releaf-centella-toner-unscented-6-76-fl-oz-200-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-seoul-wonder-releaf-centella-toner-unscented.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/purito-seoul-wonder-releaf-centella-toner-unscented.webp',
     tags: {
       primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.PREPARATION, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [

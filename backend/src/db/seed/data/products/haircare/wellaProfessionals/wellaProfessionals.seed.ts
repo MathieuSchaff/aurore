@@ -15,7 +15,8 @@ export const WELLA_PROFESSIONALS_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua/water/eau, stearyl alcohol, behentrimonium chloride, cetyl alcohol, quaternium-80, propylene glycol, parfum/fragrance, isopropyl alcohol, phenoxyethanol, methylparaben, propylparaben, disodium edta, hexyl cinnamal, linalool, benzyl salicylate, limonene, citric acid, alanine, glycine, alpha-isopmethyl ionone, histidine, silk amino acids, sodium benzoate.',
     url: 'https://www.atida.fr/wella-professionals-fusion-intense-repair-masque-reparation-intense-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/wella-professionals-fusion-intense-repair-masque-reparation-intense-150ml-249293.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/wella-professionals-fusion-intense-repair-masque-reparation-intense-150ml-249293.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],

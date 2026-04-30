@@ -62,7 +62,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA /WATER/EAU, GLYCERIN, COCAMIDOPROPYL BETAINE, SODIUM MYRETH SULFATE, COCO-GLUCOSIDE, PEG-3 DISTEARATE, PEG-150 DISTEARATE, GLYCERYL CAPRYLATE, GLYCOL DISTEARATE, PARFUM (FRAGRANCE), POLYQUATERNIUM-10, CERA ALBA/BEESWAX/CIRE D’ABEILLE, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, POTASSIUM SORBATE, CITRIC ACID, CERAMIDE NP, PERSEA GRATISSIMA (AVOCADO) FRUIT EXTRACT',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela-bebe/mustela-gel-lavant-nourrissant-au-cold-cream-300ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-gel-lavant-nourrissant-au-cold-cream.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/mustela-gel-lavant-nourrissant-au-cold-cream.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation'],
       secondary: ['emollience', 'nettoyant-corps', 'zone-corps'],
@@ -485,7 +486,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, PERSEA GRATISSIMA (AVOCADO) OIL*, CAPRYLIC/CAPRIC TRIGLYCERIDE, C10-18 TRIGLYCERIDES, GLYCERIN, CETYL ALCOHOL, POLYGLYCERYL-3 DISTEARATE, XANTHAN GUM, LEVULINIC ACID, GLYCERYL STEARATE CITRATE, SODIUM BENZOATE, SODIUM STEAROYL GLUTAMATE, GELLAN GUM, SODIUM LEVULINATE, TOCOPHEROL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, PROPANEDIOL, ALOE BARBADENSIS (ALOE VERA) LEAF JUICE POWDER*, PERSEA GRATISSIMA (AVOCADO) FRUIT EXTRACT',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-bio-baume-universel-extrait-d-avaocat-75ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-bio-baume-universel-extrait-d-avaocat.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/mustela-bio-baume-universel-extrait-d-avaocat.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'anti-oxydant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -512,7 +514,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, CAPRYLIC/CAPRIC TRIGLYCÉRIDE, C10-18 TRIGLYCÉRIDES, PANTHENOL, GLYCERIN, TRIISOSTEARIN, BUTYROSPERMUM PARKII (SHEA) BUTTER, POLYGLYCERYL-3 DISTEARATE, RICINUS COMMUNIS (CASTOR) SEED OIL, 1,2-HEXANEDIOL, CETEARYL, ALCOHOL, POTASSIUM CETYL POSPHATE, POLYACRYLATE CROSSPOLYMER-6, ALLANTOÏN, GLYCERYL, CAPRYLATE, GLYCERYL STEARATE CITRATE, HYDROGENNATED CASTOR OIL, HYDROLYZED HYALURONIC ACID, XANTHAN GUM, COPPER PCA, ZINC PCA, SODIUM HYDROXIDE, PERSEA GRATISSIMA (AVOCADO) FRUIT EXTRACT, CITRIC ACID, FABRIQUÉE EN FRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-cicastela-creme-reparatrice-peaux-irritees-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-cicastela-creme-reparatrice-peaux-irritees.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/mustela-cicastela-creme-reparatrice-peaux-irritees.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'barriere-cutanee', 'cicatrisation'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -591,7 +594,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA /WATER/EAU, CAPRYLIC/CAPRIC TRIGLYCERIDE, POLYGLYCERYL-2-DIPOLYHYDROXYSTEARATE, GLYCERIN, HYDROGENATED COCONUT OIL, CERA ALBA/BEESWAX/CIRE D’ABEILLE, BUTYROSPERMUM PARKII (SHEA) BUTTER, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, STEARALKONIUM HECTORITE, MAGNESIUM SULFATE, PARFUM (FRAGRANCE), GLUCONOLACTONE, LECITHIN, SODIUM BENZOATE, PROPYLENE CARBONATE, TOCOPHEROL, PERSEA GRATISSIMA (AVOCADO) FRUIT EXTRACT, CALCIUM GLUCONATE, CERAMIDE NP, PHYTOSPHINGOSINE, CITRIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-creme-nourrissante-cold-cream-a-la-cire-d-abeille-bio-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-creme-nourrissante-cold-cream-a-la-cire-d-abeille-bio.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/mustela-creme-nourrissante-cold-cream-a-la-cire-d-abeille-bio.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant'],
       secondary: ['peau-sensible', 'reparateur', 'emollience', 'creme-hydratante', 'zone-visage'],
@@ -793,7 +797,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, CAPRYLIC/CAPRIC TRIGLYCERIDE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL*, GLYCERIN**, SUCROSE STEARATE, PASSIFLORA EDULIS SEED OIL, CETEARYL ALCOHOL, GLYCERYL CAPRYLATE, SODIUM STEAROYL GLUTAMATE, GELLAN GUM, XANTHAN GUM, ALOE BARBADENSIS (ALOE VERA) LEAF JUICE POWDER*, SODIUM BENZOATE, LEVULINIC ACID, PROPANEDIOL, SODIUM LEVULINATE, CITRIC ACID, PASSIFLORA EDULIS FRUIT EXTRACT',
     url: 'https://www.pharmashopdiscount.com/fr/tags/action/grossesse/mustela-l-essentiel-lait-de-soin-multi-actions-bio-200-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-l-essentiel-lait-de-soin-multi-actions-bio.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/mustela-l-essentiel-lait-de-soin-multi-actions-bio.webp',
     tags: {
       primary: ['hydratation', 'apaisant'],
       secondary: ['creme-hydratante', 'zone-visage'],

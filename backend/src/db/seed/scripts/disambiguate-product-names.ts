@@ -9,7 +9,7 @@
  *   bun run backend/src/db/seed/scripts/disambiguate-product-names.ts
  */
 
-import { readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs'
+import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 const DRY = process.argv.includes('--dry')
@@ -77,7 +77,7 @@ function parseEntries(text: string): Entry[] {
       const nameM = line.match(/^\s+name:\s*(?:'([^']+)'|"([^"]+)")/)
       const brandM = line.match(/^\s+brand:\s*['"]([^'"]+)['"]/)
       if (slugM && !slug) slug = slugM[1] ?? ''
-      if (nameM && !name) name = (nameM[1] ?? nameM[2]) ?? ''
+      if (nameM && !name) name = nameM[1] ?? nameM[2] ?? ''
       if (brandM && !brand) brand = brandM[1] ?? ''
     }
 
@@ -157,7 +157,8 @@ for (const file of files) {
     }
 
     for (let i = 0; i < list.length; i++) {
-      const entry = list[i]!
+      const entry = list[i]
+      if (!entry) continue
       const tail = tails[i] ?? ''
       if (!tail) continue
 

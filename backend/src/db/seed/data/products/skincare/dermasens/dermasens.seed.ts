@@ -15,7 +15,8 @@ export const DERMASENS_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, COCO-GLUCOSIDE, GLYCERIN, SODIUM COCO-SULFATE, COCAMIDOPROPYL BETAINE, GLYCERYL OLEATE, PARFUM, SODIUM CHLORIDE, CITRIC ACID, SODIUM BENZOATE, POTASSIUM SORBATE, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, SODIUM HYDROXIDE, TOCOPHEROL, HYDROGENATED VEGETABLE GLYCERIDES CITRATE',
     url: 'https://www.atida.fr/dermasens-gel-douche-surgras-3-en-1-monoi-1l.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dermasens-gel-douche-surgras-3-en-1-monoi.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/dermasens-gel-douche-surgras-3-en-1-monoi.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'nettoyant-corps', 'zone-corps'],
@@ -35,7 +36,8 @@ export const DERMASENS_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, COCO-GLUCOSIDE, GLYCERIN, SODIUM COCO-SULFATE, COCAMIDOPROPYL BETAINE, GLYCERYL OLEATE, PARFUM, SODIUM CHLORIDE, CITRIC ACID, SODIUM BENZOATE, POTASSIUM SORBATE, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, SODIUM HYDROXIDE, TOCOPHEROL, HYDROGENATED VEGETABLE GLYCERIDES CITRATE',
     url: 'https://www.atida.fr/dermasens-gel-douche-surgras-3-en-1-fleur-de-frangipanier-1l.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dermasens-gel-douche-surgras-3-en-1-fleur-de-frangipanier.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/dermasens-gel-douche-surgras-3-en-1-fleur-de-frangipanier.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'nettoyant-corps', 'zone-corps'],
@@ -55,7 +57,8 @@ export const DERMASENS_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Ingrédients: Aqua, coco-glucoside, glycerin, sodium coco-sulfate, cocamidopropyl betaine, glyceryl oleate, parfum, sodium chloride, citric acid, sodium benzoate, potassium sorbate, guar hydroxypropyltrimonium chloride, sodium hydroxide, tocopherol, hydrogenated vegetable glycerides citrate.98% d'ingrédients d'origine naturelle.",
     url: 'https://www.atida.fr/dermasens-gel-douche-surgras-3-en-1-monoi-1l.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dermasens-gel-douche-surgras-3-en-1-monoi-1l-274421.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/dermasens-gel-douche-surgras-3-en-1-monoi-1l-274421.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -81,7 +84,8 @@ export const DERMASENS_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Ingrédients: Aqua, coco-glucoside, glycerin, sodium coco-sulfate, cocamidopropyl betaine, glyceryl oleate, parfum, sodium chloride, citric acid, sodium benzoate, potassium sorbate, guar hydroxypropyltrimonium chloride, sodium hydroxide, tocopherol, hydrogenated vegetable glycerides citrate.98% d'ingrédients d'origine naturelle.",
     url: 'https://www.atida.fr/dermasens-gel-douche-surgras-3-en-1-fleur-de-frangipanier-1l.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dermasens-gel-douche-surgras-3-en-1-fleur-de-frangipanier-1l-274424.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/dermasens-gel-douche-surgras-3-en-1-fleur-de-frangipanier-1l-274424.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [

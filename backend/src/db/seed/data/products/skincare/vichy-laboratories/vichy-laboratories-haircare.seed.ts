@@ -16,7 +16,8 @@ export const VICHY_LABORATORIES_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU GLYCERIN CETEARYL ALCOHOL DISTARCH PHOSPHATE QUATERNIUM87 DIMETHICONE PARFUM FRAGRANCE PEG100 STEARATE PEG150 DECYL ALCOHOL SMDI COPOLYMER STEARETH6 GLYCINE TRIDECETH10 TRIDECETH3 AMODIMETHICONE BEHENTRIMONIUM CHLORIDE SODIUM HYDROXIDE SODIUM LACTATE PALMITOYL TETRAPEPTIDE7 PALMITOYL TRIPEPTIDE1 ISOPROPYL ALCOHOL PROPYLENE GLYCOL CITRIC ACID ACETIC ACID XANTHAN GUM PHENOXYETHANOL CHLORHEXIDINE DIGLUCONATE LIMONENE FIL N700589591',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/capillaire/vichy-dercos-collagen-filler-17-apres-shampoing-ultra-reparateur-200-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-dercos-collagen-filler-17-apres-shampoing-ultra-reparateur.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-dercos-collagen-filler-17-apres-shampoing-ultra-reparateur.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -58,7 +59,8 @@ export const VICHY_LABORATORIES_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER - SODIUM LAURETH SULFATE - GLYCOL DISTEARATE - COCO-BETAINE - GLYCERIN - DIMETHICONE - CARBOMER - CI 19140 / YELLOW 5 - CITRIC ACID - MENTHOL - 2-OLEAMIDO-1,3-OCTADECANEDIOL - PPG-5-CETETH-20 - SALICYLIC ACID - SELENIUM SULFIDE - SODIUM BENZOATE - SODIUM CHLORIDE - SODIUM HYDROXIDE - TOCOPHERYL ACETATE - PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/capillaire/vichy-dercos-shampooing-anti-pelliculaire-cheveux-normaux.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-dercos-shampooing-anti-pelliculaire-cheveux-normaux.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-dercos-shampooing-anti-pelliculaire-cheveux-normaux.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -79,7 +81,8 @@ export const VICHY_LABORATORIES_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER - SODIUM METHYL COCOYL TAURATE - LAURETH-5 CARBOXYLIC ACID - COCAMIDOPROPYL BETAINE - SODIUM CHLORIDE - BISABOLOL - FARNESOL - HEXYLENE GLYCOL - LACTIC ACID - PEG-150 DISTEARATE - PEG-55 PROPYLENE GLYCOL OLEATE - PIROCTONE OLAMINE - POLYQUATERNIUM-10 - PROPYLENE GLYCOL - SALICYLIC ACID - SODIUM BENZOATE - SODIUM HYDROXIDE - SODIUM LAUROYL GLUTAMATE - PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/capillaire/vichy-dercos-shampooing-anti-pelliculaire-sensitive-200-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-dercos-shampooing-anti-pelliculaire-sensitive.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-dercos-shampooing-anti-pelliculaire-sensitive.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -121,7 +124,8 @@ export const VICHY_LABORATORIES_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU - SODIUM LAURETH SULFATE - CITRIC ACID - SODIUM COCOAMPHOACETATE - HEXYLENE GLYCOL - AMMONIUM HYDROXIDE - GLYCOL DISTEARATE - CARBOMER - COCO-BETAINE - DIAMINOPYRIMIDINE OXIDE - NIACINAMIDE - PEG-55 PROPYLENE GLYCOL OLEATE - POLYQUATERNIUM-10 - PROPYLENE GLYCOL - SALICYLIC ACID - SODIUM BENZOATE - SODIUM CHLORIDE - SODIUM HYDROXIDE - TOCOPHEROL - PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-dercos-eco-recharge-shampooing-stimulant-energy-500ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-dercos-eco-recharge-shampooing-stimulant-energy.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-dercos-eco-recharge-shampooing-stimulant-energy.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -142,7 +146,8 @@ export const VICHY_LABORATORIES_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, CETEARYL ALCOHOL, BEHENTRIMONIUM CHLORIDE, STARCH ACETATE, CETYL ESTERS, CHLORHEXIDINE DIGLUCONATE, DIAMINOPYRIMIDINE OXIDE, HYDROXYETHYLCELLULOSE, ISOPROPYL ALCOHOL, NIACINAMIDE, 2-OLEAMIDO-1,3-OCTADECANEDIOL, PANTHENOL, PYRIDOXINE HCL, PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-dercos-energy-apres-shampooing-fortifiant-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-dercos-energy-apres-shampooing-fortifiant.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-dercos-energy-apres-shampooing-fortifiant.webp',
     tags: {
       primary: ['apres-shampooing'],
       secondary: [],
@@ -168,7 +173,8 @@ export const VICHY_LABORATORIES_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'SHAMPOOING : AQUA / WATER , SODIUM LAURETH SULFATE , CITRIC ACID , SODIUM COCOAMPHOACETATE , HEXYLENE GLYCOL , AMMONIUM HYDROXIDE , GLYCOL DISTEARATE , CARBOMER , COCO-BETAINE , DIAMINOPYRIMIDINE OXIDE , ISOPROPYL ALCOHOL , NIACINAMIDE , PANTHENOL , PEG-55 PROPYLENE GLYCOL OLEATE , POLYQUATERNIUM-10 , PROPYLENE GLYCOL , PYRIDOXINE HCL , SALICYLIC ACID , SODIUM ACETATE , SODIUM BENZOATE , SODIUM CHLORIDE , SODIUM HYDROXIDE , PARFUM / FRAGRANCE (F.I.L, C204124/1)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-dercos-energy-shampooing-apres-shampooing.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-dercos-energy-shampooing-apres-shampooing.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-dercos-energy-shampooing-apres-shampooing.webp',
     tags: {
       primary: ['apres-shampooing'],
       secondary: [],
@@ -197,7 +203,8 @@ export const VICHY_LABORATORIES_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU - ISOPROPYL ISOSTEARATE - DICAPRYLYL ETHER - NIACINAMIDE - PROPYLENE GLYCOL - GLYCOLIC ACID - SQUALANE - ALCOHOL DENAT - GLYCERIN - DIPROPYLENE GLYCOL - SODIUM HYDROXIDE - TOCOPHEROL - HAEMATOCOCCUS PLUVIALIS EXTRACT - PRUNUS ARMENIACA KERNEL OIL / APRICOT KERNELOIL - ADENOSINE - ASCORBYL GLUCOSIDE - ISOPROPYL LAUROYL SARCOSINATE - HYDROXYACETOPHENONE - HYDROXYPROPYL TETRAHYDROPYRANTRIOL - CAPRYLOYL SALICYLIC ACID - CAPRYLIC/CAPRIC TRIGLYCERIDE - CASSIA ANGUSTIFOLIA SEED POLYSACCHARIDE - PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-dercos-psolution-shampooing-traitant-keratoreducteur-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-dercos-psolution-shampooing-traitant-keratoreducteur.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-dercos-psolution-shampooing-traitant-keratoreducteur.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -218,7 +225,8 @@ export const VICHY_LABORATORIES_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, SODIUM LAURETH SULFATE, GLYCOL DISTEARATE, COCO-BETAINE, GLYCERIN, DIMETHICONE, CARBOMER, CI 19140 / YELLOW 5, CITRIC ACID, MENTHOL, 2-OLEAMIDO-1,3-OCTADECANEDIOL, PARFUM / FRAGRANCE, PPG-5-CETETH-20, SALICYLIC ACID, SELENIUM SULFIDE, SODIUM BENZOATE, SODIUM CHLORIDE, SODIUM HYDROXIDE, TOCOPHERYL ACETATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-dercos-shampooing-2-en-1-demelant-anti-pelliculaire-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-dercos-shampooing-2-en-1-demelant-anti-pelliculaire.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-dercos-shampooing-2-en-1-demelant-anti-pelliculaire.webp',
     tags: {
       primary: ['apres-shampooing'],
       secondary: [],
@@ -293,7 +301,8 @@ export const VICHY_LABORATORIES_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA /WATER / EAU - SODIUM LAURETH SULFATE - CITRIC ACID - SODIUM COCOAMPHOACETATE - HEXYLENE GLYCOL - AMMONIUM HYDROXIDE - GLYCOL DISTEARATE - CARBOMER - COCO-BETAINE - DIAMINOPYRIMIDINE OXIDE - NIACINAMIDE - PEG-55 PROPYLENE GLYCOL OLEATE - POLYQUATERNIUM-10 - PROPYLENE GLYCOL - SALICYLIC ACID - SODIUM BENZOATE - SODIUM CHLORIDE - SODIUM HYDROXIDE - TOCOPHEROL - PARFUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-dercos-shampooing-stimulant-recharge-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-dercos-shampooing-stimulant-recharge.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-dercos-shampooing-stimulant-recharge.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -314,7 +323,8 @@ export const VICHY_LABORATORIES_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / EAU - SODIUM LAURETH SULFATE - DISTÉARATE DE GLYCOL - DIMÉTHICONE - COCO-BÉTAINE - GLYCÉRINE - CARBOMÈRE - CI 19140 / JAUNE 5 - ACIDE CITRIQUE - MENTHOL - 2-OLEAMIDO-1,3-OCTADECANEDIOL - PPG-5-CETETH-20 - ACIDE SALICYLIQUE - SULFURE DE SÉLÉNIUM - BENZOATE DE SODIUM - CHLORURE DE SODIUM - HYDROXYDE DE SODIUM - ACÉTATE DE TOCOPHÉRYLE - PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-dercos-shampooing-traitant-anti-pellicule-recharge-390ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-dercos-shampooing-traitant-anti-pellicule-recharge.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-dercos-shampooing-traitant-anti-pellicule-recharge.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -335,7 +345,8 @@ export const VICHY_LABORATORIES_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'SOIN HYDRATANT :AQUA, GLYCERIN, ALCOHOL DENAT., PROPANEDIOL, DIMETHICONE, PHENYL TRIMETHICONE, PROPYLENE GLYCOL, C13-14 ISOPARAFFIN, CI 15985, CI 77891, CI 77492, CI 77491, CI 77499, TRIETHANOLAMINE, TRIETHYL CITRATE, SILICA [NANO], SODIUM DEXTRAN SULFATE, ESCIN, PHENOXYETHANOL, MAGNESIUM SULFATE, MAGNESIUM ASCORBYL PHOSPHATE, BORON NITRIDE, ASCORBYL GLUCOSIDE, CAPRYLYL GLYCOL, LAURETH-7, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, POLYACRYLAMIDE, ACRYLATES/AMMONIUM METHACRYLATE COPOLYMER, PARFUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-hydra-mag-c-soin-hydratant-shampooing-dercos.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-hydra-mag-c-soin-hydratant-shampooing-dercos.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-hydra-mag-c-soin-hydratant-shampooing-dercos.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -364,7 +375,8 @@ export const VICHY_LABORATORIES_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HOMME STRUCTURE FORCE SOIN GLOBAL HYDRATANT ANTI-ÂGE : AQUA / WATER / EAU, GLYCERIN, ALCOHOL DENAT., DIMETHICONE, PENTAERYTHRITYL TETRAETHYLHEXANOATE, GLYCERYL STEARATE SE, POLYGLYCERYL-3 METHYLGLUCOSE DISTEARATE, STEARYL ALCOHOL, SODIUM PHYTATE, CITRIC ACID, GLYCOLIC ACID, LACTIC ACID, METHYLSILANOL MANNURONATE, SODIUM HYALURONATE, TRIETHANOLAMINE, ACRYLAMIDE/SODIUM ACRYLOYLDIMETHYLTAURATE COPOLYMER, CAPRYLYL GLYCOL, CARBOMER, ISOHEXADECANE, MYRISTIC ACID, PALMITIC ACID, POLYSORBATE 80, SORBITAN OLEATE, STEARIC ACID, XANTHAN GUM, DIMETHICONOL, PHENOXYETHANOL, SORBIC ACID, PARFUM / FRAGRANCEDERCOS',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-structure-force-soin-anti-age-shampooing-dercos.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-structure-force-soin-anti-age-shampooing-dercos.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-structure-force-soin-anti-age-shampooing-dercos.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -391,7 +403,8 @@ export const VICHY_LABORATORIES_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/cheveux/par-marques/vichy-dercos/vichy-dercos-shampooing-energisant-aminexil.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-dercos-shampooing-energisant-aminexil.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-dercos-shampooing-energisant-aminexil.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -412,7 +425,8 @@ export const VICHY_LABORATORIES_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU SODIUM C1416 OLEFIN SULFONATE GLYCERIN SODIUM CHLORIDE COCAMIDE MEA COCAMIDOPROPYL BETAINE GLYCOL DISTEARATE SODIUM LAUROYL SARCOSINATE TRIETHYL CITRATE PARFUM FRAGRANCE CARBOMER GLYCINE SODIUM HYDROXIDE SODIUM LACTATE PALMITOYL TETRAPEPTIDE7 PALMITOYL TRIPEPTIDE1 COCO BETAINE HYDROXYPROPYL GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE CITRIC ACID XANTHAN GUM POLYQUATERNIUM7 SODIUM BENZOATE SALICYLIC ACID BENZOIC ACID LIMONENE FIL N700589502',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/vichy/vichy-dercos-collagen-filler-17-shampoing-ultra-reparateur-200-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-dercos-collagen-filler-17-shampoing-ultra-reparateur.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-dercos-collagen-filler-17-shampoing-ultra-reparateur.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],

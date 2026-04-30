@@ -16,7 +16,8 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS SEED OIL, COCO-CAPRYLATE/CAPRATE, MAGNESIUM OXIDE, STEARYL ALCOHOL, MICROCRYSTALLINE CELLULOSE, TRIETHYL CITRATE, HYDROGENATED CASTOR OIL, PARFUM, XYLITYL SESQUICAPRYLATE, ANHYDROXYLITOL, TOCOPHEROL, EUGENOL, GERANIOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-bio-deodorant-stick-fleur-de-coton-50g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-bio-deodorant-stick-fleur-de-coton.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/respire-bio-deodorant-stick-fleur-de-coton.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'deodorant'],
@@ -41,7 +42,8 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS SEED OIL, COCO-CAPRYLATE/CAPRATE, MAGNESIUM OXIDE, STEARYL ALCOHOL, MICROCRYSTALLINE CELLULOSE, TRIETHYL CITRATE, HYDROGENATED CASTOR OIL, PARFUM, XYLITYL SESQUICAPRYLATE, ANHYDROXYLITOL, TOCOPHEROL, EUGENOL, GERANIOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-bio-deodorant-stick-menthe-eucalyptus-50g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-bio-deodorant-stick-menthe-eucalyptus.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/respire-bio-deodorant-stick-menthe-eucalyptus.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'deodorant'],
@@ -66,7 +68,8 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, ZEA MAYS STARCH, GLYCERIN, PENTYLENE GLYCOL, TRIETHYL CITRATE, ETHYLHEXYL STEARATE, GLYCERYL STEARATE CITRATE, LEUCONOSTOC/RADISH ROOT FERMENT FILTRATE, PARFUM, ZINC PCA, GLYCERYL CAPRYLATE, SODIUM STEAROYL GLUTAMATE, SQUALANE, LEVULINIC ACID, XANTHAN GUM, SODIUM LEVULINATE, ALOE BARBADENSIS LEAF JUICE POWDER, GLYCERYL UNDECYLENATE, CELLULOSE, CITRIC ACID, CELLULOSE GUM, SODIUM BENZOATE, LINALOOL, COUMARIN',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-deodorant-24h-roll-on-figue-fraiche-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-deodorant-24h-roll-on-figue-fraiche.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/respire-deodorant-24h-roll-on-figue-fraiche.webp',
     tags: {
       primary: ['hydratation', 'barriere-cutanee', 'apaisant'],
       secondary: ['emollience', 'texture-legere', 'deodorant'],
@@ -144,7 +147,8 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, ZEA MAYS STARCH, GLYCERIN, PENTYLENE GLYCOL, TRIETHYL CITRATE, ETHYLHEXYL STEARATE, GLYCERYL STEARATE CITRATE, MICROCRYSTALLINE CELLULOSE, LEUCONOSTOC/RADISH ROOT FERMENT FILTRATE, PARFUM, ZINC PCA, GLYCERYL CAPRYLATE, SODIUM STEAROYL GLUTAMATE, SQUALANE, LEVULINIC ACID, CELLULOSE GUM, XANTHAN GUM, SODIUM LEVULINATE, ALOE BARBADENSIS LEAF JUICE POWDER, GLYCERYL UNDECYLENATE, ALPHA- ISOMETHYL IONONE, COUMARIN',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-deodorant-roll-on-fleur-de-coton-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-deodorant-roll-on-fleur-de-coton-50ml.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/respire-deodorant-roll-on-fleur-de-coton-50ml.webp',
     tags: {
       primary: ['hydratation', 'barriere-cutanee', 'apaisant'],
       secondary: ['emollience', 'texture-legere', 'deodorant'],
@@ -172,7 +176,8 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, ZEA MAYS STARCH, GLYCERIN, PENTYLENE GLYCOL, TRIETHYL CITRATE, ETHYLHEXYL STEARATE, GLYCERYL STEARATE CITRATE, MICROCRYSTALLINE CELLULOSE, LEUCONOSTOC/RADISH ROOT FERMENT FILTRATE, PARFUM, ZINC PCA, GLYCERYL CAPRYLATE, SODIUM STEAROYL GLUTAMATE, SQUALANE, LEVULINIC ACID, CELLULOSE GUM, XANTHAN GUM, SODIUM LEVULINATE, ALOE BARBADENSIS LEAF JUICE POWDER, GLYCERYL UNDECYLENATE, EUGENOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-deodorant-roll-on-fraicheur-d-aloe-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-deodorant-roll-on-fraicheur-d-aloe.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/respire-deodorant-roll-on-fraicheur-d-aloe.webp',
     tags: {
       primary: ['hydratation', 'barriere-cutanee', 'apaisant'],
       secondary: ['emollience', 'texture-legere', 'deodorant'],
@@ -200,7 +205,8 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS SEED OIL, COCO-CAPRYLATE/CAPRATE, MAGNESIUM OXIDE, STEARYL ALCOHOL, MICROCRYSTALLINE CELLULOSE, TRIETHYL CITRATE, HYDROGENATED CASTOR OIL, PARFUM, XYLITYL SESQUICAPRYLATE, ANHYDROXYLITOL, TOCOPHEROL, EUGENOL, GERANIOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-deodorant-stick-bio-fleur-de-coton-50g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-deodorant-stick-bio-fleur-de-coton.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/respire-deodorant-stick-bio-fleur-de-coton.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'deodorant'],
@@ -296,7 +302,8 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS SEED OIL COCOCAPRYLATECAPRATE MAGNESIUM OXIDE STEARYL ALCOHOL MICROCRYSTALLINE CELLULOSE TRIETHYL CITRATE HYDROGENATED CASTOR OIL PARFUM XYLITYL SESQUICAPRYLATE ANHYDROXYLITOL TOCOPHEROL LINALOOL EUGENOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-recharge-deodorant-stick-douceur-monoi-50g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-recharge-deodorant-stick-douceur-monoi.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/respire-recharge-deodorant-stick-douceur-monoi.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'deodorant'],
@@ -317,7 +324,8 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS SEED OIL COCOCAPRYLATECAPRATE MAGNESIUM OXIDE STEARYL ALCOHOL MICROCRYSTALLINE CELLULOSE TRIETHYL CITRATE HYDROGENATED CASTOR OIL PARFUM XYLITYL SESQUICAPRYLATE ANHYDROXYLITOL TOCOPHEROL CITRAL COUMARIN TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-recharge-deodorant-stick-embruns-cedre-50g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-recharge-deodorant-stick-embruns-cedre.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/respire-recharge-deodorant-stick-embruns-cedre.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'deodorant'],
@@ -338,7 +346,8 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS SEED OIL, COCO-CAPRYLATE/CAPRATE, MAGNESIUM OXIDE, STEARYL ALCOHOL, MICROCRYSTALLINE CELLULOSE, TRIETHYL CITRATE, HYDROGENATED CASTOR OIL, PARFUM, XYLITYL SESQUICAPRYLATE, ANHYDROXYLITOL, TOCOPHEROL, EUGENOL, GERANIOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-recharge-deodorant-stick-fleur-de-coton-50g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-recharge-deodorant-stick-fleur-de-coton.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/respire-recharge-deodorant-stick-fleur-de-coton.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'deodorant'],
@@ -363,7 +372,8 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS SEED OIL COCOCAPRYLATECAPRATE MAGNESIUM OXIDE STEARYL ALCOHOL MICROCRYSTALLINE CELLULOSE TRIETHYL CITRATE HYDROGENATED CASTOR OIL PARFUM XYLITYL SESQUICAPRYLATE ANHYDROXYLITOL TOCOPHEROL LIMONENE LINALOOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-recharge-deodorant-stick-menthe-eucalyptus-50g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-recharge-deodorant-stick-menthe-eucalyptus.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/respire-recharge-deodorant-stick-menthe-eucalyptus.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'deodorant'],
@@ -384,7 +394,8 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS SEED OIL COCO CAPRYLATE CAPRATE MAGNESIUM OXIDE STEARYL ALCOHOL MICROCRYSTALLINE CELLULOSE TRIETHYL CITRATE HYDROGENATED CASTOR OIL PARFUM XYLITYL SESQUICAPRYLATE ANHYDROXYLITOL TOCOPHEROL GERANIOL LINALOOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-recharge-deodorant-stick-rose-pivoine-50g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-recharge-deodorant-stick-rose-pivoine.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/respire-recharge-deodorant-stick-rose-pivoine.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'deodorant'],

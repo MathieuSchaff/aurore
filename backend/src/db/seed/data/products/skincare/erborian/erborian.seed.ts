@@ -37,7 +37,8 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER, BUTYLENE GLYCOL, CYCLOPENTASILOXANE, STEARIC ACID, BUTYROSPERMUM PARKII (SHEA) BUTTER, OCTYLDODECANOL, CETEARYL ALCOHOL, AMMONIUM ACRYLOYLDIMETHYLTAURATE/ VP COPOLYMER, TALC, GLYCERYL STEARATE, PEG-100 STEARATE, PHENOXYETHANOL, PANTHENOL, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, OZOKERITE, HYDROGENATED VEGETABLE OIL, MICA, ZEA MAYS (CORN) OIL, BEESWAX, SESAMUM INDICUM (SESAME) SEED OIL, TITANIUM DIOXIDE (CI 77891), TOCOPHEROL, CENTELLA ASIATICA EXTRACT, LACTOSE, TRITICUM VULGARE (WHEAT) GERM OIL, TRIETHANOLAMINE, HYDROGENATED PALM ACID, STEARYL STEARATE, GLYCINE SOJA (SOYBEAN OIL), POLYGONUM CUSPIDATUM ROOT EXTRACT, SCUTELLARIA BAICALENSIS ROOT EXTRACT, VEGETABLE OIL, ETHYLHEXYLGLYCERIN, GLYCYRRHIZA GLABRA (LICORICE) ROOT EXTRACT, CELLULOSE, CAMELLIA SINENSIS LEAF EXTRACT, SACCHAROMYCES CEREVISIAE EXTRACT, PANAX GINSENG ROOT EXTRACT, CHAMOMILLA RECUTITA (MATRICARIA) FLOWER EXTRACT, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF EXTRACT, DIOSCOREA VILLOSA (WILD YAM), ROOT EXTRACT, KIGELIA AFRICANA FRUIT EXTRACT, IRON OXIDES (CI 77492), EQUISETUM GIGANTEUM EXTRACT, HYDROXYPROPYL METHYLCELLULOSE, TOCOPHERYL ACETATE',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/corps/yeux/contour-des-yeux/erborian-ginseng-power-eye-creme-lissante-15ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-ginseng-power-eye-creme-lissante.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/erborian-ginseng-power-eye-creme-lissante.webp',
     tags: {
       primary: ['apaisant', 'cicatrisation', 'anti-taches'],
       secondary: ['reparateur', 'lait-corps', 'zone-corps'],
@@ -89,7 +90,8 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU GLYCERIN CAPRYLIC CAPRIC TRIGLYCERIDE DIPROPYLENE GLYCOL METHYLPROPANEDIOL COCO CAPRYLATE CAPRATE COCOS NUCIFERA COCONUT OIL STEARYL ALCOHOL BETAINE PANTHENOL CENTELLA ASIATICA LEAF EXTRACT BUTYROSPERMUM PARKII SHEA BUTTER HYDROGENATED OLIVE OIL UNSAPONIFIABLES BUTYLENE GLYCOL 1 2 HEXANEDIOL GLYCERYL STEARATE SE CERAMIDE NP POLYGLYCERYL 3 METHYLGLUCOSE DISTEARATE POLYGLYCERYL 2 STEARATE ARGININE HYDROXYACETOPHENONE HYDROXYETHYL ACRYLATE SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER GLYCERYL STEARATE ETHYLHEXYLGLYCERIN PENTYLENE GLYCOL XANTHAN GUM BETA GLUCAN SORBITAN ISOSTEARATE CAPRYLYL GLYCOL PROPYLENE GLYCOL TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/erborian/erborian-centella-barrier-cream-baume-cica-reparateur-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-centella-barrier-cream-baume-cica-reparateur.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/erborian-centella-barrier-cream-baume-cica-reparateur.webp',
     tags: {
       primary: ['barriere-cutanee', 'apaisant', 'cicatrisation'],
       secondary: ['reparateur', 'emollience', 'baume'],
@@ -131,7 +133,8 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU DICAPRYLYL CARBONATE ISONONYL ISONONANOATE GLYCERYL STEARATE GLYCERIN OCTYLDODECANOL 1 2 HEXANEDIOL ISOSTEARYL NEOPENTANOATE CETEARYL ALCOHOL CAPRYLIC CAPRIC TRIGLYCERIDE CENTELLA ASIATICA LEAF EXTRACT BUTYROSPERMUM PARKII SHEA BUTTER BUTYLENE GLYCOL PENTAERYTHRITYL TETRAETHYLHEXANOATE ETHYLHEXYLGLYCERIN HYDROXYETHYL ACRYLATE SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER COCO CAPRYLATE CAPRATE SODIUM HYALURONATE POLYGLYCERYL 3 DIISOSTEARATE TRIHEPTANOIN POLYACRYLATE CROSSPOLYMER 6 C9 12 ALKANE DILINOLEIC ACID BUTANEDIOL COPOLYMER PENTYLENE GLYCOL SORBITAN ISOSTEARATE POLYSORBATE 60 BETA GLUCAN CITRIC ACID CAPRYLYL GLYCOL CASTOR OIL IPDI COPOLYMER TOCOPHEROL PARFUM FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/erborian/erborian-centella-creme-hydratante-apaisante-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-centella-creme-hydratante-apaisante.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/erborian-centella-creme-hydratante-apaisante.webp',
     tags: {
       primary: ['cicatrisation', 'hydratation', 'apaisant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -222,7 +225,8 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER - GLUCONOLACTONE - SODIUM POLYITACONATE - NIACINAMIDE - ALCOHOL DENAT. - GLYCERIN - SODIUM POLYSTYRENE SULFONATE - PENTYLENE GLYCOL - CENTELLA ASIATICA LEAF EXTRACT - PANTHENOL - HYDROXYPROPYL STARCH PHOSPHATE - PUNICA GRANATUM PERICARP EXTRACT - MACADAMIA SEED OIL GLYCERETH-8 ESTERS - MALTODEXTRIN - BUTYLENE GLYCOL - XANTHAN GUM - SODIUM CITRATE - ETHYLHEXYLGLYCERIN – TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/erborian/erborian-centella-sos-patch-anti-imperfections-9ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-centella-sos-patch-anti-imperfections.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/erborian-centella-sos-patch-anti-imperfections.webp',
     tags: {
       primary: ['apaisant', 'barriere-cutanee', 'pores-dilates', 'anti-acne'],
       secondary: ['peau-sensible', 'reparateur', 'sebo-regulateur', 'patch'],
@@ -336,7 +340,8 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER - BUTYLENE GLYCOL - GLYCERIN - NIACINAMIDE - BUTYROSPERMUM PARKII (SHEA) BUTTER - 1,2-HEXANEDIOL - OCTYLDODECANOL - SQUALANE - ISOSTEARYL NEOPENTANOATE - CETEARYL ALCOHOL - PROPANEDIOL - PALMITIC ACID - HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL - ROSMARINUS OFFICINALIS (ROSEMARY) LEAF EXTRACT - DIOSCOREA VILLOSA (WILD YAM) ROOT EXTRACT - ACMELLA OLERACEA EXTRACT - PHYLLOSTACHYS BAMBUSOIDES EXTRACT - CITRUS JUNOS FRUIT EXTRACT - CAPSICUM ANNUUM FRUIT EXTRACT - CENTELLA ASIATICA LEAF EXTRACT - EQUISETUM GIGANTEUM EXTRACT - PANAX GINSENG ROOT EXTRACT - GLYCYRRHIZA GLABRA (LICORICE) ROOT EXTRACT - KIGELIA AFRICANA FRUIT EXTRACT - ORYZA SATIVA BRAN WAX / ORYZA SATIVA (RICE) BRAN WAX - GLYCINE SOJA (SOYBEAN) OIL - PHYLLOSTACHYS BAMBUSOIDES JUICE - LACTOBACILLUS FERMENT - LACTOBACILLUS/PANAX GINSENG ROOT FERMENT FILTRATE - DICAPRYLYL CARBONATE - STEARIC ACID - PEG-100 STEARATE - AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER - LACTIC ACID - ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER - ETHYLHEXYLGLYCERIN - GLYCERYL STEARATE - SILICA - CAFFEINE - ARGININE - CELLULOSE - MICA - ISONIACINAMIDE - SODIUM HYALURONATE - MAGNESIUM ALUMINUM SILICATE - ESCIN - PANTHENOL - TOCOPHEROL - CYCLODEXTRIN - HYDROXYPROPYL CYCLODEXTRIN - PENTYLENE GLYCOL - ADENOSINE - CAPRYLYL GLYCOL - PALMITOYL TETRAPEPTIDE-7 - CHRYSIN - CI 77891/TITANIUM DIOXIDE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/erborian/erborian-skin-therapy-creme-yeux-multi-perfecteur-15ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-skin-therapy-creme-yeux-multi-perfecteur.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/erborian-skin-therapy-creme-yeux-multi-perfecteur.webp',
     tags: {
       primary: ['barriere-cutanee', 'eclat', 'pores-dilates'],
       secondary: [
@@ -404,7 +409,8 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER - GLYCERIN - CAPRYLIC/CAPRIC TRIGLYCERIDE - GLUCONOLACTONE - HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL - SQUALANE - COCO-CAPRYLATE/CAPRATE - PROPANEDIOL - DICAPRYLYL CARBONATE - BUTYLENE GLYCOL - ARGININE - PHYLLOSTACHYS BAMBUSOIDES EXTRACT - 1,2-HEXANEDIOL - CITRUS JUNOS FRUIT EXTRACT - SODIUM CITRATE - SODIUM CHLORIDE - BETAINE - ZINC PCA - AVENA SATIVA KERNEL OIL/AVENA SATIVA (OAT) KERNEL OIL - PANAX GINSENG ROOT EXTRACT - OPHIOPOGON JAPONICUS ROOT EXTRACT - POLYGONATUM OFFICINALE RHIZOME/ROOT EXTRACT - SCROPHULARIA NODOSA EXTRACT - PHYLLOSTACHYS BAMBUSOIDES JUICE - CENTELLA ASIATICA EXTRACT - GLYCINE SOJA (SOYBEAN) OIL - GLYCYRRHIZA GLABRA (LICORICE) ROOT EXTRACT - CAPSICUM ANNUUM FRUIT EXTRACT - DIOSCOREA VILLOSA (WILD YAM) ROOT EXTRACT - POLYGONUM CUSPIDATUM ROOT EXTRACT - KIGELIA AFRICANA FRUIT EXTRACT - SCUTELLARIA BAICALENSIS ROOT EXTRACT - EQUISETUM GIGANTEUM EXTRACT - ROSMARINUS OFFICINALIS (ROSEMARY) LEAF EXTRACT - CAMELLIA SINENSIS LEAF EXTRACT - CHAMOMILLA RECUTITA (MATRICARIA) FLOWER EXTRACT - LACTOBACILLUS FERMENT - SODIUM HYALURONATE - PENTYLENE GLYCOL - TOCOPHEROL - BISABOLOL - CITRIC ACID - ETHYLHEXYLGLYCERIN - PARFUM/FRAGRANCE - HEXYL CINNAMAL - ALPHA-ISOMETHYL IONONE - LINALOOL - CITRONELLOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/erborian/erborian-skin-therapy-serum-nuit-multi-perfecteur-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-skin-therapy-serum-nuit-multi-perfecteur.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/erborian-skin-therapy-serum-nuit-multi-perfecteur.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'microbiome'],
       secondary: [
@@ -563,7 +569,8 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER – BUTYLENE GLYCOL – CELLULOSE – PEG-8 – ALCOHOL – GLYCERIN – CHARCOAL POWDER – ARGININE – POLYGONUM CUSPIDATUM ROOT EXTRACT – SALIX ALBA (WILLOW) BARK EXTRACT – CENTELLA ASIATICA EXTRACT – SCUTELLARIA BAICALENSIS ROOT EXTRACT – GLYCYRRHIZA GLABRA (LICORICE) ROOT EXTRACT – CAMELLIA SINENSIS LEAF EXTRACT – CHAMOMILLA RECUTITA (MATRICARIA) FLOWER EXTRACT – ROSMARINUS OFFICINALIS (ROSEMARY) LEAF EXTRACT – PEG-40 HYDROGENATEDCASTOR OIL – CARBOMER – PPG-26- BUTETH-26 – XANTHAN GUM – CELLULOSE GUM – PHENOXYETHANOL – MICROCRYSTALLINE CELLULOSE – SACCHARIDE ISOMERATE – ETHYLHEXYLGLYCERIN – DISODIUM EDTA – SODIUM CITRATE – CITRIC ACID – PARFUM/FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/erborian/soins-visage/erborian-masque-exfoliant-purifiant-au-charbon-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-masque-exfoliant-purifiant-au-charbon.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/erborian-masque-exfoliant-purifiant-au-charbon.webp',
     tags: {
       primary: ['apaisant', 'cicatrisation', 'anti-taches', 'exfoliation'],
       secondary: ['masque-hebdo', 'zone-visage'],
@@ -668,7 +675,8 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER - BUTYLENE GLYCOL - GLYCERIN - PROPANEDIOL - PENTYLENE GLYCOL - PHYLLOSTACHIS BAMBUSOIDES EXTRACT - DIOSPYROS KAKI LEAF EXTRACT - PANTHENOL - PHYLLOSTACHIS BAMBUSOIDES JUICE - OPHIOPOGON JAPONICUS ROOT EXTRACT - SODIUM HYALURONATE - ARGININE - SILICA - ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER - PEG-60 HYDROGENATED CASTOR OIL - DIMETHICONE/VINYL DIMETHICONE CROSSPOLYMER - SODIUM PCA - PHENOXYETHANOL - 1,2-1 HEXANEDIOL - XANTHAN GUM - BIOSACCHARIDE GUM-1 - PARFUM/FRAGRANCE - GLYCERYL CAPRYLATE - ISOCETETH-25 - ISOCETETH-10',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/erborian/yeux/erborian-eye-seve-de-bamboo-gel-hydratant-contour-des-yeux-15-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-eye-seve-de-bamboo-gel-hydratant-contour-des-yeux.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/erborian-eye-seve-de-bamboo-gel-hydratant-contour-des-yeux.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'barriere-cutanee'],
       secondary: ['reparateur', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
@@ -689,7 +697,8 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER - DIMETHICONE - CAPRYLIC/CAPRIC TRIGLYCERIDE – ISONONYL ISONONANOATE - GLYCERIN - CI 77891/TITANIUM DIOXIDE - BUTYLOCTYL SALICYLATE – ZINC OXIDE - TITANIUM DIOXIDE - CETYL PEG/PPG - 10/1 DIMETHICONE - DISILOXANE – VINYL DIMETHICONE/METHICONE SILSESQUIOXANE CROSSPOLYMER - DISTEARDIMONIUM HECTORITE - MAGNESIUM SULFATE - BETAINE – PENTYLENE GLYCOL- BUTYLENE GLYCOL - LAURYL PEG-10 TRIS(TRIMETHYLSILOXY) SILYLETHYL DIMETHICONE - PANAX GINSENG ROOT EXTRACT – GLYCYRRHIZA GLABRA (LICORICE) ROOT EXTRACT – DIOSCOREA VILLOSA (WILD YAM) ROOT EXTRACT – KIGELIA AFRICANA FRUIT EXTRACT – EQUISETUM GIGANTEUM EXTRACT- SYNTHETIC FLUORPHLOGOPITE - POLYHYDROXYSTEARIC ACID - POLYGLYCERYL-4 ISOSTEARATE - POLYMETHYL METHACRYLATE - DIMETHICONE/VINYL DIMETHICONE CROSSPOLYMER - STEARIC ACID - ALUMINA - PALMITIC ACID - TRIETHOXYCAPRYLYLSILANE -CAPRYLYL GLYCOL - GLYCERYL CAPRYLATE - ALUMINUM HYDROXIDE – PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE - TOCOPHEROL - ETHYLHEXYLGLYCERIN – PARFUM/FRAGRANCE - HEXYL CINNAMAL – ALPHAISOMETHYL IONONE - LINALOOL – CITRONELLOL - GERANIOL - CI 77492/IRON OXIDES - CI 77491/IRON OXIDES - CI 77499/IRON OXIDES',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/erborian/erborian-bb-creme-au-ginseng-creme-teint-soin-spf20-15ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-bb-creme-au-ginseng-creme-teint-soin-spf20.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/erborian-bb-creme-au-ginseng-creme-teint-soin-spf20.webp',
     tags: {
       primary: ['apaisant', 'anti-taches', 'eclat', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -731,7 +740,8 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/erborian/erborian-cc-creme-correcteur-teinte-spf30-caramel-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-cc-creme-correcteur-teinte-spf30-caramel.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/erborian-cc-creme-correcteur-teinte-spf30-caramel.webp',
     tags: {
       primary: ['protection-solaire'],
       secondary: ['creme-solaire', 'matin', 'zone-visage'],
@@ -752,7 +762,8 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/erborian/erborian-cc-creme-correcteur-teinte-spf30-deep-15ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-cc-creme-correcteur-teinte-spf30-deep.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/erborian-cc-creme-correcteur-teinte-spf30-deep.webp',
     tags: {
       primary: ['protection-solaire'],
       secondary: ['creme-solaire', 'matin', 'zone-visage'],
@@ -773,7 +784,8 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/erborian/erborian-cc-creme-correcteur-teinte-spf30-porcelaine-15ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-cc-creme-correcteur-teinte-spf30-porcelaine.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/erborian-cc-creme-correcteur-teinte-spf30-porcelaine.webp',
     tags: {
       primary: ['protection-solaire'],
       secondary: ['creme-solaire', 'matin', 'zone-visage'],
@@ -794,7 +806,8 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/erborian/erborian-cc-creme-correcteur-teinte-spf30-riche-15ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-cc-creme-correcteur-teinte-spf30-riche.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/erborian-cc-creme-correcteur-teinte-spf30-riche.webp',
     tags: {
       primary: ['protection-solaire'],
       secondary: ['creme-solaire', 'matin', 'zone-visage'],
@@ -857,7 +870,8 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU DIBUTYL ADIPATE BUTYLOCTYL SALICYLATE CI 77891 TITANIUM DIOXIDE ETHYLHEXYL SALICYLATE METHYL TRIMETHICONE CI 77947 ZINC OXIDE CETYL PEG PPG 10 1 DIMETHICONE GLYCERIN BIS ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE VINYL DIMETHICONE METHICONE SILSESQUIOXANE CROSSPOLYMER DISTEARDIMONIUM HECTORITE DIMETHICONE LAURYL PEG 10 TRIS TRIMETHYLSILOXY SILYL ETHYL DIMETHICONE MAGNESIUM SULFATE ETHYLHEXYL TRIAZONE HEXYL LAURATE PENTYLENE GLYCOL CENTELLA ASIATICA LEAF EXTRACT BUTYLENE GLYCOL PANTHENOL SYNTHETIC FLUORPHLOGOPITE MICA DIMETHICONE VINYL DIMETHICONE CROSSPOLYMER TRIHYDROXYSTEARIN BISABOLOL GLYCERYL CAPRYLATE CAPRYLYL GLYCOL TRIETHOXYCAPRYLYL SILANE ALUMINUM HYDROXIDE POLYESTER 1 SILICA DIMETHYL SILYLATE SODIUM HYALURONATE ETHYLHEXYLGLYCERIN PENTAERYTHRITYL TETRA DI T BUTYL HYDROXYHYDROCINNAMATE TOCOPHEROL CITRIC ACID PARFUM FRAGRANCE ACETYL CEDRENE ALPHA ISOMETHYL IONONE CITRONELLOL GERANIOL HEXYL CINNAMAL LINALOOL LINALYL ACETATE CI 77288 CHROMIUM OXIDE GREENS CI 77491 IRON OXIDES CI 77492 IRON OXIDES CI 77499 IRON OXIDES',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/erborian/erborian-cc-red-correct-soin-teinte-spf30-15ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-cc-red-correct-soin-teinte-spf30.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/erborian-cc-red-correct-soin-teinte-spf30.webp',
     tags: {
       primary: ['apaisant', 'cicatrisation', 'protection-solaire'],
       secondary: ['reparateur', 'filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],

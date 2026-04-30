@@ -15,7 +15,8 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Helianthus annus seed oil, ethylexyl stearate, squalane, borago officinalis seed oil, parfum, calendula officinalis flower extract, tocopherol, hippophae rhamnoides fruit oil.',
     url: 'https://www.atida.fr/la-rosee-huile-de-soin-nourrissante-aux-huiles-vegetales-bio-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-huile-de-soin-nourrissante-aux-huiles-vegetales-bio-100ml-235183.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/la-rosee-huile-de-soin-nourrissante-aux-huiles-vegetales-bio-100ml-235183.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],

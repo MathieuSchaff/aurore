@@ -15,7 +15,8 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
     notes: 'Pré-traitement intensif — utiliser avant N°3',
     inci: 'Eau (Aqua), Bis-Aminopropyl Diglycol Dimaleate, Benzoate de sodium, Phénoxyéthanol',
     url: 'https://www.atida.fr/olaplex-n-0-soin-intense-bond-building-155ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/olaplex-n0-soin-intense-bond-building-155ml.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/olaplex-n0-soin-intense-bond-building-155ml.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
@@ -130,7 +131,8 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
     notes: 'Shampoing violet anti-jaunissement + bond repair',
     inci: 'Water (Aqua), Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Betaine, Glycerin, Sodium Cocoamphoacetate, Sodium Chloride, Acrylates Copolymer, Betaine, Phenoxyethanol, Fragrance (Parfum), Polyquaternium-7, Guar Hydroxypropyltrimonium Chloride, Ethylhexylglycerin, BIS-AMINOPROPYL DIGLYCOL DIMALEATE, Hexyl Cinnamal, Limonene, Citric Acid, Sodium Benzoate, Acid Violet 43 (Cl 60730)',
     url: 'https://www.atida.fr/olaplex-n-4p-shampooing-blonde-enhancer-250ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/olaplex-n4p-shampoing-blonde-enhancer-250ml.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/olaplex-n4p-shampoing-blonde-enhancer-250ml.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -295,7 +297,8 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Water (Aqua/Eau), Propanediol, Betaine, Quaternium-22, Sodium Hyaluronate, Bis-Aminopropyl Diglycol Dimaleate, Cetrimonium Chloride, Panthenol, Hydroxyethylcellulose, PVP, Guar Hydroxypropyltrimonium Chloride, Furcellaria Lumbricalis Extract, Pelvetia Canaliculata Extract, Xylitylglucoside, Polyquaternium-44, Anhydroxylitol, Maltitol, Citric Acid, Trisodium Ethylenediamine Disuccinate, Xylitol, Sorbic Acid, Phenoxyethanol, Ethylhexylglycerin, Sodium Benzoate, Fragrance (Parfum), Citral, Citronellol, Hexyl Cinnamal, Limonene, Linalool.',
     url: 'https://www.atida.fr/olaplex-n-9-serum-capillaire-nourrissant-bond-protector-90ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/olaplex-n9-serum-capillaire-bond-protector-90ml.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/olaplex-n9-serum-capillaire-bond-protector-90ml.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],

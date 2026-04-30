@@ -15,7 +15,8 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/inava-brosse-a-dents-sensibilite-lot-de-2.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/inava-brosse-a-dents-sensibilite-lot-de-2-300765.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/inava-brosse-a-dents-sensibilite-lot-de-2-300765.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -36,7 +37,8 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/inava-20-100-brosse-a-dents-souples-lot-de-4.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/inava-20-100-brosse-a-dents-souples-lot-de-4-300851.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/inava-20-100-brosse-a-dents-souples-lot-de-4-300851.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -99,7 +101,8 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/inava-brosse-a-dents-15-100-chirurgicale-lot-de-2.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/inava-brosse-a-dents-15-100-chirurgicale-lot-de-2-300771.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/inava-brosse-a-dents-15-100-chirurgicale-lot-de-2-300771.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -120,7 +123,8 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Fibres synthétiques.',
     url: 'https://www.atida.fr/inava-brossettes-interdentaires-mono-compact-orange.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/inava-brossettes-1-2mm-mono-compact-espaces-etroits-orange-4-unites-300653.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/inava-brossettes-1-2mm-mono-compact-espaces-etroits-orange-4-unites-300653.webp',
     tags: {
       primary: [TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
@@ -141,7 +145,8 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Plastique.',
     url: 'https://www.atida.fr/inava-brosse-a-dents-15-100-chirurgicale.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/inava-brosse-a-dents-15-100-chirurgicale-253541.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/inava-brosse-a-dents-15-100-chirurgicale-253541.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -162,7 +167,8 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/inava-brosse-a-dents-20-100-souple.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/inava-brosse-a-dents-20-100-souple-269448.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/inava-brosse-a-dents-20-100-souple-269448.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -183,7 +189,8 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Fibres synthétiques.',
     url: 'https://www.atida.fr/inava-brossettes-interdentaires-mono-compact-rouge.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/inava-brossettes-1-5mm-mono-compact-espaces-larges-rouge-4-unites-269046.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/inava-brossettes-1-5mm-mono-compact-espaces-larges-rouge-4-unites-269046.webp',
     tags: {
       primary: [TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
@@ -204,7 +211,8 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Fibres synthétiques.',
     url: 'https://www.atida.fr/inava-brossettes-interdentaires-mono-compact-bleu.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/inava-brossettes-0-8mm-mono-compact-espaces-etroits-bleu-4-unites-269045.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/inava-brossettes-0-8mm-mono-compact-espaces-etroits-bleu-4-unites-269045.webp',
     tags: {
       primary: [TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
@@ -225,7 +233,8 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/inava-brosse-a-dents-20-100-souple-lot-de-2.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/inava-brosse-a-dents-20-100-souple-lot-de-2-300770.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/inava-brosse-a-dents-20-100-souple-lot-de-2-300770.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -246,7 +255,8 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Fibres synthétiques.',
     url: 'https://www.atida.fr/inava-brossettes-interdentaires-mono-compact-jaune.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/inava-brossettes-1mm-mono-compact-espaces-etroits-jaune-4-unites-301474.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/inava-brossettes-1mm-mono-compact-espaces-etroits-jaune-4-unites-301474.webp',
     tags: {
       primary: [TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
@@ -309,7 +319,8 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Fibres synthétiques.',
     url: 'https://www.atida.fr/inava-brossettes-interdentaires-mono-compact-violet.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/inava-brossettes-1-8mm-mono-compact-espaces-larges-violet-4-unites-301475.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/inava-brossettes-1-8mm-mono-compact-espaces-larges-violet-4-unites-301475.webp',
     tags: {
       primary: [TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
@@ -330,7 +341,8 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Fibres synthétiques.',
     url: 'https://www.atida.fr/inava-brossettes-interdentaires-recharges-bleu.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/inava-brossettes-4-recharges-etroits-0-8mm-bleu-269038.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/inava-brossettes-4-recharges-etroits-0-8mm-bleu-269038.webp',
     tags: {
       primary: [TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
@@ -372,7 +384,8 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Fibres synthétiques.',
     url: 'https://www.atida.fr/inava-brossettes-interdentaires-recharges-rouge.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/inava-brossettes-4-recharges-trio-compact-flex-iso4-1-5-mm-rouge-269041.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/inava-brossettes-4-recharges-trio-compact-flex-iso4-1-5-mm-rouge-269041.webp',
     tags: {
       primary: [TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
@@ -393,7 +406,8 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Fibres synthétiques.',
     url: 'https://www.atida.fr/inava-brossettes-interdentaires-mono-compact-noir.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/inava-brossettes-0-6mm-mono-compact-espaces-etroits-noir-4-unites-269044.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/inava-brossettes-0-6mm-mono-compact-espaces-etroits-noir-4-unites-269044.webp',
     tags: {
       primary: [TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],

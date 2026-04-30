@@ -15,7 +15,8 @@ export const K_RANOVE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, sodium laureth sulfate, cocamidopropyl betaine, sodium trideceth sulfate, polysorbate 80, glycol distearate, peg/ppg-120/10 trimethylolpropane trioleate, sodium lauroamphoacetate,glycerin, sodium chloride,parfum, laureth-2, laureth-4, cocamide mea,cocos nucifera oil, cetrimonium chloride, polyacrylate-1 crosspolymer, hydroxypropyl guar hydroxypropyltrimonium chloride, dmdm hydantoin, lactic acid, chamomilla recutita flower extract, crocus sativus flower extract, sodium benzoate, potassium sorbate, linalool, tocopherol , glycine soja oil,citric acid, curcuma longa root extract, formic acid,gardenia taitensis flower extract',
     url: 'https://www.atida.fr/keranove-blond-vacances-shampoing-eclaircissant-250ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/keranove-blond-vacances-shampoing-eclaircissant-250ml-253972.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/keranove-blond-vacances-shampoing-eclaircissant-250ml-253972.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -42,7 +43,8 @@ export const K_RANOVE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua/water/eau, vitis vinifera (grape) seed extract, cetearyl alcohol, glyceryl stearate, glycerin, ethanolamine, toluene-2.5-diamine sulfate, coco-glucoside, sodium metasilicate, sodium metabisulfite, xanthan gum, p-aminophenol, resorcinol, m-aminophenol, ascorbic acid, hydrolyzed wheat protein, persea gratissima (avocado) fruit oil, simmondsia chinensis (jojoba) seed oil, aloe barbadensis leaf juice, 2,4-diaminophenoxyethanol hci, macadamia ternifolia seed oil, macadamia integrifolia seed oil, tetrasodium glutamate diacetate, crocus sativus flower extract, curcuma longa (turmeric) root extract, sodium benzoate, phenoxyethanol, potassium sorbate (f01). contient de la résorcine, des phénylènediamines (toluènediamines)/bevat resorcinol, fenyleendiaminen (tolueendiamine). révélateur : aqua/water/eau, hydrogen peroxide, cetearyl alcohol, trideceth-2 carboxamide mea, parfum (fragrance), ceteareth-33, glycerin, phosphoric acid, tetrasodium glutamate diacetate, hexyl cinnamal, sodium stannate, tetrasodium pyrophosphate. (f01). soin post-coloration : aqua/water/eau, cetearyl alcohol, cocamidopropyl betaine, distearoylethyl, hydroxyethylmonium methosulfate, sodium laureth sulfate, glycerin, ceteareth-33, sodium chloride, parfum (fragrance), amodimethicone/morpholinomethyl silsesquioxane copolymer, imidazolidinyl urea, guar hydroxypropyltrimonium chloride, trideceth-5, simmondsia chinensis (jojoba) seed oil, persea gratissima (avocado) fruit oil, macadamia ternifolia seed oil, macadamia integrifolia seed oil, benzyl salicylate, phenoxyethanol, linalool, alpha-isomethyl ionone, citronellol, geraniol, bis-ethylhexyl hydroxydimethoxy benzylmalonate, limonene, hydroxycitronellal, coumarin, citric acid. (f01)',
     url: 'https://www.atida.fr/keranove-naturanove-coloration-n-4-chatain-profond.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/keranove-naturanove-coloration-n-4-chatain-profond-254560.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/keranove-naturanove-coloration-n-4-chatain-profond-254560.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -71,7 +73,8 @@ export const K_RANOVE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua/water/eau, vitis vinifera (grape) seed extract, cetearyl alcohol, glyceryl stearate, glycerin, ethanolamine, coco-glucoside, sodium metasilicate, toluene-2,5-diamine sulfate, sodium metabisulfite, xanthan gum, resorcinol, ascorbic acid, hydrolyzed wheat protein, p-aminophenol, persea gratissima (avocado) fruit oil, simmondsia chinensis (jojoba) seed oil, aloe barbadensis leaf juice, m-aminophenol, 4-amino-2-hydroxytoluene, macadamia ternifolia seed oil, macadamia integrifolia seed oil, tetrasodium glutamate diacetate, crocus sativus flower extract, 2,4-diaminophenoxyethanol hcl, curcuma longa (turmeric) root extract, sodium benzoate, phenoxyethanol, potassium sorbate. (f01)',
     url: 'https://www.atida.fr/keranove-naturanove-coloration-n-5-15-chocolat.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/keranove-naturanove-coloration-n-5-15-chocolat-254563.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/keranove-naturanove-coloration-n-5-15-chocolat-254563.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],

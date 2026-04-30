@@ -16,7 +16,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER)°, CAPRYLIC/CAPRIC TRIGLYCERIDE°, GLYCERIN°, BUTYROSPERMUM PARKII (SHEA) BUTTER*°, BUTYLENE GLYCOL°, COCO-CAPRYLATE/CAPRATE°, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL*°, SUCROSE STEARATE°, TREHALOSE°, PARFUM (FRAGRANCE)°, SUCROSE DISTEARATE°, ARGININE°, SODIUM HYALURONATE°, GLYCERYL CAPRYLATE°, CHONDRUS CRISPUS (CARRAGEENAN) EXTRACT°, XANTHAN GUM°, LAMINARIA OCHROLEUCA EXTRACT°, ALOE BARBADENSIS LEAF JUICE*°, BIOSACCHARIDE GUM-2°, PYRUS MALUS (APPLE) SEED EXTRACT°, COMMIPHORA MUKUL RESIN EXTRACT°, ALARIA ESCULENTA EXTRACT°, CITRIC ACID°, PHYTIC ACID°, BRASSICA OLERACEA ITALICA (BROCCOLI) EXTRACT°, CAMELLIA SINENSIS LEAF EXTRACT*°, SILYBUM MARIANUM EXTRACT',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/novexpert/novexpert-acide-hyaluronique-creme-repulp-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/novexpert-acide-hyaluronique-creme-repulp.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/novexpert-acide-hyaluronique-creme-repulp.webp',
     tags: {
       primary: ['hydratation', 'apaisant'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -37,7 +38,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER)°, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL*°, BEHENYL ALCOHOL°, BUTYLENE GLYCOL°, C10-18 TRIGLYCERIDES°, GLYCERIN°, BUTYROSPERMUM PARKII (SHEA) BUTTER*°, GARCINIA INDICA SEED BUTTER°, CANDELILLA/JOJOBA/RICE BRAN POLYGLYCERYL-3 ESTERS°, GLYCERYL STEARATE°, CAPRYLIC/CAPRIC TRIGLYCERIDE°, PARFUM (FRAGRANCE)°, ARGININE°, HYDROXYSTEARIC/LINOLENIC/OLEIC POLYGLYCERIDES°, TREHALOSE°, CETEARYL ALCOHOL°, SODIUM STEAROYL LACTYLATE°, MICROCRYSTALLINE CELLULOSE°, GLYCERYL CAPRYLATE°, ALOE BARBADENSIS LEAF JUICE*°, TOCOPHEROL°, BISABOLOL°, GALACTARIC ACID°, LAMINARIA OCHROLEUCA EXTRACT°, XIMENIA AMERICANA SEED OIL°, BIOSACCHARIDE GUM-2°, CELLULOSE GUM°, SODIUM HYALURONATE°, SCLEROTIUM GUM°, XANTHAN GUM°, PHYTIC ACID°, COMMIPHORA MUKUL RESIN EXTRACT°, OENOTHERA BIENNIS (EVENING PRIMROSE) SEED EXTRACT*°, BRASSICA OLERACEA ITALICA (BROCCOLI) EXTRACT°, CAMELLIA SINENSIS LEAF EXTRACT*°, PUNICA GRANATUM FRUIT EXTRACT*°, SILYBUM MARIANUM EXTRACT°, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF EXTRACT',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/novexpert/novexpert-acide-hyaluronique-masque-repulp-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/novexpert-acide-hyaluronique-masque-repulp.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/novexpert-acide-hyaluronique-masque-repulp.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
@@ -59,7 +61,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER)°, GLYCERIN°, CAPRYLIC/CAPRIC TRIGLYCERIDE°, BUTYLENE GLYCOL°, COCO-CAPRYLATE/CAPRATE°, SILYBUM MARIANUM ETHYL ESTER°, GLYCERYL STEARATE CITRATE°, TREHALOSE°, PARFUM (FRAGRANCE)°, ARGININE°, BENTONITE°, OLEA EUROPAEA (OLIVE) LEAF EXTRACT°, SODIUM STEAROYL GLUTAMATE°, LAMINARIA OCHROLEUCA EXTRACT °, BIOSACCHARIDE GUM-2°, INULIN°, ALARIA ESCULENTA EXTRACT°, ALOE BARBADENSIS LEAF JUICE POWDER°*, AMINOBUTYRIC ACID°, SODIUM HYALURONATE°, VITIS VINIFERA (GRAPE) VINE EXTRACT°, OROBANCHE RAPUM EXTRACT°, C10-18 TRIGLYCERIDES°, BACILLUS FERMENT°, GLYCERYL CAPRYLATE°, PROPANEDIOL°, SCLEROTIUM GUM°, CITRIC ACID°, C12-16 ALCOHOLS°, XANTHAN GUM°, LECITHIN°, PALMITIC ACID°, TOCOPHEROL°, PHYTIC ACID°, PHENETHYL ALCOHOL°, CYAMOPSIS TETRAGONOLOBA (GUAR) GUM°, THEOBROMA CACAO (COCOA) SEED BUTTER°',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/novexpert/novexpert-col-serum-booster-pro-collagene-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/novexpert-col-serum-booster-pro-collagene.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/novexpert-col-serum-booster-pro-collagene.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'anti-oxydant'],
       secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
@@ -80,7 +83,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "AQUA (EAU), SQUALANE , GLYCÉRINE , POLYGLYCÉRYL-6 DISTEARATE , BUTYLÈNE GLYCOL , OCTYLDODÉCANOL , OCTYLDODÉCYL MYRISTATE , BEURRE DE BUTYROSPERMUM PARKII (KARITÉ) , TRIGLYCÉRIDES C10-18 , HUILE DE GRAINES DE MACADAMIA INTEGRIFOLIA, DICAPRYLYL ETHER, TRIGLYCÉRIDE CAPRYLIQUE/CAPRIQUE, PARFUM, TRIHYDROXYSTÉARINE , ACIDE PALMITIQUE , ACIDE STÉARIQUE, CELLULOSE MICROCRISTALLINE , ALPHA-GLUCAN OLIGOSACCHARIDE, GLYCÉRYLE STÉARATE , MAGNÉSIUM PCA , SODIUM HYALURONATE , JUS DE FEUILLE D'ALOE BARBADENSIS, SODIUM PCA , HUILE DE GRAINES DE CAMELINA SATIVA , LACTOBACILLUS FERMENT , SODIUM LACTATE , ARGININE , SACCHARIDE ISOMERATE , GOMME XANTHANE , GLYCÉRYLE CAPRYLATE , GOMME SCLEROTIUM , GOMME CELLULOSE, EXTRAIT DE LAMINARIA OCHROLEUCA, BIOSACCHARIDE GUM-2 , TOCOPHÉROL , ACIDE CITRIQUE , ACIDE PHYTIQUE, CITRATE DE SODIUM , HUILE DE GRAINES DE HELIANTHUS ANNUUS (TOURNESOL)",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/novexpert/novexpert-creme-douceur-magnesium-hydro-biotique-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/novexpert-creme-douceur-magnesium-hydro-biotique.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/novexpert-creme-douceur-magnesium-hydro-biotique.webp',
     tags: {
       primary: ['microbiome', 'barriere-cutanee', 'hydratation'],
       secondary: ['emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
@@ -131,7 +135,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER)°, GLYCERIN°, PROPANEDIOL°, SODIUM HYALURONATE°, SODIUM LACTATE°, PARFUM (FRAGRANCE)°, SODIUM PCA°, ARGININE°, LACTOBACILLUS FERMENT°, ALOE BARBADENSIS LEAF JUICE POWDER*°, PHYTIC ACID°, XYLITYLGLUCOSIDE°, ANHYDROXYLITOL°, XYLITOL°, GALACTARIC ACID°',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/novexpert/novexpert-ha-serum-booster-a-l-acide-hyaluronique-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/novexpert-ha-serum-booster-a-l-acide-hyaluronique.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/novexpert-ha-serum-booster-a-l-acide-hyaluronique.webp',
     tags: {
       primary: ['hydratation', 'microbiome', 'apaisant'],
       secondary: ['serum', 'traitement', 'zone-visage'],
@@ -152,7 +157,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'NGREDIENTS : SQUALANE°, SESAMUM INDICUM (SESAME) SEED OIL*°, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL*°, CAMELINA SATIVA SEED OIL°, CAPRYLIC/CAPRIC TRIGLYCERIDE°, PUNICA GRANATUM SEED OIL*°, SCLEROCARYA BIRREA SEED OIL°, PLUKENETIA VOLUBILIS SEED OIL*°, HIPPOPHAE RHAMNOIDES OIL*°, PARFUM (FRAGRANCE)°, TOCOPHEROL°, BISABOLOL°, LAMINARIA OCHROLEUCA EXTRACT°, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL°, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF EXTRACT*°',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/novexpert/novexpert-huile-de-soin-booster-aux-5-omegas-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/novexpert-huile-de-soin-booster-aux-5-omegas.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/novexpert-huile-de-soin-booster-aux-5-omegas.webp',
     tags: {
       primary: ['barriere-cutanee', 'apaisant', 'anti-oxydant'],
       secondary: [
@@ -180,7 +186,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER)°, GLYCERIN°, DICAPRYLYL ETHER°, OCTYLDODECANOL°, PROPANEDIOL°, CAPRYLIC/CAPRIC TRIGLYCERIDE°, ARACHIDYL ALCOHOL°, SODIUM PCA°, GLYCERYL STEARATE°, PARFUM (FRAGRANCE)°, BEHENYL ALCOHOL°, ALPHA-GLUCAN OLIGOSACCHARIDE°, C10-18 TRIGLYCERIDES°, MAGNESIUM PCA°, SODIUM HYALURONATE°, ALOE BARBADENSIS LEAF JUICE*°, CAMELINA SATIVA SEED OIL°, LACTOBACILLUS FERMENT °, OENOTHERA BIENNIS (EVENING PRIMROSE) SEED EXTRACT*°, SODIUM LACTATE°, ARGININE°, SACCHARIDE ISOMERATE°, ARACHIDYL GLUCOSIDE°, GLYCERYL BEHENATE°, GLYCERYL CAPRYLATE°, XANTHAN GUM°, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL°, BENTONITE°, SCLEROTIUM GUM°, TRIHYDROXYSTEARIN°, LAMINARIA OCHROLEUCA EXTRACT°, BIOSACCHARIDE GUM-2°, TOCOPHEROL°, CITRIC ACID°, PHYTIC ACID°, SODIUM CITRATE°, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF EXTRACT*°',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/novexpert/novexpert-magnesium-fluide-douceur-hydro-biotique-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/novexpert-magnesium-fluide-douceur-hydro-biotique.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/novexpert-magnesium-fluide-douceur-hydro-biotique.webp',
     tags: {
       primary: ['hydratation', 'microbiome', 'apaisant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -243,7 +250,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER)°, GLYCERIN°, DICAPRYLYL CARBONATE°, CAPRYLIC/CAPRIC TRIGLYCERIDE°, BUTYLENE GLYCOL°, COCO-CAPRYLATE/CAPRATE°, PARFUM (FRAGRANCE)°, CETEARYL GLUCOSIDE°, XYLITYLGLUCOSIDE°, BENTONITE°, SODIUM STEAROYL GLUTAMATE°, TREHALOSE°, INOSITOL°, CARAMEL°, ANHYDROXYLITOL°, GLYCERYL CAPRYLATE°, C10-18 TRIGLYCERIDES°, GLYCERYL STEARATE CITRATE°, THEOBROMA CACAO (COCOA) SEED BUTTER*°, XYLITOL°, SCLEROTIUM GUM°, XANTHAN GUM°, HYDROGENATED LECITHIN°, ALOE BARBADENSIS LEAF JUICE*°, CITRIC ACID°, LAMINARIA OCHROLEUCA EXTRACT°, BIOSACCHARIDE GUM-2°, CETYL ALCOHOL°, STEARYL ALCOHOL°, BIOSACCHARIDE GUM-1°, TOCOPHEROL°, PHYTIC ACID°, SODIUM HYALURONATE°, PUNICA GRANATUM SEED EXTRACT*°, OENOTHERA BIENNIS (EVENING PRIMROSE) SEED EXTRACT°, COFFEA ARABICA (COFFEE) SEED EXTRACT*°, BRASSICA OLERACEA ITALICA (BROCCOLI) EXTRACT°, CAMELLIA SINENSIS LEAF EXTRACT*°, SILYBUM MARIANUM EXTRACT°, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF EXTRACT°, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL*°[+/- MAY CONTAIN : CI 77499°, CI 77492°, CI 77491 (IRON OXIDES)°, CI 77891 (TITANIUM DIOXIDE)°]',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/novexpert/novexpert-me-pro-melanine-la-creme-au-caramel-n-1-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/novexpert-me-pro-melanine-la-creme-au-caramel-n-1.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/novexpert-me-pro-melanine-la-creme-au-caramel-n-1.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'anti-oxydant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -312,7 +320,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER)°, PROPANEDIOL°, LACTIC ACID°, POLYGLYCERYL-10 LAURATE°, GLYCERIN°, LACTOBACILLUS FERMENT°, ARGININE PCA°, SODIUM CITRATE°, SODIUM HYDROXIDE°, EPIGALLOCATECHIN GALLATYL GLUCOSIDE°, HYDROLYZED WHEAT FLOUR°, ALOE BARBADENSIS LEAF JUICE POWDER*°, BALANITES ROXBURGHII SEED OIL°, DICTYOPTERIS POLYPODIOIDES EXTRACT°, PANCRATIUM MARITIMUM EXTRACT°, BISABOLOL°, CITRIC ACID°, COFFEA ARABICA (COFFEE) SEED EXTRACT*°',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/novexpert/novexpert-poly-soin-cible-correcteur-de-taches-2ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/novexpert-poly-soin-cible-correcteur-de-taches.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/novexpert-poly-soin-cible-correcteur-de-taches.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'microbiome'],
       secondary: ['keratolytique', 'spot-treatment', 'soin-localise', 'zone-visage'],
@@ -333,7 +342,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER)°, GLYCERIN°, BUTYLENE GLYCOL°, COCO-CAPRYLATE/CAPRATE°, TREHALOSE°, COCO-CAPRYLATE°, CAPRYLIC/CAPRIC TRIGLYCERIDE°, ARGININE°, BEHENYL ALCOHOL°, GLYCERYL STEARATE°, PARFUM (FRAGRANCE)°, SODIUM COCOYL ALANINATE°, DICAPRYLYL ETHER°, MICA°, XANTHAN GUM°, LECITHIN°, GLYCERYL CAPRYLATE°, SCLEROTIUM GUM°, ADANSONIA DIGITATA FRUIT EXTRACT°, MALTODEXTRIN°, SODIUM HYALURONATE°, ALOE BARBADENSIS LEAF JUICE*°, HELICHRYSUM ITALICUM LEAF CELL EXTRACT°, LAMINARIA OCHROLEUCA EXTRACT°, GLYCINE SOJA (SOYBEAN) STEROLS°, BIOSACCHARIDE GUM-2°, TOCOPHEROL°, CHLORELLA VULGARIS EXTRACT°, PHYTIC ACID°, CAMELLIA SINENSIS LEAF EXTRACT*°, HELICHRYSUM ARENARIUM FLOWER EXTRACT*°, PUNICA GRANATUM SEED EXTRACT*°, OENOTHERA BIENNIS (EVENING PRIMROSE) SEED EXTRACT*°, BRASSICA OLERACEA ITALICA (BROCCOLI) EXTRACT°, CI 77891 (TITANIUM DIOXIDE)°, SILYBUM MARIANUM EXTRACT°, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF EXTRACT*°, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/novexpert/novexpert-pro-collagene-contour-des-yeux-anti-age-expert-15ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/novexpert-pro-collagene-contour-des-yeux-anti-age-expert.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/novexpert-pro-collagene-contour-des-yeux-anti-age-expert.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'anti-oxydant', 'anti-age'],
       secondary: ['reparateur', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
@@ -355,7 +365,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER)°, SQUALANE°, GLYCERIN°, CAPRYLIC/CAPRIC TRIGLYCERIDE°, POLYGLYCERYL-6 DISTEARATE°, BUTYLENE GLYCOL°, OCTYLDODECANOL°, OCTYLDODECYL MYRISTATE°, BUTYROSPERMUM PARKII (SHEA) BUTTER*°, C10-18 TRIGLYCERIDES°, MACADAMIA INTEGRIFOLIA SEED OIL°, PARFUM (FRAGRANCE)°, TRIHYDROXYSTEARIN°, PALMITIC ACID°, STEARIC ACID°, ARGININE°, MICROCRYSTALLINE CELLULOSE°, GLYCERYL STEARATE°, LAMINARIA OCHROLEUCA EXTRACT°, BIOSACCHARIDE GUM-2°, DICAPRYLYL ETHER°, MICA°, GLYCERYL CAPRYLATE°, SCLEROTIUM GUM°, SODIUM HYALURONATE°, XANTHAN GUM°, CELLULOSE GUM°, ALOE BARBADENSIS LEAF JUICE*°, HELICHRYSUM ITALICUM LEAF CELL EXTRACT°, PYRUS MALUS (APPLE) SEED EXTRACT°, TOCOPHEROL°, ALARIA ESCULENTA EXTRACT°, ADENOSINE°, PHYTIC ACID°, CITRIC ACID°, HELICHRYSUM ARENARIUM FLOWER EXTRACT*°, PUNICA GRANATUM SEED EXTRACT*°, OENOTHERA BIENNIS (EVENING PRIMROSE) SEED EXTRACT*°, SODIUM COCOYL ALANINATE°, BRASSICA OLERACEA ITALICA (BROCCOLI) EXTRACT°, CI 77891 (TITANIUM DIOXIDE)°, CAMELLIA SINENSIS LEAF EXTRACT*°, SILYBUM MARIANUM EXTRACT°, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF EXTRACT*°, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL*°',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/novexpert/novexpert-pro-collagene-creme-anti-age-expert-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/novexpert-pro-collagene-creme-anti-age-expert.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/novexpert-pro-collagene-creme-anti-age-expert.webp',
     tags: {
       primary: ['hydratation', 'anti-age', 'barriere-cutanee'],
       secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -376,7 +387,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER)°, GLYCERIN°, CAPRYLIC/CAPRIC TRIGLYCERIDE°, DICAPRYLYL ETHER°, OCTYLDODECANOL°, BUTYLENE GLYCOL°, ARACHIDYL ALCOHOL°, BEHENYL ALCOHOL°, PARFUM (FRAGRANCE)°, ARGININE°, GLYCERYL STEARATE°, C10-18 TRIGLYCERIDES°, SODIUM COCOYL ALANINATE°, TREHALOSE°, MICA°, ARACHIDYL GLUCOSIDE°, GLYCERYL BEHENATE°, TRIHYDROXYSTEARIN°, GLYCERYL CAPRYLATE°, SCLEROTIUM GUM°, XANTHAN GUM°, CRITHMUM MARITIMUM EXTRACT°, SODIUM HYALURONATE°, ALOE BARBADENSIS LEAF JUICE*°, GALACTARIC ACID°, HELICHRYSUM ITALICUM LEAF CELL EXTRACT°, LAMINARIA OCHROLEUCA EXTRACT°, BIOSACCHARIDE GUM-2°, TOCOPHEROL°, PHYTIC ACID°, HELICHRYSUM ARENARIUM FLOWER EXTRACT*°, PUNICA GRANATUM SEED EXTRACT*°, OENOTHERA BIENNIS (EVENING PRIMROSE) SEED EXTRACT°, BRASSICA OLERACEA ITALICA (BROCCOLI) EXTRACT°, CAMELLIA SINENSIS LEAF EXTRACT*°, CI 77891 (TITANIUM DIOXIDE)°, SILYBUM MARIANUM EXTRACT°, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF EXTRACT°, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL*°',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/novexpert/novexpert-pro-collagene-le-fluide-anti-age-expert-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/novexpert-pro-collagene-le-fluide-anti-age-expert.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/novexpert-pro-collagene-le-fluide-anti-age-expert.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'anti-oxydant', 'anti-age'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -397,7 +409,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER)°, GLYCERIN°, DICAPRYLYL CARBONATE°, CAPRYLIC/CAPRIC TRIGLYCERIDE°, BUTYLENE GLYCOL°, COCO-CAPRYLATE/CAPRATE°, PARFUM (FRAGRANCE)°, CETEARYL GLUCOSIDE°, XYLITYLGLUCOSIDE°, BENTONITE°, SODIUM STEAROYL GLUTAMATE°, TREHALOSE°, INOSITOL°, CARAMEL°, ANHYDROXYLITOL°, GLYCERYL CAPRYLATE°, C10-18 TRIGLYCERIDES°, GLYCERYL STEARATE CITRATE°, THEOBROMA CACAO (COCOA) SEED BUTTER*°, XYLITOL°, SCLEROTIUM GUM°, XANTHAN GUM°, HYDROGENATED LECITHIN°, ALOE BARBADENSIS LEAF JUICE*°, CITRIC ACID°, LAMINARIA OCHROLEUCA EXTRACT°, BIOSACCHARIDE GUM-2°, CETYL ALCOHOL°, STEARYL ALCOHOL°, BIOSACCHARIDE GUM-1°, TOCOPHEROL°, PHYTIC ACID°, SODIUM HYALURONATE°, PUNICA GRANATUM SEED EXTRACT*°, OENOTHERA BIENNIS (EVENING PRIMROSE) SEED EXTRACT*°, COFFEA ARABICA (COFFEE) SEED EXTRACT*°, BRASSICA OLERACEA ITALICA (BROCCOLI) EXTRACT°, CAMELLIA SINENSIS LEAF EXTRACT*°, SILYBUM MARIANUM EXTRACT°, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF EXTRACT*°, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL*° [+/- MAY CONTAIN : CI 77499°, CI 77492°, CI 77491 (IRON OXIDES)°, CI 77891 (TITANIUM DIOXIDE)°]',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/novexpert/novexpert-pro-melanine-la-creme-au-caramel-n-2-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/novexpert-pro-melanine-la-creme-au-caramel-n-2.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/novexpert-pro-melanine-la-creme-au-caramel-n-2.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'anti-oxydant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],

@@ -48,7 +48,8 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     description: `Sérum de nuit anti-âge puissant contenant 10 types de probiotiques pour une peau plus ferme et éclatante au réveil.`,
     inci: '1,2-HEXANEDIOL, ADENOSINE, ANTHEMIS NOBILIS FLOWER OIL, ASPERGILLUS FERMENT, BETA VULGARIS (BEET) ROOT EXTRACT, BETAINE, BIFIDA FERMENT LYSATE, BRASSICA OLERACEA CAPITATA (CABBAGE) LEAF EXTRACT, BUTYLENE GLYCOL, CARBOMER, CERAMIDE NP, CHOLESTEROL, CHONDRUS CRISPUS EXTRACT, CITRUS AURANTIUM BERGAMIA (BERGAMOT) FRUIT OIL, CITRUS AURANTIUM DULCIS (ORANGE) PEEL OIL, DAUCUS CAROTA SATIVA (CARROT) ROOT EXTRACT, DEXTRIN, DIETHOXYETHYL SUCCINATE, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, GERANIUM OIL, GLYCERIN, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, HYDROGENATED LECITHIN, LACTOBACILLUS FERMENT, LACTOBACILLUS FERMENT LYSATE, LACTOBACILLUS/ACEROLA CHERRY FERMENT, LACTOBACILLUS/PUNICA GRANATUM FRUIT FERMENT EXTRACT, LACTOBACILLUS/SOYBEAN FERMENT EXTRACT, LACTOCOCCUS FERMENT, LAVANDULA ANGUSTIFOLIA (LAVENDER) OIL, LEUCONOSTOC/RADISH ROOT FERMENT FILTRATE, LIMONENE, LUPINUS ALBUS SEED EXTRACT, NIACINAMIDE, PANTHENOL, PENTYLENE GLYCOL, POLYGLYCERYL-10 LAURATE, POLYQUATERNUM-51, PROPANEDIOL, SACCHARUM OFFICINARUM (SUGARCANE) EXTRACT, SANTALUM ALBUM (SANDALWOOD) OIL, SODIUM HYALURONATE, SOLANUM MELONGENA (EGGPLANT) FRUIT EXTRACT, SQUALANE, SWIFTLET NEST EXTRACT, THEOBROMA CACAO (COCOA) EXTRACT, TOCOPHEROL, TROMETHAMINE, VACCINIUM ANGUSTIFOLIUM (BLUEBERRY) FRUIT EXTRACT, WATER, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/missha-time-revolution-night-repair-ampoule-5x-1-69-fl-oz-50-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/missha-time-revolution-night-repair-ampoule-5x.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/missha-time-revolution-night-repair-ampoule-5x.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -82,7 +83,8 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     description: `Nettoyant moussant éclaircissant à la vitamine C pour un teint frais et uniforme.`,
     inci: '1,2-HEXANEDIOL, 3-O-ETHYL ASCORBIC ACID, ACETYL HEXAPEPTIDE-8, ALLANTOIN, ARACHIDIC ACID, ARBUTIN, ASCORBIC ACID, ASCORBYL GLUCOSIDE, BENTONITE, BUTYLENE GLYCOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CELLULOSE, CERAMIDE NP, CITRIC ACID, CITRUS AURANTIUM DULCIS (ORANGE) PEEL OIL, CITRUS GRANDIS (GRAPEFRUIT) PEEL OIL, COCO-GLUCOSIDE, DIPROPYLENE GLYCOL, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, EUCALYPTUS GLOBULUS LEAF OIL, GLYCERIN, GLYCERYL GLUCOSIDE, GLYCERYL STEARATE, HIPPOPHAE RHAMNOIDES WATER, HYALURONIC ACID, HYDROGENATED LECITHIN, HYDROLYZED COLLAGEN, HYDROLYZED HYALURONIC ACID, HYDROXYPROPYL METHYLCELLULOSE, IRON OXIDES (CI 77492), KAOLIN, LACTOSE, LAURDIMONIUM HYDROXYPROPYL HYDROLYZED WHEAT PROTEIN, LAURIC ACID, LAVANDULA ANGUSTIFOLIA (LAVENDER) OIL, MYRISTIC ACID, NIACINAMIDE, OLEIC ACID, PALMITIC ACID, PALMITOYL TRIPEPTIDE-5, PENTYLENE GLYCOL, PHYTOSTEROLS, POLYQUATERNIUM-7, POTASSIUM HYDROXIDE, QUILLAJA SAPONARIA BARK EXTRACT, SODIUM BENZOATE, SODIUM COCOYL ISETHIONATE, SODIUM HYALURONATE, STEARIC ACID, TOCOPHEROL, TOCOPHERYL ACETATE, TRANEXAMIC ACID, WATER',
     url: 'https://www.skinsafeproducts.com/missha-clear-complexion-foaming-cleanser-vita-c-plus-ascorbic-acid-4-05-fl-oz-120-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/missha-vita-c-plus-clear-complexion-foaming-cleanser.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/missha-vita-c-plus-clear-complexion-foaming-cleanser.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT],
       secondary: [
@@ -117,7 +119,8 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     description: `Sérum apaisant concentré à l'armoise doublement fermentée pour les peaux sensibles et irritées.`,
     inci: '1,2-HEXANEDIOL, ARTEMISIA ABROTANUM EXTRACT, BETAINE, BUTYLENE GLYCOL, CARBOMER, CHONDRUS CRISPUS EXTRACT, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, GLYCERIN, POLYACRYLATE CROSSPOLYMER-6, POLYQUATERNIUM-51, SACCHARUM OFFICINARUM (SUGARCANE) EXTRACT, TREHALOSE, TROMETHAMINE, WATER',
     url: 'https://www.skinsafeproducts.com/missha-time-revolution-artemisia-ampoule-treatment-50-ml-1-69-fl-oz',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/missha-time-revolution-artemisia-ampoule-treatment.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/missha-time-revolution-artemisia-ampoule-treatment.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -180,7 +183,8 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     description: `Masque tissu revitalisant au ginseng rouge pour redonner de l'énergie et de la vitalité aux peaux fatiguées.`,
     inci: '1,2-HEXANEDIOL, ALLANTOIN, BUTYLENE GLYCOL, CAPRYLHYDROXAMIC ACID, CAPRYLYL GLYCOL, CARBOMER, CETYL ETHYLHEXANOATE, CHLORPHENESIN, ETHYLHEXYLGLYCERIN, FRAGRANCE(PARFUM), GLYCERIN, GLYCERYL STEARATE, HEXADIMETHRINE CHLORIDE, HYDROLYZED CHITOSAN, HYDROLYZED JOJOBA ESTERS, HYDROXYETHYLCELLULOSE, ISOPROPYL PALMITATE, LACTOBACILLUS FERMENT FILTRATE, PANAX GINSENG ROOT EXTRACT, PEG-100 STEARATE, PHYTIC ACID, POLYSORBATE 60, PORTULACA OLERACEA EXTRACT, TRIETHANOLAMINE, WATER',
     url: 'https://www.skinsafeproducts.com/missha-pure-source-cell-sheet-mask-red-ginseng-10-sheets',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/missha-pure-source-cell-sheet-mask-red-ginseng.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/missha-pure-source-cell-sheet-mask-red-ginseng.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -243,7 +247,8 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     description: `Nettoyant moussant rafraîchissant qui élimine les impuretés tout en laissant la peau hydratée grâce à son complexe aquatique.`,
     inci: 'ACORUS GRAMINEUS ROOT/STEM EXTRACT, AMETHYST POWDER, BLUE NO. 1 (CI 42090), BUTYLENE GLYCOL, BUTYLPARABEN, BUTYLPHENYL METHYLPROPIONAL, CETETH -20, DISODIUM EDTA, ETHYLPARABEN, GLYCERIN, GLYCOL DISTEARATE, ISOBUTYLPARABEN, LAURAMIDE DEA, LAURIC ACID, LINALOOL, MARIS AQUA (SEA WATER) / EAU DE MER, METHYLPARABEN, MYRISTIC ACID, PEARL POWDER, PEG -40 STEARATE, PERFUME, PHENOXYETHANOL, POTASSIUM HYDROXIDE, PROPYLPARABEN, ROSA DAMASCENA FLOWER WATER, SALIX NIGRA (WILLOW) BARK EXTRACT, STEARIC ACID, TOURMALINE, WATER (AQUA)',
     url: 'https://www.skinsafeproducts.com/missha-super-aqua-refreshing-cleansing-foam-6-7-ounce',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/missha-super-aqua-refreshing-cleansing-foam.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/missha-super-aqua-refreshing-cleansing-foam.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [
@@ -301,7 +306,8 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     description: `Sérum de nuit probiotique hautement concentré pour réparer la barrière cutanée et améliorer la fermeté.`,
     inci: '1,2-HEXANEDIOL, ADENOSINE, ANTHEMIS NOBILIS FLOWER OIL, ASPERGILLUS FERMENT, BETA VULGARIS (BEET) ROOT EXTRACT, BETAINE, BIFIDA FERMENT LYSATE, BRASSICA OLERACEA CAPITATA (CABBAGE) LEAF EXTRACT, BUTYLENE GLYCOL, CARBOMER, CERAMIDE NP, CHOLESTEROL, CHONDRUS CRISPUS EXTRACT, CITRUS AURANTIUM BERGAMIA (BERGAMOT) FRUIT OIL, CITRUS AURANTIUM DULCIS (ORANGE) PEEL OIL, DAUCUS CAROTA SATIVA (CARROT) ROOT EXTRACT, DEXTRIN, DIETHOXYETHYL SUCCINATE, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, GLYCERIN, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, HYDROGENATED LECITHIN, LACTOBACILLUS FERMENT, LACTOBACILLUS FERMENT LYSATE, LACTOBACILLUS/ACEROLA CHERRY FERMENT, LACTOBACILLUS/PUNICA GRANATUM FRUIT FERMENT EXTRACT, LACTOBACILLUS/SOYBEAN FERMENT EXTRACT, LACTOCOCCUS FERMENT, LAVANDULA ANGUSTIFOLIA (LAVENDER) OIL, LEUCONOSTOC/RADISH ROOT FERMENT FILTRATE, LIMONENE, LUPINUS ALBUS SEED EXTRACT, NIACINAMIDE, PANTHENOL, PELARGONIUM GRAVEOLENS FLOWER OIL, PENTYLENE GLYCOL, POLYGLYCERYL-10 LAURATE, POLYQUATERNUM-51, PROPANEDIOL, SACCHARUM OFFICINARUM (SUGARCANE) EXTRACT, SANTALUM ALBUM (SANDALWOOD) OIL, SODIUM HYALURONATE, SOLANUM MELONGENA (EGGPLANT) FRUIT EXTRACT, SQUALANE, SWIFTLET NEST EXTRACT, THEOBROMA CACAO (COCOA) EXTRACT, TOCOPHEROL, TROMETHAMINE, VACCINIUM ANGUSTIFOLIUM (BLUEBERRY) FRUIT EXTRACT, WATER, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/missha-time-revolution-night-repair-probio-ampoule-1-69-fl-oz-50-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/missha-time-revolution-night-repair-probio-ampoule.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/missha-time-revolution-night-repair-probio-ampoule.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -363,7 +369,8 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     description: `Masque de nuit régénérant à la mucine d'escargot pour réparer et hydrater la peau pendant le sommeil.`,
     inci: 'ADANSONIA DIGITATA (BAOBAB) EXTRACT, BEHENYL ALCOHOL, BUTYLENE GLYCOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CENTELLA ASIATICA (GOTU KOLA) MERISTEM CELL CULTURE, CETEARYL ALCOHOL, CHAMAECYPARIS OBTUSA LEAF EXTRACT, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, FRAGRANCE, GLYCERIN (PLANT DERIVED), HYDROGENATED POLYISOBUTENE, HYDROXYPROPYL CYCLODEXTRIN, SNAIL SECRETION FILTRATE (SNAIL MUCIN), SODIUM POLYACRYLATE, SORBITOL, SUCROSE POLYSTEARATE, TOCOPHERYL ACETATE, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/missha-super-aqua-cell-renew-snail-sleeping-mask',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/missha-super-aqua-cell-renew-snail-sleeping-mask.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/missha-super-aqua-cell-renew-snail-sleeping-mask.webp',
     tags: {
       primary: [TAG_SLUGS.CICATRISATION, TAG_SLUGS.HYDRATATION],
       secondary: [
@@ -393,7 +400,8 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     description: `Masque tissu à la grenade pour redonner de l'éclat et de la vitalité aux peaux ternes.`,
     inci: '1,2-HEXANEDIOL, ALCOHOL DENAT., ALLANTOIN, BETAINE, BUTYLENE GLYCOL, CAPRYLHYDROXAMIC ACID, CAPRYLYL GLYCOL, CARBOMER, CHITOSAN, CHLORPHENESIN, ERIOBOTRYA JAPONICA LEAF EXTRACT, ETHYLHEXYLGLYCERIN, FRAGRANCE, GLYCERIN (PLANT DERIVED), HEXADIMETHRINE CHLORIDE, HYDROXYETHYLCELLULOSE, LACTOBACILLUS/PUNICA GRANATUM FRUIT FERMENT EXTRACT, MINERAL SALTS, PEG-40 HYDROGENATED CASTOR OIL, PHENYL TRIMETHICONE, PHYTIC ACID, SIMMONDSIA CHINENSIS (JOJOBA) ESTERS, SODIUM HYALURONATE, SUCROSE, TOCOPHERYL ACETATE, TRIDECETH-9, TRIETHANOLAMINE, WATER',
     url: 'https://www.skinsafeproducts.com/missha-pure-source-cell-sheet-mask-pomegranate',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/missha-pure-source-cell-sheet-mask-pomegranate.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/missha-pure-source-cell-sheet-mask-pomegranate.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT],
       secondary: [
@@ -516,7 +524,8 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     description: `Sérum hydratant intensif qui désaltère la peau en profondeur et aide à maintenir l'hydratation durablement.`,
     inci: '1,2-HEXANEDIOL, ADENIUM OBESUM LEAF CELL EXTRACT, ANASTATICA HIEROCHUNTICA EXTRACT, BUTYLENE GLYCOL, CAPRYLYL GLYCOL, CARBOMER, CYCLOPENTASILOXANE, DIMETHICONE, DIMETHICONE/VINYL DIMETHICONE CROSSPOLYMER, DISODIUM EDTA, GLYCERIN, GLYCOSYL TREHALOSE, HYDROGENATED LECITHIN, HYDROGENATED POLY(C6-14 OLEFIN), HYDROGENATED STARCH HYDROLYSATE, HYDROLYZED ADANSONIA DIGITATA SEED EXTRACT, IMPERATA CYLINDRICA ROOT EXTRACT, LACTOBACILLUS FERMENT, MARIS AQUA (SEA WATER) / EAU DE MER, MYROTHAMNUS FLABELLIFOLIA CALLUS CULTURE EXTRACT, NIACINAMIDE, OPUNTIA FICUS INDICA STEM EXTRACT, OPUNTIA FICUS-INDICA CALLUS CULTURE EXTRACT, PANTHENOL, PEG-60 HYDROGENATED CASTOR OIL, PENTYLENE GLYCOL, PERFUME, PHENOXYETHANOL, PSEUDOALTEROMONAS FERMENT EXTRACT, RHIZOPHORA MANGLE CALLUS CULTURE EXTRACT, SALICORNIA HERBACEA EXTRACT, SILICA, TRIETHANOLAMINE, WATER',
     url: 'https://www.skinsafeproducts.com/missha-super-aqua-ultra-water-full-intensive-serum-40-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/missha-super-aqua-ultra-water-full-intensive-serum.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/missha-super-aqua-ultra-water-full-intensive-serum.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [
@@ -610,7 +619,8 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     description: `Version améliorée de l'essence iconique avec du ferment de levure "Cica Yeast" pour une hydratation et un éclat accrus.`,
     inci: '1,2-HEXANEDIOL, ADENOSINE, BIFIDA FERMENT LYSATE, BUTYLENE GLYCOL, CERAMIDE NP, DIETHOXYETHYL SUCCINATE, ETHYLHEXYLGLYCERIN, GLYCERIN, HYDROGENATED LECITHIN, NIACINAMIDE, PROPANEDIOL, SODIUM PCA, WATER, XANTHAN GUM, YEAST FERMENT EXTRACT',
     url: 'https://www.skinsafeproducts.com/missha-time-revolution-the-first-treatment-essence-rx-5-07-fl-oz-150-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/missha-time-revolution-the-first-treatment-essence-rx.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/missha-time-revolution-the-first-treatment-essence-rx.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.HYDRATATION],
       secondary: [
@@ -643,7 +653,8 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     description: `Essence hautement hydratante qui améliore la texture de la peau et apporte un éclat sain grâce à ses ingrédients fermentés.`,
     inci: '1,2-HEXANEDIOL, ACETIC ACID, ADENOSINE, BIFIDA FERMENT LYSATE, CASSIA ALATA LEAF EXTRACT, DIETHOXYETHYL SUCCINATE, DIMETHICONE, DIPROPYLENE GLYCOL, GLYCERIN, HORDEUM DISTICHION (BARLEY) EXTRACT, LACTIC ACID, LECITHIN, NIACINAMIDE, PHENOXYETHANOL, POLYQUATERNIUM-51, POLYQUATERNIUM-61, POTASSIUM SORBATE, SACCHAROMYCES FERMENT FILTRATE, WATER',
     url: 'https://www.skinsafeproducts.com/missha-time-revolution-the-first-intensive-moist-treatment-essence-13-9-ounce',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/missha-time-revolution-the-first-intensive-moist-treatment-essence.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/missha-time-revolution-the-first-intensive-moist-treatment-essence.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.ECLAT],
       secondary: [
@@ -706,7 +717,8 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     description: `Essence apaisante formulée avec 100% d'extrait d'armoise doublement fermentée pour calmer les peaux sensibles.`,
     inci: '1,2-HEXANEDIOL, ARTEMISIA ANNUA EXTRACT, DIPROPYLENE GLYCOL, PROPANEDIOL, WATER',
     url: 'https://www.skinsafeproducts.com/missha-time-revolution-artemisia-treatment-essence-100-5-07-fl-oz-150-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/missha-time-revolution-artemisia-treatment-essence.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/missha-time-revolution-artemisia-treatment-essence.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -795,7 +807,8 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     description: `Masque tissu luxueux imprégné de l'essence Time Revolution pour un éclat et une hydratation instantanés.`,
     inci: '1,2-HEXANEDIOL, 3-0-ETHYL ASCORBIC ACID, ALLANTOIN, BISABOLOL, BUTYLENE GLYCOL, CAPRYLYL GLYCOL, CARRAGEENAN, CELLULOSE GUM, CERAMIDE NP, CERATONIA SILIQUA (CAROB) GUM, CHONDRUS CRISPUS POWDER, DEXTRIN, DIPOTASSIUM GLYCYRRHIZATE, DIPROPYLENE GLYCOL, ETHYLHEXYLGLYCERIN, GLYCERETH-26, GLYCERIN, HYDROGENATED LECITHIN, HYDROXYACETOPHENONE, HYDROXYETHYL UREA, ISOPENTYLDIOL, PANTHENOL, POTASSIUM CHLORIDE, PROPANEDIOL, SODIUM HYALURONATE, SODIUM PHYTATE, WATER (AQUA), XANTHAN GUM, YEAST FERMENT EXTRACT',
     url: 'https://www.skinsafeproducts.com/missha-time-revolution-the-first-essence-mask-1-05-oz-30-g',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/missha-time-revolution-the-first-essence-mask.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/missha-time-revolution-the-first-essence-mask.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.HYDRATATION],
       secondary: [
@@ -829,7 +842,8 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     description: `Masque tissu rafraîchissant à l'extrait d'ananas pour lisser la texture de la peau et apporter de l'éclat.`,
     inci: '1,2-HEXANEDIOL, ALLANTOIN, ALOE BARBADENSIS (ALOE VERA), ANANAS SATIVUS (PINEAPPLE) FRUIT EXTRACT, ARGININE, BETAINE, BUTYLENE GLYCOL, C12-14 PARETH-12, CAMELLIA SINENSIS LEAF EXTRACT, CAPRYLYL GLYCOL, CARBOMER, COIX LACYRMA-JOBI MA-YUEN SEED EXTRACT, CUCUMIS SATIVA (CUCUMBER) FRUIT EXTRACT, DIMETHICONE, DIPROPYLENE GLYCOL, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, FRAGRANCE, GLYCERIN (PLANT DERIVED), HAMAMELIS VIRGINIANA (WITCH HAZEL) EXTRACT, HYDROGENATED LECITHIN, HYDROXYETHYL UREA, MANGIFERA INDICA (MANGO) EXTRACT, MARIS AQUA (SEA WATER), MORUS ALBA BARK EXTRACT, PANAX GINSENG (GINSENG) EXTRACT, SODIUM HYALURONATE, WATER',
     url: 'https://www.skinsafeproducts.com/a-pieu-icing-sweet-bar-sheet-mask-pineapple',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/missha-a-pieu-icing-sweet-bar-sheet-mask-pineapple.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/missha-a-pieu-icing-sweet-bar-sheet-mask-pineapple.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.GRAIN_PEAU],
       secondary: [
@@ -861,7 +875,8 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     description: `Essence intensive formulée avec 80% de ferment de levure pour une peau plus ferme et éclatante.`,
     inci: '1, 2-HEXANEDIOL, ACETIC ACID, ADENOSINE, AMARANTHUS CAUDATUS SEED EXTRACT, BETA VULGARIS (BEET) ROOT EXTRACT, BETAINE, BIFIDA FERMENT LYSATE, BUTYLENE GLYCOL, CAPRYLYL GLYCOL, CASSIA ALATA LEAF EXTRACT, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, GLYCERIN, HEXAPEPTIDE-9, HYDROGENATED LECITHIN, HYDROLYZED CORN STARCH, LACTIC ACID, NIACINAMIDE, PENTYLENE GLYCOL, PHELLODENDRON AMURENSE (AMUR CORKTREE) BARK EXTRACT, PHENOXYETHANOL, PIPER METHYSTICUM LEAF/ROOT/STEM EXTRACT, POLYQUATERNIUM-51, POTASSIUM SORBATE, PROPANEDIOL, RAFFINOSE, SACCHAROMYCES FERMENT FILTRATE, SODIUM HYALURONATE, TREHALOSE, TROMETHAMINE, ULMUS DAVIDIANA ROOT EXTRACT, WATER',
     url: 'https://www.skinsafeproducts.com/missha-time-revolution-the-first-treatment-essence-intensive-130-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/missha-time-revolution-the-first-treatment-essence-intensive.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/missha-time-revolution-the-first-treatment-essence-intensive.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -895,7 +910,8 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     description: `Nettoyant moussant contenant 10 types d'acide hyaluronique pour un nettoyage hydratant qui ne tiraille pas.`,
     inci: '1,2-HEXANEDIOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, ARACHIDIC ACID, BENZYL GLYCOL, CITRIC ACID, CITRUS AURANTIUM DULCIS (ORANGE) PEEL OIL, COCO-GLUCOSIDE, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, GLYCERIN, GLYCERYL STEARATE, HYALURONIC ACID, HYDROLYZED GLYCOSAMINOGLYCANS, HYDROLYZED HYALURONIC ACID, HYDROLYZED SODIUM HYALURONATE, HYDROXYPROPYLTRIMONIUM HYALURONATE, LAURIC ACID, LAVANDULA ANGUSTIFOLIA (LAVENDER) OIL, LIMONENE, LINALOOL, MANNITOL, MYRISTIC ACID, OLEIC ACID, PALMITIC ACID, PINUS SYLVESTRIS LEAF OIL, POTASSIUM COCOYL GLYCINATE, POTASSIUM HYALURONATE, POTASSIUM HYDROXIDE, PROPANEDIOL, QUILLAJA SAPONARIA BARK EXTRACT, SODIUM ACETYLATED HYALURONATE, SODIUM COCOYL ISETHIONATE, SODIUM HYALURONATE, SODIUM HYALURONATE CROSSPOLYMER, STEARIC ACID, WATER',
     url: 'https://www.skinsafeproducts.com/missha-super-aqua-ultra-hyalron-foaming-cleanser-6-76-fl-oz-200-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/missha-super-aqua-ultra-hyalron-foaming-cleanser.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/missha-super-aqua-ultra-hyalron-foaming-cleanser.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [

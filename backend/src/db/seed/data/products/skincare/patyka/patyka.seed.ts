@@ -16,7 +16,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'QUA (WATER), BUTYROSPERMUM PARKII (SHEA) BUTTER*, TRIETHYL CITRATE, GLYCERIN, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL*, ALCOHOL** DENAT.,C10-18 TRIGLYCERIDES, CETEARYL ALCOHOL, GLYCERYL STEARATE, SUCROSE POLYSTEARATE, MICROCRYSTALLINE CELLULOSE, BEHENYL ALCOHOL, LINUM USITATISSIMUM (LINSEED) SEED OIL*, MANGIFERA INDICA (MANGO) SEED BUTTER*, PARFUM (FRAGRANCE), HYDROLYZED LINSEED EXTRACT**, SODIUM STEAROYL GLUTAMATE, CETYL PALMITATE, SODIUM BENZOATE, LEVULINIC ACID, CELLULOSE GUM, TOCOPHEROL, SODIUM LEVULINATE, XANTHAN GUM, ALOE BARBADENSIS LEAF JUICE POWDER*, CITRIC ACID, SODIUM HYDROXIDE, SODIUM PHYTATE, GLYCINE SOJA (SOYBEAN) OIL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-body-baume-corps-nutri-reparateur-bio-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-body-baume-corps-nutri-reparateur-bio.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/patyka-body-baume-corps-nutri-reparateur-bio.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'anti-oxydant', 'cicatrisation'],
       secondary: ['reparateur', 'lait-corps', 'zone-corps'],
@@ -38,7 +39,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), GLYCERYL STEARATE SE, BUTYROSPERMUM PARKII (SHEA) BUTTER*, TRIETHYL CITRATE, C10-18 TRIGLYCERIDES, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL*, GLYCERIN, ALCOHOL** DENAT., PENTYLENE GLYCOL, MICROCRYSTALLINE CELLULOSE, CETEARYL ALCOHOL, DECYL OLEATE, SCHINUS TEREBINTHIFOLIA SEED EXTRACT, AVENA SATIVA (OAT) KERNEL EXTRACT**, ZINGIBER OFFICINALE (GINGER) ROOT EXTRACT*, PALMITIC ACID, STEARIC ACID, PARFUM (FRAGRANCE), SODIUM STEAROYL GLUTAMATE, LEVULINIC ACID, CELLULOSE GUM, SODIUM LEVULINATE, XANTHAN GUM, SODIUM HYDROXIDE, ACACIA SENEGAL GUM, TOCOPHEROL, ALOE BARBADENSIS LEAF JUICE POWDER*, SODIUM PHYTATE, GLYCINE SOJA (SOYBEAN) OIL, SODIUM BENZOATE, POTASSIUM SORBATE, HYDROGENATED VEGETABLE GLYCERIDES CITRATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-body-creme-corps-raffermissante-bio-180ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-body-creme-corps-raffermissante-bio.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/patyka-body-creme-corps-raffermissante-bio.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'anti-oxydant'],
       secondary: ['peau-sensible', 'reparateur', 'lait-corps', 'zone-corps'],
@@ -60,7 +62,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), GLYCERIN, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL*, ALCOHOL** DENAT., BUTYROSPERMUM PARKII (SHEA) BUTTER*, GLYCERYL STEARATE CITRATE, CAPRYLIC/CAPRIC TRIGLYCERIDE, MANGIFERA INDICA (MANGO) SEED BUTTER*, PALMITIC ACID, STEARIC ACID, PARFUM (FRAGRANCE), SODIUM HYALURONATE, CICHORIUM INTYBUS (CHICORY) ROOT EXTRACT, CETEARYL OLIVATE, XYLITYLGLUCOSIDE, ANHYDROXYLITOL, LEVULINIC ACID, SORBITAN OLIVATE, SODIUM BENZOATE, SODIUM LEVULINATE, XYLITOL, ACACIA SENEGAL GUM, XANTHAN GUM, SODIUM HYDROXIDE, ALOE BARBADENSIS LEAF JUICE POWDER',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-body-lait-corps-hydratant-douceur-bio-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-body-lait-corps-hydratant-douceur-bio.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/patyka-body-lait-corps-hydratant-douceur-bio.webp',
     tags: {
       primary: ['hydratation', 'apaisant'],
       secondary: ['lait-corps', 'zone-corps'],
@@ -185,7 +188,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, HORDEUM VULGARE STEM WATER*, GLYCERIN, CARRAGEENAN, PROPANEDIOL, AMORPHOPHALLUS KONJAC ROOT EXTRACT, GLUCOSE**, PHENETHYL ALCOHOL, SODIUM LEVULINATE, P-ANISIC ACID, LEVULINIC ACID, ACMELLA OLERACEA EXTRACT, AVENA SATIVA KERNEL EXTRACT*, GLYCOGEN, SODIUM HYALURONATE, SODIUM HYDROXIDE, GENTIANA LUTEA ROOT EXTRACT*, MALTODEXTRIN, HYDROLYZED GARDENIA FLORIDA EXTRACT, SODIUM BENZOATE [L7Y240104], WATER, BARLEY STEM WATER, GREEN MIMOSA, JOJOBA AND SUNFLOWER WAXES, POLYGLYCERYL-3 ESTERS, CARRAGEENAN GUM, 1,3-PROPANEDIOL, KONJAC ROOT EXTRACT, GLUCOSE, PHENETHYL ALCOHOL, SODIUM LEVULINATE, P-ANISIC ACID (4-METHOXYBENZOIC ACID), LEVULINIC ACID, MAFANE OR PARA CRESS EXTRACT, OAT KERNEL EXTRACT, GLYCOGEN, SODIUM ACETYLATED HYALURONATE, SODIUM HYDROXIDE (CAUSTIC SODA), GENTIAN ROOT EXTRACT, ALOE LEAF EXTRACT AND MALTODEXTRIN, HYDROLYZED CAPE JASMINE EXTRACT, SODIUM BENZOATE. *INGREDIENTS FROM ORGANIC FARMING',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-age-specific-intensif-patch-lift-regard-360-bio.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-age-specific-intensif-patch-lift-regard-360-bio.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/patyka-age-specific-intensif-patch-lift-regard-360-bio.webp',
     tags: {
       primary: ['hydratation', 'apaisant'],
       secondary: ['peau-sensible', 'patch'],
@@ -212,7 +216,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HORDEUM VULGARE STEM WATER*, AQUA (WATER), CAPRYLIC/CAPRIC TRIGLYCERIDE, BUTYROSPERMUM PARKII (SHEA) BUTTER*, LACTIC ACID, POLYGLYCERYL-6 STEARATE, COCO-CAPRYLATE/CAPRATE, CITRIC ACID, GLYCERYL BEHENATE, PHYTIC ACID, SQUALANE, SODIUM HYDROXIDE, APRICOT KERNEL OIL POLYGLYCERYL-4 ESTERS, GLYCERIN, PARFUM (FRAGRANCE), DICTYOPTERIS POLYPODIOIDES EXTRACT, BISABOLOL, CETEARYL ALCOHOL, GLYCERYL STEARATE, SODIUM STEAROYL GLUTAMATE, SODIUM BENZOATE, LIMONENE**, XANTHAN GUM, POLYGLYCERYL-6 BEHENATE, POTASSIUM SORBATE, SODIUM PHYTATE, LINALOOL**, ALCOHOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-anti-taches-perfect-la-recharge-peeling-nuit-bio-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-anti-taches-perfect-la-recharge-peeling-nuit-bio.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/patyka-anti-taches-perfect-la-recharge-peeling-nuit-bio.webp',
     tags: {
       primary: ['exfoliation', 'hydratation', 'barriere-cutanee', 'anti-taches'],
       secondary: [
@@ -245,7 +250,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HORDEUM VULGARE STEM WATER*, AQUA (WATER), CAPRYLIC/CAPRIC TRIGLYCERIDE, BUTYROSPERMUM PARKII (SHEA) BUTTER*, LACTIC ACID, POLYGLYCERYL-6 STEARATE, COCO-CAPRYLATE/CAPRATE, CITRIC ACID, GLYCERYL BEHENATE, PHYTIC ACID, SQUALANE, SODIUM HYDROXIDE, APRICOT KERNEL OIL POLYGLYCERYL-4 ESTERS, GLYCERIN, PARFUM (FRAGRANCE), DICTYOPTERIS POLYPODIOIDES EXTRACT, BISABOLOL, CETEARYL ALCOHOL, GLYCERYL STEARATE, SODIUM STEAROYL GLUTAMATE, SODIUM BENZOATE, LIMONENE**, XANTHAN GUM, POLYGLYCERYL-6 BEHENATE, POTASSIUM SORBATE, SODIUM PHYTATE, LINALOOL**, ALCOHOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-anti-taches-perfect-peeling-nuit-bio-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-anti-taches-perfect-peeling-nuit-bio.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/patyka-anti-taches-perfect-peeling-nuit-bio.webp',
     tags: {
       primary: ['exfoliation', 'hydratation', 'barriere-cutanee', 'anti-taches'],
       secondary: [
@@ -278,7 +284,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HORDEUM VULGARE STEM WATER*, AQUA (WATER), GLYCERIN, PROPANEDIOL, XANTHAN GUM, PARFUM (FRAGRANCE), CHONDRUS CRISPUS (CARRAGEENAN) EXTRACT, AGAR, SODIUM HYALURONATE, LEVULINIC ACID, CALCIUM KETOGLUCONATE, TOCOPHEROL, P-ANISIC ACID, SODIUM LEVULINATE, ACMELLA OLERACEA EXTRACT, SODIUM HYDROXIDE, HYALURONIC ACID, SODIUM POLYGLUTAMATE, SODIUM PHYTATE, CITRIC ACID, CITRONELLOL**, HYDROLYZED GARDENIA FLORIDA EXTRACT, MALTODEXTRIN, COUMARIN**. [07-002-1.20]',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-bio-age-specific-intensif-masque-repulpant-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-bio-age-specific-intensif-masque-repulpant.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/patyka-bio-age-specific-intensif-masque-repulpant.webp',
     tags: {
       primary: ['hydratation', 'repulpant', 'anti-oxydant'],
       secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
@@ -306,7 +313,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HORDEUM VULGARE STEM WATER*, AQUA (WATER), GLYCERIN, PROPANEDIOL, XANTHAN GUM, PARFUM (FRAGRANCE), CHONDRUS CRISPUS (CARRAGEENAN) EXTRACT, AGAR, SODIUM HYALURONATE, LEVULINIC ACID, CALCIUM KETOGLUCONATE, TOCOPHEROL, P-ANISIC ACID, SODIUM LEVULINATE, ACMELLA OLERACEA EXTRACT, SODIUM HYDROXIDE, HYALURONIC ACID, SODIUM POLYGLUTAMATE, SODIUM PHYTATE, CITRIC ACID, CITRONELLOL**, HYDROLYZED GARDENIA FLORIDA EXTRACT, MALTODEXTRIN, COUMARIN**. [07-002-1.20]',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-bio-age-specific-intensif-recharge-masque-repulpant-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-bio-age-specific-intensif-recharge-masque-repulpant.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/patyka-bio-age-specific-intensif-recharge-masque-repulpant.webp',
     tags: {
       primary: ['hydratation', 'repulpant', 'anti-oxydant'],
       secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
@@ -334,7 +342,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HORDEUM VULGARE STEM WATER*, AQUA (WATER), ASCORBIC ACID, GLYCERIN, DICAPRYLYL CARBONATE, PENTYLENE GLYCOL, DECYL OLEATE, SODIUM HYDROXIDE, ASCORBYL GLUCOSIDE, LINOLEIC ACID, MICROCRYSTALLINE CELLULOSE, SODIUM CITRATE, PARFUM (FRAGRANCE), TOCOPHEROL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL*, FERULIC ACID, CELLULOSE GUM, ARGININE, PHENYLPROPANOL, CANDIDA BOMBICOLA/GLUCOSE/METHYL RAPESEEDATE FERMENT, CAPRYLIC/CAPRIC TRIGLYCERIDE, CITRIC ACID, XANTHAN GUM, BUTYLENE GLYCOL, SODIUM PHYTATE, POTASSIUM SORBATE, SODIUM BENZOATE, PISTACIA LENTISCUS (MASTIC) GUM, LECITHIN, PRUNUS ARMENIACA (APRICOT) KERNEL OIL, LINOLENIC ACID, SODIUM HYALURONATE, CITRONELLOL**, GLYCERYL CAPRYLATE/CAPRATE, CAPSICUM ANNUUM FRUIT EXTRACT, DAUCUS CAROTA SATIVA (CARROT) EXTRACT*, COUMARIN**, HYDROGENATED VEGETABLE GLYCERIDES CITRATE. [01-002-1.17]',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-bio-age-specific-intensif-serum-c3-perfection-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-bio-age-specific-intensif-serum-c3-perfection.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/patyka-bio-age-specific-intensif-serum-c3-perfection.webp',
     tags: {
       primary: ['anti-age', 'anti-oxydant', 'eclat'],
       secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
@@ -443,7 +452,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERIN, CI 77891, C15-19 ALKANE, HELIANTHUS ANNUUS SEED OIL*, BUTYROSPER-MUM PARKII BUTTER*, PASSIFLORA INCARNATA WATER*, LAVANDULA ANGUSTIFOLIA FLOWER WATER*, CAPRYLIC/CAPRIC TRIGLYCERIDE, RICINUS COMMUNIS SEED OIL*, SUCROSE POLYSTEARATE, CETEARYL ALCOHOL, GLYCERYL STEARATE, MICROCRYSTALLINE CELLULOSE, HYDROGENATED OLIVE OIL STEARYL ESTERS, DIGLYCERIN, GLYCERYL STEARATE CITRATE, SODIUM STEAROYL GLUTAMATE, ACACIA SENEGAL GUM*, ASCORBYL GLUCOSIDE, SODIUM HYALURONATE, MELISSA OFFICINALIS LEAF EXTRACT*, ALOE BARBADENSIS LEAF JUICE POWDER*, PARFUM, LEVULINIC ACID, XYLITYLGLUCOSIDE, CI 77492, ANHYDROXYLITOL, TOCOPHEROL, GLYCERYL CAPRYLATE, CELLULOSE GUM, SODIUM BENZOATE, CI 77491, XYLITOL, SODIUM MYRISTOYL GLUTAMATE, LIMONENE**, TERPINEOL**, SODIUM LEVULINATE, CI 77499, POTASSIUM SORBATE, SODIUM PHYTATE, LECITHIN, CITRIC ACID, CITRUS AURANTIUM PEEL OIL**, PINENE**, SODIUM HYDROXIDE, ALUMINUM HYDROXIDE, LINALOOL**, VANILLIN**, XANTHAN GUM [02-006-1.18]​',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-bio-glow-creme-teintee-perfectrice-claire-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-bio-glow-creme-teintee-perfectrice-claire.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/patyka-bio-glow-creme-teintee-perfectrice-claire.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'anti-oxydant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -474,7 +484,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERIN, CI 77891, C15-19 ALKANE, HELIANTHUS ANNUUS SEED OIL*, BUTYROSPER-MUM PARKII BUTTER*, PASSIFLORA INCARNATA WATER*, LAVANDULA ANGUSTIFOLIA FLOWER WATER*, CAPRYLIC/CAPRIC TRIGLYCERIDE, RICINUS COMMUNIS SEED OIL*, SUCROSE POLYSTEARATE, CETEARYL ALCOHOL, GLYCERYL STEARATE, MICROCRYSTALLINE CELLULOSE, HYDROGENATED OLIVE OIL STEARYL ESTERS, DIGLYCERIN, GLYCERYL STEARATE CITRATE, SODIUM STEAROYL GLUTAMATE, ACACIA SENEGAL GUM*, ASCORBYL GLUCOSIDE, SODIUM HYALURONATE, MELISSA OFFICINALIS LEAF EXTRACT*, ALOE BARBADENSIS LEAF JUICE POWDER*, PARFUM, LEVULINIC ACID, XYLITYLGLUCOSIDE, CI 77492, ANHYDROXYLITOL, TOCOPHEROL, GLYCERYL CAPRYLATE, CELLULOSE GUM, SODIUM BENZOATE, CI 77491, XYLITOL, SODIUM MYRISTOYL GLUTAMATE, LIMONENE**, TERPINEOL**, SODIUM LEVULINATE, CI 77499, POTASSIUM SORBATE, SODIUM PHYTATE, LECITHIN, CITRIC ACID, CITRUS AURANTIUM PEEL OIL**, PINENE**, SODIUM HYDROXIDE, ALUMINUM HYDROXIDE, LINALOOL**, VANILLIN**, XANTHAN GUM [02-006-1.18]​',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-bio-glow-creme-teintee-perfectrice-doree-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-bio-glow-creme-teintee-perfectrice-doree.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/patyka-bio-glow-creme-teintee-perfectrice-doree.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'anti-oxydant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -581,7 +592,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER GLYCERIN CI 77891 TITANIUM DIOXIDE PROPYLENE GLYCOL DICAPRYLYL ETHER DICAPRYLYL CARBONATE OLUS OIL VEGETABLE OIL POLYGLYCERYL 2 DIPOLYHYDROXYSTEARATE LAVANDULA ANGUSTIFOLIA LAVENDER FLOWER WATER TRITICUM MONOCOCCUM WHEAT STEM WATER HYDROGENATED OLIVE OIL STEARYL ESTERS POLYGLYCERYL 3 DIISOSTEARATE CI 77492 IRON OXIDES XYLITYLGLUCOSIDE MAGNESIUM SULFATE PENTYLENE GLYCOL ZINC STEARATE CAFFEINE COFFEA ARABICA COFFEE SEED EXTRACT SPILANTHES ACMELLA FLOWER LEAF STEM EXTRACT SODIUM HYALURONATE ASCORBYL GLUCOSIDE MELISSA OFFICINALIS LEAF EXTRACT ASTRAGALUS MEMBRANACEUS ROOT EXTRACT XYLITOL UBIQUINONE ANHYDROXYLITOL CARTHAMUS TINCTORIUS SAFFLOWER SEED OIL HYDROGENATED VEGETABLE OIL LEVULINIC ACID SODIUM MYRISTOYL GLUTAMATE TOCOPHEROL CANDELILLA CERA EUPHORBIA CERIFERA CANDELILLA WAX SODIUM BENZOATE SODIUM LEVULINATE CI 77491 IRON OXIDES ALOE BARBADENSIS LEAF JUICE POWDER LECITHIN SODIUM PHYTATE CI 77499 IRON OXIDES ALUMINUM HYDROXIDE SODIUM HYDROXIDE 06 003 1 28',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-bio-glow-soin-yeux-correcteur-eclat-12ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-bio-glow-soin-yeux-correcteur-eclat.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/patyka-bio-glow-soin-yeux-correcteur-eclat.webp',
     tags: {
       primary: ['anti-age', 'hydratation', 'anti-oxydant', 'eclat'],
       secondary: ['reparateur', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
@@ -602,7 +614,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'ROSA DAMASCENA FLOWER WATER*, AQUA (WATER), GLYCERIN, CAPRYLIC/CAPRIC TRIGLYCERIDE, CETEARYL ALCOHOL, COCO-CAPRYLATE/CAPRATE, PROPANEDIOL, GLYCERYL STEARATE, BUTYROSPERMUM PARKII (SHEA) BUTTER*, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL*, GLYCERYL STEARATE CITRATE, PARFUM (FRAGRANCE), CENTELLA ASIATICA LEAF EXTRACT, SODIUM HYALURONATE, PINUS CEMBRA WOOD EXTRACT, SODIUM LEVULINATE, LIMONENE**, SODIUM ANISATE, ALCOHOL, SODIUM STEAROYL GLUTAMATE, VIGNA ACONITIFOLIA SEED EXTRACT, SCLEROTIUM GUM, PENTYLENE GLYCOL, XANTHAN GUM, LEVULINIC ACID, MALTODEXTRIN, ANGELICA ARCHANGELICA CALLUS EXTRACT, SODIUM PHYTATE, CITRIC ACID, LINALOOL**,CITRONELLOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-bio-lift-essentiel-creme-nuit-reparatrice-jeunesse-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-bio-lift-essentiel-creme-nuit-reparatrice-jeunesse.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/patyka-bio-lift-essentiel-creme-nuit-reparatrice-jeunesse.webp',
     tags: {
       primary: ['cicatrisation', 'hydratation', 'apaisant'],
       secondary: ['creme-hydratante', 'zone-visage', 'reparateur'],
@@ -629,7 +642,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'ROSA DAMASCENA FLOWER WATER*, AQUA (WATER), GLYCERIN, CAPRYLIC/CAPRIC TRIGLYCERIDE, CETEARYL ALCOHOL, COCO-CAPRYLATE/CAPRATE, PROPANEDIOL, GLYCERYL STEARATE, BUTYROSPERMUM PARKII (SHEA) BUTTER*, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL*, GLYCERYL STEARATE CITRATE, PARFUM (FRAGRANCE), CENTELLA ASIATICA LEAF EXTRACT, SODIUM HYALURONATE, PINUS CEMBRA WOOD EXTRACT, SODIUM LEVULINATE, LIMONENE**, SODIUM ANISATE, ALCOHOL, SODIUM STEAROYL GLUTAMATE, VIGNA ACONITIFOLIA SEED EXTRACT, SCLEROTIUM GUM, PENTYLENE GLYCOL, XANTHAN GUM, LEVULINIC ACID, MALTODEXTRIN, ANGELICA ARCHANGELICA CALLUS EXTRACT, SODIUM PHYTATE, CITRIC ACID, LINALOOL**,CITRONELLOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-bio-lift-essentiel-creme-nuit-reparatrice-jeunesse-recharge-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-bio-lift-essentiel-creme-nuit-reparatrice-jeunesse-recharge.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/patyka-bio-lift-essentiel-creme-nuit-reparatrice-jeunesse-recharge.webp',
     tags: {
       primary: ['cicatrisation', 'hydratation', 'apaisant'],
       secondary: ['creme-hydratante', 'zone-visage', 'reparateur'],
@@ -656,7 +670,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'ROSA DAMASCENA FLOWER WATER*, AQUA (WATER), GLYCERIN, OCTYLDODECANOL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL*, DICAPRYLYL CARBONATE, DIGLYCERIN, OLUS OIL (VEGETABLE OIL), MICROCRYSTALLINE CELLULOSE, CETEARYL ALCOHOL, PARFUM (FRAGRANCE), GLYCERYL STEARATE, CELLULOSE GUM, LIMONENE**, HYDROGENATED VEGETABLE OIL, LEVULINIC ACID, SODIUM BENZOATE, GLYCERYL CAPRYLATE, XANTHAN GUM, SODIUM LEVULINATE, CANDELILLA CERA (EUPHORBIA CERIFERA (CANDELILLA) WAX), CITRUS PARADISI (GRAPEFRUIT) FRUIT EXTRACT*, VIGNA ACONITIFOLIA SEED EXTRACT, ANGELICA ARCHANGELICA CALLUS EXTRACT, PENTYLENE GLYCOL, SODIUM HYDROXIDE, CI 77491 (IRON OXIDES), MALTODEXTRIN, TARAXACUM OFFICINALE (DANDELION RHIZOME/ROOT EXTRACT, ENGELHARDTIA CHRYSOLEPIS LEAF EXTRACT, SODIUM HYALURONATE, HYDROGENATED OLIVE OIL STEARYL ESTERS, CI 77492 (IRON OXIDES), CITRIC ACID, SACCHARIDE ISOMERATE, LINALOOL**, SODIUM MYRISTOYL GLUTAMATE , TOCOPHEROL, CITRONELLOL**, ALUMINUM HYDROXIDE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-bio-lift-essentiel-creme-rose-lift-eclat-fermete-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-bio-lift-essentiel-creme-rose-lift-eclat-fermete.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/patyka-bio-lift-essentiel-creme-rose-lift-eclat-fermete.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'eclat'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -683,7 +698,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), ROSA DAMASCENA FLOWER WATER*, GLYCERIN, ALCOHOL DENAT.**, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, COCO-CAPRYLATE, GLYCERYL STEARATE CITRATE, MICROCRYSTALLINE CELLULOSE, CAPRYLIC/CAPRIC TRIGLYCERIDE, COCO-CAPRYLATE/CAPRATE, PARFUM (FRAGRANCE), CETEARYL ALCOHOL, SODIUM HYALURONATE, ENGELHARDTIA CHRYSOLEPIS LEAF EXTRACT, TARAXACUM OFFICINALE (DANDELION) RHIZOME/ROOT EXTRACT, ANGELICA ARCHANGELICA CALLUS EXTRACT, GLYCERYL CAPRYLATE, SODIUM STEAROYL GLUTAMATE, LIMONENE***, LEVULINIC ACID, VIGNA ACONITIFOLIA SEED EXTRACT, CHONDRUS CRISPUS (CARRAGEENAN) POWDER, SCLEROTIUM GUM, SODIUM LEVULINATE, CELLULOSE GUM, XANTHAN GUM, TOCOPHEROL, PENTYLENE GLYCOL, SODIUM PHYTATE, MALTODEXTRIN, SODIUM HYDROXIDE, LINALOOL***, CITRONELLOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-bio-lift-essentiel-recharge-creme-lift-eclat-fermete-peaux-normales-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-bio-lift-essentiel-recharge-creme-lift-eclat-fermete-peaux-normales.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/patyka-bio-lift-essentiel-recharge-creme-lift-eclat-fermete-peaux-normales.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'eclat'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -787,7 +803,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "EAU, C15-19 ALKANE,EXTRAIT DE FLEUR, FEUILLE ET TIGE DE MAUVE DES BOIS*, GLYCÉRINE, GLYCERYL STEARATE CITRATE, ALCOOL CÉTÉARYLIQUE, HUILE DE RICIN*, STÉARATE DE GLYCÉRYLE (ESTER DE GLYCÉROL ET D'ACIDE STÉARIQUE), LYSATE DE FERMENTATION DE LA BACTÉRIE LACTOBACILLUS, JUS D’ALOE VERA EN POUDRE*, ALPHA-GLUCAN OLIGOSACCHARIDE, GOMME XANTHANE, SODIUM STEAROYL GLUTAMATE, PARFUM, ACIDE LÉVULINIQUE, LEVULINATE DE SODIUM, PHYTATE DE SODIUM (SEL DE SODIUM DE L'ACIDE PHYTIQUE), PROPANEDIOL, HYDROXYDE DE SODIUM (SOUDE CAUSTIQUE), ACIDE CITRIQUE, BENZOATE DE SODIUM (SEL DE SODIUM L'ACIDE BENZOÏQUE), SORBATE DE POTASSIUM, LIMONÈNE**, GÉRANIOL**, COUMARINE**, LINALOL**, TRIOXYDE DE FER, ACOOL",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-clean-lait-demaquillant-apaisant-bio-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-clean-lait-demaquillant-apaisant-bio.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/patyka-clean-lait-demaquillant-apaisant-bio.webp',
     tags: {
       primary: ['microbiome', 'apaisant'],
       secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -887,7 +904,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL*, SESAMUM INDICUM (SESAME) SEED OIL*, POLYGLYCERYL-4 OLEATE, RICINUS COMMUNIS (CASTOR) SEED OIL*, APRICOT KERNEL OIL POLYGLYCERYL-6 ESTERS, PARFUM (FRAGRANCE), ROSA CANINA FRUIT OIL*, PUNICA GRANATUM PERICARP EXTRACT*, GLYCERIN**, TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-huile-remarquable-demaquillante-bio-100-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-huile-remarquable-demaquillante-bio.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/patyka-huile-remarquable-demaquillante-bio.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -986,7 +1004,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "EAU DE TIGE D'ORGE*, EAU, BEURRE DE KARITE*, GLYCERINE, HUILE DE TOURNESOL, C10-18 TRIGLYCERIDES, OXYDE DE DIOCTYLE, ALCOOL CETEARYLIQUE, STEARATE DE GLYCERYLE, ALCOOL DENATURE**, MYRISTATE DE MYRISTYLE, PROPANEDIOL, PARFUM, DECYL GLUCOSIDE, DIPALMITOYL HYDROXYPROLINE, PULLULAN (POLYSACCHARIDE), SEL DE POTASSIUM DE CHLORURE D'ACIDE PALMITIQUE ET DE PROTEINES DE BLES HYDROLYSEES, GLYCERYL CAPRYLATE, COCOYL GLUTAMATE DE SODIUM, GOMME XANTHANE, ACIDE LEVULINIQUE, EXTRAIT DE GRAINE DE HARICOT MAT, LEVULINATE DE SODIUM, ASCORBYL GLUCOSIDE, POUDRE D'ALGUE CHONDRUS CRIPUS (OU GOEMON FRISE), HYDROXYDE DE SODIUM, MALTODEXTRINE, VITAMINE E, ACIDE CITRIQUE, SORBATE DE POTASSIUM, BENZOATE DE SODIUM, PHYTATE DE SODIUM, GLUCOSE, HYALURONATE DE SODIUM, CITRONELLOL, COUMARIN, ALCOOL",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-recharge-masque-lift-pro-collagene-50-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-recharge-masque-lift-pro-collagene.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/patyka-recharge-masque-lift-pro-collagene.webp',
     tags: {
       primary: ['anti-age', 'hydratation'],
       secondary: ['masque-hebdo', 'zone-visage'],
@@ -1138,7 +1157,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'ROSA DAMASCENA FLOWER WATER*, AQUA (WATER), CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL*, APRICOT KERNEL OIL POLYGLYCERYL-4 ESTERS, BUTYROSPERMUM PARKII (SHEA) BUTTER*, CETEARYL OLIVATE, PROPANEDIOL, CETEARYL ALCOHOL, MICROCRYSTALLINE CELLULOSE, SORBITAN OLIVATE, OLEIC ACID, SODIUM HYALURONATE, POLYGONUM FAGOPYRUM SEED EXTRACT, ANGELICA ARCHANGELICA CALLUS EXTRACT, LEVULINIC ACID, GLYCERYL CAPRYLATE, SODIUM LEVULINATE, SCLEROTIUM GUM, TERMINALIA ARJUNA EXTRACT*, XANTHAN GUM, VIGNA ACONITIFOLIA SEED EXTRACT, SODIUM HYDROXIDE, HYDROGENATED VEGETABLE OIL, SODIUM PHYTATE, MALTODEXTRIN, LECITHIN',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/patyka/patyka-lift-essentiel-creme-jeunesse-regard-bio-15ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-lift-essentiel-creme-jeunesse-regard-bio.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/patyka-lift-essentiel-creme-jeunesse-regard-bio.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -1165,7 +1185,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), ROSA DAMASCENA FLOWER WATER*, GLYCERIN, ALCOHOL DENAT.**, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, COCO-CAPRYLATE, GLYCERYL STEARATE CITRATE, MICROCRYSTALLINE CELLULOSE, CAPRYLIC/CAPRIC TRIGLYCERIDE, COCO-CAPRYLATE/CAPRATE, PARFUM (FRAGRANCE), CETEARYL ALCOHOL, SODIUM HYALURONATE, ENGELHARDTIA CHRYSOLEPIS LEAF EXTRACT, TARAXACUM OFFICINALE (DANDELION) RHIZOME/ROOT EXTRACT, ANGELICA ARCHANGELICA CALLUS EXTRACT, GLYCERYL CAPRYLATE, SODIUM STEAROYL GLUTAMATE, LIMONENE***, LEVULINIC ACID, VIGNA ACONITIFOLIA SEED EXTRACT, CHONDRUS CRISPUS (CARRAGEENAN) POWDER, SCLEROTIUM GUM, SODIUM LEVULINATE, CELLULOSE GUM, XANTHAN GUM, TOCOPHEROL, PENTYLENE GLYCOL, SODIUM PHYTATE, MALTODEXTRIN, SODIUM HYDROXIDE, LINALOOL***, CITRONELLOL',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/patyka/patyka-lift-essentiel-creme-lift-elat-fermete-bio-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-lift-essentiel-creme-lift-elat-fermete-bio.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/patyka-lift-essentiel-creme-lift-elat-fermete-bio.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -1192,7 +1213,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'ROSA DAMASCENA FLOWER WATER*, AQUA (WATER), CAPRYLIC/CAPRIC TRIGLYCERIDE, C10-18 TRIGLYCERIDES, CETEARYL ALCOHOL, ALCOHOL DENAT.**, BUTYROSPERMUM PARKII (SHEA) BUTTER*, DIGLYCERIN, SQUALANE, DICAPRYLYL ETHER, GLYCERIN, GLYCERYL BEHENATE, GLYCERYL STEARATE, PARFUM (FRAGRANCE), GLYCERYL STEARATE CITRATE, SODIUM HYALURONATE, ENGELHARDTIA CHRYSOLEPIS LEAF EXTRACT, TARAXACUM OFFICINALE (DANDELION) RHIZOME/ROOT EXTRACT, ANGELICA ARCHANGELICA CALLUS EXTRACT, POTASSIUM PALMITOYL HYDROLYZED WHEAT PROTEIN, GLYCERYL CAPRYLATE, SODIUM COCOYL GLUTAMATE, LIMONENE***, LEVULINIC ACID, VIGNA ACONITIFOLIA SEED EXTRACT, SODIUM LEVULINATE, SCLEROTIUM GUM, CHONDRUS CRISPUS (CARRAGEENAN) POWDER, MALTODEXTRIN, PENTYLENE GLYCOL, SODIUM PHYTATE, XANTHAN GUM, SODIUM HYDROXIDE, GLUCOSE, LINALOOL***, TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/patyka/patyka-lift-essentiel-creme-riche-lift-elat-fermete-bio-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-lift-essentiel-creme-riche-lift-elat-fermete-bio.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/patyka-lift-essentiel-creme-riche-lift-elat-fermete-bio.webp',
     tags: {
       primary: ['hydratation', 'anti-age', 'barriere-cutanee'],
       secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -1332,7 +1354,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER) MENTHA VIRIDIS (SPEARMINT) LEAF EXTRACT PENTYLENE GLYCOL GLUCONOLACTONE ZINC GLUCONATE GLYCERIN VINEGAR MELISSA OFFICINALIS LEAF EXTRACT ALOE BARBADENSIS LEAF JUICE POWDER SODIUM HYDROXIDE LEVULINIC ACID PARFUM (FRAGRANCE) SODIUM LEVULINATE HYDROGENATED STARCH HYDROLYSATE SUCROSE LAURATE CARVONE VANILLIN MALTODEXTRIN HYDROLYZED GARDENIA FLORIDA EXTRACT',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/visage/acne/lotions/patyka-pure-lotion-purifiante-perfectrice-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-pure-lotion-purifiante-perfectrice.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/patyka-pure-lotion-purifiante-perfectrice.webp',
     tags: {
       primary: ['exfoliation', 'hydratation', 'apaisant'],
       secondary: [
@@ -1408,7 +1431,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER) MENTHA VIRIDIS (SPEARMINT) LEAF EXTRACT GLYCERIN PENTYLENE GLYCOL TAPIOCA STARCH SILICA C1519 ALKANE CETEARYL ALCOHOL GLUCONOLACTONE TRIETHYL CITRATE ZINC GLUCONATE MICROCRYSTALLINE CELLULOSE HYDROGENATED VEGETABLE GLYCERIDES SORBITAN STEARATE XYLITYLGLUCOSIDE ANHYDROXYLITOL XYLITOL ALOE BARBADENSIS LEAF JUICE POWDER MELISSA OFFICINALIS LEAF EXTRACT BACKHOUSIA CITRIODORA LEAF EXTRACT ALGIN PARFUM (FRAGRANCE) SODIUM HYDROXIDE XANTHAN GUM LEVULINIC ACID CALCIUM CITRATE SODIUM BENZOATE SODIUM LEVULINATE CELLULOSE GUM TOCOPHEROL CARVONE VANILLIN CHLOROPHYLLINCOPPER COMPLEX',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/visage/maquillage/par-type-de-peau/peau-jeune-a-imperfections/patyka-fluide-matifiant-anti-imperfections-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-fluide-matifiant-anti-imperfections.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/patyka-fluide-matifiant-anti-imperfections.webp',
     tags: {
       primary: ['exfoliation', 'hydratation', 'apaisant', 'anti-acne'],
       secondary: [
@@ -1435,7 +1459,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), CAPRYLIC/CAPRIC TRIGLYCERIDE, COCO-CAPRYLATE/CAPRATE, PENTYLENE GLYCOL, ZINC OXIDE, GLYCERIN, POLYGLYCERYL-6 STEARATE, TITANIUM DIOXIDE [NANO], PARFUM (FRAGRANCE), MICROCRYSTALLINE CELLULOSE, SILICA, DICTYOPTERIS POLYPODIOIDES EXTRACT, SODIUM HYALURONATE, ALOE BARBADENSIS LEAF JUICE POWDER*, TOCOPHEROL, PONGAMOL, SODIUM STEAROYL GLUTAMATE, POLYGLYCERYL-6 BEHENATE, POLYGLYCERYL-3 POLYRICINOLEATE, ALUMINA, STEARIC ACID, CETEARYL ALCOHOL, GLYCERYL STEARATE, XANTHAN GUM, CELLULOSE GUM, POLYHYDROXYSTEARIC ACID, CITRIC ACID, ISOSTEARIC ACID, SODIUM PHYTATE, LIMONENE**, LINALOOL**, ALCOHOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-anti-taches-perfect-fluide-spf30-bio-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-anti-taches-perfect-fluide-spf30-bio.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/patyka-anti-taches-perfect-fluide-spf30-bio.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'anti-oxydant', 'anti-taches'],
       secondary: ['reparateur', 'creme-solaire', 'protection-solaire', 'matin', 'zone-visage'],

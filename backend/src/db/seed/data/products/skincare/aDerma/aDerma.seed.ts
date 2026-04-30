@@ -16,7 +16,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "WATER (AQUA), GLYCERIN, HYDROGENATED STARCH HYDROLYSATE, COCO-GLUCOSIDE, ZINC COCETH SULFATE, SODIUM COCOAMPHOACETATE, CETEARETH-60 MYRISTYL GLYCOL, PEG-40 HYDROGENATED CASTOR OIL, 10-HYDROXYDECENOIC ACID, AVENA SATIVA (OAT) LEAF/STEM EXTRACT (AVENA SATIVA LEAF/STEM EXTRACT), CITRIC ACID, FRAGRANCE (PARFUM), GLYCERYL OLEATE, HYDROGENATED VEGETABLE GLYCERIDES CITRATE, LAURIC ACID, MAGNESIUM OXIDE, OENOTHERA BIENNIS (EVENING PRIMROSE) OIL (OENOTHERA BIENNIS OIL), PEG-120 METHYL GLUCOSE DIOLEATE, PROPYLENE GLYCOL, SODIUM BENZOATE, SODIUM CHLORIDE, SODIUM HYDROXIDE, SODIUM LAUROYL METHYL ISETHIONATE, SODIUM METHYL ISETHIONATE, TOCOPHEROL, TRISODIUM ETHYLENEDIAMINE DISUCCINATE91% D'INGRÉDIENT D'ORIGINE NATURELLECE PRODUIT EST ÉCOCONÇUAVOINE RHEALBA® ISSUE DE L'AGRICULTURE BIOLOGIQUEFORMULE BIODEGRADABLE SELON LA NORME OCDE 301 BFLACON PLASTIQUE RECYCLABLE ET 100% RECYCLÉINFORMATION VEGAN : SANS INGRÉDIENT D'ORIGINE ANIMALEECO-RECHARGE : -76% DE PLASTIQUE*EXTRAIT DE PLANTULES D'AVOINE RHEALBA® : RÉÉQUILIBRE, APAISE ET RÉPARE LA PEAU FRAGILE.L'AVOINE RHEALBA®, UNE AVOINE UNIQUE, SÉLECTIONNÉE PARMI 26 000 VARIÉTÉS, DONT LA TENEUR EN MOLÉCULES ACTIVES PUISSANTES ET RECONNUS, LUI CONFÈRE SES PROPRIÉTÉS RÉGÉNÉRATRICES DE LA BARRIÈRE CUTANÉE, PRÉSENTE DANS TOUS LES PRODUITS A-DERMA, ELLE APAISE ET RÉPARE LES PEAUX DE TOUTE LA FAMILLE MÊME LES PLUS FRAGILISÉES.*-76% DE PLASTIQUE VERSUS FLACON 500ML",
     url: 'https://www.atida.fr/a-derma-exomega-control-huile-lavante-emolliente-anti-grattage-recharge-500ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/a-derma-exomega-control-huile-lavante-emolliente-anti-grattage-recharge.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/a-derma-exomega-control-huile-lavante-emolliente-anti-grattage-recharge.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'anti-oxydant', 'eczema'],
       secondary: ['peau-sensible', 'reparateur', 'nettoyant-corps', 'zone-corps', 'peau-atopique'],
@@ -40,7 +41,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'SODIUM COCOYL ISETHIONATE, STEARIC ACID, SODIUM LAURATE, SODIUM STEARATE, AQUA, PARAFFIN, SODIUM MYRISTATE, BUTYROSPERMUM PARKII BUTTER, PRUNUS AMYGDALUS DULCIS, AVENA SATIVA KERNEL EXTRACT, COCO-GLUCOSIDE, GLYCERYL LINOLEATE, GLYCERYL LINOLEATE, GLYCINE SOJA OIL, PROPYLENE GLYCOL, TITANIUM DIOXIDE, TOCOPHEROL',
     url: 'https://www.atida.fr/aderma-pain-surgras-au-lait-d-avoine-lot-de-2-x-100g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/a-derma-les-indispensables-pain-surgras-nutritif.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/a-derma-les-indispensables-pain-surgras-nutritif.webp',
     tags: {
       primary: ['apaisant', 'anti-oxydant'],
       secondary: ['peau-sensible', 'reparateur', 'nettoyant-corps', 'zone-corps'],
@@ -66,7 +68,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, DISODIUM COCOAMPHODIACETATE, PEG-7 GLYCERYL COCOATE, DECYL GLUCOSIDE, POLYSORBATE-20, SODIUM CHLORIDE, CETEARETH-60 MYRISTYL GLYCOL SORBITOL, GLYCERIN, PEG-200 HYDROGENATED GLYCERYL PALMATE, 10-HYDROXYDECENOIC ACID, AVENA SATIVA (OAT) LEAF/STEM EXTRACT (AVENA SATIVA LEAF/STEM EXTRACT), BENZOIC ACID, CITRIC ACID, GLYCERYL LAURATE, LACTIC ACID, MALTODEXTRIN, OENOTHERA BIENNIS (EVENING PRIMROSE) OIL (OENOTHERA) BIENNIS OIL, TOCOPHEROL',
     url: 'https://www.atida.fr/aderma-exomega-gel-moussant-emollient-lot-de-2-x-500ml-2501750.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/a-derma-exomega-control-gel-moussant-emollient-anti-grattage.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/a-derma-exomega-control-gel-moussant-emollient-anti-grattage.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'anti-oxydant', 'eczema'],
       secondary: [
@@ -94,7 +97,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), GLYCERIN, CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERYL STEARATE, NIACINAMIDE, PEG-100 STEARATE, 10-HYDROXYDECENOIC ACID, AVENA SATIVA (OAT) LEAF/STEM EXTRACT (AVENA SATIVA LEAF/STEM EXTRACT), BENZOIC ACID, CAPRYLYL GLYCOL, CARBOMER, CETEARYL ALCOHOL, CETEARYL GLUCOSIDE, OENOTHERA BIENNIS (EVENING PRIMROSE) OIL (OENOTHERA BIENNIS OIL), POLYACRYLATE-13, POLYISOBUTENE, POLYSORBATE 20, SODIUM HYDROXIDE, SORBITAN ISOSTEARATE, TOCOPHEROL, TOCOPHERYL ACETATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/a-derma-exomega-control-lait-emollient-anti-grattage-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/a-derma-exomega-control-lait-emollient-anti-grattage.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/a-derma-exomega-control-lait-emollient-anti-grattage.webp',
     tags: {
       primary: ['barriere-cutanee', 'eczema'],
       secondary: [
@@ -198,7 +202,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), GLYCERIN, COCO-GLUCOSIDE, CETEARETH-60, MYRISTYL ALCOHOL, ZINC COCETH SULFATE, SODIUM COCAMPHOACETATE, POLYSORBATE 20, PEG-40 HYDROGENATED CASTOR OIL, GLYCERYL OLEATE, CITRIC ACID,10-HYDROXYDECENOIC ACID, AVENA SATIVA (OAT) LEAF/STEM EXTRACT, (AVENA SATIVA LEAF STEM EXTRACT), DISODIUM LAURETH SULFOSUCCINATE, FRAGRANCE (PARFUM), HYDROGENATED PALM GLYCERIDES CITRATE, LAURETH-3 MALEIC ACID, OENOTHERA BIENNIS (EVENING PRIMROSE) OIL (OENOTHERA BIENNIS OIL), PROPYLENE GLYCOL, SODIUM BENZOATE, SODIUM CHLORIDE, SODIUM HYDROXIDE, TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-exomega-control-gel-lavant-emollient-2-en-1-lot-de-2x500ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-exomega-control-gel-lavant-emollient-2-en-1.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/aderma-exomega-control-gel-lavant-emollient-2-en-1.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'anti-oxydant', 'eczema'],
       secondary: ['peau-sensible', 'reparateur', 'nettoyant-corps', 'zone-corps', 'peau-atopique'],
@@ -239,7 +244,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE, BUTYROSPERMUM PARKII (SHEA) BUTTER (BUTYROSPERMUM PARKII BUTTER), NIACINAMIDE, 10-HYDROXYDECENOIC ACID, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, AVENA SATIVA (OAT) LEAF/STEM EXTRACT (AVENA SATIVA LEAF/STEM EXTRACT), BENZOIC ACID, CAPRYLYL GLYCOL, CETEARYL ALCOHOL, CETEARYL GLUCOSIDE, LAURYL GLUCOSIDE, NITROGEN, OENOTHERA BIENNIS (EVENING PRIMROSE) OIL (OENOTHERA BIENNIS OIL), SODIUM CITRATE, SODIUM HYDROXIDE, SODIUM LAURYL GLUCOSE CARBOXYLATE, SORBIC ACID, TOCOPHEROL, TOCOPHERYL ACETATE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-exomega-control-spray-emollient-anti-grattage-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-exomega-control-spray-emollient-anti-grattage.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/aderma-exomega-control-spray-emollient-anti-grattage.webp',
     tags: {
       primary: ['barriere-cutanee', 'eczema'],
       secondary: [
@@ -459,7 +465,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, WATER (AQUA), OLEA EUROPAEA (OLIVE) FRUIT OIL (OLEA EUROPAEA FRUIT OIL), SUCROSE LAURATE, TOCOPHERYL ACETATE, ALANYL GLUTAMINE, AVENA SATIVA (OAT) LEAF/STEM EXTRACT (AVENA SATIVA LEAF/STEM EXTRACT)*, SODIUM HYALURONATE',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/maman/vergetures/aderma-epitheliale-a-h-duo-massage-gel-huile-40-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-epitheliale-a-h-duo-massage-gel-huile.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/aderma-epitheliale-a-h-duo-massage-gel-huile.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'anti-oxydant'],
       secondary: ['peau-sensible', 'huile-corps', 'zone-corps'],
@@ -507,7 +514,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, CETEARYL ALCOHOL, NIACINAMIDE, 10-HYDROXYDECENOIC ACID, AVENA SATIVA (OAT) LEAF/STEM EXTRACT (AVENA SATIVA LEAF/STEM EXTRACT), BENZOIC ACID, CAPRYLYL GLYCOL, CARBOMER, CETEARYL GLUCOSIDE, GLYCERYL STEARATE, OENOTHERA BIENNIS (EVENING PRIMROSE) OIL (OENOTHERA BIENNIS OIL), PEG-100 STEARATE, POLYACRYLATE-13, POLYISOBUTENE, POLYSORBATE 20, SODIUM HYDROXIDE, SORBITAN ISOSTEARATE, TOCOPHEROL, TOCOPHERYL ACETATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/a-derma-exomega-control-baume-emollient-anti-grattage-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/a-derma-exomega-control-baume-emollient-anti-grattage-400ml.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/a-derma-exomega-control-baume-emollient-anti-grattage-400ml.webp',
     tags: {
       primary: ['barriere-cutanee', 'eczema'],
       secondary: [
@@ -569,7 +577,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), GLYCERIN, PENTYLENE GLYCOL, GARCINIA MANGOSTANA PEEL EXTRACT, AVENA SATIVA (OAT) FLOWER/LEAF/STEM JUICE (AVENA SATIVA FLOWER/LEAF/STEM JUICE)*, TARAXACUM OFFICINALE (DANDELION) RHIZOME/ROOT EXTRACT (TARAXACUM OFFICINALE RHIZOME/ROOT EXTRACT), ALOE BARBADENSIS LEAF JUICE POWDER*, CITRIC ACID, COCO-GLUCOSIDE, ETHYL LAUROYL ARGINATE HCL, FRAGRANCE (PARFUM), MALTODEXTRIN, POLYGLYCERYL-4 CAPRATE, POLYGLYCERYL-6 CAPRYLATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-biology-ac-eau-micellaire-nettoyante-purifiante-bio-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-biology-ac-eau-micellaire-nettoyante-purifiante-bio.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/aderma-biology-ac-eau-micellaire-nettoyante-purifiante-bio.webp',
     tags: {
       primary: ['apaisant', 'hydratation'],
       secondary: ['peau-sensible', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -589,7 +598,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), DISODIUM COCO-GLUCOSIDE CITRATE, DECYL GLUCOSIDE, GLYCERIN, PENTYLENE GLYCOL, SODIUM COCOAMPHOACETATE, GARCINIA MANGOSTANA PEEL EXTRACT, AVENA SATIVA (OAT) FLOWER/LEAF/STEM JUICE (AVENA SATIVA FLOWER/LEAF/STEM JUICE)*, TARAXACUM OFFICINALE (DANDELION) RHIZOME/ROOT EXTRACT (TARAXACUM OFFICINALE RHIZOME/ROOT EXTRACT), ALOE BARBADENSIS LEAF JUICE POWDER*, CITRIC ACID, FRAGRANCE (PARFUM), MALTODEXTRIN, POLYGLYCERYL-4 CAPRATE, POLYGLYCERYL-6 CAPRYLATE, SODIUM CHLORIDE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-biology-ac-gel-moussant-purifiant-bio-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-biology-ac-gel-moussant-purifiant-bio.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/aderma-biology-ac-gel-moussant-purifiant-bio.webp',
     tags: {
       primary: ['apaisant', 'hydratation'],
       secondary: ['peau-sensible', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -609,7 +619,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, CETEARYL ALCOHOL, PENTYLENE GLYCOL, BEHENYL ALCOHOL, GLYCERYL STEARATE, HYDROGENATED VEGETABLE OIL, MICROCRYSTALLINE CELLULOSE, CETEARYL GLUCOSIDE, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL (SIMMONDSIA CHINENSIS SEED OIL)*, GARCINIA MANGOSTANA PEEL EXTRACT, AVENA SATIVA (OAT) FLOWER/LEAF/STEM JUICE (AVENA SATIVA FLOWER/LEAF/STEM JUICE)*, SODIUM HYALURONATE, TARAXACUM OFFICINALE (DANDELION) RHIZOME/ROOT EXTRACT (TARAXACUM OFFICINALE RHIZOME/ROOT EXTRACT), ALOE BARBADENSIS LEAF JUICE POWDER*, CITRIC ACID, FRAGRANCE (PARFUM), GLYCERYL CAPRYLATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), MALTODEXTRIN, SODIUM BENZOATE, SODIUM STEAROYL GLUTAMATE, TOCOPHEROL, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-biology-ac-hydra-creme-compensatrice-bio-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-biology-ac-hydra-creme-compensatrice-bio.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/aderma-biology-ac-hydra-creme-compensatrice-bio.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'anti-oxydant'],
       secondary: ['peau-sensible', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -634,7 +645,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), GLYCERIN, CAPRYLIC/CAPRIC TRIGLYCERIDE, PENTYLENE GLYCOL, GLYCERYL STEARATE, CETEARYL ALCOHOL, BEHENYL ALCOHOL, MICROCRYSTALLINE CELLULOSE, LACTIC ACID, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL (SIMMONDSIA CHINENSIS SEED OIL)*, GARCINIA MANGOSTANA PEEL EXTRACT, SODIUM HYALURONATE, AVENA SATIVA (OAT) FLOWER/LEAF/STEM JUICE (AVENA SATIVA FLOWER/LEAF/STEM JUICE)*, HIBISCUS SABDARIFFA FLOWER EXTRACT, TARAXACUM OFFICINALE (DANDELION) RHIZOME/ROOT EXTRACT (TARAXACUM OFFICINALE RHIZOME/ROOT EXTRACT), ALOE BARBADENSIS LEAF JUICE POWDER*, CETEARYL GLUCOSIDE, FRAGRANCE (PARFUM), HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), MALTODEXTRIN, SCLEROTIUM GUM, SODIUM BENZOATE, SODIUM HYDROXIDE, SODIUM STEAROYL GLUTAMATE, TOCOPHEROL, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-biology-ac-perfect-fluide-anti-imperfections-bio-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-biology-ac-perfect-fluide-anti-imperfections-bio.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/aderma-biology-ac-perfect-fluide-anti-imperfections-bio.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'anti-oxydant', 'anti-acne'],
       secondary: ['peau-sensible', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -660,7 +672,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), DICAPRYLYL CARBONATE, GLYCERIN, PENTYLENE GLYCOL, C14-22 ALCOHOLS, BEHENYL ALCOHOL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), CITRUS AURANTIUM DULCIS (ORANGE) FRUIT WATER (CITRUS AURANTIUM DULCIS FRUIT WATER)*, HYDROGENATED VEGETABLE OIL, SODIUM STEAROYL GLUTAMATE, ALOE BARBADENSIS LEAF JUICE POWDER*, AVENA SATIVA (OAT) FLOWER/LEAF/STEM JUICE (AVENA SATIVA FLOWER/LEAF/STEM JUICE)*, C12-20 ALKYL GLUCOSIDE, CITRIC ACID, GLYCERYL CAPRYLATE, SCLEROTIUM GUM, SODIUM BENZOATE, TARAXACUM OFFICINALE (DANDELION) RHIZOME/ROOT EXTRACT (TARAXACUM OFFICINALE RHIZOME/ROOT EXTRACT), TOCOPHEROL, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-biology-creme-legere-dermatologique-hydratante-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-biology-creme-legere-dermatologique-hydratante.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/aderma-biology-creme-legere-dermatologique-hydratante.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'anti-oxydant'],
       secondary: ['peau-sensible', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -685,7 +698,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'BENZYL ALCOHOL, BENZYL BENZOATE, SODIUM BENZOATE, CITRIC ACID, CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, GLYCERYL STEARATE, AQUA, CETEARYL GLUCOSIDE, CETEARYL ALCOHOL, GLYCERYL CAPRYLATE, GLYCERIN, PENTYLENE GLYCOL, PENTYLENE GLYCOL, TARAXACUM OFFICINALE RHIZOME/ROOT EXTRACT, TOCOPHEROL, XANTAN GUM, ALOE BARBADENSIS LEAF EXTRACT, CITRUS AURANTIUM DULCIS FRUIT WATER, ARGANIA SPINOSA KERNEL OIL, AVENA SATIVA FLOWER/LEAF/STEM JUICE, GLYCERIN',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-biology-creme-riche-hydratante-bio-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-biology-creme-riche-hydratante-bio.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/aderma-biology-creme-riche-hydratante-bio.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'anti-oxydant'],
       secondary: ['reparateur', 'peau-sensible', 'creme-hydratante', 'zone-visage'],
@@ -710,7 +724,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), GLYCERIN, PENTYLENE GLYCOL, ALOE BARBADENSIS LEAF JUICE POWDER*, AVENA SATIVA (OAT) FLOWER/LEAF/STEM JUICE (AVENA SATIVA FLOWER/LEAF/STEM JUICE)*, CITRIC ACID, COCO-GLUCOSIDE, ETHYL LAUROYL ARGINATE HCL, POLYGLYCERYL-4 CAPRATE, POLYGLYCERYL-6 CAPRYLATE, TARAXACUM OFFICINALE (DANDELION) RHIZOME/ROOT EXTRACT (TARAXACUM OFFICINALE RHIZOME/ROOT EXTRACT)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-biology-eau-micellaire-dermatologique-bio-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-biology-eau-micellaire-dermatologique-bio-400ml.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/aderma-biology-eau-micellaire-dermatologique-bio-400ml.webp',
     tags: {
       primary: ['apaisant', 'hydratation'],
       secondary: ['peau-sensible', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -730,7 +745,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), GLYCERIN, ASCORBYL GLUCOSIDE, PENTYLENE GLYCOL, ALOE BARBADENSIS LEAF JUICE POWDER, AVENA SATIVA (OAT) FLOWER/LEAF/STEM JUICE (AVENA SATIVA FLOWER/LEAF/STEM JUICE), CAPRYLYL GLYCOL, CITRIC ACID, SCLEROTIUM GUM, SODIUM BENZOATE, SODIUM CITRATE, SODIUM HYDROXIDE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-biology-energy-c-serum-coup-d-eclat-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-biology-energy-c-serum-coup-d-eclat.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/aderma-biology-energy-c-serum-coup-d-eclat.webp',
     tags: {
       primary: ['apaisant', 'hydratation'],
       secondary: ['peau-sensible', 'serum', 'traitement', 'zone-visage'],
@@ -775,7 +791,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), GLYCERIN, PENTYLENE GLYCOL, ALOE BARBADENSIS LEAF JUICE POWDER*, AVENA SATIVA (OAT) FLOWER/LEAF/STEM JUICE (AVENA SATIVA FLOWER/LEAF/STEM JUICE)*, CITRIC ACID, COCO-GLUCOSIDE, ETHYL LAUROYL ARGINATE HCL, POLYGLYCERYL-4 CAPRATE, POLYGLYCERYL-6 CAPRYLATE, TARAXACUM OFFICINALE (DANDELION) RHIZOME/ROOT EXTRACT (TARAXACUM OFFICINALE RHIZOME/ROOT EXTRACT)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-biology-lait-demaquillant-dermatologique-bio-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-biology-lait-demaquillant-dermatologique-bio.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/aderma-biology-lait-demaquillant-dermatologique-bio.webp',
     tags: {
       primary: ['apaisant', 'hydratation'],
       secondary: ['peau-sensible', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -795,7 +812,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), GLYCERIN, PROPANEDIOL, PENTYLENE GLYCOL, SODIUM COCOYL GLUTAMATE, DECYL GLUCOSIDE, SODIUM COCOAMPHOACETATE, ALOE BARBADENSIS LEAF JUICE POWDER*, AVENA SATIVA (OAT) FLOWER/LEAF/STEM JUICE (AVENA SATIVA FLOWER/LEAF/STEM JUICE)*, CITRIC ACID, SODIUM CHLORIDE, SODIUM STEAROYL GLUTAMATE, TARAXACUM OFFICINALE (DANDELION) RHIZOME/ROOT EXTRACT (TARAXACUM OFFICINALE RHIZOME/ROOT EXTRACT)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-biology-mousse-nettoyante-dermatologique-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-biology-mousse-nettoyante-dermatologique.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/aderma-biology-mousse-nettoyante-dermatologique.webp',
     tags: {
       primary: ['apaisant', 'hydratation'],
       secondary: ['peau-sensible', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -840,7 +858,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, ZINC OXIDE, PROPYLENE GLYCOL, SORBITOL, BENZYL ALCOHOL, ACRYLATES / VINYL ISODECANOATE CROSSPOLYMER, AVENA SATIVA (OAT) KERNEL EXTRACT (AVENA SATIVA KERNEL EXTRACT), SODIUM MAGNESIUM SILICATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-cytelium-lotion-assechante-apaisante-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-cytelium-lotion-assechante-apaisante.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/aderma-cytelium-lotion-assechante-apaisante.webp',
     tags: {
       primary: ['apaisant'],
       secondary: ['peau-sensible', 'tonique', 'preparation', 'zone-visage'],
@@ -864,7 +883,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), MINERAL OIL (PARAFFINUM LIQUIDUM), CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, BUTYLENE GLYCOLHYDROGENATED VEGETABLE OIL, PEG-30 DIPOLYHYDROXYSTEARATE, ISODODECANE, ZEA MAYS (CORN) STARCH (ZEA MAYS STARCH), ZINC OXIDE, PEG-22/DODECYL GLYCOL COPOLYMER, BEESWAX (CERA ALBA), AVENA SATIVA (OAT) LEAF/STEM EXTRACT (AVENA SATIVA LEAF/STEM EXTRACT), CETYL ALCOHOL, CITRIC ACID, COPPER SULFATE, GLYCERYL STEARATE, MAGNESIUM SULFATE, O-CYMEN-5-OL, SODIUM HYDROXIDE, XANTHAN GUM, ZINC SULFATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-dermalibour-barrier-creme-isolante-apaisante-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-dermalibour-barrier-creme-isolante-apaisante-50ml.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/aderma-dermalibour-barrier-creme-isolante-apaisante-50ml.webp',
     tags: {
       primary: ['apaisant', 'hydratation'],
       secondary: ['peau-sensible', 'creme-hydratante', 'zone-visage'],
@@ -891,7 +911,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'RICINUS COMMUNIS (CASTOR) SEED OIL (RICINUS COMMUNIS SEED OIL), WATER (AQUA), BUTYROSPERMUM PARKII (SHEA) OIL (BUTYROSPERMUM PARKII OIL), GLYCERIN, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL (SIMMONDSIA CHINENSIS SEED OIL), BEESWAX (CERA ALBA), POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE, BUTYROSPERMUM PARKII (SHEA) BUTTER (BUTYROSPERMUM PARKII BUTTER), DISTEARDIMONIUM HECTORITE, MAGNESIUM SULFATE, AVENA SATIVA (OAT) LEAF/STEM EXTRACT (AVENA SATIVA LEAF/STEM EXTRACT), ZINC SULFATE, BENZOIC ACID, GLYCYRRHETINIC ACID, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), HYDROXYCAPRIC ACID, TOCOPHEROL, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-dermalibour-cica-baume-levres-reparateur-15ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-dermalibour-cica-baume-levres-reparateur.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/aderma-dermalibour-cica-baume-levres-reparateur.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'anti-oxydant', 'cicatrisation'],
       secondary: ['peau-sensible', 'reparateur', 'soin-levres', 'zone-levres'],
@@ -918,7 +939,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, HYDROGENATED VEGETABLE OIL, POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE, ZINC OXIDE, MAGNESIUM SULFATE, POLYGLYCERYL-3 DIISOSTEARATE, AVENA SATIVA (OAT) LEAF/STEM EXTRACT (AVENA SATIVA LEAF/STEM EXTRACT), COPPER SULFATE, ZINC SULFATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL (SIMMONDSIA CHINENSIS SEED OIL), TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-dermalibour-cica-creme-reparatrice-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-dermalibour-cica-creme-reparatrice-50ml.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/aderma-dermalibour-cica-creme-reparatrice-50ml.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'anti-oxydant', 'cicatrisation'],
       secondary: ['peau-sensible', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -945,7 +967,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, HYDROGENATED VEGETABLE OIL, WATER (AQUA), SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL (SIMMONDSIA CHINENSIS SEED OIL)*, BUTYROSPERMUM PARKII (SHEA) BUTTER (BUTYROSPERMUM PARKII BUTTER), SUCROSE LAURATE, AVENA SATIVA (OAT) LEAF/STEM EXTRACT (AVENA SATIVA LEAF/STEM EXTRACT)*, CITRIC ACID, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), SODIUM CITRATE, SODIUM HYALURONATE, THEOBROMA GRANDIFLORUM SEED BUTTER*, TOCOPHEROL, UNCARIA TOMENTOSA EXTRACT',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-epitheliale-ah-baume-patch-reparateur-50g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-epitheliale-ah-baume-patch-reparateur.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/aderma-epitheliale-ah-baume-patch-reparateur.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'anti-oxydant', 'cicatrisation'],
       secondary: ['peau-sensible', 'reparateur', 'patch'],
@@ -995,7 +1018,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), GLYCERIN, PENTYLENE GLYCOL, SODIUM HYALURONATE, AVENA SATIVA (OAT) FLOWER/LEAF/STEM JUICE (AVENA SATIVA FLOWER/LEAF/STEM JUICE), TARAXACUM OFFICINALE (DANDELION) RHIZOME/ROOT EXTRACT (TARAXACUM OFFICINALE RHIZOME/ROOT EXTRACT), ALOE BARBADENSIS LEAF JUICE POWDER, CAPRYLYL GLYCOL, SODIUM BENZOATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-epitheliale-ultra-repair-ha-serum-multi-reparateur-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-epitheliale-ultra-repair-ha-serum-multi-reparateur.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/aderma-epitheliale-ultra-repair-ha-serum-multi-reparateur.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'cicatrisation'],
       secondary: ['peau-sensible', 'serum', 'traitement', 'zone-visage', 'reparateur'],
@@ -1016,7 +1040,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), GLYCERIN, ASCORBYL GLUCOSIDE, PENTYLENE GLYCOL, AVENA SATIVA (OAT) FLOWER/LEAF/STEM JUICE (AVENA SATIVA FLOWER/LEAF/STEM JUICE), ALOE BARBADENSIS LEAF JUICE POWDER, CAPRYLYL GLYCOL, CITRIC ACID, SCLEOTIUM GUM, SODIUM BENZOATE, SODIUM CITRATE, SODIUM HYDROXIDE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-epitheliale-vit-c-serum-reparateur-eclat-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-epitheliale-vit-c-serum-reparateur-eclat.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/aderma-epitheliale-vit-c-serum-reparateur-eclat.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'eclat', 'cicatrisation'],
       secondary: ['peau-sensible', 'serum', 'traitement', 'zone-visage', 'reparateur'],
@@ -1040,7 +1065,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, CETEARYL ALCOHOL, NIACINAMIDE, 10-HYDROXYDECENOIC ACID, AVENA SATIVA (OAT) LEAF/STEM EXTRACT (AVENA SATIVA LEAF/STEM EXTRACT), BENZOIC ACID, CAPRYLYL GLYCOL, CARBOMER, CETEARYL GLUCOSIDE, GLYCERYL STEARATE, OENOTHERA BIENNIS (EVENING PRIMROSE) OIL (OENOTHERA BIENNIS OIL), PEG-100 STEARATE, POLYACRYLATE-13, POLYISOBUTENE, POLYSORBATE 20, SODIUM HYDROXIDE, SORBITAN ISOSTEARATE, TOCOPHEROL, TOCOPHERYL ACETATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-exomega-allergo-baume-emollient-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-exomega-allergo-baume-emollient-40ml.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/aderma-exomega-allergo-baume-emollient-40ml.webp',
     tags: {
       primary: ['barriere-cutanee', 'eczema'],
       secondary: [
@@ -1071,7 +1097,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, CETEARYL ALCOHOL, NIACINAMIDE, 10-HYDROXYDECENOIC ACID, AVENA SATIVA (OAT) LEAF/STEM EXTRACT (AVENA SATIVA LEAF/STEM EXTRACT), BENZOIC ACID, CAPRYLYL GLYCOL, CETEARYL GLUCOSIDE, CETYL ALCOHOL, GLYCERYL STEARATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), HELICHRYSUM GYMNOCEPHALUM FLOWER/LEAF/STEM EXTRACT, MALTODEXTRIN, OENOTHERA BIENNIS (EVENING PRIMROSE) OIL (OENOTHERA BIENNIS OIL), PEG-100 STEARATE, POLYACRYLATE-13, POLYISOBUTENE, POLYSORBATE 20, SODIUM HYDROXIDE, SORBITAN ISOSTEARATE, TOCOPHEROL, TOCOPHERYL ACETATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-exomega-control-creme-nuit-emolliente-reparatrice-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-exomega-control-creme-nuit-emolliente-reparatrice-400ml.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/aderma-exomega-control-creme-nuit-emolliente-reparatrice-400ml.webp',
     tags: {
       primary: ['barriere-cutanee', 'eczema'],
       secondary: [
@@ -1103,7 +1130,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "AQUA (WATER), DISODIUM COCAMPHODIACETATE, PEG-7 GLYCERYL COCOATE, DECYL GLUCOSIDE, POLYSORBATE 20, SODIUM CHLORIDE, CETEARETH-60, MYRISTYL GLYCOL, HYDROGENATED STARCH HYDROLYSTAE, PEG-200 HYDROGENATED GLYCERYL PALMATE, 10-HYDROXYDECENOIC ACID, AVENA SATIVA (OAT) LEAF/STEM EXTRACT (AVENA SATIVA LEAF/STEM EXTRACT), BENZOIC ACID, CITRIC ACID, GLYCERIN, GLYCERYL LAURATE, LACTIC ACID, MALTODEXTRIN, OENOTHERA BIENNIS (EVENING PRIMROSE) OIL (OENOTHERA BIENNIS OIL), TOCOPHEROL. * AVOINE RHEALBA ISSUE DE L'AGRICULTURE BIOLOGIQUE",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-exomega-control-gel-moussant-anti-grattage-lot-de-2x500ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-exomega-control-gel-moussant-anti-grattage.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/aderma-exomega-control-gel-moussant-anti-grattage.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'anti-oxydant', 'eczema'],
       secondary: [
@@ -1155,7 +1183,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), GLYCERIN, PENTYLENE GLYCOL, LACTIC ACID, ACACIA SENEGAL GUM, ALOE BARBADENSIS LEAF JUICE POWDER*, AVENA SATIVA (OAT) FLOWER/LEAF/STEM JUICE (AVENA SATIVA FLOWER/LEAF/STEM JUICE)*, GARCINIA MANGOSTANA PEEL EXTRACT, HIBISCUS SABDARIFFA FLOWER EXTRACT, MALTODEXTRIN, POLYGLYCERYL-4 CAPRATE, POLYGLYCERYL-6 CAPRYLATE, SODIUM BENZOATE, SODIUM CITRATE, SODIUM HYDROXIDE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/soins-visage/aderma-biology-ac-night-peel-serum-peau-neuve-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-biology-ac-night-peel-serum-peau-neuve.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/aderma-biology-ac-night-peel-serum-peau-neuve.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'exfoliation'],
       secondary: [
@@ -1187,7 +1216,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, BUTYROSPERMUM PARKII (SHEA) BUTTER (BUTYROSPERMUM PARKII BUTTER), DIMETHICONE, CETEARYL ALCOHOL, GLYCERYL STEARATE, PALMITIC ACID, SODIUM HYALURONATE, STEARIC ACID, AVENA SATIVA (OAT) LEAF/STEM EXTRACT (AVENA SATIVA LEAF/STEM EXTRACT), ALANYL GLUTAMINE, UNCARIA TOMENTOSA EXTRACT, BATYL ALCOHOL, BENZOIC ACID, CAPRYLYL GLYCOL, CETEARYL GLUCOSIDE, DIMETHICONOL, POLYACRYLATE-13, POLYISOBUTENE, POLYSORBATE 20, SODIUM HYDROXIDE, SORBITAN ISOSTEARATE, TOCOPHERYL ACETATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/soins-visage/aderma-epitheliale-ha-ultra-repair-creme-reparatrice-40-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-epitheliale-ha-ultra-repair-creme-reparatrice.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/aderma-epitheliale-ha-ultra-repair-creme-reparatrice.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'anti-oxydant', 'cicatrisation'],
       secondary: ['peau-sensible', 'creme-hydratante', 'zone-visage', 'reparateur'],
@@ -1211,7 +1241,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-epitheliale-creme-reparatrice-spf50-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-epitheliale-creme-reparatrice-spf50.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/aderma-epitheliale-creme-reparatrice-spf50.webp',
     tags: {
       primary: ['cicatrisation', 'protection-solaire'],
       secondary: ['creme-solaire', 'matin', 'zone-visage', 'reparateur'],
@@ -1231,7 +1262,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), C12-15 ALKYL BENZOATE, METHYLENE BIS-BENZOTRIAZOLYL TETRAMETHYLBUTYLPHENOL [NANO], DIISOPROPYL ADIPATE, PENTAERYTHRITYL TETRACAPRYLATE/TETRACAPRATE, DICAPRYLYL CARBONATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIETHYLHEXYL BUTAMIDO TRIAZONE, ALUMINUM STARCH OCTENYLSUCCINATE, BUTYLENE GLYCOL, BUTYL METHOXYDIBENZOYLMETHANE, POTASSIUM CETYL PHOSPHATE, DECYL GLUCOSIDE, C10-18 TRIGLYCERIDES, GLYCERYL STEARATE, PEG-100 STEARATE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, AVENA SATIVA (OAT) SPROUT OIL (AVENA SATIVA SPROUT OIL), BENZOIC ACID, CAPRYLYL GLYCOL, DISODIUM EDTA, GLYCERYL BEHENATE, GLYCERYL DIBEHENATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), PEG-30 DIPOLYHYDROXYSTEARATE, PROPYLENE GLYCOL, SODIUM HYDROXIDE, TOCOPHEROL, TOCOPHERYL ACETATE, TRIBEHENIN, TRIDECETH-6, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-exomega-control-creme-solaire-emolliente-spf50-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-exomega-control-creme-solaire-emolliente-spf50.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/aderma-exomega-control-creme-solaire-emolliente-spf50.webp',
     tags: {
       primary: ['apaisant', 'anti-oxydant', 'eczema', 'protection-solaire'],
       secondary: [
@@ -1268,7 +1300,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "WATER (AQUA), GLYCERIN, CAPRYLIC/CAPRIC TRIGLYCERIDE, ISOPROPYL PALMITATE, PROPYLENE GLYCOL, C14-22 ALCOHOLS, DIMETHICONE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, AVENA SATIVA (OAT)* SPROUT OIL, BENZOIC ACID, C12-20 ALKYL GLUCOSIDE, C20-22 ALCOHOLS, C20-22 ALKYL PHOSPHATE, CAPRYLYL GLYCOL, FRAGRANCE (PARFUM), POLYSORBATE 60, SODIUM HYALURONATE, SODIUM HYDROXIDE, SORBITAN ISOSTEARATE, SQUALANE, TOCOPHERYL ACETATE, XANTHAN GUM.* AVOINE RHEALBA ISSUE DE L'AGRICULTURE BIOLOGIQUE",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-protect-ah-lait-reparateur-apres-soleil-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-protect-ah-lait-reparateur-apres-soleil.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/aderma-protect-ah-lait-reparateur-apres-soleil.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'barriere-cutanee', 'cicatrisation'],
       secondary: ['peau-sensible', 'emollience', 'texture-legere', 'reparateur'],
@@ -1292,7 +1325,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), C12-15 ALKYL BENZOATE, METHYLENE BIS-BENZOTRIAZOLYL TETRAMETHYLBUTYLPHENOL [NANO], DIISOPROPYL ADIPATE, ISODECYL NEOPENTANOATE, SILICA, DICAPRYLYL CARBONATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIETHYLHEXYL BUTAMIDO TRIAZONE, ALUMINUM STARCH OCTENYLSUCCINATE, POTASSIUM CETYL PHOSPHATE, BUTYL METHOXYDIBENZOYLMETHANE, DECYL GLUCOSIDE, 1,2-HEXANEDIOL, C10-18 TRIGLYCERIDES, VP/EICOSENE COPOLYME, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, AVENA SATIVA (OAT) SPROUT OIL, BENZOIC ACID, DISODIUM EDTA, FRAGRANCE (PARFUM), GLYCERYL BEHENATE, GLYCERYL DIBEHENATE, GLYCERYL STEARATE, PEG-100 STEARATE, PROPYLENE GLYCOL, TOCOPHEROL, TOCOPHERYL ACETATE, TRIBEHENIN, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-protect-pocket-fluide-invisible-spf50-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-protect-pocket-fluide-invisible-spf50.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/aderma-protect-pocket-fluide-invisible-spf50.webp',
     tags: {
       primary: ['apaisant', 'anti-oxydant', 'protection-solaire'],
       secondary: ['peau-sensible', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1322,7 +1356,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'OCTYLDODECANOL, POLYETHYLENE, BUTYLENE GLYCOL COCOATE, HYDROGENATED MICROCRISTALLINE WAX, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DIETHYLHEXYL BUTAMIDO TRIAZONE, BUTYL METHOXYDIBENZOYLMETHANE, ETHYLHEXYL SALICYLATE, BEESWAX (CERA ALBA), HYDROGENATED CASTOR OIL, AVENA SATIVA (OAT) SPROUT OIL, ALUMINUM HYDROXIDE, DISODIUM STEAROYL GLUTAMATE, SACCHARIN, TITANIUM DIOXIDE (CI 77891)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-protect-x-trem-stick-invisible-spf50-8g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-protect-x-trem-stick-invisible-spf50.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/aderma-protect-x-trem-stick-invisible-spf50.webp',
     tags: {
       primary: ['protection-solaire', 'apaisant'],
       secondary: ['filtres-chimiques', 'peau-sensible', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1773,7 +1808,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA). GLYCERIN. HYDROGENATED STARCH HYDROLYSATE. COCO-GLUCOSIDE. ZINC COCETH SULFATE. SODIUM COCOAMPHOACETATE. CETEARETH-60 MYRISTYL GLYCOL. PEG-40 HYDROGENATED CASTOR OIL. 10-HYDROXYDECENOIC ACID. AVENA SATIVA (OAT) LEAF/STEM EXTRACT (AVENA SATIVA LEAF/STEM EXTRACT). CITRIC ACID. FRAGRANCE (PARFUM). GLYCERYL OLEATE. HYDROGENATED VEGETABLE GLYCERIDES CITRATE. LAURIC ACID. MAGNESIUM OXIDE. OENOTHERA BIENNIS (EVENING PRIMROSE) OIL (OENOTHERA BIENNIS OIL). PEG-120 METHYL GLUCOSE DIOLEATE. PROPYLENE GLYCOL. SODIUM BENZOATE. SODIUM CHLORIDE. SODIUM HYDROXIDE. SODIUM LAUROYL METHYL ISETHIONATE. SODIUM METHYL ISETHIONATE. TOCOPHEROL. TRISODIUM ETHYLENEDIAMINE DISUCCINATE',
     url: 'https://www.atida.fr/a-derma-exomega-control-huile-lavante-emolliente-anti-demangeaisons-1l.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/a-derma-exomega-control-huile-lavante-emolliente-anti-demangeaisons-1l-303228.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/a-derma-exomega-control-huile-lavante-emolliente-anti-demangeaisons-1l-303228.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -1800,7 +1836,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, glycerin, coco-glucoside, ceteareth-60 myristyl glycol, zinc coceth sulfate, sodium cocamphoacetate, polysorbate 60, peg-40 hydrogenated castor oil, glyceryl oleate, citric acid, 10-hydroxydecenoic acid, ascorbyl palmitate, avena sativa (oat) leaf/stem extract (avena sativa leaf/stem extract), hydrogenated palm glycerides citrate, laureth-3, lecithin, maleic acid, oenothera evening primrose oil, propylene glycol, sodium chloride, sodium hydroxide, tocopherol.',
     url: 'https://www.atida.fr/aderma-exomega-control-gel-lavant-emollient-anti-grattage-lot-2-x-500ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/a-derma-exomega-control-gel-lavant-emollient-anti-grattage-2-en-1-lot-de-2-x-500ml-275179.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/a-derma-exomega-control-gel-lavant-emollient-anti-grattage-2-en-1-lot-de-2-x-500ml-275179.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -1828,7 +1865,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Water (aqua), glycerin, hydrogenated starch hydrolysate, coco-glucoside, zinc coceth sulfate, sodium cocoamphoacetate, ceteareth-60 myristyl glycol, peg-40 hydrogenated castor oil, 10-hydroxydecenoic acid, ascorbyl palmitate, avena sativa (oat) leaf/stem extract (avena sativa leaf/stem extract), citric acid, fragrance (parfum), glyceryl oleate, hydrogenated palm glycerides citrate, lauric acid, lecithin, oenothera biennis (evening primrose) oil (oenothera biennis oil), peg-120 methyl glucose dioleate, propylene glycol, sodium benzoate, sodium chloride, sodium hydroxide, sodium lauroyl methyl isethionate, sodium methyl isethionate, tocopherol, trisodium ethylenediamine disuccinate.',
     url: 'https://www.atida.fr/aderma-exomega-huile-nettoyante-emolliente-500ml-6018188.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/a-derma-exomega-control-huile-lavante-emolliente-anti-grattage-500ml-267567.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/a-derma-exomega-control-huile-lavante-emolliente-anti-grattage-500ml-267567.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -1855,7 +1893,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "WATER (AQUA). GLYCERIN.\nHYDROGENATED STARCH HYDROLYSATE. COCO-GLUCOSIDE. ZINC COCETH SULFATE.\nSODIUM COCOAMPHOACETATE. CETEARETH-60 MYRISTYL GLYCOL. PEG-40\nHYDROGENATED CASTOR OIL. 10-HYDROXYDECENOIC ACID. AVENA SATIVA (OAT)\nLEAF/STEM EXTRACT (AVENA SATIVA LEAF/STEM EXTRACT). CITRIC ACID.\nFRAGRANCE (PARFUM). GLYCERYL OLEATE. HYDROGENATED VEGETABLE\nGLYCERIDES CITRATE. LAURIC ACID. MAGNESIUM OXIDE. OENOTHERA BIENNIS\n(EVENING PRIMROSE) OIL (OENOTHERA BIENNIS OIL). PEG-120 METHYL\nGLUCOSE DIOLEATE. PROPYLENE GLYCOL. SODIUM BENZOATE. SODIUM CHLORIDE.\nSODIUM HYDROXIDE. SODIUM LAUROYL METHYL ISETHIONATE. SODIUM METHYL\nISETHIONATE. TOCOPHEROL. TRISODIUM\nETHYLENEDIAMINE DISUCCINATE91% d'ingrédient d'origine naturelleCe produit est écoconçuAvoine Rhealba® issue de l'agriculture biologiqueFormule BIODEGRADABLE selon la norme OCDE 301 BFlacon plastique recyclable et 100% recycléInformation VEGAN : sans ingrédient d'origine animaleEco-recharge : -76% de plastique*Extrait de Plantules d'Avoine Rhealba® : Rééquilibre, apaise et répare la peau fragile.L'Avoine Rhealba®, une avoine unique, sélectionnée parmi 26 000 variétés, dont la teneur en molécules actives puissantes et reconnus, lui confère ses propriétés régénératrices de la barrière cutanée. Présente dans tous les produits A-Derma, elle apaise et répare les peaux de toute la famille même les plus fragilisées.*-76% de plastique versus flacon 500ml",
     url: 'https://www.atida.fr/a-derma-exomega-control-huile-lavante-emolliente-anti-grattage-recharge-500ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/a-derma-exomega-control-huile-lavante-emolliente-anti-grattage-recharge-500ml-275577.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/a-derma-exomega-control-huile-lavante-emolliente-anti-grattage-recharge-500ml-275577.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -1882,7 +1921,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, glycerin, coco-glucoside, ceteareth-60 myristyl glycol, zinc coceth sulfate, sodium cocamphoacetate, polysorbate 60, peg-40 hydrogenated castor oil, glyceryl oleate, citric acid, 10-hydroxydecenoic acid, ascorbyl palmitate, avena sativa (oat) leaf/stem extract (avena sativa leaf/stem extract), hydrogenated palm glycerides citrate, laureth-3, lecithin, maleic acid, oenothera evening primrose oil, propylene glycol, sodium chloride, sodium hydroxide, tocopherol.',
     url: 'https://www.atida.fr/aderma-exomega-gel-2-en-1-500ml-6030481.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/a-derma-exomega-control-gel-lavant-emollient-2-en-1-anti-grattage-500ml-268203.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/a-derma-exomega-control-gel-lavant-emollient-2-en-1-anti-grattage-500ml-268203.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -1910,7 +1950,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Aqua, peg-7 glyceryl cocoate, zinc coceth sulfate, disodium laureth sulfosuccinate, ceteareth-60myristyl glycol, sodium chloride, avena sativa (oat) leaf / stem extract*, citric acid, copper sulfate, disodium edta, lactic acid, laureth-3, sodium hydroxide, zinc sulfate.\n*avoine rhealba issue de l'agriculture biologique.",
     url: 'https://www.atida.fr/aderma-dermalibour-cica-gel-moussant-assainissant-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/a-derma-dermalibour-cica-gel-moussant-assainissant-200ml-275256.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/a-derma-dermalibour-cica-gel-moussant-assainissant-200ml-275256.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.EXFOLIATION],
       secondary: [
@@ -1939,7 +1980,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Sodium cocoyl isethionate, stearic acid, sodium laurate, sodium stearate, aqua, paraffin, sodium myristate, butyrospermum parkii butter, prunus amygdalus dulcis, avena sativa kernel extract, coco-glucoside, glyceryl linoleate, glyceryl linoleate, glycine soja oil, propylene glycol, titanium dioxide, tocopherol.',
     url: 'https://www.atida.fr/aderma-pain-surgras-au-lait-d-avoine-lot-de-2-x-100g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/a-derma-les-indispensables-pain-surgras-nutritif-lot-de-2-x-100g-249233.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/a-derma-les-indispensables-pain-surgras-nutritif-lot-de-2-x-100g-249233.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -1967,7 +2009,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Water (aqua), decyl glucoside, sodium lauroyl methyl isethionate, glycerin, disodium cocoamphodiacetate, acrylates/c10-30 alkyl acrylate crosspolymer, avena sativa (oat) kernel extract (avena sativa kernel extract), caprylyl glycol, citric acid, coco-glucoside, fragrance (parfum), glyceryl oleate, glycol distearate, hydrogenated palm glycerides citrate, hydroxypropyl guar hydroxypropyltrimonium chloride, lauric acid, propylene glycol, sodium benzoate, sodium chloride, sodium glycolate, sodium hydroxide, sodium methyl isethionate, tocopherol, trisodium ethylenediamine dissucinate.',
     url: 'https://www.atida.fr/aderma-gel-douche-hydra-protecteur-750ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/a-derma-les-indispensables-gel-douche-hydra-protecteur-750ml-297197.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/a-derma-les-indispensables-gel-douche-hydra-protecteur-750ml-297197.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -1994,7 +2037,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, disodium cocoamphodiacetate, peg-7 glyceryl cocoate, decyl glucoside, polysorbate-20, sodium chloride, ceteareth-60 myristyl glycol sorbitol, glycerin, peg-200 hydrogenated glyceryl palmate, 10-hydroxydecenoic acid, avena sativa (oat) leaf/stem extract (avena sativa leaf/stem extract), benzoic acid, citric acid, glyceryl laurate, lactic acid, maltodextrin, oenothera biennis (evening primrose) oil (oenothera) biennis oil, tocopherol.',
     url: 'https://www.atida.fr/aderma-exomega-gel-moussant-emollient-lot-de-2-x-500ml-2501750.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/a-derma-exomega-control-gel-moussant-emollient-anti-grattage-lot-de-2-x-500ml-248023.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/a-derma-exomega-control-gel-moussant-emollient-anti-grattage-lot-de-2-x-500ml-248023.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -2024,7 +2068,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "WATER (AQUA). GLYCERIN. HYDROGENATED STARCH HYDROLYSATE. COCO-GLUCOSIDE. ZINC COCETH SULFATE. SODIUM COCOAMPHOACETATE. CETEARETH-60 MYRISTYL GLYCOL. PEG-40 HYDROGENATED CASTOR OIL. 10-HYDROXYDECENOIC ACID. AVENA SATIVA (OAT) LEAF/STEM EXTRACT (AVENA SATIVA LEAF/STEM EXTRACT). CITRIC ACID. FRAGRANCE (PARFUM). GLYCERYL OLEATE. HYDROGENATED VEGETABLE GLYCERIDES CITRATE. LAURIC ACID. MAGNESIUM OXIDE. OENOTHERA BIENNIS (EVENING PRIMROSE) OIL (OENOTHERA BIENNIS OIL). PEG-120 METHYL GLUCOSE DIOLEATE. PROPYLENE GLYCOL. SODIUM BENZOATE. SODIUM CHLORIDE. SODIUM HYDROXIDE. SODIUM LAUROYL METHYL ISETHIONATE. SODIUM METHYL ISETHIONATE. TOCOPHEROL. TRISODIUM ETHYLENEDIAMINE DISUCCINATE91% d'ingrédients d'origine naturelleExtrait d'Avoine Rhealba : Apaise la peau fragileL’Avoine Rhealba®, une avoine unique, sélectionnée parmi 26 000 variétés, dont la teneur en molécules actives puissantes et reconnues, lui confère ses propriétés RÉGÉNÉRATRICES de la barrière cutanée. Présente dans tous les produits A-DERMA, elle apaise et répare les peaux de toute la famille même les fragilisées.",
     url: 'https://www.atida.fr/a-derma-exomega-control-huile-lavante-emolliente-anti-grattage-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/a-derma-exomega-control-huile-lavante-emolliente-anti-grattage-200ml-275091.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/a-derma-exomega-control-huile-lavante-emolliente-anti-grattage-200ml-275091.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -2051,7 +2096,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Water (aqua), disodium cocoamphodiacetate, peg-7 glyceryl cocoate, decyl glucoside, polysorbate 20, sodium chloride, ceteareth-60 myristyl glycol, hydrogenated starch hydrolysate, peg-200 hydrogenated glyceryl palmate, 10-hydroxydecenoic acid, avena sativa (oat) leaf/stem extract (avena sativa leaf/stem extract), benzoic acid, citric acid, glycerin, glyceryl laurate, lactic acid, maltodextrin, oenothera biennis (evening primrose) oil (oenothera biennis oil), tocopherol.',
     url: 'https://www.atida.fr/a-derma-exomega-control-gel-moussant-emollient-anti-grattage-500ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/a-derma-exomega-control-gel-moussant-emollient-anti-grattage-500ml-275113.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/a-derma-exomega-control-gel-moussant-emollient-anti-grattage-500ml-275113.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [

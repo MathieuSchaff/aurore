@@ -15,7 +15,8 @@ export const ORAL_B_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Fibres synthétiques.',
     url: 'https://www.atida.fr/oral-b-brossettes-sensi-ultra-thin-lot-de-3-brossettes.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/oral-b-brossette-de-rechange-sensitive-clean-3-unites-271192.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/oral-b-brossette-de-rechange-sensitive-clean-3-unites-271192.webp',
     tags: {
       primary: [TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
@@ -36,7 +37,8 @@ export const ORAL_B_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/oral-b-brossettes-cross-action-lot-de-3-brossettes.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/oral-b-brossette-crossaction-avec-technologie-cleanmaximiser-3-unites-271193.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/oral-b-brossette-crossaction-avec-technologie-cleanmaximiser-3-unites-271193.webp',
     tags: {
       primary: [TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
@@ -57,7 +59,8 @@ export const ORAL_B_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/oral-b-fil-dentaire-pro-expert-premium-40m.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/oral-b-fil-dentaire-pro-expert-50m-278827.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/oral-b-fil-dentaire-pro-expert-50m-278827.webp',
     tags: {
       primary: [TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
@@ -78,7 +81,8 @@ export const ORAL_B_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/oral-b-brossettes-cross-action-lot-de-8-brossettes.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/oral-b-brossette-crossaction-avec-technologie-cleanmaximiser-8-unites-271194.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/oral-b-brossette-crossaction-avec-technologie-cleanmaximiser-8-unites-271194.webp',
     tags: {
       primary: [TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],

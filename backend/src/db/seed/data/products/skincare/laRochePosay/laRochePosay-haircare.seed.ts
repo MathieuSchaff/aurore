@@ -16,7 +16,8 @@ export const LA_ROCHE_POSAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, SODIUM LAURETH SULFATE, COCAMIDE MEA, CAPRYLOYL GLYCINE, COCO-BETAINE, LAURETH-5 CARBOXYLIC ACID, SALICYLIC ACID, COCAMIDE MIPA, PIROCTONE OLAMINE, ISOPROPYL MYRISTATE, BUTYLPARABEN, CAPRYLOYL SALICYLIC ACID, ETHYLPARABEN, HEXYLENE GLYCOL, IODOPROPYNYL BUTYLCARBAMATE, ISOBUTYLPARABEN, METHYLPARABEN, NIACINAMIDE, PEG-4 DILAURATE, PEG-4 LAURATE, PEG-55 PROPYLENE GLYCOL OLEATE, POLYQUATERNIUM-10, PROPYLENE GLYCOL, PROPYLPARABEN, SODIUM CHLORIDE, SODIUM HYDROXIDE, PARFUM (FRAGRANCE)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-kerium-ds-shampooing-antipelliculaire-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-kerium-ds-shampooing-antipelliculaire.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/la-roche-posay-kerium-ds-shampooing-antipelliculaire.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -45,7 +46,8 @@ export const LA_ROCHE_POSAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, SODIUM LAURETH SULFATE, COCAMIDOPROPYL BETAINE, COCAMIDE MIPA, SODIUM CHLORIDE, CAPRYLOYL GLYCINE, BUTYLPARABEN, CAPRYLOYL SALICYLIC ACID, DISODIUM RICINOLEAMIDO MEA-SULFOSUCCINATE, ETHYLPARABEN, GLYCERYL LAURATE, HEXYLENE GLYCOL, IODOPROPYNYL BUTYLCARBAMATE, ISOBUTYLPARABEN, METHYLPARABEN, PEG-4 DILAURATE, PEG-4 LAURATE, PIROCTONE OLAMINE, POLYQUATERNIUM-10, PROPYLPARABEN, SALICYLIC ACID, SODIUM BENZOATE, ZINC PCA, PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/soins-capillaires/la-roche-posay-kerium-antipelliculaire-shampooing-gel-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-kerium-antipelliculaire-shampooing-gel.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/la-roche-posay-kerium-antipelliculaire-shampooing-gel.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],

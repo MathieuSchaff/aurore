@@ -15,7 +15,8 @@ export const PURESSENTIEL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Alcohol, lavandula angustifolia flower water, aqua, melaleuca alternifolia leaf oil, lavandula hybrida oil, lavandula angustifolia oil, acetum, pelargonium graveolens oil, rosmarinus officinalis leaf oil, eugenia caryophyllus bud oil, linalool, citronellol, eugenol, geraniol, limonene, isoeugenol, coumarin.Biocide TP19.',
     url: 'https://www.atida.fr/puressentiel-anti-poux-repulsif-poux-spray-75ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/puressentiel-anti-poux-repulsif-poux-spray-75ml-233629.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/puressentiel-anti-poux-repulsif-poux-spray-75ml-233629.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -36,7 +37,8 @@ export const PURESSENTIEL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, sodium lauryl sulfate, lavandula angustifolia flower water*, inulin, sodium cocoamphoacetate, sodium pca, glycerin, caprylyl/capryl glucoside, citric acid, sodium chloride, sodium benzoate, acetum**, coco-glucoside, glyceryl oleate, lavandula angustifolia oil*, cananga odorata flower oil*, lavandula hybrida grosso herb oil*, aloe barbadensis leaf juice powder*, pelargonium graveolens oil*, potassium sorbate, hydrogenated palm glycerides citrate, tocopherol, sodium hydroxide, linalool, benzyl benzoate, geraniol, citronellol.\n*ingrédients issus de l’agriculture biologique. ** transformé à partir d’ingrédients biologiques',
     url: 'https://www.atida.fr/puressentiel-anti-poux-pouxdoux-shampooing-quotidien-certifie-bio-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/puressentiel-anti-poux-pouxdoux-shampoing-quotidien-certifie-bio-200ml-256460.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/puressentiel-anti-poux-pouxdoux-shampoing-quotidien-certifie-bio-200ml-256460.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -63,7 +65,8 @@ export const PURESSENTIEL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Alcohol, lavandula angustifolia flower water, aqua, melaleuca alternifolia leaf oil, lavandula hybrida oil, lavandula angustifolia oil, acetum, pelargonium graveolens oil, rosmarinus officinalis leaf oil, eugenia caryophyllus bud oil, linalool, citronellol, eugenol, geraniol, limonene, isoeugenol, coumarin.Biocide TP19.',
     url: 'https://www.atida.fr/puressentiel-anti-poux-repulsif-poux-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/puressentiel-anti-poux-repulsif-poux-200ml-267311.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/puressentiel-anti-poux-repulsif-poux-200ml-267311.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],

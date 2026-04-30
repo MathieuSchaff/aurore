@@ -15,7 +15,8 @@ export const COSLYS_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Aqua (water), spiraea ulmaria flower water*, sodium coco-sulfate, cocamidopropyl betaine, decyl glucoside, sodium chloride, coco-glucoside, glyceryl oleate, aloe barbadensis leaf juice powder*, centaurea cyanus flower extract*, hydrolyzed adansonia digitata seed extract, parfum (fragrance), glycerin, coconut alcohol, guar hydroxypropyltrimonium chloride, sodium sulfate, potassium hydroxide, citric acid, dehydroacetic acid, benzyl alcohol, sodium benzoate, potassium sorbate, linalool, limonene, citronellol.*Ingrédients issus de l'Agriculture Biologique97,5% du total des ingrédients sont d'origine naturelle. 11,5% du total des ingrédients sont issus de l'Agriculture Biologique.",
     url: 'https://www.atida.fr/coslys-shampoing-anti-jaunissement-bio-500ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/coslys-shampoing-anti-jaunissement-bio-500ml-286930.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/coslys-shampoing-anti-jaunissement-bio-500ml-286930.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -40,7 +41,8 @@ export const COSLYS_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Aqua (water), spiraea ulmaria flower water*, sodium coco-sulfate, cocamidopropyl betaine, decyl glucoside, sodium chloride, coco-glucoside, glyceryl oleate, aloe barbadensis leaf juice powder*, simmondsia chinensis (jojoba) seed oil*, hydrolyzed wheat protein, parfum (fragrance), coconut alcohol, guar hydroxypropyltrimonium chloride, sodium sulfate, dehydroacetic acid, sodium benzoate, citric acid, benzyl alcohol, potassium hydroxide, linalool, limonene, geraniol *Ingrédients issu de l'Agriculture Biologique97,5% du total des ingrédients sont d'origine naturelle. 11,5% du total des ingrédients sont issus de l'Agriculture Biologique.",
     url: 'https://www.atida.fr/coslys-shampoing-ultra-doux-bio-1l.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/coslys-shampoing-ultra-doux-bio-1l-285926.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/coslys-shampoing-ultra-doux-bio-1l-285926.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -66,7 +68,8 @@ export const COSLYS_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Aqua (water), sodium coco-sulfate, cocamidopropyl betaine, decyl glucoside, aloe barbadensis leaf juice powder, sodium chloride, sodium benzoate, cocodimonium hydroxypropyl hydrolyzed wheat protein, parfum (fragrance), lactic acid, sodium dehydroacetate, sodium sulfate, coconut alcohol.* ingrédients issus de l'agriculture biologique.",
     url: 'https://www.atida.fr/coslys-shampooing-famille-aloe-vera-bio-doypack-1l.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/coslys-shampoing-famille-aloe-vera-bio-doypack-1l-286965.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/coslys-shampoing-famille-aloe-vera-bio-doypack-1l-286965.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],

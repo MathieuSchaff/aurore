@@ -55,7 +55,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water/eau)*, disodium lauryl sulfosuccinate*, glycerin*, citrus limon (lemon) fruit extract*, zinc coco-sulfate*, disodium capryloyl glutamate*, sodium lauroyl sarcosinate*, sulfur,zinc pca*, sodium chloride, cucumis sativus (cucumber) fruit extract*,urtica dioica (netlle) leaf extract*, helianthus annuus (sunflower) seed oil*, annatto (ci 75120/bixa orellana seed extract)*, butylene glycol, xanthan gum*, propylene glycol, potassium sorbate, sodium benzoate, parfum (fragrance)*Origine naturelle : 95%',
     url: 'https://www.atida.fr/garancia-sulfureuse-pate-du-marabout-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-marabout-sulfureuse-pate-purifiante-nettoyante-150ml-232119.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-marabout-sulfureuse-pate-purifiante-nettoyante-150ml-232119.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BRILLANCE],
       secondary: [
@@ -88,7 +89,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water/eau)*, propanediol*, glycerin*, butyrospermum parkii (shea) butter*, propanediol dicaprylate*, citrus limon (lemon) fruit extract* , helianthus annuus (sunflower) seed oil unsaponifiables*, parfum (fragrance), isononyl isononanoate, isostearyl alcohol*, boron nitride, oryza sativa (rice) bran oil*, croton lechleri resin extract*, ulva lactuca extract*, lycopene*, montmorillonite* , sucrose palmitate, sucrose stearate*, lecithin*, olus/vegetable oil/huile vegetale*, ethylcellulose*, tocopherol*, butylene glycol cocoate, acrylates/c10-c30 alkyl acrylate crosspolymer, sodium hydroxyde*, potassium sorbate, sorbic acid , ascorbic acid.*95% origine naturelle.',
     url: 'https://www.atida.fr/garancia-diabolique-tomate-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-diabolique-tomate-creme-d-eau-bonne-mine-30ml-233465.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-diabolique-tomate-creme-d-eau-bonne-mine-30ml-233465.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ECLAT, TAG_SLUGS.REPULPANT],
       secondary: [
@@ -117,7 +119,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua (water/eau)*, glycerin*, coco glucoside*, citrus limon (lemon) fruit extract*, rosa damascena flower water*, centaurea cyanus flower water*, hamamelis virginiana (witch hazel) water*, caprylyl/capryl glucoside*, lactobacillus*, propylene glycol, camellia sinensis leaf water*, cucumis sativus (cucumber) fruit extract*, cocos nucifera (coconut) fruit extract*, bacillus ferment*, papain*, algin*, potassium sorbate, citric acid, parfum (fragrance), carbomer, 1,2-hexanediol, caprylyl glycol\n*origine naturelle / natural origin\n98% d’ingrédients d’origine naturelle',
     url: 'https://www.atida.fr/garancia-pschitt-magique-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-pschitt-magique-nouvelle-peau-visage-micropeeling-sans-grain-edition-limitee-psychedelique-100ml-248660.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-pschitt-magique-nouvelle-peau-visage-micropeeling-sans-grain-edition-limitee-psychedelique-100ml-248660.webp',
     tags: {
       primary: [TAG_SLUGS.MICROBIOME, TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.TEINT_TERNE],
       secondary: [
@@ -145,7 +148,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "AQUA (WATER/EAU)*, COCO-CAPRYLATE/ CAPRATE*, CETEARYL ALCOHOL*, GLYCERYL STEARATE*, POLYGLYCERYL-4 STEARATE*, LINUM USITATISSIMUM (LINSEED)_x001D_ SEED OIL*, HYDROXYSTEARIC ACID*, OLIVE OIL POLYGLYCERYL-6 ESTERS*, ORYZA SATIVA (RICE) BRAN OIL*, PERSEA GRATISSIMA _x001E_(AVOCADO) OIL*, POLYGLYCERYL-10 OLEATE, SACCHARIDE ISOMERATE*, ACACIA SENEGAL GUM*, CAESALPINIA SPINOSA GUM*, TOCOPHEROL*, XANTHAN GUM*, CAPRYLIC ACID, 1,5-PENTANEDIOL, PARFUM (FRAGRANCE), CITRIC ACID*, SODIUM CITRATE*, SODIUM BENZOATE *ORIGINE NATURELLE/NATURAL ORIGIN Cette liste d'ingrédients ne remplace pas les informations figurant sur l'emballage du produit. Merci de vous y reporter.",
     url: 'https://www.atida.fr/garancia-gant-de-beaute-ensorcelant-aux-supers-pouvoirs-lot-de-2-x-50g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-gant-de-beaute-ensorcelant-aux-supers-pouvoirs-lot-de-2-x-50g-249814.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-gant-de-beaute-ensorcelant-aux-supers-pouvoirs-lot-de-2-x-50g-249814.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.REPULPANT],
       secondary: [
@@ -173,7 +177,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water/eau)*, glycerin*, coco-caprylate/caprate*, butyrospermum parkii (shea) butter*, imperata cylindrica root extract*, parfum (fragrance), linum usitatissimum (linseed) seed oil*, polyglyceryl-10 myristate*, candelilla/jojoba/rice bran polyglyceryl-3 esters*, glyceryl stearate*, rosa damascena flower water*, menyanthes trifoliata leaf extract*, citrus medica limonum (lemon) fruit water*, mel (honey) extract*, cetearyl alcohol*, sodium stearoyl lactylate*, xanthan gum*, gellan gum*, caprylyl glycol*, succinic acid*, sodium hydroxide, carbomer, sodium citrate*, acrylates/c10-30 alkyl acrylate crosspolymer, citric acid*, biotin, citronellol*, geraniol**98% d’ingrédients d’origine naturelle.',
     url: 'https://www.atida.fr/garancia-formule-ensorcelante-anti-peau-de-croco-3-en-1-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-ensorcelante-formule-anti-peau-de-croco-creme-corps-3-en-1-400ml-267259.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-ensorcelante-formule-anti-peau-de-croco-creme-corps-3-en-1-400ml-267259.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.KERATOSE_PILAIRE],
       secondary: [
@@ -202,7 +207,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'INGREDIENTS : AQUA (WATER/EAU) ; COCO-CAPRYLATE/CAPRATE ; DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE ; DIETHYLHEXYL BUTAMIDO TRIAZONE ; KAOLIN ; ETHYLHEXYL TRIAZONE ; DISODIUM PHENYL DIBENZIMIDAZOLE TETRASULFONATE ; PONGAMIA GLABRA SEED OIL ; ORYZA SATIVA (RICE) STARCH ; PENTYLENE GLYCOL ; CAPRYLOYL GLYCERIN/SEBACIC ACID COPOLYMER; SODIUM STEAROYL GLUTAMATE; JOJOBA ESTERS ; GLYCERYL STEARATES; 1,2-HEXANEDIOL; SODIUM HYALURONATE ; DUNALIELLA SALINA EXTRACT ; HAEMATOCOCCUS PLUVIALIS EXTRACT; GLYCINE SOJA OIL ; ANNATTO (CI75120/BIXA ORELLANA SEED EXTRACT) ; HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX; STEARYL ALCOHOL; CELLULOSE GUM ; GLYCERIN ; CETYL ALCOHOL ; MICROCRYSTALLINE CELLULOSE; DECYL GLUCOSIDE; XANTHAN GUM; POLYGLYCERIN-3 ; CAPRYLYL GLYCOL; PHYTIC ACID ; ; TOCOPHEROL ; IRON OXIDES (CI77499) ; SODIUM CITRATE; CITRIC ACID ; SODIUM HYDROXYDE',
     url: 'https://www.atida.fr/garancia-solaire-sun-expert-incroyable-douceur-fluide-teinte-embellisseur-spf50-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-solaire-sun-expert-incroyable-douceur-fluide-teinte-embellisseur-spf50-40ml-303994.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-solaire-sun-expert-incroyable-douceur-fluide-teinte-embellisseur-spf50-40ml-303994.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.PHOTO_PROTECTION, TAG_SLUGS.PHOTO_VIEILLISSEMENT],
       secondary: [
@@ -232,7 +238,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water/eau)*, glycerin*, coco glucoside*, citrus limon (lemon) fruit extract*, rosa damascena flower water*, centaurea cyanus flower water*, hamamelis virginiana (witch hazel) water*, caprylyl/capryl glucoside*, lactobacillus*, propylene glycol, camellia sinensis leaf water*, cucumis sativus (cucumber) fruit extract*, cocos nucifera (coconut) fruit extract*, bacillus ferment*, papain*, algin*, potassium sorbate, citric acid, parfum (fragrance), carbomer, 1,2-hexanediol, caprylyl glycol*98% d’ingrédients d’origine naturelle.',
     url: 'https://www.atida.fr/garancia-pschitt-magique-100ml-4326359.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-pschitt-magique-nouvelle-peau-visage-micropeeling-sans-grain-100ml-232359.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-pschitt-magique-nouvelle-peau-visage-micropeeling-sans-grain-100ml-232359.webp',
     tags: {
       primary: [TAG_SLUGS.MICROBIOME, TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.TEINT_TERNE],
       secondary: [
@@ -260,7 +267,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Aqua (water/eau)*, coco-caprylate/caprate*, methylpropanediol, boron nitride, bentonite, glyceryl stearate*, oxidized corn oil*, glyceryl stearate citrate*, glycerin*, zinc gluconate*, alcohol*, magnesium aluminum silicate, tocopherol, croton lechleri resin extract*, calendula officinalis flower extract*, onopordum acanthium flower/leaf/stem extract*, maltodextrin*, xanthan gum*, glyceryl undecylenate*, parfum (fragrance), hydroxypropyl cyclodextrin, palmitoyl tripeptide-38, benzyl alcohol, ethylhexylglycerin, citric acid*89% d'origine naturelle.",
     url: 'https://www.atida.fr/garancia-le-chardon-et-le-marabout-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-marabout-le-chardon-et-le-marabout-bb-creme-reparatrice-nude-30ml-263997.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-marabout-le-chardon-et-le-marabout-bb-creme-reparatrice-nude-30ml-263997.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -290,7 +298,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Butane, aqua (water/eau) *, glycerin*, succinic acid*, sodium hydroxyde*, distarch phosphate *, sodium dextran sulfate*, methylpropanediol, sodium methylesculetin acetate, ilex paraguariensis leaf extract*, stevia rebaudiana extract*, methylsilanol mannuronate, bentonite*, sodium stearoyl glutamate*, biosaccharide gum-1*, bacillus/soybean ferment extract*, xanthan gum*, glyceryl caprylate*, parfum (fragrance), hydroxyethylcellulose*, citric acid*, phytic acid*, sorbic acid*Origine naturelle.97% d’ingrédients d’origine naturelle dans la lotion.',
     url: 'https://www.atida.fr/garancia-fee-moi-fondre-boostee-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-fee-moi-fondre-boostee-mousse-crepitante-anti-capitons-express-400ml-301816.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-fee-moi-fondre-boostee-mousse-crepitante-anti-capitons-express-400ml-301816.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.ZONE_CORPS],
@@ -311,7 +320,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Butane, aqua (water/eau)*, glycerin*, oryza sativa (rice) starch*, jania rubens extract*, sodium dextran sulfate, methylpropanediol, sodium methylesculetin acetate, ilex paraguariensis leaf extract*, stevia rebaudiana extract*, methylsilanol mannuronate, bentonite*, biosaccharide gum-1*, bacillus/soybean ferment extract*, xanthan gum*, glyceryl caprylate*, parfum (fragrance), hydroxyethylcellulose*, citric acid*, sodium salicylate, phytic acid*, cetrimonium chloride, sorbic acid*Origine naturelle.',
     url: 'https://www.atida.fr/garancia-fee-moi-fondre-nuit-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-fee-moi-fondre-la-nuit-mousse-crepitante-anti-capitons-express-400ml-301815.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-fee-moi-fondre-la-nuit-mousse-crepitante-anti-capitons-express-400ml-301815.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_CORPS],
@@ -332,7 +342,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Aqua (water/eau)*, pentylene glycol*, glycerin*, maltodextrin*, citrus limon (lemon) fruit extract*, undecane*, sodium polyacrylate, parfum (fragrance), alcohol, sodium polyacrylate starch, sodium hyaluronate*, aloe barbadensis leaf extract*, dipeptide diaminobutyroyl benzylamide diacetate, acetyl hexapeptide-8, acmella oleracea extract*, jania rubens extract*, arnica montana flower extract*, fagus sylvatica bud extract*, bacillus ferment*, tridecane*, tocopherol*, sodium carrageenan*, phenethyl alcohol, caprylyl glycol, benzyl alcohol, benzoic acid.*origine naturelle.97% d'ingrédients d'origine naturelle.",
     url: 'https://www.atida.fr/garancia-mysterieux-repulpant-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-mysterieux-repulpant-serum-ultra-concentre-anti-age-30ml-232413.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-mysterieux-repulpant-serum-ultra-concentre-anti-age-30ml-232413.webp',
     tags: {
       primary: [
         TAG_SLUGS.ANTI_AGE,
@@ -366,7 +377,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER/EAU), COCO-CAPRYLATE/CAPRATE, GLYCERIN, CETEARYL ALCOHOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, 1,2 HEXANEDIOL , BORON NITRIDE, ACETYL HEXAPEPTIDE-8, JOJOBA ESTERS, HYDROLYZED HYALURONIC ACID, HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX, SODIUM STEAROYL GLUTAMATE, UNDARIA PINNATIFIDA EXTRACT , LEONTOPODIUM ALPINUM CALLUS CULTURE EXTRACT, POLYGLYCERIN-3, CYANOCOBALAMIN, HYDROLYZED ALGIN, CETEARYL ALCOHOL, AGAR, GLYCERYL UNDECYLENATE, GLYCERYL STEARATE, CAPRYLYL GLYCOL, PARFUM (FRAGANCE), ACACIA SENEGAL GUM, XANTHAN GUM, SODIUM BENZOATE, CITRIC ACID 96% d’ingrédients d’ORIGINE NATURELLE 96% of ingredients of NATURAL ORIGIN',
     url: 'https://www.atida.fr/garancia-l-etoile-du-jour-creme-supreme-de-jour-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-l-etoile-du-jour-creme-supreme-de-jour-40ml-249804.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-l-etoile-du-jour-creme-supreme-de-jour-40ml-249804.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -395,7 +407,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water/eau)*, dha*, glycerin*, sodium acryloyldimethyltaurate/vp crosspolymer, erythrulose*, saccharide isomerate*, chondrus crispus*, xanthan gum*, hydrolyzed jojoba esters*, sodium hyaluronate*, methylpropanediol, sodium citrate*, magnesium stearate*, styrene/acrylates copolymer, sodium metabisulfite, phytic acid*, citric acid*, ethylhexylglycerin, caprylhydroxamic acid*, parfum (fragrance), sodium dehydroacetate*96% d’ingrédients d’origine naturelle.',
     url: 'https://www.atida.fr/garancia-bal-masque-masque-high-tech-de-nuit-auto6bronzant-destressant-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-bal-masque-des-sorciers-masque-high-tech-de-nuit-autobronzant-destressant-50ml-268053.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-bal-masque-des-sorciers-masque-high-tech-de-nuit-autobronzant-destressant-50ml-268053.webp',
     tags: {
       primary: [TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -426,7 +439,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water/eau)*, coco-caprylate/caprate*, glycerin*, propanediol*, butyrospermum parkii (shea) butter*, helianthus annuus (sunflower) seed oil unsaponifiables*, citrus limon (lemon) fruit extract*, candelilla/jojoba/rice bran polyglyceryl-3 ester*, glyceryl stearate*, polyglyceryl-10 myristate*, boron nitride, cetearyl alcohol*, sodium stearoyl lactylate*, ulva lactuca extract*, lycopene*, croton lechleri resin extract*, montmorillonite*, gellan gum*, xanthan gum*, glyceryl undecylenate*, ethylhexylglycerin, sodium hydroxide*, sucrose palmitate*, sucrose stearate*, lecithin*, parfum (fragrance), potassium sorbate, sorbic acid, tocopherol, ascorbic acid, iron oxides (ci 77491)*, sodium citrate**98% origine naturelle.',
     url: 'https://www.atida.fr/garancia-diabolique-tomate-enrichie-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-diabolique-tomate-creme-riche-bonne-mine-30ml-232040.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-diabolique-tomate-creme-riche-bonne-mine-30ml-232040.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ECLAT, TAG_SLUGS.REPULPANT],
       secondary: [
@@ -456,7 +470,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water/eau)*, heptyl undecylenate*, caprylic/capric triglyceride*, glycerin*, cetyl alcohol*, cetearyl olivate*, sorbitan olivate*, pentylene glycol*, propanediol, methylpropanediol , alcohol*, bentonite*, tocopherol*, hydrolyzed hyaluronic acid*, borojoa patinoi fruit juice*, acmella oleracea extract*, ulva lactuca extract*, montmorillonite*, helianthus annuus (sunflower) seed oil*, parfum (fragrance), dipeptide diaminobutyroyl benzylamide diacetate, xanthan gum*, sodium hydroxide, hydroxypropyl cyclodextrin, palmitoyl tripeptide-38, benzoic acid, sodium phytate**98 % d’ingrédients d’origine naturelle.',
     url: 'https://www.atida.fr/garancia-mysterieuse-mille-et-une-nuits-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-mysterieuses-mille-et-une-nuits-creme-de-nuit-anti-age-30ml-232041.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-mysterieuses-mille-et-une-nuits-creme-de-nuit-anti-age-30ml-232041.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -486,7 +501,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water/eau), niacinamide, sea water, glycerin, nitrogen.',
     url: 'https://www.atida.fr/garancia-aqua-reves-tu-la-brume-oceanique-des-sirenes-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-aqua-reves-tu-la-brume-oceanique-des-sirenes-illuminatrice-de-peau-200ml-249756.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-aqua-reves-tu-la-brume-oceanique-des-sirenes-illuminatrice-de-peau-200ml-249756.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -516,7 +532,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Marabout Sulfureuse Pâte Purifiante Nettoyante :Aqua (water/eau)*, disodium lauryl sulfosuccinate*, glycerin*, citrus limon (lemon) fruit extract*, zinc coco-sulfate*, disodium capryloyl glutamate*, sodium lauroyl sarcosinate*, sulfur, zinc pca*, sodium chloride, cucumis sativus (cucumber) fruit extract*, urtica dioica (netlle) leaf extract*, helianthus annuus (sunflower) seed oil*, annatto (ci 75120/bixa orellana seed extract)*, butylene glycol, xanthan gum*, propylene glycol, potassium sorbate, sodium benzoate, parfum (fragrance),*Origine naturelle. 95% d’ingrédients d’origine naturelle.Marabout l'Elixir Sérum Concentré Anti-Imperfections Anti-Âge :Aqua (water/eau)*, lactobacillus / punica granatum fruit ferment extract*, butylene glycol, maltodextrin*, polysorbate 20*, sodium dextran sulfate, glycerin*, populus tremuloides bark extract*, syringa vulgaris (lilac) extract*, arrabidaea chica leaf/stem extract*, dimethylmethoxy chromanol, acetyl dipeptide-3 aminohexanoate, parfum (fragrance), xanthan gum*, phenethyl alcohol, tocopherol, ethylhexylglycerin*Origine naturelle.92% d’ingrédients d’origine naturelle.Marabout Le Chardon et le Marabout BB Crème Réparatrice Nude :Aqua (water/eau)*, methylpropanediol, coco-caprylate/caprate*, boron nitride, titanium dioxide (ci 77891)*, bentonite, glyceryl stearate*, squalane*, oxidized corn oil*, glyceryl stearate citrate*, glycerin*, zinc gluconate, alcohol*, magnesium aluminum silicate, tocopherol, croton lechleri resin extract*, calendula officinalis flower extract*, onopordum acanthium flower/leaf/stem extract*, maltodextrin*, xanthan gum*, glyceryl undecylenate*, parfum (fragrance), hydroxypropyl cyclodextrin, palmitoyl tripeptide-38, benzyl alcohol, ethylhexylglycerin, polyhydroxystearic acid*, citric acid*, disteardimonium hectorite, iron oxides (ci 77492), iron oxides (ci 77491), iron oxides (ci 77499)*83% d'origine naturelle.",
     url: 'https://www.atida.fr/garancia-marabout-coffret-cure-express-7-jours.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-marabout-coffret-cure-express-7-jours-249757.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-marabout-coffret-cure-express-7-jours-249757.webp',
     tags: {
       primary: [
         TAG_SLUGS.MICROBIOME,
@@ -552,7 +569,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER/EAU), COCO-CAPRYLATE/CAPRATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DIETHYLHEXYL BUTAMIDO TRIAZONE, ORYZA SATIVA STARCH, ETHYLHEXYL TRIAZONE, DISODIUM PHENYL DIBENZIMIDAZOLE TETRASULFONATE, PONGAMIA GLABRA SEED OIL, CAPRYLOYL GLYCERIN/SEBACIC ACID COPOLYMER, PENTYLENE GLYCOL, CETEARYL ALCOHOL, JOJOBA ESTERS, GLYCERYL STEARATE, BEHENYL ALCOHOL, 1,2-HEXANEDIOL, SODIUM HYALURONATE, DUNALIELLA SALINA EXTRACT, HAEMATOCOCCUS PLUVIALIS EXTRACT, HELIANTHUS ANNUUS SEED WAX, PHYTIC ACID, HELIANTHUS ANNUUS SEED OIL, XANTHAN GUM, SODIUM STEAROYL GLUTAMATE, ANNATTO (CI 75120/BIXA ORELLANA SEED EXTRACT), POLYGLYCERIN-3, CAPRYLYL GLYCOL, CITRIC ACID, SODIUM HYDROXYDE',
     url: 'https://www.atida.fr/garancia-solaire-fluide-incroyable-douceur-invisible-spf50-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-solaire-fluide-incroyable-douceur-invisible-spf50-40ml-249798.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-solaire-fluide-incroyable-douceur-invisible-spf50-40ml-249798.webp',
     tags: {
       primary: [TAG_SLUGS.PHOTO_PROTECTION, TAG_SLUGS.PHOTO_VIEILLISSEMENT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -581,7 +599,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER/EAU), COCO-CAPRYLATE/CAPRATE, CETEARYL ALCOHOL, HELIANTHUS ANNUUS SEED OIL UNSAPONIFIABLES, LINUM USITATISSIMUM SEED OIL, MICROCRYSTALLINE CELLULOSE, PARFUM, SACCHAROMYCES FERMENT FILTRATE, SODIUM STEAROYL GLUTAMATE, CAPRYLYL GLYCOL, CELLULOSE GUM, CITRIC ACID, SODIUM CITRATE, SODIUM BENZOATE',
     url: 'https://www.atida.fr/garancia-sun-repair-brume-lactee-fraicheur-express-apres-solaire-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-sun-repair-brume-lactee-fraicheur-express-apres-solaire-150ml-249801.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-sun-repair-brume-lactee-fraicheur-express-apres-solaire-150ml-249801.webp',
     tags: {
       primary: [TAG_SLUGS.BRUME],
       secondary: [
@@ -607,7 +626,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'COCO-CAPRYLATE/CAPRATE, AQUA (WATER/EAU), DICAPRYLYL CARBONATE, TRIBUTYL CITRATE, DISODIUM PHENYL DIBENZIMIDAZOLE TETRASULFONATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ETHYLHEXYL TRIAZONE, PONGAMIA GLABRA SEED OIL, PROPANEDIOL, PENTYLENE GLYCOL, CAPRYLOYL GLYCERIN/SEBACIC ACID COPOLYMER, ARGININE, BIFURCARIA BIFURCATA EXTRACT, DUNALIELLA SALINA EXTRACT, HAEMATOCOCCUS PLUVIALIS EXTRACT, LITHOSPERMUM ERYTHRORHIZON ROOT EXTRACT, ACETYL TYROSINE, SIMMONDSIA CHINENSIS SEED OIL, HELIANTHUS ANNUUS HYBRID OIL, DECYL GLUCOSIDE, 1,2-HEPTANEDIOL, CAPRYLYL GLYCOL, PARFUM (FRAGRANCE), SODIUM BENZOATE, POTASSIUM SORBATE, CITRIC ACID',
     url: 'https://www.atida.fr/garancia-sun-protect-l-eau-solaire-rouge-metamorphosante-spf30-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-sun-protect-l-eau-solaire-rouge-metamorphosante-spf30-150ml-249800.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-sun-protect-l-eau-solaire-rouge-metamorphosante-spf30-150ml-249800.webp',
     tags: {
       primary: [TAG_SLUGS.PHOTO_PROTECTION, TAG_SLUGS.PHOTO_VIEILLISSEMENT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -637,7 +657,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/garancia-offre-duo-pack-fee-moi-fondre-booste-fee-moi-fondre-la-nuit.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-offre-duo-pack-fee-moi-fondre-booste-fee-moi-fondre-la-nuit-299946.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-offre-duo-pack-fee-moi-fondre-booste-fee-moi-fondre-la-nuit-299946.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.ZONE_CORPS],
@@ -694,7 +715,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Aqua (water/eau)*, lactobacillus / punica granatum fruit ferment extract*, butylene glycol, maltodextrin*, polysorbate 20*, sodium dextran sulfate, glycerin*, populus tremuloides bark extract*, syringa vulgaris (lilac) leaf cell culture extract*, arrabidaea chica leaf/stem extract*, dimethylmethoxy chromanol, acetyl dipeptide-3 aminohexanoate, parfum (fragrance), xanthan gum*, phenethyl alcohol, tocopherol, ethylhexylglycerin.*92% d'ingrédients d'origine naturelle.",
     url: 'https://www.atida.fr/garancia-l-elixir-du-marabout-15ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-marabout-l-elixir-serum-concentre-anti-imperfections-anti-age-15ml-233698.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-marabout-l-elixir-serum-concentre-anti-imperfections-anti-age-15ml-233698.webp',
     tags: {
       primary: [
         TAG_SLUGS.MICROBIOME,
@@ -729,7 +751,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water/eau)*, glycerin*, coco-glucoside*, eucalyptus globulus leaf extract*, caprylyl/capryl glucoside*, lactobacillus*, cocos nucifera (coconut) fruit extract*, coffea robusta seed extract*, bacillus ferment*, papain*, algin*, propylene glycol, caprylyl glycol, parfum (fragrance), dehydroacetic acid, potassium sorbate, benzyl alcohol, citric acid, carbomer,1,2-hexanediol98% d’ingrédients d’origine naturelle.',
     url: 'https://www.atida.fr/garancia-pschitt-magique-corps-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-pschitt-magique-corps-micropeeling-sans-grain-200ml-232118.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-pschitt-magique-corps-micropeeling-sans-grain-200ml-232118.webp',
     tags: {
       primary: [TAG_SLUGS.MICROBIOME, TAG_SLUGS.GRAIN_PEAU],
       secondary: [
@@ -758,7 +781,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Aqua (water/eau)*, caprylic/capric triglyceride*, cetearyl alcohol*, theobroma cacao (cocoa) seed butter*, cetyl esters*, glycerin*, cera alba (beeswax/cire d’abeille)*, glyceryl stearate*, parfum (fragrance), rosa damascena flower water*, ulva lactuca extract*, sodium lauroyl glutamate*, stearic acid*, xanthan gum*, montmorillonite*, sodium glutamate*, lauric acid*, citronellol, geraniol, citric acid*98% d'ingrédients d'origine naturelle.",
     url: 'https://www.atida.fr/garancia-en-deux-coups-de-baguette-rose-120g-serviette.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-en-deux-coups-de-baguette-creme-demaquillante-visage-et-yeux-rose-120g-serviette-offerte-289489.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-en-deux-coups-de-baguette-creme-demaquillante-visage-et-yeux-rose-120g-serviette-offerte-289489.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [
@@ -787,7 +811,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water/eau)*, glycerin*, cetearyl olivate*, sorbitan olivate*, silica*, caprylic/capric triglyceride*, microcrystalline cellulose*, pentylene glycol*, propanediol, alaria esculenta extract*, cyathea cumingii leaf extract*, hydrolyzed hyaluronic acid*, xanthan gum*, benzoic acid, dipeptide diaminobutyroyl benzylamide diacetate, sorbitan caprylate, parfum (fragrance), glyceryl caprylate*, hydroxypropyl cyclodextrin, palmitoyl tripeptide-38, edta, sodium hydroxide, cellulose gum**97% d’ingrédients d’origine naturelle.',
     url: 'https://www.atida.fr/garancia-mysterieux-mille-et-un-jours-emulsion-de-jour-anti-age-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-mysterieux-mille-et-un-jours-emulsion-de-jour-anti-age-30ml-249746.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-mysterieux-mille-et-un-jours-emulsion-de-jour-anti-age-30ml-249746.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -816,7 +841,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Butane, aqua (water/eau)*, dha*, oryza sativa (rice) starch*, hydrolyzed jojoba esters*, erythrulose*, glycerin*, hydroxyethylcellulose, biosaccharide gum-1*, glyceryl caprylate*, parfum (fragrance), vanillin, sodium magnesium silicate*, xanthan gum*, phytic acid*, citric acid, sodium salicylate, sodium citrate, cetrimonium chloride.*Origine naturelle.',
     url: 'https://www.atida.fr/garancia-fee-moi-dorer-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-fee-moi-dorer-mousse-crepitante-corps-auto-bronzante-hydratante-200ml-249761.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-fee-moi-dorer-mousse-crepitante-corps-auto-bronzante-hydratante-200ml-249761.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.AUTO_BRONZANT, TAG_SLUGS.ZONE_CORPS],
@@ -837,7 +863,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua water/eau *, coco caprylate/caprate*, propanediol*, canola oil *, glycerin*, pentylene glycol*, artemisia capillaris flower extract*, terminalia ferdinandiana fruit extract*, bakuchiol*, hydrolyzed hyaluronic acid*, sodium hyaluronate*, acetyl hexapeptide 8, tocopherol*, tocopheryl acetate, daucus carota sativa carrot root extract*, daucus carota sativa carrot seed oil*, glycine soja soybean oil*, helianthus annuus sunflower seed oil*, decyl glucoside*, beta carotene, levulinic acid*, sodium levulinate*, sodium benzoate, sodium hydroxide*origine naturelle (99%).',
     url: 'https://www.atida.fr/garancia-appel-de-la-foret-serum-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-l-appel-de-la-foret-serum-double-phase-eclat-jeunesse-booster-de-vitamine-c-30ml-249769.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-l-appel-de-la-foret-serum-double-phase-eclat-jeunesse-booster-de-vitamine-c-30ml-249769.webp',
     tags: {
       primary: [
         TAG_SLUGS.ANTI_AGE,
@@ -872,7 +899,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water/eau)*, coco-caprylate/caprate*, cetearyl alcohol*, glycerin*, saccharide isomerate*, inulin*, hydrolyzed hyaluronic acid*, sodium hyaluronate*, jania rubens extract*, nephelium lappaceum peel extract*, phenethyl alcohol*, sodium carrageenan*, polyglyceryl-10 oleate*, xanthan gum*, 1,5-pentanediol, sodium stearoyl glutamate*, caprylic acid*, citric acid*, sodium citrate*, parfum (fragrance) \n*origine naturelle/natural origin',
     url: 'https://www.atida.fr/garancia-diabolique-glacon-gelee-cristalline-hydro-energisante-repulpante-anti-pollution-20g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-diabolique-glacon-gelee-cristalline-en-eau-20g-249788.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-diabolique-glacon-gelee-cristalline-en-eau-20g-249788.webp',
     tags: {
       primary: [TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.HYDRATATION],
       secondary: [
@@ -900,7 +928,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'LARMES DE FANTOME INGREDIENTS : AQUA(WATER/EAU*) ; GLYCERIN *; COCO-CAPRYLATE /CAPRATE* ; BORON NITRIDE; MALTODEXTRIN* ; HEPTYL UNDECYLENATE* ; GLYCERYL OLEATE CITRATE* ; OLEIC/LINOLEIC/LINOLENIC POLYGLYCERIDES* ; PENTYLENE GLYCOL* ; PROPANEDIOL *; METHYLPROPANEDIOL ; ALBIZIA JULIBRISSIN BARK EXTRACT*; ARNICA MONTANA FLOWER EXTRACT* ; SAMBUCUS NIGRA FLOWER EXTRACT* ; TEPHROSIA PURPUREA SEED EXTRACT* ; SIEGESBECKIA ORIENTALIS EXTRACT *; JANIA RUBENS EXTRACT* ; CAPRYLIC/CAPRIC GLYCERIDES* ; ACETYL TETRAPEPTIDE-5 ; METHYLSILANOL MANNURONATE ; TOCOPHEROL ; XANTHAN GUM *; ETHYLHEXYLGLYCERIN; SODIUM BENZOATE; PARFUM (FRAGRANCE) ; SODIUM CARRAGEENAN* ; PHENETHYL ALCOHOL* *Origine Naturelle / Natural Origin 95% PATCHS EN SILICONE INGREDIENTS : SILICONE',
     url: 'https://www.atida.fr/garancia-coffret-larmes-de-fantome-10ml-patchs-en-silicone-offerts.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-coffret-larmes-de-fantome-10ml-patchs-en-silicone-offerts-304323.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-coffret-larmes-de-fantome-10ml-patchs-en-silicone-offerts-304323.webp',
     tags: {
       primary: [
         TAG_SLUGS.ANTI_OXYDANT,
@@ -935,7 +964,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Aqua (water/eau)*, glycerin*, coco-caprylate/caprate*, boron nitride, maltodextrin*, heptyl undecylenate*, glyceryl oleate citrate*, oleic/linoleic/linolenic polyglycerides*, pentylene glycol*, propanediol*, methylpropanediol, albizia julibrissin bark extract*, arnica montana flower extract*, sambucus nigra flower extract*, tephrosia purpurea seed extract*, siegesbeckia orientalis extract*, jania rubens extract*, caprylic/capric glycerides*, acetyl tetrapeptide-5, methylsilanol mannuronate, tocopherol, xanthan gum*, ethylhexylglycerin, sodium benzoate, parfum (fragrance), sodium carrageenan*, phenethyl alcohol**origine naturelle.95% d'ingrédients d'origine naturelle.",
     url: 'https://www.atida.fr/garancia-larmes-de-fantome-10ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-larmes-de-fantome-roll-on-multi-actions-contour-des-yeux-et-paupieres-10ml-264799.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-larmes-de-fantome-roll-on-multi-actions-contour-des-yeux-et-paupieres-10ml-264799.webp',
     tags: {
       primary: [
         TAG_SLUGS.ANTI_OXYDANT,
@@ -969,7 +999,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water/eau)*, heptyl undecylenate*, glycerin*, cetearyl olivate*, cetyl alcohol*, sorbitan olivate*, caprylic/capric triglyceride*, pentylene glycol*, propanediol, alaria esculenta extract*, cyathea cumingii leaf extract*, hydrolyzed hyaluronic acid*, xanthan gum*, benzoic acid, dipeptide diaminobutyroyl benzylamide diacetate, sorbitan caprylate, parfum (fragrance), glyceryl caprylate*, hydroxypropyl cyclodextrin, palmitoyl tripeptide-38, edta, sodium hydroxide*98% origine naturelle.',
     url: 'https://www.atida.fr/garancia-mysterieux-mille-et-un-jours-creme-de-jour-anti-age-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-mysterieux-mille-et-un-jours-creme-de-jour-anti-age-30ml-264800.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-mysterieux-mille-et-un-jours-creme-de-jour-anti-age-30ml-264800.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -997,7 +1028,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water/eau)*, coco-caprylate/caprate*, cetearyl alcohol*, glycerin*, saccharide isomerate*, inulin*, hydrolyzed*, hyaluronic acid, sodium hyaluronate*, jania rubens extract*, nephelium lappaceum peel extract*, phenethyl alcohol*, sodium carrageenan*, polyglyceryl-10 oleate*, xanthan gum*, 1,5-pentanediol, sodium stearoyl glutamate*, caprylic acid*, citric acid*, sodium citrate*, parfum (fragrance)*Origine naturelle.99% d’ingrédients d’origine naturelle.',
     url: 'https://www.atida.fr/garancia-diabolique-glacon-creme-de-soie-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-diabolique-glacon-creme-soie-cristalline-soin-hydratant-repulpant-40g-249768.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-diabolique-glacon-creme-soie-cristalline-soin-hydratant-repulpant-40g-249768.webp',
     tags: {
       primary: [TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.HYDRATATION],
       secondary: [
@@ -1025,7 +1057,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Aqua (water)*, glycerin*, pentylene glycol*, serenoa serrulata fruit extract*, acacia senegal gum*,calcium glycerophosphate*, zinc gluconate, biotinoyl tripeptide-1, myristoyl pentapeptide-17, panthenol, swertia japonica extract*, tocopherol, xanthan gum*, sclerotium gum*, leuconostoc/radish root ferment filtrate*, pullulan*, lecithin*, ethylhexylglycerin, butylene glycol, 1,2-hexanediol, caprylyl glycol, sodium hydroxide, phytic acid*, glycine soja (soybean) oil*, silica*, benzoic acid, phenethyl alcohol, sodium benzoate*98% d'ingrédients d'origine naturelle.",
     url: 'https://www.atida.fr/garancia-larmes-de-phoenix-2-5ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-larmes-de-phoenix-soin-booster-de-cils-2-5ml-249762.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-larmes-de-phoenix-soin-booster-de-cils-2-5ml-249762.webp',
     tags: {
       primary: [
         TAG_SLUGS.APAISANT,
@@ -1058,7 +1091,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water/eau)* , coco-caprylate/caprate *, bentonite*, cellulose*, glyceryl oleate citrate*, polymethyl methacrylate, isopropyl palmitate*, nylon 6/12, microcrystalline cellulose*, oleyl alcohol*, caprylic/capric triglyceride*, lecithin*, zanthoxylum bungeanum fruit extract*, lentinus edodes extract*, swertia chirata extract*, cellulose gum*, 1,2-hexanediol, ethylhexylglycerin, biosaccharide gum-4*, benzyl alcohol, acetyl hexapeptide-8, phytic acid*, caprylyl glycol, parfum (fragrance), citric acid, sodium benzoate, potassium sorbate,tocopherol**Origine naturelle : 95%.',
     url: 'https://www.atida.fr/garancia-hallucinogene-soin-de-teint-transparent-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-hallucinogene-soin-de-teint-transparent-30ml-249745.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-hallucinogene-soin-de-teint-transparent-30ml-249745.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ECLAT, TAG_SLUGS.MICROBIOME],
       secondary: [
@@ -1087,7 +1121,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water/eau)*, heptyl undecylenate*, methylpropanediol, butylene glycol, glycyrrhetinic acid*, glycerin*, vaccinium myrtillus leaf extract*, plankton extract*, panthenol*, escin*, arrabidaea chica leaf/stem extract*, ruscus aculeatus root extract*, ammonium glycyrrhizate*, centella asiatica extract*, hydrolyzed yeast protein*, calendula officinalis flower extract*, tocopherol, citric acid*, parfum (fragrance), acrylates/c10-30 alkyl acrylate crosspolymer, glyceryl undecylenate*, sodium benzoate, sodium citrate, potassium sorbate, ethylhexylglycerin, sodium hydroxide*91% d’origine naturelle.',
     url: 'https://www.atida.fr/garancia-que-mes-rougeurs-disparaissent-serum-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-que-mes-rougeurs-disparaissent-serum-concentre-de-beaute-apaisant-30ml-244748.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-que-mes-rougeurs-disparaissent-serum-concentre-de-beaute-apaisant-30ml-244748.webp',
     tags: {
       primary: [
         TAG_SLUGS.ANTI_ROUGEURS,
@@ -1124,7 +1159,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Aqua (water/eau)*, methylpropanediol, coco-caprylate/caprate*, boron nitride, titanium dioxide (ci 77891)*, bentonite, glyceryl stearate*, squalane*, oxidized corn oil*, glyceryl stearate citrate*, glycerin*, zinc gluconate, alcohol*, magnesium aluminum silicate, tocopherol, croton lechleri resin extract*, calendula officinalis flower extract*, onopordum acanthium flower/leaf/stem extract*, maltodextrin*, xanthan gum*, glyceryl undecylenate*, parfum (fragrance), hydroxypropyl cyclodextrin, palmitoyl tripeptide-38, benzyl alcohol, ethylhexylglycerin, polyhydroxystearic acid*, citric acid*, disteardimonium hectorite, iron oxides (ci 77492), iron oxides (ci 77491), iron oxides (ci 77499)*83% d'origine naturelle.",
     url: 'https://www.atida.fr/garancia-marabout-le-chardon-et-le-marabout-bb-creme-reparatrice-dore-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-marabout-le-chardon-et-le-marabout-bb-creme-reparatrice-dore-30ml-268054.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-marabout-le-chardon-et-le-marabout-bb-creme-reparatrice-dore-30ml-268054.webp',
     tags: {
       primary: [
         TAG_SLUGS.PROTECTION_SOLAIRE,
@@ -1159,7 +1195,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water/eau)*, polyglyceryl-4 caprate*, inulin*, glycerin*, biosaccharide gum-1*, levulinic acid*, sodium levulinate*, glyceryl caprylate*, sodium benzoate, p-anisic acid*, sodium hydroxide, citric acid*, ethyl vanillin, fragrance (parfum), citronellol, geraniol*99,5% d’ingrédients d’origine naturelle.',
     url: 'https://www.atida.fr/garancia-micellaire-enchantee-recharge-eau-demaquillante-rose-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-source-micellaire-enchantee-eau-demaquillante-micellaire-4-en-1-rose-d-antan-recharge-400ml-249742.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-source-micellaire-enchantee-eau-demaquillante-micellaire-4-en-1-rose-d-antan-recharge-400ml-249742.webp',
     tags: {
       primary: [TAG_SLUGS.MICROBIOME],
       secondary: [
@@ -1189,7 +1226,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water/eau) *, butyrospermum parkii (shea) butter extract*, butyrospermum parkii (shea) butter*,helianthus annuus (sunflower) seed oil unsaponifiables*, theobroma cacao (cocoa) seed butter*, sodium acrylates copolymer, panthenyl triacetate, parfum (fragrance), ethyl linoleate, glycerin*, argania spinosa kernel oil*, spent grain wax*, arrabidaea chica leaf/stem extract*, biosaccharide gum-1*, saccharide isomerate*, lecithin, tocopherol, oleyl alcohol*, glyceryl caprylate*, sodium levulinate, sodium anisate, citric acid*, sodium citrate*, sodium phytate, alcohol*95% d’ingrédients d’origine naturelle.',
     url: 'https://www.atida.fr/garancia-bal-masque-masque-high-tech-nourissant-apaisant-preventif-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-bal-masque-des-sorciers-masque-high-tech-nourrissant-apaisant-preventif-50ml-268055.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-bal-masque-des-sorciers-masque-high-tech-nourrissant-apaisant-preventif-50ml-268055.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -1219,7 +1257,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua water/eau *, coco caprylate/caprate*, propanediol*, canola oil *, glycerin*, pentylene glycol*, artemisia capillaris flower extract*, terminalia ferdinandiana fruit extract*, bakuchiol*, hydrolyzed hyaluronic acid*, sodium hyaluronate*, acetyl hexapeptide 8, tocopherol*, tocopheryl acetate, daucus carota sativa carrot root extract*, daucus carota sativa carrot seed oil*, glycine soja soybean oil*, helianthus annuus sunflower seed oil*, decyl glucoside*, beta carotene, levulinic acid*, sodium levulinate*, sodium benzoate, sodium hydroxide*origine naturelle (99%).',
     url: 'https://www.atida.fr/garancia-appel-de-la-foret-serum-8ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-l-appel-de-la-foret-serum-double-phase-eclat-jeunesse-booster-de-vitamine-c-8ml-249776.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-l-appel-de-la-foret-serum-double-phase-eclat-jeunesse-booster-de-vitamine-c-8ml-249776.webp',
     tags: {
       primary: [
         TAG_SLUGS.ANTI_AGE,
@@ -1254,7 +1293,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua (water/eau)*, glycerin*, butyrospermum parkii (shea) butter*, caprylic/capric triglyceride*, cananga odorata flower extract*, behenyl alcohol*, silica*, cetearyl alcohol*, palmitic acid*, hydrogenated lecithin*, hydrolyzed hyaluronic acid*, undaria pinnatifida extract*, leontopodium alpinum callus culture extract*, lavandula angustifolia (lavender) flower extract*, acetyl hexapeptide-8, hydrolyzed algin*, polyglyceryl-10 oleate*, tocopherol*, glycine soja (soybean) oil*, parfum (fragance), microcrystalline cellulose*, cellulose gum*, xanthan gum*, 1,5-pentanediol, butylene glycol*, caprylic acid, sodium benzoate, citric acid.*Origine naturelle.98% d’ingrédients d’origine naturelle.',
     url: 'https://www.atida.fr/garancia-a-la-belle-etoile-creme-supreme-de-nuit-regeneratrice-visage-et-cou-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-a-la-belle-etoile-creme-supreme-de-nuit-regeneratrice-visage-et-cou-40ml-249786.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-a-la-belle-etoile-creme-supreme-de-nuit-regeneratrice-visage-et-cou-40ml-249786.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -1284,7 +1324,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'PSCHITT MAGIQUE Nouvelle Peau : INGREDIENTS: AQUA (WATER/EAU)*, GLYCERIN*, COCO GLUCOSIDE*, CITRUS LIMON (LEMON) FRUIT EXTRACT*, ROSA DAMASCENA FLOWER WATER*, CENTAUREA CYANUS FLOWER WATER*, HAMAMELIS VIRGINIANA (WITCH HAZEL) WATER*, CAPRYLYL/CAPRYL GLUCOSIDE*, LACTOBACILLUS*, PROPYLENE GLYCOL, CAMELLIA SINENSIS LEAFWATER*, CUCUMIS SATIVUS (CUCUMBER) FRUIT EXTRACT*, COCOS NUCIFERA (COCONUT) FRUIT EXTRACT*, BACILLUS FERMENT*, PAPAIN*, ALGIN*, POTASSIUM SORBATE, CITRIC ACID, PARFUM (FRAGRANCE), CARBOMER, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL *ORIGINE NATURELLE/NATURAL ORIGIN A LA BELLE ETOILE INGREDIENTS: AQUA WATER/EAU*, GLYCERIN*, BUTYROSPERMUM PARKII SHEA BUTTER*, CAPRYLIC/CAPRIC TRIGLYCERIDE*, CANANGA ODORATA FLOWER EXTRACT*, BEHENYL ALCOHOL*, SILICA*, CETEARYL ALCOHOL*, PALMITIC ACID*, HYDROGENATED LECITHIN*, HYDROLYZED HYALURONIC ACID*, UNDARIA PINNATIFI DA EXTRACT*, LEONTOPODIUM ALPINUM CALLUS CULTURE EXTRACT*, LAVANDULA ANGUSTIFOLIA LAVENDER FLOWER EXTRACT*, ACETYL HEXAPEPTIDE8, HYDROLYZED ALGIN*, POLYGLYCERYL10 OLEATE*, TOCOPHEROL*, GLYCINE SOJA SOYBEAN OIL*, PARFUM FRAGRANCE, MICROCRYSTALLINE CELLULOSE*, CELLULOSE GUM*, XANTHAN GUM*, 1,5PENTANEDIOL, BUTYLENE GLYCOL*, CAPRYLIC ACID, SODIUM BENZOATE, CITRIC ACID',
     url: 'https://www.atida.fr/garancia-etoile-rituel-nuit-regenerateur-meno-expert-70ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-etoile-rituel-nuit-regenerateur-meno-expert-70ml-302921.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-etoile-rituel-nuit-regenerateur-meno-expert-70ml-302921.webp',
     tags: {
       primary: [
         TAG_SLUGS.MICROBIOME,
@@ -1320,7 +1361,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "[PSCHITT MAGIQUE Nouvelle Peau] VISAGE: AQUA (WATER/EAU)*, GLYCERIN*, COCO GLUCOSIDE*, CITRUS LIMON (LEMON) FRUIT EXTRACT*, ROSA DAMASCENA FLOWER WATER*, CENTAUREA CYANUS FLOWER WATER*, HAMAMELIS VIRGINIANA (WITCH HAZEL) WATER*, CAPRYLYL/CAPRYL GLUCOSIDE*, LACTOBACILLUS*, PROPYLENE GLYCOL, CAMELLIA SINENSIS LEAF WATER*, CUCUMIS SATIVUS (CUCUMBER) FRUIT EXTRACT*, COCOS NUCIFERA (COCONUT) FRUIT EXTRACT*, BACILLUS FERMENT*, PAPAIN*, ALGIN*, POTASSIUM SORBATE, CITRIC ACID, PARFUM (FRAGRANCE), CARBOMER, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL *Origine Naturelle [DIABOLIQUE TOMATE] CREME D'EAU: AQUA (WATER/EAU)*, PROPANEDIOL*, GLYCERIN*, BUTYROSPERMUM PARKII (SHEA) BUTTER*, PROPANEDIOL DICAPRYLATE*, CITRUS MEDICA LIMONUM (LEMON) FRUIT EXTRACT* , HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL UNSAPONIFIABLE*, PARFUM (FRAGRANCE), ISONONYL ISONONANOATE, ISOSTEARYL ALCOHOL*, BORON NITRIDE, ORYZA SATIVA (RICE) BRAN OIL*, CROTON LECHLERI RESIN EXTRACT*, ULVA LACTUCA EXTRACT*, LYCOPENE*, MONTMORILLONITE* , SUCROSE PALMITATE*, SUCROSE STEARATE*, LECITHIN*, VEGETABLE OIL*, ETHYLCELLULOSE*, TOCOPHEROL*, BUTYLENE GLYCOL COCOATE, ACRYLATES/C10-C30 ALKYL ACRYLATE CROSSPOLYMER, SODIUM HYDROXYDE*, VANILLIN, POTASSIUM SORBATE, SORBIC ACID , ASCORBIC ACID *ORIGINE NATURELLE",
     url: 'https://www.atida.fr/garancia-pschitt-magique-rituel-peau-neuve-120ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-pschitt-magique-rituel-peau-neuve-120ml-302930.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-pschitt-magique-rituel-peau-neuve-120ml-302930.webp',
     tags: {
       primary: [TAG_SLUGS.MICROBIOME, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ECLAT],
       secondary: [
@@ -1350,7 +1392,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER/EAU)*, 2,3-BUTANEDIOL*, SOLANUM LYCOPERSICUM FRUIT WATER*, BETAINE*, PROPANEDIOL*, HELIANTHUS ANNUUS SEED OIL*, SACCHARIDE ISOMERATE*, GLYCERIN*, SOLANUM LYCOPERSICUM SEED OIL*, 1,2-HEXANEDIOL , HYDROLYZED HYALURONIC ACID*, HEXAPEPTIDE-9, JANIA RUBENS EXTRACT*, SILANETRIOL, SODIUM CARRAGEENAN* , ALKANNA TINCTORIA ROOT EXTRACT*, ADENOSINE*, XANTHAN GUM*, PHENETHYL ALCOHOL* , SODIUM BENZOATE , SODIUM CITRATE* , CITRIC ACID* , PARFUM (FRAGRANCE)  *ORIGINE NATURELLE',
     url: 'https://www.atida.fr/garancia-diabolique-tomate-serum-babyskin-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-diabolique-tomate-serum-babyskin-30ml-301372.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-diabolique-tomate-serum-babyskin-30ml-301372.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ECLAT],
       secondary: [
@@ -1378,7 +1421,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '[MYSTÉRIEUX Repulpant]: AQUA (WATER/EAU)*, PENTYLENE GLYCOL*, GLYCERIN*, MALTODEXTRIN*, CITRUS LIMON (LEMON) FRUIT EXTRACT*, UNDECANE*, SODIUM POLYACRYLATE, PARFUM (FRAGRANCE), ALCOHOL, SODIUM POLYACRYLATE STARCH, SODIUM HYALURONATE*, ALOE BARBADENSIS LEAF EXTRACT*, DIPEPTIDE DIAMINOBUTYROYL BENZYLAMIDE DIACETATE, ACETYL HEXAPEPTIDE-8, ACMELLA OLERACEA EXTRACT*, JANIA RUBENS EXTRACT*, ARNICA MONTANA FLOWER EXTRACT*, FAGUS SYLVATICA BUD EXTRACT*, BACILLUS FERMENT*, TRIDECANE*, TOCOPHEROL*, SODIUM CARRAGEENAN*, PHENETHYL ALCOHOL, CAPRYLYL GLYCOL, BENZYL ALCOHOL, BENZOIC ACID *Origine Naturelle / Natural Origin [PSCHITT MAGIQUE Nouvelle Peau] VISAGE: AQUA (WATER/EAU)*, GLYCERIN*, COCO GLUCOSIDE*, CITRUS LIMON (LEMON) FRUIT EXTRACT*, ROSA DAMASCENA FLOWER WATER*, CENTAUREA CYANUS FLOWER WATER*, HAMAMELIS VIRGINIANA (WITCH HAZEL) WATER*, CAPRYLYL/CAPRYL GLUCOSIDE*, LACTOBACILLUS*, PROPYLENE GLYCOL, CAMELLIA SINENSIS LEAF WATER*, CUCUMIS SATIVUS (CUCUMBER) FRUIT EXTRACT*, COCOS NUCIFERA (COCONUT) FRUIT EXTRACT*, BACILLUS FERMENT*, PAPAIN*, ALGIN*, POTASSIUM SORBATE, CITRIC ACID, PARFUM (FRAGRANCE), CARBOMER, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL *Origine Naturelle / Natural Origin',
     url: 'https://www.atida.fr/garancia-coffret-mysterieux-repulpant-30ml-pschitt-magique-visage-30ml-offert.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-coffret-mysterieux-repulpant-30ml-pschitt-magique-visage-30ml-offert-304292.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-coffret-mysterieux-repulpant-30ml-pschitt-magique-visage-30ml-offert-304292.webp',
     tags: {
       primary: [
         TAG_SLUGS.ANTI_AGE,
@@ -1414,7 +1458,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Aqua water/eau*, diatomaceous earth*, glycerin*, succinic acid*, saccharide isomerate*, propanediol*, butylene glycol, thymus vulgaris thyme flower/leaf/stem extract*, zingiber officinale ginger root extract*, sanguisorba officinalis root extract*, cinnamomum cassia bark extract*, eugenia caryophyllus clove flower extract*, artemisia capillaris flower extract*, rhodomyrtus tomentosa fruit extract*, marrubium vulgare extract*, bacillus ferment*, sclerotium gum, xanthan gum, lecithin*, glyceryl caprylate*, camelina sativa seed oil*, potassium hydroxide, silica*, pullulan, citric acid, sodium citrate, tocopherol, parfum fragrance*96% d'ingrédients d'origine naturelle.",
     url: 'https://www.atida.fr/garancia-marabou-t-sos-zone-t.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-marabou-t-roll-on-s-o-s-imperfections-zone-t-10ml-249770.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-marabou-t-roll-on-s-o-s-imperfections-zone-t-10ml-249770.webp',
     tags: {
       primary: [
         TAG_SLUGS.ANTI_OXYDANT,
@@ -1450,7 +1495,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "AQUA (WATER/EAU)*, COCO-CAPRYLATE/ CAPRATE*, CETEARYL ALCOHOL*, GLYCERYL STEARATE*, POLYGLYCERYL-4 STEARATE*, LINUM USITATISSIMUM (LINSEED)_x001D_ SEED OIL*, HYDROXYSTEARIC ACID*, OLIVE OIL POLYGLYCERYL-6 ESTERS*, ORYZA SATIVA (RICE) BRAN OIL*, PERSEA GRATISSIMA _x001E_(AVOCADO) OIL*, POLYGLYCERYL-10 OLEATE, SACCHARIDE ISOMERATE*, ACACIA SENEGAL GUM*, CAESALPINIA SPINOSA GUM*, TOCOPHEROL*, XANTHAN GUM*, CAPRYLIC ACID, 1,5-PENTANEDIOL, PARFUM (FRAGRANCE), CITRIC ACID*, SODIUM CITRATE*, SODIUM BENZOATE *ORIGINE NATURELLE/NATURAL ORIGIN Cette liste d'ingrédients ne remplace pas les informations figurant sur l'emballage du produit. Merci de vous y reporter.",
     url: 'https://www.atida.fr/garancia-gant-de-beaute-ensorcelant-aux-supers-pouvoirs-50g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-gant-de-beaute-ensorcelant-aux-supers-pouvoirs-50g-249813.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-gant-de-beaute-ensorcelant-aux-supers-pouvoirs-50g-249813.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.REPULPANT],
       secondary: [
@@ -1478,7 +1524,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'INGREDIENTS : AQUA (WATER, EAU), CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, COCO-CAPRYLATE/CAPRATE, CI 77163 (BISMUTH OXYCHLORIDE), NIACINAMIDE, C12-16 ALCOHOLS, PENTYLENE GLYCOL, CHLORELLA VULGARIS EXTRACT, ORYZA SATIVA (RICE) BRAN OIL, MALTODEXTRIN, 1,2-HEXANEDIOL, PISUM SATIVUM (PEA) EXTRACT, CYSTOSEIRA TAMARISCIFOLIA EXTRACT, TOCOTRIENOLS, SACCHARIDE ISOMERATE, LECITHIN, SUCROSE DILAURATE, SODIUM COCOYL GLUTAMATE, PROPANEDIOL, PALMITIC ACID, PHYTIC ACID, XANTHAN GUM, LACTIC ACID, PHENETHYL ALCOHOL, HYDROGENATED LECITHIN, CAPRYLYL GLYCOL, PARFUM (FRAGRANCE),',
     url: 'https://www.atida.fr/garancia-eclair-de-lune-la-foudroyante-creme-lactee-anti-taches-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-eclair-de-lune-la-foudroyante-creme-lactee-anti-taches-30ml-249816.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-eclair-de-lune-la-foudroyante-creme-lactee-anti-taches-30ml-249816.webp',
     tags: {
       primary: [
         TAG_SLUGS.PORES_DILATES,
@@ -1515,7 +1562,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER/EAU), COCO-CAPRYLATE/CAPRATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, TRIBUTYL CITRATE, DIETHYLHEXYL BUTAMIDO TRIAZONE, ETHYLHEXYL TRIAZONE, DISODIUM PHENYL DIBENZIMIDAZOLE TETRASULFONATE, PONGAMIA GLABRA SEED OIL, CAPRYLOYL GLYCERIN/SEBACIC ACID COPOLYMER, PENTYLENE GLYCOL, ARGININE, DUNALIELLA SALINA EXTRACT, HAEMATOCOCCUS PLUVIALIS EXTRACT, DECYL GLUCOSIDE, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, PARFUM (FRAGRANCE), CITRIC ACID',
     url: 'https://www.atida.fr/garancia-sun-protect-l-eau-solaire-metamorphosante-protectrice-spf50-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-sun-protect-l-eau-solaire-metamorphosante-protectrice-spf50-150ml-299326.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-sun-protect-l-eau-solaire-metamorphosante-protectrice-spf50-150ml-299326.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [
@@ -1541,7 +1589,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua (water/eau)*, glycerin*, pseudoalteromonas ferment extract*, agar*, mannitol*, hydrolyzed hyaluronic acid*, leontopodium alpinum callus culture extract*, acanthopanax senticosus root extract*, engelhardtia chrysolepis leaf extract*, acetyl hexapeptide-8, acetyl tetrapeptide-11, acetyl tetrapeptide-9, polyglyceryl-10 oleate*, xanthan gum*, 1,5-pentanediol, parfum (fragrance)*, caprylic acid, caprylyl glycol, sodium benzoate, potassium sorbate.*Origine Naturelle.96% d’ingrédients d’origine naturelle.',
     url: 'https://www.atida.fr/garancia-etoile-polaire-serum-supreme-volumateur-anti-relachement-rides-visage-cou-yeux-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-etoile-polaire-serum-supreme-volumateur-anti-relachement-rides-visage-cou-yeux-30ml-249785.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-etoile-polaire-serum-supreme-volumateur-anti-relachement-rides-visage-cou-yeux-30ml-249785.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -1572,7 +1621,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua (water/eau)*, glycerin*, pseudoalteromonas ferment extract*, agar*, mannitol*, hydrolyzed hyaluronic acid*, leontopodium alpinum callus culture extract*, acanthopanax senticosus root extract*, engelhardtia chrysolepis leaf extract*, acetyl hexapeptide-8, acetyl tetrapeptide-11, acetyl tetrapeptide-9, polyglyceryl-10 oleate*, xanthan gum*, 1,5-pentanediol, parfum (fragrance)*, caprylic acid, caprylyl glycol, sodium benzoate, potassium sorbate.*Origine Naturelle.98% d’ingrédients d’origine naturelle.',
     url: 'https://www.atida.fr/garancia-a-la-belle-etoile-creme-supreme-de-nuit-regeneratrice-visage-et-cou-recharge-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-a-la-belle-etoile-creme-supreme-de-nuit-regeneratrice-visage-et-cou-recharge-40ml-249793.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-a-la-belle-etoile-creme-supreme-de-nuit-regeneratrice-visage-et-cou-recharge-40ml-249793.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
       secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -1593,7 +1643,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Diatomaceous earth, ascorbic acid, microcrystalline cellulose, glycerin, inulin , pinus strobus bark extract, collagen amino acids, maltodextrin, aqua (water/eau), pentylene glycol.',
     url: 'https://www.atida.fr/garancia-l-appel-de-la-foret-poudre-magique-6g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-l-appel-de-la-foret-la-poudre-magique-eclat-jeunesse-6g-249784.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-l-appel-de-la-foret-la-poudre-magique-eclat-jeunesse-6g-249784.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.REPULPANT],
       secondary: [
@@ -1621,7 +1672,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Fluide Incroyable Douceur Invisible : AQUA (WATER), COCO-CAPRYLATE/CAPRATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DIETHYLHEXYL BUTAMIDO TRIAZONE, ORYZA SATIVA (RICE) STARCH, ETHYLHEXYL TRIAZONE, DISODIUM PHENYL DIBENZIMIDAZOLE TETRASULFONATE, PONGAMIA GLABRA SEED OIL, CAPRYLOYL GLYCERIN/SEBACIC ACID COPOLYMER, PENTYLENE GLYCOL, CETEARYL ALCOHOL, JOJOBA ESTERS, GLYCERYL STEARATE, BEHENYL ALCOHOL, 1,2-HEXANEDIOL, SODIUM HYALURONATE, DUNALIELLA SALINA EXTRACT, HAEMATOCOCCUS PLUVIALIS EXTRACT, HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX, PHYTIC ACID, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, XANTHAN GUM, SODIUM STEAROYL GLUTAMATE, ANNATTO (CI 75120/BIXA ORELLANA SEED EXTRACT), POLYGLYCERIN-3, CAPRYLYL GLYCOL, CITRIC ACID, SODIUM HYDROXYDE  Lait Solaire Douceur Invisible : AQUA (WATER/EAU), COCO-CAPRYLATE/CAPRATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DIETHYLHEXYL BUTAMIDO TRIAZONE, ETHYLHEXYL TRIAZONE, DISODIUM PHENYL DIBENZIMIDAZOLE TETRASULFONATE, PONGAMIA GLABRA SEED OIL, CETEARYL ALCOHOL, ORYZA SATIVA (RICE) STARCH, PENTYLENE GLYCOL, POLYGLYCERYL-3 STEARATE/SEBACATE CROSSPOLYMER, MICROCRYSTALLINE CELLULOSE, SODIUM STEAROYL GLUTAMATE, DUNALIELLA SALINA EXTRACT, HAEMATOCOCCUS PLUVIALIS EXTRACT, ACACIA SENEGAL GUM, CELLULOSE GUM, XANTHAN GUM, PHYTIC ACID, 1,2-HEXANEDIOL , CAPRYLYL GLYCOL, PARFUM (FRAGRANCE), SODIUM HYDROXIDE, CITRIC ACID  Brume Lactée Fraicheur Express Après-Solaire : AQUA (WATER/EAU)*, COCO-CAPRYLATE/CAPRATE*, CETEARYL ALCOHOL*, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL UNSAPONIFIABLES*, LINUM USITATISSIMUM (LINSEED) SEED OIL*, MICROCRYSTALLINE CELLULOSE*, PARFUM (FRAGRANCE), SACCHAROMYCES/GRAPE FERMENT EXTRACT*, SODIUM STEAROYL GLUTAMATE*, TOCOPHEROL*, CAPRYLYL GLYCOL, CELLULOSE GUM*, SODIUM CITRATE, SODIUM BENZOATE',
     url: 'https://www.atida.fr/garancia-trousse-decouverte-mini-solaires-120ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-trousse-decouverte-mini-solaires-120ml-249818.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-trousse-decouverte-mini-solaires-120ml-249818.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ANTI_AGE],
       secondary: [
@@ -1653,7 +1705,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'PSCHITT MAGIQUE Nouvelle Peau : INGREDIENTS: AQUA (WATER/EAU)*, GLYCERIN*, COCO GLUCOSIDE*, CITRUS LIMON (LEMON) FRUIT EXTRACT*, ROSA DAMASCENA FLOWER WATER*, CENTAUREA CYANUS FLOWER WATER*, HAMAMELIS VIRGINIANA (WITCH HAZEL) WATER*, CAPRYLYL/CAPRYL GLUCOSIDE*, LACTOBACILLUS*, PROPYLENE GLYCOL, CAMELLIA SINENSIS LEAFWATER*, CUCUMIS SATIVUS (CUCUMBER) FRUIT EXTRACT*, COCOS NUCIFERA (COCONUT) FRUIT EXTRACT*, BACILLUS FERMENT*, PAPAIN*, ALGIN*, POTASSIUM SORBATE, CITRIC ACID, PARFUM (FRAGRANCE), CARBOMER, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL *ORIGINE NATURELLE/NATURAL ORIGIN ETOILE DU JOUR: INGREDIENTS: AQUA WATER/EAU *, COCO CAPRYLATE/CAPRATE*, GLYCERIN*, CETEARYL ALCOHOL*, CAPRYLIC/CAPRIC TRIGLYCERIDE*, 1,2.HEXANEDIOL , BORON NITRIDE, ACETYL HEXAPEPTIDE.8, JOJOBA ESTERS*, HYDROLYZED HYALURONIC ACID*, HELIANTHUS ANNUUS .SUNFLOWER. SEED WAX*, SODIUM STEAROYL GLUTAMATE*, UNDARIA PINNATIFIDA EXTRACT*, LEONTOPODIUM ALPINUM CALLUS CULTURE EXTRACT*, HYDROLYZED ALGIN*, ACACIA SENEGAL GUM*, AGAR*, XANTHAN GUM*, POLYGLYCERIN.3*, CYANOCOBALAMIN, GLYCERYL UNDECYLENATE*, GLYCERYL STEARATE*, CAPRYLYL GLYCOL, PARFUM .FRAGRANCE., SODIUM BENZOATE, CITRIC ACID *ORIGINE NATURELLE/NATURAL ORIGIN',
     url: 'https://www.atida.fr/garancia-etoile-rituel-jour-volumateur-meno-expert-70ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-etoile-rituel-jour-volumateur-meno-expert-70ml-302923.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-etoile-rituel-jour-volumateur-meno-expert-70ml-302923.webp',
     tags: {
       primary: [
         TAG_SLUGS.MICROBIOME,
@@ -1688,7 +1741,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water/eau)*, coco-caprylate / caprate*, propanediol*, caprylic / capric triglyceride*, niacinamide, acetyl glucosamine*, olea europaea (olive) fruit oil*, pentylene glycol*, glycerin*, sodium hyaluronate*, buddleja officinalis extract*, artemisia capillaris flower extract*, polygonum tinctorium leaf extract*, cystoseira tamariscifolia extract*, olea europaea (olive) fruit extract*, olea europaea (olive) leaf extract*, brassica campestris (rapeseed) seed oil*, tocopherol*, linoleic acid*, glycine soja (soybean) oil*, dimethylmethoxy chromanol, decyl glucoside*, levulinic acid*, sodium levulinate*, parfum (fragrance), sodium hydroxide*96 % d’ingrédients d’origine naturelle.',
     url: 'https://www.atida.fr/garancia-eclair-de-lune-l-absolu-serum-double-phase-anti-taches-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-eclair-de-lune-l-absolu-serum-double-phase-anti-taches-correcteur-preventif-30ml-249764.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-eclair-de-lune-l-absolu-serum-double-phase-anti-taches-correcteur-preventif-30ml-249764.webp',
     tags: {
       primary: [
         TAG_SLUGS.PORES_DILATES,
@@ -1725,7 +1779,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Sesamum indicum seed oil*, coco-caprylate/caprate*, coco-caprylate* , linum usitatissimum seed oil*, persea gratissima (avocado) oil*, borago officinalis seed oil*, meadowfoam estolide*, jojoba /macadamia seed oil esters*, oleic/linoleic/linolenic polyglycerides*, helianthus annuus (sunflower) seed oil unsaponifiables*, panthenyl triacetate , parfum (fragrance), ethyl linoleate*, pistacia lentiscus (mastic) gum*, boswellia serrata resin extract*, squalene*, calendula officinalis flower extract*, phytosterols*, phytosteryl macadamiate*, tocopherol*, caprylic/capric triglyceride*, glycine soja (soybean) oil*, oleyl alcohol*, ethyl vanillin, citronellol, geraniol, linalool*Origine naturelle : 97%.',
     url: 'https://www.atida.fr/garancia-huile-seche-visage-ensorcelante-25ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-ensorcelante-huile-aux-super-pouvoirs-seche-visage-29ml-268056.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-ensorcelante-huile-aux-super-pouvoirs-seche-visage-29ml-268056.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -1754,7 +1809,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '[MYSTÉRIEUX Mille et Un Jours]: AQUA (WATER/EAU)*, GLYCERIN*, COCO-CAPRYLATE/CAPRATE*, CETEARYL OLIVATE*, CETYL ALCOHOL*, SORBITAN OLIVATE*, CAPRYLIC/CAPRIC TRIGLYCERIDE*, ALARIA ESCULENTA EXTRACT*, HYDROLYZED HYALURONIC ACID*, CAESALPINIA SPINOSA FRUIT EXTRACT*, KAPPAPHYCUS ALVAREZII EXTRACT*, COPPER TRIPEPTIDE-1, DIPEPTIDE DIAMINOBUTYROYL BENZYLAMIDE DIACETATE, PALMITOYL TETRAPEPTIDE-7, PALMITOYL TRIPEPTIDE-1, POLYGLYCERYL-10 OLEATE*, XANTHAN GUM*, CAPRYLIC ACID*, 1,5-PENTANEDIOL, PARFUM (FRAGRANCE), CAPRYLYL GLYCOL, SODIUM LACTATE*, SODIUM HYDROXIDE *Origine Naturelle / Natural Origin [PSCHITT MAGIQUE Nouvelle Peau] VISAGE: AQUA (WATER/EAU)*, GLYCERIN*, COCO GLUCOSIDE*, CITRUS LIMON (LEMON) FRUIT EXTRACT*, ROSA DAMASCENA FLOWER WATER*, CENTAUREA CYANUS FLOWER WATER*, HAMAMELIS VIRGINIANA (WITCH HAZEL) WATER*, CAPRYLYL/CAPRYL GLUCOSIDE*, LACTOBACILLUS*, PROPYLENE GLYCOL, CAMELLIA SINENSIS LEAF WATER*, CUCUMIS SATIVUS (CUCUMBER) FRUIT EXTRACT*, COCOS NUCIFERA (COCONUT) FRUIT EXTRACT*, BACILLUS FERMENT*, PAPAIN*, ALGIN*, POTASSIUM SORBATE, CITRIC ACID, PARFUM (FRAGRANCE), CARBOMER, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL *Origine Naturelle / Natural Origin [MYSTÉRIEUX Repulpant]: AQUA (WATER/EAU)*, PENTYLENE GLYCOL*, GLYCERIN*, MALTODEXTRIN*, CITRUS LIMON (LEMON) FRUIT EXTRACT*, UNDECANE*, SODIUM POLYACRYLATE, PARFUM (FRAGRANCE), ALCOHOL, SODIUM POLYACRYLATE STARCH, SODIUM HYALURONATE*, ALOE BARBADENSIS LEAF EXTRACT*, DIPEPTIDE DIAMINOBUTYROYL BENZYLAMIDE DIACETATE, ACETYL HEXAPEPTIDE-8, ACMELLA OLERACEA EXTRACT*, JANIA RUBENS EXTRACT*, ARNICA MONTANA FLOWER EXTRACT*, FAGUS SYLVATICA BUD EXTRACT*, BACILLUS FERMENT*, TRIDECANE*, TOCOPHEROL*, SODIUM CARRAGEENAN*, PHENETHYL ALCOHOL, CAPRYLYL GLYCOL, BENZYL ALCOHOL, BENZOIC ACID *Origine Naturelle / Natural Origin',
     url: 'https://www.atida.fr/garancia-mysterieux-rituel-anti-age-global-65ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-mysterieux-rituel-anti-age-global-65ml-302943.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-mysterieux-rituel-anti-age-global-65ml-302943.webp',
     tags: {
       primary: [
         TAG_SLUGS.ANTI_AGE,
@@ -1820,7 +1876,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water/eau)*, polyglyceryl-4 caprate*, inulin*, glycerin*, biosaccharide gum-1*, levulinic acid*, sodium levulinate*, glyceryl caprylate*, sodium benzoate, p-anisic acid*, sodium hydroxide, citric acid*, fragrance (parfum), limonene, linalool*99,5% d’ingrédients d’origine naturelle.',
     url: 'https://www.atida.fr/garancia-micellaire-enchantee-eau-demaquillante-fleur-d-oranger-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-source-micellaire-enchantee-eau-demaquillante-micellaire-4-en-1-fleur-d-oranger-400ml-249772.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-source-micellaire-enchantee-eau-demaquillante-micellaire-4-en-1-fleur-d-oranger-400ml-249772.webp',
     tags: {
       primary: [TAG_SLUGS.MICROBIOME],
       secondary: [
@@ -1850,7 +1907,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Aqua (water/ eau)*, sweet almond oil polyglyceryl-4 esters*, glycerin*, maris aqua (sea water/eau de mer) *, silica*, cellulose*, microcristalline cellulose*, 1,2 hexane diol, ectoin*, bentonite*, sodium polyacrylate starch, propanediol*, sodium hyaluronate*, porphyridium cruentum extract*, chlorella emersonii extract*, salicylic acid, xanthan gum* , citric acid*, parfum (fragrance)*97% d'origine naturelle.",
     url: 'https://www.atida.fr/garancia-la-perle-du-marabout-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-marabout-la-perle-du-marabout-gelee-evanescente-reequilibrante-30ml-267265.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-marabout-la-perle-du-marabout-gelee-evanescente-reequilibrante-30ml-267265.webp',
     tags: {
       primary: [
         TAG_SLUGS.ANTI_ACNE,
@@ -1883,7 +1941,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water/eau)*, polyglyceryl-4 caprate*, inulin*, glycerin*, biosaccharide gum-1*, levulinic acid*, sodium levulinate*, glyceryl caprylate*, sodium benzoate, p-anisic acid*, benzaldehyde, sodium hydroxide, citric acid**99,5% d’ingrédients d’origine naturelle.',
     url: 'https://www.atida.fr/garancia-micellaire-enchantee-eau-demaquillante-douce-amande-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-source-micellaire-enchantee-eau-demaquillante-micellaire-4-en-1-amande-gourmande-400ml-249773.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-source-micellaire-enchantee-eau-demaquillante-micellaire-4-en-1-amande-gourmande-400ml-249773.webp',
     tags: {
       primary: [TAG_SLUGS.MICROBIOME],
       secondary: [
@@ -1913,7 +1972,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water/eau)*, caprylic/capric triglyceride*, cetearyl alcohol*, theobroma cacao (cocoa) seed butter*, cetyl esters*, glycerin*, cera alba (beeswax/cire d’abeille)*, glyceryl stearate*, prunus amygdalus dulcis (sweet almond) oil*, sodium lauroyl glutamate, stearic acid*, montmorillonite*, xanthan gum*, ulva lactuca extract*, parfum (fragrance), ethyl vanillin, phenylpropanol, propanediol, caprylyl glycol, benzaldehyde, sodium glutamate*, lauric acid**98% origine naturelle.',
     url: 'https://www.atida.fr/garancia-en-deux-coups-de-baguette-amande-d-antan-120g-serviette.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-en-deux-coups-de-baguette-creme-demaquillante-visage-et-yeux-amande-120g-232520.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-en-deux-coups-de-baguette-creme-demaquillante-visage-et-yeux-amande-120g-232520.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [
@@ -1943,7 +2003,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water/eau)*, glycerin*, caprylic/capric triglyceride*, kaolin*, butyrospermum parkii (shea) butter*, behenyl alcohol*, coco-caprylate/caprate*, boron nitride, parfum (fragrance), sodium acrylates copolymer, saccharide hydrolysate*, chlorella vulgaris extract*, apricot kernel oil polyglyceryl-6 esters*, teprenone, saccharomyces/zinc ferment*, hydrolyzed garcinia mangostana fruit extract*, polyglyceryl-3 stearate*, sodium stearoyl glutamate*, honokiol*, magnolol*, tocopherol*, glycine soja (soybean) oil*, hydrogenated lecithin*, lecithin*, phytic acid*, cetyl phosphate*, glyceryl stearate citrate*, maltodextrin*, illite*, vanillin, sorbitan palmitate*, sodium hydroxide** 95% d’origine naturelle',
     url: 'https://www.atida.fr/garancia-que-mes-rougeurs-disparaissent-nuit-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-que-mes-rougeurs-disparaissent-creme-de-nuit-concentree-anti-age-50ml-249754.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-que-mes-rougeurs-disparaissent-creme-de-nuit-concentree-anti-age-50ml-249754.webp',
     tags: {
       primary: [
         TAG_SLUGS.ANTI_ROUGEURS,
@@ -1980,7 +2041,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water/eau)* , caprylic/capric triglyceride*, coco-caprylate/caprate*, butyrospermum parkii (shea) butter*, cetearyl alcohol*, ethyl linoleate*, arachidyl alcohol*, titanium dioxide*, hexylresorcinol, undecylenoyl phenylalanine*, glycerin*, stearic acid*, trimethoxybenzylidene pentanedione, behenyl alcohol*, palmitic acid*, astragalus membranaceus root extract*, atractyloides macrocephala root extract*, bupleurum falcatum root extract*, glycyrrhiza glabra (licorice) root extract*, morus alba root extract*, ci 75120 (bixa orellana seed extract)*, prunus persica (peach) leaf extract*, scutellaria baicalensis root extract*, arachidyl glucoside*, helianthus annuus (sunflower) seed oil*, triolein*, glyceryl* dioleate*, glyceryl linoleate*, glyceryl oleate*, glyceryl linolenate*, glyceryl palmitate*, glyceryl stearate*, glyceryl caprylate*, silica*, tocopherol*, acacia senegal gum*, inulin lauryl carbamate*, lecithin*, stearyl caprylate*, stearyl heptanoate*, xanthan gum*, caprylhydroxamic acid*, arginine*, propyl gallate*, butylene glycol, glycine soja (soybean) oil*, parfum (fragrance), polyacrylate crosspolymer-6, t-butyl alcohol, pentylene glycol*, 1,2-hexanediol, caprylyl glycol, glucose*95% d’ingrédients d’origine naturelle.',
     url: 'https://www.atida.fr/garancia-eclair-de-lune-concentre-anti-taches-mains-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-eclair-de-lune-concentre-anti-taches-mains-visage-30ml-249755.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-eclair-de-lune-concentre-anti-taches-mains-visage-30ml-249755.webp',
     tags: {
       primary: [
         TAG_SLUGS.PROTECTION_SOLAIRE,
@@ -2016,7 +2078,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water/eau)*, glycerin*, coco-caprylate/caprate*, butyrospermum parkii (shea) butter*, imperata cylindrica root extract*, parfum (fragrance), linum usitatissimum (linseed) seed oil*, polyglyceryl-10 myristate*, candelilla/jojoba/rice bran polyglyceryl-3 esters*, glyceryl stearate*, rosa damascena flower water*, menyanthes trifoliata leaf extract*, citrus medica limonum (lemon) fruit water*, mel (honey) extract*, cetearyl alcohol*, sodium stearoyl lactylate*, xanthan gum*, gellan gum*, caprylyl glycol*, succinic acid*, sodium hydroxide, carbomer, sodium citrate*, acrylates/c10-30 alkyl acrylate crosspolymer, citric acid*, biotin, citronellol*, geraniol**98% d’ingrédients d’origine naturelle.',
     url: 'https://www.atida.fr/garancia-formule-ensorcelante-anti-peau-de-croco-3-en-1-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-ensorcelante-formule-anti-peau-de-croco-creme-corps-3-en-1-150ml-233558.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-ensorcelante-formule-anti-peau-de-croco-creme-corps-3-en-1-150ml-233558.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.KERATOSE_PILAIRE],
       secondary: [
@@ -2045,7 +2108,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'INGREDIENTS : AQUA (WATER/EAU), COCO-CAPRYLATE/CAPRATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DIETHYLHEXYL BUTAMIDO TRIAZONE, ETHYLHEXYL TRIAZONE, DISODIUM PHENYL DIBENZIMIDAZOLE TETRASULFONATE, PONGAMIA GLABRA SEED OIL, CETEARYL ALCOHOL, ORYZA SATIVA (RICE) STARCH, PENTYLENE GLYCOL, POLYGLYCERYL-3 STEARATE/SEBACATE CROSSPOLYMER, MICROCRYSTALLINE CELLULOSE, SODIUM STEAROYL GLUTAMATE, DUNALIELLA SALINA EXTRACT, HAEMATOCOCCUS PLUVIALIS EXTRACT, ACACIA SENEGAL GUM, CELLULOSE GUM, XANTHAN GUM, PHYTIC ACID, 1,2-HEXANEDIOL , CAPRYLYL GLYCOL, PARFUM (FRAGRANCE), SODIUM HYDROXIDE, CITRIC ACID',
     url: 'https://www.atida.fr/garancia-sun-protect-lait-solaire-douceur-invisible-spf50-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-sun-protect-lait-solaire-douceur-invisible-spf50-150ml-249799.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-sun-protect-lait-solaire-douceur-invisible-spf50-150ml-249799.webp',
     tags: {
       primary: [TAG_SLUGS.PHOTO_PROTECTION, TAG_SLUGS.PHOTO_VIEILLISSEMENT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -2074,7 +2138,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Aqua (water/eau)*, glycerin*, propanediol*, parfum (fragrance), croton lechleri resin extract*, hydrolyzed hyaluronic acid*, sodium hyaluronate*, tocopherol*, oligopeptide-1*, xanthan gum*, lecithin*, helianthus annuus seed oil*, phytic acid*, sodium hydroxide, butylene glycol, sodium acrylates copolymer*98% d'ingrédients d'origine naturelle.",
     url: 'https://www.atida.fr/garancia-immortal-express-shot-serum-15ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-immortal-express-shot-egf-serum-activateur-cellulaire-booster-anti-age-15ml-301814.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-immortal-express-shot-egf-serum-activateur-cellulaire-booster-anti-age-15ml-301814.webp',
     tags: {
       primary: [
         TAG_SLUGS.REPULPANT,
@@ -2142,7 +2207,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER/EAU)*, HYDROLYZED CORN STARCH*, GLYCERIN*, CETEARYL OLIVATE*, SORBITAN OLIVATE*, CAPRYLIC/CAPRIC TRIGLYCERIDE*, MICROCRYSTALLINE CELLULOSE*, CETEARYL ALCOHOL*, COLLAGEN AMINO ACIDS, TETRAPEPTIDE-1, ARGININE/LYSINE POLYPEPTIDE, LEONTOPODIUM ALPINUM CALLUS CULTURE EXTRACT*, JANIA RUBENS EXTRACT*, GENTIANA LUTEA ROOT EXTRACT*, CELLULOSE GUM*, XANTHAN GUM*, SODIUM CARRAGEENAN*, PROPANEDIOL*, PENTYLENE GLYCOL*, METHYLPROPANEDIOL, PHENETHYL ALCOHOL*, CAPRYLYL GLYCOL, ETHYLHEXYLGLYCERIN, CAPRYLHYDROXAMIC ACID*, SODIUM HYDROXIDE, CITRIC ACID*',
     url: 'https://www.atida.fr/garancia-etoile-polaire-le-contour-des-yeux-10-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-etoile-polaire-le-contour-des-yeux-10-ml-302937.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-etoile-polaire-le-contour-des-yeux-10-ml-302937.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.CERNES_POCHES],
       secondary: [
@@ -2170,7 +2236,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '[MYSTÉRIEUSES Mille et Une Nuits]: AQUA (WATER/EAU)*, HEPTYL UNDECYLENATE*, CAPRYLIC/CAPRIC TRIGLYCERIDE*, GLYCERIN*, CETYL ALCOHOL*, CETEARYL OLIVATE*, SORBITAN OLIVATE*, PENTYLENE GLYCOL*, PROPANEDIOL*, METHYLPROPANEDIOL, ALCOHOL*, BENTONITE*, TOCOPHEROL*, HYDROLYZED HYALURONIC ACID*, BOROJOA PATINOI FRUIT JUICE*, ACMELLA OLERACEA EXTRACT*, ULVA LACTUCA EXTRACT*, MONTMORILLONITE*, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL*, PARFUM (FRAGRANCE), DIPEPTIDE DIAMINOBUTYROYL BENZYLAMIDE DIACETATE, XANTHAN GUM*, SODIUM HYDROXIDE, HYDROXYPROPYL CYCLODEXTRIN, PALMITOYL TRIPEPTIDE-38, BENZOIC ACID, SODIUM PHYTATE* *Origine Naturelle / Natural Origin [MYSTÉRIEUX Mille et Un Jours] :  AQUA (WATER/EAU)*, GLYCERIN*, COCO-CAPRYLATE/CAPRATE*, CETEARYL OLIVATE*, CETYL ALCOHOL*, SORBITAN OLIVATE*, CAPRYLIC/CAPRIC TRIGLYCERIDE*, ALARIA ESCULENTA EXTRACT*, HYDROLYZED HYALURONIC ACID*, CAESALPINIA SPINOSA FRUIT EXTRACT*, KAPPAPHYCUS ALVAREZII EXTRACT*, COPPER TRIPEPTIDE-1, DIPEPTIDE DIAMINOBUTYROYL BENZYLAMIDE DIACETATE, PALMITOYL TETRAPEPTIDE-7*, PALMITOYL TRIPEPTIDE-1*, POLYGLYCERYL-10 OLEATE*, XANTHAN GUM*, CAPRYLIC ACID*, 1,5-PENTANEDIOL, PARFUM (FRAGRANCE), VANILLIN, CAPRYLYL GLYCOL, SODIUM LACTATE*, SODIUM HYDROXIDE *Origine Naturelle / Natural Origin',
     url: 'https://www.atida.fr/garancia-coffret-mysterieuses-mille-et-une-nuits-30ml-mysterieuses-mille-et-un-jour-10ml-offert.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-coffret-mysterieuses-mille-et-une-nuits-30ml-mysterieuses-mille-et-un-jour-10ml-offert-304276.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-coffret-mysterieuses-mille-et-une-nuits-30ml-mysterieuses-mille-et-un-jour-10ml-offert-304276.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -2200,7 +2267,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '[MYSTÉRIEUX Mille et Un Jours] : AQUA (WATER/EAU)*, GLYCERIN*, COCO-CAPRYLATE/CAPRATE*, CETEARYL OLIVATE*, CETYL ALCOHOL*, SORBITAN OLIVATE*, CAPRYLIC/CAPRIC TRIGLYCERIDE*, ALARIA ESCULENTA EXTRACT*, HYDROLYZED HYALURONIC ACID*, CAESALPINIA SPINOSA FRUIT EXTRACT*, KAPPAPHYCUS ALVAREZII EXTRACT*, COPPER TRIPEPTIDE-1, DIPEPTIDE DIAMINOBUTYROYL BENZYLAMIDE DIACETATE, PALMITOYL TETRAPEPTIDE-7*, PALMITOYL TRIPEPTIDE-1*, POLYGLYCERYL-10 OLEATE*, XANTHAN GUM*, CAPRYLIC ACID*, 1,5-PENTANEDIOL, PARFUM (FRAGRANCE), VANILLIN, CAPRYLYL GLYCOL, SODIUM LACTATE*, SODIUM HYDROXIDE *Origine Naturelle / Natural Origin  [MYSTÉRIEUSES Mille et Une Nuits]: AQUA (WATER/EAU)*, HEPTYL UNDECYLENATE*, CAPRYLIC/CAPRIC TRIGLYCERIDE*, GLYCERIN*, CETYL ALCOHOL*, CETEARYL OLIVATE*, SORBITAN OLIVATE*, PENTYLENE GLYCOL*, PROPANEDIOL*, METHYLPROPANEDIOL, ALCOHOL*, BENTONITE*, TOCOPHEROL*, HYDROLYZED HYALURONIC ACID*, BOROJOA PATINOI FRUIT JUICE*, ACMELLA OLERACEA EXTRACT*, ULVA LACTUCA EXTRACT*, MONTMORILLONITE*, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL*, PARFUM (FRAGRANCE), DIPEPTIDE DIAMINOBUTYROYL BENZYLAMIDE DIACETATE, XANTHAN GUM*, SODIUM HYDROXIDE, HYDROXYPROPYL CYCLODEXTRIN, PALMITOYL TRIPEPTIDE-38, BENZOIC ACID, SODIUM PHYTATE* *Origine Naturelle / Natural Origin',
     url: 'https://www.atida.fr/garancia-coffret-mysterieux-mille-et-un-jours-30ml-mysterieuses-mille-et-une-nuits-10ml-offert.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-coffret-mysterieux-mille-et-un-jours-30ml-mysterieuses-mille-et-une-nuits-10ml-offert-304278.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-coffret-mysterieux-mille-et-un-jours-30ml-mysterieuses-mille-et-une-nuits-10ml-offert-304278.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -2226,7 +2294,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'INGREDIENTS: AQUA (WATER/EAU)*, COCO-CAPRYLATE/CAPRATE*, GLYCERIN*, CETEARYL ALCOHOL*, MICROCRYSTALLINE CELLULOSE*, LINUM USITATISSIMUM (LINSEED) SEED OIL*, 1,2-HEXANEDIOL, BRASSICA CAMPESTRIS (RAPESEED) SEED OIL*, POLYGONUM TINCTORIUM LEAF EXTRACT*, LIGUSTRUM LUCIDUM SEED EXTRACT*, PALMITOYL TETRAPEPTIDE-10, ACER RUBRUM EXTRACT*, JOJOBA ESTERS*, HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX*, AGAR*, ACACIA SENEGAL GUM*, XANTHAN GUM*, LYSINE CARBOXYMETHYL CYSTEINATE*, GLYCERYL STEARATE*, POLYGLYCERIN-3*, SODIUM STEAROYL GLUTAMATE*, CAPRYLYL GLYCOL, PARFUM (FRAGANCE), POTASSIUM SORBATE, CITRIC ACID',
     url: 'https://www.atida.fr/garancia-l-appel-de-la-foret-creme-lumiere-eclat-jeunesse-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-l-appel-de-la-foret-creme-lumiere-eclat-jeunesse-30ml-249794.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-l-appel-de-la-foret-creme-lumiere-eclat-jeunesse-30ml-249794.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -2255,7 +2324,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '[ ÉTOILE Polaire ] : WATER*, GLYCERIN*, PSEUDOALTEROMONAS FERMENT EXTRACT*, AGAR*, MANNITOL*, HYDROLYZED HYALURONIC ACID*, LEONTOPODIUM ALPINUM CALLUS CULTURE EXTRACT*, ACANTHOPANAX SENTICOSUS ROOT EXTRACT*, ENGELHARDTIA CHRYSOLEPIS LEAF EXTRACT*, ACETYL HEXAPEPTIDE8, ACETYL TETRAPEPTIDE11, ACETYL TETRAPEPTIDE9, POLYGLYCERYL10 OLEATE*, XANTHAN GUM*, 1,5PENTANEDIOL, PARFUM FRAGRANCE*, CAPRYLIC ACID, CAPRYLYL GLYCOL, SODIUM BENZOATE, POTASSIUM SORBATE *ORIGINE NATURELLE/NATURAL ORIGIN [ ÉTOILE du jour ] : AQUA (WATER)*, COCO-CAPRYLATE/CAPRATE*, GLYCERIN*, CETEARYL ALCOHOL*, CAPRYLIC/CAPRIC TRIGLYCERIDE*, 1,2-HEXANEDIOL , BORON NITRIDE, ACETYL HEXAPEPTIDE-8, JOJOBA ESTERS*, HYDROLYZED HYALURONIC ACID*, HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX*, SODIUM STEAROYL GLUTAMATE*, UNDARIA PINNATIFIDA EXTRACT*, LEONTOPODIUM ALPINUM CALLUS CULTURE EXTRACT*, HYDROLYZED ALGIN*, ACACIA SENEGAL GUM*, AGAR*, XANTHAN GUM*, POLYGLYCERIN-3*, CYANOCOBALAMIN, GLYCERYL UNDECYLENATE*, GLYCERYL STEARATE*, CAPRYLYL GLYCOL, PARFUM (FRAGRANCE), SODIUM BENZOATE, CITRIC ACID *ORIGINE NATURELLE/NATURAL ORIGIN ETOILE POLAIRE - Le contour des yeux : AQUA (WATER/EAU)*, HYDROLYZED CORN STARCH*, GLYCERIN*, CETEARYL OLIVATE*, SORBITAN OLIVATE*, CAPRYLIC/CAPRIC TRIGLYCERIDE*, MICROCRYSTALLINE CELLULOSE*, CETEARYL ALCOHOL*, COLLAGEN AMINO ACIDS, TETRAPEPTIDE-, ARGININE/LYSINE POLYPEPTIDE, LEONTOPODIUM ALPINUM CALLUS CULTURE EXTRACT*, JANIA RUBENS EXTRACT*, GENTIANA LUTEA ROOT EXTRACT*, CELLULOSE GUM*, XANTHAN GUM*, SODIUM CARRAGEENAN*, PROPANEDIOL*, PENTYLENE GLYCOL*, METHYLPROPANEDIOL, PHENETHYL ALCOHOL*, CAPRYLYL GLYCOL, ETHYLHEXYLGLYCERIN, CAPRYLHYDROXAMIC ACID*, SODIUM HYDROXIDE, CITRIC ACID* *ORIGINE NATURELLE/NATURAL ORIGIN',
     url: 'https://www.atida.fr/garancia-etoile-rituel-anti-age-volumateur-43ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-etoile-rituel-anti-age-volumateur-43ml-302935.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-etoile-rituel-anti-age-volumateur-43ml-302935.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -2285,7 +2355,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "AQUA (WATER/EAU)*, GLYCERIN*, COCO-CAPRYLATE/CAPRATE*, BUTYROSPERMUM PARKII (SHEA) BUTTER*, PENTYLENE GLYCOL*, LINUM USITATISSIMUM (LINSEED) SEED OIL*, POLYGLYCERYL-10 MYRISTATE*, 1,2-HEXANEDIOL, IMPERATA CYLINDRICA ROOT EXTRACT*, CANDELILLA/JOJOBA/RICE BRAN POLYGLYCERYL-3 ESTERS*, GLYCERYL STEARATE*, ROSA DAMASCENA FLOWER WATER*, MENYANTHES TRIFOLIATA LEAF EXTRACT*, CITRUS MEDICA LIMONUM (LEMON) FRUIT WATER*, MEL (HONEY) EXTRACT*, CETEARYL ALCOHOL*, SODIUM STEAROYL LACTYLATE*, XANTHAM GUM*, GELLAN GUM*, SUCCINIC ACID*, SODIUM HYDROXIDE*, SODIUM CITRATE*, PROPANEDIOL*, CAPRYLYL GLYCOL, CITRIC ACID*  *ORIGINE NATURELLE  Cette liste d'ingrédients ne remplace pas les informations figurant sur l'emballage du produit. Merci de vous y reporter.",
     url: 'https://www.atida.fr/garancia-formule-ensorcelante-sans-parfum-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-ensorcelante-formule-anti-peau-de-croco-creme-corps-sans-parfum-3-en-1-400ml-249817.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-ensorcelante-formule-anti-peau-de-croco-creme-corps-sans-parfum-3-en-1-400ml-249817.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.KERATOSE_PILAIRE],
       secondary: [
@@ -2316,7 +2387,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER/EAU), COCO-CAPRYLATE/CAPRATE, GLYCERIN, CETEARYL ALCOHOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, 1,2 HEXANEDIOL , BORON NITRIDE, ACETYL HEXAPEPTIDE-8, JOJOBA ESTERS, HYDROLYZED HYALURONIC ACID, HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX, SODIUM STEAROYL GLUTAMATE, UNDARIA PINNATIFIDA EXTRACT , LEONTOPODIUM ALPINUM CALLUS CULTURE EXTRACT, POLYGLYCERIN-3, CYANOCOBALAMIN, HYDROLYZED ALGIN, CETEARYL ALCOHOL, AGAR, GLYCERYL UNDECYLENATE, GLYCERYL STEARATE, CAPRYLYL GLYCOL, PARFUM (FRAGANCE), ACACIA SENEGAL GUM, XANTHAN GUM, SODIUM BENZOATE, CITRIC ACID *ORIGINE NATURELLE/NATURAL ORIGIN 96% d’ingrédients d’ORIGINE NATURELLE 96% of ingredients of NATURAL ORIGIN',
     url: 'https://www.atida.fr/garancia-l-etoile-du-jour-creme-supreme-de-jour-recharge-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-l-etoile-du-jour-creme-supreme-de-jour-recharge-40ml-249805.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-l-etoile-du-jour-creme-supreme-de-jour-recharge-40ml-249805.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -2345,7 +2417,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS SEED OIL*, GLYCERIN*, AQUA (WATER/EAU)*, COCO-GLUCOSIDE*, SODIUM COCOAMPHOACETATE*, PARFUM(FRAGRANCE), GLYCINE SOJA (SOYBEAN) OIL)*, ANNATTO ( CI75120/BIXA ORELLANA SEED EXTRACT)*, XANTHAN GUM*, SACHARIDE ISOMERATE*, TOCOPHEROL*, SODIUM CITRATE*, CITRIC ACID*, CITRONELLOL, GERANIOL.',
     url: 'https://www.atida.fr/garancia-ensorcelante-anti-peau-de-croco-huile-de-douche-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-ensorcelante-anti-peau-de-croco-huile-de-douche-400ml-307455.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-ensorcelante-anti-peau-de-croco-huile-de-douche-400ml-307455.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -2374,7 +2447,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water/eau) *, propanediol*, glycerin*, coco-caprylate/caprate*, octyldecanol*, parfum (fragrance), myristyl myristate*, croton lechleri resin extract*, methylglucoside phosphate*, copper lysinate/prolinate* , glyceryl undecylenate*, acrylates/c10-30 alkyl acrylate crosspolymer, sodium hydroxide*98% origine naturelle.',
     url: 'https://www.atida.fr/garancia-immortal-express-shot-n-1-15ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-immortal-express-shot-mg6p-serum-energisant-booster-anti-age-15ml-273410.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-immortal-express-shot-mg6p-serum-energisant-booster-anti-age-15ml-273410.webp',
     tags: {
       primary: [
         TAG_SLUGS.ANTI_AGE,
@@ -2408,7 +2482,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Eclair de Lune La Foudroyante : AQUA (WATER, EAU)*, CAPRYLIC/CAPRIC TRIGLYCERIDE*, GLYCERIN*, COCO-CAPRYLATE/CAPRATE*, CI 77163 (BISMUTH OXYCHLORIDE)*, NIACINAMIDE, C12-16 ALCOHOLS*, PENTYLENE GLYCOL, ORYZA SATIVA (RICE) BRAN OIL*, POLYGLYCERYL-6 STEARATE*, MALTODEXTRIN*, 1,2-HEXANEDIOL*, CHLORELLA VULGARIS EXTRACT*, PISUM SATIVUM (PEA) EXTRACT*, CYSTOSEIRA TAMARISCIFOLIA EXTRACT*, TOCOTRIENOLS*, SACCHARIDE ISOMERATE*, LECITHIN*, SUCROSE DILAURATE*, SODIUM COCOYL GLUTAMATE*, PROPANEDIOL*, PALMITIC ACID*, SODIUM PHYTATE*, XANTHAN GUM*, LACTIC ACID*, PHENETHYL ALCOHOL*, HYDROGENATED LECITHIN*, CAPRYLYL GLYCOL*, POLYGLYCERYL-6 BEHENATE*, PARFUM (FRAGRANCE) 98% d'ingrédients d'origine naturelle  *ORIGINE NATURELLE *Origine Naturelle / Natural Origin 98%  Stick Solaire Invisible SPF50+ : AQUA (WATER/EAU), COCO-CAPRYLATE/CAPRATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DIETHYLHEXYL BUTAMIDO TRIAZONE, ETHYLHEXYL TRIAZONE, DISODIUM PHENYL DIBENZIMIDAZOLE TETRASULFONATE, PONGAMIA GLABRA SEED OIL, CETEARYL ALCOHOL, ORYZA SATIVA (RICE) STARCH, PENTYLENE GLYCOL, POLYGLYCERYL-3 STEARATE/SEBACATE CROSSPOLYMER, MICROCRYSTALLINE CELLULOSE, SODIUM STEAROYL GLUTAMATE, DUNALIELLA SALINA EXTRACT, HAEMATOCOCCUS PLUVIALIS EXTRACT, ACACIA SENEGAL GUM, CELLULOSE GUM, XANTHAN GUM, PHYTIC ACID, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, PARFUM (FRAGRANCE), SODIUM HYDROXIDE, CITRIC ACID Cette liste d'ingrédients ne remplace pas les informations figurant sur l'emballage du produit. Merci de vous y reporter.",
     url: 'https://www.atida.fr/garancia-coffret-eclair-de-lune-la-foudroyante-30ml-stick-solaire-invisible-15g-offert.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-coffret-eclair-de-lune-la-foudroyante-30ml-stick-solaire-invisible-15g-offert-305531.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-coffret-eclair-de-lune-la-foudroyante-30ml-stick-solaire-invisible-15g-offert-305531.webp',
     tags: {
       primary: [
         TAG_SLUGS.PORES_DILATES,
@@ -2446,7 +2521,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water/eau) *, propanediol*, pentylene glycol*, glycerin*, saccharide isomerate*, polysorbate 20, inulin*, hydrolized hyaluronic acid*, sodium hyaluronate*, jania rubens extract*, nephelium lappaceum peel extract*, phenethyl alcohol, chondrus crispus (carrageenan) extract *, sodium carrageenan*, fragrance (parfum), citric acid, sodium citrate**Origine naturelle.98% d’ingrédients d’origine naturelle.',
     url: 'https://www.atida.fr/garancia-diabolique-glacon-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-diabolique-glacon-gelee-cristalline-hydro-energisante-repulpante-anti-pollution-40g-249763.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-diabolique-glacon-gelee-cristalline-hydro-energisante-repulpante-anti-pollution-40g-249763.webp',
     tags: {
       primary: [
         TAG_SLUGS.REPULPANT,
@@ -2479,7 +2555,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/garancia-etoile-polaire-et-bal-masque-des-sorciers-liftant-hydratant-repulpant.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-etoile-polaire-et-bal-masque-des-sorciers-liftant-hydratant-repulpant-300872.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-etoile-polaire-et-bal-masque-des-sorciers-liftant-hydratant-repulpant-300872.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -2508,7 +2585,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/garancia-a-la-belle-etoile-et-bal-masque-des-sorciers-liftant-hydratant-repulpant.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-a-la-belle-etoile-et-bal-masque-des-sorciers-liftant-hydratant-repulpant-300908.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-a-la-belle-etoile-et-bal-masque-des-sorciers-liftant-hydratant-repulpant-300908.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -2538,7 +2616,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '[ Formule Ensorcelante Anti-Peau de Croco ] : AQUA (WATER/EAU)*, GLYCERIN*, COCO-CAPRYLATE/CAPRATE*, BUTYROSPERMUM PARKII (SHEA) BUTTER*, LINUM USITATISSIUM (LINSEED) SEED OIL*, POLYGLYCERYL-10 MYRISTATE*, IMPERATA CYLINDRICA ROOT EXTRACT*, CANDELILLA/JOJOBA/RICE BRAN POLYGLYCERYL-3 ESTERS*, GLYCERYL STEARATE*, ROSA DAMASCENA FLOWER WATER*, MENYANTHES TRIFOLIATA LEAF EXTRACT*, CITRUS MEDICA LIMONUM (LEMON) FRUIT WATER*, MEL (HONEY) EXTRACT*, CETEARYL ALCOHOL*, SODIUM STEAROYL LACTYLATE*, XANTHAN GUM*, GELLAN GUM*, SUCCINIC ACID*, SODIUM HYDROXIDE, SODIUM CITRATE*, PENTYLENE GLYCOL*, PROPANEDIOL, CITRIC ACID*, POLYGLYCERYL-10 OLEATE*, CAPRYLIC ACID, 1,5-PENTANEDIOL, PARFUM (FRAGRANCE), CITRONELLOL*, GERANIOL *ORIGINE NATURELLE [ Gant de Beauté ENSORCELANT AUX SUPER POUVOIRS ] : AQUA (WATER/EAU)*, COCO-CAPRYLATE/CAPRATE*, CETEARYL ALCOHOL*, GLYCERYL STEARATE*, POLYGLYCERYL-4 STEARATE*, LINUM USITATISSIMUM LINSEED SEED OIL*, HYDROXYSTEARIC ACID*, OLIVE OIL POLYGLYCERYL-6 ESTERS*, ORYZA SATIVA (RICE) BRAN OIL*, PERSEA GRATISSIMA AVOCADO OIL*, POLYGLYCERYL-10 OLEATE, SACCHARIDE ISOMERATE*, ACACIA SENEGAL GUM*, CAESALPINIA SPINOSA GUM*, TOCOPHEROL*, XANTHAN GUM*, CAPRYLIC ACID, 1,5-PENTANEDIOL, PARFUM (FRAGRANCE), CITRIC ACID*, SODIUM CITRATE*, SODIUM BENZOATE *ORIGINE NATURELLE',
     url: 'https://www.atida.fr/garancia-ensorcelante-rituel-hydratation-corps-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-ensorcelante-rituel-hydratation-corps-200ml-302939.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-ensorcelante-rituel-hydratation-corps-200ml-302939.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.KERATOSE_PILAIRE],
       secondary: [
@@ -2567,7 +2646,8 @@ export const GARANCIA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/garancia-a-la-belle-etoile-eco-recharge-et-bal-masque-des-sorciers-liftant-hydratant-repulpant.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/garancia-a-la-belle-etoile-eco-recharge-et-bal-masque-des-sorciers-liftant-hydratant-repulpant-300864.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/garancia-a-la-belle-etoile-eco-recharge-et-bal-masque-des-sorciers-liftant-hydratant-repulpant-300864.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [

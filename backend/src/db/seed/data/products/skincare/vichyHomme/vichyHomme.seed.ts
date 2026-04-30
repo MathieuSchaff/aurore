@@ -16,7 +16,8 @@ export const VICHY_HOMME_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua / water, sodium laureth sulfate, glycerin, coco-betaine, laureth-11 carboxylic acid, parfum / fragrance, sodium chloride, ascorbyl glucoside, ci 14700 / red 4, ci 19140 / yellow 5, citric acid, disodium laureth sulfosuccinatemagnesium gluconate, polyquaternium-10, ppg-5-ceteth-20, salicylic acidsodium benzoate, sodium hydroxide (f.i.l. c35846/1).',
     url: 'https://www.atida.fr/vichy-homme-hydra-mag-c-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-homme-gel-douche-corps-cheveux-hydra-mag-c-200ml-299448.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-homme-gel-douche-corps-cheveux-hydra-mag-c-200ml-299448.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION],
       secondary: [
@@ -44,7 +45,8 @@ export const VICHY_HOMME_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, SODIUM LAURETH SULFATE, GLYCERIN, COCO-BETAINE, LAURETH-11 CARBOXYLIC ACID, PARFUM / FRAGRANCE, SODIUM CHLORIDE, ASCORBYL GLUCOSIDE, CI 14700 / RED 4, CI 19140 / YELLOW 5, CITRIC ACID, DISODIUM LAURETH SULFOSUCCINATEMAGNESIUM GLUCONATE, POLYQUATERNIUM-10, PPG-5-CETETH-20, SALICYLIC ACIDSODIUM BENZOATE, SODIUM HYDROXIDE (F.I.L, C35846/1)',
     url: 'https://www.atida.fr/vichy-homme-hydra-mag-c-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-homme-gel-douche-corps-cheveux-hydra-mag-c.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-homme-gel-douche-corps-cheveux-hydra-mag-c.webp',
     tags: {
       primary: ['anti-acne', 'hydratation'],
       secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],

@@ -13,7 +13,7 @@
  *   bun run backend/src/db/seed/scripts/dedupe-product-variants.ts
  */
 
-import { readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs'
+import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 const DRY = process.argv.includes('--dry')
@@ -90,7 +90,7 @@ function parseEntries(text: string): Entry[] {
       const nameM = line.match(/^\s+name:\s*(?:'([^']+)'|"([^"]+)")/)
       const brandM = line.match(/^\s+brand:\s*['"]([^'"]+)['"]/)
       if (slugM && !slug) slug = slugM[1] ?? ''
-      if (nameM && !name) name = (nameM[1] ?? nameM[2]) ?? ''
+      if (nameM && !name) name = nameM[1] ?? nameM[2] ?? ''
       if (brandM && !brand) brand = brandM[1] ?? ''
     }
 
@@ -151,7 +151,9 @@ for (const file of files) {
       const keep = sized[0]?.e
       for (const { e } of sized) if (e !== keep) toDrop.push(e)
     } else {
-      skipped.push(`  ${file.replace(PRODUCTS_DIR, '.')}\n    [${key}] canonical=${canonical.length} variants=${variants.length}`)
+      skipped.push(
+        `  ${file.replace(PRODUCTS_DIR, '.')}\n    [${key}] canonical=${canonical.length} variants=${variants.length}`
+      )
       totalSkipped++
     }
   }

@@ -15,7 +15,8 @@ export const BEAUTERRA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'SODIUM COCOYL ISETHIONATE, HYDROGENATED VEGETABLE OIL, AQUA (WATER), POLYGLYCERYL-4 LAURATE, ERYTHRITOL, GLYCERIN, PARFUM (FRAGRANCE), PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, DECYL GLUCOSIDE, TETRASODIUM GLUTAMATE DIACETATE, AMYL CINNAMAL, LIMONENE',
     url: 'https://www.atida.fr/beauterra-shampoing-solide-cheveux-normaux-75g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/beauterra-shampoing-solide-cheveux-normaux-75g-237979.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/beauterra-shampoing-solide-cheveux-normaux-75g-237979.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -41,7 +42,8 @@ export const BEAUTERRA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'ORYZA SATIVA (RICE) STARCH, KAOLIN, ZEA MAYS (CORN) STARCH, PARFUM (FRAGRANCE), PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) SHELL POWDER',
     url: 'https://www.atida.fr/beauterra-shampooing-sec-extra-doux-50g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/beauterra-shampooing-sec-extra-doux-50g-255575.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/beauterra-shampooing-sec-extra-doux-50g-255575.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],

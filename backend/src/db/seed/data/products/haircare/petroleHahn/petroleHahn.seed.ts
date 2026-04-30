@@ -15,7 +15,8 @@ export const PETROLE_HAHN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua/water/eau, deceth-3, oleic acid, ethanolamine, glycerin, p-phenylenediamine, resorcinol, sodium metabisulfite, carbomer,\n sodium laureth sulfate, parfum (fragrance), m-aminophenol, polyquaternium-22, 2,4-diaminophenoxyethanol sulfate, ascorbic acid,\n n,n-bis(2-hydroxyethyl)-p-phenylenediamine sulfate, limonene, pentasodium pentetate, phenyl methyl pyrazolone, quaternium-80,\npropylene glycol, linalool, citronellol, (f01).',
     url: 'https://www.atida.fr/petrole-hahn-creme-colorante-douce-sans-ammoniaque-n-50-chatain-clair.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/petrole-hahn-creme-colorante-douce-sans-ammoniaque-n-50-chatain-clair-260686.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/petrole-hahn-creme-colorante-douce-sans-ammoniaque-n-50-chatain-clair-260686.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -36,7 +37,8 @@ export const PETROLE_HAHN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua/water/eau, deceth-3, oleic acid, ethanolamine, glycerin, p-phenylenediamine, resorcinol, sodium metabisulfite, carbomer,\n sodium laureth sulfate, parfum (fragrance), m-aminophenol, polyquaternium-22, 2,4-diaminophenoxyethanol sulfate, ascorbic acid,\n n,n-bis(2-hydroxyethyl)-p-phenylenediamine sulfate, limonene, pentasodium pentetate, phenyl methyl pyrazolone, quaternium-80,\npropylene glycol, linalool, citronellol, (f01).',
     url: 'https://www.atida.fr/petrole-hahn-creme-colorante-douce-sans-ammoniaque-n-40-chatain-naturel.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/petrole-hahn-creme-colorante-douce-sans-ammoniaque-n-40-chatain-naturel-260680.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/petrole-hahn-creme-colorante-douce-sans-ammoniaque-n-40-chatain-naturel-260680.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -57,7 +59,8 @@ export const PETROLE_HAHN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua/water/eau, deceth-3, oleic acid, ethanolamine, glycerin, p-phenylenediamine, resorcinol, sodium metabisulfite, carbomer,\n sodium laureth sulfate, parfum (fragrance), m-aminophenol, polyquaternium-22, 2,4-diaminophenoxyethanol sulfate, ascorbic acid,\n n,n-bis(2-hydroxyethyl)-p-phenylenediamine sulfate, limonene, pentasodium pentetate, phenyl methyl pyrazolone, quaternium-80,\npropylene glycol, linalool, citronellol, (f01).',
     url: 'https://www.atida.fr/petrole-hahn-creme-colorante-douce-sans-ammoniaque-n-30-chatain-fonce.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/petrole-hahn-creme-colorante-douce-sans-ammoniaque-n-30-chatain-fonce-260677.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/petrole-hahn-creme-colorante-douce-sans-ammoniaque-n-30-chatain-fonce-260677.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -78,7 +81,8 @@ export const PETROLE_HAHN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "- Crème colorante : 20 : Brun naturel : aqua/water/eau, oleic acid, laureth-2, deceth-3, ethanolamine, glycerin, p-phenylenediamine, resorcinol, carbomer, sodium metabisulfite, coco-glucoside, parfum (fragrance), polyquaternium-22, m-aminophenol, asorbic acid, tetrasodium glutamate diacetate, 2,4-diaminophenoxyethanol sulfate, n,n-bis(2-hydroxyethyl)-p-phenylenediamine sulfate, phenyl methyl pyrzolone, limonene, quaternium-80, propylene glycol, linalool.- Révélateur : aqua/water/eau, hydrogen peroxide, cetearyl alcohol, trideceth-2 carboxamide mea, ceteareth-33, glycerin, phosphoric acid, tetrasodium glutamate diacetate, sodium stannate, tetrasodium pyrophosphate.\ncontient du péroxyde d'hydrogène.\n- Shampoing : aqua/water/eau, sodium laureth sulfate, peg-4 rapeseedamide, cocamidopropyl betaine, linoleamidopropyl pg-dimonium chloride phosphate, peg-60 hydrogenated castor oil, parfum (fragrance), sodium chloride, polyquaternium-10, limonene, amodimethicone, peg-15 cocopolyamine, benzophenone-4, citrus aurantium dulcis (orange) peel oil, propylene glycol, c11-15 pareth-5, c11-15 pareth-9, peg-40 hydrogenated castor oil, trideceth-9, phenoxyethanol, acetic acid, decylene glycol, caprylyl glycol, sodium acetate, linalool, glucose, magnesium nitrate, yellow 5 (ci 19140), lactic acid, isopropyl alcohol, methylchloroisothiazolinone, sodium benzoate, magnesium chloride, green 5 (ci 61570), potassium sorbate, methylisothiazolinone, citronellol, panax ginseng root extract, caramel, citric acid.",
     url: 'https://www.atida.fr/petrole-hahn-gel-creme-colorante-douce-sans-ammoniaque-n-20-brun.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/petrole-hahn-gel-creme-colorante-douce-sans-ammoniaque-n-20-brun-260670.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/petrole-hahn-gel-creme-colorante-douce-sans-ammoniaque-n-20-brun-260670.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -105,7 +109,8 @@ export const PETROLE_HAHN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua/water/eau, alcohol denat., c11-13 isoparaffin, limonene, citrus aurantium dulcis (orange) peel oil, citrus aurantium bergamia (bergamot) peel oil, citrus limon (lemon) peel oil, panthenyl ethyl ether, sodium chloride, linalool, citrus aurantifolia (lime) seed oil, citral, panthenol, camphor, chlorophyllin-copper complex (ci 75810), bht, geraniol, citronellol. (f01)',
     url: 'https://www.atida.fr/petrole-hahn-vert-lotion-tonique-force-5-vitalite-cheveux-normaux-300ml-32305.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/petrole-hahn-vert-lotion-tonique-force-5-vitalite-cheveux-normaux-300ml-252839.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/petrole-hahn-vert-lotion-tonique-force-5-vitalite-cheveux-normaux-300ml-252839.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
@@ -126,7 +131,8 @@ export const PETROLE_HAHN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Lotion biphasique BLEUE : AZULENE (Gaiazulène), Complexe d'huiles essentielles : Huile essentielle de Bergamote zeste (Citrus bergamiar), Huile essentielle d'Orange douce zeste (Citrus dulcis), Huile essentielle de Citron zeste (Citrus limonum), Complexe provitaminé B5 : panthénol, panthényl éthyl éther, Excipients : Eau, alcool denature, C11-13 isoparaffine, sodium chlorure, linalool, citral, camphre, BHT, limonene, colorants : blue-4 (CI 42090), green-6 (CI 61565), D&C Yellow-11 (CI 47000).",
     url: 'https://www.atida.fr/petrole-hahn-bleu-lotion-tonique-force-5-protection-cheveux-blancs-ou-gris-300ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/petrole-hahn-bleu-lotion-tonique-force-5-protection-cheveux-blancs-ou-gris-300ml-273427.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/petrole-hahn-bleu-lotion-tonique-force-5-protection-cheveux-blancs-ou-gris-300ml-273427.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
@@ -147,7 +153,8 @@ export const PETROLE_HAHN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua/water/eau, deceth-3, oleic acid, ethanolamine, glycerin, p-phenylenediamine, resorcinol, sodium metabisulfite, carbomer,\n sodium laureth sulfate, parfum (fragrance), m-aminophenol, polyquaternium-22, 2,4-diaminophenoxyethanol sulfate, ascorbic acid,\n n,n-bis(2-hydroxyethyl)-p-phenylenediamine sulfate, limonene, pentasodium pentetate, phenyl methyl pyrazolone, quaternium-80,\npropylene glycol, linalool, citronellol, (f01).',
     url: 'https://www.atida.fr/petrole-hahn-creme-colorante-douce-sans-ammoniaque-n-10-noir.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/petrole-hahn-creme-colorante-douce-sans-ammoniaque-n-10-noir-242711.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/petrole-hahn-creme-colorante-douce-sans-ammoniaque-n-10-noir-242711.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],

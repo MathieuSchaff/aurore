@@ -16,7 +16,8 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER) / EAU, POTASSIUM COCOATE, POTASSIUM OLIVATE, PARFUM (FRAGRANCE), DECYL GLUCOSIDE, DISODIUM PHOSPHATE, GLYCERIN, HYDROXYETHYLCELLULOSE, POLYSORBATE 60, POTASSIUM HYDROXIDE, SODIUM PHOSPHATE, CITRIC ACID, TETRASODIUM GLUTAMATE DIACETATE, CI 15510 (ORANGE 4), CI 17200 (RED 33).',
     url: 'https://www.atida.fr/le-comptoir-du-bain-savon-de-marseille-fleur-d-oranger-extra-doux-1l.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-de-marseille-fleur-d-oranger-extra-doux-1l-249849.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-de-marseille-fleur-d-oranger-extra-doux-1l-249849.webp',
     tags: {
       primary: [],
       secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
@@ -37,7 +38,8 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER) / EAU, POTASSIUM COCOATE, POTASSIUM OLIVATE, HYDROXYETHYLCELLULOSE, GLYCERIN, TETRASODIUM GLUTAMATE DIACETATE, COCO-GLUCOSIDE, GLYCERYL OLEATE, CITRIC ACID, POTASSIUM HYDROXIDE, DISODIUM PHOSPHATE, POLYSORBATE 60, SODIUM PHOSPHATE, TOCOPHEROL, HYDROGENATED PALM GLYCERIDES CITRATE.',
     url: 'https://www.atida.fr/le-comptoir-du-bain-savon-de-marseille-surgras-sans-parfum-1l.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-de-marseille-surgras-sans-parfum-1l-249848.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-de-marseille-surgras-sans-parfum-1l-249848.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -63,7 +65,8 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water) / eau, potassium cocoate, potassium oleate, decyl glucoside, parfum (fragrance), hydroxyethylcellulose, glycerin, tetrasodium glutamate diacetate, potassium hydroxide, ci 10316 (ext. yellow 7), ci 61570 (green 5), limonene, citral, linalool.',
     url: 'https://www.atida.fr/le-comptoir-du-bain-savon-liquide-de-marseille-citron-menthe-1l.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-traditionnel-de-marseille-citron-menthe-1l-263619.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-traditionnel-de-marseille-citron-menthe-1l-263619.webp',
     tags: {
       primary: [],
       secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
@@ -84,7 +87,8 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER) / EAU, POTASSIUM COCOATE, POTASSIUM OLIVATE, PARFUM (FRAGRANCE), DECYL GLUCOSIDE, GLYCERIN, HYDROXYETHYLCELLULOSE, TETRASODIUM GLUTAMATE DIACETATE, POTASSIUM HYDROXIDE, DISODIUM PHOSPHATE, POLYSORBATE 60, CI 61570 (GREEN 5), SODIUM PHOSPHATE, CI 10316 (EXT. YELLOW 7), CITRIC ACID.',
     url: 'https://www.atida.fr/le-comptoir-du-bain-savon-de-marseille-aloe-vera-extra-doux-1l.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-de-marseille-aloe-vera-extra-doux-1l-249857.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-de-marseille-aloe-vera-extra-doux-1l-249857.webp',
     tags: {
       primary: [],
       secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
@@ -105,7 +109,8 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (Water)/Eau, Potassium Cocoate, Potassium Olivate, Parfum (Fragrance), Decyl Glucoside, Hydroxyethylcellulose, Glycerin, Tetrasodium Glutamate Diacetate, Coco-Glucoside, Glyceryl Oleate, Citric Acid, Potassium Hydroxide, Disodium Phosphate, Polysorbate 60, Sodium Phosphate, Tocopherol, Hydrogenated Palm Glycerides Citrate.',
     url: 'https://www.atida.fr/le-comptoir-du-bain-savon-liquide-surgras-amande-douce-1l.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-liquide-surgras-amande-douce-1l-249860.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-liquide-surgras-amande-douce-1l-249860.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -131,7 +136,8 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER) / EAU, POTASSIUM COCOATE, POTASSIUM OLIVATE, PARFUM (FRAGRANCE), DECYL GLUCOSIDE, GLYCERIN, HYDROXYETHYLCELLULOSE, TETRASODIUM GLUTAMATE DIACETATE, POTASSIUM HYDROXIDE, DISODIUM PHOSPHATE, POLYSORBATE 60, CITRIC ACID, CI 61570 (GREEN 5), SODIUM PHOSPHATE, CI 17200 (RED 33).',
     url: 'https://www.atida.fr/le-comptoir-du-bain-savon-de-marseille-olive-lavande-extra-doux-1l.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-de-marseille-olive-lavande-extra-doux-1l-249851.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-de-marseille-olive-lavande-extra-doux-1l-249851.webp',
     tags: {
       primary: [],
       secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
@@ -152,7 +158,8 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER) / EAU, POTASSIUM COCOATE, POTASSIUM OLIVATE, PARFUM (FRAGRANCE), DECYL GLUCOSIDE, GLYCERIN, HYDROXYETHYLCELLULOSE, TETRASODIUM GLUTAMATE DIACETATE, POTASSIUM HYDROXIDE, CITRIC ACID, DISODIUM PHOSPHATE, POLYSORBATE 60, SODIUM PHOSPHATE, CI 10316 (EXT. YELLOW 7), CI 61570 (GREEN 5).',
     url: 'https://www.atida.fr/le-comptoir-du-bain-savon-de-marseille-verveine-extra-doux-1l.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-de-marseille-verveine-extra-doux-1l-249850.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-de-marseille-verveine-extra-doux-1l-249850.webp',
     tags: {
       primary: [],
       secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
@@ -173,7 +180,8 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER) / EAU, POTASSIUM COCOATE, POTASSIUM OLIVATE, DECYL GLUCOSIDE, PARFUM (FRAGRANCE), DISODIUM PHOSPHATE, GLYCERIN, HYDROXYETHYLCELLULOSE, POLYSORBATE 60, POTASSIUM HYDROXIDE, SODIUM PHOSPHATE, CITRIC ACID, TETRASODIUM GLUTAMATE DIACETATE, CI 10316 (EXT. YELLOW 7), CI 17200 (RED 33).',
     url: 'https://www.atida.fr/le-comptoir-du-bain-savon-de-marseille-vanille-miel-extra-doux-1l.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-de-marseille-vanille-miel-extra-doux-1l-249855.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-de-marseille-vanille-miel-extra-doux-1l-249855.webp',
     tags: {
       primary: [],
       secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
@@ -194,7 +202,8 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/le-comptoir-du-bain-savon-de-marseille-extra-doux-mandarine-sauge-1l.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-de-marseille-extra-doux-mandarine-sauge-1l-249856.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-de-marseille-extra-doux-mandarine-sauge-1l-249856.webp',
     tags: {
       primary: [],
       secondary: [TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
@@ -215,7 +224,8 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER) / EAU, POTASSIUM COCOATE, POTASSIUM OLEATE, DECYL GLUCOSIDE, PARFUM (FRAGRANCE), HYDROXYETHYLCELLULOSE, GLYCERIN, TETRASODIUM GLUTAMATE DIACETATE, POTASSIUM HYDROXIDE, CI 10316 (EXT, YELLOW 7), CI 61570 (GREEN 5), LIMONENE, CITRAL, LINALOOL',
     url: 'https://www.atida.fr/le-comptoir-du-bain-savon-liquide-de-marseille-citron-menthe-1l.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-traditionnel-de-marseille-citron-menthe.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-traditionnel-de-marseille-citron-menthe.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['nettoyant-corps', 'zone-corps'],
@@ -236,7 +246,8 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER) / EAU, POTASSIUM COCOATE, POTASSIUM OLIVATE, PARFUM (FRAGRANCE), DECYL GLUCOSIDE, GLYCERIN, HYDROXYETHYLCELLULOSE, TETRASODIUM GLUTAMATE DIACETATE, POTASSIUM HYDROXIDE, DISODIUM PHOSPHATE, POLYSORBATE 60, CI 61570 (GREEN 5), SODIUM PHOSPHATE, CI 10316 (EXT, YELLOW 7), CITRIC ACID',
     url: 'https://www.atida.fr/le-comptoir-du-bain-savon-de-marseille-aloe-vera-extra-doux-1l.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-de-marseille-aloe-vera-extra-doux.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-de-marseille-aloe-vera-extra-doux.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['nettoyant-corps', 'zone-corps'],
@@ -257,7 +268,8 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER) / EAU, POTASSIUM COCOATE, POTASSIUM OLIVATE, PARFUM (FRAGRANCE), DECYL GLUCOSIDE, GLYCERIN, HYDROXYETHYLCELLULOSE, TETRASODIUM GLUTAMATE DIACETATE, POTASSIUM HYDROXIDE, CITRIC ACID, DISODIUM PHOSPHATE, POLYSORBATE 60, SODIUM PHOSPHATE, CI 10316 (EXT, YELLOW 7), CI 61570 (GREEN 5)',
     url: 'https://www.atida.fr/le-comptoir-du-bain-savon-de-marseille-verveine-extra-doux-1l.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-de-marseille-verveine-extra-doux.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-de-marseille-verveine-extra-doux.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['nettoyant-corps', 'zone-corps'],
@@ -278,7 +290,8 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER) / EAU, POTASSIUM COCOATE, POTASSIUM OLIVATE, DECYL GLUCOSIDE, PARFUM (FRAGRANCE), DISODIUM PHOSPHATE, GLYCERIN, HYDROXYETHYLCELLULOSE, POLYSORBATE 60, POTASSIUM HYDROXIDE, SODIUM PHOSPHATE, CITRIC ACID, TETRASODIUM GLUTAMATE DIACETATE, CI 10316 (EXT, YELLOW 7), CI 17200 (RED 33)',
     url: 'https://www.atida.fr/le-comptoir-du-bain-savon-de-marseille-vanille-miel-extra-doux-1l.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-de-marseille-vanille-miel-extra-doux.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-de-marseille-vanille-miel-extra-doux.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['nettoyant-corps', 'zone-corps'],

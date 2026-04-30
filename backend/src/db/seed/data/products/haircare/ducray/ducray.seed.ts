@@ -15,7 +15,8 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), sodium laureth sulfate, sodium chloride, cocamidopropyl betaine, coco-glucoside, citric acid, fragrance (parfum), glyceryl oleate, hydrogenated vegetable glycerides citrate, sodium benzoate, tocopherol.',
     url: 'https://www.atida.fr/ducray-extra-doux-shampooing-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-extra-doux-shampoing-dermo-protecteur-400ml-268751.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/ducray-extra-doux-shampoing-dermo-protecteur-400ml-268751.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -41,7 +42,8 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), sodium laureth sulfate, decyl glucoside, undecylenamidopropyl betaine, ciclopirox olamine, lactamide mea, lauryl betaine, ceteareth-60 myristyl glycol, citric acid, fragrance (parfum), glycyrrhetinic acid, piroctone olamine, polyquaternium-10, sodium chloride, trisodium ethylenediamine disuccinate.',
     url: 'https://www.atida.fr/ducray-kelual-ds-shampooing-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-kelual-ds-shampoing-traitant-etats-pelliculaires-severes-100ml-275193.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/ducray-kelual-ds-shampoing-traitant-etats-pelliculaires-severes-100ml-275193.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -62,7 +64,8 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), alcohol denat., isopropyl alcohol, peg-6, hexylene glycol, pentylene glycol, butylene glycol, citric acid, lespedeza capitata flower/leaf/stem extract, manganese pca, polyacrylate-13, polyisobutene, polysorbate 20, silybum marianum fruit extract, sodium dilauramidoglutamide lysine, sodium phytate, sorbitan isostearate.',
     url: 'https://www.atida.fr/ducray-neoptide-expert-serum-capillaire-anti-chute-croissance-lot-de-2-x-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-neoptide-expert-serum-capillaire-anti-chute-croissance-lot-de-2-x-50ml-275359.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/ducray-neoptide-expert-serum-capillaire-anti-chute-croissance-lot-de-2-x-50ml-275359.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
@@ -87,7 +90,8 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), ethylhexyl palmitate, glycerin, cetearyl alcohol, lactamide mea, dimethicone, glycolic acid, glyceryl stearate, ceteareth-33, hydroxyethyl acrylate/sodium acryloyldimethyl taurate copolymer, laureth-9, 1,2-hexanediol, caprylyl glycol, cichorium intybus (chicory) root extract, ethanolamine, fragrance (parfum), hydrogenated polyisobutene, peg-7-trimethylolpropane coconut ether, pentylene glycol, sodium chloride, sodium hydroxide, sodium shale oil sulfonate sorbitan isostearate, Tripterygium wilfordii callus extract.',
     url: 'https://www.atida.fr/ducray-kertyol-pso-concentre-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-kertyol-p-s-o-concentre-corps-et-cuir-chevelu-100ml-275489.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/ducray-kertyol-p-s-o-concentre-corps-et-cuir-chevelu-100ml-275489.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
@@ -112,7 +116,8 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), Cocos nucifera (coconut) oil (Cocos nucifera oil), sodium trideceth sulfate, sodium lauroamphoacetate, cocamide mipa, glycerin, sodium chloride, salicylic acid, 1,2-hexanediol caprylyl glycol, Cichorium intybus (chicory) root extract, fragrance (parfum), ictasol pentylene glycol, Tripterygium wilfordii callus extract.',
     url: 'https://www.atida.fr/ducray-kertyol-pso-shampooing-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-kertyol-p-s-o-shampoing-traitant-200ml-275490.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/ducray-kertyol-p-s-o-shampoing-traitant-200ml-275490.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -137,7 +142,8 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua, sodium laureth sulfate, betaine, glycerin, sodium cocoamphoacetate, acrylates copolymer, ceteareth-60 myristyl glycol, peg-40 hydrogenated castor oil, alcohol, biotin, citric acid, parfum, glyceryl laurate, glycol distearate, hydrolyzed wheat protein, panthenol, pantolactone, phenoxyethanol, polyquaternium-7, pyridoxine hcl, ruscus aculeatus root extract, salicylic acid, sodium benzoate, sodium chloride, sodium hydroxide, tocopheryl nicotinate.',
     url: 'https://www.atida.fr/ducray-anaphase-shampoing-complement-anti-chute-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-anaphase-shampoing-complement-anti-chute-400ml-300632.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/ducray-anaphase-shampoing-complement-anti-chute-400ml-300632.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -164,7 +170,8 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua, sodium laureth sulfate, betaine, glycerin, sodium cocoamphoacetate, acrylates copolymer, ceteareth-60 myristyl glycol, peg-40 hydrogenated castor oil, alcohol, biotin, citric acid, parfum, glyceryl laurate, glycol distearate, hydrolyzed wheat protein, panthenol, pantolactone, phenoxyethanol, polyquaternium-7, pyridoxine hcl, ruscus aculeatus root extract, salicylic acid, sodium benzoate, sodium chloride, sodium hydroxide, tocopheryl nicotinate.',
     url: 'https://www.atida.fr/ducray-shampooing-anaphase-200ml-6006428.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-anaphase-shampoing-complement-anti-chute-200ml-300633.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/ducray-anaphase-shampoing-complement-anti-chute-200ml-300633.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -191,7 +198,8 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA). LAURYL GLUCOSIDE. SODIUM COCOYL ALANINATE. COCO-BETAINE. COCO-GLUCOSIDE. GLYCOL DISTEARATE. 1,2-HEXANEDIOL. ADENOSINE. BENZOIC ACID. BUTYLENE GLYCOL. CELLULOSE. CELLULOSE GUM. CITRIC ACID. FRAGRANCE (PARFUM). GLYCERIN. HYDROXYPROPYL GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE. MANGANESE PCA. SODIUM BENZOATE. SODIUM DILAURAMIDOGLUTAMIDE LYSINE',
     url: 'https://www.atida.fr/ducray-anaphase-shampoing-antichute-et-croissance-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-anaphase-shampoing-antichute-et-croissance-200ml-299408.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/ducray-anaphase-shampoing-antichute-et-croissance-200ml-299408.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -219,7 +227,8 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/ducray-extra-doux-shampoing-dermo-protecteur-lot-de-2-x-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-extra-doux-shampoing-dermo-protecteur-lot-de-2-x-400ml-300536.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/ducray-extra-doux-shampoing-dermo-protecteur-lot-de-2-x-400ml-300536.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -240,7 +249,8 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua). sodium laureth sulfate. glycerin. coco-glucoside. sodium cocoamphoacetate. glycol distearate. sodium laureth-8 sulfate. acrylates/c10-30 alkyl acrylate crosspolymer. albizia julibrissin seed/bark extract. ceteareth-60 myristyl glycol. citric acid. fragrance (parfum). glyceryl oleate. hydrogenated palm glycerides citrate. hydroxypropyl guar hydroxypropyltrimonium chloride. magnesium laureth sulfate. magnesium laureth-8 sulfate. magnesium oleth sulfate. maltodextrin. panax ginseng root extract. peg-30 dipolyhydroxystearate. phenoxyethanol. salicylic acid. sodium benzoate. sodium chloride. sodium hydroxide. sodium oleth sulfate. tocopherol. trideceth-6. trisodium ethylenediamine disuccinate.',
     url: 'https://www.atida.fr/ducray-densiage-shampooing-redensifiant-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-densiage-shampoing-redensifiant-200ml-232682.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/ducray-densiage-shampoing-redensifiant-200ml-232682.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -269,7 +279,8 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), sodium laureth sulfate, sodium chloride, cocamidopropyl betaine, coco-glucoside, citric acid, fragrance (parfum), glyceryl oleate, hydrogenated vegetable glycerides citrate, sodium benzoate, tocopherol.',
     url: 'https://www.atida.fr/ducray-extra-doux-shampooing-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-extra-doux-shampoing-dermo-protecteur-100ml-233313.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/ducray-extra-doux-shampoing-dermo-protecteur-100ml-233313.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -295,7 +306,8 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Ingrédients : WATER (AQUA). SODIUM\nLAURETH SULFATE. SODIUM CHLORIDE. COCAMIDOPROPYL BETAINE.\nCOCO-GLUCOSIDE. CITRIC ACID. FRAGRANCE (PARFUM). GLYCERYL OLEATE.\nHYDROGENATED VEGETABLE GLYCERIDES CITRATE. SODIUM BENZOATE.\nTOCOPHEROLFabriqué en France91% d'ingrédients d'origine naturelleVitamine E : Actif aux propriétés anti-oxydantesIl est recommandé au consommateur de vérifier systématiquement la composition du produit avant son achat.",
     url: 'https://www.atida.fr/ducray-extra-doux-shampooing-flacon-pompe-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-extra-doux-shampoing-dermo-protecteur-flacon-pompe-400ml-268752.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/ducray-extra-doux-shampoing-dermo-protecteur-flacon-pompe-400ml-268752.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -321,7 +333,8 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Nicotinate de mé;thyle, he naturelles végétales, alcool à 70°, excipient qsp 100 %.formule inci : alcohol denat, aqua, turpentine, peg-15 cocamine, peg-40 hydrogenated castor oil, fragance, carbomer, cedrus atlantica, citral, eugenol, limonene, methyl nicotinate.',
     url: 'https://www.atida.fr/ducray-gel-rubefiant-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-gel-rubefiant-tonique-capillaire-30ml-272680.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/ducray-gel-rubefiant-tonique-capillaire-30ml-272680.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
@@ -342,7 +355,8 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), ethyhexyl palmitate, glycerin, betaine, caprylic/capric triglyceride, dicaprylyl carbonate, inulin, hydroxyethylcellulose, lauryl glucoside, polyglyceryl-2 dipolyhydroxystearate, biotin, cetrimonium chloride, pantolactone, phenoxyethanol, polyquaternium-37, pyridoxine, hcl, sclerotium gum, sodium benzoate, tocopherol, tocopheryl nicotinate, yellow 5 (ci 19140), yellow 6 (ci 15985).',
     url: 'https://www.atida.fr/ducray-anaphase-soin-apres-shampoing-fortifiant-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-anaphase-soin-apres-shampoing-fortifiant-200ml-298112.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/ducray-anaphase-soin-apres-shampoing-fortifiant-200ml-298112.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -369,7 +383,8 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Pour la liste des ingrédients et des allergènes se référer à l’image produit.',
     url: 'https://www.atida.fr/ducray-anacaps-expert-chute-de-cheveux-chronique-90-gelules.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-anacaps-expert-chute-de-cheveux-chronique-90-gelules-275585.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/ducray-anacaps-expert-chute-de-cheveux-chronique-90-gelules-275585.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],

@@ -15,7 +15,8 @@ export const HERBATINT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients colorant: Laureth-4, Propylene glycol, Aqua (Water), PEG-2 Oleamine, Ethanolamine, Oleic acid, Aloe barbadensis (Aloe Vera) leaf juice**, Hamamelis virginiana (Witch Hazel) leaf extract**, Betula Alba (Birch) leaf extract**, Echinacea angustifolia (Echinacea) root extract**, Juglans regia (Walnut) leaf extract**, Rheum officinale stem extract**, Cinchona calisaya (Cinchona) bark extract, Limnanthes alba (Meadowfoam) seed oil, p- Phenylenediamine, 4-Chlororesorcinol, Tetrasodium glutamate diacetate, Cetrimonium chloride, Sodium metabisulfite, Glycerin. Ingrédients révélateur: Aqua (Water), Hydrogen Peroxide, Etidronic acid, Trideceth-9, Cetrimonium chloride, Propylene glycol, PEG-40 hydrogenated Castor oil. Natural origin ingredient *Derived from natural origin ingredient **Ingredients from organic farming',
     url: 'https://www.atida.fr/herbatint-couleur-blond-fonce-6n-120ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/phytoceutic-herbatint-6n-blond-fonce-170-ml-275856.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/phytoceutic-herbatint-6n-blond-fonce-170-ml-275856.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -40,7 +41,8 @@ export const HERBATINT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients colorant: Laureth-4, Propylene glycol, Aqua (Water), PEG-2 Oleamine, Ethanolamine, Oleic acid, Aloe barbadensis (Aloe Vera) leaf juice**, Hamamelis virginiana (Witch Hazel) leaf extract**, Betula Alba (Birch) leaf extract**, Echinacea angustifolia (Echinacea) root extract**, Juglans regia (Walnut) leaf extract**, Rheum officinale stem extract**, Cinchona calisaya (Cinchona) bark extract, Limnanthes alba (Meadowfoam) seed oil, p- Phenylenediamine, 4-Chlororesorcinol, Tetrasodium glutamate diacetate, Cetrimonium chloride, Sodium metabisulfite, Glycerin. Ingrédients révélateur: Aqua (Water), Hydrogen Peroxide, Etidronic acid, Trideceth-9, Cetrimonium chloride, Propylene glycol, PEG-40 hydrogenated Castor oil. Natural origin ingredient *Derived from natural origin ingredient **Ingredients from organic farming',
     url: 'https://www.atida.fr/herbatint-couleur-chatain-clair-5n-120ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/phytoceutic-herbatint-5n-chatain-clair-170-ml-275855.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/phytoceutic-herbatint-5n-chatain-clair-170-ml-275855.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -65,7 +67,8 @@ export const HERBATINT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients colorant: Laureth-4, Propylene glycol, Aqua (Water), PEG-2 Oleamine, Ethanolamine, Oleic acid, p- Phenylenediamine, 4-Chlororesorcinol, Aloe barbadensis (Aloe Vera) leaf juice**, Hamamelis virginiana (Witch Hazel) leaf extract**, Betula Alba (Birch) leaf extract**, Echinacea angustifolia (Echinacea) root extract**, Juglans regia (Walnut) leaf extract**, Rheum officinale stem extract**, Cinchona calisaya (Cinchona) bark extract, Limnanthes alba (Meadowfoam) seed oil, Tetrasodium glutamate diacetate, Cetrimonium chloride, Sodium metabisulfite, Glycerin. Ingrédients révélateur: Aqua (Water), Hydrogen Peroxide, Etidronic acid, Trideceth-9, Cetrimonium chloride, Propylene glycol, PEG-40 hydrogenated Castor oil. Natural origin ingredient *Derived from natural origin ingredient **Ingredients from organic farming',
     url: 'https://www.atida.fr/herbatint-couleur-chatain-fonce-3n-120ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/phytoceutic-herbatint-3n-chatain-fonce-170-ml-275853.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/phytoceutic-herbatint-3n-chatain-fonce-170-ml-275853.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -90,7 +93,8 @@ export const HERBATINT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients colorant: Laureth-4, Propylene glycol, Aqua (Water), PEG-2 Oleamine, Ethanolamine, Oleic acid, Aloe barbadensis (Aloe Vera) leaf juice**, Hamamelis virginiana (Witch Hazel) leaf extract**, Betula Alba (Birch) leaf extract**, Echinacea angustifolia (Echinacea) root extract**, Juglans regia (Walnut) leaf extract**, Rheum officinale stem extract**, Cinchona calisaya (Cinchona) bark extract, Limnanthes alba (Meadowfoam) seed oil, p- Phenylenediamine, Tetrasodium glutamate diacetate, p-Methylaminophenol sulfate, 2- Methylresorcinol, 4-Chlororesorcinol, 4-Amino-2-hydroxytoluene, p-Aminophenol, Cetrimonium chloride, Sodium metabisulfite, Glycerin. Ingrédients révélateur: Aqua (Water), Hydrogen Peroxide, Etidronic acid, Trideceth-9, Cetrimonium chloride, Propylene glycol, PEG-40 hydrogenated Castor oil. Natural origin ingredient *Derived from natural origin ingredient **Ingredients from organic farming',
     url: 'https://www.atida.fr/herbatint-couleur-blond-clair-8n-120ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/phytoceutic-herbatint-8n-blond-clair-170-ml-275858.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/phytoceutic-herbatint-8n-blond-clair-170-ml-275858.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -115,7 +119,8 @@ export const HERBATINT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients colorant: Laureth-4, Propylene glycol, Aqua (Water), PEG-2 Oleamine, Ethanolamine, Oleic acid, Aloe barbadensis (Aloe Vera) leaf juice**, Hamamelis virginiana (Witch Hazel) leaf extract**, Betula Alba (Birch) leaf extract**, Echinacea angustifolia (Echinacea) root extract**, Juglans regia (Walnut) leaf extract**, Rheum officinale stem extract**, Cinchona calisaya (Cinchona) bark extract, Limnanthes alba (Meadowfoam) seed oil, p- Phenylenediamine, p-Methylaminophenol sulfate, 2-Methylresorcinol, 4-Chlororesorcinol, Tetrasodium glutamate diacetate, Cetrimonium chloride, Sodium metabisulfite, Glycerin. Ingrédients révélateur: Aqua (Water), Hydrogen Peroxide, Etidronic acid, Trideceth-9, Cetrimonium chloride, Propylene glycol, PEG-40 hydrogenated Castor oil. Natural origin ingredient *Derived from natural origin ingredient **Ingredients from organic farming',
     url: 'https://www.atida.fr/herbatint-couleur-blond-fonce-dore-6d-120ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/phytoceutic-herbatint-6d-blond-fonce-dore-170-ml-275867.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/phytoceutic-herbatint-6d-blond-fonce-dore-170-ml-275867.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],

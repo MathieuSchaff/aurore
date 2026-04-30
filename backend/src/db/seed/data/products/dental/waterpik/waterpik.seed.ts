@@ -15,7 +15,8 @@ export const WATERPIK_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/waterpik-hydropulseur-de-voyage-wp-450-cordless-plus-sans-fil.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/waterpik-hydropulseur-de-voyage-wp-450-cordless-plus-sans-fil-262321.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/waterpik-hydropulseur-de-voyage-wp-450-cordless-plus-sans-fil-262321.webp',
     tags: {
       primary: [TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],

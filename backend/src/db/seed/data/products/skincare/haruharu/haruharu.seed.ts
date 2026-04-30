@@ -17,7 +17,8 @@ export const HARUHARU_SEED: UnifiedProductSeed[] = [
     notes: `Contient de l'huile de riz noir et de jojoba, idéale pour tous les types de peaux recherchant un nettoyage doux.`,
     inci: 'CAPRYLIC/CAPRIC TRIGLYCERIDE, ETHYLHEXYLGLYCERIN, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, MACADAMIA INTEGRIFOLIA SEED OIL, OLEA EUROPAEA (OLIVE) FRUIT OIL, ORYZA SATIVA (RICE) BRAN OIL, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, SORBETH-30 TETRAOLEATE, TOCOPHEROL',
     url: 'https://www.skinsafeproducts.com/haruharu-wonder-black-rice-moisture-deep-cleansing-oil-5-1-fl-oz-150-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/haruharu-black-rice-moisture-deep-cleansing-oil.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/haruharu-black-rice-moisture-deep-cleansing-oil.webp',
     tags: {
       primary: [TAG_SLUGS.HUILE_DEMAQUILLANTE, TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_1],
       secondary: [TAG_SLUGS.SANS_PARFUM],
@@ -39,7 +40,8 @@ export const HARUHARU_SEED: UnifiedProductSeed[] = [
     notes: `Enrichi en extrait de riz noir et de ginseng, parfait pour maintenir l'hydratation des peaux sensibles.`,
     inci: '1,2-HEXANEDIOL, ASPERGILLUS FERMENT, BETA-GLUCAN, BUTYLENE GLYCOL, CITRIC ACID, COCO-BETAINE, CYCLODEXTRIN, ETHYLHEXYLGLYCERIN, GLYCERIN, HYDROXYETHYLCELLULOSE, ORYZA SATIVA (RICE) EXTRACT, PANAX GINSENG ROOT EXTRACT, PENTYLENE GLYCOL, PHYLLOSTACHYS PUBESCENS SHOOT BARK EXTRACT, POTASSIUM COCOATE, POTASSIUM COCOYL GLYCINATE, PROPANEDIOL, PULSATILLA KOREANA EXTRACT, SODIUM CHLORIDE, TREHALOSE, USNEA BARBATA (LICHEN) EXTRACT, WATER, XANTHAN GUM, ZANTHOXYLUM PIPERITUM FRUIT EXTRACT',
     url: 'https://www.skinsafeproducts.com/haruharu-wonder-black-rice-moisture-5-5-soft-cleansing-gel-100-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/haruharu-black-rice-moisture-5-5-soft-cleansing-gel.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/haruharu-black-rice-moisture-5-5-soft-cleansing-gel.webp',
     tags: {
       primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.GEL_NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.PEAU_SENSIBLE],
@@ -83,7 +85,8 @@ export const HARUHARU_SEED: UnifiedProductSeed[] = [
       'Formulée avec du riz noir et du bêta-glucane, spécialement conçue pour les peaux ultra-sensibles.',
     inci: '1,2-HEXANEDIOL, ASPERGILLUS FERMENT, BETA-GLUCAN, BETAINE, BUTYLENE GLYCOL, CELLULOSE GUM, CYCLODEXTRIN, GLUCOSE, GLYCERIN, HYALURONIC ACID, ORYZA SATIVA (RICE) EXTRACT, PANAX GINSENG ROOT EXTRACT, PHYLLOSTACHYS PUBESCENS SHOOT BARK EXTRACT, POLYGLYCERYL-10 LAURATE, POLYGLYCERYL-10 MYRISTATE, PROPANEDIOL, PULSATILLA KOREANA EXTRACT, SCUTELLARIA BAICALENSIS ROOT EXTRACT, SODIUM PHYTATE, TAMARINDUS INDICA SEED GUM, USNEA BARBATA (LICHEN) EXTRACT, WATER, XANTHAN GUM, ZANTHOXYLUM PIPERITUM FRUIT EXTRACT',
     url: 'https://www.skinsafeproducts.com/haruharu-wonder-black-rice-hyaluronic-toner-for-sensitive-skin-10-1-fl-oz-300ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/haruharu-black-rice-hyaluronic-toner-sensitive.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/haruharu-black-rice-hyaluronic-toner-sensitive.webp',
     tags: {
       primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.HYDRATATION, TAG_SLUGS.PREPARATION],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.PEAU_SENSIBLE],
@@ -105,7 +108,8 @@ export const HARUHARU_SEED: UnifiedProductSeed[] = [
     notes: `Synergie de Rétinol et Bakuchiol, idéal pour lutter contre les signes de l'âge même sur peaux sensibles.`,
     inci: '1,2-HEXANEDIOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, ADENOSINE, ARGININE, ASPERGILLUS FERMENT, BAKUCHIOL, BUTYLENE GLYCOL, C12-20 ALKYL GLUCOSIDE, C14-22 ALCOHOLS, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CERAMIDE NP, CYCLODEXTRIN, DIPROPYLENE GLYCOL, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, GLUCOSE, GLYCERIN, GLYCERYL STEARATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, HYDROGENATED LECITHIN, HYDROGENATED POLYISOBUTENE, HYDROXYACETOPHENONE, ORYZA SATIVA (RICE) EXTRACT, PANAX GINSENG ROOT EXTRACT, PHYLLOSTACHYS PUBESCENS SHOOT BARK EXTRACT, POLYGLYCERYL-10 STEARATE, POLYGLYCERYL-2 STEARATE, POTASSIUM CETYL PHOSPHATE, RETINOL, STEARYL ALCOHOL, WATER, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/haruharu-wonder-black-rice-night-knight-retinol-serum-0-67-fl-oz-20-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/haruharu-black-rice-night-knight-retinol-serum.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/haruharu-black-rice-night-knight-retinol-serum.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.TRAITEMENT],
       secondary: [TAG_SLUGS.SANS_PARFUM],
@@ -176,7 +180,8 @@ export const HARUHARU_SEED: UnifiedProductSeed[] = [
     notes: 'Complexe de 5 Peptides et Centella Asiatica, idéal pour les peaux matures ou abîmées.',
     inci: '1,2-HEXANEDIOL, ACETYL HEXAPEPTIDE-8, ADENOSINE, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, ANHYDROXYLITOL, ASIATIC ACID, ASIATICOSIDE, BUTYLENE GLYCOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, CAFFEINE, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CENTELLA ASIATICA EXTRACT, CERAMIDE NP, CETYL ALCOHOL, CETYL PALMITATE, COPPER TRIPEPTIDE-1, ETHYLHEXYLGLYCERIN, GLUCOSE, GLYCERIN, GLYCERYL STEARATE, GLYCERYL STEARATE CITRATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, HIPPOPHAE RHAMNOIDES FRUIT EXTRACT, HYDROGENATED LECITHIN, HYDROLYZED PEA PROTEIN, HYDROLYZED SOY PROTEIN, LAURYL ALCOHOL, MADECASSIC ACID, MADECASSOSIDE, MYRISTYL ALCOHOL, OLIGOPEPTIDE-29, OLIGOPEPTIDE-32, PALMITOYL PENTAPEPTIDE-4, PENTYLENE GLYCOL, PHYTOSTEROLS, POLYGLYCERYL-3 DISTEARATE, SORBITAN OLIVATE, SORBITAN PALMITATE, SQUALANE, STEARYL ALCOHOL, WATER, XANTHAN GUM, XYLITOL, XYLITYLGLUCOSIDE',
     url: 'https://www.skinsafeproducts.com/haruharu-wonder-centella-phyto-5-peptide-concentrate-cream-1-01-fl-oz-30-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/haruharu-centella-phyto-5-peptide-concentrate-cream.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/haruharu-centella-phyto-5-peptide-concentrate-cream.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_AGE],
       secondary: [TAG_SLUGS.SANS_PARFUM],
@@ -225,7 +230,8 @@ export const HARUHARU_SEED: UnifiedProductSeed[] = [
       'Contient des ferments de riz et des céramides, idéal pour les peaux stressées ou fragilisées.',
     inci: '1,2-HEXANEDIOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, ARACHIDIC ACID, ASPERGILLUS FERMENT, BIFIDA FERMENT FILTRATE, BUTYLENE GLYCOL, BUTYLENE GLYCOL DICAPRYLATE/DICAPRATE, BUTYROSPERMUM PARKII (SHEA) BUTTER, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CERAMIDE AP, CERAMIDE AS, CERAMIDE EOP, CERAMIDE NP, CERAMIDE NS, CETEARYL ALCOHOL, CHOLESTEROL, CYCLODEXTRIN, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, GALACTOMYCES FERMENT FILTRATE, GLYCERIN, GLYCERYL STEARATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, HYDROGENATED LECITHIN, HYDROGENATED POLYISOBUTENE, HYDROLYZED WHEAT PROTEIN, HYDROXYACETOPHENONE, LIMNANTHES ALBA (MEADOWFOAM) SEED OIL, MYRISTIC ACID, OLEIC ACID, ORYZA SATIVA (RICE) EXTRACT, ORYZA SATIVA (RICE) LEES EXTRACT, PALMITIC ACID, PANAX GINSENG ROOT EXTRACT, PANTHENOL, PENTYLENE GLYCOL, PHYLLOSTACHYS PUBESCENS SHOOT BARK EXTRACT, PHYTOSPHINGOSINE, PHYTOSTEROLS, POLYGLYCERYL-10 LAURATE, POLYGLYCERYL-3 METHYLGLUCOSE DISTEARATE, POTASSIUM CETYL PHOSPHATE, SQUALANE, STEARIC ACID, TROMETHAMINE, WATER, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/haruharu-wonder-black-rice-probiotics-barrier-essence-4-05-fl-oz-120-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/haruharu-black-rice-probiotics-barrier-essence.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/haruharu-black-rice-probiotics-barrier-essence.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.HYDRATATION, TAG_SLUGS.ESSENCE],
       secondary: [TAG_SLUGS.SANS_PARFUM],

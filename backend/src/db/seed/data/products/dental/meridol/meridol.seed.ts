@@ -15,7 +15,8 @@ export const M_RIDOL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Fluorure d'amines Olafluor 0,46 %, fluorure d'étain 0,44 %. Excipients : aqua, sorbitol, hydrated silica, silica dimethyl silylate, hydroxyethylcellulose, PEG-40 hydrogenated castor oil, cocamidopropyl betaine, aroma (menthe-anis-eucalyptus), limonene, sodium gluconate, PEG-3, tallow aminopropylamine, saccharin, hydrochloric acid, potassium hydroxide, CI 74160.",
     url: 'https://www.atida.fr/meridol-dentifrice-pack-double-2-x-75ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/meridol-dentifrice-pack-double-2-x-75ml-248417.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/meridol-dentifrice-pack-double-2-x-75ml-248417.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -36,7 +37,8 @@ export const M_RIDOL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/meridol-parodont-expert-dentifrice-lot-de-2-x-75ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/meridol-parodont-expert-dentifrice-lot-de-2-x-75ml-263483.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/meridol-parodont-expert-dentifrice-lot-de-2-x-75ml-263483.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -57,7 +59,8 @@ export const M_RIDOL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Contient deux dérivés fluorés: Fluorure d'amines Olafluor, Fluorure d'étain. Ingrédients: Aqua, Xylitol, PVP, PEG-40 Hydrogenated Castor OilOlaflur, Aroma (menthe-anis-eucalyptus), Stannous Fluoride, Sodium Saccharin, CI 42051.",
     url: 'https://www.atida.fr/meridol-bain-de-bouche-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/meridol-bain-de-bouche-protection-gencives-400ml-277620.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/meridol-bain-de-bouche-protection-gencives-400ml-277620.webp',
     tags: {
       primary: [TAG_SLUGS.BAIN_DE_BOUCHE],
       secondary: [],
@@ -78,7 +81,8 @@ export const M_RIDOL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/meridol-brosse-a-dents-duo-pack-souple-2-brosses-a-dents.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/meridol-brosse-a-dents-souple-duo-pack-de-2-233562.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/meridol-brosse-a-dents-souple-duo-pack-de-2-233562.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -99,7 +103,8 @@ export const M_RIDOL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, Glycerin, Propylene Glycol, Sorbitol, Sodium Methyl Cocoyl Taurate, Poloxamer 407, Zinc Lactate, Aroma, Sodium Hyaluronate, Cetylpyridinium Chloride, Sodium Fluoride, Potassium Sorbate, Lactic Acid, Menthol, Sodium Saccharin, Sucralose, CI 42090.',
     url: 'https://www.atida.fr/meridol-bain-de-bouche-parodont-expert-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/meridol-bain-de-bouche-parodont-expert-400ml-263874.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/meridol-bain-de-bouche-parodont-expert-400ml-263874.webp',
     tags: {
       primary: [TAG_SLUGS.BAIN_DE_BOUCHE],
       secondary: [],

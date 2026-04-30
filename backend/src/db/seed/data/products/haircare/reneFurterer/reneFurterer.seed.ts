@@ -51,7 +51,8 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA)*. ALCOHOL DENAT.*. NIACINAMIDE. ALCOHOL*. 1,2-HEXANEDIOL. ARGININE HCL*. BIOTIN. CITRAL*. CITRUS LIMON (LEMON) PEEL OIL (CITRUS LIMON PEEL OIL)*. ETHYLHEXYLGLYCERIN. EUCALYPTUS GLOBULUS LEAF/TWIG OIL (EUCALYPTUS GLOBULUS OIL)*. LIMONENE*. MAGNESIUM PCA*. NELUMBO NUCIFERA FLOWER WATER*. NYMPHAEA CAERULEA FLOWER WATER*. OLETH-10. PANTHENOL. PANTOLACTONE. PFAFFIA PANICULATA ROOT EXTRACT**. PINENE*. PROPANEDIOL*. PROPOLIS EXTRACT**. PYRIDOXINE HCL. TOCOPHEROL. ZINC GLUCONATE*',
     url: 'https://www.atida.fr/rene-furterer-triphasic-reactional-traitement-antichute-reactionnelle-12-ampoules.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/rene-furterer-triphasic-reactional-coffret-ampoules-12x5ml-269052.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/rene-furterer-triphasic-reactional-coffret-ampoules-12x5ml-269052.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -78,7 +79,8 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA)*. ALCOHOL*. C9-12 ALKANE*. GLYCERIN*. COCO-CAPRYLATE/CAPRATE*. BIOTIN. CITRAL*. CITRUS AURANTIUM DULCIS (ORANGE) PEEL OIL (CITRUS AURANTIUM DULCIS PEEL OIL)*. CUCURBITA PEPO (PUMPKIN) SEED OIL (CUCURBITA PEPO SEED OIL)*. CYCLODEXTRIN*. DISODIUM ADENOSINE TRIPHOSPHATE. GARCINIA MANGOSTANA PEEL EXTRACT*. GLYCERYL LAURATE*. GREEN 3 (CI 42053). HESPERIDIN METHYL CHALCONE. LAVANDULA ANGUSTIFOLIA (LAVENDER) OIL (LAVANDULA ANGUSTIFOLIA OIL)*. LAVANDULA HYBRIDA OIL*. LIMONENE*. LINALOOL*. MALTODEXTRIN*. NASTURTIUM OFFICINALE EXTRACT*. NIACINAMIDE. PANTHENOL. PANTOLACTONE. PFAFFIA PANICULATA ROOT EXTRACT*. PYRIDOXINE HCL. SODIUM COCOYL GLUTAMATE*. SORBIC ACID. TOCOPHERYL ACETATE. TROPAEOLUM MAJUS EXTRACT*',
     url: 'https://www.atida.fr/furterer-triphasic-8-ampoules.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/rene-furterer-triphasic-progressive-serum-antichute-coffret-8-flac-232665.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/rene-furterer-triphasic-progressive-serum-antichute-coffret-8-flac-232665.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -109,7 +111,8 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'LIMONENE*. RICINUS COMMUNIS (CASTOR) SEED OIL (RICINUS COMMUNIS SEED OIL)**. CITRUS AURANTIUM DULCIS (ORANGE) PEEL OIL (CITRUS AURANTIUM DULCIS PEEL OIL)**. LAVANDULA HYBRIDA OIL**. LINALOOL*. LITSEA CUBEBA FRUIT OIL*. CITRAL*. CITRONELLOL*. FARNESOL*. FRAGRANCE (PARFUM)*. GERANIOL*. ORIGANUM MAJORANA LEAF OIL*. ORIGANUM VULGARE LEAF OIL*',
     url: 'https://www.atida.fr/rene-furterer-complexe-5-regenerateur-cuir-chevelu-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/rene-furterer-complexe-5-head-spa-concentre-vegetal-stimulant-50ml-275493.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/rene-furterer-complexe-5-head-spa-concentre-vegetal-stimulant-50ml-275493.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -130,7 +133,8 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Water (aqua)*. lauryl glucoside*. sodium cocoyl alaninate*. coco-betaine. glycerin*. agar*. alcohol*. algin*. benzoic acid. calcium gluconate. cellulose*. cellulose gum*. citral*. citric acid*. citrus aurantium dulcis (orange) oil (citrus aurantium dulcis oil)*. disodium adenosine triphosphate. fragrance (parfum). gluconolactone*. hexyl cinnamal. hydroxypropyl guar hydroxypropyltrimonium chloride. lavandula angustifolia (lavender) oil (lavandula angustifolia oil)*. lavandula hybrida oil*. linalool*. maltodextrin*. methyl glucose dioleate. mica. panax ginseng root extract*. panthenol. pantolactone. pfaffia paniculata root extract*. propanediol. rosmarinus officinalis (rosemary) leaf oil (rosmarinus officinalis leaf oil)*. sodium benzoate. titanium dioxide (ci 77891). tocopherol. tocopheryl acetate.',
     url: 'https://www.atida.fr/furterer-triphasic-shampooing-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/rene-furterer-triphasic-shampoing-traitant-contre-la-perte-de-cheveux-200ml-232650.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/rene-furterer-triphasic-shampoing-traitant-contre-la-perte-de-cheveux-200ml-232650.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -158,7 +162,8 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA)*. ALCOHOL*. C9-12 ALKANE*. GLYCERIN*. COCO-CAPRYLATE/CAPRATE*. BIOTIN. CITRAL*. CITRUS AURANTIUM DULCIS (ORANGE) PEEL OIL (CITRUS AURANTIUM DULCIS PEEL OIL)*. CUCURBITA PEPO (PUMPKIN) SEED OIL (CUCURBITA PEPO SEED OIL)*. CYCLODEXTRIN*. DISODIUM ADENOSINE TRIPHOSPHATE. GARCINIA MANGOSTANA PEEL EXTRACT*. GLYCERYL LAURATE*. GREEN 3 (CI 42053). HESPERIDIN METHYL CHALCONE. LAVANDULA ANGUSTIFOLIA (LAVENDER) OIL (LAVANDULA ANGUSTIFOLIA OIL)*. LAVANDULA HYBRIDA OIL*. LIMONENE*. LINALOOL*. MALTODEXTRIN*. NASTURTIUM OFFICINALE EXTRACT*. NIACINAMIDE. PANTHENOL. PANTOLACTONE. PFAFFIA PANICULATA ROOT EXTRACT*. PYRIDOXINE HCL. SODIUM COCOYL GLUTAMATE*. SORBIC ACID. TOCOPHERYL ACETATE. TROPAEOLUM MAJUS EXTRACT*',
     url: 'https://www.atida.fr/rene-furterer-triphasic-progressive-serum-antichute-cure-de-3-mois-lot-de-2-x-8.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/rene-furterer-triphasic-progressive-serum-antichute-cure-de-3-mois-lot-de-2-x-8-300158.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/rene-furterer-triphasic-progressive-serum-antichute-cure-de-3-mois-lot-de-2-x-8-300158.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -189,7 +194,8 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA)*. ALCOHOL DENAT.*. GLYCERIN*. CAFFEINE. BIOTIN. CAMPHOR*. CITRAL*. CITRIC ACID*. CITRONELLOL*. FRAGRANCE (PARFUM)*. GERANIOL*. HEXYL CINNAMAL*. LIMONENE*. LINALOOL*. LINALYL ACETATE*. MALTODEXTRIN*. OLETH-10. PANAX GINSENG ROOT EXTRACT*. PINENE*. PROPANEDIOL*. PROPOLIS EXTRACT**. ROSMARINUS OFFICINALIS (ROSEMARY) LEAF OIL (ROSMARINUS OFFICINALIS LEAF OIL)*. SODIUM CITRATE*. SODIUM HYALURONATE*. TERPINEOL*. TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES*. TOCOPHEROL',
     url: 'https://www.atida.fr/furterer-triphasic-active-grow-serum-accelerateur-de-pousse-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/furterer-triphasic-active-grow-serum-accelerateur-de-pousse-100ml-301946.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/furterer-triphasic-active-grow-serum-accelerateur-de-pousse-100ml-301946.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
@@ -218,7 +224,8 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Water (aqua), lauryl glucoside, sodium cocoyl alaninate, coco-betaine, aloe barbadensis leaf juice powder*, citric acid, fragrance (parfum), guar hydroxypropyltrimonium chloride, lavandula angustifolia (lavander) flower water (lavandula angustifolia flower water)*, potassium sorbate, ricinus communis (castor) seed oil (ricinus communis seed oil)*, sodium benzoate.98% d'ingrédients d'origine naturelle.",
     url: 'https://www.atida.fr/rene-furterer-naturia-shampooing-douceur-eco-recharge-bio-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/rene-furterer-naturia-shampooing-douceur-eco-recharge-bio-400ml-275339.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/rene-furterer-naturia-shampooing-douceur-eco-recharge-bio-400ml-275339.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -243,7 +250,8 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Water (aqua)*. lauryl glucoside*. sodium cocoyl alaninate*. coco-betaine. agar*. algin*. benzoic acid. caffeine. calcium gluconate. cellulose*. cellulose gum*. chromium hydroxide green (ci 77289). chromium oxide greens (ci 77288). citric acid*. citrus aurantium dulcis (orange) oil (citrus aurantium dulcis oil)*. fragrance (parfum). gluconolactone*. glycerin*. green 3 (ci 42053). hydroxypropyl guar hydroxypropyltrimonium chloride. lavandula angustifolia (lavender) oil (lavandula angustifolia oil)*. lavandula hybrida oil*. limonene*. linalool*. maltodextrin*. methyl glucose dioleate. niacinamide. panthenol. pantolactone. paullinia cupana seed extract*. propanediol. rosmarinus officinalis (rosemary) leaf oil (rosmarinus officinalis leaf oil)*. sodium benzoate. talc. tocopherol. tocopheryl acetate. yellow 5 (ci 19140).',
     url: 'https://www.atida.fr/furterer-forticea-shampooing-energisant-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/rene-furterer-forticea-shampoing-fortifiant-d-origine-naturel-doux-200ml-232647.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/rene-furterer-forticea-shampoing-fortifiant-d-origine-naturel-doux-200ml-232647.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -272,7 +280,8 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Water (aqua)*, sodium lauroyl sarcosinate, coco-glucoside*, lauryl betaine, peg-40 hydrogenated castor oil, acrylates copolymer, polyquaternium-22, arginine hcl*, camelina sativa seed oil*, caprylyl glycol, caramel*, ceteareth-60 myristyl glycol, citric acid*, fragrance (parfum), glycerin*, glyceryl oleate*, glycine soja (soybean) seed extract (glycine soja seed extract), glycine soja (soybean) seedcake extract (glycine soja seedcake extract)*, glycol distearate*, hydrogenated vegetable glycerides citrate*, hydrolyzed wheat protein*, hydroxypropyl guar hydroxypropyltrimonium chloride, linalool, lysine hcl*, peg-32, peg-400, propylene glycol, sodium benzoate, sodium chloride, sodium hydroxide*, tocopherol*, trisodium ethylenediamine disuccinate, yellow 6 (ci 15985).',
     url: 'https://www.atida.fr/rene-furterer-absolue-keratine-shampoing-soin-reparateur-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/rene-furterer-absolue-keratine-shampoing-soin-reparateur-200ml-275459.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/rene-furterer-absolue-keratine-shampoing-soin-reparateur-200ml-275459.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -300,7 +309,8 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "WATER (AQUA)*.\nCETYL ALCOHOL*. ETHYLHEXYL PALMITATE*. BEHENAMIDOPROPYL DIMETHYLAMINE*.\nDICAPRYLYL CARBONATE*. CETEARYL ALCOHOL*. 1,2-HEXANEDIOL. BUTYROSPERMUM\nPARKII (SHEA) BUTTER (BUTYROSPERMUM PARKII BUTTER)**. BENZOIC ACID. CANANGA\nODORATA FLOWER OIL**. CERAMIDE NG*. CETEARYL GLUCOSIDE*. FRAGRANCE (PARFUM).\nGLYCINE SOJA (SOYBEAN) OIL (GLYCINE SOJA OIL)*. LACTIC ACID*. OLEA EUROPAEA\n(OLIVE) FRUIT OIL (OLEA EUROPAEA FRUIT OIL)*. RICINUS COMMUNIS (CASTOR) SEED\nOIL (RICINUS COMMUNIS SEED OIL)*. SCLEROTIUM\nGUM. TOCOPHEROL*Huile essentielle d'Ylang Ylang :Connue pour ses propriétés anti-oxydantes, elle apporte éclat et protection aux cheveux.Technologie céramides :Naturellement présents dans le cheveux, les céramides restaurent la barrière protectrice et véhiculent les molécules d'eau et les nutriments essentiels entre les couches du cheveu.Il est recommandé au consommateur de vérifier systématiquement la composition du produit avant son achat.",
     url: 'https://www.atida.fr/rene-furterer-sublime-karite-masque-hydratant-gainant-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/rene-furterer-sublime-karite-masque-hydratant-gainant-200ml-275621.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/rene-furterer-sublime-karite-masque-hydratant-gainant-200ml-275621.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -331,7 +341,8 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA)*. LAURYL GLUCOSIDE*. SODIUM COCOYL ALANINATE*. GLYCERIN*. COCO-BETAINE. COCO-GLUCOSIDE*. GLYCOL DISTEARATE*. 1,2-HEXANEDIOL. ARGININE HCL*. BENZOIC ACID. CELLULOSE*. CELLULOSE GUM*. CITRIC ACID*. CITRUS LIMON (LEMON) PEEL OIL (CITRUS LIMON PEEL OIL)**. FRAGRANCE (PARFUM). GLYCINE SOJA (SOYBEAN) SEEDCAKE EXTRACT (GLYCINE SOJA SEEDCAKE EXTRACT)**. HAMAMELIS VIRGINIANA (WITCH HAZEL) LEAF EXTRACT (HAMAMELIS VIRGINIANA LEAF EXTRACT)**. HYDROXYPROPYL GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE. LYSINE HCL*. RED 33 (CI 17200). SODIUM BENZOATE. TRISODIUM ETHYLENEDIAMINE DISUCCINATE',
     url: 'https://www.atida.fr/rene-furterer-color-glow-shampooing-cheveux-colores-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/rene-furterer-color-glow-shampooing-cheveux-colores-200ml-233057.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/rene-furterer-color-glow-shampooing-cheveux-colores-200ml-233057.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -357,7 +368,8 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Water (aqua)*, glycerin*, glycolic acid, peg-40 hydrogenated castor oil, sodium hydroxide*, acanthus mollis leaf extract*, cetrimonium chloride, citric acid*, fragrance (parfum), guar hydroxypropyltrimonium chloride, maltodextrin*, oenothera biennis (evening primrose) oil (oenothera biennis oil)*, panthenol, pantolactone, polyquaternium-10, ppg-26-buteth-26, sodium benzoate, tocopherol*, vp/va copolymer.',
     url: 'https://www.atida.fr/rene-furterer-sublime-curl-spray-activateur-de-boucles-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/rene-furterer-sublime-curl-spray-activateur-de-boucles-150ml-275358.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/rene-furterer-sublime-curl-spray-activateur-de-boucles-150ml-275358.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -385,7 +397,8 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Water (aqua)*, stearyl alcohol*, caprylic/capric triglyceride*, behenamidopropyl dimethylamine*, cetyl alcohol*, 1,2-hexanediol, fragrance (parfum), guar hydroxypropyltrimonium chloride, acanthus mollis leaf extract*, cetearyl olivate*, lactic acid*, maltodextrin*, octyldodecanol*, oenothera biennis (evening primrose) oil (oenothera biennis oil)*, sodium benzoate, sorbitan olivate*, tocopherol*.',
     url: 'https://www.atida.fr/rene-furterer-sublime-curl-baume-demelant-activateur-de-boucles-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/rene-furterer-sublime-curl-baume-demelant-activateur-de-boucles-150ml-275344.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/rene-furterer-sublime-curl-baume-demelant-activateur-de-boucles-150ml-275344.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -411,7 +424,8 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Water, sodium laureth sulfate, ammonium lauryl sulfate, caprylyl glycol, cetrimonium chloride, citric acid, disodium cocoamphodiacetate, disodium edta, fragance, green 3, hydrolyzed ceratonia siliqua gum extract, hydroxypropyl guar hydroxypropyltrimonium chloride, methylisothiazolinone, yellow 5.85% d'ingrédients d'origine naturelle.",
     url: 'https://www.atida.fr/furterer-volumea-shampooing-expanseur-250ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/rene-furterer-volumea-shampooing-expanseur-250ml-233647.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/rene-furterer-volumea-shampooing-expanseur-250ml-233647.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -438,7 +452,8 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Water (aqua)*, decyl glucoside*, sodium cocoyl isethionate, disodium laureth sulfosuccinate, glycerin*, disodium cocoamphodiacetate, acrylates copolymer, fragrance (parfum), acanthus mollis leaf extract*, caprylyl glycol, ceteareth-60 myristyl glycol, citric acid*, coco-glucoside*, coconut acid*, glyceryl oleate*, glycol stearate*, hydrogenated vegetable glycerides citrate*, laureth-3, maleic acid, maltodextrin*, oenothera biennis (evening primrose) oil (oenothera biennis oil)*, oleth-10, polyquaternium-22, sodium benzoate, sodium chloride, sodium hydroxide*, tocopherol, tocopherol, trisodium ethylenediamine disuccinate.',
     url: 'https://www.atida.fr/rene-furterer-sublime-curl-shampoing-sublimateur-de-boucles-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/rene-furterer-sublime-curl-shampoing-sublimateur-de-boucles-200ml-275346.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/rene-furterer-sublime-curl-shampoing-sublimateur-de-boucles-200ml-275346.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -467,7 +482,8 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Water (aqua), lauryl glucoside, sodium cocoyl alaninate, coco-betaine, aloe barbadensis leaf juice powder*, citric acid, fragrance (parfum), guar hydroxypropyltrimonium chloride, lavandula angustifolia (lavander) flower water (lavandula angustifolia flower water)*, potassium sorbate, ricinus communis (castor) seed oil (ricinus communis seed oil)*, sodium benzoate.',
     url: 'https://www.atida.fr/rene-furterer-naturia-shampoing-micellaire-douceur-bio-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/rene-furterer-naturia-shampoing-micellaire-douceur-bio-400ml-275338.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/rene-furterer-naturia-shampoing-micellaire-douceur-bio-400ml-275338.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -492,7 +508,8 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Water (aqua)*. decyl glucoside*. sodium cocoyl isethionate. disodium laureth sulfosuccinate. glycerin*. oleth-10. disodium cocoamphodiacetate. polyquaternium-22. acrylates copolymer. ceteareth-60 myristyl glycol. camphor. caprylyl glycol. citric acid*. citrus aurantium dulcis (orange) peel oil (citrus aurantium dulcis peel oil)*. coco-glucoside*. coconut acid*. cucurbita pepo (pumpkin) seed oil (cucurbita pepo seed oil)*. eugenia caryophyllus (clove) flower oil (eugenia caryophyllus flower oil)*. eugenol*. glyceryl oleate*. glycol stearate*. green 3 (ci 42053). hydrogenated vegetable glycerides citrate*. laureth-3. limonene*. linalool*. maleic acid. rosmarinus officinalis (rosemary) leaf oil (rosmarinus officinalis leaf oil)*. sodium benzoate. sodium chloride. sodium hydroxide*. thymus vulgaris (thyme) flower/leaf oil (thymus vulgaris flower/leaf oil)*. tocopherol. trisodium ethylenediamine disuccinate.*83% d'ingrédients d'origine naturelle.",
     url: 'https://www.atida.fr/furterer-curbicia-shampooing-normalisant-legerete-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/rene-furterer-curbicia-shampoing-purifiant-legerete-150ml-259987.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/rene-furterer-curbicia-shampoing-purifiant-legerete-150ml-259987.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -522,7 +539,8 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Water (aqua), disodium laureth sulfosuccinate, ceteareth-60 myristyl glycol, decyl glucoside, lauryl betaine, butylene glycol, oleth-10, glyceryl laurate, pentylene glycol, alpium graveolens (celery) seed extract (apium graveolens seed extract), caprilic/capric triglyceride, citral, citric acid, cucurbita pepo (pumpkin) seed oil (cucurbita pepo seed oil), fragrance (parfum), helianthus annuus (sunflower) seed oil (helianthus annuus seed oil), laureth-3, limonene, linalool, maleic acid, polyquaternium-22, sodium benzoate, sodium chloride, tocopherol, trisodium ethylenediamina disuccinate, zingiber zerumbet extract.85% d'ingrédients d'origine naturelle.",
     url: 'https://www.atida.fr/rene-furterer-neopur-shampooing-pellicules-grasses-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/rene-furterer-neopur-shampoing-equilibrant-pellicules-grasses-150ml-275307.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/rene-furterer-neopur-shampoing-equilibrant-pellicules-grasses-150ml-275307.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],

@@ -133,7 +133,8 @@ export const MUSTELA_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-shampooing-creme-demelant-nourrissant-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-shampooing-creme-demelant-nourrissant.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/mustela-shampooing-creme-demelant-nourrissant.webp',
     tags: {
       primary: ['apres-shampooing'],
       secondary: [],

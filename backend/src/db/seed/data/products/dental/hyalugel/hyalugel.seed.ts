@@ -16,7 +16,8 @@ export const HYALUGEL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'COMPOSANT PRINCIPAL : HYALURONATE DE SODIUM, AUTRES COMPOSANTS : EAU, XYLITOL, ALCOOL, POLYSORBATE-20, HUILE DE RICIN HYDROGÉNÉE PEG40, CARBOMÈRE (POLYCARBOPHILE), ALCOOL DICHLOROBENZYLIQUE, ARÔME, ACIDE CITRIQUE, HYDROXYDE DE SODIUM, ACID BLUE 9 (CI 42090)',
     url: 'https://www.atida.fr/hyalugel-bain-de-bouche-150ml-1000405.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/hyalugel-bain-de-bouche-aphtes-petites-plaies-offert.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/hyalugel-bain-de-bouche-aphtes-petites-plaies-offert.webp',
     tags: {
       primary: ['bain-de-bouche'],
       secondary: [],
@@ -37,7 +38,8 @@ export const HYALUGEL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Composant principal : hyaluronate de sodium. Autres composants : eau, xylitol, carboxyméthylcellulose sodique, alcool, huile de ricin hydrogénée PEG40, alcool polyvinylique, carbomère (polycarbophile), alcool dichlorobenzylique, arôme, hydroxyde de sodium, acid blue 9 (CI 42090). Peut contenir de l'acide citrique.",
     url: 'https://www.atida.fr/hyalugel-gel-buccal-20ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/hyalugel-gel-buccal-aphtes-petites-plaies-20ml-258888.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/hyalugel-gel-buccal-aphtes-petites-plaies-20ml-258888.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -58,7 +60,8 @@ export const HYALUGEL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Composant principal : hyaluronate de sodium. Autres composants : eau, xylitol, alcool, polysorbate-20, huile de ricin hydrogénée PEG40, carbomère (polycarbophile), alcool dichlorobenzylique, arôme, acide citrique, hydroxyde de sodium, acid blue 9 (CI 42090).',
     url: 'https://www.atida.fr/hyalugel-bain-de-bouche-150ml-1000405.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/hyalugel-bain-de-bouche-aphtes-petites-plaies-100ml-50ml-offert-238963.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/hyalugel-bain-de-bouche-aphtes-petites-plaies-100ml-50ml-offert-238963.webp',
     tags: {
       primary: [TAG_SLUGS.BAIN_DE_BOUCHE],
       secondary: [],

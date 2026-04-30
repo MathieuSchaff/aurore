@@ -234,7 +234,8 @@ export const COSRX_SEED: UnifiedProductSeed[] = [
     notes: 'Le salicylic acid aide à décongestionner les pores. Usage quotidien possible.',
     inci: 'ASIATIC ACID, ASIATICOSIDE, COCAMIDOPROPYL BETAINE, DISODIUM EDTA, GLYCERIN, GLYCERYL STEARATE, LAURAMIDE DEA, LAURIC ACID, LAVANDULA HYBRIDA OIL, MADECASSIC ACID, MYRISTIC ACID, PALMITIC ACID, PEG-100 STEARATE, PEG-32, PINUS SYLVESTRIS LEAF OIL, POTASSIUM COCOATE, POTASSIUM HYDROXIDE, SALICYLIC ACID, STEARIC ACID, WATER',
     url: 'https://www.skinsafeproducts.com/cosrx-ac-collection-calming-foam-cleanser-150ml-5-07fl-oz',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cosrx-ac-collection-calming-foam-cleanser.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/cosrx-ac-collection-calming-foam-cleanser.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE],
       secondary: [
@@ -274,7 +275,8 @@ export const COSRX_SEED: UnifiedProductSeed[] = [
     notes: 'Contient du parfum. Exfolie légèrement à chaque utilisation.',
     inci: '1,2-HEXANEDIOL, BUTYLENE GLYCOL, CAPRYLYL GLYCOL, CITRIC ACID, COCAMIDOPROPYL BETAINE, CRYPTOMERIA JAPONICA LEAF EXTRACT, DISODIUM EDTA, ETHYL HEXANEDIOL, ETHYLHEXYLGLYCERIN, FRAGRANCE, GLYCERIN, GLYCOL DISTEARATE, LAURIC ACID, MELALEUCA ALTERNIFOLIA (TEA TREE) LEAF OIL, MYRISTIC ACID, NELUMBO NUCIFERA LEAF EXTRACT, OENOTHERA BIENNIS (EVENING PRIMROSE) FLOWER EXTRACT, PEG-60 HYDROGENATED CASTOR OIL, PINUS PALUSTRIS LEAF EXTRACT, POLYSORBATE 80, POTASSIUM HYDROXIDE, PUERARIA LOBATA ROOT EXTRACT, SACCHAROMYCES FERMENT, SALICYLIC ACID, SALIX ALBA (WILLOW) BARK WATER, SODIUM CHLORIDE, SODIUM METHYL COCOYL TAURATE, STEARIC ACID, ULMUS DAVIDIANA ROOT EXTRACT, WATER',
     url: 'https://www.skinsafeproducts.com/cosrx-salicylic-acid-daily-gentle-cleanser-150ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cosrx-salicylic-acid-daily-gentle-cleanser.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/cosrx-salicylic-acid-daily-gentle-cleanser.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES],
       secondary: [
@@ -535,7 +537,8 @@ export const COSRX_SEED: UnifiedProductSeed[] = [
       'Formule inspirée de la SK-II Facial Treatment Essence mais plus accessible. Niacinamide en soutien.',
     inci: '1,2-HEXANEDIOL, ADENOSINE, ALLANTOIN, BETAINE, BUTYLENE GLYCOL, ETHYL HEXANEDIOL, GALACTOMYCES FERMENT FILTRATE, GLYCERIN, NIACINAMIDE, PANTHENOL, SODIUM HYALURONATE, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/cosrx-galactomyces-95-tone-blancing-essence-3-38-fl-oz-100-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cosrx-galactomyces-95-tone-balancing-essence.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/cosrx-galactomyces-95-tone-balancing-essence.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.GRAIN_PEAU],
       secondary: [
@@ -1234,7 +1237,8 @@ export const COSRX_SEED: UnifiedProductSeed[] = [
       'Formule équilibrée et bien tolérée. Idéal pour les peaux qui veulent exfolier sans agresser.',
     inci: '1,2-HEXANEDIOL, ALLANTOIN, WATER, CAPRYLYL GLYCOL, DIPOTASSIUM GLYCYRRHIZATE, DIPROPYLENE GLYCOL, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, GLUCONOLACTONE, GLYCOLIC ACID, HYDROXYACETOPHENONE, POLYSORBATE 20, PROPANEDIOL, SALICYLIC ACID, SODIUM HYALURONATE, SODIUM HYDROXIDE, ZINC PCA',
     url: 'https://www.skinsafeproducts.com/cosrx-the-aha-2-bha-2-blemish-treatment-serum-1-76-oz-50-g',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cosrx-aha-2-bha-2-blemish-treatment-serum.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/cosrx-aha-2-bha-2-blemish-treatment-serum.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.GRAIN_PEAU],
       secondary: [
@@ -1351,7 +1355,8 @@ export const COSRX_SEED: UnifiedProductSeed[] = [
     notes: `Formule polyvalente contre l'hyperpigmentation. Compatible avec vitamine C et rétinol.`,
     inci: '1,2-HEXANEDIOL, ACETYL GLUCOSAMINE, ALCOHOL, ALLANTOIN, ALPHA-ARBUTIN, WATER, ARGININE, BUTYLENE GLYCOL, CITRIC ACID, DEXTRIN, DIETHOXYETHYL SUCCINATE, DIMETHICONE, DIMETHYL ISOSORBIDE, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, FERULIC ACID, GLUTATHIONE, GLYCERIN, GLYCYRRHIZA GLABRA (LICORICE) ROOT EXTRACT, HYALURONIC ACID, HYDROGENATED LECITHIN, HYDROLYZED HYALURONIC ACID, MADECASSOSIDE, METHYL TRIMETHICONE, NIACINAMIDE, PANTHENOL, PROPANEDIOL, SODIUM ACETYLATED HYALURONATE, SODIUM CITRATE, SODIUM HYALURONATE, SODIUM HYALURONATE CROSSPOLYMER, SODIUM METABISULFITE, SODIUM METHYL STEAROYL TAURATE, SODIUM POLYACRYLOYLDIMETHYL TAURATE, THEOBROMA CACAO (COCOA) EXTRACT, TOCOPHEROL, TRANEXAMIC ACID, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/cosrx-alpha-arbutin-2-discoloration-care-face-serum-1-69-fl-oz-50-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cosrx-alpha-arbutin-2-discoloration-care-serum.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/cosrx-alpha-arbutin-2-discoloration-care-serum.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION],
       secondary: [
@@ -1478,7 +1483,8 @@ export const COSRX_SEED: UnifiedProductSeed[] = [
     notes: 'Combine mucine et niacinamide en un seul step. Texture plus légère que la Snail 96.',
     inci: '1,2-HEXANEDIOL, ALLANTOIN, ARGANIA SPINOSA KERNEL OIL, ARGININE, BETAINE, BUTYLENE GLYCOL, CARBOMER, ETHYLHEXYLGLYCERIN, GLUTATHIONE, GLYCERIN, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, INULIN LAURYL CARBAMATE, LIMNANTHES ALBA (MEADOWFOAM) SEED OIL, MACADAMIA TERNIFOLIA SEED OIL, NIACINAMIDE, PANTHENOL, SNAIL SECRETION FILTRATE, SODIUM HYALURONATE, SODIUM POLYACRYLATE, SODIUM SURFACTIN, WATER, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/cosrx-advanced-snail-radiance-dual-essence-2-70-fl-oz-80-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cosrx-advanced-snail-radiance-dual-essence.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/cosrx-advanced-snail-radiance-dual-essence.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -1514,7 +1520,8 @@ export const COSRX_SEED: UnifiedProductSeed[] = [
     notes: `Version 'Whitening' de l'essence galactomyces. Mêmes actifs, légèrement différente de la Tone Balancing.`,
     inci: '1,2-HEXANEDIOL, ADENOSINE, ALLANTOIN, BETAINE, BUTYLENE GLYCOL, ETHYL HEXANEDIOL, GALACTOMYCES FERMENT FILTRATE, GLYCERIN, NIACINAMIDE, PANTHENOL, SODIUM HYALURONATE, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/cosrx-galactomyces-95-whitening-power-essence-100ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cosrx-galactomyces-95-whitening-power-essence.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/cosrx-galactomyces-95-whitening-power-essence.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.TEINT_TERNE],
       secondary: [
@@ -1791,7 +1798,8 @@ export const COSRX_SEED: UnifiedProductSeed[] = [
     notes: 'Texture gel-crème fondante. Adapté aux textures légères en été ou peaux mixtes.',
     inci: '1,2-HEXANEDIOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, ALLANTOIN, ALOE FEROX LEAF EXTRACT, BUTYLENE GLYCOL, CAMELLIA SINENSIS LEAF EXTRACT, CETEARYL OLIVATE, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, GLYCERIN, GLYCERYL ACRYLATE/ACRYLIC ACID COPOLYMER, HYDROLYZED HIBISCUS ESCULENTUS EXTRACT, LUPINUS ALBUS SEED EXTRACT, MELIA AZADIRACHTA FLOWER EXTRACT, MELIA AZADIRACHTA LEAF EXTRACT, MORINGA OLEIFERA SEED EXTRACT, PANTHENOL, PENTYLENE GLYCOL, PROPANEDIOL, SORBITAN OLIVATE, TROMETHAMINE, WATER',
     url: 'https://www.skinsafeproducts.com/cosrx-hydrium-green-tea-aqua-soothing-gel-cream-1-69-fl-oz-50-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cosrx-hydrium-green-tea-aqua-soothing-gel-cream.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/cosrx-hydrium-green-tea-aqua-soothing-gel-cream.webp',
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
@@ -1864,7 +1872,8 @@ export const COSRX_SEED: UnifiedProductSeed[] = [
       'Contient menthyl lactate (fraîcheur). Peptide palmitoyl pentapeptide-4 en bonus anti-âge.',
     inci: '1,2-HEXANEDIOL, ALLANTOIN, ALOE BARBADENSIS LEAF JUICE, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, ANIBA ROSAEODORA (ROSEWOOD) WOOD OIL, ANTHEMIS NOBILIS FLOWER WATER, BETAINE, BUTYLENE GLYCOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CAPRYLYL/CAPRYL GLUCOSIDE, CENTELLA ASIATICA LEAF EXTRACT, CERAMIDE AP, CERAMIDE AS, CERAMIDE EOP, CERAMIDE NG, CERAMIDE NP, CERAMIDE NS, CETEARYL ALCOHOL, CHAMAECYPARIS OBTUSA WATER, CHOLESTEROL, CITRUS AURANTIUM BERGAMIA (BERGAMOT) FRUIT OIL, DIPOTASSIUM GLYCYRRHIZATE, DIPROPYLENE GLYCOL, DISODIUM EDTA, ETHYL MENTHANE CARBOXAMIDE, ETHYLHEXYLGLYCERIN, GLYCERIN, GLYCERYL STEARATE, GLYCYRRHIZA GLABRA (LICORICE) ROOT EXTRACT, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, HYDROGENATED LECITHIN, HYDROLYZED HYALURONIC ACID, HYDROXYACETOPHENONE, LEUCONOSTOC/RADISH ROOT FERMENT FILTRATE, MELALEUCA ALTERNIFOLIA (TEA TREE) LEAF OIL, MENTHA PIPERITA (PEPPERMINT) LEAF EXTRACT, MENTHYL LACTATE, METHYL DIISOPROPYL PROPIONAMIDE, PALMITOYL PENTAPEPTIDE-4, PANTHENOL, PCA DIMETHICONE, PHENYL TRIMETHICONE, PHYTOSPHINGOSINE, POLYGLYCERIN-3, POLYGLYCERYL-3 METHYLGLUCOSE DISTEARATE, POLYISOBUTENE, POLYQUATERNIUM-51, SODIUM ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, SODIUM HYALURONATE, SODIUM POLYACRYLATE, SORBITAN OLEATE, SQUALANE, STEARIC ACID, TOCOPHEROL, WATER, XYLITOL, ZINGIBER OFFICINALE (GINGER) ROOT EXTRACT',
     url: 'https://www.skinsafeproducts.com/cosrx-comfort-cool-ceramide-soothing-gel-cream-2-87-fl-oz-85-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cosrx-comfort-cool-ceramide-soothing-gel-cream.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/cosrx-comfort-cool-ceramide-soothing-gel-cream.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
@@ -2051,7 +2060,8 @@ export const COSRX_SEED: UnifiedProductSeed[] = [
       'Fonctionne aussi comme crème quotidienne riche. Extrait de riz = propriétés éclaircissantes.',
     inci: '1,2-HEXANEDIOL, ALLANTOIN, ARGININE, BETAINE, BUTYLENE GLYCOL, CARBOMER, CETEARYL ALCOHOL, CETEARYL OLIVATE, DIMETHICONE, ELAEIS GUINEENSIS (PALM) KERNAL OIL, ETHYLHEXYLGLYCERIN, GLYCERIN, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, NIACINAMIDE, ORYZA SATIVA (RICE) EXTRACT, SORBITAN OLIVATE, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/cosrx-ultimate-nourishing-rice-overnight-mask-50-g',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cosrx-ultimate-nourishing-rice-overnight-mask.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/cosrx-ultimate-nourishing-rice-overnight-mask.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.DESHYDRATATION],
       secondary: [
@@ -2335,7 +2345,8 @@ export const COSRX_SEED: UnifiedProductSeed[] = [
     notes: 'Pack de 3. Texture hydrogel = meilleure adhérence et pénétration. Formule luxe.',
     inci: '1,2-HEXANEDIOL, ACETYL GLUCOSAMINE, ACETYL HEXAPEPTIDE-8, ACETYL TETRAPEPTIDE-2, ACRYLATES COPOLYMER, ADENOSINE, AGAR, ALLANTOIN, WATER, BUTYLENE GLYCOL, CAPRYLYL GLYCOL, CELLULOSE GUM, CERAMIDE AP, CERAMIDE AS, CERAMIDE EOP, CERAMIDE NP, CERAMIDE NS, CERATONIA SILIQUA (CAROB) GUM, CETEARYL ALCOHOL, CHOLESTEROL, CHONDRUS CRISPUS, COPPER TRIPEPTIDE-1, CYANOCOBALAMIN, DEXTRAN, DIPEPTIDE DIAMINOBUTYROYL BENZYLAMIDE DIACETATE, ERYTHRITOL, ETHYLHEXYLGLYCERIN, GLYCERIN, HYALURONIC ACID, HYDROGENATED LECITHIN, HYDROLYZED COLLAGEN, HYDROLYZED HYALURONIC ACID, HYDROLYZED SODIUM HYALURONATE, NIACINAMIDE, PALMITOYL TRIPEPTIDE-5, PALMITOYL TRIPEPTIDE-8, PANTHENOL, PENTYLENE GLYCOL, PHYTOSPHINGOSINE, POLYGLYCERYL-10 LAURATE, POTASSIUM CHLORIDE, SCLEROTIUM GUM, SODIUM HYALURONATE, SODIUM HYALURONATE CROSSPOLYMER, SODIUM PHYTATE, STEARIC ACID, SUCROSE, TOCOPHEROL, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/cosrx-the-peptide-collagen-lifting-glow-hydrogel-face-mask-1-19-oz-34-g-3-count',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cosrx-the-peptide-collagen-lifting-glow-hydrogel-face-mask.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/cosrx-the-peptide-collagen-lifting-glow-hydrogel-face-mask.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -2482,7 +2493,8 @@ export const COSRX_SEED: UnifiedProductSeed[] = [
       'Contient petrolatum. Formule très nourrissante. Associer avec exfoliant lèvres pour résultats optimaux.',
     inci: '1,2-HEXANEDIOL, BEESWAX, BIXA ORELLANA SEED OIL, BUTYLENE GLYCOL, BUTYLENE/ETHYLENE/STYRENE COPOLYMER, BUTYROSPERMUM PARKII (SHEA) BUTTER, DIISOSTEARYL MALATE, ECLIPTA PROSTRATA EXTRACT, ETHYLENE/PROPYLENE/STYRENE COPOLYMER, ETHYLHEXYLGLYCERIN, EUPHORBIA CERIFERA (CANDELILLA) WAX, GLYCERIN, GLYCINE SOJA (SOYBEAN) OIL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, HONEY, HONEY EXTRACT, HYDROGENATED POLYISOBUTENE, MELIA AZADIRACHTA LEAF EXTRACT, MICROCRYSTALLINE WAX, MORINGA OLEIFERA SEED OIL, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, PETROLATUM, PHYTOSTERYL/ISOSTEARYL/CETYL/STEARYL/BEHENYL DIMER DILINOLEATE, POLYISOBUTENE, PROPOLIS EXTRACT, ROYAL JELLY EXTRACT, SACCHAROMYCES FERMENT, SORBITAN SESQUIOLEATE, TOCOPHEROL, WATER',
     url: 'https://www.skinsafeproducts.com/cosrx-lip-sleep-propolis-lip-sleeping-mask-0-70-oz-20-g',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cosrx-lip-sleep-propolis-lip-sleeping-mask.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/cosrx-lip-sleep-propolis-lip-sleeping-mask.webp',
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.PEAU_SECHE],
       secondary: [TAG_SLUGS.BAUME, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_LEVRES],

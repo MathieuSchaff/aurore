@@ -39,7 +39,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER, GLYCERIN, ALCOHOL DENAT, CETEARYL ALCOHOL, COCOGLYCERIDES, CETEARYL ISONONANOATE, GLYCERYL STEARATE CITRATE, TAPIOCA STARCH, HYDROGENATED COCO-GLYCERIDES, SQUALENE, ACIDE SALICYLIQUE, DECYLENE GLYCOL, ISOBUTYLAMIDO THIAZOLYL RESORCINOL, GLYCYRRHIZA INFLATA ROOT EXTRACT, XANTHAN GUM, HYDROXYPROPYL STARCH PHOSPHATE, CARRAGEENAN, PHENOXYETHANOL, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, SODIUM HYDROXIDE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-dermopure-creme-corps-triple-action-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-dermopure-creme-corps-triple-action.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-dermopure-creme-corps-triple-action.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['lait-corps', 'zone-corps'],
@@ -140,7 +141,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERINE, CAPRYLICCAPRIC TRIGLYCERIDE, ALCOHOL DENAT, COCOGLYCERIDES, CETEARYL ALCOHOL, CETYL PALMITATE, DIISOPROPYL ADIPATE, PANTHENOL, GLYCERYL STEARATE, ISOPROPYL PALMITATE, BUTYROSPERMUM PARKII BUTTER, LAUROYL LYSINE, ISOBUTYLAMIDO THIAZOLYL RESORCINOL, SODIUM HYALURONATE, ARCTIUM LAPPA FRUIT EXTRACT, GLYCYRRHIZA INFLATA ROOT EXTRACT, SODIUM STEAROYL GLUTAMATE, CARRAGEENAN, XANTHAN GUM, PANTOLACTONE, SODIUM CHLORIDE, CITRIC ACID, DIMETHICONE, TRISODIUM EDTA, ETHYLHEXYLGLYCERIN, PHENOXYETHANOL, PARFUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-hyaluron-filler-elasticity-creme-corps-anti-age-anti-taches-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-elasticity-creme-corps-anti-age-anti-taches.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-elasticity-creme-corps-anti-age-anti-taches.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'barriere-cutanee', 'anti-age'],
       secondary: ['reparateur', 'lait-corps', 'zone-corps'],
@@ -425,7 +427,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'BUTANE, PARAFFINUM LIQUIDUM, CERA MICROCRISTALLINA, PARAFFIN, LANOLIN ALCOHOL, PANTHENOL, GLYCERIN, BISABOLOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-aquaphor-baume-spray-corps-peaux-seches-250ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-aquaphor-baume-spray-corps-peaux-seches.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-aquaphor-baume-spray-corps-peaux-seches.webp',
     tags: {
       primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage', 'peau-seche'],
@@ -478,7 +481,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERIN, HELIANTHUS ANNUUS SEED OIL, BUTYROSPERMUM PARKII BUTTER, CAPRYLIC/CAPRIC TRIGLYCERIDE, VITIS VINIFERA SEED OIL, CETEARYL ALCOHOL, GLYCERYL STEARATE CITRATE, HYDROXYPROPYL STARCH PHOSPHATE, HYDROGENATED COCO-GLYCERIDES, OENOTHERA BIENNIS OIL, GLYCYRRHIZA INFLATA ROOT EXTRACT, CERAMIDE NP, PHYTOSPHINGOSINE, OLEIC ACID, GLYCINE, SODIUM PCA, TOCOPHEROL, ASCORBYL PALMITATE, XANTHAN GUM, SODIUM HYDROXIDE, SODIUM CITRATE, CITRIC ACID, 1-2-HEXANEDIOL, DECYLENE GLYCOL, PHENOXYETHANOL, ETHYLHEXYLGLYCERIN, HYDROXYACETOPHENONE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-atopi-control-creme-visage-apaisant-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-atopi-control-creme-visage-apaisant.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-atopi-control-creme-visage-apaisant.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant', 'eczema'],
       secondary: [
@@ -516,7 +520,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-dermopure-clinical-fluide-matifiant-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-dermopure-clinical-fluide-matifiant.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-dermopure-clinical-fluide-matifiant.webp',
     tags: {
       primary: ['sebo-regulateur'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -537,7 +542,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERINE, ISOPROPYL PALMITATE, PANTHÉNOL, SQUALANE, GLYCERYL STEARATE CITRATE, MYRISTYL ALCOHOL, TAPIOCA STARCH, BEHENYL ALCOHOL, CETYL ALCOHOL, HYDROGENATED COCO-GLYCERIDES, HYDROXYPROPYL STARCH PHOSPHATE, GLYCYRRHIZA INFLATA ROOT EXTRACT, CERAMIDE NP, 4-T-BUTYLCYCLOHEXANOL (TRANS-ISOMER), PANTOLACTONE, XANTHAN GUM, CARRAGEENAN, ETHYLHEXYLGLYCERIN, PENTYLENE GLYCOL, CITRIC ACID, PHENOXYETHANOL, HYDROXYACETOPHENONE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-dermopure-clinical-hydra-repair-creme-apaisante-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-dermopure-clinical-hydra-repair-creme-apaisante.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-dermopure-clinical-hydra-repair-creme-apaisante.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'apaisant'],
       secondary: ['emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
@@ -565,7 +571,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-dermopure-clinical-peeling-10-soin-de-nuit-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-dermopure-clinical-peeling-10-soin-de-nuit.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-dermopure-clinical-peeling-10-soin-de-nuit.webp',
     tags: {
       primary: ['exfoliation'],
       secondary: ['zone-visage'],
@@ -680,7 +687,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, ALCOHOL DENAT., GLYCERIN, PANTHENOL, DISTARCH PHOSPHATE, SODIUM HYALURONATE, CETEARYL ISONONANOATE, ISOPROPYL PALMITATE, LAUROYL LYSINE, SQUALANE, PANTOLACTONE, TOCOPHEROL, GELLAN GUM, CARRAGEENAN, DEHYDROXANTHAN GUM, XANTHAN GUM, CETYL ALCOHOL, BEHENYL ALCOHOL, CITRIC ACID, LACTIC ACID, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, PHENOXYETHANOL, PARFUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-hyaluron-filler-3x-effect-gel-creme-nuit-anti-age-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-3x-effect-gel-creme-nuit-anti-age.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-3x-effect-gel-creme-nuit-anti-age.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'apaisant', 'anti-age'],
       secondary: ['reparateur', 'emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
@@ -708,7 +716,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, ALCOHOL DENAT, BUTYLENE GLYCOL, GLYCERINE, SODIUM HYALURONATE, PEG-40 HYDROGENATED CASTOR OIL, CAPRYLYL GLYCOL, SODIUM ASCORBYL PHOSPHATE, CITRIC ACID, BHT, PARFUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-hyaluron-filler-serum-3x-effect-booster-d-hydratation-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-serum-3x-effect-booster-d-hydratation.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-serum-3x-effect-booster-d-hydratation.webp',
     tags: {
       primary: ['anti-acne', 'hydratation', 'eclat'],
       secondary: ['serum', 'traitement', 'zone-visage'],
@@ -733,7 +742,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, ALCOHOL DENAT BUTYLENE GLYCOL, GLYCERIN, RICINUS COMMUNIS SEED OIL, OCTYLDODECANOL DIBUTYL ADIPATE, GLYCERYL STEARATE CITRATE, CETEARYL ALCOHOL, DIHYDROMYRICETIN, SODIUM HYALURONATE, GLYCINE SOJA GERM EXTRACT, GLYCYRRHETINIC ACID, TOCOPHEROL, PROPYLHEPTYL CAPRYLATE, CAPRYLIC/CAPRIC TRIGLYCERIDE, DISTARCH PHOSPHATE, GLYCERYL STEARATE, LAUROYL LYSINE, SUCCINOGLYCAN XANTHAN GUM, GELLAN GUM, DIETHYLHEXYL SYRINGYLIDENEMALONATE CITRIC ACID, TRISODIUM ETHYLENEDIAMINE DISUCCINATE SODIUM HYDROXIDE, ETHYLHEXYLGLYCERIN SODIUM METABISULFITE,PHENOXYETHANOL, PARFUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-hyaluron-filler-serum-epigenetique-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-serum-epigenetique.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-serum-epigenetique.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
@@ -760,7 +770,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'ALCOHOL-DENAT, AQUA, GLYCERIN, ISOBUTYLAMIDO THIAZOLYL RESORCINOL , GLUCOSYLRUTIN, ISOQUERCITRIN , AMMONIUM-ACRYLOYLDIMETHYLTAURATE-VP-COPOLYMER',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/soins-visage/eucerin-anti-pigment-correcteur-de-taches-5-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-anti-pigment-correcteur-de-taches.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-anti-pigment-correcteur-de-taches.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['spot-treatment', 'soin-localise', 'zone-visage'],
@@ -838,7 +849,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA POLOXAMER 124 GLYCERYL GLUCOSIDE GLYCERIN SODIUM HYALURONATE DECYL GLUCOSIDE ARGININE HCL SODIUM COCO-AMPHOACETATE TRISODIUM EDTA SODIUM CHLORIDE 1,2-HEXANEDIOL PHENOXYETHANOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/soins-visage/eucerin-dermatoclean-lotion-micellair-3-en-1-400-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-dermatoclean-lotion-micellair-3-en-1.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-dermatoclean-lotion-micellair-3-en-1.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['tonique', 'preparation', 'zone-visage'],
@@ -881,7 +893,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERIN, BUTYLENE GLYCOL DICAPRYLATE/DICAPRATE, ETHYLHEXYL SALICYLATE, BUTYLENE GLYCOL, GLYCERYL STEARATE CITRATE, HYDROGENATED COCO-GLYCERIDES, BUTYROSPERMUM PARKII BLUTTER, BUTYL METHOXYDIBENZOYLMETHANE, ETHYLHEXYL TRIAZONE, METHYLPROPANEDIOL, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, CETYL ALCOHOL, STEARYL ALCOHOL, HYDROXYPROPYL STARCH PHOSPHATE, PHENYLBENZIMIDAZOLE SULFONIC ACID | SODIUM HYALURONATE, GLYCINE SOJA GERM EXTRACT, GLYCYRRHETINIC ACID, MICA, SILICA, XANTHAN GUM, SODIUM HYDROXIDE, TRISODIUM EDTA, 1,2-HEXANEDIOL, PHENOXYETHANOL, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, PARFUM, CI 77891',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/soins-visage/eucerin-hyaluron-filler-soin-jour-peau-seche-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-soin-jour-peau-seche.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-soin-jour-peau-seche.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation'],
       secondary: ['filtres-chimiques', 'creme-hydratante', 'zone-visage', 'matin', 'peau-seche'],
@@ -940,7 +953,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA GLYCERINE BUTYROSPERMUM PARKII BUTTER CETYL ALCOHOL ETHYLHEXYL COCOATE HYDROGENATED COCO GLYCERIDES STEARYL ALCOHOL CAPRYLIC CAPRIC TRIGLYCERIDE GLYCERYL STEARATE CITRATE OCTYLDODECANOL UBIQUINONE TOCOPHEROL TOCOPHERYL ACETATE BIOTIN COCOS NUCIFERA OIL ZEA MAYS OIL SODIUM ASCORBYL PHOSPHATE HYDROXYPROPYL STARCH PHOSPHATE LAUROYL LYSINE XANTHAN GUM HEXANEDIOL PHENOXYETHANOL CAPRYLYL GLYCOL CI 40800',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/soins-visage/eucerin-sensi-rides-creme-jour-peau-sensible-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-sensi-rides-creme-jour-peau-sensible.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-sensi-rides-creme-jour-peau-sensible.webp',
     tags: {
       primary: ['anti-acne', 'anti-oxydant', 'anti-age'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage', 'peau-sensible'],
@@ -1036,7 +1050,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERINE, HYDROGENATED COCO-GLYCERIDES, BUTYL METHOXYDIBENZOYLMETHANE, C12-15 ALKYL BENZOATE, CERA ALBA, DICAPRYLYL CARBONATE, BUTYLENE GLYCOL, BEHENYL ALCOHOL, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ETHYLHEXYL TRIAZONE, PHENYLBENZIMIDAZOLE SULFONIC ACID, METHYLPROPANEDIOL, HYDROXYPROPYL STARCH PHOSPHATE, STEARYL ALCOHOL, SODIUM HYALURONATE, ARCTIUM LAPPA FRUIT EXTRACT, CREATINE, 1-METHYLHYDANTOIN-2-IMIDE, TOCOPHEROL, PALMITIC ACID, STEARIC ACID, MYRISTIC ACID, ARACHIDIC ACID, OLEIC ACID, SODIUM STEAROYL GLUTAMATE, SODIUM HYDROXIDE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, LAUROYL LYSINE, XANTHAN GUM, SODIUM CHLORIDE, TRISODIUM EDTA, 1,2-HEXANEDIOL, ETHYLHEXYLGLYCERIN, PHENOXYETHANOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-anti-age-hyaluron-filler-soin-contour-des-yeux-spf20-15ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-anti-age-hyaluron-filler-soin-contour-des-yeux-spf20.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-anti-age-hyaluron-filler-soin-contour-des-yeux-spf20.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'anti-age', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1067,7 +1082,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERINE, ALCOHOL DENAT, C12-15 ALKYL BENZOATE, BUTYL METHOXYDIBENZOYLMETHANE, CETEARYL ALCOHOL, HYDROXYPROPYL STARCH PHOSPHATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, BEHENYL ALCOHOL, DIBUTYL ADIPATE, ETHYLHEXYL TRIAZONE, PHENYLBENZIMIDAZOLE SULFONIC ACID, TAPIOCA STARCH, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, SODIUM HYALURONATE, ARCTIUM LAPPA FRUIT EXTRACT, CREATINE, 1-METHYLHYDANTOIN-2-IMIDE, ISOBUTYLAMIDO THIAZOLYL RESORCINOL, XANTHAN GUM, SODIUM CHLORIDE, SODIUM STEAROYL GLUTAMATE, GLYCERYL STEARATE, SODIUM HYDROXIDE, DIMETHICONE, TRISODIUM EDTA, ETHYLHEXYLGLYCERIN, PHENOXYETHANOL, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, PARFUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-anti-age-hyaluron-filler-soin-de-jour-spf30-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-anti-age-hyaluron-filler-soin-de-jour-spf30.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-anti-age-hyaluron-filler-soin-de-jour-spf30.webp',
     tags: {
       primary: ['hydratation', 'anti-age', 'protection-solaire'],
       secondary: ['creme-solaire', 'matin', 'zone-visage'],
@@ -1095,7 +1111,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERINE, OCTYLDODECANOL, BUTYL METHOXYDIBENZOYLMETHANE, CETEARYL ALCOHOL, BUTYLENE GLYCOL, METHYLPROPANEDIOL, GLYCERYL STEARATE CITRATE, CAPRYLICCAPRIC TRIGLYCERIDE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ETHYLHEXYL TRIAZONE, PHENYLBENZIMIDAZOLE SULFONIC ACID, HYDROXYPROPYL STARCH PHOSPHATE, DICAPRYLYL ETHER, BEHENYL ALCOHOL, DISTARCH PHOSPHATE, SODIUM HYALURONATE, ARCTIUM LAPPA FRUIT EXTRACT, CREATINE, 1-METHYLHYDANTOIN-2-IMIDE, ISOBUTYLAMIDO THIAZOLYL RESORCINOL, TOCOPHEROL, XANTHAN GUM, SODIUM HYDROXIDE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, HYDROGENATED COCO-GLYCERIDES, TRISODIUM EDTA, CAPRYLYL GLYCOL, 1,2-HEXANEDIOL, ETHYLHEXYLGLYCERIN, PHENOXYETHANOL, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, PARFUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-anti-age-hyaluron-filler-soin-dejour-spf15-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-anti-age-hyaluron-filler-soin-dejour-spf15.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-anti-age-hyaluron-filler-soin-dejour-spf15.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'anti-age', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1126,7 +1143,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, ALCOHOL DENAT., CI 77891, DIBUTYL ADIPATE, BUTYL METHOXYDIBENZOYLMETHANE, BUTYLENE GLYCOL DICAPRYLATE/DICAPRATE, C12-15 ALKYL BENZOATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ETHYLHEXYL SALICYLATE, ETHYLHEXYL TRIAZONE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, SILICA, SILICA DIMETHYL SILYLATE, CI 77492, CETEARYL ALCOHOL, COCOGLYCERIDES, COPERNICIA CERIFERA CERA, PHENYLBENZIMIDAZOLE SULFONIC ACID | GLYCERIN, ISOBUTYLAMIDO THIAZOLYL RESORCINOL, GLYCYRRHIZA INFLATA ROOT EXTRACT, TOCOPHEROL, TAPIOCA STARCH, CARRAGEENAN, HYDROXYPROPYL METHYLCELLULOSE, XANTHAN GUM, BEHENYL ALCOHOL, STEARIC ACID, MYRISTIC ACID, ARACHIDIC ACID, OLEIC ACID, PALMITIC ACID, SODIUM STEAROYL GLUTAMATE, SODIUM HYDROXIDE, SODIUM CHLORIDE, ALUMINA, TRISODIUM EDTA, HYDROXYACETOPHENONE, PHENOXYETHANOL, PARFUM, CI 77491, CI 77499',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-anti-pigment-soin-de-jour-teinte-spf30-light-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-anti-pigment-soin-de-jour-teinte-spf30-light.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-anti-pigment-soin-de-jour-teinte-spf30-light.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1157,7 +1175,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, ALCOHOL DENAT., CI 77891, DIBUTYL ADIPATE, BUTYL METHOXYDIBENZOYLMETHANE, BUTYLENE GLYCOL DICAPRYLATE/DICAPRATE, C12-15 ALKYL BENZOATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ETHYLHEXYL SALICYLATE, ETHYLHEXYL TRIAZONE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, SILICA, SILICA DIMETHYL SILYLATE, CI 77492, CETEARYL ALCOHOL, COCOGLYCERIDES, COPERNICIA CERIFERA CERA, PHENYLBENZIMIDAZOLE SULFONIC ACID | GLYCERIN, ISOBUTYLAMIDO THIAZOLYL RESORCINOL, GLYCYRRHIZA INFLATA ROOT EXTRACT, TOCOPHEROL, TAPIOCA STARCH, CARRAGEENAN, HYDROXYPROPYL METHYLCELLULOSE, XANTHAN GUM, BEHENYL ALCOHOL, STEARIC ACID, MYRISTIC ACID, ARACHIDIC ACID, OLEIC ACID, PALMITIC ACID, SODIUM STEAROYL GLUTAMATE, SODIUM HYDROXIDE, SODIUM CHLORIDE, ALUMINA, TRISODIUM EDTA, HYDROXYACETOPHENONE, PHENOXYETHANOL, PARFUM, CI 77491, CI 77499',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-anti-pigment-soin-de-jour-teinte-spf30-medium-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-anti-pigment-soin-de-jour-teinte-spf30-medium.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-anti-pigment-soin-de-jour-teinte-spf30-medium.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1188,7 +1207,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERIN, BUTYLENE GLYCOL, DICAPRYLATE/DICAPRATE, ETHYLHEXYL SALICYLATE, BUTYLENE GLYCOL, GLYCERYL STEARATE CITRATE, HYDROGENATED COCO-GLYCERIDES, BUTYROSPERMUM PARKII BUTTER, BUTYL METHOXYDIBENZOYLMETHANE, ETHYLHEXYL TRIAZONE, METHYLPROPANEDIOL, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, CETYL ALCOHOL, STEARYL ALCOHOL, HYDROXYPROPYL STARCH PHOSPHATE, PHENYLBENZIMIDAZOLE SULFONIC ACID, SODIUM HYALURONATE, GLYCINE SOJA GERM EXTRACT, GLYCYRRHETINIC ACID, MICA, SILICA, XANTHAN GUM, SODIUM HYDROXIDE, TRISODIUM EDTA, 1,2-HEXANEDIOL, PHENOXYETHANOL, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, PARFUM, CI 77891',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-hyaluron-filler-3x-effect-soin-de-jour-spf15-recharge-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-3x-effect-soin-de-jour-spf15-recharge.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-3x-effect-soin-de-jour-spf15-recharge.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation'],
       secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1219,7 +1239,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, ALCOHOL DENAT, C12-15 ALKYL BENZOATE, BUTYL METHOXYDIBENZOYLMETHANE, BUTYLENE GLYCOL DICAPRYLATE/DICAPRATE, ETHYLHEXYL SALICYLATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, CETEARYL ALCOHOL, DIBUTYL ADIPATE, ETHYLHEXYL TRIAZONE, PHENYLBENZIMIDAZOLE SULFONIC ACID, TAPIOCA STARCH, BEHENYL ALCOHOL, SODIUM HYALURONATE, GLYCINE SOJA GERM EXTRACT, ACIDE GLYCYRRHÉTINIQUE, GLYCERYL STEARATE, SODIUM HYDROXIDE, SODIUM STEAROYL GLUTAMATE, XANTHAN GUM, CARBOMER, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, DIMETHICONE, TRISODIUM EDTA, ETHYLHEXYLGLYCERIN, PHENOXYETHANOL, PARFUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-hyaluron-filler-3x-effect-soin-jour-spf30-recharge-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-3x-effect-soin-jour-spf30-recharge.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-3x-effect-soin-jour-spf30-recharge.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation'],
       secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1247,7 +1268,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, CETEARYL ALCOHOL, ALCOHOL DENAT., BUTYL METHOXYDIBENZOYLMETHANE, GLYCERIN, C12-15 ALKYL BENZOATE, COCOGLYCERIDES, BUTYLENE GLYCOL DICAPRYLATE/DICAPRATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIBUTYL ADIPATE, ETHYLHEXYL SALICYLATE, ETHYLHEXYL TRIAZONE, GLYCERYL STEARATE, BUTYROSPERMUM PARKII BUTTER, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, PHENYLBENZIMIDAZOLE SULFONIC ACID, ISOBUTYLAMIDO THIAZOLYL RESORCINOL, SODIUM HYALURONATE, ARCTIUM LAPPA FRUIT EXTRACT, TOCOPHEROL, TAPIOCA STARCH, STEARYL ALCOHOL, CAPRYLYL GLYCOL, SODIUM STEAROYL GLUTAMATE, SODIUM HYDROXIDE, XANTHAN GUM, SODIUM CHLORIDE, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, TRISODIUM EDTA, PHENOXYETHANOL, PARFUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-hyaluron-filler-creme-mains-spf30-75ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-creme-mains-spf30.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-creme-mains-spf30.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1277,7 +1299,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERINE, ALCOHOL DENAT, BUTYLENE GLYCOL DICAPRYLATE/DICAPRATE, C12-15 ALKYL BENZOATE, BUTYL METHOXYDIBENZOYLMETHANE, CETEARYL ALCOHOL, HYDROXYPROPYL STARCH PHOSPHATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, BEHENYL ALCOHOL, DIBUTYL ADIPATE, ETHYLHEXYL TRIAZONE, PHENYLBENZIMIDAZOLE SULFONIC ACID, TAPIOCA STARCH, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, SODIUM HYALURONATE, ARCTIUM LAPPA FRUIT EXTRACT, CRÉATINE, 1-METHYLHYDANTOIN-2-IMIDE, ISOBUTYLAMIDO THIAZOLYL RESORCINOL, XANTHAN GUM, SODIUM CHLORIDE, SODIUM STEAROYL GLUTAMATE, GLYCERYL STEARATE, SODIUM HYDROXIDE, SYNTHETIC FLUORPHLOGOPITE, TIN OXIDE, DIMETHICONE, TRISODIUM EDTA, ETHYLHEXYLGLYCERIN, PHENOXYETHANOL, PARFUM, CI 77891, CI 77491',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-hyaluron-filler-elasticity-recharge-soin-de-jour-rose-spf30-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-elasticity-recharge-soin-de-jour-rose-spf30.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-elasticity-recharge-soin-de-jour-rose-spf30.webp',
     tags: {
       primary: ['hydratation', 'protection-solaire'],
       secondary: ['creme-solaire', 'matin', 'zone-visage'],
@@ -1305,7 +1328,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERINE, ALCOHOL DENAT, C12-15 ALKYL BENZOATE, BUTYL METHOXYDIBENZOYLMETHANE, CETEARYL ALCOHOL, HYDROXYPROPYL STARCH PHOSPHATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, BEHENYL ALCOHOL, DIBUTYL ADIPATE, ETHYLHEXYL TRIAZONE, PHENYLBENZIMIDAZOLE SULFONIC ACID, TAPIOCA STARCH, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, SODIUM HYALURONATE, ARCTIUM LAPPA FRUIT EXTRACT, CREATINE, 1-METHYLHYDANTOIN-2-IMIDE, ISOBUTYLAMIDO THIAZOLYL RESORCINOL, XANTHAN GUM, SODIUM CHLORIDE, SODIUM STEAROYL GLUTAMATE, GLYCERYL STEARATE, SODIUM HYDROXIDE, DIMETHICONE, TRISODIUM EDTA, ETHYLHEXYLGLYCERIN, PHENOXYETHANOL, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, PARFUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-hyaluron-filler-elasticity-recharge-soin-de-jour-spf30-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-elasticity-recharge-soin-de-jour-spf30.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-elasticity-recharge-soin-de-jour-spf30.webp',
     tags: {
       primary: ['hydratation', 'protection-solaire'],
       secondary: ['creme-solaire', 'matin', 'zone-visage'],
@@ -1333,7 +1357,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA ALCOHOL DENAT CI 77891 BUTYL METHOXYDIBENZOYLMETHANE BIS ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE ETHYLHEXYL TRIAZONE DIBUTYL ADIPATE DIPROPYLENE GLYCOL DIBENZOATE BUTYLENE GLYCOL DICAPRYLATE DICAPRATE PHENYLBENZIMIDAZOLE SULFONIC ACID GLYCERINE POLYGLYCERYL 6 STEARATE DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE SILICA SILICA DIMETHYL SILYLATE TAPIOCA STARCH GLYCYRRHIZA INFLATA ROOT EXTRACT ACIDE GLYCYRRHETINIQUE SODIUM HYALURONATE SODIUM PCA SODIUM LACTATE CETEARYL ALCOHOL GLYCERYL STEARATE COPERNICIA CERIFERA CERA POLYGLYCERYL 6 BEHENATE XANTHAN GUM CARRAGEENAN SODIUM HYDROXIDE TRISODIUM ETHYLENEDIAMINE DISUCCINATE DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE ETHYLHEXYLGLYCERIN PHENOXYETHANOL ALUMINA PARFUM CI 77492 CI 77491 CI 77499',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-hydro-protect-spf50-fluide-teinte-medium-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-hydro-protect-spf50-fluide-teinte-medium.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-hydro-protect-spf50-fluide-teinte-medium.webp',
     tags: {
       primary: ['hydratation', 'protection-solaire'],
       secondary: ['creme-solaire', 'matin', 'zone-visage'],
@@ -1354,7 +1379,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, ALCOHOL DENAT, C12-15 ALKYL BENZOATE, BUTYL METHOXYDIBENZOYLMETHANE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ETHYLHEXYL TRIAZONE, BUTYLENE GLYCOL DICAPRYLATEDICAPRATE, DIBUTYL ADIPATE, SILICA, TAPIOCA STARCH, POLYGLYCERYL-6 STEARATE, SILICA DIMETHYL SILYLATE, GLYCERINE, GLYCYRRHIZA INFLATA ROOT EXTRACT, SODIUM HYALURONATE, ARGININE HCL, SODIUM PCA, SODIUM LACTATE, ACIDE-GLYCYRRHETINIQUE, CETEARYL ALCOHOL, GLYCERYL STEARATE, COPERNICIA CERIFERA CERA, XANTHAN GUM, SODIUM HYDROXIDE, TRISODIUM EDTA, PHENOXYETHANOL, PARFUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-hydro-protect-spf50-fluide-ultra-leger-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-hydro-protect-spf50-fluide-ultra-leger.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-hydro-protect-spf50-fluide-ultra-leger.webp',
     tags: {
       primary: ['hydratation', 'protection-solaire'],
       secondary: ['creme-solaire', 'matin', 'zone-visage'],
@@ -1464,7 +1490,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'TESTÉ DANS DES CLIMATS HUMIDES, AQUA, ALCOHOL DENAT., CI 77891, BUTYL METHOXYDIBENZOYLMETHANE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIBUTYL ADIPATE, BUTYLENE GLYCOL DICAPRYLATE/DICAPRATE, C12-15 ALKYL BENZOATE, ETHYLHEXYL SALICYLATE, ETHYLHEXYL TRIAZONE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, PHENYLBENZIMIDAZOLE SULFONIC ACID, SILICA DIMETHYL SILYLATE, CI 77492, COCOGLYCERIDES, COPERNICIA CERIFERA CERA, GLYCERIN, ISOBUTYLAMIDO THIAZOLYL RESORCINOL, GLYCYRRHIZA INFLATA ROOT EXTRACT, GLYCYRRHETINIC ACID, GLYCERIN, TOCOPHERYL ACETATE, SILICA, CARRAGEENAN, XANTHAN GUM, HYDROXYPROPYL METHYLCELLULOSE, BEHENYL ALCOHOL, CETEARYL ALCOHOL, ARACHIDIC ACID, MYRISTIC ACID, OLEIC ACID, PALMITIC ACID, STEARIC ACID, CARBOMER, SODIUM STEAROYL GLUTAMATE, SODIUM CHLORIDE, SODIUM HYDROXIDE, TRISODIUM EDTA, PHENOXYETHANOL, HYDROXYACETOPHENONE, ALUMINA, PARFUM, CI 77491, CI 77499',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-pigment-control-spf50-gel-creme-teinte-medium-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-pigment-control-spf50-gel-creme-teinte-medium.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-pigment-control-spf50-gel-creme-teinte-medium.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1495,7 +1522,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, ALCOHOL DENAT, BUTYLENE GLYCOL DICAPRYLATEDICAPRATE, BUTYL METHOXYDIBENZOYLMETHANE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, C12-15 ALKYL BENZOATE, DISTARCH PHOSPHATE, ETHYLHEXYL TRIAZONE, DIBUTYL ADIPATE, GLYCERYL STEARATE CITRATE, HYDROGENATED COCO-GLYCERIDES, MYRISTYL MYRISTATE, DICAPRYLYL CARBONATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, PHENYLBENZIMIDAZOLE SULFONIC ACID, DIETHYLHEXYL BUTAMIDO TRIAZONE, HYDROGENATED RAPESEED OIL, ACIDE GLYCYRRHÉTINIQUE, GLYCYRRHIZA INFLATA ROOT EXTRACT, TOCOPHEROL, XANTHAN GUM, C18-38 ALKYL HYDROXYSTEAROYL STEARATE, CETYL PALMITATE, SILICA DIMETHYL SILYLATE, SODIUM HYDROXIDE, CAPRYLYL GLYCOL, HYDROXYACETOPHENONE, TRISODIUM EDTA, PHENOXYETHANOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-sensitive-protect-kids-spf50-gel-creme-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-sensitive-protect-kids-spf50-gel-creme.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-sensitive-protect-kids-spf50-gel-creme.webp',
     tags: {
       primary: ['anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1526,7 +1554,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'SUN SPRAY SENSITIVE PROTECT : AQUA, HOMOSALATE, GLYCERINE, ALCOHOL DENAT, BUTYL METHOXYDIBENZOYLMETHANE, ETHYLHEXYL SALICYLATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ETHYLHEXYL TRIAZONE, DIBUTYL ADIPATE, COPERNICIA CERIFERA CERA, PHENYLBENZIMIDAZOLE SULFONIC ACID, VP-HEXADECENE COPOLYMER, GLYCYRRHIZA INFLATA ROOT EXTRACT, ACIDE-GLYCYRRHETINIQUE, SODIUM STEAROYL GLUTAMATE, HYDROGENATED POLYISOBUTENE, SUCROSE POLYSTEARATE, MICROCRYSTALLINE CELLULOSE, ACRYLATES-C10-30-ALKYL-ACRYLATE-CROSSPOLYMER, XANTHAN GUM, CELLULOSE GUM, TETRASODIUM IMINODISUCCINATE, SODIUM HYDROXIDE, SODIUM CHLORIDE, TRISODIUM EDTA, ETHYLHEXYLGLYCERIN, PHENOXYETHANOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-sensitive-protect-spray-spf50-after-sun-gel-creme.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-sensitive-protect-spray-spf50-after-sun-gel-creme.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-sensitive-protect-spray-spf50-after-sun-gel-creme.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation'],
       secondary: ['filtres-chimiques', 'matin'],
@@ -1556,7 +1585,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, ALCOHOL DENAT, CI 77891, BUTYL METHOXYDIBENZOYLMETHANE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIBUTYL ADIPATE, BUTYLENE GLYCOL DICAPRYLATE/DICAPRATE, C12-15 ALKYL BENZOATE, ETHYLHEXYL SALICYLATE, ETHYLHEXYL TRIAZONE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, PHENYLBENZIMIDAZOLE SULFONIC ACID, SILICA, SILICA DIMETHYL SILYLATE, COCOGLYCERIDES, COPERNICIA CERIFERA CERA, CARNITINE, GLYCYRRHIZA INFLATA ROOT EXTRACT, ACIDE GLYCYRRHÉTINIQUE, GLYCERIN, TAPIOCA STARCH, CHONDRUS CRISPUS EXTRACT, HYDROXYPROPYL METHYLCELLULOSE, XANTHAN GUM, BEHENYL ALCOHOL, CETEARYL ALCOHOL, STEARIC ACID, MYRISTIC ACID, ARACHIDIC ACID, OLEIC ACID, PALMITIC ACID, SODIUM STEAROYL GLUTAMATE, SODIUM HYDROXIDE, SODIUM CHLORIDE, TRISODIUM EDTA, HYDROXYACETOPHENONE, PHENOXYETHANOL, CI 77491, CI 77499',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-sun-gel-creme-toucher-sec-teinte-medium-spf50-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-sun-gel-creme-toucher-sec-teinte-medium-spf50.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-sun-gel-creme-toucher-sec-teinte-medium-spf50.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation'],
       secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1726,7 +1756,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERIN, PANTHENOL, DICAPRYLYL ETHER, HYDROGENATED COCO-GLYCERIDES, CAPRYLIC / CAPRIC TRIGLYCERIDE, CETYL PALMITATE, ISOPROPYL PALMITATE, SYNTHETIC BEESWAX, GLYCERYL STEARATE CITRATE, METHYLPROPANEDIOL, OCTYLDODECANOL,ARGININE HCL, CETYL ALCOHOL, POLYMETHYLSILSESQUIOXANE, STEARYL ALCOHOL, MAGNOLIA OFFICINALIS BARK EXTRACT, PIMPINELLA ANISUM FRUIT EXTRACT, SODIUM HYALURONATE, CARBOMER, DIMETHICONE, TRISODIUM EDTA, SODIUM HYDROXIDE, ETHYLHEXYLGLYCERIN, 1.2-HEXANEDIOL, PHENOXYETHANOL, PARFUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/soins-visage/eucerin-hyaluron-filler-volume-lift-nuit-spf-15-50-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-volume-lift-nuit-spf-15.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-volume-lift-nuit-spf-15.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'barriere-cutanee', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1869,7 +1900,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, HOMOSALATE, POLYMETHYLSILSESQUIOXANE, BUTYL METHOXYDIBENZOYLMETHANE, ETHYLHEXYL SALICYLATE, OCTOCRYLENE, ALCOHOL DENAT,TAPIOCA STARCH, PHENYLBENZIMIDAZOLE SULFONIC ACID, CYCLOMETHICONE, BEHENYL ALCOHOL, CETEARYL ALCOHOL, METHYLPROPANEDIOL, SILICA DIMETHYL SILYLATE, GLYCERIN, CARNITINE, GLYCYRRHETINIC ACID, GLYCYRRHIZA INLFLATA ROOT EXTRACT, SODIUM STEAROYL GLUTAMATE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, SODIUM CARBOMER, XANTHAN GUM, PHENOXYETHANOL, ETHYLHEXYLGLYCERIN, TRISODIUM EDTA, SODIUM CHLORIDE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/solaires/eucerin-sensitive-protect-spf-50-toucher-sec-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-sensitive-protect-spf-50-toucher-sec.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-sensitive-protect-spf-50-toucher-sec.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation'],
       secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1896,7 +1928,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'SANS PARFUM, AQUA, OCTOCRYLENE, HOMOSALATE, GLYCÉRINE, ALCOHOL DENAT, BUTYL METHOXYDIBENZOYLMETHANE, ETHYLHEXYL SALICYLATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ETHYLHEXYL COCOATE, GLYCERYL STEARATE CITRATE, HYDROGENATED COCO-GLYCERIDES, CETEARYL ALCOHOL, ACIDE GLYCYRRHÉTINIQUE , GLYCYRRHIZA INFLATA ROOT EXTRACT, VP/HEXADECENE COPOLYMER, XANTHAN GUM, SODIUM ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, TRISODIUM EDTA, SILICA DIMETHYL SILYLATE, DIMETHICONE, ETHYLHEXYLGLYCERIN, PHENOXYETHANOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/solaires/eucerin-sensitive-protect-sun-creme-spf-50-50-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-sensitive-protect-sun-creme-spf-50.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-sensitive-protect-sun-creme-spf-50.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation'],
       secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1952,7 +1985,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, HOMOSALATE, OCTOCRYLENE, GLYCERIN, ALCOHOL DENAT., BUTYL METHOXYDIBENZOYLMETHANE, ETHYLHEXYL SALICYLATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, BUTYLENE GLYCOL, POLYSILICONE-15, C 18-36 ACID TRIGLYCERIDE, POLYAMIDE-5, GLYCINE, SODIUM CITRATE, CITRIC ACID, GLUCOSYLRUTIN, GLYCYRRHIZA INFLATA ROOT EXTRACT, TOCOPHEROL, ISOQUERCITRIN, VP HEXADECENE COPOLYMER, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, XANTHAN GUM, TRISODIUM EDTA, ETHYLHEXYLGLYCERIN',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/solaires/eucerin-spf50-sun-leb-protection-creme-gel-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-spf50-sun-leb-protection-creme-gel.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-spf50-sun-leb-protection-creme-gel.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2017,7 +2051,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERIN, ETHYLHEXYL SALICYLATE, BUTYL METHOXYDIBENZOYLMETHANE, SYNTHETIC BEESWAX, BUTYLENE GLYCOL DICAPRYLATE / DICAPRATE, CETYL PALMITATE, BEHENYL ALCOHOL, HYDROGENATED COCO-GLYCERIDES, METHYLPROPANEDIOL, OCTYLDODECANOL, PHENYLBENZIMIDAZOLE SULFONIC ACID, POLYMETHYLSILSESQUIOXANE, GLYCERYL STEARATE CITRATE, ARGININE HCL, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, STEARYL ALCOHOL, MAGNOLIA OFFICINALIS BARK EXTRACT, PIMPINELLA ANISUM FRUIT EXTRACT, SODIUM HYALURONATE, CARBOMER, DIMETHICONE, TRISODIUM EDTA, SODIUM HYDROXIDE, ETHYLHEXYLGLYCERIN, 1,2-HEXANEDIOL, PHENOXYETHANOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/yeux/eucerin-hyaluron-filler-soin-contour-des-yeux-spf-15-15-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-soin-contour-des-yeux-spf-15.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-soin-contour-des-yeux-spf-15.webp',
     tags: {
       primary: ['hydratation', 'protection-solaire'],
       secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2045,7 +2080,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'OCTYLDODECANOL, RICINUS COMMUNIS SEED OIL (CASTOR OIL), CERA ALBA (BEESWAX), HYDROGENATED RAPESEED OIL, BUTYL METHOXYDIBENZOYLMETHANE, ETHYLHEXYL SALICYLATE, BUTYROSPERMUM PARKII BUTTER (SHEA BUTTER), CETYL PALMITATE, BIS ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ETHYLHEXYL TRIAZONE, AROMA, HELIANTHUS ANNUUS SEED OIL (SUNFLOWER OIL), TOCOPHEROL (VITAMIN E), LINALOOL, CITRONELLOL',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/corps/levres/hydratation/labello-sun-protect-spf50-soin-des-levres-4-8g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/labello-sun-protect-spf50-soin-des-levres.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/labello-sun-protect-spf50-soin-des-levres.webp',
     tags: {
       primary: ['protection-solaire', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2453,7 +2489,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Acide lactique, coco-glucoside, cocoamphoacétate de sodium, glucoside décylique, oléate glycérylique, palmate glycérylique hydrogéné peg-200, panthénol, polyquaternium-10, salicylate de sodium, sodium benzoate, sulfate de myreth sodique, urée.',
     url: 'https://www.atida.fr/eucerin-dermo-capillaire-shampooing-calmant-5-uree-250ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-dermo-capillaire-shampoing-calmant-5-uree-cuir-chevelu-irrite-250ml-232516.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-dermo-capillaire-shampoing-calmant-5-uree-cuir-chevelu-irrite-250ml-232516.webp',
     tags: {
       primary: [TAG_SLUGS.CREME_HYDRATANTE],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
@@ -2474,7 +2511,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, uree, methylpropanediol, sodium lactate, laureth-9, glycyrrhiza inflata root extract, glycerine, lactic acid, arginine hcl, hydroxyethylcellulose, peg-40 hydrogenated castor oil, cetrimonium chloride, phenoxyethanol.',
     url: 'https://www.atida.fr/eucerin-dermo-capillaire-soin-calmant-traitant-5-uree-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-dermo-capillaire-soin-calmant-traitant-cuir-chevelu-irrite-100ml-263963.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-dermo-capillaire-soin-calmant-traitant-cuir-chevelu-irrite-100ml-263963.webp',
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION],
       secondary: [
@@ -2501,7 +2539,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, decyl glucoside, sodium myreth sulfate, peg-80 sorbitan laurate, peg-200 hydrogenated glyceryl palmate, disodium peg-5 laurylcitrate sulfosuccinate, peg-90 glyceryl isostearate, bisabolol, polyquaternium-10, citric acid, laureth-2, sodium laureth sulfate, sodium benzoate, sodium salicylate.',
     url: 'https://www.atida.fr/eucerin-dermo-capillaire-shampooing-haute-tolerance-250ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-dermo-capillaire-shampoing-haute-tolerance-extra-doux-250ml-263962.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-dermo-capillaire-shampoing-haute-tolerance-extra-doux-250ml-263962.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT],
       secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -2522,7 +2561,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Glycine Soja Oil, Laureth-4, MIPA-Laureth Sulfate, Ricinus Communis Seed Oil, Poloxamer 101, Parfum, Propylene Glycol, Panthenol, Tocopherol, Pantolactone, Citric Acid, Sodium Citrate,  Aqua, Propyl Gallate',
     url: 'https://www.atida.fr/eucerin-ph5-huile-de-douche-1l.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-ph5-huile-de-douche-peaux-sensibles-seches-1l-288208.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-ph5-huile-de-douche-peaux-sensibles-seches-1l-288208.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
@@ -2543,7 +2583,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Glycine soja oil, ricinus communis seed oil, laureth-4, mipa laureth, sulfate, poloxamer 101, laureth-9, propylene glycol, aqua bht, propyl gallate.',
     url: 'https://www.atida.fr/eucerin-atopicontrol-huile-bain-douche-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-atopi-control-huile-bain-et-douche-peaux-atopiques-400ml-257112.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-atopi-control-huile-bain-et-douche-peaux-atopiques-400ml-257112.webp',
     tags: {
       primary: [TAG_SLUGS.NETTOYANT_CORPS],
       secondary: [TAG_SLUGS.ZONE_CORPS],
@@ -2564,7 +2605,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua, sodium cocoamphoacetate, sodium myreth sulfate, lauryl glucoside, citric acid, sodium chloride, methylpropanediol, panthenol, glycerin, pantolactone, sodium citrate, coco-glucoside,  glycol distearate, peg-40 hydrogenated castor oil,  peg-200 hydrogenated glyceryl palmate, sodium benzoate, parfum',
     url: 'https://www.atida.fr/eucerin-ph5-gel-lavant-1l.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-ph5-gel-lavant-peaux-sensibles-seches-1l-235107.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-ph5-gel-lavant-peaux-sensibles-seches-1l-235107.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [

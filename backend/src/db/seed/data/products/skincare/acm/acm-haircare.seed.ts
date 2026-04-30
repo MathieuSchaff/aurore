@@ -16,7 +16,8 @@ export const ACM_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, AQUA (WATER), CITRIC ACID, COCO-BETAINE, DECYL GLUCOSIDE, DIPROPYLENE GLYCOL, GLYCERYL UNDECYLENATE, GLYCYRRHETINIC ACID, INULIN, NIACINAMIDE, PANTHENOL, PCA GLYCERYL OLEATE, PIROCTONE OLAMINE, SALICYLIC ACID, SODIUM BENZOATE, SODIUM HYDROXIDE, SODIUM LACTATE, SODIUM LAURETH SULFATE, SODIUM LEVULINATE, SORBITAN CAPRYLATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-novophane-ds-shampooing-antipelliculaire-125ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-novophane-ds-shampooing-antipelliculaire.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/acm-novophane-ds-shampooing-antipelliculaire.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -46,7 +47,8 @@ export const ACM_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER SODIUM LAURETH SULFATE DIPROPYLENE GLYCOL COCO BETAINE ACRYLATES C10 30 ALKYL ACRYIATE CROSSPOLYMER PIROCTONE OLAMINE SODIUM LACTATE INULIN GLYCERYL UNDECYLENATE SALICYLIC ACID NIACINAMIDE PANTHENOL DECYL GLUCOSIDE GLYCYMHETINIC ACID PCA GLYCERYL OLEATE SORBITAN CAPRYLATE SODIUM LEVULINATE SODIUM HYDROXIDE SODIUM BENZOATE CITRIC ACID TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES HEXAMETHYLINDANOPYRAN PARFUM FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-novophane-ds-shampooing-traitant-pellicules-seches-500ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-novophane-ds-shampooing-traitant-pellicules-seches.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/acm-novophane-ds-shampooing-traitant-pellicules-seches.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -67,7 +69,8 @@ export const ACM_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, AQUA (WATER), CITRIC ACID, COCO-BETAINE, DECYL GLUCOSIDE, DIPROPYLENE GLYCOL, GLYCERYL UNDECYLENATE, GLYCYRRHETINIC ACID, INULIN, JUNIPERUS OXYCEDRUS WOOD OIL, NIACINAMIDE, PANTHENOL, PCA GLYCERYL OLEATE, PIROCTONE OLAMINE, SALICYLIC ACID, SODIUM BENZOATE, SODIUM HYDROXIDE, SODIUM LACTATE, SODIUM LAURETH SULFATE, SODIUM LEVULINATE, SORBITAN CAPRYLATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-novophane-k-shampooing-antipelliculaire-125ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-novophane-k-shampooing-antipelliculaire.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/acm-novophane-k-shampooing-antipelliculaire.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -173,7 +176,8 @@ export const ACM_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER SODIUM LAURETH SULFATE DIPROPYLENE GLYCOL COCO BETAINE ACRYLATES C10 30 ALKYL ACRYLATE CROSSPOLYMER PIROCTONE OLAMINE SODIUM LACTATE DECYL GLUCOSIDE INULIN GLYCERYL UNDECYLENATE SALICYLIC ACID URTICA DIOICA NETTLE LEAF EXTRACT ZINC GLUCONATE NIACINAMIDE GLYCERIN PANTHENOL GLYCYRHETINIC ACID PCA GLYCERYL OLEATE SORBITAN CAPRYLATE SODIUM LEVULINATE SODIUM HYDROXIDE SODIUM BENZOATE POTASSIUM SORBATE CITRIC ACID TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES HEXAMETHYLINDANOPYRAN PARFUM FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-novophane-shampooing-traitant-pellicules-grasses-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-novophane-shampooing-traitant-pellicules-grasses.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/acm-novophane-shampooing-traitant-pellicules-grasses.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -194,7 +198,8 @@ export const ACM_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER SODIUM LAURETH SULFATE COCO BETAINE DIPROPYLENE GLYCOL ACRYLATES C10 30 ALKYL ACRYLATE CROSSPOLYMER PIROCTONE OLAMINE SALICYLIC ACID PANTHENOL SODIUM HYDROXIDE SODIUM BENZOATE POTASSIUM SORBATE CITRIC ACID PARFUM FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-novophane-shampooing-traitant-pellicules-seches-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-novophane-shampooing-traitant-pellicules-seches.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/acm-novophane-shampooing-traitant-pellicules-seches.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],

@@ -15,7 +15,8 @@ export const BAILLEUL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'aqua, alcohol denat., methylsilanol mannuronate, butylene glycol, methylpropane-diol, arginine, vitis vinifera vine extract, piroctone olamine, citric acid, acetyl cysteine.',
     url: 'https://www.atida.fr/cystiphane-lotion-antichute-100ml-resistance-et-croissance-des-cheveux.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cystiphane-lotion-antichute-100ml-resistance-et-croissance-des-cheveux-233638.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/cystiphane-lotion-antichute-100ml-resistance-et-croissance-des-cheveux-233638.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],

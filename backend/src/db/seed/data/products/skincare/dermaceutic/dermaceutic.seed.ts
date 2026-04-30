@@ -890,7 +890,8 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), COCAMIDOPROPYL BETAINE, GLYCERIN, SODIUM COCOYL, GLUTAMATE, XYLITYLGLUCOSIDE, PENTYLENE GLYCOL, UREA, ZINC PCA, ANHYDROXYLITOL, XYLITOL, COCO-GLUCOSIDE, GLYCERYL OLEATE, CAPRYLOYL GLYCINE, CITRIC ACID, PARFUM (FRAGRANCE), ETHYLHEXYLGLYCERIN, ISOPROPYL ALCOHOL, O-CYMEN5-OL, SODIUM CHLORIDE, SODIUM BENZOATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dermaceutic/dermaceutic-advance-cleanser-mousse-nettoyante-globale-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dermaceutic-advance-cleanser-mousse-nettoyante-globale.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/dermaceutic-advance-cleanser-mousse-nettoyante-globale.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['keratolytique', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -918,7 +919,8 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), GLYCOLIC ACID, SODIUM HYDROXIDE, GLYCERIN, COCAMIDOPROPYL BETAINE, POLYSORBATE 80, PROPYLENE GLYCOL, METHYLPROPANEDIOL, GLYCYRRHETINIC ACID, DIPOTASSIUM GLYCYRRHIZATE, POTASSIUM SORBATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dermaceutic/dermaceutic-foamer-15-mousse-exfoliante-intense-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dermaceutic-foamer-15-mousse-exfoliante-intense.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/dermaceutic-foamer-15-mousse-exfoliante-intense.webp',
     tags: {
       primary: ['anti-rougeurs', 'exfoliation', 'eclat'],
       secondary: ['keratolytique', 'zone-visage', 'exfoliant-chimique'],
@@ -943,7 +945,8 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCOLIC ACID, SODIUM HYDROXIDE, COCAMIDOPROPYL BETAINE, GLYCERIN, POLYSORBATE 80, PROPYLENE GLYCOL, METHYLPROPANEDIOL, COCAMIDOPROPYL BETAINAMIDE MEA CHLORIDE, PTASSIUM SORBATE, DIPOTASSIUM GLYCYRHIZATE, HYDROXYETHYLCELLULOSE, METHYLISOTHIAZOLINONE, METHYLCHLOROISOTHIAZOLIONE, SODIUM NITRATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dermaceutic/dermaceutic-foamer-5-mousse-exfoliante-douce-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dermaceutic-foamer-5-mousse-exfoliante-douce.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/dermaceutic-foamer-5-mousse-exfoliante-douce.webp',
     tags: {
       primary: ['exfoliation', 'eclat', 'hydratation'],
       secondary: ['keratolytique', 'zone-visage', 'exfoliant-chimique'],
@@ -965,7 +968,8 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER, GLYCERIN, CAPRYLIC CAPRIC TRIGLYCERIDE, CETEARYL ALCOHOL, BUTYROSPERMUM PARKII BUTTER, GLYCERYL STEARATE, GLYCERYL STEARATE CITRATE, OLUS OIL, SIMMONDSIA CHINENSIS SEED OIL, PENTYLENE GLYCOL,MYRISTIL MYRISTATE, HYDROLYZED HYALURONIC ACID, SODIUM HYALURONATE, NATTO GUM, SALICYLOYL PHYTOSPHINGOSINE, PISTACIA LENTISCUS GUM, HYDROLYZED RHODOPHYCEAE EXTRACT, TOCOPHERYL ACETATE, GLYCINE SOJA OIL, CANDEDILLA CERA WAX, GLYCERYL CAPRYLATE, SODIUM STEAROYL GLUTAMATE, MICROCRYSTALLINE CELLULOSE, HYDROGENATED VEGETABLE OIL, BUTYLENE GLYCOL, POLYACRYLATE CROSSPOLYMER-6, SODIUM BENZOATE, XANTHAN GUM, CELLULOSE GUM, SODIUM CHLORIDE, CITRIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dermaceutic/dermaceutic-hyal-ceutic-redens-creme-redensifiante-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dermaceutic-hyal-ceutic-redens-creme-redensifiante.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/dermaceutic-hyal-ceutic-redens-creme-redensifiante.webp',
     tags: {
       primary: ['hydratation', 'repulpant', 'barriere-cutanee'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -1021,7 +1025,8 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), ISONONYL ISONONANOATE, ETHYLHEXYL METHOXYCINNAMATE, BEESWAX (CERA ALBA), TITANIUM DIOXIDE [NANO], GLYCERIN, HOMOSALATE, BUTYL METHOXYDIBENZOYLMETHANE, OCTYLDODECANOL, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, BUTYLENE GLYCOL, B UTYROSPERMUM PARKII (SHEA) BUTTER, OLEIC/ LINOLEIC/ LINOLENIC POLYGLYCERIDES, CYCLOPENTASILOXANE, BISABOLOL, OCTYLDODECYL XYLOSIDE, PEG-30 DIPOLYHYDROXYSTEARATE, TOCOPHEROL, ZINC STEARATE, SILICA, PHENETHYL ALCOHOL, MAGNESIUM SULFATE, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, ALPHA-GLUCAN OLIGOSACCHARIDE, METHYLPROPANEDIOL, SCLEROTIUM GUM, TOCOPHERYL ACETATE, OXIDIZED CORN OIL, GLYCERYL CAPRYLATE, CITRIC ACID, DIMETHICONOL, SODIUM ASCORBYL PHOSPHATE, SODIUM BENZOATE, DIMETHICONE, PSEUDOALTEROMONAS FERMENT EXTRACT, XANTHAN GUM, GLYCERYL UNDECYLENATE, GLYCINE SOJA (SOYBEAN) SEED EXTRACT, YELLOW 5 (CI 19140), DIPOTASSIUM GLYCYRRHIZATE, ETHYLHEXYLGLYCERIN, T-BUTYL ALCOHOL, RED 4 (CI 14700), MALTODEXTRIN, HYALURONIC ACID, SODIUM SULFATE, SILANETRIOL, BHT, RED 33 (CI 17200), GLUCOSE, SALICYLIC ACID, BLUE 1 (CI 42090), SODIUM HYDROXIDE, CHONDRUS CRISPUS EXTRACT',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dermaceutic/dermaceutic-k-ceutic-creme-post-traitement-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dermaceutic-k-ceutic-creme-post-traitement.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/dermaceutic-k-ceutic-creme-post-traitement.webp',
     tags: {
       primary: ['protection-solaire', 'anti-acne', 'apaisant'],
       secondary: [
@@ -1059,7 +1064,8 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), GLYCERIN, POLOXAMER 184, NIACINAMIDE, ZINC GLUCONATE, CHLORELLA VULGARIS EXTRACT, LAMINARIA DIGITATA EXTRACT, MARIS AQUA (SEA WATER), SACCHARIDE ISOMERATE, TETRASODIUM GLUTAMATE DIACETATE, PPG-26-BUTETH-26, PENTYLENE GLYCOL, ETHYLHEXYLGLYCERIN, PHENOXYETHANOL, PEG-40 HYDROGENATED CASTOR OIL, CHLORPHENESIN, O-CYMEN-5-OL, CITRIC ACID, SODIUM BENZOATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dermaceutic/dermaceutic-oxybiome-eau-micellaire-nettoyante-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dermaceutic-oxybiome-eau-micellaire-nettoyante.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/dermaceutic-oxybiome-eau-micellaire-nettoyante.webp',
     tags: {
       primary: ['pores-dilates', 'hydratation', 'barriere-cutanee'],
       secondary: ['sebo-regulateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -1120,7 +1126,8 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, DECYL OLEATE, GLYCERIN, NEOPENTYL GLYCOL DIHEPTANOATE, SILICA, BUTYROSPERMUM PARKII BUTTER, C12 -16, ALCOHOLS, , CETYL ALCOHOL, ISODODECANE, PALMITOYL TRIPEPTIDE-1, PALMITOYL TETRAPEPTIDE-7, ASCORBYL TETRAISOPALMITATE, SODIUM HYALURONATE, TOCOPHEROL, LEONTOPODIUM ALPINUM FLOWER/LEAF EXTRACT, HYDROGENATED LECITHIN, HYDROGENATED PALM GLYCERIDES CITRATE, PALMITIC ACID, GLYCERYL STEARATE, PEG-1 00 STEARATE, BUTYLENE GLYCOL, XANTHAN GUM, ETHYLHEXYLGLYCERIN, SODIUM LACTATE, CARBOMER, COCO-GLUCOSIDE, CITRIC ACID, PHENOXYETHANOL, POTASSIUM SORBATE, SODIUM BENZOATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dermaceutic/dermaceutic-regen-ceutic-creme-hydratante-nourrissante-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dermaceutic-regen-ceutic-creme-hydratante-nourrissante.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/dermaceutic-regen-ceutic-creme-hydratante-nourrissante.webp',
     tags: {
       primary: ['anti-age', 'hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -1182,7 +1189,8 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dermaceutic/dermaceutic-yellow-cream-correcteur-anti-taches-15ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dermaceutic-yellow-cream-correcteur-anti-taches.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/dermaceutic-yellow-cream-correcteur-anti-taches.webp',
     tags: {
       primary: ['anti-taches', 'hyperpigmentation'],
       secondary: ['spot-treatment', 'soin-localise', 'zone-visage'],
@@ -1203,7 +1211,8 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), C12-15 ALKYL BENZOATE, ETHYLHEXYL METHOXYCINNAMATE, ZINC OXIDE [NANO], DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, PROPYLENE GLYCOL, CYCLOPENTASILOXANE, PHENYLBENZIMIDAZOLE SULFONIC ACID, DIMETHICONE, METHYLENE BIS-BENZOTRIAZOLYL TETRAMETHYLBUTYLPHENOL [NANO], TRIETHANOLAMINE, TITANIUM DIOXIDE [NANO], SORBITAN STEARATE, CYCLOHEXASILOXANE, GLYCERYL STEARATE, PEG-100 STEARATE, STEARYL ALCOHOL, STYRENE/ACRYLATES COPOLYMER, GLYCERIN, NYLON12, SODIUM HYALURONATE, ALOE BARBADENSIS LEAF EXTRACT, HYDROLYZED ALGIN, HYDROLYZED WHEAT PROTEIN/PVP CROSSPOLYMER, SILICA, DECYL GLUCOSIDE, CHLORPHENESIN, ISOSTEARIC ACID, SUCROSE COCOATE, PEG-8 LAURATE, TRIETHOXYCAPRYLYLSILANE, XANTHAN GUM, O-CYMEN-5-OL, PHENOXYETHANOL, TETRASODIUM EDTA, BHT, DISODIUM EDTA, POTASSIUM SORBATE, ETHYLHEXYLGLYCERIN',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dermaceutic/dermaceutic-sun-ceutic-protection-solaire-spf50-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dermaceutic-sun-ceutic-protection-solaire-spf50.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/dermaceutic-sun-ceutic-protection-solaire-spf50.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'protection-solaire'],
       secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],

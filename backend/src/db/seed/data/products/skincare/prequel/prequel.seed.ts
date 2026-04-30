@@ -17,7 +17,8 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
       'Acide Hypochloreux + Chlorure de Sodium. Idéal pour les peaux sujettes aux rougeurs et imperfections.',
     inci: 'ELECTROLYZED WATER, HYPOCHLOROUS ACID, MURIATIC ACID, SODIUM CHLORIDE, WATER (AQUA)',
     url: 'https://www.skinsafeproducts.com/prequel-universal-skin-solution-dermal-spray-2-fl-oz-60-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-universal-skin-solution-dermal-spray.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/prequel-universal-skin-solution-dermal-spray.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ANTI_ACNE],
       secondary: [
@@ -156,7 +157,8 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
       'Urée 10% + Niacinamide + Beurre de Karité. Idéal pour les peaux rugueuses et squameuses.',
     inci: 'BUTYROSPERMUM PARKII BUTTER, C12-15 ALKYL BENZOATE, C15-19 ALKANE, CANDELILLA/JOJOBA/RICE BRAN POLYGLYCERYL-3 ESTERS, CAPRYLIC/CAPRIC TRIGLYCERIDE, CETEARYL ALCOHOL, CITRIC ACID, CYCLOPENTASILOXANE, DIMETHICONE, ETHYLHEXYL STEARATE, ETHYLHEXYLGLYCERIN, GLYCERIN, JOJOBA ESTERS, LAURYL GLUCOSIDE, PHENOXYETHANOL, POLYGLYCERYL-6 DISTEARATE, POTASSIUM CETYL PHOSPHATE, SODIUM ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, SODIUM CITRATE, TETRASODIUM GLUTAMATE DIACETATE, TOCOPHEROL, UREA, WATER (AQUA)',
     url: 'https://www.skinsafeproducts.com/prequel-urea-advance-relife-moisturizing-milk-10-urea-niacinamide-shear-butter-13-5-fl-oz-400-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-urea-advance-relife-moisturizing-milk.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/prequel-urea-advance-relife-moisturizing-milk.webp',
     tags: {
       primary: [TAG_SLUGS.PEAU_RUGUEUSE, TAG_SLUGS.DESHYDRATATION],
       secondary: [
@@ -301,7 +303,8 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
       'Acides Glycolique, Lactique et Mandélique. Idéal pour les peaux ternes en quête de douceur.',
     inci: 'C13-14 ALKANE, C13-14 ISOALKANE, C15-23 ALKANE, CARRAGEENAN, DECYL GLUCOSIDE, ETHYLHEXYL OLIVATE, ETHYLHEXYL POLYHYDROXYSTEARATE, GLYCERIN, GLYCERYL OLEATE, GLYCOLIC ACID, HYDROXYACETOPHENONE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, LACTIC ACID, LECITHIN, LIPASE, MALIC ACID, MALTODEXTRIN, MANDELIC ACID, PHENOXYETHANOL, PHYTIC ACID, POLYGLYCERYL-10 STEARATE, POLYGLYCERYL-4 OLEATE, PROPANEDIOL, PROTEASE, SCLEROTIUM GUM, SILICA, SODIUM HYDROXIDE, SQUALANE, TETRADECANE, TRICAPRYLIN, WATER (AQUA), XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/prequel-multi-acid-milk-peel-aha-exfoliating-solution-7-6-fl-oz-226-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-multi-acid-milk-peel-aha-exfoliating-solution.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/prequel-multi-acid-milk-peel-aha-exfoliating-solution.webp',
     tags: {
       primary: [TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.ECLAT, TAG_SLUGS.TEINT_TERNE],
       secondary: [
@@ -481,7 +484,8 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
       'Acide Salicylique + Zinc PCA + Glycérine. Idéal pour les peaux grasses à tendance acnéique.',
     inci: 'CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL, CITRIC ACID, COCAMIDOPROPYL BETAINE, COCAMIDOPROPYL DIMETHYLAMINE, DISODIUM COCOAMPHODIACETATE, ETHYLHEXYLGLYCERIN, GLYCERIN, INULIN, LECITHIN, OLEA EUROPAEA (OLIVE) FRUIT OIL, PHENOXYETHANOL, POLYQUATERNIUM-10, POLYSORBATE 20, POLYSORBATE 80, SALICYLIC ACID, SODIUM CHLORIDE, SODIUM HYDROXIDE, SUCCINIC ACID, TETRASODIUM GLUTAMATE DIACETATE, WATER (AQUA), XANTHAN GUM, ZINC PCA',
     url: 'https://www.skinsafeproducts.com/prequel-gleanser-sa-non-drying-salicylic-acid-cleanser-13-5-fl-oz-400-ml-2-count',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-gleanser-sa-non-drying-salicylic-acid-cleanser.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/prequel-gleanser-sa-non-drying-salicylic-acid-cleanser.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [
@@ -518,7 +522,8 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
       'Niacinamide + Panthénol + Glycérine. Idéal pour une protection invisible sans fini gras.',
     inci: '1,2-HEXANEDIOL, C13-14 ALKANE, C15-23 ALKANE, CITRIC ACID, DECYL GLUCOSIDE, DIMETHICONE, GLYCERIN, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, NARINGENIN, NIACINAMIDE, PANTHENOL, PANTHENYL TRIACETATE, PEG/PPG-18/18 DIMETHICONE, PHENOXYETHANOL, SODIUM HYDROXIDE, TETRASODIUM GLUTAMATE DIACETATE, WATER (AQUA)',
     url: 'https://www.skinsafeproducts.com/prequel-multi-purpose-skin-protectant-skin-utility-gel-ph-4-25-1-7-fl-oz-50-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-multi-purpose-skin-protectant-skin-utility-gel.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/prequel-multi-purpose-skin-protectant-skin-utility-gel.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.HYDRATATION],
       secondary: [
@@ -553,7 +558,8 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
       'Acide Polyglutamique + Ectoïne + Glycérine. Idéal pour les peaux déshydratées présentant des ridules.',
     inci: '1,2-HEXANEDIOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, BUTYLENE GLYCOL, CAPRYLYL GLYCOL, CARBOMER, CITRIC ACID, ECTOIN, ERYTHRITOL, ETHYLHEXYLGLYCERIN, GLYCERIN, HIBISCUS SABDARIFFA FRUIT EXTRACT, PHENOXYETHANOL, POLYGLUTAMIC ACID, PROPANEDIOL, SODIUM HYDROXIDE, TOCOPHEROL, WATER (AQUA), XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/prequel-multi-quench-plumping-hydration-serum-1-7-oz-50-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-multi-quench-plumping-hydration-serum.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/prequel-multi-quench-plumping-hydration-serum.webp',
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.HYDRATATION],
       secondary: [

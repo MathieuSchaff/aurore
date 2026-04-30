@@ -15,7 +15,8 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/gum-dentifrice-gencives-paroex-gel-lot-de-3-x-75ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/gum-dentifrice-paroex-gencives-lot-de-3-x-75ml-248883.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/gum-dentifrice-paroex-gencives-lot-de-3-x-75ml-248883.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -36,7 +37,8 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Does not contain any bleaching agents.',
     url: 'https://www.atida.fr/gum-dentifrice-blancheur-original-white-ref-1745-lot-de-3-x-75ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/gum-dentifrice-original-white-blancheur-lot-de-3-x-75ml-248884.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/gum-dentifrice-original-white-blancheur-lot-de-3-x-75ml-248884.webp',
     tags: {
       primary: [TAG_SLUGS.KIT_BLANCHIMENT],
       secondary: [],
@@ -78,7 +80,8 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Tige recouverte de nylon',
     url: 'https://www.atida.fr/gum-brossettes-interdentaires-bi-direction-0-7-mm-ref-2114.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/gum-brossette-interdentaire-bi-direction-0-7mm-vert-6-unites-259254.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/gum-brossette-interdentaire-bi-direction-0-7mm-vert-6-unites-259254.webp',
     tags: {
       primary: [TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
@@ -99,7 +102,8 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/gum-brosse-a-dents-n-509-specifique-sensivital-ultra-souple-lot-de-2-176762.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/gum-brosse-a-dents-n-509-specifique-sensivital-ultra-souple-lot-de-2-300769.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/gum-brosse-a-dents-n-509-specifique-sensivital-ultra-souple-lot-de-2-300769.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -120,7 +124,8 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Manche en matière plastique, brins imprégnés de chlorhexidine',
     url: 'https://www.atida.fr/gum-trav-ler-brossettes-interdentaires-10-unites.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/gum-trav-ler-brossettes-interdentaires-10-unites-243502.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/gum-trav-ler-brossettes-interdentaires-10-unites-243502.webp',
     tags: {
       primary: [TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
@@ -141,7 +146,8 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Caoutchouc.',
     url: 'https://www.atida.fr/gum-brossette-interdentaire-soft-picks-original-medium-100-unites.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/gum-brossette-interdentaire-soft-picks-original-medium-100-unites-243492.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/gum-brossette-interdentaire-soft-picks-original-medium-100-unites-243492.webp',
     tags: {
       primary: [TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
@@ -162,7 +168,8 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/gum-brosse-a-dents-sensivital-15-100eme-brins-effiles-ref-509.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/gum-brosse-a-dents-n-509-specifique-sensivital-ultra-souple-260235.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/gum-brosse-a-dents-n-509-specifique-sensivital-ultra-souple-260235.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -183,7 +190,8 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Fibres de nylon texturées.',
     url: 'https://www.atida.fr/gum-fil-dentaire-expanding-floss-ref-2030.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/gum-fil-dentaire-expanding-floss-cire-279634.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/gum-fil-dentaire-expanding-floss-cire-279634.webp',
     tags: {
       primary: [TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
@@ -204,7 +212,8 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'glycerin, aqua, hydrated silica, sorbitol, peg-40, hydrogenated castor oil, hydroxyethyl cellulose, panthenol, aroma, cocamidopropyl betaine, tocopherol, sodium saccharin, sodium propylparaben, chlorhexidine digluconate (0,12%), cl 42090.',
     url: 'https://www.atida.fr/gum-dentifrice-gencives-paroex-gel-lot-de-2-x-75ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/gum-dentifrice-paroex-gencives-lot-de-2-x-75ml-248867.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/gum-dentifrice-paroex-gencives-lot-de-2-x-75ml-248867.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -228,7 +237,8 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ne contient ni latex, ni bois, ni métal.',
     url: 'https://www.atida.fr/brosse-a-dents-gumr-pro-souple-2-1-offert.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/brosse-a-dents-gum-pro-souple-2-1-offert-243513.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/brosse-a-dents-gum-pro-souple-2-1-offert-243513.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -249,7 +259,8 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, sorbitol, hydrated silica, isomalt, peg-8, lauryl glucoside, aroma, xanthan gum, aloe barbadensis leaf juice, cocamidopropyl betaine, panthenol, sodium saccharin, sodium fluoride, allantoin, sodium chloride, sodium methylparaben, tocopheryl acetate, cetylpyridinium chloride, bisabolol, glycerin, limonene, sodium benzoate, ci 47005, potassium sorbate, ci 42090, zingiber officinale root extract.',
     url: 'https://www.atida.fr/gum-ortho-gel-dentifrice-75ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/gum-dentifrice-ortho-email-et-gencives-75ml-233677.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/gum-dentifrice-ortho-email-et-gencives-75ml-233677.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -270,7 +281,8 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'plastique + brins en nylon',
     url: 'https://www.atida.fr/gumr-brossette-interdentaire-trav-lerr-0-9-mm-6-unites.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/gum-brossette-interdentaire-trav-ler-0-9-mm-6-unites-301327.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/gum-brossette-interdentaire-trav-ler-0-9-mm-6-unites-301327.webp',
     tags: {
       primary: [TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
@@ -291,7 +303,8 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Aqua, propylene glycol, glycerin, peg-40 hydrogenated castor, aroma, potassium acesulfame, chlorhexidine digluconate, methylparaben, cetylpyridinium chloride, limonene, c.i. 14720 Ne contient pas d'alcool.",
     url: 'https://www.atida.fr/gum-gingidex-bain-de-bouche-traitement-d-attaque-anti-plaque-300ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/gum-bain-de-bouche-gingidex-traitement-d-attaque-anti-plaque-300ml-286201.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/gum-bain-de-bouche-gingidex-traitement-d-attaque-anti-plaque-300ml-286201.webp',
     tags: {
       primary: [TAG_SLUGS.BAIN_DE_BOUCHE],
       secondary: [],
@@ -312,7 +325,8 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Manche en matière plastique, brins imprégnés de chlorhexidine',
     url: 'https://www.atida.fr/gum-brossettes-interdentaires-trav-ler-1-1-mm-ref-1414.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/gum-brossette-interdentaire-trav-ler-1-1mm-4-unites-278812.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/gum-brossette-interdentaire-trav-ler-1-1mm-4-unites-278812.webp',
     tags: {
       primary: [TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
@@ -333,7 +347,8 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Glycerin, aqua, hydrated silica, isomalt, hydroxyapatite, potassium nitrate, pvm/ma copolymer, lauryl glucoside, peg-40 hydrogenated castor oil, sodium monofluorophosphate, aroma, cellulose gum, sodium hydroxide, cocamidopropyl betaine, sodium saccharin, hesperidin, sucralose, sodium chloride, cetylpyridinium chloride, sodium benzoate, ci 42090.Contient: 5% nitrate de potassium, hydroxyapatite, 1450 ppm fluor.',
     url: 'https://www.atida.fr/gum-dentifrice-sensivital-sensibilite-dentaire-75ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/gum-dentifrice-sensivital-sensibilite-dentaire-75ml-268964.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/gum-dentifrice-sensivital-sensibilite-dentaire-75ml-268964.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -360,7 +375,8 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Tige recouverte de nylon',
     url: 'https://www.atida.fr/gum-brossette-interdentaire-bi-direction-1-4mm-jaune-6-unites.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/gum-brossette-interdentaire-bi-direction-1-4mm-jaune-6-unites-243504.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/gum-brossette-interdentaire-bi-direction-1-4mm-jaune-6-unites-243504.webp',
     tags: {
       primary: [TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
@@ -381,7 +397,8 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Tige recouverte de nylon',
     url: 'https://www.atida.fr/gum-brossette-interdentaire-bi-direction-0-6mm-bleu-lavande-6-unites.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/gum-brossette-interdentaire-bi-direction-0-6mm-bleu-lavande-6-unites-243503.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/gum-brossette-interdentaire-bi-direction-0-6mm-bleu-lavande-6-unites-243503.webp',
     tags: {
       primary: [TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
@@ -427,7 +444,8 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ne contient ni latex, ni bois, ni métal.',
     url: 'https://www.atida.fr/brosse-a-dents-gumr-pro-ultra-souple-15-100e-2-1-offert.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/brosse-a-dents-gum-pro-ultra-souple-15-100e-2-1-offert-243516.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/brosse-a-dents-gum-pro-ultra-souple-15-100e-2-1-offert-243516.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],

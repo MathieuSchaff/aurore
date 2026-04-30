@@ -267,7 +267,8 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Eau, alcool , extrait de sédum âcre ou poivre des murailles, extrait de feuille de raifort, huiles essentielles dont huile essentielle de romarin.',
     url: 'https://www.atida.fr/weleda-lotion-capillaire-tonifiante-romarin-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/weleda-romarin-lotion-capillaire-tonifiante-bio-100ml-263853.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/weleda-romarin-lotion-capillaire-tonifiante-bio-100ml-263853.webp',
     tags: {
       primary: [TAG_SLUGS.TONIQUE],
       secondary: [TAG_SLUGS.PREPARATION, TAG_SLUGS.ZONE_VISAGE],
@@ -288,7 +289,8 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/weleda-calendula-savon-vegetal-bio-lot-de-2-x-100g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/weleda-calendula-savon-vegetal-bio-lot-de-2-x-100g-301147.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/weleda-calendula-savon-vegetal-bio-lot-de-2-x-100g-301147.webp',
     tags: {
       primary: [TAG_SLUGS.CREME_HYDRATANTE],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
@@ -309,7 +311,8 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Bicarbonate de sodium, eau, glycérine, acide silicique, jus de prunelle, extrait de résine de myrrhe, chlorure de sodium, extrait de ratanhia, extrait d'écorce de marron d'inde, cendres d'arum maculatum, gomme de guar, alcool, huile de jojoba, aesculine, lactose, huiles essentielles",
     url: 'https://www.atida.fr/weleda-pate-dentifrice-saline-lot-de-2-x-75ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/weleda-soin-bucco-dentaire-pate-dentifrice-saline-lot-de-2-x-75ml-232077.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/weleda-soin-bucco-dentaire-pate-dentifrice-saline-lot-de-2-x-75ml-232077.webp',
     tags: {
       primary: [TAG_SLUGS.CREME_HYDRATANTE],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
@@ -330,7 +333,8 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Eau, carbonate de calcium, glycérine, argile, alcool, extrait de ratanhia, extrait de résine de myrrhe, xanthane, glycyrrhizate d'ammonium, huiles essentielles.",
     url: 'https://www.atida.fr/weleda-pate-dentifrice-au-ratanhia-lot-de-2-x-75ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/weleda-soin-bucco-dentaire-pate-dentifrice-au-ratanhia-lot-de-2-x-75ml-232076.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/weleda-soin-bucco-dentaire-pate-dentifrice-au-ratanhia-lot-de-2-x-75ml-232076.webp',
     tags: {
       primary: [TAG_SLUGS.CREME_HYDRATANTE],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
@@ -351,7 +355,8 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Glycérine, eau, acide silicique, alginate de sodium, extrait de fleur de camomille, extrait de racine de ratanhia, extrait de résine de myrrhe, alcool huiles essentielles (dont fenouil et menthe poivrée), aesculine.',
     url: 'https://www.atida.fr/weleda-gel-dentifrice-vegetal-lot-de-2-x-75ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/weleda-soin-bucco-dentaire-gel-dentifrice-vegetal-lot-de-2-x-75ml-232075.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/weleda-soin-bucco-dentaire-gel-dentifrice-vegetal-lot-de-2-x-75ml-232075.webp',
     tags: {
       primary: [TAG_SLUGS.CREME_HYDRATANTE],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
@@ -372,7 +377,8 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Glycérine, eau, acide silicique, alginate de sodium, extrait de fleur de calendula, huile d'amande douce, aesculine, huiles essentielles.",
     url: 'https://www.atida.fr/weleda-gel-dentifrice-pour-enfant-lot-de-2-x-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/weleda-soin-bucco-dentaire-gel-dentifrice-pour-enfant-lot-de-2-x-50ml-249231.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/weleda-soin-bucco-dentaire-gel-dentifrice-pour-enfant-lot-de-2-x-50ml-249231.webp',
     tags: {
       primary: [TAG_SLUGS.CREME_HYDRATANTE],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
@@ -393,7 +399,8 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Alcool, eau, extrait de résine de myrrhe, extrait de ratanhia, extrait d'écorce de marron d'inde, fluorite, kieserite (sulfate de magnésium), lactose, huiles essentiellesContient du fluorure de calcium.",
     url: 'https://www.atida.fr/weleda-bain-de-bouche-a-la-myrrhe-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/weleda-soin-bucco-dentaire-bain-de-bouche-a-la-myrrhe-bio-50ml-259001.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/weleda-soin-bucco-dentaire-bain-de-bouche-a-la-myrrhe-bio-50ml-259001.webp',
     tags: {
       primary: [TAG_SLUGS.CREME_HYDRATANTE],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
@@ -414,7 +421,8 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Eau, carbonate de calcium, glycérine, argile, extrait de calendula, alcool, extrait de résine de myrrhe, xanthane, glycyrrhizate d'ammonium, huiles essentielles.",
     url: 'https://www.atida.fr/weleda-pate-dentifrice-au-calendula-lot-de-2-x-75ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/weleda-soin-bucco-dentaire-pate-dentifrice-au-calendula-lot-de-2-x-75ml-248859.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/weleda-soin-bucco-dentaire-pate-dentifrice-au-calendula-lot-de-2-x-75ml-248859.webp',
     tags: {
       primary: [TAG_SLUGS.CREME_HYDRATANTE],
       secondary: [TAG_SLUGS.ZONE_VISAGE],

@@ -63,7 +63,8 @@ export const KREME_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS SEED OIL MAGNESIUM HYDROXIDE MAGNESIUM CARBONATE HYDROXIDE CAPRYLIC CAPRIC TRIGLYCERIDE STEARYL ALCOHOL HELIANTHUS ANNUUS SEED WAX COCO CAPRYLATE CAPRATE TRIETHYL CITRATE HYDROGENATED CASTOR OIL TAPIOCA STARCH PARFUM C10 18 TRIGLYCERIDES CETEARYL ALCOHOL COCO GLUCOSIDE ZINC RICINOLEATE POLYGLYCERYL 3 CAPRYLATE MICROCRYSTALLINE CELLULOSE SIMMONDSIA CHINENSIS SEED OIL AVENA SATIVA KERNEL OIL BACILLUS FERMENT TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/kreme/kreme-recharge-deodorant-soin-24h-peaux-sensibles-50g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/kreme-recharge-deodorant-soin-24h-peaux-sensibles.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/kreme-recharge-deodorant-soin-24h-peaux-sensibles.webp',
     tags: {
       primary: ['apaisant', 'anti-oxydant'],
       secondary: ['reparateur', 'peau-sensible', 'deodorant'],
@@ -139,7 +140,8 @@ export const KREME_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), VITIS VINIFERA (GRAPE) FRUIT WATER, GLYCERIN, C10-18 TRIGLYCERIDES, POLYGLYCERYL-10 STEARATE, CAPRYLIC/CAPRIC TRIGLYCERIDE, PENTYLENE GLYCOL, HYDROLYZED, VEGETABLE PROTEIN, SODIUM HYALURONATE, LACTOBACILLUS FERMENT, HELIANTHUS ANNUUS, (SUNFLOWER) SEED OIL, XANTHAN GUM, ALTEROMONAS FERMENT EXTRACT, LEUCONOSTOC/RADISH, ROOT FERMENT FILTRATE, ALKANNA TINCTORIA ROOT EXTRACT, BENTONITE, MICROCRYSTALLINE CELLULOSE, SODIUM STEAROYL GLUTAMATE, 1,2-HEXANEDIOL, MALTODEXTRIN, ALGIN, TOCOPHEROL, CITRIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/kreme/kreme-bio-yeux-serum-collagene-anti-rides-15ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/kreme-bio-yeux-serum-collagene-anti-rides.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/kreme-bio-yeux-serum-collagene-anti-rides.webp',
     tags: {
       primary: ['microbiome', 'hydratation', 'anti-oxydant', 'anti-age'],
       secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
@@ -328,7 +330,8 @@ export const KREME_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS SEED OIL*, CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, ISOAMYL LAURATE, AQUA, SUCROSE LAURATE, LACTOBACILLUS FERMENT, SPIRULINA PLATENSIS EXTRACT, THYMUS VULGARIS FLOWER/LEAF/STEM EXTRACT*, ALPHA-GLUCAN OLIGOSACCHARIDE, MALTODEXTRIN, CAMELINA SATIVA SEED OIL*, MALIC ACID, TOCOPHEROL, PARFUM.*INGRÉDIENT ISSU DE L’AGRICULTURE BIOLOGIQUE',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-produits/nettoyants-demaquillants/kreme-gelee-fraiche-nettoyante-demaquillante-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/kreme-gelee-fraiche-nettoyante-demaquillante.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/kreme-gelee-fraiche-nettoyante-demaquillante.webp',
     tags: {
       primary: ['microbiome', 'hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],

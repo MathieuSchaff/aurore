@@ -32,7 +32,8 @@ export const PARODONTAX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients:  sodium bicarbonate, aqua, glycerin, sodium lauryl sulfate, aroma, xanthan gum, cocamidopropyl betaine, sodium fluoride, sodium saccharin, titanium dioxide, steviol glycosides, limonene, CI 77491. Contient du fluorure de sodium à 0,310% p/p (1400 ppm de fluor).',
     url: 'https://www.atida.fr/parodontax-dentifrice-pate-gingivale-lot-de-2-x-75ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/parodontax-dentifrice-pate-gingivale-lot-de-2-x-75ml-260704.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/parodontax-dentifrice-pate-gingivale-lot-de-2-x-75ml-260704.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -53,7 +54,8 @@ export const PARODONTAX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, glycerin, PEG 60 hydrogenated castor oil, sodium citrate, sodium lauryl sulfate,aroma, methylparaben, propylparaben, zinc chloride, gellan gum, o-cymen-5-ol, sodium fluoride, sodium saccharin, CI17200.',
     url: 'https://www.atida.fr/parodontax-bain-de-bouche-500ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/parodontax-bain-de-bouche-quotidien-protection-active-menthe-fraiche-500ml-257603.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/parodontax-bain-de-bouche-quotidien-protection-active-menthe-fraiche-500ml-257603.webp',
     tags: {
       primary: [TAG_SLUGS.BAIN_DE_BOUCHE],
       secondary: [],
@@ -74,7 +76,8 @@ export const PARODONTAX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/parodontax-dentifrice-blancheur-lot-de-2-x-75ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/parodontax-dentifrice-blancheur-lot-de-2-x-75ml-274212.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/parodontax-dentifrice-blancheur-lot-de-2-x-75ml-274212.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -95,7 +98,8 @@ export const PARODONTAX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Sodium Bicarbonate, Aqua, Glycerin, Cocamidopropy Betaine, Aroma, Xanthan Gum, Sodium Saccharin, Sodium Fluoride, Limonene, CI 77491.',
     url: 'https://www.atida.fr/parodontax-reparation-active-gencives-bitube.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/parodontax-reparation-active-gencives-bitube-301578.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/parodontax-reparation-active-gencives-bitube-301578.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],

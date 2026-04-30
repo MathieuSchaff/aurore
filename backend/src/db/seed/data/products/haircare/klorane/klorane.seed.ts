@@ -49,7 +49,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua (water), carthamus tinctorius (safflower) seed oil, glycerin, cetearyl alcohol, cetyl alcohol, beeswax (cera alba), benzoic acid, calendula officinalis flower extract, caprylyl glycol, cetearyl glucoside, fragrance (parfum), glyceryl stearate, isoleucine, peg-100 stearate, polyacrylate-13, polyisobutene, polysorbate 20, polysorbate 80, propylene glycol, sodium hydroxide, sorbitan isostearate, tocopheryl acetate.',
     url: 'https://www.atida.fr/klorane-bebe-creme-nutritive-125ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-creme-nutritive-cold-cream-125ml-253536.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-creme-nutritive-cold-cream-125ml-253536.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -75,7 +76,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Caprylic/capric triglyceride, carthamus tinctorius (safflower) see oil (carthamus tinctorius seed oil), oenothera biennis (evening primrose) oil (oenothera biennis oil) camelia sativa seed oil, olea europaea (olive) fruit oil (olea europaea fruit oil), fragrance (parfum), tocopherol, tocopheryl acetate.',
     url: 'https://www.atida.fr/klorane-huile-de-soin-vergetures-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-maman-huile-de-soin-vergetures-200ml-267718.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-maman-huile-de-soin-vergetures-200ml-267718.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -100,7 +102,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), PEG-40 hydrogenated castor oil, caprylyl glycol, citric acid, fragrance (parfum), glycerin, sodium benzoate, sodium citrate.',
     url: 'https://www.atida.fr/klorane-bebe-petit-brin-eau-parfumee-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bebe-petit-brin-eau-parfumee-50ml-268353.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bebe-petit-brin-eau-parfumee-50ml-268353.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -121,7 +124,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), c12-15 alkyl benzoate, dicaprylyl carbonate, methylene bis-benzotriazolyl tetramethylbutylphenol [nano], glycerin, bis-ethylhexyloxyphenol methoxyphenyl triazine, diethylhexyl butamido triazone, diisopropyl adipate, butyl methoxydibenzoylmethane, cetearyl isononanoate, lauryl glucoside, polyglyceryl-2 dipolyhydroxystearate, decyl glucoside c10-18 triglycerides, calophyllum inophyllum seed oil, cocos nucifera (coconut) oil (cocos nucifera oil), gardenia taitensis flower, benzoic acid, caprylyl glycol, citric acid, disodium edta, fragrance (parfum), glyceryl behenate, glyceryl dibehenate, glycine soja (soybean) oil (glycine soja oil), polyacrylate-13, polyisobutene, polysorbate 20, propylene glycol, sorbitan isostearate, tocopherol, tocopheryl acetate, tribehenin, xanthan gum.',
     url: 'https://www.atida.fr/klorane-solaire-spray-spf50-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-monoi-tamanu-spray-solaire-sublime-corps-spf50-200ml-270081.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-monoi-tamanu-spray-solaire-sublime-corps-spf50-200ml-270081.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -147,7 +151,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), glycerin, carthamus tinctorius (safflower) seed oil (carthamus tinctorius seed oil), ethylhexyl palmitate, zea mays (corn) starch (zea mays corn starch) acrylates/c10-30 alkyl acrylate crosspolymer, benzoic acid, calendula officinalis flower extract, caprylic/capric triglyceride, caprylyl glycol, cetearyl alcohol, cetearyl glucoside, coco-glucoside, fragrance (parfum), glyceryl stearate, isoleucine, peg-100 stearate, polysorabate 80, propylene glycol, sodium hydroxide, xanthan gum.',
     url: 'https://www.atida.fr/klorane-bebe-calendula-lait-de-toilette-sans-rincage-750ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-lait-de-toilette-sans-rincage-750ml-275069.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-lait-de-toilette-sans-rincage-750ml-275069.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -173,7 +178,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Triticum vulgare (wheat) starch (triticum vulgare starch)*, sodium cocoyl isethionate, disodium lauryl sulfosuccinate, cetearyl alcohol*, glycerin*, water (aqua)*, hydrogenated castor oil*, zea mays (corn) starch (zea mays starch)*, mangifera indica (mango) seed butter (mangifera indica seed butter)*, fragrance (parfum), acrylamidopropyltrimonium chloride/acrylamide copolymer, cocamidopropyl betaine, decyl glucoside*, red 4 (ci 14700), yellow 5 (ci 19140).',
     url: 'https://www.atida.fr/klorane-shampoing-solide-mangue-cheveux-secs-80g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-mangue-shampoing-solide-nutrition-80g-275178.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-mangue-shampoing-solide-nutrition-80g-275178.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -201,7 +207,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: `Ingrédients : Water (aqua)*, sodium laureth sulfate, ceteareth-60 myristyl glycol, zinc coceth sulfate, coco-glucoside*, polysorbate 20, sodium cocoamphoacetate, methyl gluceth-20, avena sativa (oat) kernel extract (avena sativa kernel extract)*, benzoic acid, citric acid, fragrance (parfum), polyquaternium-10, propylene glycol, red 4 (ci 14700), sodium chloride, sodium hydroxide*, sodium sulfate, trisodium ethylenediamine disuccinate, yellow 6 (ci 15985)* ingrédients d’origine naturelle81% d’ingrédients d’origine naturelle`,
     url: 'https://www.atida.fr/klorane-junior-shampooing-demelant-500ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-junior-shampoing-demelant-peche-500ml-275496.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-junior-shampoing-demelant-peche-500ml-275496.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -227,7 +234,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), glycerin, ceteareth-60, myristyl glycol, coco glucoside, zinc coceth sulfate, sodium cocamphoacetate, polysorbate 20, fragrance (parfum), ascorbyl palmitate, calendula officinalis flower extract, citric acid, disodium laureth sulfosuccinate, glyceryl oleate, hydrogenated palm glycerides citrate, isoleucine, laureth-3, lecithin, maleic acid, polysorbate 80, propylene glycol, sodium benzoate, sodium chloride, sodium hydroxide, tocopherol, trisodium ethylenediamine disuccinate.',
     url: 'https://www.atida.fr/klorane-bebe-calendula-gel-lavant-doux-lot-de-2-x-500ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-gel-lavant-doux-lot-de-2-x-500ml-275519.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-gel-lavant-doux-lot-de-2-x-500ml-275519.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -254,7 +262,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua). caprylic/capric triglyceride. glycerin. cetearyl alcohol. pentylene glycol. behenyl alcohol. carthamus tinctorius (safflower) seed oil (carthamus tinctorius seed oil)*. cetearyl glucoside. glyceryl stearate. paeonia lactiflora root extract*. argania spinosa kernel oil*. aloe barbadensis leaf juice powder*. citric acid. fragrance (parfum). glyceryl caprylate. helianthus annuus (sunflower) seed oil (helianthus annuus seed oil). propylene glycol. sodium benzoate. sodium stearoyl glutamate. tocopherol. xanthan gum',
     url: 'https://www.atida.fr/klorane-pivoine-creme-riche-apaisante-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-pivoine-creme-riche-apaisante-40ml-275581.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-pivoine-creme-riche-apaisante-40ml-275581.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -285,7 +294,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: `Ingrédients : Water (aqua)*. caprylic/capric triglyceride*. glycerin*. pentylene glycol*. algin*. centaurea cyanus flower water*. sodium hyaluronate*. blue 1 (ci 42090). butylene glycol*. calcium sulfate hydrate*. hesperidin methyl chalcone. polyglyceryl-4 caprate*. sodium dextran sulfate. tetrasodium glutamate diacetate. tetrasodium pyrophosphate. tocopheryl acetate. xanthan gum*.*Ingrédients d’origine naturelle.`,
     url: 'https://www.atida.fr/klorane-bleuet-bio-patchs-defatiguants-express-7-x-2-patchs.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-patchs-lissants-defatiguant-express-7-paires-279767.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-patchs-lissants-defatiguant-express-7-paires-279767.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -310,7 +320,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Ingrédients : Water (aqua)*, cetyl alcohol*, ethylhexyl palmitate*, dicaprylyl carbonate*, behenamidopropyl dimethylamine*, 1,2-hexanediol, centaurea cyanus flower water*, benzoic acid, butylene glycol*, cetearyl alcohol*, cetearyl glucoside*, ext. violet 2 (ci 60730), fragrance (parfum), lactic acid*, red 33 (ci 17200), sclerotium gum, tocopherol*.*ingrédients d'origine naturelle.",
     url: 'https://www.atida.fr/klorane-centauree-bio-apres-shampoing-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-centauree-apres-shampoing-dejaunissant-200ml-301460.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-centauree-apres-shampoing-dejaunissant-200ml-301460.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -336,7 +347,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Huile de pépins de courge (Cucurbita pepo) - Gélatine de poissons - Affermissant : glycérol - Extrait de Prêle des champs (Equisetum arvense) - Epaississant : cire d'abeille jaune - Hydrolysat protéique de kératine - Sulfate de zinc - Acétate de DL-alpha-tocophérol - Nicotinamide - Emulsifiant : lécithines - Chlorhydrate de pyridoxine - Extrait sec de quinquina (Cinchona pubescens) - Sélénite de sodium - D-Biotine.",
     url: 'https://www.atida.fr/klorane-keratincaps-cheveux-et-ongles-lot-de-3x30-capsules.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-antichute-force-et-vitalite-complement-alimentaire-90-capsules-232490.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-antichute-force-et-vitalite-complement-alimentaire-90-capsules-232490.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -361,7 +373,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Water (aqua). caprylic/capric triglyceride. glycerin. hydrogenated vegetable oil. ricinus communis (castor) seed oil (ricinus communis seed oil)*. helianthus annuus (sunflower) seed oil (helianthus annuus seed oil). polyglyceryl-2 dipolyhydroxystearate. simmondsia chinensis (jojoba) seed oil (simmondsia chinensis seed oil)*. magnesium sulfate. polyglyceryl-3 diisostearate. calendula officinalis flower extract*. benzoic acid. glyceryl caprylate. tocopherol. zinc sulfate',
     url: 'https://www.atida.fr/klorane-bebe-creme-pour-le-change-bio-100g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bebe-creme-pour-le-change-bio-100g-236631.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bebe-creme-pour-le-change-bio-100g-236631.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -387,7 +400,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Rosin (colophonium), mineral oil (paraffinum liquidum), glycerin, paraffin, bht, prunus amygdalus dulcis (sweet almond) oil.',
     url: 'https://www.atida.fr/klorane-cire-froide-visage-boite-de-6-bandes.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-amande-douce-bande-de-cire-froide-visage-6-unites-264090.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-amande-douce-bande-de-cire-froide-visage-6-unites-264090.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -408,7 +422,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : C12-15 alkyl benzoate, diisopropyl adipate, coco-caprylate, dicaprylyl carbonate, diethylhexyl butamido triazone, isododecane, bis-ethylhexyloxyphenol methoxyphenyl triazine, butyl methoxydibenzoylmethane, ethylhexyl salicylate, ethylhexyl triazone, fragrance (parfum), bis-ethylhexyl hydroxydimethoxy benzylmalonate, calophyllum inophyllum seed oil, cocos nucifera (coconut) oil (cocos nucifera oil), gardenia taitensis flower, glycine soja (soybean) oil (glycine soja oil), helianthus annuus (sunflower) seed oil (helianthus annuus seed oil), peg-40 hydrogenated castor oil, tocopherol, tocopheryl acetate.',
     url: 'https://www.atida.fr/klorane-solaire-huile-seche-spf30-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-monoi-tamanu-huile-seche-solaire-spf30-200ml-270079.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-monoi-tamanu-huile-seche-solaire-spf30-200ml-270079.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -433,7 +448,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Ingrédients : Water (aqua)*, glycerin*, squalane*, cocos nucifera (coconut) oil (cocos nucifera oil)*, caprylic/capric triglyceride*, dicaprylyl carbonate*, silica*, polyacrylate-13, calophyllum inophyllum seed oil*, gardenia taitensis flower*, benzoic acid, caprylyl glycol, fragrance (parfum), glyceryl stearate*, glycine soja (soybean) oil (glycine soja oil)*, iron oxides (ci 77491)*, mica*, peg-100 stearate, polyisobutene, polysorbate 20, sodium hydroxide*, sorbitan isostearate*, titanium dioxide (ci 77891)*, tocopherol*, tocopheryl acetate.*ingrédient d'origine naturelle.",
     url: 'https://www.atida.fr/klorane-solaire-creme-sublimatrice-apres-soleil-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-monoi-tamanu-creme-sublimatrice-apres-soleil-visage-et-corps-200ml-270089.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-monoi-tamanu-creme-sublimatrice-apres-soleil-visage-et-corps-200ml-270089.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -459,7 +475,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), glycerin, carthamus tinctorius (safflower) seed oil (carthamus tinctorius seed oil), ethylhexyl palmitate, zea mays (corn) starch (zea mays corn starch) acrylates/c10-30 alkyl acrylate crosspolymer, benzoic acid, calendula officinalis flower extract, caprylic/capric triglyceride, caprylyl glycol, cetearyl alcohol, cetearyl glucoside, coco-glucoside, fragrance (parfum), glyceryl stearate, isoleucine, peg-100 stearate, polysorabate 80, propylene glycol, sodium hydroxide, xanthan gum.',
     url: 'https://www.atida.fr/klorane-bebe-calendula-lait-de-toilette-sans-rincage-500ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-lait-de-toilette-sans-rincage-500ml-275070.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-lait-de-toilette-sans-rincage-500ml-275070.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -485,7 +502,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'ingrédients : Water (aqua)*, stearyl alcohol*, behenamidopropyl dimethylamine*, c9-12 alkane*, cetyl alcohol*, hydroxypropyl starch phosphate, ethylhexyl palmitate*, 1,2-hexanediol, punica granatum extract*, alcohol*, citric acid*, coco-caprylate/caprate*, fragrance (parfum), lactic acid*, octyldodecanol*, sodium benzoate. *Ingrédients d’origine naturelle.',
     url: 'https://www.atida.fr/klorane-grenade-baume-apres-shampooing-eclat-cheveux-colores-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-grenade-baume-apres-shampoing-eclat-cheveux-colores-200ml-275224.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-grenade-baume-apres-shampoing-eclat-cheveux-colores-200ml-275224.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -510,7 +528,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Ingrédients : Water (aqua). glycerin, kaolin, sodium stearate, butylene glycol, mentha aquatica flower/leaf/stem extract*, aloe barbadensis leaf juice powder*, citric acid, fragrance (parfum), iron oxides (ci 77492), linalool, propanediol, sodium citrate, ultramarines (ci 77007), xanthan gum.*Ingrédients issus de l'agriculture biologique.",
     url: 'https://www.atida.fr/klorane-menthe-aquatique-bio-argile-masque-stick-25g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-menthe-aquatique-masque-purifiant-en-stick-bio-25g-275296.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-menthe-aquatique-masque-purifiant-en-stick-bio-25g-275296.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -531,7 +550,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA)*. GLYCERIN*. CALENDULA OFFICINALIS FLOWER EXTRACT*. CAPRYLYL GLYCOL. CITRIC ACID*. COCO-GLUCOSIDE*. FRAGRANCE (PARFUM). ISOEUGENYL ACETATE. LINALYL ACETATE. OLETH-10. SODIUM BENZOATE. TOCOPHEROL',
     url: 'https://www.atida.fr/klorane-bebe-calendula-eau-nettoyante-sans-rincage-750ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-eau-nettoyante-sans-rincage-bebe-750-ml-300836.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-eau-nettoyante-sans-rincage-bebe-750-ml-300836.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -556,7 +576,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), glycerin, urea, strontium hydroxide, cetearyl alcohol, guanidine carbonate, thiolactic acid, ceteareth-33, potassium hydroxide, titanium dioxide (ci 77891), prunus amygdalus dulcis (sweet almond) oil (prunus amygdalus dulcis oil), bht, fragrance (parfum), glycyrrhetinic acid, tetrasodium edta.',
     url: 'https://www.atida.fr/klorane-amande-douce-creme-depilatoire-lot-de-2-x-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-amande-douce-creme-depilatoire-lot-de-2-x-150ml-275502.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-amande-douce-creme-depilatoire-lot-de-2-x-150ml-275502.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -577,7 +598,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA)*. GLYCERIN*. CALENDULA OFFICINALIS FLOWER EXTRACT*. CAPRYLYL GLYCOL. CITRIC ACID*. COCO-GLUCOSIDE*. FRAGRANCE (PARFUM). ISOEUGENYL ACETATE. LINALYL ACETATE. OLETH-10. SODIUM BENZOATE. TOCOPHEROL',
     url: 'https://www.atida.fr/klorane-eau-nettoyante-sans-rincage-bebe-400-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-eau-nettoyante-sans-rincage-bebe-400-ml-302422.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-eau-nettoyante-sans-rincage-bebe-400-ml-302422.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -602,7 +624,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA)*. ALCOHOL DENAT.*. GLYCERIN*. PENTYLENE GLYCOL*. PANTHENOL. CINCHONA SUCCIRUBRA BARK EXTRACT*. ADENOSINE*. CAFFEINE. HYDROLYZED VEGETABLE PROTEIN*. ALCOHOL*. AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER. CITRIC ACID*. FRAGRANCE (PARFUM)*. OLETH-10. PANTOLACTONE. SODIUM BENZOATE. TOCOPHEROL',
     url: 'https://www.atida.fr/klorane-croissance-serum-accelerateur-de-pousse-intense-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-croissance-serum-accelerateur-de-pousse-intense-100ml-304429.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-croissance-serum-accelerateur-de-pousse-intense-100ml-304429.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
@@ -628,7 +651,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/klorane-bebe-calendula-lingette-nettoyante-douce-lot-de-6-x-70-unites.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-lingette-nettoyante-douce-lot-de-6-x-70-unites-300411.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-lingette-nettoyante-douce-lot-de-6-x-70-unites-300411.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -649,7 +673,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA). GLYCERIN. CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL (CARTHAMUS TINCTORIUS SEED OIL). ETHYLHEXYL PALMITATE. ZEA MAYS (CORN) STARCH (ZEA MAYS STARCH). ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER. BENZOIC ACID. CALENDULA OFFICINALIS FLOWER EXTRACT. CAPRYLYL GLYCOL. CETEARYL ALCOHOL. CETEARYL GLUCOSIDE. FRAGRANCE (PARFUM). GLYCERYL STEARATE. ISOLEUCINE. PEG-100 STEARATE. POLYSORBATE 80. PROPYLENE GLYCOL. SODIUM HYDROXIDE. XANTHAN GUM',
     url: 'https://www.atida.fr/klorane-lait-hydratant-peau-normale-a-seche-bebe-500ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-lait-hydratant-peau-normale-a-seche-bebe-500ml-304420.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-lait-hydratant-peau-normale-a-seche-bebe-500ml-304420.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -675,7 +700,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua),butylene glycol,centaurea cyanus flower water,poloxamer 184,peg-6 caprylic/capric glycerides,cetrimonium bromide.',
     url: 'https://www.atida.fr/klorane-bleuet-lotion-florale-demaquillant-yeux-sensibles-lot-de-2-x-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-lotion-florale-demaquillant-yeux-sensibles-lot-de-2-x-200ml-248043.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-lotion-florale-demaquillant-yeux-sensibles-lot-de-2-x-200ml-248043.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -696,7 +722,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), glycerin, urea, strontium hydroxide, cetearyl alcohol, guanidine carbonate, thiolactic acid, ceteareth-33, potassium hydroxide, titanium dioxide (ci 77891), prunus amygdalus dulcis (sweet almond) oil (prunus amygdalus dulcis oil), bht, fragrance (parfum), glycyrrhetinic acid, tetrasodium edta.',
     url: 'https://www.atida.fr/klorane-creme-depilatoire-tres-douce-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-amande-douce-creme-depilatoire-150ml-263828.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-amande-douce-creme-depilatoire-150ml-263828.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -717,7 +744,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Caprylic/capric triglyceride*; carthamus tinctorius (safflower) seed oil (carthamus tinctorius seed oil)*; dicaprylyl ether*; squalane*; tocopheryl acetate; calophyllum inophyllum seed oil*; cocos nucifera (coconut) oil (cocos nucifera oil)*; gardenia taitensis flower* ; fragrance (parfum) ; glycine soja (soybean) oil (glycine soja oil)*; tocopherol** : ingrédient d’origine naturelle ***monoï de tahiti ao : 1%',
     url: 'https://www.atida.fr/klorane-solaire-huile-reparatrice-apres-soleil-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-monoi-tamanu-huile-reparatrice-apres-soleil-visage-et-corps-150ml-270087.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-monoi-tamanu-huile-reparatrice-apres-soleil-visage-et-corps-150ml-270087.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -742,7 +770,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), glycerin, coco glucoside, ceteareth-60, myristyl glycol, zinc coceth sulfate, sodium cocamphoacetate, polysorbate 20, glyceryl oleate, fragrance (parfum), ascorbyl palmitate, calendula officinalis flower extract, citric acid, disodium laureth sulfosuccinate, hydrogenated palm glycerides citrate, isoleucine, laureth-3, lecithin, maleic acid, polysorbate 80, propylene glycol, sodium benzoate, sodium chloride, sodium hydroxide, tocopherol, trisodium ethylenediamine disuccinate.',
     url: 'https://www.atida.fr/klorane-bebe-calendula-shampoing-demelant-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-shampoing-demelant-200ml-275073.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-shampoing-demelant-200ml-275073.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -795,7 +824,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), disodium cocoyl glutamate, glycerin, peg-40 hydrogenated castor oil, sodium cocamphoacetate, ceteareth-60, myristyl glycol, peg-120 methyl glucose dioleate, propylene glycol, 1-2 hexanediol, fragrance (parfum), acrylates/c10-30 alkyl acrylate crosspolymer, ascorbyl palmitate, beeswax (cera alba), benzoic acid, calendula officinalis flower extract, carthamus tinctorius (safflower) seed oil, cetyl alcohol, citric acid, coco-glucoside, glyceryl oleate, hydrogenated palm glycerides citrate, hydroxypropyl guar hydroxypropyltrimonium chloride, isoleucine, lecithin, polysorbate 80, sodium benzoate, sodium chloride, sodium hydroxide, sorbic acid, styrene/acrylates copolymer, tocopherol, trisodium ethylenediamine dissucinate.',
     url: 'https://www.atida.fr/klorane-bebe-calendula-creme-lavante-cold-cream-500ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-creme-lavante-cold-cream-500ml-275077.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-creme-lavante-cold-cream-500ml-275077.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -823,7 +853,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), cetearyl alcohol, ethylhexyl palmitate, dicaprylyl carbonate, mangifera indica (mango) seed butter (mangifera indica seed butter), tocopheryl acetate, behentrimonium chloride, cetearyl glucoside, cetrimonium chloride, fragrance (parfum), geraniol, isopropyl alcohol, linalool, phenoxyethanol, polyquaternium-37, tocopherol, yellow 5 (ci 19140), yellow 6 (ci 15985)',
     url: 'https://www.atida.fr/klorane-beurre-de-mangue-creme-de-jour-cheveux-nutrition-125ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-mangue-creme-de-jour-cheveux-nutrition-125ml-275206.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-mangue-creme-de-jour-cheveux-nutrition-125ml-275206.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -850,7 +881,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Water (aqua)*. sodium lauroyl methyl isethionate. decyl glucoside*. prunus amygdalus dulcis (sweet almond) oil (prunus amygdalus dulcis oil)*. disodium laureth sulfosuccinate. glycerin*. disodium cocoamphodiacetate. ceteareth-60 myristyl glycol. calophyllum inophyllum seed oil*. cocos nucifera (coconut) oil (cocos nucifera oil)*. gardenia taitensis flower*. acrylates/c10-30 alkyl acrylate crosspolymer. caprylyl glycol. caramel*. fragrance (parfum). glycine soja (soybean) oil (glycine soja oil)*. hydroxypropyl guar hydroxypropyltrimonium chloride. laureth-3. maleic acid. peg-30 dipolyhydroxystearate. sodium benzoate. sodium chloride. sodium hydroxide*. tocopherol. trideceth-6. trisodium ethylenediamine disuccinate. yellow 5 (ci 19140). yellow 6 (ci 15985).',
     url: 'https://www.atida.fr/klorane-monoi-tamanu-shampooing-nutritif-apres-soleil-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-monoi-tamanu-shampooing-nutritif-apres-soleil-200ml-275330.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-monoi-tamanu-shampooing-nutritif-apres-soleil-200ml-275330.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -881,7 +913,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/klorane-lin-shampoing-sec-volume-lot-de-2-x-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-lin-shampoing-sec-volume-lot-de-2-x-150ml-300825.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-lin-shampoing-sec-volume-lot-de-2-x-150ml-300825.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -902,7 +935,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Ingrédients : Water (aqua)*, cetyl alcohol*, ethylhexyl palmitate*, behenamidopropyl dimethylamine*, dicaprylyl carbonate*, cetearyl alcohol*, 1,2-hexanediol, avena sativa (oat) leaf/systm extract (avena sativa/leaf/stem extract)*, benzoic acid, cetearyl glucoside*, fragrance (parfum), lactic acid*, sclerotium gum, tocopherol*.* Ingrédients d'origine naturelle.",
     url: 'https://www.atida.fr/klorane-baume-apres-shampooing-extra-doux-au-lait-d-avoine-50ml-6023065.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-lait-d-avoine-baume-apres-shampoing-revitalisant-50ml-267816.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-lait-d-avoine-baume-apres-shampoing-revitalisant-50ml-267816.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -928,7 +962,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'TAPIOCA STARCH*. ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH)*. ZEA MAYS (CORN) STARCH (ZEA MAYS STARCH)*. KAOLIN. CELLULOSE*. CALENDULA OFFICINALIS FLOWER EXTRACT*. GLYCERIN*. MAGNESIUM STEARATE*. WATER (AQUA)*',
     url: 'https://www.atida.fr/klorane-bebe-calendula-poudre-de-toilette-protectrice-100g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-poudre-protectrice-au-calendula-bio-75gr-268603.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-poudre-protectrice-au-calendula-bio-75gr-268603.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -949,7 +984,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), sodium laureth sulfate, propylene glycol, coco-glucoside, lauryl betaine, ceteareth-60 myristyl glycol, avena sativa (oat) kernel extract (avena sativa kernel extract), benzoic acid, caprylyl glycol, citric acid, disodium cocoyl glutamate, disodium edta, fragrance (parfum), inulin, sodium chloride, styrene/acrylates copolymer, xanthan gum.',
     url: 'https://www.atida.fr/klorane-shampoing-solide-avoine-80g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-avoine-shampoing-solide-80g-275265.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-avoine-shampoing-solide-80g-275265.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -975,7 +1011,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Ingrédients : Water (aqua)*, sodium laureth sulfate, ceteareth-60 myristyl glycol, zinc coceth sulfate, coco-glucoside*, polysorbate 20, sodium cocoamphoacetate, methyl gluceth-20, avena sativa (oat) kernel extract (avena sativa kernel extract)*, benzoic acid, citric acid, fragrance (parfum), polyquaternium-10, propylene glycol, red 4 (ci 14700), sodium chloride, sodium hydroxide*, sodium sulfate, trisodium ethylenediamine disuccinate, yellow 6 (ci 15985).* ingrédients d’origine naturelle81% d'ingrédients d'origine naturelle",
     url: 'https://www.atida.fr/klorane-junior-shampooing-demelant-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-junior-shampoing-demelant-peche-200ml-275497.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-junior-shampoing-demelant-peche-200ml-275497.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -1001,7 +1038,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Ingrédients : Sodium hyaluronate* (acide hyaluronique), glycerin*, butylene glycol*, betaine, propanediol*, centaurea cyanus flower water* (eau florale de bleuet), water (eau), citric acid*, sodium citrate*, potassium hydroxide*, hexanediol, sodium dextran sulfate, caprylyl glycol, ethylhexylglycerin, acrylates/c10-30 alkyl acrylate crosspolymer , blue 1 (ci 42090, fragrance (parfum)*98% d'ingrédients d'origine naturelle* Ingrédients d'origine naturelle",
     url: 'https://www.atida.fr/klorane-bleuet-gelee-creme-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-creme-d-eau-de-bleuet-50ml-275508.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-creme-d-eau-de-bleuet-50ml-275508.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1026,7 +1064,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Caprylic/capric triglyceride. glycerin. water (aqua). helianthus annuus (sunflower) seed oil (helianthus annuus seed oil)*. sucrose laurate. calendula officinalis flower extract*',
     url: 'https://www.atida.fr/klorane-bebe-huile-massage-multi-usages-bio-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bebe-huile-massage-multi-usages-bio-200ml-275612.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bebe-huile-massage-multi-usages-bio-200ml-275612.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1047,7 +1086,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua (water), urea, glycerin, strontium hydroxide, cetearyl alcohol, guanidine, carbonate, thiolactic acid, ceteareth-33, potassium hydroxide, titanium dioxide (ci 77891), bht, fragrance (parfum), glycyrrhetinic acid, prunus amygalus dulcis (sweet almond) oil (prunus amygdalus dulcis oil), tetrasodium edta.',
     url: 'https://www.atida.fr/klorane-creme-depilatoire-apaisante-a-l-amande-douce-75ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-amande-douce-creme-depilatoire-75ml-263827.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-amande-douce-creme-depilatoire-75ml-263827.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1068,7 +1108,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), disodium cocoyl glutamate, glycerin, peg-40 hydrogenated castor oil, sodium cocamphoacetate, ceteareth-60, myristyl glycol, peg-120 methyl glucose dioleate, propylene glycol, 1-2 hexanediol, fragrance (parfum), acrylates/c10-30 alkyl acrylate crosspolymer, ascorbyl palmitate, beeswax (cera alba), benzoic acid, calendula officinalis flower extract, carthamus tinctorius (safflower) seed oil, cetyl alcohol, citric acid, coco-glucoside, glyceryl oleate, hydrogenated palm glycerides citrate, hydroxypropyl guar hydroxypropyltrimonium chloride, isoleucine, lecithin, polysorbate 80, sodium benzoate, sodium chloride, sodium hydroxide, sorbic acid, styrene/acrylates copolymer, tocopherol, trisodium ethylenediamine dissucinate.',
     url: 'https://www.atida.fr/klorane-bebe-calendula-creme-lavante-cold-cream-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-creme-lavante-cold-cream-200ml-275078.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-creme-lavante-cold-cream-200ml-275078.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1096,7 +1137,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Ingrédients : Water (aqua)*, disodium laureth sulfosuccinate, zinc coceth sulfate, ceteareth-60 myristyl glycol, laureth-3, sodium cocoamphoacetate, maleic acid, peg-40 hydrogenated castor oil, mentha aquatica flower/leaf/stem extract*, mentha viridis (spearmint) leaf oil (mentha viridis leaf oil)*, eucalyptus globulus leaf/twig oil*, benzyl salicylate, camphor, caramel*, citric acid, fragrance (parfum), green 5 (ci 61570), limonene, menthol, propanediol*, sodium benzoate, sodium chloride, sodium hydroxide*, trisodium ethylenediamine disuccinate.*ingrédients d'origine naturelle.",
     url: 'https://www.atida.fr/klorane-menthe-aquatique-shampoing-anti-pollution-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-menthe-aquatique-shampoing-anti-pollution-400ml-275252.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-menthe-aquatique-shampoing-anti-pollution-400ml-275252.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1120,7 +1162,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Triticum vulgare (wheat) starch (triticum vulgare starch)*, sodium cocoyl isethionate, disodium lauryl sulfosuccinate, cetearyl alcohol*, glycerin*, water (aqua)*, hydrogenated castor oil*, zea mays (corn) starch (zea mays starch)*, citrus medica vulgaris fruit extract*, glutamic acid*, acrylamidopropyltrimonium chloride/acrylamide copolymer, citral, cocamidopropyl betaine, decyl glucoside*, fragrance (parfum), hexyl cinnamal, limonene, linalool.',
     url: 'https://www.atida.fr/klorane-shampoing-solide-au-cedrat-80g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-shampoing-solide-au-cedrat-80g-275323.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-shampoing-solide-au-cedrat-80g-275323.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1146,7 +1189,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Glycol palmitate. caprylic/capric triglyceride. cocos nucifera (coconut) oil (cocos nucifera oil)behenamidopropyl dimethylamine. cetearyl alcohol. behenyl alcohol. glycerin. fragrance (parfum). calophyllum inophyllum seed oil. gardenia taitensis flower. arginine hcl. benzoic acid. caprylyl glycol. cetearyl glucoside. citric acid. glycine soja (soybean) oil (glycine soja oil). glycine soja (soybean) seedcake extract (glycine soja seedcake extract). guar hydroxypropyltrimonium chloride. hydrolyzed wheat protein. lactic acid. lysine hcl. propylene glycol. sodium benzoate. tocopherol. water (aqua).',
     url: 'https://www.atida.fr/klorane-monoi-tamanu-baume-riche-reparateur-apres-soleil-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-monoi-tamanu-baume-riche-reparateur-apres-soleil-200ml-275331.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-monoi-tamanu-baume-riche-reparateur-apres-soleil-200ml-275331.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -1174,7 +1218,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Rosin (colophonium), mineral oil (paraffinum liquidum), glycerin, paraffin, bht, prunus amygdalus dulcis (sweet almond) oil (prunus amygdalus dulcis oil).',
     url: 'https://www.atida.fr/klorane-amande-douce-bandes-de-cire-froide-6-unites.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-amande-douce-bande-de-cire-froide-6-unites-279829.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-amande-douce-bande-de-cire-froide-6-unites-279829.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1195,7 +1240,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua)*, disodium laureth sulfosuccinate, decyl glucoside*, ceteareth-60 myristyl glycol, lauryl betaine, laureth-3, linum usitatissimum (linseed) seed extract (linum usitatissimum seed extract)*, blue 1 (ci 42090), caprylyl glycol, citric acid*, ext, violet 2 (ci 60730), fragrance (parfum), limonene, maleic acid, propylene glycol*, sodium benzoate, sodium chloride, trisodium ethylenediamine disuccinate.',
     url: 'https://www.atida.fr/klorane-lin-shampoing-volume-cheveux-fins-bio-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-lin-shampoing-volume-cheveux-fins-bio-200ml-275293.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-lin-shampoing-volume-cheveux-fins-bio-200ml-275293.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1216,7 +1262,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua)*, pentylene glycol*, glycerin*, oleth-10, betaine*, propylene glycol*, paeonia lactiflora root extract*, caprylyl glycol, fragrance (parfum), tocopherol.',
     url: 'https://www.atida.fr/klorane-pivoine-spray-serum-apaisant-sos-cuir-chevelu-sensible-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-pivoine-spray-serum-apaisant-sos-cuir-chevelu-sensible-100ml-275301.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-pivoine-spray-serum-apaisant-sos-cuir-chevelu-sensible-100ml-275301.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
@@ -1242,7 +1289,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "CAPRYLIC/CAPRIC\nTRIGLYCERIDE. GLYCERIN. PENTYLENE GLYCOL. DICAPRYLYL CARBONATE.\nC14-22 ALCOHOLS. BEHENYL ALCOHOL. SODIUM STEAROYL GLUTAMATE.\nCALENDULA OFFICINALIS FLOWER EXTRACT*. ACACIA SENEGAL GUM. ALOE\nBARBADENSIS LEAF JUICE POWDER*. C12-20 ALKYL GLUCOSIDE. CITRIC ACID.\nFRAGRANCE (PARFUM). GLYCERYL CAPRYLATE. GLYCINE SOJA (SOYBEAN) OIL\n(GLYCINE SOJA OIL).99% d'ingrédients d'origine naturelleCalendula-BIO : l'espèce Calendula Officinalis L. est une plante médicinale choisie pour ses propriétés apaisante et anti-irritantes. Nous la cultivons sur nos propres terres, dans le sud-ouest de la France, selon une agriculture biologique certifiée où la récolte de chaque fleur se fait à la main pendant l'été, afin de préserver la qualité des actifs.Agent-hydratant : glycérine d'origine végétale qui hydrate et adoucit.Il est recommandé au consommateur de vérifier systématiquement la composition du produit avant son achat.",
     url: 'https://www.atida.fr/klorane-bebe-creme-hydratante-bio-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bebe-creme-hydratante-bio-200ml-275613.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bebe-creme-hydratante-bio-200ml-275613.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1268,7 +1316,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), glycerin, ceteareth-60, myristyl glycol, coco glucoside, zinc coceth sulfate, sodium cocamphoacetate, polysorbate 20, fragrance (parfum), ascorbyl palmitate, calendula officinalis flower extract, citric acid, disodium laureth sulfosuccinate, glyceryl oleate, hydrogenated palm glycerides citrate, isoleucine, laureth-3, lecithin, maleic acid, polysorbate 80, propylene glycol, sodium benzoate, sodium chloride, sodium hydroxide, tocopherol, trisodium ethylenediamine disuccinate.',
     url: 'https://www.atida.fr/klorane-bebe-calendula-gel-lavant-doux-500ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-gel-lavant-doux-500ml-275076.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-gel-lavant-doux-500ml-275076.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1295,7 +1344,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/klorane-routine-bebe-gel-lavant-et-creme-nutritive-au-calendula.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-routine-bebe-gel-lavant-et-creme-nutritive-au-calendula-300727.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-routine-bebe-gel-lavant-et-creme-nutritive-au-calendula-300727.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1316,7 +1366,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua)*. caprylic/capric triglyceride*. glycerin*. pentylene glycol*. algin*. centaurea cyanus flower water*. sodium hyaluronate*. blue 1 (ci 42090). butylene glycol*. calcium sulfate hydrate*. hesperidin methyl chalcone. polyglyceryl-4 caprate*. sodium dextran sulfate. tetrasodium glutamate diacetate. tetrasodium pyrophosphate. tocopheryl acetate. xanthan gum*.*Ingrédients d’origine naturelle.',
     url: 'https://www.atida.fr/klorane-bleuet-bio-patchs-defatiguants-express-2-patchs.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-patchs-lissants-defatiguants-express-1-paire-275174.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-patchs-lissants-defatiguants-express-1-paire-275174.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1341,7 +1392,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Ingrédients : Water (aqua)*, decyl glucoside*, sodium cocoyl isethonate, disodium laureth sulfosuccinate, disodium cocoamphodiacetate, acrylates copolymer, centaurea cyanus flower water*, butylene glycol*, caprylyl glycol, ceteareth-60 myristyl, glycol, citric acid*, coco-glucoside*, coconut acid*, ext.violet 2 (ci 60730), fragrance (parfum), glyceyl oleate*, glycol stearate*, hydrogenated vegetable glycerides citrate*, laureth-3, maleic acid polyquaternium-22, sodium chloride, sodium hydroxide*, tocopherol*, trisodium ethylenediamine disuccinate.*86 ingrédients d'origine naturelle.",
     url: 'https://www.atida.fr/klorane-centauree-bio-shampooing-dejaunissant-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-centauree-shampoing-dejaunissant-400ml-275264.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-centauree-shampoing-dejaunissant-400ml-275264.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1369,7 +1421,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Ingrédients : Water (aqua)*, pentylene glycol*, oleth-10. glycerin*, chamomilla recutita (matricaria) flower extract (chamomilla recutita flower extract)*, vinegar (acetum)*, behenamidopropyl dimethylamine*, crambe abyssinica seed oil*, fragrance (parfum). polyquaternium-10. tocopherol.97% d'ingrédients d'origine naturelle.",
     url: 'https://www.atida.fr/klorane-spray-a-la-camomille-illumine-cheveux-blonds-100-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-camomille-spray-illumine-cheveux-blonds-100ml-275311.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-camomille-spray-illumine-cheveux-blonds-100ml-275311.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
@@ -1396,7 +1449,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA)*. LAURYL GLUCOSIDE*. SODIUM COCOYL ALANINATE*. COCO-BETAINE. OPUNTIA FICUS-INDICA STEM EXTRACT*. CITRIC ACID*. DISODIUM PHOSPHATE. EXT. VIOLET 2 (CI 60730). FRAGRANCE (PARFUM). GLYCERIN*. HYDROXYPROPYL GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE. RED 33 (CI 17200). RED 40 (CI 16035). SODIUM BENZOATE',
     url: 'https://www.atida.fr/klorane-figuier-de-barbarie-shampooing-desalterant-72h-hydratation-brillance-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-figuier-de-barbarie-shampooing-desalterant-72h-hydratation-brillance-200ml-275648.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-figuier-de-barbarie-shampooing-desalterant-72h-hydratation-brillance-200ml-275648.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1422,7 +1476,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'BUTANE. PROPANE. ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH)*. ISOBUTANE. ALCOHOL*. ZEA MAYS (CORN) STARCH (ZEA MAYS STARCH)*. AVENA SATIVA (OAT) SPROUT OIL (AVENA SATIVA SPROUT OIL)*. SODIUM DILAURAMIDOGLUTAMIDE LYSINE*. BUTYLENE GLYCOL*. CELLULOSE*. CYCLODEXTRIN*. FRAGRANCE (PARFUM). IRON OXIDES (CI 77491)* (CI 77492)* (CI 77499)*. ISOPROPYL MYRISTATE*. MAGNESIUM STEARATE*. MICROCRYSTALLINE CELLULOSE*. WATER (AQUA)',
     url: 'https://www.atida.fr/klorane-avoine-ceramide-cheveux-bruns-shampoing-sec-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-avoine-ceramide-cheveux-bruns-shampoing-sec-150ml-275605.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-avoine-ceramide-cheveux-bruns-shampoing-sec-150ml-275605.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1443,7 +1498,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Water (aqua)*, disodium laureth sulfosuccinate, ceteareth-60 myristyl glycol, decyl glucoside*, lauryl betaine, laureth-3, punica granatum extract*, alcohol*, caprylyl glycol, citric acid*, fragrance (parfum), maleic acid, polyquaternium-22, red 33 (ci 17200), red 40 (ci 16035), sodium benzoate, sodium chloride, trisodium ethylenediamine disuccinate, yellow 6 (ci 15985).*ingrédients d’origine naturelle.',
     url: 'https://www.atida.fr/klorane-grenade-shampoing-eclat-cheveux-colores-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-grenade-shampoing-eclat-cheveux-colores-200ml-275098.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-grenade-shampoing-eclat-cheveux-colores-200ml-275098.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1468,7 +1524,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA). GLYCERIN. PEG-40 HYDROGENATED CASTOR OIL. CALENDULA OFFICINALIS FLOWER EXTRACT. CAPRYLYL GLYCOL. CITRIC ACID. COCO-GLUCOSIDE. FRAGRANCE (PARFUM). ISOEUGENYL ACETATE. ISOLEUCINE. LINALYL ACETATE. POLYSORBATE 80. PROPYLENE GLYCOL. SODIUM BENZOATE',
     url: 'https://www.atida.fr/klorane-bebe-calendula-lingette-nettoyante-douce-25-unites.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-lingettes-nettoyantes-a-l-eau-pour-le-corps-bebe-25-unites-275140.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-lingettes-nettoyantes-a-l-eau-pour-le-corps-bebe-25-unites-275140.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1493,7 +1550,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Gel Lavant Doux (500ml) : Ingrédients : Water (aqua), glycerin, ceteareth-60, myristyl glycol, coco glucoside, zinc coceth sulfate, sodium cocamphoacetate, polysorbate 20, fragrance (parfum), ascorbyl palmitate, calendula officinalis flower extract, citric acid, disodium laureth sulfosuccinate, glyceryl oleate, hydrogenated palm glycerides citrate, isoleucine, laureth-3, lecithin, maleic acid, polysorbate 80, propylene glycol, sodium benzoate, sodium chloride, sodium hydroxide, tocopherol, trisodium ethylenediamine disuccinate.Eau Nettoyante Sans Rinçage (750ml) : WATER (AQUA)*. GLYCERIN*. CALENDULA OFFICINALIS FLOWER EXTRACT*. CAPRYLYL GLYCOL. CITRIC ACID*. COCO-GLUCOSIDE*. FRAGRANCE (PARFUM). ISOEUGENYL ACETATE. LINALYL ACETATE. OLETH-10. SODIUM BENZOATE. TOCOPHEROLEau Parfumée Petit Brin (50ml) : Ingrédients : Water (aqua), PEG-40 hydrogenated castor oil, caprylyl glycol, citric acid, fragrance (parfum), glycerin, sodium benzoate, sodium citrate.',
     url: 'https://www.atida.fr/klorane-bebe-kit-complet-soin-et-toilette-eau-nettoyante-gel-lavant-et-eau-parfumee.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bebe-kit-complet-soin-et-toilette-eau-nettoyante-gel-lavant-et-eau-parfumee-303729.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bebe-kit-complet-soin-et-toilette-eau-nettoyante-gel-lavant-et-eau-parfumee-303729.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1520,7 +1578,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), glycerin, ceteareth-60, myristyl glycol, coco glucoside, zinc coceth sulfate, sodium cocamphoacetate, polysorbate 20, fragrance (parfum), ascorbyl palmitate, calendula officinalis flower extract, citric acid, disodium laureth sulfosuccinate, glyceryl oleate, hydrogenated palm glycerides citrate, isoleucine, laureth-3, lecithin, maleic acid, polysorbate 80, propylene glycol, sodium benzoate, sodium chloride, sodium hydroxide, tocopherol, trisodium ethylenediamine disuccinate.',
     url: 'https://www.atida.fr/klorane-bebe-calendula-gel-lavant-doux-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-gel-lavant-doux-200ml-275075.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-gel-lavant-doux-200ml-275075.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1547,7 +1606,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : butane, propane, oriza sativa (riche) starch, isobutane, alcohol (alcohol denat), aluminium starch octenylsuccinate, cetrimonium chloride, cyclodextrin, parfum (fragrance), iron oxides (ci77491), (ci77492), (ci77499), isopropyl myristate, polysorbate-20, propylene glycol, silica, urtica dioica (nettle) root extract, water (aqua).Ce produit contient de la vitamine E.',
     url: 'https://www.atida.fr/klorane-ortie-shampooing-sec-sebo-regulateur-cheveux-bruns-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-ortie-shampoing-sec-sebo-regulateur-cheveux-bruns-150ml-275514.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-ortie-shampoing-sec-sebo-regulateur-cheveux-bruns-150ml-275514.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1568,7 +1628,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua (water), carthamus tinctorius (safflower) seed oil, glycerin, cetearyl alcohol, cetyl alcohol, beeswax (cera alba), benzoic acid, calendula officinalis flower extract, caprylyl glycol, cetearyl glucoside, fragrance (parfum), glyceryl stearate, isoleucine, peg-100 stearate, polyacrylate-13, polyisobutene, polysorbate 20, polysorbate 80, propylene glycol, sodium hydroxide, sorbitan isostearate, tocopheryl acetate.',
     url: 'https://www.atida.fr/klorane-bebe-calendula-creme-nutritive-cold-cream-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-creme-nutritive-cold-cream-40ml-279801.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-creme-nutritive-cold-cream-40ml-279801.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1594,7 +1655,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/klorane-bebe-calendula-lingette-nettoyante-douce-lot-de-3-x-70-unites.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-lingettes-nettoyantes-a-l-eau-pour-le-corps-bebe-peau-normale-a-seche-3-x-60-lingettes-300747.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-lingettes-nettoyantes-a-l-eau-pour-le-corps-bebe-peau-normale-a-seche-3-x-60-lingettes-300747.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1615,7 +1677,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA)*. HYDROXYPROPYL STARCH PHOSPHATE. CETEARYL ALCOHOL. BEHENAMIDOPROPYL DIMETHYLAMINE*. GLYCERIN*. COCO-CAPRYLATE/CAPRATE*. 1,2-HEXANEDIOL. OPUNTIA FICUS-INDICA STEM EXTRACT*. BENZOIC ACID. CETEARETH-33. DISODIUM PHOSPHATE. FRAGRANCE (PARFUM). HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL)*. LACTIC ACID*. RED 33 (CI 17200). TOCOPHEROL*. TRISODIUM ETHYLENEDIAMINE DISUCCINATE',
     url: 'https://www.atida.fr/klorane-figuier-de-barbarie-apres-shampooing-desalterant-72h-hydratation-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-figuier-de-barbarie-apres-shampooing-desalterant-72h-hydratation-200ml-300845.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-figuier-de-barbarie-apres-shampooing-desalterant-72h-hydratation-200ml-300845.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -1641,7 +1704,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA)*. GLYCERIN*. PENTYLENE GLYCOL*. LACTIC ACID*. ALPINIA GALANGA RHIZOME EXTRACT*. ACACIA SENEGAL GUM*. OLETH-10. SODIUM BENZOATE. SODIUM HYDROXIDE*. TOCOPHEROL. XANTHAN GUM*',
     url: 'https://www.atida.fr/klorane-galanga-lotion-anti-demangeaisons-antipelliculaire-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-galanga-lotion-anti-demangeaisons-antipelliculaire-100ml-302478.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-galanga-lotion-anti-demangeaisons-antipelliculaire-100ml-302478.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1666,7 +1730,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'BUTANE. PROPANE. ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH)*. ISOBUTANE. ALCOHOL*. ZEA MAYS (CORN) STARCH (ZEA MAYS STARCH)*. AVENA SATIVA (OAT) SPROUT OIL (AVENA SATIVA SPROUT OIL)*. SODIUM DILAURAMIDOGLUTAMIDE LYSINE*. BUTYLENE GLYCOL*. CELLULOSE*. CYCLODEXTRIN*. FRAGRANCE (PARFUM). ISOPROPYL MYRISTATE*. MAGNESIUM STEARATE*. MICROCRYSTALLINE CELLULOSE*. WATER (AQUA)*',
     url: 'https://www.atida.fr/klorane-avoine-ceramide-shampoing-sec-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-avoine-ceramide-shampoing-sec-50ml-275606.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-avoine-ceramide-shampoing-sec-50ml-275606.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1687,7 +1752,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), behenyl alcohol, ethylhexyl palmitate, mangifera indica (mango) seed butter (mangifera indica seed butter), behentrimonium chloride, propylene glycol, dicaprylyl carbonate, cetearyl alcohol, cetearyl glucoside, fragrance (parfum), geraniol, guar hydroxypropyltrimonium chloride, isopropyl alcohol, linalool, phenoxyethanol, sodium hydroxide, sorbic acid, tocopherol, yellow 5 (ci 19140), yellow 6 (ci 15985)',
     url: 'https://www.atida.fr/klorane-beurre-de-mangue-masque-capillaire-nutrition-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-mangue-masque-capillaire-nutrition-150ml-299618.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-mangue-masque-capillaire-nutrition-150ml-299618.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_CAPILLAIRE],
       secondary: [],
@@ -1714,7 +1780,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), sodium laureth sulfate, cocamide mipa, lauryl betaine, alcohol, biotin, blue 1 (ci 42090), caprylyl glycol, caramel, cinchona calisaya bark extract, disodium edta, fragrance (parfum), glycerin, panthenol, pantolactone, phenoxyethanol, polyquaternium-22, pyridoxine hcl, red 33 (ci 17200), sodium benzoate, sodium chloride, triethanolamine.',
     url: 'https://www.atida.fr/klorane-quinine-edelweiss-shampoing-fortifiant-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-quinine-edelweiss-shampoing-fortifiant-200ml-299619.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-quinine-edelweiss-shampoing-fortifiant-200ml-299619.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1740,7 +1807,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), PEG-40 hydrogenated castor oil, calendula officinalis flower extract, citric acid, fragrance (parfum), glycerin, phenoxyethanol, polysorbate-80, propylene glycol.',
     url: 'https://www.atida.fr/klorane-bebe-eau-fraiche-parfumee-500ml-7011268.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-eau-fraiche-parfumee-500ml-275074.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-eau-fraiche-parfumee-500ml-275074.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1761,7 +1829,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'BUTANE. PROPANE. ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH)*. ISOBUTANE. ALCOHOL*. ZEA MAYS (CORN) STARCH (ZEA MAYS STARCH)*. AVENA SATIVA (OAT) SPROUT OIL (AVENA SATIVA SPROUT OIL)*. SODIUM DILAURAMIDOGLUTAMIDE LYSINE*. BUTYLENE GLYCOL*. CELLULOSE*. CYCLODEXTRIN*. FRAGRANCE (PARFUM). IRON OXIDES (CI 77491)* (CI 77492)* (CI 77499)*. ISOPROPYL MYRISTATE*. MAGNESIUM STEARATE*. MICROCRYSTALLINE CELLULOSE*. WATER (AQUA)',
     url: 'https://www.atida.fr/klorane-avoine-ceramide-cheveux-bruns-shampoing-sec-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-avoine-ceramide-cheveux-bruns-shampoing-sec-50ml-275607.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-avoine-ceramide-cheveux-bruns-shampoing-sec-50ml-275607.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1782,7 +1851,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua)*, butylene glycol, centaurea cyanus flower water*, poloxamer 184, hexylene glycol, peg-6 caprylic/capric glycerides, citric acid*, phenethyl alcohol, sodium chloride*, trisodium ethylenediamine disuccinate.',
     url: 'https://www.atida.fr/klorane-bleuet-demaquillant-yeux-sensibles-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-demaquillant-yeux-sensibles-200ml-300667.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-demaquillant-yeux-sensibles-200ml-300667.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1803,7 +1873,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Caprylic/capric triglyceride*. alcohol denat.*. isopropyl myristate*. c9-12 alkane*. coco-caprylate/caprate*. dicaprylyl ether*. pongamia glabra seed oil*. helianthus annuus (sunflower) seed oil (helianthus annuus seed oil)*. cocos nucifera (coconut) oil (cocos nucifera oil)*. gardenia taitensis flower*. calophyllum inophyllum seed oil*. fragrance (parfum). glycine soja (soybean) oil (glycine soja oil)*. tocopherol.',
     url: 'https://www.atida.fr/klorane-monoi-tamanu-huile-capillaire-protection-soleil-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-monoi-tamanu-huile-capillaire-protection-soleil-100ml-275304.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-monoi-tamanu-huile-capillaire-protection-soleil-100ml-275304.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.HUILE_CAPILLAIRE],
       secondary: [],
@@ -1828,7 +1899,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA). GLYCERIN. PENTYLENE GLYCOL. BUTYLENE GLYCOL. CENTAUREA CYANUS FLOWER WATER*. ALOE BARBADENSIS LEAF JUICE POWDER*. CITRIC ACID. COCO-GLUCOSIDE. ETHYL LAUROYL ARGINATE HCL. POLYGLYCERYL-4 CAPRATE. POLYGLYCERYL-6 CAPRYLATE',
     url: 'https://www.atida.fr/klorane-bleuet-eau-micellaire-visage-yeux-levres-bio-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-eau-micellaire-visage-yeux-levres-bio-400ml-275599.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-eau-micellaire-visage-yeux-levres-bio-400ml-275599.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1854,7 +1926,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Water (aqua). caprylic/capric triglyceride. glycerin. pentylene glycol. dicaprylyl carbonate. c14-22 alcohols. behenyl alcohol. sodium stearoyl glutamate. calendula officinalis flower extract*. acacia senegal gum. aloe barbadensis leaf juice powder*. c12-20 alkyl glucoside. citric acid. fragrance (parfum). glyceryl caprylate. glycine soja (soybean) oil (glycine soja oil). sclerotium gum. sodium benzoate. tocopherol. xanthan gum',
     url: 'https://www.atida.fr/klorane-bebe-creme-hydratante-bio-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bebe-creme-hydratante-bio-50ml-275614.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bebe-creme-hydratante-bio-50ml-275614.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1880,7 +1953,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), isododecane, caprylic/capric triglyceride, butylene glycol, centaurea cyanus flower water, sodium chloride, blue 1 (ci 42090), disodium edta, isopropyl palmitate, phenethyl alcohol, red 40 (ci 16035), sodium benzoate.',
     url: 'https://www.atida.fr/klorane-demaquillant-yeux-waterproof-au-bleuet-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-demaquillant-yeux-sensibles-waterproof-100ml-263890.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-demaquillant-yeux-sensibles-waterproof-100ml-263890.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1901,7 +1975,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédient : Microfibre.',
     url: 'https://www.atida.fr/klorane-bebe-lingettes-lavables-edition-limitee-hamac-12-x-14-cm-5-unites.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bebe-lingette-lavable-edition-limitee-hamac-12-x-14cm-5-unites-275451.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bebe-lingette-lavable-edition-limitee-hamac-12-x-14cm-5-unites-275451.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1922,7 +1997,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua, ethylhexyl palmitate, cetearyl alcohol, dicaprylyl carbonate, behentrimonium chloride, propylene glycol, cetearyl alcohol, cetearyl glucoside, fragrance, geraniol, guar hydroxypropyltrimonium chloride, inulin lauryl carbamate, isopropyl alcohol, linalool, mangifera indica seed butter, salicylic acid, sodium hydroxide, sorbic acid, tocopherol, yellow 5 (ci 19140), yellow 6 (ci 15985).',
     url: 'https://www.atida.fr/klorane-beurre-de-mangue-baume-apres-shampoing-nutrition-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-mangue-baume-apres-shampoing-nutrition-50ml-275205.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-mangue-baume-apres-shampoing-nutrition-50ml-275205.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -1950,7 +2026,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédient : Microfibre.',
     url: 'https://www.atida.fr/klorane-bebe-lingettes-lavables-edition-limitee-hamac-10-x-12-cm-5-unites.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bebe-lingette-lavable-edition-limitee-hamac-10-x-12cm-5-unites-275322.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bebe-lingette-lavable-edition-limitee-hamac-10-x-12cm-5-unites-275322.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1971,7 +2048,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Ingrédients : Water (aqua)*, butylene glycol, centaurea cyanus flower water*, poloxamer-184, hexylene glycol, peg-6 caprylic/capric glycerides, citric acid*, phenethyl alcohol, sodium chloride*, trisodium ethylenediamine disuccinate.* ingrédients d'origine naturelle.",
     url: 'https://www.atida.fr/klorane-bleuet-demaquillant-yeux-sensibles-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-demaquillant-yeux-sensibles-100ml-269607.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-demaquillant-yeux-sensibles-100ml-269607.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -1992,7 +2070,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Ingrédients : Water (aqua)*, ceteareth-60 myristyl glycol, coco-glucoside*, zinc coceth sulfate, sodium cocoamphoacetate, polysorbate 20, citric acid, avena sativa (oat) kernel extract (avena sativa kernel extract)*, disodium laureth sulfosuccinate, fragrance (parfum), glyceryl oleate*, hydrogenated palm glycerides citrate*, laureth-3, propylene glycol, red 33 (ci 17200), red 4 (ci 14700), sodium benzoate, sodium chloride, sodium hydroxide*, tocopherol*, trisodium ethylenediamine disuccinate* ingrédients d’origine naturelle87% d'ingrédients d'origine naturelle",
     url: 'https://www.atida.fr/klorane-junior-gel-douche-corps-et-cheveux-poire-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-junior-gel-douche-corps-cheveux-poire-200ml-275499.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-junior-gel-douche-corps-cheveux-poire-200ml-275499.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
@@ -2018,7 +2097,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), sodium laureth sulfate, lauryl betaine, decyl glucoside, caprylyl glycol, ceteareth-60 myristyl glycol, citric acid, coco-glucoside, fragrance (parfum), glyceryl oleate, green 3 (ci 42053), helianthus annuus (sunflower) seed oil (helianthus annuus seed oil), hydrogenated palm glycerides citrate, peg-7 glyceryl cocoate, phenoxyethanol, sodium benzoate, sodium chloride, theobroma grandiflorum seed butter, tocopherol, yellow 5 (ci 19140).',
     url: 'https://www.atida.fr/klorane-beurre-de-cupuacu-gel-douche-parfum-eau-de-tiare-200ml-7014416.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-cupuacu-gel-douche-nutritif-eau-de-tiare-200ml-275235.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-cupuacu-gel-douche-nutritif-eau-de-tiare-200ml-275235.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2044,7 +2124,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'BUTANE. PROPANE. ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH)*. ALCOHOL*. ISOBUTANE. ZEA MAYS (CORN) STARCH (ZEA MAYS STARCH)*. URTICA DIOICA (NETTLE) LEAF EXTRACT (URTICA DIOICA LEAF EXTRACT)*. TOCOPHERYL ACETATE. CELLULOSE*. CITRIC ACID*. CYCLODEXTRIN*. FRAGRANCE (PARFUM). GLYCERIN*. ISOPROPYL MYRISTATE*. MAGNESIUM STEARATE*. MICROCRYSTALLINE CELLULOSE*. POTASSIUM SORBATE. SODIUM BENZOATE. WATER (AQUA)*',
     url: 'https://www.atida.fr/klorane-shampoing-sec-purifiant-cheveux-gras-a-l-ortie-et-vitamine-e-50-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-shampoing-sec-purifiant-cheveux-gras-a-l-ortie-et-vitamine-e-50-ml-305015.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-shampoing-sec-purifiant-cheveux-gras-a-l-ortie-et-vitamine-e-50-ml-305015.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2065,7 +2146,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Isodecyl neopentanoate, sd alcohol, 39-c (alcohol denat.), ethylhexyl methoxycinnamate water, aqua, mangifera indica (mango) seed butter, elaeis guineensis (palm) oil (elaeis guineensis oil), bht, citronellol, parfum (fragrance), hexyl cinnamal, hydroxyisohexyl-3 cyclohexene carboxaldehyde, limonene, linalool.',
     url: 'https://www.atida.fr/klorane-beurre-de-mangue-huile-capillaire-nutrition-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-mangue-huile-capillaire-nutrition-100ml-233051.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-mangue-huile-capillaire-nutrition-100ml-233051.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.HUILE_CAPILLAIRE],
       secondary: [],
@@ -2086,7 +2168,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), sodium laureth sulfate, cocamide mipa, lauryl betaine, alcohol, biotin, blue 1 (ci 42090), caprylyl glycol, caramel, cinchona calisaya bark extract, disodium edta, fragrance (parfum), glycerin, panthenol, pantolactone, phenoxyethanol, polyquaternium-22, pyridoxine hcl, red 33 (ci 17200), sodium benzoate, sodium chloride, triethanolamine.',
     url: 'https://www.atida.fr/klorane-quinine-edelweiss-shampoing-fortifiant-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-quinine-edelweiss-shampoing-fortifiant-100ml-275207.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-quinine-edelweiss-shampoing-fortifiant-100ml-275207.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2112,7 +2195,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/klorane-menthe-aquatique-shampoing-sec-detox-anti-pollution-lot-de-2-x-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-menthe-aquatique-shampoing-sec-detox-anti-pollution-lot-de-2-x-150ml-300475.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-menthe-aquatique-shampoing-sec-detox-anti-pollution-lot-de-2-x-150ml-300475.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2133,7 +2217,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), c12-15 alkyl benzoate, dicaprylyl carbonate, methylene bis-benzotriazolyl tetramethylbutylphenol [nano], glycerin, bis-ethylhexyloxyphenol methoxyphenyl triazine, diethylhexyl butamido triazone, diisopropyl adipate, butyl methoxydibenzoylmethane, cetearyl isononanoate, lauryl glucoside, polyglyceryl-2 dipolyhydroxystearate, decyl glucoside c10-18 triglycerides, calophyllum inophyllum seed oil, cocos nucifera (coconut) oil (cocos nucifera oil), gardenia taitensis flower, benzoic acid, caprylyl glycol, citric acid, disodium edta, fragrance (parfum), glyceryl behenate, glyceryl dibehenate, glycine soja (soybean) oil (glycine soja oil), polyacrylate-13, polyisobutene, polysorbate 20, propylene glycol, sorbitan isostearate, tocopherol, tocopheryl acetate, tribehenin, xanthan gum.',
     url: 'https://www.atida.fr/klorane-solaire-spray-spf30-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-monoi-tamanu-spray-solaire-sublime-corps-spf30-200ml-270080.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-monoi-tamanu-spray-solaire-sublime-corps-spf30-200ml-270080.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2159,7 +2244,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Ingrédients : Water (aqua)*, glycerin*, ceteareth-60 myristyl glycol, sodium lauroyl methyl isethionate, decyl glucoside*, polysorbate 20, lauryl betaine, theobroma grandiflorum seed butter*, helianthus annuus (sunflower) seed oil (helianthus annuus seed oil)*, tocopherol, caprylyl glycol, citric acid*, coco-glucoside*, fragrance (parfum), glyceryl oleate*, hydrogenated vegetable glycerides citrate*, oleth-10, sodium benzoate, sodium chloride, trisodium ethylenediamine disuccinate.*ingrédients d'origine naturelle.",
     url: 'https://www.atida.fr/klorane-beurre-de-cupuacu-gel-douche-parfum-fleur-d-hibiscus-200ml-7014446.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-cupuacu-gel-douche-nutritif-fleur-d-hibiscus-200ml-275238.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-cupuacu-gel-douche-nutritif-fleur-d-hibiscus-200ml-275238.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2185,7 +2271,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), sodium laureth sulfate, lauryl betaine, decyl glucoside, caprylyl glycol, ceteareth-60 myristyl glycol, citric acid, coco-glucoside, fragrance (parfum), glyceryl oleate, green 3 (ci 42053), helianthus annuus (sunflower) seed oil (helianthus annuus seed oil), hydrogenated palm glycerides citrate, peg-7 glyceryl cocoate, phenoxyethanol, sodium benzoate, sodium chloride, theobroma grandiflorum seed butter, tocopherol, yellow 5 (ci 19140).',
     url: 'https://www.atida.fr/klorane-beurre-de-cupuacu-gel-douche-nutritif-zeste-d-agrumes-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-cupuacu-gel-douche-nutritif-zeste-d-agrumes-200ml-275241.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-cupuacu-gel-douche-nutritif-zeste-d-agrumes-200ml-275241.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2211,7 +2298,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA)*. CETEARYL ALCOHOL*. DISODIUM COCOYL GLUTAMATE*. GLYCERIN*. ZEA MAYS (CORN) STARCH (ZEA MAYS STARCH)*. DECYL GLUCOSIDE*. HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL)*. COCO-BETAINE. BUTYLENE GLYCOL*. CENTAUREA CYANUS FLOWER WATER*. XANTHAN GUM*. CITRIC ACID*. FRAGRANCE (PARFUM)*. SODIUM BENZOATE',
     url: 'https://www.atida.fr/klorane-bleuet-creme-nettoyante-demaquillante-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-creme-nettoyante-demaquillante-200ml-275644.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-creme-nettoyante-demaquillante-200ml-275644.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2240,7 +2328,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA)*. SODIUM LAURETH SULFATE. COCAMIDOPROPYL BETAINE. SODIUM CHLORIDE*. COCO-GLUCOSIDE*. PENTYLENE GLYCOL*. ALPINIA GALANGA RHIZOME EXTRACT*. CITRIC ACID*. FRAGRANCE (PARFUM). GLYCERYL OLEATE*. GREEN 3 (CI 42053). HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL)*. HYDROGENATED VEGETABLE GLYCERIDES CITRATE*. LINALYL ACETATE. OLETH-10. POLYQUATERNIUM-22. SODIUM BENZOATE. TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES. TOCOPHEROL. TRISODIUM ETHYLENEDIAMINE DISUCCINATE',
     url: 'https://www.atida.fr/klorane-galanga-shampoing-antipelliculaire-lot-de-2-x-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-galanga-shampoing-antipelliculaire-lot-de-2-x-400ml-304343.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-galanga-shampoing-antipelliculaire-lot-de-2-x-400ml-304343.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2268,7 +2357,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA)*. SODIUM LAURETH SULFATE. COCAMIDOPROPYL BETAINE. SODIUM CHLORIDE*. COCO-GLUCOSIDE*. PENTYLENE GLYCOL*. ALPINIA GALANGA RHIZOME EXTRACT*. CITRIC ACID*. FRAGRANCE (PARFUM). GLYCERYL OLEATE*. GREEN 3 (CI 42053). HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL)*. HYDROGENATED VEGETABLE GLYCERIDES CITRATE*. LINALYL ACETATE. OLETH-10. POLYQUATERNIUM-22. SODIUM BENZOATE. TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES. TOCOPHEROL. TRISODIUM ETHYLENEDIAMINE DISUCCINATE',
     url: 'https://www.atida.fr/klorane-shampoing-reequilibrant-antipelliculaire-au-galanga-pellicules-libres-200-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-galanga-antipelliculaire-shampoing-traitant-et-reequilibrant-200-ml-275320.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-galanga-antipelliculaire-shampoing-traitant-et-reequilibrant-200-ml-275320.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2296,7 +2386,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua)*, disodium laureth sulfosuccinate, decyl glucoside*, ceteareth-60 myristyl glycol, lauryl betaine, laureth-3, linum usitatissimum (linseed) seed extract (linum usitatissimum seed extract)*, blue 1 (ci 42090), caprylyl glycol, citric acid*, ext, violet 2 (ci 60730), fragrance (parfum), limonene, maleic acid, propylene glycol*, sodium benzoate, sodium chloride, trisodium ethylenediamine disuccinate.',
     url: 'https://www.atida.fr/klorane-lin-shampoing-volume-cheveux-fins-bio-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-lin-shampoing-volume-cheveux-fins-bio-400ml-275294.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-lin-shampoing-volume-cheveux-fins-bio-400ml-275294.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2317,7 +2408,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA). GLYCERIN. PENTYLENE GLYCOL. BUTYLENE GLYCOL. CENTAUREA CYANUS FLOWER WATER*. ALOE BARBADENSIS LEAF JUICE POWDER*. CITRIC ACID. COCO-GLUCOSIDE. ETHYL LAUROYL ARGINATE HCL. POLYGLYCERYL-4 CAPRATE. POLYGLYCERYL-6 CAPRYLATE',
     url: 'https://www.atida.fr/klorane-bleuet-eau-micellaire-visage-yeux-levres-bio-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-eau-micellaire-visage-yeux-levres-bio-100ml-275598.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-eau-micellaire-visage-yeux-levres-bio-100ml-275598.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2343,7 +2435,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), sodium laureth sulfate, lauryl betaine, decyl glucoside, caprylyl glycol, ceteareth-60 myristyl glycol, citric acid, coco-glucoside, fragrance (parfum), glyceryl oleate, green 3 (ci 42053), helianthus annuus (sunflower) seed oil (helianthus annuus seed oil), hydrogenated palm glycerides citrate, peg-7 glyceryl cocoate, phenoxyethanol, sodium benzoate, sodium chloride, theobroma grandiflorum seed butter, tocopherol, yellow 5 (ci 19140).',
     url: 'https://www.atida.fr/klorane-beurre-de-cupuacu-gel-douche-nutritif-ecorce-de-cedre-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-cupuacu-gel-douche-nutritif-ecorce-de-cedre-200ml-275237.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-cupuacu-gel-douche-nutritif-ecorce-de-cedre-200ml-275237.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2369,7 +2462,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua)*, c12-15 alkyl benzoate , dicaprylyl carbonate*, methylene bis-benzotriazolyl tetramethylbutylphenol [nano] , silica*, bis-ethylhexyloxyphenol methoxyphenyl triazine , diethylhexyl butamido triazone , diisopropyl adipate , glycerin* , butyl methoxydibenzoylmethane , c10-18 triglycerides* , potassium cetyl phosphate, , zea mays (corn) starch (zea mays starch)* , glyceryl stearate* , peg-100 stearate , calophyllum inophyllum seed oil* , cocos nucifera (coconut) oil (cocos nucifera oil)* , gardenia taitensis flower* , benzoic acid , caprylyl glycol , decyl glucoside* , disodium edta , fragrance (parfum) , glyceryl behenate* , glyceryl dibehenate* , glycine soja (soybean) oil (glycine soja oil)*, iron oxides (ci 77492), iron oxides (ci 77491), mica, polyacrylate-13 , polyisobutene , polysorbate 20 , propylene glycol , sorbitan isostearate* , stearyl alcohol* , titanium dioxide (ci 77891) , tocopherol* , tocopheryl acetate , tribehenin* , xanthan gum** : ingrédient d’origine naturelle ***monoï de tahiti ao : 1%',
     url: 'https://www.atida.fr/klorane-monoi-tamanu-creme-solaire-sublime-visage-spf50-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-monoi-tamanu-creme-solaire-sublime-visage-spf50-50ml-275333.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-monoi-tamanu-creme-solaire-sublime-visage-spf50-50ml-275333.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2395,7 +2489,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Ingrédients : Water (aqua)*, glycerin*, propanediol*, butylene glycol*, centaurea cyanus flower water*, sclerotium gum, betaine*, sodium dextran sulfate, sodium hyaluronate*, 1,2-hexanediol, blue 1 (ci 42090), c12-20 alkyl glucoside*, c14-22 alcohols*, c9-12 alkane*, caprylyl glycol, citric acid*, coco-caprylate/caprate*, cocos nucifera (coconut) oil (cocos nucifera oil)*, cyanocobalamin, fragrance (parfum)*, hydroxyethylcellulose, isocetyl stearoyl stearate*, leontopodium alpinum flower/leaf extract*, potassium sorbate, sodium benzoate, sodium citrate*.*Ingrédients d'origine naturelle.",
     url: 'https://www.atida.fr/klorane-bleuet-masque-visage-nuit-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-bain-d-hydratation-nuit-50ml-275509.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-bain-d-hydratation-nuit-50ml-275509.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2422,7 +2517,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Ingrédients : Water (aqua)*, c12-15 alkyl benzoate, dicaprylyl carbonate*, methylene bis-benzotriazolyl tetramethylbutylphenol [nano], diisopropyl adipate, bis-ethylhexyloxyphenol methoxyphenyl triazine, cetearyl isononanoate*, diethylhexyl butamido triazone, glycerin*, butyl methoxydibenzoylmethane, potassium cetyl phosphate, silica*, stearyl alcohol*, vp/eicosene copolymer, calophyllum inophyllum seed oil*, cocos nucifera (coconut) oil (cocos nucifera oil)*, gardenia taitensis flower*, benzoic acid, caprylyl glycol, carbomer, decyl glucoside*, disodium edta, fragrance (parfum), glyceryl behenate*, glyceryl dibehenate*, glycine soja (soybean) oil (glycine soja oil)*, iron oxides (ci 77492) (ci 44791), mica, polyacrylate-13, polyisobutene, polysorbate 20, propylene glycol, sodium hydroxide*, sorbitan isostearate*, titanium dioxide (ci 77891), tocopherol*, tocopheryl acetate, tribehenin*, xanthan gum*.*ingrédient d'origine naturelle.",
     url: 'https://www.atida.fr/klorane-solaire-gel-creme-sublime-spf30-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-monoi-tamanu-gel-creme-solaire-sublime-visage-et-corps-spf30-200ml-252535.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-monoi-tamanu-gel-creme-solaire-sublime-visage-et-corps-spf30-200ml-252535.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2448,7 +2544,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingréients : Aqua, sd alcohol 39-c (alcohol denat), thriethyl citrate, althaea officinalis root extract, dimethyl phenylpropanol, parfum (fragrance), pentylene glycol, propylene glycol, nitrogen.',
     url: 'https://www.atida.fr/klorane-deodorant-a-l-althea-blanc-spray-125ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-althea-blanc-deodorant-spray-24h-125ml-260249.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-althea-blanc-deodorant-spray-24h-125ml-260249.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2469,7 +2566,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua)*, decyl glucoside*, sodium cocoyl isethionate, disodium laureth sulfosuccinate, glycerin*, disodium cocoamphodiacetate, acrylates copolymer, avena sativa (oat) leaf/stem extract (avena sativa leaf/stem extract)*, caprylyl glycol, ceteareth-60 myristyl glycol, citric acid*, coco-glucoside*, coconut acid*, fragrance (parfum), glyceryl oleate*, glycol stearate*, hydrogenated vegetable glycerides citrate*, laureth-3, maleic acid, polyquaternium-22, sodium benzoate, sodium chloride, sodium hydroxide*, tocopherol, trisodium ethylenediamine disuccinate.',
     url: 'https://www.atida.fr/klorane-avoine-shampoing-extra-doux-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-avoine-shampoing-extra-doux-200ml-275267.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-avoine-shampoing-extra-doux-200ml-275267.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2498,7 +2596,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), sodium laureth sulfate, lauryl betaine, decyl glucoside, caprylyl glycol, ceteareth-60 myristyl glycol, citric acid, coco-glucoside, fragrance (parfum), glyceryl oleate, green 3 (ci 42053), helianthus annuus (sunflower) seed oil (helianthus annuus seed oil), hydrogenated palm glycerides citrate, peg-7 glyceryl cocoate, phenoxyethanol, sodium benzoate, sodium chloride, theobroma grandiflorum seed butter, tocopherol, yellow 5 (ci 19140).',
     url: 'https://www.atida.fr/klorane-beurre-de-cupuacu-gel-douche-nutritif-feve-de-tonka-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-cupuacu-gel-douche-nutritif-feve-de-tonka-200ml-275245.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-cupuacu-gel-douche-nutritif-feve-de-tonka-200ml-275245.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2524,7 +2623,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), sodium laureth sulfate, lauryl betaine, decyl glucoside, caprylyl glycol, ceteareth-60 myristyl glycol, citric acid, coco-glucoside, fragrance (parfum), glyceryl oleate, green 3 (ci 42053), helianthus annuus (sunflower) seed oil (helianthus annuus seed oil), hydrogenated palm glycerides citrate, peg-7 glyceryl cocoate, phenoxyethanol, sodium benzoate, sodium chloride, theobroma grandiflorum seed butter, tocopherol, yellow 5 (ci 19140)',
     url: 'https://www.atida.fr/klorane-beurre-de-cupuacu-gel-douche-parfum-feuille-de-figuier-200ml-7014451.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-cupuacu-gel-douche-nutritif-feuille-de-figuier-200ml-275243.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-cupuacu-gel-douche-nutritif-feuille-de-figuier-200ml-275243.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2550,7 +2650,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Water (aqua), sodium laureth sulfate, lauryl betaine, decyl glucoside, caprylyl glycol, ceteareth-60 myristyl glycol, citric acid, coco-glucoside, fragrance (parfum), glyceryl oleate, green 3 (ci 42053), helianthus annuus (sunflower) seed oil (helianthus annuus seed oil), hydrogenated palm glycerides citrate, peg-7 glyceryl cocoate, phenoxyethanol, sodium benzoate, sodium chloride, theobroma grandiflorum seed butter, tocopherol, yellow 5 (ci 19140).',
     url: 'https://www.atida.fr/klorane-beurre-de-capuacu-gel-douche-parfum-fleur-d-oranger-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-capuacu-gel-douche-parfum-fleur-d-oranger-200ml-275240.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-capuacu-gel-douche-parfum-fleur-d-oranger-200ml-275240.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2576,7 +2677,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Water (aqua), sodium laureth sulfate, lauryl betaine, decyl glucoside, caprylyl glycol, ceteareth-60 myristyl glycol, citric acid, coco-glucoside, fragrance (parfum), glyceryl oleate, green 3 (ci 42053), helianthus annuus (sunflower) seed oil (helianthus annuus seed oil), hydrogenated palm glycerides citrate, peg-7 glyceryl cocoate, phenoxyethanol, sodium benzoate, sodium chloride, theobroma grandiflorum seed butter, tocopherol, yellow 5 (ci 19140).',
     url: 'https://www.atida.fr/klorane-beurre-de-cupuacu-gel-douche-parfum-seve-de-bambou-200ml-7014451.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-cupuacu-gel-douche-parfum-seve-de-bambou-200ml-275242.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-cupuacu-gel-douche-parfum-seve-de-bambou-200ml-275242.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2602,7 +2704,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA)*. SODIUM LAURETH SULFATE. COCAMIDOPROPYL BETAINE. COCO-GLUCOSIDE*. SODIUM CHLORIDE*. CINCHONA SUCCIRUBRA BARK EXTRACT*. ADENOSINE*. CAFFEINE. HYDROLYZED VEGETABLE PROTEIN*. PANTHENOL. ALCOHOL*. CITRIC ACID*. FRAGRANCE (PARFUM)*. GLYCERYL OLEATE*. GREEN 3 (CI 42053). HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL)*. HYDROGENATED VEGETABLE GLYCERIDES CITRATE*. PANTOLACTONE. POLYQUATERNIUM-10. POLYQUATERNIUM-22. RED 33 (CI 17200). SODIUM BENZOATE. SODIUM HYDROXIDE*. TOCOPHEROL*',
     url: 'https://www.atida.fr/klorane-croissance-shampoing-accelerateur-de-pousse-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-croissance-shampoing-accelerateur-de-pousse-200ml-304471.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-croissance-shampoing-accelerateur-de-pousse-200ml-304471.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2631,7 +2734,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Ingrédients : Sodium hyaluronate* (acide hyaluronique), glycerin*, propanediol*, butylene glycol*, betaine*centaurea cyanus flower water* (eau florale de bleuet), alcohol*, water (eau), citric acid*, sodium citrate*, leontopodium alpinum flower/leaf extract* (extrait d'edelweiss), tapioca starch*, 1,2-hexanediol, potassium sorbate, sodium benzoate, tocopherol, sodium dextran sulfate,caprylyl glycol , ethylhexylglycerin, sclerotium gum, fragrance (parfum),97% d'origine naturelle*ingrédients d’origine naturelle",
     url: 'https://www.atida.fr/klorane-bleuet-serum-reveil-tonique-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-serum-reveil-tonique-50ml-275504.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-serum-reveil-tonique-50ml-275504.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2658,7 +2762,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Ingrédients : Water (aqua)*, disodium laureth sulfosuccinate, decyl glucoside*, lauryl betaine, ceteareth-60, myristyl glycol laureth-3, glyceryl laurate*, urtica dioica (nettle) root extract (urtica dioica root extract)*, caprylyl glycol, citric acid*, fragrance (parfum), green 3 (ci 42053), maleic acid, polyquaternium-22, polysorbate 20, propylene glycol, sodium benzoate, sodium chloride, trisodium ethylenediamine disuccinate, yellow 6 (ci 15985).*ingrédients d'origine naturelle.",
     url: 'https://www.atida.fr/klorane-ortie-shampoing-seboreducteur-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-ortie-shampoing-seboreducteur-400ml-275214.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-ortie-shampoing-seboreducteur-400ml-275214.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2679,7 +2784,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Ingrédients : Water (aqua)*, disodium laureth sulfosuccinate, decyl glucoside*, lauryl betaine, ceteareth-60, myristyl glycol laureth-3, glyceryl laurate*, urtica dioica (nettle) root extract (urtica dioica root extract)*, caprylyl glycol, citric acid*, fragrance (parfum), green 3 (ci 42053), maleic acid, polyquaternium-22, polysorbate 20, propylene glycol, sodium benzoate, sodium chloride, trisodium ethylenediamine disuccinate, yellow 6 (ci 15985).*ingrédients d'origine naturelle.",
     url: 'https://www.atida.fr/klorane-ortie-shampoing-seboreducteur-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-ortie-shampoing-seboreducteur-200ml-275213.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-ortie-shampoing-seboreducteur-200ml-275213.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2700,7 +2806,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA)*. HYDROXYPROPYL STARCH PHOSPHATE. CETEARYL ALCOHOL. BEHENAMIDOPROPYL DIMETHYLAMINE*. GLYCERIN*. COCO-CAPRYLATE/CAPRATE*. 1,2-HEXANEDIOL. CINCHONA SUCCIRUBRA BARK EXTRACT*. ADENOSINE*. CAFFEINE. HYDROLYZED VEGETABLE PROTEIN*. PANTHENOL. ALCOHOL*. BENZOIC ACID. CETEARETH-33. CITRIC ACID*. FRAGRANCE (PARFUM)*. GREEN 3 (CI 42053). HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL)*. LACTIC ACID*. PANTOLACTONE. RED 33 (CI 17200). SODIUM BENZOATE. TOCOPHEROL*. TRISODIUM ETHYLENEDIAMINE DISUCCINATE',
     url: 'https://www.atida.fr/klorane-croissance-apres-shampoing-accelerateur-de-pousse-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-croissance-apres-shampoing-accelerateur-de-pousse-200ml-304430.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-croissance-apres-shampoing-accelerateur-de-pousse-200ml-304430.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -2728,7 +2835,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), sodium laureth sulfate, lauryl betaine, coco-glucoside, glyceryl oleate, acrylates copolymer, decyl glucoside, benzoic acid, caramel, ceteareth-60 myristyl glycol, citric acid, fragrance (parfum), helianthus annuus (sunflower) seed oil (helianthus annuus seed oil), hydrogenated palm glycerides citrate, hydroxypropyl guar hydroxypropyltrimonium chloride, peg-7 glyceryl cocoate, phenoxyethanol, sodium benzoate, sodium chloride, sodium hydroxide, styrene/acrylates copolymer, theobroma grandiflorum seed butter.',
     url: 'https://www.atida.fr/klorane-beurre-de-cupuacu-creme-douche-nutritive-feuille-de-frangipanier-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-cupuacu-creme-douche-nutritive-feuille-de-frangipanier-200ml-275231.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-cupuacu-creme-douche-nutritive-feuille-de-frangipanier-200ml-275231.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2755,7 +2863,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), sodium laureth sulfate, lauryl betaine, coco-glucoside, glyceryl oleate, acrylates copolymer, decyl glucoside, benzoic acid, caramel, ceteareth-60 myristyl glycol, citric acid, fragrance (parfum), helianthus annuus (sunflower) seed oil (helianthus annuus seed oil), hydrogenated palm glycerides citrate, hydroxypropyl guar hydroxypropyltrimonium chloride, peg-7 glyceryl cocoate, phenoxyethanol, sodium benzoate, sodium chloride, sodium hydroxide, styrene/acrylates copolymer, theobroma grandiflorum seed butter.',
     url: 'https://www.atida.fr/klorane-beurre-de-cupuacu-creme-de-douche-nutritive-fleur-de-cupuacu-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-cupuacu-creme-de-douche-nutritive-fleur-de-cupuacu-200ml-275230.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-cupuacu-creme-de-douche-nutritive-fleur-de-cupuacu-200ml-275230.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2782,7 +2891,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Water (aqua)*. disodium laureth sulfosuccinate. decyl glucoside*. lauryl betaine. ceteareth-60 myristyl glycol. lactic acid*. laureth-3. glyceryl laurate*. pentylene glycol*. citrus medica vulgaris fruit extract*. fragrance (parfum). glutamic acid*. glycerin*. hexyl cinnamal. limonene. maleic acid. sodium benzoate. sodium chloride. sodium hydroxide*. trisodium ethylenediamine disuccinate. yellow 5 (ci 19140).',
     url: 'https://www.atida.fr/klorane-shampooing-a-la-pulpe-de-cedrat-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-shampooing-a-la-pulpe-de-cedrat-100ml-304919.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-shampooing-a-la-pulpe-de-cedrat-100ml-304919.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2808,7 +2918,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua)*, cetyl alcohol*, ethylhexyl palmitate*, behenamidopropyl dimethylamine*, dicaprylyl carbonate*, cetearyl alcohol*, 1,2-hexanediol, avena sativa (oat) leaf/stem extract (avena sativa leaf/stem extract)*, benzoic acid, cetearyl glucoside*, fragrance (parfum), lactic acid*, sclerotium gum, tocopherol*.',
     url: 'https://www.atida.fr/klorane-avoine-baume-apres-shampoing-extra-doux-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-avoine-baume-apres-shampoing-extra-doux-200ml-275266.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-avoine-baume-apres-shampoing-extra-doux-200ml-275266.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -2834,7 +2945,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Water (aqua)*. disodium laureth sulfosuccinate. decyl glucoside*. lauryl betaine. ceteareth-60 myristyl glycol. lactic acid*. laureth-3. glyceryl laurate*. pentylene glycol*. citrus medica vulgaris fruit extract*. fragrance (parfum). glutamic acid*. glycerin*. hexyl cinnamal. limonene. maleic acid. sodium benzoate. sodium chloride. sodium hydroxide*. trisodium ethylenediamine disuccinate. yellow 5 (ci 19140).',
     url: 'https://www.atida.fr/klorane-shampooing-a-la-pulpe-de-cedrat-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-pulpe-de-cedrat-shampooing-purifiant-legerete-200ml-289748.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-pulpe-de-cedrat-shampooing-purifiant-legerete-200ml-289748.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2860,7 +2972,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Ingrédients : Water (aqua)*, alcohol*, glycerin*, cinchona succirubra bark extract*, leontopodium alpinum flower/leaf extract*, manganese pca*, caffeine, biotin, niacinamide, pantolactone, menthol, citric acid*, diethyl phthalate, fragrance (parfum), limonene. panthenol, peg-40 hydrogenated castor oil, potassium sorbate, ppg-26-buteth-26, pyridoxine hcl, sodium benzoate.*98% d'ingrédients d'origine naturelle.",
     url: 'https://www.atida.fr/klorane-serum-anti-chute-quinine-edelweiss-bio-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-quinine-serum-antichute-100ml-299620.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-quinine-serum-antichute-100ml-299620.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2887,7 +3000,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "WATER (AQUA)*. DISODIUM LAURETH SULFOSUCCINATE. PEG-120 METHYL GLUCOSE DIOLEATE. LAURYL BETAINE. LAURETH-3. MALEIC ACID. PEG-40 HYDROGENATED CASTOR OIL. CINCHONA SUCCIRUBRA BARK EXTRACT*. LEONTOPODIUM ALPINUM FLOWER/LEAF EXTRACT*. CAFFEINE. BIOTIN. NIACINAMIDE. PANTHENOL. ALCOHOL*. BLUE 1 (CI 42090). CAPRYLYL GLYCOL. CITRIC ACID*. FRAGRANCE (PARFUM). GLYCERIN*. GREEN 3 (CI 42053). PANTOLACTONE. POLYQUATERNIUM-22. POTASSIUM SORBATE. PYRIDOXINE HCL. RED 33 (CI 17200). SODIUM BENZOATE. SODIUM CHLORIDE. TOCOPHEROL. YELLOW 6 (CI 15985)Fabriqué en France.Formule végan, biodégradable, sans tensioactifs.Edelweiss Bio : Reconnues pour sa capacité à résister en conditions extrêmes, cette jolie fleur blanche et velue a un fort pouvoir antioxydant et une action inédite prouvée sur la croissance des cheveux.Quinine : Le Quinquina, arbre originaire d'Amérique du Sud est traditionnellement utilisé comme fortifiant et tonifiant. Son écorce est naturellement riche en Quinine, molécule aux puissantes propriétés stimulantes et concentrée dans un extrait aux propriétés antichute brevetées.80% d'ingrédients d'origine naturelle.\nEmballage comportant au moins 86% de matières recyclés.Emballage majoritairement recyclable\nIl est recommandé au consommateur de vérifier systématiquement la composition du produit avant son achat.",
     url: 'https://www.atida.fr/klorane-quinine-edelweiss-shampoing-fortifiant-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-quinine-edelweiss-shampoing-fortifiant-400ml-275208.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-quinine-edelweiss-shampoing-fortifiant-400ml-275208.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2916,7 +3030,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA)*. DISODIUM LAURETH SULFOSUCCINATE. PEG-120 METHYL GLUCOSE DIOLEATE. LAURYL BETAINE. LAURETH-3. MALEIC ACID. PEG-40 HYDROGENATED CASTOR OIL. CINCHONA SUCCIRUBRA BARK EXTRACT*. LEONTOPODIUM ALPINUM FLOWER/LEAF EXTRACT*. CAFFEINE. BIOTIN. NIACINAMIDE. PANTHENOL. ALCOHOL*. BLUE 1 (CI 42090). CAPRYLYL GLYCOL. CITRIC ACID*. FRAGRANCE (PARFUM). GLYCERIN*. GREEN 3 (CI 42053). PANTOLACTONE. POLYQUATERNIUM-22. POTASSIUM SORBATE. PYRIDOXINE HCL. RED 33 (CI 17200). SODIUM BENZOATE. SODIUM CHLORIDE. TOCOPHEROL. YELLOW 6 (CI 15985)v',
     url: 'https://www.atida.fr/klorane-quinine-edelweiss-shampoing-fortifiant-lot-de-2-x-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-quinine-edelweiss-shampoing-fortifiant-lot-de-2-x-400ml-300144.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-quinine-edelweiss-shampoing-fortifiant-lot-de-2-x-400ml-300144.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2945,7 +3060,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA)*. DISODIUM LAURETH SULFOSUCCINATE. DECYL GLUCOSIDE*. CETEARETH-60 MYRISTYL GLYCOL. LAURYL BETAINE. LAURETH-3. PROPYLENE GLYCOL*. PAEONIA LACTIFLORA ROOT EXTRACT*. CAPRYLYL GLYCOL. CITRIC ACID*. FRAGRANCE (PARFUM). MALEIC ACID. POLYQUATERNIUM-22. RED 33 (CI 17200). SODIUM BENZOATE. SODIUM CHLORIDE. TRISODIUM ETHYLENEDIAMINE DISUCCINATE',
     url: 'https://www.atida.fr/klorane-pivoine-shampoing-apaisant-cuir-chevelu-sensible-lot-de-2-x-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-pivoine-shampoing-apaisant-cuir-chevelu-sensible-lot-de-2-x-400ml-300251.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-pivoine-shampoing-apaisant-cuir-chevelu-sensible-lot-de-2-x-400ml-300251.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2966,7 +3082,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua)*, disodium laureth sulfosuccinate, decyl glucoside*, ceteareth-60 myristyl glycol, lauryl betaine, laureth-3, propylene glycol*, paeonia lactiflora root extract*, caprylyl glycol, citric acid*, fragrance (parfum), maleic acid, polyquaternium-22, red 33 (ci 17200), sodium benzoate, sodium chloride, trisodium ethylenediamine disuccinate.',
     url: 'https://www.atida.fr/klorane-pivoine-shampoing-apaisant-cuir-chevelu-sensible-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-pivoine-shampoing-apaisant-cuir-chevelu-sensible-400ml-275258.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-pivoine-shampoing-apaisant-cuir-chevelu-sensible-400ml-275258.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -2987,7 +3104,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua)*, decyl glucoside*, sodium cocoyl isethionate, disodium laureth sulfosuccinate, glycerin*, disodium cocoamphodiacetate, acrylates copolymer, avena sativa (oat) leaf/stem extract (avena sativa leaf/stem extract)*, caprylyl glycol, ceteareth-60 myristyl glycol, citric acid*, coco-glucoside*, coconut acid*, fragrance (parfum), glyceryl oleate*, glycol stearate*, hydrogenated vegetable glycerides citrate*, laureth-3, maleic acid, polyquaternium-22, sodium benzoate, sodium chloride, sodium hydroxide*, tocopherol, trisodium ethylenediamine disuccinate.',
     url: 'https://www.atida.fr/klorane-avoine-shampoing-extra-doux-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-avoine-shampoing-extra-doux-400ml-275268.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-avoine-shampoing-extra-doux-400ml-275268.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -3016,7 +3134,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/klorane-avoine-shampoing-extra-doux-lot-de-2-x-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-avoine-shampoing-extra-doux-lot-de-2-x-400ml-299930.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-avoine-shampoing-extra-doux-lot-de-2-x-400ml-299930.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -3037,7 +3156,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/klorane-duo-spray-shampoing-sec-a-l-ortie-cheveux-gras-lot-de-2-x-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-duo-spray-shampoing-sec-a-l-ortie-cheveux-gras-lot-de-2-x-150ml-300441.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-duo-spray-shampoing-sec-a-l-ortie-cheveux-gras-lot-de-2-x-150ml-300441.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -3058,7 +3178,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Ingrédients : Water (aqua)*, hydroxypropyl starch phosphate, cetearyl alcohol, behenamidopropyl dimethylamine*, glycerin*, coco-caprylate/caprate*, 1,2-hexanediol, cinchona succirubra bark extract*, leontopodium alpinum flower/leaf extract*, caffeine, biotin niacinamide, panthenol, helianthus annuus (sunflower) seed oil (helianthus annuus seed oil)*, alcohol*, benzoic acid, ceteareth-33, citric acid*, fragrance (parfum), lactic acid*, pantolactone, potassium sorbate, pyridoxine hcl, sodium benzoate, tocopherol*, trisodium ethylenediamine disuccinate.*ingrédients d'origine naturelle.",
     url: 'https://www.atida.fr/klorane-quinine-edelweiss-apres-shampoing-fortifiant-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-quinine-edelweiss-apres-shampoing-fortifiant-200ml-275211.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-quinine-edelweiss-apres-shampoing-fortifiant-200ml-275211.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -3088,7 +3209,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Extrait de Cédrat. provitamine B5. polymère démêlant cationique. base émulsionnante douce. pH acide (AHA). Parfum. Sans conservateur.',
     url: 'https://www.atida.fr/klorane-shampooing-a-la-pulpe-de-cedrat-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-cedrat-shampoing-purifiant-legerete-400ml-289749.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-cedrat-shampoing-purifiant-legerete-400ml-289749.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -3111,7 +3233,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Water (aqua), sodium laureth sulfate, propylene glycol, sodium cocoamphoacetate, sodium laureth-8 sulfate, ascorbyl palmitate, ceteareth-60 myristyl glycol, chamomilla recutita (matricaria) flower extract (chamomilla recutita flower extract), citric acid. coco-glucoside, fragrance (parfum), glyceryl oleate, hydrogenated palm glycerides citrate, hydroxypropyl guar hydroxypropyltrimonium chloride, lecithin, magnesium laureth sulfate, magnesium laureth-8 sulfate, magnesium oleth sulfate, peg-120 methyl glucose dioleate, salicylic acid, sodium benzoate, sodium chloride, sodium oleth sulfate, tetrasodium edta, tocopherol, trisodium ethylenediamine disuccinate.',
     url: 'https://www.atida.fr/klorane-camomille-shampooing-illuminateur-cheveux-blonds-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-camomille-shampooing-illuminateur-cheveux-blonds-400ml-275309.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-camomille-shampooing-illuminateur-cheveux-blonds-400ml-275309.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -3138,7 +3261,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/klorane-routine-antichute-in-out-3-mois-a-la-quinine-a-l-edelweiss-bio.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-routine-antichute-in-out-3-mois-a-la-quinine-a-l-edelweiss-bio-300268.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-routine-antichute-in-out-3-mois-a-la-quinine-a-l-edelweiss-bio-300268.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -3159,7 +3283,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water ( aqua) , ethylhexyl palmitate, cetyl alcohol, dicaprylyl carbonate,behentrimonium chloride, propylene glycol, cetearyl alcohol, cetearyl glucoside, fragrance (parfum), geraniol, glyceryl stearate, guar hydroxypropyltrimonium chloride, isopropyl alcohol; linalool, mangifera indica (mango) seed butter (mangifera indica seed butter), peg-100 stearate, phenoxyethanol, salicylic acid, sodium hydroxide, sorbic acid, tocopherol, yellow 5 (ci 19140), yellow 6 (ci 15985).',
     url: 'https://www.atida.fr/klorane-beurre-de-mangue-baume-apres-shampoing-nutrition-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-mangue-baume-apres-shampoing-nutrition-200ml-299617.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-mangue-baume-apres-shampoing-nutrition-200ml-299617.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -3188,7 +3313,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/klorane-duo-spray-shampoing-sec-extra-doux-a-l-avoine-ceramide-lot-de-2-x-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-duo-spray-shampoing-sec-extra-doux-a-l-avoine-ceramide-lot-de-2-x-150ml-300482.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-duo-spray-shampoing-sec-extra-doux-a-l-avoine-ceramide-lot-de-2-x-150ml-300482.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -3209,7 +3335,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua)*, disodium laureth sulfosuccinate, ceteareth-60 myristyl glycol, decyl glucoside*, lauryl betaine, laureth-3, punica granatum extract*, alcohol*, caprylyl glycol, citric acid*, fragrance (parfum), maleic acid, polyquaternium-22, red 33 (ci 17200), red 40 (ci 16035), sodium benzoate, sodium chloride, trisodium ethylenediamine disuccinate, yellow 6 (ci 15985).*Ingrédients d’origine naturelle.',
     url: 'https://www.atida.fr/klorane-grenade-shampooing-eclat-cheveux-colores-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-grenade-shampoing-eclat-cheveux-colores-400ml-275225.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-grenade-shampoing-eclat-cheveux-colores-400ml-275225.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -3234,7 +3361,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua)*, pentylene glycol*, hydroxypropyl starch phosphate, glycerin*, betaine*, behenamidopropyl dimethylamine*, propylene glycol*, paeonia lactiflora root extract*, fragrance (parfum), lactic acid*, sclerotium gum, trisodium ethylenediamine disuccinate.',
     url: 'https://www.atida.fr/klorane-pivoine-apres-shampoing-apaisant-cuir-chevelu-sensible-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-pivoine-apres-shampoing-apaisant-cuir-chevelu-sensible-150ml-275270.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-pivoine-apres-shampoing-apaisant-cuir-chevelu-sensible-150ml-275270.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -3260,7 +3388,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA)*. GLYCOL PALMITATE*. CAPRYLIC/CAPRIC TRIGLYCERIDE*. COCOS NUCIFERA (COCONUT) OIL (COCOS NUCIFERA OIL)*. BEHENAMIDOPROPYL DIMETHYLAMINE*. CETEARYL ALCOHOL*. BEHENYL ALCOHOL*. BETAINE*. GLYCERIN*. DICAPRYLYL CARBONATE*. THEOBROMA GRANDIFLORUM SEED BUTTER*. 1,2-HEXANEDIOL. BENZOIC ACID. CARAMEL*. CETEARYL GLUCOSIDE*. FRAGRANCE (PARFUM). GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE. HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL)*. LACTIC ACID*. TOCOPHEROL*',
     url: 'https://www.atida.fr/klorane-beurre-de-cupuacu-apres-shampoing-reparation-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-reparation-apres-shampoing-200ml-275250.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-reparation-apres-shampoing-200ml-275250.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -3290,7 +3419,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Butane, propane, oryza sativa (rice) starch (oryza sativa starch), isobutane, sd alcohol 39-c (alcohol denat.), aluminum starch octenylsuccinate, cetrimonium chloride, cyclodextrin, cyclohexasiloxane, cyclopentasiloxane, fragrance (parfum), isopropyl myristate, polysorbate 20, propylene glycol, silica, urtica dioica (nettle) root extract (urtica dioica root extract), water (aqua).',
     url: 'https://www.atida.fr/klorane-shampooing-sec-ortie-spray-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-ortie-shampoing-sec-sebo-regulateur-cheveux-gras-150ml-299657.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-ortie-shampoing-sec-sebo-regulateur-cheveux-gras-150ml-299657.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -3311,7 +3441,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA)*. DECYL GLUCOSIDE*. SODIUM COCOYL ISETHIONATE. DISODIUM LAURETH SULFOSUCCINATE. GLYCERIN*. DISODIUM COCOAMPHODIACETATE. POLYQUATERNIUM-22. ACRYLATES COPOLYMER. PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL (PRUNUS AMYGDALUS DULCIS OIL)*. CAPRYLYL GLYCOL. CARAMEL*. CETEARETH-60 MYRISTYL GLYCOL. CITRIC ACID*. COCO-GLUCOSIDE*. COCONUT ACID*. FRAGRANCE (PARFUM). GLYCERYL OLEATE*. GLYCOL STEARATE*. GREEN 3 (CI 42053). HYDROGENATED VEGETABLE GLYCERIDES CITRATE*. LAURETH-3. MALEIC ACID. SODIUM BENZOATE. SODIUM CHLORIDE. SODIUM GLYCOLATE. SODIUM HYDROXIDE*. TOCOPHEROL. TRISODIUM ETHYLENEDIAMINE DISUCCINATE',
     url: 'https://www.atida.fr/klorane-shampoing-gainant-a-l-amande-tous-types-de-cheveux-400-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-shampoing-gainant-a-l-amande-tous-types-de-cheveux-400-ml-275326.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-shampoing-gainant-a-l-amande-tous-types-de-cheveux-400-ml-275326.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -3341,7 +3472,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/klorane-duo-spray-shampoing-sec-a-l-ortie-teinte-cheveux-gras-chatains-a-bruns-lot-de-2-x-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-duo-spray-shampoing-sec-a-l-ortie-teinte-cheveux-gras-chatains-a-bruns-lot-de-2-x-150ml-300462.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-duo-spray-shampoing-sec-a-l-ortie-teinte-cheveux-gras-chatains-a-bruns-lot-de-2-x-150ml-300462.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -3362,7 +3494,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA)*. CETYL ALCOHOL*. ETHYLHEXYL PALMITATE*. BEHENAMIDOPROPYL DIMETHYLAMINE*. DICAPRYLYL CARBONATE*. CETEARYL ALCOHOL*. 1,2-HEXANEDIOL. OPUNTIA FICUS-INDICA STEM EXTRACT*. BENZOIC ACID. CETEARYL GLUCOSIDE*. DISODIUM PHOSPHATE. FRAGRANCE (PARFUM). GLYCERIN*. GLYCINE SOJA (SOYBEAN) OIL (GLYCINE SOJA OIL)*. LACTIC ACID*. RED 33 (CI 17200). SCLEROTIUM GUM. TOCOPHEROL*',
     url: 'https://www.atida.fr/klorane-figuier-de-barbarie-masque-repulpant-72h-hydratation-brillance-250ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-figuier-de-barbarie-masque-repulpant-72h-hydratation-brillance-250ml-275651.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-figuier-de-barbarie-masque-repulpant-72h-hydratation-brillance-250ml-275651.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -3389,7 +3522,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Water (aqua), cetearyl alcohol, ethylhexyl palmitate, dicaprylyl carbonate, behenamidopropyl dimethylamine, Theobroma grandiflorum seed butter, 1,2-hexanediol, tocopheryl acetate, sodium hyaluronate, alpha-isomethyl ionone, benzoic acid, cetearyl glucoside, citral, citronellol, coumarin, fragrance (parfum), geraniol, Glyc. soja (soybean) oil (glyc. soja oil), Helianthus annuus (sunflower) seed oil (Helianthus annuus seed oil), lactic acid, limonene, polyquaternium-39, sodium benzoate, tocopherol.',
     url: 'https://www.atida.fr/klorane-beurre-de-cupuacu-cica-serum-reparateur-cheveux-a-l-acide-hyaluronique-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-cupuacu-cica-serum-reparateur-100ml-275334.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-cupuacu-cica-serum-reparateur-100ml-275334.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -3415,7 +3549,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA)*. LAURYL GLUCOSIDE*. SODIUM COCOYL ALANINATE*. COCO-BETAINE. OPUNTIA FICUS-INDICA STEM EXTRACT*. CITRIC ACID*. DISODIUM PHOSPHATE. EXT. VIOLET 2 (CI 60730). FRAGRANCE (PARFUM). GLYCERIN*. HYDROXYPROPYL GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE. RED 33 (CI 17200). RED 40 (CI 16035). SODIUM BENZOATE',
     url: 'https://www.atida.fr/klorane-figuier-de-barbarie-shampooing-desalterant-72h-hydratation-brillance-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-figuier-de-barbarie-shampooing-desalterant-72h-hydratation-brillance-400ml-275649.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-figuier-de-barbarie-shampooing-desalterant-72h-hydratation-brillance-400ml-275649.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -3441,7 +3576,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Butane, propane, oryza sativa (rice) starch (oryza sativa starch), isobutane, alcohol (alcohol denat.), aluminum starch octenyl succinate, avena sativa (oat), kernel oil (avena sativa kernel oil), benzyl salicylate, cetrimonium chloride, cyclodextrin, fragrance (parfum), hexyl cinnamal, isopropyl myristate, limonene, silica.',
     url: 'https://www.atida.fr/klorane-shampooing-sec-avoine-rotopoudre-50g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-lait-d-avoine-shampoing-sec-extra-doux-50g-276170.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-lait-d-avoine-shampoing-sec-extra-doux-50g-276170.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -3462,7 +3598,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/klorane-duo-spray-shampoing-sec-teinte-extra-doux-avoine-ceramide-cheveux-chatains-a-bruns-lot-de-2-x-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-duo-spray-shampoing-sec-teinte-extra-doux-avoine-ceramide-cheveux-chatains-a-bruns-lot-de-2-x-150ml-300239.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-duo-spray-shampoing-sec-teinte-extra-doux-avoine-ceramide-cheveux-chatains-a-bruns-lot-de-2-x-150ml-300239.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -3483,7 +3620,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "WATER (AQUA)*. ERYTHRITOL*. BEHENYL ALCOHOL*.\n1,2-HEXANEDIOL. CAPRYLIC/CAPRIC TRIGLYCERIDE*. OPUNTIA FICUS-INDICA\nSTEM EXTRACT*. SODIUM HYALURONATE*. BENZOIC ACID. CITRIC ACID*.\nDISODIUM PHOSPHATE. FRAGRANCE (PARFUM). GLYCERIN*. HYDROGENATED\nLECITHIN*. SODIUM STEAROYL GLUTAMATE*. XANTHAN GUM*99% d'ingrédients d'origine naturelleFiguier de Barbarie :Plus hydratant\nque la glycérine, nous avons sélectionné le Figuier de barbarie,\nOpuntia ficus indica, pour ses propriétés médicinales uniques.\nCultivé au Mexique, le Figuier de Barbarie attire, stocke et retient\nl’eau au cœur de la fibre capillaire, pour maintenir un niveau\nd’hydratation optimale sans alourdir. Il aide à sceller les\nécailles du cheveu pour redonner brillance.Emballage comportant au moins 34% de matières recycléesEmballage non\nrecyclableIl est recommandé au consommateur de vérifier systématiquement la\ncomposition du produit avant son achat.",
     url: 'https://www.atida.fr/klorane-figuier-de-barbarie-serum-ultra-desalterant-72h-hydratation-brillance-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-figuier-de-barbarie-serum-ultra-desalterant-72h-hydratation-brillance-100ml-275650.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-figuier-de-barbarie-serum-ultra-desalterant-72h-hydratation-brillance-100ml-275650.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -3508,7 +3646,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua)*, disodium laureth sulfosuccinate, decyl glucoside*, ceteareth-60 myristyl glycol, lauryl betaine, laureth-3, propylene glycol*, paeonia lactiflora root extract*, caprylyl glycol, citric acid*, fragrance (parfum), maleic acid, polyquaternium-22, red 33 (ci 17200), sodium benzoate, sodium chloride, trisodium ethylenediamine disuccinate.',
     url: 'https://www.atida.fr/klorane-pivoine-shampoing-apaisant-cuir-chevelu-sensible-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-pivoine-shampoing-apaisant-cuir-chevelu-sensible-200ml-275257.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-pivoine-shampoing-apaisant-cuir-chevelu-sensible-200ml-275257.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -3529,7 +3668,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'BUTANE. PROPANE. ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH)*. ISOBUTANE. ALCOHOL*. ZEA MAYS (CORN) STARCH (ZEA MAYS STARCH)*. AVENA SATIVA (OAT) SPROUT OIL (AVENA SATIVA SPROUT OIL)*. SODIUM DILAURAMIDOGLUTAMIDE LYSINE*. BUTYLENE GLYCOL*. CELLULOSE*. CYCLODEXTRIN*. FRAGRANCE (PARFUM). ISOPROPYL MYRISTATE*. MAGNESIUM STEARATE*. MICROCRYSTALLINE CELLULOSE*. WATER (AQUA)*',
     url: 'https://www.atida.fr/klorane-avoine-ceramide-shampoing-sec-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-avoine-ceramide-shampoing-sec-150ml-275604.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-avoine-ceramide-shampoing-sec-150ml-275604.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -3550,7 +3690,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA)*. SODIUM LAURETH SULFATE. COCAMIDOPROPYL BETAINE. SODIUM CHLORIDE*. COCO-GLUCOSIDE*. PENTYLENE GLYCOL*. ALPINIA GALANGA RHIZOME EXTRACT*. CITRIC ACID*. FRAGRANCE (PARFUM). GLYCERYL OLEATE*. GREEN 3 (CI 42053). HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL)*. HYDROGENATED VEGETABLE GLYCERIDES CITRATE*. LINALYL ACETATE. OLETH-10. POLYQUATERNIUM-22. SODIUM BENZOATE. TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES. TOCOPHEROL. TRISODIUM ETHYLENEDIAMINE DISUCCINATE',
     url: 'https://www.atida.fr/klorane-shampoing-reequilibrant-antipelliculaire-au-galanga-pellicules-libres-400-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-galanga-antipelliculaire-shampoing-traitant-et-reequilibrant-400ml-301462.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-galanga-antipelliculaire-shampoing-traitant-et-reequilibrant-400ml-301462.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -3578,7 +3719,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'BUTANE. PROPANE. ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH)*. ALCOHOL*. ISOBUTANE. ZEA MAYS (CORN) STARCH (ZEA MAYS STARCH)*. CELLULOSE*. CYCLODEXTRIN*. FRAGRANCE (PARFUM). IRON OXIDES (CI 77491,CI 77492,CI 77499)*. ISOPROPYL MYRISTATE*. LINUM USITATISSIMUM (LINSEED) SEED EXTRACT (LINUM USITATISSIMUM SEED EXTRACT)*. MAGNESIUM STEARATE*. MICROCRYSTALLINE CELLULOSE*. PROPYLENE GLYCOL*. WATER (AQUA)*',
     url: 'https://www.atida.fr/klorane-lin-shampooing-sec-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-shampoing-sec-volume-cheveux-fins-sans-volume-150-ml-275298.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-shampoing-sec-volume-cheveux-fins-sans-volume-150-ml-275298.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],

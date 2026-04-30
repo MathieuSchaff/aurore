@@ -32,7 +32,8 @@ export const ARTHRODONT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Water (aqua), calcium carbonate, glycerin, sodium lauryl sulfate, algin, carrageenan, cetylpyridiniuim chloride eugenol, flavor (aroma), glycyrrhetinic acid, illicium verum.',
     url: 'https://www.atida.fr/arthrodont-classic-pate-dentifrice-lot-de-2-x-75ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/arthrodont-classic-pate-dentifrice-lot-de-2-x-75ml-248052.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/arthrodont-classic-pate-dentifrice-lot-de-2-x-75ml-248052.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -53,7 +54,8 @@ export const ARTHRODONT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Hydrogenated starch hydrolysate, water (aqua), hydrated silica, sodium lauryl sulfate, blue 1 (ci 42090), cellulose gum, flavor (aroma), glycyrrhetinic acid, peg-12 allyl ether, peg-12 dimethicone, sodium carbonate, sodium propionate, sodium saccharin, yellow 5 (ci 19140).',
     url: 'https://www.atida.fr/arthrodont-protect-dentifrice-gel-fluore-lot-de-2-x-75ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/arthrodont-protect-dentifrice-gel-fluore-lot-de-2-x-75ml-288790.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/arthrodont-protect-dentifrice-gel-fluore-lot-de-2-x-75ml-288790.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -74,7 +76,8 @@ export const ARTHRODONT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua. glycerin. alcohol. PEG 60.hydrogenated castor oil. dipotassium glycyrrhizinate. laureth-9. mentha piperita. formaldehyde. illicium verum. menthol. eugenol. limonene. aroma CL42051.',
     url: 'https://www.atida.fr/arthrodont-solution-bain-de-bouche-300ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/arthrodont-solution-bain-de-bouche-300ml-265218.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/arthrodont-solution-bain-de-bouche-300ml-265218.webp',
     tags: {
       primary: [TAG_SLUGS.BAIN_DE_BOUCHE],
       secondary: [],

@@ -15,7 +15,8 @@ export const MKL_GREEN_NATURE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, coco-glucoside, sodium coco-sulfate, coco-betaine, donkey milk*, aloe barbadensis leaf juice powder*, argan oil polyglyceryl-6 esters**, glycerin, glyceryl oleate, parfum, citric acid, sodium benzoate, sodium gluconate, potassium sorbate.',
     url: 'https://www.atida.fr/mkl-green-nature-gel-douche-surgras-lait-d-anesse-bio-1l.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mkl-green-nature-gel-douche-surgras-lait-d-anesse-bio-1l-270691.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/mkl-green-nature-gel-douche-surgras-lait-d-anesse-bio-1l-270691.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
@@ -36,7 +37,8 @@ export const MKL_GREEN_NATURE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), Sodium laureth sulfate, Cocamide dea, Cocamidopropyl, Betaine, Glycerin, Hydrolized wheat protein, Polyquaternium-22, Tocopherol, Gardenia tahitensis flower extract, Sodium chloride, Parfum (fragrance), Benzyl alcohol, Sodium benzoate, Cocos nucifera (coconut) oil, Potassium sorbate, Citric acid, Benzophenone-4, Benzyl salicylate, Geraniol, Linalool, ci 19140, ci 15985.',
     url: 'https://www.atida.fr/mkl-green-nature-gel-douche-monoi-de-tahiti-1l.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mkl-green-nature-cosm-ethik-gel-douche-monoi-de-tahiti-1l-270623.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/mkl-green-nature-cosm-ethik-gel-douche-monoi-de-tahiti-1l-270623.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -62,7 +64,8 @@ export const MKL_GREEN_NATURE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Aqua (eau), laureth sulfate de sodium, glycérine, cocamide dea, chlorure de sodium, poudre de jus de feuilles d'aloe barbadensis*, protéine de riz hydrolysée, cocamidopropyl bétaïne, parfum (parfum), benzoate de sodium, sorbate de potassium, diacétate de glutamate tétrasodique, acide citrique, coco -glucoside, oléate de glycéryle, tocophérol, CI 19140 (jaune 5), CI 17200 (laque rouge 33), CI 42090 (bleu 1), hexyl cinnamal, linalol.",
     url: 'https://www.atida.fr/mkl-green-nature-gel-douche-aloe-vera-du-mexique-1l.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mkl-green-nature-cosm-ethik-gel-douche-aloe-vera-du-mexique-1l-270621.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/mkl-green-nature-cosm-ethik-gel-douche-aloe-vera-du-mexique-1l-270621.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
@@ -83,7 +86,8 @@ export const MKL_GREEN_NATURE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/mkl-green-nature-aqua-huile-de-douche-dermo-apaisante-bio-1l.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mkl-green-nature-aqua-huile-de-douche-dermo-apaisante-bio-1l-270791.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/mkl-green-nature-aqua-huile-de-douche-dermo-apaisante-bio-1l-270791.webp',
     tags: {
       primary: [],
       secondary: [TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],

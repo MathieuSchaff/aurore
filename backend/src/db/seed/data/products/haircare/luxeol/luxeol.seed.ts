@@ -43,7 +43,8 @@ export const LUX_OL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, Propanediol, Cocamidopropyl Betaine, Sodium Lauroyl Methyl Isethionate, Sodium Chloride, Betaine, Sodium Methyl Cocoyl Taurate, Coco-Glucoside, Ricinus Communis Seed Oil, Phyllanthus Emblica Fruit Extract, Panax Ginseng Root Extract, Biotin, Arginine, Panthenol, Glycerin, Parfum, Xanthan Gum,  Lauroyl Lysine, Citric Acid, Levulinic Acid, Maltodextrin, Limonene, Linalool, Sodium Benzoate, Sodium Levulinate.',
     url: 'https://www.atida.fr/luxeol-shampooing-croissance-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/luxeol-shampooing-croissance-200ml-237836.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/luxeol-shampooing-croissance-200ml-237836.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -76,7 +77,8 @@ export const LUX_OL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, biotin, isomalt, malus domestica fruit cell culture extract, potassium chloride, potassium glutathione isomerized linoleate, sodium dna, syringa vulgaris leaf cell extract, panthenol, sodium hyaluronate, calcium gluconate, glycerin, gluconolactone, sodium hydroxide, parfum, potassium sorbate, sodium benzoate.',
     url: 'https://www.atida.fr/luxeol-protocole-2-en-1-chute-de-cheveux-progressive-protocole-14-fioles-6ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/luxeol-traitement-antichute-progressive-3en1-14-fioles-237821.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/luxeol-traitement-antichute-progressive-3en1-14-fioles-237821.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -130,7 +132,8 @@ export const LUX_OL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, Myristyl Alcohol, Hydrolyzed Keratin, Panthenol, Parfum, Cetrimonium Chloride, Citric Acid, Gluconolactone, Calcium Gluconate, Sodium Benzoate, Citronellol, Linalool, Geraniol, Limonene.',
     url: 'https://www.atida.fr/luxeol-protocole-2-en-1-chute-de-cheveux-reactionnelle-protocole-14-fioles-7ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/luxeol-traitement-antichute-reactionnelle-3en1-14-fioles-237820.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/luxeol-traitement-antichute-reactionnelle-3en1-14-fioles-237820.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -155,7 +158,8 @@ export const LUX_OL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, Myristyl Alcohol, Hydrogenated Ethylhexyl Olivate, Oryza Sativa Starch, Cetrimonium Chloride, Ethylhexyl Palmitate, Hydrolyzed Keratin, Panthenol, Cocos Nucifera Oil, Prunus Armeniaca Fruit Extract, Prunus Persica Fruit Extract, Pyrus Malus Fruit Extract, Acetum, Triticum Vulgare Germ Oil, Hydrogenated Olive Oil Unsaponifiables, Parfum, Cetearyl Alcohol, Citric Acid, Calcium Gluconate, Polysorbate 80, Gluconolactone, Potassium Sorbate, Sodium Benzoate.',
     url: 'https://www.atida.fr/luxeol-apres-shampooing-anti-chute-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/luxeol-apres-shampoing-antichute-200ml-237817.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/luxeol-apres-shampoing-antichute-200ml-237817.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],

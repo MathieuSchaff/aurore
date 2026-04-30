@@ -15,7 +15,8 @@ export const SOW__SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Cannabis sativa seed oil* * Matière biologique première certifiée COSMOS par Ecocert Greenlife',
     url: 'https://www.atida.fr/sowe-huile-de-chanvre-pure-bio-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/sowe-huile-de-chanvre-pure-bio-50ml-245266.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/sowe-huile-de-chanvre-pure-bio-50ml-245266.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -36,7 +37,8 @@ export const SOW__SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Simmondsia chinensis seed oil* * Matière biologique première certifiée COSMOS par Ecocert Greenlife',
     url: 'https://www.atida.fr/sowe-huile-de-jojoba-pure-bio-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/sowe-huile-de-jojoba-pure-bio-50ml-245268.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/sowe-huile-de-jojoba-pure-bio-50ml-245268.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -57,7 +59,8 @@ export const SOW__SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "INCI: 100% Macadamia integrifolia seed oil*  * Issu de l'agriculture biologique et certifié Cosmos par Ecocert Greenlife SAS (F-32600)",
     url: 'https://www.atida.fr/sowe-huile-pure-de-macadamia-bio-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/sowe-huile-pure-de-macadamia-bio-50ml-245270.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/sowe-huile-pure-de-macadamia-bio-50ml-245270.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -78,7 +81,8 @@ export const SOW__SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Argania spinosa kernel oil*, opuntia ficus-indica flower extract* * Matière biologique première certifiée COSMOS par Ecocert Greenlife',
     url: 'https://www.atida.fr/sowe-huile-de-figue-de-barbarie-et-argan-bio-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/sowe-huile-de-figue-de-barbarie-et-argan-bio-50ml-245269.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/sowe-huile-de-figue-de-barbarie-et-argan-bio-50ml-245269.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],

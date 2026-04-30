@@ -25,15 +25,13 @@ const SEED_ROOT = join(import.meta.dir, '..')
 const ZONE = process.env.BUNNY_STORAGE_ZONE
 const HOSTNAME = process.env.BUNNY_STORAGE_HOSTNAME ?? 'storage.bunnycdn.com'
 const PASSWORD = process.env.BUNNY_STORAGE_PASSWORD
-const PREFIX = (process.env.BUNNY_STORAGE_PREFIX ?? 'products/').replace(/^\/+|\/+$/g, '') + '/'
+const PREFIX = `${(process.env.BUNNY_STORAGE_PREFIX ?? 'products/').replace(/^\/+|\/+$/g, '')}/`
 const SLUGS_FILE = process.env.SLUGS_FILE ?? join(SEED_ROOT, 'output', 'dedupe-dropped.json')
 const DRY_RUN = process.env.DRY_RUN === '1'
 const CONCURRENCY = Number(process.env.CONCURRENCY ?? 8)
 
 if (!DRY_RUN) {
-  const missing = ['BUNNY_STORAGE_ZONE', 'BUNNY_STORAGE_PASSWORD'].filter(
-    (k) => !process.env[k],
-  )
+  const missing = ['BUNNY_STORAGE_ZONE', 'BUNNY_STORAGE_PASSWORD'].filter((k) => !process.env[k])
   if (missing.length > 0) {
     console.error(`missing env: ${missing.join(', ')}\nuse DRY_RUN=1 to preview`)
     process.exit(1)

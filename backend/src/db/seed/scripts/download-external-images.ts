@@ -173,7 +173,9 @@ async function worker() {
 
 await Promise.all(Array.from({ length: CONCURRENCY }, () => worker()))
 
-console.log(`\ndone: ${done} downloaded, ${failed} failed in ${((Date.now() - start) / 1000).toFixed(1)}s`)
+console.log(
+  `\ndone: ${done} downloaded, ${failed} failed in ${((Date.now() - start) / 1000).toFixed(1)}s`
+)
 
 if (failures.length > 0) {
   writeFileSync(FAIL_PATH, JSON.stringify(failures, null, 2))
@@ -199,6 +201,8 @@ mappingFile.summary = {
 }
 writeFileSync(MAPPING_PATH, JSON.stringify(mappingFile, null, 2))
 console.log(`mapping: +${added} entries → total ${total}`)
-console.log(`  detail=${mappingFile.summary.detail} thumb=${mappingFile.summary.thumb} atida=${mappingFile.summary.atida} skinsafe=${mappingFile.summary.skinsafe}`)
+console.log(
+  `  detail=${mappingFile.summary.detail} thumb=${mappingFile.summary.thumb} atida=${mappingFile.summary.atida} skinsafe=${mappingFile.summary.skinsafe}`
+)
 
 process.exit(failed === 0 ? 0 : 0)

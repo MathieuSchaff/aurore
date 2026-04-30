@@ -15,7 +15,8 @@ export const CB12_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, Glycerin, Hydrogenated Starch Hydrolysate, PEG-40 Hydrogenated Castor Oil, Zinc Acetate, Sodium Fluoride, Chlorhexidine Diacetate, Aroma, Arginine, Citric Acid, Potassium Acesulfame, Menthol, Mentha Piperita Oil.',
     url: 'https://www.atida.fr/cb12-haleine-fraiche-menthe-500ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cb12-bain-de-bouche-12h-d-haleine-fraiche-sans-alcool-arome-menthe-500ml-281510.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/cb12-bain-de-bouche-12h-d-haleine-fraiche-sans-alcool-arome-menthe-500ml-281510.webp',
     tags: {
       primary: [TAG_SLUGS.BAIN_DE_BOUCHE],
       secondary: [],
@@ -42,7 +43,8 @@ export const CB12_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, Glycerin, Hydrogenated Starch Hydrolysate, PEG-40 Hydrogenated Castor Oil, Aroma, Zinc Acetate, Potassium Acesulfame, Chlorhexidine Diacetate, Citric Acid.',
     url: 'https://www.atida.fr/cb-12-spray-15ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cb12-spray-haleine-fraiche-sans-alcool-arome-menthe-15-ml-232673.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/cb12-spray-haleine-fraiche-sans-alcool-arome-menthe-15-ml-232673.webp',
     tags: {
       primary: [TAG_SLUGS.BAIN_DE_BOUCHE],
       secondary: [],
@@ -63,7 +65,8 @@ export const CB12_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Édulcorants (xylitol 38%*, sorbitol), base gomme, arômes, acétate de zinc, édulcorants (aspartame, sucralose, acésulfame K), fluorure de sodium, antioxydant (E321), colorants (E133, E132). Contient de la réglisse.',
     url: 'https://www.atida.fr/cb12-boost-10-gommes-a-macher.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cb12-boost-menthe-forte-fraicheur-instantanee-sans-sucres-10-gommes-a-macher-272852.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/cb12-boost-menthe-forte-fraicheur-instantanee-sans-sucres-10-gommes-a-macher-272852.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],

@@ -15,7 +15,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     description: 'Sérum hydratant et repulpant quotidien qui renforce la barrière cutanée.',
     inci: 'BIOSACCHARIDE GUM-1, BUTYLENE GLYCOL, CAPRYLYL GLYCOL, CARBOMER, CITRIC ACID, GLYCERIN, METHYL GLUCETH-20, PEG/PPG/POLYBUTYLENE GLYCOL-8/5/3 GLYCERIN, PHENOXYETHANOL, SODIUM HYALURONATE, WATER',
     url: 'https://www.skinsafeproducts.com/vichy-mineral-89-hydrating-face-serum-with-hyaluronic-acid',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-mineral-89-moisturizer.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-mineral-89-moisturizer.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [
@@ -47,7 +48,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       "Sérum à 15% de Vitamine C pure pour booster l'éclat et protéger la peau du stress oxydatif.",
     inci: 'ALCOHOL DENAT, WATER, ASCORBIC ACID, DIPROPYLENE GLYCOL, GLYCERIN, HYDROLYZED HYALURONIC ACID, LAURETH-23, NEOHESPERIDIN DIHYDROCHALCONE, PINUS PINASTER BARK/BUD EXTRACT, SODIUM HYDROXIDE, TOCOPHEROL',
     url: 'https://www.skinsafeproducts.com/vichy-liftactiv-vitamin-c-serum-0-67-fl-oz-20-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-liftactiv-vitamin-c-serum.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-liftactiv-vitamin-c-serum.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_AGE],
       secondary: [
@@ -83,7 +85,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     description: 'Sérum anti-âge formulé pour corriger la perte de collagène et raffermir la peau.',
     inci: 'ADENOSINE, ALCOHOL DENAT, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, WATER, BUTYLENE GLYCOL, CAPRYLYL GLYCOL, CARBOMER, CITRIC ACID, DIMETHICONE, GLYCERIN, GRIFOLA FRONDOSA FRUITING BODY EXTRACT, HYDROLYZED RICE PROTEIN, HYDROXYACETOPHENONE, HYDROXYETHYLPIPERAZINE ETHANE SULFONIC ACID, MALTODEXTRIN, NIACINAMIDE, PALMITOYL TETRAPEPTIDE-7, PALMITOYL TRIPEPTIDE-1, PARFUM, PEG-20 METHYL GLUCOSE SESQUISTEARATE, PENTYLENE GLYCOL, POLYSORBATE 20, RHAMNOSE, SH-POLYPEPTIDE-69, SILICA, SODIUM CHLORIDE, SODIUM HYALURONATE, SODIUM LACTATE, SODIUM PHOSPHATE, TETRASODIUM GLUTAMATE DIACETATE, TOCOPHEROL, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/vichy-laboratories-liftactiv-collagen-specialist-16-serum-30-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-liftactiv-collagen-specialist-serum.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-liftactiv-collagen-specialist-serum.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE],
       secondary: [
@@ -115,7 +118,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     description: 'Crème hydratante sans parfum pour peaux sèches à très sèches.',
     inci: 'ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, ALCOHOL DENAT., AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, WATER, BUTYROSPERMUM PARKII BUTTER, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CETEARYL ALCOHOL, CETEARYL GLUCOSIDE, CITRIC ACID, GLYCERIN, GLYCERYL ISOSTEARATE, ISOPROPYL PALMITATE, MANNOSE, P-ANISIC ACID, PROPANEDIOL, SODIUM HYALURONATE, SODIUM HYDROXIDE, SODIUM PCA, ZEA MAYS STARCH',
     url: 'https://www.skinsafeproducts.com/vichy-laboratories-aqualia-thermal-fragrance-free-cream-1-69-fl-oz-50-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-aqualia-thermal-fragrance-free-cream.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-aqualia-thermal-fragrance-free-cream.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [
@@ -147,7 +151,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     description: "Nettoyant quotidien à l'acide salicylique pour les peaux à tendance acnéique.",
     inci: 'BIFIDA FERMENT LYSATE, CAPRYLYL GLYCOL, COCO-BETAINE, COPPER GLUCONATE, DIPROPYLENE GLYCOL, FRAGRANCE, PEG-120 METHYL GLUCOSE DIOLEATE, PHENOXYETHANOL, PROPANEDIOL, SALICYLIC ACID, SODIUM BENZOATE, SODIUM CHLORIDE, SODIUM COCOYL GLYCINATE, SODIUM HYDROXIDE, TETRASODIUM GLUTAMATE DIACETATE, WATER, ZINC GLUCONATE',
     url: 'https://www.skinsafeproducts.com/vichy-normaderm-phytoaction-daily-deep-cleansing-gel-acne-treatment-salicylic-acid-13-52-fl-oz-400-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-normaderm-phytoaction-cleansing-gel.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-normaderm-phytoaction-cleansing-gel.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE],
       secondary: [
@@ -177,7 +182,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     description: 'Protection solaire SPF 50 sous forme de mousse légère.',
     inci: 'AVOBENZONE, BUTYLENE GLYCOL, CAPRYLYL GLYCOL, DISODIUM EDTA, FRAGRANCE, GLYCERIN, HDI/TRIMETHYLOL HEXYLLACTONE CROSSPOLYMER, HOMOSALATE, HYDROLYZED TRITICUM MONOCOCCUM SEED EXTRACT, ISOBUTANE, OCTISALATE, OCTOCRYLENE, OCTYLDODECYL MYRISTATE, OXYBENZONE, P-ANISIC ACID, PEG-12 DIMETHICONE, PEG-8 LAURATE, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYCINNAMATE, PHENOXYETHANOL, SILICA, SODIUM HYALURONATE, STYRENE/ACRYLATES COPOLYMER, TOCOPHEROL, VITIS VINIFERA FRUIT EXTRACT, WATER, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/vichy-capital-soleil-spf-50-lightweight-foaming-lotion-4-97-oz-0',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-capital-soleil-spf50-foaming-lotion.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-capital-soleil-spf50-foaming-lotion.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
@@ -210,7 +216,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       'Sérum global anti-âge pour les peaux matures en période de péri et post-ménopause.',
     inci: 'ADENOSINE, ALCOHOL DENAT., WATER, ASCORBYL GLUCOSIDE, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLOYL SALICYLIC ACID, CASSIA ANGUSTIFOLIA SEED POLYSACCHARIDE, DICAPRYLYL ETHER, DIPROPYLENE GLYCOL, GLYCERIN, GLYCOLIC ACID, HAEMATOCOCCUS PLUVIALIS EXTRACT, HYDROXYACETOPHENONE, HYDROXYPROPYL TETRAHYDROPYRANTRIOL, ISOPROPYL ISOSTEARATE, ISOPROPYL LAUROYL SARCOSINATE, NIACINAMIDE, PARFUM, PROPYLENE GLYCOL, PRUNUS ARMENIACA KERNEL OIL, SODIUM HYDROXIDE, SQUALANE, TOCOPHEROL',
     url: 'https://www.skinsafeproducts.com/vichy-neovadiol-anti-aging-serum-meno-5-1-01-fl-oz-30-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-neovadiol-meno-5-serum.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-neovadiol-meno-5-serum.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE],
       secondary: [
@@ -242,7 +249,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     description: 'Gel nettoyant frais qui élimine les impuretés et les particules de pollution.',
     inci: 'WATER, CAPRYLYL GLYCOL, COCO-BETAINE, GLYCERIN, HYDROXYACETOPHENONE, NIACINAMIDE, PARFUM, PEG-120 METHYL GLUCOSE DIOLEATE, PROPANEDIOL, SALICYLIC ACID, SODIUM CHLORIDE, SODIUM COCOYL GLYCINATE, TOCOPHEROL, TRISODIUM ETHYLENEDIAMINE DISUCCINATE',
     url: 'https://www.skinsafeproducts.com/vichy-purete-thermale-fresh-cleansing-gel-b3-niacinamide-6-76-fl-oz-200-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-purete-thermale-cleansing-gel.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-purete-thermale-cleansing-gel.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [
@@ -272,7 +280,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     description: 'Gel-crème hydratant matifiant pour les peaux mixtes à grasses.',
     inci: 'ALCOHOL DENAT, WATER, BIOSACCHARIDE GUM-1, BUTYLENE GLYCOL, CAPRYLYL GLYCOL, CITRIC ACID, DIPOTASSIUM GLYCYRRHIZATE, GLYCERIN, GLYCERYL ISOSTEARATE, HYDROXYACETOPHENONE, MALTODEXTRIN, NIACINAMIDE, SALICYLIC ACID, SILICA, SODIUM CARBOMER, SODIUM HYALURONATE, SODIUM HYDROXIDE, SQUALANE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/vichy-mineral-89-48h-moisture-matte-sorbet-1-69-fl-oz-50-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-mineral-89-matte-sorbet.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-mineral-89-matte-sorbet.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BRILLANCE],
       secondary: [
@@ -304,7 +313,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     description: 'Soin de nuit raffermissant et anti-rides global.',
     inci: 'ADENOSINE, ASCORBYL GLUCOSIDE, BUTYROSPERMUM PARKII BUTTER, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CERA ALBA, CETYL ALCOHOL, DIMETHICONE, DIMETHICONOL, GLYCERIN, GLYCERYL STEARATE, HYDROXYETHYLPIPERAZINE ETHANE SULFONIC ACID, MAGNESIUM ASCORBYL PHOSPHATE, MYRISTYL ALCOHOL, PARFUM, PEG-40 STEARATE, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, PENTAERYTHRITYL TETRAETHYLHEXANOATE, PENTYLENE GLYCOL, PETROLATUM, PHENOXYETHANOL, POLOXAMER 338, PRUNUS ARMENIACA KERNEL OIL, RHAMNOSE, SORBITAN TRISTEARATE, STEARYL ALCOHOL, TRIETHANOLAMINE, WATER, XANTHAN GUM, ZEA MAYS STARCH',
     url: 'https://www.skinsafeproducts.com/liftactiv-night-cream',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-liftactiv-night-supreme.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-liftactiv-night-supreme.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE],
       secondary: [
@@ -335,7 +345,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     description: 'Crème hydratante riche en minéraux, vitamines B3 & E et squalane.',
     inci: 'ADENOSINE, ALCOHOL DENAT., WATER, ARACHIDYL ALCOHOL, ARACHIDYL GLUCOSIDE, BEHENYL ALCOHOL, BUTYROSPERMUM PARKII BUTTER, CAPRYLYL GLYCOL, CARBOMER, CETEARYL ISONONANOATE, CITRIC ACID, DICAPRYLYL ETHER, GLYCERIN, MANNOSE, NIACINAMIDE, PALMITIC ACID, PARFUM, PENTYLENE GLYCOL, POLYGLYCERYL-3 METHYLGLUCOSE DISTEARATE, SALICYLIC ACID, SIMMONDSIA CHINENSIS SEED OIL, SODIUM HYALURONATE, SODIUM HYDROXIDE, SODIUM PCA, SODIUM STEAROYL GLUTAMATE, SQUALANE, STEARIC ACID, STEARYL ALCOHOL, TOCOPHEROL, VITREOSCILLA FERMENT, XANTHAN GUM, ZEA MAYS STARCH',
     url: 'https://www.skinsafeproducts.com/vichy-laboratories-mineral-89-boosting-cream-vitamines-b3-e-squalane-50-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-mineral-89-boosting-cream.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-mineral-89-boosting-cream.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [
@@ -398,7 +409,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     description: 'Eau micellaire minérale pour nettoyer et démaquiller les peaux sensibles.',
     inci: 'WATER, DISODIUM EDTA, GLYCERIN, HEXYLENE GLYCOL, MYRTRIMONIUM BROMIDE, PANTHENOL, PARFUM, POLOXAMER 184, SODIUM CHLORIDE, SODIUM COCOAMPHOACETATE',
     url: 'https://www.skinsafeproducts.com/vichy-purete-thermale-mineral-micellar-water-sensitive-skin-6-76-fl-oz-200-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-purete-thermale-micellar-water.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-purete-thermale-micellar-water.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [
@@ -424,7 +436,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     description: "Sérum anti-âge puissant à l'acide hyaluronique et au rhamnose.",
     inci: 'ADENOSINE, ALCOHOL DENAT., AMMONIUM POLYACRYLDIMETHYLTAURAMIDE, BHT, BUTYLENE GLYCOL, C13-14 ISOPARAFFIN, CAPRYLOYL SALICYLIC ACID, CAPRYLYL GLYCOL, CYCLOHEXASILOXANE, DISODIUM EDTA, DIMETHICONE, GLYCERIN, LAURETH-7, OCTYLDODECANOL, PARFUM, PEG-20 METHYL GLUCOSE SESQUISTEARATE, PENTAERYTHRITYL TETRAETHYLHEXANOATE, POLOXAMER 338, POLYACRYLAMIDE, POLYMETHYLSILSESQUIOXANE, POLYSILICONE-11, RHAMNOSE, SODIUM HYALURONATE, SODIUM HYDROXIDE, WATER, TOCOPHEROL',
     url: 'https://www.skinsafeproducts.com/vichy-liftactiv-serum-10-supreme-anti-aging-serum-with-hyaluronic-acid-1-01-fl-oz',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-liftactiv-serum-10-supreme.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-liftactiv-serum-10-supreme.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE],
       secondary: [
@@ -455,7 +468,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       'Soin contour des yeux hydratant à la caféine pure pour réduire les cernes et poches.',
     inci: 'ALGAE EXTRACT, BIOSACCHARIDE GUM-1, BLUE NO. 1 (CI 42090), CAFFEINE, CITRIC ACID, DIMETHICONE, DIMETHICONE/PEG-10/15 CROSSPOLYMER, DISODIUM EDTA, GLYCERIN, P-ANISIC ACID, PHENOXYETHANOL, POLYMETHYLSILSESQUIOXANE, PROPANEDIOL, SODIUM CHLORIDE, SODIUM CITRATE, SODIUM HYALURONATE, SODIUM HYDROXIDE, WATER',
     url: 'https://www.skinsafeproducts.com/vichy-aqualia-thermal-awakening-eye-cream-with-pure-caffeine-for-dark-circles-and-puffiness-0-5-fluid-ounce',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-aqualia-thermal-eye-cream.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-aqualia-thermal-eye-cream.webp',
     tags: {
       primary: [TAG_SLUGS.CERNES_POCHES],
       secondary: [
@@ -486,7 +500,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       'Sérum exfoliant quotidien pour corriger les imperfections et lisser le grain de peau.',
     inci: 'ADENOSINE, ALCOHOL DENAT., AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, ASCORBYL GLUCOSIDE, GLYCERIN, GLYCOLIC ACID, HYDROXYETHYLPIPERAZINE ETHANE SULFONIC ACID, MENTHOL, PANTHENOL, PEG/PPG/POLYBUTYLENE GLYCOL-8/5/3 GLYCERIN, PROPANEDIOL, SALICYLIC ACID, SODIUM HYDROXIDE, SODIUM POLYACRYLATE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, VITREOSCILLA FERMENT, WATER, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/vichy-normaderm-exfoliating-serum-bha-1-01-fl-oz-30-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-normaderm-exfoliating-serum.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-normaderm-exfoliating-serum.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.GRAIN_PEAU],
       secondary: [
@@ -518,7 +533,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       'Crème de jour redensifiante et repulpante pour les peaux matures pendant la péri-ménopause.',
     inci: 'ADENOSINE, ALCOHOL DENAT, WATER, CAPRYLYL GLYCOL, CASSIA ANGUSTIFOLIA SEED POLYSACCHARIDE, CI 15985, CI 77891, DIMETHICONE, DIMETHICONE/PEG-10/15 CROSSPOLYMER, DIPROPYLENE GLYCOL, DISTEARDIMONIUM HECTORITE, GLYCERIN, HYDROGENATED POLYISOBUTENE, HYDROXYACETOPHENONE, HYDROXYETHYLPIPERAZINE ETHANE SULFONIC ACID, HYDROXYPROPYL TETRAHYDROPYRANTRIOL, NIACINAMIDE, PARFUM, PEG-10 DIMETHICONE, PROPYLENE CARBONATE, PROPYLENE GLYCOL, SILICA, SODIUM CITRATE, SODIUM HYALURONATE, SODIUM POLYACRYLATE, SYNTHETIC FLUORPHLOGOPITE, SYNTHETIC WAX, TOCOPHEROL, TRISODIUM ETHYLENEDIAMINE DISUCCINATE',
     url: 'https://www.skinsafeproducts.com/vichy-neovadiol-peri-menopause-redensifying-plumping-day-cream-1-69-fl-oz-50-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-neovadiol-peri-menopause-day-cream.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-neovadiol-peri-menopause-day-cream.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE],
       secondary: [
@@ -582,7 +598,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       'Sérum anti-rides puissant au rétinol pur pour corriger les rides profondes et le teint irrégulier.',
     inci: 'ALCOHOL DENAT, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, WATER, BUTYLENE GLYCOL, CAPRYLYL GLYCOL, CARBOMER, DICAPRYLYL CARBONATE, DICAPRYLYL ETHER, GLYCERIN, GLYCERYL ISOSTEARATE, GLYCINE SOJA OIL, HYDROLYZED RICE PROTEIN, HYDROXYACETOPHENONE, ISONONYL ISONONANOATE, PALMITOYL TETRAPEPTIDE-7, PALMITOYL TRIPEPTIDE-1, PEG-6 CAPRYLIC/CAPRIC GLYCERIDES, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, PENTYLENE GLYCOL, POLYSORBATE 20, PPG-6-DECYLTETRADECETH-30, PROPYLENE GLYCOL, RETINOL, SODIUM HYALURONATE, SODIUM HYDROXIDE, SODIUM LACTATE, TOCOPHEROL, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, VITREOSCILLA FERMENT, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/vichy-liftactiv-pure-retinol-serum-1-01-fl-oz-30-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-liftactiv-pure-retinol-serum.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-liftactiv-pure-retinol-serum.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE],
       secondary: [
@@ -614,7 +631,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'aqua/water, alcohol denat, diaminopyrimidine oxide, acrylates/beheneth-25 methacrylate copolymer, aminomethyl propanol, arginine, bht, caffeine, lactic acid, niacinamide, peg-40 hydrogenated castor oil, proctone olamine, pyridoxine hci, safflower glucoside, sodium citrate, tocopherol, parfum/fragrance.',
     url: 'https://www.atida.fr/vichy-dercos-aminexil-clinical-5-femme-21-monodoses.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-dercos-soin-anti-chute-cheveux-aminexil-clinical-5-femme-21-x-6ml-278189.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-dercos-soin-anti-chute-cheveux-aminexil-clinical-5-femme-21-x-6ml-278189.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -643,7 +661,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, alcohol denat, diaminopyrimidine oxide, acrylates/beheneth-25 methacrylate copolymer, aminomethyl propanol, arginine, bht, caffeine, lactic acid, peg-40 hydrogenated castor oil, piroctone olamine, safflower glucoside, sodium citrate, tocopherol, parfum.',
     url: 'https://www.atida.fr/vichy-dercos-aminexil-clinical-5-homme-21-monodoses.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-dercos-soin-anti-chute-cheveux-aminexil-clinical-5-homme-21-x-6ml-278188.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-dercos-soin-anti-chute-cheveux-aminexil-clinical-5-homme-21-x-6ml-278188.webp',
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -671,7 +690,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '1144628 D4 - INGREDIENTS: AQUA / WATER • SODIUM LAURETH SULFATE • GLYCOL DISTEARATE • COCO-BETAINE • GLYCERIN • DIMETHICONE • SELENIUM SULFIDE • CARBOMER • CI 47005 / ACID YELLOW 3 • CITRIC ACID • MENTHOL • 2-OLEAMIDO-1,3-OCTADECANEDIOL • PPG-5-CETETH-20 • SALICYLIC ACID • SODIUM BENZOATE • SODIUM CHLORIDE • SODIUM HYDROXIDE • TOCOPHERYL ACETATE • PARFUM / FRAGRANCE (F.I.L. C234828/1).\nLes listes d’ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d’utiliser un produit de notre marque, vous êtes invités à lire la liste d’ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle',
     url: 'https://www.atida.fr/vichy-dercos-shampooing-traitant-anti-pelliculaire-390ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-dercos-shampoing-anti-pelliculaire-ds-cheveux-normaux-a-gras-390ml-276091.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-dercos-shampoing-anti-pelliculaire-ds-cheveux-normaux-a-gras-390ml-276091.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -699,7 +719,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua / water, sodium laureth sulfate, urea, sodium cocoamphoacetate, peg-200 hydrogenated glyceryl palmate, glycol distearate, glycerin, salicylic acid, sodium laureth-8 sulfate, glycine, piroctone olamine, hexylene glycol, alcohol denat., carbomer, chlorphenesin, citric acid, coco-betaine, hydroxypropyl guar hydroxypropyltrimonium chloride, magnesium laureth sulfate, magnesium laureth-8 sulfate, magnesium oleth sulfate, peg-55 propylene glycol oleate, peg-7 glyceryl cocoate, phenoxyethanol, polyquaternium-30, propylene glycol, sodium chloride, sodium hydroxide, sodium lactate, sodium oleth sulfate, parfum / fragrance (f.i.l. c234573/1).',
     url: 'https://www.atida.fr/dercos-technique-anti-pelliculaire-pso-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-dercos-shampoing-traitant-keratoreducteur-psolution-200ml-278454.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-dercos-shampoing-traitant-keratoreducteur-psolution-200ml-278454.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION],
       secondary: [
@@ -727,7 +748,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua / water / eau , sodium laureth sulfate , citric acid , sodium cocoamphoacetate , hexylene glycol , ammonium hydroxide , glycol distearate , carbomer , coco-betaine , diaminopyrimidine oxide , niacinamide , peg-55 propylene glycol oleate , polyquaternium-10 , propylene glycol , salicylic acid , sodium benzoate , sodium chloride , sodium hydroxide , tocopherol , parfum / fragrance (f.i.l. n295635/1).',
     url: 'https://www.atida.fr/vichy-dercos-shampooing-complement-anti-chute-energisant-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-dercos-technique-shampoing-energy-400ml-276076.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-dercos-technique-shampoing-energy-400ml-276076.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -754,7 +776,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '1144628 L - INGREDIENTS: AQUA / WATER / EAU • SODIUM LAURETH SULFATE • GLYCOL DISTEARATE • COCO-BETAINE • GLYCERIN • DIMETHICONE • SELENIUM SULFIDE • CARBOMER • CI 47005 / ACID YELLOW 3 • CITRIC ACID • MENTHOL • 2-OLEAMIDO-1,3-OCTADECANEDIOL • PPG-5-CETETH-20 • SALICYLIC ACID • SODIUM BENZOATE • SODIUM CHLORIDE • SODIUM HYDROXIDE • TOCOPHERYL ACETATE • PARFUM / FRAGRANCE (F.I.L. N298403/1).\nLes listes d’ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d’utiliser un produit de notre marque, vous êtes invités à lire la liste d’ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle',
     url: 'https://www.atida.fr/vichy-dercos-shampooing-traitant-anti-pelliculaire-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-dercos-shampoing-anti-pelliculaire-ds-cheveux-normaux-a-gras-200ml-276089.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-dercos-shampoing-anti-pelliculaire-ds-cheveux-normaux-a-gras-200ml-276089.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -782,7 +805,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, sodium laureth sulfate, peg-200 hydrogenated glyceryl palmate, disodium cocoamphodiacetate, polysorbate 20, sodium chloride, peg-7 glyceryl cocoate, citric acid, hexylene glycol, 2-oleamido-1.3 octadecanediol, polyquaternium-10, salycilic acid, sodium benzoate, sodium glycolate, sodium hydroxide, parfum (fragrance).',
     url: 'https://www.atida.fr/vichy-dercos-shampooing-mineral-doux-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-dercos-shampoing-mineral-doux-fortifiant-400ml-233643.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-dercos-shampoing-mineral-doux-fortifiant-400ml-233643.webp',
     tags: {
       primary: [TAG_SLUGS.CREME_HYDRATANTE],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
@@ -803,7 +827,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '1294526 E - INGREDIENTS: AQUA / WATER / EAU • ALCOHOL DENAT. • NIACINAMIDE • PROPYLENE GLYCOL • DIAMINOPYRIMIDINE OXIDE • ACRYLATES/BEHENETH-25 METHACRYLATE COPOLYMER • AMINOMETHYL PROPANOL • CITRAL • LACTIC ACID • LIMONENE • LINALOOL • PEG-40 HYDROGENATED CASTOR OIL • PIROCTONE OLAMINE • ZINGIBER OFFICINALE ROOT EXTRACT / GINGER ROOT EXTRACT • PARFUM / FRAGRANCE (F.I.L. N70056703/1). Les listes d’ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d’utiliser un produit de notre marque, vous êtes invités à lire la liste d’ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle',
     url: 'https://www.atida.fr/vichy-dercos-serum-regeneratif-capillaire-anti-chute-90ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-dercos-serum-regeneratif-capillaire-anti-chute-90ml-279534.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-dercos-serum-regeneratif-capillaire-anti-chute-90ml-279534.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -832,7 +857,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua/water, sodium methyl cocoyl taurate, laureth-5 carboxylic acid, cocamidopropyl betaine, glycerin, sodium chloride, ascorbyl glucoside, coconut acid, hexylene glycol, isopropyl alcohol, lactic acid, panthenol, peg-150 distearate, peg-55 propylene glycol oleate, piroctone olamine, polyquaternium-10, polysorbate-21, propylene glycol, salicylic acid, sodium acetate, sodium benzoate, sodium hydroxide, sodium lauroyl glutamate, parfum/fragrance.',
     url: 'https://www.atida.fr/vichy-dercos-shampooing-ultra-apaisant-cheveux-normaux-a-gras-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-dercos-shampoing-dermatologique-ultra-apaisant-cheveux-normaux-a-gras-200ml-278179.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-dercos-shampoing-dermatologique-ultra-apaisant-cheveux-normaux-a-gras-200ml-278179.webp',
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.APAISANT],
       secondary: [
@@ -861,7 +887,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua / water / eau , sodium laureth sulfate , citric acid , sodium cocoamphoacetate , hexylene glycol , ammonium hydroxide , glycol distearate , carbomer , coco-betaine , diaminopyrimidine oxide , niacinamide , peg-55 propylene glycol oleate , polyquaternium-10 , propylene glycol , salicylic acid , sodium benzoate , sodium chloride , sodium hydroxide , tocopherol , parfum / fragrance (f.i.l. n291247/1).',
     url: 'https://www.atida.fr/vichy-dercos-technique-eco-recharge-shampooing-energy-500ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-dercos-technique-eco-recharge-shampooing-energy-500ml-278511.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-dercos-technique-eco-recharge-shampooing-energy-500ml-278511.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -888,7 +915,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '1144624 B3 - INGREDIENTS: AQUA / WATER • SODIUM LAURETH SULFATE • GLYCOL DISTEARATE • DIMETHICONE • COCO-BETAINE • GLYCERIN • SELENIUM SULFIDE • CARBOMER • CI 47005 / ACID YELLOW 3 • CITRIC ACID • MENTHOL • 2-OLEAMIDO-1,3-OCTADECANEDIOL • PPG-5-CETETH-20 • SALICYLIC ACID • SODIUM BENZOATE • SODIUM CHLORIDE • SODIUM HYDROXIDE • TOCOPHERYL ACETATE • PARFUM / FRAGRANCE (F.I.L. C234826/1). Les listes d’ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d’utiliser un produit de notre marque, vous êtes invités à lire la liste d’ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle',
     url: 'https://www.atida.fr/vichy-dercos-anti-pelliculaire-ds-shampooing-traitant-cheveux-secs-390ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-dercos-anti-pelliculaire-ds-shampooing-traitant-cheveux-secs-390ml-278186.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-dercos-anti-pelliculaire-ds-shampooing-traitant-cheveux-secs-390ml-278186.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -916,7 +944,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '1144628 L - INGREDIENTS: AQUA / WATER / EAU • SODIUM LAURETH SULFATE • GLYCOL DISTEARATE • COCO-BETAINE • GLYCERIN • DIMETHICONE • SELENIUM SULFIDE • CARBOMER • CI 47005 / ACID YELLOW 3 • CITRIC ACID • MENTHOL • 2-OLEAMIDO-1,3-OCTADECANEDIOL • PPG-5-CETETH-20 • SALICYLIC ACID • SODIUM BENZOATE • SODIUM CHLORIDE • SODIUM HYDROXIDE • TOCOPHERYL ACETATE • PARFUM / FRAGRANCE (F.I.L. N298403/1). Les listes d’ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d’utiliser un produit de notre marque, vous êtes invités à lire la liste d’ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle',
     url: 'https://www.atida.fr/vichy-dercos-shampooing-traitant-pellicules-et-demangeaisons-cheveux-normaux-gras-eco-recharge-390ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-dercos-shampooing-traitant-pellicules-et-demangeaisons-cheveux-normaux-gras-eco-recharge-390ml-285718.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-dercos-shampooing-traitant-pellicules-et-demangeaisons-cheveux-normaux-gras-eco-recharge-390ml-285718.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -970,7 +999,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, CETEARYL ALCOHOL, PERLITE, BUTYLENE GLYCOL, PPG-15 STEARYL ETHER, CETEARETH-33, ZINC GLUCONATE, PARFUM / FRAGRANCE, DIMETHICONE, CAPRYLYL GLYCOL, P-ANISIC ACID, ALLANTOIN, CITRIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/deodorants/vichy-deodorant-24h-toucher-sec-hypoallergenique.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-deodorant-24h-toucher-sec-hypoallergenique.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-deodorant-24h-toucher-sec-hypoallergenique.webp',
     tags: {
       primary: ['apaisant'],
       secondary: ['deodorant'],
@@ -995,7 +1025,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, CETEARYL ALCOHOL, PERLITE, BUTYLENE GLYCOL, PPG-15 STEARYL ETHER, CETEARETH-33, ZINC GLUCONATE, PARFUM (FRAGRANCE), DIMETHICONE, CAPRYLYL GLYCOL, P-ANISIC ACID, ALLANTOIN, CITRIC ACID, CODE FIL : C44883/1',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/deodorants/vichy-deodorant-bille-24h-sans-sels-d-aluminium-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-deodorant-bille-24h-sans-sels-d-aluminium.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-deodorant-bille-24h-sans-sels-d-aluminium.webp',
     tags: {
       primary: ['apaisant'],
       secondary: ['deodorant'],
@@ -1087,7 +1118,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER - ALUMINUM CHLOROHYDRATE - PPG-15 STEARYL ETHER - CETEARYL ALCOHOL - CETEARETH-33 - DIMETHICONE - IODOPROPYNYL BUTYLCARBAMATE - NYMPHAEA ALBA EXTRACT / NYMPHAEA ALBA FLOWER EXTRACT - SODIUM PALMITOYL PROLINE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-deodorant-anti-transpirant-48h-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-deodorant-anti-transpirant-48h-50ml.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-deodorant-anti-transpirant-48h-50ml.webp',
     tags: {
       primary: ['anti-age'],
       secondary: ['deodorant'],
@@ -1130,7 +1162,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER - ALUMINUM CHLOROHYDRATE - ALUMINUM SESQUICHLOROHYDRATE - PPG-15 STEARYL ETHER - CETEARYL ALCOHOL - CETEARETH-33 - C12-13 ALKYL LACTATE - DIMETHICONE - GLYCERIN - HYDROLYZED ALGIN - IODOPROPYNYL BUTYLCARBAMATE - ZINC SULFATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-homme-deodorant-anti-transpirant-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-homme-deodorant-anti-transpirant-50ml.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-homme-deodorant-anti-transpirant-50ml.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['deodorant'],
@@ -1173,7 +1206,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, ALUMINUM CHLOROHYDRATE, PPG-15 STEARYL ETHER, CETEARYL ALCOHOL, CETEARETH-33, DIMETHICONE, IODOPROPYNYL BUTYLCARBAMAT, NYMPHAEA ALBA FLOWER EXTRAXT, SODIUM PALMITOYL PROLINE',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-produits/deodorants/vichy-deodorant-anti-transp-peaux-sensibles-50ml-lot-de-2.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-deodorant-anti-transp-peaux-sensibles.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-deodorant-anti-transp-peaux-sensibles.webp',
     tags: {
       primary: ['anti-age'],
       secondary: ['deodorant', 'peau-sensible'],
@@ -1194,7 +1228,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER - HYDROXYPROPYL STARCH PHOSPHATE - GLYCERIN - QUATERNIUM-87 - STEARYL ALCOHOL - BEHENTRIMONIUM CHLORIDE - CANDELILLA CERA / CANDELILLA WAX - CAPRYLYL GLYCOL - CETYL ESTERS - GERANIOL - HEXYL CINNAMAL - ISONONYL ISONONANOATE - ISOPROPYL ALCOHOL - LIMONENE - LINALOOL - MENTHA PIPERITA OIL / PEPPERMINT OIL - MENTHOL - 2-OLEAMIDO-1,3-OCTADECANEDIOL - PHENOXYETHANOL - PROPYLENE GLYCOL - RHAMNOSE - SODIUM HYDROXIDE - TOCOPHERYL ACETATE - PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/capillaire/vichy-dercos-densi-solutions-baume-epaisseur-200-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-dercos-densi-solutions-baume-epaisseur.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-dercos-densi-solutions-baume-epaisseur.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -1215,7 +1250,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'ALCOHOL DENAT, AQUA/WATER, DIETHYLLUTIDINATE, CITRAL, ETHYL ESTER OF PVM/MA COPOLYMER, GERANIOL, HEXYL CINNAMAL, ISOEUGENOL, LIMONENE, LINALOOL, MENTHA PIPERITA OIL/PEPPERMINT OIL, MENTHOL, RESVERATROL, RHAMNOSE, TOCOPHERYL ACETATE, PARFUM/FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/capillaire/vichy-dercos-densi-solutions-masque-capilaire-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-dercos-densi-solutions-masque-capilaire.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-dercos-densi-solutions-masque-capilaire.webp',
     tags: {
       primary: ['anti-age', 'anti-oxydant', 'keratose-pilaire'],
       secondary: ['masque-hebdo', 'zone-visage'],
@@ -1258,7 +1294,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, COCO-BETAINE, GLYCERIN, PROPANEDIOL, PEF-120 METHYL GLUCOSE DIOLEATE, SODIUM COCOYL GLYCINATE, SODIUM CHLORIDE, NIACINAMIDE, HYDROXYACETOPHENONE, CAPRYLYL GLYCOL, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, TOCOPHEROL, TOCOPHEROL, ASLICYLIC ACID, PARFUM/FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/nsfp-vichy-purete-thermale-gel-frais-nettoyant-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/nsfp-vichy-purete-thermale-gel-frais-nettoyant.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/nsfp-vichy-purete-thermale-gel-frais-nettoyant.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
       secondary: [
@@ -1311,7 +1348,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, GLYCERIN, DIMETHICONE, HYDROXYPROPYL TETRAHYDROPYRANTRIOL, ISONONYL ISONONANOATE, NIACINAMIDE, ALCOHOL DENAT., CETYL ALCOHOL, GLYCERYL STEARATE, PEG-100 STEARATE, BUTYLENE GLYCOL, ASCORBYL GLUCOSIDE, BORON NITRIDE, PROPYLENE GLYCOL, DIMETHICONE/VINYL DIMETHICONE CROSSPOLYMER, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, STEARIC ACID, TRIETHANOLAMINE, PALMITIC ACID, CAFFEINE, SODIUM CITRATE, HYDROXYACETOPHENONE, TOCOPHERYL ACETATE, XANTHAN GUM, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, CAPRYLOYL SALICYLIC ACID, DEXTRIN, CARBOMER, SODIUM LACTATE, MYRISTIC ACID, CITRIC ACID, CAPRYLYL GLYCOL, POLYSORBATE 20, SORBITOL, VACCINIUM MYRTILLUS FRUIT EXTRACT, OXOTHIAZOLIDINECARBOXYLIC ACID, PENTYLENE GLYCOL, HYDROLYZED RICE PROTEIN, EPERUA FALCATA BARK EXTRACT, ACETYL TETRAPEPTIDE-9, PALMITOYL TRIPEPTIDE-1, PALMITOYL TETRAPEPTIDE-7',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/soins-visage/vichy-liftactiv-collagen-specialist-soin-yeux-15-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-liftactiv-collagen-specialist-soin-yeux.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-liftactiv-collagen-specialist-soin-yeux.webp',
     tags: {
       primary: ['anti-acne', 'anti-age', 'pores-dilates'],
       secondary: ['sebo-regulateur', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
@@ -1342,7 +1380,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'CANOLA OIL, RICINUS COMMUNIS SEED OIL / CASTOR SEED OIL, CAPRYLIC/CAPRIC TRIGLYCERIDE, POLYGLYCERYL-2 TRIISOSTEARATE, HELIANTHUS ANNUUS SEED CERA / SUNFLOWER SEED WAX, BIS-BEHENYL/ISOSTEARYL/PHYTOSTERYL DIMER DILINOLEYL DIMER DILINOLEATE, CETYL PALMITATE, CERA ALBA / BEESWAX, HELIANTHUS ANNUUS SEED OIL / SUNFLOWER SEED OIL, SILICA, ALUMINA, ALUMINUM HYDROXIDE, TOCOPHEROL, COCOS NUCIFERA OIL / COCONUT OIL, CITRIC ACID, PARFUM / FRAGRANCE. [+/- MAY CONTAIN/PEUT CONTENIR : CI 15850 / RED 7, CI 15985 / YELLOW 6 LAKE, CI 45410 / RED 28 LAKE, CI 45380 / RED 22 LAKE, CI 77891 / TITANIUM DIOXIDE, CI 75470 / CARMINE, CI 77491, CI 77492, CI 77499 / IRON OXIDES]',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/soins-visage/vichy-naturalblend-stick-levres-hydratant-4-5g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-naturalblend-stick-levres-hydratant.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-naturalblend-stick-levres-hydratant.webp',
     tags: {
       primary: ['anti-oxydant', 'hydratation'],
       secondary: ['reparateur', 'soin-levres', 'zone-levres'],
@@ -1364,7 +1403,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, GLYCERIN, ALCOHOL DENAT., DIMETHICONE, PROPANEDIOL, BUTYLENE GLYCOL, ORYZA SATIVA BRAN OIL/RICE BRAN OIL, BIS-BEHENYL/ISOSTEARYL/PHYTOSTERYL DIMER DILINOLEYL DIMER DILINOLEATE, BUTYROSPERMUM PARKII BUTTER/SHEA BUTTER, STEARYL ALCOHOL, LIMNANTHES ALBA SEED OIL/MEADOWFOAM SEED OIL, CARTHAMUS TINCTORIUS SEED OIL/SAFFLOWER SEED OIL, OCTYLDODECANOL, C30-45 ALKYL DIMETHICONE, PEG-20 STEARATE, SILICA, OENOTHERA BIENNIS OIL/EVENING PRIMROSE OIL, PANTHENOL, PEG-100 STEARATE, PEG-30 DIPOLYHYDROXYSTEARATE, CI 15985/YELLOW 6, GLYCERYL STEARATE, NIACINAMIDE, TRIDECETH-6, METHYLDIHYDROJASMONATE, SALICULOYL PHYTOSPHINGOSINE, ADENOSINE, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, TOCOPHEROL, PROPYLENE GLYCOL, CAPRYLYL GLYCOL, HYDROXYPROPYL TETRAHYDROPYRANTRIOL, CAPRYLOYL SALICYLIC ACID, CITRIC ACID, CASSIA ANGUSTIFOLIA SEED POLYSACCHARIDE, TRISODIUM ETHYLENEDIAMINE, DISUCCINATE, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, PARFUM/FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/soins-visage/vichy-neovadiol-post-menopause-creme-nuit-relipidante-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-neovadiol-post-menopause-creme-nuit-relipidante.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-neovadiol-post-menopause-creme-nuit-relipidante.webp',
     tags: {
       primary: ['barriere-cutanee', 'anti-acne', 'pores-dilates'],
       secondary: ['reparateur', 'sebo-regulateur', 'creme-hydratante', 'zone-visage'],
@@ -1393,7 +1433,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, GLYCERIN, PRUNUS ARMENIACA KERNEL OIL / APRICOT KERNEL OIL, CAPRYLIC/CAPRIC TRIGLYCERIDE, PENTAERYTHRITYL TETRAETHYLHEXANOATE, CETYL ALCOHOL, GLYCERYL STEARATE, ALCOHOL DENAT., PROPANEDIOL, BUTYROSPERMUM PARKII BUTTER / SHEA BUTTER, DIMETHICONE, PEG-40 STEARATE, CERA ALBA / BEESWAX, HYDROXYETHYLPIPERAZINE ETHANE SULFONIC ACID, TIN OXIDE, ROSA GALLICA FLOWER EXTRACT, SORBITAN TRISTEARATE, SORBITOL, CALCIUM PCA, DIMETHICONOL, MEDICAGO SATIVA EXTRACT / ALFALFA EXTRACT, SILICA, ADENOSINE, PROPYLENE GLYCOL, CAPRYLYL GLYCOL, CITRIC ACID, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, XANTHAN GUM, SYNTHETIC FLUORPHLOGOPITE, FAEX EXTRACT / YEAST EXTRACT, ETHYLHEXYLGLYCERIN, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, SODIUM BENZOATE, PHENOXYETHANOL, CI 77491 / IRON OXIDES, CI 77891 / TITANIUM DIOXIDE, PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/soins-visage/vichy-neovadiol-rose-platinium-creme-nuit-50-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-neovadiol-rose-platinium-creme-nuit.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-neovadiol-rose-platinium-creme-nuit.webp',
     tags: {
       primary: ['anti-age', 'hydratation'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -1420,7 +1461,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), COCO-BETAINE, PROPANEDIOL, PEG-120 METHYL GLUCOSE DIOLEATE, SODIUM CHLORIDE, SODIUM COCOYL GLYCINATE, GLUCONATE, SALICYLIC ACID, HYDROXYACETOPHENONE, BIFIDA FERMENT LYSATE, SODIUM HYDROXIDE, SODIUM BENZOATE, CAPRYLYL GLYCOL, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, BUTYLENE GLYCOL, GLYCERIN, TOCOPHEROL, CITRIC ACID, ACETIC ACID, LACTIC ACID, PARFUM (FRAGRANCE)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/soins-visage/vichy-normaderm-phytosolution-gel-purifiant-intense-400-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-normaderm-phytosolution-gel-purifiant-intense.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-normaderm-phytosolution-gel-purifiant-intense.webp',
     tags: {
       primary: ['anti-acne', 'microbiome', 'hydratation'],
       secondary: [
@@ -1452,7 +1494,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU ALCOHOL DENAT NIACINAMIDE PROPYLENE GLYCOL DIAMINOPYRIMIDINE OXIDE ACRYLATES BEHENETH-25 METHACRYLATE COPOLYMER AMINOMETHYL PROPANOL CITRAL LACTIC ACID LIMONENE LINALOOL PEG-40 HYDROGENATED CASTOR OIL PIROCTONE OLAMINE ZINGIBER OFFICINALE ROOT EXTRACT GINGER ROOT EXTRACT PARFUM FRAGRANCE FIL N70056703 1',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-dercos-serum-regeneratif-capillaire-90ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-dercos-serum-regeneratif-capillaire.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-dercos-serum-regeneratif-capillaire.webp',
     tags: {
       primary: ['pores-dilates', 'exfoliation', 'barriere-cutanee'],
       secondary: [
@@ -1480,7 +1523,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, DIMETHICONE, ALCOHOL DENAT, GLYCERIN, BUTYLENE GLYCOL, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, BUTYROSPERMUM PARKII BUTTER, PRUNUS ARMENIACA KERNEL OIL, CI42090, GLYCINE SOJA OIL, ZINC GLUCONATE, MANGANESE GLUCONATE, SODIUM HYALURONATE, PHENOXYETHANOL, MAGNESIUM GLUCONATE, TOCOPHERYL ACETATE, TOCOPHEROL, ASCORBYL GLUCOSIDE, COPPER GLUCONATE, CITRIC ACID, TRISODIUM ETHYLENEDIAMINE, DISUCCINATE, BIOSACCHARIDE GUM-1, PANTHENOL, MENTHOXYPROPANEDIOL, PARFUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-homme-hydra-cool-gel-hydratant-coup-de-frais-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-homme-hydra-cool-gel-hydratant-coup-de-frais.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-homme-hydra-cool-gel-hydratant-coup-de-frais.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'apaisant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -1511,7 +1555,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU GLYCERIN HYDROXYETHYLPIPERAZINE ETHANE SULFONIC ACID NIACINAMIDE PENTYLENE GLYCOL SODIUM HYALURONATE CAFFEINE ASCORBYL GLUCOSIDE BUTYLENE GLYCOL CAPRYLYL GLYCOL CARBOMER CITRIC ACID GRIFOLA FRONDOSA FRUITING BODY EXTRACT HYDROXYACETOPHENONE MALTODEXTRIN PALMITOYL TETRAPEPTIDE7 PALMITOYL TRIPEPTIDE1 POLYSORBATE 20 RHAMNOSE SODIUM LACTATE TRISODIUM ETHYLENEDIAMINE DISUCCINATE FIL N700643911',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-liftactiv-collagen-specialist-16-serum-yeux-15ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-liftactiv-collagen-specialist-16-serum-yeux.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-liftactiv-collagen-specialist-16-serum-yeux.webp',
     tags: {
       primary: ['anti-age', 'pores-dilates', 'hydratation'],
       secondary: ['sebo-regulateur', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
@@ -1532,7 +1577,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, GLYCERIN, ISONONYL ISONONANOATE, PANTHENOL, NIACINAMIDE, DICAPRYLYL CARBONATE, PENTYLENE GLYCOL, DIISOPROPYL SEBACATE, CETYL ALCOHOL, PEG-40 STEARATE, SILICA, GLYCINE SOJA OIL/SOYBEAN OIL, HYDROLYZED RICE PROTEIN, ADENOSINE, PALMITOYL TETRAPEPTIDE-7, PALMITOYL TRIPEPTIDE-1, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, SODIUM HYDROXIDE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, VITREOSCILLA FERMENT, RETINOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, BUTYLENE GLYCOL, CAPRYLYL GLYCOL, CARBOMER, CITRIC ACID, HYDROXYETHYLCELLULOSE, PEG-30 DIPOLYHYDROXYSTEARATE, POLYSORBATE 20, SODIUM LACTATE, SODIUM POLYACRYLATE STARCH, SORBITAN TRISTEARATE, TOCOPHEROL, TRIDECETH-6, CI 15985/YELLOW 6, PHENOXYETHANOL, PARFUM/FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-liftactiv-creme-nuit-b3-anti-taches-au-retinol-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-liftactiv-creme-nuit-b3-anti-taches-au-retinol.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-liftactiv-creme-nuit-b3-anti-taches-au-retinol.webp',
     tags: {
       primary: ['anti-age', 'barriere-cutanee', 'pores-dilates', 'anti-taches'],
       secondary: ['reparateur', 'sebo-regulateur', 'traitement', 'creme-hydratante', 'zone-visage'],
@@ -1563,7 +1609,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, GLYCERIN, RHAMNOSE, ALCOHOL DENAT., NIACINAMIDE, DIMETHICONE, HYDROXYETHYLPIPERAZINE ETHANE SULFONIC ACID, HYDROLYZED RICE PROTEIN, ADENOSINE, CITRIC ACID, GRIFOLA FRONDOSA FRUITING BODY EXTRACT, HYDROXYACETOPHENONE, PALMITOYL TETRAPEPTIDE-7, PALMITOYL TRIPEPTIDE-1, SH-POLYPEPTIDE-69, SODIUM HYALURONATE, TETRASODIUM GLUTAMATE DIACETATE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, SILICA, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, BUTYLENE GLYCOL, CAPRYLYL GLYCOL, CARBOMER, MALTODEXTRIN, PEG-20 METHYL GLUCOSE SESQUISTEARATE, PENTYLENE GLYCOL, POLYSORBATE 20, SODIUM CHLORIDE, SODIUM LACTATE, SODIUM PHOSPHATE, TOCOPHEROL, XANTHAN GUM, PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-liftactiv-serum-collagen-specialist-16-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-liftactiv-serum-collagen-specialist-16.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-liftactiv-serum-collagen-specialist-16.webp',
     tags: {
       primary: ['anti-age', 'pores-dilates', 'hydratation'],
       secondary: ['sebo-regulateur', 'reparateur', 'serum', 'traitement', 'zone-visage'],
@@ -1636,7 +1683,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU - GLYCERIN - DICAPRYLYL ETHER - PENTYLENE GLYCOL - POLYGLYCERYL-6 DISTEARATE - NIACINAMIDE - PROPANEDIOL - CETYL ESTERS - JOJOBA ESTERS - CETEARYL ISONONANOATE - SQUALANE - BEHENYL ALCOHOL - ADENOSINE - CAPRYLOYL SALICYLIC ACID - HYDROXYACETOPHENONE - MINERAL SALTS - SODIUM HYALURONATE - TRISODIUM ETHYLENEDIAMINE DISUCCINATE - VITREOSCILLA FERMENT - TOCOPHEROL - ACACIA DECURRENS FLOWER CERA / ACACIA DECURRENS FLOWER WAX - ACRYLAMIDE/SODIUM ACRYLOYLDIMETHYLTAURATE COPOLYMER - CETYL ALCOHOL - HELIANTHUS ANNUUS SEED CERA / SUNFLOWER SEED WAX - HYDROXYPROPYL STARCH PHOSPHATE - ISOHEXADECANE - POLYGLYCERIN-3 - POLYGLYCERYL-3 BEESWAX - POLYSORBATE 80 - SODIUM STEAROYL GLUTAMATE - SORBITAN OLEATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-mineral-89-creme-boost-hydratation-100h-texture-riche-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-mineral-89-creme-boost-hydratation-100h-texture-riche.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-mineral-89-creme-boost-hydratation-100h-texture-riche.webp',
     tags: {
       primary: ['anti-acne', 'exfoliation', 'barriere-cutanee'],
       secondary: [
@@ -1666,7 +1714,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU - GLYCERIN - DICAPRYLYL ETHER - PENTYLENE GLYCOL - POLYGLYCERYL-6 DISTEARATE - NIACINAMIDE - PROPANEDIOL - CETYL ESTERS - JOJOBA ESTERS - CETEARYL ISONONANOATE - SQUALANE - BEHENYL ALCOHOL - ADENOSINE - CAPRYLOYL SALICYLIC ACID - HYDROXYACETOPHENONE - MINERAL SALTS - SODIUM HYALURONATE - TRISODIUM ETHYLENEDIAMINE DISUCCINATE - VITREOSCILLA FERMENT - TOCOPHEROL - ACACIA DECURRENS FLOWER CERA / ACACIA DECURRENS FLOWER WAX - ACRYLAMIDE/SODIUM ACRYLOYLDIMETHYLTAURATE COPOLYMER - CETYL ALCOHOL - HELIANTHUS ANNUUS SEED CERA / SUNFLOWER SEED WAX - HYDROXYPROPYL STARCH PHOSPHATE - ISOHEXADECANE - POLYGLYCERIN-3 - POLYGLYCERYL-3 BEESWAX - POLYSORBATE 80 - SODIUM STEAROYL GLUTAMATE - SORBITAN OLEATE - PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-mineral-89-creme-boost-hydratation-72h-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-mineral-89-creme-boost-hydratation-72h.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-mineral-89-creme-boost-hydratation-72h.webp',
     tags: {
       primary: ['anti-acne', 'exfoliation', 'barriere-cutanee'],
       secondary: [
@@ -1696,7 +1745,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, GLYCERIN, SQUALANE, NIACINAMIDE, CAPRYLIC/CAPRIC TRIGLYCERIDE, PENTAERYTHRITYL TETRAETHYLHEXANOATE, BUTYLENE GLYCOL, SODIUM CARBOMER, CHRYSIN, CITRIC ACID, COPPER GLUCONATE, HYDROXYACETOPHENONE, MELATONIN, MINERAL SALTS, PALMITOYL TETRAPEPTIDE-7, ROSMARINUS OFFICINALIS LEAF EXTRACT / ROSEMARY LEAF EXTRACT, SODIUM HYALURONATE, SODIUM HYDROXIDE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, VITREOSCILLA FERMENT, TOCOPHEROL, BIOSACCHARIDE GUM-1, CAPRYLYL GLYCOL, GLYCERYL ISOSTEARATE, LACTIC ACID, MALTODEXTRIN, PENTYLENE GLYCOL, SILICA, SODIUM STEAROYL GLUTAMATE, XANTHAN GUM, SALICYLIC ACID, PARFUM / FRAGRANCE (F.I.L, N70053412/3)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-mineral-89-creme-hydratante-recuperation-nuit-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-mineral-89-creme-hydratante-recuperation-nuit.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-mineral-89-creme-hydratante-recuperation-nuit.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'pores-dilates'],
       secondary: [
@@ -1734,7 +1784,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, GLYCERIN, DIMETHICONE, GLYCERIN, HYDROGENATED POLIYSOBUTENE, NIACINAMIDE, HYDROXYPROPYL TETRAHYDROPYRANTRIOL, ALCOHOL DENAT., PROPYLENE GLYCOL, SYNTHETIC WAX, SILICA, PEG-10 DIMETHICONE, DIMETHICONE/PEG-10/15 CROSSPOLYMER, HYDROXYETHYLPIPERAZINE ETHANE SULFONIC ACID, CI 15985/YELLOW 6, CI 77891/TITANIUM DIOXIDE, SODIUM POLYACRYLATE, SODIUM HYALURONATE, SODIUM CITRATE, ADENOSINE, TOCOPHEROL, PROPYLENE CARBOANTE, HYDROXYACETOPHENONE, CAPRYLYL GLYCOL, DIPROPYLENE GLYCOL, CASSIA ANGUSTIFOLIA SEED POLYSACCHARIDE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, DISTEARDIMONIUM HECTORITE, SYNTHETIC FLUORPHLOGOPITE, PARFUM/FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-neovadiol-creme-jour-redensifiante-peau-normale-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-neovadiol-creme-jour-redensifiante-peau-normale.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-neovadiol-creme-jour-redensifiante-peau-normale.webp',
     tags: {
       primary: ['hydratation', 'pores-dilates', 'anti-age'],
       secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -1853,7 +1904,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, ALCOHOL DENAT., GLYCERIN, PRUNUS ARMENIACA KERNEL OIL/APRICOT KERNEL OIL, NIACINAMIDE, DIMETHICONE, HYDROXYPROPYL TETRAHYDROPYRANTRIOL, PROPANEDIOL, PROPYLENE GLYCOL, ISONONYL ISONONANOATE, ZEA MAYS STARCH/CORN STARCH, SILICA SILYLATE, POLOXAMER 338, HYDROXYETHYLPIPERAZINE ETHANE SULFONIC ACID, OCTYLDODECANOL, DIMETHICONOL, CAFFEINE, SODIUM ACRYLATES CROSSPOLYMER-2, SODIUM HYALURONATE, SILICA, PERLITE, ADENOSINE, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, AMMONIUM ACRYLOYLDIMETHYLTAURATE/STEARETH-25 METHACRYLATE CROSSPOLYMER, CAPRYLYL GLYCOL, CAPRYLOYL SALICYLIC ACID, LAURETH-7, CITRIC ACID, CASSIA ANGUSTIFOLIA SEED POLYSACCHARIDE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, MENTHOXYPROPANEDIOL, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, POLYACRYLAMIDE, C13-14 ISOPARAFFIN, PARFUM/FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-neovadiol-peri-menopause-creme-nuit-redensifiante-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-neovadiol-peri-menopause-creme-nuit-redensifiante.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-neovadiol-peri-menopause-creme-nuit-redensifiante.webp',
     tags: {
       primary: ['anti-acne', 'pores-dilates', 'anti-age'],
       secondary: ['sebo-regulateur', 'creme-hydratante', 'zone-visage'],
@@ -1883,7 +1935,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER - DIMETHICONE - PROPYLENE GLYCOL - ISOHEXADECANE - DIMETHICONE/PEG-10/15 CROSSPOLYMER - CERA ALBA / BEESWAX - GLYCERIN - HYDROXYPROPYL TETRAHYDROPYRANTRIOL - ALUMINUM STARCH OCTENYLSUCCINATE - DIPROPYLENE GLYCOL - NIACINAMIDE - ADENOSINE - CAFFEINE - CAPRYLOYL SALICYLIC ACID - CASSIA ANGUSTIFOLIA SEED POLYSACCHARIDE - HYDROLYZED HYALURONIC ACID - HYDROXYACETOPHENONE - MAGNESIUM SULFATE - SODIUM HYALURONATE - TRISODIUM ETHYLENEDIAMINE DISUCCINATE - ORYZA SATIVA BRAN OIL / RICE BRAN OIL - CELLULOSE - SILICA SILYLATE - CAPRYLYL GLYCOL - CI 77891 / TITANIUM DIOXIDE - SODIUM CITRATE - SYNTHETIC FLUORPHLOGOPITE - TIN OXIDE - TOCOPHEROL - LAURYL PEG-9 POLYDIMETHYLSILOXYETHYL DIMETHICONE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-neovadiol-peri-post-menopause-soin-yeux-levres-15ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-neovadiol-peri-post-menopause-soin-yeux-levres.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-neovadiol-peri-post-menopause-soin-yeux-levres.webp',
     tags: {
       primary: ['anti-acne', 'exfoliation', 'hydratation'],
       secondary: [
@@ -1912,7 +1965,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HYPOALLERGÉNIQUE ; SANS ALCOOL, AQUA / WATER / EAU, HYDROXYPROPYL TETRAHYDROPYRANTRIOL, GLYCERIN, BUTYROSPERMUM PARKII BUTTER / SHEA BUTTER, NIACINAMIDE, CERA ALBA / BEESWAX / CIRE DABEILLE, DIMETHICONE, PENTYLENE GLYCOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, OLEYL ALCOHOL, MYRISTYL MYRISTATE, PROPYLENE GLYCOL, ARACHIDYL ALCOHOL, PANTHENOL, ISONONYL ISONONANOATE, PENTAERYTHRITYL TETRAISOSTEARATE, GINKGO BILOBA LEAF EXTRACT, CITRIC ACID, CERAMIDE NP, ORYZA SATIVA BRAN OIL / RICE BRAN OIL, ADENOSINE, ARACHIDYL GLUCOSIDE, BEHENYL ALCOHOL, BUTYLENE GLYCOL, CAPRYLYL GLYCOL, GLYCERYL STEARATE, MYRISTIC ACID, PALMITIC ACID, PEG-100 STEARATE, POTASSIUM HYDROXIDE, SODIUM HYALURONATE, SODIUM POLYACRYLATE, STEARIC ACID, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, XANTHAN GUM, 4-T-BUTYLCYCLOHEXANOL, BIS-PEG/PPG-16/16 PEG/PPG-16/16 DIMETHICONE, CHLORPHENESIN, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-neovadiol-recharge-creme-revolumisante-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-neovadiol-recharge-creme-revolumisante.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-neovadiol-recharge-creme-revolumisante.webp',
     tags: {
       primary: ['barriere-cutanee', 'pores-dilates', 'anti-age'],
       secondary: ['sebo-regulateur', 'reparateur', 'emollience', 'creme-hydratante', 'zone-visage'],
@@ -1943,7 +1997,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, ALCOHOL DENAT., HYDROXYETHYLPIPERAZINE ETHANE SULFONIC ACID, GLYCOLIC ACID, GLYCERIN, PROPANEDIOL, SODIUM HYDROXIDE, PEG/PPG/POLYBUTYLENE GLYCOL-8/5/3 GLYCERIN, SALICYLIC ACID, SODIUM POLYACRYLATE, ADENOSINE, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, ASCORBYL GLUCOSIDE, VITREOSCILLA FERMENT, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, XANTHAN GUM, PANTHENOL, MENTHOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-normaderm-probio-bha-serum-anti-imperfections-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-normaderm-probio-bha-serum-anti-imperfections.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-normaderm-probio-bha-serum-anti-imperfections.webp',
     tags: {
       primary: ['anti-acne', 'anti-age', 'exfoliation'],
       secondary: [
@@ -1982,7 +2037,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, HEXYLENE GLYCOL, ALLANTOIN, POLOXAMER 184, DISODIUM EDTA, DISODIUM COCOAMPHODIACETATE, PANTHENOL, CENTAUREA CYANUS EXTRACT / CENTAUREA CYANUS FLOWER EXTRACT, POLYSORBATE 20, POLYAMINOPROPYL BIGUANIDE, PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-purete-thermale-eau-demaquillante-yeux-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-purete-thermale-eau-demaquillante-yeux.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-purete-thermale-eau-demaquillante-yeux.webp',
     tags: {
       primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
       secondary: ['reparateur', 'keratolytique', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -2004,7 +2060,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER - PEG-8 - GLYCERIN - PEG-60 HYDROGENATED CASTOR OIL - DISODIUM EDTA - COPPER SULFATE - MYRTRIMONIUM BROMIDE - PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-purete-thermale-lotion-tonique-perfectrice-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-purete-thermale-lotion-tonique-perfectrice.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-purete-thermale-lotion-tonique-perfectrice.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['tonique', 'preparation', 'zone-visage'],
@@ -2025,7 +2082,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA - GLYCERIN - ALCOHOL DENAT. - DIMETHICONE - PENTAERYTHRITYL TETRAETHYLHEXANOATE - GLYCERYL STEARATE SE - POLYGLYCERYL-3 METHYLGLUCOSE DISTEARATE - STEARYL ALCOHOL - STEARIC ACID - CARBOMER - SORBITAN OLEATE - SORBIC ACID - VACCINIUM MYRTILLUS FRUIT EXTRACT - SACCHARUM OFFICINARUM EXTRACT - TRIETHANOLAMINE - DIMETHICONOL - PARFUM - ISOHEXADECANE - METHYLSILANOL MANNURONATE - SODIUM PHYTATE - SODIUM HYALURONATE - MYRISTIC ACID - PALMITIC ACID - PHENOXYETHANOL - CAPRYLYL GLYCOL - CITRUS AURANTIUM DULCIS FRUIT EXTRACT - CITRUS LIMON FRUIT EXTRACT - ACER SACCHARUM EXTRACT - XANTHAN GUM - ACRYLAMIDE/SODIUM ACRYLOYLDIMETHYLTAURATE COPOLYMER - POLYSORBATE 80',
     url: 'https://www.pharmashopdiscount.com/fr/homme-et-sport/top-marques/vichy/vichy-homme-structure-force-soin-anti-age-50-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-homme-structure-force-soin-anti-age.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-homme-structure-force-soin-anti-age.webp',
     tags: {
       primary: ['hydratation', 'anti-age'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -2046,7 +2104,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, ALCOHOL DENAT., GLYCERIN, PARAFFINUM LIQUIDUM, CETEARYL ALCOHOL, BUTYROSPERMUM PARKII BUTTER, CAPRYLYL GLYCOL, CARBOMER, DIMETHICONE, EPILOBIUM ANGUSTIFOLIUM EXTRACT, GLYCERYL STEARATE, PALMITIC ACID, PEG-100 STEARATE, PHENOXYETHANOL, SODIUM HYALURONATE, SODIUM HYDROXIDE, STEARIC ACID, XANTHAN GUM, ZINC GLUCONATE, PARFUM (F.I.L, B43891/2)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/solaires/vichy-apres-soleil-capital-soleil-soin-lacte-300ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-apres-soleil-capital-soleil-soin-lacte.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-apres-soleil-capital-soleil-soin-lacte.webp',
     tags: {
       primary: ['hydratation', 'apaisant'],
       secondary: [],
@@ -2158,7 +2217,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER - GLYCERIN - DIISOPROPYL SEBACATE - ETHYLHEXYL SALICYLATE - BUTYL METHOXYDIBENZOYLMETHANE - DIMETHICONE - ALCOHOL DENAT. - BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE - OCTOCRYLENE - TITANIUM DIOXIDE [NANO] / TITANIUM DIOXIDE - ALUMINUM STARCH OCTENYLSUCCINATE - DROMETRIZOLE TRISILOXANE - DIETHYLHEXYL BUTAMIDO TRIAZONE - STEARIC ACID - TRIETHANOLAMINE - POTASSIUM CETYL PHOSPHATE - PARFUM / FRAGRANCE - SYNTHETIC WAX - ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER - ALUMINUM HYDROXIDE - CAPRYLYL GLYCOL - DIMETHICONE CROSSPOLYMER - DISODIUM EDTA - GLYCERYL STEARATE - PALMITIC ACID - PEG-100 STEARATE - PHENOXYETHANOL - SODIUM HYALURONATE - TEREPHTHALYLIDENE DICAMPHOR SULFONIC ACID - TITANIUM DIOXIDE - TOCOPHEROL - XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/solaires/vichy-capital-soleil-creme-onctueuse-perfectrice-50spf-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-creme-onctueuse-perfectrice-50spf.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-creme-onctueuse-perfectrice-50spf.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2179,7 +2239,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, HOMOSALATE, DICAPRYLYL ETHER, DICAPRYLYL CARBONATE, OCTOCRYLENE, ETHYLHEXYL SALICYLATE, BUTYL METHOXYDIBENZOYLMETHANE, GLYCERIN, ALCOHOL DENAT., ETHYLHEXYL TRIAZONE, DIISOPROPYL SEBACATE, PROPANEDIOL, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, PHENYLBENZIMIDAZOLE SULFONIC ACID, CAPRYLYL GLYCOL, DISODIUM EDTA, HYDROLYZED HYALURONIC ACID, PHENOXYETHANOL, POLY C10-30 ALKYL ACRYLATE, TEREPHTHALYLIDENE DICAMPHOR SULFONIC ACID, TOCOPHEROL, TRIETHANOLAMINE, PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/solaires/vichy-capital-soleil-eau-de-protection-solaire-hydratante-spf30-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-eau-de-protection-solaire-hydratante-spf30.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-eau-de-protection-solaire-hydratante-spf30.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'repulpant'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2210,7 +2271,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA /WATER, HOMOSALATE, DICAPRYLYL ETHER, DICAPRYLYL CARBONATE, OCTOCRYLENE, ETHYLHEXYLSALICYLATE, BUTYLMETHOXYDIBENZOYLMETHANE, GLYCERIN, ALCOHOL DENAT., ETHYLHEXYL TRIAZONE, PROPANEDIOL, DIISOPROPYL SEBACATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, PHENYLBENZIMIDAZOLE SULFONIC ACID, CAPRYLYL GLYCOL, CI 75130 / BETA-CAROTENE, DISODIUM EDTA, HELIANTHUS ANNUUS SEED OIL / SUNFLOWER SEED OIL, PHENOXYETHANOL, POLY C10-30 ALKYL ACRYLATE, TEREPHTHALYLIDENE DICAMPHOR SULFONIC ACID, TOCOPHEROL, TRIETHANOLAMINE, PARFUM/ FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/solaires/vichy-capital-soleil-eau-de-protection-solaire-spf30-hale-sublime-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-eau-de-protection-solaire-spf30-hale-sublime.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-eau-de-protection-solaire-spf30-hale-sublime.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2240,7 +2302,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER, HOMOSALATE, SILICA, ETHYLHEXYL SALICYLATE, ETHYLHEXYL TRIAZONE, GLYCERIN, C12-15 ALKYL BENZOATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DROMETRIZOLE TRISILOXANE, BUTYL METHOXYDIBENZOYLMETHANE, SACCHAROMYCES/XYLINUM/BLACK TEA FERMENT, ALUMINIUM STARCH OCTENYLSUCCINATE, OCTOCRYLENE, PENTYLENE GLYCOL, STYRENE/ACRYLATES COPOLYMER, POTASSIUM CETYL PHOSPHATE, PARFUM/FRAGRANCE, CAPRYLYL METHICONE, TEREPHTHALYLIDENE, DICAMPHOR, SULFONIC ACID, BUTYLENE GLYCOL, TITANIUM DIOXIDE [NANO]/TITANIUM DIOXIDE, TRIETHANOLAMINE, PHENOXYETHANOL, CAPRYLYL GLYCOL, STEARYL ALCOHOL, DIMETHICONE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, INULIN LAURYL CARBAMATE, PEG-8 LAURATE, DISODIUM EDTA, TOCOPHEROL, XANTHAN GUM, ALUMINIUM HYDROXIDE, STEARIC ACID, HYDROXYETHYLCELLULOSE, SODIUM CITRATE, CITRIC ACID, MYRCIARIA DUBIA FRUIT EXTRACT, POTASSIUM SORBATE, CI17200/RED33, ZINGIBER OFFICINALE ROOT EXTRACT/GINGER ROOT EXTRACT, SANGUISORBA OFFICINALIS ROOT EXTRACT, CINNAMOMUM CASSIA BARK EXTRACT, BENZYL BENZOATE, BIOTIN',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/solaires/vichy-capital-soleil-soin-anti-age-3-en-1-spf50-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-soin-anti-age-3-en-1-spf50.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-soin-anti-age-3-en-1-spf50.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant', 'anti-age'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2445,7 +2508,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERIN, ALCOHOL DENAT, PROPYLENE GLYCOL, ISONONYL ISONONANOATE, BUTYROSPERMUM PARKII, HYDROGENATED POLYISOBUTENE, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, CARBOMER, CETYL ALCOHOL, TITANIUM DIOXIDE, DISODIUM EDTA, EPILOBIUM ANGUSTIFOLIUM, ETHYLHEXYL GLYCERIN, GLYCERYL STEARATE, GLYCINE SOJA, MYRISTYL ALCOHOL, PEG-100 STEARATE, STEARIC ACID, STEARYL ALCOHOL, TOCOPHEROL, TRIETHANOLAMINE, PARFUM (FRAGRANCE)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/solaires/vichy-ideal-soleil-baume-secours-apres-soleil-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-ideal-soleil-baume-secours-apres-soleil.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-ideal-soleil-baume-secours-apres-soleil.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur'],
@@ -2561,7 +2625,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU ALCOHOL DENAT DIISOPROPYL SEBACATE DICAPRYLYL CARBONATE BIS ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE ETHYLHEXYL TRIAZONE BUTYL METHOXYDIBENZOYLMETHANE ISOPROPYL MYRISTATE GLYCERIN SILICA PROPYLENE GLYCOL DICAPRYLATE DICAPRATE POTASSIUM CETYL PHOSPHATE COPERNICIA CERIFERA CERA CARNAUBA WAX CIRE DE CARNAUBA DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE GLYCERYL STEARATE PEG 100 STEARATE PERLITE HYDROXYACETOPHENONE TRIETHANOLAMINE STEARIC ACID PALMITIC ACID TOCOPHEROL ASCORBYL GLUCOSIDE CHLORPHENESIN SILICA SILYLATE ACRYLATES C10 30 ALKYL ACRYLATE CROSSPOLYMER TRISODIUM ETHYLENEDIAMINE DISUCCINATE XANTHAN GUM MYRISTIC ACID BUTYLENE GLYCOL CITRIC ACID CAPRYLYL GLYCOL PARFUM FRAGRANCE FIL N70057881 1',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-capital-soleil-aqua-fluide-invisible-spf50-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-aqua-fluide-invisible-spf50.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-aqua-fluide-invisible-spf50.webp',
     tags: {
       primary: ['anti-oxydant', 'hydratation', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2581,7 +2646,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER - ALCOHOL DENAT - DIISOPROPYL SEBACATE - SILICA - ISOPROPYL MYRISTATE - ETHYLHEXYL SALICYLATE - ETHYLHEXYL TRIAZONE - BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE - BUTYL METHOXYDIBENZOYLMETHANE - GLYCERIN - C12-22 ALKYL ACRYLATE/HYDROXYETHYLACRYLATE COPOLYMER - PROPANEDIOL - NIACINAMIDE - DROMETRIZOLE TRISILOXANE - PERLITE - TOCOPHEROL - CAPRYLIC/CAPRIC TRIGLYCERIDE - ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER - CAPRYLYL GLYCOL - HYDROLYZED RICE PROTEIN - HYDROXYETHYLCELLULOSE - PENTYLENE GLYCOL - TEREPHTHALYLIDENE DICAMPHOR SULFONIC ACID - TRIETHANOLAMINE - TRISODIUM ETHYLENEDIAMINE DISUCCINATE - VITREOSCILLA FERMENT - PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-capital-soleil-fluide-teinte-uv-age-daily-spf50-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-fluide-teinte-uv-age-daily-spf50.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-fluide-teinte-uv-age-daily-spf50.webp',
     tags: {
       primary: ['pores-dilates', 'protection-solaire', 'barriere-cutanee'],
       secondary: [
@@ -2609,7 +2675,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER - ALCOHOL DENAT - DIISOPROPYL SEBACATE - SILICA - ISOPROPYL MYRISTATE - ETHYLHEXYL SALICYLATE - ETHYLHEXYL TRIAZONE - BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE - BUTYL METHOXYDIBENZOYLMETHANE - GLYCERIN - C12-22 ALKYL ACRYLATE/HYDROXYETHYLACRYLATE COPOLYMER - PROPANEDIOL - NIACINAMIDE - DROMETRIZOLE TRISILOXANE - PERLITE - TOCOPHEROL - CAPRYLIC/CAPRIC TRIGLYCERIDE - ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER - CAPRYLYL GLYCOL - HYDROLYZED RICE PROTEIN - HYDROXYETHYLCELLULOSE - PENTYLENE GLYCOL - TEREPHTHALYLIDENE DICAMPHOR SULFONIC ACID - TRIETHANOLAMINE - TRISODIUM ETHYLENEDIAMINE DISUCCINATE - VITREOSCILLA FERMENT - PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-capital-soleil-fluide-uv-age-daily-spf50-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-fluide-uv-age-daily-spf50.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-fluide-uv-age-daily-spf50.webp',
     tags: {
       primary: ['pores-dilates', 'protection-solaire', 'barriere-cutanee'],
       secondary: [
@@ -2637,7 +2704,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'ISOPROPYL PALMITATE, ETHYLHEXYL PALMITATE, ALCOHOL DENAT., DIISOPROPYL SEBACATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ETHYLHEXYL TRIAZONE, BUTYL METHOXYDIBENZOYLMETHANE, C12-15 ALKYL BENZOATE, DICAPRYLYL CARBONATE, ETHYLENEDIAMINE/STEARYL DIMER DILINOLEATE COPOLYMER, SQUALANE, DROMETRIZOLE TRISILOXANE, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, TOCOPHEROL, PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-capital-soleil-huile-invisible-spf50-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-huile-invisible-spf50.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-huile-invisible-spf50.webp',
     tags: {
       primary: ['barriere-cutanee', 'anti-oxydant', 'protection-solaire'],
       secondary: [
@@ -2673,7 +2741,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, C12-15 ALKYL BENZOATE, GLYCERIN, PROPYLENE GLYCOL, ETHYLHEXYL SALICYLATE, ALCOHOL DENAT, STYRENE/ACRYLATES COPOLYMER, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DROMETRIZOLE TRISILOXANE, BUTYL METHOXYDIBENZOYLMETHANE, ETHYLHEXYL TRIAZONE, POLYESTER-5, ACRYLATES COPOLYMER, CAPRYLYL GLYCOL, DISODIUM EDTA, ETHYLENEDIAMINE/STEARYL DIMER DILINOLEATE COPOLYMER, ISOPROPYL LAUROYL SARCOSINATE, PEG-8 LAURATE, TEREPHTHALYLIDENE DICAMPHOR SULFONIC ACID, TOCOPHEROL, TRIETHANOLAMINE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-capital-soleil-kids-spf50-spray-fluide-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-kids-spf50-spray-fluide.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-kids-spf50-spray-fluide.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2701,7 +2770,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER - GLYCERIN - BIS-ETHYLHEXYLOXYPHENOLMETHOXYPHENYLTRIAZINE - ISOPROPYLPALMITATE - ETHYLHEXYLSALICYLATE - PENTYLENEGLYCOL - BUTYLMETHOXYDIBENZOYLMETHANE - ALCOHOLDENAT - ETHYLHEXYLTRIAZONE - ZEAMAYSSTARCH/CORNSTARCH - POTASSIUMCETYLPHOSPHATE - DIISOPROPYLSEBACATE - ORYZASATIVACERA/RICEBRANWAX - STEARICACID - PALMITICACID - PEG-100STEARATE - GLYCERYLSTEARATE - TRIETHANOLAMINE - CAPRYLYLGLYCOL - ACRYLATES/C10-30ALKYLACRYLATECROSSPOLYMER - DROMETRIZOLETRISILOXANE - TRISODIUMETHYLENEDIAMINEDISUCCINATE - TOCOPHEROL - XANTHANGUM - BUTYROSPERMUMPARKIIBUTTER/SHEABUTTER - MYRISTICACID - SODIUMHYALURONATE - CITRICACID - PARFUM/FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-capital-soleil-lait-solaire-aco-concu-spf50-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-lait-solaire-aco-concu-spf50.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-lait-solaire-aco-concu-spf50.webp',
     tags: {
       primary: ['anti-oxydant', 'hydratation', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2722,7 +2792,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'ISOPROPYL PALMITATE, ETHYLHEXYL PALMITATE, ALCOHOL DENAT., DIISOPROPYL SEBACATE, ETHYLHEXYL TRIAZONE, BUTYL METHOXYDIBENZOYLMETHANE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, C12-15 ALKYL BENZOATE, DICAPRYLYL CARBONATE, ETHYLENEDIAMINE/STEARYL DIMER DILINOLEATE COPOLYMER, SQUALANE, DROMETRIZOLE TRISILOXANE, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, TOCOPHEROL, PARFUM/FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-capital-soleil-spf30-huile-invisible-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-spf30-huile-invisible.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-spf30-huile-invisible.webp',
     tags: {
       primary: ['barriere-cutanee', 'anti-oxydant', 'protection-solaire'],
       secondary: [
@@ -2758,7 +2829,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, ALCOHOL DENAT., HOMOSALATE, ETHYLHEXYL SALICYLATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ETHYLHEXYL TRIAZONE, GLYCERIN, PROPANEDIOL, BUTYL METHOXYDIBENZOYLMETHANE, DIISOPROPYL ADIPATE, DIISOPROPYL SEBACATE, C12-22 ALKYL ACRYLATE/HYDROXYETHYLACRYLATE COPOLYMER, DICAPRYLYL ETHER, TOCOPHEROL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CAPRYLYL GLYCOL, DROMETRIZOLE TRISILOXANE, HYDROXYACETOPHENONE, PARFUM / FRAGRANCE, SODIUM HYALURONATE, SODIUM POLYACRYLATE, TEREPHTHALYLIDENE DICAMPHOR SULFONIC ACID, TRIETHANOLAMINE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, VITREOSCILLA FERMENT (F.I.L, Z285071/1)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-capital-soleil-spf30-spray-fluide-invisible-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-spf30-spray-fluide-invisible.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-spf30-spray-fluide-invisible.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2789,7 +2861,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'BRUME HYDRATANTE INVISIBLEBUTANE AQUA WATER HOMOSALATE DICAPRYLYL ETHER OCTOCRYLENE GLYCERIN ETHYLHEXYL SALICYLATE DIMETHICONE STYRENE ACRYLATES COPOLYMER BUTYL METHOXYDIBENZOYLMETHANE PEG 30 DIPOLYHYDROXYSTEARATE NYLON 12 METHYL METHACRYLATE CROSSPOLYMER CYCLOHEXASILOXANE DROMETRIZOLE TRISILOXANE POLYMETHYLSILSESQUIOXANE P ANISIC ACID CAPRYLYL GLYCOL DISODIUM EDTA DISTEARDIMONIUM HECTORITE DODECENE ISODODECANE LAURYL PEG PPG 18 18 METHICONE PEG 8 LAURATE PHENOXYETHANOL POLOXAMER 407 POLY C10 30 ALKYL ACRYLATE PROPYLENE CARBONATE SODIUM CHLORIDE TOCOPHEROL PARFUM FRAGRANCELAIT APAISANT APRES SOLEILAQUA ALCOHOL DENAT GLYCERIN PARAFFINUM LIQUIDUM CETEARYL ALCOHOL BUTYROSPERMUM PARKII BUTTER CAPRYLYL GLYCOL CARBOMER DIMETHICONE EPILOBIUM ANGUSTIFOLIUM EXTRACT GLYCERYL STEARATE PALMITIC ACID PEG 100 STEARATE PHENOXYETHANOL SODIUM HYALURONATE SODIUM HYDROXIDE STEARIC ACID XANTHAN GUM ZINC GLUCONATE PARFUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-capital-soleil-spf50-brume-lait-apres-soleil.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-spf50-brume-lait-apres-soleil.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-spf50-brume-lait-apres-soleil.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'filtres-chimiques', 'matin'],
@@ -2810,7 +2883,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU ISOPROPYL PALMITATE ALCOHOL DENAT ETHYLHEXYL SALICYLATE ETHYLHEXYL TRIAZONE BUTYL METHOXYDIBENZOYLMETHANE BIS ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE GLYCERIN PROPANEDIOL DICAPRYLYL ETHER OXIDIZED STARCH ACETATE COPERNICIA CERIFERA CERA CARNAUBA WAX CIRE DE CARNAUBA C12 22 ALKYL ACRYLATE HYDROXYETHYLACRYLATE COPOLYMER ACRYLATES COPOLYMER ACRYLATES C10 30 ALKYL ACRYLATE CROSSPOLYMER CAPRYLYL GLYCOL DROMETRIZOLE TRISILOXANE HYDROXYACETOPHENONE TOCOPHEROL TRIETHANOLAMINE TRISODIUM ETHYLENEDIAMINE DISUCCINATE XANTHAN GUM FIL N289073 1 DISCLAIMER',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-capital-soleil-spf50-lait-protecteur-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-spf50-lait-protecteur.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-spf50-lait-protecteur.webp',
     tags: {
       primary: ['protection-solaire', 'anti-oxydant', 'hydratation'],
       secondary: ['reparateur', 'filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2831,7 +2905,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU ISOPROPYL MYRISTATE ALCOHOL DENAT BIS ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE GLYCERIN ETHYLHEXYL TRIAZONE C12 15 ALKYL BENZOATE DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE BUTYL METHOXYDIBENZOYLMETHANE PHENYLBENZIMIDAZOLE SULFONIC ACID DICAPRYLYL CARBONATE TRIETHANOLAMINE ACRYLATES COPOLYMER BEHENYL ALCOHOL BUTYLENE GLYCOL BUTYROSPERMUM PARKII BUTTER SHEA BUTTER CAPRYLYL GLYCOL CELLULOSE CETYL ALCOHOL CI 40800 BETA CAROTENE CITRIC ACID DISODIUM ETHYLENE DICOCAMIDE PEG 15 DISULFATE GLYCERYL STEARATE GLYCERYL STEARATE CITRATE HELIANTHUS ANNUUS SEED OIL SUNFLOWER SEED OIL POLY C10 30 ALKYL ACRYLATE SODIUM STEAROYL GLUTAMATE TOCOPHEROL TRISODIUM ETHYLENEDIAMINE DISUCCINATE PARFUM FRAGRANCE FIL N70078170 1 DISCLAIMER',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-capital-soleil-spf50-spray-invisible-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-spf50-spray-invisible.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-spf50-spray-invisible.webp',
     tags: {
       primary: ['anti-oxydant', 'hydratation', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2852,7 +2927,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'OCTYLDODECANOL ISOAMYL LAURATE DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE TRIHEPTANOIN DIBUTYL LAUROYL GLUTAMIDE DIBUTYL ETHYLHEXANOYL GLUTAMIDE BIS ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE ETHYLHEXYL TRIAZONE DIETHYLHEXYL BUTAMIDO TRIAZONE CAPRYLIC CAPRIC TRIGLYCERIDE HAEMATOCOCCUS PLUVIALIS EXTRACT SQUALANE TOCOPHEROL FIL N70076904 1 DISCLAIMER',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-capital-soleil-spf50-stick-invisible-10g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-spf50-stick-invisible.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-spf50-stick-invisible.webp',
     tags: {
       primary: ['barriere-cutanee', 'anti-oxydant', 'protection-solaire'],
       secondary: [
@@ -2880,7 +2956,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA /WATER - ALCOHOL DENAT. - DIISOPROPYL SEBACATE - SILICA - ISOPROPYL MYRISTATE - ETHYLHEXYL SALICYLATE - ETHYLHEXYL TRIAZONE - BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE - BUTYL METHOXYDIBENZOYLMETHANE - GLYCERIN - CI 77891 / TITANIUM DIOXIDE - PROPANEDIOL - C12-22 - ALKYL ACRYLATE/HYDROXYETHYLACRYLATE COPOLYMER - NIACINAMIDE - DROMETRIZOLE TRISILOXANE - PERLITE - TOCOPHEROL - CAPRYLIC/CAPRIC TRIGLYCERIDE - TEREPHTHALYLIDENE DICAMPHOR SULFONIC ACID - CI 77492 / IRON OXIDES - CAPRYLYL GLYCOL - PENTYLENE - GLYCOL - TRIETHANOLAMINE - HYDROLYZED RICE PROTEIN - CI 77491 / IRON OXIDES - TRISODIUM ETHYLENEDIAMINE - DISUCCINATE - SILICA SILYLATE - ACRYLATES / C10-30 - ALKYL ACRYLATE CROSSPOLYMER - BUTYLENE GLYCOL - CI 77499 / IRON OXIDES - HYDROXYETHYLCELLULOSE - VITREOSCILLA FERMENT - DISODIUM EDTA - PARFUM / - FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-capital-soleil-spf50-uv-clear-fluide-anti-imperfection-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-spf50-uv-clear-fluide-anti-imperfection.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-spf50-uv-clear-fluide-anti-imperfection.webp',
     tags: {
       primary: ['pores-dilates', 'protection-solaire', 'barriere-cutanee', 'anti-acne'],
       secondary: [
@@ -2908,7 +2985,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU - ALCOHOL DENAT. - ETHYLHEXYL SALICYLATE - ETHYLHEXYL TRIAZONE - BUTYL METHOXYDIBENZOYLMETHANE - BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE - ISOPROPYL PALMITATE - DIISOPROPYL ADIPATE - GLYCERIN - PROPANEDIOL - PHENYLBENZIMIDAZOLE SULFONIC ACID - DICAPRYLYL ETHER - TRIETHANOLAMINE - C12-22 ALKYL ACRYLATE/HYDROXYETHYLACRYLATE COPOLYMER - ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER - CAPRYLYL GLYCOL - DROMETRIZOLE TRISILOXANE - HYDROXYACETOPHENONE - SODIUM HYALURONATE - SODIUM POLYACRYLATE - TOCOPHEROL - TRISODIUM ETHYLENEDIAMINE DISUCCINATE - VITREOSCILLA FERMENT - PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-capital-soleil-spray-fluide-invisible-spf50-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-spray-fluide-invisible-spf50.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-spray-fluide-invisible-spf50.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2960,7 +3038,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, ALCOHOL DENAT., DIISOPROPYL SEBACATE, SILICA, ISOPROPYL MYRISTATE, ETHYLHEXYL SALICYLATE, ETHYLHEXYL TRIAZONE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, BUTYL METHOXYDIBENZOYLMETHANE, GLYCERIN, CI 77891 / TITANIUM DIOXIDE, PROPANEDIOL, C12-22 ALKYL ACRYLATE/HYDROXYETHYLACRYLATE COPOLYMER, NIACINAMIDE, DROMETRIZOLE TRISILOXANE, PERLITE, TOCOPHEROL, CAPRYLIC/CAPRIC TRIGLYCERIDE, TEREPHTHALYLIDENE DICAMPHOR SULFONIC ACID, CI 77492 / IRON OXIDES, CAPRYLYL GLYCOL, PENTYLENE GLYCOL, TRIETHANOLAMINE, HYDROLYZED RICE PROTEIN, CI 77491 / IRON OXIDES, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, SILICA SILYLATE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, BUTYLENE GLYCOL, CI 77499 / IRON OXIDES, HYDROXYETHYLCELLULOSE, VITREOSCILLA FERMENT, DISODIUM EDTA, PARFUM / FRAGRANCE (F.I.L, Z283240/1)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-capital-soleil-uv-age-pigment-fluide-teinte-spf50-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-uv-age-pigment-fluide-teinte-spf50.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-uv-age-pigment-fluide-teinte-spf50.webp',
     tags: {
       primary: ['protection-solaire', 'pores-dilates', 'barriere-cutanee'],
       secondary: [
@@ -2998,7 +3077,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, GLYCERIN, ETHYLHEXYL SALICYLATE, ETHYLHEXYL TRIAZONE, ALCOHOL DENAT., BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIMETHICONE, LAUROYL LYSINE, BUTYL METHOXYDIBENZOYLMETHANE, NIACINAMIDE, OXTYLDODECANOL, BEHENYL ALCOHOL, ISOPROPYL ISOSTEARATE, PERLITE, ALUMINUM STARCH OCTENYLSUCCINATE, CETYL ALCOHOL, ADENOSINE, CAPRYLOYL SALICYLIC ACID, CITRIC ACID, GRIFOLIA FRONDOSA FRUITING BODY EXTRACT, HYDROXYACETOPHENONE, PALMITOYL TETRAPEPTIDE-7, PALMITOYL TRIPEPTIDE-1, RHAMNOSE, SODIUM ACETYLATED HYALURONATE, SODIUM HYALURONATE, SR-TETRA (TETRA SH-POLYPEPTIDE-69 DIPEPTIDE-78) OLIGOPEPTIDE-252, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, TOCOPHEROL, ACRYLAMIDE/SODIUM ACRYLOYLDIMETHYLTAURATE COPOLYMER, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, BUTYLENE GLYCOL, CAPRYLYL GLYCOL, CARBOMER, CETEARYL ALCOHOL, CETEARYL GLUCOSIDE, ISOHEXADECANE, MALTODEXTRIN, MYRISTIC ACID, PALMITIC ACID, PEG-100 STEARATE, PENTYLENE GLYCOL, POLY C10-30 ALKYL ACRYLATE, POLYSORBATE 20, POLYSORBATE 80, SODIUM CHLORIDE, SODIUM LACTATE, SODIUM PHOSPHATE, SODIUM POLYACRYLATE STARCH, SODIUM STEAROYL GLUTAMATE, SORBITAN OLEATE, STEARIC ACID, CI 15985/YELLOW 6, CI 16035/RED 40, PARFUM/FRAGRANCE, CODE FIL : N70057635/1',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-liftactiv-collagen-specialist-16-creme-spf50-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-liftactiv-collagen-specialist-16-creme-spf50.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-liftactiv-collagen-specialist-16-creme-spf50.webp',
     tags: {
       primary: ['anti-age', 'anti-acne', 'protection-solaire'],
       secondary: [
@@ -3036,7 +3116,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, GLYCERIN, ETHYLHEXYL SALICYLATE, ETHYLHEXYL TRIAZONE, ALCOHOL DENAT., BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIMETHICONE, LAUROYL LYSINE, BUTYL METHOXYDIBENZOYLMETHANE, NIACINAMIDE, OXTYLDODECANOL, BEHENYL ALCOHOL, ISOPROPYL ISOSTEARATE, PERLITE, ALUMINUM STARCH OCTENYLSUCCINATE, CETYL ALCOHOL, ADENOSINE, CAPRYLOYL SALICYLIC ACID, CITRIC ACID, GRIFOLIA FRONDOSA FRUITING BODY EXTRACT, HYDROXYACETOPHENONE, PALMITOYL TETRAPEPTIDE-7, PALMITOYL TRIPEPTIDE-1, RHAMNOSE, SODIUM ACETYLATED HYALURONATE, SODIUM HYALURONATE, SR-TETRA (TETRA SH-POLYPEPTIDE-69 DIPEPTIDE-78) OLIGOPEPTIDE-252, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, TOCOPHEROL, ACRYLAMIDE/SODIUM ACRYLOYLDIMETHYLTAURATE COPOLYMER, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, BUTYLENE GLYCOL, CAPRYLYL GLYCOL, CARBOMER, CETEARYL ALCOHOL, CETEARYL GLUCOSIDE, ISOHEXADECANE, MALTODEXTRIN, MYRISTIC ACID, PALMITIC ACID, PEG-100 STEARATE, PENTYLENE GLYCOL, POLY C10-30 ALKYL ACRYLATE, POLYSORBATE 20, POLYSORBATE 80, SODIUM CHLORIDE, SODIUM LACTATE, SODIUM PHOSPHATE, SODIUM POLYACRYLATE STARCH, SODIUM STEAROYL GLUTAMATE, SORBITAN OLEATE, STEARIC ACID, CI 15985/YELLOW 6, CI 16035/RED 40, PARFUM/FRAGRANCE, CODE FIL : N70057635/1',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-liftactiv-collagen-specialist-16-recharge-creme-spf50-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-liftactiv-collagen-specialist-16-recharge-creme-spf50.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-liftactiv-collagen-specialist-16-recharge-creme-spf50.webp',
     tags: {
       primary: ['anti-age', 'anti-acne', 'protection-solaire'],
       secondary: [
@@ -3074,7 +3155,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER - GLYCERIN - ETHYLHEXYL SALICYLATE - ETHYLHEXYL TRIAZONE - ALCOHOL DENAT. - BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE - DIMETHICONE - LAUROYL LYSINE - BUTYL METHOXYDIBENZOYLMETHANE - OCTYLDODECANOL - BEHENYL ALCOHOL - ISOPROPYL ISOSTEARATE - PERLITE - ALUMINUM STARCH OCTENYLSUCCINATE - CETYL ALCOHOL - HYDROLYZED RICE PROTEIN - ADENOSINE - CAPRYLOYL SALICYLIC ACID - DISODIUM EDTA - HYDROXYACETOPHENONE - PALMITOYL TETRAPEPTIDE-7 - PALMITOYL TRIPEPTIDE-1 - SODIUM ACETYLATED HYALURONATE - SODIUM HYALURONATE - NIACINAMIDE - TOCOPHEROL - ACRYLAMIDE/SODIUM ACRYLOYLDIMETHYLTAURATE COPOLYMER - AMMONIUM POLYACRYLOYLDIMETHYL TAURATE - BUTYLENE GLYCOL - CARBOMER - CETEARYL ALCOHOL - CETEARYL GLUCOSIDE - ISOHEXADECANE - MYRISTIC ACID - PALMITIC ACID - PEG-100 STEARATE - PENTYLENE GLYCOL - POLY C10-30 ALKYL ACRYLATE - POLYSORBATE 20 - POLYSORBATE 80 - SODIUM LACTATE - SODIUM POLYACRYLATE STARCH - SODIUM STEAROYL GLUTAMATE - SORBITAN OLEATE - STEARICACID - CI 15985/YELLOW 6 - CI 16035/RED 40 - PHENOXYETHANOL - PARFUM/FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-liftactiv-creme-b3-anti-taches-spf50-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-liftactiv-creme-b3-anti-taches-spf50.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-liftactiv-creme-b3-anti-taches-spf50.webp',
     tags: {
       primary: ['anti-age', 'anti-acne', 'exfoliation', 'anti-taches'],
       secondary: [
@@ -3105,7 +3187,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, ALCOHOL DENAT., SILICA, ISOPROPYL MYRISTATE, DIISOPROPYL SEBACATE, ETHYLHEXYL TRIAZONE, BUTYL METHOXYDIBENZOYLMETHANE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, C12-15 ALKYL BENZOATE, DICAPRYLYL CARBONATE, GLYCERIN, PROPANEDIOL, C12-22 ALKYL ACRYLATE/HYDROXYETHYLACRYLATE COPOLYMER, DROMETRIZOLE TRISILOXANE, PERLITE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, BUTYLENE GLYCOL, CAFFEINE, CAPRYLYL GLYCOL, CARBOMER, CITRIC ACID, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DISODIUM PHOSPHATE, HYDROXYACETOPHENONE, HYDROXYETHYLCELLULOSE, 2-MERCAPTONICOTINOYL GLYCINE, NIACINAMIDE, PALMITOYL TETRAPEPTIDE-7, PALMITOYL TRIPEPTIDE-1, POLYSORBATE 20, POLYSORBATE 60, SODIUM HYALURONATE, SODIUM LACTATE, SODIUM PHOSPHATE, SODIUM THIOSULFATE, TOCOPHEROL, TRIETHANOLAMINE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-liftactiv-pigment-specialist-b3-soin-yeux-spf50-15ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-liftactiv-pigment-specialist-b3-soin-yeux-spf50.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-liftactiv-pigment-specialist-b3-soin-yeux-spf50.webp',
     tags: {
       primary: ['anti-age', 'pores-dilates', 'hydratation', 'protection-solaire'],
       secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3136,7 +3219,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER - GLYCERIN - OCTOCRYLENE - NIACINAMIDE - RHAMNOSE - ALCOHOL DENAT - HOMOSALATE - ETHYLHEXYL SALICYLATE - BUTYL METHOXYDIBENZOYLMETHANE - PROPYLENE GLYCOL - POLY C10-30 ALKYL ACRYLATE - ADENOSINE - FAEX EXTRACT / YEAST EXTRACT - PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE - SODIUM ACETYLATED HYALURONATE - TRISODIUM ETHYLENEDIAMINE DISUCCINATE - TOCOPHEROL - CETYL ALCOHOL - BEHENYL ALCOHOL - CAPRYLYL GLYCOL - DISODIUM ETHYLENE DICOCAMIDE PEG-15 DISULFATE - ETHYLHEXYLGLYCERIN - GLYCERYL STEARATE - GLYCERYL STEARATE CITRATE - SILICA - SODIUM ACRYLATES CROSSPOLYMER-2 - SODIUM POLYACRYLATE - PHENOXYETHANOL - PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-liftactiv-supreme-soin-anti-rides-fermetes-spf30-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-liftactiv-supreme-soin-anti-rides-fermetes-spf30.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-liftactiv-supreme-soin-anti-rides-fermetes-spf30.webp',
     tags: {
       primary: ['protection-solaire', 'anti-age', 'pores-dilates'],
       secondary: [
@@ -3164,7 +3248,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, ALCOHOL DENAT., SILICA, ISOPROPYL MYRISTATE, DIISOPROPYL SEBACATE, ETHYLHEXYL SALICYLATE, ETHYLHEXYL TRIAZONE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, BUTYL METHOXYDIBENZOYLMETHANE, GLYCERIN, PROPANEDIOL, C12-22 ALKYL ACRYLATE/HYDROXYETHYLACRYLATE COPOLYMER, NIACINAMIDE, DROMETRIZOLE TRISILOXANE, PERLITE, TOCOPHEROL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CITRIC ACID, HYDROXYACETOPHENONE, MINERAL SALTS, SODIUM HYALURONATE, TRIETHANOLAMINE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, VITREOSCILLA FERMENT, SQUALANE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, BUTYLENE GLYCOL, CAPRYLYL GLYCOL, DISODIUM PHOSPHATE, HYDROXYETHYLCELLULOSE, POLYSORBATE 60, SODIUM PHOSPHATE, TEREPHTHALYLIDENE DICAMPHOR SULFONIC ACID, CODE F.I.L.: N70040137/2',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-mineral-89-fluide-hydratation-72h-spf50-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-mineral-89-fluide-hydratation-72h-spf50.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-mineral-89-fluide-hydratation-72h-spf50.webp',
     tags: {
       primary: ['barriere-cutanee', 'protection-solaire', 'pores-dilates'],
       secondary: [
@@ -3204,7 +3289,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, GLYCERIN, ETHYLHEXYL SALICYLATE, ETHYLHEXYL TRIAZONE, ALCOHOL DENAT., BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, LAUROYL LYSINE, DIMETHICONE, BUTYL METHOXYDIBENZOYLMETHANE, OCTYLDODECANOL, BEHENYL ALCOHOL, ISOPROPYL ISOSTEARATE, NIACINAMIDE, PERLITE, ALUMINUM STARCH OCTENYLSUCCINATE, CETYL ALCOHOL, ADENOSINE, CAPRYLOYL SALICYLIC ACID, CASSIA ANGUSTIFOLIA SEED POLYSACCHARIDE, HYDROXYACETOPHENONE, HYDROXYPROPYL TETRAHYDROPYRANTRIOL, SODIUM ACETYLATED HYALURONATE, SODIUM HYALURONATE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, TOCOPHEROL, ORYZA SATIVA BRAN OIL/RICE BRAN OIL, ACRYLAMIDE/SODIUM ACRYLOYLDIMETHYLTAURATE COPOLYMER, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, CAPRYLYL GLYCOL, CETEARYL ALCOHOL, CETEARYL GLUCOSIDE, CI 77891/TITANIUM DIOXIDE, ISOHEXADECANE, MICA, MYRISTIC ACID, PALMITIC ACID, PEG-100 STEARATE, POLY C10-30 ALKYL ACRYLATE, POLYSORBATE 80, PROPYLENE GLYCOL, SODIUM POLYACRYLATE STARCH, SODIUM STEAROYL GLUTAMATE, SORBITAN OLEATE, STEARIC ACID, SYNTHETIC FLUORPHLOGOPITE, TIN OXIDE, CI 15985/YELLOW 6, CI 16035/RED 40, PARFUM/FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-neovadiol-post-menopause-creme-raffermissante-anti-taches-spf50-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-neovadiol-post-menopause-creme-raffermissante-anti-taches-spf50.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/vichy-neovadiol-post-menopause-creme-raffermissante-anti-taches-spf50.webp',
     tags: {
       primary: ['anti-acne', 'protection-solaire', 'pores-dilates', 'anti-taches'],
       secondary: [

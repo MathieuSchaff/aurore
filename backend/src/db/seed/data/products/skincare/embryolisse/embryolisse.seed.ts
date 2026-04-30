@@ -15,7 +15,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'INGREDIENTS : AQUA (WATER). DICAPRYLYL CARBONATE. BUTYROSPERMUM PARKII (SHEA) BUTTER. ETHYLHEXYL POLYHYDROXYSTEARATE. CAPRYLIC/CAPRIC TRIGLYCERIDE. COPERNICIA CERIFERA CERA (CARNAUBA WAX). GLYCERIN. PRUNUS ARMENIACA (APRICOT) KERNEL OIL. CETEARYL GLUCOSIDE. SORBITAN OLIVATE. PARFUM (FRAGRANCE). XANTHAN GUM. SODIUM POLYACRYLATE. 1,2-HEXANEDIOL. CAPRYLYL GLYCOL. CITRIC ACID. SODIUM BENZOATE. MEDICAGO SATIVA (ALFALFA) EXTRACT. CETEARYL ALCOHOL. SODIUM HYDROXIDE. LIMONENE. ALOE BARBADENSIS LEAF JUICE POWDER. TOCOPHEROL. HYDROXYCITRONELLAL. LINALOOL',
     url: 'https://www.atida.fr/embryolisse-lait-creme-retinol-like-75ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-lait-creme-retinol-like-75ml-233892.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-lait-creme-retinol-like-75ml-233892.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -36,7 +37,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (Water), Paraffinum Liquidum, Stearic Acid, Palmitic Acid, Glyceryl Stearate Se, Triethanolamine, Cera Alba (Beeswax), Cetyl Palmitate, Butysrospermum Parkii (Shea), Butter. 1-2-Hexanediol, Caprylyl Glycol, Polyacrylamide, Steareth-10, C13-14 Isoparaffin, Tropolone, Laureth-7, Parfum (Fragrance), Aloe Barbadensis Leaf Extract, Hydrolyzed Soy Protein, Propylene Glycol.',
     url: 'https://www.atida.fr/embryolisse-lait-creme-concentre-75ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-les-hydratants-lait-creme-concentre-75ml-272530.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-les-hydratants-lait-creme-concentre-75ml-272530.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.ZONE_CORPS],
@@ -57,7 +59,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, méthyl, méthacrylate, crosspolymer, isotridecyl, isononanoate, mica, ethylhexyl methoxycinnamate, butylene glycol dimethicone PEG-9, polydimethylsiloxyethyl dimethicone glycerin, pentylene glycol, titanium dioxide, dimethicone/PEG-10/15, crosspolymer silsesquioxane, calcium aluminium borosilicate, aluminium hydroxide, sodium citrate silica, magnesium carbonate tocopherol, phytosteryl/octyldodecyl lauroyl glutamate ethylhexylglycerin, barium sulfate, hydrogen dimethicone, allumina, sodium, acetylated hyaluronate, parfum, iron oxides.',
     url: 'https://www.atida.fr/embryolisse-secret-de-maquilleurs-bb-cream-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-secret-de-maquilleurs-bb-cream-spf20-30ml-233719.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-secret-de-maquilleurs-bb-cream-spf20-30ml-233719.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -86,7 +89,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'CAPRYLIC/CAPRIC TRIGLYCERIDE. JOJOBA ESTERS. ZEA MAYS (CORN) STARCH. COCO-CAPRYLATE/ CAPRATE. POLYGLYCERYL-2 TRIISOSTEARATE. RICINUS COMMUNIS (CASTOR) SEED OIL. BIS-BEHENYL/ISOSTEARYL/PHYTOSTERYL DIMER DILINOLEYL DIMER DILINOLEATE. BIS-DIGLYCERYL POLYACYLADIPATE-2. ORYZA SATIVA BRAN CERA (RICE WAX). HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL UNSAPONIFIABLES. POLYGLYCERYL-2 ISOSTEARATE/DIMER DILINOLEATE COPOLYMER. DIMER DILINOLEYL DIMER DILINOLEATE. HYDROGENATED CASTOR OIL DIMER DILINOLEATE. HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL. MICA. GOSSYPIUM HERBACEUM (COTTON) SEED OIL. CANARIUM LUZONICUM GUM NONVOLATILES. STEARALKONIUM HECTORITE. PROPYLENE CARBONATE. TIN OXIDE. TOCOPHEROL. CENTELLA ASIATICA LEAF EXTRACT. ALOE BARBADENSIS LEAF JUICE POWDER. +/- (MAY CONTAIN) : CI 77891 (TITANIUM DIOXIDE). CI 77491 (IRON OXIDES). CI 19140 (YELLOW 5 LAKE). CI 15850 (RED 7). CI 77499 (IRON OXIDES).',
     url: 'https://www.atida.fr/embryolisse-baume-couleur-stick-3-en-1-rose-nude-2-5g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-baume-couleur-stick-3-en-1-rose-nude-2-5g-243077.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-baume-couleur-stick-3-en-1-rose-nude-2-5g-243077.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.CICATRISATION, TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
@@ -112,7 +116,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients principaux :Extraits végétaux de guarana et de pois, acide hyaluronique, beurre de karité, squalane, glycérine, protéines de blé. Tolérance testée sous contrôle dermatologique.Liste INCI :AQUA (WATER). GLYCERIN. CAPRYLIC/CAPRIC TRIGLYCERIDE. ISODECYL NEOPENTANOATE. SQUALANE. BUTYROSPERMUM PARKII (SHEA) BUTTER. HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER. POLYACRYLATE-13. SODIUM POLYACRYLATE. PARFUM (FRAGRANCE). 1,2-HEXANEDIOL. BUTYLENE GLYCOL. CAPRYLYL GLYCOL. PAULLINIA CUPANA SEED EXTRACT. POLYISOBUTENE. SODIUM BENZOATE. SODIUM STEAROYL GLUTAMATE. CITRIC ACID. CYCLODEXTRIN. PISUM SATIVUM (PEA) EXTRACT. POLYSORBATE 60. DISODIUM EDTA. SORBITAN ISOSTEARATE. POLYSORBATE 20. SODIUM HYALURONATE. SODIUM HYDROXIDE. HYDROLYZED WHEAT PROTEIN. LIMONENE. HYDROXYCITRONELLAL.',
     url: 'https://www.atida.fr/embryolisse-creme-365-raffermissante-corps-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-creme-365-raffermissante-corps-200ml-258993.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-creme-365-raffermissante-corps-200ml-258993.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -139,7 +144,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), coco-caprylate/caprate, glycerin, caprylic/capric triglyceride, polyglyceryl-6 polyricinoleate, distarch phosphate, butylene glycol, polyglyceryl- 4 i sostearat e , niacinamide, ricinus communis root e xt ract, magnes i u m s u l fat e , polyhydroxystearic acid, tocopheryl acetate, levulinic acid, fraxinus excelsior bark extract, p-anisic acid, sodium levulinate, stearalkonium hectorite, sodium hydroxide, glycolic acid, propylene carbonate, silanetriol, biosaccharide gum-1 , glyceryl caprylate, isostearic acid, +/- (may contain) : ci 77891 (titanium dioxide), ci 77492, ci77491, ci77499 (iron oxides).',
     url: 'https://www.atida.fr/embryolisse-secret-de-maquilleurs-soin-correcteur-anti-cernes-rose-8ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-secret-de-maquilleurs-soin-correcteur-anti-cernes-rose-8ml-271352.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-secret-de-maquilleurs-soin-correcteur-anti-cernes-rose-8ml-271352.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
@@ -168,7 +174,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (Water), Paraffinum Liquidum, Stearic Acid, Palmitic Acid, Glyceryl Stearate Se, Triethanolamine, Cera Alba (Beeswax), Cetyl Palmitate, Butysrospermum Parkii (Shea), Butter. 1-2-Hexanediol, Caprylyl Glycol, Polyacrylamide, Steareth-10, C13-14 Isoparaffin, Tropolone, Laureth-7, Parfum (Fragrance), Aloe Barbadensis Leaf Extract, Hydrolyzed Soy Protein, Propylene Glycol.',
     url: 'https://www.atida.fr/embryolisse-lait-creme-concentre-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-les-hydratants-lait-creme-concentre-30ml-261196.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-les-hydratants-lait-creme-concentre-30ml-261196.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.ZONE_CORPS],
@@ -189,7 +196,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Aqua (Water), Alcohol Denat, Glycerin, Pvp, Butylene Glycol, 1,2-Hexanediol, Carbomer, Sodium Hydroxide, Ricinus Communis (Castor) Seed Oil, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, O-Cymen-5-Ol, Centella Asiatica Extract, Panthenol, Arginine, Biotinoyl Tripeptide-196 % d'ingrédients d'origine naturelle",
     url: 'https://www.atida.fr/embryolisse-soin-booster-cils-6-5ml-6273834.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-secret-de-maquilleurs-soin-booster-cils-et-sourcils-6-5ml-271299.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-secret-de-maquilleurs-soin-booster-cils-et-sourcils-6-5ml-271299.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.CICATRISATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -216,7 +224,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), coco-caprylate/caprate, glycerin, caprylic/capric triglyceride, distarch phosphate, polyglyceryl-6 polyricinoleate, butylene glycol, polyglyceryl- 4 i sostearat e , niacinamide, ricinus communis root extract, magnesium sulfate, isostearic acid, polyhydroxystearic acid, tocopheryl acetate, levulinic acid, fraxinus excelsior bark extract, p-anisic acid, sodium levulinate, stearalkonium hectorite, sodium hydroxide, glycolic acid, propylene carbonate, silanetriol, biosaccharide gum-1, glyceryl caprylate, +/- (may contain) : ci 77891 (titanium dioxide), ci 77492, ci77491, ci77499 (iron oxides).',
     url: 'https://www.atida.fr/embryolisse-secret-de-maquilleurs-soin-correcteur-anti-cernes-beige-8ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-secret-de-maquilleurs-soin-correcteur-anti-cernes-beige-8ml-271351.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-secret-de-maquilleurs-soin-correcteur-anti-cernes-beige-8ml-271351.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
@@ -245,7 +254,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'CAPRYLIC/CAPRIC TRIGLYCERIDE. JOJOBA ESTERS. ZEA MAYS (CORN) STARCH. COCO-CAPRYLATE/CAPRATE. POLYGLYCERYL-2 TRIISOSTEARATE. RICINUS COMMUNIS (CASTOR) SEED OIL. BIS-BEHENYL/ISOSTEARYL/PHYTOSTERYL DIMER DILINOLEYL DIMER DILINOLEATE. BIS-DIGLYCERYL POLYACYLADIPATE-2. ORYZA SATIVA BRAN CERA (RICE WAX). HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL UNSAPONIFIABLES. POLYGLYCERYL-2 ISOSTEARATE/DIMER DILINOLEATE COPOLYMER. DIMER DILINOLEYL DIMER DILINOLEATE. HYDROGENATED CASTOR OIL DIMER DILINOLEATE. HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL. GOSSYPIUM HERBACEUM (COTTON) SEED OIL. CANARIUM LUZONICUM GUM NONVOLATILES. STEARALKONIUM HECTORITE. PROPYLENE CARBONATE. TOCOPHEROL. CENTELLA ASIATICA LEAF EXTRACT. ALOE BARBADENSIS LEAF JUICE POWDER. +/- (MAY CONTAIN) : CI 77891 (TITANIUM DIOXIDE). CI 15850 (RED 7, RED 6). CI 42090 (BLUE 1 LAKE).',
     url: 'https://www.atida.fr/embryolisse-baume-couleur-stick-3-en-1-rose-framboise-2-5g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-baume-couleur-stick-3-en-1-rose-framboise-2-5g-282347.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-baume-couleur-stick-3-en-1-rose-framboise-2-5g-282347.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.CICATRISATION, TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
@@ -271,7 +281,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water). caprylic/capric triglyceride. glycerin. octyldodecanol. cetearyl alcohol. butyrospermum parkii (shea) butter. cera alba (beeswax). cetyl phosphate. 1,2-hexanediol. caprylyl glycol. acrylates/c10-30 alkyl acrylate crosspolymer. sodium hydroxide. propylene glycol. tocopherol. tropolone. glycine soja (soybean) oil. hydrolyzed soy protein. aloe barbadensis leaf extract.',
     url: 'https://www.atida.fr/embryolisse-lait-creme-sensitive-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-les-hydratants-lait-creme-sensitive-100ml-233842.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-les-hydratants-lait-creme-sensitive-100ml-233842.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.ZONE_CORPS],
@@ -292,7 +303,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), caprylic/ capric triglyceride, cetearyl alcohol, glycerin, butyrospermum parkii (shea) butter, distarch phosphate, cera alba (beeswax), albizia julibrissin bark extract, ethylhexylglycerin, steareth-21, carbomer, cetearyl glucoside, levulinic acid, steareth-2, mica, sodium hydroxide, ci 77491 (iron oxides), parfum (fragrance), sodium levulinate, p-anisic acid, caprylyl glycol, ci 77163 (bismuth oxychloride), maltodextrin, helianthus annuus (sunflower) seed oil, sodium hyaluronate, tocopherol, biosaccharide gum-1, ci 77492 (iron oxides), ci 77499 (iron oxides), sodium benzoate, limonene,',
     url: 'https://www.atida.fr/embryolisse-secret-de-maquilleurs-soin-blush-de-peau-rose-lumiere-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-secret-de-maquilleurs-soin-blush-de-peau-rose-lumiere-50ml-233876.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-secret-de-maquilleurs-soin-blush-de-peau-rose-lumiere-50ml-233876.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -318,7 +330,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER). CI 77499 (IRON OXIDES). HYDROXYPROPYL STARCH. GLYCERYL STEARATE. COPERNICIA CERIFERA CERA (CARNAUBA WAX). RICINUS COMMUNIS (CASTOR) SEED OIL. GLYCERYL BEHENATE. DEXTRIN ISOSTEARATE. OLEIC/LINOLEIC/LINOLENIC POLYGLYCERIDES. PROPANEDIOL. HELIANTHUS ANNUUS SEED CERA (SUNFLOWER WAX). CANDELILLA/JOJOBA/RICE BRAN POLYGLYCERYL-3 ESTERS. MICROCRYSTALLINE CELLULOSE. OLEA EUROPAEA (OLIVE) OIL UNSAPONIFIABLES. CETEARYL ALCOHOL. SODIUM STEAROYL LACTYLATE. BENZYL ALCOHOL. GLYCERYL STEARATE. TOCOPHEROL. CELLULOSE GUM. RHUS VERNICIFLUA PEEL CERA (WAX). SHOREA ROBUSTA RESIN. GLYCINE SOJA (SOYBEAN) OIL. SODIUM HYDROXIDE. DEHYDROACETIC ACID.',
     url: 'https://www.atida.fr/embryolisse-mascara-soin-courbe-et-definition-noir-8ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-mascara-soin-courbe-et-definition-noir-8ml-233886.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-mascara-soin-courbe-et-definition-noir-8ml-233886.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -339,7 +352,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'CAPRYLIC/CAPRIC TRIGLYCERIDE. RICINUS COMMUNIS (CASTOR) SEED OIL. CERA ALBA (BEESWAX). C10-18 TRIGLYCERIDES. APRICOT KERNEL OIL POLYGLYCERYL-4 ESTERS. BUTYROSPERMUM PARKII (SHEA) BUTTER. PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL. COPERNICIA CERIFERA (CARNAUBA) WAX. HYDROGENATED CASTOR OIL. PARFUM (FRAGRANCE). TOCOPHERYL ACETATE. LEONTOPODIUM ALPINUM EXTRACT.',
     url: 'https://www.atida.fr/embryolisse-stick-protecteur-reparateur-4g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-les-nourrissants-stick-levres-protecteur-4g-279237.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-les-nourrissants-stick-levres-protecteur-4g-279237.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [TAG_SLUGS.SOIN_LEVRES, TAG_SLUGS.ZONE_LEVRES],
@@ -360,7 +374,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'INGREDIENTS : AQUA (WATER). DICAPRYLYL ETHER. PENTAERYTHRITYL TETRABEHENATE. HEPTYL UNDECYLENATE. DIISOPROPYL SEBACATE. SILICA. GLYCERIN. CAPRYLIC/CAPRIC TRIGLYCERIDE. DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE. POLYGLYCERYL-6 POLYHYDROXYSTEARATE. POLYGLYCERYL-6 POLYRICINOLEATE. BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE. PHENYLBENZIMIDAZOLE SULFONIC ACID. ETHYLHEXYL TRIAZONE. JOJOBA ESTERS. CETYL ALCOHOL. TOCOPHERYL ACETATE. 2,3-BUTANEDIOL. ARGANIA SPINOSA KERNEL OIL. MAGNESIUM POTASSIUM FLUOROSILICATE. MAGNESIUM SULFATE. STEARALKONIUM HECTORITE. PARFUM (FRAGRANCE). POLYGLYCERIN-6. CAPRYLYL GLYCOL. SODIUM HYDROXIDE. PROPYLENE CARBONATE. CITRUS RETICULATA (TANGERINE) EXTRACT. BISABOLOL. HYDROGENATED LECITHIN. O-CYMEN-5-OL. PENTYLENE GLYCOL. SODIUM HYALURONATE. FARNESOL. TOCOPHEROL. ASCORBYL PALMITATE. +/- (MAY CONTAIN): CI 77891 (TITANIUM DIOXIDE). CI 77492 (IRON OXIDES). CI 77491 (IRON OXIDES). CI 77499 (IRON OXIDES).',
     url: 'https://www.atida.fr/embryolisse-soin-perfecteur-de-teint-cc-cream-nude-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-soin-perfecteur-de-teint-cc-cream-nude-30ml-302371.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-soin-perfecteur-de-teint-cc-cream-nude-30ml-302371.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.APAISANT],
       secondary: [
@@ -388,7 +403,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'CAPRYLIC/CAPRIC TRIGLYCERIDE. JOJOBA ESTERS. ZEA MAYS (CORN) STARCH. COCO-CAPRYLATE/ CAPRATE. POLYGLYCERYL-2 TRIISOSTEARATE. RICINUS COMMUNIS (CASTOR) SEED OIL. BIS-BEHENYL/ISOSTEARYL/PHYTOSTERYL DIMER DILINOLEYL DIMER DILINOLEATE. BIS-DIGLYCERYL POLYACYLADIPATE-2. ORYZA SATIVA BRAN CERA (RICE WAX). HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL UNSAPONIFIABLES. POLYGLYCERYL-2 ISOSTEARATE/DIMER DILINOLEATE COPOLYMER. DIMER DILINOLEYL DIMER DILINOLEATE. HYDROGENATED CASTOR OIL DIMER DILINOLEATE. HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL. GOSSYPIUM HERBACEUM (COTTON) SEED OIL. CANARIUM LUZONICUM GUM NONVOLATILES. STEARALKONIUM HECTORITE. PROPYLENE CARBONATE. TOCOPHEROL. CENTELLA ASIATICA LEAF EXTRACT. ALOE BARBADENSIS LEAF JUICE POWDER.+/- (MAY CONTAIN) : CI 15850 (RED 7, RED 6). CI 15985 (YELLOW 6 LAKE). CI 19140 (YELLOW 5 LAKE).',
     url: 'https://www.atida.fr/embryolisse-baume-couleur-stick-3-en-1-rouge-intense-2-5g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-baume-couleur-stick-3-en-1-rouge-intense-2-5g-279611.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-baume-couleur-stick-3-en-1-rouge-intense-2-5g-279611.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.CICATRISATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.BAUME],
@@ -409,7 +425,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'INGREDIENTS : AQUA (WATER). DICAPRYLYL ETHER. PENTAERYTHRITYL TETRABEHENATE. HEPTYL UNDECYLENATE. DIISOPROPYL SEBACATE. SILICA. GLYCERIN. CAPRYLIC/CAPRIC TRIGLYCERIDE. DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE. POLYGLYCERYL-6 POLYHYDROXYSTEARATE. POLYGLYCERYL-6 POLYRICINOLEATE. BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE. PHENYLBENZIMIDAZOLE SULFONIC ACID. ETHYLHEXYL TRIAZONE. JOJOBA ESTERS. CETYL ALCOHOL. TOCOPHERYL ACETATE. 2,3-BUTANEDIOL. ARGANIA SPINOSA KERNEL OIL. MAGNESIUM POTASSIUM FLUOROSILICATE. MAGNESIUM SULFATE. STEARALKONIUM HECTORITE. PARFUM (FRAGRANCE). POLYGLYCERIN-6. CAPRYLYL GLYCOL. SODIUM HYDROXIDE. PROPYLENE CARBONATE. CITRUS RETICULATA (TANGERINE) EXTRACT. BISABOLOL. HYDROGENATED LECITHIN. O-CYMEN-5-OL. PENTYLENE GLYCOL. SODIUM HYALURONATE. FARNESOL. TOCOPHEROL. ASCORBYL PALMITATE. +/- (MAY CONTAIN): CI 77891 (TITANIUM DIOXIDE). CI 77492 (IRON OXIDES). CI 77491 (IRON OXIDES). CI 77499 (IRON OXIDES).',
     url: 'https://www.atida.fr/embryolisse-soin-perfecteur-de-teint-cc-cream-clair-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-soin-perfecteur-de-teint-cc-cream-clair-30ml-302375.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-soin-perfecteur-de-teint-cc-cream-clair-30ml-302375.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.APAISANT],
       secondary: [
@@ -437,7 +454,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Caprylic/capric triglyceride, propanediol, d i ca pry l at e, d i ca pry ly l e t h er, butyrospermum parki i (shea) butter, extract, prunus armeniaca (apricot), kernel oil, punica granatum seed oil, helianthus annuus (sunflower) seed oil,, citrus limon (lemon) fruit extract, parfum (fragrance). tocopherol, limonene, hydroxycitronellal.',
     url: 'https://www.atida.fr/embryolisse-huile-de-beaute-corps-et-cheveux-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-huile-de-beaute-multi-fonctions-100ml-233819.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-huile-de-beaute-multi-fonctions-100ml-233819.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -484,7 +502,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Embryolisse Lait-Crème Multi-Protection 40ml : AQUA (WATER). GLYCERIN. C12-15 ALKYL BENZOATE. DICAPRYLYL CARBONATE. DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE. STEARETH-21. CETYL PALMITATE. PHENYLBENZIMIDAZOLE SULFONIC ACID. STEARETH-2. HYDROXYPROPYL STARCH PHOSPHATE. ETHYLHEXYL TRIAZONE. 1,2-HEXANEDIOL. BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE. CERA ALBA (BEESWAX). ETHYLHEXYL PALMITATE. PENTAERYTHRITYL TETRABEHENATE. GLYCERYL STEARATE. PEG-100 STEARATE. CETYL ALCOHOL. OCTYLDODECANOL. TOCOPHERYL ACETATE. XANTHAN GUM. SODIUM HYDROXIDE. CHLORPHENESIN. CAPRYLYL GLYCOL. BUTYROSPERMUM PARKII (SHEA) BUTTER. PARFUM (FRAGRANCE). ALOE BARBADENSIS LEAF EXTRACT. LIMONENE. TOCOPHEROL. HYDROLYZED SOY PROTEIN.Embryolisse Lait-Crème Concentré 30ml :  AQUA (WATER). PARAFFINUM LIQUIDUM. STEARIC ACID. PALMITIC ACID. GLYCERYL STEARATE SE. TRIETHANOLAMINE. CERA ALBA (BEESWAX). CETYL PALMITATE. ALOE BARBADENSIS LEAF JUICE POWDER. BUTYROSPERMUM PARKII (SHEA) BUTTER. 1,2-HEXANEDIOL. CAPRYLYL GLYCOL. STEARETH-10. POLYACRYLAMIDE. C13-14 ISOPARAFFIN. PARFUM (FRAGRANCE). LAURETH-7. PROPYLENE GLYCOL. TROPOLONE. HYDROLYZED SOY PROTEIN.',
     url: 'https://www.atida.fr/embryolisse-routine-visage-hydratation-et-protection-jour-nuit.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-routine-visage-hydratation-et-protection-jour-nuit-300214.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-routine-visage-hydratation-et-protection-jour-nuit-300214.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -505,7 +524,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'INGREDIENTS : AQUA (WATER). CAPRYLIC/CAPRIC TRIGLYCERIDE. GLYCERIN. POLYGLYCERYL-6 STEARATE. BUTYROSPERMUM PARKII (SHEA) BUTTER. PENTYLENE GLYCOL. CARBOMER. PARFUM (FRAGRANCE). GLYCERYL CAPRYLATE. SODIUM BENZOATE. POLYGLYCERYL-6 BEHENATE. MICA. SODIUM HYDROXIDE. CI 77491 (IRON OXIDES). TROPAEOLUM MAJUS FLOWER/LEAF/STEM EXTRACT. HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL. SODIUM HYALURONATE. TOCOPHEROL. CI 77163 (BISMUTH OXYCHLORIDE). ASTAXANTHIN. RIBOFLAVIN. 1,2-HEXANEDIOL. CAPRYLYL GLYCOL. LIMONENE. HYDROXYCITRONELLAL.',
     url: 'https://www.atida.fr/embryolisse-soin-blush-de-peau-abricot-lumiere-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-soin-blush-de-peau-abricot-lumiere-50ml-260480.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-soin-blush-de-peau-abricot-lumiere-50ml-260480.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -531,7 +551,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'INGREDIENTS : AQUA (WATER). DICAPRYLYL ETHER. PENTAERYTHRITYL TETRABEHENATE. HEPTYL UNDECYLENATE. DIISOPROPYL SEBACATE. SILICA. GLYCERIN. CAPRYLIC/CAPRIC TRIGLYCERIDE. DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE. POLYGLYCERYL-6 POLYHYDROXYSTEARATE. POLYGLYCERYL-6 POLYRICINOLEATE. BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE. PHENYLBENZIMIDAZOLE SULFONIC ACID. ETHYLHEXYL TRIAZONE. JOJOBA ESTERS. CETYL ALCOHOL. TOCOPHERYL ACETATE. 2,3-BUTANEDIOL. ARGANIA SPINOSA KERNEL OIL. MAGNESIUM POTASSIUM FLUOROSILICATE. MAGNESIUM SULFATE. STEARALKONIUM HECTORITE. PARFUM (FRAGRANCE). POLYGLYCERIN-6. CAPRYLYL GLYCOL. SODIUM HYDROXIDE. PROPYLENE CARBONATE. CITRUS RETICULATA (TANGERINE) EXTRACT. BISABOLOL. HYDROGENATED LECITHIN. O-CYMEN-5-OL. PENTYLENE GLYCOL. SODIUM HYALURONATE. FARNESOL. TOCOPHEROL. ASCORBYL PALMITATE. +/- (MAY CONTAIN): CI 77891 (TITANIUM DIOXIDE). CI 77492 (IRON OXIDES). CI 77491 (IRON OXIDES). CI 77499 (IRON OXIDES).',
     url: 'https://www.atida.fr/embryolisse-soin-perfecteur-de-teint-cc-cream-dore-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-soin-perfecteur-de-teint-cc-cream-dore-30ml-302390.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-soin-perfecteur-de-teint-cc-cream-dore-30ml-302390.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.APAISANT],
       secondary: [
@@ -559,7 +580,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Eaux florales de rose, de bleuet, d'oranger et d'hamamélis.Complexe conservateur Symdiol 68T.",
     url: 'https://www.atida.fr/embryolisse-eau-de-beaute-rosamelis-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-les-nettoyants-eau-de-beaute-rosamelis-200ml-233561.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-les-nettoyants-eau-de-beaute-rosamelis-200ml-233561.webp',
     tags: {
       primary: [],
       secondary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
@@ -580,7 +602,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Aqua (water). caprylic/capric triglyceride. glycerin. diisopropyl sebacate. carbomer. hydroxyacetophenone. propanediol. 1,2-hexanediol. caprylyl glycol. sodium hydroxide. parfum (fragrance). citric acid. sodium hyaluronate. sodium phytate. hydrolyzed algin. nymphaea alba flower extract. maris aqua (sea water). chlorella vulgaris extract. limonene. ci 42090 (blue 1).97% d'ingrédients d'origine naturelle.",
     url: 'https://www.atida.fr/embryolisse-les-hydratants-masque-hydratation-intense-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-les-hydratants-masque-hydratation-intense-50ml-233871.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-les-hydratants-masque-hydratation-intense-50ml-233871.webp',
     tags: {
       primary: [],
       secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.MASQUE_HEBDO, TAG_SLUGS.ZONE_VISAGE],
@@ -601,7 +624,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'INGREDIENTS : DOLOMITE. MICA. ORYZA SATIVA (RICE) STARCH. OCTYLDODECYL STEAROYL STEARATE. HYDROGENATED ETHYLHEXYL OLIVATE. LAUROYL LYSINE. COCO-CAPRYLATE/CAPRATE. GLYCERYL CAPRYLATE. SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL. P-ANISIC ACID. HYDROGENATED OLIVE OIL UNSAPONIFIABLES. HYDROGENATED CASTOR OIL ISOSTEARATE. TOCOPHERYL ACETATE. SODIUM HYALURONATE. TOCOPHEROL. +/- (MAY CONTAIN): CI 77491 (IRON OXIDES). CI 77891 (TITANIUM DIOXIDE). CI 77492 (IRON OXIDES). CI 77499 (IRON OXIDES).',
     url: 'https://www.atida.fr/embryolisse-poudre-de-soleil-bonne-mine.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-poudre-de-soleil-bonne-mine-302384.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-poudre-de-soleil-bonne-mine-302384.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -655,7 +679,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER). PENTYLENE GLYCOL. PROPANEDIOL. POLYACRYLATE CROSSPOLYMER-6. CURCUMA LONGA (TURMERIC) ROOT EXTRACT. GLYCERIN. CAPRYLYL/CAPRYL GLUCOSIDE. PARFUM (FRAGRANCE). LEVULINIC ACID. CITRIC ACID. MELIA AZADIRACHTA (NEEM) SEED OIL. SODIUM PHYTATE. O-CYMEN-5-OL. SODIUM LEVULINATE. SODIUM HYDROXIDE. POLYLYSINE.',
     url: 'https://www.atida.fr/embryolisse-serum-anti-imperfections-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-serum-anti-imperfections-30ml-233885.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-serum-anti-imperfections-30ml-233885.webp',
     tags: {
       primary: [],
       secondary: [
@@ -681,7 +706,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), isostearyl isostearate, glycerin, cetyl alcohol, butyrospermum parkii (shea) butter, cetearyl alcohol, hydrogenated coconut oil, fructose, cetearyl glucoside, 1,2 hexanediol, caprylyl glycol, carbomer, xanthan gum, aesculus hippocastanum (horse chestnut) extract, sodium hydroxide, oenothera biennis (evening primrose) oil, tocopheryl acetate, maltodextrin, sodium hyaluronate, nephelium lappaceum leaf extract, tropolone, potassium sorbate, citric acid.',
     url: 'https://www.atida.fr/embryolisse-anti-age-soin-regard-lift-intense-15ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-anti-age-soin-regard-lift-intense-15ml-233852.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-anti-age-soin-regard-lift-intense-15ml-233852.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -707,7 +733,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Embryolisse Soin Blush de Peau Abricot Lumière 30ml : AQUA (WATER). CAPRYLIC/CAPRIC TRIGLYCERIDE. GLYCERIN. POLYGLYCERYL-6 STEARATE. BUTYROSPERMUM PARKII (SHEA) BUTTER. PENTYLENE GLYCOL. CARBOMER. PARFUM (FRAGRANCE). GLYCERYL CAPRYLATE. SODIUM BENZOATE. POLYGLYCERYL-6 BEHENATE. MICA. SODIUM HYDROXIDE. CI 77491 (IRON OXIDES). TROPAEOLUM MAJUS FLOWER/LEAF/STEM EXTRACT. HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL. SODIUM HYALURONATE. TOCOPHEROL. CI 77163 (BISMUTH OXYCHLORIDE). ASTAXANTHIN. RIBOFLAVIN. 1,2-HEXANEDIOL. CAPRYLYL GLYCOL. LIMONENE. HYDROXYCITRONELLAL.Embryolisse Lait-Crème Concentré 30ml :  AQUA (WATER). PARAFFINUM LIQUIDUM. STEARIC ACID. PALMITIC ACID. GLYCERYL STEARATE SE. TRIETHANOLAMINE. CERA ALBA (BEESWAX). CETYL PALMITATE. ALOE BARBADENSIS LEAF JUICE POWDER. BUTYROSPERMUM PARKII (SHEA) BUTTER. 1,2-HEXANEDIOL. CAPRYLYL GLYCOL. STEARETH-10. POLYACRYLAMIDE. C13-14 ISOPARAFFIN. PARFUM (FRAGRANCE). LAURETH-7. PROPYLENE GLYCOL. TROPOLONE. HYDROLYZED SOY PROTEIN.',
     url: 'https://www.atida.fr/embryolisse-visage-routine-bonne-mine-doree-et-hydratation.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-visage-routine-bonne-mine-doree-et-hydratation-300223.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-visage-routine-bonne-mine-doree-et-hydratation-300223.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -728,7 +755,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER). CAPRYLIC/CAPRIC TRIGLYCERIDE. GLYCERIN. POLYGLYCERYL-6 STEARATE. BUTYROSPERMUM PARKII (SHEA) BUTTER. PENTYLENE GLYCOL. CARBOMER. PARFUM (FRAGRANCE). GLYCERYL CAPRYLATE. SODIUM BENZOATE. POLYGLYCERYL-6 BEHENATE. MICA. SODIUM HYDROXIDE. CI 77491 (IRON OXIDES). TROPAEOLUM MAJUS FLOWER/LEAF/STEM EXTRACT. HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL. SODIUM HYALURONATE. TOCOPHEROL. CI 77163 (BISMUTH OXYCHLORIDE). ASTAXANTHIN. RIBOFLAVIN. 1,2-HEXANEDIOL. CAPRYLYL GLYCOL. LIMONENE. HYDROXYCITRONELLAL.',
     url: 'https://www.atida.fr/embryolisse-soin-blush-de-peau-abricot-lumiere-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-soin-blush-de-peau-abricot-lumiere-30ml-233893.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-soin-blush-de-peau-abricot-lumiere-30ml-233893.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -754,7 +782,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), caprylic/capric triglyceride, glycerin, jojoba esters, linoleic acid, cetyl alcohol, glyceryl stearate, butyrospermum parkii (shea) butter, camellia oleifera seed oil, c10-18 triglycerides, cera alba (beeswax), helianthus annuus (sunflower) seed wax, peg-75 stearate, oleic acid, ceteth-20, steareth-20, 1,2-hexanediol, caprylyl glycol, palmitic acid, acrylates/c10-30 alkyl acrylate crosspolymer, parfum (fragrance), stearic acid, tocopherol, sodium hyaluronate, tocopheryl acetate, retinyl palmitate, sodium hydroxide, linolenic acid, tropolone.',
     url: 'https://www.atida.fr/embryolisse-anti-age-masque-confort-60ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-anti-age-masque-confort-60ml-233847.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-anti-age-masque-confort-60ml-233847.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -780,7 +809,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'INGREDIENTS : AQUA (WATER). DICAPRYLYL ETHER. PENTAERYTHRITYL TETRABEHENATE. HEPTYL UNDECYLENATE. DIISOPROPYL SEBACATE. SILICA. GLYCERIN. CAPRYLIC/CAPRIC TRIGLYCERIDE. DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE. POLYGLYCERYL-6 POLYHYDROXYSTEARATE. POLYGLYCERYL-6 POLYRICINOLEATE. BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE. PHENYLBENZIMIDAZOLE SULFONIC ACID. ETHYLHEXYL TRIAZONE. JOJOBA ESTERS. CETYL ALCOHOL. TOCOPHERYL ACETATE. 2,3-BUTANEDIOL. ARGANIA SPINOSA KERNEL OIL. MAGNESIUM POTASSIUM FLUOROSILICATE. MAGNESIUM SULFATE. STEARALKONIUM HECTORITE. PARFUM (FRAGRANCE). POLYGLYCERIN-6. CAPRYLYL GLYCOL. SODIUM HYDROXIDE. PROPYLENE CARBONATE. CITRUS RETICULATA (TANGERINE) EXTRACT. BISABOLOL. HYDROGENATED LECITHIN. O-CYMEN-5-OL. PENTYLENE GLYCOL. SODIUM HYALURONATE. FARNESOL. TOCOPHEROL. ASCORBYL PALMITATE. +/- (MAY CONTAIN): CI 77492 (IRON OXIDES). CI 77891 (TITANIUM DIOXIDE). CI 77491 (IRON OXIDES). CI 77499 (IRON OXIDES).',
     url: 'https://www.atida.fr/embryolisse-soin-perfecteur-de-teint-cc-cream-chocolat-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-soin-perfecteur-de-teint-cc-cream-chocolat-30ml-302374.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-soin-perfecteur-de-teint-cc-cream-chocolat-30ml-302374.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.APAISANT],
       secondary: [
@@ -808,7 +838,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), cetyl alcohol, octyldodecanol, cetearyl alcohol, caprylic/ capric triglyceride, cetearyl glucoside, 1,2-hexanediol, caprylyl glycol, carbomer, parfum (fragrance), tocopheryl acetate, oenothera biennis (evening primrose) oil, maltodextrin, helianthus annuus (sunflower) seed oil, tocopherol, sodium hyaluronate, sodium hydroxide, nephelium lappaceum leaf extract, tropolone, plantago lanceolata leaf extract, limonene.',
     url: 'https://www.atida.fr/embryolisse-anti-age-serum-complet-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-anti-age-serum-complet-30ml-233853.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-anti-age-serum-complet-30ml-233853.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -835,7 +866,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Aqua (water). glycerin. coco-caprylate/ caprate. c15-19 alkane. cetearyl alcohol. macadamia ternifolia seed oil. butyrospermum parkii (shea) butter. caprylic/ capric triglyceride. tridecyl trimellitate. argania spinosa kernel oil. tapioca starch. glyceryl stearate. pentylene glycol. cetearyl glucoside.sodium acrylate/ sodium acryloydimethyl taurate copolymer. cera alba (beeswax). hydroxyacetophenone. sodium stearoyl glutamate. parfum (fragrance). acrylates/ c10-30 alkyl acrylate crosspolymer. bisabolol. tocopheryl acetate. polyglyceryl-6 laurate.o-cymen-5 ol. microcitrus australasica fruit extract. polyglycerin-6. sorbitan oleate. sodium hydroxide. sorbitan isostearate. limonene.95% d'ingrédients d'origine naturelle.",
     url: 'https://www.atida.fr/embryolisse-active-peeling-nuit-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-active-peeling-nuit-40ml-233859.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-active-peeling-nuit-40ml-233859.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ZONE_VISAGE],
@@ -856,7 +888,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), glycerin, caprylic/capric triglyceride, tribehenin peg 20 esters. isononyl isononanoate, myristyl lactate, sodium hyaluronate. nymphaea alba flower extract, acrylates/c10 30 alkyl acrylate crosspolymer, propanediol, xanthan gum, 1.2 hexanediol, caprylyl glycol, sodium benzoate. sodium hydroxide, parfum (fragrance), limonene.',
     url: 'https://www.atida.fr/embryolisse-hydra-serum-flacon-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-les-hydratants-hydra-serum-30ml-270191.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-les-hydratants-hydra-serum-30ml-270191.webp',
     tags: {
       primary: [],
       secondary: [
@@ -882,7 +915,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'INGREDIENTS : AQUA (WATER). CAPRYLIC/CAPRIC TRIGLYCERIDE. PENTYLENE GLYCOL. GLYCERIN. 1,2-HEXANEDIOL. BRASSICA CAMPESTRIS (RAPESEED) SEED OIL. PARFUM (FRAGRANCE). PALMARIA PALMATA EXTRACT. CARBOMER. MALTODEXTRIN. HYDROXYSTEARIC ACID. ORYZA SATIVA (RICE) BRAN OIL EXTRACT. PUNICA GRANATUM SEED OIL. SODIUM HYDROXIDE. XANTHAN GUM. CI 77891 (TITANIUM DIOXIDE). ALPINIA OFFICINARUM ROOT EXTRACT. CAPRYLIC/CAPRIC/SUCCINIC TRIGLYCERIDE. SODIUM HYALURONATE. MICA. STEARIC ACID. TOCOPHERHYL ACETATE. TIN OXIDE',
     url: 'https://www.atida.fr/embryolisse-serum-capsules-eclat-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-serum-capsules-eclat-30ml-304314.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-serum-capsules-eclat-30ml-304314.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
@@ -910,7 +944,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), cyclopentasiloxane, triheptanoin, sesamum indicum oil, glycerin, propylene glycol, cetearyl alcohol, cetearyl glucoside, aluminium starch octenylsuccinate, glyceryl, behenate, dimethysilanol, hyaluronate, centaurea cyanus flower water, polyacrylamide, c13.c14 isoparafin, laureth-7, tocopheryl acetate, diphenyl dimethicone sodium benzoate, 1-2-hexanediol, caprylyl glycol, tropolone, retinyl, palmitate, arachis hypogea (peanut) oil, bha, bht, allantoin, xanthan gum, citric acid, quercus robur (oak) root extract, potassium sorbate, parfum (fragrance).',
     url: 'https://www.atida.fr/embryolisse-les-anti-age-soin-lissant-contour-des-yeux-15ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-les-anti-age-soin-lissant-contour-des-yeux-15ml-271296.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-les-anti-age-soin-lissant-contour-des-yeux-15ml-271296.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -937,7 +972,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), Caprylic/capric triglyceride, Glycerin, Acexamic acid, Cetyl alcohol, Glyceryl stearate, Aluminium starch octenylsuccinate, Prunus amygdalus dulcis (sweet almond) oil, Ammonium acryloyldimethyltaurate / vp copolymer, PEG-75 stearate, Alpha-glucan oligosaccharide, Gossypium herbaceum (cotton) seed oil, Hydrogenated sweet almond oil, Prunus armeniaca (apricot) kernel oil, Sodium hydroxide, 1,2-hexanediol, Caprylyl glycol, Ceteth-20, Steareth-20, Hydrogenated cottonseed oil, Hydrogenated apricot kernel oil, Sodium hyaluronate, Tocopheryl acetate, Disodium edta, Citric acid, Tropolone, Tocopherol, Sodium benzoate, Aloe barbadensis leaf extract, Potassium sorbate.',
     url: 'https://www.atida.fr/embryolisse-cicalisse-creme-restauratrice-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-les-nourrissants-creme-restauratrice-cicalisse-40ml-233828.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-les-nourrissants-creme-restauratrice-cicalisse-40ml-233828.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -958,7 +994,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), coco-caprylate/ caprate, ethylhexyl stearate, glycerin, butylene glycol, polyglyceryl-6 distearate, cetyl alcohol, sclerotium gum, hydroxyacetophenone, sodium stearoyl glutamate, jojoba esters, citric acid, 1,2-hexanediol, caprylyl glycol, polyglyceryl-3 beeswax, butyrospermum parkii (shea) butter, cera alba (beeswax), boerhavia diffusa root extract, hydrolyzed soy protein, caprylic/ capric triglyceride, aloe barbadensis leaf extract.',
     url: 'https://www.atida.fr/embryolisse-les-nettoyants-lait-doux-demaquillant-waterproof-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-les-nettoyants-lait-doux-demaquillant-waterproof-200ml-233848.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-les-nettoyants-lait-doux-demaquillant-waterproof-200ml-233848.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
@@ -979,7 +1016,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'CAPRYLIC/CAPRIC TRIGLYCERIDE. RICINUS COMMUNIS (CASTOR) SEED OIL. ORYZA SATIVA BRAN CERA (RICE WAX). DICAPRYLYL CARBONATE. CERA ALBA (BEESWAX). DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE. HYDROGENATED COCONUT OIL. BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE. ETHYLHEXYL TRIAZONE. HYDROGENATED POLYISOBUTENE. BUTYROSPERMUM PARKII (SHEA) BUTTER. PARFUM (FRAGRANCE). HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL. HYDROGENATED  CASTOR OIL. ORYZANOL. TOCOPHERYL ACETATE. MIMOSA TENUIFLORA BARK EXTRACT. SACCHARIN. BIXA ORELLANA SEED EXTRACT. TOCOPHEROL.',
     url: 'https://www.atida.fr/embryolisse-stick-solaire-spf50-15g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-stick-solaire-spf50-15g-233891.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-stick-solaire-spf50-15g-233891.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -1006,7 +1044,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Embryolisse Sérum Complet 30ml : AQUA (WATER). CETYL ALCOHOL. OCTYLDODECANOL. CETEARYL ALCOHOL. CAPRYLIC/ CAPRIC TRIGLYCERIDE. CETEARYL GLUCOSIDE. 1,2-HEXANEDIOL. CAPRYLYL GLYCOL. CARBOMER. PARFUM (FRAGRANCE). TOCOPHERYL ACETATE. OENOTHERA BIENNIS (EVENING PRIMROSE) OIL. MALTODEXTRIN. HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL. TOCOPHEROL. SODIUM HYALURONATE. SODIUM HYDROXIDE. NEPHELIUM LAPPACEUM LEAF EXTRACT. TROPOLONE. PLANTAGO LANCEOLATA LEAF EXTRACT. LIMONENE.Embryolisse Crème-Lift Fermeté 50ml : AQUA (WATER). GLYCERIN. CAPRYLIC/ CAPRIC TRIGLYCERIDE. DICAPRYLYL CARBONATE. CETEARYL ALCOHOL. CETYL ALCOHOL. HYDROGENATED COCONUT OIL. STEARETH-21. 1,2-HEXANEDIOL. BUTYROSPERMUM PARKII (SHEA) BUTTER. STEARETH-2. CETEARYL GLUCOSIDE. SILICA. CARBOMER. CHLORPHENESIN. CAPRYLYL GLYCOL. PARFUM (FRAGRANCE). OENOTHERA BIENNIS (EVENING PRIMROSE) OIL. TOCOPHERYL ACETATE. SODIUM HYDROXIDE. MALTODEXTRIN. ANIGOZANTHOS FLAVIDUS EXTRACT. SODIUM HYALURONATE. NEPHELIUM LAPPACEUM LEAF EXTRACT. CITRIC ACID. TOCOPHEROL. LIMONENE.',
     url: 'https://www.atida.fr/embryolisse-visage-routine-anti-age.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-visage-routine-anti-age-300235.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-visage-routine-anti-age-300235.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -1032,7 +1071,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), glycerin, caprylic/ capric triglyceride, dicaprylyl carbonate, cetearyl alcohol, cetyl alcohol, hydrogenated coconut oil, steareth-21, 1,2-hexanediol, butyrospermum parkii (shea) butter, steareth-2, cetearyl glucoside, silica, carbomer, chlorphenesin, caprylyl glycol, parfum (fragrance), oenothera biennis (evening primrose) oil, tocopheryl acetate, sodium hydroxide, maltodextrin, anigozanthos flavidus extract, sodium hyaluronate, nephelium lappaceum leaf extract, citric acid, tocopherol, limonene.',
     url: 'https://www.atida.fr/embryolisse-anti-age-creme-lift-fermete-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-anti-age-creme-lift-fermete-50ml-233856.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-anti-age-creme-lift-fermete-50ml-233856.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -1058,7 +1098,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'INGREDIENTS : AQUA (WATER). CAPRYLIC/CAPRIC TRIGLYCERIDE. GLYCERIN. OCTYLDODECANOL. POLYGLYCERYL-3 METHYL GLUCOSE DISTEARATE. BUTYROSPERMUM PARKII (SHEA) BUTTER. CERA ALBA (BEESWAX). JOJOBA ESTERS. ALOE BARBADENSIS LEAF JUICE POWDER. HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX. GLYCERYL STEARATE. XANTHAN GUM. 1,2-HEXANEDIOL. CAPRYLYL GLYCOL. SODIUM HYDROXIDE. ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER. POLYGLYCERIN-3. ACACIA DECURRENS FLOWER WAX. TOCOPHEROL. TROPOLONE. GLYCINE SOJA (SOYBEAN) OIL. HYDROLYZED SOY PROTEIN',
     url: 'https://www.atida.fr/embryolisse-lait-creme-sensitive-30ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-lait-creme-sensitive-30ml-304295.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-lait-creme-sensitive-30ml-304295.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -1079,7 +1120,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER). CAPRYLIC/CAPRIC TRIGLYCERIDE. OCTYLDODECANOL. GLYCERIN. CETEARYL GLUCOSIDE. BUTYROSPERMUM PARKII (SHEA) BUTTER. CERA ALBA (BEESWAX). SORBITAN OLIVATE. ALOE BARBADENSIS LEAF JUICE POWDER. XANTHAN GUM. PARFUM (FRAGRANCE). 1,2-HEXANEDIOL. CAPRYLYL GLYCOL. CETEARYL ALCOHOL. ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER. SODIUM HYDROXIDE. HYDROLYZED SOY PROTEIN. TOCOPHEROL. TROPOLONE. GLYCINE SOJA (SOYBEAN) OIL.',
     url: 'https://www.atida.fr/embryolisse-lait-creme-fluide-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-lait-creme-fluide-400ml-233880.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-lait-creme-fluide-400ml-233880.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -1100,7 +1142,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Aqua (Water), Sodium Stearate, Glycerin, Xylitylglucoside, Anhydroxylitol, Pentylene Glycol, Xylitol, Caprylyl Glycol, Saccharomyces Cerevisiae Extract, Aloe Barbadensis Leaf Juice Powder, O-Cymen-5-Ol, 1,2-Hexanediol99 % d'ingrédients d'origine naturelle",
     url: 'https://www.atida.fr/embryolisse-secret-de-maquilleurs-eclat-du-regard-soin-fraicheur-4-5g-6273827.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-secret-de-maquilleurs-eclat-du-regard-soin-fraicheur-4-5g-271297.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-secret-de-maquilleurs-eclat-du-regard-soin-fraicheur-4-5g-271297.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX],
@@ -1121,7 +1164,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Embryolisse Soin Blush de Peau Rose Lumière 30ml : AQUA (WATER). CAPRYLIC/ CAPRIC TRIGLYCERIDE. CETEARYL ALCOHOL. GLYCERIN. BUTYROSPERMUM PARKII (SHEA) BUTTER. DISTARCH PHOSPHATE. CERA ALBA (BEESWAX). ALBIZIA JULIBRISSIN BARK EXTRACT.ETHYLHEXYLGLYCERIN. STEARETH-21. CARBOMER. CETEARYL GLUCOSIDE. LEVULINIC ACID. STEARETH-2. MICA. SODIUM HYDROXIDE. CI 77491 (IRON OXIDES). PARFUM (FRAGRANCE). SODIUM LEVULINATE. P-ANISIC ACID. CAPRYLYL GLYCOL. CI 77163 (BISMUTH OXYCHLORIDE).  MALTODEXTRIN. HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL. SODIUM HYALURONATE. TOCOPHEROL. BIOSACCHARIDE GUM-1. CI 77492 (IRON OXIDES). CI 77499 (IRON OXIDES). SODIUM BENZOATE. LIMONENEEmbryolisse Lait-Crème Concentré 30ml :  AQUA (WATER). PARAFFINUM LIQUIDUM. STEARIC ACID. PALMITIC ACID. GLYCERYL STEARATE SE. TRIETHANOLAMINE. CERA ALBA (BEESWAX). CETYL PALMITATE. ALOE BARBADENSIS LEAF JUICE POWDER. BUTYROSPERMUM PARKII (SHEA) BUTTER. 1,2-HEXANEDIOL. CAPRYLYL GLYCOL. STEARETH-10. POLYACRYLAMIDE. C13-14 ISOPARAFFIN. PARFUM (FRAGRANCE). LAURETH-7. PROPYLENE GLYCOL. TROPOLONE. HYDROLYZED SOY PROTEIN.',
     url: 'https://www.atida.fr/embryolisse-visage-routine-bonne-mine-rosee-et-hydratation.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-visage-routine-bonne-mine-rosee-et-hydratation-300222.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-visage-routine-bonne-mine-rosee-et-hydratation-300222.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -1142,7 +1186,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water). glycerin. caprylic/capric triglyceride. tribehenin peg 20 esters. isononyl isononanoate. myristyl lactate. sodium hyaluronate. nymphaea alba flower extract. acrylates/c10 30 alkyl acrylate crosspolymer. propanediol. xanthan gum. 1.2 hexanediol. caprylyl glycol. sodium benzoate. sodium hydroxide. parfum (fragrance). limonene.',
     url: 'https://www.atida.fr/embryolisse-hydra-creme-legere-tube-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-les-hydratants-hydra-creme-legere-40ml-270190.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-les-hydratants-hydra-creme-legere-40ml-270190.webp',
     tags: {
       primary: [],
       secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -1163,7 +1208,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water). glycerin. c12-15 alkyl benzoate. dicaprylyl carbonate. diethylamino hydroxybenzoyl hexyl benzoate. steareth-21. cetyl palmitate. phenylbenzimidazole sulfonic acid. steareth-2. hydroxypropyl starch phosphate. ethylexyl triazone. 1,2-hexanediol. bis-ethylhexyloxyphenol methoxyphenyl triazine. cera alba (beeswax). ethylhexyl palmitate. pentaerythrityl tetrabehenate. glyceryl stearate. peg-100 stearate. cetyl alcohol. octyldodecanol. tocopheryl acetate. xanthan gum. sodium hydroxide. chlorphenesin. caprylyl glycol. butyrospermum parkii (shea) butter. parfum (fragrance). aloe barbadensis leaf extract. limonene. tocopherol. hydrolyzed soy protein.',
     url: 'https://www.atida.fr/embryolisse-lait-creme-multi-protection-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-lait-creme-multi-protection-40ml-284063.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-lait-creme-multi-protection-40ml-284063.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -1184,7 +1230,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua. Disodium laurylsulfosuccinate, Sodium cocoyl isethionate. Cocobetaine. Lauryl dimethyl hydroxysulfo betaine. Polyquaternium 39. Glycerin. Xantham gum. Prunus amygdalus dulcis, Butyrospermum parkii, Potassium cocoyl hydrolyzed wheat protein, Sodium cocoyl glutamate. Glycine. Methylisothiazolinone, Caprylyl glycol. Parfum. Acrylate copolymer. Tea. Lactic acid.',
     url: 'https://www.atida.fr/embryolisse-lait-creme-moussant-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-les-nettoyants-lait-creme-moussant-200ml-259245.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-les-nettoyants-lait-creme-moussant-200ml-259245.webp',
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION],
       secondary: [
@@ -1212,7 +1259,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'INGREDIENTS : CAPRYLIC/CAPRIC TRIGLYCERIDE. JOJOBA ESTERS. ZEA MAYS (CORN) STARCH. COCO-CAPRYLATE/CAPRATE. POLYGLYCERYL-2 TRIISOSTEARATE. RICINUS COMMUNIS (CASTOR) SEED OIL. BIS-BEHENYL/ISOSTEARYL/PHYTOSTERYL DIMER DILINOLEYL DIMER DILINOLEATE. BIS-DIGLYCERYL POLYACYLADIPATE-2. ORYZA SATIVA BRAN CERA (RICE WAX). HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL UNSAPONI- FIABLES. POLYGLYCERYL-2 ISOSTEARATE/DI- MER DILINOLEATE COPOLYMER. DIMER DILINOLEYL DIMER DILINOLEATE. HYDROGE- NATED CASTOR OIL DIMER DILINOLEATE. HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL. ALUMINA. GOSSYPIUM HERBACEUM (COTTON) SEED OIL. CANARIUM LUZONICUM GUM NONVOLATILES. STEARALKONIUM HECTORITE. PROPYLENE CARBONATE. SILICA. TIN OXIDE. TOCOPHEROL. CENTELLA ASIATICA LEAF EXTRACT. ALOE BARBADENSIS LEAF JUICE POWDER. +/- (MAY CONTAIN) : CI 77891 (TITANIUM DIOXIDE). CI 77491 (IRON OXIDES). CI 77492 (IRON OXIDES). CI 42090 (BLUE 1 LAKE). CI 77499 (IRON OXIDES)',
     url: 'https://www.atida.fr/embryolisse-baume-couleur-stick-3en1-mocha.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/embryolisse-baume-couleur-stick-3en1-mocha-302367.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/embryolisse-baume-couleur-stick-3en1-mocha-302367.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.CICATRISATION, TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [

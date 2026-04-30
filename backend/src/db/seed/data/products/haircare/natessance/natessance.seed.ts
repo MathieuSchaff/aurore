@@ -15,7 +15,8 @@ export const NATESSANCE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua (water), cocamidopropyl betaine, cetrimonium chloride, decyl glucoside, sodium chloride, sorbitan caprylate, ricinus communis (castor seed) oil, inulin, benzyl alcohol, cetearyl alcohol, parfum (fragrance), sodium cocoyl glutamate, cocos nucifera (coconut) oil, xanthan gum, lactic acid, limonene, ci 77891 (titanium dioxide), hydroxypropyl guar hydroxypropyltrimonium chloride, hexyl cinnamal, helianthus annuus (sunflower) seed oil, tocopherol, linalool, hydrolyzed wheat protein, sodium benzoate, sodium hydroxide.',
     url: 'https://www.atida.fr/natessance-shampooing-reparateur-fortifiant-ricin-500ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/natessance-shampoing-reparateur-fortifiant-ricin-500ml-266083.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/natessance-shampoing-reparateur-fortifiant-ricin-500ml-266083.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -43,7 +44,8 @@ export const NATESSANCE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Aqua/Water/Eau, Decyl Glucoside, Cocamidopropyl Betaine, Glycerin, Cocos Nucifera (Coconut) Oil*, Ricinus Communis (Castor) Seed Oil*, Xanthan Gum, Aloe Barbadensis Leaf Juice*, Aloe Barbadensis Leaf Juice Powder*, Hydrolyzed Wheat Protein, Hydrolyzed Moringa Oleifera Seed Extract, Arginine, Oryza Sativa (Rice) Seed Protein, Oryza Sativa (Rice Hull Powder) Extract, Litsea Cubeba Fruit Oil*, Arachidyl Glucoside, Kaolin, Arachidyl Alcohol, Behenyl Alcohol, Guar Hydroxypropyltrimonium Chloride, Parfum (Fragrance), Sodium Levulinate, Phytic Acid, Gluconolactone, Benzyl Alcohol, Sodium Benzoate, Calcium Gluconate, Sodium Chloride, Lactic Acid, Sodium Hydroxide, Citric Acid, Linalool, Limonene, Citral.\n*Ingrédients issus de l'agriculture biologique.",
     url: 'https://www.atida.fr/natessance-shampooing-fortifiant-ricin-bio-et-keratine-vegetale-500ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/natessance-shampoing-fortifiant-ricin-bio-et-keratine-vegetale-500ml-266387.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/natessance-shampoing-fortifiant-ricin-bio-et-keratine-vegetale-500ml-266387.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -73,7 +75,8 @@ export const NATESSANCE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Aqua/Water/Eau, Behenyl Alcohol, Ricinus Communis (Castor) Seed Oil*, Glycerin, Brassicyl Valinate Esylate, Glyceryl Stearate, Arachidyl Glucoside, Malva Sylvestris (Mallow) Extract*, Caesalpinia Spinosa Gum, Arachidyl Alcohol, Lactic Acid, Sodium Hydroxide, Parfum (Fragrance), Aloe Barbadensis Leaf Juice Powder*, Litsea Cubeba Fruit Oil*, Hydrolyzed Wheat Protein, Hydrolyzed Moringa Oleifera Seed Extract, Oryza Sativa (Rice) Seed Protein, Arginine, Oryza Sativa (Rice Hull Powder) Extract, Benzyl Alcohol, Sodium Benzoate, Calcium Gluconate, Phytic Acid, Sodium Levulinate, Gluconolactone, Limonene, Linalool, Citral.\n*Ingrédients issus de l'agriculture biologique.",
     url: 'https://www.atida.fr/natessance-apres-shampooing-fortifiant-ricin-bio-et-keratine-vegetale-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/natessance-apres-shampoing-fortifiant-ricin-bio-et-keratine-vegetale-200ml-266369.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/natessance-apres-shampoing-fortifiant-ricin-bio-et-keratine-vegetale-200ml-266369.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],

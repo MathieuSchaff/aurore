@@ -121,7 +121,8 @@ export const SOL_DE_JANEIRO_SEED: UnifiedProductSeed[] = [
       'Actifs clés : beurre de shea, beurre de bacuri, hyaluronate de sodium hydrolysé, squalane, huile de passiflore. Idéal pour peaux très sèches.',
     inci: 'ALPHA-ISOMETHYL IONONE, ANNATTO (CI 75120), WATER, BEHENYL ALCOHOL, BIXA ORELLANA SEED EXTRACT, BUTYLENE GLYCOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, CAPRYLIC/CAPRIC TRIGLYCERIDE, CARBOMER, CETEARYL ALCOHOL, CETEARYL OLIVATE, COCOS NUCIFERA (COCONUT) OIL, COPAIFERA OFFICINALIS (BALSAM COPAIBA) RESIN, ETHYLHEXYL PALMITATE, ETHYLHEXYLGLYCERIN, GLYCERIN, GLYCERYL STEARATE SE, HYDROLYZED SODIUM HYALURONATE, HYDROXYCITRONELLAL, LACTOBACILLUS/HIBISCUS SABDARIFFA FLOWER FERMENT FILTRATE, LAURYL LAURATE, MALTODEXTRIN, METHYL GLUCOSE SESQUISTEARATE, MYRISTYL MYRISTATE, PARFUM (FRAGRANCE), PASSIFLORA EDULIS (PASSIONFLOWER) SEED OIL, PHENOXYETHANOL, PHENYL TRIMETHICONE, PLATONIA INSIGNIS SEED BUTTER (BACURI), POTASSIUM CETYL PHOSPHATE, POTASSIUM HYDROXIDE, SODIUM GLUCONATE, SODIUM HYDROXIDE, SODIUM STEAROYL GLUTAMATE, SORBITAN OLIVATE, SQUALANE, THEOBROMA GRANDIFLORUM (CUPUACU) SEED BUTTER, TOCOPHEROL',
     url: 'https://www.skinsafeproducts.com/sol-de-janeiro-delicia-drench-body-butter-8-1-fl-oz-240-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/sol-de-janeiro-delicia-drench-body-butter.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/sol-de-janeiro-delicia-drench-body-butter.webp',
     tags: {
       primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.DESHYDRATATION],
       secondary: [TAG_SLUGS.CREME_CORPS, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_CORPS],
@@ -425,7 +426,8 @@ export const SOL_DE_JANEIRO_SEED: UnifiedProductSeed[] = [
     notes: `Actifs clés : beurre de cupuaçu, acai, huile de coton, oxydes de fer, dioxyde de titane. Idéal pour toutes peaux désireuses d'un éclat bronzé.`,
     inci: 'ACAI BERRY (EUTERPE OLERACEA) EXTRACT, ALOE BARBADENSIS LEAF OIL, BENZYL ALCOHOL, BENZYL SALICYLATE, BUTYLENE/ETHYLENE/STYRENE COPOLYMER, BUTYLPHENYL METHYLPROPIONAL, CITRONELLOL, COCONUT OIL, COUMARIN, ETHYLENE/PROPYLENE/STYRENE COPOLYMER, ETHYLHEXYLGLYCERIN, FRAGRANCE, GOSSYPIUM HERBACEUM (COTTON) SEED OIL, HYDROGENATED POLYISOBUTENE, IRON OXIDES (CI 77491, CI 77492, CI 77499), ISODODECANE, LIMONENE, MICA, PHENOXYETHANOL, SUNFLOWER SEED OIL, THEOBROMA GRANDIFLORUM SEED BUTTER, TITANIUM DIOXIDE, TOCOPHERYL ACETATE',
     url: 'https://www.skinsafeproducts.com/sol-de-janeiro-glow-oils-color-copacabana-bronze-2-5-oz',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/sol-de-janeiro-glow-oils-copacabana-bronze.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/sol-de-janeiro-glow-oils-copacabana-bronze.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.DESHYDRATATION],
       secondary: [TAG_SLUGS.HUILE_CORPS, TAG_SLUGS.MATIN, TAG_SLUGS.ZONE_CORPS],

@@ -32,7 +32,8 @@ export const FLUOCARIL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, hydrogenated starch hydrolysate, hydrated silica, zinc citrate, sodium lauryl sulfate, aroma, cellulose gum, sodium fluoride, sodium monofluorophosphate, sodium saccharin, ci 77891.',
     url: 'https://www.atida.fr/fluocaril-cosmetique-bi-fluore-145mg-dentifrice-menthe-lot-de-2-x-75ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/fluocaril-cosmetique-bi-fluore-145mg-dentifrice-menthe-lot-de-2-x-75ml-233411.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/fluocaril-cosmetique-bi-fluore-145mg-dentifrice-menthe-lot-de-2-x-75ml-233411.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -57,7 +58,8 @@ export const FLUOCARIL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, hydrogenated starch hydrolysate, hydrated silica, zinc citrate, sodium lauryl sulfate, aroma, cellulose gum, sodium fluoride, sodium monofluorophosphate, sodium saccharin, limonene, ci 77891.',
     url: 'https://www.atida.fr/fluocaril-cosmetique-bi-fluore-145mg-dentifrice-blancheur-lot-de-2-x-75ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/fluocaril-cosmetique-bi-fluore-145mg-dentifrice-blancheur-lot-de-2-x-75ml-232594.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/fluocaril-cosmetique-bi-fluore-145mg-dentifrice-blancheur-lot-de-2-x-75ml-232594.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -82,7 +84,8 @@ export const FLUOCARIL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, hydrogenated starch hydrolisate, hydrated silica, cellulose gum, aroma, decyl glucoside, sodium fluoride, sodium saccharin, calcium glycerophosphate, ci 16255.',
     url: 'https://www.atida.fr/fluocaril-junior-6-a-12-ans-gel-fruits-rouges-lot-de-2-x-75ml-476573.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/fluocaril-junior-6-12-ans-dentifrice-gel-fruits-rouges-lot-de-2-x-75ml-236789.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/fluocaril-junior-6-12-ans-dentifrice-gel-fruits-rouges-lot-de-2-x-75ml-236789.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -103,7 +106,8 @@ export const FLUOCARIL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, Hydrogenated Starch Hydrolysate, Hydrated Silica, Zinc Citrate, Kaolin, Sodium Lauryl Sulfate, Aroma, Cellulose Gum, Sodium Fluoride, Mentha Arvensis Leaf Oil, Sodium Saccharin, Mentha Piperita Oil.',
     url: 'https://www.atida.fr/fluocaril-protection-complete-dentifrice-2x75ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/fluocaril-protection-complete-dentifrice-2x75ml-281866.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/fluocaril-protection-complete-dentifrice-2x75ml-281866.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -124,7 +128,8 @@ export const FLUOCARIL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, PEG-40 Hydrogenated Castor Oil, Potassium Citrate, Benzyl Alcohol, Phenoxyethanol, Sodium Lauryl Sulfate, Aroma, Zinc Sulfate, Glycine, Sodium Saccharin, Hydrogenated Starch Hydrolysate, Sodium Fluoride, Sodium Monofluorophosphate, Anethole, Beta-Caryophyllene,',
     url: 'https://www.atida.fr/fluocaril-bain-de-bouche-bi-fluore-25mg-500ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/fluocaril-bain-de-bouche-bi-fluore-25mg-500ml-303038.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/fluocaril-bain-de-bouche-bi-fluore-25mg-500ml-303038.webp',
     tags: {
       primary: [TAG_SLUGS.BAIN_DE_BOUCHE],
       secondary: [],
@@ -149,7 +154,8 @@ export const FLUOCARIL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Aqua, hydrogenated starch hydrolysate, hydrated silica, zinc citrate, sodium lauryl sulfate, aroma, cellulose gum, sodium fluoride, sodium monofluorophosphate, sodium saccharin, mentha piperita oil, rosmarinus officinalis leaf oil, sodium bicarbonate, limonene, ci 74260.96% d'ingrédients d'origine naturelle.",
     url: 'https://www.atida.fr/fluocaril-natur-essence-dentifrice-blancheur-75ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/fluocaril-natur-essence-dentifrice-blancheur-75ml-281744.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/fluocaril-natur-essence-dentifrice-blancheur-75ml-281744.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -175,7 +181,8 @@ export const FLUOCARIL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Aqua, hydrogenated starch hydrolysate, hydrated silica, zinc citrate, sodium lauryl sulfate, aroma, cellulose gum, sodium fluoride, sodium saccharin, eucalyptus globulus leaf oil, sodium monofluorophosphate, mentha arvensis leaf oil, salvia officinalis oil, thymus vulgaris flower/leaf oil, limonene, ci 42051, ci 47005.96% d'ingrédients d'origine naturelle.",
     url: 'https://www.atida.fr/fluocaril-natur-essence-dentifrice-protection-complete-75ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/fluocaril-natur-essence-dentifrice-protection-complete-75ml-281745.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/fluocaril-natur-essence-dentifrice-protection-complete-75ml-281745.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -200,7 +207,8 @@ export const FLUOCARIL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, sorbitol, hydrated silica, sodium lauryl sulfate, chondrus crispus powder, sodium gluconate, aroma, xanthan gum, zinc citrate, CI77891, stannous fluoride, sodium hydroxide, stannous chloride, sodium saccharin, sodium fluoride, limonene, sucralose, citric acid, sodium citrate, sodium benzoate, potassium sorbate.',
     url: 'https://www.atida.fr/fluocaril-cosmetique-bi-fluore-145mg-dentifrice-gencives-menthe-lot-de-2-x-75ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/fluocaril-cosmetique-bi-fluore-145mg-dentifrice-gencives-menthe-lot-de-2-x-75ml-285055.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/fluocaril-cosmetique-bi-fluore-145mg-dentifrice-gencives-menthe-lot-de-2-x-75ml-285055.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],

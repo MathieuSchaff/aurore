@@ -119,7 +119,8 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     notes: `Gluconolactone (PHA) + Aloe Vera + Extrait d'Opuntia — idéal pour les peaux sensibles ou débutantes en exfoliation chimique.`,
     inci: 'ALOE BARBADENSIS (ALOE VERA) LEAF JUICE, ETHYLHEXYLGLYCERIN, EUTERPE OLERACEA FRUIT EXTRACT, GLUCONOLACTONE, GLYCERIN, HYDROXYACETOPHENONE, OPUNTIA FICUS INDICA FLOWER EXTRACT, PHENOXYETHANOL, POTASSIUM SORBATE, SODIUM BENZOATE, SODIUM CITRATE, SODIUM HYDROXIDE, WATER',
     url: 'https://www.skinsafeproducts.com/medik8-press-glow-daily-exfoliating-pha-tonic-enzyme-activator-6-7-fl-oz-200-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-press-and-glow-daily-exfoliating-pha-tonic.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/medik8-press-and-glow-daily-exfoliating-pha-tonic.webp',
     tags: {
       primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.EXFOLIANT_CHIMIQUE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -175,7 +176,8 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
       'Palmitoyl Tripeptide-1 + Palmitoyl Tetrapeptide-7 + Niacinamide + Caféine — idéale pour les contours des yeux marqués ou fatigués.',
     inci: 'PROPYLENE GLYCOL, AMELANCHIER ALNIFOLIA (SASKATOON) FRUIT EXTRACT, AQUA (WATER), ARGININE, ASCORBIC ACID, BENZYL ALCOHOL, BUTYLENE GLYCOL, C12-16 ALCOHOLS, CAFFEINE, CANDELILLA/JOJOBA/RICE BRAN POLYGLYCERYL-3 ESTERS, CAPRYLIC/CAPRIC TRIGLYCERIDE, CARBOMER, CERA MICROCRISTALLINA, CETEARYL ALCOHOL, CETEARYL OLIVATE, DEHYDROACETIC ACID, DIMETHICONE, ETHYLHEXYLGLYCERIN, FERRIC HEXAPEPTIDE-35, GLUCOSYL HESPERIDIN, GLYCERIN, GLYCERYL STEARATE, HYDROGENATED LECITHIN, HYLOCEREUS UNDATUS (DRAGON FRUIT) FRUIT EXTRACT, NIACINAMIDE, NYLON-12, PALMITIC ACID, PALMITOYL TETRAPEPTIDE-7, PALMITOYL TRIPEPTIDE-1, PHENOXYETHANOL, POGOSTEMON CABLIN (PATCHOULI) LEAF OIL, POLYSORBATE 20, SODIUM ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, SODIUM HYALURONATE, SODIUM STEAROYL LACTYLATE, SORBITAN OLIVATE, SORBITOL, SQUALANE, STEARIC ACID, TOCOPHEROL, TREMELLA FUCIFORMIS (SNOW MUSHROOM) EXTRACT',
     url: 'https://www.skinsafeproducts.com/medik8-advanced-night-rejuvenating-eye-cream-0-5-fl-oz-15-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-advanced-night-rejuvenating-eye-cream.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/medik8-advanced-night-rejuvenating-eye-cream.webp',
     tags: {
       primary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.CERNES_POCHES, TAG_SLUGS.ANTI_AGE],
       secondary: [TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_YEUX],
@@ -232,7 +234,8 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
       'Coco-Glucoside + Décyl Glucoside + Huile de Romarin — parfaite pour les peaux sensibles, normales ou sèches nécessitant un nettoyage doux au quotidien.',
     inci: 'BENZYL ALCOHOL, CITRIC ACID, COCAMIDOPROPYL BETAINE, COCO-GLUCOSIDE, DECYL GLUCOSIDE, DEHYDROACETIC ACID, DISODIUM COCOAMPHODIACETATE, ETHYLHEXYLGLYCERIN, GLYCERIN, PHENOXYETHANOL, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF OIL, SODIUM BENZOATE, SODIUM COCOAMPHOACETATE, WATER, YUCCA VERA LEAF/ROOT EXTRACT',
     url: 'https://www.skinsafeproducts.com/medik8-gentle-cleanse-hydrating-rosemary-foam-5-fl-oz-150-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-gentle-cleanse-hydrating-rosemary-foam.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/medik8-gentle-cleanse-hydrating-rosemary-foam.webp',
     tags: {
       primary: [TAG_SLUGS.MOUSSE_NETTOYANTE, TAG_SLUGS.HYDRATATION],
       secondary: [
@@ -257,7 +260,8 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     notes: `Sodium Hyaluronate + Extrait d'Epilobium + Zinc PCA + Extrait de Noix de Coco — idéal après laser, peelings ou en cure SOS pour peaux stressées.`,
     inci: '1,2-HEXANEDIOL, AQUA (WATER), ASCOPHYLLUM NODOSUM EXTRACT, BUTYLENE GLYCOL, CARBOMER, CELLULOSE GUM, COCOS NUCIFERA (COCONUT) FRUIT EXTRACT, DISODIUM EDTA, EPILOBIUM ANGUSTIFOLIUM (WILLOW HERB) FLOWER/LEAF/STEM EXTRACT, GLYCERIN, ILLICIUM VERUM (ANISE) FRUIT EXTRACT, METHYLPROPANEDIOL, PHENOXYETHANOL, PORTULACA OLERACEA (GREEN PURSLANE) EXTRACT, PULLULAN, SCUTELLARIA BAICALENSIS (BAIKAL SKULLCAP) ROOT EXTRACT, SODIUM HYALURONATE, SODIUM HYDROXIDE, ZINC PCA',
     url: 'https://www.skinsafeproducts.com/medik8-ultimate-recovery-bio-cellulose-mask-1-0-oz-30-g-6-count',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-ultimate-recovery-bio-cellulose-mask.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/medik8-ultimate-recovery-bio-cellulose-mask.webp',
     tags: {
       primary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.HYDRATATION, TAG_SLUGS.APAISANT],
       secondary: [
@@ -380,7 +384,8 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
       'Retinal (0,24%) + Tetrahexyldecyl Ascorbate + Squalane + Sodium Hyaluronate — réservé aux utilisateurs confirmés de rétinoïdes puissants.',
     inci: '1,2-HEXANEDIOL, 3-O-ETHYL ASCORBIC ACID, ALUMINA, AQUA (WATER), BHT, CAPRYLIC/CAPRIC TRIGLYCERIDE, CETEARYL ALCOHOL, CETEARYL OLIVATE, CLIMBAZOLE, COUMARIN, CYCLODEXTRIN, DAUCUS CAROTA SATIVA (CARROT) SEED OIL, DECYLENE GLYCOL, DIPTERYX ODORATA (TONKA) BEAN EXTRACT, DISODIUM EDTA, ECLIPTA PROSTRATA EXTRACT, ETHYLHEXYLGLYCERIN, GLYCERIN, HYDROXYACETOPHENONE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, HYDROXYPROPYL METHYLCELLULOSE, ISODODECANE, ISOSTEARIC ACID, LECITHIN, LONICERA CAPRIFOLIUM (HONEYSUCKLE) FLOWER EXTRACT, LONICERA JAPONICA (HONEYSUCKLE) FLOWER EXTRACT, MELIA AZADIRACHTA LEAF EXTRACT, MORINGA OLEIFERA SEED OIL, PENTYLENE GLYCOL, PHENOXYETHANOL, POLYGLYCERYL-3 POLYRICINOLEATE, POLYHYDROXYSTEARIC ACID, POLYSORBATE 60, PPG-12/SMDI COPOLYMER, RETINAL, RUBUS CHAMAEMORUS (CLOUDBERRY) SEED OIL, SODIUM ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, SODIUM HYALURONATE, SODIUM POLYASPARTATE, SORBITAN ISOSTEARATE, SORBITAN OLIVATE, SQUALANE, STEARIC ACID, TETRAHEXYLDECYL ASCORBATE, TITANIUM DIOXIDE, TOCOPHERYL ACETATE, VANILLA PLANIFOLIA (VANILLA) FRUIT EXTRACT',
     url: 'https://www.skinsafeproducts.com/medik8-crystal-retinal-24-age-defying-night-serum-1-fl-oz-30-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-crystal-retinal-24-age-defying-night-serum.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/medik8-crystal-retinal-24-age-defying-night-serum.webp',
     tags: {
       primary: [TAG_SLUGS.SERUM, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.TRAITEMENT],
       secondary: [TAG_SLUGS.SOIR, TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.GRAIN_PEAU],
@@ -455,7 +460,8 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
       'Retinol 0,3% + Squalane + Huile de Carthame + Tocopheryl Acetate — format voyage ou discovery, idéal pour débuter en rétinol ou découvrir la formule.',
     inci: '12-HEXANEDIOL, BHT, CAPRYLIC/CAPRIC TRIGLYCERIDE, CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL, CLIMBAZOLE, DECYLENE GLYCOL, DIMETHICONE, LECITHIN, PHENOXYETHANOL, POGOSTEMON CABLIN (PATCHOULI) LEAF OIL, PPG-12/SMDI COPOLYMER, RETINOL, SQUALANE, TOCOPHERYL ACETATE',
     url: 'https://www.skinsafeproducts.com/medik8-intelligent-rtinol-3tr-supercharged-0-3-serum-vitamin-a-0-13-fl-oz-4-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-intelligent-retinol-3tr-supercharged-serum.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/medik8-intelligent-retinol-3tr-supercharged-serum.webp',
     tags: {
       primary: [TAG_SLUGS.SERUM, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.TRAITEMENT],
       secondary: [TAG_SLUGS.SOIR],
@@ -480,7 +486,8 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
       'Tetrahexyldecyl Ascorbate + Tocopheryl Acetate + Sodium Hyaluronate — recommandée pour les peaux ternes, mixtes ou grasses souhaitant un éclat sans effet gras.',
     inci: 'AQUA (WATER), CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CETEARYL ISONONANOATE, CETEARYL OLIVATE, CITRAL, CITRONELLOL, CITRUS AURANTIUM BERGAMIA (BERGAMOT) FRUIT OIL, CITRUS GRANDIS (GRAPEFRUIT) PEEL OIL, CITRUS LIMON (LEMON) PEEL OIL, DISODIUM EDTA, DISTARCH PHOSPHATE, GERANIOL, GLYCERIN, HEPTYL UNDECYLENATE, LIMONENE, LINALOOL, METHYLPROPANEDIOL, PELARGONIUM GRAVEOLENS (GERANIUM) FLOWER OIL, PHENYLPROPANOL, SODIUM HYALURONATE, SODIUM HYDROXIDE, SODIUM POLYACRYLATE, SORBITAN OLIVATE, TETRAHEXYLDECYL ASCORBATE, TOCOPHERYL ACETATE',
     url: 'https://www.skinsafeproducts.com/medik8-c-tetra-lipid-vitamin-c-radiance-cream-1-6-fl-oz-50-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-c-tetra-lipid-vitamin-c-radiance-cream.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/medik8-c-tetra-lipid-vitamin-c-radiance-cream.webp',
     tags: {
       primary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES],
       secondary: [TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.MATIN],
@@ -529,7 +536,8 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     notes: `Retinal + Ceramide NP + Squalane + Phytostérols + Sodium Hyaluronate — pour peaux d'œil matures ayant déjà toléré un protocole rétinal de niveau intermédiaire.`,
     inci: 'AQUA (WATER), ARACHIDYL ALCOHOL, ARACHIDYL GLUCOSIDE, BEHENYL ALCOHOL, BHT, BISABOLOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, CAPRYLIC/CAPRIC TRIGLYCERIDE, CELLULOSE, CERAMIDE NP, CETEARYL ALCOHOL, CETEARYL ISONONANOATE, CYCLODEXTRIN, DAUCUS CAROTA SATIVA (CARROT) SEED OIL, DIMETHICONE, DISODIUM EDTA, ETHYLHEXYL PALMITATE, ETHYLHEXYLGLYCERIN, GLYCERIN, GLYCERYL STEARATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, HYDROXYACETOPHENONE, ISODODECANE, LECITHIN, LINOLEIC ACID, LONICERA CAPRIFOLIUM (HONEYSUCKLE) FLOWER EXTRACT, LONICERA JAPONICA (HONEYSUCKLE) FLOWER EXTRACT, MICROCRYSTALLINE CELLULOSE, PANDANUS CONOIDEUS FRUIT OIL, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, PENTYLENE GLYCOL, PHENOXYETHANOL, PHYTOSTEROLS, PPG-12/SMDI COPOLYMER, PROPANEDIOL, RETINAL, RUBUS CHAMAEMORUS (CLOUDBERRY) SEED OIL, SODIUM ACRYLATES COPOLYMER, SODIUM HYALURONATE, SODIUM HYDROXIDE, SODIUM POLYASPARTATE, SODIUM STEAROYL GLUTAMATE, SQUALANE, TOCOPHEROL, TOCOPHERYL ACETATE, TRIHYDROXYSTEARIN, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/medik8-crystal-retinal-eye-cream-ceramide-eye-6-0-5-fl-oz-15-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-crystal-retinal-eye-cream-ceramide-eye-6.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/medik8-crystal-retinal-eye-cream-ceramide-eye-6.webp',
     tags: {
       primary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_YEUX],
@@ -636,7 +644,8 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     notes: `Retinal + Ceramide NP + Squalane + Phytostérols — niveau d'entrée dans la gamme Crystal Retinal Eye, adapté aux peaux sensibles débutant avec le rétinal.`,
     inci: 'AQUA (WATER), ARACHIDYL ALCOHOL, ARACHIDYL GLUCOSIDE, BEHENYL ALCOHOL, BHT, BISABOLOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, CAPRYLIC/CAPRIC TRIGLYCERIDE, CELLULOSE, CERAMIDE NP, CETEARYL ALCOHOL, CETEARYL ISONONANOATE, CYCLODEXTRIN, DAUCUS CAROTA SATIVA (CARROT) SEED OIL, DIMETHICONE, DISODIUM EDTA, ETHYLHEXYL PALMITATE, ETHYLHEXYLGLYCERIN, GLYCERIN, GLYCERYL STEARATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, HYDROXYACETOPHENONE, ISODODECANE, LECITHIN, LINOLEIC ACID, LONICERA CAPRIFOLIUM (HONEYSUCKLE) FLOWER EXTRACT, LONICERA JAPONICA (HONEYSUCKLE) FLOWER EXTRACT, MICROCRYSTALLINE CELLULOSE, PANDANUS CONOIDEUS FRUIT OIL, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, PENTYLENE GLYCOL, PHENOXYETHANOL, PHYTOSTEROLS, PPG-12/SMDI COPOLYMER, PROPANEDIOL, RETINAL, RUBUS CHAMAEMORUS (CLOUDBERRY) SEED OIL, SODIUM ACRYLATES COPOLYMER, SODIUM HYALURONATE, SODIUM HYDROXIDE, SODIUM POLYASPARTATE, SODIUM STEAROYL GLUTAMATE, SQUALANE, TOCOPHEROL, TOCOPHERYL ACETATE, TRIHYDROXYSTEARIN, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/medik8-crystal-retinal-ceramide-eye-3-eye-cream-0-5-fl-oz-15-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-crystal-retinal-ceramide-eye-3-eye-cream.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/medik8-crystal-retinal-ceramide-eye-3-eye-cream.webp',
     tags: {
       primary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_YEUX],
@@ -713,7 +722,8 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
       'Retinyl Retinoate + Tetrahexyldecyl Ascorbate + 3-O-Ethyl Ascorbic Acid — convient aux peaux matures souhaitant un rétinoïde bien toléré utilisable en toutes saisons.',
     inci: '3-0-ETHYL ASCORBIC ACID, AQUA (WATER), BHT, CANOLA OIL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CETEARYL ALCOHOL, CETEARYL ISONONANOATE, CETEARYL OLIVATE, CHOLESTERYL NONANOATE, DISODIUM EDTA, DISTARCH PHOSPHATE, GLYCERIN, HEPTYL UNDECYLENATE, HYDROGENATED POLYDECENE, HYDROXYACETOPHENONE, METHYLPROPANEDIOL, PHENYLPROPANOL, POLYLACTIC ACID, RETINYL RETINOATE, SODIUM HYALURONATE, SODIUM HYDROXIDE, SODIUM METABISULFITE, SODIUM POLYACRYLOYLDIMETHYL TAURATE, SORBITAN OLIVATE, TETRAHEXYLDECYL ASCORBATE, TOCOPHERYL ACETATE, TRIDECETH-10, VANILLA PLANIFOLIA (VANILLA) FRUIT EXTRACT',
     url: 'https://www.skinsafeproducts.com/medik8-day-night-youth-activating-cream-r-retinoate-1-7-oz-50-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-day-night-youth-activating-cream-r-retinoate.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/medik8-day-night-youth-activating-cream-r-retinoate.webp',
     tags: {
       primary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT],
       secondary: [TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
@@ -739,7 +749,8 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
       'Tetrahexyldecyl Ascorbate + Huile de Jojoba + Tocopheryl Acetate — idéal pour peaux normales à mixtes ou comme booster antioxydant à mélanger à un soin.',
     inci: 'CITRAL, CITRUS GRANDIS (GRAPEFRUIT) PEEL OIL, CYCLOHEXASILOXANE, CYCLOPENTASILOXANE, GERANIOL, LIMONENE, LINALOOL, PPG-12/SMDI COPOLYMER, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, TETRAHEXYLDECYL ASCORBATE, TOCOPHERYL ACETATE',
     url: 'https://www.skinsafeproducts.com/medik8-c-tetra-lipid-vitamin-c-radiance-serum-1-0-fl-oz-30-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-c-tetra-lipid-vitamin-c-radiance-serum.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/medik8-c-tetra-lipid-vitamin-c-radiance-serum.webp',
     tags: {
       primary: [TAG_SLUGS.SERUM, TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [TAG_SLUGS.PEAU_NORMALE, TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.MATIN],
@@ -809,7 +820,8 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
       'Tetrahexyldecyl Ascorbate 20% + Squalane + Sodium Hyaluronate + Extrait de Thé Vert — pour peaux ternes, marquées ou cherchant une forte dose de vitamine C stable.',
     inci: '1,2-HEXANEDIOL, ACETYL GLUCOSAMINE, ACETYL ZINGERONE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, AVENA SATIVA (OAT) KERNEL EXTRACT, CAMELLIA SINENSIS (GREEN TEA) LEAF VESICLES, CELLULOSE, CELLULOSE GUM, CITRAL, CITRIC ACID, CITRUS GRANDIS (GRAPEFRUIT) PEEL OIL, ETHYLHEXYLGLYCERIN, GLYCERIN, HYDROXYACETOPHENONE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, ISODODECANE, LIMONENE, LINALOOL, PHENOXYETHANOL, POLYSORBATE 60, PROPANEDIOL, SODIUM BENZOATE, SODIUM HYALURONATE, SORBITAN ISOSTEARATE, SQUALANE, SUCROSE STEARATE, TETRAHEXYLDECYL ASCORBATE, TETRASODIUM GLUTAMATE DIACETATE, TOCOPHEROL, WATER, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/medik8-c-tetra-advanced-20-vitamin-c-gel-serum-1-fl-oz-30-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-c-tetra-advanced-20-vitamin-c-gel-serum.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/medik8-c-tetra-advanced-20-vitamin-c-gel-serum.webp',
     tags: {
       primary: [TAG_SLUGS.SERUM, TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES],
       secondary: [
@@ -839,7 +851,8 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
       'Bakuchiol + Centella Asiatica + Curcuma + Undecylenoyl Phenylalanine — parfait pour les peaux sensibles, enceintes ou souhaitant une alternative naturelle au rétinol.',
     inci: 'ALOE BARBADENSIS FLOWER EXTRACT, BAKUCHIOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CENTELLA ASIATICA LEAF EXTRACT, COCCINIA INDICA FRUIT EXTRACT, CORALLINA OFFICINALIS EXTRACT, CURCUMA LONGA (TUMERIC) ROOT EXTRACT, ECLIPTA PROSTRATA EXTRACT, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, KRAMERIA TRIANDRA ROOT EXTRACT, MELIA AZADIRACHTA FLOWER EXTRACT, MELIA AZADIRACHTA LEAF EXTRACT, MORINGA OLEIFERA SEED OIL, OCIMUM BASILICUM (BASIL) FLOWER/LEAF EXTRACT, OCIMUM SANCTUM LEAF EXTRACT, OLEA EUROPAEA (OLIVE) FRUIT OIL, PLUKENETIA VOLUBILIS SEED OIL, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, SOLANUM MELONGENA (EGGPLANT) FRUIT EXTRACT, TOCOPHEROL, UNDECYLENOYL PHENYLALANINE',
     url: 'https://www.skinsafeproducts.com/medik8-retinol-alternative-peptide-infused-serum-bakuchiol-peptides-1-fl-oz-30-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-retinol-alternative-bakuchiol-peptides-serum.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/medik8-retinol-alternative-bakuchiol-peptides-serum.webp',
     tags: {
       primary: [TAG_SLUGS.SERUM, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.GROSSESSE_COMPATIBLE],
       secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.SOIR],
@@ -892,7 +905,8 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
       'Retinal + Ceramide NP + Squalane + Phytostérols + Sodium Hyaluronate — niveau débutant de la gamme Crystal Retinal Eye, formule douce pour peaux sensibles.',
     inci: 'AQUA (WATER), ARACHIDYL ALCOHOL, ARACHIDYL GLUCOSIDE, BEHENYL ALCOHOL, BHT, BISABOLOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, CAPRYLIC/CAPRIC TRIGLYCERIDE, CELLULOSE, CERAMIDE NP, CETEARYL ALCOHOL, CETEARYL ISONONANOATE, CYCLODEXTRIN, DAUCUS CAROTA SATIVA (CARROT) SEED OIL, DIMETHICONE, DISODIUM EDTA, ETHYLHEXYL PALMITATE, ETHYLHEXYLGLYCERIN, GLYCERIN, GLYCERYL STEARATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, HYDROXYACETOPHENONE, ISODODECANE, LECITHIN, LINOLEIC ACID, LONICERA CAPRIFOLIUM (HONEYSUCKLE) FLOWER EXTRACT, LONICERA JAPONICA (HONEYSUCKLE) FLOWER EXTRACT, MICROCRYSTALLINE CELLULOSE, PANDANUS CONOIDEUS FRUIT OIL, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, PENTYLENE GLYCOL, PHENOXYETHANOL, PHYTOSTEROLS, PPG-12/SMDI COPOLYMER, PROPANEDIOL, RETINAL, RUBUS CHAMAEMORUS (CLOUDBERRY) SEED OIL, SODIUM ACRYLATES COPOLYMER, SODIUM HYALURONATE, SODIUM HYDROXIDE, SODIUM POLYASPARTATE, SODIUM STEAROYL GLUTAMATE, SQUALANE, TOCOPHEROL, TOCOPHERYL ACETATE, TRIHYDROXYSTEARIN, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/medik8-crystal-retinal-ceramide-eye-3-cream-15-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-crystal-retinal-ceramide-eye-3-cream.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/medik8-crystal-retinal-ceramide-eye-3-cream.webp',
     tags: {
       primary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_YEUX],
@@ -919,7 +933,8 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
       'Retinal + Ceramide NP + Squalane + Phytostérols + Linoleic Acid — alternative liftante de la gamme Ceramide Eye, idéale pour les contours relâchés ou marqués.',
     inci: 'AQUA (WATER), ARACHIDYL ALCOHOL, ARACHIDYL GLUCOSIDE, BEHENYL ALCOHOL, BHT, BISABOLOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, CAPRYLIC/CAPRIC TRIGLYCERIDE, CELLULOSE, CERAMIDE NP, CETEARYL ALCOHOL, CETEARYL ISONONANOATE, CYCLODEXTRIN, DAUCUS CAROTA SATIVA (CARROT) SEED OIL, DIMETHICONE, DISODIUM EDTA, ETHYLHEXYL PALMITATE, GLYCERIN, GLYCERYL STEARATE, GLYCOL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, HYDROXYACETOPHENONE, ISODODECANE, LECITHIN, LINOLEIC ACID, LONICERA CAPRIFOLIUM (HONEYSUCKLE) FLOWER EXTRACT, LONICERA JAPONICA (HONEYSUCKLE) FLOWER EXTRACT, MICROCRYSTALLINE CELLULOSE, PANDANUS CONOIDEUS FRUIT OIL, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, PHENOXYETHANOL, PHYTOSTEROLS, PPG-12/SMDI COPOLYMER, PROPANEDIOL, RETINAL, RUBUS CHAMAEMORUS (CLOUDBERRY) SEED OIL, SODIUM ACRYLATES COPOLYMER, SODIUM HYALURONATE, SODIUM HYDROXIDE, SODIUM POLYASPARTATE, SODIUM STEAROYL GLUTAMATE, SQUALANE, TOCOPHEROL, TOCOPHERYL ACETATE, TRIHYDROXYSTEARIN, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/medik8-crystal-retinal-ceramide-eye-3-smooth-lift-cream-0-5-fl-oz-15-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-crystal-retinal-ceramide-eye-3-smooth-lift-cream.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/medik8-crystal-retinal-ceramide-eye-3-smooth-lift-cream.webp',
     tags: {
       primary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
       secondary: [TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_YEUX],

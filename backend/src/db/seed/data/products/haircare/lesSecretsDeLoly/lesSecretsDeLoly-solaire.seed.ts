@@ -16,7 +16,8 @@ export const LES_SECRETS_DE_LOLY_SOLAIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HYDROGENATED ETHYLHEXYL OLIVATE, PRUNUS AMYGDALUS DULCIS OIL, ISOAMYL LAURATE, CRAMBE ABYSSINICA SEED OIL PHYTOSTEROL ESTERS, HYDROGENATED CASTOR OIL, BUTYROSPERMUM PARKII BUTTER, HYDROGENATED OLIVE OIL UNSAPONIFIABLES, RICINUS COMMUNIS SEED OIL, PARFUM, ETHYL OLIVATE, ETHYL LAURATE, HELIANTHUS ANNUUS SEED OIL, PHYTOSTEROLS, AQUA, ALCOHOL, TOCOPHEROL, GLYCINE SOJA OIL, JOJOBA ESTERS, GLYCOLIC ACID, HYDROLYZED RICE PROTEIN, ORYZA SATIVA BRAN WAX, BETA-SITOSTEROL, SQUALENE, XYLITOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/les-secrets-de-loly/les-secrets-de-loly-serum-de-finition-multi-protection-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-serum-de-finition-multi-protection.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-serum-de-finition-multi-protection.webp',
     tags: {
       primary: ['eclat', 'anti-oxydant'],
       secondary: ['reparateur', 'creme-solaire', 'protection-solaire', 'matin', 'zone-visage'],

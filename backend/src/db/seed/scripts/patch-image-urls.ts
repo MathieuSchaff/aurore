@@ -91,7 +91,7 @@ for (const file of files) {
     }
     const newUrl = `${BASE}/products/${slug}.webp`
     const end = b + 1 < blocks.length ? blocks[b + 1].start : lines.length
-    const indent = (lines[start].match(/^(\s*)/)?.[1] ?? '    ')
+    const indent = lines[start].match(/^(\s*)/)?.[1] ?? '    '
 
     // search imageUrl in [start, end)
     let imgIdx = -1
@@ -151,9 +151,11 @@ for (const file of files) {
   if (!DRY) writeFileSync(file, lines.join('\n'))
   console.log(
     `  ${file.replace(SEED_ROOT, '.')}: replaced=${replacedF} inserted=${insertedF}` +
-      (skippedF ? ` skipped=${skippedF}` : ''),
+      (skippedF ? ` skipped=${skippedF}` : '')
   )
 }
 
-console.log(`\ntotals: replaced=${totalReplaced} inserted=${totalInserted} skipped=${totalSkipped} untouched=${totalUntouched}`)
+console.log(
+  `\ntotals: replaced=${totalReplaced} inserted=${totalInserted} skipped=${totalSkipped} untouched=${totalUntouched}`
+)
 console.log(DRY ? '(dry run — no files written)' : `wrote with base ${BASE}`)

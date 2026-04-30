@@ -364,7 +364,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, COCO-GLUCOSIDE, GLYCERIN**, DISODIUM COCOYL GLUTAMATE, COCOS NUCIFERA OIL*, XANTHAN GUM, ALOE BARBADENSIS LEAF JUICE POWDER*, ALGAE EXTRACT*, CITRIC ACID, SODIUM COCOYL GLUTAMATE, SODIUM BENZOATE, POTASSIUM SORBATE',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/par-soins/soins-nettoyants/laboratoires-de-biarritz-gel-lavant-surgras-bio-500-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-gel-lavant-surgras-bio.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-gel-lavant-surgras-bio.webp',
     tags: {
       primary: ['hydratation', 'apaisant'],
       secondary: ['nettoyant-corps', 'zone-corps'],
@@ -385,7 +386,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, COCO-GLUCOSIDE, GLYCERIN**, DISODIUM COCOYL GLUTAMATE, COCOS NUCIFERA OIL*, XANTHAN GUM, ALOE BARBADENSIS LEAF JUICE POWDER*, ALGAE EXTRACT*, CITRIC ACID, SODIUM COCOYL GLUTAMATE, SODIUM BENZOATE, POTASSIUM SORBATE',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/par-soins/soins-nettoyants/laboratoires-de-biarritz-gel-lavant-surgras-sans-parfum-bio-500-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-gel-lavant-surgras-sans-parfum-bio.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-gel-lavant-surgras-sans-parfum-bio.webp',
     tags: {
       primary: ['hydratation', 'apaisant'],
       secondary: ['nettoyant-corps', 'zone-corps'],
@@ -406,7 +408,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERIN, COCO-CAPRYLATE/CAPRATE, BUTYROSPERMUM PARKII BUTTER *, COCOS NUCIFERA OIL *, POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE, BORAGO OFFICINALIS SEED OIL *, CERA ALBA *, MAGNESIUM SULFATE, PROPANEDIOL, GELIDIUM SESQUIPEDALE EXTRACT, ALOE BARBADENSIS LEAF JUICE POWDER *, LINOLEIC ACID, SODIUM LEVULINATE, GLYCERYL CAPRYLATE, TOCOPHEROL, SODIUM ANISATE, OLEIC ACID, BISABOLOL *, CITRIC ACID, SODIUM HYALURONATE, PALMITIC ACID, STEARIC ACID, LINOLENIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/corps/mains/laboratoires-de-biarritz-creme-mains-reparatrice-bio-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-creme-mains-reparatrice-bio.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-creme-mains-reparatrice-bio.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'anti-oxydant', 'cicatrisation'],
       secondary: ['reparateur', 'creme-mains', 'zone-mains'],
@@ -508,7 +511,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'RICINUS COMMUNIS SEED OIL*, OLEIC/ LINOLEIC/LINOLENIC POLYGLYCERIDES, C10-18 TRIGLYCERIDES, GLYCERIN, GLYCERYL BEHENATE, GLYCERYL STEARATE, AQUA, HYDROGENATED CASTOR OIL, GELIDIUM SESQUIPEDALE EXTRACT, HELIANTHUS ANNUUS SEED OIL, TOCOPHEROL, SODIUM BENZOATE, CITRIC ACID, POTASSIUM SORBATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/biarritz/laboratoires-de-biarritz-baume-a-levres-reparateur-15ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-baume-a-levres-reparateur.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-baume-a-levres-reparateur.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'cicatrisation'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -533,7 +537,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, ZINC OXIDE.2, OLUS OIL, POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE, COCOS NUCIFERA OIL *, GLYCERIN **, HYDROGENATED VEGETABLE OIL, MAGNESIUM SULFATE, PROPANEDIOL, SIMMONDSIA CHINENSIS SEED OIL *, SQUALANE, ALGAE EXTRACT *, GELIDIUM SESQUIPEDALE EXTRACT(1), ALOE BARBADENSIS LEAF JUICE POWDER *, GLYCERYL CAPRATE, ZINC PCA, TOCOPHEROL, OLIVE GLYCERIDES, CERAMIDE NP',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/les-indispensables/pour-le-change/laboratoires-de-biarritz-creme-de-change-bio-75ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-creme-de-change-bio.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-creme-de-change-bio.webp',
     tags: {
       primary: ['barriere-cutanee', 'apaisant', 'hydratation'],
       secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -560,7 +565,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, SIMMONDSIA CHINENSIS SEED OIL *, GLYCERYL STEARATE CITRATE, PENTYLENE GLYCOL, CETEARYL ALCOHOL, LAMINARIA SACCHARINA EXTRACT, ALOE BARBADENSIS LEAF JUICE POWDER *, BISABOLOL *, DISODIUM COCOYL GLUTAMATE, SODIUM LEVULINATE, XANTHAN GUM, PARFUM, PROPANEDIOL, TOCOPHEROL, SODIUM ANISATE, CITRIC ACID, SODIUM COCOYL GLUTAMATE',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-produits/nettoyants-demaquillants/laboratoires-de-biarritz-lait-demaquillant-bio-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-lait-demaquillant-bio.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-lait-demaquillant-bio.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -585,7 +591,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, HYDROGENATED CASTOR OIL.1, GLYCERYL STEARATE CITRATE, CETEARYL ALCOHOL, SIMMONDSIA CHINENSIS SEED OIL *, COCOS NUCIFERA SHELL POWDER, PENTYLENE GLYCOL, LAMINARIA SACCHARINA EXTRACT, ALOE BARBADENSIS LEAF JUICE POWDER *, BISABOLOL *, PARFUM, SODIUM LEVULINATE, XANTHAN GUM, DISODIUM COCOYL GLUTAMATE, PROPANEDIOL, SODIUM ANISATE, HELIANTHUS ANNUUS SEED OIL, TOCOPHEROL, CITRIC ACID, SODIUM COCOYL GLUTAMATE',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-soins/gommages-visage/laboratoires-de-biarritz-gommage-eclat-visage-bio-75ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-gommage-eclat-visage-bio.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-gommage-eclat-visage-bio.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'anti-oxydant', 'eclat'],
       secondary: ['reparateur', 'exfoliation', 'zone-visage'],
@@ -611,7 +618,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, ZINC OXIDE, GLYCERIN, KAOLIN, GELIDIUM SESQUIPEDALE EXTRACT, ZINC PCA, COPPER PCA, ALOE BARBADENSIS LEAF JUICE POWDER*, BISABOLOL*, XANTHAN GUM, CITRIC ACID, SODIUM LEVULINATE, GLYCERYL CAPRYLATE, SODIUM ANISATE, POLYGLYCERYL-4 CAPRATE, SODIUM BENZOATE, POTASSIUM SORBATE',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-soins/hydratants-visage/peau-sensible/laboratoires-de-biarritz-cicarepa-lotion-reparatrice-bio-40ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-cicarepa-lotion-reparatrice-bio.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-cicarepa-lotion-reparatrice-bio.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'cicatrisation'],
       secondary: ['tonique', 'preparation', 'zone-visage', 'reparateur'],
@@ -639,7 +647,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, PROPANEDIOL, POLYGLYCERYL-4 CAPRATE, GLYCERIN **, PENTYLENE GLYCOL, LAMINARIA SACCHARINA EXTRACT, ALOE BARBADENSIS LEAF JUICE POWDER *, BISABOLOL *, PARFUM, SODIUM HYDROXIDE, LINALYL ACETATE',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/biarritz/laboratoires-de-biarritz-eau-micellaire-bio-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-eau-micellaire-bio.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-eau-micellaire-bio.webp',
     tags: {
       primary: ['apaisant', 'hydratation'],
       secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -661,7 +670,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS SEED OIL *, CAPRYLIC/CAPRIC TRIGLYCERIDE, POLYGLYCERYL-4 OLEATE, CARTHAMUS TINCTORIUS SEED OIL *, LAMINARIA SACCHARINA EXTRACT, BISABOLOL *, PARFUM, TOCOPHEROL, AQUA, PROPANEDIOL, LINALYL ACETATE',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/biarritz/laboratoires-de-biarritz-huile-demaquillante-bio-200-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-huile-demaquillante-bio.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-huile-demaquillante-bio.webp',
     tags: {
       primary: ['apaisant', 'anti-oxydant'],
       secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -705,7 +715,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'TITANIUM DIOXIDE [NANO], CAPRYLIC/CAPRIC TRIGLYCERIDE, COCOS NUCIFERA OIL *, COCONUT ALKANES, BUTYROSPERMUM PARKII BUTTER *, GLYCERIN **, ALUMINA, POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE, STEARIC ACID, POLYGLYCERYL-3 DIISOSTEARATE, HYDROGENATED CASTOR OIL, HYDROGENATED VEGETABLE OIL, COCO-CAPRYLATE/CAPRATE, POLYHYDROXYSTEARIC ACID, GLYCERYL CAPRYLATE, GELIDIUM SESQUIPEDALE EXTRACT, PROPANEDIOL, AQUA, POLYGLYCERYL-4 CAPRATE, TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/biarritz/biarritz-creme-solaire-sfp50-bebe-enfants-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/biarritz-creme-solaire-sfp50-bebe-enfants.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/biarritz-creme-solaire-sfp50-bebe-enfants.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -730,7 +741,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, COCONUT ALKANES, CAPRYLIC/CAPRIC TRIGLYCERIDE, ZINC OXIDE [NANO], TITANIUM DIOXIDE [NANO], SORBITAN OLIVATE, TALC, GLYCERIN **, ORYZA SATIVA HULL POWDER, POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE, CI 77891, COCO-CAPRYLATE/CAPRATE, POLYGLYCERYL-3 DIISOSTEARATE, PARFUM, OCTYLDODECANOL, GLYCERYL CAPRYLATE, MAGNESIUM SULFATE, GELIDIUM SESQUIPEDALE EXTRACT, ALOE BARBADENSIS LEAF JUICE POWDER *, ALUMINA, STEARIC ACID, CI 77492, PROPANEDIOL, SODIUM BENZOATE, TOCOPHEROL, POLYGLYCERYL-4 CAPRATE, CI 77491, POTASSIUM SORBATE, JOJOBA ESTERS, CI 77499, TRIHYDROXYSTEARIN, SILICA',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/biarritz/biarritz-creme-solaire-teintee-spf30-02-beige-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/biarritz-creme-solaire-teintee-spf30-02-beige.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/biarritz-creme-solaire-teintee-spf30-02-beige.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -829,7 +841,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS SEED OIL, DICAPRYLYL CARBONATE, TRIETHYL CITRATE, TRIHEPTANOIN, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, PROPANEDIOL DICAPRYLATE, ETHYLHEXYL TRIAZONE, PARFUM, GELIDIUM SESQUIPEDALE EXTRACT, HAEMATOCOCCUS PLUVIALIS EXTRACT, SIMMONDSIA CHINENSIS SEED OIL *, POLYGLYCERYL-4 OLEATE, TOCOPHEROL, PROPANEDIOL, AQUA, VANILLIN, LINALYL ACETATE, POLYGLYCERYL-4 CAPRATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/biarritz/laboratoires-de-biarritz-huile-solaire-satinee-spf30-125ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-huile-solaire-satinee-spf30.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-huile-solaire-satinee-spf30.webp',
     tags: {
       primary: ['anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -859,7 +872,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'DICAPRYLYL CARBONATE, HELIANTHUS ANNUUS SEED OIL, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, TRIETHYL CITRATE, TRIHEPTANOIN, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, PROPANEDIOL DICAPRYLATE, ETHYLHEXYL TRIAZONE, PARFUM, GELIDIUM SESQUIPEDALE EXTRACT, HAEMATOCOCCUS PLUVIALIS EXTRACT, SIMMONDSIA CHINENSIS SEED OIL *, POLYGLYCERYL-4 OLEATE, TOCOPHEROL, PROPANEDIOL, AQUA, VANILLIN, LINALYL ACETATE, POLYGLYCERYL-4 CAPRATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/biarritz/laboratoires-de-biarritz-huile-solaire-satinee-spf50-125ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-huile-solaire-satinee-spf50.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-huile-solaire-satinee-spf50.webp',
     tags: {
       primary: ['anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -889,7 +903,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, DICAPRYLYL CARBONATE, TRIHEPTANOIN, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, TRIETHYL CITRATE, PROPANEDIOL DICAPRYLATE, ETHYLHEXYL TRIAZONE, GLYCERIN, POLYGLYCERYL-6 STEARATE, PARFUM, POLYGLYCERYL-3 STEARATE/SEBACATE CROSSPOLYMER, GELIDIUM SESQUIPEDALE EXTRACT, ALOE BARBADENSIS LEAF JUICE POWDER *, SIMMONDSIA CHINENSIS SEED OIL *, HAEMATOCOCCUS PLUVIALIS EXTRACT, HELIANTHUS ANNUUS SEED OIL, CETEARYL ALCOHOL, GLYCERYL STEARATE, XANTHAN GUM, SODIUM BENZOATE, CITRIC ACID, POLYGLYCERYL-6 BEHENATE, PROPANEDIOL, POTASSIUM SORBATE, TOCOPHEROL, POLYGLYCERYL-4 CAPRATE, VANILLIN, LINALYL ACETATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/biarritz/laboratoires-de-biarritz-lait-solaire-satinee-spf30-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-lait-solaire-satinee-spf30.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-lait-solaire-satinee-spf30.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -919,7 +934,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, DICAPRYLYL CARBONATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, ETHYLHEXYL TRIAZONE, TRIHEPTANOIN, TRIETHYL CITRATE, GLYCERIN, PROPANEDIOL DICAPRYLATE, POLYGLYCERYL-6 STEARATE, PARFUM, POLYGLYCERYL-3 STEARATE/SEBACATE CROSSPOLYMER, GELIDIUM SESQUIPEDALE EXTRACT, ALOE BARBADENSIS LEAF JUICE POWDER *, SIMMONDSIA CHINENSIS SEED OIL *, HAEMATOCOCCUS PLUVIALIS EXTRACT, HELIANTHUS ANNUUS SEED OIL, CETEARYL ALCOHOL, GLYCERYL STEARATE, XANTHAN GUM, POLYGLYCERYL-6 BEHENATE, PROPANEDIOL, SODIUM BENZOATE, CITRIC ACID, TOCOPHEROL, POTASSIUM SORBATE, POLYGLYCERYL-4 CAPRATE, VANILLIN, LINALYL ACETATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/biarritz/laboratoires-de-biarritz-lait-solaire-satinee-spf50-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-lait-solaire-satinee-spf50.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-lait-solaire-satinee-spf50.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -949,7 +965,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'LES LABORATOIRES BIARRITZ SITUÉS EN FRANCE, ÉLABORENT DES PRODUITS COSMÉTIQUES NATURELS ET CERTIFIÉS BIOLOGIQUE, COMPOSÉS NOTAMMENT D’UNE ALGUE ROUGE SPÉCIFIQUE DES CÔTES BASQUES, RESPECTUEUX DE L’ENVIRONNEMENT ET DE L’HOMME, ILS SONT EXEMPTS DE PARABENS, SILICONES, PHENOXYÉTHANOL,… 5 GAMMES DE PRODUITS PERMETTENT DE RÉPONDRE À TOUS LES BESOINS DU QUOTIDIEN POUR TOUS : SOLAIRE, HYDRATATION, BÉBÉ, BEAUTÉ ET CICATRISATION',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/biarritz/laboratoires-de-biarritz-lait-solaire-spf-30-sport.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-lait-solaire-spf-30-sport.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-lait-solaire-spf-30-sport.webp',
     tags: {
       primary: ['protection-solaire'],
       secondary: ['creme-solaire', 'matin', 'zone-visage'],
@@ -998,7 +1015,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, DICAPRYLYL CARBONATE, TRIHEPTANOIN, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, TRIETHYL CITRATE, PROPANEDIOL DICAPRYLATE, ETHYLHEXYL TRIAZONE, GLYCERIN, POLYGLYCERYL-6 STEARATE, PARFUM, POLYGLYCERYL-3 STEARATE/SEBACATE CROSSPOLYMER, GELIDIUM SESQUIPEDALE EXTRACT, ALOE BARBADENSIS LEAF JUICE POWDER *, SIMMONDSIA CHINENSIS SEED OIL *, HAEMATOCOCCUS PLUVIALIS EXTRACT, HELIANTHUS ANNUUS SEED OIL, CETEARYL ALCOHOL, GLYCERYL STEARATE, XANTHAN GUM, SODIUM BENZOATE, CITRIC ACID, POLYGLYCERYL-6 BEHENATE, PROPANEDIOL, POTASSIUM SORBATE, TOCOPHEROL, POLYGLYCERYL-4 CAPRATE, VANILLIN, LINALYL ACETATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/biarritz/laboratoires-de-biarritz-stick-solaire-invisible-spf50-10g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-stick-solaire-invisible-spf50.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-stick-solaire-invisible-spf50.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],

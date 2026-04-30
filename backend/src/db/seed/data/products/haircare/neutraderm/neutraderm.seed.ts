@@ -15,7 +15,8 @@ export const NEUTRADERM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water) / eau, oligoactive water(2), sodium laureth sulfate, undecylenamidopropyl betaine, decyl glucoside, olea europaea (olive) leaf extract, panthenol, prunus amygdalus dulcis (sweet almond) oil, polyquaternium- 10, coco-glucoside, glyceryl oleate, tocopherol, parfum (fragrance), hydrogenated palm glycerides citrate, laureth-2, peg-120 methyl glucose dioleate, peg-6, propylene glycol, sodium chloride, tetrasodium glutamate diacetate, sodium benzoate, undecanoic acid, citric acid, ci 15985 (yellow 6), ci 19140 (yellow 5).',
     url: 'https://www.atida.fr/neutraderm-shampooing-extra-doux-dermo-respect-500ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/neutraderm-shampoing-extra-doux-dermo-respect-500ml-242343.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/neutraderm-shampoing-extra-doux-dermo-respect-500ml-242343.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -43,7 +44,8 @@ export const NEUTRADERM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/neutraderm-shampoing-extra-doux-dermo-respect-lot-de-2-x-500ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/neutraderm-shampoing-extra-doux-dermo-respect-lot-de-2-x-500ml-301117.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/neutraderm-shampoing-extra-doux-dermo-respect-lot-de-2-x-500ml-301117.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],

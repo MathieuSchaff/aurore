@@ -89,7 +89,8 @@ export const PAI_SEED: UnifiedProductSeed[] = [
       'Contient des huiles essentielles (géranium, lavande, rose otto). Huile de Camélia + Glycérine — Idéal pour peaux sensibles et réactives.',
     inci: 'AFRICAN SHEA BUTTER, CAMELLIA OLEIFERA SEED OIL, CAMELLIA SINENSIS SEED OIL, CETEARYL ALCOHOL, CETEARYL GLUCOSIDE, CITRAL, CITRONELLOL, D-LIMONENE, GERANIOL, GERANIUM OIL, GLYCERIN, GLYCERYL STEARATE CITRATE, LACTIC ACID, LAVANDULA ANGUSTIFOLIA (LAVENDER) OIL, LAVANDULA OFFICINALIS (LAVENDER) FLOWER OIL, LINALOOL, LITSEA CUBEBA FRUIT OIL, MIXED TOCOPHEROLS (VITAMIN E), PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, RICINUS COMMUNIS (CASTOR) SEED OIL, ROSA DAMASCENA (ROSE OTTO) OIL, SODIUM ANISATE, SODIUM LAUROYL LACTYLATE, SODIUM LEVULINATE, WATER',
     url: 'https://www.skinsafeproducts.com/pai-skincare-camellia-rose-gentle-hydrating-cleanser-for-sensitive-skin-organic-100ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/pai-camellia-rose-gentle-hydrating-cleanser.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/pai-camellia-rose-gentle-hydrating-cleanser.webp',
     tags: {
       primary: [TAG_SLUGS.CREME_NETTOYANTE, TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
       secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.ZONE_VISAGE],
@@ -205,7 +206,8 @@ export const PAI_SEED: UnifiedProductSeed[] = [
       'Extrait de Schisandra + Hyaluronate de Sodium + Glycosphingolipides (céramides) — Idéal pour peaux sensibles avec poches et contours fatigués.',
     inci: 'ACACIA SENEGAL GUM, AQUA (WATER), BETA-SITOSTEROL, CHONDRUS CRISPUS POWDER, CITRUS AURANTIUM DULCIS FRUIT WATER, GLYCERIN, GLYCOLIPIDS, GLYCOSPHINGOLIPIDS, LACTIC ACID, LYSOLECITHIN, MALTODEXTRIN, OPHIOPOGON JAPONICUS ROOT EXTRACT, PULLULAN, SCHISANDRA SPENANTHERA FRUIT EXTRACT, SCLEROTIUM GUM, SILICA, SODIUM ANISATE, SODIUM DEHYDROACETATE, SODIUM HYALURONATE, SODIUM LEVULINATE, SQUALENE, TOCOPHEROL (VITAMIN E), XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/pai-skincare-system-d-calm-schisandra-ceramide-cooling-eye-serum-0-5-fl-oz-15-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/pai-system-d-calm-schisandra-ceramide-eye-serum.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/pai-system-d-calm-schisandra-ceramide-eye-serum.webp',
     tags: {
       primary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX],
       secondary: [
@@ -264,7 +266,8 @@ export const PAI_SEED: UnifiedProductSeed[] = [
       'Contient des huiles essentielles (géranium, litsea cubeba). Avocat + Jojoba + Squalène — Idéal pour peaux sèches à normales.',
     inci: 'AQUA (WATER), BETA-SITOSTEROL, BORAGO OFFICINALIS SEED OIL, BUTYROSPERMUM PARKII BUTTER, CARTHAMUS TINCTORIUS SEED OIL, CETEARYL ALCOHOL, CETEARYL GLUCOSIDE, CITRAL, CITRONELLOL, GERANIOL, GERANIUM OIL, GLYCERIN, HELIANTHUS ANNUUS SEED OIL, JASMINUM GRANDIFLORUM (JASMINE) FLOWER EXTRACT, LACTIC ACID, LIMONENE, LINALOOL, LITSEA CUBEBA FRUIT OIL, PERSEA GRATISSIMA OIL, SIMMONDSIA CHINENSIS SEED OIL, SODIUM ANISATE, SODIUM CAPROYL/LAUROYL LACTYLATE, SODIUM LEVULINATE, SODIUM STEAROYL GLUTAMATE, SQUALENE, TOCOPHEROL',
     url: 'https://www.skinsafeproducts.com/pai-all-day-hydration-moisturizer-cream-avocado-jojoba-1-7-fl-oz-50-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/pai-all-day-hydration-moisturizer-avocado-jojoba.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/pai-all-day-hydration-moisturizer-avocado-jojoba.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.EMOLLIENCE],
       secondary: [
@@ -290,7 +293,8 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     notes: `Contient de l"huile de Litsea Cubeba (parfumée). Aster Maritima + Avena Sativa + Hyaluronate de Sodium — Idéal pour peaux sensibles sujettes aux rougeurs diffuses.`,
     inci: 'ACACIA SENEGAL GUM, ADESMIA BORONIOIDES FLOWER/LEAF/STEM OIL, ASTER MARITIMA/TRIPOLIUM EXTRACT, AVENA SATIVA (OAT) KERNEL EXTRACT, CAPRYLIC/CAPRIC TRIGLYCERIDE, CARYA OVATA BARK EXTRACT, CETEARYL ALCOHOL, CITRUS AURANTIUM DULCIS FRUIT WATER, GLYCERIN, GLYCERYL CAPRYLATE, GLYCERYL STEARATE CITRATE, LACTIC ACID, LIMONENE, LITSEA CUBEBA FRUIT OIL, ROSMARINUS OFFICINALIS LEAF EXTRACT, SODIUM ANISATE, SODIUM HYALURONATE, SODIUM LEVULINATE, HELIANTHUS ANNUUS SEED OIL, TOCOPHEROL, WATER, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/pai-skincare-instant-calm-redness-serum-sea-aster-wild-oat',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/pai-instant-calm-redness-serum-sea-aster-wild-oat.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/pai-instant-calm-redness-serum-sea-aster-wild-oat.webp',
     tags: {
       primary: [TAG_SLUGS.SERUM, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
@@ -321,7 +325,8 @@ export const PAI_SEED: UnifiedProductSeed[] = [
       'Contient des huiles essentielles (géranium, lavande, rose damascena, litsea cubeba). Camélia + Lactobacillus Ferment — Idéal pour peaux sensibles et sèches.',
     inci: 'AQUA (WATER), BETA-SITOSTEROL, BUTYROSPERMUM PARKII BUTTER, CAMELLIA OLEIFERA SEED OIL, CETEARYL ALCOHOL, CETEARYL GLUCOSIDE, CITRAL, CITRONELLOL, GERANIOL, GERANIUM OIL, GLYCERIN, LACTIC ACID, LACTOBACILLUS FERMENT, LAVANDULA ANGUSTIFOLIA OIL, LIMONENE, LITSEA CUBEBA FRUIT OIL, PRUNUS AMYGDALUS DULCIS OIL, RICINUS COMMUNIS SEED OIL, ROSA DAMASCENA OIL, SODIUM ANISATE, SODIUM LEVULINATE, SODIUM STEAROYL GLUTAMATE, SQUALENE, TOCOPHEROL (VITAMIN E)',
     url: 'https://www.skinsafeproducts.com/pai-gentle-cream-cleanser-twin-flyer-cloth-middlemist-seven-camellia-rose-1-7-fl-oz-50-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/pai-gentle-cream-cleanser-middlemist-seven.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/pai-gentle-cream-cleanser-middlemist-seven.webp',
     tags: {
       primary: [TAG_SLUGS.CREME_NETTOYANTE, TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
       secondary: [
@@ -409,7 +414,8 @@ export const PAI_SEED: UnifiedProductSeed[] = [
       'Acide Hyaluronique hydrolysé (4 formes) + Niacinamide + Panthénol — Idéal pour toutes peaux déshydratées, y compris sensibles.',
     inci: 'AQUA (PURIFIED WATER), C12-13 ALKYL GLYCERYL HYDROLYZED HYALURONATE, CAPRYLYL GLYCOL, HYDROLYZED HYALURONIC ACID, HYDROLYZED SODIUM HYALURONATE, HYDROXYPROPYLTRIMONIUM HYALURONATE, NIACINAMIDE, PANTHENOL, PHENOXYETHANOL, SODIUM HYALURONATE, SODIUM HYDROXIDE, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/propaira-extra-strength-serum-hyaluronic-acid-15-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/propaira-extra-strength-serum-hyaluronic-acid.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/propaira-extra-strength-serum-hyaluronic-acid.webp',
     tags: {
       primary: [TAG_SLUGS.SERUM, TAG_SLUGS.HYDRATATION, TAG_SLUGS.TRAITEMENT],
       secondary: [
@@ -445,7 +451,8 @@ export const PAI_SEED: UnifiedProductSeed[] = [
       'Niacinamide 10% + Copper Tripeptide-1 + Oligopeptide-34 — Idéal pour peaux mixtes à grasses avec pores dilatés et irrégularités de teint.',
     inci: 'AQUA (PURIFIED WATER), BENZYL ALCOHOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CETEARETH-20, CETEARYL ALCOHOL, COPPER TRIPEPTIDE-1 (COPPER PEPTIDE), DIMETHICONE, DISODIUM EDTA, GLYCERIN, GLYCINE SOJA (SOYABEAN) OIL, HYDROGENATED LECITHIN, NIACINAMIDE, OLIGOPEPTIDE-34, PHENOXYETHANOL, SODIUM OLEATE, VITIS VINIFERA (GRAPE) SEED OIL, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/propaira-skin-defense-serum-10-niacinamide-30-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/propaira-skin-defense-serum-10-niacinamide.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/propaira-skin-defense-serum-10-niacinamide.webp',
     tags: {
       primary: [TAG_SLUGS.SERUM, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ANTI_TACHES],
       secondary: [
@@ -585,7 +592,8 @@ export const PAI_SEED: UnifiedProductSeed[] = [
       'Contient des huiles essentielles (lavandin, pamplemousse, orange douce). Aloe Vera + Hamamélis — Idéal pour peaux sensibles et mixtes après le nettoyage.',
     inci: 'ALOE BARBADENSIS GEL (ALOE VERA), GLUCOSE, GLUCOSE OXIDASE, LACTOPEROXIDASE, ORGANIC HERBAL ASTRINGENT OF ROSE PETAL, HIBISCUS FLOWER, AND ROSE HIPS, PURE ESSENTIAL OIL OF LAVANDIN GROSSO, PURE ESSENTIAL OIL OF PINK GRAPEFRUIT, PURE ESSENTIAL OIL OF SWEET ORANGE, PURIFIED SPRING WATER, WITCH HAZEL',
     url: 'https://www.skinsafeproducts.com/the-super-salve-co-power-repair-hydrating-and-soothing-facial-toner',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/power-repair-hydrating-soothing-facial-toner.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/power-repair-hydrating-soothing-facial-toner.webp',
     tags: {
       primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.PREPARATION],
       secondary: [
@@ -615,7 +623,8 @@ export const PAI_SEED: UnifiedProductSeed[] = [
       'Niacinamide + Acide Polyglutamique + Panthénol — Idéal pour peaux acnéiques avec hyperpigmentation post-inflammatoire.',
     inci: 'ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, ALGAE EXTRACT, ALLANTOIN, BETAINE, BORAGO OFFICINALIS SEED OIL, BUTYLENE GLYCOL, CAPRYLOYL GLYCINE, CAPRYLYL GLYCOL, CARBOMER, CARDIOSPERMUM HALICACABUM FLOWER/LEAF/VINE EXTRACT, CHAMOMILLA RECUTITA (MATRICARIA) FLOWER EXTRACT, CUCURBITA PEPO (PUMPKIN) SEED OIL, DIMETHICONE, DISODIUM EDTA, ECHIUM PLANTAGINEUM SEED OIL, ETHYLHEXLYGLYCERIN, GLYCERIN, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL UNSAPONIFIABLES, HEXYLENE GLYCOL, HYDROLYZED ALGIN, HYDROLYZED SCLEROTIUM GUM, HYDROXYPHENYL PROPAMIDOBENZOIC ACID, LEMON GRASS EXTRACT, NIACINAMIDE, NIGELLA SATIVA SEED OIL, NORDIHYDROGUAIARETIC ACID, OCTYLDODECANOL, OLEANOLIC ACID, ORMENIS MULTICAULIS OIL, PANTHENOL, PEG-40 STEARATE, PEG-60 ALMOND GLYCERIDES, PENTYLENE GLYCOL, PHENOXYETHANOL, POLYDATIN, POLYGLUTAMIC ACID, POLYMETHYLSILSESQUIOXANE, POLYQUATERNIUM-51, POTASSIUM LACTATE, RUBUS IDAEUS (RASPBERRY) SEED OIL, SEA SALT, SODIUM BENZOATE, SODIUM HYALURONATE, SODIUM HYDROXIDE, SOLANUM LYCOPERSICUM (TOMATO) SEED OIL, SOY LECITHIN, TOCOPHEROL, TOCOPHERYL ACETATE, TREHALOSE, TRIACETIN, UREA, VACCINIUM MACROCARPON (CRANBERRY) SEED OIL, VITIS VINIFERA (GRAPE) SEED OIL, WATER, XYLITYLGLUCOSIDE',
     url: 'https://www.skinsafeproducts.com/receutics-active-skin-repair-step-3-clear-tone-and-complexion-corrector-1-7-fluid-oz',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/receutics-clear-tone-complexion-corrector.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/receutics-clear-tone-complexion-corrector.webp',
     tags: {
       primary: [TAG_SLUGS.SERUM, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ANTI_TACHES],
       secondary: [
@@ -648,7 +657,8 @@ export const PAI_SEED: UnifiedProductSeed[] = [
       'Céramides 1, 3 & 6 II + Niacinamide + Acide Hyaluronique — Idéal pour peaux sèches, atopiques ou en post-traitement dermatologique.',
     inci: 'AFRICAN SHEA BUTTER, ALGAE EXTRACT, ALLANTOIN, ANHYDROXYLITOL, ARGININE, BETAINE, BORAGO OFFICINALIS SEED OIL, BUTYLENE GLYCOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CARBOMER, CARDIOSPERMUM HALICACABUM FLOWER/LEAF/VINE EXTRACT, CERAMIDE 1, CERAMIDE 3, CERAMIDE 6 II, CETEARYL ALCOHOL, CETETH-10 PHOSPHATE, CHAMOMILLA RECUTITA (MATRICARIA) FLOWER EXTRACT, CHLORPHENESIN, CHOLESTEROL, CORN STARCH MODIFIED, CUCURBITA PEPO (PUMPKIN) SEED OIL, DAUCUS CAROTA SATIVA (CARROT) SEED OIL, DICETYL PHOSPHATE, DIMETHICONE, DISODIUM EDTA, ECHIUM PLANTAGINEUM SEED OIL, ETHYLHEXLYGLYCERIN, GLYCERIN, GLYCERYL STEARATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL UNSAPONIFIABLES, HYDROLYZED ALGIN, HYDROLYZED SCLEROTIUM GUM, HYDROXYPHENYL PROPAMIDOBENZOIC ACID, ISOSORBIDE DICAPRYLATE, LAMINARIA OCHROLEUCA EXTRACT, LEMON GRASS EXTRACT, NIACINAMIDE, NIGELLA SATIVA SEED OIL, OCTYLDODECANOL, ORMENIS MULTICAULIS OIL, PANTHENOL, PEG-100 STEARATE, PENTYLENE GLYCOL, PHENOXYETHANOL, PHYTOSPHINGOSINE, POLYGLUTAMIC ACID, POLYQUATERNIUM-51, POLYSORBATE 60, POTASSIUM LACTATE, POTASSIUM SORBATE, SEA SALT, SODIUM BENZOATE, SODIUM HYALURONATE, SODIUM LAUROYL LACTYLATE, SOLANUM LYCOPERSICUM (TOMATO) SEED OIL, SQUALANE, STEVIOSIDE, TAMARINDUS INDICA SEED GUM, TOCOPHEROL, TOCOPHERYL ACETATE, TREHALOSE, TRIACETIN, UREA, VACCINIUM MACROCARPON (CRANBERRY) SEED OIL, VITIS VINIFERA (GRAPE) SEED OIL, WATER, XANTHAN GUM, XYLITOL, XYLITYLGLUCOSIDE, ZINC CITRATE',
     url: 'https://www.skinsafeproducts.com/receutics-active-skin-repair-intense-hydration-repair-treatment-1-7-fluid-oz',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/receutics-intense-hydration-repair-treatment.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/receutics-intense-hydration-repair-treatment.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CREME_HYDRATANTE],
       secondary: [
@@ -839,7 +849,8 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     notes: `Beurre de Karité + Huile d"Emu + Allantoin + Vitamine C — Idéal pour peaux sèches à très sèches et irritées.`,
     inci: 'ACETYLATED LANOLIN ALCOHOL, ALLANTOIN, ALOE BARBADENSIS LEAF JUICE, AQUA, ASCORBYL METHYLSILANOL PECTINATE, BUTYROSPERMUM PARKII (SHEA) BUTTER, CETYL ACETATE, EMU OIL, GLYCERYL STEARATE, GLYCOL STEARATE, ISOPROPYL PALMITATE, PHYTIC ACID, SODIUM DEHYDROACETIC ACID, SODIUM HYDROXIDE, SODIUM PCA, SODIUM PHYTATE, STEARIC ACID, TOCOPHERYL ACETATE, VEGETABLE GLYCERIN',
     url: 'https://www.skinsafeproducts.com/skin-repair-rx-dermatological-moisturizing-lotion-8-5-fl-oz-251-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/skin-repair-rx-dermatological-moisturizing-lotion.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/skin-repair-rx-dermatological-moisturizing-lotion.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.ZONE_CORPS],
       secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
@@ -863,7 +874,8 @@ export const PAI_SEED: UnifiedProductSeed[] = [
       'Contient du parfum. Acide Hyaluronique + Niacinamide + Glycyrrhizinate de Dipotassium — Idéal pour peaux avec poches, cernes et regard fatigué.',
     inci: '1,2-HEXANEDIOL, ASCORBIC ACID, BETAINE, BIOTIN, BUTYLENE GLYCOL, CAPRYLHYDROXAMIC ACID, CAPRYLYL GLYCOL, CARBOMER, CARNITINE HCL, DIPOTASSIUM GLYCYRRHIZATE, DIPROPYLENE GLYCOL, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, FOLIC ACID, FRAGRANCE, GLYCERIN, NIACINAMIDE, PANTOTHENIC ACID, POLYGLYCERYL-10 LAURATE, PROPANEDIOL, PROPYLENE GLYCOL, RETINYL PALMITATE, RIBOFLAVIN, SODIUM HYALURONATE, THIAMINE HCL, TOCOPHEROL, TROMETHAMINE, WATER, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/repair-beauty-under-eye-patches-hyaluronic-acid-niacinamide-0-85-oz-25-g-5-pairs',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/repair-beauty-under-eye-patches-ha-niacinamide.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/repair-beauty-under-eye-patches-ha-niacinamide.webp',
     tags: {
       primary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX],
       secondary: [TAG_SLUGS.CERNES_POCHES, TAG_SLUGS.HYDRATATION, TAG_SLUGS.MASQUE_HEBDO],
@@ -890,7 +902,8 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     notes: `Contient du parfum. Urée (exfoliante) + Huile d"Arbre à Thé + Beurre de Karité — Idéal pour les pieds secs, calleux ou abîmés.`,
     inci: '1,2-HEXANEDIOL, ALLANTOIN, ALOE BARBADENSIS LEAF EXTRACT, BETAINE, BUTYLENE GLYCOL, BUTYROSPERMUM PARKII (SHEA BUTTER), CAPRYLIC/CAPRIC TRIGLYCERIDE, CARBOMER, CETEARYL ALCOHOL, DIMETHICONE, DISODIUM EDTA, FRAGRANCE, GLYCERIN, GLYCERYL STEARATE, HAMAMELIS VIRGINIANA (WITCH HAZEL) EXTRACT, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, HYDROLYZED COLLAGEN, ISOPROPYL MYRISTATE, MELALEUCA ALTERNIFOLIA (TEA TREE) LEAF OIL, MENTHA PIPERITA (PEPPERMINT) OIL, PERSEA GRATISSIMA (AVOCADO) OIL, POLYSORBATE 60, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, SODIUM HYALURONATE, UREA, WATER, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/repair-beauty-advanced-repair-foot-masks-mint-tea-tree-2-54-oz-72-g-3-pairs',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/repair-beauty-advanced-repair-foot-masks-mint-tea-tree.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/repair-beauty-advanced-repair-foot-masks-mint-tea-tree.webp',
     tags: {
       primary: [TAG_SLUGS.CREME_PIEDS, TAG_SLUGS.ZONE_CORPS],
       secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.MASQUE_HEBDO],
@@ -920,7 +933,8 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     notes: `Contient du parfum et de la lavande. Acide Hyaluronique + Céramide 3 + Camomille + Calendula — Idéal pour peaux normales à mixtes en quête d"éclat.`,
     inci: 'ALLANTOIN, ALOE BARBADENSIS (ALOE VERA) LEAF JUICE, ARNICA, BLACK TEA EXTRACT, BORAGE OIL, CALENDULA EXTRACT, CAMELLIA SINENSIS (GREEN TEA) LEAF EXTRACT, CAPRIC/CAPRYLIC TRIGLYCERIDES, CARBOMER, CERAMIDE 3, CETEARYL ALCOHOL, CHAMOMILLA RECUTITA (MATRICARIA) FLOWER EXTRACT, CLOUDBERRY SEED OIL, ETHYL HEXYL GLYCERIN, ETHYL HEXYL PALMITATE, FLAX SEED OIL, FRAGRANCE, GLYCERIN, GLYCERYL STEARATE, HEAT SHOCK PROTEINS, HYALURONIC ACID, LAVENDER EXTRACT, PANTHENOL, PHENOXYETHANOL, POLYSORBATE-60, ROSEHIP OIL, SODIUM PCA, SORBITOL, WATER',
     url: 'https://www.skinsafeproducts.com/air-repair-skincare-complexion-boosting-moisturizer-59-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/air-repair-complexion-boosting-moisturizer.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/air-repair-complexion-boosting-moisturizer.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ECLAT],
       secondary: [

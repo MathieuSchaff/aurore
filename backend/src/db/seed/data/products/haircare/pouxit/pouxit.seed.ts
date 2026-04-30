@@ -15,7 +15,8 @@ export const POUXIT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '1,2-dihydroxyoctane 1%(Protectdiol®); PEG-6 caprylic/capric glycerides; PEG-12 dimethicone; carbomer; sodium hydroxide; eau.',
     url: 'https://www.atida.fr/pouxit-protect-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/pouxit-spray-preventif-anti-poux-sans-rincage-200ml-272691.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/pouxit-spray-preventif-anti-poux-sans-rincage-200ml-272691.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -38,7 +39,8 @@ export const POUXIT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Dimeticone, penetrol®',
     url: 'https://www.atida.fr/pouxit-extra-fort-lotion-anti-poux-et-lentes-agit-en-1-seule-application-de-15-minutes-lot-2x100-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/pouxit-xf-lotion-anti-poux-et-lentes-100-efficace-lot-de-2x-100ml-241160.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/pouxit-xf-lotion-anti-poux-et-lentes-100-efficace-lot-de-2x-100ml-241160.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -59,7 +61,8 @@ export const POUXIT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Diméticone (80% m/v), adipate de diisopropyle, sébacate de diisopropyle, alcool laurique, acétate de tocophéryle.',
     url: 'https://www.atida.fr/pouxit-flash-lotion-spray-anti-poux-et-lentes-150ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/pouxit-lotion-spray-anti-poux-et-lentes-100-efficace-150ml-238892.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/pouxit-lotion-spray-anti-poux-et-lentes-100-efficace-150ml-238892.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -83,7 +86,8 @@ export const POUXIT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Dimeticone, penetrol®',
     url: 'https://www.atida.fr/pouxit-extra-fort-lotion-traitement-anti-poux-et-lentes-du-cuir-chevelu-lot-2x200-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/pouxit-xf-lotion-anti-poux-et-lentes-100-efficace-lot-de-2x-200ml-279559.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/pouxit-xf-lotion-anti-poux-et-lentes-100-efficace-lot-de-2x-200ml-279559.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -104,7 +108,8 @@ export const POUXIT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Dimeticone (4%); 1,6,10-Dodecatrien-3-ol,3,7,11-triméthyl ; PEG/PPG Dimeticone co-polymer; Silica Silylate.',
     url: 'https://www.atida.fr/pouxit-xf-anti-poux-et-lentes-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/pouxit-xf-lotion-anti-poux-et-lentes-100-efficace-200ml-263881.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/pouxit-xf-lotion-anti-poux-et-lentes-100-efficace-200ml-263881.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -130,7 +135,8 @@ export const POUXIT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, Isononyl isononanoate, Sodium acrylate/sodium acryloyldimethyl taurate copolymer, Phenoxyethanol, Ethylhexyl- glycerin',
     url: 'https://www.atida.fr/pouxit-baume-decolleur-de-lentes-100g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/pouxit-baume-decolleur-de-lentes-100g-268020.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/pouxit-baume-decolleur-de-lentes-100g-268020.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],

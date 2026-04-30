@@ -15,7 +15,8 @@ export const ARGILETZ_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Arcilla de Ghassoul (Tierra marroquí) y agua.',
     url: 'https://www.atida.fr/argiletz-argile-de-couleur-tube-argile-ghassoul-prete-a-l-emploi-150-g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/argiletz-pate-argile-ghassoul-prete-a-l-emploi-150g-253533.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/argiletz-pate-argile-ghassoul-prete-a-l-emploi-150g-253533.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],

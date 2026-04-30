@@ -49,7 +49,8 @@ export const SOME_BY_MI_SEED: UnifiedProductSeed[] = [
       'Formule à base de Kaolin, Bentonite, Eau de Tea Tree et Extrait de Centella Asiatica — recommandé pour les peaux mixtes à grasses sujettes aux points noirs.',
     inci: '1,2-HEXANEDIOL, ALLANTOIN, ASIATIC ACID, ASIATICOSIDE, BENTONITE, BENZYL GLYCOL, BUTYLENE GLYCOL, CAMELLIA SINENSIS LEAF EXTRACT, CAMELLIA SINENSIS LEAF POWDER, CAMELLIA SINENSIS LEAF WATER, CAPRYLOYL SALICYLIC ACID, CAPRYLYL GLYCOL, CENTELLA ASIATICA EXTRACT, DIPROPYLENE GLYCOL, ETHYLHEXYLGLYCERIN, FRAGRANCE, GLYCERIN, HOUTTUYNIA CORDATA POWDER, HYDROXYACETOPHENONE, KAOLIN, MADECASSIC ACID, MAGNESIUM ALUMINUM SILICATE, MALT EXTRACT, MANICOUAGAN CLAY, MELALEUCA ALTERNIFOLIA (TEA TREE) LEAF WATER, POLYVINYL ALCOHOL, RASPBERRY KETONE, SALIX ALBA BARK EXTRACT, SILICA, TITANIUM DIOXIDE, WATER, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/some-by-mi-super-match-pore-clean-clay-mask-3-52-oz-100-g',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/some-by-mi-super-match-pore-clean-clay-mask.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/some-by-mi-super-match-pore-clean-clay-mask.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.BRILLANCE],
       secondary: [
@@ -92,7 +93,8 @@ export const SOME_BY_MI_SEED: UnifiedProductSeed[] = [
       'Actifs clés : Arbutine, Acide Ascorbique, Ascorbyl Glucoside et Centella Asiatica — idéal pour les peaux normales à mixtes souhaitant uniformiser leur teint.',
     inci: '(-)-ALPHA-BISABOLOL, 1,2-HEXANEDIOL, ADENOSINE, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, ARBUTIN, ARGININE, ARTEMISIA PRINCEPS LEAF EXTRACT, ASCORBIC ACID, ASCORBYL GLUCOSIDE, ASCORBYL TETRAISOPALMITATE, ASIATIC ACID, ASIATICOSIDE, BENZYL GLYCOL, BIOTIN, BUTYLENE GLYCOL, C12-13 ALKETH-9, CARBOMER, CENTELLA ASIATICA EXTRACT, CENTELLA ASIATICA LEAF EXTRACT, CETEARYL OLIVATE, CITRUS JUNOS FRUIT EXTRACT, CITRUS JUNOS PEEL OIL, COPTIS JAPONICA EXTRACT, CYANOCOBALAMIN, DIPROPYLENE GLYCOL, ETHYLHEXYL OLIVATE, ETHYLHEXYLGLYCERIN, GLUTATHIONE, LIMONENE, LINALOOL, MADECASSIC ACID, MADECASSOSIDE, MELALEUCA ALTERNIFOLIA (TEA TREE) LEAF OIL, MELALEUCA ALTERNIFOLIA (TEA TREE) LEAF WATER, MENADIONE, NELUMBO NUCIFERA FLOWER EXTRACT, PANTHENOL, POLYGLYCERYL-4 OLEATE, POLYGONUM CUSPIDATUM ROOT EXTRACT, RASPBERRY KETONE, SODIUM ACRYLATES COPOLYMER, SORBITAN OLIVATE, THUJA ORIENTALIS LEAF EXTRACT, TOCOPHEROL, WATER, ZANTHOXYLUM PIPERITUM FRUIT EXTRACT',
     url: 'https://www.skinsafeproducts.com/some-by-mi-yuja-niacin-brightening-moisture-gel-cream-3-38-oz-100-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/some-by-mi-yuja-niacin-brightening-moisture-gel-cream.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/some-by-mi-yuja-niacin-brightening-moisture-gel-cream.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYDRATATION],
       secondary: [
@@ -209,7 +211,8 @@ export const SOME_BY_MI_SEED: UnifiedProductSeed[] = [
     notes: 'Waterproof, fins, transparents. Parfait pour spots isolés.',
     inci: 'CELLULOSE GUM, POLYISOBUTENE, POLYISOPRENE, POLYURETHANE-9',
     url: 'https://www.skinsafeproducts.com/some-by-mi-30-days-miracle-clear-spot-patch-pack-of-1-18-counts-e-10mm-9counts-12mm-9counts-hydrocolloid-acne-zit-and-pimple-patches',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/some-by-mi-30-days-miracle-clear-spot-patch.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/some-by-mi-30-days-miracle-clear-spot-patch.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE],
       secondary: [
@@ -252,7 +255,8 @@ export const SOME_BY_MI_SEED: UnifiedProductSeed[] = [
     notes: `Cocktail d'AHA (Acide Gluconique), BHA (Acide Salicylique) et PHA (Capryloyl Salicylique) renforcé par la Niacinamide — recommandé pour les peaux à kératose pilaire ou rugosités.`,
     inci: '1,2-HEXANEDIOL, ADENOSINE, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, ARTEMISIA CAPILLARIS EXTRACT, ASIATIC ACID, ASIATICOSIDE, BETAINE, BUTYLENE GLYCOL, C13-15 ALKANE, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLOYL SALICYLIC ACID, CARBOMER, CENTELLA ASIATICA EXTRACT, CHAMAECYPARIS OBTUSA WATER, CITRIC ACID, ETHYLHEXYLGLYCERIN, EUCALYPTUS GLOBULUS LEAF EXTRACT, GLUCONOLACTONE, GLYCERIN, HIPPOPHAE RHAMNOIDES FRUIT EXTRACT, HOUTTUYNIA CORDATA EXTRACT, LIMONENE, MADECASSIC ACID, MADECASSOSIDE, MELALEUCA ALTERNIFOLIA (TEA TREE) LEAF EXTRACT, METHYLPROPANEDIOL, NIACINAMIDE, POLYGLYCERYL-3 METHYLGLUCOSE DISTEARATE, PORTULACA OLERACEA EXTRACT, ROSA CANINA FRUIT EXTRACT, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF EXTRACT, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF OIL, SALICYLIC ACID, TOCOPHEROL, TROMETHAMINE, WATER',
     url: 'https://www.skinsafeproducts.com/some-by-mi-aha-bha-pha-miracle-calming-body-lotion-6-76-fl-oz-200-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/some-by-mi-aha-bha-pha-miracle-calming-body-lotion.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/some-by-mi-aha-bha-pha-miracle-calming-body-lotion.webp',
     tags: {
       primary: [TAG_SLUGS.KERATOSE_PILAIRE, TAG_SLUGS.PEAU_RUGUEUSE, TAG_SLUGS.GRAIN_PEAU],
       secondary: [
@@ -334,7 +338,8 @@ export const SOME_BY_MI_SEED: UnifiedProductSeed[] = [
     notes: `Trio d'acides (Bétaïne Salicylate, Acide Lactobionique, Capryloyl Salicylique) associé à la Centella Asiatica — parfait pour les peaux acnéiques et sensibles.`,
     inci: '1,2-HEXANEDIOL, ARGININE, ARTEMISIA PRINCEPS LEAF EXTRACT, ASIATIC ACID, ASIATICOSIDE, BETAINE SALICYLATE, BUTYLENE GLYCOL, CENTELLA ASIATICA EXTRACT, CENTELLA ASIATICA LEAF EXTRACT, CHAMAECYPARIS OBTUSA LEAF EXTRACT, CITRIC ACID, ETHYLHEXYLGLYCERIN, GLYCERIN, HOUTTUYNIA CORDATA EXTRACT, LACTOBIONIC ACID, MADECASSIC ACID, MADECASSOSIDE, MELALEUCA ALTERNIFOLIA (TEA TREE) LEAF WATER, MELIA AZADIRACHTA FLOWER EXTRACT, MELIA AZADIRACHTA LEAF EXTRACT, MENTHA PIPERITA (PEPPERMINT) OIL, OPUNTIA FICUS-INDICA EXTRACT, PANTHENOL, PEG-60 HYDROGENATED CASTOR OIL, RASPBERRY KETONE, SALIX ALBA (WILLOW) BARK WATER, SODIUM HYALURONATE',
     url: 'https://www.skinsafeproducts.com/some-by-mi-aha-bha-pha-30-days-miracle-truecica-clear-pad-4-22-fl-oz-125-ml-70-count',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/some-by-mi-aha-bha-pha-30-days-miracle-truecica-clear-pad.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/some-by-mi-aha-bha-pha-30-days-miracle-truecica-clear-pad.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.GRAIN_PEAU],
       secondary: [
@@ -377,7 +382,8 @@ export const SOME_BY_MI_SEED: UnifiedProductSeed[] = [
       'Alliance de Niacinamide, Acide Salicylique, Acide Lactobionique et Extrait de Tea Tree — recommandé pour les peaux acnéiques et les imperfections persistantes.',
     inci: '1,2-HEXANEDIOL, ADENOSINE, ALLANTOIN, BENZYL GLYCOL, BUTYLENE GLYCOL, CAPRYLYL GLYCOL, CARICA PAPAYA (PAPAYA) FRUIT EXTRACT, CITRIC ACID, DIPROPYLENE GLYCOL, ETHYL HEXANEDIOL, ETHYLHEXYLGLYCERIN, FRUCTAN, GLYCERIN, HAMAMELIS VIRGINIANA (WITCH HAZEL) EXTRACT, HYDROXYETHYL UREA, LACTOBIONIC ACID, LENS ESCULENTA (LENTIL) SEED EXTRACT, MELALEUCA ALTERNIFOLIA (TEA TREE) LEAF EXTRACT, MENTHA PIPERITA (PEPPERMINT) OIL, NELUMBO NUCIFERA FLOWER EXTRACT, NIACINAMIDE, PENTYLENE GLYCOL, PHENOXYETHANOL, POLYGLYCERYL-4 CAPRATE, RASPBERRY KETONE, SALICYLIC ACID, SODIUM CITRATE, SODIUM HYALURONATE, SWIFTLET NEST EXTRACT, WATER, XYLITOL',
     url: 'https://www.skinsafeproducts.com/some-by-mi-aha-bha-pha-30-days-miracle-toner-150-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/some-by-mi-aha-bha-pha-30-days-miracle-toner.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/some-by-mi-aha-bha-pha-30-days-miracle-toner.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.POST_ACNE],
       secondary: [
@@ -417,7 +423,8 @@ export const SOME_BY_MI_SEED: UnifiedProductSeed[] = [
       'Formule à base de Niacinamide, Acide Salicylique, Acide Lactobionique et Enzymes (Lipase, Protéase) — idéal pour les peaux acnéiques nécessitant un traitement localisé intense.',
     inci: '1,2-HEXANEDIOL, ADENOSINE, ALLANTOIN, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, ARTEMISIA PRINCEPS LEAF EXTRACT, ASIATIC ACID, BENZYL GLYCOL, BUTYLENE GLYCOL, CAPRYLYL/CAPRYL/CAPRYL GLUCOSIDE, CELLULOSE GUM, CENTELLA ASIATICA EXTRACT, CITRIC ACID, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, FRUCTAN, GLYCERIN, GLYCERYL ACRYLATE/ACRYLIC ACID COPOLYMER, LACTOBIONIC ACID, LAVANDULA ANGUSTIFOLIA (LAVENDER) EXTRACT, LIPASE, MADECASSIC ACID, MADECASSOSIDE, MAGNESIUM ALUMINUM SILICATE, MELALEUCA ALTERNIFOLIA (TEA TREE) LEAF EXTRACT, MENTHA PIPERITA (PEPPERMINT) OIL, MICROCRYSTALLINE CELLULOSE, NIACINAMIDE, ORIGANUM VULGARE FLOWER/LEAF/STEM EXTRACT, PANTHENOL, POLYISOBUTENE, PROTEASE, RASPBERRY KETONE, ROSMARINUS OFFICINALIS (ROSEMARY) EXTRACT, SACCHARIDE ISOMERATE, SALICYLIC ACID, SODIUM ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, SODIUM HYALURONATE, SORBITAN OLEATE, THYMUS VULGARIS (THYME) EXTRACT, WATER',
     url: 'https://www.skinsafeproducts.com/some-by-mi-aha-bha-pha-14-days-super-miracle-spot-all-kill-cream-30ml-1-0oz',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/some-by-mi-aha-bha-pha-14-days-super-miracle-spot-all-kill-cream.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/some-by-mi-aha-bha-pha-14-days-super-miracle-spot-all-kill-cream.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.POST_ACNE],
       secondary: [
@@ -460,7 +467,8 @@ export const SOME_BY_MI_SEED: UnifiedProductSeed[] = [
       'Riche en AHA (Acide Glycolique, Acide Lactique, Acide Malique), BHA (Acide Salicylique via extrait de Wintergreen) et huiles botaniques (Camélia, Amande Douce, Rosa Canina) — recommandé pour les peaux mixtes à grasses avec irrégularités de texture.',
     inci: '1,2-HEXANEDIOL, ALCOHOL, ALTHAEA OFFICINALIS ROOT EXTRACT, AMYRIS BALSAMIFERA BARK OIL, ANGELICA KEISKEI EXTRACT, BOSWELLIA CARTERI (FRANKINCENSE), BUTYLENE GLYCOL, CAMELLIA OLEIFERA SEED OIL, CAMELLIA SINENSIS LEAF EXTRACT, CAMELLIA SINENSIS SEED OIL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CENTELLA ASIATICA EXTRACT, CENTELLA ASIATICA LEAF EXTRACT, CETYL ETHYLHEXANOATE, CHAMOMILLA RECUTITA (MATRICARIA) FLOWER EXTRACT, CITRAL, CITRIC ACID, CITRONELLOL, CITRUS AURANTIUM DULCIS (ORANGE) PEEL OIL, CITRUS PARADISI (GRAPEFRUIT) PEEL OIL, CORALLINA OFFICINALIS EXTRACT, CURCUMA LONGA (TURMERIC) ROOT EXTRACT, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, GAULTHERIA PROCUMBENS (WINTERGREEN) LEAF EXTRACT, GERANIUM OIL, GLYCERIN, GLYCOLIC ACID, GLYCYRRHIZA GLABRA (LICORICE) ROOT EXTRACT, HOUTTUYNIA CORDATA EXTRACT, LACTIC ACID, LACTOBIONIC ACID, LAVANDULA ANGUSTIFOLIA (LAVENDER) EXTRACT, LIMNANTHES ALBA (MEADOWFOAM) SEED OIL, LIMONENE, MADECASSOSIDE, MALIC ACID, MELALEUCA ALTERNIFOLIA (TEA TREE) LEAF WATER, MELIA AZADIRACHTA FLOWER EXTRACT, MELIA AZADIRACHTA LEAF EXTRACT, MORINGA OLEIFERA SEED OIL, NIACINAMIDE, OCIMUM BASILICUM (BASIL) LEAF EXTRACT, OCIMUM SANCTUM LEAF EXTRACT, OLEA EUROPAEA (OLIVE) FRUIT OIL, ORYZA SATIVA (RICE) BRAN OIL, PENTYLENE GLYCOL, POLYGONUM CUSPIDATUM ROOT EXTRACT, PROPANEDIOL, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, PYRUVIC ACID, ROSA CANINA FRUIT OIL, ROSMARINUS OFFICINALIS (ROSEMARY) EXTRACT, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF EXTRACT, SCUTELLARIA BAICALENSIS ROOT EXTRACT, SODIUM CHLORIDE, SODIUM LACTATE, SODIUM PCA, SYRINGA VULGARIS (LILAC) EXTRACT, TARTARIC ACID, VACCINIUM MACROCARPON (CRANBERRY) FRUIT EXTRACT, WATER, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/some-by-mi-aha-bha-pha-30days-miracle-serum-1-69-fl-oz-50-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/some-by-mi-aha-bha-pha-30-days-miracle-serum.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/some-by-mi-aha-bha-pha-30-days-miracle-serum.webp',
     tags: {
       primary: [TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ECLAT],
       secondary: [

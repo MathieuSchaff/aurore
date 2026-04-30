@@ -15,7 +15,8 @@ export const PRANAROM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Pour la composition, se référer à l’image produit.',
     url: 'https://www.atida.fr/pranarom-huile-vegetale-nigelle-60-capsules.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/pranarom-huile-vegetale-nigelle-60-capsules-299205.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/pranarom-huile-vegetale-nigelle-60-capsules-299205.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -36,7 +37,8 @@ export const PRANAROM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '100% pure and natural plant oil.\nHalf of the contents are unsaturated fatty acids (omega 9)\nA third are polyunsaturated fats.\nVitamin E.',
     url: 'https://www.atida.fr/pranarom-huile-vegetale-bio-argan-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/pranarom-huile-vegetale-bio-argan-50ml-279908.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/pranarom-huile-vegetale-bio-argan-50ml-279908.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -57,7 +59,8 @@ export const PRANAROM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Oenothera biennis, from organic farming, evening primrose seeds.',
     url: 'https://www.atida.fr/pranarom-huile-vegetale-bio-onagre-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/pranarom-huile-vegetale-bio-onagre-50ml-279916.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/pranarom-huile-vegetale-bio-onagre-50ml-279916.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],

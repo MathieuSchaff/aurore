@@ -15,7 +15,8 @@ export const SANOFLORE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Lavandula Angustifolia Flower Water*, Benzyl Alcohol, Dehydroacetic Acid, Citric Acid, Arginine, Linalyl Acetate, Linalool, Aqua / Water - 4960104010 *Ingrédient issu de l'Agriculture Biologique",
     url: 'https://www.atida.fr/sanoflore-veritable-eau-florale-lavande-200-ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/sanoflore-veritable-eau-florale-lavande-200-ml-301936.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/sanoflore-veritable-eau-florale-lavande-200-ml-301936.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],

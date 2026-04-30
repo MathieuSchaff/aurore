@@ -15,7 +15,8 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Contient 97% d'ingrédients d'origine naturelle. Aux huiles 100 % végétales. Les listes d’ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d’utiliser un produit de notre marque, veuillez lire la liste d’ingrédients située sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle. COCO-CAPRYLATE/CAPRATE, MACADAMIA INTEGRIFOLIA SEED OIL, DICAPRYLYL ETHER, CAPRYLIC/CAPRIC TRIGLYCERIDE, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, CORYLUS AVELLANA (HAZELNUT) SEED OIL, PARFUM/FRAGRANCE, CAMELLIA OLEIFERA SEED OIL, CAMELLIA JAPONICA SEED OIL, TOCOPHEROL, ARGANIA SPINOSA KERNEL OIL, BORAGO OFFICINALIS SEED OIL, TOCOPHERYL ACETATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF EXTRACT, POLYGLYCERYL-3 DIISOSTEARATE, ASCORBIC ACID, AQUA/WATER, LIMONENE, LINALOOL, CITRAL, CITRONELLOL, HYDROXYCITRONELLAL, GERANIOL [N2216/C].",
     url: 'https://www.atida.fr/nuxe-huile-prodigieuse-florale-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/nuxe-huile-prodigieuse-florale-multi-fonctions-100ml-280238.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/nuxe-huile-prodigieuse-florale-multi-fonctions-100ml-280238.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -75,7 +76,8 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Les listes d’ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d’utiliser un produit de notre marque, veuillez lire la liste d’ingrédients située sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle. INGREDIENTS : AQUA/WATER, COCAMIDOPROPYL BETAINE, SODIUM METHYL COCOYL TAURATE, SODIUM COCOYL ISETHIONATE, SODIUM CHLORIDE, LAURYL GLUCOSIDE, GLYCOL DISTEARATE, PARFUM/FRAGRANCE, GLYCERIN, SODIUM BENZOATE, CAMELLIA JAPONICA SEED OIL, CITRIC ACID, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, CELLULOSE, CELLULOSE GUM, CARAMEL, BENZOIC ACID, CANDIDA BOMBICOLA/GLUCOSE/METHYL RAPESEEDATE FERMENT, LINALOOL, CITRONELLOL, LIMONENE, GERANIOL [N5402/A].',
     url: 'https://www.atida.fr/nuxe-hair-prodigieuxr-le-shampooing-brillance-miroir-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/nuxe-hair-prodigieux-le-shampooing-brillance-miroir-400ml-233232.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/nuxe-hair-prodigieux-le-shampooing-brillance-miroir-400ml-233232.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -103,7 +105,8 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Contient 87% d’ingrédients d’origine naturelle. Huile de coco bio, huile de jojoba Les listes d’ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d’utiliser un produit de notre marque, veuillez lire la liste d’ingrédients située sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle. INGREDIENTS : AQUA/WATER, DICAPRYLYL CARBONATE, ALCOHOL, DIBUTYL ADIPATE, DICAPRYLYL ETHER, BRASSICA CAMPESTRIS (RAPESEED) SEED OIL, COCO-CAPRYLATE/CAPRATE, ETHYLHEXYL TRIAZONE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, PARFUM/FRAGRANCE, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, SODIUM CHLORIDE, COCOS NUCIFERA (COCONUT) OIL, PANTHENOL, FRUCTOOLIGOSACCHARIDES, TOCOPHEROL, INULIN, CITRIC ACID, PANTOLACTONE, LIMONENE, LINALOOL, CITRONELLOL, GERANIOL. [N4803/A]',
     url: 'https://www.atida.fr/nuxe-sun-huile-lactee-capillaire-protectrice-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/nuxe-sun-huile-lactee-capillaire-protectrice-100ml-280167.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/nuxe-sun-huile-lactee-capillaire-protectrice-100ml-280167.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
@@ -159,7 +162,8 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Les listes d’ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d’utiliser un produit de notre marque, veuillez lire la liste d’ingrédients située sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle.  INGREDIENTS : COCO-CAPRYLATE/CAPRATE, MACADAMIA INTEGRIFOLIA SEED OIL, CAPRYLIC/CAPRIC TRIGLYCERIDE, DICAPRYLYL ETHER, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, CORYLUS AVELLANA (HAZELNUT) SEED OIL, PARFUM/FRAGRANCE, MICA, CAMELLIA OLEIFERA SEED OIL, CI 77891/TITANIUM DIOXIDE, CAMELLIA JAPONICA SEED OIL, ARGANIA SPINOSA KERNEL OIL, BORAGO OFFICINALIS SEED OIL, TOCOPHEROL, CASTOR OIL/IPDI COPOLYMER, CI 77491/IRON OXIDES, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, LIMONENE, TOCOPHERYL ACETATE, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF EXTRACT, LINALOOL, CITRAL, CITRONELLOL, POLYGLYCERYL-3 DIISOSTEARATE, GERANIOL, AQUA/WATER, ASCORBIC ACID, LIMONENE, LINALOOL, CITRAL, CITRONELLOL, GERANIOL [N2223/A]  96% d'ingrédients d'origine naturelle",
     url: 'https://www.atida.fr/nuxe-huile-prodigieuser-or-florale-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/nuxe-huile-prodigieuse-or-florale-50ml-280423.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/nuxe-huile-prodigieuse-or-florale-50ml-280423.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -189,7 +193,8 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Contient 95% d'ingrédients d'origine naturelle. Huile fermentée de camélia rose Les listes d’ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d’utiliser un produit de notre marque, veuillez lire la liste d’ingrédients située sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle. INGREDIENTS : AQUA/WATER, BEHENAMIDOPROPYL DIMETHYLAMINE, STEARYL ALCOHOL, CETYL ALCOHOL, PARFUM/FRAGRANCE, CAMELLIA JAPONICA SEED OIL, HYDROXYPROPYL STARCH PHOSPHATE, CITRIC ACID, PANTHENOL, FRUCTOOLIGOSACCHARIDES, BEHENYL/STEARYL AMINOPROPANEDIOL ESTERS, BENZOIC ACID, CARAMEL, INULIN, CANDIDA BOMBICOLA/GLUCOSE/METHYL RAPESEEDATE FERMENT, PANTOLACTONE, LINALOOL, CITRONELLOL, LIMONENE, GERANIOL [N5403/A].",
     url: 'https://www.atida.fr/nuxe-hair-prodigieuxr-demelant-brillance-miroir-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/nuxe-hair-prodigieux-demelant-brillance-miroir-200ml-280383.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/nuxe-hair-prodigieux-demelant-brillance-miroir-200ml-280383.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -215,7 +220,8 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Contient 98% d'ingrédients d'origine naturelle. Aux huiles 100 % végétales. Les listes d’ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d’utiliser un produit de notre marque, veuillez lire la liste d’ingrédients située sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle. CAPRYLIC/CAPRIC TRIGLYCERIDE, MACADAMIA INTEGRIFOLIA SEED OIL, DECYL OLEATE, OLEIC/LINOLEIC/LINOLENIC POLYGLYCERIDES, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, CORYLUS AVELLANA (HAZELNUT) SEED OIL, CAMELLIA OLEIFERA SEED OIL, PARFUM/FRAGRANCE, CAMELLIA JAPONICA SEED OIL, TOCOPHEROL, ARGANIA SPINOSA KERNEL OIL, BORAGO OFFICINALIS SEED OIL, TOCOPHERYL ACETATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF EXTRACT, POLYGLYCERYL-3 DIISOSTEARATE, ASCORBIC ACID, SOLANUM LYCOPERSICUM (TOMATO) FRUIT EXTRACT, AQUA/WATER, LINALOOL, LIMONENE, CITRONELLOL, GERANIOL |N2214/C].",
     url: 'https://www.atida.fr/nuxe-huile-prodigieuse-riche-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/nuxe-huile-prodigieuse-riche-multi-fonctions-100ml-239630.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/nuxe-huile-prodigieuse-riche-multi-fonctions-100ml-239630.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -245,7 +251,8 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Contient 98% d'ingrédients d'origine naturelle. Huile fermentée de Camélia Rose Les listes d’ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d’utiliser un produit de notre marque, veuillez lire la liste d’ingrédients située sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle. INGREDIENTS : COCO-CAPRYLATE/CAPRATE, MACADAMIA INTEGRIFOLIA SEED OIL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, DICAPRYLYL ETHER, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, BUTYROSPERMUM PARKII (SHEA) BUTTER, CAMELLIA JAPONICA SEED OIL, PARFUM/FRAGRANCE, RICINUS COMMUNIS (CASTOR) SEED OIL, TOCOPHEROL, CANDIDA BOMBICOLA/GLUCOSE/METHYL RAPESEEDATE FERMENT, CITRIC ACID, LINALOOL, CITRONELLOL, LIMONENE, GERANIOL [N5401/A].",
     url: 'https://www.atida.fr/nuxe-hair-prodigieuxr-le-masque-huile-nutrition-avant-shampooing-125ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/nuxe-hair-prodigieux-le-masque-huile-nutrition-avant-shampooing-125ml-280384.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/nuxe-hair-prodigieux-le-masque-huile-nutrition-avant-shampooing-125ml-280384.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_CAPILLAIRE],
       secondary: [],
@@ -274,7 +281,8 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "94% d'ingrédients d'origine naturelle. Huile fermentée de camélia rose Les listes d’ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d’utiliser un produit de notre marque, veuillez lire la liste d’ingrédients située sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle. INGREDIENTS : AQUA/WATER, COCAMIDOPROPYL BETAINE, SODIUM METHYL COCOYL TAURATE, SODIUM COCOYL ISETHIONATE, SODIUM CHLORIDE, LAURYL GLUCOSIDE, GLYCOL DISTEARATE, PARFUM/FRAGRANCE, GLYCERIN, SODIUM BENZOATE, CAMELLIA JAPONICA SEED OIL, CITRIC ACID, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, CELLULOSE, CELLULOSE GUM, CARAMEL, BENZOIC ACID, CANDIDA BOMBICOLA/GLUCOSE/METHYL RAPESEEDATE FERMENT, LINALOOL, CITRONELLOL, LIMONENE, GERANIOL [N5402/A].",
     url: 'https://www.atida.fr/nuxe-hair-prodigieuxr-le-shampooing-brillance-miroir-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/nuxe-hair-prodigieux-le-shampooing-brillance-miroir-200ml-280385.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/nuxe-hair-prodigieux-le-shampooing-brillance-miroir-200ml-280385.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -332,7 +340,8 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Les listes d’ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d’utiliser un produit de notre marque, veuillez lire la liste d’ingrédients située sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle. INGREDIENTS : AQUA/WATER, HYDROXYPROPYL STARCH PHOSPHATE, GLYCERIN, SQUALANE, PARFUM/FRAGRANCE, PENTYLENE GLYCOL, CAMELLIA JAPONICA SEED OIL, GLYCERYL STEARATE CITRATE, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, PANTHENOL, BENZYL ALCOHOL, CETYL ALCOHOL, FRUCTOOLIGOSACCHARIDES, DICAPRYLYL ETHER, DECYL GLUCOSIDE, HYDROLYZED QUINOA, BEHENYL/STEARYL AMINOPROPANEDIOL ESTERS, GLYCERYL OLEATE, XANTHAN GUM, TOCOPHERYL ACETATE, INULIN, CITRIC ACID, CANDIDA BOMBICOLA/GLUCOSE/METHYL RAPESEEDATE FERMENT, BENZOIC ACID, SODIUM BENZOATE, PANTOLACTONE, ISOEUGENOL, LINALOOL, CITRONELLOL, LIMONENE, GERANIOL [N5404/A].',
     url: 'https://www.atida.fr/nuxe-hair-prodigieuxr-le-soin-capillaire-nutrition-intense-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/nuxe-hair-prodigieux-le-soin-capillaire-nutrition-intense-100ml-233231.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/nuxe-hair-prodigieux-le-soin-capillaire-nutrition-intense-100ml-233231.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],

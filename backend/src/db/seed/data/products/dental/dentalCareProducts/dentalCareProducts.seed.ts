@@ -15,7 +15,8 @@ export const DENTAL_CARE_PRODUCTS_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Citric Acid, Sodium Lauryl Sulfate, Lactose Monohydrate, Sodium Bicarbonate, Sodium Chloride, Potassium Monopersulfate, Sodium Carbonate, Peppermint Flavour, PVP.',
     url: 'https://www.atida.fr/nitradine-ortho-junior-64-comprimes-effervescents.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/nitradine-ortho-junior-64-comprimes-effervescents-264747.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/nitradine-ortho-junior-64-comprimes-effervescents-264747.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -36,7 +37,8 @@ export const DENTAL_CARE_PRODUCTS_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Calcium Sulphate, Glycol Ether, Barium Sulphate, Zinc Oxide, Acrylic Polymer, Triacetin',
     url: 'https://www.atida.fr/bonyf-bonyplus-fixobridge-kit-pour-la-fixation-temporaire-des-protheses-dentaires-7g.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/bonyf-bonyplus-fixobridge-kit-pour-la-fixation-temporaire-des-protheses-dentaires-7g-278782.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/bonyf-bonyplus-fixobridge-kit-pour-la-fixation-temporaire-des-protheses-dentaires-7g-278782.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -57,7 +59,8 @@ export const DENTAL_CARE_PRODUCTS_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'tube de colle : Ethyl Cyanoacrylate 2gfiole de liquide : Methyl Methacrylate, N, N-Dihydroxyethyl-p-toluidine 2,10mlfiole de poudre : Poly(methyl methacrylate) 1,80g',
     url: 'https://www.atida.fr/bonyf-bonyplus-reparfix-pour-la-reparation-des-dentiers.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/bonyf-bonyplus-reparfix-pour-la-reparation-des-dentiers-271302.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/bonyf-bonyplus-reparfix-pour-la-reparation-des-dentiers-271302.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],

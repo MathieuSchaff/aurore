@@ -48,7 +48,8 @@ export const IUNIK_SEED: UnifiedProductSeed[] = [
       'Nettoyant moussant doux au pH équilibré enrichi en eau de feuille de centella asiatica.',
     inci: '1,2-HEXANEDIOL, ALLANTOIN, ASPALATHUS LINEARIS EXTRACT, BUTYLENE GLYCOL, CAPRYLYL GLYCOL, CENTELLA ASIATICA LEAF WATER, CITRIC ACID, COMMIPHORA MYRRHA RESIN EXTRACT, DISODIUM COCOAMPHODIACETATE, ETHYLHEXYLGLYCERIN, GLYCERIN, GLYCYRRHIZA GLABRA (LICORICE) ROOT EXTRACT, HEXYLENE GLYCOL, MELALEUCA ALTERNIFOLIA (TEA TREE) LEAF WATER, ORMENIS MULTICAULIS OIL, ORYZA SATIVA (RICE) BRAN EXTRACT, PENTYLENE GLYCOL, PERILLA FRUTESCENS LEAF EXTRACT, POLYGLYCERYL-4 CAPRATE, PORTULACA OLERACEA EXTRACT, POTASSIUM COCOYL GLYCINATE, SODIUM CHLORIDE, TEA-COCOYL GLUTAMATE, TREHALOSE, WATER, YUCCA SCHIDIGERA ROOT EXTRACT',
     url: 'https://www.skinsafeproducts.com/iunik-centella-bubble-facial-cleansing-foaming-ph-balancing-5-07-fl-oz-150-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/iunik-centella-bubble-facial-cleansing-foaming.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/iunik-centella-bubble-facial-cleansing-foaming.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT],
       secondary: [
@@ -79,7 +80,8 @@ export const IUNIK_SEED: UnifiedProductSeed[] = [
       "Huile nettoyante profonde formulée avec 94% d'huiles végétales pour éliminer le maquillage et les impuretés.",
     inci: 'CALENDULA OFFICINALIS FLOWER EXTRACT, CANANGA ODORATA FLOWER OIL, CANOLA OIL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, MACADAMIA TERNIFOLIA SEED OIL, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, SORBETH-30 TETRAOLEATE, SORBITAN SESQUIOLEATE',
     url: 'https://www.skinsafeproducts.com/iunik-calendula-complete-deep-cleansing-oil-6-70-fl-oz-200-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/iunik-calendula-complete-deep-cleansing-oil.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/iunik-calendula-complete-deep-cleansing-oil.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT],
       secondary: [

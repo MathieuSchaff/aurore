@@ -15,7 +15,8 @@ export const CUT_BY_FRED_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Aqua (water), Brassica Alcohol, Simmondsia chinensis (jojoba) seed oil, Prunus amygdalus dulcis (sweet almond) oil, Cocos nucifera (coconut) oil, Glycerin, Brassicamidopropyl Dimethylamine, Ricinus communis (castor) seed oil, Benzyl alcohol, Lactic acid, Prunus Amygdalus Amara (Bitter Almond) kernel oil, Hydrogenated castor oil, Aloe Barbadensis leaf juice powder 98% d'ingrédients d'origine naturelle",
     url: 'https://www.atida.fr/cut-by-fred-vegan-hydratation-mask-400ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cut-by-fred-vegan-hydratation-mask-400ml-299588.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/cut-by-fred-vegan-hydratation-mask-400ml-299588.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],

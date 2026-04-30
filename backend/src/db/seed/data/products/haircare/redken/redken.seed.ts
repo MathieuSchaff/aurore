@@ -15,7 +15,8 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Alcohol denat, aqua, diethylllutidinate, huile de caste hydrogenée peg-40, neohesperidin dihydrochalcone, linalool, extrait de cellule de fruit de malus domestica, geraniol, citronelol, benzyl acide, benzyl salicylate, limonene, citrid acid, parfum / fragrance',
     url: 'https://www.atida.fr/redken-cerafill-retaliate-soin-densifiant-90ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/redken-thickening-serum-epaississant-stemoxydine-90ml-251762.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/redken-thickening-serum-epaississant-stemoxydine-90ml-251762.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -36,7 +37,8 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua / water / eau, cetearyl alcohol, glycerin, behentrimonium chloride, dimethicone, bis-cetearyl amodimethicone, cetyl esters, citric acid, isopropyl alcohol, dicetyldimonium chloride, parfum / fragrance, sodium citrate, phenoxyethanol, candelilla cera / candelilla wax / cire de candelilla, isopropyl myristate, hydroxypropyl guar, limonene, coco-betaine, amodimethicone, cetrimonium chloride, dilauryl thiodipropionate, trideceth-10, sodium chloride, linalool, peg-100 stearate, citronellol, steareth-6, trideceth-3, acetic acid, trisodium hedta (f.i.l. d258008/1).',
     url: 'https://www.atida.fr/redken-acidic-bonding-concentrate-apres-shampoing-reparateur-300ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/redken-acidic-bonding-concentrate-apres-shampoing-reparateur-300ml-272713.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/redken-acidic-bonding-concentrate-apres-shampoing-reparateur-300ml-272713.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -66,7 +68,8 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "1218395RK2 - INGREDIENTS: AQUA / WATER • DIMETHICONE • STEARYL ALCOHOL • BEHENTRIMONIUM CHLORIDE • TRIDECETH-9 PG-AMODIMETHICONE • PHENOXYETHANOL • POLYSORBATE 20 • PARFUM / FRAGRANCE • ISOPROPYL ALCOHOL • PPG-5-CETETH-20 • LAURETH-23 • LAURETH-4 • TRIDECETH-12 • GLYCINE SOJA OIL / SOYBEAN OIL • TOCOPHEROL • XYLOSE • ARGININE • GLUTAMIC ACID • LIMONENE • PROPYLENE GLYCOL • SERINE • SALICYLIC ACID • LINALOOL • BENZYL SALICYLATE • PEG/PPG-4/12 DIMETHICONE • BENZYL ALCOHOL • ALPHA-ISOMETHYL IONONE • COUMARIN • PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE (F.I.L. Z70028071/1).  Les listes d'ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d'utiliser un produit de notre marque, vous êtes invités à lire la liste d'ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle",
     url: 'https://www.atida.fr/redken-acidic-color-gloss-soin-sans-rincage-190ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/redken-acidic-color-gloss-soin-sans-rincage-190ml-255261.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/redken-acidic-color-gloss-soin-sans-rincage-190ml-255261.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -97,7 +100,8 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "35108 RDK - INGREDIENTS: AQUA / WATER / EAU • PEG-40 HYDROGENATED CASTOR OIL • DIMETHICONE • PETROLATUM • STEARYL ALCOHOL • C20-40 ALKYL STEARATE • PPG-5-CETETH-20 • TRIBEHENIN • VP/VA COPOLYMER • BUTYLENE GLYCOL • PHENOXYETHANOL • PEG-150 PENTAERYTHRITYL TETRASTEARATE • PARFUM / FRAGRANCE • CELLULOSE GUM • SORBIC ACID • ETHYLHEXYLGLYCERIN • DISODIUM EDTA • HEXYL CINNAMAL • BENZYL SALICYLATE • HYDROXYPROPYLTRIMONIUM HYDROLYZED WHEAT PROTEIN • BENZYL ALCOHOL • LINALOOL • PEG-90M • CI 19140 / YELLOW 5 • CI 14700 / RED 4 • TOCOPHEROL • CI 42090 / BLUE 1 (F.I.L. D54937/6). Les listes d'ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d'utiliser un produit de notre marque, vous êtes invités à lire la liste d'ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle",
     url: 'https://www.atida.fr/redken-pate-de-definition-de-longue-duree.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/redken-pate-de-definition-de-longue-duree-282834.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/redken-pate-de-definition-de-longue-duree-282834.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -126,7 +130,8 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "1218315RK2 - INGREDIENTS: AQUA / WATER • CETEARYL ALCOHOL • PROPYLENE GLYCOL • BEHENTRIMONIUM CHLORIDE • GLYCERIN • CETYL ESTERS • DIMETHICONE • PEG/PPG-4/12 DIMETHICONE • AMODIMETHICONE • PARFUM / FRAGRANCE • ISOPROPYL ALCOHOL • DICETYLDIMONIUM CHLORIDE • CITRIC ACID • PHENOXYETHANOL • ISOPROPYL MYRISTATE • HYDROXYPROPYL GUAR • LIMONENE • TRIDECETH-10 • COCO-BETAINE • LINALOOL • BENZYL SALICYLATE • CETRIMONIUM CHLORIDE • BENZYL ALCOHOL • PEG-100 STEARATE • ALPHA-ISOMETHYL IONONE • STEARETH-6 • SODIUM CHLORIDE • GLYCINE SOJA OIL / SOYBEAN OIL • ARGININE • SERINE • TOCOPHEROL • GLUTAMIC ACID • TRIDECETH-3 • ACETIC ACID • TRISODIUM HEDTA • PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE (F.I.L. Z70028063/1).  Les listes d'ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d'utiliser un produit de notre marque, vous êtes invités à lire la liste d'ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle",
     url: 'https://www.atida.fr/redken-acidic-color-gloss-apres-shampoing-nourrissant-300ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/redken-acidic-color-gloss-apres-shampoing-nourrissant-300ml-255259.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/redken-acidic-color-gloss-apres-shampoing-nourrissant-300ml-255259.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -160,7 +165,8 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "1129750RK5 - INGREDIENTS: AQUA / WATER • CETEARYL ALCOHOL • AMODIMETHICONE • BEHENTRIMONIUM METHOSULFATE • BEHENTRIMONIUM CHLORIDE • DIPROPYLENE GLYCOL • PARFUM / FRAGRANCE • PHENOXYETHANOL • BENZOIC ACID • TRIDECETH-6 • HYDROXYPROPYL GUAR • POTASSIUM HYDROXIDE • GLYCERIN • SODIUM COCOYL AMINO ACIDS • CETRIMONIUM CHLORIDE • POTASSIUM DIMETHICONE PEG-7 PANTHENYL PHOSPHATE • SODIUM SARCOSINATE • CARAMEL • PROPYLENE GLYCOL • BENZYL ALCOHOL • COUMARIN • LINALOOL • BENZYL BENZOATE • ALOE BARBADENSIS LEAF JUICE POWDER • ARGININE • HYDROLYZED SOY PROTEIN • HEXYL CINNAMAL • PLUKENETIA VOLUBILIS SEED OIL • LIMONENE • HYDROLYZED VEGETABLE PROTEIN PG-PROPYL SILANETRIOL • CEREUS GRANDIFLORUS FLOWER EXTRACT / CACTUS FLOWER EXTRACT • GLUCOSE • SODIUM BENZOATE • LACTIC ACID • POTASSIUM SORBATE • TETRASODIUM EDTA • TOCOPHEROL (F.I.L. Y70015631/1). Les listes d'ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d'utiliser un produit de notre marque, vous êtes invités à lire la liste d'ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle",
     url: 'https://www.atida.fr/redken-apres-shampooing-all-soft-mega-curls.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/redken-apres-shampooing-all-soft-mega-curls-255250.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/redken-apres-shampooing-all-soft-mega-curls-255250.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -196,7 +202,8 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "1218490RK33 - INGREDIENTS: ISODODECANE • DIMETHICONE • C11-13 ISOALKANE • CAPRYLIC/CAPRIC TRIGLYCERIDE • DIMETHICONOL • AMODIMETHICONE • PARFUM / FRAGRANCE • PRUNUS ARMENIACA KERNEL OIL / APRICOT KERNEL OIL • LIMONENE • LINALOOL • BENZYL SALICYLATE • BENZYL ALCOHOL • ALPHA-ISOMETHYL IONONE • COUMARIN (F.I.L. Y70050160/1). Les listes d'ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d'utiliser un produit de notre marque, vous êtes invités à lire la liste d'ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle",
     url: 'https://www.atida.fr/redken-acidic-color-gloss-huile-brillance-legere-pour-tous-types-de-cheveux.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/redken-acidic-color-gloss-huile-brillance-legere-pour-tous-types-de-cheveux-278822.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/redken-acidic-color-gloss-huile-brillance-legere-pour-tous-types-de-cheveux-278822.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
@@ -221,7 +228,8 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "40996 RDK - INGREDIENTS: AQUA / WATER • PROPYLENE GLYCOL • HYDROGEN PEROXIDE • OLEYL ALCOHOL • PPG-2 BUTYL ETHER • LAURETH-2 • SODIUM C14-16 OLEFIN SULFONATE • PEG/PPG-4/12 DIMETHICONE • COCAMIDE MIPA • AMODIMETHICONE • GLYCERIN • PRUNUS ARMENIACA KERNEL OIL / APRICOT KERNEL OIL • PARFUM / FRAGRANCE • DIMETHICONE • CITRIC ACID • CARBOMER • ETHANOLAMINE • LAURYL ALCOHOL • PPG-5-CETETH-10 PHOSPHATE • SODIUM SULFITE • TAURINE • COCO-BETAINE • GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE • MYRISTYL ALCOHOL • LIMONENE • TRIDECETH-10 • TRIDECETH-6 • TETRASODIUM ETIDRONATE • SODIUM CHLORIDE • TETRASODIUM PYROPHOSPHATE • LINALOOL • SODIUM SALICYLATE • TETRASODIUM GLUTAMATE DIACETATE • CETYL ALCOHOL • SODIUM CITRATE • BENZYL SALICYLATE • PEG-100 STEARATE • STEARETH-6 • CETRIMONIUM CHLORIDE • BENZOIC ACID • BENZYL ALCOHOL • ALPHA-ISOMETHYL IONONE • TRIDECETH-3 • GLYCINE SOJA OIL / SOYBEAN OIL • ARGININE • SERINE • TOCOPHEROL • GLUTAMIC ACID • PHENOXYETHANOL • TETRASODIUM EDTA • ACETIC ACID • PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE (F.I.L. Z70029904/1).  Les listes d'ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d'utiliser un produit de notre marque, vous êtes invités à lire la liste d'ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle",
     url: 'https://www.atida.fr/redken-acidic-color-gloss-traitement-brillance-professionnelle-237ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/redken-acidic-color-gloss-traitement-brillance-professionnelle-237ml-282835.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/redken-acidic-color-gloss-traitement-brillance-professionnelle-237ml-282835.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -254,7 +262,8 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "aqua/water/eau, cera alba/beeswax/cire d'abeille, va/crotonates, vinyl neodecanoate copolymer, bis-diglyceryl polyaciladipate-2, tribehenin, cetearyl alcohol, paraffinum liquidum/mineral oil/huile minérale, ceteraeth-33, propylene glycol, PEG-40 hydrogenated castor oil, aminomethyl propanol, kaolin, caprylic/capric triglyceride, phenoxyethanol, caprylyl glycol, sorbic acid, isoceteth-20, parfum/fragrance, sodium benzoate, talc, sodium cocoamphopropionate, ethylhexyl salicylate, linoleamidopropyl pg-dimonium cholride phosphate, bis PEG-12 dimethicone beeswax, ci 14700/red 4, ci 15510/orange4, ci19140, yellow 5, ci 61570/green 5, benzyl saliccylate, coumarin, linalool, limonene, ci 42090/blue 1, eugenol, benzyl alcohol, ci 60730/ext violet 2, cinnamal, tocopheryl acetate (f.i.L D229232/1)",
     url: 'https://www.atida.fr/redken-brews-pommade-coiffante-clay-fini-mat-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/redken-brews-pommade-coiffante-clay-fini-mat-100ml-271962.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/redken-brews-pommade-coiffante-clay-fini-mat-100ml-271962.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.CIRE_COIFFANTE],
       secondary: [],
@@ -281,7 +290,8 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua / water, cetearyl alcohol, amodimethicone, behentrimonium methosulfate, behentrimonium chloride, parfum / fragrance, dipropylene glycol, phenoxyethanol, citric acid, benzoic acid, hexadimethrine chloride, trideceth-6, cetyl alcohol, arginine, hydrolyzed soy protein, hydroxypropyl guar, hydrolyzed vegetable protein pg-propyl silanetriol, potassium hydroxide, sodium cocoyl amino acids, quaternium-33, cetrimonium chloride, potassium dimethicone peg-7 panthenyl phosphate, benzyl benzoate, sodium sarcosinate, propylene glycol, limonene, benzyl alcohol, linalool, 2-oleamido-1,3-octadecanediol, potassium sorbate, tetrasodium edta (f.i.l. d258267/1).',
     url: 'https://www.atida.fr/redken-extreme-masque-reparateur-250ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/redken-extreme-masque-reparateur-250ml-255158.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/redken-extreme-masque-reparateur-250ml-255158.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -315,7 +325,8 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "1129752RK3 - INGREDIENTS: AQUA / WATER • CETEARYL ALCOHOL • BEHENTRIMONIUM CHLORIDE • CETYL ESTERS • AMODIMETHICONE • PARFUM / FRAGRANCE • SODIUM BENZOATE • ISOPROPYL ALCOHOL • CITRIC ACID • PLUKENETIA VOLUBILIS SEED OIL • TRIDECETH-6 • GLYCERIN • CARAMEL • CHLORHEXIDINE DIHYDROCHLORIDE • CETRIMONIUM CHLORIDE • BENZYL ALCOHOL • COUMARIN • LINALOOL • BENZYL BENZOATE • ALOE BARBADENSIS LEAF JUICE POWDER • HEXYL CINNAMAL • LIMONENE • CITRONELLOL • AMYL CINNAMAL • GERANIOL • CITRAL • CEREUS GRANDIFLORUS FLOWER EXTRACT / CACTUS FLOWER EXTRACT • ALPHA-ISOMETHYL IONONE • GLUCOSE • LACTIC ACID • POTASSIUM SORBATE • TOCOPHEROL (F.I.L. D206710/1). Les listes d'ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d'utiliser un produit de notre marque, vous êtes invités à lire la liste d'ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle",
     url: 'https://www.atida.fr/redken-soin-sans-rincage-nourissant-hydramelt.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/redken-soin-sans-rincage-nourissant-hydramelt-255249.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/redken-soin-sans-rincage-nourissant-hydramelt-255249.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -344,7 +355,8 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "35159 RDK2 - INGREDIENTS: AQUA / WATER • COCOS NUCIFERA OIL / COCONUT OIL • AMODIMETHICONE • POLYQUATERNIUM-37 • PHENOXYETHANOL • PROPYLENE GLYCOL DICAPRYLATE/DICAPRATE • PARFUM / FRAGRANCE • ACETAMIDE MEA • LACTAMIDE MEA • DIMETHICONE PEG-7 PHOSPHATE • PPG-1 TRIDECETH-6 • TRIDECETH-6 • BEHENTRIMONIUM CHLORIDE • XYLOSE • LACTIC ACID • ETHYLHEXYLGLYCERIN • CETRIMONIUM CHLORIDE • HYDROLYZED VEGETABLE PROTEIN PG-PROPYL SILANETRIOL • CITRONELLOL • GERANIOL • LINALOOL • ALPHA-ISOMETHYL IONONE • VIOLA ODORATA EXTRACT - VIOLA ODORATA FLOWER/LEAF EXTRACT • SODIUM HYDROXIDE (F.I.L. D171496/2). Les listes d'ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d'utiliser un produit de notre marque, vous êtes invités à lire la liste d'ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle",
     url: 'https://www.atida.fr/redken-spray-multi-benefices-one-united.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/redken-spray-multi-benefices-one-united-255231.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/redken-spray-multi-benefices-one-united-255231.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -371,7 +383,8 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "1218315RK2 - INGREDIENTS: AQUA / WATER • CETEARYL ALCOHOL • PROPYLENE GLYCOL • BEHENTRIMONIUM CHLORIDE • GLYCERIN • CETYL ESTERS • DIMETHICONE • PEG/PPG-4/12 DIMETHICONE • AMODIMETHICONE • PARFUM / FRAGRANCE • ISOPROPYL ALCOHOL • DICETYLDIMONIUM CHLORIDE • CITRIC ACID • PHENOXYETHANOL • ISOPROPYL MYRISTATE • HYDROXYPROPYL GUAR • LIMONENE • TRIDECETH-10 • COCO-BETAINE • LINALOOL • BENZYL SALICYLATE • CETRIMONIUM CHLORIDE • BENZYL ALCOHOL • PEG-100 STEARATE • ALPHA-ISOMETHYL IONONE • STEARETH-6 • SODIUM CHLORIDE • GLYCINE SOJA OIL / SOYBEAN OIL • ARGININE • SERINE • TOCOPHEROL • GLUTAMIC ACID • TRIDECETH-3 • ACETIC ACID • TRISODIUM HEDTA • PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE (F.I.L. Z70028063/1).  Les listes d'ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d'utiliser un produit de notre marque, vous êtes invités à lire la liste d'ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle",
     url: 'https://www.atida.fr/redken-acidic-color-gloss-apres-shampoing-pour-cheveux-colores.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/redken-acidic-color-gloss-apres-shampoing-pour-cheveux-colores-255264.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/redken-acidic-color-gloss-apres-shampoing-pour-cheveux-colores-255264.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -405,7 +418,8 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua / water / eau, peg-40 hydrogenated castor oil, stearyl alcohol, tribehenin, pvp, petrolatum, hydrogenated olive oil stearyl esters, polyacrylamide, dimethicone, oleth-10 phosphate, phenoxyethanol, c13-14 isoparaffin, parfum / fragrance, sorbic acid, chlorphenesin, peg-150 pentaerythrityl tetrastearate, laureth-7, panthenol, disodium edta, potassium hydroxide, linalool, hydroxypropyltrimonium hydrolyzed wheat protein, limonene, citronellol, coumarin, geraniol, bht, citric acid (f.i.l. d194747/1).',
     url: 'https://www.atida.fr/redken-brews-pommade-coiffante-maneuver-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/redken-brews-pommade-coiffante-maneuver-100ml-271805.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/redken-brews-pommade-coiffante-maneuver-100ml-271805.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.CIRE_COIFFANTE],
       secondary: [],
@@ -432,7 +446,8 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "1208687 J - INGREDIENTS: ISOBUTANE • ALCOHOL DENAT. • ORYZA SATIVA STARCH / RICE STARCH • TAPIOCA STARCH • ZEOLITE • PARFUM / FRAGRANCE • VP/VA COPOLYMER • ALPHA-ISOMETHYL IONONE • CETRIMONIUM CHLORIDE • LINALOOL • HYDROXYCITRONELLAL • HEXYL CINNAMAL • CITRONELLOL • GERANIOL • TETRAHEXYLDECYL ASCORBATE • PANTHENOL • LIMONENE • AQUA / WATER • BENZYL ALCOHOL • ISOEUGENOL • PENTYLENE GLYCOL • RHODIOLA ROSEA ROOT EXTRACT (F.I.L. Z70051615/1). Les listes d'ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d'utiliser un produit de notre marque, vous êtes invités à lire la liste d'ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle",
     url: 'https://www.atida.fr/redken-deep-clean-shampoing-sec-purifiant-155ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/redken-deep-clean-shampoing-sec-purifiant-155ml-303556.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/redken-deep-clean-shampoing-sec-purifiant-155ml-303556.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -478,7 +493,8 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "1218388RK7 - INGREDIENTS: AQUA / WATER • SODIUM C14-16 OLEFIN SULFONATE • GLYCERIN • COCAMIDOPROPYL BETAINE • GLYCOL DISTEARATE • PEG-150 DISTEARATE • SODIUM LAUROYL SARCOSINATE • PROPYLENE GLYCOL • COCAMIDE MIPA • HEXYLENE GLYCOL • PARFUM / FRAGRANCE • CITRIC ACID • SODIUM HYDROXIDE • SODIUM CHLORIDE • SODIUM BENZOATE • PEG-55 PROPYLENE GLYCOL OLEATE • COCO-BETAINE • HYDROXYPROPYL GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE • PEG/PPG-4/12 DIMETHICONE • SALICYLIC ACID • CARBOMER • AMODIMETHICONE • LIMONENE • BENZOIC ACID • POLYQUATERNIUM-7 • TOCOPHEROL • LINALOOL • BENZYL SALICYLATE • BENZYL ALCOHOL • ALPHA-ISOMETHYL IONONE • TRIDECETH-6 • GLYCINE SOJA OIL / SOYBEAN OIL • ARGININE • SERINE • GLUTAMIC ACID • CETRIMONIUM CHLORIDE • PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE (F.I.L. Y70028034/1).  Les listes d'ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d'utiliser un produit de notre marque, vous êtes invités à lire la liste d'ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle",
     url: 'https://www.atida.fr/redken-acidic-color-gloss-shampoing-doux-couleur-300ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/redken-acidic-color-gloss-shampoing-doux-couleur-300ml-255260.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/redken-acidic-color-gloss-shampoing-doux-couleur-300ml-255260.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -511,7 +527,8 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "1218174RK22 - INGREDIENTS: AQUA / WATER • CETEARYL ALCOHOL • GLYCERIN • BEHENTRIMONIUM CHLORIDE • DIMETHICONE • BIS-CETEARYL AMODIMETHICONE • CETYL ESTERS • CITRIC ACID • ISOPROPYL ALCOHOL • DICETYLDIMONIUM CHLORIDE • PARFUM / FRAGRANCE • SODIUM CITRATE • PHENOXYETHANOL • CANDELILLA CERA / CANDELILLA WAX • ISOPROPYL MYRISTATE • HYDROXYPROPYL GUAR • LIMONENE • COCO-BETAINE • AMODIMETHICONE • CETRIMONIUM CHLORIDE • DILAURYL THIODIPROPIONATE • TRIDECETH-10 • SODIUM CHLORIDE • LINALOOL • PEG-100 STEARATE • CITRONELLOL • STEARETH-6 • TRIDECETH-3 • ACETIC ACID • TRISODIUM HEDTA (F.I.L. D258007/1).  Les listes d'ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d'utiliser un produit de notre marque, vous êtes invités à lire la liste d'ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle",
     url: 'https://www.atida.fr/redken-acidic-bonding-concentrate-apres-shampoing-reparateur-pour-cheveux-sensibilises.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/redken-acidic-bonding-concentrate-apres-shampoing-reparateur-pour-cheveux-sensibilises-255266.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/redken-acidic-bonding-concentrate-apres-shampoing-reparateur-pour-cheveux-sensibilises-255266.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -541,7 +558,8 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "1129606RK5 - INGREDIENTS: AQUA / WATER • CETEARYL ALCOHOL • BEHENTRIMONIUM CHLORIDE • ELAEIS GUINEENSIS OIL / PALM OIL • CETYL ALCOHOL • ISOPROPYL ALCOHOL • STEARAMIDOPROPYL DIMETHYLAMINE • PHENOXYETHANOL • OCTYLDODECANOL • SODIUM PCA • PARFUM / FRAGRANCE • CITRIC ACID • SODIUM COCOYL AMINO ACIDS • CHLORHEXIDINE DIHYDROCHLORIDE • POTASSIUM DIMETHICONE PEG-7 PANTHENYL PHOSPHATE • SODIUM SARCOSINATE • PROPYLENE GLYCOL • ARGANIA SPINOSA KERNEL OIL • ARGININE • HYDROLYZED SOY PROTEIN • HYDROLYZED VEGETABLE PROTEIN PG-PROPYL SILANETRIOL • TETRASODIUM EDTA • SODIUM BENZOATE • POTASSIUM SORBATE (F.I.L. Z70015848/1).  Les listes d'ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d'utiliser un produit de notre marque, vous êtes invités à lire la liste d'ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle",
     url: 'https://www.atida.fr/redken-all-soft-apres-shampoing-hydratant.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/redken-all-soft-apres-shampoing-hydratant-282826.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/redken-all-soft-apres-shampoing-hydratant-282826.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -636,7 +654,8 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "1129609RK16 - INGREDIENTS: AQUA / WATER • SODIUM LAURETH SULFATE • COCO-BETAINE • GLYCOL DISTEARATE • DIMETHICONE • SODIUM CHLORIDE • PARFUM / FRAGRANCE • COCAMIDE MIPA • CITRIC ACID • SODIUM BENZOATE • SODIUM HYDROXIDE • HEXYLENE GLYCOL • SALICYLIC ACID • GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE • CARBOMER • SODIUM COCOYL AMINO ACIDS • POTASSIUM DIMETHICONE PEG-7 PANTHENYL PHOSPHATE • BENZYL BENZOATE • SODIUM SARCOSINATE • PROPYLENE GLYCOL • LIMONENE • ARGININE • 2-OLEAMIDO-1,3-OCTADECANEDIOL • HYDROLYZED SOY PROTEIN • LINALOOL • FUMARIC ACID • HYDROLYZED VEGETABLE PROTEIN PG-PROPYL SILANETRIOL • TETRASODIUM EDTA • POTASSIUM SORBATE (F.I.L. Z298629/2).  Les listes d'ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d'utiliser un produit de notre marque, vous êtes invités à lire la liste d'ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle",
     url: 'https://www.atida.fr/redken-extreme-shampoing-fortifiant-pour-cheveux-abimes.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/redken-extreme-shampoing-fortifiant-pour-cheveux-abimes-282829.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/redken-extreme-shampoing-fortifiant-pour-cheveux-abimes-282829.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -669,7 +688,8 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "1400555RK5 - INGREDIENTS: AQUA / WATER / EAU • DIMETHICONE • CETEARYL ALCOHOL • AMODIMETHICONE • PARFUM / FRAGRANCE • PHENOXYETHANOL • DIMETHICONOL • POLYQUATERNIUM-37 • TRIDECETH-5 • STEARETH-20 • CETYL HYDROXYETHYLCELLULOSE • PROPYLENE GLYCOL DICAPRYLATE/DICAPRATE • GLYCERIN • CITRIC ACID • TRIDECETH-10 • PANTHENOL • SODIUM HYDROXIDE • TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES • CARVONE • PPG-1 TRIDECETH-6 • LIMONENE • CITRUS AURANTIUM PEEL OIL • CHLORHEXIDINE DIGLUCONATE • LINALOOL • CITRUS LIMON PEEL OIL • HEXYL CINNAMAL • ACRYLATES/STEARYL METHACRYLATE COPOLYMER • LINALYL ACETATE • ACETIC ACID • SORBITAN OLEATE • MADECASSOSIDE • HYDRATED SILICA • PINENE • CITRAL • SILICA DIMETHYL SILYLATE • DISODIUM PHOSPHATE • CITRUS AURANTIUM BERGAMIA PEEL OIL • SODIUM PHOSPHATE • ROSE KETONES • TERPINEOL • EDTA (F.I.L. N70067087/1). Les listes d'ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d'utiliser un produit de notre marque, vous êtes invités à lire la liste d'ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle",
     url: 'https://www.atida.fr/redken-acidic-bonding-concentrate-baume-sans-rincage-pointes-abimees-75ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/redken-acidic-bonding-concentrate-baume-sans-rincage-pointes-abimees-75ml-304937.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/redken-acidic-bonding-concentrate-baume-sans-rincage-pointes-abimees-75ml-304937.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -699,7 +719,8 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "1082652RK18 - INGREDIENTS: ISODODECANE • DIMETHICONE • DIMETHICONOL • ALCOHOL DENAT. • PARFUM / FRAGRANCE • ARGANIA SPINOSA KERNEL OIL • BENZYL ALCOHOL • LINALOOL • COUMARIN • LIMONENE • HEXYL CINNAMAL • CITRONELLOL • BENZYL BENZOATE • AMYL CINNAMAL • CITRAL • GERANIOL • ALPHA-ISOMETHYL IONONE (F.I.L. Z70027432/1). Les listes d'ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d'utiliser un produit de notre marque, vous êtes invités à lire la liste d'ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle",
     url: 'https://www.atida.fr/redken-all-soft-huile-d-argan-6-multi-benefices-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/redken-all-soft-huile-d-argan-6-multi-benefices-100ml-303548.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/redken-all-soft-huile-d-argan-6-multi-benefices-100ml-303548.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -724,7 +745,8 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "1218168RK18 - INGREDIENTS: AQUA / WATER / EAU • DIMETHICONE • CETEARYL ALCOHOL • AMODIMETHICONE • PHENOXYETHANOL • POLYQUATERNIUM-37 • DIMETHICONOL • PARFUM / FRAGRANCE • PROPYLENE GLYCOL DICAPRYLATE/DICAPRATE • TRIDECETH-5 • STEARETH-20 • CETYL HYDROXYETHYLCELLULOSE • GLYCERIN • CITRIC ACID • LIMONENE • PPG-1 TRIDECETH-6 • TRIDECETH-10 • SODIUM HYDROXIDE • CHLORHEXIDINE DIGLUCONATE • SORBITAN OLEATE • ACETIC ACID • LINALOOL • CITRONELLOL • CITRAL • EUGENOL (F.I.L. D258051/1). Les listes d'ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d'utiliser un produit de notre marque, vous êtes invités à lire la liste d'ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle",
     url: 'https://www.atida.fr/redken-acidic-bonding-concentrate-soin-sans-rincage-50ml-1.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/redken-acidic-bonding-concentrate-soin-sans-rincage-50ml-303594.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/redken-acidic-bonding-concentrate-soin-sans-rincage-50ml-303594.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -753,7 +775,8 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "1218023RK23 - INGREDIENTS: AQUA / WATER • SODIUM LAURETH SULFATE • COCO-BETAINE • DIMETHICONE • GLYCOL DISTEARATE • HEXYLENE GLYCOL • SODIUM CHLORIDE • SODIUM LAURYL SULFATE • SODIUM HYDROXIDE • CITRIC ACID • COCAMIDE MIPA • PARFUM / FRAGRANCE • GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE • SODIUM PCA • BENZOIC ACID • SALICYLIC ACID • CARBOMER • PROPYLENE GLYCOL • SODIUM CITRATE • SODIUM COCOYL AMINO ACIDS • POTASSIUM DIMETHICONE PEG-7 PANTHENYL PHOSPHATE • SODIUM SARCOSINATE • BENZYL ALCOHOL • ARGANIA SPINOSA KERNEL OIL • ARGININE • HYDROLYZED SOY PROTEIN • COUMARIN • LINALOOL • LIMONENE • HEXYL CINNAMAL • FUMARIC ACID • HYDROLYZED VEGETABLE PROTEIN PG-PROPYL SILANETRIOL • CI 15510 / ORANGE 4 • TETRASODIUM EDTA • CI 17200 / RED 33 • SODIUM BENZOATE • POTASSIUM SORBATE (F.I.L. Z70012227/1).  Les listes d'ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d'utiliser un produit de notre marque, vous êtes invités à lire la liste d'ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle",
     url: 'https://www.atida.fr/redken-all-soft-shampoing-hydratant-pour-cheveux-secs.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/redken-all-soft-shampoing-hydratant-pour-cheveux-secs-282827.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/redken-all-soft-shampoing-hydratant-pour-cheveux-secs-282827.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -788,7 +811,8 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "33262 RDK16 - INGREDIENTS: AQUA / WATER / EAU • PVP • AMP-ACRYLATES/ALLYL METHACRYLATE COPOLYMER • HYDROGENATED STARCH HYDROLYSATE • PEG-14 DIMETHICONE • PEG-40 HYDROGENATED CASTOR OIL • ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER • PROPYLENE GLYCOL • AMINOMETHYL PROPANOL • PHENOXYETHANOL • CAPRYLYL GLYCOL • POLYSORBATE 80 • LIMONENE • CITRUS AURANTIUM DULCIS (ORANGE) PEEL OIL • CITRUS GRANDIS PEEL OIL / GRAPEFRUIT PEEL OIL • BENZOPHENONE-4 • ETHYLHEXYLGLYCERIN • PEG-30 DIPOLYHYDROXYSTEARATE • TRIDECETH-6 • LINALOOL • PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE • TOCOPHEROL (F.I.L. D209550/1). Les listes d'ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d'utiliser un produit de notre marque, vous êtes invités à lire la liste d'ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle",
     url: 'https://www.atida.fr/redken-gel-sculptant-fixation-maximal.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/redken-gel-sculptant-fixation-maximal-282832.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/redken-gel-sculptant-fixation-maximal-282832.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -809,7 +833,8 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '1218415RK7 - INGREDIENTS: AQUA / WATER / EAU • PROPYLENE GLYCOL • VP/ACRYLATES/LAURYL METHACRYLATE COPOLYMER • TRIETHANOLAMINE • HYDROGENATED STARCH HYDROLYSATE • PHENOXYETHANOL • AMMONIUM POLYACRYLOYLDIMETHYL TAURATE • PEG-40 HYDROGENATED CASTOR OIL • CHLORPHENESIN • PARFUM / FRAGRANCE • RICINUS COMMUNIS SEED OIL / CASTOR SEED OIL • SIMMONDSIA CHINENSIS SEED OIL / JOJOBA SEED OIL • TRISODIUM ETHYLENEDIAMINE DISUCCINATE • SQUALANE • HEXYL CINNAMAL • LIMONENE • ALPHA-ISOMETHYL IONONE • CITRONELLOL • GERANIOL • BENZYL ALCOHOL • LINALOOL (F.I.L. N70033264/1).',
     url: 'https://www.atida.fr/redken-gel-de-definition-pour-cheveux-boucles-hybrid-curl-stylers.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/redken-gel-de-definition-pour-cheveux-boucles-hybrid-curl-stylers-255273.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/redken-gel-de-definition-pour-cheveux-boucles-hybrid-curl-stylers-255273.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
@@ -835,7 +860,8 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "1400544RK12 - INGREDIENTS: AQUA / WATER • GLYCERIN • CETEARYL ALCOHOL • STEARAMIDOPROPYL DIMETHYLAMINE • ACETUM / VINEGAR • PARFUM / FRAGRANCE • HELIANTHUS ANNUUS SEED OIL / SUNFLOWER SEED OIL • CETYL ESTERS • HYDROXYPROPYL GUAR • CITRIC ACID • GLYCERYL STEARATE • TARTARIC ACID • CARVONE • LIMONENE • TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES • CITRUS AURANTIUM PEEL OIL • LINALOOL • BENZYL SALICYLATE • LINALYL ACETATE • BENZYL ALCOHOL • ALPHA-ISOMETHYL IONONE • PINENE • LACTIC ACID • ROSE KETONES • JUNIPERUS VIRGINIANA OIL (F.I.L. Z70068930/1). Les listes d'ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d'utiliser un produit de notre marque, vous êtes invités à lire la liste d'ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle",
     url: 'https://www.atida.fr/redken-acidic-color-gloss-masque-gloss-250ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/redken-acidic-color-gloss-masque-gloss-250ml-303562.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/redken-acidic-color-gloss-masque-gloss-250ml-303562.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -861,7 +887,8 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "1400544RK12 - INGREDIENTS: AQUA / WATER • GLYCERIN • CETEARYL ALCOHOL • STEARAMIDOPROPYL DIMETHYLAMINE • ACETUM / VINEGAR • PARFUM / FRAGRANCE • HELIANTHUS ANNUUS SEED OIL / SUNFLOWER SEED OIL • CETYL ESTERS • HYDROXYPROPYL GUAR • CITRIC ACID • GLYCERYL STEARATE • TARTARIC ACID • CARVONE • LIMONENE • TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES • CITRUS AURANTIUM PEEL OIL • LINALOOL • BENZYL SALICYLATE • LINALYL ACETATE • BENZYL ALCOHOL • ALPHA-ISOMETHYL IONONE • PINENE • LACTIC ACID • ROSE KETONES • JUNIPERUS VIRGINIANA OIL (F.I.L. Z70068930/1). Les listes d'ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d'utiliser un produit de notre marque, vous êtes invités à lire la liste d'ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle",
     url: 'https://www.atida.fr/redken-acidic-color-gloss-masque-gloss-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/redken-acidic-color-gloss-masque-gloss-50ml-303583.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/redken-acidic-color-gloss-masque-gloss-50ml-303583.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],

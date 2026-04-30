@@ -29,14 +29,12 @@ const SOURCE_DIR = join(SEED_ROOT, 'output', 'images-normalized')
 const ZONE = process.env.BUNNY_STORAGE_ZONE
 const HOSTNAME = process.env.BUNNY_STORAGE_HOSTNAME ?? 'storage.bunnycdn.com'
 const PASSWORD = process.env.BUNNY_STORAGE_PASSWORD
-const PREFIX = (process.env.BUNNY_STORAGE_PREFIX ?? 'products/').replace(/^\/+|\/+$/g, '') + '/'
+const PREFIX = `${(process.env.BUNNY_STORAGE_PREFIX ?? 'products/').replace(/^\/+|\/+$/g, '')}/`
 const DRY_RUN = process.env.DRY_RUN === '1'
 const CONCURRENCY = Number(process.env.CONCURRENCY ?? 16)
 
 if (!DRY_RUN) {
-  const missing = ['BUNNY_STORAGE_ZONE', 'BUNNY_STORAGE_PASSWORD'].filter(
-    (k) => !process.env[k],
-  )
+  const missing = ['BUNNY_STORAGE_ZONE', 'BUNNY_STORAGE_PASSWORD'].filter((k) => !process.env[k])
   if (missing.length > 0) {
     console.error(`missing env: ${missing.join(', ')}\nuse DRY_RUN=1 to preview`)
     process.exit(1)
@@ -95,5 +93,7 @@ async function worker() {
 }
 await Promise.all(Array.from({ length: CONCURRENCY }, () => worker()))
 
-console.log(`\ndone: ${done} uploaded, ${failed} failed in ${((Date.now() - start) / 1000).toFixed(1)}s`)
+console.log(
+  `\ndone: ${done} uploaded, ${failed} failed in ${((Date.now() - start) / 1000).toFixed(1)}s`
+)
 process.exit(failed === 0 ? 0 : 1)

@@ -126,7 +126,8 @@ export const AVRIL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), DECYL OLEATE, CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERYL STEARATE SE, GLYCERYL STEARATE, GLYCERIN, ANTHEMIS NOBILIS FLOWER WATER*, PRUNUS ARMENIACA (APRICOT) KERNEL OIL*, CETEARYL ALCOHOL, BUTYROSPERMUM PARKII (SHEA) BUTTER*, SODIUM PCA, OLEIC/LINOLEIC/LINOLENIC POLYGLYCERIDES, ALOE BARBADENSIS LEAF JUICE POWDER*, ROSA DAMASCENA FLOWER EXTRACT*, CETYL PALMITATE, COCOGLYCERIDES, XANTHAN GUM, BISABOLOL*, PARFUM (FRAGRANCE), GLYCINE SOJA (SOYBEAN) OIL, TOCOPHEROL, BENZYL ALCOHOL, CITRIC ACID, DEHYDROACETIC ACID, LINALOOL, LIMONENE, BENZYL SALICYLATE,CITRONELLOL, GERANIOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avril/avril-creme-de-jour-peaux-seches-et-sensibles-bio-50ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avril-creme-de-jour-peaux-seches-et-sensibles-bio.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/avril-creme-de-jour-peaux-seches-et-sensibles-bio.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],

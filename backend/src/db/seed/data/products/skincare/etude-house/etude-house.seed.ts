@@ -256,7 +256,8 @@ export const ETUDE_HOUSE_SEED: UnifiedProductSeed[] = [
       'Actifs : Beurre de Karité, Huile de Tournesol, Madecassoside et Panthénol. Idéale pour les peaux sèches à très sèches ou après des soins agressifs.',
     inci: '1,2-HEXANEDIOL, AFRICAN SHEA BUTTER, BUTYLENE GLYCOL, CAMELLIA SINENSIS (GREEN TEA) LEAF EXTRACT, CAPRYLIC/CAPRIC TRIGLYCERIDE, CETEARYL ALCOHOL, DISODIUM EDTA, GLYCERIN, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, MADECASSOSIDE, PANTHENOL, PENTAERYTHRITYL TETRAETHYLHEXANOATE, POLYGLYCERYL-3 METHYLGLUCOSE DISTEARATE, POTASSIUM CARBOMER, PROPANEDIOL, WATER, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/etude-house-soonjung-2x-barrier-intensive-cream-30ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/etude-house-soonjung-barrier-intensive-cream.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/etude-house-soonjung-barrier-intensive-cream.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CREME_HYDRATANTE],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.PEAU_SENSIBLE],

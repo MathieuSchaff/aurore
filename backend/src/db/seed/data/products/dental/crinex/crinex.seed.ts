@@ -15,7 +15,8 @@ export const CRINEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Fibres de Tynex, plastique',
     url: 'https://www.atida.fr/crinex-phb-plus-brossettes-conique-12-unites.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/crinex-phb-plus-brossettes-conique-12-unites-281667.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/crinex-phb-plus-brossettes-conique-12-unites-281667.webp',
     tags: {
       primary: [TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
@@ -36,7 +37,8 @@ export const CRINEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Fibres de Tynex, plastique',
     url: 'https://www.atida.fr/crinex-phb-plus-brossettes-mini-gf-12-unites.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/crinex-phb-plus-brossettes-mini-gf-12-unites-258323.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/crinex-phb-plus-brossettes-mini-gf-12-unites-258323.webp',
     tags: {
       primary: [TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
@@ -57,7 +59,8 @@ export const CRINEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Fibres de Tynex, plastique',
     url: 'https://www.atida.fr/crinex-phb-plus-brossettes-micro-plus-gf-12-unites.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/crinex-phb-plus-brossettes-micro-plus-gf-12-unites-258322.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/crinex-phb-plus-brossettes-micro-plus-gf-12-unites-258322.webp',
     tags: {
       primary: [TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],

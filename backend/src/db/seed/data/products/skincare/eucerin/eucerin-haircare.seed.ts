@@ -16,7 +16,8 @@ export const EUCERIN_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, UREA, METHYLPROPANEDIOL, SODIUM LACTATE, LAURETH-9, GLYCYRRHIZA INFLATA ROOT EXTRACT, GLYCERIN, LACTID ACID, ARGININE HCL, HYDROXYETHYLCELLULOSE, PEG-40 HYDROGENATED CASTOR OIL, CETRIMONIUM CHLORIDE, PHENOXYETHANOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-dermo-capillaire-calmant-soin-trait-100ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-dermo-capillaire-calmant-soin-trait.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/eucerin-dermo-capillaire-calmant-soin-trait.webp',
     tags: {
       primary: ['apres-shampooing'],
       secondary: [],

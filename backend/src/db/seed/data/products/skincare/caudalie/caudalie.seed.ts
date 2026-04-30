@@ -15,7 +15,8 @@ export const CAUDALIE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/caudalie-the-des-vignes-gel-douche-lot-de-3-x-200ml.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/caudalie-the-des-vignes-gel-douche-lot-de-3-x-200ml-301110.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/caudalie-the-des-vignes-gel-douche-lot-de-3-x-200ml-301110.webp',
     tags: {
       primary: [],
       secondary: [TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],

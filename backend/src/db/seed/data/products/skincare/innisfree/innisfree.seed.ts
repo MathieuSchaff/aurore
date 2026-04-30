@@ -53,7 +53,8 @@ export const INNISFREE_SEED: UnifiedProductSeed[] = [
       'Associe Céramide NP, Acide Hyaluronique, Madecassoside et Squalane pour un effet barrière renforcé. Idéal pour peaux normales à sèches.',
     inci: 'WATER/AQUA/EAU, 1,2-HEXANEDIOL, ALLANTOIN, BUTYLENE GLYCOL, BUTYLENE GLYCOL DICAPRYLATE/DICAPRATE, CAMELLIA SINENSIS LEAF EXTRACT, CAMELLIA SINENSIS SEED EXTRACT, CAMELLIA SINENSIS SEED OIL, CARBOMER, CERAMIDE NP, CETEARYL ALCOHOL, CHOLESTEROL, DEXTRIN, ETHYLHEXYLGLYCERIN, GLYCERIN, GLYCERYL CAPRYLATE, GLYCERYL POLYMETHACRYLATE, GLYCERYL STEARATE, HYALURONIC ACID, HYDROGENATED LECITHIN, HYDROLYZED HYALURONIC ACID, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, LACTIC ACID, LACTOBACILLUS FERMENT LYSATE, MADECASSOSIDE, METHYL TRIMETHICONE, PANTHENOL, PENTAERYTHRITYL TETRAETHYLHEXANOATE, PHYTOSPHINGOSINE, POLYGLYCERYL-3 METHYLGLUCOSE DISTEARATE, POLYMETHYLSILSESQUIOXANE, PROPANEDIOL, SODIUM ACETYLATED HYALURONATE, SODIUM HYALURONATE, SODIUM HYALURONATE CROSSPOLYMER, SODIUM METAPHOSPHATE, SODIUM STEAROYL GLUTAMATE, SORBITAN ISOSTEARATE, SQUALANE, STEARYL DIMETHICONE, THEOBROMA CACAO (COCOA) EXTRACT, TOCOPHEROL, TROMETHAMINE, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/innisfree-jumbo-hyaluronic-acid-cream-green-tea-seed-2-7-fl-oz-80-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/innisfree-green-tea-seed-hyaluronic-cream.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/innisfree-green-tea-seed-hyaluronic-cream.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -120,7 +121,8 @@ export const INNISFREE_SEED: UnifiedProductSeed[] = [
       'Contient du parfum. Acide Salicylique (BHA), Acide Glycolique, Cendres Volcaniques et Zinc PCA. Idéal pour peaux mixtes à grasses sujettes aux points noirs.',
     inci: 'WATER/AQUA/EAU, BUTYLENE GLYCOL, CITRIC ACID, COCAMIDOPROPYL BETAINE, FRAGRANCE/PARFUM, GLYCERIN, GLYCERYL STEARATE, GLYCOLIC ACID, HYDRATED SILICA, LACTIC ACID, LACTIC ACID/GLYCOLIC ACID COPOLYMER, LAURIC ACID, LAURYL GLUCOSIDE, MADECASSOSIDE, MYRISTIC ACID, PALMITIC ACID, PEG-100 STEARATE, PEG-32, POLYQUATERNIUM-10, POLYQUATERNIUM-7, POTASSIUM HYDROXIDE, SALICYLIC ACID, SILICA, SODIUM BENZOATE, SODIUM CHLORIDE, SODIUM METAPHOSPHATE, STEARIC ACID, VOLCANIC ASH, ZINC PCA',
     url: 'https://www.skinsafeproducts.com/innisfree-volcanic-bha-pore-cleansing-foam-5-07-fl-oz-150-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/innisfree-volcanic-bha-pore-cleansing-foam.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/innisfree-volcanic-bha-pore-cleansing-foam.webp',
     tags: {
       primary: [TAG_SLUGS.MOUSSE_NETTOYANTE, TAG_SLUGS.NETTOYANT, TAG_SLUGS.ANTI_ACNE],
       secondary: [
@@ -191,7 +193,8 @@ export const INNISFREE_SEED: UnifiedProductSeed[] = [
     notes: `Contient du parfum. Prunus Yedoensis + Niacinamide + Tocophérol. Idéal pour peaux normales à mixtes en quête d"éclat sans lourdeur.`,
     inci: 'WATER/AQUA/EAU, 1,2-HEXANEDIOL, AMMONIUM ACRYLOYLDIMETHYLTAURATE/BEHENETH-25 METHACRYLATE CROSSPOLYMER, BETAINE, CARBOMER, DIPROPYLENE GLYCOL, ETHYLHEXYLGLYCERIN, FRAGRANCE/PARFUM, GLYCERIN, NIACINAMIDE, PROPANEDIOL, PRUNUS YEDOENSIS LEAF EXTRACT, SODIUM METAPHOSPHATE, TOCOPHEROL, TROMETHAMINE',
     url: 'https://www.skinsafeproducts.com/innisfree-cherry-blossom-glow-jelly-cream-cherry-blossom-b3-1-69-fl-oz-50-ml',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/innisfree-cherry-blossom-glow-jelly-cream.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/innisfree-cherry-blossom-glow-jelly-cream.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.GEL_CREME, TAG_SLUGS.ECLAT],
       secondary: [

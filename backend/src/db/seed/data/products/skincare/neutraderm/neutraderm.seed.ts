@@ -16,7 +16,8 @@ export const NEUTRADERM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water) / eau, oligoactive water(3), sodium laureth sulfate, glycerin, parfum (fragrance), peg-7 glyceryl cocoate, disodium laureth sulfosuccinate, cocamidopropyl betaine, laureth-2, panthenol, prunus amygdalus dulcis (sweet almond) oil, propylene glycol, tocopherol, olea europaea (olive) leaf extract, hydrogenated palm glycerides citrate, coco-glucoside, glyceryl oleate, peg-120 methyl glucose dioleate, peg-6, sodium chloride, tetrasodium glutamate diacetate, citric acid, sodium benzoate, potassium sorbate, caramel.',
     url: 'https://www.atida.fr/neutraderm-gel-douche-surgras-dermo-protecteur-1l.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/neutraderm-gel-douche-surgras-dermo-protecteur-1l-301370.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/neutraderm-gel-douche-surgras-dermo-protecteur-1l-301370.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -43,7 +44,8 @@ export const NEUTRADERM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER)/EAU, OLIGOACTIVE WATER (MARIS AQUA (SEA WATER)/EAU DE MER), GLYCERIN, SODIUM LAURETH SULFATE, SODIUM LAUROYL SARCOSINATE, PHENYLPROPANOL, GLYCERYL OLEATE, OLEA EUROPAEA (OLIVE) LEAF EXTRACT, COCO-GLUCOSIDE, COPPER SULFATE, HYDROXYETHYLCELLULOSE, DISODIUM PHOSPHATE, POLYSORBATE 60, SODIUM PHOSPHATE, HYDROXYPROPYL GUAR, TOCOPHEROL, PARFUM (FRAGRANCE), HYDROGENATED PALM GLYCERIDES CITRATE, PROPYLENE GLYCOL, DISODIUM EDTA, CITRIC ACID, SODIUM BENZOATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/neutraderm/neutraderm-gel-douche-micellaire-dermo-apaisant1l.html',
-    imageUrl: 'https://aurore-cdn.b-cdn.net/products/neutraderm-gel-douche-micellaire-dermo-apaisant1l.webp',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/neutraderm-gel-douche-micellaire-dermo-apaisant1l.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'apaisant'],
       secondary: ['reparateur', 'nettoyant-corps', 'zone-corps'],
