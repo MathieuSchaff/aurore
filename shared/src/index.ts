@@ -147,9 +147,13 @@ export {
   COMPARISON_MIN_PRODUCTS,
   type ComparisonPriceUnit,
   type ComparisonSummary,
+  type DermoSignal,
   type ComplementListProductsFilters,
+  type CreateComparisonInput,
   type CreateProductInput,
+  classifyIngredientSignals,
   complementListProductsQuery,
+  createComparisonSchema,
   createProductIngredientSchema,
   createProductSchema,
   type EnrichedComparison,
@@ -245,7 +249,9 @@ export {
   skincareProductFilterOptionsSchema,
   supplementProductFilterCategories,
   supplementProductFilterOptionsSchema,
+  type UpdateComparisonInput,
   type UpdateProductInput,
+  updateComparisonSchema,
   updateProductSchema,
 } from './products'
 export {
