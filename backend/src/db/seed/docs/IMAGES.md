@@ -13,7 +13,7 @@
 |---|---|---|---|---|---|
 | `output/images/<slug>.{jpg,png}` | Thumbnails listing Pharmashop | scrap field `imageUrl` (URL CDN Pharmashop) | slug dérivé du `link` Pharmashop | 198×198 | ~71 MB, 3272 fichiers |
 | `output/product-details/<dir>/img_NN.{jpg,png}` | Pages détail (HD) | scrap fiche produit Pharmashop | dir = path URL `/`→`_`, fichier = `img_01..N` | 600×600 (parfois plus) | ~212 MB, 2304 images sur 1918 dirs |
-| `output/images-downloaded/<slug>.{jpg,png}` | DL externe (Atida + Skinsafe) | `scripts/download-external-images.ts` | slug seed canonique | source CDN (variable) | ~47 MB, 471 fichiers |
+| `output/images-downloaded/<slug>.{jpg,png}` | DL externe (Atida + Skinsafe) | `scrapper-para/scripts/download-external-images.ts` | slug seed canonique | source CDN (variable) | ~47 MB, 471 fichiers |
 | `output/images-normalized/<slug>.webp` | **Sortie pipeline** prête S3 | conversion hybride detail → thumb fallback → atida → skinsafe | slug seed canonique, flat | source-natif (pas d'upscale) | ~65 MB, 2700 fichiers |
 
 Originaux laissés intacts. Seul `images-normalized/` est uploadé.
@@ -28,7 +28,7 @@ Le mapping `slug seed → fichier image` vit dans `output/image-mapping.json`. I
 
 1. **Detail prioritaire** — si un dossier `product-details/<dir>` contient `img_01.jpg` et que le suffixe du dirname matche le slug seed (bidirectionnel : slug suffixe-of-dir, ou dir suffixe-of-slug), on prend le HD.
 2. **Thumb fallback** — sinon on cherche dans `output/images/` par préfixe bidirectionnel (image = `<slug>-<format>` ou seed = `<image>-<id-atida>`).
-3. **Atida / Skinsafe DL** — pour les seeds sans match local mais avec un `imageUrl` externe (`assets.atida.com` ou `cdn1.skinsafeproducts.com`), `scripts/download-external-images.ts` télécharge l'image et l'ajoute au mapping.
+3. **Atida / Skinsafe DL** — pour les seeds sans match local mais avec un `imageUrl` externe (`assets.atida.com` ou `cdn1.skinsafeproducts.com`), `scrapper-para/scripts/download-external-images.ts` télécharge l'image et l'ajoute au mapping.
 4. **Pas de fuzzy aveugle** — token-reorder et token-set matching ont été testés mais produisent des faux positifs (ex: `aderma-exomega-huile-500` ≠ `aderma-exomega-control-huile-lavante-emolliente-200ml`). On ne match que par préfixe bidirectionnel exact.
 
 ### 2.2 État (snapshot)
@@ -116,7 +116,7 @@ scrape Pharmashop ──┬──> output/images/<slug>.jpg               (thumb
 
 | Script | Rôle |
 |---|---|
-| `scripts/download-external-images.ts` | Pour chaque slug ∉ mapping avec `imageUrl` Atida/Skinsafe : fetch parallèle (8 workers, UA banal, 10s timeout), save dans `images-downloaded/`, convert webp dans `images-normalized/`, merge mapping. Idempotent (skip si webp existe). Failures → `output/image-download-failures.json`. `--dry` pour preview. |
+| `scrapper-para/scripts/download-external-images.ts` | Pour chaque slug ∉ mapping avec `imageUrl` Atida/Skinsafe : fetch parallèle (8 workers, UA banal, 10s timeout), save dans `images-downloaded/`, convert webp dans `images-normalized/`, merge mapping. Idempotent (skip si webp existe). Failures → `output/image-download-failures.json`. `--dry` pour preview. |
 | `scripts/upload-images.ts` | Upload `output/images-normalized/*.webp` → S3 (Bun.S3Client, parallèle). Idempotent côté S3 (noms stables). DRY_RUN=1 pour preview. |
 | `scripts/patch-image-urls.ts` | Pour chaque slug ∈ mapping, écrit `imageUrl: '${IMAGE_CDN_BASE}/products/<slug>.webp'` dans le `<brand>.seed.ts`. Replace si présent, insert sinon (après `url:` ou avant `tags:`). Slugs hors mapping → laissés intacts. `--dry` pour preview. |
 
@@ -146,7 +146,7 @@ scrape Pharmashop ──┬──> output/images/<slug>.jpg               (thumb
 #    voir IMAGES.md §6 pour les commandes manuelles
 
 # 2. compléter avec downloads externes (Atida / Skinsafe)
-bun run backend/src/db/seed/scripts/download-external-images.ts
+(cd ../scrapper-para && bun run scripts/download-external-images.ts)
 
 # 3. upload Bunny Storage (env vars depuis .env.dev)
 set -a; source .env.dev; set +a
