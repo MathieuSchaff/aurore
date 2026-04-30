@@ -18,8 +18,7 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
       'Actifs clés : Bifida Ferment Lysate, Squalane, Argan. Idéal pour peaux sensibles et matures.',
     inci: '1,2-HEXANEDIOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, ARGANIA SPINOSA KERNEL OIL, ARGININE, BIFIDA FERMENT LYSATE, BUTYLENE GLYCOL, C12-16 ALCOHOLS, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL METHICONE, CARBOMER, CETEARYL ALCOHOL, CETYL ALCOHOL, CETYL ETHYLHEXANOATE, DICAPRYLYL CARBONATE, DISODIUM EDTA, ETHYLHEXYL OLIVATE, ETHYLHEXYLGLYCERIN, GLYCERIN, GLYCERYL STEARATE, HYDROGENATED LECITHIN, MYRISTIC ACID, PALMITIC ACID, POLYGLYCERYL-4 OLEATE, SODIUM ACRYLATES COPOLYMER, SQUALANE, STEARIC ACID, WATER/AQUA',
     url: 'https://www.skinsafeproducts.com/mixsoon-bifida-cream-2-02-fl-oz-60-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/F3B540D63F5FBF/large_1710956841.jpeg?1710956841',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mixsoon-bifida-cream.webp',
     tags: {
       primary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.SANS_PARFUM],
@@ -41,8 +40,7 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
       'Actifs clés : Sodium Hyaluronate. Idéal pour toutes peaux, particulièrement les peaux déshydratées.',
     inci: '1,2-HEXANEDIOL, BUTYLENE GLYCOL, SODIUM HYALURONATE, WATER',
     url: 'https://www.skinsafeproducts.com/mixsoon-glacier-water-serum-hyaluronic-acid-10-14-fl-oz-300-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/EC685C23613449/large_1715896316.jpeg?1715896316',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mixsoon-glacier-water-serum.webp',
     tags: {
       primary: [TAG_SLUGS.SERUM, TAG_SLUGS.HYDRATATION, TAG_SLUGS.DESHYDRATATION],
       secondary: [TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.SANS_PARFUM],
@@ -63,8 +61,7 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
     notes: 'Actifs clés : Bifida Ferment Extract, Glycérine. Idéal pour peaux sensibles et ternes.',
     inci: 'AQUA, BIFIDA FERMENT EXTRACT, BUTYLENE GLYCOL, GLYCERIN',
     url: 'https://www.skinsafeproducts.com/mixsoon-bifida-ferment-essence-3-38-fl-oz-100-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/2BC497605C71CE/large_1701029852.jpeg?1701029852',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mixsoon-bifida-ferment-essence.webp',
     tags: {
       primary: [TAG_SLUGS.ESSENCE, TAG_SLUGS.ECLAT, TAG_SLUGS.MICROBIOME],
       secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.SANS_PARFUM],
@@ -87,8 +84,7 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
       'Actifs clés : Centella Asiatica Extract. Idéal pour peaux réactives et sujettes aux rougeurs.',
     inci: '1,2-HEXANEDIOL, AQUA, BUTYLENE GLYCOL, CENTELLA ASIATICA EXTRACT',
     url: 'https://www.skinsafeproducts.com/mixsoon-centella-asiatica-toner-10-14-fl-oz-300-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/F6234E28CAFCB3/large_1713830608.jpeg?1713830608',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mixsoon-centella-asiatica-toner.webp',
     tags: {
       primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.APAISANT],
       secondary: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.SANS_PARFUM],
@@ -111,8 +107,7 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
       'Actifs clés : Soybean Oil, Jojoba Oil, Ferments Lactobacillus. Idéal pour peaux normales à mixtes.',
     inci: 'CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, ETHYLHEXYL PALMITATE, ETHYLHEXYLGLYCERIN, FRAGRANCE, GLYCERIN, GLYCINE SOJA (SOYBEAN) OIL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, LACTOBACILLUS/PEAR JUICE FERMENT FILTRATE, LACTOBACILLUS/PUNICA GRANATUM FRUIT FERMENT EXTRACT, LACTOBACILLUS/SOYBEAN FERMENT EXTRACT, PROPANEDIOL, SACCHAROMYCES/BARLEY SEED FERMENT FILTRATE, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, SORBETH-30 TETRAOLEATE, TOCOPHEROL, TRIETHYLHEXANOIN, WATER',
     url: 'https://www.skinsafeproducts.com/mixsoon-bean-cleansing-oil-6-59-fl-oz-195-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/96F57BE53FAFF2/large_1711140990.jpeg?1711140990',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mixsoon-bean-cleansing-oil.webp',
     tags: {
       primary: [TAG_SLUGS.HUILE_DEMAQUILLANTE, TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_1],
       secondary: [TAG_SLUGS.PEAU_NORMALE, TAG_SLUGS.PEAU_MIXTE],
@@ -135,8 +130,7 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
       'Actifs clés : Ferments Soja/Poire/Grenade, Adénosine, Panthénol. Idéal pour peaux normales à sèches.',
     inci: 'ADENOSINE, ANTHEMIS NOBILIS FLOWER OIL, BUTYLENE GLYCOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CARBOMER, CETEARYL ALCOHOL, CITRUS AURANTIUM BERGAMIA (BERGAMOT) FRUIT OIL, COCCINIA INDICA FRUIT EXTRACT, CORALLINA OFFICINALIS EXTRACT, CURCUMA LONGA (TURMERIC) ROOT EXTRACT, DIISOSTEARYL MALATE, DIPOTASSIUM GLYCYRRHIZATE, DISODIUM EDTA, ECLIPTA PROSTRATA EXTRACT, ETHYLHEXYLGLYCERIN, GLYCERIN, GLYCERYL STEARATE, GLYCERYL STEARATE CITRATE, HYDROGENATED COCO-GLYCERIDES, HYDROGENATED LECITHIN, HYDROGENATED POLYISOBUTENE, HYDROXYACETOPHENONE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, LACTOBACILLUS/PEAR JUICE FERMENT FILTRATE, LACTOBACILLUS/PUNICA GRANATUM FRUIT FERMENT EXTRACT, LACTOBACILLUS/SOYBEAN FERMENT EXTRACT, LAVANDULA ANGUSTIFOLIA (LAVENDER) OIL, LIMNANTHES ALBA (MEADOWFOAM) SEED OIL, MELIA AZADIRACHTA FLOWER EXTRACT, MELIA AZADIRACHTA LEAF EXTRACT, OCIMUM SANCTUM LEAF EXTRACT, OLEIC ACID, PALMITIC ACID, PANTHENOL, POLYGLYCERYL-3 DISTEARATE, PROPANEDIOL, SACCHAROMYCES/BARLEY SEED FERMENT FILTRATE, SODIUM POLYACRYLATE, SORBITAN ISOSTEARATE, STEARIC ACID, TROMETHAMINE, VINYL DIMETHICONE, WATER/AQUA',
     url: 'https://www.skinsafeproducts.com/mixsoon-bean-cream-1-69-fl-oz-50-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/8BA0C5737E687F/large_1706994850.jpeg?1706994850',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mixsoon-bean-cream.webp',
     tags: {
       primary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.HYDRATATION, TAG_SLUGS.ECLAT],
       secondary: [TAG_SLUGS.PEAU_NORMALE, TAG_SLUGS.PEAU_SECHE],
@@ -368,8 +362,7 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
       'Actifs clés : Niacinamide, Ceramide NP, Palmitoyl Pentapeptide-4, Galactomyces. Idéal pour peaux ternes et matures.',
     inci: '1,2-HEXANEDIOL, ADENOSINE, ARGININE, BETAINE, BUTYLENE GLYCOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, CAMELLIA SINENSIS LEAF EXTRACT, CAPRYLIC/CAPRIC TRIGLYCERIDE, CARBOMER, CERAMIDE NP, CETYL ETHYLHEXANOATE, CHOLESTEROL, DIPROPYLENE GLYCOL, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, GALACTOMYCES FERMENT FILTRATE, GLUCOSE, GLUTATHIONE, GLYCERIN, GLYCERYL STEARATE, HYDROGENATED LECITHIN, HYDROLYZED SOY PROTEIN, HYDROXYACETOPHENONE, LACTOBACILLUS/PANAX GINSENG ROOT FERMENT FILTRATE, LACTOBACILLUS/RICE FERMENT, LACTOBACILLUS/SOYBEAN FERMENT EXTRACT, MANNOSE, MENTHA ROTUNDIFOLIA LEAF EXTRACT, NIACINAMIDE, OLIGOPEPTIDE-29, OLIGOPEPTIDE-32, PALMITOYL PENTAPEPTIDE-4, PANTHENOL, PHYTOSPHINGOSINE, PHYTOSTEROLS (MARRUBIUM VULGARE STEM CELLS), POLYGLYCERYL-3 METHYLGLUCOSE DISTEARATE, SACCHAROMYCES/COIX LACRYMA-JOBI MA-YUEN SEED FERMENT FILTRATE, SACCHAROMYCES/POTATO EXTRACT FERMENT FILTRATE, SOLUBLE COLLAGEN, SORBITAN SESQUIOLEATE, SORBITAN STEARATE, SUCROSE COCOATE, THYMUS VULGARIS (THYME) LEAF EXTRACT, TREHALOSE, WATER/AQUA, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/mixsoon-soybean-milk-serum-1-69-fl-oz-50-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/CFC5B125D9B506/large_1751942654.jpeg?1751942654',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mixsoon-soybean-milk-serum.webp',
     tags: {
       primary: [TAG_SLUGS.SERUM, TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_AGE],
       secondary: [TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.SANS_PARFUM],
@@ -397,8 +390,7 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
       'Actifs clés : Oryza Sativa (Rice) Powder, Avoine, Centella Asiatica, Ferment Soja. Idéal pour peaux normales et ternes.',
     inci: 'ORYZA SATIVA (RICE) POWDER, 1,2-HEXANEDIOL, AVENA SATIVA (OAT) KERNEL MEAL, BIFIDA FERMENT EXTRACT, BUTYLENE GLYCOL, CAPRYLYL GLYCOL, CENTELLA ASIATICA EXTRACT, COCOS NUCIFERA OIL, HELIANTHUS ANNUUS SEED OIL, LACTOBACILLUS/SOYBEAN FERMENT EXTRACT, LAURIC ACID, OLEA EUROPAEA (OLIVE) FRUIT OIL, SODIUM HYDROXIDE, SODIUM POLYACRYLATE, STEARIC ACID, WATER, ZEA MAYS (CORN) STARCH',
     url: 'https://www.skinsafeproducts.com/mixsoon-deep-foaming-rice-bar-soap-3-5-oz-100-g',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/0AE29C961A2D36/large_1749837865.jpeg?1749837865',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mixsoon-deep-foaming-rice-bar-soap.webp',
     tags: {
       primary: [TAG_SLUGS.MOUSSE_NETTOYANTE, TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
       secondary: [TAG_SLUGS.ECLAT, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.SANS_PARFUM],
@@ -535,8 +527,7 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
       'Actifs clés : Galactomyces Ferment Filtrate. Idéal pour peaux mixtes à grasses et pores dilatés.',
     inci: '1,2-HEXANEDIOL, GALACTOMYCES FERMENT FILTRATE',
     url: 'https://www.skinsafeproducts.com/mixsoon-galactomyces-toner-10-14-fl-oz-300-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/80CE54A9537CA0/large_1713830641.jpeg?1713830641',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mixsoon-galactomyces-toner.webp',
     tags: {
       primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.ECLAT, TAG_SLUGS.PORES_DILATES],
       secondary: [TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.SANS_PARFUM],
@@ -558,8 +549,7 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
       'Actifs clés : Houttuynia Cordata Extract (Heartleaf), Butylene Glycol. Idéal pour peaux sensibles et acnéiques.',
     inci: 'AQUA, BUTYLENE GLYCOL, HOUTTUYNIA CORDATA EXTRACT',
     url: 'https://www.skinsafeproducts.com/mixsoon-heartleaf-essence-3-38-fl-oz-200-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/EC94C49A2D17CB/large_1715895511.jpeg?1715895511',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mixsoon-heartleaf-essence.webp',
     tags: {
       primary: [TAG_SLUGS.ESSENCE, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.APAISANT],
       secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.SANS_PARFUM],

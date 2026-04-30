@@ -17,6 +17,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: 'Note: 4.6/5. Convient dès la naissance. Équilibre le microbiome cutané.',
     inci: 'AQUA / WATER / EAU, GLYCERIN, SUCROSE, SODIUM LAURETH SULFATE, COCO-BETAINE, SODIUM CHLORIDE, CITRIC ACID, SODIUM HYDROXIDE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, VITREOSCILLA FERMENT, NIACINAMIDE, PEG-75 SHEA BUTTER GLYCERIDES, PENTYLENE GLYCOL, POLYSORBATE 20, SODIUM BENZOATE, PARFUM / FRAGRANCE',
     url: 'https://www.laroche-posay.fr',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-huile-lavante-ap-plus.webp',
     tags: {
       primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_ATOPIQUE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -117,6 +118,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: `4 formes d'AH. Vitamine B5. Madecassoside.`,
     inci: 'WATER, GLYCERIN, ALCOHOL DENAT., PROPYLENE GLYCOL, PANTHENOL, PENTYLENE GLYCOL, DIMETHICONE, PEG-6 CAPRYLIC/CAPRIC GLYCERIDES, ALPINIA GALANGA LEAF EXTRACT, CALCIUM CHLORIDE, GLYCERYL ISOSTEARATE, PPG-6-DECYLTETRADECETH-30, SODIUM ACETYLATED HYALURONATE, SODIUM HYALURONATE, ALGIN, ADENOSINE, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, PROPANEDIOL, HYDROLYZED HYALURONIC ACID, HYDROXYACETOPHENONE, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CITRIC ACID, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, ACETYL GLUCOSAMINE, XANTHAN GUM, BUTYLENE GLYCOL, 1,2-HEXANEDIOL, TOCOPHEROL, PHENOXYETHANOL, PARFUM',
     url: 'https://www.laroche-posay.fr',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-hyalu-b5-serum.webp',
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_AGE],
       secondary: [
@@ -166,6 +168,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: 'Niacinamide. Zinc PCA. Acide salicylique + LHA. Texture gel-crème.',
     inci: 'WATER, GLYCERIN, DIMETHICONE, ISOCETYL STEARATE, NIACINAMIDE, ISOPROPYL LAUROYL SARCOSINATE, SILICA, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, ORYZA SATIVA STARCH, PUNICA GRANATUM PERICARP EXTRACT, POTASSIUM CETYL PHOSPHATE, SORBITAN OLEATE, ZINC PCA, GLYCERYL STEARATE SE, ISOHEXADECANE, SODIUM HYDROXIDE, MYRISTYL MYRISTATE, 2-OLEAMIDO-1,3-OCTADECANEDIOL, MANNOSE, POLOXAMER 338, PROPANEDIOL, HYDROXYETHOXYPHENYL BUTANONE, CAPRYLOYL SALICYLIC ACID, CAPRYLYL GLYCOL, VITREOSCILLA FERMENT, CITRIC ACID, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, MALTODEXTRIN, XANTHAN GUM, PENTYLENE GLYCOL, POLYSORBATE 80, ACRYLAMIDE/SODIUM ACRYLOYLDIMETHYLTAURATE COPOLYMER, SALICYLIC ACID, PIROCTONE OLAMINE, PARFUM',
     url: 'https://www.laroche-posay.fr',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-duo-m.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.POST_ACNE, TAG_SLUGS.PEAU_GRASSE],
       secondary: [
@@ -227,6 +230,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: 'Panthénol. Madecassoside. Zinc. Protection minérale.',
     inci: 'WATER, HYDROGENATED POLYISOBUTENE, DIMETHICONE, GLYCERIN, BUTYROSPERMUM PARKII BUTTER, PANTHENOL, PROPANEDIOL, BUTYLENE GLYCOL, ALUMINUM STARCH OCTENYLSUCCINATE, CETYL PEG/PPG-10/1 DIMETHICONE, TRIHYDROXYSTEARIN, ZINC GLUCONATE, MADECASSOSIDE, MANGANESE GLUCONATE, SILICA, ALUMINUM HYDROXIDE, MAGNESIUM SULFATE, DISODIUM EDTA, COPPER GLUCONATE, CAPRYLOYL GLYCINE, CITRIC ACID, ACETYLATED GLYCOL STEARATE, POLYGLYCERYL-4 ISOSTEARATE, TOCOPHEROL, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, CI 77891',
     url: 'https://www.laroche-posay.fr',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-cicaplast-baume-b5-spf50.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CICATRISATION, TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
@@ -279,6 +283,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes:
       'Contient du Sphingobioma et de la Neurosensine. Pigments verts correcteurs pour un effet camouflage instantané. Texture gel-crème veloutée. Sans parfum.',
     inci: 'WATER, GLYCERIN, ISOSTEARYL NEOPENTANOATE, BUTYLENE GLYCOL, BORON NITRIDE, BUTYROSPERMUM PARKII BUTTER / SHEA BUTTER, CI 77891 / TITANIUM DIOXIDE, PENTYLENE GLYCOL, HYDROGENATED COCO-GLYCERIDES, POLYSORBATE 20, ZEA MAYS STARCH / CORN STARCH, SCHISANDRA SPHENANTHERA FRUIT EXTRACT, TIN OXIDE, SORBITAN OLEATE, GLYCERYL ACRYLATE/ACRYLIC ACID COPOLYMER, GLYCERYL STEARATE CITRATE, ISOHEXADECANE, SPHINGOMONAS FERMENT EXTRACT, SILICA, ALUMINUM HYDROXIDE, MANNITOL, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, HYDROGENATED LECITHIN, CAPRYLYL GLYCOL, CITRIC ACID, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, ACETYL DIPEPTIDE-1 CETYL ESTER, MALTODEXTRIN, POLYSORBATE 80, ACRYLAMIDE/SODIUM ACRYLOYLDIMETHYLTAURATE COPOLYMER, MICA, CI 77288 / CHROMIUM OXIDE GREENS, CI 77491 / IRON OXIDES, CI 77492 / IRON OXIDES, CI 77499 / IRON OXIDES',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-rosaliac-ar.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ROSACEE, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
@@ -325,6 +330,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: 'Occlusion 6/10. Texture crème légère. Répare et réduit imperfections/marqués.',
     inci: 'WATER, GLYCERIN, SQUALANE, DIMETHICONE, PANTHENOL, ZEA MAYS STARCH/CORN STARCH, NIACINAMIDE, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, MYRISTYL MYRISTATE, BIXA ORELLANA SEED EXTRACT, STEARIC ACID, POTASSIUM CETYL PHOSPHATE, GLYCERYL STEARATE SE, SODIUM HYDROXIDE, MYRISTIC ACID, 2-OLEAMIDO-1,3-OCTADECANEDIOL, PALMITIC ACID, HYDROXYACETOPHENONE, CAPRYLOYL GLYCINE, CAPRYLYL GLYCOL, VITREOSCILLA FERMENT, CITRIC ACID, MALTODEXTRIN, XANTHAN GUM, PARFUM/FRAGRANCE',
     url: 'https://www.laroche-posay.fr',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-h-iso-biome.webp',
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -476,6 +482,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: 'Sebulyse. Zinc. Perlite absorbante. LHA.',
     inci: 'WATER, GLYCERIN, DIMETHICONE, ISOCETYL STEARATE, ALCOHOL DENAT., SILICA, DIMETHICONE/VINYL DIMETHICONE CROSSPOLYMER, ACRYLAMIDE/SODIUM ACRYLOYLDIMETHYLTAURATE COPOLYMER, METHYL METHACRYLATE CROSSPOLYMER, BUTYLENE GLYCOL, PEG-100 STEARATE, COCAMIDE MEA, SARCOSINE, GLYCERYL STEARATE, TRIETHANOLAMINE, ISOHEXADECANE, PERLITE, CAPRYLOYL SALICYLIC ACID, TETRASODIUM EDTA, PENTYLENE GLYCOL, POLYSORBATE 80, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, SALICYLIC ACID, PARFUM',
     url: 'https://www.laroche-posay.fr',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-mat.webp',
     tags: {
       primary: [TAG_SLUGS.BRILLANCE, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.PEAU_GRASSE],
       secondary: [
@@ -521,6 +528,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: 'Niacinamide. Céramide NP. Sans parfum.',
     inci: 'WATER, GLYCERIN, SQUALANE, DIMETHICONE, ZEA MAYS STARCH, NIACINAMIDE, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, MYRISTYL MYRISTATE, STEARIC ACID, CERAMIDE NP, POTASSIUM CETYL PHOSPHATE, GLYCERYL STEARATE SE, SODIUM HYDROXIDE, MYRISTIC ACID, PALMITIC ACID, CAPRYLOYL GLYCINE, CAPRYLYL GLYCOL, XANTHAN GUM',
     url: 'https://www.laroche-posay.fr',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-sensitive.webp',
     tags: {
       primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -674,6 +682,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
       '4.6 ★. Beurre de karité (20%) + Niacinamide + Eau thermale. Confort immédiat, habillage rapide. Sans parfum. Idéal climats chauds. Toute la famille.',
     inci: 'WATER, BUTYROSPERMUM PARKII BUTTER/SHEA BUTTER, GLYCERIN, ISOPROPYL PALMITATE, DIMETHICONE, CAPRYLIC/CAPRIC TRIGLYCERIDE, CETEARYL ALCOHOL, NIACINAMIDE, PEG-100 STEARATE, GLYCERYL STEARATE, SODIUM HYDROXIDE, CARBOMER, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, CAPRYLYL GLYCOL, CITRIC ACID, VITREOSCILLA FERMENT, XANTHAN GUM, PENTYLENE GLYCOL',
     url: 'https://www.laroche-posay.fr',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-lait.webp',
     tags: {
       primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -726,6 +735,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: 'Innovation microbiome avec Phylobioma. Action anti-imperfections en profondeur.',
     inci: 'AQUA / WATER, SODIUM LAURETH SULFATE, PEG-8, COCO-BETAINE, HEXYLENE GLYCOL, SODIUM CHLORIDE, PUNICA GRANATUM PERICARP EXTRACT, ZINC PCA, PEG-120 METHYL GLUCOSE DIOLEATE, SODIUM CITRATE, SODIUM HYDROXIDE, CAPRYLYL GLYCOL, CITRIC ACID, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, MALTODEXTRIN, PENTYLENE GLYCOL, TOCOPHEROL, SODIUM BENZOATE, PHENOXYETHANOL, PARFUM / FRAGRANCE',
     url: 'https://www.laroche-posay.fr',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-gel.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.PEAU_GRASSE],
       secondary: [
@@ -867,8 +877,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, sodium laureth sulfate, polysorbate 20, peg-200 hydrogenated glyceryl palmate, glycerin, sodium chloride, cocamidopropyl betaïne, cocamide mea, citric acid, hexylene glycol, alcohol, peg-7 glyceryl cocoate, polyquaternium-10, salicylic acid, sodium acetate, sodium benzoate, sodium hydroxide, parfum, fragrance.',
     url: 'https://www.atida.fr/la-roche-posay-kerium-shampooing-gel-physiologique-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/a6f29ab9-3872-408a-8f9c-6e3cd7200b70/La-Roche-Posay-Kerium-Shampoing-Apaisant-Gel-Physiologique-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-kerium-shampoing-apaisant-gel-physiologique-400ml-268326.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION],
       secondary: [
@@ -896,8 +905,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '1084204 D - INGREDIENTS: AQUA / WATER / EAU • SODIUM LAURETH SULFATE • COCAMIDE MEA • GLYCERIN • CAPRYLOYL GLYCINE • COCO-BETAINE • LAURETH-5 CARBOXYLIC ACID • SALICYLIC ACID • COCAMIDE MIPA • SODIUM HYDROXIDE • PIROCTONE OLAMINE • ISOPROPYL MYRISTATE • CAPRYLOYL SALICYLIC ACID • HEXYLENE GLYCOL • NIACINAMIDE • PEG-55 PROPYLENE GLYCOL OLEATE • POLYQUATERNIUM-10 • PROPYLENE GLYCOL • SODIUM BENZOATE • SODIUM CHLORIDE • PARFUM / FRAGRANCE (F.I.L. N70016807/1).\nLes listes d’ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d’utiliser un produit de notre marque, vous êtes invités à lire la liste d’ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle',
     url: 'https://www.atida.fr/la-roche-posay-kerium-ds-125ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/f85018af-aea5-47ac-83d7-67ef099180ea/La-Roche-Posay-Kerium-Shampoing-Antipelliculaire-Pellicules-Persistantes-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-kerium-ds-shampoing-antipelliculaire-pellicules-persistantes-200ml-257932.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.PORES_DILATES],
       secondary: [
@@ -925,8 +933,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua / water, sodium laureth sulfate, cocamidopropyl betaine, cocamide mipa, glycerin, sodium chloride, capryloyl glycine, capryloyl salicylic acid, citric acid, glyceryl laurate, hexylene glycol, iodopropynyl butylcarbamate, isopropyl alcohol, peg-4, peg-4 dilaurate, peg-4 laurate, piroctone olamine, polyquaternium-10, salicylic acid, sodium acetate, sodium benzoate, sodium hydroxide, zinc pca, parfum / fragrance (f.i.l. c206747/1).',
     url: 'https://www.atida.fr/la-roche-posay-kerium-pellicules-grasses-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/2ae157cd-4d57-4d74-8c4d-ed51f831fc5e/La-Roche-Posay-Kerium-Shampoing-Antipelliculaire-Cheveux-Gras-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-kerium-shampoing-antipelliculaire-cheveux-gras-200ml-258193.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION],
       secondary: [
@@ -954,8 +961,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '714327 01 - INGREDIENTS: AQUA / WATER / EAU • GLYCERIN • SUCROSE • SODIUM LAURETH SULFATE • COCO-BETAINE • SODIUM CHLORIDE • CITRIC ACID • SODIUM HYDROXIDE • TRISODIUM ETHYLENEDIAMINE DISUCCINATE • VITREOSCILLA FERMENT • NIACINAMIDE • PEG-75 SHEA BUTTER GLYCERIDES • PENTYLENE GLYCOL • POLYSORBATE 20 • SODIUM BENZOATE • PARFUM / FRAGRANCE (F.I.L. N70019790/1). Les listes d’ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d’utiliser un produit de notre marque, vous êtes invités à lire la liste d’ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle',
     url: 'https://www.atida.fr/la-roche-posay-lipikar-ap-huile-lavante-peaux-tendance-eczema-atopique-eco-recharge-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/81ccdf42-a8a3-49bb-9a3d-04e3daeb4570/Generated-image?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-huile-lavante-ap-relipidante-eco-recharge-400ml-278396.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -981,8 +987,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'INGREDIENTS: AQUA / WATER / EAU • GLYCERIN • SUCROSE • SODIUM LAURETH SULFATE • COCO-BETAINE • SODIUM CHLORIDE • CITRIC ACID • SODIUM HYDROXIDE • TRISODIUM ETHYLENEDIAMINE DISUCCINATE • VITREOSCILLA FERMENT • NIACINAMIDE • PEG-75 SHEA BUTTER GLYCERIDES • PENTYLENE GLYCOL • POLYSORBATE 20 • SODIUM BENZOATE • PARFUM / FRAGRANCE  Les listes d’ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d’utiliser un produit de notre marque, vous êtes invités à lire la liste d’ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle',
     url: 'https://www.atida.fr/la-roche-posay-lipikar-huile-lavante-ap-relipidante-anti-grattage-1l.html',
-    imageUrl:
-      'https://assets.atida.com/transform/236488c8-9b15-407b-b997-4be42c842fd9/La-Roche-Posay-Lipikar-Huile-Lavante-Ap-Relipidante-Anti-Grattage-1L?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-huile-lavante-ap-relipidante-anti-grattage-peau-seche-1l-278584.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -1008,8 +1013,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '714327 01 - INGREDIENTS: AQUA / WATER / EAU • GLYCERIN • SUCROSE • SODIUM LAURETH SULFATE • COCO-BETAINE • SODIUM CHLORIDE • CITRIC ACID • SODIUM HYDROXIDE • TRISODIUM ETHYLENEDIAMINE DISUCCINATE • VITREOSCILLA FERMENT • NIACINAMIDE • PEG-75 SHEA BUTTER GLYCERIDES • PENTYLENE GLYCOL • POLYSORBATE 20 • SODIUM BENZOATE • PARFUM / FRAGRANCE (F.I.L. N70019790/1).',
     url: 'https://www.atida.fr/la-roche-posay-lot-lipikar-huile-lavante-ap-relipidante-anti-grattage-2x750ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/6104bb07-f694-46a2-a876-52ece595e838/La-Roche-Posay-Lot-Lipikar-Huile-Lavante-AP-Relipidante-Anti-Grattage-2x750ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lot-lipikar-huile-lavante-ap-relipidante-anti-grattage-2x1l-300356.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -1035,8 +1039,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua / water, glycerin, sodium laureth sulfate, peg-200 hydrogenated glyceryl palmate, coco-betaine, polysorbate 20, citric acid, peg-7 glyceryl cocoate, niacinamide, acrylates copolymer, butyrospermum parkii butter / shea butter, cocamide mea, disodium edta, glycol distearate, mannose, polyquaternium-11, sodium benzoate, sodium chloride, sodium hydroxide, vitreoscilla ferment (f.i.l. c223382/1).',
     url: 'https://www.atida.fr/la-roche-posay-lipikar-ap-syndet-creme-lavante-peaux-tendance-eczema-atopique-eco-recharge-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/fecca45c-970e-4b13-b20b-3083c36dc24a/La-Roche-Posay-Lipikar-Syndet-AP-Creme-Lavante-Relipidante-Eco-Recharge-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-syndet-ap-creme-lavante-relipidante-eco-recharge-400ml-278397.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -1062,8 +1065,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/la-roche-posay-lipikar-routine-peau-seche-huile-lavante-ap-anti-irritation-750ml-baume-ap-m-triple-reparation-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/23049435-0939-459b-9fe5-933826a10924/La-Roche-Posay-Lipikar-Routine-Peau-Seche-Huile-Lavante-AP-Anti-Irritation-1L-Baume-AP-M-Triple-Reparation-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-routine-peau-seche-huile-lavante-ap-anti-irritation-1l-baume-ap-m-triple-reparation-400ml-299915.webp',
     tags: {
       primary: [TAG_SLUGS.SOIN_LEVRES],
       secondary: [TAG_SLUGS.ZONE_LEVRES],
@@ -1084,8 +1086,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua/water, glycerin, sodium laureth sulfate, peg-200 hydrogenated glyceryl palmate, coco-betaine, polysorbate 20, peg-7 glyceryl cocoate, niacinamide, acrylates copolymer, butyrospermum parkii butter/sheabutter, citric acid, cocamide mea, disodium edta, mannose, polyquaternum-11, sodiumbenzoate, sodiumchloride, sodium hydroxide, styrene/acrylates copolymer, vitreoscilla ferment.',
     url: 'https://www.atida.fr/la-roche-posay-lipikar-ap-syndet-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/0f97a3db-ecda-4641-9822-74b7b9e76e08/La-Roche-Posay-Lipikar-Syndet-AP-Creme-Lavante-Relipidante-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-syndet-ap-creme-lavante-relipidante-peaux-seches-400ml-267438.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -1111,8 +1112,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua/water, sorbitol, sodium laureth sulfate, peg-60 hydrogenated castor oil, peg-7 glyceryl cocoate, cocamide mea, coco-betaine, ceteareth-60 myristyl glycol, citric acid, hydroxypropyl guar hydroxypropyltrimonium chloride, niacinamide, parfum/fragrance, peg-55 propylene glycol oleate, peg-75 shea butter glycerides, ppg-5-ceteth-20, propylene glycol, sodium benzoate, sodium chloride, sodium hydroxide. code fil : c41700/1.',
     url: 'https://www.atida.fr/la-roche-posay-lipikar-ap-huile-lavante-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/6c9f5689-acee-424f-a0d4-ba3d949e8fcc/La-Roche-Posay-Lipikar-Huile-Lavante-AP-Anti-Irritation-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-huile-lavante-ap-anti-irritation-400ml-269453.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [TAG_SLUGS.SEBO_REGULATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -1133,8 +1133,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'GLYCERYL PALMATE • GLYCERIN • COCO-BETAINE • POLYSORBATE 20 • PEG-7 GLYCERYL COCOATE • PPG-5-CETETH-20 • CITRIC ACID • SODIUM HYDROXIDE • NIACINAMIDE • PRUNUS AMYGDALUS DULCIS OIL / SWEET ALMOND OIL • COCAMIDE MEA • PEG-55 PROPYLENE GLYCOL OLEATE • PEG-60 HYDROGENATED CASTOR OIL • PEG-75 SHEA BUTTER GLYCERIDES • POLYQUATERNIUM-11 • PROPYLENE GLYCOL • SODIUM CHLORIDE • DISODIUM EDTA • SODIUM BENZOATE • PARFUM / FRAGRANCE  Les listes d’ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d’utiliser un produit de notre marque, vous êtes invités à lire la liste d’ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle',
     url: 'https://www.atida.fr/la-roche-posay-lipikar-gel-lavant-apaisant-protecteur-1l.html',
-    imageUrl:
-      'https://assets.atida.com/transform/1d8687f6-0939-441b-b3e6-1eacafe54e8d/La-Roche-Posay-Lipikar-Gel-Lavant-Apaisant-Protecteur-1L?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-gel-lavant-apaisant-peaux-sensibles-de-la-famille-1l-278585.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -1161,8 +1160,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '744662 21 - INGREDIENTS: AQUA / WATER • SODIUM LAURETH SULFATE • PANTHENOL • PEG-200 HYDROGENATED GLYCERYL PALMATE • GLYCERIN • COCO-BETAINE • SODIUM CHLORIDE • POLYSORBATE 20 • PEG-7 GLYCERYL COCOATE • CITRIC ACID • COCAMIDE MEA • COPPER GLUCONATE • MANGANESE GLUCONATE • PEG-55 PROPYLENE GLYCOL OLEATE • PEG-60 HYDROGENATED CASTOR OIL • POLYQUATERNIUM-11 • PPG-5-CETETH-20 • PROPYLENE GLYCOL • PRUNUS AMYGDALUS DULCIS OIL / SWEET ALMOND OIL • SODIUM BENZOATE • SODIUM HYDROXIDE • ZINC GLUCONATE (F.I.L. C165361/2).Les listes d’ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d’utiliser un produit de notre marque, vous êtes invités à lire la liste d’ingrédients figurant sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle',
     url: 'https://www.atida.fr/la-roche-posay-cicaplast-b5-lavant-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/fedd0351-05a6-4382-b4d6-e78f21499234/La-Roche-Posay-Cicaplast-Gel-nettoyant-moussant-assainissant-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-cicaplast-gel-nettoyant-moussant-assainissant-200ml-267607.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -1189,8 +1187,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua / water, glycerin, sucrose, sodium laureth sulfate, coco-betaine, sodium chloride, citric acid, niacinamide, parfum / fragrance, peg-75 shea butter glycerides, polysorbate 20, ppg-5-ceteth-20, sodium benzoate, sodium hydroxide, vitreoscilla ferment (f.i.l. c224532/1).',
     url: 'https://www.atida.fr/la-roche-posay-lipikar-huile-lavante-ap-anti-irritation-eco-recharge-lot-2-x-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/f615a49f-7d7b-4e72-b338-c73edc0b04f8/Generated-image?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-huile-lavante-ap-anti-irritation-eco-recharge-lot-2-x-400ml-301412.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -1216,8 +1213,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Sodium palmate, sodium palm kernelate, aqua / water, sodium cocoyl amino acids, glycerin, palmitic acid, peg-7 glyceryl cocoate, butyrospermum parkii / shea butter, etidronic acid, etidronic acid, parfum / fragrance, palm kernel acid, pentasodium pentetate, sodium chloride (f.i.l. c228331/1).',
     url: 'https://www.atida.fr/la-roche-posay-lipikar-pain-surgras-150g.html',
-    imageUrl:
-      'https://assets.atida.com/transform/7f77bd14-6653-4e46-b8cd-870d01b3587d/La-Roche-Posay-Lipikar-Pain-Surgras-Anti-Dessechement-150g?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-pain-surgras-anti-dessechement-150g-279359.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -1238,8 +1234,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '714238 60 - INGREDIENTS: AQUA / WATER / EAU • GLYCERIN • SODIUM LAURETH SULFATE • PEG-200 HYDROGENATED GLYCERYL PALMATE • COCO-BETAINE • POLYSORBATE 20 • CITRIC ACID • PEG-7 GLYCERYL COCOATE • NIACINAMIDE • DISODIUM EDTA • MANNOSE • SODIUM HYDROXIDE • VITREOSCILLA FERMENT • BUTYROSPERMUM PARKII BUTTER / SHEA BUTTER • GLYCOL DISTEARATE • ACRYLATES COPOLYMER • COCAMIDE MEA • POLYQUATERNIUM-11 • SODIUM CHLORIDE • SODIUM BENZOATE (F.I.L. N286701/1).',
     url: 'https://www.atida.fr/la-roche-posay-lipikar-syndet-ap-400ml-lipikar-syndet-ap-ecorecharge-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/6ac8e685-ac6b-45bb-9d6f-b99f50ddf49f/EAN_IMG_FR_2557419049208_1?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-syndet-ap-400ml-lipikar-syndet-ap-ecorecharge-400ml-300577.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -1265,8 +1260,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '714327 01 - INGREDIENTS: AQUA / WATER / EAU • GLYCERIN • SUCROSE • SODIUM LAURETH SULFATE • COCO-BETAINE • SODIUM CHLORIDE • CITRIC ACID • SODIUM HYDROXIDE • TRISODIUM ETHYLENEDIAMINE DISUCCINATE • VITREOSCILLA FERMENT • NIACINAMIDE • PEG-75 SHEA BUTTER GLYCERIDES • PENTYLENE GLYCOL • POLYSORBATE 20 • SODIUM BENZOATE • PARFUM / FRAGRANCE (F.I.L. N70019790/1).',
     url: 'https://www.atida.fr/la-roche-posay-lipikar-huile-lavante-ap-400ml-lipikar-huile-lavante-ap-ecorecharge-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/c08ee502-32e9-4ec8-80bc-ceb9e321ed8f/EAN_IMG_FR_2551388384995_1?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-huile-lavante-ap-400ml-lipikar-huile-lavante-ap-ecorecharge-400ml-300582.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -1292,8 +1286,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua / water, ethylhexyl palmitate, propanediol, glycerin, pentylene glycol, sodium laureth sulfate, niacinamide, coco-glucoside, acrylates/c10-30 alkyl acrylate crosspolymer, zinc pca, sodium hydroxide, disodium edta, caprylyl glycol, phenoxyethanol, parfum / fragrance.',
     url: 'https://www.atida.fr/la-roche-posay-effaclar-h-creme-lavant-390ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/694cf70f-d608-4772-b805-a5ae0d926d5f/La-Roche-Posay-Effaclar-H-Creme-Lavante-390ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-h-creme-lavante-390ml-278444.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -1319,8 +1312,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/la-roche-posay-lipikar-routine-peau-seche-syndet-ap-creme-lavante-400ml-baume-ap-m-triple-reparation-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/402b1168-2021-4350-aead-c22b53cf7ef5/La-Roche-Posay-Lipikar-Routine-Peau-Seche-Syndet-AP-Creme-Lavante-400ml-Baume-AP-M-Triple-Reparation-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-routine-peau-seche-syndet-ap-creme-lavante-400ml-baume-ap-m-triple-reparation-400ml-299917.webp',
     tags: {
       primary: [TAG_SLUGS.SOIN_LEVRES],
       secondary: [TAG_SLUGS.ZONE_LEVRES],
@@ -1341,8 +1333,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua / water, peg-7 glyceryl cocoate, disodium cocoamphodiacetate, coco-betaine, sodium laureth sulfate, peg-60 hydrogenated castor oil, sodium, chloride ,peg-200 hydrogenated glyceryl palmate, glycol distearate, sodium glycolateceteareth-60 myristyl glycol, citric acid, glycerin, niacinamide parfum / fragrance, peg-55 propylene glycol oleate, peg-75 shea butter glycerides, polyquaternium-7, ppg-5-ceteth-20, propylene glycol ,sodium benzoate sodium hydroxide.',
     url: 'https://www.atida.fr/la-roche-posay-lipikar-surgras-liquide-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/381a932f-cc4b-4aa4-a336-68f317026735/La-Roche-Posay-Lipikar-Surgras-Creme-Lavante-Anti-Dessechement-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-surgras-creme-lavante-anti-dessechement-quotidien-400ml-258358.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -1368,8 +1359,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, GLYCERIN, SUCROSE, SODIUM LAURETH SULFATE, COCO-BETAINE, SODIUM CHLORIDE, CITRIC ACID, SODIUM HYDROXIDE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, VITREOSCILLA FERMENT, NIACINAMIDE, PEG-75 SHEA BUTTER GLYCERIDES, PENTYLENE GLYCOL, POLYSORBATE 20, SODIUM BENZOATE, PARFUM / FRAGRANCE (F.I.L, N70019790/1)',
     url: 'https://www.atida.fr/la-roche-posay-lot-lipikar-huile-lavante-ap-relipidante-anti-grattage-2x750ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/6104bb07-f694-46a2-a876-52ece595e838/La-Roche-Posay-Lot-Lipikar-Huile-Lavante-AP-Relipidante-Anti-Grattage-2x750ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lot-lipikar-huile-lavante-ap-relipidante-anti-grattage.webp',
     tags: {
       primary: ['barriere-cutanee', 'eczema'],
       secondary: ['nettoyant-corps', 'zone-corps', 'peau-atopique', 'apaisant'],
@@ -1393,8 +1383,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, GLYCERIN, SUCROSE, SODIUM LAURETH SULFATE, COCO-BETAINE, SODIUM CHLORIDE, CITRIC ACID, NIACINAMIDE, PARFUM / FRAGRANCE, PEG-75 SHEA BUTTER GLYCERIDES, POLYSORBATE 20, PPG-5-CETETH-20, SODIUM BENZOATE, SODIUM HYDROXIDE, VITREOSCILLA FERMENT (F.I.L, C224532/1)',
     url: 'https://www.atida.fr/la-roche-posay-lipikar-huile-lavante-ap-anti-irritation-eco-recharge-lot-2-x-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/f615a49f-7d7b-4e72-b338-c73edc0b04f8/Generated-image?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-huile-lavante-ap-anti-irritation-eco-recharge-lot-2-x.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
       secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
@@ -1416,7 +1405,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, SUCROSE, GLYCERIN, SODIUM LAURETH SULFATE, PANTHENOL, COCO-BETAINE, SODIUM CHLORIDE, PEG-200 GLYCERYL STEARATE, COPPER GLUCONATE, MAGANÈSE GLUCONATE, SODIUM HYDROXIDE, TRISODIUM ETHYLHEXYLENEDIAMINE DISUCCINATE, ZINC GLUCONATE, CITRIC ACID, ISOPROPYL MYRISTATE, COCAMIDE MEA, PEG-55 PROPYLENE GLYCOL OLEATE, PEG-7 GLYCERYL COCOATE, PENTYLENE GLYCOL, POLYSORBATE 20, PROPYLENE GLYCOL, SODIUM BENZOATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-cicaplast-b5-gel-lavant-100ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-cicaplast-b5-gel-lavant.webp',
     tags: {
       primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
       secondary: ['reparateur', 'nettoyant-corps', 'zone-corps'],
@@ -1442,7 +1431,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), GLYCERIN, BUTYLENE GLYCOL, CETEARYL ALCOHOL, NIACINAMIDE, GLYCERYL STEARATE, BUTYROSPERMUM PARKII BUTTER/SHEA BUTTER, DIMETHICONE, PEG/PPG-18/18 DIMETHICONE, GLYCERYL STEARATE SE, SODIUM POLYACRYLATE, CAPRYLYL GLYCOL, PHENOXYETHANOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-cicaplast-mains-creme-t-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-cicaplast-mains-creme-t.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
       secondary: ['sebo-regulateur', 'creme-mains', 'zone-mains'],
@@ -1467,7 +1456,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, CETEARYL ALCOHOL, BUTYLENE GLYCOL, PPG-15 STEARYL ETHER, CETEARETH-33, ZINC GLUCONATE, PERLITE, ALLANTOIN, P-ANISIC ACID, CAPRYLYL GLYCOL, CITRIC ACID, DIMETHICONE, PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-deodorant-physiologique-24-lot-de-2.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-deodorant-physiologique-24.webp',
     tags: {
       primary: ['apaisant'],
       secondary: ['deodorant'],
@@ -1492,7 +1481,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'ISOBUTENE, DIMETHICONE, TRIETHYL CITRATE, ALLANTOIN, DIMETHICONOL, ISOPROPYL PALMITATE, PERLITE, STEARALKONIUM BENTONITE, ZINC PCA, PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-deodorant-spray-24h-lot-de-2.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-deodorant-spray-24h.webp',
     tags: {
       primary: ['apaisant'],
       secondary: ['deodorant'],
@@ -1514,7 +1503,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, GLYCERIN, SODIUM LAURETH SULFATE, PEG-200 HYDROGENATED GLYCERYL PALMATE, COCO-BETAINE, POLYSORBATE 20, CITRIC ACID, PEG-7 GLYCERYL COCOATE, NIACINAMIDE, BIXA ORELLANA SEED EXTRACT, BUTYROSPERMUM PARKII BUTTER/SHEA BUTTER, COCAMIDE MEA, GLYCOL DISTEARATE, SODIUM CHLORIDE, SODIUM HYDROXIDE, MANNOSE, DISODIUM EDTA, VITREOSCILLA FERMENT, MALTODEXTRIN, POLYQUATERNIUM-11, ACRYLATES COPOLYMER, SODIUM BENZOATE, PARFUM/FRAGRANCE (F.I.L, B275139/1)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-effaclar-h-iso-biome-creme-lavante-390ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-h-iso-biome-creme-lavante-390ml.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
       secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
@@ -1540,7 +1529,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, PEG-7 GLYCERYL COCOATE, DISODIUM COCOAMPHODIACETATE, COCO-BETAINE, SODIUM LAURETH SULFATE, PEG-60 HYDROGENATED CASTOR OIL, PEG-200 HYDROGENATED GLYCERYL PALMATE, GLYCOL DISTEARATE, CETEARETH-60 MYRISTYL GLYCOL, CITRIC ACID, GLYCERIN, NIACINAMIDE, PARFUM / FRAGRANCE, PEG-55 PROPYLENE GLYCOL OLEATE, PEG-75 SHEA BUTTER GLYCERIDES, POLYQUATERNIUM-7, PPG-5-CETETH-20, PROPYLENE GLYCOL, SODIUM BENZOATE, SODIUM CHLORIDE, SODIUM HYDROXIDE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-lipikar-creme-lavante-2x400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-creme-lavante.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
       secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
@@ -1562,7 +1551,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'STICK LÈVRES : POLYETHYLENE, POLYBUTENE, BIS-DIGLYCERYL POLYACYLADIPATE-2, BUTYROSPERMUM PARKII BUTTER / SHEA BUTTER ,MYRISTYL MYRISTATE, HYDROGENATED POLYISOBUTENE , CERA ALBA / BEESWAX ,OCTYLDODECANOL, RICINUS COMMUNIS SEED OIL / CASTOR SEED , OIL, CETYL ALCOHOL, LIMNANTHES ALBA SEED OIL / MEADOWFOAM SEED OIL , CETYL PALMITATE, CI 77891 / TITANIUM DIOXIDE, RIBES NIGRUM SEED OIL / BLACK CURRANT SEED OIL , TOCOPHERYL ACETATE , TOCOPHEROL, ASCORBYL PALMITATE, HYDROXYPALMITOYL SPHINGANINE, ECHIUM PLANTAGINEUM SEED OIL , SILICA , PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE , CORIANDRUM SATIVUM SEED OIL / CORIANDER SEED OIL, CITRIC ACID , PRUNUS ARMENIACA KERNEL OIL / APRICOT KERNEL OIL , ALUMINUM HYDROXIDE , GLYCERIN, GLYCINE SOJA OIL / SOYBEAN OIL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-lipikar-creme-mains-reparatrice-stick-levres.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-creme-mains-reparatrice-stick-levres.webp',
     tags: {
       primary: ['anti-age', 'anti-oxydant', 'hydratation', 'cicatrisation'],
       secondary: ['reparateur', 'creme-mains', 'zone-mains'],
@@ -1590,7 +1579,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, SODIUM LAURETH SULFATE, PEG-200 HYDROGENATED GLYCERYL PALMATE, GLYCERIN, COCO-BETAINE, POLYSORBATE-20, PEG-7 GLYCERYL COCOATE, CITRIC ACID, COCAMIDE MEA, NIACINAMIDE, PARFUM / FRAGRANCE, PEG-55 PROPYLENE GLYCOL OLEATE, PEG-60 HYDROGENATED CASTOR OIL, PEG-75 SHEA BUTTER GLYCERIDES, POLYQUATERNIUM-11, PPG-5-CETETH-20, PROPYLÈNE GLYCOL, PRUNUS AMYGDALUS DULCIS OIL / SWEET ALMOND OIL, SODIUM BENZOATE, SODIUM CHLORIDE, SODIUM HYDROXIDE (CODE F.I.L C171589/1)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-lipikar-gel-lavant-1l.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-gel-lavant.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
       secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
@@ -1612,7 +1601,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU SODIUM LAURETH SULFATE PEG-200 HYDROGENATED GLYCERYL PALMATE GLYCERIN COCO-BETAINE POLYSORBATE 20 PEG-7 GLYCERYL COCOATE PPG-5-CETETH-20 CITRIC ACID SODIUM HYDROXIDE NIACINAMIDE PRUNUS AMYGDALUS DULCIS OIL SWEET ALMOND OIL COCAMIDE MEA PEG-55 PROPYLENE GLYCOL OLEATE PEG-60 HYDROGENATED CASTOR OIL PEG-75 SHEA BUTTER GLYCERIDES POLYQUATERNIUM-11 PROPYLENE GLYCOL SODIUM CHLORIDE DISODIUM EDTA SODIUM BENZOATE PARFUM FRAGRANCE FIL C2549371',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-lipikar-gel-lavant-apaisant-recharge-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-gel-lavant-apaisant-recharge.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'apaisant'],
       secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
@@ -1633,7 +1622,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "AQUA/WATER/EAU, BUTYROSPERMUM PARKII BUTTER/BEURRE DE KARITÉ, GLYCERIN, SORBITAN STEARATE, PARAFFINUM LIQUIDUM/HUILE MINÉRALE, ZEA MAYS STARCH/AMIDON DE MAÏS, NIACINAMIDE, BRASSICA CAMPESTRIS SEED OIL/HUILE DE COLZA, DIMETHICONE, CERA ALBA/CIRE D'ABEILLE, SORBITAN TRISTEARATE, CARBOMER, SODIUM HYDROXIDE, POLOXAMER 338, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, SUCROSE COCOATE, CAPRYLYL GLYCOL, CITRIC ACID, CETYL PALMITATE, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, CHLORHEXIDINE DIGLUCONATE, PARFUM/FRAGRANCE",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-lipikar-gel-lavant-lait-relipidant-2x400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-gel-lavant-lait-relipidant.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
       secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
@@ -1655,7 +1644,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU PEG-7 GLYCERYL COCOATE DISODIUM COCOAMPHODIACETATE COCO-BETAINE SODIUM LAURETH SULFATE PEG-60 HYDROGENATED CASTOR OIL PEG-200 HYDROGENATED GLYCERYL PALMATE GLYCOL DISTEARATE PPG-5-CETETH-20 GLYCERIN CITRIC ACID SODIUM HYDROXIDE NIACINAMIDE CETEARETH-60 MYRISTYL GLYCOL PEG-55 PROPYLENE GLYCOL OLEATE PEG-75 SHEA BUTTER GLYCERIDES POLYQUATERNIUM-7 PROPYLENE GLYCOL SODIUM CHLORIDE SODIUM BENZOATE PARFUM FRAGRANCE FIL C254949 1',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-lipikar-surgras-creme-lavante-recharge-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-surgras-creme-lavante-recharge.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
       secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
@@ -1676,7 +1665,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, CETEARYL ALCOHOL, BUTYLENE GLYCOL, PPG-15 STEARYL ETHER, CETEARETH-33, ZINC GLUCONATE, PERLITE, ALLANTOIN, P-ANISIC ACID, CAPRYLYL GLYCOL, CITRIC ACID, DIMETHICONE, PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/soins-corps/la-roche-posay-deodorant-24h-roll-on-50-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-deodorant-24h-roll-on.webp',
     tags: {
       primary: ['apaisant'],
       secondary: ['deodorant'],
@@ -1701,7 +1690,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, BUTYROSPERMUM PARKII BUTTER / SHEA BUTTER, GLYCERIN, PARAFFINUM LIQUIDUM / MINERAL OIL, OCTYLDODECANOL, PEG-30 STEARATE, GLYCERYL STEARATE, NIACINAMIDE, DIMETHICONE, CETYL ALCOHOL, CETYL ACETATE, SODIUM BENZOATE, PHENOXYETHANOL, STEARETH-10, ACETYLATED LANOLIN ALCOHOL, CAPRYLOYL GLYCINE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, BISABOLOL, TETRASODIUM EDTA, PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/soins-corps/la-roche-posay-lipikar-lait-relipidant-corps-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-lait-relipidant-corps.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
       secondary: ['sebo-regulateur', 'lait-corps', 'zone-corps'],
@@ -1723,7 +1712,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, PEG-7 GLYCERYL COCOATE, DISODIUM COCOAMPHODIACETATE, COCO-BETAINE, SODIUM LAURETH SULFATE, PEG-60 HYDROGENATED CASTOR OIL, SODIUM CHLORIDE, PEG-200 HYDROGENATED GLYCERYL PALMATE, GLYCOL DISTEARATE, SODIUM GLYCOLATE, CETEARETH-60 MYRISTYL GLYCOL, CITRIC ACID, GLYCERIN, NIACINAMIDE, PARFUM / FRAGRANCE, PEG-55 PROPYLENE GLYCOL OLEATE, PEG-75 SHEA BUTTER GLYCERIDES, POLYQUATERNIUM-7, PPG-5-CETETH-20, PROPYLENE GLYCOL, SODIUM BENZOATE, SODIUM HYDROXIDE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/soins-corps/la-roche-posay-lipikar-surgras-creme-lavante-750-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-surgras-creme-lavante.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
       secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
@@ -1745,7 +1734,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), GLYCERIN, SODIUM LAURETH SULFATE, PEG-200 HYDROGENATED GLYCERYL PALMATE, COCO-BETAINE, POLYSORBATE 20, PEG-7 GLYCERYL COCOATE, NIACINAMIDE, ACRYLATES COPOLYMER, BUTYROSPERMUM PARKII BUTTER, MANNOSE, POLYQUATERNIUM 11, SODIUM BENZOATE, SODIUM CHLORIDE, SODIUM HYDROXIDE, STYRENE/ACRYLATES COPOLYMER, VITREOSCILLA FERMENT',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/soins-corps/la-roche-posay-lipikar-syndet-ap-creme-lavante-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-syndet-ap-creme-lavante-400ml.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
       secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
@@ -1771,7 +1760,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU PEG 7 GLYCERYL COCOATE DISODIUM COCOAMPHODIACETATE COCO BETAINE SODIUM LAURETH SULFATE PEG 60 HYDROGENATED CASTOR OIL PEG 200 HYDROGENATED GLYCERYL PALMATE GLYCOL DISTEARATE PPG 5 CETETH 20 GLYCERIN CITRIC ACID SODIUM HYDROXIDE NIACINAMIDE CETEARETH 60 MYRISTYL GLYCOL PEG 55 PROPYLENE GLYCOL OLEATE PEG 75 SHEA BUTTER GLYCERIDES POLYQUATERNIUM 7 PROPYLENE GLYCOL SODIUM CHLORIDE SODIUM BENZOATE PARFUM FRAGRANCE FIL C254949 1',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/soins-corps/la-roche-posay-syndet-ap-creme-lavante-relipidiante-recharge.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-syndet-ap-creme-lavante-relipidiante-recharge.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
       secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
@@ -1792,7 +1781,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, GLYCERIN, OCTYLDODECANOL, STEARIC ACID, PEG-100 STEARATE, GLYCERYL STEARATE, PALMITIC ACID, STEARETH-10, PARAFFINUM LIQUIDUM / MINERAL OIL, DIMETHICONE, ALLANTOIN, CAPRYLOYL GLYCINE, TETRASODIUM EDTA, XANTHAN GUM, CETYL ALCOHOL, SODIUM BENZOATE, PHENOXYETHANOL, PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/corps/mains/creme-mains/la-roche-posay-lipikar-xerand-creme-mains-reparatrice-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-xerand-creme-mains-reparatrice.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'cicatrisation'],
       secondary: ['creme-mains', 'zone-mains', 'reparateur'],
@@ -1814,29 +1803,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER, SORBITOL, SODIUM LAURETH SULFATE, PEG-60 HYDROGENATED CASTOR OIL, PEG-7 GLYCERYL COCOATE, COCAMIDE MEA, COCO-BETAINE, CETEARETH-60 MYRISTYL GLYCOL, CITRIC ACID, HYDROXYPROPYL GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, NIACINAMIDE, PARFUM/FRAGRANCE, PEG-55 PROPYLENE GLYCOL OLEATE, PEG-75 SHEA BUTTER GLYCERIDES, PPG-5-CETETH-20, PROPYLENE GLYCOL, SODIUM BENZOATE, SODIUM CHLORIDE, SODIUM HYDROXIDE, CODE FIL : C41700/1',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-produits/bain-et-douche/gel-douche/la-roche-posay-lipikar-huile-lavante-ap-400-ml.html',
-    imageUrl: '',
-    tags: {
-      primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
-      avoid: [],
-    },
-    keyIngredients: [{ slug: INGREDIENT_SLUGS.NIACINAMIDE }],
-  },
-  {
-    slug: 'la-roche-posay-lipikar-gel-lavant-400ml',
-    name: 'La Roche-Posay Lipikar Gel Lavant',
-    brand: 'Roche Posay',
-    kind: 'body-wash',
-    unit: 'bottle',
-    totalAmount: 400,
-    amountUnit: 'ml',
-    priceCents: 799,
-    description:
-      'Le gel lavant Lipikar de LA ROCHE POSAY nettoie tout en douceur et redonne rapidement du confort à toutes les peaux sèches et sensibles, des nourrissons aux adultes. Visage et corps\n\nDepuis plus de 30 ans, le laboratoire LA ROCHE POSAY développe des produits dermo-cosmétiques élaborés avec de l’eau thermale de LA ROCHE POSAY riche en Sélénium aux propriétés anti-radicalaires, pour répondre à tous les besoins des peaux même les plus fragiles. La gamme LIPIKAR propose des produits à fort pouvoir émollient destinés aux soins des peaux sèches à tendance atopique chez l’enfant et l’adulte. Le gel lavant Lipikar à la base lavante douce sans savon et au pH physiologique, composé de Niacinamide, Beurre de karité (20%), et hautement concentré en eau thermale de La Roche-Posay, nettoie tout en douceur la peau, protège la peau des agressions extérieures en relipidant et reformant le film protecteur, hydrate la peau, et apaise en espaçant les périodes d’irritations et de démangeaisons. Protégée, la peau sera douce et apaisée pour longtemps après la toilette.',
-    notes: '',
-    inci: 'AQUA (WATER), SODIUM LAURETH SULFATE, PEG-200 HYDROGENATED GLYCERYL PALMITATE, GLYCERIN, COCO-BETAINE, POLYSORBATE 20, PEG-7 GLYCERYL COCOATE, CITRIC ACID, COCAMIDE MEA, NIACINAMIDE, PARFUM (FRAGRANCE), PEG-55 PROPYLENE GLYCOL OLEATE, PEG-60 HYDROGENATED CASTOR OIL, PEG-75 SHEA BUTTER GLYCERIDES, POLYQUATERNIUM-11, PPG-5-CETETH-20, PROPYLENE GLYCOL, PRUNUS AMYGDALUS OIL/SWEET ALMOND OIL, SODIUM BENZOATE, SODIUM CHLORIDE, SODIUM HYDROXIDE',
-    url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-produits/bain-et-douche/la-roche-posay-lipikar-gel-lavant-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-huile-lavante-ap.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
       secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
@@ -1858,7 +1825,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, GLYCERIN, SQUALANE, DIMETHICONE, PANTHENOL, ZEA MAYS STARCH/CORN STARCH, NIACINAMIDE, AMMONIUM POLYACRYLOYLIMETHYL TAURATE, MYRISTATE, BIXA OREILLANA SEED EXTRACT, STEARIC ACID, POTASSIUM CETYL PHOSPHATE, GLYCERYL STEARATE SE, SODIUM HYDROXIDE, MYRISTIC ACID, 2-OLEAMIDO-1,3-OCTADECANEDIOL, PALMITIC ACID, É6OLEAMIDO-1,3-OCTADECANEDIOL, PALMITIC ACID, HYDROXYACETOPHENONE, CAPRLOYL GLYCINE, CAPRYLYL GLYCOL, VITREOSCILLA FERMENT, CITRIC ACID, MALTODEXTRIN, XANTHAN GUM, PARFUM/FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/acne/la-roche-posay-effaclar-h-iso-biome-soin-reparateur-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-h-iso-biome-soin-reparateur.webp',
     tags: {
       primary: ['barriere-cutanee', 'pores-dilates', 'apaisant', 'cicatrisation'],
       secondary: [
@@ -1892,7 +1859,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, ALCOHOL DENAT, GLYCERIN, SODIUM CITRATE, PROPYLENE GLYCOL, PEG-60 HYDROGENATED CASTOR OIL, DISODIUM EDTA, CAPRYLOYL SALICYLIC ACID, CITRIC ACID, SALICYLIC ACID, PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/acne/la-roche-posay-effaclar-lotion-astringente-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-lotion-astringente.webp',
     tags: {
       primary: ['anti-acne', 'hydratation'],
       secondary: ['sebo-regulateur', 'tonique', 'preparation', 'zone-visage'],
@@ -1918,7 +1885,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, HYDROGENATED POLYISOBUTENE, DIMETHICONE, GLYCERIN, BUTYROSPERMUM PARKII BUTTER/SHEA BUTTER, PANTHENOL, ZEA MAYS STARCH/CORN STARCH, PROPANEDIOL, BUTYLENE GLYCOL, CETYL PEG/PPG-10/1 DIMETHICONE, TRIHYDROXYSTEARIN, CENTELLA ASIATICA LEAF EXTRACT, POLYMNIA SONCHIFOLIA ROOT JUICE, ZINC GLUCONATE, MADECASSOSIDE, MANGANESE GLUCONATE, ALPHA-GLUCAN OLIGOSACCHARIDE, SILICA, ALUMINUM HYDROXIDE, MAGNESIUM SULFATE, MANNOSE, CAPRYLOYL GLYCINE, CAPRYLYL GLYCOL, VITREOSCILLA FERMENT, CITRIC ACID, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, LACTOBACILLUS, ACETYLATED GLYCOL STEARATE, MALTODEXTRIN, POLYGLYCERYL-4 ISOSTEARATE, TOCOPHEROL, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, CI 77891/TITANIUM DIOXIDE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-cicaplast-b5-baume-ultra-reparateur-apaisant-100ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-cicaplast-b5-baume-ultra-reparateur-apaisant.webp',
     tags: {
       primary: ['apaisant', 'cicatrisation', 'microbiome'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -1949,7 +1916,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, PANTHENOL, GLYCERIN, ALCOHOL DENAT., DIMETHICONE, HYDROXYETHYLPIPERAZINE ETHANE SULFONIC ACID, PEG-20 METHYL GLUCOSE SESQUISTEARATE, SODIUM HYALURONATE,AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, CAPRYLYL GLYCOL, VITREOSCILLA FERMENT, CITRIC ACID, XANTHAN GUM, OCTYLDODECANOL, TOCOPHEROL, PHENOXYETHANOL (F.I.L, N284948/1)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-cicaplast-b5-serum-ultra-reparateur-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-cicaplast-b5-serum-ultra-reparateur.webp',
     tags: {
       primary: ['apaisant', 'barriere-cutanee', 'hydratation', 'cicatrisation'],
       secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
@@ -1987,37 +1954,6 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     ],
   },
   {
-    slug: 'la-roche-posay-cicaplast-baume-b5-ultra-reparateur-40ml',
-    name: 'La Roche-Posay Cicaplast Baume B5+',
-    brand: 'Roche Posay',
-    kind: 'moisturizer',
-    unit: 'tube',
-    totalAmount: 40,
-    amountUnit: 'ml',
-    priceCents: 764,
-    description:
-      'Cicaplast Baume B5+ de la ROCHE POSAY dans votre parapharmacie en ligne discount, le soin ultra-réparateur et apaisant des peaux irritées et fragilisées. Toute la famille : nourrissons, enfants à adultes. Visage, corps, lèvres\n\nLa gamme Cicaplast de LA ROCHE POSAY est composée de soins réparateurs pour les peaux abîmées de toute la famille.\n\nLe Baume B5+ Cicaplast sans parfum, est composé d’un complexe minéral (cuivre, zinc), de Madécassoside (extrait de centella asiatica), de tribioma, vitamine B5, et est enrichi en glycérine et beurre de karité. Le tribioma qui est un complexe d’actifs prébiotiques permet de rééquilibrer le microbiome cutané pour une réparation optimale de la peau irritée. Du cuivre et du zinc vont assainir la peau. La madécassoside (molécule extrait de la centella asiatica) anti-rougeurs et anti-desquamation associé à la vitamine B5, va apaiser la peau de tout inconforts. La glycérine hydrate intensément la peau pour lui redonner tout son confort et le beurre de karité va la nourrir pour la réconforter. Sa formule haute tolérance permet une application sans danger pour la peau en minimisant le risque d’allergies. Sa texture baume onctueuse sèche rapidement sans laisser de film gras ni collant en déposant à la surface de la peau un film protecteur. Dès l’application, la peau est apaisée et retrouve sa douceur',
-    notes: '',
-    inci: 'AQUA/WATER, HYDROGENATED POLYISOBUTENE, DIMETHICONE, GLYCERIN, BUTYROSPERMUM PARKII BUTTER/SHEA BUTTER, PANTHENOL, ZEA MAYS STARCH/CORN STARCH, PROPANEDIOL, BUTYLENE GLYCOL, CETYL PEG/PPG-10/1 DIMETHICONE, TRIHYDROXYSTEARIN, CENTELLA ASIATICA LEAF EXTRACT, POLYMNIA SONCHIFOLIA ROOT JUICE, ZINC GLUCONATE, ALPHA-GLUCAN OLIGOSACCHARIDE, SILICA, ALUMINIUM HYDROXIDE, MAGNESIUM SULFATE, MANNOSE, CAPRYLOYL GLYCINE, CAPRYLYL GLYCOL, VITREOSCILLA FERMENT, CITRIC ACID, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, LACTOBACILLUS, ACETYLATED GLYCOL STEARATE, MALTODEXTRIN, POLYGLYCERYL-4 ISOSTEARATE, TOCOPHEROL, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, CI 77891/TITANIUM DIOXIDE',
-    url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-cicaplast-baume-b5-40ml-ultra-reparateur.html',
-    imageUrl: '',
-    tags: {
-      primary: ['apaisant', 'cicatrisation', 'microbiome'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
-      avoid: [],
-    },
-    keyIngredients: [
-      { slug: INGREDIENT_SLUGS.HYDROGENATED_POLYISOBUTENE },
-      { slug: INGREDIENT_SLUGS.PANTHENOL },
-      { slug: INGREDIENT_SLUGS.PROPANEDIOL },
-      { slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA },
-      { slug: INGREDIENT_SLUGS.ZINC_GLUCONATE },
-      { slug: INGREDIENT_SLUGS.ALPHA_GLUCAN_OLIGOSACCHARIDE },
-      { slug: INGREDIENT_SLUGS.SILICA },
-      { slug: INGREDIENT_SLUGS.VITREOSCILLA_FERMENT },
-    ],
-  },
-  {
     slug: 'la-roche-posay-cicaplast-mains-creme-reparatrice',
     name: 'La Roche-Posay Cicaplast Mains Creme Reparatrice',
     brand: 'Roche Posay',
@@ -2031,7 +1967,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), GLYCERIN, BUTYLENE GLYCOL, CETEARYL ALCOHOL, NIACINAMIDE, GLYCERYL STEARATE, BUTYROSPERMUM PARKII BUTTER/SHEA BUTTER, DIMETHICONE, PEG/PPG-18/18 DIMETHICONE, GLYCERYL STEARATE SE, SODIUM POLYACRYLATE, CAPRYLYL GLYCOL, CITRIC ACID, TOCOPHEROL, PHENOXYETHANOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-cicaplast-mains-creme-reparatrice-100ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-cicaplast-mains-creme-reparatrice.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'cicatrisation'],
       secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -2056,7 +1992,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU AZELAIC ACID C15-19 ALKANE GLYCERIN TRIETHYL CITRATE DIGLYCERIN SALICYLIC ACID PANTHENOL SILICA AMMONIUM POLYACRYLOYLDIMETHYL TAURATE TARAXACUM OFFICINALE RHIZOME/ROOT EXTRACT - DANDELION RHIZOME/ROOT EXTRACT ZINC GLUCONATE GLYCERYL STEARATE PEG-100 STEARATE SODIUM HYALURONATE SODIUM HYDROXIDE SODIUM PHOSPHATE DISODIUM PHOSPHATE HYDROXYETHYLCELLULOSE HYDROXYPROPYL STARCH PHOSPHATE TETRASODIUM GLUTAMATE DIACETATE CITRIC ACID TRISODIUM ETHYLENEDIAMINE DISUCCINATE PENTYLENE GLYCOL POLYSORBATE 60 PARFUM / FRAGRANCE (F.I.L, N70048676/1).​',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-effaclar-az-gel-creme-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-az-gel-creme.webp',
     tags: {
       primary: ['anti-acne', 'anti-rougeurs', 'exfoliation'],
       secondary: [
@@ -2085,7 +2021,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HYDROGENATED POLY C6-20 OLEFIN CELLULOSE GUM HYDROGENATED STYRENE BUTADIENE COPOLYMER PARAFFINUM LIQUIDUM MINERAL OIL HUILE MINERALE PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE FIL N70055061 1',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-effaclar-duo-m-22-patchs-anti-imperfections.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-duo-m-22-patchs-anti-imperfections.webp',
     tags: {
       primary: ['anti-acne'],
       secondary: ['patch'],
@@ -2106,7 +2042,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER, PEG-7 CAPRYLIC/CAPRIC GLYCERIDES, POLOXAMER 124, POLOXAMER 184, PEG-6 CAPRYLIC/CAPRIC GLYCERIDES, GLYCERIN, POLYSORBATE 80, ZINC PCA, SODIUM HYDROXIDE, DISODIUM EDTA, BHT, MYRTRIMONIUM BROMIDE, PARFUM/FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-effaclar-eau-micellaire-ultra-lot-de-2x400ml-peaux-grasses.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-eau-micellaire-ultra-lot-de-2x400ml-peaux-grasses.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -2128,7 +2064,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER, PEG-7 CAPRYLIC/CAPRIC GLYCERIDES, POLOXAMER 124, POLOXAMER 184, PEG-6 CAPRYLIC/CAPRIC GLYCERIDES, GLYCERIN, POLYSORBATE 80, ZINC PCA, SODIUM HYDROXIDE, DISODIUM EDTA, BHT, MYTRIMONIUM BROMIDE, PARFUM/FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-effaclar-eau-micellaire-ultra-peaux-grasses-lot-de-2x400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-eau-micellaire-ultra-peaux-grasses.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage', 'peau-grasse'],
@@ -2150,7 +2086,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU SODIUM LAURETH SULFATE PEG-8 COCO-BETAINE HEXYLENE GLYCOL SODIUM CHLORIDE PUNICA GRANATUM PERICARP EXTRACT ZINC PCA PEG-120 METHYL GLUCOSE DIOLEATE SODIUM CITRATE SODIUM HYDROXIDE CAPRYLYL GLYCOL CITRIC ACID TRISODIUM ETHYLENEDIAMINE DISUCCINATE MALTODEXTRIN PENTYLENE GLYCOL TOCOPHEROL SODIUM BENZOATE PHENOXYETHANOL PARFUM FRAGRANCE FIL N70028514 2',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-effaclar-gel-purifiant-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-gel-purifiant.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -2171,7 +2107,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, SODIUM LAURETH SULFATE, DECYL GLUCOSIDE, GLYCERIN, SODIUM CHLORIDE, COCO-BETAINE, SALICYLIC ACID, PEG-150 PENTAERYTHRITYL TETRASTEARATE, PEG-6 CAPRYLIC/CAPRIC GLYCERIDES, ZINC GLUCONATE, SODIUM HYDROXIDE, CAPRYLOYL SALICYLIC ACID, TETRASODIUM EDTA, CITRIC ACID, MENTHOL, POLYQUATERNIUM-47, HEXYLENE GLYCOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-effaclar-gel-purifiant-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-gel-purifiant-400ml.webp',
     tags: {
       primary: ['anti-acne', 'hydratation'],
       secondary: ['sebo-regulateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -2197,7 +2133,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, KAOLIN, ARGILLA / MAGNESIUM ALUMINUM SILICATE, PROPANEDIOL, PANTHENOL, GLYCERIN, CAPRYLIC/CAPRIC TRIGLYCERIDE, CI 77891 / TITANIUM DIOXIDE, CETEARYL ALCOHOL, ZEA MAYS STARCH / CORN STARCH, CELLULOSE, CETEARETH-20, LECITHIN, CAPRYLYL GLYCOL, CITRIC ACID, XANTHAN GUM, TOCOPHEROL, PHENOXYETHANOL (F.I.L, B260438/1)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-effaclar-masque-sebo-reglateur-100ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-masque-sebo-reglateur.webp',
     tags: {
       primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
       secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
@@ -2224,7 +2160,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, ALCOHOL DENAT., PROPANEDIOL, GLYCOLIC ACID, NIACINAMIDE, DIMETHYL ISOSORBIDE, PENTYLENE GLYCOL, SALICYLIC ACID, SODIUM HYDROXIDE, PEG-60 HYDROGENATED CASTOR OIL, HYDROXYETHYLPIPERAZINE ETHANE SULFONIC ACID, CITRIC ACID, PEG-30 GLYCERYL COCOATE, CAPRYLOYL SALICYLIC ACID, BIOSACCHARIDE GUM-1, MALTODEXTRIN, PHYTIC ACID, POLYQUATERNIUM-10, PARFUM/FRAGRANCE. (CODE F.I.L. : B253157/1)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-effaclar-serum-ultra-concentre-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-serum-ultra-concentre.webp',
     tags: {
       primary: ['anti-acne', 'eclat', 'pores-dilates'],
       secondary: ['keratolytique', 'sebo-regulateur', 'serum', 'traitement', 'zone-visage'],
@@ -2254,7 +2190,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU GLYCERIN ALCOHOL DENAT PROPYLENE GLYCOL PANTHENOL PENTYLENE GLYCOL DIMETHICONE PEG6 CAPRYLICCAPRIC GLYCERIDES ALPINIA GALANGA LEAF EXTRACT CALCIUM CHLORIDE GLYCERYL ISOSTEARATE MADECASSOSIDE PPG6DECYLTETRADECETH30 SODIUM ACETYLATED HYALURONATE SODIUM HYALURONATE ALGIN ADENOSINE AMMONIUM POLYACRYLOYLDIMETHYL TAURATE PROPANEDIOL HYDROLYZED HYALURONIC ACID HYDROXYACETOPHENONE CAPRYLICCAPRIC TRIGLYCERIDE CAPRYLYL GLYCOL CITRIC ACID TRISODIUM ETHYLENEDIAMINE DISUCCINATE ACETYL GLUCOSAMINE XANTHAN GUM BUTYLENE GLYCOL 12HEXANEDIOL TOCOPHEROL PHENOXYETHANOL PARFUM FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-hyalu-b5-serum-suractive-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-hyalu-b5-serum-suractive-50ml.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'anti-age'],
       secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
@@ -2275,7 +2211,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, GLYCERIN, HYDROXYETHYLPIPERAZINE ETHANE SULFONIC ACID, NIACINAMIDE, PENTYLENE GLYCOL, PANTHENOL, SODIUM HYALURONATE, CAFFEINE, ASCORBYL GLUCOSIDE, HYDROXYACETOPHENONE, CAPRYLYL GLYCOL, CITRIC ACID, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, TESTÉ SOUS CONTRÔLE OPHTALMOLOGIQUE, CONVIENT AUX YEUX SENSIBLES',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-hyalu-b5-serum-yeux-15ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-hyalu-b5-serum-yeux.webp',
     tags: {
       primary: ['barriere-cutanee', 'pores-dilates', 'hydratation'],
       secondary: ['sebo-regulateur', 'reparateur', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
@@ -2303,7 +2239,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU GLYCERIN ISOPROPYL PALMITATE BUTYROSPERMUM PARKII BUTTER SHEA BUTTER PROPANEDIOL CETYL ALCOHOL MYRISTYL MYRISTATE ZEA MAYS STARCH CORN STARCH NIACINAMIDE OPHIOPOGON JAPONICUS ROOT EXTRACT CARBOMER SODIUM HYDROXIDE MANNOSE HYDROXYACETOPHENONE CAPRYLYL GLYCOL VITREOSCILLA FERMENT CITRIC ACID MALTODEXTRIN POLYGLYCERYL 3 METHYLGLUCOSE DISTEARATE TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-lipikar-ap-creme-relipidante-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-ap-creme-relipidante.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
       secondary: ['reparateur', 'sebo-regulateur', 'creme-hydratante', 'zone-visage'],
@@ -2324,7 +2260,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU GLYCERIN ISOPROPYL PALMITATE BUTYROSPERMUM PARKII BUTTER SHEA BUTTER PROPANEDIOL CETYL ALCOHOL MYRISTYL MYRISTATE ZEA MAYS STARCH CORN STARCH NIACINAMIDE OPHIOPOGON JAPONICUS ROOT EXTRACT CARBOMER SODIUM HYDROXIDE MANNOSE HYDROXYACETOPHENONE CAPRYLYL GLYCOL VITREOSCILLA FERMENT CITRIC ACID MALTODEXTRIN POLYGLYCERYL 3 METHYLGLUCOSE DISTEARATE TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-lipikar-ap-m-creme-relipidante-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-ap-m-creme-relipidante.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
       secondary: ['reparateur', 'sebo-regulateur', 'creme-hydratante', 'zone-visage'],
@@ -2345,7 +2281,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU BUTYROSPERMUM PARKII BUTTER SHEA BUTTER GLYCERIN DIMETHICONE NIACINAMIDE CETEARYL ALCOHOL BRASSICA CAMPESTRIS SEED OIL RAPESEED SEED OIL GLYCERYL STEARATE AMMONIUM POLYACRYLOYLDIMETHYL TAURATE PEG 100 STEARATE PROPANEDIOL OPHIOPOGON JAPONICUS ROOT EXTRACT PISUM SATIVUM EXTRACT PEA EXTRACT SORBITAN TRISTEARATE DIMETHICONOL PEG 20 METHYL GLUCOSE SESQUISTEARATE SODIUM CHLORIDE CYCLODEXTRIN MANNOSE COCO BETAINE DISODIUM EDTA CAPRYLOYL GLYCINE CAPRYLYL GLYCOL VITREOSCILLA FERMENT MALTODEXTRIN XANTHAN GUM TOCOPHEROL PENTAERYTHRITYL TETRA DI T BUTYL HYDROXYHYDROCINNAMATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-lipikar-ap-max-baume-triple-reparation-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-ap-max-baume-triple-reparation.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'cicatrisation'],
       secondary: ['reparateur', 'sebo-regulateur', 'creme-hydratante', 'zone-visage'],
@@ -2366,7 +2302,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, UREA, GLYCERIN, BUTYROSPERMUM PARKII BUTTER/SHEA BUTTER, BRASSICA CAMPESTRIS SEED OIL/RAPESEED SEED OIL, DICAPRYLYL CARBONATE, ISOPROPYL PALMITATE, PENTYLENE GLYCOL, GLYCINE, CETEARYL ALCOHOL, SILICA, STEARIC ACID, ALLANTOIN, SORBITAN OLEATE, SORBITAN TRISTEARATE, GLYCERYL STEARATE, PEG-100 STEARATE, PEG-20 METHYL GLUCOSE SESQUISTEARATE, ISOHEXADECANE, SODIUM HYDROXIDE, SODIUM LACTATE, MYRISTIC ACID, PALMITIC ACID, MANNOSE, HYDROXYACETOPHENONE, HYDROXYETHYLPIPERAZINE ETHANE SULFONIC ACID, CAPRYLYL GLYCOL, CITRIC ACID, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, XANTHAN GUM, POLYSORBATE 80, ACRYLAMIDE/SODIUM ACRYLOYLDIMETHYLTAURATE COPOLYMER, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, TOCOPHEROL, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, CHLORHEXIDINE DIGLUCONATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-lipikar-lait-urea-10-hydratant-triple-action-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-lait-urea-10-hydratant-triple-action-400ml.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'anti-oxydant'],
       secondary: ['keratolytique', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -2396,7 +2332,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, GLYCERIN, COCO-BETAINE, PROPANEDIOL, SODIUM COCOYL GLYCINATE, PEG-120 METHYL GLUCOSE DIOLEATE, SODIUM HYDROXIDE, SODIUM CHLORIDE, CITRIC ACID, GLUCONOLACTONE, CERAMIDE NP, NIACINAMIDE, 2-MERCAPTONICOTINOYL GLYCINE, SODIUM THIOSULFATE, DISODIUM EDTA, CAPRYLOYL GLYCINE, CAPRYLYL GLYCOL, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, PENTYLENE GLYCOL, ACRYLATES COPOLYMER, TOCOPHEROL, TOCOPHERYL ACETATE, PARFUM / FRAGRANCE (F.I.L, N70040253/2).​',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-mela-b3-gel-micro-peeling-unifiant-eclat-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-mela-b3-gel-micro-peeling-unifiant-eclat.webp',
     tags: {
       primary: ['barriere-cutanee', 'pores-dilates', 'eclat', 'exfoliation'],
       secondary: ['peau-sensible', 'emollience', 'sebo-regulateur', 'reparateur', 'zone-visage'],
@@ -2422,7 +2358,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, DIMETHICONE, NIACINAMIDE, GLYCERIN, PROPYLENE GLYCOL, POLYSILICONE-11, SILICA, BIS-PEG/PPG-16/16 PEG/PPG-16/16 DIMETHICONE, CYSTOSEIRA TAMARISCIFOLIA EXTRACT, 2-MERCAPTONICOTINOYL GLYCINE, PEG-20 METHYL GLUCOSE SESQUISTEARATE, SODIUM HYALURONATE, SODIUM HYDROXIDE, SODIUM THIOSULFATE, CARNOSINE, POLOXAMER 338, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, DIPOTASSIUM GLYCYRRHIZATE, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLOYL SALICYLIC ACID, CAPRYLYL GLYCOL, CITRIC ACID, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, XANTHAN GUM, PENTYLENE GLYCOL, OCTYLDODECANOL, RETINYL PALMITATE, TOCOPHEROL, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, PHENOXYETHANOL, CI 17200/RED 33, PARFUM/FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-mela-b3-serum-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-mela-b3-serum.webp',
     tags: {
       primary: ['anti-acne', 'pores-dilates', 'anti-rougeurs'],
       secondary: ['sebo-regulateur', 'reparateur', 'serum', 'traitement', 'zone-visage'],
@@ -2452,7 +2388,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'POLYETHYLENE, POLYBUTENE, BIS-DIGLYCERYL POLYACYLADIPATE-2, BUTYROSPERMUM PARKII / SHEA BUTTER, HYDROGENATED POLYISOBUTENE, MYRISTYL MYRISTATE, CERA ALBA / BEESWAX, OCTYLDODECANOL, RICINUS COMMUNIS / CASTOR SEED OIL, CETYL ALCOHOL, LIMNANTHES ALBA / MEADOWFOAM SEED OIL, CETYL PALMITATE, GLYCERIN, RIBES NIGRUM / BLACK CURRANT SEED OIL, ECHIUM LYCOPSIS / ECHIUM LYCOPSIS FRUIT OIL, CORIANDRUM SATIVUM / CORIANDER FRUIT OIL, PRUNUS ARMENIACA / APRICOT KERNEL OIL, TOCOPHERYL ACETATE, HYDROXYPALMITOYL SPHINGANINE, TETRADIBUTYL PENTAERITHRITYL HYDROXYHYDROCINNAMATE, CI 77891 / TITANIUM DIOXIDE, STEARYL ALCOHOL, GLYCINE SOJA / SOYBEAN OIL, MYRISTYL ALCOHOL ,CITRIC ACID, TOCOPHEROL, ASCORBYL PALMITATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-nutritic-stick-levres-lot-de-2.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-nutritic-stick-levres.webp',
     tags: {
       primary: ['anti-age', 'anti-oxydant', 'hydratation'],
       secondary: ['reparateur', 'soin-levres', 'zone-levres'],
@@ -2478,7 +2414,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, ASCORBIC ACID, DIMETHICONE, GLYCERIN, ALCOHOL DENAT., POTASSIUM HYDROXIDE, POLYSILICONE-11, SILICA, PENTAERYTHRITYL TETRAETHYLHEXANOATE, PEG-20 METHYL GLUCOSE SESQUISTEARATE, SODIUM HYALURONATE, ADENOSINE, POLOXAMER 338, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, HYDROLYZED HYALURONIC ACID, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CITRIC ACID, LAURETH-7, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, BIS-PEG/PPG-16/16 PEG/PPG-16/16 DIMETHICONE, ACETYL DIPEPTIDE-1 CETYL ESTER, XANTHAN GUM, PENTYLENE GLYCOL, POLYACRYLAMIDE, C13-14 ISOALKANE, TOCOPHEROL, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, SALICYLIC ACID, PARFUM / FRAGRANCE (F.I.L, N70040246/1)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-pure-vitamin-c12-serum-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-pure-vitamin-c12-serum.webp',
     tags: {
       primary: ['anti-age', 'hydratation', 'anti-acne'],
       secondary: ['reparateur', 'sebo-regulateur', 'serum', 'traitement', 'zone-visage'],
@@ -2508,7 +2444,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, GLYCERIN, CYCLOHEXASILOXANE, ALCOHOL DENAT., PENTYLENE GLYCOL, NIACINAMIDE, DIMETHICONE, GLYCINE SOJA OIL / SOYBEAN OIL, PPG-6-DECYLTETRADECETH-30, SODIUM HYALURONATE, RETINOL, ADENOSINE, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, CAPRYLYL GLYCOL, CITRIC ACID, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, XANTHAN GUM, POLYSILICONE-11, RETINYL PALMITATE, TOCOPHEROL, PHENOXYETHANOL, PARFUM / FRAGRANCE (F.I.L, B244835/1)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-retinol-b3-serum-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-retinol-b3-serum.webp',
     tags: {
       primary: ['anti-age', 'pores-dilates', 'hydratation'],
       secondary: ['sebo-regulateur', 'traitement', 'reparateur', 'serum', 'zone-visage'],
@@ -2536,7 +2472,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, ISOCETYL STEARATE, SQUALANE, BUTYROSPERMUM PARKII BUTTER / SHEA BUTTER, DIMETHICONE, GLYCERIN, ZEA MAYS STARCH / CORN STARCH, PENTYLENE GLYCOL, BUTYLENE GLYCOL, GLYCERYL STEARATE, PEG-100 STEARATE, CETYL ALCOHOL, SALVIA MILTIORRHIZA ROOT EXTRACT, DIMETHICONOL, SODIUM HYDROXIDE, SPHINGOMONAS FERMENT EXTRACT, CAPRYLYL GLYCOL, CITRIC ACID, ACETYL DIPEPTIDE-1 CETYL ESTER, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-toleriane-creme-hydratante-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-creme-hydratante.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation'],
       secondary: ['emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
@@ -2562,7 +2498,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, ETHYLHEXYL PALMITATE, GLYCERIN, DIPROPYLENE GLYCOL, CARBOMER, SODIUM HYDROXIDE, ETHYLHEXYLGLYCERIN, CAPRYL GLYCOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-toleriane-dermo-nettoyant-fluide-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-dermo-nettoyant-fluide-400ml.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -2583,7 +2519,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, GLYCERIN, PEG-7 CAPRYLIC/CAPRIC GLYCERIDES, POLOXAMER 124, POLOXAMER 184, PEG-6 CAPRYLIC/CAPRIC GLYCERIDES, POLYSORBATE 80, DISODIUM EDTA, BHT, MYRTRIMONIUM BROMIDE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-toleriane-eau-micellaire-peaux-reactives-lot-de-2x400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-eau-micellaire-peaux-reactives.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage', 'peau-reactive'],
@@ -2604,7 +2540,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, PEG-7 CAPRYLIC/CAPRIC GLYCERIDES, POLOXAMER 124, POLOXAMER 184, PEG-6 CAPRYLIC/CAPRIC GLYCERIDES, GLYCERIN, POLYSORBATE 80, DISODIUM EDTA, BHT, MYRTRIMONIUM BROMIDE, PARFUM / FRAGRANCE (F.I.L, B260177/1)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-toleriane-eau-micellaire-peaux-sensibles-lot-de-2x400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-eau-micellaire-peaux-sensibles.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage', 'peau-sensible'],
@@ -2625,7 +2561,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, UNDECANE, TRIDECANE, GLYCERIN, TITANIUM DIOXIDE [NANO] / TITANIUM DIOXIDE, POLYGLYCERYL-4 ISOSTEARATE, PENTYLENE GLYCOL, CETYL PEG/PPG-10/1 DIMETHICONE, HEXYL LAURATE, MAGNESIUM SULFATE, DISTEARDIMONIUM HECTORITE, TOCOPHEROL, STEARIC ACID, ACETYLATED GLYCOL STEARATE, ACETYL DIPEPTIDE-1 CETYL ESTER, ETHYLHEXYLGLYCERIN, TRIHYDROXYSTEARIN, CELLULOSE GUM, SILICA SILYLATE, SILICA, HELIANTHUS ANNUUS SEED OIL / SUNFLOWER SEED OIL, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, DISODIUM STEAROYL GLUTAMATE, ALUMINUM HYDROXIDE ● [+/- MAY CONTAIN: CI 77891 / TITANIUM DIOXIDE, CI 77491, CI 77492, CI 77499 / IRON OXIDES]',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-toleriane-fluide-correcteur-haute-couvrance-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-fluide-correcteur-haute-couvrance.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'spot-treatment', 'soin-localise', 'zone-visage'],
@@ -2651,7 +2587,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER ETHYLHEXYL PALMITATE GLYCERIN DIPROPYLENE GLYCOL CARBOMER SODIUM HYDROXIDE CAPRYL GLYCOL / CAPRYLYL GLYCOL ETHYLHEXYLGLYCERIN (F.I.L, B3089/6)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-toleriane-fluide-nettoyant-lot-de-2x400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-fluide-nettoyant.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -2672,7 +2608,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER, GLYCERIN, COCO-BETAINE, PROPANEDIOL, SODIUM COCOYL GLYCINATE, PEG-120 METHYL GLUCOSE DIOLEATE, SODIUM CHLORIDE, SODIUM HYDROXIDE, CITRIC ACID, CERAMIDE NP, NIACINAMIDE DISODIUM EDTA, CAPRYLOYL GLYCINE, CAPRYLYL GLYCOL, ACRYLATES COPOLYMER (CODE FIL: D240552/1)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-toleriane-gel-moussant-double-nettoyant-400-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-gel-moussant-double-nettoyant.webp',
     tags: {
       primary: ['barriere-cutanee', 'pores-dilates', 'eclat'],
       secondary: [
@@ -2703,7 +2639,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, DIPROPYLENE GLYCOL, SODIUM LAURETH SULFATE, GLYCERIN, PEG-200 HYDROGENATED GLYCERYL PALMATE, DISODIUM COCOAMPHODIACETATE, PEG-30 GLYCERYL COCOATE, PEG-7 GLYCERYL COCOATE, POTASSIUM CHLORIDE, SODIUM CHLORIDE, COCO-BETAINE, POLOXAMER 184, DISODIUM EDTA, CITRIC ACID, PHENOXYETHANOL, PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-toleriane-mousse-d-eau-micellaire-nettoyante-150ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-mousse-d-eau-micellaire-nettoyante.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -2725,7 +2661,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, GLYCERIN, SQUALENE, DIMETHICONE, ZEA MAYS STARCH / CORN STARCH, NIACINAMIDE, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, MYRISTYL MYRISTATE, STEARIC ACID, CERAMIDE NP, POTASSIUM CETYL PHOSPHATE, GLYCERYL STEARATE SE, SODIUM HYDROXIDE, MYRISTIC ACID, PALMITIC ACID, CAPRYLOYL GLYCINE, CAPRYLYL GLYCOL, XANTHAN GUM, CODE FIL : B28260/2',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-toleriane-sensitive-creme-lot-de-2x40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-sensitive-creme.webp',
     tags: {
       primary: ['barriere-cutanee', 'pores-dilates', 'eclat'],
       secondary: ['sebo-regulateur', 'emollience', 'creme-hydratante', 'zone-visage'],
@@ -2750,7 +2686,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERINE, PROPANEDIOL, PENTYLENE GLYCOL, NIACINAMIDE, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, CAPRYLYL GLYCOL, CITRIC ACID, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-toleriane-sensitive-fluide-hydratant-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-sensitive-fluide-hydratant.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'hydratation'],
       secondary: ['sebo-regulateur', 'creme-hydratante', 'zone-visage'],
@@ -2775,7 +2711,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, HEXYLENE GLYCOL, POLOXAMER 184, GLYCERIN, DISODIUM COCOAMPHODIACETATE, DISODIUM EDTA, CITRIC ACID, DIHYDROCHOLETH-30, SODIUM CHLORIDE, SODIUM DIGLYCOLATE, SODIUM GLYCOLATE, POLYAMINOPROPYL BIGUANIDE, PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/maquillage/la-roche-posay-eau-micellaire-ultra-400-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-eau-micellaire-ultra.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -2796,7 +2732,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, HEXYLENE GLYCOL, GLYCERIN, POLOXAMER 188, ZINC PCA, SODIUM LACTATE, DISODIUM COCOAMPHODIACETATE, DISODIUM EDTA, CITRIC ACID, DIHYDROCHOLETH-30, IODOPROPYNYL BUTYLCARBAMATE, POLYAMINOPROPYL BIGUANIDE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/maquillage/la-roche-posay-effaclar-eau-micellaire-purifiante-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-eau-micellaire-purifiante.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -2821,7 +2757,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER, GLYCERIN, PEG-7 CAPRYLIC/CAPRIC GLYCERIDES, POLOXAMER 124, POLOXAMER 184, PEG-6 CAPRYLIC/CAPRIC GLYCERIDES, POLYSORBATE 80, DISODIUM EDTA, BHT, MYRTRIMONIUM BROMIDE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/soins-visage/la-roche-posay-eau-micellaire-ultra-peaux-reactives-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-eau-micellaire-ultra-peaux-reactives.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage', 'peau-reactive'],
@@ -2842,7 +2778,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, HEXYLENE GLYCOL, GLYCERIN, POLOXAMER 188, ZINC PCA, SODIUM LACTATE, DISODIUM COCOAMPHODIACETATE, DISODIUM EDTA, CITRIC ACID, DIHYDROCHOLETH-30, IODOPROPYNYL BUTYLCARBAMATE, POLYAMINOPROPYL BIGUANIDE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/soins-visage/la-roche-posay-effaclar-eau-micellaire-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-eau-micellaire.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -2867,7 +2803,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, GLYCERIN, DIMETHICONE, ISOCETYL STEARATE, ALCOHOL DENAT, SILICA, DIMETHICONE/VINYL DIMETHICONE CROSSPOLYMER, ACRYLAMIDE/SODIUM ACRYLOYLDIMETHYLTAURATE COPOLYMER, METHYL METHACRYLATE CROSSPOLYMER, BUTYLENE GLYCOL, PEG-100 STEARATE, COCAMIDE MEA, SARCOSINE, GLYCERYL STEARATE, TRIETHANOLAMINE, ISOHEXADECANE, PERLITE, CAPRYLOYL SALICYLIC ACID, TETRASODIUM EDTA, PENTYLENE GLYCOL, POLYSORBATE 80, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, SALICYLIC ACID, PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/soins-visage/la-roche-posay-effaclar-mat-hydratant-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-mat-hydratant.webp',
     tags: {
       primary: ['anti-acne', 'hydratation'],
       secondary: ['sebo-regulateur', 'creme-hydratante', 'zone-visage'],
@@ -2895,7 +2831,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, PEG-8, GLYCERIN, PEG-60 HYDROGENATED CASTOR OIL, POLOXAMER 124, CITRIC ACID, CHLORHEXIDINE DIGLUCONATE, PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/soins-visage/la-roche-posay-lotion-apaisante-200-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lotion-apaisante.webp',
     tags: {
       primary: ['hydratation', 'apaisant'],
       secondary: ['tonique', 'preparation', 'zone-visage'],
@@ -2916,7 +2852,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERIN, CETEARYL ALCOHOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERYL STEARATE, ALCOHOL DENAT, ETHYLHEXYL PALMITATE, DIMETHICONE, BUTYROSPERMUM PARKII BUTTER SHEA BUTTER, MYRISTYL MYRISTATE, NIACINAMIDE, PEG-100 STEARATE, GLYCINE SOJA OIL, SOYBEAN OIL, SODIUM POLYACRYLATE, MYRISTYL MALATE PHOSPHONIC ACID, DISODIUM EDTA, CAPRYLYL GLYCOL, CITRIC ACID, TOCOPHEROL, PENTAERYTHRITYL TETRADIBUTYL HYDROXYHYDROCINNAMATE, PHENOXYETHANOL, FRAGANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/soins-visage/la-roche-posay-nutritic-intense-creme-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-nutritic-intense-creme.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
       secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -2941,7 +2877,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, GLYCERIN, BUTYLENE GLYCOL, PROPANEDIOL, BUTYROSPERMUM PARKII BUTTER / SHEA BUTTER, PENTYLENE GLYCOL, SQUALANE, POLYSORBATE 20, ZEA MAYS STARCH / CORN STARCH, SALVIA MILTIORRHIZA ROOT EXTRACT, GLYCERYL ACRYLATE/ACRYLIC ACID COPOLYMER, SPHINGOMONAS FERMENT EXTRACT, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, HYDROXYACETOPHENONE, CAPRYLYL GLYCOL, CITRIC ACID, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, ACETYL DIPEPTIDE-1 CETYL ESTER (F.I.L, B270821/1)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/soins-visage/la-roche-posay-toleriane-ultra-fluide-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-ultra-fluide.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation'],
       secondary: ['emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
@@ -2967,7 +2903,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU ISOPROPYL MYRISTATE ALCOHOL DENAT DIISOPROPYL SEBACATE ETHYLHEXYL TRIAZONE BUTYL METHOXYDIBENZOYLMETHANE BIS ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE DICAPRYLYL ETHER SILICA GLYCERIN PROPANEDIOL C12 22 ALKYL ACRYLATE HYDROXYETHYLACRYLATE COPOLYMER PANTHENOL NIACINAMIDE DROMETRIZOLE TRISILOXANE DIETHYLHEXYL BUTAMIDO TRIAZONE TRIETHANOLAMINE TOCOPHEROL METHOXYPROPYLAMINO CYCLOHEXENYLIDENE ETHOXYETHYLCYANOACETATE PHENYLBENZIMIDAZOLE SULFONIC ACID ACRYLATES C10 30 ALKYL ACRYLATE CROSSPOLYMER CITRIC ACID DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE DISODIUM PHOSPHATE HYDROXYETHYLCELLULOSE PENTYLENE GLYCOL POLYSORBATE 60 SODIUM PHOSPHATE TEREPHTHALYLIDENE DICAMPHOR SULFONIC ACID TRISODIUM ETHYLENEDIAMINE DISUCCINATE FIL N70043915 1',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-anthelios-400-fluide-ka-spf50-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-400-fluide-ka-spf50.webp',
     tags: {
       primary: ['barriere-cutanee', 'pores-dilates', 'apaisant', 'protection-solaire'],
       secondary: ['reparateur', 'sebo-regulateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2988,7 +2924,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'C12-15 ALKYL BENZOATE, GLYCERIN, OCTOCRYLENE, NIACINAMIDE, BUTYL METHOXYDIBENZOYLMETHANE, DIMETHICONE, ETHYLHEXYL TRIAZONE, SILICA, ALUMINUM STARCH OCTENYLSUCCINATE, VINYL DIMETHICONE/METHICONE SILSESQUIOXANE CROSSPOLYMER, TEREPHTHALYLIDENE DICAMPHOR SULFONIC ACID, POTASSIUM CETYL PHOSPHATE, DROMETRIZOLE TRISILOXANE, PEG-100 STEARATE, STEARYL ALCOHOL, GLYCERYL STEARATE, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, BENZYL ALCOHOL, BENZYL BENZOATE, CAPRYLOYL SALICYLIC ACID, CAPRYLYL GLYCOL, HYDROLYZED HYALURONIC ACID, PHENOXYETHANOL, PHENYLETHYL RESORCINOL, POLOXAMER 338, TOCOPHEROL, TRIETHANOLAMINE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, XANTHAN GUM, PARFUM / FRAGRANCE (F.I.L, C259210/1)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-anthelios-age-correct-spf50-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-age-correct-spf50.webp',
     tags: {
       primary: ['anti-acne', 'hydratation', 'protection-solaire'],
       secondary: [
@@ -3025,7 +2961,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-anthelios-brume-solaire-spf30-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-brume-solaire-spf30.webp',
     tags: {
       primary: ['protection-solaire'],
       secondary: ['creme-solaire', 'matin', 'zone-visage'],
@@ -3046,7 +2982,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, DIISOPROPYL SEBACATE, ALCOHOL DENAT., ETHYLHEXYL SALICYLATE, ETHYLHEXYL TRIAZONE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIISOPROPYL ADIPATE, PEG-8, DIPROPYLENE GLYCOL, C12-22 ALKYL ACRYLATE/HYDROXYETHYLACRYLATE COPOLYMER, GLYCERIN, DROMETRIZOLE TRISILOXANE, ALUMINUM STARCH OCTENYLSUCCINATE, BUTYL METHOXYDIBENZOYLMETHANE, METHOXYPROPYLAMINO CYCLOHEXENYLIDENE ETHOXYETHYLCYANOACETATE, SILICA, TOCOPHEROL, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, ACRYLATES COPOLYMER, ACRYLATES/C10/30 ALKYL ACRYLATE CROSSPOLYMER, CAPRYLYL GLYCOL, HYDROXYACETOPHENONE, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, SODIUM POLYACRYLATE, TEREPHTHALYLIDENE DICAMPHOR SULFONIC ACID, TRIETHANOLAMINE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE. (CODE F.I.L. : N283506/1)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-anthelios-creme-hydratante-sans-parfum-spf50-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-creme-hydratante-sans-parfum-spf50.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3077,7 +3013,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, DIISOPROPYL SEBACATE, ALCOHOL DENAT., ETHYLHEXYL SALICYLATE, ETHYLHEXYL TRIAZONE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIISOPROPYL ADIPATE, PEG-8, DIPROPYLENE GLYCOL, C12-22 ALKYL ACRYLATE/HYDROXYETHYLACRYLATE COPOLYMER, GLYCERIN, DROMETRIZOLE TRISILOXANE, ALUMINUM STARCH OCTENYLSUCCINATE, BUTYL METHOXYDIBENZOYLMETHANE, METHOXYPROPYLAMINO CYCLOHEXENYLIDENE ETHOXYETHYLCYANOACETATE, SILICA, TOCOPHEROL, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, ACRYLATES COPOLYMER, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CAPRYLYL GLYCOL, HYDROXYACETOPHENONE, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, SODIUM POLYACRYLATE, TEREPHTHALYLIDENE DICAMPHOR SULFONIC ACID, TRIETHANOLAMINE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, PARFUM/FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-anthelios-creme-hydratante-spf50-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-creme-hydratante-spf50.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3108,7 +3044,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER, DIISOPROPYL SEBACATE, GLYCERIN, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ALCOHOL DENAT., PROPANEDIOL, ETHYLHEXYL SALICYLATE, ETHYLHEXYL TRIAZONE, C12-22 ALKYL ACRYLATE/HYDROXYETHYLACRYLATE COPOLYMER, DROMETRIZOLE TRISILOXANE, BUTYL METHOXYDIBENZOYLMETHANE, ALUMINIUM STARCH OCTENYLSUCCINATE, CI77891/TITANIUM DIOXIDE, SILICA, TOCOPHEROL, ISOPROPYL LAUROYL SARCOSINATE, ACRYLATES COPOLYMER, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, CAPRYLYL GLYCOL, CI 77491, CI 77492, CI 77499/IRON OXIDES, CITRIC ACID, DISODIUM EDTA, SCUTELLARIA BAICALENSIS EXTRACT/SCUTELLARIA BAICALENSIS ROOT EXTRACT, T-BUTYL ALCOHOL, TEREPHTHALILYDENE DICAMPHOR SULFONIC ACID, TRIETHANOLAMINE, XANTHAN GUM, PARFUM/FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-anthelios-creme-hydratante-teintee-spf50-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-creme-hydratante-teintee-spf50.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3139,7 +3075,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, ALCOHOL DENAT., TRIETHYL CITRATE, DIISOPROPYL SEBACATE, SILICA, ETHYLHEXYL SALICYLATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ETHYLHEXYL TRIAZONE, BUTYL METHOXYDIBENZOYLMETHANE, GLYCERIN, PROPANEDIOL, C12-22 ALKYL ACRYLATE/HYDROXYETHYLACRYLATE COPOLYMER, SODIUM CITRATE, METHOXYPROPYLAMINO CYCLOHEXENYLIDENE ETHOXYETHYLCYANOACETATE, PERLITE, TOCOPHEROL, CAPRYLIC/CAPRIC TRIGLYCERIDE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CAPRYLYL GLYCOL, CITRIC ACID, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DROMETRIZOLE TRISILOXANE, HYDROXYETHYLCELLULOSE, TEREPHTHALYLIDENE DICAMPHOR SULFONIC ACID, TRIETHANOLAMINE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE (F.I.L, N295280/2)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-anthelios-fluid-oil-control-spf50-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-fluid-oil-control-spf50.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3170,7 +3106,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, ALCOHOL DENAT., SILICA, DIISOPROPYL ADIPATE, DIISOPROPYL SEBACATE, ETHYLHEXYL TRIAZONE, BUTYL METHOXYDIBENZOYLMETHANE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DICAPRYLYL CARBONATE, GLYCERIN, PROPANEDIOL, C12-22 ALKYL ACRYLATE/HYDROXYETHYLACRYLATE COPOLYMER, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, C12-15 ALKYL BENZOATE, METHOXYPROPYLAMINO CYCLOHEXENYLIDENE ETHOXYETHYLCYANOACETATE, PERLITE, DROMETRIZOLE TRISILOXANE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CITRIC ACID, DISODIUM PHOSPHATE, HYDROXYACETOPHENONE, HYDROXYETHYLCELLULOSE, 2-MERCAPTONICOTINOYL GLYCINE, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, PENTYLENE GLYCOL, POLYSORBATE 60, SODIUM PHOSPHATE, SODIUM THIOSULFATE, TEREPHTHALYLIDENE DICAMPHOR SULFONIC ACID, TOCOPHEROL, TRIETHANOLAMINE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-anthelios-fluide-anti-taches-spf50-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-fluide-anti-taches-spf50.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'anti-taches', 'hyperpigmentation'],
       secondary: ['reparateur', 'creme-solaire', 'protection-solaire', 'matin', 'zone-visage'],
@@ -3201,7 +3137,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, GLYCERIN, CAPRYLIC/CAPRIC TRIGLYCERIDE, ALCOHOL DENAT., BUTYROSPERMUM PARKII BUTTER/SHEA BUTTER, GLYCERYL STEARATE SE, OCTYLDODECANOL, CETEARYL ALCOHOL, GLYCERYL STEARATE CITRATE, TOCOPHEROL, HYDROXYACETOPHENONE, SCLEROTIUM GUM, PANTHENOL, XANTHAN GUM, PENTYLENE GLYCOL, MENTHA PIPERITA EXTRACT/PEPPERMINT EXTRACT, CAPRYLYL GLYCOL, CITRIC ACID, GLYCINE SOJA OIL/SOYBEAN OIL, PARFUM/FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-anthelios-lait-apres-soleil-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-lait-apres-soleil.webp',
     tags: {
       primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
       secondary: ['reparateur'],
@@ -3226,7 +3162,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU ALCOHOL DENAT DIISOPROPYL SEBACATE DICAPRYLYL CARBONATE BIS ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE ETHYLHEXYL TRIAZONE BUTYL METHOXYDIBENZOYLMETHANE ISOPROPYL MYRISTATE GLYCERIN CI 77891 TITANIUM DIOXIDE SILICA PROPYLENE GLYCOL DICAPRYLATE DICAPRATE POTASSIUM CETYL PHOSPHATE COPERNICIA CERIFERA CERA CARNAUBA WAX CIRE DE CARNAUBA DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE ACRYLATES C10 30 ALKYL ACRYLATE CROSSPOLYMER CHLORPHENESIN CI 77491 IRON OXIDES CI 77492 IRON OXIDES CI 77499 IRON OXIDES CITRIC ACID GLYCERYL STEARATE HYDROXYACETOPHENONE MYRISTIC ACID NIACINAMIDE PALMITIC ACID PEG 100 STEARATE PENTYLENE GLYCOL PERLITE SILICA SILYLATE SODIUM HYALURONATE STEARIC ACID TOCOPHEROL TRIETHANOLAMINE TRISODIUM ETHYLENEDIAMINE DISUCCINATE XANTHAN GUM PARFUM FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-anthelios-serum-solaire-deep-spf50-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-serum-solaire-deep-spf50.webp',
     tags: {
       primary: ['pores-dilates', 'hydratation', 'barriere-cutanee', 'protection-solaire'],
       secondary: ['reparateur', 'sebo-regulateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3247,7 +3183,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, ALCOHOL DENAT., DIISOPROPYL SEBACATE, DICAPRYLYL CARBONATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ETHYLHEXYL TRIAZONE, BUTYL METHOXYDIBENZOYLMETHANE, ISOPROPYL MYRISTATE, GLYCERIN, CI 77891 / TITANIUM DIOXIDE, SILICA, PROPYLENE GLYCOL DICAPRYLATE/DICAPRATE, POTASSIUM CETYL PHOSPHATE, COPERNICIA CERIFERA CERA / CARNAUBA WAX / CIRE DE CARNAUBA, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CHLORPHENESIN, CI 77491 / IRON OXIDES, CI 77492 / IRON OXIDES, CI 77499 / IRON OXIDES, CITRIC ACID, GLYCERYL STEARATE, HYDROXYACETOPHENONE, MYRISTIC ACID, NIACINAMIDE, PALMITIC ACID, PEG-100 STEARATE, PENTYLENE GLYCOL, PERLITE, SILICA SILYLATE, SODIUM HYALURONATE, STEARIC ACID, TOCOPHEROL, TRIETHANOLAMINE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, XANTHAN GUM, PARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-anthelios-serum-solaire-light-spf50-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-serum-solaire-light-spf50.webp',
     tags: {
       primary: ['pores-dilates', 'hydratation', 'barriere-cutanee', 'protection-solaire'],
       secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3278,7 +3214,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU ALCOHOL DENAT DIISOPROPYL SEBACATE DICAPRYLYL CARBONATE BIS ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE ETHYLHEXYL TRIAZONE BUTYL METHOXYDIBENZOYLMETHANE ISOPROPYL MYRISTATE GLYCERIN SILICA PROPYLENE GLYCOL DICAPRYLATE DICAPRATE POTASSIUM CETYL PHOSPHATE COPERNICIA CERIFERA CERA CARNAUBA WAX CIRE DE CARNAUBA DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE ACRYLATES C10 30 ALKYL ACRYLATE CROSSPOLYMER CHLORPHENESIN CITRIC ACID GLYCERYL STEARATE HYDROXYACETOPHENONE MYRISTIC ACID NIACINAMIDE PALMITIC ACID PEG 100 STEARATE PENTYLENE GLYCOL PERLITE SILICA SILYLATE SODIUM HYALURONATE STEARIC ACID TOCOPHEROL TRIETHANOLAMINE TRISODIUM ETHYLENEDIAMINE DISUCCINATE XANTHAN GUM PARFUM FRAGRANCE FIL N70056518 1',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-anthelios-serum-solaire-medium-spf50-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-serum-solaire-medium-spf50.webp',
     tags: {
       primary: ['pores-dilates', 'hydratation', 'barriere-cutanee', 'protection-solaire'],
       secondary: ['reparateur', 'sebo-regulateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3299,7 +3235,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER, ALCOHOL DENAT., TRIETHYL CITRATE, DIISOPROPYL SEBACATE, SILICA, ETHYLHEXYL SALICYLATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ETHYLHEXYL TRIAZONE, BUTYL METHOXYDIBENZOYLMETHANE, GLYCERIN, PROPANEDIOL, C12-22 ALKYLACRYLATE/HYDROXYETHYLACRYLATE COPOLYMER, METHOXYPROPYLAMINO CYCLOHEXENYLIDENE ETHOXYETHYLCYANOACETATE, PERLITE, TOCOPHEROL, CAPRYLIC/CAPRIC TRIGLYCERIDE, ACRYLATES/C10-30 ALKYLACRYLATE CROSSPOLYMER, CAPRYLYL GLYCOL, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DROMETRIZOLE TRISILOXANE,HYDROXYETHYLCELLULOSE, TEREPHTHALYLIDENE DICAMPHOR SULFONIC ACID, TRIETHANOLAMINE, TRISODIUMETHYLENEDIAMINE DISUCCINATE (CODE F.I.I. : N284630/1)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-anthelios-spf50-fluide-invisible-sans-parfum-50-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-spf50-fluide-invisible-sans-parfum.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3330,7 +3266,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, SILICA, ISOPROPYL PALMITATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ETHYLHEXYL SALICYLATE, ETHYLHEXYL TRIAZONE, BUTYL METHOXYDIBENZOYLMETHANE, DICAPRYLYL ETHER, NIACINAMIDE, DROMETRIZOLE TRISILOXANE, PHENYLBENZIMIDAZOLE SULFONIC ACID, DIISOPROPYL ADIPATE, TRIETHANOLAMINE,, GLYCERIN, ZEA MAYS STARCH/CORN STARCH, DIISOPROPYL SEBACATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, PENTYLENE GLYCOL, TOCOPHEROL, SODIUM STEAROYL GLUTAMATE, PERLITE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CAPRYLYL GLYCOL, CI 15510/ORANGE 4, CI 16035/RED 40, INULIN LAURYL CARBAMATE, ISOPROPYL LAUROYL SARCOSINATE, P-ANISIC ACID, SALICYLIC ACID, SILICA SILYLATE, SODIUM POLYACRYLATE, TEREPHTHALYLIDENE DICAMPHOR SULFONIC ACID, TITANIUM DIOXIDE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, TROMETHAMINE, XANTHAN GUM, ZINC PCA, PARFUM/FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-anthelios-spf50-oil-correct-gel-creme-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-spf50-oil-correct-gel-creme.webp',
     tags: {
       primary: ['protection-solaire', 'pores-dilates', 'anti-acne'],
       secondary: [
@@ -3368,7 +3304,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, ALCOHOL DENAT., HOMOSALATE, ETHYLHEXYL SALICYLATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ETHYLHEXYL TRIAZONE, BUTYL METHOXYDIBENZOYLMETHANE, GLYCERIN, PROPANEDIOL, C12-22 ALKYL ACRYLATE/HYDROXYETHYLACRYLATE COPOLYMER, DROMETRIZOLE TRISILOXANE, DIISOPROPYL ADIPATE, DIISOPROPYL SEBACATE, DICAPRYLYL ETHER, TOCOPHEROL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CAPRYLYL GLYCOL, SODIUM POLYACRYLATE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE (F.I.L, C236821/2)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-anthelios-spf50-spray-familial-300ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-spf50-spray-familial.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3399,7 +3335,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, ALCOHOL DENAT., HOMOSALATE, ETHYLHEXYL SALICYLATE, BUTYL METHOXYDIBENZOYLMETHANE, ETHYLHEXYL TRIAZONE, OCTOCRYLENE, GLYCERIN, PROPANEDIOL, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, C12-22 ALKYL ACRYLATE/HYDROXYETHYLACRYLATE COPOLYMER, DIISOPROPYL ADIPATE, DIISOPROPYL SEBACATE, DICAPRYLYL ETHER, TRIETHANOLAMINE, TOCOPHEROL, PHENYLBENZIMIDAZOLE SULFONIC ACID, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CAPRYLYL GLYCOL, DROMETRIZOLE TRISILOXANE, SODIUM POLYACRYLATE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, PARFUM / FRAGRANCE (F.I.L, C236830/2)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-anthelios-spf50-spray-invisible-lait-apres-soleil.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-spf50-spray-invisible-lait-apres-soleil.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'reparateur', 'matin'],
@@ -3430,7 +3366,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'RICINUS COMMUNIS SEED OIL CASTOR SEED OIL ISOPROPYL PALMITATE POLYETHYLENE ISOHEXADECANE BEHENYL BEHENATE BIS ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE ETHYLHEXYL TRIAZONE THEOBROMA CACAO SEED BUTTER COCOA SEED BUTTER DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE BUTYROSPERMUM PARKII BUTTER SHEA BUTTER PARAFFIN CERA MICROCRISTALLINA MICROCRYSTALLINE WAX CIRE MICROCRISTALLINE METHOXYPROPYLAMINO CYCLOHEXENYLIDENE ETHOXYETHYLCYANOACETATE SILICA SILYLATE DROMETRIZOLE TRISILOXANE CITRIC ACID GLYCINE SOJA OIL SOYBEAN OIL SYNTHETIC WAX TOCOPHEROL FIL N70050131 1',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-anthelios-stick-pro-resistance-spf50.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-stick-pro-resistance-spf50.webp',
     tags: {
       primary: ['anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3451,7 +3387,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'RICINUS COMMUNIS CASTOR SEED OIL ISOPROPYL PALMITATE POLYETHYLENE OCTOCRYLENE ISOHEXADECANE TITANIUM DIOXIDE OZOKERITE BUTYL METHOXYDIBENZOYLMETHANE DROMETRIZOLE TRISILOXANE THEOBROMA CACAO COCOA SEED BUTTER BUTYROSPERMUM PARKII SHEA BUTTER DIMETHICONE GLYCINE SOJA SOYBEAN OIL TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-anthelios-stick-solaire-vitamine-spf50.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-stick-solaire-vitamine-spf50.webp',
     tags: {
       primary: ['protection-solaire', 'anti-oxydant'],
       secondary: ['reparateur', 'filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3472,7 +3408,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, ISOPROPYL PALMITATE, ALCOHOL DENAT., ETHYLHEXYL TRIAZONE, BUTYL METHOXYDIBENZOYLMETHANE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, GLYCERIN, PROPANEDIOL, DICAPRYLYL ETHER, TRIETHANOLAMINE, PHENYLBENZIMIDAZOLE SULFONIC ACID, TOCOPHEROL, OXIDIZED STARCH ACETATE, COPERNICIA CERIFERA CERA / CARNAUBA WAX / CIRE DE CARNAUBA, SILICA, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, PENTYLENE GLYCOL, C12-22 ALKYL ACRYLATE/HYDROXYETHYLACRYLATE COPOLYMER, ACRYLATES COPOLYMER, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CAPRYLYL GLYCOL, CITRIC ACID, DROMETRIZOLE TRISILOXANE, HYDROXYETHYLCELLULOSE, TEREPHTHALYLIDENE DICAMPHOR SULFONIC ACID, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, XANTHAN GUM (F.I.L, N70016704/1)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-anthelios-ultra-protection-spf50-75ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-ultra-protection-spf50.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3503,7 +3439,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'ANTHELIOS UVMUNE400 SPF50+ CRÈME SOLAIRE HYDRATANTE AVEC PARFUM :AQUA / WATER / EAU, DIISOPROPYL SEBACATE, ALCOHOL DENAT., ETHYLHEXYL SALICYLATE, ETHYLHEXYL TRIAZONE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIISOPROPYL ADIPATE, PEG-8, DIPROPYLENE GLYCOL, C12-22 ALKYL ACRYLATE/HYDROXYETHYLACRYLATE COPOLYMER, GLYCERIN, DROMETRIZOLE TRISILOXANE, ALUMINUM STARCH OCTENYLSUCCINATE, BUTYL METHOXYDIBENZOYLMETHANE, METHOXYPROPYLAMINO CYCLOHEXENYLIDENE ETHOXYETHYLCYANOACETATE, SILICA, TOCOPHEROL, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, ACRYLATES COPOLYMER, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CAPRYLYL GLYCOL, HYDROXYACETOPHENONE, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, SODIUM POLYACRYLATE, TEREPHTHALYLIDENE DICAMPHOR SULFONIC ACID, TRIETHANOLAMINE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, PARFUM / FRAGRANCE (F.I.L, N283516/1)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-anthelios-uvmune-400-creme-spf50-lait-apres-soleil.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-uvmune-400-creme-spf50-lait-apres-soleil.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'reparateur', 'matin'],
@@ -3534,7 +3470,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, ISOPROPYL PALMITATE, ALCOHOL DENAT., BUTYL METHOXYDIBENZOYLMETHANE, ETHYLHEXYL TRIAZONE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, GLYCERIN, PROPANEDIOL, DICAPRYLYL ETHER, TRIETHANOLAMINE, PHENYLBENZIMIDAZOLE SULFONIC ACID, DIISOPROPYL ADIPATE, DIISOPROPYL SEBACATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, OXIDIZED STARCH ACETATE, COPERNICIA CERIFERA CERA / CARNAUBA WAX / CIRE DE CARNAUBA, METHOXYPROPYLAMINO CYCLOHEXENYLIDENE ETHOXYETHYLCYANOACETATE, PENTYLENE GLYCOL, C12-22 ALKYL ACRYLATE/HYDROXYETHYLACRYLATE COPOLYMER, ACRYLATES COPOLYMER, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, BUTYROSPERMUM PARKII BUTTER / SHEA BUTTER, CAPRYLYL GLYCOL, CITRIC ACID, DROMETRIZOLE TRISILOXANE, HYDROXYETHYLCELLULOSE, TEREPHTHALYLIDENE DICAMPHOR SULFONIC ACID, TOCOPHEROL, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-anthelios-uvmune-400-lait-hydratant-spf50-150ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-uvmune-400-lait-hydratant-spf50.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3564,7 +3500,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER, GLYCERIN, PANTHENOL, ISOPROPYL PALMITATE, C12-15 ALKYL BENZOATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ETHYLHEXYL TRIAZONE, BUTYL METHOXYDIBENZOYLMETHANE, ISOPROPYL MYRISTATE, ALCOHOL DENAT., DIMETHICONE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, PHENYLBENZIMIDAZOLE SULFONIC ACID, PENTYLENE GLYCOL, TROMETHAMINE, POTASSIUM CETYL PHOSPHATE, SILICA, SYNTHETIC WAX, BUTYLENE GLYCOL, CENTELLA ASIATICA LEAF EXTRACT, POLYMNIA SONCHIFOLIA ROOT JUICE, STEARIC ACID, STEARYL ALCOHOL, ZINC GLUCONATE, GLYCERYL STEARATE, MADECASSOSIDE, TRIETHANOLAMINE, TEREPHTHALYLIDENE DICAMPHOR SULFONIC ACID, MANGANESE GLUCONATE, PEG-100 STEARATE, ALPHA-GLUCAN OLIGOSACCHARIDE, MYRISTIC ACID, 2-OLEAMIDO-1,3 OCTADECANEDIOL, PALMITIC ACID, MANNOSE, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, ISOPROPYL LAUROYL SARCOSINATE, HYDROXYPROPYL METHYLCELLULOSE, CAPRYLYL GLYCOL, VITREOSCILLA FERMENT, CITRIC ACID, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, LACTOBACILLUS, MALTODEXTRIN, XANTHAN GUM, TOCOPHEROL, PHENOXYETHANOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-cicaplast-baume-b5-spf50-ultra-reparateur-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-cicaplast-baume-b5-spf50-ultra-reparateur.webp',
     tags: {
       primary: ['apaisant', 'cicatrisation', 'microbiome', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3595,7 +3531,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, GLYCERIN, OCTOCRYLENE, HOMOSALATE, ETHYLHEXYL SALICYLATE, BUTYL METHOXYDIBENZOYLMETHANE, ALCOHOL DENAT., DIMETHICONE, PENTYLENE GLYCOL, DROMETRIZOLE TRISILOXANE, DIBUTYL LAUROYL GLUTAMIDE, ETHYLHEXYL TRIAZONE, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, CAPRYLYL GLYCOL, CI 42090 / BLUE 1, DEXTRIN PALMITATE, DIMETHICONE/VINYL DIMETHICONE CROSSPOLYMER, PANTHENOL, PHENOXYETHANOL, POLY C10-30 ALKYL ACRYLATE, SODIUM HYALURONATE, T-BUTYL ALCOHOL, TOCOPHEROL, XANTHAN GUM, PARFUM / FRAGRANCE (F.I.L, C263990/1)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-hyalu-b5-aquagel-spf30-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-hyalu-b5-aquagel-spf30.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'apaisant'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3626,7 +3562,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-hyalu-b5-creme-suractive-spf30-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-hyalu-b5-creme-suractive-spf30.webp',
     tags: {
       primary: ['protection-solaire'],
       secondary: ['creme-solaire', 'matin', 'zone-visage'],
@@ -3647,7 +3583,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU GLYCERIN C1215 ALKYL BENZOATE DIISOPROPYL SEBACATE PHENYLBENZIMIDAZOLE SULFONIC ACID ALCOHOL DENAT BISETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE TRIETHANOLAMINE PANTHENOL DIMETHICONE ETHYLHEXYL TRIAZONE BUTYL METHOXYDIBENZOYLMETHANE OCTYLDODECANOL CETYL ALCOHOL BEHENYL ALCOHOL ZEA MAYS STARCH CORN STARCH ALPINIA GALANGA LEAF EXTRACT STEARIC ACID SORBITAN ISOSTEARATE CETEARYL ALCOHOL CETEARYL GLUCOSIDE PEG100 STEARATE SODIUM HYALURONATE SODIUM HYDROXIDE SODIUM POLYACRYLATE STARCH SODIUM STEAROYL GLUTAMATE MYRISTIC ACID PALMITIC ACID ADENOSINE AMMONIUM POLYACRYLOYLDIMETHYL TAURATE HYDROXYACETOPHENONE HYDROXYETHYL ACRYLATE SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER CAPRYLIC CAPRIC TRIGLYCERIDE CAPRYLOYL SALICYLIC ACID CITRIC ACID TRISODIUM ETHYLENEDIAMINE DISUCCINATE ACETYL GLUCOSAMINE XANTHAN GUM PENTYLENE GLYCOL PHYT IC ACID POLY C1030 ALKYL ACRYLATE POLYEPSILON LYSINE POLYSORBATE 60 BUTYLENE GLYCOL PHENOXYETHANOL PARFUM FRAGRANCE FIL N70056914 1',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-hyalu-b5-recharge-creme-suractive-spf30-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-hyalu-b5-recharge-creme-suractive-spf30.webp',
     tags: {
       primary: ['anti-acne', 'exfoliation', 'anti-age', 'protection-solaire'],
       secondary: [
@@ -3676,7 +3612,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER - GLYCERIN - CAPRYLYL METHICONE - DIMETHICONE - PHENYLBENZIMIDAZOLE SULFONIC ACID - PROPANEDIOL - PENTYLENE GLYCOL - DIMETHICONE/PEG-10/15 CROSSPOLYMER - TOCOPHEROL - SODIUM HYDROXIDE - SODIUM CHLORIDE - HYDROXYACETOPHENONE - HYDROXYETHYLPIPERAZINE ETHANE SULFONIC ACID - SODIUM HYALURONATE - HYDROLYZED HYALURONIC ACID - SODIUM CITRATE - PHENOXYETHANOL - TRIETHOXYSILYLETHYL POLYDIMETHYLSILOXYETHYL DIMETHICONE - TRISODIUM ETHYLENEDIAMINE DISUCCINATE - CHLORPHENESIN - ISOPROPYL TITANIUM TRIISOSTEARATE - ALOE BARBADENSIS LEAF JUICE POWDER - DIPROPYLENE GLYCOL - CITRIC ACID - ALUMINA - PARFUM / FRAGRANCE ? [+/- MAY CONTAIN : CI 77891 / TITANIUM DIOXIDE - CI 77491, CI 77492, CI 77499 / IRON OXIDES]. (F.I.L, Z286759/2)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-hydraphase-bb-creme-spf15-teinte-claire-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-hydraphase-bb-creme-spf15-teinte-claire.webp',
     tags: {
       primary: ['hydratation', 'repulpant', 'apaisant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3698,7 +3634,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER - GLYCERIN - CAPRYLYL METHICONE - DIMETHICONE - PHENYLBENZIMIDAZOLE SULFONIC ACID - PROPANEDIOL - PENTYLENE GLYCOL - DIMETHICONE/PEG-10/15 CROSSPOLYMER - TOCOPHEROL - SODIUM HYDROXIDE - SODIUM CHLORIDE - HYDROXYACETOPHENONE - HYDROXYETHYLPIPERAZINE ETHANE SULFONIC ACID - SODIUM HYALURONATE - HYDROLYZED HYALURONIC ACID - SODIUM CITRATE - PHENOXYETHANOL - TRIETHOXYSILYLETHYL POLYDIMETHYLSILOXYETHYL DIMETHICONE - TRISODIUM ETHYLENEDIAMINE DISUCCINATE - CHLORPHENESIN - ISOPROPYL TITANIUM TRIISOSTEARATE - ALOE BARBADENSIS LEAF JUICE POWDER - DIPROPYLENE GLYCOL - CITRIC ACID - ALUMINA - PARFUM / FRAGRANCE ? [+/- MAY CONTAIN : CI 77891 / TITANIUM DIOXIDE - CI 77491, CI 77492, CI 77499 / IRON OXIDES]. (F.I.L, Z286759/2)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-hydraphase-bb-creme-spf15-teinte-foncee-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-hydraphase-bb-creme-spf15-teinte-foncee.webp',
     tags: {
       primary: ['hydratation', 'repulpant', 'apaisant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3720,7 +3656,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER - GLYCERIN - CAPRYLYL METHICONE - DIMETHICONE - PHENYLBENZIMIDAZOLE SULFONIC ACID - PROPANEDIOL - PENTYLENE GLYCOL - DIMETHICONE/PEG-10/15 CROSSPOLYMER - TOCOPHEROL - SODIUM HYDROXIDE - SODIUM CHLORIDE - HYDROXYACETOPHENONE - HYDROXYETHYLPIPERAZINE ETHANE SULFONIC ACID - SODIUM HYALURONATE - HYDROLYZED HYALURONIC ACID - SODIUM CITRATE - PHENOXYETHANOL - TRIETHOXYSILYLETHYL POLYDIMETHYLSILOXYETHYL DIMETHICONE - TRISODIUM ETHYLENEDIAMINE DISUCCINATE - CHLORPHENESIN - ISOPROPYL TITANIUM TRIISOSTEARATE - ALOE BARBADENSIS LEAF JUICE POWDER - DIPROPYLENE GLYCOL - CITRIC ACID - ALUMINA - PARFUM / FRAGRANCE ? [+/- MAY CONTAIN : CI 77891 / TITANIUM DIOXIDE - CI 77491, CI 77492, CI 77499 / IRON OXIDES]. (F.I.L, Z286759/2)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-hydraphase-bb-creme-spf15-teinte-medium-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-hydraphase-bb-creme-spf15-teinte-medium.webp',
     tags: {
       primary: ['hydratation', 'repulpant', 'apaisant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3742,7 +3678,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, GLYCERIN, ISOPROPYL PALMITATE, ETHYLHEXYL SALICYLATE, ENTYLENE GLYCOL, ALCOHOL DENAT., BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL RIAZINE, BUTYL METHOXYDIBENZOYLMETHANE, ZEA MAYS STARCH / CORN STARCH, ETHYLHEXYL TRIAZONE, POTASSIUM CETYL PHOSPHATE, DIISOPROPYL SEBACATE, ORYZA SATIVA CERA / RICE BRAN WAX, STEARIC ACID, GLYCERYL STEARATE, IETHANOLAMINE, PEG-100 STEARATE, SODIUM HYALURONATE, MYRISTIC ACID, PALMITIC ACID, YDROLYZED HYALURONIC ACID, CAPRYLYL GLYCOL, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, XANTHAN GUM, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, TOCOPHEROL, PARFUM / FRAGRANCE (F.I.L, N70018518/1)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-hydraphase-ha-uv-spf25-legere-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-hydraphase-ha-uv-spf25-legere.webp',
     tags: {
       primary: ['hydratation', 'protection-solaire', 'repulpant'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3769,7 +3705,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, GLYCERIN, ETHYLHEXYL SALICYLATE, DIMETHICONE, PHENYLBENZIMIDAZOLE SULFONIC ACID, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, TRIETHANOLAMINE, BUTYL METHOXYDIBENZOYLMETHANE, OCTYLDODECANOL, ISOPROPYL ISOSTEARATE, CETYL ALCOHOL, CETEARYL ALCOHOL, BEHENYL ALCOHOL, STEARIC ACID, TITANIUM DIOXIDE, CETEARYL GLUCOSIDE, PEG-100 STEARATE, SODIUM HYALURONATE, SODIUM POLYACRYLATE STARCH, SODIUM STEAROYL GLUTAMATE, SILICA, MYRISTIC ACID, PALMITIC ACID, ADENOSINE, ASCORBYL GLUCOSIDE, HYDROLYZED HYALURONIC ACID, HYDROXYACETOPHENONE, CAPRYLOYL SALICYLIC ACID, CAPRYLYL GLYCOL, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, POLY C10-30 ALKYL ACRYLATE, PARFUM / FRAGRANCE (F.I.L, N70021278/1)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-hydraphase-ha-uv-spf25-riche-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-hydraphase-ha-uv-spf25-riche.webp',
     tags: {
       primary: ['anti-acne', 'hydratation', 'protection-solaire'],
       secondary: ['filtres-chimiques', 'sebo-regulateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3800,7 +3736,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, C15-19 ALKANE, DIISOPROPYL SEBACATE, NIACINAMIDE, ETHYLHEXYL TRIAZONE, GLYCERIN, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, SILICA, DROMETRIZOLE TRISILOXANE, BUTYL METHOXYDIBENZOYLMETHANE, C12-15 ALKYL BENZOATE, DICAPRYLYL CARBONATE, CELLULOSE, CI 77891 / TITANIUM DIOXIDE, BUTYLENE GLYCOL, TIN OXIDE, POTASSIUM HYDROXIDE, CARBOMER, ARACHIDYL ALCOHOL, ARACHIDYL GLUCOSIDE, BEHENYL ALCOHOL, 2-MERCAPTONICOTINOYL GLYCINE, SODIUM DILAURAMIDOGLUTAMIDE LYSINE, SODIUM THIOSULFATE, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, HYDROXYACETOPHENONE, CAPRYLOYL SALICYLIC ACID, CAPRYLYL GLYCOL, CITRIC ACID, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, XANTHAN GUM, PENTYLENE GLYCOL, POLY C10-30 ALKYL ACRYLATE, POLYGLYCERYL-2 LAURATE, TOCOPHEROL, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, PHENOXYETHANOL, MICA, CI 14700 / RED 4, PARFUM / FRAGRANCE (F.I.L, N70034093/1)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-mela-b3-spf30-soin-correcteur-anti-taches-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-mela-b3-spf30-soin-correcteur-anti-taches.webp',
     tags: {
       primary: ['anti-acne', 'pores-dilates', 'barriere-cutanee', 'anti-taches'],
       secondary: [
@@ -3838,7 +3774,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, DROMETRIZOLE TRISILOXANE, ALCOHOL DENAT., ISOPROPYL MYRISTATE, ETHYLHEXYL TRIAZONE, ISONONYL ISONONANOATE, PROPYLENE GLYCOL DICAPRYLATE/DICAPRATE, GLYCERIN, PROPANEDIOL, ISOPROPYL LAUROYL SARCOSINATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIISOPROPYL SEBACATE, BUTYL METHOXYDIBENZOYLMETHANE, CETEARYL ALCOHOL, ZEA MAYS STARCH/CORN STARCH, SILICA, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, AMMOINIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, CAPRYLYL GLYCOL, CARBOMER, CETEARYL GLUCOSIDE, HYDROXYACETOPHENONE, INULIN LAURYL CARBAMATE, PEG-10 DIMETHICONE, PEG-20, POTASSIUM HYDROXYDE, SODIUM STEAROYL GLUTAMATE, SPHINGOMONAS FERMENT EXTRACT, T-BUTYL ALCOHOL, TOCOPHEROL, TRISODIUM ETHYLE,EDIAMINE DISUCCINATE (F.I.L, N298527/1)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-toleriane-rosaliac-ar-spf30-soin-apaisant-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-rosaliac-ar-spf30-soin-apaisant.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'apaisant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3868,7 +3804,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-toleriane-spf-25-lsf-25-correcteur-teint-beige-sable-13.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-spf-25-lsf-25-correcteur-teint-beige-sable-13.webp',
     tags: {
       primary: ['protection-solaire'],
       secondary: ['creme-solaire', 'matin', 'zone-visage'],
@@ -3889,7 +3825,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'TALC, NYLON-12, DIMETHICONE, TITANIUM DIOXIDE, MAGNESIUM STEARATE, TRIISOCETYL CITRATE, STEARIC ACID, TRIMETHYLSILOXYSILICATE, CAPRYLYL GLYCOL, PARAFFINUM LIQUIDUM / MINERAL OIL, CETYL DIMETHICONE, METHYL METHACRYLATE/GLYCOL DIMETHACRYLATE CROSSPOLYMER, ALUMINUM HYDROXIDE, LAUROYL LYSINE / PEUT CONTENIR : CI 77891 / TITANIUM DIOXIDE, CI 77163 / BISMUTH OXYCHLORIDE, CI 77492, CI 77499 / IRON OXIDES, CI 77491, CI 77492, CI 77499 / IRON OXIDES, CI 77491, MICA',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/maquillage/la-roche-posay-toleriane-teint-mineral-n-11-beige-clair-spf-25.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-teint-mineral-n-11-beige-clair-spf-25.webp',
     tags: {
       primary: ['protection-solaire'],
       secondary: ['creme-solaire', 'matin', 'zone-visage'],
@@ -3914,7 +3850,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'TALC, NYLON-12, DIMETHICONE, TITANIUM DIOXIDE, MAGNESIUM STEARATE, TRIISOCETYL CITRATE, STEARIC ACID, TRIMETHYLSILOXYSILICATE, CAPRYLYL GLYCOL, PARAFFINUM LIQUIDUM / MINERAL OIL, CETYL DIMETHICONE, METHYL METHACRYLATE/GLYCOL DIMETHACRYLATE CROSSPOLYMER, ALUMINUM HYDROXIDE, LAUROYL LYSINE / PEUT CONTENIR : CI 77891 / TITANIUM DIOXIDE, CI 77163 / BISMUTH OXYCHLORIDE, CI 77492, CI 77499 / IRON OXIDES, CI 77491, CI 77492, CI 77499 / IRON OXIDES, CI 77491, MICA',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/maquillage/la-roche-posay-toleriane-teint-mineral-n-15-dore-spf-15.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-teint-mineral-n-15-dore-spf-15.webp',
     tags: {
       primary: ['protection-solaire'],
       secondary: ['creme-solaire', 'matin', 'zone-visage'],
@@ -3939,7 +3875,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, ISOPROPYL PALMITATE, ALCOHOL DENAT., BUTYL METHOXYDIBENZOYLMETHANE, ETHYLHEXYL TRIAZONE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, GLYCERIN, PROPANEDIOL, DICAPRYLYL ETHER, TRIETHANOLAMINE, PHENYLBENZIMIDAZOLE SULFONIC ACID, DIISOPROPYL ADIPATE, DIISOPROPYL SEBACATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, OXIDIZED STARCH ACETATE, COPERNICIA CERIFERA CERA/CARNAUBA WAX/CIRE DE CARNAUBA, METHOXYPROPYLAMINO CYCLOHEXENYLIDENE ETHOXYETHYLCYANOACETATE, PENTYLENE GLYCOL, C12-22 ALKYL ACRYLATE/HYDROXYETHYLACRYLATE COPOLYMER, ACRYLATES COPOLYMER, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, BUTYROSPERMUM PARKII BUTTER/SHEA BUTTER, CAPRYLYL GLYCOL, CITRIC ACID, DROMETRIZOLE TRISILOXANE, HYDROXYETHYLCELLULOSE, TEREPHTHALYLIDENE DICAMPHOR SULFONIC ACID, TOCOPHEROL, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/soins-solaires/la-roche-posay-anthelios-dermo-pediatrics-lait-hydratant-spf-50-250ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-dermo-pediatrics-lait-hydratant-spf-50.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3969,7 +3905,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / WATER / EAU, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ALCOHOL DENAT, ETHYLHEXYL TRIAZONE, BUTYL METHOXYDIBENZOYLMETHANE, ISOPROPYL PALMITATE, DIISOPROPYL ADIPATE, DICAPRYLYLETHER, GLYCERIN, PROPANEDIOL, ISOPROPYL MYRISTATE, C12-15 ALKYL BENZOATE, DIISOPROPYL SEBACATE, C12-22 ALKYL ACRYLATE/HYDROXYETHYLACRYLATE COPOLYMER, TOCOPHEROL, METHOXYPROPYLAMINO CYCLHEXENYLIDENE ETHOXYETHYLCYANOACETATE, PENTYLENE GLYCOL, BUTYROSPERMUM PARKII BUTTER/SHEA BUTTER, ACRYLATES COPOLYMER, ACRYLATES/C10-30 ALHYL ACRYLATE CROSSPOLYMER, CAPRYLYL GLYCOL, CITRIC ACID, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DROMETRIZOLE TRISILOXANE, HYDROXYACETROPHENONE, PHENYLBENZIMIDAZOLE SULFONIC ACID, SODIUM POLYACRYLATE, TRIETHANOLAMINE, TRISODIUM ETHYYLENEDIAMINE DISUCCINATE (F.I.L, N70033191/2)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/soins-solaires/la-roche-posay-anthelios-dermo-pediatrics-spray-invisible-spf-50-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-dermo-pediatrics-spray-invisible-spf-50.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3999,7 +3935,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, HOMOSALATE, SILICA, OCTOCRYLENE, ETHYLHEXYL SALICYLATE, BUTYL METHOXYDIBENZOYLMETHANE, ETHYLHEXYL TRIAZONE, BIS-ETHYLHEXYLOXYPHENOL, METHOXYPHENYL TRIAZINE, DROMETRIZOLE TRISILOXANE, ALUMINIUM STARCH OCTENYLSUCCINATE, GLYCERIN, PENTYLENE GLYCOL, STYRENE/ACRYLATES COPOLYMER, POTASSIUM CETYL PHOSPHATE, DIMETHICONE, PERLITE, PROPYLENE GLYCOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, ALUMINIUM HYDROXIDE, CAPRYLYL GLYCOL, DISODIUM EDTA, INULIN LAURYL CARBAMATE, ISOPROPYL LAUROYL SARCOSINATE, P-ANISIC ACID, PEG-8 LAURATE, SILICA SILYLATE, SODIUM DODECYLBENZENESULFONATE, STEARIC ACID, STERARYL ALCOHOL, TEREPHTALYDINENE DICAMPHOR SULFONIC ACID, TITANIUM DIOXIDE [NANO]/TITANIUM DIOXIDE, TOCOPHEROL, TRIETHANOLAMINE, XANTHAN GUM, ZINC GLUCONATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/soins-solaires/la-roche-posay-anthelios-oil-control-gel-creme-spf50-50-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-oil-control-gel-creme-spf50.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -4030,7 +3966,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER, GLYCERIN, C12-15 ALKYL BENZOATE, CAPRYLIC/CAPRIC TRIGLYCERIDE, ETHYLHEXYL SALICYLATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPEHNYL TRIAZINE, ALCOHOL DENAT, TITANIUM DIOXIDE, BUTYL METHOXYDIBENZOYLMETHANE, DROMETRIZOLE TRISILOXANE, STYRENE/ACRYLATES COPOLYMER, DIMETHICONE, ZEA MAYS STARCH/CORN STARCH, PROPYLENE GLYCOL, SYNTHETIC WAX, DETHYLHEXYL BUTAMIDO TRIAZONE, POTASSIUM CETYL PHOSPHATE, ALUMINIUM HYDROXIDE, AMMONIUM POLYACRYLDIMETHYLTAURAMIDE/AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, BUYROSPERMUM PARKII BUTTER/SHEA BUTTER, HYDROXYPROPYL METHYLCELLULOSE, GLYCERYL STEARATE, HYDROXYPROPYL METHYLCELLULOSE, PALMITIC ACID, PEG-100 STEARATE, PEG-8 LAURATE, STEARIX ACID, TOCOPHEROL, TRIETHANOLAMINE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/soins-solaires/la-roche-posay-anthelios-spf50-dermo-pediatrics-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-spf50-dermo-pediatrics.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -4057,7 +3993,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, ALCOHOL DENAT., TRIETHYL CITRATE, DIISOPROPYL SEBACATE, SILICA, ETHYLHEXYL SALICYLATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ETHYLHEXYL TRIAZONE, BUTYL METHOXYDIBENZOYLMETHANE, GLYCERIN, PROPANEDIOL, C12-22 ALKYL ACRYLATE/HYDROXYETHYLACRYLATE COPOLYMER, METHOXYPROPYLAMINO CYCLOHEXENYLIDENE ETHOXYETHYLCYANOACETATE, PERLITE, TOCOPHEROL, CAPRYLIC/CAPRIC TRIGLYCERIDE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CAPRYLYL GLYCOL, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DROMETRIZOLE TRISILOXANE, HYDROXYETHYLCELLULOSE, TEREPHTHALYLIDENE DICAMPHOR SULFONIC ACID, TRIETHANOLAMINE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, PARFUM/FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/soins-solaires/la-roche-posay-anthelios-spf50-fluide-invisible-50-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-spf50-fluide-invisible.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -4088,7 +4024,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, ALCOHOL DENAT., TRIETHYL CITRATE, DIISOPROPYL SEBACATE, SILICA, ETHYLHEXYL SALICYLATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ETHYLHEXYL TRIAZONE, BUTYL METHOXYDIBENZOYLMETHANE, GLYCERIN, PROPANEDIOL, C12-22 ALKYL ACRYLATE/HYDROXYETHYLACRYLATE COPOLYMER, CI 77891/ TITANIUM DIOXIDE, METHOXYPROPYLAMINO CYCLOHEXENYLIDENE ETHOXYETHYLCYANOACETATE, PERLITE, TOCOPHEROL, CAPRYLIC/CAPRIC TRIGLYCERIDE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CAPRYLYL GLYCOL, CI 77491/IRON OXIDES, CI 77492/IRON OXIDES, CI 77499/IRON OXIDES, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DROMETRIZOLE TRISILOXANE, HYDROXYETHYLCELLULOSE, SODIUM STEAROYL GLUTAMATE, TEREPHTHALYLIDENE DICAMPHOR SULFONIC ACID, TRIETHANOLAMINE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, PARFUM/FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/soins-solaires/la-roche-posay-anthelios-spf50-fluide-teinte-50-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-spf50-fluide-teinte.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -4150,7 +4086,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER, HOMOSALATE, ETHYLHEXYL SALICYLATE, SILICA, STRYRENE/ACRYLATES COPOLYMER, ETHYLHEXYL TRIAZONE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DROMETRIZOLE TRISILOXANE, BUTYL METHOXYDIBENZOYLMETHANE, ALUMINIUM STARCH OCTENYLSUCCINATE, OCTORCRYLENE, C12-15 ALKYL BENZOATE, GLYCERIN, PNETYLENE GLYCOL, POTASSIUM CETYL PHOSPHATE, DIMETHICONE, PERLITE, PROPYLENE GLYCOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, ALUMINIUM HYDROXIDE, CAPRYLYL GLYCOL, DISODIUM EDTA, INULIN LAURYL CARBAMATE, ISOPROPYL LAUROYL SARCOSINATE, PEG-8 LAURATE, PHENOXYETHANOL, STEARIC ACID, STEARYL ALCOHOL, TEREPHTALYLIDENE DICAMPHOR SULFONIC ACID, TITANIUM DIOXIDE [NANO]/TITANIUM DIOXIDE, TOCOPHEROL, TRIETHANOLAMINE, XANTHAN GUM, ZINC GLUCONATE, PARFUM/FRAGRANCE (CODE F.I.L : C178975/1)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/soins-solaires/la-roche-posay-anthelios-xl-spf50-anti-brillance-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-xl-spf50-anti-brillance.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -4181,7 +4117,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER, DIISOPROPYL SEBACATE, GLYCERIN, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYLTRIAZINE, ALCOHOL DENAT., PROPANEDIOL, ETHYLHEXYL SALICYLATE, ETHYLHEXYL TRIAZONE, C12-22 ALKYL ACRYLATE/HYDROXYETHYLACRYLATE COPOLYMER, DROMETRIZOLE TRISILOXANE, BUTYL METHOXYDIBENZOYLMETHANE, ALUMINUM STARCH OCTENYLSUCCINATE, SILICA, TOCOPHEROL, ISOPROPYL LAUROYL SARCOSINATE, ACRYLATES, COPOLYMER, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, CAPRYLYL GLYCOL, CITRIC ACID, DISODIUM EDTA, SCUTELLARIA BAICALENSIS EXTRACT/SCUTELLARIA BAICALENSIS ROOT EXTRACT, T-BUTYL ALCOHOL, TEREPHTHALYLIDENE DICAMPHOR SULFONIC ACID, TRIETHANOLAMINE, XANTHAN GUM. (CODE F.I.L.: C210021/1)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/soins-solaires/la-roche-posay-anthelios-xl-spf50-confort-250-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-xl-spf50-confort.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -4211,7 +4147,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATERISOCETYL STEARATESQUALANEBUTYROSPERMUM PARKII BUTTER / SHEA BUTTERDIMETHICONEGLYCERINALUMINUM STARCH OCTENYLSUCCINATEPENTYLENE GLYCOLPEG-100 STEARATEGLYCERYL STEARATECETYL ALCOHOLDIMETHICONOLSODIUM HYDROXIDEACETYL DIPEPTIDE-1 CETYL ESTERACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/soins-visage/la-roche-posay-toleriane-soin-protecteur-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-soin-protecteur.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation'],
       secondary: [
@@ -4239,7 +4175,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER ALCOHOL DENAT.DIISOPROPYL SEBACATE SILICA ISOPROPYL MYRISTAT ETHYLHEXYL SALICYLATE BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE ETHYLHEXYL TRIAZONE GLYCERIN C12-22 ALKYL ACRYLATE/HYDROXYETHYLACRYLATE COPOLYMER PROPANEDIOL BUTYL METHOXYDIBENZOYLMETHANE DROMETRIZOLE TRISILOXANE PERLITE TOCOPHEROL CAPRYLIC/CAPRIC TRIGLYCERIDE ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER CAPRYLYL GLYCOL HYDROXYETHYLCELLULOSE TEREPHTHALYLIDENE DICAMPHOR SULFONIC ACID TRIETHANOL AMINETRISODIUM ETHYLENEDIAMINE DISUCCINATEPARFUM / FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/solaires/par-marques/roche-posay-anthelios/la-roche-posay-anthelios-spf-30-fluide-invisible-50-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-spf-30-fluide-invisible.webp',
     tags: {
       primary: ['protection-solaire', 'anti-oxydant', 'hydratation'],
       secondary: ['reparateur', 'filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],

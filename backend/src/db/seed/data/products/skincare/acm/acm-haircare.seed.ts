@@ -16,7 +16,7 @@ export const ACM_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, AQUA (WATER), CITRIC ACID, COCO-BETAINE, DECYL GLUCOSIDE, DIPROPYLENE GLYCOL, GLYCERYL UNDECYLENATE, GLYCYRRHETINIC ACID, INULIN, NIACINAMIDE, PANTHENOL, PCA GLYCERYL OLEATE, PIROCTONE OLAMINE, SALICYLIC ACID, SODIUM BENZOATE, SODIUM HYDROXIDE, SODIUM LACTATE, SODIUM LAURETH SULFATE, SODIUM LEVULINATE, SORBITAN CAPRYLATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-novophane-ds-shampooing-antipelliculaire-125ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-novophane-ds-shampooing-antipelliculaire.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -46,7 +46,7 @@ export const ACM_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER SODIUM LAURETH SULFATE DIPROPYLENE GLYCOL COCO BETAINE ACRYLATES C10 30 ALKYL ACRYIATE CROSSPOLYMER PIROCTONE OLAMINE SODIUM LACTATE INULIN GLYCERYL UNDECYLENATE SALICYLIC ACID NIACINAMIDE PANTHENOL DECYL GLUCOSIDE GLYCYMHETINIC ACID PCA GLYCERYL OLEATE SORBITAN CAPRYLATE SODIUM LEVULINATE SODIUM HYDROXIDE SODIUM BENZOATE CITRIC ACID TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES HEXAMETHYLINDANOPYRAN PARFUM FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-novophane-ds-shampooing-traitant-pellicules-seches-500ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-novophane-ds-shampooing-traitant-pellicules-seches.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -67,7 +67,7 @@ export const ACM_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, AQUA (WATER), CITRIC ACID, COCO-BETAINE, DECYL GLUCOSIDE, DIPROPYLENE GLYCOL, GLYCERYL UNDECYLENATE, GLYCYRRHETINIC ACID, INULIN, JUNIPERUS OXYCEDRUS WOOD OIL, NIACINAMIDE, PANTHENOL, PCA GLYCERYL OLEATE, PIROCTONE OLAMINE, SALICYLIC ACID, SODIUM BENZOATE, SODIUM HYDROXIDE, SODIUM LACTATE, SODIUM LAURETH SULFATE, SODIUM LEVULINATE, SORBITAN CAPRYLATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-novophane-k-shampooing-antipelliculaire-125ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-novophane-k-shampooing-antipelliculaire.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -97,29 +97,7 @@ export const ACM_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, SODIUM COCO-SULFATE, GLYCERIN, COCAMIDOPROPYL BETAINE, DECYL GLUCOSIDE, SODIUM CHLORIDE, SODIUM BENZOATE, CITRIC ACID, POLYQUATERNIUM-10, SODIUM HYDROXIDE, PARFUM (FRAGRANCE)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-novophane-shampooing-doux-200ml.html',
-    imageUrl: '',
-    tags: {
-      primary: ['shampooing'],
-      secondary: [],
-      avoid: [],
-    },
-    keyIngredients: [{ slug: INGREDIENT_SLUGS.SODIUM_COCO_SULFATE }],
-  },
-  {
-    slug: 'acm-novophane-shampooing-doux-500ml',
-    name: 'Novophane Shampooing Doux',
-    brand: 'ACM',
-    kind: 'shampoo',
-    unit: 'bottle',
-    totalAmount: 500,
-    amountUnit: 'ml',
-    priceCents: 765,
-    description:
-      "ACM NOVOPHANE SHAMPOOING DOUX 500ML : découvrez un shampooing formulé avec seulement 11 ingrédients d’origine naturelle, en vente en ligne sur le site de votre parapharmacie à prix discount. Offrez à vos cheveux un soin doux et respectueux grâce à sa composition soigneusement élaborée. Pour toute la famille, dès la naissance.\n\nLe laboratoire ACM est reconnu pour son engagement envers des formulations de qualité, alliant efficacité et douceur. \n\nLe shampooing doux Novophane est idéal pour les cheveux et cuirs chevelus sensibles ou fragilisés, grâce à sa formule légère qui nettoie en douceur sans agresser le cuir chevelu. Composé d'ingrédients soigneusement sélectionnés, il apporte hydratation et souplesse, tout en préservant l'équilibre naturel des cheveux. Ce produit est parfait pour un usage quotidien, offrant une sensation de confort et de légèreté après chaque lavage. Avec sa texture gel qui au contact de l'eau développe une mousse onctueuse, il transforme votre routine de soins capillaires en un véritable moment de plaisir. \n\nOptez pour ce shampooing doux et laissez vos cheveux révéler leur beauté naturelle tout en bénéficiant d'une formule respectueuse de votre peau.",
-    notes: '',
-    inci: 'AQUA, SODIUM COCO-SULFATE, GLYCERIN, COCAMIDOPROPYL BETAINE, DECYL GLUCOSIDE, SODIUM CHLORIDE, SODIUM BENZOATE, CITRIC ACID, POLYQUATERNIUM-10, SODIUM HYDROXIDE, PARFUM (FRAGRANCE)',
-    url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-novophane-shampooing-doux-500ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-novophane-shampooing-doux.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -141,7 +119,7 @@ export const ACM_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), BIOTIN, CITRIC ACID, COCO-GLUCOSIDE, DISODIUM EDTA, GLYCERIN, GLYCERYL OLEATE, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, HYDROGENATED PALM GLYCERIDES CITRATE, NIACINAMIDE, PANTHENOL, PARFUM (FRAGRANCE), PEG-200 HYDROGENATED GLYCERYL PALMATE, PEG-40 HYDROGENATED CASTOR OIL, PEG-7 GLYCERYL COCOATE, POLYQUATERNIUM-10, PPG-26-BUTETH-26, PROPYLENE GLYCOL, PYRIDOXINE HCL, SODIUM ASCORBYL PHOSPHATE, SODIUM BENZOATE, SODIUM CHLORIDE, SODIUM COCOAMPHOACETATE, SODIUM HYDROXIDE, SODIUM LAURETH SULFATE, TOCOPHEROL, TOCOPHERYL ACETATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-novophane-shampooing-energisant-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-novophane-shampooing-energisant.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -169,7 +147,7 @@ export const ACM_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'PUISSANT COMPLEXE SÉBO-RÉGULATEUR, AQUA (WATER), BIOTIN, CARAMEL, CHLORPHENESIN, CI 19140 (YELLOW 5), CI 42090 (BLUE 1), CITRIC ACID, DISODIUM EDTA, GLYCERIN, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, PARFUM (FRAGRANCE), PEG-40 HYDROGENATED CASTOR OIL, PHENOXYETHANOL, POLYQUATERNIUM-10, POTASSIUM SORBATE, PPG-26-BUTETH-26, PYRIDOXINE HCL, SODIUM BENZOATE, SODIUM CHLORIDE, SODIUM COCOAMPHOACETATE, SODIUM LAURETH SULFATE, URTICA DIOICA LEAF EXTRACT, ZINC GLUCONATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-novophane-shampooing-sebo-regulateur-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-novophane-shampooing-sebo-regulateur.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -195,28 +173,7 @@ export const ACM_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER SODIUM LAURETH SULFATE DIPROPYLENE GLYCOL COCO BETAINE ACRYLATES C10 30 ALKYL ACRYLATE CROSSPOLYMER PIROCTONE OLAMINE SODIUM LACTATE DECYL GLUCOSIDE INULIN GLYCERYL UNDECYLENATE SALICYLIC ACID URTICA DIOICA NETTLE LEAF EXTRACT ZINC GLUCONATE NIACINAMIDE GLYCERIN PANTHENOL GLYCYRHETINIC ACID PCA GLYCERYL OLEATE SORBITAN CAPRYLATE SODIUM LEVULINATE SODIUM HYDROXIDE SODIUM BENZOATE POTASSIUM SORBATE CITRIC ACID TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES HEXAMETHYLINDANOPYRAN PARFUM FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-novophane-shampooing-traitant-pellicules-grasses-200ml.html',
-    imageUrl: '',
-    tags: {
-      primary: ['shampooing'],
-      secondary: [],
-      avoid: [],
-    },
-  },
-  {
-    slug: 'acm-novophane-shampooing-traitant-pellicules-grasses-500ml',
-    name: 'Novophane Shampooing Traitant Pellicules Grasses',
-    brand: 'ACM',
-    kind: 'shampoo',
-    unit: 'bottle',
-    totalAmount: 500,
-    amountUnit: 'ml',
-    priceCents: 1650,
-    description:
-      "ACM Novophane DS Shampoing Pellicules Grasses est en vente en ligne sur le site de votre parapharmacie à prix discount, conçu pour nettoyer en douceur les cheveux sujets aux pellicules grasses et adapté à un usage fréquent. \n\nCe shampoing est proposé par la marque ACM, reconnue pour ses produits dermocosmétiques de haute qualité. Sa texture onctueuse permet une application facile et agréable. Parmi ses ingrédients actifs, le pyrithione zinc est utilisé pour ses propriétés cosmétiques de régulation du sébum, tandis que la piroctone olamine contribue au maintien d'un cuir chevelu sain. L'acide salicylique est également présent pour ses capacités à exfolier en douceur, aidant à éliminer les cellules mortes. Ce shampoing est idéal pour ceux qui recherchent une solution efficace pour entretenir leurs cheveux tout en respectant l'équilibre naturel du cuir chevelu. Sa formule innovante aide à retrouver des cheveux visiblement plus sains et propres.\n\nOptez pour ACM Novophane DS Shampoing Pellicules Grasses, une solution idéale pour votre routine capillaire quotidienne, qui vous assure des cheveux soignés et éclatants de santé.",
-    notes: '',
-    inci: 'AQUA WATER SODIUM LAURETH SULFATE DIPROPYLENE GLYCOL COCO BETAINE ACRYLATES C10 30 ALKYL ACRYIATE CROSSPOLYMER PIROCTONE OLAMINE SODIUM LACTATE INULIN GLYCERYL UNDECYLENATE SALICYLIC ACID NIACINAMIDE PANTHENOL DECYL GLUCOSIDE GLYCYMHETINIC ACID PCA GLYCERYL OLEATE SORBITAN CAPRYLATE SODIUM LEVULINATE SODIUM HYDROXIDE SODIUM BENZOATE CITRIC ACID TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES HEXAMETHYLINDANOPYRAN PARFUM FRAGRANCE',
-    url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-novophane-shampooing-traitant-pellicules-grasses-500ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-novophane-shampooing-traitant-pellicules-grasses.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -237,7 +194,7 @@ export const ACM_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER SODIUM LAURETH SULFATE COCO BETAINE DIPROPYLENE GLYCOL ACRYLATES C10 30 ALKYL ACRYLATE CROSSPOLYMER PIROCTONE OLAMINE SALICYLIC ACID PANTHENOL SODIUM HYDROXIDE SODIUM BENZOATE POTASSIUM SORBATE CITRIC ACID PARFUM FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-novophane-shampooing-traitant-pellicules-seches-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-novophane-shampooing-traitant-pellicules-seches.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -258,7 +215,7 @@ export const ACM_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, AMMONIUM LACTATE, ANHYDROXYLITOL, AQUA (WATER), CHLORPHENESIN, CITRIC ACID, DECYL GLUCOSIDE, DISODIUM EDTA, GLUCOSE, GLYCERIN, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, HYDROXYETHYL UREA, PANTHENOL, PHENOXYETHANOL, PROPANEDIOL, SODIUM HYDROXIDE, SODIUM LAURETH SULFATE, UREA, XYLITOL, XYLITYLGLUCOSIDE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-novophane-shampooing-ultra-nutritif-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-novophane-shampooing-ultra-nutritif.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -289,7 +246,7 @@ export const ACM_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), SODIUM LAURETH SULFATE, GLYCERIN, ALCOHOL DENAT., DECYL GLUCOSIDE, INULIN, SODIUM LAURYL GLUCOSE CARBOXYLATE, LAURYL GLUCOSIDE, SODIUM COCOYL GLYCINATE, PEG-90 GLYCERYL ISOSTEARATE, LAURETH-9, MENTHOL, PALMITAMIDE MEA, MENTHA PIPERITA (PEPPERMINT) LEAF EXTRACT, STEARYL GLYCYRRHETINATE, PIROCTONE OLAMINE, COCAMIDE MEA, PHENOXYETHANOL, POLYACRYLATE CROSSPOLYMER-6, STYRENE/ACRYLATES COPOLYMER, GLYCOL DISTEARATE, CHLORPHENESIN, LAURETH-2, DISODIUM EDTA, LAURETH-10, SORBIC ACID, BENZOIC ACID, SODIUM HYDROXIDE, T-BUTYL ALCOHOL, CITRIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-sedacalm-shampooing-apaisant-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-sedacalm-shampooing-apaisant.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],

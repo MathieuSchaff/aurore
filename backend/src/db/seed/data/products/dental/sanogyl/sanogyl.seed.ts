@@ -16,7 +16,7 @@ export const SANOGYL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, SORBITOL, HYDRATED SILICA, PEG-32, SODIUM LAURYL SULFATE, AROMA, CELLULOSE GUM, SODIUM SACCHARIN, SODIUM FLUORIDE, CHLORHEXIDINE DIGLUCONATE, ALLANTOIN, PANTHENOL, HAMAMELIS VIRGINIANA DISTILLATE, BETAINE, TOCOPHERYL ACETATE, LIMONENE, BENZYL ALCOHOL, ALCOHOL, CL 45430, CL 77891',
     url: 'https://www.pharmashopdiscount.com/fr/parapharmacie/hygiene/bucco-dentaire/dentifrices/sanogyl/sanogyl-rose-soin-gencives-sensibles-75-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/sanogyl-rose-soin-gencives-sensibles.webp',
     tags: {
       primary: ['dentifrice'],
       secondary: [],
@@ -47,7 +47,7 @@ export const SANOGYL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, SORBITOL, HYDRATED SILICA, PEG-32, SODIUM LAURYL SULFATE, AROMA, CELLULOSE GUM, SODIUM SACCHARIN, SODIUM FLUORIDE, CHLORHEXIDINE DIGLUCONATE, ALLANTOIN, PANTHENOL, HAMAMELIS VIRGINIANA DISTILLATE, BETAINE, TOCOPHERYL ACETATE, LIMONENE, BENZYL ALCOHOL, ALCOHOL, CL 45430, CL 77891',
     url: 'https://www.pharmashopdiscount.com/fr/parapharmacie/hygiene/bucco-dentaire/dentifrices/sanogyl/sanogyl-soin-gencives-sensibles-75-ml-lot-de-2.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/sanogyl-soin-gencives-sensibles.webp',
     tags: {
       primary: ['dentifrice'],
       secondary: [],

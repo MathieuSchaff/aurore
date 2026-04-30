@@ -16,7 +16,7 @@ export const RESPIRE_DENTAL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'GLYCERIN, AQUA, SORBITOL, HYDRATED SILICA, SODIUM COCOYL ISETHIONATE, AROMA, LAURYL GLUCOSIDE, HYDROXYAPATITE, CARRAGEENAN, SODIUM BICARBONATE, BETULA ALBA LEAF EXTRACT, XANTHAN GUM, STEVIA REBAUDIANA EXTRACT, POTASSIUM SORBATE, SORBIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-dentifrice-soin-complet-75ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-dentifrice-soin-complet.webp',
     tags: {
       primary: ['dentifrice'],
       secondary: [],

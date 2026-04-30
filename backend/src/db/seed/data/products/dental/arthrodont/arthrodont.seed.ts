@@ -32,8 +32,7 @@ export const ARTHRODONT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Water (aqua), calcium carbonate, glycerin, sodium lauryl sulfate, algin, carrageenan, cetylpyridiniuim chloride eugenol, flavor (aroma), glycyrrhetinic acid, illicium verum.',
     url: 'https://www.atida.fr/arthrodont-classic-pate-dentifrice-lot-de-2-x-75ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/804aeb44-a878-4d28-974a-24fcff296150/Arthrodont-Classic-Pate-Dentifrice-Lot-de-2-x-75ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/arthrodont-classic-pate-dentifrice-lot-de-2-x-75ml-248052.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -54,8 +53,7 @@ export const ARTHRODONT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Hydrogenated starch hydrolysate, water (aqua), hydrated silica, sodium lauryl sulfate, blue 1 (ci 42090), cellulose gum, flavor (aroma), glycyrrhetinic acid, peg-12 allyl ether, peg-12 dimethicone, sodium carbonate, sodium propionate, sodium saccharin, yellow 5 (ci 19140).',
     url: 'https://www.atida.fr/arthrodont-protect-dentifrice-gel-fluore-lot-de-2-x-75ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/fe388861-6e42-4c0b-8729-817411d4fa11/Generated-image?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/arthrodont-protect-dentifrice-gel-fluore-lot-de-2-x-75ml-288790.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -76,8 +74,7 @@ export const ARTHRODONT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua. glycerin. alcohol. PEG 60.hydrogenated castor oil. dipotassium glycyrrhizinate. laureth-9. mentha piperita. formaldehyde. illicium verum. menthol. eugenol. limonene. aroma CL42051.',
     url: 'https://www.atida.fr/arthrodont-solution-bain-de-bouche-300ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/48ced254-acaf-497a-9922-41e0915681d3/Arthrodont-Solution-Bain-de-Bouche-300ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/arthrodont-solution-bain-de-bouche-300ml-265218.webp',
     tags: {
       primary: [TAG_SLUGS.BAIN_DE_BOUCHE],
       secondary: [],
@@ -98,8 +95,7 @@ export const ARTHRODONT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Water (aqua), glycerin, hydrated silica, cellulose gum, carrageenan, sodium methyl cocoyl taurate, allantoin, chlorhexidine digluconate, flavor (aroma), glycyrrhetinic acid, hexylene glycol, lactic acid, limonene, potassium acesulfame, sodium cocoyl apple amino acids, sucralose, tetrasodium glutamate diacetate.',
     url: 'https://www.atida.fr/arthrodont-expert-dentifrice-50ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/fa2bf956-a09f-4166-93ce-b825074d62cf/Arthrodont-Expert-Dentifrice-50ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/arthrodont-expert-dentifrice-50ml-265247.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],

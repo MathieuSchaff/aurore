@@ -15,8 +15,7 @@ export const ORAL_B_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Fibres synthétiques.',
     url: 'https://www.atida.fr/oral-b-brossettes-sensi-ultra-thin-lot-de-3-brossettes.html',
-    imageUrl:
-      'https://assets.atida.com/transform/ccf27b76-2858-4a04-940f-e7c3d10402df/Oral-B-Brossette-de-Rechange-Sensitive-Clean-3-unites?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/oral-b-brossette-de-rechange-sensitive-clean-3-unites-271192.webp',
     tags: {
       primary: [TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
@@ -37,8 +36,7 @@ export const ORAL_B_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/oral-b-brossettes-cross-action-lot-de-3-brossettes.html',
-    imageUrl:
-      'https://assets.atida.com/transform/3624a87a-818c-416d-a130-22ae58ced8c6/Oral-B-Brossette-CrossAction-avec-Technologie-CleanMaximiser-3-unites?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/oral-b-brossette-crossaction-avec-technologie-cleanmaximiser-3-unites-271193.webp',
     tags: {
       primary: [TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
@@ -59,8 +57,7 @@ export const ORAL_B_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/oral-b-fil-dentaire-pro-expert-premium-40m.html',
-    imageUrl:
-      'https://assets.atida.com/transform/0de257ab-b36b-4a9e-8968-c9553ae31b6f/Oral-B-fil-dentaire-Pro-Expert-50M?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/oral-b-fil-dentaire-pro-expert-50m-278827.webp',
     tags: {
       primary: [TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
@@ -81,8 +78,7 @@ export const ORAL_B_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/oral-b-brossettes-cross-action-lot-de-8-brossettes.html',
-    imageUrl:
-      'https://assets.atida.com/transform/c01a1f00-7af6-47ea-9407-e584dae9e9e0/Oral-B-Brossette-CrossAction-avec-Technologie-CleanMaximiser-8-unites?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/oral-b-brossette-crossaction-avec-technologie-cleanmaximiser-8-unites-271194.webp',
     tags: {
       primary: [TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],

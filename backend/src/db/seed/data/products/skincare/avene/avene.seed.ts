@@ -108,6 +108,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       'Formule minimaliste avec seulement 8 ingrédients. 94% d’origine naturelle. Effet tenseur immédiat.',
     inci: 'WATER, NIACINAMIDE, GLYCERIN, PENTYLENE GLYCOL, SODIUM HYALURONATE, ADENOSINE, CITRIC ACID, SODIUM BENZOATE',
     url: 'https://www.eau-thermale-avene.fr',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-hyaluron-activ-b3-serum-concentre.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
@@ -283,6 +284,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       '95% d’ingrédients d’origine naturelle. Formule enrichie en huile de Chardon-Marie et Niacinamide.',
     inci: 'WATER, GLYCERIN, CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL, PENTAERYTHRITYL TETRACAPRYLATE/TETRACAPRATE, POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE, ISOPROPYL PALMITATE, NIACINAMIDE, BEHENYL ALCOHOL, BENZOIC ACID, CAPRYYL GLYCOL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, HYDROXYETHYLCELLULOSE, LAURYL GLUCOSIDE, SILYBUM MARIANUM SEED OIL, SODIUM CITRATE, SODIUM LAURYL GLUCOSE CARBOXYLATE, SODIUM STEAROYL GLUTAMATE, SORBIC ACID, TOCOPHEROL, WATER, XANTHAN GUM',
     url: 'https://www.eau-thermale-avene.fr',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-xeracalm-nutrition-baume-hydratant.webp',
     tags: {
       primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
@@ -360,6 +362,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       'Convient à toute la famille (dès 0 mois). Diminue la sensibilité cutanée de 64% dès la première semaine.',
     inci: 'WATER, NITROGEN',
     url: 'https://www.eau-thermale-avene.fr',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-eau-thermale.webp',
     tags: {
       primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
@@ -437,6 +440,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: 'Innovation de la gamme Procedure pour un effet lifting renforcé.',
     inci: 'WATER, GLYCERIN, PENTYLENE GLYCOL, ACETYL HEXAPEPTIDE-8, SODIUM HYALURONATE, CITRIC ACID, SODIUM CITRATE',
     url: 'https://www.atida.fr',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-hyaluron-activ-procedure-serum-tenseur.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
@@ -477,6 +481,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: 'Diminue les démangeaisons. Nourrit en profondeur. Renforce le film hydrolipidique.',
     inci: 'WATER, GLYCERIN, MINERAL OIL (PARAFFINUM LIQUIDUM), CETEARYL ALCOHOL, OENOTHERA BIENNIS (EVENING PRIMROSE) OIL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CETEARYL GLUCOSIDE, AQUAPHILUS DOLOMIAE EXTRACT, ARGININE, CARBOMER, EVENING PRIMROSE OIL/PALM OIL AMINOPROPANEDIOL ESTERS, GLYCINE, SODIUM HYDROXIDE, TOCOPHEROL',
     url: 'https://www.eau-thermale-avene.fr',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-xeracalm-ad-creme-relipidante.webp',
     tags: {
       primary: [
         TAG_SLUGS.PEAU_SECHE,
@@ -528,6 +533,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: `Pour visage et corps. Réduit l'excès de sébum. Lutte contre boutons et points noirs.`,
     inci: 'WATER, ZINC COCETH SULFATE, LAURYL BETAINE, DECYL GLUCOSIDE, CETEARETH-60 MYRISTYL GLYCOL, PEG-7 GLYCERYL COCOATE, POLYSORBATE 20, CITRIC ACID, FRAGRANCE (PARFUM), GREEN 5 (CI 61570), ISOPROPYL ALCOHOL, PEG-40 HYDROGENATED CASTOR OIL, PEG-6, PPG-26-BUTETH-26, SILYBUM MARIANUM FRUIT EXTRACT, SODIUM BENZOATE, SODIUM CHLORIDE, SODIUM HYDROXIDE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, YELLOW 5 (CI 19140), ZINC GLUCONATE',
     url: 'https://www.eau-thermale-avene.fr',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cleanance-gel-nettoyant.webp',
     tags: {
       primary: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.ANTI_ACNE],
       secondary: [
@@ -607,6 +613,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: 'Texture légère non collante.',
     inci: 'WATER, GLYCERIN, PROPYLENE GLYCOL DICAPRYLATE/DICAPRATE, C14-22 ALCOHOLS, DIMETHICONE, ISOCETYL STEAROYL STEARATE, TRIETHYLHEXANOIN, 1,2-HEXANEDIOL, MICROCRYSTALLINE CELLULOSE, POTASSIUM CETYL PHOSPHATE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, BENZOIC ACID, C12-20 ALKYL GLUCOSIDE, FRAGRANCE (PARFUM), HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, PHYTOSTEROLS, POLYSORBATE 60, SCLEROTIUM GUM, SODIUM HYDROXIDE, SORBITAN ISOSTEARATE, SQUALANE',
     url: 'https://www.eau-thermale-avene.fr',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-hydrance-light-creme-hydratante.webp',
     tags: {
       primary: [TAG_SLUGS.PEAU_NORMALE, TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.DESHYDRATATION],
       secondary: [
@@ -640,6 +647,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: 'Non comédogène. Convient à nourrissons, enfants, adultes. Texture onctueuse.',
     inci: 'WATER, CAPRYLIC/CAPRIC TRIGLYCERIDE, MINERAL OIL (PARAFFINUM LIQUIDUM), GLYCERIN, HYDROGENATED VEGETABLE OIL, ZINC OXIDE, PROPYLENE GLYCOL, POLYGLYCERYL-2 SESQUIISOSTEARATE, PEG-22/DODECYL GLYCOL COPOLYMER, ALUMINIUM STEARATE, AQUAPHILUS DOLOMIAE FERMENT FILTRATE, ARGININE, BEESWAX (CERA ALBA), COPPER SULFATE, MAGNESIUM STEARATE, MAGNESIUM SULFATE, MICROCRYSTALLINE WAX (CERA MICROCRISTALLINA), TROMETHAMINE, ZINC SULFATE',
     url: 'https://www.eau-thermale-avene.fr',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cicalfate-creme-reparatrice.webp',
     tags: {
       primary: [TAG_SLUGS.CICATRISATION, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_ATOPIQUE],
       secondary: [
@@ -682,6 +690,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '0.2% acide hyaluronique. 6% niacinamide. 92% ingrédients naturels.',
     inci: 'WATER, CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, NIACINAMIDE, CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL, BUTYROSPERMUM PARKII (SHEA) BUTTER, GLYCOL PALMITATE, ARACHIDYL ALCOHOL, CETEARYL ALCOHOL, CELLULOSE, GLYCERYL STEARATE, SODIUM HYALURONATE, ADENOSINE, ARACHIDYL GLUCOSIDE, BEHENYL ALCOHOL, CAPRYLYL GLYCOL, CETEARYL GLUCOSIDE, CITRIC ACID, DIMETHYL PHENETHYL ACETATE, FRAGRANCE (PARFUM), GERANYL ACETATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, SODIUM BENZOATE, TOCOPHEROL, TOCOPHERYL GLUCOSIDE, TRIMETHYLCYCLOPENTENYL METHYLISOPENTENOL, XANTHAN GUM',
     url: 'https://www.eau-thermale-avene.fr',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-hyaluron-activ-b3-creme-regeneration.webp',
     tags: {
       primary: [
         TAG_SLUGS.ANTI_AGE,
@@ -730,6 +739,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: 'Sans savon, sans parfum. pH physiologique. Respecte le microbiome.',
     inci: 'WATER, GLYCERIN, HYDROGENATED STARCH HYDROLYSATE, DISODIUM COCOAMPHODIACETATE, DECYL GLUCOSIDE, POLYSORBATE 20, SODIUM CHLORIDE, CETEARETH-60 MYRISTYL GLYCOL, AQUAPHILUS DOLOMIAE EXTRACT, ARGININE, CITRIC ACID, COCO-GLUCOSIDE, EVENING PRIMROSE OIL/PALM OIL AMINOPROPANEDIOL ESTERS, GLYCERYL OLEATE, GLYCINE, HYDROGENATED VEGETABLE GLYCERIDES CITRATE, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, SODIUM BENZOATE, TOCOPHEROL, TRISODIUM ETHYLENEDIAMINE DISUCCINATE',
     url: 'https://www.eau-thermale-avene.fr',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-xeracalm-huile-lavante.webp',
     tags: {
       primary: [
         TAG_SLUGS.PEAU_SECHE,
@@ -856,6 +866,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: 'Texture fluide non grasse, matifiante. Sans parfum.',
     inci: 'WATER, C12-15 ALKYL BENZOATE, DICAPRYLYL CARBONATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, WATER, DIISOPROPYL ADIPATE, ETHYLHEXYL TRIAZONE, ORYZA SATIVA (RICE) STARCH, PHENYLENE BIS-DIPHENYLTRIAZINE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, POTASSIUM CETYL PHOSPHATE, C9-12 ALKANE, LAURYL GLUCOSIDE, POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE, GLYCERIN, TAPIOCA STARCH, TRIMETHYLPENTANEDIOL/ADIPIC ACID/GLYCERIN CROSSPOLYMER, BENZOIC ACID, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CITRIC ACID, COCO-CAPRYLATE/CAPRATE, GLYCERYL LAURATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, LENS ESCULENTA (LENTIL) SEED EXTRACT, PENTYLENE GLYCOL, PPG-1-PEG-9 LAURYL GLYCOL ETHER, RED 33 (CI 17200), SODIUM BENZOATE, SODIUM PHYTATE, TOCOPHEROL, TOCOPHERYL GLUCOSIDE, XANTHAN GUM, ZINC GLUCONATE',
     url: 'https://www.avene.fr',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-fluide-anti-imperfection-spf50.webp',
     tags: {
       primary: [
         TAG_SLUGS.PROTECTION_SOLAIRE,
@@ -978,6 +989,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: 'Filtres chimiques + amidon riz/tapioca + lentille exfoliante douce.',
     inci: 'WATER, C12-15 ALKYL BENZOATE, DICAPRYLYL CARBONATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, WATER, DIISOPROPYL ADIPATE, ETHYLHEXYL TRIAZONE, ORYZA SATIVA (RICE) STARCH, PHENYLENE BIS-DIPHENYLTRIAZINE, TAPIOCA STARCH, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, POTASSIUM CETYL PHOSPHATE, C9-12 ALKANE, LAURYL GLUCOSIDE, POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE, GLYCERIN, TRIMETHYLPENTANEDIOL/ADIPIC ACID/GLYCERIN CROSSPOLYMER, BENZOIC ACID, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CITRIC ACID, COCO-CAPRYLATE/CAPRATE, ETHYLHEXYLGLYCERIN, GLYCERYL LAURATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, LENS ESCULENTA (LENTIL) SEED EXTRACT, PENTYLENE GLYCOL, PPG-1-PEG-9 LAURYL GLYCOL ETHER, RED 33 (CI 17200), SODIUM BENOAZE, SODIUM PHYTATE, TOCOPHEROL, TOCOPHERYL GLUCOSIDE, XANTHAN GUM',
     url: 'https://www.eau-thermale-avene.fr',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-ultra-fluid-oil-control-spf50.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.PEAU_MIXTE],
       secondary: [
@@ -1091,6 +1103,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: 'Texture crème légère. D-Sensinose™ postbiotique ultra-calmante.',
     inci: 'WATER, CAPRYLIC/CAPRIC TRIGLYCERIDE, ETHYLHEXYL PALMITATE, GLYCERIN, CETEARYL ALCOHOL, SQUALANE, CETEARYL GLUCOSIDE, CETYL ESTERS, AQUAPHILUS DOLOMIAE EXTRACT FILTRATE, ARGININE, BEESWAX (CERA ALBA), CITRIC ACID, TROMETHAMINE, WATER, XANTHAN GUM',
     url: 'https://www.eau-thermale-avene.fr',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-tolerance-control-creme.webp',
     tags: {
       primary: [
         TAG_SLUGS.PEAU_SENSIBLE,
@@ -1233,8 +1246,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Disodium lauryl sulfosuccinate, maltodextrin, sodium cocoyl isethionate, stearic acid, aqua, talc, cetearyl alcohol, paraffin, ceteareth-6, peg-45 palm kernel glycerides, avene aqua, cera alba, c20-40 pareth-10, cetyl alcohol, cetyl phosphate, citric acid, parfum (fragrance), glyceryl stearate, methylparaben, cera microcristallina, paraffinum liquidum, polyethylene, sodium hydroxide, titanium dioxide, triethanolamine.',
     url: 'https://www.atida.fr/avene-cold-cream-duo-pain-surgras-lot-de-2-x-100g.html',
-    imageUrl:
-      'https://assets.atida.com/transform/15c80df5-42ae-4889-83ad-b48f0c9241c0/Avene-Cold-Cream-Pain-Surgras-Lot-de-2-x-100g?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cold-cream-pain-surgras-lot-de-2-x-100g-278059.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
@@ -1260,8 +1272,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Avène thermal spring water (avène aqua), water (aqua), sodium laureth sulfate, sodium laureth sulfate, coco-glucoside, glycerin, peg-7 glyceryl cocoate, polysorbate 20, inulin, lauryl betaine, glyceryl oleate, ceteareth-60 myristyl glycol, ascorbyl palmitate, butyrospermum parkii (shea) oil, camellina sativa seed oil, carthamus tinctorius (safflower) seed oil, citric acid, fragrance (parfum), hydrogenated palm glycerides citrate, lecithin, propanediol, salicylic acid, sodium benzoate, sodium chloride, sodium myristoyl glutamate, tocopherol.',
     url: 'https://www.atida.fr/avene-body-gel-douche-douceur-500ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/3498dee5-e4fa-44af-b776-89af1d22f94a/Avene-Body-Gel-Douche-Douceur-500ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-body-gel-douche-douceur-500ml-232678.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -1290,8 +1301,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA). GLYCERIN. WATER (AQUA). COCO-GLUCOSIDE. SODIUM COCOYL GLUTAMATE. ALGIN. CITRIC ACID. FRAGRANCE (PARFUM). GLYCERYL OLEATE. GLYCOL DISTEARATE. HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL). HYDROGENATED VEGETABLE GLYCERIDES CITRATE. NIACINAMIDE. SILYBUM MARIANUM SEED OIL. SODIUM BENZOATE. TOCOPHEROL. XANTHAN GUM',
     url: 'https://www.atida.fr/avene-eau-thermale-xeracalm-nutrition-creme-de-douche-500ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/68dc1fce-374f-4a32-8ba8-87d36e4f6f54/Avene-Eau-Thermale-Xeracalm-Nutrition-Creme-de-Douche-500ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-eau-thermale-xeracalm-nutrition-creme-de-douche-500ml-275371.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -1319,8 +1329,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Ingrédients : Avene thermal spring water (avene aqua), water (aqua), glycerin, disodium coco-glucoside citrate, decyl glucoside. sodium cocoamphoacetate, pentylene glycol, aquaphilus dolomiae ferment filtrate, arginine, citric acid. copper sulfate, sodium chloride, trisodium ethylenediamine disuccinate. tromethamine, xanthan gum, zinc sulfate.98% d'ingrédients d'origine naturelle.",
     url: 'https://www.atida.fr/avene-cicalfate-gel-nettoyant-assainissant-visage-et-corps-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/60483547-1ff8-4bd9-841d-1b0d29f122dc/Avene-Cicalfate-Gel-Nettoyant-Assainissant-Visage-et-Corps-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cicalfate-gel-nettoyant-assainissant-visage-et-corps-200ml-301481.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
@@ -1341,8 +1350,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA). GLYCERIN. DECYL GLUCOSIDE. WATER (AQUA). SODIUM COCOYL GLUTAMATE. ALGIN. CARRAGEENAN. CITRIC ACID. FRAGRANCE (PARFUM). HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL). NIACINAMIDE. SILYBUM MARIANUM SEED OIL. SODIUM BENZOATE. TOCOPHEROL',
     url: 'https://www.atida.fr/avene-eau-thermale-xeracalm-nutrition-gel-nettoyant-750-ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/c0463bcb-bcb1-41b0-95c3-403d0f86f565/Avene-Eau-Thermale-Xeracalm-Nutrition-Gel-Nettoyant-750-ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-eau-thermale-xeracalm-nutrition-gel-nettoyant-750-ml-275369.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -1370,8 +1378,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA). GLYCERIN. DECYL GLUCOSIDE. WATER (AQUA). SODIUM COCOYL GLUTAMATE. ALGIN. CARRAGEENAN. CITRIC ACID. FRAGRANCE (PARFUM). HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL). NIACINAMIDE. SILYBUM MARIANUM SEED OIL. SODIUM BENZOATE. TOCOPHEROL',
     url: 'https://www.atida.fr/avene-eau-thermale-xeracalm-nutrition-gel-nettoyant-500-ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/0db55b85-f81f-4cf1-81fe-f2a6424fcd05/Avene-Eau-Thermale-Xeracalm-Nutrition-Gel-Nettoyant-500-ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-eau-thermale-xeracalm-nutrition-gel-nettoyant-500-ml-275372.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -1399,8 +1406,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Avène thermal spring water (avène aqua), sodium laureth sulfate, water (aqua), cellulose acetate, glycerin, oleth-10, decyl glucoside, tocopheryl acetate, acrylates/c10-30 alkyl acrylate crosspolymer, ascorbyl palmitate, butyrospermum parkii shea oil, butyrospermum parkii oil, camelina sativa seed oil, caprylyl glycol, carthamus tinctorius seed oil, citric acid, coco-glucoside, fragrance (parfum), glyceryl oleate, hydrogenated palm glycerides citrate, jojoba esters, lauryl betaine, lecithin, peg-30 dipolyhydroxystearate, red 30 (ci 73360), sodium benzoate, sodium chloride, sodium hydroxide, talc, tocoperol, trideceth-6.',
     url: 'https://www.atida.fr/avene-body-gommage-corps-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/5ffd4d6c-1ea6-4023-8b96-51330f634824/Avene-Body-Gommage-Douceur-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-body-gommage-douceur-200ml-232685.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ZONE_VISAGE],
@@ -1451,7 +1457,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), GLYCERIN, WATER (AQUA), HYDROGENATED STARCH HYDROLYSATE, DISODIUM COCOAMPHODIACETATE, DECYL GLUCOSIDE, POLYSORBATE 20, SODIUM CHLORIDE, CETEARETH-60 MYRISTYL GLYCOL, AQUAPHILUS DOLOMIAE EXTRACT, ARGININE, CITRIC ACID, COCO-GLUCOSIDE, EVENING PRIMROSE OIL/PALM OIL AMINOPROPANEDIOL ESTERS, GLYCERYL OLEATE, GLYCINE, HYDROGENATED VEGETABLE GLYCERIDES CITRATE, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL (SIMMONDSIA CHINENSIS SEED OIL), SODIUM BENZOATE, TOCOPHEROL, TRISODIUM ETHYLENEDIAMINE DISUCCINATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-xeracalm-ad-relipidant-huile-lavante-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-xeracalm-ad-relipidant-huile-lavante.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'nettoyant-corps', 'zone-corps'],
@@ -1479,7 +1485,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "EAU THERMALE D'AVÈNE, COLD CREAM, GLYCÉRINE, SUCRALFATE, PARFUM, METHYLPARABEN, PROPYLPARABEN, PHÉNOXYÉTHANOL, EXCIPIENTS QSP 100 %.FORMULE INCI : AVENE THERMAL SPRING WATER, GLYCERIN, CETEARYL ALCOHOL, GLYCERYL LAURATE, PARAFFINUM LIQUIDUM, CETYL ALCOHOL, ALUMINIUM SUCROSE OCTASULFATE, CERA ALBA, FRAGRANCE, GLYCERYL STEARATE, METHYLPARABEN, PARAFFIN, PHENOXYETHANOL, PROPYLPARABEN, SODIUM CETEARYL SULFATE, SODIUM HYDROXIDE",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/soins-corps/avene-cold-cream-creme-mains-concentree-2x50-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cold-cream-creme-mains-concentree.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['creme-mains', 'zone-mains'],
@@ -1501,7 +1507,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVÈNE THERMAL SPRING WATER (AVÈNE AQUA),MINERAL OIL (PARAFFINUM LIQUIDUM), GLYCERIN,CAPRYLIC/CAPRIC TRIGLYCERIDE, PEG-12,OENOTHERA BIENNIS (EVENING PRIMROSE) OIL(OENOTHERA BIENNIS OIL), GLYCERYL STEARATE,MYRETH-3 MYRISTATE, PEG-100 STEARATE,POLYACRYLATE-13, AQUAPHILUS DOLOMIAEEXTRACT, ARGININE, CITRIC ACID, EVENINGPRIMROSE OIL/PALM OIL AMINOPROPANEDIOLESTERS, GLYCINE, POLYISOBUTENE,POLYSORBATE 20, SORBITAN ISOSTEARATE,TOCOPHEROL, WATER (AQUA)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/soins-corps/avene-xeracalm-a-d-baume-relipidiant-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-xeracalm-a-d-baume-relipidiant.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'lait-corps', 'zone-corps'],
@@ -1528,7 +1534,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), WATER (AQUA), DISODIUM COCOYL GLUTAMATE, GLYCERIN, DECYL GLUCOSIDE, CETEARYL ALCOHOL, ZEA MAYS (CORN) STARCH (ZEA MAYS STARCH), COCO-BETAINE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), XANTHAN GUM, CITRIC ACID, SILYBUM MARIANUM SEED OIL, SODIUM BENZOATE, SODIUM DEXTRAN SULFATE, SODIUM STEAROYL GLUTAMATE, TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/soins-traitants/avene-cleanance-hydra-creme-lavante-200-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cleanance-hydra-creme-lavante.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'nettoyant-corps', 'zone-corps'],
@@ -1556,7 +1562,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVÈNE THERMAL SPRING WATER (AVÈNE AQUA), AQUA, SODIUM LAURETH SULFATE, COCO-GLUCOSIDE, GLYCERIN, INULIN, LAURYL BETAINE, GLYCERYL OLEATE, CAPRYLYL GLYCOL, CETEARETH-60, MYRISTYL GLYCOL, CITRIC ACID, FRAGRANCE (PARFUM), HYDROGENATED PALM GLYCERIDES CITRATE, PHENOXYETHANOL, SODIUM BENZOATE, SODIUM CHLORIDE, SODIUM HYDROXIDE, TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-produits/bain-et-douche/gel-douche/avene-body-gel-douche-douceur-peaux-sensibles-500-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-body-gel-douche-douceur-peaux-sensibles.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'nettoyant-corps', 'zone-corps', 'peau-sensible'],
@@ -1578,7 +1584,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), ISODECYL NEOPENTANOATE, PENTYLENE GLYCOL, ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH), WATER (AQUA), DIMETHICONE, ARGININE, BENZOIC ACID, BUTYROSPERMUM PARKII (SHEA) OIL (BUTYROSPERMUM PARKII OIL), CAMELINA SATIVA SEED OIL, CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL (CARTHAMUS TINCTORIUS SEED OIL), CETRIMONIUM CHLORIDE, CITRIC ACID, DIMETHYL PHENYLPROPANOL, DISODIUM EDTA, FRAGRANCE (PARFUM), GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), HYDROXYCAPRIC ACID, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, POLYSORBATE 60, PROPYLENE GLYCOL, SODIUM POLYACRYLATE, SORBITAN ISOSTEARATE, SORBITAN STEARATE, SQUALANE, TOCOPHEROL, ZINC RICINOLEATE',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-produits/deodorants/roll-on/avene-deodorant-24h-body-50-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-deodorant-24h-body.webp',
     tags: {
       primary: ['barriere-cutanee', 'anti-oxydant'],
       secondary: ['emollience', 'texture-legere', 'reparateur', 'deodorant'],
@@ -1609,7 +1615,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL (CARTHAMUS TINCTORIUS SEED OIL), CAPRYLIC/CAPRIC TRIGLYCERIDE, DIMETHICONE, PEG-12, BUTYLENE GLYCOL, GLYCERIN, 1,2-HEXANEDIOL, GLYCERYL STEARATE, PEG-100 STEARATE, CETYL ALCOHOL, GLYCERYL LINOLEATE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSPOLYMER, BENZOIC ACID, FRAGRANCE (PARFUM), GLYCERYL LINOLENATE, GLYCERYL OLEATE, GLYCERYL PALMITATE, GLYCINE SOJA (SOYBEAN) OIL, SODIUM DEXTRAN SULFATE, SODIUM HYDROXIDE, TOCOPHEROL, TOCOPHERYL ACETATE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/acne-et-peaux-grasses/avene-cleanance-hydra-creme-apaisante-40-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cleanance-hydra-creme-apaisante.webp',
     tags: {
       primary: ['anti-oxydant', 'hydratation', 'apaisant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -1635,7 +1641,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE AQUA, AQUA, POLYETHYLENE, SODIUM LAURETH SULFATE, DISODIUM COCOAMPHODIACETATE, COCO-GLUCOSIDE, DISODIUM LAURETH SULFOSUCCINATE, ACRYLATES COPOLYMER, SODIUM CHLORIDE, PEG-200 HYDROGENATED GLYCERYL PALMATE, PHENOXYETHANOL, SODIUM SALICYLATE, CITRIC ACID, DISODIUM EDTA, PARFUM (FRAGRANCE), JOJOBA ESTERS, PEG-7 GLYCERYL COCOATE, POLYQUATERNIUM-7, SODIUM HYDROXIDE, SODIUM METHYLPARABEN, XANTHAN GUM, ZINC GLUCONATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-body-gommage-douceur-peaux-sensibles-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-body-gommage-douceur-peaux-sensibles.webp',
     tags: {
       primary: ['exfoliation'],
       secondary: ['zone-visage', 'peau-sensible'],
@@ -1657,7 +1663,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), MINERAL OIL (PARAFFINUM LIQUIDUM), MYRETH-3 MYRISTATE, PEG-45/DODECYL GLYCOL COPOLYMER, DIMETHICONE, ALUMINIUM SUCROSE OCTASULFATE, OCTYLDODECANOL PEG-7 GLYCERYL COCOATE, ALIMINIUM STARCH OCTENYLSUCCINATE, GLYCERIN, BEESWAX (CERA ALBA), CETYL ALCOHOL, COPPER SULFATE, DIMETHICONOL, DISTEARDIMONIUM HECTORITE, GLYCERYL STEARATE, MAGNESIUM SULFATE, PHENOXYETHANOL, SODIUM BENZOATE, WATER (AQUA), XANTHAN GUM, ZINC SULFATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-cicalfate-creme-reparatrice-mains-100ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cicalfate-creme-reparatrice-mains.webp',
     tags: {
       primary: ['hydratation', 'cicatrisation'],
       secondary: ['creme-hydratante', 'zone-visage', 'reparateur'],
@@ -1683,7 +1689,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'RICINUS COMMUNIS (CASTOR) SEED OIL (RICINUS COMMUNIS SEED OIL), AVENE THERMAL SPRING WATER (AVENE AQUA), BUTYROSPERMUM PARKII (SHEA) OIL (BUTYROSPERMUM PARKII OIL), GLYCERIN, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL (SIMMONDSIA CHINENSIS SEED OIL), BEESWAX (CERA ALBA), BUTYROSPERMUM PARKII (SHEA) BUTTER (BUTYROSPERMUM PARKII BUTTER), POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE, DISTEARDIMONIUM HECTORITE, MAGNESIUM SULFATE, AQUAPHILUS DOLOMIAE FERMENT FILTRATE, ARGININE, BENZOIC ACID, CAPRYLYL GLYCOL, GLYCYRRHETINIC ACID, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), HYDROXYCAPRIC ACID, PENTYLENE GLYCOL, TOCOPHEROL, TROMETHAMINE, XANTHAN GUM, ZINC SULFATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-cicalfate-levres-baume-reparateur-lot-de-2x10ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cicalfate-levres-baume-reparateur-10ml.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'cicatrisation'],
       secondary: ['reparateur', 'baume'],
@@ -1714,7 +1720,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'SANS PARFUM, SANS PARABEN, SANS ALCOOL, AVENE THERMAL SPRING WATER (AVENE AQUA), ZINC OXIDE, PEG-40 HYDROGENATED CASTOR OIL, ALUMINUM SUCROSE OCTASULFATE, SODIUM MAGNESIUM SILICATE, CHLORPHENESIN, COPPER SULFATE, HECTORITE, ZINC SULFATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-cicalfate-lotion-assechante-reparatrice-40-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cicalfate-lotion-assechante-reparatrice.webp',
     tags: {
       primary: ['apaisant', 'cicatrisation'],
       secondary: ['tonique', 'preparation', 'zone-visage', 'reparateur'],
@@ -1741,7 +1747,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), GLYCERIN, PENTYLENE GLYCOL, PROPANEDIOL, 1,2-HEXANEDIOL, PANTHENOL, 4-T-BUTYLCYCLOHEXANOL, OCTYLDODECANOL, PANTOLACTONE, BETAINE, CITRIC ACID, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, POLYSORBATE 60, SODIUM CITRATE, SORBITAN ISOSTEARATE, WATER (AQUA), XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-cicalfate-serum-restaurateur-intense-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cicalfate-serum-restaurateur-intense.webp',
     tags: {
       primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
       secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
@@ -1769,7 +1775,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, PENTAERYTHRITYL TETRACAPRYLATE/TETRACAPRATE, TRIETHYLHEXANOIN, SQUALANE, CETEARYL ALCOHOL, BEHENYL ALCOHOL, NIACINAMIDE, C20-22 ALKYL PHOSPHATE, C20-22 ALCOHOLS, BUTYROSPERMUM PARKII (SHEA) BUTTER (BUTYROSPERMUM PARKII BUTTER), AQUAPHILUS DOLOMIAE FERMENT FILTRATE, ARGININE, CAPRYLYL GLYCOL, CETEARYL GLUCOSIDE, COPPER SULFATE, SODIUM BENZOATE, SODIUM HYALURONATE, SODIUM HYDROXIDE, TOCOPHERYL ACETATE, TROMETHAMINE, XANTHAN GUM, ZINC SULFATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-cicalfate-soin-hydratant-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cicalfate-soin-hydratant.webp',
     tags: {
       primary: ['barriere-cutanee', 'pores-dilates', 'hydratation'],
       secondary: [
@@ -1806,7 +1812,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), WATER (AQUA), SODIUM LAURETH SULFATE, COCAMIDOPROPYL BETAINE, SUCCINIC ACID, COCO-GLUCOSIDE, SODIUM HYDROXIDE, LACTIF ACID, CITRIC ACID, GLYCERYL OLEATE, HELIANTHYS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), HYDROGENATED VEGETABLE GLYCERIDES CITRATE, ISOPROPYL ALCOHOL, OLETH-10, PEG-6, SILYBUM MARIANUM FRUIT EXTRACT, SODIUM BENZOATE, TOCOPHEROL, ZINC GLUCONATE.LA LISTE DES INGRÉDIENTS PEUT ÊTRE SOUMISE À DES MODIFICATIONS, NOUS VOUS CONSEILLONS DE VÉRIFIER LA LISTE FIGURANT SUR LE PRODUIT ACHETÉ',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-cleanance-comedomed-gel-nettoyant-peeling-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cleanance-comedomed-gel-nettoyant-peeling.webp',
     tags: {
       primary: ['anti-oxydant', 'exfoliation'],
       secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -1832,7 +1838,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), CAPRYLIC/CAPRIC TRIGLYCERIDE, ISODODECANE, GLYCOLIC ACID, ISOPROPYL ALCOHOL, PEG-6, GLYCERIN, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, WATER (AQUA), SODIUM HYDROXIDE, GLYCERYL STEARATE, PEG-100 STEARATE, POLYMETHYL METHACRYLATE, ARACHIDYL ALCOHOL, ARACHIDYL GLUCOSIDE, BEHENYL ALCOHOL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), POLYSORBATE 60, RED 33 (CI 17200), RETINAL, SILYBUM MARIANUM FRUIT EXTRACT, SORBITAN ISOSTEARATE, TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-cleanance-comedomed-peeling-creme-intensive-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cleanance-comedomed-peeling-creme-intensive.webp',
     tags: {
       primary: ['anti-age', 'exfoliation', 'eclat'],
       secondary: ['keratolytique', 'traitement', 'reparateur', 'zone-visage', 'exfoliant-chimique'],
@@ -1861,7 +1867,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), GLYCERIN, PENTYLENE GLYCOL, COCO-GLUCOSIDE, ETHYL LAUROYL ARGINATE HCL, FRAGRANCE (PARFUM), GLUTAMIC ACID, POLYGLYCERYL-4 CAPRATE, POLYGLYCERYL-6 CAPRYLATE, SODIUM HYDROXIDE, WATER (AQUA)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-cleanance-eau-micellaire-100-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cleanance-eau-micellaire.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -1883,7 +1889,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), GLYCERIN, PENTYLENE GLYCOL, COCO-GLUCOSIDE, ETHYL LAUROYL ARGINATE HCL, FRAGRANCE (PARFUM), GLUTAMIC ACID, POLYGLYCERYL-4 CAPRATE, POLYGLYCERYL-6 CAPRYLATE, SODIUM HYDROXIDE, WATER (AQUA)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-cleanance-eau-micellaire-visage-yeux-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cleanance-eau-micellaire-visage-yeux.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -1905,7 +1911,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), KAOLIN, CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, GLYCERYL STEARATE, CLAY, ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH), PENTYLENE GLYCOL, BEHENYL ALCOHOL, PERLITE, PALMITIC ACID, STEARIC ACID, FRAGRANCE (PARFUM), CAPRYLYL GLYCOL, ISOPROPYL ALCOHOL, PEG-6, SILYBUM MARIANUM FRUIT EXTRACT, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-cleanance-masque-detox-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cleanance-masque-detox-50ml.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['masque-hebdo', 'zone-visage'],
@@ -1932,7 +1938,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'SODIUM PALMATE, SODIUM PALM KERNELATE, WATER (AQUA), FRAGRANCE (PARFUM), SALICYLIC ACID, AVENE THERMAL SPRING WATER (AVENE AQUA), CETRIMONIUM BROMIDE, GLYCERIN, GLYCERYL LAURATE, PALM KERNEL ACID, SODIUM CHLORIDE, TETRASODIUM EDTA, TETRASODIUM ETIDRONATE, ZINC GLUCONATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-cleanance-nettoyant-solide-desincrustant-100g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cleanance-nettoyant-solide-desincrustant.webp',
     tags: {
       primary: ['anti-acne', 'exfoliation', 'hydratation'],
       secondary: [
@@ -1965,7 +1971,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER AVENE AQUA CAPRYLIC CAPRIC TRIGLYCERIDE GLYCERIN NIACINAMIDE CARTHAMUS TINCTORIUS SAFFLOWER SEED OIL CARTHAMUS TINCTORIUS SEED OIL BUTYROSPERMUM PARKII SHEA BUTTER BUTYROSPERMUM PARKII BUTTER GLYCOL PALMITATE ASCORBYL GLUCOSIDE ARACHIDYL ALCOHOL CETEARYL ALCOHOL GLYCERYL STEARATE ARACHIDYL GLUCOSIDE BEHENYL ALCOHOL CAPRYLYL GLYCOL CETEARYL GLUCOSIDE CITRIC ACID FRAGRANCE PARFUM HELIANTHUS ANNUUS SUNFLOWER SEED OIL HELIANTHUS ANNUUS SEED OIL SODIUM BENZOATE SODIUM CITRATE SODIUM HYALURONATE SODIUM HYDROXIDE SODIUM STEAROYL GLUTAMATE TOCOPHEROL XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-creme-vitamin-activ-cg-intensive-eclat-rechargeable-50-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-creme-vitamin-activ-cg-intensive-eclat-rechargeable.webp',
     tags: {
       primary: ['pores-dilates', 'hydratation', 'barriere-cutanee', 'eclat'],
       secondary: ['reparateur', 'sebo-regulateur', 'creme-hydratante', 'zone-visage'],
@@ -1986,7 +1992,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER AVENE AQUA PENTAERYTHRITYL TETRACAPRYLATE TETRACAPRATE GLYCERIN COCO CAPRYLATE CAPRATE TRIBEHENIN PEG 20 ESTERS BUTYROSPERMUM PARKII SHEA BUTTER BUTYROSPERMUM PARKII BUTTER METHYL GLUCETH 20 DIMETHICONE GLYCERYL LINOLEATE BEHENYL ALCOHOL BIS PEG 12 DIMETHICONE BEESWAX POLYMETHYL METHACRYLATE SIMMONDSIA CHINENSIS JOJOBA SEED OIL SIMMONDSIA CHINENSIS SEED OIL SORBITOL BAKUCHIOL BENZOIC ACID BETA CARYOPHYLLENE CALCIUM CHLORIDE CAPRYLIC CAPRIC TRIGLYCERIDE CAPRYLYL GLYCOL CETEARETH 20 CETEARYL ALCOHOL DIMETHICONE CROSSPOLYMER DIMETHYL PHENETHYL ACETATE DISODIUM EDTA FRAGRANCE PARFUM GLYCERYL LINOLENATE GLYCERYL OLEATE GLYCERYL PALMITATE GLYCERYL STEARATE GLYCINE SOJA SOYBEAN OIL GLYCINE SOJA OIL HELIANTHUS ANNUUS SUNFLOWER SEED OIL HELIANTHUS ANNUUS SEED OIL HYDROGENATED POLYISOBUTENE HYDROXYETHYL ACRYLATE SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER LINALOOL MICA PEG 7 TRIMETHYLOLPROPANE COCONUT ETHER PROPYLENE GLYCOL SILICA SODIUM HYDROXIDE SODIUM STEARATE SODIUM STEAROYL GLUTAMATE SORBITAN ISOSTEARATE TERPENEOL TITANIUM DIOXIDE CI 77891 TOCOPHEROL TOCOPHERYL GLUCOSIDE VANILLA TAHITENSIS FRUIT EXTRACT WATER AQUA',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-dermabsolu-creme-jour-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-dermabsolu-creme-jour.webp',
     tags: {
       primary: ['anti-age', 'anti-oxydant', 'hydratation'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -2007,7 +2013,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), PENTAERYTHRITYL TETRACAPRYLATE/TETRACAPRATE, GLYCERIN, COCO-CAPRYLATE/CAPRATE, TRIBEHENIN PEG-20 ESTERS, BUTYROSPERMUM PARKII (SHEA) BUTTER (BUTYROSPERMUM PARKII BUTTER), METHYL GLUCETH-20, DIMETHICONE, GLYCERYL LINOLEATE, BEHENYL ALCOHOL, BIS-PEG-12 DIMETHICONE BEESWAX, POLYMETHYL METHACRYLATE, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL (SIMMONDSIA CHINENSIS SEED OIL), SORBITOL, BAKUCHIOL, BENZOIC ACID, BETA-CARYOPHYLLENE, CALCIUM CHLORIDE, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CETEARETH-20, CETEARYL ALCOHOL, DIMETHICONE CROSSPOLYMER, DIMETHYL PHENETHYL ACETATE, DISODIUM EDTA, FRAGRANCE (PARFUM), GLYCERYL LINOLENATE, GLYCERYL OLEATE, GLYCERYL PALMITATE, GLYCERYL STEARATE, GLYCINE SOJA (SOYBEAN) OIL (GLYCINE SOJA OIL), HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), HYDROGENATED POLYISOBUTENE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, LINALOOL, MICA, PEG-7 TRIMETHYLOLPROPANE COCONUT ETHER, PROPYLENE GLYCOL, SILICA, SODIUM HYDROXIDE, SODIUM STEARATE, SODIUM STEAROYL GLUTAMATE, SORBITAN ISOSTEARATE, TERPINEOL, TITANIUM DIOXIDE (CI 77891), TOCOPHEROL, TOCOPHERYL GLUCOSIDE, VANILLA TAHITENSIS FRUIT EXTRACT, WATER (AQUA)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-dermabsolu-creme-jour-redensifiante-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-dermabsolu-creme-jour-redensifiante.webp',
     tags: {
       primary: ['anti-age', 'hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -2038,7 +2044,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), GLYCERIN, PENTYLENE GLYCOL, COCO-CAPRYLATE/CAPRATE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, NIACINAMIDE, ZEA MAYS (CORN) STARCH (ZEA MAYS STARCH), GLYCERYL LINOLEATE, BAKUCHIOL, ASCORBYL GLUCOSIDE, CAPRYLIC/CAPRIC TRIGLYCERIDE, CARAMEL, CITRIC ACID, FRAGRANCE (PARFUM), GLYCERYL LINOLENATE, GLYCERYL OLEATE, GLYCERYL PALMITATE, GLYCERYL STEARATE, GLYCINE SOJA (SOYBEAN) OIL (GLYCINE SOJA OIL), HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), LAURYL GLUCOSIDE, POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE, POLYSORBATE 60, SORBITAN ISOSTEARATE, TOCOPHEROL, TOCOPHERYL GLUCOSIDE, WATER (AQUA)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-dermabsolu-creme-nuit-intensive-resculptante-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-dermabsolu-creme-nuit-intensive-resculptante.webp',
     tags: {
       primary: ['pores-dilates', 'anti-age', 'barriere-cutanee'],
       secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -2067,7 +2073,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, METHYL GLUCETH-20, COCO-CAPRYLATE/CAPRATE, DIMETHICONE, BAKUCHIOL, GLYCERYL LINOLEATE, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL (SIMMONDSIA CHINENSIS SEED OIL), SORBITOL, 1,2-HEXANEDIOL, CALCIUM CHLORIDE, CAPRYLYL GLYCOL, CETEARETH-20, CETEARYL ALCOHOL, CETYL ALCOHOL, FRAGRANCE (PARFUM), GLYCERYL LINOLENATE, GLYCERYL OLEATE, GLYCERYL PALMITATE, GLYCERYL STEARATE, GLYCINE SOJA (SOYBEAN) OIL (GLYCINE SOJA OIL), HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), HYDROGENATED POLYISOBUTENE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, LACTIC ACID, MICA, PALMITIC ACID, PEG-7 TRIMETHYLOLPROPANE COCONUT ETHER, PROPYLENE GLYCOL, SODIUM STEARATE, SODIUM STEAROYL GLUTAMATE, SORBITAN ISOSTEARATE, STEARIC ACID, TITANIUM DIOXIDE (CI 77891), TOCOPHEROL, TOCOPHERYL GLUCOSIDE, TROPOLONE, VANILLA TAHITENSIS FRUIT EXTRACT, WATER (AQUA)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-dermabsolu-serum-concentre-resculptant-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-dermabsolu-serum-concentre-resculptant.webp',
     tags: {
       primary: ['anti-age', 'hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
@@ -2098,7 +2104,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'FORMULE INCI : AVENE THERMAL SPRING WATER (AVENE AQUA), MINERAL OIL (PARAFFINUM LIQUIDUM), CAPRYLIC/CAPRIC TRIGLYCERIDE, ISOHEXADECANE, GLYCERYL STEARATE, PEG-100 STEARATE, GLYCERIN, DIMETHICONE, METHYL GLUCETH-20, PROPYLENE GLYCOL ALGINATE, BAKUCHIOL, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL (SIMMONDSIA CHINENSIS SEED OIL), 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, CARBOMER, DIMETHICONE CROSSPOLYMER, DISODIUM EDTA, GLYCERYL LINOLEATE, GLYCERYL LINOLENATE, GLYCERYL OLEATE, GLYCERYL PALMITATE, GLYCINE SOJA (SOYBEAN) OIL (GLYCINE SOJA OIL), PEG-30 DIPOLYHYDROXYSTEARATE, PROPYLENE GLYCOL, SODIUM DEXTRAN SULFATE, SODIUM HYDROXIDE, SORBITOL, TOCOPHEROL, TOCOPHERYL GLUCOSIDE, VANILLA TAHITENSIS FRUIT EXTRACT, WATER (AQUA)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-dermabsolu-soin-regard-combleur-15ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-dermabsolu-soin-regard-combleur.webp',
     tags: {
       primary: ['anti-age', 'hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
@@ -2137,31 +2143,6 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     ],
   },
   {
-    slug: 'avene-eau-micellaire-demaquillante-400ml',
-    name: 'Eau Micellaire Demaquillante',
-    brand: 'Avene',
-    kind: 'cleanser',
-    unit: 'bottle',
-    totalAmount: 400,
-    amountUnit: 'ml',
-    priceCents: 1710,
-    description:
-      "L’Eau Micellaire discount d'AVENE , l’eau douce et fraîche qui démaquille et nettoie tout en douceur la peau sensible, dans votre parapharmacie en ligne à prix discount. Visage, yeux\n\nLa gamme Soins essentiels d’AVENE est composée de produits très doux à utiliser au quotidien pour nettoyer, protéger, hydrater et apaiser les peaux sensibles du visage, des yeux et du corps.\n\n\nL’Eau Micellaire à base d’actifs doux pour la peau sensible, élimine le maquillage, les impuretés et même les particules de pollution. Sa richesse en actifs hydratants (glycérine, tréhalose) va lutter contre la sècheresse cutanée. L'Eau thermale d'Avène apaise la peau des irritations et agressions que peut causer le maquillage. La peau retrouve confort et douceur. Elle est nette et fraîche dès l'application avec un parfum délicat. Haute tolérance",
-    notes: '',
-    inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), GLYCERIN, PENTYLENE GLYCOL, CITRIC ACID, COCO-GLUCOSIDE, ETHYL LAUROYL ARGINATE HCL, FRAGRANCE (PARFUM), POLYGLYCERYL-4 CAPRATE, POLYGLYCERYL-6 CAPRYLATE, TREHALOSE, WATER (AQUA)',
-    url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-eau-micellaire-demaquillante-lot-de-2x400ml.html',
-    imageUrl: '',
-    tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
-      avoid: [],
-    },
-    keyIngredients: [
-      { slug: INGREDIENT_SLUGS.AVENE_THERMAL_SPRING_WATER },
-      { slug: INGREDIENT_SLUGS.TREHALOSE },
-    ],
-  },
-  {
     slug: 'avene-gelee-gommante-douceur',
     name: 'Gelee Gommante Douceur',
     brand: 'Avene',
@@ -2175,7 +2156,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), GLYCERIN, PENTYLENE GLYCOL, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, WATER (AQUA), NIACINAMIDE, COCO-GLUCOSIDE, CELLULOSE ACETATE, ASCORBYL PALMITATE, CETRIMONIUM BROMIDE, CITRIC ACID, FRAGRANCE (PARFUM), GLYCERYL OLEATE, HYDROGENATED PALM GLYCERIDES CITRATE, JOJOBA ESTERS, LECITHIN, POLYSORBATE 60, RED 30 (CI 73360), SODIUM SALICYLATE, SORBITAN ISOSTEARATE, TALC, TOCOPHEROL, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, ZINC GLUCONATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-gelee-gommante-douceur-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-gelee-gommante-douceur.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
       secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -2202,7 +2183,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER AVENE AQUA GLYCERIN NIACINAMIDE SQUALANE DIGLYCERIN PERSEA GRATISSIMA AVOCADO OIL PERSEA GRATISSIMA OIL HYDROXYETHYL ACRYLATE SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER POLYGLYCERYL 10 MYRISTATE SODIUM HYALURONATE ADENOSINE 1 2 HEXANEDIOL BEHENYL ALCOHOL CAPRYLIC CAPRIC TRIGLYCERIDE CAPRYLYL GLYCOL CARAMEL CITRIC ACID FRAGRANCE PARFUM POLYSORBATE 60 SODIUM CITRATE SORBITAN ISOSTEARATE TOCOPHERYL GLUCOSIDE WATER AQUA XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-hyaluron-activ-b3-aqua-gel-creme-regenerant-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-hyaluron-activ-b3-aqua-gel-creme-regenerant.webp',
     tags: {
       primary: ['barriere-cutanee', 'anti-age', 'pores-dilates'],
       secondary: [
@@ -2229,7 +2210,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER AVENE AQUA GLYCERIN NIACINAMIDE SQUALANE DIGLYCERIN PERSEA GRATISSIMA AVOCADO OIL PERSEA GRATISSIMA OIL HYDROXYETHYL ACRYLATE SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER POLYGLYCERYL 10 MYRISTATE SODIUM HYALURONATE ADENOSINE 1 2 HEXANEDIOL BEHENYL ALCOHOL CAPRYLIC CAPRIC TRIGLYCERIDE CAPRYLYL GLYCOL CARAMEL CITRIC ACID FRAGRANCE PARFUM POLYSORBATE 60 SODIUM CITRATE SORBITAN ISOSTEARATE TOCOPHERYL GLUCOSIDE WATER AQUA XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-hyaluron-activ-b3-aqua-recharge-gel-creme-regenerant-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-hyaluron-activ-b3-aqua-recharge-gel-creme-regenerant.webp',
     tags: {
       primary: ['barriere-cutanee', 'anti-age', 'pores-dilates'],
       secondary: [
@@ -2256,7 +2237,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, SQUALANE, BUTYROSPERMUM PARKII (SHEA) BUTTER (BUTYROSPERMUM PARKII BUTTER), CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL (CARTHAMUS TINCTORIUS SEED OIL), PENTAERYTHRITYL TETRACAPRYLATE/TETRACAPRATE, CETEARYL ALCOHOL, BEHENYL ALCOHOL, NIACINAMIDE, C20-22 ALKYL PHOSPHATE, C20-22 ALCOHOLS, RETINAL, SODIUM HYALURONATE, TERMINALIA CHEBULA FRUIT EXTRACT, ADENOSINE, ACACIA SENEGAL GUM, CETEARYL GLUCOSIDE, FRAGRANCE (PARFUM), HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), RED 33 (CI 17200), SODIUM BENZOATE, SODIUM HYDROXIDE, TOCOPHEROL, TOCOPHERYL GLUCOSIDE, WATER (AQUA), XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-hyaluron-activ-b3-creme-multi-intensive-nuit-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-hyaluron-activ-b3-creme-multi-intensive-nuit.webp',
     tags: {
       primary: ['anti-age', 'barriere-cutanee', 'pores-dilates'],
       secondary: [
@@ -2295,7 +2276,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, NIACINAMIDE, CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL (CARTHAMUS TINCTORIUS SEED OIL), BUTYROSPERMUM PARKII (SHEA) BUTTER (BUTYROSPERMUM PARKII BUTTER), GLYCOL PALMITATE, ARACHIDYL ALCOHOL, CETEARYL ALCOHOL, CELLULOSE, GLYCERYL STEARATE, SODIUM HYALURONATE, ADENOSINE, ARACHIDYL GLUCOSIDE, BEHENYL ALCOHOL, CAPRYLYL GLYCOL, CETEARYL GLUCOSIDE, CITRIC ACID, FRAGRANCE (PARFUM), HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), SODIUM BENZOATE, TOCOPHEROL, TOCOPHERYL GLUCOSIDE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-hyaluron-activ-b3-recharge-creme-regeneration-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-hyaluron-activ-b3-recharge-creme-regeneration.webp',
     tags: {
       primary: ['pores-dilates', 'anti-age', 'hydratation'],
       secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -2325,7 +2306,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), NIACINAMIDE, GLYCERIN, PENTYLENE GLYCOL, SODIUM HYALURONATE, ADENOSINE, CITRIC ACID, SODIUM BENZOATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-hyaluron-activ-b3-serum-concentre-repulpant-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-hyaluron-activ-b3-serum-concentre-repulpant.webp',
     tags: {
       primary: ['pores-dilates', 'anti-age', 'barriere-cutanee', 'repulpant'],
       secondary: ['sebo-regulateur', 'serum', 'traitement', 'zone-visage'],
@@ -2352,7 +2333,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, NIACINAMIDE, DICAPRYLYL ETHER, CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL (CARTHAMUS TINCTORIUS SEED OIL), MYRISTYL ALCOHOL, SODIUM DEXTRAN SULFATE, SODIUM HYALURONATE, TERMINALIA CHEBULA FRUIT EXTRACT, ADENOSINE, CETEARYL OLIVATE, CITRIC ACID, CITRUS LIMON (LEMON) PEEL POWDER (CITRUS LIMON PEEL POWDER), GLYCERYL BEHENATE, GLYCERYL DIBEHENATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), MYRISTYL GLUCOSIDE, SCLEROTIUM GUM, SODIUM BENZOATE, SORBITAN OLIVATE, TOCOPHEROL, TOCOPHERYL GLUCOSIDE, TRIBEHENIN',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-hyaluron-activ-b3-soin-regard-triple-action-15ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-hyaluron-activ-b3-soin-regard-triple-action.webp',
     tags: {
       primary: ['pores-dilates', 'anti-age', 'hydratation'],
       secondary: ['sebo-regulateur', 'reparateur', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
@@ -2383,7 +2364,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, SQUALANE, BUTYROSPERMUM PARKII (SHEA) BUTTER (BUTYROSPERMUM PARKII BUTTER), CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL (CARTHAMUS TINCTORIUS SEED OIL), PENTAERYTHRITYL TETRACAPRYLATE/TETRACAPRATE, CETEARYL ALCOHOL, BEHENYL ALCOHOL, NIACINAMIDE, C20-22 ALKYL PHOSPHATE, C20-22 ALCOHOLS, ACACIA SENEGAL GUM, ADENOSINE, CETEARYL GLUCOSIDE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), RETINAL, SODIUM BENZOATE, SODIUM HYALURONATE, SODIUM HYDROXIDE, TERMINALIA CHEBULA FRUIT EXTRACT, TOCOPHEROL, TOCOPHERYL GLUCOSIDE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-hyaluron-activ-procedure-creme-lifting-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-hyaluron-activ-procedure-creme-lifting.webp',
     tags: {
       primary: ['anti-age', 'barriere-cutanee', 'pores-dilates'],
       secondary: [
@@ -2422,7 +2403,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'VEGAN, AVENE THERMAL SPRING WATER (AVENE AQUA), CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, SQUALANE, BUTYROSPERMUM PARKII (SHEA) BUTTER (BUTYROSPERMUM PARKII BUTTER), CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL (CARTHAMUS TINCTORIUS SEED OIL), PANTAERYTHRITYL TETRACAPRYLATE/TETRACAPARATE, CETEARYL ALCOHOL, BEHENYL ALCOHOL, NIACINAMIDE, C20-22 ALKYL PHOSPHATE, C20-22 ALCOHOLS, ACACIA SENEGAL GUM, CETEARYL GLUCOSIDE, HELIANTHYS ANNUUS GLUCOSIDE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), RETINAL, SODIUM BENZOATE, SODIUM HYALURONATE, SODIUM HYDROXIDE, TOCOPHEROL, TOCOPHERYL GLUCOSIDE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-hyaluron-activ-procedure-creme-yeux-levres-15ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-hyaluron-activ-procedure-creme-yeux-levres.webp',
     tags: {
       primary: ['barriere-cutanee', 'pores-dilates', 'anti-age'],
       secondary: [
@@ -2462,7 +2443,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), PROPANEDIOL, GLYCERIN, PENTYLENE GLYCOL, DIGLYCERIN, 1,2-HEXANEDIOL, NIACINAMIDE, SODIUM HYALURONATE, BETAINE, CITRIC ACID, FRAGRANCE (PARFUM), PCA, POLYGLYCERYL-4 CAPRATE, SCLEROTIUM GUM, SODIUM CITRATE, SODIUM HYDROXIDE, WATER (AQUA)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-hydrance-boost-serum-concentre-hydratant-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-hydrance-boost-serum-concentre-hydratant.webp',
     tags: {
       primary: ['hydratation', 'pores-dilates', 'barriere-cutanee'],
       secondary: ['sebo-regulateur', 'serum', 'traitement', 'zone-visage'],
@@ -2492,7 +2473,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), DICAPRYLYL CARBONATE, GLYCERIN, PENTYLENE GLYCOL, C14-22 ALCOHOLS, BEHENYL ALCOHOL, HYDROGENATED VEGETABLE OIL, SODIUM STEAROYL GLUTAMATE, C12-20 ALKYL GLUCOSIDE, CITRIC ACID, FRAGRANCE (PARFUM), GLYCERYL CAPRYLATE, GLYCINE SOJA (SOYBEAN) OIL (GLYCINE SOJA OIL), SCLEROTIUM GUM, SODIUM BENZOATE, TOCOPHEROL, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-lait-demaquillant-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-lait-demaquillant.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -2518,7 +2499,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), MINERAL OIL (PARAFFINUM LIQUIDUM), CAPRYLIC/CAPRIC TRIGLYCERIDE, WATER (AQUA), CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL (CARTHAMUS TINCTORIUS SEED OIL), PALMITIC ACID, STEARIC ACID, HYDROGENATED PALM/PALM KERNEL OIL PEG-6 ESTERS, TRIETHANOLAMINE, GLYCERYL STEARATE, PEG-100 STEARATE, PROPYLENE GLYCOL, 1,2-HEXANEDIOL, CAPRYLIC/CAPRIC GLYCERIDES, CAPRYLYL GLYCOL, CARBOMER, DISODIUM EDTA, FRAGRANCE (PARFUM), MICROCRYSTALLINE WAX (CERA MICROCRISTALLINA), PARAFFIN, RIBES RUBRUM (CURRANT) FRUIT EXTRACT (RIBES RUBRUM FRUIT EXTRACT), RUBUS IDAEUS (RASBERRY) FRUIT EXTRACT (RUBUS IDAEUS FRUIT EXTRACT), SODIUM BENZOATE, TOCOPHERYL GLUCOSIDE, TROPOLONE, VACCINIUM MYRTILLUS FRUIT EXTRACT',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-masque-apaisant-hydratant-50-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-masque-apaisant-hydratant.webp',
     tags: {
       primary: ['apaisant', 'hydratation'],
       secondary: ['masque-hebdo', 'zone-visage'],
@@ -2543,7 +2524,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), WATER (AQUA), DISODIUM COCO-GLUCOSIDE CITRATE, DECYL GLUCOSIDE, GLYCERIN, SODIUM COCOAMPHOACETATE, CITRIC ACID, DIGLYCERIN, FRAGRANCE (PARFUM), PENTYLENE GLYCOL, POLYGLYCERYL-4 CAPRATE, POLYGLYCERYL-6 CAPRYLATE, SODIUM CHLORIDE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-mousse-nettoyante-150ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-mousse-nettoyante.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -2565,7 +2546,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'MINERAL OIL (PARAFFINUM LIQUIDUM), RICINUS COMMUNIS (CASTOR) SEED OIL (RICINUS COMMUNIS SEED OIL), BEESWAX (CERA ALBA), HYDROGENATED CASTOR OIL, ISOPROPYL PALMITATE, BUTYROSPERMUM PARKII (SHEA) BUTTER (BUTYROSPERMUM PARKII BUTTER), CETYL ESTERS, CETEARYL ETHYLHEXANOATE, BIS-DIGLYCERYL POLYACYLADIPATE-2, HYDROGENATED VEGETABLE OIL, SQUALANE, MICROCRYSTALLINE WAX (CERA MICROCRISTALLINA), ALUMINUM SUCROSE OCTASULFATE, GLYCERYL LINOLEATE, AVENE THERMAL SPRING WATER (AVENE AQUA), PARAFFIN, BHT, FRAGRANCE (PARFUM), GLYCERYL LINOLENATE, GLYCERYL OLEATE, GLYCERYL PALMITATE, GLYCERYL STEARATE, GLYCINE SOJA (SOYBEAN) OIL (GLYCINE SOJA OIL), ISOPROPYL MYRISTATE, STEARYL GLYCYRRHETINATE, TOCOPHEROL, TOCOPHERYL ACETATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-stick-levres-hydratation-quotidienne-lot-de-2.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-stick-levres-hydratation-quotidienne.webp',
     tags: {
       primary: ['barriere-cutanee', 'anti-oxydant'],
       secondary: ['emollience', 'texture-legere', 'reparateur', 'soin-levres', 'zone-levres'],
@@ -2592,7 +2573,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "AVENE THERMAL SPRING WATER (AVENE AQUA), CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, CETEARYL ALCOHOL, BUTYROSPERMUM PARKII (SHEA) BUTTER (BUTYROSPERMUM PARKII BUTTER), SQUALANE, BEESWAX (CERA ALBA), CETEARYL GLUCOSIDE, CETYL ESTERS, AQUAPHILUS DOLOMIAE EXTRACT FILTRATE, ARGININE, CITRIC ACID, TROMETHAMINE, WATER (AQUA), XANTHAN GUM, 97% DES INGRÉDIENTS SONT D'ORIGINE NATURELLE",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-tolerance-control-baume-apaisant-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-tolerance-control-baume-apaisant.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'apaisant'],
       secondary: ['emollience', 'texture-legere', 'baume'],
@@ -2621,7 +2602,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "AVENE THERMAL SPRING WATER (AVENE AQUA), CAPRYLIC/CAPRIC TRIGLYCERIDE, ETHYLHEXYL PALMITATE, GLYCERIN, CETEARYL ALCOHOL, SQUALANE, CETEARYL GLUCOSIDE, CETYL ESTERS, AQUAPHILUS DOLOMIAE EXTRACT FILTRATE, ARGININE, BEESWAX (CERA ALBA), CITRIC ACID, TROMETHAMINE, WATER (AQUA), XANTHAN GUM, 98% DES INGRÉDIENTS SONT D'ORIGINE NATURELLE",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-tolerance-control-creme-apaisante-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-tolerance-control-creme-apaisante.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'apaisant'],
       secondary: ['emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
@@ -2649,7 +2630,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'IAVENE THERMAL SPRING WATER (AVENE AQUA), CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, BUTYROSPERMUM PARKII (SHEA) BUTTER (BUTYROSPERMUM PARKII BUTTER), CETEARYL ALCOHOL, CETEARYL GLUCOSIDE, CITRUS LIMON (LEMON) PEEL POWDER (CITRUS LIMON PEEL POWDER), DIUTAN GUM, SCLEROTIUM GUM, SODIUM HYALURONATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-tolerance-hydra-10-creme-hydratante-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-tolerance-hydra-10-creme-hydratante.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -2674,7 +2655,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, MYRISTYL ALCOHOL, CITRUS LIMON (LEMON) PEEL POWDER (CITRUS LIMON PEEL POWDER), DIUTAN GUM, MYRISTYL GLUCOSIDE, SCLEROTIUM GUM, SODIUM HYALURONATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-tolerance-hydra-10-fluide-hydratant-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-tolerance-hydra-10-fluide-hydratant.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -2699,7 +2680,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA),CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN,NIACINAMIDE, CARTHAMUS TINCTORIUS(SAFFLOWER) SEED OIL (CARTHAMUSTINCTORIUS SEED OIL), BUTYROSPERMUMPARKII (SHEA) BUTTER (BUTYROSPERMUMPARKII BUTTER), GLYCOL PALMITATE, ASCORBYLGLUCOSIDE, ARACHIDYL ALCOHOL, CETEARYLALCOHOL, GLYCERYL STEARATE, ARACHIDYLGLUCOSIDE, BEHENYL ALCOHOL, CAPRYLYLGLYCOL, CETEARYL GLUCOSIDE, CITRIC ACID,FRAGRANCE (PARFUM), HELIANTHUS ANNUUS(SUNFLOWER) SEED OIL (HELIANTHUS ANNUUSSEED OIL), SODIUM BENZOATE, SODIUM CITRATE,SODIUM HYALURONATE, SODIUM HYDROXIDE,SODIUM STEAROYL GLUTAMATE, TOCOPHEROL,XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-vitamin-activ-cg-creme-intensive-eclat-radiance-eco-recharge-50-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-vitamin-activ-cg-creme-intensive-eclat-radiance-eco-recharge.webp',
     tags: {
       primary: ['pores-dilates', 'hydratation', 'barriere-cutanee', 'eclat'],
       secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -2728,7 +2709,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER(AVENE AQUA), GLYCERIN, NIACINAMIDE.PENTYLENE GLYCOL, C9-12 ALKANE.CAPRYLIC/CAPRIC TRIGLYCERIDE.PENTAERYTHRITYL TETRACAPRYLATE/TETRACAPRATE, ASCORBYL GLUCOSIDE, BAKUCHIOL, 1,2-HEXANEDIOL, ACACIASENEGAL GUM, BUTYLENE GLYCOL.CITRIC ACID, COCO-CAPRYLATE/CAPRATE, FRAGRANCE (PARFUM), GLYCERYLBEHENATE, GLYCERYL DIBEHENATE.SODIUM CITRATE, SODIUMDILAURAMIDOGLUTAMIDE LYSINE.SODIUM HYALURONATE.SODIUM HYDROXIDE, TOCOPHERYLGLUCOSIDE, TRIBEHENIN, WATER (AQUA).XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-vitamin-activ-cg-serum-correcteur-elat-30-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-vitamin-activ-cg-serum-correcteur-elat.webp',
     tags: {
       primary: ['pores-dilates', 'anti-age', 'hydratation'],
       secondary: ['sebo-regulateur', 'serum', 'traitement', 'zone-visage'],
@@ -2755,69 +2736,13 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER(AVENE AQUA), CAPRYLIC/CAPRICTRIGLYCERIDE, GLYCERIN, POLYGLYCERYL-2DIPOLYHYDROXYSTEARATE, NIACINAMIDE.PENTAERYTHRITYL TETRACAPRYLATE/TETRACAPRATE, BEHENYL ALCOHOL.BENZOIC ACID, CAPRYLYL GLYCOL.FRAGRANCE (PARFUM), HELIANTHUSANNUUS (SUNFLOWER) SEED OIL(HELIANTHUS ANNUUS SEED OIL).HYDROXYETHYLCELLULOSE, LAURYLGLUCOSIDE, SILYBUM MARIANUM SEED OIL.SODIUM CITRATE, SODIUM LAURYLGLUCOSE CARBOXYLATE, SODIUM STEAROYLGLUTAMATE, SORBIC ACID, TOCOPHEROL.WATER (AQUA), XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-xeracalm-nutrition-lait-hydratant-100ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-xeracalm-nutrition-lait-hydratant.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'hydratation'],
       secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.AVENE_THERMAL_SPRING_WATER }],
-  },
-  {
-    slug: 'avene-xeracalm-nutrition-lait-hydratant-200ml',
-    name: 'Xeracalm Nutrition Lait Hydratant',
-    brand: 'Avene',
-    kind: 'moisturizer',
-    unit: 'tube',
-    totalAmount: 200,
-    amountUnit: 'ml',
-    priceCents: 1458,
-    description:
-      "AVENE XERACALM NUTRITION LAIT HYDRATANT 200ML : Découvrez le lait hydratant nutrition de la gamme XERACALM d'AVENE, en vente en ligne sur le site de votre parapharmacie à prix discount.\n\nCe lait hydratant est spécialement conçu pour les peaux sèches à très sèches. Il est composé d'actifs hydratants et nourrissants pour une hydratation intense et durable. Ce lait hydratant sert à nourrir, hydrater et renforcer la barrière cutanée. Sa texture légère et non grasse pénètre rapidement et laisse la peau douce et confortable. Sa formule est enrichie en actifs apaisants et anti-irritants tels que l'eau thermale Avène et l’huile de chardon marie pour une action anti dessèchement et anti-grattage. Convient pour les adultes, les enfants et les bébés.",
-    notes: '',
-    inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE, NIACINAMIDE, PENTAERYTHRITYL TETRACAPRYLATE/TETRACAPRATE, BEHENYL ALCOHOL, BENZOIC ACID, CAPRYLYL GLYCOL, FRAGRANCE (PARFUM), HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), HYDROXYETHYLCELLULOSE, LAURYL GLUCOSIDE, SILYBUM MARIANUM SEED OIL, SODIUM CITRATE, SODIUM LAURYL GLUCOSE CARBOXYLATE, SODIUM STEAROYL GLUTAMATE, SORBIC ACID, TOCOPHEROL, WATER (AQUA), XANTHAN GUM',
-    url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-xeracalm-nutrition-lait-hydratant-200ml.html',
-    imageUrl: '',
-    tags: {
-      primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'hydratation'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
-      avoid: [],
-    },
-    keyIngredients: [
-      { slug: INGREDIENT_SLUGS.AVENE_THERMAL_SPRING_WATER },
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE },
-      { slug: INGREDIENT_SLUGS.HUILE_GRAINES_TOURNESOL },
-      { slug: INGREDIENT_SLUGS.CHARDON_MARIE },
-      { slug: INGREDIENT_SLUGS.SODIUM_CITRATE },
-    ],
-  },
-  {
-    slug: 'avene-xeracalm-nutrition-lait-hydratant-400ml',
-    name: 'Xeracalm Nutrition Lait Hydratant',
-    brand: 'Avene',
-    kind: 'moisturizer',
-    unit: 'bottle',
-    totalAmount: 400,
-    amountUnit: 'ml',
-    priceCents: 1828,
-    description:
-      "AVENE XERACALM NUTRITION LAIT HYDRATANT 400ML : Découvrez le lait hydratant nutrition de la gamme XERACALM d'AVENE, en vente en ligne sur le site de votre parapharmacie à prix discount.\n\nCe lait hydratant est spécialement conçu pour les peaux sèches à très sèches. Il est composé d'actifs hydratants et nourrissants pour une hydratation intense et durable. Ce lait hydratant sert à nourrir, hydrater et renforcer la barrière cutanée Sa texture légère et non grasse pénètre rapidement et laisse la peau douce et confortable. Sa formule est enrichie en actifs apaisants et anti-irritants tels que l'eau thermale Avène et l’huile de chardon marie pour une action anti-dessèchement et anti-grattage. Convient pour les adultes, les enfants et les bébés.",
-    notes: '',
-    inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE, NIACINAMIDE, PENTAERYTHRITYL TETRACAPRYLATE/TETRACAPRATE, BEHENYL ALCOHOL, BENZOIC ACID, CAPRYLYL GLYCOL, FRAGRANCE (PARFUM), HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), HYDROXYETHYLCELLULOSE, LAURYL GLUCOSIDE, SILYBUM MARIANUM SEED OIL, SODIUM CITRATE, SODIUM LAURYL GLUCOSE CARBOXYLATE, SODIUM STEAROYL GLUTAMATE, SORBIC ACID, TOCOPHEROL, WATER (AQUA), XANTHAN GUM',
-    url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-xeracalm-nutrition-lait-hydratant-400ml.html',
-    imageUrl: '',
-    tags: {
-      primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'hydratation'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
-      avoid: [],
-    },
-    keyIngredients: [
-      { slug: INGREDIENT_SLUGS.AVENE_THERMAL_SPRING_WATER },
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE },
-      { slug: INGREDIENT_SLUGS.HUILE_GRAINES_TOURNESOL },
-      { slug: INGREDIENT_SLUGS.CHARDON_MARIE },
-      { slug: INGREDIENT_SLUGS.SODIUM_CITRATE },
-    ],
   },
   {
     slug: 'avene-baume-fondant-hydratant-peaux-sensibles',
@@ -2833,7 +2758,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA) – GLYCERIN, BUTYROSPERMUM PARKII (SHEA) OIL (BUTYROSPERMUM PARKII OIL), CAPRYLIC/CAPRIC TRIGLYCERIDE, CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL (CARTHAMUS TINCTORIUS SEED OIL), ISOPROPYL PALMITATE, C14-22 ALCOHOLS – DIMETHICONE, TOCOPHERYL ACETATE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, BENZOIC ACID, C12-20 ALKYL GLUCOSIDE, C20-22 ALCOHOLS, C20-22 ALKYL PHOSPHATE, CAMELINA SATIVA SEED OIL, CAPRYLYL GLYCOL, FRAGRANCE (PARFUM), GLYCERYL STEARATE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, PEG-100 STEARATE, POLYSORBATE 60, SODIUM HYDROXIDE, SORBITAN ISOSTEARATE – SQUALANE, WATER (AQUA), XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/cremes-hydratantes/avene-baume-fondant-hydratant-peaux-sensibles-250-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-baume-fondant-hydratant-peaux-sensibles.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant'],
       secondary: [
@@ -2864,7 +2789,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), C12-15 ALKYL BENZOATE, DICAPRYLYL CARBONATE, GLYCERIN, PENTAERYTHRITYL TETRACAPRYLATE/TETRACAPRATE, METHYLENE BIS-BENZOTRIAZOLYL TETRAMETHYLBUTYLPHENOL [NANO], WATER (AQUA), BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, BUTYROSPERMUM PARKII (SHEA) BUTTER (BUTYROSPERMUM PARKII BUTTER), DIETHYLHEXYL BUTAMIDO TRIAZONE, DIISOPROPYL ADIPATE, METHYL GLUCETH-20, SILICA, TITANIUM DIOXIDE (CI 77891), BUTYL METHOXYDIBENZOYLMETHANE, MICA, ISOCETYL STEAROYL STEARATE, TRIETHYLHEXANOIN, GLYCERYL STEARATE, PEG-100 STEARATE, POTASSIUM CETYL PHOSPHATE, BENZOIC ACID, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, DECYL GLUCOSIDE, DISODIUM EDTA, FRAGRANCE (PARFUM), GLYCERYL BEHENATE, GLYCERYL DIBEHENATE, HYDROGENATED STARCH HYDROLYSATE, IRON OXIDES (CI 77492), (CI 77491), (CI 77499), PHYTOSTEROLS, POLYACRYLATE-13, POLYISOBUTENE, POLYSORBATE 20, PROPYLENE GLYCOL, SODIUM HYDROXIDE, SORBITAN ISOSTEARATE, STEARYL ALCOHOL, TOCOPHEROL, TOCOPHERYL GLUCOSIDE, TRIBEHENIN, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/cremes-hydratantes/avene-hydrance-bb-creme-riche-hydratante-teintee-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-hydrance-bb-creme-riche-hydratante-teintee.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -2895,7 +2820,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVÈNE THERMAL SPRING WATER, MINERAL OIL (PARAFFINUM LIQUIDUM), GLYCERIN, ISOHEXADECANE, DIMETHICONE, CETEARYL ALCOHOL, CARTHAMUS TINCTORIUS SEED OIL, ISOCETYL STEAROYL STEARATE, TRIETHYLHAXANOIN, GLYCERYL STEARATE, PEG-100 STEARATE, 1-2 HEXANEDIOL, BUTYROSPERMUM PARKII SHEA BUTTER, CETEARYL GLUCOSIDE, BENZOIC ACID, BETA SITOSTEROL, BHT, DISODIUM EDTA, FRAGRANCE (PARFUM), POLYACRYLATE-13, POLYISOBUTENE, POLYSORBATE 20, SODIUM HYDROXIDE, SORBITAN ISOSTEARATE, WATER (AQUA), XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/cremes-hydratantes/avene-hydrance-creme-peaux-sensibles-a-seches-40-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-hydrance-creme-peaux-sensibles-a-seches.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['creme-hydratante', 'zone-visage', 'peau-sensible'],
@@ -2921,7 +2846,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'TALC, SYNTHETIC FLUORPHLOGOPITE, NYLON-12, OCTYLDODECYL STEAROYL STEARATE, BIS-DIGLYCERYL POLYACYLADIPATE-2, CETYL DIMETHICONE, DIMETHICONE, IRON OXIDES (CI 77491) (CI 77492) (CI 77499), LAUROYL LYSINE, MANGANESE VIOLET (CI 77742), RED 30 LAKE (CI 73360), RED 6 (CI 15850), TITANIUM DIOXIDE (CI 77891), TOCOPHERYL ACETATE, ULTRAMARINES (CI 77007), YELLOW 5 LAKE (CI 19140)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/maquillage/avene-couvrance-poudre-mosaique-bonne-mine-correcteur-de-teint-10-g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-couvrance-poudre-mosaique-bonne-mine-correcteur-de-teint.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['spot-treatment', 'soin-localise', 'zone-visage'],
@@ -2946,7 +2871,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'TALC, SYNTHETIC FLUORPHLOGOPITE, NYLON-12, OCTYLDODECYL STEAROYL STEARATE, BIS-DIGLYCERYL POLYACYLADIPATE-2, CETYL DIMETHICONE, IRON OXIDES (CI 77492) (CI 77491) (CI 77499), LAUROYL LYSINE, MANGANESE VIOLET (CI 77742), TITANIUM DIOXIDE (CI 77891), TOCOPHERYL ACETATE, ULTRAMARINES (CI 77007)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/maquillage/avene-couvrance-poudre-mosaique-translucide-correcteur-de-teint-10-g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-couvrance-poudre-mosaique-translucide-correcteur-de-teint.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['spot-treatment', 'soin-localise', 'zone-visage'],
@@ -2971,7 +2896,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'DIISOSTEARYL MALATE, TITANIUM DIOXIDE, SILICA, PPG-3 MYRISTYL ETHER, BIS-DIGLYCERYL POLYACYLADIPATE-2, OCTYLDODECANOL, ETHYLHEXYL METHOXYCINNAMATE, POLYETHYLENE, HYDROGENATED CASTOR OIL, CERA ALBA, ISONONYL ISONONANOATE, ZINC OXIDE, ALUMINUM HYDROXIDE, CAPRYLIC/CAPRIC TRIGLYCERIDE, DISTEARDIMONIUM HECTORITE, ALCOHOL DENAT., STEARIC ACID, TOCOPHERYL GLUCOSIDE, TRIETHOXYCAPRYLYLSILANE, MAY CONTAIN (+/-) : CI 77491, CI 77492',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/maquillage/avene-couvrance-stick-correcteur-jaune.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-couvrance-stick-correcteur-jaune.webp',
     tags: {
       primary: ['protection-solaire', 'apaisant'],
       secondary: ['filtres-chimiques', 'spot-treatment', 'soin-localise', 'zone-visage', 'matin'],
@@ -3000,7 +2925,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'SANS PARFUM, SANS CONSERVATEUR, SANS PARABEN, DIISOSTEARYL MALATE, TITANIUM DIOXIDE (CI 77891), SILICA, PPG-3 MYRISTYL ETHER, BIS-DIGLYCERYL POLYACYLADIPATE-2, OCTYLDODECANOL, ETHYLHEXYL METHOXYCINNAMATE, POLYETHYLENE, TITANIUM DIOXIDE, HYDROGENATED CASTOR OIL, BEESWAX (CERA ALBA), ISONONYL ISONONANOATE, CHROMIUM OXIDE GREENS (CI 77288), ZINC OXIDE, ALUMINUM HYDROXIDE, BHT, BLUE 1 LAKE (CI 42090), CAPRYLIC/CAPRIC TRIGLYCERIDE, DISTEARDIMONIUM HECTORITE, IRON OXIDES (CI 77492), MICA, SD ALCOHOL 39-C (ALCOHOL DENAT), STEARIC ACID, TOCOPHERYL GLUCOSIDE, TRIETHOXYCAPRYLYLSILANE, WATER (AQUA)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/maquillage/avene-couvrance-stick-correcteur-vert.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-couvrance-stick-correcteur-vert.webp',
     tags: {
       primary: ['protection-solaire', 'apaisant'],
       secondary: ['filtres-chimiques', 'spot-treatment', 'soin-localise', 'zone-visage', 'matin'],
@@ -3028,7 +2953,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'SANS PARFUM, SANS CONSERVATEUR, SANS PARABEN, DIISOSTEARYL MALATE, TITANIUM DIOXIDE (CI 77891), SILICA, PPG-3 MYRISTYL ETHER, BIS-DIGLYCERYL POLYACYLADIPATE-2, OCTYLDECANOL, ETHYLHEXYL METHOCYCINNAMATE, POLYETHYLENE, TITANIUM DIOXIDE, HYDROGENATED CASTOR OIL, IRON OXIDES (CI 77492), BEESWAX (CERA ALBA), ISONONYL ISONONANOATE, ZINC OXIDE, ALUMINUM HYDROXIDE, BHT, CAPRYLIC / CAPRIC TRIGLYCERIDE, DISTEARDIMONIUM HECTORITE, IRON OXIDES (CI 77491), IRON OXIDES (CI 77499), SD ALCOHOL 39-C (ALCOHOL DENAT), STEARIC ACID, TOCOPHERYL GLUCOSIDE, TRIETHOXYCAPRYLYLSILANE, WATER (AQUA)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/maquillage/avene-stick-correcteur-corail.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-stick-correcteur-corail.webp',
     tags: {
       primary: ['apaisant'],
       secondary: ['spot-treatment', 'soin-localise', 'zone-visage'],
@@ -3055,7 +2980,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVÈNE THERMAL SPRING WATER (AVENE AQUA) CAPRYLIC/CAPRIC TRIGLYCERIDE, ISOHEXADECANE, SQUALANE, PROPYLENE GLYCOL, GLYCERIN, POLYACRYLATE-13, METHYL GLUCETH-20,1-2 HEXANEDIOL, ARACHIDYL ALCOHOL, ARACHIDYL GLUCOSIDE, BEHENYL ALCOHOL, CAPRYLYL GLYCOL, DISODIUM EDTA, FRAGRANCE (PARFUM), GLYCERYL STEARATE, OLEOYL DIPEPTIDE-15, OLEOYL TETRAPEPTIDE-31, PEG-100 STEARATE, POLYISOBUTENE, POLYSORBATE 20, SODIUM HYALURONATE, SORBITAN ISOSTEARATE, TOCOPHERYL GLUCOSIDE, WATER (AQUA)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/soins-anti-age/avene-men-soin-hydratant-anti-age-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-men-soin-hydratant-anti-age.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'anti-age'],
       secondary: ['emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
@@ -3081,7 +3006,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'SQUALANE, RICINUS COMMUNIS (CASTOR) SEED OIL (RICINUS COMMUNIS SEED OIL), BEESWAX (CERA ALBA), BUTYROSPERMUM PARKII (SHEA) BUTTER (BUTTYROSPERMUM PARKII BUTTER), MINERAL OIL (PARAFFINUM LIQUIDUM), COPERNICIA CERIFERA (CANAUBA) WAX (COPERNICIA CERIFERA CERA), ALUMINIUM SUCROSE OCTASULFATE, GLYCERYL LINOLEATE, AVENE THERMAL SPRING WATER (AVENE AQUA), BISABOLOL, FRAGRANCE (PARFUM), GLYCERYL LINOLENATE, GLYCERYL OLEATE, GLYCERYL PALMITATE, GLYCERYL STEARATE, GLYCINE SOJA (SOYBEAN) OIL (GLYCINE SOJA OIL), MICA, STEARYL GLYCYRRHETINATE, TITANIUM DIOXIDE (CI 77891), TOCOPHEROL, TOCOPHERYL ACETATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/soins-traitants/avene-cold-cream-nutrition-stick-levres-4g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cold-cream-nutrition-stick-levres.webp',
     tags: {
       primary: ['barriere-cutanee', 'apaisant', 'anti-oxydant'],
       secondary: ['emollience', 'texture-legere', 'reparateur', 'soin-levres', 'zone-levres'],
@@ -3110,7 +3035,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA) CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL (CARTHAMUS TINCTORIUS SEED OIL) CAPRYLIC CAPRIC TRIGLYCERIDE GLYCERIN SUCROSE STEARATE SUCROSE POLYSTEARATE GLYCERYL STEARATE PEG 100 STEARATE BATYL ALCOHOL BISABOLOL CITRIC ACID GLYCERYL CAPRYLATE HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL) HYDROXYETHYL ACRYLATE SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER POLYSORBATE 60 SODIUM BENZOATE SODIUM DEXTRAN SULFATE SORBITAN ISOSTEARATE TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/soins-traitants/avene-soin-apaisant-yeux-10ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-soin-apaisant-yeux.webp',
     tags: {
       primary: ['apaisant', 'anti-oxydant', 'hydratation'],
       secondary: ['reparateur', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
@@ -3131,7 +3056,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'SANS PARABEN, AVENE THERMAL SPRING WATER, CAPRYLIC/CAPRIC TRIGLYCERIDE, CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL (CARTHAMUS TINCTORIUS), SUCROSE STEARATE, GLYCERIN, SUCROSE DISTEARATE, TRIETHANOLAMINE, DIETHYLHEXYL SUCCINATE, ALUMINUM SUCROSE OCTASULFATE, BENZOIC ACID, BHT, BISABOLOL, CARBOMER, CHLORPHENESIN, DISODIUM EDTA, FRAGRANCE, PCA, PHENOXYETHANOL, TRICLOSAN',
     url: 'https://www.pharmashopdiscount.com/fr/homme-et-sport/par-action/rasage/avene-homme-baume-apres-rasage-75-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-homme-baume-apres-rasage.webp',
     tags: {
       primary: ['apaisant', 'hydratation'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -3159,7 +3084,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'RICINUS COMMUNIS (CASTOR) SEED OIL (RICINUS COMMUNIS SEED OIL), CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL (CARTHAMUS TINCTORIUS SEED OIL), BEESWAX (CERA ALBA), GLYCERIN, CETYL ALCOHOL, POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE, BUTYROSPERMUM PARKII (SHEA) BUTTER (BUTYROSPERMUM PARKII BUTTER), SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL (SIMMONDSIA CHINENSIS SEED OIL), AVENE THERMAL SPRING WATER (AVENE AQUA), DISTEARDIMONIUM HECTORITE, CITRIC ACID, COPERNICIA CERIFERA (CARNAUBA) WAX (COPERNICIA CERIFERA CERA), FRAGRANCE (PARFUM), LEONTOPODIUM ALPINUM FLOWER/LEAF EXTRACT, POTASSIUM SORBATE, RIBES RUBRUM (CURRANT) FRUIT EXTRACT (RIBES RUBRUM FRUIT EXTRACT), RUBUS IDAEUS (RASPBERRY) FRUIT EXTRACT (RUBUS IDAEUS FRUIT EXTRACT), SODIUM BENZOATE, VACCINIUM MYRTILLUS FRUIT EXTRACT, WATER (AQUA)',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/corps/levres/hydratation/avene-baume-levres-hydratant-intense-10ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-baume-levres-hydratant-intense.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['soin-levres', 'zone-levres'],
@@ -3187,7 +3112,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'DISODIUM LAURYL SULFOSSUCINATE, MALTODEXTRIN, SODIUM COCOYL ISETHIONATE, STEARIC ACID, WATER (AQUA), PALMITIC ACID, STEARIC ACID, CETEARYL ALCOHOL, PARAFFIN, OENOTHERA BIENNIS (EVENING PRIMROSE) OIL (OENOTHERA BIENNIS OIL), CETEAETH-6, AVENE THERMAL SPRING WATER (AVENE AQUA), AQUAPHILLUS DOLOMIAE EXTRACT, ARGININE, CITRIC ACID, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), MICROCRYSTALLINE WAX (CERA MICROCRISTALLINA) TITANIUM DIOXIDE (CI 77891), TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-produits/bain-et-douche/savon-solide/avene-xeracalm-a-d-pain-nettoyant-surgras-100-g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-xeracalm-a-d-pain-nettoyant-surgras.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -3263,7 +3188,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, BEHENYL ALCOHOL, ARACHIDYL ALCOHOL, C20-22 ALKYL PHOSPHATE, 1,2-HEXANEDIOL, ARACHIDYL GLUCOSIDE, C20-22 ALCOHOLS, CAPRYLYL GLYCOL, FRAGRANCE (PARFUM), GLYCYRRHETINIC ACID, POLYACRYLATE-13, POLYISOBUTENE, POLYSORBATE 20, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL (SIMMONDSIA CHINENSIS SEED OIL), SODIUM HYDROXIDE, SORBITAN ISOSTEARATE, TOCOPHERYL GLUCOSIDE, WATER (AQUA), XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-apres-soleil-lait-reparateur-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-apres-soleil-lait-reparateur.webp',
     tags: {
       primary: ['hydratation', 'cicatrisation'],
       secondary: ['reparateur'],
@@ -3288,7 +3213,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'SANS PARABEN, SANS PARFUM, AVENE THERMAL SPRING WATER (AVENE AQUA), CAPRYLIC/CAPRIC TRIGLYCERIDE, MINERAL OIL (PARAFFINUM LIQUIDUM), GLYCERIN, HYDROGENATED VEGETABLE OIL, ZINC OXIDE, PROPYLENE GLYCOL, POLYGLYCERYL-2 SESQUIISOSTEARATE, PEG-22/DODECYL GLYCOL COPOLYMER, ALUMINUM SUCROSE OCTASULFATE, ALUMINUM STEARATE, BEESWAX (CERA ALBA), COPPER SULFATE, MAGNESIUM STEARATE, MAGNESIUM SULFATE, MICROCRYSTALLINE WAX (CERA MICROCRISTALLINA), ZINC SULFATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-cicalfate-creme-protectrice-40-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cicalfate-creme-protectrice.webp',
     tags: {
       primary: ['apaisant', 'hydratation'],
       secondary: ['creme-solaire', 'protection-solaire', 'matin', 'zone-visage'],
@@ -3315,7 +3240,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), CAPRYLIC/CAPRIC TRIGLYCERIDE, MINERAL OIL (PARAFFINUM LIQUIDUM), GLYCERIN, HYDROGENATED VEGETABLE OIL, ZINC OXIDE, PROPYLENE GLYCOL, POLYGLYCERYL-2 SESQUIISOSTEARATE, PEG-22/DODECYL GLYCOL COPOLYMER, ALUMINUM STEARATE, AQUAPHILUS DOLOMIAE FERMENT FILTRATE, ARGININE, BEESWAX (CERA ALBA), COPPER SULFATE, MAGNESIUM STEARATE, MAGNESIUM SULFATE, MICROCRYSTALLINE WAX (CERA MICROCRISTALLINA), TROMETHAMINE, ZINC SULFATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-cicalfate-creme-reparatrice-protectrice-15ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cicalfate-creme-reparatrice-protectrice.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'cicatrisation'],
       secondary: ['creme-solaire', 'protection-solaire', 'matin', 'zone-visage', 'reparateur'],
@@ -3344,7 +3269,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), C12-15 ALKYL BENZOATE, CAPRYLIC/CAPRIC TRIGLYCERIDE, DICAPRYLYL CARBONATE, GLYCERIN, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, WATER (AQUA), ETHYLHEXYL TRIAZONE, PANTHENOL, POLYGLYCERYL-6 STEARATE, PHENYLENE BIS-DIPHENYLTRIAZINE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, VP/EICOSENE COPOLYMER, AQUAPHILUS DOLOMIAE FERMENT FILTRATE, ARGININE, BENZOIC ACID, CAPRYLYL GLYCOL, GLYCERYL STEARATE, GLYCINE SOJA (SOYBEAN) OIL (GLYCINE SOJA OIL), PANTOLACTONE, POLYGLYCERYL-6 BEHENATE, PPG-1-PEG-9 LAURYL GLYCOL ETHER, RED 33 (CI 17200), SODIUM HYALURONATE, STEARYL ALCOHOL, TOCOPHEROL, TOCOPHERYL GLUCOSIDE, TROMETHAMINE, XANTHAN GUM, ZINC SULFATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-cicalfate-spf50-creme-reparatrice-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cicalfate-spf50-creme-reparatrice.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'barriere-cutanee', 'cicatrisation'],
       secondary: ['reparateur', 'creme-solaire', 'protection-solaire', 'matin', 'zone-visage'],
@@ -3375,7 +3300,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), C12-15 ALKYL BENZOATE, DIETHYLAMINO HYDROXYBENZOYL, HEXYL BENZOATE, ETHYLHEXYL TRIAZONE, ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH), PHENYLENE BIS-DIPHENYLTRIAZINE, WATER (AQUA), GLYCERIN, BIS-ETHYLHEXYLOXYPHENOL, METHOXYPHENYL TRIAZINE, POTASSIUM CETYL PHOSPHATE, GLYCERYL LAURATE, GLYCERYL STEARATE, STEARYL ALCOHOL, TAPIOCA STARCH, VP/EICOSENE COPOLYMER, BENZOIC ACID, CAPRYLIC/CAPRIC TRIGYCERIDE, CAPRYLYL GLYCOL, FRAGRANCE (PARFUM), GLYCERYL BEHENATE, GLYCERYL DIBEHENATE, PPG-1-PEG-9 LAURYL GLYCOL ETHER, RED 33 (CI17200), TOCOPHERYL GLUCOSIDE, TRIBEHENIN, XANTHAN GUM, ZINC GLUCONATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-cleanance-spf50-ultra-leger-anti-imperfections-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cleanance-spf50-ultra-leger-anti-imperfections.webp',
     tags: {
       primary: ['hydratation', 'anti-acne', 'protection-solaire'],
       secondary: ['creme-solaire', 'matin', 'zone-visage'],
@@ -3405,7 +3330,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HEXYL BENZOATE, ETHYLHEXYL TRIAZONE, GLYCERIN, ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH), PHENYLENE BIS-DIPHENYLTRIAZINE, WATER (AQUA), BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, GLYCERYL STEARATE, POTASSIUM CETYL PHOSPHATE, STEARYL ALCOHOL, VP/EICOSENE COPOLYMER, BENZOIC ACID, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, GLYCERYL BEHENATE, GLYCERYL DIBEHENATE, PPG-1-PEG-9 LAURYL GLYCOL ETHER, RED 33 (CI 17200), TOCOPHERYL GLUCOSIDE, TRIBEHENIN, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-creme-sans-parfum-spf50-fini-invisible-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-creme-sans-parfum-spf50-fini-invisible.webp',
     tags: {
       primary: ['hydratation', 'protection-solaire'],
       secondary: ['creme-solaire', 'matin', 'zone-visage'],
@@ -3433,7 +3358,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), C12-15 ALKYL BENZOATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, ETHYLHEXYL TRIAZONE, GLYCERIN, ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH), PHENYLENE BIS-DIPHENYLTRIAZINE, WATER (AQUA), BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, GLYCERYL STEARATE, POTASSIUM CETYL PHOSPHATE, STEARYL ALCOHOL, VP/EICOSENE COPOLYMER, BENZOIC ACID, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, FRAGRANCE (PARFUM), GLYCERYL BEHENATE, GLYCERYL DIBEHENATE, PPG-1-PEG-9 LAURYL GLYCOL ETHER, RED 33 (CI 17200), TOCOPHERYL GLUCOSIDE, TRIBEHENIN, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-creme-spf50-fini-invisible-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-creme-spf50-fini-invisible.webp',
     tags: {
       primary: ['hydratation', 'protection-solaire'],
       secondary: ['creme-solaire', 'matin', 'zone-visage'],
@@ -3464,7 +3389,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-creme-teintee-unifiant-spf50-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-creme-teintee-unifiant-spf50.webp',
     tags: {
       primary: ['protection-solaire'],
       secondary: ['creme-solaire', 'matin', 'zone-visage'],
@@ -3485,7 +3410,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), C12-15 ALKYL BENZOATE, DICAPRYLYL CARBONATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, WATER (AQUA), DIISOPROPYL ADIPATE, ETHYLHEXYL TRIAZONE, ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH), PHENYLENE BIS-DIPHENYLTRIAZINE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, POTASSIUM CETYL PHOSPHATE, C9-12 ALKANE, LAURYL GLUCOSIDE, POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE, GLYCERIN, TAPIOCA STARCH, TRIMETHYLPENTANEDIOL/ADIPIC ACID/GLYCERIN CROSSPOLYMER, BENZOIC ACID, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CITRIC ACID, COCO-CAPRYLATE/CAPRATE, GLYCERYL LAURATE, GLYCINE SOJA (SOYBEAN) OIL (GLYCINE SOJA OIL), LENS ESCULENTA (LENTIL) SEED EXTRACT (LENS ESCULENTA SEED EXTRACT), PENTYLENE GLYCOL, PPG-1-PEG-9 LAURYL GLYCOL ETHER, RED 33 (CI 17200), SODIUM BENZOATE, SODIUM HYALURONATE, SODIUM PHYTATE, TOCOPHEROL, TOCOPHERYL GLUCOSIDE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-fluide-anti-age-spf50-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-fluide-anti-age-spf50.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'anti-age', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3516,7 +3441,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), C12-15 ALKYL BENZOATE, CAPRYLIC/CAPRIC TRIGLYCERIDE, DICAPRYLYL CARBONATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, GLYCERIN, ETHYLHEXYL TRIAZONE, WATER (AQUA), PHENYLENE BIS-DIPHENYLTRIAZINE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, POTASSIUM CETYL PHOSPHATE, STEARYL ALCOHOL, VP/EICOSENE COPOLYMER, BENZOIC ACID, CAPRYLYL GLYCOL, GLYCERYL BEHENATE, GLYCERYL DIBEHENATE, GLYCERYL STEARATE, GLYCINE SOJA (SOYBEAN) OIL (GLYCINE SOJA OIL), PEG-100 STEARATE, POLYACRYLATE-13, POLYISOBUTENE, POLYSORBATE 20, PPG-1-PEG-9 LAURYL GLYCOL ETHER, RED 33 (CI 17200), SORBITAN ISOSTEARATE, TOCOPHEROL, TOCOPHERYL GLUCOSIDE, TRIBEHENIN, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-fluide-intense-protect-spf50-150ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-fluide-intense-protect-spf50.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3577,7 +3502,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'ZINC OXIDE [NANO], AVENE THERMAL SPRING WATER (AVENE AQUA), TITANIUM DIOXIDE [NANO], COCO-CAPRYLATE/CAPRATE, ISOPROPYL PALMITATE, ISOCETYL STEAROYL STEARATE, ISODECYL NEOPENTANOATE, ISODODECANE, ISOHEXADECANE, TRIETHYLHEXANOIN, DICAPRYLYL ETHER, PEG-30 DIPOLYHYDROXYSTEARATE, IRON OXIDES (CI 77492) (CI 77491) (CI 77499), MICA, ALUMINA, STEARIC ACID, CAPRYLYL GLYCOL, PEG-45/DODECYL GLYCOL COPOLYMER, SILICA [NANO], BENZOIC ACID, CAPRYLIC/CAPRIC TRIGLYCERIDE, DISODIUM EDTA, DISTEARDIMONIUM HECTORITE, GLYCERYL BEHENATE, GLYCERYL DIBEHENATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, POLYAMIDE-3, SODIUM CHLORIDE, TITANIUM DIOXIDE (CI 77891), TOCOPHEROL, TOCOPHERYL GLUCOSIDE, TRIBEHENIN, TRIETHOXYCAPRYLYLSILANE, WATER (AQUA)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-fluide-mineral-teinte-spf50-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-fluide-mineral-teinte-spf50.webp',
     tags: {
       primary: ['apaisant', 'anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3608,7 +3533,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), C12-15 ALKYL BENZOATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, ETHYLHEXYL TRIAZONE, ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH), PHENYLENE BIS-DIPHENYLTRIAZINE, WATER (AQUA), GLYCERIN, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, POTASSIUM CETYL PHOSPHATE, GLYCERYL STEARATE, STEARYL ALCOHOL, TAPIOCA STARCH, VP/EICOSENE COPOLYMER, BENZOIC ACID, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, FRAGRANCE (PARFUM), GLYCERYL BEHENATE, GLYCERYL DIBEHENATE, PPG-1-PEG-9 LAURYL GLYCOL ETHER, RED 33 (CI 17200), TOCOPHERYL GLUCOSIDE, TRIBEHENIN, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-fluide-solaire-spf50-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-fluide-solaire-spf50.webp',
     tags: {
       primary: ['hydratation', 'protection-solaire'],
       secondary: ['creme-solaire', 'matin', 'zone-visage'],
@@ -3639,7 +3564,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), C12-15 ALKYL BENZOATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, ETHYLHEXYL TRIAZONE, ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH), PHENYLENE BIS-DIPHENYLTRIAZINE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, POTASSIUM CETYL PHOSPHATE, LAURYL GLUCOSIDE, POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE, AVENE THERMAL SPRING WATER (AVENE AQUA), GLYCERIN, TRIMETHYLPENTANEDIOL/ADIPIC ACID/GLYCERIN CROSSPOLYMER, ALUMINA, AZELAIC ACID, BENZOIC ACID, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CITRIC ACID, ETHYLHEXYLGLYCERIN, IRON OXIDES (CI 77492, CI 77491, CI 77499), ISONONYL ISONONANOATE, ISOPROPYL MYRISTATE, ISOPROPYL TITANIUM TRIISOSTEARATE, POLYHYDROXYSTEARIC ACID, PPG-1-PEG-9 LAURYL GLYCOL ETHER, PROPYLENE CARBONATE, SODIUM PHYTATE, STEARALKONIUM HECTORITE, TITANIUM DIOXIDE (CI 77891), TOCOPHEROL, TOCOPHERYL GLUCOSIDE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-fluide-teinte-anti-pigmentation-spf50-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-fluide-teinte-anti-pigmentation-spf50.webp',
     tags: {
       primary: ['hydratation', 'anti-acne', 'anti-rougeurs', 'protection-solaire'],
       secondary: [
@@ -3677,7 +3602,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER AVENE AQUA PEG 4 COCO CAPRYLATE CAPRATE DIHYDROXYACETONE HYDROXYETHYL ACRYLATE SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER ERYTHULOSE GLYCERIN BENZOIC ACID BLUE 1 CI 42090 CAPRYLIC CAPRIC TRIGLYCERIDE CAPRYLYL GLYCOL DISODIUM EDTA FRAGRANCE PARFUM HELIANTHUS ANNUUS SUNFLOWER SEED OIL HELIANTHUS ANNUUS SEED OIL ISOHEXADECANE POLYSORBATE 60 RED 4 CI 14700 SODIUM CHLORIDE SODIUM SULFATE SORBITAN ISOSTEARATE TOCOPHEROL TOCOPHERYL GLUCOSIDE WATER AQUA YELLOW 6 CI 15985',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-gel-autobronzant-hydratant-hale-naturel-100ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-gel-autobronzant-hydratant-hale-naturel.webp',
     tags: {
       primary: ['anti-oxydant', 'hydratation'],
       secondary: ['reparateur', 'auto-bronzant', 'zone-corps'],
@@ -3698,7 +3623,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'C12-15 ALKYL BENZOATE, ISODODECANE, DIISOPROPYL ADIPATE, COCO-CAPRYLATE, DICAPRYLYL CARBONATE, DIETHYLHEXYL BUTAMIDO TRIAZONE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, BUTYL METHOXYDIBENZOYLMETHANE, ETHYLHEXYL SALICYLATE, ETHYLHEXYL TRIAZONE, BIS-ETHYLHEXYL HYDROXYDIMETHOXY BENZYLMALONATE, AVÈNE THERMAL SPRING WATER (AVÈNE AQUA), CAPRYLIC/CAPRIC TRIGLYCERIDE, FRAGRANCE (PARFUM), HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), PEG-40 HYDROGENATED CASTOR OIL, TOCOPHEROL, TOCOPHERYL GLUCOSIDE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-huile-solaire-fini-satine-spf30-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-huile-solaire-fini-satine-spf30.webp',
     tags: {
       primary: ['protection-solaire', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3729,7 +3654,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER AVENE AQUA, DICAPRYLYL CARBONATE, DIISOPROPYL SEBACATE, GLYCERIN, WATER AQUA, PHENYLENE BISDIPHENYLTRIAZINE, GLYCERYL STEARATE CITRATE, ORYZA SATIVA RICE STARCH ORYZA SATIVA STARCH, PENTYLENE GLYCOL, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, ETHYLHEXYL TRIAZONE, BISETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, VPEICOSENE COPOLYMER, ALOE BARBADENSIS LEAF JUICE POWDER, BENZOIC ACID, CAPRYLICCAPRIC TRIGLYCERIDE, CELLULOSE GUM, FRAGRANCE PARFUM, GLYCINE SOJA SOYBEAN OIL GLYCINE SOJA OIL, HELIANTHUS ANNUUS SUNFLOWER SEED OIL HELIANTHUS ANNUUS SEED OIL, LECITHIN, MICROCRYSTALLINE CELLULOSE, PPG1PEG9 LAURYL GLYCOL ETHER, PROPANEDIOL, RED 33 CI 17200, SODIUM HYALURONATE, SODIUM PHYTATE, TOCOPHEROL, TOCOPHERYL GLUCOSIDE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-hydrance-spf30-creme-hydratante-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-hydrance-spf30-creme-hydratante.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3758,7 +3683,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), C12-15 ALKYL BENZOATE, COCO-CAPRYLATE/CAPRATE, DIISOPROPYL ADIPATE, METHYLENE BIS-BENZOTRIAZOLYL TETRAMETHYLBUTYLPHENOL [NANO], WATER (AQUA), BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIETHYLHEXYL BUTAMIDO TRIAZONE, POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE, GLYCERIN, BUTYL METHOXYDIBENZOYLMETHANE, SILICA, DECYL GLUCOSIDE, BENZOIC ACID, BUTYLENE GLYCOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, DISODIUM EDTA, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), HYDROXYCAPRIC ACID, LAURYL GLUCOSIDE, OXOTHIAZOLIDINE, PROPYLENE GLYCOL, SODIUM BENZOATE, SODIUM CITRATE, SODIUM LAURYL GLUCOSE CARBOXYLATE, SODIUM POLYACRYLATE, SODIUM STEAROYL GLUTAMATE, SORBIC ACID, TOCOPHEROL, TOCOPHERYL GLUCOSIDE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-lait-enfant-spf50-250ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-lait-enfant-spf50.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3789,7 +3714,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DIISOPROPYL SEBACATE, COCO-CAPRYLATE/CAPRATE, DICAPRYLYL CARBONATE, DIETHYLHEXYL BUTAMIDO TRIAZONE, GLYCERIN, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, GLYCERYL STEARATE CITRATE, ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH), PENTYLENE GLYCOL, C12-15 ALKYL BENZOATE, VP/EICOSENE COPOLYMER, BENZOIC ACID, CAPRYLIC/CAPRIC TRIGLYCERIDE, CELLULOSE GUM, CETEARYL OLIVATE, FRAGRANCE (PARFUM), GLYCINE SOJA (SOYBEAN) OIL (GLYCINE SOJA OIL), HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), MICROCRYSTALLINE CELLULOSE, SODIUM HYDROXIDE, SORBITAN OLIVATE, TOCOPHEROL, TOCOPHERYL GLUCOSIDE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-lait-solaire-spf50-100-invisible-250ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-lait-solaire-spf50-100-invisible-250ml.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3820,7 +3745,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), C12-15 ALKYL BENZOATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, WATER (AQUA), ETHYLHEXYL TRIAZONE, ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH), PHENYLENE BIS-DIPHENYLTRIAZINE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, POTASSIUM CETYL PHOSPHATE, LAURYL GLUCOSIDE, POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE, GLYCERIN, TAPIOCA STARCH, TRIMETHYLPENTANEDIOL/ADIPIC ACID/GLYCERIN CROSSPOLYMER, ALUMINA, BENZOIC ACID, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CITRIC ACID, ETHYLHEXYLGLYCERIN, GLYCERYL LAURATE, IRON OXIDES (CI 77492), IRON OXIDES (CI 77491), IRON OXIDES (CI 77499), ISONONYL ISONONANOATE, ISOPROPYL MYRISTATE, ISOPROPYL TITANIUM TRIISOSTEARATE, LENS ESCULENTA (LENTIL) SEED EXTRACT (LENS ESCULENTA SEED EXTRACT), PENTYLENE GLYCOL, POLYHYDROXYSTEARIC ACID, PPG-1-PEG-9 LAURYL GLYCOL ETHER, PROPYLENE CARBONATE, SODIUM BENZOATE, SODIUM PHYTATE, STEARALKONIUM HECTORITE, TITANIUM DIOXIDE (CI 77891), TOCOPHEROL, TOCOPHERYL GLUCOSIDE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-perfecteur-ultra-fluid-peaux-sensibles-spf50-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-perfecteur-ultra-fluid-peaux-sensibles-spf50.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage', 'peau-sensible'],
@@ -3851,7 +3776,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), C12-15 ALKYL BENZOATE, CAPRYLIC/CAPRIC TRIGLYCERIDE, DICAPRYLYL CARBONATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, GLYCERIN, ETHYLHEXYL TRIAZONE, PHENYLENE BIS-DIPHENYLTRIAZINE, WATER (AQUA), BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, POTASSIUM CETYL PHOSPHATE, STEARYL ALCOHOL, VP/EICOSENE COPOLYMER, BENZOIC ACID, CAPRYLYL GLYCOL, GLYCERYL BEHENATE, GLYCERYL DIBEHENATE, GLYCERYL STEARATE, GLYCINE SOJA (SOYBEAN) OIL (GLYCINE SOJA OIL), PEG-100 STEARATE, POLYACRYLATE-13, POLYISOBUTENE, POLYSORBATE 20, PPG-1-PEG-9 LAURYL GLYCOL ETHER, RED 33 (CI 17200), SORBITAN ISOSTEARATE, TOCOPHEROL, TOCOPHERYL GLUCOSIDE, TRIBEHENIN, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-reflexe-solaire-spf50-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-reflexe-solaire-spf50.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3882,7 +3807,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), C12-15 ALKYL BENZOATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, OCTYLDODECANOL, ETHYLHEXYL TRIAZONE, ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH), WATER (AQUA), PHENYLENE BIS-DIPHENYLTRIAZINE, GLYCERIN, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, POTASSIUM CETYL PHOSPHATE, SILYBUM MARIANUM FRUIT EXTRACT, GLYCERYL STEARATE, PENTYLENE GLYCOL, STEARYL ALCOHOL, VP/EICOSENE COPOLYMER, BENZOIC ACID, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CITRIC ACID, GLYCERYL BEHENATE, GLYCERYL DIBEHENATE, PPG-1-PEG-9 LAURYL GLYCOL ETHER, RED 33 (CI 17200), TOCOPHERYL GLUCOSIDE, TRIBEHENIN, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-rosamed-antirougeurs-spf50-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-rosamed-antirougeurs-spf50.webp',
     tags: {
       primary: ['hydratation', 'anti-rougeurs', 'protection-solaire'],
       secondary: ['creme-solaire', 'matin', 'zone-visage'],
@@ -3913,7 +3838,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), C12-15 ALKYL BENZOATE, COCO-CAPRYLATE/CAPRATE, DIISOPROPYL ADIPATE, METHYLENE BIS-BENZOTRIAZOLYL TETRAMETHYLBUTYLPHENOL [NANO], WATER (AQUA), BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIETHYLHEXYL BUTAMIDO TRIAZONE, POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE, GLYCERIN, BUTYL METHOXYDIBENZOYLMETHANE, DECYL GLUCOSIDE, BENZOIC ACID, BUTYLENE GLYCOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, DISODIUM EDTA, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), HYDROXYCAPRIC ACID, LAURYL GLUCOSIDE, OXOTHIAZOLIDINE, PROPYLENE GLYCOL, SODIUM BENZOATE, SODIUM CITRATE, SODIUM LAURYL GLUCOSE CARBOXYLATE, SORBIC ACID, TOCOPHEROL, TOCOPHERYL GLUCOSIDE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-spray-enfant-spf50-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-spray-enfant-spf50.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3942,7 +3867,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), C12-15 ALKYL BENZOATE, COCO-CAPRYLATE/CAPRATE, DIISOPROPYL ADIPATE, METHYLENE BIS-BENZOTRIAZOLYL TETRAMETHYLBUTYLPHENOL [NANO], WATER (AQUA), BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIETHYLHEXYL BUTAMIDO TRIAZONE, POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE, GLYCERIN, BUTYL METHOXYDIBENZOYLMETHANE, DECYL GLUCOSIDE, BENZOIC ACID, BUTYLENE GLYCOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, DISODIUM EDTA, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), HYDROXYCAPRIC ACID, LAURYL GLUCOSIDE, OXOTHIAZOLIDINE, PROPYLENE GLYCOL, SODIUM BENZOATE, SODIUM CITRATE, SODIUM LAURYL GLUCOSE CARBOXYLATE, SORBIC ACID, TOCOPHEROL, TOCOPHERYL GLUCOSIDE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-spray-famille-spf50-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-spray-famille-spf50.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -3971,7 +3896,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DIISOPROPYL SEBACATE, COCO-CAPRYLATE/CAPRATE, DICAPRYLYL CARBONATE, DIETHYLHEXYL BUTAMIDO TRIAZONE, GLYCERIN, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, GLYCERYL STEARATE CITRATE, ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH), PENTYLENE GLYCOL, C12-15 ALKYL BENZOATE, VP/EICOSENE COPOLYMER, BENZOIC ACID, CAPRYLIC/CAPRIC TRIGLYCERIDE, CELLULOSE GUM, FRAGRANCE (PARFUM), GLYCINE SOJA (SOYBEAN) OIL (GLYCINE SOJA OIL), HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), MICROCRYSTALLINE CELLULOSE, SODIUM HYDROXIDE, TOCOPHEROL, TOCOPHERYL GLUCOSIDE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-spray-solaire-100-invisible-spf50-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-spray-solaire-100-invisible-spf50.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -4002,7 +3927,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), C12-15 ALKYL BENZOATE, DICAPRYLYL CARBONATE, GLYCERIN, WATER (AQUA), METHYLENE BIS-BENZOTRIAZOLYL TETRAMETHYLBUTYLPHENOL [NANO], BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIETHYLHEXYL BUTAMIDO TRIAZONE, DIISOPROPYL ADIPATE, BUTYL METHOXYDIBENZOYLMETHANE, CETEARYL ISONONANOATE, LAURYL GLUCOSIDE, POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE, C10-18 TRIGLYCERIDES, BENZOIC ACID, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CITRIC ACID, DECYL GLUCOSIDE, DISODIUM EDTA, FRAGRANCE (PARFUM), GLYCERYL BEHENATE, GLYCERYL DIBEHENATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), POLYACRYLATE-13, POLYISOBUTENE, POLYSORBATE 20, PROPYLENE GLYCOL, SORBITAN ISOSTEARATE, TERPINEOL, TOCOPHEROL, TOCOPHERYL GLUCOSIDE, TRIBEHENIN, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-spray-solaire-invisible-spf30-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-spray-solaire-invisible-spf30.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -4033,7 +3958,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HYDROGENATED CASTOR OIL, ISOPROPYL PALMITATE, CETYL ESTERS, C12-15 ALKYL BENZOATE, BEESWAX (CERA ALBA), CAPRYLIC/CAPRIC TRIGLYCERIDE, BIS-DIGLYCERYL POLYACYLADIPATE-2, DIPENTAERYTHRITYL TETRAHYDROXYSTEARATE/TETRAISOSTEARATE, CETEARYL ETHYLHEXANOATE, BUTYROSPERMUM PARKII (SHEA) BUTTER (BUTYROSPERMUM PARKII BUTTER), BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, COPERNICIA CERIFERA (CARNAUBA) WAX (COPERNICIA CERIFERA CERA), POLYETHYLENE, BUTYL METHOXYDIBENZOYLMETHANE, OCTOCRYLENE, AVENE THERMAL SPRING WATER (AVENE AQUA), HYDROGENATED POLYISOBUTENE, DECYL GLUCOSIDE, DIMETHICONE, FRAGRANCE (PARFUM), ISOPROPYL MYRISTATE, METHYLENE BIS-BENZOTRIAZOLYL TETRAMETHYLBUTYLPHENOL [NANO], PROPYLENE GLYCOL, SILICA, TITANIUM DIOXIDE [NANO], TOCOPHERYL GLUCOSIDE, WATER (AQUA), XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-stick-levres-spf50-3g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-stick-levres-spf50.webp',
     tags: {
       primary: ['protection-solaire'],
       secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
@@ -4063,7 +3988,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'OCTYLDODECANOL, POLYETHYLENE, BUTYLENE GLYCOL COCOATE, HYDROGENATED MICROCRYSTALLINE WAX, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DIETHYLHEXYL BUTAMIDO TRIAZONE, BUTYL METHOXYDIBENZOYLMETHANE, ETHYLHEXYL SALICYLATE, BEESWAX (CERA ALBA), HYDROGENATED CASTOR OIL, WATER (AQUA), 1,2-HEXANEDIOL, ALUMINUM HYDROXIDE, BUTYLENE GLYCOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CICHORIUM INTYBUS (CHICORY) ROOT EXTRACT, DISODIUM STEAROYL GLUTAMATE, METHYL METHACRYLATE CROSSPOLYMER, OXOTHIAZOLIDINE, SACCHARIN, SODIUM BENZOATE, TITANIUM DIOXIDE (CI 77891), TOCOPHERYL GLUCOSIDE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-sunsistick-ka-spf50-20g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-sunsistick-ka-spf50.webp',
     tags: {
       primary: ['protection-solaire'],
       secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
@@ -4093,7 +4018,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVÈNE THERMAL SPRING WATER (AVÈNE AQUA), C12-15 ALKYL BENZOATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, WATER (AQUA), ETHYLHEXYL TRIAZONE, ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH), PHENYLENEBIS-DIPHENYLTRIAZINE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, POTASSIUM CETYL PHOSPHATE, LAURYL GLUCOSIDE, POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE, GLYCERIN, TAPIOCA STARCH, TRIMETHYLPENTANEDIOL/ADIPIC ACID/GLYCERIN CROSSPOLYMER, ALUMINA, BENZOIC ACID, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CITRIC ACID, ETHYLHEXYLGLYCERIN, GLYCERYL LAURATE, IRON OXIDES (CI 77492), IRON OXIDES (CI 77491), IRON OXIDES (CI 77499), ISONONYL ISONONANOATE, ISOPROPYL MYRISTATE, ISOPROPYL TITANIUM TRIISOSTEARATE, LENS ESCULENTA (LENTIL) SEED EXTRACT (LENS ESCULENTA SEED EXTRACT), PENTYLENE GLYCOL, POLYHYDROXYSTEARIC ACID, PPG-1-PEG-9 LAURYL GLYCOL ETHER, PROPYLENE CARBONATE, SODIUM BENZOATE, SODIUM PHYTATE, STEARALKONIUM HECTORITE, TITANIUM DIOXIDE (CI 77891), TOCOPHEROL, TOCOPHERYL GLUCOSIDE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-ultra-fluid-eclat-radiance-spf50-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-ultra-fluid-eclat-radiance-spf50.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'eclat', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -4124,7 +4049,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), C12-15 ALKYL BENZOATE, DICAPRYLYL CARBONATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, WATER (AQUA), DIISOPROPYL ADIPATE, ETHYLHEXYL TRIAZONE, ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH), PHENYLENE BIS-DIPHENYLTRIAZINE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, POTASSIUM CETYL PHOSPHATE, C9-12 ALKANE, LAURYL GLUCOSIDE, POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE, GLYCERIN, TAPIOCA STARCH, TRIMETHYLPENTANEDIOL/ADIPIC ACID/GLYCERIN CROSSPOLYMER, BENZOIC ACID, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CITRIC ACID, COCO-CAPRYLATE/CAPRATE, GLYCERYL LAURATE, GLYCINE SOJA (SOYBEAN) OIL (GLYCINE SOJA OIL), LENS ESCULENTA (LENTIL) SEED EXTRACT (LENS ESCULENTA SEED EXTRACT), PENTYLENE GLYCOL, PPG-1-PEG-9 LAURYL GLYCOL ETHER, RED 33 (CI 17200), SODIUM BENZOATE, SODIUM PHYTATE, TOCOPHEROL, TOCOPHERYL GLUCOSIDE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-ultra-fluid-invisible-peaux-sensibles-spf50-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-ultra-fluid-invisible-peaux-sensibles-spf50.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage', 'peau-sensible'],
@@ -4155,7 +4080,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), C12-15 ALKYL BENZOATE, DICAPRYLYL CARBONATE, DIISOPROPYL ADIPATE, GLYCERIN, METHYLENE BIS-BENZOTRIAZOLYL TETRAMETHYLBUTYLPHENOL [NANO], WATER (AQUA), BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIETHYLHEXYL BUTAMIDO TRIAZONE.ALUMINUM STARCH OCTENYLSUCCINATE, BUTYL METHOXYDIBENZOYLMETHANE, METHYL GLUCETH-20, POLYMETHYL METHACRYLATE, ISOCETYL STEAROYL STEARATE, TRIETHYLHEXANOIN, HYDROGENATED STARCH HYDROLYSATE, GLYCERYL STEARATE, PEG-100 STEARATE, POTASSIUM CETYL PHOSPHATE, BENZOIC ACID, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, DECYL GLUCOSIDE, DISODIUM EDTA, FRAGRANCE (PARFUM), GLYCERYL BEHENATE, GLYCERYL DIBEHENATE, PHYTOSTEROLS, POLYACRYLATE-13, POLYISOBUTENE, POLYSORBATE 20, PROPYLENE GLYCOL, SORBITAN ISOSTEARATE, TOCOPHEROL, TOCOPHERYL GLUCOSIDE, TRIBEHENIN, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/cremes-hydratantes/avene-hydrance-bb-legere-emulsion-teintee-spf-30-40-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-hydrance-bb-legere-emulsion-teintee-spf-30.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -4209,7 +4134,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'C12-15 ALKYL BENZOATE, ISODECYL NEOPENTANOATE, TITANIUM DIOXIDE, ZINC OXIDE, CANDELILLA CERA, MICA, ISOSTEARYL ISOSTEARATE, CERA CARNAUBA, CI 77491, CI 77492, CI 77499, SILICA, C10-11 ISOPARAFFIN, AVENE AQUA, CAPRYLIC CAPRIC TRIGLYCERIDE, DISTEARDIMONIUM HECTORITE, ISOPROPYL PALMITATE, METHYLPARABEN, PEG-30 DIPOLYHYDROXYSTEARATE, PROPYLEN CARBONATE, PROPYLPARABEN, SORBITAN SESQUIOLEATE, TOCOPHERYL GLUCOSIDE, TRIETHOXYCAPRYLYLSILANE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/maquillage/avene-poudre-compact-dore-spf50-10g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-poudre-compact-dore-spf50.webp',
     tags: {
       primary: ['apaisant', 'protection-solaire'],
       secondary: ['creme-solaire', 'matin', 'zone-visage'],
@@ -4236,7 +4161,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'C12-15 ALKYL BENZOATE, ISODECYL NEOPENTANOATE, TITANIUM DIOXIDE, ZINC OXIDE, CANDELILLA CERA, MICA, ISOSTEARYL ISOSTEARATE, CERA CARNAUBA, CI 77491, CI 77492, CI 77499, SILICA, C10-11 ISOPARAFFIN, AVENE AQUA, CAPRYLIC CAPRIC TRIGLYCERIDE, DISTEARDIMONIUM HECTORITE, ISOPROPYL PALMITATE, METHYLPARABEN, PEG-30 DIPOLYHYDROXYSTEARATE, PROPYLEN CARBONATE, PROPYLPARABEN, SORBITAN SESQUIOLEATE, TOCOPHERYL GLUCOSIDE, TRIETHOXYCAPRYLYLSILANE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/maquillage/avene-poudre-compact-sable-spf50-10g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-poudre-compact-sable-spf50.webp',
     tags: {
       primary: ['apaisant', 'protection-solaire'],
       secondary: ['creme-solaire', 'matin', 'zone-visage'],
@@ -4263,7 +4188,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'RICINUS COMMUNIS (CASTOR) SEED OIL (RICINUS COMMUNIS SEED OIL), CAPRYLIC/CAPRIC TRIGLYCERIDE, BEESWAX (CERA ALBA), CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL (CARTHAMUS TINCTORIUS SEED OIL), BUTYROSPERMUM PARKII (SHEA) BUTTER (BUTYROSPERMUM PARKII BUTTER), COPERNICIA CERIFERA (CARNAUBA) WAX (COPERNICIA CERIFERA CERA), SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL (SIMMONDSIA CHINENSIS SEED OIL), AVENE THERMAL SPRING WATER (AVENE AQUA), BISABOLOL, CETYL ALCOHOL, FRAGRANCE (PARFUM)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/soins-traitants/avene-cold-cream-stick-levres-nourrissant-x2.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cold-cream-stick-levres-nourrissant-x2.webp',
     tags: {
       primary: ['apaisant'],
       secondary: ['creme-solaire', 'protection-solaire', 'matin', 'zone-visage'],
@@ -4292,7 +4217,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), C12-15 ALKYL BENZOATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, ETHYLHEXYL TRIAZONE, ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH), PHENYLENE BIS-DIPHENYLTRIAZINE, WATER (AQUA), GLYCERIN, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, POTASSIUM CETYL PHOSPHATE, GLYCERYL STEARATE, STEARYL ALCOHOL, TAPIOCA STARCH, VP/EICOSENE COPOLYMER, BENZOIC ACID, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, GLYCERYL BEHENATE, GLYCERYL DIBEHENATE, PPG-1-PEG-9 LAURYL GLYCOL ETHER, RED 33 (CI 17200), TOCOPHERYL GLUCOSIDE, TRIBEHENIN, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/solaire/avene-fluide-solaire-spf50-sans-parfum-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-fluide-solaire-spf50-sans-parfum.webp',
     tags: {
       primary: ['hydratation', 'protection-solaire'],
       secondary: ['creme-solaire', 'matin', 'zone-visage'],
@@ -4354,7 +4279,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'C12-15 ALKYL BENZOATE, ISODODECANE, DIISOPROPYL ADIPATE, COCO-CAPRYLATE, DICAPRYLYL CARBONATE, DIETHYLHEXYL BUTAMIDO TRIAZONE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, BUTYL METHOXYDIBENZOYLMETHANE, ETHYLHEXYL SALICYLATE, ETHYLHEXYL TRIAZONE, BIS-ETHYLHEXYL HYDROXYDIMETHOXY BENZYLMALONATE, AVÈNE THERMAL SPRING WATER (AVÈNE AQUA), CAPRYLIC/CAPRIC TRIGLYCERIDE, FRAGRANCE (PARFUM), HELIANTHUS ANNUS (SUNFLOWER) SEED OIL, HELIANTHUS ANNUS SEED OIL, PEG-40 HYDROGENATED CASTOR OIL, TOCOPHEROL, TOCOPHERYL GLUCOSIDE, NITROGEN',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/solaire/avene-huile-protectrice-spf-30-brume-satinee-150-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-huile-protectrice-spf-30-brume-satinee.webp',
     tags: {
       primary: ['protection-solaire', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -4385,7 +4310,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'OCTYLDODECANOL, POLYETHYLENE, BUTYLENE GLYCOL COCOATE, HYDROGENATED MICROCRYSTALLINE WAX, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DIETHYLHEXYL BUTAMIDO TRIAZONE, BUTYL METHOXYDIBENZOYLMETHANE, ETHYLHEXYL SALICYLATE, BEESWAX (CERA ALBA), HYDROGENATED CASTOR OIL, AVENE THERMAL SPRING WATER (AVENE AQUA), ALUMINUM HYDROXIDE, BUTYLENE GLYCOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, DISODIUM STEAROYL GLUTAMATE, METHYL METHACRYLATE CROSSPOLYMER, OXOTHIAZOLIDINE, SACCHARIN, SODIUM BENZOATE, TITANIUM DIOXIDE (CI 77891), TOCOPHERYL GLUCOSIDE, WATER (AQUA)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/solaire/avene-stick-zones-sensibles-spf-50-8g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-stick-zones-sensibles-spf-50.webp',
     tags: {
       primary: ['protection-solaire'],
       secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
@@ -4415,7 +4340,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), TITANIUM DIOXIDE, ISODECYL NEOPENTANOATE, TRIETHYLHEXANOIN, C12-15 ALKYL BENZOATE, CYCLOMETHICONE, GLYCERIN, POLYGLYCERYL-4 ISOSTEARATE, C30-45 ALKYL METHICONE, CETYL PEG/PPG-10/1 DIMETHICONE, HEXYL LAURATE, ALUMINA, WATER (AQUA), STEARIC ACID, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, DISODIUM EDTA, IRON OXIDES (CI 77492), IRON OXIDES (CI 77491), OCTYLDODECANOL, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, SILICA DIMETHYL SILYLATE, SODIUM CHLORIDE, SODIUM MYRISTOYL GLUTAMATE.SORBIC ACID, TOCOPHERYL GLUCOSIDE, TRIETHOXYCAPRYLYLSILANE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/solaire/avene-tres-haute-protection-lait-mineral-50spf-100ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-tres-haute-protection-lait-mineral-50spf.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['creme-solaire', 'protection-solaire', 'matin', 'zone-visage'],
@@ -4441,7 +4366,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'SANS FILTRE CHIMIQUE, SANS PARABEN, SANS PARFUM, CERTIFIÉ UVA CONFORME, AVENE THERMAL SPRING WATER (AVENE AQUA), TITANIUM DIOXIDE, ISODECYL NEOPENTANOATE, TRIETHYLHEXANOIN, C12-15 ALKYL BENZOATE, CYCLOMETHICONE, C30-45 ALKYL METHICONE, GLYCERIN, POLYGLYCERYL-4 ISOSTEARATE, CETYL PEG/PPG-10/1 DIMETHICONE, HEXYL LAURATE, ALUMINA, WATER (AQUA), STEARIC ACID, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, DISODIUM EDTA, IRON OXIDES (CI 77492), IRON OXIDES (CI 77491), OCTYLDODECANOL, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, SILICA DIMETHYL SILYLATE, SODIUM CHLORIDE, SODIUM MYRISTOYL GLUTAMATE, SORBIC ACID, TOCOPHERYL GLUCOSIDE, TRIETHOXYCAPRYLYLSILANE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/solaires/par-marques/avene/avene-creme-minerale-spf-50-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-creme-minerale-spf-50.webp',
     tags: {
       primary: ['hydratation', 'protection-solaire'],
       secondary: ['creme-solaire', 'matin', 'zone-visage'],
@@ -4467,7 +4392,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'SANS PARABEN, CERTIFIÉ UVA CONFORME, AVENE THERMAL SPRING WATER (AVENE AQUA), OCTOCRYLENE, C12-15 ALKYL BENZOATE, BUTYLENE GLYCOL, DIMETHICONE, DIISOPROPYL ADIPATE, METHYLENE BIS-BENZOTRIAZOLYL TETRAMETHYLBUTYLPHENOL, CYCLOMETHICONE, WATER (AQUA), BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, BUTYL METHOXYDIBENZOYLMETHANE, TITANIUM DIOXIDE, GLYCERYL STEARATE, PEG-100 STEARATE, POTASSIUM CETYL PHOSPHATE, PVP/EICOSENE COPOLYMER, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, DECYL GLUCOSIDE, DIMETHICONOL, DISODIUM EDTA, FRAGRANCE (PARFUM), GLYCERYL BEHENATE, GLYCERYL DIBEHENATE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, ISOHEXADECANE, POLYSORBATE 60, PROPYLENE GLYCOL, SILICA, SORBIC ACID, SORBITAN ISOSTEARATE, STEARYL ALCOHOL, TOCOPHERYL GLUCOSIDE, TRIBEHENIN, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/solaires/par-marques/avene/avene-haute-protection-creme-30spf-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-haute-protection-creme-30spf.webp',
     tags: {
       primary: ['protection-solaire'],
       secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
@@ -4498,7 +4423,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AVENE THERMAL SPRING WATER (AVENE AQUA), C12-15 ALKYL BENZOATE, DICAPRYLYL CARBONATE, DIISOPROPYL ADIPATE, GLYCERIN, METHYLENE BIS-BENZOTRIAZOLYL TETRAMETHYLBUTYLPHENOL [NANO], WATER (AQUA), BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIETHYLHEXYL BUTAMIDO TRIAZONE.ALUMINUM STARCH OCTENYLSUCCINATE, BUTYL METHOXYDIBENZOYLMETHANE, METHYL GLUCETH-20, POLYMETHYL METHACRYLATE, ISOCETYL STEAROYL STEARATE, TRIETHYLHEXANOIN, HYDROGENATED STARCH HYDROLYSATE, GLYCERYL STEARATE, PEG-100 STEARATE, POTASSIUM CETYL PHOSPHATE, BENZOIC ACID, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, DECYL GLUCOSIDE, DISODIUM EDTA, FRAGRANCE (PARFUM), GLYCERYL BEHENATE, GLYCERYL DIBEHENATE, PHYTOSTEROLS, POLYACRYLATE-13, POLYISOBUTENE, POLYSORBATE 20, PROPYLENE GLYCOL, SORBITAN ISOSTEARATE, TOCOPHEROL, TOCOPHERYL GLUCOSIDE, TRIBEHENIN, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/patyka/creme-hydratante-nourrissante/avene-hydrance-uv-riche-creme-hydratante-spf-30-40-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-hydrance-uv-riche-creme-hydratante-spf-30.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],

@@ -15,8 +15,7 @@ export const L_OR_AL_PROFESSIONNEL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua / water / eau, sodium laureth sulfate, cocamidopropyl betaine, dimethicone, sodium chloride, citric acid, hexylene glycol, sodium benzoate, sodium hydroxide, amodimethicone, carbomer, guar hydroxypropyltrimonium chloride, trideceth-10, glycerin, salicylic acid, glycol distearate, niacinamide, mica, peg-100 stearate, linalool, steareth-6, phenoxyethanol, coco-betaine, trideceth-3, ci 77891 / titanium dioxide, resveratrol, benzyl alcohol, acetic acid, fumaric acid, parfum / fragrance (f.i.l. c261695/1).',
     url: 'https://www.atida.fr/l-oreal-professionnel-serie-expert-vitamino-color-shampoing-fixateur-de-couleur-500ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/4e55b560-5ebc-4cba-98c1-44dda426b234/L-Oreal-Professionnel-Serie-Expert-Vitamino-Color-Shampoing-Fixateur-de-Couleur-500ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/l-oreal-professionnel-serie-expert-vitamino-color-shampoing-fixateur-de-couleur-500ml-254779.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -44,8 +43,7 @@ export const L_OR_AL_PROFESSIONNEL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua / water / eau, sodium laureth sulfate, cocamidopropyl betaine, dimethicone, sodium chloride, citric acid, hexylene glycol, sodium benzoate, sodium hydroxide, amodimethicone, carbomer, guar hydroxypropyltrimonium chloride, trideceth-10, glycerin, salicylic acid, glycol distearate, niacinamide, mica, peg-100 stearate, linalool, steareth-6, phenoxyethanol, coco-betaine, trideceth-3, ci 77891 / titanium dioxide, resveratrol, benzyl alcohol, acetic acid, fumaric acid, parfum / fragrance (f.i.l. c261695/1).',
     url: 'https://www.atida.fr/l-oreal-professionnel-serie-expert-vitamino-color-shampoing-fixateur-de-couleur-300ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/f40be910-8c4b-4a72-ba33-2fbb1c69017a/L-Oreal-Professionnel-Serie-Expert-Vitamino-Color-Shampoing-Fixateur-de-Couleur-300ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/l-oreal-professionnel-serie-expert-vitamino-color-shampoing-fixateur-de-couleur-300ml-254778.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -73,8 +71,7 @@ export const L_OR_AL_PROFESSIONNEL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua / water, sodium laureth sulfate, cocamidopropyl betaine, dimethicone, sodium chloride, citric acid, hexylene glycol, sodium benzoate, sodium hydroxide, amodimethicone, carbomer, guar hydroxypropyltrimonium chloride, trideceth-10, glycerin, salicylic acid, glycol distearate, linalool, mica, peg-100 stearate, hexyl cinnamal, phenoxyethanol, steareth-6, coco-betaine, trideceth-3, ci 77891 / titanium dioxide, limonene, chenopodium quinoa seed extract, acetic acid, fumaric acid, hydrolyzed wheat protein, ci 19140 / yellow 5, hydrolyzed corn protein, hydrolyzed soy protein, ci 17200 / red 33, parfum / fragrance (f.i.l. c228932/1).',
     url: 'https://www.atida.fr/l-oreal-professionnel-serie-expert-absolut-repair-shampoing-restructurant-500ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/b23e32ca-26d1-486a-8031-5e839fe21bce/L-Oreal-Professionnel-Serie-Expert-Absolut-Repair-Shampoing-Restructurant-500ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/l-oreal-professionnel-serie-expert-absolut-repair-shampoing-restructurant-500ml-254770.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -103,8 +100,7 @@ export const L_OR_AL_PROFESSIONNEL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua / water / eau, cetearyl alcohol, behentrimonium chloride, candelilla cera / candelilla wax / cire de candelilla, amodimethicone, cetyl esters, isopropyl alcohol, glycerin, phenoxyethanol, trideceth-6, linalool, lactic acid, hexyl cinnamal, chlorhexidine digluconate, cetrimonium chloride, limonene, sodium hydroxide, chenopodium quinoa seed extract, hydroxypropyltrimonium hydrolyzed wheat protein, ci 19140 / yellow 5, ci 15985 / yellow 6, parfum / fragrance (f.i.l. c228927/1).',
     url: 'https://www.atida.fr/l-oreal-professionnel-serie-expert-absolut-repair-masque-250ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/0783634a-9414-4186-a3c2-92bcd6c34df8/L-Oreal-Professionnel-Serie-Expert-Absolut-Repair-Masque-250ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/l-oreal-professionnel-serie-expert-absolut-repair-masque-250ml-254768.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -131,8 +127,7 @@ export const L_OR_AL_PROFESSIONNEL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua / water / eau, hydroxypropyl starch phosphate, quaternium-87, stearyl alcohol, behentrimonium chloride, propylene glycol, amodimethicone, phenoxyethanol, isopropyl alcohol, candelilla cera / candelilla wax / cire de candelilla, methylparaben, trideceth-5, glycerin, trideceth-10, linalool, chlorhexidine dihydrochloride, 2-oleamido-1,3-octadecanediol, resveratrol, acetic acid, ci 17200 / red 33, ci 19140 / yellow 5, parfum / fragrance (f.i.l. c234181/1).',
     url: 'https://www.atida.fr/l-oreal-professionnel-serie-expert-vitamino-color-masque-fixateur-de-couleur-250ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/5fee7a10-8a69-4abe-85a4-596731bcb981/L-Oreal-Professionnel-Serie-Expert-Vitamino-Color-Masque-Fixateur-de-Couleur-250ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/l-oreal-professionnel-serie-expert-vitamino-color-masque-fixateur-de-couleur-250ml-255164.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],

@@ -42,8 +42,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
       'Acide 10-Hydroxydécanoïque + Beurre de Karité + Acide Glycyrrhétinique — idéal pour les peaux atopiques et sensibles réactives.',
     inci: '10-HYDROXYDECANOIC ACID, AQUA, BUTYLENE GLYCOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CERA ALBA, CETYL ALCOHOL, CITRIC ACID, DISODIUM EDTA, GLYCERIN, GLYCERYL STEARATE, GLYCYRRHETINIC ACID, GUANIDINE CARBONATE, PEG-100 STEARATE, POLYACRYLATE-13, POLYISOBUTENE, POLYSORBATE 20, POLYSORBATE 60, PROPYLENE GLYCOL, SCLEROTIUM GUM, SORBITAN ISOSTEARATE',
     url: 'https://www.skinsafeproducts.com/ducray-dexyane-med-soothing-repair-cream-100-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/282361F06AEE59/large_1639565280.png?1639565280',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dexyane-med-soothing-repair-cream.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.APAISANT],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_ATOPIQUE],
@@ -90,8 +89,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
       'Acide Salicylique + Ictasol + Extrait de Chicorée — idéal pour les cuirs chevelus psoriasiques et squameux.',
     inci: '1,2-HEXANEDIOL, CAPRYLYL GLYCOL, CICHORIUM INTYBUS (CHICORY) ROOT EXTRACT, COCAMIDE MIPA, COCOS NUCIFERA (COCONUT OIL), FRAGRANCE (PARFUM), GLYCERIN, ICTASOL, PENTYLENE GLYCOL, SALICYLIC ACID, SODIUM CHLORIDE, SODIUM LAUROAMPHODIACETATE, SODIUM TRIDECETH SULFATE, TRIPTERYGIUM WILFORDII CALLUS EXTRACT, WATER',
     url: 'https://www.skinsafeproducts.com/ducray-kertyol-pso-treatment-shampoo-200-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/F3DC95A99A01BB/large_1659436533.jpeg?1659436533',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/kertyol-pso-treatment-shampoo.webp',
     tags: {
       primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ZONE_CORPS],
       secondary: [],
@@ -364,8 +362,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), glycerin, carthamus tinctorius (safflower) seed oil (carthamus tinctorius seed oil), cocos nucifera (coconut) oil, cocos nucifera (coconut) oil (cocos nucifera oil), mineral oil (paraffinum liquidum), triethylhexanoin, sorbitan stearate, cyclopentasiloxane, hydrogenated starch hydrolysate, cyclohexasiloxane, trehalose, acrylates/c10-30 alkyl acrylate crosspolymer, alpha isomethyl ionone, benzoic acid, benzyl salicylate, caprylyl glycol, cetearyl alcohol, citronellol, disodium phosphate, fragrance (parfum) geraniol, hydroxycitronellal, hydroxyisohexyl 3-cyclohexene, carboxaldeyde, limonene, linalool, potassium phosphate, sodium cetearyl sulfate, sodium hydroxide, sucrose cocoate, xanthan gum.',
     url: 'https://www.atida.fr/ducray-ictyane-lait-hydratant-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/71ea5412-8006-4659-a228-cd533ccbeb0b/Ducray-Ictyane-Lait-Hydratant-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-ictyane-lait-hydratant-400ml-232612.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.ZONE_CORPS],
@@ -386,8 +383,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), aluminum sesquichlorohydrate, pentylene glycol, ppg-15 stearyl ether, steareth-2, steareth-21, dimethicone, bht, cetrimonium chloride, citric acid, lysine, oryza sativa (rice) starch (oryza sativa starch), propylene glycol, sclerotium gum, triethyl citrate, zinc ricinoleate.',
     url: 'https://www.atida.fr/ducray-hidrosis-anti-transpirant-roll-on-40ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/88851d2c-6eee-4061-b412-e3c1df172d5a/Ducray-Hidrosis-Control-Anti-Transpirant-Roll-On-40ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-hidrosis-control-anti-transpirant-roll-on-40ml-232702.webp',
     tags: {
       primary: [TAG_SLUGS.DEODORANT],
       secondary: [],
@@ -408,8 +404,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédiets : Water (aqua), zinc coceth sulfate, lauryl betaine, decyl glucoside, ceteareth-60 myristyl glycol, polysorbate 20, sodium chloride, trideceth-9, bht, blue 1 (ci42090), citric acid, fragrance (parfum), myrtus communis leaf extract, peg-40 hydrogenated castor oil, peg-5 ethylhexanoate, ppg-26-buteth-26, serenoa serrulata fruit extract, sodium benzoate, sodium hydroxide, trisodium ethylenediamine disuccinate, zinc salicylate.',
     url: 'https://www.atida.fr/ducray-keracnyl-gel-moussant-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/dd873733-7714-430b-aafd-0a3c110c467c/Ducray-Keracnyl-Gel-Moussant-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-keracnyl-gel-moussant-200ml-263605.webp',
     tags: {
       primary: [TAG_SLUGS.NETTOYANT],
       secondary: [TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
@@ -430,8 +425,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'RICINUS COMMUNIS (CASTOR) SEED OIL (RICINUS COMMUNIS SEED OIL). CAPRYLIC/CAPRIC TRIGLYCERIDE. GLYCERIN. HYDROGENATED VEGETABLE OIL. HYDROGENATED COCO-GLYCERIDES. SQUALANE. HYDROGENATED POLYISOBUTENE. VP/HEXADECENE COPOLYMER. BEESWAX (CERA ALBA). HYDROGENATED CASTOR OIL. 10-HYDROXYDECENOIC ACID. DISTEARDIMONIUM HECTORITE',
     url: 'https://www.atida.fr/ducray-keracnyl-repair-baume-levres-15ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/ce70e17e-6263-4185-ba7b-77538cbf1bde/EAN_IMG_FR_3282770395716_1?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-keracnyl-repair-baume-levres-15-ml-272664.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -458,8 +452,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA. GLYCERIN. CAPRYLIC/CAPRIC TRIGLYCERIDE. BUTYLENE GLYCOL. POLYSORBATE 60. GLYCERYL STEARATE. BUTYROSPERMUM PARKII (SHEA) BUTTER. CERA ALBA. PEG-100 STEARATE. 10-HYDROXYDECENOIC ACID. CAPRYLYL GLYCOL. CETYL ALCOHOL. CITRIC ACID. GLYCYRRHETINIC ACID. GUANIDINE CARBONATE. POLYACRYLATE-13. POLYISOBUTENE. POLYSORBATE 20. SCLEROTIUM GUM. SORBITAN ISOSTEARATE',
     url: 'https://www.atida.fr/ducray-dexyane-med-palpebral-eczema-des-paupieres-15ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/86e0a1f7-43b6-4f8c-a987-508c9e534921/EAN_IMG_FR_3282770394139_1?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-dexyane-med-palpebral-eczema-des-paupieres-15ml-275302.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -480,8 +473,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), caprylic/capric triglyceride, glycerin, cetearyl alcohol, carthamus tinctorius (safflower) seed oil (carthamus tinctorius seed oil), laureth-9, 1,2-hexanediol, benzoic acid, caprylyl glycol, cetearyl glucoside, cetyl alcohol, cichorium intybus (chicory) root extract, fragance (parfum), glyceryl stearate, peg-100 stearate, pentylene glycol, polyacrylate-13, polyisobutene, polysorbate 20, sodium hydroxide, sorbitan isostearate, tripterygium wilfordii callus extract.',
     url: 'https://www.atida.fr/ducray-kertyol-pso-baume-hydratant-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/638df193-657c-4c61-9473-cf283408bf32/Ducray-Kertyol-P-S-O-Baume-Hydratant-Quotidien-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-kertyol-p-s-o-baume-hydratant-quotidien-200ml-275484.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.BAUME],
@@ -502,8 +494,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), caprylic/capric triglyceride, glycerin, cetearyl alcohol, carthamus tinctorius (safflower) seed oil (carthamus tinctorius seed oil), laureth-9, 1,2-hexanediol, benzoic acid, caprylyl glycol, cetearyl glucoside, cetyl alcohol, cichorium intybus (chicory) root extract, fragance (parfum), glyceryl stearate, peg-100 stearate, pentylene glycol, polyacrylate-13, polyisobutene, polysorbate 20, sodium hydroxide, sorbitan isostearate, tripterygium wilfordii callus extract.',
     url: 'https://www.atida.fr/ducray-kertyol-pso-baume-hydratant-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/058d2b67-85a4-4de1-95dc-13a0c229cf54/Ducray-Kertyol-P-S-O-Baume-Hydratant-Quotidien-Anti-Grattage-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-kertyol-p-s-o-baume-hydratant-quotidien-anti-grattage-400ml-275485.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.BAUME],
@@ -524,8 +515,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA). AZELAIC ACID. CAPRYLIC/CAPRIC TRIGLYCERIDE. SQUALANE. PROPANEDIOL. GLYCERIN. GLYCOLIC ACID. GLYCERYL STEARATE. SODIUM HYDROXIDE. CETEARYL ALCOHOL. ARACHIDYL ALCOHOL. ARACHIDYL GLUCOSIDE. BEHENYL ALCOHOL. BENZOIC ACID. CETEARYL GLUCOSIDE. HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL). HESPERIDIN METHYL CHALCONE. SCLEROTIUM GUM. SODIUM CHLORIDE. TOCOPHEROL',
     url: 'https://www.atida.fr/ducray-melascreen-concentre-antitaches-30-ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/627f9dea-58fb-45dd-acb5-ea37c182696b/Ducray-Melascreen-Concentre-Antitaches-30-ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-melascreen-concentre-antitaches-30-ml-275587.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.EXFOLIATION],
       secondary: [
@@ -557,8 +547,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua (water), carthamus tinctorius (safflower) seed oil (carthamus tinctorius seed oil), glycerin, cetearyl alcohol, dimethicone, 10-hydroxydecenoic acid, beeswax (cera alba), benzoic acid, caprylyl glycol, cetearyl glucoside, glyceryl stearate, glycyrrhetnic acid, isoleucine, peg-100 stearate, polyacrylate-13, polyisobutene, polysorbate 20, sodium hydroxide, sorbitan isostearate, tocopheryl acetate.',
     url: 'https://www.atida.fr/ducray-dexyane-creme-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/32922531-75c5-40c5-9176-40367a14e669/Ducray-Dexyane-Creme-Emolliente-Anti-Grattage-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-dexyane-creme-emolliente-anti-grattage-400ml-302034.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -579,8 +568,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), triethylhexanoin, glycerin, isodecyl neopentanoate, tribehenin peg-20 esters, crambe abyssinica seed oil, dicaprylyl carbonate, cetyl alcohol, dimethicone, glycol palmitate, methyl gluceth-20, hydrogenated starch hydrolysate, caffeine carboxylic acid, 1,2-hexanediol, behenic acid, caprylyl glycol, disodium edta, fragrance (parfum), hydroxyethyl acrylate/sodium acryloyldimethyl taurate copolymer, isohexadecane, polymethyl methacrylate, polysorbate 60, sodium hydroxide, sorbitan isostearate, tocopherol, tocopheryl acetate, tribehenin, tropolone, xanthan gum.',
     url: 'https://www.atida.fr/ducray-ictyane-nutri-creme-riche-40ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/ca622f6a-ffe1-46b3-a7de-68598b8ea196/Ducray-Ictyane-Nutri-Creme-Riche-40ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-ictyane-nutri-creme-riche-40ml-232667.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -606,8 +594,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua),aluminum sesquichlorohydrate, pentylene glycol, ppg-15 stearyl ether, steareth-2, steareth-21, dimethicone , bht,cetrimonium chloride,citric acid, lysine, oryza sativa (rice) starch (oryza sativa starch), propylene glycol, sclerotium gum,triethyl citrate, zinc ricinoleatewater (aqua), aluminum sesquichlorohydrate, pentylene glycol, ppg-15 stearyl ether, steareth-2, steareth-21, dimethicone, bht, cetrimonium chloride, citric acid, lysine, oryza sativa (rice) starch (oryza sativa starch), propylene glycol, sclerotium gum, triethyl citrate, zinc ricinoleate.',
     url: 'https://www.atida.fr/ducray-hidrosis-anti-transpirant-roll-on-lot-de-2-x-40ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/39f96d24-db3b-4846-afa6-a28b78e6314a/Ducray-Hidrosis-Control-Anti-Transpirant-Roll-On-Lot-de-2-x-40ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-hidrosis-control-anti-transpirant-roll-on-lot-de-2-x-40ml-248040.webp',
     tags: {
       primary: [TAG_SLUGS.DEODORANT],
       secondary: [],
@@ -628,8 +615,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), caprylic/capric triglyceride, cetearyl alcohol, isohexadecane, niacinamide, pentylene glycol, butylene glycol, glycerin, octyldodecanol, oryza sativa (rice) starch (oryza sativa starch), polymethyl methacrylate, benzoic acid, butyrospermum parkii (shea) butter (butyrospermum parkii butter), cetearyl glucoside, dicaprylyl carbonate, disodium phosphate, glyceryl laurate, myrtus communis leaf extract, polyacrylate-13, polyisobutene, polysorbate 20, potassium phosphate, sodium cetearyl sulfate, sodium hydroxide, sorbitan isostearate, stearyl glycyrrhetinate, tocopherol.',
     url: 'https://www.atida.fr/ducray-ducray-keracnyl-pp-creme-apaisante-anti-imperfections-30ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/63e3e176-5559-4672-b615-5be32d0c70f6/Ducray-Keracnyl-PP-Creme-Anti-Imperfections-30ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-keracnyl-pp-creme-anti-imperfections-30ml-275209.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -656,8 +642,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), mineral oil (paraffinum liquidum), caprylic/capric triglyceride, glycerin, butylene glycol, hydrogenated vegetable oil, peg-30 dipolyhydroxystearate, isododecane, butyrospermum parkii (shea) butter (butyrospermum parkii butter), zea mays (corn) starch (zea mays starch), peg-22/dodecyl glycol copolymer, beeswax (cera alba), 10-hydroxydecenoic acid, benzoid acid, caprylyl glycol, cetyl alcohol, glyceryl stearate, isoleucine xanthan gum.',
     url: 'https://www.atida.fr/ducray-dexyane-creme-barriere-isolante-100ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/134ea6c4-64d7-409d-827e-f88ec2761017/Ducray-Dexyane-Creme-Barriere-Isolante-100ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-dexyane-creme-barriere-isolante-100ml-275473.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -678,8 +663,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA). C12-15 ALKYL BENZOATE. DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE. ETHYLHEXYL TRIAZONE. ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH). PHENYLENE BIS-DIPHENYLTRIAZINE. GLYCERIN. BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE. GLYCERYL STEARATE. POTASSIUM CETYL PHOSPHATE. STEARYL ALCOHOL. VP/EICOSENE COPOLYMER. AZELAIC ACID. BENZOIC ACID. CAPRYLYL GLYCOL. GLYCERYL BEHENATE. GLYCERYL DIBEHENATE. PPG-1-PEG-9 LAURYL GLYCOL ETHER. RED 33 (CI 17200). SODIUM HYDROXIDE. TRIBEHENIN. XANTHAN GUM',
     url: 'https://www.atida.fr/ducray-melascreen-creme-antitaches-protectrice-spf50-50-ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/6af8ce3a-0a69-4372-9efd-b93981d0b2b9/Ducray-Melascreen-Creme-Antitaches-Protectrice-SPF50-50-ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-melascreen-creme-antitaches-protectrice-spf50-50-ml-275590.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
@@ -708,8 +692,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua),alcohol,hamamelis virginiana (witch hazel) leaf water (hamamelis virginiana leaf water),glycolic acid,propylene glycol,salicylic acid,sodium hydroxide,hydroxyethylcellulose,ammonium glycyrrhizate,lactamide mea,aluminum starch octenylsuccinate,c13-14 isoparaffin,diethyl phthalate,disodium edta,laureth-7,methylparaben,phenoxyethanol,polyacrylamide,sodium chloride.',
     url: 'https://www.atida.fr/ducray-keracnyl-stop-bouton-10ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/98de4ef7-7086-40bf-8438-39c5cc1c17b3/Ducray-Keracnyl-Stop-Bouton-Gel-Assechant-10ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-keracnyl-stop-bouton-gel-assechant-10ml-279032.webp',
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -737,8 +720,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Ingrédients : WATER (AQUA).CAPRYLIC/CAPRIC\nTRIGLYCERIDE. CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL (CARTHAMUS\nTINCTORIUS SEED OIL). MINERAL OIL (PARAFFINUM LIQUIDUM). GLYCERIN.\nCETEARYL ALCOHOL. GLYCERYL STEARATE. PEG-100 STEARATE.\n10-HYDROXYDECENOIC ACID. BEESWAX (CERA ALBA). BENZOIC ACID. CAPRYLYL\nGLYCOL. CETEARYL GLUCOSIDE. GLYCERYL STEARATE. GLYCYRRHETINIC ACID.\nISOLEUCINE. POLYACRYLATE-13. POLYISOBUTENE. POLYSORBATE 20. SODIUM\nHYDROXIDE. SORBITAN\nISOSTEARATE. TOCOPHERYL ACETATEFabriqué en FranceIsoleucine : Actif qui limite l'adhésion de Staphylococcus Aureus et Malassezia FurfurAcide β-glycyrrhétinique : Actif connu pour ses propriétés apaisantesIl est recommandé au consommateur de vérifier systématiquement la composition du produit avant son achat.",
     url: 'https://www.atida.fr/ducray-dexyane-baume-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/f17b499f-f633-4bd7-9d92-cc95cf383f37/Ducray-Dexyane-Baume-Emollient-Anti-Grattage-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-dexyane-baume-emollient-anti-grattage-400ml-302033.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BAUME],
@@ -759,8 +741,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua, ceteareth-60, myristyl glycol, coco-glucoside, zinc coceth sulfate, sodium cocamphoacetate, polysorbate 20, glycerin, citric acid, ascorbyl palmitate, disodium laureth sulfosuccinate, glyceryl oleate, hydrogenated palm glycerides citrate, isoleucine, laureth-3, lecithin, maleic acid, sodium benzoate, sodium chloride, sodium hydroxide, tocopherol.',
     url: 'https://www.atida.fr/ducray-dexyane-gel-nettoyant-surgras-100ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/58f64bf3-4e91-41e6-8474-4c2e1cf2021d/Ducray-Dexyane-Gel-Nettoyant-Surgras-100ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-dexyane-gel-nettoyant-surgras-100ml-232706.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -787,8 +768,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA. GLYCERIN. CAPRYLIC/CAPRIC TRIGLYCERIDE. BUTYLENE GLYCOL. POLYSORBATE 60. GLYCERYL STEARATE. BUTYROSPERMUM PARKII (SHEA) BUTTER. CERA ALBA. PEG-100 STEARATE. 10-HYDROXYDECENOIC ACID. CAPRYLYL GLYCOL. CETYL ALCOHOL. CITRIC ACID. GLYCYRRHETINIC ACID. GUANIDINE CARBONATE. POLYACRYLATE-13. POLYISOBUTENE. POLYSORBATE 20. SCLEROTIUM GUM. SORBITAN ISOSTEARATE',
     url: 'https://www.atida.fr/ducray-dexyane-med-creme-100ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/040cc5d8-2095-4b15-8f0c-9b0cfdccca38/Ducray-Dexyane-MeD-Creme-Reparatrice-Apaisante-Traitement-des-Eczemas-100ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-dexyane-med-creme-reparatrice-apaisante-eczema-100ml-266178.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -809,8 +789,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), hamamelis virginiana (witch hazel) leaf water (hamamelis virginiana leaf water), glycolic acid, sodium hydroxide, ppg-1-peg-9 lauryl glycol ether, acetic acid, bisabolol, cetrimonium bromide, fragrance (parfum), lactic acid, methylparaben, phenoxyethanol, propylene glycol, salicylic acid, sodium chloride.',
     url: 'https://www.atida.fr/ducray-keracnyl-lotion-purifiante-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/e4fa73f4-f1c3-4878-ad8b-5ea0e3cc4332/Ducray-Keracnyl-Lotion-Purifiante-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-keracnyl-lotion-purifiante-200ml-271270.webp',
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -839,8 +818,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Pour la liste des ingrédients et des allergènes se référer à l’image produit.',
     url: 'https://www.atida.fr/ducray-anacaps-reactiv-3-x-30-capsules.html',
-    imageUrl:
-      'https://assets.atida.com/transform/43eaa556-5dc6-4c9e-bd0b-a53d51636dee/Ducray-Anacaps-Reactiv-90-capsules?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-anacaps-reactiv-90-capsules-275082.webp',
     tags: {
       primary: [TAG_SLUGS.CREME_HYDRATANTE],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
@@ -861,8 +839,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua). c12-15 alkyl benzoate. dicaprylyl carbonate. methylene bis-benzotriazolyl tetramethylbutylphenol [nano]. diisopropyl adipate. silica. bis-ethylhexyloxyphenol methoxyphenyl triazine. diethylhexyl butamido triazone. zea mays (corn) starch (zea mays starch). butyl methoxydibenzoylmethane. c10-18 triglycerides. decyl glucoside. glycerin. glyceryl stearate. peg-100 stearate. potassium cetyl phosphate. acrylates/c10-30 alkyl acrylate crosspolymer. benzoic acid. caprylyl glycol. disodium edta. fragrance (parfum). glyceryl behenate. glyceryl dibehenate. glyceryl laurate. myrtus communis leaf extract. niacinamide. pentylene glycol. propylene glycol. sodium hydroxide. stearyl alcohol. tocopherol. tribehenin. tripterygium wilfordii callus extract. xanthan gum.',
     url: 'https://www.atida.fr/ducray-keracnyl-uv-fluide-anti-imperfections-spf50-50ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/a138f253-8c7e-498c-a0b4-7e084406cf2a/Ducray-Keracnyl-UV-Fluide-Anti-Imperfections-SPF50-50ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-keracnyl-uv-fluide-anti-imperfections-spf50-50ml-275259.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -891,8 +868,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA). C12-15 ALKYL BENZOATE. DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE. ETHYLHEXYL TRIAZONE. ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH). PHENYLENE BIS-DIPHENYLTRIAZINE. GLYCERIN. BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE. POTASSIUM CETYL PHOSPHATE. GLYCERYL STEARATE. STEARYL ALCOHOL. TAPIOCA STARCH. VP/EICOSENE COPOLYMER. AZELAIC ACID. BENZOIC ACID. CAPRYLYL GLYCOL. GLYCERYL BEHENATE. GLYCERYL DIBEHENATE. PPG-1-PEG-9 LAURYL GLYCOL ETHER. RED 33 (CI 17200). SODIUM HYDROXIDE. TRIBEHENIN. XANTHAN GUM',
     url: 'https://www.atida.fr/ducray-melascreen-fluide-antitaches-protecteur-spf50-50-ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/726f413f-d2d2-420d-b554-e06d2b20feec/Ducray-Melascreen-Fluide-Antitaches-Protecteur-SPF50-50-ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-melascreen-fluide-antitaches-protecteur-spf50-50-ml-275589.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
@@ -921,8 +897,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA). CETEARYL ALCOHOL. ALUMINUM SESQUICHLOROHYDRATE. 1,2-HEXANEDIOL. CETEARETH-20. TRIETHYL CITRATE. ARGININE. CITRIC ACID. DIMETHICONE. GLYCERYL STEARATE. HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL). PEG-100 STEARATE. PROPYLENE GLYCOL. TOCOPHEROL. ZINC RICINOLEATE',
     url: 'https://www.atida.fr/ducray-hidrosis-control-creme-anti-transpirante-50-ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/c56dc36f-1ec0-4127-8ee3-a9b2ff862775/Ducray-Hidrosis-Control-Creme-Anti-Transpirante-50-ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-hidrosis-control-creme-anti-transpirante-50-ml-275595.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.DEODORANT],
@@ -943,8 +918,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), glycerin, mineral oil (paraffinum liquidum), glyceryl stearate, peg-12, isohexadecane, microcrystalline wax (cera microcristallina), palmitic acid, stearic acid, crambe abyssinica seed oil, alpha-isomethyl ionone, benzyl salicylate, bht, caffeine carboxylic acid, caprylyl glycol, citronellol, dimethicone, ethylhexylglycerin, fragrance (parfum), geraniol, hydroxycitronellal, hydroxyethyl acrylate/sodium, acryloyldimethyl taurate copolymer, limonene, linalool, paraffin, polysorbate 60, sorbitan isostearate, tocopherol, triethanolamine.',
     url: 'https://www.atida.fr/ducray-ictyane-creme-emolliente-hydratante-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/c7b6ea8d-0aa5-40de-bca4-9f1cbb97fcfa/Ducray-Ictyane-Creme-Emolliente-Nutritive-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-ictyane-creme-emolliente-nutritive-200ml-278630.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -970,8 +944,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA). AZELAIC ACID. CAPRYLIC/CAPRIC TRIGLYCERIDE. DICAPRYLYL ETHER. GLYCERIN. GLYCOLIC ACID. MICROCRYSTALLINE CELLULOSE. LAURYL GLUCOSIDE. POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE. SODIUM HYDROXIDE. CITRIC ACID. FRAGRANCE (PARFUM). GLYCERYL LAURATE. HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL). MYRTUS COMMUNIS LEAF EXTRACT. PENTYLENE GLYCOL. POTASSIUM CETYL PHOSPHATE. TOCOPHEROL. TRIPTERYGIUM WILFORDII CALLUS EXTRACT. XANTHAN GUM',
     url: 'https://www.atida.fr/ducray-keracnyl-serum-regulateur-anti-imperfections-30ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/b199607a-d7bf-46df-8fca-3fbdfdcd25d5/Generated-image?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-keracnyl-serum-regulateur-anti-imperfections-30ml-299583.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.EXFOLIATION],
       secondary: [
@@ -1001,8 +974,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water, acetamide mea, glycerin, PEG-12, cyclomethicone, mineral oil (paraffinum liquidum), petrolatum, acrylate crosspolymer (C10-30 alkyl acrylate crosspolymer), benzoic acid, carbomer, chlorophenesin, phenoxyethanol, triethanolamine.',
     url: 'https://www.atida.fr/ducray-kelual-emulsion-keratoreductrice-50ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/d8198e8a-43ac-486c-bbe7-26e5c50dbf38/Ducray-Kelual-Emulsion-Keratoreductrice-50ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-kelual-emulsion-keratoreductrice-50ml-232649.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -1023,8 +995,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), disodium cocoamphodiacetate, coco-glucoside, sodium lauroyl methyl isethionate, glycerin, zinc coceth sulfate, ceteareth-60 myristyl glycol, peg-40 hydrogenated castor oil, coco-glucoside, glyceryl oleate, sodium chloride, laureth-9, ascorbyl palmitate, citric acid, fragrance (parfum), hydrogenated palm glycerides citrate, lauric acid, lecithin, sodium benzoate, sodium glycolate, sodium hydroxide, sodium methyl isethionate, tocopherol, trisodium ethylenediamine disuccinate.',
     url: 'https://www.atida.fr/ducray-sensinol-huile-lavante-apaisante-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/36ddaac4-3894-41c4-8ad8-d350b7d773e9/Ducray-Sensinol-Huile-Lavante-Apaisante-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-sensinol-huile-lavante-apaisante-400ml-250426.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -1050,8 +1021,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), glycerin, caprylic/capric triglyceride, laureth-9, 1,2-hexanediol, 4-t-butylcyclohexanol, acrylates/c10-30 alkyl acrylate crosspolymer, caprylyl glycol, carbomer, glyceryl stearate, peg-100 stearate, pentylene glycol, sodium hydroxide, sorbitan stearate, tropolone.',
     url: 'https://www.atida.fr/ducray-sensinol-lait-apaisant-physioprotecteur-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/db99afa4-9153-40aa-bbdd-0606258c0204/Ducray-Sensinol-Lait-Apaisant-Physioprotecteur-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-sensinol-lait-apaisant-physioprotecteur-400ml-250427.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -1072,8 +1042,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Disodium lauryl sulfosuccinate, sodium coco-sulfate, cetearyl alcohol, triticum vulgare (wheat) starch (triticum vulgare starch), paraffin, water (aqua), butyrospermum parkii (shea) butter (butyrospermum parkii butter), glycerin, titanium dioxide (ci 77891), alpha-isomethyl ionone, benzyl salicylate, bht, caffeine carboxylic acid, citronellol, crambe abyssinica seed oil, fragrance (parfum), geraniol, hydroxycitronellal, linalool, microcrystalline wax (cera microcristallina), mineral oil (paraffinum liquidum).',
     url: 'https://www.atida.fr/ducray-ictyane-pain-surgras-visage-et-corps-100g.html',
-    imageUrl:
-      'https://assets.atida.com/transform/9a3f21ef-30bb-4ae1-88ed-6c457b6f9d77/Ducray-Ictyane-Pain-Dermatologique-Surgras-100g?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-ictyane-pain-dermatologique-surgras-100g-267028.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
@@ -1100,8 +1069,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua (water), carthamus tinctorius seed oil, isododecyl neopentanoate, mineral oil, cetearyl ethlyhexanoate, cocos nucifera (coconut) oil, glycerin, 10-hydroxydecenoic acid, batyl alcohol, bht, cetearyl alcohol, cetyl alcohol, disodium edta, disodium phosphate, glycyrrhetinic acid, isopropyl myristate, phenoxyethanol, polyacrylate-13, polyisobutene, polysorbate 20, potassium phosphate, sodium cetearyl sulfate, sodium hydroxide, sorbic acid, sorbitan isostearate.',
     url: 'https://www.atida.fr/ducray-dexyane-baume-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/43d496e1-5a98-4ad4-9df7-492270744ae8/Ducray-Dexyane-Baume-Emollient-Anti-Grattage-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-dexyane-baume-emollient-anti-grattage-200ml-267138.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.BAUME],
@@ -1122,8 +1090,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), glycerin, mineral oil (paraffinum liquidum), glyceryl stearate, peg-12, isohexadecane, microcrystalline wax (cera microcristallina), palmitic acid, stearic acid, crambe abyssinica seed oil, alpha-isomethyl ionone, benzyl salicylate, bht, caffeine carboxylic acid, caprylyl glycol, citronellol, dimethicone, ethylhexylglycerin, fragrance (parfum), geraniol, hydroxycitronellal, hydroxyethyl acrylate/sodium acryloyldimethyl taurate copolymer, limonene, linalool, paraffin, polysorbate 60, sorbitan isostearate, tocopherol, triethanolamine.',
     url: 'https://www.atida.fr/ducray-ictyane-creme-emolliente-nutritive-corps-400ml-7020838.html',
-    imageUrl:
-      'https://assets.atida.com/transform/f8deca6a-4f03-4768-997c-90c109002702/Ducray-Ictyane-Creme-Emolliente-Nutritive-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-ictyane-creme-emolliente-nutritive-400ml-275479.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -1149,8 +1116,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA). CAPRYLIC/CAPRIC TRIGLYCERIDE. GLYCERIN. C14-22 ALCOHOLS. BEHENYL ALCOHOL. GLYCERYL STEARATE. HYDROGENATED VEGETABLE OIL. SODIUM STEAROYL GLUTAMATE. 1,2-HEXANEDIOL. ASCORBYL GLUCOSIDE. C12-20 ALKYL GLUCOSIDE. CAPRYLYL GLYCOL. CITRIC ACID. HESPERIDIN METHYL CHALCONE. SCLEROTIUM GUM. SODIUM CITRATE. SODIUM DEXTRAN SULFATE. SODIUM HYDROXIDE. TROPOLONE. XANTHAN GUM',
     url: 'https://www.atida.fr/ducray-melascreen-contour-des-yeux-antitaches-15-ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/4a3d64ea-dde9-4b77-98cb-7a0ac9f8b2eb/Ducray-Melascreen-Contour-des-Yeux-Antitaches-15-ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-melascreen-contour-des-yeux-antitaches-15-ml-275588.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX],
@@ -1171,8 +1137,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA). GLYCERIN. DECYL GLUCOSIDE. SODIUM COCOYL GLUTAMATE. LAURETH-9. ALGIN. CARRAGEENAN. CITRIC ACID. SODIUM BENZOATE',
     url: 'https://www.atida.fr/ducray-sensinol-shampooing-traitant-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/e15e9f04-7a96-4e17-b0ab-da2ad9d6b7d3/EAN_IMG_FR_3282770394931_1?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-sensinol-shampooing-traitant-400ml-275173.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -1193,8 +1158,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA). SODIUM LAURETH SULFATE. GLYCINE. GLYCERIN. LAURYL BETAINE. ACRYLATES COPOLYMER. METHYL GLUCETH-20. PEG-7 GLYCERYL COCOATE. CITRIC ACID. FRAGRANCE (PARFUM). GLYCOL PALMITATE. GLYCOL STEARATE. HYDROXYPROPYL GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE. PANTHENOL. PANTOLACTONE. PHENOXYETHANOL. PIROCTONE OLAMINE. SODIUM CHLORIDE. SODIUM HYDROXIDE. TRISODIUM ETHYLENEDIAMINE DISUCCINATE. ZINC GLYCINATE',
     url: 'https://www.atida.fr/ducray-elution-shampoing-doux-equilibrant-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/d7d48333-2c4b-4c51-bc55-9cb1c6087f54/Ducray-Elution-Shampoing-Doux-Equilibrant-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-elution-shampoing-doux-equilibrant-400ml-275596.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -1220,8 +1184,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Shampoing ANAPHASE :Aqua, sodium laureth sulfate, betaine, glycerin, sodium cocoamphoacetate, acrylates copolymer, ceteareth-60 myristyl glycol, peg-40 hydrogenated castor oil, alcohol, biotin, citric acid, parfum, glyceryl laurate, glycol distearate, hydrolyzed wheat protein, panthenol, pantolactone, phenoxyethanol, polyquaternium-7, pyridoxine hcl, ruscus aculeatus root extract, salicylic acid, sodium benzoate, sodium chloride, sodium hydroxide, tocopheryl nicotinate.Sérum NEOPTIDE : Water (aqua), alcohol denat., isopropyl alcohol, peg-6, hexylene glycol, pentylene glycol, butylene glycol, citric acid, lespedeza capitata flower/leaf/stem extract, manganese pca, polyacrylate-13, polyisobutene, polysorbate 20, silybum marianum fruit extract, sodium dilauramidoglutamide lysine, sodium phytate, sorbitan isostearate.Complément alimentaire ANACAPS :Extrait de cheveux de venus (Adiantum capillus-veneris L.); L-Cystine; DL-Méthionine; Enveloppe de la gélule : hydroxypropylmethylcellulose; Maltodextrine; Extrait sec de myrtille (Vaccinium myrtillus L.); Sulfate de zinc monohydraté; Extrait de chardon marie (Silybum marianum (L.) Gaertn.); Agent de charge : cellulose microcristalline; Sulfate ferreux séché; Anti-agglomérant : stéarate de magnésium; D-pantothénate de calcium; Chlorohydrate de pyridoxine; D-biotine.',
     url: 'https://www.atida.fr/ducray-routine-anti-chute.html',
-    imageUrl:
-      'https://assets.atida.com/transform/ee72a288-8348-4fb9-8bda-8351823b445e/Ducray-Routine-Anti-Chute?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-routine-anti-chute-303566.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -1249,8 +1212,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA). GLYCERIN. DECYL GLUCOSIDE. DISODIUM COCOYL GLUTAMATE. SUCCINIC ACID. 1,2-HEXANEDIOL. CAPRYLYL GLYCOL. FRAGRANCE (PARFUM). HYDROXYPROPYL GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE. PIROCTONE OLAMINE. SODIUM HYDROXIDE. TRISODIUM ETHYLENEDIAMINE DISUCCINATE. XANTHAN GUM',
     url: 'https://www.atida.fr/ducray-kelual-squanorm-shampooing-traitant-pellicules-seches-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/688ce825-036e-42a4-9c1b-6fb731ab87af/EAN_IMG_FR_3282770396508_1?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-kelual-squanorm-shampooing-traitant-pellicules-seches-200ml-286424.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -1271,8 +1233,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA). GLYCERIN. DECYL GLUCOSIDE. SODIUM COCOYL GLUTAMATE. LAURETH-9. ALGIN. CARRAGEENAN. CITRIC ACID. SODIUM BENZOATE',
     url: 'https://www.atida.fr/ducray-sensinol-shampooing-traitant-physioprotecteur-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/e561a831-78b6-469c-8a4d-9dbe09fb6b33/EAN_IMG_FR_3282770394948_1?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-sensinol-shampoing-traitant-200ml-287244.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -1293,8 +1254,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA). PENTYLENE GLYCOL. POLYGLYCERYL-4 CAPRATE. LAURETH-9. CITRIC ACID. ERIOBOTRYA JAPONICA LEAF EXTRACT. SODIUM BENZOATE. SODIUM PHYTATE',
     url: 'https://www.atida.fr/ducray-sensinol-serum-spray-sos-30ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/8eb3c091-9fd4-4b40-a80b-8b6eeb7b1121/EAN_IMG_FR_3282770394993_1?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-sensinol-serum-spray-sos-30ml-264178.webp',
     tags: {
       primary: [TAG_SLUGS.SERUM],
       secondary: [TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ZONE_VISAGE],
@@ -1315,8 +1275,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA). GLYCERIN. DECYL GLUCOSIDE. DISODIUM COCOYL GLUTAMATE. SUCCINIC ACID. 1,2-HEXANEDIOL. BISABOLOL. CAPRYLYL GLYCOL. FRAGRANCE (PARFUM). GLYCERYL LAURATE. HYDROXYPROPYL GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE. PIROCTONE OLAMINE. SODIUM HYDROXIDE. TRISODIUM ETHYLENEDIAMINE DISUCCINATE. XANTHAN GUM',
     url: 'https://www.atida.fr/ducray-kelual-squanorm-shampooing-traitant-pellicules-grasses-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/44caf259-0245-4500-a6e1-0c808a581263/EAN_IMG_FR_3282770396423_1?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-kelual-squanorm-shampooing-traitant-pellicules-grasses-200ml-286425.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT],
       secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -1337,8 +1296,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA). GLYCERIN. DECYL GLUCOSIDE. DISODIUM COCOYL GLUTAMATE. SUCCINIC ACID. 1,2-HEXANEDIOL. BISABOLOL. CAPRYLYL GLYCOL. FRAGRANCE (PARFUM). GLYCERYL LAURATE. HYDROXYPROPYL GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE. PIROCTONE OLAMINE. SODIUM HYDROXIDE. TRISODIUM ETHYLENEDIAMINE DISUCCINATE. XANTHAN GUM',
     url: 'https://www.atida.fr/ducray-kelual-squanorm-shampooing-traitant-pellicules-grasses-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/c45cd3a4-09b4-4a20-8b00-42fcfc2653ef/EAN_IMG_FR_3282770396430_1?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-kelual-squanorm-shampooing-traitant-pellicules-grasses-400ml-275655.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT],
       secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -1359,8 +1317,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA). SODIUM LAURETH SULFATE. UNDECYLENAMIDOPROPYL BETAINE. DECYL GLUCOSIDE. CICLOPIROX OLAMINE. LAURETH-9. LACTAMIDE MEA. COCO-BETAINE. CETEARETH-60 MYRISTYL GLYCOL. CITRIC ACID. FRAGRANCE (PARFUM). GLYCYRRHETINIC ACID. MENTHA PIPERITA (PEPPERMINT) FLOWER/LEAF/STEM EXTRACT (MENTHA PIPERITA FLOWER/LEAF/STEM EXTRACT). PENTYLENE GLYCOL. PIROCTONE OLAMINE. POLYQUATERNIUM-10. TRISODIUM ETHYLENEDIAMINE DISUCCINATE',
     url: 'https://www.atida.fr/ducray-shampooing-traitant-anti-pelliculaire-kelual-ds-intensive-100-ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/e6aa3398-d5c7-428d-824e-94e7fcc336e8/EAN_IMG_FR_3282770400786_1?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-shampooing-traitant-anti-pelliculaire-kelual-ds-intensive-100-ml-302486.webp',
     tags: {
       primary: [TAG_SLUGS.CREME_HYDRATANTE],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
@@ -1381,8 +1338,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA). GLYCERIN. DECYL GLUCOSIDE. DISODIUM COCOYL GLUTAMATE. SUCCINIC ACID. 1,2-HEXANEDIOL. CAPRYLYL GLYCOL. FRAGRANCE (PARFUM). HYDROXYPROPYL GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE. PIROCTONE OLAMINE. SODIUM HYDROXIDE. TRISODIUM ETHYLENEDIAMINE DISUCCINATE. XANTHAN GUM',
     url: 'https://www.atida.fr/ducray-kelual-squanorm-shampooing-traitant-pellicules-seches-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/670fecd4-8966-4830-a415-a70d684381b1/EAN_IMG_FR_3282770396515_1?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-kelual-squanorm-shampooing-traitant-pellicules-seches-400ml-275656.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -1403,8 +1359,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), zinc coceth sulfate, ceteareth-60 myristyl glycol, glycerin, lauryl betaine, decyl glucoside, polysorbate 20, trideceth-9, blue 1 (ci 42090), citric acid, fragrance (parfum), glyceryl laurate, myrtus communis leaf extract, peg-40 hydrogenated castor oil, peg-5 ethylhexanoate, ppg-26-buteth-26, sodium benzoate, sodium chloride, sodium hydroxide, trisodium ethylenediamine disuccinate.',
     url: 'https://www.atida.fr/ducray-keracnyl-gel-moussant-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/b9e0d751-9c70-4be8-a6bb-593b7df17182/Ducray-Keracnyl-Gel-Moussant-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-keracnyl-gel-moussant-400ml-287344.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
@@ -1425,8 +1380,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), lactamide mea, sodium cocoamphoacetate, ceteareth-60 myristyl glycol, decyl glucoside, disodium cocoyl glutamate, polysorbate 20, sodium chloride, citric acid, ascorbyl palmitate, coco-glucoside, glycerin, glyceryl oleate, hydrogenated palm glycerides citrate, lecithin, peg-120 methyl glucose dioleate, piroctone olamine, propylene glycol, sodium benzoate, tocopherol, trisodium ethylenediamine disuccinate, zinc gluconate.',
     url: 'https://www.atida.fr/ducray-kelual-ds-gel-moussant-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/73950e1a-2927-463d-bcf8-1e6c72ff5d21/Ducray-Kelual-DS-Gel-Moussant-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-kelual-ds-gel-nettoyant-200ml-266077.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -1453,8 +1407,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), glycerin , ceteareth-60 myristyl glycol, coco-glucoside, lactamide mea, zinc coceth sulfate, sodium cocoamphoacetate, polysorbate 20, 1,2-hexanediol, caprylyl glycol, Cichorium intybus (chicory) root extract (Cichorium intybus root extract), citric acid, disodium laureth sulfosuccinate fragance (parfum), glyceryl oleate, hydrogenated palm glycerides citrate, laureth-3, maleic acid, PEG-120 methyl glucose dioleate, pentylene glycol sodium benzoate, sodium chloride, sodium hydroxide, tocopherol Tripterygium wilfordii callus extract, trisodium ethylenediamine disuccinate.',
     url: 'https://www.atida.fr/ducray-kertyol-pso-gel-nettoyant-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/0e02f3d4-17af-4d5c-a02d-3c03a4fccb73/Ducray-Kertyol-P-S-O-Gel-Nettoyant-Surgras-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-kertyol-p-s-o-gel-nettoyant-surgras-400ml-275481.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -1481,8 +1434,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), glycerin, disodium cocoyl glutamate, oleth-10, sodium cocoamphoacetate, ceteareth-60 myristyl glycol, peg-120 methyl glucose dioleate, coco-glucoside, butyrospermum parkii (shea) butter (butyrospermum parkii butter), caprylyl glycol, carthamus tinctorius (safflower) seed oil (carthamus tinctorius seed oil), citric acid, coco-glucoside, cocos nucifera (coconut) oil (cocos nucifera oil), glyceryl oleate, glycyrrhetinic acid, hydrogenated palm glycerides citrate, isoleucine, lactic acid, propylene glycol, sodium benzoate, sodium chloride, tocopherol, trisodium ethylenediamine disuccinate.',
     url: 'https://www.atida.fr/ducray-dexyane-huile-lavante-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/72a13080-8cb9-47a4-a840-bad730c95a2f/Ducray-Dexyane-Huile-Lavante-Protectrice-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/ducray-dexyane-huile-lavante-protectrice-400ml-269600.webp',
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [

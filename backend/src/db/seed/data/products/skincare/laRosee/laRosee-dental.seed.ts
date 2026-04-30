@@ -16,7 +16,7 @@ export const LA_ROSEE_DENTAL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HYDROGENATED STARCH HYDROLISATE, AQUA, HYDRATED SILICA, GLYCERIN, PERLITE, SODIUM COCOYL ISETHIONATE, AROMA, SODIUM COCOAMPHOACETATE, XANTHAN GUM, SODIUM FLUORIDE (FLUOR), LEVULINIC ACID, MENTHOL, MENTHYL LACTATE, SODIUM LEVULINATE, STEVIA REBAUDIANA EXTRACT, SODIUM CHLORIDE, MENTHA VIRIDIS LEAF EXTRACT, CITRIC ACID, SODIUM HYDROXIDE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-dentifrice-soin-complet-a-la-menthe-bio-75ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-dentifrice-soin-complet-a-la-menthe-bio.webp',
     tags: {
       primary: ['dentifrice'],
       secondary: [],

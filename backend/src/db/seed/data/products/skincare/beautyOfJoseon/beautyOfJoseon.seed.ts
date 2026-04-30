@@ -18,8 +18,7 @@ export const BEAUTY_OF_JOSEON_SEED: UnifiedProductSeed[] = [
       'Occlusion 6/10. Texture crème légère. Eau de riz + ginseng + squalane + niacinamide + céramides + HA.',
     inci: 'WATER, ORYZA SATIVA (RICE) BRAN WATER, GLYCERIN, PANAX GINSENG ROOT WATER, HYDROGENATED POLYDECENE, 1,2-HEXANEDIOL, NIACINAMIDE, SQUALANE, BUTYLENE GLYCOL, PROPANEDIOL, DICAPRYLATE/DICAPRATE, CETEARYL OLIVATE, SORBITAN OLIVATE, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, XANTHAN GUM, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, TROMETHAMINE, CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL, HYDROGENATED COCONUT OIL, GLYCERYL ACRYLATE/ACRYLIC ACID COPOLYMER, ETHYLHEXYLGLYCERIN, ADENOSINE, CAPRYLIC/CAPRIC TRIGLYCERIDE, DISODIUM EDTA, HYALURONIC ACID, HYDROLYZED HYALURONIC ACID, SODIUM HYALURONATE, HONEY EXTRACT, CERAMIDE NP, HYDROGENATED LECITHIN, COPTIS JAPONICA ROOT EXTRACT, RAPHANUS SATIVUS (RADISH) SEED EXTRACT, LYCIUM CHINENSE FRUIT EXTRACT, THEOBROMA CACAO (COCOA) SEED EXTRACT, PHELLINUS LINTEUS EXTRACT, DEXTRIN, SCUTELLARIA BAICALENSIS ROOT EXTRACT',
     url: 'https://www.skinsafeproducts.com/beauty-of-joseon-dynasty-cream-1-69-fl-oz-50-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/E4E9C0E746B1EB/large_1693784340.jpeg?1693784340',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/beauty-of-joseon-dynasty-cream.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.REPULPANT],
       secondary: [
@@ -83,8 +82,7 @@ export const BEAUTY_OF_JOSEON_SEED: UnifiedProductSeed[] = [
       'Texture aqueuse légère, multi-couches possible. Riche en ginseng (racine, callus, ferment, extraits), niacinamide et panthénol. Idéal pour tous types de peau.',
     inci: 'PANAX GINSENG ROOT WATER, BUTYLENE GLYCOL, GLYCERIN, PROPANEDIOL, NIACINAMIDE, 1,2-HEXANEDIOL, WATER, HYDROXYACETOPHENONE, GLYCERYL GLUCOSIDE, XANTHAN GUM, PANTHENOL, DIPOTASSIUM GLYCYRRHIZATE, ALLANTOIN, ADENOSINE, PANAX GINSENG CALLUS CULTURE EXTRACT, THEOBROMA CACAO (COCOA) EXTRACT, DEXTRIN, GLUCOSE, PANAX GINSENG ROOT EXTRACT, PANAX GINSENG BERRY EXTRACT, LACTOBACILLUS/PANAX GINSENG ROOT FERMENT FILTRATE, SODIUM HYALURONATE, ETHYLHEXYLGLYCERIN, DISODIUM EDTA',
     url: 'https://www.skinsafeproducts.com/beauty-of-joseon-ginseng-essence-water-5-fl-oz-150-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/A76DA6BA8C7322/large_1701889840.jpeg?1701889840',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/beauty-of-joseon-ginseng-essence-water.webp',
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.ECLAT],
       secondary: [
@@ -333,8 +331,7 @@ export const BEAUTY_OF_JOSEON_SEED: UnifiedProductSeed[] = [
       'Masque wash-off. Pas de parfum. Haricot rouge (Phaseolus Angularis) astringent + kaolin absorbant. Convient peaux grasses et mixtes.',
     inci: '1,2-HEXANEDIOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL/CAPRYL GLUCOSIDE, CETEARYL OLIVATE, CETYL ALCOHOL, CI 77491, ETHYLHEXYLGLYCERIN, FRAGARIA CHILOENSIS (STRAWBERRY) FRUIT EXTRACT, GLYCERIN, GLYCERYL STEARATE SE, HECTORITE, HEDERA HELIX (IVY) LEAF/STEM EXTRACT, KAOLIN, PHASEOLUS ANGULARIS SEED EXTRACT, PHASEOLUS ANGULARIS SEED POWDER, POLYISOBUTENE, PYRUS COMMUNIS (PEAR) FRUIT EXTRACT, PYRUS MALUS (APPLE) LEAF EXTRACT, SODIUM ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, SORBITAN OLEATE, SORBITAN OLIVATE, TRIETHOXYCAPRYLYLSILANE, ULTRAMARINES, WATER',
     url: 'https://www.skinsafeproducts.com/beauty-of-joseon-refreshing-pore-mask-red-bean-4-73-fl-oz-140-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/A4E2C21650C25C/large_1705453784.jpeg?1705453784',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/beauty-of-joseon-refreshing-pore-mask-red-bean.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BRILLANCE],
       secondary: [
@@ -371,8 +368,7 @@ export const BEAUTY_OF_JOSEON_SEED: UnifiedProductSeed[] = [
       'Convient aux peaux sensibles, réactives et à tendance couperosique. Artemisia + dipotassium glycyrrhizate en soutien. Texture légère et pénétrante.',
     inci: '1,2-HEXANEDIOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, ALLANTOIN, ARTEMISIA CAPILLARIS EXTRACT, BETAINE, BUTYLENE GLYCOL, CAMELLIA SINENSIS LEAF WATER, CLITORIA TERNATEA FLOWER EXTRACT, COPTIS JAPONICA ROOT EXTRACT, DIPOTASSIUM GLYCYRRHIZATE, ETHYLHEXYLGLYCERIN, GARCINIA MANGOSTANA PEEL EXTRACT, GLYCERIN, GLYCERYL ACRYLATE/ACRYLIC ACID COPOLYMER, MALT EXTRACT, METHYL PROPANEDIOL, PANTHENOL, POLYQUATERNIUM-51, PUNICA GRANATUM EXTRACT, SODIUM HYALURONATE, TROMETHAMINE, WATER',
     url: 'https://www.skinsafeproducts.com/beauty-of-joseon-calming-serum-green-tea-panthenol-1-01-fl-oz-30-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/664BCF46300719/large_1701396906.jpeg?1701396906',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/beauty-of-joseon-calming-serum-green-tea-panthenol.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -427,8 +423,7 @@ export const BEAUTY_OF_JOSEON_SEED: UnifiedProductSeed[] = [
       'Exfoliation mécanique légère par « boulochage » de la cellulose. Thé vert + extrait de riz. À utiliser 1-2 fois par semaine sur peau sèche ou légèrement humide.',
     inci: '1,2-HEXANEDIOL, ALLANTOIN, ARGININE, BUTYLENE GLYCOL, CAMELLIA SINENSIS LEAF EXTRACT, CARBOMER, CELLULOSE, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, HOUTTUYNIA CORDATA EXTRACT, METHYLPROPANEDIOL, NELUMBO NUCIFERA FLOWER EXTRACT, ORYZA SATIVA (RICE) EXTRACT, PRUNUS MUME FRUIT EXTRACT, PYRUS MALUS (APPLE) FRUIT EXTRACT, SORBITOL, VACCINIUM ANGUSTIFOLIUM (BLUEBERRY) FRUIT EXTRACT, WATER',
     url: 'https://www.skinsafeproducts.com/beauty-of-joseon-apricot-blossom-peeling-gel-3-38-fl-oz-100-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/EEBF4D32A6BDAF/large_1696653053.jpeg?1696653053',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/beauty-of-joseon-apricot-blossom-peeling-gel.webp',
     tags: {
       primary: [TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.ECLAT],
       secondary: [
@@ -471,8 +466,7 @@ export const BEAUTY_OF_JOSEON_SEED: UnifiedProductSeed[] = [
       'Acetyl Hexapeptide-8 (Argireline) + SH-Oligopeptides anti-âge. Magnesium Ascorbyl Phosphate (vit C stable). Riche en acides aminés et beta-glucan.',
     inci: '1,2-HEXANEDIOL, ACETYL HEXAPEPTIDE-8, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, ALANINE, ALLANTOIN, AMMONIUM ACRYLOYLDIMETHYL TAURATE/VP COPOLYMER, ARGININE, ASPARTIC ACID, BETA-GLUCAN, BETAINE, BUTYLENE GLYCOL, C12-14 PARETH-12, CAPRYLYL GLYCOL, CITRIC ACID, CYANOCOBALAMIN, CYSTEINE, DIMETHICONE CROSSPOLYMER, DIMETHICONE/VINYL DIMETHICONE CROSSPOLYMER, DIOSCOREA JAPONICA ROOT EXTRACT, DIPOTASSIUM GLYCYRRHIZATE, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, GLUCOSE, GLUTAMIC ACID, GLYCERIN, GLYCERYL ACRYLATE/ACRYLIC ACID COPOLYMER, GLYCERYL GLUCOSIDE, GLYCINE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, HISTIDINE, HYDROLYZED CORN STARCH, ISOLEUCINE, LEUCINE, LYSINE, MAGNESIUM ASCORBYL PHOSPHATE, MALTODEXTRIN, METHIONINE, METHYL TRIMETHICONE, PANTHENOL, PHASEOLUS ANGULARIS SEED EXTRACT, PHENYLALANINE, POLYQUATERNIUM-51, PROLINE, SERINE, SH-OLIGOPEPTIDE-1, SH-OLIGOPEPTIDE-2, SH-POLYPEPTIDE-1, SODIUM CITRATE, SUCROSE, THREONINE, TROMETHAMINE, TYROSINE, VALINE, VITAMIN E (A-TOCOPHEROL), WATER, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/beauty-of-joseon-red-bean-water-gel-3-38-fl-oz-100-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/54B6E4C1931F44/large_1693645970.jpeg?1693645970',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/beauty-of-joseon-red-bean-water-gel.webp',
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.ANTI_AGE],
       secondary: [
@@ -522,8 +516,7 @@ export const BEAUTY_OF_JOSEON_SEED: UnifiedProductSeed[] = [
       'Vitamine C stable et pénétrante (3-O-EAA) + bisabolol + beta-glucan. Texture légère. Compatible peau sensible si tolérance vit C OK.',
     inci: '1,2-HEXANEDIOL, 3-O-ETHYL ASCORBIC ACID, ADENOSINE, AMMONIUM ACRYLOYLDIMETHYLTAURATE/BEHENETH-25 METHACRYLATE CROSSPOLYMER, ARGININE, ASCORBIC ACID POLYPEPTIDE, BETA-GLUCAN, BETAINE, BISABOLOL, BRASSICA OLERACEA ACEPHALA LEAF EXTRACT, BUTYLENE GLYCOL, CARBOMER, CENTELLA ASIATICA EXTRACT, CETEARYL ALCOHOL, CETEARYL OLIVATE, CETYL ETHYLHEXANOATE, CITRUS UNSHIU PEEL EXTRACT, DICAPRYLYL CARBONATE, DIMETHICONE/VINYL DIMETHICONE CROSSPOLYMER, ECLIPTA PROSTRATA LEAF EXTRACT, ETHYLHEXYLGLYCERIN, FRUCTOOLIGOSACCHARIDES, GLYCERIN, HYDROGENATED LECITHIN, HYDROLYZED HYALURONIC ACID, HYDROLYZED JOJOBA ESTERS, HYDROXYACETOPHENONE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, LAMINARIA JAPONICA EXTRACT, MALTODEXTRIN, METHYL TRIMETHICONE, PANTHENOL, PHELLODENDRON AMURENSE BARK EXTRACT, POLYGLYCERYL-10 MYRISTATE, POTASSIUM CETYL PHOSPHATE, PROPANEDIOL, SILICA, SORBITAN ISOSTEARATE, SORBITAN OLIVATE, WATER, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/beauty-of-joseon-light-on-serum-centella-vita-c-30-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/82092E4D1E7F0A/large_1696653082.jpeg?1696653082',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/beauty-of-joseon-light-on-serum-centella-vita-c.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES],
       secondary: [
@@ -578,8 +571,7 @@ export const BEAUTY_OF_JOSEON_SEED: UnifiedProductSeed[] = [
       'Snail Secretion Filtrate + ginseng eau + extrait + HA triple moléculaire. Niacinamide sébo-régulateur. Tous types de peau, matin et soir.',
     inci: '1,2-HEXANEDIOL, ADENOSINE, BUTYLENE GLYCOL, CARBOMER, CENTELLA ASIATICA EXTRACT, DIPROPYLENE GLYCOL, DISODIUM EDTA, FORSYTHIA SUSPENSA FRUIT EXTRACT, GANODERMA LUCIDUM (MUSHROOM) EXTRACT, GLYCERIN, GLYCERYL ACRYLATE/ACRYLIC ACID COPOLYMER, HYDROLYZED HYALURONIC ACID, LONICERA JAPONICA (HONEYSUCKLE) FLOWER EXTRACT, MALT EXTRACT, NIACINAMIDE, PANAX GINSENG ROOT EXTRACT, PANAX GINSENG ROOT WATER, PHELLINUS LINTEUS EXTRACT, PROPANEDIOL, SCUTELLARIA BAICALENSIS ROOT EXTRACT, SNAIL SECRETION FILTRATE, SODIUM ACETYLATED HYALURONATE, SODIUM HYALURONATE, SODIUM POLYACRYLATE, TREHALOSE, TROMETHAMINE, WATER, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/beauty-of-joseon-revive-serum-ginseng-snail-mucin-1-01-fl-oz-30-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/9ACFD0482ADDDC/large_1693869762.jpeg?1693869762',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/beauty-of-joseon-revive-serum-ginseng-snail-mucin.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.DESHYDRATATION],
       secondary: [
@@ -638,8 +630,7 @@ export const BEAUTY_OF_JOSEON_SEED: UnifiedProductSeed[] = [
       'Tensioactifs doux (Sodium Cocoyl Isethionate + Sodium Isethionate). Extraits botaniques coréens (artemisia, prune, bleuet). Sans sulfates agressifs.',
     inci: '1,2-HEXANEDIOL, BUTYLENE GLYCOL, CAMELLIA SINENSIS LEAF EXTRACT, CAPRYLYL GLYCOL, CITRIC ACID, CLITORIA TERNATEA FLOWER EXTRACT, COCAMIDOPROPYL HYDROXYSULTAINE, COCONUT ACID, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, GARCINIA MANGOSTANA PEEL EXTRACT, GLYCERIN, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, HOUTTUYNIA CORDATA EXTRACT, NELUMBO NUCIFERA FLOWER EXTRACT, ORYZA SATIVA (RICE) EXTRACT, PHASEOLUS RADIATUS SEED EXTRACT, PROPYLENE GLYCOL LAURATE, PRUNUS MUME FRUIT WATER, PUNICA GRANATUM EXTRACT, SODIUM CHLORIDE, SODIUM CITRATE, SODIUM COCOYL ISETHIONATE, SODIUM ISETHIONATE, VACCINIUM ANGUSTIFOLIUM (BLUEBERRY) FRUIT EXTRACT, WATER',
     url: 'https://www.skinsafeproducts.com/beauty-of-joseon-green-plum-refreshing-cleanser-3-38-fl-oz-100-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/923AB76B5A5042/large_1693645920.jpeg?1693645920',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/beauty-of-joseon-green-plum-refreshing-cleanser.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -734,8 +725,7 @@ export const BEAUTY_OF_JOSEON_SEED: UnifiedProductSeed[] = [
       'Alpha-arbutin dépigmentant + niacinamide polyvalent + extrait de riz. Texture sérum légère, hydratant par le panthénol et HA.',
     inci: '1,2-HEXANEDIOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, ALPHA-ARBUTIN, ARGININE, BUTYLENE GLYCOL, COIX LACRYMA-JOBI MA-YUEN SEED EXTRACT, COPTIS JAPONICA ROOT EXTRACT, DIPROPYLENE GLYCOL, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, GLUCOSE, GLYCERIN, GLYCERYL GLUCOSIDE, GLYCINE SOJA (SOYBEAN) SEED EXTRACT, HORDEUM DISTICHON (BARLEY) EXTRACT, HYDROLYZED JOJOBA ESTERS, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, HYDROXYETHYLCELLULOSE, METHYL GLUCETH-20, NIACINAMIDE, ORYZA SATIVA (RICE) BRAN WATER, ORYZA SATIVA (RICE) EXTRACT, PANTHENOL, POLYGLYCERIN-3, SESAMUM INDICUM (SESAME) SEED EXTRACT, SORBITAN ISOSTEARATE, TREHALOSE, TRITICUM VULGARE (WHEAT) SEED EXTRACT, VIGNA RADIATA SEED EXTRACT, WATER, XANTHAN GUM, ZEA MAYS (CORN) KERNEL EXTRACT',
     url: 'https://www.skinsafeproducts.com/beauty-of-joseon-glow-deep-serum-line-glow-deep-1-01-fl-oz-30-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/1B64D819A282AD/large_1686610853.jpeg?1686610853',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/beauty-of-joseon-glow-deep-serum.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.ECLAT],
       secondary: [
@@ -784,8 +774,7 @@ export const BEAUTY_OF_JOSEON_SEED: UnifiedProductSeed[] = [
       'Retinal (rétinaldéhyde) plus actif que le rétinol, moins irritant que la trétinoïne. Palmitoyltripeptide-5 tenseur. Céramides + cholestérol lipid complex. À utiliser le soir uniquement.',
     inci: '1,2-HEXANEDIOL, ADENOSINE, ALUMINUM/MAGNESIUM HYDROXIDE STEARATE, BRASSICA CAMPESTRIS (RAPESEED) STEROLS, BUTYLENE GLYCOL, BUTYLENE GLYCOL DICAPRYLATE/DICAPRATE, CAPRYLIC/CAPRIC TRIGLYCERIDE, CARBOMER, CERAMIDE NP, CETEARYL ALCOHOL, CETEARYL OLIVATE, CHOLESTEROL, DEXTRIN, DIPROPYLENE GLYCOL, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, GLYCERIN, GLYCERYL STEARATE, HYDROGENATED LECITHIN, MACADAMIA TERNIFOLIA SEED OIL, NIACINAMIDE, PALMITOYLTRIPEPTIDE-5, PANAX GINSENG ROOT EXTRACT, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, PENTAERYTHRITYL TETRAETHYLHEXANOATE, PHYTOSTERYL/BEHENYL/OCTYLDODECYL LAUROYL GLUTAMATE, POLYGLYCERYL-10 OLEATE, POTASSIUM CETYL PHOSPHATE, RETINAL, SILICA, SODIUM HYALURONATE, SORBITAN OLIVATE, THEOBROMA CACAO (COCOA) EXTRACT, TOCOPHEROL, TROMETHAMINE, WATER',
     url: 'https://www.skinsafeproducts.com/beauty-of-joseon-revive-eye-serum-ginseng-retinal-1fl-oz-30-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/39A5DD4B8F7260/large_1684921218.jpeg?1684921218',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/beauty-of-joseon-revive-eye-serum-ginseng-retinal.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.CERNES_POCHES],
       secondary: [
@@ -842,8 +831,7 @@ export const BEAUTY_OF_JOSEON_SEED: UnifiedProductSeed[] = [
       'Exfoliation physique légère (poudre de riz hull). Miel + extrait de riz + kaolin. Laisser poser 10-15 min. Compatible tous types de peau sauf peau très réactive.',
     inci: '1,2-HEXANEDIOL, BEHENYL ALCOHOL, BENTONITE, BUTYLENE GLYCOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CELLULOSE, CETYL ALCOHOL, DIPROPYLENE GLYCOL, ETHYLHEXYL PALMITATE, ETHYLHEXYLGLYCERIN, GLYCERIN, GLYCERYL STEARATE, HONEY, HONEY EXTRACT, HYDROGENATED POLYISOBUTENE, HYDROXYACETOPHENONE, ISONONYL ISONONANOATE, KAOLIN, MENTHYL LACTATE, ORYZA SATIVA (RICE) BRAN, ORYZA SATIVA (RICE) EXTRACT, ORYZA SATIVA (RICE) HULL POWDER, ORYZA SATIVA (RICE) LEES EXTRACT, PALMITIC ACID, POLYACRYLATE-13, POLYGLYCERYL-10 LAURATE, POLYGLYCERYL-3 METHYLGLUCOSE DISTEARATE, POTASSIUM CETYL PHOSPHATE, PROPANEDIOL, SODIUM PHYTATE, SORBITAN ISOSTEARATE, STEARIC ACID, WATER, XANTHAN GUM, ZEA MAYS (CORN) STARCH',
     url: 'https://www.skinsafeproducts.com/beauty-of-joseon-glow-mask-ground-rice-and-honey-5-07-fl-oz-150-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/3B9C653740E065/large_1744722935.jpeg?1744722935',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/beauty-of-joseon-glow-mask-rice-honey.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.GRAIN_PEAU],
       secondary: [
@@ -1013,8 +1001,7 @@ export const BEAUTY_OF_JOSEON_SEED: UnifiedProductSeed[] = [
       'Propolis antibactérienne + niacinamide + betaine salicylate (exfoliant doux BHA). Tea tree + centella en soutien. Idéal peaux acnéiques et mixtes.',
     inci: '1,2-HEXANEDIOL, BETAINE SALICYLATE, BUTYLENE GLYCOL, CALOPHYLLUM INOPHYLLUM SEED OIL, CAPRYLYL GLYCOL, CARBOMER, CENTELLA ASIATICA EXTRACT, CORALLINA OFFICINALIS EXTRACT, CURCUMA LONGA (TURMERIC) ROOT EXTRACT, DEXTRIN, DIPROPYLENE GLYCOL, ETHYLHEXYLGLYCERIN, GLYCERIN, LOTUS CORNICULATUS SEED EXTRACT, MELALEUCA ALTERNIFOLIA (TEA TREE) EXTRACT, MELIA AZADIRACHTA FLOWER EXTRACT, MELIA AZADIRACHTA LEAF EXTRACT, NIACINAMIDE, OCIMUM SANCTUM LEAF EXTRACT, OCTANEDIOL, PENTYLENE GLYCOL, POLYGLYCERYL-10 LAURATE, PROPOLIS EXTRACT, SODIUM HYALURONATE, SODIUM POLYACRYLOYLDIMETHYL TAURATE, THEOBROMA CACAO (COCOA) SEED EXTRACT, TOCOPHEROL, TROMETHAMINE, WATER, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/beauty-of-joseon-glow-serum-propolis-niacinamide-30-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/978FB007B8689F/large_1674270729.jpeg?1674270729',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/beauty-of-joseon-glow-serum-propolis-niacinamide.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -1067,8 +1054,7 @@ export const BEAUTY_OF_JOSEON_SEED: UnifiedProductSeed[] = [
     notes: `Première étape du double nettoyage. Huile de riz + avoine + ferment soja. Texture baume → lait au contact de l'eau. Aucun résidu gras après rinçage.`,
     inci: '1,2-HEXANEDIOL, AVENA SATIVA (OAT) MEAL EXTRACT, BUTYLENE GLYCOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CETYL ETHYLHEXANOATE, COIX LACRYMA-JOBI MA-YUEN SEED EXTRACT, ETHYLHEXYLGLYCERIN, GLYCERIN, HIPPOPHAE RHAMNOIDES OIL, LACTOBACILLUS/SOYBEAN FERMENT EXTRACT, ORYZA SATIVA (RICE) BRAN OIL, ORYZA SATIVA (RICE) EXTRACT, POLYGLYCERYL-2 CAPRATE, POLYGLYCERYL-2 SESQUICAPRYLATE, POLYGLYCERYL-6 DICAPRATE, PROPANEDIOL, SORBITAN SESQUIOLEATE, SYNTHETIC WAX, WATER',
     url: 'https://www.skinsafeproducts.com/beauty-of-joseon-radiance-cleansing-balm-3-38-fl-oz-100-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/37DC57BCA3D8AB/large_1637009726.jpeg?1637009726',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/beauty-of-joseon-radiance-cleansing-balm.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [

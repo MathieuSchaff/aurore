@@ -15,8 +15,7 @@ export const SANT__SILICE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'aqua (eau desionisée), monomethylsilanetriol, eugenia caryophyllus, acide hyaluronique, sodium benzoate, acide citrique.',
     url: 'https://www.atida.fr/sante-silice-silagencyl-500ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/cc95913a-c373-4561-8be9-1434275df517/Sante-Silice-Silagencyl-500ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/sante-silice-silagencyl-500ml-275787.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],

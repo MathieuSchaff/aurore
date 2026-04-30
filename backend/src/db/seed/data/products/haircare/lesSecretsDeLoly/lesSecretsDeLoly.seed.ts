@@ -17,7 +17,7 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, SODIUM COCOYL, APPLE AMINO ACIDS, COCOMIDOPROPYL BETAINE, GLYCERIN, HYDROLYZED, ADANSONIA DIGITATA SEED (BAOBAB) PROTEIN, GUAR HYDROXYPROPYLTRIMONUM CHLORIDE, PARFUM, BENZYL ALCOHOL*, DEHYDROACETIC ACID*, CI 77019, 77891, 77491',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/les-secrets-de-loly/les-secrets-de-loly-shampooing-perfect-clean-250ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-shampooing-perfect-clean.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -38,7 +38,7 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, PCA GLYCERYL OLEATE, CETEARYL ALCOHOL, PRUNUS AMYGDALUS DULCIS OIL***, HYDROGENATED ETHYLHEXYL OLIVATE, GLYCERIN, BETAINE, DISTEAROYLETHYL DIMONIUM CHLORIDE, HYDROLYZED SWEET ALMOND SEEDCAKE***, HYDROGENATED OLIVE OIL UNSAPONIFIABLES, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, PARFUM, BENZYL ALCOHOL, DEHYDROACETIC ACID, SODIUM BENZOATE, SODIUM HYDROXIDE*, LIMONENE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/les-secrets-de-loly/les-secrets-de-loly-apres-shampooing-cream-conditioner-250ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-apres-shampooing-cream-conditioner.webp',
     tags: {
       primary: ['apres-shampooing'],
       secondary: [],
@@ -60,7 +60,7 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, ALOE BARBADENSIS GEL, CETEARYL ALCOHOL & BEHENTRIMONIUM METHOSULFATE (ÉMULSIFIANT VÉGÉTAL), GLYCERIN, SIMMONDSIA CHINENSIS OIL (HUILE DE JOJOBA), PRUNUS AMYGDALUS DULCIS OIL (HUILE D’AMANDE DOUCE), PANTHENOL (PROVITAMINE B5), CITRUS PARADISII OIL (',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/les-secrets-de-loly/les-secrets-de-loly-apres-shampooing-pink-paradise-250ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-apres-shampooing-pink-paradise.webp',
     tags: {
       primary: ['apres-shampooing'],
       secondary: [],
@@ -85,7 +85,7 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER ISOAMYL COCOATE PROPANEDIOL CAPRYLIC CAPRIC TRIGLYCERIDE HYDROGENATED ETHYLHEXYL OLIVATE MICROCRYSTALLINE CELLULOSE INULIN LAURYL GLUCOSIDE GLYCERIN POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE POLYGLYCERYL-6 LAURATE SODIUM BENZOATE CELLULOSE GUM MYRISTYL GLUCOSIDE HYDROGENATED OLIVE OIL UNSAPONIFIABLES PARFUM FRAGRANCE CITRIC ACID POTASSIUM SORBATE TAMARINDUS INDICA FRUIT EXTRACT EUTERPE OLERACEA STEROLS PECTIN TARTARIC ACID CITRULLUS LANATUS WATERMELON FRUIT EXTRACT GLUCONOLACTONE LINOLEIC ACID OLEIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/les-secrets-de-loly/les-secrets-de-loly-bubble-kurl-spray-demelant-enfants-250ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-bubble-kurl-spray-demelant-enfants.webp',
     tags: {
       primary: ['apres-shampooing'],
       secondary: [],
@@ -106,7 +106,7 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA CETEARYL ALCOHOL PRUNUS AMYGDALUS DULCIS OIL SODIUM LACTATE GLYCERIN BETAINE DISTEAROYLETHYL DIMONIUM CHLORIDE PARFUM BUTYROSPERMUM PARKII OIL GOSSYPIUM HERBACEUM SEED OIL HYDROGENATED COCONUT OIL GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE LEVULINIC ACID SODIUM BENZOATE HYDROLYZED WHEAT PROTEIN SODIUM LEVULINATE ALOE BARBADENSIS LEAF EXTRACT ALOE BARBADENSIS LEAF JUICE POWDER LACTIC ACID SODIUM HYDROXIDE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/les-secrets-de-loly/les-secrets-de-loly-bubble-smooth-apres-shampooing-enfants-250ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-bubble-smooth-apres-shampooing-enfants.webp',
     tags: {
       primary: ['apres-shampooing'],
       secondary: [],
@@ -127,7 +127,7 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'PRUNUS AMYGDALLUS DULCIS OIL, SIMMONDSIA CHINESIS OIL, CAPRYLIC/CAPRICTRYGLYCERIDES, OLEA EUROPAEA OIL, PERSEA GRATISSIMA, GLYCINE SOJA OIL, ROSMARINUS OFFICINAUS OIL, CITRUS PARADISI PEEL OIL, CEDRUS DEODORA OIL, OCIMUM BASILICUM OIL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/les-secrets-de-loly/les-secrets-de-loly-serum-croissance-huile-capillaire-250ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-serum-croissance-huile-capillaire.webp',
     tags: {
       primary: ['huile-capillaire'],
       secondary: [],
@@ -148,7 +148,7 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERIN, COCAMIDOPROPYL BETAINE, SODIUM COCOYL APPLE AMINO ACIDS, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, HYDROLYZED ADANSONIA DIGITATA SEED EXTRACT, PARFUM, HEXYLENE GLYCOL, BENZYL ALCOHOL, TETRASODIUM GLUTAMATE DIACETATE, DEHYDROACETIC ACID, POTASSIUM SORBATE, SODIUM BENZOATE, HEXYL CINNAMAL*, CI 77491, MICA, CI 77891',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/les-secrets-de-loly/les-secrets-de-loly-shampooing-enfants-bubble-dream-250ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-shampooing-enfants-bubble-dream.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -170,7 +170,7 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, COCAMIDOPROPYL BETAINE, SODIUM COCOYL APPLE AMINO ACID, GLYCERIN, CAPRYLYOL GLYCINE*, PARFUM, PANTHENOL, CITRUS LIMON PEEL OIL, BENZYL ALCOOL**, DEHYDROACETIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/les-secrets-de-loly/les-secrets-de-loly-sunshine-clean-shampooing-dermo-apaisant-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-sunshine-clean-shampooing-dermo-apaisant.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -191,8 +191,7 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, aloe barbadensis leaf juice, cetearyl alcohol, oleyl erucate, ricinus communis seed oil, mel, behentrimonium methosulfate, glycine soja oil, theobroma cacao seed butter, theobroma grandiflorum seed butter, glycerin, panthenol, camellia sinensis leaf extract, helianthus annuus seed oil, algae extract, guar hydroxypropyltrimonium chloride, parfum, tocopherol, *benzyl alcohol, butylene glycol, *dehydroacetic acid, potassium sorbate, sodium benzoate.*Conservateur certifié ecocert.',
     url: 'https://www.atida.fr/les-secrets-de-loly-coiffants-leave-in-gelee-capillaire-boost-curl-250ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/07dc39a6-56d3-461c-b935-ccd046efad34/Les-Secrets-de-Loly-Coiffants-Leave-In-Gelee-Capillaire-Boost-Curl-250ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-coiffants-leave-in-gelee-capillaire-boost-curl-250ml-273805.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.GEL_COIFFANT],
       secondary: [],
@@ -223,8 +222,7 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Aqua, glycerin, cetearyl alcohol, simmondsia chinensis seed oil, behentrimonium methosulfate, aloe barbadensis leaf juice powder*, panthenol, prunus amygdalus dulcis oil, citrus paradisi peel oil, benzyl alcohol, dehydroacetic acid, sodium hydroxide***, limonene**.\n* issu de l'agriculture biologique\n** présent dans l'huile essentielle\n*** ajusteur de ph",
     url: 'https://www.atida.fr/les-secrets-de-loly-apres-shampoing-pink-paradise-250ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/86bef7d0-ed4a-4fed-8732-19959902746c/Les-Secrets-de-Loly-Apres-Shampoing-Pink-Paradise-250ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-apres-shampoing-pink-paradise-250ml-273807.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -255,8 +253,7 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Aqua, cetearyl alcohol, oleyl erucate, ricinus communis seed oil, mel*, behentrimonium methosulfate, glycine soja oil, algae extract, butylene glycol, theobroma cacao seed butter, theobroma grandiflorum seed butter, glycerin, panthenol, aloe barbadensis leaf juice powder*, camellia sinensis leaf extract, helianthus annuus seed oil, tocopherol, parfum, guar hydroxypropyltrimonium chloride, benzyl alcohol, dehydroacetic acid, potassium sorbate, sodium benzoate.\n* issu de l'agriculture biologique",
     url: 'https://www.atida.fr/les-secrets-de-loly-coiffants-leave-in-soin-sans-rincage-kurl-nectar-250ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/74afa4cb-7f83-4b1e-8447-a36e2aaaf6c6/Les-Secrets-de-Loly-Coiffants-Leave-In-Soin-Sans-Rincage-Kurl-Nectar-250ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-coiffants-leave-in-soin-sans-rincage-kurl-nectar-250ml-257930.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -287,8 +284,7 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     notes: 'Coffret — INCI combiné de plusieurs produits',
     inci: "Les Secrets de Loly Shampoing Perfect Clean 250ml : AQUA, GLYCERIN, COCAMIDOPROPYL BETAINE, SODIUM COCOYL APPLE AMINO ACIDS, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, HYDROLYZED ADANSONIA DIGITATA SEED EXTRACT, PARFUM, HEXYLENE GLYCOL, BENZYL ALCOHOL, TETRASODIUM GLUTAMATE DIACETATE, DEHYDROACETIC ACID, POTASSIUM SORBATE, SODIUM BENZOATE, HEXYL CINNAMAL*, CI 77491, CI 77019, CI 77891. *présent dans le parfumLes Secrets de Loly Après-Shampoing Pink Paradise 250ml : AQUA, GLYCERIN, CETEARYL ALCOHOL, SIMMONDSIA CHINENSIS SEED OIL, BEHENTRIMONIUM METHOSULFATE, ALOE BARBADENSIS LEAF JUICE POWDER*, PANTHENOL, PRUNUS AMYGDALUS DULCIS OIL, CITRUS PARADISI PEEL OIL, BENZYL ALCOHOL, DEHYDROACETIC ACID, SODIUM HYDROXIDE***, LIMONENE**.* issu de l'agriculture biologique** présent dans l'huile essentielle*** ajusteur de phLes Secrets de Loly Coiffants & Leave-In Soin Sans Rinçage Kurl Nectar 250ml : AQUA, CETEARYL ALCOHOL, OLEYL ERUCATE, RICINUS COMMUNIS SEED OIL, MEL*, BEHENTRIMONIUM METHOSULFATE, GLYCINE SOJA OIL, ALGAE EXTRACT, BUTYLENE GLYCOL, THEOBROMA CACAO SEED BUTTER, THEOBROMA GRANDIFLORUM SEED BUTTER, GLYCERIN, PANTHENOL, ALOE BARBADENSIS LEAF JUICE POWDER*, CAMELLIA SINENSIS LEAF EXTRACT, HELIANTHUS ANNUUS SEED OIL, TOCOPHEROL, PARFUM, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, BENZYL ALCOHOL, DEHYDROACETIC ACID, POTASSIUM SORBATE, SODIUM BENZOATE.* issu de l'agriculture biologiqueLes Secrets de Loly Coiffants & Leave-In Gelée Capillaire Boost Curl 250ml : AQUA, ALOE BARBADENSIS LEAF JUICE, CETEARYL ALCOHOL, OLEYL ERUCATE, RICINUS COMMUNIS SEED OIL, MEL, BEHENTRIMONIUM METHOSULFATE, GLYCINE SOJA OIL, THEOBROMA CACAO SEED BUTTER, THEOBROMA GRANDIFLORUM SEED BUTTER, GLYCERIN, PANTHENOL, CAMELLIA SINENSIS LEAF EXTRACT, HELIANTHUS ANNUUS SEED OIL, ALGAE EXTRACT, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, PARFUM, TOCOPHEROL, *BENZYL ALCOHOL, BUTYLENE GLYCOL, *DEHYDROACETIC ACID, POTASSIUM SORBATE, SODIUM BENZOATE.*Conservateur certifié ecocert.",
     url: 'https://www.atida.fr/les-secrets-de-loly-routine-cheveux-epais-boucles.html',
-    imageUrl:
-      'https://assets.atida.com/transform/f5a0bad5-c4b7-4182-9eee-77e0a493e123/Les-Secrets-de-Loly-Routine-Cheveux-Epais-Boucles?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-routine-cheveux-epais-boucles-300106.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
@@ -309,8 +305,7 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Aqua, glycerin, cetearyl alcohol, simmondsia chinensis seed oil, behentrimonium methosulfate, cocos nucifera oil*, stearamidopropyl dimethylamine, citric acid, aloe barbadensis leaf juice powder*, macadamia integrifolia seed oil, panthenol, citrus paradisi peel oil, aniba rosaeodora wood oil, benzyl alcohol, dehydroacetic acid, limonene**, linalool**.\n* issu de l'agriculture biologique\n** présent dans les huiles essentielles",
     url: 'https://www.atida.fr/les-secrets-de-loly-soin-masque-hydratant-repair-time-230ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/23103a04-b302-44dc-b2e8-89977573ea6b/Les-Secrets-de-Loly-Soin-Masque-Hydratant-Repair-Time-230ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-soin-masque-hydratant-repair-time-230ml-255169.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -339,8 +334,7 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, glycerin, cocamidopropyl betaine, sodium cocoyl apple amino acids, guar hydroxypropyltrimonium chloride, hydrolyzed adansonia digitata seed extract, parfum, hexylene glycol, benzyl alcohol, tetrasodium glutamate diacetate, dehydroacetic acid, potassium sorbate, sodium benzoate, hexyl cinnamal*, ci 77491, ci 77019, ci 77891.\n* présent dans le parfum',
     url: 'https://www.atida.fr/les-secrets-de-loly-shampoing-perfect-clean-250ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/187c8014-cd9c-46e2-afdb-3f1c80ce347d/Les-Secrets-de-Loly-Shampoing-Perfect-Clean-250ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-shampoing-perfect-clean-250ml-273808.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -365,8 +359,7 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '"AQUA, CETEARYL ALCOHOL, PCA GLYCERYL OLEATE, PRUNUS  AMYGDALUS DULCIS OIL***, HYDROGENATED ETHYLHEXYL OLIVATE, BETAINE,  GLYCERIN, DISTEAROYLETHYL DIMONIUM CHLORIDE, BAMBUSA VULGARIS  EXTRACT, HYDROLYZED QUINOA, HYDROGENATED OLIVE OIL UNSAPONIFIABLES,  GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, PARFUM, BENZYL ALCOHOL,  DEHYDROACETIC ACID, CITRIC ACID, SODIUM BENZOATE, POTASSIUM SORBATE,  SODIUM HYDROXIDE*, BENZYL SALICYLATE**, CITRAL**, CITRONELLOL**, GERANIOL**,  LIMONENE**, LINALOOL**.  *Ajusteur de pH  ** Présent dans le parfum  *** Ingrédients issus de l\'agriculture biologique"',
     url: 'https://www.atida.fr/les-secrets-de-loly-soin-sans-rincage-kurl-potion-250ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/08fe5154-55af-4a9c-838b-bded1060b8ee/EAN_IMG_FR_0633710473569_1?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-soin-sans-rincage-kurl-potion-250ml-239669.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -393,8 +386,7 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "AQUA, SODIUM COCOAMPHOACETATE, GLYCERIN, LAURYL  GLUCOSIDE, DISODIUM COCOYL GLUTAMATE, GUAR HYDROXYPROPYLTRIMONIUM  CHLORIDE, DECYL GLUCOSIDE, LINUM USITATISSIMUM SEED EXTRACT,  COCODIMONIUM HYDROXYPROPYL HYDROLYZED WHEAT PROTEIN, MUSA  SAPIENTUM FRUIT EXTRACT, THEOBROMA CACAO EXTRACT, ANANAS SATIVUS FRUIT  EXTRACT, HYPNEA MUSCIFORMIS EXTRACT, SARGASSUM FILIPENDULA EXTRACT,  SODIUM COCOYL GLUTAMATE, GLYCERYL OLEATE, SORBITAN CAPRYLATE, PCA  GLYCERYL OLEATE, CITRUS AURANTIUM BERGAMIA PEEL OIL, ISOAMYL LAURATE,  SORBITOL, SODIUM PHYTATE, GELIDIELLA ACEROSA EXTRACT, GLYCERYL OLEATE  CITRATE, CAPRYLIC/CAPRIC TRIGLYCERIDE, SODIUM PHYTATE, BENZYL ALCOHOL,  CITRIC ACID, SALICYLIC ACID, SORBIC ACID, SODIUM CHLORIDE, SODIUM BENZOATE,  POTASSIUM SORBATE, SODIUM HYDROXIDE**, ALCOHOL, LIMONENE*, LINALOOL*.  * Présent naturellement dans l'huile essentielle  ** Ajusteur de pH",
     url: 'https://www.atida.fr/les-secrets-de-loly-shampooing-perfect-match-250ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/f0dc6c7b-75a2-4e6d-9f72-9daac131e2c5/EAN_IMG_FR_0633710473552_1?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-shampooing-perfect-match-250ml-239668.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],

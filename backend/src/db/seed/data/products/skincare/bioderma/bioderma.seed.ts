@@ -919,8 +919,7 @@ export const BIODERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua/water/eau, sodium laureth sulfate, sodium cocoamphoacetate,disodium lauryl sulfosuccinate, sodium cocoyl isethionate, salicylic acid,cetearyl alcohol, zea mays (corn) starch, c12-13 alkyl lactate, polyquaternium-10,hydrogenated castor oil, glycerin, acrylates/steareth-20 methacrylatecopolymer, sodium hydroxide, juniperus oxycedrus wood extract, mannitol,xylitol, oleyl alcohol, rhamnose, citric acid, potassium sorbate, sodiumbenzoate, zanthoxylum bungeanum fruit extract, titanium dioxide, sodiumacetate, sodium chloride, plectranthus barbatus root extract, isopropylalcohol, fructooligosaccharides, caprylic/capric triglyceride, laminariaochroleuca extract. [bi 511]',
     url: 'https://www.atida.fr/bioderma-node-p-shampooing-antipelliculaire-apaisant-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/d87d83c5-e75a-45ba-af14-bd0b09bc7e85/Bioderma-Node-P-Shampoing-Antipelliculaire-Apaisant-Cuir-Chevelu-Sensible-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/bioderma-node-p-shampoing-antipelliculaire-apaisant-cuir-chevelu-sensible-400ml-256411.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.EXFOLIATION],
       secondary: [
@@ -950,8 +949,7 @@ export const BIODERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua/water/eau, caprylyl/capryl glucoside, panthenol,methylpropanediol, peg-15 cocopolyamine, sodium lauroyl oat amino acids, mannitol, xylitol, rhamnose, fructooligosaccharides, xanthan gum, lactic acid, quaternium-80, propylene glycol, vp/dimethylaminoethylmethacrylate copolymer, ethylhexylglycerin, sodium chloride, sodium hydroxide, disodium edta, potassium sorbate, phenoxyethanol, fragrance (parfum), linalool, benzyl salicylate. [bi 629]',
     url: 'https://www.atida.fr/bioderma-node-d-s-anti-recidive-shampooing-creme-125ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/3f925ed1-64d6-467b-828f-e77d097d50cc/Bioderma-Node-DS-Shampoing-Antipelliculaire-Cuirs-Chevelus-Sensibles-125ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/bioderma-node-ds-shampoing-antipelliculaire-cuirs-chevelus-sensibles-125ml-259129.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.EXFOLIATION],
       secondary: [
@@ -979,8 +977,7 @@ export const BIODERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua/water/eau, caprylyl/capryl glucoside, panthenol,methylpropanediol, peg-15 cocopolyamine, sodium lauroyl oat amino acids, mannitol, xylitol, rhamnose, fructooligosaccharides, xanthan gum, lactic acid, quaternium-80, propylene glycol, vp/dimethylaminoethylmethacrylate copolymer, ethylhexylglycerin, sodium chloride, sodium hydroxide, disodium edta, potassium sorbate, phenoxyethanol, fragrance (parfum), linalool, benzyl salicylate. [bi 629]',
     url: 'https://www.atida.fr/bioderma-node-a-shampooing-apaisant-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/792402d5-dbc8-4a91-9bec-614c60a75fb2/Bioderma-Node-A-Shampoing-Apaisant-Cuirs-Chevelus-Sensibles-Irrites-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/bioderma-node-a-shampoing-apaisant-cuirs-chevelus-sensibles-irrites-400ml-287181.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.EXFOLIATION],
       secondary: [
@@ -1008,8 +1005,7 @@ export const BIODERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua/water/eau, sodium laureth sulfate, sodium cocoamphoacetate,disodium lauryl sulfosuccinate, sodium cocoyl isethionate, salicylic acid,cetearyl alcohol, zea mays (corn) starch, c12-13 alkyl lactate, polyquaternium-10,hydrogenated castor oil, glycerin, acrylates/steareth-20 methacrylatecopolymer, sodium hydroxide, juniperus oxycedrus wood extract, mannitol,xylitol, oleyl alcohol, rhamnose, citric acid, potassium sorbate, sodiumbenzoate, zanthoxylum bungeanum fruit extract, titanium dioxide, sodiumacetate, sodium chloride, plectranthus barbatus root extract, isopropylalcohol, fructooligosaccharides, caprylic/capric triglyceride, laminariaochroleuca extract. [bi 511]',
     url: 'https://www.atida.fr/bioderma-node-k-shampooing-150ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/d29ea5d4-92e2-4bee-9305-fa575c98d466/Bioderma-Node-K-Shampoing-Anti-Demangeaisons-Squames-150ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/bioderma-node-k-shampoing-anti-demangeaisons-squames-150ml-279348.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.EXFOLIATION],
       secondary: [
@@ -1039,8 +1035,7 @@ export const BIODERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua/water/eau, caprylyl/capryl glucoside, peg-150 distearate, peg-6 caprylic/capric glycerides, peg-15 cocopolyamine, sodium lauroyl oat amino acids, lactic acid,sodium citrate, caprylyl glycol, quaternium-80, propylene glycol, mannitol, xylitol,rhamnose, phenoxyethanol, tetrasodium edta, ethylhexylglycerin, fructooligosaccharides,sodium hydroxide, fragrance (parfum). [nd 003]',
     url: 'https://www.atida.fr/bioderma-node-shampoing-doux-tous-types-de-cheveux-lot-de-2-x-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/52f91c5f-1cc0-4e73-aee7-83ae2d60c49d/EAN_IMG_FR_2551910051050_1?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/bioderma-node-shampoing-doux-tous-types-de-cheveux-lot-de-2-x-400ml-300695.webp',
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION],
       secondary: [
@@ -1067,8 +1062,7 @@ export const BIODERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients :Aqua/water/eau, magnesium laureth sulfate, sodium lauroyl sarcosinate, sodium cocoamphoacetate, panthenol, disodium edta, polysorbate 20, zinc gluconate, mannitol, xylitol, rhamnose, fructooligosaccharides, climbazole, piroctone olamine, salicylic acid, coco-glucoside, glyceryl oleate, polyacrylate crosspolymer-6, peg-90 glyceryl isostearate, polyquaternium-7, laureth 2, sodium hydroxide, citric acid, sodium benzoate, fragrance (parfum), hexyl cinnamal, limonene, sodium chloride, linalool, citronellol. [bi 678].',
     url: 'https://www.atida.fr/bioderma-node-p-shampooing-purifiant-antipelliculaire-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/1f332dd4-a878-4b38-acf8-b95c675876cb/Bioderma-Node-Shampoing-Antipelliculaire-Purifiant-Cuir-Chevelu-Gras-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/bioderma-node-shampoing-antipelliculaire-purifiant-cuir-chevelu-gras-400ml-256413.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -1095,8 +1089,7 @@ export const BIODERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua/water/eau, caprylyl/capryl glucoside, peg-150 distearate, peg-6 caprylic/capric glycerides, peg-15 cocopolyamine, sodium lauroyl oat amino acids, lactic acid,sodium citrate, caprylyl glycol, quaternium-80, propylene glycol, mannitol, xylitol,rhamnose, phenoxyethanol, tetrasodium edta, ethylhexylglycerin, fructooligosaccharides,sodium hydroxide, fragrance (parfum). [nd 003]',
     url: 'https://www.atida.fr/bioderma-node-shampooing-fluide-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/0ae3a9ca-c813-4d0a-a0f0-12b00a451765/Bioderma-Node-Shampoing-Fluide-Doux-Cheveux-Normaux-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/bioderma-node-shampoing-fluide-doux-cheveux-normaux-400ml-277369.webp',
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION],
       secondary: [
@@ -1123,8 +1116,7 @@ export const BIODERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua/water/eau, magnesium laureth sulfate, sodium lauroyl sarcosinate,sodium cocoamphoacetate, methylpropanediol, panthenol, zinc gluconate, mannitol,xylitol, rhamnose, fructooligosaccharides, coco-glucoside, glyceryl oleate, peg-90glyceryl isostearate, guar hydroxypropyltrimonium chloride, potassium sorbate,laureth-2, citric acid, disodium edta, sodium chloride, fragrance (parfum). [bi 456]',
     url: 'https://www.atida.fr/bioderma-node-g-shampooing-fluide-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/e2ee54a6-003c-4e09-8814-b17220cf479e/Bioderma-Node-G-Shampoing-Purifiant-Cheveux-Gras-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/bioderma-node-g-shampoing-purifiant-cheveux-gras-400ml-279802.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -1145,8 +1137,7 @@ export const BIODERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua/water/eau, glycolic acid, butyrospermumparkii (shea) butter extract, dipropyleneglycol, sodium hydroxide, octyldodecanol, salicylicacid, paraffin, microcrystalline wax (cera microcristallina),mineral oil (paraffinum liquidum), arachidylalcohol, dimethicone, glyceryl stearate, peg-100stearate, mannitol, xylitol, rhamnose, fructooligosaccharides,laminaria ochroleuca extract, zanthoxylumbungeanum fruit extract, behenyl alcohol,polyacrylamide, arachidyl glucoside, oleyl alcohol,xanthan gum, c13-14 isoparaffin, laureth-7, caprylic/capric triglyceride. [bi 512]',
     url: 'https://www.atida.fr/bioderma-node-k-emulsion-100ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/3d2a9571-def0-4eb8-9c4f-b50ab17f8560/Bioderma-Node-K-Concentre-Soin-Apaisant-Cuirs-Chevelus-Irrites-Squames-100ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/bioderma-node-k-concentre-soin-apaisant-cuirs-chevelus-irrites-squames-100ml-279349.webp',
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ECLAT],
       secondary: [
@@ -1173,8 +1164,7 @@ export const BIODERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua/water/eau, glycerin, peg-7 glyceryl cocoate, sodium cocoamphoacetate, lauryl glucoside, coco-glucoside, glyceryl oleate, citric acid, peg-90 glyceryl isostearate, fragrance (parfum), mannitol, polysorbate 20, xylitol, laureth-2, rhamnose, niacinamide, fructooligosaccharides, tocopherol, hydrogenated palm glycerides citrate, lecithin, ascorbyl palmitate. [bi 725].',
     url: 'https://www.atida.fr/bioderma-atoderm-huile-de-douche-ultra-nourrissant-1l.html',
-    imageUrl:
-      'https://assets.atida.com/transform/bf5a2486-7a48-4e61-8811-2e1d75829b07/Generated-image?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/bioderma-atoderm-huile-de-douche-apaisante-peaux-tres-seches-atopiques-1l-249680.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -1201,8 +1191,7 @@ export const BIODERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua/water/eau, sodium laureth sulfate, coco-betaine, sodium lauroyl sarcosinate, glycerin, coco-glucoside, glyceryl oleate, disodium edta, capryloyl glycine, methylpropanediol, mannitol, xylitol, rhamnose, fructooligosaccharides, copper sulfate, sodium chloride, citric acid, sodium hydroxide, fragrance (parfum).',
     url: 'https://www.atida.fr/bioderma-atoderm-gel-douche-flacon-pompe-1l.html',
-    imageUrl:
-      'https://assets.atida.com/transform/dd614e6b-c790-4db6-acda-c517e3e53289/Generated-image?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/bioderma-atoderm-gel-douche-sans-savon-peaux-seches-famille-1l-289252.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
@@ -1223,8 +1212,7 @@ export const BIODERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, SODIUM LAURETH SULFATE, COCO-BETAINE, SODIUM LAUROYL SARCOSINATE, GLYCERIN, METHYLPROPANEDIOL, COCO-GLUCOSIDE, GLYCERYL OLEATE, DISODIUM EDTA, CITRIC ACID, CAPRYLOYL GLYCINE, COPPER SULFATE, XYLITYLGLUCOSIDE, ANHYDROXYLITOL, XYLITOL, NIACINAMIDE, GLUCOSE, FRUCTOOLIGOSACCHARIDES, MANNITOL, TOCOPHEROL, HYDROGENATED PALM GLYCERIDES CITRATE, RHAMNOSE, FRAGRANCE (PARFUM). [BI 548]',
     url: 'https://www.atida.fr/bioderma-atoderm-gel-douche-sans-savon-peaux-seches-famillle-eco-recharge-1l.html',
-    imageUrl:
-      'https://assets.atida.com/transform/0afc3de1-b396-4e0e-9949-8145837aea17/Bioderma-Atoderm-Gel-Douche-Sans-Savon-Peaux-Seches-Famillle-Eco-Recharge-1L?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/bioderma-atoderm-gel-douche-sans-savon-peaux-seches-famillle-eco-recharge-1l-299334.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -1251,8 +1239,7 @@ export const BIODERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'INGREDIENTS : AQUA/WATER/EAU, GLYCERIN, SODIUM COCOAMPHOACETATE, PEG-7 GLYCERYL COCOATE, LAURYL GLUCOSIDE, CITRIC ACID, COCO-GLUCOSIDE, GLYCERYL OLEATE,LAURETH-2, MANNITOL, POLYSORBATE 20, XYLITOL, RHAMNOSE, NIACINAMIDE, FRUCTOOLIGOSACCHARIDES, TOCOPHEROL, HYDROGENATED PALM GLYCERIDES CITRATE, FRAGRANCE (PARFUM). [BI 725]',
     url: 'https://www.atida.fr/bioderma-atoderm-huile-de-douche-peaux-tres-seches-atopiques-eco-recharge-1l.html',
-    imageUrl:
-      'https://assets.atida.com/transform/0162d4b3-629f-4435-9cd3-428634458c26/Bioderma-Atoderm-Huile-de-Douche-Peaux-tres-seches-Atopiques-Eco-Recharge-1L?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/bioderma-atoderm-huile-de-douche-peaux-tres-seches-atopiques-eco-recharge-1l-250532.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -1279,8 +1266,7 @@ export const BIODERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua/water/eau, glycerin, peg-7 glyceryl cocoate, sodium cocoamphoacetate, lauryl glucoside, coco-glucoside, glyceryl oleate, citric acid, peg-90 glyceryl isostearate, fragrance (parfum), mannitol, polysorbate 20, xylitol, laureth-2, rhamnose, niacinamide, fructooligosaccharides, tocopherol, hydrogenated palm glycerides citrate, lecithin, ascorbyl palmitate. [bi 725].',
     url: 'https://www.atida.fr/bioderma-atoderm-huile-de-douche-apaisante-peaux-tres-seches-atopiques-famille-et-eco-recharge-1l.html',
-    imageUrl:
-      'https://assets.atida.com/transform/389dc909-2d7c-40e7-b646-c58ab14e77c9/Bioderma-Atoderm-Huile-de-Douche-Apaisante-Peaux-tres-Seches-Atopiques-famille-et-eco-recharge-1L?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/bioderma-atoderm-huile-de-douche-apaisante-peaux-tres-seches-atopiques-famille-et-eco-recharge-1l-300095.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -1307,8 +1293,7 @@ export const BIODERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Atoderm Huile de Douche : AQUA/WATER/ EAU, GLYCERIN, SODIUM COCOAMPHOACETATE, PEG-7 GLYCERYL COCOATE, LAURYL GLUCOSIDE, CITRIC ACID, COCO-GLUCOSIDE, GLYCERYL OLEATE, LAURETH-2, MANNITOL, POLYSORBATE 20, XYLITOL, RHAMNOSE, NIACINAMIDE, FRUCTOOLIGOSACCHARIDES, TOCOPHEROL, HYDROGENATED PALM GLYCERIDES CITRATE, FRAGRANCE (PARFUM). [BI 725] Atoderm Intensive Baume : AQUA/WATER/EAU, GLYCERIN, PARAFFINUM LIQUIDUM/ MINERAL OIL/HUILE MINERALE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, BEHENYL ALCOHOL, CANOLA/ CANOLA OIL/HUILE DE COLZA, SUCROSE STEARATE, HYDROXYETHYL ACRYLATE/ SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, PENTYLENE GLYCOL, PHYTOSTEROLS, XYLITOL, ZINC GLUCONATE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, PALMITAMIDE MEA, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, SODIUM CITRATE, MANNITOL, RHAMNOSE, SODIUM LAUROYL LACTYLATE, SODIUM HYDROXIDE, POLYSORBATE 60, SORBITAN I S O STEARAT E , TOCO P H E R O L , PHYTOSPHINGOSINE, CERAMIDE NP, ETHYLHEXYLGLYCERIN, CERAMIDE AP, CHOLESTEROL, CARBOMER, XANTHAN GUM, FRUCTOOLIGOSACCHARIDES, CAPRYLIC/CAPRIC TRIGLYCERIDE, LAMINARIA OCHROLEUCA EXTRACT, CERAMIDE EOP. [BI 669]',
     url: 'https://www.atida.fr/bioderma-atoderm-duo-nutrition-intense-huile-de-douche-1l-intensive-baume-500ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/8751e743-ee28-4468-aac5-04d0c906c887/Generated-image?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/bioderma-atoderm-duo-nutrition-intense-huile-de-douche-1l-intensive-baume-500ml-304206.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.ECLAT],
       secondary: [
@@ -1336,8 +1321,7 @@ export const BIODERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua/water/eau, caprylyl/capryl glucoside, butyrospermum parkii (shea) oil, methylpropanediol, pentylene glycol, sodium cocoyl glutamate, acrylates/c10-30 alkyl acrylate crosspolymer, citric acid, xanthan gumcoco-glucoside, glyceryl oleate, sodium citrate, propanediol, xylitol, acrylates/vinyl isodecanoate crosspolymercaprylyl glycol, mannitol, rhamnose, xylitylglucoside, tocopherol, anhydroxylitol, helianthus annuus (sunflower) seed oil, niacinamide, glucose, fructooligosaccharides, hydrogenated palm glycerides citrate, fragrance (parfum). [bi 651].',
     url: 'https://www.atida.fr/bioderma-atoderm-creme-lavante-1l.html',
-    imageUrl:
-      'https://assets.atida.com/transform/ef47ab83-28eb-4b7f-b7f6-6229ad6bf3c0/Bioderma-Atoderm-Creme-Douche-Lavante-Nourrissante-Peaux-Seches-1L?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/bioderma-atoderm-creme-douche-lavante-nourrissante-peaux-seches-1l-289246.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -1363,8 +1347,7 @@ export const BIODERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua (water), sodium laureth sulfate, coco-betaine, sodium lauroyl sarcosinate, mannitol, xylitol, rhamnose, fructooligosaccharides, laminaria ochroleuca extract, zinc gluconate, peg-90 glyceryl isostearate, sodium chloride, coco-glucoside, glyceril oleate, capryloyl glycine, decylene glycol, caprylyc (capric triglyceride), laureth-2, ammonium glycyrrhizate, lysine azelate, pyridoxine hci, undecyl alcohol, citric acid, disodium edta, sodium hydroxide.',
     url: 'https://www.atida.fr/bioderma-crealine-ds-gel-nettoyant-apaisant-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/de0a1282-76f0-4708-a419-2b1fd3392496/Bioderma-Crealine-DS-Gel-Moussant-Apaisant-Assainissant-Peaux-Sensibles-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/bioderma-crealine-ds-gel-moussant-apaisant-assainissant-peaux-sensibles-200ml-287716.webp',
     tags: {
       primary: [TAG_SLUGS.NETTOYANT],
       secondary: [TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
@@ -1385,8 +1368,7 @@ export const BIODERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua/water/eau, sodium laureth sulfate, coco-betaine, sodium lauroyl sarcosinate, glycerin, coco-glucoside, glyceryl oleate, disodium edta, capryloyl glycine, methylpropanediol, mannitol, xylitol, rhamnose, fructooligosaccharides, copper sulfate, sodium chloride, citric acid, sodium hydroxide, fragrance (parfum).',
     url: 'https://www.atida.fr/bioderma-atoderm-gel-douche-gel-douche-sans-savon-peaux-seches-famille-et-eco-recharge-1l.html',
-    imageUrl:
-      'https://assets.atida.com/transform/308c59d9-8cff-4ab1-b279-971a90d0c9b7/Bioderma-Atoderm-Gel-douche-Gel-Douche-Sans-Savon-Peaux-Seches-Famille-et-eco-recharge-1L?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/bioderma-atoderm-gel-douche-gel-douche-sans-savon-peaux-seches-famille-et-eco-recharge-1l-300116.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
@@ -1407,8 +1389,7 @@ export const BIODERMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua, sodium laureth sulfate, lauryl glucoside, peg-200 hydrogenated glyceryl palmate, disodium edta, peg-7 glyceryl cocoate, mannitol, xylitol, rhamnose, fructooligosaccharides, sodium chloride, zinc sulfate, copper sulfate, niacinamide, citric acid, sodium hydroxide.',
     url: 'https://www.atida.fr/bioderma-atoderm-intensive-gel-moussant-nettoyant-surgras-500ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/531ab094-7ddc-4623-ad5e-697aaaf2a814/Bioderma-Atoderm-Gel-Douche-Sans-Savon-Peaux-Seches-Famille-500ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/bioderma-atoderm-gel-douche-sans-savon-peaux-seches-famille-500ml-269067.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [TAG_SLUGS.SEBO_REGULATEUR, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],

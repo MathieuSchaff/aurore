@@ -15,8 +15,7 @@ export const POUXIT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '1,2-dihydroxyoctane 1%(Protectdiol®); PEG-6 caprylic/capric glycerides; PEG-12 dimethicone; carbomer; sodium hydroxide; eau.',
     url: 'https://www.atida.fr/pouxit-protect-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/54417b38-bd37-4834-9dd2-20bea42dd72d/Pouxit-Spray-Preventif-Anti-Poux-Protege-des-Infestations-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/pouxit-spray-preventif-anti-poux-sans-rincage-200ml-272691.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -39,8 +38,7 @@ export const POUXIT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Dimeticone, penetrol®',
     url: 'https://www.atida.fr/pouxit-extra-fort-lotion-anti-poux-et-lentes-agit-en-1-seule-application-de-15-minutes-lot-2x100-ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/5d056248-8c60-43b3-afad-ae1cda6deed8/Pouxit-Extra-Fort-Lotion-anti-poux-et-lentes-Agit-en-1-seule-application-de-15-minutes-Lot-2x100-ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/pouxit-xf-lotion-anti-poux-et-lentes-100-efficace-lot-de-2x-100ml-241160.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -61,8 +59,7 @@ export const POUXIT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Diméticone (80% m/v), adipate de diisopropyle, sébacate de diisopropyle, alcool laurique, acétate de tocophéryle.',
     url: 'https://www.atida.fr/pouxit-flash-lotion-spray-anti-poux-et-lentes-150ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/cca1341a-6111-4206-9a64-ffb50b0312cf/Pouxit-Flash-Lotion-Spray-Anti-Poux-et-Lentes-150ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/pouxit-lotion-spray-anti-poux-et-lentes-100-efficace-150ml-238892.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -86,8 +83,7 @@ export const POUXIT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Dimeticone, penetrol®',
     url: 'https://www.atida.fr/pouxit-extra-fort-lotion-traitement-anti-poux-et-lentes-du-cuir-chevelu-lot-2x200-ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/86f13183-09cf-48ae-af28-088711981dc0/Pouxit-Extra-Fort-Lotion-Traitement-Anti-poux-et-lentes-du-cuir-chevelu-Lot-2x200-ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/pouxit-xf-lotion-anti-poux-et-lentes-100-efficace-lot-de-2x-200ml-279559.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -108,8 +104,7 @@ export const POUXIT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Dimeticone (4%); 1,6,10-Dodecatrien-3-ol,3,7,11-triméthyl ; PEG/PPG Dimeticone co-polymer; Silica Silylate.',
     url: 'https://www.atida.fr/pouxit-xf-anti-poux-et-lentes-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/455f900d-9bf0-4561-a579-73d85abffc4e/Pouxit-XF-Lotion-Anti-Poux-et-Lentes-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/pouxit-xf-lotion-anti-poux-et-lentes-100-efficace-200ml-263881.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -135,8 +130,7 @@ export const POUXIT_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, Isononyl isononanoate, Sodium acrylate/sodium acryloyldimethyl taurate copolymer, Phenoxyethanol, Ethylhexyl- glycerin',
     url: 'https://www.atida.fr/pouxit-baume-decolleur-de-lentes-100g.html',
-    imageUrl:
-      'https://assets.atida.com/transform/cb1f8a61-b5ec-4246-b365-fad84523a805/Pouxit-Baume-Decolleur-de-Lentes-100ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/pouxit-baume-decolleur-de-lentes-100g-268020.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],

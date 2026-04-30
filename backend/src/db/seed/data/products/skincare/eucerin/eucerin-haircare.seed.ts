@@ -16,7 +16,7 @@ export const EUCERIN_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, UREA, METHYLPROPANEDIOL, SODIUM LACTATE, LAURETH-9, GLYCYRRHIZA INFLATA ROOT EXTRACT, GLYCERIN, LACTID ACID, ARGININE HCL, HYDROXYETHYLCELLULOSE, PEG-40 HYDROGENATED CASTOR OIL, CETRIMONIUM CHLORIDE, PHENOXYETHANOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-dermo-capillaire-calmant-soin-trait-100ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-dermo-capillaire-calmant-soin-trait.webp',
     tags: {
       primary: ['apres-shampooing'],
       secondary: [],
@@ -43,7 +43,7 @@ export const EUCERIN_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, DECYL GLUCOSIDE, SODIUM MYRETH SULFATE, PEG-80 SORBITAN LAURATE, PEG-200 HYDROGENATED GLYCERYL PALMATE, DISODIUM PEG-5 LAURYLCITRATE SULFOSUCCINATE, PEG-90 GLYCERYL ISOSTEARATE; BISABOLOL, POLYQUATERNIUM-10, CITRIC ACID, LAURETH-2, SIODIUM LAURETH SULFATE, SODIUM BENZOATE, SODIUM SALICYLATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/soins-corps/eucerin-dermo-capillaire-shampooing-250ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-dermo-capillaire-shampooing.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],

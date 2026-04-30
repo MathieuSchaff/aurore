@@ -16,7 +16,7 @@ export const AVRIL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "HUILE DE GRAINE DE TOURNESOL*, GLYCÉRINE, ESTER TRIPLE DE GLYCÉROL ET DES ACIDES CAPRYLIQUE ET CAPRIQUE, CHLORURE DE SODIUM (SEL), POUDRE DE GRAIN DE RIZ*, EAU, SUCROSE STEARATE, DÉRIVÉ DE GLYCÉROL ET D'ACIDE CAPRIQUE, SYRINGA VULGARIS (LILAC) EXTRACT, D-RIBOSE, PARFUM (100% NATUREL), TOCOPHÉROL, HUILE DE SOJA, ALCOOL BENZYLIQUE, ACIDE DÉHYDROACÉTIQUE",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avril/avril-gommage-corporel-bio-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avril-gommage-corporel-bio.webp',
     tags: {
       primary: ['exfoliation'],
       secondary: ['gommage-corps', 'exfoliant-physique', 'zone-corps'],
@@ -38,7 +38,7 @@ export const AVRIL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, CENTAUREA CYANUS FLOWER WATER*, ISOAMYL LAURATE, POLYGLYCERYL-3 POLYRICINOLEATE, POLYGLYCERYL-3 DIISOSTEARATE, SODIUM CHLORIDE, PARFUM / FRAGRANCE, HELIANTHUS ANNUUS SEED CERA / HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX, POTASSIUM SORBATE, SODIUM LEVULINATE, ALUMINUM HYDROXIDE, BENZYL ALCOHOL, LACTIC ACID, SODIUM LAUROYL GLUTAMATE, SODIUM PHYTATE, LYSINE, SODIUM BENZOATE, MAGNESIUM CHLORIDE, ALCOHOL, LINALOOL, CITRONELLOL, COUMARIN, LIMONENE, GERANIOL MAY CONTAIN (+/-) : CI 77891 / TITANIUM DIOXIDE, CI 77491 / IRON OXIDES, CI 77492 / IRON OXIDES, CI 77499 / IRON OXIDES',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avril/avril-bb-creme-fair-bio-30-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avril-bb-creme-fair-bio.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['keratolytique', 'creme-hydratante', 'zone-visage'],
@@ -60,7 +60,7 @@ export const AVRIL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, CENTAUREA CYANUS FLOWER WATER*, ISOAMYL LAURATE, POLYGLYCERYL-3 POLYRICINOLEATE, POLYGLYCERYL-3 DIISOSTEARATE, SODIUM CHLORIDE, PARFUM / FRAGRANCE, HELIANTHUS ANNUUS SEED CERA / HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX, POTASSIUM SORBATE, SODIUM LEVULINATE, ALUMINUM HYDROXIDE, BENZYL ALCOHOL, LACTIC ACID, SODIUM LAUROYL GLUTAMATE, SODIUM PHYTATE, LYSINE, SODIUM BENZOATE, MAGNESIUM CHLORIDE, ALCOHOL, LINALOOL, CITRONELLOL, COUMARIN, LIMONENE, GERANIOL MAY CONTAIN (+/-) : CI 77891 / TITANIUM DIOXIDE, CI 77491 / IRON OXIDES, CI 77492 / IRON OXIDES, CI 77499 / IRON OXIDES',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avril/avril-bb-creme-light-bio-30-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avril-bb-creme-light-bio.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['keratolytique', 'creme-hydratante', 'zone-visage'],
@@ -82,7 +82,7 @@ export const AVRIL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER, CENTAUREA CYANUS FLOWER WATER*, ISOAMYL LAURATE, POLYGLYCERYL-3 POLYRICINOLEATE, POLYGLYCERYL-3 DIISOSTEARATE, SODIUM CHLORIDE, PARFUM / FRAGRANCE, HELIANTHUS ANNUUS SEED CERA / HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX, POTASSIUM SORBATE, SODIUM LEVULINATE, ALUMINUM HYDROXIDE, BENZYL ALCOHOL, LACTIC ACID, SODIUM LAUROYL GLUTAMATE, SODIUM PHYTATE, LYSINE, SODIUM BENZOATE, MAGNESIUM CHLORIDE, ALCOHOL, LINALOOL, CITRONELLOL, COUMARIN, LIMONENE, GERANIOL MAY CONTAIN (+/-) : CI 77891 / TITANIUM DIOXIDE, CI 77491 / IRON OXIDES, CI 77492 / IRON OXIDES, CI 77499 / IRON OXIDES',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avril/avril-bb-creme-medium-bio-30-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avril-bb-creme-medium-bio.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['keratolytique', 'creme-hydratante', 'zone-visage'],
@@ -104,7 +104,7 @@ export const AVRIL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "EAU, EAU FLORALE DE ROSE DE DAMAS*, GLYCÉRINE, HUILE DE GRAINE DE TOURNESOL, C10-18 TRIGLYCERIDES, ESTER TRIPLE DE GLYCÉROL ET DES ACIDES CAPRYLIQUE ET CAPRIQUE, ALCOOL CÉTÉARYLIQUE, COCO-CAPRYLATE/CAPRATE, EAU FLORALE DE CAMOMILLE ROMAINE*, CETEARYL GLUCOSIDE, MIEL, CELLULOSE MICROCRYSTALLINE, ALCOOL BENZYLIQUE, LEVULINATE DE SODIUM, GOMME XANTHANE, EXTRAIT DE BOURGEON DE HÊTRE*, GOMME D'ACACIA (GOMME ARABIQUE), HUILE D'ÉGLANTIER*, HUILE DE GRAINE DE ROSIER RUBIGINEUX*, ANISATE DE SODIUM (SEL DE SODIUM DE L'ACIDE ANISIQUE), JUS DE FEUILLE D'ALOÈS EN POUDRE *, PARFUM (100% NATUREL), ACIDE LACTIQUE, PHYTATE DE SODIUM (SEL DE SODIUM DE L'ACIDE PHYTIQUE), ACIDE DÉHYDROACÉTIQUE, TOCOPHÉROL, LINALOOL, CITRONELLOL, ACIDE BENZOÏQUE, GÉRANIOL, LIMONÈNE, ALCOOL",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avril/avril-creme-anti-age-bio-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avril-creme-anti-age-bio.webp',
     tags: {
       primary: ['anti-age'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -126,7 +126,7 @@ export const AVRIL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), DECYL OLEATE, CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERYL STEARATE SE, GLYCERYL STEARATE, GLYCERIN, ANTHEMIS NOBILIS FLOWER WATER*, PRUNUS ARMENIACA (APRICOT) KERNEL OIL*, CETEARYL ALCOHOL, BUTYROSPERMUM PARKII (SHEA) BUTTER*, SODIUM PCA, OLEIC/LINOLEIC/LINOLENIC POLYGLYCERIDES, ALOE BARBADENSIS LEAF JUICE POWDER*, ROSA DAMASCENA FLOWER EXTRACT*, CETYL PALMITATE, COCOGLYCERIDES, XANTHAN GUM, BISABOLOL*, PARFUM (FRAGRANCE), GLYCINE SOJA (SOYBEAN) OIL, TOCOPHEROL, BENZYL ALCOHOL, CITRIC ACID, DEHYDROACETIC ACID, LINALOOL, LIMONENE, BENZYL SALICYLATE,CITRONELLOL, GERANIOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avril/avril-creme-de-jour-peaux-seches-et-sensibles-bio-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avril-creme-de-jour-peaux-seches-et-sensibles-bio.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -148,7 +148,7 @@ export const AVRIL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'EAU,, DICAPRYLYL CARBONATE, ESTER TRIPLE DE GLYCÉROL ET DES ACIDES CAPRYLIQUE ET CAPRIQUE, GLYCERYL STEARATE CITRATE, HUILE DE NOIX DU QUEENSLAND, HUILE VÉGÉTALE, ALCOOL CÉTYLIQUE (ALCOOL GRAS), PARFUM (',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avril/avril-fluide-matifiant-bio-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avril-fluide-matifiant-bio.webp',
     tags: {
       primary: ['sebo-regulateur'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -173,7 +173,7 @@ export const AVRIL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'EAU, HUILE DE TOURNESOL, POUDRE DE RIZ*, BEURRE DE KARITÉ*, GLYCERYL STEARATE CITRATE, ALCOOL CÉTYLIQUE (ALCOOL GRAS), GLYCÉRINE, PARFUM (',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avril/avril-gommage-visage-bio-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avril-gommage-visage-bio.webp',
     tags: {
       primary: ['exfoliation'],
       secondary: ['zone-visage'],
@@ -195,7 +195,7 @@ export const AVRIL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), KAOLIN, SPIRAEA ULMARIA FLOWER WATER*, ANTHEMIS NOBILIS FLOWER WATER*, BENTONITE, GLYCERIN, GALACTOARABINAN, YOGURT POWDER, ROSA RUBIGINOSA SEED OIL*, BISABOLOL*, LACTIC ACID, PARFUM (FRAGRANCE), BENZYL ALCOHOL, DEHYDROACETIC ACID, LILIUM HYBRID FLOWER EXTRACT, LILIUM CANDIDUM FLOWER EXTRACT*, TOCOPHEROL, GLYCINE SOJA (SOYBEAN) OIL, CITRIC ACID, SODIUM BENZOATE, POTASSIUM SORBATE, LIMONENE, LINALOOL. * INGRÉDIENT ISSU DE L’AGRICULTURE BIOLOGIQUE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avril/avril-masque-visage-purifiant-bio-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avril-masque-visage-purifiant-bio.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'anti-oxydant'],
       secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
@@ -221,7 +221,7 @@ export const AVRIL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER),CAPRYLIC/CAPRIC TRIGLYCERIDE, CARTHAMUS TINCTORIUS SEED OIL*, C10-18 TRIGLYCERIDES, POLYGLYCERYL-6 DISTEARATE, DECYL OLEATE, CETEARYL ALCOHOL, CETYL ALCOHOL, JOJOBA ESTERS, ALOE BARBADENSIS LEAF JUICE POWDER*, XANTHAN GUM, LAMINARIA OCHROLEUCA EXTRACT, POLYGLYCERYL-3 BEESWAX, GLYCERIN, RIBOSE, SODIUM STEAROYL GLUTAMATE, PARFUM (FRAGRANCE), TOCOPHEROL, POTASSIUM HYDROXIDE, LEVULINIC ACID,SODIUM LEVULINATE, SODIUM DEHYDROACETATE, SODIUM BENZOATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avril/soins-visage/avril-creme-de-nuit-bio-50-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avril-creme-de-nuit-bio.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],

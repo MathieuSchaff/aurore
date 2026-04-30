@@ -17,8 +17,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
       'Acide Hyaluronique + Glucoside de Glycéryle. Sans parfum, idéal pour les peaux déshydratées.',
     inci: '1,2-HEXANEDIOL, ALLANTOIN, CITRIC ACID, ETHYLHEXYLGLYCERIN, GLYCERIN, GLYCERYL GLUCOSIDE, HYDROLYZED VEGETABLE PROTEIN, MALTODEXTRIN, METHYLPROPANEDIOL, PENTYLENE GLYCOL, POLYGLYCERYL-3, SACCHARIDE ISOMERATE, SODIUM CITRATE, SODIUM HYALURONATE, WATER, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/dr-jart-vital-hydra-solution-hydro-plump-treatment-essence-hyaluronic-acid-5-07-fl-oz-150-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/54DCAC7EF8ACA8/large_1719697157.jpeg?1719697157',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-vital-hydra-solution-hydro-plump-essence.webp',
     tags: {
       primary: [TAG_SLUGS.ESSENCE, TAG_SLUGS.HYDRATATION, TAG_SLUGS.PREPARATION],
       secondary: [TAG_SLUGS.SANS_PARFUM],
@@ -43,8 +42,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
       'Complexe de 5 Céramides + Panthénol. Texture onctueuse, parfait pour peaux sèches à très sèches.',
     inci: '1,2-HEXANEDIOL, 2,3-BUTANEDIOL, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, BEHENYL ALCOHOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, CAPRYLIC/CAPRIC TRIGLYCERIDE, CELLULOSE GUM, CERAMIDE AP, CERAMIDE AS, CERAMIDE NG, CERAMIDE NP, CERAMIDE NS, CETEARYL ALCOHOL, CETEARYL GLUCOSIDE, CETEARYL OLIVATE, CHOLESTEROL, CITRONELLOL, CITRUS AURANTIUM BERGAMIA (BERGAMOT) FRUIT OIL, DEXTRIN, DICAPRYLYL ETHER, DIPROPYLENE GLYCOL, GLYCERIN, GLYCERYL POLYMETHACRYLATE, GLYCERYL STEARATE, GLYCERYL STEARATE SE, HYDROGENATED LECITHIN, HYDROGENATED POLY(C6-14 OLEFIN), HYDROGENATED POLYDECENE, METHYL TRIMETHICONE, MICROCRYSTALLINE CELLULOSE, OLEA EUROPAEA (OLIVE) FRUIT OIL, PALMITIC ACID, PANTHENOL, PELARGONIUM GRAVEOLENS FLOWER OIL, PENTAERYTHRITYL DISTEARATE, PHENYL TRIMETHICONE, SALVIA OFFICINALIS (SAGE) OIL, SORBITAN OLIVATE, STEARIC ACID, THEOBROMA CACAO (COCOA) SEED EXTRACT, TOCOPHEROL, WATER, YELLOW 5 (CI 19140)',
     url: 'https://www.skinsafeproducts.com/dr-jart-ceramidin-skin-barrier-moisturizer-face-cream-0-50-fl-oz-15-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/0B6ACCA49379C9/large_1742170333.jpeg?1742170333',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-ceramidin-skin-barrier-moisturizer.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CREME_HYDRATANTE],
       secondary: [],
@@ -71,8 +69,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     notes: 'Bakuchiol + Peptides de Collagène + Glycérine. Action fermeté sans irritation.',
     inci: '1,2-HEXANEDIOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, ADENOSINE, BAKUCHIOL, BIS-BEHENYL/ISOSTEARYL/PHYTOSTERYL DIMER DILINOLEYL DIMER DILINOLEATE, BLUE 1 (CI 42090), BORON NITRIDE, BUTYLENE GLYCOL, C12-16 ALCOHOLS, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL METHICONE, CETEARYL ALCOHOL, CETEARYL OLIVATE, CETYL ALCOHOL, COPERNICIA CERIFERA (CARNAUBA) WAX, DICAPRYLYL ETHER, FRAGRANCE (PARFUM), GLYCERIN, GLYCERYL CAPRYLATE, GLYCERYL STEARATE SE, HYDROGENATED LECITHIN, HYDROLYZED COLLAGEN, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, JOJOBA ESTERS, METHYLPROPANEDIOL, PALMITIC ACID, PANTHENOL, PENTAERYTHRITYL TETRAETHYLHEXANOATE, PENTYLENE GLYCOL, PHENOXYETHANOL, PHENYL TRIMETHICONE, PHYTOSTERYL/ISOSTEARYL/CETYL/STEARYL/BEHENYL DIMER DILINOLEATE, POLYGLYCERYL-3 METHYLGLUCOSE DISTEARATE, RED 4 (CI 14700), SODIUM BENZOATE, SODIUM PHYTATE, SODIUM POLYACRYLOYLDIMETHYL TAURATE, SORBITAN ISOSTEARATE, SORBITAN OLIVATE, TOCOPHEROL, WATER',
     url: 'https://www.skinsafeproducts.com/dr-jart-prejuvenation-firming-bakuchiol-cream-collagen-peptide-glycerin-1-69-fl-oz-50-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/03C665A5BBBBDA/large_1732658439.jpeg?1732658439',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-prejuvenation-firming-bakuchiol-cream.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.ANTI_AGE],
       secondary: [],
@@ -94,8 +91,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     notes: `Argiles vertes + PHA + Sel de mer. Pratique, ne nécessite pas de rinçage à l"eau après retrait.`,
     inci: '1,2-HEXANEDIOL, ALLANTOIN, ARGININE, ARTEMISIA VULGARIS OIL, BENTONITE, BLUE 1 (CI 42090), BUTYLENE GLYCOL, CITRIC ACID, COPPER TRIPEPTIDE-1, DISODIUM EDTA, ERYTHRITOL, ETHYLHEXYLGLYCERIN, GLUCONOLACTONE, GLYCERIN, GLYCOPROTEINS, ILLITE, KAOLIN, LECITHIN, MAGNESIUM ALUMINUM SILICATE, MONTMORILLONITE, PALMITIC ACID, PANTHENOL, POLYGLYCERYL-10 LAURATE, POLYSORBATE 80, PVP, SACCHARIDE ISOMERATE, SEA SALT, SODIUM CITRATE, STEARIC ACID, TOCOPHEROL, WATER, XANTHAN GUM, YELLOW 5 (CI 19140)',
     url: 'https://www.skinsafeproducts.com/dr-jart-pore-remedy-purifying-mud-mask-0-45-oz-13-g',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/54F2EC1BA4ADFD/large_1724190295.jpeg?1724190295',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-pore-remedy-purifying-mud-mask.webp',
     tags: {
       primary: [TAG_SLUGS.MASQUE_ARGILE, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.PORES_DILATES],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.MASQUE_HEBDO],
@@ -118,8 +114,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
       'Centella Asiatica + Allantoïne + Peptides. Texture fluide, absorption rapide pour peaux sensibles.',
     inci: '1,2-HEXANEDIOL, ALLANTOIN, ASIATIC ACID, ASIATICOSIDE, BETAINE, BUTYLENE GLYCOL, CENTELLA ASIATICA LEAF EXTRACT, DEXTRAN, DIPROPYLENE GLYCOL, ETHYLHEXYLGLYCERIN, GLYCERIN, ISOPENTYLDIOL, MADECCASSIC ACID, METHYLPROPANEDIOL, PALMITOYL TRIPEPTIDE-8, PANTHENOL, POLYGLYCERYL-4 OLEATE, PROPANEDIOL, SODIUM HYALURONATE, SODIUM STEAROYL GLUTAMATE, SODIUM SURFACTIN, TOCOPHEROL, WATER, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/dr-jart-cicapair-intensive-soothing-repair-treatment-lotion-5-07-fl-oz-150-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/6C294FC2CAC842/large_1724189334.jpeg?1724189334',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-cicapair-intensive-soothing-repair-lotion.webp',
     tags: {
       primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.PREPARATION, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.APAISANT],
@@ -145,8 +140,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     notes: `Glutathion + Niacinamide + Bisabolol. Effet coup d"éclat immédiat.`,
     inci: 'ALLANTOIN, BISABOLOL, CALCIUM PANTOTHENATE, CAPRYLIC/CAPRIC TRIGLYCERIDE, CARBOMER, CETEARYL ALCOHOL, CITRUS AURANTIUM BERGAMIA (BERGAMOT) FRUIT OIL, CITRUS AURANTIUM DULCIS (ORANGE) PEEL OIL, CITRUS GRANDIS (GRAPEFRUIT) PEEL OIL, CITRUS LIMON (LEMON) PEEL OIL, DIPROPYLENE GLYCOL, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, EUCALYPTUS GLOBULUS LEAF OIL, GLUTATHIONE, GLYCERIN, GLYCERYL STEARATE, HYDROXYETHYLCELLULOSE, LAVANDULA ANGUSTIFOLIA (LAVENDER) OIL, MALTODEXTRIN, NIACINAMIDE, PHENOXYETHANOL, POLYSORBATE 60, PYRIDOXINE HCL, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF OIL, SILICA, SODIUM ASCORBYL PHOSPHATE, SODIUM HYALURONATE, SODIUM STARCH OCTENYLSUCCINATE, SORBITAN SESQUIOLEATE, STEARIC ACID, TOCOPHERYL ACETATE, TREHALOSE, TROMETHAMINE, WATER',
     url: 'https://www.skinsafeproducts.com/dr-jart-dermask-brightening-solution-face-mask-1-05-oz-30-g',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/FC1B4572643E5F/large_1724190164.jpeg?1724190164',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-dermask-brightening-solution-mask.webp',
     tags: {
       primary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.ECLAT, TAG_SLUGS.TRAITEMENT],
       secondary: [TAG_SLUGS.MASQUE_HEBDO],
@@ -195,8 +189,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     notes: 'PHA + Panthenol + Huile de Macadamia. Convient aux peaux sensibles, ne dessèche pas.',
     inci: '1,2-HEXANEDIOL, ADENOSINE, ALCOHOL DENAT, BUTYLENE GLYCOL, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, EUCALYPTUS GLOBULUS LEAF OIL, GLUCONOLACTONE, GLYCOPROTEINS, LIMONENE, MACADAMIA INTEGRIFOLIA SEED OIL, MENTHA PIPERITA (PEPPERMINT) OIL, MENTHA VIRIDIS (SPEARMINT) LEAF OIL, PANTHENOL, PANTOLACTONE, PROPANEDIOL, TROMETHAMINE, WATER',
     url: 'https://www.skinsafeproducts.com/dr-jart-pore-remedy-pha-exfoliating-serum-1-01fl-oz-30-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/0AD544EEEB8E6B/large_1700188042.jpeg?1700188042',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-pore-remedy-pha-exfoliating-serum.webp',
     tags: {
       primary: [TAG_SLUGS.EXFOLIANT_CHIMIQUE, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.EXFOLIATION],
       secondary: [TAG_SLUGS.PORES_DILATES],
@@ -240,7 +233,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER\\AQUA\\EAU, GLYCERIN,CAPRYLIC/CAPRICTRIGLYCERIDE, DIPROPYLENEGLYCOL, CETEARYL ALCOHOL,HYDROGENATED POLYDECENE,METHYL TRIMETHICONE,HYDROGENATED POLY(C6-14OLEFIN), BUTYROSPERMUMPARKII (SHEA) BUTTER,1,2-HEXANEDIOL, PHENYLTRIMETHICONE, DICAPRYLYLETHER, CETEARYL OLIVATE,PANTHENOL, GLYCERYLSTEARATE, BEHENYL ALCOHOL,SORBITAN OLIVATE, THEOBROMACACAO (COCOA) SEED EXTRACT,2,3-BUTANEDIOL, CETEARYLGLUCOSIDE, CERAMIDE NP,CERAMIDE NG, CERAMIDE NS,CERAMIDE AS, CERAMIDE AP,CHOLESTEROL,PENTAERYTHRITYL DISTEARATE,HYDROGENATED LECITHIN,PALMITIC ACID, STEARIC ACID,MICROCRYSTALLINECELLULOSE, GLYCERYLSTEARATE SE, AMMONIUMACRYLOYLDIMETHYLTAURATE/VPCOPOLYMER, CELLULOSE GUM,DEXTRIN, GLYCERYLPOLYMETHACRYLATE,PELARGONIUM GRAVEOLENSFLOWER OIL, OLEA EUROPAEA(OLIVE) FRUIT OIL, CITRUSAURANTIUM BERGAMIA(BERGAMOT) FRUIT OIL, SALVIAOFFICINALIS (SAGE) OIL,CITRONELLOL, TOCOPHEROL,YELLOW 5 (CI 19140)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-ceramidin-creme-hydratante-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-ceramidin-creme-hydratante.webp',
     tags: {
       primary: ['barriere-cutanee', 'apaisant', 'hydratation'],
       secondary: ['reparateur', 'emollience', 'creme-hydratante', 'zone-visage'],
@@ -269,7 +262,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER\\AQUA\\EAU, GLYCERIN, PROPANEDIOL, BUTYROSPERMUM PARKII (SHEA) BUTTER EXTRACT, BETAINE, METHYLPROPANEDIOL, HYDROGENATED POLY(C6-14 OLEFIN), PENTAERYTHRITYL DISTEARATE, CAPRYLIC/CAPRIC TRIGLYCERIDE, DIPROPYLENE GLYCOL, DICAPRYLYL ETHER, CETEARYL ALCOHOL, CETEARYL GLUCOSIDE, PANTHENOL, ECTOIN, VINYL DIMETHICONE, ARGANIA SPINOSA KERNEL OIL, 2,3-BUTANEDIOL, SODIUM STEAROYL GLUTAMATE, 1,2-HEXANEDIOL, GLYCERYL STEARATE, SPENT GRAIN WAX, CERAMIDE NP, CERAMIDE NG, CERAMIDE AP, CERAMIDE NS, CERAMIDE AS, ETHYLHEXYLGLYCERIN, SODIUM HYALURONATE, THEOBROMA CACAO (COCOA) SEED EXTRACT, PELARGONIUM GRAVEOLENS (GERANIUM) FLOWER OIL, OLEA EUROPAEA (OLIVE) FRUIT OIL, CITRUS AURANTIUM BERGAMIA (BERGAMOT) FRUIT OIL, CHOLESTEROL, HYDROGENATED LECITHIN, SODIUM POLYACRYLATE, HYDROXYPROPYL STARCH PHOSPHATE, GLYCERYL STEARATE SE, BEHENYL ALCOHOL, DEXTRIN, SALVIA OFFICINALIS (SAGE) OIL, CITRONELLOL, HYDROXYACETOPHENONE, TOCOPHEROL, YELLOW 5 (CI 19140)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-ceramidin-creme-infusee-a-l-ectoine-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-ceramidin-creme-infusee-a-l-ectoine.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'apaisant'],
       secondary: ['reparateur', 'emollience', 'creme-hydratante', 'zone-visage'],
@@ -300,7 +293,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER\\AQUA\\EAU, GLYCERIN, DIPROPYLENE GLYCOL,1,2-HEXANEDIOL, PANTHENOL, HYDROGENATED POLY(C6-14 OLEFIN), DICAPRYLYL CARBONATE, BETAINE, METHYLTRIMETHICONE, CERAMIDE NP, SODIUM STEAROYLGLUTAMATE, POLYGLYCERYL-10 STEARATE, ALLANTOIN,ETHYLHEXYLGLYCERIN, CHOLESTEROL, PELARGONIUMGRAVEOLENS (GERANIUM) FLOWER OIL, OLEA EUROPAEA(OLIVE) FRUIT OIL, CITRUS AURANTIUM BERGAMIA (BERGAMOT)FRUIT OIL, CETEARYL ALCOHOL, BEHENYL ALCOHOL,ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER,HYDROGENATED LECITHIN, TROMETHAMINE, GLYCERYLSTEARATE SE, SALVIAOFFICINALIS (SAGE) OIL, SODIUMPHYTATE, TOCOPHEROL, YELLOW 5 (CI 19140)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-ceramidin-masque-hydratant-22g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-ceramidin-masque-hydratant.webp',
     tags: {
       primary: ['barriere-cutanee', 'apaisant', 'hydratation'],
       secondary: ['reparateur', 'emollience', 'masque-hebdo', 'zone-visage'],
@@ -330,7 +323,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER\\AQUA\\EAU, DIPROPYLENE GLYCOL,BETAINE, PROPANEDIOL, ALCOHOL DENAT.,GLYCOSYL TREHALOSE, GLYCERIN,1,2-HEXANEDIOL, PANTHENOL, PENTYLENEGLYCOL, ERYTHRITOL, HYDROGENATEDSTARCH HYDROLYSATE, TRIETHYLHEXANOIN,DIPHENYL DIMETHICONE, POLYGLYCERYL-10MYRISTATE, CERAMIDE NP, SUCROSEDISTEARATE, ETHYLHEXYLGLYCERIN, SODIUMHYALURONATE, THEOBROMA CACAO (COCOA)SEED EXTRACT, PELARGONIUM GRAVEOLENSFLOWER OIL, OLEA EUROPAEA (OLIVE) FRUITOIL, CITRUS AURANTIUM BERGAMIA(BERGAMOT) FRUIT OIL, C12-14 PARETH-12,HYDROGENATED LECITHIN, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER,TROMETHAMINE, CARBOMER, GLYCERYLPOLYMETHACRYLATE, GLYCERYL STEARATE,DEXTRIN, SALVIA OFFICINALIS (SAGE) OIL,CITRONELLOL, DISODIUM EDTA, YELLOW 5(CI 19140)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-ceramidin-serum-tonique-150ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-ceramidin-serum-tonique.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'apaisant'],
       secondary: ['reparateur', 'emollience', 'tonique', 'preparation', 'zone-visage'],
@@ -358,7 +351,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER\\AQUA\\EAU, DIPROPYLENE GLYCOL, GLYCERIN, BUTYLENE GLYCOL, CAPRYLYL METHICONE, PENTYLENE GLYCOL, NIACINAMIDE, 1,2-HEXANEDIOL, CETEARYL OLIVATE, THEOBROMA CACAO (COCOA) EXTRACT, CENTELLA ASIATICA LEAF EXTRACT, HYDROGENATED POLYDECENE, GLYCERYL CAPRYLATE, ALLANTOIN, ASIATICOSIDE, MADECASSIC ACID, ASIATIC ACID, ADENOSINE, POLYGLYCERYL-4 OLEATE, SODIUM STEAROYL GLUTAMATE, PALMITOYL TRIPEPTIDE-8, SORBITAN OLIVATE, C14-22 ALCOHOLS, TROMETHAMINE, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CARBOMER, BORON NITRIDE, PROPANEDIOL, ISOPENTYLDIOL, DEXTRIN, C12-20 ALKYL GLUCOSIDE, SODIUM SURFACTIN, DEXTRAN, SODIUM PHYTATE, YELLOW 5 (CI 19140), BLUE 1 (CI 42090)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-cicapair-gel-creme-reparateur-intense-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-cicapair-gel-creme-reparateur-intense.webp',
     tags: {
       primary: ['apaisant', 'anti-age', 'pores-dilates', 'cicatrisation'],
       secondary: ['sebo-regulateur', 'creme-hydratante', 'zone-visage', 'reparateur'],
@@ -389,7 +382,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER\\AQUA\\EAU, DIPROPYLENE GLYCOL, METHYLPROPANEDIOL, GLYCERIN, 1,2-HEXANEDIOL, NIACINAMIDE, PANTHENOL, ALLANTOIN, ETHYLHEXYLGLYCERIN, THEOBROMA CACAO (COCOA) SEED EXTRACT, CENTELLA ASIATICA LEAF EXTRACT, ASIATICOSIDE, MADECASSIC ACID, ASIATIC ACID, BUTYLENE GLYCOL, POLYGLYCERYL-4 OLEATE, SODIUM STEAROYL GLUTAMATE, PALMITOYL TRIPEPTIDE-8, POLYGLYCERYL-10 LAURATE, CARBOMER, TROMETHAMINE, ISOPENTYLDIOL, PROPANEDIOL, XANTHAN GUM, DEXTRIN, SODIUM SURFACTIN, DEXTRAN, CITRIC ACID, SODIUM PHYTATE, HYDROXYACETOPHENONE, YELLOW 5 (CI 19140), BLUE 1 (CI 42090)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-cicapair-masque-serum-reparateur.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-cicapair-masque-serum-reparateur.webp',
     tags: {
       primary: ['apaisant', 'barriere-cutanee', 'pores-dilates', 'cicatrisation'],
       secondary: ['sebo-regulateur', 'reparateur', 'serum', 'traitement', 'zone-visage'],
@@ -420,7 +413,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER\\AQUA\\EAU, GLYCERIN, COCO-BETAINE, DISODIUM COCOAMPHODIACETATE, PROPANEDIOL, 1,2-HEXANEDIOL, SODIUM METHYL COCOYL TAURATE, SODIUM CHLORIDE, CAPRYLYL GLYCOL, ETHYLHEXYLGLYCERIN, ALLANTOIN, LAVANDULA ANGUSTIFOLIA (LAVENDER) OIL, CITRUS AURANTIUM BERGAMIA (BERGAMOT) FRUIT OIL, CENTELLA ASIATICA LEAF EXTRACT, BUTYLENE GLYCOL, POLYGLYCERYL-4 OLEATE, SODIUM STEAROYL GLUTAMATE, ASIATICOSIDE, MADECASSIC ACID, ASIATIC ACID, PALMITOYL TRIPEPTIDE-8, DEXTRAN, CITRIC ACID, ISOPENTYLDIOL, HEXYLYLENE GLYCOL, SODIUM SURFACTIN, LINALOOL, SODIUM PHYTATE, TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-cicapair-mousse-nettoyante-150ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-cicapair-mousse-nettoyante.webp',
     tags: {
       primary: ['apaisant', 'cicatrisation', 'anti-age'],
       secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -449,7 +442,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER\\AQUA\\EAU, GLYCERIN, BUTYLENE GLYCOL, PROPANEDIOL, METHYL GLUCETH-20, ETHOXYDIGLYCOL, BETAINE, ALLANTOIN, OCTYLDODECANOL, ETHYLHEXYLGLYCERIN, ASIATICOSIDE, MADECASSIC ACID, GLYCOLIPIDS, ASIATIC ACID, POLYGLYCERYL-4 OLEATE, CENTELLA ASIATICA LEAF EXTRACT, SODIUM STEAROYL GLUTAMATE, PALMITOYL TRIPEPTIDE-8, 1,2-HEXANEDIOL, ISOPENTYLDIOL, CARBOMER, XANTHAN GUM, TROMETHAMINE, POLYGLYCERYL-10 LAURATE, HYDROGENATED LECITHIN, C12-13 ALKETH-9, SODIUM SURFACTIN, DEXTRAN, YELLOW 5 (CI 19140), BLUE 1 (CI 42090)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-cicapair-serum-reparateur-apaisant-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-cicapair-serum-reparateur-apaisant.webp',
     tags: {
       primary: ['apaisant', 'cicatrisation', 'anti-age'],
       secondary: ['serum', 'traitement', 'zone-visage', 'reparateur'],
@@ -480,7 +473,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, CYCLOPENTASILOXANE, CI 77891, DIMÉTHICONE, CAPRYLYL MÉTHICONE, ETHYLHEXYL PALMITATE, GLYCÉRINE, LAURYL PEG-8 DIMÉTHICONE, OCTYLDOCÉCANOL, PHÉNYLE TRIMÉTHICONE, TRIÉTHYLHEXANOIN, BUTYLÈNE GLYCOL, CENTELLAL ASIATICA, NIACINAMIDE, TRIDÉCYL TRIMETHYL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-cicapair-traitement-correcteur-de-couleur-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-cicapair-traitement-correcteur-de-couleur.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
       secondary: ['sebo-regulateur', 'spot-treatment', 'soin-localise', 'zone-visage'],
@@ -502,7 +495,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'SÉRUM : WATER/AQUA/EAU, DIPROPYLENE GLYCOL, GLYCERIN, CAPRYLIC/CAPRIC TRIGLYCERIDE, BUTYLENE GLYCOL, 1,2-HEXANEDIOL, PEG-240/HDI COPOLYMER BIS-DECYLTETRADECETH-20 ETHER, HYALURONIC ACID, ACETYL HEXAPEPTIDE-8, BETAINE, CAPRYLYL GLYCOL, TOCOPHEROL, ISOHEXADECANE, DIMETHICONE, GLYCERYL ACRYLATE/ACRYLIC ACID COPOLYMER, GLYCERYL STEARATE, PEG-100 STEARATE, SORBITAN ISOSTEARATE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, POTASSIUM LAURATE, POLYSORBATE 60, SODIUM PHYTATE, PHENOXYETHANOL, YELLOW 5 (CI 19140), BLUE 1 (CI 42090)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-cryo-rubber-masque-apaisant-36g-4g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-cryo-rubber-masque-apaisant-36g.webp',
     tags: {
       primary: ['anti-age', 'hydratation', 'repulpant', 'apaisant'],
       secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
@@ -513,35 +506,6 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
       { slug: INGREDIENT_SLUGS.ARGIRELINE },
       { slug: INGREDIENT_SLUGS.BETAINE },
       { slug: INGREDIENT_SLUGS.ISOHEXADECANE },
-    ],
-  },
-  {
-    slug: 'dr-jart-cryo-rubber-masque-apaisant-40g',
-    name: 'Cryo Rubber Masque Apaisant',
-    brand: 'Dr Jart+',
-    kind: 'mask',
-    unit: 'jar',
-    totalAmount: 40,
-    amountUnit: 'g',
-    priceCents: 972,
-    description:
-      "DR JART+ CRYO RUBBER MASQUE APAISANT 40G + 4G est disponible en vente en ligne sur le site de votre parapharmacie à prix discount.\n\nCe masque apaisant du laboratoire DR JART+ est formulé avec des ingrédients de haute qualité, notamment des extraits de plantes et des agents hydratants. Ces composants aident à soutenir la fonction de la peau en contribuant à son hydratation et en participant à son confort. Grâce à sa texture innovante, ce masque offre une expérience de soin agréable tout en soutenant le bien-être cutané.\n\nOffrez à votre peau le soin qu'elle mérite avec ce masque apaisant et découvrez une nouvelle routine de beauté en l'ajoutant à votre panier dès aujourd'hui !",
-    notes: '',
-    inci: 'WATER\\AQUA\\EAU, DIPROPYLENE GLYCOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, BUTYLENE GLYCOL, NIACINAMIDE, 1,2-HEXANEDIOL, PEG-240/HDI COPOLYMER BIS-DECYLTETRADECETH-20 ETHER, DIMETHICONE, GLYCERYTH-26, ISOHEXADECANE, ALLANTOIN, TREHALOSE, ETHYLHEXYLGLYCERIN, BETAINE, MELIA AZADIRACHTA LEAF EXTRACT, MELIA AZADIRACHTA FLOWER EXTRACT, MANGIFERA INDICA (MANGO) SEED BUTTER, MACADAMIA TERNIFOLIA SEED OIL, ALLIUM CEPA (ONION) BULB EXTRACT, UNDARIA PINNATIFIDA EXTRACT, CYNARA SCOLYMUS (ARTICHOKE) LEAF EXTRACT, MUSA SAPIENTUM (BANANA) FRUIT EXTRACT, ASPARAGUS OFFICINALIS EXTRACT, BRASSICA OLERACEA CAPITATA (CABBAGE) LEAF EXTRACT, GLYCERYL STEARATE, PEG-100 STEARATE, HYDROXYETHYL ACRYLATE/SODIUM ACROYLOYLDIMETHYL TAURATE COPOLYMER, GLYCERYL ACRYLATE/ACRYLIC ACID COPOLYMER, POLYSORBATE 60, SORBITAN ISOSTEARATE, POTASSIUM LAURATE, CETEARYL ALCOHOL, SORBITAN SESQUIOLEATE, DISODIUM EDTA, TOCOPHEROL',
-    url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-cryo-rubber-masque-apaisant-40g-4g.html',
-    imageUrl: '',
-    tags: {
-      primary: ['pores-dilates', 'hydratation', 'barriere-cutanee', 'apaisant'],
-      secondary: ['sebo-regulateur', 'reparateur', 'masque-hebdo', 'zone-visage'],
-      avoid: [],
-    },
-    keyIngredients: [
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE },
-      { slug: INGREDIENT_SLUGS.ISOHEXADECANE },
-      { slug: INGREDIENT_SLUGS.ALLANTOIN },
-      { slug: INGREDIENT_SLUGS.TREHALOSE },
-      { slug: INGREDIENT_SLUGS.BETAINE },
-      { slug: INGREDIENT_SLUGS.UNDARIA_PINNATIFIDA },
     ],
   },
   {
@@ -558,7 +522,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'SÉRUM : WATER/AQUA/EAU, DIPROPYLENE GLYCOL, GLYCERIN, CAPRYLIC/CAPRIC TRIGLYCERIDE, BUTYLENE GLYCOL, 1,2-HEXANEDIOL, PEG-240/HDI COPOLYMER BIS-DECYLTETRADECETH-20 ETHER, HYALURONIC ACID, ACETYL HEXAPEPTIDE-8, BETAINE, CAPRYLYL GLYCOL, TOCOPHEROL, ISOHEXADECANE, DIMETHICONE, GLYCERYL ACRYLATE/ACRYLIC ACID COPOLYMER, GLYCERYL STEARATE, PEG-100 STEARATE, SORBITAN ISOSTEARATE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, POLYSORBATE 60, POTASSIUM LAURATE, SODIUM PHYTATE, PHENOXYETHANOL, BLUE 1 (CI 42090)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-cryo-rubber-masque-hydratant-36g-4g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-cryo-rubber-masque-hydratant-36g.webp',
     tags: {
       primary: ['anti-age', 'hydratation', 'repulpant'],
       secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
@@ -585,7 +549,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'SÉRUM : WATER/AQUA/EAU, DIPROPYLENE GLYCOL, GLYCERIN, CAPRYLIC/CAPRIC TRIGLYCERIDE, BUTYLENE GLYCOL, 1,2-HEXANEDIOL, PEG-240/HDI COPOLYMER BIS-DECYLTETRADECETH-20 ETHER, ACETYL HEXAPEPTIDE-8, BETAINE, ADENOSINE, CAPRYLYL GLYCOL, TOCOPHEROL, CYANOCOBALAMIN, ISOHEXADECANE, DIMETHICONE, GLYCERYL ACRYLATE/ACRYLIC ACID COPOLYMER, GLYCERYL STEARATE, PEG-100 STEARATE, SORBITAN ISOSTEARATE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, POLYSORBATE 60, POTASSIUM LAURATE, SODIUM PHYTATE, PHENOXYETHANOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-cryo-rubber-masque-raffermissant-36g-4g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-cryo-rubber-masque-raffermissant-36g.webp',
     tags: {
       primary: ['anti-age', 'hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
@@ -613,7 +577,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'POLYGLYCERYL-2 TRIISOSTEARATE, POLYGLYCERYL-2 ISOSTEARATE/DIMER, DILINOLEATE COPOLYMER, BIS-DIGLYCERYL POLYACYLADIPATE-2, PHYTOSTERYL/ISOSTEARYL/CETYL/STEARYL/BEHENYL DIMER DILINOLEATE, DIISOSTEARYL MALATE, POLYETHYLENE, LIMNANTHES ALBA (HUILE DE GRAINES DE MEADOWFOAM), GLYCERYL BEHENATE, HYDROLYZED SODIUM HYALURONATE, ETHYLHEXYL PALMITATE, POLYGLYCERYL-3 POLYRICINOLEATE, POLYHYDROXYSTEARIC ACID, LECITHIN, ISOPROPYL MYRISTATE, ISOSTEARIC ACID, TOCOPHERYL ACETATE, DEHYDROACETIC ACID, TITANIUM DIOXIDE (CI 77891), YELLOW 5 LAKE (CI 19140), RED 7 (CI 15850)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-masque-hydratant-levres-20ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-masque-hydratant-levres.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['masque-hebdo', 'zone-visage'],
@@ -635,7 +599,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER\\AQUA\\EAU, BUTYLENE GLYCOL, CETEARYL ETHYLHEXANOATE, 1,2-HEXANEDIOL, PANTHENOL, HYDROGENATED VEGETABLE OIL, BEHENYL ALCOHOL, POLYACRYLATE CROSSPOLYMER- 6, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, XANTHAN GUM, CETEARYL ALCOHOL, STEARIC ACID, ALLANTOIN, ETHYLHEXYLGLYCERIN, ADENOSINE, MENTHA VIRIDIS (SPEARMINT) LEAF OIL, MENTHA PIPERITA (PEPPERMINT) OIL, GLYCOPROTEINS, MAGNESIUM ASPARTATE, ZINC GLUCONATE, COPPER GLUCONATE, ALUMINUM STEARATE, ALUMINUM MYRISTATE, ALUMINUM HYDROXIDE, POLYSORBATE 60, SORBITAN ISOSTEARATE, PANTOLACTONE, T-BUTYL ALCOHOL, LITHIUM MAGNESIUM SODIUM SILICATE, PENTYLENE GLYCOL, EUCALYPTUS GLOBULUS LEAF OIL, DISODIUM EDTA, GLUCONOLACTONE, MICA, TITANIUM DIOXIDE (CI 77891), CHROMIUM HYDROXIDE GREEN (CI 77289), CHROMIUM OXIDE GREENS (CI 77288)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-pore-remedy-base-lissante-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-pore-remedy-base-lissante.webp',
     tags: {
       primary: ['apaisant', 'anti-age', 'barriere-cutanee'],
       secondary: ['reparateur', 'peau-sensible', 'primer', 'matin', 'zone-visage'],
@@ -665,7 +629,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER/AQUA/EAU, KAOLIN, BUTYLENE GLYCOL, BENTONITE, POLYSORBATE 80, 1,2-HEXANEDIOL, MAGNESIUM ALUMINUM SILICATE, SEA SALT\\MARIS SAL\\SEL MARIN, ALLANTOIN, ARTEMISIA VULGARIS (MUGWORT) OIL, GLYCERIN, ETHYLHEXYLGLYCERIN, ARGININE, GLYCOPROTEINS, COPPER TRIPEPTIDE-1, PANTHENOL, POLYGLYCERYL-10 LAURATE, ILLITE, XANTHAN GUM, ERYTHRITOL, PVP, PALMITIC ACID, STEARIC ACID, LECITHIN, SACCHARIDE ISOMERATE, MONTMORILLONITE, CITRIC ACID, GLUCONOLACTONE, DISODIUM EDTA, SODIUM CITRATE, TOCOPHEROL, BLUE 1 (CI 42090), YELLOW 5 (CI 19140)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-pore-remedy-masque-de-boue-13g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-pore-remedy-masque-de-boue.webp',
     tags: {
       primary: ['apaisant', 'anti-age', 'hydratation'],
       secondary: ['reparateur', 'peau-sensible', 'masque-hebdo', 'zone-visage'],
@@ -695,7 +659,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER\\AQUA\\EAU, GLYCERIN, ACRYLATES COPOLYMER, POTASSIUM COCOYL GLYCINATE, DISODIUM COCOAMPHODIACETATE, POTASSIUM COCOATE, SODIUM COCOYL ALANINATE, PANTHENOL, 1,2-HEXANEDIOL, SODIUM CHLORIDE, SODIUM HYDROXIDE, SODIUM METHYL COCOYL TAURATE, CAPRYLYL GLYCOL, ZEA MAYS (CORN) STARCH, MICROCRYSTALLINE CELLULOSE, MANNITOL, BUTYLENE GLYCOL, GLYCOPROTEINS, HYDROXYPROPYL STARCH PHOSPHATE, HEXYLENE GLYCOL, SODIUM PHYTATE, GLUCONOLACTONE, EDTA, TOCOPHERYL ACETATE, CHROMIUM HYDROXIDE GREEN (CI 77289)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-pore-remedy-mousse-nettoyante-150ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-pore-remedy-mousse-nettoyante.webp',
     tags: {
       primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
       secondary: ['reparateur', 'peau-sensible', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -721,7 +685,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER\\AQUA\\EAU, MACADAMIA INTEGRIFOLIA SEED OIL, GLUCONOLACTONE, PROPANEDIOL, ALCOHOL DENAT., PANTHENOL, 1,2-HEXANEDIOL, TROMETHAMINE, BUTYLENE GLYCOL, ETHYLHEXYLGLYCERIN, ADENOSINE, PANTOLACTONE, GLYCOPROTEINS, MENTHA VIRIDIS (SPEARMINT) LEAF OIL, MENTHA PIPERITA (PEPPERMINT) OIL, EUCALYPTUS GLOBULUS LEAF OIL, LIMONENE, DISODIUM EDTA',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-pore-remedy-serum-exfoliant-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-pore-remedy-serum-exfoliant.webp',
     tags: {
       primary: ['anti-age', 'exfoliation', 'apaisant'],
       secondary: ['peau-sensible', 'reparateur', 'zone-visage', 'exfoliant-chimique'],
@@ -749,7 +713,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'VITAMIN BALL ASCORBIC ACID, NIACINAMIDE, HYALURONIC ACID, SODIUM HYALURONATE, SODIUM ACETYLATED HYALURONATE, PANTHENOL, CYANOCOBALAMIN, ADENOSINE, CITRIC ACID, YELLOW 5 (CI 19140)LIQUID SERUM WATER/AQUA/EAU, METHYL GLUCETH-20, NIACINAMIDE, POLYGLYCERIN-3, 1,2-HEXANEDIOL, GLYCERIN, ADENOSINE, ACETYL HEXAPEPTIDE-1, XANTHAN GUM, CITRIC ACID, SODIUM CITRATE, SODIUM PHYTATE, PHENOXYETHANOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-serum-eclaircissant-en-ampoule-rechrage-8ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-serum-eclaircissant-en-ampoule-rechrage.webp',
     tags: {
       primary: ['anti-age', 'eclat', 'barriere-cutanee'],
       secondary: ['sebo-regulateur', 'reparateur', 'serum', 'traitement', 'zone-visage'],
@@ -780,7 +744,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER\\AQUA\\EAU, CYCLOPENTASILOXANE, ETHYLHEXYL METHOXYCINNAMATE, CYCLOHEXASILOXANE, ZINC OXIDE (NANO), GLYCERIN, TITANIUM DIOXIDE (NANO), ETHYLHEXYL SALICYLATE, PEG-10 DIMETHICONE, HEXYL LAURATE, DIPROPYLENE GLYCOL, C12-15 ALKYL BENZOATE, NIACINAMIDE, DIPHENYLSILOXY PHENYL TRIMETHICONE, DISTEARDIMONIUM HECTORITE, CITRUS AURANTIUM BERGAMIA (BERGAMOT) FRUIT OIL, CITRUS LIMON (LEMON) PEEL OIL, CITRUS AURANTIFOLIA (LIME) OIL, PINUS SYLVESTRIS (PINE) LEAF OIL, CITRUS AURANTIUM DULCIS (ORANGE) PEEL OIL, ADENOSINE, ALLANTOIN, ETHYLHEXYLGLYCERIN, TRIHYDROXYSTEARIN, POLYGLYCERYL-6 POLYRICINOLEATE, METHICONE, DIMETHICONE, DIMETHICONE/VINYL DIMETHICONE CROSSPOLYMER, PROPYLENE GLYCOL, LINALOOL, CITRAL, 1,2-HEXANEDIOL, TRIETHOXYCAPRYLYLSILANE, MAGNESIUM SULFATE, TALC, GLYCERYL POLYMETHACRYLATE, EUCALYPTUS GLOBULUS LEAF OIL, LIMONENE, TOCOPHEROL, BHT, PHENOXYETHANOL, IRON OXIDES (CI 77492), IRON OXIDES (CI 77491), IRON OXIDES (CI 77499), TITANIUM DIOXIDE (CI 77891)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-baume-de-beaute-bb-spf50-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-baume-de-beaute-bb-spf50.webp',
     tags: {
       primary: ['protection-solaire', 'apaisant', 'pores-dilates'],
       secondary: [
@@ -818,7 +782,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER\\AQUA\\EAU, CYCLOPENTASILOXANE, ETHYLHEXYL METHOXYCINNAMATE, CYCLOHEXASILOXANE, ZINC OXIDE (NANO), GLYCERIN, TITANIUM DIOXIDE (NANO), ETHYLHEXYL SALICYLATE, PEG-10 DIMETHICONE, HEXYL LAURATE, DIPROPYLENE GLYCOL, C12-15 ALKYL BENZOATE, NIACINAMIDE, DIPHENYLSILOXY PHENYL TRIMETHICONE, DISTEARDIMONIUM HECTORITE, CITRUS AURANTIUM BERGAMIA (BERGAMOT) FRUIT OIL, CITRUS LIMON (LEMON) PEEL OIL, CITRUS AURANTIFOLIA (LIME) OIL, PINUS SYLVESTRIS (PINE) LEAF OIL, CITRUS AURANTIUM DULCIS (ORANGE) PEEL OIL, ADENOSINE, ALLANTOIN, ETHYLHEXYLGLYCERIN, TRIHYDROXYSTEARIN, POLYGLYCERYL-6 POLYRICINOLEATE, METHICONE, DIMETHICONE, DIMETHICONE/VINYL DIMETHICONE CROSSPOLYMER, PROPYLENE GLYCOL, LINALOOL, CITRAL, 1,2-HEXANEDIOL, TRIETHOXYCAPRYLYLSILANE, MAGNESIUM SULFATE, TALC, GLYCERYL POLYMETHACRYLATE, EUCALYPTUS GLOBULUS LEAF OIL, LIMONENE, TOCOPHEROL, BHT, PHENOXYETHANOL, IRON OXIDES (CI 77492), IRON OXIDES (CI 77491), IRON OXIDES (CI 77499), TITANIUM DIOXIDE (CI 77891)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-bb-baume-de-beaute-premium-spf50-04-deep-tan-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-bb-baume-de-beaute-premium-spf50-04-deep-tan.webp',
     tags: {
       primary: ['protection-solaire', 'apaisant', 'pores-dilates'],
       secondary: [
@@ -856,7 +820,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "WATER\\AQUA\\EAU, CYCLOPENTASILOXANE, ISONONYL ISONONANOATE, PENTAERYTHRITYL TETRAISOSTEARATE, BUTYLOCTYL SALICYLATE, METHYL TRIMETHICONE, ISODODECANE, DIPROPYLENE GLYCOL, DIPHENYLSILOXY PHENYL TRIMETHICONE, LAURYL PEG-10 TRIS(TRIMETHYLSILOXY)SILYLETHYL DIMETHICONE, ZINC OXIDE (NANO), METHYL METHACRYLATE CROSSPOLYMER, ACRYLATES/DIMETHICONE COPOLYMER, NIACINAMIDE, TITANIUM DIOXIDE (NANO), POLYMETHYLSILSESQUIOXANE, DISTEARDIMONIUM HECTORITE, POLYGLYCERYL-4 ISOSTEARATE, MAGNESIUM SULFATE, DIPENTAERYTHRITYL HEXAHYDROXYSTEARATE/HEXASTEARATE/HEXAROSINATE, BEESWAX\\CERA ALBA\\CIRE D'ABEILLE, 1,2-HEXANEDIOL, TRIETHOXYCAPRYLYLSILANE, CENTELLA ASIATICA EXTRACT, CAPRYLYL GLYCOL, SYNTHETIC FLUORPHLOGOPITE, GLYCERYL CAPRYLATE, ZEIN,ETHYLHEXYLGLYCERIN, SILICA DIMETHYL SILYLATE, ALUMINUM HYDROXIDE, ADENOSINE, LAVANDULA ANGUSTIFOLIA (LAVENDER) OIL, ZEA MAYS (CORN) STARCH, CITRUS PARADISI (GRAPEFRUIT) PEEL OIL, HYDROGENATED LECITHIN, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF OIL, CAPRYLIC/CAPRIC TRIGLYCERIDE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, SODIUM CHLORIDE, DIPOTASSIUM PHOSPHATE, CALCIUM STEARATE, GOSSYPIUM HERBACEUM (COTTON) SEED OIL, ANTHEMIS NOBILIS (CHAMOMILE) FLOWER OIL, PANTHENOL, BUTYLENE GLYCOL, ANASTATICA HIEROCHUNTICA (ROSE OF JERICHO) EXTRACT, HOUTTUYNIA CORDATA EXTRACT, ANIBA ROSAEODORA (ROSEWOOD) WOOD OIL, PENTYLENE GLYCOL, ZINC GLUCONATE, MAGNESIUM ASPARTATE, LECITHIN, GLYCERIN, BRASSICA CAMPESTRIS (RAPESEED) STEROLS, ALCOHOL, SODIUM ASCORBYL PHOSPHATE, SUCROSE LAURATE, POLYGLYCERYL-2 CAPRATE, LEUCONOSTOC/RADISH ROOT FERMENT FILTRATE, ARNICA MONTANA FLOWER EXTRACT, CENTELLA ASIATICA LEAF EXTRACT, FRAGARIA VESCA (STRAWBERRY) FRUIT EXTRACT, COPPER GLUCONATE, LYSOLECITHIN, CERAMIDE NP, LIMONENE, LINALOOL, CITRAL, CAPRYLHYDROXAMIC ACID, MADECASSOSIDE, TOCOPHEROL, PHENOXYETHANOL, TITANIUM DIOXIDE (CI 77891), IRON OXIDES (CI 77491), IRON OXIDES (CI 77492), CHROMIUM OXIDE GREENS (CI 77288)",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-cicapair-fluide-correcteur-spf35-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-cicapair-fluide-correcteur-spf35.webp',
     tags: {
       primary: ['apaisant', 'cicatrisation', 'barriere-cutanee', 'protection-solaire'],
       secondary: [
@@ -894,7 +858,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'DIMETHICONE, SYNTHETIC WAX, ISOEICOSANE, SILICA, HOMOSALATE, OCTOCRYLENE, DIETHYLHEXYL CARBONATE, ETHYLHEXYL SALICYLATE, DIISOSTEARYL MALATE, BUTYLOCTYL SALICYLATE, PHENYLPROPYLDIMETHYLSILOXYSILICATE, BUTYL METHOXYDIBENZOYLMETHANE, ISONONYL ISONONANOATE, PHENETHYL BENZOATE, CERESIN, SYNTHETIC FLUORPHLOGOPITE, DIMETHICONE/VINYL, DIMETHICONE CROSSPOLYMER, BIS-BEHENYL/ISOSTEARYL/ PHYTOSTERYL DIMER DILINOLEYL DIMER DILINOLEATE, ETHYLENE/ PROPYLENE COPOLYMER, CAMELINA SATIVA SEED OIL, RICINUS COMMUNIS (CASTOR) SEED OIL, BRASSICA CAMPESTRIS (RAPESEED) SEED OIL, HYALURONIC ACID, HYDROGENATED CASTOR OIL, OPUNTIA FICUS-INDICA FLOWER EXTRACT, THYMUS VULGARIS (THYME) FLOWER/LEAF/STEM EXTRACT, AVENA SATIVA (OAT) KERNEL EXTRACT, SILICA DIMETHYL SILYLATE, DIMETHICONE CROSSPOLYMER, TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-every-sun-day-stick-solaire-spf30-19-grammes.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-every-sun-day-stick-solaire-spf30-19-grammes.webp',
     tags: {
       primary: ['protection-solaire', 'repulpant', 'apaisant'],
       secondary: [

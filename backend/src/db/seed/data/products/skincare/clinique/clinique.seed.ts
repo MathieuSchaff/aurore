@@ -16,7 +16,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER, STEARIC ACID, PROPYLENE GLYCOL STEARATE, BUTYLENE GLYCOL, GLYCERIN, TEA-STEARATE, PETROLATUM, HYDROGENATED POLYISOBUTENE, PPG-26 OLEATE, MYRISTYL MYRISTATE, DIETHYLHEXYL ADIPATE, MENTHOL, GLYCINE SOJA (SOYBEAN) STEROLS, TOCOPHERYL ACETATE, PEG-7M, ASCORBYL PALMITATE, ALOE BARBADENSIS POWDER, ALGIN, ETHYLHEXYL STEARATE, DIMETHICONE, ETHYLHEXYL PALMITATE, HYDROXYETHYLCELLULOSE, TRISODIUM EDTA, CHLORPHENESIN, PHENOXYETHANOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-for-men-deodorant-antiperspirant-roll-on-75ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-for-men-deodorant-antiperspirant-roll-on.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'anti-oxydant'],
       secondary: ['deodorant'],
@@ -41,7 +41,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER/AQUA/EAU, TRIDECYL STEARATE, TRIDECYL TRIMELLITATE, DIPENTAERYTHRITYL HEXACAPRYLATE/HEXACAPRATE, BUTYLENE GLYCOL, GLYCERYL STEARATE, COCOS NUCIFERA (COCONUT) OIL, CAPRYLIC/CAPRIC TRIGLYCERIDE, POLYETHYLENE, CETEARYL ALCOHOL, CETEARETH-20, SORBITOL, HEXYLDECYL STEARATE, BISABOLOL, DISODIUM COCOAMPHODIPROPIONATE, OLETH-10 PHOSPHATE, CAPRYLYL GLYCOL, 1,2-HEXANEDIOL, STEARYL ALCOHOL, TEA-CARBOMER, DISODIUM EDTA, PHENOXYETHANOL, POTASSIUM SORBATE, CHLORPHENESIN [ILN41757]',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-7-day-scrub-creme-gommante-quotidienne-100ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-7-day-scrub-creme-gommante-quotidienne.webp',
     tags: {
       primary: ['apaisant'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -67,7 +67,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "RICINUS COMMUNIS (CASTOR) SEED OIL, CAPRYLIC/CAPRIC TRIGLYCERIDE, VEGETABLE OIL\\OLUS\\HUILE VEGETALE, EUPHORBIA CERIFERA (CANDELILLA) WAX\\CANDELILLA CERA\\CIRE DE CANDELILLA, BEESWAX\\CERA ALBA\\CIRE D'ABEILLE, OZOKERITE, BUTYROSPERMUM PARKII (SHEA BUTTER), HYDROGENATED VEGETABLE OIL, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, TOCOPHEROL, BUTYROSPERMUM PARKII (SHEA BUTTER) EXTRACT, MANGIFERA INDICA (MANGO) SEED BUTTER, LIMNANTHES ALBA (MEADOWFOAM) SEED OIL, HYDROGENATED OLIVE OIL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, [+/- MICA, IRON OXIDES (CI 77491), IRON OXIDES (CI 77492), IRON OXIDES (CI 77499), TITANIUM DIOXIDE (CI 77891), YELLOW 5 LAKE (CI 19140), RED 7 LAKE (CI 15850), RED 30 LAKE (CI 73360), RED 6 (CI 15850), YELLOW 6 LAKE (CI 15985), BLUE 1 LAKE (CI 42090), RED 22 LAKE (CI 45380), CARMINE (CI 75470), RED 33 LAKE (CI 17200), RED 28 LAKE (CI 45410), BISMUTH OXYCHLORIDE (CI 77163)]",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-baume-a-levres-hydratant-teinte-05-chunky-cherry-3g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-baume-a-levres-hydratant-teinte-05-chunky-cherry.webp',
     tags: {
       primary: ['anti-oxydant', 'hydratation'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -95,7 +95,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "SOUMIS À DES TESTS D'ALLERGIE ET D'OPHTALMOLOGIE, SANS PARFUM, ETHYLHEXYL PALMITATE, CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL, CAPRYLIC/CAPRIC TRIGLYCERIDE, SORBETH-30 TETRAOLEATE, POLYETHYLENE, PEG-5 GLYCERYL TRIISOSTEARATE, WATER\\AQUA\\EAU, TOCOPHEROL, PHENOXYETHANOL",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-baume-demaquillant-125ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-baume-demaquillant.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -117,7 +117,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'CYCLOPENTASILOXANE, WATER\\AQUA\\EAU, ISOSTEARYL PALMITATE, POLYETHYLENE, BUTYLENE GLYCOL, POLYSILICONE-11, ETHYLENE/ACRYLIC ACID COPOLYMER, MORUS BOMBYCIS (MULBERRY) ROOT EXTRACT, CAFFEINE, PHYTOSPHINGOSINE, TRITICUM VULGARE (WHEAT) BRAN EXTRACT, SCUTELLARIA BAICALENSIS ROOT EXTRACT, WHEY PROTEIN\\LACTIS PROTEIN\\PROTEINE DU PETIT-LAIT, OLEA EUROPAEA (OLIVE) FRUIT EXTRACT, CAMELLIA SINENSIS (GREEN TEA) LEAF EXTRACT, CHOLESTEROL, LINOLEIC ACID, TOCOPHERYL ACETATE, MAGNESIUM ASCORBYL PHOSPHATE, PYRIDOXINE DIPALMITATE, SUCROSE, GLYCERIN, DIMETHICONE, GLYCERYL LAURATE, PEG/PPG-18/18 DIMETHICONE, PETROLATUM, CETYL PEG/PPG-10/1 DIMETHICONE, PROPYLENE CARBONATE, SODIUM CHLORIDE, QUATERNIUM-90 BENTONITE, DISODIUM EDTA, PHENOXYETHANOL, IRON OXIDES (CI 77491, CI 77492, CI 77499)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-baume-yeux-anti-poches-anti-cernes-15ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-baume-yeux-anti-poches-anti-cernes.webp',
     tags: {
       primary: ['barriere-cutanee', 'anti-oxydant', 'eclat', 'cernes-poches'],
       secondary: ['emollience', 'creme-hydratante', 'zone-visage'],
@@ -147,7 +147,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER/AQUA/EAU, KAOLIN, GLYCERIN, BUTYLENE GLYCOL, MAGNESIUM ALUMINUM SILICATE, GLYCERYL STEARATE, PEG-100 STEARATE, SILICA, SODIUM LAUROYL SARCOSINATE, SALICYLIC ACID, ALLYL METHACRYLATES CROSSPOLYMER, GENTIANA LUTEA (GENTIAN) ROOT EXTRACT, LAMINARIA SACCHARINA EXTRACT, SUCROSE, ACETYL GLUCOSAMINE, CAPRYLYL GLYCOL, 1-2-HEXANEDIOL, TOCOPHERYL ACETATE, SODIUM HYDROXIDE, XANTHAN GUM, DISODIUM EDTA, PHENOXYETHANOL, TIITANIUM DIOXIDE (CI 77891), BLUE 1 (CI 42090), YELLOW 5 (CI 19140)[ILN43443]',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-blackhead-solutions-nettoyant-exfoliant-125ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-blackhead-solutions-nettoyant-exfoliant.webp',
     tags: {
       primary: ['anti-acne', 'hydratation', 'anti-oxydant', 'exfoliation'],
       secondary: ['sebo-regulateur', 'zone-visage'],
@@ -174,7 +174,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-emulsion-hydratante-peau-seche-a-mixte-125ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-emulsion-hydratante-peau-seche-a-mixte.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['creme-hydratante', 'zone-visage', 'peau-seche'],
@@ -195,7 +195,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "CN 52 NEUTRAL : WATER\\AQUA\\EAU, METHYL TRIMETHICONE, TRIMETHYLSILOXYSILICATE, DIMETHICONE, BUTYLENE GLYCOL, PHENYL TRIMETHICONE, NEOPENTYL GLYCOL DIHEPTANOATE, NIACINAMIDE, HYDROXYETHYL UREA, LAURYL PEG-9 POLYDIMETHYLSILOXYETHYL DIMETHICONE, GLYCERIN, SODIUM POLYASPARTATE, ASCORBYL GLUCOSIDE, CAFFEINE, PHYTOSPHINGOSINE, MAGNESIUM ASCORBYL PHOSPHATE, RESVERATROL, SODIUM HYALURONATE, POLYGONUM CUSPIDATUM ROOT EXTRACT, ACETYL HEXAPEPTIDE-8, PALMITOYL HEXAPEPTIDE-12, TOCOPHERYL ACETATE, TETRAHEXYLDECYL ASCORBATE, SALICYLIC ACID, SIGESBECKIA ORIENTALIS (ST, PAUL'S WORT) EXTRACT, CAPRYLYL GLYCOL, TRIHYDROXYSTEARIN, TRIETHYL CITRATE, PPG-15 STEARYL ETHER, PEG-10 DIMETHICONE, SORBITOL, TREHALOSE, MICROCOCCUS LYSATE, ISOPROPYL ISOSTEARATE, LECITHIN, ZINC STEARATE, DIMETHICONE/PEG-10/15 CROSSPOLYMER, ALUMINA, TRIETHOXYCAPRYLYLSILANE, SILICA, GLYCERYL POLYMETHACRYLATE, LAURETH-7, MAGNESIUM ALUMINUM SILICATE, HEXYLENE GLYCOL, PEG-8, DISTEARDIMONIUM HECTORITE, PROPYLENE GLYCOL CAPRYLATE, VINYL DIMETHICONE/METHICONE SILSESQUIOXANE CROSSPOLYMER, POLYSILICONE-11, SODIUM HYDROXIDE, XANTHAN GUM, SODIUM CHLORIDE, CITRIC ACID, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, DIPROPYLENE GLYCOL, BHT, DISODIUM EDTA, SODIUM CITRATE, POTASSIUM SORBATE, PHENOXYETHANOL, [+/- MICA, TITANIUM DIOXIDE (CI 77891), IRON OXIDES (CI 77491), IRON OXIDES (CI 77492), IRON OXIDES (CI 77499), BISMUTH OXYCHLORIDE (CI 77163)] [ILN48008]",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-even-better-anti-cernes-correcteur-global.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-even-better-anti-cernes-correcteur-global.webp',
     tags: {
       primary: ['anti-age', 'eclat', 'barriere-cutanee', 'cernes-poches'],
       secondary: [
@@ -232,7 +232,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "WATER\\AQUA\\EAU, BUTYLENE GLYCOL-OCTYLDODECYL MYRISTATE-DIMETH-ICONE-DI-C12-15 ALKYL FUMARATE, ISOPROPYL ISOSTEARATE, GLYCERYL STEARATE DIISOSTEARYL MALATE, PEG-100 STEARATE-PEG-8, GLYCERIN-ASCORBYL GLUCOSIDE BUTYROSPERMUM PARKII (SHEA) BUTTER - TRIBEHENIN, CETYL ALCOOL, ACETYL GLUCOS- AMINE, SODIUM HYALURONATE, DIPOTASSIUM GLYCYRRHIZATE, SUCROSE, CAFFEINE, TO- COPHERYL ACETATE, CUCUMIS SATIVUS (CUCUMBER) FRUIT EXTRACT, CAMELLIA SINENSIS LEAF EXTRACT, SACCHAROMYCES LYSATE EXTRACT, ALGAE EXTRACT, HELIANTHUS AN-NUUS (SUNFLOWER) SEED EXTRACT - HORDEUM VULGARE EXTRACT\\EXTRAIT D'ORGE, YEAST EXTRACT\\FAEXVEXTRAIT DE LEVURE, MOLASSES EXTRACT\\SACCHARUM OFFICINARUM\\EXTRAIT DE MÉLASSE, SALICYLIC ACID, CHOLESTEROL-PROPYLENE GLYCOL DICAPRATE-CETEARYL ALCOHOL, BEHENYL ALCOOL, CETEARYL GLUCOSIDE, XANTHAN GUM, POTASSIUM HYDROXIDE, SODIUM HYDROXIDE, DISODIUM PHOSPHATE, SODIUM PHOSPHATE, CIT-RIC ACID, DIMETHOXYTOLYL PROPYLRESORCINOL, SORBITAN OLEATE-POLYSILICONE-11 -DI-C12-18 ALKYL DIMONIUM CHLORIDE, HEXYLENE GLYCOL, POLYSORBATE 80, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CAPRYLYL GLYCOL - ACRYLAMIDE/SODIUM ACRYLOYLDIMETHYLTAURATECOPOLYMER-ISOHEXADECANE-DISODIUMEDTA-BHT-CHLOR-PHENESIN-PHENOXYETHANOL, SODIUM BENZOATE, POTASSIUM SORBATE [ILN50254]",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-even-better-creme-hydratante-illuminatrice-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-even-better-creme-hydratante-illuminatrice.webp',
     tags: {
       primary: ['anti-rougeurs', 'anti-acne', 'hydratation', 'eclat'],
       secondary: ['sebo-regulateur', 'emollience', 'creme-hydratante', 'zone-visage'],
@@ -262,7 +262,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "WATER\\AQUA\\EAU, BUTYROSPERMUM PARKII (SHEA BUTTER), CETEARYL ALCOHOL, BUTYLENE GLYCOL, HYDROGENATED POLYISOBUTENE, PHENYL TRIMETHICONE, POLYGLYCERYL-3 BEESWAX, POLYBUTENE, SUCROSE, CETYL ESTERS, ISOSTEARYL NEOPENTANOATE, POLYMETHYL METHACRYLATE, GLYCERIN, CETEARYL GLUCOSIDE, TRITICUM VULGARE (WHEAT) GERM EXTRACT, HORDEUM VULGARE (BARLEY) EXTRACT\\EXTRAIT D'ORGE, BETULA ALBA (BIRCH) EXTRACT, METHYL GLUCOSE SESQUISTEARATE, GENTIANA LUTEA (GENTIAN) ROOT EXTRACT, SIGESBECKIA ORIENTALIS (ST, PAUL'S WORT) EXTRACT, CAMELLIA SINENSIS (GREEN TEA) LEAF EXTRACT, SALVIA OFFICINALIS (SAGE) LEAF, COLEUS BARBATUS EXTRACT, POLYSILICONE-11, WHEY PROTEIN\\LACTIS PROTEIN\\PROTÉINE DU PETIT-LAIT, CAFFEINE, GLYCERYL POLYMETHACRYLATE, PEG-100 STEARATE, SQUALANE, PEG-8, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, PHYTOSPHINGOSINE, DIMETHICONE, CHOLESTEROL, LINOLEIC ACID, SODIUM HYALURONATE, YEAST EXTRACT\\FAEX\\EXTRAIT DE LEVURE, DIPROPYLENE GLYCOL, MAGNESIUM ASCORBYL PHOSPHATE, 1,2-HEXANEDIOL, PALMITOYL OLIGOPEPTIDE, ISOMERIZED LINOLEIC ACID, DECARBOXY CARNOSINE HCL, CAPRYLYL GLYCOL, AMINOMETHYL PROPANOL, TOCOPHERYL ACETATE, POTASSIUM SULFATE, STEARIC ACID, DISODIUM EDTA, PHENOXYETHANOL, SODIUM DEHYDROACETATE, MICA, YELLOW 5 (CI 19140), IRON OXIDES (CI 77491, CI 77492, CI 77499), TITANIUM DIOXIDE (CI 77891)",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-for-men-creme-anti-age-yeux-15ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-for-men-creme-anti-age-yeux.webp',
     tags: {
       primary: ['barriere-cutanee', 'anti-age', 'hydratation'],
       secondary: ['emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
@@ -293,7 +293,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERYL STEARATE, SILICA, HEXYLENE GLYCOL, DISODIUM COCOAMPHODIACETATE, DISODIUM OLEAMIDO MIPA-SULFOSUCCINATE, MAGNESIUM ALUMINUM SILICATE, SALICYLIC ACID, STEARAMIDOETHYL DIETHYLAMINE, BUTYLENE GLYCOL, MENTHOL, TRISODIUM SULFOSUCCINATE, SODIUM SULFATE, OLEAMIDE MIPA, CARAMEL, METHYLISOTHIAZOLINONE, PHENOXYETHANOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-for-men-exfoliant-visage-100ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-for-men-exfoliant-visage.webp',
     tags: {
       primary: ['anti-acne', 'exfoliation'],
       secondary: ['sebo-regulateur', 'zone-visage'],
@@ -315,7 +315,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER\\AQUA\\EAU, GLYCERIN, BUTYLENE GLYCOL, PHENYL TRIMETHICONE, PROPANEDIOL, SUCROSE, HYDROXYETHYL UREA, ALTEROMONAS FERMENT EXTRACT, ALOE BARBADENSIS LEAF WATER, ALGAE EXTRACT, CHOLESTEROL, HYDROLYZED RICE EXTRACT, TREHALOSE, ACETYL GLUCOSAMINE, PENTAERYTHRITYL TETRAETHYLHEXANOATE, SORBITOL, SODIUM HYALURONATE, SODIUM POLYASPARTATE, CAFFEINE, TOCOPHERYL ACETATE, SODIUM HYDROXIDE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CARBOMER, DEXTRIN PALMITATE, DEHYDROXANTHAN GUM, CITRIC ACID, BENZOPHENONE-4, TETRAHEXYLDECYL ASCORBATE, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, SODIUM CITRATE, DISODIUM EDTA, BHT, CHLORPHENESIN, PHENOXYETHANOL, GREEN 6 (CI 61565)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-for-men-gel-concentre-hydratant-48ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-for-men-gel-concentre-hydratant.webp',
     tags: {
       primary: ['hydratation', 'anti-age', 'apaisant'],
       secondary: ['keratolytique', 'emollience', 'creme-hydratante', 'zone-visage'],
@@ -346,7 +346,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "WATER (AQUA\\EAU), SQUALANE, GLYCERIN, ISOSTEARYL NEOPENTANOATE, BUTYROSPERMUM PARKII (SHEA BUTTER), BUTYLENE GYCOL, PEG-100 STEARATE, CETYL ALCOHOL, DIMETHICONE, POLYETHYLENE, GLYCERYL STEARATE, CUCUMIS SATIVUS (CUCUMBER) FRUIT EXTRACT, HORDEUM VULGARE (BARLEY) EXTRACT/EXTRAIT D'ORGE, SIGESBECKIA ORIENTALIS (ST PAUL'S WORT) EXTRACT, WHEY PROTEIN/LACTIS PROTEIN/PROTÉINE DU PETIT LAIT, CAFFEINE, ACETYL HEXAPEPTIDE-8, SUCROSE, PETROLATUM, SODIUM POLYACRYLATE, ACETYL GLUCOSAMINE, CAPRYLYL GLYCOL, PROPYLENE GLYCOL DICAPRATE, HELIANTHUS ANNUS (SUNFLOWER) SEED EXTRACT, GLYCERYL POLYMETACRYLATE, PALMITOYL HEXAPEPTIDE-12, TOCOPHERYL ACETATE, SODIUM HYALURONATE, DIMETHICONE CROSSPOLYMER-3, HEXYLENEGLYCOL, PEG-8, XANTHAN GUM, DISODIUM EDTA, POTASSIUM SORBATE, PHENOXYETHANOL",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-for-men-hydratant-anti-age-100ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-for-men-hydratant-anti-age.webp',
     tags: {
       primary: ['anti-age', 'barriere-cutanee', 'hydratation'],
       secondary: ['emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
@@ -376,7 +376,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "WATER/AQUA/EAU, MINERAL OIL, PARAFFINUM LIQUIDUM, HUILE MINÉRALE, GLYCERIN, PETROLATUM, STEARIC ACID, GLYCERYL STEARATE, SESAMUM INDICUM (SESAME) OIL, UREA, LANOLIN ALCOHOL, TRIETHANOLAMINE, CUCUMIS SATIVUS (CUCUMBER) FRUIT EXTRACT, HORDEUM VULGARE (BARLEY) EXTRACT/EXTRAIT D'ORGE, PROPYLENE GLYCOL DICAPRATE, HELIANTHUS ANNUUS (SUNFLOWER) SEEDCAKE, BUTYLENE GLYCOL, SODIUM HYALURONATE, PENTYLENE GLYCOL, TRISODIUM EDTA, PHENOXYETHANOL, RED 33 (CI 17200), YELLOW 5 (CI 19140), YELLOW 6 (CI 15985) [ILN40055]",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-for-men-lotion-fluide-hydratant-100ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-for-men-lotion-fluide-hydratant.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['keratolytique', 'creme-hydratante', 'zone-visage'],
@@ -402,7 +402,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA\\EAU), SODIUM LAURETH SULFATE, SODIUM CHLORIDE, COCAMIDOPROPYL HYDROXYSULTAINE, LAURAMIDOPROPYL BETAINE, SODIUM COCOYL SARCOSINATE, TEA-COCOYL GLUTAMATE, ALOE BARBADENSIS LEAF JUICE, SODIUM HYALURONATE, SUCROSE, DI-PPG-2 MYRETH-10 ADIPATE, HEXYLENE GLYCOL, BUTYLENE GLYCOL, CAPRYLYL GLYCOL, CETYL TRIETHYLMONIUM DIMETHICONE PEG-8 SUCCINATE, SODIUM SULFATE, POLYQUATERNIUM-7, LAURETH-2, PEG-120 METHYL GLUCOSE DIOLEATE, TOCOPHERYL ACETATE, EDTA, DISODIUM EDTA, SODIUM BENZOATE, PHENOXYETHANOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-for-men-nettoyant-visage-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-for-men-nettoyant-visage.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'anti-oxydant'],
       secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -427,7 +427,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "WATER\\AQUA\\EAU, DIMETHICONE, ISODODECANE, BUTYLENE GLYCOL, BIS-PEG-18 METHYL ETHER DIMETHYL SILANE, GLYCERIN, SACCHAROMYCES LYSATE EXTRACT, LAMINARIA SACCHARINA EXTRACT, POLYGONUM CUSPIDATUM ROOT EXTRACT, LACTOBACILLUS FERMENT, CUCUMIS SATIVUS (CUCUMBER) FRUIT EXTRACT, OLETH-10, HELIANTHUS ANNUUS (SUNFLOWER) SEEDCAKE, HORDEUM VULGARE (BARLEY) EXTRACT\\EXTRAIT D'ORGE, POLYSILICONE-11, TOCOPHERYL ACETATE, SODIUM HYALURONATE, CAFFEINE, TREHALOSE, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, ACRYLATES/AMMONIUM METHACRYLATE COPOLYMER, PROPYLENE GLYCOL DICAPRATE, TROMETHAMINE, PROPYLENE GLYCOL STEARATE, HEXYLENE GLYCOL, MAGNESIUM STEARATE, LAURETH-23, CARBOMER, LAURETH-4, SILICA, CAPRYLYL GLYCOL, CELLULOSE ACETATE, DISODIUM EDTA, BHT, SODIUM BENZOATE, PHENOXYETHANOL, IRON OXIDES (CI 77491), IRON OXIDES (CI 77492), IRON OXIDES (CI 77499), TITANIUM DIOXIDE (CI 77891)",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-gel-hydratant-bb-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-gel-hydratant-bb.webp',
     tags: {
       primary: ['microbiome', 'hydratation', 'anti-oxydant'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -458,7 +458,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "WATER\\AQUA\\EAU, DIMETHICONE, ISODODECANE, BUTYLENE GLYCOL, BIS-PEG-18 METHYL ETHER DIMETHYL SILANE, GLYCERIN, LAMINARIA SACCHARINA EXTRACT, POLYGONUM CUSPIDATUM ROOT EXTRACT, SACCHAROMYCES LYSATE EXTRACT, CUCUMIS SATIVUS (CUCUMBER) FRUIT EXTRACT, HORDEUM VULGARE (BARLEY) EXTRACT\\EXTRAIT D'ORGE, HELIANTHUS ANNUUS (SUNFLOWER) SEEDCAKE, CAFFEINE, TREHALOSE, SODIUM HYALURONATE, TOCOPHERYL ACETATE, POLYSILICONE-11, SILICA, PROPYLENE GLYCOL DICAPRATE, OLETH-10, LACTOBACILLUS FERMENT, LAURETH-23, LAURETH-4, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, CARBOMER, CAPRYLYL GLYCOL, HEXYLENE GLYCOL, TROMETHAMINE, DISODIUM EDTA, PHENOXYETHANOL, YELLOW 5 (CI 19140), RED 4 (CI 14700), YELLOW 6 (CI 15985)",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-gel-hydratant-peau-mixte-a-grasse-125ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-gel-hydratant-peau-mixte-a-grasse.webp',
     tags: {
       primary: ['microbiome', 'hydratation', 'anti-oxydant'],
       secondary: ['creme-hydratante', 'zone-visage', 'peau-mixte'],
@@ -489,7 +489,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "WATER/AQUA/EAU , BIS-PEG-18 METHYL ETHER DIMETHYL SILANE , BUTYLENE GLYCOL , GLYCERIN , CUCUMIS SATIVUS (CUCUMBER) FRUIT EXTRACT , HYPNEA MUSCIFORMIS (ALGAE) EXTRACT , GELIDIELLA ACEROSA EXTRACT , HORDEUM VULGARE (BARLEY) EXTRACT/EXTRAIT D'ORGE , PADINA PAVONICA THALLUS EXTRACT , HELIANTHUS ANNUUS (SUNFLOWER) SEEDCAKE , SUCROSE , CAFFEINE , SODIUM HYALURONATE , HYDROXYETHYL UREA , HYDROLYZED RICE EXTRACT , SORBITOL , SODIUM POLYASPARTATE , PPG-6-DECYLTETRADECETH-30 , ETHYLHEXYLGLYCERIN , PROPYLENE GLYCOL DICAPRATE , CAPRYLYL GLYCOL , TREHALOSE , POLYSORBATE 80 , CARBOMER , SODIUM HYDROXIDE , HEXYLENE GLYCOL , CITRIC ACID , SODIUM CITRATE , DISODIUM EDTA , PHENOXYETHANOL [ILN44912]",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-gelee-hydratante-anti-pollution-125ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-gelee-hydratante-anti-pollution.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['keratolytique', 'creme-hydratante', 'zone-visage'],
@@ -518,7 +518,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER AQUA EAU DIMETHICONE BUTYLENE GLYCOL VINYL DIMETHICONE METHICONE SILSESQUIOXANE CROSSPOLYMER METHYL TRIMETHICONE POLYSORBATE 20 BIS PEG18 METHYL ETHER DIMETHYL SILANE LAURYL PEG9 POLYDIMETHYLSILOXYETHYL DIMETHICONE GLYCERIN METHYL GLUCETH20 POLYSILICONE11 SALICYLIC ACID OENOTHERA BIENNIS EVENING PRIMROSE FLOWER EXTRACT GLYCINE SOJA SOYBEAN SEED EXTRACT SIGESBECKIA ORIENTALIS ST PAULS WORT EXTRACT SALVIA SCLAREA CLARY EXTRACT PLANKTON EXTRACT LAMINARIA SACCHARINA EXTRACT ACETYL HEXAPEPTIDE8 ACETYL GLUCOSAMINE CAFFEINE GLYCINE SOJA SOYBEAN PROTEIN AMINOPROPYL ASCORBYL PHOSPHATE CHOLESTEROL CAPRYLYL GLYCOL MICROCOCCUS LYSATE PALMITOYL HEXAPEPTIDE12 LECITHIN WHEY PROTEIN LACTIS PROTEIN PROTEINE DU PETIT LAIT SODIUM HYALURONATE TOCOPHERYL ACETATE PEG8 SODIUM HYDROXIDE AMMONIUM ACRYLOYLDIMETHYLTAURATE VP COPOLYMER XANTHAN GUM CARBOMER GLYCERYL POLYMETHACRYLATE SODIUM BENZOATE SODIUM CITRATE DISODIUM EDTA PHENOXYETHANOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-hydratant-eclat-revitalisant-nuit-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-hydratant-eclat-revitalisant-nuit.webp',
     tags: {
       primary: ['anti-age', 'anti-acne', 'exfoliation', 'hydratation'],
       secondary: [
@@ -546,7 +546,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "WATER\\AQUA\\EAU, BIS-PEG-18 METHYL ETHER DIMETHYL SILANE, BUTYLENE GLYCOL, GLYCERIN, CUCUMIS SATIVUS (CUCUMBER) FRUIT EXTRACT, HYPNEA MUSCIFORMIS (ALGAE) EXTRACT, GELIDIELLA ACEROSA EXTRACT, HORDEUM VULGARE (BARLEY) EXTRACT\\EXTRAIT D'ORGE, PADINA PAVONICA THALLUS EXTRACT, HELIANTHUS ANNUUS (SUNFLOWER) SEEDCAKE, SUCROSE, CAFFEINE, SODIUM HYALURONATE, HYDROXYETHYL UREA, HYDROLYZED RICE EXTRACT, SORBITOL, SODIUM POLYASPARTATE, PPG-6-DECYLTETRADECETH-30, ETHYLHEXYLGLYCERIN, PROPYLENE GLYCOL DICAPRATE, CAPRYLYL GLYCOL, TREHALOSE, POLYSORBATE 80, CARBOMER, SODIUM HYDROXIDE, HEXYLENE GLYCOL, CITRIC ACID, SODIUM CITRATE, DISODIUM EDTA, PHENOXYETHANOL",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-id-gelee-hydrarante-115ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-id-gelee-hydrarante.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['keratolytique', 'creme-hydratante', 'zone-visage'],
@@ -575,7 +575,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "WATER\\AQUA\\EAU, BIS-PEG-18 METHYL ETHER DIMETHYL SILANE, BUTYLENE GLYCOL, GLYCERIN, CUCUMIS SATIVUS (CUCUMBER) FRUIT EXTRACT, HYPNEA MUSCIFORMIS (ALGAE) EXTRACT, GELIDIELLA ACEROSA EXTRACT, HORDEUM VULGARE (BARLEY) EXTRACT\\EXTRAIT D'ORGE, PADINA PAVONICA THALLUS EXTRACT, HELIANTHUS ANNUUS (SUNFLOWER) SEEDCAKE, SUCROSE, CAFFEINE, SODIUM HYALURONATE, HYDROXYETHYL UREA, HYDROLYZED RICE EXTRACT, SORBITOL, SODIUM POLYASPARTATE, PPG-6-DECYLTETRADECETH-30, ETHYLHEXYLGLYCERIN, PROPYLENE GLYCOL DICAPRATE, CAPRYLYL GLYCOL, TREHALOSE, POLYSORBATE 80, CARBOMER, SODIUM HYDROXIDE, HEXYLENE GLYCOL, CITRIC ACID, SODIUM CITRATE, DISODIUM EDTA, PHENOXYETHANOL",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-id-gelee-hydratante-115ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-id-gelee-hydratante.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['keratolytique', 'creme-hydratante', 'zone-visage'],
@@ -604,7 +604,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER\\AQUA\\EAU, HAMAMELIS VIRGINIANA (WITCH HAZEL) WATER, DIPROPYLENE GLYCOL, BIOSACCHARIDE GUM - 1, BUTYLENE GLYCOL, ACETYL GLUCOSAMINE, GLYCERIN, SUCROSE, SALICYLIC ACID, CAFFEINE, SODIUM HYALURONATE, POLYSORBATE 20, TREHALOSE, CAPRYLOYL GLYCINE, DISODIUM PHOSPHATE, TRISODIUM EDTA, BENZOIC ACID, PHENOXYETHANOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-lotion-clarifiante-1-0-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-lotion-clarifiante-1-0.webp',
     tags: {
       primary: ['anti-acne', 'hydratation'],
       secondary: ['sebo-regulateur', 'tonique', 'preparation', 'zone-visage'],
@@ -633,7 +633,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER/AQUA/EAU, ALCOHOL DENAT., NYLON-12, SALICYLIC ACID, BUTYLENE GLYCOL, HAMAMELIS VIRGINIANA (WITCH HAZEL), LAMINARIA SACCHARINA EXTRACT, CAFFEINE, SUCROSE, GLYCERIN, ACETYL GLUCOSAMINE, SORBITOL, SEA WHIP EXTRACT, BARIUM SULFATE, 10-HYDROXYDECANOIC ACID, SILICA, DISODIUM EDTA, BENZALKONIUM CHLORIDE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-lotion-clarifiante-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-lotion-clarifiante.webp',
     tags: {
       primary: ['anti-acne', 'exfoliation', 'hydratation'],
       secondary: [
@@ -667,7 +667,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER\\AQUA\\EAU, ALCOHOL DENAT., GLYCERIN, BUTYLENE GLYCOL, HAMAMELIS VIRGINIANA (WITCH HAZEL), TREHALOSE, SALICYLIC ACID, ACETYL GLUCOSAMINE, SODIUM HYALURONATE, SODIUM HYDROXIDE, TETRAHYDROXYPROPYL ETHYLENEDIAMINE, DISODIUM EDTA, PHENOXYETHANOL, BENZOPHENONE-4, YELLOW 5 (CI 19140), BLUE 1 (CI 42090)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-lotion-exfoliante-1-peau-seche-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-lotion-exfoliante-1-peau-seche.webp',
     tags: {
       primary: ['anti-acne', 'hydratation', 'exfoliation'],
       secondary: ['sebo-regulateur', 'zone-visage', 'peau-seche'],
@@ -694,7 +694,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER\\AQUA\\EAU, ALCOHOL DENAT., GLYCERIN, HAMAMELIS VIRGINIANA (WITCH HAZEL) EXTRACT, ACETYL GLUCOSAMINE, TREHALOSE, SODIUM HYALURONATE, BUTYLENE GLYCOL, SODIUM BICARBONATE, RED 6 (CI 15850), RED 33 (CI 17200), EXT, VIOLET 2 (CI 60730)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-lotion-exfoliante-2-peau-seche-a-mixte-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-lotion-exfoliante-2-peau-seche-a-mixte.webp',
     tags: {
       primary: ['hydratation', 'exfoliation'],
       secondary: ['zone-visage', 'peau-seche'],
@@ -720,7 +720,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER\\AQUA\\EAU, ALCOHOL DENAT., SALICYLIC ACID, HAMAMELIS VIRGINIANA (WITCH HAZEL), BUTYLENE GLYCOL, GLYCERIN, TREHALOSE, SODIUM HYALURONATE, CITRIC ACID, SODIUM HYDROXIDE, DISODIUM EDTA, BHT, PHENOXYETHANOL, BENZOPHENONE-4, EXT, VIOLET 2 (CI 60730), RED 6 (CI 15850), ORANGE 4 (CI 15510)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-lotion-exfoliante-3-peau-mixte-a-grasse-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-lotion-exfoliante-3-peau-mixte-a-grasse.webp',
     tags: {
       primary: ['anti-acne', 'exfoliation', 'hydratation'],
       secondary: [
@@ -752,7 +752,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER\\AQUA\\EAU, ALCOHOL DENAT., SALICYLIC ACID, HAMAMELIS VIRGINIANA (WITCH HAZEL), BUTYLENE GLYCOL, GLYCERIN, TREHALOSE, SODIUM HYALURONATE, SODIUM HYDROXIDE, DISODIUM EDTA-COPPER, BHT, PHENOXYETHANOL, BENZOPHENONE-4, GREEN 5 (CI 61570)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-lotion-exfoliante-4-peau-grasse-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-lotion-exfoliante-4-peau-grasse.webp',
     tags: {
       primary: ['anti-acne', 'exfoliation', 'hydratation'],
       secondary: [
@@ -784,7 +784,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER\\AQUA\\EAU, GLYCERIN, CETYL ALCOHOL, DIMETHICONE, GLYCERYL POLYMETHACRYLATE, BUTYROSPERMUM PARKII (SHEA BUTTER), CETYL ETHYLHEXANOATE, PEG-8, GLYCERETH-26, SUCROSE, SORBITAN STEARATE, PEG-100 STEARATE, TREHALOSE, MANGIFERA INDICA (MANGO) SEED BUTTER, HYPNEA MUSCIFORMIS (ALGAE) EXTRACT, GELLIDIELA ACEROSA (ALGAE) EXTRACT, OLEA EUROPAEA (OLIVE) FRUIT EXTRACT, TRITICUM VULGARE (WHEAT BRAN) EXTRACT, CLADOSIPHON OKAMURANUS EXTRACT, ASTROCARYUM MURUMURU SEED BUTTER, CETEARYL ALCOHOL, ALOE BARBADENSIS LEAF WATER, PEG-75, CAFFEINE, PANTETHINE, SORBITOL, BUTYLENE GLYCOL, ORYZANOL, BISABOLOL, PANTHENOL, PHYTOSTEROLS, TOCOPHERYL ACETATE, CAPRYLYL GLYCOL, SODIUM HYALURONATE, HEXYLENE GLYCOL, CARBOMER, POTASSIUM HYDROXIDE, DEXTRIN, DISODIUM EDTA, PHENOXYETHANOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-masque-hydratant-nuit-100ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-masque-hydratant-nuit.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'barriere-cutanee'],
       secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
@@ -813,7 +813,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER\\AQUA\\EAU, KAOLIN, BUTYLENE GLYCOL, MAGNESIUM ALUMINUM SILICATE, SODIUM LAUROYL SARCOSINATE, GLYCERYL STEARATE, PEG-100 STEARATE, GENTIANA LUTEA (GENTIAN) ROOT EXTRACT, LAMINARIA SACCHARINA EXTRACT, SUCROSE, ALGAE EXTRACT, ALOE BARBADENSIS LEAF EXTRACT, SALICYLIC ACID, ACETYL GLUCOSAMINE, INULIN, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, XANTHAN GUM, DISODIUM EDTA, CHLORPHENESIN, PHENOXYETHANOL, TITANIUM DIOXIDE (CI 77891)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-masque-purifiant-anti-imperfections-100ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-masque-purifiant-anti-imperfections.webp',
     tags: {
       primary: ['anti-acne', 'apaisant', 'hydratation'],
       secondary: ['sebo-regulateur', 'masque-hebdo', 'zone-visage'],
@@ -841,7 +841,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER AQUA EAU DIMETHICONE BUTYLENE GLYCOL GLYCERIN TRISILOXANE TREHALOSE SACCHAROMYCES LYSATE EXTRACT SODIUM HYALURONATE ALOE BARBADENSIS LEAF EXTRACT ALOE BARBADENSIS LEAF WATER SILYBUM MARIANUM LADYS THISTLE EXTRACT CAMELLIA SINENSIS LEAF EXTRACT ALOE BARBADENSIS LEAF POLYSACCHARIDES SORBITOL SODIUM POLYASPARTATE CAFFEINE THERMUS THERMOPHILLUS FERMENT LACTOBACILLUS FERMENT LYSATE PALMITOYL HEXAPEPTIDE 12 CAPRYLYL GLYCOL SUCROSE HYDROXYETHYL UREA AMMONIUM ACRYLOYLDIMETHYLTAURATE VP COPOLYMER OLETH 10 ACRYLATES C10 30 ALKYL ACRYLATE CROSSPOLYMER SACCHARIDE ISOMERATE HYDROGENATED LECITHIN TROMETHAMINE GLYCERYL POLYMETHACRYLATE DISODIUM EDTA PEG 8 HEXYLENE GLYCOL CITRIC ACID SODIUM CITRATE TOCOPHERYL ACETATE BHT MAGNESIUM ASCORBYL PHOSPHATE PHENOXYETHANOL SODIUM BENZOATE POTASSIUM SORBATE RED 4 CI 14700 YELLOW 5 CI 19140 ILN50944',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-moisture-surge-soin-auto-hydratant-100h-75ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-moisture-surge-soin-auto-hydratant-100h.webp',
     tags: {
       primary: ['hydratation', 'anti-age', 'microbiome'],
       secondary: ['keratolytique', 'creme-hydratante', 'zone-visage'],
@@ -862,7 +862,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER\\AQUA\\EAU, GLYCERIN, BUTYLENE GLYCOL, SODIUM METHYL COCOYL TAURATE, SALICYLIC ACID, SUCROSE, DISODIUM PHOSPHATE, ARGININE COCOATE, LAMINARIA SACCHARINA EXTRACT, CAFFEINE, ALGAE EXTRACT, COLA ACUMINATA (KOLA) SEED EXTRACT, SEA WHIP EXTRACT, PEG/PPG-18/18 DIMETHICONE, SODIUM HYALURONATE, PPG-6-DECYLTETRADECETH-30, LACTOBACILLUS FERMENT, STEARAMIDOPROPYL DIMETHYLAMINE, ACETYL GLUCOSAMINE, CAPRYLOYL GLYCINE, 10-HYDROXYDECANOIC ACID, POLYQUATERNIUM-7, PHOSPHOLIPIDS, STEARIC ACID, SODIUM HYDROXIDE, DISODIUM EDTA, PHENOXYETHANOL, CHLOROXYLENOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-mousse-nettoyante-anti-imperfections-125ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-mousse-nettoyante-anti-imperfections.webp',
     tags: {
       primary: ['anti-acne', 'microbiome', 'hydratation'],
       secondary: [
@@ -895,7 +895,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER\\\\AQUA\\\\EAU, MYRISTIC ACID, GLYCERIN, SODIUM METHYL COCOYL TAURATE, POTASSIUM HYDROXIDE, LAURIC ACID, BEHENIC ACID, PPG-24-GLYCERETH-24, SODIUM HYALURONATE, SODIUM ACETYLATED HYALURONATE, BUTYLENE GLYCOL, CAPRYLYL GLYCOL, GLYCOL DISTEARATE, POLYQUATERNIUM-7, HEXYLENE GLYCOL, TETRASODIUM EDTA, PHENOXYETHANOL, SODIUM BENZOATE, EXT, VIOLET 2 (CI 60730)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-mousse-nettoyante-visage-125ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-mousse-nettoyante-visage.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -921,7 +921,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HYDROGENATED POLYISOBUTENE, TRIISOSTEARYL CITRATE, PENTAERYTHRITYL TETRAETHYLHEXANOATE, POLYGLYCERYL-2 TRIISOSTEARATE, HYDROGENATED POLYDECENE, RICINUS COMMUNIS (CASTOR) SEED OIL, DIPENTAERYTHRITYL TRI-POLYHYDROXYSTEARATE, CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL, OLEA EUROPAEA (OLIVE) FRUIT OIL, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, SILICA, TOCOPHERYL ACETATE, CURCUMA LONGA (TURMERIC) ROOT EXTRACT, GLYCINE SOJA (SOYBEAN) SEED EXTRACT, CERAMIDE 2, SQUALANE, LACTOBACILLUS FERMENT, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, LAURYL PCA, CAPRYLYL GLYCOL, DIMETHICONE, POLYSILICONE-11, WATER AQUA EAU, TETRAHEXYLDECYL ASCORBATE, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, [+/- MICA, IRON OXIDES (CI 77491), IRON OXIDES (CI 77492), IRON OXIDES (CI 77499), RED 28 LAKE (CI 45410), RED 33 LAKE (CI 17200), RED 27 (CI 45410), TITANIUM DIOXIDE (CI 77891), MANGANESE VIOLET (CI 77742), YELLOW 5 LAKE (CI 19140), RED 22 LAKE (CI 45380), RED 30 LAKE (CI 73360), CARMINE (CI 75470), BISMUTH OXYCHLORIDE (CI 77163), RED 6 (CI 15850), RED 7 LAKE (CI 15850), RED 21 (CI 45380), ORANGE 5 (CI 45370), BLUE 1 LAKE (CI 42090), YELLOW 6 LAKE (CI 15985)]',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-pop-huile-pour-levres-et-joues-black-honey-7ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-pop-huile-pour-levres-et-joues-black-honey.webp',
     tags: {
       primary: ['barriere-cutanee', 'microbiome', 'anti-age'],
       secondary: ['emollience', 'texture-legere', 'huile-visage', 'zone-visage'],
@@ -952,7 +952,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "WATER/AQUA/EAU, DIMETHICONE, BUTYROSPERMUM PARKII (SHEA BUTTER), CETEARYL ALCOHOL, HYDROGENATED POLYISOBUTENE, TRISILOXANE, BUTYLENE GLYCOL, GLYCERIN, SUCROSE, ISOSTEARYL PALMITATE, PEG-100 STEARATE, CAMELLIA SINENSIS (GREEN TEA) LEAF EXTRACT, POLYGONUM CUSPIDATUM ROOT EXTRACT, HORDEUM VULGARE (BARLEY) EXTRACT/EXTRAIT D'ORGE, TRITICUM VULGARE (WHEAT) GERM EXTRACT, CETEARYL GLUCOSIDE, CAMELLIA SINENSIS (YELLOW TEA) LEAF EXTRACT, ASPALATHUS LINEARIS (RED TEA) LEAF EXTRACT, SACCHAROMYCES LYSATE EXTRACT, ASCOPHYLLUM NODOSUM EXTRACT, ASPARAGOPSIS ARMATA EXTRACT, CAMELLIA SINENSIS (WHITE TEA) LEAF EXTRACT, ALGAE EXTRACT, CAFFEINE, LACTOBACILLUS FERMENT, SODIUM LAUROYL OAT AMINO ACIDS, HYDROGENATED LECITHIN, POLYETHYLENE, GLYCERYL STEARATE, SALICYLIC ACID, SORBITOL, METHYL GLUCOSE SESQUISTEARATE, CHOLESTEROL, LINOLEIC ACID, GLYCINE, INULIN, TROMETHAMINE, DECARBOXY CARNOSINE HCL, PHYTOSPHINGOSINE, CETYL ALCOHOL, TOCOPHERYL ACETATE, BISABOLOL, SQUALANE, HDI/TRIMETHYLOL HEXYLLACTONE CROSSPOLYMER, BEHENYL ALCOHOL, SODIUM HYALURONATE, CARBOMER, SILICA, DISODIUM EDTA, POTASSIUM SORBATE, PHENOXYETHANOL, BLUE 1 (CI 42090), YELLOW 5 (CI 19140), CHROMIUM HYDROXIDE GREEN (CI 77289), TITANIUM DIOXIDE (CI 77891), MICA [ILN39891]",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-redness-solutions-creme-anti-rougeurs-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-redness-solutions-creme-anti-rougeurs.webp',
     tags: {
       primary: ['barriere-cutanee', 'microbiome', 'anti-acne', 'anti-rougeurs'],
       secondary: [
@@ -989,7 +989,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATERAQUAEAU, SODIUM LAURETH SULPHATE, LAURAMIDOPROPYL BETAINE, COCAMIDOPROPYL HYDROXYSULTAINE, SODIUM CHLORIDE, SODIUM COCOYL SARCOSINATE, TEA-COCOYL GLUTAMATE, BUTYLENE GLYCOL, ALOE BARBADENSIS LEAF JUICE, PEG-120 METHYL GLUCOSE DIOLEATE, SUCROSE, MENTHOL, HEXYLENE GLYCOL, POLYQUATERNIUM-7, LAURETH-2, CAPRYLYL GLYCOL, SODIUM SULPHATE, EDTA, DISODIUM EDTA, PHENOXYETHANOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-savon-visage-liquide-tonique-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-savon-visage-liquide-tonique.webp',
     tags: {
       primary: ['apaisant', 'hydratation'],
       secondary: ['tonique', 'preparation', 'zone-visage'],
@@ -1011,7 +1011,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'GLYCERYL TRIACETYL RICINOLEATE, BIS-DIGLYCERYL POLYACYLADIPATE-2, HYDROGENATED POLYISOBUTENE, SYNTHETIC BEESWAX, SQUALANE, DIISOSTEARYL MALATE, JOJOBA ESTERS, C10-18 TRIGLYCERIDES, HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX, ORYZA SATIVA (RICE) BRAN WAX, BUTYROSPERMUM PARKII (SHEA) BUTTER, SILICA, MANGIFERA INDICA (MANGO) SEED BUTTER, SODIUM HYALURONATE, TOCOPHEROL, RICINUS COMMUNIS (CASTOR) SEED OIL, HYDROGENATED CASTOR OIL, CAPRYLYL GLYCOL, HYDROXYPINACOLONE RETINOATE, GLYCERYL DISTEARATE, DIMETHYL ISOSORBIDE, MICA',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-smart-clinical-repair-baume-retinoide-3g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-smart-clinical-repair-baume-retinoide.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant'],
       secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -1042,7 +1042,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "WATER\\AQUA\\EAU, GLYCERIN, ISOSTEARYL NEOPENTANOATE, BUTYLENEGLYCOL, GLYCERYL STEARATE, PEG-100 STEARATE, DIMETHICONE, CETEARYL ALCOHOL, ACETYL HEXAPEPTIDE-8, ACETYL OCTAPEPTIDE-3, AMINOPROPYL ASCORBYL PHOSPHATE, PALMITOYL TETRAPEPTIDE-7, ALGAE EXTRACT, SODIUM HYALURONATE, PALMITOYL HEXAPEPTIDE-12, SIGESBECKIA ORIENTALIS (ST, PAUL'S WORT) EXTRACT, WHEY PROTEIN\\LACTIS PROTEIN\\PROTÉINE DU PETIT-LAIT, DIPEPTIDE DIAMINOBUTYROYL BENZYLAMIDE DIACETATE, ACETYL GLUCOSAMINE, CAFFEINE, PALMITOYL TRIPEPTIDE-1, GLYCINE SOJA (SOYBEAN) SEED EXTRACT, CETEARYL GLUCOSIDE, TOCOPHERYL ACETATE, ISOHEXADECANE, PETROLATUM, CAPRYLYL GLYCOL, GLYCERETH-26, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, TROMETHAMINE, GLYCERYL POLYMETHACRYLATE, PEG-8, POLYSORBATE 20, HEXYLENEGLYCOL, POLYSORBATE 80, CARBOMER, ACRYLAMIDE/SODIUM ACRYLOYLDIMETHYLTAURATE COPOLYMER, SORBITAN OLEATE, CETYL ALCOHOL, SODIUM CITRATE, DISODIUM EDTA, PHENOXYETHANOL, POTASSIUM SORBATE, SODIUM BENZOATE",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-smart-clinical-repair-creme-correctrice-anti-rides-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-smart-clinical-repair-creme-correctrice-anti-rides.webp',
     tags: {
       primary: ['anti-age', 'hydratation', 'anti-oxydant'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -1073,7 +1073,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "WATER\\AQUA\\EAU, BUTYROSPERMUM PARKII (SHEA) BUTTER, BUTYLENE GLYCOL, CAPRYLIC/CAPRIC/MYRISTIC/STEARIC TRIGLYCERIDE, POLYGLYCERYL-3 METHYLGLUCOSE DISTEARATE, GLYCERIN, COCO-CAPRYLATE/CAPRATE, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, POLYGLYCERYL-10 PENTASTEARATE, GLYCERYL STEARATE, BEHENYL ALCOHOL, RICINUS COMMUNIS (CASTOR) SEED OIL, MANGIFERA INDICA (MANGO) SEED BUTTER, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) SEED EXTRACT, CAFFEINE, DIMETHICONE, ETHYLHEXYLGLYCERIN, DIMETHICONE/VINYL DIMETHICONE CROSSPOLYMER, CAPRYLYL GLYCOL, BEESWAX\\CERA ALBA\\CIRE D'ABEILLE, SODIUM HYALURONATE, ACETYL HEXAPEPTIDE-8, PALMITOYL TRIPEPTIDE-1, PALMITOYL TETRAPEPTIDE-7, PALMITOYL HEXAPEPTIDE-12, PEG-8, PEG-100 STEARATE, GLYCERYL POLYMETHACRYLATE, ACRYLATES/VA COPOLYMER, COPERNICIA CERIFERA (CARNAUBA) WAX\\ COPERNICIA CERIFERA CERA \\CIRE DE CARNAUBA, POTASSIUM CETYL PHOSPHATE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, SODIUM STEAROYL LACTYLATE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, STEARIC ACID, HEXYLENE GLYCOL, SODIUM HYDROXIDE, CARBOMER, POLYSORBATE 60, SORBITAN ISOSTEARATE, POLYSORBATE 20, TOCOPHERYL ACETATE, TOCOPHEROL, DISODIUM EDTA, PHENOXYETHANOL, CHLORPHENESIN, POTASSIUM SORBATE, MICA, TITANIUM DIOXIDE (CI 77891)",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-smart-clinical-repair-creme-liftante-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-smart-clinical-repair-creme-liftante.webp',
     tags: {
       primary: ['anti-age', 'hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -1104,7 +1104,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER AQUA EAU GLYCERIN ISOSTEARYL NEOPENTANOATE BUTYLENE GLYCOL GLYCERYL STEARATE PEG100 STEARATE DIMETHICONE CETEARYL ALCOHOL ACETYL HEXAPEPTIDE8 ACETYL OCTAPEPTIDE3 AMINOPROPYL ASCORBYL PHOSPHATE PALMITOYL TETRAPEPTIDE7 ALGAE EXTRACT SODIUM HYALURONATE PALMITOYL HEXAPEPTIDE12 SIGESBECKIA ORIENTALIS ST PAULS WORT EXTRACT WHEY PROTEIN LACTIS PROTEIN PROTÉINE DU PETITLAIT DIPEPTIDE DIAMINOBUTYROYL BENZYLAMIDE DIACETATE ACETYL GLUCOSAMINE CAFFEINE PALMITOYL TRIPEPTIDE1 GLYCINE SOJA SOYBEAN SEED EXTRACT CETEARYL GLUCOSIDE TOCOPHERYL ACETATE ISOHEXADECANE PETROLATUM CAPRYLYL GLYCOL GLYCERETH26 ACRYLATESC1030 ALKYL ACRYLATE CROSSPOLYMER TROMETHAMINE GLYCERYL POLYMETHACRYLATE PEG8 POLYSORBATE 20 HEXYLENE GLYCOL POLYSORBATE 80 CARBOMER ACRYLAMIDESODIUM ACRYLOYLDIMETHYLTAURATE COPOLYMER SORBITAN OLEATE CETYL ALCOHOL SODIUM CITRATE DISODIUM EDTA PHENOXYETHANOL POTASSIUM SORBATE SODIUM BENZOATE ILN50530',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-smart-clinical-repair-creme-riche-visage-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-smart-clinical-repair-creme-riche-visage.webp',
     tags: {
       primary: ['anti-age', 'hydratation', 'anti-oxydant'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -1125,7 +1125,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER\\AQUA\\EAU¬TRIDECYL TRIMELLITATE¬ GLYCERIN¬NEOPENTYL GLYCOL DIETHYLHEXANOATE¬POLYGLYCERYL- 6 DISTEARATE-GLYCERYL BEHENATE¬MANGIFERA INDICA (MANGO) SEED BUTTER¬PROPANEDIOL¬BUTYROSPERMUM PARKII (SHEA) BUTTER-CETEARYL WHEAT STRAW GLYCOSIDES ¬HYPNEA MUSCIFORMIS (ALGAE) EXTRACT¬GELIDIELLA ACEROSA EXTRACT¬POLYGONUM CUSPIDATUM ROOT EXTRACT¬LAMINARIA DIGITATA EXTRACT¬SACCHAROMYCES LYSATE EXTRACT¬ CAMELLIA SINENSIS LEAF EXTRACT¬SIGESBECKIA ORIENTALIS (ST, PAUL’S WORT) EXTRACT¬WHEY PROTEIN\\LACTIS PROTEIN\\ PROTÉINE DU PETIT-LAIT-PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) SEED EXTRACT¬ACETYL HEXAPEPTIDE-8¬ACETYL OCTAPEPTIDE-3¬PALMITOYL TRIPEPTIDE-1¬PALMITOYL TETRAPEPTIDE- 7¬PALMITOYL HEXAPEPTIDE-12¬PHYTOSTERYL/ ISOSTEARYL/CETYL/STEARYL/BEHENYL DIMER DILINOLEATE¬ LACTOBACILLUS FERMENT¬SODIUM HYALURONATE¬TOCOPHERYL ACETATE¬BUTYLENE GLYCOL¬CETEARYL ALCOHOL¬CAFFEINE TETRAHEXYLDECYL ASCORBATE¬SUCROSE¬ACETYL GLUCOSAMINE¬DIPOTASSIUM GLYCYRRHIZATE¬ARACHIDYL GLUCOSIDE¬JOJOBA ESTERS¬TRIDECYL STEARATE¬DIPENTAERYTHRITYL HEXACAPRYLATE/HEXACAPRATE¬MOLASSES EXTRACT\\SACCHARUM OFFICINARUM\\EXTRAIT DE MÉLASSE¬ TREHALOSE¬ETHYLHEXYLGLYCERIN¬CHOLESTEROL¬BISABOLOL¬ PEG-8-BEESWAX\\CERA ALBA\\CIRE D’ABEILLE¬GLYCERYL ACRYLATE/ACRYLIC ACID COPOLYMER¬GLYCINE SOJA (SOYBEAN) SEED EXTRACT¬CAPRYLYL GLYCOL¬TOCOPHEROL¬NYLON-12¬ POTASSIUM CETYL PHOSPHATE¬GLYCERYL POLYMETHACRYLATE¬ ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER¬AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER¬ARACHIDYL ALCOHOL¬CETYL ALCOHOL¬POLYGLYCERYL-3 BEESWAX ¬BEHENYL ALCOHOL¬GLYCERYL STEARATE¬STEARIC ACID¬CARBOMER¬POLYSORBATE 20¬SODIUM HYDROXIDE¬ BHT¬DISODIUM EDTA¬SODIUM CITRATE¬POTASSIUM SORBATE¬ SODIUM BENZOATE¬PHENOXYETHANOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-smart-clinical-repair-creme-yeux-correction-rides-15ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-smart-clinical-repair-creme-yeux-correction-rides.webp',
     tags: {
       primary: ['anti-age', 'apaisant', 'hydratation'],
       secondary: ['reparateur', 'emollience', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
@@ -1146,7 +1146,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER AQUA EAU DIMETHICONE ISODODECANE BUTYLENE GLYCOL GLYCERIN POLYSILICONE11 ASCORBYL GLUCOSIDE SODIUM HYALURONATE TOCOPHERYL ACETATE SQUALANE HYPNEA MUSCIFORMIS ALGAE EXTRACT GELIDIELLA ACEROSA EXTRACT SIGESBECKIA ORIENTALIS ST PAULS WORT EXTRACT HELIANTHUS ANNUUS SUNFLOWER SEED EXTRACT HORDEUM VULGARE BARLEY EXTRACT EXTRAIT DORGE TRITICUM VULGARE WHEAT GERM EXTRACT CUCUMIS SATIVUS CUCUMBER FRUIT EXTRACT CAFFEINE ACETYL HEXAPEPTIDE8 PALMITOYL TRIPEPTIDE1 PALMITOYL TETRAPEPTIDE7 PALMITOYL HEXAPEPTIDE12 PEG10 DIMETHICONE GLYCYRRHETINIC ACID WHEY PROTEIN LACTIS PROTEIN PROTÉINE DU PETITLAIT ISOHEXADECANE PROPYLENE GLYCOL DICAPRATE CAPRYLYL GLYCOL HYDROXYPINACOLONE RETINOATE CHOLESTEROL PEG8 SORBITAN OLEATE YEAST EXTRACT FAEX EXTRAIT DE LEVURE PEG6 DIMETHYL ISOSORBIDE GLYCERYL POLYMETHACRYLATE POLYSORBATE 20 SODIUM PHOSPHATE SYNTHETIC FLUORPHLOGOPITE POLYSORBATE 80 CARBOMER HEXYLENE GLYCOL AMMONIUM ACRYLOYLDIMETHYLTAURATEVP COPOLYMER ACRYLAMIDESODIUM ACRYLOYLDIMETHYLTAURATE COPOLYMER POTASSIUM HYDROXIDE TIN OXIDE DISODIUM PHOSPHATE CITRIC ACID DISODIUM EDTA SODIUM CITRATE PHENOXYETHANOL POTASSIUM SORBATE TITANIUM DIOXIDE CI 77891 ILN99116',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-smart-clinical-repair-serum-anti-rides-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-smart-clinical-repair-serum-anti-rides.webp',
     tags: {
       primary: ['anti-age', 'barriere-cutanee', 'hydratation'],
       secondary: ['emollience', 'texture-legere', 'serum', 'traitement', 'zone-visage'],
@@ -1167,7 +1167,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATERAQUAEAU,DIMETHICONE,ISODODECANE,BUTYLENE GLYCOL,,GLYCERIN,POLYSILICONE-11,ASCORBYL,GLUCOSIDE,SODIUM HYALURONATE,TOCOPHERYL,ACETATE,SQUALANE,HYPNEA,MUSCIFORMIS (ALGAE) EXTRACT,GELIDIELLA,ACEROSA EXTRACT,SIGESBECKIA ORIENTALIS,(ST, PAUL’S WORT) EXTRACT,HELIANTHUS,ANNUUS (SUNFLOWER) SEED EXTRACT,,HORDEUM VULGARE (BARLEY) EXTRACT,EXTRAIT D’ORGE,TRITICUM VULGARE (WHEAT),GERM EXTRACT,CUCUMIS SATIVUS (CUCUMBER),FRUIT EXTRACT,CAFFEINE,ACETYL,HEXAPEPTIDE-8,PALMITOYL TRIPEPTIDE-1,,PALMITOYL TETRAPEPTIDE-7,PALMITOYL,HEXAPEPTIDE-12,PEG-10 DIMETHICONE,,GLYCYRRHETINIC ACID,WHEY PROTEINLACTIS,PROTEINPROTÉINE DU PETIT-LAIT,ISOHEXADECANE,,PROPYLENE GLYCOL DICAPRATE,,CAPRYLYL GLYCOL,HYDROXYPINACOLONE,RETINOATE,ACETYL GLUCOSAMINE,CHOLESTEROL,,PEG-8,YEAST EXTRACTFAEX,EXTRAIT DE LEVURE,PEG-6,DIMETHYL ISOSORBIDE,,GLYCERYL POLYMETHACRYLATE,,POLYSORBATE 20,SODIUM PHOSPHATE,SYNTHETIC,FLUORPHLOGOPITE,POLYSORBATE 80,,CARBOMER,HEXYLENE GLYCOL,AMMONIUM,ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER,,ACRYLAMIDE/SODIUM ACRYLOYLDIMETHYLTAURATE,COPOLYMER,POTASSIUM,HYDROXIDE,TIN OXIDE,DISODIUM,PHOSPHATE,CITRIC ACID,,DISODIUM EDTA,SODIUM CITRATE,,PHENOXYETHANOL,POTASSIUM,SORBATE,TITANIUM,DIOXIDE (CI 77891)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-smart-clinical-repair-serum-correcteur-anti-rides-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-smart-clinical-repair-serum-correcteur-anti-rides.webp',
     tags: {
       primary: ['anti-age', 'barriere-cutanee', 'hydratation'],
       secondary: ['emollience', 'texture-legere', 'serum', 'traitement', 'zone-visage'],
@@ -1198,7 +1198,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'CYCLOPENTASILOXANE, WATER\\AQUA\\EAU, ISOSTEARYL PALMITATE, POLYETHYLENE, BUTYLENE GLYCOL, POLYSILICONE-11, ETHYLENE/ACRYLIC ACID COPOLYMER, MORUS BOMBYCIS (MULBERRY) ROOT EXTRACT, CAFFEINE, PHYTOSPHINGOSINE, TRITICUM VULGARE (WHEAT) BRAN EXTRACT, SCUTELLARIA BAICALENSIS ROOT EXTRACT, WHEY PROTEIN\\LACTIS PROTEIN\\PROTÉINE DU PETIT-LAIT, OLEA EUROPAEA (OLIVE) FRUIT EXTRACT, CAMELLIA SINENSIS (GREEN TEA) LEAF EXTRACT, CHOLESTEROL, LINOLEIC ACID, TOCOPHERYL ACETATE, MAGNESIUM ASCORBYL PHOSPHATE, PYRIDOXINE DIPALMITATE, SUCROSE, GLYCERIN, DIMETHICONE, GLYCERYL LAURATE, PEG/PPG-18/18 DIMETHICONE, PETROLATUM, CETYL PEG/PPG-10/1 DIMETHICONE, PROPYLENE CARBONATE, SODIUM CHLORIDE, QUATERNIUM-90 BENTONITE, DISODIUM EDTA, PHENOXYETHANOL, IRON OXIDES (CI 77491, CI 77492, CI 77499)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-soin-yeux-anti-poches-anti-cernes-15ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-soin-yeux-anti-poches-anti-cernes.webp',
     tags: {
       primary: ['barriere-cutanee', 'anti-oxydant', 'eclat', 'cernes-poches'],
       secondary: ['emollience', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
@@ -1228,7 +1228,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'ETHYLHEXYL PALMITATE, CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL, CAPRYLIC/CAPRIC TRIGLYCERIDE, SORBETH-30 TETRAOLEATE, SYNTHETIC WAX, PEG-5 GLYCERYL TRIISOSTEARATE, CHARCOAL POWDER, TOCOPHEROL, CAPRYLYL GLYCOL, WATER\\AQUA\\EAU, SILICA DIMETHYL SILYLATE, PHENOXYETHANOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-take-the-day-off-baume-demaquillant-au-charbon-125ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-take-the-day-off-baume-demaquillant-au-charbon.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -1250,7 +1250,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "WATER\\AQUA\\EAU, BUTYLENE GLYCOL, OCTYLDODECYL MYRISTATE, DIMETHICONE, DI-C12-15 ALKYL FUMARATE, ISOPROPYL ISOSTEARATE, GLYCERYL STEARATE, DIISOSTEARYL MALATE, PEG-100 STEARATE, PEG-8, GLYCERIN, ASCORBYL GLUCOSIDE, BUTYROSPERMUM PARKII (SHEA) BUTTER, TRIBEHENIN, CETYL ALCOHOL, ACETYL GLUCOSAMINE, SODIUM HYALURONATE, DIPOTASSIUM GLYCYRRHIZATE, SUCROSE, CAFFEINE, TOCOPHERYL ACETATE, CUCUMIS SATIVUS (CUCUMBER) FRUIT EXTRACT, CAMELLIA SINENSIS LEAF EXTRACT, SACCHAROMYCES LYSATE EXTRACT, ALGAE EXTRACT, HELIANTHUS ANNUUS (SUNFLOWER) SEED EXTRACT, HORDEUM VULGARE EXTRACT\\EXTRAIT D'ORGE, YEAST EXTRACT\\FAEX\\EXTRAIT DE LEVURE, MOLASSES EXTRACT\\SACCHARUM OFFICINARUM\\EXTRAIT DE MÉLASSE, SALICYLIC ACID, CHOLESTEROL, PROPYLENE GLYCOL DICAPRATE, CETEARYL ALCOHOL, BEHENYL ALCOHOL, CETEARYL GLUCOSIDE, XANTHAN GUM, POTASSIUM HYDROXIDE, SODIUM HYDROXIDE, DISODIUM PHOSPHATE, SODIUM PHOSPHATE, CITRIC ACID, DIMETHOXYTOLYL PROPYLRESORCINOL, SORBITAN OLEATE, POLYSILICONE-11, DI-C12-18 ALKYL DIMONIUM CHLORIDE, HEXYLENE GLYCOL, POLYSORBATE 80, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CAPRYLYL GLYCOL, ACRYLAMIDE/SODIUM ACRYLOYLDIMETHYLTAURATE COPOLYMER, ISOHEXADECANE, DISODIUM EDTA, BHT, CHLORPHENESIN, PHENOXYETHANOL, SODIUM BENZOATE, POTASSIUM SORBATE",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-creme-hydratante-illuminatrice-spf20-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-creme-hydratante-illuminatrice-spf20.webp',
     tags: {
       primary: ['anti-rougeurs', 'anti-acne', 'hydratation', 'eclat'],
       secondary: [
@@ -1288,7 +1288,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER AQUA EAU, HOMOSALATE, OCTOCRYLENE, GLYCERIN, ETHYLHEXYL SALICYLATE, BUTYLENE GLYCOL, PHENYL TRIMETHICONE, BUTYL METHOXYDIBENZOYLMETHANE, BUTYLOCTYL SALICYLATE, PEG-100 STEARATE, SILICA, SILICA SILYLATE, HYDROGENATED LECITHIN, DEXTRIN PALMITATE, SODIUM HYALURONATE, BIOSACCHARIDE GUM-1, CAPRYLYL GLYCOL, CETEARYL ALCOHOL, POTASSIUM CETYL PHOSPHATE, HEXYLENE GLYCOL, TROMETHAMINE, TRIACONTANYL PVP, CARBOMER, STEARYL ALCOHOL, DEHYDROXANTHAN GUM, DISODIUM EDTA, PHENOXYETHANOL, POTASSIUM SORBATE, RED 33 (CI 17200), YELLOW 5 (CI 19140), YELLOW 6 (CI 15985)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-emulsion-hydratante-spf50-75-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-emulsion-hydratante-spf50.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation'],
       secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1319,7 +1319,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "WATER/AQUA/EAU , DIMETHICONE , BUTYLENE GLYCOL , GLYCERIN , ALCOHOL DENAT. , DISODIUM PHENYL DIBENZIMIDAZOLE TETRASULFONATE , ETHYLHEXYL METHOXYCINNAMATE , PHENYLBENZIMIDAZOLE SULFONIC ACID , PROPANEDIOL , TRIETHANOLAMINE , TRISILOXANE , CETYL PEG/PPG-10/1 DIMETHICONE , NIACINAMIDE , SODIUM HYALURONATE , ACETYL CARNITINE HCL , CREATINE , BRASSICA OLERACEA GEMMIFERA (BRUSSELS SPROUTS) EXTRACT , VACCINIUM ANGUSTIFOLIUM (BLUEBERRY) FRUIT EXTRACT , BRASSICA OLERACEA ITALICA (BROCCOLI) EXTRACT , DAUCUS CAROTA SATIVA (CARROT) ROOT EXTRACT , SPINACIA OLERACEA (SPINACH) LEAF EXTRACT , ALBIZIA JULIBRISSIN BARK EXTRACT , CUCUMIS SATIVUS (CUCUMBER) FRUIT EXTRACT , VACCINIUM MACROCARPON (CRANBERRY) FRUIT EXTRACT , PLANKTON EXTRACT , LAMINARIA SACCHARINA EXTRACT , CAFFEINE , ADENOSINE PHOSPHATE , SEA WHIP EXTRACT , YEAST EXTRACT\\FAEX\\EXTRAIT DE LEVURE , SODIUM RNA , PHYTIC ACID , BRASSICA OLERACEA ACEPHALA (KALE) LEAF EXTRACT , LACTOBACILLUS FERMENT , HORDEUM VULGARE (BARLEY) EXTRACT\\EXTRAIT D'ORGE , HYPNEA MUSCIFORMIS (ALGAE) EXTRACT , TOCOPHERYL ACETATE , SIGESBECKIA ORIENTALIS (ST, PAUL'S WORT) EXTRACT , TREHALOSE , LECITHIN , GELIDIELLA ACEROSA EXTRACT , HELIANTHUS ANNUUS (SUNFLOWER) SEEDCAKE , MICROCOCCUS LYSATE , ARABIDOPSIS THALIANA EXTRACT , BIOSACCHARIDE GUM-4 , ERGOTHIONEINE , ORYZA SATIVA (RICE) BRAN EXTRACT , DIMETHICONOL , PENTYLENE GLYCOL , ARGININE , CAPRYLOYL GLYCINE , CITRIC ACID , 7-DEHYDROCHOLESTEROL , PROPYLENE GLYCOL DICAPRATE , TETRAHEXYLDECYL ASCORBATE , SODIUM HYDROXIDE , POLYETHYLENE , BHT , PHENOXYETHANOL , MICA , TITANIUM DIOXIDE (CI 77891)[ILN44786]",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-for-men-super-energizer-spf40-concentre-hydratant-48ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-for-men-super-energizer-spf40-concentre-hydratant.webp',
     tags: {
       primary: ['anti-age', 'barriere-cutanee', 'eclat', 'hydratation'],
       secondary: [
@@ -1358,35 +1358,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "WATER\\AQUA\\EAU · HOMOSALATE · ETHYLHEXYL METHOXYCINNAMATE ·ETHYLHEXYL SALICYLATE · BUTYLENE GLYCOL · BUTYL METHOXYDIBENZOYLMETHANE ·ETHYLHEXYL METHOXYCRYLENE · BUTYLOCTYL SALICYLATE · DEXTRIN PALMITATE · POLYMETHYLSILSESQUIOXANE · GLYCERIN · LACTOBACILLUS FERMENT LYSATE · ALOE BARBADENSISLEAF POLYSACCHARIDES · SODIUM HYALURONATE · CAFFEINE · SODIUM POLYASPARTATE· 7-DEHYDROCHOLESTEROL · CAPRYLYL GLYCOL · ACRYLATES COPOLYMER · SORBITOL · DIMETHICONE · POLYGLYCERYL-2 STEARATE · SUCROSE · SACCHARIDE ISOMERATE · HYDROXYETHYL UREA · PPG-8-CETETH-20 · SORBETH-30 TETRAISOSTEARATE · GLYCERYL STEARATE · SORBITAN SESQUIISOSTEARATE · POTASSIUM HYDROXIDE · CARBOMER · DIPROPYLENE GLYCOL · DEHYDROXANTHAN GUM · STEARYL ALCOHOL · SODIUM POLYACRYLOYLDIMETHYL TAURATE · HEXYLENE GLYCOL · ACRYLATES/BEHENETH-25 METHACRYLATE COPOLYMER · ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER · TOCOPHERYLACETATE · BHT · DISODIUM EDTA · SODIUM CITRATE · CITRIC ACID · POTASSIUM SORBATE · SODIUM BENZOATE · PHENOXYETHANOL · RED 4 (CI 14700) [ILN50927] *. * CETTE LISTE D'INGRÉDIENTS PEUT FAIRE L'OBJET DE MODIFICATIONS, VEUILLEZ CONSULTER L'EMBALLAGE DU PRODUIT ACHETÉ",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-moisture-surge-hydratant-fini-transparent-spf25-30ml.html',
-    imageUrl: '',
-    tags: {
-      primary: ['protection-solaire', 'hydratation', 'microbiome'],
-      secondary: [
-        'emollience',
-        'keratolytique',
-        'filtres-chimiques',
-        'creme-solaire',
-        'matin',
-        'zone-visage',
-      ],
-      avoid: [],
-    },
-  },
-  {
-    slug: 'clinique-moisture-surge-hydratant-fini-transparent-spf25-50ml',
-    name: 'Moisture Surge Hydratant Fini Transparent SPF25',
-    brand: 'Clinique',
-    kind: 'sunscreen',
-    unit: 'jar',
-    totalAmount: 50,
-    amountUnit: 'ml',
-    priceCents: 2868,
-    description:
-      'CLINIQUE Moisture Surge Hydratant Fini Transparent SPF25 50ml : Retrouvez ce produit en vente en ligne sur le site de votre parapharmacie à prix discount.\n\nLa marque CLINIQUE propose ce soin hydratant fini transparent SPF25 pour une protection optimale contre les rayons UV. Ce produit est enrichi en ferment d’aloe vera et en vitamine E associé à de l’acide hyaluronique et de la provitamine D, pour une hydratation intense et durable. Sa texture crème fouettée aérienne pénètre rapidement dans la peau pour un fini transparent. Il est parfait pour tous les types de peaux même sensibles et toutes les carnations. Sa formule contient des filtres UVA/UVB pour protéger la peau des dommages causés par les rayons UV.',
-    notes: '',
-    inci: 'WATER\\AQUA\\EAU · HOMOSALATE · ETHYLHEXYL METHOXYCINNAMATE ·ETHYLHEXYL SALICYLATE · BUTYLENE GLYCOL · BUTYL METHOXYDIBENZOYLMETHANE ·ETHYLHEXYL METHOXYCRYLENE · BUTYLOCTYL SALICYLATE · DEXTRIN PALMITATE · POLYMETHYLSILSESQUIOXANE · GLYCERIN · LACTOBACILLUS FERMENT LYSATE · ALOE BARBADENSISLEAF POLYSACCHARIDES · SODIUM HYALURONATE · CAFFEINE · SODIUM POLYASPARTATE· 7-DEHYDROCHOLESTEROL · CAPRYLYL GLYCOL · ACRYLATES COPOLYMER · SORBITOL · DIMETHICONE · POLYGLYCERYL-2 STEARATE · SUCROSE · SACCHARIDE ISOMERATE · HYDROXYETHYL UREA · PPG-8-CETETH-20 · SORBETH-30 TETRAISOSTEARATE · GLYCERYL STEARATE · SORBITAN SESQUIISOSTEARATE · POTASSIUM HYDROXIDE · CARBOMER · DIPROPYLENE GLYCOL · DEHYDROXANTHAN GUM · STEARYL ALCOHOL · SODIUM POLYACRYLOYLDIMETHYL TAURATE · HEXYLENE GLYCOL · ACRYLATES/BEHENETH-25 METHACRYLATE COPOLYMER · ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER · TOCOPHERYLACETATE · BHT · DISODIUM EDTA · SODIUM CITRATE · CITRIC ACID · POTASSIUM SORBATE · SODIUM BENZOATE · PHENOXYETHANOL · RED 4 (CI 14700) [ILN50927]',
-    url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-moisture-surge-hydratant-fini-transparent-spf25-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-moisture-surge-hydratant-fini-transparent-spf25.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'microbiome'],
       secondary: [
@@ -1414,7 +1386,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "WATER\\AQUA\\EAU, HOMOSALATE, ETHYLHEXYL SALICYLATE, GLYCERIN, ETHYLHEXYL METHOXYCINNAMATE, BUTYLENE GLYCOL, COCO-CAPRYLATE/CAPRATE, BUTYL METHOXYDIBENZOYLMETHANE, POLYESTER-8, ETHYLHEXYL METHOXYCRYLENE, BUTYLOCTYL SALICYLATE, ACRYLATES COPOLYMER, DEXTRIN PALMITATE, PEG-100 STEARATE, SILICA, SODIUM HYALURONATE, LECITHIN, BIOSACCHARIDE GUM-1, POLYGLYCERYL-2 STEARATE, LAUROYL LYSINE, 7-DEHYDROCHOLESTEROL, WHEY PROTEIN\\LACTIS PROTEIN\\PROTÉINE DU PETIT-LAIT, ALGAE EXTRACT, PLANKTON EXTRACT, SIGESBECKIA ORIENTALIS (ST, PAUL'S WORT) EXTRACT, CAFFEINE, SACCHAROMYCES FERMENT, CAPRYLYL GLYCOL, ACETYL HEXAPEPTIDE-8, PALMITOYL TRIPEPTIDE-1, PALMITOYL TETRAPEPTIDE-7, PALMITOYL HEXAPEPTIDE-12, PENTYLENE GLYCOL, HEXYLENE GLYCOL, SODIUM POLYACRYLOYLDIMETHYL TAURATE, STEARYL ALCOHOL, DEHYDROXANTHAN GUM, DIPROPYLENE GLYCOL, CARBOMER, POTASSIUM HYDROXIDE, SORBITAN SESQUIISOSTEARATE, POLYSORBATE 20, GLYCERYL POLYMETHACRYLATE, ACRYLATES/BEHENETH-25 METHACRYLATE COPOLYMER, GLYCERYL STEARATE, SORBETH-30 TETRAISOSTEARATE, PPG-8-CETETH-20, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, PEG-8, TOCOPHERYL ACETATE, BHT, SODIUM CITRATE, DISODIUM EDTA, PHENOXYETHANOL, SODIUM BENZOATE, POTASSIUM SORBATE",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-smart-clinical-repair-creme-correctrice-anti-rides-spf-30-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-smart-clinical-repair-creme-correctrice-anti-rides-spf-30.webp',
     tags: {
       primary: ['anti-age', 'protection-solaire', 'hydratation'],
       secondary: ['filtres-chimiques', 'emollience', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1445,7 +1417,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER\\AQUA\\EAU_DIMETHICONE_ZINC OXIDE_C12-15 ALKYLBENZOATE_HOMOSALATE_ISODODECANE_ETHYLHEXYLSALICYLATE_BUTYLOCTYL SALICYLATE_LAURYLPEG-9 POLYDIMETHYLSILOXYETHYLDIMETHICONE_TITANIUM DIOXIDE_POLYHYDROXYSTEARICACID_BUTYLENE GLYCOL_POLYDECENE_DIETHYLAMINOHYDROXYBENZOYL HEXYL BENZOATE_TRISILOXANE_STYRENE/ACRYLATESCOPOLYMER_SODIUMHYALURONATE_SODIUMRNA_DIMETHICONE/PEG-10/15 CROSSPOLYMER_DIMETHICONE/VINYLDIMETHICONE CROSSPOLYMER_DISTEARDIMONIUMHECTORITE_HYDROLYZED WHEAT PROTEIN/PVPCROSSPOLYMER_CETYLPEG/PPG-10/1 DIMETHICONE_SILICA_SODIUMCHLORIDE_PROPYLENE CARBONATE_CAPRYLYL GLYCOL_PEG-8 LAURATE_ISOSTEARIC ACID_POLYETHYLENE_SODIUM CITRATE_BHT_TOCOPHEROL_POTASSIUM SORBATE_PHENOXYETHANOL_IRON OXIDES (CI 77491)_IRON OXIDES(CI 77492)[ILN49864]',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-superdefense-city-block-protection-solaire-spf50-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-superdefense-city-block-protection-solaire-spf50.webp',
     tags: {
       primary: ['protection-solaire', 'apaisant', 'anti-oxydant'],
       secondary: ['reparateur', 'filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1466,7 +1438,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "WATER\\AQUA\\EAU, DIMETHICONE, BUTYLENE GLYCOL, GLYCERIN, ALCOHOL DENAT., DISODIUM PHENYL DIBENZIMIDAZOLE TETRASULFONATE, ETHYLHEXYL METHOXYCINNAMATE, PHENYLBENZIMIDAZOLE SULFONIC ACID, PROPANEDIOL, TRIETHANOLAMINE, TRISILOXANE, CETYL PEG/PPG-10/1 DIMETHICONE, NIACINAMIDE, DAUCUS CAROTA SATIVA (CARROT) ROOT EXTRACT, VACCINIUM MACROCARPON (CRANBERRY) FRUIT EXTRACT, BRASSICA OLERACEA GEMMIFERA (BRUSSELS SPROUTS) EXTRACT, VACCINIUM ANGUSTIFOLIUM (BLUEBERRY) FRUIT EXTRACT, BRASSICA OLERACEA ACEPHALA (KALE) LEAF EXTRACT, SPINACIA OLERACEA (SPINACH) LEAF EXTRACT, PLANKTON EXTRACT, BRASSICA OLERACEA ITALICA (BROCCOLI) EXTRACT, ERGOTHIONEINE, LACTOBACILLUS FERMENT, CUCUMIS SATIVUS (CUCUMBER) FRUIT EXTRACT, CREATINE, ADENOSINE PHOSPHATE, ACETYL CARNITINE HCL, MICROCOCCUS LYSATE, LAMINARIA SACCHARINA EXTRACT, 7-DEHYDROCHOLESTEROL, BIOSACCHARIDE GUM-4, HYPNEA MUSCIFORMIS (ALGAE) EXTRACT, ALBIZIA JULIBRISSIN BARK EXTRACT, SIGESBECKIA ORIENTALIS (ST, PAUL'S WORT) EXTRACT, GELIDIELLA ACEROSA EXTRACT, CAFFEINE, SODIUM RNA, PROPYLENE GLYCOL DICAPRATE, ARABIDOPSIS THALIANA EXTRACT, ORYZA SATIVA (RICE) BRAN EXTRACT, SEA WHIP EXTRACT, YEAST EXTRACT\\FAEX\\EXTRAIT DE LEVURE, HORDEUM VULGARE (BARLEY) EXTRACT\\EXTRAIT D'ORGE, HELIANTHUS ANNUUS (SUNFLOWER) SEEDCAKE, SODIUM HYALURONATE, TOCOPHERYL ACETATE, CAPRYLYL GLYCOL, DIMETHICONOL, ARGININE, POLYETHYLENE, TREHALOSE, PENTYLENE GLYCOL, CITRIC ACID, SODIUM HYDROXIDE, CAPRYLOYL GLYCINE, PHYTIC ACID, LECITHIN, TETRAHEXYLDECYL ASCORBATE, PHENOXYETHANOL, BHT, MICA, TITANIUM DIOXIDE (CI77891) [ILN46182]",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-superdefense-spf40-gel-multi-correction-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-superdefense-spf40-gel-multi-correction.webp',
     tags: {
       primary: ['anti-age', 'barriere-cutanee', 'eclat', 'protection-solaire'],
       secondary: [
@@ -1504,7 +1476,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HOMOSALATE 7 W W P P OCTOCRYLENE 7 W W P P OCTISALATE 4 5 W W P P AVOBENZONE 3 W W P P INGREDIENTS WATER AQUA EAU GLYCERIN PHENYL TRIMETHICONE SILICA DEXTRIN PALMITATE BUTYLOCTYL SALICYLATE BUTYLENE GLYCOL TRIACONTANYL PVP HYDROGENATED LECITHIN PHENOXYETHANOL HYDROXYETHYL ACRYLATE SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER TOCOPHERYL ACETATE GLYCERYL STEARATE PEG 100 STEARATE POLYSORBATE 20 ALGAE EXTRACT SODIUM BENZOATE XANTHAN GUM ISODODECANE AMMONIUM ACRYLOYLDIMETHYLTAURATE BEHENETH 25 METHACRYLATE CROSSPOLYMER ACRYLATES DIMETHICONE COPOLYMER TOCOPHEROL CITRIC ACID DISODIUM EDTA SODIUM HYALURONATE ORYZANOL DEXTRIN LITCHI CHINENSIS SEED EXTRACT POLYSORBATE 60 SORBITAN ISOSTEARATE BIOSACCHARIDE GUM 1 7 DEHYDROCHOLESTEROL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-uv-solutions-creme-visage-hydratante-spf50-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-uv-solutions-creme-visage-hydratante-spf50.webp',
     tags: {
       primary: ['protection-solaire', 'anti-oxydant', 'hydratation'],
       secondary: [
@@ -1532,7 +1504,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER AQUA EAU, HOMOSALATE, OCTOCRYLENE, ETHYLHEXYL SALICYLATE, GLYCERIN, PHENYL TRIMETHICONE, BUTYL METHOXYDIBENZOYLMETHANE, SILICA, DEXTRIN PALMITATE, BUTYLOCTYL SALICYLATE, BUTYLENE GLYCOL, TRIACONTANYL PVP, HYDROGENATED LECITHIN, TOCOPHEROL, SODIUM HYALURONATE, ALGAE EXTRACT, LITCHI CHINENSIS SEED EXTRACT, SALICYLIC ACID, CAPRYLYL GLYCOL, ORYZANOL, DICETYLDIMONIUM CHLORIDE, PHOSPHATIDYLCHOLINE, 7-DEHYDROCHOLESTEROL, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, AMMONIUM ACRYLOYLDIMETHYLTAURATE/BEHENETH-25 METHACRYLATE CROSSPOLYMER, GLYCERYL STEARATE, PEG-100 STEARATE, SORBITAN ISOSTEARATE, POLYSORBATE 20, POLYSORBATE 60, ISODODECANE, XANTHAN GUM, ACRYLATES/DIMETHICONE COPOLYMER, DEXTRIN, TOCOPHERYL ACETATE, DISODIUM EDTA, PHENOXYETHANOL, SODIUM BENZOATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-uv-solutions-creme-visage-matifiante-spf50-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-uv-solutions-creme-visage-matifiante-spf50.webp',
     tags: {
       primary: ['protection-solaire', 'anti-acne', 'hydratation', 'sebo-regulateur'],
       secondary: [

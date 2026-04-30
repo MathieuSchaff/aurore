@@ -16,7 +16,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS SEED OIL, COCO-CAPRYLATE/CAPRATE, MAGNESIUM OXIDE, STEARYL ALCOHOL, MICROCRYSTALLINE CELLULOSE, TRIETHYL CITRATE, HYDROGENATED CASTOR OIL, PARFUM, XYLITYL SESQUICAPRYLATE, ANHYDROXYLITOL, TOCOPHEROL, EUGENOL, GERANIOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-bio-deodorant-stick-fleur-de-coton-50g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-bio-deodorant-stick-fleur-de-coton.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'deodorant'],
@@ -41,7 +41,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS SEED OIL, COCO-CAPRYLATE/CAPRATE, MAGNESIUM OXIDE, STEARYL ALCOHOL, MICROCRYSTALLINE CELLULOSE, TRIETHYL CITRATE, HYDROGENATED CASTOR OIL, PARFUM, XYLITYL SESQUICAPRYLATE, ANHYDROXYLITOL, TOCOPHEROL, EUGENOL, GERANIOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-bio-deodorant-stick-menthe-eucalyptus-50g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-bio-deodorant-stick-menthe-eucalyptus.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'deodorant'],
@@ -66,7 +66,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, ZEA MAYS STARCH, GLYCERIN, PENTYLENE GLYCOL, TRIETHYL CITRATE, ETHYLHEXYL STEARATE, GLYCERYL STEARATE CITRATE, LEUCONOSTOC/RADISH ROOT FERMENT FILTRATE, PARFUM, ZINC PCA, GLYCERYL CAPRYLATE, SODIUM STEAROYL GLUTAMATE, SQUALANE, LEVULINIC ACID, XANTHAN GUM, SODIUM LEVULINATE, ALOE BARBADENSIS LEAF JUICE POWDER, GLYCERYL UNDECYLENATE, CELLULOSE, CITRIC ACID, CELLULOSE GUM, SODIUM BENZOATE, LINALOOL, COUMARIN',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-deodorant-24h-roll-on-figue-fraiche-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-deodorant-24h-roll-on-figue-fraiche.webp',
     tags: {
       primary: ['hydratation', 'barriere-cutanee', 'apaisant'],
       secondary: ['emollience', 'texture-legere', 'deodorant'],
@@ -94,7 +94,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, ZEA MAYS STARCH, GLYCERIN, PENTYLENE GLYCOL, TRIETHYL CITRATE, ETHYLHEXYL STEARATE, GLYCERYL STEARATE CITRATE, LEUCONOSTOC/RADISH ROOT FERMENT FILTRATE, PARFUM, ZINC PCA, GLYCERYL CAPRYLATE, SODIUM STEAROYL GLUTAMATE, SQUALANE, LEVULINIC ACID, XANTHAN GUM, SODIUM LEVULINATE, ALOE BARBADENSIS LEAF JUICE POWDER, GLYCERYL UNDECYLENATE, CELLULOSE, CITRIC ACID, CELLULOSE GUM, SODIUM BENZOATE, ALPHA-ISOMETHYL IONONE, LIMONENE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-deodorant-roll-on-douceur-monoi-50g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-deodorant-roll-on-douceur-monoi.webp',
     tags: {
       primary: ['hydratation', 'barriere-cutanee', 'apaisant'],
       secondary: ['emollience', 'texture-legere', 'deodorant'],
@@ -122,7 +122,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "AQUA (EAU), AMIDON DE ZEA MAYS (MAÏS), GLYCÉRINE, PENTYLÈNE GLYCOL, CITRATE DE TRIÉTHYLE, STÉARATE D'ÉTHYLHEXYLE, STÉARATE DE GLYCÉRYLE CITRATE, FILTRAT DE FERMENT DE RACINE DE RADIS/LEUCONOSTOC, PARFUM (FRAGRANCE), ZINC PCA, CAPRYLATE DE GLYCÉRYLE, GLUTAMATE DE STÉAROYLE DE SODIUM, SQUALANE, ACIDE LÉVULINIQUE, GOMME XANTHANE, LÉVULINATE DE SODIUM, POUDRE DE JUS DE FEUILLE D'ALOE BARBADENSIS, UNDECYLÉNATE DE GLYCÉRYLE, CELLULOSE, ACIDE CITRIQUE, GOMME DE CELLULOSE, BENZOATE DE SODIUM, COUMARINE, ALPHA-ISOMÉTHYL IONONE",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-deodorant-roll-on-fleur-de-coton-15ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-deodorant-roll-on-fleur-de-coton.webp',
     tags: {
       primary: ['barriere-cutanee', 'apaisant', 'hydratation'],
       secondary: ['emollience', 'texture-legere', 'deodorant'],
@@ -144,7 +144,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, ZEA MAYS STARCH, GLYCERIN, PENTYLENE GLYCOL, TRIETHYL CITRATE, ETHYLHEXYL STEARATE, GLYCERYL STEARATE CITRATE, MICROCRYSTALLINE CELLULOSE, LEUCONOSTOC/RADISH ROOT FERMENT FILTRATE, PARFUM, ZINC PCA, GLYCERYL CAPRYLATE, SODIUM STEAROYL GLUTAMATE, SQUALANE, LEVULINIC ACID, CELLULOSE GUM, XANTHAN GUM, SODIUM LEVULINATE, ALOE BARBADENSIS LEAF JUICE POWDER, GLYCERYL UNDECYLENATE, ALPHA- ISOMETHYL IONONE, COUMARIN',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-deodorant-roll-on-fleur-de-coton-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-deodorant-roll-on-fleur-de-coton-50ml.webp',
     tags: {
       primary: ['hydratation', 'barriere-cutanee', 'apaisant'],
       secondary: ['emollience', 'texture-legere', 'deodorant'],
@@ -172,7 +172,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, ZEA MAYS STARCH, GLYCERIN, PENTYLENE GLYCOL, TRIETHYL CITRATE, ETHYLHEXYL STEARATE, GLYCERYL STEARATE CITRATE, MICROCRYSTALLINE CELLULOSE, LEUCONOSTOC/RADISH ROOT FERMENT FILTRATE, PARFUM, ZINC PCA, GLYCERYL CAPRYLATE, SODIUM STEAROYL GLUTAMATE, SQUALANE, LEVULINIC ACID, CELLULOSE GUM, XANTHAN GUM, SODIUM LEVULINATE, ALOE BARBADENSIS LEAF JUICE POWDER, GLYCERYL UNDECYLENATE, EUGENOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-deodorant-roll-on-fraicheur-d-aloe-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-deodorant-roll-on-fraicheur-d-aloe.webp',
     tags: {
       primary: ['hydratation', 'barriere-cutanee', 'apaisant'],
       secondary: ['emollience', 'texture-legere', 'deodorant'],
@@ -200,7 +200,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS SEED OIL, COCO-CAPRYLATE/CAPRATE, MAGNESIUM OXIDE, STEARYL ALCOHOL, MICROCRYSTALLINE CELLULOSE, TRIETHYL CITRATE, HYDROGENATED CASTOR OIL, PARFUM, XYLITYL SESQUICAPRYLATE, ANHYDROXYLITOL, TOCOPHEROL, EUGENOL, GERANIOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-deodorant-stick-bio-fleur-de-coton-50g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-deodorant-stick-bio-fleur-de-coton.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'deodorant'],
@@ -225,7 +225,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS SEED OIL, COCO-CAPRYLATE/CAPRATE, MAGNESIUM OXIDE, STEARYL ALCOHOL, MICROCRYSTALLINE CELLULOSE, TRIETHYL CITRATE, HYDROGENATED CASTOR OIL, PARFUM, XYLITYL SESQUICAPRYLATE, ANHYDROXYLITOL, TOCOPHEROL, LINALOOL, EUGENOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-deodorant-stick-douceur-monoi-50g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-deodorant-stick-douceur-monoi.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'deodorant'],
@@ -250,7 +250,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS SEED OIL COCO CAPRYLATE CAPRATE MAGNESIUM OXIDE STEARYL ALCOHOL MICROCRYSTALLINE CELLULOSE TRIETHYL CITRATE HYDROGENATED CASTOR OIL PARFUM XYLITYL SESQUICAPRYLATE ANHYDROXYLITOL TOCOPHEROL CITRAL COUMARIN TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-deodorant-stick-embruns-cedre-50g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-deodorant-stick-embruns-cedre.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'deodorant'],
@@ -271,7 +271,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS SEED OIL, COCO-CAPRYLATE/CAPRATE, MAGNESIUM OXIDE, STEARYL ALCOHOL, MICROCRYSTALLINE CELLULOSE, TRIETHYL CITRATE, HYDROGENATED CASTOR OIL, PARFUM, XYLITYL SESQUICAPRYLATE, ANHYDROXYLITOL, TOCOPHEROL, EUGENOL, GERANIOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-deodorant-stick-rose-pivoine-50g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-deodorant-stick-rose-pivoine.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'deodorant'],
@@ -296,7 +296,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS SEED OIL COCOCAPRYLATECAPRATE MAGNESIUM OXIDE STEARYL ALCOHOL MICROCRYSTALLINE CELLULOSE TRIETHYL CITRATE HYDROGENATED CASTOR OIL PARFUM XYLITYL SESQUICAPRYLATE ANHYDROXYLITOL TOCOPHEROL LINALOOL EUGENOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-recharge-deodorant-stick-douceur-monoi-50g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-recharge-deodorant-stick-douceur-monoi.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'deodorant'],
@@ -317,7 +317,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS SEED OIL COCOCAPRYLATECAPRATE MAGNESIUM OXIDE STEARYL ALCOHOL MICROCRYSTALLINE CELLULOSE TRIETHYL CITRATE HYDROGENATED CASTOR OIL PARFUM XYLITYL SESQUICAPRYLATE ANHYDROXYLITOL TOCOPHEROL CITRAL COUMARIN TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-recharge-deodorant-stick-embruns-cedre-50g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-recharge-deodorant-stick-embruns-cedre.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'deodorant'],
@@ -338,7 +338,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS SEED OIL, COCO-CAPRYLATE/CAPRATE, MAGNESIUM OXIDE, STEARYL ALCOHOL, MICROCRYSTALLINE CELLULOSE, TRIETHYL CITRATE, HYDROGENATED CASTOR OIL, PARFUM, XYLITYL SESQUICAPRYLATE, ANHYDROXYLITOL, TOCOPHEROL, EUGENOL, GERANIOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-recharge-deodorant-stick-fleur-de-coton-50g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-recharge-deodorant-stick-fleur-de-coton.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'deodorant'],
@@ -363,7 +363,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS SEED OIL COCOCAPRYLATECAPRATE MAGNESIUM OXIDE STEARYL ALCOHOL MICROCRYSTALLINE CELLULOSE TRIETHYL CITRATE HYDROGENATED CASTOR OIL PARFUM XYLITYL SESQUICAPRYLATE ANHYDROXYLITOL TOCOPHEROL LIMONENE LINALOOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-recharge-deodorant-stick-menthe-eucalyptus-50g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-recharge-deodorant-stick-menthe-eucalyptus.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'deodorant'],
@@ -384,7 +384,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS SEED OIL COCO CAPRYLATE CAPRATE MAGNESIUM OXIDE STEARYL ALCOHOL MICROCRYSTALLINE CELLULOSE TRIETHYL CITRATE HYDROGENATED CASTOR OIL PARFUM XYLITYL SESQUICAPRYLATE ANHYDROXYLITOL TOCOPHEROL GERANIOL LINALOOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-recharge-deodorant-stick-rose-pivoine-50g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-recharge-deodorant-stick-rose-pivoine.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'deodorant'],
@@ -405,7 +405,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'SODIUM OLIVATE, SODIUM COCOATE, AQUA (WATER), SODIUM PALMITATE, SODIUM STEARATE, PARFUM (FRAGRANCE), CAMELINA SATIVA SEED OIL*, LINUM USITATISSIMUM (LINSEED) SEED OIL*, GLYCERIN, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL*, TOCOPHEROL, SODIUM CHLORIDE, TETRASODIUM GLUTAMATE DIACETATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-savon-surgras-poire-sauvage-100g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-savon-surgras-poire-sauvage.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'nettoyant-corps', 'zone-corps'],
@@ -427,7 +427,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), HELIANTHUS ANNUUS HYBRID OIL (HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL), GLYCERIN, COCO-CAPRYLATE/CAPRATE, OLUS OIL (VEGETABLE OIL), BEHENYL ALCOHOL, C12-16 ALCOHOLS, GLYCERYL STEARATE CITRATE, LAUROYL LYSINE, PENTYLENE GLYCOL, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, SODIUM STEAROYL GLUTAMATE, CERAMIDE NP, SODIUM HYALURONATE, PRUNUS ARMENIACA (APRICOT) KERNEL OIL, HYDROGENATED APRICOT KERNEL OIL, PALMITIC ACID, HYDROGENATED LECITHIN, GLYCERYL CAPRYLATE, SODIUM CITRATE, XANTHAN GUM, POLYGLYCERYL-10 STEARATE, TOCOPHEROL, SUCROSE STEARATE, CITRIC ACID, O-CYMEN-5-OL, PARFUM (FRAGRANCE)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-creme-riche-hydratation-intense-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-creme-riche-hydratation-intense.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant'],
       secondary: ['emollience', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -458,7 +458,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), PROPANEDIOL, CAPRYLYL/CAPRYL GLUCOSIDE, ERYTHRITOL, GLYCERIN, SODIUM PCA, SALICYLIC ACID, COCO-GLUCOSIDE, DECYL GLUCOSIDE, XANTHAN GUM,CHLORELLA VULGARIS (CHLORELLA) EXTRACT, SODIUM HYDROXIDE, SODIUM BENZOATE, CITRIC ACID, LACTIC ACID, PARFUM (FRAGRANCE), TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, CI 19140 (YELLOW 5), CI 42090 (BLUE 1)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-gel-nettoyant-purifiant-140ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-gel-nettoyant-purifiant.webp',
     tags: {
       primary: ['anti-acne', 'hydratation'],
       secondary: ['sebo-regulateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -486,7 +486,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), CAPRYLYL/CAPRYL GLUCOSIDE, PROPANEDIOL, ERYTHRITOL, GLYCERIN, COCO-GLUCOSIDE,XANTHAN GUM, DECYL-GLUCOSIDE, LACTOBACILLUS/PUNICA GRANATUM FRUIT FERMENT EXTRACT,LEUCONOSTOC/RADISH ROOT FERMENT FILTRATE, PARFUM (FRAGRANCE), SODIUM HYALURONATE, CITRIC ACID,SODIUM BENZOATE, CERAMIDE NP, HYDROGENATED LECITHIN, SUCROSE STEARATE, POLYGLYCERYL-10 STEARATE, CI 42090 (BLUE 1)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-gelee-active-nettoyante-clear-140ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-gelee-active-nettoyante-clear.webp',
     tags: {
       primary: ['barriere-cutanee', 'microbiome', 'hydratation'],
       secondary: ['emollience', 'creme-hydratante', 'zone-visage'],
@@ -513,7 +513,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS HYBRID OIL*, POLYGLYCERYL-4 OLEATE, CAPRYLIC/CAPRIC TRIGLYCERIDE, RICINUS COMMUNIS (CASTOR) SEED OIL*, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL*, VITIS VINIFERA (GRAPE) SEED OIL*, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, TOCOPHEROL, PARFUM (FRAGRANCE), LINALOOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-huile-demaquillante-bio-150ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-huile-demaquillante-bio.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -535,7 +535,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), KAOLIN, GLYCERIN, BUTYLENE GLYCOL, SODIUM STEARATE, PROPANEDIOL, ILLITE, CI 77007 (ULTRAMARINES), ERYTHRITOL, CUCUMIS SATIVUS (CUCUMBER) FRUIT EXTRACT, CHLORELLA VULGARIS EXTRACT, ALOE BARBADENSIS LEAF JUICE POWDER, MONTMORILLONITE, GELLAN GUM, MENTHYL LACTATE, SODIUM HYDROXIDE, LACTIC ACID, CI 77492 (IRON OXIDES), PARFUM (FRAGRANCE), TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-masque-stick-peau-nette-50g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-masque-stick-peau-nette.webp',
     tags: {
       primary: ['hydratation', 'apaisant'],
       secondary: ['masque-hebdo', 'zone-visage'],
@@ -564,7 +564,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), GLYCERIN, CAPRYLIC/CAPRIC TRIGLYCERIDE, TRICAPRYLIN, ISOSORBIDE DICAPRYLATE, TRIHEPTANOIN, SORBITOL, XYLITYLGLUCOSIDE, GLYCERYL CITRATE/LACTATE/LINOLEATE/OLEATE, SODIUM HYALURONATE, CERAMIDE NG, CERAMIDE AP, CERAMIDE EOP, CERAMIDE NP, GLYCOGEN, LIMNANTHES ALBA SEED OIL, ANHYDROXYLITOL, HYDROGENATED LECITHIN, PHYTOSTEROLS, CETYL PHOSPHATE, MICROCRYSTALLINE CELLULOSE, ARGININE, XYLITOL, CETYL ALCOHOL, HYDROLYZED JOJOBA ESTERS, CELLULOSE GUM, SUCCINOGLYCAN, GLUCOSE, TOCOPHERYL ACETATE, HEXYLDECANOL, CITRIC ACID, SODIUM BENZOATE, POTASSIUM SORBATE, PARFUM (FRAGRANCE)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-serum-booster-hydratation-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-serum-booster-hydratation.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant'],
       secondary: ['emollience', 'serum', 'traitement', 'zone-visage'],
@@ -595,7 +595,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), COCO-CAPRYLATE/CAPRATE, NIACINAMIDE, ARGININE, BUTYLENE GLYCOL, PENTYLENE GLYCOL, BAMBUSA ARUNDINACEA STEM EXTRACT, SALICYLIC ACID, ZINC PCA, INULIN, SUCCINOGLYCAN, STARCH ACETATE, HYDROXYACETOPHENONE, SODIUM STEAROYL GLUTAMATE, HYDROXYETHYLCELLULOSE, XANTHAN GUM, CITRIC ACID, CI 77288 (CHROMIUM OXIDE GREENS), PARFUM (FRAGRANCE), TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-serum-concentre-purifiant-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-serum-concentre-purifiant.webp',
     tags: {
       primary: ['pores-dilates', 'anti-acne', 'barriere-cutanee'],
       secondary: ['sebo-regulateur', 'serum', 'traitement', 'zone-visage'],
@@ -622,7 +622,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'GLYCERYL STEARATE, PROPYLENE GLYCOL, SODIUM COCOYL ISETHIONATE, AQUA (WATER), GLYCERIN, POLYGLYCERYL-4 LAURATE, POLYGLYCERYL-6 LAURATE, ARACHIDYL ALCOHOL, DECYL GLUCOSIDE, CALCIUM CARBONATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX, BEHENYL ALCOHOL, PARFUM (FRAGRANCE), ARACHIDYL GLUCOSIDE, CORYLUS AVELLANA (HAZELNUT) SEED OIL, KAOLIN, BUTYROSPERMUM PARKII (SHEA) BUTTER*, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, TOCOPHEROL, EUGENOL, GERANIOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-soin-nettoyant-visage-stick-50g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-soin-nettoyant-visage-stick.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -649,7 +649,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERIN, COCO CAPRYLATE/ CAPRATE, PORPHYRIDIUM CRUENTUM EXTRACT, PRUNUS AMYGDALUS DULCIS OIL, SEA WATER EXTRACT, ALOE BARBADENSIS LEAF JUICE POWDER, XANTHAN GUM, CAPRYLYL GLYCOL, PROPANEDIOL, 1,2 HEXANEDIOL, PARFUM, SODIUM POLYACRYLATE, TROPOLONE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-apres-soleil-naturel-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-apres-soleil-naturel.webp',
     tags: {
       primary: ['hydratation', 'apaisant'],
       secondary: [],
@@ -675,7 +675,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), DICAPRYLYL CARBONATE, PROPANEDIOL DICAPRYLATE, GLYCERIN, COCO-CAPRYLATE/CAPRATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ETHYLHEXYL TRIAZONE, POTASSIUM CETYL PHOSPHATE, SILICA, DIETHYLHEXYL BUTAMIDO TRIAZONE, POLYGLYCERYL-3 STEARATE/SEBACATE CROSSPOLYMER, TOCOPHEROL, 1,2-HEPTANEDIOL, HYDROXYACETOPHENONE, PONGAMIA PINNATA SEED EXTRACT, XANTHAN GUM, HYDROLYZED HYALURONIC ACID, SODIUM HYALURONATE, HYDROGENATED LECITHIN, CERAMIDE NP, CERAMIDE NG, CERAMIDE AP, HYDROLYZED SODIUM HYALURONATE, PHYTOSTEROLS, HEXYLDECANOL, CERAMIDE EOP, LIMNANTHES ALBA SEED OIL, 1,2-HEXANEDIOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, BIOSACCHARIDE GUM-4, CITRIC ACID, SODIUM HYDROXIDE, PARFUM (FRAGRANCE)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-fluide-hydratation-intense-spf30-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-fluide-hydratation-intense-spf30.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'repulpant', 'protection-solaire'],
       secondary: ['reparateur', 'emollience', 'creme-solaire', 'matin', 'zone-visage'],
@@ -706,7 +706,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'ISOAMYL LAURATE, TRIHEPTANOIN, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, SILICA, HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX, ARACHIDYL ALCOHOL, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ETHYLHEXYL TRIAZONE, DIETHYLHEXYL BUTAMIDO TRIAZONE, HYDROGENATED CASTOR OIL, BEHENYL ALCOHOL, C10-18 TRIGLYCERIDES, ARACHIDYL GLUCOSIDE, MICROCRYSTALLINE CELLULOSE, PARFUM (FRAGRANCE), PHAEODACTYLUM TRICORNUTUM EXTRACT, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, TOCOPHEROL, LINALOOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-stick-solaire-anti-taches-spf50-15g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-stick-solaire-anti-taches-spf50.webp',
     tags: {
       primary: ['anti-oxydant', 'anti-taches', 'hyperpigmentation', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],

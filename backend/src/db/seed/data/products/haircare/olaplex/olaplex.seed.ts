@@ -15,8 +15,7 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
     notes: 'Pré-traitement intensif — utiliser avant N°3',
     inci: 'Eau (Aqua), Bis-Aminopropyl Diglycol Dimaleate, Benzoate de sodium, Phénoxyéthanol',
     url: 'https://www.atida.fr/olaplex-n-0-soin-intense-bond-building-155ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/47f1a857-3a35-4da4-8262-346c3ac304af/Olaplex-N-0-Soin-Intense-Bond-Building-155ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/olaplex-n0-soin-intense-bond-building-155ml.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
@@ -42,8 +41,7 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
     notes: 'Traitement bond repair pré-shampoing, pose 10–30 min',
     inci: "Water (aqua/eau), dimaléate de bis-aminopropyl diglycol, propylène glycol, alcool cétéarylique, méthosulfate de béhentrimonium, phénoxyéthanol, alcool cétylique, glycérine, hydroxyéthyl éthylcellulose, stéaramidopropyl diméthylamine, quaternium-91, benzoate de sodium, cétrimonium méthosulfate, parfum), tetrasodium edta, polyquaternium-37, benzoate de benzyle, acide étidronique, acide ascorbique, phytantriol, acétate de tocophéryle, jus de feuille d'aloe barbadensis, panthénol, huile de graines de simmondsia chinensis (jojoba), acide citrique, sorbate de potassium.",
     url: 'https://www.atida.fr/oiaplex-n-3-soin-perfecteur-100ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/212daf7c-a37c-42ad-ab26-758acb36f944/OIaplex-N-3-Soin-Perfecteur-100ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/olaplex-n3-soin-perfecteur-100ml.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
@@ -74,8 +72,7 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
     notes: 'Grand format N°3 — INCI non renseigné',
     inci: '',
     url: 'https://www.atida.fr/olaplex-hair-perfector-n-3-250ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/adb9d881-f13a-4997-a9dd-1ae4023bfb6c/Olaplex-Hair-Perfector-N-3-250ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/olaplex-n3-hair-perfector-250ml.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
@@ -101,8 +98,7 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Water, cetearyl alcohol, ppg-3 benzyl ether myristate, caprylic/capric triglyceride, cetyl alcohol, octyldodecyl ricinoleate, quaternium-91, cetrimonium chloride, divinyldimethicone/dimethicone copolymer, behentrimonium chloride, glycerin, cetyl esters, isododecane, bis-aminopropyl diglycol dimaleate, fragrance, panthenol, phospholipids, dimethicone peg-7 isostearate, pseudozyma epicola/argania spinosa kernel oil ferment filtrate, pseudozyma epicola/camellia sinensis seed oil ferment extract filtrate, tocopheryl linoleate/oleate, quaternium-95, propanediol, punica granatum extract, morinda citrifolia fruit extract, peg-8, euterpe oleracea fruit extract, camellia sinensis seed oil, crambe abyssinica seed oil, hydroxypropyl cyclodextrin, persea gratissima (avocado) oil, vitis vinifera (grape) seed oil, disodium edta, polysilicone-15, c11-15 pareth-7, hydroxypropyl guar, glycine soja (soybean) oil, peg-45m, peg-7 amodimethicone, amodimethicone, c12-13 pareth-23, c12-13 pareth-3, laureth-9, pentaerythrityl tetra-di-t-butyl hydroxyhydrocinnamate, peg-4, phenoxyethanol, hexyl cinnamal.',
     url: 'https://www.atida.fr/oiaplex-n-4-shampoing-250ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/e702ec47-5519-4931-889a-931bf85821fd/OIaplex-N-4-Shampoing-250ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/olaplex-n4-shampoing-250ml.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -134,8 +130,7 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
     notes: 'Shampoing violet anti-jaunissement + bond repair',
     inci: 'Water (Aqua), Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Betaine, Glycerin, Sodium Cocoamphoacetate, Sodium Chloride, Acrylates Copolymer, Betaine, Phenoxyethanol, Fragrance (Parfum), Polyquaternium-7, Guar Hydroxypropyltrimonium Chloride, Ethylhexylglycerin, BIS-AMINOPROPYL DIGLYCOL DIMALEATE, Hexyl Cinnamal, Limonene, Citric Acid, Sodium Benzoate, Acid Violet 43 (Cl 60730)',
     url: 'https://www.atida.fr/olaplex-n-4p-shampooing-blonde-enhancer-250ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/459b040e-a392-4029-a57a-90bb22a3ecb7/Olaplex-N-4P-Shampooing-Blonde-Enhancer-250ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/olaplex-n4p-shampoing-blonde-enhancer-250ml.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -162,8 +157,7 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Water(aqua), cetearyl alcohol, ppg-3 benzyl ether myristate, caprylic/capric triglyceride, cethyl alcohol, octyldodecyl ricinoleate, quaternium-91, cetrimonium chloride, divinyldimethicone/dimethicone copolymer, behentrimonium chloride, glycerin, cetyl esters, isododecane, bis-aminopropyl diglycol dimaleate, fragrance(parfum), panthenol, phospholipids, dimethicone peg-7, isostearate, pseudozyma epicola/argania, spinosa kernel oil ferment filtrate, pseudozyma epicola/camellia sinensis seed oil/glucose/yeast extract ferment filtrate, tocopheryl linoleate/oleate, helianthusanuu(sunflower) seed oil, quaternium-95, propanediol, heliantus anuus(sunflower) seed extract, punica granatum extract, morinda citrifolia fruit extract, peg-8, euterpe oleracea fruit extract, camellia sinensis seed oil, crambe abyssinica seed oil, hydroxypropyl, cyclodextrin, persea gratissima(avocado) oil, vitis vinifera(grape) seed oil, disodium edta, polysillicone-15, c11-15 pareth-7, hydroxypropyl guar, peg-45m, peg-7, amodimethicone, amodimethicone, c12-13 pareth-23, c12-13 pareth-3, laureth-9, pentaerythrityl tetra-di--butyl hydroxyhydrocinnamate, peg-4, phenoxyethanol, hexyl cinnamal, limonene, trideceth-12, butylene glycol, citral, potassium sorbate, lodopropynyl butylcarbamate silica, citronellol, acetic acid, etidronic acid, sodium acetate, chlorphenesin, propylene glycol, peg-4 dilaurate, peg-4 laurate, bht, sodium dehydroacetate, peg-8/smdi copolymer, palmitoyl myristyl serinate, sodium polyacrylate, ahnfeltiopsis concinna extract, sodium benzoate, citric acid, tocopherol, hydrolyzed hyaluronic acid, biotin.',
     url: 'https://www.atida.fr/oiaplex-n-5-apres-shampoing-250ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/336d6c5f-42fc-464b-8444-c63ac4816016/OIaplex-N-5-Apres-Shampoing-250ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/olaplex-n5-apres-shampoing-250ml.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],
@@ -198,8 +192,7 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Eau, alcool cétéarylique, diméthicone, isohexadécane, coco-caprylate, neopentyl glycol diheptanoate, chlorure de béhentrimonium, isododécane, phényl triméthicone, propanédiol, bis-aminopropyl diglycol dimaleate, parfum, chlorure de cétrimonium, phénoxyéthanol, glycéryl stéarate, alcool isopropylique, hydroxyéthylcellulose, hydroxypropyl guar, sodium stearoyl lactylate, hydroxypropyl cyclodextrine, hexyl cinnamal, limonène, citral, protéine végétale hydrolysée pg-propyl silanetriol, disodium edta, linalol, citronellol, iodopropynyl butylcarbamate, hydroxycitronellal, acide étidronique, tocophérol, géraniol, sorbate de potassium, huile de graines d'helianthus annuus (tournesol), phytantriol, benzoate de sodium, pseudozyma epicola/extrait de ferment d'huile de graines de camellia sinensis, filtrat de tocophéryl acétate, huile de graines de vitis vinifera (raisin), jus de feuilles d'aloe barbadensis, panthénol, acide citrique extrait de gigartina stellata, extrait de chondrus crispus (carraghénane), acide ascorbique, huile de cocos nucifera (noix de coco).",
     url: 'https://www.atida.fr/oiaplex-n-6-creme-coiffante-soin-bond-smoother-100ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/1f0f88c6-1a2d-4689-b559-a779991d71ac/OIaplex-N-6-Creme-Coiffante-Soin-Bond-Smoother-100ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/olaplex-n6-bond-smoother-100ml.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.CREME_COIFFANTE],
       secondary: [],
@@ -230,8 +223,7 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Dimethicone, isohexadecane, c13-14 isoparaffin, coco-caprylate, phenyl trimethicone, bis-aminopropyl diglycol dimaleate, propanediol, zea mays (corn) oil, beta-carotene, helianthus annuus (tournesol) oil seed oil, moringa oleifera seed oil, punica granatum seed oil, water (aqua, eau), morinda citrifolia fruit powder, fragrance (parfum), hexyl cinnamal, éclipta prostrata extract, éthylhexyl méthoxycinnamate, limonène, tocophérol, citral, linalol, melia azadirachta leaf extract, citronnellol, pseudozyma epicola/camellia sinenssis seed oil ferment extract filtrate.',
     url: 'https://www.atida.fr/oiaplex-n-7-huile-concentree-30ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/d8159f75-f650-4afd-a3d3-bce58119450e/OIaplex-N-7-Bonding-Oil-Huile-Concentree-30ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/olaplex-n7-huile-concentree-30ml.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.HUILE_CAPILLAIRE],
       secondary: [],
@@ -260,8 +252,7 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Water (aqua/eau), dimethicone, cetyl alcohol, persea gratissima (avocado) oil, glycerin, stearyl alcohol, ethylhexyl olivate, behentrimonium chloride, cetrimonium bromide, limnanthes alba (meadowfoam) seed oil, oryza saliva (rice) bran oil, quaterniurn-80, sodium hyaluronate, sodium pca, ceramide ap, ceramide np, bis-aminopropyl diglycol dimaleate, cannabis saliva (hemp) seed oil, rosa ganina (rose hip) seed extract, hydrolyzed jojoba esters, arginine, jojoba esters, panthenol, squalane, carthamus tinctorius (safflower) seed oil, glycine, alanine, serine, valine, lsoleucine, praline, threonine, guar hydroxypropyltrimonium chloride, histidine, hydroxyethylcellulose, phenylalanine, aspartic acid, pca, phosphatidylcholine, citric acid, sodium lactate, ethylhexylglycerin, sodium benzoate, phenoxyethanol, bis-cetearyl amodimethicone, propylene glycol, lsopropyl alcohol, sodium nitrate, tocopherol, fragrance (parfum), citral, hexyl cinnamal, limonene.',
     url: 'https://www.atida.fr/olaplex-masque-reparateur-4en1-370ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/617b1e3a-070f-40d7-807a-147092f528da/Olaplex-Masque-Hydratant-4-en-1-370ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/olaplex-masque-hydratant-4-en-1-370ml.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_CAPILLAIRE],
       secondary: [],
@@ -304,8 +295,7 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Water (Aqua/Eau), Propanediol, Betaine, Quaternium-22, Sodium Hyaluronate, Bis-Aminopropyl Diglycol Dimaleate, Cetrimonium Chloride, Panthenol, Hydroxyethylcellulose, PVP, Guar Hydroxypropyltrimonium Chloride, Furcellaria Lumbricalis Extract, Pelvetia Canaliculata Extract, Xylitylglucoside, Polyquaternium-44, Anhydroxylitol, Maltitol, Citric Acid, Trisodium Ethylenediamine Disuccinate, Xylitol, Sorbic Acid, Phenoxyethanol, Ethylhexylglycerin, Sodium Benzoate, Fragrance (Parfum), Citral, Citronellol, Hexyl Cinnamal, Limonene, Linalool.',
     url: 'https://www.atida.fr/olaplex-n-9-serum-capillaire-nourrissant-bond-protector-90ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/dcece7eb-e7ea-4d53-b3d0-2b77951c040d/Olaplex-N-9-Serum-Capillaire-Nourrissant-Bond-Protector-90ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/olaplex-n9-serum-capillaire-bond-protector-90ml.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],

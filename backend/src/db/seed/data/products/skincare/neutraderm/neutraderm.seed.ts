@@ -16,8 +16,7 @@ export const NEUTRADERM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water) / eau, oligoactive water(3), sodium laureth sulfate, glycerin, parfum (fragrance), peg-7 glyceryl cocoate, disodium laureth sulfosuccinate, cocamidopropyl betaine, laureth-2, panthenol, prunus amygdalus dulcis (sweet almond) oil, propylene glycol, tocopherol, olea europaea (olive) leaf extract, hydrogenated palm glycerides citrate, coco-glucoside, glyceryl oleate, peg-120 methyl glucose dioleate, peg-6, sodium chloride, tetrasodium glutamate diacetate, citric acid, sodium benzoate, potassium sorbate, caramel.',
     url: 'https://www.atida.fr/neutraderm-gel-douche-surgras-dermo-protecteur-1l.html',
-    imageUrl:
-      'https://assets.atida.com/transform/14fc81c2-c67b-43d4-9ad3-e38c775b0c88/EAN_IMG_FR_3273816860152_1?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/neutraderm-gel-douche-surgras-dermo-protecteur-1l-301370.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -44,7 +43,7 @@ export const NEUTRADERM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER)/EAU, OLIGOACTIVE WATER (MARIS AQUA (SEA WATER)/EAU DE MER), GLYCERIN, SODIUM LAURETH SULFATE, SODIUM LAUROYL SARCOSINATE, PHENYLPROPANOL, GLYCERYL OLEATE, OLEA EUROPAEA (OLIVE) LEAF EXTRACT, COCO-GLUCOSIDE, COPPER SULFATE, HYDROXYETHYLCELLULOSE, DISODIUM PHOSPHATE, POLYSORBATE 60, SODIUM PHOSPHATE, HYDROXYPROPYL GUAR, TOCOPHEROL, PARFUM (FRAGRANCE), HYDROGENATED PALM GLYCERIDES CITRATE, PROPYLENE GLYCOL, DISODIUM EDTA, CITRIC ACID, SODIUM BENZOATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/neutraderm/neutraderm-gel-douche-micellaire-dermo-apaisant1l.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/neutraderm-gel-douche-micellaire-dermo-apaisant1l.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'apaisant'],
       secondary: ['reparateur', 'nettoyant-corps', 'zone-corps'],
@@ -66,7 +65,7 @@ export const NEUTRADERM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER)/EAU, OLIGOACTIVE WATER, GLYCERIN, MAGNESIUM LAURETH SULFATE, COCAMIDOPROPYL BETAINE, DECYL GLUCOSIDE, COCO-GLUCOSIDE, GLYCERYL OLEATE, POLYACRYLATE CROSSPOLYMER-6, OLEA EUROPAEA (OLIVE) FRUIT OIL, LECITHIN, XANTHAN GUM, POLYGLYCERYL-3 DIISOSTEARATE, TOCOPHEROL, CINNAMIC ACID, GLYCERYL CAPRYLATE, GLYCERYL STEARATE, LEVULINIC ACID, SODIUM LEVULINATE, SODIUM PHYTATE, HYDROGENATED PALM GLYCERIDES CITRATE, PEG-120 METHYL GLUCOSE DIOLEATE, STYRENE/ACRYLATES COPOLYMER, PHENETHYL ALCOHOL, CITRIC ACID, SODIUM HYDROXIDE, TETRASODIUM GLUTAMATE DIACETATE, SODIUM BENZOATE, BENZOIC ACID, POTASSIUM SORBATE',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-produits/bain-et-douche/gel-douche/neutraderm-relipid-creme-de-douche-200-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/neutraderm-relipid-creme-de-douche.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'nettoyant-corps', 'zone-corps'],
@@ -88,7 +87,7 @@ export const NEUTRADERM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER)/EAU, OLIGOACTIVE WATER, GLYCERIN, MAGNESIUM LAURETH SULFATE, COCAMIDOPROPYL BETAINE, DECYL GLUCOSIDE, COCO-GLUCOSIDE, GLYCERYL OLEATE, POLYACRYLATE CROSSPOLYMER-6, OLEA EUROPAEA (OLIVE) FRUIT OIL, LECITHIN, XANTHAN GUM, POLYGLYCERYL-3 DIISOSTEARATE, TOCOPHEROL, CINNAMIC ACID, GLYCERYL CAPRYLATE, GLYCERYL STEARATE, LEVULINIC ACID, SODIUM LEVULINATE, SODIUM PHYTATE, HYDROGENATED PALM GLYCERIDES CITRATE, PEG-120 METHYL GLUCOSE DIOLEATE, STYRENE/ACRYLATES COPOLYMER, PHENETHYL ALCOHOL, CITRIC ACID, SODIUM HYDROXIDE, TETRASODIUM GLUTAMATE DIACETATE, SODIUM BENZOATE, BENZOIC ACID, POTASSIUM SORBATE',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-produits/bain-et-douche/neutraderm-creme-douche-relipidante-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/neutraderm-creme-douche-relipidante.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'nettoyant-corps', 'zone-corps'],
@@ -110,7 +109,7 @@ export const NEUTRADERM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'OLIGO ACTIVE WATER*, AQUA (WATER) / EAU. *MARIS AQUA (SEA WATER) / EAU DE MER',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/neutraderm/neutraderm-brume-d-eau-soin-apaisant-300ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/neutraderm-brume-d-eau-soin-apaisant.webp',
     tags: {
       primary: ['apaisant'],
       secondary: ['brume', 'preparation', 'zone-visage'],
@@ -131,7 +130,7 @@ export const NEUTRADERM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER/EAU, OLIGOACTIVE WATER*, COCAMIDOPROPYL BETAINE, GLYCERIN, MAGNESIUM LAURETH SULFATE, COCO-GLUCOSIDE, GLYCERYL OLEATE, CAPRYLYL/CAPRYL GLUCOSIDE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, ALPHA-GLUCAN OLIGOSACCHARIDE, OLEA EUROPAEA (OLIVE) LEAF EXTRACT, ALLANTOIN, POLYQUATERNIUM-10, TOCOPHEROL, HYDROGENATED PALM GLYCERIDES CITRATE, PROPYLENE GLYCOL, PARFUM (FRAGRANCE), CAPRYLYL GLYCOL, TETRASODIUM GLUTAMATE DIACETATE, SODIUM HYDROXIDE, CITRIC ACID, BENZOIC ACID, SODIUM BENZOATE.* EAU DE MER / MARIS AQUA (SEA WATER)',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/par-soins/soins-nettoyants/douche-et-bain/neutraderm-baby-gel-nettoyant-400-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/neutraderm-baby-gel-nettoyant.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -156,7 +155,7 @@ export const NEUTRADERM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'OLIGOACTIVE WATER, AQUA (WATER)/EAU, CAPRYLIC/CAPRIC TRIGLYCERIDE, PROPANEDIOL, C10-18 TRYGLYCERIDES, CETEARETH-20, GLYCERIN, PENTYLENE GLYCOL, POLYARYLATE CROSSPOLYMER-6, OLEYL ERUCATE, BUTYROSPERMUM PARKI (SHEA) BUTTER, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, SACCHARIDE ISOMERATE, ALPHA-GLUCAN OLIGOSACCHARIDE, OLEA EUROPAEA (OLIVE) LEAF EXTRACT, PARFUM (FRAGRANCE), GLYCINE SOJA (SOYBEAN) OIL, SQUALANE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYDIMETHYL TAURATE COPOLYMER, XANTHAN GUM, POLYSORBATE 60, TOCOPHEROL, SORBITAN ISOSTEARATE, SODIUM CITRATE, PROPYLENE GLYCOL, CAPRYLYL GLYCOL, ETHYLHEXYLGLYCERIN, TETRASODIUM GLUTAMATE DIACETATE, CITRIC ACID, O-CYMEN-5-OL',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/par-soins/soins-nettoyants/soins-visage/neutraderm-baby-creme-hydratante-100-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/neutraderm-baby-creme-hydratante.webp',
     tags: {
       primary: ['hydratation', 'barriere-cutanee', 'anti-oxydant'],
       secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -185,37 +184,7 @@ export const NEUTRADERM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'OLIGOACTIVE WATER*, AQUA (WATER), CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, RICINUS COMMUNIS (CASTOR) SEED OIL, PROPANEDIOL, BEHENYL ALCOHOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, COCOS NUCIFERA (COCONUT) OIL, DIMETHICONE, PENTYLENE GLYCOL, GLYCERYL STEARATE, PEG-100 STEARATE, POLYACRYLATE CROSSPOLYMER-6, PEG-20 METHYL GLUCOSE SESQUISTEARATE, SACCHARIDE ISOMERATE, ALPHA-GLUCAN OLIGOSACCHARIDE, OLEA EUROPEA (OLIVE) LEAF EXTRACT, COPERNICIA CERIFERA (CARNAUBA) WAX, TOCOPHEROL, GLYCINE SOJA (SOYBEAN) OIL, ALLANTOIN, XANTHAN GUM, HYDROGENATED CASTOR OIL, STREARIC ACID, PROPYLENE GLYCOL, ETHYLHEXYLGLYCERIN, PHENYLPROPANOL, TETRASODIUM GLUTAMATE DIACETATE, SODIUM CITRATE, CITRIC ACID, O-CYMEN-5-OL',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-soins/hydratants-corps/laits-et-cremes/neutraderm-relipid-baume-200-ml.html',
-    imageUrl: '',
-    tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
-      avoid: [],
-    },
-    keyIngredients: [
-      { slug: INGREDIENT_SLUGS.HUILE_DE_RICIN },
-      { slug: INGREDIENT_SLUGS.PROPANEDIOL },
-      { slug: INGREDIENT_SLUGS.SHEA_BUTTER },
-      { slug: INGREDIENT_SLUGS.HUILE_DE_COCO },
-      { slug: INGREDIENT_SLUGS.ALPHA_GLUCAN_OLIGOSACCHARIDE },
-      { slug: INGREDIENT_SLUGS.ALLANTOIN },
-      { slug: INGREDIENT_SLUGS.SODIUM_CITRATE },
-    ],
-  },
-  {
-    slug: 'neutraderm-relipid-baume-400ml',
-    name: 'Relipid+ Baume',
-    brand: 'Neutraderm',
-    kind: 'moisturizer',
-    unit: 'bottle',
-    totalAmount: 400,
-    amountUnit: 'ml',
-    priceCents: 1343,
-    description:
-      'Le Baume relipidant Relipid+ NEUTRADERM discount des laboratoires GILBERT, L’expertise au meilleur prix dans un soin haute-tolérance dans votre parapharmacie en ligne à prix discount, pour soulager les peaux sensibles très sèches à tendance atopique et aux démangeaisons du visage et du corps des nourrissons aux adultes.\n\nDepuis plus d’un siècle, Les laboratoires GILBERT développent un large choix de produits destiné à la santé et au bien-être de la famille, avec un souci constant d’innovation, de qualité, d’efficacité et de sécurité au meilleur prix pour tous. La gamme NEUTRADERM propose des soins spécialement conçus pour l’hygiène des peaux fragiles et délicates. Le Baume relipidant Relipid+  NEUTRADERM sans huile minérale, sans parfum, répare, nourrit, hydrate et protège le film protecteur de la peau pour lutter contre les agressions extérieures qui la dessèchent, apaise des démangeaisons et des inflammations pour éviter le grattage grâce à son actif breveté le complexe Active Oligo-Skin qui est une innovation des laboratoires NEUTRADERM, à l’allantoïne ainsi qu’au prébiotique. Le complexe AcriveOligo-Skin issu de la mer d’Iroise est hautement concentré en minéraux et oligo-éléments pour agir sur la restructuration, la reminéralisation en préservant l’équilibre du microbiome de la peau, et l’apaisement. Rapidement, les démangeaisons et la sècheresse diminuent pour retrouver confort et douceur.',
-    notes: '',
-    inci: 'OLIGOACTIVE WATER*, AQUA (WATER), CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, RICINUS COMMUNIS (CASTOR) SEED OIL, PROPANEDIOL, BEHENYL ALCOHOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, COCOS NUCIFERA (COCONUT) OIL, DIMETHICONE, PENTYLENE GLYCOL, GLYCERYL STEARATE, PEG-100 STEARATE, POLYACRYLATE CROSSPOLYMER-6, PEG-20 METHYL GLUCOSE SESQUISTEARATE, SACCHARIDE ISOMERATE, ALPHA-GLUCAN OLIGOSACCHARIDE, OLEA EUROPEA (OLIVE) LEAF EXTRACT, COPERNICIA CERIFERA (CARNAUBA) WAX, TOCOPHEROL, GLYCINE SOJA (SOYBEAN) OIL, ALLANTOIN, XANTHAN GUM, HYDROGENATED CASTOR OIL, STREARIC ACID, PROPYLENE GLYCOL, ETHYLHEXYLGLYCERIN, PHENYLPROPANOL, TETRASODIUM GLUTAMATE DIACETATE, SODIUM CITRATE, CITRIC ACID, O-CYMEN-5-OL',
-    url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-soins/hydratants-corps/laits-et-cremes/neutraderm-relipid-baume-400-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/neutraderm-relipid-baume.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'anti-oxydant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],

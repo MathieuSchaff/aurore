@@ -16,7 +16,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, STEARYL HEPTANOATE, BUTYROSPERMUM PARKII (SHEA) BUTTER, CETYL ALCOHOL, COCO-CAPRYLATE/CAPRATE, BUTYLENE GLYCOL, DIMETHICONE, ISOSTEARYL ALCOHOL, BEHENYL ALCOHOL, SQUALANE, STEARYL CAPRYLATE, BUTYLENE GLYCOL COCOATE, CAPRYLYL GLYCOL, CARBOMER, PARFUM / FRAGRANCE, ZINGIBER ZERUMBET EXTRACT, CARRAGEENAN / CHONDRUS CRISPUS EXTRACT, SODIUM BENZOATE, ETHYLCELLULOSE, MICA, CI 77891 / TITANIUM DIOXIDE, GLYCERIN, SODIUM HYALURONATE, TOCOPHEROL, BIOSACCHARIDE GUM-1, SODIUM HYDROXIDE, SODIUM LEVULINATE, GLYCERYL CAPRYLATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, GLYCERYL LINOLEATE, SUCROSE PALMITATE, SODIUM ANISATE, 1553B',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-arkeskin-lait-corps-menopause-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-arkeskin-lait-corps-menopause.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant'],
       secondary: ['emollience', 'texture-legere', 'reparateur', 'lait-corps', 'zone-corps'],
@@ -45,7 +45,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, ALUMINUM SESQUICHLOROHYDRATE, GLYCERIN, PPG-15 STEARYL ETHER, STEARETH-2, PARFUM/FRAGRANCE, STEARETH-21, TRIETHYL CITRATE, OLEYL ALCOHOL, ZANTHOXYLUM BUNGEANUM FRUIT EXTRACT, MALTODEXTRIN, TULIPA GESNERIANA FLOWER EXTRACT, HYDROGENATED PALM GLYCERIDES CITRATE, TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-homme-deodorant-anti-transpirant-48h-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-homme-deodorant-anti-transpirant-48h.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'deodorant'],
@@ -67,7 +67,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, DECYL GLUCOSID, GLYCERIN, SODIUM METHYL COCOYL TAURATE, PARFUM/FRAGRANCE, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, SODIUM CHLORIDE, CITRIC ACID, COCONUT ACID, SODIUM BENZOATE, ACACIA CONCINNA FRUIT EXTRACT, COCO-GLUCOSIDE, GLYCERYL OLEATE, MALTODEXTRIN, GYPSOPHILA PANICULATA ROOT EXTRACT, TULIPA GESNERIANA FLOWER EXTRACT, SAPONINS, POTASSIUM SORBATE, SORBIC ACID, TOCOPHEROL, HYDROGENATED VEGETABLE GLYCERIDES CITRATE, 1591A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-homme-gel-douche-integral-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-homme-gel-douche-integral.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'nettoyant-corps', 'zone-corps'],
@@ -88,7 +88,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, MACADAMIA TERNIFOLIA SEED OIL, COCO-CAPRYLATE/CAPRATE, PERSEA GRATISSIMA (AVOCADO) OIL, OLEYL ALCOHOL, PARFUM / FRAGRANCE, TOCOPHEROL, BISABOLOL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, DIOLEYL TOCOPHERYL METHYLSILANOL, 4146A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-phytolastil-l-huile-de-massage-100ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-phytolastil-l-huile-de-massage.webp',
     tags: {
       primary: ['apaisant', 'anti-oxydant'],
       secondary: ['reparateur', 'huile-corps', 'zone-corps'],
@@ -115,7 +115,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, ALCOHOL DENAT., LACTIC ACID, PROPANEDIOL, SODIUM CITRATE, GLYCOLIC ACID, ZINC GLUCONATE, GLYCERIN, PEG-40 HYDROGENATED CASTOR OIL, PARFUM / FRAGRANCE, SALICYLIC ACID, 1331A-1',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-acide-salicyclique-pur-le-peeling-100ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-acide-salicyclique-pur-le-peeling.webp',
     tags: {
       primary: ['exfoliation', 'anti-acne', 'hydratation'],
       secondary: ['keratolytique', 'sebo-regulateur', 'zone-visage', 'exfoliant-chimique'],
@@ -144,7 +144,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'ALCOHOL DENAT., AQUA / WATER / EAU, ZINC OXIDE, CALAMINE, TALC, GLYCERIN, PROPANEDIOL, CI 77891 / TITANIUM DIOXIDE, ZINC GLUCONATE, CAMPHOR, POTASSIUM AZELOYL DIGLYCINATE, SALICYLIC ACID, MENTHOL, 4125A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-acide-salicyclique-pur-stop-boutons-15ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-acide-salicyclique-pur-stop-boutons.webp',
     tags: {
       primary: ['anti-acne', 'apaisant', 'hydratation'],
       secondary: ['sebo-regulateur', 'spot-treatment', 'soin-localise', 'zone-visage'],
@@ -171,7 +171,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, SQUALANE, GLYCERIN, BEHENYL ALCOHOL, NEOPENTYL GLYCOL DIHEPTANOATE, BUTYROSPERMUM PARKII (SHEA) BUTTER, HEXYLDECANOL, HEXYLDECYL LAURATE, CETYL STEARATE, CETYL ALCOHOL, ISOSTEARYL ISOSTEARATE, POTASSIUM CETYL PHOSPHATE, BUTYLENE GLYCOL, CARRAGEENAN / CHONDRUS CRISPUS EXTRACT, LECITHIN, PARFUM / FRAGRANCE, SODIUM POLYACRYLATE, SODIUM BENZOATE, CITRIC ACID, SODIUM HYALURONATE, XANTHAN GUM, STEARIC ACID, SODIUM PHOSPHATE, THEOBROMA CACAO (COCOA) SEED EXTRACT, CAPRYLYL GLYCOL, NONAPEPTIDE-1, DISODIUM PHOSPHATE, 1552B',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-arkeskin-creme-jour-menopause-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-arkeskin-creme-jour-menopause.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation'],
       secondary: ['emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
@@ -198,7 +198,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, SQUALANE, GLYCERIN, BEHENYL ALCOHOL, NEOPENTYL GLYCOL DIHEPTANOATE, BUTYROSPERMUM PARKII (SHEA) BUTTER, HEXYLDECANOL, HEXYLDECYL LAURATE, CETYL STEARATE, CETYL ALCOHOL, ISOSTEARYL ISOSTEARATE, POTASSIUM CETYL PHOSPHATE, BUTYLENE GLYCOL, CARRAGEENAN / CHONDRUS CRISPUS EXTRACT, LECITHIN, PARFUM / FRAGRANCE, SODIUM POLYACRYLATE, SODIUM BENZOATE, CITRIC ACID, SODIUM HYALURONATE, XANTHAN GUM, STEARIC ACID, SODIUM PHOSPHATE, THEOBROMA CACAO (COCOA) SEED EXTRACT, CAPRYLYL GLYCOL, NONAPEPTIDE-1, DISODIUM PHOSPHATE, 1552B',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-arkeskin-creme-jour-menopause-recharge-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-arkeskin-creme-jour-menopause-recharge.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation'],
       secondary: ['emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
@@ -225,7 +225,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, DICAPRYLYL CARBONATE, GLYCERIN, SQUALANE, MAGNESIUM SULFATE, VITIS VINIFERA (GRAPE) SEED OIL, TRI(POLYGLYCERYL-3/LAURYL) HYDROGENATED TRILINOLEATE, HYDROLYZED LINSEED EXTRACT, PARFUM / FRAGRANCE, RHIZOBIAN GUM, GLYCERYL LINOLEATE, SUCROSE PALMITATE, SODIUM BENZOATE, TOCOPHEROL, CICHORIUM INTYBUS (CHICORY) LEAF EXTRACT, HEXYLENE GLYCOL, CITRIC ACID, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, CAPRYLYL GLYCOL, XANTHAN GUM, PENTYLENE GLYCOL, SODIUM HYALURONATE, GLUTAMYLAMIDOETHYL IMIDAZOLE, 1551B',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-arkeskin-creme-nuit-menopause-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-arkeskin-creme-nuit-menopause.webp',
     tags: {
       primary: ['hydratation', 'barriere-cutanee', 'anti-oxydant'],
       secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -253,7 +253,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, DICAPRYLYL CARBONATE, GLYCERIN, SQUALANE, MAGNESIUM SULFATE, VITIS VINIFERA (GRAPE) SEED OIL, TRI(POLYGLYCERYL-3/LAURYL) HYDROGENATED TRILINOLEATE, HYDROLYZED LINSEED EXTRACT, PARFUM / FRAGRANCE, RHIZOBIAN GUM, GLYCERYL LINOLEATE, SUCROSE PALMITATE, SODIUM BENZOATE, TOCOPHEROL, CICHORIUM INTYBUS (CHICORY) LEAF EXTRACT, HEXYLENE GLYCOL, CITRIC ACID, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, CAPRYLYL GLYCOL, XANTHAN GUM, PENTYLENE GLYCOL, SODIUM HYALURONATE, GLUTAMYLAMIDOETHYL IMIDAZOLE, 1551B',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-arkeskin-creme-nuit-menopause-recharge-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-arkeskin-creme-nuit-menopause-recharge.webp',
     tags: {
       primary: ['hydratation', 'barriere-cutanee', 'anti-oxydant'],
       secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -281,7 +281,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, VEGETABLE OIL / HUILE VEGETALE, GLYCERYL STEARATE, ORYZA SATIVA BRAN CERA / ORYZA SATIVA (RICE) BRAN WAX, BUTYROSPERMUM PARKII (SHEA) BUTTER, PRUNUS ARMENIACA (APRICOT) KERNEL OIL, RICINUS COMMUNIS (CASTOR) SEED OIL, HYDROGENATED VEGETABLE OIL, C10-18 TRIGLYCERIDES, STEARIC ACID, PALMITIC ACID, CANDELILLA CERA / EUPHORBIA CERIFERA (CANDELILLA) WAX / CIRE DE CANDELILLA, PARFUM / FRAGRANCE, BISABOLOL, TOCOPHEROL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, 4147A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-body-nutri-le-baume-sos-reparateur.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-body-nutri-le-baume-sos-reparateur.webp',
     tags: {
       primary: ['apaisant', 'anti-oxydant', 'cicatrisation'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -311,7 +311,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'GLYCERIN, SUCROSE, AQUA/WATER/EAU, PARFUM/FRAGRANCE, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) SHELL POWDER, POLYGLYCERYL-4 CAPRATE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, BUTYROSPERMUM PARKII (SHEA) BUTTER, CAPRYLYL/CAPRYL GLUCOSIDE, COCO-GLUCOSIDE, GLYCERYL OLEATE, SODIUM BENZOATE, ETHYLHEXYLGLYCERIN, SODIUM HYDROXIDE, CITRIC ACID, POLYQUATERNIUM-7, TOCOPHEROL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, HYDROGENATED VEGETABLE GLYCERIDES CITRATE, 1819A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-body-nutri-le-gommage-resurfacant-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-body-nutri-le-gommage-resurfacant.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'exfoliation'],
       secondary: ['reparateur', 'zone-visage'],
@@ -336,7 +336,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, UREA, BUTYROSPERMUM PARKII (SHEA) BUTTER, CAPRYLIC/CAPRIC TRIGLYCERIDE, COCO-CAPRYLATE/CAPRATE, CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL, GLYCERIN, GLYCERYL STEARATE, NIACINAMIDE, PEG-100 STEARATE, PROPANEDIOL, ZEA MAYS (CORN) STARCH, PARFUM/FRAGRANCE, SODIUM POLYACRYLATE, GLYCINE, SODIUM STEAROYL GLUTAMATE, CHLORPHENESIN, XANTHAN GUM, SODIUM PHYTATE, CITRIC ACID, TOCOPHEROL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, 1333C',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-body-nutri-le-lait-relipidant-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-body-nutri-le-lait-relipidant.webp',
     tags: {
       primary: ['pores-dilates', 'hydratation', 'barriere-cutanee'],
       secondary: [
@@ -373,7 +373,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, C15-19 ALKANE, PROPYLENE GLYCOL DICAPRYLATE/DICAPRATE, NEOPENTYL GLYCOL DIHEPTANOATE, GLYCERIN, TRIETHYL CITRATE, ARACHIDYL ALCOHOL, MACADAMIA TERNIFOLIA SEED OIL, GLYCOL PALMITATE, BEHENYL ALCOHOL, PROPANEDIOL, PARFUM / FRAGRANCE, SODIUM POLYACRYLATE, ARACHIDYL GLUCOSIDE, XANTHAN GUM, CHLORPHENESIN, ETHYLHEXYLGLYCERIN, SODIUM STEAROYL GLUTAMATE, TOCOPHEROL, ALGINIC ACID, CITRIC ACID, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, SILANETRIOL, KHAYA SENEGALENSIS BARK EXTRACT, MALTODEXTRIN, 4138A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-body-sculpt-la-creme-morpho-regalbante-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-body-sculpt-la-creme-morpho-regalbante.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -400,7 +400,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, POLYGLYCERYL-3 DISTEARATE, C15-19 ALKANE, HEXYLDECANOL, HEXYLDECYL LAURATE, PROPANEDIOL, GLYCERIN, CETYL ALCOHOL, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, C10-18 TRIGLYCERIDES, PHENETHYL ALCOHOL, GLYCERYL STEARATE CITRATE, SODIUM STEAROYL GLUTAMATE, GLYCERYL LINOLEATE, SUCROSE PALMITATE, SODIUM HYALURONATE, CHLORHEXIDINE DIGLUCONATE, CITRIC ACID, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, TOCOPHEROL, CAPRYLYL GLYCOL, ACETYL HEXAPEPTIDE-8, 1296C',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-diopti-creme-correction-rides-yeux-15ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-diopti-creme-correction-rides-yeux.webp',
     tags: {
       primary: ['anti-age', 'hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -430,7 +430,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, GLYCERIN, C15-19 ALKANE, CI 77891 / TITANIUM DIOXIDE, BUTYLENE GLYCOL, CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL, CETYL PALMITATE, C10-18 TRIGLYCERIDES, HEXYLDECANOL, HEXYLDECYL LAURATE, BUTYROSPERMUM PARKII (SHEA) BUTTER, SODIUM STEAROYL GLUTAMATE, GLYCERYL STEARATE, JOJOBA ESTERS, CETYL ALCOHOL, STEARYL ALCOHOL, MICA, ASCORBYL GLUCOSIDE, SODIUM POLYACRYLATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, ETHYLHEXYLGLYCERIN, CI 77492 / IRON OXIDES, PHENETHYL ALCOHOL, RUSCUS ACULEATUS ROOT EXTRACT, CI 77491 / IRON OXIDES, TOCOPHEROL, SODIUM HYDROXIDE, CHLORHEXIDINE DIGLUCONATE, POLYGLYCERIN-3, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, CI 77499 / IRON OXIDES, HYDROLYZED YEAST EXTRACT, GLYCOLIPIDS, 1297B',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-diopti-fluide-correction-cernes-15ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-diopti-fluide-correction-cernes.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -461,7 +461,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, SODIUM POLYACRYLATE, CAFFEINE, LAUROYL LYSINE, BUTYROSPERMUM PARKII (SHEA) BUTTER, MALTODEXTRIN, ETHYLHEXYLGLYCERIN, PARFUM / FRAGRANCE, SODIUM BENZOATE, CITRIC ACID, XANTHAN GUM, CITRUS JAPONICA FRUIT EXTRACT, BUTYLENE GLYCOL, BIOSACCHARIDE GUM-1, TULIPA GESNERIANA FLOWER EXTRACT, THEOBROMA CACAO (COCOA) SEED EXTRACT, 1598A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-gel-hydratant-energisant-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-gel-hydratant-energisant.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -488,7 +488,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, GLYCERIN, SQUALANE, CAPRYLIC/CAPRIC TRIGLYCERIDE, NEOPENTYL GLYCOL DIHEPTANOATE, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, PENTAERYTHRITYL TETRAETHYLHEXANOATE, OLEYL ALCOHOL, MALTODEXTRIN, ETHYLHEXYLGLYCERIN, SODIUM BENZOATE, ZANTHOXYLUM BUNGEANUM FRUIT EXTRACT, CITRIC ACID, BIOSACCHARIDE GUM-1, TULIPA GESNRIANA FLOWER EXTRACT, HYDROGENATED PLAM GLYCERIDES CITRATE, TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-homme-baume-apres-rasage-75ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-homme-baume-apres-rasage.webp',
     tags: {
       primary: ['hydratation', 'barriere-cutanee', 'anti-oxydant'],
       secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -514,7 +514,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, NEOPENTYL GLYCOL DIHEPTANOATE, SQUALANE, NIACINAMIDE, GLYCERIN, BUTYROSPERMUM PARKII (SHEA) BUTTER, CETEARYL ALCOHOL, LACTOBACILLUS/RICE FERMENT, PARFUM / FRAGRANCE, SODIUM POLYACRYLATE, LECITHIN, XANTHAN GUM, MALTODEXTRIN, CITRIC ACID, ETHYLHEXYLGLYCERIN, MALTITOL, SODIUM BENZOATE, SUCROSE PALMITATE, TOCOPHERYL ACETATE, BUTYLENE GLYCOL, SODIUM HYALURONATE, GLYCERYL LINOLEATE, YEAST EXTRACT / EXTRAIT DE LEVURE, TOCOPHEROL, BIOSACCHARIDE GUM-1, PHENOXYETHANOL, GLYCINE SOJA (SOYBEAN) OIL, ADANSONIA DIGITATA SEED EXTRACT, TULIPA GESNERIANA FLOWER EXTRACT, ARGININE, POTASSIUM SORBATE, THEOBROMA CACAO (COCOA) SEED EXTRACT, 1590A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-homme-fluide-anti-age-global-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-homme-fluide-anti-age-global.webp',
     tags: {
       primary: ['barriere-cutanee', 'pores-dilates', 'hydratation', 'anti-age'],
       secondary: [
@@ -551,7 +551,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, GLYCERIN, C15-19 ALKANE, ISOSTEARYL ISOSTEARATE, SQUALANE, PROPANEDIOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, CETYL STEARATE, C10-18 TRIGLYCERIDES, CETYL PALMITATE, CETYL ALCOHOL, POTASSIUM CETYL PHOSPHATE, CARBOMER, PARFUM / FRAGRANCE, CAESALPINIA SPINOSA GUM, ETHYLHEXYLGLYCERIN, SODIUM BENZOATE, SODIUM HYALURONATE, TOCOPHEROL, SODIUM HYDROXIDE, STEARIC ACID, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, BACILLUS FERMENT, 4101A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-hydragenist-la-creme-rehydratante-eclat-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-hydragenist-la-creme-rehydratante-eclat.webp',
     tags: {
       primary: ['hydratation', 'barriere-cutanee', 'anti-oxydant', 'eclat'],
       secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -581,7 +581,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, TRIETHYL CITRATE, PROPANEDIOL, GLYCERIN, MACADAMIA TERNIFOLIA SEED OIL, C10-18 TRIGLYCERIDES, CARBOMER, BAMBUSA ARUNDINACEA JUICE, PARFUM / FRAGRANCE, SODIUM POLYACRYLATE, ETHYLHEXYLGLYCERIN, SODIUM BENZOATE, SODIUM HYALURONATE, SODIUM HYDROXIDE, TOCOPHEROL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, BACILLUS FERMENT, 4097A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-hydragenist-le-gel-creme-rehydratant-eclat-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-hydragenist-le-gel-creme-rehydratant-eclat.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'eclat'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -609,7 +609,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, TRIETHYL CITRATE, ISOPENTYLDIOL, GLYCERIN, PROPANEDIOL, PENTYLENE GLYCOL, ALGIN, GLUCONOLACTONE, TREHALOSE, UREA, SODIUM HYALURONATE, SODIUM BENZOATE, MALTODEXTRIN, CALCIUM CITRATE, PARFUM / FRAGRANCE, SODIUM HYDROXIDE, CITRIC ACID, SERINE, BIOSACCHARIDE GUM-1, CAPRYLYL GLYCOL, DISODIUM PHOSPHATE, GLYCERYL POLYACRYLATE, PULLULAN, CALCIUM GLUCONATE, BACILLUS FERMENT, POTASSIUM PHOSPHATE, 4106A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-hydragenist-le-serum-rehydratant-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-hydragenist-le-serum-rehydratant.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['peau-sensible', 'keratolytique', 'serum', 'traitement', 'zone-visage'],
@@ -638,7 +638,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, TRIETHYL CITRATE, PROPANEDIOL, DICAPRYLYL CARBONATE, SODIUM CARBOXYMETHYL STARCH, ISOPENTYLDIOL, ALGIN, SUCROSE POLYSTEARATE, CITRIC ACID, ETHYLHEXYLGLYCERIN, SODIUM BENZOATE, SODIUM STEAROYL GLUTAMATE, CALCIUM CITRATE, CETYL PALMITATE, CAFFEINE, SODIUM HYALURONATE, BACILLUS FERMENT, TOCOPHEROL, 4099A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-hydragenist-le-soin-yeux-rehydratant-15ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-hydragenist-le-soin-yeux-rehydratant.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
@@ -665,33 +665,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, POLOXAMER 184, PROPANEDIOL, PENTYLENE GLYCOL, GLYCERIN, CAPRYLYL/CAPRYL GLUCOSIDE, PARFUM / FRAGRANCE, ETHYLHEXYLGLYCERIN, SODIUM BENZOATE, MARIS AQUA / SEA WATER / EAU DE MER, CITRIC ACID, PHENETHYL ALCOHOL, LAMINARIA DIGITATA EXTRACT, CHLORELLA VULGARIS EXTRACT, SACCHARIDE ISOMERATE, 4089A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-l-eau-micellaire-200ml.html',
-    imageUrl: '',
-    tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
-      avoid: [],
-    },
-    keyIngredients: [
-      { slug: INGREDIENT_SLUGS.PROPANEDIOL },
-      { slug: INGREDIENT_SLUGS.LAMINARIA_DIGITATA },
-      { slug: INGREDIENT_SLUGS.CHLORELLA_VULGARIS },
-    ],
-  },
-  {
-    slug: 'lierac-l-eau-micellaire-400ml',
-    name: "L'Eau Micellaire",
-    brand: 'Lierac',
-    kind: 'cleanser',
-    unit: 'bottle',
-    totalAmount: 400,
-    amountUnit: 'ml',
-    priceCents: 1721,
-    description:
-      'L’Eau Micellaire DEMAQUILLANT discount de LIERAC, le pouvoir de la cosmétique technique dans votre parapharmacie à prix discount, pour nettoyer et démaquiller en douceur et rafraîchir tous les types de peaux même sensibles. Visage, yeux\n\nLIERAC est la première marque française dermo-cosmétique spécialisée dans la correction du vieillissement et des désordres cutanés, et instauratrice de la « cosmétique technique » qui allie plaisir des sens et efficacité.\n\nLa gamme DEMAQUILLANT est constituée de soins aux textures délicieuses, développés pour répondre à chaque besoin et à chaque type de peau, composés d’une association unique de probiotiques afin de transformer le démaquillage en véritable rituel beauté.L’Eau Micellaire DEMAQUILLANT de LIERAC, est spécialement conçue pour éliminer en douceur les impuretés et le maquillage, et hydrater tous les types de peaux même sensibles. Sa formule à base du Complexe Prébiotiques Marin (eau de mer, algues vertes et brunes, sucre) aux propriétés protectrices, va préserver et renforcer le microbiote cutané. Après le soin la peau est nette, douce et lumineuse. Sa texture fraîche et délicatement parfumée fera de ce soin un moment de plaisir et détente en enveloppant la peau de douceur. 96% d’ingrédients d’origine naturelle.',
-    notes: '',
-    inci: 'VEGANAQUA / WATER / EAU, POLOXAMER 184, PROPANEDIOL, PENTYLENE GLYCOL, GLYCERIN, CAPRYLYL/CAPRYL GLUCOSIDE, PARFUM / FRAGRANCE, ETHYLHEXYLGLYCERIN, SODIUM BENZOATE, MARIS AQUA / SEA WATER / EAU DE MER, CITRIC ACID, PHENETHYL ALCOHOL, LAMINARIA DIGITATA EXTRACT, CHLORELLA VULGARIS EXTRACT, SACCHARIDE ISOMERATE, 4089A',
-    url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-l-eau-micellaire-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-l-eau-micellaire.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -717,7 +691,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, DIGLYCERIN, GLYCERIN, POLYGLYCERYL-10 EICOSANEDIOATE/TETRADECANEDIOATE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CARRAGEENAN / CHONDRUS CRISPUS EXTRACT, CAPRYLYL/CAPRYL GLUCOSIDE, ETHYLHEXYLGLYCERIN, PARFUM / FRAGRANCE, SODIUM BENZOATE, MARIS AQUA / SEA WATER / EAU DE MER, SODIUM PHYTATE, SODIUM HYDROXIDE, SODIUM HYALURONATE, PHENETHYL ALCOHOL, LAMINARIA DIGITATA EXTRACT, CHLORELLA VULGARIS EXTRACT, SACCHARIDE ISOMERATE, 4093A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-la-lotion-hydratanre-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-la-lotion-hydratanre.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['tonique', 'preparation', 'zone-visage'],
@@ -743,33 +717,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, SODIUM LAURYL GLUCOSE CARBOXYLATE, LAURYL GLUCOSIDE, GLYCERIN, SODIUM CITRATE, CITRIC ACID, CAPRYLYL/CAPRYL GLUCOSIDE, PARFUM / FRAGRANCE, SODIUM BENZOATE, ETHYLHEXYLGLYCERIN, ACACIA CONCINNA FRUIT EXTRACT, COCO-GLUCOSIDE, GLYCERYL OLEATE, MARIS AQUA / SEA WATER / EAU DE MER, SODIUM PHYTATE, SORBIC ACID, GYPSOPHILA PANICULATA ROOT EXTRACT, PHENETHYL ALCOHOL, LAMINARIA DIGITATA EXTRACT, SAPONINS, POTASSIUM SORBATE, CHLORELLA VULGARIS EXTRACT, SACCHARIDE ISOMERATE, TOCOPHEROL, HYDROGENATED VEGETABLE GLYCERIDES CITRATE, 4092A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-la-mousse-nettoyante-150ml.html',
-    imageUrl: '',
-    tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
-      avoid: [],
-    },
-    keyIngredients: [
-      { slug: INGREDIENT_SLUGS.SODIUM_CITRATE },
-      { slug: INGREDIENT_SLUGS.LAMINARIA_DIGITATA },
-      { slug: INGREDIENT_SLUGS.CHLORELLA_VULGARIS },
-    ],
-  },
-  {
-    slug: 'lierac-la-mousse-nettoyante-50ml',
-    name: 'La Mousse Nettoyante',
-    brand: 'Lierac',
-    kind: 'cleanser',
-    unit: 'bottle',
-    totalAmount: 50,
-    amountUnit: 'ml',
-    priceCents: 1161,
-    description:
-      'La Mousse Nettoyante DEMAQUILLANT discount de LIERAC, le pouvoir de la cosmétique technique dans votre parapharmacie à prix discount, pour nettoyer en douceur et apaiser tous les types de peaux\n\nLIERAC est la première marque française dermo-cosmétique spécialisée dans la correction du vieillissement et des désordres cutanés, et instauratrice de la « cosmétique technique » qui allie plaisir des sens et efficacité.\n\n\nLa gamme DEMAQUILLANT est constituée de soins aux textures délicieuses, développés pour répondre à chaque besoin et à chaque type de peau, composés d’une association unique de probiotiques afin de transformer le démaquillage en véritable rituel beauté.\n\n\nLa Mousse Nettoyante DEMAQUILLANT de LIERAC, est spécialement conçue pour éliminer en douceur les impuretés du visage, et adoucir tous les types de peaux. Sa formule à base du Complexe Prébiotiques Marin (eau de mer, algues vertes et brunes, sucre) aux propriétés protectrices, va préserver et renforcer le microbiote cutané. Après le soin la peau est nette, souple, et apaisée. Sa texture mousse généreuse et aérienne fera de ce soin un moment de plaisir et détente. 99% d’ingrédients d’origine naturelle.',
-    notes: '',
-    inci: 'AQUA / WATER / EAU, SODIUM LAURYL GLUCOSE CARBOXYLATE, LAURYL GLUCOSIDE, GLYCERIN, SODIUM CITRATE, CITRIC ACID, CAPRYLYL/CAPRYL GLUCOSIDE, PARFUM / FRAGRANCE, SODIUM BENZOATE, ETHYLHEXYLGLYCERIN, ACACIA CONCINNA FRUIT EXTRACT, COCO-GLUCOSIDE, GLYCERYL OLEATE, MARIS AQUA / SEA WATER / EAU DE MER, SODIUM PHYTATE, SORBIC ACID, GYPSOPHILA PANICULATA ROOT EXTRACT, PHENETHYL ALCOHOL, LAMINARIA DIGITATA EXTRACT, SAPONINS, POTASSIUM SORBATE, CHLORELLA VULGARIS EXTRACT, SACCHARIDE ISOMERATE, TOCOPHEROL, HYDROGENATED VEGETABLE GLYCERIDES CITRATE, 4092A',
-    url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-la-mousse-nettoyante-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-la-mousse-nettoyante.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -795,7 +743,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, C15-19 ALKANE, GLYCERIN, SODIUM CHLORIDE, GLUCONOLACTONE, PANTHENOL, SODIUM BENZOATE, SODIUM HYDROXIDE, MARIS AQUA / SEA WATER / EAU DE MER, CITRIC ACID, CALCIUM GLUCONATE, PHENETHYL ALCOHOL, LAMINARIA DIGITATA EXTRACT, CHLORELLA VULGARIS EXTRACT, SACCHARIDE ISOMERATE, 4091A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-le-demaquillant-yeux-100ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-le-demaquillant-yeux.webp',
     tags: {
       primary: ['exfoliation', 'apaisant', 'barriere-cutanee'],
       secondary: [
@@ -829,7 +777,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, C15-19 ALKANE, CETEARYL ALCOHOL, POLOXAMER 184, PROPANEDIOL, DICAPRYLYL ETHER, ARACHIDYL ALCOHOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, ETHYLHEXYL STEARATE, BEHENYL ALCOHOL, GLYCERIN, ARACHIDYL GLUCOSIDE, ETHYLHEXYLGLYCERIN, PARFUM / FRAGRANCE, SODIUM BENZOATE, XANTHAN GUM, MARIS AQUA / SEA WATER / EAU DE MER, TOCOPHEROL, CITRIC ACID, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, PHENETHYL ALCOHOL, LAMINARIA DIGITATA EXTRACT, CHLORELLA VULGARIS EXTRACT, SACCHARIDE ISOMERATE, 4090A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-le-lait-demaquillant-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-le-lait-demaquillant.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -858,7 +806,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, GLYCERIN, CAPRYLIC/CAPRIC TRIGLYCERIDE, KAOLIN, ARACHIDYL ALCOHOL, PERLITE, BEHENYL ALCOHOL, BAMBUSA ARUNDINACEA STEM EXTRACT, CETEARYL ALCOHOL, CI 77891 / TITANIUM DIOXIDE, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, ARACHIDYL GLUCOSIDE, SODIUM POLYACRYLATE, PARFUM / FRAGRANCE, CHLORPHENESIN, ETHYLHEXYLGLYCERIN, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, MARIS AQUA / SEA WATER / EAU DE MER, TOCOPHEROL, CITRIC ACID, PHENETHYL ALCOHOL, LAMINARIA DIGITATA EXTRACT, CHLORELLA VULGARIS EXTRACT, SACCHARIDE ISOMERATE, ALKANNA TINCTORIA ROOT EXTRACT, 4094A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-le-masque-gommant-75ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-le-masque-gommant.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
@@ -886,7 +834,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, SQUALANE, GLYCERYL STEARATE SE, CETEARYL ALCOHOL, GLYCOL PALMITATE, BUTYLENE GLYCOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, C15-19 ALKANE, CETYL PALMITATE, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, XYLITYLGLUCOSIDE, CETEARYL GLUCOSIDE, ANHYDROXYLITOL, PARFUM / FRAGRANCE, ETHYLHEXYLGLYCERIN, SODIUM BENZOATE, XYLITOL, XANTHAN GUM, CITRIC ACID, HYDROLYZED HYALURONIC ACID, SODIUM PHYTATE, MALTODEXTRIN, LECITHIN, TOCOPHEROL, ADENOSINE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, TULIPA GESNERIANA FLOWER EXTRACT, ROSA CENTIFOLIA FLOWER EXTRACT, 4103A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-lift-integral-la-creme-jour-raffermissante-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-lift-integral-la-creme-jour-raffermissante.webp',
     tags: {
       primary: ['hydratation', 'anti-age', 'barriere-cutanee'],
       secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -917,7 +865,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/ WATER/ EAU, C15-19 ALKANE, CAPRYLIC/ CAPRIC TRIGLYCERIDE, GLYCERIN, BUTYROSPERMUM PARKII (SHEA) BUTTER, C10-18 TRIGLYCERIDES, GLYCOL PALMITATE, CETEARYL ALCOHOL, BEHENYL ALCOHOL, ROSA CANINA FRUIT OIL, CARBOMER, GLYCERYL STEARATE, JOJOBA ESTERS, GLUCONOLACTONE, BUTYLENE GLYCOL, PARFUM/ FRAGRANCE, HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX, SODIUM STEAROYL GLUTAMATE, SODIUM BENZOATE, ETHYLHEXYLGLYCERIN, SODIUM HYDROXIDE, HYDROLYZED HYALURONIC ACID, MALTODEXTRIN, TOCOPHEROL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, POLYGLYCERIN-3, CALCIUM GLUCONATE, TULIPA GESNERIANA FLOWER EXTRACT, ROSA CENTIFOLIA FLOWER EXTRACT, CI 77491/ IRON OXIDES, SILICA, 4104A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-lift-integral-la-creme-nuit-regenerante-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-lift-integral-la-creme-nuit-regenerante.webp',
     tags: {
       primary: ['hydratation', 'repulpant', 'anti-oxydant'],
       secondary: ['peau-sensible', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -947,7 +895,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU C15-19 ALKANE GLYCERIN PROPANEDIOL BUTYLENE GLYCOL AMMONIUM ACRYLOYLDIMETHYLTAURATE VP COPOLYMER CETYL ALCOHOL PENTYLENE GLYCOL ZEA MAYS CORN STARCH TULIPA GESNERIANA FLOWER EXTRACT ROSA CENTIFOLIA FLOWER EXTRACT HYDROLYZED HYALURONIC ACID SODIUM HYALURONATE ADENOSINE XYLITYLGLUCOSIDE CARBOMER ANHYDROXYLITOL CAESALPINIA SPINOSA FRUIT EXTRACT ETHYLHEXYLGLYCERIN PARFUM FRAGRANCE XANTHAN GUM SODIUM BENZOATE SODIUM STEAROYL GLUTAMATE XYLITOL SODIUM PHYTATE KAPPAPHYCUS ALVAREZII EXTRACT MALTODEXTRIN LECITHIN TOCOPHEROL HELIANTHUS ANNUUS SUNFLOWER SEED OIL SODIUM HYDROXIDE BENZYL ALCOHOL LINALOOL LINALYL ACETATE ROSE FLOWER OIL EXTRACT PINENE 4234A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-lift-integral-le-gel-creme-jour-raffermissant-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-lift-integral-le-gel-creme-jour-raffermissant.webp',
     tags: {
       primary: ['hydratation', 'anti-age', 'repulpant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -968,7 +916,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, COCO-CAPRYLATE/CAPRATE, GLYCERIN, BUTYLENE GLYCOL, XYLITYLGLUCOSIDE, CETYL ALCOHOL, GLYCERYL STEARATE, SODIUM STEAROYL GLUTAMATE, XANTHAN GUM, ANHYDROXYLITOL, CAESALPINIA SPINOSA FRUIT EXTRACT, PARFUM / FRAGRANCE, CITRIC ACID, ETHYLHEXYLGLYCERIN, SODIUM BENZOATE, XYLITOL, SODIUM POLYACRYLATE, HYDROLYZED HYALURONIC ACID, SODIUM PHYTATE, KAPPAPHYCUS ALVAREZII EXTRACT, MALTODEXTRIN, TOCOPHEROL, LECITHIN, ADENOSINE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, TULIPA GESNERIANA FLOWER EXTRACT, ROSA CENTIFOLIA FLOWER EXTRACT, 4102A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-lift-integral-le-serum-tenseur-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-lift-integral-le-serum-tenseur.webp',
     tags: {
       primary: ['hydratation', 'anti-age', 'repulpant'],
       secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
@@ -998,7 +946,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, SQUALANE, GLYCERYL STEARATE SE, CETEARYL ALCOHOL, GLYCOL PALMITATE, BUTYLENE GLYCOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, C15-19 ALKANE, CETYL PALMITATE, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, XYLITYLGLUCOSIDE, CETEARYL GLUCOSIDE, ANHYDROXYLITOL, PARFUM / FRAGRANCE, ETHYLHEXYLGLYCERIN, SODIUM BENZOATE, XYLITOL, XANTHAN GUM, CITRIC ACID, HYDROLYZED HYALURONIC ACID, SODIUM PHYTATE, MALTODEXTRIN, LECITHIN, TOCOPHEROL, ADENOSINE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, TULIPA GESNERIANA FLOWER EXTRACT, ROSA CENTIFOLIA FLOWER EXTRACT, 4103A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-lift-integral-recharge-creme-jour-raffermissante-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-lift-integral-recharge-creme-jour-raffermissante.webp',
     tags: {
       primary: ['hydratation', 'anti-age', 'barriere-cutanee'],
       secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -1029,7 +977,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, C15-19 ALKANE, CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, BUTYROSPERMUM PARKII (SHEA) BUTTER, C10-18 TRIGLYCERIDES, GLYCOL PALMITATE, CETEARYL ALCOHOL, BEHENYL ALCOHOL, ROSA CANINA FRUIT OIL, CARBOMER, GLYCERYL STEARATE, JOJOBA ESTERS, GLUCONOLACTONE, BUTYLENE GLYCOL, PARFUM / FRAGRANCE, HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX, SODIUM STEAROYL GLUTAMATE, SODIUM BENZOATE, ETHYLHEXYLGLYCERIN, SODIUM HYDROXIDE, HYDROLYZED HYALURONIC ACID, MALTODEXTRIN, TOCOPHEROL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, POLYGLYCERIN-3, CALCIUM GLUCONATE, TULIPA GESNERIANA FLOWER EXTRACT, ROSA CENTIFOLIA FLOWER EXTRACT, CI 77491 / IRON OXIDES, SILICA, 4104A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-lift-integral-recharge-creme-nuit-regenerante-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-lift-integral-recharge-creme-nuit-regenerante.webp',
     tags: {
       primary: ['hydratation', 'repulpant', 'anti-oxydant'],
       secondary: ['peau-sensible', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -1059,7 +1007,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU C15-19 ALKANE GLYCERIN PROPANEDIOL BUTYLENE GLYCOL AMMONIUM ACRYLOYLDIMETHYLTAURATE VP COPOLYMER CETYL ALCOHOL PENTYLENE GLYCOL ZEA MAYS CORN STARCH TULIPA GESNERIANA FLOWER EXTRACT ROSA CENTIFOLIA FLOWER EXTRACT HYDROLYZED HYALURONIC ACID SODIUM HYALURONATE ADENOSINE XYLITYLGLUCOSIDE CARBOMER ANHYDROXYLITOL CAESALPINIA SPINOSA FRUIT EXTRACT ETHYLHEXYLGLYCERIN PARFUM FRAGRANCE XANTHAN GUM SODIUM BENZOATE SODIUM STEAROYL GLUTAMATE XYLITOL SODIUM PHYTATE KAPPAPHYCUS ALVAREZII EXTRACT MALTODEXTRIN LECITHIN TOCOPHEROL HELIANTHUS ANNUUS SUNFLOWER SEED OIL SODIUM HYDROXIDE BENZYL ALCOHOL LINALOOL LINALYL ACETATE ROSE FLOWER OIL EXTRACT PINENE 4234A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-lift-integral-recharge-gel-creme-jour-raffermissant-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-lift-integral-recharge-gel-creme-jour-raffermissant.webp',
     tags: {
       primary: ['hydratation', 'anti-age', 'repulpant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -1080,7 +1028,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, COCO-CAPRYLATE/CAPRATE, GLYCERIN, SODIUM POLYACRYLATE, BUTYLENE GLYCOL, CETYL ALCOHOL, XYLITYLGLUCOSIDE, 1,2-HEXANEDIOL.SODIUM STEAROYL GLUTAMATE.ANHYDROXYLITOL, CAESALPINIA SPINOSA FRUIT EXTRACT, CITRIC ACID, PARFUM / FRAGRANCE, XANTHAN GUM, ETHYLHEXYLGLYCERIN, SODIUM BENZOATE, XYLITOL, HYDROLYZED HYALURONIC ACID, SODIUM HYALURONATE, SODIUM PHYTATE.KAPPAPHYCUS ALVAREZII EXTRACT, MALTODEXTRIN, TOCOPHEROL, LECITHIN, ADENOSINE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, LINALYL ACETATE, TULIPA GESNERIANA FLOWER EXTRACT, ROSA CENTIFOLIA FLOWER EXTRACT, ROSE FLOWER OIL/EXTRACT, PINENE, 4109A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-lift-intregal-la-creme-cou-decollete-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-lift-intregal-la-creme-cou-decollete.webp',
     tags: {
       primary: ['hydratation', 'anti-age', 'repulpant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -1110,7 +1058,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'CRÈME JOUR ARKÉSKIN : AQUA / WATER / EAU, SQUALANE, GLYCERIN, BEHENYL ALCOHOL, NEOPENTYL GLYCOL DIHEPTANOATE, BUTYROSPERMUM PARKII (SHEA) BUTTER, HEXYLDECANOL, HEXYLDECYL LAURATE, CETYL STEARATE, BUTYLENE GLYCOL, CETYL ALCOHOL, ISOSTEARYL ISOSTEARATE, POTASSIUM CETYL PHOSPHATE, CHONDRUS CRISPUS EXTRACT, LECITHIN, PARFUM / FRAGRANCE, SODIUM POLYACRYLATE, CAPRYLYL GLYCOL, SODIUM BENZOATE, CITRIC ACID, STEARIC ACID, SODIUM HYALURONATE, XANTHAN GUM, SODIUM PHOSPHATE, THEOBROMA CACAO (COCOA) SEED EXTRACT, LINALYL ACETATE, NONAPEPTIDE-1, DISODIUM PHOSPHATE, 1552B-1',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-menopause-creme-jour-arkeskin-baume-sos-reparateur-body-nutri.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-menopause-creme-jour-arkeskin-baume-sos-reparateur-body-nutri.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'cicatrisation'],
       secondary: ['emollience', 'texture-legere', 'creme-hydratante', 'zone-visage', 'reparateur'],
@@ -1138,7 +1086,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, PROPYLENE GLYCOL DICAPRYLATE/DICAPRATE, GLYCERIN, ISOSTEARYL ISOSTEARATE, BUTYROSPERMUM PARKII (SHEA) BUTTER, C15-19 ALKANE, CETYL PALMITATE, NIACINAMIDE, BEHENYL ALCOHOL, CETEARYL ALCOHOL, OCTYLDODECANOL, GLYCERYL STEARATE, JOJOBA ESTERS, SODIUM POLYACRYLATE, BUTYLENE GLYCOL, CI 77891/TITANIUM DIOXIDE, PROPANEDIOL, MICA, HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX, SODIUM STEAROYL GLUTAMATE, TOCOPHERYL ACETATE, CITRIC ACID, ETHYLHEXYLGLYCERIN, SODIUM BENZOATE, XANTHAN GUM, ADANSONIA DIGITATA SEED EXTRACT, SILICA, LECITHIN, TOCOPHEROL, ADENOSINE, SEMPERVIVUM TECTORUM EXTRACT, POLYGLYCERIN-3, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, GENTIANA LUTEA ROOT EXTRACT, SANTALUM ALBUM (SANDALWOOD) WOOD EXTRACT',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-premium-la-creme-regard-20ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-premium-la-creme-regard.webp',
     tags: {
       primary: ['hydratation', 'pores-dilates', 'anti-age'],
       secondary: ['sebo-regulateur', 'reparateur', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
@@ -1169,38 +1117,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, C15-19 ALKANE, GLYCERIN, PENTAERYTHRITYL TETRAISOSTEARATE, POLYGLYCERYL-3 DISTEARATE, NIACINAMIDE, OCTYLDODECANOL, PARFUM / FRAGRANCE, BUTYLENE GLYCOL, C10-18 TRIGLYCERIDES, CETEARYL ALCOHOL, MICA, ZEA MAYS (CORN) STARCH, ARACHIDYL ALCOHOL, PROPANEDIOL, TOCOPHERYL ACETATE, BEHENYL ALCOHOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, ETHYLHEXYLGLYCERIN, SODIUM BENZOATE, GLYCERYL STEARATE CITRATE, TOCOPHEROL, ADANSONIA DIGITATA SEED EXTRACT, ARACHIDYL GLUCOSIDE, SODIUM HYALURONATE, LECITHIN, ADENOSINE, SEMPERVIVUM TECTORUM EXTRACT, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, CITRIC ACID, SANTALUM ALBUM (SANDALWOOD) WOOD EXTRACT, 4131A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-premium-la-creme-soyeuse-50ml.html',
-    imageUrl: '',
-    tags: {
-      primary: ['hydratation', 'pores-dilates', 'anti-age'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
-      avoid: [],
-    },
-    keyIngredients: [
-      { slug: INGREDIENT_SLUGS.C15_19_ALKANE },
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE },
-      { slug: INGREDIENT_SLUGS.C10_18_TRIGLYCERIDES },
-      { slug: INGREDIENT_SLUGS.ZEA_MAYS_STARCH },
-      { slug: INGREDIENT_SLUGS.PROPANEDIOL },
-      { slug: INGREDIENT_SLUGS.GLYCERYL_STEARATE_CITRATE },
-      { slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE },
-      { slug: INGREDIENT_SLUGS.ADENOSINE },
-    ],
-  },
-  {
-    slug: 'lierac-premium-la-creme-soyeuse-serum-offert',
-    name: 'Premium la Creme Soyeuse',
-    brand: 'Lierac',
-    kind: 'moisturizer',
-    unit: 'jar',
-    totalAmount: 50,
-    amountUnit: 'ml',
-    priceCents: 6526,
-    description:
-      "En vente en ligne, sur le site de votre parapharmacie à prix discount, découvrez la Crème Soyeuse Premium pour peaux normales à mixtes. + Sérum premium absolu 13ml OFFERT\n\nPlongez dans l'univers luxueux de la gamme Lierac Premium, reconnue pour ses formules hautement performantes et ses résultats visibles. Conçu par les laboratoires Lierac, cette crème soyeuse propose une expérience de soin ultime pour restaurer la jeunesse de votre peau. La Crème Soyeuse 50ml offre une texture onctueuse et délicate avec un fini poudré, fusionnant harmonieusement avec la peau pour un confort absolu et une hydratation en profondeur. A base de la technologie [F.G.N.] ainsi que d'acide hyaluronique et niacinamide cette crème redéfinit les contours du visage, réduit les rides et ravive l'éclat naturel de la peau. Ce soin contient également de la poudre matifiante végétale qui laisse un léger fini poudré sur la peau.",
-    notes: '',
-    inci: 'AQUA / WATER / EAU, C15-19 ALKANE, GLYCERIN, PENTAERYTHRITYL TETRAISOSTEARATE, POLYGLYCERYL-3 DISTEARATE, NIACINAMIDE, OCTYLDODECANOL, PARFUM / FRAGRANCE, BUTYLENE GLYCOL, C10-18 TRIGLYCERIDES, CETEARYL ALCOHOL, MICA, ZEA MAYS (CORN) STARCH, ARACHIDYL ALCOHOL, PROPANEDIOL, TOCOPHERYL ACETATE, BEHENYL ALCOHOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, ETHYLHEXYLGLYCERIN, SODIUM BENZOATE, GLYCERYL STEARATE CITRATE, TOCOPHEROL, ADANSONIA DIGITATA SEED EXTRACT, ARACHIDYL GLUCOSIDE, SODIUM HYALURONATE, LECITHIN, ADENOSINE, SEMPERVIVUM TECTORUM EXTRACT, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, CITRIC ACID, SANTALUM ALBUM (SANDALWOOD) WOOD EXTRACT, 4131A',
-    url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-premium-la-creme-soyeuse-50ml-serum-13ml-offert.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-premium-la-creme-soyeuse.webp',
     tags: {
       primary: ['hydratation', 'pores-dilates', 'anti-age'],
       secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -1231,7 +1148,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, C15-19 ALKANE, GLYCERIN, PENTAERYTHRITYL TETRAISOSTEARATE, POLYGLYCERYL-3 DISTEARATE, NIACINAMIDE, OCTYLDODECANOL, PARFUM / FRAGRANCE, BUTYLENE GLYCOL, C10-18 TRIGLYCERIDES, CETEARYL ALCOHOL, MICA, ZEA MAYS (CORN) STARCH, ARACHIDYL ALCOHOL, PROPANEDIOL, TOCOPHERYL ACETATE, BEHENYL ALCOHOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, ETHYLHEXYLGLYCERIN, SODIUM BENZOATE, GLYCERYL STEARATE CITRATE, TOCOPHEROL, ADANSONIA DIGITATA SEED EXTRACT, ARACHIDYL GLUCOSIDE, SODIUM HYALURONATE, LECITHIN, ADENOSINE, SEMPERVIVUM TECTORUM EXTRACT, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, CITRIC ACID, SANTALUM ALBUM (SANDALWOOD) WOOD EXTRACT, 4131A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-premium-la-creme-soyeuse-recharge-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-premium-la-creme-soyeuse-recharge.webp',
     tags: {
       primary: ['hydratation', 'pores-dilates', 'anti-age'],
       secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -1262,7 +1179,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, CAPRYLIC/CAPRIC TRIGLYCERIDE, PENTAERYTHRITYL TETRAISOSTEARATE, GLYCERIN, CETEARYL ALCOHOL, C15-19 ALKANE, BUTYROSPERMUM PARKII (SHEA) BUTTER, GLYCERYL STEARATE, NIACINAMIDE, TRIETHYL CITRATE, PROPANEDIOL, HEXYLDECANOL, HEXYLDECYL LAURATE, CETYL PALMITATE, MICA, PROPYLENE GLYCOL DICAPRYLATE/DICAPRATE, OCTYLDODECANOL, PARFUM / FRAGRANCE, JOJOBA ESTERS, BUTYLENE GLYCOL, CETEARYL GLUCOSIDE, CETYL ALCOHOL, SODIUM POLYACRYLATE, TOCOPHERYL ACETATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX, SODIUM STEAROYL GLUTAMATE, CITRIC ACID, ETHYLHEXYLGLYCERIN, SODIUM BENZOATE, XANTHAN GUM, ADANSONIA DIGITATA SEED EXTRACT, SODIUM HYALURONATE, LECITHIN, TOCOPHEROL, ADENOSINE, SEMPERVIVUM TECTORUM EXTRACT, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, POLYGLYCERIN-3, SANTALUM ALBUM (SANDALWOOD) WOOD EXTRACT, 4126A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-premium-la-creme-voluptueuse-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-premium-la-creme-voluptueuse.webp',
     tags: {
       primary: ['hydratation', 'pores-dilates', 'anti-age'],
       secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -1293,7 +1210,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, CAPRYLIC/CAPRIC TRIGLYCERIDE, PENTAERYTHRITYL TETRAISOSTEARATE, GLYCERIN, CETEARYL ALCOHOL, C15-19 ALKANE, BUTYROSPERMUM PARKII (SHEA) BUTTER, GLYCERYL STEARATE, NIACINAMIDE, TRIETHYL CITRATE, PROPANEDIOL, HEXYLDECANOL, HEXYLDECYL LAURATE, CETYL PALMITATE, MICA, PROPYLENE GLYCOL DICAPRYLATE/DICAPRATE, OCTYLDODECANOL, PARFUM / FRAGRANCE, JOJOBA ESTERS, BUTYLENE GLYCOL, CETEARYL GLUCOSIDE, CETYL ALCOHOL, SODIUM POLYACRYLATE, TOCOPHERYL ACETATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX, SODIUM STEAROYL GLUTAMATE, CITRIC ACID, ETHYLHEXYLGLYCERIN, SODIUM BENZOATE, XANTHAN GUM, ADANSONIA DIGITATA SEED EXTRACT, SODIUM HYALURONATE, LECITHIN, TOCOPHEROL, ADENOSINE, SEMPERVIVUM TECTORUM EXTRACT, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, POLYGLYCERIN-3, SANTALUM ALBUM (SANDALWOOD) WOOD EXTRACT, 4126A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-premium-la-creme-voluptueuse-recharge-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-premium-la-creme-voluptueuse-recharge.webp',
     tags: {
       primary: ['hydratation', 'pores-dilates', 'anti-age'],
       secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -1324,7 +1241,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-premium-le-serum-absolu-anti-age-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-premium-le-serum-absolu-anti-age.webp',
     tags: {
       primary: ['anti-age'],
       secondary: ['serum', 'traitement', 'zone-visage'],
@@ -1345,7 +1262,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-protocole-anti-rides-la-creme-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-protocole-anti-rides-la-creme.webp',
     tags: {
       primary: ['anti-age'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -1366,7 +1283,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-protocole-anti-rougeurs-masque-bisabolol-pur-75ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-protocole-anti-rougeurs-masque-bisabolol-pur.webp',
     tags: {
       primary: ['anti-rougeurs'],
       secondary: ['masque-hebdo', 'zone-visage'],
@@ -1387,7 +1304,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-protocole-anti-rougeurs-serum-bisabolol-pur-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-protocole-anti-rougeurs-serum-bisabolol-pur.webp',
     tags: {
       primary: ['anti-rougeurs'],
       secondary: ['serum', 'traitement', 'zone-visage'],
@@ -1408,7 +1325,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU COCO-CAPRYLATE CAPRATE GLYCERYL STEARATE SE BEHENYL ALCOHOL PENTAERYTHRITYL TETRAISOSTEARATE SQUALANE GLYCERIN GLYCOLIC ACID BUTYROSPERMUM PARKII SHEA BUTTER SODIUM HYDROXIDE PAPAIN BISABOLOL CETYL ALCOHOL GLYCERYL STEARATE 1 2-HEXANEDIOL PEG-75 STEARATE AMMONIUM ACRYLOYLDIMETHYLTAURATE VP COPOLYMER CHLORPHENESIN ETHYLHEXYLGLYCERIN SPHINGOMONAS FERMENT EXTRACT CETETH-20 STEARETH-20 PARFUM FRAGRANCE TOCOPHEROL HELIANTHUS ANNUUS SUNFLOWER SEED OIL TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES CAPRYLYL GLYCOL CARBOMER LINALYL ACETATE LINALOOL PINENE ALGIN 4182A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-protocole-eclat-masque-acide-glycolique-pur-75ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-protocole-eclat-masque-acide-glycolique-pur.webp',
     tags: {
       primary: ['exfoliation', 'eclat', 'barriere-cutanee'],
       secondary: [
@@ -1437,7 +1354,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, GLYCERIN, NIACINAMIDE, SQUALANE, PROPANEDIOL, HEXYLDECANOL, HEXYLDECYL LAUREATE, POLYGLYCERYL-3 DISTEARATE, 1,2-HEXANEDIOL, ISOPENTYLDIOL, ASCORBYL GLUCOSIDE, BEHENYL ALCOHOL, HIBISCUS SABDARIFFA FLOWER EXTRACT, CHLORPHENESIN, SODIUM POLYACRYLATE, SPHINGOMONAS FERMENT EXTRACT, GLYCERYL STEARATE CITRATE, SODIUM HYDROXIDE, PARFUM / FRAGRANCE, XANTHAN GUM, TOCOPHEROL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, LINALYL ACETATE, 4142A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-pure-niacinamide-le-serum-anti-taches-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-pure-niacinamide-le-serum-anti-taches.webp',
     tags: {
       primary: ['barriere-cutanee', 'pores-dilates', 'hydratation', 'anti-taches'],
       secondary: [
@@ -1498,7 +1415,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'DICAPRYLYL CARBONATE, PARFUM / FRAGRANCE, CAMELINA SATIVA SEED OIL, CAMELLIA OLEIFERA SEED OIL, HYDROGENATED CASTOR OIL/SEBACIC ACID COPOLYMER, MACADAMIA TERNIFOLIA SEED OIL, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF EXTRACT, ETHYL FERULATE, SYNTHETIC FLUORPHLOGOPITE, ALUMINA, TOCOPHEROL, MICA, IRON TITANIUM OXIDE, CI 77891 / TITANIUM DIOXIDE, SILICA, CI 77491 / IRON OXIDES, TIN OXIDE, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, LINALOOL, BENZYL ALCOHOL, LINALYL ACETATE, JUNIPERUS VIRGINIANA OIL, GERANIOL, ISOEUGENYL ACETATE, POGOSTEMON CABLIN OIL, ROSE KETONES, 4259A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-sunissime-huile-sublimatrice-100ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-huile-sublimatrice.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'huile-visage', 'emollience', 'zone-visage'],
@@ -1527,7 +1444,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, GLYCERIN, PROPANEDIOL, PENTAERYTHRITYL TETRAETHYLHEXANOATE, ALUMINIUM STARCH OCTENYLSUCCINATE, C10-18 TRIGLYCERIDES, PENTYLENE GLYCOL, DIMETHICONE, BUTYLENE GLYCOL, CETEARYL ALCOHOL, SYNTHETIC FLUORPHLOGOPITE, SACCHARIDE, ISOMERATE, CETEARETH-30, ALBIZIA JULIBRISSIN BARK EXTRACT, DIMETHICONE CROSSPOLYMER, MARRUBIUM VULGARE EXTRACT, PHENOXYETHANOL ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, SUCROSE PALMITATE, TROMETHAMINE, PHENETHYL ALCOHOL, RUSCUS ACULEATU ROOT EXTRACT, CI77019/MICA, TETRASODIUM EDTA, XANTHAN GUM, CI77891/TITANIUM DIOXIDE, TOCOPHERYL ACETATE, GLYCERYL LINOLEATE, YEAST EXTRACT/ EXTRAIT DE LEVURE, SILICA, CITRIC ACID, SODIUM HYALURONATE, SODIUM CITRATE, POTASSIUM SORBATE, SODIUM BENZOATE, SOPHORA JAPONICA FLOWER EXTRACT, THEOBROMA CACAO (COCOA) SEED EXTRACT, ETHYLHEXYLGLYCERIN.1370A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/soins-anti-age/lierac-supra-radiance-serum-eclat-regard-15-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-supra-radiance-serum-eclat-regard.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'eclat'],
       secondary: ['serum', 'traitement', 'zone-visage'],
@@ -1557,7 +1474,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, GLYCERIN, ALCOHOL, DICAPRYLYL CARBONATE, ETHYLHEXYL SALICYLATE, C12-15 ALKYL BENZOATE, BUTYL METHOXYDIBENZOYLMETHANE, ETHYLHEXYL TRIAZONE, CETYL ALCOHOL, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, PHENYLBENZIMIDAZOLE SULFONIC ACID, ARGININE, CAPRYLIC/CAPRIC TRIGLYCERIDE, C20-22 ALKYL PHOSPHATE, C20-22 ALCOHOLS, STEARYL HEPTANOATE, PROPANEDIOL, STEARYL CAPRYLATE, CAPRYLYL GLYCOL, PARFUM / FRAGRANCE, POTASSIUM CETYL PHOSPHATE, ETHYLHEXYLGLYCERIN, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, TOCOPHERYL ACETATE, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, LAMINARIA OCHROLEUCA EXTRACT, SODIUM GLUCONATE, XANTHAN GUM, POLYGONUM AVICULARE EXTRACT, LINALYL ACETATE, PORPHYRIDIUM CRUENTUM EXTRACT, POTASSIUM SORBATE, SODIUM BENZOATE, 1,2-HEXANEDIOL, TOCOPHEROL, BIOSACCHARIDE GUM-4, CITRIC ACID, 4150A-1',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-sunissime-fluide-solaire-teinte-dore-spf30-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-fluide-solaire-teinte-dore-spf30.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1588,7 +1505,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, DICAPRYLYL CARBONATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, PROPANEDIOL, ETHYLHEXYL TRIAZONE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, CI 77891 / TITANIUM DIOXIDE, PHENYLBENZIMIDAZOLE SULFONIC ACID, TRIETHANOLAMINE, CELLULOSE, CETYL ALCOHOL, C20-22 ALKYL PHOSPHATE, C20-22 ALCOHOLS, CI 77492 / IRON OXIDES, POTASSIUM CETYL PHOSPHATE, GALACTOARBINAN, GLYCERIN, CAPRYLYL GLYCOL, CI 77491 / IRON OXIDES, ETHYLHEXYLGLYCERIN, PARFUM / FRAGRANCE, XANTHAN GUM, SODIUM HYALURONATE, CI 77499 / IRON OXIDES, MELANIN, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, BUTYLENE GLYCOL, POLYGONUM AVICULARE EXTRACT, PENTYLENE GLYCOL, OXOTHIAZOLIDINE, ALGIN, LINALOOL, LINALYL ACETATE, SODIUM BENZOATE, POTASSIUM SORBATE, TOCOPHEROL, 1,2-HEXANEDIOL, BIOSACCHARIDE GUM-4, 1450BB',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-sunissime-fluide-solaire-teinte-dore-spf50-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-fluide-solaire-teinte-dore-spf50.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1649,7 +1566,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, VEGETABLE OIL / HUILE VEGETALE, GLYCERIN, COCO-CAPRYLATE/CAPRATE, SQUALANE, BUTYROSPERMUM PARKII (SHEA) BUTTER, C15-19 ALKANE, POLYGLYCERYL-3 DISTEARATE, PERSEA GRATISSIMA (AVOCADO) OIL, HYDROGENATED VEGETABLE OIL, CETEARYL ALCOHOL, PROPANEDIOL, SYNTHETIC FLUORPHLOGOPITE, PARFUM / FRAGRANCE, BEHENYL ALCOHOL, CANDELILLA CERA / EUPHORBIA CERIFERA (CANDELILLA) WAX / CIRE DE CANDELILLA, HYDROXYETHYL ACRYLATE/SODIUM ACROYLOYLDIMETHYL TAURATE COPOLYMER, MICA, CAPRYLYL GLYCOL, CI 77891 / TITANIUM DIOXIDE, CHLORPHENESIN, MENTHOL, SODIUM POLYACRYLATE, SODIUM STEAROYL GLUTAMATE, GLYCERYL STEARATE CITRATE, XANTHAN GUM, TOCOPHEROL, SORBITAN ISOSTEARATE, PENTYLENE GLYCOL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, PORPHYRIDIUM CRUENTUM EXTRACT, HAMAMELIS VIRGINIANA (WITCH HAZEL) LEAF EXTRACT, TIN OXIDE, 4145A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-sunissime-gelee-fraiche-apres-soleil-corps-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-gelee-fraiche-apres-soleil-corps.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant'],
       secondary: ['emollience', 'texture-legere', 'reparateur'],
@@ -1680,7 +1597,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'COCO-CAPRYLATE/CAPRATE, DIISOPROPYL SEBACATE, DIBUTYL ADIPATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ETHYLHEXYL TRIAZONE, MACADAMIA INTEGRIFOLIA SEED OIL, C12-15 ALKYL BENZOATE, CAPRYLIC/CAPRIC TRIGLYCERIDE, PARFUM / FRAGRANCE, DEXTRIN MYRISTATE, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, LAMINARIA OCHROLEUCA EXTRACT, ETHYL FERULATE, LINALYL ACETATE, TOCOPHEROL, TOCOPHERYL ACETATE, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF EXTRACT, JUNIPERUS VIRGINIANA OIL, ROSE KETONES, 4159A-1',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-sunissime-huile-soyeuse-corps-solaire-spf50-150ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-huile-soyeuse-corps-solaire-spf50.webp',
     tags: {
       primary: ['anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1709,7 +1626,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'COCO-CAPRYLATE/CAPRATE, DIISOPROPYL SEBACATE, DIBUTYL ADIPATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ETHYLHEXYL TRIAZONE, MACADAMIA INTEGRIFOLIA SEED OIL, C12-15 ALKYL BENZOATE, CAPRYLIC/CAPRIC TRIGLYCERIDE, PARFUM / FRAGRANCE, DEXTRIN MYRISTATE, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, LAMINARIA OCHROLEUCA EXTRACT, ETHYL FERULATE, LINALYL ACETATE, TOCOPHEROL, TOCOPHERYL ACETATE, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF EXTRACT, JUNIPERUS VIRGINIANA OIL, ROSE KETONES, 4159A-1.LA GELÉE FRAÎCHE APRÈS-SOLEIL : INGREDIENTS: AQUA / WATER / EAU, GLYCERIN, ISOSTEARYL ISOSTEARATE, PROPANEDIOL, ISOPENTYLDIOL, AMMONIUM ACRYLOYLDIMETHYLTAURATE / VP COPOLYMER, 1,2-HEXANEDIOL, HYDROXYETHYL ACRYLATE / SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, PARFUM / FRAGRANCE, ETHYLHEXYLGLYCERIN, CHLORPHENESIN, CITRIC ACID, SORBITAN ISOSTEARATE, PENTYLENE GLYCOL, HAMAMELIS VIRGINIANA (WITCH HAZEL) LEAF EXTRACT, PORPHYRIDIUM CRUENTUM EXTRACT, CAPRYLYL GLYCOL, XANTHAN GUM, GERANIOL, GERANYL ACETATE, 4205A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-sunissime-huile-spf30-gelee-apres-soleil.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-huile-spf30-gelee-apres-soleil.webp',
     tags: {
       primary: ['anti-oxydant', 'hydratation', 'protection-solaire'],
       secondary: ['reparateur', 'matin'],
@@ -1739,7 +1656,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'COCO-CAPRYLATE/CAPRATE, DIISOPROPYL SEBACATE, DIBUTYL ADIPATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ETHYLHEXYL TRIAZONE, MACADAMIA INTEGRIFOLIA SEED OIL, C12-15 ALKYL BENZOATE, CAPRYLIC/CAPRIC TRIGLYCERIDE, PARFUM / FRAGRANCE, DEXTRIN MYRISTATE, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, LAMINARIA OCHROLEUCA EXTRACT, ETHYL FERULATE, TOCOPHEROL, TOCOPHERYL ACETATE, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF EXTRACT, 4159A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-sunissime-l-huile-soyeuse-solaire-corps-spf30-150ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-l-huile-soyeuse-solaire-corps-spf30.webp',
     tags: {
       primary: ['anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1768,7 +1685,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, VEGETABLE OIL / HUILE VEGETALE, GLYCERIN, COCO-CAPRYLATE/CAPRATE, SQUALANE, BUTYROSPERMUM PARKII (SHEA) BUTTER, C15-19 ALKANE, POLYGLYCERYL-3 DISTEARATE, PERSEA GRATISSIMA (AVOCADO) OIL, HYDROGENATED VEGETABLE OIL, CETEARYL ALCOHOL, PROPANEDIOL, SYNTHETIC FLUORPHLOGOPITE, PARFUM / FRAGRANCE, BEHENYL ALCOHOL, CANDELILLA CERA / EUPHORBIA CERIFERA (CANDELILLA) WAX / CIRE DE CANDELILLA, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, MICA, CAPRYLYL GLYCOL, CI 77891 / TITANIUM DIOXIDE, CHLORPHENESIN, MENTHOL, SODIUM POLYACRYLATE, SODIUM STEAROYL GLUTAMATE, GLYCERYL STEARATE CITRATE, XANTHAN GUM, TOCOPHEROL, SORBITAN ISOSTEARATE, PENTYLENE GLYCOL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, PORPHYRIDIUM CRUENTUM EXTRACT, HAMAMELIS VIRGINIANA (WITCH HAZEL) LEAF EXTRACT, TIN OXIDE, 4145A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-sunissime-la-creme-sublimatrice-apres-soleil-corps-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-la-creme-sublimatrice-apres-soleil-corps.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant'],
       secondary: ['emollience', 'texture-legere', 'reparateur'],
@@ -1799,7 +1716,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, GLYCERIN, ALCOHOL, DICAPRYLYL CARBONATE, ETHYLHEXYL SALICYLATE, C12-15 ALKYL BENZOATE, BUTYL METHOXYDIBENZOYLMETHANE, ETHYLHEXYL TRIAZONE, CETYL ALCOHOL, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, PHENYLBENZIMIDAZOLE SULFONIC ACID, ARGININE, CAPRYLIC/CAPRIC TRIGLYCERIDE, C20-22 ALKYL PHOSPHATE, C20-22 ALCOHOLS, STEARYL HEPTANOATE, PROPANEDIOL, STEARYL CAPRYLATE, CAPRYLYL GLYCOL, PARFUM / FRAGRANCE, POTASSIUM CETYL PHOSPHATE, ETHYLHEXYLGLYCERIN, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, LAMINARIA OCHROLEUCA EXTRACT, TOCOPHERYL ACETATE, SODIUM GLUCONATE, XANTHAN GUM, POLYGONUM AVICULARE EXTRACT, PORPHYRIDIUM CRUENTUM EXTRACT, POTASSIUM SORBATE, SODIUM BENZOATE, 1,2-HEXANEDIOL, TOCOPHEROL, BIOSACCHARIDE GUM-4, CITRIC ACID, 4150A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-sunissime-le-fluide-veloute-solaire-visage-spf30-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-le-fluide-veloute-solaire-visage-spf30.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1830,7 +1747,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, GLYCERIN, ALCOHOL, DICAPRYLYL CARBONATE, BUTYL METHOXYDIBENZOYLMETHANE, ETHYLHEXYL SALICYLATE, ETHYLHEXYL TRIAZONE, C12-15 ALKYL BENZOATE, PHENYLBENZIMIDAZOLE SULFONIC ACID, TRIETHANOLAMINE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, C20-22 ALKYL PHOSPHATE, CAPRYLIC/CAPRIC TRIGLYCERIDE, C20-22 ALCOHOLS, CETYL ALCOHOL, POLYGLYCERYL-3 METHYLGLUCOSE DISTEARATE, STEARYL HEPTANOATE, PARFUM / FRAGRANCE, STEARYL CAPRYLATE, CAPRYLYL GLYCOL, ETHYLHEXYLGLYCERIN, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, POTASSIUM CETYL PHOSPHATE, SODIUM HYALURONATE, TOCOPHERYL ACETATE, LAMINARIA OCHROLEUCA EXTRACT, MELANIN, SODIUM GLUCONATE, XANTHAN GUM, BUTYLENE GLYCOL, POLYGONUM AVICULARE EXTRACT, PENTYLENE GLYCOL, OXOTHIAZOLIDINE, SODIUM BENZOATE, POTASSIUM SORBATE, 1,2-HEXANEDIOL, TOCOPHEROL, BIOSACCHARIDE GUM-4, CITRIC ACID, ACETYL HEXAPEPTI',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-sunissime-le-fluide-veloute-solaire-visage-spf50-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-le-fluide-veloute-solaire-visage-spf50.webp',
     tags: {
       primary: ['hydratation', 'protection-solaire', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1861,7 +1778,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, C12-15 ALKYL BENZOATE, GLYCERIN, ALCOHOL, DICAPRYLYL CARBONATE, ETHYLHEXYL SALICYLATE, BUTYL METHOXYDIBENZOYLMETHANE, ETHYLHEXYL TRIAZONE, POLYGLYCERYL-3 METHYLGLUCOSE DISTEARATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, PHENYLBENZIMIDAZOLE SULFONIC ACID, ARGININE, CAPRYLIC/CAPRIC TRIGLYCERIDE, PROPANEDIOL, C20-22 ALKYL PHOSPHATE, C20-22 ALCOHOLS, PARFUM / FRAGRANCE, CAPRYLYL GLYCOL, POTASSIUM CETYL PHOSPHATE, ETHYLHEXYLGLYCERIN, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, LAMINARIA OCHROLEUCA EXTRACT, TOCOPHERYL ACETATE, SODIUM GLUCONATE, POLYGONUM AVICULARE EXTRACT, PORPHYRIDIUM CRUENTUM EXTRACT, POTASSIUM SORBATE, SODIUM BENZOATE, 1,2-HEXANEDIOL, TOCOPHEROL, BIOSACCHARIDE GUM-4, CITRIC ACID, 4148A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-sunissime-le-lait-fondant-solaire-corps-spf30-150ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-le-lait-fondant-solaire-corps-spf30.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1892,7 +1809,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, GLYCERIN, ALCOHOL, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DICAPRYLYL CARBONATE, BUTYL METHOXYDIBENZOYLMETHANE, ETHYLHEXYL SALICYLATE, ETHYLHEXYL TRIAZONE, C12-15 ALKYL BENZOATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, PHENYLBENZIMIDAZOLE SULFONIC ACID, POLYGLYCERYL-3 METHYLGLUCOSE DISTEARATE, ARGININE, CAPRYLIC/CAPRIC TRIGLYCERIDE, PROPANEDIOL, C20-22 ALKYL PHOSPHATE, C20-22 ALCOHOLS, PARFUM / FRAGRANCE, CAPRYLYL GLYCOL, POTASSIUM CETYL PHOSPHATE, ETHYLHEXYLGLYCERIN, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, LAMINARIA OCHROLEUCA EXTRACT, TOCOPHERYL ACETATE, SODIUM GLUCONATE, POLYGONUM AVICULARE EXTRACT, PORPHYRIDIUM CRUENTUM EXTRACT, POTASSIUM SORBATE, SODIUM BENZOATE, 1,2-HEXANEDIOL, TOCOPHEROL, BIOSACCHARIDE GUM-4, CITRIC ACID, 4149A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-sunissime-le-lait-fondant-solaire-corps-spf50-150ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-le-lait-fondant-solaire-corps-spf50.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1923,7 +1840,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'CANDELILLA CERA / EUPHORBIA CERIFERA (CANDELILLA) WAX / CIRE DE CANDELILLA, CAPRYLIC/CAPRIC TRIGLYCERIDE, LAURYL LAURATE, THEOBROMA CACAO (COCOA) SEED BUTTER, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DIETHYLHEXYL BUTAMIDO TRIAZONE, CORN STARCH MODIFIED, ETHYLHEXYL TRIAZONE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, RICINUS COMMUNIS (CASTOR) SEED OIL, COPERNICIA CERIFERA CERA / COPERNICIA CERIFERA (CARNAUBA) WAX / CIRE DE CARNAUBA, PARFUM / FRAGRANCE, STEARALKONIUM HECTORITE, PROPYLENE CARBONATE, LAMINARIA OCHROLEUCA EXTRACT, TOCOPHERYL ACETATE, ASTAXANTHIN, TOCOPHEROL, 4173A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-sunissime-le-stick-protecteur-spf50-10g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-le-stick-protecteur-spf50.webp',
     tags: {
       primary: ['anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1953,7 +1870,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, DIHYDROXYACETONE, ISOSTEARYL ISOSTEARATE, GLYCERIN, PENTYLENE GLYCOL, SQUALANE, TRIETHYL CITRATE, ARACHIDYL ALCOHOL, ISOAMYL LAURATE, ERYTHULOSE, BEHENYL ALCOHOL, GLYCERYL STEARATE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, SACCHARIDE ISOMERATE, ARACHIDYL GLUCOSIDE, CI 77891 / TITANIUM DIOXIDE, CETEARYL ALCOHOL, PARFUM / FRAGRANCE, SYNTHETIC FLUORPHLOGOPITE, RASPBERRY KETONE, ETHYLHEXYLGLYCERIN, CHLORPHENESIN, TOCOPHEROL, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, ACACIA SENEGAL GUM, XANTHAN GUM, SORBITAN ISOSTEARATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, LINALYL ACETATE, TIN OXIDE, CITRIC ACID, SODIUM CITRATE, JUNIPERUS VIRGINIANA OIL, 4203A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-sunissime-serum-autobronzant-visage-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-serum-autobronzant-visage.webp',
     tags: {
       primary: ['hydratation', 'barriere-cutanee', 'anti-oxydant'],
       secondary: ['emollience', 'texture-legere', 'reparateur', 'auto-bronzant', 'zone-corps'],
@@ -1979,7 +1896,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, DIHYDROXYACETONE, ISOSTEARYL ISOSTEARATE, GLYCERIN, PENTYLENE GLYCOL, SQUALANE, TRIETHYL CITRATE, ARACHIDYL ALCOHOL, ISOAMYL LAURATE, ERYTHULOSE, BEHENYL ALCOHOL, GLYCERYL STEARATE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, SACCHARIDE ISOMERATE, ARACHIDYL GLUCOSIDE, CI 77891 / TITANIUM DIOXIDE, CETEARYL ALCOHOL, PARFUM / FRAGRANCE, SYNTHETIC FLUORPHLOGOPITE, RASPBERRY KETONE, ETHYLHEXYLGLYCERIN, CHLORPHENESIN, TOCOPHEROL, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, ACACIA SENEGAL GUM, XANTHAN GUM, SORBITAN ISOSTEARATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, LINALYL ACETATE, TIN OXIDE, CITRIC ACID, SODIUM CITRATE, JUNIPERUS VIRGINIANA OIL, 4203A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-sunissime-soin-autobronzant-corps-150ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-soin-autobronzant-corps.webp',
     tags: {
       primary: ['hydratation', 'barriere-cutanee', 'anti-oxydant'],
       secondary: ['emollience', 'texture-legere', 'reparateur', 'auto-bronzant', 'zone-corps'],
@@ -2005,7 +1922,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, COCO-CAPRYLATE/CAPRATE, GLYCERIN, NEOPENTYL GLYCOL DIHEPTANOATE, BUTYROSPERMUM PARKII (SHEA) BUTTER, C15-19 ALKANE, CETEARYL ALCOHOL, PERSEA GRATISSIMA (AVOCADO) OIL, SODIUM CARBOXYMETHYL STARCH, PROPANEDIOL, SODIUM POLYACRYLATE, PARFUM / FRAGRANCE, ETHYLHEXYLGLYCERIN, MALTODEXTRIN, SODIUM STEAROYL GLUTAMATE, TOCOPHEROL, CHLORHEXIDINE DIGLUCONATE, BIOSACCHARIDE GUM-1, PENTYLENE GLYCOL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, PORPHYRIDIUM CRUENTUM EXTRACT, HAMAMELIS VIRGINIANA (WITCH HAZEL) LEAF EXTRACT, CAPRYLYL GLYCOL, XANTHAN GUM, 4144A',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-sunissime-sorbet-apres-soleil-visage-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-sorbet-apres-soleil-visage.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur'],
@@ -2035,7 +1952,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'CANDELILLA CERA / EUPHORBIA CERIFERA (CANDELILLA) WAX/CIRE DE CANDELILLA, CAPRYLIC/CAPRIC TRIGLYCERIDE, LAURYL LAURATE, THEOBROMA CACAO (COCOA) SEED BUTTER, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DIETHYLHEXYL BUTAMIDO TRIAZONE, CORN STARCH MODIFIED, ETHYLHEXYL TRIAZONE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, RICINUS COMMUNIS (CASTOR) SEED OIL, COPERNICIA CERIFERA CERA/COPERNICIA CERIFERA (CARNAUBA) WAX/CIRE DE CARNAUBA, PARFUM/FRAGRANCE, STEARALKONIUM HECTORITE, PROPYLENE CARBONATE, LAMINARIA OCHROLEUCA EXTRACT, TOCOPHERYL ACETATE, ASTAXANTHIN, TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-sunissime-stick-protecteur-spf50-15g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-stick-protecteur-spf50.webp',
     tags: {
       primary: ['anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],

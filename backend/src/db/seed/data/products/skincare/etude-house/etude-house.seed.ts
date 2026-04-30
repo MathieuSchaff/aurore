@@ -18,8 +18,7 @@ export const ETUDE_HOUSE_SEED: UnifiedProductSeed[] = [
       'Formule enrichie en Madecassoside, Panthénol et extrait de thé vert. Idéale pour les peaux sensibles et réactives.',
     inci: '1,2-HEXANEDIOL, ALLANTOIN, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, ARACHIDYL ALCOHOL, ARACHIDYL GLUCOSIDE, BEHENYL ALCOHOL, BUTYLENE GLYCOL, C12-20 ALKYL GLUCOSIDE, C14-22 ALCOHOLS, CAMELLIA SINENSIS LEAF EXTRACT, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, GLUCOSE, GLYCERIN, GLYCERYL CAPRYLATE, GLYCERYL STEARATE, GLYCERYL STEARATE CITRATE, HYDROGENATED POLY(C6-14 OLEFIN), HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, MADECASSOSIDE, PANTHENOL, PENTAERYTHRITYL TETRAETHYLHEXANOATE, POLYMETHYLSILSESQUIOXANE, PROPANEDIOL, SCUTELLARIA BAICALENSIS ROOT EXTRACT, SORBITAN ISOSTEARATE, TOCOPHEROL, TREHALOSE, WATER',
     url: 'https://www.skinsafeproducts.com/etude-house-soonjung-hydro-barrier-cream-4-39-fl-oz-130-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/FB1B7A5F182DE7/large_1664151505.jpeg?1664151505',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/etude-house-soonjung-hydro-barrier-cream.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CREME_HYDRATANTE],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.PEAU_SENSIBLE],
@@ -45,8 +44,7 @@ export const ETUDE_HOUSE_SEED: UnifiedProductSeed[] = [
       'Actifs : Gentiane, Ginkgo Biloba et Menthe. Idéale pour les peaux mixtes à grasses sujettes aux pores élargis.',
     inci: 'ACETIC ACID, ACHILLEA MILLEFOLIUM EXTRACT, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, ARNICA MONTANA FLOWER EXTRACT, ARTEMISIA ABSINTHIUM EXTRACT, BUTYLENE GLYCOL, CHAMAECYPARIS OBTUSA WATER, CYCLOHEXASILOXANE, CYCLOPENTASILOXANE, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, FRAGRANCE, GENTIANA LUTEA ROOT EXTRACT, GINKGO BILOBA LEAF EXTRACT, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, MENTHA ARVENSIS EXTRACT, PHENOXYETHANOL, POLYSILICONE-11, POLYSORBATE 20, TREHALOSE, WATER',
     url: 'https://www.skinsafeproducts.com/etude-house-wonder-pore-balancing-cream-1-fl-oz',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/6C15AB09FC1D45/large_1528770607.jpeg?1528770607',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/etude-house-wonder-pore-balancing-cream.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.CREME_HYDRATANTE],
       secondary: [],
@@ -69,8 +67,7 @@ export const ETUDE_HOUSE_SEED: UnifiedProductSeed[] = [
       'Actifs : Niacinamide, Dioxyde de Titane et Oxyde de Zinc. Idéale pour les peaux mixtes souhaitant un fini mat et soyeux.',
     inci: 'ALUMINUM, ALUMINUM HYDROXIDE, BUTYLENE GLYCOL, BUTYLENE GLYCOL DICAPRYLATE/DICAPRATE, CYCLOHEXASILOXANE, CYCLOPENTASILOXANE, DICAPRYLATE/DICAPRATE, DIMETHICONE, DIMETHICONE CROSSPOLYMER, DIMETHICONE/VINYL DIMETHICONE CROSSPOLYMER, DISODIUM EDTA, DISTEARDIMONIUM HECTORITE, ETHYLHEXYLGLYCERIN, ETHYLHEXYLMETHOXYCINNAMATE, FRAGRANCE, GLYCERIN, GLYCERYL BEHENATE/EICOSADIOATE, HDI/TRIMETHYLOL HEXYLLACTONE CROSSPOLYMER, HYDROGENATED CASTOR OIL ISOSTEARATE, IRON OXIDES (CI 77491, CI 77492, CI 77499), MAGNESIUM SULFATE, METHYL METHACRYLATE CROSSPOLYMER, MICA (CI 77019), NIACINAMIDE, PEG-10 DIMETHICONE, PEG-9 POLYDIMETHYLSILOXYETHYL DIMETHICONE, PENTYLENE GLYCOL, PHENOXYETHANOL, PHENYL TRIMETHICONE, SILICA, SODIUM CHLORIDE, SORBITAN ISOSTEARATE, TITANIUM DIOXIDE (CI 77891), TRIBEHENIN, TRIETHOXYCAPRYLYLSILANE, TRISILOXANE, VINYL DIMETHICONE/METHICONE SILSESQUIOXANE CROSSPOLYMER, WATER, ZINC OXIDE (CI 77497)',
     url: 'https://www.skinsafeproducts.com/etude-house-beauty-shot-face-blur-35g-spf33-pa-kpop-korean-cosmetics',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/F60C842AA4054E/large_1530731826.jpeg?1530731826',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/etude-house-beauty-shot-face-blur.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.PRIMER, TAG_SLUGS.FILTRES_MINERAUX],
       secondary: [TAG_SLUGS.FILTRES_CHIMIQUES],
@@ -168,8 +165,7 @@ export const ETUDE_HOUSE_SEED: UnifiedProductSeed[] = [
       'Actifs : Madecassoside, Panthénol et extrait de thé vert. Idéal pour les peaux sensibles, réactives ou fragilisées.',
     inci: 'BUTYLENE GLYCOL, CAMELLIA SINENSIS LEAF EXTRACT, CITRIC ACID, DISODIUM COCOYL GLUTAMATE, ETHYLHEXYLGLYCERIN, GLYCERIN, GLYCERYL CAPRYLATE, LAURYL GLUCOSIDE, MADECASSOSIDE, PANTHENOL, PROPANEDIOL, SORBITOL, TOCOPHEROL, WATER',
     url: 'https://www.skinsafeproducts.com/etude-soonjung-ph-6-5-whip-cleanser-8-5-fl-oz-250-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/BB469624F2A274/large_1657845142.jpeg?1657845142',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/etude-house-soonjung-whip-cleanser.webp',
     tags: {
       primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.PEAU_SENSIBLE],
@@ -216,8 +212,7 @@ export const ETUDE_HOUSE_SEED: UnifiedProductSeed[] = [
       'Actifs : Madecassoside, Panthénol et Squalane. Idéale pour les peaux sensibles recherchant une hydratation quotidienne légère et tolérée.',
     inci: 'AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, BIS-DIGLYCERYL POLYACYLADIPATE-2, BUTYLENE GLYCOL, CAMELLIA SINENSIS (GREEN TEA) LEAF EXTRACT, CETEARYL ALCOHOL, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, GLYCERIN, GLYCERYL CAPRYLATE, GLYCERYL STEARATE, HYDROGENATED LECITHIN, HYDROXYPROPYL STARCH PHOSPHATE, MADECASSOSIDE, PANTHENOL, PENTAERYTHRITYL TETRAETHYLHEXANOATE, POLYGLYCERYL-3 METHYLGLUCOSE DISTEARATE, PROPANEDIOL, SQUALANE, STEARIC ACID, WATER, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/etude-house-soonjung-10-free-moist-emulsion-120ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/D75DBC0FFC7CC6/large_1515829579.jpeg?1515829579',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/etude-house-soonjung-moist-emulsion.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.PEAU_SENSIBLE],
@@ -238,8 +233,7 @@ export const ETUDE_HOUSE_SEED: UnifiedProductSeed[] = [
     notes: `Actifs : Madecassoside, Panthénol et extrait de Baicalein. Idéal pour les peaux sensibles et réactives en quête d'apaisement quotidien.`,
     inci: '1,2-HEXANEDIOL, BETAINE, BUTYLENE GLYCOL, CAMELLIA SINENSIS (GREEN TEA) LEAF EXTRACT, CARBOMER, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, GLYCERIN, MADECASSOSIDE, PANTHENOL, POLYGLYCERIN-3, PROPANEDIOL, SCUTELLARIA BAICALENSIS ROOT EXTRACT, WATER',
     url: 'https://www.skinsafeproducts.com/etude-house-soonjung-ph-5-5-relief-toner-180ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/D20C64CB67F642/large_1515829513.jpeg?1515829513',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/etude-house-soonjung-relief-toner.webp',
     tags: {
       primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.APAISANT, TAG_SLUGS.PREPARATION],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.PEAU_SENSIBLE],
@@ -262,8 +256,7 @@ export const ETUDE_HOUSE_SEED: UnifiedProductSeed[] = [
       'Actifs : Beurre de Karité, Huile de Tournesol, Madecassoside et Panthénol. Idéale pour les peaux sèches à très sèches ou après des soins agressifs.',
     inci: '1,2-HEXANEDIOL, AFRICAN SHEA BUTTER, BUTYLENE GLYCOL, CAMELLIA SINENSIS (GREEN TEA) LEAF EXTRACT, CAPRYLIC/CAPRIC TRIGLYCERIDE, CETEARYL ALCOHOL, DISODIUM EDTA, GLYCERIN, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, MADECASSOSIDE, PANTHENOL, PENTAERYTHRITYL TETRAETHYLHEXANOATE, POLYGLYCERYL-3 METHYLGLUCOSE DISTEARATE, POTASSIUM CARBOMER, PROPANEDIOL, WATER, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/etude-house-soonjung-2x-barrier-intensive-cream-30ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/60731DD50A7EAE/large_1515829413.jpeg?1515829413',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/etude-house-soonjung-barrier-intensive-cream.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CREME_HYDRATANTE],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.PEAU_SENSIBLE],

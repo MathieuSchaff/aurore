@@ -17,7 +17,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'ALLANTOIN, AQUA (WATER), ARCTOSTAPHYLOS UVA URSI LEAF EXTRACT, BUTYROSPERMUM PARKII (SHEA) BUTTER, CARUM PETROSELINUM (PARSLEY) EXTRACT, CERA ALBA (BEESWAX), CERA MICROCRISTALLINA (MICROCRYSTALLINE WAX), CETYL ALCOHOL, CYCLOHEXASILOXANE, CYCLOPENTASILOXANE, DIMETHICONE, GLYCERIN, HYDROXYPROPYL STARCH PHOSPHATE, LACTIC ACID, MAGNESIUM SULFATE, MANGANESE SULFATE, PARAFFIN, PARAFFINUM LIQUIDUM (MINERAL OIL), PARFUM (FRAGRANCE), PHENOXYETHANOL, POTASSIUM SORBATE, PROPYLENE GLYCOL, PRUNUS ARMENIACA (APRICOT) KERNEL OIL, RESEDA LUTEOLA EXTRACT, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, SODIUM LACTATE, SORBITAN CAPRYLATE, STEARETH-2, STEARETH-21, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-depiwhite-lait-corporel-eclaircissant-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-depiwhite-lait-corporel-eclaircissant.webp',
     tags: {
       primary: ['apaisant', 'hydratation'],
       secondary: ['lait-corps', 'zone-corps'],
@@ -34,36 +34,6 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     ],
   },
   {
-    slug: 'acm-depiwhite-lait-corporel-eclaircissant-500ml',
-    name: 'Depiwhite Lait Corporel Eclaircissant',
-    brand: 'ACM',
-    kind: 'body-lotion',
-    unit: 'bottle',
-    totalAmount: 500,
-    amountUnit: 'ml',
-    priceCents: 1795,
-    description:
-      'Lait Corporel Eclaircissant discount ACM DEPIWHITE, le soin douceur et antitaches du corps, des peaux sèches en perte d’éclat, hyperpigmentées, à prix discount dans votre parapharmacie en ligne.\n\nLa gamme Dépiwhite du laboratoire ACM est composée de produits dermatologiques destinés à réduire les taches cutanées sur la peau.\n\n\nLe Lait Corporel Eclaircissant ACM DEPIWHITE composé d’agents hydratants et actifs végétaux éclaircissants, va réduire la production de mélanine en excès, unifier et éclaircir la peau. Sa texture fluide et non grasse pénètre rapidement pour un habillage rapide. La peau est souple, soyeuse et retrouve son éclat.',
-    notes: '',
-    inci: 'AQUA (WATER), GLYCERIN, PARAFFINUM LIQUIDUM (MINERAL OIL), PRUNUS ARMENIACA (APRICOT) KERNEL OIL, STEARETH-2, BUTYROSPERMUM PARKII (SHEA) BUTTER, SORBITAN CAPRYLATE, STEARETH-21, HYDROXYPROPYL STARCH PHOSPHATE, CERA ALBA (BEESWAX), CETYL ALCOHOL, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, SODIUM LACTATE, ALLANTOIN, LACTIC ACID, MAGNESIUM SULFATE HEPTAHYDRATE, MANGANESE SULFATE MONOHYDRATE, RESEDA LUTEOLA EXTRACT, ARCTOSTAPHYLOS UVA URSI LEAF EXTRACT, CARUM PETROSELINUM (PARSLEY) EXTRACT, CERA MICROCRISTALLINA (MICROCRYSTALLINE WAX), DIMETHICONE, PARAFFIN, PHENOXYETHANOL, PROPYLENE GLYCOL, XANTHAN GUM, CYCLOPENTASILOXANE, CYCLOHEXASILOXANE, POTASSIUM SORBATE, PARFUM (FRAGRANCE)',
-    url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-depiwhite-lait-corporel-eclaircissant-500ml.html',
-    imageUrl: '',
-    tags: {
-      primary: ['hydratation', 'apaisant'],
-      secondary: ['lait-corps', 'zone-corps'],
-      avoid: [],
-    },
-    keyIngredients: [
-      { slug: INGREDIENT_SLUGS.APRICOT_KERNEL_OIL },
-      { slug: INGREDIENT_SLUGS.SHEA_BUTTER },
-      { slug: INGREDIENT_SLUGS.CIRE_ABEILLE },
-      { slug: INGREDIENT_SLUGS.HUILE_DE_JOJOBA },
-      { slug: INGREDIENT_SLUGS.SODIUM_LACTATE },
-      { slug: INGREDIENT_SLUGS.ALLANTOIN },
-      { slug: INGREDIENT_SLUGS.LACTIC_ACID },
-    ],
-  },
-  {
     slug: 'acm-sensiteal-soin-emollient-visage-et-corps',
     name: 'Sensiteal Soin Emollient Visage et Corps',
     brand: 'ACM',
@@ -77,7 +47,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '1,2-HEXANEDIOL, ALLANTOIN, AQUA (WATER), BHT, BUTYROSPERMUM PARKII (SHEA) BUTTER, CERA ALBA (BEESWAX), CERA MICROCRISTALLINA (MICROCRYSTALLINE WAX), CETYL ALCOHOL, CHLORPHENESIN, CITRIC ACID, CYCLOHEXASILOXANE, CYCLOPENTASILOXANE, DIMETHICONE, GLYCERIN, HYDROXYPROPYL STARCH PHOSPHATE, PARAFFIN, PARAFFINUM LIQUIDUM (MINERAL OIL), PHENOXYETHANOL, POTASSIUM SORBATE, PRUNUS ARMENIACA (APRICOT) KERNEL OIL, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, SODIUM LACTATE, STEARETH-2, STEARETH-21, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-sensiteal-soin-emollient-visage-et-corps-500ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-sensiteal-soin-emollient-visage-et-corps.webp',
     tags: {
       primary: ['apaisant', 'hydratation'],
       secondary: ['lait-corps', 'zone-corps'],
@@ -106,7 +76,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), BUTYROSPERMUM PARKII (SHEA) OIL, CETEARYL ALCOHOL, CI 77891 (TITANIUM DIOXIDE), COCAMIDOPROPYL BETAINE, GLYCERIN, HYDROGENATED CASTOR OIL, LACTIC ACID, PARAFFINUM LIQUIDUM (MINERAL OIL), PARFUM (FRAGRANCE), POTASSIUM LAURYL SULFATE, POTASSIUM PHOSPHATE, SODIUM LAURYL SULFATE, TOCOPHERYL ACETATE, XYLITOL, ZEA MAYS (CORN) STARCH',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-sensitelial-pain-surgras-dermatologique-100g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-sensitelial-pain-surgras-dermatologique.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['nettoyant-corps', 'zone-corps'],
@@ -132,7 +102,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), CETEARYL ALCOHOL, DISODIUM LAURYL SULFOSUCCINATE, SODIUM COCOYL ISETHIONATE, ZEA MAYS (CORN) STARCH, COCO-GLUCOSIDE, DISODIUM COCOYL GLUTAMATE, 1,2-HEXANEDIOL, HYDROXYPROPYL GUAR, GLYCERIN, HYDROGENATED CASTOR OIL, CAPRYLOYL GLYCINE, GLYCERYL CAPRYLATE, PHOSPHOLIPIDS, PARFUM (FRAGRANCE), GLYCINE SOJA (SOYBEAN) OIL, BISABOLOL, BUTYL AVOCADATE, SODIUM COCOYL GLUTAMATE, TITANIUM DIOXIDE, ZINC GLUCONATE, CITRIC ACID, GLYCOLIPIDS, POTASSIUM SORBATE, GLYCINE SOJA (SOYBEAN) STEROLS, SODIUM CHLORIDE, HYDROLYZED CHENOPODIUM QUINOA SEED, MALTODEXTRIN, PROPYL GALLATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/noviderm/boreade-cl-creme-lavante-200-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/boreade-cl-creme-lavante.webp',
     tags: {
       primary: ['apaisant', 'hydratation'],
       secondary: ['nettoyant-corps', 'zone-corps'],
@@ -161,29 +131,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), SORBITOL, SODIUM LAURETH SULFATE, COCAMIDOPROPYL BETAINE, NIACINAMIDE, POLYSORBATE 80, SODIUM BENZOATE, XANTHAN GUM, CITRIC ACID, SODIUM HYDROXIDE, PARFUM (FRAGRANCE)',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-produits/bain-et-douche/gel-douche/acm-sensitelial-ad-huile-lavante-500ml.html',
-    imageUrl: '',
-    tags: {
-      primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
-      avoid: [],
-    },
-    keyIngredients: [{ slug: INGREDIENT_SLUGS.NIACINAMIDE }],
-  },
-  {
-    slug: 'acm-sensitelial-ad-huile-lavante-200ml',
-    name: 'Sensitelial.ad Huile Lavante',
-    brand: 'ACM',
-    kind: 'body-wash',
-    unit: 'tube',
-    totalAmount: 200,
-    amountUnit: 'ml',
-    priceCents: 699,
-    description:
-      "ACM Sensitelial Huile Lavante 200ml est en vente en ligne sur le site de votre parapharmacie à prix discount, destinée à nettoyer en douceur les peaux sensibles et délicates. \n\nCette huile lavante est proposée par la marque ACM, reconnue pour ses soins adaptés aux besoins spécifiques de la peau. Sa texture huileuse se transforme en une mousse légère au contact de l'eau, offrant une expérience de nettoyage agréable et respectueuse de l'épiderme. Parmi ses ingrédients actifs, le sorbitol, reconnu pour ses propriétés hydratantes, aide à maintenir l'hydratation de la peau, tandis que la niacinamide est réputée pour ses effets apaisants et protecteurs, contribuant à améliorer l'apparence générale de la peau.\n\nAvec sa formule douce et respectueuse, ACM Sensitelial Huile Lavante est idéale pour un usage quotidien, apportant confort et douceur à votre peau. C'est un allié du quotidien pour prendre soin de vous simplement et efficacement.",
-    notes: '',
-    inci: 'AQUA (WATER), SORBITOL, SODIUM LAURETH SULFATE, COCAMIDOPROPYL BETAINE, NIACINAMIDE, POLYSORBATE 80, SODIUM BENZOATE, XANTHAN GUM, CITRIC ACID, SODIUM HYDROXIDE, PARFUM (FRAGRANCE)',
-    url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-soins/hydratants-corps/laits-et-cremes/acm-sensitelial-ad-huile-lavante-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-sensitelial-ad-huile-lavante.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
       secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
@@ -205,7 +153,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '1,2-HEXANEDIOL, AQUA (WATER), BUTYROSPERMUM PARKII (SHEA) BUTTER, C10-18 TRIGLYCERIDES, CAPRYLIC/CAPRIC TRIGLYCERIDE, CERAMIDE NP, CETYL ALCOHOL, CITRIC ACID, GLYCERIN, GLYCERYL CAPRYLATE, GLYCERYL STEARATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL UNSAPONIFIABLES, HYDROLYZED CHENOPODIUM QUINOA SEED, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, LEPIDIUM MEYENII ROOT EXTRACT, MALTODEXTRIN, PARFUM (FRAGRANCE), POLYSORBATE 60, PROPYLENE GLYCOL DICAPRYLATE, SODIUM STEAROYL GLUTAMATE, SORBITAN ISOSTEARATE, TOCOPHERYL ACETATE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-boreade-r-soin-reparateur-apaisant-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-boreade-r-soin-reparateur-apaisant.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant', 'apaisant'],
       secondary: ['emollience', 'creme-hydratante', 'zone-visage', 'reparateur'],
@@ -232,7 +180,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER LACTIC ACID PROPANEDIOL GLYCERIN CAPRYLIC CAPRIC TRIGLYCERIDE ORYZA SATIVA RICE STARCH CETEARYL ALCOHOL BUTYL AVOCADATE DICAPRYLYL CARBONATE SODIUM HYDROXIDE LAURYL GLUCOSIDE POLYGLYCERYL 2 DIPOLYHYDROXYSTEARATE PENTAERYTHRITYL DISTEARATE SILICA SODIUM STEAROYL GLUTAMATE ZINC GLUCONATE HYDROLYZED CHENOPODIUM QUINOA SEED MALTODEXTRIN HYDROLYZED LUPINE PROTEIN ARGININE TOCOPHERYL ACETATE SALICYLIC ACID TOCOPHEROL XANTHAN GUM 1 2 HEXANEDIOL PENTYLENE GLYCOL SCLEROTIUM GUM CAPRYLOYL GLYCINE DISODIUM EDTA GLYCERYL CAPRYLATE HEXAMIDINE DIISETHIONATE CITRIC ACID DISODIUM COCOYL GLUTAMATE SODIUM COCOYL GLUTAMATE PARFUM FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-boreade-serum-concentre-anti-imperfections-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-boreade-serum-concentre-anti-imperfections.webp',
     tags: {
       primary: ['exfoliation', 'anti-acne', 'hydratation'],
       secondary: [
@@ -261,7 +209,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), DICAPRYLYL CARBONATE, COCOGLYCERIDES, PROPYLENE GLYCOL, GLYCERIN, ACACIA DECURRENS/JOJOBA/SUNFLOWER SEED WAX/POLYGLYCERYL-3 ESTERS, OXIDIZED CORN OIL, SUCROSE STEARATE, SUCROSE TETRASTEARATE TRIACETATE, PROPANEDIOL, HELICHRYSUM ITALICUM FLOWER OIL, MENTHA ARVENSIS LEAF OIL, ALLANTOIN, ARNICA MONTANA FLOWER EXTRACT, TOCOPHEROL, N-HYDROXYSUCCINIMIDE, CHRYSIN, PALMITOYL TRIPEPTIDE-1, PALMITOYL TETRAPEPTIDE-7, STEARYL ALCOHOL, C20-22 ALKYL PHOSPHATE, GLYCERYL BEHENATE, C20-22 ALCOHOLS, PHENOXYETHANOL, XANTHAN GUM, CHLORPHENESIN, POTASSIUM SORBATE, STEARETH-20, SODIUM HYDROXIDE, LINALOOL, LIMONENE, CHLORHEXIDINE DIGLUCONATE, SODIUM CITRATE, CITRIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-cicastim-a-creme-apaisante-20ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-cicastim-a-creme-apaisante.webp',
     tags: {
       primary: ['anti-age', 'apaisant', 'hydratation'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -292,7 +240,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), CETYL ALCOHOL, PARAFFINUM LIQUIDUM (MINERAL OIL), ISOPROPYL MYRISTATE, SORBITOL, GLYCERYL STEARATE, HYDROXYPROPYL STARCH PHOSPHATE, PEG-75 STEARATE, ALLANTOIN, TOCOPHERYL ACETATE, CERA MICROCRISTALLINA (MICROCRYSTALLINE WAX), CETETH-20, STEARETH-20, PARAFFIN, DECYLENE GLYCOL, POLYACRYLAMIDE, C13-14 ISOPARAFFIN, LAURETH-7, CHLORHEXIDINE DIGLUCONATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-cicastim-creme-reparatrice-20ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-cicastim-creme-reparatrice.webp',
     tags: {
       primary: ['apaisant', 'anti-oxydant', 'cicatrisation'],
       secondary: ['creme-hydratante', 'zone-visage', 'reparateur'],
@@ -314,7 +262,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), GLYCERIN, PROPANEDIOL, PARAFFINUM LIQUIDUM (MINERAL OIL), NIACINAMIDE, PRUNUS ARMENIACA (APRICOT) KERNEL OIL, STEARETH-2, STEARETH-21, BUTYRISPERMUM PARKII (SHEA) BUTTER, HYDROXYPROPYL STARCH PHOSPHATE, CERA ALBA (BEESWAX) , CETYL ALCOHOL, PENTYLENE GLYCOL, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, SODIUM LACTATE, LACTIC ACID, ALLANTOIN, ZINC PCA, CERA MICROCRYSTALLINE (MICROCRYSTALLINE WAX), GLYCYRRHIZA GLABRA (LICORICE) ROOL EXTRACT, 1,2-HEXANEDIOL, CAPRULUL GLYCOL, MAGNESIUM SULFATE, MANGANESE SULFATE, PARAFFIN, CHLORHEXIDINE DIGLUCONATE, XANTHAN GUM, PHYTIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-depiwhite-creme-anti-taches-zones-sensibles-intimes-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-depiwhite-creme-anti-taches-zones-sensibles-intimes.webp',
     tags: {
       primary: ['eclat', 'apaisant', 'pores-dilates', 'anti-taches'],
       secondary: ['sebo-regulateur', 'creme-hydratante', 'zone-visage'],
@@ -345,7 +293,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), COCO-GLUCOSIDE, PROPANEDIOL, SODIUM LAURYL GLUCOSE CARBOXYLATE, LAURYL GLUCOSIDE, TOCOPHEROL, NIACINAMIDE, ASCORBYL GLUCOSIDE, LACTIC ACID, GLYCERIN, ASCORBYL PALMITATE, LECITHIN, GLYCERYL OLEATE, SODIUM CITRATE, SODIUM BENZOATE, CITRIC ACID, POTASSIUM SORBATE, SORBIC ACID, HYDROGENATED PALM GLYCERIDES CITRATE, PARFUM (FRAGRANCE)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-depiwhite-mousse-nettoyante-eclaircissante-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-depiwhite-mousse-nettoyante-eclaircissante.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
       secondary: [
@@ -380,7 +328,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER, PROPANEDIOL, C12-13 ALKYL LACTATE, GLUCONOLACTONE, NIACINAMIDE, COCO-CAPRYLATE CAPRATE, GLYCERYL STEARATE, GLYCERIN, ARACHIDYL ALCOHOL, MYRISTYL RESORCINOL, SQUALANE, TRANEXAMIC ACID, ASCORBYL GLUCOSIDE, OLEA EUROPAEA LEAF EXTRACT, RETINYL PALMITATE, ASCORBIC ACID, BEHENYL ALCOHOL, PENTYLENE GLYCOL, ZINC PCA, XANTHAN GUM, SODIUM HYDROXIDE, ARACHIDYL GLUCOSIDE, HEXANEDIOL, SODIUM STEAROYL GLUTAMATE, MANNITOL, PHOSPHATIDYLCHOLINE, ACACIA SENEGAL GUM, YEAST EXTRACT, DIPOTASSIUM GLYCYRRHIZATE, HEXAMIDINE DIISETHIONATE, CETYL ALCOHOL, POLYGLYCERYL-10 LAURATE, MAGNESIUM SULFATE, MANGANESE SULFATE, CAPRYLYL GLYCOL, TOCOPHEROL, POTASSIUM SORBATE, SODIUM BENZOATE, DECYL GLUCOSIDE, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, SODIUM CHLORIDE, CITRIC ACID, PARFUM FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-depiwhite-serum-intensif-anti-taches-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-depiwhite-serum-intensif-anti-taches.webp',
     tags: {
       primary: ['anti-age', 'barriere-cutanee', 'eclat', 'anti-taches'],
       secondary: [
@@ -420,7 +368,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'CAPRYLIC/CAPRIC TRIGLYCERIDE, CASTOR OIL/IPDI COPOLYMER, COCO-CAPRYLATE/CAPRATE, DICAPRYLYL CARBONATE, GLYCINE SOJA (SOYBEAN) OIL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, HYDROGENATED COCONUT ACID, RETINOL, TOCOPHEROL, TOCOPHERYL RETINOATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-duolys-a-serum-intensif-anti-rides-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-duolys-a-serum-intensif-anti-rides.webp',
     tags: {
       primary: ['anti-age', 'anti-oxydant'],
       secondary: ['traitement', 'reparateur', 'serum', 'zone-visage'],
@@ -446,7 +394,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, PROPANEDIOL, TRIETHYL CITRATE, GLYCERIN, GLYCOLIC ACID, LACTIC ACID, PENTYLENE GLYCOL, SODIUM HYDROXIDE, SODIUM STEAROYL GLUTAMATE, SILICA, XYLITOL, HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX, GLYCERYL STEARATES, JOJOBA ESTERS, ACACIA SENEGAL GUM, CETYL ALCOHOL, STEARYL ALCOHOL, 1,2-HEXANEDIOL, ORYZA SATIVA (RICE) HULL POWDER, TOCOPHEROL, POLYACRYLATE CROSSPOLYMER-6, XANTHAN GUM, ETHYLHEXYLGLYCERIN, HEXAMETHYLINDANOPYRAN, GLYCINE SOJA (SOYBEAN) OIL, ACETYL CEDRENE, POLYGLYCERIN-3, VANILLIN, PARFUM (FRAGRANCE)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-duolys-aha-5-soin-hydratant-lissant-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-duolys-aha-5-soin-hydratant-lissant.webp',
     tags: {
       primary: ['hydratation', 'exfoliation', 'eclat'],
       secondary: [
@@ -482,7 +430,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), PROPANEDIOL, GLYCERIN, CAPRYLIC/CAPRIC TRIGLYCERIDE, SQUALANE, XYLITOL, ASCORBYL GLUCOSIDE, HESPERIDIN METHYL CHALCONE, TOCOPHERYL ACETATE, SODIUM HYALURONATE, N-HYDROXYSUCCINIMIDE, CHRYSIN, POLYACRYLATE-13, POLYACRYLATE CROSSPOLYMER-6, POLYISOBUTENE, PHENOXYETHANOL, CHLORPHENESIN, DISODIUM EDTA, STEARETH-20, POLYSORBATE 20, SORBITAN ISOSTEARATE, SODIUM HYDROXIDE, SODIUM CITRATE, T-BUTYL ALCOHOL, CHLORHEXIDINE DIGLUCONATE, POTASSIUM SORBATE, DIPEPTIDE-2, CITRIC ACID, PALMITOYL TETRAPEPTIDE-7, PALMITOYL TRIPEPTIDE-1',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-duolys-creme-contour-des-yeux-15ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-duolys-creme-contour-des-yeux.webp',
     tags: {
       primary: ['anti-age', 'hydratation', 'barriere-cutanee'],
       secondary: ['emollience', 'texture-legere', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
@@ -513,7 +461,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), BUTYROSPERMUM PARKII (SHEA) BUTTER, C10-30 CHOLESTEROL/LANOSTEROL ESTERS, CAPRYLIC/CAPRIC TRIGLYCERIDE, CERAMIDE NP, CETEARYL ALCOHOL, CETEARYL GLUCOSIDE, CETYL ALCOHOL, CITRIC ACID, GLYCERIN, HYDROXYPROPYL STARCH PHOSPHATE, ISOCETYL ALCOHOL, ISONONYL ISONONANOATE, PARFUM (FRAGRANCE), PROPANEDIOL, SODIUM ANISATE, SODIUM HYALURONATE, SODIUM LEVULINATE, SODIUM STEAROYL GLUTAMATE, SQUALANE, TOCOPHEROL, XANTHAN GUM, XYLITOL, ZINC LACTATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-duolys-legere-soin-hydratant-anti-age-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-duolys-legere-soin-hydratant-anti-age.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant', 'anti-age'],
       secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -543,7 +491,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), BUTYROSPERMUM PARKII (SHEA) BUTTER, C10-30 CHOLESTEROL/LANOSTEROL ESTERS, CAPRYLIC/CAPRIC TRIGLYCERIDE, CERAMIDE NP, CETEARYL ALCOHOL, CETEARYL GLUCOSIDE, CETYL ALCOHOL, CITRIC ACID, GLYCERIN, HYDROGENATED VEGETABLE GLYCERIDES, HYDROXYPROPYL STARCH PHOSPHATE, ISOCETYL ALCOHOL, ISONONYL ISONONANOATE, PARFUM (FRAGRANCE), PROPANEDIOL, SODIUM ANISATE, SODIUM HYALURONATE, SODIUM LEVULINATE, SODIUM STEAROYL GLUTAMATE, SQUALANE, TOCOPHEROL, XANTHAN GUM, XYLITOL, ZINC LACTATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-duolys-riche-soin-hydratant-anti-age-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-duolys-riche-soin-hydratant-anti-age.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant', 'anti-age'],
       secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -573,7 +521,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS SUNFLOWER SEED OIL TAPIOCA STARCH PARAFFINUM LIQUIDUM MINERAL OIL ZINC OXIDE PHYTOSTERYL SUNFLOWERSEEDATE CERA MICROCRISTALLINA MICROCRYSTALLINE WAX PARAFFIN LAUROYL LYSINE HYDROGENATED PALM GLYCERIDES CICLOPIROX OLAMINE TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-novophane-k-creme-visage-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-novophane-k-creme-visage.webp',
     tags: {
       primary: ['apaisant', 'anti-oxydant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -594,7 +542,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), CETRIMONIUM BROMIDE, CITRIC ACID, DISODIUM EDTA, GLYCERIN, PARFUM (FRAGRANCE), PEG-6 CAPRYLIC/CAPRIC GLYCERIDES, POLYDEXTROSE, POLYSORBATE 20, SODIUM HYDROXIDE, XYLITOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-rosakalm-eau-micellaire-nettoyante-250ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-rosakalm-eau-micellaire-nettoyante.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -616,7 +564,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'ALUMINUM HYDROXIDE, AQUA (WATER), BIS-PEG/PPG-14/14 DIMETHICONE, CALCIUM GLUCONATE, CAPRYLYL METHICONE, CARBOMER, CERAMIDE AP, CERAMIDE EOP, CERAMIDE NP, CETYL PEG/PPG-10/1 DIMETHICONE, CHLORPHENESIN, CHOLESTEROL, CI 77491 (IRON OXIDES), CI 77492 (IRON OXIDES), CI 77499 (IRON OXIDES), CI 77891 (TITANIUM DIOXIDE), CYCLOHEXASILOXANE, CYCLOPENTASILOXANE, DIMETHICONE, DIMETHICONE CROSSPOLYMER, DISODIUM EDTA, DISODIUM STEAROYL GLUTAMATE, DISTEARDIMONIUM HECTORITE, ETHYLHEXYLGLYCERIN, GLUCONOLACTONE, GLYCINE SOJA (SOYBEAN) OIL, MAGNESIUM SULFATE, NIACINAMIDE, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, PHENOXYETHANOL, PHYTOSPHINGOSINE, PROPANEDIOL, PROPYLENE CARBONATE, SODIUM BENZOATE, SODIUM HYDROXIDE, SODIUM LAUROYL LACTYLATE, TOCOPHEROL, TRIISOPROPANOLAMINE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-sebionex-actimat-soin-anti-imperfections-teinte-claire-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-sebionex-actimat-soin-anti-imperfections-teinte-claire.webp',
     tags: {
       primary: ['barriere-cutanee', 'pores-dilates', 'eclat', 'anti-acne'],
       secondary: [
@@ -655,7 +603,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AMMONIA, AMMONIUM GLYCOLATE, AQUA (WATER), CHLORPHENESIN, CI 19140, CI 42090, GLYCOLIC ACID, PARFUM (FRAGRANCE), PHENOXYETHANOL, SODIUM BENZOATE, SODIUM CHLORIDE, SODIUM COCOAMPHOACETATE, SODIUM LAURETH SULFATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-sebionex-gel-nettoyant-visage-et-corps-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-sebionex-gel-nettoyant-visage-et-corps.webp',
     tags: {
       primary: ['eclat'],
       secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -677,7 +625,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AMMONIUM LACTATE, AQUA (WATER), BUTYROSPERMUM PARKII (SHEA) BUTTER, C10-30 CHOLESTEROL/LANOSTEROL ESTERS, CAPRYLIC/CAPRIC TRIGLYCERIDE, CERAMIDE NP, CETEARYL ALCOHOL, CETEARYL GLUCOSIDE, CETYL ALCOHOL, CITRIC ACID, GLYCERIN, HYDROGENATED VEGETABLE GLYCERIDES, HYDROXYETHYL UREA, HYDROXYPROPYL STARCH PHOSPHATE, ISOCETYL ALCOHOL, ISONONYL ISONONANOATE, NIACINAMIDE, PROPANEDIOL, SODIUM ANISATE, SODIUM HYALURONATE, SODIUM LEVULINATE, SODIUM STEAROYL GLUTAMATE, SQUALANE, TOCOPHEROL, XANTHAN GUM, XYLITOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-sebionex-hydra-creme-hydratante-reparatrice-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-sebionex-hydra-creme-hydratante-reparatrice.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'pores-dilates', 'cicatrisation'],
       secondary: [
@@ -716,7 +664,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AMMONIUM GLYCOLATE, AMMONIUM HYDROXIDE, AMMONIUM LACTATE, AQUA (WATER), BISABOLOL, C12-13 ALKYL LACTATE, C13-14 ISOPARAFFIN, CALCIUM GLUCONATE, CHLORPHENESIN, CYCLOHEXASILOXANE, CYCLOPENTASILOXANE, GLUCONOLACTONE, GLYCOLIC ACID, ISOHEXADECANE, LACTIC ACID, LAURETH-7, NYLON-12, PARFUM (FRAGRANCE), PEG-150/DECYL ALCOHOL/SMDI COPOLYMER, POLYACRYLAMIDE, PROPANEDIOL, PROPYLENE GLYCOL, SODIUM BENZOATE, SODIUM HYDROXIDE, STEARETH-2, STEARETH-21, STEARIC ACID, XANTHAN GUM, ZINC GLUCONATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-sebionex-k-creme-keratoregulatrice-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-sebionex-k-creme-keratoregulatrice.webp',
     tags: {
       primary: ['apaisant', 'eclat', 'hydratation'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -746,7 +694,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), CETRIMONIUM BROMIDE, CITRIC ACID, COPPER SULFATE, DISODIUM EDTA, GLYCERIN, HAMAMELIS VIRGINIANA (WITCH HAZEL) LEAF WATER, PARFUM (FRAGRANCE), PEG-6 CAPRYLIC/CAPRIC GLYCERIDES, POLYDEXTROSE, SODIUM BENZOATE, SODIUM CITRATE, XYLITOL, ZINC GLUCONATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-sebionex-lotion-micellaire-250ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-sebionex-lotion-micellaire.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['tonique', 'preparation', 'zone-visage'],
@@ -773,7 +721,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), ALCOHOL DENAT., GLYCERIN, CAPRYLIC/CAPRIC TRIGLYCERIDE, MENTHOL, CETEARYL ALCOHOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, CETYL ALCOHOL, DIMETHICONE, GLYCERYL STEARATE, LAURETH-9, OXIDIZED CORN OIL, PALMITAMIDE MEA, PEG-100 STEARATE, MENTHA PIPERITA (PEPPERMINT) LEAF EXTRACT, STEARYL GLYCYRRHETINATE, MENTHYL ETHYLAMIDO OXALATE, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, CETEARYL GLUCOSIDE, DECYLENE GLYCOL, SODIUM CITRATE, CHLORHEXIDINE DIGLUCONATE, DISODIUM EDTA',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-sedacalm-creme-apaisante-corps-120ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-sedacalm-creme-apaisante-corps.webp',
     tags: {
       primary: ['hydratation', 'apaisant'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -799,7 +747,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, ALCOHOL DENAT, POLYVINYL ALCOHOL, GLYCERIN, PEG-32, KOJIC ACID, PVP, TALC, ALUMINIUM SILICATE, XANTHAN GUM, SODIUM ACRYLATE TAURATE COPOLYMER, ISOHEXADECANE, POLYSORBATE 80, PHENOXYETHANOL, CHLORPHENESIN, DI SODIUM EDTA, SODIUM SULFITE, SODIUM METABISULFITE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/depiwhite/depiwhite-creme-depigmentante-advanced-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/depiwhite-creme-depigmentante-advanced.webp',
     tags: {
       primary: ['anti-taches', 'hyperpigmentation', 'hydratation'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -823,7 +771,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/depiwhite/depiwhite-masque-pelliculable-anti-taches-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/depiwhite-masque-pelliculable-anti-taches.webp',
     tags: {
       primary: ['anti-taches', 'hyperpigmentation'],
       secondary: ['masque-hebdo', 'zone-visage'],
@@ -844,7 +792,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, HYDROGENATED COCONUT OIL, OLUS OIL (VEGETABLE OIL), POLYGLYCERYL-3 BEESWAX, CAPRYLYL/CAPRIC TRIGLYCERIDE, CERA ALBA (BEESWAX), C10-18 TRIGLYCERIDES, COPERNICA CERIFERA (CARNAUBA) WAX, BUTYROSPERMUM PARKI (SHEA) BUTTER, STEARALKONIUM HECTORITE, AQUA (WATER), TOCOPHERYL ACETATE, PARFUM (FRAGRANCE), PROPYLENE CARBONATE, BISABOLOL, PERSEA GRATISSIMA (AVOCADO) FRUIT EXTRACT, CERAMIDE NP, PHYTOSPHINGOSINE, CITRIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/noviderm/noviderm-boreade-r-stick-levres-9-2g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/noviderm-boreade-r-stick-levres.webp',
     tags: {
       primary: ['barriere-cutanee', 'apaisant', 'anti-oxydant'],
       secondary: ['emollience', 'soin-levres', 'zone-levres'],
@@ -873,7 +821,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "URÉE, HUILE D'AMANDE DOUCE, CIRE D'ABEILLE, VITAMINE E, LÉCITHINE DE SOJA, SQUALANE, AQUA (WATER), PARAFFINUM LIQUIDUM (MINERAL OIL), GLYCERIN, PEG-30, DIPOLYHYDROXYSTEARATE, UREA, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, CERA ALBA (BEESWAX), OZOKERITE, GLYCINE SOJA (SOYBEAN) STEROLS, LECITHIN, MAGNESIUM SULFATE, PANTHENOL, SODIUM CHLORIDE, TOCOPHERYL ACETATE, SQUALANE, BIOTIN, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, DISODIUM EDTA, PARFUM (FRAGRANCE)",
     url: 'https://www.pharmashopdiscount.com/fr/parapharmacie/par-zones/ongles/acm-novophane-creme-des-ongles-15-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-novophane-creme-des-ongles.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'apaisant'],
       secondary: [
@@ -909,7 +857,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), POLYSORBATE 20, GLYCERIN, DISODIUM EDTA, XYLITOL, PEG-6 CAPRYLIC/CAPRIC GLYCERIDES, CETRIMONIUM BROMIDE, CITRIC ACID, SODIUM HYDROXIDE, POLYDEXTROSE, GERANIOL, PARFUM (FRAGRANCE)',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-produits/nettoyants-demaquillants/acm-sensitelial-lotion-micellaire-250ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-sensitelial-lotion-micellaire.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['tonique', 'preparation', 'zone-visage'],
@@ -931,37 +879,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), COCO-CAPRYLATE/CAPRATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, GLYCERIN, PROPANEDIOL, BUTYROSPERMUM PARKI (SHEA) BUTTER, C10-18 TRIGLYCERIDES, GLYCERYL STEARATE, GLYCERYL, STEARATE CITRATE, NIACINAMIDE, STEARYL ALCOHOL, OPHIOPOGON JAPONICUS ROOT EXTRACT, TOCOPHEROL, 1,2-HEXANEDIOL, CARBOMER, XANTHAN GUM, SODIUM, HYDROXIDE, CITRIC ACID, HEXAMIDINE DIISETHIONATE, MALTODEXTRIN, PENTYLENE GLYCOL, CYAMOPSIS, TETRAGONOLOBA (GUAR) GUM, FRUCTOOLIGOSACCHARIDES, PHYTIC ACID, BIOFLAVONOIDS, GLYCOPROTEINS',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-soins/hydratants-corps/laits-et-cremes/acm-sensitelial-ad-baume-intensif-200ml.html',
-    imageUrl: '',
-    tags: {
-      primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
-      avoid: [],
-    },
-    keyIngredients: [
-      { slug: INGREDIENT_SLUGS.HUILE_GRAINES_TOURNESOL },
-      { slug: INGREDIENT_SLUGS.PROPANEDIOL },
-      { slug: INGREDIENT_SLUGS.C10_18_TRIGLYCERIDES },
-      { slug: INGREDIENT_SLUGS.NIACINAMIDE },
-      { slug: INGREDIENT_SLUGS.OPHIOPOGON_JAPONICUS },
-      { slug: INGREDIENT_SLUGS.FRUCTOOLIGOSACCHARIDES },
-      { slug: INGREDIENT_SLUGS.PHYTIC_ACID },
-    ],
-  },
-  {
-    slug: 'acm-sensitelial-ad-baume-intensif-500ml',
-    name: 'Sensitelial.ad Baume Intensif',
-    brand: 'ACM',
-    kind: 'moisturizer',
-    unit: 'bottle',
-    totalAmount: 500,
-    amountUnit: 'ml',
-    priceCents: 1852,
-    description:
-      "ACM SENSITELIAL BAUME 500ML est en vente en ligne sur le site de votre parapharmacie à prix discount, baume hydratant pour peau sensible.\n\nLa marque ACM propose ce baume à la texture onctueuse, spécialement formulé pour apaiser et hydrater les peaux sensibles. Il contient de la pro vitamine D, reconnue pour son rôle protecteur et hydratant, des oligofructoses végétaux qui contribuent à maintenir l'hydratation de la peau, et du niacinamide, apprécié pour ses propriétés apaisantes et son action sur l'éclat de la peau. Ce baume est conçu pour un usage quotidien, offrant une sensation de confort immédiat et durable. Grâce à sa formule enrichie en actifs soigneusement sélectionnés, il enveloppe la peau d'un voile de douceur tout en respectant son équilibre naturel.\n\nUn allié du quotidien pour prendre soin de vous simplement, ACM SENSITELIAL BAUME 500ML est la solution idéale pour votre routine beauté au quotidien.",
-    notes: '',
-    inci: 'AQUA (WATER), COCO-CAPRYLATE/CAPRATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, GLYCERIN, PROPANEDIOL, BUTYROSPERMUM PARKI (SHEA) BUTTER, C10-18 TRIGLYCERIDES, GLYCERYL STEARATE, GLYCERYL, STEARATE CITRATE, NIACINAMIDE, STEARYL ALCOHOL, OPHIOPOGON JAPONICUS ROOT EXTRACT, TOCOPHEROL, 1,2-HEXANEDIOL, CARBOMER, XANTHAN GUM, SODIUM, HYDROXIDE, CITRIC ACID, HEXAMIDINE DIISETHIONATE, MALTODEXTRIN, PENTYLENE GLYCOL, CYAMOPSIS, TETRAGONOLOBA (GUAR) GUM, FRUCTOOLIGOSACCHARIDES, PHYTIC ACID, BIOFLAVONOIDS, GLYCOPROTEINS',
-    url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-soins/hydratants-corps/laits-et-cremes/acm-sensitelial-ad-baume-intensif-500ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-sensitelial-ad-baume-intensif.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
       secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -991,37 +909,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), SQUALANE, CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, CERA ALBA (BEESWAX), GLYCERYL STEARATE, PEG-100 STEARATE, PROPYLENE GLYCOL, ISODECYL NEOPENTANOATE, CETEARETH-20, PROPANEDIOL, XYLITOL, ESCIN, C10-30 CHOLESTEROL/LANOSTEROL ESTERS, SODIUM HYALURONATE, TOCOPHERYL ACETATE, TOCOPHEROL, POLYACRYLAMIDE, CETYL ALCOHOL, C13-14 ISOPARAFFIN, PHENOXYETHANOL, CHLORPHENESIN, LAURETH-7, POTASSIUM SORBATE, CI 61570 (GREEN 5), XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-soins/hydratants-corps/laits-et-cremes/acm-sensitelial-ad-creme-200ml.html',
-    imageUrl: '',
-    tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
-      avoid: [],
-    },
-    keyIngredients: [
-      { slug: INGREDIENT_SLUGS.SQUALANE },
-      { slug: INGREDIENT_SLUGS.CIRE_ABEILLE },
-      { slug: INGREDIENT_SLUGS.CETEARETH_20 },
-      { slug: INGREDIENT_SLUGS.PROPANEDIOL },
-      { slug: INGREDIENT_SLUGS.XYLITOL },
-      { slug: INGREDIENT_SLUGS.ESCIN },
-      { slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE },
-    ],
-  },
-  {
-    slug: 'acm-sensitelial-ad-creme-500ml',
-    name: 'Sensitelial.ad Creme',
-    brand: 'ACM',
-    kind: 'moisturizer',
-    unit: 'bottle',
-    totalAmount: 500,
-    amountUnit: 'ml',
-    priceCents: 1756,
-    description:
-      "ACM SENSITELIAL CREME 500ML est en vente en ligne sur le site de votre parapharmacie à prix discount, offrant une hydratation quotidienne adaptée aux peaux sensibles. \n\nLa marque ACM, reconnue pour son expertise dermatologique, propose cette crème à la texture onctueuse qui pénètre facilement sans laisser de film gras. Enrichie en actifs hydratants tels que la glycérine, connue pour ses propriétés humectantes, et le beurre de karité, apprécié pour ses capacités émollientes, cette crème contribue à maintenir l'hydratation naturelle de la peau tout en la protégeant des agressions extérieures. Avec une formulation respectueuse des peaux fragiles, ACM SENSITELIAL CREME est idéale pour une utilisation quotidienne sur le visage et le corps. Son grand format de 500 ml permet une utilisation prolongée, répondant aux besoins des familles ou des utilisateurs réguliers.\n\nAdoptez ACM SENSITELIAL CREME 500ML, un allié du quotidien pour prendre soin de vous simplement, et profitez d'une peau douce et confortable jour après jour.",
-    notes: '',
-    inci: 'AQUA (WATER), SQUALANE, CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, CERA ALBA (BEESWAX), GLYCERYL STEARATE, PEG-100 STEARATE, PROPYLENE GLYCOL, ISODECYL NEOPENTANOATE, CETEARETH-20, PROPANEDIOL, XYLITOL, ESCIN, C10-30 CHOLESTEROL/LANOSTEROL ESTERS, SODIUM HYALURONATE, TOCOPHERYL ACETATE, TOCOPHEROL, POLYACRYLAMIDE, CETYL ALCOHOL, C13-14 ISOPARAFFIN, PHENOXYETHANOL, CHLORPHENESIN, LAURETH-7, POTASSIUM SORBATE, CI 61570 (GREEN 5), XANTHAN GUM',
-    url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-soins/hydratants-corps/laits-et-cremes/acm-sensitelial-ad-creme-500ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-sensitelial-ad-creme.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant'],
       secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -1051,7 +939,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-soins/masques/acm-duolys-aha-15-masque-peeling-minute-50-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-duolys-aha-15-masque-peeling-minute.webp',
     tags: {
       primary: ['exfoliation'],
       secondary: ['masque-hebdo', 'zone-visage'],
@@ -1072,7 +960,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), CYCLOPENTASILOXANE, ASCORBIC ACID, GLYCERIN, POLYMETHYLSILSESQUIOXANE, HDI/TRIMETHYLOL HEXYLLACTONE CROSSPOLYMER, DIMETHICONE, PANTHENOL, SODIUM HYALURONATE, GLYCOLIC ACID, TOCOTRIENOLS, ZINC LACTATE, SORBITAN CAPRYLATE, POLYSILICONE-11, POLYACRYLATE CROSSPOLYMER-6, PHENOXYETHANOL, BUTYLENE GLYCOL, ISODODECANE, SODIUM HYDROXIDE, ELAEIS GUINEENSIS (PALM) OIL, TOCOPHEROL, CHLORPHENESIN, DIMETHICONE PEG-7 PHOSPHATE, DISODIUM EDTA, DIMETHYLACRYLAMIDE/ACRYLIC ACID/POLYSTYRENE ETHYL METHACRYLATE COPOLYMER, COCO CAPRYLATE/CAPRATE, DECYL GLUCOSIDE, T-BUTYL ALCOHOL, CAPRYLYL GLYCOL, HEXYLENE GLYCOL, CI 15985 (YELLOW 6), CI 19140 (YELLOW 5), PARFUM (FRAGRANCE)',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/visage/anti-rides/acm-duolys-hyal-serum-intensif-anti-age-15ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-duolys-hyal-serum-intensif-anti-age.webp',
     tags: {
       primary: ['eclat', 'anti-age', 'anti-oxydant'],
       secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
@@ -1100,7 +988,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/visage/anti-rides/nuit/acm-duolys-aha-10-creme-peeling-nuit-regenerante-40-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-duolys-aha-10-creme-peeling-nuit-regenerante.webp',
     tags: {
       primary: ['exfoliation'],
       secondary: ['zone-visage'],
@@ -1121,7 +1009,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), ASCORBIC ACID, CYCLOPENTASILOXANE, GLYCERIN, POLYMETHYLSILSESQUIOXANE, HDI/TRIMETHYLOL HEXYLLACTONE CROSSPOLYMER, DIMETHICONE, TOCOTRIENOLS, SORBITAN CAPRYLATE, POLYSILICONE-11, PHENOXYETHANOL, BUTYLENE GLYCOL, ISODODECANE, POLYACRYLATE CROSSPOLYMER-6, ELAEIS GUINEENSIS (PALM) OIL, TOCOPHEROL, CHLORPHENESIN, DIMETHICONE PEG-7 PHOSPHATE, DISODIUM EDTA, DIMETHYLACRYLAMIDE/ACRYLIC ACID/POLYSTYRENE ETHYL METHACRYLATE COPOLYMER, COCO CAPRYLATE/CAPRATE, DECYL GLUCOSIDE, CAPRYLYL GLYCOL, HEXYLENE GLYCOL, T-BUTYL ALCOHOL, SODIUM HYDROXIDE, CI 15985 (YELLOW 6), CI 19140 (YELLOW 5), PARFUM (FRAGRANCE)',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/visage/eclat-de-la-peau/acm-duolys-c-e-serum-intensif-anti-oxydant-15ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-duolys-c-e-serum-intensif-anti-oxydant.webp',
     tags: {
       primary: ['anti-age', 'eclat', 'anti-oxydant'],
       secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
@@ -1143,7 +1031,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'CRÈME PROTECTRICE SPF50+: AQUA (WATER), DIISOPROPYL SEBACATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ETHYLHEXYL TRIAZINE, METHYLENE BIS-BENZOTRIAZOLYL TETRAMETHYLBUTYLPHENOL [NANO], TITANIUM DIOXIDE, GLYCERIN, CAPRYLIC / CAPRIC GLYCERIDES, CYCLOPENTASILOXANE, POTASSIUM CETYL PHOSPHATE, GLYCERYL STEARATE, PEG-100 STEARATE, PENTYLENE GLYCOL, PEARL POWDER, XYLITOL, TOCOPHERYL ACETATE, ASCORBYL GLUCOSIDE, MELANIN, COCO-GLUCOSIDE, POLYHYDROXYSTEARIC ACID, STEARIC ACID, ALUMINA, COCONUT ALCOHOL, ETHYLHEXYLGLYCERIN, DECYL GLUCOSIDE, PROPYLENE GLYCOL, PHENOXYETHANOL, XANTHAN GUM, SODIUM HYDROXIDE, POTASSIUM SORBATE, CHLORPHENESIN, POLYDEXTROSE, DISODIUM EDTA, CITRIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-depiwhite-m-creme-protectrice-spf50-advanced-creme-anti-taches.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-depiwhite-m-creme-protectrice-spf50-advanced-creme-anti-taches.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'anti-taches', 'hyperpigmentation'],
       secondary: ['creme-solaire', 'protection-solaire', 'matin', 'zone-visage'],
@@ -1203,7 +1091,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), DIISOPROPYL SEBACATE, DICAPRYLYL CARBONATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, BUTYL METHOXYDIBENZOYLMETHANE, BUTYLENE GLYCOL COCOATE, ETHYLHEXYL TRIAZONE, POLYGLYCERYL-3 METHYLGLUCOSE DISTEARATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, PROPANEDIOL, 1,2-HEXANEDIOL, ZEA MAYS (CORN) STARCH, SODIUM STEAROYL GLUTAMATE, XYLITYLGLUCOSIDE, MICROCRYSTALLINE CELLULOSE, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, CERA ALBA (BEESWAX), ANHYDROXYLITOL, SODIUM STEAROYL LACTYLATE, GLYCERYL CAPRYLATE, XANTHAN GUM, XYLITOL, CELLULOSE GUM, O-CYMEN-5-OL, CITRIC ACID, TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-medisun-creme-spf50-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-medisun-creme-spf50.webp',
     tags: {
       primary: ['anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1234,7 +1122,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), DICAPRYLYL CARBONATE, OCTOCRYLENE, ETHYLHEXYL METHOXYCINNAMATE, CI 77891 (TITANIUM DIOXIDE), BUTYLENE GLYCOL, BUTYL METHOXYDIBENZOYLMETHANE, STEARETH-21, ISODECYL NEOPENTANOATE, C12-15 ALKYL BENZOATE, HYDROGENATED PALM KERNEL GLYCERIDES, ETHYLHEXYL TRIAZONE, BIS ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, GLYCERYL STEARATE, PEG-100 STEARATE, CETYL ALCOHOL, PEARL POWDER, HYDROGENATED PALM GLYCERIDES, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, CI 77492 (IRON OXIDES), XANTHAN GUM, CI 77491 (IRON OXIDES), CI 77499 (IRON OXIDES), PEG-8 METHYL ETHER TRIETHOXYSILANE, CHLORPHENESIN, BHT, PHENOXYETHANOL, POTASSIUM SORBATE, CITRIC ACID, DISODIUM EDTA',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-medisun-creme-teinte-claire-spf50-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-medisun-creme-teinte-claire-spf50.webp',
     tags: {
       primary: ['protection-solaire'],
       secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1263,7 +1151,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, ETHYLHEXYL STEARATE, ISOPROPYL PALMITATE, BUTYL METHOXYDIBENZOYLMETHANE, GLYCERIN, DICAPRYLYL ETHER, ETHYLHEXYL SALICYLATE, OCTOCRYLENE, ETHYLHEXYL TRIAZONE, 1,2-HEXANEDIOL, DIETHYLHEXYL BUTAMIDO TRIAZONE, MICROCRYSTALLINE CELLULOSE, SODIUM STEAROYL GLUTAMATE, PHENYLBENZIMIDAZOLE SULFONIC ACID, SODIUM HYDROXIDE, CELLULOSE GUM, CAPRYLYL GLYCOL, CETEARYL ALCOHOL, DECYLENE GLYCOL, ETHYLHEXYLGLYCERIN, GLYCERYL STEARATE, TOCOPHERYL ACETATE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-medisun-spray-famille-spf50-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-medisun-spray-famille-spf50.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1292,7 +1180,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, ETHYLHEXYL STEARATE, ISOPROPYL PALMITATE, BUTYL METHOXYDIBENZOYLMETHANE, GLYCERIN, DICAPRYLYL ETHER, ETHYLHEXYL SALICYLATE, OCTOCRYLENE, ETHYLHEXYL TRIAZONE, 1,2-HEXANEDIOL, DIETHYLHEXYL BUTAMIDO TRIAZONE, MICROCRYSTALLINE CELLULOSE, SODIUM STEAROYL GLUTAMATE, PHENYLBENZIMIDAZOLE SULFONIC ACID, SODIUM HYDROXIDE, CELLULOSE GUM, CAPRYLYL GLYCOL, CETEARYL ALCOHOL, DECYLENE GLYCOL, ETHYLHEXYLGLYCERIN, GLYCERYL STEARATE, TOCOPHERYL ACETATE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-medisun-spray-spf50-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-medisun-spray-spf50.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1321,7 +1209,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '1,2-HEXANEDIOL, AQUA (WATER), BUTYL METHOXYDIBENZOYLMETHANE, CAPRYLYL GLYCOL, CELLULOSE GUM, CETEARYL ALCOHOL, DECYLENE GLYCOL, DICAPRYLYL ETHER, DIETHYLHEXYL BUTAMIDO TRIAZONE, ETHYLHEXYL SALICYLATE, ETHYLHEXYL STEARATE, ETHYLHEXYL TRIAZONE, ETHYLHEXYLGLYCERIN, GLYCERIN, GLYCERYL STEARATE, ISOPROPYL PALMITATE, MICROCRYSTALLINE CELLULOSE, OCTOCRYLENE, PHENYLBENZIMIDAZOLE SULFONIC ACID, SODIUM HYDROXIDE, SODIUM STEAROYL GLUTAMATE, TOCOPHERYL ACETATE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-medisun-spray-visage-corps-spf50-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-medisun-spray-visage-corps-spf50.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1350,7 +1238,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'ALCOHOL DENAT., AQUA (WATER), BHT, CETEARYL ALCOHOL, CHLORPHENESIN, COCO-GLUCOSIDE, CYCLOHEXASILOXANE, CYCLOPENTASILOXANE, DICAPRYLYL CARBONATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DIPROPYLENE GLYCOL, DISODIUM EDTA, ETHYLHEXYL METHOXYCINNAMATE, ETHYLHEXYL TRIAZONE, GLYCERIN, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYDIMETHYL TAURATE COPOLYMER, NEOPENTYL GLYCOL DIHEPTANOATE, OCTOCRYLENE, PHENOXYETHANOL, POLYACRYLATE CROSSPOLYMER-6, POLYMETHYL METHACRYLATE, POLYSORBATE 60, SORBITAN ISOSTEARATE, TALC, T-BUTYL ALCOHOL, TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-sebionex-gel-solaire-matifiant-spf50-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-sebionex-gel-solaire-matifiant-spf50.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant', 'sebo-regulateur'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1378,7 +1266,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, DICAPRYLYL CARBONATE, ETHYLHEXYL METHOXYCINNAMATE, OCTOCRYLENE, DIPROPYLENE GLYCOL, BUTYL METHOXYDIBENZOYLMETHANE, ISODECYL NEOPENTANOATE, STEARETH-21, C12-15 ALKYL BENZOATE, GLYCERYL STEARATE, BIS-ETHYLHEXYLPHENOL METHOXYPHENYL TRIAZINE, TITANIUM DIOXIDE, ETHYLHEXYL TRIAZONE, PEARL POWDER, RESEDA LUTEOLA EXTRACT, ARCTOSTAPHYLOS UVA URSI LEAF EXTRACT, CARUM PETROSELINUM (PARSLEY) EXTRACT, VP/EICOSENE COPOLYMER, POLYACRYLAMIDE, C13-14 ISOPARAFFIN, ALUMINIUM HYDROXIDE, STEARIC ACID, XANTHAN GUM, LAURETH-7, PROPYLENE GLYCOL, PHENOXYETHANOL, CHLORPHENESIN, CITRIC ACID, POTASSIUM SORBATE, METHYL PARABEN, PROPYL PARABEN, DISODIUM EDTA',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/depiwhite/depiwhite-s-soin-photo-protecteur-spf50-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/depiwhite-s-soin-photo-protecteur-spf50.webp',
     tags: {
       primary: ['protection-solaire'],
       secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1407,7 +1295,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'PETROLATUM, TAPIOCA STARCH, HELIANTHUS ANNUUS, VEGETABLE STEROL ESTERS AND GLYCERIDES, ZINC OXIDE, LAUROYL LYSINE, ARCTIUM LAPPA, CICLOPIROXOLAMINE',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/corps/intime-sexualite/hygiene/acm-trigopax-soin-protecteur-apaisant-75ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-trigopax-soin-protecteur-apaisant.webp',
     tags: {
       primary: ['apaisant'],
       secondary: ['creme-solaire', 'protection-solaire', 'matin', 'zone-visage'],
@@ -1429,7 +1317,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), DIISOPROPYL SEBACATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ETHYLHEXYL TRIAZINE, METHYLENE BIS-BENZOTRIAZOLYL TETRAMETHYLBUTYLPHENOL [NANO], TITANIUM DIOXIDE, GLYCERIN, CAPRYLIC / CAPRIC GLYCERIDES, CYCLOPENTASILOXANE, POTASSIUM CETYL PHOSPHATE, GLYCERYL STEARATE, PEG-100 STEARATE, PENTYLENE GLYCOL, PEARL POWDER, XYLITOL, TOCOPHERYL ACETATE, ASCORBYL GLUCOSIDE, MELANIN, COCO-GLUCOSIDE, POLYHYDROXYSTEARIC ACID, STEARIC ACID, ALUMINA, COCONUT ALCOHOL, ETHYLHEXYLGLYCERIN, DECYL GLUCOSIDE, PROPYLENE GLYCOL, PHENOXYETHANOL, XANTHAN GUM, SODIUM HYDROXIDE, POTASSIUM SORBATE, CHLORPHENESIN, POLYDEXTROSE, DISODIUM EDTA, CITRIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-soins/hydratants-visage/peau-sensible/acm-depiwhite-m-creme-protectrice-spf50-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-depiwhite-m-creme-protectrice-spf50.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
       secondary: ['creme-solaire', 'matin', 'zone-visage'],
@@ -1458,7 +1346,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), DIISOPROPYL SEBACATE, ETHYLHEXYL METHOXYCINNAMATE, OCTOCRYLENE, BUTYL METHOXYDIBENZOYLMETHANE, GLYCERIN, CYCLOPENTASILOXANE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, POTASSIUM CETYL PHOSPHATE, TITANIUM DIOXIDE [NANO], GLYCERYL STEARATE, PEG-100 STEARATE, ETHYLHEXYL TRIAZONE, COCO-GLUCOSIDE, ASCORBYL GLUCOSIDE, TOCOTRIENOLS, PEARL POWDER, COCONUT ALCOHOL, PHENOXYETHANOL, CHLORPHENESIN, XANTHAN GUM, ALUMINUM HYDROXIDE, POLYETHYLENE, STEARIC ACID, POLYSILICONE-11, POTASSIUM SORBATE, ELAEIS GUINEENSIS (PALM) OIL, TOCOPHEROL, BHT, DISODIUM EDTA, CITRIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/solaires/acm-duolys-ecran-solaire-anti-age-spf50-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-duolys-ecran-solaire-anti-age-spf50.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant', 'anti-age'],
       secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1487,6 +1375,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes:
       'Complexe RK* (olivier, argousier, thé vert) et Ruscus. Pigments verts pour un effet unifiant. Excellent rapport qualité/prix.',
     inci: 'WATER, GLYCERIN, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, SESAMUM INDICUM (SESAME) SEED OIL, LAURYL LAURATE, CETEARYL ALCOHOL, MICROCRYSTALLINE CELLULOSE, MANNITOL, RUSCUS ACULEATUS ROOT EXTRACT, SODIUM HYALURONATE, ASTER TRIPOLIUM EXTRACT, GLYCINE SOJA (SOYBEAN) OIL, SAMBUCUS NIGRA FLOWER EXTRACT, CAMELLIA SINENSIS LEAF EXTRACT, HIPPOPHAE RHAMNOIDES FRUIT EXTRACT, OLEA EUROPAEA (OLIVE) LEAF EXTRACT, TOCOPHEROL, CETEARYL GLUCOSIDE, CELLULOSE GUM, GLYCERYL STEARATE, POLYGLYCERYL-3 STEARATE, XANTHAN GUM, CAPRYLIC/CAPRIC TRIGLYCERIDE, MICA, TETRASODIUM GLUTAMATE DIACETATE, DEHYDROACETIC ACID, CITRIC ACID, BENZYL ALCOHOL, CI 77891 (TITANIUM DIOXIDE), CI 77289 (CHROMIUM HYDROXIDE GREEN), POTASSIUM SORBATE, SODIUM BENZOATE, PARFUM (FRAGRANCE)',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-rosakalm-creme-anti-rougeurs.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.COUPEROSE, TAG_SLUGS.FLUSHS],
       secondary: [
@@ -1577,8 +1466,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/acm-novophane-protocole-anti-chute-chronique-in-out.html',
-    imageUrl:
-      'https://assets.atida.com/transform/af7b91dc-5e1b-4880-b977-34cb9cd5e332/ACM-Novophane-Protocole-Anti-Chute-Chronique-In-Out?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-novophane-protocole-anti-chute-chronique-in-out-300668.webp',
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
@@ -1599,8 +1487,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (Water), Alcohol Denat., Dipropylene Glycol, Propanediol, Butylene Glycol, Glycerin, PEG-40 Hydrogenated Castor Oil, Niacinamide, Pyridoxine HCL, Larix Europaea Wood Extract, Apigenin, Camellia Sinensis Leaf Extract, Glycine, Biotinoyl Tripeptide-1, 1,2-Hexanediol, Sodium Benzoate, PPG-26-Buteth-26, Sodium Metabisulfite, Zinc Chloride, Oleanolic Acid.',
     url: 'https://www.atida.fr/acm-novophane-chronic-lotion-anti-chute-100ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/63f5adc4-4c36-4d94-a992-5c32df7831ff/ACM-Novophane-Chronic-Lotion-Anti-Chute-100ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-novophane-chronic-lotion-anti-chute-100ml-286226.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -1626,8 +1513,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Pour la liste des ingrédients et des allergènes se référer à l’image produit.',
     url: 'https://www.atida.fr/novophane-60-gelules.html',
-    imageUrl:
-      'https://assets.atida.com/transform/291b6398-0eb8-45d5-b1a4-5e8bda813d51/ACM-Novophane-60-gelules?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-novophane-60-gelules-259123.webp',
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION],
       secondary: [TAG_SLUGS.ZONE_VISAGE],

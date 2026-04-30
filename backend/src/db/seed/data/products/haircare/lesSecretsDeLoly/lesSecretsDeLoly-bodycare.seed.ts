@@ -15,7 +15,7 @@ export const LES_SECRETS_DE_LOLY_BODYCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER GLYCERIN COCO-GLUCOSIDE SODIUM COCOYL GLUTAMATE CAPRYLYL CAPRYL GLUCOSIDE SODIUM COCOAMPHOACETATE INULIN LAURYL GLUCOSIDE AVENA SATIVA OAT KERNEL FLOUR PARFUM FRAGRANCE CITRIC ACID KAOLIN XANTHAN GUM GLYCERYL OLEATE SODIUM LAURYL GLUCOSE CARBOXYLATE PROPYLENE GLYCOL CHONDRUS CRISPUS CARRAGEENAN EXTRACT SODIUM BENZOATE SACCHARIDE ISOMERATE POTASSIUM SORBATE CITRULLUS LANATUS WATERMELON FRUIT EXTRACT SODIUM CITRATE TOCOPHEROL HYDROGENATED PALM GLYCERIDES CITRATE LECITHIN ASCORBYL PALMITATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/les-secrets-de-loly/les-secrets-de-loly-bubble-kiss-soin-lavant-bebes-et-enfants-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-bubble-kiss-soin-lavant-bebes-et-enfants.webp',
     tags: {
       primary: ['apaisant', 'anti-oxydant', 'hydratation'],
       secondary: ['reparateur', 'peau-sensible', 'nettoyant-corps', 'zone-corps'],

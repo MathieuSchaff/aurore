@@ -15,8 +15,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     description: 'Dentifrice désensibilisant pour dents sensibles, technologie Pro-Argin.',
     inci: 'Calcium Carbonate, Aqua, Sorbitol, Bicarbonate, Sodium Lauryl Sulfate, Sodium Monofluorophosphate, Aroma, Cellulose Gum, Sodium Silicate, Cellulose Gum, Sodium Bicarbonate, Titanium Dioxide, Benzyl Alcohol, Sodium Saccharin, Xanthan Gum, Limonene.',
     url: 'https://www.atida.fr/elmex-sensitive-professionnal-lot-2x75ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/4d1333aa-d3f3-4507-835a-d29e2988c2ce/Elmex-Sensitive-Professional-Dentifrice-Lot-de-2-x-75ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-sensitive-pro-lot-2x75ml.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -36,8 +35,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     description: 'Dentifrice désensibilisant — pack 3 tubes.',
     inci: 'Arginine, Carbonate de calcium, Monofluorophosphate de Sodium, Aqua, Sorbitol, Bicarbonate, Sodium Lauryl Sulfate, Aroma, Cellulose Gum, Sodium Bicarbonate, Tetrasodium Pyrophosphate, Titanium Dioxide, Benzyl Alcohol, Sodium Saccharin, Xanthan Gum, Limonene. Ingrédient actif : Arginine (8%) Contient : 1450 ppm de fluorure (Monofluorophosphate de sodium)',
     url: 'https://www.atida.fr/elmex-sensitive-professional-dentifrice-lot-de-3x75-ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/e5a7cf58-b6fb-4931-9447-cb41ab09020a/Elmex-Sensitive-Professional-Dentifrice-Lot-de-3x75-mL?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-sensitive-pro-lot-3x75ml.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -61,8 +59,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     priceCents: 1066,
     description: 'Dentifrice désensibilisant + action blancheur.',
     url: 'https://www.atida.fr/elmex-sensitive-professionnal-blancheur-lot-de-2-x-75ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/cbde5afb-7b21-40f8-8f20-8755182c39a0/Elmex-Sensitive-Professional-Blancheur-Dentifrice-Lot-de-2-x-75ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-sensitive-pro-blancheur-lot-2x75ml.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -82,8 +79,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/elmex-dentifrice-anti-carie-4x75ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/e02ddae4-e56e-4822-9af4-56665fff427b/Elmex-Dentifrice-Anti-carie-4x75ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-dentifrice-anti-carie-4x75ml-300543.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -104,8 +100,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'INGREDIENTS: Aqua, Sorbitol, Hydrated Silica, Glycerin, Sodium Methyl Cocoyl Taurate, Tetrasodium Pyrophosphate, Aroma, Zinc Phosphate, Sodium Citrate, Microcrystalline Cellulose, Cellulose Gum, Cocamidopropyl Betaine, Stannous Fluoride, Sodium Saccharin, Xanthan Gum, Citric Acid, Sodium Fluoride, Sucralose. Contains : Stannous Fluoride and Sodium Fluoride Total Fluoride content: 1450 ppm',
     url: 'https://www.atida.fr/dentifrice-elmex-sensitive-plus-soin-complet-2x75ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/42a3545b-ca46-4c97-866c-5b743616f430/Dentifrice-Elmex-Sensitive-Plus-Soin-Complet-2x75ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dentifrice-elmex-sensitive-plus-soin-complet-2x75ml-263888.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -132,8 +127,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, Hydrated Silica, Sorbitol, Glycerin, Hydroxyethylcellulose, Olafluor, CI 77891, Aroma, Limonene, Sodium Saccharin, Hydrochloric Acid.',
     url: 'https://www.atida.fr/elmex-junior-dentifrice-6-12-ot-de-2-x-75ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/fcdfb616-222b-4e62-b52a-0f19dfb147e1/Elmex-Junior-Dentifrice-6-12-Lot-de-2-x-75ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-junior-dentifrice-6-12-lot-de-2-x-75ml-233347.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -154,8 +148,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/elmex-anti-caries-professional-lot-de-2-x-75ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/4e28b733-fbeb-4f6e-af64-9c5ca858749e/Elmex-Anti-Caries-Professional-Dentifrice-Lot-de-2-x-75ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-anti-caries-professional-dentifrice-lot-de-2-x-75ml-263258.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -176,8 +169,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Aqua, sorbitol, hydrated silica, hydroxyethylcellulose, olflur, aroma, saccharin. Contient: Olafluor (fluorure d'amines) 1000 ppm F.",
     url: 'https://www.atida.fr/elmex-kids-dentifrice-anti-carie-3-6-ans-lot-de-2x50ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/d04be9fa-741a-4dc6-8475-88c259b47072/Elmex-Kids-Dentifrice-3-6-ans-Lot-de-2-x-50ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-kids-dentifrice-3-6-ans-lot-de-2-x-50ml-263763.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -198,8 +190,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/elmex-sensitive-solution-dentaire-sans-alcool-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/c8523e70-ceb5-4fd1-a90a-dd5c829b3b90/Elmex-Sensitive-Solution-Dentaire-Sans-Alcool-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-sensitive-solution-dentaire-sans-alcool-400ml-263589.webp',
     tags: {
       primary: [TAG_SLUGS.BAIN_DE_BOUCHE],
       secondary: [],
@@ -220,8 +211,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Poloxamer 105, Calcium Pyrophosphate, Triacetin, PEG-12, PVP, PEG/PPG-116/66 Copolymer, Tetrasodium Pyrophosphate, Silica, Aroma, Betaine, Sodium Lauryl Sulfate, Sodium Monofluorophosphate, Sodium Saccharin, Hydrogen Peroxide, Sucralose, Carboxylesterase, Maltodextrin, Benzyl Alcohol, Limonene. Contains: Sodium Monofluorophosphate Total Fluoride content: 1450 ppm',
     url: 'https://www.atida.fr/elmex-dentifrice-blancheur-email-professional-2x75ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/084d9b5e-e054-41ae-a5d6-0a7f9e837ef6/Elmex-Dentifrice-Blancheur-Email-Professional-2x75ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-dentifrice-blancheur-email-professional-2x75ml-300519.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -246,8 +236,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Calcium carbonate, aqua, sorbitol, bicarbonate, sodium lauryl sulfate, sodium monofluorophosphate, aroma, sodium silicate, cellulose gum, sodium bicarbonate, titanium dioxide, potassium acesulfame, xanthan gum, sucralose.',
     url: 'https://www.atida.fr/elmex-sensitive-dentifrice-double-pack-2x75ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/a7072381-9b91-4de1-817f-31ddba729148/Elmex-Sensitive-Dentifrice-Duo-Pack-2x75ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-sensitive-dentifrice-duo-pack-2x75ml-284047.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -268,8 +257,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Olafluor : Fluorure d'amines Dihydrofluorure de bis ( hydroxyéthyl ) aminopropyl N hydroxyéthyl octadécylamine 1,641g, Silice hydratée 25g , Arôme, Excipients : Eau, Sorbitol, Hydroxyéthylcellulose, Titane dioxyde, Saccharine.",
     url: 'https://www.atida.fr/elmex-protections-caries-dentifrices-pack-double-2-x-75ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/5488053e-7f5b-4ed1-8ce0-ccac0111b1ca/Elmex-Protections-Caries-Dentifrices-Pack-Double-2-x-75ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-protections-caries-dentifrices-pack-double-2-x-75ml-248276.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -290,8 +278,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Calcium Carbonate, Aqua, Glycerin, Sodium Lauryl Sulfate, Arginine, Sodium Monofluorophosphate, Aroma, Cellulose Gum, Sodium Bicarbonate, Tetrasodium Pyrophosphate, Benzyl Alcohol, Sodium Saccharin, Sodium Hydroxide, CI 77892 Contient : 1450 ppm de fluorure (Monofluorophosphate de sodium)',
     url: 'https://www.atida.fr/elmex-antii-caries-profesional-dentifrice-duo-2-x-100ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/aaa3e853-2747-4c7e-80f4-34c3966fbe00/Elmex-AntiI-Caries-Profesional-Dentifrice-DUO-2-x-100ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-antii-caries-profesional-dentifrice-duo-2-x-100ml-263934.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -317,8 +304,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'aqua, hydrated silica, sorbitol, alumina, polyethylene, olaflur, hydroxyethylcellulose, aroma, titanium dioxide, limonene, PEG-40 hydrogenated castor oil, cocamidopropyl betaine, saccharin, citric acid, stearic acid.',
     url: 'https://www.atida.fr/elmex-nettoyage-intense-dentifrice-50ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/64114e51-0fe2-4ac8-b054-78b9e2646792/Elmex-Nettoyage-Intense-Dentifrice-50ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-nettoyage-intense-dentifrice-50ml-233686.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -339,8 +325,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/elmex-professional-dentifrice-opti-email-haute-resistance-lot-de-2-x-75ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/f64349ca-70d9-4e62-971c-53ab2ec67a53/Elmex-Professional-Dentifrice-Opti-Email-Haute-Resistance-Lot-de-2-x-75ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-professional-dentifrice-opti-email-haute-resistance-lot-de-2-x-75ml-263795.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -361,8 +346,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'INGREDIENTS: Aqua, Sorbitol, Hydrated Silica, Glycerin, Sodium Methyl Cocoyl Taurate, Tetrasodium Pyrophosphate, Aroma, Zinc Phosphate, Sodium Citrate, Microcrystalline Cellulose, Cellulose Gum, Cocamidopropyl Betaine, Stannous Fluoride, Sodium Saccharin, Xanthan Gum, Citric Acid, Sodium Fluoride, Sucralose. Contains : Stannous Fluoride and Sodium Fluoride Total Fluoride content: 1450 ppm',
     url: 'https://www.atida.fr/dentifrice-elmex-anti-caries-soin-complet-2x75-ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/15f3bc0c-6841-4711-89f3-30bffe7024db/Dentifrice-Elmex-Anti-Caries-Soin-Complet-2x75-ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dentifrice-elmex-anti-caries-soin-complet-2x75-ml-263889.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -389,8 +373,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, Propylene Glycol, PEG-40 Hydrogenated Castor Oil, Olaflur, Glycerin, Sodium Benzoate, Levulinic Acid, Sodium Levulinate, Aroma, Saccharin, Sodium Fluoride, Sodium Anisate.',
     url: 'https://www.atida.fr/elmex-anti-caries-solution-dentaire-sans-alcool-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/0dd1b1e0-a81f-4c04-8758-402def0095cb/Elmex-Anti-caries-Solution-Dentaire-Sans-Alcool-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-anti-caries-solution-dentaire-sans-alcool-400ml-263590.webp',
     tags: {
       primary: [TAG_SLUGS.BAIN_DE_BOUCHE],
       secondary: [],
@@ -411,8 +394,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Contient : Fluorure de sodium, Olafluor / Ingrédient actif : Arginine 0,8 % / Autres ingrédients : Aqua, Glycerin, Sorbitol, Propylene Glycol, Disodium Pyrophosphate, PEG-40 Hydrogenated Castor Oil, PVM/MA Copolymer, Tetrapotassium Pyrophosphate, Sodium Levulinate, Sodium Anisate, Olaflur, Aroma, Potassium Hydroxide, Sodium Saccharin, Sodium Fluoride, CI 19140, CI 42051',
     url: 'https://www.atida.fr/elmex-sensitive-profesional-solution-dentaire-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/61ff7f07-042e-4c02-bbb5-8556d146eb05/Elmex-Sensitive-Professional-Solution-Dentaire-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-sensitive-professional-solution-dentaire-400ml-256406.webp',
     tags: {
       primary: [TAG_SLUGS.BAIN_DE_BOUCHE],
       secondary: [],
@@ -436,8 +418,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Calcium carbonate, aqua, glycerin, arginine, sodium lauryl sulfate, sodium monofluorophosphate, cellulose gum, aroma, sodium bicarbonate, benzyl alcohol, tetrasodium pyrophosphate, sodium saccharin, sodium hydroxide, ci 77891 contient : 1450 ppm de fluorure (monofluorophosphate de sodium).',
     url: 'https://www.atida.fr/elmex-anti-caries-expert-orthodontie-lot-de-2-x-75ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/9fd35b75-ec6a-4bdd-a25f-3f23b9eaa306/Elmex-Anti-Caries-Expert-Orthodontie-Lot-de-2-x-75ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-anti-caries-expert-orthodontie-lot-de-2-x-75ml-263856.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -464,7 +445,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, SORBITOL, HYDRATED SILICA, HYDROXYETHYLCELLULOSE, OLAFLUR, AROMA, SACCHARIN',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/par-soins/premieres-dents/elmex-dentifrice-enfant-3-6-ans-50-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-dentifrice-enfant-3-6-ans.webp',
     tags: {
       primary: ['dentifrice'],
       secondary: [],
@@ -489,7 +470,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, PROPYLENE GLYCOL, PEG-40 HYDROGENATED CASTOR OIL, OLAFLUR, GLYCERIN, AROMA, SODIUM BENZOATE, LEVULNIC ACID, SODIUM LEVULINATE , PVP, SACCHARIN, HYDROXYETHYLCELLULOSE, SODIUM FLUORIDE, SODIUM ANISATE',
     url: 'https://www.pharmashopdiscount.com/fr/parapharmacie/hygiene/bucco-dentaire/bains-de-bouche/elmex-bain-de-bouche-sensitive-100-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-bain-de-bouche-sensitive.webp',
     tags: {
       primary: ['bain-de-bouche'],
       secondary: [],
@@ -511,7 +492,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERIN, SORBITOL, PROPYLENE GLYCOL, OLAFUR, SODIUM BENZOATE, PEG-40 HYDROGENATED CASTOR OIL, AROMA, POTASSIUM ACESULFAME, SODIUM FLUORIDE, SUCRALOSE, HYDROCLORIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/parapharmacie/hygiene/bucco-dentaire/bains-de-bouche/elmex-junior-6-12ans-solution-dentaire-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-junior-6-12ans-solution-dentaire.webp',
     tags: {
       primary: ['bain-de-bouche'],
       secondary: [],
@@ -536,7 +517,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'INGRÉDIENT ACTIF : ARGININE 0,8% AUTRES INGRÉDIENTS : AQUA, GLYCERIN, SORBITOL, PROPYLENE GLYCOL, DISODIUM PYROPHOSPHATE, PEG-40 HYDROGENATED CASTOR OIL, PVM/MA COPOLYMER, TETRAPOTASSIUM PYROPHOSPHATE, SODIUM LEVULINATE, SODIUM ANISATE, AMINE FLUORIDE (OLAFLUR) (125PPM F⁻), AROMA, POTASSIUM HYDROXIDE, SODIUM SACCHARINE, SODIUM FLUORIDE (125PPMF⁻), CI19140, CI 42051',
     url: 'https://www.pharmashopdiscount.com/fr/parapharmacie/hygiene/bucco-dentaire/bains-de-bouche/elmex-sensitive-professional-bain-de-bouche-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-sensitive-professional-bain-de-bouche.webp',
     tags: {
       primary: ['bain-de-bouche'],
       secondary: [],
@@ -562,7 +543,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "OLAFLUOR (FLUORURE D'AMINES) (500 PPM F), BIS(HYDROXYETHYL)AMINOPROPYLHYDROXYETHYL-OCTADECYLAMINE-DIHYDROFLUORIDE (500 PPM F), AQUA, SORBITOL, HYDRATED SILICA, HYDROXYETHYLCELLULOSE, COCAMIDOPROPYL BETAINE, OLAFLUR, AROMA, SACCHARIN",
     url: 'https://www.pharmashopdiscount.com/fr/parapharmacie/hygiene/bucco-dentaire/brosses-a-dents/elmex/elmex-dentifrice-bebe-0-2-ans-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-dentifrice-bebe-0-2-ans.webp',
     tags: {
       primary: ['dentifrice'],
       secondary: [],
@@ -587,7 +568,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, PROPYLENE GLYCOL, PEG-40 HYDROGENATED CASTOR OIL, OLAFLUR, GLYCERIN, AROMA, SODIUM BENZOATE, LEVULNIC ACID, SODIUM LEVULINATE , PVP, SACCHARIN, HYDROXYETHYLCELLULOSE, SODIUM FLUORIDE, SODIUM ANISATE',
     url: 'https://www.pharmashopdiscount.com/fr/parapharmacie/hygiene/bucco-dentaire/brosses-a-dents/elmex/elmex-solution-dentaire-sensitive-400-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-solution-dentaire-sensitive.webp',
     tags: {
       primary: ['bain-de-bouche'],
       secondary: [],
@@ -609,7 +590,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'CALCIUM CARBONATE, AQUA, GLYCERIN, ARGININE, SODIUM LAURYL SULFATE, SODIUM MONOFLUOROPHOSPHATE, CELLULOSE GUM, AROMA, SODIUM BICARBONATE, BENZYL ALCOHOL, TETRASODIUM PYROPHOSPHATE, SODIUM SACCHARIN, SODIUM HYDROXIDE, CI 77891, CONTIENT 1450 PPM DE FLUORURE (MONOFLUOROPHOSPHATE DE SODIUM)',
     url: 'https://www.pharmashopdiscount.com/fr/parapharmacie/hygiene/bucco-dentaire/dentifrices/elmex-anti-caries-dentifrice-junior-8-18-ans-75-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-anti-caries-dentifrice-junior-8-18-ans.webp',
     tags: {
       primary: ['dentifrice'],
       secondary: [],
@@ -638,7 +619,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERIN, SODIUM GLUCONATE, PEG-40 HYDROGENATED CASTOR OIL, OLAFLUR, AROMA, STANNOUS CHLORIDE, SODIUM FLUORIDE, COCAMIDOPROPYL BETAINE, SODIUM SACCHARIN',
     url: 'https://www.pharmashopdiscount.com/fr/parapharmacie/hygiene/bucco-dentaire/dentifrices/elmex/elmex-bain-de-bouche-email-professional-400-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-bain-de-bouche-email-professional.webp',
     tags: {
       primary: ['bain-de-bouche'],
       secondary: [],
@@ -660,7 +641,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, HYDRATED SILICA, SORBITOL, HYDROXYETHYLCELLULOSE, OLAFLUR, AROMA, LIMONENE, TITANIUM DIOXIDE (CI77891), SODIUM SACCHARIN, HYDROCHLORIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/parapharmacie/hygiene/bucco-dentaire/dentifrices/elmex/elmex-dentifrice-anti-caries-original-100-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-dentifrice-anti-caries-original.webp',
     tags: {
       primary: ['dentifrice'],
       secondary: [],
@@ -670,36 +651,6 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
       { slug: INGREDIENT_SLUGS.HYDRATED_SILICA },
       { slug: INGREDIENT_SLUGS.SORBITOL_DENTAL },
       { slug: INGREDIENT_SLUGS.TITANIUM_DIOXIDE },
-    ],
-  },
-  {
-    slug: 'elmex-dentifrice-anti-caries-protection-renforcee-100ml',
-    name: 'Dentifrice Anti-Caries Protection Renforcee',
-    brand: 'Elmex',
-    kind: 'toothpaste',
-    unit: 'tube',
-    totalAmount: 100,
-    amountUnit: 'ml',
-    priceCents: 1299,
-    description:
-      "Le dentifrice Elmex Anti-Caries Protection Renforcée est en vente en ligne sur le site de votre parapharmacie à prix discount. Ce lot de 2 tubes de 100ml offre une protection renforcée contre les caries pour une hygiène bucco-dentaire optimale.\n\nElmex, une marque reconnue dans le domaine de l'hygiène dentaire, propose ce dentifrice spécialement formulé pour renforcer l'émail des dents et prévenir les caries.Sa formule contient du fluorure et du calcium, qui agissent efficacement pour protéger les dents des attaques acides et renforcer leur émail, ainsi qu'un neutraliseur d'acides de sucres breveté pour empêcher les acides de sucre présent dans la plaque dentaire d'attaquer les dents. En l'utilisant régulièrement, vous protégerez vos dents tout en gardant une haleine fraîche et une sensation de propreté durable.\n\nN'hésitez plus et offrez à vos dents une protection optimale avec le dentifrice Elmex Anti-Caries Protection Renforcée.",
-    notes: '',
-    inci: 'CALCIUM CARBONATE, AQUA, GLYCERIN, XYLITOL, SODIUM LAURYL SULFATE, ARGININE, SODIUM MONOFLUOROPHOSPHATE, AROMA, CELLULOSE GUM, SODIUM BICARBONATE, TETRASODIUM PYROPHOSPHATE, BENZYL ALCOHOL, SODIUM SACCHARIN, SODIUM HYDROXIDE.CONTIENT : 1450 PPM DE FLUORURE (MONOFLUOROPHOSPHATE DE SODIUM)',
-    url: 'https://www.pharmashopdiscount.com/fr/parapharmacie/hygiene/bucco-dentaire/dentifrices/elmex/elmex-dentifrice-anti-caries-protection-renforcee-lot-de-2x100ml.html',
-    imageUrl: '',
-    tags: {
-      primary: ['dentifrice'],
-      secondary: [],
-      avoid: [],
-    },
-    keyIngredients: [
-      { slug: INGREDIENT_SLUGS.CALCIUM_CARBONATE },
-      { slug: INGREDIENT_SLUGS.XYLITOL },
-      { slug: INGREDIENT_SLUGS.ARGININE },
-      { slug: INGREDIENT_SLUGS.SODIUM_MONOFLUOROPHOSPHATE },
-      { slug: INGREDIENT_SLUGS.CELLULOSE_GUM_DENTAL },
-      { slug: INGREDIENT_SLUGS.SODIUM_BICARBONATE_DENTAL },
-      { slug: INGREDIENT_SLUGS.TETRASODIUM_PYROPHOSPHATE },
     ],
   },
   {
@@ -746,7 +697,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, SORBITOL, HYDRATED SILICA, HYDROXYETHYLCELLULOSE, OLAFLUR, AROMA, SACCHARIN, LIMONENE',
     url: 'https://www.pharmashopdiscount.com/fr/parapharmacie/hygiene/bucco-dentaire/dentifrices/elmex/elmex-dentifrice-anti-caries-sans-menthol-75ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-dentifrice-anti-caries-sans-menthol.webp',
     tags: {
       primary: ['dentifrice'],
       secondary: [],
@@ -771,7 +722,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'CALCIUM CARBONATE, AQUA, GLYCERIN, HYDRATED SILICA, ARGININE, LAURYL GLUCOSIDE, DISODIUM COCOYL GLUTAMATE, SODIUM MONOFLUOROPHOSPHATE, XANTHAN GUM, AROMA, BENZYL ALCOHOL, SODIUM BICARBONATE, TETRASODIUM PYROPHOSPHATE, SODIUM SACCHARIN, SODIUM HYDROXIDE',
     url: 'https://www.pharmashopdiscount.com/fr/parapharmacie/hygiene/bucco-dentaire/dentifrices/elmex/elmex-dentifrice-orthodontie-lot-de-2x75ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-dentifrice-orthodontie.webp',
     tags: {
       primary: ['dentifrice'],
       secondary: [],
@@ -800,7 +751,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'CALCIUM CARBONATE, AQUA, SORBITOL, BICARBONATE, SODIUM LAURYL SULFATE, SODIUM MONOFLUOROPHOSPHATE, AROMA, SODIUM SILICATE, CELLULOSE GUM, SODIUM BICARBONATE, TITANIUM DIOXIDE, POTASSIUM ACESULFAME, XANTHAN GUM, SUCRALOSE',
     url: 'https://www.pharmashopdiscount.com/fr/parapharmacie/hygiene/bucco-dentaire/dentifrices/elmex/elmex-dentifrice-sensitive-professional-blancheur-75ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-dentifrice-sensitive-professional-blancheur.webp',
     tags: {
       primary: ['dentifrice'],
       secondary: [],
@@ -829,7 +780,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AUTRES INGRÉDIENTS : CALCIUM CARBONATE, AQUA, SORBITOL, BICARBONATE, SODIUM LAURYL SULFATE, SODIUM MONOFLUOROPHOSPHATE, CELLULOSE GUM, SODIUM BICARBONATE, TETRASODIUM PYROPHOSPHATE, SODIUM SACCHARIN, BENZYL ALCOHOL, XANTHAN GUM, LIMONENE, CI 77891',
     url: 'https://www.pharmashopdiscount.com/fr/parapharmacie/hygiene/bucco-dentaire/dentifrices/elmex/elmex-dentifrice-sensitive-professionnel-blancheur-lot-de-2x75ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-dentifrice-sensitive-professionnel-blancheur.webp',
     tags: {
       primary: ['dentifrice'],
       secondary: [],
@@ -885,7 +836,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, HYDRATED SILICA, SORBITOL, HYDROXYETHYLCELLULOSE, OLAFLUR, CI 77891, AROMA, SACCHARIN, LIMONENE',
     url: 'https://www.pharmashopdiscount.com/fr/parapharmacie/hygiene/bucco-dentaire/dentifrices/elmex/elmex-junior-dentifrice-anti-caries-75ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-junior-dentifrice-anti-caries.webp',
     tags: {
       primary: ['dentifrice'],
       secondary: [],
@@ -910,7 +861,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, SORBITOL, HYDRATED SILICA, HYDROXYETHYLCELLULOSE, OLAFLUR, AROMA, COCAMIDOPROPYL BETAINE, SACCHARIN, CI 77891',
     url: 'https://www.pharmashopdiscount.com/fr/parapharmacie/hygiene/bucco-dentaire/dentifrices/elmex/elmex-sensitive-dentifrice-100ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-sensitive-dentifrice.webp',
     tags: {
       primary: ['dentifrice'],
       secondary: [],
@@ -935,7 +886,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'CALCIUM CARBONATE, AQUA, SORBTIOL, AROMA, POLOXAMER 407, SODIUM MONOFLUOROPHOSPHATE(1450 PPM F), COCAMIDOPROXYL BETAINE, ZINC OXIDE, BENZYL ALCOHOL, CELLULOSE GUM, ZINC CITRATE, SODIUM BICARBONATE, TETRASODIUM PYROPHOSPHATE, XANTHAN GUM, SODIUM SACCHARIN, SUCRALOSE, LIMONENE, CI 77891.INGRÉDIENT ACTIF : ARGININE (8%)',
     url: 'https://www.pharmashopdiscount.com/fr/parapharmacie/hygiene/bucco-dentaire/dentifrices/elmex/elmex-sensitive-professional-dentifrice-soin-gencives-75ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-sensitive-professional-dentifrice-soin-gencives.webp',
     tags: {
       primary: ['dentifrice'],
       secondary: [],
@@ -965,7 +916,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AUTRES INGRÉDIENTS : CALCIUM CARBONATE, AQUA, SORBITOL, GLYCERIN, AROMA, POLOXAMER 407, SODIUM MONOFLUOROPHOSPHATE, COCAMIDOPROPYL BETAINE, ZINC OXIDE, BENZYL ALCOHOL, CELLULOSE GUM, TETRASODIUM PYROPHOSPHATE, ZINC CITRATE, SODIUM BICARBONATE, XANTHAN GUM, SODIUM SACCHARIN, SUCRALOSE, ANETHOLE, BETA-CARYOPHYLLENE, EUCALYPTUS GLOBULUS OIL, LIMONENE, MENTHA PIPERITA OIL, MENTHOL, PINENE',
     url: 'https://www.pharmashopdiscount.com/fr/parapharmacie/hygiene/bucco-dentaire/dentifrices/elmex-sensitive-dentifrice-repare-previent-75ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-sensitive-dentifrice-repare-previent-75ml.webp',
     tags: {
       primary: ['dentifrice'],
       secondary: [],
@@ -996,7 +947,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, SORBITOL, HYDRATED SILICA, POLYETHYLENE, HYDROXYETHYLCELLULOSE, OLAFLUOR, TITANIUM DIOXIDE, AROMA (MENTHE DOUCE), LIMONENE, SACCHARIN, CONTIENT UN DÉRIVÉ FLUORÉ',
     url: 'https://www.pharmashopdiscount.com/fr/parapharmacie/hygiene/bucco-dentaire/enfants/elmex/elmex-dentifrice-junior-6-a-12-ans-75-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-dentifrice-junior-6-a-12-ans.webp',
     tags: {
       primary: ['dentifrice'],
       secondary: [],
@@ -1021,8 +972,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/elmex-sensitive-professionnal-blancheur-lot-de-2-x-75ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/cbde5afb-7b21-40f8-8f20-8755182c39a0/Elmex-Sensitive-Professional-Blancheur-Dentifrice-Lot-de-2-x-75ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-sensitive-professional-blancheur-dentifrice.webp',
     tags: {
       primary: ['dentifrice'],
       secondary: [],
@@ -1042,8 +992,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/elmex-dentifrice-anti-carie-4x75ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/e02ddae4-e56e-4822-9af4-56665fff427b/Elmex-Dentifrice-Anti-carie-4x75ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-dentifrice-anti-carie.webp',
     tags: {
       primary: ['dentifrice'],
       secondary: [],
@@ -1063,8 +1012,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/elmex-anti-caries-professional-lot-de-2-x-75ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/4e28b733-fbeb-4f6e-af64-9c5ca858749e/Elmex-Anti-Caries-Professional-Dentifrice-Lot-de-2-x-75ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-anti-caries-professional-dentifrice.webp',
     tags: {
       primary: ['dentifrice'],
       secondary: [],
@@ -1084,8 +1032,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/elmex-professional-dentifrice-opti-email-haute-resistance-lot-de-2-x-75ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/f64349ca-70d9-4e62-971c-53ab2ec67a53/Elmex-Professional-Dentifrice-Opti-Email-Haute-Resistance-Lot-de-2-x-75ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-professional-dentifrice-opti-email-haute-resistance.webp',
     tags: {
       primary: ['dentifrice'],
       secondary: [],

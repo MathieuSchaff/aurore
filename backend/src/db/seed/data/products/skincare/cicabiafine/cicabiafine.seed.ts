@@ -16,7 +16,7 @@ export const CICABIAFINE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERIN, ISONONANOATE, DIMETHICONE, CYCLOPENTASILOXANE, CETEARYL ALCOHOL, CYCLOHEXASILOXANE, PARAFFINUM LIQUIDUM, CETYL ALCOHOL, BEHENYL ALCOHOL, PANTHENOL, BISABOLOL, VP/HEXADECENE COPOPLYMER, TOCOPHERYL ACETATE, PARAFFIN, XYLITYLGLUCOSIDE, ANHYDROXYLITOL, XYLITOL, CERA MICROCRISTALLINA, CETEARYL GLUCOSIDE, PEG-75 STEARATE, CETETH-20, STEARETH-20, XANTHAN GUM, GLYCERYL STEARATE, DISODIUM EDTA, SODIUM CITATE, CITRIC ACID, PHENOXYTHANOL, METHYLPARABEN, PROPYLPARABEN, PARFUM (FRAGRANCE)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/cicabiafine/cicabiafine-creme-mains-reparation-75ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cicabiafine-creme-mains-reparation.webp',
     tags: {
       primary: ['apaisant', 'barriere-cutanee', 'hydratation', 'cicatrisation'],
       secondary: ['reparateur', 'creme-mains', 'zone-mains'],
@@ -44,7 +44,7 @@ export const CICABIAFINE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERIN, ISONONANOATE, DIMETHICONE, CYCLOPENTASILOXANE, CETEARYL ALCOHOL, CYCLOHEXASILOXANE, PARAFFINUM LIQUIDUM, CETYL ALCOHOL, BEHENYL ALCOHOL, PANTHENOL, BISABOLOL, VP/HEXADECENE COPOPLYMER, TOCOPHERYL ACETATE, PARAFFIN, XYLITYLGLUCOSIDE, ANHYDROXYLITOL, XYLITOL, CERA MICROCRISTALLINA, CETEARYL GLUCOSIDE, PEG-75 STEARATE, CETETH-20, STEARETH-20, XANTHAN GUM, GLYCERYL STEARATE, DISODIUM EDTA, SODIUM CITATE, CITRIC ACID, PHENOXYTHANOL, METHYLPARABEN, PROPYLPARABEN, PARFUM (FRAGRANCE)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/cicabiafine/cicabiafine-creme-mains-reparation-intense-lot-de-2x75ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cicabiafine-creme-mains-reparation-intense.webp',
     tags: {
       primary: ['apaisant', 'barriere-cutanee', 'hydratation', 'cicatrisation'],
       secondary: ['reparateur', 'creme-mains', 'zone-mains'],
@@ -72,7 +72,7 @@ export const CICABIAFINE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'GLYCERIN, AQUA, CETEARYL ALCOHOL, PARAFFINUM LIQUIDUM, CERA MICROCRISTALLINA, PARAFFIN, DIMETHICONE, PERSEA GRATISSIMA OIL, HYDROLYZED HYALURONIC ACID, PANTHENOL, BISABOLOL, ALLANTOIN, CAPRYLYL GLYCOL, SODIUM CETEARYL SULFATE, PALMITIC ACID, STEARIC ACID, SODIUM CITRATE, CITRIC ACID, DISODIUM PHOSPHATE, POTASSIUM PHOSPHATE, TOCOPHERYL ACETATE, DILAURYL THIODIPROPIONATE, BHT, METHYLPARABEN, PROPYLPARABEN, PARFUM [PR-016387]',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/cicabiafine/cicabiafine-creme-pieds-secs-lot-de-2x100ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cicabiafine-creme-pieds-secs.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'repulpant'],
       secondary: ['reparateur', 'creme-pieds', 'zone-corps'],
@@ -101,42 +101,13 @@ export const CICABIAFINE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERIN, COCAMIDOPROPYL BETAINE, SDODIUM LAUROAMPHODIACETATE, COCO-GLUCOSIDE, SODIUM CHLORIDE, HYDROXYPROPYL STARCH PHOSPHATE, CITRIC ACID, PANTHENOL, ALLANTOIN, GLYCERYL OLEATE, HYDROGENATED PALM GLYCERIDE CITRATE, DISODIUM LAURAMPHODIACETATE, LAURIC ACID, LAURYL HYDROXYETHYL IMIDAZOLINE, STYRENE/ACRYLATES COPOLYMER, POLYQUATERNIUM-7, ACRYLATES C 10-30 ALKYL ACRYLATE CROSSPOLYMER, DISODIUM EDTA, SODIUM GLYCOLATE, SODIUM HYDROXIDE, SODIUM BENZOATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/cicabiafine/cicabiafine-douche-creme-anti-irritations-1l.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cicabiafine-douche-creme-anti-irritations.webp',
     tags: {
       primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
       secondary: ['reparateur', 'nettoyant-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.PANTHENOL }, { slug: INGREDIENT_SLUGS.ALLANTOIN }],
-  },
-  {
-    slug: 'cicabiafine-creme-pieds-secs-100ml',
-    name: 'Creme Pieds Secs',
-    brand: 'Cicabiafine',
-    kind: 'foot-cream',
-    unit: 'tube',
-    totalAmount: 100,
-    amountUnit: 'ml',
-    priceCents: 702,
-    description:
-      'La crème pieds secs anti-fendillements CICABIAFINE discount, le soin réparateur dans votre parapharmacie en ligne à prix discount, pour les pieds secs, fendillés ou rugueux même sur les peaux sensibles, de toute la famille.\n\n\nLa gamme Cicabiafine du laboratoire BIAFINE propose des soins réparateurs et ultra-hydratants pour les peaux sèches, très sèches et abîmés du visage et du corps. La crème pieds secs anti-fendillements composée d’acide hyaluronique, bisabolol, allantoïne, huile d’avocat, glycérine et panthénol, va réparer et protéger de la sècheresse en reformant et renforçant le film protecteur, nourrir, lisser pour estomper les fendillements et rugosités, et hydrater intensément pour redonner de la souplesse à la peau. Sa texture non collante fond sur la peau à l’application pour laisser les pieds très doux. Dès la première utilisation, les pieds retrouvent tout leur confort, ils sont réparées et souples, les fendillements et rugosités sont estompés.',
-    notes: '',
-    inci: 'GLYCERIN, AQUA, CETERARYL ALCOHOL, PARAFFINUM LIQUIDUM, CERA MICROCRISTALLINA, DIMETHICONE, PARAFFIN, PANTHENOL, BISABOLOL, ALLANTOIN, PERSEA GRATISSIMA OIL, HYDROLYZED HYALURONIC ACID, CAPRYLYL GLYCOL, SODIUM CETEARYL SULFATE, PALMITIC AICID, STEARIC ACID, SODIUM CITRATE, CITRIC ACID, TOCOPHERYL ACETATE, DILAURYL THIODIPROPIONATE, BHT, METHYLPARABEN, PROPYLPARABEN, PARFUM (FRAGRANCE)',
-    url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/corps/pieds/podologie-et-accessoires/cicabiafine-creme-pieds-secs-100ml.html',
-    imageUrl: '',
-    tags: {
-      primary: ['apaisant', 'hydratation', 'barriere-cutanee'],
-      secondary: ['reparateur', 'creme-pieds', 'zone-corps'],
-      avoid: [],
-    },
-    keyIngredients: [
-      { slug: INGREDIENT_SLUGS.PANTHENOL },
-      { slug: INGREDIENT_SLUGS.BISABOLOL },
-      { slug: INGREDIENT_SLUGS.ALLANTOIN },
-      { slug: INGREDIENT_SLUGS.AVOCADO_OIL },
-      { slug: INGREDIENT_SLUGS.HYDROLYZED_HYALURONIC_ACID },
-      { slug: INGREDIENT_SLUGS.SODIUM_CITRATE },
-    ],
   },
   {
     slug: 'cicabiafine-baume-hydratant-corporel',
@@ -152,7 +123,7 @@ export const CICABIAFINE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERIN, ISONONYL ISONONANOATE, DIMETHICONE, CYCLOPENTASILOXANE, CETEARYL ALCOHOL, CYCLOHEXASILOXANE, PARAFFINUM LIQUIDUM, CETYL ALCOHOL, BEHENYL ALCOHOL, PANTHENOL, BISABOLOL, ANHYDROXYLITOL, XYLITYLGLUCOSIDE, XYLITOL, HYDROLYZED HYALURONIC ACID, CYCLOTRISILOXANE, GLYCERYL STEARATE, CERA MICROCRISTALLINA, PARAFFIN, CETEARYL GLUCOSIDE, CETETH-20, PEG-75 STEARATE, STEARETH-20, VP/HEXADECENE COPOLYMER, XANTHAN GUM, DISODIUM EDTA, SODIUM CITRATE, CITRIC ACID, TOCOPHERYL ACETATE, PHENOXYETHANOL, METHYLPARABEN, PROPYLPARABEN, PARFUM (FRAGRANCE)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/cicabiafine/cicabiafine-baume-hydratant-corporel-400-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cicabiafine-baume-hydratant-corporel.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'barriere-cutanee'],
       secondary: ['reparateur', 'baume'],
@@ -182,7 +153,7 @@ export const CICABIAFINE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERIN, ISOPROPYL MYRISTATE, CETYL ALCOHOL, CARBOMER, POTASSIUM CETYL PHOSPHATE, CAPRYLYL GLYCOL, SODIUM HYDROXIDE, TOCOPHERYL ACETATE, PARFUM, P-ANISIC ACID, ETHYLHEXYLGLYCERIN, TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/cicabiafine/cicabiafine-baume-hydratant-quotidien-peaux-tres-seches-300ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cicabiafine-baume-hydratant-quotidien-peaux-tres-seches.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'baume'],
@@ -203,7 +174,7 @@ export const CICABIAFINE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERIN, CAPRILIC/CAPRIX TRIGLYCERIDE, BUTYROSPERMUM PARKKI BUTTER, OLUS OIL, BUTYLENE GLYCOL, BEHENYL ALCOHOL, PANTHENOL, HYDROLYZED HYALURONIC ACID, HYDROXYPHENYL PROPAMIDOBENZOIC ACID, ASIATICOSIDE, ASIATIC ACID, MADECASSIC ACID, TROPOLONE, 1.2-HEXANEDIOL, CAPRYLYL GLYCOL, ZINC GLUCONATE, PENTYLENE GLYCOL, HYDROGENATED VEGETABLE OIL, CANDELILLA CERA, GLYCERYL STEARATE, LECITHIN, PEG-100 STEARATE, SODIUM POLYACRYLATE, XANTHAN GUM, CITRIC ACID, ASCORBYL PALMITATE, TOCOPHEROL. [PR-0002374]',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/cicabiafine/cicabiafine-baume-multi-reparateur-apaisant-100ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cicabiafine-baume-multi-reparateur-apaisant.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'barriere-cutanee', 'cicatrisation'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -234,7 +205,7 @@ export const CICABIAFINE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/cicabiafine/cicabiafine-baume-reparateur-crevasses-50-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cicabiafine-baume-reparateur-crevasses.webp',
     tags: {
       primary: ['cicatrisation'],
       secondary: ['baume', 'reparateur'],
@@ -255,40 +226,12 @@ export const CICABIAFINE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/cicabiafine/cicabiafine-creme-hydratante-anti-irritations.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cicabiafine-creme-hydratante-anti-irritations.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['creme-hydratante', 'zone-visage'],
       avoid: [],
     },
-  },
-  {
-    slug: 'cicabiafine-creme-hydratante-anti-irritations-200ml',
-    name: 'Creme Hydratante Anti Irritations',
-    brand: 'Cicabiafine',
-    kind: 'moisturizer',
-    unit: 'jar',
-    totalAmount: 200,
-    amountUnit: 'ml',
-    priceCents: 2185,
-    description:
-      'La crème hydratante anti-irritations CICABIAFINE discount, le soin apaisant dans votre parapharmacie en ligne à prix discount, pour la peau extra-sèche, sensible, irritée ou à tendance atopique de toute la famille (à partir de 6 mois). Corps\n\n\nLa gamme Cicabiafine du laboratoire BIAFINE propose des soins réparateurs et ultra-hydratants pour les peaux sèches, très sèches et abîmés du visage et du corps. La crème hydratante anti-irritations riche en panthénol, glycérine, allantoïne, bisabolol, huiles végétales et acides gras (oméga 3 et 6), va apaiser dès l’application tous les inconforts (démangeaisons, irritations), nourrir, hydrater intensément pour redonner de la souplesse à la peau, réparer et protéger de la sècheresse en reformant et renforçant le film protecteur. Sa texture crémeuse non grasse pénètre rapidement à l’application pour laisser la peau extra-douce. Dès la première utilisation, la peau retrouve tout son confort, elle est apaisée et souple.',
-    notes: '',
-    inci: 'AQUA, OLUS OIL, HYDROGENATED POLYISOBUTENE, PEG-8, GLYCERIN, BORAGO OFFICINALIS EXTRACT, CANOLA OIL, MYRETH-3 MYRISTATE, POTASSIUM CETYL PHOSPHATE, BUTYLENE GLYCOL, DIMETHICONE, CETEARYL ALCOHOL, CYCLOPENTASILOXANE, ALLANTOIN, PANTHENOL, BISABOLOL, POLYACRYLAMIDE, CAPRYLYL GLYCOL, CANDELILLA CERA, P-ANISIC ACID, CARBOMER, HYDROXYETHYLCELLULOSE, HYDROGENATED VEGETABLE OIL, PEG-100 STEARATE, GLYCERYL STEARATE, LAURETH-7, LECITHIN, C13-14 ISOPARAFFIN, TROMETHAMINE, TOCOPHERYL ACETATE, DISODIUM EDTA',
-    url: 'https://www.pharmashopdiscount.com/fr/beaute/cicabiafine/cicabiafine-creme-hydratante-anti-irritations-lot-de-2x200ml.html',
-    imageUrl: '',
-    tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
-      avoid: [],
-    },
-    keyIngredients: [
-      { slug: INGREDIENT_SLUGS.HYDROGENATED_POLYISOBUTENE },
-      { slug: INGREDIENT_SLUGS.ALLANTOIN },
-      { slug: INGREDIENT_SLUGS.PANTHENOL },
-      { slug: INGREDIENT_SLUGS.BISABOLOL },
-      { slug: INGREDIENT_SLUGS.TROMETHAMINE },
-    ],
   },
   {
     slug: 'cicabiafine-creme-reconstituante-apaisante',
@@ -304,7 +247,7 @@ export const CICABIAFINE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'UTILISEZ LA CRÈME RECONSTITUANTE APAISANTE CICABIAFINE À RAISON DE 2 FOIS PAR JOUR, APPLIQUEZ SUR LA ZONE CONCERNÉE, PRÉALABLEMENT NETTOYÉE, EN EFFECTUANT DES MOUVEMENTS CIRCULAIRES DOUX, CETTE CRÈME PEUT ÊTRE UTILISÉE SUR LES PIEDS ET LES MAINS, SOUVENT IMPACTÉS PAR LES TRAITEMENTS ANTICANCÉREUX',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/cicabiafine/cicabiafine-creme-reconstituante-apaisante-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cicabiafine-creme-reconstituante-apaisante.webp',
     tags: {
       primary: ['apaisant'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -325,7 +268,7 @@ export const CICABIAFINE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERIN, SODIUM LAURETH SULFATE, COCAMIDOPROPYL BETAINE, COCOGLUCOSIDE, BUTYROSPERMUM PARKII, PANTHENOL, SUCROSE COCOATE, GLYCERYL OLEATE, STYRENE/ACRYLATES COPOLYMER, SODIUM CHLORIDE, HYDROGENATED PALM GLYCERIDES CITRATE, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, POLYQUATERNIUM 39, POLYQUATERNIUM 7, ADIPIC ACID, COCAMIDE MEA, DISODIUM COCOAMPHODIACETATE, CETEARETH-60 MYRISTYL GLYCOL, SODIUM LAURYL SULFATE, MALIC ACID, CITRIC ACID, SODIUM GLYCOLATE, SODIUM BENZOATE, PHENOXYETHANOL, SODIUM BISULFITE, FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/cicabiafine/cicabiafine-douche-baume-surgras-nourrissant-1l.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cicabiafine-douche-baume-surgras-nourrissant.webp',
     tags: {
       primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -347,7 +290,7 @@ export const CICABIAFINE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/cicabiafine/cicabiafine-lait-hydratant-corporel-peaux-seches-200-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cicabiafine-lait-hydratant-corporel-peaux-seches.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['creme-hydratante', 'zone-visage', 'peau-seche'],
@@ -368,7 +311,7 @@ export const CICABIAFINE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/cicabiafine/cicabiafine-lait-hydratant-corporel-quotidien-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cicabiafine-lait-hydratant-corporel-quotidien.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -389,7 +332,7 @@ export const CICABIAFINE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERIN, PARAFFINUM LIQUIDUM, PETROLATUM, BUTYROSPERNUM PARKII BUTTER, ELAEIS GUNEENSIS OIL, BUTYLENE GLYCOL, BEHENYL ALCOHOL, OLUS OIL, PEG-100 STEARATE, GLYCERYL STEARATE, HYDROLYZED HYALURONIC ACID, PANTHENOL, ALLANTOIN, ZINC GLUCONATE, ASIATICOSIDE ACID, MADECASSIS ACID, ETHYLHEXYLGLYCERIN, HYDROXYPHENYL PROPAMIDOBENZOIC ACID, CANDELILLA CERA, HYDROGENATED VEGETABLE OIL, CAPRYLYL GLYCOL, DIMETHICONE, LECITHIN, PALMITIC ACID, PENTYLENE GLYCOL, STEARIC ACID, SODIUM POLYACRYLATE, XANTHAN GUM, ASCORBYL PALMITATE, TOCOPHEROL, PHENOXYETHANOL',
     url: 'https://www.pharmashopdiscount.com/fr/parapharmacie/par-zones/peau/cicatrices/cicabiafine-baume-multi-reparation-50-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cicabiafine-baume-multi-reparation.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'repulpant', 'cicatrisation'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],

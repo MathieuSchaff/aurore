@@ -15,8 +15,7 @@ export const BIOCYTE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'INGREDIENTS: AQUA (WATER), PEG-40 HYDROGENATED CASTOR OIL, HYDROLYZED KERATIN, BENZYL ALCOHOL, GLYCERIN, PARFUM (FRAGRANCE), HYDROXYETHYLCELLULOSE, NIACINAMIDE, RUSCUS ACULEATUS ROOT EXTRACT, CITRUS LIMON PEEL EXTRACT, SOLIDAGO VIRGAUREA EXTRACT, PHENOXYETHANOL, DISODIUM PYRROLOQUINOLINEDIONE TRICARBOXYLATE, CITRIC ACID, SODIUM HYDROXIDE, PISUM SATIVUM SPROUT EXTRACT, POTASSIUM SORBATE, SODIUM BENZOATE.',
     url: 'https://www.atida.fr/biocyte-keratine-anti-chute-serum-lot-de-3-x-5-ampoules.html',
-    imageUrl:
-      'https://assets.atida.com/transform/91ec7cb0-5e51-4fd7-91ff-f6e9386ba356/Biocyte-Keratine-Anti-chute-Serum-Lot-de-3-x-5-ampoules?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/biocyte-pack-keratine-forte-serum-anti-chute-15-ampoules-de-9-ml-45-jours-249238.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],

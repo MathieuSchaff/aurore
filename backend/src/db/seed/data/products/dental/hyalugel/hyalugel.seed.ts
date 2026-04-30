@@ -16,8 +16,7 @@ export const HYALUGEL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'COMPOSANT PRINCIPAL : HYALURONATE DE SODIUM, AUTRES COMPOSANTS : EAU, XYLITOL, ALCOOL, POLYSORBATE-20, HUILE DE RICIN HYDROGÉNÉE PEG40, CARBOMÈRE (POLYCARBOPHILE), ALCOOL DICHLOROBENZYLIQUE, ARÔME, ACIDE CITRIQUE, HYDROXYDE DE SODIUM, ACID BLUE 9 (CI 42090)',
     url: 'https://www.atida.fr/hyalugel-bain-de-bouche-150ml-1000405.html',
-    imageUrl:
-      'https://assets.atida.com/transform/ba26066c-30ce-4d51-b9a2-65ac193d609b/Hyalugel-Bain-de-Bouche-Aphtes-Petites-Plaies-100ml-50ml-Offert?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/hyalugel-bain-de-bouche-aphtes-petites-plaies-offert.webp',
     tags: {
       primary: ['bain-de-bouche'],
       secondary: [],
@@ -38,8 +37,7 @@ export const HYALUGEL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Composant principal : hyaluronate de sodium. Autres composants : eau, xylitol, carboxyméthylcellulose sodique, alcool, huile de ricin hydrogénée PEG40, alcool polyvinylique, carbomère (polycarbophile), alcool dichlorobenzylique, arôme, hydroxyde de sodium, acid blue 9 (CI 42090). Peut contenir de l'acide citrique.",
     url: 'https://www.atida.fr/hyalugel-gel-buccal-20ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/dab87242-699e-41e4-9a7e-1c298be6321a/Hyalugel-Gel-Buccal-Aphtes-Petites-Plaies-20ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/hyalugel-gel-buccal-aphtes-petites-plaies-20ml-258888.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -60,8 +58,7 @@ export const HYALUGEL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Composant principal : hyaluronate de sodium. Autres composants : eau, xylitol, alcool, polysorbate-20, huile de ricin hydrogénée PEG40, carbomère (polycarbophile), alcool dichlorobenzylique, arôme, acide citrique, hydroxyde de sodium, acid blue 9 (CI 42090).',
     url: 'https://www.atida.fr/hyalugel-bain-de-bouche-150ml-1000405.html',
-    imageUrl:
-      'https://assets.atida.com/transform/ba26066c-30ce-4d51-b9a2-65ac193d609b/Hyalugel-Bain-de-Bouche-Aphtes-Petites-Plaies-100ml-50ml-Offert?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/hyalugel-bain-de-bouche-aphtes-petites-plaies-100ml-50ml-offert-238963.webp',
     tags: {
       primary: [TAG_SLUGS.BAIN_DE_BOUCHE],
       secondary: [],

@@ -17,7 +17,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (PURIFIED WATER), UREA, GLYCERIN, CYCLOPENTASILOXANE, HEXYL DECYL STEARATE, PARAFFINUM LIQUIDUM (MINERAL OIL), DICAPRYLYL CARBONATE, BUTYROSPERMUM PARKII BUTTER (SHEA BUTTER), SORBITOL, POLYGLYCERYL-4 ISOSTEARATE, CAPRYLIC/CAPRIC TRIGLYCERIDE, CETYL PEG/PPG-10/1 DIMETHICONE, HEXYL LAURATE, SODIUM CHLORIDE, STEAROXY DIMETHICONE, SERINE, ALLANTOIN, HISTIDINE, BACILLUS FERMENT, TOCOPHEROL, DISODIUM EDTA, PROPYLENE GLYCOL, CITRIC ACID, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYCINNAMATE, POTASSIUM SORBATE, PHENOXYETHANOL, CHLORPHENESIN, O-CYMEN-5-OL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/soins-corps/svr-lait-xerial-10-lait-corps-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-lait-xerial-10-lait-corps.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'anti-oxydant'],
       secondary: ['keratolytique', 'reparateur', 'lait-corps', 'zone-corps'],
@@ -34,7 +34,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
   },
   {
     slug: 'svr-topialyse-huile-lavante-anti-grattage',
-    name: 'Topialyse Huile Lavante',
+    name: 'Topialyse Huile Lavante (Anti Grattage)',
     brand: 'SVR',
     kind: 'body-wash',
     unit: 'bottle',
@@ -46,7 +46,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, GLYCERIN, SODIUM C14-16 OLEFIN SULFONATE, SODIUM LAUROAMPHOACETATE, COCO-BETAINE, NIACINAMIDE, CITRIC ACID, SODIUM OLIVAMPHOACETATE, ALPHA-GLUCAN OLIGOSACCHARIDE, PARFUM (FRAGRANCE), SACCHARIDE ISOMERATE, CAPRYLYL/CAPRYL GLUCOSIDE, SODIUM BENZOATE, POTASSIUM SORBATE, POLYGLYCERYL-3 COCOATE, POLYGLYCERYL-10 LAURATE, GOSSYPIUM HERBACEUM (COTTON) SEED OIL, SODIUM CITRATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/soins-nettoyants/svr-topialyse-huile-lavante-400ml-anti-grattage.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-topialyse-huile-lavante-anti-grattage.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
       secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
@@ -73,7 +73,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (PURIFIED WATER), GLCYERIN, PEG-7 GLYCERYL COCOATE, SODIUM C14-16 OLEFIN SULFONATE, COCO-BETAINE, PEG-60 HYDROGENATED CASTOR OIL, LAUROYL/MYRISTOYL METHYL GLUCAMIDE, SODIUM OLIVA/AMPHOACETATE, NIACINAMIDE, ALPHA GLUCAN OLIGOSACCHARIDE SACCHARIDE ISOMERATE, 1-2 HEXANEDIOL, CAPRYLYL GLYCOL, CITRIC ACID, GOSSYPIUM HERBACEUM SEED OIL, PENTYLENE GLYCOL, SODIUM CHLORIDE, SODIUM CITRATE, PARFUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/soins-nettoyants/svr-topialyse-huile-lavante-micellaire-200-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-topialyse-huile-lavante-micellaire.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
       secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
@@ -99,7 +99,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, GLYCERIN, CETEARYL ALCOHOL, POLYSORBATE 20, NIACINAMIDE, BEHENYL ALCOHOL, CETYL ALCOHOL, XANTHAN GUM, ZINC GLUCONATE, DECYL GLUCOSIDE, DISODIUM COCOYL GLUTAMATE, GLYCERYL STEARATE SE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, GLYCERYL STEARATE CITRATE, SODIUM HYDROXIDE, SODIUM PHYTATE, POTASSIUM SORBATE, SODIUM BENZOATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sebiaclear-creme-lavante-hydratante-apaisante-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sebiaclear-creme-lavante-hydratante-apaisante.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'apaisant'],
       secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
@@ -125,7 +125,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (PURIFIED WATER), SODIUM LAURETH SULFATE, COCO-BETAINE, PEG-7 GLYCERYL COCOATE, PARFUM (FRAGRANCE), PEG-120 METHYL GLUCOSE DIOLEATE, DIMETHYL PHENYLPROPANOL, HEPTYL GLUCOSIDE, LACTOCOCCUS FERMENT EXTRACT, TOCOPHEROL, 1,2-HEXANEDIOL, ETHYLHEXYLGLYCERINE, GLYCERIL CAPRYLATE, LACTIC ACID, PENTYLENE GLYCOL, PROPANEDIOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-spirial-deo-douche-gel-lavant-deodorant-fraicheur-intense-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-spirial-deo-douche-gel-lavant-deodorant-fraicheur-intense.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'deodorant'],
@@ -150,7 +150,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (PURIFIED WATER), ALUMINUM CHLOROHYDRATE, CYCLOPENTASILOXANE, GLYCERIN, TRIETHYL CITRATE, METHYL METHACRYLATE CROSSPOLYMER, CETEARYL ALCOHOL, MICROCRYSTALLINE CELLULOSE, CETEARETH-33, ALLANTOIN, ARACHIDYL ALCOHOL, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, BEHENYL ALCOHOL, ARACHIDYL GLUCOSIDE, CELLULOSE GUM, TROPOLONE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-spirial-deodorant-24h-spray-vegetal-75ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-spirial-deodorant-24h-spray-vegetal.webp',
     tags: {
       primary: ['apaisant', 'hydratation'],
       secondary: ['deodorant'],
@@ -199,7 +199,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, SODIUM C14-16 OLEFIN SULFONATE, COCO-GLUCOSIDE, COCO-BETAINE, GLYCERIN, PARFUM (FRAGRANCE), CITRIC ACID, SODIUM BENZOATE, POTASSIUM SORBATE, SODIUM PHYTATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-topialyse-gel-lavant-apaisant-hydratant-24h-200-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-topialyse-gel-lavant-apaisant-hydratant-24h.webp',
     tags: {
       primary: ['hydratation', 'apaisant'],
       secondary: ['nettoyant-corps', 'zone-corps'],
@@ -220,7 +220,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'TESTÉ SUR PEAUX SENSIBLES SOUS CONTRÔLE DERMATOLOGIQUE, VITIS VINIFERA (GRAP) SEED POWDER, OLEA EUROPAEA (OLIVE) SEED',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-xerial-gommage-corps-100g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-xerial-gommage-corps.webp',
     tags: {
       primary: ['exfoliation'],
       secondary: ['gommage-corps', 'exfoliant-physique', 'zone-corps'],
@@ -241,7 +241,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, ETHYLHEXYL STEARATE, BUTYROSPERMUM PARKII (SHEA) BUTTER, GLYCERYL STEARATE, CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, PEG-100 STEARATE, AMMONIUM ACRYLOYLDIMETHYL TAURATE VP COPOLYMER, CAMELLINA SATIVA SEED OIL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, TOCOPHEROL, TOCOPHERYL ACETATE, 1-2 HEXANEDIOL, ARACHIDYL ALCOHOL, ARACHIDYL GLUCOSIDE, BEHENYL ALCOHOL, CITRIC ACID, 0-CYMEN-5-OL, SODIUM BENZOATE, PARFUM (FRAGRANCE)',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/corps/mains/creme-mains/svr-topialyse-mains-creme-nutri-reparatrice-50-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-topialyse-mains-creme-nutri-reparatrice.webp',
     tags: {
       primary: ['anti-oxydant', 'hydratation', 'cicatrisation'],
       secondary: ['reparateur', 'creme-mains', 'zone-mains'],
@@ -266,7 +266,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (PURIFIED WATER), CYCLOPENTASILOXANE, ALUMINIUM CHLOROHYDRATE, CETEARETH-33, DICAPRYLYL CARBONATE, CETEARYL ALCOHOL, ARACHIDYL ALCOHOL, GLYCERIN, BEHENYL ALCOHOL, ARACHIDYL GLUCOSIDE, AMMONIUM ACRYLATE AND ACRYLAMIDE COPOLYMER, POLYSOBUTENE, POLYSORBATE 20, SORBITAN ISOSTEARATE, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL.SANS PARABEN, SANS PARFUM, SANS ALCOOL',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-produits/deodorants/autres-gammes/svr-spirial-deo-creme-anti-transpirant-48h-50-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-spirial-deo-creme-anti-transpirant-48h.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['deodorant'],
@@ -288,7 +288,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (PURIFIED WATER), ALUMINIUM CHLOROHYDRATE, CYCLOPENTASILOXANE, GLYCERIN, METHYL METHACRYLATE CROSSPOLYMER, TRIETHYL CITRATE, CETEARYL ALCOHOL, MICROCRISTALLINE CELLULOSE, CETEARETH-33, ALLANTOIN, ARACHIDYL ALCOHOL, 1.2 HEXANEDIOL, CAPRYLYL GLYCOL, BEHENYL ALCOHOL, ARACHIDYL GLUCOSIDE, CELLULOSE GUM, TROPOLONE',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-produits/deodorants/offre-speciale-lot-de-2-deodorants/svr-spirial-spray-anti-transpirant-2x-75ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-spirial-spray-anti-transpirant-2x.webp',
     tags: {
       primary: ['apaisant', 'hydratation'],
       secondary: ['deodorant'],
@@ -310,7 +310,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, ALUMINUM CHLOROHYDRATE, UNDECANE, DIATOMACEOUS EARTH, GLYCERIN, TRIETHYL CITRATE, TRIDECANE, CETEARYL ALCOHOL, ARACHIDYL ALCOHOL, PARFUM (FRAGRANCE), PROPANEDIOL, SCLEROTIUM GUM, ALLANTOIN, BEHENYL ALCOHOL, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, CETEARETH-33, ARACHIDYL GLUCOSIDE, GLYCERYL CAPRYLATE, LACTOCOCCUS FERMENT EXTRACT, DECYL GLUCOSIDE, TROPOLONE, TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-produits/deodorants/roll-on/svr-spirial-deodorant-roll-on-48h-lot-de-2x50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-spirial-deodorant-roll-on-48h-50ml.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'deodorant'],
@@ -336,7 +336,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (PURIFIED WATER), CYCLOPENTASILOXANE, BAMBUSA ARUNDINACEA STEM EXTRACT, STEARETH-2, GLYCERIN, CRAMBE ABYSSINICA SEED OIL, 2-METHYL 5-CYCLOHEXYLPENTANOL, BISABOLOL, CITRUS AURANTIUM AMARA (BITTER ORANGE) FLOWER EXTRACT, EQUISETUM ARVENSE EXTRACT, OLEYL ALCOHOL, PHYTOSTEROLS, SALVIA OFFICINALIS (SAGE) OIL, STEARETH-21, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, CELLULOSE GUM, CITRIC ACID, DISODIUM EDTA, LACTIC ACID, MICROCRYSTALLINE CELLULOSE, PENTYLENE GLYCOL, XANTHAN GUM, POTASSIUM SORBATE, SODIUM BENZOATE',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-produits/deodorants/spray/svr-spirial-deodorant-spray-anti-transpirant-intense-75ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-spirial-deodorant-spray-anti-transpirant-intense.webp',
     tags: {
       primary: ['hydratation', 'apaisant'],
       secondary: ['deodorant'],
@@ -358,7 +358,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, SODIUM C14-16 OLEFIN SULFONATE, COCO-GLUCOSIDE, GLYCERIN, COCO-BETAINE, STYRENE/ACRYLATES COPOLYMER, CITRIC ACID, PARFUM (FRAGRANCE), SODIUM BENZOATE, POTASSIUM SORBATE, SODIUM PHYTATA',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/soins-nettoyants/svr-baume-lavant-mains-sensibles-400-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-baume-lavant-mains-sensibles.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -379,7 +379,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, C15-19 ALKANE, CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, GLYCERYL STEARATE SE, VEGETABLE OIL, BEHENETH-25, SODIUM POLYACRYLATE, MICROCRYSTALLINE CELLULOSE, C10-18 TRIGLYCERIDES, LAUROYL LYSINE, CALCIUM PCA, HYDROXYACETOPHENONE, MALTODEXTRIN, PARFUM (FRAGRANCE), 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, CELLULOSE GUM, SODIUM HYDROXIDE, HYALURONIC ACID, LACTOBACILLUS FERMENT, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, PENTYLENE GLYCOL, LYCIUM BARBARUM FRUIT EXTRACT, LACTIC ACID, SODIUM BENZOATE, POTASSIUM SORBATE, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF EXTRACT, PALMITOYL TETRAPEPTIDE-7, CHRYSIN',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/soins-specifiques/svr-densitium-contour-des-yeux-correction-globale-15-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-densitium-contour-des-yeux-correction-globale.webp',
     tags: {
       primary: ['hydratation', 'microbiome', 'anti-age'],
       secondary: ['contour-yeux', 'zone-yeux', 'soin-yeux'],
@@ -410,7 +410,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (PURIFIED WATER), GLUCONOLACTONE, DICAPRYLYL CARBONATE, NIACINAMIDE, PROPANEDIOL, DIMETHICONE, GLYCERIN, SODIUM HYDROXIDE, PSEUDOALTEROMONAS FERMENT EXTRACT, BIOSACCHARIDE GUM-6, CAMELLIA JAPONICA FLOWER EXTRACT, CETEARYL DIMETHICONE CROSSPOLYMER, CRITHMUM MARITIMUM EXTRACT, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, SCLEROTIUM GUM, SODIUM HYALURONATE, TOCOPHEROL, 1-2-HEXANEDIOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CETEARYL ALCOHOL, GLYCERYL STEARATE, HYDROGENATED VEGETABLE OIL, METHYL METHACRYLATE CROSSPOLYMER, PEG-100 STEARATE, COCO-GLUCOSIDE, SODIUM SALICYLATE, PARFUM (FRAGRANCE)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/soins-specifiques/svr-sebiaclear-serum-correcteur-global-30-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sebiaclear-serum-correcteur-global.webp',
     tags: {
       primary: ['pores-dilates', 'exfoliation', 'barriere-cutanee'],
       secondary: [
@@ -446,7 +446,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, HYDROGENATED POLYDECENE, GLYCERIN, ETHYLHEXYL STEARATE, CETEARYL ALCOHOL, CRAMBE ABYSSINICA SEED OIL PHYTOSTEROL ESTERS, DIMETHICONE, POLYESTER-7, GLYCERYL STEARATE, XYLITYLGLUCOSIDE, NEOPENTYL GLYCOL DIHEPTANOATE, 1,2 HEXANEDIOL, BEHENYL ALCOHOL, C10-18 TRIGLYCERIDES, PHENOXYETHANOL, ANHYDROXYLITOL, CETYL ALCOHOL, CETEARETH-33, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, CAMELINA SATIVA SEED OIL, TOCOPHERYL ACETATE, XYLITOL, PEG-75 STEARATE, CHLORPHENESIN, SODIUM HYALURONATE, CETETH-20, STEARETH-20, DIPOTASSIUM GLYCYRRHIZATE, DISODIUM EDTA, TRIETHANOLAMINE, HYDROLYZED RICE PROTEIN',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/soins-specifiques/svr-topialyse-barriere-creme-reparatrice-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-topialyse-barriere-creme-reparatrice.webp',
     tags: {
       primary: ['anti-rougeurs', 'hydratation', 'apaisant', 'cicatrisation'],
       secondary: ['creme-hydratante', 'zone-visage', 'reparateur'],
@@ -476,7 +476,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (PURIFIED WATER), HYDROGENATED POLYDECENE, GLYCERIN, CYCLOPENTASILOXANE, POLYACRYLAMIDE, BUTYROSPERMUM PARKII BUTTER (SHEA BUTTER), XYLITYLGLUCOSIDE, CAPRYLIC/CAPRIC TRIGLYCERIDES, C13-14 ISOPARAFFIN, BEHENYL ALCOHOL, 1-2-HEXANEDIOL, ANHYDROXYLITOL, CAMELINA SATIVA SEED OIL/PALM OIL, AMINOPROPANEDIOL ESTERS, XYLITOL, SODIUM HYALURONATE, DIPOTASSIUM GLYCYRRHIZATE, HYDROLYZED RICE PROTEIN, CETEARETH-20, LAURETH-7, CITRIC ACID, PHENOXYETHANOL, CHLORPHENESIN',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/soins-specifiques/svr-topialyse-palpebral-creme-apaisante-15ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-topialyse-palpebral-creme-apaisante.webp',
     tags: {
       primary: ['anti-rougeurs', 'hydratation', 'apaisant'],
       secondary: ['contour-yeux', 'zone-yeux', 'soin-yeux'],
@@ -506,7 +506,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (PURIFIED WATER), ALCOHOL, LACTIC ACID, ISOPENTYLDIOL, ISOPROPYL ALCOHOL, PEG-60 HYDROGENATED CASTOR OIL, UREA, BUTYLENE GLYCOL, GLYCOLIC ACID, AMMONIUM ACRYLOYLDIMETHYL TAURATE/VP COPOLYMER, POTASSIUM HYDROXIDE, SQUALANE, GLYCERIN, HYDROGENATED LECITHIN, CAMELLIA SINENSIS LEAF EXTRACT, CLEMATIS VITALBA LEAF EXTRACT, EQUISETUM ARVENSE EXTRACT, FUCUS VESICULOSUS EXTRACT, HEDERA HELIX (IVY) EXTRACT, SPIRAEA ULMARIA FLOWER EXTRACT, HYDROXYPROPYL METHYLCELLULOSE STEAROXY ETHER, SODIUM METHYL STEAROYL TAURATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/soins-specifiques/svr-xerial-peel-masque-exfoliant-pieds-2x-20-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-xerial-peel-masque-exfoliant-pieds-2x.webp',
     tags: {
       primary: ['hydratation', 'exfoliation', 'eclat'],
       secondary: [
@@ -543,7 +543,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'QUA/WATER/EAU, GLUCONOLACTONE, PROPANEDIOL, SILICA, DICAPRYLYL ETHER, NIACINAMIDE, SODIUM HYDROXIDE, DICAPRYLYL CARBONATE, LAUROYL LYSINE, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, CETEARYL ALCOHOL, SALICYLIC ACID, PARFUM (FRAGRANCE), CETEARETH-33, POLYSORBATE 60, SORBITAN ISOSTEARATE, TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/soins-visage/svr-active-gel-sebiaclear-correcteur-intensif-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-active-gel-sebiaclear-correcteur-intensif.webp',
     tags: {
       primary: ['pores-dilates', 'anti-acne', 'exfoliation'],
       secondary: [
@@ -579,7 +579,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'NON COMÉDOGÈNE AQUA/WATER/EAU, PROPYLENE GLYCOL, GLYCERIN, DIGLYCERIN, ISOPENTYLDIOL, NIACINAMIDE, SACCHARIDE ISOMERATE, SODIUM HYALURONATE, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, CITRIC ACID, PENTYLENE GLYCOL, SODIUM CITRATE, SODIUM LACTATE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/soins-visage/svr-b3-essence-hydra-solution-reparatrice-150ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-b3-essence-hydra-solution-reparatrice.webp',
     tags: {
       primary: ['hydratation', 'pores-dilates', 'barriere-cutanee', 'cicatrisation'],
       secondary: ['sebo-regulateur', 'essence', 'preparation', 'zone-visage', 'reparateur'],
@@ -606,7 +606,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA / WATER / EAU, GLYCERIN, PENTYLENE GLYCOL, ALOE BARBADENSIS LEAF JUICE POWDER, FRUCTOSE, GLYCINE, INOSITOL, SODIUM PCA, TETRASODIUM GLUTAMATE DIACETATE, NIACINAMIDE, SODIUM HYALURONATE, UREA, CITRIC ACID, POLYSORBATE 20, SODIUM LACTATE, XANTHAN GUM, SODIUM BENZOATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/soins-visage/svr-b3-masque-hydra-intensif.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-b3-masque-hydra-intensif.webp',
     tags: {
       primary: ['hydratation', 'pores-dilates', 'apaisant'],
       secondary: ['sebo-regulateur', 'keratolytique', 'masque-hebdo', 'zone-visage'],
@@ -635,7 +635,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'INCI : 231116/1_07K05.36 – INGREDIENTS (CONTAINS) : AQUA/WATER/EAU, SODIUM ASCORBYL PHOSPHATE, BUTANE, GLUCONOLACTONE, PROPANE, SQUALANE, CETEARYL ALCOHOL, PROPANEDIOL, GLYCERIN, METHYLPROPANEDIOL, NIACINAMIDE, DECYL GLUCOSIDE, ASCORBYL METHYLSILANOL PECTINATE, CETEARETH-33, CHONDRUS CRISPUS (CARRAGEENAN) EXTRACT, DISODIUM COCOYL GLUTAMATE, EVODIA RUTAECARPA FRUIT EXTRACT, HEXAMIDINE DIISETHIONATE, ISOBUTANE, SODIUM GLUCONATE, GLUCOSE, SODIUM HYALURONATE, TOCOPHEROL, 1,2-HEXANEDIOL, ACACIA SENEGAL GUM, CAPRYLYL GLYCOL, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, SODIUM COCOYL GLUTAMATE, SODIUM HYDROXIDE, XANTHAN GUM, PARFUM (FRAGRANCE)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/soins-visage/svr-c-masque-anti-detox-mousse-micro-peeling-50-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-c-masque-anti-detox-mousse-micro-peeling.webp',
     tags: {
       primary: ['eclat', 'barriere-cutanee', 'anti-acne', 'exfoliation'],
       secondary: [
@@ -671,7 +671,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'PARFUM SANS ALLERGÈNE, SANS MÉTHYLISOTHIAZOLINONE (MIT), SANS EDTA, SANS AHA, SANS PHÉNOXYÉTHANOL, SANS BHT, SANS HUILE MINÉRALE, SANS LANOLINE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/soins-visage/svr-clairial-serum-anti-taches-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-clairial-serum-anti-taches.webp',
     tags: {
       primary: ['anti-taches', 'hyperpigmentation'],
       secondary: ['serum', 'traitement', 'zone-visage'],
@@ -692,7 +692,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, BUTYROSPERMUM PARKII (SHEA) BUTTER, COCOS NUCIFERA (COCONUT) OIL, GLYCERIN, HEXYLDECYL STEARATE, CAPRYLIC/CAPRIC TRIGLYCERIDE, BEHENYL ALCOHOL, SODIUM ACRYLATES COPOLYMER, BORAGO OFFICINALIS SEED OIL, CETEARYL ALCOHOL, CETEARYL GLUCOSIDE, GLYCERYL STEARATE SE, GLYCOLIPIDS, GLYCOSPHINGOLIPIDS, LECITHIN, MALTODEXTRIN, OPHIOPOGON JAPONICUS ROOT EXTRACT, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, SODIUM STEAROYL GLUTAMATE, SODIUM HYALURONATE, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, CITRIC ACID, PENTYLENE GLYCOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/soins-visage/svr-palpebral-baume-30-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-palpebral-baume.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['contour-yeux', 'zone-yeux', 'soin-yeux'],
@@ -721,7 +721,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, DICAPRYLYL ETHER, DIISOPROPYL ADIPATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, ETHYLHEXYL TRIAZONE, C12-15 ALKYL BENZOATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIETHYLHEXYL BUTAMIDO TRIAZONE, SILICA, BEHENETH-25, PROPANEDIOL, PENTYLENE GLYCOL, ACRYLATES/C12-22 ALKYL METHACRYLATE COPOLYMER, HYDROGENATED VEGETABLE OIL, NIACINAMIDE, CETEARYL ALCOHOL, POLYESTER-7, COCO-GLUCOSIDE, MICROCRYSTALLINE CELLULOSE, NEOPENTYL GLYCOL DIHEPTANOATE, PARFUM (FRAGRANCE), 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, GLYCERIN, ARGININE, CITRIC ACID, TOCOPHEROL, CELLULOSE GUM, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, DISODIUM LAURYL SULFOSUCCINATE, GLYCINE SOJA (SOYBEAN) OIL, LECITHIN, POLYSORBATE 60, SORBITAN ISOSTEARATE, LEPIDIUM SATIVUM SPROUT EXTRACT',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/solaires/svr-sun-secure-spray-hydratant-ultra-leger-et-invisible-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-spray-hydratant-ultra-leger-et-invisible.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'hydratation'],
       secondary: ['sebo-regulateur', 'reparateur', 'brume', 'preparation', 'zone-visage'],
@@ -752,7 +752,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, GLYCERIN, OCTYLDODECANOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, ISOPENTYLDIOL, ASCORBYL TETRAISOPALMITATE, BUTYLENE GLYCOL, PENTYLENE GLYCOL, 1,2-HEXANEDIOL, ASCOPHYLLUM NODOSUM EXTRACT, BENTONITE, CYSTOSEIRA TAMARISCIFOLIA EXTRACT, ETHYLHEXYL FERULATE, LAMINARIA JAPONICA EXTRACT, PLANKTON EXTRACT, PULLULAN, SCLEROTIUM GUM, DIACETYL BOLDINE, SODIUM HYALURONATE, CAPRYLYL GLYCOL, CELLULOSE GUM, LYSOLECITHIN, MICROCRYSTALLINE CELLULOSE, SILICA, XANTHAN GUM, POTASSIUM SORBATE, SODIUM BENZOATE, PARFUM (FRAGRANCE), CITRIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-ampoule-clairial-concentre-anti-taches-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-ampoule-clairial-concentre-anti-taches.webp',
     tags: {
       primary: ['hydratation', 'anti-taches', 'hyperpigmentation'],
       secondary: ['spot-treatment', 'soin-localise', 'zone-visage'],
@@ -782,7 +782,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU OCTYLDODECANOL BUTYROSPERMUM PARKII SHEA BUTTER GLYCERIN CETEARYL ALCOHOL ORBIGNYA OLEIFERA SEED OIL DISODIUM CETEARYL SULFOSUCCINATE GLYCOL PALMITATE SODIUM POLYACRYLATE ARGININE PCA CALCIUM PCA CERA ALBA BEESWAX CIRE DABEILLE GLYCERYL BEHENATE CETEARETH20 HYDROXYACETOPHENONE PARFUM FRAGRANCE MALTODEXTRIN CERATONIA SILIQUA GUM XANTHAN GUM 12 HEXANEDIOL CAPRYLYL GLYCOL HYALURONIC ACID LACTOBACILLUS FERMENT PENTAERYTHRITYL TETRADI T BUTYL HYDROXYHYDROCINNAMATE PENTYLENE GLYCOL LACTIC ACID ROSMARINUS OFFICINALIS ROSEMARY LEAF EXTRACT PALMITOYL TETRAPEPTIDE7 CHRYSIN CITRIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-baume-nuit-densitium-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-baume-nuit-densitium.webp',
     tags: {
       primary: ['hydratation', 'anti-age', 'microbiome'],
       secondary: ['keratolytique', 'creme-hydratante', 'zone-visage'],
@@ -803,7 +803,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER/AQUA/EAU, ASCORBYL TETRAISOPALMITATE, HYDROGENATED ETHYLHEXYL OLIVATE, MYRISTYL ALCOHOL, GLYCERYL STEARATE, LAUROYL LYSINE, PEG-100 STEARATE, BUTYROSPERMUM PARKII (SHEA) BUTTER, SODIUM CITRATE, SILICA, MYRISTYL GLUCOSIDE, MICROCRYSTALLINE CELLULOSE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, TOCOPHERYL ACETATE, PENTYLENE GLYCOL, MANNITOL, 1,2-HEXANEDIOL, ALLANTOIN, CAPRYLYL GLYCOL, PARFUM (FRAGRANCE), CITRIC ACID, HYDROGENATED OLIVE OIL UNSAPONIFIABLES, CELLULOSE GUM, POLYSORBATE 60, SORBITAN ISOSTEARATE, SODIUM ACETYLATED HYALURONATE, MALTODEXTRIN, HYDROXYPROPYL METHYLCELLULOSE, CI 77492 (IRON OXIDES), LACTOBACILLUS FERMENT, ALGIN',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-c20-biotic-creme-uniformisante-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-c20-biotic-creme-uniformisante.webp',
     tags: {
       primary: ['microbiome', 'apaisant', 'anti-oxydant'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -834,7 +834,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER/AQUA/EAU, ASCORBYL TETRAISOPALMITATE, HYDROGENATED ETHYLHEXYL OLIVATE, MYRISTYL ALCOHOL, GLYCERYL STEARATE, LAUROYL LYSINE, PEG-100 STEARATE, BUTYROSPERMUM PARKII (SHEA) BUTTER, SODIUM CITRATE, SILICA, MYRISTYL GLUCOSIDE, MICROCRYSTALLINE CELLULOSE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, TOCOPHERYL ACETATE, PENTYLENE GLYCOL, MANNITOL, 1,2-HEXANEDIOL, ALLANTOIN, CAPRYLYL GLYCOL, PARFUM (FRAGRANCE), CITRIC ACID, HYDROGENATED OLIVE OIL UNSAPONIFIABLES, CELLULOSE GUM, POLYSORBATE 60, SORBITAN ISOSTEARATE, SODIUM ACETYLATED HYALURONATE, MALTODEXTRIN, HYDROXYPROPYL METHYLCELLULOSE, CI 77492 (IRON OXIDES), LACTOBACILLUS FERMENT, ALGIN',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-c20-biotic-recharge-creme-uniformisante-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-c20-biotic-recharge-creme-uniformisante.webp',
     tags: {
       primary: ['microbiome', 'apaisant', 'anti-oxydant'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -865,7 +865,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, ASCORBYL TETRAISOPALMITATE, MICA, SODIUM POLYACRYLATE, CI 77891 (TITANIUM DIOXIDE), ACETYL HEXAPEPTIDE-8, CARBOMER, GENTIANA LUTEA ROOT EXTRACT, LACTOBACILLUS FERMENT, MALTODEXTRIN, SODIUM ACETYLATED HYALURONATE, SODIUM STEAROYL GLUTAMATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, TIN OXIDE, TOCOPHEROL, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, CITRIC ACID, PENTYLENE GLYCOL, PROPANEDIOL, SODIUM HYDROXIDE, PARFUM/FRAGRANCE, CI 77491 (IRON OXIDES)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-c-eye-biotic-soin-yeux-lissant-15ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-c-eye-biotic-soin-yeux-lissant.webp',
     tags: {
       primary: ['anti-age', 'microbiome', 'anti-oxydant'],
       secondary: ['reparateur', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
@@ -894,7 +894,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, ORBIGNYA OLEIFERA SEED OIL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, BUTYROSPERMUM PARKII (SHEA) BUTTER, ZEA MAYS (CORN) OIL, PROPANEDIOL, GLYCERYL STEARATE, GLYCERIN, BEHENYL ALCOHOL, NIACINAMIDE, BUTYLENE GLYCOL, CETEARYL ALCOHOL, CORN STARCH MODIFIED, CURCUMA LONGA (TURMERIC) ROOT EXTRACT, GLYCOLIPIDS, GLYCOSPHINGOLIPIDS, HYDROLYZED YEAST EXTRACT, LECITHIN, SODIUM STEAROYL GLUTAMATE, SODIUM STEAROYL LACTYLATE, ALPHA-GLUCAN OLIGOSACCHARIDE, GLUCOSE, HYDROLYZED HYALURONIC ACID, RHAMNOSE, TOCOPHEROL, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, CITRIC ACID, GLUCURONIC ACID, PENTYLENE GLYCOL, SODIUM HYDROXIDE, SODIUM POLYACRYLATE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-cicavit-creme-hppi-anti-marques-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-cicavit-creme-hppi-anti-marques-40ml.webp',
     tags: {
       primary: ['hydratation', 'pores-dilates', 'barriere-cutanee'],
       secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -925,7 +925,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, SQUALANE, GLYCERIN, BUTYROSPERMUM PARKII (SHEA) BUTTER, CAESALPINIA SPINOSA GUM, COLLAGEN AMINO ACIDS, LACTOBACILLUS FERMENT, MALTODEXTRIN, SODIUM ACETYLED HYALURONATE, ASCORBYL TETRAISO PALMITATE, 1,2-HEXANEDIOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CAPRYLYL GLYCOL, CITRIC ACID, PENTYLENE GLYCOL, SODIUM HYDROXIDE, PARFUM (FRAGRANCE)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-collagen-biotic-creme-rebondissante-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-collagen-biotic-creme-rebondissante.webp',
     tags: {
       primary: ['microbiome', 'barriere-cutanee', 'hydratation'],
       secondary: ['emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
@@ -952,7 +952,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, SQUALANE, GLYCERIN, BUTYROSPERMUM PARKII (SHEA) BUTTER, CAESALPINIA SPINOSA GUM, COLLAGEN AMINO ACIDS, LACTOBACILLUS FERMENT, MALTODEXTRIN, SODIUM ACETYLED HYALURONATE, ASCORBYL TETRAISO PALMITATE, 1,2-HEXANEDIOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CAPRYLYL GLYCOL, CITRIC ACID, PENTYLENE GLYCOL, SODIUM HYDROXIDE, PARFUM (FRAGRANCE)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-collagen-biotic-recharge-creme-rebondissante-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-collagen-biotic-recharge-creme-rebondissante.webp',
     tags: {
       primary: ['microbiome', 'barriere-cutanee', 'hydratation'],
       secondary: ['emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
@@ -979,7 +979,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU DICAPRYLYL CARBONATE ISONONYL ISONONANOATE HEXYLDECYL STEARATE OLEIC LINOLEIC LINOLENIC POLYGLYCERIDES SQUALANE PROPANEDIOL HELIANTHUS ANNUUS SUNFLOWER SEED OIL GLYCERYL BEHENATE EICOSADIOATE CAPRYLIC CAPRIC TRIGLYCERIDE HYDROXYPROPYL STARCH PHOSPHATE PARFUM FRAGRANCE SESAMUM INDICUM SESAME OIL UNSAPONIFIABLES GLYCERIN BUTYLENE GLYCOL CALCIUM PCA ARGANIA SPINOSA KERNEL OIL BORAGO OFFICINALIS SEED OIL OENOTHERA BIENNIS EVENING PRIMROSE OIL SACCHARIDE ISOMERATE PENTYLENE GLYCOL LEONTOPODIUM ALPINUM CALLUS CULTURE EXTRACT TOCOPHEROL 1 2 HEXANEDIOL CAPRYLYL GLYCOL GLYCOSPHINGOLIPIDS ACACIA SENEGAL GUM GLYCOLIPIDS XANTHAN GUM GLYCINE SOJA SOYBEAN OIL LUPINUS ALBUS SEED EXTRACT HYALURONIC ACID ARTEMISIA ABROTANUM EXTRACT CITRIC ACID SODIUM CITRATE LAVANDULA STOECHAS EXTRACT BIXA ORELLANA SEED EXTRACT TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES HEXAMETHYLINDANOPYRAN CITRONELLOL LINALYL ACETATE VANILLIN LINALOOL ALPHA ISOMETHYL IONONE LIMONENE CITRUS LIMON LEMON PEEL OIL TERPINEOL PINENE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-densitium-bi-serum-rechargeable-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-densitium-bi-serum-rechargeable.webp',
     tags: {
       primary: ['hydratation', 'repulpant', 'barriere-cutanee'],
       secondary: [
@@ -1007,7 +1007,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU OCTYLDODECANOL VEGETABLE OIL ORBIGNYA OLEIFERA SEED OIL GLYCERYL STEARATE GLYCERIN BEHENETH 25 BEHENYL ALCOHOL CETYL PALMITATE CETEARYL ALCOHOL 1 2 HEXANEDIOL ARGININE PCA CALCIUM PCA SODIUM POLYACRYLOYLDIMETHYL TAURATE BUTYLENE GLYCOL HYDROXYACETOPHENONE SODIUM STEAROYL LACTYLATE MALTODEXTRIN PARFUM FRAGRANCE XANTHAN GUM HYALURONIC ACID LACTOBACILLUS FERMENT PENTAERYTHRITYL TETRA DI T BUTYL HYDROXYHYDROCINNAMATE CARBOMER SODIUM LACTATE POLYSORBATE 20 SODIUM HYDROXIDE PALMITOYL TRIPEPTIDE 1 PALMITOYL TETRAPEPTIDE 7 VANILLIN TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES LINALYL ACETATE TERPINEOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-densitium-creme-rechargeable-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-densitium-creme-rechargeable.webp',
     tags: {
       primary: ['anti-age', 'microbiome', 'hydratation'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -1028,7 +1028,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU OCTYLDODECANOL BUTYROSPERMUM PARKII SHEA BUTTER VITIS VINIFERA GRAPE SEED OIL ORBIGNYA OLEIFERA SEED OIL GLYCERIN CETEARYL ALCOHOL DISODIUM CETEARYL SULFOSUCCINATE HYDROXYETHYLCELLULOSE 1 2 HEXANEDIOL ARGININE PCA CALCIUM PCA VEGETABLE OIL SODIUM POLYACRYLATE BUTYLENE GLYCOL HYDROXYACETOPHENONE PARFUM FRAGRANCE CETEARETH 20 MALTODEXTRIN HYALURONIC ACID LACTOBACILLUS FERMENT PENTAERYTHRITYL TETRA DI T BUTYL HYDROXYHYDROCINNAMATE CARBOMER SODIUM LACTATE POLYSORBATE 20 PALMITOYL TRIPEPTIDE 1 PALMITOYL TETRAPEPTIDE 7 CITRIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-densitium-creme-riche-rechargeable-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-densitium-creme-riche-rechargeable.webp',
     tags: {
       primary: ['anti-age', 'microbiome', 'hydratation'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -1049,7 +1049,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA PURIFIED WATER PEG 8 BEESWAX GLYCERIN BUTYROSPERMUM PARKII SHEA BUTTER CAPRYLIC CAPRIC TRIGLYCERIDE CETEARYL ISONONANOATE DICAPRYLYL CARBONATE BEHENYL ALCOHOL ALUMINA CALCIUM PCA CAPRYLYL METHICONE CETEARYL ALCOHOL ALBIZIA JULIBRISSIN BARK EXTRACT ALGIN LEONTOPODIUM ALPINUM CALLUS CULTURE EXTRACT ALUMINUM HYDROXIDE HYALURONIC ACID MICA TIN OXIDE TITANIUM DIOXIDE TOCOPHEROL 1 2 HEXANEDIOL C13 14 ISOPARAFFIN CAPRYLYL GLYCOL CETEARETH 20 CITRIC ACID HYDROXYETHYLCELLULOSE LAURETH 7 PENTYLENE GLYCOL POLYACRYLAMIDE SILICA XANTHAN GUM SODIUM BENZOATE ALPHA ISOMETHYL IONONE CITRONELLOL D LIMONENE LIMONENE LINALOOL PARFUM FRAGRANCE CI 77491 CI 77492 CI 77891',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-densitium-creme-rose-eclat-rechargeable-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-densitium-creme-rose-eclat-rechargeable.webp',
     tags: {
       primary: ['hydratation', 'repulpant', 'anti-oxydant', 'eclat'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -1070,7 +1070,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU OCTYLDODECANOL BUTYROSPERMUM PARKII SHEA BUTTER GLYCERIN CETEARYL ALCOHOL ORBIGNYA OLEIFERA SEED OIL DISODIUM CETEARYL SULFOSUCCINATE GLYCOL PALMITATE SODIUM POLYACRYLATE ARGININE PCA CALCIUM PCA CERA ALBA BEESWAX CIRE D ABEILLE GLYCERYL BEHENATE CETEARETH 20 HYDROXYACETOPHENONE PARFUM FRAGRANCE MALTODEXTRIN CERATONIA SILIQUA GUM XANTHAN GUM 1 2 HEXANEDIOL CAPRYLYL GLYCOL HYALURONIC ACID LACTOBACILLUS FERMENT PENTAERYTHRITYL TETRA DI T BUTYL HYDROXYHYDROCINNAMATE PENTYLENE GLYCOL LACTIC ACID ROSMARINUS OFFICINALIS ROSEMARY LEAF EXTRACT PALMITOYL TETRAPEPTIDE 7 CHRYSIN CITRIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-densitium-recharge-baume-nuit-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-densitium-recharge-baume-nuit.webp',
     tags: {
       primary: ['hydratation', 'anti-age', 'microbiome'],
       secondary: ['keratolytique', 'creme-hydratante', 'zone-visage'],
@@ -1091,7 +1091,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA PURIFIED WATER DICAPRYLYL CARBONATE ISONONYL ISONONANOATE HEXYLDECYL STEARATE OLEIC LINOLEIC LINOLENIC POLYGLYCERIDES SQUALANE PROPANEDIOL HELIANTHUS ANNUUS SUNFLOWER SEED OIL GLYCERYL BEHENATE EICOSADIOATE HYDROXYPROPYL STARCH PHOSPHATE ARGANIA SPINOSA KERNEL OIL BIXA ORELLANA SEED EXTRACT BORAGO OFFICINALIS SEED OIL GLYCINE SOJA SOYBEAN OIL GLYCOLIPIDS GLYCOSPHINGOLIPIDS LAVANDULA STOECHAS EXTRACT LEONTOPODIUM ALPINUM CALLUS CULTURE EXTRACT LUPINUS ALBUS SEED EXTRACT OENOTHERA BIENNIS EVENING PRIMROSE OIL SESAMUM INDICUM SESAME OIL UNSAPONIFIABLES ARTEMISIA ABROTANUM EXTRACT CALCIUM PCA GLYCERIN HYALURONIC ACID SACCHARIDE ISOMERATE TOCOPHEROL 1 2 HEXANEDIOL ACACIA SENEGAL GUM BUTYLENE GLYCOL CAPRYLIC CAPRIC TRIGLYCERIDE CAPRYLYL GLYCOL CITRIC ACID PENTYLENE GLYCOL SODIUM CITRATE XANTHAN GUM ALPHA ISOMETHYL IONONE CITRONELLOL D LIMONENE LINALOOL PARFUM FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-densitium-recharge-bi-serum-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-densitium-recharge-bi-serum.webp',
     tags: {
       primary: ['hydratation', 'repulpant', 'barriere-cutanee'],
       secondary: [
@@ -1119,7 +1119,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU OCTYLDODECANOL VEGETABLE OIL ORBIGNYA OLEIFERA SEED OIL GLYCERYL STEARATE GLYCERIN BEHENETH 25 BEHENYL ALCOHOL CETYL PALMITATE CETEARYL ALCOHOL 1 2 HEXANEDIOL ARGININE PCA CALCIUM PCA SODIUM POLYACRYLOYLDIMETHYL TAURATE BUTYLENE GLYCOL HYDROXYACETOPHENONE SODIUM STEAROYL LACTYLATE MALTODEXTRIN PARFUM FRAGRANCE XANTHAN GUM HYALURONIC ACID LACTOBACILLUS FERMENT PENTAERYTHRITYL TETRA DI T BUTYL HYDROXYHYDROCINNAMATE CARBOMER SODIUM LACTATE POLYSORBATE 20 SODIUM HYDROXIDE PALMITOYL TRIPEPTIDE 1 PALMITOYL TETRAPEPTIDE 7 VANILLIN TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES LINALYL ACETATE TERPINEOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-densitium-recharge-creme-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-densitium-recharge-creme.webp',
     tags: {
       primary: ['anti-age', 'microbiome', 'hydratation'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -1140,7 +1140,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU OCTYLDODECANOL BUTYROSPERMUM PARKII SHEA BUTTER VITIS VINIFERA GRAPE SEED OIL ORBIGNYA OLEIFERA SEED OIL GLYCERIN CETEARYL ALCOHOL DISODIUM CETEARYL SULFOSUCCINATE HYDROXYETHYLCELLULOSE 1 2 HEXANEDIOL ARGININE PCA CALCIUM PCA VEGETABLE OIL SODIUM POLYACRYLATE BUTYLENE GLYCOL HYDROXYACETOPHENONE PARFUM FRAGRANCE CETEARETH 20 MALTODEXTRIN HYALURONIC ACID LACTOBACILLUS FERMENT PENTAERYTHRITYL TETRA DI T BUTYL HYDROXYHYDROCINNAMATE CARBOMER SODIUM LACTATE POLYSORBATE 20 PALMITOYL TRIPEPTIDE 1 PALMITOYL TETRAPEPTIDE 7 CITRIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-densitium-recharge-creme-riche-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-densitium-recharge-creme-riche.webp',
     tags: {
       primary: ['anti-age', 'microbiome', 'hydratation'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -1161,7 +1161,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA PURIFIED WATER PEG 8 BEESWAX GLYCERIN BUTYROSPERMUM PARKII SHEA BUTTER CAPRYLIC CAPRIC TRIGLYCERIDE CETEARYL ISONONANOATE DICAPRYLYL CARBONATE BEHENYL ALCOHOL ALUMINA CALCIUM PCA CAPRYLYL METHICONE CETEARYL ALCOHOL ALBIZIA JULIBRISSIN BARK EXTRACT ALGIN LEONTOPODIUM ALPINUM CALLUS CULTURE EXTRACT ALUMINUM HYDROXIDE HYALURONIC ACID MICA TIN OXIDE TITANIUM DIOXIDE TOCOPHEROL 1 2 HEXANEDIOL C13 14 ISOPARAFFIN CAPRYLYL GLYCOL CETEARETH 20 CITRIC ACID HYDROXYETHYLCELLULOSE LAURETH 7 PENTYLENE GLYCOL POLYACRYLAMIDE SILICA XANTHAN GUM SODIUM BENZOATE ALPHA ISOMETHYL IONONE CITRONELLOL D LIMONENE LIMONENE LINALOOL PARFUM FRAGRANCE CI 77491 CI 77492 CI 77891',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-densitium-recharge-creme-rose-eclat-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-densitium-recharge-creme-rose-eclat.webp',
     tags: {
       primary: ['hydratation', 'repulpant', 'anti-oxydant', 'eclat'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -1182,7 +1182,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (PURIFIED WATER), PEG-8 BEESWAX, GLYCERIN, BUTYROSPERMUM PARKII (SHEA) BUTTER, CAPRYLIC/CAPRIC TRIGLYCERIDE, CETEARYL ISONONANOATE, DICAPRYLYL CARBONATE, BEHENYL ALCOHOL, ALUMINA, CALCIUM PCA, CAPRYLYL METHICONE, CETEARYL ALCOHOL, ALBIZIA JULIBRISSIN BARK EXTRACT, ALGIN, LEONTOPODIUM ALPINUM CALLUS CULTURE EXTRACT, ALUMINUM HYDROXIDE, HYALURONIC ACID, MICA, TIN OXIDE, TITANIUM DIOXIDE, TOCOPHEROL, 1,2-HEXANEDIOL, C13-14 ISOPARAFFIN, CAPRYLYL GLYCOL, CETEARETH-20, CITRIC ACID, HYDROXYETHYLCELLULOSE, LAURETH-7, PENTYLENE GLYCOL, POLYACRYLAMIDE, SILICA, XANTHAN GUM, SODIUM BENZOATE, ALPHA-ISOMETHYL IONONE, CITRONELLOL, D-LIMONENE, LIMONENE, LINALOOL, PARFUM (FRAGRANCE), CI 77491, CI 77492, CI 77891',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-densitium-rose-eclat-creme-redensifiante-unifiante-50-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-densitium-rose-eclat-creme-redensifiante-unifiante.webp',
     tags: {
       primary: ['hydratation', 'repulpant', 'anti-oxydant', 'eclat'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -1213,7 +1213,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, HYDROXYPROPYL STARCH, PROPYLENE GLYCOL, C15-19 ALKANE, GLYCERYL STEARATE SE, CAPRYLIC/CAPRIC TRIGLYCERIDE, ISOSTEARYL ALCOHOL, C10-18 TRIGLYCERIDES, ACETYL HEXAPEPTIDE-1, BUTYLENE GLYCOL COCOATE, ETHYLCELLULOSE, HYDROXYACETOPHENONE, LACTOBACILLUS FERMENT, MALTODEXTRIN, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, SODIUM ACETYLATED HYALURONATE, SODIUM STEAROYL GLUTAMATE, ASCORBYL TETRAISOPALMITATE, GLYCERIN, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, CITRIC ACID, SODIUM POLYACRYLATE, PARFUM/FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-filler-biotic-contour-yeux-et-levres-15ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-filler-biotic-contour-yeux-et-levres.webp',
     tags: {
       primary: ['anti-age', 'microbiome', 'hydratation'],
       secondary: ['contour-yeux', 'zone-yeux', 'soin-yeux'],
@@ -1270,7 +1270,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, GLYCERIN, GLUCONOLACTONE, DECYL GLUCOSIDE, DISODIUM COCOYL GLUTAMATE, COCO-BETAINE, SALICYLIC ACID, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, SODIUM HYDROXIDE, PARFUM/FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-gel-moussant-sebiaclear-nettoyant-anti-imperfections-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-gel-moussant-sebiaclear-nettoyant-anti-imperfections.webp',
     tags: {
       primary: ['anti-acne', 'exfoliation', 'hydratation'],
       secondary: [
@@ -1298,7 +1298,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, BUTYLENE GLYCOL, GLYCERIN, PROPYLENE GLYCOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, ASCORBYL TETRAISOPALMITATE, 1,2-HEXONADIOL, C10-18 TRIGLYCERIDES, CARBOMER, MALTODEXTRIN, SODIUM HYALURONATE, SODIUM ACRYLATES COPOLYMER, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CAPRYLYL GLYCOL, PARFUM (FRAGRANCE), SODIUM HYDROXIDE, LECITHIN, LACTOBACILLUS FERMENT, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, SODIUM ACETYLATED HYALURONATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-hyalu-biotic-gelee-repulpante-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-hyalu-biotic-gelee-repulpante.webp',
     tags: {
       primary: ['microbiome', 'hydratation', 'repulpant'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -1325,7 +1325,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, BUTYLENE GLYCOL, GLYCERIN, PROPYLENE GLYCOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, ASCORBYL TETRAISOPALMITATE, 1,2-HEXONADIOL, C10-18 TRIGLYCERIDES, CARBOMER, MALTODEXTRIN, SODIUM HYALURONATE, SODIUM ACRYLATES COPOLYMER, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CAPRYLYL GLYCOL, PARFUM (FRAGRANCE), SODIUM HYDROXIDE, LECITHIN, LACTOBACILLUS FERMENT, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, SODIUM ACETYLATED HYALURONATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-hyalu-biotic-recharge-gelee-repulpante-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-hyalu-biotic-recharge-gelee-repulpante.webp',
     tags: {
       primary: ['microbiome', 'hydratation', 'repulpant'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -1352,7 +1352,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, ORBIGNYA OLEIFERA SEED OIL, NIACINAMIDE, DIMETHICONE, GLYCERYL STEARATE CITRATE, SILICA, GLYCERIN, GLYCERYL GLUCOSIDE, PENTYLENE GLYCOL, CETEARYL ALCOHOL, SODIUM POLYACRYLATE STARCH, PARFUM (FRAGRANCE), OPHIOPOGON JAPONICUS ROOT EXTRACT, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, MALTODEXTRIN, HYDROLYZED HYALURONIC ACID, PENTAERYTHRITOL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, GLYCOSPHINGOLIPIDS, GLYCOLIPIDS',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-hydra-sebiaclear-reparateur-hydratant-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-hydra-sebiaclear-reparateur-hydratant.webp',
     tags: {
       primary: ['pores-dilates', 'hydratation', 'barriere-cutanee', 'cicatrisation'],
       secondary: ['sebo-regulateur', 'creme-hydratante', 'zone-visage', 'reparateur'],
@@ -1383,7 +1383,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, COCO-CAPRYLATE/CAPRATE, VITIS VINIFERA (GRAPE) SEED OIL, POLYGLYCERYL-4 OLEATE, ISOAMYL LAURATE, BIXA ORELLANA SEED EXTRACT, GLYCINE SOJA (SOYBEAN) OIL, PRUNUS DOMESTICA SEED OIL, PYRUS MALUS (APPLE) SEED OIL, TOCOPHEROL, CAPRYLIC/CAPRIC TRIGLYCERIDE, PARFUM/FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-physiopure-huile-demaquillante-150ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-physiopure-huile-demaquillante.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -1410,7 +1410,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'COMPOSITION: AQUA/WATER/EAU, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, C10-18 TRIGLYCERIDES, GLYCERYL STEARATE SE, GLYCERIN, SORBITOL, PENTYLENE GLYCOL, ZEA MAYS (CORN) STARCH, OLEA EUROPAEA (OLIVE) FRUIT OIL, GLYCERYL CAPRYLATE, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, SCLEROTIUM GUM, SODIUM STEAROYL GLUTAMATE, SODIUM HYALURONATE, TOCOPHEROL, CITRIC ACID, HYDROGENATED VEGETABLE OIL, XANTHAN GUM, PARFUM/FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-recharge-creme-hydraliane-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-recharge-creme-hydraliane.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -1439,7 +1439,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, PROPANEDIOL, GLYCERIN, SORBITOL, PENTYLENE GLYCOL, BEHENYL ALCOHOL, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, ANTHEMIS NOBILIS FLOWER EXTRACT, GELLAN GUM, SODIUM STEAROYL GLUTAMATE, SODIUM HYALURONATE, TOCOPHEROL, CITRIC ACID, GLYCERYL CAPRYLATE, HYDROGENATED VEGETABLE OIL, XANTHAN GUM, PARFUM/FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-recharge-creme-legere-hydraliane-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-recharge-creme-legere-hydraliane.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -1467,7 +1467,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (PURIFIED WATER), GLYCERIN, PEG-7 GLYCERYL COCOATE, PPG-26-BUTETH-26, PEG-40 HYDROGENATED CASTOR OIL, HEXAMIDINE DIISETHIONATE, TEPHROSIA PURPUREA SEED EXTRACT, ZINC PCA, GLUCONOLACTONE, BUTYLENE GLYCOL, PHENOXYETHANOL, PARFUM (FRAGRANCE)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sebiaclear-eau-micellaire-eco-recharge-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sebiaclear-eau-micellaire-eco-recharge.webp',
     tags: {
       primary: ['hydratation'],
       secondary: [
@@ -1498,7 +1498,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, ISOPROPYL ALCOHOL, AZELAIC ACID, HYDROXYPROPYL STARCH, NIACINAMIDE, PROPANEDIOL, GLYCERIN, SODIUM CARBOXYMETHYL STARCH, PENTYLENE GLYCOL, SALICYLIC ACID, SODIUM HYDROXIDE, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, SPHINGOMONAS FERMENT EXTRACT, PARFUM/FRAGRANCE, SODIUM PHYTATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sebiaclear-gel-flash-4h-stop-boutons-15ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sebiaclear-gel-flash-4h-stop-boutons.webp',
     tags: {
       primary: ['anti-acne', 'anti-rougeurs', 'pores-dilates'],
       secondary: [
@@ -1532,7 +1532,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, SQUALANE, CAPRYLIC/CAPRIC TRIGLYCERIDE, PROPANEDIOL, CI 77891 (TITANIUM DIOXIDE), GLYCERYL STEARATE SE, SILICA, BORON NITRIDE, C14-22 ALCOHOLS, POTASSIUM CETYL PHOSPHATE, PENTYLENE GLYCOL, CI 77492 (IRON OXIDES), DIPOTASSIUM GLYCYRRHIZATE, GLYCERIN, C12-20 ALKYL GLUCOSIDE, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, CI 77491 (IRON OXIDES), XANTHAN GUM, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, METHYL DIISOPROPYL PROPIONAMIDE, CITRIC ACID, ALUMINUM HYDROXIDE, CI 77499 (IRON OXIDES), ALGIN, ROSMARINYL GLUCOSIDE, CAFFEYL GLUCOSIDE, GALLYL GLUCOSIDE, POLYSORBATE 60, SORBITAN ISOSTEARATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sensifine-ar-creme-teintee-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sensifine-ar-creme-teintee.webp',
     tags: {
       primary: ['anti-rougeurs', 'barriere-cutanee', 'apaisant'],
       secondary: ['emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
@@ -1562,7 +1562,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (PURIFIED WATER), PROPANEDIOL, PEG-6 CAPRYLIC/CAPRIC GLYCERIDES, PEG-7 GLYCERYL COCOATE, PENTYLENE GLYCOL, POLYSORBATE 20, NIACINAMIDE, 1-2 HEXANEDIOL, CITRIC ACID, SODIUM HYDROXIDE, CETRIMONIUM BROMIDE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sensifine-ar-eau-micellaire-recharge-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sensifine-ar-eau-micellaire-recharge.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
       secondary: ['sebo-regulateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -1587,7 +1587,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU PERSEA GRATISSIMA AVOCADOOIL SQUALANE PANTHENOL 12HEXANEDIOL ACRYLATES C10 30 ALKYL ACRYLATE CROSSPOLYMER XANTHAN GUM CAPRYLYL GLYCOL PENTAERYTHRITTYL TETRA DI T BUTYL HYDROXYHYDROCINNAMATE SODIUM HYDROXIDE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sensifine-hydra-creme-soin-hydratant-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sensifine-hydra-creme-soin-hydratant.webp',
     tags: {
       primary: ['barriere-cutanee', 'apaisant', 'hydratation'],
       secondary: ['reparateur', 'emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
@@ -1608,7 +1608,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, ORBIGNYA OLEIFERA SEED OIL, GLYCERIN, CETYL ALCOHOL, 1,2-HEXANEDIOL, SODIUM POLYACRYLATE, CYANOCOBALAMIN, PANTHENOL, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, CAPRYLYL GLYCOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sensifine-masque-sos-hydratant-apaisant-75ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sensifine-masque-sos-hydratant-apaisant.webp',
     tags: {
       primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
       secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
@@ -1635,7 +1635,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, ALUMINUM CHLOROHYDRATE, C15-19 ALKANE, GLYCERYL STEARATE SE, PENTAERYTHRITYL DISTEARATE, BEHENETH-25, DIATOMACEOUS EARTH, GLYCERIN, GLYCOL PALMITATE, BEHENYL ALCOHOL, VEGETABLE OIL, SCLEROTIUM GUM, 2-METHYL 5-CYCLOHEXYLPENTANOL, SILICA, PROPANEDIOL, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, ALLANTOIN, GLYCERYL CAPRYLATE, LACTOCOCCUS FERMENT EXTRACT, TROPOLONE, DECYL GLUCOSIDE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-spirial-deo-creme-48h-lot-de-2x50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-spirial-deo-creme-48h.webp',
     tags: {
       primary: ['apaisant', 'hydratation'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -1663,7 +1663,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (PURIFIED WATER), GLYCERIN, SODIUM C14-16 OLEFIN SULFONATE, COCO-BETAINE, COCO-GLUCOSIDE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, NIACINAMIDE, ALPHA GLUCAN OLIGOSACCHARIDE, SACCHARIDE ISOMERATE, TOCOPHEROL, TOCOPHERYL ACETATE, 1-2 HEXANEDIOL, CAPRYLYL GLYCOL, CITRIC ACID, COCOS NUCIFERA (COCO) OIL, GLYCERYL OLEATE, GOSSYPIUM HERBACEUM (COTTON) SEED OIL, HYDROGENATED PALM GLYCERIDES CITRATE, PENTYLENE GLYCOL, SODIUM CITRATE, SODIUM HYDROXIDE, STYRENE/ACRYLATES COPOLYMER',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-produits/bain-et-douche/gel-douche/svr-topialyse-baume-lavant-200-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-topialyse-baume-lavant.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
       secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -1678,7 +1678,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
   },
   {
     slug: 'svr-topialyse-baume-lavant-24-heures-efficacite',
-    name: 'Topialyse Baume Lavant',
+    name: 'Topialyse Baume Lavant (24 Heures Efficacité)',
     brand: 'SVR',
     kind: 'moisturizer',
     unit: 'bottle',
@@ -1717,7 +1717,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (PURIFIED WATER), PROPANEDIOL, PEG-6 CAPRYLIC/CAPRIC GLYCERIDES, PEG-7 GLYCERYL COCOATE, PENTYLENE GLYCOL, POLYSORBATE 20, NIACINAMIDE, 1-2 HEXANEDIOL, CITRIC ACID, SODIUM HYDROXIDE, CETRIMONIUM BROMIDE',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-produits/nettoyants-demaquillants/svr-sensifine-ar-eau-micellaire-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sensifine-ar-eau-micellaire-400ml.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
       secondary: ['sebo-regulateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -1742,7 +1742,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, BUTYROSPERMUM PARKII (SHEA) BUTTER, ORBIGNYA OLEIFERA SEED OIL, GLYCERIN, C10-18 TRIGLYCERIDES, COCOS NUCIFERA (COCONUT) OIL, PENTYLENE GLYCOL, GLYCERYL STEARATE CITRATE, GLYCERYL STEARATE SE, BORAGO OFFICINALIS SEED OIL, GLYCERYL GLUCOSIDE, GLYCINE SOJA (SOYBEAN) OIL, SODIUM STEAROYL GLUTAMATE, ALPHA-GLUCAN OLIGOSACCHARIDE, TOCOPHEROL, 1,2- HEXANEDIOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CAPRYLYL GLYCOL, CITRIC ACID, SODIUM HYDROXIDE, PARFUM (FRAGRANCE)',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-soins/hydratants-corps/laits-et-cremes/svr-topialyse-creme-nourrissante-apaisante-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-topialyse-creme-nourrissante-apaisante.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'apaisant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -1773,7 +1773,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'LAB19.06/A.30 - INGREDIENTS (CONTAINS) : AQUA/WATER/EAU, BUTYROSPERMUM PARKII (SHEA) BUTTER, SQUALANE, BEHENYL ALCOHOL, BEHENETH-25, 1,2-HEXANEDIOL, PANTHENOL, CAPRYLYL GLYCOL, CITRIC ACID, SODIUM POLYACRYLATE',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/patyka/creme-hydratante-nourrissante/svr-sensifine-nutri-baume-soin-40-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sensifine-nutri-baume-soin.webp',
     tags: {
       primary: ['barriere-cutanee', 'apaisant'],
       secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -1800,7 +1800,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'RICINUS COMMUNIS (CASTOR) SEED OIL CAPRYLIC CAPRIC TRIGLYCERIDE HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL OLEIC LINOLEIC LINOLENIC POLYGLYCERIDES HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX BUTYROSPERMUM PARKII (SHEA) BUTTER HYDROGENATED CASTOR OIL CERA CARNAUBA COPERNICIA CERIFERA (CARNAUBA) WAX CIRE DE CARNAUBA CAMELINA SATIVA SEED OIL TOCOPHEROL ASCORBYL PALMITATE CITRIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/visage/maquillage/levres/baumes-a-levres/svr-topialyse-stick-levres-4-8g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-topialyse-stick-levres.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'soin-levres', 'zone-levres'],
@@ -1859,7 +1859,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (PURIFIED WATER), DICAPRYLYL CARBONATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DIETHYLHEXYL BUTAMIDO TRIAZONE, DIISOPROPYL ADIPATE, SILICA, CETEARYL ALCOHOL, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, CETEARETH-20, ETHYLHEXYL TRIAZONE, DIMETHICONE, NIACINAMIDE, POLYMETHYL METHACRYLATE, PENTYLENE GLYCOL, POLYESTER-7, AMINOMETHYL PROPANOL, BETA-CAROTENE, BETA-SITOSTEROL, CETEARYL DIMETHICONE CROSSPOLYMER, DAUCUS CAROTA SATIVA (CARROT) ROOT EXTRACT, GLYCINE SOJA (SOYBEAN) OIL, HYDROGENATED PHOSPHATIDYLCHOLINE, LECITHIN, LEPIDIUM SATIVUM SPROUT EXTRACT, SQUALENE, ALPHA-GLUCAN OLIGOSACCHARIDE, CAFFEYL GLUCOSIDE, DISODIUM ACETYL GLUCOSAMINE PHOSPHATE, GLUCOSE, GLYCERIN, PHYTIC ACID, RHAMNOSE, TOCOPHEROL, TOCOPHERYL ACETATE, 1,2-HEXANEDIOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CITRIC ACID, GLUCURONIC ACID, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, LYSOLECITHIN, NEOPENTYL GLYCOL DIHEPTANOATE, POLYSORBATE 60, PROPANEDIOL, SODIUM LAURETH SULFATE, SORBITAN ISOSTEARATE, XANTHAN GUM, POTASSIUM SORBATE, SODIUM BENZOATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/soins-visage/svr-cicavit-creme-spf-50-reparateur-40-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-cicavit-creme-spf-50-reparateur.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'cicatrisation'],
       secondary: [
@@ -1897,7 +1897,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, DICAPRYLYL CARBONATE, COCO-CAPRYLATE/CAPRATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DICAPRYLYL ETHER, DIISOPROPYL ADIPATE, ETHYLHEXYL TRIAZONE, NIACINAMIDE, SODIUM CHLORIDE, BIXA ORELLANA SEED EXTRACT, GLYCINE SOJA (SOYBEAN) OIL, HEXYLENE GLYCOL, LEPIDIUM SATIVUM SPROUT EXTRACT, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, TOCOPHEROL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CITRIC ACID, COCO-BETAINE, POTASSIUM SORBATE, SODIUM BENZOATE, PARFUM/FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/solaires/svr-sun-secure-eau-solaire-spf-50-100ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-eau-solaire-spf-50-100ml.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'protection-solaire'],
       secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1910,32 +1910,6 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       { slug: INGREDIENT_SLUGS.DICAPRYLYL_ETHER },
       { slug: INGREDIENT_SLUGS.ETHYLHEXYL_TRIAZONE },
       { slug: INGREDIENT_SLUGS.NIACINAMIDE },
-      { slug: INGREDIENT_SLUGS.BIXA_ORELLANA },
-      { slug: INGREDIENT_SLUGS.HUILE_GRAINES_TOURNESOL },
-    ],
-  },
-  {
-    slug: 'svr-sun-secure-eau-solaire-spf-50-200ml',
-    name: 'Sun Secure Eau Solaire SPF 50+',
-    brand: 'SVR',
-    kind: 'sunscreen',
-    unit: 'spray',
-    totalAmount: 200,
-    amountUnit: 'ml',
-    priceCents: 1192,
-    description:
-      'SUN SECURE Eau Solaire SPF50+ discount de SVR, pour la très haute protection solaire et le confort de tous les types de peaux sensibles dans votre parapharmacie en ligne. Destiné au visage, corps et cheveux Dès 3 ans\n\nLa gamme Solaires de SVR est composée de soins protecteurs aux expositions au soleil sans paraben pour toutes les peaux. L’Eau Solaire SPF50+ ultra haute protection solaire protège et sublime toutes les peaux sensibles et les cheveux. Composé d’un système filtrant anti-UVA/UVB photostable à large spectre sans filtres controversés (4 filtres solaires) sassocié à du tocophérol, de l’extrait de cression, de l’huile de rouc et du beurre de karité, cette Eau Solaire biphasée (40% phase aqueuse, 60% phase huileuse), protège très efficacement des rayons UVA/UVB du soleil, de la lumière visible et des infrarouges, afin de lutter contre les dommages des cellules cutanées et hydrate en profondeur la peau. Sa texture ultra-fraîche et légère pénètre facilement à l’application sans laisser de film collant avec un fini satiné. Très résistant à l’eau à la transpiration, aux frottements et au sable.',
-    notes: '',
-    inci: 'AQUA/WATER/EAU, DICAPRYLYL CARBONATE, COCO-CAPRYLATE/CARPATE, DIETHYLAMINO HRYDROXYBENZOYL, HEXYL BENZOATE, BIS-ETHYLHEXYLOXOYPHENOL, METHOXYPHENYL TRIAZINE, DICARYLYL ETHERDIISOPROPYL ADIPATE, ETHYLHEXYLTRIAZONE, NICINAMIDE, SODIUM CHLORIDE, BIXA ORELLANA SEED EXTRACT, GLYCINE SOJA (SOYBEAN) OIL, HEXYLENE GLYCOL, LEPIDIUM SATIVUM SPROUT EXTRACT, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, TOCOPHEROL, CAPRYLIC/CAPRIC TRYGLYCERIDE, CITRIC ACID, COCO-BETAINE, POTASSIUM SORBATE, SODIUM BENZOATE, PARFUM (FRAGRANCE)',
-    url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/solaires/svr-sun-secure-eau-solaire-spf-50-200-ml.html',
-    imageUrl: '',
-    tags: {
-      primary: ['anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
-      avoid: [],
-    },
-    keyIngredients: [
-      { slug: INGREDIENT_SLUGS.DICAPRYLYL_CARBONATE },
       { slug: INGREDIENT_SLUGS.BIXA_ORELLANA },
       { slug: INGREDIENT_SLUGS.HUILE_GRAINES_TOURNESOL },
     ],
@@ -1954,7 +1928,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (PURIFIED WATER), ZINC OXIDE [NANO], TITANIUM DIOXIDE [NANO], CYCLOPENTASILOXANE, HEXYLDECYL STEARATE, CI77891, DIMETHICONE, PROPANEDIOL, SODIUM CHLORIDE, CAPRYLYL DIMETHICONE ETHOXY GLUCOSIDE, POLYGLYCERYL-4 ISOSTEARATE, SILICA ALUMINA, CETYL DIMETHICONE, NIACINAMIDE, TRIDECYL SALICYLATE, BETA-CAROTENE, CAPRYLHYDROXAMIC ACID, DAUCUS CAROTA SATIVA (CARROT) ROOT EXTRACT, GLYCINE SOKA OIL, HYDROGENATED PHOSPHATIDYLCHOLINE, LECITHIN, LEPIDIUM SATIVUM SPROUT EXTRACT, PHENETHYL ALCOHOL, POLYHYDROXYSTEARIC ACID, GLYCERIN, TITANIUM DIOXIDE, TOCOPHEROL, TOCOPHERYL ACETATE, 1-2-HEXANEDIOL, ALCOHOL, CAPRYLYL GLYCOL, DIMETHICONE/VINYL DIMETHICONE CROSSPOLYMER, DIMETHICONOL, DISODIUM EDTA, LYSOLECITHIN, MAGNESIUM SULFATE, QUATERNIUM-90 BENTONITE, STEARIC ACID, TRIETHOXYCAPRYLYLSILANE, PHENOXYETHANOL, CI77491, CI77492, CI77499',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/solaires/svr-sun-secure-ecran-mineral-teinte-spf50-60g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-ecran-mineral-teinte-spf50.webp',
     tags: {
       primary: ['pores-dilates', 'apaisant', 'barriere-cutanee', 'protection-solaire'],
       secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1969,7 +1943,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
   },
   {
     slug: 'svr-sun-secure-ecran-mineral-teinte-spf50-toucher-sec',
-    name: 'Sun Secure Ecran Mineral Teinte SPF50+',
+    name: 'Sun Secure Ecran Mineral Teinte SPF50+ (Toucher Sec)',
     brand: 'SVR',
     kind: 'sunscreen',
     unit: 'tube',
@@ -2006,7 +1980,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, SILICA, DIISOPROPYL ADIPATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, ETHYLHEXYL TRIAZONE, BEHENETH-25, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, C12-15 ALKYL BENZOATE, C15-19 ALKANE, DIETHYLHEXYL BUTAMIDO TRIAZONE, GLYCERYL STEARATE CITRATE, ISONONYL ISONONANOATE, ACRYLATES/C12-22 ALKYL METHACRYLATE COPOLYMER, POLYESTER-7, NIACINAMIDE, PENTYLENE GLYCOL, NEOPENTYL GLYCOL DIHEPTANOATE, TOCOPHERYL ACETATE, PARFUM (FRAGRANCE), 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, ARGININE, COCO-GLUCOSIDE, TOCOPHEROL, XANTHAN GUM, CITRIC ACID, GLYCINE SOJA (SOYBEAN) OIL, DISODIUM LAURYL SULFOSUCCINATE, LEPIDIUM SATIVUM SPROUT EXTRACT',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/solaires/svr-sun-secure-fluide-spf50-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-fluide-spf50.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'protection-solaire'],
       secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2037,7 +2011,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'DICAPRYLYL CARBONATE, C12-15 ALKYL BENZOATE, DIISOPROPYL ADIPATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, ETHYLHEXYL TRIAZONE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ISOAMYL LAURATE, ISONONYL ISONONANOATE, DIETHYLHEXYL BUTAMIDO TRIAZONE, POLYESTER-7, NEOPENTYL GLYCOL DIHEPTANOATE, PARFUM (FRAGRANCE), CAPRYLIC/CAPRIC TRIGLYCERIDE, TOCOPHEROL, GLYCINE SOJA (SOYBEAN) OIL, LEPIDIUM SATIVUM SPROUT EXTRACT',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/solaires/svr-sun-secure-huile-seche-spf50-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-huile-seche-spf50.webp',
     tags: {
       primary: ['anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2065,7 +2039,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, SILICA, ISODODECANE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DIISOPROPYL ADIPATE, ISOPROPYL LAUROYL SARCOSINATE, ETHYLHEXYL TRIAZONE, BEHENETH-25, DIETHYLHEXYL BUTAMIDO TRIAZONE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, COCO-CAPRYLATE/CAPRATE, DIMETHICONE/BIS-ISOBUTYL PPG-20 CROSSPOLYMER, PENTYLENE GLYCOL, CETEARYL ALCOHOL, 1,2-HEXANEDIOL, NIACINAMIDE, COCO-GLUCOSIDE, SODIUM POLYACRYLATE STARCH, ETHYLHEXYLGLYCERIN, CAPRYLYL GLYCOL, PARFUM (FRAGRANCE), GLYCERIN, TOCOPHEROL, CI 77492 (IRON OXIDES), GLYCINE SOJA (SOYBEAN) OIL, LECITHIN, CI 15850 (RED 6), LEPIDIUM SATIVUM SPROUT EXTRACT, TRIETHOXYCAPRYLYLSILANE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/solaires/svr-sun-secure-spf50-blur-creme-mousse-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-spf50-blur-creme-mousse.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'protection-solaire'],
       secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2096,7 +2070,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, SILICA, ISODODECANE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DIISOPROPYL ADIPATE, ISOPROPYL LAUROYL SARCOSINATE, ETHYLHEXYL TRIAZONE, BEHENETH-25, DIETHYLHEXYL BUTAMIDO TRIAZONE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, COCO-CAPRYLATE/CAPRATE, DIMETHICONE/BIS-ISOBUTYL PPG-20 CROSSPOLYMER, PENTYLENE GLYCOL, CETEARYL ALCOHOL, 1,2-HEXANEDIOL, NIACINAMIDE, COCO-GLUCOSIDE, SODIUM POLYACRYLATE STARCH, ETHYLHEXYLGLYCERIN, CAPRYLYL GLYCOL, PARFUM (FRAGRANCE), GLYCERIN, TOCOPHEROL, CI 77492 (IRON OXIDES), GLYCINE SOJA (SOYBEAN) OIL, LECITHIN, CI 15850 (RED 6), LEPIDIUM SATIVUM SPROUT EXTRACT, TRIETHOXYCAPRYLYLSILANE, LES FILTRES SUSPECTÉS D’ÊTRE PERTURBATEURS ENDOCRINIENS, NÉFASTES POUR L’ÉCOSYSTÈME MARIN ET CEUX SUSPECTÉS D’ÊTRE IRRITANTS ONT ÉTÉ ÉCARTÉS DE LA CHARTE DE FORMULATION SVR',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-blur-sun-secure-creme-mousse-spf50-sans-parfum-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-blur-sun-secure-creme-mousse-spf50-sans-parfum.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'protection-solaire'],
       secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2127,7 +2101,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, SILICA, ISODODECANE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DICAPRYLYL CARBONATE, ISOPROPYL LAUROYL SARCOSINATE, ETHYLHEXYL TRIAZONE, BEHENETH-25, DIETHYLHEXYL BUTAMIDO TRIAZONE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, COCO-CAPRYLATE/CAPRATE, CI 77891 (TITANIUM DIOXIDE), DIMETHICONE/BIS-ISOBUTYL PPG-20 CROSSPOLYMER, PENTYLENE GLYCOL, CETEARYL ALCOHOL, 1,2-HEXANEDIOL, NIACINAMIDE, COCO-GLUCOSIDE, SODIUM POLYACRYLATE STARCH, ETHYLHEXYLGLYCERIN, CI 77492 (IRON OXIDES), CAPRYLYL GLYCOL, GLYCERIN, PARFUM (FRAGRANCE), CI 77491 (IRON OXIDES), TOCOPHEROL, TRIETHOXYCAPRYLYLSILANE, CI 77499 (IRON OXIDES), GLYCINE SOJA (SOYBEAN) OIL, LECITHIN, LEPIDIUM SATIVUM SPROUT EXTRACT, LES FILTRES SUSPECTÉS D’ÊTRE PERTURBATEURS ENDOCRINIENS, NÉFASTES POUR L’ÉCOSYSTÈME MARIN ET CEUX SUSPECTÉS D’ÊTRE IRRITANTS ONT ÉTÉ ÉCARTÉS DE LA CHARTE DE FORMULATION SVR',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-blur-teinte-sun-secure-creme-mousse-spf50-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-blur-teinte-sun-secure-creme-mousse-spf50.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'protection-solaire'],
       secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2158,7 +2132,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "RICINUS COMMUNIS (CASTOR) SEED OIL, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, COCOS NUCIFERA (COCONUT) OIL, BUTYROSPERMUM PARKII (SHEA) BUTTER, HYDROGENATED CASTOR OIL, OLEIC/LINOLEIC/LINOLENIC POLYGLYCERIDES, GLYCERIN, CERA ALBA/BEESWAX/CIRE D'ABEILLE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, AQUA/WATER/EAU, HYDROGENATED VEGETABLE OIL, ALPHA-GLUCAN OLIGOSACCHARIDE, PROPANEDIOL, TOCOPHERYL ACETATE, DISODIUM ACETYL GLUCOSAMINE PHOSPHATE, CAFFEYL GLUCOSIDE, RHAMNOSE, GLUCOSE, GLUCURONIC ACID, CITRIC ACID",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-cicavit-levres-baume-protecteur-10g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-cicavit-levres-baume-protecteur.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['creme-solaire', 'protection-solaire', 'matin', 'zone-visage'],
@@ -2189,7 +2163,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, DIETHYLAMINO HYDROXYBENZOYL BENZOATE, C12-15 ALKYL BENZOATE, DIISOPROPYL ADIPATE, CI 77891 (TITANIUM DIOXIDE), BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, CAPRYLIC/CAPRIC TRIGLYCERIDE, ISOPROPYL LAUROYL SARCOSINATE, SILICA, BORON NITRIDE, CETEARETH-20 GLYCERYL STEARATE, PEG-100 STEARATE, DICAPRYLYL CARBONATE, ACRYLATES/C12-22 ALKYL METHACRYLATE COPOLYMER, XANTHAN GUM, CI 77491 (IRON OXIDES), COCO-GLUCOSIDE, SODIUM CITRATE, STEARALKONIUM HECTORITE, PROPYLENE GLYCOL STEARATE, SODIUM HYALURONATE, UNDECYLENOYL PHENYLALANINE, BENTONITE, BUTYLENE GLYCOL, MAGNESIUM STEARATE, ALUMINUM HYDROXIDE, PROPYLENE CARBONATE, DISODIUM LAURYL SULFOSUCCINATE, CI 77499 (IRON OXIDES), ALGIN, SCLEROTIUM GUM, LECITHIN, PULLULAN, TIN OXIDE, YEAST FERMENT EXTRACT, ETHYLHEXYL FERULATE, TOCOPHEROL, PLANKTON EXTRACT, DIACETYL BOLDINE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-clairial-day-correcteur-anti-taches-spf30-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-clairial-day-correcteur-anti-taches-spf30.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'anti-taches', 'hyperpigmentation'],
       secondary: ['reparateur', 'creme-solaire', 'protection-solaire', 'matin', 'zone-visage'],
@@ -2220,7 +2194,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU DICAPRYLYL CARBONATE COCO CAPRYLATE CAPRATE DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE ETHYLHEXYL TRIAZONE GLYCERIN C12 15 ALKYL BENZOATE SILICA GLYCERYL STEARATE BIS ETHYLHEXYLOXYPHENOLMETHOXYPHENYL TRIAZINE BEHENETH 25 TRIETHYLCITRATE BEHENYL ALCOHOL CETYL PALMITATE SODIUM POLYACRYLOYLDIMETHYL TAURATE CETEARYL ALCOHOL 1 2 HEXANEDIOL ARGININE PCA CALCIUM PCA NIACINAMIDE ALKANNA TINCTORIA ROOT EXTRACT CARBOMER HYDROXYACETOPHENONE LACTOBACILLUS FERMENT LECITHIN LEPIDIUM SATIVUM SPROUT EXTRACT MALTODEXTRIN PALMITOYL TRIPEPTIDE 1 SODIUM STEAROYL LACTYLATE SPHINGOMONAS FERMENT EXTRACT HELIANTHUS ANNUUS SUNFLOWER SEED OIL HYALURONIC ACID PALMITOYL TETRAPEPTIDE 7 TOCOPHEROL BUTYLENE GLYCOL POLYSORBATE 20 SODIUM LACTATE PARFUM FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-densitium-creme-spf30-rechargeable-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-densitium-creme-spf30-rechargeable.webp',
     tags: {
       primary: ['anti-age', 'pores-dilates', 'microbiome', 'protection-solaire'],
       secondary: ['reparateur', 'sebo-regulateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2241,7 +2215,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU DICAPRYLYL CARBONATE COCO CAPRYLATE CAPRATE DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE ETHYLHEXYL TRIAZONE GLYCERIN C12 15 ALKYL BENZOATE SILICA GLYCERYL STEARATE BIS ETHYLHEXYLOXYPHENOLMETHOXYPHENYL TRIAZINE BEHENETH 25 TRIETHYLCITRATE BEHENYL ALCOHOL CETYL PALMITATE SODIUM POLYACRYLOYLDIMETHYL TAURATE CETEARYL ALCOHOL 1 2 HEXANEDIOL ARGININE PCA CALCIUM PCA NIACINAMIDE ALKANNA TINCTORIA ROOT EXTRACT CARBOMER HYDROXYACETOPHENONE LACTOBACILLUS FERMENT LECITHIN LEPIDIUM SATIVUM SPROUT EXTRACT MALTODEXTRIN PALMITOYL TRIPEPTIDE 1 SODIUM STEAROYL LACTYLATE SPHINGOMONAS FERMENT EXTRACT HELIANTHUS ANNUUS SUNFLOWER SEED OIL HYALURONICACID PALMITOYL TETRAPEPTIDE 7 TOCOPHEROL BUTYLENE GLYCOL POLYSORBATE 20 SODIUM LACTATE PARFUM FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-densitium-recharge-creme-spf30-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-densitium-recharge-creme-spf30.webp',
     tags: {
       primary: ['anti-age', 'pores-dilates', 'microbiome', 'protection-solaire'],
       secondary: ['reparateur', 'sebo-regulateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2262,7 +2236,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, DICAPRYLYL CARBONATE, COCO-CAPRYLATE/CAPRATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DICAPRYLYL ETHER, DIISOPROPYL ADIPATE, ETHYLHEXYL TRIAZONE, NIACINAMIDE, SODIUM CHLORIDE, BIXA ORELLANA SEED EXTRACT, GLYCINE SOJA (SOYBEAN) OIL, HEXYLENE GLYCOL, LEPIDIUM SATIVUM SPROUT EXTRACT, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, TOCOPHEROL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CITRIC ACID, COCO-BETAINE, POTASSIUM SORBATE, SODIUM BENZOATE, PARFUM (FRAGRANCE)',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-eau-solaire-sun-secure-spf30-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-eau-solaire-sun-secure-spf30.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'protection-solaire'],
       secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2293,7 +2267,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-lait-sun-secure-hydratant-spf50-250ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-lait-sun-secure-hydratant-spf50.webp',
     tags: {
       primary: ['hydratation', 'protection-solaire'],
       secondary: ['creme-solaire', 'matin', 'zone-visage'],
@@ -2314,7 +2288,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU DICAPRYLYL CARBONATE DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE SILICA CAPRYLYL METHICONE ETHYLHEXYL TRIAZONE DIISOPROPYL ADIPATE BIS ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE DIETHYLHEXYL BUTAMIDO TRIAZONE ISOPROPYL LAUROYL SARCOSINATE BEHENETH 25 PROPANEDIOL PENTYLENE GLYCOL ACRYLATES C12 22 ALKYL METHACRYLATE COPOLYMER NIACINAMIDE CETEARYL ALCOHOL COCO GLUCOSIDE PARFUM FRAGRANCE 1 2 HEXANEDIOL CAPRYLYL GLYCOL GLYCERIN ARGININE BENTONITE MALTODEXTRIN CITRIC ACID TOCOPHEROL XANTHAN GUM DISODIUM LAURYL SULFOSUCCINATE EPILOBIUM ANGUSTIFOLIUM FLOWER LEAF STEM EXTRACT HELIANTHUS ANNUUS SUNFLOWER SEED OIL LECITHIN LEPIDIUM SATIVUM SPROUT EXTRACT',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sun-secure-aqua-fluide-spf50-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-aqua-fluide-spf50.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'protection-solaire'],
       secondary: ['reparateur', 'sebo-regulateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2335,7 +2309,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'DICAPRYLYL CARBONATE, BUTANE, ALCOHOL DENAT., PROPANE, DIISOPROPYL ADIPATE, DIETHYLAMINO HYDROXYBENZOYL, HEXYL BENZOATE, ETHYLHEXYL TRIAZONE, BIS-ETHYLHEXYLOXYPHENOL, METHOXYPHENYL TRIAZINE, DIETHYLHEXYL BUTAMIDO TRIAZONE, POLYESTER-7, NEOPENTYL GLYCOL DIHEPTANOATE, TOCOPHERYL ACETATE, PARFUM (FRAGRANCE), CAPRYLIC/CAPRIC TRIGLYCERIDE, TOCOPHEROL, GLYCINE SOJA (SOYBEAN) OIL, AQUA/WATER/EAU, LEPIDIUM SATIVUM SPROUT EXTRACT',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sun-secure-brume-spf50-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-brume-spf50-200ml.webp',
     tags: {
       primary: ['anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2349,7 +2323,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
   },
   {
     slug: 'svr-sun-secure-creme-spf50-apres-soleil',
-    name: 'Sun Secure Creme SPF50+',
+    name: 'Sun Secure Creme SPF50+ (Après Soleil)',
     brand: 'SVR',
     kind: 'sunscreen',
     unit: 'tube',
@@ -2392,7 +2366,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, DIISOPROPYL ADIPATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DICAPRYLYL ETHER, SILICA, ETHYLHEXYL TRIAZONE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, CETEARYL ALCOHOL, HYDROGENATED VEGETABLE OIL, C12-15 ALKYL BENZOATE, DIETHYLHEXYL BUTAMIDO TRIAZONE, CETEARETH-20, GLYCERIN, PENTYLENE GLYCOL, ACRYLATES/C12-22 ALKYL METHACRYLATE COPOLYMER, POLYESTER-7, 1,2-HEXANEDIOL, NIACINAMIDE, NEOPENTYL GLYCOL DIHEPTANOATE, TOCOPHERYL ACETATE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, PARFUM (FRAGRANCE), TOCOPHEROL, CAPRYLYL GLYCOL, ARGININE, XANTHAN GUM, COCO-GLUCOSIDE, GLYCINE SOJA (SOYBEAN) OIL, CITRIC ACID, DISODIUM LAURYL SULFOSUCCINATE, POLYSORBATE 60, SORBITAN ISOSTEARATE, LECITHIN, LEPIDIUM SATIVUM SPROUT EXTRACT',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sun-secure-creme-spf50-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-creme-spf50.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'protection-solaire'],
       secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2423,7 +2397,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'PROPYLHEPTYL CAPRYLATE, OCTYLDODECANOL, DICAPRYLYL CARBONATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, TRIETHYL CITRATE, TRIBUTYL CITRATE, ETHYLHEXYL TRIAZONE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIBUTYL LAUROYL GLUTAMIDE, DIETHYLHEXYL BUTAMIDO TRIAZONE, DIBUTYL ETHYLHEXANOYL GLUTAMIDE, LEPIDIUM SATIVUM SPROUT EXTRACT, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, TOCOPHEROL, CAPRYLIC/CAPRIC TRIGLYCERIDE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sun-secure-easy-stick-spf50-fini-invisible-10g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-easy-stick-spf50-fini-invisible.webp',
     tags: {
       primary: ['anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2452,7 +2426,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'PROPYLHEPTYL CAPRYLATE, OCTYLDODECANOL, DICAPRYLYL CARBONATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, TRIETHYL CITRATE, TRIBUTYL CITRATE, ETHYLHEXYL TRIAZONE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIBUTYL LAUROYL GLUTAMIDE, DIETHYLHEXYL BUTAMIDO TRIAZONE, DIBUTYL ETHYLHEXANOYL GLUTAMIDE, LEPIDIUM SATIVUM SPROUT EXTRACT, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, TOCOPHEROL, CAPRYLIC/CAPRIC TRIGLYCERIDE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sun-secure-easy-stick-spf50-recharge-10g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-easy-stick-spf50-recharge.webp',
     tags: {
       primary: ['anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2481,7 +2455,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU DICAPRYLYL CARBONATE COCO CAPRYLATE CAPRATE DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE BIS ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE DICAPRYLYL ETHER DIISOPROPYL ADIPATE ETHYLHEXYL TRIAZONE MICA HEXYLENE GLYCOL NIACINAMIDE SODIUM CHLORIDE CAPRYLIC CAPRIC TRIGLYCERIDE CI 77891 TITANIUM DIOXIDE HELIANTHUS ANNUUS SUNFLOWER SEED OIL PARFUM FRAGRANCE MICROCRYSTALLINE CELLULOSE SODIUM BENZOATE CI 77491 IRON OXIDES POTASSIUM SORBATE TOCOPHEROL CALCIUM SODIUM BOROSILICATE CELLULOSE GUM GLYCINE SOJA SOYBEAN OIL CITRIC ACID MAGNESIUM STEARATE BIXA ORELLANA SEED EXTRACT LEPIDIUM SATIVUM SPROUT EXTRACT COCO BETAINE TIN OXIDE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sun-secure-eau-solaire-spf50-100ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-eau-solaire-spf50.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'protection-solaire'],
       secondary: ['reparateur', 'sebo-regulateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2502,7 +2476,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, DICAPRYLYL CARBONATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, SILICA, ISOPROPYL LAUROYL SARCOSINATE, PROPANEDIOL, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, COCO-CAPRYLATE/CAPRATE, BEHENETH-25, ETHYLHEXYL TRIAZONE, ACRYLATES/C12-22 ALKYL METHACRYLATE COPOLYMER, GLYCERYL STEARATE CITRATE, DIETHYLHEXYL BUTAMIDO TRIAZONE, NIACINAMIDE, ALKANNA TINCTORIA ROOT EXTRACT, ARGININE, CUCUMIS MELO (MELON) FRUIT EXTRACT, DISODIUM LAURYL SULFOSUCCINATE, HYDROXYPROPYLTRIMONIUM MALTODEXTRIN CROSSPOLYMER, LECITHIN, LEPIDIUM SATIVUM SPROUT EXTRACT, MALTODEXTRIN, SODIUM ACETYLATED HYALURONATE, GLYCERIN, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, TOCOPHEROL, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, CITRIC ACID, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, PENTYLENE GLYCOL, POLYSORBATE 60, SORBITAN ISOSTEARATE, XANTHAN GUM, COCO-GLUCOSIDE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sun-secure-fluide-photo-age-spf50-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-fluide-photo-age-spf50.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'protection-solaire'],
       secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2521,7 +2495,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
   },
   {
     slug: 'svr-sun-secure-fluide-spf50-apres-soleil',
-    name: 'Sun Secure Fluide SPF50+',
+    name: 'Sun Secure Fluide SPF50+ (Après Soleil)',
     brand: 'SVR',
     kind: 'sunscreen',
     unit: 'tube',
@@ -2564,7 +2538,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "AQUA/WATER/EAU, GLYCERIN, PROPANEDIOL, VEGETABLE OIL, COCOS NUCIFERA (COCONUT) OIL, DICAPRYLYL CARBONATE, CETEARYL ALCOHOL, GLYCERYL STEARATE SE, NIACINAMIDE, CERA ALBA/BEESWAX/CIRE D'ABEILLE, PENTYLENE GLYCOL, SODIUM STEAROYL GLUTAMATE, CETEARYL GLUCOSIDE, PARFUM (FRAGRANCE), 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, ALOE BARBADENSIS LEAF JUICE POWDER, TOCOPHEROL, GLYCINE SOJA (SOYBEAN) OIL, BACILLUS FERMENT, LECITHIN, LEPIDIUM SATIVUM SPROUT EXTRACT, CITRIC ACID",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sun-secure-lait-apres-soleil-hydratant-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-lait-apres-soleil-hydratant.webp',
     tags: {
       primary: ['pores-dilates', 'hydratation', 'barriere-cutanee'],
       secondary: ['sebo-regulateur', 'reparateur'],
@@ -2591,7 +2565,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, DIISOPROPYL ADIPATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DICAPRYLYL ETHER, SILICA, ETHYLHEXYL TRIAZONE, C12-15 ALKYL BENZOATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, HYDROGENATED VEGETABLE OIL, DIETHYLHEXYL BUTAMIDO TRIAZONE, BEHENETH-25, PROPANEDIOL, PENTYLENE GLYCOL, ACRYLATES/C12-22 ALKYL METHACRYLATE COPOLYMER, NIACINAMIDE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, CETEARYL ALCOHOL, POLYESTER-7, COCO-GLUCOSIDE, MICROCRYSTALLINE CELLULOSE, NEOPENTYL GLYCOL DIHEPTANOATE, PARFUM (FRAGRANCE), 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, GLYCERIN, ARGININE, CITRIC ACID, TOCOPHEROL, CELLULOSE GUM, POLYSORBATE 60, SORBITAN ISOSTEARATE, DISODIUM LAURYL SULFOSUCCINATE, GLYCINE SOJA (SOYBEAN) OIL, LECITHIN, LEPIDIUM SATIVUM SPROUT EXTRACT',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sun-secure-lait-spf50-100ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-lait-spf50.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'protection-solaire'],
       secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2622,7 +2596,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, GLYCERIN, DIHYDROXYACETONE, PROPANEDIOL, GLYCERYL GLUCOSIDE, CAPRYLYL/CAPRYL GLUCOSIDE, CARAMEL, LECITHIN, LEPIDIUM SATIVUM SPROUT EXTRACT, POLYGLYCERYL-10 LAURATE, POLYGLYCERYL-3 COCOATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, TOCOPHEROL, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, CITRIC ACID, PENTYLENE GLYCOL, PARFUM/FRAGRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sun-secure-mousse-autobronzante-150ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-mousse-autobronzante.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'auto-bronzant', 'zone-corps'],
@@ -2648,7 +2622,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'SODODECANE, DIMETHICONE/BIS-ISOBUTYL PPG-20 CROSSPOLYMER, DISOPROPYL ADIPATE, DIETHYLAMINO, HYDROXYBENZOYL HEXYL BENZOATE, ISOPROPYL LAUROYL SARCOSINATE, COCO-CAPRYLATE/CAPRATE, ETHYLHEXYL TRIAZONE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIETHYLHEXYLBUTAMIDO TRIAZONE, SILICA DIMETHYL SILYLATE, TOCOPHEROL, CAPRYLIC/CAPRIC TRIGLYCERIDE, PARFUM (FRAGRANCE), GLYCINE SOJA (SOYBEAN) OIL, LEPIDIUM SATIVUM SPROUT EXTRACT',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sun-secure-spf50-extreme-gel-ultra-mat-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-spf50-extreme-gel-ultra-mat.webp',
     tags: {
       primary: ['anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2673,7 +2647,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, BUTANE, DICAPRYLYL ETHER PROPANE, DISOPROPYL, ADIPATE, DETHYLAMINO, HYDROXYBENZOYL, HEXYL BENZOATE, ETHYLHEXYL TRIAZONE, C12-15 ALKYL BENZOATE, BIS ETHYLHEXYLOXYPHENOL, METHOXYPHENYL TRIAZINE, DIETHYLHEXYL, BUTAMIDO TRIAZONE, SILICA BEHENETH-25 PROPANEDIOL, PENTYLENE GLYCOL, ACRYLATES C12-22 ALKYL METHACRYLATE COPOLYMER HYDROGENATED VEGETABLE OIL, NIACINAMIDE, CETEARYL ALCOHOL, POLYESTER-7, COCO-GLUCOSIDE, MICROCRISTALLINE, CELLULOSE, NEOPENTYL GLYCOL, DIHEPTANOATE, PARFUM (FRAGRANCE)), 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, GLYCERIN, ARGININE, CITRIC ACID, TOCOPHEROL, CELLULOSE GUM, HYDROXYETHYL, ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, DISODIUM LAURYL SULFOCCINATE GLYCINE SOJA (SOYBEAN) OIL, LECITHIN, POLYSORBATE 60, SORBITANT ISOSTEARATE LEPIDIUM SATIVUM SROUT EXTRACT',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sun-secure-spf50-lait-crepitant-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-spf50-lait-crepitant.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'protection-solaire'],
       secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2699,7 +2673,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, DICAPRYLYL ETHER, DISOPROPYL ADIPATE, DETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE ETHYLHEXYL TRIAZONE, C12-15 ALKYL BENZOATE, BIS-ETHYLHAXYLOXYPHENOL METHOXYPHENYL TRIAZINE DIETHYLHEXYL BUTAMIDO TRIAZONE SILICA BEHENETH-25 PROPANEDIOL, PENTYLENE GLYCOL, ACRYLATES/C12-22 ALKYL METHACRYLATE COPOLYMER, HYDROGENATED VEGETABLE OIL, NIACINAMIDE, CETEARYL ALCOHOL, POLYESTER-7, COCO-GLUCOSIDE, MICROCRYSTALLINE, CELLULOSE, NEOPENTYL GLYCOL DIHEPTANOATE, PARFUM (FRAGRANCE), 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, GLYCERIN, ARGININE, CITRIC ACID, TOCOPHEROL, CELLULOSE GUM, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, DISODIUM LAURYL, SULFOCCINATE GLYCINE SOJA (SOYBEAN) OIL, LECITHIN, POLYSORBATE 60, SORBITAN ISOSTEARATE, LEPIDUM SATIMUM SPROUT EXTRACT',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sun-secure-spf50-spray-pocket-hydratant-invisible-20ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-spf50-spray-pocket-hydratant-invisible.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'hydratation'],
       secondary: [
@@ -2732,7 +2706,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, DICAPRYLYL ETHER, DIISOPROPYL ADIPATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, ETHYLHEXYL TRIAZONE, C12-15 ALKYL BENZOATE, BIS-ETHYLHEXYLOPHENOL METHOXYPHENYL TRIAZINE, DIETHYLHEXYL BUTAMINO TRIAZONE, SILICA, BEHENETH-25, PROPANEDIOL, PENTYLENE GLYCOL, ACRYLATES/C12-22 ALKYL METHACRYLATE COPOLYMER, HYDROGENATED VEGETABLE OIL, NIACINAMIDE, CETEARYL ALCOHOL, POLYESTER-7, COCO-GLUCOSIDE, MICROCRYSTALLINE CELLULOSE, NEOPENTYL GLYCOL, DIHEPTANOATE, PARFUM (FRAGRANCE), 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, GLYCERIN, ARGININE, CITRIC ACID, TOCOPHEROL, CELLULOSE GUM, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, DISODIUM LAURYL SULFOSUCCINATE, GLYCINE SOJA (SOYBEAN) OIL, LECITHIN, POLYSORBATE 60, SORBITAN ISOSTEARATE, LEPIDIUM SATIVUM SPROUT EXTRACT',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sun-secure-spray-spf50-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-spray-spf50.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'protection-solaire'],
       secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -2763,6 +2737,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       'Endothelyol® pour la microcirculation. Extrait de réglisse apaisant. Filtres solaires brevetés non écotoxiques. Texture non grasse.',
     inci: 'WATER, DIISOPROPYL ADIPATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DICAPRYLYL ETHER, ETHYLHEXYL TRIAZONE, SILICA, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIETHYLHEXYL BUTAMIDO TRIAZONE, STEARETH-2, STEARETH-21, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, GLYCERIN, PROPANEDIOL, CITRIC ACID, POTASSIUM CETYL PHOSPHATE, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, ARGININE, SODIUM STEAROYL GLUTAMATE, CAFFEYL GLUCOSIDE, DIPOTASSIUM GLYCYRRHIZATE, GOSSYPIUM HERBACEUM (COTTON) SEED OIL, ROSMARINYL GLUCOSIDE, TOCOPHEROL, CAFFEOIC ACID',
     url: 'https://www.labo-svr.com',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sensifine-ar-creme-spf50.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ROSACEE, TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
@@ -2915,6 +2890,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: 'Efficace sur maquillage waterproof. Beurre de karité et huile de coco. Parfum coco.',
     inci: 'ISOPROPYL PALMITATE, BUTYROSPERMUM PARKII (SHEA) BUTTER, COCOS NUCIFERA (COCONUT) OIL, C10-18 TRIGLYCERIDES, PEG-7 GLYCERYL COCOATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX, HYDROGENATED VEGETABLE OIL, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, CITRIC ACID',
     url: 'https://www.labo-svr.com',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sensifine-baume-demaquillant.webp',
     tags: {
       primary: [TAG_SLUGS.BAUME_DEMAQUILLANT, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
@@ -2942,8 +2918,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     description:
       'Gel ultra-frais minimaliste de 8 ingrédients pour peaux polyallergiques. Hydratation 12h.',
     notes: 'Aloe Vera. Panthénol. Texture gel non grasse.',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/0500A556094B1F/large_1750231426.pngpng?1750231426',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sensifine-aqua-gel-hydratant.webp',
     inci: 'WATER, GLYCERIN, 1,2-HEXANEDIOL, ALOE BARBADENSIS LEAF JUICE POWDER, PANTHENOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CAPRYLYL GLYCOL, SODIUM HYDROXIDE',
     url: 'https://www.labo-svr.com',
     tags: {
@@ -3040,8 +3015,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       'Baume très riche pour peaux très sèches à atopiques. Apaise immédiatement les démangeaisons, protège des agressions extérieures (acariens, pollution…), répare et renforce la barrière cutanée.',
     notes:
       '4.7 ★. Céramides AD brevetés + sucre prébiotique. 46% phase grasse (coco, babassu). Protection anti-acariens et anti-pollution. Hydratation 48h.',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/4A422C6E1EDBD4/large_1706647183.jpeg?1706647183',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-topialyse-baume-protect-plus.webp',
     inci: 'WATER, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, COCOS NUCIFERA (COCONUT) OIL, ORBIGNYA OLEIFERA SEED OIL, RICINUS COMMUNIS (CASTOR) SEED OIL, CETEARYL ALCOHOL, HYDROGENATED CASTOR OIL, GLYCERIL STEARATE SE, PENTYLENE GLYCOL, CETEARYL GLUCOSIDE, SODIUM STEAROYL GLUTAMATE, OPHIOPOGON JAPONICUS ROOT EXTRACT, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, MALTODEXTRIN, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, GLYCOSPHINGOLIPIDS, CITRIC ACID, GLYCOLIPIDS',
     url: 'https://fr.svr.com/collections/tous-nos-soins-corps/products/topialyse-baume-protect',
     tags: {
@@ -3082,6 +3056,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       '4.6 ★. 27% phase émolliente (karité, babassu, coco, bourrache). BioEcolia (prébiotique). Convient à toute la famille.',
     inci: 'WATER, BUTYROSPERMUM PARKII (SHEA) BUTTER, ORBIGNYA OLEIFERA SEED OIL, GLYCERIN, C10-18 TRIGLYCERIDES, COCOS NUCIFERA (COCONUT) OIL, PENTYLENE GLYCOL, GLYCERYL STEARATE CITRATE, GLYCERYL STEARATE SE, BORAGO OFFICINALIS SEED OIL, GLYCERYL GLUCOSIDE, GLYCINE SOJA (SOYBEAN) OIL, SODIUM STEAROYL GLUTAMATE, ALPHA-GLUCAN OLIGOSACCHARIDE, TOCOPHEROL, 1,2-HEXANEDIOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CAPRYLYL GLYCOL, CITRIC ACID, SODIUM HYDROXIDE, PARFUM',
     url: 'https://www.labo-svr.com',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-topialyse-creme-nourrissante.webp',
     tags: {
       primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
@@ -3101,7 +3076,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
   },
   {
     slug: 'svr-topialyse-huile-lavante-relipidante',
-    name: 'Topialyse Huile Lavante',
+    name: 'Topialyse Huile Lavante (Relipidante)',
     brand: 'SVR',
     kind: 'body-wash',
     unit: 'pump',
@@ -3111,8 +3086,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     description:
       'Huile lavante relipidante anti-irritations pour toute la famille. Nettoie en douceur les peaux sèches à atopiques.',
     notes: '35% actifs relipidants. Niacinamide. Prébiotique.',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/E8546272758151/large_1739281700.pngpng?1739281700',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-topialyse-huile-lavante-relipidante.webp',
     inci: 'WATER, GLYCERIN, SODIUM C14-16 OLEFIN SULFONATE, SODIUM LAUROAMPHOACETATE, COCO-BETAINE, NIACINAMIDE, CITRIC ACID, SODIUM OLIVAMPHOACETATE, ALPHA-GLUCAN OLIGOSACCHARIDE, PARFUM, SACCHARIDE ISOMERATE, CAPRYLYL/CAPRYL GLUCOSIDE, SODIUM BENZOATE, POTASSIUM SORBATE, POLYGLYCERYL-3 COCOATE, POLYGLYCERYL-10 LAURATE, GOSSYPIUM HERBACEUM (COTTON) SEED OIL, SODIUM CITRATE',
     url: 'https://www.labo-svr.com',
     tags: {
@@ -3163,7 +3137,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
   },
   {
     slug: 'svr-topialyse-baume-lavant-apaisant',
-    name: 'Topialyse Baume Lavant',
+    name: 'Topialyse Baume Lavant (Apaisant)',
     brand: 'SVR',
     kind: 'body-wash',
     unit: 'pump',
@@ -3338,8 +3312,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       'Lait corporel exfoliant et hydratant intensif pour peaux très sèches, rugueuses ou squameuses (« peau de croco »). Lisse dès la 1re application, apaise tiraillements et démangeaisons.',
     notes:
       '4.7 ★. 10% urée pure brevetée (exfoliation + hydratation). Panthénol, Karité, Coco. Texture fraîche non collante, fini velouté. Hydratation 48h.',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/25B09A0346B049/large_1720551348.jpeg?1720551348',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-xerial-10-lait-corps-hydratant.webp',
     inci: 'WATER, UREA, COCOS NUCIFERA (COCONUT) OIL, GLYCERIN, BUTYROSPERMUM PARKII (SHEA) BUTTER, GLYCERYL STEARATE, CANOLA OIL, BORAGO OFFICINALIS SEED OIL, SILICA, PANTHENOL, PENTYLENE GLYCOL, GLYCERYL GLUCOSIDE, SODIUM CITRATE, TRIACETIN, SERINE, PARFUM, CITRIC ACID, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, SODIUM STEAROYL GLUTAMATE, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, CARBOMER, SODIUM LACTATE, HISTIDINE, PROPYLENE GLYCOL, POLYSORBATE 60, SORBITAN ISOSTEARATE, BACILLUS FERMENT, POTASSIUM SORBATE',
     url: 'https://www.labo-svr.com',
     tags: {
@@ -3374,6 +3347,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '50% Urée pure. Acide salicylique. Texture non grasse.',
     inci: 'WATER, UREA, GLYCERIN, BUTYROSPERMUM PARKII (SHEA) BUTTER, OCTYLDODECANOL, CETEARYL ETHYLHEXANOATE, ISOHEXADECANE, POLYACRYLATE-13, SILICA DIMETHYL SILYLATE, TRIETHANOLAMINE, PANTHENOL, SALICYLIC ACID, SERINE, ALLANTOIN, BACILLUS FERMENT, HISTIDINE, POLYISOBUTENE, OCTYLDODECYL XYLOSIDE, PEG-30 DIPOLYHYDROXYSTEARATE, POLYSORBATE 20, SORBITAN ISOSTEARATE, PROPYLENE GLYCOL, CITRIC ACID, DISODIUM EDTA, POTASSIUM SORBATE',
     url: 'https://www.labo-svr.com',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-xerial-50-extreme-creme-pieds.webp',
     tags: {
       primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.EXFOLIATION],
       secondary: [TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.CREME_PIEDS],
@@ -3427,8 +3401,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     priceCents: 1550,
     description: 'Soin lissant anti-rugosités et poils incarnés. Hydratation 48h intense.',
     notes: '30% Urée pure. Panthénol. Sans parfum. Texture fondante.',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/7A35734FCC9A0E/large_1750222140.pngpng?1750222140',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-xerial-30-gel-creme-lissant.webp',
     inci: 'WATER, UREA, COCOS NUCIFERA (COCONUT) OIL, GLYCERIN, OCTYLDODECANOL, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, PANTHENOL, SILICA, PENTYLENE GLYCOL, GLYCERYL GLUCOSIDE, OCTYLDODECYL XYLOSIDE, PEG-30 DIPOLYHYDROXYSTEARATE, TRIACETIN, SERINE, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, SODIUM LACTATE, PROPYLENE GLYCOL, DISODIUM EDTA, POLYSORBATE 60, SORBITAN ISOSTEARATE, HISTIDINE, BACILLUS FERMENT, CITRIC ACID, POTASSIUM SORBATE',
     url: 'https://www.labo-svr.com',
     tags: {
@@ -3619,6 +3592,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes:
       'Contient des pigments verts pour neutraliser visuellement les rougeurs. Équilibre le microbiome. Texture gel-crème légère. Sans parfum.',
     inci: 'WATER, C15-19 ALKANE, ORBIGNYA OLEIFERA SEED OIL, GLYCERIN, BUTYROSPERMUM PARKII (SHEA) BUTTER, POLYGLYCERYL-3 DISTEARATE, CORN STARCH MODIFIED, SQUALANE, BUTYLENE GLYCOL, GLYCERYL STEARATE SE, HYDROLYZED CORN STARCH, PENTYLENE GLYCOL, SODIUM ACRYLATES COPOLYMER, PROPANEDIOL, OPHIOPOGON JAPONICUS ROOT EXTRACT, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, DAUCUS CAROTA SATIVA (CARROT) ROOT EXTRACT, LECITHIN, SODIUM STEAROYL GLUTAMATE, SPHINGOMONAS FERMENT EXTRACT, GLYCERYL STEARATE CITRATE, MALTODEXTRIN, CITRIC ACID, TETRASODIUM GLUTAMATE DIACETATE, GLYCOSPHINGOLIPIDS, GLYCOLIPIDS, TOCOPHEROL, RHAMNOSE, CI 10020, SODIUM SULFATE, GLUCOSE, GLUCURONIC ACID, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, HYDROLYZED YEAST EXTRACT, HYDROLYZED GARDENIA FLORIDA EXTRACT',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sensifine-ar-creme.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ROSACEE, TAG_SLUGS.FLUSHS],
       secondary: [
@@ -3662,8 +3636,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     description:
       'Crème réparatrice accélératrice de cicatrisation pour peaux irritées, lésions, rougeurs, post-actes.',
     notes: 'Avec curcuma, niacinamide, HA hydrolysé. Convient visage/corps, famille entière.',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/6314BE76D77F78/large_1708340493.pngpng?1708340493',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-cicavit-plus-creme-hppi.webp',
     inci: 'WATER, ORBIGNYA OLEIFERA SEED OIL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, BUTYROSPERMUM PARKII (SHEA) BUTTER, ZEA MAYS (CORN) OIL, PROPANEDIOL, GLYCERYL STEARATE, GLYCERIN, BEHENYL ALCOHOL, NIACINAMIDE, BUTYLENE GLYCOL, CETEARYL ALCOHOL, CORN STARCH MODIFIED, CURCUMA LONGA (TURMERIC) ROOT EXTRACT, GLYCOLIPIDS, GLYCOSPHINGOLIPIDS, HYDROLYZED YEAST EXTRACT, LECITHIN, SODIUM STEAROYL GLUTAMATE, SODIUM STEAROYL LACTYLATE, ALPHA-GLUCAN OLIGOSACCHARIDE, GLUCOSE, HYDROLYZED HYALURONIC ACID, RHAMNOSE, TOCOPHEROL, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, CITRIC ACID, GLUCURONIC ACID, PENTYLENE GLYCOL, SODIUM HYDROXIDE, SODIUM POLYACRYLATE, XANTHAN GUM',
     url: 'https://www.svr.com',
     tags: {
@@ -3709,6 +3682,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       '5% Acide azélaïque. 5% Niacinamide. Technologie gel effet patch protecteur. Format nomade.',
     inci: 'WATER, ISOPROPYL ALCOHOL, AZELAIC ACID, HYDROXYPROPYL STARCH, NIACINAMIDE, PROPANEDIOL, GLYCERIN, SODIUM CARBOXYMETHYL STARCH, PENTYLENE GLYCOL, SALICYLIC ACID, SODIUM HYDROXIDE, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, SPHINGOMONAS FERMENT EXTRACT, FRAGRANCE, SODIUM PHYTATE',
     url: 'https://fr.labo-svr.com',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sebiaclear-gel-flash-4h.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.SOIN_LOCALISE, TAG_SLUGS.POST_ACNE],
       secondary: [
@@ -3755,6 +3729,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       '8% Gluconolactone. 5% Niacinamide. 2% Acide lactobionique. 1% Zinc. Diminue les marques post-acné.',
     inci: 'WATER, ISOPENTYLDIOL, ALCOHOL DENAT., GLUCONOLACTONE, NIACINAMIDE, LACTOBIONIC ACID, SODIUM HYDROXIDE, ZINC GLUCONATE, FRAGRANCE',
     url: 'https://fr.labo-svr.com',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sebiaclear-spray-corps.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.POST_ACNE],
       secondary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION],
@@ -3806,6 +3781,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       '4% Niacinamide. 1% Zinc. Acide lactobionique et salicylique. Texture eau rafraîchissante.',
     inci: 'WATER, ALCOHOL DENAT., NIACINAMIDE, LACTOBIONIC ACID, ZINC GLUCONATE, SALICYLIC ACID, SODIUM HYDROXIDE, FRAGRANCE',
     url: 'https://fr.labo-svr.com',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sebiaclear-micro-peel.webp',
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [
@@ -3856,8 +3832,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     description:
       'Nettoyant visage et corps sans savon purifiant pour peaux sensibles mixtes à grasses.',
     notes: '4% Gluconolactone. Acide salicylique. Base lavante douce. Sans savon. Matifie la peau.',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/6BBEB8517A228A/large_1744027522.pngpng?1744027522',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sebiaclear-gel-moussant.webp',
     inci: 'WATER, GLYCERIN, GLUCONOLACTONE, DECYL GLUCOSIDE, DISODIUM COCOYL GLUTAMATE, COCO-BETAINE, SALICYLIC ACID, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, SODIUM HYDROXIDE, FRAGRANCE',
     url: 'https://fr.labo-svr.com',
     tags: {
@@ -3904,6 +3879,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       '14% Gluconolactone. 4% Niacinamide. Retinoid-like (Crithmum maritimum). Acide hyaluronique. Anti-pollution.',
     inci: 'WATER, GLUCONOLACTONE, METHYL METHACRYLATE CROSSPOLYMER, DICAPRYLYL CARBONATE, NIACINAMIDE, PROPANEDIOL, SODIUM HYDROXIDE, DIMETHICONE, GLYCERIN, BIOSACCHARIDE GUM-4, CAMELLIA JAPONICA FLOWER EXTRACT, CETEARYL DIMETHICONE CROSSPOLYMER, CRITHMUM MARITIMUM EXTRACT, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, SCLEROTIUM GUM, SALICYLIC ACID, SODIUM HYALURONATE, TOCOPHEROL, 1,2-HEXANEDIOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CETEARYL ALCOHOL, GLYCERYL STEARATE, HYDROGENATED VEGETABLE OIL, PEG-100 STEARATE, COCO-GLUCOSIDE, FRAGRANCE',
     url: 'https://fr.labo-svr.com',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sebiaclear-serum.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.POST_ACNE],
       secondary: [
@@ -3956,6 +3932,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: 'Zinc. Niacinamide. Glycérine. Sans savon. Texture enveloppante. Visage et corps.',
     inci: 'WATER, GLYCERIN, CETEARYL ALCOHOL, POLYSORBATE 20, NIACINAMIDE, BEHENYL ALCOHOL, CETYL ALCOHOL, XANTHAN GUM, ZINC GLUCONATE, DECYL GLUCOSIDE, DISODIUM COCOYL GLUTAMATE, GLYCERYL STEARATE SE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, GLYCERYL STEARATE CITRATE, SODIUM HYDROXIDE, SODIUM PHYTATE, POTASSIUM SORBATE, SODIUM BENZOATE',
     url: 'https://fr.labo-svr.com',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sebiaclear-creme-lavante.webp',
     tags: {
       primary: [TAG_SLUGS.CREME_NETTOYANTE, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.DESHYDRATATION],
       secondary: [
@@ -3986,8 +3963,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     description:
       'Crème réparatrice et apaisante pour peaux à tendance acnéique sous traitements desséchants.',
     notes: '5% Niacinamide. Céramides. Sucre prébiotique. Acide hyaluronique. Anti-marques.',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/878C416A94D47A/large_1750235126.pngpng?1750235126',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sebiaclear-hydra.webp',
     inci: 'WATER, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, ORBIGNYA OLEIFERA SEED OIL, NIACINAMIDE, DIMETHICONE, GLYCERYL STEARATE CITRATE, SILICA, GLYCERIN, GLYCERYL GLUCOSIDE, PENTYLENE GLYCOL, CETEARYL ALCOHOL, SODIUM POLYACRYLATE STARCH, PARFUM, OPHIOPOGON JAPONICUS ROOT EXTRACT, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, MALTODEXTRIN, HYDROLYZED HYALURONIC ACID, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, GLYCOSPHINGOLIPIDS, GLYCOLIPIDS',
     url: 'https://fr.labo-svr.com',
     tags: {
@@ -4078,6 +4054,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '4% Gluconolactone. 4% Niacinamide. Acide salicylique. 2% Mat SR. Sucres hydrophiles.',
     inci: 'WATER, SILICA, PROPANEDIOL, GLUCONOLACTONE, NIACINAMIDE, UNDECANE, ORBIGNYA OLEIFERA SEED OIL, GLYCERYL STEARATE, TRIDECANE, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, PENTYLENE GLYCOL, SODIUM HYDROXIDE, CETEARYL ALCOHOL, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, SALICYLIC ACID, BUTYLENE GLYCOL, SACCHARIDE ISOMERATE, SODIUM STEAROYL LACTYLATE, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, PARFUM, POLYSORBATE 60, SORBITAN ISOSTEARATE, XANTHAN GUM, CITRIC ACID, SARCOSINE, SODIUM CITRATE, TOCOPHEROL',
     url: 'https://fr.labo-svr.com',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sebiaclear-mat-pores.webp',
     tags: {
       primary: [TAG_SLUGS.BRILLANCE, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.MATIFIANT],
       secondary: [
@@ -4126,6 +4103,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '4% Niacinamide. Acide salicylique. Filtres brevetés SVR. Action anti-marques UV.',
     inci: 'WATER, SILICA, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DIISOPROPYL ADIPATE, ETHYLHEXYL TRIAZONE, BEHENETH-25, ISONONYL ISONONANOATE, NIACINAMIDE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, GLYCERIN, C12-15 ALKYL BENZOATE, C15-19 ALKANE, DIETHYLHEXYL BUTAMIDO TRIAZONE, GLYCERYL STEARATE CITRATE, ACRYLATES/C12-22 ALKYL METHACRYLATE COPOLYMER, PENTYLENE GLYCOL, BUTYLENE GLYCOL, SALICYLIC ACID, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, PARFUM, ARGININE, COCO-GLUCOSIDE, XANTHAN GUM, TOCOPHEROL, SODIUM HYDROXIDE, DISODIUM LAURYL SULFOSUCCINATE, GLYCINE SOJA (SOYBEAN) OIL, LECITHIN, SARCOSINE, LEPIDIUM SATIVUM SPROUT EXTRACT',
     url: 'https://fr.labo-svr.com',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sebiaclear-creme-spf50.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.MATIFIANT],
       secondary: [
@@ -4172,6 +4150,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: 'Gluconolactone. Micelles. Élimine le maquillage waterproof. Sans rinçage.',
     inci: 'WATER, POLOXAMER 184, PEG-7 GLYCERYL COCOATE, PENTYLENE GLYCOL, PROPANEDIOL, GLUCONOLACTONE, 1,2-HEXANEDIOL, CITRIC ACID, SODIUM HYDROXIDE, CETRIMONIUM BROMIDE, FRAGRANCE',
     url: 'https://fr.labo-svr.com',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sebiaclear-eau-micellaire.webp',
     tags: {
       primary: [TAG_SLUGS.EAU_MICELLAIRE, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [
@@ -4207,6 +4186,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '4% Niacinamide. Acide salicylique. Pigments minéraux micronisés. Teinte universelle.',
     inci: 'WATER, DIMETHICONE, CI 77891, CAPRYLYL METHICONE, NIACINAMIDE, PEG-10 DIMETHICONE, DIPHENYL DIMETHICONE, PROPYLENE GLYCOL, PEG/PPG-18/18 DIMETHICONE, NEOPENTYL GLYCOL DIHEPTANOATE, CI 77492, BORON NITRIDE, LAUROYL LYSINE, CETEARYL DIMETHICONE CROSSPOLYMER, DISTEARDIMONIUM HECTORITE, PROPYLENE CARBONATE, SACCHARIDE ISOMERATE, SALICYLIC ACID, CITRIC ACID, SODIUM CITRATE, SODIUM HYDROXIDE, TRIETHOXYCAPRYLYLSILANE, PARFUM, CI 77491, CI 77499',
     url: 'https://fr.labo-svr.com',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sebiaclear-active-teinte.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.CREME_SOLAIRE_TEINTEE, TAG_SLUGS.MATIFIANT],
       secondary: [
@@ -4257,6 +4237,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       '5% Vitamine C optimisée. Peptide lissant. Extrait de Gentiane. Micro-pigments réflecteurs.',
     inci: 'WATER, ASCORBYL TETRAISOPALMITATE, MICA, SODIUM POLYACRYLATE, CI 77891 (TITANIUM DIOXIDE), ACETYL HEXAPEPTIDE-8, CARBOMER, GENTIANA LUTEA ROOT EXTRACT, LACTOBACILLUS FERMENT, MALTODEXTRIN, SODIUM ACETYLATED HYALURONATE, SODIUM STEAROYL GLUTAMATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, TIN OXIDE, TOCOPHEROL, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, CITRIC ACID, PENTYLENE GLYCOL, PROPANEDIOL, SODIUM HYDROXIDE, FRAGRANCE, CI 77491 (IRON OXIDES)',
     url: 'https://fr.labo-svr.com',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-c-eye-biotic.webp',
     tags: {
       primary: [TAG_SLUGS.CERNES_POCHES, TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ECLAT],
       secondary: [
@@ -4294,6 +4275,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       '2% Collagène végétal. Vitamine C optimisée. Acide Hyaluronique. Texture à mémoire de forme.',
     inci: 'WATER, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, SQUALANE, GLYCERIN, BUTYROSPERMUM PARKII (SHEA) BUTTER, CAESALPINIA SPINOSA GUM, COLLAGEN AMINO ACIDS, LACTOBACILLUS FERMENT, MALTODEXTRIN, SODIUM ACETYLATED HYALURONATE, ASCORBYL TETRAISOPALMITATE, 1,2-HEXANEDIOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CAPRYLYL GLYCOL, CITRIC ACID, PENTYLENE GLYCOL, SODIUM HYDROXIDE, FRAGRANCE',
     url: 'https://fr.labo-svr.com',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-collagen-biotic.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.HYDRATATION],
       secondary: [
@@ -4334,6 +4316,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       'Peptide liftant. Vitamine C optimisée. Acide Hyaluronique. Texture fraîche non collante.',
     inci: 'WATER, HYDROXYPROPYL STARCH, PROPYLENE GLYCOL, C15-19 ALKANE, GLYCERYL STEARATE SE, CAPRYLIC/CAPRIC TRIGLYCERIDE, ISOSTEARYL ALCOHOL, C10-18 TRIGLYCERIDES, ACETYL HEXAPEPTIDE-1, BUTYLENE GLYCOL COCOATE, ETHYLCELLULOSE, HYDROXYACETOPHENONE, LACTOBACILLUS FERMENT, MALTODEXTRIN, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, SODIUM ACETYLATED HYALURONATE, SODIUM STEAROYL GLUTAMATE, ASCORBYL TETRAISOPALMITATE, GLYCERIN, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, CITRIC ACID, SODIUM POLYACRYLATE, FRAGRANCE',
     url: 'https://fr.labo-svr.com',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-filler-biotic.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.CONTOUR_YEUX],
       secondary: [
@@ -4365,6 +4348,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       'Peptides lissants. Vitamine C optimisée. Acide Hyaluronique. Idéal peaux mixtes à grasses.',
     inci: 'WATER, GLYCERIN, SQUALANE, ASCORBYL TETRAISOPALMITATE, LAUROYL LYSINE, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, SILICA, SODIUM POLYACRYLATE, PENTYLENE GLYCOL, MALTODEXTRIN, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, CARBOMER, FRAGRANCE, CITRIC ACID, LACTOBACILLUS FERMENT, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, SODIUM ACETYLATED HYALURONATE, SODIUM STEAROYL GLUTAMATE, SODIUM HYDROXIDE, DIPEPTIDE DIAMINOBUTYROYL BENZYLAMIDE DIACETATE',
     url: 'https://fr.labo-svr.com',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-pepti-biotic.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.MATIFIANT, TAG_SLUGS.PORES_DILATES],
       secondary: [
@@ -4444,6 +4428,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: `Duo d'acides hyaluroniques. Vitamine C optimisée. 48h d'hydratation.`,
     inci: 'WATER, BUTYLENE GLYCOL, GLYCERIN, PROPYLENE GLYCOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, ASCORBYL TETRAISOPALMITATE, 1,2-HEXANEDIOL, C10-18 TRIGLYCERIDES, CARBOMER, MALTODEXTRIN, SODIUM HYALURONATE, SODIUM ACRYLATES COPOLYMER, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CAPRYLYL GLYCOL, FRAGRANCE, SODIUM HYDROXIDE, LECITHIN, LACTOBACILLUS FERMENT, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, SODIUM ACETYLATED HYALURONATE',
     url: 'https://fr.labo-svr.com',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-hyalu-biotic.webp',
     tags: {
       primary: [TAG_SLUGS.REPULPANT, TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.HYDRATATION],
       secondary: [
@@ -4522,6 +4507,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: 'Tensioactifs ultra-doux. Sucre prébiotique. Rhamnose. Respecte le microbiote cutané.',
     inci: 'WATER, SODIUM C14-16 OLEFIN SULFONATE, COCO-GLUCOSIDE, COCO-BETAINE, GLYCERIN, PROPANEDIOL, CITRIC ACID, SODIUM BENZOATE, ALPHA-GLUCAN OLIGOSACCHARIDE, POTASSIUM SORBATE, SODIUM PHYTATE, SACCHARIDE ISOMERATE, RHAMNOSE, GLUCOSE, GLUCURONIC ACID, SODIUM CITRATE, DISODIUM ACETYL GLUCOSAMINE PHOSPHATE, CAFFEYL GLUCOSIDE',
     url: 'https://fr.labo-svr.com',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-cicavit-gel-moussant.webp',
     tags: {
       primary: [TAG_SLUGS.GEL_NETTOYANT, TAG_SLUGS.CICATRISATION, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
@@ -4552,6 +4538,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: 'Protection 8h. Beurre de Karité & Huile de Coco. Sucre prébiotique. Fini non gras.',
     inci: 'WATER, GLYCERIN, COCOS NUCIFERA (COCONUT) OIL, DIGLYCERIN, VEGETABLE OIL, C12-16 ALCOHOLS, GLYCOL PALMITATE, CETYL PALMITATE, GLYCERYL STEARATE CITRATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX, SILICA, PENTYLENE GLYCOL, 1,2-HEXANEDIOL, SODIUM POLYACRYLATE, HYDROGENATED LECITHIN, PALMITIC ACID, ALPHA-GLUCAN OLIGOSACCHARIDE, PROPANEDIOL, CAPRYLYL GLYCOL, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, DISODIUM ACETYL GLUCOSAMINE PHOSPHATE, RHAMNOSE, CAFFEYL GLUCOSIDE, GLUCOSE, GLUCURONIC ACID',
     url: 'https://fr.labo-svr.com',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-cicavit-creme-mains.webp',
     tags: {
       primary: [TAG_SLUGS.CREME_MAINS, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CICATRISATION],
       secondary: [
@@ -4747,6 +4734,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       '8% Complexe dépigmentant. 2% Vitamine C optimisée. Bio-neige soft focus pour flouter les taches.',
     inci: 'WATER, CAPRYLIC/CAPRIC TRIGLYCERIDE, DIMETHICONE, ASCORBYL TETRAISOPALMITATE, SILICA, DICAPRYLYL CARBONATE, BUTYLENE GLYCOL, BORON NITRIDE, CETEARYL ALCOHOL, PROPANEDIOL, BENTONITE, ETHYLHEXYL FERULATE, PLANKTON EXTRACT, DIACETYL BOLDINE, GLYCERIN, SODIUM HYALURONATE, TOCOPHEROL, TOCOPHERYL ACETATE, UNDECYLENOYL PHENYLALANINE, 1,2-HEXANEDIOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CAPRYLYL GLYCOL, CITRIC ACID, PENTYLENE GLYCOL, XANTHAN GUM, COCO-GLUCOSIDE, FRAGRANCE',
     url: 'https://fr.labo-svr.com',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-clairial-serum.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.ECLAT],
       secondary: [
@@ -4783,6 +4771,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: 'Complexe dépigmentant + Niacinamide. Protection lumière bleue et IR. Fini mat.',
     inci: 'WATER, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DIISOPROPYL ADIPATE, UNDECANE, ISOAMYL LAURATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ETHYLHEXYL TRIAZONE, SILICA, BEHENETH-25, NIACINAMIDE, TRIDECANE, ACRYLATES/C12-22 ALKYL METHACRYLATE COPOLYMER, DIETHYLHEXYL BUTAMIDO TRIAZONE, GLYCERYL STEARATE CITRATE, BUTYLENE GLYCOL, HYDROGENATED VEGETABLE OIL, SOLANUM LYCOPERSICUM (TOMATO) FRUIT EXTRACT, ALKANNA TINCTORIA ROOT EXTRACT, ARGININE, DISODIUM LAURYL SULFOSUCCINATE, GLYCOLIPIDS, HYDROLYZED YEAST EXTRACT, LECITHIN, LEPIDIUM SATIVUM SPROUT EXTRACT, GLYCERIN, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, TOCOPHEROL, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, CITRIC ACID, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, PENTYLENE GLYCOL, POLYSORBATE 60, SORBITAN ISOSTEARATE, XANTHAN GUM, COCO-GLUCOSIDE, FRAGRANCE',
     url: 'https://fr.labo-svr.com',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-clairial-creme-spf50.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION],
       secondary: [
@@ -4822,6 +4811,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       'Duo White. Dérivé de férulate. Effet bonne mine unifiant. Convient à toutes les carnations.',
     inci: 'WATER, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, C12-15 ALKYL BENZOATE, DIISOPROPYL ADIPATE, CI 77891 (TITANIUM DIOXIDE), BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, CAPRYLIC/CAPRIC TRIGLYCERIDE, ISOPROPYL LAUROYL SARCOSINATE, SILICA, BORON NITRIDE, CETEARETH-20, GLYCERYL STEARATE, PEG-100 STEARATE, DICAPRYLYL CARBONATE, ACRYLATES/C12-22 ALKYL METHACRYLATE COPOLYMER, PROPANEDIOL, HYDROGENATED VEGETABLE OIL, CI 77492 (IRON OXIDES), FRAGRANCE, PENTYLENE GLYCOL, TOCOPHEROL ACETATE, CELLULOSE ACETATE, ALUMINA, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, ARGININE, CITRIC ACID, ACRYLATES/AMMONIUM METHACRYLATE COPOLYMER, XANTHAN GUM, CI 77491 (IRON OXIDES), COCO-GLUCOSIDE, SODIUM CITRATE, STEARALKONIUM HECTORITE, PROPYLENE GLYCOL STEARATE, SODIUM HYALURONATE, UNDECYLENOYL PHENYLALANINE, BENTONITE, BUTYLENE GLYCOL, MAGNESIUM STEARATE, ALUMINUM HYDROXIDE, PROPYLENE CARBONATE, DISODIUM LAURYL SULFOSUCCINATE, CI 77499 (IRON OXIDES), ALGIN, SCLEROTIUM GUM, LECITHIN, PULLULAN, TIN OXIDE, YEAST EXTRACT, ETHYLHEXYL FERULATE, TOCOPHEROL, DIACETYL BOLDINE, HYDROLYZED YEAST EXTRACT, GLYCOLIPIDS',
     url: 'https://fr.labo-svr.com',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-clairial-day.webp',
     tags: {
       primary: [
         TAG_SLUGS.ANTI_TACHES,
@@ -4859,6 +4849,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: 'Complexe dépigmentant. Enzyme de papaye. Niacinamide. Applicateur pinceau expert.',
     inci: 'WATER, DICAPRYLYL ETHER, GLYCERIN, ISONONYL ISONONANOATE, NIACINAMIDE, SQUALANE, BEHENYL ALCOHOL, DIGLYCERIN, PROPYLENE GLYCOL, BUTYLENE GLYCOL, PROPANEDIOL, STEARETH-2, STEARETH-21, ALGIN, BENTONITE, CARBOMER, ETHYLHEXYL FERULATE, GLYCOLIPIDS, HYDROLYZED YEAST EXTRACT, PAPAIN, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, YEAST EXTRACT, DIACETYL BOLDINE, TOCOPHEROL, UNDECYLENOYL PHENYLALANINE, 1,2-HEXANEDIOL, CAPRYLYL/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CITRIC ACID, GLYCERYL STEARATE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, JOJOBA ESTERS, PEG-100 STEARATE, PENTYLENE GLYCOL, POLYSORBATE 60, SORBITAN ISOSTEARATE, XANTHAN GUM, FRAGRANCE',
     url: 'https://fr.labo-svr.com',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-clairial-night-peel.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.HYPERPIGMENTATION],
       secondary: [
@@ -4897,6 +4888,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       '45% actifs dermatologiques. Bio-calcium. Acide hyaluronique ultra-fragmenté. Duo anti-gravité.',
     inci: 'WATER, DICAPRYLYL CARBONATE, ISONONYL ISONONANOATE, HEXYLDECYL STEARATE, OLEIC/LINOLEIC/LINOLENIC POLYGLYCERIDES, SQUALANE, PROPANEDIOL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, GLYCERYL BEHENATE/EICOSADIOATE, HYDROXYPROPYL STARCH PHOSPHATE, ARGANIA SPINOSA KERNEL OIL, BIXA ORELLANA SEED EXTRACT, BORAGO OFFICINALIS SEED OIL, GLYCINE SOJA (SOYBEAN) OIL, GLYCOLIPIDS, GLYCOSPHINGOLIPIDS, LAVANDULA STOECHAS EXTRACT, LEONTOPODIUM ALPINUM CALLUS CULTURE EXTRACT, LUPINUS ALBUS SEED EXTRACT, OENOTHERA BIENNIS (EVENING PRIMROSE) OIL, SESAMUM INDICUM (SESAME) OIL UNSAPONIFIABLES, ARTEMISIA ABROTANUM EXTRACT, CALCIUM PCA, GLYCERIN, HYALURONIC ACID, SACCHARIDE ISOMERATE, TOCOPHEROL, 1,2-HEXANEDIOL, ACACIA SENEGAL GUM, BUTYLENE GLYCOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CITRIC ACID, PENTYLENE GLYCOL, SODIUM CITRATE, XANTHAN GUM, ALPHA-ISOMETHYL IONONE, CITRONELLOL, D-LIMONENE, LINALOOL, FRAGRANCE',
     url: 'https://fr.labo-svr.com',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-densitium-bi-serum.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.PEAU_SECHE],
       secondary: [
@@ -4936,6 +4928,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       'Bio-calcium. Acide hyaluronique ultra-fragmenté. Peptides. Duo d’acides aminés anti-jaunissement.',
     inci: 'WATER, OCTYLDODECANOL, VEGETABLE OIL, ORBIGNYA OLEIFERA SEED OIL, GLYCERYL STEARATE, GLYCERIN, BEHENETH-25, BEHENYL ALCOHOL, CETYL PALMITATE, CETEARYL ALCOHOL, 1,2-HEXANEDIOL, ARGININE PCA, CALCIUM PCA, SODIUM POLYACRYLOYLDIMETHYL TAURATE, BUTYLENE GLYCOL, HYDROXYACETOPHENONE, SODIUM STEAROYL LACTYLATE, MALTODEXTRIN, FRAGRANCE, XANTHAN GUM, HYALURONIC ACID, LACTOBACILLUS FERMENT, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, CARBOMER, SODIUM LACTATE, POLYSORBATE 20, SODIUM HYDROXIDE, PALMITOYL TRIPEPTIDE-1, PALMITOYL TETRAPEPTIDE-7',
     url: 'https://fr.labo-svr.com',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-densitium-creme.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.PEAU_SECHE],
       secondary: [
@@ -5038,8 +5031,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     description:
       'Gelée nettoyante qui se transforme en mousse onctueuse. Purifie, élimine impuretés, pollution et maquillage waterproof sans dessécher.',
     notes: 'Magnésium oxygénant pour détox & ré-oxygénation. Tensioactifs doux sans savon.',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/040442DF79490F/large_1731239385.pngpng?1731239385',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-physiopure-gelee-moussante.webp',
     inci: 'WATER, GLYCERIN, DISODIUM COCOYL GLUTAMATE, DECYL GLUCOSIDE, XANTHAN GUM, COCO-BETAINE, MAGNESIUM PCA, CITRIC ACID, POTASSIUM SORBATE, SODIUM BENZOATE, FRAGRANCE',
     url: 'https://fr.svr.com/products/physiopure-gelee-moussante-23',
     tags: {
@@ -5069,8 +5061,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'LAB16.16/D.10 - INGREDIENTS : AQUA/WATER/EAU, GLYCERIN, SODIUM C14-16 OLEFIN SULFONATE, SODIUM LAUROAMPHOACETATE, COCO-BETAINE, NIACINAMIDE, CITRIC ACID, SODIUM OLIVAMPHOACETATE, ALPHA-GLUCAN OLIGOSACCHARIDE, PARFUM (FRAGRANCE), SACCHARIDE ISOMERATE, CAPRYLYL/CAPRYL GLUCOSIDE, SODIUM BENZOATE, POTASSIUM SORBATE, POLYGLYCERYL-3 COCOATE, POLYGLYCERYL-10 LAURATE, GOSSYPIUM HERBACEUM (COTTON) SEED OIL, SODIUM CITRATE',
     url: 'https://www.atida.fr/svr-topialyse-huile-lavante-micellaire-relipidante-1l.html',
-    imageUrl:
-      'https://assets.atida.com/transform/b268d494-4cb9-4770-b574-e00019b2c54a/SVR-Topialyse-Huile-Lavante-Anti-Irritation-Relipidante-24h-1L?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-topialyse-huile-lavante-1l-269161.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -5096,8 +5087,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'LAB20.04/A.38 - INGREDIENTS : AQUA/WATER/EAU, SODIUM C14-16 OLEFIN SULFONATE, COCO-GLUCOSIDE, COCO-BETAINE, GLYCERIN, PARFUM (FRAGRANCE), CITRIC ACID, SODIUM BENZOATE, POTASSIUM SORBATE, SODIUM PHYTATE',
     url: 'https://www.atida.fr/svr-topialyse-gel-lavant-eco-recharge-1l.html',
-    imageUrl:
-      'https://assets.atida.com/transform/35d4e59d-6618-46d2-b7f9-47c017beab65/SVR-Topialyse-Gel-Lavant-Eco-Recharge-1L?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-topialyse-gel-lavant-recharge-1l-269151.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
@@ -5118,8 +5108,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'LAB16.16/D.10 - INGREDIENTS : AQUA/WATER/EAU, GLYCERIN, SODIUM C14-16 OLEFIN SULFONATE, SODIUM LAUROAMPHOACETATE, COCO-BETAINE, NIACINAMIDE, CITRIC ACID, SODIUM OLIVAMPHOACETATE, ALPHA-GLUCAN OLIGOSACCHARIDE, PARFUM (FRAGRANCE), SACCHARIDE ISOMERATE, CAPRYLYL/CAPRYL GLUCOSIDE, SODIUM BENZOATE, POTASSIUM SORBATE, POLYGLYCERYL-3 COCOATE, POLYGLYCERYL-10 LAURATE, GOSSYPIUM HERBACEUM (COTTON) SEED OIL, SODIUM CITRATE',
     url: 'https://www.atida.fr/svr-topialyse-huile-lavante-micellaire-relipidante-eco-recharge-1l.html',
-    imageUrl:
-      'https://assets.atida.com/transform/d3742c01-8916-4f1c-832c-f3053d17836f/SVR-Topialyse-Huile-Lavante-Eco-Recharge-1L?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-topialyse-huile-lavante-recharge-1l-269152.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -5145,8 +5134,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'INGREDIENTS : AQUA/WATER/EAU, GLYCERIN, SODIUM C14-16 OLEFIN SULFONATE, COCO-BETAINE, SODIUM LAUROAMPHOACETATE, LAUROYL/MYRISTOYL METHYL GLUCAMIDE, NIACINAMIDE, PARFUM/FRAGRANCE, CAPRYLYL/CAPRYL GLUCOSIDE, CARAMEL, POLYGLYCERYL-10 LAURATE, POLYGLYCERYL-3 COCOATE, ALPHA-GLUCAN OLIGOSACCHARIDE, CITRIC ACID, GOSSYPIUM HERBACEUM (COTTON) SEED OIL, SODIUM CHLORIDE, POTASSIUM SORBATE, SODIUM BENZOATE',
     url: 'https://www.atida.fr/svr-topialyse-huile-lavante-1l-eco-recharge-1l-peaux-atopiques-et-sensibles.html',
-    imageUrl:
-      'https://assets.atida.com/transform/41efc7e7-b4fe-4b19-b76e-d4fb7366c8f8/SVR-Topialyse-Huile-Lavante-1L-Eco-Recharge-1L-Peaux-Atopiques-et-Sensibles?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-topialyse-huile-lavante-1l-eco-recharge-1l-peaux-atopiques-et-sensibles-300253.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -5172,8 +5160,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'LAB20.04/A.38 - INGREDIENTS : AQUA/WATER/EAU, SODIUM C14-16 OLEFIN SULFONATE, COCO-GLUCOSIDE, COCO-BETAINE, GLYCERIN, PARFUM (FRAGRANCE), CITRIC ACID, SODIUM BENZOATE, POTASSIUM SORBATE, SODIUM PHYTATE',
     url: 'https://www.atida.fr/svr-topialyse-gel-lavant-1l-eco-recharge-1l-peaux-atopiques-et-sensibles.html',
-    imageUrl:
-      'https://assets.atida.com/transform/f4342367-05d3-4632-9dec-8abadf56a35d/SVR-Topialyse-Gel-Lavant-1L-Eco-Recharge-1L-Peaux-Atopiques-et-Sensibles?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-topialyse-gel-lavant-1l-eco-recharge-1l-peaux-atopiques-et-sensibles-300256.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
@@ -5194,8 +5181,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'LAB20.04/A.38 - INGREDIENTS : AQUA/WATER/EAU, SODIUM C14-16 OLEFIN SULFONATE, COCO-GLUCOSIDE, COCO-BETAINE, GLYCERIN, PARFUM (FRAGRANCE), CITRIC ACID, SODIUM BENZOATE, POTASSIUM SORBATE, SODIUM PHYTATE',
     url: 'https://www.atida.fr/svr-topialyse-gel-lavant-1l.html',
-    imageUrl:
-      'https://assets.atida.com/transform/862219f3-1ab8-43be-aa47-3aa8698daf75/SVR-Topialyse-Gel-Lavant-1L?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-topialyse-gel-lavant-1l-269140.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
@@ -5216,8 +5202,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'LAB21.08/A.04 - INGREDIENTS : AQUA/WATER/EAU, SODIUM LAURETH SULFATE, COCO-BETAINE, PEG-7 GLYCERYL COCOATE, PARFUM (FRAGRANCE), PEG-120 METHYL GLUCOSE DIOLEATE, 1,2-HEXANEDIOL, PROPANEDIOL, ETHYLHEXYLGLYCERIN, DIMETHYL PHENYLPROPANOL, PENTYLENE GLYCOL, GLYCERYL CAPRYLATE, LACTIC ACID, LACTOCOCCUS FERMENT EXTRACT, DECYL GLUCOSIDE, TOCOPHEROL',
     url: 'https://www.atida.fr/svr-spirial-deo-douche-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/4645d122-77bb-4b40-a20c-f081b5e4d12a/SVR-Spirial-Deo-Douche-Gel-Lavant-Deodorant-24h-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-spirial-deo-douche-gel-lavant-deodorant-400ml-269177.webp',
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -5245,8 +5230,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'TOPIALYSE Huile Lavante :INGREDIENTS : AQUA/WATER/EAU, GLYCERIN, SODIUM C14-16 OLEFIN SULFONATE, COCO-BETAINE, SODIUM LAUROAMPHOACETATE, LAUROYL/MYRISTOYL METHYL GLUCAMIDE, NIACINAMIDE, PARFUM/FRAGRANCE, CAPRYLYL/CAPRYL GLUCOSIDE, CARAMEL, POLYGLYCERYL-10 LAURATE, POLYGLYCERYL-3 COCOATE, ALPHA-GLUCAN OLIGOSACCHARIDE, CITRIC ACID, GOSSYPIUM HERBACEUM (COTTON) SEED OIL, SODIUM CHLORIDE, POTASSIUM SORBATE, SODIUM BENZOATETopialyse Baume Protect+ : LAB20.01/G.16/B - INGREDIENTS : AQUA/WATER/EAU, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, COCOS NUCIFERA (COCONUT) OIL, ORBIGNYA OLEIFERA SEED OIL, RICINUS COMMUNIS (CASTOR) SEED OIL, CETEARYL ALCOHOL, HYDROGENATED CASTOR OIL, GLYCERYL STEARATE SE, PENTYLENE GLYCOL, CETEARYL GLUCOSIDE, SODIUM STEAROYL GLUTAMATE, OPHIOPOGON JAPONICUS ROOT EXTRACT, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, MALTODEXTRIN, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, GLYCOSPHINGOLIPIDS, CITRIC ACID, GLYCOLIPIDS',
     url: 'https://www.atida.fr/svr-routine-topialyse-hygiene-et-soin-pour-peaux-atopiques-et-sensibles.html',
-    imageUrl:
-      'https://assets.atida.com/transform/3da0a4f0-6f75-4b07-821d-3f86c69c8014/SVR-Routine-Topialyse-Hygiene-et-Soin-peaux-Atopiques-et-Sensibles-Huile-lavante-Baume-Protect?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-routine-topialyse-hygiene-et-soin-peaux-atopiques-et-sensibles-huile-lavante-baume-protect-300271.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.SEBO_REGULATEUR, TAG_SLUGS.BAUME],
@@ -5267,8 +5251,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'LAB16.05/F.12 – INGREDIENTS (CONTAINS) : AQUA (PURIFIED WATER), GLYCERIN, SODIUM C14-16 OLEFIN SULFONATE, COCO-BETAINE, COCO-GLUCOSIDE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, NIACINAMIDE, ALPHAGLUCAN OLIGOSACCHARIDE, SACCHARIDE ISOMERATE, TOCOPHEROL, TOCOPHERYL ACETATE, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, CITRIC ACID, COCOS NUCIFERA (COCONUT) OIL, GLYCERYL OLEATE, GOSSYPIUM HERBACEUM (COTTON) SEED OIL , HYDROGENATED PALM GLYCERIDES CITRATE, PENTYLENE GLYCOL, SODIUM CITRATE, SODIUM HYDROXIDE, STYRENE/ACRYLATES COPOLYMER',
     url: 'https://www.atida.fr/svr-topialyse-baume-lavant-apaisant-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/bb35675f-5f8a-466f-a0f0-f8606e1e1b31/SVR-Topialyse-Baume-Lavant-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-topialyse-baume-lavant-apaisant-400ml-232627.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -5294,8 +5277,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'LAB20.04/A.38 - INGREDIENTS : AQUA/WATER/EAU, SODIUM C14-16 OLEFIN SULFONATE, COCO-GLUCOSIDE, COCO-BETAINE, GLYCERIN, PARFUM (FRAGRANCE), CITRIC ACID, SODIUM BENZOATE, POTASSIUM SORBATE, SODIUM PHYTATE',
     url: 'https://www.atida.fr/svr-topialyse-gel-lavant-400ml-6100189.html',
-    imageUrl:
-      'https://assets.atida.com/transform/c7282f19-8ed9-48d8-971e-9c9c989cb719/SVR-Topialyse-Gel-Lavant-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-topialyse-gel-lavant-400ml-269142.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
@@ -5316,8 +5298,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'LAB21.08/A.04 - INGREDIENTS : AQUA/WATER/EAU, SODIUM LAURETH SULFATE, COCO-BETAINE, PEG-7 GLYCERYL COCOATE, PARFUM/FRAGRANCE, PEG-120 METHYL GLUCOSE DIOLEATE, 1,2-HEXANEDIOL, PROPANEDIOL, ETHYLHEXYLGLYCERIN, DIMETHYL PHENYLPROPANOL, PENTYLENE GLYCOL, GLYCERYL CAPRYLATE, LACTIC ACID, LACTOCOCCUS FERMENT EXTRACT, DECYL GLUCOSIDE, TOCOPHEROL',
     url: 'https://www.atida.fr/svr-spirial-deo-douche-recharge-gel-lavant-deodorant-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/c9f304d6-135c-441e-beef-37abe715616d/SVR-SPIRIAL-DEO-DOUCHE-RECHARGE-Gel-Lavant-Deodorant-400ML?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-spirial-deo-douche-recharge-gel-lavant-deodorant-400ml-252922.webp',
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -5345,8 +5326,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'DEO-DOUCHE : LAB21.08/A.04 - INGREDIENTS : AQUA/WATER/EAU, SODIUM LAURETH SULFATE, COCO-BETAINE, PEG-7 GLYCERYL COCOATE, PARFUM (FRAGRANCE), PEG-120 METHYL GLUCOSE DIOLEATE, 1,2-HEXANEDIOL, PROPANEDIOL, ETHYLHEXYLGLYCERIN, DIMETHYL PHENYLPROPANOL, PENTYLENE GLYCOL, GLYCERYL CAPRYLATE, LACTIC ACID, LACTOCOCCUS FERMENT EXTRACT, DECYL GLUCOSIDE, TOCOPHEROL\n\nDEO-CREME : LAB20.39/A.23 - INGREDIENTS : AQUA/WATER/EAU, ALUMINUM CHLOROHYDRATE, C15-19 ALKANE, GLYCERYL STEARATE SE, PENTAERYTHRITYL DISTEARATE, BEHENETH-25, DIATOMACEOUS EARTH, GLYCERIN, GLYCOL PALMITATE, BEHENYL ALCOHOL, VEGETABLE OIL, SCLEROTIUM GUM, 2-METHYL 5-CYCLOHEXYLPENTANOL, SILICA, PROPANEDIOL, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, ALLANTOIN, GLYCERYL CAPRYLATE, LACTOCOCCUS FERMENT EXTRACT, TROPOLONE, DECYL GLUCOSIDE',
     url: 'https://www.atida.fr/svr-routine-spirial-anti-transpirante-deo-douche-400ml-et-deo-creme.html',
-    imageUrl:
-      'https://assets.atida.com/transform/af558ed8-d0f6-463e-944c-06feda4862ff/SVR-Routine-Spirial-Anti-Transpirante-Deo-Douche-400ml-et-Deo-Creme?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-routine-spirial-anti-transpirante-deo-douche-400ml-et-deo-creme-50ml-300085.webp',
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -5373,8 +5353,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'LAB21.08/A.04 - INGREDIENTS : AQUA/WATER/EAU, SODIUM LAURETH SULFATE, COCO-BETAINE, PEG-7 GLYCERYL COCOATE, PARFUM (FRAGRANCE), PEG-120 METHYL GLUCOSE DIOLEATE, 1,2-HEXANEDIOL, PROPANEDIOL, ETHYLHEXYLGLYCERIN, DIMETHYL PHENYLPROPANOL, PENTYLENE GLYCOL, GLYCERYL CAPRYLATE, LACTIC ACID, LACTOCOCCUS FERMENT EXTRACT, DECYL GLUCOSIDE, TOCOPHEROL',
     url: 'https://www.atida.fr/svr-spirial-gel-moussant-deodorant-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/45954880-ca3f-492f-a21d-1ec6e9608ed6/SVR-SPIRIAL-DEO-DOUCHE-Gel-Lavant-Deodorant-200ML?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-spirial-deo-douche-gel-lavant-deodorant-200ml-232392.webp',
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -5402,8 +5381,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/svr-routine-spirial-anti-transpirante-deo-douche-400ml-et-roll-on.html',
-    imageUrl:
-      'https://assets.atida.com/transform/3ad68061-ce6c-48cf-99be-a1f40fcf120d/SVR-Routine-Spirial-Anti-Transpirante-Deo-douche-400ml-et-Roll-on?format=webp&quality=80&io=transform:extend,width:310,height:310',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-routine-spirial-anti-transpirante-deo-douche-400ml-et-roll-on-301094.webp',
     tags: {
       primary: [TAG_SLUGS.DEODORANT],
       secondary: [],

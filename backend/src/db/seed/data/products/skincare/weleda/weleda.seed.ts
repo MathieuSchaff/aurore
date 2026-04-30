@@ -267,8 +267,7 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Eau, alcool , extrait de sédum âcre ou poivre des murailles, extrait de feuille de raifort, huiles essentielles dont huile essentielle de romarin.',
     url: 'https://www.atida.fr/weleda-lotion-capillaire-tonifiante-romarin-100ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/8a25b0fa-12f9-4eca-855d-99e5e881b7e9/Weleda-Romarin-Lotion-Capillaire-Tonifiante-Bio-100ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/weleda-romarin-lotion-capillaire-tonifiante-bio-100ml-263853.webp',
     tags: {
       primary: [TAG_SLUGS.TONIQUE],
       secondary: [TAG_SLUGS.PREPARATION, TAG_SLUGS.ZONE_VISAGE],
@@ -289,8 +288,7 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/weleda-calendula-savon-vegetal-bio-lot-de-2-x-100g.html',
-    imageUrl:
-      'https://assets.atida.com/transform/3b18410a-d27d-4a8f-b839-0f0aaab9c7c2/Weleda-Calendula-Savon-Vegetal-Bio-Lot-de-2-x-100g?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/weleda-calendula-savon-vegetal-bio-lot-de-2-x-100g-301147.webp',
     tags: {
       primary: [TAG_SLUGS.CREME_HYDRATANTE],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
@@ -311,8 +309,7 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Bicarbonate de sodium, eau, glycérine, acide silicique, jus de prunelle, extrait de résine de myrrhe, chlorure de sodium, extrait de ratanhia, extrait d'écorce de marron d'inde, cendres d'arum maculatum, gomme de guar, alcool, huile de jojoba, aesculine, lactose, huiles essentielles",
     url: 'https://www.atida.fr/weleda-pate-dentifrice-saline-lot-de-2-x-75ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/4fead393-c9a6-44d9-ac27-02d413dd4dd3/Weleda-Soin-Bucco-Dentaire-Pate-Dentifrice-Saline-Lot-de-2-x-75ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/weleda-soin-bucco-dentaire-pate-dentifrice-saline-lot-de-2-x-75ml-232077.webp',
     tags: {
       primary: [TAG_SLUGS.CREME_HYDRATANTE],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
@@ -333,8 +330,7 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Eau, carbonate de calcium, glycérine, argile, alcool, extrait de ratanhia, extrait de résine de myrrhe, xanthane, glycyrrhizate d'ammonium, huiles essentielles.",
     url: 'https://www.atida.fr/weleda-pate-dentifrice-au-ratanhia-lot-de-2-x-75ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/ef8fab6d-4f99-46c1-9546-ec158f21a802/Weleda-Soin-Bucco-Dentaire-Pate-Dentifrice-au-Ratanhia-Lot-de-2-x-75ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/weleda-soin-bucco-dentaire-pate-dentifrice-au-ratanhia-lot-de-2-x-75ml-232076.webp',
     tags: {
       primary: [TAG_SLUGS.CREME_HYDRATANTE],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
@@ -355,8 +351,7 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Glycérine, eau, acide silicique, alginate de sodium, extrait de fleur de camomille, extrait de racine de ratanhia, extrait de résine de myrrhe, alcool huiles essentielles (dont fenouil et menthe poivrée), aesculine.',
     url: 'https://www.atida.fr/weleda-gel-dentifrice-vegetal-lot-de-2-x-75ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/6ed92fbe-17aa-4cbe-91d4-f8ee3ab4a273/Weleda-Soin-Bucco-Dentaire-Gel-Dentifrice-Vegetal-Lot-de-2-x-75ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/weleda-soin-bucco-dentaire-gel-dentifrice-vegetal-lot-de-2-x-75ml-232075.webp',
     tags: {
       primary: [TAG_SLUGS.CREME_HYDRATANTE],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
@@ -377,8 +372,7 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Glycérine, eau, acide silicique, alginate de sodium, extrait de fleur de calendula, huile d'amande douce, aesculine, huiles essentielles.",
     url: 'https://www.atida.fr/weleda-gel-dentifrice-pour-enfant-lot-de-2-x-50ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/6ed7539b-e043-45ea-93af-493b23e27394/Weleda-Soin-Bucco-Dentaire-Gel-Dentifrice-pour-Enfant-Lot-de-2-x-50ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/weleda-soin-bucco-dentaire-gel-dentifrice-pour-enfant-lot-de-2-x-50ml-249231.webp',
     tags: {
       primary: [TAG_SLUGS.CREME_HYDRATANTE],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
@@ -399,8 +393,7 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Alcool, eau, extrait de résine de myrrhe, extrait de ratanhia, extrait d'écorce de marron d'inde, fluorite, kieserite (sulfate de magnésium), lactose, huiles essentiellesContient du fluorure de calcium.",
     url: 'https://www.atida.fr/weleda-bain-de-bouche-a-la-myrrhe-50ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/ebb54c2f-9c37-491f-ab6d-719724167022/Weleda-Soin-Bucco-Dentaire-Bain-de-Bouche-a-la-Myrrhe-Bio-50ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/weleda-soin-bucco-dentaire-bain-de-bouche-a-la-myrrhe-bio-50ml-259001.webp',
     tags: {
       primary: [TAG_SLUGS.CREME_HYDRATANTE],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
@@ -421,8 +414,7 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Eau, carbonate de calcium, glycérine, argile, extrait de calendula, alcool, extrait de résine de myrrhe, xanthane, glycyrrhizate d'ammonium, huiles essentielles.",
     url: 'https://www.atida.fr/weleda-pate-dentifrice-au-calendula-lot-de-2-x-75ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/bb72eb4c-fe2c-43d2-8000-205a1fe2680e/Weleda-Soin-Bucco-Dentaire-Pate-Dentifrice-au-Calendula-Lot-de-2-x-75ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/weleda-soin-bucco-dentaire-pate-dentifrice-au-calendula-lot-de-2-x-75ml-248859.webp',
     tags: {
       primary: [TAG_SLUGS.CREME_HYDRATANTE],
       secondary: [TAG_SLUGS.ZONE_VISAGE],

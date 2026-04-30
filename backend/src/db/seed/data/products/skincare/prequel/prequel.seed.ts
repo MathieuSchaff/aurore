@@ -17,8 +17,7 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
       'Acide Hypochloreux + Chlorure de Sodium. Idéal pour les peaux sujettes aux rougeurs et imperfections.',
     inci: 'ELECTROLYZED WATER, HYPOCHLOROUS ACID, MURIATIC ACID, SODIUM CHLORIDE, WATER (AQUA)',
     url: 'https://www.skinsafeproducts.com/prequel-universal-skin-solution-dermal-spray-2-fl-oz-60-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/3EECA6999E70F6/large_1752468020.pngpng?1752468020',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-universal-skin-solution-dermal-spray.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ANTI_ACNE],
       secondary: [
@@ -50,8 +49,7 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
     notes: 'Aloe Vera + Avoine + Glycérine. Idéal pour tous les types de peaux, même sensibles.',
     inci: 'ALOE BARBADENSIS LEAF JUICE, AVENA SATIVA KERNEL FLOUR, CITRIC ACID, COCAMIDOPROPYL BETAINE, DIHYDROXYPROPYL ARGININE HCL, DISODIUM COCOAMPHODIACETATE, ETHYLHEXYLGLYCERIN, GLYCERIN, GLYCERYL GLUCOSIDE, HYDROXYETHYLCELLULOSE, INULIN, LECITHIN, PENTYLENE GLYCOL, PHENOXYETHANOL, POLYQUATERNIUM-10, SODIUM CHLORIDE, SODIUM HYDROXIDE, TETRASODIUM GLUTAMATE DIACETATE, WATER (AQUA), XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/prequel-skin-gleanser-cleanser-2-fl-oz-40-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/0DF0659D409581/large_1750154217.pngpng?1750154217',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-skin-gleanser-cleanser.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
@@ -89,8 +87,7 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
     notes: 'Ectoïne 5% + Panthénol + Urée. Idéal pour les peaux stressées et sensibilisées.',
     inci: 'ALLANTOIN, CETEARYL ALCOHOL, CETEARYL GLUCOSIDE, CETEARYL ISONONANOATE, ECTOIN, ETHYLHEXYLGLYCERIN, GLYCERIN, HYDROGENATED POLYDECENE, HYDROXYETHYL UREA, LECITHIN, PANTHENOL, PENTYLENE GLYCOL, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, SODIUM CETEARYL SULFATE, SODIUM LACTATE, TRIACETIN, UREA, WATER (AQUA), XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/prequel-5-ectoin-cream-1-fl-oz-30-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/ACC017449A2A3C/large_1742536400.pngpng?1742536400',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-5-percent-ectoin-cream.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PEAU_REACTIVE],
       secondary: [
@@ -130,8 +127,7 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
     notes: 'Glycérine + Avoine + Aloe Vera. Idéal pour les peaux sèches et déshydratées.',
     inci: 'ALOE BARBADENSIS LEAF JUICE, AVENA SATIVA KERNEL FLOUR, CITRIC ACID, COCAMIDOPROPYL BETAINE, DIHYDROXYPROPYL ARGININE HCL, DISODIUM COCOAMPHODIACETATE, ETHYLHEXYLGLYCERIN, GLYCERIN, GLYCERYL GLUCOSIDE, HYDROXYETHYLCELLULOSE, INULIN, LECITHIN, PENTYLENE GLYCOL, PHENOXYETHANOL, POLYQUATERNIUM-10, SODIUM CHLORIDE, SODIUM HYDROXIDE, TETRASODIUM GLUTAMATE DIACETATE, WATER (AQUA), XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/prequel-non-drying-glycerin-cleanser-13-5-fl-oz-400-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/943E235ADFDE8F/large_1724387489.pngpng?1724387489',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-non-drying-glycerin-cleanser.webp',
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.PEAU_SECHE],
       secondary: [TAG_SLUGS.GEL_NETTOYANT, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
@@ -160,8 +156,7 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
       'Urée 10% + Niacinamide + Beurre de Karité. Idéal pour les peaux rugueuses et squameuses.',
     inci: 'BUTYROSPERMUM PARKII BUTTER, C12-15 ALKYL BENZOATE, C15-19 ALKANE, CANDELILLA/JOJOBA/RICE BRAN POLYGLYCERYL-3 ESTERS, CAPRYLIC/CAPRIC TRIGLYCERIDE, CETEARYL ALCOHOL, CITRIC ACID, CYCLOPENTASILOXANE, DIMETHICONE, ETHYLHEXYL STEARATE, ETHYLHEXYLGLYCERIN, GLYCERIN, JOJOBA ESTERS, LAURYL GLUCOSIDE, PHENOXYETHANOL, POLYGLYCERYL-6 DISTEARATE, POTASSIUM CETYL PHOSPHATE, SODIUM ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, SODIUM CITRATE, TETRASODIUM GLUTAMATE DIACETATE, TOCOPHEROL, UREA, WATER (AQUA)',
     url: 'https://www.skinsafeproducts.com/prequel-urea-advance-relife-moisturizing-milk-10-urea-niacinamide-shear-butter-13-5-fl-oz-400-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/A88BEC9C2EF016/large_1709015590.pngpng?1709015590',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-urea-advance-relife-moisturizing-milk.webp',
     tags: {
       primary: [TAG_SLUGS.PEAU_RUGUEUSE, TAG_SLUGS.DESHYDRATATION],
       secondary: [
@@ -201,8 +196,7 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
       'Acide Hyaluronique + Glycérine. Idéal pour les mains sèches ou exposées aux lavages fréquents.',
     inci: 'CETYL ALCOHOL, COCO-GLUCOSIDE, DIMETHICONE, ETHYLHEXYLGLYCERIN, GLYCERIN, GLYCERYL OLEATE, GLYCINE SOJA STEROLS, GLYCOLIPIDS, HYDROXYPROPYL METHYLCELLULOSE, ISOPROPYL MYRISTATE, PHENOXYETHANOL, PHYTIC ACID, SODIUM CHLORIDE, SODIUM HYALURONATE, SODIUM HYDROXIDE, STEARETH-21, STEARIC ACID, STEARYL ALCOHOL, VP/EICOSENE COPOLYMER, WATER (AQUA), XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/prequel-hand-wrap-hand-shielding-lotion-3-4-fl-oz-100-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/F32B3418317B35/large_1707886240.pngpng?1707886240',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-hand-wrap-hand-shielding-lotion.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.DESHYDRATATION],
       secondary: [TAG_SLUGS.CREME_MAINS, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_MAINS],
@@ -230,8 +224,7 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
     notes: `Céramides + Squalane + Acide Hyaluronique. Idéal pour tous les types de peaux en quête d'équilibre.`,
     inci: '1,2-HEXANEDIOL, ACETYL HEPTAPEPTIDE-4, ACRYLAMIDE/SODIUM ACRYLOYLDIMETHYLTAURATE COPOLYMER, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, ALUMINUM STARCH OCTENYLSUCCINATE, BACILLUS/SEA SALT FERMENT FILTRATE, BORON NITRIDE, CAPRYLYL GLYCOL, CERAMIDE AP, CERAMIDE AS, CERAMIDE EOP, CERAMIDE NP, CERAMIDE NS, CETYL ALCOHOL, CHLORPHENESIN, CITRIC ACID, DICAPRYLYL ETHER, DIMETHICONE, GLYCERIN, GLYCERYL STEARATE, HYDROGENATED LECITHIN, HYDROXYACETOPHENONE, ISOHEXADECANE, LECITHIN, LINOLEIC ACID, LINOLENIC ACID, MYRISTIC ACID, OLEIC/LINOLEIC/LINOLENIC POLYGLYCERIDES, PALMITIC ACID, PHENOXYETHANOL, POLYGLYCERYL-6 LAURATE, POLYGLYCERYL-6 OLEATE, POLYSORBATE 80, SACCHARIDE ISOMERATE, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, SODIUM CITRATE, SODIUM HYALURONATE, SODIUM HYDROXIDE, SORBITAN OLEATE, SQUALANE, STEARIC ACID, STEARYL ALCOHOL, TOCOPHEROL, TOCOPHERYL ACETATE, WATER (AQUA)',
     url: 'https://www.skinsafeproducts.com/prequel-am-pm-modern-moisturizer-2-fl-oz-60-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/66166B607CBE39/large_1749015126.pngpng?1749015126',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-am-pm-modern-moisturizer.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.HYDRATATION],
       secondary: [
@@ -272,8 +265,7 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
     notes: 'Peptides + Céramides + Squalane. Idéal pour une hydratation aérienne des peaux mixtes.',
     inci: 'ALANINE, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, ARGININE, BETAINE, BUTYLENE GLYCOL, CAPRYLYL GLYCOL, CARBOMER, CERAMIDE AP, CERAMIDE AS, CERAMIDE EOP, CERAMIDE NP, CERAMIDE NS, CITRIC ACID, ETHYLHEXYL OLIVATE, ETHYLHEXYL PALMITATE, ETHYLHEXYLGLYCERIN, GLUTAMIC ACID, GLYCERIN, GLYCERYL DIOLEATE, GLYCERYL OLEATE, GLYCINE, HEXAPEPTIDE-11, HYDROGENATED LECITHIN, HYDROLYZED RICE PROTEIN, HYDROXYACETOPHENONE, ISOPROPYL MYRISTATE, LYSINE HCL, PALMITIC ACID, PALMITOYL TETRAPEPTIDE-7, PALMITOYL TRIPEPTIDE-1, PCA, PHENOXYETHANOL, POLYGLYCERYL-10 STEARATE, POLYSORBATE 20, PROLINE, PROPANEDIOL, SERINE, SODIUM BENZOATE, SODIUM HYDROXIDE, SODIUM LACTATE, SODIUM PCA, SODIUM PHYTATE, SODIUM STEAROYL GLUTAMATE, SQUALANE, THREONINE, TOCOPHEROL, TRIDECANE, TRIOLEIN, UNDECANE, WATER (AQUA), XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/prequel-half-half-fluid-moisturizer-peptides-ceramide-5-7-fl-oz-168-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/B3AADF02AF2F73/large_1741345568.pngpng?1741345568',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-half-half-fluid-moisturizer.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -309,8 +301,7 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
       'Acides Glycolique, Lactique et Mandélique. Idéal pour les peaux ternes en quête de douceur.',
     inci: 'C13-14 ALKANE, C13-14 ISOALKANE, C15-23 ALKANE, CARRAGEENAN, DECYL GLUCOSIDE, ETHYLHEXYL OLIVATE, ETHYLHEXYL POLYHYDROXYSTEARATE, GLYCERIN, GLYCERYL OLEATE, GLYCOLIC ACID, HYDROXYACETOPHENONE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, LACTIC ACID, LECITHIN, LIPASE, MALIC ACID, MALTODEXTRIN, MANDELIC ACID, PHENOXYETHANOL, PHYTIC ACID, POLYGLYCERYL-10 STEARATE, POLYGLYCERYL-4 OLEATE, PROPANEDIOL, PROTEASE, SCLEROTIUM GUM, SILICA, SODIUM HYDROXIDE, SQUALANE, TETRADECANE, TRICAPRYLIN, WATER (AQUA), XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/prequel-multi-acid-milk-peel-aha-exfoliating-solution-7-6-fl-oz-226-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/F5A37784E02EC1/large_1736144540.pngpng?1736144540',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-multi-acid-milk-peel-aha-exfoliating-solution.webp',
     tags: {
       primary: [TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.ECLAT, TAG_SLUGS.TEINT_TERNE],
       secondary: [
@@ -348,8 +339,7 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
     notes: 'Centella Asiatica + Huile de Son de Riz. Idéal pour la technique du double nettoyage.',
     inci: 'CENTELLA ASIATICA LEAF EXTRACT, CETYL ETHYLHEXANOATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, LECITHIN, LINOLEIC ACID, LINOLENIC ACID, ORYZA SATIVA (RICE) BRAN OIL, PEG-10 ISOSTEARATE, PEG-20 GLYCERYL TRIISOSTEARATE, SORBETH-30 TETRAOLEATE, SORBITAN SESQUIOLEATE, TOCOPHEROL',
     url: 'https://www.skinsafeproducts.com/prequel-pre-gleanse-cleansing-oil-cica-oil-linoleic-acid-linolenic-acid-rice-bran-oil-6-5-fl-oz-193-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/691C4C8E3E17D1/large_1733119668.pngpng?1733119668',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-pre-gleanse-cleansing-oil.webp',
     tags: {
       primary: [TAG_SLUGS.DOUBLE_NETTOYAGE_1],
       secondary: [
@@ -388,8 +378,7 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
       'Céramides + Beurre de Karité + Centella Asiatica. Idéal pour les zones gercées ou irritées.',
     inci: 'ALOE BARBADENSIS LEAF JUICE, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, BUTYROSPERMUM PARKII (SHEA) BUTTER, CAMELLIA OLEIFERA LEAF EXTRACT, CAPRYLHYDROXAMIC ACID, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CENTELLA ASIATICA EXTRACT, CERAMIDE NP, CETEARYL ALCOHOL, CETEARYL OLIVATE, CHAMOMILLA RECUTITA FLOWER EXTRACT, CHOLESTEROL, CITRIC ACID, DIMETHICONE, DIPENTAERYTHRITYL HEXAHYDROXYSTEARATE, ETHYLHEXYLGLYCERIN, GLYCERIN, HYDROGENATED LECITHIN, HYDROGENATED POLYDECENE, ISOSORBIDE DICAPRYLATE, LACTIC ACID, LAURETH-8, OLEIC ACID, PHENOXYETHANOL, PHYTOSPHINGOSINE, POTASSIUM SORBATE, PROPANEDIOL, SILICA, SODIUM ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, SODIUM BENZOATE, SODIUM PHYTATE, SODIUM SULFATE, SORBITAN OLIVATE, STEARIC ACID, T-BUTYL ALCOHOL, TOCOPHEROL, TOCOPHERYL ACETATE, TRIDECANE, UNDECANE, WATER (AQUA), XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/prequel-skin-utility-balm-ph-6-1-7-fl-oz-50-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/0A13F7BF6AA783/large_1712914529.pngpng?1712914529',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-skin-utility-balm.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CICATRISATION],
       secondary: [
@@ -424,8 +413,7 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
       'Vitamine C + Acide Férulique + Niacinamide. Idéal pour prévenir le photovieillissement.',
     inci: '1,2-HEXANEDIOL, AMINOMETHYL PROPANOL, ASCORBIC ACID, CAPRYLYL GLYCOL, ERGOTHIONEINE, ETHOXYDIGLYCOL, FERULIC ACID, HYDROXYACETOPHENONE, INULIN, ISOPENTYDIOL, MANNITOL, NIACINAMIDE, PROPANEDIOL, WATER (AQUA)',
     url: 'https://www.skinsafeproducts.com/prequel-lucent-c-brightening-serum-vitamin-c-1-fl-oz-30-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/B4657A7131EE5F/large_1705381573.pngpng?1705381573',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-lucent-c-brightening-serum.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.PHOTO_VIEILLISSEMENT],
       secondary: [TAG_SLUGS.SERUM, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.MATIN, TAG_SLUGS.ZONE_VISAGE],
@@ -458,8 +446,7 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
       'Pétrolatum + Bisabolol + Vitamine E. Idéal pour les soins post-actes ou peaux extrêmement sèches.',
     inci: '1,2-HEXANEDIOL, BISABOLOL, BRASSICA CAMPESTRIS STEROLS, BRASSICA CAMPESTRIS/ALEURITES FORDI OIL COPOLYMER, CETYLHYDROXYPROLINE PALMITAMIDE, DIMETHICONE, HELIANTHUS ANNUUS EXTRACT, HEXYLDECANOL, ORYZA SATIVA BRAN EXTRACT, OZOKERITE, PARAFFINUM LIQUIDUM, PETROLATUM, ROSMARINUS OFFICINALIS LEAF EXTRACT, STEARIC ACID, TOCOPHEROL',
     url: 'https://www.skinsafeproducts.com/prequel-skin-utility-ointment-2-oz-56-6-g',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/17957475D37392/large_1702967392.pngpng?1702967392',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-skin-utility-ointment.webp',
     tags: {
       primary: [TAG_SLUGS.OCCLUSION, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
       secondary: [
@@ -494,8 +481,7 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
       'Acide Salicylique + Zinc PCA + Glycérine. Idéal pour les peaux grasses à tendance acnéique.',
     inci: 'CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL, CITRIC ACID, COCAMIDOPROPYL BETAINE, COCAMIDOPROPYL DIMETHYLAMINE, DISODIUM COCOAMPHODIACETATE, ETHYLHEXYLGLYCERIN, GLYCERIN, INULIN, LECITHIN, OLEA EUROPAEA (OLIVE) FRUIT OIL, PHENOXYETHANOL, POLYQUATERNIUM-10, POLYSORBATE 20, POLYSORBATE 80, SALICYLIC ACID, SODIUM CHLORIDE, SODIUM HYDROXIDE, SUCCINIC ACID, TETRASODIUM GLUTAMATE DIACETATE, WATER (AQUA), XANTHAN GUM, ZINC PCA',
     url: 'https://www.skinsafeproducts.com/prequel-gleanser-sa-non-drying-salicylic-acid-cleanser-13-5-fl-oz-400-ml-2-count',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/BE67EF14C20879/large_1736511659.pngpng?1736511659',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-gleanser-sa-non-drying-salicylic-acid-cleanser.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [
@@ -532,8 +518,7 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
       'Niacinamide + Panthénol + Glycérine. Idéal pour une protection invisible sans fini gras.',
     inci: '1,2-HEXANEDIOL, C13-14 ALKANE, C15-23 ALKANE, CITRIC ACID, DECYL GLUCOSIDE, DIMETHICONE, GLYCERIN, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, NARINGENIN, NIACINAMIDE, PANTHENOL, PANTHENYL TRIACETATE, PEG/PPG-18/18 DIMETHICONE, PHENOXYETHANOL, SODIUM HYDROXIDE, TETRASODIUM GLUTAMATE DIACETATE, WATER (AQUA)',
     url: 'https://www.skinsafeproducts.com/prequel-multi-purpose-skin-protectant-skin-utility-gel-ph-4-25-1-7-fl-oz-50-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/68ED703A63509E/large_1722931751.pngpng?1722931751',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-multi-purpose-skin-protectant-skin-utility-gel.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.HYDRATATION],
       secondary: [
@@ -568,8 +553,7 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
       'Acide Polyglutamique + Ectoïne + Glycérine. Idéal pour les peaux déshydratées présentant des ridules.',
     inci: '1,2-HEXANEDIOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, BUTYLENE GLYCOL, CAPRYLYL GLYCOL, CARBOMER, CITRIC ACID, ECTOIN, ERYTHRITOL, ETHYLHEXYLGLYCERIN, GLYCERIN, HIBISCUS SABDARIFFA FRUIT EXTRACT, PHENOXYETHANOL, POLYGLUTAMIC ACID, PROPANEDIOL, SODIUM HYDROXIDE, TOCOPHEROL, WATER (AQUA), XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/prequel-multi-quench-plumping-hydration-serum-1-7-oz-50-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/0677078A3DEDFD/large_1739784455.pngpng?1739784455',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-multi-quench-plumping-hydration-serum.webp',
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.HYDRATATION],
       secondary: [
@@ -604,8 +588,7 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
       'Bêta-Glucane + Bisabolol + Avoine. Idéal pour les peaux sujettes à la couperose ou rosacée.',
     inci: '1,2-HEXANEDIOL, ALGIN, ALOE BARBADENSIS LEAF JUICE, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, ARNICA MONTANA FLOWER EXTRACT, ASCORBYL PALMITATE, AVENA SATIVA (OAT) KERNEL EXTRACT, BENZOIC ACID, BETA-GLUCAN, BISABOLOL, BUTYLENE GLYCOL, CAPRYLYL GLYCOL, CARBOMER, CHROMIUM OXIDE GREENS (CI 77288), CITRIC ACID, DIMETHICONE, DIPOTASSIUM GLYCYRRHIZATE, GALACTOARABINAN, GLYCERIN, GLYCOLIC ACID, HYDROXYACETOPHENONE, HYDROXYPHENYL PROPAMIDOBENZOIC ACID, LINOLEIC ACID, LINOLENIC ACID, MAGNESIUM CARBOXYMETHYL BETA-GLUCAN, OLEIC ACID, PANTHENOL, PENTYLENE GLYCOL, PHENOXYETHANOL, PIPERONYL GLUCOSIDE, POLYSILICONE-11, POTASSIUM SORBATE, PROPANEDIOL, SODIUM BENZOATE, SODIUM HYDROXIDE, SORBIC ACID, STEARIC ACID, TOCOPHEROL, WATER (AQUA), XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/prequel-redness-reform-soothing-serum-1-fl-oz-30-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/5C5093BF177ADB/large_1712807673.pngpng?1712807673',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-redness-reform-soothing-serum.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ROSACEE, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [

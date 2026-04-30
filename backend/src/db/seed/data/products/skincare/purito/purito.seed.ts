@@ -17,8 +17,7 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
       'Actifs clés : Niacinamide, Sodium Hyaluronate, Ecklonia Cava & Laminaria Japonica. Idéal pour peaux normales à mixtes cherchant hydratation sans lourdeur.',
     inci: '1,2-HEXANEDIOL, ADENOSINE, ALLANTOIN, ARGININE, BUTYLENE GLYCOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CARBOMER, CAULERPA LENTILLIFERA EXTRACT, CETEARYL ALCOHOL, CETYL ETHYLHEXANOATE, DIPROPYLENE GLYCOL, DISODIUM EDTA, ECKLONIA CAVA EXTRACT, ETHYLHEXYLGLYCERIN, GLYCERIN, GLYCERYL STEARATE SE, ISOHEXADECANE, LAMINARIA JAPONICA EXTRACT, MACADAMIA TERNIFOLIA SEED OIL, NIACINAMIDE, PANTHENOL, PHENYL TRIMETHICONE, POLYSORBATE 80, SALICORNIA HERBACEA EXTRACT, SEA WATER, SODIUM ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, SODIUM HYALURONATE, SORBITAN OLEATE, SORBITAN STEARATE, WATER',
     url: 'https://www.skinsafeproducts.com/purito-pure-water-cream-deep-sea-1-76-oz-50-g',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/CC2E8A984114EE/large_1727339936.pngpng?1727339936',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-pure-water-cream-deep-sea.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE],
       secondary: [
@@ -54,8 +53,7 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
       'Occlusion 4/10. Texture gel non collante, absorption rapide. Apaise instantanément, renforce barrière sans comédogène.',
     inci: 'AVENA SATIVA (OAT) SEED WATER (77%), BUTYLENE GLYCOL, GLYCERIN, 2,3-BUTANEDIOL, 1,2-HEXANEDIOL, AQUA/WATER, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, SQUALANE, HYDROXYACETOPHENONE, CARBOMER, DIPOTASSIUM GLYCYRRHIZATE, PANTHENOL, TROMETHAMINE, ETHYLHEXYLGLYCERIN, INULIN LAURYL CARBAMATE, SODIUM SURFACTIN, BETA-GLUCAN',
     url: 'https://purito.com',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/D23A58553F2DAB/large_1716136953.jpeg?1716136953',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-oat-in-calming-gel-cream.webp',
     tags: {
       primary: [TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
@@ -102,8 +100,7 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
       'Actifs clés : Centella Asiatica, Céramide NP, Peptides (Palmitoyl Tri/Tetra/Hexapeptide), Sodium Hyaluronate & Beurre de Karité. Idéal pour le contour des yeux fragilisé.',
     inci: '1,2-HEXANEDIOL, ADENOSINE, ARACHIDIC ACID, ARGANIA SPINOSA KERNEL OIL, ASIATIC ACID, ASIATICOSIDE, BUTYLENE GLYCOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, CAMELLIA SINENSIS LEAF EXTRACT, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CARBOMER, CENTELLA ASIATICA EXTRACT, CERAMIDE NP, CETEARYL ALCOHOL, CETEARYL GLUCOSIDE, CETEARYL OLIVATE, CETYL ALCOHOL, CETYL ETHYLHEXANOATE, DIPENTAERYTHRITYL HEXA C5-9 ACID ESTERS, DIPROPYLENE GLYCOL, DISODIUM EDTA, GLUCOSE, GLYCERIN, HYDROGENATED C6-14 OLEFIN POLYMERS, LIMNANTHES ALBA (MEADOWFOAM) SEED OIL, MACADAMIA TERNIFOLIA SEED OIL, MADECASSIC ACID, MADECASSOSIDE, METHYL TRIMETHICONE, MYRISTIC ACID, PALMITIC ACID, PALMITOYL DIPEPTIDE-10, PALMITOYL HEXAPEPTIDE-12, PALMITOYL TETRAPEPTIDE-7, PALMITOYL TRIPEPTIDE-1, PANTHENOL, PENTAERYTHRITYL TETRAISOSTEARATE, POTASSIUM CETYL PHOSPHATE, SODIUM HYALURONATE, SORBITAN OLIVATE, STEARIC ACID, TROMETHAMINE, WATER',
     url: 'https://www.skinsafeproducts.com/purito-centella-eye-cream-1-fl-oz-30-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/ACB1F836B9DEBA/large_1706142254.jpeg?1706142254',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-centella-eye-cream.webp',
     tags: {
       primary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX],
       secondary: [
@@ -146,8 +143,7 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
       'Contient des huiles essentielles (bergamote, lavande). Actifs clés : Centella Asiatica, Niacinamide, Céramide NP, Peptides & Sodium Hyaluronate.',
     inci: '1,2-HEXANEDIOL, ADENOSINE, ARGININE, ASIATIC ACID, ASIATICOSIDE, BUTYLENE GLYCOL, CAMELLIA SINENSIS LEAF EXTRACT, CAPRYLYL GLYCOL, CARBOMER, CENTELLA ASIATICA EXTRACT, CERAMIDE NP, CITRUS AURANTIUM BERGAMIA (BERGAMOT) FRUIT OIL, DIPOTASSIUM GLYCYRRHIZATE, DIPROPYLENE GLYCOL, DISODIUM EDTA, GLYCERETH-26, GLYCERIN, HYDROGENATED LECITHIN, HYDROLYZED JOJOBA ESTERS, LAVANDULA ANGUSTIFOLIA (LAVENDER) OIL, LIMONENE, LINALOOL, MADECASSIC ACID, NIACIN AMIDE, PALMITOYL DIPEPTIDE-10, PALMITOYL HEXAPEPTIDE-12, PALMITOYL TETRAPEPTIDE-7, PALMITOYL TRIPEPTIDE-1, PANCRATIUM MARITIMUM EXTRACT, PANTHENOL, POLYGLYCERYL-10 LAURATE, POLYGLYCERYL-10 MYRISTATE, SCLEROTIUM GUM, SODIUM HYALURONATE, WATER',
     url: 'https://www.skinsafeproducts.com/purito-centella-green-level-buffet-serum-2-fl-oz-60-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/0F7C990AC6165D/large_1707012453.jpeg?1707012453',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-centella-green-level-buffet-serum.webp',
     tags: {
       primary: [TAG_SLUGS.SERUM, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
@@ -181,8 +177,7 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
       'Version sans huiles essentielles du Buffet Serum. Actifs clés : Centella Asiatica, Niacinamide, Céramide NP, Peptides & Sodium Hyaluronate.',
     inci: '1,2-HEXANEDIOL, ADENOSINE, ARGININE, ASIATIC ACID, ASIATICOSIDE, BUTYLENE GLYCOL, CAMELLIA SINENSIS LEAF EXTRACT, CAPRYLYL GLYCOL, CARBOMER, CENTELLA ASIATICA EXTRACT, CERAMIDE NP, DIPOTASSIUM GLYCYRRHIZATE, DIPROPYLENE GLYCOL, DISODIUM EDTA, GLYCERETH-26, GLYCERIN, HYDROGENATED LECITHIN, HYDROLYZED JOJOBA ESTERS, MADECASSIC ACID, NIACIN AMIDE, PALMITOYL DIPEPTIDE-10, PALMITOYL HEXAPEPTIDE-12, PALMITOYL TETRAPEPTIDE-7, PALMITOYL TRIPEPTIDE-1, PANCRATIUM MARITIMUM EXTRACT, PANTHENOL, POLYGLYCERYL-10 LAURATE, POLYGLYCERYL-10 MYRISTATE, SCLEROTIUM GUM, SODIUM HYALURONATE, WATER',
     url: 'https://www.skinsafeproducts.com/purito-centella-serum-2-fl-oz-60-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/36CF7D6390BD63/large_1704011189.jpeg?1704011189',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-centella-serum.webp',
     tags: {
       primary: [TAG_SLUGS.SERUM, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
@@ -220,8 +215,7 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
       'Contient des huiles essentielles (bergamote, lavande). Actifs clés : Centella Asiatica, Céramide NP, Peptides, Sodium Hyaluronate & Acétyl Glucosamine.',
     inci: '1,2-HEXANEDIOL, ACETYL GLUCOSAMINE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, ADENOSINE, ARACHIDIC ACID, ARGANIA SPINOSA KERNEL OIL, ASIATIC ACID, ASIATICOSIDE, BUTYLENE GLYCOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, CAMELLIA SINENSIS LEAF EXTRACT, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CARBOMER, CENTELLA ASIATICA EXTRACT, CERAMIDE NP, CETEARYL OLIVATE, CETYL ALCOHOL, CETYL ETHYLHEXANOATE, CITRUS AURANTIUM BERGAMIA (BERGAMOT) FRUIT OIL, DIPENTAERYTHRITYL HEXA C5-9 ACID ESTERS, DIPROPYLENE GLYCOL, DISODIUM EDTA, GLYCERIN, GLYCERYL STEARATE, HYDROGENATED POLY(C6-14 OLEFIN), LAVANDULA ANGUSTIFOLIA (LAVENDER) OIL, LIMNANTHES ALBA (MEADOWFOAM) SEED OIL, LIMONENE, LINALOOL, MACADAMIA TERNIFOLIA SEED OIL, MADECASSIC ACID, METHYL TRIMETHICONE, MYRISTIC ACID, PALMITIC ACID, PALMITOYL DIPEPTIDE-10, PALMITOYL HEXAPEPTIDE-12, PALMITOYL TETRAPEPTIDE-7, PALMITOYL TRIPEPTIDE-1, PANCRATIUM MARITIMUM EXTRACT, PANTHENOL, PENTAERYTHRITYL TETRAISOSTEARATE, POLYGLYCERYL-2 STEARATE, POTASSIUM CETYL PHOSPHATE, SODIUM HYALURONATE, SORBITAN OLIVATE, STEARIC ACID, STEARYL ALCOHOL, TROMETHAMINE, WATER',
     url: 'https://www.skinsafeproducts.com/purito-wonder-releaf-centella-asiatica-soothing-eye-cream-1-01-fl-oz-30-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/B2A7A65DB3C015/large_1748668465.pngpng?1748668465',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-wonder-releaf-centella-eye-cream.webp',
     tags: {
       primary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX],
       secondary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
@@ -251,8 +245,7 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
       'Actifs clés : Cocoyl Isethionate, Méthyl Cocoyl Taurate, Extraits de Baobab & Prêle. Idéal pour peaux normales à grasses.',
     inci: '1,2-HEXANEDIOL, ADANSONIA DIGITATA FRUIT EXTRACT, BUTYLENE GLYCOL, CAMELLIA SINENSIS LEAF EXTRACT, CAPRYLYL GLYCOL, CITRIC ACID, COCO-BETAINE, COCONUT ACID, DISODIUM EDTA, EQUISETUM ARVENSE EXTRACT, GLYCERIN, GLYCERYL STEARATE, HYDROXYPROPYL STARCH PHOSPHATE, LAURIC ACID, NYMPHAEA ALBA FLOWER EXTRACT, OLEA EUROPAEA (OLIVE) LEAF EXTRACT, POLYQUATERNIUM-10, PROPANEDIOL, SODIUM BENZOATE, SODIUM CHLORIDE, SODIUM COCOYL ISETHIONATE, SODIUM METHYL COCOYL TAURATE, SOPHORA JAPONICA ROOT EXTRACT, VACCINIUM MACROCARPON (CRANBERRY) FRUIT EXTRACT, WATER',
     url: 'https://www.skinsafeproducts.com/purito-deep-foaming-cleanser-5-07-fl-oz-150-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/D71121A17EE05B/large_1752804334.pngpng?1752804334',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-deep-foaming-cleanser.webp',
     tags: {
       primary: [TAG_SLUGS.MOUSSE_NETTOYANTE, TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
       secondary: [
@@ -277,8 +270,7 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
     notes: `Actifs clés : Eau d"Avoine, Bêta-Glucane, Panthénol, Kaolin & Sodium Hyaluronate Crosspolymer. Idéal pour peaux ternes ou à texture irrégulière.`,
     inci: '1,2-HEXANEDIOL, ALCOHOL DENAT, AVENA SATIVA (OAT) KERNEL FLOUR, AVENA SATIVA (OAT) PEPTIDE, AVENA SATIVA (OAT) SEED WATER, AVENA SATIVA KEMEL EXTRACT, BETA-GLUCAN, BUTYLENE GLYCOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CELLULOSE, CITRIC ACID, DEXTRIN, DIMETHYL ISOSORBIDE, DIPOTASSIUM GLYCYRRHIZATE, DIPROPYLENE GLYCOL, ETHYLHEXYLGLYCERIN, GLYCERIN, GLYCERYL BEHENATE/EICOSADIOATE, GLYCERYL STEARATE, GLYCERYL STEARATE SE, GLYCINE MAX (SOYBEAN) POLYPEPTIDE, HECTORITE, HELIANTHUS ANNUUS SEED OIL, HYDROXYPROPYL STARCH PHOSPHATE, KAOLIN, LACTOBACILLUS FERMENT, ORYZA SATIVA (RICE) STARCH, PANTHENOL, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, PENTYLENE GLYCOL, PHELLODENDRON AMURENSE BARK EXTRACT, POLYGLYCERYL-10 BEHENATE/EICOSADIOATE, POTASSIUM SORBATE, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) SEED MEAL, SODIUM BENZOATE, SODIUM CHLORIDE, SODIUM COCOYL GLYCINATE, SODIUM COCOYL ISETHIONATE, SODIUM DNA, SODIUM HYALURONATE CROSSPOLYMER, SODIUM LAUROYL GLUTAMATE, SODIUM METHYL COCOYL TAURATE, SODIUM PHYTATE, SQUALANE, THEOBROMA CACAO (COCOA) SEED EXTRACT, TRIPROPYLENE GLYCOL, TRITICUM AESTIVUM (WHEAT) PEPTIDE, WATER, ZEA MAYS (CORN) GERM OIL, ZEA MAYS (CORN) STARCH',
     url: 'https://www.skinsafeproducts.com/purito-seoul-facial-scrub-cleanser-oat-seed-water-5-07-fl-oz-150-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/AFD86E3DE1788A/large_1747901612.pngpng?1747901612',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-seoul-facial-scrub-cleanser-oat.webp',
     tags: {
       primary: [TAG_SLUGS.EXFOLIANT_PHYSIQUE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.NETTOYANT],
       secondary: [TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.ZONE_VISAGE],
@@ -307,8 +299,7 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
       'Actifs clés : Panthenol, Bambusa Vulgaris, Niacinamide, Copper Tripeptide-1 & Madecassoside. Idéal pour peaux irritées ou en cours de récupération.',
     inci: '1,2-HEXANEDIOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, ASIATIC ACID, ASIATICOSIDE, BAMBUSA VULGARIS EXTRACT, BUTYLENE GLYCOL, COPPER TRIPEPTIDE-1, DIPOTASSIUM GLYCYRRHIZATE, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, HYDROLYZED JOJOBA ESTERS, HYDROXYACETOPHENONE, MADECASSIC ACID, MADECASSOSIDE, NIACINAMIDE, PANTHENOL, SODIUM HYALURONATE, SQUALANE, TROMETHAMINE, WATER, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/purito-bamboo-panthenol-cream-3-38-fl-oz-100-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/7C3D9FA551F032/large_1740735718.pngpng?1740735718',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-bamboo-panthenol-cream.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -346,8 +337,7 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
       'Actifs clés : Céramides (AP, AS, EOP, NP, NS), Cholestérol, Lécithine Hydrogénée & Squalane. Idéal pour peaux sèches, sensibles ou à barrière cutanée fragilisée.',
     inci: '1,2-HEXANEDIOL, ALLANTOIN, AMMONIUM ACRYLOYLDIMETHYLTAURATE VP COPOLYMER, BEHENYL ALCOHOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, CANDIDA/GARCINIA CAMBOGIA FERMENT, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CERAMIDE AP, CERAMIDE AS, CERAMIDE EOP, CERAMIDE NP, CERAMIDE NS, CETYL ALCOHOL, CHOLESTEROL, DIPROPYLENE GLYCOL, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, GLYCERIN, GLYCERYL STEARATE, HYDROGENATED LECITHIN, HYDROGENATED POLY(C6-14 OLEFIN), LIMNANTHES ALBA (MEADOW FOAM) SEED OIL, MACADAMIA TERNIFOLIA SEED OIL, PANTHENOL, POLYGLYCERYL-6 BEHENATE, POLYGLYCERYL-6 STEARATE, PROPANEDIOL, SQUALANE, WATER, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/purito-dermide-relief-barrier-moisturizer-ceramides-3-38-fl-oz-100-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/F578FDB958AF5F/large_1737193194.pngpng?1737193194',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-dermide-relief-barrier-moisturizer.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CREME_HYDRATANTE],
       secondary: [
@@ -384,8 +374,7 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
       'Actifs clés : Bifida Ferment Lysate, Lactobacillus/Riz & Soja fermentés, Niacinamide & Sodium Hyaluronate. Idéal pour peaux ternes cherchant éclat et densité.',
     inci: '1,2-HEXANEDIOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, ADENOSINE, ALLANTOIN, ARGININE, BIFIDA FERMENT LYSATE, BUTYLENE GLYCOL, CAMELLIA SINENSIS LEAF EXTRACT, CAPRYLYL GLYCOL, DIPOTASSIUM GLYCYRRHIZATE, DISODIUM EDTA, GLYCERIN, LACTOBACILLUS/RICE FERMENT FILTRATE, LACTOBACILLUS/SOYBEAN FERMENT EXTRACT, MORUS ALBA BARK EXTRACT, NELUMBO NUCIFERA FLOWER EXTRACT, NIACINAMIDE, PERILLA OCYMOIDES SEED EXTRACT, PORTULACA OLERACEA EXTRACT, SACCHAROMYCES/IMPERATA CYLINDRICA ROOT FERMENT EXTRACT, SACCHAROMYCES/VISCUM ALBUM (MISTLETOE) FERMENT EXTRACT, SODIUM HYALURONATE, TARAXACUM PLATYCARPUM EXTRACT, VISCUM ALBUM (MISTLETOE) LEAF EXTRACT',
     url: 'https://www.skinsafeproducts.com/purito-fermented-complex-94-boosting-essence-150-ml-5-1-fl-oz',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/7187AC7B138676/large_1580565220.jpeg?1580565220',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-fermented-complex-94-boosting-essence.webp',
     tags: {
       primary: [TAG_SLUGS.ESSENCE, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.PREPARATION],
       secondary: [
@@ -421,8 +410,7 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
       'Actifs clés : Acide Hyaluronique Hydrolysé, Sodium Hyaluronate, Sodium Acétylated Hyaluronate, Panthenol & Madecassoside. Idéal pour toutes peaux cherchant hydratation intensive.',
     inci: '1,2-HEXANEDIOL, ALLANTOIN, ASIATIC ACID, ASIATICOSIDE, BUTYLENE GLYCOL, CAPRYLYL GLYCOL, DIPOTASSIUM GLYCYRRHIZATE, DISODIUM EDTA, GLYCERIN, GLYCERYL GLUCOSIDE, HYDROLYZED HYALURONIC ACID, MADECASSIC ACID, MADECASSOSIDE, MALACHITE EXTRACT, PANTHENOL, PENTYLENE GLYCOL, SODIUM ACETYLATED HYALURONATE, SODIUM HYALURONATE, WATER',
     url: 'https://www.skinsafeproducts.com/purito-dermha-3-liquid-6-76-fl-oz-200-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/C0D563BD585075/large_1696437510.jpeg?1696437510',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-dermha3-liquid.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.LOTION, TAG_SLUGS.PREPARATION],
       secondary: [
@@ -460,8 +448,7 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
       'Contient des huiles essentielles (bergamote, rose, géranium, ylang-ylang). Actifs clés : Centella Asiatica, Portulaca Oleracea, Sodium Hyaluronate, Panthénol & Tréhalose.',
     inci: '1,2-HEXANEDIOL, ALLANTOIN, ARGININE, BUTYLENE GLYCOL, CANANGA ODORATA FLOWER OIL, CARBOMER, CENTELLA ASIATICA EXTRACT, CITRONELLOL, CITRUS AURANTIUM BERGAMIA (BERGAMOT) FRUIT OIL, DIPROPYLENE GLYCOL, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, GLYCERIN, LIMONENE, LINALOOL, PANTHENOL, PELARGONIUM GRAVEOLENS FLOWER OIL, PENTYLENE GLYCOL, POLYGLYCERYL-10 LAURATE, POLYGLYCERYL-10 MYRISTATE, PORTULACA OLERACEA EXTRACT, ROSE FLOWER OIL, SODIUM HYALURONATE, TREHALOSE, WATER',
     url: 'https://www.skinsafeproducts.com/purito-centella-green-level-calming-toner-6-76-fl-oz-200-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/4B17D5A1F28650/large_1707048898.pngpng?1707048898',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-centella-green-level-calming-toner.webp',
     tags: {
       primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.PREPARATION, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ZONE_VISAGE, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
@@ -486,8 +473,7 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
     notes: `Actifs clés : Huiles de Tournesol, d"Olive, d'Amande Douce, de Jojoba & de Pépins de Raisin. Idéal pour tout type de peau, y compris peau mixte.`,
     inci: 'CAPRYLIC/CAPRIC TRIGLYCERIDE, ETHYLHEXYLGLYCERIN, GLYCERYL CAPRYLATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, OLEA EUROPAEA (OLIVE) FRUIT OIL, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, SORBETH-30 TETRAOLEATE, TOCOPHEROL, VITIS VINIFERA (GRAPE) SEED OIL',
     url: 'https://www.skinsafeproducts.com/purito-green-cleansing-oil-6-76-fl-oz-200-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/3665C48CD0842F/large_1705666158.pngpng?1705666158',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-green-cleansing-oil.webp',
     tags: {
       primary: [TAG_SLUGS.HUILE_NETTOYANTE, TAG_SLUGS.DOUBLE_NETTOYAGE_1, TAG_SLUGS.NETTOYANT],
       secondary: [TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.ZONE_VISAGE],
@@ -509,8 +495,7 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
       'Actifs clés : Centella Asiatica, Céramide NP, Niacinamide, Bêta-Glucane & Phytosphingosine. Idéal pour peaux abîmées, irritées ou post-traitement.',
     inci: '1,2-HEXANEDIOL, ADENOSINE, ARACHIDIC ACID, ASIATIC ACID, ASIATICOSIDE, BEHENIC ACID, BETA-GLUCAN, BETAINE, BUTYLENE GLYCOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, CANDIDA BOMBICOLA/GLUCOSE/METHYL RAPESEEDATE FERMENT, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CARBOMER, CENTELLA ASIATICA, CERAMIDE NP, CETEARYL ALCOHOL, COCOS NUCIFERA (COCONUT) OIL, GLYCERIN, HYDROGENATED LECITHIN, HYDROXYETHYLCELLULOSE, MACADAMIA TERNIFOLIA SEED OIL, MADECASSIC ACID, MYRISTIC ACID, NIACINAMIDE, ORYZA SATIVA (RICE) GERM OIL, PALMITIC ACID, PERILLA OCYMOIDES SEED EXTRACT, PHYTOSPHINGOSINE, POTASSIUM CETYL PHOSPHATE, SODIUM CARBOMER, SODIUM HYALURONATE, SQUALANE, STEARIC ACID, TREMELLA FUCIFORMIS (MUSHROOM) EXTRACT, TROMETHAMINE, WATER, XANTHAN GUM',
     url: 'https://www.skinsafeproducts.com/purito-centella-recovery-cream-1-69-fl-oz-50-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/4335930BE0BF05/large_1693394044.pngpng?1693394044',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-centella-recovery-cream.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CREME_HYDRATANTE],
       secondary: [
@@ -548,8 +533,7 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
     notes: `Actifs clés : Huiles de Tournesol, d"Olive, d'Amande Douce, de Jojoba & Tocophérol (Vit. E). Idéal pour toutes peaux, particulièrement peaux sèches.`,
     inci: 'CAPRYLIC/CAPRIC TRIGLYCERIDE, ETHYLHEXYLGLYCERIN, GLYCERYL CAPRYLATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, OLEA EUROPAEA (OLIVE) FRUIT OIL, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, SORBETH-30 TETRAOLEATE, TOCOPHEROL, VITIS VINIFERA (GRAPE) SEED OIL',
     url: 'https://www.skinsafeproducts.com/purito-from-green-facial-cleansing-oil-6-76-fl-oz-200-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/EEF9034EADB0E6/large_1757042123.pngpng?1757042123',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-from-green-facial-cleansing-oil.webp',
     tags: {
       primary: [TAG_SLUGS.HUILE_NETTOYANTE, TAG_SLUGS.DOUBLE_NETTOYAGE_1, TAG_SLUGS.NETTOYANT],
       secondary: [TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.ZONE_VISAGE],
@@ -569,8 +553,7 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
     notes: `Actifs clés : Extrait & Farine de Noyau d"Avoine, Huile d'Avoine & Glycérine. Idéal pour peaux du corps sèches à très sèches.`,
     inci: '1,2-HEXANEDIOL, ARGININE, AVENA SATIVA (OAT) KERNEL EXTRACT, AVENA SATIVA (OAT) KERNEL FLOUR, AVENA SATIVA (OAT) KERNEL OIL, BUTYLENE GLYCOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CARBOMER, ETHYLHEXYLGLYCERIN, GLYCERIN, GLYCERYL STEARATE, POLYGLYCERYL-2 STEARATE, STEARYL ALCOHOL, WATER',
     url: 'https://www.skinsafeproducts.com/purito-oat-in-intense-cream-5-07-fl-oz-150-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/A02E8C1D4C589E/large_1725266349.pngpng?1725266349',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-oat-in-intense-cream.webp',
     tags: {
       primary: [TAG_SLUGS.CREME_CORPS, TAG_SLUGS.HYDRATATION, TAG_SLUGS.ZONE_CORPS],
       secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
@@ -595,8 +578,7 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
       'Actifs clés : Centella Asiatica, Madecassoside, Sodium Hyaluronate, Panthénol & Tréhalose. Idéal pour peaux ultra-sensibles ou réactives aux fragrances.',
     inci: '1,2-HEXANEDIOL, ALLANTOIN, ARGININE, ASIATIC ACID, ASIATICOSIDE, BUTYLENE GLYCOL, CARBOMER, CENTELLA ASIATICA EXTRACT, DIPROPYLENE GLYCOL, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, MADECASSIC ACID, MADECASSOSIDE, PANTHENOL, PENTYLENE GLYCOL, PORTULACA OLERACEA EXTRACT, SODIUM HYALURONATE, TREHALOSE, WATER',
     url: 'https://www.skinsafeproducts.com/purito-seoul-wonder-releaf-centella-toner-unscented-6-76-fl-oz-200-ml',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/3EC6C5C77AD31B/large_1752377456.pngpng?1752377456',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-seoul-wonder-releaf-centella-toner-unscented.webp',
     tags: {
       primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.PREPARATION, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [

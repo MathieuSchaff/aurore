@@ -16,7 +16,7 @@ export const AVRIL_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "EAU, SODIUM COCO-SULFATE, STÉARATE DE GLYCÉROL AE, COCAMIDOPROPYL BÉTAÏNE, ESTERS D'HUILE D'AMANDE DOUCE ET DE POLYGLYCÉROL-6, EAU FLORALE DE REINE DES PRÉS*, POLYGLYCERYL-2 LAURATE, ALCOOL CÉTÉARYLIQUE, GOMME XANTHANE, JUS DE FEUILLE D'ALOÈS EN POUDRE*, COCO-GLUCOSIDE, OLÉATE DE GLYCÉRYLE, HUILE DE GRAINE DE PRUNIER, SODIUM LAURYL GLUCOSE CARBOXYLATE, LAURYL GLUCOSIDE, PARFUM, CHLORURE DE SODIUM (SEL), ACIDE CITRIQUE, OXYDE DE DIOCTYLE, ALCOOL BENZYLIQUE, ALCOOL LAURYLIQUE (ALCOOL GRAS), CITRATE DE SODIUM (SEL DE SODIUM DE L'ACIDE CITRIQUE), ACIDE DÉHYDROACÉTIQUE, BENZOATE DE SODIUM (SEL DE SODIUM L'ACIDE BENZOÏQUE), ACIDE LACTIQUE, ACIDE SORBIQUE, TOCOPHÉROL (VITAMINE E), HYDROGENATED VEGETABLE GLYCERIDES CITRATE, GÉRANIOL, LINALOL",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avril/avril-bio-shampooing-nutrition-500ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avril-bio-shampooing-nutrition.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -38,7 +38,7 @@ export const AVRIL_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "EAU, SODIUM COCO-SULFATE, COCAMIDOPROPYL BÉTAÏNE, DECYL GLUCOSIDE, CHLORURE DE SODIUM (SEL), EAU FLORALE DE REINE DES PRÉS*, EXTRAIT DE FEUILLE, RACINE ET TIGE DE YUCCA, HYDROLYSATS DE PROTÉINES DE BLÉ, JUS DE FEUILLE D'ALOÈS EN POUDRE",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avril/avril-shampooing-purifiant-bio-500ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avril-shampooing-purifiant-bio.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -60,7 +60,7 @@ export const AVRIL_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "EAU, SODIUM COCO-SULFATE, INULINE (FRUCTOSANE, POLYSACCHARIDE DE FRUCTOSE), DECYL GLUCOSIDE, COCAMIDOPROPYL BÉTAÏNE, OLÉATE DE GLYCÉRYLE, COCO-GLUCOSIDE, CHLORURE DE SODIUM (SEL), JUS DE FEUILLE D'ALOÈS EN POUDRE*, PARFUM (",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avril/avril-shampooing-usage-frequent-bio-500ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avril-shampooing-usage-frequent-bio.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],

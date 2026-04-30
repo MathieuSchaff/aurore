@@ -15,8 +15,7 @@ export const TOPPIK_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/toppik-fibre-chatain-fonce-12g.html',
-    imageUrl:
-      'https://assets.atida.com/transform/201c00fe-1239-4572-b9ae-cdc18acc7ddc/Toppik-Fibre-Chatain-Fonce-12g?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/toppik-fibre-chatain-fonce-12g-231947.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],

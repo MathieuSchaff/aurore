@@ -16,8 +16,7 @@ export const GABRIEL_COUZIAN_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'MIPA-LAURETH SULFATE, LAURETH 4, COCAMIDE DEA, PARAFFINUM LIQUIDUM (MINERAL OIL), AQUA (WATER), SODIUM LAURYL CARBOXYLATE, LAURYL GLUCOSIDE, PEG 6 CAPRYLIC/CAPRIC GLYCERIDES, DECYL GLUCOSIDE, OLEA EUROPAEA (OLIVE OIL) FRUIT OIL, HYPERICUM PERFORATUM EXTRACT, TOCOPHEROL, GLYCERIN, PARFUM (FRAGRANCE), HYDROLYZED WHEAT PROTEIN, UREA, GLUCONOLACTONE, SODIUM BENZOATE, ALOE BARBADENSIS LEAF JUICE, CALCIUM GLUCONATE, SORBIC ACID',
     url: 'https://www.atida.fr/gabriel-couzian-bain-romain-huile-reparatrice-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/41d4375d-53f0-4a2f-827f-75bd6f3201ce/Gabriel-Couzian-Bain-Romain-Huile-Lavante-Reparatrice-Flacon-Pompe-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/gabriel-couzian-bain-romain-huile-lavante-reparatrice-flacon-pompe.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'anti-oxydant', 'cicatrisation'],
       secondary: ['reparateur', 'keratolytique', 'peau-sensible', 'nettoyant-corps', 'zone-corps'],

@@ -85,7 +85,7 @@ export const MUSTELA_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-bebe-shampooing-doux-500ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-bebe-shampooing-doux.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -106,7 +106,7 @@ export const MUSTELA_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, GLYCERIN, POLYGLYCERYL-3 DISTEARATE, C10-18 TRIGLYCERIDES, GLYCERYLSTEARATE SE, CETYL ALCOHOL, 1,2-HEXANEDIOL, GLYCERYL CAPRYLATE, GLYCERYL STEARATE CITRATE, PARFUM (FRAGRANCE), CARBOMER, PERSEA GRATISSIMA(AVOCADO) FRUIT EXTRACT, SODIUM HYDROXIDE',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-lait-de-toilette-sans-rincage-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-lait-de-toilette-sans-rincage.webp',
     tags: {
       primary: ['apres-shampooing'],
       secondary: [],
@@ -133,7 +133,7 @@ export const MUSTELA_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-shampooing-creme-demelant-nourrissant-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-shampooing-creme-demelant-nourrissant.webp',
     tags: {
       primary: ['apres-shampooing'],
       secondary: [],
@@ -154,7 +154,7 @@ export const MUSTELA_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'SODIUM COCOYL ISETHIONATE, HYDROGENATED VEGETABLE OIL, COCONUT ACID, POLYGLYCERYL-4 LAURATE, GLYCERIN, SODIUM ISETHIONATE, AQUA/WATER/EAU, OLEA EUROPAEA (OLIVE) FRUIT OIL, PERSEA GRATISSIMA (AVOCADO) OIL, MYRISTYL LACTATE, TETRASODIUM GLUTAMATE DIACETATE',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-shampooing-douche-solide-75g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-shampooing-douche-solide.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -180,7 +180,7 @@ export const MUSTELA_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-soin-demelant-nourrissant-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-soin-demelant-nourrissant.webp',
     tags: {
       primary: ['apres-shampooing'],
       secondary: [],

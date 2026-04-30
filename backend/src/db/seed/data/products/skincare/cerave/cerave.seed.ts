@@ -199,8 +199,7 @@ export const CERAVE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua/water, sodium lauroyl sarcosinate, cocamidopropyl, hydroxysultaine, glycerin, niacinamide, gluconolactone, sodium methyl cocoyl taurate, peg-150, pentaerytrhityl tetrastearate, ceramide np, ceramide ap, ceramide eop, carbomer, calcium gluconate, salicylic acid, sodium benzoate, sodium lauroyl lactylate, cholesterol, phenoxyethanol, disodium edta, tetrasodium edta, hydrolyzed, hyaluronic acid, phytosphingosine, xanthan gum, ethylhexylglycerin.',
     url: 'https://www.atida.fr/cerave-sa-anti-rugosites-gel-nettoyant-473ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/558c85a7-6f59-455a-9912-6363c26dfa58/CeraVe-SA-Gel-Nettoyant-Anti-Rugosites-473ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cerave-sa-gel-nettoyant-anti-rugosites-473ml-278468.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.PORES_DILATES],
       secondary: [
@@ -230,8 +229,7 @@ export const CERAVE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua/water, glycerin, cetearyl alcohol, phenoxyethanol, stearyl alcohol, cetyl alcohol, peg-40 stearate, behentrimonium methosulfate, glyceryl stearate, polysorbate 20, ethylhexylglycerin, potassium phosphate, disodium edta, dipotassium phosphate, sodium lauroyl lactylate, ceramide np, ceramide ap, phytosphingosine, cholesterol, sodium hyaluronate, xanthan gum, carbomer, tocopherol, ceramide eop. (code f.i.l. d214629/3)',
     url: 'https://www.atida.fr/cerave-creme-lavante-hydratante-visage-et-corps-nettoie-et-hydrate-sp-473ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/ddba75ba-c1d8-4d8d-b3d1-878f191b8b7f/CeraVe-Creme-Lavante-Hydratante-Visage-et-Corps-Nettoie-et-Hydrate-SP-473ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cerave-creme-lavante-hydratante-visage-et-corps-nettoie-et-hydrate-sp-473ml-233141.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -258,8 +256,7 @@ export const CERAVE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua/water, sodium lauroyl sarcosinate, cocamidopropyl, hydroxysultaine,glycerin, niacinamide, gluconolactone, sodium methyl cocoyl taurate, peg-150 pentaerythrityl tetrastearate, ceramide np, ceramde ap, ceramide eop, carbomer, calcium gluconate, salicylic acid, sodium benzoate, sodium lauroyl, lactylate, cholesterol, phenoxyethanol, disodium edta, tetrasodium edta, hydrolyzed hyaluronic acid, phytosphingosine, xanthan gum, ethylhexylglycerine.',
     url: 'https://www.atida.fr/cerave-anti-rugosites-gel-nettoyant-236ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/3dfbb331-6b07-4f88-9b41-815abcb02b7c/CeraVe-SA-Anti-Rugosites-Gel-Nettoyant-236ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cerave-sa-anti-rugosites-gel-nettoyant-236ml-278317.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.PORES_DILATES],
       secondary: [
@@ -289,8 +286,7 @@ export const CERAVE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua / water, glycerin, sodium methyl cocoyl taurate, coco-betaine, sodium cocoyl isethionate, sodium chloride, pca, ppg-5-ceteth-20, peg-100 stearate, peg-150 pentaerythrityl tetrastearate, peg-6 caprylic/capric glycerides, peg-30 dipolyhydroxystearate, ci 77891 / titanium dioxide, aspartic acid, ceramide np, ceramide ap, ceramide eop, sorbitan isostearate, carbomer, glycol distearate, glyceryl stearate, glyceryl oleate, glycine, trideceth-6, cetearyl alcohol, behentrimonium methosulfate, threonine, sodium hydroxide, salicylic acid, sodium pca, sodium lactate, arginine, sodium lauroyl lactylate, serine, sodium benzoate, valine, sodium hyaluronate, proline, isoleucine, cholesterol, phenoxyethanol, alanine, phenylalanine, coconut acid, coco-glucoside, chlorphenesin, disodium edta, hydroxyethyl urea, citric acid, hydroxyethyl acrylate/sodium acryloyldimethyl taurate copolymer, caprylyl glycol, phytosphingosine, xanthan gum, histidine, acrylates/c10-30 alkyl acrylate crosspolymer, polyquaternium-53, polyquaternium-39, polysorbate 60, ethylhexylglycerin, benzoic acid (f.i.l. d253447/1).',
     url: 'https://www.atida.fr/cerave-creme-moussante-nettoyante-236ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/9abca72e-ece4-4a5a-8d32-99f54cbbdaac/CeraVe-Nettoyants-Creme-Moussante-Nettoyante-Hydratante-236ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cerave-nettoyants-creme-moussante-nettoyante-hydratante-236ml-278406.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_ACNE],
       secondary: [
@@ -321,8 +317,7 @@ export const CERAVE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua/water, glycerin, cetearyl alcohol, phenoxyethanol, stearyl alcohol, cetyl alcohol, peg-40 stearate, behentrimonium methosulfate, glyceryl stearate, polysorbate 20, ethylhexylglycerin, potassium phosphate, disodium edta, dipotassium phosphate, sodium lauroyl lactylate, ceramide np, ceramide ap, phytosphingosine, cholesterol, sodium hyaluronate, xanthan gum, carbomer, tocopherol, ceramide eop. (code f.i.l. d214629/3)',
     url: 'https://www.atida.fr/cerave-nettoyants-creme-lavante-hydratante-visage-corps-236ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/5502d9e4-2fac-4082-8879-531902aed46b/CeraVe-Nettoyants-Creme-Lavante-Hydratante-Visage-Corps-236ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cerave-nettoyants-creme-lavante-hydratante-visage-corps-236ml-233136.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [

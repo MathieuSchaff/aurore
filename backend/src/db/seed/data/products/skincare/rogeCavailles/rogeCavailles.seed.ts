@@ -16,8 +16,7 @@ export const ROG__CAVAILL_S_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'SODIUM PALMATE, SODIUM COCOATE, AQUA (WATER), GLYCERIN, PARFUM (FRAGRANCE), PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, PRUNUS PERSICA (PEACH) KERNEL OIL, BUTYROSPERMUM PARKII (SHEA) BUTTER, GLYCERYL ROSINATE, OLEA EUROPAEA (OLIVE) OIL UNSAPONIFIABLES, SODIUM CHLORIDE, TOCOPHEROL, LAVANDULA ANGUSTIFOLIA (LAVENDER) FLOWER WATER, GLYCERYL OLEATE, CITRIC ACID, POTASSIUM SORBATE, SODIUM BENZOATE, SODIUM HYDROXIDE, TETRASODIUM GLUTAMATE DIACETATE, LECITHIN, ASCORBYL PALMITATE, HYDROGENATED PALM GLYCERIDES CITRATE, CAMPHOR, LINALYL ACETATE',
     url: 'https://www.atida.fr/cavailles-savon-surgras-jardin-l-original-3x200gr.html',
-    imageUrl:
-      'https://assets.atida.com/transform/224e46c0-41df-41d7-97ba-9121c2ccb739/Generated-image?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cavailles-savon-surgras-jardin-l-original-3x200gr.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'nettoyant-corps', 'zone-corps'],
@@ -42,8 +41,7 @@ export const ROG__CAVAILL_S_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, magnesium laureth sulfate, cocamidopropyl betaine, glycerin, propylene glycol, parfum , peg-6 caprylic/capric, glycerides, olive oil peg-7 esters, peg-75 lanolin, hydrolyzed collagen, citric acid, sodium benzoate, tetrasodium edta, ci 15510, citral, coumarin, geraniol, limonene, linalool, citronellol.',
     url: 'https://www.atida.fr/roge-cavailles-gel-bain-douche-surgras-l-original-eco-recharge-1l.html',
-    imageUrl:
-      'https://assets.atida.com/transform/e07f5c65-77af-46f4-b635-0bb04bc67387/Roge-Cavailles-Gel-Bain-Douche-Surgras-L-Original-Eco-Recharge-1L?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/roge-cavailles-gel-bain-douche-surgras-l-original-eco-recharge-1l-284272.webp',
     tags: {
       primary: [],
       secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
@@ -64,8 +62,7 @@ export const ROG__CAVAILL_S_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, magnesium laureth sulfate, cocamidopropyl betaine, glycerin, propylene glycol, peg-6 caprylic/capric glycerides, olive oil peg-7 esters, peg-75 lanolin, parfum, hydrolyzed collagen, citric acid, tetrasodium edta, sodium benzoate, ci 42051, ci 19140.',
     url: 'https://www.atida.fr/roge-cavailles-gel-bain-douche-surgras-amande-verte-1l.html',
-    imageUrl:
-      'https://assets.atida.com/transform/72e7dab7-2654-4f6b-b6f3-e8bbfca0cc80/Roge-Cavailles-Gel-Bain-Douche-Surgras-Amande-Verte-1L?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/roge-cavailles-gel-bain-douche-surgras-amande-verte-1l-284253.webp',
     tags: {
       primary: [],
       secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
@@ -86,8 +83,7 @@ export const ROG__CAVAILL_S_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, magnesium laureth sulfate, cocamidopropyl betaine, glycerin, propylene glycol, peg-6 caprylic/capric glycerides, parfum, olive oil peg-7 esters, peg-75 lanolin, hydrolyzed collagen, citric acid, sodium benzoate, tetrasodium edta, ci 42051.',
     url: 'https://www.atida.fr/roge-cavailles-gel-bain-douche-surgras-fleur-de-coton-1l.html',
-    imageUrl:
-      'https://assets.atida.com/transform/ab145717-ff5f-46cd-b30f-c26e5cf6f9ce/Roge-Cavailles-Gel-Bain-Douche-Surgras-Fleur-de-Coton-1L?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/roge-cavailles-gel-bain-douche-surgras-fleur-de-coton-1l-284254.webp',
     tags: {
       primary: [],
       secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
@@ -108,8 +104,7 @@ export const ROG__CAVAILL_S_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, Sodium Laureth Sulfate, PEG-7 Glyceryl Cocoate, Hydrogenated Starch Hydrolysate, Cocamidopropyl Betaine, Decyl Glucoside, Prunus Amygdalus Dulcis Oil, Polysorbate 20, Parfum, Argania Spinosa Kernel Oil, Glyceryl Oleate, Coco-Glucoside, Sodium Levulinate, Levulinic Acid, Glycerin, Citric Acid, Tetrasodium Glutamate Diacetate, PEG-120 Methyl Glucose Dioleate, Sodium Benzoate, CI 19140, CI 15510, Sodium Hydroxide.',
     url: 'https://www.atida.fr/roge-cavailles-huile-de-douche-veloutante-750ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/1bf420a2-9958-4c22-a85a-dd400be00dde/Roge-Cavailles-Huile-de-Douche-Veloutante-750ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/roge-cavailles-huile-de-douche-veloutante-750ml-284308.webp',
     tags: {
       primary: [],
       secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
@@ -130,8 +125,7 @@ export const ROG__CAVAILL_S_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, sodium trideceth sulfate, prunus amygdalus dulcis oil, sodium chloride, glycerin, sodium lauroamphoacetate, cocamide mea, olea europaea fruit oil, lactose, tocopheryl acetate, olive oil peg-7 esters, whey protein, citric acid, parfum, c18-c22 hydroxyalkyl hydroxypropyl guar, sodium benzoate, imidazolidinyl urea, dmdm hydantoin, disodium edta, sodium hydroxide.',
     url: 'https://www.atida.fr/roge-cavailles-lait-bain-douche-lait-de-figue-1l.html',
-    imageUrl:
-      'https://assets.atida.com/transform/feb797ac-c659-4dd7-bbd5-f13bae939555/Roge-Cavailles-Lait-Bain-Douche-Lait-de-Figue-1L?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/roge-cavailles-lait-bain-douche-lait-de-figue-1l-284257.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -157,8 +151,7 @@ export const ROG__CAVAILL_S_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, aloe barbadensis leaf juice powder*, decyl, glucoside, glycerin, coco-betaine sodium lauroyl, glutamate, glyceryl oleate, parfum, prunus, amygdalus dulcis oil*, coco-glucoside, xanthan gum, levulinic acid, sodium levulinate, sodium gluconate, citric acid, sodium benzoate, benzyl alcohol.',
     url: 'https://www.atida.fr/roge-cavailles-gel-bain-douche-surgras-aloe-vera-eco-recharge-bio-1l.html',
-    imageUrl:
-      'https://assets.atida.com/transform/f9bcefed-4075-4450-aeac-687a88761295/Roge-Cavailles-Gel-Bain-Douche-Surgras-Aloe-Vera-Eco-Recharge-Bio-1L?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/roge-cavailles-gel-bain-douche-surgras-aloe-vera-eco-recharge-bio-1l-284271.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],

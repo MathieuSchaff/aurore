@@ -16,7 +16,7 @@ export const LA_ROSEE_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-flacon-vide-verre-rechargeable-pour-shampoing-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-flacon-vide-verre-rechargeable-pour-shampoing.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -37,7 +37,7 @@ export const LA_ROSEE_HAIRCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), URTICA DIOICA LEAF EXTRACT, GLYCERIN, BRASSICAMIDOPROPYL DIMETHYLAMINE, COCOS NUCIFERA OIL, RICINUS COMMUNIS SEED OIL, ETHYLHEXYL STEARATE, BUTYROSPERMUM PARKII (SHEA) BUTTER, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, HYDROLYZED WHEAT PROTEIN, HYDROLYZED CORN PROTEIN, HYDROLYZED SOY PROTEIN, PARFUM (FRAGRANCE), HYDROGENATED CASTOR OIL, LACTIC ACID, LEVULINIC ACID, SQUALANE, SODIUM BENZOATE, SODIUM LEVULINATE, LEUCONOSTOC/RADISH ROOT FERMENT FILTRATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-recharge-masque-capillaire-reparateur-200g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-recharge-masque-capillaire-reparateur.webp',
     tags: {
       primary: ['masque-capillaire'],
       secondary: [],

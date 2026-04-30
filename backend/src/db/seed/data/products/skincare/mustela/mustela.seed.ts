@@ -16,7 +16,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), LAURYL GLUCOSIDE, GLYCERIN, COCAMIDOPROPYL BETAINE, DISODIUM COCOAMPHODIACETATE, CITRIC ACID, DISODIUM COCOYL GLUTAMATE, SODIUM BENZOATE, ALOE BARBADENSIS LEAF JUICE POWDER*, POTASSIUM SORBATE, SODIUM COCOYL GLUTAMATE, OLEA EUROPAEA (OLIVE) FRUIT OIL',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela-bebe/mustela-gel-lavant-bio-400-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-gel-lavant-bio.webp',
     tags: {
       primary: ['hydratation', 'apaisant'],
       secondary: ['nettoyant-corps', 'zone-corps'],
@@ -62,7 +62,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA /WATER/EAU, GLYCERIN, COCAMIDOPROPYL BETAINE, SODIUM MYRETH SULFATE, COCO-GLUCOSIDE, PEG-3 DISTEARATE, PEG-150 DISTEARATE, GLYCERYL CAPRYLATE, GLYCOL DISTEARATE, PARFUM (FRAGRANCE), POLYQUATERNIUM-10, CERA ALBA/BEESWAX/CIRE D’ABEILLE, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, POTASSIUM SORBATE, CITRIC ACID, CERAMIDE NP, PERSEA GRATISSIMA (AVOCADO) FRUIT EXTRACT',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela-bebe/mustela-gel-lavant-nourrissant-au-cold-cream-300ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-gel-lavant-nourrissant-au-cold-cream.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation'],
       secondary: ['emollience', 'nettoyant-corps', 'zone-corps'],
@@ -88,7 +88,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, PERSEA GRATISSIMA (AVOCADO) OIL, PARFUM (FRAGRANCE), PUNICA GRANATUM SEED OIL, TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela-bebe/mustela-huile-de-massage-100ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-huile-de-massage.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'huile-corps', 'zone-corps'],
@@ -113,7 +113,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "AQUA /WATER/EAU, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, GLYCERIN, POLYGLYCERYL-6 DISTEARATE, CETYL ALCOHOL, 1,2-HEXANEDIOL, CERA ALBA/BEESWAX/CIRE D'ABEILLE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, PARFUM (FRAGRANCE), JOJOBA ESTERS, CAPRYLYL GLYCOL, SODIUM STEAROYL GLUTAMATE, POLYGLYCERYL-3 BEESWAX/ POLYGLYCERYL-3 CIRE D'ABEILLE, TOCOPHERYL ACETATE, POLYSORBATE 60, SORBITAN STEARATE, CITRIC ACID, PERSEA GRATISSIMA (AVOCADO) FRUIT EXTRACT",
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela-bebe/mustela-hydra-bebe-lait-corps-500-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-hydra-bebe-lait-corps.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['lait-corps', 'zone-corps'],
@@ -135,7 +135,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU , GLYCERIN , CAPRYLYL/CAPRYL GLUCOSIDE , HYDROXYPROPYL GUAR , CITRIC ACID , SODIUM BENZOATE , POTASSIUM SORBATE , PERSEA GRATISSIMA (AVOCADO) FRUIT EXTRACT , HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL UNSAPONIFIABLES',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela-bebe/mustela-stelatopia-huile-lavante-500-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-stelatopia-huile-lavante.webp',
     tags: {
       primary: ['hydratation', 'eczema'],
       secondary: ['nettoyant-corps', 'zone-corps', 'peau-atopique', 'apaisant'],
@@ -156,7 +156,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), LAURYL GLUCOSIDE, GLYCERIN, COCAMIDOPROPYL BETAINE, DISODIUM COCOAMPHODIACETATE, CITRIC ACID, DISODIUM COCOYL GLUTAMATE, SODIUM BENZOATE, ALOE BARBADENSIS LEAF JUICE POWDER*, POTASSIUM SORBATE, SODIUM COCOYL GLUTAMATE, OLEA EUROPAEA (OLIVE) FRUIT OIL',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-gel-lavant-bio-eco-recharge-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-gel-lavant-bio-eco-recharge.webp',
     tags: {
       primary: ['hydratation', 'apaisant'],
       secondary: ['nettoyant-corps', 'zone-corps'],
@@ -177,7 +177,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU , GLYCERIN , CAPRYLYL/CAPRYL GLUCOSIDE , HYDROXYPROPYL GUAR , CITRIC ACID , SODIUM BENZOATE , PARFUM (FRAGRANCE) , POTASSIUM SORBATE , PERSEA GRATISSIMA (AVOCADO) FRUIT EXTRACT , PERSEA GRATISSIMA (AVOCADO) OIL',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-huile-lavante-500-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-huile-lavante.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['nettoyant-corps', 'zone-corps'],
@@ -199,7 +199,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'SODIUM PALMATE, SODIUM PALM KERNELATE, AQUA/WATER/EAU, PARFUM FRAGRANCE, PALM KERNEL ACID, GLYCERIN, SODIUM CHLORIDE, HORDEUM VULGARE EXTRACT/EXTRAIT D’ORGE, OCTYLDODECANOL, COCOGLYCERIDES, TETRASODIUM ETIDRONATE, POLYGLYCERYL2 DIPOLYHYDROXYSTEARATE, POLYGLYCERYL3 DIISOSTEARATE, MAGNESIUM SULFATE, CERA ALBA/BEESWAX/CIRE D’ABEILLE, CERAMIDE NP, PERSEA GRATISSIMA AVOCADO FRUIT EXTRACT, PHYTOSPHINGOSINE, SODIUM BENZOATE, CITRIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-savon-surgras-cold-cream-100-g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-savon-surgras-cold-cream.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation'],
       secondary: ['emollience', 'nettoyant-corps', 'zone-corps'],
@@ -224,7 +224,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA /WATER/EAU, GLYCERIN, OLUS OIL /VEGETABLE OIL/ HUILE VÉGÉTALE, BUTYROSPERMUM PARKII (SHEA) BUTTER, CETEARYL ALCOHOL, SQUALANE, DICAPRYLYL CARBONATE, PRUNUS PERSICA (PEACH) KERNEL OIL, ARACHIDYL ALCOHOL, CANDELILLA CERA (EUPHORBIA CERIFERA (CANDELILLA) WAX) )/CIRE DE CANDELILLA, CERA ALBA (BEESWAX)/CIRE D’ABEILLE, PARFUM (FRAGRANCE), HYDROGENATED VEGETABLE OIL, CETEARYL GLUCOSIDE, SCLEROTIUM GUM, BEHENYL ALCOHOL, BUTYLENE GLYCOL, PROPYLENE GLYCOL, GLYCERYL CAPRYLATE, CAPRYLOYL GLYCINE, ARACHIDYL GLUCOSIDE, XANTHAN GUM, SODIUM HYDROXIDE, CHAMOMILLA RECUTITA (MATRICARIA) FLOWER EXTRACT, MEL EXTRACT/HONEY EXTRACT/EXTRAIT DE MIEL, TOCOPHEROL, PERSEA GRATISSIMA (AVOCADO) FRUIT EXTRACT, TILIA CORDATA FLOWER EXTRACT, LINALYL ACETATE, TERPINEOL',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/par-soins/soins-nettoyants/mustela-baume-pectoral-reconfortant-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-baume-pectoral-reconfortant.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant'],
       secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -251,7 +251,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "TESTÉS SOUS CONTRÔLE DERMATOLOGIQUE ET PÉDIATRIQUE HAUTE TOLÉRANCE CUTANÉE ET OCULAIRE DONNANT LA PRIORITÉ AUX INGRÉDIENTS D'ORIGINE NATURELLE, AQUA/WATER/EAU, CAPRYLYL/CAPRYL GLUCOSIDE, PARFUM (FRAGRANCE), GLYCERIN, SODIUM BENZOATE, BUTYLENE GLYCOL, TARTARIC ACID, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, CHAMOMILLA RECUTITA (MATRICARIA) FLOWER EXTRACT, MEL EXTRACT/HONEY EXTRACT/EXTRAIT DE MIEL",
     url: 'https://www.pharmashopdiscount.com/fr/bebe/par-soins/soins-nettoyants/musti-eau-de-soin-parfumee-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/musti-eau-de-soin-parfumee.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['essence', 'preparation', 'zone-visage'],
@@ -272,7 +272,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA; ZINC OXIDE; PARAFFINUM LIQUIDUM; METHYL GLUCOSE DIOLEATE; PROPYLENE GLYCOL DIETHYLHEXANOATE; PEG-45/DODECYL GLYCOL COPOLYMER; TITANIUM DIOXIDE; GLYCERIN; CERESIN; 1,2-HEXANEDIOL; ETHYL LINOLEATE; PEG-8; BUTYROSPERMUM PARKII; PANTHENOL; GLYCERYL CAPRYLATE; PARFUM; CAPRYLYL GLYCOL; MAGNESIUM SULFATE; SORBIC ACID; SODIUM HYDROXIDE; SODIUM POLYACRYLATE; CITRIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela-bebe/mustela-creme-change-100-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-creme-change.webp',
     tags: {
       primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -300,7 +300,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA; ZINC OXIDE; PARAFFINUM LIQUIDUM; METHYL GLUCOSE DIOLEATE; PROPYLENE GLYCOL DIETHYLHEXANOATE; PEG-45/DODECYL GLYCOL COPOLYMER; TITANIUM DIOXIDE; GLYCERIN; CERESIN; 1,2-HEXANEDIOL; ETHYL LINOLEATE; PEG-8; BUTYROSPERMUM PARKII; PANTHENOL; GLYCERYL CAPRYLATE; PARFUM; CAPRYLYL GLYCOL; MAGNESIUM SULFATE; SORBIC ACID; SODIUM HYDROXIDE; SODIUM POLYACRYLATE; CITRIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela-bebe/mustela-creme-pour-le-change-50-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-creme-pour-le-change.webp',
     tags: {
       primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -350,7 +350,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, OLUS OIL/VEGETABLE OIL/HUILE VEGETALE, GLYCERIN, C10-18 TRIGLYCERIDES, CETYL ALCOHOL, POLYGLYCERYL-6 DISTEARATE, 1,2-HEXANEDIOL, CERA ALBA/BEESWAX/CIRE D’ABEILLE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, PARFUM (FRAGRANCE), JOJOBA ESTERS, CAPRYLYL GLYCOL, SODIUM STEAROYL GLUTAMATE, POLYGLYCERYL-3 BEESWAX, TOCOPHERYL ACETATE, CITRIC ACID, POLYSORBATE 60, SORBITAN ISOSTEARATE, PERSEA GRATISSIMA (AVOCADO) FRUIT EXTRACT',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela-bebe/mustela-hydra-bebe-creme-visage-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-hydra-bebe-creme-visage.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -375,7 +375,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA /WATER/EAU, CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, HYDROGENATED COCONUT OIL, GLYCERYL STEARATE, CERA ALBA/ BEESWAX/ CIRE D’ABEILLE, 1,2-HEXANEDIOL, LAURETH-23, CETEARETH-20, PARFUM (FRAGRANCE), GLYCERYL CAPRYLATE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CETEARETH-12, CETEARYL ALCOHOL, XANTHAN GUM, TOCOPHERYL ACETATE, SODIUM HYDROXIDE, PERSEA GRATISSIMA (AVOCADO) FRUIT EXTRACT, CERAMIDE NP, PHYTOSPHINGOSINE',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela-bebe/mustela-lait-nourrissant-cold-cream-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-lait-nourrissant-cold-cream.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant'],
       secondary: ['emollience', 'creme-hydratante', 'zone-visage'],
@@ -403,7 +403,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, CAPRILYC/CAPRIC TRIGLYCERIDE, PROPANEDIOL DICAPRYLATE, GLYCERIN, DI-C12-13 ALKYL MALATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL UNSAPONIFIABLES, POTASSIUM CETYL PHOSPHATE, GALACTOARABINAN, CETYL ALCOHOL, SCLEROTIUM GUM, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, CITRIC ACID, SODIUM BENZOATE, TOCOPHEROL, PROPANEDIOL, XANTHAN GUM, UNDECYL DIMETHYL OXAZOLINE PERSEA GRATISSIMA (AVOCADO) FRUIT EXTRACT',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela-bebe/mustela-soin-croutes-de-lait-40-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-soin-croutes-de-lait.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -425,7 +425,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'OLEA EUROPAEA (OLIVE) FRUIT OIL*, GLYCERIN**, AQUA/WATER/EAU, SUCROSE LAURATE, SUCROSE STEARATE, TOCOPHEROL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela-dermo-pediatrie/mustela-baume-allaitement-30-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-baume-allaitement.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -450,7 +450,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA /WATER/EAU, GLYCERIN, PETROLATUM, HYDROGENATED VEGETABLE OIL, CYCLOPENTASILOXANE, CAPRYLIC/CAPRIC TRIGLYCERIDE, SUCROSE DISTEARATE, DEXTRIN, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL UNSAPONIFIABLES, PRUNUS DOMESTICA SEED EXTRACT, 1,2-HEXANEDIOL, CANDELILLA CERA (EUPHORBIA CERIFERA (CANDELILLA) WAX)/CIRE DE CANDELILLA, SQUALANE, SUCROSE STEARATE, GLYCERYL CAPRYLATE, XANTHAN GUM, GLUCOSE, SORBITOL, CITRIC ACID, PERSEA GRATISSIMA (AVOCADO) FRUIT EXTRACT, CERAMIDE NP, PHYTOSPHINGOSINE',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela-dermo-pediatrie/mustela-stelatopia-creme-emolliente-40-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-stelatopia-creme-emolliente.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'eczema'],
       secondary: [
@@ -485,7 +485,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, PERSEA GRATISSIMA (AVOCADO) OIL*, CAPRYLIC/CAPRIC TRIGLYCERIDE, C10-18 TRIGLYCERIDES, GLYCERIN, CETYL ALCOHOL, POLYGLYCERYL-3 DISTEARATE, XANTHAN GUM, LEVULINIC ACID, GLYCERYL STEARATE CITRATE, SODIUM BENZOATE, SODIUM STEAROYL GLUTAMATE, GELLAN GUM, SODIUM LEVULINATE, TOCOPHEROL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, PROPANEDIOL, ALOE BARBADENSIS (ALOE VERA) LEAF JUICE POWDER*, PERSEA GRATISSIMA (AVOCADO) FRUIT EXTRACT',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-bio-baume-universel-extrait-d-avaocat-75ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-bio-baume-universel-extrait-d-avaocat.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'anti-oxydant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -512,7 +512,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, CAPRYLIC/CAPRIC TRIGLYCÉRIDE, C10-18 TRIGLYCÉRIDES, PANTHENOL, GLYCERIN, TRIISOSTEARIN, BUTYROSPERMUM PARKII (SHEA) BUTTER, POLYGLYCERYL-3 DISTEARATE, RICINUS COMMUNIS (CASTOR) SEED OIL, 1,2-HEXANEDIOL, CETEARYL, ALCOHOL, POTASSIUM CETYL POSPHATE, POLYACRYLATE CROSSPOLYMER-6, ALLANTOÏN, GLYCERYL, CAPRYLATE, GLYCERYL STEARATE CITRATE, HYDROGENNATED CASTOR OIL, HYDROLYZED HYALURONIC ACID, XANTHAN GUM, COPPER PCA, ZINC PCA, SODIUM HYDROXIDE, PERSEA GRATISSIMA (AVOCADO) FRUIT EXTRACT, CITRIC ACID, FABRIQUÉE EN FRANCE',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-cicastela-creme-reparatrice-peaux-irritees-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-cicastela-creme-reparatrice-peaux-irritees.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'barriere-cutanee', 'cicatrisation'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -591,7 +591,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA /WATER/EAU, CAPRYLIC/CAPRIC TRIGLYCERIDE, POLYGLYCERYL-2-DIPOLYHYDROXYSTEARATE, GLYCERIN, HYDROGENATED COCONUT OIL, CERA ALBA/BEESWAX/CIRE D’ABEILLE, BUTYROSPERMUM PARKII (SHEA) BUTTER, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, STEARALKONIUM HECTORITE, MAGNESIUM SULFATE, PARFUM (FRAGRANCE), GLUCONOLACTONE, LECITHIN, SODIUM BENZOATE, PROPYLENE CARBONATE, TOCOPHEROL, PERSEA GRATISSIMA (AVOCADO) FRUIT EXTRACT, CALCIUM GLUCONATE, CERAMIDE NP, PHYTOSPHINGOSINE, CITRIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-creme-nourrissante-cold-cream-a-la-cire-d-abeille-bio-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-creme-nourrissante-cold-cream-a-la-cire-d-abeille-bio.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant'],
       secondary: ['peau-sensible', 'reparateur', 'emollience', 'creme-hydratante', 'zone-visage'],
@@ -618,7 +618,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU , COCO-CAPRYLATE/CAPRATE , DICAPRYLYL CARBONATE , GLYCERIN , BUTYROSPERMUM PARKII (SHEA) BUTTER , C10-18 TRIGLYCERIDES , 1,2-HEXANEDIOL , PERSEA GRATISSIMA (AVOCADO) OIL , POLYACRYLATE CROSSPOLYMER-6 , TOCOPHEROL , CAPRYLYL GLYCOL , PARFUM (FRAGRANCE) , SODIUM STEAROYL GLUTAMATE , CITRIC ACID , HYDROLYZED AVOCADO PROTEIN , MALTODEXTRIN , PENTYLENE GLYCOL , SODIUM HYDROXIDE , XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-creme-vergetures-150-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-creme-vergetures.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -645,7 +645,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU , COCO-CAPRYLATE/CAPRATE , DICAPRYLYL CARBONATE , GLYCERIN , BUTYROSPERMUM PARKII (SHEA) BUTTER , C10-18 TRIGLYCERIDES , 1,2-HEXANEDIOL , PERSEA GRATISSIMA (AVOCADO) OIL , POLYACRYLATE CROSSPOLYMER-6 , TOCOPHEROL , CAPRYLYL GLYCOL , PARFUM (FRAGRANCE) , SODIUM STEAROYL GLUTAMATE , CITRIC ACID , HYDROLYZED AVOCADO PROTEIN , MALTODEXTRIN , PENTYLENE GLYCOL , SODIUM HYDROXIDE , XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-creme-vergetures-action-3-en-1-150-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-creme-vergetures-action-3-en-1.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -672,7 +672,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), GLYCERIN, CAPRYLYL/CAPRYL GLUCOSIDE, ALOE BARBADENSIS LEAF JUICE POWDER*, SODIUM BENZOATE, POTASSIUM SORBATE, CITRIC ACID, OLEA EUROPAEA (OLIVE) FRUIT OIL',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-eau-micellaire-bio-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-eau-micellaire-bio.webp',
     tags: {
       primary: ['hydratation', 'apaisant'],
       secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -693,7 +693,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, HELIANTHUS ANNUUS SEED OIL, HYDROGENATED COCONUT OIL, GLYCERYL STEARATE, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, ZEA MAYS OIL, STEARIC ACID, 1.2 HEXANEDIOL, CETEARYL ALCOHOL, GLYCERYL CAPRYLATE, PARFUM (FRAGRANCE), SORBITAN STEARATE, ACRYLATES/C 10-30 ALKYL ACRYLATE CROSSPOLYMER, TOCOPHERYL ACETATE, PERSEA GRATISSIMA (AVOCADO) FRUIT EXTRACT, SODIUM HYDROXIDE',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-lait-de-toilette-500ml-peau-normale.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-lait-de-toilette-peau-normale.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -740,35 +740,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA /WATER /EAU, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL*, GLYCERIN, CAPRYLIC/CAPRIC TRIGLYCERIDE, BUTYROSPERMUM PARKII (SHEA) BUTTER*, C10-18 TRIGLYCERIDES, SUCROSE STEARATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL UNSAPONIFIABLES*, PERSEA GRATISSIMA (AVOCADO) OIL*, ALPHA-GLUCAN OLIGOSACCHARIDE, BENTONITE, GLYCERYL CAPRYLATE, XANTHAN GUM, SODIUM BENZOATE, SODIUM STEAROYL GLUTAMATE, CITRIC ACID, TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-stelatopia-creme-relipidante-bio-150ml.html',
-    imageUrl: '',
-    tags: {
-      primary: ['hydratation', 'anti-oxydant', 'eczema'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage', 'peau-atopique', 'apaisant'],
-      avoid: [],
-    },
-    keyIngredients: [
-      { slug: INGREDIENT_SLUGS.C10_18_TRIGLYCERIDES },
-      { slug: INGREDIENT_SLUGS.SUCROSE_STEARATE },
-      { slug: INGREDIENT_SLUGS.ALPHA_GLUCAN_OLIGOSACCHARIDE },
-      { slug: INGREDIENT_SLUGS.BENTONITE },
-      { slug: INGREDIENT_SLUGS.GLYCERYL_CAPRYLATE_CAPRATE },
-    ],
-  },
-  {
-    slug: 'mustela-stelatopia-creme-relipidante-bio-300ml',
-    name: 'Stelatopia Creme Relipidante Bio',
-    brand: 'Mustela',
-    kind: 'moisturizer',
-    unit: 'bottle',
-    totalAmount: 300,
-    amountUnit: 'ml',
-    priceCents: 1816,
-    description:
-      'STELATOPIA + crème relipidante Bio discount de MUSTELA, préserver la peau de bébé grâce à ce soin conçu pour nourrir en profondeur, relipider et apaiser la peau du nourrisson du jeune enfant et de l’adulte à tendance sèche et avec eczéma atopique, dans votre parapharmacie en ligne à prix discount.\n\nDans les années 50, un produit totalement innovant révolutionne les soins bébé : un produit 2en1 nettoyant et adoucissant à l’odeur évocatrice : le lait emblématique MUSTELA. 60 ans plus tard, MUSTELA propose toujours des produits sûrs, efficaces, aux formules les plus naturelles possibles pour protéger la peau sensible des bébés.\n\n\n Les soins STELATOPIA répondent aux besoins spécifiques des peaux sèches à tendance atopiques.\n\n\nLa crème relipidante Bio STELATOPIA + de MUSTELA, est spécialement conçue pour nourrir en profondeur, relipider, rééquilibrer la flore cutanée et apaiser les irritations des peaux à tendance atopique de toute la famille. Composée d’oléodistillat de tournesol et de prébiotique Biocolia, cette crème apaise les épidermes fragilisés, stimule la synthèse des lipides, renforce la barrière cutanée e protégeant la peau des pics de sècheresse, adoucit la peau et rétablit confort et souplesse. La formule est complétée par de l’huile d’avocat, du beurre de karité et de l’huile de tournesol. Formule haute tolérance et hypoallergénique testée sous contrôles dermatologiques et pédiatriques.',
-    notes: '',
-    inci: 'AQUA /WATER /EAU, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL*, GLYCERIN, CAPRYLIC/CAPRIC TRIGLYCERIDE, BUTYROSPERMUM PARKII (SHEA) BUTTER*, C10-18 TRIGLYCERIDES, SUCROSE STEARATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL UNSAPONIFIABLES*, PERSEA GRATISSIMA (AVOCADO) OIL*, ALPHA-GLUCAN OLIGOSACCHARIDE, BENTONITE, GLYCERYL CAPRYLATE, XANTHAN GUM, SODIUM BENZOATE, SODIUM STEAROYL GLUTAMATE, CITRIC ACID, TOCOPHEROL',
-    url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-stelatopia-creme-relipidante-bio-300ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-stelatopia-creme-relipidante-bio.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'eczema'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage', 'peau-atopique', 'apaisant'],
@@ -821,7 +793,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, CAPRYLIC/CAPRIC TRIGLYCERIDE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL*, GLYCERIN**, SUCROSE STEARATE, PASSIFLORA EDULIS SEED OIL, CETEARYL ALCOHOL, GLYCERYL CAPRYLATE, SODIUM STEAROYL GLUTAMATE, GELLAN GUM, XANTHAN GUM, ALOE BARBADENSIS (ALOE VERA) LEAF JUICE POWDER*, SODIUM BENZOATE, LEVULINIC ACID, PROPANEDIOL, SODIUM LEVULINATE, CITRIC ACID, PASSIFLORA EDULIS FRUIT EXTRACT',
     url: 'https://www.pharmashopdiscount.com/fr/tags/action/grossesse/mustela-l-essentiel-lait-de-soin-multi-actions-bio-200-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-l-essentiel-lait-de-soin-multi-actions-bio.webp',
     tags: {
       primary: ['hydratation', 'apaisant'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -847,38 +819,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), CAPRYLIC/CAPRIC TRIGLYCERIDE, DICAPRYLYL CARBONATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, BIS ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIETHYLHEXYL BUTAMIDO TRIAZONE, GLYCERIN, CETYL ALCOHOL, ETHYLHEXYL TRIAZONE, C20-22 ALKYL PHOSPHATE, C20-22 ALCOHOLS, ARGININE, 1,2 HEXANEDIOL, GLYCERYL CAPRYLATE, PERSEA GRATISSIMA (AVOCADO) OIL, TOCOPHEROL, CAPRYLYL GLYCOL, XANTHAN GUM, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, PERSEA GRATISSIMA (AVOCADO) FRUIT EXTRACT',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-lait-solaire-spf50-100ml.html',
-    imageUrl: '',
-    tags: {
-      primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
-      avoid: [],
-    },
-    keyIngredients: [
-      { slug: INGREDIENT_SLUGS.DICAPRYLYL_CARBONATE },
-      { slug: INGREDIENT_SLUGS.DIETHYLAMINO_HYDROXYBENZOYL_HEXYL_BENZOATE },
-      { slug: INGREDIENT_SLUGS.DIETHYLHEXYL_BUTAMIDO_TRIAZONE },
-      { slug: INGREDIENT_SLUGS.ETHYLHEXYL_TRIAZONE },
-      { slug: INGREDIENT_SLUGS.ARGININE },
-      { slug: INGREDIENT_SLUGS.GLYCERYL_CAPRYLATE_CAPRATE },
-      { slug: INGREDIENT_SLUGS.AVOCADO_OIL },
-      { slug: INGREDIENT_SLUGS.HUILE_GRAINES_TOURNESOL },
-    ],
-  },
-  {
-    slug: 'mustela-lait-solaire-spf50-40ml',
-    name: 'Lait Solaire SPF50+',
-    brand: 'Mustela',
-    kind: 'sunscreen',
-    unit: 'tube',
-    totalAmount: 40,
-    amountUnit: 'ml',
-    priceCents: 991,
-    description:
-      'Le Lait solaire Très haute protection SPF50+ discount de MUSTELA, préserver la peau de bébé dans votre parapharmacie en ligne à prix discount, grâce à ce soin solaire conçu pour protéger intensément tous les types de peau, y compris les plus sensibles, intolérantes au soleil ou à tendance atopique. Pour toute la famille dès la naissance et les femmes enceintes. Visage et corps\n\nDans les années 50, un produit totalement innovant révolutionne les soins bébé : un produit 2en1 nettoyant et adoucissant à l’odeur évocatrice : le lait emblématique MUSTELA. 60 ans plus tard, MUSTELA propose toujours des produits sûrs, efficaces, aux formules les plus naturelles possibles pour protéger la peau sensible des bébés.\n\n\nLa gamme de soins MUSTELA-SOLAIRES est composée de produits haute-tolérance pour protéger efficacement des UVA/UVB la peau vulnérable de bébé tout en préservant son capital cellulaire.\n\n\nLe Lait solaire Très haute protection SPF50+, à la texture facile à étaler, sans parfum, est spécialement conçu pour assurer une protection renforcée contre les méfaits du soleil. Composé de filtres protecteurs organiques, filtres UV anti UVB UVA (SPF50+), et d’un complexe végétal breveté issu d’huile d’avocat et enrichi en perséose d’avocat bio, ce lait solaire protège intensément la peau tout en renforçant la barrière cutanée et en prévenant la déshydratation. La vitamine E antioxydante contribue à la protection des cellules cutanées et préserve les défenses naturelles de la peau. La formule du lait est très résistante à l’eau et au sable. Formule haute tolérance et hypoallergénique testée sous contrôle dermatologique et pédiatrique. Peut s’utiliser dès la naissance. Le tube est 100% en plastique recyclé et recyclable. Sans parfum',
-    notes: '',
-    inci: 'AQUA (WATER), CAPRYLIC/CAPRIC TRIGLYCERIDE, DICAPRYLYL CARBONATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, BIS ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIETHYLHEXYL BUTAMIDO TRIAZONE, GLYCERIN, CETYL ALCOHOL, ETHYLHEXYL TRIAZONE, C20-22 ALKYL PHOSPHATE, C20-22 ALCOHOLS, ARGININE, 1,2 HEXANEDIOL, GLYCERYL CAPRYLATE, PERSEA GRATISSIMA (AVOCADO) OIL, TOCOPHEROL, CAPRYLYL GLYCOL, XANTHAN GUM, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, PERSEA GRATISSIMA (AVOCADO) FRUIT EXTRACT',
-    url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-lait-solaire-spf50-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-lait-solaire-spf50.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -909,7 +850,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), CAPRYLIC/CAPRIC TRIGLYCERIDE, DICAPRYLYL CARBONATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIETHYLHEXYL BUTAMIDO TRIAZONE, GLYCERIN, ETHYLHEXYL TRIAZONE, POTASSIUM CETYL PHOSPHATE, 1,2-HEXANEDIOL, C20-22 ALKYL PHOSPHATE, C20-22 ALCOHOLS, GLYCERYL CAPRYLATE, PERSEA GRATISSIMA (AVOCADO) OIL, TOCOPHEROL, CAPRYLYL GLYCOL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, TOCOPHERYL ACETATE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, ARGININE, PERSEA GRATISSIMA (AVOCADO) FRUIT EXTRACT',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-spray-solaire-spf50-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-spray-solaire-spf50.webp',
     tags: {
       primary: ['anti-oxydant', 'hydratation', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -940,7 +881,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'COCO-CAPRYLATE/CAPRATE, DICAPRYLYL CARBONATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIBUTYL LAUROYL GLUTAMIDE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DIETHYLHEXYL BUTAMIDO TRIAZONE, ETHYLHEXYL TRIAZONE, DIBUTYL ETHYLHEXANOYL GLUTAMIDE, GAMMA-OCTALACTONE, TOCOPHEROL, PERSEA GRATISSIMA (AVOCADO) OIL, DIETHYLHEXYL SYRINGYLIDENEMALONATE, CAPRYLIC/CAPRIC TRIGLYCERIDE',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-stick-solaire-spf50-9ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-stick-solaire-spf50.webp',
     tags: {
       primary: ['anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],

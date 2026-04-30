@@ -32,8 +32,7 @@ export const LAZARTIGUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'INGREDIENTS : Aqua/Water/Eau, Propanediol, Butylene Glycol, Glycerin, Polysorbate 20, Caprylyl/Capryl Glucoside, \nPanthenol, Cellulose Gum, Sodium Benzoate, Parfum/Fragrance, Polyglyceryl-3 Cocoate, Polyglyceryl-10 Laurate, Citric Acid, \nInulin, Tetrasodium Glutamate Diacetate, Xanthan Gum, Potassium Sorbate, Cellulose, Fructose, Glucose, Glycine, Larix \nEuropaea Wood Extract, Sodium Metabisulfite, Limonene, Dextran, Biotin, Linalool, Camellia Sinensis Leaf Extract, Zinc \nChloride, Acetyl Tetrapeptide-3, Trifolium Pratense (Clover) Flower Extract, CI 75810 (Chlorophyllin-Copper Complex), Acetyl \nHexapeptide-8, Maltodextrin',
     url: 'https://www.atida.fr/lazartigue-anti-chute-serum-anti-chute-progressive-thicker-50ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/03a63a6c-4083-4536-9a60-ffe0dc8ba753/Lazartigue-Anti-Chute-Serum-Anti-chute-Progressive-Thicker-50ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lazartigue-serum-anti-chute-progressive-thicker-50ml-284107.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [],
@@ -61,8 +60,7 @@ export const LAZARTIGUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'INGREDIENTS : Aqua/Water/Eau, Sodium Lauroyl Glutamate, Decyl Glucoside, Sodium Methyl Cocoyl Taurate, Sodium \nCocoamphoacetate, Diglycerin, Citric Acid, Propylene Glycol, Hydroxypropyl Starch Phosphate, Parfum/Fragrance, Guar \nHydroxypropyltrimonium Chloride, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, Sodium Benzoate, Xanthan Gum, \nEthylhexylglycerin, Menthyl PCA, Ricinus Communis (Castor) Seed Oil, Glycerin, Menthol, Limonene, Sodium Hydroxide, \nDipropylene Glycol, Paullinia Cupana Seed Extract, Tocopherol',
     url: 'https://www.atida.fr/lazartigue-fortify-shampoing-fortifiant-anti-chute-guarana-extrait-de-ricinus-250ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/fde91735-07d4-4c5b-9d37-c05c2b0fc6b1/Generated-image?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lazartigue-fortify-shampoing-fortifiant-anti-chute-guarana-et-extrait-de-ricinus-250ml-284716.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -90,8 +88,7 @@ export const LAZARTIGUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua/Water/Eau, Sodium Lauroyl Glutamate, Decyl Glucoside, Sodium Methyl Cocoyl Taurate, Sodium Cocoamphoacetate, Diglycerin, Propanediol, Propylene Glycol, Citric Acid, Alpha-Glucan Oligosaccharide, Parfum/Fragrance, Guar Hydroxypropyltrimonium Chloride, Xanthan Gum, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, Sodium Benzoate, Ethylhexylglycerin, Tetramethyl Acetyloctahydronaphthalenes, Glycerin, Citronellol, Geraniol, Geranyl Acetate, Cananga Odorata Flower Oil, Citrus Limon (Lemon) Peel Oil, Pelargonium Graveolens Flower Oil, Sodium Hydroxide, Oryza Sativa (Rice) Bran Oil, Magnesium Aluminum Silicate, Tocopherol, Sorbic Acid',
     url: 'https://www.atida.fr/lazartigue-extra-gentle-shampooing-detox-250ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/6d2d5a80-0ac6-475b-8ad3-73df2fc146c7/Lazartigue-Extra-Gentle-Shampooing-Detox-250ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lazartigue-extra-gentle-shampooing-detox-250ml-304646.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -118,8 +115,7 @@ export const LAZARTIGUE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua/Water/Eau, Sodium Lauroyl Glutamate, Sodium Methyl Cocoyl Taurate, Decyl Glucoside, Propanediol, Sodium Cocoamphoacetate, Malus Domestica Fruit Cell Culture Extract, Citric Acid, Propylene Glycol, Caprylyl/Capryl Glucoside, Xanthan Gum, Xylitylglucoside, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, PCA Glyceryl Oleate, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride, Anhydroxylitol, Sodium Benzoate, Isoamyl Laurate, Parfum/Fragrance, Polyglyceryl-3 Cocoate, Ethylhexylglycerin, Xylitol, Polyglyceryl-10 Laurate, Ziziphus Joazeiro Bark Extract, Hydroxyacetophenone, Sodium Hydroxide, Tocopherol',
     url: 'https://www.atida.fr/lazartigue-clear-shampooing-cuir-chevelu-sec-250ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/7dfa8f59-fc93-41af-a6f6-4254636a33a2/Generated-image?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/lazartigue-clear-shampooing-cuir-chevelu-sec-250ml-302413.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],

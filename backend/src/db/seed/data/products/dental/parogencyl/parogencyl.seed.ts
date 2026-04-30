@@ -16,8 +16,7 @@ export const PAROGENCYL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, hydrogenated starch hydrolysate, hydrated silica, zinc citrate, sodium lauryl sulfate, aroma, cellulose gum, sodium fluoride, sodium saccharin, tocopheryl acetate, ci 77891.',
     url: 'https://www.atida.fr/parogencyl-dentifrice-prevention-gencives-lot-de-2-x-75ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/3c5d642c-4812-43e1-ad61-53ee3c81b841/Parogencyl-Dentifrice-Prevention-Gencives-Lot-de-2-x-75ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/parogencyl-dentifrice-prevention-gencives-menthe-lot-de-2-x-75ml-248643.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -38,8 +37,7 @@ export const PAROGENCYL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, HYDROGENATED STARCH HYDROLYSATE, HYDRATED SILICA, ZINC CITRATE, SODIUM LAURYL SULFATE, AROMA, CELLULOSE GUM, SODIUM FLUORIDE, SODIUM SACCHARIN, TOCOPHERYL ACETATE, CI 77891',
     url: 'https://www.atida.fr/parogencyl-dentifrice-prevention-gencives-lot-de-2-x-75ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/3c5d642c-4812-43e1-ad61-53ee3c81b841/Parogencyl-Dentifrice-Prevention-Gencives-Lot-de-2-x-75ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/parogencyl-dentifrice-prevention-gencives-menthe.webp',
     tags: {
       primary: ['dentifrice'],
       secondary: [],

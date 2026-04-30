@@ -16,8 +16,7 @@ export const SK_II_SEED: UnifiedProductSeed[] = [
     notes: `Enrichi en Pitera et Niacinamide, idéal pour les peaux en quête de luminosité.`,
     inci: 'ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, ASCORBYL GLUCOSIDE, BENZYL ALCOHOL, BUTYLENE GLYCOL, DISODIUM EDTA, GALACTOMYCES FERMENT FILTRATE, GLYCERIN, INOSITOL, METHYLPARABEN, NIACINAMIDE, PENTYLENE GLYCOL, PHENOXYETHANOL, SODIUM HYDROXIDE, WATER, YEAST EXTRACT',
     url: 'https://www.skinsafeproducts.com/sk-ii-brightening-derm-revival-masks-10-count',
-    imageUrl:
-      'https://cdn1.skinsafeproducts.com/photo/77BE7E9BB88C1B/large_1731099267.jpeg?1731099267',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/sk-ii-brightening-derm-revival-mask.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES],
       secondary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],

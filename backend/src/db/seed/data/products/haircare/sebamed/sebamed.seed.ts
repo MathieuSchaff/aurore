@@ -16,7 +16,7 @@ export const SEBAMED_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, DECYL GLUCOSIDE, DISODIUM LAURETH SULFOSUCCINATE, SODIUM LAURYL SULFOACETATE, PEG-55 PROPYLENE GLYCOL OLEATE, PROPYLENE GLYCOL, HYDROXYPROPYL OXIDIZED STARCH PG-TRIMONIUM CHLORIDE, CITRIC ACID, PARFUM, PHENOXYETHANOL, SODIUM BENZOATE',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-produits/bain-et-douche/sebamed-shampooing-1l.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/sebamed-shampooing.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],

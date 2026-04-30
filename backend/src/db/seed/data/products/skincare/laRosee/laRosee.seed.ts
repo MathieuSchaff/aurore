@@ -39,7 +39,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), ALOE BARBADENSIS (ALOE) LEAF EXTRACT, BUTYROSPERMUM PARKII (SHEA) BUTTER, COCOS NUCIFERA (COCONUT) OIL, GLYCERYL STEARATE SE, CETEARYL ALCOHOL, GLYCERIN, CALENDULA OFFICINALIS FLOWER WATER, ARNICA MONTANA FLOWER EXTRACT, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, SODIUM HYALURONATE, XANTHAN GUM, CITRIC ACID, GLUCONOLACTONE, PARFUM (FRAGRANCE), GLYCERYL STEARATE CITRATE, CALCIUM GLUCONATE, SODIUM DEHYDROACETATE, SODIUM HYDROXIDE, POTASSIUM SORBATE, SODIUM BENZOATE, BENZYL ALCOHOL, CITRONELLOL, LINALOOL, GERANIOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-creme-mains-ultra-reparatrice-50-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-creme-mains-ultra-reparatrice.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'cicatrisation'],
       secondary: ['peau-sensible', 'creme-mains', 'zone-mains', 'reparateur'],
@@ -69,7 +69,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "PROPYLENE GLYCOL, GLYCERIN, AQUA, SODIUM STEARATE, DIATOMACEOUS EARTH (TERRE DE DIATOMÉE), MAGNESIUM HYDROXIDE, MALTODEXTRIN ; MAGNESIUM CARBONATE HYDROXIDE, ETHYLHEXYLGLYCERIN, LACTOBACILLUS FERMENT (PROBIOTIQUES), SODIUM HYDROXIDE, TOCOPHEROL, 99% D'INGRÉDIENT D'ORIGINE NATURELLE",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-deodorant-fraicheur-rechargeable-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-deodorant-fraicheur-rechargeable.webp',
     tags: {
       primary: ['microbiome', 'hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'deodorant'],
@@ -90,7 +90,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), GLYCERIN, SODIUM LAUROYL GLUTAMATE, LAURYL GLUCOSIDE, COCO-GLUCOSIDE, COCAMIDOPROPYL BETAINE, PARFUM (FRAGRANCE), OLEA EUROPAEA (OLIVE) FRUIT OIL, TOCOPHEROL, ALLANTOIN, GLYCERYL OLEATE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, STYRENE/ACRYLATES COPOLYMER, PROPYLENE GLYCOL, POLYQUATERNIUM-10, TETRASODIUM GLUTAMATE DIACETATE, CITRIC ACID, HYDROGENATED PALM GLYCERIDES CITRATE, SODIUM BENZOATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-ecorecharge-gel-lavant-ultra-doux-800ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-ecorecharge-gel-lavant-ultra-doux.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'nettoyant-corps', 'zone-corps'],
@@ -112,7 +112,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'SUCROSE, CAPRYLIC/CAPRIC TRIGLYCERIDE, COCOS NUCIFERA OIL, HELIANTHUS ANNUUS HYBRID OIL, SESAMUM INDICUM SEED OIL, GLYCERYL BEHENATE, GLYCERYL STEARATE, HYDROGENATED CASTOR OIL, POLYGLYCERYL-4 OLEATE, HELIANTHUS ANNUUS SEED OIL, TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-gommage-corps-nourrissant-bio-rechargeable-200g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-gommage-corps-nourrissant-bio-rechargeable.webp',
     tags: {
       primary: ['anti-oxydant', 'exfoliation'],
       secondary: ['reparateur', 'gommage-corps', 'exfoliant-physique', 'zone-corps'],
@@ -137,7 +137,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "PROPYLENE GLYCOL, GLYCERIN, AQUA, SODIUM STEARATE, DIATOMACEOUS EARTH (TERRE DE DIATOMÉE), MAGNESIUM HYDROXIDE, MALTODEXTRIN ; MAGNESIUM CARBONATE HYDROXIDE, ETHYLHEXYLGLYCERIN, LACTOBACILLUS FERMENT (PROBIOTIQUES), SODIUM HYDROXIDE, TOCOPHEROL, 99% D'INGRÉDIENT D'ORIGINE NATURELLE",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-recharge-deodorant-aux-probiotiques-50ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-recharge-deodorant-aux-probiotiques.webp',
     tags: {
       primary: ['microbiome', 'hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'deodorant'],
@@ -158,7 +158,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'SUCROSE, CAPRYLIC/CAPRIC TRIGLYCERIDE, COCOS NUCIFERA OIL, HELIANTHUS ANNUUS HYBRID OIL, SESAMUM INDICUM SEED OIL, GLYCERYL BEHENATE, GLYCERYL STEARATE, HYDROGENATED CASTOR OIL, POLYGLYCERYL-4 OLEATE, HELIANTHUS ANNUUS SEED OIL, TOCOPHEROL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-recharge-gommage-corps-nourrissant-bio-200g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-recharge-gommage-corps-nourrissant-bio.webp',
     tags: {
       primary: ['anti-oxydant', 'exfoliation'],
       secondary: ['reparateur', 'gommage-corps', 'exfoliant-physique', 'zone-corps'],
@@ -205,7 +205,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), GLYCERIN, BUTYROSPERMUM PARKII (SHEA) BUTTER, GLYCERYL STEARATE, UNDECANE, CETYL ALCOHOL, TRIDECANE, TOCOPHERYL ACETATE, CHONDRUS CRISPUS EXTRACT, TOCOPHEROL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, CARBOMER, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, CAPRYLYL GLYCOL, PARFUM (FRAGRANCE), POLYSORBATE 60, SORBITAN ISOSTEARATE, TETRASODIUM GLUTAMATE DIACETATE, SODIUM HYDROXIDE, SODIUM BENZOATE, DEHYDROACETIC ACID, BENZYL ALCOHOL, CITRONELLOL, GERANIOL',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/la-rosee/la-rosee-creme-corps-hydratante-au-beurre-de-karite-bio-400-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-creme-corps-hydratante-au-beurre-de-karite-bio.webp',
     tags: {
       primary: ['anti-oxydant', 'hydratation'],
       secondary: ['reparateur', 'lait-corps', 'zone-corps'],
@@ -231,7 +231,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'LAURETH-4, MIPA-LAURETH SULFATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, COCAMIDE DEA, CAPRYLIC/CAPRIC TRIGLYCERIDE, PARFUM (FRAGRANCE), TOCOPHERYL ACETATE, AQUA (WATER), CI 14700 (RED 4)',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/la-rosee/la-rosee-huile-de-douche-lavante-bio-400-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-huile-de-douche-lavante-bio.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['nettoyant-corps', 'zone-corps'],
@@ -253,7 +253,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'SODIUM OLIVATE, SODIUM COCOATE, SODIUM STEARATE, AQUA (WATER), PARFUM (FRAGRANCE), GLYCERIN, BUTYROSPERMUM PARKII (SHEA) BUTTER, SODIUM CHLORIDE, TETRASODIUM GLUTAMATE DIACETATE, BENZYL BENZOATE, LINALOOL, ALPHA-ISOMETHYL IONONE, CITRONELLOL, COUMARIN, GERANIOL',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/la-rosee/la-rosee-savon-surgras-ultra-doux-naturel-100g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-savon-surgras-ultra-doux-naturel.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['nettoyant-corps', 'zone-corps'],
@@ -275,7 +275,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS SEED OIL, COCOS NUCIFERA OIL, POLYGLYCERYL-4 OLEATE, BEHENYL ALCOHOL, C10-18 TRIGLYCERIDES, CETEARYL ALCOHOL, HELIANTHUS ANNUUS SEED WAX, PRUNUS CERASUS SEED OIL, GLYCERIN, PARFUM, TRIHYDROXYSTEARIN, SOLANUM LYCOPERSICUM FRUIT LIPIDS, TOCOPHEROL, LA LISTE DES INGRÉDIENTS PEUT ÊTRE SOUMISE À DES VARIATIONS, NOUS VOUS CONSEILLONS DE TOUJOURS VÉRIFIER LA LISTE FIGURANT SUR LE PRODUIT ACHETÉ',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-baume-demaquillant-fondant-recharge-90ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-baume-demaquillant-fondant-recharge.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -302,7 +302,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS SEED OIL, COCOS NUCIFERA OIL, POLYGLYCERYL-4 OLEATE, BEHENYL ALCOHOL, C10-18 TRIGLYCERIDES, CETEARYL ALCOHOL, HELIANTHUS ANNUUS SEED WAX, PRUNUS CERASUS SEED OIL, GLYCERIN, PARFUM, TRIHYDROXYSTEARIN, SOLANUM LYCOPERSICUM FRUIT LIPIDS, TOCOPHEROL, LA LISTE DES INGRÉDIENTS PEUT ÊTRE SOUMISE À DES VARIATIONS, NOUS VOUS CONSEILLONS DE TOUJOURS VÉRIFIER LA LISTE FIGURANT SUR LE PRODUIT ACHETÉ',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-baume-demaquillant-fondant-rechargeable-90ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-baume-demaquillant-fondant-rechargeable.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -329,7 +329,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'SANS : PARABEN, HUILES MINÉRALES, PHÉNOXYÉTHANOL, LAURYLSULFATE, PHTALATES, ALUMINIUM, TRICLOSAN, MIT, BENZOPHÉNONES, BHA, ALKYLPHÉNOLS, LILIAL, PEG, FORMALDÉHYDE, SILICONES, PERTURBATEURS ENDOCRINIENS, EDTA, NON TESTÉ SUR LES ANIMAUX, TESTÉ SUR PEAUX SENSIBLES, SOUS CONTRÔLE DERMATOLOGIQUE, FORMULE BIODÉGRADABLE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, BUTYROSPERMUM PARKII (SHEA) BUTTER, COCOS NUCIFERA (COCONUT) OIL, TRIBEHENIN, HYDROGENATED COCO-GLYCERIDES, JOJOBA ESTERS, CERA ALBA (BEESWAX), HYDROGENATED CASTOR OIL, RICINUS COMMUNIS (CASTOR) SEED OIL, OLEA EUROPAEA (OLIVE) FRUIT OIL, PERSEA GRATISSIMA (AVOCADO) OIL, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX, TOCOPHEROL, ASCORBYL PALMITATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-baume-sos-reparateur-20g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-baume-sos-reparateur.webp',
     tags: {
       primary: ['anti-oxydant', 'cicatrisation'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -360,7 +360,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), ALOE BARBADENSIS LEAF JUICE, ROSA DAMASCENA FLOWER WATER, PROPANEDIOL, 1,2-HEXANEDIOL, GLYCERIN, PENTYLENE GLYCOL, CITRUS LIMON (LEMON) FRUIT EXTRACT, ANTHEMIS NOBILIS FLOWER WATER, CHONDRUS CRISPUS EXTRACT, PROPYLENE GLYCOL, CAPRYLYL/CAPRYL GLUCOSIDE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, PARFUM (FRAGRANCE), SODIUM HYDROXIDE, CI 42090 (BLUE 1), SODIUM BENZOATE, DEHYDROACETIC ACID, BENZYL ALCOHOL, CITRONELLOL, GERANIOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-gelee-micellaire-demaquillante-195ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-gelee-micellaire-demaquillante.webp',
     tags: {
       primary: ['apaisant', 'hydratation'],
       secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -388,7 +388,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'PERSEA GRATISSIMA (AVOCADO) OIL, COCO-CAPRYLATE/CAPRATE, CERA ALBA (BEESWAX), HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX, BUTYROSPERMUM PARKII (SHEA) BUTTER, KAOLIN, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, COPERNICIA CERIFERA (CARNAUBA) WAX, PARFUM (FRAGRANCE), HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, TOCOPHEROL, ASCORBYL PALMITATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-masque-en-stick-nourrissant-50-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-masque-en-stick-nourrissant.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
@@ -419,7 +419,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'HELIANTHUS ANNUUS SEED OIL, BUTYROSPERMUM PARKII (SHEA) BUTTER, COCOS NUCIFERA (COCONUT) OIL, TRIBEHENIN, HYDROGENATED COCO-GLYCERIDES, JOJOBA ESTERS, CERA ALBA (BEESWAX), HYDROGENATED CASTOR OIL, RICINUS COMMUNIS (CASTOR) SEED OIL, OLEA EUROPAEA (OLIVE) FRUIT OIL, PERSEA GRATISSIMA (AVOCADO) OIL, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, HELIANTHUS ANNUUS (SUNFLOWER SEED WAX), TOCOPHEROL, ET ASCORBYL PALMITATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-mon-petit-baume-sos-reparateur-20g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-mon-petit-baume-sos-reparateur.webp',
     tags: {
       primary: ['anti-oxydant', 'cicatrisation'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -450,7 +450,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), GLYCERIN, DECYL GLUCOSIDE, LAURYL GLUCOSIDE, GLUCONOLACTONE, SODIUM METHYL COCOYL TAURATE, ZINC PCA, CITRUS PARADISI (GRAPEFRUIT) FRUIT EXTRACT, CITRIC ACID, XANTHAN GUM, ACACIA SENEGAL GUM, PARFUM (FRAGRANCE), SODIUM HYDROXIDE, POTASSIUM SORBATE, SODIUM BENZOATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-recharge-gel-nettoyant-anti-imperfections-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-recharge-gel-nettoyant-anti-imperfections.webp',
     tags: {
       primary: ['exfoliation', 'hydratation', 'anti-acne'],
       secondary: [
@@ -478,7 +478,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "COCO-CAPRYLATE/CAPRATE, CI 77891 (DIOXYDE DE TITANE), TRIGLYCÉRIDE CAPRYLIQUE/CAPRIQUE, CIRE D'EUPHORBIA CERIFERA (CIRE DE CANDELILLA), CIRE DE COPERNICIA CERIFERA (CIRE DE CARNAUBA), AMIDON DE MAÏS (ZEA MAYS), BEURRE DE GRAINE DE CACAO (THEOBROMA CACAO), TRIGLYCÉRIDES C10-18, CI 77492 (OXYDES DE FER), ACIDE POLYHYDROXYSTÉARIQUE, PCA DE ZINC, HUILE DE GRAINE DE TOURNESOL (HELIANTHUS ANNUUS), TOCOPHÉROL, ACIDE GLYCYRRHÉTINIQUE, CI 77491 (OXYDES DE FER), CI 77499 (OXYDES DE FER)",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-recharge-stick-correcteur-teinte-anti-imperfections-5-5g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-recharge-stick-correcteur-teinte-anti-imperfections.webp',
     tags: {
       primary: ['anti-acne'],
       secondary: ['spot-treatment', 'soin-localise', 'zone-visage'],
@@ -500,7 +500,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), PROPANEDIOL, GLYCERIN, ARGININE, ZINC PCA, SUCCINIC ACID, SALIX NIGRA (WILLOW) BARK EXTRACT, BAKUCHIOL, PRUNUS PERSICA (PEACH) LEAF EXTRACT, PYRUS MALUS (APPLE) FRUIT EXTRACT, RUBUS IDAEUS (RASPBERRY) FRUIT EXTRACT, ALOE BARBADENSIS LEAF JUICE POWDER, BISABOLOL, CAPRYLYL/CAPRYL GLUCOSIDE, HYDROXYACETOPHENONE, SODIUM CARBOXYMETHYL STARCH, XANTHAN GUM, PARFUM (FRAGRANCE), ACACIA SENEGAL GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-serum-purifiant-anti-imperfections-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-serum-purifiant-anti-imperfections.webp',
     tags: {
       primary: ['apaisant', 'anti-age', 'hydratation', 'anti-acne'],
       secondary: ['serum', 'traitement', 'zone-visage'],
@@ -530,7 +530,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER) PROPANEDIOL ERYTHRITOL GLYCERIN SODIUM HYALURONATE ALOE BARBADENSIS LEAF JUICE POWDER MALUS DOMESTICA FRUIT EXTRACT INULIN XANTHAN GUM 1,2-HEXANEDIOL PARFUM (FRAGRANCE) CITRIC ACID SODIUM BENZOATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-serum-visage-desalterant-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-serum-visage-desalterant.webp',
     tags: {
       primary: ['hydratation', 'apaisant'],
       secondary: ['serum', 'traitement', 'zone-visage'],
@@ -551,7 +551,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "COCO-CAPRYLATE/CAPRATE, CI 77891 (DIOXYDE DE TITANE), TRIGLYCÉRIDE CAPRYLIQUE/CAPRIQUE, CIRE D'EUPHORBIA CERIFERA (CIRE DE CANDELILLA), CIRE DE COPERNICIA CERIFERA (CIRE DE CARNAUBA), AMIDON DE MAÏS (ZEA MAYS), BEURRE DE GRAINE DE CACAO (THEOBROMA CACAO), TRIGLYCÉRIDES C10-18, CI 77492 (OXYDES DE FER), ACIDE POLYHYDROXYSTÉARIQUE, PCA DE ZINC, HUILE DE GRAINE DE TOURNESOL (HELIANTHUS ANNUUS), TOCOPHÉROL, ACIDE GLYCYRRHÉTINIQUE, CI 77491 (OXYDES DE FER), CI 77499 (OXYDES DE FER)",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-stick-correcteur-teinte-anti-imperfections-5-5g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-stick-correcteur-teinte-anti-imperfections.webp',
     tags: {
       primary: ['anti-acne'],
       secondary: ['spot-treatment', 'soin-localise', 'zone-visage'],
@@ -573,7 +573,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), ALOE BARBADENSIS (ALOE) LEAF EXTRACT, BUTYROSPERMUM PARKII (SHEA) BUTTER, COCOS NUCIFERA (COCONUT) OIL, GLYCERYL STEARATE SE, CETEARYL ALCOHOL, GLYCERIN, CALENDULA OFFICINALIS FLOWER WATER, ARNICA MONTANA FLOWER EXTRACT, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, SODIUM HYALURONATE, XANTHAN GUM, CITRIC ACID, GLUCONOLACTONE, PARFUM (FRAGRANCE), GLYCERYL STEARATE CITRATE, CALCIUM GLUCONATE, SODIUM DEHYDROACETATE, SODIUM HYDROXIDE, POTASSIUM SORBATE, SODIUM BENZOATE, BENZYL ALCOHOL, CITRONELLOL, LINALOOL, GERANIOL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-stick-levres-nourrissant-4-5-g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-stick-levres-nourrissant.webp',
     tags: {
       primary: ['hydratation', 'apaisant'],
       secondary: ['peau-sensible', 'soin-levres', 'zone-levres'],
@@ -603,7 +603,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), PROPANEDIOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, GLYCERIN, POLYGLYCERYL-6 DISTEARATE, RICINUS COMMUNIS (CASTOR) SEED OIL, OLEA EUROPAEA (OLIVE) FRUIT OIL, PENTYLENE GLYCOL, TOCOPHERYL ACETATE, ALOE BARBADENSIS LEAF JUICE POWDER, JOJOBA ESTERS, POLYGLYCERYL-3 BEESWAX, COPERNICIA CERIFERA CERA (COPERNICIA CERIFERA (CARNAUBA) WAX), SODIUM POLYACRYLATE, PARFUM (FRAGRANCE), HYDROGENATED CASTOR OIL, CAPRYLYL GLYCOL, POTASSIUM CETYL PHOSPHATE, CETYL ALCOHOL, ETHYLHEXYLGLYCERIN, XANTHAN GUM, TETRASODIUM GLUTAMATE DIACETATE, CITRIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/la-rosee/la-rosee-creme-hydratante-beurre-de-karite-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-creme-hydratante-beurre-de-karite.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'anti-oxydant'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -630,7 +630,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, GLYCERIN, GLYCERYL STEARATE, GLYCERYL STEARATE CITRATE, HYDROGENATED COCONUT OIL, PROPANEDIOL, OLEA EUROPAEA (OLIVE) FRUIT OIL, PENTYLENE GLYCOL, TOCOPHERYL ACETATE, ALLANTOIN, PARFUM (FRAGRANCE), POLYACRYLATE CROSSPOLYMER-6, CAPRYLYL GLYCOL, ETHYLHEXYLGLYCERIN, TETRASODIUM GLUTAMATE DIACETATE, CITRIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/la-rosee/la-rosee-lait-de-toilette-nettoyant-400ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-lait-de-toilette-nettoyant.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'anti-oxydant'],
       secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
@@ -657,7 +657,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), GLYCERIN, SODIUM LAURETH SULFATE, ACRYLATES COPOLYMER, CAPRYLYL/CAPRYL GLUCOSIDE, COCAMIDOPROPYL BETAINE, ALOE BARBADENSIS LEAF JUICE, SYNTHETIC WAX, COCO-GLUCOSIDE, GLYCERYL OLEATE, SODIUM BENZOATE, JOJOBA ESTERS, SODIUM CHLORIDE, PARFUM (FRAGRANCE), PUMICE, TETRASODIUM GLUTAMATE DIACETATE, CITRIC ACID, SODIUM HYDROXIDE, CI 77510 (FERRIC FERROCYANIDE), TOCOPHEROL, HYDROGENATED PALM GLYCERIDES CITRATE, CI 42090 (BLUE 1), LIMONENE',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/la-rosee/la-rosee-gommage-doux-visage-bio-60-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-gommage-doux-visage-bio.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'anti-oxydant', 'exfoliation'],
       secondary: ['reparateur', 'zone-visage'],
@@ -679,7 +679,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), ROSA, DAMASCENA FLOWER WATER, PROPANEDIOL, GLYCERIN, 1.2-HEXANEDIOL, PENTYLENE GLYCOL, MARIS SAL (SEA SALT), ANTHEMIS NOBILIS FLOWER WATER, MENTHA PIPERITA (PEPPERMINT), LEAF EXTRACT, SILICA, CITRIC ACID, SODIUM BENZOATE, CHLORIPHENESIN, DEHYDROACETIC ACID, BENZYL ALCOHOL, CITRONELLOL, GERANIOL',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/la-rosee/la-rosee-lotion-tonique-hydratante-bio-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-lotion-tonique-hydratante-bio.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['tonique', 'preparation', 'zone-visage'],
@@ -705,7 +705,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), KAOLIN, GLYCERIN, PROPYLENE GLYCOL, SODIUM STEARATE, CI 77891 (TITANIUM DIOXIDE), PARFUM (FRAGRANCE), GELLAN GUM, STEARIC ACID, SODIUM HYDROXIDE',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/la-rosee/la-rosee-masque-stick-regenerant-75-ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-masque-stick-regenerant.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['masque-hebdo', 'zone-visage'],
@@ -727,7 +727,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'RICINUS COMMUNIS (CASTOR) SEED OIL, COCOGLYCERIDES, HELIANTHUS ANNUUS HYBRID OIL (HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL), OLEIC/LINOLEIC /LINOLENIC POLYGLYCERIDES, HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX, BUTYROSPERMUM PARKII (SHEA) BUTTER, TRIBEHENIN, HYDROGENATED CASTOR OIL, CERA ALBA (BEESWAX), PARFUM (FRAGRANCE), COPERNICIA CERIFERA (CARNAUBA) WAX, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, TOCOPHEROL, ASCORBYL PALMITATE',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/la-rosee/la-rosee-recharge-stick-levres-nourrissant-4-5g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-recharge-stick-levres-nourrissant.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'soin-levres', 'zone-levres'],
@@ -757,7 +757,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'RICINUS COMMUNIS (CASTOR) SEED OIL, COCO-CAPRYLATE/CAPRATE, EUPHORBIA CERIFERA (CANDELILLA) WAX,C10-18 TRIGLYCERIDES,OCTYLDODECANOL,COPERNICIA CERIFERA (CARNAUBA) WAX,BUTYROSPERMUM PARKII (SHEA) BUTTER, CI 75470 (CARMINE),HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL),TOCOPHEROL,CI 77891 (TITANIUM DIOXIDE),CI 77491 (IRON OXIDES),CI 77499 (IRON OXIDES).NON TESTÉ SUR LES ANIMAUX (EN ACCORD AVEC LA RÉGLEMENTATION EUROPÉENNE)',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/la-rosee/la-rosee-recharge-stick-levres-nourrissant-teinte-4-5g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-recharge-stick-levres-nourrissant-teinte.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'soin-levres', 'zone-levres'],
@@ -783,7 +783,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'CAPRYLIC/CAPRIC TRIGLYCERIDE, ISOAMYL COCOATE, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, SQUALANE, PRUNUS ARMENIACA (APRICOT) KERNEL OIL, SESAMUM INDICUM (SESAME) SEED OIL, ROSA RUBIGINOSA SEED OIL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, PARFUM (FRAGRANCE), TOCOPHEROL, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF EXTRACT, VANILLA PLANIFOLIA FRUIT EXTRACT, LIMONENE, CITRONELLOL, LINALOOL',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/la-rosee/la-rosee-serum-visage-repulpant-30ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-serum-visage-repulpant.webp',
     tags: {
       primary: ['barriere-cutanee', 'anti-oxydant', 'repulpant'],
       secondary: [
@@ -818,7 +818,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'RICINUS COMMUNIS (CASTOR) SEED OIL, COCO-CAPRYLATE/CAPRATE, EUPHORBIA CERIFERA (CANDELILLA) WAX,C10-18 TRIGLYCERIDES,OCTYLDODECANOL,COPERNICIA CERIFERA (CARNAUBA) WAX,BUTYROSPERMUM PARKII (SHEA) BUTTER, CI 75470 (CARMINE),HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL),TOCOPHEROL,CI 77891 (TITANIUM DIOXIDE),CI 77491 (IRON OXIDES),CI 77499 (IRON OXIDES).NON TESTÉ SUR LES ANIMAUX (EN ACCORD AVEC LA RÉGLEMENTATION EUROPÉENNE)',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/la-rosee/la-rosee-stick-levres-nourrissant-teinte-framboire-4-5g.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-stick-levres-nourrissant-teinte-framboire.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'soin-levres', 'zone-levres'],
@@ -873,7 +873,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), GLYCERIN, DICAPRYLYL CARBONATE, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, HYDROGENATED POLYISOBUTENE, PROPYLENE GLYCOL, ZINC PCA, ALGAE EXTRACT, CUCUMIS SATIVUS (CUCUMBER) FRUIT EXTRACT, CHONDRUS CRISPUS POWDER, PROPANEDIOL, PANTHENOL, TOCOPHERYL ACETATE, TOCOPHEROL, GLUCOSE, CYCLOPENTASILOXANE, HYDROXYETHYL ACRYLATE/SODIUM, ACRYLOYLDIMETHYL TAURATE COPOLYMER, CAPRYLYL GLYCOL, PARFUM (FRAGRANCE), DIPHENYL DIMETHICONE, CAPRYLHYDROXAMIC ACID, POLYSORBATE 60, SORBITAN ISOSTEARATE, XANTHAN GUM, ETHYLHEXYLGLYCERIN, TETRASODIUM GLUTAMATE DIACETATE, DISODIUM EDTA, CITRIC ACID, SODIUM BENZOATE, POTASSIUM SORBATE, CI 61570 (GREEN 5), CI 19140 (YELLOW 5)',
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/patyka/creme-hydratante-nourrissante/la-rosee-gel-creme-hydratant-bio-60ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-gel-creme-hydratant-bio.webp',
     tags: {
       primary: ['hydratation', 'apaisant', 'barriere-cutanee'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -902,7 +902,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER DICAPRYLYL CARBONATE COCO CAPRYLATE CAPRATE DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE BIS ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE PHENYLBENZIMIDAZOLE SULFONIC ACID DIETHYLHEXYL BUTAMIDO TRIAZONE POLYGLYCERYL 6 STEARATE CAPRYLIC CAPRIC TRIGLYCERIDE BRASSICA CAMPESTRIS ALEURITES FORDI OIL COPOLYMER ORYZA SATIVA RICE STARCH CELLULOSE PRUNUS ARMENIACA APRICOT KERNEL OIL GLYCERYL STEARATE PARFUM FRAGRANCE OLEA EUROPAEA OLIVE LEAF EXTRACT LAMINARIA OCHROLEUCA EXTRACT EPILOBIUM ANGUSTIFOLIUM FLOWER LEAF STEM EXTRACT SODIUM HYALURONATE SIMMONDSIA CHINENSIS JOJOBA SEED OIL HELIANTHUS ANNUUS SUNFLOWER SEED OIL TOCOPHEROL HAEMATO COCCUS PLUVIALIS EXTRACT ACACIA SENEGAL GUM XANTHAN GUM HYDROXYACETOPHENONE SODIUM HYDROXIDE POTASSIUM CETYL PHOSPHATE PROPANEDIOL POLYGLYCERYL 6 BEHENATE MALTODEXTRIN SUCCINOGLYCAN',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-fluide-solaire-invisible-spf50-40ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-fluide-solaire-invisible-spf50.webp',
     tags: {
       primary: ['anti-oxydant', 'hydratation', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -923,7 +923,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'DIBUTYL ADIPATE, COCO-CAPRYLATE/CAPRATE, DICAPRYLYL CARBONATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, ETHYLHEXYL TRIAZONE, VITIS VINIFERA (GRAPE) SEED OIL, TRIMETHYLPENTANEDIOL/ADIPIC ACID/GLYCERIN CROSSPOLYMER, PARFUM / FRAGRANCE, PRUNUS ARMENIACA (APRICOT) KERNEL OIL, TOCOPHEROL, VITIS VINIFERA (GRAPE) SEED OIL, SESAMUM INDICUM (SESAME) SEED OIL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-huile-solaire-huile-d-abricot-bio-spf50-150ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-huile-solaire-huile-d-abricot-bio-spf50.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -953,7 +953,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'COCO-CAPRYLATE/CAPRATE, DIBUTYL ADIPATE, DICAPRYLYL CARBONATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, ETHYLHEXYL TRIAZONE, TRIMETHYLPENTANEDIOL/ADIPIC ACID/GLYCERIN CROSSPOLYMER,PARFUM (FRAGRANCE), PRUNUS ARMENIACA (APRICOT) KERNEL OIL, TOCOPHEROL, VITIS VINIFERA (GRAPE) SEED OIL, SESAMUM INDICUM (SESAME) SEED OIL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-huile-solaire-spf30-150ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-huile-solaire-spf30.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
       secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
@@ -983,7 +983,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), DICAPRYLYL CARBONATE, COCO-CAPRYLATE/CAPRATE, PROPANEDIOL, DECYL OLEATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, PRUNUS ARMENIACA (APRICOT) KERNEL OIL, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, ETHYLHEXYL TRIAZONE, PHENYLBENZIMIDAZOLE SULFONIC ACID, LACTOBACILLUS FERMENT, CETEARYL GLUCOSIDE, LACTOBACILLUS, POTASSIUM CETYL PHOSPHATE,PARFUM (FRAGRANCE), TRIACONTANYL PVP, TOCOPHEROL, COCOS NUCIFERA (COCONUT) FRUIT EXTRACT, ALOE BARBADENSIS LEAF JUICE POWDER, AVENA SATIVA (OAT) KERNEL EXTRACT, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, GLYCERIN, HYDROGENATED VEGETABLE GLYCERIDES CITRATE, XANTHAN GUM, SORBITAN OLIVATE, ETHYLHEXYLGLYCERIN, SODIUM HYDROXIDE, PANTHENOL, CETEARYL ALCOHOL, MALTODEXTRIN, CITRIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-lait-solaire-spf30-150ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-lait-solaire-spf30.webp',
     tags: {
       primary: ['microbiome', 'apaisant', 'hydratation', 'protection-solaire'],
       secondary: ['reparateur', 'peau-sensible', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1014,7 +1014,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), DICAPRYLYL CARBONATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, PROPANEDIOL, DECYL OLEATE, COCO-CAPRYLATE/CAPRATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, PHENYLBENZIMIDAZOLE SULFONIC ACID, PRUNUS ARMENIACA (APRICOT) KERNEL OIL, ETHYLHEXYL TRIAZONE, LACTOBACILLUS FERMENT, CETEARYL GLUCOSIDE, LACTOBACILLUS, POTASSIUM CETYL PHOSPHATE, TRIACONTANYL PVP, PARFUM (FRAGRANCE), TOCOPHEROL, COCOS NUCIFERA (COCONUT) FRUIT EXTRACT, ALOE BARBADENSIS LEAF JUICE POWDER, AVENA SATIVA (OAT) KERNEL EXTRACT, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, GLYCERIN, HYDROGENATED VEGETABLE GLYCERIDES CITRATE, XANTHAN GUM, SORBITAN OLIVATE, ETHYLHEXYLGLYCERIN, SODIUM HYDROXIDE, PANTHENOL, CETEARYL ALCOHOL, MALTODEXTRIN, CITRIC ACID',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-lait-solaire-spf50-150ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-lait-solaire-spf50.webp',
     tags: {
       primary: ['microbiome', 'apaisant', 'hydratation', 'protection-solaire'],
       secondary: ['reparateur', 'peau-sensible', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1045,7 +1045,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-stick-solaire-spf50-huile-d-abricot-bio-15ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-stick-solaire-spf50-huile-d-abricot-bio.webp',
     tags: {
       primary: ['protection-solaire'],
       secondary: ['creme-solaire', 'matin', 'zone-visage'],
@@ -1066,7 +1066,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER/EAU, DICAPRYLYL CARBONATE, COCO-CAPRYLATE/CAPRATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, ETHYLHEXYL TRIAZONE, PROPANEDIOL, GLYCERYL STEARATE CITRATE, GLYCERIN, PRUNUS ARMENIACA (APRICOT) KERNEL OIL, TRIACONTANYL PVP, LACTOBACILLUS FERMENT, PARFUM / FRAGRANCE, PANTHENOL, AVENA SATIVA (OAT) KERNEL EXTRACT, ALOE BARBADENSIS LEAF JUICE POWDER, P-ANISIC ACID, TOCOPHEROL, XANTHAN GUM, SODIUM STEAROYL GLUTAMATE, CITRIC ACID, SODIUM HYDROXIDE, MALTODEXTRIN',
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/la-rosee/la-rosee-lait-solaire-a-l-huile-d-abricot-bebe-enfants-spf50-125ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-lait-solaire-a-l-huile-d-abricot-bebe-enfants-spf50.webp',
     tags: {
       primary: ['apaisant', 'microbiome', 'hydratation', 'protection-solaire'],
       secondary: ['reparateur', 'peau-sensible', 'creme-solaire', 'matin', 'zone-visage'],
@@ -1096,8 +1096,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'LAURETH-4, MIPA-LAURETH SULFATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, COCAMIDE DEA, CAPRYLIC/CAPRIC TRIGLYCERIDE, PARFUM (FRAGRANCE), TOCOPHERYL ACETATE, AQUA (WATER), CI 14700 (RED 4).',
     url: 'https://www.atida.fr/la-rosee-ecorecharge-huile-de-douche-lavante-a-l-huile-de-graines-de-tournesol-bio-800ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/549be090-0332-4211-b4f3-783cc9cb8a8b/La-Rosee-Ecorecharge-Huile-De-Douche-Lavante-A-L-Huile-De-Graines-De-Tournesol-Bio-800Ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-ecorecharge-huile-de-douche-lavante-a-l-huile-de-graines-de-tournesol-bio-800ml-299195.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
@@ -1118,8 +1117,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/mon-petit-la-rosee-ecorecharge-gel-lavant-ultra-doux-a-la-glycerine-vegetale-bio-800ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/fcc7820e-6817-4844-b748-7503fea8a501/Mon-Petit-La-Rosee-Ecorecharge-Gel-Lavant-Ultra-Doux-a-La-Glycerine-Vegetale-Bio-800ml?format=webp&quality=80&io=transform:extend,width:310,height:310',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/mon-petit-la-rosee-ecorecharge-gel-lavant-ultra-doux-a-la-glycerine-vegetale-bio-800ml-231780.webp',
     tags: {
       primary: [],
       secondary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],

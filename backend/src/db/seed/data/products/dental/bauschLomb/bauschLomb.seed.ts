@@ -15,8 +15,7 @@ export const BAUSCH___LOMB_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Eau, xylitol, glycérine, extrait de pétale de rose de Damas, gomme xanthane, polycarbophile, hydroxide de sodium, hyaluronate de sodium, pectine, sorbate de potassium, benzoate de sodium, stévia, panthénol, arôme naturel de fruits rouges, extrait de feuilles d'Aloe vera.",
     url: 'https://www.atida.fr/bausch-lomb-bloxaphte-gel-junior-aphtes-et-lesions-buccales-15ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/387c1902-880b-4e43-aa44-dd1b461cfb40/Bausch-Lomb-Bloxaphte-Gel-Junior-Aphtes-et-Lesions-Buccales-15ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/bausch-lomb-bloxaphte-gel-junior-aphtes-et-lesions-buccales-15ml-284052.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],

@@ -16,8 +16,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Glycérol, Vaseline, Paraffine Liquide, Monostéarate deGlycérol, Acide Stéarique, Diméthicone, Macrogol 600, Trolamine, Acrylamide/Acryloyldimethyltaurate Copolymère, Isohexadécane, Polysorbate, Pentylèneglycol, Ethylhexylglycerine, Carbomère, Eau purifiée.',
     url: 'https://www.atida.fr/dexeryl-creme-secheresses-cutanees-500g.html',
-    imageUrl:
-      'https://assets.atida.com/transform/840089a6-b538-4154-afd0-047202a8a2ea/Dexeryl-Creme-Secheresses-Cutanees-500g?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dexeryl-creme-secheresses-cutanees-500g-265240.webp',
     tags: {
       primary: [],
       secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -38,8 +37,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), glycerin, zinc coceth sulfate, coco-glucoside, sodium cocoamphoacetate, peg-7 glyceryl cocoate, ceteareth-60 myristyl glycol, citric acid, sodium lauroyl methyl isethionate, glycyrrhetinic acid, peg-120 methyl glucose dioleate, pentylène glycol, sodium benzoate, sodium chloride, sodium hydroxide, tocopherol, trisodium ethylenediamine disuccinate.',
     url: 'https://www.atida.fr/dexeryl-essentiel-huile-de-douche-apaisante-500ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/2a073cb2-1cba-4062-b9d2-4f37af949ce8/Dexeryl-Essentiel-Huile-de-Douche-Apaisante-500ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dexeryl-essentiel-huile-de-douche-apaisante-500ml-265284.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -65,8 +63,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'water (aqua). caprylic/capric triglyceride. glycerin. mineral oil (paraffinum liquidum). cetearyl alcohol. beeswax (cera alba). ethylhexyl palmitate. triolein. cetearyl glucoside. caprylyl glycol. ethylhexylglycerin. glycyrrhetinic acid. hydroxyethyl acrylate/sodium acryloyldimethyl taurate copolymer. polysorbate 60. sodium hydroxide. sorbitan isostearate. squalane. tocopherol.',
     url: 'https://www.atida.fr/dexeryl-essentiel-lait-riche-nourrissant-500ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/a29babb2-eb0f-44f0-8396-562451bd1ac7/Dexeryl-Essentiel-Lait-Riche-Nourrissant-500ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dexeryl-essentiel-lait-nourrissant-500ml-270265.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -94,8 +91,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Water (aqua), glycerin, cetearth-60 myristyl glycol, coco glucoside, zinc coceth sulfate, sodium cocamphoacetate, polysorbate 20, ascorbyl palmitate, benzoic acid, bht, citric acid, disodium laureth sulfosucconate, glyceryl oleate, hydrogenated palm glycerides citrate, laureth-3, lecithin, maleic acid, microcrystalline wax (cera microcristallin), mineral oil (paraffinum liquidum), paraffin, sodium benzoate, sodium chloride, sodium hydroxide, styrene/acrylates copolymer, tocopherol, xanthan gum.',
     url: 'https://www.atida.fr/dexeryl-essentiel-creme-lavante-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/f100419b-7558-40ba-abf3-0473a192ab92/Dexeryl-Essentiel-Creme-Lavante-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dexeryl-essentiel-creme-lavante-200ml-268042.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -121,8 +117,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'water (aqua). caprylic/capric triglyceride. glycerin. mineral oil (paraffinum liquidum). cetearyl alcohol. beeswax (cera alba). ethylhexyl palmitate. triolein. cetearyl glucoside. caprylyl glycol. ethylhexylglycerin. glycyrrhetinic acid. hydroxyethyl acrylate/sodium acryloyldimethyl taurate copolymer. polysorbate 60. sodium hydroxide. sorbitan isostearate. squalane. tocopherol.',
     url: 'https://www.atida.fr/dexeryl-essentiel-lait-riche-nourrissant-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/52de7dfd-3eb6-479f-b964-fb4052a93da9/Dexeryl-Essentiel-Lait-Riche-Nourrissant-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dexeryl-essentiel-lait-riche-nourrissant-200ml-270264.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -150,8 +145,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Water, glycerin, mineral oil, squalane, cetearyl glucoside, cetearyl alcohol, acrylamide, sodium acryloyldimethyl, taurate copolymer, isohexadecane, polysorbate 80, dimethicone, allantoin, sodium benzoate, sodium hyaluronate, fragrance, lactic acid.',
     url: 'https://www.atida.fr/dexeryl-brulures-coups-de-soleil-5602669.html',
-    imageUrl:
-      'https://assets.atida.com/transform/8d927310-09d3-47f3-b225-23aa4558d4b3/Dexeryl-Specific-Brulures-et-Coups-de-Soleil-50g?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dexeryl-specific-brulures-et-coups-de-soleil-50g-265235.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.APAISANT, TAG_SLUGS.EXFOLIATION],
       secondary: [
@@ -180,8 +174,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Water (aqua), glycerin, zinc coceth sulfate, coco-glucoside, sodium cocoamphoacetate, peg-7 glyceryl cocoate, ceteareth-60 myristyl glycol, citric acid, sodium lauroyl methyl isethionate, glycyrrhetinic acid, peg-120 methyl glucose dioleate, pentylène glycol, sodium benzoate, sodium chloride, sodium hydroxide, tocopherol, trisodium ethylenediamine disuccinate.',
     url: 'https://www.atida.fr/dexeryl-essentiel-huile-de-douche-apaisante-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/e7601036-ac76-418c-b5eb-55babc9c245f/Dexeryl-Essentiel-Huile-de-Douche-Apaisante-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dexeryl-essentiel-huile-de-douche-apaisante-200ml-265281.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -207,8 +200,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Glycérol, vaseline, paraffine liquide, monostéarate de glycérol, acide stéarique, diméthicone, macrogol 600, trolamine, acrylamide / acryloyldimethyltaurate copolymere, isohexadécane, polysorbate, pentylèneglycol, ethylhexyl-glycérine, carbomère, eau purifiée.',
     url: 'https://www.atida.fr/dexeryl-creme-secheresses-cutanees-50g.html',
-    imageUrl:
-      'https://assets.atida.com/transform/0825a1b0-51ee-4b5b-baf2-f62f2d1f7385/Generated-image?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dexeryl-creme-secheresses-cutanees-50g-302030.webp',
     tags: {
       primary: [],
       secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -229,8 +221,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER [AQUA]. GLYCERIN. ZINC COCETH SULFATE. COCO-GLUCOSIDE. SODIUM COCOAMPHOACETATE. PEG-7 GLYCERYL COCOATE. CETEARETH-60 MYRISTYL GLYCOL. CITRIC ACID. SODIUM LAUROYL METHYL ISETHIONATE. GLYCYRRHETINIC ACID. PEG-120 METHYL GLUCOSE DIOLEATE. PENTYLENE GLYCOL. SODIUM BENZOATE. SODIUM CHLORIDE. SODIUM HYDROXIDE. TOCOPHEROL. TRISODIUM ETHYLENEDIAMINE DISUCCINATE.',
     url: 'https://www.atida.fr/dexeryl-essentiel-huile-de-douche-apaisante-1l.html',
-    imageUrl:
-      'https://assets.atida.com/transform/67ae3b9e-88f6-4e3c-8e83-7bb4d9b47c56/Dexeryl-Essentiel-huile-de-douche-apaisante-1l?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dexeryl-essentiel-huile-de-douche-apaisante-1l-302045.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -256,8 +247,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA). SODIUM LAURETH SULFATE. COCAMIDE DEA. SALICYLIC ACID. COCAMIDOPROPYL BETAINE. CITRIC ACID. LENS ESCULENTA (LENTIL) SEED EXTRACT (LENS ESCULENTA SEED EXTRACT). MENTHOL. MENTHYL LACTATE. PEG-120 METHYL GLUCOSE DIOLEATE. PEG-40 HYDROGENATED CASTOR OIL. PENTYLENE GLYCOL. SODIUM BENZOATE. SODIUM HYDROXIDE. TOCOPHEROL. TRISODIUM ETHYLENEDIAMINE DISUCCINATE.',
     url: 'https://www.atida.fr/dexeryl-dexeclear-gel-moussant-anti-imperfections-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/a5cf2467-c24e-47d5-a2a4-ca6c6a6580e5/Dexeryl-Dexeclear-Gel-moussant-anti-imperfections-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dexeryl-dexeclear-gel-moussant-anti-imperfections-400ml-302056.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -286,8 +276,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA). C12-15 ALKYL BENZOATE. DICAPRYLYL CARBONATE. BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE. DIETHYLHEXYL BUTAMIDO TRIAZONE. DIISOPROPYL ADIPATE. METHYLENE BIS-BENZOTRIAZOLYL TETRAMETHYLBUTYLPHENOL [NANO]. ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH). ALCOHOL DENAT.. BUTYL METHOXYDIBENZOYLMETHANE. POTASSIUM CETYL PHOSPHATE. LAURYL GLUCOSIDE. POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE. GLYCERIN. TAPIOCA STARCH. BENZOIC ACID. CAPRYLYL GLYCOL. CITRIC ACID. DECYL GLUCOSIDE. GLUTAMIC ACID. GLYCERYL LAURATE. HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL). LENS ESCULENTA (LENTIL) SEED EXTRACT (LENS ESCULENTA SEED EXTRACT). PENTYLENE GLYCOL. PROPYLENE GLYCOL. SODIUM BENZOATE. SODIUM PHYTATE. TOCOPHEROL. TOCOPHERYL ACETATE. XANTHAN GUM. ZINC GLUCONATE.',
     url: 'https://www.atida.fr/dexeryl-dexeclear-aquafluide-matifiant-40ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/8edec140-5a17-41c9-b3e7-cfb71e8d030f/Dexeryl-Dexeclear-Aquafluide-matifiant-40ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dexeryl-dexeclear-aquafluide-matifiant-40ml-302059.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -313,8 +302,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/dexeryl-creme-secheresses-cutanees-lot-de-3-x-50g.html',
-    imageUrl:
-      'https://assets.atida.com/transform/6f7e0d71-30d6-42c2-a109-405582ead97b/Dexeryl-Creme-Secheresses-Cutanees-Lot-de-3-x-50g?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dexeryl-creme-secheresses-cutanees-lot-de-3-x-50g-301084.webp',
     tags: {
       primary: [],
       secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -335,8 +323,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA). SODIUM COCOAMPHOACETATE. GLYCERIN. COCO-GLUCOSIDE. SODIUM MYRISTOYL GLUTAMATE. GLYCOL DISTEARATE. GLYCERYL OLEATE. PEG-40 HYDROGENATED CASTOR OIL. ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER. CAPRYLYL GLYCOL. CITRIC ACID. GLYCERYL LINOLEATE. GLYCERYL LINOLENATE. GLYCERYL PALMITATE. GLYCERYL STEARATE. GLYCINE SOJA (SOYBEAN) OIL (GLYCINE SOJA OIL). HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL). HYDROGENATED VEGETABLE GLYCERIDES CITRATE. MENTHOL. MENTHYL LACTATE. PEG-30 DIPOLYHYDROXYSTEARATE. PROPANEDIOL. SALICYLIC ACID. SODIUM BENZOATE. SODIUM DEXTRAN SULFATE. SODIUM HYDROXIDE. TOCOPHEROL. TRIDECETH-6',
     url: 'https://www.atida.fr/dexeryl-dexeclear-nettoyant-hydratant-apaisant-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/8aba68ab-2de2-4e37-a1d8-61dfa888622e/Dexeryl-Dexeclear-Nettoyant-hydratant-apaisant-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dexeryl-dexeclear-nettoyant-hydratant-apaisant-400ml-302008.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -366,8 +353,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA). SODIUM COCOAMPHOACETATE. GLYCERIN. COCO-GLUCOSIDE. SODIUM MYRISTOYL GLUTAMATE. GLYCOL DISTEARATE. GLYCERYL OLEATE. PEG-40 HYDROGENATED CASTOR OIL. ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER. CAPRYLYL GLYCOL. CITRIC ACID. GLYCERYL LINOLEATE. GLYCERYL LINOLENATE. GLYCERYL PALMITATE. GLYCERYL STEARATE. GLYCINE SOJA (SOYBEAN) OIL (GLYCINE SOJA OIL). HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL). HYDROGENATED VEGETABLE GLYCERIDES CITRATE. MENTHOL. MENTHYL LACTATE. PEG-30 DIPOLYHYDROXYSTEARATE. PROPANEDIOL. SALICYLIC ACID. SODIUM BENZOATE. SODIUM DEXTRAN SULFATE. TOCOPHEROL. TRIDECETH-6',
     url: 'https://www.atida.fr/dexeryl-dexeclear-nettoyant-hydratant-apaisant-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/0cee983a-43c6-4233-8ab6-5769d7d094b4/Dexeryl-Dexeclear-Nettoyant-hydratant-apaisant-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dexeryl-dexeclear-nettoyant-hydratant-apaisant-200ml-302032.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -397,8 +383,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA). SODIUM LAURETH SULFATE. COCAMIDE DEA. SALICYLIC ACID. COCAMIDOPROPYL BETAINE. CITRIC ACID. LENS ESCULENTA (LENTIL) SEED EXTRACT (LENS ESCULENTA SEED EXTRACT). MENTHOL. MENTHYL LACTATE. PEG-120 METHYL GLUCOSE DIOLEATE. PEG-40 HYDROGENATED CASTOR OIL. PENTYLENE GLYCOL. SODIUM BENZOATE. SODIUM HYDROXIDE. TOCOPHEROL. TRISODIUM ETHYLENEDIAMINE DISUCCINATE.',
     url: 'https://www.atida.fr/dexeryl-dexeclear-gel-moussant-anti-imperfections-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/9cf9e198-2d8a-43fb-91cd-f3d60a063f57/Dexeryl-Dexeclear-Gel-moussant-anti-imperfections-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dexeryl-dexeclear-gel-moussant-anti-imperfections-200ml-302039.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -427,8 +412,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), GLYCERIN, CETEARETH-60, MYRISTYL GLYCOL, COCO-GLUCOSIDE, ZINC COCETH SULFATE, SODIUM COCOAMPHOACETATE, POLYSORBATE 20, ASCORBYL PALMITATE, BENZOIC ACID, BHT, CITRIC ACID, DISODIUM LAURETH SULFOSUCCINATE, GLYCERYL OLEATE, HYDROGENATED PALM GLYCERIDES CITRATE, LAURETH-3, LECITHIN, MALEIC ACID, MICROCRYSTALLINE WAX (CERA MICROCRISTALLINA), MINERAL OIL (PARAFFINUM LIQUIDUM), PARAFFIN, SODIUM BENZOATE, SODIUM CHLORIDE, SODIUM HYDROXIDE, STYRENE/ACRYLATES COPOLYMER, TOCOPHÉROL, XANTHAN GUM',
     url: 'https://www.atida.fr/dexeryl-essentiel-creme-lavante-500ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/8ba11e53-0f90-4bba-9c98-38adf7c88224/Dexeryl-Essentiel-Creme-Lavante-500ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dexeryl-essentiel-creme-lavante.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['nettoyant-corps', 'zone-corps'],
@@ -449,8 +433,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'GLYCÉROL, VASELINE, PARAFFINE LIQUIDE, MONOSTÉARATE DE GLYCÉROL, ACIDE STÉARIQUE, DIMÉTHICONE, MACROGOL 600, TROLAMINE, ACRYLAMIDE / ACRYLOYLDIMETHYLTAURATE COPOLYMÈRE, ISOHEXADÉCANE, POLYSORBATE, PENTYLÈNEGLYCOL, ETHYLHEXYLGLYCERINE, CARBOMÈRE, EAU PURIFIÉE',
     url: 'https://www.atida.fr/dexeryl-creme-secheresses-cutanees-250g.html',
-    imageUrl:
-      'https://assets.atida.com/transform/674402ac-2f4a-4d13-bf82-1b5ae02ef967/Dexeryl-Creme-Secheresses-Cutanees-250g?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dexeryl-creme-secheresses-cutanees.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['lait-corps', 'zone-corps'],
@@ -471,8 +454,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, MINERAL OIL (PARAFFINUM LIQUIDUM), CETEARYL ALCOHOL, BEESWAX (CERA ALBA), ETHYLHEXYL PALMITATE, TRIOLEIN, CETEARYL GLUCOSIDE, CAPRYLYL GLYCOL, ETHYLHEXYLGLYCERIN, GLYCYRRHETINIC ACID, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, POLYSORBATE 60, SODIUM HYDROXIDE, SORBITAN ISOSTEARATE, SQUALANE, TOCOPHEROL',
     url: 'https://www.atida.fr/dexeryl-essentiel-lait-riche-nourrissant-500ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/a29babb2-eb0f-44f0-8396-562451bd1ac7/Dexeryl-Essentiel-Lait-Riche-Nourrissant-500ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dexeryl-essentiel-lait-nourrissant.webp',
     tags: {
       primary: ['hydratation', 'barriere-cutanee', 'anti-oxydant'],
       secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -493,8 +475,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, MINERAL OIL (PARAFFINUM LIQUIDUM), CETEARYL ALCOHOL, BEESWAX (CERA ALBA), ETHYLHEXYL PALMITATE, TRIOLEIN, CETEARYL GLUCOSIDE, CAPRYLYL GLYCOL, ETHYLHEXYLGLYCERIN, GLYCYRRHETINIC ACID, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, POLYSORBATE 60, SODIUM HYDROXIDE, SORBITAN ISOSTEARATE, SQUALANE, TOCOPHEROL',
     url: 'https://www.atida.fr/dexeryl-essentiel-lait-riche-nourrissant-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/52de7dfd-3eb6-479f-b964-fb4052a93da9/Dexeryl-Essentiel-Lait-Riche-Nourrissant-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dexeryl-essentiel-lait-riche-nourrissant.webp',
     tags: {
       primary: ['hydratation', 'barriere-cutanee', 'anti-oxydant'],
       secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
@@ -515,8 +496,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), SODIUM LAURETH SULFATE, COCAMIDE DEA, SALICYLIC ACID, COCAMIDOPROPYL BETAINE, CITRIC ACID, LENS ESCULENTA (LENTIL) SEED EXTRACT (LENS ESCULENTA SEED EXTRACT), MENTHOL, MENTHYL LACTATE, PEG-120 METHYL GLUCOSE DIOLEATE, PEG-40 HYDROGENATED CASTOR OIL, PENTYLENE GLYCOL, SODIUM BENZOATE, SODIUM HYDROXIDE, TOCOPHEROL, TRISODIUM ETHYLENEDIAMINE DISUCCINATE',
     url: 'https://www.atida.fr/dexeryl-dexeclear-gel-moussant-anti-imperfections-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/a5cf2467-c24e-47d5-a2a4-ca6c6a6580e5/Dexeryl-Dexeclear-Gel-moussant-anti-imperfections-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dexeryl-dexeclear-gel-moussant-anti-imperfections.webp',
     tags: {
       primary: ['anti-acne', 'exfoliation', 'anti-oxydant'],
       secondary: [
@@ -548,8 +528,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), C12-15 ALKYL BENZOATE, DICAPRYLYL CARBONATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, DIETHYLHEXYL BUTAMIDO TRIAZONE, DIISOPROPYL ADIPATE, METHYLENE BIS-BENZOTRIAZOLYL TETRAMETHYLBUTYLPHENOL [NANO], ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH), ALCOHOL DENAT., BUTYL METHOXYDIBENZOYLMETHANE, POTASSIUM CETYL PHOSPHATE, LAURYL GLUCOSIDE, POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE, GLYCERIN, TAPIOCA STARCH, BENZOIC ACID, CAPRYLYL GLYCOL, CITRIC ACID, DECYL GLUCOSIDE, GLUTAMIC ACID, GLYCERYL LAURATE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), LENS ESCULENTA (LENTIL) SEED EXTRACT (LENS ESCULENTA SEED EXTRACT), PENTYLENE GLYCOL, PROPYLENE GLYCOL, SODIUM BENZOATE, SODIUM PHYTATE, TOCOPHEROL, TOCOPHERYL ACETATE, XANTHAN GUM, ZINC GLUCONATE',
     url: 'https://www.atida.fr/dexeryl-dexeclear-aquafluide-matifiant-40ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/8edec140-5a17-41c9-b3e7-cfb71e8d030f/Dexeryl-Dexeclear-Aquafluide-matifiant-40ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dexeryl-dexeclear-aquafluide-matifiant.webp',
     tags: {
       primary: ['anti-oxydant', 'hydratation', 'sebo-regulateur'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -579,8 +558,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER (AQUA), SODIUM COCOAMPHOACETATE, GLYCERIN, COCO-GLUCOSIDE, SODIUM MYRISTOYL GLUTAMATE, GLYCOL DISTEARATE, GLYCERYL OLEATE, PEG-40 HYDROGENATED CASTOR OIL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CAPRYLYL GLYCOL, CITRIC ACID, GLYCERYL LINOLEATE, GLYCERYL LINOLENATE, GLYCERYL PALMITATE, GLYCERYL STEARATE, GLYCINE SOJA (SOYBEAN) OIL (GLYCINE SOJA OIL), HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL (HELIANTHUS ANNUUS SEED OIL), HYDROGENATED VEGETABLE GLYCERIDES CITRATE, MENTHOL, MENTHYL LACTATE, PEG-30 DIPOLYHYDROXYSTEARATE, PROPANEDIOL, SALICYLIC ACID, SODIUM BENZOATE, SODIUM DEXTRAN SULFATE, SODIUM HYDROXIDE, TOCOPHEROL, TRIDECETH-6',
     url: 'https://www.atida.fr/dexeryl-dexeclear-nettoyant-hydratant-apaisant-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/8aba68ab-2de2-4e37-a1d8-61dfa888622e/Dexeryl-Dexeclear-Nettoyant-hydratant-apaisant-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dexeryl-dexeclear-nettoyant-hydratant-apaisant.webp',
     tags: {
       primary: ['anti-acne', 'hydratation', 'anti-oxydant', 'apaisant'],
       secondary: [
@@ -612,8 +590,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'WATER, GLYCERIN, MINERAL OIL, SQUALANE, CETEARYL GLUCOSIDE, CETEARYL ALCOHOL, ACRYLAMIDE, SODIUM ACRYLOYLDIMETHYL, TAURATE COPOLYMER, ISOHEXADECANE, POLYSORBATE 80, DIMETHICONE, ALLANTOIN, SODIUM BENZOATE, SODIUM HYALURONATE, FRAGRANCE, LACTIC ACID',
     url: 'https://www.atida.fr/dexeryl-brulures-coups-de-soleil.html',
-    imageUrl:
-      'https://assets.atida.com/transform/fdb9603a-2035-4b40-a647-f7fccf377209/Dexeryl-Specific-Brulures-et-Coups-de-Soleil-150g?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/dexeryl-specific-brulures-et-coups-de-soleil.webp',
     tags: {
       primary: ['hydratation', 'barriere-cutanee', 'apaisant'],
       secondary: ['emollience', 'texture-legere'],

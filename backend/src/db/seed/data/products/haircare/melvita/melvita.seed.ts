@@ -15,8 +15,7 @@ export const MELVITA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA/WATER - GLYCERIN - AMMONIUM LAURYL SULFATE - COCAMIDOPROPYL BETAINE - HORDEUM VULGARE EXTRACT* - DECYL GLUCOSIDE - CAPRYLYL/CAPRYL GLUCOSIDE - ACTINIDIA CHINENSIS (KIWI) FRUIT WATER - FICUS CARICA (FIG) FRUIT WATER* - LAVANDULA HYBRIDA OIL* - CITRUS AURANTIUM DULCIS (ORANGE) OIL* - ARGININE - INULIN – LEVULINIC ACID - SODIUM LEVULINATE - LACTIC ACID - CARAMEL – POTASSIUM SORBATE - SODIUM BENZOATE - BENZOIC ACID - LIMONENE** - LINALOOL',
     url: 'https://www.atida.fr/melvita-les-essentiels-shampooing-douche-extradoux-1l.html',
-    imageUrl:
-      'https://assets.atida.com/transform/e0679cbd-7a66-490e-85a1-aefe8c38481a/Melvita-Les-Essentiels-Shampoing-Douche-Extra-Doux-Bio-1L?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/melvita-les-essentiels-shampoing-douche-extra-doux-bio.webp',
     tags: {
       primary: ['shampooing'],
       secondary: [],
@@ -36,8 +35,7 @@ export const MELVITA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Aqua/water - glycerin - ammonium lauryl sulfate - cocamidopropyl betaine - hordeum vulgare extract* - decyl glucoside - caprylyl/capryl glucoside - actinidia chinensis (kiwi) fruit water - ficus carica (fig) fruit water* - lavandula hybrida oil* - citrus aurantium dulcis (orange) oil* - arginine - inulin – levulinic acid - sodium levulinate - lactic acid - caramel – potassium sorbate - sodium benzoate - benzoic acid - limonene** - linalool**.*ingrédients issus de l'agriculture biologique / ingredients from organic farming ** constituants naturels des huiles essentielles / natural components of essential oils",
     url: 'https://www.atida.fr/melvita-les-essentiels-shampooing-douche-extradoux-1l.html',
-    imageUrl:
-      'https://assets.atida.com/transform/e0679cbd-7a66-490e-85a1-aefe8c38481a/Melvita-Les-Essentiels-Shampoing-Douche-Extra-Doux-Bio-1L?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/melvita-les-essentiels-shampoing-douche-extra-doux-bio-1l-259310.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],

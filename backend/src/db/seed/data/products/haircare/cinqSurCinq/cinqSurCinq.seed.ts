@@ -32,8 +32,7 @@ export const CINQ_SUR_CINQ_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Additif Lessive :\nContient du Géraniol 0,2% (m/m), CAS 106-24-1. Pareth-6, Parfum (Mélange de Dérivés d'Huiles Essentielles).Spray Environnement :\nContient du Géraniol 0,05% (m/m), CAS 106-24-1. Produits à usage Biocide (TP18-Insecticide).",
     url: 'https://www.atida.fr/cinq-sur-cinq-kit-traitement-environnement-anti-poux-et-lentes-spray-250ml-additif-lessive-150ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/8df4739c-1e9b-4783-acdf-b9017a3c2d97/Cinq-sur-Cinq-Kit-Traitement-Environnement-Anti-Poux-et-Lentes-Spray-250ml-Additif-Lessive-150ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cinq-sur-cinq-kit-traitement-environnement-anti-poux-et-lentes-spray-250ml-additif-lessive-150ml-267776.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -54,8 +53,7 @@ export const CINQ_SUR_CINQ_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/cinq-sur-cinq-baume-decolleur-de-lentes-60ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/5009f542-0e77-42fb-b06d-ed8b89227386/Cinq-sur-Cinq-Baume-Decolleur-de-Lentes-60ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cinq-sur-cinq-baume-decolleur-de-lentes-60ml-284064.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -76,8 +74,7 @@ export const CINQ_SUR_CINQ_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Huile d'eucalyptus citriodora (hydratée, cylisée) (CAS1245629-80-4; 1.5g/100g).",
     url: 'https://www.atida.fr/cinq-sur-cinq-anti-poux-et-lentes-repulsif-spray-100ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/d8d69d92-3487-47d1-b318-d75888c1fd4b/Cinq-sur-Cinq-Anti-Poux-Lentes-Spray-Repulsif-100ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cinq-sur-cinq-anti-poux-lentes-spray-repulsif-100ml-284087.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -98,8 +95,7 @@ export const CINQ_SUR_CINQ_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, Sodium ; Laureth Sulfate, Cocamidopropyl Betaine, Cocos nucifera oil, Cocamide MEA, Tocopheryl Acetate, Methylchloroisoothiazolinone, Methulospthiazolinone, Citric Acid.',
     url: 'https://www.atida.fr/cinq-sur-cinq-shampooing-anti-poux-et-lentes-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/cbf31312-6da1-45f0-b983-1b878039fa31/Cinq-sur-Cinq-Shampooing-Gel-Anti-Poux-et-Lentes-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/cinq-sur-cinq-shampooing-gel-anti-poux-et-lentes-400ml-284073.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],

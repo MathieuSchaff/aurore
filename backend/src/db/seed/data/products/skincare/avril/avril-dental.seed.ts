@@ -16,7 +16,7 @@ export const AVRIL_DENTAL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "EAU, GLYCÉRINE**, HYDROLYSAT D'AMIDON DE MAÏS HYDROGÉNÉ, ACIDE SILICIQUE, DECYL GLUCOSIDE, CARMELLOSE (DÉRIVÉ DE CELLULOSE), AROME*, BENZOATE DE SODIUM (SEL DE SODIUM L'ACIDE BENZOÏQUE), EXTRAIT DE STEVIA REBAUDIANA*, HYDROXYDE DE SODIUM (SOUDE CAUSTIQUE), LIMONÈNE",
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avril/avril-dentifrice-bio-menthe-fraiche-100ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avril-dentifrice-bio-menthe-fraiche.webp',
     tags: {
       primary: ['dentifrice'],
       secondary: [],
@@ -37,7 +37,7 @@ export const AVRIL_DENTAL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), SORBITOL, HYDRATED SILICA, GLYCERIN, XANTHAN GUM, LAURYL GLUCOSIDE, AROMA, CHARCOAL POWDER, MENTHA PIPERITA (PEPPERMINT) OIL, MENTHOL, SODIUM BENZOATE, REBAUDIOSIDE A, POTASSIUM SORBATE, CITRIC ACID, ANETHOLE, ALOE BARBADENSIS LEAF JUICE POWDER*, EUCALYPTUS GLOBULUS OIL, LIMONENE, BETA-CARYOPHYLLENE, PINENE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avril/avril-dentifrice-blanchissant-bio-100ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/avril-dentifrice-blanchissant-bio.webp',
     tags: {
       primary: ['dentifrice'],
       secondary: [],

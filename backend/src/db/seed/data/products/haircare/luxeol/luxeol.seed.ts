@@ -15,8 +15,7 @@ export const LUX_OL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, Cocamidopropyl Betaine, Sodium Lauroyl\nSarcosinate, Decyl Glucoside, Glycerin, Hydrolyzed\nKeratin, Hydrolyzed Silk, Disodium Cocoyl Glutamate,\nCitric Acid, Parfum, Sodium Benzoate, Potassium Sorbate,\nCitronellol, Linalool.',
     url: 'https://www.atida.fr/luxeol-shampooing-antichute-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/6dd8b751-d7a6-4220-ae6c-55244587563d/Luxeol-Shampoing-Antichute-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/luxeol-shampoing-antichute-200ml-237791.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -44,8 +43,7 @@ export const LUX_OL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, Propanediol, Cocamidopropyl Betaine, Sodium Lauroyl Methyl Isethionate, Sodium Chloride, Betaine, Sodium Methyl Cocoyl Taurate, Coco-Glucoside, Ricinus Communis Seed Oil, Phyllanthus Emblica Fruit Extract, Panax Ginseng Root Extract, Biotin, Arginine, Panthenol, Glycerin, Parfum, Xanthan Gum,  Lauroyl Lysine, Citric Acid, Levulinic Acid, Maltodextrin, Limonene, Linalool, Sodium Benzoate, Sodium Levulinate.',
     url: 'https://www.atida.fr/luxeol-shampooing-croissance-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/f4269e71-677f-442b-b019-d4950109763a/Generated-image?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/luxeol-shampooing-croissance-200ml-237836.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -78,8 +76,7 @@ export const LUX_OL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, biotin, isomalt, malus domestica fruit cell culture extract, potassium chloride, potassium glutathione isomerized linoleate, sodium dna, syringa vulgaris leaf cell extract, panthenol, sodium hyaluronate, calcium gluconate, glycerin, gluconolactone, sodium hydroxide, parfum, potassium sorbate, sodium benzoate.',
     url: 'https://www.atida.fr/luxeol-protocole-2-en-1-chute-de-cheveux-progressive-protocole-14-fioles-6ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/2699494e-8d80-44cf-ac39-595c8edaa4b2/Luxeol-Traitement-Antichute-Progressive-3en1?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/luxeol-traitement-antichute-progressive-3en1-14-fioles-237821.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -105,8 +102,7 @@ export const LUX_OL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Luxéol Shampooing Epaississant : AQUA, COCAMIDOPROPYL BETAINE, GLYCERIN, SODIUM METHYL COCOYL TAURATE, SODIUM CHLORIDE, LAURYL GLUCOSIDE, SODIUM HYALURONATE, PALMARIA PALMATA EXTRACT, ARGININE, HYDROLYZED SWEET ALMOND PROTEIN, HYDROLYZED RICE PROTEIN, PARFUM, COCONUT ACID, PHENETHYL ALCOHOL, GLYCERYL CAPRYLATE, PENTYLENE GLYCOL, CITRIC ACID, LEVULINIC ACID, 1,2-HEXANEDIOL, SODIUM BENZOATE.Luxéol Conditionneur sans rinçage Epaississant : Aqua, Glycerin, Xanthan Gum, Sodium Hyaluronate, Palmaria Palmata Extract, Arginine, Hydrolyzed Rice Protein, Sclerotium Gum, Parfum, Phenethyl Alcohol, Pentylene Glycol, Glyceryl Caprylate, Citric Acid, 1,2-Hexanediol, Levulinic Acid.Luxéol Sérum Epaississant : Aqua, Glycerin, Sodium Hyaluronate, Palmaria Palmata Extract, Arginine, Hydrolyzed Rice Protein, Aloe Barbadensis Leaf Juice Powder, Inulin, Parfum, Pentylene Glycol, Phenethyl Alcohol,Glyceryl Caprylate, Carbomer, Sodium Hydroxide, 1,2-Hexanediol, Levulinic Acid.',
     url: 'https://www.atida.fr/luxeol-routine-epaississante.html',
-    imageUrl:
-      'https://assets.atida.com/transform/7527b5cf-9bd6-40fc-aa18-cd26e5333d95/Generated-image?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/luxeol-routine-epaississante-301707.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -134,8 +130,7 @@ export const LUX_OL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, Myristyl Alcohol, Hydrolyzed Keratin, Panthenol, Parfum, Cetrimonium Chloride, Citric Acid, Gluconolactone, Calcium Gluconate, Sodium Benzoate, Citronellol, Linalool, Geraniol, Limonene.',
     url: 'https://www.atida.fr/luxeol-protocole-2-en-1-chute-de-cheveux-reactionnelle-protocole-14-fioles-7ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/e5bbc4f2-1c60-453b-97cc-56d62c5ee2e0/Luxeol-Traitement-Antichute-Reactionnelle-3en1?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/luxeol-traitement-antichute-reactionnelle-3en1-14-fioles-237820.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [],
@@ -160,8 +155,7 @@ export const LUX_OL_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, Myristyl Alcohol, Hydrogenated Ethylhexyl Olivate, Oryza Sativa Starch, Cetrimonium Chloride, Ethylhexyl Palmitate, Hydrolyzed Keratin, Panthenol, Cocos Nucifera Oil, Prunus Armeniaca Fruit Extract, Prunus Persica Fruit Extract, Pyrus Malus Fruit Extract, Acetum, Triticum Vulgare Germ Oil, Hydrogenated Olive Oil Unsaponifiables, Parfum, Cetearyl Alcohol, Citric Acid, Calcium Gluconate, Polysorbate 80, Gluconolactone, Potassium Sorbate, Sodium Benzoate.',
     url: 'https://www.atida.fr/luxeol-apres-shampooing-anti-chute-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/8df84acb-a130-4fd4-98fa-cc51b9432ac2/Generated-image?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/luxeol-apres-shampoing-antichute-200ml-237817.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
       secondary: [],

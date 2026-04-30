@@ -16,7 +16,7 @@ export const LES_SECRETS_DE_LOLY_SKINCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'ALOE BARBADENSIS LEAF JUINE, AQUA, RUBUS IDAEUS SEED OIL, SORBITAN LAURATE, MANGIFERA INDICA SEED BUTTER, PANTHENOL, XYLITYGLUCOSIDE, PARFUM, BENZYL ALCOHOL, COCODIMONIUM HYDROXYPROPYL HYDROLYZED KERATIN, ALGIN, GELLAN GUM, SORBITAN OLEATE, POLYSORBATE 20, CARRAGEENAN, DEHYDROACETIC ACID, DEHYDROACETIC ACID, DEHYDROXANTHAN GUM, ANHYDROXYLITOL, XYLITOL, POLYGLYCERYL-4 LAURATE, DILAURYL, CITRATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/les-secrets-de-loly/les-secrets-de-loly-cocktail-curl-remedy-spray-hydratant-310ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-cocktail-curl-remedy-spray-hydratant.webp',
     tags: {
       primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
       secondary: ['reparateur', 'brume', 'preparation', 'zone-visage'],
@@ -42,7 +42,7 @@ export const LES_SECRETS_DE_LOLY_SKINCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, GLYCERIN, BABASSU OIL POLYGLYCERYL-4 ESTERS, HYDROLYZED CICER SEED EXTRACT, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, PULLULAN, PARFUM, XYLITYLGLUCOSIDE, ANHYDROXYLITOL, SODIUM BENZOATE, CITRIC ACID, GLUCOMANNAN, XYLITOL, POTASSIUM SORBATE, BENZYL ALCOHOL, 1,2-HEXANEDIOL, VANILLIN, ALTHAEA OFFICINALIS ROOT EXTRACT, CITRUS AURANTIUM BERGAMIA PEEL OIL, LIMONENE, JUNIPERUS VIRGINIANA OIL, SODIUM HYALURONATE, HYDROXYPROPYLTRIMONIUM HYALURONATE, HYDROLYZED SODIUM HYALURONATE, ETHYLHEXYLGLYCERIN, CI 17200',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/les-secrets-de-loly/les-secrets-de-loly-hyala-fusion-mask-300ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-hyala-fusion-mask.webp',
     tags: {
       primary: ['hydratation'],
       secondary: ['masque-hebdo', 'zone-visage'],
@@ -70,7 +70,7 @@ export const LES_SECRETS_DE_LOLY_SKINCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, PRUNUS AMYGDALUS DULCIS OIL, SIMMONDSIA CHINENSIS SEED OIL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CETEARYL ALCOHOL, CICER ARIETINUM SEED EXTRACT, MANGIFERA INDICA SEED BUTTER, DEHYDROXANTHAN GUM, PARFUM, BENZYL ALCOHOL, CETEARYL GLUCOSIDE, PANTHENOL, XYLITYLGLUCOSIDE, ANHYDROXYLITOL, XYLITOL, DEHYDROACETIC ACID, GLYCINE SOJA OIL, ALOE BARBADENSIS LEAF POWDER, TOCOPHEROL, BETA-SITOSTEROL, SQUALENE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/les-secrets-de-loly/les-secrets-de-loly-kurl-fusion-gel-creme-250ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-kurl-fusion-gel-creme.webp',
     tags: {
       primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
       secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
@@ -99,7 +99,7 @@ export const LES_SECRETS_DE_LOLY_SKINCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, ALOE BARBADENSIS LEAF JUICE, CETEARYL ALCOHOL, OLEYL ERUCATE, RICINUS COMMUNIS SEED OIL, MEL, BEHENTRIMONIUM METHOSULFATE, GLYCINE SOJA OIL, THEOBROMA CACAO SEED BUTTER, GLYCERIN, PANTHENOL, CAMELIA SINENSIS LEAF EXTRACT, HELIANTHUS ANNUUS SEED OIL, ALGAE EXTRACT, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, PARFUM, TOCOPHEROL,*BENZYL ALCOHOL, BUTYLENE GLYCOL, *DEHYDROACETIC ACIDE, POTASSIUM SORBATE, SODIUM BENZOATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/les-secrets-de-loly/les-secrets-de-loly-kurl-nectar-hair-primer-250ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-kurl-nectar-hair-primer.webp',
     tags: {
       primary: ['apaisant', 'hydratation', 'barriere-cutanee'],
       secondary: ['reparateur', 'primer', 'matin', 'zone-visage'],
@@ -127,7 +127,7 @@ export const LES_SECRETS_DE_LOLY_SKINCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, PRUNUS AMYGDALUS DULCIS OIL, *MACADAMIA TERNIFOLIA SEED OIL, *GLYCINE SOJA (SOYBEAN) OIL, OLEYL ERUCATE, POLYGLYCERYL-3 DICITRATE STEARATE, GLYCERIN, PRUNUS AMYGDALUS VAR, DULCIS OIL, HYDROLYZED SWEET ALMOND PROTEIN, POTASSIUM PALMITOYL HYDROLYZED WHEAT PROTEIN, GLYCERYL STEARATE, CETEARYL ALCOHOL, PARFUM, *BENZYL ALCOHOL, *DEHYDROACETIC ACID * INGRÉDIENTS CERTIFIÉS ECOCERT',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/les-secrets-de-loly/les-secrets-de-loly-magic-twist-huile-creme-ultra-nourrissante-250ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-magic-twist-huile-creme-ultra-nourrissante.webp',
     tags: {
       primary: ['anti-age', 'hydratation'],
       secondary: ['creme-hydratante', 'zone-visage'],
@@ -149,7 +149,7 @@ export const LES_SECRETS_DE_LOLY_SKINCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA, DISTEAROYLETHYL DIMONIUM CHLORIDE, HYDROGENATED ETHYLHEXYL OLIVATE, CETEARYL ALCOHOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, HYDROGENATED CASTOR OIL, BUTYROSPERMUM PARKII BUTTER, PARFUM, CREATINE, BENZYL ALCOHOL, HYDROLYZED SOY PROTEIN, RICE AMINO ACIDS, SOY AMINO ACIDS, WHEAT AMINO ACIDS, PROLINE, THREONINE, SERINE, ARGININE HCL, TOCOPHEROL, SODIUM BENZOATE, HYDROLYZED ADANSONIA DIGITATA SEED EXTRACT, CI 77491, POTASSIUM SORBATE, SODIUM CITRATE, XANTHAN GUM',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/les-secrets-de-loly/les-secrets-de-loly-pink-power-mask-300ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-pink-power-mask.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant'],
       secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
@@ -176,7 +176,7 @@ export const LES_SECRETS_DE_LOLY_SKINCARE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA WATER EAU SODIUM LAURETH SULFATE COCO BETAINE SODIUM LAUROYL SARCOSINATE GLYCERIN METHYLPROPANEDIOL COCO GLUCOSIDE GLYCERYL OLEATE DISODIUM EDTA CITRIC ACID FRAGRANCE PARFUM CAPRYLOYL GLYCINE COPPER SULFATE XYLITYLGLUCOSIDE ANHYDROXYLITOL XYLITOL NIACINAMIDE GLUCOSE FRUCTOOLIGOSACCHARIDES MANNITOL TOCOPHEROL HYDROGENATED PALM GLYCERIDES CITRATE LECITHIN RHAMNOSE ASCORBYL PALMITATE',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/les-secrets-de-loly/les-secrets-de-loly-sleek-slay-baume-soin-2-en-1-200ml.html',
-    imageUrl: '',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-sleek-slay-baume-soin-2-en-1.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
       secondary: ['reparateur', 'sebo-regulateur', 'creme-hydratante', 'zone-visage'],

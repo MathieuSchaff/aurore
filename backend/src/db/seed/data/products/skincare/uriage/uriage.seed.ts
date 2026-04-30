@@ -521,6 +521,7 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
       'Base lavante douce sans savon. Actifs surgraissants et hydratants. Convient à toute la famille.',
     inci: 'WATER, SODIUM LAURETH SULFATE, PEG-80 GLYCERYL COCOATE, GLYCERIN, SODIUM CHLORIDE, SODIUM COCOAMPHOACETATE, SODIUM LAURETH-8 SULFATE, SODIUM METHYL COCOYL TAURATE, PARFUM (FRAGRANCE), COCO-GLUCOSIDE, GLYCERYL OLEATE, CAPRYLYL GLYCOL, CITRIC ACID, SODIUM BENZOATE, MAGNESIUM LAURETH SULFATE, SODIUM OLETH SULFATE, MAGNESIUM LAURETH-8 SULFATE, MAGNESIUM OLETH SULFATE, TOCOPHEROL, HYDROGENATED VEGETABLE GLYCERIDES CITRATE',
     url: 'https://www.uriage.fr/produits/surgras-liquide-dermatologique-500ml',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/uriage-gel-surgras-dermatologique.webp',
     tags: {
       primary: [TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
@@ -558,6 +559,7 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
     notes: `Formulé avec de l"algue rouge (Asparagopsis Armata) et des céramides. Complexes brevetés TLR2-Regul + SK5R. N°1 anti-rougeurs en pharmacie.`,
     inci: 'WATER, SQUALANE, DICAPRYLYL ETHER, BUTYROSPERMUM PARKII (SHEA) BUTTER, DIGLYCERIN, PROPANEDIOL, CETYL ALCOHOL, PENTAERYTHRITYL DISTEARATE, 1,2-HEXANEDIOL, STEARETH-2, STEARETH-21, DIMETHICONE, GLYCERYL STEARATE, PEG-100 STEARATE, SODIUM POLYACRYLATE, PARFUM (FRAGRANCE), CI 77891 (TITANIUM DIOXIDE), CHLORPHENESIN, MICA, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, TOCOPHERYL ACETATE, XANTHAN GUM, O-CYMEN-5-OL, MALTODEXTRIN, ASIATICOSIDE, ASPARAGOPSIS ARMATA EXTRACT, PANAX GINSENG ROOT EXTRACT, POLYGLYCERYL-10 STEARATE, SODIUM BENZOATE, POTASSIUM SORBATE, ASCOPHYLLUM NODOSUM EXTRACT, TRIETHYL CITRATE, POLYGLYCERYL-6 BEHENATE, CI 77491 (IRON OXIDES), SILICA, BEHENIC ACID, CERAMIDE NP, CETEARYL ALCOHOL, CHOLESTEROL, LACTIC ACID, CERAMIDE NS, TOCOPHEROL, CERAMIDE EOP, CERAMIDE AP, SODIUM CETEARYL SULFATE, SODIUM HYDROXIDE, GLYCERIN',
     url: 'https://www.uriage.fr/produits/roseliane-creme-anti-rougeurs',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/uriage-roseliane-soin-anti-rougeurs-creme.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ROSACEE, TAG_SLUGS.COUPEROSE],
       secondary: [
@@ -658,6 +660,7 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
     notes: `30% d'urée pure + Glycocolle + Sulfate de dextran. Testé sous contrôle dermatologique. Non comédogène, sans parfum. Peut provoquer des picotements passagers sur peaux sensibles.`,
     inci: 'WATER, UREA, GLYCERIN, GLYCINE, PARAFFINUM LIQUIDUM, SQUALANE, SORBITAN STEARATE, ALGIN, POLYSORBATE 60, PHENOXYETHANOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CHOLESTEROL, SODIUM DEXTRAN SULFATE, SODIUM HYDROXIDE',
     url: 'https://www.uriage.fr/produits/keratosane-30',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/uriage-keratosane-30-gel-creme.webp',
     tags: {
       primary: [TAG_SLUGS.KERATOSE_PILAIRE, TAG_SLUGS.GRAIN_PEAU],
       secondary: [
@@ -713,8 +716,7 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, alcohol, butylene glycol, peg-40 hydrogenated castor oil, peg-6 caprylic/capric glycerides, eau thermale uriage, piroctone olamine, citric acid, juniperus oxycedrus wood oil, phytosphingosine, asiaticoside.',
     url: 'https://www.atida.fr/uriage-ds-hair-lotion-antipelliculaire-regulatrice-100mll.html',
-    imageUrl:
-      'https://assets.atida.com/transform/49283849-fce5-47b7-bd8f-a78545d93593/Uriage-DS-Hair-Lotion-Antipelliculaire-Regulatrice-Purifiante-Apaisante-100ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/uriage-ds-hair-lotion-antipelliculaire-regulatrice-purifiante-apaisante-100ml-300516.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.APAISANT],
       secondary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.PREPARATION, TAG_SLUGS.ZONE_VISAGE],
@@ -735,8 +737,7 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water, eau), sodium laureth sulfate, cocamidopropyl betaine, sodium cocoyl glutamate, decyl glucoside, butylene glycol, parfum (fragrance), coco-glucoside, glyceryl oleate, polyquaternium-22, sodium benzoate, peg-120 methyl glucose dioleate, sodium chloride, citric acid, glycerin, piroctone olamine, coconut acid, hibiscus sabdariffa flower extract, phytosphingosine, alcohol, leontopodium alpinum flower/leaf extract, asiaticoside, potassium sorbate.',
     url: 'https://www.atida.fr/uriage-ds-hair-shampooing-doux-equilibrant-500ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/26803436-f70f-47c0-a987-e07265d62ff9/Uriage-DS-Hair-Shampooing-Doux-Equilibrant-Apaisant-500ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/uriage-ds-hair-shampooing-doux-equilibrant-apaisant-500ml-253520.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.APAISANT],
       secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -757,8 +758,7 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water, eau), urea, glycerin, glycine, praffinum liquidum (mineral oil), squalane, sorbitan stearate, algin, polysorbate-60, phenoxyethanol, acrylates/c10-30 alkyl acrylate crosspolymer, cholesterol, sodium dextran sulfate, sodium hydroxide.',
     url: 'https://www.atida.fr/uriage-keratosane-30-tube-75ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/dd6f5c8f-b2be-4e44-a4b1-6efc00287c75/Uriage-Keratosane-30-Gel-Creme-30-d-Uree-Lissant-Callosites-75ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/uriage-keratosane-30-gel-creme-30-d-uree-lissant-callosites-75ml-278510.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -786,8 +786,7 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water, eau), sodium laureth sulfate, cocamidopropyl betaine, sodium cocoyl glutamate, decyl glucoside, butylene glycol, parfum (fragrance), coco-glucoside, glyceryl oleate, polyquaternium-22, sodium benzoate, peg-120 methyl glucose dioleate, sodium chloride, citric acid, glycerin, piroctone olamine, coconut acid, hibiscus sabdariffa flower extract, phytosphingosine, alcohol, leontopodium alpinum flower/leaf extract, asiaticoside, potassium sorbate.',
     url: 'https://www.atida.fr/uriage-ds-hair-shampooing-doux-equilibrant-apaisant-500ml-lot-de-2.html',
-    imageUrl:
-      'https://assets.atida.com/transform/ae087a47-8a77-4e93-bf13-96d121f70515/Generated-image?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/uriage-ds-hair-shampooing-doux-equilibrant-apaisant-500ml-lot-de-2-300003.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.APAISANT],
       secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -808,8 +807,7 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water, eau), sodium laureth sulfate, sodium cocoyl glutamate, cocamidopropyl betaine, decyl glucoside, parfum (fragrance), butylene glycol, piroctone olamine, coco-glucoside, glyceryl oleate, citric acid, PEG-4 distearyl ether, zinc lactate, polyquaternium-22, sodium chloride, polyacrylate crosspolymer-6, glycerin, distearyl ether, laureth-2, PEG/PPG-120/10 trimethylolpropane trioleate, dicaprylyl ether, coconut acid, sodium benzoate, Hibiscus sabdariffa flower extract, phytosphingosine, t-butyl alcohol, alcohol, Leontopodium alpinum flower/leaf extract, asiaticoside, potassium sorbate.',
     url: 'https://www.atida.fr/uriage-ds-hair-shampooing-antipelliculaire-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/e5f7e21d-acb4-4c0e-87e7-361fad46cc4a/Uriage-DS-Hair-Shampooing-Traitant-Antipelliculaire-Purifiant-Apaisant-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/uriage-ds-hair-shampooing-traitant-antipelliculaire-purifiant-apaisant-200ml-269485.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.APAISANT],
       secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -830,8 +828,7 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients: Aqua (water, eau), sodium laureth sulfate, sodium cocoyl glutamate, cocamidopropyl betaine, decyl glucoside, lactic acid, parfum (fragrance), butylene glycol, glycine, propylene glycol, piroctone olamine, coco-glucoside, glyceryl oleate, zinc lactate, laureth-2, PEG/PPG-120/10 trimethylolpropane trioleate, isostearamide MIPA, distearyl ether, glycerin, dicaprylyl ether, glyceryl laurate, sodium hydroxide, citric acid, glycerin, Hibiscus sabdariffa flower extract, phytosphingosine, Leontopodium alpinum flower/leaf extract, potassium sorbate, tocopherol, hydrogenated vegetable, glycerides citrate.',
     url: 'https://www.atida.fr/uriage-ds-hair-shampooing-traitant-keratoreducteur-150ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/e149654d-7182-47a6-9662-9b60a1c3bf64/Uriage-DS-Hair-Shampooing-Traitant-Keratoreducteur-150ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/uriage-ds-hair-shampooing-traitant-keratoreducteur-150ml-269486.webp',
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -859,8 +856,7 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water, eau), glycerin, sodium laureth sulfate, caprylyl/capryl glucoside, peg-7 glyceryl cocoate, sodium cocoyl glutamate, sodium cocoamphoacetate, parfum (fragrance), laureth-2, peg/ppg-120/10 trimethylol, propane trioleate, citric acid, sodium benzoate, sodium chloride, polyquaternium-10, coco-glucoside, glyceryl oleate, sodium acetate.',
     url: 'https://www.atida.fr/uriage-huile-lavante-1l.html',
-    imageUrl:
-      'https://assets.atida.com/transform/f01fba5b-757b-4456-8770-cca8d5f193c9/Uriage-Huile-Lavante-Nourrissante-Sans-Savon-Peaux-Sensibles-Corps-1L?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/uriage-huile-lavante-nourrissante-sans-savon-peaux-sensibles-corps-1l-232232.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.HUILE_CORPS, TAG_SLUGS.ZONE_CORPS],
@@ -881,8 +877,7 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER, EAU) • SORBITOL • GLYCERIN • SODIUM LAURETH SULFATE • COCO-GLUCOSIDE • SODIUM COCOAMPHOACETATE • SODIUM METHYL COCOYL TAURATE • CAPRYLYL GLYCOL • CITRIC ACID • SODIUM BENZOATE • GLYCERYL OLEATE • POLYQUATERNIUM-10 • PEG-75 SHEA BUTTER GLYCERIDES • SAFFLOWER OIL/PALM OIL AMINOPROPANEDIOL ESTERS • POLYGLYCERYL-10 STEARATE • TOCOPHEROL • TRIETHYL CITRATE • POLYGLYCERYL-6 BEHENATE • HYDROGENATED VEGETABLE GLYCERIDES CITRATE • BEHENIC ACID • CERAMIDE NP • CETEARYL ALCOHOL • CHOLESTEROL • GLYCERYL STEARATE • LACTIC ACID\n• CERAMIDE NS • CERAMIDE EOP • CERAMIDE AP • SODIUM CETEARYL SULFATE.',
     url: 'https://www.atida.fr/uriage-xemose-huile-nettoyante-apaisante-1l.html',
-    imageUrl:
-      'https://assets.atida.com/transform/2a1c98e1-85db-4e5b-a83c-3bb645b6774a/Generated-image?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/uriage-xemose-c8-huile-lavante-anti-grattage-1l-253345.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -911,8 +906,7 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water, eau), glycerin, sodium laureth sulfate, caprylyl/capryl glucoside, peg-7 glyceryl cocoate, sodium cocoyl glutamate, sodium cocoamphoacetate, parfum (fragrance), laureth-2, peg/ppg-120/10 trimethylol, propane trioleate, citric acid, sodium benzoate, sodium chloride, polyquaternium-10, coco-glucoside, glyceryl oleate, sodium acetate.',
     url: 'https://www.atida.fr/uriage-huile-lavante-nourrissante-sans-savon-peaux-sensibles-corps-1l-lot-de-2.html',
-    imageUrl:
-      'https://assets.atida.com/transform/bab1b40e-3509-4297-9dcd-aa7bd3ef5167/Generated-image?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/uriage-huile-lavante-nourrissante-sans-savon-peaux-sensibles-corps-1l-lot-de-2-300145.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.HUILE_CORPS, TAG_SLUGS.ZONE_CORPS],
@@ -933,8 +927,7 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, uriage thermal spring water, sodium laureth sulfate, peg-80 glyceryl cocoate, sodium chloride glycerin, sodium cocoamphoacetate, sodium laureth-8, sulfate, sodium methyl cocoyl taurate, parfum (fragrance), coco-glucoside, glyceryl oleate, sodium oleth sulfate, magnesium laureth sulfate, magnesium laureth-8 sulfate, citric acid, dmdm hydrantoin, magnesium oleth sulfate.',
     url: 'https://www.atida.fr/uriage-surgras-liquide-dermatologique-1-l.html',
-    imageUrl:
-      'https://assets.atida.com/transform/d312a471-1482-42ac-835d-1ec91ba348a6/Uriage-Gel-Surgras-Dermatologique-Doux-Sans-Savon-Peaux-Sensibles-Corps-1L?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/uriage-gel-surgras-dermatologique-doux-sans-savon-peaux-sensibles-corps-1l-253331.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
@@ -955,8 +948,7 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water, eau), coco-betaine, hydroxypropyl starch phosphate, lauric acid, helianthus annuus (sunflower) seed oil, decyl glucoside, glycerin, parfum (fragrance), sodium methyl cocoyl taurate, sodium cocoyl isethionate, butyrospermum parkii (shea) butter, caprylyl glycol, sodium benzoate, xanthan gum, limnanthes alba (meadowfoam) seed oil, sodium hydroxide, tocopheryl acetate.92% d’ingrédients d’origine naturelle Formule biodégradable',
     url: 'https://www.atida.fr/uriage-creme-lavante-1-litre.html',
-    imageUrl:
-      'https://assets.atida.com/transform/a81c8e25-3813-4268-b4ca-9554fc812483/Uriage-Creme-Lavante-et-Nourissante-Visage-Corps-1L?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/uriage-creme-lavante-et-nourissante-visage-corps-1l-253463.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.ZONE_CORPS],
@@ -977,8 +969,7 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), glycerin, hydrogenated starch hydrolysat, uriage thermal spring water, sodium cocoamphoacetate, peg-7 glyceryl cocoate, sodium cocoyl glutamate, sodium laureth sulfate, sodium laureth-8 sulfate, ceteareth-60, myristyl glycol, polysorbate 20, coco-glucoside, glyceryl oleate, sodium chloride, citric acid, magnesium laureth sulfate, sodium oleth sulfate, polyquaternium-10-magnesium laureth-8 sulfate, peg-75 shea butter glycerides, magnesium oleth sulfate, sodium acetate, brassica campestris (rapeseed sterols, raspberry seed oil/palm oil, aminopropanediol esters.',
     url: 'https://www.atida.fr/uriage-xemose-huile-lavante-apaisante-corps-peaux-seches-atopiques-1l-lot-de-2.html',
-    imageUrl:
-      'https://assets.atida.com/transform/9840423b-e4b3-4eca-bfac-6f1b738eee23/Uriage-Xemose-Huile-Lavante-Apaisante-Corps-Peaux-Seches-Atopiques-1L-Lot-de-2?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/uriage-xemose-huile-lavante-apaisante-corps-peaux-seches-atopiques-1l-lot-de-2-300674.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.HUILE_CORPS, TAG_SLUGS.ZONE_CORPS],
@@ -999,8 +990,7 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Lait : Aqua, ethylexyl palmitate, paraffinum liquidum, glycerin, dymethicone, butyrospernum parkii shea butter, polysorbate 60, butylene glycol, 1-2-hexanediol, glyceryl stearate, peg-100, stearate, pentaerythrityl distearate, cetyl alcohol, acrylates/c10-30 alkyl acrylate crosspolymer, parfum, chlorphenesin, tocopheryl acetate, o-cymen 5-ol, sodium hydroxide, xanthan gum, hydroxyethyl acrylate/sodium acryloyldimethyl taurate copolymer, sodium hyaluronate, sorbitan isostearate. crème lavante : aqua, magnesium laureth sulfate, decyl glucoside, glycerin, cocamidopropyl betaine, parfum, styrene/ acrylates copolymer, sodium chloride, peg-120 methyl glucose dioleate, dmdm hydantoin, citric acid, shorea steniptera seed butter.Crème Lavante : Aqua, magnesium laureth sulfate, glycerin, cocamidopropyl betaine, sodium cocoyl glycinate, parfum (fragrance), acrylates copolymer, styrene/acrylates copolymer, sodium benzoate, sodium chloride, citric acid, coconut acid, xanthan gum, dmdm hydantoin.',
     url: 'https://www.atida.fr/uriage-lait-veloute-corps-500ml-creme-lavante-200ml-offerte.html',
-    imageUrl:
-      'https://assets.atida.com/transform/b3144d4e-d71f-4f72-bac4-188518ff9ea5/Uriage-Eau-Thermale-Lait-Veloute-Corps-500ml-Creme-Lavante-200ml-Offerte?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/uriage-eau-thermale-lait-veloute-corps-500ml-creme-lavante-200ml-offerte-253380.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.ZONE_CORPS],
@@ -1021,8 +1011,7 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER, EAU) • SORBITOL • GLYCERIN • SODIUM LAURETH SULFATE • COCO-GLUCOSIDE • SODIUM COCOAMPHOACETATE • SODIUM METHYL COCOYL TAURATE • CAPRYLYL GLYCOL • CITRIC ACID • SODIUM BENZOATE • GLYCERYL OLEATE • POLYQUATERNIUM-10 • PEG-75 SHEA BUTTER GLYCERIDES • SHEA • SAFFLOWER OIL/PALM OIL AMINOPROPANEDIOL ESTERS • POLYGLYCERYL-10 STEARATE • TOCOPHEROL • TRIETHYL CITRATE • POLYGLYCERYL-6 BEHENATE • HYDROGENATED VEGETABLE GLYCERIDES CITRATE • BEHENIC ACID • CERAMIDE NP • CETEARYL ALCOHOL • CHOLESTEROL • GLYCERYL STEARATE • LACTIC ACID\n• CERAMIDE NS • CERAMIDE EOP • CERAMIDE AP • SODIUM CETEARYL SULFATE.',
     url: 'https://www.atida.fr/uriage-xemose-huile-nettoyante-apaisante-500ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/d7b88096-b660-4307-a5a9-92f217d914c3/Uriage-Xemose-Huile-Lavante-Apaisante-Corps-Peaux-Seches-Atopiques-500ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/uriage-xemose-c8-huile-lavante-anti-grattage-500ml-268050.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -1051,8 +1040,7 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Zea mays (zea mays (corn) starch), potassium lauryl sulfate, cetearyl alcohol, sodium lauryl sulfate, hydrogenated castor oil, aqua, talc, parfum (fragrance), glycerine, shorea stenoptera (shorea stenoptera butter), paraffinum liquidum (mineral oil), cocamidopropyl betaine, lactid acid, ci 77891 (titanium dioxide), potassium phosphate.',
     url: 'https://www.atida.fr/uriage-pain-surgras-100g.html',
-    imageUrl:
-      'https://assets.atida.com/transform/af576572-f488-4d33-8870-3e7124e1811c/Uriage-Pain-Surgras-Dermatologique-Nourissant-Peaux-Sensibles-Corps-100g?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/uriage-pain-surgras-dermatologique-nourissant-peaux-sensibles-corps-100g-268741.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
@@ -1079,8 +1067,7 @@ export const URIAGE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, sodium laureth sulfate, sodium cocamphoacetate, butylene glycol, decyl glucoside, sodium chloride, sodium laureth-8 sulfate, zinc coceth sulfate, sodium lauroyl glutamate, sodium methyl cocoyl taurate, sodium myristoyl sarcosinate, coco-glucoside, glyceryl oleate, lactic acid, peg-120 methyl glucose dioleate, piroctone olamine, magnesium laureth sulfate, sodium oleth sulfate, magnesium laureth-8 sulfate, benzoic acid, copper gluconate, manganese gluconate, magnesium oleth sulfate, coceth-3, phytosphingosine, asiaticoside, ci 42090 (blue 1).',
     url: 'https://www.atida.fr/uriage-ds-gel-nettoyant-150ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/ebb2eff0-9e5c-43bf-83b9-114706988372/Uriage-DS-Gel-Nettoyant-Regulateur-Purifiant-150ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/uriage-ds-gel-nettoyant-regulateur-purifiant-150ml-260657.webp',
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.APAISANT],
       secondary: [

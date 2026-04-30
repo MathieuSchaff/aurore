@@ -151,8 +151,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (Water), Sodium Laureth Sulfate, PEG-90 Glyceryl Isostearate, Cocamidopropyl Betaine, Glycerin, Sodium Chloride, Pentylene Glycol, Propanediol, Sodium Benzoate, PPG-26-Buteth-26, Chlorphenesin, Parfum (Fragrance), Laureth-2, PEG-40 Hydrogenated Castor Oil, Citric Acid, Zinc PCA, Tetrasodium EDTA, Xylitylglucoside, Buteth-3, Anhydroxylitol, Propylene Glycol, Sodium Benzotriazolyl Butylphenol Sulfonate, Alcohol, Xylitol, Butyl Avocadate, Dipropylene Glycol, Tris(Tetramethylhydroxypiperidinol) Citrate, Tributyl Citrate, Boswellia Serrata Extract, Propolis Extract, CI 42090 (Blue 1), Tocopherol',
     url: 'https://www.atida.fr/isispharma-teen-derm-gel-sensitive-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/287c862b-df95-45e5-bef4-325f01df64ae/Isispharma-Teen-Derm-Gel-Nettoyant-Purifiant-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-teen-derm-gel-sensitive-400ml-252744.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [
@@ -188,8 +187,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), PEG-6 CAPRYLIC/ CAPRIC GLYCERIDES, BUTYLENE GLYCOL, PENTYLENE GLYCOL, XYLITYLGLUCOSIDE, ANHYDROXYLITOL, SODIUM BENZOATE, ETHYLHEXYLGLYCERIN, XYLITOL, CETRIMONIUM BROMIDE, TETRASODIUM EDTA, COPPER PCA, ZINC PCA, CITRIC ACID, PARFUM (FRAGRANCE), TOCOPHERYL ACETATE, BUTYL AVOCADATE, DIPROPYLENE GLYCOL, BOSWELLIA SERRATA RESIN EXTRACT, PROPYL GALLATE.',
     url: 'https://www.atida.fr/isispharma-teen-derm-aqua-solution-micellaire-demaquillante-purifiante-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/248123bf-a619-4695-b5fc-864ff2bd3248/Isispharma-Teen-Derm-Aqua-Solution-Micellaire-Demaquillante-Purifiante-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-teen-derm-aqua-solution-micellaire-demaquillante-purifiante-400ml-302101.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [
@@ -223,8 +221,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), azelaic acid, caprylic/capric triglyceride, pentylene glycol, butyl avocadate, glycerin, dipropylene glycol, hydroxyethyl acrylate/sodium acryloyldimethyl taurate copolymer, xylitylglucoside, lauryl glucoside, polyglyceryl-2 dipolyhydroxystearate, anhydroxy-litol, xylitol, ethylhexylglycerin, sclerotium gum, chlorphenesin, boswellia serrata extract, o-cymen-5-ol, polysorbate 60, sorbitan isostearate, sodium hydroxide, citric acid, tocopherol.',
     url: 'https://www.atida.fr/isispharma-teen-derm-a-z-soin-intense-anti-imperfections-anti-marques-30ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/fcda0a27-89ef-435c-a194-f4d6f4136cc4/Isispharma-Teen-Derm-A-Z-Soin-Intense-Anti-Imperfections-Anti-Marques-30ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-teen-derm-a-z-soin-intense-anti-imperfections-anti-marques-30ml-274268.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.POST_ACNE, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
@@ -259,8 +256,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, azelaic acid, caprylic/capric triglyceride, glycerin, butylene glycol, pentylene glycol, vinyl dimethicone/methicone silsesquioxane crosspolymer, hydroxyethyl acrylate/sodium acryloyldimethyl taurate copolymer, lauryl glucoside, polyglyceryl-2 dipolyhydroxystearate, glycyrrhetinic acid, niacinamide, ethylhexylglycerin, panthenol, sclerotium gum, chlorphenesin, escin, O-Cymen-5-OL, polysorbate-60, sorbitan isostearate, Ruscus aculeatus root extract, ammonium glycyrrhizate, citric acid, Centella asiatica extract, hydrolyzed yeast protein, Calendula officinalis flower extract, sodium citrate.',
     url: 'https://www.atida.fr/isispharma-ruboril-metroruboril-az-creme-antirougeurs-30ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/8e32ae90-11e8-4eb7-ae6c-3f4fdcfc72b7/Isispharma-Ruboril-Metroruboril-AZ-Creme-Antirougeurs-30ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-ruboril-metroruboril-az-creme-antirougeurs-30ml-268496.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ROSACEE],
       secondary: [
@@ -305,8 +301,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), glycerin, propylene glycol, butyrospermum parkii (shea) butter, caprylic/capric triglyce-ride, dimethicone, glyceryl stearate, pen-tylene glycol, theobroma cacao (cocoa) seed butter, xylitylglucoside, cetearyl alcohol, anhydroxylitol, peg-100 stea-rate, bisabolol, butyl avocadate, xylitol, butylene glycol, chlorphenesin, carbo-mer, o-cymen-5-ol, sodium hydroxide, 1,2-hexanediol, caprylyl glycol, polyquater-nium-51, parfum (fragrance), propyl gal-late, citric acid.',
     url: 'https://www.atida.fr/isispharma-teen-derm-hydra-hydratant-compensateur-apaisant-40ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/61de67ca-30fd-4ca3-8d3c-b092fb24cff4/Isispharma-Teen-Derm-Hydra-Hydratant-Compensateur-Apaisant-40ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-teen-derm-hydra-hydratant-compensateur-apaisant-40ml-281637.webp',
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -342,8 +337,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), GLYCERIN, IMPERATA CYLINDRICA ROOT EXTRACT, PROPANEDIOL, CARRAGEENAN, SODIUM BENZOATE, SODIUM HYALURONATE, POTASSIUM SORBATE, COCO-GLUCOSIDE, PPG-26-BUTETH-26, SCHISANDRA CHINENSIS FRUIT EXTRACT, PEG-40 HYDROGENATED CASTOR OIL, GLUCOSE, CAPRYLYL GLYCOL, PARFUM (FRAGRANCE), CITRIC ACID, CARBOMER, SODIUM CITRATE, SORBIC ACID, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, HEXYL CINNAMAL, ACETYL TETRAPEPTIDE-15, BIOTIN.',
     url: 'https://www.atida.fr/isispharma-sensylia-serum-urban-protect-30-ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/9c390e16-138d-403b-8250-b062e2e9e184/EAN_IMG_FR_3760269771505_1?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-sensylia-serum-urban-protect-30-ml-280666.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.POLLUTION],
       secondary: [
@@ -378,8 +372,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'aqua (water), homosalate, dicaprylyl carbonate, butyloctyl salicylate, methylene, bis-benzotriazolyl tetramethylbutylphenol (nano), caprylic/capric triglyceride, butyl methoxydibenzoylmethane, diisopropyl adipate, ethylhexyl methoxycrylene, niacinamide, steareth-21, bis-ethylhexyloxyphenol methoxyphenyl triazine, styrene/ acrylates copolymer, glyceryl stearate, peg-100 stearate, 1,2-hexanediol, silica, glycerin, trimethoxybenzyl acetylsinapate, decyl glucoside, vp/eicosene copolymer, xanthan gum, ethylhexyl glycerin, hydroxyethyl acrylates/sodium acryloyldimethyl taurate copolymer, parfum (fragrance), chlorphenesin, squalane, peg-8 laurate, sodium levulinate, citric acid, stearalkonium hectorite, sodium anistate, polysorbate 60, melanin, biosaccharide gum-4, propylene glycol, propylene carbonate, pentylene glycol, sorbitan isostearate, bentonite, glycyrrhiza glabra (licorice) root extract, diacetyl boldine, tocopherol, glycine soja (soybean) oil.',
     url: 'https://www.atida.fr/isispharma-neotone-radiance-spf50-fluide-intensif-protecteur-taches-brunes-30ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/7480703f-2eab-45ac-bdc1-de61895d238e/Isispharma-Neotone-Radiance-SPF50-Fluide-Intensif-Protecteur-Taches-Brunes-30ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-neotone-radiance-spf50-fluide-intensif-protecteur-taches-brunes-30ml-278100.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
@@ -418,8 +411,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), dimethicone, glycolic acid, caprylic/capric triglyceride, alcohol denat., glycerin, isopentyldiol, niacinamide, sodium hydroxide, polyacrylate crosspolymer-6, hydroxyethylcellulose, 1,2-hexanediol, trimethoxybenzyl acetylsinapate, hydroxyethyl acrylate/sodium acryloyldimethyl taurate copolymer, salicylic acid, dimethicone/vinyl dimethicone crosspolymer, parfum (fragrance), chlorphenesin, betaglucan, algin, citric acid, xanthan gum, polysorbate-60, benzoic acid, sorbic acid, sorbitan isostearate, T-butyl alcohol, bentonite, Glycyrrhiza glabra (licorice) root extract, disodium phosphate, diacetyl boldine, sodium phosphate.',
     url: 'https://www.atida.fr/isispharma-neotone-serum-intensif-taches-brunes-localisees-30ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/cf19f03a-2c6e-4a32-b116-e5764b9c0a93/Isispharma-Neotone-Serum-Intensif-Taches-Brunes-Localisees-30ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-neotone-serum-intensif-taches-brunes-localisees-30ml-269487.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.ECLAT],
       secondary: [
@@ -455,8 +447,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, PEG-6 CAPRYLIC/CAPRIC GLYCERIDES, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, 1,2-HEXANEDIOL, HYDROXYACETOPHENONE, POLYACRYLATE CROSSPOLYMER-6, O-CYMEN-5- OL, POLYSORBATE 60, SORBITAN ISOSTEARATE, BISABOLOL.',
     url: 'https://www.atida.fr/isispharma-ruboril-lotion-250-ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/495a7c11-dc90-4c4c-a674-03eaf2dd60e9/Isispharma-Ruboril-Lotion-Lait-Demaquillant-Apaisant-250ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-ruboril-lotion-250-ml-266903.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
@@ -489,8 +480,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), glycerin, caprylic/capric triglyceride betaine, butylene glycol, dimethicone, pentylene glycol, dicaprylyl carbonate, butyrospermum parkii (shea) butter, myristyl myristate, glycyrrhetinic acid, cetyl alcohol, sodium polyacrylate, hydroxyethyl acrylate/sodium acryloyldimethyl taurate copolymer, triceteareth-4 phosphate, glycol stearate, peg-2 stearate, acacia decurrens/jojoba/sunflower seed wax polyglyceryl-6 esters, aluminum starch octenylsuccinate, niacinamide, carbomer, panthenol, chlorphenesin, c12-16 alcohols, o-cymen-5-ol, camelina sativa seed oil, escin, sodium hydroxide, palmitic acid, hydrogenated, lecithin, disodium edta, ruscus aculeatus root extract, polysorbate 60, sorbitan isostearate, ammonium glycyrrhizate, centalla asiatica leaf extract, hydrolyzed yeast protein, calendula officinalis flower extract, sodium citrate, tocopherol, ascorbic acid.',
     url: 'https://www.atida.fr/isispharma-ruboril-expert-s-gel-creme-anti-rougeurs-peaux-seches-40ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/599b046b-859c-4ee7-b0b5-a20ba12b2c3c/Isispharma-Ruboril-Expert-S-Gel-Creme-Anti-rougeurs-Peaux-Seches-40ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-ruboril-expert-s-gel-creme-anti-rougeurs-peaux-seches-40ml-267290.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ROSACEE],
       secondary: [
@@ -532,8 +522,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), ethylhexyl methoxycinnamate, diethylamino hydroxybenzoyl hexyl benzoate, diisopropyl adipate, glycerin, ethylhexyl triazone, bis-ethylhexyloxyphenol methoxyphenyl triazine, cyclopentasiloxane, sorbitan stearate, methylene bis-benzotriazolyl tetramethylbutylphenol [nano], lauryl glucoside, polyglyceryl-2 dipolyhydroxystearate, magnesium aluminum silicate, glyceryl stearate, peg-100 stearate, caprylyl glycol, methyl methacrylate, crosspolymer, sodium benzoate, disodium edta, decyl glucoside, caprylhydroxamic acid, paraffinum liquidum (mineral oil), citric acid, silica, propylene glycol, bht, xanthan gum.',
     url: 'https://www.atida.fr/isispharma-uveblock-spray-enfants-spf50-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/9eb966cd-0edb-44ad-b6cd-58b4b366ea0a/Isispharma-Uveblock-Spray-Enfants-SPF50-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-uveblock-spray-enfants-spf50-200ml-274253.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
@@ -580,8 +569,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), glycolic acid, cetyl alcohol, paraffinum liquidum (mineral oil), ceteth-20, ammonia steareth-20, palmitic acid, stearic acid.',
     url: 'https://www.atida.fr/isispharma-glyco-a-medium-peeling.html',
-    imageUrl:
-      'https://assets.atida.com/transform/f19dba87-aeec-4d0d-8bee-ef24acc2d605/Isispharma-Glyco-A-Medium-Peeling-30ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-glyco-a-medium-peeling-30ml-274266.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES],
       secondary: [
@@ -612,8 +600,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), caprylic/capric triglyceride, betaine, butylene glycol, pentylene glycol, acacia decurrens/jojoba/sunflower seed wax polyglyceryl-3 esters, hydroxyethyl acrylate/sodium acryloyldimethyl taurate copolymer, glycyrrhetinic acid, cetyl alcohol, niacinamide, panthenol, chlorphenesin, c12-16 alcohols, citric acid, carbomer, o-cymen-5-ol, camelina sativa seed oil, escin, sodium hydroxide, polysorbate 60, sorbitan isostearate, glycerin, palmitic acid, hydrogenated lecithin, ruscus aculeathus root extract, ammonium glycyrrhizate, centalla asiatica leaf extract, hydrolyzed yeast protein, calendula officinalis flower extract, sodium citrate, ascorbic acid.',
     url: 'https://www.atida.fr/isispharma-ruboril-expert-m-gel-creme-anti-rougeurs-peaux-normales-a-mixtes-40ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/2b2a5a61-f762-465c-bc0f-96ca6dd8f31b/Isispharma-Ruboril-Expert-M-Gel-Creme-Anti-rougeurs-Peaux-Normales-a-Mixtes-40ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-ruboril-expert-m-gel-creme-anti-rougeurs-peaux-normales-a-mixtes-40ml-267289.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ROSACEE],
       secondary: [
@@ -656,8 +643,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Lanoline huile, vitamine-E (tocophérol acétate).',
     url: 'https://www.atida.fr/isispharma-xerolan-spray-emollient-reparateur-apaisant-150ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/b996189e-c562-48ce-8670-a5c1c39767b9/Isispharma-Xerolan-Spray-Emollient-Reparateur-Apaisant-150ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-xerolan-spray-emollient-reparateur-apaisant-150ml-266908.webp',
     tags: {
       primary: [TAG_SLUGS.ECZEMA, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -690,8 +676,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), glycolic acid, glyceryl stearate, isodecyl neopentanoate, dimethicone, mandelic acid, peg-100 stearate, magnesium aluminum silicate, ceteareth-20, gluconolactone, ammonia, glycerin, sorbitan stearate, sodium hydroxide, jojoba esters, helianthus annuus (sunflower) seed wax, sclerotium gum, xanthan gum, acacia decurrens flower wax, polyglycerin-3.',
     url: 'https://www.atida.fr/isispharma-glyco-a-intense-peeling-30ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/9eecebab-14dc-4b05-a4ad-09a5e7a264f1/Isispharma-Glyco-A-Intense-Peeling-Creme-Nuit-30ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-glyco-a-intense-peeling-creme-nuit-30ml-274263.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.ANTI_AGE],
       secondary: [
@@ -723,8 +708,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'NEOTONE Serum : AQUA (WATER), DIMETHICONE, GLYCOLIC ACID, CAPRYLIC/CAPRIC TRIGLYCERIDE, ALCOHOL DENAT., GLYCERIN, ISOPENTYLDIOL, NIACINAMIDE, SODIUM HYDROXIDE, POLYACRYLATE CROSSPOLYMER-6, 1,2-HEXANEDIOL, BENTONITE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, HYDROXYETHYLCELLULOSE, SALICYLIC ACID, DIMETHICONE/ VINYL DIMETHICONE CROSSPOLYMER, PARFUM (FRAGRANCE), CHLORPHENESIN, BETA-GLUCAN, ALGIN, CITRIC ACID, XANTHAN GUM, BENZOIC ACID, POLYSORBATE 60, SORBIC ACID, SORBITAN ISOSTEARATE, T-BUTYL ALCOHOL, DISODIUM PHOSPHATE, HYDRATED SILICA, SODIUM PHOSPHATE, GLYCYRRHIZA GLABRA (LICORICE) ROOT EXTRACT, TRIMETHOXYBENZYL ACETYLSINAPATE, DIACETYL BOLDINE.NEOTONE Radiance SPF 50+ : AQUA (WATER), HOMOSALATE, DICAPRYLYL CARBONATE, BUTYLOCTYL SALICYLATE, METHYLENE BIS-BENZOTRIAZOLYL TETRAMETHYLBUTYLPHENOL [NANO], CAPRYLIC/ CAPRIC TRIGLYCERIDE, BUTYL METHOXYDIBENZOYLMETHANE, DIISOPROPYL ADIPATE, ETHYLHEXYL METHOXYCRYLENE, NIACINAMIDE, STEARETH-21, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, STYRENE/ ACRYLATES COPOLYMER, GLYCERYL STEARATE, PEG-100 STEARATE, 1,2-HEXANEDIOL, SILICA, GLYCERIN, BENTONITE, DECYL GLUCOSIDE, VP/ EICOSENE COPOLYMER, XANTHAN GUM, ETHYLHEXYLGLYCERIN, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, PARFUM (FRAGRANCE), CHLORPHENESIN, SQUALANE, PEG-8 LAURATE, SODIUM LEVULINATE, CITRIC ACID, STEARALKONIUM HECTORITE, SODIUM ANISATE, POLYSORBATE 60, MELANIN, BIOSACCHARIDE GUM-4, PROPYLENE GLYCOL, PROPYLENE CARBONATE, PENTYLENE GLYCOL, SORBITAN ISOSTEARATE, GLYCYRRHIZA GLABRA (LICORICE) ROOT EXTRACT, TRIMETHOXYBENZYL ACETYLSINAPATE, DIACETYL BOLDINE, TOCOPHEROL.',
     url: 'https://www.atida.fr/isispharma-duo-anti-taches-pigmentaires.html',
-    imageUrl:
-      'https://assets.atida.com/transform/b470d117-5b65-4666-8001-6a257a22860d/EAN_IMG_FR_2551846809299_1?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-duo-anti-taches-pigmentaires-300803.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
@@ -762,8 +746,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), DIISOPROPYL SEBACATE, DICAPRYLYL CARBONATE, PROPANEDIOL, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, BUTYL METHOXYDIBENZOYLMETHANE, BUTYLENE GLYCOL COCOATE, ETHYLHEXYL TRIAZONE, POLYGLYCERYL-3 METHYLGLUCOSE DISTEARATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, GLYCERIN, THEOBROMA CACAO (COCOA) SEED BUTTER, CAPRYLOYL GLYCERIN/SEBACIC ACID COPOLYMER, SODIUM STEAROYL GLUTAMATE, ZEA MAYS (CORN) STARCH, MICROCRYSTALLINE CELLULOSE, 1,2-HEXANEDIOL, PENTYLENE GLYCOL, GLYCERYL CAPRYLATE, XANTHAN GUM, CELLULOSE GUM, O-CYMEN-5-OL, SODIUM HYDROXIDE, BIOSACCHARIDE GUM-4, ONOPORDUM ACANTHIUM FLOWER/LEAF/STEM EXTRACT, TOCOPHEROL.',
     url: 'https://www.atida.fr/isispharma-cicapro-cream-spf50-40ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/e771d641-2582-492e-9324-90070e462ba8/Isispharma-CIcapro-Cream-SPF50-40ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-cicapro-cream-spf50-40ml-307609.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.CICATRISATION],
       secondary: [
@@ -806,8 +789,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), homosalate, dicaprylyl carbonate, butyloctyl salicylate, methylene bis-benzotriazolyl tetramethylbutylphenol [nano], caprylic/capric triglyceride, butyl methoxydibenzoylmethane, diisopropyl adipate, ethylhexyl methoxycrylene, niacinamide, steareth-21, bis-ethylhexyloxyphenol methoxyphenyl triazine, styrene/acrylates copolymer, glyceryl stearate, peg-100 stearate, 1,2-hexanediol, silica, glycerin, trimethoxybenzyl acetylsinapate, decyl glucoside, vp/eicosene copolymer, xanthan gum, ethylhexylglycerin, hydroxyethyl acrylate/sodium acryloyldimethyl taurate copolymer, parfum (fragrance), chlorphenesin, squalane, peg-8 laurate, sodium levulinate, citric acid, stearalkonium hectorite, sodium anisate, polysorbate 60, melanin, biosaccharide gum-4, propylene glycol, propylene carbonate, pentylene glycol, sorbitan isostearate, bentonite, glycyrrhiza glabra (licorice) root extract, diacetyl boldine, tocopherol, glycine soja (soybean) oil',
     url: 'https://www.atida.fr/isispharma-neotone-radiance-spf50-fluide-intensif-protecteur-taches-brunes-teinte-30ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/a24a9f26-fd98-496c-bc5f-4f35dc1de5e7/Isispharma-Neotone-Radiance-SPF50-Fluide-Intensif-Protecteur-Taches-Brunes-Teinte-30ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-neotone-radiance-spf50-fluide-intensif-protecteur-taches-brunes-teinte-30ml-274269.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
@@ -845,8 +827,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Isohexadecane, aqua (water), titanium dioxide [nano], PEG-30 dipolyhydroxystearate, ethylhexyl stearate, silica, caprylic/capric triglyceride, colorants : CI 77891 (titanium dioxide), glycerin, methyl methacrylate crosspolymer, alumina, pentylene glycol, nylon-12, polyglyceryl-3 diisostearate, zinc oxide [nano], stearic acid, trihydroxystearin, CI 77492 (iron oxides), chlorphenesin, CI 77491 (iron oxides), sodium chloride, O-cymen-5-OL, melanin, triethoxycaprylylsilane, CI 77499 (iron oxides), diacetyl boldine, ethylhexylglycerin.',
     url: 'https://www.atida.fr/isispharma-neotone-prevent-spf50-creme-teintee-minerale-30ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/769ea3af-054f-4a78-b5e9-134eec9f0a99/Isispharma-Neotone-Prevent-SPF50-Creme-Teintee-Minerale-30ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-neotone-prevent-spf50-creme-teintee-minerale-30ml-269491.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_TACHES],
       secondary: [
@@ -880,8 +861,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), alcohol denat, butylene glycol, polyacrylamide, C13-14 isoparaffin, caprylyl glycol, laureth-7, dipropylene glycol, disodium EDTA, sodium thiosulfate, glyceryl caprylate, calcium pantothenate, sodium bicarbonate, cyanocobalamin, pentylene glycol, magnesium aspartate, zinc gluconate, phenoxyethanol, superoxide dismutase, tromethamine, copper gluconate.',
     url: 'https://www.atida.fr/isispharma-vitiskin-hydrogel-regulateur-repigmentation-peau-50ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/bf064028-a210-4dd8-8dc4-348209dbfd24/Isispharma-Vitiskin-Hydrogel-Regulateur-Repigmentation-Peau-50ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-vitiskin-hydrogel-regulateur-repigmentation-peau-50ml-244724.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -914,8 +894,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), cocamidopropyl betaine, glycolic acid, glycerin, polysorbate 80, sodium hydroxide, parfum (fragrance), chlorphenesin, sodium cocoyl amino acids, sodium benzoate, propylene glycol, sarcosine, magnesium aspartate, potassium aspartate.',
     url: 'https://www.atida.fr/isispharma-glyco-a-foamer-100ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/d4b30a8b-e41a-47c5-9061-32beb23e7d6c/Isispharma-Glyco-A-Foamer-Nettoyant-Coup-d-Eclat-100ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-glyco-a-foamer-nettoyant-coup-d-eclat-100ml-274265.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.PORES_DILATES],
       secondary: [
@@ -948,8 +927,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), sodium laureth sulfate, propylene glycol, cocamidopropyl betaine, lauryl glucoside, caprylyl glycol, peg-90 glyceryl isostearate, peg-35 castor oil, piroctone olamine, sodium benzoate, zinc pca, coco-glucoside, glyceryl oleate, xanthan gum, panthenol, salicylic acid, caprylhydroxamic acid, glycerin, laureth-2, citric acid, bisabolol, niacinamide, sodium shale oil sulfonate, tocopherol, hydrogenated palm glycerides citrate.',
     url: 'https://www.atida.fr/isispharma-ilcapil-kr-shampoing-anti-pelliculaire-150ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/5ac6f91b-9c05-4d49-8436-d750bd01e9c2/Isispharma-Ilcapil-KR-Shampoing-Anti-Pelliculaire-150ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-ilcapil-kr-shampoing-anti-pelliculaire-150ml-289404.webp',
     tags: {
       primary: [TAG_SLUGS.MICROBIOME, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -986,8 +964,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), isodecyl neopentanoate, glycerin, C14-22 alcohols, dimethicone, butylene glycol, bisabolol, pentylene glycol, microcrystalline cellulose, C12-20 alkyl glucoside, dimethicone/vinyl dimethicone crosspolymer, P-anisic acid, hydroxyethyl acrylate/sodium acryloyldimethyl taurate copolymer, chlorphenesin, sodium hyaluronate, xanthan gum, cellulose gum, sodium hydroxide, Chlorella vulgaris extract, polysorbate-60, sorbitan isostearate, Glycyrrhiza glabra (licorice) root extract, acetyl tetrapeptide-5.',
     url: 'https://www.atida.fr/isispharma-neotone-contour-yeux-eclaircissant-cernes-et-poches-15ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/efd0da3f-f10a-4866-a065-15485368279d/Isispharma-Neotone-Contour-Yeux-Eclaircissant-Cernes-et-Poches-15ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-neotone-contour-yeux-eclaircissant-cernes-et-poches-15ml-269490.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.CERNES_POCHES, TAG_SLUGS.ECLAT],
       secondary: [
@@ -1021,8 +998,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), HOMOSALATE, DICAPRYLYL CARBONATE, BUTYLOCTYL SALICYLATE, METHYLENE BIS-BENZOTRIAZOLYL TETRAMETHYLBUTYLPHENOL [NANO], CAPRYLIC/CAPRIC TRIGLYCERIDE, BUTYL METHOXYDIBENZOYLMETHANE, CI 77891 (TITANIUM DIOXIDE), DIISOPROPYL ADIPATE, ETHYLHEXYL METHOXYCRYLENE, NIACINAMIDE, STEARETH-21, BISETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, STYRENE/ACRYLATES COPOLYMER, GLYCERYL STEARATE, PEG-100 STEARATE, 1,2-HEXANEDIOL, GLYCERIN, BENTONITE, SILICA, DECYL GLUCOSIDE, VP/ EICOSENE COPOLYMER, CI 77492 (IRON OXIDES), XANTHAN GUM, ETHYLHEXYLGLYCERIN, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, PARFUM (FRAGRANCE), CHLORPHENESIN, SQUALANE, PEG-8 LAURATE, SODIUM LEVULINATE, STEARALKONIUM HECTORITE, CITRIC ACID, SODIUM ANISATE, CI 77491 (IRON OXIDES), POLYSORBATE 60, MELANIN, BIOSACCHARIDE GUM-4, PROPYLENE GLYCOL, PROPYLENE CARBONATE, PENTYLENE GLYCOL, SORBITAN ISOSTEARATE, TRIETHOXYCAPRYLYLSILANE, GLYCYRRHIZA GLABRA (LICORICE) ROOT EXTRACT, TRIMETHOXYBENZYL ACETYLSINAPATE, DIACETYL BOLDINE, TOCOPHEROL, CI 77499 (IRON OXIDES).',
     url: 'https://www.atida.fr/isispharma-neotone-radiance-spf50-fluide-intensif-protecteur-teinte-clair-30ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/a9d75487-4f67-4fa9-be3d-b74f8ad7604a/Isispharma-Neotone-Radiance-SPF50-Fluide-Intensif-Protecteur-Teinte-Clair-30ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-neotone-radiance-spf50-fluide-intensif-protecteur-teinte-clair-30ml-302110.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
@@ -1061,8 +1037,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (Water), Butyrospermum Parkii (Shea) Butter, Ethylhexyl Stearate, Glycerin, Glyceryl Stearate, Glyceryl Stearate Citrate, Gossypium Herbaceum (Cotton) Seed Oil, 1,2-Hexanediol, Bisabolol, Glyceryl Caprylate, Xanthan Gum, Hydrolyzed Yeast Protein, Butylene Glycol, O-Cymen-5-Ol, Pentylene Glycol, Sodium Hydroxide',
     url: 'https://www.atida.fr/isispharma-secalia-ato-baume-relipidant-apaisant-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/ed8104a8-323b-43aa-8e88-d14052300fe4/Isispharma-Secalia-ATO-Baume-Relipidant-Apaisant-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-secalia-ato-baume-relipidant-apaisant-200ml-274273.webp',
     tags: {
       primary: [TAG_SLUGS.ECZEMA, TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -1096,8 +1071,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), ethylhexyl methoxycinnamate, methylene bis-benzotriazolyl tetramethylbutylphenol [nano], butyl methoxydibenzoylmethane, c12-15 alkyl benzoate, ethylhexyl salicylate, diisopropyl adipate, diethylhexyl syringylidenemalonate, zea mays (corn) starch, diethylamino hydroxybenzoyl hexyl benzoate, ethylhexyl triazone, propanediol dicaprylate, glyceryl stearate, peg-100 stearate, polysorbate 80, silica, cetyl alcohol, glycerin, pentylene glycol, decyl glucoside, magnesium aluminum silicate, propanediol, xanthan gum, sodium benzoate , caprylic/capric triglyceride, chlorphenesin, citric acid, ectoin, propylene glycol, disodium edta, sophora japonica flower extract.',
     url: 'https://www.atida.fr/isispharma-uveblock-ultra-fluide-touche-sec-spf50-40ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/c2782596-11ed-4bf2-bb33-153e0bd437be/Isispharma-Uveblock-Ultra-Fluide-Touche-Sec-SPF50-40ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-uveblock-ultra-fluide-touche-sec-spf50-40ml-274261.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
@@ -1144,8 +1118,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), ascorbyl glucoside, methylpropanediol, propylene glycol, ppg-26-buteth-26, sodium hydroxide, sodium citrate, pentylene glycol, peg-40 hydrogenated castor oil, butylene glycol, glycerin, superoxide dismutase, tocopheryl acetate, parfum (fragrance), citric acid, retinyl palmitate, helianthus annuus (sunflower) seed oil, hexyl cinnamal, limonene, tocopherol, linalool, acetyl hexapeptide-51 amide.',
     url: 'https://www.atida.fr/isispharma-geneskin-c-premium-concentre-eclat-10ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/674d3d04-cb35-4c78-a02a-58acd2f0c53d/Isispharma-Geneskin-C-Premium-Concentre-Eclat-10ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-geneskin-c-premium-concentre-eclat-10ml-274245.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ANTI_TACHES],
       secondary: [
@@ -1183,8 +1156,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (Water), Propylene Glycol Dicaprylate/Dicaprate, Caprylic/Capric Triglyceride, Diisopropyl Sebacate, Butyl Methoxydibenzoylmethane, Ethylhexyl Triazone, Propanediol, Bis-Ethylhexyloxyphenol Methoxyphenyl Triazine, Zea Mays (Corn) Starch, Diethylhexyl Butamido Triazone, Cetearyl Alcohol, Polyglycerin-3, 1,2-Hexanediol, Hydrogenated Palm Oil, Oryza Sativa (Rice) Bran Oil, Triacontanyl PVP, Sucrose Stearate, Glyceryl Caprylate, Xanthan Gum, Superoxide Dismutase, Tocopherol, Saccharum Officinarum (Sugarcane) Extract, Caprylyl Glycol, Tetrasodium Glutamate Diacetate, O-Cymen-5-Ol, Citric Acid',
     url: 'https://www.atida.fr/isispharma-uveblock-lait-tres-haute-protection-spf50-100ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/0566946d-2370-4fee-b2ac-d73aa120844c/Isispharma-Uveblock-Lotion-SPF50-100-ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-uveblock-lotion-spf50-100-ml-244439.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
@@ -1227,8 +1199,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), octyldodecanol, butylene glycol, betaine, cetyl alcohol, dimethicone, pentylene glycol, glycyrrhetinic acid, polymethyl methacrylate, glycerin, niacinamide, sodium polyacrylate, hydroxyethyl acrylate/sodium acryloyldimethyl taurate copolymer, panthenol, chlorphenesin, carbomer, o-cymen-5-ol, escin, ruscus aculeatus root extract, sodium hydroxide, ammonium glycyrrhizate, polysorbate 60, sorbitan isostearate, rosmarinyl glucoside, caffeyl glucoside, gallyl glucoside, centella asiatica leaf extract, hydrolyzed yeast protein, calendula officinalis flower extract, sodium citrate.',
     url: 'https://www.atida.fr/isispharma-ruboril-expert-intense-soin-concentre-anti-rougeurs-localisees-15ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/3b8e5157-328c-4d75-8c6a-afd194ed096e/Isispharma-Ruboril-Expert-Intense-Soin-Concentre-Anti-Rougeurs-Localisees-15ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-ruboril-expert-intense-soin-concentre-anti-rougeurs-localisees-15ml-266902.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.COUPEROSE],
       secondary: [
@@ -1268,8 +1239,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Isohexadecane, aqua (water), titanium dioxide [nano], ethylhexyl stearate, peg-30 dipolyhydroxystearate, glycerin, nylon-12, silica, trihydroxystearin, alumina, pentylene glycol, polyglyceryl-3, diisostearate, zinc oxide [nano], stearic acid, chlorphenesin, sodium chloride, 0-cymen-5-ol.',
     url: 'https://www.atida.fr/isispharma-uveblock-creme-minerale-spf50-40ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/ed3db97a-f496-49bd-a9fb-a33e27469501/Isispharma-Uveblock-Creme-Minerale-SPF50-40ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-uveblock-creme-minerale-spf50-40ml-274250.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
@@ -1302,8 +1272,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, AQUA (WATER), SUCROSE LAURATE, SUCROSE PALMITATE, BENZYL ALCOHOL, DEHYDROACETIC ACID, BISABOLOL.',
     url: 'https://www.atida.fr/isispharma-ruboril-cleansing-balm-baume-fondant-nettoyant-apaisant-40ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/542f8106-ff27-4ba5-9520-60536146745c/Isispharma-Ruboril-Cleansing-Balm-Baume-Fondant-Nettoyant-Apaisant-40ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-ruboril-cleansing-balm-baume-fondant-nettoyant-apaisant-40ml-302098.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
@@ -1336,8 +1305,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (Water), Butyrospermum Parkii (Shea) Butter, Ethylhexyl Stearate, Glycerin, Glyceryl Stearate, Glyceryl Stearate Citrate, Gossypium Herbaceum (Cotton) Seed Oil, 1,2-Hexanediol, Bisabolol, Glyceryl Caprylate, Xanthan Gum, Hydrolyzed Yeast Protein, Butylene Glycol, O-Cymen-5-Ol, Pentylene Glycol, Sodium Hydroxide',
     url: 'https://www.atida.fr/isispharma-secalia-ato-baume-relipidant-apaisant-40ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/5ac92d47-4414-4304-87c6-b076b3b84b8a/Isispharma-Secalia-ATO-Baume-Relipidant-Apaisant-40ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-secalia-ato-baume-relipidant-apaisant-40ml-274279.webp',
     tags: {
       primary: [TAG_SLUGS.ECZEMA, TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -1371,8 +1339,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), ethylhexyl methoxy­cinnamate, isodecyl neopentanoate, methylene bis-benzotriazolyl tetramethylbutylphenol [nano], propanediol, butyl methoxydibenzoyl­methane, diisopropyl sebacate, ethylhexyl salicylate. titanium dioxide [nano], diethylamino hydroxybenzoyl hexyl benzoate, ethylhexyl triazone, triethylhexanoin, diisopropyl adipate, potassium cetyl phosphate, cetearyl alcohol, glycerin, glyceryl stéarate decyl glucoside, hydroxyethyl acrylate sodium acryloyldimethyl taurate copolymer, silica, isohexadecane ethylhexylglycerin, tocopheryl acetate p/hexadecene copolymer, caprylyl glycol, chlorphenesin, xanthan gum, peg. 40 castor or_ dimethicone, sod1un cetearyl sulfate, polysorbate 60, ectoin 0-cymen-5.-ol, caprylhydroxamic acid propylene glycol, sorbitan isostearate sophora japonica flower extract.',
     url: 'https://www.atida.fr/isispharma-uveblock-fluide-invisible-spf50-40ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/befb5c61-c682-4c6e-a5e5-f75d64de68a5/Isispharma-Uveblock-Fluide-Invisible-SPF50-40ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-uveblock-fluide-invisible-spf50-40ml-252091.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
@@ -1417,8 +1384,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), sodium cocoamphoacetate, peg-40 glyceryl cocoate, acrylates/c10-30 alkyl acrylate crosspolymer, peg-200 hydrogenated glyceryl palmate, silica, pentylene glycol, sodium coceth sulfate, xylitylglucoside, peg-7 glyceryl cocoate, xanthan gum, anhydroxylitol, jojoba esters, sodium hydroxide, sodium benzoate, glycolic acid, salicylic acid, chlorphenesin, xylitol, sodium lauroyl oat amino acids, ascorbyl tetraisopalmitate, parfum (fragrance), disodium edta, caprylyl glycol, glycyrrhiza glabra (licorice) root extract, tocopherol, aspergillus ferment, ci 74160, glycine soja (soybean) oil, ethoxydiglycol, ci 42090 (blue 1), sorbic acid',
     url: 'https://www.atida.fr/isispharma-neotone-gel-nettoyant-exfoliant-150ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/c80758f0-2863-4153-8f7f-39200d2d0e50/Isispharma-Neotone-Gel-Nettoyant-Exfoliant-150ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-neotone-gel-nettoyant-exfoliant-150ml-274241.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.ECLAT],
       secondary: [
@@ -1457,8 +1423,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'UVEBLOCK SPRAY AQUA (WATER), ETHYLHEXYL METHOXYCINNAMATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DIISOPROPYL ADIPATE, GLYCERIN, ETHYLHEXYL TRIAZONE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, CYCLOPENTASILOXANE, SORBITAN STEARATE, METHYLENE BIS-BENZOTRIAZOLYL TETRAMETHYLBUTYLPHENOL [NANO], LAURYL GLUCOSIDE, POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE, MAGNESIUM ALUMINUM SILICATE, GLYCERYL STEARATE, PEG-100 STEARATE, CAPRYLYL GLYCOL, METHYL METHACRYLATE CROSSPOLYMER, SODIUM BENZOATE, DISODIUM EDTA, DECYL GLUCOSIDE, CAPRYLHYDROXAMIC ACID, PARAFFINUM LIQUIDUM (MINERAL OIL), PROPANEDIOL, CITRIC ACID, SILICA, ECTOIN, PROPYLENE GLYCOL, BHT, XANTHAN GUM, SOPHORA JAPONICA FLOWER EXTRACT. UVEBLOCK FLUIDE INVISIBLE AQUA (WATER), ETHYLHEXYL METHOXYCINNAMATE, ISODECYL NEOPENTANOATE, METHYLENE BIS-BENZOTRIAZOLYL TETRAMETHYLBUTYLPHENOL [NANO], PROPANEDIOL, BUTYL METHOXYDIBENZOYLMETHANE, DIISOPROPYL SEBACATE, ETHYLHEXYL SALICYLATE, TITANIUM DIOXIDE [NANO], DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, ETHYLHEXYL TRIAZONE, TRIETHYLHEXANOIN, CETEARYL ALCOHOL, DIISOPROPYL ADIPATE, POTASSIUM CETYL PHOSPHATE, GLYCERIN, DECYL GLUCOSIDE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, SILICA, ISOHEXADECANE, ETHYLHEXYLGLYCERIN, TOCOPHERYL ACETATE, VP/HEXADECENE COPOLYMER, PEG-40 CASTOR OIL, CAPRYLYL GLYCOL, CHLORPHENESIN, XANTHAN GUM, SODIUM CETEARYL SULFATE, DIMETHICONE, POLYSORBATE 60, ECTOIN, O-CYMEN-5-OL, CAPRYLHYDROXAMIC ACID, PROPYLENE GLYCOL, SORBITAN ISOSTEARATE, SOPHORA JAPONICA FLOWER EXTRACT',
     url: 'https://www.atida.fr/isispharma-uveblock-spray-spf50-200ml-fluide-invisible-spf50-40ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/cae9316f-0306-404f-8f85-25ff326a5cfb/Isispharma-Uveblock-Spray-SPF50-200ml-Fluide-Invisible-SPF50-40ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-uveblock-spray-spf50-200ml-fluide-invisible-spf50-40ml-274281.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
@@ -1499,8 +1464,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), glycolic acid, gluconolactone, alcohol denat., hydroxyethyl acrylate/sodium acryloyldimethyl taurate copolymer, sodium hydroxide, butyl avocadate, dipropylene glycol, peg-7 glyceryl cocoate, pentylene glycol, xylitylglucoside, zinc pca, polyacrylate-13, anhydroxylitol, disodium edta, hydroxyethylcellulose, salicylic acid, sodium benzoate, polyisobutene, xylitol, butylene glycol, ppg-26-buteth-26, chlorphenesin, boswellia serrata resin extract, sorbitan isostearate, peg-40 hydrogenated castor oil, polysorbate 60, parfum (fragrance), o-cymen-5-ol, polysorbate 20, polyquaternium-51, linalool, limonene, citronellol, hexyl cinnamal, propyl gallate\n.',
     url: 'https://www.atida.fr/isispharma-teen-derm-k-concentrate-concentre-anti-imperfections-30ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/1e5531fc-c0d3-478f-a680-77d23151507f/Isispharma-Teen-Derm-K-Concentrate-Concentre-Anti-Imperfections-30ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-teen-derm-k-concentrate-concentre-anti-imperfections-30ml-260658.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [
@@ -1537,8 +1501,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, AQUA (WATER), SUCROSE LAURATE, SUCROSE PALMITATE, BENZYL ALCOHOL, DEHYDROACETIC ACID, BISABOLOL.',
     url: 'https://www.atida.fr/isispharma-ruboril-cleansing-balm.html',
-    imageUrl:
-      'https://assets.atida.com/transform/3b429320-164e-450b-a242-588ab7ede8dc/ISISPHARMA-RUBORIL-Cleansing-balm?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-ruboril-cleansing-balm-274284.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
@@ -1571,8 +1534,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), alcohol denat., glycerin, pentylene glycol, butyl avocadate, methyl methacrylate crosspolymer, dipropylene glycol, hydroxyethyl acrylate/sodium acryloyldimethyl taurate copolymer, xylitylglucoside, polysorbate 20, anhydroxylitol, cyclopentasiloxane, propanediol, sodium benzoate, myristyl alcohol, pca, cyclohexasiloxane, xylitol, salicylic acid, chlorphenesin, xanthan gum, boswellia serrata resin extract, disodium edta, o-cymen-5-ol, polysorbate 60, sorbitan isostearate, parfum (fragrance), polygonum cuspidatum root extract, propyl gallate.',
     url: 'https://www.atida.fr/isispharma-teen-derm-pure-soin-intense-anti-imperfections-30ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/39d10490-0e69-4e37-9520-23f7673668fb/Isispharma-Teen-Derm--Pure-Soin-Intense-Anti-Imperfections-30ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-teen-derm-pure-soin-intense-anti-imperfections-30ml-281653.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [
@@ -1610,8 +1572,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), glycerin, octyldo-decanol, butylene glycol, cetearyl isononanoate, cetyl alcohol, sorbitan palmitate, dimethicone, imperata cylindrica root extract, glyceryl stearate, sodium cetearyl sulfate, cyclopentasiloxane, carbomer, triethanolamine, cyclohexasiloxane, chlorphenesin, sodium benzoate, coco-glucoside, o-cymen-5-ol, citric acid, parfum (fragrance), caprylyl glycol, sodium citrate, sorbic acid, hexyl cinnamal, acrylates/c10-30 alkyl acrylate crosspolymer, limonene, acetyl tetrapeptide-15, biotin',
     url: 'https://www.atida.fr/isispharma-sensylia-24h-creme-hydratante-fortifiante-40ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/068fbda5-ac45-4dae-9de6-64f49f228a22/Isispharma-Sensylia-24h-Creme-Hydratante-Fortifiante-40ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-sensylia-24h-creme-hydratante-fortifiante-40ml-287917.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.DESHYDRATATION],
       secondary: [
@@ -1647,8 +1608,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), sodium cocoamphoacetate, peg-40 glyceryl, cocoate, glycerin, peg-200 hydrogenated glyceryl palmate, hydrated silica, acrylates/c10-30 alkyl acrylate crosspolymer, sodium coceth sulfate, salicylic acid, peg-7 glyceryl cocoate, xanthan gum, sodium hydroxide, gluconolactone, ppg-26-buteth-26, chlorphenesin, peg-40 hydrogenated castor oil, sodium lauroyl oat aminos acids, parfum (fragrance), disodium edta, caprylyl glycol, ethylhexyl methoxycinnamate, copper pca, zinc pca, xylitylglucoside, anhydroxylitol, ethylhexyl salicylate, butyl methoxydibenzoylmethane, ci74260 (pigment green 7), xylitol, butyl avocadate, dipropylene glycol, boswella serrata resin extract, propyl gallate.',
     url: 'https://www.atida.fr/isispharma-teen-derm-gel-nettoyant-exfoliant-150ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/c70cfa9d-8ba4-43cb-9410-f238bbdb5a6b/Isispharma-Teen-Derm-Gel-Nettoyant-Exfoliant-150ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-teen-derm-gel-nettoyant-exfoliant-150ml-252058.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [
@@ -1686,8 +1646,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), cetyl alcohol, glycolic acid, paraffinum liquidum (mineral oil), ceteth-20, ammonia, steareth-20, palmitic acid, stearic acid, parfum (fragrance).',
     url: 'https://www.atida.fr/isispharma-glyco-a-soft-peeling-30ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/7bf576a8-80b1-4e49-8ea0-bffbb7adbfce/Isispharma-Glyco-A-Soft-Peeling-Creme-Nuit-30ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-glyco-a-soft-peeling-creme-nuit-30ml-233809.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES],
       secondary: [
@@ -1717,8 +1676,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, ethylhexyl methoxycinnamate, methylene bis-benzotriazolyl tetramethylbutylphenol [nano], diisopropyl sebacate, butyl methoxydibenzoylmethane, cetyl alcohol, dimethicone, ethylhexyl salicylate, titanium dioxide [nano], glycerin, behenyl alcohol, diethylamino hydroxybenzoyl hexyl benzoate, diisopropyl adipate, ethylhexyl triazone, ozokerite, butylene glycol cocoate, glyceryl dibehenate, pentylene glycol, potassium cetyl phosphate, butylene glycol, tribehenin, decyl glucoside, ceteth-20, silica, glyceryl behenate, steareth-2, CI 77492 (iron oxides), xanthan gum, sclerotium gum, steareth-20, chlorphenesin, ethylhexylglycerin, panthenol, CI 77491 (iron dioxide), O-cymen-5-Ol, escin, propylene glycol, Ruscus aculeatus root extract, ammonium glycyrrhizate, CI 77499 (IRON OXIDES), hydrogenated lecithin, Centella asiatica leaf extract, hydrolyzed yeast protein, Calendula officinalis flower extract, sodium \ncitrate.',
     url: 'https://www.atida.fr/isispharma-ruboril-expert-spf50-creme-anti-rougeurs-teintee-peaux-sensibles-40ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/151fd94a-91dd-4856-99ac-a3067cebbc0d/Isispharma-Ruboril-Expert-SPF50-Creme-Anti-rougeurs-Teintee-Peaux-Sensibles-40ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-ruboril-expert-spf50-creme-anti-rougeurs-teintee-peaux-sensibles-40ml-267407.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ROSACEE, TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
@@ -1759,8 +1717,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), ethylhexyl methoxycinnamate, diethylamino hydrobenzyl hexyl benzoate, diisopropyl adipate, glycerin, ethylhexyl triazone, bis-ethylhexyloxyphenol methoxyphenol triazine, cyclopentasiloxane, sorbitan stearate, methylene bis-benzotriazolyl, tetramethylbutylphenol [nano], lauryl glucoside, polyglyceryl-2 dipolyhydroxystearate, magnesium aluminum silicate, glyceryl stearate, peg-100 stearate, caprylyl glycol, methyl methacrylate crosspolymer, sodium benzoate, disodium edta, decyl glucoside, caprylhydroxamic acid, paraffinum liquidum (mineral oil), propanediol, citric acid, silica, ectoin, propylene glycol, bht, xanthan gum, sophora japonica flower extract.',
     url: 'https://www.atida.fr/isispharma-uveblock-spray-spf50-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/e084ab4e-2db1-4669-a769-2182cda23e89/Isispharma-Uveblock-Spray-SPF50-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-uveblock-spray-spf50-200ml-274252.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
@@ -1801,8 +1758,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), ethylhexyl methoxycinnamte, c12-15 alkyl benzoate, methylene bis-benzotriazolyl tetramethylbutylphenol [nano], butyl methoxydibenzoylmethane, ethylhexyl salicylate, propanediol, dicaprylate, diisopropyl adipate, polymethyl methacrylate, ethylhexyl triazone, glyceryl stearate, peg-100 stearate, polysorbate 80, silica, cetyl alcohol, glycerin, pentylene glycol, decyl glucoside, magnesium aluminum silicate, propanediol, xanthan gum, sodium benzoate, chlorphenesin, citric acid, ectoin, disodium edta, propylene glycol, sophora japonica glower extract.',
     url: 'https://www.atida.fr/isispharma-uveblock-ultra-fluide-touche-sec-spf30-40ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/60e8c7ad-053c-447f-8c4c-f21a800548de/Isispharma-Uveblock-Ultra-Fluide-Touche-Sec-SPF30-40ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-uveblock-ultra-fluide-touche-sec-spf30-40ml-274249.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
@@ -1844,8 +1800,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), ethylhexyl methoxy­cinnamate, isodecyl neopentanoate, methylene bis-benzotriazolyl tetramethylbutylphenol [nano], propanediol, ci 77891 (titanium dioxide), butyl methoxydibenzoyl­methane, diisopropyl sebacate, ethylhexyl salicylate, titanium dioxide [nano], diethylamino hydroxybenzoyl hexyl benzoate, ethylhexyl triazone, triethylhexanoin, diisopropyl adipate, potassium cetyl phosphate, cetearyl alcohol, glycerin, glyceryl stéarate, decyl glucoside, hydroxyethyl acrylate/sodium acryloyldimethyl taurate copolymer, silica, isohexadecane, ethylhexylglycerin, tocopheryl acetate, vp/hexadecene copolymer, ci 77492 (iron oxides), caprylyl glycol, chlorphenesin, xanthan gum, peg­40 castor oil, dimethicone, ci 77491 (iron oxides), sodium cetearyl sulfate, polysorbate 60, ectoin, 0-cymen-5-ol, caprylhydroxamic acid, propylene glycol, sorbitan isostearate, ci 77499 (iron oxides), hydrogenated lecithin, sophora japonica flower extract.',
     url: 'https://www.atida.fr/isispharma-uveblock-fluide-teinte-spf50-40ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/b1199e6b-51a1-44ad-b5d6-6d841f14b934/Isispharma-Uveblock-Fluide-Teinte-SPF50-40ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-uveblock-fluide-teinte-spf50-40ml-252093.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
@@ -1886,8 +1841,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), cetearyl ethylhexanoate, glycerin, 1,2-hexanediol, glycyrrhetinic acid, polyacrylamide, bisabolol, hydroxyethyl acrylate/sodium acryloyldimethyl taurate copolymer, c13-14 isoparaffin, p-anisic acid, laureth-7, o-cymen-5-ol, sodium hydroxide, polysorbate 60, sorbitan isostearate, citric acid.',
     url: 'https://www.atida.fr/isispharma-suavigel-gel-creme-apaisant-40ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/1bf49b9c-afa2-44b1-8e6b-492af3efc864/Isispharma-Suavigel-Gel-Creme-Apaisant-40ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-suavigel-gel-creme-apaisant-40ml-274255.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -1926,8 +1880,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), ETHYLHEXYL METHOXYCINNAMATE, METHYLENE BIS-BENZOTRIAZOLYL TETRAMETHYLBUTYLPHENOL [NANO], BUTYL METHOXYDIBENZOYLMETHANE, C12-15 ALKYL BENZOATE, ETHYLHEXYL SALICYLATE, DIISOPROPYL ADIPATE, DIETHYLHEXYL SYRINGYLIDENEMALONATE, ZEA MAYS (CORN) STARCH, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, ETHYLHEXYL TRIAZONE, PROPANEDIOL DICAPRYLATE, GLYCERYL STEARATE, PEG-100 STEARATE, POLYSORBATE 80, SILICA, CETYL ALCOHOL, CI 77891 (TITANIUM DIOXIDE), GLYCERIN, PENTYLENE GLYCOL, DECYL GLUCOSIDE, MAGNESIUM ALUMINUM SILICATE, PROPANEDIOL, XANTHAN GUM, SODIUM BENZOATE, CAPRYLIC/CAPRIC TRIGLYCERIDE, CHLORPHENESIN , CI 77492 (IRON OXIDES), CITRIC ACID, ECTOIN, CI 77491 (IRON OXIDES), PROPYLENE GLYCOL, DISODIUM EDTA, CI 77499 (IRON OXIDES), PHYTIC ACID, SODIUM HYDROXIDE, SOPHORA JAPONICA FLOWER EXTRACT',
     url: 'https://www.atida.fr/isispharma-uveblock-spf50-dry-touch-ultra-fluide-toucher-sec-teinte-medium-40ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/8a8efbd5-2729-4097-9b7d-74651761b386/Isispharma-Uveblock-SPF50-Dry-Touch-Ultra-Fluide-Toucher-Sec-teinte-Medium-40ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-uveblock-spf50-dry-touch-ultra-fluide-toucher-sec-teinte-medium-40ml-302093.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
@@ -1970,8 +1923,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), glycerin, octyldodecanol, sorbitan palmitate, butylene glycol, cetearyl isononanoate, dimethicone, imperata cylindrica root extract, cetyl alcohol, glyceryl stearate, pentylene glycol, sodium cetearyl sulfate, cyclopentasiloxane, cyclohexasiloxane, carbomer, chlorphenesin, ethylhexylglycerin, coco-glucoside, o-cymen-5-ol, parfum (fragrance), sodium hydroxide, citric acid, caprylyl glycol, sodium citrate, sorbic acid, hexyl cinnamal, acrylates/c10-30 alkyl acrylate crosspolymer, limonene, acetyl tetrapeptide-15, biotin',
     url: 'https://www.atida.fr/isispharma-sensylia-24h-legere-fluide-hydratant-fortifiant-40ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/599632e4-a614-4ba5-ab1c-a8a890f4bf58/Isispharma-Sensylia-24h-Legere-Fluide-Hydratant-Fortifiant-40ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-sensylia-24h-legere-fluide-hydratant-fortifiant-40ml-274246.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.DESHYDRATATION],
       secondary: [
@@ -2007,8 +1959,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), glycerin, gossypium herbaceum (cotton) seed oil, methylpropanediol, isodecyl neopentanoate, steareth-2, steareth-21, butyrospermum parkii (shea) butter, hydroxyethyl acrylate/sodium acryloyldimethyl taurate copolymer, sodium cocoyl amino acids, propylene glycol, glyceryl undecylenate, carbomer, p-anisic acid, hydrolyzed lupine protein, sodium hydroxide, sarcosine, polysorbate 60, sorbitan isostearate, magnesium aspartate, potassium aspartate, sodium benzoate.',
     url: 'https://www.atida.fr/isispharma-glyco-a-post-peeling-40ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/d7f758e0-20c4-4ae0-aa84-b458eba6d96f/Isispharma-Glyco-A-Post-Peeling-Creme-Apaisante-Reparatrice-40ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-glyco-a-post-peeling-creme-apaisante-reparatrice-40ml-274262.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CICATRISATION],
       secondary: [
@@ -2042,8 +1993,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), GLYCERIN, BUTYRO-SPERMUM PARKII (SHEA) BUTTER, PROPYLENE GLYCOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, DIMETHICONE, GLYCERYL STEARATE, PENTYLENE GLYCOL, THEOBROMA CACAO (COCOA) SEED BUTTER, XYLITYLGLUCOSIDE, CETEARYL ALCOHOL, ANHYDROXYLITOL, PEG-100 STEARATE, BISABOLOL, BUTYL AVOCADATE, BUTYLENE GLYCOL, XYLITOL, CHLORPHENESIN, CARBOMER, O-CYMEN-5-OL, SODIUM HYDROXIDE, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, POLYQUATERNIUM-51, TOCOPHEROL.',
     url: 'https://www.atida.fr/isispharma-teen-derm-hydra-100ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/1a9eca87-0b90-44f2-aac3-cc74db218e4b/ISISPHARMA-TEEN-DERM-Hydra?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-teen-derm-hydra-100ml-274283.webp',
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -2079,8 +2029,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), glycerin, peg-6 caprylic/capric glycerides, peg-40 hydrogenated castor oil, polysorbate 20, pentylene glycol, propanediol, parfum (fragrance), cetrimonium bromide, disodium edta, citric acid, coco-glucoside, imperata cylindrica root extract, sodium hydroxide, hexyl cinnamal, limonene, sorbic acid, acetyl tetrapeptide-15, caprylyl glycol, carbomer, sodium citrate, acrylates/c10-30 alkyl acrylate crosspolymer, biotin.',
     url: 'https://www.atida.fr/isispharma-sensylia-aqua-solution-micellaire-demaquillante-hydratante-250ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/495973da-c301-47c5-86a3-7c2fbabff26e/Isispharma-Sensylia-Aqua-Solution-Micellaire-Demaquillante-Hydratante-250ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-sensylia-aqua-solution-micellaire-demaquillante-hydratante-250ml-274247.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -2113,8 +2062,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), glycerin, urea, paraffinum liquidum (mineral oil), butylene glycol, propylene glycol, cera alba (beeswax), cyclopentasiloxane, butyrospermum parkii (shea) butter, dicaprylyl ether, polyglyceryl-4 isostearate, cyclohexasiloxane, cetyl peg/ppg-10/1 dimethicone, hexyl laurate, behenoxy dimethicone, pentylene glycol, dimethicone, methyl methacrylate crosspolymer, sodium chloride, lactic acid, chlorphenesin, sodium hydroxide, pseudoalteromonas ferment extract, xanthan gum, caprylyl glycol, silica, ethylhexylglycerin, alanine, proline, serine, sodium phosphate, tocopherol, glycine soja (soybean) oil, pentaerythrityl tetra-di-t-butyl hydroxyhydrocinnamate, citric acid\n.',
     url: 'https://www.atida.fr/isispharma-urelia-10-creme-hydratante-exfoliante-150ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/3eb70e49-9a53-4022-9115-945300309179/Isispharma-Urelia-10-Creme-Hydratante-Exfoliante-150ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-urelia-10-creme-hydratante-exfoliante-150ml-289405.webp',
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.KERATOSE_PILAIRE],
       secondary: [
@@ -2159,8 +2107,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (Water), Dimethicone, Ammonium Polyacryloyldimethyl Taurate, Glycerin, 1,2-Hexanediol, Panthenol, PPG-26-Buteth-26, Glyceryl Caprylate, PEG-40 Hydrogenated Castor Oil, Tocopherol, Parfum (Fragrance), T-Butyl Alcohol, O-Cymen-5-Ol, Citric Acid',
     url: 'https://www.atida.fr/isispharma-uveblock-after-sun-gel-200-ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/94f152fc-de58-4b01-b0e0-b7292bb82bf2/Generated-image?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-uveblock-after-sun-gel-200-ml-307630.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CICATRISATION],
       secondary: [
@@ -2193,8 +2140,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), urea, disodium laureth sulfosuccinate, peg-18 glyceryl oleate/cocoate, peg-7 glyceryl cocoate, sodium cocoamphoacetate, laureth-2, lactic acid, caprylyl glycol, sodium benzoate, sodium hydroxide, dipropylene glycol, citric acid, potassium sorbate, glycerin, glyceryl caprylate, pseudoalteromonas ferment extract, xanthan gum, ethylhexylglycerin, alanine, proline, serine, sodium phosphate.',
     url: 'https://www.atida.fr/isispharma-urelia-gel-nettoyant-exfoliant-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/6ebf5020-e4ca-4e49-a86b-17aefff91f27/Isispharma-Urelia-Gel-Nettoyant-Exfoliant-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-urelia-gel-nettoyant-exfoliant-200ml-289407.webp',
     tags: {
       primary: [TAG_SLUGS.KERATOSE_PILAIRE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -2230,8 +2176,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (Water), Dimethicone, Ammonium Polyacryloyldimethyl Taurate, Glycerin, 1,2-Hexanediol, Panthenol, PPG-26-Buteth-26, Glyceryl Caprylate, PEG-40 Hydrogenated Castor Oil, Tocopherol, Parfum (Fragrance), T-Butyl Alcohol, O-Cymen-5-Ol, Citric Acid',
     url: 'https://www.atida.fr/isispharma-uveblock-after-sun-gel-40-ml.html',
-    imageUrl:
-      'https://www.atida.fr/media/catalog/product/placeholder/default/placeholder-products_2.png',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-uveblock-after-sun-gel-40-ml-307616.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CICATRISATION],
       secondary: [
@@ -2264,8 +2209,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), glycerin, peg-6 caprylic/capric glycerides, peg-40 hydrogenated castor oil, polysorbate 20, pentylene glycol, niacinamide, parfum (fragrance), caprylic/capric triglyceride, cetrimonium bromide, disodium edta, buteth-3, sodium benzotriazolyl butylphenol sulfonate, alcohol, tris(tetramethylhydroxypiperidinol) citrate, tributyl citrate, glycyrrhiza glabra (licorice) root extract, diacetyl boldine, ci 42090 (blue 1), ci 17200 (red 33)',
     url: 'https://www.atida.fr/isispharma-neotone-aqua-solution-micellaire-demaquillante-250ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/bc25236e-39ff-43e7-a1e2-ebb49dbe51d9/Isispharma-Neotone-Aqua-Solution-Micellaire-Demaquillante-250ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-neotone-aqua-solution-micellaire-demaquillante-250ml-249340.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.ECLAT],
       secondary: [
@@ -2296,8 +2240,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), BUTYROSPERMUM PARKII (SHEA) BUTTER, ETHYLHEXYL STEARATE, GLYCERIN, GLYCERYL STEARATE, GLYCERYL STEARATE CITRATE, GOSSYPIUM HERBACEUM (COTTON) SEED OIL, 1,2-HEXANEDIOL, BISABOLOL, GLYCERYL CAPRYLATE, XANTHAN GUM, HYDROLYZED YEAST PROTEIN, BUTYLENE GLYCOL, O-CYMEN-5-OL, PENTYLENE GLYCOL, SODIUM HYDROXIDE.',
     url: 'https://www.atida.fr/isispharma-secalia-ato-balm-baume-relipidant-apaisant-750ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/4af93193-2e2f-404d-af7f-47be257267b0/Generated-image?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-secalia-ato-balm-baume-relipidant-apaisant-750ml-302136.webp',
     tags: {
       primary: [TAG_SLUGS.ECZEMA, TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -2330,8 +2273,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), SODIUM COCOAMPHOACETATE, PEG-40 GLYCERYL COCOATE, ACRYLATES/ C10-30 ALKYL ACRYLATE CROSSPOLYMER, GLYCERIN, PEG-200 HYDROGENATED GLYCERYL PALMATE, HYDRATED SILICA, SODIUM COCETH SULFATE, SALICYLIC ACID, PEG-7 GLYCERYL COCOATE, XANTHAN GUM, SODIUM HYDROXIDE, GLUCONOLACTONE, PPG-26-BUTETH-26, CHLORPHENESIN, PEG-40 HYDROGENATED CASTOR OIL, SODIUM LAUROYL OAT AMINO ACIDS, PARFUM (FRAGRANCE), DISODIUM EDTA, CAPRYLYL GLYCOL, COPPER PCA, ZINC PCA, XYLITYLGLUCOSIDE, ANHYDROXYLITOL, XYLITOL, BUTYL AVOCADATE, DIPROPYLENE GLYCOL, CI 74260, BOSWELLIA SERRATA EXTRACT, TOCOPHEROL.',
     url: 'https://www.atida.fr/isispharma-teen-derm-gel-gel-nettoyant-exfoliant-40ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/0f0d4ad7-07f1-42af-bcbd-dbc1f1488fe6/Generated-image?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-teen-derm-gel-gel-nettoyant-exfoliant-40ml-302145.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [
@@ -2369,8 +2311,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), c12-15 alkyl benzoate, ethylhexyl methoxycinnamate, titanium dioxide [nano], ethylhexyl salicylate, dicaprylyl carbonate, butyl methoxy-dibenzoylmethane, potassium cetyl phosphate, methyl methacrylate crosspolymer, glycerin, octocrylene, bis-peg-18 methyl ether dimethyl silane, ammonium acryloyldimethyl-taurate/vp copolymer, sodium stearoyl glutamate, aluminum starch octenyl-succinate, caprylyl glycol, alumina, paraffinum liquidum, butyl avocadate, stearic acid, polyhydroxystearic acid, caprylhydroxamic acid, aluminum stearate, tetrasodium edta, tocopheryl acetate, t-butyl alcohol, silica, bht, tocopherol.',
     url: 'https://www.atida.fr/isispharma-secalia-balm-baume-relipidant-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/4900d1c8-2720-439a-a993-13fca8c2485f/Isispharma-Secalia-Balm-Baume-Relipidant-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-secalia-balm-baume-relipidant-400ml-274259.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
@@ -2406,8 +2347,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Ingrédients : Aqua (water), propanediol, dimethicone, glycerin, squalane, caprylic/capric triglyceride, isononyl isononanoate, simmondsia chinensis (jojoba) seed oil, maltodextrin, butylene glycol, lauryl glucoside, polyglyceryl-2 dipolyhydroxystearate, sodium acrylate/sodium acryloyldimethyl taurate copolymer, alumina, hydrogenated polydecene, isohexadecane, pentylene glycol, hydroxyethyl acrylate/sodium acryloyldimethyl taurate copolymer, superoxide dismutase, parfum (fragrance), p-anisic acid, chlorphenesin, polysilicone-11, polysorbate 80, dimethiconol, retinyl palmitate, 1,2-hexanediol, hydrogenated styrene/isoprene copolymer, citric acid, sodium hydroxide, o-cymen-5-ol, sorbitan oleate, helianthus annuus (sunflower) seed oil, biosaccharide gum-4, polysorbate 60, sorbitan isostearate, hexyl cinnamal, limonene, coenochloris signiensis extract, lecithin, tocopherol, linalool, acetyl hexapeptide-51 amide, ci 14700 (red 4), ci 19140 (yellow 5).',
     url: 'https://www.atida.fr/isispharma-geneskin-lift-creme-lissante-50ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/6ea32ca3-8c79-4392-a9cf-65e7822b66d2/Isispharma-Geneskin-Lift-Creme-Lissante-50ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-geneskin-lift-creme-lissante-50ml-274243.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT],
       secondary: [
@@ -2445,8 +2385,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, propylene glycol, glycerin, butylene glycol, caprylyl/capryl glucoside, pentylene glycol, xanthan gum, triethanolamine, p anisic acid, ppg 26 buteth 26 peg 40 hydrogenated castor oil, hydroxypropyl guar, o cymen 5 ol, citric acid, imperata cylindrica root extract, coco glucoside, caprylyl glycol, carbomer, sodium citrate, sorbic acid, acrylates/c 10 30 alkyl acrylate crosspolymer, acetyl tetrapeptide 15 biotin.',
     url: 'https://www.atida.fr/isispharma-sensylia-gelee-demaquillante-hydratante-250ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/900c5418-0488-46c4-8360-cea6e2e97958/Isispharma-Sensylia-Gelee-Demaquillante-Hydratante-250ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-sensylia-gelee-demaquillante-hydratante-250ml-274248.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -2480,8 +2419,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), GLYCERIN, BUTYLENE GLYCOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, GLYCERYL STEARATE CITRATE, GOSSYPIUM HERBACEUM (COTTON) SEED OIL, GLYCERYL STEARATE, 1,2-HEXANEDIOL, GLYCERYL CAPRYLATE, XANTHAN GUM, SODIUM POLYACRYLATE, CITRIC ACID, O-CYMEN-5-OL',
     url: 'https://www.atida.fr/isispharma-secalia-body-lotion-lait-nourrissant-ultra-confort-750ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/9d445c5b-f917-47a8-8fcc-c22486a69b08/Isispharma-Secalia-Body-lotion-Lait-Nourrissant-Ultra-Confort-750ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-secalia-body-lotion-lait-nourrissant-ultra-confort-750ml-302125.webp',
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -2518,8 +2456,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), caprylic/capric triglyceride, butylene glycol, Butyrospermum parkii (shea) butter, glycerin, niacinamide, sorbitan palmitate, squalane, cetyl alcohol, isodecyl neopentanoate, dimethicone, glyceryl stearate, pentylene glycol, sodium cetearyl sulfate, trimethoxybenzyl acetylsinapate, ammonium acryloyldimethyl taurate/VP copolymer, P-anisic acid, parfum (fragrance), chlorphenesin, dimethicone/vinyl dimethicone crosspolymer, sodium acrylate/sodium acryloyldimethyl taurate copolymer, isohexadecane, citric acid, sodium hydroxide, polysorbate-80, T-butyl alcohol, Algae extract, sorbitan oleate, bentonite, Glycyrrhiza glabra (licorice) root extract, diacetyl boldine.',
     url: 'https://www.atida.fr/isispharma-neotone-sensitive-baume-intensif-taches-brunes-localisees-30ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/071d8e3e-ebb8-465d-a386-e6b0718e6798/Isispharma-Neotone-Sensitive-Baume-Intensif-Taches-Brunes-Localisees-30ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-neotone-sensitive-baume-intensif-taches-brunes-localisees-30ml-269488.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION],
       secondary: [
@@ -2558,8 +2495,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (Water), Sodium Laureth Sulfate, PEG-90 Glyceryl Isostearate, Cocamidopropyl Betaine, Glycerin, Sodium Chloride, Pentylene Glycol, Propanediol, Sodium Benzoate, PPG-26-Buteth-26, Chlorphenesin, Parfum (Fragrance), Laureth-2, PEG-40 Hydrogenated Castor Oil, Citric Acid, Zinc PCA, Tetrasodium EDTA, Xylitylglucoside, Buteth-3, Anhydroxylitol, Propylene Glycol, Sodium Benzotriazolyl Butylphenol Sulfonate, Alcohol, Xylitol, Butyl Avocadate, Dipropylene Glycol, Tris(Tetramethylhydroxypiperidinol) Citrate, Tributyl Citrate, Boswellia Serrata Extract, Propolis Extract, CI 42090 (Blue 1), Tocopherol',
     url: 'https://www.atida.fr/isispharma-teen-derm-gel-sensitive-250-ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/85da524b-8ddc-425d-bb3c-36323271652b/Isispharma-Teen-Derm-Gel-Nettoyant-Purifiant-250ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-teen-derm-gel-sensitive-250-ml-264419.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [
@@ -2595,8 +2531,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Urea, aqua (water), paraffinum liquidum (mineral oil), glycerin, cyclopentasiloxane, glycolic acid, butyrospermum parkii (shea) butter, dicaprylyl ether, cyclohexasiloxane, polyglyceryl-4 isostearate, cetyl peg/ppg-10/1 dimethicone, hexyl laurate, behenoxy dimethicone, pentylene glycol, dimethicone, sodium chloride, pseudoalteromonas ferment extract, lactic acid, chlorphenesin, xanthan gum, caprylyl glycol, ethylhexylglycerin, alanine, proline, serine, sodium phosphate, sodium hydroxide, tocopherol, glycine soja (soybean) oil, pentaerythrityl tetra-di-t-butyl hydroxyhydrocinnamate, citric acid\n.',
     url: 'https://www.atida.fr/isispharma-urelia-50-baume-hydratant-keratolyque-40ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/d44dde57-3cca-432c-86c3-b1f9422eb324/Isispharma-Urelia-50-Baume-Hydratant-Keratolyque-40ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-urelia-50-baume-hydratant-keratolyque-40ml-289406.webp',
     tags: {
       primary: [TAG_SLUGS.KERATOSE_PILAIRE, TAG_SLUGS.ECZEMA],
       secondary: [
@@ -2638,8 +2573,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), SODIUM COCOAMPHOACETATE, PEG-40 GLYCERYL COCOATE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, PEG-200 HYDROGENATED GLYCERYL PALMATE, SILICA, PENTYLENE GLYCOL, SODIUM COCETH SULFATE, XYLITYLGLUCOSIDE, PEG-7 GLYCERYL COCOATE, XANTHAN GUM, ANHYDROXYLITOL, JOJOBA ESTERS, SODIUM HYDROXIDE, SODIUM BENZOATE, GLYCOLIC ACID, SALICYLIC ACID, CHLORPHENESIN, XYLITOL, SODIUM LAUROYL OAT AMINO ACIDS, ASCORBYL TETRAISOPALMITATE, PARFUM (FRAGRANCE), DISODIUM EDTA, CAPRYLYL GLYCOL, GLYCYRRHIZA GLABRA (LICORICE) ROOT EXTRACT, TOCOPHEROL, ASPERGILLUS FERMENT, CI 74160, GLYCINE SOJA (SOYBEAN) OIL, ETHOXYDIGLYCOL, CI 42090 (BLUE 1), SORBIC ACID',
     url: 'https://www.atida.fr/isispharma-neotone-gel-nettoyant-exfoliant-taches-pigmentaires-40ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/98819e07-2f70-42e4-a7d6-154837e5bc74/Isispharma-Neotone-Gel-nettoyant-exfoliant-Taches-pigmentaires-40ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-neotone-gel-nettoyant-exfoliant-taches-pigmentaires-40ml-302129.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.ECLAT],
       secondary: [
@@ -2675,8 +2609,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), dimethicone, glycerin, glycolic acid, Butyrospermum parkii (shea) butter, caprylic/capric triglyceride, niacinamide, squalane, steareth-21, glyceryl stearate, sodium hydroxide, ammonium acryloyldimethyltaurate/VP copolymer, 1,2-hexanediol, polysilicone-11, trimethoxybenzyl acetylsinapate, xanthan gum, butylene glycol, chlorphenesin, sodium levulinate, parfum (fragrance), cetearyl alcohol, cetyl palmitate, cocoglycerides, sodium anisate, O-cymen-5-OL, T-butyl alcohol, Glycyrrhiza glabra (licorice) root extract, caprylyl glycol, decyl glucoside, bentonite, diacetyl boldine',
     url: 'https://www.atida.fr/isispharma-neotone-lait-corps-intensif-tache-brunes-100ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/4d3e9ba9-1497-48a5-afd0-faf09b72fc05/Isispharma-Neotone-Lait-Corps-Intensif-Tache-Brunes-100ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-neotone-lait-corps-intensif-tache-brunes-100ml-269489.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.ECLAT],
       secondary: [
@@ -2711,8 +2644,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), glycolic acid, peg-8, glycerin, caprylic/capric triglyceride, cetearyl isononanoate, butyrospermum parkii (shea) butter, squalane, steareth-21, sodium hydroxide, hydroxypropyl starch phosphate, dimethicone, cetearyl alcohol, cetyl palmitate, steareth-2, lactic acid, gossypium herbaceum (cotton) seed oil, sodium salicylate, tocopheryl acetate, sodium cocoyl amino acids, parfum (fragrance), propylene glycol, ethylhexylglycerin, sarcosine, magnesium aspartate, potassium aspartate.',
     url: 'https://www.atida.fr/isispharma-glyco-a-peeling-corps-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/f7ba05b2-9967-4e34-a895-5ea707e37b55/Isispharma-Glyco-A-Peeling-Corps-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-glyco-a-peeling-corps-200ml-274264.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.KERATOSE_PILAIRE],
       secondary: [
@@ -2746,8 +2678,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), isopentyldiol, propanediol, methylpropanediol, cocoglycerides, isodecyl neopentanoate, silica, glycerin, butylene glycol, lauryl glucoside, polyglyceryl-2 dipolyhydroxystearate, ppg-26-buteth-26, alumina, dimethicone, glyceryl caprylate, peg-40 hydrogenated castor oil, sodium hyaluronate, superoxide dismutase, hydroxyethyl acrylate/sodium acryloyldimethyl taurate copolymer, isohexadecane, parfum (fragrance), chlorphenesin, xanthan gum, retinyl palmitate, helianthus annuus (sunflower) seed oil, polysorbate 60, disodium acetyl glucosamine phosphate, citric acid, sorbitan isostearate, hexyl cinnamal, limonene, tocopherol, linalool, acetyl hexapeptide-51 amide.',
     url: 'https://www.atida.fr/isispharma-geneskin-lift-serum-liftant-28ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/6e8f372a-fd66-431b-98e9-abf2b3e985c4/Isispharma-Geneskin-Lift-Serum-Liftant-28ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-geneskin-lift-serum-liftant-28ml-274244.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
       secondary: [
@@ -2784,8 +2715,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '"Aqua (Water), Diethylamino Hydroxybenzoyl Hexyl Benzoate, Diisopropyl Sebacate, Dicaprylyl Carbonate, Diisopropyl Adipate, Butyloctyl Salicylate, Ethylhexyl Triazone, Zea Mays (Corn) Starch, Bis-Ethylhexyloxyphenol Methoxyphenyl Triazine, 1,2-Hexanediol, Glycerin, Sodium Stearoyl Glutamate, Sorbitan Stearate, Lauryl Glucoside, Polyglyceryl-2 Dipolyhydroxystearate, Mica, Bentonite, Cera Alba (Beeswax), Propanediol, Sodium Stearoyl Lactylate, CI 77891 (Titanium Dioxide), Glyceryl Caprylate, Citric Acid, Cassia Angustifolia Seed Polysaccharide, Maltodextrin, O-Cymen-5-Ol, Schisandra Chinensis Fruit Extract, Cistus Monspeliensis Extract, Tocopherol"',
     url: 'https://www.atida.fr/isispharma-uveblock-spf50-sun-serum-triple-action-28ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/c0ed1bf6-4eaa-4342-8828-a677aba829e6/Isispharma-Uveblock-SPF50-Sun-Serum-Triple-Action-28ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-uveblock-spf50-sun-serum-triple-action-28ml-302073.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_AGE],
       secondary: [
@@ -2828,8 +2758,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), SODIUM LAURETH SULFATE, PEG- 90 GLYCERYL ISOSTEARATE, GLYCERIN, COCAMIDOPROPYL BETAINE, PENTYLENE GLYCOL, SODIUM CHLORIDE, PROPANEDIOL, SODIUM BENZOATE, PPG-26-BUTETH-26, CHLORPHENESIN, LAURETH-2, CITRIC ACID, PEG-40 HYDROGENATED CASTOR OIL, PARFUM (FRAGRANCE), TETRASODIUM EDTA, ZINC PCA, XYLITYLGLUCOSIDE, BUTETH-3, ANHYDROXYLITOL, PROPYLENE GLYCOL, SODIUM BENZOTRIAZOLYL BUTYLPHENOL SULFONATE, XYLITOL, ALCOHOL, BUTYL AVOCADATE, DIPROPYLENE GLYCOL, TRIS(TETRAMETHYLHYDROXYPIPERIDINOL) CITRATE, PROPOLIS EXTRACT, TRIBUTYL CITRATE, BOSWELLIA SERRATA RESIN EXTRACT, CI 42090 (BLUE 1), PROPYL GALLATE.',
     url: 'https://www.atida.fr/isispharma-teen-derm-gel-gel-nettoyant-exfoliant-100ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/24b2d2c2-eb6d-4270-ac7b-3ebdafa713a7/Generated-image?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-teen-derm-gel-gel-nettoyant-exfoliant-100ml-302138.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [
@@ -2864,8 +2793,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), SODIUM TRIDECETH SULFATE, GLYCERIN, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, SODIUM LAUROAMPHOACETATE, SODIUM CHLORIDE, COCAMIDE MEA, COCO-GLUCOSIDE, GLYCERYL OLEATE, CITRIC ACID, BUTYROSPERMUM PARKII (SHEA) BUTTER, SODIUM BENZOATE, PARFUM (FRAGRANCE), GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, HYDROXYPROPYL GUAR, SODIUM GLYCOLATE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, GOSSYPIUM HERBACEUM (COTTON) SEED OIL, TOCOPHEROL, HYDROGENATED PALM GLYCERIDES CITRATE',
     url: 'https://www.atida.fr/isispharma-secalia-ato-shower-cream-soin-lavant-effet-barriere-750ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/72c87637-039f-4f3f-9fa8-64dbe9e60317/Isispharma-Secalia-ATO-Shower-cream-Soin-Lavant-Effet-Barriere-750ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-secalia-ato-shower-cream-soin-lavant-effet-barriere-750ml-302118.webp',
     tags: {
       primary: [TAG_SLUGS.ECZEMA, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.DESHYDRATATION],
       secondary: [
@@ -2899,8 +2827,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (Water), Propylene Glycol Dicaprylate/Dicaprate, Diethylamino Hydroxybenzoyl Hexyl Benzoate, Diisopropyl Sebacate, Coco-Caprylate/Caprate, Silica, Ethylhexyl Triazone, Bis-Ethylhexyloxyphenol Methoxyphenyl Triazine, Propanediol, Cetearyl Alcohol, Polyglycerin-3, 1,2-Hexanediol, Oryza Sativa (Rice) Bran Oil, Triethyl Citrate, Beheneth-25, Sucrose Stearate, Hydroxyethyl Acrylate/Sodium Acryloyldimethyl Taurate Copolymer, Triheptanoin, Hydroxyacetophenone, Sodium Polyacrylate, C9-12 Alkane, Dilinoleic Acid/Butanediol Copolymer, Glycerin, Superoxide Dismutase, O-Cymen-5-Ol, Sorbitan Isostearate, Castor Oil/Ipdi Copolymer, Tocopherol, CI 14700 (Red 4)',
     url: 'https://www.atida.fr/isispharma-uveblock-velvet-spf50-40-ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/6cfe0432-7f4e-48a4-a2fa-0cf3658a0d73/Generated-image?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-uveblock-velvet-spf50-40-ml-307625.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
       secondary: [
@@ -2943,8 +2870,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), glycerin, peg-6 caprylic/capric glycerides, peg-40 hydrogenated castor oil, polysorbate 20, pentylene glycol, propanediol, parfum (fragrance), cetrimonium bromide, disodium edta, citric acid, coco-glucoside, imperata cylindrica root extract, sodium hydroxide, hexyl cinnamal, limonene, sorbic acid, acetyl tetrapeptide-15, caprylyl glycol, carbomer, sodium citrate, acrylates/c10-30 alkyl acrylate crosspolymer, biotin.',
     url: 'https://www.atida.fr/isispharma-sensylia-aqua-solution-micellaire-demaquillante-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/190034ce-0d7d-4880-9163-6b1344c426b4/Isispharma-Sensylia-Aqua-Solution-Micellaire-Demaquillante-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-sensylia-aqua-solution-micellaire-demaquillante-400ml-274258.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -2977,8 +2903,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), GLYCERIN, BUTYLENE GLYCOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, GLYCERYL STEARATE CITRATE, GOSSYPIUM HERBACEUM (COTTON) SEED OIL, GLYCERYL STEARATE, 1,2-HEXANEDIOL, GLYCERYL CAPRYLATE, XANTHAN GUM, SODIUM POLYACRYLATE, CITRIC ACID, O-CYMEN-5-OL.',
     url: 'https://www.atida.fr/isispharma-secalia-lait-nourrisasant-ultra-confort-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/f03dacde-6aad-40d1-b229-746afa6e092b/Isispharma-Secalia-Lait-Nourrisasant-Ultra-Confort-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-secalia-lait-nourrisasant-ultra-confort-200ml-274275.webp',
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -3015,8 +2940,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua (water), glycerin, propanediol, dicaprylyl ether, polyglyceryl-3 methylglucose distearate, dimethicone, pentylene glycol, butylene glycol, cera alba (beeswax), ceteareth-20, vinyl dimethicone/methicone silsesquioxane crosspolymer, ammonium acryloyldimethyltaurate/vp copolymer, argania spinosa kernel oil, superoxide dismutase, parfum (fragrance), xanthan gum, ethylhexylglycerin, chlorphenesin, tocopheryl acetate, hydroxyethyl acrylate/sodium acryloyldimethyl taurate copolymer, isohexadecane, retinyl palmitate, sodium hyaluronate, o-cymen-5-ol, helianthus annuus (sunflower) seed oil, t-butyl alcohol, polysorbate 60, hydroxypropyl cyclodextrin, hexyl cinnamal, citric acid, menyanthes trifoliata leaf extract, sorbitan isostearate, limonene, tocopherol, linalool, acetyl hexapeptide-51 amide, ci 14700 (red 4), palmitoyl tripeptide-38, glycine soja (soybean) oil, ci 19140 (yellow 5)',
     url: 'https://www.atida.fr/isispharma-geneskin-lift-baume-gel-redensifiant-50ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/520dba24-abeb-4647-98fc-06fa3658492e/Isispharma-Geneskin-Lift-Baume-Gel-Redensifiant-50ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-geneskin-lift-baume-gel-redensifiant-50ml-274242.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
       secondary: [
@@ -3054,8 +2978,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), GLYCERIN, BUTYLENE GLYCOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, GLYCERYL STEARATE CITRATE, GOSSYPIUM HERBACEUM (COTTON) SEED OIL, GLYCERYL STEARATE, 1,2-HEXANEDIOL, GLYCERYL CAPRYLATE, XANTHAN GUM, SODIUM POLYACRYLATE, CITRIC ACID, O-CYMEN-5-OL.',
     url: 'https://www.atida.fr/isispharma-secalia-lait-nourrisasant-ultra-confort-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/52bf0aba-17d0-4683-9f9f-d0d98141b974/Isispharma-Secalia-Lait-Nourrisasant-Ultra-Confort-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-secalia-lait-nourrisasant-ultra-confort-400ml-274276.webp',
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -3092,8 +3015,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), SODIUM TRIDECETH SULFATE, GLYCERIN, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, SODIUM LAUROAMPHOACETATE, SODIUM CHLORIDE, COCAMIDE MEA, COCO-GLUCOSIDE, GLYCERYL OLEATE, CITRIC ACID, BUTYROSPERMUM PARKII (SHEA) BUTTER, SODIUM BENZOATE, PARFUM (FRAGRANCE), GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, HYDROXYPROPYL GUAR, SODIUM GLYCOLATE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, GOSSYPIUM HERBACEUM (COTTON) SEED OIL, TOCOPHEROL, HYDROGENATED PALM GLYCERIDES CITRATE.',
     url: 'https://www.atida.fr/isispharma-secalia-soin-lavant-effet-barriere-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/5d737adf-5a50-4e0a-a1fa-d43617301f5a/Isispharma-Secalia-Soin-Lavant-Effet-Barriere-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-secalia-soin-lavant-effet-barriere-400ml-274278.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.DESHYDRATATION],
       secondary: [
@@ -3127,8 +3049,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), CETEARYL ETHYL-HEXANOATE, BUTYROSPERMUM PARKII (SHEA) BUTTER, CERA ALBA (BEESWAX), GLYCERIN, GOSSYPIUM HERBACEUM (COTTON) SEED OIL, CETEARYL ALCOHOL, COCO-GLUCOSIDE, 1,2-HEXA-NEDIOL, CARBOMER, GLYCERYL CAPRYLATE, SODIUM HYDROXIDE, O-CYMEN-5-OL.',
     url: 'https://www.atida.fr/isispharma-secalia-creme-nourrissante-ultra-confort-40ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/42a1398d-225b-42e4-87ea-f205463f0da4/Isispharma-Secalia-Creme-Nourrissante-Ultra-Confort-40ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-secalia-creme-nourrissante-ultra-confort-40ml-274274.webp',
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
@@ -3162,8 +3083,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), SODIUM TRIDECETH SULFATE, GLYCERIN, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, SODIUM LAUROAMPHOACETATE, SODIUM CHLORIDE, COCAMIDE MEA, COCO-GLUCOSIDE, GLYCERYL OLEATE, CITRIC ACID, BUTYROSPERMUM PARKII (SHEA) BUTTER, SODIUM BENZOATE, PARFUM (FRAGRANCE), GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, HYDROXYPROPYL GUAR, SODIUM GLYCOLATE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, GOSSYPIUM HERBACEUM (COTTON) SEED OIL, TOCOPHEROL, HYDROGENATED PALM GLYCERIDES CITRATE.',
     url: 'https://www.atida.fr/isispharma-secalia-soin-lavant-effet-barriere-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/ff2eb40a-a853-4ca8-974b-e60cc256a28f/Isispharma-Secalia-Soin-Lavant-Effet-Barriere-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-secalia-soin-lavant-effet-barriere-200ml-274277.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.DESHYDRATATION],
       secondary: [
@@ -3197,8 +3117,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), ETHYLHEXYL METHOXY­CINNAMATE, ISODECYL NEOPENTANOATE, METHYLENE BIS-BENZOTRIAZOLYL TETRAMETHYLBUTYLPHENOL [NANO], PROPANEDIOL, BUTYL METHOXYDIBENZOYL­METHANE, DIISOPROPYL SEBACATE, ETHYLHEXYL SALICYLATE, TITANIUM DIOXIDE [NANO], DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, ETHYLHEXYL TRIAZONE, TRIETHYLHEXANOIN, DIISOPROPYL ADIPATE, POTASSIUM CETYL PHOSPHATE, CETEARYL ALCOHOL, GLYCERIN, GLYCERYL STÉARATE DECYL GLUCOSIDE, HYDROXYETHYL ACRYLATE SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, SILICA, ISOHEXADECANE ETHYLHEXYLGLYCERIN, TOCOPHERYL ACETATE P/HEXADECENE COPOLYMER, CAPRYLYL GLYCOL, CHLORPHENESIN, XANTHAN GUM, PEG, 40 CASTOR OR_ DIMETHICONE, SOD1UN CETEARYL SULFATE, POLYSORBATE 60, ECTOIN 0-CYMEN-5.-OL, CAPRYLHYDROXAMIC ACID PROPYLENE GLYCOL, SORBITAN ISOSTEARATE SOPHORA JAPONICA FLOWER EXTRACT',
     url: 'https://www.atida.fr/isispharma-uveblock-fluide-invisible-spf50-40ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/befb5c61-c682-4c6e-a5e5-f75d64de68a5/Isispharma-Uveblock-Fluide-Invisible-SPF50-40ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/isispharma-uveblock-fluide-invisible-spf50.webp',
     tags: {
       primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
       secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],

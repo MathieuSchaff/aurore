@@ -15,8 +15,7 @@ export const BIOLANE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'AQUA (WATER), LAURYL GLUCOSIDE, COCAMIDOPROPYL BETAINE, COCO-GLUCOSIDE, GLYCERYL OLEATE, PARFUM (FRAGRANCE), CITRIC ACID, SODIUM BENZOATE, TOCOPHEROL, HYDROGENATED PALM GLYCERIDES CITRAT',
     url: 'https://www.atida.fr/biolane-gel-corps-cheveux-peaux-sensibles-cheveux-fins-bebe-750ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/fcb04601-9c91-4886-aeb0-96c6099da129/Biolane-Gel-Corps-Cheveux-Peaux-Sensibles-Cheveux-Fins-Bebe-750ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/biolane-gel-lavant-corps-et-cheveux-peaux-sensibles-cheveux-fins-bebe.webp',
     tags: {
       primary: ['anti-oxydant'],
       secondary: ['reparateur', 'nettoyant-corps', 'zone-corps', 'peau-sensible'],

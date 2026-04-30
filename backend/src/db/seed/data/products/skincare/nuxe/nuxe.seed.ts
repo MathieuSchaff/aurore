@@ -15,8 +15,7 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Contient 92% d'ingrédients d'origine naturelle. Au miel et tournesol Les listes d’ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d’utiliser un produit de notre marque, veuillez lire la liste d’ingrédients située sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle. AQUA/WATER, SODIUM LAUROYL SARCOSINATE,GLYCERIN, SODIUM COCOAMPHOACETATE, LAURYL GLUCOSIDE, PARFUM/FRAGRANCE, MEL/HONEY, SUNFLOWER SEED OIL PEG-8 ESTERS, SODIUM COCOYL GLUTAMATE, SODIUM LAURYL GLUCOSE CARBOXYLATE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, PHENOXYETHANOL, GLUCONOLACTONE, SODIUM HYDROXIDE, COCO-GLUCOSIDE, GLYCERYL OLEATE, CITRIC ACID, ALLANTOIN, SODIUM BENZOATE, TETRASODIUM GLUTAMATE DIACETATE, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, CARAMEL, CALCIUM GLUCONATE, TROPOLONE, HYDROGENATED PALM GLYCERIDES CITRATE, TOCOPHEROL [N2002/A].",
     url: 'https://www.atida.fr/nuxe-reve-de-miel-gel-lavant-surgras-visage-et-corps-400ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/232732f8-831b-4c46-8f70-4c041b4aa171/Nuxe-Reve-de-Miel-Gel-Lavant-Surgras-Visage-et-Corps-400ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/nuxe-reve-de-miel-gel-lavant-surgras-visage-et-corps-400ml-287538.webp',
     tags: {
       primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -45,8 +44,7 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Les listes d’ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d’utiliser un produit de notre marque, veuillez lire la liste d’ingrédients située sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle. INGREDIENTS : AQUA/WATER, LAURYL GLUCOSIDE, SODIUM LAUROYL SARCOSINATE, COCAMIDOPROPYL BETAINE, DIGLYCERIN, GLYCERIN, POLYACRYLATE CROSSPOLYMER-6, CITRIC ACID, PARFUM/FRAGRANCE, COCOS NUCIFERA (COCONUT) OIL, SODIUM BENZOATE, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, SODIUM DEHYDROACETATE, CARAMEL, LIMONENE, LINALOOL, CITRONELLOL, GERANIOL [N5107/A]',
     url: 'https://www.atida.fr/nuxe-sun-shampooing-douche-apres-soleil-750ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/5277b4ce-193f-4e47-b235-7b17c9da08d1/Nuxe-Sun-Shampooing-Douche-Apres-Soleil-750ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/nuxe-sun-shampooing-douche-apres-soleil-750ml-280424.webp',
     tags: {
       primary: [],
       secondary: [
@@ -73,8 +71,7 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Contient 94% d'ingrédients d'origine naturelle. Aux nacres dorées Les listes d’ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d’utiliser un produit de notre marque, veuillez lire la liste d’ingrédients située sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle. AQUA/WATER, SODIUM LAUROYL SARCOSINATE, COCO-GLUCOSIDE, GLYCERIN, COCAMIDOPROPYL BETAINE, PARFUM/FRAGRANCE, GLYCERYL OLEATE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, PEG-7 GLYCERYL COCOATE, BENZYL ALCOHOL, PHENOXYETHANOL, GLYCERYL LAURATE, SODIUM CHLORIDE, SODIUM GLUCONATE, SODIUM HYDROXIDE, CITRIC ACID, MICA, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, CI 77891/TITANIUM DIOXIDE, DEHYDROACETIC ACID, SODIUM BENZOATE, CI 77491/IRON OXIDES, HYDROGENATED PALM GLYCERIDES CITRATE, TOCOPHEROL, BENZYL SALICYLATE, LINALOOL, LIMONENE, CITRONELLOL, GERANIOL [N2210/A].",
     url: 'https://www.atida.fr/nuxe-prodigieux-huile-de-douche-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/56b77db1-2a7b-4623-917e-a0470fba8601/Nuxe-Prodigieux-Huile-de-Douche-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/nuxe-prodigieux-huile-de-douche-200ml-280168.webp',
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
@@ -102,8 +99,7 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Contient 95% d'ingrédients d'origine naturelle. Formule douce sans sulfate*. *Sans tensio-actif sulfaté. Les listes d’ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d’utiliser un produit de notre marque, veuillez lire la liste d’ingrédients située sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle. INGREDIENTS : AQUA/WATER, LAURYL GLUCOSIDE, SODIUM LAUROYL SARCOSINATE, COCAMIDOPROPYL BETAINE, DIGLYCERIN, GLYCERIN, POLYACRYLATE CROSSPOLYMER-6, CITRIC ACID, PARFUM/FRAGRANCE, COCOS NUCIFERA (COCONUT) OIL, SODIUM BENZOATE, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, SODIUM DEHYDROACETATE, CARAMEL, LIMONENE, LINALOOL, CITRONELLOL, GERANIOL [N5107/A]",
     url: 'https://www.atida.fr/nuxe-sun-shampooing-douche-apres-soleil-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/026995a5-b8b8-472d-a43c-1e8b410193fc/EAN_IMG_FR_3264680008726_1?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/nuxe-sun-shampoing-douche-apres-soleil-200ml-280174.webp',
     tags: {
       primary: [],
       secondary: [
@@ -130,8 +126,7 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: "Contient 96% d'ingrédients d'origine naturelle. À l'huile d'amande douce Les listes d’ingrédients entrant dans la composition des produits de notre marque sont régulièrement mises à jour. Avant d’utiliser un produit de notre marque, veuillez lire la liste d’ingrédients située sur son emballage afin de vous assurer que les ingrédients sont adaptés à votre utilisation personnelle. AQUA/WATER, CAPRYLYL/CAPRYL GLUCOSIDE, COCAMIDOPROPYL BETAINE, GLYCERIN, PARFUM/FRAGRANCE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, GLYCERYL LAURATE, SODIUM CHLORIDE, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, SODIUM BENZOATE, SODIUM GLUCONATE, SODIUM HYDROXIDE, LIMONENE, LINALOOL [N2218/A].",
     url: 'https://www.atida.fr/nuxe-prodigieux-floral-gelee-de-douche-200ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/e86749ed-a9ed-47e0-a925-d00426bad4ac/Nuxe-Prodigieux-Floral-Gelee-de-Douche-Parfumee-200ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/nuxe-prodigieux-floral-gelee-de-douche-parfumee-200ml-280318.webp',
     tags: {
       primary: [],
       secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],

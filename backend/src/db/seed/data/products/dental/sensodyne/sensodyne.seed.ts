@@ -15,8 +15,7 @@ export const SENSODYNE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, Sorbitol, Hydrated Silica, Glycerin, Potassium Nitrate, Cocamidopropyl Betaine, Aroma, Cocamidopropyl Betaine, Xanthan Gum, Sodium Saccharin, Sodium Fluoride, Mica, Titanium Dioxide, Sodium Hydroxide, Limonene, Eugenol. Contient du Fluorure de Sodium (1450 ppmF).',
     url: 'https://www.atida.fr/sensodyne-dentifrice-protection-complete-lot-de-2-x-75ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/694bd68d-3c5b-4196-bc2b-3c624043c51b/Sensodyne-Dentifrice-Protection-Complete-Lot-de-2-x-75ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/sensodyne-dentifrice-protection-complete-lot-de-2-x-75ml-271626.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -42,8 +41,7 @@ export const SENSODYNE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Aqua, Sorbitol, hydrated silica, potassium nitrate, glycerin, sodium lauryl sulfate, aroma, xanthan gum, titanium dioxide, sodium fluoride, sodium saccharin, sodium hydroxide, limonene.',
     url: 'https://www.atida.fr/sensodyne-dentifrice-pro-traitement-sensibilite-lot-de-2-x-75ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/7cd336dd-14dc-454e-97e6-e0aa1c1115eb/Sensodyne-Dentifrice-Traitement-Sensibilite-Lot-de-2-x-75ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/sensodyne-dentifrice-traitement-sensibilite-lot-de-2-x-75ml-248667.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -64,8 +62,7 @@ export const SENSODYNE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: '',
     url: 'https://www.atida.fr/sensodyne-dentifrice-rapide-lot-de-2-x-75ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/7fb5f72f-0acb-48c7-aac7-67077b2a67c1/Sensodyne-Dentifrice-Rapide-Action-Sensibilite-Dentaire-Lot-de-2-x-75ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/sensodyne-dentifrice-rapide-action-sensibilite-dentaire-lot-de-2-x-75ml-249115.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -86,8 +83,7 @@ export const SENSODYNE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Glycerin, PEG-8, Silica, Calcium Sodium Phosphosilicate (Novamin), Cocamidopropyl Betaine, Sodium Methyl Cocoyl Taurate, Aroma, Titanium Dioxide, Carbomer, Sodium Fluoride, Sodium Saccharin, Limonene. Contient du fluorure de sodium (1450 ppm de fluor).',
     url: 'https://www.atida.fr/sensodyne-dentifrice-repare-et-protege-menthe-fraiche-lot-de-2-x-75ml.html',
-    imageUrl:
-      'https://assets.atida.com/transform/db5c0ae3-54f1-4be7-bb07-fcde063634a2/Sensodyne-Dentifrice-Repare-et-Protege-Menthe-Fraiche-Lot-de-2-x-75ml?io=transform:extend,width:600,height:600',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/sensodyne-dentifrice-repare-et-protege-menthe-fraiche-lot-de-2-x-75ml-236986.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
