@@ -1,5 +1,7 @@
 # Import produits scrapés — Pipeline simple
 
+> **⚠️ Statut (2026-04-30)** : pipeline **archivé**. Les fichiers `*.atida.seed.ts` / `*.pharmashop.seed.ts` ont été fusionnés dans des `<brand>.seed.ts` unifiés (commit `0c477591`, refactor `merge per-source files into unified scopes`). Le rerun de `rebuild-imported-products.ts --apply` recréerait les fichiers tagués par source et casserait le layout actuel — **ne pas relancer** sans plan de re-merge derrière. Doc conservée pour mémoire et pour comprendre l'historique de `output/`.
+>
 > **À propos :** Vue simple du pipeline qui transforme les données scrapées Atida/Pharmashop en fichiers seed produits. Répond à « quel script fait quoi ? », « où sont les fichiers ? », et « comment relancer proprement l'import ? ».
 >
 > **Audience** : humain + IA qui reprend le chantier.

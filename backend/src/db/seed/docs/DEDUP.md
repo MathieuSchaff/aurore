@@ -8,10 +8,12 @@
 
 ## Pourquoi ce doc existe
 
-Les imports `*.atida.seed.ts` et `*.pharmashop.seed.ts` génèrent des doublons :
+> **Évolution (2026-04-30)** : depuis le merge des fichiers `*.atida.seed.ts` / `*.pharmashop.seed.ts` dans des `<brand>.seed.ts` unifiés (commit `0c477591`), le détecteur ne distingue plus *cross-source* vs *intra-source* par nom de fichier — il compare désormais paires intra-fichier (même `<brand>.seed.ts`) et paires cross-fichier (entre fichiers de scope différent, ex `haircare/X.seed.ts` ↔ `skincare/X-haircare.seed.ts`). Le vocabulaire ci-dessous reste : « cross-source » = paires inter-fichiers, « intra-source » = paires dans le même fichier.
 
-1. **Cross-source** — un produit scrapé existe déjà dans le fichier curé `*.seed.ts` (mêmes INCI, nom différent). Ex : `Topialyse Huile Lavante` (curé) ↔ `SVR Topialyse Huile Lavante 1L` (scrap).
-2. **Intra-source** — le même produit a été scrapé plusieurs fois dans le même fichier (variantes de slug, différences de format). Ex : `Topialyse Huile Lavante` apparaît 4× dans `svr.pharmashop.seed.ts`.
+Le seed contient des doublons issus de l'historique d'import multi-source :
+
+1. **Cross-source (inter-fichiers)** — même produit présent dans deux fichiers de scope différent. Ex : `florame-corps-gel-aloe-vera-bio` (haircare/florame-bodycare.seed.ts) ↔ `florame-corps-gel-aloe-vera-bio-250ml-274728` (haircare/florame.seed.ts, mal classé `kind=shampoo`).
+2. **Intra-source (intra-fichier)** — le même produit apparaît plusieurs fois dans un même `<brand>.seed.ts` (variantes de slug, différences de format). Ex : `Topialyse Huile Lavante` × N entrées dans `svr.seed.ts`.
 
 Égalité de chaînes ne suffit pas : noms, slugs, ordre des mots et tailles diffèrent. Le détecteur s'appuie sur **INCI Jaccard** + tokens nom + flags anti-FP.
 
@@ -98,25 +100,20 @@ Cf. `classifyPair()` dans `backend/src/db/seed/scripts/audit-imported-products.t
 
 ## État actuel
 
-Snapshot du dernier run (`audit-imported-products.ts --write`) :
+Snapshot du dernier run (`audit-imported-products.ts --write`, 2026-04-30, post-merge + cleanup cross-source) :
 
 | Catégorie | Total |
 |---|---:|
-| Fichiers importés | 140 |
-| Produits importés | 2036 |
-| Cross-source `auto-merge` | 559 |
-| Cross-source `review` | 245 |
-| Cross-source `weak` | 300 |
-| Intra-source (toutes tiers) | 1152 |
-| Produits importés ayant ≥ 1 dup candidat | 1277 |
+| Produits actifs | 3335 |
+| Cross-source `auto-merge` | 0 |
+| Cross-source `review` | 1 (faux positif vichy : `dercos-psolution` ↔ `neovadiol-meno`) |
+| Cross-source `weak` | 0 |
+| Intra-source `auto-merge` | 336 |
+| Intra-source `review` | 401 |
+| Intra-source `weak` | 314 |
+| Intra-source total | 1051 |
 
-Top fichiers à reviewer (volume de dupes) :
-
-1. `skincare/svr/svr.pharmashop.seed.ts` (87)
-2. `skincare/isdin/isdin.atida.seed.ts` (85)
-3. `skincare/laRochePosay/laRochePosay.pharmashop.seed.ts` (69)
-4. `skincare/garancia/garancia.atida.seed.ts` (67)
-5. `skincare/avene/avene.pharmashop.seed.ts` (68)
+Le gros du backlog est désormais **intra-fichier**. Beaucoup sont des faux positifs légitimes (variantes format `100ml`/`400ml`, lots `lot-de-2-x-X`, couleurs/teintes brossettes interdentaires). Filtrer par flags (`num-diff`, `kind-diff`, `same-size: no`) avant de trancher.
 
 Mettre à jour ce tableau si on rerun le script et que les chiffres bougent significativement.
 

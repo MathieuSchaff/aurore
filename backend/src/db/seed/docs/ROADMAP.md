@@ -138,17 +138,16 @@ Colibri Daily SPF50 (vérifier absence `grossesse-compatible`, filtres chimiques
 
 ### 3.3 Doublons produits scrapés
 
-Les imports `*.atida.seed.ts` / `*.pharmashop.seed.ts` contiennent des doublons —
-cross-source (vs `*.seed.ts` curé) et intra-source (même produit plusieurs fois
-dans le même fichier). Détecté par `scripts/audit-imported-products.ts`.
+> Mis à jour 2026-04-30 après le merge `0c477591` (fusion des `*.atida/.pharmashop.seed.ts` dans des `<brand>.seed.ts` unifiés) + cleanup cross-source. Détection : `scripts/audit-imported-products.ts`. Workflow et règles : [`DEDUP.md`](./DEDUP.md).
 
-Snapshot 2026-04-29 : **1 104 paires cross-source** (559 auto-merge / 245 review /
-300 weak) + **1 152 paires intra-source**. 1 277 produits importés concernés sur
-2 036.
+Snapshot 2026-04-30 :
 
-- [ ] Workflow + règles de décision documentés dans [`DEDUP.md`](./DEDUP.md). Lire avant campagne de fusion.
-- [ ] Review marque par marque, en commençant par les top fichiers : `svr.pharmashop`, `isdin.atida`, `laRochePosay.pharmashop`, `garancia.atida`, `avene.pharmashop`.
-- [ ] Pour chaque marque : traiter intra-source d'abord (bugs purs), puis cross-source `auto-merge`, puis `review`.
+- **Cross-source : 1 paire** (review, faux positif vichy `dercos-psolution` ↔ `neovadiol-meno` — produits distincts, signal commun parasite). Plus rien à traiter sur cet axe.
+- **Intra-source : 1 051 paires** (336 auto-merge / 401 review / 314 weak). Tout est désormais intra-fichier. Beaucoup de faux positifs légitimes (variantes format `100ml`/`400ml`, lots `x2`/`x3`, couleurs/tailles brossettes).
+
+- [ ] Filtrer le rapport intra-source par flags pour isoler les **vrais doublons** (exclure `num-diff` quand seule la quantité change, `kind-diff` informatifs).
+- [ ] Review marque par marque dans l'ordre du tableau « Review Priority » du rapport, après filtrage.
+- [ ] Pour chaque marque : appliquer les règles de décision de `DEDUP.md` (sameSize → fusion, sinon variantes à conserver).
 
 ---
 
@@ -266,6 +265,8 @@ initiale : l'appliquer également aux ingrédients.
 | (non-commité) | Produits | Connexion haircare (50 marques) + dental (25 marques) dans `data/products/index.ts` — tabs Cheveux/Dents passent de empty state à peuplés |
 | (non-commité) | Ingrédients | Ajout entrées `artemisia-annua` + `ginkgo-biloba` dans les fichiers seed skincare (slugs déclarés sans données) |
 | (non-commité) | Tags | `ingredientTagData` étendu pour inclure `HAIRCARE_INGREDIENT_TAG_TAXONOMY` (50 slugs, 4 catégories) + labels FR dans `TAG_LABELS` |
+| `0c477591` | Produits | Fusion des `*.atida.seed.ts` / `*.pharmashop.seed.ts` dans des `<brand>.seed.ts` unifiés. 140 fichiers source-tagués supprimés, 31 fichiers scope créés. Le pipeline `rebuild-imported-products.ts` est désormais archivé (cf. `IMPORT_PIPELINE.md`). |
+| (non-commité) | Produits | Cleanup post-merge (§3.3) : 5 fichiers unreferenced traités — nutripure (16 prods supplement) indexé via section dédiée dans `data/products/index.ts` ; tade/tena/myleuca/lauralep supprimés (hors scope, mauvais kind). 6 cross-source duplicates résolus (neutraderm-haircare, ducray ×2 misclassés, phyto-solaire, florame shampoo). Cross-source 7 → 1 (faux positif vichy résiduel). |
 
 ---
 
