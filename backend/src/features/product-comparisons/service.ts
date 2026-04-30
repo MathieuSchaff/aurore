@@ -9,15 +9,15 @@ import { classifyIngredientSignals } from '@habit-tracker/shared'
 
 import { and, asc, count, eq, inArray } from 'drizzle-orm'
 
+import type { Database, DB } from '../../db'
 import { db } from '../../db'
-import type { DB, Database } from '../../db'
 import {
   ingredients,
   productComparisonItems,
   productComparisons,
   productIngredients,
-  productTagsDefs,
   products,
+  productTagsDefs,
   tagProducts,
 } from '../../db/schema'
 import { ProductComparisonError } from './product-comparison-error'
@@ -26,7 +26,7 @@ export async function createComparison(
   userId: string,
   input: CreateComparisonInput,
   database: DB = db
-) {
+): Promise<ComparisonSummary> {
   const ids = input.productIds
   const found = await database
     .select({ id: products.id })
@@ -56,7 +56,13 @@ export async function createComparison(
       }))
     )
 
-    return comparison
+    // Return a summary instead of the raw row so userId never leaks to the client.
+    return {
+      id: comparison.id,
+      name: comparison.name,
+      productCount: ids.length,
+      createdAt: comparison.createdAt.toISOString(),
+    }
   })
 }
 
@@ -227,9 +233,7 @@ export async function updateComparison(
       if (found.length !== input.productIds.length) {
         throw new ProductComparisonError('comparison_invalid_products')
       }
-      await tx
-        .delete(productComparisonItems)
-        .where(eq(productComparisonItems.comparisonId, id))
+      await tx.delete(productComparisonItems).where(eq(productComparisonItems.comparisonId, id))
       await tx.insert(productComparisonItems).values(
         input.productIds.map((productId, index) => ({
           comparisonId: id,

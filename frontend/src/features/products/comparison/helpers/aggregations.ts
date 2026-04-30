@@ -19,20 +19,16 @@ export function computeCommon(products: EnrichedComparisonProduct[]): Ingredient
   if (products.length === 0) return []
   const total = products.length
   const map = ingredientsBySlug(products)
-  return [...map.values()]
-    .filter((e) => e.productIds.size === total)
-    .map((e) => e.ingredient)
+  return [...map.values()].filter((e) => e.productIds.size === total).map((e) => e.ingredient)
 }
 
-export function computeSpecifics(
-  products: EnrichedComparisonProduct[],
-): Map<string, Ingredient[]> {
+export function computeSpecifics(products: EnrichedComparisonProduct[]): Map<string, Ingredient[]> {
   const common = new Set(computeCommon(products).map((i) => i.slug))
   const result = new Map<string, Ingredient[]>()
   for (const p of products) {
     result.set(
       p.id,
-      p.ingredients.filter((i) => !common.has(i.slug)),
+      p.ingredients.filter((i) => !common.has(i.slug))
     )
   }
   return result

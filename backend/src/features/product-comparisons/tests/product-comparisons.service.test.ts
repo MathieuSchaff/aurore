@@ -165,6 +165,23 @@ describe('deleteComparison', () => {
       getEnrichedComparison(user.id, cmp.id, testDb)
     ).rejects.toMatchObject({ code: 'comparison_not_found' })
   })
+
+  it('denies a different user from deleting', async () => {
+    const a = await makeProduct('Sérum A', 'BrandA')
+    const b = await makeProduct('Sérum B', 'BrandB')
+
+    const cmp = await createComparison(
+      user.id,
+      { productIds: [a.id, b.id] },
+      testDb
+    )
+
+    const otherUser = await createTestUser('intruder@test.com')
+
+    await expect(
+      deleteComparison(otherUser.id, cmp.id, testDb)
+    ).rejects.toMatchObject({ code: 'comparison_not_found' })
+  })
 })
 
 describe('enrichment', () => {

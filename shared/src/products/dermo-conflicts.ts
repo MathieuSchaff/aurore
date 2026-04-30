@@ -14,24 +14,24 @@ export const DERMO_CONFLICTS: readonly DermoConflict[] = [
     a: 'retinol',
     b: 'glycolic-acid',
     severity: 'warn',
-    note: "Combinaison potentiellement irritante : éviter dans la même routine.",
+    note: 'Combinaison potentiellement irritante : éviter dans la même routine.',
   },
   {
     a: 'retinol',
     b: 'salicylic-acid',
     severity: 'warn',
-    note: "Combinaison potentiellement irritante : alterner soir / matin.",
+    note: 'Combinaison potentiellement irritante : alterner soir / matin.',
   },
   {
     a: 'vitamin-c',
     b: 'niacinamide',
     severity: 'info',
-    note: "Co-application longtemps controversée ; tolérée en pratique mais à surveiller.",
+    note: 'Co-application longtemps controversée ; tolérée en pratique mais à surveiller.',
   },
   {
     a: 'granactive-retinoid',
     b: 'glycolic-acid',
     severity: 'warn',
-    note: "Combinaison potentiellement irritante : éviter dans la même routine.",
+    note: 'Combinaison potentiellement irritante : éviter dans la même routine.',
   },
 ]
