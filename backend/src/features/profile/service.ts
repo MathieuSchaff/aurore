@@ -195,10 +195,7 @@ export async function getProfileStats(db: Database, userId: string): Promise<Pro
 }
 
 export async function deleteUser(db: Database, userId: string) {
-  const deletedUser = await db
-    .delete(users)
-    .where(eq(users.id, userId))
-    .returning({ id: users.id })
+  const deletedUser = await db.delete(users).where(eq(users.id, userId)).returning({ id: users.id })
   return deletedUser
 }
 

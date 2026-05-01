@@ -9,13 +9,7 @@ import { users } from '../../db/schema'
 import { getGoogleInstance } from '../../lib/artic'
 import { logger } from '../../lib/logger'
 import { type AuthContext, createTokenPair } from './service'
-import {
-  createProfile,
-  createUser,
-  getUser,
-  getUserByGoogleSub,
-  toPublicUser,
-} from './user.utils'
+import { createProfile, createUser, getUser, getUserByGoogleSub, toPublicUser } from './user.utils'
 
 export function getGoogleAuthUrl(): { url: string; state: string; codeVerifier: string } {
   const state = generateState()

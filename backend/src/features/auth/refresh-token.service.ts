@@ -55,9 +55,7 @@ export async function storeRefreshToken(db: DB, args: CreateRefreshTokenArgs) {
 // the JWT payload's sub before trusting it.
 export async function findValidRefreshToken(db: DB, jti: string) {
   const jtiHash = hashJti(jti)
-  const result = await db.execute(
-    sql`SELECT * FROM auth.find_active_refresh_token(${jtiHash})`
-  )
+  const result = await db.execute(sql`SELECT * FROM auth.find_active_refresh_token(${jtiHash})`)
   return mapRefreshTokenRow((result as unknown as Record<string, unknown>[])[0])
 }
 

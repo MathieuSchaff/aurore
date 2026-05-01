@@ -46,9 +46,7 @@ export async function getUser(db: DB, email: string) {
 // stable Google sub. Goes through SECURITY DEFINER fn — direct SELECT
 // google_sub is denied to app_runtime since migration 0038.
 export async function getUserByGoogleSub(db: DB, googleSub: string) {
-  const result = await db.execute(
-    sql`SELECT * FROM auth.find_user_by_google_sub(${googleSub})`
-  )
+  const result = await db.execute(sql`SELECT * FROM auth.find_user_by_google_sub(${googleSub})`)
   return mapUserRow((result as unknown as Record<string, unknown>[])[0])
 }
 // Accepts both User (with hash, from SECURITY DEFINER fns) and UserSafe (view
@@ -93,9 +91,7 @@ export async function getUserById(db: DB, userId: string): Promise<UserPublic | 
 // Returns the full user including password_hash (used by changePassword to
 // verify the current password). Goes through SECURITY DEFINER fn.
 export async function getFullUserById(db: DB, userId: string) {
-  const result = await db.execute(
-    sql`SELECT * FROM auth.find_user_with_hash_by_id(${userId})`
-  )
+  const result = await db.execute(sql`SELECT * FROM auth.find_user_with_hash_by_id(${userId})`)
   return mapUserRow((result as unknown as Record<string, unknown>[])[0])
 }
 export async function createUser(
