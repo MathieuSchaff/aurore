@@ -20,6 +20,13 @@ export async function uploadAvatar(
   userId: string,
   buffer: Buffer
 ): Promise<{ url: string }> {
+  const [existing] = await db
+    .select({ userId: profiles.userId })
+    .from(profiles)
+    .where(eq(profiles.userId, userId))
+    .limit(1)
+  if (!existing) throw new UploadError('not_found')
+
   validateWebpUpload(buffer, { maxBytes: AVATAR_MAX_BYTES, expectedSize: 1024 })
   const key = `avatars/${userId}.webp`
   await putToBunny(key, buffer)

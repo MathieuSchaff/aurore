@@ -140,7 +140,11 @@ export function useImageUpload(opts: UseImageUploadOptions) {
   const confirmCrop = useCallback(
     async (area: CropArea): Promise<{ url: string }> => {
       let image: HTMLImageElement | null = null
-      if (state.phase === 'cropping') image = state.sourceImage
+      let sourceUrlToRevoke: string | null = null
+      if (state.phase === 'cropping') {
+        image = state.sourceImage
+        sourceUrlToRevoke = state.sourceUrl
+      }
       if (!image && testSourceImageRef.current) image = testSourceImageRef.current
       if (!image) throw new Error('no_source')
 
@@ -155,6 +159,8 @@ export function useImageUpload(opts: UseImageUploadOptions) {
         const code = (e as { code?: string }).code ?? 'unknown'
         setState({ phase: 'error', code, message: ERROR_MESSAGES[code] ?? ERROR_MESSAGES.unknown })
         throw e
+      } finally {
+        if (sourceUrlToRevoke) URL.revokeObjectURL(sourceUrlToRevoke)
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -166,7 +172,9 @@ export function useImageUpload(opts: UseImageUploadOptions) {
   }
 
   const api = { state, pickFile, confirmCrop, cancel } as const
-  ;(api as unknown as Record<string, unknown>).__setSourceForTest = __setSourceForTest
+  if (import.meta.env.MODE === 'test') {
+    ;(api as unknown as Record<string, unknown>).__setSourceForTest = __setSourceForTest
+  }
   return api as {
     state: Phase
     pickFile: () => void
