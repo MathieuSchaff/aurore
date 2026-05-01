@@ -51,9 +51,10 @@ Each authenticated request is wrapped in a transaction by the `withRlsContext` m
 
 Result: even if application code forgets to filter by `userId`, Postgres itself refuses to return or insert rows for another tenant.
 
-### Privilege Separation (two DB roles)
+### Privilege Separation (three DB roles)
 - **`app`** — owner role used for migrations and administrative tasks. Bypasses RLS. Credentials live only in the migration context.
 - **`app_runtime`** — runtime role used by the backend request pool (`APP_DATABASE_URL`). Subject to RLS, cannot bypass policies.
+- **`dev_readonly`** — investigation role for prod debugging. `NOLOGIN` (assumed via `SET ROLE` from `app`), `SELECT`-only, no bypass. Reads catalog tables freely; tenant tables (FORCE RLS) return zero rows. To inspect a tenant's data: `SET ROLE app_runtime; SET LOCAL app.user_id = '<uuid>';`. INSERT/UPDATE/DELETE are not granted, so a typo cannot destroy data.
 
 The backend connects with `app_runtime`, so a bug or SQL injection in a route is bounded by the active RLS context rather than having full DB access.
 

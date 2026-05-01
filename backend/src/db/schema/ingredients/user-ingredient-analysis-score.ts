@@ -1,15 +1,7 @@
 import { sql } from 'drizzle-orm'
-import {
-  boolean,
-  numeric,
-  pgPolicy,
-  pgRole,
-  pgTable,
-  timestamp,
-  uniqueIndex,
-  uuid,
-} from 'drizzle-orm/pg-core'
+import { boolean, numeric, pgTable, timestamp, uniqueIndex, uuid } from 'drizzle-orm/pg-core'
 
+import { tenantPolicies } from '../_policies'
 import { users } from '../auth/users'
 import { ingredients } from './ingredients'
 
@@ -35,20 +27,7 @@ export const userIngredientAnalysisScore = pgTable(
   },
   (t) => [
     uniqueIndex('user_ing_intel_idx').on(t.userId, t.ingredientId),
-    pgPolicy('user_ingredient_analysis_score_tenant_isolation', {
-      as: 'permissive',
-      for: 'all',
-      to: pgRole('app_runtime').existing(),
-      using: sql`${t.userId} = (SELECT auth.uid())`,
-      withCheck: sql`${t.userId} = (SELECT auth.uid())`,
-    }),
-    pgPolicy('user_ingredient_analysis_score_admin_bypass', {
-      as: 'permissive',
-      for: 'all',
-      to: pgRole('app_runtime').existing(),
-      using: sql`(SELECT auth.role()) = 'admin'`,
-      withCheck: sql`(SELECT auth.role()) = 'admin'`,
-    }),
+    ...tenantPolicies('user_ingredient_analysis_score', t.userId),
   ]
 ).enableRLS()
 

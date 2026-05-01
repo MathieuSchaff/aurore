@@ -302,7 +302,10 @@ db-generate: ## Génère les fichiers de migration à partir du schéma
 	@echo "$(CYAN)Génération des fichiers de migration...$(NC)"
 	cd backend && export $$(grep -v '^\#' ../.env.dev | xargs) && bun x drizzle-kit generate
 
-db-push: ## Synchronise le schéma directement sur la DB (Dev rapide)
+# ⚠️ db-push diffs the live DB against schema TS only. Hand-written
+# migrations (0017 FORCE RLS, 0024 auth schema/functions, 0035 NULLIF)
+# are invisible to it and will be skipped on a fresh DB. Use db-migrate.
+db-push: ## ⚠️ Bypass migrations — perd FORCE RLS + auth.* (préférer db-migrate)
 	@echo "$(CYAN)Synchronisation du schéma (Push)...$(NC)"
 	cd backend && export $$(grep -v '^\#' ../.env.dev | xargs) && bun x drizzle-kit push
 

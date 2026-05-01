@@ -260,6 +260,41 @@
       "when": 1777604793951,
       "tag": "0036_lively_hulk",
       "breakpoints": true
+    },
+    {
+      "idx": 37,
+      "version": "7",
+      "when": 1777608236109,
+      "tag": "0037_dev_readonly_role",
+      "breakpoints": true
+    },
+    {
+      "idx": 38,
+      "version": "7",
+      "when": 1777700000000,
+      "tag": "0038_users_safe_view",
+      "breakpoints": true
+    },
+    {
+      "idx": 39,
+      "version": "7",
+      "when": 1777700100000,
+      "tag": "0039_auth_security_definer_fns",
+      "breakpoints": true
+    },
+    {
+      "idx": 40,
+      "version": "7",
+      "when": 1777612168832,
+      "tag": "0040_refresh_tokens_rls",
+      "breakpoints": true
+    },
+    {
+      "idx": 41,
+      "version": "7",
+      "when": 1777612200000,
+      "tag": "0041_refresh_tokens_security_definer",
+      "breakpoints": true
     }
   ]
 }
