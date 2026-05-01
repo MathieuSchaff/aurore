@@ -37,20 +37,20 @@ export const purchases = pgTable(
       using: sql`EXISTS (
         SELECT 1 FROM ${userProducts} p
         WHERE p.id = ${t.userProductId}
-          AND p.user_id = (SELECT current_setting('app.user_id', true)::uuid)
+          AND p.user_id = (SELECT auth.uid())
       )`,
       withCheck: sql`EXISTS (
         SELECT 1 FROM ${userProducts} p
         WHERE p.id = ${t.userProductId}
-          AND p.user_id = (SELECT current_setting('app.user_id', true)::uuid)
+          AND p.user_id = (SELECT auth.uid())
       )`,
     }),
     pgPolicy('purchases_admin_bypass', {
       as: 'permissive',
       for: 'all',
       to: pgRole('app_runtime').existing(),
-      using: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
-      withCheck: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
+      using: sql`(SELECT auth.role()) = 'admin'`,
+      withCheck: sql`(SELECT auth.role()) = 'admin'`,
     }),
   ]
 ).enableRLS()

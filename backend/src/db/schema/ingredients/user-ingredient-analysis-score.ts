@@ -39,15 +39,15 @@ export const userIngredientAnalysisScore = pgTable(
       as: 'permissive',
       for: 'all',
       to: pgRole('app_runtime').existing(),
-      using: sql`${t.userId} = (SELECT current_setting('app.user_id', true)::uuid)`,
-      withCheck: sql`${t.userId} = (SELECT current_setting('app.user_id', true)::uuid)`,
+      using: sql`${t.userId} = (SELECT auth.uid())`,
+      withCheck: sql`${t.userId} = (SELECT auth.uid())`,
     }),
     pgPolicy('user_ingredient_analysis_score_admin_bypass', {
       as: 'permissive',
       for: 'all',
       to: pgRole('app_runtime').existing(),
-      using: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
-      withCheck: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
+      using: sql`(SELECT auth.role()) = 'admin'`,
+      withCheck: sql`(SELECT auth.role()) = 'admin'`,
     }),
   ]
 ).enableRLS()

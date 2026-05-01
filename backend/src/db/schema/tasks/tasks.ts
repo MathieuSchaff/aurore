@@ -46,15 +46,15 @@ export const tasks = pgTable(
       as: 'permissive',
       for: 'all',
       to: pgRole('app_runtime').existing(),
-      using: sql`${t.userId} = (SELECT current_setting('app.user_id', true)::uuid)`,
-      withCheck: sql`${t.userId} = (SELECT current_setting('app.user_id', true)::uuid)`,
+      using: sql`${t.userId} = (SELECT auth.uid())`,
+      withCheck: sql`${t.userId} = (SELECT auth.uid())`,
     }),
     pgPolicy('tasks_admin_bypass', {
       as: 'permissive',
       for: 'all',
       to: pgRole('app_runtime').existing(),
-      using: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
-      withCheck: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
+      using: sql`(SELECT auth.role()) = 'admin'`,
+      withCheck: sql`(SELECT auth.role()) = 'admin'`,
     }),
   ]
 ).enableRLS()
@@ -81,20 +81,20 @@ export const subtasks = pgTable(
       using: sql`EXISTS (
         SELECT 1 FROM ${tasks} p
         WHERE p.id = ${t.taskId}
-          AND p.user_id = (SELECT current_setting('app.user_id', true)::uuid)
+          AND p.user_id = (SELECT auth.uid())
       )`,
       withCheck: sql`EXISTS (
         SELECT 1 FROM ${tasks} p
         WHERE p.id = ${t.taskId}
-          AND p.user_id = (SELECT current_setting('app.user_id', true)::uuid)
+          AND p.user_id = (SELECT auth.uid())
       )`,
     }),
     pgPolicy('subtasks_admin_bypass', {
       as: 'permissive',
       for: 'all',
       to: pgRole('app_runtime').existing(),
-      using: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
-      withCheck: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
+      using: sql`(SELECT auth.role()) = 'admin'`,
+      withCheck: sql`(SELECT auth.role()) = 'admin'`,
     }),
   ]
 ).enableRLS()

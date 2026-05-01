@@ -48,15 +48,15 @@ export const userProducts = pgTable(
       as: 'permissive',
       for: 'all',
       to: pgRole('app_runtime').existing(),
-      using: sql`${t.userId} = (SELECT current_setting('app.user_id', true)::uuid)`,
-      withCheck: sql`${t.userId} = (SELECT current_setting('app.user_id', true)::uuid)`,
+      using: sql`${t.userId} = (SELECT auth.uid())`,
+      withCheck: sql`${t.userId} = (SELECT auth.uid())`,
     }),
     pgPolicy('user_products_admin_bypass', {
       as: 'permissive',
       for: 'all',
       to: pgRole('app_runtime').existing(),
-      using: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
-      withCheck: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
+      using: sql`(SELECT auth.role()) = 'admin'`,
+      withCheck: sql`(SELECT auth.role()) = 'admin'`,
     }),
   ]
 ).enableRLS()
@@ -92,20 +92,20 @@ export const userProductReviews = pgTable(
       using: sql`EXISTS (
         SELECT 1 FROM ${userProducts} p
         WHERE p.id = ${t.userProductId}
-          AND p.user_id = (SELECT current_setting('app.user_id', true)::uuid)
+          AND p.user_id = (SELECT auth.uid())
       )`,
       withCheck: sql`EXISTS (
         SELECT 1 FROM ${userProducts} p
         WHERE p.id = ${t.userProductId}
-          AND p.user_id = (SELECT current_setting('app.user_id', true)::uuid)
+          AND p.user_id = (SELECT auth.uid())
       )`,
     }),
     pgPolicy('user_product_reviews_admin_bypass', {
       as: 'permissive',
       for: 'all',
       to: pgRole('app_runtime').existing(),
-      using: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
-      withCheck: sql`(SELECT current_setting('app.role', true)) = 'admin'`,
+      using: sql`(SELECT auth.role()) = 'admin'`,
+      withCheck: sql`(SELECT auth.role()) = 'admin'`,
     }),
   ]
 ).enableRLS()
