@@ -13,6 +13,9 @@ process.env.FRONTEND_URL = 'http://localhost:5173'
 process.env.GOOGLE_CLIENT_ID = 'test-client-id'
 process.env.GOOGLE_CLIENT_SECRET = 'test-client-secret'
 process.env.GOOGLE_REDIRECT_URI = 'http://localhost:3000/auth/google/callback'
+process.env.BUNNY_STORAGE_ZONE ??= 'test-zone'
+process.env.BUNNY_STORAGE_PASSWORD ??= 'test-password'
+process.env.IMAGE_CDN_BASE ??= 'https://test-cdn.example.com'
 
 mock.module('../features/auth/email.service', () => ({
   sendVerificationEmail: mock(async () => {}),
