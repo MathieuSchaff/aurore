@@ -1,5 +1,5 @@
 import { sql } from 'drizzle-orm'
-import { date, index, integer, pgTable, timestamp, uuid } from 'drizzle-orm/pg-core'
+import { check, date, index, integer, pgTable, timestamp, uuid } from 'drizzle-orm/pg-core'
 
 import { fkTenantPolicies } from '../_policies'
 import { userProducts } from './user-products'
@@ -21,6 +21,14 @@ export const purchases = pgTable(
   (t) => [
     index('purchases_user_product_idx').on(t.userProductId),
     index('purchases_user_product_purchased_idx').on(t.userProductId, t.purchasedAt),
+    check(
+      'purchases_opened_after_purchased',
+      sql`${t.openedAt} IS NULL OR ${t.openedAt} >= ${t.purchasedAt}`
+    ),
+    check(
+      'purchases_finished_after_max',
+      sql`${t.finishedAt} IS NULL OR ${t.finishedAt} >= COALESCE(${t.openedAt}, ${t.purchasedAt})`
+    ),
     ...fkTenantPolicies(
       'purchases',
       sql`EXISTS (

@@ -115,7 +115,10 @@ export const userDermoProfiles = pgTable(
       .defaultNow()
       .$onUpdate(() => new Date()),
   },
-  (t) => [...tenantPolicies('user_dermo_profiles', t.userId)]
+  (t) => [
+    check('user_dermo_profiles_fitzpatrick_range', sql`${t.fitzpatrickType} BETWEEN 1 AND 6`),
+    ...tenantPolicies('user_dermo_profiles', t.userId),
+  ]
 ).enableRLS()
 
 export const refreshTokens = pgTable(

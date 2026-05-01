@@ -295,6 +295,20 @@
       "when": 1777612200000,
       "tag": "0041_refresh_tokens_security_definer",
       "breakpoints": true
+    },
+    {
+      "idx": 42,
+      "version": "7",
+      "when": 1777612830665,
+      "tag": "0042_minor_oracle",
+      "breakpoints": true
+    },
+    {
+      "idx": 43,
+      "version": "7",
+      "when": 1777614466404,
+      "tag": "0043_tearful_smiling_tiger",
+      "breakpoints": true
     }
   ]
 }

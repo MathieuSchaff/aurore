@@ -2,6 +2,7 @@ import { repurchaseFlag, userProductStatus } from '@habit-tracker/shared'
 
 import { sql } from 'drizzle-orm'
 import {
+  check,
   index,
   integer,
   pgEnum,
@@ -43,6 +44,7 @@ export const userProducts = pgTable(
   (t) => [
     uniqueIndex('user_products_user_product_unique').on(t.userId, t.productId),
     index('user_products_status_idx').on(t.status),
+    check('user_products_sentiment_range', sql`${t.sentiment} BETWEEN 1 AND 5`),
     ...tenantPolicies('user_products', t.userId),
   ]
 ).enableRLS()
@@ -70,6 +72,12 @@ export const userProductReviews = pgTable(
   },
   (t) => [
     index('user_product_reviews_user_product_idx').on(t.userProductId),
+    check('upr_tolerance_range', sql`${t.tolerance} BETWEEN 1 AND 5`),
+    check('upr_efficacy_range', sql`${t.efficacy} BETWEEN 1 AND 5`),
+    check('upr_sensoriality_range', sql`${t.sensoriality} BETWEEN 1 AND 5`),
+    check('upr_stability_range', sql`${t.stability} BETWEEN 1 AND 5`),
+    check('upr_mixability_range', sql`${t.mixability} BETWEEN 1 AND 5`),
+    check('upr_value_for_money_range', sql`${t.valueForMoney} BETWEEN 1 AND 5`),
     ...fkTenantPolicies(
       'user_product_reviews',
       sql`EXISTS (
