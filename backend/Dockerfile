@@ -8,6 +8,7 @@ COPY package.json bun.lock tsconfig.json bunfig.toml ./
 COPY backend/package.json backend/
 COPY shared/package.json shared/
 COPY frontend/package.json frontend/
+COPY vendor/ vendor/
 RUN bun install --frozen-lockfile
 
 # ---------- dev ----------
@@ -40,6 +41,7 @@ RUN mkdir -p backend shared frontend
 COPY backend/package.json backend/
 COPY shared/package.json shared/
 COPY frontend/package.json frontend/
+COPY vendor/ vendor/
 
 # 4. L'installation fonctionnera maintenant
 RUN bun install --frozen-lockfile

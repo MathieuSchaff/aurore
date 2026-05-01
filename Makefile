@@ -1,7 +1,7 @@
 .PHONY: help \
 	dev dev-d dev-down dev-fresh dev-rebuild dev-rebuild-api dev-rebuild-frontend \
 	ts-check ts-build ts-verify ts-clean \
-	install-deps reinstall-backend reinstall-frontend clean-install install build \
+	install-deps reinstall-backend reinstall-frontend clean-install install build vendor-algo-derm \
 	prod prod-down prod-logs prod-migrate \
 	test test-db-up test-db-down test-watch test-only test-db-studio test-frontend test-frontend-watch test-frontend-only test-frontend-ui test-all \
 	test-db-reset test-db-seed \
@@ -74,6 +74,19 @@ install-deps: ## Installe les deps depuis la racine (Hôte)
 	@echo "$(CYAN)Installation de toutes les dépendances du monorepo...$(NC)"
 	bun install
 	@echo "$(GREEN)✓ Dépendances installées et liens symboliques créés$(NC)"
+
+ALGO_DERM_DIR := ../algo-derm
+
+vendor-algo-derm: ## Rebuild algo-derm + pack tarball dans vendor/ + bun install --force
+	@echo "$(CYAN)Build algo-derm...$(NC)"
+	cd $(ALGO_DERM_DIR) && npm run build
+	@mkdir -p vendor
+	@rm -f vendor/algo-derm.tgz vendor/algo-derm-*.tgz
+	cd $(ALGO_DERM_DIR) && npm pack --pack-destination $(CURDIR)/vendor >/dev/null
+	@mv vendor/algo-derm-*.tgz vendor/algo-derm.tgz
+	@echo "$(GREEN)✓ vendor/algo-derm.tgz mis à jour$(NC)"
+	bun install --force
+	@echo "$(GREEN)✓ Deps réinstallées (algo-derm depuis tarball)$(NC)"
 
 reinstall-backend: ## Rebuild complet backend (volumes + image)
 	$(COMPOSE_DEV) down

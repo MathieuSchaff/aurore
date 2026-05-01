@@ -9,6 +9,7 @@ COPY package.json bun.lock ./
 COPY frontend/package.json frontend/
 COPY shared/package.json shared/
 COPY backend/package.json backend/
+COPY vendor/ vendor/
 RUN bun install --frozen-lockfile
 
 # Copie complète des workspaces
