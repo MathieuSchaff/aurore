@@ -45,7 +45,11 @@ export function useImageUpload(opts: UseImageUploadOptions) {
         const file = el.files?.[0]
         if (!file) return
         if (file.size > SOURCE_MAX_BYTES) {
-          setState({ phase: 'error', code: 'source_too_large', message: ERROR_MESSAGES.source_too_large })
+          setState({
+            phase: 'error',
+            code: 'source_too_large',
+            message: ERROR_MESSAGES.source_too_large,
+          })
           return
         }
         const url = URL.createObjectURL(file)
@@ -53,7 +57,11 @@ export function useImageUpload(opts: UseImageUploadOptions) {
         img.onload = () =>
           setState({ phase: 'cropping', sourceUrl: url, sourceFile: file, sourceImage: img })
         img.onerror = () =>
-          setState({ phase: 'error', code: 'upload_invalid_format', message: ERROR_MESSAGES.upload_invalid_format })
+          setState({
+            phase: 'error',
+            code: 'upload_invalid_format',
+            message: ERROR_MESSAGES.upload_invalid_format,
+          })
         img.src = url
       })
       document.body.appendChild(el)
@@ -74,7 +82,17 @@ export function useImageUpload(opts: UseImageUploadOptions) {
     canvas.height = opts.outputSize
     const ctx = canvas.getContext('2d')
     if (!ctx) throw new Error('canvas context unavailable')
-    ctx.drawImage(image, area.x, area.y, area.size, area.size, 0, 0, opts.outputSize, opts.outputSize)
+    ctx.drawImage(
+      image,
+      area.x,
+      area.y,
+      area.size,
+      area.size,
+      0,
+      0,
+      opts.outputSize,
+      opts.outputSize
+    )
 
     for (const quality of [0.85, 0.7, 0.5]) {
       const blob = await new Promise<Blob | null>((res) =>
@@ -112,7 +130,8 @@ export function useImageUpload(opts: UseImageUploadOptions) {
           reject(Object.assign(new Error('unknown'), { code: 'unknown' }))
         }
       }
-      xhr.onerror = () => reject(Object.assign(new Error('upload_storage_failed'), { code: 'upload_storage_failed' }))
+      xhr.onerror = () =>
+        reject(Object.assign(new Error('upload_storage_failed'), { code: 'upload_storage_failed' }))
       xhr.open('POST', opts.endpoint)
       xhr.send(form)
     })

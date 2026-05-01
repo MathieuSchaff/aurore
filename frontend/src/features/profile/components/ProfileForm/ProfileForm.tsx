@@ -1,12 +1,11 @@
 import type { ProfileLink, ProfilePublic, ProfileUpdateInput } from '@habit-tracker/shared'
 import { BIO_MAX_LENGTH, USERNAME_MAX_LENGTH } from '@habit-tracker/shared'
 
+import { useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 
-import { useQueryClient } from '@tanstack/react-query'
-
-import { ImageUpload } from '@/component/ImageUpload'
 import { FormMessage } from '@/component/Feedback/ui/FormMessage/FormMessage'
+import { ImageUpload } from '@/component/ImageUpload'
 import { FormActions } from '@/component/Input/FormActions/FormActions'
 import { Input } from '@/component/Input/Input'
 import { Textarea } from '@/component/Input/Textarea/Textarea'

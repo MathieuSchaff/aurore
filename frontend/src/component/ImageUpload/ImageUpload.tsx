@@ -40,12 +40,7 @@ export const ImageUpload = ({
 
   return (
     <div className={`image-upload image-upload--${shape}`}>
-      <button
-        type="button"
-        className="image-upload__trigger"
-        onClick={pickFile}
-        aria-label={alt}
-      >
+      <button type="button" className="image-upload__trigger" onClick={pickFile} aria-label={alt}>
         {currentImageUrl && state.phase === 'idle' ? (
           <img className="image-upload__image" src={currentImageUrl} alt={alt} />
         ) : (
@@ -62,24 +57,16 @@ export const ImageUpload = ({
           <span className="image-upload__progress">
             <span className="image-upload__spinner" />
             <span className="image-upload__progress-text">
-              {state.phase === 'compressing'
-                ? 'Compression…'
-                : `${state.progress}%`}
+              {state.phase === 'compressing' ? 'Compression…' : `${state.progress}%`}
             </span>
           </span>
         )}
 
-        {state.phase === 'error' && (
-          <span className="image-upload__error">{state.message}</span>
-        )}
+        {state.phase === 'error' && <span className="image-upload__error">{state.message}</span>}
       </button>
 
       {state.phase === 'cropping' && (
-        <CropModal
-          sourceUrl={state.sourceUrl}
-          onCancel={cancel}
-          onConfirm={handleConfirm}
-        />
+        <CropModal sourceUrl={state.sourceUrl} onCancel={cancel} onConfirm={handleConfirm} />
       )}
     </div>
   )
