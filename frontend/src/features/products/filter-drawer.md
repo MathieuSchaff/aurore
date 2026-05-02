@@ -29,7 +29,7 @@ L'ordre vertical perçu par l'utilisateur quand il ouvre le drawer.
 
 | Domaine    | Essentiels (ouverts)                                | Avancés (fermés)                                      |
 |------------|-----------------------------------------------------|-------------------------------------------------------|
-| skincare   | Peau · Problème · Zone · Type                       | Étape · Rendu · Label · Comédogénicité · Recherche précise |
+| skincare   | Peau · Problème · Zone · Type                       | Étape · Actions/Effets · Sensation · Caractéristiques produit · Recherche précise |
 | haircare   | Cheveux · Problème · Type                           | Étape · Bénéfice · Label · Recherche précise          |
 | dental     | Problème · Âge · Type                               | Bénéfice · Label · Recherche précise                  |
 | complement | Objectif · Forme · Moment                           | Contre-indication · Label · Recherche précise         |
