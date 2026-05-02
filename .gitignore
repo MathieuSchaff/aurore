@@ -89,6 +89,8 @@ frontend/.tanstack/tmp/
 .worktrees/
 scripts/*
 .claude
+.gemini/
+VRAC/
 
 # =========================
 # Local seed notes (VRAC)
