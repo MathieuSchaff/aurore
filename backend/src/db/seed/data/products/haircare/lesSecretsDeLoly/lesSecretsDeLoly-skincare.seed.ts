@@ -183,7 +183,7 @@ export const LES_SECRETS_DE_LOLY_SKINCARE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-sleek-slay-baume-soin-2-en-1.webp',
     tags: {
-      primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
+      primary: ['barriere-cutanee'],
       secondary: [
         'reparateur',
         'sebo-regulateur',

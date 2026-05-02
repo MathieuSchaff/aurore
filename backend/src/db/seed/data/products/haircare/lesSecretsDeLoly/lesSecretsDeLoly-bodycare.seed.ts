@@ -19,7 +19,7 @@ export const LES_SECRETS_DE_LOLY_BODYCARE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-bubble-kiss-soin-lavant-bebes-et-enfants.webp',
     tags: {
       primary: ['apaisant', 'anti-oxydant', 'step-hydratation'],
-      secondary: ['reparateur', 'peau-sensible', 'type-nettoyant', 'zone-corps', 'zone-corps'],
+      secondary: ['reparateur', 'peau-sensible', 'type-nettoyant', 'zone-corps'],
       avoid: [],
     },
   },

@@ -24,7 +24,6 @@ export const ELMEX_SOLAIRE_SEED: UnifiedProductSeed[] = [
         'texture-creme',
         'step-protection-solaire',
         'moment-matin',
-        'moment-matin',
         'zone-visage',
       ],
       avoid: [],

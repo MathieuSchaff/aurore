@@ -138,7 +138,7 @@ Colibri Daily SPF50 (vérifier absence `grossesse-compatible`, filtres chimiques
 
 ### 3.3 Doublons produits scrapés
 
-> Mis à jour 2026-04-30 après le merge `0c477591` (fusion des `*.atida/.pharmashop.seed.ts` dans des `<brand>.seed.ts` unifiés) + cleanup cross-source. Détection : `scripts/audit-imported-products.ts`. Workflow et règles : [`DEDUP.md`](./DEDUP.md).
+> Mis à jour 2026-04-30 après le merge `0c477591` (fusion des `*.atida/.pharmashop.seed.ts` dans des `<brand>.seed.ts` unifiés) + cleanup cross-source. Détection : `scripts/audit-imported-products.ts` (archivé) ; workflow + règles : `DEDUP.md` (archivé dans `~/Mathieu/Vault/aurore-archive/seed-docs/`).
 
 Snapshot 2026-04-30 :
 
@@ -147,7 +147,7 @@ Snapshot 2026-04-30 :
 
 - [ ] Filtrer le rapport intra-source par flags pour isoler les **vrais doublons** (exclure `num-diff` quand seule la quantité change, `kind-diff` informatifs).
 - [ ] Review marque par marque dans l'ordre du tableau « Review Priority » du rapport, après filtrage.
-- [ ] Pour chaque marque : appliquer les règles de décision de `DEDUP.md` (sameSize → fusion, sinon variantes à conserver).
+- [ ] Pour chaque marque : appliquer les règles de décision de l'ancien `DEDUP.md` (cf archive — sameSize → fusion, sinon variantes à conserver).
 
 ---
 
@@ -244,7 +244,7 @@ initiale : l'appliquer également aux ingrédients.
 
 ## 7. Images & CDN
 
-État du pipeline image : voir [`IMAGES.md`](./IMAGES.md).
+État du pipeline image : voir [`STATE.md §11`](./STATE.md#11-pipeline-images).
 
 ### 7.1 Provisionnement infra
 

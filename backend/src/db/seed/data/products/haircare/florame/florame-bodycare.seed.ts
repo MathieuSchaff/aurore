@@ -17,7 +17,7 @@ export const FLORAME_BODYCARE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/florame-corps-gel-aloe-vera-bio.webp',
     tags: {
       primary: ['apaisant', 'step-hydratation'],
-      secondary: ['type-hydratant', 'texture-lait', 'zone-corps', 'zone-corps'],
+      secondary: ['type-hydratant', 'texture-lait', 'zone-corps'],
       avoid: [],
     },
   },

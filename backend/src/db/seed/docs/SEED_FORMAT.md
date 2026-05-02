@@ -1,274 +1,259 @@
-# Seed produits — Guide complet
+# Ajouter un produit — Guide
 
-> **À propos :** Guide contributeur pour ajouter une marque/un produit dans le seed. Décrit le format `UnifiedProductSeed`, les champs requis, les conventions de tags et d'ingrédients, avec exemples. Répond à « comment j'ajoute un produit ? ».
->
-> **Audience** : Claude Code (contexte CLAUDE.md)
-> **Format** : Unified seed — un seul fichier `.seed.ts` par marque
+> **À propos :** Comment ajouter un produit au catalogue. Deux workflows selon la catégorie : **skincare/solaire/bodycare** = SQL direct sur DB + snapshot ; **haircare/dental/supplement** = fichier `.seed.ts`. Répond à « comment j'ajoute un produit ? ».
+
+Voir aussi `STATE.md §1.3` (split source de vérité) et `STATE.md §3` (structure produit DB).
 
 ---
 
-## 1. Vue d'ensemble
+## 1. Choisir le workflow
 
-Chaque marque est représentée par **un seul fichier** :
+| Catégorie cible       | Workflow             | Source de vérité                          |
+|-----------------------|----------------------|-------------------------------------------|
+| `skincare`            | **A — DB-first**     | `backend/src/db/snapshot/data.sql`        |
+| `solaire`             | **A — DB-first**     | idem                                      |
+| `bodycare`            | **A — DB-first**     | idem                                      |
+| `haircare`            | **B — JS seed**      | `data/products/haircare/<brand>/*.seed.ts` |
+| `dental`              | **B — JS seed**      | `data/products/dental/<brand>/*.seed.ts`   |
+| `supplement`          | **B — JS seed**      | `data/products/supplement/<brand>/*.seed.ts` |
+
+**Pourquoi le split ?** Skincare est figé (1923 produits, taxonomie tags v2 stable). Modifier 100+ fichiers TS pour un renommage de tag = trop coûteux → SQL chirurgical sur DB + re-snapshot. Les autres catégories sont en croissance active et bénéficient encore de la validation TypeScript du seed JS.
+
+---
+
+## 2. Workflow A — DB-first (skincare/solaire/bodycare)
+
+### A.1 Quick add (1-2 produits, exploration)
+
+`make db-studio` (Drizzle Studio GUI). Insert dans :
+1. **`products`** — `slug`, `name`, `brand`, `category='skincare'`, `kind`, `unit`, `total_amount`, `amount_unit`, `price_cents`, `inci`, `image_url`
+2. **`tag_products`** — pour chaque tag : `product_id` + `product_tag_id`
+3. **`product_ingredients`** — pour chaque INCI clé : `product_id` + `ingredient_id`
+
+Puis : `make db-snapshot` → commit `backend/src/db/snapshot/data.sql`.
+
+### A.2 SQL direct (3-10 produits, contrôle texte)
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.dev.yml --env-file .env.dev exec db psql -U app -d appdb
+```
+
+```sql
+INSERT INTO products (slug, name, brand, category, kind, unit, total_amount, amount_unit, price_cents, inci, image_url)
+VALUES ('skin1004-madagascar-centella-ampoule', 'Madagascar Centella Ampoule', 'Skin1004',
+        'skincare', 'serum', 'bottle', 100, 'ml', 1990,
+        'CENTELLA ASIATICA EXTRACT, WATER, ...',
+        'https://aurore-cdn.b-cdn.net/products/skin1004-...webp')
+RETURNING id;
+-- note l'id retourné (ex: 3275)
+
+INSERT INTO tag_products (product_id, product_tag_id)
+SELECT 3275, id FROM product_tags
+WHERE slug IN ('apaisant', 'barriere-cutanee', 'type-serum', 'texture-fluide', 'zone-visage');
+
+INSERT INTO product_ingredients (product_id, ingredient_id)
+SELECT 3275, id FROM ingredients WHERE slug IN ('centella-asiatica');
+```
+
+Puis `make db-snapshot` + commit.
+
+### A.3 Migration versionnée (brand entière, doit être rejouable)
+
+Créer `backend/drizzle/00XX_add_brand_<brand>.sql` :
+
+```sql
+-- Skin1004 brand: 5 products
+INSERT INTO products (slug, name, brand, category, kind, ...) VALUES
+  ('skin1004-...', '...', 'Skin1004', 'skincare', '...', ...),
+  ('skin1004-...', ...);
+
+INSERT INTO tag_products (product_id, product_tag_id)
+SELECT p.id, t.id FROM products p, product_tags t
+WHERE (p.slug, t.slug) IN (
+  ('skin1004-madagascar-...', 'apaisant'),
+  ('skin1004-madagascar-...', 'type-serum'),
+  ...
+);
+```
+
+MAJ `backend/drizzle/meta/_journal.json` (Drizzle Kit ne génère pas auto pour les data migrations — copier l'entry précédente, changer `idx`/`tag`/`when`).
+
+`make db-migrate` → `make db-snapshot` → commit (`.sql` migration + `data.sql`).
+
+---
+
+## 3. Workflow B — JS seed (haircare/dental/supplement)
+
+### B.1 Layout
 
 ```
 backend/src/db/seed/data/products/<scope>/<brand>/<brand>.seed.ts
 ```
 
-`<scope>` ∈ `skincare` / `haircare` / `dental` / `supplement`. Le fichier contient les données produit, les tags et les ingrédients clés. Il est enregistré dans `data/products/index.ts`.
+`<scope>` ∈ `haircare` / `dental` / `supplement`. Un fichier par marque, enregistré dans `data/products/index.ts`.
 
----
-
-## 2. Type `UnifiedProductSeed`
+### B.2 Type `UnifiedProductSeed`
 
 ```ts
 interface UnifiedProductSeed {
-  slug: string; // unique, kebab-case
-  name: string; // nom du produit (sans marque, sans volume)
-  brand: string; // nom exact de la marque, PascalCase
-  kind: string; // type de produit (voir §6)
-  unit: string; // type de contenant (voir §7)
-  totalAmount: number; // volume/poids numérique
-  amountUnit: string; // 'ml' | 'g' | 'oz'
-  priceCents: number; // prix en centimes, 0 si inconnu
-  description: string; // 1-2 phrases en français, bénéfice principal
-  notes?: string; // notes cosmétiques : compatibilités, contre-indications
-  inci?: string; // liste INCI complète, MAJUSCULES, séparateur `, `
-  url?: string; // URL fiche produit (https://...)
-  imageUrl?: string; // URL image produit (https://...)
+  slug: string              // unique, kebab-case
+  name: string              // sans marque, sans volume
+  brand: string             // PascalCase
+  kind: string              // cf §4
+  unit: string              // cf §5
+  totalAmount: number       // valeur numérique
+  amountUnit: string        // 'ml' | 'g' | 'oz'
+  priceCents: number        // 0 si inconnu
+  description: string       // 1-2 phrases FR
+  notes?: string            // compatibilités, contre-indications
+  inci?: string             // INCI complète, MAJUSCULES, séparateur ', '
+  url?: string              // https://...
+  imageUrl?: string         // https://...
   tags: {
-    primary: string[]; // 1-3 tags — problème traité / bénéfice signature
-    secondary: string[]; // type produit, étape routine, peau cible, zone, labels
-    avoid: string[]; // profils déconseillés (vide si aucun)
-  };
-  keyIngredients?: {
-    slug: string; // INGREDIENT_SLUGS.XXX
-    notes?: string; // rôle ou concentration si notable
-  }[];
+    primary: string[]       // 1-3 tags — bénéfice signature
+    secondary: string[]     // type, étape, peau cible, zone, labels
+    avoid: string[]         // profils déconseillés
+  }
+  keyIngredients?: { slug: string; notes?: string }[]
 }
 ```
 
----
-
-## 3. Squelette du fichier `.seed.ts`
+### B.3 Squelette
 
 ```ts
-import { TAG_SLUGS } from "../../tags/seed-tags";
-import { INGREDIENT_SLUGS } from "../../ingredients/ingredient-slugs";
-import type { UnifiedProductSeed } from "../unified-types";
+import type { UnifiedProductSeed } from '../../types'
+import { INGREDIENT_SLUGS } from '../../types'
+import { TAG_SLUGS } from '../../tags'
 
 export const BRAND_SEED: UnifiedProductSeed[] = [
   {
-    slug: "brand-product-name",
-    name: "Product Name",
-    brand: "Brand",
-    kind: "serum",
-    unit: "pump",
-    totalAmount: 30,
-    amountUnit: "ml",
-    priceCents: 0,
-    description: "Description courte en français.",
-    notes: "Notes cosmétiques optionnelles.",
-    inci: "WATER, NIACINAMIDE, GLYCERIN, ...",
-    url: "https://...",
-    imageUrl: "https://...",
+    slug: 'brand-product-name',
+    name: 'Product Name',
+    brand: 'Brand',
+    kind: 'shampoo',
+    unit: 'bottle',
+    totalAmount: 250,
+    amountUnit: 'ml',
+    priceCents: 1290,
+    description: 'Description courte en français.',
+    inci: 'WATER, ...',
+    url: 'https://...',
+    imageUrl: 'https://...',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
-      secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.PEAU_SENSIBLE],
       avoid: [],
     },
-    keyIngredients: [
-      {
-        slug: INGREDIENT_SLUGS.NIACINAMIDE,
-        notes: "Sébo-régulateur, anti-taches",
-      },
-      { slug: INGREDIENT_SLUGS.GLYCERIN },
-    ],
+    keyIngredients: [{ slug: INGREDIENT_SLUGS.GLYCERIN }],
   },
-];
+]
 ```
 
----
+### B.4 Enregistrement
 
-## 4. Enregistrement dans `data/products/index.ts`
-
-Deux lignes à ajouter :
+Dans `backend/src/db/seed/data/products/index.ts` :
 
 ```ts
 import { BRAND_SEED } from './<scope>/<brand>/<brand>.seed'
 
 const allUnified: UnifiedProductSeed[] = [
-  // ... autres marques ...
   ...BRAND_SEED,
 ]
 ```
 
-`category` est dérivée automatiquement de `kind` à l'agrégation — pas besoin de la renseigner dans le `.seed.ts`.
+`category` est dérivée auto de `kind` à l'agrégation — pas besoin de la renseigner.
+
+### B.5 Workflow complet
+
+```bash
+# 1. créer .seed.ts + ajouter au index.ts
+# 2. recharger DB depuis JS seed (clean + migrate + seed)
+make db-reset
+# 3. snapshot la nouvelle baseline
+make db-snapshot
+# 4. commit (.seed.ts + index.ts + data.sql)
+```
 
 ---
 
-## 5. Sources de données et transformation
+## 4. Valeurs `kind`
 
-### 5a. Depuis une saisie manuelle
-
-L'utilisateur fournit un nom de marque + une liste de produits (noms, volumes, types). Remplir chaque champ en suivant les règles ci-dessous. Si l'INCI n'est pas fourni, omettre le champ `inci`.
-
-### 5b. Depuis du texte brut (Copier-coller web)
-
-- **Priorité INCI** : Toujours chercher la liste complète. Si absente, omettre le champ `inci` mais remplir le reste des métadonnées.
-- **Inférence du `unit`** : Si non précisé explicitement, déduire du nom ou de la description ("Spray hydratant" → `'spray'`, "Pot" → `'jar'`, "Flacon-pompe" → `'pump'`).
-- **Nettoyage du nom** : Extraire le nom commercial pur. Supprimer les mentions parasites type "Nouveauté", "Promo", "Lot de 2", "Vente Flash".
-- **Prix** : Si plusieurs prix sont présents (ex: prix barré), prendre le prix actuel le plus bas.
+| Catégorie    | Valeurs                                                                                                                                          |
+|--------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+| `skincare`   | `cleanser` `toner` `essence` `serum` `moisturizer` `eye-cream` `exfoliant` `mask` `mist` `oil` `balm` `spot-treatment` `lip-care` `patch` `primer` |
+| `solaire`    | `sunscreen` `after-sun` `self-tanner`                                                                                                            |
+| `bodycare`   | `body-lotion` `body-oil` `body-scrub` `body-wash` `deodorant` `hand-cream` `foot-cream`                                                          |
+| `haircare`   | `shampoo` `conditioner` `hair-mask` `hair-serum` `hair-oil` `styling`                                                                            |
+| `dental`     | `toothpaste` `mouthwash` `teeth-whitening` `floss`                                                                                               |
+| `complement` | `gelule` `capsule` `ampoule` `poudre` `sirop` `gummy` `huile`                                                                                    |
 
 ---
 
-## 6. Valeurs `kind` (type de produit)
+## 5. Valeurs `unit`
 
-### Skincare
-
-| Valeur             | Usage                                                           |
-| ------------------ | --------------------------------------------------------------- |
-| `'cleanser'`       | Nettoyant (gel, mousse, eau micellaire, huile, pain)            |
-| `'toner'`          | Toner, lotion tonique, toner pad                                |
-| `'essence'`        | Essence légère                                                  |
-| `'serum'`          | Sérum ou ampoule à actifs concentrés                            |
-| `'moisturizer'`    | Crème, gel-crème, lotion hydratante                             |
-| `'eye-cream'`      | Soin contour des yeux                                           |
-| `'exfoliant'`      | Exfoliant chimique ou physique                                  |
-| `'mask'`           | Masque tissu, wash-off, pad masque                              |
-| `'mist'`           | Brume visage                                                    |
-| `'oil'`            | Huile visage ou nettoyante                                      |
-| `'balm'`           | Baume (réparateur, lèvres)                                      |
-| `'spot-treatment'` | Traitement ciblé (acné, taches)                                 |
-| `'lip-care'`       | Soin des lèvres                                                 |
-| `'patch'`          | Patch (acné, yeux, nez)                                         |
-| `'primer'`         | Base de teint                                                   |
-| `'skincare'`       | Générique — **uniquement si aucun kind spécifique ne convient** |
-
-### Solaire
-
-`'sunscreen'` · `'after-sun'` · `'self-tanner'`
-
-### Corps
-
-`'body-lotion'` · `'body-oil'` · `'body-scrub'` · `'body-wash'` · `'deodorant'` · `'hand-cream'` · `'foot-cream'`
-
-### Cheveux
-
-`'shampoo'` · `'conditioner'` · `'hair-mask'` · `'hair-serum'` · `'hair-oil'` · `'styling'`
-
-### Compléments
-
-`'gelule'` · `'capsule'` · `'ampoule'` · `'poudre'` · `'sirop'` · `'gummy'` · `'huile'`
-
-### Dental
-
-`'toothpaste'` · `'mouthwash'` · `'teeth-whitening'` · `'floss'`
+`pump` `bottle` `tube` `jar` `dropper` `spray` `pack` `bar` `aerosol` `roller` `cartridge`
 
 ---
 
-## 7. Valeurs `unit` (contenant)
-
-| Valeur        | Usage                               |
-| ------------- | ----------------------------------- |
-| `'pump'`      | Flacon avec pompe                   |
-| `'bottle'`    | Flacon sans pompe (toner, essence…) |
-| `'tube'`      | Tube souple                         |
-| `'jar'`       | Pot                                 |
-| `'dropper'`   | Flacon pipette                      |
-| `'spray'`     | Spray, brume                        |
-| `'pack'`      | Pack (masques tissu, patches)       |
-| `'bar'`       | Pain solide                         |
-| `'aerosol'`   | Aérosol pressurisé                  |
-| `'roller'`    | Applicateur roller                  |
-| `'cartridge'` | Cartouche rechargeable              |
-
----
-
-## 8. Règles de nettoyage des champs
+## 6. Conventions de nettoyage
 
 ### `name`
-
-- **Sans** le nom de la marque : ~~"COSRX Low pH Cleanser"~~ → `"Low pH Cleanser"`
-- **Sans** le volume : ~~"Moisturizer 50ml"~~ → `"Moisturizer"`
-- **Alias de Marché** : Si un produit a deux noms (ex: Sensibio / Créaline), privilégiez le nom français (Créaline) ou conservez les deux si les slugs legacy diffèrent.
+- Sans la marque : ~~"COSRX Low pH Cleanser"~~ → `"Low pH Cleanser"`
+- Sans le volume : ~~"Moisturizer 50ml"~~ → `"Moisturizer"`
 
 ### `brand`
-
-- PascalCase : `'Cosrx'`, `'Anua'`, `'La Roche-Posay'`
-- Pas tout en majuscules sauf si officiel (ex: `'SVR'`).
+- PascalCase : `'Cosrx'`, `'La Roche-Posay'`. Tout-majuscules seulement si officiel (`'SVR'`).
 
 ### `slug`
-
-- Format : `brand-product-name` en kebab-case strict.
-- **Doit être unique**.
+- `brand-product-name` kebab-case strict, **doit être unique**.
 
 ### `inci`
-
-- Tout en **MAJUSCULES**.
-- Séparateur : `, `.
-- **Normalisation Eau** : `WATER/AQUA/EAU`, `AQUA/WATER/EAU` ou `AQUA` → `WATER`.
+- Tout en MAJUSCULES, séparateur `, `.
+- Eau normalisée → `WATER` (pas `AQUA`, `WATER/AQUA/EAU`, etc.).
 - `ETHYLHEXYL GLYCERIN` → `ETHYLHEXYLGLYCERIN`.
 
-### `url` et `imageUrl`
-
-- Doivent commencer par `https://`.
-- Omettre si vide.
+### `url` / `imageUrl`
+- Doivent commencer par `https://`. Omettre si vide.
 
 ---
 
-## 9. Règles de tagging (`tags`)
+## 7. Tagging — règles
 
-### `primary` — 1 à 3 tags max
+### `primary` (1-3 tags max)
+Bénéfice signature. Ex: `ANTI_ACNE`, `HYDRATATION`.
 
-Le problème principal traité. Ex: `ANTI_ACNE`, `HYDRATATION`.
+### `secondary` (descriptifs complets)
+- **Type produit** : `TYPE_SERUM`, `TYPE_TONIQUE`…
+- **Étape routine** : `STEP_TRAITEMENT`, `MOMENT_MATIN`, `MOMENT_SOIR`…
+- **Peau cible** : `PEAU_SENSIBLE`, `PEAU_TOUS_TYPES`…
+- **Zone** : `ZONE_VISAGE`, `ZONE_CORPS`…
+- **Labels** : `SANS_PARFUM`, `NON_COMEDOGENE`…
 
-### `secondary` — tags descriptifs complets
+### `avoid`
+Profils déconseillés (skin_type ou concern). Cf `STATE.md §10.3.3` règle relevance.
 
-Inclure systématiquement :
-- **Type de produit** : `SERUM`, `TONIQUE`...
-- **Étape routine** : `MATIN`, `SOIR`, `TRAITEMENT`...
-- **Type de peau cible** : `PEAU_SENSIBLE`, `PEAU_TOUS_TYPES`...
-- **Zone** : `ZONE_VISAGE`, `ZONE_CORPS`...
-- **Labels** : `SANS_PARFUM`, `NON_COMEDOGENE`...
-
----
-
-## 10. Règles ingrédients clés (`keyIngredients`)
-
-- **Source de vérité** : Utiliser uniquement les slugs définis dans l'objet `INGREDIENT_SLUGS` du fichier `backend/src/db/seed/ingredients/ingredient-slugs.ts`.
-- **Slug manquant** : Si un actif important n'a pas de slug existant, **ne pas l'inventer**. Demandez à l'utilisateur de l'ajouter au fichier des slugs ou omettez-le pour cette fois.
-- **Inclure** : Actifs fonctionnels (acides, peptides, vitamines), extraits végétaux signatures, humectants principaux.
-- **Exclure** : WATER, conservateurs (benzoate, phenoxyethanol), émulsifiants basiques, parfums, agents de texture neutres (dimethicone seul).
-- **Ordre** : Par importance décroissante ou concentration.
-- **Notes** : Utilisez le champ `notes` pour préciser la concentration (ex: `'10%'`) ou le rôle spécifique.
+### Scope tag (piège)
+Un tag `ingredient_attribute` ou `ingredient`-only ne doit **jamais** apparaître dans les tags d'un produit. Le test `shared-schemas-vs-tags.test.ts` détecte ça.
 
 ---
 
-## 11. Mise à jour et Vérification
+## 8. `keyIngredients` — règles
 
-Quand l'utilisateur demande de vérifier, compléter ou mettre à jour une marque :
-
-1.  **Audit comparatif** : Comparer les données fournies (texte brut) avec le fichier `.seed.ts` existant.
-2.  **Champs prioritaires** : Si la nouvelle source contient un prix, un volume ou un INCI plus récent/précis, mettre à jour le produit existant.
-3.  **Préservation** : Ne pas supprimer les produits existants dans le fichier sauf instruction explicite. Ajouter les nouveaux produits à la suite de la liste.
-4.  **Audit Qualité** : Vérifier systématiquement la cohérence du `kind`, de l'`unit`, et du format INCI selon les règles des sections 7, 8 et 9.
-5.  **Rapport de modification** : Lister brièvement les actions effectuées (ex: "Ajout de 2 produits, mise à jour du prix pour 3 produits, normalisation INCI").
+- **Source de vérité** : `INGREDIENT_SLUGS` dans `data/ingredients/ingredient-slugs.ts`.
+- **Slug manquant** : ne pas l'inventer. Ajouter au seed ingredients ou omettre.
+- **Inclure** : actifs fonctionnels (acides, peptides, vitamines), extraits signatures, humectants principaux.
+- **Exclure** : WATER, conservateurs, émulsifiants basiques, parfums, dimethicone seul.
+- **Ordre** : importance décroissante ou concentration.
+- **Notes** : concentration (ex: `'10%'`) ou rôle spécifique.
 
 ---
 
-## 12. Checklist de fin de session
+## 9. Checklist de fin
 
-- [ ] Fichier `<brand>.seed.ts` créé.
-- [ ] Tous les `name` sans marque ni volume.
-- [ ] INCI normalisé (WATER, MAJUSCULES, `, `).
-- [ ] Anciens fichiers legacy supprimés.
-- [ ] Imports et exports centralisés nettoyés (`index.ts`, `products-slugs.ts`, etc.).
-- [ ] Marque enregistrée dans `unified.ts`.
-- [ ] `make ts-verify` lancé (0 erreur).
+- [ ] Workflow A : `make db-snapshot` lancé + `data.sql` committé
+- [ ] Workflow B : `.seed.ts` ajouté + `index.ts` MAJ + `make db-reset` + `make db-snapshot` + tout committé
+- [ ] `name` sans marque ni volume
+- [ ] INCI normalisé (WATER, MAJUSCULES, `, `)
+- [ ] Slug unique
+- [ ] `make ts-verify` (0 erreur)
+- [ ] Tests : `make test-dev ARGS="seed-data-integrity"` + `ARGS="shared-schemas-vs-tags"`
