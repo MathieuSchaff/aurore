@@ -90,8 +90,9 @@ for (const file of readdirSync(IMAGES_DIR)) {
 const byBrand = new Map<string, string[]>()
 for (const f of orphans) {
   const brand = f.split('-')[0]
-  if (!byBrand.has(brand)) byBrand.set(brand, [])
-  byBrand.get(brand)!.push(f)
+  const list = byBrand.get(brand) ?? []
+  list.push(f)
+  byBrand.set(brand, list)
 }
 
 const sortedBrands = [...byBrand.entries()].sort((a, b) => b[1].length - a[1].length)

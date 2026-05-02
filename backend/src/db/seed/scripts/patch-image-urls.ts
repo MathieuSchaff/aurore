@@ -57,7 +57,6 @@ console.log(`seed files: ${files.length}`)
 
 const SLUG_RE = /^(\s*)slug:\s*'([^']+)'/
 const URL_RE = /^(\s*)url:\s*'[^']*',?\s*$/
-const IMAGE_BLOCK_RE = /^(\s*)imageUrl:[\s\S]*?',?\s*$/m
 const TAGS_RE = /^(\s*)tags:\s*\{/
 
 let totalReplaced = 0

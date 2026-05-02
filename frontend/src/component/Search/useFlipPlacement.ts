@@ -13,7 +13,6 @@ export function useFlipPlacement(
   isOpen: boolean,
   extraDeps: unknown[] = []
 ) {
-  // biome-ignore lint/correctness/useExhaustiveDependencies: extraDeps is the documented escape hatch
   useEffect(() => {
     if (!isOpen) return
     const trigger = triggerRef.current
