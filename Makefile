@@ -350,6 +350,32 @@ db-restore: ## Restaure une sauvegarde (Usage: make db-restore FILE=./backups/xx
 	docker compose exec -T db psql -U app appdb < $(FILE)
 	@echo "$(GREEN)✓ Restauration terminée$(NC)"
 
+# ── Snapshot canonique versionné dans git (alternative au seed TS) ───────────
+SNAPSHOT_FILE := backend/src/db/snapshot/data.sql
+
+db-snapshot: ## Dump données → backend/src/db/snapshot/data.sql (commit-able, source de vérité dev)
+	@mkdir -p backend/src/db/snapshot
+	@$(COMPOSE_DEV) exec -T db pg_dump -U app -d appdb \
+	  --data-only --inserts --no-owner --no-privileges \
+	  --exclude-schema=drizzle \
+	  > $(SNAPSHOT_FILE)
+	@echo "$(GREEN)✓ Snapshot écrit : $(SNAPSHOT_FILE) ($$(wc -l < $(SNAPSHOT_FILE)) lignes, $$(du -h $(SNAPSHOT_FILE) | cut -f1))$(NC)"
+
+db-snapshot-load: ## Recharge snapshot/data.sql dans la DB (TRUNCATE public + INSERT). Schéma migré requis.
+	@if [ ! -f $(SNAPSHOT_FILE) ]; then \
+		echo "$(RED)❌ Pas de snapshot à $(SNAPSHOT_FILE) — lance d'abord 'make db-snapshot'$(NC)"; exit 1; \
+	fi
+	@echo "$(YELLOW)⚠ TRUNCATE de toutes les tables public + reload snapshot$(NC)"
+	@read -p "Confirmer ? [y/N] " confirm && [ "$$confirm" = "y" ] || exit 1
+	@$(COMPOSE_DEV) exec -T db psql -U app -d appdb -v ON_ERROR_STOP=1 -c \
+	  "DO \$$\$$ DECLARE r record; BEGIN FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname='public') LOOP EXECUTE 'TRUNCATE ' || quote_ident(r.tablename) || ' RESTART IDENTITY CASCADE'; END LOOP; END \$$\$$;"
+	@$(COMPOSE_DEV) exec -T db psql -U app -d appdb -v ON_ERROR_STOP=1 < $(SNAPSHOT_FILE) > /dev/null
+	@echo "$(GREEN)✓ Snapshot chargé$(NC)"
+
+db-snapshot-reset: db-clean db-migrate ## Clean + migrate + load snapshot (alternative à db-reset qui utilise seed)
+	@$(COMPOSE_DEV) exec -T db psql -U app -d appdb -v ON_ERROR_STOP=1 < $(SNAPSHOT_FILE) > /dev/null
+	@echo "$(GREEN)✓ DB reset depuis snapshot$(NC)"
+
 db-backup-prod: ## [PROD] Sauvegarde compressée de la DB de production dans ./backups/
 	@mkdir -p ./backups
 	$(COMPOSE_PROD) exec -T db pg_dump -U app appdb | gzip > ./backups/backup_$(shell date +%Y%m%d_%H%M%S).sql.gz
