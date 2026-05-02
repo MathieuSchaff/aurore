@@ -58,7 +58,6 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.TEXTURE_LEGERE,

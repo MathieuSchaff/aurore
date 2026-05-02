@@ -58,7 +58,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
         TAG_SLUGS.PEAU_SECHE,
       ],
@@ -212,7 +212,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       ],
       avoid: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ROSACEE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
         TAG_SLUGS.GROSSESSE_COMPATIBLE,
@@ -364,7 +364,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.eau-thermale-avene.fr',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-eau-thermale.webp',
     tags: {
-      primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.ANTI_ROUGEURS],
+      primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
         TAG_SLUGS.BRUME,
         TAG_SLUGS.PREPARATION,
@@ -405,7 +405,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ROSACEE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
         TAG_SLUGS.GROSSESSE_COMPATIBLE,
@@ -455,7 +455,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ROSACEE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
         TAG_SLUGS.GROSSESSE_COMPATIBLE,
@@ -486,7 +486,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.PEAU_ATOPIQUE,
+        TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ECZEMA,
       ],
@@ -549,7 +549,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       ],
       avoid: [
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.PEAU_ATOPIQUE,
+        TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
         TAG_SLUGS.GROSSESSE_COMPATIBLE,
       ],
@@ -650,7 +650,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.eau-thermale-avene.fr',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cicalfate-creme-reparatrice.webp',
     tags: {
-      primary: [TAG_SLUGS.CICATRISATION, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_ATOPIQUE],
+      primary: [TAG_SLUGS.CICATRISATION, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
       secondary: [
         TAG_SLUGS.BARRIERE_CUTANEE,
         TAG_SLUGS.ANTI_ROUGEURS,
@@ -745,7 +745,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.PEAU_ATOPIQUE,
+        TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ECZEMA,
       ],
@@ -803,7 +803,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
-      avoid: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.ROSACEE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ROSACEE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
       {
@@ -922,7 +922,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.PROTECTION_SOLAIRE,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
       ],
       secondary: [
         TAG_SLUGS.PHOTO_VIEILLISSEMENT,
@@ -1109,7 +1109,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
       ],
       secondary: [
@@ -1155,7 +1155,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.PEAU_ATOPIQUE,
+        TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ECZEMA,
       ],
@@ -1213,7 +1213,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.PEAU_SENSIBLE,
       ],
       secondary: [
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.SERUM,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
@@ -1288,7 +1288,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.EXFOLIANT_CHIMIQUE,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.PEAU_ATOPIQUE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
     keyIngredients: [],
   },
@@ -1440,7 +1440,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['anti-acne', 'hydratation', 'anti-oxydant'],
       secondary: ['sebo-regulateur', 'reparateur', 'nettoyant-corps', 'zone-corps'],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.AVENE_THERMAL_SPRING_WATER },
@@ -1858,7 +1858,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['anti-age', 'exfoliation', 'eclat'],
       secondary: ['keratolytique', 'traitement', 'reparateur', 'zone-visage', 'exfoliant-chimique'],
-      avoid: ['peau-sensible', 'peau-reactive', 'barriere-cutanee-alteree'],
+      avoid: ['peau-sensible', 'peau-sensible', 'barriere-cutanee-alteree'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.AVENE_THERMAL_SPRING_WATER },
@@ -1967,7 +1967,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
         'zone-visage',
         'exfoliant-chimique',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.SALICYLIC_ACID },
@@ -2274,7 +2274,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
         'creme-hydratante',
         'zone-visage',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'barriere-cutanee-alteree'],
+      avoid: ['peau-sensible', 'peau-sensible', 'barriere-cutanee-alteree'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.AVENE_THERMAL_SPRING_WATER },
@@ -2405,7 +2405,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
         'creme-hydratante',
         'zone-visage',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'barriere-cutanee-alteree'],
+      avoid: ['peau-sensible', 'peau-sensible', 'barriere-cutanee-alteree'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.AVENE_THERMAL_SPRING_WATER },
@@ -2446,7 +2446,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
         'zone-yeux',
         'soin-yeux',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'barriere-cutanee-alteree'],
+      avoid: ['peau-sensible', 'peau-sensible', 'barriere-cutanee-alteree'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.AVENE_THERMAL_SPRING_WATER },

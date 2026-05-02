@@ -171,12 +171,12 @@ depuis la signature du handler.
 `z.discriminatedUnion('category', [...])`. Le client envoie `category=X` et Zod
 branche sur les filtres autorisés. Interdit `skin_type` en haircare, etc.
 
-| Branche    | Clés spécifiques (miroir `{domain}/tag-filters.ts`)                                                 |
-|------------|----------------------------------------------------------------------------------------------------|
-| skincare   | routine_step, skin_type, concern, product_type, skin_zone, skin_effect, product_label, shared_label |
-| haircare   | hair_type, concern, product_type, routine_step, hair_effect, product_label                         |
-| dental     | concern, age_group, product_type, dental_effect, product_label                                      |
-| complement | goal, product_type, moment, restriction, product_label                                              |
+| Branche    | Clés spécifiques (miroir `{domain}/tag-filters.ts`)                                                                       |
+|------------|--------------------------------------------------------------------------------------------------------------------------|
+| skincare   | routine_step, skin_type, concern, product_type, **product_type_v2**, **texture**, skin_zone, skin_effect, product_label, shared_label |
+| haircare   | hair_type, concern, product_type, routine_step, hair_effect, product_label                                                |
+| dental     | concern, age_group, product_type, dental_effect, product_label                                                            |
+| complement | goal, product_type, moment, restriction, product_label                                                                    |
 
 Base commune : `kind, brand, ingredient, avoid_for, q, priceMin, priceMax, page, limit, sort`.
 
@@ -392,6 +392,86 @@ Response                         { items: ProductSummary[], total, page, limit }
 **Les deux sérialisations cohabitent** : l'URL frontend parle array
 (TanStack Router encode/decode tout seul), l'API parle CSV (plus simple, type-safe via
 discriminated union). La conversion est localisée dans `buildListProductsQuery`.
+
+---
+
+## 11.bis Refonte Type/Zone/Texture skincare (Phase 1+2 — 2026-05-02)
+
+Le filtre skincare `product_type` legacy (42 slugs plats : `creme-mains`, `gel-nettoyant`, `huile-corps`…) mélangeait **fonction**, **zone** et **texture** sur un seul axe. Refonte en 3 dimensions UX-first :
+
+### Nouvelles catégories tag
+
+| Catégorie       | Slugs (count) | Source                                                |
+|-----------------|---------------|-------------------------------------------------------|
+| `product_type_v2` | 12          | Nettoyant, Toner, Mist, Sérum, Hydratant, Masque, Exfoliation, Solaire, Traitement, Primer, Déodorant, Outil |
+| `texture`       | 9             | Gel, Crème, Baume, Huile, Lait, Mousse, Eau, Patch, Stick |
+| `skin_zone`     | 6 (était 5)   | + `zone-pieds`                                        |
+
+Slugs préfixés (`type-*`, `texture-*`) pour éviter collision avec legacy (`baume`, `gel-creme`).
+
+### Coexistence avec `product_type` legacy
+
+Les 42 slugs legacy restent en DB (tier=essential, label="Type (legacy)") pour rétrocompat scoring/scraping. UI affiche les deux filtres side-by-side. Décision : drop legacy plus tard quand 100% des produits sont taggués v2.
+
+### Backfill (`backend/src/db/seed/scripts/backfill-skincare-tags-v2.ts`)
+
+Script idempotent (`onConflictDoNothing`) qui dérive les nouveaux tags depuis legacy via 3 mappings dans `shared/src/products/skincare/tag-type-mapping.ts` :
+
+- `SKINCARE_LEGACY_TYPE_TO_V2` : 42 → 12 (couverture 100%)
+- `SKINCARE_LEGACY_TYPE_TO_ZONE` : 10 entrées (corps, yeux, lèvres, mains, pieds quand le slug est explicite)
+- `SKINCARE_LEGACY_TYPE_TO_TEXTURE` : 24 entrées (sérum/ampoule/essence laissés non-dérivés — ambigus)
+
+Run via `make backfill-skincare-tags-v2 ARGS=--write`. Première exécution 2026-05-02 → 4145 rows insérées dans `tag_products` sur 2585 paires legacy.
+
+Stats post-backfill (filter-options) :
+- Type : Hydratant 839, Solaire 419, Sérum 353, Nettoyant 282, Exfoliation 187, Traitement 156, Toner 128, Masque 83, Déodorant 49, Mist 18, Primer 11, Outil 0
+- Texture : Crème 1096, Eau 132, Gel 87, Lait 73, Baume 58, Huile 54, Mousse 33, Patch 9, Stick 0
+- Zone : Visage 1925, Corps 353, Yeux 87, Lèvres 35, Mains 35, Pieds 6
+
+### Dette restante
+
+- [ ] Tagger manuellement `Outil` (0) et `Stick` (0) — pas de mapping legacy → cible.
+- [ ] Texture `texture-eau`/`texture-gel`/`texture-huile` pour sérums/ampoules/essences (ambiguïté slug).
+- [ ] `MetaStrip` étendu (`product_type_v2`, `texture`) mais pas testé visuellement.
+
+### Phase 3 (future) — Drop du legacy `product_type`
+
+Once V2 corpus is complete, the 42-slug `product_type` becomes dead weight. Drop it to remove confusion ("Type" vs "Type (legacy)" in filter drawer) and shrink the taxonomy surface. **Ne pas faire avant que les pré-requis soient cochés** — legacy alimente encore scraping rules et certains scoring helpers.
+
+**Pré-requis avant drop**
+
+- [ ] **Couverture V2 ≥ 99 %** — chaque produit skincare/solaire/bodycare doit avoir au moins un tag `product_type_v2`. Vérifier via :
+  ```sql
+  SELECT COUNT(*) FROM products p
+  WHERE p.category IN ('skincare','solaire','bodycare')
+    AND NOT EXISTS (
+      SELECT 1 FROM tag_products tp
+      JOIN product_tags pt ON pt.id = tp.product_tag_id
+      WHERE tp.product_id = p.id AND pt.type = 'product_type_v2'
+    );
+  ```
+  Cible : `< 30` produits orphelins.
+- [ ] **Audit scraping** — `grep -r "product_type" backend/src/db/seed/scripts/ backend/src/scraping/` pour repérer toute logique qui sniffe un slug legacy (`gel-nettoyant`, `creme-mains`…). Les remapper vers v2/zone/texture.
+- [ ] **Audit algo-derm / scoring** — vérifier que `algo-derm` n'utilise pas le legacy comme signal (lib externe, à priori non).
+- [ ] **Frontend MetaStrip / autres consommateurs** — `grep "product_type" frontend/src/` et vérifier qu'aucun composant ne dépend du legacy spécifiquement.
+- [ ] **Migrer `auto-tag.ts`** — script de tagging auto utilise probablement les slugs legacy ; basculer sur v2 + texture + zone.
+
+**Étapes du drop**
+
+1. Marquer `product_type` legacy comme `tier: 'internal'` dans `tag-filters.ts` → cache du drawer mais reste en DB (étape réversible, soft).
+2. Soak 2 semaines, surveiller logs + analytics filtre.
+3. Hard drop :
+   - Supprimer la catégorie `'product_type'` de `SKINCARE_PRODUCT_TAG_CATEGORIES`.
+   - Retirer les 42 slugs de `tag-slugs.ts` + `tag-taxonomy.ts` + labels.
+   - Retirer `product_type` de `skincareListProductsQuery` (`list-products-query.ts`).
+   - Script SQL : `DELETE FROM tag_products WHERE product_tag_id IN (SELECT id FROM product_tags WHERE type='product_type')` puis `DELETE FROM product_tags WHERE type='product_type'`.
+   - Drop `tag-type-mapping.ts` (devient inutile post-backfill).
+4. MAJ `STATE.md` — fermer §11.bis.
+
+**Risques**
+
+- Perdre rétrocompat sur produits scrapés taggués automatiquement avec slugs legacy. Atténuation : pré-req 2 ci-dessus.
+- Lien interne (markdown, blog, partage URL) avec `?product_type=…` cassé. Atténuation : ajouter une redirection silencieuse `product_type → product_type_v2` via le mapping pendant 1–2 mois.
 
 ---
 

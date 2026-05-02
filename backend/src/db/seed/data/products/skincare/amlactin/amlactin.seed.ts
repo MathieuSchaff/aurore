@@ -19,7 +19,7 @@ export const AMLACTIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.amlactin.com',
     tags: {
       primary: [
-        TAG_SLUGS.PEAU_RUGUEUSE,
+        TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.KERATOSE_PILAIRE,
         TAG_SLUGS.EXFOLIATION,
         TAG_SLUGS.DESHYDRATATION,
@@ -36,8 +36,8 @@ export const AMLACTIN_SEED: UnifiedProductSeed[] = [
       ],
       avoid: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
-        TAG_SLUGS.PEAU_ATOPIQUE,
+        TAG_SLUGS.PEAU_SENSIBLE,
+        TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
       ],
     },

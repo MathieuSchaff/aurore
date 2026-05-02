@@ -526,7 +526,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
         'zone-visage',
         'exfoliant-chimique',
       ],
-      avoid: ['peau-sensible', 'peau-reactive'],
+      avoid: ['peau-sensible', 'peau-sensible'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.LACTIC_ACID },
@@ -564,7 +564,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
         'zone-visage',
         'exfoliant-chimique',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.PROPANEDIOL },
@@ -1299,7 +1299,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
         'zone-visage',
         'exfoliant-chimique',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.SALICYLIC_ACID }],
   },
@@ -1530,7 +1530,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
         'soin-localise',
         'zone-visage',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.AZELAIC_ACID },
@@ -2808,7 +2808,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
         TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
         TAG_SLUGS.ZONE_VISAGE,
@@ -2865,7 +2865,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, ORBIGNYA OLEIFERA SEED OIL, GLYCERIN, CETYL ALCOHOL, 1,2-HEXANEDIOL, SODIUM POLYACRYLATE, CYANOCOBALAMIN, PANTHENOL, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, CAPRYLYL GLYCOL',
     url: 'https://www.labo-svr.com',
     tags: {
-      primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.MASQUE_HYDRATANT],
+      primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.MASQUE_HYDRATANT],
       secondary: [
         TAG_SLUGS.MASQUE_HEBDO,
         TAG_SLUGS.ZONE_VISAGE,
@@ -2954,7 +2954,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, GLYCERIN, 1,2-HEXANEDIOL, ALOE BARBADENSIS LEAF JUICE POWDER, PANTHENOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CAPRYLYL GLYCOL, SODIUM HYDROXIDE',
     url: 'https://www.labo-svr.com',
     tags: {
-      primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.HYDRATATION],
       secondary: [
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.GEL_CREME,
@@ -2985,7 +2985,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, HEXYLDECYL STEARATE, PROPANEDIOL, NIACINAMIDE, 1,2-HEXANEDIOL, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, CAPRYLYL GLYCOL, PENTYLENE GLYCOL, XANTHAN GUM',
     url: 'https://www.labo-svr.com',
     tags: {
-      primary: [TAG_SLUGS.GEL_NETTOYANT, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE],
+      primary: [TAG_SLUGS.GEL_NETTOYANT, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
         TAG_SLUGS.DOUBLE_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
@@ -3051,7 +3051,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, COCOS NUCIFERA (COCONUT) OIL, ORBIGNYA OLEIFERA SEED OIL, RICINUS COMMUNIS (CASTOR) SEED OIL, CETEARYL ALCOHOL, HYDROGENATED CASTOR OIL, GLYCERIL STEARATE SE, PENTYLENE GLYCOL, CETEARYL GLUCOSIDE, SODIUM STEAROYL GLUTAMATE, OPHIOPOGON JAPONICUS ROOT EXTRACT, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, MALTODEXTRIN, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, GLYCOSPHINGOLIPIDS, CITRIC ACID, GLYCOLIPIDS',
     url: 'https://fr.svr.com/collections/tous-nos-soins-corps/products/topialyse-baume-protect',
     tags: {
-      primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_ATOPIQUE, TAG_SLUGS.BARRIERE_CUTANEE],
+      primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
         TAG_SLUGS.BAUME,
         TAG_SLUGS.ZONE_CORPS,
@@ -3122,7 +3122,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, GLYCERIN, SODIUM C14-16 OLEFIN SULFONATE, SODIUM LAUROAMPHOACETATE, COCO-BETAINE, NIACINAMIDE, CITRIC ACID, SODIUM OLIVAMPHOACETATE, ALPHA-GLUCAN OLIGOSACCHARIDE, PARFUM, SACCHARIDE ISOMERATE, CAPRYLYL/CAPRYL GLUCOSIDE, SODIUM BENZOATE, POTASSIUM SORBATE, POLYGLYCERYL-3 COCOATE, POLYGLYCERYL-10 LAURATE, GOSSYPIUM HERBACEUM (COTTON) SEED OIL, SODIUM CITRATE',
     url: 'https://www.labo-svr.com',
     tags: {
-      primary: [TAG_SLUGS.HUILE_NETTOYANTE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_ATOPIQUE],
+      primary: [TAG_SLUGS.HUILE_NETTOYANTE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_SECHE],
       secondary: [
         TAG_SLUGS.DOUBLE_NETTOYAGE_1,
         TAG_SLUGS.ZONE_VISAGE,
@@ -3182,7 +3182,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, GLYCERIN, SODIUM C14-16 OLEFIN SULFONATE, COCO-BETAINE, COCO-GLUCOSIDE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, NIACINAMIDE, TRIDECETH-50, ALPHA-GLUCAN OLIGOSACCHARIDE, SACCHARIDE ISOMERATE, TOCOPHEROL, TOCOPHERYL ACETATE, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, CITRIC ACID, COCOS NUCIFERA (COCONUT) OIL, GLYCERYL OLEATE, GOSSYPIUM HERBACEUM (COTTON) SEED OIL, HYDROGENATED PALM GLYCERIDES CITRATE, PENTYLENE GLYCOL, SODIUM CITRATE, SODIUM HYDROXIDE, SODIUM LAURETH SULFATE, STYRENE/ACRYLATES COPOLYMER',
     url: 'https://www.labo-svr.com',
     tags: {
-      primary: [TAG_SLUGS.CREME_NETTOYANTE, TAG_SLUGS.PEAU_ATOPIQUE, TAG_SLUGS.PEAU_SECHE],
+      primary: [TAG_SLUGS.CREME_NETTOYANTE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_SECHE],
       secondary: [
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
@@ -3214,7 +3214,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     inci: 'GLYCERIN, SODIUM LAUROYL GLUTAMATE, CAPRYLIC/CAPRIC TRIGLYCERIDE, COCOS NUCIFERA (COCONUT) LIQUID ENDOSPERM, SODIUM METHYL OLEOYL TAURATE, COCOS NUCIFERA (COCONUT) OIL, PROPANEDIOL, SODIUM C14/16 OLEFIN SULFONATE, SODIUM CHLORIDE, PARFUM, CITRIC ACID, BORAGO OFFICINALIS SEED OIL, NIACINAMIDE, COCOS NUCIFERA (COCONUT) FRUIT JUICE, GLYCERYL GLUCOSIDE, LECITHIN, ALPHA-GLUCAN OLIGOSACCHARIDE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, TOCOPHEROL, SODIUM ACRYLATES COPOLYMER, SODIUM CITRATE, SODIUM PHYTATE, POTASSIUM SORBATE, SODIUM BENZOATE',
     url: 'https://www.labo-svr.com',
     tags: {
-      primary: [TAG_SLUGS.CREME_NETTOYANTE, TAG_SLUGS.PEAU_ATOPIQUE, TAG_SLUGS.PEAU_SECHE],
+      primary: [TAG_SLUGS.CREME_NETTOYANTE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_SECHE],
       secondary: [
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
@@ -3247,7 +3247,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PROTECTION_CUTANEE],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
         TAG_SLUGS.OCCLUSIF,
@@ -3313,7 +3313,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SANS_SAVON,
         TAG_SLUGS.TEXTURE_RICHE,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_ATOPIQUE, TAG_SLUGS.ANTI_ACNE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.ANTI_ACNE],
     },
     keyIngredients: [
       {
@@ -3350,7 +3350,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.DESHYDRATATION],
       secondary: [TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.ZONE_CORPS],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
       {
@@ -3383,7 +3383,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.EXFOLIATION],
       secondary: [TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.CREME_PIEDS],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
       {
@@ -3410,7 +3410,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.CICATRISATION],
       secondary: [TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.MICROBIOME],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
       {
@@ -3439,7 +3439,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.EXFOLIATION],
       secondary: [TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.GEL_CREME, TAG_SLUGS.SANS_PARFUM],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
       {
@@ -3496,7 +3496,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.EXFOLIATION],
       secondary: [TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.CREME_PIEDS],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
       {
@@ -3535,7 +3535,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       ],
       avoid: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ROSACEE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
         TAG_SLUGS.GROSSESSE_COMPATIBLE,
@@ -3581,7 +3581,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       ],
       avoid: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ROSACEE,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
@@ -3630,7 +3630,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.PIGMENTS_VERTS,
@@ -3725,7 +3725,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       ],
       avoid: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ROSACEE,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
@@ -3767,7 +3767,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       secondary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION],
       avoid: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
         TAG_SLUGS.GROSSESSE_COMPATIBLE,
       ],
@@ -3828,7 +3828,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       ],
       avoid: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ROSACEE,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
@@ -3882,7 +3882,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       avoid: [
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ROSACEE,
         TAG_SLUGS.GROSSESSE_COMPATIBLE,
       ],
@@ -3927,7 +3927,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       ],
       avoid: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ROSACEE,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
@@ -4050,7 +4050,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       ],
       avoid: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ROSACEE,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
@@ -4543,7 +4543,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.GEL_NETTOYANT, TAG_SLUGS.CICATRISATION, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.MICROBIOME,
         TAG_SLUGS.SANS_SAVON,
         TAG_SLUGS.NON_COMEDOGENE,
@@ -4669,7 +4669,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.CICATRISATION, TAG_SLUGS.ECZEMA],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.POST_ACNE,
         TAG_SLUGS.MICROBIOME,
         TAG_SLUGS.SOIN_LOCALISE,
@@ -4735,7 +4735,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.ROSACEE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ROSACEE],
     },
     keyIngredients: [
       {
@@ -4776,7 +4776,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.ROSACEE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ROSACEE],
     },
     keyIngredients: [
       {
@@ -4816,7 +4816,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.NON_COMEDOGENE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.ROSACEE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ROSACEE],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.NIACINAMIDE, notes: 'Anti-taches et protecteur barrière' },
@@ -4860,7 +4860,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.ZONE_VISAGE,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.ROSACEE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ROSACEE],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.DIACETYL_BOLDINE, notes: 'Complexe dépigmentant Duo White' },
@@ -4893,7 +4893,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       ],
       avoid: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ROSACEE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
         TAG_SLUGS.GROSSESSE_COMPATIBLE,
@@ -5036,7 +5036,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.NON_COMEDOGENE, TAG_SLUGS.TEXTURE_LEGERE],
-      avoid: [TAG_SLUGS.PEAU_ATOPIQUE, TAG_SLUGS.ANTI_ACNE],
+      avoid: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.ANTI_ACNE],
     },
     keyIngredients: [
       {

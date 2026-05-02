@@ -115,7 +115,7 @@ describe('Product Service', () => {
   describe('deleteProduct', () => {
     it('should permanently remove the product', async () => {
       const created = await makeProduct('Sélénium', 'Solgar')
-      await deleteProduct(user.id, created.id, testDb)
+      await deleteProduct('admin', created.id, testDb)
       expect(getProductById(created.id, testDb)).rejects.toThrow(ProductError)
     })
   })

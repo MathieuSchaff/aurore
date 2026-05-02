@@ -220,7 +220,6 @@ export const SOME_BY_MI_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SOIN_LOCALISE,
         TAG_SLUGS.CICATRISATION,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
       ],
@@ -258,7 +257,7 @@ export const SOME_BY_MI_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/some-by-mi-aha-bha-pha-miracle-calming-body-lotion.webp',
     tags: {
-      primary: [TAG_SLUGS.KERATOSE_PILAIRE, TAG_SLUGS.PEAU_RUGUEUSE, TAG_SLUGS.GRAIN_PEAU],
+      primary: [TAG_SLUGS.KERATOSE_PILAIRE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.GRAIN_PEAU],
       secondary: [
         TAG_SLUGS.LAIT_CORPS,
         TAG_SLUGS.EXFOLIANT_CHIMIQUE,

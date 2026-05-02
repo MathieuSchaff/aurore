@@ -2,11 +2,7 @@ import type { ProductKind, SkinConcern, SkinType } from '@habit-tracker/shared'
 
 import type { ProductContext, UserProfile } from 'algo-derm'
 
-const SENSITIVE_SKIN_TYPES: ReadonlyArray<SkinType> = [
-  'peau-sensible',
-  'peau-reactive',
-  'peau-atopique',
-]
+const SENSITIVE_SKIN_TYPES: ReadonlyArray<SkinType> = ['peau-sensible']
 
 const ROSACEA_CONCERNS: ReadonlyArray<SkinConcern> = [
   'rosacee',

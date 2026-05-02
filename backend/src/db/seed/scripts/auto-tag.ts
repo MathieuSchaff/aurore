@@ -64,11 +64,8 @@ const SLUG_TO_KEY: Record<string, string> = {
   'peau-seche': 'PEAU_SECHE',
   'peau-mixte': 'PEAU_MIXTE',
   'peau-grasse': 'PEAU_GRASSE',
-  'peau-reactive': 'PEAU_REACTIVE',
   'peau-sensible': 'PEAU_SENSIBLE',
   'peau-normale': 'PEAU_NORMALE',
-  'peau-atopique': 'PEAU_ATOPIQUE',
-  'peau-rugueuse': 'PEAU_RUGUEUSE',
   'barriere-cutanee-alteree': 'BARRIERE_CUTANEE_ALTEREE',
   // Zones
   'zone-visage': 'ZONE_VISAGE',
@@ -300,17 +297,12 @@ const INCI_TO_SKINCARE: Record<string, string[]> = {
 // ─── Aggressive INCI → avoid tags ────────────────────────────────────────────
 
 const INCI_TO_AVOID: Record<string, string[]> = {
-  retinol: ['peau-sensible', 'peau-reactive', 'barriere-cutanee-alteree'],
-  retinal: ['peau-sensible', 'peau-reactive', 'barriere-cutanee-alteree'],
-  'salicylic acid': ['peau-sensible', 'peau-reactive', 'peau-atopique'],
-  'capryloyl salicylic acid': ['peau-sensible', 'peau-reactive'],
-  'glycolic acid': ['peau-sensible', 'peau-reactive'],
-  'benzoyl peroxide': [
-    'peau-sensible',
-    'peau-reactive',
-    'peau-atopique',
-    'barriere-cutanee-alteree',
-  ],
+  retinol: ['peau-sensible', 'barriere-cutanee-alteree'],
+  retinal: ['peau-sensible', 'barriere-cutanee-alteree'],
+  'salicylic acid': ['peau-sensible', 'peau-seche'],
+  'capryloyl salicylic acid': ['peau-sensible'],
+  'glycolic acid': ['peau-sensible'],
+  'benzoyl peroxide': ['peau-sensible', 'peau-seche', 'barriere-cutanee-alteree'],
 }
 
 // ─── kind → skincare secondary tags ──────────────────────────────────────────
@@ -389,7 +381,7 @@ const NAME_PATTERNS: Array<[RegExp, Partial<TagResult>]> = [
   ],
   [
     /anti[\s-]?d[eé]mangeaison|atopi|exomega|anti[\s-]?grattage/i,
-    { primary: ['eczema'], secondary: ['peau-atopique', 'apaisant'] },
+    { primary: ['eczema'], secondary: ['peau-seche', 'apaisant'] },
   ],
   [/anti[\s-]?cerne/i, { primary: ['cernes-poches'] }],
   [/apaisant|calmant/i, { primary: ['apaisant'] }],
@@ -408,8 +400,8 @@ const NAME_PATTERNS: Array<[RegExp, Partial<TagResult>]> = [
   [/micro[\s-]?biome/i, { primary: ['microbiome'] }],
   [/k[eé]ratose|pilaire/i, { primary: ['keratose-pilaire'] }],
   [/peaux? sensibles?/i, { secondary: ['peau-sensible'] }],
-  [/peaux? r[eé]actives?/i, { secondary: ['peau-reactive'] }],
-  [/peaux? atopiques?/i, { secondary: ['peau-atopique'] }],
+  [/peaux? r[eé]actives?/i, { secondary: ['peau-sensible'] }],
+  [/peaux? atopiques?/i, { secondary: ['peau-seche'] }],
   [/peaux? s[eé]ches?/i, { secondary: ['peau-seche'] }],
   [/peaux? grasses?/i, { secondary: ['peau-grasse'] }],
   [/peaux? mixtes?/i, { secondary: ['peau-mixte'] }],

@@ -10,6 +10,8 @@ export const skincareProductFilterOptionsSchema = z.object({
     skin_type: z.array(tagItemSchema),
     skin_zone: z.array(tagItemSchema),
     product_type: z.array(tagItemSchema),
+    product_type_v2: z.array(tagItemSchema),
+    texture: z.array(tagItemSchema),
     concern: z.array(tagItemSchema),
     skin_effect: z.array(tagItemSchema),
     product_label: z.array(tagItemSchema),

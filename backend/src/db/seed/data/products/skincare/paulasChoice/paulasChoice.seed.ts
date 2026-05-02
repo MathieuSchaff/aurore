@@ -19,7 +19,7 @@ export const PAULAS_CHOICE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.paulaschoice.com',
     tags: {
       primary: [
-        TAG_SLUGS.PEAU_RUGUEUSE,
+        TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.KERATOSE_PILAIRE,
         TAG_SLUGS.EXFOLIATION,
         TAG_SLUGS.ANTI_TACHES,
@@ -34,8 +34,8 @@ export const PAULAS_CHOICE_SEED: UnifiedProductSeed[] = [
       ],
       avoid: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
-        TAG_SLUGS.PEAU_ATOPIQUE,
+        TAG_SLUGS.PEAU_SENSIBLE,
+        TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
       ],
     },

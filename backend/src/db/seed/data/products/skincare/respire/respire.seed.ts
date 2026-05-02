@@ -473,7 +473,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['anti-acne', 'hydratation'],
       secondary: ['sebo-regulateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.PROPANEDIOL },
@@ -610,7 +610,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['pores-dilates', 'anti-acne', 'barriere-cutanee'],
       secondary: ['sebo-regulateur', 'serum', 'traitement', 'zone-visage'],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.NIACINAMIDE },

@@ -42,7 +42,7 @@ export const ROUND_LAB_SEED: UnifiedProductSeed[] = [
       'https://cdn1.skinsafeproducts.com/photo/A174C8F22C2D1C/large_1735586541.jpeg?1735586541',
     tags: {
       primary: [TAG_SLUGS.SERUM, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.APAISANT],
-      secondary: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ANTI_ACNE],
+      secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ANTI_ACNE],
       avoid: [],
     },
     keyIngredients: [
@@ -127,7 +127,7 @@ export const ROUND_LAB_SEED: UnifiedProductSeed[] = [
       'https://cdn1.skinsafeproducts.com/photo/30F3649919F364/large_1698107598.jpeg?1698107598',
     tags: {
       primary: [TAG_SLUGS.MOUSSE_NETTOYANTE, TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
-      secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.BARRIERE_CUTANEE],
+      secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE],
       avoid: [],
     },
     keyIngredients: [
@@ -182,7 +182,7 @@ export const ROUND_LAB_SEED: UnifiedProductSeed[] = [
       'https://cdn1.skinsafeproducts.com/photo/085638430E3925/large_1735559743.png?1735559743',
     tags: {
       primary: [TAG_SLUGS.GEL_CREME, TAG_SLUGS.HYDRATATION, TAG_SLUGS.APAISANT],
-      secondary: [TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.SANS_PARFUM],
+      secondary: [TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
     keyIngredients: [
@@ -209,7 +209,7 @@ export const ROUND_LAB_SEED: UnifiedProductSeed[] = [
       'https://cdn1.skinsafeproducts.com/photo/12BFB5826EB6B5/large_1744579206.jpeg?1744579206',
     tags: {
       primary: [TAG_SLUGS.HUILE_DEMAQUILLANTE, TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_1],
-      secondary: [TAG_SLUGS.PEAU_TOUS_TYPES],
+      secondary: [],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.CERAMIDE_NP }],
@@ -266,7 +266,7 @@ export const ROUND_LAB_SEED: UnifiedProductSeed[] = [
       'https://cdn1.skinsafeproducts.com/photo/82AD957FE39E4D/large_1734293471.png?1734293471',
     tags: {
       primary: [TAG_SLUGS.GEL_NETTOYANT, TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
-      secondary: [TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.HYDRATATION],
+      secondary: [TAG_SLUGS.HYDRATATION],
       avoid: [],
     },
     keyIngredients: [
@@ -292,7 +292,7 @@ export const ROUND_LAB_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/6487D9A9FF2409/large_1715925983.png?1715925983',
     tags: {
-      primary: [TAG_SLUGS.LOTION, TAG_SLUGS.HYDRATATION, TAG_SLUGS.PEAU_TOUS_TYPES],
+      primary: [TAG_SLUGS.LOTION, TAG_SLUGS.HYDRATATION],
       secondary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.TEXTURE_LEGERE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -375,7 +375,7 @@ export const ROUND_LAB_SEED: UnifiedProductSeed[] = [
       'https://cdn1.skinsafeproducts.com/photo/9DC897A1A26A1D/large_1693423184.jpeg?1693423184',
     tags: {
       primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.HYDRATATION, TAG_SLUGS.GRAIN_PEAU],
-      secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.SANS_PARFUM],
+      secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.PANTHENOL }],
@@ -420,7 +420,7 @@ export const ROUND_LAB_SEED: UnifiedProductSeed[] = [
       'https://cdn1.skinsafeproducts.com/photo/C26A360CF17AB6/large_1698106698.jpeg?1698106698',
     tags: {
       primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.APAISANT],
-      secondary: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ANTI_ACNE],
+      secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ANTI_ACNE],
       avoid: [],
     },
     keyIngredients: [

@@ -23,7 +23,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
       ],
@@ -562,7 +562,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medicube-zero-foam-cleanser.webp',
     tags: {
       primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.MOUSSE_NETTOYANTE],
-      secondary: [TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
+      secondary: [TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
       avoid: [],
     },
     keyIngredients: [
@@ -615,7 +615,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medicube-one-day-exosome-shot-7500.webp',
     tags: {
       primary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.BARRIERE_CUTANEE],
-      secondary: [TAG_SLUGS.PEAU_ATOPIQUE, TAG_SLUGS.SERUM],
+      secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.SERUM],
       avoid: [],
     },
     keyIngredients: [
@@ -757,7 +757,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medicube-collagen-jelly-cream-110ml.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.REPULPANT],
-      secondary: [TAG_SLUGS.GEL_CREME, TAG_SLUGS.PEAU_TOUS_TYPES],
+      secondary: [TAG_SLUGS.GEL_CREME],
       avoid: [],
     },
     keyIngredients: [
@@ -837,7 +837,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medicube-pdrn-pink-cica-soothing-toner.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_ROUGEURS],
-      secondary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.PEAU_REACTIVE],
+      secondary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.PEAU_SENSIBLE],
       avoid: [],
     },
     keyIngredients: [

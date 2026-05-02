@@ -23,7 +23,6 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SERUM,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SANS_PARFUM,
       ],
@@ -55,7 +54,6 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.SERUM,
         TAG_SLUGS.MATIN,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.ANTI_OXYDANT,
@@ -89,13 +87,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-liftactiv-collagen-specialist-serum.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE],
-      secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.SERUM, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -189,7 +181,6 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.MATIN,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.FILTRES_CHIMIQUES,
@@ -317,12 +308,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-liftactiv-night-supreme.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE],
-      secondary: [
-        TAG_SLUGS.CREME_DE_NUIT,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.CREME_DE_NUIT, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -353,7 +339,6 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -440,13 +425,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-liftactiv-serum-10-supreme.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE],
-      secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.SERUM, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -472,13 +451,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-aqualia-thermal-eye-cream.webp',
     tags: {
       primary: [TAG_SLUGS.CERNES_POCHES],
-      secondary: [
-        TAG_SLUGS.CONTOUR_YEUX,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.ZONE_YEUX,
-      ],
+      secondary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_YEUX],
       avoid: [],
     },
     keyIngredients: [
@@ -568,13 +541,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-liftactiv-eye-cream.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.CERNES_POCHES],
-      secondary: [
-        TAG_SLUGS.CONTOUR_YEUX,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.ZONE_YEUX,
-      ],
+      secondary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_YEUX],
       avoid: [],
     },
     keyIngredients: [
@@ -602,12 +569,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-liftactiv-pure-retinol-serum.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE],
-      secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.SERUM, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -702,7 +664,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.EXFOLIANT_CHIMIQUE,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.PEAU_ATOPIQUE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
     keyIngredients: [],
   },
@@ -731,7 +693,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.EXFOLIANT_CHIMIQUE,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.PEAU_ATOPIQUE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
     keyIngredients: [],
   },
@@ -759,7 +721,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.PEAU_ATOPIQUE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
     keyIngredients: [],
   },
@@ -788,7 +750,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.EXFOLIANT_CHIMIQUE,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.PEAU_ATOPIQUE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
     keyIngredients: [],
   },
@@ -870,7 +832,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.EXFOLIANT_CHIMIQUE,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.PEAU_ATOPIQUE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
     keyIngredients: [],
   },
@@ -898,7 +860,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.PEAU_ATOPIQUE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
     keyIngredients: [],
   },
@@ -927,7 +889,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.EXFOLIANT_CHIMIQUE,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.PEAU_ATOPIQUE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
     keyIngredients: [],
   },
@@ -956,7 +918,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.EXFOLIANT_CHIMIQUE,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.PEAU_ATOPIQUE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
     keyIngredients: [],
   },
@@ -1097,7 +1059,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['anti-acne', 'hydratation'],
       secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.ASCORBYL_GLUCOSIDE },
@@ -1353,7 +1315,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['anti-acne', 'anti-age', 'pores-dilates'],
       secondary: ['sebo-regulateur', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.NIACINAMIDE },
@@ -1408,7 +1370,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['barriere-cutanee', 'anti-acne', 'pores-dilates'],
       secondary: ['reparateur', 'sebo-regulateur', 'creme-hydratante', 'zone-visage'],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.PROPANEDIOL },
@@ -1472,7 +1434,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
         'double-nettoyage-2',
         'zone-visage',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.PROPANEDIOL },
@@ -1582,7 +1544,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['anti-age', 'barriere-cutanee', 'pores-dilates', 'anti-taches'],
       secondary: ['reparateur', 'sebo-regulateur', 'traitement', 'creme-hydratante', 'zone-visage'],
-      avoid: ['peau-sensible', 'peau-reactive', 'barriere-cutanee-alteree'],
+      avoid: ['peau-sensible', 'peau-sensible', 'barriere-cutanee-alteree'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.PANTHENOL },
@@ -1645,7 +1607,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['eclat', 'pores-dilates', 'anti-taches'],
       secondary: ['keratolytique', 'sebo-regulateur', 'traitement', 'serum', 'zone-visage'],
-      avoid: ['peau-sensible', 'peau-reactive'],
+      avoid: ['peau-sensible', 'peau-sensible'],
     },
   },
   {
@@ -1697,7 +1659,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
         'zone-visage',
         'exfoliant-chimique',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
   },
   {
@@ -1728,7 +1690,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
         'zone-visage',
         'exfoliant-chimique',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
   },
   {
@@ -1757,7 +1719,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
         'creme-hydratante',
         'zone-visage',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.SQUALANE },
@@ -1818,7 +1780,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['anti-acne', 'pores-dilates', 'anti-age'],
       secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.NIACINAMIDE },
@@ -1887,7 +1849,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
         'zone-visage',
         'exfoliant-chimique',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
   },
   {
@@ -1909,7 +1871,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['anti-acne', 'pores-dilates', 'anti-age'],
       secondary: ['sebo-regulateur', 'creme-hydratante', 'zone-visage'],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.NIACINAMIDE },
@@ -1948,7 +1910,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
         'soin-yeux',
         'exfoliant-chimique',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
   },
   {
@@ -2010,7 +1972,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
         'zone-visage',
         'exfoliant-chimique',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.GLYCOLIC_ACID },
@@ -3089,7 +3051,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
         'matin',
         'zone-visage',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.ETHYLHEXYL_SALICYLATE },
@@ -3128,7 +3090,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
         'matin',
         'zone-visage',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.ETHYLHEXYL_SALICYLATE },
@@ -3170,7 +3132,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
         'zone-visage',
         'exfoliant-chimique',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
   },
   {
@@ -3301,7 +3263,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
         'matin',
         'zone-visage',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.ETHYLHEXYL_SALICYLATE },

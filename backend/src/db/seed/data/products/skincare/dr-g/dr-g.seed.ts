@@ -22,7 +22,7 @@ export const DR_G_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
         TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.PEAU_GRASSE,
@@ -68,7 +68,7 @@ export const DR_G_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
         TAG_SLUGS.ESSENCE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.PEAU_GRASSE,
@@ -116,7 +116,7 @@ export const DR_G_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION],
       secondary: [
         TAG_SLUGS.SERUM,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.PEAU_GRASSE,

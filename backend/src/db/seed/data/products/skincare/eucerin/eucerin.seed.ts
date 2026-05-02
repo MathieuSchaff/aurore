@@ -247,14 +247,7 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-atopi-control-baume.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant', 'eczema'],
-      secondary: [
-        'emollience',
-        'reparateur',
-        'lait-corps',
-        'zone-corps',
-        'peau-atopique',
-        'apaisant',
-      ],
+      secondary: ['emollience', 'reparateur', 'lait-corps', 'zone-corps', 'peau-seche', 'apaisant'],
       avoid: [],
     },
     keyIngredients: [
@@ -285,14 +278,7 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-atopicontrol-creme-calmante.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant', 'eczema'],
-      secondary: [
-        'emollience',
-        'reparateur',
-        'lait-corps',
-        'zone-corps',
-        'peau-atopique',
-        'apaisant',
-      ],
+      secondary: ['emollience', 'reparateur', 'lait-corps', 'zone-corps', 'peau-seche', 'apaisant'],
       avoid: [],
     },
     keyIngredients: [
@@ -380,7 +366,7 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
         'zone-visage',
         'exfoliant-chimique',
       ],
-      avoid: ['peau-sensible', 'peau-reactive'],
+      avoid: ['peau-sensible', 'peau-sensible'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.LACTIC_ACID },
@@ -453,7 +439,7 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-atopi-baume-nourrissant.webp',
     tags: {
       primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant', 'eczema'],
-      secondary: ['emollience', 'reparateur', 'baume', 'peau-atopique', 'apaisant'],
+      secondary: ['emollience', 'reparateur', 'baume', 'peau-seche', 'apaisant'],
       avoid: [],
     },
     keyIngredients: [
@@ -490,7 +476,7 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
         'reparateur',
         'creme-hydratante',
         'zone-visage',
-        'peau-atopique',
+        'peau-seche',
         'apaisant',
       ],
       avoid: [],
@@ -604,7 +590,7 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
         'zone-visage',
         'exfoliant-chimique',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.SALICYLIC_ACID },
@@ -637,7 +623,7 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
         'zone-visage',
         'exfoliant-chimique',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.SALICYLIC_ACID },
@@ -875,7 +861,7 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['anti-acne'],
       secondary: ['sebo-regulateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.SALICYLIC_ACID }],
   },
@@ -2177,7 +2163,7 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
         TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SANS_PARFUM,
@@ -2215,7 +2201,7 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, UREA, GLYCERIN, ISOPROPYL STEARATE, DICAPRYLYL ETHER, GLYCERYL GLUCOSIDE, SODIUM LACTATE, BUTYROSPERMUM PARKII BUTTER, TAPIOCA STARCH, POLYGLYCERYL-4 DIISOSTEARATE/POLYHYDROXYSTEARATE/SEBACATE, CARNITINE, CETEARYL ALCOHOL, CERAMIDE NP, ARGININE HCL, SODIUM PCA, HISTIDINE, ALANINE, CITRULLINE, LYSINE, SERINE, LACTIC ACID, SODIUM CHLORIDE, MANNITOL, SUCROSE, GLUTAMIC ACID, THREONINE, GLYCOGEN, 1,2-HEXANEDIOL, PHENOXYETHANOL, POTASSIUM SORBATE, ARGININE, PCA',
     url: 'https://int.eucerin.com',
     tags: {
-      primary: [TAG_SLUGS.PEAU_RUGUEUSE, TAG_SLUGS.KERATOSE_PILAIRE, TAG_SLUGS.DESHYDRATATION],
+      primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.KERATOSE_PILAIRE, TAG_SLUGS.DESHYDRATATION],
       secondary: [
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.EXFOLIATION,
@@ -2228,8 +2214,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
       ],
       avoid: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
-        TAG_SLUGS.PEAU_ATOPIQUE,
+        TAG_SLUGS.PEAU_SENSIBLE,
+        TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
       ],
     },
@@ -2280,7 +2266,7 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_VISAGE,
       ],
-      avoid: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
       {
@@ -2309,7 +2295,7 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, GLYCERIN, PANTHENOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, DICAPRYLYL ETHER, OLEA EUROPAEA FRUIT OIL, RICINUS COMMUNIS SEED OIL, POLYGLYCERYL-3 POLYRICINOLEATE, GLYCERYL GLUCOSIDE, OENOTHERA BIENNIS OIL, BORAGO OFFICINALIS SEED OIL, CERAMIDE NP, GLYCYRRHIZA INFLATA ROOT EXTRACT, DECYLENE GLYCOL, GLYCINE SOJA OIL, TOCOPHEROL, ASCORBYL PALMITATE, MAGNESIUM SULFATE, SODIUM CITRATE, CITRIC ACID',
     url: 'https://int.eucerin.com',
     tags: {
-      primary: [TAG_SLUGS.PEAU_ATOPIQUE, TAG_SLUGS.ECZEMA, TAG_SLUGS.BARRIERE_CUTANEE],
+      primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.ECZEMA, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_SENSIBLE,
@@ -2360,7 +2346,7 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.PROTECTION_CUTANEE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.HYPOALLERGENIQUE,
-        TAG_SLUGS.PEAU_ATOPIQUE,
+        TAG_SLUGS.PEAU_SECHE,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE],
     },
@@ -2455,7 +2441,7 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, ALCOHOL DENAT., BUTYL METHOXYDIBENZOYLMETHANE, ISOPROPYL PALMITATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, C12-15 ALKYL BENZOATE, DIBUTYL ADIPATE, DISTARCH PHOSPHATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, ETHYLHEXYL TRIAZONE, BUTYLENE GLYCOL DICAPRYLATE/DICAPRATE, PHENYLBENZIMIDAZOLE SULFONIC ACID, DIETHYLHEXYL BUTAMIDO TRIAZONE, GLYCERYL STEARATE, HYDROXYPROPYL STARCH PHOSPHATE, GLYCYRRHIZA INFLATA ROOT EXTRACT, GLUCOSYLRUTIN, ISOQUERCITRIN, GLYCYRRHETINIC ACID, TOCOPHEROL, GLYCERIN, C18-38 ALKYL HYDROXYSTEAROYL STEARATE, COPERNICIA CERIFERA CERA, HYDROGENATED RAPESEED OIL, CETYL PALMITATE, MICROCRYSTALLINE CELLULOSE, XANTHAN GUM, CELLULOSE GUM, SODIUM STEAROYL GLUTAMATE, SILICA DIMETHYL SILYLATE, PHENOXYETHANOL, CAPRYLYL GLYCOL, HYDROXYACETOPHENONE, TRISODIUM EDTA, SODIUM HYDROXIDE, SODIUM CHLORIDE',
     url: 'https://int.eucerin.com',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.PEAU_REACTIVE],
+      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
         TAG_SLUGS.GEL_CREME,
         TAG_SLUGS.CREME_SOLAIRE,

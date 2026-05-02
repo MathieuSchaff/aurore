@@ -20,7 +20,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-huile-lavante-ap-plus.webp',
     tags: {
-      primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_ATOPIQUE, TAG_SLUGS.BARRIERE_CUTANEE],
+      primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
         TAG_SLUGS.HUILE_NETTOYANTE,
         TAG_SLUGS.DOUBLE_NETTOYAGE_1,
@@ -77,7 +77,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.HYPOALLERGENIQUE,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.ZONE_CORPS,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
       ],
       avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
@@ -248,8 +248,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ANTI_TACHES,
         TAG_SLUGS.PHOTO_VIEILLISSEMENT,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
-        TAG_SLUGS.PEAU_ATOPIQUE,
+        TAG_SLUGS.PEAU_SENSIBLE,
+        TAG_SLUGS.PEAU_SECHE,
       ],
       avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.BRILLANCE],
     },
@@ -300,7 +300,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.COUPEROSE,
         TAG_SLUGS.FLUSHS,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
       ],
       avoid: [TAG_SLUGS.ANTI_ACNE],
     },
@@ -400,8 +400,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ANTI_ROUGEURS,
         TAG_SLUGS.POST_ACNE,
-        TAG_SLUGS.PEAU_REACTIVE,
-        TAG_SLUGS.PEAU_ATOPIQUE,
+        TAG_SLUGS.PEAU_SENSIBLE,
+        TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.ECZEMA,
       ],
       avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.BRILLANCE],
@@ -531,7 +531,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     url: 'https://www.laroche-posay.fr',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-sensitive.webp',
     tags: {
-      primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE],
+      primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.MATIN,
@@ -586,7 +586,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.PEAU_MIXTE,
       ],
       avoid: [
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ROSACEE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
         TAG_SLUGS.GROSSESSE_COMPATIBLE,
@@ -622,7 +622,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, BUTYROSPERMUM PARKII BUTTER / SHEA BUTTER, GLYCERIN, DIMETHICONE, NIACINAMIDE, CETEARYL ALCOHOL, BRASSICA CAMPESTRIS SEED OIL / RAPESEED SEED OIL, GLYCERYL STEARATE, AMMONIUM POLYACRYLOYLDIMETHYL TAURATE, PEG-100 STEARATE, PROPANEDIOL, OPHIOPOGON JAPONICUS ROOT EXTRACT, PEG-20 METHYL GLUCOSE SESQUISTEARATE, SORBITAN TRISTEARATE, DIMETHICONOL, SODIUM CHLORIDE, MANNOSE, COCO-BETAINE, DISODIUM EDTA, CAPRYLOYL GLYCINE, CAPRYLYL GLYCOL, VITREOSCILLA FERMENT, CITRIC ACID, MALTODEXTRIN, XANTHAN GUM, TOCOPHEROL, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE',
     url: 'https://www.laroche-posay.fr',
     tags: {
-      primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_ATOPIQUE, TAG_SLUGS.BARRIERE_CUTANEE],
+      primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
         TAG_SLUGS.BAUME,
         TAG_SLUGS.MATIN,
@@ -752,7 +752,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
       ],
       avoid: [
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.PEAU_ATOPIQUE,
+        TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
         TAG_SLUGS.GROSSESSE_COMPATIBLE,
       ],
@@ -845,7 +845,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.PEAU_NORMALE,
       ],
       avoid: [
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ROSACEE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
         TAG_SLUGS.GROSSESSE_COMPATIBLE,
@@ -890,7 +890,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.EXFOLIANT_CHIMIQUE,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.PEAU_ATOPIQUE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
     keyIngredients: [],
   },
@@ -919,7 +919,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.EXFOLIANT_CHIMIQUE,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.PEAU_ATOPIQUE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
     keyIngredients: [],
   },
@@ -948,7 +948,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.EXFOLIANT_CHIMIQUE,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.PEAU_ATOPIQUE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
     keyIngredients: [],
   },
@@ -1383,7 +1383,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lot-lipikar-huile-lavante-ap-relipidante-anti-grattage.webp',
     tags: {
       primary: ['barriere-cutanee', 'eczema'],
-      secondary: ['nettoyant-corps', 'zone-corps', 'peau-atopique', 'apaisant'],
+      secondary: ['nettoyant-corps', 'zone-corps', 'peau-seche', 'apaisant'],
       avoid: [],
     },
     keyIngredients: [
@@ -1898,7 +1898,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['anti-acne', 'hydratation'],
       secondary: ['sebo-regulateur', 'tonique', 'preparation', 'zone-visage'],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.SODIUM_CITRATE },
@@ -2042,7 +2042,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
         'zone-visage',
         'exfoliant-chimique',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
   },
   {
@@ -2153,7 +2153,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['anti-acne', 'hydratation'],
       secondary: ['sebo-regulateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.SALICYLIC_ACID },
@@ -2208,7 +2208,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['anti-acne', 'eclat', 'pores-dilates'],
       secondary: ['keratolytique', 'sebo-regulateur', 'serum', 'traitement', 'zone-visage'],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.PROPANEDIOL },
@@ -2412,7 +2412,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['anti-acne', 'pores-dilates', 'anti-rougeurs'],
       secondary: ['sebo-regulateur', 'reparateur', 'serum', 'traitement', 'zone-visage'],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.NIACINAMIDE },
@@ -2468,7 +2468,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['anti-age', 'hydratation', 'anti-acne'],
       secondary: ['reparateur', 'sebo-regulateur', 'serum', 'traitement', 'zone-visage'],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.POTASSIUM_HYDROXIDE },
@@ -2498,7 +2498,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['anti-age', 'pores-dilates', 'hydratation'],
       secondary: ['sebo-regulateur', 'traitement', 'reparateur', 'serum', 'zone-visage'],
-      avoid: ['peau-sensible', 'peau-reactive', 'barriere-cutanee-alteree'],
+      avoid: ['peau-sensible', 'peau-sensible', 'barriere-cutanee-alteree'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.NIACINAMIDE },
@@ -2575,7 +2575,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-eau-micellaire-peaux-reactives.webp',
     tags: {
       primary: ['hydratation'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage', 'peau-reactive'],
+      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage', 'peau-sensible'],
       avoid: [],
     },
   },
@@ -2821,7 +2821,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-eau-micellaire-ultra-peaux-reactives.webp',
     tags: {
       primary: ['hydratation'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage', 'peau-reactive'],
+      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage', 'peau-sensible'],
       avoid: [],
     },
   },
@@ -2868,7 +2868,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['anti-acne', 'hydratation'],
       secondary: ['sebo-regulateur', 'creme-hydratante', 'zone-visage'],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.SILICA },
@@ -2998,7 +2998,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
         'matin',
         'zone-visage',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.OCTOCRYLENE },
@@ -3352,7 +3352,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
         'matin',
         'zone-visage',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.SILICA },
@@ -3680,7 +3680,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
         'zone-visage',
         'exfoliant-chimique',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
   },
   {
@@ -3799,7 +3799,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['anti-acne', 'hydratation', 'protection-solaire'],
       secondary: ['filtres-chimiques', 'sebo-regulateur', 'creme-solaire', 'matin', 'zone-visage'],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.ETHYLHEXYL_SALICYLATE },
@@ -3838,7 +3838,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
         'matin',
         'zone-visage',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.C15_19_ALKANE },

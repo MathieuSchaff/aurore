@@ -8,14 +8,13 @@ interface ProductTagGroups {
 }
 export const PRODUCT_TAGS: Record<string, ProductTagGroups> = {
   [NOREVA_PRODUCT_SLUGS.SENSIDIANE_HUILE_DEMAQUILLANTE]: {
-    primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE],
+    primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE],
     secondary: [
       TAG_SLUGS.HUILE_DEMAQUILLANTE,
       TAG_SLUGS.DOUBLE_NETTOYAGE_1,
       TAG_SLUGS.SOIR,
       TAG_SLUGS.SANS_PARFUM,
       TAG_SLUGS.PEAU_NORMALE,
-      TAG_SLUGS.PEAU_TOUS_TYPES,
     ],
     avoid: [],
   },
@@ -59,7 +58,7 @@ export const PRODUCT_TAGS: Record<string, ProductTagGroups> = {
       TAG_SLUGS.SOIR,
       TAG_SLUGS.GRAIN_PEAU,
     ],
-    avoid: [TAG_SLUGS.PEAU_ATOPIQUE],
+    avoid: [TAG_SLUGS.PEAU_SECHE],
   },
 
   [NOREVA_PRODUCT_SLUGS.TRIO_WHITE_MELA_SERUM]: {
@@ -77,7 +76,7 @@ export const PRODUCT_TAGS: Record<string, ProductTagGroups> = {
   },
 
   [NOREVA_PRODUCT_SLUGS.ECZEANE_BRUME_RELIPIDANTE]: {
-    primary: [TAG_SLUGS.ECZEMA, TAG_SLUGS.PEAU_ATOPIQUE],
+    primary: [TAG_SLUGS.ECZEMA, TAG_SLUGS.PEAU_SECHE],
     secondary: [
       TAG_SLUGS.BRUME,
       TAG_SLUGS.BARRIERE_CUTANEE,

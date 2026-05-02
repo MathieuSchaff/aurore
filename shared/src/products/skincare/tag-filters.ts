@@ -20,9 +20,8 @@ export const SKINCARE_PRODUCT_TAG_CATEGORY_META: Record<
     order: 2,
     defaultOpen: true,
   },
-  // product_type before skin_zone — "type de produit" matches user intent
-  // ("je veux un sérum") more often than "zone" on the discovery flow.
-  product_type: {
+  // V2 type filter — 12 functional buckets, replaces legacy product_type in UI.
+  product_type_v2: {
     label: 'Type',
     placeholder: 'Tous',
     tier: 'essential',
@@ -36,10 +35,30 @@ export const SKINCARE_PRODUCT_TAG_CATEGORY_META: Record<
     order: 4,
     defaultOpen: false,
   },
-  routine_step: { label: 'Étape', placeholder: 'Toutes', tier: 'advanced', order: 5 },
-  skin_effect: { label: 'Rendu', placeholder: 'Tous', tier: 'advanced', order: 6 },
-  product_label: { label: 'Label', placeholder: 'Tous', tier: 'advanced', order: 7 },
-  shared_label: { label: 'Comédogénicité', placeholder: 'Indifférent', tier: 'advanced', order: 8 },
+  texture: {
+    label: 'Texture',
+    placeholder: 'Toutes',
+    tier: 'essential',
+    order: 5,
+    defaultOpen: false,
+  },
+  // Legacy 42-slug type — kept visible while products are migrated to V2.
+  product_type: {
+    label: 'Type (legacy)',
+    placeholder: 'Tous',
+    tier: 'essential',
+    order: 6,
+    defaultOpen: false,
+  },
+  routine_step: { label: 'Étape', placeholder: 'Toutes', tier: 'advanced', order: 7 },
+  skin_effect: { label: 'Rendu', placeholder: 'Tous', tier: 'advanced', order: 8 },
+  product_label: { label: 'Label', placeholder: 'Tous', tier: 'advanced', order: 9 },
+  shared_label: {
+    label: 'Comédogénicité',
+    placeholder: 'Indifférent',
+    tier: 'advanced',
+    order: 10,
+  },
 }
 
 export function skincareProductFilterCategories(): SkincareProductTagCategory[] {

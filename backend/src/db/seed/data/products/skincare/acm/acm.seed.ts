@@ -196,7 +196,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
         'zone-visage',
         'exfoliant-chimique',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
   },
   {
@@ -378,7 +378,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['anti-age', 'anti-oxydant'],
       secondary: ['traitement', 'reparateur', 'serum', 'zone-visage'],
-      avoid: ['peau-sensible', 'peau-reactive', 'barriere-cutanee-alteree'],
+      avoid: ['peau-sensible', 'peau-sensible', 'barriere-cutanee-alteree'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.DICAPRYLYL_CARBONATE },
@@ -410,7 +410,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
         'zone-visage',
         'exfoliant-chimique',
       ],
-      avoid: ['peau-sensible', 'peau-reactive'],
+      avoid: ['peau-sensible', 'peau-sensible'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.HUILE_GRAINES_TOURNESOL },
@@ -616,7 +616,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['eclat'],
       secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
-      avoid: ['peau-sensible', 'peau-reactive'],
+      avoid: ['peau-sensible', 'peau-sensible'],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.GLYCOLIC_ACID }],
   },
@@ -678,7 +678,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['apaisant', 'eclat', 'hydratation'],
       secondary: ['creme-hydratante', 'zone-visage'],
-      avoid: ['peau-sensible', 'peau-reactive'],
+      avoid: ['peau-sensible', 'peau-sensible'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.AMMONIUM_LACTATE },
@@ -975,7 +975,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['eclat', 'anti-age', 'anti-oxydant'],
       secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
-      avoid: ['peau-sensible', 'peau-reactive'],
+      avoid: ['peau-sensible', 'peau-sensible'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.PANTHENOL },
@@ -1433,7 +1433,6 @@ export const ACM_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.TEINT_TERNE],
       secondary: [
         TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.MATIFIANT,
         TAG_SLUGS.ANTI_TACHES,
         TAG_SLUGS.ECLAT,

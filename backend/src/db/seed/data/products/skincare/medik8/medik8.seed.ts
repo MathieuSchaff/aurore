@@ -46,7 +46,7 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-liquid-rehydration-serum-hydr8-b5.webp',
     tags: {
       primary: [TAG_SLUGS.SERUM, TAG_SLUGS.HYDRATATION, TAG_SLUGS.DESHYDRATATION],
-      secondary: [TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.SANS_PARFUM],
+      secondary: [TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE }],
@@ -123,12 +123,7 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/medik8-press-and-glow-daily-exfoliating-pha-tonic.webp',
     tags: {
       primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.EXFOLIANT_CHIMIQUE, TAG_SLUGS.ECLAT],
-      secondary: [
-        TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.GRAIN_PEAU,
-        TAG_SLUGS.SANS_PARFUM,
-      ],
+      secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.PHA }],
@@ -292,7 +287,7 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.MOUSSE_NETTOYANTE, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.APAISANT],
       secondary: [
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ROSACEE,
         TAG_SLUGS.DOUBLE_NETTOYAGE_2,
@@ -317,7 +312,7 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-hydr8-b5-serum.webp',
     tags: {
       primary: [TAG_SLUGS.SERUM, TAG_SLUGS.HYDRATATION, TAG_SLUGS.DESHYDRATATION],
-      secondary: [TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.SANS_PARFUM],
+      secondary: [TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
     keyIngredients: [
@@ -413,7 +408,7 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-press-and-glow-toner.webp',
     tags: {
       primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.EXFOLIANT_CHIMIQUE, TAG_SLUGS.ECLAT],
-      secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.SANS_PARFUM],
+      secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.PHA }],
@@ -566,7 +561,7 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-liquid-peptides-serum.webp',
     tags: {
       primary: [TAG_SLUGS.SERUM, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
-      secondary: [TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
+      secondary: [TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
       avoid: [],
     },
     keyIngredients: [
@@ -593,7 +588,7 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-hydr8-b5-intense-serum.webp',
     tags: {
       primary: [TAG_SLUGS.SERUM, TAG_SLUGS.HYDRATATION, TAG_SLUGS.DESHYDRATATION],
-      secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.SANS_PARFUM],
+      secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
     keyIngredients: [
@@ -698,7 +693,7 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-liquid-peptides-advanced-mp-serum.webp',
     tags: {
       primary: [TAG_SLUGS.SERUM, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
-      secondary: [TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
+      secondary: [TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
       avoid: [],
     },
     keyIngredients: [
@@ -796,7 +791,7 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-liquid-peptides-30ml.webp',
     tags: {
       primary: [TAG_SLUGS.SERUM, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
-      secondary: [TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
+      secondary: [TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
       avoid: [],
     },
     keyIngredients: [
@@ -824,12 +819,7 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/medik8-c-tetra-advanced-20-vitamin-c-gel-serum.webp',
     tags: {
       primary: [TAG_SLUGS.SERUM, TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES],
-      secondary: [
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.HYPERPIGMENTATION,
-        TAG_SLUGS.TEINT_TERNE,
-        TAG_SLUGS.MATIN,
-      ],
+      secondary: [TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.MATIN],
       avoid: [],
     },
     keyIngredients: [
@@ -855,7 +845,7 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/medik8-retinol-alternative-bakuchiol-peptides-serum.webp',
     tags: {
       primary: [TAG_SLUGS.SERUM, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.GROSSESSE_COMPATIBLE],
-      secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.SOIR],
+      secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.SOIR],
       avoid: [],
     },
     keyIngredients: [

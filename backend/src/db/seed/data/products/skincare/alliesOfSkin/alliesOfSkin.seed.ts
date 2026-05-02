@@ -27,7 +27,7 @@ export const ALLIES_OF_SKIN_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.SANS_PARFUM,
       ],
-      avoid: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.GROSSESSE_COMPATIBLE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
     keyIngredients: [
       {

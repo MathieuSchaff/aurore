@@ -22,7 +22,7 @@ export const DR_IDRISS_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.CERNES_POCHES, TAG_SLUGS.FLUSHS],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.SERUM,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.NON_COMEDOGENE,
@@ -75,7 +75,6 @@ export const DR_IDRISS_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.SERUM,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.NON_COMEDOGENE,
@@ -134,7 +133,6 @@ export const DR_IDRISS_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.SERUM,
         TAG_SLUGS.REPULPANT,
         TAG_SLUGS.SANS_PARFUM,
@@ -190,7 +188,6 @@ export const DR_IDRISS_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.CREME_SOLAIRE_TEINTEE,
         TAG_SLUGS.SANS_SAVON,
         TAG_SLUGS.MATIN,
@@ -262,7 +259,6 @@ export const DR_IDRISS_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.TEINT_TERNE],
       secondary: [
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.MASQUE_HYDRATANT,
         TAG_SLUGS.EXFOLIANT_CHIMIQUE,
         TAG_SLUGS.SOIR,
@@ -270,7 +266,7 @@ export const DR_IDRISS_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.MASQUE_HEBDO,
         TAG_SLUGS.ZONE_VISAGE,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
       {
@@ -312,7 +308,7 @@ export const DR_IDRISS_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ROSACEE, TAG_SLUGS.FLUSHS],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.SERUM,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.TRAITEMENT,
@@ -360,7 +356,7 @@ export const DR_IDRISS_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ROSACEE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.HYPOALLERGENIQUE,

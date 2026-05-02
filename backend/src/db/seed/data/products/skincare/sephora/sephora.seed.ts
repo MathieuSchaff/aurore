@@ -22,7 +22,7 @@ export const SEPHORA_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PIGMENTS_VERTS,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.DESHYDRATATION,

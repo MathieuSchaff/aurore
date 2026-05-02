@@ -22,7 +22,6 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ESSENCE,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SANS_PARFUM,
       ],
@@ -52,12 +51,7 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/missha-time-revolution-night-repair-ampoule-5x.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT],
-      secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.SERUM, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -92,7 +86,6 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.DOUBLE_NETTOYAGE_2,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -158,7 +151,6 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.MASQUE_TISSU,
         TAG_SLUGS.SOIR,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -187,12 +179,7 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/missha-pure-source-cell-sheet-mask-red-ginseng.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT],
-      secondary: [
-        TAG_SLUGS.MASQUE_TISSU,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -221,7 +208,6 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.HUILE_NETTOYANTE,
         TAG_SLUGS.DOUBLE_NETTOYAGE_1,
         TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -256,7 +242,6 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.DOUBLE_NETTOYAGE_2,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -287,7 +272,6 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.DOUBLE_NETTOYAGE_2,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -310,12 +294,7 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/missha-time-revolution-night-repair-probio-ampoule.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.BARRIERE_CUTANEE],
-      secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.SERUM, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -342,12 +321,7 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/missha-peel-off-pack.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT],
-      secondary: [
-        TAG_SLUGS.MASQUE_HYDRATANT,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.MASQUE_HYDRATANT, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -373,12 +347,7 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/missha-super-aqua-cell-renew-snail-sleeping-mask.webp',
     tags: {
       primary: [TAG_SLUGS.CICATRISATION, TAG_SLUGS.HYDRATATION],
-      secondary: [
-        TAG_SLUGS.SLEEPING_MASK,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.SLEEPING_MASK, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -404,12 +373,7 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/missha-pure-source-cell-sheet-mask-pomegranate.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT],
-      secondary: [
-        TAG_SLUGS.MASQUE_TISSU,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -438,7 +402,6 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.MASQUE_TISSU,
         TAG_SLUGS.SOIR,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -469,7 +432,6 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -497,12 +459,7 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/missha-a-pieu-lemon-slice-sheet-mask.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT],
-      secondary: [
-        TAG_SLUGS.MASQUE_TISSU,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -528,13 +485,7 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/missha-super-aqua-ultra-water-full-intensive-serum.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
-      secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.SERUM, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -560,12 +511,7 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/missha-super-aqua-ice-tear-sleeping-mask.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION],
-      secondary: [
-        TAG_SLUGS.SLEEPING_MASK,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.SLEEPING_MASK, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -595,7 +541,6 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.HUILE_NETTOYANTE,
         TAG_SLUGS.DOUBLE_NETTOYAGE_1,
         TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -627,7 +572,6 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ESSENCE,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SANS_PARFUM,
       ],
@@ -657,13 +601,7 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/missha-time-revolution-the-first-intensive-moist-treatment-essence.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.ECLAT],
-      secondary: [
-        TAG_SLUGS.ESSENCE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.ESSENCE, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -779,12 +717,7 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/missha-super-aqua-snail-cream.webp',
     tags: {
       primary: [TAG_SLUGS.CICATRISATION, TAG_SLUGS.ANTI_AGE],
-      secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -814,7 +747,6 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.MASQUE_TISSU,
         TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SANS_PARFUM,
       ],
@@ -846,12 +778,7 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/missha-a-pieu-icing-sweet-bar-sheet-mask-pineapple.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.GRAIN_PEAU],
-      secondary: [
-        TAG_SLUGS.MASQUE_TISSU,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -883,7 +810,6 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ESSENCE,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SANS_PARFUM,
       ],
@@ -919,7 +845,6 @@ export const MISSHA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.DOUBLE_NETTOYAGE_2,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],

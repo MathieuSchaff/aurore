@@ -79,13 +79,7 @@ export const NIOD_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/niod-ethylated-l-ascorbic-acid-30-network.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_AGE],
-      secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.SERUM, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -113,13 +107,7 @@ export const NIOD_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/niod-multi-molecular-hyaluronic-complex.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.REPULPANT],
-      secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.SERUM, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -173,12 +161,7 @@ export const NIOD_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/niod-flavanone-mud-mask.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.HYDRATATION],
-      secondary: [
-        TAG_SLUGS.MASQUE_HYDRATANT,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.MASQUE_HYDRATANT, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -205,13 +188,7 @@ export const NIOD_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/niod-copper-amino-isolate-serum.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
-      secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.SERUM, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -268,7 +245,6 @@ export const NIOD_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.EXFOLIANT_CHIMIQUE,
         TAG_SLUGS.SOIR,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -332,7 +308,6 @@ export const NIOD_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],

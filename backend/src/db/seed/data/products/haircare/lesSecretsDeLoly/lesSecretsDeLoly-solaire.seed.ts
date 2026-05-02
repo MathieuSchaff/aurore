@@ -21,7 +21,7 @@ export const LES_SECRETS_DE_LOLY_SOLAIRE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['eclat', 'anti-oxydant'],
       secondary: ['reparateur', 'creme-solaire', 'protection-solaire', 'matin', 'zone-visage'],
-      avoid: ['peau-sensible', 'peau-reactive'],
+      avoid: ['peau-sensible', 'peau-sensible'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.PRUNUS_AMYGDALUS_DULCIS_OIL },

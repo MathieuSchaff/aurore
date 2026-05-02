@@ -64,7 +64,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.MATIN,
       ],
@@ -149,7 +149,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.MATIN,
       ],
@@ -418,13 +418,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/propaira-extra-strength-serum-hyaluronic-acid.webp',
     tags: {
       primary: [TAG_SLUGS.SERUM, TAG_SLUGS.HYDRATATION, TAG_SLUGS.TRAITEMENT],
-      secondary: [
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.SANS_PARFUM,
-        TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-      ],
+      secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.ZONE_VISAGE, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
       avoid: [],
     },
     keyIngredients: [
@@ -663,7 +657,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CREME_HYDRATANTE],
       secondary: [
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.PEAU_ATOPIQUE,
+        TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.MATIN,

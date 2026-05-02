@@ -1302,7 +1302,7 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['hydratation', 'anti-acne', 'repulpant'],
       secondary: ['sebo-regulateur', 'serum', 'traitement', 'zone-visage'],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE },

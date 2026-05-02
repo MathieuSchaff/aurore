@@ -59,7 +59,7 @@ export const DIEUX_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://cdn1.skinsafeproducts.com/photo/060D19A8C6E280/large_1748332259.png',
     tags: {
       primary: [TAG_SLUGS.HUILE_NETTOYANTE, TAG_SLUGS.DOUBLE_NETTOYAGE_1, TAG_SLUGS.NETTOYANT],
-      secondary: [TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
   },
@@ -139,12 +139,7 @@ export const DIEUX_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://cdn1.skinsafeproducts.com/photo/3D18B5F08670AF/large_1756637088.png',
     tags: {
       primary: [TAG_SLUGS.MOUSSE_NETTOYANTE, TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
-      secondary: [
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.SANS_PARFUM,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
   },

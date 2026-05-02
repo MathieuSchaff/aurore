@@ -46,7 +46,7 @@ export const TOPICREM_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.EMOLLIENCE,
         TAG_SLUGS.TEXTURE_RICHE,
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.PEAU_ATOPIQUE,
+        TAG_SLUGS.PEAU_SECHE,
       ],
       avoid: [TAG_SLUGS.PEAU_GRASSE],
     },

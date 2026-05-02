@@ -20,13 +20,7 @@ export const SOL_DE_JANEIRO_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/sol-de-janeiro-brazilian-bum-bum-cream.webp',
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.PEAU_SECHE],
-      secondary: [
-        TAG_SLUGS.CREME_CORPS,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.ZONE_CORPS,
-      ],
+      secondary: [TAG_SLUGS.CREME_CORPS, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [
@@ -53,13 +47,7 @@ export const SOL_DE_JANEIRO_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://cdn1.skinsafeproducts.com/photo/25EF5C81AB3DD8/large_1732170557.png',
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.PEAU_SECHE],
-      secondary: [
-        TAG_SLUGS.CREME_CORPS,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.ZONE_CORPS,
-      ],
+      secondary: [TAG_SLUGS.CREME_CORPS, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [
@@ -187,7 +175,7 @@ export const SOL_DE_JANEIRO_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.DESHYDRATATION],
       secondary: [
         TAG_SLUGS.CREME_CORPS,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
         TAG_SLUGS.ZONE_CORPS,
@@ -223,7 +211,6 @@ export const SOL_DE_JANEIRO_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.DESHYDRATATION],
       secondary: [
         TAG_SLUGS.CREME_CORPS,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
@@ -316,7 +303,7 @@ export const SOL_DE_JANEIRO_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://cdn1.skinsafeproducts.com/photo/C842C40706B106/large_1692791311.png',
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.PEAU_SECHE],
-      secondary: [TAG_SLUGS.CREME_CORPS, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.ZONE_CORPS],
+      secondary: [TAG_SLUGS.CREME_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [

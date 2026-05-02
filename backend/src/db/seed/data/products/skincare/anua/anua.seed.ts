@@ -30,7 +30,7 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
       ],
       avoid: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ROSACEE,
         TAG_SLUGS.COUPEROSE,
       ],
@@ -89,7 +89,7 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.HYPOALLERGENIQUE,
         TAG_SLUGS.NON_COMEDOGENE,
@@ -204,8 +204,8 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
-        TAG_SLUGS.PEAU_REACTIVE,
-        TAG_SLUGS.PEAU_ATOPIQUE,
+        TAG_SLUGS.PEAU_SENSIBLE,
+        TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.TONIQUE,
         TAG_SLUGS.PREPARATION,
         TAG_SLUGS.BARRIERE_CUTANEE,
@@ -213,7 +213,6 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SOIR,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.HYPOALLERGENIQUE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -261,8 +260,7 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.SERUM,
         TAG_SLUGS.AMPOULE,
         TAG_SLUGS.TRAITEMENT,
@@ -433,7 +431,6 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_MIXTE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.MATIN,
@@ -487,8 +484,8 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
-        TAG_SLUGS.PEAU_ATOPIQUE,
+        TAG_SLUGS.PEAU_SENSIBLE,
+        TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.MATIN,
@@ -649,8 +646,7 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.MASQUE_HYDRATANT,
         TAG_SLUGS.TRAITEMENT,
         TAG_SLUGS.SOIR,
@@ -695,7 +691,6 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_NORMALE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.TONIQUE,
         TAG_SLUGS.ESSENCE,
         TAG_SLUGS.PREPARATION,
@@ -747,7 +742,7 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE],
     },
     keyIngredients: [
       {
@@ -793,7 +788,6 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.ECLAT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.MASQUE_TISSU,
         TAG_SLUGS.MASQUE_HYDRATANT,
         TAG_SLUGS.SOIR,
@@ -846,7 +840,6 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PORES_DILATES],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.HUILE_NETTOYANTE,
         TAG_SLUGS.HUILE_DEMAQUILLANTE,
         TAG_SLUGS.DOUBLE_NETTOYAGE_1,
@@ -893,7 +886,7 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.DESHYDRATATION],
       secondary: [
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.PEAU_ATOPIQUE,
+        TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.MATIN,
@@ -1101,8 +1094,7 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.TONIQUE,
         TAG_SLUGS.ESSENCE,
         TAG_SLUGS.PREPARATION,
@@ -1319,7 +1311,7 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE],
     },
     keyIngredients: [
       {
@@ -1462,7 +1454,6 @@ export const ANUA_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_MIXTE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.MOUSSE_NETTOYANTE,
         TAG_SLUGS.DOUBLE_NETTOYAGE_2,
         TAG_SLUGS.NETTOYANT,

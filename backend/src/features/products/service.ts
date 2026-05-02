@@ -531,13 +531,14 @@ export async function getDistinctBrands(database: Database = db): Promise<string
 }
 
 export async function deleteProduct(
-  userId: string,
+  role: 'user' | 'admin',
   id: string,
   database: Database = db
 ): Promise<void> {
+  if (role !== 'admin') throw new ProductError('unauthorized_access')
+
   const product = await database.query.products.findFirst({ where: eq(products.id, id) })
   if (!product) throw new ProductError('product_not_found')
-  if (product.createdBy !== userId) throw new ProductError('unauthorized_access')
 
   await database.delete(products).where(eq(products.id, id))
 }

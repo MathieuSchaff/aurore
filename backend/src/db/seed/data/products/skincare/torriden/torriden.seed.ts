@@ -400,7 +400,6 @@ export const TORRIDEN_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.TONIQUE,
         TAG_SLUGS.PREPARATION,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
         TAG_SLUGS.ZONE_VISAGE,

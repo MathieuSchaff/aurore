@@ -22,7 +22,7 @@ export const REMEDY_SEED: UnifiedProductSeed[] = [
       'Hero: 15% Vitamin C Complex (3-O-Ethyl Ascorbic Acid), Superoxide Dismutase, Acetyl Zingerone, Ferulic Acid, Ectoin, Plankton Extract, Bifida Ferment Lysate, Panthenol, Hyaluronic Acid',
     tags: {
       primary: [TAG_SLUGS.SERUM, TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_OXYDANT],
-      secondary: [TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.MATIN, TAG_SLUGS.SANS_PARFUM],
+      secondary: [TAG_SLUGS.MATIN, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
     keyIngredients: [
@@ -321,7 +321,7 @@ export const REMEDY_SEED: UnifiedProductSeed[] = [
       'Hero: 0.1% Encapsulated Retinol, 10% Urea, 5% Lactic Acid, Ceramides. Indiqué KP (Keratosis Pilaris).',
     tags: {
       primary: [TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.KERATOSE_PILAIRE, TAG_SLUGS.EXFOLIANT_CHIMIQUE],
-      secondary: [TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.PEAU_RUGUEUSE],
+      secondary: [TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.PEAU_SECHE],
       avoid: [],
     },
     keyIngredients: [

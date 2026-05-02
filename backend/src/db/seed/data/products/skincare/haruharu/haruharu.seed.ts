@@ -264,7 +264,6 @@ export const HARUHARU_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.TONIQUE,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.PREPARATION,
         TAG_SLUGS.MATIN,

@@ -55,7 +55,6 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
         TAG_SLUGS.MOUSSE_NETTOYANTE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
         TAG_SLUGS.ZONE_VISAGE,
@@ -90,7 +89,7 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/prequel-5-ectoin-cream-1-fl-oz-30-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-5-percent-ectoin-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PEAU_REACTIVE],
+      primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.PEAU_SENSIBLE,
@@ -160,7 +159,7 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/prequel-urea-advance-relife-moisturizing-milk.webp',
     tags: {
-      primary: [TAG_SLUGS.PEAU_RUGUEUSE, TAG_SLUGS.DESHYDRATATION],
+      primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.DESHYDRATATION],
       secondary: [
         TAG_SLUGS.LAIT_CORPS,
         TAG_SLUGS.PEAU_SECHE,
@@ -231,7 +230,6 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.HYDRATATION],
       secondary: [
         TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
         TAG_SLUGS.ZONE_VISAGE,
@@ -347,7 +345,6 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.DOUBLE_NETTOYAGE_1],
       secondary: [
         TAG_SLUGS.HUILE_NETTOYANTE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
         TAG_SLUGS.ZONE_VISAGE,

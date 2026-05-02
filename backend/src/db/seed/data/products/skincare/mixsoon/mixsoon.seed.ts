@@ -43,7 +43,7 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mixsoon-glacier-water-serum.webp',
     tags: {
       primary: [TAG_SLUGS.SERUM, TAG_SLUGS.HYDRATATION, TAG_SLUGS.DESHYDRATATION],
-      secondary: [TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.SANS_PARFUM],
+      secondary: [TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE }],
@@ -64,7 +64,7 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mixsoon-bifida-ferment-essence.webp',
     tags: {
       primary: [TAG_SLUGS.ESSENCE, TAG_SLUGS.ECLAT, TAG_SLUGS.MICROBIOME],
-      secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.SANS_PARFUM],
+      secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.POSTBIOTICS }],
@@ -87,7 +87,7 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mixsoon-centella-asiatica-toner.webp',
     tags: {
       primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.APAISANT],
-      secondary: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.SANS_PARFUM],
+      secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA }],
@@ -161,7 +161,7 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
       'https://cdn1.skinsafeproducts.com/photo/AF7459BBB2EAFB/large_1704773011.png?1704773011',
     tags: {
       primary: [TAG_SLUGS.ESSENCE, TAG_SLUGS.ECLAT, TAG_SLUGS.MICROBIOME],
-      secondary: [TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.SANS_PARFUM],
+      secondary: [TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.POSTBIOTICS }],
@@ -185,7 +185,7 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
       'https://cdn1.skinsafeproducts.com/photo/0CDB431060F0D6/large_1751255393.png?1751255393',
     tags: {
       primary: [TAG_SLUGS.ESSENCE, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.APAISANT],
-      secondary: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.SANS_PARFUM],
+      secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA }],
@@ -393,7 +393,7 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mixsoon-deep-foaming-rice-bar-soap.webp',
     tags: {
       primary: [TAG_SLUGS.MOUSSE_NETTOYANTE, TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
-      secondary: [TAG_SLUGS.ECLAT, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.SANS_PARFUM],
+      secondary: [TAG_SLUGS.ECLAT, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
     keyIngredients: [
@@ -419,7 +419,7 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
       'https://cdn1.skinsafeproducts.com/photo/40C18E25CFCAEB/large_1744704977.png?1744704977',
     tags: {
       primary: [TAG_SLUGS.GEL_CREME, TAG_SLUGS.HYDRATATION, TAG_SLUGS.APAISANT],
-      secondary: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.SANS_PARFUM],
+      secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
     keyIngredients: [
@@ -507,7 +507,7 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
       'https://cdn1.skinsafeproducts.com/photo/3651B150EF6483/large_1715919265.png?1715919265',
     tags: {
       primary: [TAG_SLUGS.ESSENCE, TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES],
-      secondary: [TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.SANS_PARFUM],
+      secondary: [TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.PAQUERETTE }],

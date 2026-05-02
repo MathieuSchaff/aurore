@@ -117,12 +117,7 @@ export const ABIB_SEED: UnifiedProductSeed[] = [
       'https://cdn1.skinsafeproducts.com/photo/91C45671F98098/large_1731490814.png?1731490814',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.HYDRATATION],
-      secondary: [
-        TAG_SLUGS.MASQUE_HYDRATANT,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-      ],
+      secondary: [TAG_SLUGS.MASQUE_HYDRATANT, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -293,12 +288,7 @@ export const ABIB_SEED: UnifiedProductSeed[] = [
       'https://cdn1.skinsafeproducts.com/photo/04DF67A7C86692/large_1718963038.png?1718963038',
     tags: {
       primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE],
-      secondary: [
-        TAG_SLUGS.MASQUE_TISSU,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-      ],
+      secondary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [

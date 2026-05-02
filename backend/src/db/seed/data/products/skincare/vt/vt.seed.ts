@@ -21,7 +21,7 @@ export const VT_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
         TAG_SLUGS.AMPOULE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.CICATRISATION,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.TRAITEMENT,
@@ -95,7 +95,7 @@ export const VT_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
-      avoid: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.PEAU_SENSIBLE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.AZELAIC_ACID, notes: 'Actif azélaïque principal.' },
@@ -142,7 +142,7 @@ export const VT_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
-      avoid: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.AZELAIC_ACID, notes: 'Anti-acné, sébum, grain de peau.' },

@@ -669,7 +669,7 @@ export const NOOANCE_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ROSACEE,
       ],
       avoid: [],

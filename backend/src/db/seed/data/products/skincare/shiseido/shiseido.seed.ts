@@ -25,7 +25,6 @@ export const SHISEIDO_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.HUILE_NETTOYANTE,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -57,7 +56,6 @@ export const SHISEIDO_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -85,12 +83,7 @@ export const SHISEIDO_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/shiseido-benefiance-creme-de-jour-lissante-anti-rides.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.HYDRATATION],
-      secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.MATIN, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -116,13 +109,7 @@ export const SHISEIDO_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/shiseido-ultimune-serum-concentre-activateur.webp',
     tags: {
       primary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.HYDRATATION, TAG_SLUGS.ECLAT],
-      secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.SERUM, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -153,7 +140,6 @@ export const SHISEIDO_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -181,13 +167,7 @@ export const SHISEIDO_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/shiseido-benefiance-contour-des-yeux-anti-rides.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.CERNES_POCHES],
-      secondary: [
-        TAG_SLUGS.CONTOUR_YEUX,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.ZONE_YEUX,
-      ],
+      secondary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_YEUX],
       avoid: [],
     },
     keyIngredients: [

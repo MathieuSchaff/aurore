@@ -5,43 +5,29 @@
 
 export const SKINCARE_PRODUCT_TAG_SLUGS = {
   // ── Concerns ───────────────────────────────────────────────────────
-  ANTI_ROUGEURS: 'anti-rougeurs',
-  ROSACEE: 'rosacee',
-  COUPEROSE: 'couperose',
-  FLUSHS: 'flushs',
+  // Functional (treat) — first 8
+  ACNE_IMPERFECTIONS: 'acne-imperfections',
+  ROUGEURS_VASCULAIRES: 'rougeurs-vasculaires',
+  ECZEMA_ATOPIE: 'eczema-atopie',
   BARRIERE_CUTANEE: 'barriere-cutanee',
-  ANTI_TACHES: 'anti-taches',
-  ANTI_ACNE: 'anti-acne',
-  ANTI_AGE: 'anti-age',
   HYPERPIGMENTATION: 'hyperpigmentation',
-  DESHYDRATATION: 'deshydratation',
-  PORES_DILATES: 'pores-dilates',
-  CERNES_POCHES: 'cernes-poches',
-  BRILLANCE: 'brillance',
-  ECLAT: 'eclat',
-  POST_ACNE: 'post-acne',
-  CICATRISATION: 'cicatrisation',
-  MICROBIOME: 'microbiome',
-  PHOTO_VIEILLISSEMENT: 'photo-vieillissement',
-  TEINT_TERNE: 'teint-terne',
-  LUMIERE_BLEUE: 'lumiere-bleue',
-  POLLUTION: 'pollution',
-  ECZEMA: 'eczema',
-  GRAIN_PEAU: 'grain-peau',
+  // Slug suffixed to avoid collision with haircare 'reparation' (hair_effect).
+  REPARATION: 'reparation-cutanee',
   KERATOSE_PILAIRE: 'keratose-pilaire',
-  PHOTO_PROTECTION: 'photo-protection',
-  BARRIERE_CUTANEE_ALTEREE: 'barriere-cutanee-alteree',
+  DESHYDRATATION: 'deshydratation',
+  // Aesthetic (improve) — last 5
+  ECLAT_TEINT: 'eclat-teint-uniforme',
+  ANTI_AGE: 'anti-age',
+  PORES_SEBUM: 'pores-sebum',
+  CERNES_POCHES: 'cernes-poches',
+  PROTECTION: 'protection',
 
   // ── Skin types ─────────────────────────────────────────────────────
   PEAU_SECHE: 'peau-seche',
   PEAU_MIXTE: 'peau-mixte',
   PEAU_GRASSE: 'peau-grasse',
-  PEAU_REACTIVE: 'peau-reactive',
   PEAU_SENSIBLE: 'peau-sensible',
   PEAU_NORMALE: 'peau-normale',
-  PEAU_ATOPIQUE: 'peau-atopique',
-  PEAU_RUGUEUSE: 'peau-rugueuse',
-  PEAU_TOUS_TYPES: 'tous-types',
 
   // ── Skin zones ─────────────────────────────────────────────────────
   ZONE_VISAGE: 'zone-visage',
@@ -49,6 +35,32 @@ export const SKINCARE_PRODUCT_TAG_SLUGS = {
   ZONE_YEUX: 'zone-yeux',
   ZONE_LEVRES: 'zone-levres',
   ZONE_MAINS: 'zone-mains',
+  ZONE_PIEDS: 'zone-pieds',
+
+  // ── Product types V2 (functional, UI-facing) ───────────────────────
+  TYPE_NETTOYANT: 'type-nettoyant',
+  TYPE_TONER: 'type-toner',
+  TYPE_MIST: 'type-mist',
+  TYPE_SERUM: 'type-serum',
+  TYPE_HYDRATANT: 'type-hydratant',
+  TYPE_MASQUE: 'type-masque',
+  TYPE_EXFOLIATION: 'type-exfoliation',
+  TYPE_SOLAIRE: 'type-solaire',
+  TYPE_TRAITEMENT: 'type-traitement',
+  TYPE_PRIMER: 'type-primer',
+  TYPE_DEODORANT: 'type-deodorant',
+  TYPE_OUTIL: 'type-outil',
+
+  // ── Textures (physical format) ─────────────────────────────────────
+  TEXTURE_GEL: 'texture-gel',
+  TEXTURE_CREME: 'texture-creme',
+  TEXTURE_BAUME: 'texture-baume',
+  TEXTURE_HUILE: 'texture-huile',
+  TEXTURE_LAIT: 'texture-lait',
+  TEXTURE_MOUSSE: 'texture-mousse',
+  TEXTURE_EAU: 'texture-eau',
+  TEXTURE_PATCH: 'texture-patch',
+  TEXTURE_STICK: 'texture-stick',
 
   // ── Product types ──────────────────────────────────────────────────
   BAUME_DEMAQUILLANT: 'baume-demaquillant',

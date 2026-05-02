@@ -89,7 +89,6 @@ export const BEAUTY_OF_JOSEON_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ESSENCE,
         TAG_SLUGS.TONIQUE,
         TAG_SLUGS.TEXTURE_LEGERE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_MIXTE,
@@ -163,7 +162,7 @@ export const BEAUTY_OF_JOSEON_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.GROSSESSE_COMPATIBLE,
       ],
-      avoid: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_RUGUEUSE],
+      avoid: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_SECHE],
     },
     keyIngredients: [
       {
@@ -276,8 +275,7 @@ export const BEAUTY_OF_JOSEON_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.MASQUE_TISSU,
         TAG_SLUGS.APAISANT,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.SOIR,
         TAG_SLUGS.TRAITEMENT,
         TAG_SLUGS.ZONE_VISAGE,
@@ -378,7 +376,7 @@ export const BEAUTY_OF_JOSEON_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.APAISANT,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ROSACEE,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
@@ -438,7 +436,7 @@ export const BEAUTY_OF_JOSEON_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SANS_PARFUM,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE],
     },
     keyIngredients: [
       {
@@ -527,7 +525,6 @@ export const BEAUTY_OF_JOSEON_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SERUM,
         TAG_SLUGS.ANTI_OXYDANT,
         TAG_SLUGS.TEXTURE_LEGERE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
         TAG_SLUGS.TRAITEMENT,
@@ -583,7 +580,6 @@ export const BEAUTY_OF_JOSEON_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SERUM,
         TAG_SLUGS.MICROBIOME,
         TAG_SLUGS.TEXTURE_LEGERE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
         TAG_SLUGS.TRAITEMENT,
@@ -643,7 +639,6 @@ export const BEAUTY_OF_JOSEON_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.GEL_NETTOYANT,
         TAG_SLUGS.NETTOYANT,
         TAG_SLUGS.TEXTURE_LEGERE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
         TAG_SLUGS.ZONE_VISAGE,
@@ -693,7 +688,7 @@ export const BEAUTY_OF_JOSEON_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SANS_PARFUM,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE],
     },
     keyIngredients: [
       {
@@ -737,7 +732,6 @@ export const BEAUTY_OF_JOSEON_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.SERUM,
         TAG_SLUGS.TEXTURE_LEGERE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
         TAG_SLUGS.TRAITEMENT,
@@ -787,7 +781,6 @@ export const BEAUTY_OF_JOSEON_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.CONTOUR_YEUX,
         TAG_SLUGS.SERUM,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.SOIR,
         TAG_SLUGS.TRAITEMENT,
         TAG_SLUGS.ZONE_YEUX,
@@ -851,7 +844,7 @@ export const BEAUTY_OF_JOSEON_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SANS_PARFUM,
       ],
-      avoid: [TAG_SLUGS.PEAU_REACTIVE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE],
     },
     keyIngredients: [
       {
@@ -929,7 +922,6 @@ export const BEAUTY_OF_JOSEON_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.HUILE_NETTOYANTE,
         TAG_SLUGS.DOUBLE_NETTOYAGE_1,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -970,9 +962,8 @@ export const BEAUTY_OF_JOSEON_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
         TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_ATOPIQUE,
+        TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
         TAG_SLUGS.ZONE_VISAGE,
@@ -1069,7 +1060,6 @@ export const BEAUTY_OF_JOSEON_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.BAUME_DEMAQUILLANT,
         TAG_SLUGS.DOUBLE_NETTOYAGE_1,
         TAG_SLUGS.OCCLUSIF,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.SOIR,
         TAG_SLUGS.ZONE_VISAGE,

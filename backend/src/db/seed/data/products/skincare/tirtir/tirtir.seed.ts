@@ -22,7 +22,7 @@ export const TIRTIR_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.SERUM,
         TAG_SLUGS.PEAU_MIXTE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.TRAITEMENT,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,

@@ -344,7 +344,7 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_ATOPIQUE,
+        TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.ZONE_VISAGE,
@@ -415,13 +415,7 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-dermha3-liquid.webp',
     tags: {
       primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.LOTION, TAG_SLUGS.PREPARATION],
-      secondary: [
-        TAG_SLUGS.PEAU_TOUS_TYPES,
-        TAG_SLUGS.SANS_PARFUM,
-        TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-      ],
+      secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.ZONE_VISAGE, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
       avoid: [],
     },
     keyIngredients: [
@@ -479,7 +473,7 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-green-cleansing-oil.webp',
     tags: {
       primary: [TAG_SLUGS.HUILE_NETTOYANTE, TAG_SLUGS.DOUBLE_NETTOYAGE_1, TAG_SLUGS.NETTOYANT],
-      secondary: [TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
   },
@@ -539,7 +533,7 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-from-green-facial-cleansing-oil.webp',
     tags: {
       primary: [TAG_SLUGS.HUILE_NETTOYANTE, TAG_SLUGS.DOUBLE_NETTOYAGE_1, TAG_SLUGS.NETTOYANT],
-      secondary: [TAG_SLUGS.PEAU_TOUS_TYPES, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
   },
@@ -587,7 +581,7 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.PREPARATION, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.MATIN,
@@ -623,7 +617,7 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.ANTI_ACNE],
       secondary: [TAG_SLUGS.SERUM, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ECLAT, TAG_SLUGS.SANS_PARFUM],
-      avoid: [TAG_SLUGS.PEAU_REACTIVE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE],
     },
     keyIngredients: [
       {

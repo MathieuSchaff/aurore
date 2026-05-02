@@ -51,6 +51,8 @@ export const skincareListProductsQuery = baseListProductsQuery.extend({
   skin_type: z.string().optional(),
   concern: z.string().optional(),
   product_type: z.string().optional(),
+  product_type_v2: z.string().optional(),
+  texture: z.string().optional(),
   skin_zone: z.string().optional(),
   skin_effect: z.string().optional(),
   product_label: z.string().optional(),

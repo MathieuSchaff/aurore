@@ -28,7 +28,7 @@ export const VICHY_HOMME_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.EXFOLIANT_CHIMIQUE,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.PEAU_ATOPIQUE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
     keyIngredients: [],
   },
@@ -50,7 +50,7 @@ export const VICHY_HOMME_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['anti-acne', 'hydratation'],
       secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.ASCORBYL_GLUCOSIDE }],
   },

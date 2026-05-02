@@ -156,7 +156,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['anti-acne', 'hydratation', 'anti-oxydant', 'exfoliation'],
       secondary: ['sebo-regulateur', 'zone-visage'],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.KAOLIN },
@@ -212,7 +212,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
         'soin-localise',
         'zone-visage',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.NIACINAMIDE },
@@ -244,7 +244,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['anti-rougeurs', 'anti-acne', 'hydratation', 'eclat'],
       secondary: ['sebo-regulateur', 'emollience', 'creme-hydratante', 'zone-visage'],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE },
@@ -305,7 +305,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['anti-acne', 'exfoliation'],
       secondary: ['sebo-regulateur', 'zone-visage'],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.SILICA }, { slug: INGREDIENT_SLUGS.SALICYLIC_ACID }],
   },
@@ -539,7 +539,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
         'zone-visage',
         'exfoliant-chimique',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
   },
   {
@@ -618,7 +618,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['anti-acne', 'hydratation'],
       secondary: ['sebo-regulateur', 'tonique', 'preparation', 'zone-visage'],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.HAMAMELIS },
@@ -654,7 +654,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
         'zone-visage',
         'exfoliant-chimique',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.SALICYLIC_ACID },
@@ -681,7 +681,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['anti-acne', 'hydratation', 'exfoliation'],
       secondary: ['sebo-regulateur', 'zone-visage', 'peau-seche'],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.TREHALOSE },
@@ -742,7 +742,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
         'exfoliant-chimique',
         'peau-mixte',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.SALICYLIC_ACID },
@@ -774,7 +774,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
         'exfoliant-chimique',
         'peau-grasse',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.SALICYLIC_ACID },
@@ -830,7 +830,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['anti-acne', 'apaisant', 'hydratation'],
       secondary: ['sebo-regulateur', 'masque-hebdo', 'zone-visage'],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.KAOLIN },
@@ -887,7 +887,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
         'double-nettoyage-2',
         'zone-visage',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.SALICYLIC_ACID },
@@ -979,7 +979,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
         'creme-hydratante',
         'zone-visage',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.HYDROGENATED_POLYISOBUTENE },
@@ -1288,7 +1288,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
         'matin',
         'zone-visage',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.ASCORBYL_GLUCOSIDE },
@@ -1549,7 +1549,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
         'matin',
         'zone-visage',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.HOMOSALATE },

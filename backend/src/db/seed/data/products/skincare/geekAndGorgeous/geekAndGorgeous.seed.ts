@@ -99,7 +99,7 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
       ],
       avoid: [
         TAG_SLUGS.GROSSESSE_COMPATIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ROSACEE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
@@ -226,7 +226,6 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
         TAG_SLUGS.ROSACEE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.GROSSESSE_COMPATIBLE,
       ],
@@ -277,7 +276,7 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.GROSSESSE_COMPATIBLE,
         TAG_SLUGS.VEGAN,
       ],
-      avoid: [TAG_SLUGS.PEAU_REACTIVE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE],
     },
     keyIngredients: [
       {
@@ -325,7 +324,7 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.VEGAN,
         TAG_SLUGS.GROSSESSE_COMPATIBLE,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
       {
@@ -356,7 +355,7 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
     inci: 'ETHYLHEXYL PALMITATE, OLEYL ERUCATE, OLIVE OIL PEG-7 ESTERS, PEG-20 GLYCERYL TRIISOSTEARATE, SYNTHETIC WAX, PHENOXYETHANOL, ETHYLHEXYLGLYCERIN',
     url: 'https://geekandgorgeous.com/products/mighty-melt',
     tags: {
-      primary: [TAG_SLUGS.PEAU_TOUS_TYPES],
+      primary: [],
       secondary: [
         TAG_SLUGS.BAUME_DEMAQUILLANT,
         TAG_SLUGS.DOUBLE_NETTOYAGE_1,
@@ -389,7 +388,6 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.NETTOYANT,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.VEGAN,
         TAG_SLUGS.GROSSESSE_COMPATIBLE,
       ],
@@ -516,12 +514,11 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.REPULPANT,
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.GRAIN_PEAU,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.VEGAN,
       ],
       avoid: [
         TAG_SLUGS.GROSSESSE_COMPATIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ROSACEE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
@@ -557,12 +554,11 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SOIR,
         TAG_SLUGS.REPULPANT,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.VEGAN,
       ],
       avoid: [
         TAG_SLUGS.GROSSESSE_COMPATIBLE,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ROSACEE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
       ],
@@ -602,7 +598,7 @@ export const GEEK_AND_GORGEOUS_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.VEGAN,
         TAG_SLUGS.GROSSESSE_COMPATIBLE,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE],
     },
     keyIngredients: [
       {

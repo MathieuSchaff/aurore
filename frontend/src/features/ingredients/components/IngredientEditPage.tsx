@@ -1,10 +1,13 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { getRouteApi, useNavigate } from '@tanstack/react-router'
+import { Trash2 } from 'lucide-react'
 
 import { BackButton } from '@/component/Button/BackButton'
+import { Button } from '@/component/Button/Button'
 import { DetailPageLayout } from '@/component/Layout/PageLayout/DetailPageLayout'
 import { PageTopActions } from '@/component/Layout/PageLayout/PageTopActions'
-import { ingredientQueries } from '../../../lib/queries/ingredients'
+import { useAuthStore } from '@/store/auth'
+import { ingredientQueries, useDeleteIngredient } from '../../../lib/queries/ingredients'
 import { IngredientForm } from './IngredientForm/IngredientForm'
 import './IngredientPageEditable.css'
 
@@ -15,6 +18,15 @@ export function IngredientEditPage() {
   const { data: ingredient } = useSuspenseQuery(ingredientQueries.bySlug(slug))
   const { data: currentTags } = useSuspenseQuery(ingredientQueries.tags(ingredient.id))
   const navigate = useNavigate()
+  const isAdmin = useAuthStore((s) => s.isAdmin)
+  const deleteIngredient = useDeleteIngredient()
+
+  function handleDelete() {
+    if (!confirm(`Supprimer « ${ingredient.name} » ? Cette action est irréversible.`)) return
+    deleteIngredient.mutate(ingredient.id, {
+      onSuccess: () => navigate({ to: '/ingredients' }),
+    })
+  }
 
   return (
     <DetailPageLayout banner>
@@ -22,6 +34,16 @@ export function IngredientEditPage() {
         <BackButton to="/ingredients/$slug" params={{ slug }}>
           Retour
         </BackButton>
+        {isAdmin && (
+          <Button
+            variant="danger-ghost"
+            onClick={handleDelete}
+            loading={deleteIngredient.isPending}
+          >
+            <Trash2 size={16} />
+            Supprimer
+          </Button>
+        )}
       </PageTopActions>
 
       <IngredientForm

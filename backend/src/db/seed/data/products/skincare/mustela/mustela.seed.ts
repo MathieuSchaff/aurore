@@ -139,7 +139,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-stelatopia-huile-lavante.webp',
     tags: {
       primary: ['hydratation', 'eczema'],
-      secondary: ['nettoyant-corps', 'zone-corps', 'peau-atopique', 'apaisant'],
+      secondary: ['nettoyant-corps', 'zone-corps', 'peau-seche', 'apaisant'],
       avoid: [],
     },
   },
@@ -459,7 +459,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
         'texture-legere',
         'creme-hydratante',
         'zone-visage',
-        'peau-atopique',
+        'peau-seche',
         'apaisant',
       ],
       avoid: [],
@@ -747,7 +747,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-stelatopia-creme-relipidante-bio.webp',
     tags: {
       primary: ['hydratation', 'anti-oxydant', 'eczema'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage', 'peau-atopique', 'apaisant'],
+      secondary: ['reparateur', 'creme-hydratante', 'zone-visage', 'peau-seche', 'apaisant'],
       avoid: [],
     },
     keyIngredients: [

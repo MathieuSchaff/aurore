@@ -23,7 +23,6 @@ export const EQQUALBERRY_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.TONIQUE,
         TAG_SLUGS.HYPOALLERGENIQUE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.PREPARATION,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.MATIN,

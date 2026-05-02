@@ -26,7 +26,7 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.GROSSESSE_COMPATIBLE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
     keyIngredients: [
       {
@@ -68,7 +68,6 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.NETTOYANT,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.POLLUTION,
       ],
@@ -111,7 +110,6 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.NETTOYANT,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.VEGAN,
       ],
       avoid: [],
@@ -138,7 +136,6 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.EXFOLIATION,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.VEGAN,
       ],
@@ -181,7 +178,7 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.VEGAN,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE],
     },
     keyIngredients: [
       {
@@ -218,7 +215,7 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SOIR,
         TAG_SLUGS.PEAU_GRASSE,
       ],
-      avoid: [TAG_SLUGS.PEAU_REACTIVE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE],
     },
     keyIngredients: [
       {
@@ -341,12 +338,11 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.CREME_DE_NUIT,
         TAG_SLUGS.TRAITEMENT,
         TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.REPULPANT,
         TAG_SLUGS.EXFOLIATION,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE],
     },
     keyIngredients: [
       {
@@ -379,7 +375,6 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.NON_COMEDOGENE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.VEGAN,
@@ -422,7 +417,6 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.HYDRATATION,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.SANS_PARFUM,
       ],
       avoid: [],
@@ -490,7 +484,7 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.PROTECTION_SOLAIRE,
         TAG_SLUGS.CREME_SOLAIRE,
         TAG_SLUGS.MATIN,
-        TAG_SLUGS.PEAU_REACTIVE,
+        TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.HYPOALLERGENIQUE,
         TAG_SLUGS.SANS_PARFUM,
       ],
@@ -537,7 +531,7 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.PEAU_ATOPIQUE,
+        TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.SANS_PARFUM,
       ],
       avoid: [],
@@ -577,7 +571,6 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.CREME_HYDRATANTE,
         TAG_SLUGS.TRAITEMENT,
         TAG_SLUGS.MATIN,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.PHOTO_VIEILLISSEMENT,
         TAG_SLUGS.TEINT_TERNE,
       ],
@@ -720,7 +713,6 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.TRAITEMENT,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.SANS_PARFUM,
       ],
       avoid: [],
@@ -769,7 +761,6 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SOIN_YEUX,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.ECLAT,
       ],
       avoid: [],
@@ -812,7 +803,6 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.TRAITEMENT,
         TAG_SLUGS.MATIN,
         TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.EXFOLIANT_CHIMIQUE,
@@ -854,7 +844,6 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SPOT_TREATMENT,
         TAG_SLUGS.TRAITEMENT,
         TAG_SLUGS.SOIR,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.VEGAN,
         TAG_SLUGS.EXFOLIANT_CHIMIQUE,
@@ -924,7 +913,7 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['anti-rougeurs', 'exfoliation', 'eclat'],
       secondary: ['keratolytique', 'zone-visage', 'exfoliant-chimique'],
-      avoid: ['peau-sensible', 'peau-reactive'],
+      avoid: ['peau-sensible', 'peau-sensible'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.GLYCOLIC_ACID },
@@ -950,7 +939,7 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['exfoliation', 'eclat', 'hydratation'],
       secondary: ['keratolytique', 'zone-visage', 'exfoliant-chimique'],
-      avoid: ['peau-sensible', 'peau-reactive'],
+      avoid: ['peau-sensible', 'peau-sensible'],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.GLYCOLIC_ACID }],
   },
@@ -1037,7 +1026,7 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
         'zone-visage',
         'matin',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.ETHYLHEXYL_METHOXYCINNAMATE },
@@ -1102,7 +1091,7 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
         'zone-visage',
         'exfoliant-chimique',
       ],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.GLYCOLIC_ACID },
@@ -1162,7 +1151,7 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['hydratation', 'eclat', 'pores-dilates'],
       secondary: ['sebo-regulateur', 'reparateur', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
-      avoid: ['peau-sensible', 'peau-reactive'],
+      avoid: ['peau-sensible', 'peau-sensible'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.ORYZA_SATIVA },

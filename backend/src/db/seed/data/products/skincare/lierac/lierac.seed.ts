@@ -120,7 +120,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['exfoliation', 'anti-acne', 'hydratation'],
       secondary: ['keratolytique', 'sebo-regulateur', 'zone-visage', 'exfoliant-chimique'],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.LACTIC_ACID },
@@ -150,7 +150,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['anti-acne', 'apaisant', 'hydratation'],
       secondary: ['sebo-regulateur', 'spot-treatment', 'soin-localise', 'zone-visage'],
-      avoid: ['peau-sensible', 'peau-reactive', 'peau-atopique'],
+      avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
       { slug: INGREDIENT_SLUGS.ZINC_OXIDE },
@@ -1359,7 +1359,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
         'zone-visage',
         'exfoliant-chimique',
       ],
-      avoid: ['peau-sensible', 'peau-reactive'],
+      avoid: ['peau-sensible', 'peau-sensible'],
     },
   },
   {

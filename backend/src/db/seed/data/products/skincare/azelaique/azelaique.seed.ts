@@ -26,7 +26,7 @@ export const AZELAIQUE_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.NON_COMEDOGENE,
         TAG_SLUGS.SANS_PARFUM,
       ],
-      avoid: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
       {
@@ -69,7 +69,7 @@ export const AZELAIQUE_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
-      avoid: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
       {
@@ -110,13 +110,13 @@ export const AZELAIQUE_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SERUM,
         TAG_SLUGS.EXFOLIANT_CHIMIQUE,
         TAG_SLUGS.ROSACEE,
-        TAG_SLUGS.PEAU_ATOPIQUE,
+        TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.GRAIN_PEAU,
         TAG_SLUGS.TRAITEMENT,
         TAG_SLUGS.SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
-      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
       {
@@ -147,7 +147,6 @@ export const AZELAIQUE_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.SERUM,
         TAG_SLUGS.ROSACEE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.POST_ACNE,
         TAG_SLUGS.TRAITEMENT,
@@ -155,7 +154,7 @@ export const AZELAIQUE_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
-      avoid: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
       {
@@ -208,7 +207,7 @@ export const AZELAIQUE_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
-      avoid: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
       {
@@ -251,7 +250,6 @@ export const AZELAIQUE_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.SERUM,
         TAG_SLUGS.ROSACEE,
-        TAG_SLUGS.PEAU_TOUS_TYPES,
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.POST_ACNE,
         TAG_SLUGS.TRAITEMENT,
@@ -259,7 +257,7 @@ export const AZELAIQUE_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
-      avoid: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
       {
@@ -301,7 +299,7 @@ export const AZELAIQUE_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
-      avoid: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
       {
@@ -353,7 +351,7 @@ export const AZELAIQUE_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
-      avoid: [TAG_SLUGS.PEAU_REACTIVE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
+      avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
       {
