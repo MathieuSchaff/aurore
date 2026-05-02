@@ -20,7 +20,12 @@ export const PUR_ALO__SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/pur-aloe-gel-douche-aloe-vera-20-bio-500ml-265967.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.APAISANT, TAG_SLUGS.ECLAT],
-      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -40,8 +45,8 @@ export const PUR_ALO__SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/pur-aloe-gel-douche-aloe-vera-80-bio-250ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/pur-aloe-gel-douche-aloe-vera-20-bio.webp',
     tags: {
-      primary: ['anti-age', 'apaisant', 'hydratation'],
-      secondary: ['nettoyant-corps', 'zone-corps'],
+      primary: ['anti-age', 'apaisant', 'step-hydratation'],
+      secondary: ['type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.PROPANEDIOL }],

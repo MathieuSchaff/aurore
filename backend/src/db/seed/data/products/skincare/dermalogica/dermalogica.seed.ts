@@ -20,7 +20,7 @@ export const DERMALOGICA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/dermalogica-daily-microfoliant-74ml-2-6oz',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dermalogica-daily-microfoliant.webp',
     tags: {
-      primary: [TAG_SLUGS.EXFOLIANT_CHIMIQUE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.TRAITEMENT],
+      primary: [TAG_SLUGS.TYPE_EXFOLIATION, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.STEP_TRAITEMENT],
       secondary: [],
       avoid: [],
     },
@@ -43,7 +43,7 @@ export const DERMALOGICA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/dermalogica-special-cleansing-gel-16-9-fl-oz-500-ml',
     imageUrl: 'https://cdn1.skinsafeproducts.com/photo/BFA2F5B096BE04/large_1732599064.png',
     tags: {
-      primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.GEL_NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
+      primary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.TEXTURE_GEL, TAG_SLUGS.STEP_NETTOYAGE_2],
       secondary: [],
       avoid: [],
     },
@@ -66,7 +66,12 @@ export const DERMALOGICA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/dermalogica-skin-smoothing-cream-5-1-fl-oz-150-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dermalogica-skin-smoothing-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.BARRIERE_CUTANEE],
+      primary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+      ],
       secondary: [],
       avoid: [],
     },
@@ -91,7 +96,7 @@ export const DERMALOGICA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/dermalogica-biolumin-c-serum-2-fl-oz-59-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dermalogica-biolumin-c-serum.webp',
     tags: {
-      primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.TRAITEMENT],
+      primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.STEP_TRAITEMENT],
       secondary: [],
       avoid: [],
     },
@@ -114,7 +119,12 @@ export const DERMALOGICA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/dermalogica-dynamic-skin-recovery-spf50-1-7-fl-oz',
     imageUrl: 'https://cdn1.skinsafeproducts.com/photo/518B9BBA4ADE94/large_1553540739.png',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.HYDRATATION, TAG_SLUGS.FILTRES_CHIMIQUES],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.FILTRES_CHIMIQUES,
+      ],
       secondary: [],
       avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
@@ -139,7 +149,7 @@ export const DERMALOGICA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/dermalogica-cleanser-ultracalming-8-4-fl-oz-250-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dermalogica-ultracalming-cleanser.webp',
     tags: {
-      primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_ROUGEURS],
+      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.PEAU_SENSIBLE],
       avoid: [],
     },
@@ -161,7 +171,7 @@ export const DERMALOGICA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/dermalogica-precleanse-5-1-fl-oz-150-ml',
     imageUrl: 'https://cdn1.skinsafeproducts.com/photo/7C592B079F491C/large_1748934420.png',
     tags: {
-      primary: [TAG_SLUGS.HUILE_DEMAQUILLANTE, TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_1],
+      primary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.TEXTURE_HUILE, TAG_SLUGS.STEP_NETTOYAGE_1],
       secondary: [],
       avoid: [],
     },
@@ -184,7 +194,7 @@ export const DERMALOGICA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/dermalogica-daily-superfoliant-2-0-ounce',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dermalogica-daily-superfoliant.webp',
     tags: {
-      primary: [TAG_SLUGS.EXFOLIANT_CHIMIQUE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.TRAITEMENT],
+      primary: [TAG_SLUGS.TYPE_EXFOLIATION, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.STEP_TRAITEMENT],
       secondary: [],
       avoid: [],
     },
@@ -206,7 +216,12 @@ export const DERMALOGICA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/dermalogica-sound-sleep-cocoon-1-7-fl-ounce',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dermalogica-sound-sleep-cocoon.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_DE_NUIT, TAG_SLUGS.TRAITEMENT],
+      primary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_TRAITEMENT,
+      ],
       secondary: [],
       avoid: [],
     },

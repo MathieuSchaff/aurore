@@ -19,14 +19,14 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/purito-pure-water-cream-deep-sea-1-76-oz-50-g',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-pure-water-cream-deep-sea.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME],
       secondary: [
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -57,13 +57,14 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
-        TAG_SLUGS.GEL_CREME,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_GEL,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.PEAU_NORMALE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.VEGAN,
         TAG_SLUGS.CRUELTY_FREE,
@@ -102,13 +103,18 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/purito-centella-eye-cream-1-fl-oz-30-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-centella-eye-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX],
+      primary: [
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.STEP_TRAITEMENT,
+      ],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ANTI_AGE,
         TAG_SLUGS.SANS_PARFUM,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -145,13 +151,13 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/purito-centella-green-level-buffet-serum-2-fl-oz-60-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-centella-green-level-buffet-serum.webp',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ANTI_ROUGEURS],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.BARRIERE_CUTANEE,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -179,14 +185,14 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/purito-centella-serum-2-fl-oz-60-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-centella-serum.webp',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ANTI_ROUGEURS],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.BARRIERE_CUTANEE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -217,8 +223,18 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/purito-wonder-releaf-centella-asiatica-soothing-eye-cream-1-01-fl-oz-30-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-wonder-releaf-centella-eye-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX],
-      secondary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
+      primary: [
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.STEP_TRAITEMENT,
+      ],
+      secondary: [
+        TAG_SLUGS.ANTI_AGE,
+        TAG_SLUGS.ANTI_ROUGEURS,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -247,7 +263,7 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/purito-deep-foaming-cleanser-5-07-fl-oz-150-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-deep-foaming-cleanser.webp',
     tags: {
-      primary: [TAG_SLUGS.MOUSSE_NETTOYANTE, TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
+      primary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.TEXTURE_MOUSSE, TAG_SLUGS.STEP_NETTOYAGE_2],
       secondary: [
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.PEAU_MIXTE,
@@ -272,7 +288,7 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/purito-seoul-facial-scrub-cleanser-oat-seed-water-5-07-fl-oz-150-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-seoul-facial-scrub-cleanser-oat.webp',
     tags: {
-      primary: [TAG_SLUGS.EXFOLIANT_PHYSIQUE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.NETTOYANT],
+      primary: [TAG_SLUGS.TYPE_EXFOLIATION, TAG_SLUGS.STEP_TRAITEMENT],
       secondary: [TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
@@ -301,14 +317,19 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/purito-bamboo-panthenol-cream-3-38-fl-oz-100-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-bamboo-panthenol-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.BARRIERE_CUTANEE],
+      primary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+      ],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.CICATRISATION,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -340,7 +361,12 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/purito-dermide-relief-barrier-moisturizer.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CREME_HYDRATANTE],
+      primary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+      ],
       secondary: [
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_SENSIBLE,
@@ -348,8 +374,8 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -378,14 +404,14 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/purito-fermented-complex-94-boosting-essence.webp',
     tags: {
-      primary: [TAG_SLUGS.ESSENCE, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.PREPARATION],
+      primary: [TAG_SLUGS.TYPE_TONER, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.STEP_PREPARATION],
       secondary: [
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.TEINT_TERNE,
         TAG_SLUGS.MICROBIOME,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -414,8 +440,18 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/purito-dermha-3-liquid-6-76-fl-oz-200-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-dermha3-liquid.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.LOTION, TAG_SLUGS.PREPARATION],
-      secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.ZONE_VISAGE, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
+      primary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.STEP_PREPARATION,
+      ],
+      secondary: [
+        TAG_SLUGS.SANS_PARFUM,
+        TAG_SLUGS.ZONE_VISAGE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -447,8 +483,18 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/purito-centella-green-level-calming-toner.webp',
     tags: {
-      primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.PREPARATION, TAG_SLUGS.ANTI_ROUGEURS],
-      secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ZONE_VISAGE, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
+      primary: [
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.STEP_PREPARATION,
+        TAG_SLUGS.ANTI_ROUGEURS,
+      ],
+      secondary: [
+        TAG_SLUGS.PEAU_SENSIBLE,
+        TAG_SLUGS.ZONE_VISAGE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -472,7 +518,7 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/purito-green-cleansing-oil-6-76-fl-oz-200-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-green-cleansing-oil.webp',
     tags: {
-      primary: [TAG_SLUGS.HUILE_NETTOYANTE, TAG_SLUGS.DOUBLE_NETTOYAGE_1, TAG_SLUGS.NETTOYANT],
+      primary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.TEXTURE_HUILE, TAG_SLUGS.STEP_NETTOYAGE_1],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
@@ -494,15 +540,20 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/purito-centella-recovery-cream-1-69-fl-oz-50-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-centella-recovery-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CREME_HYDRATANTE],
+      primary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+      ],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.CICATRISATION,
         TAG_SLUGS.ANTI_ROUGEURS,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -532,7 +583,7 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/purito-from-green-facial-cleansing-oil-6-76-fl-oz-200-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-from-green-facial-cleansing-oil.webp',
     tags: {
-      primary: [TAG_SLUGS.HUILE_NETTOYANTE, TAG_SLUGS.DOUBLE_NETTOYAGE_1, TAG_SLUGS.NETTOYANT],
+      primary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.TEXTURE_HUILE, TAG_SLUGS.STEP_NETTOYAGE_1],
       secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
@@ -552,8 +603,19 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/purito-oat-in-intense-cream-5-07-fl-oz-150-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/purito-oat-in-intense-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_CORPS, TAG_SLUGS.HYDRATATION, TAG_SLUGS.ZONE_CORPS],
-      secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
+      primary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
+      secondary: [
+        TAG_SLUGS.PEAU_SECHE,
+        TAG_SLUGS.SANS_PARFUM,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -578,14 +640,19 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/purito-seoul-wonder-releaf-centella-toner-unscented.webp',
     tags: {
-      primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.PREPARATION, TAG_SLUGS.ANTI_ROUGEURS],
+      primary: [
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.STEP_PREPARATION,
+        TAG_SLUGS.ANTI_ROUGEURS,
+      ],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -616,7 +683,12 @@ export const PURITO_SEED: UnifiedProductSeed[] = [
     url: 'https://purito.com',
     tags: {
       primary: [TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.ANTI_ACNE],
-      secondary: [TAG_SLUGS.SERUM, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ECLAT, TAG_SLUGS.SANS_PARFUM],
+      secondary: [
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.ECLAT,
+        TAG_SLUGS.SANS_PARFUM,
+      ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE],
     },
     keyIngredients: [

@@ -22,7 +22,8 @@ export const MIXA_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.ECLAT],
       secondary: [
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_MAINS,
@@ -69,8 +70,11 @@ export const MIXA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.CREME_MAINS,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_MAINS,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_MAINS,
@@ -117,7 +121,8 @@ export const MIXA_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_MAINS,
@@ -167,7 +172,8 @@ export const MIXA_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.SANS_PARFUM,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_MAINS,
@@ -215,7 +221,8 @@ export const MIXA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.SANS_PARFUM,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_MAINS,
@@ -263,9 +270,10 @@ export const MIXA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_MAINS,
       ],
@@ -314,7 +322,8 @@ export const MIXA_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.PEAU_SECHE],
       secondary: [
         TAG_SLUGS.OCCLUSIF,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_MAINS,

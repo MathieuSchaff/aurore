@@ -20,7 +20,7 @@ export const HARUHARU_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/haruharu-black-rice-moisture-deep-cleansing-oil.webp',
     tags: {
-      primary: [TAG_SLUGS.HUILE_DEMAQUILLANTE, TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_1],
+      primary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.TEXTURE_HUILE, TAG_SLUGS.STEP_NETTOYAGE_1],
       secondary: [TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -43,7 +43,7 @@ export const HARUHARU_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/haruharu-black-rice-moisture-5-5-soft-cleansing-gel.webp',
     tags: {
-      primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.GEL_NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
+      primary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.TEXTURE_GEL, TAG_SLUGS.STEP_NETTOYAGE_2],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.PEAU_SENSIBLE],
       avoid: [],
     },
@@ -64,7 +64,7 @@ export const HARUHARU_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/haruharu-wonder-cream-black-rice-hyaluronic-3-2-fl-oz-90ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/haruharu-black-rice-hyaluronic-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME],
       secondary: [],
       avoid: [],
     },
@@ -88,7 +88,12 @@ export const HARUHARU_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/haruharu-black-rice-hyaluronic-toner-sensitive.webp',
     tags: {
-      primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.HYDRATATION, TAG_SLUGS.PREPARATION],
+      primary: [
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.STEP_PREPARATION,
+      ],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.PEAU_SENSIBLE],
       avoid: [],
     },
@@ -111,7 +116,7 @@ export const HARUHARU_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/haruharu-black-rice-night-knight-retinol-serum.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.TRAITEMENT],
+      primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.STEP_TRAITEMENT],
       secondary: [TAG_SLUGS.SANS_PARFUM],
       avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
@@ -138,7 +143,7 @@ export const HARUHARU_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/D9DE00F6AA7525/large_1752402030.png?1752402030',
     tags: {
-      primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.EXFOLIANT_CHIMIQUE, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
+      primary: [TAG_SLUGS.TYPE_EXFOLIATION, TAG_SLUGS.STEP_NETTOYAGE_2],
       secondary: [TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -160,7 +165,12 @@ export const HARUHARU_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/A26BE545B8779F/large_1749448818.png?1749448818',
     tags: {
-      primary: [TAG_SLUGS.SOIN_YEUX, TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ANTI_AGE],
+      primary: [
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.ANTI_AGE,
+      ],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.ZONE_YEUX],
       avoid: [],
     },
@@ -183,7 +193,7 @@ export const HARUHARU_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/haruharu-centella-phyto-5-peptide-concentrate-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_AGE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_AGE],
       secondary: [TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -209,7 +219,12 @@ export const HARUHARU_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/haruharu-wonder-black-rice-facial-oil-0-3-fl-oz-10-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/haruharu-black-rice-facial-oil.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.OCCLUSION, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.STEP_OCCLUSIF,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.ANTI_OXYDANT,
+      ],
       secondary: [],
       avoid: [],
     },
@@ -233,7 +248,7 @@ export const HARUHARU_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/haruharu-black-rice-probiotics-barrier-essence.webp',
     tags: {
-      primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.HYDRATATION, TAG_SLUGS.ESSENCE],
+      primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.TYPE_TONER],
       secondary: [TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -262,12 +277,13 @@ export const HARUHARU_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.TONIQUE,
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.SANS_PARFUM,
-        TAG_SLUGS.PREPARATION,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.STEP_PREPARATION,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],

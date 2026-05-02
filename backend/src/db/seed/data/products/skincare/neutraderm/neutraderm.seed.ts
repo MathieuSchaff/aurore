@@ -21,9 +21,10 @@ export const NEUTRADERM_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.NETTOYANT_CORPS,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_CORPS,
       ],
       avoid: [],
@@ -47,8 +48,8 @@ export const NEUTRADERM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/neutraderm-gel-douche-micellaire-dermo-apaisant1l.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'apaisant'],
-      secondary: ['reparateur', 'nettoyant-corps', 'zone-corps'],
+      primary: ['step-hydratation', 'anti-oxydant', 'apaisant'],
+      secondary: ['reparateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.COPPER_SULFATE }],
@@ -69,8 +70,8 @@ export const NEUTRADERM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-produits/bain-et-douche/gel-douche/neutraderm-relipid-creme-de-douche-200-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/neutraderm-relipid-creme-de-douche.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant-corps', 'zone-corps'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.GLYCERYL_CAPRYLATE_CAPRATE }],
@@ -91,8 +92,8 @@ export const NEUTRADERM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-produits/bain-et-douche/neutraderm-creme-douche-relipidante-400ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/neutraderm-creme-douche-relipidante.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant-corps', 'zone-corps'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.GLYCERYL_CAPRYLATE_CAPRATE }],
@@ -114,7 +115,7 @@ export const NEUTRADERM_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/neutraderm-brume-d-eau-soin-apaisant.webp',
     tags: {
       primary: ['apaisant'],
-      secondary: ['brume', 'preparation', 'zone-visage'],
+      secondary: ['type-mist', 'texture-eau', 'step-preparation', 'zone-visage'],
       avoid: [],
     },
   },
@@ -134,8 +135,8 @@ export const NEUTRADERM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/par-soins/soins-nettoyants/douche-et-bain/neutraderm-baby-gel-nettoyant-400-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/neutraderm-baby-gel-nettoyant.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -159,8 +160,15 @@ export const NEUTRADERM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/par-soins/soins-nettoyants/soins-visage/neutraderm-baby-creme-hydratante-100-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/neutraderm-baby-creme-hydratante.webp',
     tags: {
-      primary: ['hydratation', 'barriere-cutanee', 'anti-oxydant'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'barriere-cutanee', 'anti-oxydant'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -188,8 +196,8 @@ export const NEUTRADERM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-soins/hydratants-corps/laits-et-cremes/neutraderm-relipid-baume-200-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/neutraderm-relipid-baume.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [

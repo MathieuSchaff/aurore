@@ -18,8 +18,8 @@ export const AVRIL_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avril/avril-gommage-corporel-bio-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avril-gommage-corporel-bio.webp',
     tags: {
-      primary: ['exfoliation'],
-      secondary: ['gommage-corps', 'exfoliant-physique', 'zone-corps'],
+      primary: ['step-traitement'],
+      secondary: ['type-exfoliation', 'zone-corps', 'type-exfoliation', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.SUCROSE_STEARATE }],
@@ -40,8 +40,8 @@ export const AVRIL_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avril/avril-bb-creme-fair-bio-30-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avril-bb-creme-fair-bio.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['keratolytique', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['keratolytique', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.LACTIC_ACID }],
@@ -62,8 +62,8 @@ export const AVRIL_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avril/avril-bb-creme-light-bio-30-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avril-bb-creme-light-bio.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['keratolytique', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['keratolytique', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.LACTIC_ACID }],
@@ -84,8 +84,8 @@ export const AVRIL_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avril/avril-bb-creme-medium-bio-30-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avril-bb-creme-medium-bio.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['keratolytique', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['keratolytique', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.LACTIC_ACID }],
@@ -107,7 +107,7 @@ export const AVRIL_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avril-creme-anti-age-bio.webp',
     tags: {
       primary: ['anti-age'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.C10_18_TRIGLYCERIDES }],
@@ -129,8 +129,8 @@ export const AVRIL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avril-creme-de-jour-peaux-seches-et-sensibles-bio.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.SODIUM_PCA }],
@@ -152,7 +152,7 @@ export const AVRIL_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avril-fluide-matifiant-bio.webp',
     tags: {
       primary: ['sebo-regulateur'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -176,7 +176,7 @@ export const AVRIL_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avril/avril-gommage-visage-bio-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avril-gommage-visage-bio.webp',
     tags: {
-      primary: ['exfoliation'],
+      primary: ['step-traitement'],
       secondary: ['zone-visage'],
       avoid: [],
     },
@@ -198,8 +198,8 @@ export const AVRIL_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avril/avril-masque-visage-purifiant-bio-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avril-masque-visage-purifiant-bio.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant'],
-      secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant'],
+      secondary: ['reparateur', 'moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -224,8 +224,8 @@ export const AVRIL_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avril/soins-visage/avril-creme-de-nuit-bio-50-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avril-creme-de-nuit-bio.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [

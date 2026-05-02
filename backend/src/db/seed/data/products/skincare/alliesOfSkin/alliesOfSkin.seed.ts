@@ -21,8 +21,8 @@ export const ALLIES_OF_SKIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.ANTI_TACHES],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.SANS_PARFUM,

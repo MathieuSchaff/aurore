@@ -73,64 +73,49 @@ const SLUG_TO_KEY: Record<string, string> = {
   'zone-yeux': 'ZONE_YEUX',
   'zone-levres': 'ZONE_LEVRES',
   'zone-mains': 'ZONE_MAINS',
-  // Product types (shared — lives in SKINCARE_PRODUCT_TAG_SLUGS)
-  'baume-demaquillant': 'BAUME_DEMAQUILLANT',
-  'huile-nettoyante': 'HUILE_NETTOYANTE',
-  'gel-nettoyant': 'GEL_NETTOYANT',
-  'mousse-nettoyante': 'MOUSSE_NETTOYANTE',
-  'lait-nettoyant': 'LAIT_NETTOYANT',
-  'eau-micellaire': 'EAU_MICELLAIRE',
-  tonique: 'TONIQUE',
-  essence: 'ESSENCE',
-  lotion: 'LOTION',
-  brume: 'BRUME',
-  primer: 'PRIMER',
-  serum: 'SERUM',
-  ampoule: 'AMPOULE',
-  'huile-visage': 'HUILE_VISAGE',
-  'spot-treatment': 'SPOT_TREATMENT',
-  'creme-hydratante': 'CREME_HYDRATANTE',
-  'gel-creme': 'GEL_CREME',
-  'creme-de-nuit': 'CREME_DE_NUIT',
-  baume: 'BAUME',
-  'sleeping-mask': 'SLEEPING_MASK',
-  'contour-yeux': 'CONTOUR_YEUX',
-  'soin-levres': 'SOIN_LEVRES',
-  'exfoliant-chimique': 'EXFOLIANT_CHIMIQUE',
-  'exfoliant-physique': 'EXFOLIANT_PHYSIQUE',
-  'masque-argile': 'MASQUE_ARGILE',
-  'masque-tissu': 'MASQUE_TISSU',
-  'masque-hydratant': 'MASQUE_HYDRATANT',
-  'creme-solaire': 'CREME_SOLAIRE',
-  'auto-bronzant': 'AUTO_BRONZANT',
-  'lait-corps': 'LAIT_CORPS',
-  'creme-corps': 'CREME_CORPS',
-  'creme-mains': 'CREME_MAINS',
-  'huile-corps': 'HUILE_CORPS',
-  'gommage-corps': 'GOMMAGE_CORPS',
-  'nettoyant-corps': 'NETTOYANT_CORPS',
-  deodorant: 'DEODORANT',
-  'creme-pieds': 'CREME_PIEDS',
+  'zone-pieds': 'ZONE_PIEDS',
+  // Product types V2 (shared — lives in SKINCARE_PRODUCT_TAG_SLUGS)
+  'type-nettoyant': 'TYPE_NETTOYANT',
+  'type-toner': 'TYPE_TONER',
+  'type-mist': 'TYPE_MIST',
+  'type-serum': 'TYPE_SERUM',
+  'type-hydratant': 'TYPE_HYDRATANT',
+  'type-masque': 'TYPE_MASQUE',
+  'type-exfoliation': 'TYPE_EXFOLIATION',
+  'type-solaire': 'TYPE_SOLAIRE',
+  'type-traitement': 'TYPE_TRAITEMENT',
+  'type-primer': 'TYPE_PRIMER',
+  'type-deodorant': 'TYPE_DEODORANT',
+  'type-outil': 'TYPE_OUTIL',
+  // Textures
+  'texture-gel': 'TEXTURE_GEL',
+  'texture-creme': 'TEXTURE_CREME',
+  'texture-baume': 'TEXTURE_BAUME',
+  'texture-huile': 'TEXTURE_HUILE',
+  'texture-lait': 'TEXTURE_LAIT',
+  'texture-mousse': 'TEXTURE_MOUSSE',
+  'texture-eau': 'TEXTURE_EAU',
+  'texture-patch': 'TEXTURE_PATCH',
+  'texture-stick': 'TEXTURE_STICK',
+  // Dental product types
   dentifrice: 'DENTIFRICE',
   'bain-de-bouche': 'BAIN_DE_BOUCHE',
   'kit-blanchiment': 'KIT_BLANCHIMENT',
   'fil-dentaire': 'FIL_DENTAIRE',
-  patch: 'PATCH',
-  // Routine steps
-  matin: 'MATIN',
-  soir: 'SOIR',
-  nettoyant: 'NETTOYANT',
-  'double-nettoyage-1': 'DOUBLE_NETTOYAGE_1',
-  'double-nettoyage-2': 'DOUBLE_NETTOYAGE_2',
-  preparation: 'PREPARATION',
-  traitement: 'TRAITEMENT',
-  hydratation: 'HYDRATATION',
-  emollience: 'EMOLLIENCE',
-  'protection-solaire': 'PROTECTION_SOLAIRE',
-  'soin-yeux': 'SOIN_YEUX',
-  'soin-localise': 'SOIN_LOCALISE',
-  exfoliation: 'EXFOLIATION',
-  'masque-hebdo': 'MASQUE_HEBDO',
+  // Routine steps V2
+  'step-nettoyage-1': 'STEP_NETTOYAGE_1',
+  'step-nettoyage-2': 'STEP_NETTOYAGE_2',
+  'step-preparation': 'STEP_PREPARATION',
+  'step-traitement': 'STEP_TRAITEMENT',
+  'step-hydratation': 'STEP_HYDRATATION',
+  'step-occlusif': 'STEP_OCCLUSIF',
+  'step-protection-solaire': 'STEP_PROTECTION_SOLAIRE',
+  // Routine moments
+  'moment-matin': 'MOMENT_MATIN',
+  'moment-soir': 'MOMENT_SOIR',
+  'moment-hebdomadaire': 'MOMENT_HEBDOMADAIRE',
+  'moment-usage-localise': 'MOMENT_USAGE_LOCALISE',
+  'moment-crise': 'MOMENT_CRISE',
   // Skin effects / ingredient attributes (in SKINCARE_INGREDIENT_TAG_SLUGS)
   occlusif: 'OCCLUSIF',
   repulpant: 'REPULPANT',
@@ -174,22 +159,18 @@ const SKINCARE_PRIMARY = new Set([
   'eczema',
   'grain-peau',
   'keratose-pilaire',
-  'exfoliation',
-  'protection-solaire',
-  'hydratation',
   'apaisant',
   'repulpant',
   'anti-oxydant',
   'brillance',
 ])
 
-// Specificity weight: high = prefer over generic hydratation/apaisant
+// Specificity weight: high = prefer over generic apaisant
 const SPECIFICITY: Record<string, number> = {
   'anti-acne': 3,
   'anti-age': 3,
   'anti-taches': 3,
   hyperpigmentation: 3,
-  'protection-solaire': 3,
   eczema: 3,
   microbiome: 3,
   'anti-rougeurs': 3,
@@ -201,13 +182,11 @@ const SPECIFICITY: Record<string, number> = {
   'keratose-pilaire': 3,
   'cernes-poches': 3,
   'grain-peau': 3,
-  exfoliation: 2,
   eclat: 2,
   apaisant: 2,
   repulpant: 2,
   'barriere-cutanee': 2,
   'anti-oxydant': 1,
-  hydratation: 1,
   deshydratation: 1,
 }
 
@@ -215,21 +194,21 @@ const SPECIFICITY: Record<string, number> = {
 
 const INCI_TO_SKINCARE: Record<string, string[]> = {
   // Rétinoids / anti-âge
-  retinol: ['anti-age', 'traitement'],
+  retinol: ['anti-age', 'step-traitement'],
   'retinyl palmitate': ['anti-age'],
-  retinal: ['anti-age', 'traitement'],
+  retinal: ['anti-age', 'step-traitement'],
   bakuchiol: ['anti-age'],
   adenosine: ['anti-age'],
   // Exfoliants / anti-acné
-  'azelaic acid': ['anti-acne', 'anti-rougeurs', 'traitement', 'sebo-regulateur'],
-  'salicylic acid': ['anti-acne', 'exfoliation', 'sebo-regulateur', 'keratolytique'],
-  'glycolic acid': ['exfoliation', 'eclat', 'keratolytique'],
-  'lactic acid': ['exfoliation', 'hydratation', 'keratolytique'],
-  'mandelic acid': ['exfoliation', 'anti-acne'],
-  gluconolactone: ['exfoliation', 'peau-sensible'],
-  'lactobionic acid': ['exfoliation', 'peau-sensible'],
-  'benzoyl peroxide': ['anti-acne', 'soin-localise'],
-  'capryloyl salicylic acid': ['anti-acne', 'exfoliation', 'keratolytique'],
+  'azelaic acid': ['anti-acne', 'anti-rougeurs', 'step-traitement', 'sebo-regulateur'],
+  'salicylic acid': ['anti-acne', 'step-traitement', 'sebo-regulateur', 'keratolytique'],
+  'glycolic acid': ['step-traitement', 'eclat', 'keratolytique'],
+  'lactic acid': ['step-traitement', 'step-hydratation', 'keratolytique'],
+  'mandelic acid': ['step-traitement', 'anti-acne'],
+  gluconolactone: ['step-traitement', 'peau-sensible'],
+  'lactobionic acid': ['step-traitement', 'peau-sensible'],
+  'benzoyl peroxide': ['anti-acne', 'step-traitement', 'moment-usage-localise'],
+  'capryloyl salicylic acid': ['anti-acne', 'step-traitement', 'keratolytique'],
   // Vitamines / antioxydants
   'ascorbic acid': ['eclat', 'anti-oxydant', 'anti-age'],
   'sodium ascorbyl phosphate': ['eclat', 'anti-acne'],
@@ -247,21 +226,21 @@ const INCI_TO_SKINCARE: Record<string, string[]> = {
   matrixyl: ['anti-age'],
   // Hydratation / barrière / microbiome
   // `humectant`/`emollient` are ingredient-only attributes — on a product, the closest
-  // routine-step tags are `hydratation` / `emollience`.
-  'hyaluronic acid': ['hydratation', 'repulpant'],
-  'sodium hyaluronate': ['hydratation'],
-  'hydrolyzed hyaluronic acid': ['hydratation'],
-  glycerin: ['hydratation'],
+  // routine-step tag is `step-hydratation`.
+  'hyaluronic acid': ['step-hydratation', 'repulpant'],
+  'sodium hyaluronate': ['step-hydratation'],
+  'hydrolyzed hyaluronic acid': ['step-hydratation'],
+  glycerin: ['step-hydratation'],
   panthenol: ['apaisant', 'barriere-cutanee', 'reparateur'],
   niacinamide: ['barriere-cutanee', 'eclat', 'sebo-regulateur', 'pores-dilates'],
-  ceramide: ['barriere-cutanee', 'emollience'],
+  ceramide: ['barriere-cutanee', 'step-hydratation'],
   'ceramide np': ['barriere-cutanee'],
   'ceramide ap': ['barriere-cutanee'],
   'ceramide eop': ['barriere-cutanee'],
   phytosphingosine: ['barriere-cutanee'],
-  cholesterol: ['barriere-cutanee', 'emollience'],
-  squalane: ['emollience', 'barriere-cutanee', 'texture-legere'],
-  urea: ['hydratation', 'keratolytique'],
+  cholesterol: ['barriere-cutanee', 'step-hydratation'],
+  squalane: ['step-hydratation', 'barriere-cutanee', 'texture-legere'],
+  urea: ['step-hydratation', 'keratolytique'],
   'bifida ferment': ['microbiome', 'reparateur'],
   lactobacillus: ['microbiome'],
   // Apaisement / cicatrisation / anti-rougeurs
@@ -269,25 +248,25 @@ const INCI_TO_SKINCARE: Record<string, string[]> = {
   madecassoside: ['apaisant', 'cicatrisation'],
   asiaticoside: ['apaisant'],
   allantoin: ['apaisant'],
-  'aloe barbadensis': ['apaisant', 'hydratation'],
+  'aloe barbadensis': ['apaisant', 'step-hydratation'],
   bisabolol: ['apaisant'],
   'colloidal oatmeal': ['apaisant', 'eczema'],
   'avena sativa': ['apaisant', 'peau-sensible'],
   licorice: ['apaisant', 'eclat', 'anti-taches'],
   'dipotassium glycyrrhizate': ['apaisant', 'anti-rougeurs'],
-  'tranexamic acid': ['anti-taches', 'hyperpigmentation', 'traitement'],
+  'tranexamic acid': ['anti-taches', 'hyperpigmentation', 'step-traitement'],
   // Filtres solaires
   // ZnO/TiO2 also serve as soothing pigments / colorants in non-SPF formulas (cica creams,
   // dentifrices, makeup), so we don't auto-tag them as sunscreen — NAME_PATTERNS catches
   // SPF/solaire claims explicitly. Organic UV filters below are SPF-only and stay tagged.
   'zinc oxide': ['apaisant'],
-  avobenzone: ['protection-solaire', 'filtres-chimiques'],
-  octocrylene: ['protection-solaire', 'filtres-chimiques'],
-  'ethylhexyl methoxycinnamate': ['protection-solaire', 'filtres-chimiques'],
-  homosalate: ['protection-solaire', 'filtres-chimiques'],
-  'ethylhexyl salicylate': ['protection-solaire', 'filtres-chimiques'],
-  tinosorb: ['protection-solaire', 'filtres-chimiques'],
-  mexoryl: ['protection-solaire', 'filtres-chimiques'],
+  avobenzone: ['step-protection-solaire', 'filtres-chimiques'],
+  octocrylene: ['step-protection-solaire', 'filtres-chimiques'],
+  'ethylhexyl methoxycinnamate': ['step-protection-solaire', 'filtres-chimiques'],
+  homosalate: ['step-protection-solaire', 'filtres-chimiques'],
+  'ethylhexyl salicylate': ['step-protection-solaire', 'filtres-chimiques'],
+  tinosorb: ['step-protection-solaire', 'filtres-chimiques'],
+  mexoryl: ['step-protection-solaire', 'filtres-chimiques'],
   // Dépigmentants
   kojic: ['anti-taches', 'hyperpigmentation'],
   arbutin: ['anti-taches', 'hyperpigmentation', 'eclat'],
@@ -308,31 +287,37 @@ const INCI_TO_AVOID: Record<string, string[]> = {
 // ─── kind → skincare secondary tags ──────────────────────────────────────────
 
 const KIND_SKINCARE_SEC: Record<string, string[]> = {
-  cleanser: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
-  moisturizer: ['creme-hydratante', 'zone-visage'],
-  serum: ['serum', 'traitement', 'zone-visage'],
-  toner: ['tonique', 'preparation', 'zone-visage'],
-  essence: ['essence', 'preparation', 'zone-visage'],
-  'eye-cream': ['contour-yeux', 'zone-yeux', 'soin-yeux'],
-  sunscreen: ['creme-solaire', 'protection-solaire', 'matin', 'zone-visage'],
-  exfoliant: ['exfoliation', 'zone-visage'],
-  mask: ['masque-hebdo', 'zone-visage'],
-  oil: ['huile-visage', 'emollience', 'zone-visage'],
-  balm: ['baume'],
-  mist: ['brume', 'preparation', 'zone-visage'],
-  'body-lotion': ['lait-corps', 'zone-corps'],
-  'body-cream': ['creme-corps', 'zone-corps'],
-  'body-wash': ['nettoyant-corps', 'zone-corps'],
-  'body-oil': ['huile-corps', 'zone-corps'],
-  'body-scrub': ['gommage-corps', 'exfoliation', 'exfoliant-physique', 'zone-corps'],
-  'hand-cream': ['creme-mains', 'zone-mains'],
-  'lip-care': ['soin-levres', 'zone-levres'],
-  'foot-cream': ['creme-pieds', 'zone-corps'],
-  primer: ['primer', 'matin', 'zone-visage'],
-  'spot-treatment': ['spot-treatment', 'soin-localise', 'zone-visage'],
-  'self-tanner': ['auto-bronzant', 'zone-corps'],
-  deodorant: ['deodorant'],
-  patch: ['patch'],
+  cleanser: ['type-nettoyant', 'step-nettoyage-2', 'zone-visage'],
+  moisturizer: ['type-hydratant', 'texture-creme', 'step-hydratation', 'zone-visage'],
+  serum: ['type-serum', 'step-traitement', 'zone-visage'],
+  toner: ['type-toner', 'texture-eau', 'step-preparation', 'zone-visage'],
+  essence: ['type-toner', 'step-preparation', 'zone-visage'],
+  'eye-cream': ['type-traitement', 'zone-yeux'],
+  sunscreen: [
+    'type-solaire',
+    'texture-creme',
+    'step-protection-solaire',
+    'moment-matin',
+    'zone-visage',
+  ],
+  exfoliant: ['type-exfoliation', 'step-traitement', 'zone-visage'],
+  mask: ['type-masque', 'moment-hebdomadaire', 'zone-visage'],
+  oil: ['type-serum', 'texture-huile', 'step-hydratation', 'zone-visage'],
+  balm: ['type-hydratant', 'texture-baume'],
+  mist: ['type-mist', 'texture-eau', 'step-preparation', 'zone-visage'],
+  'body-lotion': ['type-hydratant', 'texture-lait', 'zone-corps'],
+  'body-cream': ['type-hydratant', 'texture-creme', 'zone-corps'],
+  'body-wash': ['type-nettoyant', 'zone-corps'],
+  'body-oil': ['type-hydratant', 'texture-huile', 'zone-corps'],
+  'body-scrub': ['type-exfoliation', 'step-traitement', 'zone-corps'],
+  'hand-cream': ['type-hydratant', 'texture-creme', 'zone-mains'],
+  'lip-care': ['type-traitement', 'zone-levres'],
+  'foot-cream': ['type-hydratant', 'zone-pieds'],
+  primer: ['type-primer', 'moment-matin', 'zone-visage'],
+  'spot-treatment': ['type-traitement', 'moment-usage-localise', 'zone-visage'],
+  'self-tanner': ['type-solaire', 'zone-corps'],
+  deodorant: ['type-deodorant'],
+  patch: ['type-masque', 'texture-patch'],
 }
 
 // ─── kind → haircare primary (mirrors existing curated pattern) ───────────────
@@ -385,15 +370,15 @@ const NAME_PATTERNS: Array<[RegExp, Partial<TagResult>]> = [
   ],
   [/anti[\s-]?cerne/i, { primary: ['cernes-poches'] }],
   [/apaisant|calmant/i, { primary: ['apaisant'] }],
-  [/hydratant|moisturiz/i, { primary: ['hydratation'] }],
+  [/hydratant|moisturiz/i, { primary: ['deshydratation'], secondary: ['step-hydratation'] }],
   [/matifiant|s[eé]bo[\s-]?r[eé]gul/i, { primary: ['sebo-regulateur'] }],
   [/[eé]clat|radiance|illuminat/i, { primary: ['eclat'] }],
   [/repulpant|plumping/i, { primary: ['repulpant'] }],
   [/cicatris|r[eé]parat/i, { primary: ['cicatrisation'], secondary: ['reparateur'] }],
-  [/exfoliant|gommage|peeling/i, { primary: ['exfoliation'] }],
+  [/exfoliant|gommage|peeling/i, { secondary: ['type-exfoliation', 'step-traitement'] }],
   [
     /\bspf\s?\d|solaire|sun[\s-]?screen/i,
-    { primary: ['protection-solaire'], secondary: ['matin'] },
+    { secondary: ['type-solaire', 'step-protection-solaire', 'moment-matin'] },
   ],
   [/pores? (dilat|resserr)/i, { primary: ['pores-dilates'] }],
   [/grain (de|inégal|inegal)/i, { primary: ['grain-peau'] }],
@@ -411,9 +396,8 @@ const NAME_PATTERNS: Array<[RegExp, Partial<TagResult>]> = [
 const PRIMARY_CAP = 4
 
 // AHA/BHA in low position (< top 6) are pH adjusters / preservatives, not active
-// exfoliants. Skip exfoliation/keratolytique tags from these mappings when the INCI
-// position exceeds the threshold. The mappings still emit other tags (humectant for
-// lactic acid → hydratation), just not the exfoliation claims.
+// exfoliants. Skip step-traitement/keratolytique tags from these mappings when the INCI
+// position exceeds the threshold.
 const POSITION_GUARDED_KEYS = new Set([
   'lactic acid',
   'glycolic acid',
@@ -424,7 +408,7 @@ const POSITION_GUARDED_KEYS = new Set([
   'lactobionic acid',
 ])
 const POSITION_GUARD_THRESHOLD = 6
-const POSITION_GUARDED_TAGS = new Set(['exfoliation', 'keratolytique'])
+const POSITION_GUARDED_TAGS = new Set(['step-traitement', 'keratolytique'])
 
 // Atopie / eczema-targeting products carry oat extract + urea + niacinamide which the
 // INCI mapping otherwise reads as anti-acné/séborrégulateur/pores. When the name signals
@@ -563,14 +547,6 @@ function computeSkincareTagsFromInci(inci: string, kind: string): TagResult {
   // Add kind-based secondary, skip anything already in primary
   for (const t of KIND_SKINCARE_SEC[kind] ?? []) {
     if (!primary.includes(t)) secondary.add(t)
-  }
-
-  // If protection-solaire is primary, ensure matin appears in secondary
-  if (primary.includes('protection-solaire')) secondary.add('matin')
-
-  // If exfoliation is primary via INCI, mark it as chemical
-  if (primary.includes('exfoliation') && !secondary.has('exfoliant-physique')) {
-    secondary.add('exfoliant-chimique')
   }
 
   return {

@@ -18,8 +18,8 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/erborian/erborian-soin-corps-perfecteur-teinte-120ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-soin-corps-perfecteur-teinte.webp',
     tags: {
-      primary: ['cicatrisation', 'apaisant', 'hydratation'],
-      secondary: ['lait-corps', 'zone-corps'],
+      primary: ['cicatrisation', 'apaisant', 'step-hydratation'],
+      secondary: ['type-hydratant', 'texture-lait', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
   },
@@ -41,7 +41,7 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/erborian-ginseng-power-eye-creme-lissante.webp',
     tags: {
       primary: ['apaisant', 'cicatrisation', 'anti-taches'],
-      secondary: ['reparateur', 'lait-corps', 'zone-corps'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-lait', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -71,8 +71,8 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/erborian/erborian-bamboo-super-serum-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-bamboo-super-serum.webp',
     tags: {
-      primary: ['hydratation', 'repulpant'],
-      secondary: ['serum', 'traitement', 'zone-visage'],
+      primary: ['step-hydratation', 'repulpant'],
+      secondary: ['type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
   },
@@ -94,7 +94,7 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/erborian-centella-barrier-cream-baume-cica-reparateur.webp',
     tags: {
       primary: ['barriere-cutanee', 'apaisant', 'cicatrisation'],
-      secondary: ['reparateur', 'emollience', 'baume'],
+      secondary: ['reparateur', 'step-hydratation', 'type-hydratant', 'texture-baume'],
       avoid: [],
     },
   },
@@ -115,7 +115,7 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-centella-cleansing-balm.webp',
     tags: {
       primary: ['cicatrisation', 'apaisant', 'anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      secondary: ['reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
   },
@@ -136,8 +136,8 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/erborian-centella-creme-hydratante-apaisante.webp',
     tags: {
-      primary: ['cicatrisation', 'hydratation', 'apaisant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['cicatrisation', 'step-hydratation', 'apaisant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -158,7 +158,7 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-centella-gel-nettoyant-doux.webp',
     tags: {
       primary: ['apaisant', 'cicatrisation', 'anti-taches'],
-      secondary: ['emollience', 'texture-legere', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      secondary: ['step-hydratation', 'texture-legere', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
   },
@@ -179,7 +179,7 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-centella-huile-demaquillante.webp',
     tags: {
       primary: ['apaisant', 'cicatrisation', 'anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      secondary: ['reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
   },
@@ -202,10 +202,10 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
       primary: ['apaisant', 'barriere-cutanee', 'cicatrisation'],
       secondary: [
         'reparateur',
-        'emollience',
+        'step-hydratation',
         'texture-legere',
-        'serum',
-        'traitement',
+        'type-serum',
+        'step-traitement',
         'zone-visage',
       ],
       avoid: [],
@@ -229,7 +229,7 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/erborian-centella-sos-patch-anti-imperfections.webp',
     tags: {
       primary: ['apaisant', 'barriere-cutanee', 'pores-dilates', 'anti-acne'],
-      secondary: ['peau-sensible', 'reparateur', 'sebo-regulateur', 'patch'],
+      secondary: ['peau-sensible', 'reparateur', 'sebo-regulateur', 'type-masque', 'texture-patch'],
       avoid: [],
     },
   },
@@ -250,7 +250,7 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-ginseng-super-serum.webp',
     tags: {
       primary: ['anti-age', 'microbiome', 'anti-taches'],
-      secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
+      secondary: ['reparateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
   },
@@ -271,7 +271,7 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-masque-resurfacant-milk-peel.webp',
     tags: {
       primary: ['apaisant', 'cicatrisation', 'anti-taches'],
-      secondary: ['masque-hebdo', 'zone-visage'],
+      secondary: ['moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -300,8 +300,8 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/erborian/erborian-pink-primer-care-15ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-pink-primer-care.webp',
     tags: {
-      primary: ['anti-oxydant', 'hydratation'],
-      secondary: ['reparateur', 'primer', 'matin', 'zone-visage'],
+      primary: ['anti-oxydant', 'step-hydratation'],
+      secondary: ['reparateur', 'type-primer', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
   },
@@ -321,8 +321,14 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/erborian/erborian-red-pepper-super-serum-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-red-pepper-super-serum.webp',
     tags: {
-      primary: ['exfoliation', 'hydratation'],
-      secondary: ['peau-sensible', 'serum', 'traitement', 'zone-visage', 'exfoliant-chimique'],
+      primary: ['step-traitement', 'step-hydratation'],
+      secondary: [
+        'peau-sensible',
+        'type-serum',
+        'step-traitement',
+        'zone-visage',
+        'type-exfoliation',
+      ],
       avoid: [],
     },
   },
@@ -348,11 +354,12 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
         'sebo-regulateur',
         'keratolytique',
         'reparateur',
-        'emollience',
+        'step-hydratation',
         'texture-legere',
-        'contour-yeux',
+        'type-traitement',
         'zone-yeux',
-        'soin-yeux',
+        'zone-yeux',
+        'step-traitement',
       ],
       avoid: [],
     },
@@ -373,13 +380,15 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/erborian/erborian-skin-therapy-huile-de-nuit-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-skin-therapy-huile-de-nuit.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'cicatrisation'],
+      primary: ['apaisant', 'step-hydratation', 'cicatrisation'],
       secondary: [
         'peau-sensible',
-        'emollience',
+        'step-hydratation',
         'texture-legere',
         'reparateur',
-        'huile-visage',
+        'type-serum',
+        'texture-huile',
+        'zone-visage',
         'zone-visage',
       ],
       avoid: [],
@@ -412,14 +421,14 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/erborian-skin-therapy-serum-nuit-multi-perfecteur.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'microbiome'],
+      primary: ['apaisant', 'step-hydratation', 'microbiome'],
       secondary: [
         'peau-sensible',
-        'emollience',
+        'step-hydratation',
         'texture-legere',
         'reparateur',
-        'serum',
-        'traitement',
+        'type-serum',
+        'step-traitement',
         'zone-visage',
       ],
       avoid: [],
@@ -442,7 +451,7 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-yuza-sorbet-eye-serum.webp',
     tags: {
       primary: ['anti-taches', 'apaisant', 'eclat'],
-      secondary: ['serum', 'traitement', 'zone-visage'],
+      secondary: ['type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
   },
@@ -462,8 +471,8 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/erborian/erborian-yuza-super-serum-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-yuza-super-serum.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['serum', 'traitement', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
   },
@@ -484,7 +493,7 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-bb-shot-mask.webp',
     tags: {
       primary: ['anti-taches', 'apaisant', 'eclat'],
-      secondary: ['masque-hebdo', 'zone-visage'],
+      secondary: ['moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
   },
@@ -504,8 +513,8 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/erborian/soins-visage/erborian-ginseng-shot-mask-15-g.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-ginseng-shot-mask.webp',
     tags: {
-      primary: ['apaisant', 'eclat', 'hydratation'],
-      secondary: ['sebo-regulateur', 'masque-hebdo', 'zone-visage'],
+      primary: ['apaisant', 'eclat', 'step-hydratation'],
+      secondary: ['sebo-regulateur', 'moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -538,10 +547,11 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
       primary: ['barriere-cutanee', 'eclat', 'pores-dilates'],
       secondary: [
         'sebo-regulateur',
-        'emollience',
+        'step-hydratation',
         'texture-legere',
         'reparateur',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
       ],
       avoid: [],
@@ -572,8 +582,8 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/erborian-masque-exfoliant-purifiant-au-charbon.webp',
     tags: {
-      primary: ['apaisant', 'cicatrisation', 'anti-taches', 'exfoliation'],
-      secondary: ['masque-hebdo', 'zone-visage'],
+      primary: ['apaisant', 'cicatrisation', 'anti-taches', 'step-traitement'],
+      secondary: ['moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
   },
@@ -593,8 +603,8 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/erborian/soins-visage/erborian-matt-creme-matifiant-15-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-matt-creme-matifiant.webp',
     tags: {
-      primary: ['anti-oxydant', 'hydratation', 'sebo-regulateur'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['anti-oxydant', 'step-hydratation', 'sebo-regulateur'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -614,8 +624,8 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/erborian/soins-visage/erborian-matt-creme-matifiant-visage-45-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-matt-creme-matifiant-visage.webp',
     tags: {
-      primary: ['anti-oxydant', 'hydratation', 'sebo-regulateur'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['anti-oxydant', 'step-hydratation', 'sebo-regulateur'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -635,8 +645,15 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/erborian/yeux/erborian-cc-eye-contour-des-yeux-10-ml-clair.html',
     imageUrl: '',
     tags: {
-      primary: ['protection-solaire', 'apaisant', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'contour-yeux', 'zone-yeux', 'soin-yeux', 'matin'],
+      primary: ['step-protection-solaire', 'moment-matin', 'apaisant', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'type-traitement',
+        'zone-yeux',
+        'zone-yeux',
+        'step-traitement',
+        'moment-matin',
+      ],
       avoid: [],
     },
   },
@@ -656,8 +673,15 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/erborian/yeux/erborian-cc-eye-contour-des-yeux-10-ml-dore.html',
     imageUrl: '',
     tags: {
-      primary: ['protection-solaire', 'apaisant', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'contour-yeux', 'zone-yeux', 'soin-yeux', 'matin'],
+      primary: ['step-protection-solaire', 'moment-matin', 'apaisant', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'type-traitement',
+        'zone-yeux',
+        'zone-yeux',
+        'step-traitement',
+        'moment-matin',
+      ],
       avoid: [],
     },
   },
@@ -678,8 +702,8 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/erborian-eye-seve-de-bamboo-gel-hydratant-contour-des-yeux.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'barriere-cutanee'],
-      secondary: ['reparateur', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
+      primary: ['step-hydratation', 'apaisant', 'barriere-cutanee'],
+      secondary: ['reparateur', 'type-traitement', 'zone-yeux', 'zone-yeux', 'step-traitement'],
       avoid: [],
     },
   },
@@ -700,8 +724,8 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/erborian-bb-creme-au-ginseng-creme-teint-soin-spf20.webp',
     tags: {
-      primary: ['apaisant', 'anti-taches', 'eclat', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['apaisant', 'anti-taches', 'eclat', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
   },
@@ -721,8 +745,15 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/erborian/erborian-cc-creme-clair-spf30-15ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-cc-creme-clair-spf30.webp',
     tags: {
-      primary: ['apaisant', 'cicatrisation', 'protection-solaire'],
-      secondary: ['reparateur', 'filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['apaisant', 'cicatrisation', 'step-protection-solaire', 'moment-matin'],
+      secondary: [
+        'reparateur',
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
   },
@@ -743,8 +774,8 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/erborian-cc-creme-correcteur-teinte-spf30-caramel.webp',
     tags: {
-      primary: ['protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
   },
@@ -765,8 +796,8 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/erborian-cc-creme-correcteur-teinte-spf30-deep.webp',
     tags: {
-      primary: ['protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
   },
@@ -787,8 +818,8 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/erborian-cc-creme-correcteur-teinte-spf30-porcelaine.webp',
     tags: {
-      primary: ['protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
   },
@@ -809,8 +840,8 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/erborian-cc-creme-correcteur-teinte-spf30-riche.webp',
     tags: {
-      primary: ['protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
   },
@@ -830,8 +861,15 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/erborian/erborian-cc-creme-dore-spf30-15ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-cc-creme-dore-spf30.webp',
     tags: {
-      primary: ['apaisant', 'cicatrisation', 'protection-solaire'],
-      secondary: ['reparateur', 'filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['apaisant', 'cicatrisation', 'step-protection-solaire', 'moment-matin'],
+      secondary: [
+        'reparateur',
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
   },
@@ -851,8 +889,15 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/erborian/erborian-cc-creme-spf30-teinte-caramel-15ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/erborian-cc-creme-spf30-teinte-caramel.webp',
     tags: {
-      primary: ['apaisant', 'cicatrisation', 'protection-solaire'],
-      secondary: ['reparateur', 'filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['apaisant', 'cicatrisation', 'step-protection-solaire', 'moment-matin'],
+      secondary: [
+        'reparateur',
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
   },
@@ -873,8 +918,15 @@ export const ERBORIAN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/erborian-cc-red-correct-soin-teinte-spf30.webp',
     tags: {
-      primary: ['apaisant', 'cicatrisation', 'protection-solaire'],
-      secondary: ['reparateur', 'filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['apaisant', 'cicatrisation', 'step-protection-solaire', 'moment-matin'],
+      secondary: [
+        'reparateur',
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
   },

@@ -19,8 +19,18 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medik8-total-moisture-daily-facial-cream-1-6-fl-oz-50-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-total-moisture-daily-facial-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_NORMALE, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
+      primary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+        TAG_SLUGS.STEP_HYDRATATION,
+      ],
+      secondary: [
+        TAG_SLUGS.PEAU_SECHE,
+        TAG_SLUGS.PEAU_NORMALE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -45,7 +55,7 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medik8-liquid-rehydration-serum-hydr8-b5-1-fl-oz-30-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-liquid-rehydration-serum-hydr8-b5.webp',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.HYDRATATION, TAG_SLUGS.DESHYDRATATION],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.DESHYDRATATION],
       secondary: [TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -68,8 +78,13 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medik8-advanced-night-ceramide-1-7oz-48g',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-advanced-night-ceramide.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_DE_NUIT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.EMOLLIENCE],
-      secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.SOIR],
+      primary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+        TAG_SLUGS.STEP_HYDRATATION,
+      ],
+      secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.MOMENT_SOIR],
       avoid: [],
     },
     keyIngredients: [
@@ -96,8 +111,13 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medik8-r-retinoate-day-night-youth-activating-cream-1-7-oz-48-g',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-r-retinoate-day-night-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT],
-      secondary: [TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
+      primary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ANTI_AGE,
+        TAG_SLUGS.ECLAT,
+      ],
+      secondary: [TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.MOMENT_SOIR],
       avoid: [],
     },
     keyIngredients: [
@@ -122,7 +142,12 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/medik8-press-and-glow-daily-exfoliating-pha-tonic.webp',
     tags: {
-      primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.EXFOLIANT_CHIMIQUE, TAG_SLUGS.ECLAT],
+      primary: [
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.TYPE_EXFOLIATION,
+        TAG_SLUGS.ECLAT,
+      ],
       secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -145,8 +170,8 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medik8-crystal-retinal-10-night-serum-1-fl-oz-30-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-crystal-retinal-10-night-serum.webp',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.TRAITEMENT],
-      secondary: [TAG_SLUGS.SOIR, TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.GRAIN_PEAU],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.STEP_TRAITEMENT],
+      secondary: [TAG_SLUGS.MOMENT_SOIR, TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.GRAIN_PEAU],
       avoid: [],
     },
     keyIngredients: [
@@ -174,8 +199,13 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/medik8-advanced-night-rejuvenating-eye-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.CERNES_POCHES, TAG_SLUGS.ANTI_AGE],
-      secondary: [TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_YEUX],
+      primary: [
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.CERNES_POCHES,
+        TAG_SLUGS.ANTI_AGE,
+      ],
+      secondary: [TAG_SLUGS.MOMENT_SOIR, TAG_SLUGS.ZONE_YEUX],
       avoid: [],
     },
     keyIngredients: [
@@ -200,12 +230,17 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medik8-surface-radiance-cleanse-gel-5-fl-oz-150-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-surface-radiance-cleanse-gel.webp',
     tags: {
-      primary: [TAG_SLUGS.GEL_NETTOYANT, TAG_SLUGS.EXFOLIANT_CHIMIQUE, TAG_SLUGS.ECLAT],
+      primary: [
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.TYPE_EXFOLIATION,
+        TAG_SLUGS.ECLAT,
+      ],
       secondary: [
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.GRAIN_PEAU,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
       ],
       avoid: [],
     },
@@ -232,12 +267,12 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/medik8-gentle-cleanse-hydrating-rosemary-foam.webp',
     tags: {
-      primary: [TAG_SLUGS.MOUSSE_NETTOYANTE, TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.TEXTURE_MOUSSE, TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_NORMALE,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
       ],
       avoid: [],
     },
@@ -258,9 +293,9 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/medik8-ultimate-recovery-bio-cellulose-mask.webp',
     tags: {
-      primary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.HYDRATATION, TAG_SLUGS.APAISANT],
+      primary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.APAISANT],
       secondary: [
-        TAG_SLUGS.MASQUE_HEBDO,
+        TAG_SLUGS.MOMENT_HEBDOMADAIRE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
         TAG_SLUGS.SANS_PARFUM,
       ],
@@ -285,12 +320,17 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medik8-calmwise-soothing-cleanser-5-0-fl-oz-150-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-calmwise-soothing-cleanser.webp',
     tags: {
-      primary: [TAG_SLUGS.MOUSSE_NETTOYANTE, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.APAISANT],
+      primary: [
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_MOUSSE,
+        TAG_SLUGS.ANTI_ROUGEURS,
+        TAG_SLUGS.APAISANT,
+      ],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ROSACEE,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
       ],
       avoid: [],
     },
@@ -311,7 +351,7 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medik8-hydr8-b5-serum-hyaluronic-acid-1-fl-oz-30-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-hydr8-b5-serum.webp',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.HYDRATATION, TAG_SLUGS.DESHYDRATATION],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.DESHYDRATATION],
       secondary: [TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -337,8 +377,8 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medik8-intelligent-retinol-eye-serum-0-23-fl-oz-7-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-intelligent-retinol-eye-serum.webp',
     tags: {
-      primary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ANTI_AGE],
-      secondary: [TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SANS_PARFUM],
+      primary: [TAG_SLUGS.TYPE_TRAITEMENT, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.ANTI_AGE],
+      secondary: [TAG_SLUGS.MOMENT_SOIR, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.RETINOL }],
@@ -359,8 +399,13 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medik8-advanced-day-eye-protect-0-5-fl-oz-15-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-advanced-day-eye-protect.webp',
     tags: {
-      primary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.PHOTO_PROTECTION, TAG_SLUGS.ANTI_AGE],
-      secondary: [TAG_SLUGS.MATIN, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.FILTRES_CHIMIQUES],
+      primary: [
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.PHOTO_PROTECTION,
+        TAG_SLUGS.ANTI_AGE,
+      ],
+      secondary: [TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.FILTRES_CHIMIQUES],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.THD_ASCORBATE }, { slug: INGREDIENT_SLUGS.ECTOIN }],
@@ -382,8 +427,8 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/medik8-crystal-retinal-24-age-defying-night-serum.webp',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.TRAITEMENT],
-      secondary: [TAG_SLUGS.SOIR, TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.GRAIN_PEAU],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.STEP_TRAITEMENT],
+      secondary: [TAG_SLUGS.MOMENT_SOIR, TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.GRAIN_PEAU],
       avoid: [],
     },
     keyIngredients: [
@@ -407,7 +452,12 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medik8-press-glow-toner-6-7-fl-oz-200-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-press-and-glow-toner.webp',
     tags: {
-      primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.EXFOLIANT_CHIMIQUE, TAG_SLUGS.ECLAT],
+      primary: [
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.TYPE_EXFOLIATION,
+        TAG_SLUGS.ECLAT,
+      ],
       secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -430,8 +480,13 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medik8-advanced-night-restore-cream-1-6-fl-oz-50-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-advanced-night-restore-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_DE_NUIT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_AGE],
-      secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.SOIR],
+      primary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+        TAG_SLUGS.ANTI_AGE,
+      ],
+      secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.MOMENT_SOIR],
       avoid: [],
     },
     keyIngredients: [
@@ -458,8 +513,8 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/medik8-intelligent-retinol-3tr-supercharged-serum.webp',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.TRAITEMENT],
-      secondary: [TAG_SLUGS.SOIR],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.STEP_TRAITEMENT],
+      secondary: [TAG_SLUGS.MOMENT_SOIR],
       avoid: [],
     },
     keyIngredients: [
@@ -484,8 +539,13 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/medik8-c-tetra-lipid-vitamin-c-radiance-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES],
-      secondary: [TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.MATIN],
+      primary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ECLAT,
+        TAG_SLUGS.ANTI_TACHES,
+      ],
+      secondary: [TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.MOMENT_MATIN],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.THD_ASCORBATE }],
@@ -507,8 +567,13 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medik8-surface-radiance-cleanse-1-3-fl-oz-40-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-surface-radiance-cleanse.webp',
     tags: {
-      primary: [TAG_SLUGS.GEL_NETTOYANT, TAG_SLUGS.EXFOLIANT_CHIMIQUE, TAG_SLUGS.ECLAT],
-      secondary: [TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
+      primary: [
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.TYPE_EXFOLIATION,
+        TAG_SLUGS.ECLAT,
+      ],
+      secondary: [TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.STEP_NETTOYAGE_2],
       avoid: [],
     },
     keyIngredients: [
@@ -534,8 +599,13 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/medik8-crystal-retinal-eye-cream-ceramide-eye-6.webp',
     tags: {
-      primary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.BARRIERE_CUTANEE],
-      secondary: [TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_YEUX],
+      primary: [
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.ANTI_AGE,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+      ],
+      secondary: [TAG_SLUGS.MOMENT_SOIR, TAG_SLUGS.ZONE_YEUX],
       avoid: [],
     },
     keyIngredients: [
@@ -560,8 +630,8 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medik8-liquid-peptides-serum-1-0-fl-oz-30-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-liquid-peptides-serum.webp',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
-      secondary: [TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
+      secondary: [TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.MOMENT_SOIR],
       avoid: [],
     },
     keyIngredients: [
@@ -587,7 +657,7 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medik8-hydr8-b5-intense-serum-1-0-fl-oz-30-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-hydr8-b5-intense-serum.webp',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.HYDRATATION, TAG_SLUGS.DESHYDRATATION],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.DESHYDRATATION],
       secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -614,8 +684,8 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medik8-crystal-retinal-3-stable-retinal-night-serum-1-fl-oz-30-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-crystal-retinal-3-night-serum.webp',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.TRAITEMENT],
-      secondary: [TAG_SLUGS.SOIR, TAG_SLUGS.GRAIN_PEAU],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.STEP_TRAITEMENT],
+      secondary: [TAG_SLUGS.MOMENT_SOIR, TAG_SLUGS.GRAIN_PEAU],
       avoid: [],
     },
     keyIngredients: [
@@ -642,8 +712,13 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/medik8-crystal-retinal-ceramide-eye-3-eye-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.BARRIERE_CUTANEE],
-      secondary: [TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_YEUX],
+      primary: [
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.ANTI_AGE,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+      ],
+      secondary: [TAG_SLUGS.MOMENT_SOIR, TAG_SLUGS.ZONE_YEUX],
       avoid: [],
     },
     keyIngredients: [
@@ -669,8 +744,13 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medik8-c-tetra-day-cream-moisturizing-cream-1-7-oz-48-g',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-c-tetra-day-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_OXYDANT],
-      secondary: [TAG_SLUGS.PEAU_NORMALE, TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.MATIN],
+      primary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ECLAT,
+        TAG_SLUGS.ANTI_OXYDANT,
+      ],
+      secondary: [TAG_SLUGS.PEAU_NORMALE, TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.MOMENT_MATIN],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.THD_ASCORBATE }],
@@ -692,8 +772,8 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medik8-liquid-peptides-advanced-mp-wrinkle-reduction-serum-1-0-fl-oz-30-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-liquid-peptides-advanced-mp-serum.webp',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
-      secondary: [TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
+      secondary: [TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.MOMENT_SOIR],
       avoid: [],
     },
     keyIngredients: [
@@ -720,8 +800,13 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/medik8-day-night-youth-activating-cream-r-retinoate.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT],
-      secondary: [TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
+      primary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ANTI_AGE,
+        TAG_SLUGS.ECLAT,
+      ],
+      secondary: [TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.MOMENT_SOIR],
       avoid: [],
     },
     keyIngredients: [
@@ -747,8 +832,8 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/medik8-c-tetra-lipid-vitamin-c-radiance-serum.webp',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_OXYDANT],
-      secondary: [TAG_SLUGS.PEAU_NORMALE, TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.MATIN],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_OXYDANT],
+      secondary: [TAG_SLUGS.PEAU_NORMALE, TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.MOMENT_MATIN],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.THD_ASCORBATE }],
@@ -769,8 +854,8 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medik8-lipid-balance-cleansing-oil-4-7-fl-oz-140-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-lipid-balance-cleansing-oil.webp',
     tags: {
-      primary: [TAG_SLUGS.HUILE_DEMAQUILLANTE, TAG_SLUGS.BARRIERE_CUTANEE],
-      secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_NORMALE, TAG_SLUGS.DOUBLE_NETTOYAGE_1],
+      primary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.TEXTURE_HUILE, TAG_SLUGS.BARRIERE_CUTANEE],
+      secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_NORMALE, TAG_SLUGS.STEP_NETTOYAGE_1],
       avoid: [],
     },
   },
@@ -790,8 +875,8 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medik8-liquid-peptides-30ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-liquid-peptides-30ml.webp',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
-      secondary: [TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
+      secondary: [TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.MOMENT_SOIR],
       avoid: [],
     },
     keyIngredients: [
@@ -818,8 +903,8 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/medik8-c-tetra-advanced-20-vitamin-c-gel-serum.webp',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES],
-      secondary: [TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.MATIN],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES],
+      secondary: [TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.MOMENT_MATIN],
       avoid: [],
     },
     keyIngredients: [
@@ -844,8 +929,8 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/medik8-retinol-alternative-bakuchiol-peptides-serum.webp',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.GROSSESSE_COMPATIBLE],
-      secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.SOIR],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.GROSSESSE_COMPATIBLE],
+      secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.MOMENT_SOIR],
       avoid: [],
     },
     keyIngredients: [
@@ -870,11 +955,11 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medik8-retinol-3tr-serum-0-5-fl-oz-15-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medik8-retinol-3tr-serum.webp',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.TRAITEMENT],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.STEP_TRAITEMENT],
       secondary: [
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.PEAU_GRASSE,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.SANS_PARFUM,
       ],
       avoid: [],
@@ -898,8 +983,13 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/medik8-crystal-retinal-ceramide-eye-3-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.BARRIERE_CUTANEE],
-      secondary: [TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_YEUX],
+      primary: [
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.ANTI_AGE,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+      ],
+      secondary: [TAG_SLUGS.MOMENT_SOIR, TAG_SLUGS.ZONE_YEUX],
       avoid: [],
     },
     keyIngredients: [
@@ -926,8 +1016,13 @@ export const MEDIK8_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/medik8-crystal-retinal-ceramide-eye-3-smooth-lift-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
-      secondary: [TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_YEUX],
+      primary: [
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.ANTI_AGE,
+        TAG_SLUGS.REPULPANT,
+      ],
+      secondary: [TAG_SLUGS.MOMENT_SOIR, TAG_SLUGS.ZONE_YEUX],
       avoid: [],
     },
     keyIngredients: [

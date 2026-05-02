@@ -336,9 +336,6 @@ db-stats: ## Statistiques DB (comptages produits, ingrédients, tags, users)
 
 db-seed-safe: db-seed audit-db ## Seed + audit (recommandé après reseed)
 
-backfill-skincare-tags-v2: ## Phase 2 — dérive product_type_v2/texture/skin_zone depuis legacy product_type (dry-run par défaut, ARGS=--write pour appliquer)
-	$(COMPOSE_DEV) exec api bun run src/db/seed/scripts/backfill-skincare-tags-v2.ts $(ARGS)
-
 db-backup: ## Crée une sauvegarde SQL de la base de données
 	@mkdir -p ./backups
 	@$(eval BK_NAME := ./backups/backup_$(shell date +%Y%m%d_%H%M%S).sql)

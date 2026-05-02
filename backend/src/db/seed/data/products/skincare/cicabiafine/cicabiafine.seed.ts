@@ -18,8 +18,8 @@ export const CICABIAFINE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/cicabiafine/cicabiafine-creme-mains-reparation-75ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/cicabiafine-creme-mains-reparation.webp',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation', 'cicatrisation'],
-      secondary: ['reparateur', 'creme-mains', 'zone-mains'],
+      primary: ['apaisant', 'barriere-cutanee', 'step-hydratation', 'cicatrisation'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-mains', 'zone-mains'],
       avoid: [],
     },
     keyIngredients: [
@@ -47,8 +47,8 @@ export const CICABIAFINE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/cicabiafine-creme-mains-reparation-intense.webp',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation', 'cicatrisation'],
-      secondary: ['reparateur', 'creme-mains', 'zone-mains'],
+      primary: ['apaisant', 'barriere-cutanee', 'step-hydratation', 'cicatrisation'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-mains', 'zone-mains'],
       avoid: [],
     },
     keyIngredients: [
@@ -75,8 +75,8 @@ export const CICABIAFINE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/cicabiafine/cicabiafine-creme-pieds-secs-lot-de-2x100ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/cicabiafine-creme-pieds-secs.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'repulpant'],
-      secondary: ['reparateur', 'creme-pieds', 'zone-corps'],
+      primary: ['apaisant', 'step-hydratation', 'repulpant'],
+      secondary: ['reparateur', 'type-hydratant', 'zone-pieds', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -105,8 +105,8 @@ export const CICABIAFINE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/cicabiafine-douche-creme-anti-irritations.webp',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
-      secondary: ['reparateur', 'nettoyant-corps', 'zone-corps'],
+      primary: ['apaisant', 'barriere-cutanee', 'step-hydratation'],
+      secondary: ['reparateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.PANTHENOL }, { slug: INGREDIENT_SLUGS.ALLANTOIN }],
@@ -127,8 +127,8 @@ export const CICABIAFINE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/cicabiafine/cicabiafine-baume-hydratant-corporel-400-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/cicabiafine-baume-hydratant-corporel.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'barriere-cutanee'],
-      secondary: ['reparateur', 'baume'],
+      primary: ['apaisant', 'step-hydratation', 'barriere-cutanee'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-baume'],
       avoid: [],
     },
     keyIngredients: [
@@ -158,8 +158,8 @@ export const CICABIAFINE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/cicabiafine-baume-hydratant-quotidien-peaux-tres-seches.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'baume'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-baume'],
       avoid: [],
     },
   },
@@ -180,8 +180,8 @@ export const CICABIAFINE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/cicabiafine-baume-multi-reparateur-apaisant.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'barriere-cutanee', 'cicatrisation'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation', 'barriere-cutanee', 'cicatrisation'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -212,7 +212,7 @@ export const CICABIAFINE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/cicabiafine-baume-reparateur-crevasses.webp',
     tags: {
       primary: ['cicatrisation'],
-      secondary: ['baume', 'reparateur'],
+      secondary: ['type-hydratant', 'texture-baume', 'reparateur'],
       avoid: [],
     },
   },
@@ -233,8 +233,8 @@ export const CICABIAFINE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/cicabiafine-creme-hydratante-anti-irritations.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -256,7 +256,7 @@ export const CICABIAFINE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/cicabiafine-creme-reconstituante-apaisante.webp',
     tags: {
       primary: ['apaisant'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -277,8 +277,8 @@ export const CICABIAFINE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/cicabiafine-douche-baume-surgras-nourrissant.webp',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['apaisant', 'barriere-cutanee', 'step-hydratation'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.PANTHENOL }, { slug: INGREDIENT_SLUGS.MALIC_ACID }],
@@ -300,8 +300,8 @@ export const CICABIAFINE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/cicabiafine-lait-hydratant-corporel-peaux-seches.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['creme-hydratante', 'zone-visage', 'peau-seche'],
+      primary: ['step-hydratation'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage', 'peau-seche'],
       avoid: [],
     },
   },
@@ -322,8 +322,8 @@ export const CICABIAFINE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/cicabiafine-lait-hydratant-corporel-quotidien.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -343,8 +343,8 @@ export const CICABIAFINE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/parapharmacie/par-zones/peau/cicatrices/cicabiafine-baume-multi-reparation-50-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/cicabiafine-baume-multi-reparation.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'repulpant', 'cicatrisation'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation', 'repulpant', 'cicatrisation'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [

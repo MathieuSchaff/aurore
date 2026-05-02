@@ -19,8 +19,8 @@ export const LES_SECRETS_DE_LOLY_SKINCARE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-cocktail-curl-remedy-spray-hydratant.webp',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
-      secondary: ['reparateur', 'brume', 'preparation', 'zone-visage'],
+      primary: ['apaisant', 'barriere-cutanee', 'step-hydratation'],
+      secondary: ['reparateur', 'type-mist', 'texture-eau', 'step-preparation', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -45,8 +45,8 @@ export const LES_SECRETS_DE_LOLY_SKINCARE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/les-secrets-de-loly/les-secrets-de-loly-hyala-fusion-mask-300ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-hyala-fusion-mask.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['masque-hebdo', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -74,8 +74,8 @@ export const LES_SECRETS_DE_LOLY_SKINCARE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-kurl-fusion-gel-creme.webp',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['apaisant', 'barriere-cutanee', 'step-hydratation'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -104,8 +104,8 @@ export const LES_SECRETS_DE_LOLY_SKINCARE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-kurl-nectar-hair-primer.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'barriere-cutanee'],
-      secondary: ['reparateur', 'primer', 'matin', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation', 'barriere-cutanee'],
+      secondary: ['reparateur', 'type-primer', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -133,8 +133,8 @@ export const LES_SECRETS_DE_LOLY_SKINCARE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-magic-twist-huile-creme-ultra-nourrissante.webp',
     tags: {
-      primary: ['anti-age', 'hydratation'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['anti-age', 'step-hydratation'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.PRUNUS_AMYGDALUS_DULCIS_OIL }],
@@ -155,8 +155,8 @@ export const LES_SECRETS_DE_LOLY_SKINCARE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/les-secrets-de-loly/les-secrets-de-loly-pink-power-mask-300ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-pink-power-mask.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -184,7 +184,13 @@ export const LES_SECRETS_DE_LOLY_SKINCARE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-sleek-slay-baume-soin-2-en-1.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['reparateur', 'sebo-regulateur', 'creme-hydratante', 'zone-visage'],
+      secondary: [
+        'reparateur',
+        'sebo-regulateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
   },

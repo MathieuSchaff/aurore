@@ -22,7 +22,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.BARRIERE_CUTANEE,
         TAG_SLUGS.TEXTURE_RICHE,
         TAG_SLUGS.SANS_PARFUM,
@@ -60,7 +60,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.ZONE_VISAGE,
@@ -100,9 +100,11 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.KERATOSE_PILAIRE, TAG_SLUGS.ECZEMA],
       secondary: [
-        TAG_SLUGS.BAUME,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_BAUME,
         TAG_SLUGS.ZONE_CORPS,
-        TAG_SLUGS.SOIN_LOCALISE,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_USAGE_LOCALISE,
         TAG_SLUGS.TEXTURE_RICHE,
         TAG_SLUGS.SANS_PARFUM,
       ],
@@ -156,9 +158,9 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [
-        TAG_SLUGS.GEL_NETTOYANT,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.PURIFIANT,
         TAG_SLUGS.SEBO_REGULATEUR,
@@ -193,9 +195,9 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [
-        TAG_SLUGS.EAU_MICELLAIRE,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.PEAU_MIXTE,
@@ -228,9 +230,9 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.POST_ACNE, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
-        TAG_SLUGS.SPOT_TREATMENT,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
@@ -264,10 +266,10 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ROSACEE],
       secondary: [
-        TAG_SLUGS.SPOT_TREATMENT,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
@@ -310,10 +312,11 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_GRASSE,
@@ -347,9 +350,9 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.POLLUTION],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
@@ -381,11 +384,17 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isispharma-neotone-radiance-spf50-fluide-intensif-protecteur-taches-brunes-30ml-278100.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.PROTECTION_SOLAIRE],
+      primary: [
+        TAG_SLUGS.ANTI_TACHES,
+        TAG_SLUGS.HYPERPIGMENTATION,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+      ],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.SEBO_REGULATEUR,
@@ -423,12 +432,12 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
@@ -459,9 +468,9 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
-        TAG_SLUGS.LAIT_NETTOYANT,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_LAIT,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
@@ -493,10 +502,11 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ROSACEE],
       secondary: [
-        TAG_SLUGS.GEL_CREME,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_SENSIBLE,
@@ -534,11 +544,12 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isispharma-uveblock-spray-enfants-spf50-200ml-274253.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
       ],
@@ -583,10 +594,10 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES],
       secondary: [
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.MASQUE_HEBDO,
+        TAG_SLUGS.TYPE_EXFOLIATION,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.MOMENT_HEBDOMADAIRE,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.KERATOLYTIQUE,
       ],
@@ -615,10 +626,11 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ROSACEE],
       secondary: [
-        TAG_SLUGS.GEL_CREME,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.PEAU_NORMALE,
@@ -659,8 +671,9 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECZEMA, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.BRUME,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.TYPE_MIST,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.PEAU_SECHE,
@@ -693,9 +706,10 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.ANTI_AGE],
       secondary: [
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
-        TAG_SLUGS.CREME_DE_NUIT,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_EXFOLIATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.KERATOLYTIQUE,
       ],
@@ -724,13 +738,18 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isispharma-duo-anti-taches-pigmentaires-300803.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.PROTECTION_SOLAIRE],
+      primary: [
+        TAG_SLUGS.ANTI_TACHES,
+        TAG_SLUGS.HYPERPIGMENTATION,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+      ],
       secondary: [
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
@@ -763,11 +782,12 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isispharma-cicapro-cream-spf50-40ml-307609.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.CICATRISATION],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.CICATRISATION],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.TEXTURE_RICHE,
@@ -807,11 +827,17 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isispharma-neotone-radiance-spf50-fluide-intensif-protecteur-taches-brunes-teinte-30ml-274269.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.PROTECTION_SOLAIRE],
+      primary: [
+        TAG_SLUGS.ANTI_TACHES,
+        TAG_SLUGS.HYPERPIGMENTATION,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+      ],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE_TEINTEE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.TEXTURE_LEGERE,
       ],
@@ -846,11 +872,12 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isispharma-neotone-prevent-spf50-creme-teintee-minerale-30ml-269491.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_TACHES],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.ANTI_TACHES],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE_TEINTEE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
@@ -883,8 +910,8 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
       ],
@@ -917,11 +944,11 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.PORES_DILATES],
       secondary: [
-        TAG_SLUGS.GEL_NETTOYANT,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
         TAG_SLUGS.KERATOLYTIQUE,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE],
@@ -950,12 +977,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/isispharma-ilcapil-kr-shampoing-anti-pelliculaire-150ml-289404.webp',
     tags: {
       primary: [TAG_SLUGS.MICROBIOME, TAG_SLUGS.BARRIERE_CUTANEE],
-      secondary: [
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.SEBO_REGULATEUR,
-      ],
+      secondary: [TAG_SLUGS.ZONE_VISAGE, TAG_SLUGS.KERATOLYTIQUE, TAG_SLUGS.SEBO_REGULATEUR],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
 
@@ -989,9 +1011,10 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.CERNES_POCHES, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.CONTOUR_YEUX,
+        TAG_SLUGS.TYPE_TRAITEMENT,
         TAG_SLUGS.ZONE_YEUX,
-        TAG_SLUGS.SOIN_YEUX,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.ANTI_AGE,
         TAG_SLUGS.REPULPANT,
       ],
@@ -1022,12 +1045,18 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isispharma-neotone-radiance-spf50-fluide-intensif-protecteur-teinte-clair-30ml-302110.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.PROTECTION_SOLAIRE],
+      primary: [
+        TAG_SLUGS.ANTI_TACHES,
+        TAG_SLUGS.HYPERPIGMENTATION,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+      ],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE_TEINTEE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.TEXTURE_LEGERE,
       ],
@@ -1064,8 +1093,9 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECZEMA, TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.BAUME,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_BAUME,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_SECHE,
@@ -1097,12 +1127,13 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isispharma-uveblock-ultra-fluide-touche-sec-spf50-40ml-274261.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.MATIFIANT,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.PEAU_MIXTE,
@@ -1147,9 +1178,9 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ANTI_TACHES],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ANTI_OXYDANT,
         TAG_SLUGS.REPULPANT,
@@ -1184,11 +1215,12 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isispharma-uveblock-lotion-spf50-100-ml-244439.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ANTI_OXYDANT,
@@ -1229,9 +1261,10 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.COUPEROSE],
       secondary: [
-        TAG_SLUGS.SPOT_TREATMENT,
-        TAG_SLUGS.SOIN_LOCALISE,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_USAGE_LOCALISE,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
@@ -1268,11 +1301,12 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isispharma-uveblock-creme-minerale-spf50-40ml-274250.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
@@ -1304,8 +1338,9 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
-        TAG_SLUGS.BAUME_DEMAQUILLANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_1,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_BAUME,
+        TAG_SLUGS.STEP_NETTOYAGE_1,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
@@ -1338,8 +1373,9 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECZEMA, TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.BAUME,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_BAUME,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_SECHE,
@@ -1371,12 +1407,13 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isispharma-uveblock-fluide-invisible-spf50-40ml-252091.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.TEXTURE_LEGERE,
       ],
@@ -1419,12 +1456,12 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.GEL_NETTOYANT,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
         TAG_SLUGS.SEBO_REGULATEUR,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
@@ -1457,12 +1494,13 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isispharma-uveblock-spray-spf50-200ml-fluide-invisible-spf50-40ml-274281.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
       ],
@@ -1501,12 +1539,12 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [
-        TAG_SLUGS.SPOT_TREATMENT,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.PEAU_GRASSE,
       ],
@@ -1538,8 +1576,9 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
-        TAG_SLUGS.BAUME_DEMAQUILLANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_1,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_BAUME,
+        TAG_SLUGS.STEP_NETTOYAGE_1,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
@@ -1572,13 +1611,13 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [
-        TAG_SLUGS.SPOT_TREATMENT,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
         TAG_SLUGS.PEAU_GRASSE,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
@@ -1611,10 +1650,11 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.DESHYDRATATION],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
@@ -1648,13 +1688,13 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [
-        TAG_SLUGS.GEL_NETTOYANT,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.PEAU_MIXTE,
       ],
@@ -1687,9 +1727,10 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES],
       secondary: [
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
-        TAG_SLUGS.CREME_DE_NUIT,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_EXFOLIATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.KERATOLYTIQUE,
       ],
@@ -1716,12 +1757,18 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isispharma-ruboril-expert-spf50-creme-anti-rougeurs-teintee-peaux-sensibles-40ml-267407.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ROSACEE, TAG_SLUGS.PROTECTION_SOLAIRE],
+      primary: [
+        TAG_SLUGS.ANTI_ROUGEURS,
+        TAG_SLUGS.ROSACEE,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+      ],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE_TEINTEE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.SANS_PARFUM,
@@ -1758,11 +1805,12 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isispharma-uveblock-spray-spf50-200ml-274252.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
       ],
@@ -1799,12 +1847,13 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isispharma-uveblock-ultra-fluide-touche-sec-spf30-40ml-274249.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.MATIFIANT,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.PEAU_MIXTE,
@@ -1842,13 +1891,14 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isispharma-uveblock-fluide-teinte-spf50-40ml-252093.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE_TEINTEE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.MATIFIANT,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1886,10 +1936,11 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.GEL_CREME,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
@@ -1924,13 +1975,14 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isispharma-uveblock-spf50-dry-touch-ultra-fluide-toucher-sec-teinte-medium-40ml-302093.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE_TEINTEE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.MATIFIANT,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.TEXTURE_LEGERE,
       ],
@@ -1970,10 +2022,11 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.DESHYDRATATION],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
@@ -2007,8 +2060,9 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CICATRISATION],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.APAISANT,
@@ -2041,10 +2095,11 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_GRASSE,
@@ -2078,9 +2133,9 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.EAU_MICELLAIRE,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
@@ -2112,12 +2167,13 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.KERATOSE_PILAIRE],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
         TAG_SLUGS.KERATOLYTIQUE,
       ],
       avoid: [],
@@ -2158,7 +2214,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CICATRISATION],
       secondary: [
-        TAG_SLUGS.APRES_SOLEIL,
+        TAG_SLUGS.TYPE_SOLAIRE,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.APAISANT,
@@ -2192,12 +2248,12 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.KERATOSE_PILAIRE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.GEL_NETTOYANT,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_SECHE,
       ],
@@ -2229,7 +2285,7 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CICATRISATION],
       secondary: [
-        TAG_SLUGS.APRES_SOLEIL,
+        TAG_SLUGS.TYPE_SOLAIRE,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.APAISANT,
@@ -2263,9 +2319,9 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.EAU_MICELLAIRE,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -2295,8 +2351,9 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECZEMA, TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.BAUME,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_BAUME,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_SECHE,
@@ -2329,9 +2386,9 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [
-        TAG_SLUGS.GEL_NETTOYANT,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.SEBO_REGULATEUR,
@@ -2366,13 +2423,18 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isispharma-secalia-balm-baume-relipidant-400ml-274259.webp',
     tags: {
-      primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PROTECTION_SOLAIRE],
+      primary: [
+        TAG_SLUGS.BARRIERE_CUTANEE,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+      ],
       secondary: [
-        TAG_SLUGS.BAUME,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_BAUME,
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.PEAU_SECHE,
       ],
@@ -2405,11 +2467,12 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.EMOLLIENCE,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ANTI_OXYDANT,
         TAG_SLUGS.REPARATEUR,
@@ -2444,9 +2507,9 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.GEL_NETTOYANT,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
@@ -2479,8 +2542,10 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.LAIT_CORPS,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_LAIT,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_SECHE,
@@ -2517,9 +2582,10 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION],
       secondary: [
-        TAG_SLUGS.BAUME,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_BAUME,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.REPARATEUR,
@@ -2557,9 +2623,9 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [
-        TAG_SLUGS.GEL_NETTOYANT,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.PURIFIANT,
         TAG_SLUGS.SEBO_REGULATEUR,
@@ -2594,11 +2660,13 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.KERATOSE_PILAIRE, TAG_SLUGS.ECZEMA],
       secondary: [
-        TAG_SLUGS.BAUME,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_BAUME,
         TAG_SLUGS.ZONE_CORPS,
-        TAG_SLUGS.SOIN_LOCALISE,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_USAGE_LOCALISE,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_SECHE,
       ],
@@ -2637,11 +2705,11 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.GEL_NETTOYANT,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.SEBO_REGULATEUR,
       ],
@@ -2674,8 +2742,10 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.LAIT_CORPS,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_LAIT,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.TEXTURE_LEGERE,
@@ -2710,11 +2780,12 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.KERATOSE_PILAIRE],
       secondary: [
-        TAG_SLUGS.GOMMAGE_CORPS,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.TYPE_EXFOLIATION,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.EXFOLIANT_PHYSIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE],
     },
@@ -2745,10 +2816,10 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ANTI_OXYDANT,
         TAG_SLUGS.REPARATEUR,
@@ -2781,13 +2852,14 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isispharma-uveblock-spf50-sun-serum-triple-action-28ml-302073.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_AGE],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.ANTI_AGE],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.SERUM,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.TYPE_SERUM,
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ANTI_OXYDANT,
       ],
@@ -2827,9 +2899,9 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [
-        TAG_SLUGS.GEL_NETTOYANT,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.PURIFIANT,
@@ -2863,11 +2935,12 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECZEMA, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.DESHYDRATATION],
       secondary: [
-        TAG_SLUGS.NETTOYANT_CORPS,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.STEP_HYDRATATION,
       ],
       avoid: [],
     },
@@ -2896,12 +2969,13 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isispharma-uveblock-velvet-spf50-40-ml-307625.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.MATIFIANT,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.ANTI_OXYDANT,
@@ -2942,9 +3016,9 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.EAU_MICELLAIRE,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
@@ -2976,8 +3050,10 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.LAIT_CORPS,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_LAIT,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_SECHE,
@@ -3014,10 +3090,11 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
       secondary: [
-        TAG_SLUGS.BAUME,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_BAUME,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ANTI_OXYDANT,
         TAG_SLUGS.REPARATEUR,
@@ -3053,8 +3130,10 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.LAIT_CORPS,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_LAIT,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_SECHE,
@@ -3091,11 +3170,12 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.DESHYDRATATION],
       secondary: [
-        TAG_SLUGS.NETTOYANT_CORPS,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.STEP_HYDRATATION,
       ],
       avoid: [],
     },
@@ -3126,9 +3206,10 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.EMOLLIENCE,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.SANS_PARFUM,
@@ -3161,11 +3242,12 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.DESHYDRATATION],
       secondary: [
-        TAG_SLUGS.NETTOYANT_CORPS,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.STEP_HYDRATATION,
       ],
       avoid: [],
     },
@@ -3194,8 +3276,14 @@ export const ISISPHARMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isispharma-uveblock-fluide-invisible-spf50.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [

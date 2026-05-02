@@ -19,8 +19,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/patyka-body-baume-corps-nutri-reparateur-bio.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant', 'cicatrisation'],
-      secondary: ['reparateur', 'lait-corps', 'zone-corps'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant', 'cicatrisation'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-lait', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.C10_18_TRIGLYCERIDES }],
@@ -42,8 +42,15 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/patyka-body-creme-corps-raffermissante-bio.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant'],
-      secondary: ['peau-sensible', 'reparateur', 'lait-corps', 'zone-corps'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'peau-sensible',
+        'reparateur',
+        'type-hydratant',
+        'texture-lait',
+        'zone-corps',
+        'zone-corps',
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.C10_18_TRIGLYCERIDES }],
@@ -65,8 +72,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/patyka-body-lait-corps-hydratant-douceur-bio.webp',
     tags: {
-      primary: ['hydratation', 'apaisant'],
-      secondary: ['lait-corps', 'zone-corps'],
+      primary: ['step-hydratation', 'apaisant'],
+      secondary: ['type-hydratant', 'texture-lait', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -95,7 +102,7 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-huile-corps-anti-vergetures.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['reparateur', 'huile-corps', 'zone-corps'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-huile', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
   },
@@ -115,8 +122,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/patyka/patyka-gommage-corps-aux-cristaux-marins-150-ml-bio-vegan.html',
     imageUrl: '',
     tags: {
-      primary: ['hydratation', 'apaisant', 'exfoliation'],
-      secondary: ['gommage-corps', 'exfoliant-physique', 'zone-corps'],
+      primary: ['step-hydratation', 'apaisant', 'step-traitement'],
+      secondary: ['type-exfoliation', 'zone-corps', 'type-exfoliation', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.SILICA }, { slug: INGREDIENT_SLUGS.PROPANEDIOL }],
@@ -137,8 +144,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/patyka/patyka-main-dans-la-main-creme-bio-40-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-main-dans-la-main-creme-bio.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['creme-mains', 'zone-mains'],
+      primary: ['step-hydratation'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-mains', 'zone-mains'],
       avoid: [],
     },
     keyIngredients: [
@@ -162,14 +169,14 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/acne-et-peaux-grasses/patyka-pure-serum-anti-imperfections-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-pure-serum-anti-imperfections.webp',
     tags: {
-      primary: ['anti-age', 'hydratation', 'exfoliation', 'anti-acne'],
+      primary: ['anti-age', 'step-hydratation', 'step-traitement', 'anti-acne'],
       secondary: [
         'peau-sensible',
         'reparateur',
-        'serum',
-        'traitement',
+        'type-serum',
+        'step-traitement',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
       ],
       avoid: [],
     },
@@ -191,8 +198,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/patyka-age-specific-intensif-patch-lift-regard-360-bio.webp',
     tags: {
-      primary: ['hydratation', 'apaisant'],
-      secondary: ['peau-sensible', 'patch'],
+      primary: ['step-hydratation', 'apaisant'],
+      secondary: ['peau-sensible', 'type-masque', 'texture-patch'],
       avoid: [],
     },
     keyIngredients: [
@@ -219,13 +226,13 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/patyka-anti-taches-perfect-la-recharge-peeling-nuit-bio.webp',
     tags: {
-      primary: ['exfoliation', 'hydratation', 'barriere-cutanee', 'anti-taches'],
+      primary: ['step-traitement', 'step-hydratation', 'barriere-cutanee', 'anti-taches'],
       secondary: [
         'keratolytique',
-        'emollience',
+        'step-hydratation',
         'texture-legere',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
       ],
       avoid: [],
     },
@@ -253,13 +260,13 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/patyka-anti-taches-perfect-peeling-nuit-bio.webp',
     tags: {
-      primary: ['exfoliation', 'hydratation', 'barriere-cutanee', 'anti-taches'],
+      primary: ['step-traitement', 'step-hydratation', 'barriere-cutanee', 'anti-taches'],
       secondary: [
         'keratolytique',
-        'emollience',
+        'step-hydratation',
         'texture-legere',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
       ],
       avoid: [],
     },
@@ -287,8 +294,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/patyka-bio-age-specific-intensif-masque-repulpant.webp',
     tags: {
-      primary: ['hydratation', 'repulpant', 'anti-oxydant'],
-      secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
+      primary: ['step-hydratation', 'repulpant', 'anti-oxydant'],
+      secondary: ['reparateur', 'moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -316,8 +323,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/patyka-bio-age-specific-intensif-recharge-masque-repulpant.webp',
     tags: {
-      primary: ['hydratation', 'repulpant', 'anti-oxydant'],
-      secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
+      primary: ['step-hydratation', 'repulpant', 'anti-oxydant'],
+      secondary: ['reparateur', 'moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -346,7 +353,7 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/patyka-bio-age-specific-intensif-serum-c3-perfection.webp',
     tags: {
       primary: ['anti-age', 'anti-oxydant', 'eclat'],
-      secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
+      secondary: ['reparateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -375,8 +382,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-bio-creme-lactee-hydra-apaisante-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-bio-creme-lactee-hydra-apaisante.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant'],
-      secondary: ['peau-sensible', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['peau-sensible', 'reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -405,8 +412,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-bio-creme-riche-hydra-apaisante-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-bio-creme-riche-hydra-apaisante.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'peau-sensible', 'creme-hydratante', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'peau-sensible', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -426,8 +433,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-bio-glow-creme-eclat-perfectrice-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-bio-glow-creme-eclat-perfectrice.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant', 'eclat'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant', 'eclat'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -455,8 +462,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/patyka-bio-glow-creme-teintee-perfectrice-claire.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -487,8 +494,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/patyka-bio-glow-creme-teintee-perfectrice-doree.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -518,8 +525,14 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-bio-glow-masque-effet-peau-neuve-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-bio-glow-masque-effet-peau-neuve.webp',
     tags: {
-      primary: ['hydratation', 'anti-acne', 'anti-rougeurs'],
-      secondary: ['traitement', 'sebo-regulateur', 'reparateur', 'masque-hebdo', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-acne', 'anti-rougeurs'],
+      secondary: [
+        'step-traitement',
+        'sebo-regulateur',
+        'reparateur',
+        'moment-hebdomadaire',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -546,8 +559,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-bio-glow-serum-bonne-mine-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-bio-glow-serum-bonne-mine.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant'],
-      secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -573,8 +586,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-bio-glow-serum-detox-belle-nuit-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-bio-glow-serum-detox-belle-nuit.webp',
     tags: {
-      primary: ['anti-oxydant', 'hydratation'],
-      secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
+      primary: ['anti-oxydant', 'step-hydratation'],
+      secondary: ['reparateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
   },
@@ -595,8 +608,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/patyka-bio-glow-soin-yeux-correcteur-eclat.webp',
     tags: {
-      primary: ['anti-age', 'hydratation', 'anti-oxydant', 'eclat'],
-      secondary: ['reparateur', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
+      primary: ['anti-age', 'step-hydratation', 'anti-oxydant', 'eclat'],
+      secondary: ['reparateur', 'type-traitement', 'zone-yeux', 'zone-yeux', 'step-traitement'],
       avoid: [],
     },
   },
@@ -617,8 +630,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/patyka-bio-lift-essentiel-creme-nuit-reparatrice-jeunesse.webp',
     tags: {
-      primary: ['cicatrisation', 'hydratation', 'apaisant'],
-      secondary: ['creme-hydratante', 'zone-visage', 'reparateur'],
+      primary: ['cicatrisation', 'step-hydratation', 'apaisant'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage', 'reparateur'],
       avoid: [],
     },
     keyIngredients: [
@@ -645,8 +658,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/patyka-bio-lift-essentiel-creme-nuit-reparatrice-jeunesse-recharge.webp',
     tags: {
-      primary: ['cicatrisation', 'hydratation', 'apaisant'],
-      secondary: ['creme-hydratante', 'zone-visage', 'reparateur'],
+      primary: ['cicatrisation', 'step-hydratation', 'apaisant'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage', 'reparateur'],
       avoid: [],
     },
     keyIngredients: [
@@ -673,8 +686,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/patyka-bio-lift-essentiel-creme-rose-lift-eclat-fermete.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'eclat'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'eclat'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -701,8 +714,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/patyka-bio-lift-essentiel-recharge-creme-lift-eclat-fermete-peaux-normales.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'eclat'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'eclat'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -728,8 +741,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-bio-masque-creme-hydra-reparateur-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-bio-masque-creme-hydra-reparateur.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'apaisant', 'cicatrisation'],
-      secondary: ['reparateur', 'emollience', 'masque-hebdo', 'zone-visage'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'apaisant', 'cicatrisation'],
+      secondary: ['reparateur', 'step-hydratation', 'moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
   },
@@ -749,8 +762,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-bio-serum-bleu-hydra-booster-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-bio-serum-bleu-hydra-booster.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant'],
-      secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -780,7 +793,7 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-clean-gommage-sorbet-eclat-bio-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-clean-gommage-sorbet-eclat-bio.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'eclat', 'exfoliation'],
+      primary: ['step-hydratation', 'apaisant', 'eclat', 'step-traitement'],
       secondary: ['zone-visage'],
       avoid: [],
     },
@@ -807,7 +820,7 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/patyka-clean-lait-demaquillant-apaisant-bio.webp',
     tags: {
       primary: ['microbiome', 'apaisant'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      secondary: ['step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -833,8 +846,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-clean-mousse-nettoyante-detox-lot-de-2x150ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-clean-mousse-nettoyante-detox.webp',
     tags: {
-      primary: ['hydratation', 'apaisant'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant'],
+      secondary: ['step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.SODIUM_CITRATE }],
@@ -855,7 +868,7 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-essence-micro-peeling-eclat-100ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-essence-micro-peeling-eclat.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'eclat', 'exfoliation'],
+      primary: ['step-hydratation', 'apaisant', 'eclat', 'step-traitement'],
       secondary: ['zone-visage'],
       avoid: [],
     },
@@ -880,7 +893,7 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-gommage-lissant-double-action-bio-50-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-gommage-lissant-double-action-bio.webp',
     tags: {
-      primary: ['anti-oxydant', 'exfoliation'],
+      primary: ['anti-oxydant', 'step-traitement'],
       secondary: ['reparateur', 'zone-visage'],
       avoid: [],
     },
@@ -907,8 +920,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/patyka-huile-remarquable-demaquillante-bio.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
   },
@@ -928,8 +941,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-lotion-de-soin-defroissante-bio-100-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-lotion-de-soin-defroissante-bio.webp',
     tags: {
-      primary: ['apaisant', 'hydratation'],
-      secondary: ['peau-sensible', 'tonique', 'preparation', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation'],
+      secondary: ['peau-sensible', 'type-toner', 'texture-eau', 'step-preparation', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE }],
@@ -950,8 +963,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-masque-lift-pro-collagene-50-ml-nuit.html',
     imageUrl: '',
     tags: {
-      primary: ['anti-age', 'hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
+      primary: ['anti-age', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -979,8 +992,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-mousse-nettoyante-perfectrice-bio-100-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-mousse-nettoyante-perfectrice-bio.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1007,8 +1020,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/patyka-recharge-masque-lift-pro-collagene.webp',
     tags: {
-      primary: ['anti-age', 'hydratation'],
-      secondary: ['masque-hebdo', 'zone-visage'],
+      primary: ['anti-age', 'step-hydratation'],
+      secondary: ['moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1034,8 +1047,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-produits/serums-et-fluides/patyka-serum-correcteur-anti-taches-30-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-serum-correcteur-anti-taches.webp',
     tags: {
-      primary: ['anti-age', 'hydratation', 'anti-oxydant', 'anti-taches'],
-      secondary: ['serum', 'traitement', 'zone-visage'],
+      primary: ['anti-age', 'step-hydratation', 'anti-oxydant', 'anti-taches'],
+      secondary: ['type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
   },
@@ -1055,8 +1068,15 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/patyka/creme-hydratante-nourrissante/patyka-hydra-creme-riche-hydra-apaisant-40-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-hydra-creme-riche-hydra-apaisant.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'barriere-cutanee'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation', 'barriere-cutanee'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1086,7 +1106,7 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-clean-huile-demaquillante-eclair.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      secondary: ['reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
   },
@@ -1107,7 +1127,7 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-clean-lotion-lactee-apaisante.webp',
     tags: {
       primary: ['apaisant'],
-      secondary: ['tonique', 'preparation', 'zone-visage'],
+      secondary: ['type-toner', 'texture-eau', 'step-preparation', 'zone-visage'],
       avoid: [],
     },
   },
@@ -1129,11 +1149,11 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['barriere-cutanee', 'anti-oxydant'],
       secondary: [
-        'emollience',
+        'step-hydratation',
         'texture-legere',
         'reparateur',
-        'serum',
-        'traitement',
+        'type-serum',
+        'step-traitement',
         'zone-visage',
       ],
       avoid: [],
@@ -1160,8 +1180,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/patyka-lift-essentiel-creme-jeunesse-regard-bio.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1188,8 +1208,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/patyka-lift-essentiel-creme-lift-elat-fermete-bio.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1216,8 +1236,15 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/patyka-lift-essentiel-creme-riche-lift-elat-fermete-bio.webp',
     tags: {
-      primary: ['hydratation', 'anti-age', 'barriere-cutanee'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-age', 'barriere-cutanee'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1245,8 +1272,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/patyka/patyka-lift-essentiel-serum-fermete-bio-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-lift-essentiel-serum-fermete-bio.webp',
     tags: {
-      primary: ['hydratation', 'anti-age', 'anti-oxydant'],
-      secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-age', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1273,8 +1300,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/patyka/patyka-pure-masque-charbon-detox-50-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-pure-masque-charbon-detox.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['masque-hebdo', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1300,8 +1327,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/patyka/patyka-serum-repulpant-acide-hyaluronique-30-ml-bio-vegan.html',
     imageUrl: '',
     tags: {
-      primary: ['hydratation', 'anti-acne', 'repulpant'],
-      secondary: ['sebo-regulateur', 'serum', 'traitement', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-acne', 'repulpant'],
+      secondary: ['sebo-regulateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
@@ -1327,15 +1354,16 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/visage/acne/gels-moussants/patyka-pure-gelee-nettoyante-purifiante-150ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-pure-gelee-nettoyante-purifiante.webp',
     tags: {
-      primary: ['exfoliation', 'hydratation', 'barriere-cutanee'],
+      primary: ['step-traitement', 'step-hydratation', 'barriere-cutanee'],
       secondary: [
         'peau-sensible',
         'reparateur',
-        'emollience',
+        'step-hydratation',
         'texture-legere',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
       ],
       avoid: [],
     },
@@ -1357,13 +1385,14 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/patyka-pure-lotion-purifiante-perfectrice.webp',
     tags: {
-      primary: ['exfoliation', 'hydratation', 'apaisant'],
+      primary: ['step-traitement', 'step-hydratation', 'apaisant'],
       secondary: [
         'peau-sensible',
-        'spot-treatment',
-        'soin-localise',
+        'type-traitement',
+        'step-traitement',
+        'moment-usage-localise',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
       ],
       avoid: [],
     },
@@ -1384,8 +1413,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/visage/acne/patyka-pure-masque-charbon-desincrustant-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-pure-masque-charbon-desincrustant.webp',
     tags: {
-      primary: ['exfoliation', 'hydratation', 'apaisant'],
-      secondary: ['peau-sensible', 'masque-hebdo', 'zone-visage', 'exfoliant-chimique'],
+      primary: ['step-traitement', 'step-hydratation', 'apaisant'],
+      secondary: ['peau-sensible', 'moment-hebdomadaire', 'zone-visage', 'type-exfoliation'],
       avoid: [],
     },
   },
@@ -1405,14 +1434,15 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/visage/acne/patyka-soin-cible-stop-boutons-15ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-soin-cible-stop-boutons.webp',
     tags: {
-      primary: ['apaisant', 'cicatrisation', 'exfoliation'],
+      primary: ['apaisant', 'cicatrisation', 'step-traitement'],
       secondary: [
         'peau-sensible',
         'reparateur',
-        'spot-treatment',
-        'soin-localise',
+        'type-traitement',
+        'step-traitement',
+        'moment-usage-localise',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
       ],
       avoid: [],
     },
@@ -1434,13 +1464,14 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/patyka-fluide-matifiant-anti-imperfections.webp',
     tags: {
-      primary: ['exfoliation', 'hydratation', 'apaisant', 'anti-acne'],
+      primary: ['step-traitement', 'step-hydratation', 'apaisant', 'anti-acne'],
       secondary: [
         'peau-sensible',
         'reparateur',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
       ],
       avoid: [],
     },
@@ -1462,8 +1493,16 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/patyka-anti-taches-perfect-fluide-spf30-bio.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant', 'anti-taches'],
-      secondary: ['reparateur', 'creme-solaire', 'protection-solaire', 'matin', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant', 'anti-taches'],
+      secondary: [
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'step-protection-solaire',
+        'moment-matin',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1488,7 +1527,7 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-bio-baume-reparateur-apres-soleil-150ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-bio-baume-reparateur-apres-soleil.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant', 'cicatrisation'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant', 'cicatrisation'],
       secondary: ['reparateur'],
       avoid: [],
     },
@@ -1515,8 +1554,14 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-bio-creme-solaire-teintee-spf50-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-bio-creme-solaire-teintee-spf50.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'apaisant',
+        'step-hydratation',
+        'anti-oxydant',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1540,8 +1585,14 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-creme-solaire-teintee-spf50-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-creme-solaire-teintee-spf50.webp',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'apaisant',
+        'barriere-cutanee',
+        'step-hydratation',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
   },
@@ -1561,8 +1612,21 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-creme-solaire-visage-spf30-bio-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-creme-solaire-visage-spf30-bio.webp',
     tags: {
-      primary: ['exfoliation', 'hydratation', 'apaisant', 'protection-solaire'],
-      secondary: ['peau-sensible', 'creme-solaire', 'matin', 'zone-visage', 'exfoliant-chimique'],
+      primary: [
+        'step-traitement',
+        'step-hydratation',
+        'apaisant',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'peau-sensible',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+        'type-exfoliation',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1586,8 +1650,14 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-creme-solaire-visage-spf50-bio-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-creme-solaire-visage-spf50-bio.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'apaisant',
+        'step-hydratation',
+        'anti-oxydant',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1614,7 +1684,7 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-gel-lacte-apres-soleil-bio-150ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-gel-lacte-apres-soleil-bio.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant'],
       secondary: ['reparateur'],
       avoid: [],
     },
@@ -1641,8 +1711,8 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-lait-solaire-corps-sfp50-bio-100ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-lait-solaire-corps-sfp50-bio.webp',
     tags: {
-      primary: ['protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.HAEMATOCOCCUS_PLUVIALIS }],
@@ -1663,8 +1733,14 @@ export const PATYKA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/patyka/patyka-spray-solaire-corps-sfp30-bio-100ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/patyka-spray-solaire-corps-sfp30-bio.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'apaisant',
+        'step-hydratation',
+        'anti-oxydant',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [

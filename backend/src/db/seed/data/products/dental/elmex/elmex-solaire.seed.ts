@@ -18,8 +18,15 @@ export const ELMEX_SOLAIRE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/parapharmacie/hygiene/bucco-dentaire/dentifrices/elmex/elmex-protection-email-professional-75ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-protection-email-professional.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['creme-solaire', 'protection-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: [
+        'type-solaire',
+        'texture-creme',
+        'step-protection-solaire',
+        'moment-matin',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.POTASSIUM_HYDROXIDE }],

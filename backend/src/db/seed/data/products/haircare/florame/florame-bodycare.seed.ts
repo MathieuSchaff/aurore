@@ -16,8 +16,8 @@ export const FLORAME_BODYCARE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/florame-gel-aloe-vera-250ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/florame-corps-gel-aloe-vera-bio.webp',
     tags: {
-      primary: ['apaisant', 'hydratation'],
-      secondary: ['lait-corps', 'zone-corps'],
+      primary: ['apaisant', 'step-hydratation'],
+      secondary: ['type-hydratant', 'texture-lait', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
   },

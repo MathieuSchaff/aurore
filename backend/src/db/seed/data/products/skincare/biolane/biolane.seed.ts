@@ -18,7 +18,7 @@ export const BIOLANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/biolane-gel-lavant-corps-et-cheveux-peaux-sensibles-cheveux-fins-bebe.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant-corps', 'zone-corps', 'peau-sensible'],
+      secondary: ['reparateur', 'type-nettoyant', 'zone-corps', 'zone-corps', 'peau-sensible'],
       avoid: [],
     },
   },

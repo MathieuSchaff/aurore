@@ -19,8 +19,8 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clinique-for-men-deodorant-antiperspirant-roll-on.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant'],
-      secondary: ['deodorant'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant'],
+      secondary: ['type-deodorant'],
       avoid: [],
     },
     keyIngredients: [
@@ -46,7 +46,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/clinique-7-day-scrub-creme-gommante-quotidienne.webp',
     tags: {
       primary: ['apaisant'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -72,8 +72,8 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clinique-baume-a-levres-hydratant-teinte-05-chunky-cherry.webp',
     tags: {
-      primary: ['anti-oxydant', 'hydratation'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['anti-oxydant', 'step-hydratation'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -101,7 +101,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-baume-demaquillant.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      secondary: ['reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.HUILE_CARTHAME }],
@@ -124,7 +124,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/clinique-baume-yeux-anti-poches-anti-cernes.webp',
     tags: {
       primary: ['barriere-cutanee', 'anti-oxydant', 'eclat', 'cernes-poches'],
-      secondary: ['emollience', 'creme-hydratante', 'zone-visage'],
+      secondary: ['step-hydratation', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -154,7 +154,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clinique-blackhead-solutions-nettoyant-exfoliant.webp',
     tags: {
-      primary: ['anti-acne', 'hydratation', 'anti-oxydant', 'exfoliation'],
+      primary: ['anti-acne', 'step-hydratation', 'anti-oxydant', 'step-traitement'],
       secondary: ['sebo-regulateur', 'zone-visage'],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
@@ -182,8 +182,8 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clinique-emulsion-hydratante-peau-seche-a-mixte.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['creme-hydratante', 'zone-visage', 'peau-seche'],
+      primary: ['step-hydratation'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage', 'peau-seche'],
       avoid: [],
     },
   },
@@ -208,8 +208,9 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
       secondary: [
         'sebo-regulateur',
         'keratolytique',
-        'spot-treatment',
-        'soin-localise',
+        'type-traitement',
+        'step-traitement',
+        'moment-usage-localise',
         'zone-visage',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
@@ -242,8 +243,14 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clinique-even-better-creme-hydratante-illuminatrice.webp',
     tags: {
-      primary: ['anti-rougeurs', 'anti-acne', 'hydratation', 'eclat'],
-      secondary: ['sebo-regulateur', 'emollience', 'creme-hydratante', 'zone-visage'],
+      primary: ['anti-rougeurs', 'anti-acne', 'step-hydratation', 'eclat'],
+      secondary: [
+        'sebo-regulateur',
+        'step-hydratation',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
@@ -272,8 +279,14 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-for-men-creme-anti-age-yeux-15ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-for-men-creme-anti-age-yeux.webp',
     tags: {
-      primary: ['barriere-cutanee', 'anti-age', 'hydratation'],
-      secondary: ['emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
+      primary: ['barriere-cutanee', 'anti-age', 'step-hydratation'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -303,7 +316,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-for-men-exfoliant-visage-100ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-for-men-exfoliant-visage.webp',
     tags: {
-      primary: ['anti-acne', 'exfoliation'],
+      primary: ['anti-acne', 'step-traitement'],
       secondary: ['sebo-regulateur', 'zone-visage'],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
@@ -325,8 +338,14 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-for-men-gel-concentre-hydratant-48ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-for-men-gel-concentre-hydratant.webp',
     tags: {
-      primary: ['hydratation', 'anti-age', 'apaisant'],
-      secondary: ['keratolytique', 'emollience', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-age', 'apaisant'],
+      secondary: [
+        'keratolytique',
+        'step-hydratation',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -356,8 +375,14 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-for-men-hydratant-anti-age-100ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-for-men-hydratant-anti-age.webp',
     tags: {
-      primary: ['anti-age', 'barriere-cutanee', 'hydratation'],
-      secondary: ['emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
+      primary: ['anti-age', 'barriere-cutanee', 'step-hydratation'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -386,8 +411,8 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-for-men-lotion-fluide-hydratant-100ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-for-men-lotion-fluide-hydratant.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['keratolytique', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['keratolytique', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -412,8 +437,8 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-for-men-nettoyant-visage-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-for-men-nettoyant-visage.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -437,8 +462,8 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-gel-hydratant-bb-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-gel-hydratant-bb.webp',
     tags: {
-      primary: ['microbiome', 'hydratation', 'anti-oxydant'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['microbiome', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -469,8 +494,8 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clinique-gel-hydratant-peau-mixte-a-grasse.webp',
     tags: {
-      primary: ['microbiome', 'hydratation', 'anti-oxydant'],
-      secondary: ['creme-hydratante', 'zone-visage', 'peau-mixte'],
+      primary: ['microbiome', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage', 'peau-mixte'],
       avoid: [],
     },
     keyIngredients: [
@@ -500,8 +525,8 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-gelee-hydratante-anti-pollution-125ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-gelee-hydratante-anti-pollution.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['keratolytique', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['keratolytique', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -530,14 +555,15 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clinique-hydratant-eclat-revitalisant-nuit.webp',
     tags: {
-      primary: ['anti-age', 'anti-acne', 'exfoliation', 'hydratation'],
+      primary: ['anti-age', 'anti-acne', 'step-traitement', 'step-hydratation'],
       secondary: [
         'sebo-regulateur',
         'keratolytique',
-        'emollience',
-        'creme-hydratante',
+        'step-hydratation',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
@@ -558,8 +584,8 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-id-gelee-hydrarante-115ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-id-gelee-hydrarante.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['keratolytique', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['keratolytique', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -587,8 +613,8 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-id-gelee-hydratante-115ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-id-gelee-hydratante.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['keratolytique', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['keratolytique', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -616,8 +642,14 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-lotion-clarifiante-1-0-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-lotion-clarifiante-1-0.webp',
     tags: {
-      primary: ['anti-acne', 'hydratation'],
-      secondary: ['sebo-regulateur', 'tonique', 'preparation', 'zone-visage'],
+      primary: ['anti-acne', 'step-hydratation'],
+      secondary: [
+        'sebo-regulateur',
+        'type-toner',
+        'texture-eau',
+        'step-preparation',
+        'zone-visage',
+      ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
@@ -645,14 +677,15 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-lotion-clarifiante-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-lotion-clarifiante.webp',
     tags: {
-      primary: ['anti-acne', 'exfoliation', 'hydratation'],
+      primary: ['anti-acne', 'step-traitement', 'step-hydratation'],
       secondary: [
         'sebo-regulateur',
         'keratolytique',
-        'tonique',
-        'preparation',
+        'type-toner',
+        'texture-eau',
+        'step-preparation',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
@@ -679,7 +712,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-lotion-exfoliante-1-peau-seche-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-lotion-exfoliante-1-peau-seche.webp',
     tags: {
-      primary: ['anti-acne', 'hydratation', 'exfoliation'],
+      primary: ['anti-acne', 'step-hydratation', 'step-traitement'],
       secondary: ['sebo-regulateur', 'zone-visage', 'peau-seche'],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
@@ -707,7 +740,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clinique-lotion-exfoliante-2-peau-seche-a-mixte.webp',
     tags: {
-      primary: ['hydratation', 'exfoliation'],
+      primary: ['step-hydratation', 'step-traitement'],
       secondary: ['zone-visage', 'peau-seche'],
       avoid: [],
     },
@@ -734,12 +767,12 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clinique-lotion-exfoliante-3-peau-mixte-a-grasse.webp',
     tags: {
-      primary: ['anti-acne', 'exfoliation', 'hydratation'],
+      primary: ['anti-acne', 'step-traitement', 'step-hydratation'],
       secondary: [
         'sebo-regulateur',
         'keratolytique',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
         'peau-mixte',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
@@ -766,12 +799,12 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-lotion-exfoliante-4-peau-grasse-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-lotion-exfoliante-4-peau-grasse.webp',
     tags: {
-      primary: ['anti-acne', 'exfoliation', 'hydratation'],
+      primary: ['anti-acne', 'step-traitement', 'step-hydratation'],
       secondary: [
         'sebo-regulateur',
         'keratolytique',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
         'peau-grasse',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
@@ -798,8 +831,8 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-masque-hydratant-nuit-100ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-masque-hydratant-nuit.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'barriere-cutanee'],
-      secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation', 'barriere-cutanee'],
+      secondary: ['reparateur', 'moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -828,8 +861,8 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clinique-masque-purifiant-anti-imperfections.webp',
     tags: {
-      primary: ['anti-acne', 'apaisant', 'hydratation'],
-      secondary: ['sebo-regulateur', 'masque-hebdo', 'zone-visage'],
+      primary: ['anti-acne', 'apaisant', 'step-hydratation'],
+      secondary: ['sebo-regulateur', 'moment-hebdomadaire', 'zone-visage'],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
@@ -857,8 +890,8 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clinique-moisture-surge-soin-auto-hydratant-100h.webp',
     tags: {
-      primary: ['hydratation', 'anti-age', 'microbiome'],
-      secondary: ['keratolytique', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-age', 'microbiome'],
+      secondary: ['keratolytique', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -879,14 +912,8 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clinique-mousse-nettoyante-anti-imperfections.webp',
     tags: {
-      primary: ['anti-acne', 'microbiome', 'hydratation'],
-      secondary: [
-        'sebo-regulateur',
-        'keratolytique',
-        'nettoyant',
-        'double-nettoyage-2',
-        'zone-visage',
-      ],
+      primary: ['anti-acne', 'microbiome', 'step-hydratation'],
+      secondary: ['sebo-regulateur', 'keratolytique', 'step-nettoyage-2', 'zone-visage'],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
@@ -912,8 +939,8 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-mousse-nettoyante-visage-125ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-mousse-nettoyante-visage.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -940,7 +967,14 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/clinique-pop-huile-pour-levres-et-joues-black-honey.webp',
     tags: {
       primary: ['barriere-cutanee', 'microbiome', 'anti-age'],
-      secondary: ['emollience', 'texture-legere', 'huile-visage', 'zone-visage'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'type-serum',
+        'texture-huile',
+        'zone-visage',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -974,9 +1008,10 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
       primary: ['barriere-cutanee', 'microbiome', 'anti-acne', 'anti-rougeurs'],
       secondary: [
         'sebo-regulateur',
-        'emollience',
+        'step-hydratation',
         'texture-legere',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
@@ -1008,8 +1043,8 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-savon-visage-liquide-tonique-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-savon-visage-liquide-tonique.webp',
     tags: {
-      primary: ['apaisant', 'hydratation'],
-      secondary: ['tonique', 'preparation', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation'],
+      secondary: ['type-toner', 'texture-eau', 'step-preparation', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.ALOE_VERA }],
@@ -1031,8 +1066,15 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clinique-smart-clinical-repair-baume-retinoide.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1063,8 +1105,8 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clinique-smart-clinical-repair-creme-correctrice-anti-rides.webp',
     tags: {
-      primary: ['anti-age', 'hydratation', 'anti-oxydant'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['anti-age', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1095,8 +1137,8 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clinique-smart-clinical-repair-creme-liftante.webp',
     tags: {
-      primary: ['anti-age', 'hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['anti-age', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1127,8 +1169,8 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clinique-smart-clinical-repair-creme-riche-visage.webp',
     tags: {
-      primary: ['anti-age', 'hydratation', 'anti-oxydant'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['anti-age', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -1149,8 +1191,15 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clinique-smart-clinical-repair-creme-yeux-correction-rides.webp',
     tags: {
-      primary: ['anti-age', 'apaisant', 'hydratation'],
-      secondary: ['reparateur', 'emollience', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
+      primary: ['anti-age', 'apaisant', 'step-hydratation'],
+      secondary: [
+        'reparateur',
+        'step-hydratation',
+        'type-traitement',
+        'zone-yeux',
+        'zone-yeux',
+        'step-traitement',
+      ],
       avoid: [],
     },
   },
@@ -1171,8 +1220,14 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clinique-smart-clinical-repair-serum-anti-rides.webp',
     tags: {
-      primary: ['anti-age', 'barriere-cutanee', 'hydratation'],
-      secondary: ['emollience', 'texture-legere', 'serum', 'traitement', 'zone-visage'],
+      primary: ['anti-age', 'barriere-cutanee', 'step-hydratation'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'type-serum',
+        'step-traitement',
+        'zone-visage',
+      ],
       avoid: [],
     },
   },
@@ -1193,8 +1248,14 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clinique-smart-clinical-repair-serum-correcteur-anti-rides.webp',
     tags: {
-      primary: ['anti-age', 'barriere-cutanee', 'hydratation'],
-      secondary: ['emollience', 'texture-legere', 'serum', 'traitement', 'zone-visage'],
+      primary: ['anti-age', 'barriere-cutanee', 'step-hydratation'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'type-serum',
+        'step-traitement',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1226,7 +1287,13 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/clinique-soin-yeux-anti-poches-anti-cernes.webp',
     tags: {
       primary: ['barriere-cutanee', 'anti-oxydant', 'eclat', 'cernes-poches'],
-      secondary: ['emollience', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
+      secondary: [
+        'step-hydratation',
+        'type-traitement',
+        'zone-yeux',
+        'zone-yeux',
+        'step-traitement',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1257,7 +1324,7 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/clinique-take-the-day-off-baume-demaquillant-au-charbon.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      secondary: ['reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.HUILE_CARTHAME }],
@@ -1279,13 +1346,15 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clinique-creme-hydratante-illuminatrice-spf20.webp',
     tags: {
-      primary: ['anti-rougeurs', 'anti-acne', 'hydratation', 'eclat'],
+      primary: ['anti-rougeurs', 'anti-acne', 'step-hydratation', 'eclat'],
       secondary: [
         'sebo-regulateur',
-        'emollience',
-        'creme-solaire',
-        'protection-solaire',
-        'matin',
+        'step-hydratation',
+        'type-solaire',
+        'texture-creme',
+        'step-protection-solaire',
+        'moment-matin',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
@@ -1317,8 +1386,14 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clinique/clinique-emulsion-hydratante-spf50-75-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clinique-emulsion-hydratante-spf50.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation'],
-      secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation'],
+      secondary: [
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1349,14 +1424,16 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clinique-for-men-super-energizer-spf40-concentre-hydratant.webp',
     tags: {
-      primary: ['anti-age', 'barriere-cutanee', 'eclat', 'hydratation'],
+      primary: ['anti-age', 'barriere-cutanee', 'eclat', 'step-hydratation'],
       secondary: [
         'filtres-chimiques',
         'sebo-regulateur',
-        'emollience',
-        'creme-solaire',
-        'protection-solaire',
-        'matin',
+        'step-hydratation',
+        'type-solaire',
+        'texture-creme',
+        'step-protection-solaire',
+        'moment-matin',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: [],
@@ -1389,13 +1466,14 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clinique-moisture-surge-hydratant-fini-transparent-spf25.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'microbiome'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'microbiome'],
       secondary: [
-        'emollience',
+        'step-hydratation',
         'keratolytique',
         'filtres-chimiques',
-        'creme-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: [],
@@ -1418,8 +1496,15 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clinique-smart-clinical-repair-creme-correctrice-anti-rides-spf-30.webp',
     tags: {
-      primary: ['anti-age', 'protection-solaire', 'hydratation'],
-      secondary: ['filtres-chimiques', 'emollience', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['anti-age', 'step-protection-solaire', 'moment-matin', 'step-hydratation'],
+      secondary: [
+        'filtres-chimiques',
+        'step-hydratation',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1450,8 +1535,15 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clinique-superdefense-city-block-protection-solaire-spf50.webp',
     tags: {
-      primary: ['protection-solaire', 'apaisant', 'anti-oxydant'],
-      secondary: ['reparateur', 'filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'apaisant', 'anti-oxydant'],
+      secondary: [
+        'reparateur',
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
   },
@@ -1472,13 +1564,14 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clinique-superdefense-spf40-gel-multi-correction.webp',
     tags: {
-      primary: ['anti-age', 'barriere-cutanee', 'eclat', 'protection-solaire'],
+      primary: ['anti-age', 'barriere-cutanee', 'eclat', 'step-protection-solaire', 'moment-matin'],
       secondary: [
         'filtres-chimiques',
         'sebo-regulateur',
-        'emollience',
-        'creme-solaire',
-        'matin',
+        'step-hydratation',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: [],
@@ -1511,13 +1604,14 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clinique-uv-solutions-creme-visage-hydratante-spf50.webp',
     tags: {
-      primary: ['protection-solaire', 'anti-oxydant', 'hydratation'],
+      primary: ['step-protection-solaire', 'moment-matin', 'anti-oxydant', 'step-hydratation'],
       secondary: [
         'reparateur',
-        'emollience',
+        'step-hydratation',
         'filtres-chimiques',
-        'creme-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: [],
@@ -1540,13 +1634,20 @@ export const CLINIQUE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clinique-uv-solutions-creme-visage-matifiante-spf50.webp',
     tags: {
-      primary: ['protection-solaire', 'anti-acne', 'hydratation', 'sebo-regulateur'],
+      primary: [
+        'step-protection-solaire',
+        'moment-matin',
+        'anti-acne',
+        'step-hydratation',
+        'sebo-regulateur',
+      ],
       secondary: [
         'filtres-chimiques',
         'reparateur',
-        'emollience',
-        'creme-solaire',
-        'matin',
+        'step-hydratation',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],

@@ -17,11 +17,12 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     notes: 'Soin multi-usages: visage, corps, lèvres, cuticules.',
     inci: 'WATER, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, LANOLIN, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, ALCOHOL, BEESWAX (CERA ALBA), POLYGLYCERYL-3 POLYRICINOLEATE, GLYCERIN, VIOLA TRICOLOR EXTRACT, CALENDULA OFFICINALIS FLOWER EXTRACT, CHAMOMILLA RECUTITA (MATRICARIA) FLOWER EXTRACT, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF EXTRACT, FRAGRANCE (PARFUM)*, LIMONENE*, LINALOOL*, GERANIOL*, CITRAL*, COUMARIN*',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
@@ -53,11 +54,12 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
       'Version plus légère et absorbante du Skin Food Original. Parfaite pour une hydratation quotidienne sans effet gras.',
     inci: 'WATER, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, BUTYROSPERMUM PARKII (SHEA) BUTTER, ALCOHOL, CALENDULA OFFICINALIS FLOWER EXTRACT, CHAMOMILLA RECUTITA FLOWER EXTRACT, VIOLA TRICOLOR EXTRACT, LANOLIN, CARRAGEENAN, XANTHAN GUM, FRAGRANCE (PARFUM)*, LIMONENE*, LINALOOL*, GERANIOL*, CITRAL*',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.TEXTURE_LEGERE,
@@ -86,10 +88,12 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     notes: 'Idéal pour les zones très sèches : coudes, genoux, talons.',
     inci: 'WATER, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, THEOBROMA CACAO (COCOA) SEED BUTTER, BUTYROSPERMUM PARKII (SHEA) BUTTER, GLYCERIN, GLYCERYL STEARATE CITRATE, ALCOHOL, CALENDULA OFFICINALIS FLOWER EXTRACT, CHAMOMILLA RECUTITA FLOWER EXTRACT, VIOLA TRICOLOR EXTRACT, ROSMARINUS OFFICINALIS LEAF EXTRACT, FRAGRANCE (PARFUM)*, LIMONENE*, LINALOOL*, GERANIOL*, BENZYL BENZOATE*',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.EMOLLIENCE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
-        TAG_SLUGS.CREME_CORPS,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.TEXTURE_RICHE,
@@ -120,11 +124,13 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
       'Version fluide et légère du Skin Food, facile à appliquer sur tout le corps pour une hydratation quotidienne.',
     inci: 'WATER, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, BUTYROSPERMUM PARKII (SHEA) BUTTER, ALCOHOL, CALENDULA OFFICINALIS FLOWER EXTRACT, CHAMOMILLA RECUTITA FLOWER EXTRACT, GLYCERIN, GLYCERYL CAPRYLATE, GLYCERYL STEARATE CITRATE, ROSMARINUS OFFICINALIS LEAF EXTRACT, VIOLA TRICOLOR EXTRACT, FRAGRANCE (PARFUM)*, LIMONENE*, LINALOOL*, GERANIOL*',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
-        TAG_SLUGS.LAIT_CORPS,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_LAIT,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.ZONE_CORPS,
@@ -152,10 +158,11 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     priceCents: 0,
     description: 'Soin visage de jour nourrissant et protecteur de la gamme Skin Food.',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.BIO_NATUREL,
@@ -180,10 +187,11 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     priceCents: 0,
     description: 'Soin visage de nuit nourrissant et réparateur de la gamme Skin Food.',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.REPARATEUR],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.REPARATEUR],
       secondary: [
-        TAG_SLUGS.CREME_DE_NUIT,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.BIO_NATUREL,
@@ -209,11 +217,12 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     description: "Soin des lèvres protecteur à base de cire d'abeille et de rose.",
     inci: 'BEESWAX, BUTYROSPERMUM PARKII BUTTER, SIMMONDSIA CHINENSIS SEED OIL, ROSA DAMASCENA EXTRACT, FRAGRANCE (PARFUM)*',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
-        TAG_SLUGS.SOIN_LEVRES,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_LEVRES,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_LEVRES,
         TAG_SLUGS.BIO_NATUREL,
       ],
@@ -237,11 +246,12 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     description: 'Lait démaquillant doux pour un nettoyage respectueux de la peau.',
     inci: 'WATER, SESAMUM INDICUM SEED OIL, SIMMONDSIA CHINENSIS SEED OIL, ALCOHOL, HAMAMELIS VIRGINIANA WATER',
     tags: {
-      primary: [TAG_SLUGS.NETTOYANT],
+      primary: [],
       secondary: [
-        TAG_SLUGS.LAIT_NETTOYANT,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_LAIT,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.BIO_NATUREL,
@@ -269,8 +279,8 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/weleda-romarin-lotion-capillaire-tonifiante-bio-100ml-263853.webp',
     tags: {
-      primary: [TAG_SLUGS.TONIQUE],
-      secondary: [TAG_SLUGS.PREPARATION, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.TYPE_TONER, TAG_SLUGS.TEXTURE_EAU],
+      secondary: [TAG_SLUGS.STEP_PREPARATION, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -291,7 +301,7 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/weleda-calendula-savon-vegetal-bio-lot-de-2-x-100g-301147.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      primary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
@@ -313,7 +323,7 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/weleda-soin-bucco-dentaire-pate-dentifrice-saline-lot-de-2-x-75ml-232077.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      primary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
@@ -335,7 +345,7 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/weleda-soin-bucco-dentaire-pate-dentifrice-au-ratanhia-lot-de-2-x-75ml-232076.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      primary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
@@ -357,7 +367,7 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/weleda-soin-bucco-dentaire-gel-dentifrice-vegetal-lot-de-2-x-75ml-232075.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      primary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
@@ -379,7 +389,7 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/weleda-soin-bucco-dentaire-gel-dentifrice-pour-enfant-lot-de-2-x-50ml-249231.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      primary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
@@ -401,7 +411,7 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/weleda-soin-bucco-dentaire-bain-de-bouche-a-la-myrrhe-bio-50ml-259001.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      primary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
@@ -423,7 +433,7 @@ export const WELEDA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/weleda-soin-bucco-dentaire-pate-dentifrice-au-calendula-lot-de-2-x-75ml-248859.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      primary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },

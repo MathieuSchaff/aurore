@@ -25,11 +25,12 @@ export const AESTURA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/C0912EA499D1FA/large_1744621021.png?1744621021',
     tags: {
-      primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.PEAU_SENSIBLE],
+      primary: [TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
-        TAG_SLUGS.MOUSSE_NETTOYANTE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_MOUSSE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -58,8 +59,13 @@ export const AESTURA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/86334E0D400606/large_1744620698.png?1744620698',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.PEAU_SECHE],
-      secondary: [TAG_SLUGS.BRUME, TAG_SLUGS.MATIN, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.PEAU_SECHE],
+      secondary: [
+        TAG_SLUGS.TYPE_MIST,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -86,8 +92,13 @@ export const AESTURA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/D56D38670C8A4B/large_1744620573.png?1744620573',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.PEAU_SECHE],
-      secondary: [TAG_SLUGS.TEXTURE_RICHE, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.PEAU_SECHE],
+      secondary: [
+        TAG_SLUGS.TEXTURE_RICHE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -112,8 +123,13 @@ export const AESTURA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/29C74E08D1E6BB/large_1744620531.png?1744620531',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.PEAU_MIXTE],
-      secondary: [TAG_SLUGS.TEXTURE_LEGERE, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.PEAU_MIXTE],
+      secondary: [
+        TAG_SLUGS.TEXTURE_LEGERE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -138,11 +154,12 @@ export const AESTURA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/82A6E999E15525/large_1744620478.png?1744620478',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.PEAU_SECHE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.PEAU_SECHE],
       secondary: [
-        TAG_SLUGS.LOTION,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
       ],

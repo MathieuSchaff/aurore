@@ -19,7 +19,7 @@ export const SK_II_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/sk-ii-brightening-derm-revival-mask.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES],
-      secondary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.MOMENT_SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -44,7 +44,12 @@ export const SK_II_SEED: UnifiedProductSeed[] = [
       'https://cdn1.skinsafeproducts.com/photo/7B27C6C9C22C9C/large_1677112046.png?1677112046',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.GRAIN_PEAU],
-      secondary: [TAG_SLUGS.ESSENCE, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -70,8 +75,13 @@ export const SK_II_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/82E11E999E1552/large_1677112022.png?1677112022',
     tags: {
-      primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.TEXTURE_RICHE, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [
+        TAG_SLUGS.TEXTURE_RICHE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [

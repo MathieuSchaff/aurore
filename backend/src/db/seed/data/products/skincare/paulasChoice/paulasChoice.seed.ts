@@ -21,15 +21,17 @@ export const PAULAS_CHOICE_SEED: UnifiedProductSeed[] = [
       primary: [
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.KERATOSE_PILAIRE,
-        TAG_SLUGS.EXFOLIATION,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.ANTI_TACHES,
       ],
       secondary: [
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.DESHYDRATATION,
-        TAG_SLUGS.LAIT_CORPS,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_LAIT,
+        TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.TEXTURE_LEGERE,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_CORPS,
       ],
       avoid: [

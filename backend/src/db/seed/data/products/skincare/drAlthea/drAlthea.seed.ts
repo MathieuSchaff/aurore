@@ -19,11 +19,11 @@ export const DR_ALTHEA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/dr-althea-oasis-soothing-mask-pack-of-5',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-althea-oasis-soothing-mask.webp',
     tags: {
-      primary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
+      primary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.MASQUE_HEBDO,
+        TAG_SLUGS.MOMENT_HEBDOMADAIRE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -52,12 +52,12 @@ export const DR_ALTHEA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/dr-althea-jelly-seal-dewy-mask-0-99-oz-28-g-pack-of-4',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-althea-jelly-seal-dewy-mask.webp',
     tags: {
-      primary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.HYDRATATION, TAG_SLUGS.ECLAT],
+      primary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.ECLAT],
       secondary: [
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.SANS_PARFUM,
-        TAG_SLUGS.MASQUE_HEBDO,
+        TAG_SLUGS.MOMENT_HEBDOMADAIRE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -87,15 +87,20 @@ export const DR_ALTHEA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/C1E7AEB84B2EFE/large_1753852595.png?1753852595',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.BARRIERE_CUTANEE],
+      primary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+      ],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.POST_ACNE,
         TAG_SLUGS.CICATRISATION,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -123,14 +128,14 @@ export const DR_ALTHEA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/dr-althea-gentle-serum-vitamin-c-1-01-fl-oz-30-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-althea-gentle-serum-vitamin-c.webp',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ECLAT],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ECLAT],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ANTI_TACHES,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -156,14 +161,14 @@ export const DR_ALTHEA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/dr-althea-vitamin-c-boosting-serum-1-01-fl-oz-30-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-althea-vitamin-c-boosting-serum.webp',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ANTI_TACHES],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_TACHES],
       secondary: [
         TAG_SLUGS.HYPERPIGMENTATION,
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -197,7 +202,7 @@ export const DR_ALTHEA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/FF19022320690A/large_1738314546.png?1738314546',
     tags: {
-      primary: [TAG_SLUGS.BAUME_DEMAQUILLANT, TAG_SLUGS.DOUBLE_NETTOYAGE_1, TAG_SLUGS.NETTOYANT],
+      primary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.TEXTURE_BAUME, TAG_SLUGS.STEP_NETTOYAGE_1],
       secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
@@ -225,11 +230,11 @@ export const DR_ALTHEA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/dr-althea-premium-squalane-silk-mask-0-98-oz-28-g-pack-of-5',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-althea-premium-squalane-silk-mask.webp',
     tags: {
-      primary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.HYDRATATION, TAG_SLUGS.EMOLLIENCE],
+      primary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.ANTI_AGE,
-        TAG_SLUGS.MASQUE_HEBDO,
+        TAG_SLUGS.MOMENT_HEBDOMADAIRE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -257,12 +262,12 @@ export const DR_ALTHEA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/dr-althea-0-1-gentle-retinol-serum-1-01-fl-oz-30-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-althea-gentle-retinol-serum-01.webp',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ANTI_AGE],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_AGE],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },

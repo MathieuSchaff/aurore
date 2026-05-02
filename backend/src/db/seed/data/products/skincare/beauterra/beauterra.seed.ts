@@ -20,9 +20,10 @@ export const BEAUTERRA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.NETTOYANT_CORPS,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_CORPS,
       ],
       avoid: [],
@@ -46,7 +47,7 @@ export const BEAUTERRA_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/beauterra-huile-de-douche-parfum-tropical-100ml-299754.webp',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],

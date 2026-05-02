@@ -18,8 +18,13 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/embryolisse-lait-creme-retinol-like-75ml-233892.webp',
     tags: {
-      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [
+        TAG_SLUGS.REPARATEUR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -40,8 +45,13 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/embryolisse-les-hydratants-lait-creme-concentre-75ml-272530.webp',
     tags: {
-      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_LAIT,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -62,14 +72,15 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/embryolisse-secret-de-maquilleurs-bb-cream-spf20-30ml-233719.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -92,12 +103,18 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/embryolisse-baume-couleur-stick-3-en-1-rose-nude-2-5g-243077.webp',
     tags: {
-      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.CICATRISATION, TAG_SLUGS.PROTECTION_SOLAIRE],
+      primary: [
+        TAG_SLUGS.APAISANT,
+        TAG_SLUGS.CICATRISATION,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+      ],
       secondary: [
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.BAUME,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_BAUME,
+        TAG_SLUGS.MOMENT_MATIN,
       ],
       avoid: [],
     },
@@ -121,10 +138,12 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.TEXTURE_LEGERE,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.LAIT_CORPS,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_LAIT,
+        TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_CORPS,
       ],
       avoid: [],
@@ -147,15 +166,21 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/embryolisse-secret-de-maquilleurs-soin-correcteur-anti-cernes-rose-8ml-271352.webp',
     tags: {
-      primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.PROTECTION_SOLAIRE],
+      primary: [
+        TAG_SLUGS.ECLAT,
+        TAG_SLUGS.PORES_DILATES,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+      ],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE],
     },
@@ -177,8 +202,13 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/embryolisse-les-hydratants-lait-creme-concentre-30ml-261196.webp',
     tags: {
-      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_LAIT,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -201,11 +231,12 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.CICATRISATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CONTOUR_YEUX,
+        TAG_SLUGS.TYPE_TRAITEMENT,
         TAG_SLUGS.ZONE_YEUX,
-        TAG_SLUGS.SOIN_YEUX,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.STEP_TRAITEMENT,
       ],
       avoid: [],
     },
@@ -227,15 +258,21 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/embryolisse-secret-de-maquilleurs-soin-correcteur-anti-cernes-beige-8ml-271351.webp',
     tags: {
-      primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.PROTECTION_SOLAIRE],
+      primary: [
+        TAG_SLUGS.ECLAT,
+        TAG_SLUGS.PORES_DILATES,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+      ],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE],
     },
@@ -257,12 +294,18 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/embryolisse-baume-couleur-stick-3-en-1-rose-framboise-2-5g-282347.webp',
     tags: {
-      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.CICATRISATION, TAG_SLUGS.PROTECTION_SOLAIRE],
+      primary: [
+        TAG_SLUGS.APAISANT,
+        TAG_SLUGS.CICATRISATION,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+      ],
       secondary: [
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.BAUME,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_BAUME,
+        TAG_SLUGS.MOMENT_MATIN,
       ],
       avoid: [],
     },
@@ -284,8 +327,14 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/embryolisse-les-hydratants-lait-creme-sensitive-100ml-233842.webp',
     tags: {
-      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [
+        TAG_SLUGS.REPARATEUR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_LAIT,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -308,9 +357,10 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -334,7 +384,12 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/embryolisse-mascara-soin-courbe-et-definition-noir-8ml-233886.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
-      secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [
+        TAG_SLUGS.REPARATEUR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -356,7 +411,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/embryolisse-les-nourrissants-stick-levres-protecteur-4g-279237.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
-      secondary: [TAG_SLUGS.SOIN_LEVRES, TAG_SLUGS.ZONE_LEVRES],
+      secondary: [TAG_SLUGS.TYPE_TRAITEMENT, TAG_SLUGS.ZONE_LEVRES, TAG_SLUGS.ZONE_LEVRES],
       avoid: [],
     },
     keyIngredients: [],
@@ -377,14 +432,20 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/embryolisse-soin-perfecteur-de-teint-cc-cream-nude-30ml-302371.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.APAISANT],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.ANTI_OXYDANT,
+        TAG_SLUGS.APAISANT,
+      ],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
       ],
       avoid: [],
     },
@@ -407,7 +468,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/embryolisse-baume-couleur-stick-3-en-1-rouge-intense-2-5g-279611.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.CICATRISATION, TAG_SLUGS.ANTI_OXYDANT],
-      secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.BAUME],
+      secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_BAUME],
       avoid: [],
     },
     keyIngredients: [],
@@ -428,14 +489,20 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/embryolisse-soin-perfecteur-de-teint-cc-cream-clair-30ml-302375.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.APAISANT],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.ANTI_OXYDANT,
+        TAG_SLUGS.APAISANT,
+      ],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
       ],
       avoid: [],
     },
@@ -458,7 +525,12 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/embryolisse-huile-de-beaute-multi-fonctions-100ml-233819.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
-      secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [
+        TAG_SLUGS.REPARATEUR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -481,8 +553,9 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -505,8 +578,13 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/embryolisse-routine-visage-hydratation-et-protection-jour-nuit-300214.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.APAISANT, TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [
+        TAG_SLUGS.REPARATEUR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -530,8 +608,9 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -554,14 +633,20 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/embryolisse-soin-perfecteur-de-teint-cc-cream-dore-30ml-302390.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.APAISANT],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.ANTI_OXYDANT,
+        TAG_SLUGS.APAISANT,
+      ],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
       ],
       avoid: [],
     },
@@ -584,7 +669,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/embryolisse-les-nettoyants-eau-de-beaute-rosamelis-200ml-233561.webp',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.STEP_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -606,7 +691,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/embryolisse-les-hydratants-masque-hydratation-intense-50ml-233871.webp',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.MASQUE_HEBDO, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.MOMENT_HEBDOMADAIRE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -627,14 +712,15 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/embryolisse-poudre-de-soleil-bonne-mine-302384.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
       ],
       avoid: [],
     },
@@ -658,8 +744,9 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -684,9 +771,9 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -711,10 +798,11 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.CONTOUR_YEUX,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_TRAITEMENT,
         TAG_SLUGS.ZONE_YEUX,
-        TAG_SLUGS.SOIN_YEUX,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.STEP_TRAITEMENT,
       ],
       avoid: [],
     },
@@ -736,8 +824,13 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/embryolisse-visage-routine-bonne-mine-doree-et-hydratation-300223.webp',
     tags: {
-      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [
+        TAG_SLUGS.REPARATEUR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -761,8 +854,9 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -787,9 +881,9 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.MASQUE_HEBDO,
+        TAG_SLUGS.MOMENT_HEBDOMADAIRE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -812,14 +906,20 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/embryolisse-soin-perfecteur-de-teint-cc-cream-chocolat-30ml-302374.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.APAISANT],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.ANTI_OXYDANT,
+        TAG_SLUGS.APAISANT,
+      ],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
       ],
       avoid: [],
     },
@@ -844,9 +944,9 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -870,7 +970,7 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/embryolisse-active-peeling-nuit-40ml-233859.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
-      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -893,9 +993,9 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -918,14 +1018,14 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/embryolisse-serum-capsules-eclat-30ml-304314.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
       ],
       avoid: [],
     },
@@ -949,11 +1049,12 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.CONTOUR_YEUX,
+        TAG_SLUGS.TYPE_TRAITEMENT,
         TAG_SLUGS.ZONE_YEUX,
-        TAG_SLUGS.SOIN_YEUX,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.STEP_TRAITEMENT,
       ],
       avoid: [],
     },
@@ -975,8 +1076,13 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/embryolisse-les-nourrissants-creme-restauratrice-cicalisse-40ml-233828.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.APAISANT, TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [
+        TAG_SLUGS.REPARATEUR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -997,8 +1103,8 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/embryolisse-les-nettoyants-lait-doux-demaquillant-waterproof-200ml-233848.webp',
     tags: {
-      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [TAG_SLUGS.STEP_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1022,9 +1128,11 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.PROTECTION_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1050,8 +1158,9 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1076,9 +1185,10 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1101,8 +1211,13 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/embryolisse-lait-creme-sensitive-30ml-304295.webp',
     tags: {
-      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION, TAG_SLUGS.ANTI_OXYDANT],
-      secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.ANTI_OXYDANT],
+      secondary: [
+        TAG_SLUGS.REPARATEUR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -1123,8 +1238,13 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/embryolisse-lait-creme-fluide-400ml-233880.webp',
     tags: {
-      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION, TAG_SLUGS.ANTI_OXYDANT],
-      secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.ANTI_OXYDANT],
+      secondary: [
+        TAG_SLUGS.REPARATEUR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -1145,8 +1265,13 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/embryolisse-secret-de-maquilleurs-eclat-du-regard-soin-fraicheur-4-5g-271297.webp',
     tags: {
-      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX],
+      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.STEP_TRAITEMENT,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -1167,8 +1292,13 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/embryolisse-visage-routine-bonne-mine-rosee-et-hydratation-300222.webp',
     tags: {
-      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [
+        TAG_SLUGS.REPARATEUR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -1190,7 +1320,12 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/embryolisse-les-hydratants-hydra-creme-legere-40ml-270190.webp',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -1211,8 +1346,13 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/embryolisse-lait-creme-multi-protection-40ml-284063.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.APAISANT, TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [
+        TAG_SLUGS.REPARATEUR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -1233,14 +1373,13 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/embryolisse-les-nettoyants-lait-creme-moussant-200ml-259245.webp',
     tags: {
-      primary: [TAG_SLUGS.EXFOLIATION],
+      primary: [TAG_SLUGS.STEP_TRAITEMENT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [],
     },
@@ -1262,12 +1401,18 @@ export const EMBRYOLISSE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/embryolisse-baume-couleur-stick-3en1-mocha-302367.webp',
     tags: {
-      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.CICATRISATION, TAG_SLUGS.PROTECTION_SOLAIRE],
+      primary: [
+        TAG_SLUGS.APAISANT,
+        TAG_SLUGS.CICATRISATION,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+      ],
       secondary: [
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.BAUME,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_BAUME,
+        TAG_SLUGS.MOMENT_MATIN,
       ],
       avoid: [],
     },

@@ -22,7 +22,13 @@ export const SOME_BY_MI_SEED: UnifiedProductSeed[] = [
       'https://cdn1.skinsafeproducts.com/photo/46F08B2C1F59F6/large_1716783734.png?1716783734',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.DESHYDRATATION],
-      secondary: [TAG_SLUGS.GEL_NETTOYANT, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -54,8 +60,8 @@ export const SOME_BY_MI_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.BRILLANCE],
       secondary: [
-        TAG_SLUGS.MASQUE_ARGILE,
-        TAG_SLUGS.MASQUE_HEBDO,
+        TAG_SLUGS.TYPE_MASQUE,
+        TAG_SLUGS.MOMENT_HEBDOMADAIRE,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -96,13 +102,14 @@ export const SOME_BY_MI_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/some-by-mi-yuja-niacin-brightening-moisture-gel-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
-        TAG_SLUGS.GEL_CREME,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_GEL,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.PEAU_NORMALE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -138,12 +145,12 @@ export const SOME_BY_MI_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/90947EBF8B2621/large_1757483474.png?1757483474',
     tags: {
-      primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.HYDRATATION, TAG_SLUGS.PEAU_SENSIBLE],
+      primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
-        TAG_SLUGS.MASQUE_TISSU,
-        TAG_SLUGS.MASQUE_HEBDO,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_MASQUE,
+        TAG_SLUGS.MOMENT_HEBDOMADAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -181,7 +188,12 @@ export const SOME_BY_MI_SEED: UnifiedProductSeed[] = [
       'https://cdn1.skinsafeproducts.com/photo/0B54CEF4B8A472/large_1750946942.png?1750946942',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION],
-      secondary: [TAG_SLUGS.SERUM, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.MATIN, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.ANTI_OXYDANT,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -216,12 +228,14 @@ export const SOME_BY_MI_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE],
       secondary: [
-        TAG_SLUGS.PATCH,
-        TAG_SLUGS.SOIN_LOCALISE,
+        TAG_SLUGS.TYPE_MASQUE,
+        TAG_SLUGS.TEXTURE_PATCH,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_USAGE_LOCALISE,
         TAG_SLUGS.CICATRISATION,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -259,10 +273,12 @@ export const SOME_BY_MI_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.KERATOSE_PILAIRE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.GRAIN_PEAU],
       secondary: [
-        TAG_SLUGS.LAIT_CORPS,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_LAIT,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.TYPE_EXFOLIATION,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_CORPS,
       ],
       avoid: [],
@@ -295,10 +311,11 @@ export const SOME_BY_MI_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.DESHYDRATATION],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -342,10 +359,10 @@ export const SOME_BY_MI_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.GRAIN_PEAU],
       secondary: [
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
-        TAG_SLUGS.EXFOLIATION,
+        TAG_SLUGS.TYPE_EXFOLIATION,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -386,10 +403,11 @@ export const SOME_BY_MI_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.POST_ACNE],
       secondary: [
-        TAG_SLUGS.TONIQUE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.TYPE_EXFOLIATION,
         TAG_SLUGS.PEAU_GRASSE,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -427,10 +445,11 @@ export const SOME_BY_MI_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.POST_ACNE],
       secondary: [
-        TAG_SLUGS.SPOT_TREATMENT,
-        TAG_SLUGS.SOIN_LOCALISE,
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_USAGE_LOCALISE,
         TAG_SLUGS.PEAU_GRASSE,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -471,11 +490,11 @@ export const SOME_BY_MI_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.TYPE_EXFOLIATION,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.PEAU_GRASSE,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],

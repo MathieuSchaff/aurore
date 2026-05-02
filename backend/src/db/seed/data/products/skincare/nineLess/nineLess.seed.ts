@@ -19,7 +19,7 @@ export const NINE_LESS_SEED: UnifiedProductSeed[] = [
     url: 'https://www.yesstyle.com',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.POST_ACNE],
-      secondary: [TAG_SLUGS.SERUM, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.TEXTURE_LEGERE],
+      secondary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.TEXTURE_LEGERE],
       avoid: [],
     },
     keyIngredients: [

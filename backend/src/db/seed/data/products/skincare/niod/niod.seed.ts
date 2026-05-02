@@ -25,11 +25,12 @@ export const NIOD_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.DESHYDRATATION,
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.SERUM,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.TYPE_SERUM,
         TAG_SLUGS.TEXTURE_RICHE,
-        TAG_SLUGS.EMOLLIENCE,
-        TAG_SLUGS.OCCLUSION,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.STEP_OCCLUSIF,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [TAG_SLUGS.PEAU_GRASSE],
@@ -79,7 +80,12 @@ export const NIOD_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/niod-ethylated-l-ascorbic-acid-30-network.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_AGE],
-      secondary: [TAG_SLUGS.SERUM, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -106,8 +112,13 @@ export const NIOD_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/niod-multi-molecular-hyaluronic-complex-1-oz',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/niod-multi-molecular-hyaluronic-complex.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.REPULPANT],
-      secondary: [TAG_SLUGS.SERUM, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.REPULPANT],
+      secondary: [
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -133,10 +144,9 @@ export const NIOD_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/niod-sanskrit-saponins-90ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/niod-sanskrit-saponins.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -160,8 +170,8 @@ export const NIOD_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/niod-flavanone-mud-mask-1-7-fl-oz',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/niod-flavanone-mud-mask.webp',
     tags: {
-      primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.MASQUE_HYDRATANT, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.MOMENT_SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -188,7 +198,12 @@ export const NIOD_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/niod-copper-amino-isolate-serum.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
-      secondary: [TAG_SLUGS.SERUM, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -214,7 +229,13 @@ export const NIOD_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/niod-lip-bio-lipid-concentrate.webp',
     tags: {
       primary: [TAG_SLUGS.REPULPANT],
-      secondary: [TAG_SLUGS.SOIN_LEVRES, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_LEVRES,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -242,8 +263,8 @@ export const NIOD_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_EXFOLIATION,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -272,7 +293,12 @@ export const NIOD_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/niod-fractionated-eye-contour-concentrate.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.CERNES_POCHES],
-      secondary: [TAG_SLUGS.SOIN_YEUX, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_YEUX],
+      secondary: [
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.ZONE_YEUX,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -303,11 +329,12 @@ export const NIOD_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/niod-hydration-vaccine-50ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/niod-hydration-vaccine.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],

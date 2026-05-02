@@ -20,10 +20,10 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.ANTI_ACNE],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -65,10 +65,10 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SANS_PARFUM,
@@ -113,16 +113,17 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.CERNES_POCHES],
       secondary: [
-        TAG_SLUGS.CONTOUR_YEUX,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ZONE_YEUX,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.HYPOALLERGENIQUE,
         TAG_SLUGS.TEXTURE_LEGERE,
-        TAG_SLUGS.SOIN_YEUX,
+        TAG_SLUGS.STEP_TRAITEMENT,
       ],
       avoid: [],
     },
@@ -158,10 +159,10 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ANTI_TACHES],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.PEAU_SENSIBLE,
@@ -199,10 +200,10 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.PEAU_SECHE,
@@ -246,10 +247,10 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.REPULPANT],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -291,10 +292,10 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.REPULPANT],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_MIXTE,
@@ -330,16 +331,17 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.CERNES_POCHES, TAG_SLUGS.ANTI_AGE],
       secondary: [
-        TAG_SLUGS.CONTOUR_YEUX,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ZONE_YEUX,
         TAG_SLUGS.REPULPANT,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.TEXTURE_LEGERE,
-        TAG_SLUGS.SOIN_YEUX,
+        TAG_SLUGS.STEP_TRAITEMENT,
       ],
       avoid: [],
     },
@@ -373,9 +375,9 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.PEAU_SECHE,
@@ -415,10 +417,10 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -462,9 +464,9 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.TEINT_TERNE],
       secondary: [
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
-        TAG_SLUGS.EXFOLIATION,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_EXFOLIATION,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.HYPERPIGMENTATION,
         TAG_SLUGS.SANS_PARFUM,
@@ -505,9 +507,9 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.TEINT_TERNE],
       secondary: [
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
-        TAG_SLUGS.EXFOLIATION,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_EXFOLIATION,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -546,9 +548,9 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.TEINT_TERNE],
       secondary: [
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
-        TAG_SLUGS.EXFOLIATION,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_EXFOLIATION,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.HYPERPIGMENTATION,
@@ -587,9 +589,9 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.GRAIN_PEAU],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -631,9 +633,9 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SANS_PARFUM,
@@ -673,9 +675,9 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.TEXTURE_LEGERE,
@@ -716,9 +718,9 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.TEXTURE_LEGERE,
@@ -758,9 +760,9 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.GRAIN_PEAU],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.TEXTURE_LEGERE,
@@ -796,9 +798,9 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.REPULPANT,
         TAG_SLUGS.SANS_PARFUM,
@@ -840,11 +842,12 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.TEINT_TERNE],
       secondary: [
-        TAG_SLUGS.TONIQUE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
-        TAG_SLUGS.EXFOLIATION,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.TYPE_EXFOLIATION,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.TEXTURE_LEGERE,
@@ -877,10 +880,11 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.BARRIERE_CUTANEE,
         TAG_SLUGS.SANS_PARFUM,
@@ -913,10 +917,10 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.HYPERPIGMENTATION,
         TAG_SLUGS.ANTI_OXYDANT,
@@ -951,9 +955,9 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.HYPERPIGMENTATION,
         TAG_SLUGS.ANTI_OXYDANT,
@@ -995,10 +999,10 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.HYPERPIGMENTATION,
@@ -1035,8 +1039,9 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.SOIN_LEVRES,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_LEVRES,
+        TAG_SLUGS.TYPE_EXFOLIATION,
         TAG_SLUGS.ZONE_LEVRES,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.TEXTURE_LEGERE,
@@ -1071,8 +1076,8 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.ANTI_ACNE],
       secondary: [
-        TAG_SLUGS.MASQUE_ARGILE,
-        TAG_SLUGS.MASQUE_HEBDO,
+        TAG_SLUGS.TYPE_MASQUE,
+        TAG_SLUGS.MOMENT_HEBDOMADAIRE,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -1110,9 +1115,9 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_EXFOLIATION,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.TEXTURE_LEGERE,
@@ -1146,11 +1151,11 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.KERATOSE_PILAIRE, TAG_SLUGS.PORES_DILATES],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_CORPS,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.TEXTURE_LEGERE,
       ],
@@ -1183,9 +1188,9 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.ANTI_TACHES],
       secondary: [
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
-        TAG_SLUGS.EXFOLIATION,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_EXFOLIATION,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.HYPERPIGMENTATION,
@@ -1222,10 +1227,11 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.HYPERPIGMENTATION,
@@ -1260,11 +1266,12 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, SODIUM LAURETH SULFATE, POLYSORBATE 20, XANTHAN GUM, TOCOPHEROL, PHYTIC ACID, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, BENZYL ALCOHOL, ETHYLHEXYLGLYCERIN, PHENOXYETHANOL, CHLORPHENESIN',
     url: 'https://theordinary.com',
     tags: {
-      primary: [TAG_SLUGS.NETTOYANT],
+      primary: [],
       secondary: [
-        TAG_SLUGS.NETTOYANT_CORPS,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.SANS_PARFUM,
       ],
@@ -1290,10 +1297,12 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION],
       secondary: [
-        TAG_SLUGS.LAIT_CORPS,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_LAIT,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.PREBIOTIQUE,
         TAG_SLUGS.SANS_PARFUM,
@@ -1326,10 +1335,10 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -1376,10 +1385,11 @@ export const THE_ORDINARY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [
-        TAG_SLUGS.SPOT_TREATMENT,
-        TAG_SLUGS.SOIN_LOCALISE,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_USAGE_LOCALISE,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.ZONE_VISAGE,

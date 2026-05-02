@@ -18,8 +18,8 @@ export const KREME_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/kreme/kreme-bio-creme-corps-concentree-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/kreme-bio-creme-corps-concentree.webp',
     tags: {
-      primary: ['microbiome', 'hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'lait-corps', 'zone-corps'],
+      primary: ['microbiome', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-lait', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -45,7 +45,7 @@ export const KREME_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/kreme-deodorant-soin-24h-peaux-sensibles.webp',
     tags: {
       primary: ['apaisant', 'anti-oxydant'],
-      secondary: ['reparateur', 'peau-sensible', 'deodorant'],
+      secondary: ['reparateur', 'peau-sensible', 'type-deodorant'],
       avoid: [],
     },
   },
@@ -67,7 +67,7 @@ export const KREME_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/kreme-recharge-deodorant-soin-24h-peaux-sensibles.webp',
     tags: {
       primary: ['apaisant', 'anti-oxydant'],
-      secondary: ['reparateur', 'peau-sensible', 'deodorant'],
+      secondary: ['reparateur', 'peau-sensible', 'type-deodorant'],
       avoid: [],
     },
   },
@@ -89,11 +89,12 @@ export const KREME_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['microbiome', 'barriere-cutanee', 'apaisant'],
       secondary: [
-        'emollience',
+        'step-hydratation',
         'texture-legere',
         'peau-sensible',
         'reparateur',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
       ],
       avoid: [],
@@ -122,7 +123,7 @@ export const KREME_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/kreme-bio-masque-de-nuit-anti-soif.webp',
     tags: {
       primary: ['microbiome', 'apaisant', 'anti-oxydant'],
-      secondary: ['reparateur', 'peau-sensible', 'masque-hebdo', 'zone-visage'],
+      secondary: ['reparateur', 'peau-sensible', 'moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
   },
@@ -143,8 +144,8 @@ export const KREME_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/kreme-bio-yeux-serum-collagene-anti-rides.webp',
     tags: {
-      primary: ['microbiome', 'hydratation', 'anti-oxydant', 'anti-age'],
-      secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
+      primary: ['microbiome', 'step-hydratation', 'anti-oxydant', 'anti-age'],
+      secondary: ['reparateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -169,8 +170,8 @@ export const KREME_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/kreme/kreme-mousse-nettoyante-2-en-1-150ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/kreme-mousse-nettoyante-2-en-1.webp',
     tags: {
-      primary: ['microbiome', 'hydratation'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['microbiome', 'step-hydratation'],
+      secondary: ['step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -194,8 +195,8 @@ export const KREME_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/kreme/kreme-serum-collagene-anti-rides-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/kreme-serum-collagene-anti-rides.webp',
     tags: {
-      primary: ['microbiome', 'hydratation', 'anti-oxydant', 'anti-age'],
-      secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
+      primary: ['microbiome', 'step-hydratation', 'anti-oxydant', 'anti-age'],
+      secondary: ['reparateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE }],
@@ -216,8 +217,15 @@ export const KREME_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/kreme/kreme-soin-regard-defatigant-yeux-15ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/kreme-soin-regard-defatigant-yeux.webp',
     tags: {
-      primary: ['hydratation', 'microbiome', 'anti-oxydant'],
-      secondary: ['keratolytique', 'reparateur', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
+      primary: ['step-hydratation', 'microbiome', 'anti-oxydant'],
+      secondary: [
+        'keratolytique',
+        'reparateur',
+        'type-traitement',
+        'zone-yeux',
+        'zone-yeux',
+        'step-traitement',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -243,8 +251,8 @@ export const KREME_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/kreme/kreme-yeux-serum-collagene-anti-rides-15ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/kreme-yeux-serum-collagene-anti-rides.webp',
     tags: {
-      primary: ['microbiome', 'hydratation', 'anti-oxydant', 'anti-age'],
-      secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
+      primary: ['microbiome', 'step-hydratation', 'anti-oxydant', 'anti-age'],
+      secondary: ['reparateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
   },
@@ -265,7 +273,7 @@ export const KREME_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/kreme-stick-levres-concentre.webp',
     tags: {
       primary: ['apaisant', 'anti-oxydant'],
-      secondary: ['reparateur', 'peau-sensible', 'soin-levres', 'zone-levres'],
+      secondary: ['reparateur', 'peau-sensible', 'type-traitement', 'zone-levres', 'zone-levres'],
       avoid: [],
     },
   },
@@ -286,7 +294,15 @@ export const KREME_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/kreme-huile-apaisante-sos-apaisante-bio.webp',
     tags: {
       primary: ['apaisant', 'microbiome', 'anti-taches'],
-      secondary: ['peau-sensible', 'reparateur', 'huile-visage', 'emollience', 'zone-visage'],
+      secondary: [
+        'peau-sensible',
+        'reparateur',
+        'type-serum',
+        'texture-huile',
+        'zone-visage',
+        'step-hydratation',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.HUILE_GRAINES_TOURNESOL }],
@@ -308,7 +324,7 @@ export const KREME_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/kreme-creme-demaquillante-solide-bio.webp',
     tags: {
       primary: ['microbiome', 'anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      secondary: ['reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -333,8 +349,8 @@ export const KREME_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/kreme-gelee-fraiche-nettoyante-demaquillante.webp',
     tags: {
-      primary: ['microbiome', 'hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['microbiome', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -359,7 +375,7 @@ export const KREME_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-soins/gommages-visage/kreme-exfoliant-eclat-peau-neuve-60ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/kreme-exfoliant-eclat-peau-neuve.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'eclat', 'exfoliation'],
+      primary: ['step-hydratation', 'anti-oxydant', 'eclat', 'step-traitement'],
       secondary: ['reparateur', 'zone-visage'],
       avoid: [],
     },
@@ -385,8 +401,8 @@ export const KREME_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-soins/hydratants-visage/kreme-creme-hydratation-intense-bio-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/kreme-creme-hydratation-intense-bio.webp',
     tags: {
-      primary: ['microbiome', 'hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['microbiome', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -411,8 +427,8 @@ export const KREME_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/visage/anti-rides/kreme-creme-collagene-lissante-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/kreme-creme-collagene-lissante.webp',
     tags: {
-      primary: ['microbiome', 'hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['microbiome', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -437,8 +453,8 @@ export const KREME_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/kreme/kreme-eau-solaire-fraiche-spf50-150ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/kreme-eau-solaire-fraiche-spf50.webp',
     tags: {
-      primary: ['microbiome', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['microbiome', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -465,8 +481,8 @@ export const KREME_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/kreme/kreme-eau-solaire-fraiche-spf50-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/kreme-eau-solaire-fraiche-spf50-50ml.webp',
     tags: {
-      primary: ['protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
   },
@@ -486,8 +502,16 @@ export const KREME_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/kreme/kreme-fluide-solaire-anti-taches-spf50-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/kreme-fluide-solaire-anti-taches-spf50.webp',
     tags: {
-      primary: ['microbiome', 'hydratation', 'anti-oxydant', 'anti-taches'],
-      secondary: ['reparateur', 'creme-solaire', 'protection-solaire', 'matin', 'zone-visage'],
+      primary: ['microbiome', 'step-hydratation', 'anti-oxydant', 'anti-taches'],
+      secondary: [
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'step-protection-solaire',
+        'moment-matin',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -516,8 +540,14 @@ export const KREME_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/kreme/kreme-lait-solaire-hydratant-spf50-175ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/kreme-lait-solaire-hydratant-spf50.webp',
     tags: {
-      primary: ['microbiome', 'hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'microbiome',
+        'step-hydratation',
+        'anti-oxydant',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -547,13 +577,20 @@ export const KREME_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/kreme/kreme-spray-solaire-invisible-spf50-150ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/kreme-spray-solaire-invisible-spf50.webp',
     tags: {
-      primary: ['microbiome', 'barriere-cutanee', 'anti-oxydant', 'protection-solaire'],
+      primary: [
+        'microbiome',
+        'barriere-cutanee',
+        'anti-oxydant',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
       secondary: [
-        'emollience',
+        'step-hydratation',
         'texture-legere',
         'reparateur',
-        'creme-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: [],
@@ -585,8 +622,15 @@ export const KREME_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/kreme/kreme-stick-solaire-invisible-spf50-19g.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/kreme-stick-solaire-invisible-spf50.webp',
     tags: {
-      primary: ['apaisant', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['peau-sensible', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['apaisant', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: [
+        'peau-sensible',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [

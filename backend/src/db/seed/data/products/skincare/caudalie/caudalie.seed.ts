@@ -19,7 +19,7 @@ export const CAUDALIE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/caudalie-the-des-vignes-gel-douche-lot-de-3-x-200ml-301110.webp',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],

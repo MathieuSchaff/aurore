@@ -173,7 +173,7 @@ branche sur les filtres autorisés. Interdit `skin_type` en haircare, etc.
 
 | Branche    | Clés spécifiques (miroir `{domain}/tag-filters.ts`)                                                                       |
 |------------|--------------------------------------------------------------------------------------------------------------------------|
-| skincare   | routine_step, skin_type, concern, product_type, **product_type_v2**, **texture**, skin_zone, skin_effect, product_label, shared_label |
+| skincare   | skin_type, concern, product_type_v2, texture, skin_zone, routine_step_v2, routine_moment, skin_effect, product_label, shared_label |
 | haircare   | hair_type, concern, product_type, routine_step, hair_effect, product_label                                                |
 | dental     | concern, age_group, product_type, dental_effect, product_label                                                            |
 | complement | goal, product_type, moment, restriction, product_label                                                                    |
@@ -227,7 +227,7 @@ Même shape pour `skincare/ | haircare/ | dental/ | supplement/` :
 
 | Domaine    | Catégories tag                                                             |
 |------------|---------------------------------------------------------------------------|
-| skincare   | skin_type, concern, product_type, skin_zone, routine_step, skin_effect, product_label, shared_label |
+| skincare   | skin_type, concern, product_type_v2, texture, skin_zone, routine_step_v2, routine_moment, skin_effect, product_label, shared_label |
 | haircare   | hair_type, concern, product_type, routine_step, hair_effect, product_label |
 | dental     | concern, age_group, product_type, dental_effect, product_label             |
 | supplement | goal, product_type, moment, restriction, product_label                     |
@@ -434,44 +434,70 @@ Stats post-backfill (filter-options) :
 - [ ] Texture `texture-eau`/`texture-gel`/`texture-huile` pour sérums/ampoules/essences (ambiguïté slug).
 - [ ] `MetaStrip` étendu (`product_type_v2`, `texture`) mais pas testé visuellement.
 
-### Phase 3 (future) — Drop du legacy `product_type`
+### Phase 3 — Drop du legacy `product_type` (DONE 2026-05-02)
 
-Once V2 corpus is complete, the 42-slug `product_type` becomes dead weight. Drop it to remove confusion ("Type" vs "Type (legacy)" in filter drawer) and shrink the taxonomy surface. **Ne pas faire avant que les pré-requis soient cochés** — legacy alimente encore scraping rules et certains scoring helpers.
+Hard drop direct (pas de soak `tier='internal'`) — corpus pas encore en prod, pas de lien externe à préserver. Migrations `0044_drop_skincare_product_type_legacy.sql` (43 slugs).
 
-**Pré-requis avant drop**
+**Effectué**
+- Migration seeds via `scripts/migrate-seeds-to-v2.ts` : 4291 hits sur 99 fichiers.
+- `auto-tag.ts` réécrit pour émettre v2/texture/zone directement.
+- Catégorie `'product_type'` retirée de `SKINCARE_PRODUCT_TAG_CATEGORIES` ; 43 entries label + arrays + `buildTagTaxonomy` purgés.
+- `skincareListProductsQuery` ne contient plus `product_type`.
+- `tag-type-mapping.ts` supprimé + ré-exports nettoyés (`shared/src/index.ts`, `shared/src/products/skincare/index.ts`).
+- DB : 2537 lignes `tag_products` + 43 `product_tags` supprimées (skincare-scoped, haircare/dental/supplement intacts).
+- Frontend `MetaStrip.tsx` bascule sur `product_type_v2 + texture + routine_moment`.
 
-- [ ] **Couverture V2 ≥ 99 %** — chaque produit skincare/solaire/bodycare doit avoir au moins un tag `product_type_v2`. Vérifier via :
-  ```sql
-  SELECT COUNT(*) FROM products p
-  WHERE p.category IN ('skincare','solaire','bodycare')
-    AND NOT EXISTS (
-      SELECT 1 FROM tag_products tp
-      JOIN product_tags pt ON pt.id = tp.product_tag_id
-      WHERE tp.product_id = p.id AND pt.type = 'product_type_v2'
-    );
-  ```
-  Cible : `< 30` produits orphelins.
-- [ ] **Audit scraping** — `grep -r "product_type" backend/src/db/seed/scripts/ backend/src/scraping/` pour repérer toute logique qui sniffe un slug legacy (`gel-nettoyant`, `creme-mains`…). Les remapper vers v2/zone/texture.
-- [ ] **Audit algo-derm / scoring** — vérifier que `algo-derm` n'utilise pas le legacy comme signal (lib externe, à priori non).
-- [ ] **Frontend MetaStrip / autres consommateurs** — `grep "product_type" frontend/src/` et vérifier qu'aucun composant ne dépend du legacy spécifiquement.
-- [ ] **Migrer `auto-tag.ts`** — script de tagging auto utilise probablement les slugs legacy ; basculer sur v2 + texture + zone.
+---
 
-**Étapes du drop**
+## 11.ter Refonte Routine skincare (Phase 1 — 2026-05-02)
 
-1. Marquer `product_type` legacy comme `tier: 'internal'` dans `tag-filters.ts` → cache du drawer mais reste en DB (étape réversible, soft).
-2. Soak 2 semaines, surveiller logs + analytics filtre.
-3. Hard drop :
-   - Supprimer la catégorie `'product_type'` de `SKINCARE_PRODUCT_TAG_CATEGORIES`.
-   - Retirer les 42 slugs de `tag-slugs.ts` + `tag-taxonomy.ts` + labels.
-   - Retirer `product_type` de `skincareListProductsQuery` (`list-products-query.ts`).
-   - Script SQL : `DELETE FROM tag_products WHERE product_tag_id IN (SELECT id FROM product_tags WHERE type='product_type')` puis `DELETE FROM product_tags WHERE type='product_type'`.
-   - Drop `tag-type-mapping.ts` (devient inutile post-backfill).
-4. MAJ `STATE.md` — fermer §11.bis.
+Le filtre skincare `routine_step` legacy (15 slugs) mélangeait deux axes orthogonaux : **ordonnancement** dans la routine (1er nettoyage, traitement…) et **moment** d'usage (matin, soir, hebdo…). Impossible de filtrer "produit du soir" sans embarquer aussi un ordonnancement. Refonte en 2 dimensions :
 
-**Risques**
+### Nouvelles catégories tag
 
-- Perdre rétrocompat sur produits scrapés taggués automatiquement avec slugs legacy. Atténuation : pré-req 2 ci-dessus.
-- Lien interne (markdown, blog, partage URL) avec `?product_type=…` cassé. Atténuation : ajouter une redirection silencieuse `product_type → product_type_v2` via le mapping pendant 1–2 mois.
+| Catégorie         | Slugs (count) | Source                                                    |
+|-------------------|---------------|-----------------------------------------------------------|
+| `routine_step_v2` | 7             | 1er nettoyage, 2e nettoyage, Préparation, Traitement, Hydratation, Occlusif, Protection solaire |
+| `routine_moment`  | 5             | Matin, Soir, Hebdomadaire, Usage localisé, En cas de crise |
+
+Slugs préfixés (`step-*`, `moment-*`) pour éviter collision avec legacy (`matin`, `traitement`, `occlusion`).
+
+### Modèle "default = pas de tag"
+
+Pour `routine_moment`, la **majorité** des produits (sérums, hydratants…) sont universels (utilisables matin et soir). Plutôt que les tagger M+S explicitement, on **n'insère aucun tag moment** : un produit sans tag moment = universel par défaut.
+
+Conséquence côté filtre : `routine_moment=moment-matin` doit retourner produits taggués `Matin` **OR** produits sans tag moment du tout. Logique implémentée dans `service.ts` (`routineMomentFilterCondition`, special case du filter loop). `Soir` symétrique. Restrictifs (`Hebdomadaire`/`Usage localisé`/`En cas de crise`) gardent un EXISTS strict.
+
+### Coexistence avec `routine_step` legacy
+
+Les 15 slugs legacy restent en DB (tier=advanced, label="Étape (legacy)") pour rétrocompat scoring/scraping. Drop legacy plus tard quand corpus v2 est complet.
+
+### Backfill (`backend/src/db/seed/scripts/backfill-skincare-routine-v2.ts`)
+
+Script idempotent (`onConflictDoNothing`) qui dérive les nouveaux tags depuis legacy via 2 mappings dans `shared/src/products/skincare/tag-routine-mapping.ts` :
+
+- `SKINCARE_LEGACY_ROUTINE_TO_STEP_V2` : 11 entrées (array car `nettoyant` legacy → potentiellement 1er+2e nettoyage ; ici on l'a skippé car couvert par `TYPE_NETTOYANT`).
+- `SKINCARE_LEGACY_ROUTINE_TO_MOMENT` : 5 entrées (matin/soir/protection-solaire/occlusion/soin-localise). `masque-hebdo` et `exfoliation` skippés (couverts par `TYPE_MASQUE`/`TYPE_EXFOLIATION`).
+
+`MOMENT_CRISE` n'a pas de mapping legacy → tag manuel post-migration uniquement.
+
+Run via `make backfill-skincare-routine-v2 ARGS=--write`. Première exécution 2026-05-02 : 12 defs insérées, 5379 candidats sur 4851 paires legacy.
+
+Stats post-backfill :
+- Step v2 : Hydratation 1541, Traitement 665, Protection solaire 456, 2e nettoyage 206, Préparation 87, 1er nettoyage 47, Occlusif 21
+- Moment : Matin 974, Soir 637, Usage localisé 51, Hebdomadaire 0 (skip legacy), En cas de crise 0 (manuel)
+
+### Phase 3 — Drop du legacy `routine_step` (DONE 2026-05-02)
+
+Hard drop direct, en bundle avec §11.bis Phase 3. Migration `0045_drop_skincare_routine_step_legacy.sql` (15 slugs).
+
+**Effectué**
+- Migration seeds : `MATIN`/`SOIR` → `MOMENT_*`, `EXFOLIATION`/`SOIN_YEUX`/`SOIN_LOCALISE`/`TRAITEMENT` → `STEP_TRAITEMENT`, `EMOLLIENCE`/`HYDRATATION` → `STEP_HYDRATATION`, `PROTECTION_SOLAIRE` → `STEP_PROTECTION_SOLAIRE` + `MOMENT_MATIN`, `OCCLUSION` → `STEP_OCCLUSIF` + `MOMENT_SOIR`, `MASQUE_HEBDO` → `MOMENT_HEBDOMADAIRE`, `NETTOYANT` dropé (couvert par `TYPE_NETTOYANT`).
+- Catégorie `'routine_step'` retirée de `SKINCARE_PRODUCT_TAG_CATEGORIES` ; 15 entries purgées.
+- `skincareListProductsQuery` ne contient plus `routine_step`.
+- `tag-routine-mapping.ts` supprimé.
+- DB : 5179 lignes `tag_products` + 15 `product_tags` supprimées (skincare-scoped, haircare routine_step intact).
+- Backfill scripts `backfill-skincare-tags-v2.ts`/`backfill-skincare-routine-v2.ts` + cibles Makefile retirés (one-shot, plus exécutables).
 
 ---
 

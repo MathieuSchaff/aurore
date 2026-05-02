@@ -20,9 +20,9 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [
-        TAG_SLUGS.MASQUE_ARGILE,
-        TAG_SLUGS.EXFOLIATION,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_MASQUE,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -64,10 +64,10 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.MICROBIOME, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.EAU_MICELLAIRE,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.POLLUTION,
       ],
@@ -104,12 +104,12 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, COCAMIDOPROPYL BETAINE, GLYCERIN, SODIUM COCOYL GLUTAMATE, XYLITYLGLUCOSIDE, PENTYLENE GLYCOL, XYLITOL, ANHYDROXYLITOL, UREA, ZINC PCA, TOCOPHEROL, COCO-GLUCOSIDE, GLYCERYL OLEATE, CAPRYLOYL GLYCINE, FRAGRANCE (PARFUM), TETRASODIUM GLUTAMATE DIACETATE, PROPYLENE GLYCOL, HYDROGENATED PALM GLYCERIDES CITRATE, ETHYLHEXYLGLYCERIN, CITRIC ACID, O-CYMEN-5-OL, SODIUM BENZOATE',
     url: 'https://www.dermaceutic.com/fr/advanced-cleanser.html',
     tags: {
-      primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
-        TAG_SLUGS.MOUSSE_NETTOYANTE,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_MOUSSE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.VEGAN,
       ],
       avoid: [],
@@ -132,10 +132,11 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.GRAIN_PEAU],
       secondary: [
-        TAG_SLUGS.MOUSSE_NETTOYANTE,
-        TAG_SLUGS.EXFOLIATION,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_MOUSSE,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.VEGAN,
       ],
@@ -171,9 +172,10 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.ANTI_ACNE],
       secondary: [
-        TAG_SLUGS.MOUSSE_NETTOYANTE,
-        TAG_SLUGS.EXFOLIATION,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_MOUSSE,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.VEGAN,
@@ -210,9 +212,10 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.MICROBIOME],
       secondary: [
-        TAG_SLUGS.CREME_DE_NUIT,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_GRASSE,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE],
@@ -255,11 +258,12 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION],
       secondary: [
-        TAG_SLUGS.CREME_DE_NUIT,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ECLAT,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE],
     },
@@ -299,9 +303,10 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.GRAIN_PEAU],
       secondary: [
-        TAG_SLUGS.CREME_DE_NUIT,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.SANS_PARFUM,
@@ -335,12 +340,13 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.GRAIN_PEAU],
       secondary: [
-        TAG_SLUGS.CREME_DE_NUIT,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.REPULPANT,
-        TAG_SLUGS.EXFOLIATION,
+        TAG_SLUGS.STEP_TRAITEMENT,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE],
     },
@@ -371,10 +377,11 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.NON_COMEDOGENE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.VEGAN,
@@ -413,10 +420,11 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.SANS_PARFUM,
       ],
       avoid: [],
@@ -452,10 +460,11 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.DESHYDRATATION],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.TEXTURE_RICHE,
         TAG_SLUGS.SANS_PARFUM,
@@ -481,9 +490,11 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.POST_ACNE, TAG_SLUGS.CICATRISATION],
       secondary: [
-        TAG_SLUGS.PROTECTION_SOLAIRE,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.HYPOALLERGENIQUE,
         TAG_SLUGS.SANS_PARFUM,
@@ -526,10 +537,11 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.BAUME,
-        TAG_SLUGS.EMOLLIENCE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_BAUME,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.SANS_PARFUM,
@@ -568,9 +580,10 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.PHOTO_VIEILLISSEMENT,
         TAG_SLUGS.TEINT_TERNE,
       ],
@@ -612,9 +625,9 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.PHOTO_VIEILLISSEMENT],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.REPULPANT,
@@ -661,9 +674,9 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.PHOTO_VIEILLISSEMENT],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.REPULPANT,
@@ -709,10 +722,10 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.SANS_PARFUM,
       ],
       avoid: [],
@@ -757,10 +770,11 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.CERNES_POCHES, TAG_SLUGS.DESHYDRATATION],
       secondary: [
-        TAG_SLUGS.CONTOUR_YEUX,
-        TAG_SLUGS.SOIN_YEUX,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ECLAT,
       ],
       avoid: [],
@@ -799,13 +813,14 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.ECLAT,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [],
     },
@@ -841,12 +856,12 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION],
       secondary: [
-        TAG_SLUGS.SPOT_TREATMENT,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.VEGAN,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE],
     },
@@ -882,8 +897,8 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/dermaceutic-advance-cleanser-mousse-nettoyante-globale.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['keratolytique', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['keratolytique', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -911,8 +926,8 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/dermaceutic-foamer-15-mousse-exfoliante-intense.webp',
     tags: {
-      primary: ['anti-rougeurs', 'exfoliation', 'eclat'],
-      secondary: ['keratolytique', 'zone-visage', 'exfoliant-chimique'],
+      primary: ['anti-rougeurs', 'step-traitement', 'eclat'],
+      secondary: ['keratolytique', 'zone-visage', 'type-exfoliation'],
       avoid: ['peau-sensible', 'peau-sensible'],
     },
     keyIngredients: [
@@ -937,8 +952,8 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/dermaceutic-foamer-5-mousse-exfoliante-douce.webp',
     tags: {
-      primary: ['exfoliation', 'eclat', 'hydratation'],
-      secondary: ['keratolytique', 'zone-visage', 'exfoliant-chimique'],
+      primary: ['step-traitement', 'eclat', 'step-hydratation'],
+      secondary: ['keratolytique', 'zone-visage', 'type-exfoliation'],
       avoid: ['peau-sensible', 'peau-sensible'],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.GLYCOLIC_ACID }],
@@ -960,8 +975,8 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/dermaceutic-hyal-ceutic-redens-creme-redensifiante.webp',
     tags: {
-      primary: ['hydratation', 'repulpant', 'barriere-cutanee'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'repulpant', 'barriere-cutanee'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -989,8 +1004,8 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dermaceutic/dermaceutic-hyal-ceutic-soin-de-jour-40-ml.html',
     imageUrl: '',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1017,14 +1032,15 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/dermaceutic-k-ceutic-creme-post-traitement.webp',
     tags: {
-      primary: ['protection-solaire', 'anti-acne', 'apaisant'],
+      primary: ['step-protection-solaire', 'moment-matin', 'anti-acne', 'apaisant'],
       secondary: [
         'filtres-chimiques',
         'reparateur',
         'sebo-regulateur',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
-        'matin',
+        'moment-matin',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
@@ -1056,8 +1072,8 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/dermaceutic-oxybiome-eau-micellaire-nettoyante.webp',
     tags: {
-      primary: ['pores-dilates', 'hydratation', 'barriere-cutanee'],
-      secondary: ['sebo-regulateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['pores-dilates', 'step-hydratation', 'barriere-cutanee'],
+      secondary: ['sebo-regulateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1083,13 +1099,13 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dermaceutic/dermaceutic-purify-mask-15-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dermaceutic-purify-mask-15.webp',
     tags: {
-      primary: ['anti-acne', 'exfoliation', 'eclat'],
+      primary: ['anti-acne', 'step-traitement', 'eclat'],
       secondary: [
         'keratolytique',
         'sebo-regulateur',
-        'masque-hebdo',
+        'moment-hebdomadaire',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
@@ -1118,8 +1134,8 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/dermaceutic-regen-ceutic-creme-hydratante-nourrissante.webp',
     tags: {
-      primary: ['anti-age', 'hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['anti-age', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1149,8 +1165,15 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dermaceutic/dermaceutic-reveal-4x-serum-yeux-global-15ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dermaceutic-reveal-4x-serum-yeux-global.webp',
     tags: {
-      primary: ['hydratation', 'eclat', 'pores-dilates'],
-      secondary: ['sebo-regulateur', 'reparateur', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
+      primary: ['step-hydratation', 'eclat', 'pores-dilates'],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-traitement',
+        'zone-yeux',
+        'zone-yeux',
+        'step-traitement',
+      ],
       avoid: ['peau-sensible', 'peau-sensible'],
     },
     keyIngredients: [
@@ -1182,7 +1205,7 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/dermaceutic-yellow-cream-correcteur-anti-taches.webp',
     tags: {
       primary: ['anti-taches', 'hyperpigmentation'],
-      secondary: ['spot-treatment', 'soin-localise', 'zone-visage'],
+      secondary: ['type-traitement', 'step-traitement', 'moment-usage-localise', 'zone-visage'],
       avoid: [],
     },
   },
@@ -1203,8 +1226,14 @@ export const DERMACEUTIC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/dermaceutic-sun-ceutic-protection-solaire-spf50.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'protection-solaire'],
-      secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation', 'step-protection-solaire', 'moment-matin'],
+      secondary: [
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [

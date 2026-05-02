@@ -18,8 +18,16 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-arkeskin-lait-corps-menopause-400ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-arkeskin-lait-corps-menopause.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'lait-corps', 'zone-corps'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'reparateur',
+        'type-hydratant',
+        'texture-lait',
+        'zone-corps',
+        'zone-corps',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -48,8 +56,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-homme-deodorant-anti-transpirant-48h.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'deodorant'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-deodorant'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.ZANTHOXYLUM_BUNGEANUM }],
@@ -70,8 +78,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-homme-gel-douche-integral-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-homme-gel-douche-integral.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant-corps', 'zone-corps'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
   },
@@ -92,7 +100,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-phytolastil-l-huile-de-massage.webp',
     tags: {
       primary: ['apaisant', 'anti-oxydant'],
-      secondary: ['reparateur', 'huile-corps', 'zone-corps'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-huile', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -118,8 +126,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-acide-salicyclique-pur-le-peeling-100ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-acide-salicyclique-pur-le-peeling.webp',
     tags: {
-      primary: ['exfoliation', 'anti-acne', 'hydratation'],
-      secondary: ['keratolytique', 'sebo-regulateur', 'zone-visage', 'exfoliant-chimique'],
+      primary: ['step-traitement', 'anti-acne', 'step-hydratation'],
+      secondary: ['keratolytique', 'sebo-regulateur', 'zone-visage', 'type-exfoliation'],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
@@ -148,8 +156,14 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-acide-salicyclique-pur-stop-boutons.webp',
     tags: {
-      primary: ['anti-acne', 'apaisant', 'hydratation'],
-      secondary: ['sebo-regulateur', 'spot-treatment', 'soin-localise', 'zone-visage'],
+      primary: ['anti-acne', 'apaisant', 'step-hydratation'],
+      secondary: [
+        'sebo-regulateur',
+        'type-traitement',
+        'step-traitement',
+        'moment-usage-localise',
+        'zone-visage',
+      ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
@@ -175,8 +189,14 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-arkeskin-creme-jour-menopause-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-arkeskin-creme-jour-menopause.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation'],
-      secondary: ['emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
+      primary: ['barriere-cutanee', 'step-hydratation'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -203,8 +223,14 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-arkeskin-creme-jour-menopause-recharge.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation'],
-      secondary: ['emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
+      primary: ['barriere-cutanee', 'step-hydratation'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -230,8 +256,15 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-arkeskin-creme-nuit-menopause-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-arkeskin-creme-nuit-menopause.webp',
     tags: {
-      primary: ['hydratation', 'barriere-cutanee', 'anti-oxydant'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'barriere-cutanee', 'anti-oxydant'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -259,8 +292,15 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-arkeskin-creme-nuit-menopause-recharge.webp',
     tags: {
-      primary: ['hydratation', 'barriere-cutanee', 'anti-oxydant'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'barriere-cutanee', 'anti-oxydant'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -289,7 +329,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/lierac-body-nutri-le-baume-sos-reparateur.webp',
     tags: {
       primary: ['apaisant', 'anti-oxydant', 'cicatrisation'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -318,7 +358,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-body-nutri-le-gommage-resurfacant-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-body-nutri-le-gommage-resurfacant.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'exfoliation'],
+      primary: ['step-hydratation', 'anti-oxydant', 'step-traitement'],
       secondary: ['reparateur', 'zone-visage'],
       avoid: [],
     },
@@ -343,12 +383,13 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-body-nutri-le-lait-relipidant-400ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-body-nutri-le-lait-relipidant.webp',
     tags: {
-      primary: ['pores-dilates', 'hydratation', 'barriere-cutanee'],
+      primary: ['pores-dilates', 'step-hydratation', 'barriere-cutanee'],
       secondary: [
         'keratolytique',
         'sebo-regulateur',
         'reparateur',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
       ],
       avoid: [],
@@ -381,8 +422,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-body-sculpt-la-creme-morpho-regalbante.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -409,8 +450,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-diopti-creme-correction-rides-yeux.webp',
     tags: {
-      primary: ['anti-age', 'hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['anti-age', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -439,8 +480,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-diopti-fluide-correction-cernes-15ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-diopti-fluide-correction-cernes.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -470,8 +511,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-gel-hydratant-energisant-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-gel-hydratant-energisant.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -497,8 +538,15 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-homme-baume-apres-rasage-75ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-homme-baume-apres-rasage.webp',
     tags: {
-      primary: ['hydratation', 'barriere-cutanee', 'anti-oxydant'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'barriere-cutanee', 'anti-oxydant'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -523,13 +571,14 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-homme-fluide-anti-age-global-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-homme-fluide-anti-age-global.webp',
     tags: {
-      primary: ['barriere-cutanee', 'pores-dilates', 'hydratation', 'anti-age'],
+      primary: ['barriere-cutanee', 'pores-dilates', 'step-hydratation', 'anti-age'],
       secondary: [
-        'emollience',
+        'step-hydratation',
         'texture-legere',
         'sebo-regulateur',
         'reparateur',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
       ],
       avoid: [],
@@ -561,8 +610,15 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-hydragenist-la-creme-rehydratante-eclat.webp',
     tags: {
-      primary: ['hydratation', 'barriere-cutanee', 'anti-oxydant', 'eclat'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'barriere-cutanee', 'anti-oxydant', 'eclat'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -592,8 +648,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-hydragenist-le-gel-creme-rehydratant-eclat.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'eclat'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'eclat'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -620,8 +676,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-hydragenist-le-serum-rehydratant-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-hydragenist-le-serum-rehydratant.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['peau-sensible', 'keratolytique', 'serum', 'traitement', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['peau-sensible', 'keratolytique', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -650,8 +706,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-hydragenist-le-soin-yeux-rehydratant.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-traitement', 'zone-yeux', 'zone-yeux', 'step-traitement'],
       avoid: [],
     },
     keyIngredients: [
@@ -677,8 +733,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-l-eau-micellaire-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-l-eau-micellaire.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -703,8 +759,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-la-lotion-hydratanre-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-la-lotion-hydratanre.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['tonique', 'preparation', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['type-toner', 'texture-eau', 'step-preparation', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -729,8 +785,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-la-mousse-nettoyante-150ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-la-mousse-nettoyante.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -755,14 +811,13 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-le-demaquillant-yeux-100ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-le-demaquillant-yeux.webp',
     tags: {
-      primary: ['exfoliation', 'apaisant', 'barriere-cutanee'],
+      primary: ['step-traitement', 'apaisant', 'barriere-cutanee'],
       secondary: [
         'peau-sensible',
         'reparateur',
-        'nettoyant',
-        'double-nettoyage-2',
+        'step-nettoyage-2',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
       ],
       avoid: [],
     },
@@ -789,8 +844,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-le-lait-demaquillant-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-le-lait-demaquillant.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -818,8 +873,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-le-masque-gommant-75ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-le-masque-gommant.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -847,8 +902,15 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-lift-integral-la-creme-jour-raffermissante.webp',
     tags: {
-      primary: ['hydratation', 'anti-age', 'barriere-cutanee'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-age', 'barriere-cutanee'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -879,8 +941,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-lift-integral-la-creme-nuit-regenerante.webp',
     tags: {
-      primary: ['hydratation', 'repulpant', 'anti-oxydant'],
-      secondary: ['peau-sensible', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'repulpant', 'anti-oxydant'],
+      secondary: ['peau-sensible', 'reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -910,8 +972,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-lift-integral-le-gel-creme-jour-raffermissant.webp',
     tags: {
-      primary: ['hydratation', 'anti-age', 'repulpant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-age', 'repulpant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -931,8 +993,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-lift-integral-le-serum-tenseur-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-lift-integral-le-serum-tenseur.webp',
     tags: {
-      primary: ['hydratation', 'anti-age', 'repulpant'],
-      secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-age', 'repulpant'],
+      secondary: ['reparateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -962,8 +1024,15 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-lift-integral-recharge-creme-jour-raffermissante.webp',
     tags: {
-      primary: ['hydratation', 'anti-age', 'barriere-cutanee'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-age', 'barriere-cutanee'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -994,8 +1063,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-lift-integral-recharge-creme-nuit-regenerante.webp',
     tags: {
-      primary: ['hydratation', 'repulpant', 'anti-oxydant'],
-      secondary: ['peau-sensible', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'repulpant', 'anti-oxydant'],
+      secondary: ['peau-sensible', 'reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1025,8 +1094,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-lift-integral-recharge-gel-creme-jour-raffermissant.webp',
     tags: {
-      primary: ['hydratation', 'anti-age', 'repulpant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-age', 'repulpant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -1047,8 +1116,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-lift-intregal-la-creme-cou-decollete.webp',
     tags: {
-      primary: ['hydratation', 'anti-age', 'repulpant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-age', 'repulpant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1078,8 +1147,15 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-menopause-creme-jour-arkeskin-baume-sos-reparateur-body-nutri.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'cicatrisation'],
-      secondary: ['emollience', 'texture-legere', 'creme-hydratante', 'zone-visage', 'reparateur'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'cicatrisation'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+        'reparateur',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1106,8 +1182,15 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-premium-la-creme-regard-20ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-premium-la-creme-regard.webp',
     tags: {
-      primary: ['hydratation', 'pores-dilates', 'anti-age'],
-      secondary: ['sebo-regulateur', 'reparateur', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
+      primary: ['step-hydratation', 'pores-dilates', 'anti-age'],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-traitement',
+        'zone-yeux',
+        'zone-yeux',
+        'step-traitement',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1137,8 +1220,14 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-premium-la-creme-soyeuse-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-premium-la-creme-soyeuse.webp',
     tags: {
-      primary: ['hydratation', 'pores-dilates', 'anti-age'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'pores-dilates', 'anti-age'],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1168,8 +1257,14 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-premium-la-creme-soyeuse-recharge-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-premium-la-creme-soyeuse-recharge.webp',
     tags: {
-      primary: ['hydratation', 'pores-dilates', 'anti-age'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'pores-dilates', 'anti-age'],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1199,8 +1294,14 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-premium-la-creme-voluptueuse-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-premium-la-creme-voluptueuse.webp',
     tags: {
-      primary: ['hydratation', 'pores-dilates', 'anti-age'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'pores-dilates', 'anti-age'],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1231,8 +1332,14 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-premium-la-creme-voluptueuse-recharge.webp',
     tags: {
-      primary: ['hydratation', 'pores-dilates', 'anti-age'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'pores-dilates', 'anti-age'],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1263,7 +1370,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-premium-le-serum-absolu-anti-age.webp',
     tags: {
       primary: ['anti-age'],
-      secondary: ['serum', 'traitement', 'zone-visage'],
+      secondary: ['type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
   },
@@ -1284,7 +1391,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-protocole-anti-rides-la-creme.webp',
     tags: {
       primary: ['anti-age'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -1306,7 +1413,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/lierac-protocole-anti-rougeurs-masque-bisabolol-pur.webp',
     tags: {
       primary: ['anti-rougeurs'],
-      secondary: ['masque-hebdo', 'zone-visage'],
+      secondary: ['moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
   },
@@ -1328,7 +1435,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/lierac-protocole-anti-rougeurs-serum-bisabolol-pur.webp',
     tags: {
       primary: ['anti-rougeurs'],
-      secondary: ['serum', 'traitement', 'zone-visage'],
+      secondary: ['type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
   },
@@ -1349,15 +1456,15 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-protocole-eclat-masque-acide-glycolique-pur.webp',
     tags: {
-      primary: ['exfoliation', 'eclat', 'barriere-cutanee'],
+      primary: ['step-traitement', 'eclat', 'barriere-cutanee'],
       secondary: [
         'keratolytique',
         'reparateur',
-        'emollience',
+        'step-hydratation',
         'texture-legere',
-        'masque-hebdo',
+        'moment-hebdomadaire',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
       ],
       avoid: ['peau-sensible', 'peau-sensible'],
     },
@@ -1379,15 +1486,15 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-pure-niacinamide-le-serum-anti-taches.webp',
     tags: {
-      primary: ['barriere-cutanee', 'pores-dilates', 'hydratation', 'anti-taches'],
+      primary: ['barriere-cutanee', 'pores-dilates', 'step-hydratation', 'anti-taches'],
       secondary: [
         'sebo-regulateur',
-        'emollience',
+        'step-hydratation',
         'texture-legere',
         'keratolytique',
         'reparateur',
-        'serum',
-        'traitement',
+        'type-serum',
+        'step-traitement',
         'zone-visage',
       ],
       avoid: [],
@@ -1420,7 +1527,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl: '',
     tags: {
       primary: ['eclat', 'barriere-cutanee', 'anti-age'],
-      secondary: ['reparateur', 'sebo-regulateur', 'serum', 'traitement', 'zone-visage'],
+      secondary: ['reparateur', 'sebo-regulateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
   },
@@ -1441,7 +1548,14 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-huile-sublimatrice.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['reparateur', 'huile-visage', 'emollience', 'zone-visage'],
+      secondary: [
+        'reparateur',
+        'type-serum',
+        'texture-huile',
+        'zone-visage',
+        'step-hydratation',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1469,8 +1583,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/soins-anti-age/lierac-supra-radiance-serum-eclat-regard-15-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-supra-radiance-serum-eclat-regard.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'eclat'],
-      secondary: ['serum', 'traitement', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'eclat'],
+      secondary: ['type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1500,8 +1614,15 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-fluide-solaire-teinte-dore-spf30.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1532,8 +1653,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-fluide-solaire-teinte-dore-spf50.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1563,8 +1684,15 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-sunissime-fluide-spf30-40ml-lait-reparateur-75ml.html',
     imageUrl: '',
     tags: {
-      primary: ['hydratation', 'protection-solaire', 'anti-age'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'step-protection-solaire', 'moment-matin', 'anti-age'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1594,8 +1722,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-gelee-fraiche-apres-soleil-corps.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant'],
-      secondary: ['emollience', 'texture-legere', 'reparateur'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['step-hydratation', 'texture-legere', 'reparateur'],
       avoid: [],
     },
     keyIngredients: [
@@ -1626,8 +1754,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-huile-soyeuse-corps-solaire-spf50.webp',
     tags: {
-      primary: ['anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1656,8 +1784,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-huile-spf30-gelee-apres-soleil.webp',
     tags: {
-      primary: ['anti-oxydant', 'hydratation', 'protection-solaire'],
-      secondary: ['reparateur', 'matin'],
+      primary: ['anti-oxydant', 'step-hydratation', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'moment-matin'],
       avoid: [],
     },
     keyIngredients: [
@@ -1687,8 +1815,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-l-huile-soyeuse-solaire-corps-spf30.webp',
     tags: {
-      primary: ['anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1717,8 +1845,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-la-creme-sublimatrice-apres-soleil-corps.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant'],
-      secondary: ['emollience', 'texture-legere', 'reparateur'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['step-hydratation', 'texture-legere', 'reparateur'],
       avoid: [],
     },
     keyIngredients: [
@@ -1749,8 +1877,15 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-le-fluide-veloute-solaire-visage-spf30.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1781,8 +1916,15 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-le-fluide-veloute-solaire-visage-spf50.webp',
     tags: {
-      primary: ['hydratation', 'protection-solaire', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'step-protection-solaire', 'moment-matin', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1813,8 +1955,15 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-le-lait-fondant-solaire-corps-spf30.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1845,8 +1994,15 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-le-lait-fondant-solaire-corps-spf50.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1877,8 +2033,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-le-stick-protecteur-spf50.webp',
     tags: {
-      primary: ['anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1908,8 +2064,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-serum-autobronzant-visage.webp',
     tags: {
-      primary: ['hydratation', 'barriere-cutanee', 'anti-oxydant'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'auto-bronzant', 'zone-corps'],
+      primary: ['step-hydratation', 'barriere-cutanee', 'anti-oxydant'],
+      secondary: ['step-hydratation', 'texture-legere', 'reparateur', 'type-solaire', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -1934,8 +2090,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-sunissime-soin-autobronzant-corps-150ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-soin-autobronzant-corps.webp',
     tags: {
-      primary: ['hydratation', 'barriere-cutanee', 'anti-oxydant'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'auto-bronzant', 'zone-corps'],
+      primary: ['step-hydratation', 'barriere-cutanee', 'anti-oxydant'],
+      secondary: ['step-hydratation', 'texture-legere', 'reparateur', 'type-solaire', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -1961,7 +2117,7 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-sorbet-apres-soleil-visage.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
+      primary: ['step-hydratation', 'anti-oxydant'],
       secondary: ['reparateur'],
       avoid: [],
     },
@@ -1991,8 +2147,8 @@ export const LIERAC_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/lierac/lierac-sunissime-stick-protecteur-spf50-15g.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lierac-sunissime-stick-protecteur-spf50.webp',
     tags: {
-      primary: ['anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [

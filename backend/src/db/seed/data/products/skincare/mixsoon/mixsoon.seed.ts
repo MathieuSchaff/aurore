@@ -20,7 +20,12 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/mixsoon-bifida-cream-2-02-fl-oz-60-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mixsoon-bifida-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.HYDRATATION],
+      primary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+        TAG_SLUGS.STEP_HYDRATATION,
+      ],
       secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -42,7 +47,7 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/mixsoon-glacier-water-serum-hyaluronic-acid-10-14-fl-oz-300-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mixsoon-glacier-water-serum.webp',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.HYDRATATION, TAG_SLUGS.DESHYDRATATION],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.DESHYDRATATION],
       secondary: [TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -63,7 +68,7 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/mixsoon-bifida-ferment-essence-3-38-fl-oz-100-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mixsoon-bifida-ferment-essence.webp',
     tags: {
-      primary: [TAG_SLUGS.ESSENCE, TAG_SLUGS.ECLAT, TAG_SLUGS.MICROBIOME],
+      primary: [TAG_SLUGS.TYPE_TONER, TAG_SLUGS.ECLAT, TAG_SLUGS.MICROBIOME],
       secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -86,7 +91,12 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/mixsoon-centella-asiatica-toner-10-14-fl-oz-300-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mixsoon-centella-asiatica-toner.webp',
     tags: {
-      primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.APAISANT],
+      primary: [
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.ANTI_ROUGEURS,
+        TAG_SLUGS.APAISANT,
+      ],
       secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -109,7 +119,7 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/mixsoon-bean-cleansing-oil-6-59-fl-oz-195-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mixsoon-bean-cleansing-oil.webp',
     tags: {
-      primary: [TAG_SLUGS.HUILE_DEMAQUILLANTE, TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_1],
+      primary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.TEXTURE_HUILE, TAG_SLUGS.STEP_NETTOYAGE_1],
       secondary: [TAG_SLUGS.PEAU_NORMALE, TAG_SLUGS.PEAU_MIXTE],
       avoid: [],
     },
@@ -132,7 +142,12 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/mixsoon-bean-cream-1-69-fl-oz-50-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mixsoon-bean-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.HYDRATATION, TAG_SLUGS.ECLAT],
+      primary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.ECLAT,
+      ],
       secondary: [TAG_SLUGS.PEAU_NORMALE, TAG_SLUGS.PEAU_SECHE],
       avoid: [],
     },
@@ -160,7 +175,7 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/AF7459BBB2EAFB/large_1704773011.png?1704773011',
     tags: {
-      primary: [TAG_SLUGS.ESSENCE, TAG_SLUGS.ECLAT, TAG_SLUGS.MICROBIOME],
+      primary: [TAG_SLUGS.TYPE_TONER, TAG_SLUGS.ECLAT, TAG_SLUGS.MICROBIOME],
       secondary: [TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -184,7 +199,7 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/0CDB431060F0D6/large_1751255393.png?1751255393',
     tags: {
-      primary: [TAG_SLUGS.ESSENCE, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.APAISANT],
+      primary: [TAG_SLUGS.TYPE_TONER, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.APAISANT],
       secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -208,7 +223,12 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/3919BC309A3DE8/large_1749457316.png?1749457316',
     tags: {
-      primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
+      primary: [
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.APAISANT,
+        TAG_SLUGS.STEP_HYDRATATION,
+      ],
       secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -232,7 +252,7 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/8E6E01089633C1/large_1747380480.png?1747380480',
     tags: {
-      primary: [TAG_SLUGS.EAU_MICELLAIRE, TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_1],
+      primary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.TEXTURE_EAU, TAG_SLUGS.STEP_NETTOYAGE_1],
       secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.APAISANT, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -260,8 +280,8 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/83525361BE7CB5/large_1744429960.png?1744429960',
     tags: {
-      primary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_ROUGEURS],
-      secondary: [TAG_SLUGS.MASQUE_HEBDO, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.SANS_PARFUM],
+      primary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_ROUGEURS],
+      secondary: [TAG_SLUGS.MOMENT_HEBDOMADAIRE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.CENTELLA_ASIATICA }],
@@ -284,8 +304,8 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/EE16A23F662BE1/large_1742449809.png?1742449809',
     tags: {
-      primary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
-      secondary: [TAG_SLUGS.MASQUE_HEBDO, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.SANS_PARFUM],
+      primary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
+      secondary: [TAG_SLUGS.MOMENT_HEBDOMADAIRE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
     keyIngredients: [
@@ -313,8 +333,8 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/CA412483FBEB25/large_1744456167.png?1744456167',
     tags: {
-      primary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.ECLAT, TAG_SLUGS.BARRIERE_CUTANEE],
-      secondary: [TAG_SLUGS.MASQUE_HEBDO, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.SANS_PARFUM],
+      primary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.ECLAT, TAG_SLUGS.BARRIERE_CUTANEE],
+      secondary: [TAG_SLUGS.MOMENT_HEBDOMADAIRE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
     keyIngredients: [
@@ -341,7 +361,12 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/B56C89616CD552/large_1744181950.png?1744181950',
     tags: {
-      primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.ECLAT, TAG_SLUGS.PORES_DILATES],
+      primary: [
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.ECLAT,
+        TAG_SLUGS.PORES_DILATES,
+      ],
       secondary: [TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -364,8 +389,8 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/mixsoon-soybean-milk-serum-1-69-fl-oz-50-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mixsoon-soybean-milk-serum.webp',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_AGE],
-      secondary: [TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.SANS_PARFUM],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_AGE],
+      secondary: [TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
     keyIngredients: [
@@ -392,7 +417,7 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/mixsoon-deep-foaming-rice-bar-soap-3-5-oz-100-g',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mixsoon-deep-foaming-rice-bar-soap.webp',
     tags: {
-      primary: [TAG_SLUGS.MOUSSE_NETTOYANTE, TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
+      primary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.TEXTURE_MOUSSE, TAG_SLUGS.STEP_NETTOYAGE_2],
       secondary: [TAG_SLUGS.ECLAT, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -418,7 +443,12 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/40C18E25CFCAEB/large_1744704977.png?1744704977',
     tags: {
-      primary: [TAG_SLUGS.GEL_CREME, TAG_SLUGS.HYDRATATION, TAG_SLUGS.APAISANT],
+      primary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.APAISANT,
+      ],
       secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -446,7 +476,7 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/E625EC8E3E2DFC/large_1734955580.png?1734955580',
     tags: {
-      primary: [TAG_SLUGS.MOUSSE_NETTOYANTE, TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
+      primary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.TEXTURE_MOUSSE, TAG_SLUGS.STEP_NETTOYAGE_2],
       secondary: [
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.PEAU_GRASSE,
@@ -478,7 +508,12 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/5D5FD0F3E89A97/large_1746942517.png?1746942517',
     tags: {
-      primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.HYDRATATION, TAG_SLUGS.ECLAT],
+      primary: [
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.ECLAT,
+      ],
       secondary: [TAG_SLUGS.PEAU_NORMALE, TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -506,7 +541,7 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/3651B150EF6483/large_1715919265.png?1715919265',
     tags: {
-      primary: [TAG_SLUGS.ESSENCE, TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES],
+      primary: [TAG_SLUGS.TYPE_TONER, TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES],
       secondary: [TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -529,7 +564,12 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/mixsoon-galactomyces-toner-10-14-fl-oz-300-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mixsoon-galactomyces-toner.webp',
     tags: {
-      primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.ECLAT, TAG_SLUGS.PORES_DILATES],
+      primary: [
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.ECLAT,
+        TAG_SLUGS.PORES_DILATES,
+      ],
       secondary: [TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -551,7 +591,7 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/mixsoon-heartleaf-essence-3-38-fl-oz-200-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mixsoon-heartleaf-essence.webp',
     tags: {
-      primary: [TAG_SLUGS.ESSENCE, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.APAISANT],
+      primary: [TAG_SLUGS.TYPE_TONER, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.APAISANT],
       secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -573,7 +613,12 @@ export const MIXSOON_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/04A28F7B3F411B/large_1756101450.png?1756101450',
     tags: {
-      primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.HYDRATATION],
+      primary: [
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+        TAG_SLUGS.STEP_HYDRATATION,
+      ],
       secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },

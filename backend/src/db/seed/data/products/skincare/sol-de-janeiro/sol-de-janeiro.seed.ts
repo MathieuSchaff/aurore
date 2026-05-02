@@ -20,7 +20,14 @@ export const SOL_DE_JANEIRO_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/sol-de-janeiro-brazilian-bum-bum-cream.webp',
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.PEAU_SECHE],
-      secondary: [TAG_SLUGS.CREME_CORPS, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_CORPS],
+      secondary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -47,7 +54,14 @@ export const SOL_DE_JANEIRO_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://cdn1.skinsafeproducts.com/photo/25EF5C81AB3DD8/large_1732170557.png',
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.PEAU_SECHE],
-      secondary: [TAG_SLUGS.CREME_CORPS, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_CORPS],
+      secondary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -73,10 +87,12 @@ export const SOL_DE_JANEIRO_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.DESHYDRATATION],
       secondary: [
-        TAG_SLUGS.CREME_CORPS,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_CORPS,
       ],
       avoid: [],
@@ -113,7 +129,14 @@ export const SOL_DE_JANEIRO_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/sol-de-janeiro-delicia-drench-body-butter.webp',
     tags: {
       primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.DESHYDRATATION],
-      secondary: [TAG_SLUGS.CREME_CORPS, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_CORPS],
+      secondary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -146,7 +169,13 @@ export const SOL_DE_JANEIRO_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/sol-de-janeiro-bom-dia-bright-cream.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.ANTI_TACHES],
-      secondary: [TAG_SLUGS.CREME_CORPS, TAG_SLUGS.MATIN, TAG_SLUGS.ZONE_CORPS],
+      secondary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -174,10 +203,12 @@ export const SOL_DE_JANEIRO_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.DESHYDRATATION],
       secondary: [
-        TAG_SLUGS.CREME_CORPS,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_CORPS,
       ],
       avoid: [],
@@ -208,12 +239,14 @@ export const SOL_DE_JANEIRO_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/sol-de-janeiro-coco-cabana-cream-8fl-oz-240ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/sol-de-janeiro-coco-cabana-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.DESHYDRATATION],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.DESHYDRATATION],
       secondary: [
-        TAG_SLUGS.CREME_CORPS,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.PEAU_MIXTE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_CORPS,
       ],
       avoid: [],
@@ -241,7 +274,14 @@ export const SOL_DE_JANEIRO_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://cdn1.skinsafeproducts.com/photo/E5225F8625C5CA/large_1675740725.png',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.DESHYDRATATION],
-      secondary: [TAG_SLUGS.HUILE_CORPS, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_CORPS],
+      secondary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_HUILE,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -273,7 +313,13 @@ export const SOL_DE_JANEIRO_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://cdn1.skinsafeproducts.com/photo/257D283BE64F3C/large_1590257392.jpeg',
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.CICATRISATION],
-      secondary: [TAG_SLUGS.SOIN_LEVRES, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_LEVRES],
+      secondary: [
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_LEVRES,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.ZONE_LEVRES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -303,7 +349,12 @@ export const SOL_DE_JANEIRO_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://cdn1.skinsafeproducts.com/photo/C842C40706B106/large_1692791311.png',
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.PEAU_SECHE],
-      secondary: [TAG_SLUGS.CREME_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -329,7 +380,12 @@ export const SOL_DE_JANEIRO_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/sol-de-janeiro-beija-flor-jet-gift-set.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.DESHYDRATATION],
-      secondary: [TAG_SLUGS.CREME_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -362,7 +418,12 @@ export const SOL_DE_JANEIRO_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/sol-de-janeiro-bom-dia-bright-jet-set.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.TEINT_TERNE],
-      secondary: [TAG_SLUGS.CREME_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -390,7 +451,14 @@ export const SOL_DE_JANEIRO_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://cdn1.skinsafeproducts.com/photo/A92C48DE128BF9/large_1715238626.png',
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.PEAU_SECHE],
-      secondary: [TAG_SLUGS.CREME_MAINS, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_MAINS],
+      secondary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_MAINS,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.ZONE_MAINS,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -417,7 +485,13 @@ export const SOL_DE_JANEIRO_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/sol-de-janeiro-glow-oils-copacabana-bronze.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.DESHYDRATATION],
-      secondary: [TAG_SLUGS.HUILE_CORPS, TAG_SLUGS.MATIN, TAG_SLUGS.ZONE_CORPS],
+      secondary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_HUILE,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -444,13 +518,15 @@ export const SOL_DE_JANEIRO_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/sol-de-janeiro-cheirosa-71-body-cream-8-1-fl-oz-240-ml',
     imageUrl: 'https://cdn1.skinsafeproducts.com/photo/91725E2311115B/large_1743137141.png',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.DESHYDRATATION],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.DESHYDRATATION],
       secondary: [
-        TAG_SLUGS.CREME_CORPS,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.PEAU_NORMALE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_CORPS,
       ],
       avoid: [],

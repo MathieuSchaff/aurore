@@ -18,8 +18,15 @@ export const GABRIEL_COUZIAN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/gabriel-couzian-bain-romain-huile-lavante-reparatrice-flacon-pompe.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant', 'cicatrisation'],
-      secondary: ['reparateur', 'keratolytique', 'peau-sensible', 'nettoyant-corps', 'zone-corps'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant', 'cicatrisation'],
+      secondary: [
+        'reparateur',
+        'keratolytique',
+        'peau-sensible',
+        'type-nettoyant',
+        'zone-corps',
+        'zone-corps',
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.UREA }, { slug: INGREDIENT_SLUGS.ALOE_VERA }],

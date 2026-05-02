@@ -20,7 +20,7 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.SERUM,
+        TAG_SLUGS.TYPE_SERUM,
         TAG_SLUGS.BIO_NATUREL,
         TAG_SLUGS.MICROBIOME,
         TAG_SLUGS.ZONE_VISAGE,
@@ -51,9 +51,9 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.REPULPANT, TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.ANTI_AGE],
       secondary: [
-        TAG_SLUGS.SERUM,
+        TAG_SLUGS.TYPE_SERUM,
         TAG_SLUGS.BIO_NATUREL,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ECLAT,
       ],
@@ -80,11 +80,16 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, CAPRYLIC/CAPRIC TRIGLYCERIDE, GLUCONOLACTONE, GLYCERIN, BUTYROSPERMUM PARKII BUTTER, COCO-CAPRYLATE/CAPRATE, BEHENYL ALCOHOL, HELIANTHUS ANNUUS SEED OIL, MICROCRYSTALLINE CELLULOSE, C12-16 ALCOHOLS, ALOE BARBADENSIS LEAF JUICE POWDER, CYSTOSEIRA ABIES-MARINA EXTRACT, CYSTOSEIRA TAMARISCIFOLIA EXTRACT, PALMARIA PALMATA EXTRACT, PALMITIC ACID, HYDROGENATED LECITHIN, PARFUM, CITRIC ACID, XANTHAN GUM, SODIUM HYDROXIDE, SODIUM LEVULINATE, SODIUM CITRATE, MALTODEXTRIN, TOCOPHEROL, SODIUM ANISATE, PENTYLENE GLYCOL',
     url: 'https://www.laboratoires-biarritz.com',
     tags: {
-      primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.CREME_DE_NUIT],
+      primary: [
+        TAG_SLUGS.ANTI_TACHES,
+        TAG_SLUGS.HYPERPIGMENTATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+      ],
       secondary: [
         TAG_SLUGS.BIO_NATUREL,
         TAG_SLUGS.ECLAT,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -111,13 +116,13 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, GLYCERIN, BUTYROSPERMUM PARKII BUTTER, OLUS OIL, SIMMONDSIA CHINENSIS SEED OIL, SQUALANE, CETEARYL OLIVATE, COCONUT ALKANES, SORBITAN OLIVATE, LAUROYL LYSINE, MYRISTYL MYRISTATE, HYDROGENATED CASTOR OIL, XYLITYLGLUCOSIDE, GELIDIUM SESQUIPEDALE EXTRACT, ALOE BARBADENSIS LEAF JUICE POWDER, SODIUM HYALURONATE, ANHYDROXYLITOL, XYLITOL, PARFUM, LINOLEIC ACID, OLEIC ACID, PALMITIC ACID, STEARIC ACID, LINOLENIC ACID, SODIUM LEVULINATE, PROPANEDIOL, TOCOPHEROL, COCO-CAPRYLATE/CAPRATE, XANTHAN GUM, SODIUM ANISATE, POLYGLYCERYL-4 CAPRATE, CITRIC ACID, ETHYL LAUROYL ARGINATE HCL, SODIUM PHYTATE, VANILLIN, BETA-CARYOPHYLLENE',
     url: 'https://www.laboratoires-biarritz.com',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.PHOTO_VIEILLISSEMENT],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.PHOTO_VIEILLISSEMENT],
       secondary: [
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.BIO_NATUREL,
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
       ],
       avoid: [],
     },
@@ -146,7 +151,7 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.MICROBIOME],
       secondary: [
         TAG_SLUGS.BIO_NATUREL,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPULPANT,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -207,13 +212,18 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     inci: 'CAPRYLIC/CAPRIC TRIGLYCERIDE, COCONUT ALKANES, ZINC OXIDE, TITANIUM DIOXIDE, WATER, ORYZA SATIVA POWDER, POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE, PRUNUS DOMESTICA SEED OIL, SORBITAN OLIVATE, POLYGLYCERYL-3 DIISOSTEARATE, GLYCERIN, HELIANTHUS ANNUUS SEED OIL, COCO-CAPRYLATE/CAPRATE, ALUMINA, STEARIC ACID, GLYCERYL CAPRYLATE, MAGNESIUM SULFATE, GELIDIUM SESQUIPEDALE EXTRACT, ALOE BARBADENSIS LEAF JUICE POWDER, PROPANEDIOL, TOCOPHEROL, SODIUM BENZOATE, POLYGLYCERYL-4 CAPRATE, POTASSIUM SORBATE',
     url: 'https://www.laboratoires-biarritz.com',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.FILTRES_MINERAUX, TAG_SLUGS.SANS_PARFUM],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.FILTRES_MINERAUX,
+        TAG_SLUGS.SANS_PARFUM,
+      ],
       secondary: [
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.BIO_NATUREL,
         TAG_SLUGS.VEGAN,
         TAG_SLUGS.HYPOALLERGENIQUE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
       ],
       avoid: [],
     },
@@ -239,13 +249,18 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     inci: 'CAPRYLIC/CAPRIC TRIGLYCERIDE, ZINC OXIDE, COCONUT ALKANES, TITANIUM DIOXIDE, WATER, ORYZA SATIVA POWDER, POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE, PRUNUS DOMESTICA SEED OIL, POLYGLYCERYL-3 DIISOSTEARATE, GLYCERIN, SORBITAN OLIVATE, CI 77492, OCTYLDODECANOL, ALUMINA, COCO-CAPRYLATE/CAPRATE, STEARIC ACID, MAGNESIUM SULFATE, GELIDIUM SESQUIPEDALE EXTRACT, ALOE BARBADENSIS LEAF JUICE POWDER, GLYCERYL CAPRATE, PROPANEDIOL, CI 77491, TOCOPHEROL, CI 77499, POLYGLYCERYL-4 CAPRATE, JOJOBA ESTERS, TRIHYDROXYSTEARIN',
     url: 'https://www.laboratoires-biarritz.com',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.FILTRES_MINERAUX, TAG_SLUGS.ECLAT],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.FILTRES_MINERAUX,
+        TAG_SLUGS.ECLAT,
+      ],
       secondary: [
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.BIO_NATUREL,
         TAG_SLUGS.PHOTO_VIEILLISSEMENT,
         TAG_SLUGS.NON_COMEDOGENE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
       ],
       avoid: [],
     },
@@ -270,13 +285,18 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     inci: 'CAPRYLIC/CAPRIC TRIGLYCERIDE, ZINC OXIDE, COCONUT ALKANES, TITANIUM DIOXIDE, WATER, ORYZA SATIVA POWDER, POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE, PRUNUS DOMESTICA SEED OIL, POLYGLYCERYL-3 DIISOSTEARATE, GLYCERIN, SORBITAN OLIVATE, CI 77492, OCTYLDODECANOL, ALUMINA, COCO-CAPRYLATE/CAPRATE, STEARIC ACID, MAGNESIUM SULFATE, GELIDIUM SESQUIPEDALE EXTRACT, ALOE BARBADENSIS LEAF JUICE POWDER, GLYCERYL CAPRATE, PROPANEDIOL, CI 77491, TOCOPHEROL, CI 77499, POLYGLYCERYL-4 CAPRATE, JOJOBA ESTERS, TRIHYDROXYSTEARIN',
     url: 'https://www.laboratoires-biarritz.com',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.FILTRES_MINERAUX, TAG_SLUGS.ECLAT],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.FILTRES_MINERAUX,
+        TAG_SLUGS.ECLAT,
+      ],
       secondary: [
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.BIO_NATUREL,
         TAG_SLUGS.PHOTO_VIEILLISSEMENT,
         TAG_SLUGS.NON_COMEDOGENE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
       ],
       avoid: [],
     },
@@ -302,12 +322,17 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     inci: 'CAPRYLIC/CAPRIC TRIGLYCERIDE, ZINC OXIDE, COCOS NUCIFERA OIL, COCONUT ALKANES, TITANIUM DIOXIDE, POLYGLYCERYL-2 DIPOLYHYDROXYSTEARATE, BUTYROSPERMUM PARKII BUTTER, POLYGLYCERYL-3 DIISOSTEARATE, HYDROGENATED VEGETABLE OIL, LAUROYL LYSINE, ALUMINA, COCO-CAPRYLATE/CAPRATE, STEARIC ACID, GLYCERYL CAPRYLATE, GELIDIUM SESQUIPEDALE EXTRACT, PROPANEDIOL, TOCOPHEROL, WATER, POLYGLYCERYL-4 CAPRATE',
     url: 'https://www.laboratoires-biarritz.com',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.FILTRES_MINERAUX, TAG_SLUGS.PEAU_SENSIBLE],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.FILTRES_MINERAUX,
+        TAG_SLUGS.PEAU_SENSIBLE,
+      ],
       secondary: [
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.BIO_NATUREL,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SANS_PARFUM,
       ],
       avoid: [],
@@ -335,8 +360,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/biarritz/biarritz-oceane-creme-corps-scintillante-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/biarritz-oceane-creme-corps-scintillante.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant'],
-      secondary: ['reparateur', 'lait-corps', 'zone-corps'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-lait', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -367,8 +392,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-gel-lavant-surgras-bio.webp',
     tags: {
-      primary: ['hydratation', 'apaisant'],
-      secondary: ['nettoyant-corps', 'zone-corps'],
+      primary: ['step-hydratation', 'apaisant'],
+      secondary: ['type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
   },
@@ -389,8 +414,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-gel-lavant-surgras-sans-parfum-bio.webp',
     tags: {
-      primary: ['hydratation', 'apaisant'],
-      secondary: ['nettoyant-corps', 'zone-corps'],
+      primary: ['step-hydratation', 'apaisant'],
+      secondary: ['type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
   },
@@ -411,8 +436,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-creme-mains-reparatrice-bio.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant', 'cicatrisation'],
-      secondary: ['reparateur', 'creme-mains', 'zone-mains'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant', 'cicatrisation'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-mains', 'zone-mains'],
       avoid: [],
     },
     keyIngredients: [
@@ -439,8 +464,15 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/biarritz/biarritz-creme-reparatrice-post-tatouage-100ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/biarritz-creme-reparatrice-post-tatouage.webp',
     tags: {
-      primary: ['barriere-cutanee', 'apaisant', 'hydratation', 'cicatrisation'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['barriere-cutanee', 'apaisant', 'step-hydratation', 'cicatrisation'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -466,7 +498,7 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/biarritz/biarritz-gommage-en-huile-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/biarritz-gommage-en-huile.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'exfoliation'],
+      primary: ['step-hydratation', 'anti-oxydant', 'step-traitement'],
       secondary: ['reparateur', 'zone-visage'],
       avoid: [],
     },
@@ -489,7 +521,14 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/biarritz-huile-seche.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['reparateur', 'huile-visage', 'emollience', 'zone-visage'],
+      secondary: [
+        'reparateur',
+        'type-serum',
+        'texture-huile',
+        'zone-visage',
+        'step-hydratation',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -514,8 +553,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-baume-a-levres-reparateur.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'cicatrisation'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'cicatrisation'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -540,8 +579,15 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-creme-de-change-bio.webp',
     tags: {
-      primary: ['barriere-cutanee', 'apaisant', 'hydratation'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['barriere-cutanee', 'apaisant', 'step-hydratation'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -568,8 +614,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-lait-demaquillant-bio.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -594,8 +640,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-gommage-eclat-visage-bio.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant', 'eclat'],
-      secondary: ['reparateur', 'exfoliation', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant', 'eclat'],
+      secondary: ['reparateur', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -621,8 +667,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-cicarepa-lotion-reparatrice-bio.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'cicatrisation'],
-      secondary: ['tonique', 'preparation', 'zone-visage', 'reparateur'],
+      primary: ['apaisant', 'step-hydratation', 'cicatrisation'],
+      secondary: ['type-toner', 'texture-eau', 'step-preparation', 'zone-visage', 'reparateur'],
       avoid: [],
     },
     keyIngredients: [
@@ -650,8 +696,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-eau-micellaire-bio.webp',
     tags: {
-      primary: ['apaisant', 'hydratation'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation'],
+      secondary: ['step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.PROPANEDIOL }],
@@ -674,7 +720,7 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-huile-demaquillante-bio.webp',
     tags: {
       primary: ['apaisant', 'anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      secondary: ['reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.PROPANEDIOL }],
@@ -695,8 +741,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/biarritz/biarritz-bio-lait-autobronzant-150ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/biarritz-bio-lait-autobronzant.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant'],
-      secondary: ['reparateur', 'auto-bronzant', 'zone-corps'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-solaire', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.PROPANEDIOL }],
@@ -718,8 +764,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/biarritz-creme-solaire-sfp50-bebe-enfants.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -744,8 +790,14 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/biarritz-creme-solaire-teintee-spf30-02-beige.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'apaisant',
+        'step-hydratation',
+        'anti-oxydant',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -771,8 +823,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/biarritz/biarritz-spray-solaire-famille-spf50-150ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/biarritz-spray-solaire-famille-spf50.webp',
     tags: {
-      primary: ['apaisant', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['apaisant', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -796,8 +848,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/biarritz/biarritz-spray-solaire-spf50-100ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/biarritz-spray-solaire-spf50.webp',
     tags: {
-      primary: ['apaisant', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['apaisant', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -821,8 +873,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/biarritz/biarritz-stick-solaire-blanc-spf50-12g.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/biarritz-stick-solaire-blanc-spf50.webp',
     tags: {
-      primary: ['apaisant', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['apaisant', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.PROPANEDIOL }],
@@ -844,8 +896,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-huile-solaire-satinee-spf30.webp',
     tags: {
-      primary: ['anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -875,8 +927,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-huile-solaire-satinee-spf50.webp',
     tags: {
-      primary: ['anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -906,8 +958,14 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-lait-solaire-satinee-spf30.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'step-hydratation',
+        'apaisant',
+        'anti-oxydant',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -937,8 +995,14 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-lait-solaire-satinee-spf50.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'step-hydratation',
+        'apaisant',
+        'anti-oxydant',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -968,8 +1032,8 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-lait-solaire-spf-30-sport.webp',
     tags: {
-      primary: ['protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
   },
@@ -989,8 +1053,14 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/biarritz/laboratoires-de-biarritz-spray-solaire-alga-maris-spf30-100ml-bio.html',
     imageUrl: '',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'apaisant',
+        'step-hydratation',
+        'anti-oxydant',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1018,8 +1088,14 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/laboratoires-de-biarritz-stick-solaire-invisible-spf50.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'step-hydratation',
+        'apaisant',
+        'anti-oxydant',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1048,8 +1124,14 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/solaires/par-marques/laboratoires-de-biarritz/laboratoires-de-biarritz-creme-solaire-alga-maris-spf30-50ml-bio.html',
     imageUrl: '',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'apaisant',
+        'step-hydratation',
+        'anti-oxydant',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1076,7 +1158,7 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/solaires/par-marques/laboratoires-de-biarritz/laboratoires-de-biarritz-fluide-apres-soleil-alga-maris-150ml-bio.html',
     imageUrl: '',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant'],
       secondary: ['reparateur'],
       avoid: [],
     },
@@ -1105,8 +1187,14 @@ export const LAB_BIARRITZ_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/solaires/par-marques/laboratoires-de-biarritz/laboratoires-de-biarritz-lait-solaire-alga-maris-spf30-100-ml-bio.html',
     imageUrl: '',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'apaisant',
+        'step-hydratation',
+        'anti-oxydant',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [

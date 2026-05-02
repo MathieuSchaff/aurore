@@ -18,14 +18,14 @@ export const INNISFREE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/innisfree-green-tea-seed-serum-2-70-fl-oz-80-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/innisfree-green-tea-seed-serum.webp',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.HYDRATATION, TAG_SLUGS.TRAITEMENT],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.STEP_TRAITEMENT],
       secondary: [
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.MICROBIOME,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -56,14 +56,19 @@ export const INNISFREE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/innisfree-green-tea-seed-hyaluronic-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.BARRIERE_CUTANEE],
+      primary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+      ],
       secondary: [
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -94,13 +99,13 @@ export const INNISFREE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/innisfree-super-volcanic-pore-clay-mask-volcanic-clusters-aha-3-38-fl-oz-100-ml-0',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/innisfree-super-volcanic-pore-clay-mask.webp',
     tags: {
-      primary: [TAG_SLUGS.MASQUE_ARGILE, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.EXFOLIATION],
+      primary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.STEP_TRAITEMENT],
       secondary: [
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.PORES_DILATES,
         TAG_SLUGS.SANS_PARFUM,
-        TAG_SLUGS.MASQUE_HEBDO,
+        TAG_SLUGS.MOMENT_HEBDOMADAIRE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -124,12 +129,12 @@ export const INNISFREE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/innisfree-volcanic-bha-pore-cleansing-foam.webp',
     tags: {
-      primary: [TAG_SLUGS.MOUSSE_NETTOYANTE, TAG_SLUGS.NETTOYANT, TAG_SLUGS.ANTI_ACNE],
+      primary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.TEXTURE_MOUSSE, TAG_SLUGS.ANTI_ACNE],
       secondary: [
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.PORES_DILATES,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -158,13 +163,13 @@ export const INNISFREE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/innisfree-retinol-cica-repair-ampoule-1-01-fl-oz-30-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/innisfree-retinol-cica-repair-ampoule.webp',
     tags: {
-      primary: [TAG_SLUGS.AMPOULE, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ANTI_AGE],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_AGE],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.BARRIERE_CUTANEE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
@@ -196,14 +201,19 @@ export const INNISFREE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/innisfree-cherry-blossom-glow-jelly-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.GEL_CREME, TAG_SLUGS.ECLAT],
+      primary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.ECLAT,
+      ],
       secondary: [
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },

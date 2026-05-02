@@ -25,10 +25,10 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.BARRIERE_CUTANEE,
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.PEAU_MIXTE,
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -64,11 +64,13 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       ],
       secondary: [
         TAG_SLUGS.BARRIERE_CUTANEE,
-        TAG_SLUGS.BAUME,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.EMOLLIENCE,
-        TAG_SLUGS.OCCLUSION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_BAUME,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.STEP_OCCLUSIF,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.OCCLUSIF,
         TAG_SLUGS.TEXTURE_RICHE,
         TAG_SLUGS.SANS_PARFUM,
@@ -116,10 +118,10 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.PEAU_MIXTE,
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -162,10 +164,10 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.NON_COMEDOGENE,
         TAG_SLUGS.MATIFIANT,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.SPOT_TREATMENT,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.TYPE_TRAITEMENT,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -204,10 +206,10 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       ],
       secondary: [
         TAG_SLUGS.PORES_DILATES,
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [
@@ -245,15 +247,17 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.eau-thermale-avene.fr',
     tags: {
       primary: [
-        TAG_SLUGS.PROTECTION_SOLAIRE,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.PEAU_MIXTE,
       ],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.PHOTO_VIEILLISSEMENT,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.NON_COMEDOGENE,
@@ -289,11 +293,13 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
         TAG_SLUGS.BARRIERE_CUTANEE,
-        TAG_SLUGS.BAUME,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.EMOLLIENCE,
-        TAG_SLUGS.OCCLUSION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_BAUME,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.STEP_OCCLUSIF,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.OCCLUSIF,
         TAG_SLUGS.TEXTURE_RICHE,
         TAG_SLUGS.SANS_PARFUM,
@@ -336,8 +342,10 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.CERNES_POCHES, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
         TAG_SLUGS.REPULPANT,
-        TAG_SLUGS.CONTOUR_YEUX,
-        TAG_SLUGS.SOIN_LEVRES,
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_LEVRES,
         TAG_SLUGS.ZONE_YEUX,
         TAG_SLUGS.ZONE_LEVRES,
       ],
@@ -366,8 +374,9 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
-        TAG_SLUGS.BRUME,
-        TAG_SLUGS.PREPARATION,
+        TAG_SLUGS.TYPE_MIST,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.STEP_PREPARATION,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.HYPOALLERGENIQUE,
         TAG_SLUGS.GROSSESSE_COMPATIBLE,
@@ -399,9 +408,9 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.PORES_DILATES,
         TAG_SLUGS.PEAU_NORMALE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [
@@ -448,10 +457,10 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.REPULPANT,
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.PEAU_NORMALE,
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [
@@ -492,10 +501,11 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       ],
       secondary: [
         TAG_SLUGS.BARRIERE_CUTANEE,
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.OCCLUSIF,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.NON_COMEDOGENE,
@@ -538,8 +548,9 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.ANTI_ACNE],
       secondary: [
-        TAG_SLUGS.GEL_NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.PORES_DILATES,
         TAG_SLUGS.BRILLANCE,
         TAG_SLUGS.MATIFIANT,
@@ -581,10 +592,11 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.BARRIERE_CUTANEE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.EMOLLIENCE,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.TEXTURE_RICHE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -620,10 +632,11 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.BARRIERE_CUTANEE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.EMOLLIENCE,
-        TAG_SLUGS.GEL_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_GEL,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -655,10 +668,12 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.BARRIERE_CUTANEE,
         TAG_SLUGS.ANTI_ROUGEURS,
         TAG_SLUGS.POST_ACNE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.SOIN_LOCALISE,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_USAGE_LOCALISE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.OCCLUSIF,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.NON_COMEDOGENE,
@@ -704,10 +719,11 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.REPULPANT,
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.PEAU_NORMALE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.EMOLLIENCE,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.BRILLANCE, TAG_SLUGS.ANTI_ACNE],
@@ -750,8 +766,9 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.ECZEMA,
       ],
       secondary: [
-        TAG_SLUGS.HUILE_NETTOYANTE,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_1,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_HUILE,
+        TAG_SLUGS.STEP_NETTOYAGE_1,
         TAG_SLUGS.BARRIERE_CUTANEE,
         TAG_SLUGS.MICROBIOME,
         TAG_SLUGS.SANS_PARFUM,
@@ -799,8 +816,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.PHOTO_VIEILLISSEMENT,
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.PEAU_MIXTE,
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ROSACEE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
@@ -830,18 +847,20 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.eau-thermale-avene.fr',
     tags: {
       primary: [
-        TAG_SLUGS.PROTECTION_SOLAIRE,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ANTI_ACNE,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.PEAU_MIXTE,
       ],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.PHOTO_VIEILLISSEMENT,
         TAG_SLUGS.POST_ACNE,
         TAG_SLUGS.PORES_DILATES,
         TAG_SLUGS.BRILLANCE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.MATIFIANT,
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.NON_COMEDOGENE,
@@ -871,19 +890,21 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-fluide-anti-imperfection-spf50.webp',
     tags: {
       primary: [
-        TAG_SLUGS.PROTECTION_SOLAIRE,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ANTI_ACNE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.PEAU_MIXTE,
       ],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.PHOTO_VIEILLISSEMENT,
         TAG_SLUGS.LUMIERE_BLEUE,
         TAG_SLUGS.POST_ACNE,
         TAG_SLUGS.PORES_DILATES,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.MATIFIANT,
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.SANS_PARFUM,
@@ -919,14 +940,16 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.eau-thermale-avene.fr',
     tags: {
       primary: [
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.PROTECTION_SOLAIRE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
       ],
       secondary: [
         TAG_SLUGS.PHOTO_VIEILLISSEMENT,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.NON_COMEDOGENE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -955,13 +978,19 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, C12-15 ALKYL BENZOATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, ETHYLHEXYL TRIAZONE, GLYCERIN, PHENYLENE BIS-DIPHENYLTRIAZINE, WATER, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, TITANIUM DIOXIDE, POTASSIUM CETYL PHOSPHATE, MYRISTYL ALCOHOL, ORYZA SATIVA (RICE) STARCH, STEARYL ALCOHOL, ISONONYL ISONONANOATE, VP/EICOSENE COPOLYMER, ALUMINA, BENZOIC ACID, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, FRAGRANCE (PARFUM), GLYCERYL BEHENATE, GLYCERYL DIBEHENATE, IRON OXIDES, ISOPROPYL MYRISTATE, ISOPROPYL TITANIUM TRIISOSTEARATE, MYRISTYL GLUCOSIDE, POLYHYDROXYSTEARIC ACID, PPG-1-PEG-9 LAURYL GLYCOL ETHER, PROPYLENE CARBONATE, STEARALKONIUM HECTORITE, TOCOPHERYL GLUCOSIDE, TRIBEHENIN, XANTHAN GUM',
     url: 'https://www.eau-thermale-avene.fr',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_NORMALE],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.PEAU_SENSIBLE,
+        TAG_SLUGS.PEAU_NORMALE,
+      ],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE_TEINTEE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.PHOTO_VIEILLISSEMENT,
         TAG_SLUGS.LUMIERE_BLEUE,
         TAG_SLUGS.POLLUTION,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.FILTRES_MINERAUX,
@@ -993,13 +1022,19 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.eau-thermale-avene.fr',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-ultra-fluid-oil-control-spf50.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.PEAU_MIXTE],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.PEAU_GRASSE,
+        TAG_SLUGS.PEAU_MIXTE,
+      ],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.PHOTO_VIEILLISSEMENT,
         TAG_SLUGS.BRILLANCE,
         TAG_SLUGS.PORES_DILATES,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.MATIFIANT,
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.NON_COMEDOGENE,
@@ -1031,16 +1066,18 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.eau-thermale-avene.fr',
     tags: {
       primary: [
-        TAG_SLUGS.PROTECTION_SOLAIRE,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.TEINT_TERNE,
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.PEAU_MIXTE,
       ],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.PHOTO_VIEILLISSEMENT,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.NON_COMEDOGENE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -1068,16 +1105,18 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.eau-thermale-avene.fr',
     tags: {
       primary: [
-        TAG_SLUGS.PROTECTION_SOLAIRE,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ANTI_TACHES,
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.PEAU_MIXTE,
       ],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE_TEINTEE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.PHOTO_VIEILLISSEMENT,
         TAG_SLUGS.LUMIERE_BLEUE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.MATIFIANT,
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.FILTRES_MINERAUX,
@@ -1116,10 +1155,11 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.BARRIERE_CUTANEE,
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.EMOLLIENCE,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.OCCLUSIF,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.HYPOALLERGENIQUE,
@@ -1161,11 +1201,13 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       ],
       secondary: [
         TAG_SLUGS.BARRIERE_CUTANEE,
-        TAG_SLUGS.BAUME,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.EMOLLIENCE,
-        TAG_SLUGS.OCCLUSION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_BAUME,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.STEP_OCCLUSIF,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.OCCLUSIF,
         TAG_SLUGS.TEXTURE_RICHE,
         TAG_SLUGS.SANS_PARFUM,
@@ -1214,10 +1256,10 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       ],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.NON_COMEDOGENE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -1251,12 +1293,13 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-cold-cream-pain-surgras-lot-de-2-x-100g-278059.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN],
       secondary: [
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
       ],
       avoid: [],
     },
@@ -1278,15 +1321,16 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-body-gel-douche-douceur-500ml-232678.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.NETTOYANT_CORPS,
+        TAG_SLUGS.TYPE_NETTOYANT,
         TAG_SLUGS.ZONE_CORPS,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
@@ -1311,10 +1355,11 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.BRUME,
-        TAG_SLUGS.PREPARATION,
+        TAG_SLUGS.TYPE_MIST,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.STEP_PREPARATION,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1337,8 +1382,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-cicalfate-gel-nettoyant-assainissant-visage-et-corps-200ml-301481.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [TAG_SLUGS.STEP_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1362,10 +1407,9 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1391,10 +1435,9 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1417,7 +1460,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-body-gommage-douceur-200ml-232685.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
-      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1438,8 +1481,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-gel-douche-body-100ml-peaux-sensibles.html',
     imageUrl: '',
     tags: {
-      primary: ['anti-acne', 'hydratation', 'anti-oxydant'],
-      secondary: ['sebo-regulateur', 'reparateur', 'nettoyant-corps', 'zone-corps'],
+      primary: ['anti-acne', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['sebo-regulateur', 'reparateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
@@ -1468,8 +1511,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-xeracalm-ad-relipidant-huile-lavante.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant-corps', 'zone-corps'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -1496,8 +1539,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/soins-corps/avene-cold-cream-creme-mains-concentree-2x50-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cold-cream-creme-mains-concentree.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['creme-mains', 'zone-mains'],
+      primary: ['step-hydratation'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-mains', 'zone-mains'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.CIRE_ABEILLE }],
@@ -1518,8 +1561,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/soins-corps/avene-xeracalm-a-d-baume-relipidiant-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-xeracalm-a-d-baume-relipidiant.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'lait-corps', 'zone-corps'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-lait', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -1545,8 +1588,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/soins-traitants/avene-cleanance-hydra-creme-lavante-200-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cleanance-hydra-creme-lavante.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant-corps', 'zone-corps'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -1574,8 +1617,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-body-gel-douche-douceur-peaux-sensibles.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant-corps', 'zone-corps', 'peau-sensible'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-nettoyant', 'zone-corps', 'zone-corps', 'peau-sensible'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.AVENE_THERMAL_SPRING_WATER }],
@@ -1597,7 +1640,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-deodorant-24h-body.webp',
     tags: {
       primary: ['barriere-cutanee', 'anti-oxydant'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'deodorant'],
+      secondary: ['step-hydratation', 'texture-legere', 'reparateur', 'type-deodorant'],
       avoid: [],
     },
     keyIngredients: [
@@ -1627,8 +1670,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/acne-et-peaux-grasses/avene-cleanance-hydra-creme-apaisante-40-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cleanance-hydra-creme-apaisante.webp',
     tags: {
-      primary: ['anti-oxydant', 'hydratation', 'apaisant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['anti-oxydant', 'step-hydratation', 'apaisant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1654,7 +1697,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-body-gommage-douceur-peaux-sensibles.webp',
     tags: {
-      primary: ['exfoliation'],
+      primary: ['step-traitement'],
       secondary: ['zone-visage', 'peau-sensible'],
       avoid: [],
     },
@@ -1676,8 +1719,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-cicalfate-creme-reparatrice-mains-100ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cicalfate-creme-reparatrice-mains.webp',
     tags: {
-      primary: ['hydratation', 'cicatrisation'],
-      secondary: ['creme-hydratante', 'zone-visage', 'reparateur'],
+      primary: ['step-hydratation', 'cicatrisation'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage', 'reparateur'],
       avoid: [],
     },
     keyIngredients: [
@@ -1703,8 +1746,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-cicalfate-levres-baume-reparateur-10ml.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'cicatrisation'],
-      secondary: ['reparateur', 'baume'],
+      primary: ['step-hydratation', 'anti-oxydant', 'cicatrisation'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-baume'],
       avoid: [],
     },
     keyIngredients: [
@@ -1736,7 +1779,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/avene-cicalfate-lotion-assechante-reparatrice.webp',
     tags: {
       primary: ['apaisant', 'cicatrisation'],
-      secondary: ['tonique', 'preparation', 'zone-visage', 'reparateur'],
+      secondary: ['type-toner', 'texture-eau', 'step-preparation', 'zone-visage', 'reparateur'],
       avoid: [],
     },
     keyIngredients: [
@@ -1763,8 +1806,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-cicalfate-serum-restaurateur-intense.webp',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
-      secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
+      primary: ['apaisant', 'barriere-cutanee', 'step-hydratation'],
+      secondary: ['reparateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1791,12 +1834,13 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-cicalfate-soin-hydratant-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cicalfate-soin-hydratant.webp',
     tags: {
-      primary: ['barriere-cutanee', 'pores-dilates', 'hydratation'],
+      primary: ['barriere-cutanee', 'pores-dilates', 'step-hydratation'],
       secondary: [
-        'emollience',
+        'step-hydratation',
         'texture-legere',
         'sebo-regulateur',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
       ],
       avoid: [],
@@ -1829,8 +1873,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-cleanance-comedomed-gel-nettoyant-peeling.webp',
     tags: {
-      primary: ['anti-oxydant', 'exfoliation'],
-      secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['anti-oxydant', 'step-traitement'],
+      secondary: ['reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1856,8 +1900,14 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-cleanance-comedomed-peeling-creme-intensive.webp',
     tags: {
-      primary: ['anti-age', 'exfoliation', 'eclat'],
-      secondary: ['keratolytique', 'traitement', 'reparateur', 'zone-visage', 'exfoliant-chimique'],
+      primary: ['anti-age', 'step-traitement', 'eclat'],
+      secondary: [
+        'keratolytique',
+        'step-traitement',
+        'reparateur',
+        'zone-visage',
+        'type-exfoliation',
+      ],
       avoid: ['peau-sensible', 'peau-sensible', 'barriere-cutanee-alteree'],
     },
     keyIngredients: [
@@ -1885,8 +1935,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-cleanance-eau-micellaire-100-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cleanance-eau-micellaire.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.AVENE_THERMAL_SPRING_WATER }],
@@ -1908,8 +1958,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-cleanance-eau-micellaire-visage-yeux.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.AVENE_THERMAL_SPRING_WATER }],
@@ -1930,8 +1980,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-cleanance-masque-detox-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cleanance-masque-detox-50ml.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['masque-hebdo', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1958,14 +2008,13 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-cleanance-nettoyant-solide-desincrustant.webp',
     tags: {
-      primary: ['anti-acne', 'exfoliation', 'hydratation'],
+      primary: ['anti-acne', 'step-traitement', 'step-hydratation'],
       secondary: [
         'sebo-regulateur',
         'keratolytique',
-        'nettoyant',
-        'double-nettoyage-2',
+        'step-nettoyage-2',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
@@ -1992,8 +2041,14 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-creme-vitamin-activ-cg-intensive-eclat-rechargeable.webp',
     tags: {
-      primary: ['pores-dilates', 'hydratation', 'barriere-cutanee', 'eclat'],
-      secondary: ['reparateur', 'sebo-regulateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['pores-dilates', 'step-hydratation', 'barriere-cutanee', 'eclat'],
+      secondary: [
+        'reparateur',
+        'sebo-regulateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
   },
@@ -2013,8 +2068,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-dermabsolu-creme-jour-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-dermabsolu-creme-jour.webp',
     tags: {
-      primary: ['anti-age', 'anti-oxydant', 'hydratation'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['anti-age', 'anti-oxydant', 'step-hydratation'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -2035,8 +2090,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-dermabsolu-creme-jour-redensifiante.webp',
     tags: {
-      primary: ['anti-age', 'hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['anti-age', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -2068,7 +2123,13 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/avene-dermabsolu-creme-nuit-intensive-resculptante.webp',
     tags: {
       primary: ['pores-dilates', 'anti-age', 'barriere-cutanee'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2097,8 +2158,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-dermabsolu-serum-concentre-resculptant.webp',
     tags: {
-      primary: ['anti-age', 'hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
+      primary: ['anti-age', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -2128,8 +2189,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-dermabsolu-soin-regard-combleur-15ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-dermabsolu-soin-regard-combleur.webp',
     tags: {
-      primary: ['anti-age', 'hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
+      primary: ['anti-age', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-traitement', 'zone-yeux', 'zone-yeux', 'step-traitement'],
       avoid: [],
     },
     keyIngredients: [
@@ -2155,8 +2216,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-eau-micellaire-demaquillante-200-ml.html',
     imageUrl: '',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -2181,7 +2242,13 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-gelee-gommante-douceur.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2211,9 +2278,10 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       primary: ['barriere-cutanee', 'anti-age', 'pores-dilates'],
       secondary: [
         'sebo-regulateur',
-        'emollience',
+        'step-hydratation',
         'texture-legere',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
       ],
       avoid: [],
@@ -2239,9 +2307,10 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       primary: ['barriere-cutanee', 'anti-age', 'pores-dilates'],
       secondary: [
         'sebo-regulateur',
-        'emollience',
+        'step-hydratation',
         'texture-legere',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
       ],
       avoid: [],
@@ -2266,12 +2335,13 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['anti-age', 'barriere-cutanee', 'pores-dilates'],
       secondary: [
-        'emollience',
+        'step-hydratation',
         'texture-legere',
         'sebo-regulateur',
-        'traitement',
+        'step-traitement',
         'reparateur',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'barriere-cutanee-alteree'],
@@ -2304,8 +2374,14 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-hyaluron-activ-b3-recharge-creme-regeneration.webp',
     tags: {
-      primary: ['pores-dilates', 'anti-age', 'hydratation'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['pores-dilates', 'anti-age', 'step-hydratation'],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2336,7 +2412,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/avene-hyaluron-activ-b3-serum-concentre-repulpant.webp',
     tags: {
       primary: ['pores-dilates', 'anti-age', 'barriere-cutanee', 'repulpant'],
-      secondary: ['sebo-regulateur', 'serum', 'traitement', 'zone-visage'],
+      secondary: ['sebo-regulateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -2363,8 +2439,15 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-hyaluron-activ-b3-soin-regard-triple-action.webp',
     tags: {
-      primary: ['pores-dilates', 'anti-age', 'hydratation'],
-      secondary: ['sebo-regulateur', 'reparateur', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
+      primary: ['pores-dilates', 'anti-age', 'step-hydratation'],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-traitement',
+        'zone-yeux',
+        'zone-yeux',
+        'step-traitement',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2397,12 +2480,13 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['anti-age', 'barriere-cutanee', 'pores-dilates'],
       secondary: [
-        'emollience',
+        'step-hydratation',
         'texture-legere',
         'sebo-regulateur',
-        'traitement',
+        'step-traitement',
         'reparateur',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'barriere-cutanee-alteree'],
@@ -2437,14 +2521,15 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['barriere-cutanee', 'pores-dilates', 'anti-age'],
       secondary: [
-        'emollience',
+        'step-hydratation',
         'texture-legere',
         'sebo-regulateur',
-        'traitement',
+        'step-traitement',
         'reparateur',
-        'contour-yeux',
+        'type-traitement',
         'zone-yeux',
-        'soin-yeux',
+        'zone-yeux',
+        'step-traitement',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'barriere-cutanee-alteree'],
     },
@@ -2476,8 +2561,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-hydrance-boost-serum-concentre-hydratant.webp',
     tags: {
-      primary: ['hydratation', 'pores-dilates', 'barriere-cutanee'],
-      secondary: ['sebo-regulateur', 'serum', 'traitement', 'zone-visage'],
+      primary: ['step-hydratation', 'pores-dilates', 'barriere-cutanee'],
+      secondary: ['sebo-regulateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -2506,8 +2591,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-lait-demaquillant-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-lait-demaquillant.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -2532,8 +2617,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-masque-apaisant-hydratant-50-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-masque-apaisant-hydratant.webp',
     tags: {
-      primary: ['apaisant', 'hydratation'],
-      secondary: ['masque-hebdo', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation'],
+      secondary: ['moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -2557,8 +2642,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-mousse-nettoyante-150ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-mousse-nettoyante.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.AVENE_THERMAL_SPRING_WATER }],
@@ -2581,7 +2666,14 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/avene-stick-levres-hydratation-quotidienne.webp',
     tags: {
       primary: ['barriere-cutanee', 'anti-oxydant'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'soin-levres', 'zone-levres'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'reparateur',
+        'type-traitement',
+        'zone-levres',
+        'zone-levres',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2607,8 +2699,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-tolerance-control-baume-apaisant-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-tolerance-control-baume-apaisant.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'apaisant'],
-      secondary: ['emollience', 'texture-legere', 'baume'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'apaisant'],
+      secondary: ['step-hydratation', 'texture-legere', 'type-hydratant', 'texture-baume'],
       avoid: [],
     },
     keyIngredients: [
@@ -2636,8 +2728,14 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-tolerance-control-creme-apaisante-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-tolerance-control-creme-apaisante.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'apaisant'],
-      secondary: ['emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'apaisant'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2665,8 +2763,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-tolerance-hydra-10-creme-hydratante.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -2691,8 +2789,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-tolerance-hydra-10-fluide-hydratant.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -2717,8 +2815,14 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-vitamin-activ-cg-creme-intensive-eclat-radiance-eco-recharge.webp',
     tags: {
-      primary: ['pores-dilates', 'hydratation', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['pores-dilates', 'step-hydratation', 'barriere-cutanee', 'eclat'],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2747,8 +2851,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-vitamin-activ-cg-serum-correcteur-elat.webp',
     tags: {
-      primary: ['pores-dilates', 'anti-age', 'hydratation'],
-      secondary: ['sebo-regulateur', 'serum', 'traitement', 'zone-visage'],
+      primary: ['pores-dilates', 'anti-age', 'step-hydratation'],
+      secondary: ['sebo-regulateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -2774,8 +2878,14 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-xeracalm-nutrition-lait-hydratant-100ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-xeracalm-nutrition-lait-hydratant.webp',
     tags: {
-      primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'hydratation'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'step-hydratation'],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.AVENE_THERMAL_SPRING_WATER }],
@@ -2797,11 +2907,12 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-baume-fondant-hydratant-peaux-sensibles.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'anti-oxydant'],
       secondary: [
-        'emollience',
+        'step-hydratation',
         'texture-legere',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
         'peau-sensible',
       ],
@@ -2829,8 +2940,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-hydrance-bb-creme-riche-hydratante-teintee.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -2861,8 +2972,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-hydrance-creme-peaux-sensibles-a-seches.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['creme-hydratante', 'zone-visage', 'peau-sensible'],
+      primary: ['step-hydratation'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage', 'peau-sensible'],
       avoid: [],
     },
     keyIngredients: [
@@ -2889,7 +3000,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/avene-couvrance-poudre-mosaique-bonne-mine-correcteur-de-teint.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['spot-treatment', 'soin-localise', 'zone-visage'],
+      secondary: ['type-traitement', 'step-traitement', 'moment-usage-localise', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -2915,7 +3026,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/avene-couvrance-poudre-mosaique-translucide-correcteur-de-teint.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['spot-treatment', 'soin-localise', 'zone-visage'],
+      secondary: ['type-traitement', 'step-traitement', 'moment-usage-localise', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -2939,8 +3050,15 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/maquillage/avene-couvrance-stick-correcteur-jaune.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-couvrance-stick-correcteur-jaune.webp',
     tags: {
-      primary: ['protection-solaire', 'apaisant'],
-      secondary: ['filtres-chimiques', 'spot-treatment', 'soin-localise', 'zone-visage', 'matin'],
+      primary: ['step-protection-solaire', 'moment-matin', 'apaisant'],
+      secondary: [
+        'filtres-chimiques',
+        'type-traitement',
+        'step-traitement',
+        'moment-usage-localise',
+        'zone-visage',
+        'moment-matin',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2968,8 +3086,15 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/maquillage/avene-couvrance-stick-correcteur-vert.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-couvrance-stick-correcteur-vert.webp',
     tags: {
-      primary: ['protection-solaire', 'apaisant'],
-      secondary: ['filtres-chimiques', 'spot-treatment', 'soin-localise', 'zone-visage', 'matin'],
+      primary: ['step-protection-solaire', 'moment-matin', 'apaisant'],
+      secondary: [
+        'filtres-chimiques',
+        'type-traitement',
+        'step-traitement',
+        'moment-usage-localise',
+        'zone-visage',
+        'moment-matin',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2997,7 +3122,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-stick-correcteur-corail.webp',
     tags: {
       primary: ['apaisant'],
-      secondary: ['spot-treatment', 'soin-localise', 'zone-visage'],
+      secondary: ['type-traitement', 'step-traitement', 'moment-usage-localise', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -3023,8 +3148,14 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/soins-anti-age/avene-men-soin-hydratant-anti-age-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-men-soin-hydratant-anti-age.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'anti-age'],
-      secondary: ['emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'anti-age'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3050,7 +3181,14 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cold-cream-nutrition-stick-levres.webp',
     tags: {
       primary: ['barriere-cutanee', 'apaisant', 'anti-oxydant'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'soin-levres', 'zone-levres'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'reparateur',
+        'type-traitement',
+        'zone-levres',
+        'zone-levres',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3078,8 +3216,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/soins-traitants/avene-soin-apaisant-yeux-10ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-soin-apaisant-yeux.webp',
     tags: {
-      primary: ['apaisant', 'anti-oxydant', 'hydratation'],
-      secondary: ['reparateur', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
+      primary: ['apaisant', 'anti-oxydant', 'step-hydratation'],
+      secondary: ['reparateur', 'type-traitement', 'zone-yeux', 'zone-yeux', 'step-traitement'],
       avoid: [],
     },
   },
@@ -3099,8 +3237,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/homme-et-sport/par-action/rasage/avene-homme-baume-apres-rasage-75-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-homme-baume-apres-rasage.webp',
     tags: {
-      primary: ['apaisant', 'hydratation'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -3127,8 +3265,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/corps/levres/hydratation/avene-baume-levres-hydratant-intense-10ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-baume-levres-hydratant-intense.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['soin-levres', 'zone-levres'],
+      primary: ['step-hydratation'],
+      secondary: ['type-traitement', 'zone-levres', 'zone-levres'],
       avoid: [],
     },
     keyIngredients: [
@@ -3157,7 +3295,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/avene-xeracalm-a-d-pain-nettoyant-surgras.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      secondary: ['reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -3184,8 +3322,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/patyka/creme-hydratante-nourrissante/avene-creme-nutritive-revitalisante-50-ml-peaux-sensibles-seches.html',
     imageUrl: '',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.ISODODECANE }, { slug: INGREDIENT_SLUGS.SILICA }],
@@ -3206,8 +3344,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/patyka/creme-hydratante-nourrissante/avene-creme-nutritive-revitalisante-riche-50-ml-peaux-sensibles-seches.html',
     imageUrl: '',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -3232,7 +3370,7 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-apres-soleil-lait-reparateur-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-apres-soleil-lait-reparateur.webp',
     tags: {
-      primary: ['hydratation', 'cicatrisation'],
+      primary: ['step-hydratation', 'cicatrisation'],
       secondary: ['reparateur'],
       avoid: [],
     },
@@ -3257,8 +3395,15 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-cicalfate-creme-protectrice-40-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cicalfate-creme-protectrice.webp',
     tags: {
-      primary: ['apaisant', 'hydratation'],
-      secondary: ['creme-solaire', 'protection-solaire', 'matin', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation'],
+      secondary: [
+        'type-solaire',
+        'texture-creme',
+        'step-protection-solaire',
+        'moment-matin',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3285,8 +3430,16 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-cicalfate-creme-reparatrice-protectrice.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'cicatrisation'],
-      secondary: ['creme-solaire', 'protection-solaire', 'matin', 'zone-visage', 'reparateur'],
+      primary: ['apaisant', 'step-hydratation', 'cicatrisation'],
+      secondary: [
+        'type-solaire',
+        'texture-creme',
+        'step-protection-solaire',
+        'moment-matin',
+        'moment-matin',
+        'zone-visage',
+        'reparateur',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3314,8 +3467,16 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-cicalfate-spf50-creme-reparatrice-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-cicalfate-spf50-creme-reparatrice.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'barriere-cutanee', 'cicatrisation'],
-      secondary: ['reparateur', 'creme-solaire', 'protection-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant', 'barriere-cutanee', 'cicatrisation'],
+      secondary: [
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'step-protection-solaire',
+        'moment-matin',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3346,8 +3507,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-cleanance-spf50-ultra-leger-anti-imperfections.webp',
     tags: {
-      primary: ['hydratation', 'anti-acne', 'protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-acne', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -3377,8 +3538,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-creme-sans-parfum-spf50-fini-invisible.webp',
     tags: {
-      primary: ['hydratation', 'protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -3405,8 +3566,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-creme-spf50-fini-invisible-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-creme-spf50-fini-invisible.webp',
     tags: {
-      primary: ['hydratation', 'protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -3436,8 +3597,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-creme-teintee-unifiant-spf50-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-creme-teintee-unifiant-spf50.webp',
     tags: {
-      primary: ['protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
   },
@@ -3457,8 +3618,14 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-fluide-anti-age-spf50-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-fluide-anti-age-spf50.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'anti-age', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'step-hydratation',
+        'anti-oxydant',
+        'anti-age',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -3488,8 +3655,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-fluide-intense-protect-spf50-150ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-fluide-intense-protect-spf50.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -3519,8 +3686,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-fluide-mineral-spf50-40ml-peaux-sensibles.html',
     imageUrl: '',
     tags: {
-      primary: ['apaisant', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['apaisant', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -3549,8 +3716,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-fluide-mineral-teinte-spf50-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-fluide-mineral-teinte-spf50.webp',
     tags: {
-      primary: ['apaisant', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['apaisant', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -3580,8 +3747,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-fluide-solaire-spf50-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-fluide-solaire-spf50.webp',
     tags: {
-      primary: ['hydratation', 'protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -3612,13 +3779,20 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-fluide-teinte-anti-pigmentation-spf50.webp',
     tags: {
-      primary: ['hydratation', 'anti-acne', 'anti-rougeurs', 'protection-solaire'],
+      primary: [
+        'step-hydratation',
+        'anti-acne',
+        'anti-rougeurs',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
       secondary: [
-        'traitement',
+        'step-traitement',
         'sebo-regulateur',
         'reparateur',
-        'creme-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: [],
@@ -3651,8 +3825,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-gel-autobronzant-hydratant-hale-naturel.webp',
     tags: {
-      primary: ['anti-oxydant', 'hydratation'],
-      secondary: ['reparateur', 'auto-bronzant', 'zone-corps'],
+      primary: ['anti-oxydant', 'step-hydratation'],
+      secondary: ['reparateur', 'type-solaire', 'zone-corps'],
       avoid: [],
     },
   },
@@ -3672,8 +3846,15 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-huile-solaire-fini-satine-spf30-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-huile-solaire-fini-satine-spf30.webp',
     tags: {
-      primary: ['protection-solaire', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3703,8 +3884,14 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-hydrance-spf30-creme-hydratante-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-hydrance-spf30-creme-hydratante.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'step-hydratation',
+        'apaisant',
+        'anti-oxydant',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -3732,8 +3919,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-lait-enfant-spf50-250ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-lait-enfant-spf50.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -3764,8 +3951,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-lait-solaire-spf50-100-invisible-250ml.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -3796,8 +3983,15 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-perfecteur-ultra-fluid-peaux-sensibles-spf50.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage', 'peau-sensible'],
+      primary: ['step-hydratation', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: [
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+        'peau-sensible',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3827,8 +4021,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-reflexe-solaire-spf50-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-reflexe-solaire-spf50.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -3858,8 +4052,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-rosamed-antirougeurs-spf50-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-rosamed-antirougeurs-spf50.webp',
     tags: {
-      primary: ['hydratation', 'anti-rougeurs', 'protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-rougeurs', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -3889,8 +4083,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-spray-enfant-spf50-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-spray-enfant-spf50.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -3918,8 +4112,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-spray-famille-spf50-400ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-spray-famille-spf50.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -3947,8 +4141,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-spray-solaire-100-invisible-spf50-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-spray-solaire-100-invisible-spf50.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -3978,8 +4172,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-spray-solaire-invisible-spf30-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-spray-solaire-invisible-spf30.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -4009,8 +4203,14 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-stick-levres-spf50-3g.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-stick-levres-spf50.webp',
     tags: {
-      primary: ['protection-solaire'],
-      secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin'],
+      secondary: [
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -4039,8 +4239,14 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-sunsistick-ka-spf50-20g.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-sunsistick-ka-spf50.webp',
     tags: {
-      primary: ['protection-solaire'],
-      secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin'],
+      secondary: [
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -4069,8 +4275,14 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/avene-ultra-fluid-eclat-radiance-spf50-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-ultra-fluid-eclat-radiance-spf50.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'eclat', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'step-hydratation',
+        'anti-oxydant',
+        'eclat',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -4101,8 +4313,15 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-ultra-fluid-invisible-peaux-sensibles-spf50.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage', 'peau-sensible'],
+      primary: ['step-hydratation', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: [
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+        'peau-sensible',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -4133,8 +4352,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-hydrance-bb-legere-emulsion-teintee-spf-30.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -4162,8 +4381,15 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/cremes-hydratantes/avene-hydrance-legere-emulsion-hydratante-spf30-40-ml-peaux-sensibles.html',
     imageUrl: '',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'protection-solaire'],
-      secondary: ['emollience', 'texture-legere', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'step-protection-solaire', 'moment-matin'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -4187,8 +4413,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/maquillage/avene-poudre-compact-dore-spf50-10g.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-poudre-compact-dore-spf50.webp',
     tags: {
-      primary: ['apaisant', 'protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['apaisant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -4214,8 +4440,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/maquillage/avene-poudre-compact-sable-spf50-10g.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-poudre-compact-sable-spf50.webp',
     tags: {
-      primary: ['apaisant', 'protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['apaisant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -4243,7 +4469,14 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/avene-cold-cream-stick-levres-nourrissant-x2.webp',
     tags: {
       primary: ['apaisant'],
-      secondary: ['creme-solaire', 'protection-solaire', 'matin', 'zone-visage'],
+      secondary: [
+        'type-solaire',
+        'texture-creme',
+        'step-protection-solaire',
+        'moment-matin',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -4271,8 +4504,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/solaire/avene-fluide-solaire-spf50-sans-parfum-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-fluide-solaire-spf50-sans-parfum.webp',
     tags: {
-      primary: ['hydratation', 'protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -4302,8 +4535,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/solaire/avene-fluide-sport-spf-50-100-ml-peaux-sensibles.html',
     imageUrl: '',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -4334,8 +4567,15 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-huile-protectrice-spf-30-brume-satinee.webp',
     tags: {
-      primary: ['protection-solaire', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -4365,8 +4605,14 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/avene/solaire/avene-stick-zones-sensibles-spf-50-8g.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-stick-zones-sensibles-spf-50.webp',
     tags: {
-      primary: ['protection-solaire'],
-      secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin'],
+      secondary: [
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -4396,8 +4642,15 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-tres-haute-protection-lait-mineral-50spf.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['creme-solaire', 'protection-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: [
+        'type-solaire',
+        'texture-creme',
+        'step-protection-solaire',
+        'moment-matin',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -4422,8 +4675,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/solaires/par-marques/avene/avene-creme-minerale-spf-50-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-creme-minerale-spf-50.webp',
     tags: {
-      primary: ['hydratation', 'protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -4448,8 +4701,14 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/solaires/par-marques/avene/avene-haute-protection-creme-30spf-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/avene-haute-protection-creme-30spf.webp',
     tags: {
-      primary: ['protection-solaire'],
-      secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin'],
+      secondary: [
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -4480,8 +4739,8 @@ export const AVENE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/avene-hydrance-uv-riche-creme-hydratante-spf-30.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [

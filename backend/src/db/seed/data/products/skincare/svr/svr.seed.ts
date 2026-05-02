@@ -19,8 +19,15 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/soins-corps/svr-lait-xerial-10-lait-corps-400ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-lait-xerial-10-lait-corps.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant'],
-      secondary: ['keratolytique', 'reparateur', 'lait-corps', 'zone-corps'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant'],
+      secondary: [
+        'keratolytique',
+        'reparateur',
+        'type-hydratant',
+        'texture-lait',
+        'zone-corps',
+        'zone-corps',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -50,7 +57,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/svr-topialyse-huile-lavante-anti-grattage.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
+      secondary: ['sebo-regulateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -77,7 +84,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-topialyse-huile-lavante-micellaire.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
+      secondary: ['sebo-regulateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -104,7 +111,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/svr-sebiaclear-creme-lavante-hydratante-apaisante.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'apaisant'],
-      secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
+      secondary: ['sebo-regulateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -130,8 +137,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-spirial-deo-douche-gel-lavant-deodorant-fraicheur-intense.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'deodorant'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-deodorant'],
       avoid: [],
     },
     keyIngredients: [
@@ -155,8 +162,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-spirial-deodorant-24h-spray-vegetal-75ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-spirial-deodorant-24h-spray-vegetal.webp',
     tags: {
-      primary: ['apaisant', 'hydratation'],
-      secondary: ['deodorant'],
+      primary: ['apaisant', 'step-hydratation'],
+      secondary: ['type-deodorant'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.ALLANTOIN }],
@@ -177,8 +184,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-spirial-deodorant-vegetal-24h-roll-on-50ml-rechargeable.html',
     imageUrl: '',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'deodorant'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-deodorant'],
       avoid: [],
     },
     keyIngredients: [
@@ -205,8 +212,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-topialyse-gel-lavant-apaisant-hydratant-24h.webp',
     tags: {
-      primary: ['hydratation', 'apaisant'],
-      secondary: ['nettoyant-corps', 'zone-corps'],
+      primary: ['step-hydratation', 'apaisant'],
+      secondary: ['type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
   },
@@ -226,8 +233,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-xerial-gommage-corps-100g.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-xerial-gommage-corps.webp',
     tags: {
-      primary: ['exfoliation'],
-      secondary: ['gommage-corps', 'exfoliant-physique', 'zone-corps'],
+      primary: ['step-traitement'],
+      secondary: ['type-exfoliation', 'zone-corps', 'type-exfoliation', 'zone-corps'],
       avoid: [],
     },
   },
@@ -248,8 +255,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-topialyse-mains-creme-nutri-reparatrice.webp',
     tags: {
-      primary: ['anti-oxydant', 'hydratation', 'cicatrisation'],
-      secondary: ['reparateur', 'creme-mains', 'zone-mains'],
+      primary: ['anti-oxydant', 'step-hydratation', 'cicatrisation'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-mains', 'zone-mains'],
       avoid: [],
     },
     keyIngredients: [
@@ -274,8 +281,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-spirial-deo-creme-anti-transpirant-48h.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['deodorant'],
+      primary: ['step-hydratation'],
+      secondary: ['type-deodorant'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.DICAPRYLYL_CARBONATE }],
@@ -296,8 +303,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-produits/deodorants/offre-speciale-lot-de-2-deodorants/svr-spirial-spray-anti-transpirant-2x-75ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-spirial-spray-anti-transpirant-2x.webp',
     tags: {
-      primary: ['apaisant', 'hydratation'],
-      secondary: ['deodorant'],
+      primary: ['apaisant', 'step-hydratation'],
+      secondary: ['type-deodorant'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.ALLANTOIN }],
@@ -318,8 +325,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-produits/deodorants/roll-on/svr-spirial-deodorant-roll-on-48h-lot-de-2x50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-spirial-deodorant-roll-on-48h-50ml.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'deodorant'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-deodorant'],
       avoid: [],
     },
     keyIngredients: [
@@ -345,8 +352,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-spirial-deodorant-spray-anti-transpirant-intense.webp',
     tags: {
-      primary: ['hydratation', 'apaisant'],
-      secondary: ['deodorant'],
+      primary: ['step-hydratation', 'apaisant'],
+      secondary: ['type-deodorant'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.BISABOLOL }, { slug: INGREDIENT_SLUGS.LACTIC_ACID }],
@@ -367,8 +374,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/soins-nettoyants/svr-baume-lavant-mains-sensibles-400-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-baume-lavant-mains-sensibles.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -389,8 +396,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-densitium-contour-des-yeux-correction-globale.webp',
     tags: {
-      primary: ['hydratation', 'microbiome', 'anti-age'],
-      secondary: ['contour-yeux', 'zone-yeux', 'soin-yeux'],
+      primary: ['step-hydratation', 'microbiome', 'anti-age'],
+      secondary: ['type-traitement', 'zone-yeux', 'zone-yeux', 'step-traitement'],
       avoid: [],
     },
     keyIngredients: [
@@ -420,15 +427,15 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/soins-specifiques/svr-sebiaclear-serum-correcteur-global-30-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sebiaclear-serum-correcteur-global.webp',
     tags: {
-      primary: ['pores-dilates', 'exfoliation', 'barriere-cutanee'],
+      primary: ['pores-dilates', 'step-traitement', 'barriere-cutanee'],
       secondary: [
         'peau-sensible',
         'sebo-regulateur',
         'reparateur',
-        'serum',
-        'traitement',
+        'type-serum',
+        'step-traitement',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
       ],
       avoid: [],
     },
@@ -456,8 +463,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/soins-specifiques/svr-topialyse-barriere-creme-reparatrice-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-topialyse-barriere-creme-reparatrice.webp',
     tags: {
-      primary: ['anti-rougeurs', 'hydratation', 'apaisant', 'cicatrisation'],
-      secondary: ['creme-hydratante', 'zone-visage', 'reparateur'],
+      primary: ['anti-rougeurs', 'step-hydratation', 'apaisant', 'cicatrisation'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage', 'reparateur'],
       avoid: [],
     },
     keyIngredients: [
@@ -486,8 +493,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/soins-specifiques/svr-topialyse-palpebral-creme-apaisante-15ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-topialyse-palpebral-creme-apaisante.webp',
     tags: {
-      primary: ['anti-rougeurs', 'hydratation', 'apaisant'],
-      secondary: ['contour-yeux', 'zone-yeux', 'soin-yeux'],
+      primary: ['anti-rougeurs', 'step-hydratation', 'apaisant'],
+      secondary: ['type-traitement', 'zone-yeux', 'zone-yeux', 'step-traitement'],
       avoid: [],
     },
     keyIngredients: [
@@ -517,14 +524,14 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-xerial-peel-masque-exfoliant-pieds-2x.webp',
     tags: {
-      primary: ['hydratation', 'exfoliation', 'eclat'],
+      primary: ['step-hydratation', 'step-traitement', 'eclat'],
       secondary: [
         'keratolytique',
-        'emollience',
+        'step-hydratation',
         'texture-legere',
-        'masque-hebdo',
+        'moment-hebdomadaire',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
       ],
       avoid: ['peau-sensible', 'peau-sensible'],
     },
@@ -555,14 +562,15 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-active-gel-sebiaclear-correcteur-intensif.webp',
     tags: {
-      primary: ['pores-dilates', 'anti-acne', 'exfoliation'],
+      primary: ['pores-dilates', 'anti-acne', 'step-traitement'],
       secondary: [
         'sebo-regulateur',
         'reparateur',
-        'spot-treatment',
-        'soin-localise',
+        'type-traitement',
+        'step-traitement',
+        'moment-usage-localise',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
@@ -592,8 +600,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-b3-essence-hydra-solution-reparatrice.webp',
     tags: {
-      primary: ['hydratation', 'pores-dilates', 'barriere-cutanee', 'cicatrisation'],
-      secondary: ['sebo-regulateur', 'essence', 'preparation', 'zone-visage', 'reparateur'],
+      primary: ['step-hydratation', 'pores-dilates', 'barriere-cutanee', 'cicatrisation'],
+      secondary: ['sebo-regulateur', 'type-toner', 'step-preparation', 'zone-visage', 'reparateur'],
       avoid: [],
     },
     keyIngredients: [
@@ -619,8 +627,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/soins-visage/svr-b3-masque-hydra-intensif.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-b3-masque-hydra-intensif.webp',
     tags: {
-      primary: ['hydratation', 'pores-dilates', 'apaisant'],
-      secondary: ['sebo-regulateur', 'keratolytique', 'masque-hebdo', 'zone-visage'],
+      primary: ['step-hydratation', 'pores-dilates', 'apaisant'],
+      secondary: ['sebo-regulateur', 'keratolytique', 'moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -649,10 +657,10 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-c-masque-anti-detox-mousse-micro-peeling.webp',
     tags: {
-      primary: ['eclat', 'barriere-cutanee', 'anti-acne', 'exfoliation'],
+      primary: ['eclat', 'barriere-cutanee', 'anti-acne', 'step-traitement'],
       secondary: [
         'peau-sensible',
-        'emollience',
+        'step-hydratation',
         'texture-legere',
         'sebo-regulateur',
         'reparateur',
@@ -686,7 +694,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-clairial-serum-anti-taches.webp',
     tags: {
       primary: ['anti-taches', 'hyperpigmentation'],
-      secondary: ['serum', 'traitement', 'zone-visage'],
+      secondary: ['type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
   },
@@ -706,8 +714,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/soins-visage/svr-palpebral-baume-30-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-palpebral-baume.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['contour-yeux', 'zone-yeux', 'soin-yeux'],
+      primary: ['step-hydratation'],
+      secondary: ['type-traitement', 'zone-yeux', 'zone-yeux', 'step-traitement'],
       avoid: [],
     },
     keyIngredients: [
@@ -736,8 +744,15 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-spray-hydratant-ultra-leger-et-invisible.webp',
     tags: {
-      primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'hydratation'],
-      secondary: ['sebo-regulateur', 'reparateur', 'brume', 'preparation', 'zone-visage'],
+      primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'step-hydratation'],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-mist',
+        'texture-eau',
+        'step-preparation',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -768,8 +783,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-ampoule-clairial-concentre-anti-taches.webp',
     tags: {
-      primary: ['hydratation', 'anti-taches', 'hyperpigmentation'],
-      secondary: ['spot-treatment', 'soin-localise', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-taches', 'hyperpigmentation'],
+      secondary: ['type-traitement', 'step-traitement', 'moment-usage-localise', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -798,8 +813,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-baume-nuit-densitium-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-baume-nuit-densitium.webp',
     tags: {
-      primary: ['hydratation', 'anti-age', 'microbiome'],
-      secondary: ['keratolytique', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-age', 'microbiome'],
+      secondary: ['keratolytique', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -820,7 +835,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-c20-biotic-creme-uniformisante.webp',
     tags: {
       primary: ['microbiome', 'apaisant', 'anti-oxydant'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -852,7 +867,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/svr-c20-biotic-recharge-creme-uniformisante.webp',
     tags: {
       primary: ['microbiome', 'apaisant', 'anti-oxydant'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -883,7 +898,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-c-eye-biotic-soin-yeux-lissant.webp',
     tags: {
       primary: ['anti-age', 'microbiome', 'anti-oxydant'],
-      secondary: ['reparateur', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
+      secondary: ['reparateur', 'type-traitement', 'zone-yeux', 'zone-yeux', 'step-traitement'],
       avoid: [],
     },
     keyIngredients: [
@@ -911,8 +926,14 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-cicavit-creme-hppi-anti-marques-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-cicavit-creme-hppi-anti-marques-40ml.webp',
     tags: {
-      primary: ['hydratation', 'pores-dilates', 'barriere-cutanee'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'pores-dilates', 'barriere-cutanee'],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -942,8 +963,14 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-collagen-biotic-creme-rebondissante-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-collagen-biotic-creme-rebondissante.webp',
     tags: {
-      primary: ['microbiome', 'barriere-cutanee', 'hydratation'],
-      secondary: ['emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
+      primary: ['microbiome', 'barriere-cutanee', 'step-hydratation'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -970,8 +997,14 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-collagen-biotic-recharge-creme-rebondissante.webp',
     tags: {
-      primary: ['microbiome', 'barriere-cutanee', 'hydratation'],
-      secondary: ['emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
+      primary: ['microbiome', 'barriere-cutanee', 'step-hydratation'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -997,13 +1030,13 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-densitium-bi-serum-rechargeable-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-densitium-bi-serum-rechargeable.webp',
     tags: {
-      primary: ['hydratation', 'repulpant', 'barriere-cutanee'],
+      primary: ['step-hydratation', 'repulpant', 'barriere-cutanee'],
       secondary: [
         'reparateur',
-        'emollience',
+        'step-hydratation',
         'texture-legere',
-        'serum',
-        'traitement',
+        'type-serum',
+        'step-traitement',
         'zone-visage',
       ],
       avoid: [],
@@ -1025,8 +1058,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-densitium-creme-rechargeable-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-densitium-creme-rechargeable.webp',
     tags: {
-      primary: ['anti-age', 'microbiome', 'hydratation'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['anti-age', 'microbiome', 'step-hydratation'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -1046,8 +1079,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-densitium-creme-riche-rechargeable-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-densitium-creme-riche-rechargeable.webp',
     tags: {
-      primary: ['anti-age', 'microbiome', 'hydratation'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['anti-age', 'microbiome', 'step-hydratation'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -1068,8 +1101,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-densitium-creme-rose-eclat-rechargeable.webp',
     tags: {
-      primary: ['hydratation', 'repulpant', 'anti-oxydant', 'eclat'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'repulpant', 'anti-oxydant', 'eclat'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -1089,8 +1122,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-densitium-recharge-baume-nuit-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-densitium-recharge-baume-nuit.webp',
     tags: {
-      primary: ['hydratation', 'anti-age', 'microbiome'],
-      secondary: ['keratolytique', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-age', 'microbiome'],
+      secondary: ['keratolytique', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -1110,13 +1143,13 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-densitium-recharge-bi-serum-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-densitium-recharge-bi-serum.webp',
     tags: {
-      primary: ['hydratation', 'repulpant', 'barriere-cutanee'],
+      primary: ['step-hydratation', 'repulpant', 'barriere-cutanee'],
       secondary: [
         'reparateur',
-        'emollience',
+        'step-hydratation',
         'texture-legere',
-        'serum',
-        'traitement',
+        'type-serum',
+        'step-traitement',
         'zone-visage',
       ],
       avoid: [],
@@ -1138,8 +1171,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-densitium-recharge-creme-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-densitium-recharge-creme.webp',
     tags: {
-      primary: ['anti-age', 'microbiome', 'hydratation'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['anti-age', 'microbiome', 'step-hydratation'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -1159,8 +1192,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-densitium-recharge-creme-riche-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-densitium-recharge-creme-riche.webp',
     tags: {
-      primary: ['anti-age', 'microbiome', 'hydratation'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['anti-age', 'microbiome', 'step-hydratation'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -1180,8 +1213,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-densitium-recharge-creme-rose-eclat-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-densitium-recharge-creme-rose-eclat.webp',
     tags: {
-      primary: ['hydratation', 'repulpant', 'anti-oxydant', 'eclat'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'repulpant', 'anti-oxydant', 'eclat'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -1202,8 +1235,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-densitium-rose-eclat-creme-redensifiante-unifiante.webp',
     tags: {
-      primary: ['hydratation', 'repulpant', 'anti-oxydant', 'eclat'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'repulpant', 'anti-oxydant', 'eclat'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1233,8 +1266,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-filler-biotic-contour-yeux-et-levres-15ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-filler-biotic-contour-yeux-et-levres.webp',
     tags: {
-      primary: ['anti-age', 'microbiome', 'hydratation'],
-      secondary: ['contour-yeux', 'zone-yeux', 'soin-yeux'],
+      primary: ['anti-age', 'microbiome', 'step-hydratation'],
+      secondary: ['type-traitement', 'zone-yeux', 'zone-yeux', 'step-traitement'],
       avoid: [],
     },
     keyIngredients: [
@@ -1262,14 +1295,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-gel-moussant-sebiaclear-400ml-recharge-400ml.html',
     imageUrl: '',
     tags: {
-      primary: ['hydratation', 'exfoliation'],
-      secondary: [
-        'peau-sensible',
-        'nettoyant',
-        'double-nettoyage-2',
-        'zone-visage',
-        'exfoliant-chimique',
-      ],
+      primary: ['step-hydratation', 'step-traitement'],
+      secondary: ['peau-sensible', 'step-nettoyage-2', 'zone-visage', 'type-exfoliation'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.SARCOSINE }, { slug: INGREDIENT_SLUGS.LACTIC_ACID }],
@@ -1291,14 +1318,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-gel-moussant-sebiaclear-nettoyant-anti-imperfections.webp',
     tags: {
-      primary: ['anti-acne', 'exfoliation', 'hydratation'],
-      secondary: [
-        'sebo-regulateur',
-        'nettoyant',
-        'double-nettoyage-2',
-        'zone-visage',
-        'exfoliant-chimique',
-      ],
+      primary: ['anti-acne', 'step-traitement', 'step-hydratation'],
+      secondary: ['sebo-regulateur', 'step-nettoyage-2', 'zone-visage', 'type-exfoliation'],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.SALICYLIC_ACID }],
@@ -1319,8 +1340,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-hyalu-biotic-gelee-repulpante-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-hyalu-biotic-gelee-repulpante.webp',
     tags: {
-      primary: ['microbiome', 'hydratation', 'repulpant'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['microbiome', 'step-hydratation', 'repulpant'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1347,8 +1368,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-hyalu-biotic-recharge-gelee-repulpante.webp',
     tags: {
-      primary: ['microbiome', 'hydratation', 'repulpant'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['microbiome', 'step-hydratation', 'repulpant'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1375,8 +1396,14 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-hydra-sebiaclear-reparateur-hydratant.webp',
     tags: {
-      primary: ['pores-dilates', 'hydratation', 'barriere-cutanee', 'cicatrisation'],
-      secondary: ['sebo-regulateur', 'creme-hydratante', 'zone-visage', 'reparateur'],
+      primary: ['pores-dilates', 'step-hydratation', 'barriere-cutanee', 'cicatrisation'],
+      secondary: [
+        'sebo-regulateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+        'reparateur',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1407,7 +1434,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-physiopure-huile-demaquillante.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      secondary: ['reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1433,8 +1460,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-recharge-creme-hydraliane-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-recharge-creme-hydraliane.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1462,8 +1489,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-recharge-creme-legere-hydraliane-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-recharge-creme-legere-hydraliane.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1491,14 +1518,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-sebiaclear-eau-micellaire-eco-recharge.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: [
-        'keratolytique',
-        'peau-sensible',
-        'nettoyant',
-        'double-nettoyage-2',
-        'zone-visage',
-      ],
+      primary: ['step-hydratation'],
+      secondary: ['keratolytique', 'peau-sensible', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1524,10 +1545,11 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['anti-acne', 'anti-rougeurs', 'pores-dilates'],
       secondary: [
-        'traitement',
+        'step-traitement',
         'sebo-regulateur',
-        'spot-treatment',
-        'soin-localise',
+        'type-traitement',
+        'step-traitement',
+        'moment-usage-localise',
         'zone-visage',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
@@ -1557,7 +1579,13 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sensifine-ar-creme-teintee.webp',
     tags: {
       primary: ['anti-rougeurs', 'barriere-cutanee', 'apaisant'],
-      secondary: ['emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1587,7 +1615,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sensifine-ar-eau-micellaire-recharge.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      secondary: ['sebo-regulateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1611,8 +1639,15 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sensifine-hydra-creme-soin-hydratant-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sensifine-hydra-creme-soin-hydratant.webp',
     tags: {
-      primary: ['barriere-cutanee', 'apaisant', 'hydratation'],
-      secondary: ['reparateur', 'emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
+      primary: ['barriere-cutanee', 'apaisant', 'step-hydratation'],
+      secondary: [
+        'reparateur',
+        'step-hydratation',
+        'texture-legere',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
   },
@@ -1633,8 +1668,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-sensifine-masque-sos-hydratant-apaisant.webp',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
-      secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
+      primary: ['apaisant', 'barriere-cutanee', 'step-hydratation'],
+      secondary: ['reparateur', 'moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1660,8 +1695,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-spirial-deo-creme-48h-lot-de-2x50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-spirial-deo-creme-48h.webp',
     tags: {
-      primary: ['apaisant', 'hydratation'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1689,7 +1724,13 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-topialyse-baume-lavant.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1716,7 +1757,13 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl: '',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1743,7 +1790,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sensifine-ar-eau-micellaire-400ml.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      secondary: ['sebo-regulateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1768,8 +1815,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-topialyse-creme-nourrissante-apaisante.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'apaisant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'apaisant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1800,7 +1847,14 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sensifine-nutri-baume-soin.webp',
     tags: {
       primary: ['barriere-cutanee', 'apaisant'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1827,7 +1881,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-topialyse-stick-levres.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['reparateur', 'soin-levres', 'zone-levres'],
+      secondary: ['reparateur', 'type-traitement', 'zone-levres', 'zone-levres'],
       avoid: [],
     },
   },
@@ -1847,13 +1901,14 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/soins-specifiques/svr-ak-secure-dm-protect-50-ml-prevention-des-cancers-cutanes.html',
     imageUrl: '',
     tags: {
-      primary: ['protection-solaire', 'pores-dilates', 'barriere-cutanee'],
+      primary: ['step-protection-solaire', 'moment-matin', 'pores-dilates', 'barriere-cutanee'],
       secondary: [
         'filtres-chimiques',
         'sebo-regulateur',
         'reparateur',
-        'creme-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: [],
@@ -1889,9 +1944,11 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       secondary: [
         'sebo-regulateur',
         'reparateur',
-        'creme-solaire',
-        'protection-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'step-protection-solaire',
+        'moment-matin',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: [],
@@ -1923,8 +1980,21 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/solaires/svr-sun-secure-eau-solaire-spf-50-100ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-eau-solaire-spf-50-100ml.webp',
     tags: {
-      primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'protection-solaire'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'pores-dilates',
+        'barriere-cutanee',
+        'eclat',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1955,8 +2025,21 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-ecran-mineral-teinte-spf50.webp',
     tags: {
-      primary: ['pores-dilates', 'apaisant', 'barriere-cutanee', 'protection-solaire'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'pores-dilates',
+        'apaisant',
+        'barriere-cutanee',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1982,8 +2065,21 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/solaires/svr-sun-secure-ecran-mineral-teinte-spf50-60g-toucher-sec.html',
     imageUrl: '',
     tags: {
-      primary: ['pores-dilates', 'apaisant', 'barriere-cutanee', 'protection-solaire'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'pores-dilates',
+        'apaisant',
+        'barriere-cutanee',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2007,8 +2103,21 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/solaires/svr-sun-secure-fluide-spf50-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-fluide-spf50.webp',
     tags: {
-      primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'protection-solaire'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'pores-dilates',
+        'barriere-cutanee',
+        'eclat',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2038,8 +2147,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/solaires/svr-sun-secure-huile-seche-spf50-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-huile-seche-spf50.webp',
     tags: {
-      primary: ['anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -2066,8 +2175,21 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/solaires/svr-sun-secure-spf50-blur-creme-mousse-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-spf50-blur-creme-mousse.webp',
     tags: {
-      primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'protection-solaire'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'pores-dilates',
+        'barriere-cutanee',
+        'eclat',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2098,8 +2220,21 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-blur-sun-secure-creme-mousse-spf50-sans-parfum.webp',
     tags: {
-      primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'protection-solaire'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'pores-dilates',
+        'barriere-cutanee',
+        'eclat',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2130,8 +2265,21 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-blur-teinte-sun-secure-creme-mousse-spf50.webp',
     tags: {
-      primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'protection-solaire'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'pores-dilates',
+        'barriere-cutanee',
+        'eclat',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2161,8 +2309,15 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-cicavit-levres-baume-protecteur-10g.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-cicavit-levres-baume-protecteur.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['creme-solaire', 'protection-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'type-solaire',
+        'texture-creme',
+        'step-protection-solaire',
+        'moment-matin',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2193,8 +2348,16 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-clairial-day-correcteur-anti-taches-spf30.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'anti-taches', 'hyperpigmentation'],
-      secondary: ['reparateur', 'creme-solaire', 'protection-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'anti-taches', 'hyperpigmentation'],
+      secondary: [
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'step-protection-solaire',
+        'moment-matin',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2224,8 +2387,21 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-densitium-creme-spf30-rechargeable-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-densitium-creme-spf30-rechargeable.webp',
     tags: {
-      primary: ['anti-age', 'pores-dilates', 'microbiome', 'protection-solaire'],
-      secondary: ['reparateur', 'sebo-regulateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'anti-age',
+        'pores-dilates',
+        'microbiome',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'reparateur',
+        'sebo-regulateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
   },
@@ -2245,8 +2421,21 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-densitium-recharge-creme-spf30-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-densitium-recharge-creme-spf30.webp',
     tags: {
-      primary: ['anti-age', 'pores-dilates', 'microbiome', 'protection-solaire'],
-      secondary: ['reparateur', 'sebo-regulateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'anti-age',
+        'pores-dilates',
+        'microbiome',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'reparateur',
+        'sebo-regulateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
   },
@@ -2266,8 +2455,21 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-eau-solaire-sun-secure-spf30-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-eau-solaire-sun-secure-spf30.webp',
     tags: {
-      primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'protection-solaire'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'pores-dilates',
+        'barriere-cutanee',
+        'eclat',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2297,8 +2499,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-lait-sun-secure-hydratant-spf50-250ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-lait-sun-secure-hydratant-spf50.webp',
     tags: {
-      primary: ['hydratation', 'protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
   },
@@ -2318,8 +2520,21 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sun-secure-aqua-fluide-spf50-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-aqua-fluide-spf50.webp',
     tags: {
-      primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'protection-solaire'],
-      secondary: ['reparateur', 'sebo-regulateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'pores-dilates',
+        'barriere-cutanee',
+        'eclat',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'reparateur',
+        'sebo-regulateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
   },
@@ -2339,8 +2554,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sun-secure-brume-spf50-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-brume-spf50-200ml.webp',
     tags: {
-      primary: ['anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -2365,8 +2580,21 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sun-secure-creme-spf50-50ml-apres-soleil-50ml.html',
     imageUrl: '',
     tags: {
-      primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'protection-solaire'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'pores-dilates',
+        'barriere-cutanee',
+        'eclat',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2396,8 +2624,21 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sun-secure-creme-spf50-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-creme-spf50.webp',
     tags: {
-      primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'protection-solaire'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'pores-dilates',
+        'barriere-cutanee',
+        'eclat',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2428,8 +2669,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-easy-stick-spf50-fini-invisible.webp',
     tags: {
-      primary: ['anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -2457,8 +2698,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sun-secure-easy-stick-spf50-recharge-10g.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-easy-stick-spf50-recharge.webp',
     tags: {
-      primary: ['anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -2486,8 +2727,21 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sun-secure-eau-solaire-spf50-100ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-eau-solaire-spf50.webp',
     tags: {
-      primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'protection-solaire'],
-      secondary: ['reparateur', 'sebo-regulateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'pores-dilates',
+        'barriere-cutanee',
+        'eclat',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'reparateur',
+        'sebo-regulateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
   },
@@ -2507,8 +2761,21 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sun-secure-fluide-photo-age-spf50-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-fluide-photo-age-spf50.webp',
     tags: {
-      primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'protection-solaire'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'pores-dilates',
+        'barriere-cutanee',
+        'eclat',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2538,8 +2805,21 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sun-secure-fluide-spf50-50ml-apres-soleil-50ml.html',
     imageUrl: '',
     tags: {
-      primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'protection-solaire'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'pores-dilates',
+        'barriere-cutanee',
+        'eclat',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2570,7 +2850,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-lait-apres-soleil-hydratant.webp',
     tags: {
-      primary: ['pores-dilates', 'hydratation', 'barriere-cutanee'],
+      primary: ['pores-dilates', 'step-hydratation', 'barriere-cutanee'],
       secondary: ['sebo-regulateur', 'reparateur'],
       avoid: [],
     },
@@ -2597,8 +2877,21 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sun-secure-lait-spf50-100ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-lait-spf50.webp',
     tags: {
-      primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'protection-solaire'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'pores-dilates',
+        'barriere-cutanee',
+        'eclat',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2628,8 +2921,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sun-secure-mousse-autobronzante-150ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-mousse-autobronzante.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'auto-bronzant', 'zone-corps'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-solaire', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -2655,8 +2948,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-spf50-extreme-gel-ultra-mat.webp',
     tags: {
-      primary: ['anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -2680,8 +2973,21 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sun-secure-spf50-lait-crepitant-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-spf50-lait-crepitant.webp',
     tags: {
-      primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'protection-solaire'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'pores-dilates',
+        'barriere-cutanee',
+        'eclat',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2707,13 +3013,15 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-spf50-spray-pocket-hydratant-invisible.webp',
     tags: {
-      primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'hydratation'],
+      primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'step-hydratation'],
       secondary: [
         'sebo-regulateur',
         'reparateur',
-        'creme-solaire',
-        'protection-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'step-protection-solaire',
+        'moment-matin',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: [],
@@ -2740,8 +3048,21 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/svr/svr-sun-secure-spray-spf50-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sun-secure-spray-spf50.webp',
     tags: {
-      primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'protection-solaire'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'pores-dilates',
+        'barriere-cutanee',
+        'eclat',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2771,11 +3092,17 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.labo-svr.com',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sensifine-ar-creme-spf50.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ROSACEE, TAG_SLUGS.PROTECTION_SOLAIRE],
+      primary: [
+        TAG_SLUGS.ANTI_ROUGEURS,
+        TAG_SLUGS.ROSACEE,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+      ],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.NON_COMEDOGENE,
@@ -2807,10 +3134,11 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.HYPOALLERGENIQUE,
@@ -2838,8 +3166,10 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PEAU_SECHE],
       secondary: [
-        TAG_SLUGS.HUILE_VISAGE,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.TEXTURE_HUILE,
+        TAG_SLUGS.ZONE_VISAGE,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.HYPOALLERGENIQUE,
@@ -2865,9 +3195,9 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, ORBIGNYA OLEIFERA SEED OIL, GLYCERIN, CETYL ALCOHOL, 1,2-HEXANEDIOL, SODIUM POLYACRYLATE, CYANOCOBALAMIN, PANTHENOL, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, CAPRYLYL GLYCOL',
     url: 'https://www.labo-svr.com',
     tags: {
-      primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.MASQUE_HYDRATANT],
+      primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.TYPE_MASQUE],
       secondary: [
-        TAG_SLUGS.MASQUE_HEBDO,
+        TAG_SLUGS.MOMENT_HEBDOMADAIRE,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.HYPOALLERGENIQUE,
@@ -2893,9 +3223,10 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_MAINS,
         TAG_SLUGS.TEXTURE_RICHE,
@@ -2924,9 +3255,9 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.labo-svr.com',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sensifine-baume-demaquillant.webp',
     tags: {
-      primary: [TAG_SLUGS.BAUME_DEMAQUILLANT, TAG_SLUGS.PEAU_SENSIBLE],
+      primary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.TEXTURE_BAUME, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
-        TAG_SLUGS.DOUBLE_NETTOYAGE_1,
+        TAG_SLUGS.STEP_NETTOYAGE_1,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SANS_SAVON,
         TAG_SLUGS.NON_COMEDOGENE,
@@ -2954,11 +3285,13 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, GLYCERIN, 1,2-HEXANEDIOL, ALOE BARBADENSIS LEAF JUICE POWDER, PANTHENOL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CAPRYLYL GLYCOL, SODIUM HYDROXIDE',
     url: 'https://www.labo-svr.com',
     tags: {
-      primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.GEL_CREME,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.TEXTURE_LEGERE,
@@ -2985,9 +3318,14 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, HEXYLDECYL STEARATE, PROPANEDIOL, NIACINAMIDE, 1,2-HEXANEDIOL, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, CAPRYLYL GLYCOL, PENTYLENE GLYCOL, XANTHAN GUM',
     url: 'https://www.labo-svr.com',
     tags: {
-      primary: [TAG_SLUGS.GEL_NETTOYANT, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE],
+      primary: [
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.PEAU_SENSIBLE,
+        TAG_SLUGS.PEAU_SENSIBLE,
+      ],
       secondary: [
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.SANS_SAVON,
@@ -3014,10 +3352,11 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, VITIS VINIFERA (GRAPE) SEED OIL, HEXYLDECYL STEARATE, PANTHENOL, 1,2-HEXANEDIOL, SODIUM POLYACRYLATE, CAPRYLYL GLYCOL, TOCOPHEROL, CITRIC ACID, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL',
     url: 'https://www.labo-svr.com',
     tags: {
-      primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.HYPOALLERGENIQUE,
@@ -3053,7 +3392,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.BAUME,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_BAUME,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ECZEMA,
         TAG_SLUGS.PEAU_SENSIBLE,
@@ -3092,7 +3432,9 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
-        TAG_SLUGS.CREME_CORPS,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.MICROBIOME,
         TAG_SLUGS.TEXTURE_RICHE,
@@ -3122,9 +3464,14 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, GLYCERIN, SODIUM C14-16 OLEFIN SULFONATE, SODIUM LAUROAMPHOACETATE, COCO-BETAINE, NIACINAMIDE, CITRIC ACID, SODIUM OLIVAMPHOACETATE, ALPHA-GLUCAN OLIGOSACCHARIDE, PARFUM, SACCHARIDE ISOMERATE, CAPRYLYL/CAPRYL GLUCOSIDE, SODIUM BENZOATE, POTASSIUM SORBATE, POLYGLYCERYL-3 COCOATE, POLYGLYCERYL-10 LAURATE, GOSSYPIUM HERBACEUM (COTTON) SEED OIL, SODIUM CITRATE',
     url: 'https://www.labo-svr.com',
     tags: {
-      primary: [TAG_SLUGS.HUILE_NETTOYANTE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_SECHE],
+      primary: [
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_HUILE,
+        TAG_SLUGS.PEAU_SECHE,
+        TAG_SLUGS.PEAU_SECHE,
+      ],
       secondary: [
-        TAG_SLUGS.DOUBLE_NETTOYAGE_1,
+        TAG_SLUGS.STEP_NETTOYAGE_1,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.PEAU_SENSIBLE,
@@ -3153,7 +3500,12 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, SODIUM C14-16 OLEFIN SULFONATE, COCO-GLUCOSIDE, COCO-BETAINE, GLYCERIN, PARFUM, CITRIC ACID, SODIUM BENZOATE, POTASSIUM SORBATE, SODIUM PHYTATE',
     url: 'https://www.labo-svr.com',
     tags: {
-      primary: [TAG_SLUGS.GEL_NETTOYANT, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
+      primary: [
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.PEAU_SENSIBLE,
+        TAG_SLUGS.PEAU_SECHE,
+      ],
       secondary: [
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
@@ -3182,7 +3534,12 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, GLYCERIN, SODIUM C14-16 OLEFIN SULFONATE, COCO-BETAINE, COCO-GLUCOSIDE, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, NIACINAMIDE, TRIDECETH-50, ALPHA-GLUCAN OLIGOSACCHARIDE, SACCHARIDE ISOMERATE, TOCOPHEROL, TOCOPHERYL ACETATE, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, CITRIC ACID, COCOS NUCIFERA (COCONUT) OIL, GLYCERYL OLEATE, GOSSYPIUM HERBACEUM (COTTON) SEED OIL, HYDROGENATED PALM GLYCERIDES CITRATE, PENTYLENE GLYCOL, SODIUM CITRATE, SODIUM HYDROXIDE, SODIUM LAURETH SULFATE, STYRENE/ACRYLATES COPOLYMER',
     url: 'https://www.labo-svr.com',
     tags: {
-      primary: [TAG_SLUGS.CREME_NETTOYANTE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_SECHE],
+      primary: [
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.PEAU_SECHE,
+        TAG_SLUGS.PEAU_SECHE,
+      ],
       secondary: [
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
@@ -3214,7 +3571,12 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     inci: 'GLYCERIN, SODIUM LAUROYL GLUTAMATE, CAPRYLIC/CAPRIC TRIGLYCERIDE, COCOS NUCIFERA (COCONUT) LIQUID ENDOSPERM, SODIUM METHYL OLEOYL TAURATE, COCOS NUCIFERA (COCONUT) OIL, PROPANEDIOL, SODIUM C14/16 OLEFIN SULFONATE, SODIUM CHLORIDE, PARFUM, CITRIC ACID, BORAGO OFFICINALIS SEED OIL, NIACINAMIDE, COCOS NUCIFERA (COCONUT) FRUIT JUICE, GLYCERYL GLUCOSIDE, LECITHIN, ALPHA-GLUCAN OLIGOSACCHARIDE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, TOCOPHEROL, SODIUM ACRYLATES COPOLYMER, SODIUM CITRATE, SODIUM PHYTATE, POTASSIUM SORBATE, SODIUM BENZOATE',
     url: 'https://www.labo-svr.com',
     tags: {
-      primary: [TAG_SLUGS.CREME_NETTOYANTE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_SECHE],
+      primary: [
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.PEAU_SECHE,
+        TAG_SLUGS.PEAU_SECHE,
+      ],
       secondary: [
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
@@ -3274,7 +3636,13 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, ETHYLHEXYL STEARATE, BUTYROSPERMUM PARKII (SHEA) BUTTER, GLYCERYL STEARATE, CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, PEG-100 STEARATE, AMMONIUM ACRYLOYLDIMETHYLTAURATE/VP COPOLYMER, CAMELINA SATIVA SEED OIL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, TOCOPHEROL, TOCOPHERYL ACETATE, 1,2-HEXANEDIOL, ARACHIDYL ALCOHOL, ARACHIDYL GLUCOSIDE, BEHENYL ALCOHOL, CITRIC ACID, O-CYMEN-5-OL, SODIUM BENZOATE, PARFUM',
     url: 'https://www.labo-svr.com',
     tags: {
-      primary: [TAG_SLUGS.CREME_MAINS, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.BARRIERE_CUTANEE],
+      primary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_MAINS,
+        TAG_SLUGS.PEAU_SECHE,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+      ],
       secondary: [TAG_SLUGS.ZONE_MAINS, TAG_SLUGS.OCCLUSIF, TAG_SLUGS.TEXTURE_RICHE],
       avoid: [],
     },
@@ -3305,9 +3673,10 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, GLYCERIN, GLUCONOLACTONE, COCO-BETAINE, LACTIC ACID, SODIUM HYDROXIDE, SODIUM LAUROAMPHOACETATE, COCO-GLUCOSIDE, SUCCINIC ACID, XANTHAN GUM, GLYCERYL GLUCOSIDE, CAPRYLYL/CAPRYL GLUCOSIDE, FRAGRANCE, SODIUM CHLORIDE, SODIUM BENZOATE, TETRASODIUM GLUTAMATE DIACETATE, POTASSIUM SORBATE, POLYGLUTAMIC ACID',
     url: 'https://fr.svr.com/collections/xerial/products/xerial-gel-lavant-peeling',
     tags: {
-      primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.GRAIN_PEAU],
+      primary: [TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.GRAIN_PEAU],
       secondary: [
-        TAG_SLUGS.GEL_NETTOYANT,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_GEL,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.SANS_SAVON,
@@ -3348,8 +3717,13 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, UREA, COCOS NUCIFERA (COCONUT) OIL, GLYCERIN, BUTYROSPERMUM PARKII (SHEA) BUTTER, GLYCERYL STEARATE, CANOLA OIL, BORAGO OFFICINALIS SEED OIL, SILICA, PANTHENOL, PENTYLENE GLYCOL, GLYCERYL GLUCOSIDE, SODIUM CITRATE, TRIACETIN, SERINE, PARFUM, CITRIC ACID, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, SODIUM STEAROYL GLUTAMATE, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, CARBOMER, SODIUM LACTATE, HISTIDINE, PROPYLENE GLYCOL, POLYSORBATE 60, SORBITAN ISOSTEARATE, BACILLUS FERMENT, POTASSIUM SORBATE',
     url: 'https://www.labo-svr.com',
     tags: {
-      primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.DESHYDRATATION],
-      secondary: [TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.DESHYDRATATION],
+      secondary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_LAIT,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
@@ -3381,8 +3755,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.labo-svr.com',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-xerial-50-extreme-creme-pieds.webp',
     tags: {
-      primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.EXFOLIATION],
-      secondary: [TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.CREME_PIEDS],
+      primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.STEP_TRAITEMENT],
+      secondary: [TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.ZONE_PIEDS],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
@@ -3437,8 +3811,13 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, UREA, COCOS NUCIFERA (COCONUT) OIL, GLYCERIN, OCTYLDODECANOL, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, PANTHENOL, SILICA, PENTYLENE GLYCOL, GLYCERYL GLUCOSIDE, OCTYLDODECYL XYLOSIDE, PEG-30 DIPOLYHYDROXYSTEARATE, TRIACETIN, SERINE, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, SODIUM LACTATE, PROPYLENE GLYCOL, DISODIUM EDTA, POLYSORBATE 60, SORBITAN ISOSTEARATE, HISTIDINE, BACILLUS FERMENT, CITRIC ACID, POTASSIUM SORBATE',
     url: 'https://www.labo-svr.com',
     tags: {
-      primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.EXFOLIATION],
-      secondary: [TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.GEL_CREME, TAG_SLUGS.SANS_PARFUM],
+      primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.STEP_TRAITEMENT],
+      secondary: [
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.SANS_PARFUM,
+      ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
@@ -3494,8 +3873,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, UREA, GLYCERIN, BUTYROSPERMUM PARKII (SHEA) BUTTER, OCTYLDODECANOL, CETEARYL ETHYLHEXANOATE, ISOHEXADECANE, POLYACRYLATE-13, SILICA DIMETHYL SILYLATE, TRIETHANOLAMINE, PANTHENOL, SALICYLIC ACID, SERINE, ALLANTOIN, BACILLUS FERMENT, HISTIDINE, POLYISOBUTENE, OCTYLDODECYL XYLOSIDE, PEG-30 DIPOLYHYDROXYSTEARATE, POLYSORBATE 20, SORBITAN ISOSTEARATE, PROPYLENE GLYCOL, CITRIC ACID, DISODIUM EDTA, POTASSIUM SORBATE',
     url: 'https://www.labo-svr.com',
     tags: {
-      primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.EXFOLIATION],
-      secondary: [TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.CREME_PIEDS],
+      primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.STEP_TRAITEMENT],
+      secondary: [TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.ZONE_PIEDS],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
     keyIngredients: [
@@ -3525,12 +3904,12 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.PHOTO_VIEILLISSEMENT],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.TEINT_TERNE,
         TAG_SLUGS.POST_ACNE,
-        TAG_SLUGS.AMPOULE,
+        TAG_SLUGS.TYPE_SERUM,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [
@@ -3569,13 +3948,13 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.POST_ACNE, TAG_SLUGS.ANTI_TACHES],
       secondary: [
-        TAG_SLUGS.SERUM,
+        TAG_SLUGS.TYPE_SERUM,
         TAG_SLUGS.HYPERPIGMENTATION,
         TAG_SLUGS.PORES_DILATES,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.PEAU_MIXTE,
-        TAG_SLUGS.AMPOULE,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.MATIFIANT,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -3628,10 +4007,11 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ROSACEE, TAG_SLUGS.FLUSHS],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.PIGMENTS_VERTS,
         TAG_SLUGS.MICROBIOME,
@@ -3674,10 +4054,11 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.CICATRISATION, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.POST_ACNE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.MICROBIOME,
@@ -3716,7 +4097,12 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://fr.labo-svr.com',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sebiaclear-gel-flash-4h.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.SOIN_LOCALISE, TAG_SLUGS.POST_ACNE],
+      primary: [
+        TAG_SLUGS.ANTI_ACNE,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_USAGE_LOCALISE,
+        TAG_SLUGS.POST_ACNE,
+      ],
       secondary: [
         TAG_SLUGS.PORES_DILATES,
         TAG_SLUGS.PEAU_GRASSE,
@@ -3815,11 +4201,12 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://fr.labo-svr.com',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sebiaclear-micro-peel.webp',
     tags: {
-      primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
+      primary: [TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [
-        TAG_SLUGS.LOTION,
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
         TAG_SLUGS.MATIFIANT,
-        TAG_SLUGS.PREPARATION,
+        TAG_SLUGS.STEP_PREPARATION,
         TAG_SLUGS.POST_ACNE,
         TAG_SLUGS.BRILLANCE,
         TAG_SLUGS.PEAU_GRASSE,
@@ -3868,9 +4255,14 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, GLYCERIN, GLUCONOLACTONE, DECYL GLUCOSIDE, DISODIUM COCOYL GLUTAMATE, COCO-BETAINE, SALICYLIC ACID, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, SODIUM HYDROXIDE, FRAGRANCE',
     url: 'https://fr.labo-svr.com',
     tags: {
-      primary: [TAG_SLUGS.GEL_NETTOYANT, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.BRILLANCE],
+      primary: [
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.ANTI_ACNE,
+        TAG_SLUGS.BRILLANCE,
+      ],
       secondary: [
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.PORES_DILATES,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.PEAU_MIXTE,
@@ -3915,8 +4307,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.POST_ACNE],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.ANTI_TACHES,
         TAG_SLUGS.HYPERPIGMENTATION,
         TAG_SLUGS.PORES_DILATES,
@@ -3966,9 +4358,14 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://fr.labo-svr.com',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sebiaclear-creme-lavante.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_NETTOYANTE, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.DESHYDRATATION],
+      primary: [
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ANTI_ACNE,
+        TAG_SLUGS.DESHYDRATATION,
+      ],
       secondary: [
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.SANS_SAVON,
@@ -4001,11 +4398,12 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.POST_ACNE,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.PEAU_MIXTE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.MICROBIOME,
         TAG_SLUGS.NON_COMEDOGENE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -4039,7 +4437,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.BRILLANCE, TAG_SLUGS.POST_ACNE],
       secondary: [
-        TAG_SLUGS.GEL_CREME,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_GEL,
         TAG_SLUGS.MATIFIANT,
         TAG_SLUGS.PORES_DILATES,
         TAG_SLUGS.PEAU_GRASSE,
@@ -4090,12 +4489,13 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BRILLANCE, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.MATIFIANT],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ANTI_ACNE,
         TAG_SLUGS.POST_ACNE,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.PEAU_MIXTE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.NON_COMEDOGENE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -4137,16 +4537,22 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://fr.labo-svr.com',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sebiaclear-creme-spf50.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.MATIFIANT],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.ANTI_ACNE,
+        TAG_SLUGS.MATIFIANT,
+      ],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.POST_ACNE,
         TAG_SLUGS.ANTI_TACHES,
         TAG_SLUGS.PHOTO_VIEILLISSEMENT,
         TAG_SLUGS.PORES_DILATES,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.PEAU_MIXTE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.NON_COMEDOGENE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -4184,9 +4590,14 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://fr.labo-svr.com',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sebiaclear-eau-micellaire.webp',
     tags: {
-      primary: [TAG_SLUGS.EAU_MICELLAIRE, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
+      primary: [
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.ANTI_ACNE,
+        TAG_SLUGS.PORES_DILATES,
+      ],
       secondary: [
-        TAG_SLUGS.DOUBLE_NETTOYAGE_1,
+        TAG_SLUGS.STEP_NETTOYAGE_1,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.SANS_SAVON,
@@ -4220,7 +4631,12 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://fr.labo-svr.com',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-sebiaclear-active-teinte.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.CREME_SOLAIRE_TEINTEE, TAG_SLUGS.MATIFIANT],
+      primary: [
+        TAG_SLUGS.ANTI_ACNE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MATIFIANT,
+      ],
       secondary: [
         TAG_SLUGS.POST_ACNE,
         TAG_SLUGS.ANTI_TACHES,
@@ -4271,9 +4687,14 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://fr.labo-svr.com',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-c-eye-biotic.webp',
     tags: {
-      primary: [TAG_SLUGS.CERNES_POCHES, TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ECLAT],
+      primary: [
+        TAG_SLUGS.CERNES_POCHES,
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.ECLAT,
+      ],
       secondary: [
-        TAG_SLUGS.SOIN_YEUX,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.ANTI_AGE,
         TAG_SLUGS.REPULPANT,
         TAG_SLUGS.MICROBIOME,
@@ -4309,15 +4730,16 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://fr.labo-svr.com',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-collagen-biotic.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.DESHYDRATATION,
         TAG_SLUGS.PHOTO_VIEILLISSEMENT,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_NORMALE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.MICROBIOME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -4350,9 +4772,14 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://fr.labo-svr.com',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-filler-biotic.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.CONTOUR_YEUX],
+      primary: [
+        TAG_SLUGS.ANTI_AGE,
+        TAG_SLUGS.REPULPANT,
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+      ],
       secondary: [
-        TAG_SLUGS.SOIN_YEUX,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.CERNES_POCHES,
         TAG_SLUGS.MICROBIOME,
         TAG_SLUGS.TEXTURE_LEGERE,
@@ -4384,17 +4811,19 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.MATIFIANT, TAG_SLUGS.PORES_DILATES],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.BRILLANCE,
         TAG_SLUGS.PHOTO_VIEILLISSEMENT,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.PEAU_GRASSE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.MICROBIOME,
         TAG_SLUGS.TEXTURE_LEGERE,
-        TAG_SLUGS.GEL_CREME,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_GEL,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [TAG_SLUGS.PEAU_SECHE],
@@ -4421,15 +4850,16 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.ANTI_TACHES],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ANTI_AGE,
         TAG_SLUGS.PHOTO_VIEILLISSEMENT,
         TAG_SLUGS.DESHYDRATATION,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_NORMALE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.MICROBIOME,
         TAG_SLUGS.TEXTURE_RICHE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -4462,15 +4892,16 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://fr.labo-svr.com',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-hyalu-biotic.webp',
     tags: {
-      primary: [TAG_SLUGS.REPULPANT, TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.REPULPANT, TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ANTI_AGE,
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.PEAU_MIXTE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.MICROBIOME,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -4500,14 +4931,14 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.ANTI_TACHES],
       secondary: [
-        TAG_SLUGS.SERUM,
+        TAG_SLUGS.TYPE_SERUM,
         TAG_SLUGS.ANTI_AGE,
         TAG_SLUGS.PHOTO_VIEILLISSEMENT,
         TAG_SLUGS.DESHYDRATATION,
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.PEAU_GRASSE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.MICROBIOME,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -4541,7 +4972,12 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://fr.labo-svr.com',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-cicavit-gel-moussant.webp',
     tags: {
-      primary: [TAG_SLUGS.GEL_NETTOYANT, TAG_SLUGS.CICATRISATION, TAG_SLUGS.PEAU_SENSIBLE],
+      primary: [
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.CICATRISATION,
+        TAG_SLUGS.PEAU_SENSIBLE,
+      ],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.MICROBIOME,
@@ -4572,7 +5008,13 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://fr.labo-svr.com',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-cicavit-creme-mains.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_MAINS, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CICATRISATION],
+      primary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_MAINS,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+        TAG_SLUGS.CICATRISATION,
+      ],
       secondary: [
         TAG_SLUGS.ZONE_MAINS,
         TAG_SLUGS.OCCLUSIF,
@@ -4602,14 +5044,20 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, DICAPRYLYL CARBONATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, DIETHYLHEXYL BUTAMIDO TRIAZONE, DIISOPROPYL ADIPATE, SILICA, CETEARYL ALCOHOL, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, CETEARETH-20, ETHYLHEXYL TRIAZONE, DIMETHICONE, NIACINAMIDE, POLYMETHYL METHACRYLATE, PENTYLENE GLYCOL, POLYESTER-7, AMINOMETHYL PROPANOL, BETA-CAROTENE, BETA-SITOSTEROL, CETEARYL DIMETHICONE CROSSPOLYMER, DAUCUS CAROTA SATIVA (CARROT) ROOT EXTRACT, GLYCINE SOJA (SOYBEAN) OIL, HYDROGENATED PHOSPHATIDYLCHOLINE, LECITHIN, LEPIDIUM SATIVUM SPROUT EXTRACT, SQUALENE, ALPHA-GLUCAN OLIGOSACCHARIDE, CAFFEYL GLUCOSIDE, DISODIUM ACETYL GLUCOSAMINE PHOSPHATE, GLUCOSE, GLYCERIN, PHYTIC ACID, RHAMNOSE, TOCOPHEROL, TOCOPHERYL ACETATE, 1,2-HEXANEDIOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, CAPRYLYL GLYCOL, CITRIC ACID, GLUCURONIC ACID, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, LYSOLECITHIN, NEOPENTYL GLYCOL DIHEPTANOATE, POLYSORBATE 60, PROPANEDIOL, SODIUM LAURETH SULFATE, SORBITAN ISOSTEARATE, XANTHAN GUM, POTASSIUM SORBATE, SODIUM BENZOATE',
     url: 'https://fr.labo-svr.com',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.CICATRISATION, TAG_SLUGS.ANTI_ROUGEURS],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.CICATRISATION,
+        TAG_SLUGS.ANTI_ROUGEURS,
+      ],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.POST_ACNE,
         TAG_SLUGS.HYPERPIGMENTATION,
         TAG_SLUGS.ANTI_TACHES,
         TAG_SLUGS.PHOTO_VIEILLISSEMENT,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.MICROBIOME,
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.NON_COMEDOGENE,
@@ -4637,7 +5085,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     inci: 'RICINUS COMMUNIS (CASTOR) SEED OIL, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, COCOS NUCIFERA (COCONUT) OIL, BUTYROSPERMUM PARKII (SHEA) BUTTER, HYDROGENATED CASTOR OIL, OLEIC/LINOLEIC/LINOLENIC POLYGLYCERIDES, GLYCERIN, BEESWAX, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, WATER, HYDROGENATED VEGETABLE OIL, ALPHA-GLUCAN OLIGOSACCHARIDE, PROPANEDIOL, TOCOPHERYL ACETATE, DISODIUM ACETYL GLUCOSAMINE PHOSPHATE, CAFFEYL GLUCOSIDE, RHAMNOSE, GLUCOSE, GLUCURONIC ACID, CITRIC ACID',
     url: 'https://fr.labo-svr.com',
     tags: {
-      primary: [TAG_SLUGS.SOIN_LEVRES, TAG_SLUGS.CICATRISATION],
+      primary: [TAG_SLUGS.TYPE_TRAITEMENT, TAG_SLUGS.ZONE_LEVRES, TAG_SLUGS.CICATRISATION],
       secondary: [
         TAG_SLUGS.ZONE_LEVRES,
         TAG_SLUGS.OCCLUSIF,
@@ -4672,7 +5120,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.POST_ACNE,
         TAG_SLUGS.MICROBIOME,
-        TAG_SLUGS.SOIN_LOCALISE,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_USAGE_LOCALISE,
       ],
       avoid: [TAG_SLUGS.ANTI_ACNE],
     },
@@ -4727,12 +5176,12 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.AMPOULE,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.TYPE_SERUM,
         TAG_SLUGS.TEINT_TERNE,
         TAG_SLUGS.POST_ACNE,
         TAG_SLUGS.POLLUTION,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ROSACEE],
@@ -4770,10 +5219,10 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.SERUM,
+        TAG_SLUGS.TYPE_SERUM,
         TAG_SLUGS.TEINT_TERNE,
         TAG_SLUGS.POST_ACNE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ROSACEE],
@@ -4805,12 +5254,18 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://fr.labo-svr.com',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-clairial-creme-spf50.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.ANTI_TACHES,
+        TAG_SLUGS.HYPERPIGMENTATION,
+      ],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.PHOTO_VIEILLISSEMENT,
         TAG_SLUGS.LUMIERE_BLEUE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.MATIFIANT,
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.NON_COMEDOGENE,
@@ -4847,15 +5302,17 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [
         TAG_SLUGS.ANTI_TACHES,
-        TAG_SLUGS.CREME_SOLAIRE_TEINTEE,
-        TAG_SLUGS.PROTECTION_SOLAIRE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
       ],
       secondary: [
         TAG_SLUGS.HYPERPIGMENTATION,
         TAG_SLUGS.PHOTO_VIEILLISSEMENT,
         TAG_SLUGS.LUMIERE_BLEUE,
         TAG_SLUGS.POLLUTION,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.ZONE_VISAGE,
@@ -4883,12 +5340,12 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://fr.labo-svr.com',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-clairial-night-peel.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.HYPERPIGMENTATION],
+      primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.HYPERPIGMENTATION],
       secondary: [
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.TEINT_TERNE,
         TAG_SLUGS.POST_ACNE,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [
@@ -4924,12 +5381,12 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.PEAU_SECHE],
       secondary: [
-        TAG_SLUGS.SERUM,
+        TAG_SLUGS.TYPE_SERUM,
         TAG_SLUGS.DESHYDRATATION,
         TAG_SLUGS.PHOTO_VIEILLISSEMENT,
         TAG_SLUGS.PEAU_NORMALE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.TEXTURE_RICHE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -4964,14 +5421,15 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT, TAG_SLUGS.PEAU_SECHE],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.DESHYDRATATION,
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.TEINT_TERNE,
         TAG_SLUGS.PHOTO_VIEILLISSEMENT,
         TAG_SLUGS.PEAU_NORMALE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.TEXTURE_RICHE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -5004,8 +5462,13 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, OCTYLDODECANOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, GLYCERIN, CETEARYL ALCOHOL, ORBIGNYA OLEIFERA SEED OIL, DISODIUM CETEARYL SULFOSUCCINATE, GLYCOL PALMITATE, SODIUM POLYACRYLATE, ARGININE PCA, CALCIUM PCA, BEESWAX, GLYCERYL BEHENATE, CETEARETH-20, HYDROXYACETOPHENONE, FRAGRANCE, MALTODEXTRIN, CERATONIA SILIQUA GUM, XANTHAN GUM, 1,2-HEXANEDIOL, CAPRYLYL GLYCOL, HYALURONIC ACID, LACTOBACILLUS FERMENT, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, PENTYLENE GLYCOL, LACTIC ACID, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF EXTRACT, PALMITOYL TETRAPEPTIDE-7, CHRYSIN, CITRIC ACID',
     url: 'https://fr.labo-svr.com',
     tags: {
-      primary: [TAG_SLUGS.CERNES_POCHES, TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ANTI_AGE],
-      secondary: [TAG_SLUGS.SOIN_YEUX, TAG_SLUGS.REPULPANT, TAG_SLUGS.ZONE_YEUX],
+      primary: [
+        TAG_SLUGS.CERNES_POCHES,
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.ANTI_AGE,
+      ],
+      secondary: [TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.REPULPANT, TAG_SLUGS.ZONE_YEUX],
       avoid: [TAG_SLUGS.ANTI_ACNE],
     },
     keyIngredients: [
@@ -5067,7 +5530,12 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, GLYCERIN, DISODIUM COCOYL GLUTAMATE, DECYL GLUCOSIDE, XANTHAN GUM, COCO-BETAINE, MAGNESIUM PCA, CITRIC ACID, POTASSIUM SORBATE, SODIUM BENZOATE, FRAGRANCE',
     url: 'https://fr.svr.com/products/physiopure-gelee-moussante-23',
     tags: {
-      primary: [TAG_SLUGS.GEL_NETTOYANT, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_NORMALE],
+      primary: [
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.PEAU_SENSIBLE,
+        TAG_SLUGS.PEAU_NORMALE,
+      ],
       secondary: [
         TAG_SLUGS.SANS_SAVON,
         TAG_SLUGS.SANS_PARFUM,
@@ -5097,9 +5565,10 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -5122,8 +5591,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-topialyse-gel-lavant-recharge-1l-269151.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [TAG_SLUGS.STEP_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -5146,9 +5615,10 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -5173,9 +5643,10 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -5198,8 +5669,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-topialyse-gel-lavant-1l-eco-recharge-1l-peaux-atopiques-et-sensibles-300256.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [TAG_SLUGS.STEP_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -5219,8 +5690,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/svr-topialyse-gel-lavant-1l.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-topialyse-gel-lavant-1l-269140.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [TAG_SLUGS.STEP_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -5241,14 +5712,15 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-spirial-deo-douche-gel-lavant-deodorant-400ml-269177.webp',
     tags: {
-      primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.NETTOYANT_CORPS,
+        TAG_SLUGS.TYPE_NETTOYANT,
         TAG_SLUGS.ZONE_CORPS,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [],
     },
@@ -5271,7 +5743,12 @@ export const SVR_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/svr-routine-topialyse-hygiene-et-soin-peaux-atopiques-et-sensibles-huile-lavante-baume-protect-300271.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
-      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.SEBO_REGULATEUR, TAG_SLUGS.BAUME],
+      secondary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.SEBO_REGULATEUR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_BAUME,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -5294,10 +5771,11 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.BAUME,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_BAUME,
       ],
       avoid: [],
     },
@@ -5318,8 +5796,8 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/svr-topialyse-gel-lavant-400ml-6100189.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/svr-topialyse-gel-lavant-400ml-269142.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [TAG_SLUGS.STEP_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -5340,14 +5818,15 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-spirial-deo-douche-recharge-gel-lavant-deodorant-400ml-252922.webp',
     tags: {
-      primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.NETTOYANT_CORPS,
+        TAG_SLUGS.TYPE_NETTOYANT,
         TAG_SLUGS.ZONE_CORPS,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [],
     },
@@ -5369,13 +5848,13 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-routine-spirial-anti-transpirante-deo-douche-400ml-et-deo-creme-50ml-300085.webp',
     tags: {
-      primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.DEODORANT,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_DEODORANT,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [],
     },
@@ -5397,14 +5876,15 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-spirial-deo-douche-gel-lavant-deodorant-200ml-232392.webp',
     tags: {
-      primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.NETTOYANT_CORPS,
+        TAG_SLUGS.TYPE_NETTOYANT,
         TAG_SLUGS.ZONE_CORPS,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [],
     },
@@ -5426,7 +5906,7 @@ export const SVR_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/svr-routine-spirial-anti-transpirante-deo-douche-400ml-et-roll-on-301094.webp',
     tags: {
-      primary: [TAG_SLUGS.DEODORANT],
+      primary: [TAG_SLUGS.TYPE_DEODORANT],
       secondary: [],
       avoid: [],
     },

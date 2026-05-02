@@ -21,9 +21,10 @@ export const CLARIFICATION_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.APAISANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -49,8 +50,9 @@ export const CLARIFICATION_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.APAISANT],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -73,8 +75,8 @@ export const CLARIFICATION_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarification-la-poudre-lavante-naturelle-avoine-bio-et-acide-hyaluronique.webp',
     tags: {
-      primary: ['apaisant', 'hydratation'],
-      secondary: ['peau-sensible', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation'],
+      secondary: ['peau-sensible', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [

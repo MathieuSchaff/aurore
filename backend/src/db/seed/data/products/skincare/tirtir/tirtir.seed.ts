@@ -20,12 +20,12 @@ export const TIRTIR_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.SERUM,
+        TAG_SLUGS.TYPE_SERUM,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],

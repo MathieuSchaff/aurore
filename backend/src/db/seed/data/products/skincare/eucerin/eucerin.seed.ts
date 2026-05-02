@@ -19,8 +19,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/caudalie/cremes-mains-pieds-et-sticks-levres/atrix-professional-mains-repair-creme-100-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/atrix-professional-mains-repair-creme.webp',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
-      secondary: ['reparateur', 'creme-mains', 'zone-mains'],
+      primary: ['apaisant', 'barriere-cutanee', 'step-hydratation'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-mains', 'zone-mains'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.PANTHENOL }],
@@ -42,8 +42,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-dermopure-creme-corps-triple-action.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['lait-corps', 'zone-corps'],
+      primary: ['step-hydratation'],
+      secondary: ['type-hydratant', 'texture-lait', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -68,7 +68,7 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-gel-huile-de-douche-ph5-400ml.webp',
     tags: {
       primary: ['barriere-cutanee', 'pores-dilates', 'eclat'],
-      secondary: ['sebo-regulateur', 'reparateur', 'nettoyant-corps', 'zone-corps'],
+      secondary: ['sebo-regulateur', 'reparateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -95,7 +95,7 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-gel-huile-de-douche-ph5-recharge.webp',
     tags: {
       primary: ['barriere-cutanee', 'pores-dilates', 'eclat'],
-      secondary: ['sebo-regulateur', 'reparateur', 'nettoyant-corps', 'zone-corps'],
+      secondary: ['sebo-regulateur', 'reparateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -122,7 +122,7 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-huile-de-douche-ph5.webp',
     tags: {
       primary: ['apaisant', 'barriere-cutanee'],
-      secondary: ['reparateur', 'nettoyant-corps', 'zone-corps'],
+      secondary: ['reparateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.PANTHENOL }, { slug: INGREDIENT_SLUGS.BISABOLOL }],
@@ -144,8 +144,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-elasticity-creme-corps-anti-age-anti-taches.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'barriere-cutanee', 'anti-age'],
-      secondary: ['reparateur', 'lait-corps', 'zone-corps'],
+      primary: ['step-hydratation', 'apaisant', 'barriere-cutanee', 'anti-age'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-lait', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -172,7 +172,7 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-recharge-huile-de-douche.webp',
     tags: {
       primary: ['apaisant', 'barriere-cutanee'],
-      secondary: ['reparateur', 'nettoyant-corps', 'zone-corps'],
+      secondary: ['reparateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.PANTHENOL }, { slug: INGREDIENT_SLUGS.BISABOLOL }],
@@ -193,8 +193,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-urea-repair-gel-lavant-5-d-uree-400ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-urea-repair-gel-lavant-5-d-uree.webp',
     tags: {
-      primary: ['barriere-cutanee', 'pores-dilates', 'hydratation'],
-      secondary: ['reparateur', 'sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
+      primary: ['barriere-cutanee', 'pores-dilates', 'step-hydratation'],
+      secondary: ['reparateur', 'sebo-regulateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -224,8 +224,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/soins-corps/eucerin-aquaphor-baume-reparateur-cutane-40g.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-aquaphor-baume-reparateur-cutane.webp',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation', 'cicatrisation'],
-      secondary: ['reparateur', 'lait-corps', 'zone-corps'],
+      primary: ['apaisant', 'barriere-cutanee', 'step-hydratation', 'cicatrisation'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-lait', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.PANTHENOL }, { slug: INGREDIENT_SLUGS.BISABOLOL }],
@@ -246,8 +246,17 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/soins-corps/eucerin-atopi-control-baume-400-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-atopi-control-baume.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant', 'eczema'],
-      secondary: ['emollience', 'reparateur', 'lait-corps', 'zone-corps', 'peau-seche', 'apaisant'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'anti-oxydant', 'eczema'],
+      secondary: [
+        'step-hydratation',
+        'reparateur',
+        'type-hydratant',
+        'texture-lait',
+        'zone-corps',
+        'zone-corps',
+        'peau-seche',
+        'apaisant',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -277,8 +286,17 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/soins-corps/eucerin-atopicontrol-creme-calmante-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-atopicontrol-creme-calmante.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant', 'eczema'],
-      secondary: ['emollience', 'reparateur', 'lait-corps', 'zone-corps', 'peau-seche', 'apaisant'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'anti-oxydant', 'eczema'],
+      secondary: [
+        'step-hydratation',
+        'reparateur',
+        'type-hydratant',
+        'texture-lait',
+        'zone-corps',
+        'zone-corps',
+        'peau-seche',
+        'apaisant',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -305,8 +323,15 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/soins-corps/eucerin-creme-mains-reparatrice-75ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-creme-mains-reparatrice-75ml.webp',
     tags: {
-      primary: ['hydratation', 'cicatrisation'],
-      secondary: ['keratolytique', 'creme-mains', 'zone-mains', 'reparateur'],
+      primary: ['step-hydratation', 'cicatrisation'],
+      secondary: [
+        'keratolytique',
+        'type-hydratant',
+        'texture-creme',
+        'zone-mains',
+        'zone-mains',
+        'reparateur',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -332,8 +357,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/soins-corps/eucerin-creme-pieds.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-creme-pieds.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['keratolytique', 'creme-pieds', 'zone-corps'],
+      primary: ['step-hydratation'],
+      secondary: ['keratolytique', 'type-hydratant', 'zone-pieds', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -358,14 +383,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-anti-pigment-gel-nettoyant-400ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-anti-pigment-gel-nettoyant.webp',
     tags: {
-      primary: ['hydratation', 'exfoliation', 'eclat'],
-      secondary: [
-        'keratolytique',
-        'nettoyant',
-        'double-nettoyage-2',
-        'zone-visage',
-        'exfoliant-chimique',
-      ],
+      primary: ['step-hydratation', 'step-traitement', 'eclat'],
+      secondary: ['keratolytique', 'step-nettoyage-2', 'zone-visage', 'type-exfoliation'],
       avoid: ['peau-sensible', 'peau-sensible'],
     },
     keyIngredients: [
@@ -390,8 +409,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-anti-pigment-serum-eclat-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-anti-pigment-serum-eclat.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'eclat'],
-      secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'eclat'],
+      secondary: ['reparateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -416,8 +435,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-aquaphor-baume-spray-corps-peaux-seches.webp',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage', 'peau-seche'],
+      primary: ['apaisant', 'barriere-cutanee', 'step-hydratation'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage', 'peau-seche'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.PANTHENOL }, { slug: INGREDIENT_SLUGS.BISABOLOL }],
@@ -438,8 +457,15 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-atopi-baume-nourrissant-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-atopi-baume-nourrissant.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant', 'eczema'],
-      secondary: ['emollience', 'reparateur', 'baume', 'peau-seche', 'apaisant'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'anti-oxydant', 'eczema'],
+      secondary: [
+        'step-hydratation',
+        'reparateur',
+        'type-hydratant',
+        'texture-baume',
+        'peau-seche',
+        'apaisant',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -470,11 +496,12 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-atopi-control-creme-visage-apaisant.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant', 'eczema'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'anti-oxydant', 'eczema'],
       secondary: [
-        'emollience',
+        'step-hydratation',
         'reparateur',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
         'peau-seche',
         'apaisant',
@@ -510,7 +537,7 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/eucerin-dermopure-clinical-fluide-matifiant.webp',
     tags: {
       primary: ['sebo-regulateur'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -531,8 +558,14 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-dermopure-clinical-hydra-repair-creme-apaisante.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'apaisant'],
-      secondary: ['emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'apaisant'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -560,7 +593,7 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-dermopure-clinical-peeling-10-soin-de-nuit.webp',
     tags: {
-      primary: ['exfoliation'],
+      primary: ['step-traitement'],
       secondary: ['zone-visage'],
       avoid: [],
     },
@@ -581,14 +614,15 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-dermopure-nettoyant-correcteur-400ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-dermopure-nettoyant-correcteur.webp',
     tags: {
-      primary: ['anti-acne', 'exfoliation', 'eclat'],
+      primary: ['anti-acne', 'step-traitement', 'eclat'],
       secondary: [
         'sebo-regulateur',
         'keratolytique',
-        'spot-treatment',
-        'soin-localise',
+        'type-traitement',
+        'step-traitement',
+        'moment-usage-localise',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
@@ -613,15 +647,15 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-dermopure-serum-triple-action-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-dermopure-serum-triple-action.webp',
     tags: {
-      primary: ['anti-acne', 'exfoliation', 'apaisant'],
+      primary: ['anti-acne', 'step-traitement', 'apaisant'],
       secondary: [
         'sebo-regulateur',
         'keratolytique',
         'reparateur',
-        'serum',
-        'traitement',
+        'type-serum',
+        'step-traitement',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
@@ -647,8 +681,15 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-hyaluron-filler-3d-serum-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-3d-serum.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'serum', 'traitement', 'zone-visage', 'matin'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-serum',
+        'step-traitement',
+        'zone-visage',
+        'moment-matin',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -676,8 +717,15 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-3x-effect-gel-creme-nuit-anti-age.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'apaisant', 'anti-age'],
-      secondary: ['reparateur', 'emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'apaisant', 'anti-age'],
+      secondary: [
+        'reparateur',
+        'step-hydratation',
+        'texture-legere',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -705,8 +753,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-serum-3x-effect-booster-d-hydratation.webp',
     tags: {
-      primary: ['anti-acne', 'hydratation', 'eclat'],
-      secondary: ['serum', 'traitement', 'zone-visage'],
+      primary: ['anti-acne', 'step-hydratation', 'eclat'],
+      secondary: ['type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -731,8 +779,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-serum-epigenetique.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -759,8 +807,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-anti-pigment-correcteur-de-taches.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['spot-treatment', 'soin-localise', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['type-traitement', 'step-traitement', 'moment-usage-localise', 'zone-visage'],
       avoid: [],
     },
   },
@@ -780,8 +828,15 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/soins-visage/eucerin-anti-pigment-soin-nuit-50-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-anti-pigment-soin-nuit.webp',
     tags: {
-      primary: ['barriere-cutanee', 'apaisant', 'hydratation'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['barriere-cutanee', 'apaisant', 'step-hydratation'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -809,8 +864,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/soins-visage/eucerin-baume-levers-10-ml-calmant-intensif.html',
     imageUrl: '',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['apaisant', 'barriere-cutanee', 'step-hydratation'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -838,8 +893,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-dermatoclean-lotion-micellair-3-en-1.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['tonique', 'preparation', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['type-toner', 'texture-eau', 'step-preparation', 'zone-visage'],
       avoid: [],
     },
   },
@@ -860,7 +915,7 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-dermopure-nettoyant-purifiant.webp',
     tags: {
       primary: ['anti-acne'],
-      secondary: ['sebo-regulateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      secondary: ['sebo-regulateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.SALICYLIC_ACID }],
@@ -882,8 +937,15 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-soin-jour-peau-seche.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation'],
-      secondary: ['filtres-chimiques', 'creme-hydratante', 'zone-visage', 'matin', 'peau-seche'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation'],
+      secondary: [
+        'filtres-chimiques',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+        'moment-matin',
+        'peau-seche',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -911,8 +973,15 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/soins-visage/eucerin-hyaluron-filler-yeux-15ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-yeux.webp',
     tags: {
-      primary: ['hydratation', 'protection-solaire'],
-      secondary: ['filtres-chimiques', 'contour-yeux', 'zone-yeux', 'soin-yeux', 'matin'],
+      primary: ['step-hydratation', 'step-protection-solaire', 'moment-matin'],
+      secondary: [
+        'filtres-chimiques',
+        'type-traitement',
+        'zone-yeux',
+        'zone-yeux',
+        'step-traitement',
+        'moment-matin',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -943,7 +1012,7 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/eucerin-sensi-rides-creme-jour-peau-sensible.webp',
     tags: {
       primary: ['anti-acne', 'anti-oxydant', 'anti-age'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage', 'peau-sensible'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage', 'peau-sensible'],
       avoid: [],
     },
   },
@@ -963,8 +1032,15 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/soins-visage/eucerin-urea-repair-creme-visage-5-uree-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-urea-repair-creme-visage-5-uree.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant'],
-      secondary: ['keratolytique', 'emollience', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'keratolytique',
+        'step-hydratation',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -994,8 +1070,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-soins/reparateurs-cutanes/atrix-professionnel-creme-reparatrice-100ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/atrix-professionnel-creme-reparatrice.webp',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation', 'cicatrisation'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['apaisant', 'barriere-cutanee', 'step-hydratation', 'cicatrisation'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.PANTHENOL }, { slug: INGREDIENT_SLUGS.OLEIC_ACID }],
@@ -1016,8 +1092,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/eucerin/eucerin-aquaphor-baume-reparateur-198-g.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-aquaphor-baume-reparateur.webp',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation', 'cicatrisation'],
-      secondary: ['reparateur', 'baume'],
+      primary: ['apaisant', 'barriere-cutanee', 'step-hydratation', 'cicatrisation'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-baume'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.PANTHENOL }, { slug: INGREDIENT_SLUGS.BISABOLOL }],
@@ -1039,8 +1115,14 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-anti-age-hyaluron-filler-soin-contour-des-yeux-spf20.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'anti-age', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'step-hydratation',
+        'anti-oxydant',
+        'anti-age',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1071,8 +1153,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-anti-age-hyaluron-filler-soin-de-jour-spf30.webp',
     tags: {
-      primary: ['hydratation', 'anti-age', 'protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-age', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1100,8 +1182,14 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-anti-age-hyaluron-filler-soin-dejour-spf15.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'anti-age', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'step-hydratation',
+        'anti-oxydant',
+        'anti-age',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1132,8 +1220,15 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-anti-pigment-soin-de-jour-teinte-spf30-light.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1164,8 +1259,15 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-anti-pigment-soin-de-jour-teinte-spf30-medium.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1196,8 +1298,14 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-3x-effect-soin-de-jour-spf15-recharge.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation'],
-      secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation'],
+      secondary: [
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1228,8 +1336,14 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-3x-effect-soin-jour-spf30-recharge.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation'],
-      secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation'],
+      secondary: [
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1257,8 +1371,15 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-creme-mains-spf30.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1288,8 +1409,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-elasticity-recharge-soin-de-jour-rose-spf30.webp',
     tags: {
-      primary: ['hydratation', 'protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1317,8 +1438,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-elasticity-recharge-soin-de-jour-spf30.webp',
     tags: {
-      primary: ['hydratation', 'protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1346,8 +1467,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-hydro-protect-spf50-fluide-teinte-medium.webp',
     tags: {
-      primary: ['hydratation', 'protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
   },
@@ -1368,8 +1489,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-hydro-protect-spf50-fluide-ultra-leger.webp',
     tags: {
-      primary: ['hydratation', 'protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1399,8 +1520,14 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-lip-active-spf20-stick-levres-4-8g.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-lip-active-spf20-stick-levres.webp',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'apaisant',
+        'barriere-cutanee',
+        'anti-oxydant',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1430,8 +1557,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-oil-control-spray-spf50-200ml-after-sun-gel-creme-50ml.html',
     imageUrl: '',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1457,8 +1584,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/eucerin-oil-protect-spf50-serum-uv-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-oil-protect-spf50-serum-uv.webp',
     tags: {
-      primary: ['anti-acne', 'eclat', 'apaisant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['anti-acne', 'eclat', 'apaisant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
   },
@@ -1479,8 +1606,14 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-pigment-control-spf50-gel-creme-teinte-medium.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1511,8 +1644,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-sensitive-protect-kids-spf50-gel-creme.webp',
     tags: {
-      primary: ['anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1543,8 +1676,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-sensitive-protect-spray-spf50-after-sun-gel-creme.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation'],
-      secondary: ['filtres-chimiques', 'matin'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation'],
+      secondary: ['filtres-chimiques', 'moment-matin'],
       avoid: [],
     },
     keyIngredients: [
@@ -1574,8 +1707,14 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-sun-gel-creme-toucher-sec-teinte-medium-spf50.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation'],
-      secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation'],
+      secondary: [
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1605,8 +1744,14 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/soins-visage/eucerin-anti-age-hyaluron-filler-spf-30-50-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-anti-age-hyaluron-filler-spf-30.webp',
     tags: {
-      primary: ['hydratation', 'protection-solaire'],
-      secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'step-protection-solaire', 'moment-matin'],
+      secondary: [
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1632,8 +1777,15 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/soins-visage/eucerin-anti-pigment-soin-de-jour-spf-30-50-ml-anti-taches.html',
     imageUrl: '',
     tags: {
-      primary: ['protection-solaire', 'anti-oxydant', 'hydratation'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'anti-oxydant', 'step-hydratation'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1662,8 +1814,14 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/soins-visage/eucerin-anti-rougeurs-soin-de-jour-spf25-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-anti-rougeurs-soin-de-jour-spf25.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-rougeurs'],
-      secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-rougeurs'],
+      secondary: [
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1691,8 +1849,14 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/soins-visage/eucerin-hyaluron-filler-volume-lift-jour-spf-15-50-ml-peau-seche.html',
     imageUrl: '',
     tags: {
-      primary: ['hydratation', 'protection-solaire'],
-      secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'step-protection-solaire', 'moment-matin'],
+      secondary: [
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1717,8 +1881,14 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/soins-visage/eucerin-hyaluron-filler-volume-lift-jour-spf-15-50-ml-peaux-normale.html',
     imageUrl: '',
     tags: {
-      primary: ['protection-solaire', 'hydratation'],
-      secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation'],
+      secondary: [
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1745,8 +1915,14 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-volume-lift-nuit-spf-15.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'barriere-cutanee', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'step-hydratation',
+        'apaisant',
+        'barriere-cutanee',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1772,8 +1948,14 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/solaires/eucerin-50spf-sun-spray-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-50spf-sun-spray.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1803,8 +1985,14 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/solaires/eucerin-50spf-sun-spray-kids-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-50spf-sun-spray-kids.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation'],
-      secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation'],
+      secondary: [
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1833,8 +2021,15 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/solaires/eucerin-50spf-sun-spray-transparent-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-50spf-sun-spray-transparent.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1861,8 +2056,14 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/solaires/eucerin-oil-control-sun-gel-creme-spf-50-50-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-oil-control-sun-gel-creme-spf-50.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation'],
-      secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation'],
+      secondary: [
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1889,8 +2090,14 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-sensitive-protect-spf-50-toucher-sec.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation'],
-      secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation'],
+      secondary: [
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1917,8 +2124,14 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-sensitive-protect-sun-creme-spf-50.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation'],
-      secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation'],
+      secondary: [
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1947,7 +2160,7 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/solaires/eucerin-sensitive-relief-150-ml-apres-soleil-creme-gel.html',
     imageUrl: '',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant'],
       secondary: [],
       avoid: [],
     },
@@ -1974,8 +2187,15 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-spf50-sun-leb-protection-creme-gel.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2005,12 +2225,13 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/eucerin/solaires/eucerin-sun-brume-spf50-peau-sensible-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-sun-brume-spf50-peau-sensible.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
       secondary: [
         'filtres-chimiques',
         'reparateur',
-        'creme-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
         'zone-visage',
         'peau-sensible',
       ],
@@ -2040,8 +2261,14 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-hyaluron-filler-soin-contour-des-yeux-spf-15.webp',
     tags: {
-      primary: ['hydratation', 'protection-solaire'],
-      secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'step-protection-solaire', 'moment-matin'],
+      secondary: [
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2069,8 +2296,15 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/labello-sun-protect-spf50-soin-des-levres.webp',
     tags: {
-      primary: ['protection-solaire', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2099,8 +2333,14 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/corps/levres/labello-protect-spf15-sticks-levres-2-x-4-8g.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/labello-protect-spf15-sticks-levres-2-x.webp',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'apaisant',
+        'barriere-cutanee',
+        'anti-oxydant',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -2128,8 +2368,14 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/solaires/visage/eucerin-sun-fluid-anti-age-visage-spf50-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/eucerin-sun-fluid-anti-age-visage-spf50.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-age'],
-      secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-age'],
+      secondary: [
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2159,10 +2405,11 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE, TAG_SLUGS.FLUSHS],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -2204,11 +2451,11 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.KERATOSE_PILAIRE, TAG_SLUGS.DESHYDRATATION],
       secondary: [
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.EXFOLIATION,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.BARRIERE_CUTANEE,
         TAG_SLUGS.TEXTURE_LEGERE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.ZONE_CORPS,
       ],
@@ -2257,10 +2504,12 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.CREME_CORPS,
-        TAG_SLUGS.EMOLLIENCE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.NON_COMEDOGENE,
         TAG_SLUGS.ZONE_CORPS,
@@ -2299,12 +2548,13 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.BAUME,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_BAUME,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.OCCLUSIF,
         TAG_SLUGS.TEXTURE_RICHE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.NON_COMEDOGENE,
         TAG_SLUGS.GROSSESSE_COMPATIBLE,
@@ -2339,10 +2589,13 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.KERATOSE_PILAIRE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.CREME_CORPS,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_MAINS,
-        TAG_SLUGS.SOIN_LOCALISE,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_USAGE_LOCALISE,
         TAG_SLUGS.PROTECTION_CUTANEE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.HYPOALLERGENIQUE,
@@ -2398,15 +2651,21 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, C12-15 ALKYL BENZOATE, GLYCERIN, ALCOHOL DENAT., BUTYL METHOXYDIBENZOYLMETHANE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, BUTYLENE GLYCOL DICAPRYLATE/DICAPRATE, ETHYLHEXYL TRIAZONE, DIBUTYL ADIPATE, DISTARCH PHOSPHATE, TAPIOCA STARCH, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, GLYCERYL STEARATE CITRATE, PHENYLBENZIMIDAZOLE SULFONIC ACID, BEHENYL ALCOHOL, CETEARYL ALCOHOL, SODIUM HYALURONATE, GLYCYRRHETINIC ACID, GLYCYRRHIZA INFLATA ROOT EXTRACT, COPERNICIA CERIFERA CERA, CARRAGEENAN, XANTHAN GUM, HYDROXYPROPYL METHYLCELLULOSE, SILICA, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, SODIUM HYDROXIDE, HYDROXYACETOPHENONE, ETHYLHEXYLGLYCERIN, BENZYL ALCOHOL',
     url: 'https://int.eucerin.com',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.PHOTO_VIEILLISSEMENT],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.ANTI_AGE,
+        TAG_SLUGS.PHOTO_VIEILLISSEMENT,
+      ],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.MATIFIANT,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
       ],
       avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
@@ -2441,15 +2700,17 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, ALCOHOL DENAT., BUTYL METHOXYDIBENZOYLMETHANE, ISOPROPYL PALMITATE, BIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE, C12-15 ALKYL BENZOATE, DIBUTYL ADIPATE, DISTARCH PHOSPHATE, DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE, ETHYLHEXYL TRIAZONE, BUTYLENE GLYCOL DICAPRYLATE/DICAPRATE, PHENYLBENZIMIDAZOLE SULFONIC ACID, DIETHYLHEXYL BUTAMIDO TRIAZONE, GLYCERYL STEARATE, HYDROXYPROPYL STARCH PHOSPHATE, GLYCYRRHIZA INFLATA ROOT EXTRACT, GLUCOSYLRUTIN, ISOQUERCITRIN, GLYCYRRHETINIC ACID, TOCOPHEROL, GLYCERIN, C18-38 ALKYL HYDROXYSTEAROYL STEARATE, COPERNICIA CERIFERA CERA, HYDROGENATED RAPESEED OIL, CETYL PALMITATE, MICROCRYSTALLINE CELLULOSE, XANTHAN GUM, CELLULOSE GUM, SODIUM STEAROYL GLUTAMATE, SILICA DIMETHYL SILYLATE, PHENOXYETHANOL, CAPRYLYL GLYCOL, HYDROXYACETOPHENONE, TRISODIUM EDTA, SODIUM HYDROXIDE, SODIUM CHLORIDE',
     url: 'https://int.eucerin.com',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.PEAU_SENSIBLE],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
-        TAG_SLUGS.GEL_CREME,
-        TAG_SLUGS.CREME_SOLAIRE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
       ],
       avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
@@ -2478,7 +2739,7 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-dermo-capillaire-shampoing-calmant-5-uree-cuir-chevelu-irrite-250ml-232516.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      primary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
@@ -2500,13 +2761,14 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-dermo-capillaire-soin-calmant-traitant-cuir-chevelu-irrite-100ml-263963.webp',
     tags: {
-      primary: [TAG_SLUGS.EXFOLIATION],
+      primary: [TAG_SLUGS.STEP_TRAITEMENT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [],
     },
@@ -2529,7 +2791,7 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/eucerin-dermo-capillaire-shampoing-haute-tolerance-extra-doux-250ml-263962.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -2551,7 +2813,12 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/eucerin-ph5-huile-de-douche-peaux-sensibles-seches-1l-288208.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_OXYDANT],
-      secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [
+        TAG_SLUGS.REPARATEUR,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -2572,7 +2839,7 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eucerin-atopi-control-huile-bain-et-douche-peaux-atopiques-400ml-257112.webp',
     tags: {
-      primary: [TAG_SLUGS.NETTOYANT_CORPS],
+      primary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.ZONE_CORPS],
       secondary: [TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
@@ -2597,9 +2864,8 @@ export const EUCERIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],

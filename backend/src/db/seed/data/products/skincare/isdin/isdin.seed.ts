@@ -19,10 +19,12 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.GRAIN_PEAU],
       secondary: [
-        TAG_SLUGS.CREME_CORPS,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_MAINS,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.PROTECTION_CUTANEE,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.TEXTURE_LEGERE,
@@ -75,10 +77,13 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.KERATOSE_PILAIRE, TAG_SLUGS.GRAIN_PEAU],
       secondary: [
-        TAG_SLUGS.CREME_CORPS,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_MAINS,
-        TAG_SLUGS.SOIN_LOCALISE,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_USAGE_LOCALISE,
         TAG_SLUGS.TEXTURE_LEGERE,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE],
@@ -129,12 +134,14 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.LAIT_CORPS,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_LAIT,
         TAG_SLUGS.ZONE_CORPS,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.PROTECTION_CUTANEE,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.TEXTURE_LEGERE,
@@ -183,7 +190,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-warts-verrutop-traitement-topique-4-ampoules-244416.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      primary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
@@ -205,14 +212,20 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoultra-spot-prevent-color-creme-solaire-teintee-spf-50-anti-taches-50-ml-244690.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.PORES_DILATES,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+      ],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -235,13 +248,14 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoprotector-cuir-chevelu-et-cheveux-spf50-50ml-305787.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -264,12 +278,13 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoprotector-fusion-water-magic-creme-solaire-visage-ultra-legere-spf50-50ml-244418.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -292,13 +307,19 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-eryfotona-ak-creme-solaire-fluide-visage-spf100-50ml-281453.webp',
     tags: {
-      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [
+        TAG_SLUGS.APAISANT,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.ANTI_OXYDANT,
+      ],
       secondary: [
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -321,11 +342,12 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoprotector-transparent-spray-pediatrics-creme-solaire-corps-pour-enfants-spf50-250ml-244638.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -348,13 +370,19 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoprotector-lotion-spray-creme-solaire-corps-spf50-250ml-244444.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ANTI_AGE],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.ANTI_OXYDANT,
+        TAG_SLUGS.ANTI_AGE,
+      ],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -377,8 +405,13 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoprotector-gel-cream-pediatrics-creme-solaire-corps-pour-enfants-spf50-250ml-235641.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_SOLAIRE],
-      secondary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.MATIN, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.TYPE_SOLAIRE, TAG_SLUGS.TEXTURE_CREME],
+      secondary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -399,13 +432,14 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoprotector-hydrooil-huile-solaire-bronzante-biphasique-spf30-200ml-244636.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -428,14 +462,20 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoultra-spot-prevent-creme-solaire-anti-taches-spf50-50ml-268186.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.APAISANT,
+        TAG_SLUGS.ANTI_OXYDANT,
+      ],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -458,14 +498,20 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoultra-100-solar-allergy-fusion-fluid-creme-solaire-spf50-50ml-281452.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.APAISANT,
+        TAG_SLUGS.ANTI_OXYDANT,
+      ],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -488,13 +534,19 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-protector-labial-stick-levres-spf50-4g-244443.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.APAISANT],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.ANTI_OXYDANT,
+        TAG_SLUGS.APAISANT,
+      ],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -517,15 +569,21 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoultra-active-unify-creme-solaire-visage-depigmentante-spf50-50ml-281451.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+        TAG_SLUGS.ECLAT,
+      ],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -548,14 +606,15 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-acniben-body-spray-anti-imperfections-150-ml-235832.webp',
     tags: {
-      primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ECLAT],
+      primary: [TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ECLAT],
       secondary: [
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
@@ -577,11 +636,12 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoprotector-transparent-spray-creme-solaire-corps-spf50-250ml-244464.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -604,12 +664,18 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-protector-labial-stick-levres-spf30-4g-244440.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.APAISANT,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+      ],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -632,7 +698,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-warts-verrutop-traitement-topique-4-ampoules-lot-de-2-303820.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      primary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
@@ -654,14 +720,20 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoprotector-fusion-water-color-medium-creme-solaire-visage-teintee-spf50-50ml-244459.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ANTI_AGE],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.ANTI_OXYDANT,
+        TAG_SLUGS.ANTI_AGE,
+      ],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -684,13 +756,14 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoprotector-hydrolotion-huile-solaire-antioxydante-biphasique-spf50-200ml-244642.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -713,15 +786,21 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoultra-100-activ-unify-color-spf50-50ml-244461.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+        TAG_SLUGS.ECLAT,
+      ],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -744,13 +823,19 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoprotector-brume-visage-spf50-100ml-305761.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.REPULPANT],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.ANTI_OXYDANT,
+        TAG_SLUGS.REPULPANT,
+      ],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -773,11 +858,12 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoprotector-transparent-spray-creme-solaire-corps-spf30-250ml-244637.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -800,13 +886,19 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fusion-water-color-light-creme-solaire-visage-teintee-spf50-50ml-244692.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ANTI_AGE],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.ANTI_OXYDANT,
+        TAG_SLUGS.ANTI_AGE,
+      ],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -829,8 +921,13 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoprotector-fusion-water-pediatrics-creme-solaire-visage-pour-enfants-spf50-50ml-232743.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_SOLAIRE],
-      secondary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.MATIN, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.TYPE_SOLAIRE, TAG_SLUGS.TEXTURE_CREME],
+      secondary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -851,8 +948,8 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-isdinceutics-vital-eyes-creme-contour-des-yeux-anti-rides-15g-244656.webp',
     tags: {
-      primary: [TAG_SLUGS.CONTOUR_YEUX],
-      secondary: [TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX],
+      primary: [TAG_SLUGS.TYPE_TRAITEMENT, TAG_SLUGS.ZONE_YEUX],
+      secondary: [TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.STEP_TRAITEMENT],
       avoid: [],
     },
     keyIngredients: [],
@@ -873,12 +970,13 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoultra-age-repair-color-creme-solaire-visage-teintee-anti-age-spf50-50ml-244660.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_AGE],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.ANTI_AGE],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -904,8 +1002,8 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -928,11 +1026,12 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-post-solar-after-sun-lotion-apres-soleil-400ml-236205.webp',
     tags: {
-      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.PROTECTION_SOLAIRE],
+      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -955,7 +1054,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-nutradeica-shampoing-pellicules-grasses-200ml-241645.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      primary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
@@ -977,11 +1076,12 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoprotector-lotion-spray-pediatrics-creme-solaire-corps-spf50-pour-enfants-250ml-244457.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1004,7 +1104,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-isdinceutics-glicoisdin-25-intense-gel-exfoliant-gommage-visage-50g-244565.webp',
     tags: {
-      primary: [TAG_SLUGS.EXFOLIATION],
+      primary: [TAG_SLUGS.STEP_TRAITEMENT],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
@@ -1026,7 +1126,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-si-nails-durcisseur-d-ongles-2-5ml-244571.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      primary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
@@ -1048,11 +1148,12 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoprotector-fusion-gel-sport-creme-solaire-spf50-100ml-244661.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1075,8 +1176,13 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoprotector-gel-cream-creme-solaire-corps-spf50-250ml-236210.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_SOLAIRE],
-      secondary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.MATIN, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.TYPE_SOLAIRE, TAG_SLUGS.TEXTURE_CREME],
+      secondary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -1097,13 +1203,19 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoprotector-mineral-baby-creme-solaire-visage-pour-enfants-spf50-50ml-268185.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.APAISANT,
+        TAG_SLUGS.ANTI_OXYDANT,
+      ],
       secondary: [
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1129,11 +1241,13 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.PROTECTION_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1156,8 +1270,8 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-micellar-solution-eau-micellaire-demaquillante-4-en-1-400ml-244462.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [TAG_SLUGS.STEP_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1179,7 +1293,12 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/isdin-isdinceutics-a-g-e-reverse-night-creme-de-nuit-anti-age-50g-244634.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE],
-      secondary: [TAG_SLUGS.SEBO_REGULATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [
+        TAG_SLUGS.SEBO_REGULATEUR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -1200,13 +1319,19 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoprotector-fusion-water-urban-creme-solaire-visage-anti-pollution-spf30-50ml-244654.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ANTI_AGE],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.ANTI_OXYDANT,
+        TAG_SLUGS.ANTI_AGE,
+      ],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1231,11 +1356,13 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.CICATRISATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.PROTECTION_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1258,7 +1385,12 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/isdin-auriderm-50g-304588.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
-      secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [
+        TAG_SLUGS.REPARATEUR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -1282,9 +1414,11 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.PROTECTION_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1307,14 +1441,20 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoultra-fusion-water-magic-repair-creme-solaire-anti-age-spf50-50ml-232742.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ECLAT],
+      primary: [
+        TAG_SLUGS.ANTI_AGE,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.ECLAT,
+      ],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1337,14 +1477,20 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoultra-redness-creme-solaire-anti-rougeurs-spf-50-50-ml-244689.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.PORES_DILATES,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+      ],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1367,14 +1513,14 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-isdinceutics-flavo-c-serum-visage-antioxydant-a-la-vitamine-c-pure-30ml-244455.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT, TAG_SLUGS.EXFOLIATION],
+      primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT, TAG_SLUGS.STEP_TRAITEMENT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [],
     },
@@ -1399,10 +1545,10 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT, TAG_SLUGS.PORES_DILATES],
       secondary: [
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.TYPE_SERUM,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
@@ -1427,11 +1573,11 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1454,15 +1600,16 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-ureadin-podos-db-creme-pieds-diabetiques-100-ml-235678.webp',
     tags: {
-      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.EXFOLIATION],
+      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.STEP_TRAITEMENT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.CREME_PIEDS,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.ZONE_PIEDS,
         TAG_SLUGS.ZONE_CORPS,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [],
     },
@@ -1484,14 +1631,19 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-acniben-masque-visage-purifiant-75-ml-244680.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.PORES_DILATES,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+      ],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.MASQUE_HEBDO,
+        TAG_SLUGS.MOMENT_HEBDOMADAIRE,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
       ],
       avoid: [],
     },
@@ -1514,7 +1666,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/isdin-isdinceutics-salicylic-renewal-serum-a-l-acide-salicylique-reduit-imperfections-et-rides-30ml-302724.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE],
-      secondary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1535,13 +1687,19 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fusion-water-color-bronze-creme-solaire-visage-teintee-spf50-50ml-244691.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.ANTI_AGE],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.ANTI_OXYDANT,
+        TAG_SLUGS.ANTI_AGE,
+      ],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1566,10 +1724,11 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1595,10 +1754,11 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT, TAG_SLUGS.PORES_DILATES],
       secondary: [
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1621,12 +1781,18 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoprotector-gel-cream-creme-solaire-corps-spf30-250ml-235659.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.APAISANT,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+      ],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1652,11 +1818,11 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT, TAG_SLUGS.PORES_DILATES],
       secondary: [
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.SERUM,
+        TAG_SLUGS.TYPE_SERUM,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
@@ -1679,8 +1845,13 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-ureadin-gel-huile-hydratant-pieds-75-ml-235642.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.KERATOLYTIQUE, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [
+        TAG_SLUGS.KERATOLYTIQUE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -1701,12 +1872,13 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoprotector-coverage-fond-de-teint-beige-spf50-30ml-302732.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1729,12 +1901,12 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-ureadin-ultra-40-gel-huile-exfoliant-intense-40-d-uree-30-ml-235644.webp',
     tags: {
-      primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.APAISANT],
+      primary: [TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.APAISANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [],
     },
@@ -1756,15 +1928,21 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-isdinceutics-k-ox-eyes-creme-contour-des-yeux-anti-poches-et-anti-cernes-15g-244442.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.REPULPANT],
+      primary: [
+        TAG_SLUGS.ANTI_AGE,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.REPULPANT,
+      ],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CONTOUR_YEUX,
+        TAG_SLUGS.TYPE_TRAITEMENT,
         TAG_SLUGS.ZONE_YEUX,
-        TAG_SLUGS.SOIN_YEUX,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_MATIN,
       ],
       avoid: [],
     },
@@ -1788,11 +1966,11 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.REPULPANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
@@ -1815,13 +1993,19 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoprotector-body-lotion-spray-pediatrics-spf50-250ml-305783.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.APAISANT,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+      ],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1844,13 +2028,19 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoprotector-body-lotion-spray-spf50-250ml-305760.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.APAISANT],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.ANTI_OXYDANT,
+        TAG_SLUGS.APAISANT,
+      ],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1873,15 +2063,15 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://assets.atida.com/transform/fa74ebbc-743c-41e0-b632-e16b5c9644a0/Le-Comptoir-de-l-Apothicaire-Rhodiola-Bio-90-gelules?io=transform:extend,width:600,height:600',
     tags: {
-      primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
+      primary: [TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.SERUM,
+        TAG_SLUGS.TYPE_SERUM,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
@@ -1903,12 +2093,13 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoprotector-transparent-spray-wet-skin-50-100ml-305759.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1931,12 +2122,13 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoprotector-coverage-fond-de-teint-sand-spf50-30ml-302730.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1960,12 +2152,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/isdin-isdinceutics-essential-cleansing-huile-nettoyante-et-demaquillante-visage-200ml-244674.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
-      secondary: [
-        TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
-        TAG_SLUGS.ZONE_VISAGE,
-      ],
+      secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.STEP_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1986,12 +2173,13 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoprotector-coverage-fond-de-teint-golden-spf50-30ml-302727.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -2014,11 +2202,17 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoprotector-compact-medium-spf50-10g-305770.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.APAISANT,
+        TAG_SLUGS.ANTI_OXYDANT,
+      ],
       secondary: [
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -2041,12 +2235,13 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoprotector-coverage-fond-de-teint-bronze-spf50-30ml-302722.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -2069,12 +2264,13 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoprotector-coverage-fond-de-teint-pearl-spf50-30ml-302723.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -2099,11 +2295,11 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -2128,9 +2324,9 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.REPULPANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -2155,11 +2351,10 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -2184,11 +2379,12 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -2211,14 +2407,15 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-acniben-on-the-spot-gel-15-ml-235903.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.PORES_DILATES],
+      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.PORES_DILATES],
       secondary: [
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.SPOT_TREATMENT,
-        TAG_SLUGS.SOIN_LOCALISE,
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_USAGE_LOCALISE,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
@@ -2240,8 +2437,8 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-isdinceutics-essential-exfoliating-scrub-gommage-visage-doux-aux-particules-naturelles-100g-302726.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -2263,7 +2460,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/isdin-acniben-exfoliant-doux-pour-les-peaux-grasses-100-ml-244688.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
-      secondary: [TAG_SLUGS.SEBO_REGULATEUR, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.SEBO_REGULATEUR, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -2284,14 +2481,14 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-isdinceutics-flavo-c-serum-visage-antioxydant-a-la-vitamine-c-pure-15ml-244456.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT, TAG_SLUGS.EXFOLIATION],
+      primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT, TAG_SLUGS.STEP_TRAITEMENT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [],
     },
@@ -2313,8 +2510,8 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-nutradeica-gel-creme-visage-peau-seborrheique-50ml-244463.webp',
     tags: {
-      primary: [TAG_SLUGS.BRUME],
-      secondary: [TAG_SLUGS.PREPARATION, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.TYPE_MIST, TAG_SLUGS.TEXTURE_EAU],
+      secondary: [TAG_SLUGS.STEP_PREPARATION, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -2335,13 +2532,19 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoprotector-gel-cream-spf50-100ml-305752.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.APAISANT,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+      ],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -2365,7 +2568,12 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/isdin-isdinceutics-auriderm-soin-visage-post-intervention-50ml-244454.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
-      secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [
+        TAG_SLUGS.REPARATEUR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -2386,15 +2594,15 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-isdinceutics-eco-recharge-melaclear-serum-anti-taches-30-ml-244741.webp',
     tags: {
-      primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
+      primary: [TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.SERUM,
+        TAG_SLUGS.TYPE_SERUM,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
@@ -2416,11 +2624,17 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoprotector-compact-bronze-spf50-10g-305781.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.APAISANT,
+        TAG_SLUGS.ANTI_OXYDANT,
+      ],
       secondary: [
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -2443,11 +2657,17 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fotoprotector-compact-light-spf50-10g-305764.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.APAISANT,
+        TAG_SLUGS.ANTI_OXYDANT,
+      ],
       secondary: [
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -2470,16 +2690,15 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-acniben-gel-nettoyant-matifiant-400-ml-244677.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
@@ -2501,7 +2720,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-stick-a-levres-reparateur-rouge-304014.webp',
     tags: {
-      primary: [TAG_SLUGS.SOIN_LEVRES],
+      primary: [TAG_SLUGS.TYPE_TRAITEMENT, TAG_SLUGS.ZONE_LEVRES],
       secondary: [TAG_SLUGS.ZONE_LEVRES],
       avoid: [],
     },
@@ -2527,10 +2746,10 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.TYPE_SERUM,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
@@ -2553,8 +2772,8 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-isdinceutics-essential-purifier-mousse-nettoyante-visage-150ml-302725.webp',
     tags: {
-      primary: [TAG_SLUGS.NETTOYANT],
-      secondary: [TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
+      primary: [],
+      secondary: [TAG_SLUGS.STEP_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -2577,11 +2796,11 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -2604,13 +2823,14 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-fusion-gel-sport-by-alcaraz-spf50-100ml-305772.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.FILTRES_CHIMIQUES,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -2635,10 +2855,11 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -2663,13 +2884,14 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -2694,13 +2916,14 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -2725,10 +2948,12 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.CREME_MAINS,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_MAINS,
         TAG_SLUGS.ZONE_MAINS,
       ],
       avoid: [],
@@ -2751,13 +2976,14 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-ureadin-ultra-20-creme-anti-rugosites-20-d-uree-100ml-235646.webp',
     tags: {
-      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.EXFOLIATION],
+      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.STEP_TRAITEMENT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [],
     },
@@ -2782,13 +3008,14 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT, TAG_SLUGS.PORES_DILATES],
       secondary: [
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.CONTOUR_YEUX,
+        TAG_SLUGS.TYPE_TRAITEMENT,
         TAG_SLUGS.ZONE_YEUX,
-        TAG_SLUGS.SOIN_YEUX,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.STEP_TRAITEMENT,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
     },
@@ -2810,7 +3037,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-stick-a-levres-reparateur-grenat-304009.webp',
     tags: {
-      primary: [TAG_SLUGS.SOIN_LEVRES],
+      primary: [TAG_SLUGS.TYPE_TRAITEMENT, TAG_SLUGS.ZONE_LEVRES],
       secondary: [TAG_SLUGS.ZONE_LEVRES],
       avoid: [],
     },
@@ -2832,7 +3059,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-stick-a-levres-reparateur-rose-304006.webp',
     tags: {
-      primary: [TAG_SLUGS.SOIN_LEVRES],
+      primary: [TAG_SLUGS.TYPE_TRAITEMENT, TAG_SLUGS.ZONE_LEVRES],
       secondary: [TAG_SLUGS.ZONE_LEVRES],
       avoid: [],
     },
@@ -2854,13 +3081,14 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isdin-ureadin-ultra-30-creme-anti-rugosites-30-d-uree-50-ml-235950.webp',
     tags: {
-      primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.APAISANT],
+      primary: [TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.APAISANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [],
     },
@@ -2884,10 +3112,11 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.CICATRISATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -2911,10 +3140,11 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -2936,7 +3166,7 @@ export const ISDIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/isdin-ureadin-shower-gel-400ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/isdin-ureadin-shower-gel-400ml-306042.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      primary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },

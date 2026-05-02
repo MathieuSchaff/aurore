@@ -21,7 +21,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/634F395297B5D6/large_1719118965.png?1719118965',
     tags: {
-      primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ZONE_CORPS],
+      primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ZONE_CORPS],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
       avoid: [],
     },
@@ -44,7 +44,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/ducray-dexyane-med-soothing-repair-cream-100-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dexyane-med-soothing-repair-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.APAISANT],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.APAISANT],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
       avoid: [],
     },
@@ -68,7 +68,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/EF6A680F93DC30/large_1756205661.png?1756205661',
     tags: {
-      primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
+      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [],
       avoid: [],
     },
@@ -91,7 +91,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/ducray-kertyol-pso-treatment-shampoo-200-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/kertyol-pso-treatment-shampoo.webp',
     tags: {
-      primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ZONE_CORPS],
+      primary: [TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ZONE_CORPS],
       secondary: [],
       avoid: [],
     },
@@ -115,7 +115,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/D516D7EE588E0D/large_1747112182.png?1747112182',
     tags: {
-      primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_CORPS],
+      primary: [TAG_SLUGS.STEP_NETTOYAGE_2, TAG_SLUGS.ZONE_CORPS],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
       avoid: [],
     },
@@ -139,7 +139,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/C35DB9A8B3A2E8/large_1740566276.png?1740566276',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_ROUGEURS],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.PEAU_SENSIBLE],
       avoid: [],
     },
@@ -163,7 +163,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/115505E2FE0597/large_1629886272.png?1629886272',
     tags: {
-      primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
+      primary: [TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.STEP_NETTOYAGE_2],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.PEAU_SENSIBLE],
       avoid: [],
     },
@@ -186,7 +186,12 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/F5147E0A8562BA/large_1621479677.png?1621479677',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.HYDRATATION, TAG_SLUGS.FILTRES_CHIMIQUES],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.FILTRES_CHIMIQUES,
+      ],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.ANTI_TACHES],
       avoid: [],
     },
@@ -210,7 +215,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/064294E93ADFCD/large_1576727066.jpeg?1576727066',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [],
       avoid: [],
     },
@@ -237,7 +242,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/D5A9861245A358/large_1566066914.jpeg?1566066914',
     tags: {
-      primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
+      primary: [TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.STEP_NETTOYAGE_2],
       secondary: [TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -261,7 +266,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/979C67227088AE/large_1566066104.jpeg?1566066104',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_ROUGEURS],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.PEAU_SENSIBLE],
       avoid: [],
     },
@@ -285,7 +290,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/DEDAA1EF469DDF/large_1690275455.png?1690275455',
     tags: {
-      primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
+      primary: [TAG_SLUGS.STEP_NETTOYAGE_2],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.PEAU_SENSIBLE],
       avoid: [],
     },
@@ -309,14 +314,14 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.POST_ACNE, TAG_SLUGS.ANTI_TACHES],
       secondary: [
-        TAG_SLUGS.SERUM,
+        TAG_SLUGS.TYPE_SERUM,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.GRAIN_PEAU,
         TAG_SLUGS.ECLAT,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE],
@@ -365,8 +370,13 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/ducray-ictyane-lait-hydratant-400ml-232612.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_LAIT,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -387,7 +397,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/ducray-hidrosis-control-anti-transpirant-roll-on-40ml-232702.webp',
     tags: {
-      primary: [TAG_SLUGS.DEODORANT],
+      primary: [TAG_SLUGS.TYPE_DEODORANT],
       secondary: [],
       avoid: [],
     },
@@ -409,8 +419,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/ducray-keracnyl-gel-moussant-200ml-263605.webp',
     tags: {
-      primary: [TAG_SLUGS.NETTOYANT],
-      secondary: [TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
+      primary: [],
+      secondary: [TAG_SLUGS.STEP_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -433,10 +443,11 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.TEXTURE_LEGERE,
-        TAG_SLUGS.SOIN_LEVRES,
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_LEVRES,
         TAG_SLUGS.ZONE_LEVRES,
       ],
       avoid: [],
@@ -459,8 +470,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/ducray-dexyane-med-palpebral-eczema-des-paupieres-15ml-275302.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -481,8 +492,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/ducray-kertyol-p-s-o-baume-hydratant-quotidien-200ml-275484.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.BAUME],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_BAUME],
       avoid: [],
     },
     keyIngredients: [],
@@ -503,8 +514,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/ducray-kertyol-p-s-o-baume-hydratant-quotidien-anti-grattage-400ml-275485.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.BAUME],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_BAUME],
       avoid: [],
     },
     keyIngredients: [],
@@ -525,18 +536,18 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/ducray-melascreen-concentre-antitaches-30-ml-275587.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.EXFOLIATION],
+      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.STEP_TRAITEMENT],
       secondary: [
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.TEXTURE_LEGERE,
-        TAG_SLUGS.SERUM,
+        TAG_SLUGS.TYPE_SERUM,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE],
     },
@@ -559,7 +570,12 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/ducray-dexyane-creme-emolliente-anti-grattage-400ml-302034.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
-      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -582,9 +598,10 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -607,7 +624,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/ducray-hidrosis-control-anti-transpirant-roll-on-lot-de-2-x-40ml-248040.webp',
     tags: {
-      primary: [TAG_SLUGS.DEODORANT],
+      primary: [TAG_SLUGS.TYPE_DEODORANT],
       secondary: [],
       avoid: [],
     },
@@ -632,9 +649,10 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -657,8 +675,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/ducray-dexyane-creme-barriere-isolante-100ml-275473.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -681,12 +699,14 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.PROTECTION_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -709,14 +729,15 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/ducray-keracnyl-stop-bouton-gel-assechant-10ml-279032.webp',
     tags: {
-      primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ECLAT],
+      primary: [TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ECLAT],
       secondary: [
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.SPOT_TREATMENT,
-        TAG_SLUGS.SOIN_LOCALISE,
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_USAGE_LOCALISE,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
@@ -739,7 +760,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/ducray-dexyane-baume-emollient-anti-grattage-400ml-302033.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
-      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BAUME],
+      secondary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_BAUME],
       avoid: [],
     },
     keyIngredients: [],
@@ -762,10 +783,9 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -788,8 +808,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/ducray-dexyane-med-creme-reparatrice-apaisante-eczema-100ml-266178.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -810,15 +830,16 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/ducray-keracnyl-lotion-purifiante-200ml-271270.webp',
     tags: {
-      primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ECLAT],
+      primary: [TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ECLAT],
       secondary: [
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.TONIQUE,
-        TAG_SLUGS.PREPARATION,
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.STEP_PREPARATION,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
@@ -840,7 +861,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/ducray-anacaps-reactiv-90-capsules-275082.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      primary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
@@ -865,11 +886,13 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.PROTECTION_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -894,12 +917,14 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.PROTECTION_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -923,7 +948,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/ducray-hidrosis-control-creme-anti-transpirante-50-ml-275595.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
-      secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.DEODORANT],
+      secondary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.TYPE_DEODORANT],
       avoid: [],
     },
     keyIngredients: [],
@@ -946,9 +971,10 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -971,16 +997,16 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/ducray-keracnyl-serum-regulateur-anti-imperfections-30ml-299583.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.EXFOLIATION],
+      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.STEP_TRAITEMENT],
       secondary: [
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.SERUM,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_SERUM,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE],
     },
@@ -1002,8 +1028,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/ducray-kelual-emulsion-keratoreductrice-50ml-232649.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1026,9 +1052,10 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1051,8 +1078,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/ducray-sensinol-lait-apaisant-physioprotecteur-400ml-250427.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1073,13 +1100,14 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/ducray-ictyane-pain-dermatologique-surgras-100g-267028.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.FILTRES_MINERAUX,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
       ],
       avoid: [],
     },
@@ -1101,8 +1129,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/ducray-dexyane-baume-emollient-anti-grattage-200ml-267138.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.BAUME],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_BAUME],
       avoid: [],
     },
     keyIngredients: [],
@@ -1125,9 +1153,10 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1150,8 +1179,13 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/ducray-melascreen-contour-des-yeux-antitaches-15-ml-275588.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.STEP_TRAITEMENT,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -1172,8 +1206,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/ducray-sensinol-shampooing-traitant-400ml-275173.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1196,9 +1230,10 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1222,11 +1257,12 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
@@ -1249,8 +1285,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/ducray-kelual-squanorm-shampooing-traitant-pellicules-seches-200ml-286424.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1271,8 +1307,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/ducray-sensinol-shampoing-traitant-200ml-287244.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1293,8 +1329,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/ducray-sensinol-serum-spray-sos-30ml-264178.webp',
     tags: {
-      primary: [TAG_SLUGS.SERUM],
-      secondary: [TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.TYPE_SERUM],
+      secondary: [TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1316,7 +1352,12 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/ducray-kelual-squanorm-shampooing-traitant-pellicules-grasses-200ml-286425.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT],
-      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -1338,7 +1379,12 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/ducray-kelual-squanorm-shampooing-traitant-pellicules-grasses-400ml-275655.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT],
-      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -1359,7 +1405,7 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/ducray-shampooing-traitant-anti-pelliculaire-kelual-ds-intensive-100-ml-302486.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      primary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
@@ -1381,8 +1427,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/ducray-kelual-squanorm-shampooing-traitant-pellicules-seches-400ml-275656.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1403,8 +1449,8 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/ducray-keracnyl-gel-moussant-400ml-287344.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [TAG_SLUGS.STEP_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1427,10 +1473,9 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1455,10 +1500,9 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1481,14 +1525,15 @@ export const DUCRAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/ducray-dexyane-huile-lavante-protectrice-400ml-269600.webp',
     tags: {
-      primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [],
     },

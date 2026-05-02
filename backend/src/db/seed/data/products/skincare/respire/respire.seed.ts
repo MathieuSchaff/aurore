@@ -20,7 +20,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/respire-bio-deodorant-stick-fleur-de-coton.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['reparateur', 'deodorant'],
+      secondary: ['reparateur', 'type-deodorant'],
       avoid: [],
     },
     keyIngredients: [
@@ -46,7 +46,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/respire-bio-deodorant-stick-menthe-eucalyptus.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['reparateur', 'deodorant'],
+      secondary: ['reparateur', 'type-deodorant'],
       avoid: [],
     },
     keyIngredients: [
@@ -71,8 +71,8 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/respire-deodorant-24h-roll-on-figue-fraiche.webp',
     tags: {
-      primary: ['hydratation', 'barriere-cutanee', 'apaisant'],
-      secondary: ['emollience', 'texture-legere', 'deodorant'],
+      primary: ['step-hydratation', 'barriere-cutanee', 'apaisant'],
+      secondary: ['step-hydratation', 'texture-legere', 'type-deodorant'],
       avoid: [],
     },
     keyIngredients: [
@@ -99,8 +99,8 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-deodorant-roll-on-douceur-monoi-50g.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-deodorant-roll-on-douceur-monoi.webp',
     tags: {
-      primary: ['hydratation', 'barriere-cutanee', 'apaisant'],
-      secondary: ['emollience', 'texture-legere', 'deodorant'],
+      primary: ['step-hydratation', 'barriere-cutanee', 'apaisant'],
+      secondary: ['step-hydratation', 'texture-legere', 'type-deodorant'],
       avoid: [],
     },
     keyIngredients: [
@@ -127,8 +127,8 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-deodorant-roll-on-fleur-de-coton-15ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-deodorant-roll-on-fleur-de-coton.webp',
     tags: {
-      primary: ['barriere-cutanee', 'apaisant', 'hydratation'],
-      secondary: ['emollience', 'texture-legere', 'deodorant'],
+      primary: ['barriere-cutanee', 'apaisant', 'step-hydratation'],
+      secondary: ['step-hydratation', 'texture-legere', 'type-deodorant'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.ZINC_PCA }, { slug: INGREDIENT_SLUGS.SQUALANE }],
@@ -150,8 +150,8 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/respire-deodorant-roll-on-fleur-de-coton-50ml.webp',
     tags: {
-      primary: ['hydratation', 'barriere-cutanee', 'apaisant'],
-      secondary: ['emollience', 'texture-legere', 'deodorant'],
+      primary: ['step-hydratation', 'barriere-cutanee', 'apaisant'],
+      secondary: ['step-hydratation', 'texture-legere', 'type-deodorant'],
       avoid: [],
     },
     keyIngredients: [
@@ -179,8 +179,8 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/respire-deodorant-roll-on-fraicheur-d-aloe.webp',
     tags: {
-      primary: ['hydratation', 'barriere-cutanee', 'apaisant'],
-      secondary: ['emollience', 'texture-legere', 'deodorant'],
+      primary: ['step-hydratation', 'barriere-cutanee', 'apaisant'],
+      secondary: ['step-hydratation', 'texture-legere', 'type-deodorant'],
       avoid: [],
     },
     keyIngredients: [
@@ -209,7 +209,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/respire-deodorant-stick-bio-fleur-de-coton.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['reparateur', 'deodorant'],
+      secondary: ['reparateur', 'type-deodorant'],
       avoid: [],
     },
     keyIngredients: [
@@ -234,7 +234,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-deodorant-stick-douceur-monoi.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['reparateur', 'deodorant'],
+      secondary: ['reparateur', 'type-deodorant'],
       avoid: [],
     },
     keyIngredients: [
@@ -259,7 +259,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-deodorant-stick-embruns-cedre.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['reparateur', 'deodorant'],
+      secondary: ['reparateur', 'type-deodorant'],
       avoid: [],
     },
   },
@@ -280,7 +280,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-deodorant-stick-rose-pivoine.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['reparateur', 'deodorant'],
+      secondary: ['reparateur', 'type-deodorant'],
       avoid: [],
     },
     keyIngredients: [
@@ -306,7 +306,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/respire-recharge-deodorant-stick-douceur-monoi.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['reparateur', 'deodorant'],
+      secondary: ['reparateur', 'type-deodorant'],
       avoid: [],
     },
   },
@@ -328,7 +328,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/respire-recharge-deodorant-stick-embruns-cedre.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['reparateur', 'deodorant'],
+      secondary: ['reparateur', 'type-deodorant'],
       avoid: [],
     },
   },
@@ -350,7 +350,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/respire-recharge-deodorant-stick-fleur-de-coton.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['reparateur', 'deodorant'],
+      secondary: ['reparateur', 'type-deodorant'],
       avoid: [],
     },
     keyIngredients: [
@@ -376,7 +376,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/respire-recharge-deodorant-stick-menthe-eucalyptus.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['reparateur', 'deodorant'],
+      secondary: ['reparateur', 'type-deodorant'],
       avoid: [],
     },
   },
@@ -398,7 +398,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/respire-recharge-deodorant-stick-rose-pivoine.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['reparateur', 'deodorant'],
+      secondary: ['reparateur', 'type-deodorant'],
       avoid: [],
     },
   },
@@ -418,8 +418,8 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-savon-surgras-poire-sauvage-100g.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-savon-surgras-poire-sauvage.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant-corps', 'zone-corps'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.HUILE_GRAINES_TOURNESOL }],
@@ -440,8 +440,14 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-creme-riche-hydratation-intense-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-creme-riche-hydratation-intense.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant'],
-      secondary: ['emollience', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'step-hydratation',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -471,8 +477,8 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-gel-nettoyant-purifiant-140ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-gel-nettoyant-purifiant.webp',
     tags: {
-      primary: ['anti-acne', 'hydratation'],
-      secondary: ['sebo-regulateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['anti-acne', 'step-hydratation'],
+      secondary: ['sebo-regulateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
@@ -499,8 +505,8 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-gelee-active-nettoyante-clear-140ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-gelee-active-nettoyante-clear.webp',
     tags: {
-      primary: ['barriere-cutanee', 'microbiome', 'hydratation'],
-      secondary: ['emollience', 'creme-hydratante', 'zone-visage'],
+      primary: ['barriere-cutanee', 'microbiome', 'step-hydratation'],
+      secondary: ['step-hydratation', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -527,7 +533,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-huile-demaquillante-bio.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      secondary: ['reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.HUILE_GRAINES_TOURNESOL }],
@@ -548,8 +554,8 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-masque-stick-peau-nette-50g.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-masque-stick-peau-nette.webp',
     tags: {
-      primary: ['hydratation', 'apaisant'],
-      secondary: ['masque-hebdo', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant'],
+      secondary: ['moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -577,8 +583,8 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-serum-booster-hydratation-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-serum-booster-hydratation.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant'],
-      secondary: ['emollience', 'serum', 'traitement', 'zone-visage'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['step-hydratation', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -609,7 +615,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-serum-concentre-purifiant.webp',
     tags: {
       primary: ['pores-dilates', 'anti-acne', 'barriere-cutanee'],
-      secondary: ['sebo-regulateur', 'serum', 'traitement', 'zone-visage'],
+      secondary: ['sebo-regulateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
@@ -635,8 +641,8 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-soin-nettoyant-visage-stick-50g.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-soin-nettoyant-visage-stick.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -662,7 +668,7 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-apres-soleil-naturel-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-apres-soleil-naturel.webp',
     tags: {
-      primary: ['hydratation', 'apaisant'],
+      primary: ['step-hydratation', 'apaisant'],
       secondary: [],
       avoid: [],
     },
@@ -688,8 +694,21 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-fluide-hydratation-intense-spf30-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-fluide-hydratation-intense-spf30.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'repulpant', 'protection-solaire'],
-      secondary: ['reparateur', 'emollience', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'barriere-cutanee',
+        'step-hydratation',
+        'repulpant',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'reparateur',
+        'step-hydratation',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -719,8 +738,14 @@ export const RESPIRE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/respire/respire-stick-solaire-anti-taches-spf50-15g.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/respire-stick-solaire-anti-taches-spf50.webp',
     tags: {
-      primary: ['anti-oxydant', 'anti-taches', 'hyperpigmentation', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'anti-oxydant',
+        'anti-taches',
+        'hyperpigmentation',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [

@@ -19,8 +19,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/novexpert-acide-hyaluronique-creme-repulp.webp',
     tags: {
-      primary: ['hydratation', 'apaisant'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -41,8 +41,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/novexpert-acide-hyaluronique-masque-repulp.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.ROMARIN }],
@@ -64,8 +64,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/novexpert-col-serum-booster-pro-collagene.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant'],
-      secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
   },
@@ -86,8 +86,14 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/novexpert-creme-douceur-magnesium-hydro-biotique.webp',
     tags: {
-      primary: ['microbiome', 'barriere-cutanee', 'hydratation'],
-      secondary: ['emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
+      primary: ['microbiome', 'barriere-cutanee', 'step-hydratation'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -116,7 +122,7 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/novexpert/novexpert-gommage-douceur-hydro-biotique-60ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/novexpert-gommage-douceur-hydro-biotique.webp',
     tags: {
-      primary: ['microbiome', 'hydratation', 'apaisant', 'exfoliation'],
+      primary: ['microbiome', 'step-hydratation', 'apaisant', 'step-traitement'],
       secondary: ['reparateur', 'zone-visage'],
       avoid: [],
     },
@@ -138,8 +144,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/novexpert-ha-serum-booster-a-l-acide-hyaluronique.webp',
     tags: {
-      primary: ['hydratation', 'microbiome', 'apaisant'],
-      secondary: ['serum', 'traitement', 'zone-visage'],
+      primary: ['step-hydratation', 'microbiome', 'apaisant'],
+      secondary: ['type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
   },
@@ -162,11 +168,12 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['barriere-cutanee', 'apaisant', 'anti-oxydant'],
       secondary: [
-        'emollience',
+        'step-hydratation',
         'texture-legere',
         'reparateur',
-        'spot-treatment',
-        'soin-localise',
+        'type-traitement',
+        'step-traitement',
+        'moment-usage-localise',
         'zone-visage',
       ],
       avoid: [],
@@ -189,8 +196,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/novexpert-magnesium-fluide-douceur-hydro-biotique.webp',
     tags: {
-      primary: ['hydratation', 'microbiome', 'apaisant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'microbiome', 'apaisant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -210,8 +217,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/novexpert/novexpert-masque-detox-argile-rose-75ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/novexpert-masque-detox-argile-rose.webp',
     tags: {
-      primary: ['microbiome', 'anti-age', 'hydratation'],
-      secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
+      primary: ['microbiome', 'anti-age', 'step-hydratation'],
+      secondary: ['reparateur', 'moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
   },
@@ -231,8 +238,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/novexpert/novexpert-masque-sos-ultra-nourrissant-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/novexpert-masque-sos-ultra-nourrissant.webp',
     tags: {
-      primary: ['microbiome', 'hydratation', 'apaisant'],
-      secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
+      primary: ['microbiome', 'step-hydratation', 'apaisant'],
+      secondary: ['reparateur', 'moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
   },
@@ -253,8 +260,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/novexpert-me-pro-melanine-la-creme-au-caramel-n-1.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -274,14 +281,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/novexpert/novexpert-mousse-nettoyante-flash-eclat-150ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/novexpert-mousse-nettoyante-flash-eclat.webp',
     tags: {
-      primary: ['hydratation', 'exfoliation', 'apaisant', 'eclat'],
-      secondary: [
-        'peau-sensible',
-        'nettoyant',
-        'double-nettoyage-2',
-        'zone-visage',
-        'exfoliant-chimique',
-      ],
+      primary: ['step-hydratation', 'step-traitement', 'apaisant', 'eclat'],
+      secondary: ['peau-sensible', 'step-nettoyage-2', 'zone-visage', 'type-exfoliation'],
       avoid: [],
     },
   },
@@ -301,8 +302,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/novexpert/novexpert-poly-serum-booster-anti-taches-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/novexpert-poly-serum-booster-anti-taches.webp',
     tags: {
-      primary: ['apaisant', 'microbiome', 'hydratation', 'anti-taches'],
-      secondary: ['serum', 'traitement', 'zone-visage'],
+      primary: ['apaisant', 'microbiome', 'step-hydratation', 'anti-taches'],
+      secondary: ['type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
   },
@@ -323,8 +324,14 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/novexpert-poly-soin-cible-correcteur-de-taches.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'microbiome'],
-      secondary: ['keratolytique', 'spot-treatment', 'soin-localise', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation', 'microbiome'],
+      secondary: [
+        'keratolytique',
+        'type-traitement',
+        'step-traitement',
+        'moment-usage-localise',
+        'zone-visage',
+      ],
       avoid: [],
     },
   },
@@ -345,8 +352,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/novexpert-pro-collagene-contour-des-yeux-anti-age-expert.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant', 'anti-age'],
-      secondary: ['reparateur', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant', 'anti-age'],
+      secondary: ['reparateur', 'type-traitement', 'zone-yeux', 'zone-yeux', 'step-traitement'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.HUILE_GRAINES_TOURNESOL }],
@@ -368,8 +375,15 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/novexpert-pro-collagene-creme-anti-age-expert.webp',
     tags: {
-      primary: ['hydratation', 'anti-age', 'barriere-cutanee'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-age', 'barriere-cutanee'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
   },
@@ -390,8 +404,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/novexpert-pro-collagene-le-fluide-anti-age-expert.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant', 'anti-age'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant', 'anti-age'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -412,8 +426,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/novexpert-pro-melanine-la-creme-au-caramel-n-2.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -434,7 +448,7 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/novexpert-pro-retinol-dual-booster-serum.webp',
     tags: {
       primary: ['anti-age'],
-      secondary: ['peau-sensible', 'serum', 'traitement', 'zone-visage'],
+      secondary: ['peau-sensible', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -461,8 +475,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/novexpert/novexpert-soin-peeling-eclat-vitamine-c-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/novexpert-soin-peeling-eclat-vitamine-c.webp',
     tags: {
-      primary: ['hydratation', 'anti-age', 'microbiome', 'eclat'],
-      secondary: ['keratolytique', 'peau-sensible', 'exfoliation', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-age', 'microbiome', 'eclat'],
+      secondary: ['keratolytique', 'peau-sensible', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
   },
@@ -482,7 +496,7 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/novexpert/novexpert-soin-peeling-peau-nette-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/novexpert-soin-peeling-peau-nette.webp',
     tags: {
-      primary: ['hydratation', 'microbiome', 'anti-age', 'exfoliation'],
+      primary: ['step-hydratation', 'microbiome', 'anti-age', 'step-traitement'],
       secondary: ['keratolytique', 'peau-sensible', 'zone-visage'],
       avoid: [],
     },
@@ -503,8 +517,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/novexpert/novexpert-trio-zinc-masque-triple-black-70g.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/novexpert-trio-zinc-masque-triple-black.webp',
     tags: {
-      primary: ['microbiome', 'apaisant', 'hydratation'],
-      secondary: ['peau-sensible', 'masque-hebdo', 'zone-visage'],
+      primary: ['microbiome', 'apaisant', 'step-hydratation'],
+      secondary: ['peau-sensible', 'moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
   },
@@ -524,8 +538,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/novexpert/novexpert-vitamine-c-contour-des-yeux-15ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/novexpert-vitamine-c-contour-des-yeux.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant'],
-      secondary: ['reparateur', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-traitement', 'zone-yeux', 'zone-yeux', 'step-traitement'],
       avoid: [],
     },
   },
@@ -545,8 +559,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/novexpert/novexpert-vitamine-c-creme-legere-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/novexpert-vitamine-c-creme-legere.webp',
     tags: {
-      primary: ['anti-age', 'hydratation', 'microbiome'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['anti-age', 'step-hydratation', 'microbiome'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -566,8 +580,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/novexpert/novexpert-vitamine-c-l-exfoliant-expert-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/novexpert-vitamine-c-l-exfoliant-expert.webp',
     tags: {
-      primary: ['hydratation', 'exfoliation', 'apaisant'],
-      secondary: ['peau-sensible', 'reparateur', 'zone-visage', 'exfoliant-chimique'],
+      primary: ['step-hydratation', 'step-traitement', 'apaisant'],
+      secondary: ['peau-sensible', 'reparateur', 'zone-visage', 'type-exfoliation'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.PHYTIC_ACID }],
@@ -588,8 +602,8 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-produits/eaux-thermales-et-florales/novexpert-brume-hydro-tonique-100ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/novexpert-brume-hydro-tonique.webp',
     tags: {
-      primary: ['microbiome', 'hydratation', 'anti-age'],
-      secondary: ['tonique', 'preparation', 'zone-visage'],
+      primary: ['microbiome', 'step-hydratation', 'anti-age'],
+      secondary: ['type-toner', 'texture-eau', 'step-preparation', 'zone-visage'],
       avoid: [],
     },
   },
@@ -610,7 +624,7 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/novexpert-nettoyant-lacte-hydro-biotique.webp',
     tags: {
       primary: ['microbiome'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      secondary: ['step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -636,13 +650,15 @@ export const NOVEXPERT_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/novexpert/novexpert-creme-riche-protectrice-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/novexpert-creme-riche-protectrice.webp',
     tags: {
-      primary: ['barriere-cutanee', 'microbiome', 'hydratation'],
+      primary: ['barriere-cutanee', 'microbiome', 'step-hydratation'],
       secondary: [
-        'emollience',
+        'step-hydratation',
         'reparateur',
-        'creme-solaire',
-        'protection-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'step-protection-solaire',
+        'moment-matin',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: [],

@@ -18,15 +18,14 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/nuxe-reve-de-miel-gel-lavant-surgras-visage-et-corps-400ml-287538.webp',
     tags: {
-      primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [],
     },
@@ -50,10 +49,12 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.PROTECTION_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -76,14 +77,15 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/nuxe-prodigieux-huile-de-douche-200ml-280168.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.NETTOYANT_CORPS,
+        TAG_SLUGS.TYPE_NETTOYANT,
         TAG_SLUGS.ZONE_CORPS,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.MOMENT_MATIN,
       ],
       avoid: [],
     },
@@ -107,10 +109,12 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.PROTECTION_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -134,7 +138,12 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/nuxe-prodigieux-floral-gelee-de-douche-parfumee-200ml-280318.webp',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
       avoid: [],
     },
     keyIngredients: [],

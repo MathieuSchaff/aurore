@@ -19,8 +19,15 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/a-derma-exomega-control-huile-lavante-emolliente-anti-grattage-recharge.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant', 'eczema'],
-      secondary: ['peau-sensible', 'reparateur', 'nettoyant-corps', 'zone-corps', 'peau-seche'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant', 'eczema'],
+      secondary: [
+        'peau-sensible',
+        'reparateur',
+        'type-nettoyant',
+        'zone-corps',
+        'zone-corps',
+        'peau-seche',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -45,7 +52,7 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/a-derma-les-indispensables-pain-surgras-nutritif.webp',
     tags: {
       primary: ['apaisant', 'anti-oxydant'],
-      secondary: ['peau-sensible', 'reparateur', 'nettoyant-corps', 'zone-corps'],
+      secondary: ['peau-sensible', 'reparateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -71,15 +78,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/a-derma-exomega-control-gel-moussant-emollient-anti-grattage.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant', 'eczema'],
-      secondary: [
-        'peau-sensible',
-        'reparateur',
-        'nettoyant',
-        'double-nettoyage-2',
-        'zone-visage',
-        'peau-seche',
-      ],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant', 'eczema'],
+      secondary: ['peau-sensible', 'reparateur', 'step-nettoyage-2', 'zone-visage', 'peau-seche'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.LACTIC_ACID }],
@@ -104,7 +104,9 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
       secondary: [
         'peau-sensible',
         'reparateur',
-        'lait-corps',
+        'type-hydratant',
+        'texture-lait',
+        'zone-corps',
         'zone-corps',
         'peau-seche',
         'apaisant',
@@ -131,8 +133,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-creme-douche-hydratante-3-en-1-500ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-creme-douche-hydratante-3-en-1.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant'],
-      secondary: ['peau-sensible', 'reparateur', 'nettoyant-corps', 'zone-corps'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['peau-sensible', 'reparateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -155,8 +157,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-creme-douche-hydratante-750ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-creme-douche-hydratante.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant'],
-      secondary: ['peau-sensible', 'reparateur', 'nettoyant-corps', 'zone-corps'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['peau-sensible', 'reparateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -179,8 +181,15 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-creme-mains-ongles-hydratante-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-creme-mains-ongles-hydratante.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant'],
-      secondary: ['peau-sensible', 'reparateur', 'creme-mains', 'zone-mains'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'peau-sensible',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-mains',
+        'zone-mains',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -205,8 +214,15 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/aderma-exomega-control-gel-lavant-emollient-2-en-1.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant', 'eczema'],
-      secondary: ['peau-sensible', 'reparateur', 'nettoyant-corps', 'zone-corps', 'peau-seche'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant', 'eczema'],
+      secondary: [
+        'peau-sensible',
+        'reparateur',
+        'type-nettoyant',
+        'zone-corps',
+        'zone-corps',
+        'peau-seche',
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.HUILE_ONAGRE }],
@@ -226,8 +242,15 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-exomega-control-huile-lavante-1l.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-exomega-control-huile-lavante.webp',
     tags: {
-      primary: ['apaisant', 'anti-oxydant', 'hydratation', 'eczema'],
-      secondary: ['reparateur', 'peau-sensible', 'nettoyant-corps', 'zone-corps', 'peau-seche'],
+      primary: ['apaisant', 'anti-oxydant', 'step-hydratation', 'eczema'],
+      secondary: [
+        'reparateur',
+        'peau-sensible',
+        'type-nettoyant',
+        'zone-corps',
+        'zone-corps',
+        'peau-seche',
+      ],
       avoid: [],
     },
   },
@@ -251,7 +274,9 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
       secondary: [
         'peau-sensible',
         'reparateur',
-        'lait-corps',
+        'type-hydratant',
+        'texture-lait',
+        'zone-corps',
         'zone-corps',
         'peau-seche',
         'apaisant',
@@ -280,8 +305,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-gel-douche-surgras-3-en-1-500ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-gel-douche-surgras-3-en-1-500ml.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant'],
-      secondary: ['peau-sensible', 'reparateur', 'nettoyant-corps', 'zone-corps'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['peau-sensible', 'reparateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -304,8 +329,16 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-lait-corps-hydratation-72h-400ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-lait-corps-hydratation-72h.webp',
     tags: {
-      primary: ['hydratation', 'barriere-cutanee', 'apaisant'],
-      secondary: ['emollience', 'texture-legere', 'peau-sensible', 'lait-corps', 'zone-corps'],
+      primary: ['step-hydratation', 'barriere-cutanee', 'apaisant'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'peau-sensible',
+        'type-hydratant',
+        'texture-lait',
+        'zone-corps',
+        'zone-corps',
+      ],
       avoid: [],
     },
   },
@@ -325,7 +358,7 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-pain-dermatologique-apaisant-100g.webp',
     tags: {
       primary: ['apaisant'],
-      secondary: ['peau-sensible', 'nettoyant-corps', 'zone-corps'],
+      secondary: ['peau-sensible', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -349,8 +382,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-primalba-gel-lavant-2-en-1-200ml-eco-slim.html',
     imageUrl: '',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant'],
-      secondary: ['peau-sensible', 'reparateur', 'nettoyant-corps', 'zone-corps'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['peau-sensible', 'reparateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
   },
@@ -369,8 +402,15 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/bebe/aderma-exomega-control-2-en-1-gel-lavant-200-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-exomega-control-2-en-1-gel-lavant.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant', 'eczema'],
-      secondary: ['peau-sensible', 'reparateur', 'nettoyant-corps', 'zone-corps', 'peau-seche'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant', 'eczema'],
+      secondary: [
+        'peau-sensible',
+        'reparateur',
+        'type-nettoyant',
+        'zone-corps',
+        'zone-corps',
+        'peau-seche',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -393,8 +433,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/soins-corps/aderma-dermalibour-cica-gel-moussant-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-dermalibour-cica-gel-moussant.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant'],
-      secondary: ['peau-sensible', 'reparateur', 'nettoyant-corps', 'zone-corps'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['peau-sensible', 'reparateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -418,7 +458,7 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-pain-surgras-lait-avoine.webp',
     tags: {
       primary: ['apaisant', 'anti-oxydant'],
-      secondary: ['peau-sensible', 'reparateur', 'nettoyant-corps', 'zone-corps'],
+      secondary: ['peau-sensible', 'reparateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -443,7 +483,7 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-pain-surgras.webp',
     tags: {
       primary: ['apaisant', 'anti-oxydant'],
-      secondary: ['peau-sensible', 'reparateur', 'nettoyant-corps', 'zone-corps'],
+      secondary: ['peau-sensible', 'reparateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -468,8 +508,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/aderma-epitheliale-a-h-duo-massage-gel-huile.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant'],
-      secondary: ['peau-sensible', 'huile-corps', 'zone-corps'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant'],
+      secondary: ['peau-sensible', 'type-hydratant', 'texture-huile', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE }],
@@ -493,7 +533,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
       secondary: [
         'reparateur',
         'peau-sensible',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
         'peau-seche',
         'apaisant',
@@ -521,7 +562,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
       secondary: [
         'peau-sensible',
         'reparateur',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
         'peau-seche',
         'apaisant',
@@ -552,7 +594,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
       secondary: [
         'peau-sensible',
         'reparateur',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
         'peau-seche',
         'apaisant',
@@ -580,8 +623,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/aderma-biology-ac-eau-micellaire-nettoyante-purifiante-bio.webp',
     tags: {
-      primary: ['apaisant', 'hydratation'],
-      secondary: ['peau-sensible', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation'],
+      secondary: ['peau-sensible', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
   },
@@ -601,8 +644,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/aderma-biology-ac-gel-moussant-purifiant-bio.webp',
     tags: {
-      primary: ['apaisant', 'hydratation'],
-      secondary: ['peau-sensible', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation'],
+      secondary: ['peau-sensible', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
   },
@@ -622,8 +665,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/aderma-biology-ac-hydra-creme-compensatrice-bio.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant'],
-      secondary: ['peau-sensible', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['peau-sensible', 'reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -648,8 +691,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/aderma-biology-ac-perfect-fluide-anti-imperfections-bio.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant', 'anti-acne'],
-      secondary: ['peau-sensible', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant', 'anti-acne'],
+      secondary: ['peau-sensible', 'reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -675,8 +718,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/aderma-biology-creme-legere-dermatologique-hydratante.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant'],
-      secondary: ['peau-sensible', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['peau-sensible', 'reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -701,8 +744,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/aderma-biology-creme-riche-hydratante-bio.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant'],
-      secondary: ['reparateur', 'peau-sensible', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant'],
+      secondary: ['reparateur', 'peau-sensible', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -727,8 +770,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/aderma-biology-eau-micellaire-dermatologique-bio-400ml.webp',
     tags: {
-      primary: ['apaisant', 'hydratation'],
-      secondary: ['peau-sensible', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation'],
+      secondary: ['peau-sensible', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
   },
@@ -748,8 +791,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/aderma-biology-energy-c-serum-coup-d-eclat.webp',
     tags: {
-      primary: ['apaisant', 'hydratation'],
-      secondary: ['peau-sensible', 'serum', 'traitement', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation'],
+      secondary: ['peau-sensible', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -772,8 +815,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-biology-hyalu-serum-3-en-1-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-biology-hyalu-serum-3-en-1.webp',
     tags: {
-      primary: ['apaisant', 'hydratation'],
-      secondary: ['peau-sensible', 'serum', 'traitement', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation'],
+      secondary: ['peau-sensible', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE }],
@@ -794,8 +837,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/aderma-biology-lait-demaquillant-dermatologique-bio.webp',
     tags: {
-      primary: ['apaisant', 'hydratation'],
-      secondary: ['peau-sensible', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation'],
+      secondary: ['peau-sensible', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
   },
@@ -815,8 +858,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/aderma-biology-mousse-nettoyante-dermatologique.webp',
     tags: {
-      primary: ['apaisant', 'hydratation'],
-      secondary: ['peau-sensible', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation'],
+      secondary: ['peau-sensible', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.PROPANEDIOL }],
@@ -836,8 +879,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-creme-universelle-hydratante-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-creme-universelle-hydratante-50ml.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant'],
-      secondary: ['peau-sensible', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant'],
+      secondary: ['peau-sensible', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -862,7 +905,7 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/aderma-cytelium-lotion-assechante-apaisante.webp',
     tags: {
       primary: ['apaisant'],
-      secondary: ['peau-sensible', 'tonique', 'preparation', 'zone-visage'],
+      secondary: ['peau-sensible', 'type-toner', 'texture-eau', 'step-preparation', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -886,8 +929,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/aderma-dermalibour-barrier-creme-isolante-apaisante-50ml.webp',
     tags: {
-      primary: ['apaisant', 'hydratation'],
-      secondary: ['peau-sensible', 'creme-hydratante', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation'],
+      secondary: ['peau-sensible', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -914,8 +957,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/aderma-dermalibour-cica-baume-levres-reparateur.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant', 'cicatrisation'],
-      secondary: ['peau-sensible', 'reparateur', 'soin-levres', 'zone-levres'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant', 'cicatrisation'],
+      secondary: ['peau-sensible', 'reparateur', 'type-traitement', 'zone-levres', 'zone-levres'],
       avoid: [],
     },
     keyIngredients: [
@@ -942,8 +985,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/aderma-dermalibour-cica-creme-reparatrice-50ml.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant', 'cicatrisation'],
-      secondary: ['peau-sensible', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant', 'cicatrisation'],
+      secondary: ['peau-sensible', 'reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -970,8 +1013,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/aderma-epitheliale-ah-baume-patch-reparateur.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant', 'cicatrisation'],
-      secondary: ['peau-sensible', 'reparateur', 'patch'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant', 'cicatrisation'],
+      secondary: ['peau-sensible', 'reparateur', 'type-masque', 'texture-patch'],
       avoid: [],
     },
     keyIngredients: [
@@ -996,8 +1039,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/aderma-epitheliale-ha-creme-reparatrice-100ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-epitheliale-ha-creme-reparatrice.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant', 'cicatrisation'],
-      secondary: ['peau-sensible', 'creme-hydratante', 'zone-visage', 'reparateur'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant', 'cicatrisation'],
+      secondary: ['peau-sensible', 'type-hydratant', 'texture-creme', 'zone-visage', 'reparateur'],
       avoid: [],
     },
     keyIngredients: [
@@ -1021,8 +1064,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/aderma-epitheliale-ultra-repair-ha-serum-multi-reparateur.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'cicatrisation'],
-      secondary: ['peau-sensible', 'serum', 'traitement', 'zone-visage', 'reparateur'],
+      primary: ['apaisant', 'step-hydratation', 'cicatrisation'],
+      secondary: ['peau-sensible', 'type-serum', 'step-traitement', 'zone-visage', 'reparateur'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE }],
@@ -1043,8 +1086,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/aderma-epitheliale-vit-c-serum-reparateur-eclat.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'eclat', 'cicatrisation'],
-      secondary: ['peau-sensible', 'serum', 'traitement', 'zone-visage', 'reparateur'],
+      primary: ['apaisant', 'step-hydratation', 'eclat', 'cicatrisation'],
+      secondary: ['peau-sensible', 'type-serum', 'step-traitement', 'zone-visage', 'reparateur'],
       avoid: [],
     },
     keyIngredients: [
@@ -1072,7 +1115,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
       secondary: [
         'peau-sensible',
         'reparateur',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
         'peau-seche',
         'apaisant',
@@ -1104,7 +1148,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
       secondary: [
         'peau-sensible',
         'reparateur',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
         'peau-seche',
         'apaisant',
@@ -1133,15 +1178,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/aderma-exomega-control-gel-moussant-anti-grattage.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant', 'eczema'],
-      secondary: [
-        'peau-sensible',
-        'reparateur',
-        'nettoyant',
-        'double-nettoyage-2',
-        'zone-visage',
-        'peau-seche',
-      ],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant', 'eczema'],
+      secondary: ['peau-sensible', 'reparateur', 'step-nettoyage-2', 'zone-visage', 'peau-seche'],
       avoid: [],
     },
     keyIngredients: [
@@ -1165,7 +1203,7 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-stick-levres.webp',
     tags: {
       primary: ['apaisant', 'barriere-cutanee', 'anti-oxydant'],
-      secondary: ['peau-sensible', 'reparateur', 'soin-levres', 'zone-levres'],
+      secondary: ['peau-sensible', 'reparateur', 'type-traitement', 'zone-levres', 'zone-levres'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.SHEA_BUTTER }, { slug: INGREDIENT_SLUGS.PANTHENOL }],
@@ -1186,14 +1224,14 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/aderma-biology-ac-night-peel-serum-peau-neuve.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'exfoliation'],
+      primary: ['apaisant', 'step-hydratation', 'step-traitement'],
       secondary: [
         'keratolytique',
         'peau-sensible',
-        'serum',
-        'traitement',
+        'type-serum',
+        'step-traitement',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
       ],
       avoid: [],
     },
@@ -1219,8 +1257,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/aderma-epitheliale-ha-ultra-repair-creme-reparatrice.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant', 'cicatrisation'],
-      secondary: ['peau-sensible', 'creme-hydratante', 'zone-visage', 'reparateur'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant', 'cicatrisation'],
+      secondary: ['peau-sensible', 'type-hydratant', 'texture-creme', 'zone-visage', 'reparateur'],
       avoid: [],
     },
     keyIngredients: [
@@ -1244,8 +1282,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/aderma-epitheliale-creme-reparatrice-spf50.webp',
     tags: {
-      primary: ['cicatrisation', 'protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage', 'reparateur'],
+      primary: ['cicatrisation', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage', 'reparateur'],
       avoid: [],
     },
   },
@@ -1265,12 +1303,13 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/aderma-exomega-control-creme-solaire-emolliente-spf50.webp',
     tags: {
-      primary: ['apaisant', 'anti-oxydant', 'eczema', 'protection-solaire'],
+      primary: ['apaisant', 'anti-oxydant', 'eczema', 'step-protection-solaire', 'moment-matin'],
       secondary: [
         'peau-sensible',
         'reparateur',
-        'creme-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
         'zone-visage',
         'peau-seche',
       ],
@@ -1303,8 +1342,8 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/aderma-protect-ah-lait-reparateur-apres-soleil.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'barriere-cutanee', 'cicatrisation'],
-      secondary: ['peau-sensible', 'emollience', 'texture-legere', 'reparateur'],
+      primary: ['step-hydratation', 'apaisant', 'barriere-cutanee', 'cicatrisation'],
+      secondary: ['peau-sensible', 'step-hydratation', 'texture-legere', 'reparateur'],
       avoid: [],
     },
     keyIngredients: [
@@ -1328,8 +1367,15 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/aderma-protect-pocket-fluide-invisible-spf50.webp',
     tags: {
-      primary: ['apaisant', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['peau-sensible', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['apaisant', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: [
+        'peau-sensible',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1359,8 +1405,15 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/aderma-protect-x-trem-stick-invisible-spf50.webp',
     tags: {
-      primary: ['protection-solaire', 'apaisant'],
-      secondary: ['filtres-chimiques', 'peau-sensible', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'apaisant'],
+      secondary: [
+        'filtres-chimiques',
+        'peau-sensible',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1387,8 +1440,21 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/bebe/aderma-spray-protect-kids-spf50-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-spray-protect-kids-spf50.webp',
     tags: {
-      primary: ['apaisant', 'anti-oxydant', 'hydratation', 'protection-solaire'],
-      secondary: ['peau-sensible', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'apaisant',
+        'anti-oxydant',
+        'step-hydratation',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'peau-sensible',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1415,8 +1481,21 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/soins-corps/aderma-spray-protect-spf50-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-spray-protect-spf50.webp',
     tags: {
-      primary: ['anti-oxydant', 'apaisant', 'hydratation', 'protection-solaire'],
-      secondary: ['peau-sensible', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'anti-oxydant',
+        'apaisant',
+        'step-hydratation',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'peau-sensible',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1441,8 +1520,15 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/soins-visage/aderma-creme-protect-spf50-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-creme-protect-spf50.webp',
     tags: {
-      primary: ['apaisant', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['peau-sensible', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['apaisant', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: [
+        'peau-sensible',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1466,8 +1552,14 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/soins-visage/aderma-protect-ac-fluide-matifiant-spf50-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-protect-ac-fluide-matifiant-spf50.webp',
     tags: {
-      primary: ['apaisant', 'anti-oxydant', 'sebo-regulateur', 'protection-solaire'],
-      secondary: ['peau-sensible', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'apaisant',
+        'anti-oxydant',
+        'sebo-regulateur',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: ['peau-sensible', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1491,14 +1583,16 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/solaires/aderma-protect-ah-lait-reparateur-250ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-protect-ah-lait-reparateur.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'barriere-cutanee', 'cicatrisation'],
+      primary: ['step-hydratation', 'apaisant', 'barriere-cutanee', 'cicatrisation'],
       secondary: [
         'peau-sensible',
-        'emollience',
+        'step-hydratation',
         'texture-legere',
-        'creme-solaire',
-        'protection-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'step-protection-solaire',
+        'moment-matin',
+        'moment-matin',
         'zone-visage',
         'reparateur',
       ],
@@ -1524,8 +1618,21 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/solaires/aderma-protect-creme-spf-50-40-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-protect-creme-spf-50.webp',
     tags: {
-      primary: ['apaisant', 'anti-oxydant', 'hydratation', 'protection-solaire'],
-      secondary: ['peau-sensible', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'apaisant',
+        'anti-oxydant',
+        'step-hydratation',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'peau-sensible',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1557,9 +1664,11 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
       secondary: [
         'peau-sensible',
         'reparateur',
-        'creme-solaire',
-        'protection-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'step-protection-solaire',
+        'moment-matin',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: [],
@@ -1590,8 +1699,21 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/aderma/solaires/aderma-protect-kids-lait-enfant-spf-50-250-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-protect-kids-lait-enfant-spf-50.webp',
     tags: {
-      primary: ['apaisant', 'anti-oxydant', 'hydratation', 'protection-solaire'],
-      secondary: ['peau-sensible', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'apaisant',
+        'anti-oxydant',
+        'step-hydratation',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'peau-sensible',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1622,16 +1744,17 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.EMOLLIENCE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.BIO_NATUREL,
         TAG_SLUGS.VEGAN,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
       ],
       avoid: [],
     },
@@ -1662,15 +1785,17 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.LAIT_CORPS,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_LAIT,
+        TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.VEGAN,
         TAG_SLUGS.BIO_NATUREL,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.ZONE_CORPS,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
       ],
       avoid: [],
     },
@@ -1697,13 +1822,14 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     inci: 'WATER, GLYCERIN, HYDROGENATED STARCH HYDROLYSATE, CETEARETH-60 MYRISTYL glycol, DECYL GLUCOSIDE, SODIUM LAUROYL METHYL ISETHIONATE, POLYSORBATE 20, DISODIUM COCOAMPHODIACETATE, AVENA SATIVA (OAT) KERNEL EXTRACT, CAPRYLYL GLYCOL, CARAMEL, CITRIC ACID, COCO-GLUCOSIDE, FRAGRANCE, GLYCERYL OLEATE, HYDROGENATED PALM GLYCERIDES CITRATE, LAURIC ACID, PROPYLENE GLYCOL, SODIUM BENZOATE, SODIUM CHLORIDE, SODIUM GLYCOLATE, SODIUM METHYL ISETHIONATE, TOCOPHEROL, TRISODIUM ETHYLENEDIAMINE DISUCCINATE',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/aderma-gel-douche-surgras.webp',
     tags: {
-      primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.NETTOYANT, TAG_SLUGS.BARRIERE_CUTANEE],
+      primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.GEL_NETTOYANT,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_GEL,
         TAG_SLUGS.SANS_SAVON,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.BIO_NATUREL,
@@ -1736,16 +1862,17 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.EMOLLIENCE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.HYPOALLERGENIQUE,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
       ],
       avoid: [TAG_SLUGS.PEAU_GRASSE],
     },
@@ -1771,15 +1898,16 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     notes: '91% origine naturelle. Ne pique pas les yeux. Sans savon.',
     inci: 'WATER, GLYCERIN, HYDROGENATED STARCH HYDROLYSATE, COCO-GLUCOSIDE, ZINC COCETH SULFATE, SODIUM COCOAMPHOACETATE, CETEARETH-60 MYRISTYL GLYCOL, PEG-40 HYDROGENATED CASTOR OIL, 10-HYDROXYDECENOIC ACID, ASCORBYL PALMITATE, AVENA SATIVA (OAT) LEAF/STEM EXTRACT, CITRIC ACID, FRAGRANCE, GLYCERYL OLEATE, HYDROGENATED PALM GLYCERIDES CITRATE, LAURIC ACID, LECITHIN, OENOTHERA BIENNIS (EVENING PRIMROSE) OIL, PEG-120 METHYL GLUCOSE DIOLEATE, PROPYLENE GLYCOL, SODIUM BENZOATE, SODIUM CHLORIDE, SODIUM HYDROXIDE, SODIUM LAUROYL METHYL ISETHIONATE, SODIUM METHYL ISETHIONATE, TOCOPHEROL, TRISODIUM ETHYLENEDIAMINE DISUCCINATE',
     tags: {
-      primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.NETTOYANT],
+      primary: [TAG_SLUGS.PEAU_SECHE],
       secondary: [
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.HUILE_NETTOYANTE,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_HUILE,
         TAG_SLUGS.BIO_NATUREL,
         TAG_SLUGS.SANS_SAVON,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
@@ -1813,9 +1941,10 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1840,11 +1969,10 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1869,10 +1997,11 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1898,9 +2027,10 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1925,11 +2055,10 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1952,15 +2081,14 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/a-derma-dermalibour-cica-gel-moussant-assainissant-200ml-275256.webp',
     tags: {
-      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.EXFOLIATION],
+      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.STEP_TRAITEMENT],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [],
     },
@@ -1982,14 +2110,20 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/a-derma-les-indispensables-pain-surgras-nutritif-lot-de-2-x-100g-249233.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.APAISANT,
+        TAG_SLUGS.ANTI_OXYDANT,
+      ],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
       ],
       avoid: [],
     },
@@ -2013,10 +2147,11 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.NETTOYANT_CORPS,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_CORPS,
       ],
       avoid: [],
@@ -2039,16 +2174,15 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/a-derma-exomega-control-gel-moussant-emollient-anti-grattage-lot-de-2-x-500ml-248023.webp',
     tags: {
-      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [],
     },
@@ -2073,9 +2207,10 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -2098,16 +2233,15 @@ export const ADERMA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/a-derma-exomega-control-gel-moussant-emollient-anti-grattage-500ml-275113.webp',
     tags: {
-      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [],
     },

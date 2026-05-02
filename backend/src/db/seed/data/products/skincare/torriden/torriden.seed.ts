@@ -19,13 +19,14 @@ export const TORRIDEN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/torriden-dive-in-low-molecular-skin-booster-hyaluronic-acid-6-76-fl-oz-200-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/torriden-dive-in-skin-booster.webp',
     tags: {
-      primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
-        TAG_SLUGS.TONIQUE,
-        TAG_SLUGS.PREPARATION,
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.STEP_PREPARATION,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -57,11 +58,11 @@ export const TORRIDEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/81B54340428ED2/large_1717576200.png?1717576200',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.PEAU_SENSIBLE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
-        TAG_SLUGS.MASQUE_TISSU,
-        TAG_SLUGS.MASQUE_HYDRATANT,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_MASQUE,
+        TAG_SLUGS.TYPE_MASQUE,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -89,12 +90,12 @@ export const TORRIDEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/torriden-dive-in-hyaluronic-acid-soothing-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.PEAU_SENSIBLE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.BARRIERE_CUTANEE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -124,11 +125,11 @@ export const TORRIDEN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.SERUM,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_SERUM,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -159,8 +160,8 @@ export const TORRIDEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/CF9DB59766D126/large_1744434054.png?1744434054',
     tags: {
-      primary: [TAG_SLUGS.REPULPANT, TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.MASQUE_HYDRATANT, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.REPULPANT, TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.MOMENT_SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -198,8 +199,8 @@ export const TORRIDEN_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.PEAU_GRASSE],
       secondary: [
         TAG_SLUGS.PEAU_MIXTE,
-        TAG_SLUGS.MASQUE_HEBDO,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_HEBDOMADAIRE,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -229,11 +230,11 @@ export const TORRIDEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/9BFFF2C81B2846/large_1742270198.png?1742270198',
     tags: {
-      primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
         TAG_SLUGS.BARRIERE_CUTANEE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -263,9 +264,9 @@ export const TORRIDEN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES],
       secondary: [
-        TAG_SLUGS.MASQUE_TISSU,
+        TAG_SLUGS.TYPE_MASQUE,
         TAG_SLUGS.HYPERPIGMENTATION,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -296,13 +297,14 @@ export const TORRIDEN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/torriden-low-molecular-hyaluronic-acid-dive-in-multi-pad-5-41-fl-oz-160-ml-80-count',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/torriden-dive-in-multi-pad.webp',
     tags: {
-      primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
-        TAG_SLUGS.TONIQUE,
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
         TAG_SLUGS.PEAU_MIXTE,
-        TAG_SLUGS.PREPARATION,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.STEP_PREPARATION,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -332,10 +334,11 @@ export const TORRIDEN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.DESHYDRATATION],
       secondary: [
-        TAG_SLUGS.MOUSSE_NETTOYANTE,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_MOUSSE,
         TAG_SLUGS.BARRIERE_CUTANEE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -367,7 +370,7 @@ export const TORRIDEN_SEED: UnifiedProductSeed[] = [
       'https://cdn1.skinsafeproducts.com/photo/04869A7D412661/large_1747379007.png?1747379007',
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.PEAU_SENSIBLE],
-      secondary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.MOMENT_SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -396,12 +399,13 @@ export const TORRIDEN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/torriden-dive-in-toner-hyaluronic-acid-10-14-fl-oz-300-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/torriden-dive-in-toner.webp',
     tags: {
-      primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
-        TAG_SLUGS.TONIQUE,
-        TAG_SLUGS.PREPARATION,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.STEP_PREPARATION,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -431,11 +435,11 @@ export const TORRIDEN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.SERUM,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_SERUM,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],

@@ -20,7 +20,15 @@ export const LES_SECRETS_DE_LOLY_SOLAIRE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-serum-de-finition-multi-protection.webp',
     tags: {
       primary: ['eclat', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-solaire', 'protection-solaire', 'matin', 'zone-visage'],
+      secondary: [
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'step-protection-solaire',
+        'moment-matin',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: ['peau-sensible', 'peau-sensible'],
     },
     keyIngredients: [

@@ -20,7 +20,12 @@ export const ETUDE_HOUSE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/etude-house-soonjung-hydro-barrier-cream-4-39-fl-oz-130-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/etude-house-soonjung-hydro-barrier-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CREME_HYDRATANTE],
+      primary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+      ],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.PEAU_SENSIBLE],
       avoid: [],
     },
@@ -46,7 +51,12 @@ export const ETUDE_HOUSE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/etude-house-wonder-pore-balancing-cream-1-fl-oz',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/etude-house-wonder-pore-balancing-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.CREME_HYDRATANTE],
+      primary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.PORES_DILATES,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+      ],
       secondary: [],
       avoid: [],
     },
@@ -69,7 +79,12 @@ export const ETUDE_HOUSE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/etude-house-beauty-shot-face-blur-35g-spf33-pa-kpop-korean-cosmetics',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/etude-house-beauty-shot-face-blur.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.PRIMER, TAG_SLUGS.FILTRES_MINERAUX],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.TYPE_PRIMER,
+        TAG_SLUGS.FILTRES_MINERAUX,
+      ],
       secondary: [TAG_SLUGS.FILTRES_CHIMIQUES],
       avoid: [],
     },
@@ -93,7 +108,12 @@ export const ETUDE_HOUSE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/3D8CBFF7A57960/large_1703171409.png?1703171409',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.HYDRATATION, TAG_SLUGS.FILTRES_CHIMIQUES],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.FILTRES_CHIMIQUES,
+      ],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.PEAU_SENSIBLE],
       avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
@@ -120,7 +140,7 @@ export const ETUDE_HOUSE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/F0ED7E98D13408/large_1497554272.jpeg?1497554272',
     tags: {
-      primary: [TAG_SLUGS.EXFOLIANT_CHIMIQUE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ECLAT],
+      primary: [TAG_SLUGS.TYPE_EXFOLIATION, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ECLAT],
       secondary: [],
       avoid: [],
     },
@@ -144,7 +164,12 @@ export const ETUDE_HOUSE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/5C821D0423E14B/large_1658987484.png?1658987484',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ANTI_AGE],
+      primary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ANTI_AGE,
+      ],
       secondary: [TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -167,7 +192,7 @@ export const ETUDE_HOUSE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/etude-soonjung-ph-6-5-whip-cleanser-8-5-fl-oz-250-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/etude-house-soonjung-whip-cleanser.webp',
     tags: {
-      primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
+      primary: [TAG_SLUGS.STEP_NETTOYAGE_2],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.PEAU_SENSIBLE],
       avoid: [],
     },
@@ -214,7 +239,7 @@ export const ETUDE_HOUSE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/etude-house-soonjung-10-free-moist-emulsion-120ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/etude-house-soonjung-moist-emulsion.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.PEAU_SENSIBLE],
       avoid: [],
     },
@@ -235,7 +260,12 @@ export const ETUDE_HOUSE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/etude-house-soonjung-ph-5-5-relief-toner-180ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/etude-house-soonjung-relief-toner.webp',
     tags: {
-      primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.APAISANT, TAG_SLUGS.PREPARATION],
+      primary: [
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.APAISANT,
+        TAG_SLUGS.STEP_PREPARATION,
+      ],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.PEAU_SENSIBLE],
       avoid: [],
     },
@@ -259,7 +289,12 @@ export const ETUDE_HOUSE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/etude-house-soonjung-barrier-intensive-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CREME_HYDRATANTE],
+      primary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+      ],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.PEAU_SENSIBLE],
       avoid: [],
     },

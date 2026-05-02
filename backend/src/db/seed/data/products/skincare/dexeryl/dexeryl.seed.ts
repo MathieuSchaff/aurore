@@ -20,7 +20,12 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/dexeryl-creme-secheresses-cutanees-500g-265240.webp',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -43,9 +48,10 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.NETTOYANT_CORPS,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_CORPS,
       ],
       avoid: [],
@@ -71,10 +77,11 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.TEXTURE_LEGERE,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -99,9 +106,10 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -127,10 +135,11 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.TEXTURE_LEGERE,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -153,15 +162,16 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/dexeryl-specific-brulures-et-coups-de-soleil-50g-265235.webp',
     tags: {
-      primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.APAISANT, TAG_SLUGS.EXFOLIATION],
+      primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.APAISANT, TAG_SLUGS.STEP_TRAITEMENT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [],
     },
@@ -185,9 +195,10 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.NETTOYANT_CORPS,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_CORPS,
       ],
       avoid: [],
@@ -211,7 +222,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/dexeryl-creme-secheresses-cutanees-50g-302030.webp',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -235,8 +246,9 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.NETTOYANT_CORPS,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_CORPS,
       ],
       avoid: [],
@@ -259,15 +271,14 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/dexeryl-dexeclear-gel-moussant-anti-imperfections-400ml-302056.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
@@ -292,8 +303,9 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -317,7 +329,7 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/dexeryl-creme-secheresses-cutanees-lot-de-3-x-50g-301084.webp',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -338,16 +350,15 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/dexeryl-dexeclear-nettoyant-hydratant-apaisant-400ml-302008.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
@@ -369,16 +380,15 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/dexeryl-dexeclear-nettoyant-hydratant-apaisant-200ml-302032.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
@@ -400,15 +410,14 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/dexeryl-dexeclear-gel-moussant-anti-imperfections-200ml-302039.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
@@ -429,8 +438,8 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/dexeryl-essentiel-creme-lavante-500ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dexeryl-essentiel-creme-lavante.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant-corps', 'zone-corps'],
+      primary: ['step-hydratation'],
+      secondary: ['type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.ASCORBYL_PALMITATE }],
@@ -450,8 +459,8 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/dexeryl-creme-secheresses-cutanees-250g.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dexeryl-creme-secheresses-cutanees.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['lait-corps', 'zone-corps'],
+      primary: ['step-hydratation'],
+      secondary: ['type-hydratant', 'texture-lait', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.ISOHEXADECANE }],
@@ -471,8 +480,15 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/dexeryl-essentiel-lait-riche-nourrissant-500ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dexeryl-essentiel-lait-nourrissant.webp',
     tags: {
-      primary: ['hydratation', 'barriere-cutanee', 'anti-oxydant'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'barriere-cutanee', 'anti-oxydant'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.SQUALANE }],
@@ -492,8 +508,15 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/dexeryl-essentiel-lait-riche-nourrissant-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dexeryl-essentiel-lait-riche-nourrissant.webp',
     tags: {
-      primary: ['hydratation', 'barriere-cutanee', 'anti-oxydant'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'barriere-cutanee', 'anti-oxydant'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.SQUALANE }],
@@ -514,15 +537,14 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/dexeryl-dexeclear-gel-moussant-anti-imperfections.webp',
     tags: {
-      primary: ['anti-acne', 'exfoliation', 'anti-oxydant'],
+      primary: ['anti-acne', 'step-traitement', 'anti-oxydant'],
       secondary: [
         'sebo-regulateur',
         'keratolytique',
         'reparateur',
-        'nettoyant',
-        'double-nettoyage-2',
+        'step-nettoyage-2',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
@@ -546,8 +568,8 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/dexeryl-dexeclear-aquafluide-matifiant-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dexeryl-dexeclear-aquafluide-matifiant.webp',
     tags: {
-      primary: ['anti-oxydant', 'hydratation', 'sebo-regulateur'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['anti-oxydant', 'step-hydratation', 'sebo-regulateur'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -577,14 +599,8 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/dexeryl-dexeclear-nettoyant-hydratant-apaisant.webp',
     tags: {
-      primary: ['anti-acne', 'hydratation', 'anti-oxydant', 'apaisant'],
-      secondary: [
-        'sebo-regulateur',
-        'reparateur',
-        'nettoyant',
-        'double-nettoyage-2',
-        'zone-visage',
-      ],
+      primary: ['anti-acne', 'step-hydratation', 'anti-oxydant', 'apaisant'],
+      secondary: ['sebo-regulateur', 'reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
@@ -610,8 +626,8 @@ export const DEXERYL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/dexeryl-specific-brulures-et-coups-de-soleil.webp',
     tags: {
-      primary: ['hydratation', 'barriere-cutanee', 'apaisant'],
-      secondary: ['emollience', 'texture-legere'],
+      primary: ['step-hydratation', 'barriere-cutanee', 'apaisant'],
+      secondary: ['step-hydratation', 'texture-legere'],
       avoid: [],
     },
     keyIngredients: [

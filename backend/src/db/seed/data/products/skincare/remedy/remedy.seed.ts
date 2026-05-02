@@ -21,8 +21,8 @@ export const REMEDY_SEED: UnifiedProductSeed[] = [
     notes:
       'Hero: 15% Vitamin C Complex (3-O-Ethyl Ascorbic Acid), Superoxide Dismutase, Acetyl Zingerone, Ferulic Acid, Ectoin, Plankton Extract, Bifida Ferment Lysate, Panthenol, Hyaluronic Acid',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_OXYDANT],
-      secondary: [TAG_SLUGS.MATIN, TAG_SLUGS.SANS_PARFUM],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_OXYDANT],
+      secondary: [TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
     keyIngredients: [
@@ -57,8 +57,8 @@ export const REMEDY_SEED: UnifiedProductSeed[] = [
     notes:
       'Hero: 0.1% Encapsulated Retinol, 3% Tranexamic Acid, Mandelic Acid, 1% Kojic Acid, Glutathione, Licorice Root, 5% Niacinamide, Silymarin (Silybum Marianum), Acetyl Glucosamine',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION],
-      secondary: [TAG_SLUGS.SOIR, TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.ECLAT],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION],
+      secondary: [TAG_SLUGS.MOMENT_SOIR, TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.ECLAT],
       avoid: [],
     },
     keyIngredients: [
@@ -109,8 +109,8 @@ export const REMEDY_SEED: UnifiedProductSeed[] = [
     notes:
       'Hero: 0.1% Encapsulated Retinol, 0.05% Retinaldehyde, 2% Argireline (Acetyl Hexapeptide-8), Glycolic Acid, 2% Niacinamide, Matrixyl 3000 (Palmitoyl Tripeptide-1 + Palmitoyl Tetrapeptide-7), Ceramides, Resveratrol, Ferulic Acid',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.TRAITEMENT],
-      secondary: [TAG_SLUGS.SOIR, TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.ANTI_TACHES],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.STEP_TRAITEMENT],
+      secondary: [TAG_SLUGS.MOMENT_SOIR, TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.ANTI_TACHES],
       avoid: [],
     },
     keyIngredients: [
@@ -162,8 +162,13 @@ export const REMEDY_SEED: UnifiedProductSeed[] = [
     inci: 'Water, Cocamidopropyl Hydroxysultaine, Sodium Lauroyl Methyl Isethionate, Glycerin, Propanediol, Sodium Laurylglucosides Hydroxypropylsulfonate, Pyrus Malus (Apple) Fruit Extract, Salicylic Acid, Ceramide NP, Niacinamide, Camellia Sinensis Leaf Extract, Curcuma Longa (Turmeric) Root Extract, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, Sodium Hydroxide, Potassium Sorbate, Sodium Chloride, Trisodium Ethylenediamine Disuccinate, Sodium Benzoate, Sodium Phytate, Phenoxyethanol',
     notes: 'Hero: Ceramide NP, Niacinamide, 0.5% Salicylic Acid, Glycerin, Green Tea Extract',
     tags: {
-      primary: [TAG_SLUGS.GEL_NETTOYANT, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
-      secondary: [TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
+      primary: [
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.ANTI_ACNE,
+        TAG_SLUGS.PORES_DILATES,
+      ],
+      secondary: [TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.STEP_NETTOYAGE_2],
       avoid: [],
     },
     keyIngredients: [
@@ -195,8 +200,13 @@ export const REMEDY_SEED: UnifiedProductSeed[] = [
     inci: 'Water (Aqua/Eau), Cocamidopropyl Hydroxysultaine, Glycerin, Sodium Methyl Cocoyl Taurate, Sodium Hydroxypropyl Starch Phosphate, Magnesium Aluminum Silicate, Sodium Cocoyl Isethionate, Pyrus Malus (Apple) Fruit Extract, Glyceryl Stearate SE, Ceramide NP, Sodium Hyaluronate, Panthenol, Bisabolol, Zingiber Officinale (Ginger) Root Extract, Curcuma Longa (Turmeric) Root Extract, Leuconostoc/Radish Root Ferment Filtrate, Glycol Distearate, Cellulose Gum, Hydroxypropyl Guar, Trisodium Ethylenediamine Disuccinate, Sodium Lauroyl Lactylate, Sodium PCA, Urea, Trehalose, Polyquaternium-51, Sodium Isethionate, Coconut Acid, Titanium Dioxide, Sodium Chloride, Sodium Hydroxide, Hydroxyacetophenone, Chlorphenesin, Phenoxyethanol, Ethylhexylglycerin',
     notes: 'Hero: Ceramide NP, Glycerin, Panthenol',
     tags: {
-      primary: [TAG_SLUGS.MOUSSE_NETTOYANTE, TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
-      secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_NORMALE, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
+      primary: [
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_MOUSSE,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+      ],
+      secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_NORMALE, TAG_SLUGS.STEP_NETTOYAGE_2],
       avoid: [],
     },
     keyIngredients: [
@@ -222,8 +232,8 @@ export const REMEDY_SEED: UnifiedProductSeed[] = [
     notes:
       'Formule anhydre. Hero: Ceramides, Safflower Lipids (linoleic acid), Centella Asiatica, Turmeric, Green Tea Extract',
     tags: {
-      primary: [TAG_SLUGS.BAUME_DEMAQUILLANT, TAG_SLUGS.BARRIERE_CUTANEE],
-      secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.DOUBLE_NETTOYAGE_1],
+      primary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.TEXTURE_BAUME, TAG_SLUGS.BARRIERE_CUTANEE],
+      secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.STEP_NETTOYAGE_1],
       avoid: [],
     },
     keyIngredients: [
@@ -250,7 +260,13 @@ export const REMEDY_SEED: UnifiedProductSeed[] = [
     inci: 'Water (Aqua), Butyrospermum Parkii (Shea) Butter, Glyceryl Stearate SE, Glycerin, Propanediol, Cetearyl Olivate, C15-19 Alkane, Cetearyl Alcohol, Retinol, Hydroxyethyl Acrylate/Sodium Acryloyldimethyl Taurate Copolymer, Squalane, Coco-Caprylate, Butylene Glycol, Pentylene Glycol, Glycine Soja (Soybean) Oil, Glycolic Acid, Lactic Acid, Acetyl Heptapeptide-4, Ceramide NP, Ceramide AP, Ceramide EOP, Glycine Soja (Soybean) Extract, Curcuma Longa (Turmeric) Root Extract, Cucumis Sativus (Cucumber) Fruit Extract, Sorbitan Olivate, Sodium Stearoyl Glutamate, Aloe Barbadensis Leaf Juice, Avena Sativa (Oat) Kernel Flour, Phytosphingosine, Cholesterol, Sodium Lauroyl Lactylate, Carbomer, Xanthan Gum, Acacia Senegal Gum, Propylene Glycol Alginate, Cetyl Lactate, Tocopherol, Caprylyl Glycol, Phenethyl Alcohol, Leuconostoc/Radish Root Ferment Filtrate, Phenoxyethanol, Ethylhexylglycerin, Sodium Hydroxide, Citric Acid',
     notes: 'Hero: 20% Shea Butter, 0.1% Encapsulated Retinol, Ceramides (NP + AP + EOP)',
     tags: {
-      primary: [TAG_SLUGS.CREME_MAINS, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.HYDRATATION],
+      primary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_MAINS,
+        TAG_SLUGS.ANTI_AGE,
+        TAG_SLUGS.STEP_HYDRATATION,
+      ],
       secondary: [TAG_SLUGS.ZONE_MAINS],
       avoid: [],
     },
@@ -287,8 +303,18 @@ export const REMEDY_SEED: UnifiedProductSeed[] = [
     notes:
       'Hero: Quadruple Ceramide Complex (NP + AP + EOP + Phytosphingosine), Glycerin, Squalane, Tripeptide-1, Niacinamide',
     tags: {
-      primary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_NORMALE, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
+      primary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+        TAG_SLUGS.STEP_HYDRATATION,
+      ],
+      secondary: [
+        TAG_SLUGS.PEAU_SECHE,
+        TAG_SLUGS.PEAU_NORMALE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -320,7 +346,13 @@ export const REMEDY_SEED: UnifiedProductSeed[] = [
     notes:
       'Hero: 0.1% Encapsulated Retinol, 10% Urea, 5% Lactic Acid, Ceramides. Indiqué KP (Keratosis Pilaris).',
     tags: {
-      primary: [TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.KERATOSE_PILAIRE, TAG_SLUGS.EXFOLIANT_CHIMIQUE],
+      primary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_LAIT,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.KERATOSE_PILAIRE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
+      ],
       secondary: [TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.PEAU_SECHE],
       avoid: [],
     },
@@ -364,7 +396,13 @@ export const REMEDY_SEED: UnifiedProductSeed[] = [
     notes:
       'Formule anhydre (base Petrolatum). Hero: Ceramides, Squalane, Palmitoyl Tripeptide-1, Petrolatum, Dimethicone, Shea Butter',
     tags: {
-      primary: [TAG_SLUGS.SOIN_LEVRES, TAG_SLUGS.HYDRATATION, TAG_SLUGS.OCCLUSION],
+      primary: [
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_LEVRES,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.STEP_OCCLUSIF,
+        TAG_SLUGS.MOMENT_SOIR,
+      ],
       secondary: [TAG_SLUGS.ZONE_LEVRES],
       avoid: [],
     },
@@ -394,8 +432,18 @@ export const REMEDY_SEED: UnifiedProductSeed[] = [
     inci: 'Water, Propanediol, Glyceryl Stearate SE, Glycerin, Cetearyl Alcohol, Squalane, Dicaprylyl Carbonate, Butyrospermum Parkii (Shea) Butter, Niacinamide, Tapioca Starch, Ceramide NP, Fomes Officinalis (Mushroom) Extract, Panthenol, Punica Granatum Sterols, Vitis Vinifera (Grape) Seed Oil, Curcuma Longa (Turmeric) Root Extract, Carbomer, Potassium Sorbate, Sodium Hydroxide, Sodium Hyaluronate, Sodium Phytate, Tocopherol, Ethylhexylglycerin, Phenoxyethanol',
     notes: 'Hero: Glycerin, Squalane, Niacinamide, Ceramide NP, Panthenol',
     tags: {
-      primary: [TAG_SLUGS.GEL_CREME, TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
-      secondary: [TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
+      primary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+      ],
+      secondary: [
+        TAG_SLUGS.PEAU_MIXTE,
+        TAG_SLUGS.PEAU_GRASSE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -423,8 +471,13 @@ export const REMEDY_SEED: UnifiedProductSeed[] = [
     inci: 'Hydrocolloid',
     notes: 'Hero: Hydrocolloid (gel-forming agents). Produit pour boutons actifs et suintants.',
     tags: {
-      primary: [TAG_SLUGS.PATCH, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.CICATRISATION],
-      secondary: [TAG_SLUGS.SOIN_LOCALISE],
+      primary: [
+        TAG_SLUGS.TYPE_MASQUE,
+        TAG_SLUGS.TEXTURE_PATCH,
+        TAG_SLUGS.ANTI_ACNE,
+        TAG_SLUGS.CICATRISATION,
+      ],
+      secondary: [TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.MOMENT_USAGE_LOCALISE],
       avoid: [],
     },
     keyIngredients: [
@@ -449,8 +502,13 @@ export const REMEDY_SEED: UnifiedProductSeed[] = [
     notes:
       'Hero: 0.3% Encapsulated Retinol, 1% Encapsulated Salicylic Acid, 5% Niacinamide, Green Tea, Perlite, Kinetin',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.ANTI_ACNE],
-      secondary: [TAG_SLUGS.SOIR, TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.BRILLANCE],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.ANTI_ACNE],
+      secondary: [
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.PEAU_MIXTE,
+        TAG_SLUGS.PEAU_GRASSE,
+        TAG_SLUGS.BRILLANCE,
+      ],
       avoid: [],
     },
     keyIngredients: [

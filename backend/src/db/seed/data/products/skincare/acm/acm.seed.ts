@@ -20,8 +20,8 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/acm-depiwhite-lait-corporel-eclaircissant.webp',
     tags: {
-      primary: ['apaisant', 'hydratation'],
-      secondary: ['lait-corps', 'zone-corps'],
+      primary: ['apaisant', 'step-hydratation'],
+      secondary: ['type-hydratant', 'texture-lait', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -51,8 +51,8 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/acm-sensiteal-soin-emollient-visage-et-corps.webp',
     tags: {
-      primary: ['apaisant', 'hydratation'],
-      secondary: ['lait-corps', 'zone-corps'],
+      primary: ['apaisant', 'step-hydratation'],
+      secondary: ['type-hydratant', 'texture-lait', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -81,8 +81,8 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/acm-sensitelial-pain-surgras-dermatologique.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['nettoyant-corps', 'zone-corps'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -107,8 +107,8 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/noviderm/boreade-cl-creme-lavante-200-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/boreade-cl-creme-lavante.webp',
     tags: {
-      primary: ['apaisant', 'hydratation'],
-      secondary: ['nettoyant-corps', 'zone-corps'],
+      primary: ['apaisant', 'step-hydratation'],
+      secondary: ['type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -137,7 +137,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-sensitelial-ad-huile-lavante.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
+      secondary: ['sebo-regulateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.NIACINAMIDE }],
@@ -158,8 +158,14 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-boreade-r-soin-reparateur-apaisant-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-boreade-r-soin-reparateur-apaisant.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant', 'apaisant'],
-      secondary: ['emollience', 'creme-hydratante', 'zone-visage', 'reparateur'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'anti-oxydant', 'apaisant'],
+      secondary: [
+        'step-hydratation',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+        'reparateur',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -186,15 +192,15 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/acm-boreade-serum-concentre-anti-imperfections.webp',
     tags: {
-      primary: ['exfoliation', 'anti-acne', 'hydratation'],
+      primary: ['step-traitement', 'anti-acne', 'step-hydratation'],
       secondary: [
         'sebo-regulateur',
         'keratolytique',
         'reparateur',
-        'serum',
-        'traitement',
+        'type-serum',
+        'step-traitement',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
@@ -215,8 +221,8 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-cicastim-a-creme-apaisante-20ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-cicastim-a-creme-apaisante.webp',
     tags: {
-      primary: ['anti-age', 'apaisant', 'hydratation'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['anti-age', 'apaisant', 'step-hydratation'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -247,7 +253,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-cicastim-creme-reparatrice.webp',
     tags: {
       primary: ['apaisant', 'anti-oxydant', 'cicatrisation'],
-      secondary: ['creme-hydratante', 'zone-visage', 'reparateur'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage', 'reparateur'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.ALLANTOIN }],
@@ -270,7 +276,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/acm-depiwhite-creme-anti-taches-zones-sensibles-intimes.webp',
     tags: {
       primary: ['eclat', 'apaisant', 'pores-dilates', 'anti-taches'],
-      secondary: ['sebo-regulateur', 'creme-hydratante', 'zone-visage'],
+      secondary: ['sebo-regulateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -302,13 +308,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/acm-depiwhite-mousse-nettoyante-eclaircissante.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: [
-        'reparateur',
-        'sebo-regulateur',
-        'nettoyant',
-        'double-nettoyage-2',
-        'zone-visage',
-      ],
+      secondary: ['reparateur', 'sebo-regulateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -340,11 +340,11 @@ export const ACM_SEED: UnifiedProductSeed[] = [
       secondary: [
         'peau-sensible',
         'sebo-regulateur',
-        'emollience',
+        'step-hydratation',
         'texture-legere',
-        'traitement',
+        'step-traitement',
         'reparateur',
-        'serum',
+        'type-serum',
         'zone-visage',
       ],
       avoid: [],
@@ -377,7 +377,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-duolys-a-serum-intensif-anti-rides.webp',
     tags: {
       primary: ['anti-age', 'anti-oxydant'],
-      secondary: ['traitement', 'reparateur', 'serum', 'zone-visage'],
+      secondary: ['step-traitement', 'reparateur', 'type-serum', 'zone-visage'],
       avoid: ['peau-sensible', 'peau-sensible', 'barriere-cutanee-alteree'],
     },
     keyIngredients: [
@@ -402,13 +402,14 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-duolys-aha-5-soin-hydratant-lissant-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-duolys-aha-5-soin-hydratant-lissant.webp',
     tags: {
-      primary: ['hydratation', 'exfoliation', 'eclat'],
+      primary: ['step-hydratation', 'step-traitement', 'eclat'],
       secondary: [
         'keratolytique',
         'reparateur',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
       ],
       avoid: ['peau-sensible', 'peau-sensible'],
     },
@@ -438,8 +439,15 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-duolys-creme-contour-des-yeux-15ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-duolys-creme-contour-des-yeux.webp',
     tags: {
-      primary: ['anti-age', 'hydratation', 'barriere-cutanee'],
-      secondary: ['emollience', 'texture-legere', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
+      primary: ['anti-age', 'step-hydratation', 'barriere-cutanee'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'type-traitement',
+        'zone-yeux',
+        'zone-yeux',
+        'step-traitement',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -470,8 +478,15 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/acm-duolys-legere-soin-hydratant-anti-age.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant', 'anti-age'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'anti-oxydant', 'anti-age'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -500,8 +515,15 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-duolys-riche-soin-hydratant-anti-age-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-duolys-riche-soin-hydratant-anti-age.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant', 'anti-age'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'anti-oxydant', 'anti-age'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -531,7 +553,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-novophane-k-creme-visage.webp',
     tags: {
       primary: ['apaisant', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -551,8 +573,8 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-rosakalm-eau-micellaire-nettoyante-250ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-rosakalm-eau-micellaire-nettoyante.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.XYLITOL }],
@@ -576,12 +598,13 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['barriere-cutanee', 'pores-dilates', 'eclat', 'anti-acne'],
       secondary: [
-        'emollience',
+        'step-hydratation',
         'peau-sensible',
         'sebo-regulateur',
         'reparateur',
-        'spot-treatment',
-        'soin-localise',
+        'type-traitement',
+        'step-traitement',
+        'moment-usage-localise',
         'zone-visage',
       ],
       avoid: [],
@@ -615,7 +638,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/acm-sebionex-gel-nettoyant-visage-et-corps.webp',
     tags: {
       primary: ['eclat'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      secondary: ['step-nettoyage-2', 'zone-visage'],
       avoid: ['peau-sensible', 'peau-sensible'],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.GLYCOLIC_ACID }],
@@ -637,14 +660,15 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/acm-sebionex-hydra-creme-hydratante-reparatrice.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'pores-dilates', 'cicatrisation'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'pores-dilates', 'cicatrisation'],
       secondary: [
-        'emollience',
+        'step-hydratation',
         'keratolytique',
         'sebo-regulateur',
         'texture-legere',
         'reparateur',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
       ],
       avoid: [],
@@ -676,8 +700,8 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-sebionex-k-creme-keratoregulatrice-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-sebionex-k-creme-keratoregulatrice.webp',
     tags: {
-      primary: ['apaisant', 'eclat', 'hydratation'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['apaisant', 'eclat', 'step-hydratation'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: ['peau-sensible', 'peau-sensible'],
     },
     keyIngredients: [
@@ -706,8 +730,8 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-sebionex-lotion-micellaire-250ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-sebionex-lotion-micellaire.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['tonique', 'preparation', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['type-toner', 'texture-eau', 'step-preparation', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -733,8 +757,8 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-sedacalm-creme-apaisante-corps-120ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-sedacalm-creme-apaisante-corps.webp',
     tags: {
-      primary: ['hydratation', 'apaisant'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -759,8 +783,8 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/depiwhite/depiwhite-creme-depigmentante-advanced-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/depiwhite-creme-depigmentante-advanced.webp',
     tags: {
-      primary: ['anti-taches', 'hyperpigmentation', 'hydratation'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['anti-taches', 'hyperpigmentation', 'step-hydratation'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -785,7 +809,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/depiwhite-masque-pelliculable-anti-taches.webp',
     tags: {
       primary: ['anti-taches', 'hyperpigmentation'],
-      secondary: ['masque-hebdo', 'zone-visage'],
+      secondary: ['moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
   },
@@ -806,7 +830,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/noviderm-boreade-r-stick-levres.webp',
     tags: {
       primary: ['barriere-cutanee', 'apaisant', 'anti-oxydant'],
-      secondary: ['emollience', 'soin-levres', 'zone-levres'],
+      secondary: ['step-hydratation', 'type-traitement', 'zone-levres', 'zone-levres'],
       avoid: [],
     },
     keyIngredients: [
@@ -834,13 +858,14 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/parapharmacie/par-zones/ongles/acm-novophane-creme-des-ongles-15-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-novophane-creme-des-ongles.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'apaisant'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'apaisant'],
       secondary: [
-        'emollience',
+        'step-hydratation',
         'texture-legere',
         'keratolytique',
         'reparateur',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
       ],
       avoid: [],
@@ -870,8 +895,8 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-produits/nettoyants-demaquillants/acm-sensitelial-lotion-micellaire-250ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-sensitelial-lotion-micellaire.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['tonique', 'preparation', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['type-toner', 'texture-eau', 'step-preparation', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.XYLITOL }],
@@ -893,7 +918,13 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-sensitelial-ad-baume-intensif.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -922,8 +953,15 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-soins/hydratants-corps/laits-et-cremes/acm-sensitelial-ad-creme-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-sensitelial-ad-creme.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -952,8 +990,8 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-soins/masques/acm-duolys-aha-15-masque-peeling-minute-50-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-duolys-aha-15-masque-peeling-minute.webp',
     tags: {
-      primary: ['exfoliation'],
-      secondary: ['masque-hebdo', 'zone-visage'],
+      primary: ['step-traitement'],
+      secondary: ['moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
   },
@@ -974,7 +1012,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-duolys-hyal-serum-intensif-anti-age.webp',
     tags: {
       primary: ['eclat', 'anti-age', 'anti-oxydant'],
-      secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
+      secondary: ['reparateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: ['peau-sensible', 'peau-sensible'],
     },
     keyIngredients: [
@@ -1002,7 +1040,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/acm-duolys-aha-10-creme-peeling-nuit-regenerante.webp',
     tags: {
-      primary: ['exfoliation'],
+      primary: ['step-traitement'],
       secondary: ['zone-visage'],
       avoid: [],
     },
@@ -1025,7 +1063,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/acm-duolys-c-e-serum-intensif-anti-oxydant.webp',
     tags: {
       primary: ['anti-age', 'eclat', 'anti-oxydant'],
-      secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
+      secondary: ['reparateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.ISODODECANE }],
@@ -1047,8 +1085,15 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/acm-depiwhite-m-creme-protectrice-spf50-advanced-creme-anti-taches.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'anti-taches', 'hyperpigmentation'],
-      secondary: ['creme-solaire', 'protection-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'anti-taches', 'hyperpigmentation'],
+      secondary: [
+        'type-solaire',
+        'texture-creme',
+        'step-protection-solaire',
+        'moment-matin',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1076,8 +1121,8 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-depiwhite-m-spf-50-40-ml-creme-teinte.html',
     imageUrl: '',
     tags: {
-      primary: ['anti-oxydant', 'hydratation', 'protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['anti-oxydant', 'step-hydratation', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1107,8 +1152,8 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-medisun-creme-spf50-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-medisun-creme-spf50.webp',
     tags: {
-      primary: ['anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1138,8 +1183,14 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-medisun-creme-teinte-claire-spf50-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-medisun-creme-teinte-claire-spf50.webp',
     tags: {
-      primary: ['protection-solaire'],
-      secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin'],
+      secondary: [
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1167,8 +1218,14 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-medisun-spray-famille-spf50-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-medisun-spray-famille-spf50.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1196,8 +1253,14 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-medisun-spray-spf50-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-medisun-spray-spf50.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1225,8 +1288,14 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-medisun-spray-visage-corps-spf50-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-medisun-spray-visage-corps-spf50.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1254,8 +1323,21 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/acm/acm-sebionex-gel-solaire-matifiant-spf50-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-sebionex-gel-solaire-matifiant-spf50.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant', 'sebo-regulateur'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'step-protection-solaire',
+        'moment-matin',
+        'step-hydratation',
+        'anti-oxydant',
+        'sebo-regulateur',
+      ],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1282,8 +1364,14 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/nos-autres-gammes/depiwhite/depiwhite-s-soin-photo-protecteur-spf50-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/depiwhite-s-soin-photo-protecteur-spf50.webp',
     tags: {
-      primary: ['protection-solaire'],
-      secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin'],
+      secondary: [
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1312,7 +1400,14 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-trigopax-soin-protecteur-apaisant.webp',
     tags: {
       primary: ['apaisant'],
-      secondary: ['creme-solaire', 'protection-solaire', 'matin', 'zone-visage'],
+      secondary: [
+        'type-solaire',
+        'texture-creme',
+        'step-protection-solaire',
+        'moment-matin',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.ZINC_OXIDE }],
@@ -1333,8 +1428,8 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-soins/hydratants-visage/peau-sensible/acm-depiwhite-m-creme-protectrice-spf50-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-depiwhite-m-creme-protectrice-spf50.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1362,8 +1457,21 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/solaires/acm-duolys-ecran-solaire-anti-age-spf50-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-duolys-ecran-solaire-anti-age-spf50.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant', 'anti-age'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'step-protection-solaire',
+        'moment-matin',
+        'step-hydratation',
+        'anti-oxydant',
+        'anti-age',
+      ],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1393,10 +1501,11 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.COUPEROSE, TAG_SLUGS.FLUSHS],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.PIGMENTS_VERTS,
@@ -1432,14 +1541,15 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.TEINT_TERNE],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.MATIFIANT,
         TAG_SLUGS.ANTI_TACHES,
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.GROSSESSE_COMPATIBLE,
-        TAG_SLUGS.EMOLLIENCE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1482,7 +1592,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/acm-novophane-protocole-anti-chute-chronique-in-out-300668.webp',
     tags: {
-      primary: [TAG_SLUGS.EXFOLIATION],
+      primary: [TAG_SLUGS.STEP_TRAITEMENT],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
@@ -1506,9 +1616,9 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.EXFOLIATION,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1530,7 +1640,7 @@ export const ACM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/novophane-60-gelules.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/acm-novophane-60-gelules-259123.webp',
     tags: {
-      primary: [TAG_SLUGS.EXFOLIATION],
+      primary: [TAG_SLUGS.STEP_TRAITEMENT],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },

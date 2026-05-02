@@ -20,7 +20,12 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-de-marseille-fleur-d-oranger-extra-doux-1l-249849.webp',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -43,9 +48,10 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.NETTOYANT_CORPS,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_CORPS,
       ],
       avoid: [],
@@ -69,7 +75,12 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-traditionnel-de-marseille-citron-menthe-1l-263619.webp',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -91,7 +102,12 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-de-marseille-aloe-vera-extra-doux-1l-249857.webp',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -114,9 +130,10 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.NETTOYANT_CORPS,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_CORPS,
       ],
       avoid: [],
@@ -140,7 +157,12 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-de-marseille-olive-lavande-extra-doux-1l-249851.webp',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -162,7 +184,12 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-de-marseille-verveine-extra-doux-1l-249850.webp',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -184,7 +211,12 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-de-marseille-vanille-miel-extra-doux-1l-249855.webp',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -206,7 +238,7 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-de-marseille-extra-doux-mandarine-sauge-1l-249856.webp',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],
@@ -227,8 +259,8 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-traditionnel-de-marseille-citron-menthe.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant-corps', 'zone-corps'],
+      primary: ['step-hydratation'],
+      secondary: ['type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.POTASSIUM_HYDROXIDE }],
@@ -249,8 +281,8 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-de-marseille-aloe-vera-extra-doux.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant-corps', 'zone-corps'],
+      primary: ['step-hydratation'],
+      secondary: ['type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.POTASSIUM_HYDROXIDE }],
@@ -271,8 +303,8 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-de-marseille-verveine-extra-doux.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant-corps', 'zone-corps'],
+      primary: ['step-hydratation'],
+      secondary: ['type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.POTASSIUM_HYDROXIDE }],
@@ -293,8 +325,8 @@ export const LE_COMPTOIR_DU_BAIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/le-comptoir-du-bain-savon-de-marseille-vanille-miel-extra-doux.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant-corps', 'zone-corps'],
+      primary: ['step-hydratation'],
+      secondary: ['type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.POTASSIUM_HYDROXIDE }],

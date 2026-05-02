@@ -18,11 +18,11 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-mineral-89-moisturizer.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SANS_PARFUM,
       ],
@@ -52,8 +52,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_AGE],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.ANTI_OXYDANT,
@@ -87,7 +87,12 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-liftactiv-collagen-specialist-serum.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE],
-      secondary: [TAG_SLUGS.SERUM, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -113,11 +118,12 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-aqualia-thermal-fragrance-free-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SANS_PARFUM,
@@ -148,9 +154,10 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE],
       secondary: [
-        TAG_SLUGS.GEL_NETTOYANT,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -177,10 +184,11 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-capital-soleil-spf50-foaming-lotion.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE],
+      primary: [TAG_SLUGS.STEP_PROTECTION_SOLAIRE, TAG_SLUGS.MOMENT_MATIN],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.FILTRES_CHIMIQUES,
@@ -212,9 +220,9 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -243,11 +251,12 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-purete-thermale-cleansing-gel.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
-        TAG_SLUGS.GEL_NETTOYANT,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -274,10 +283,11 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-mineral-89-matte-sorbet.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BRILLANCE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.BRILLANCE],
       secondary: [
-        TAG_SLUGS.GEL_CREME,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.MATIFIANT,
@@ -308,7 +318,12 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-liftactiv-night-supreme.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE],
-      secondary: [TAG_SLUGS.CREME_DE_NUIT, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -334,11 +349,12 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-mineral-89-boosting-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -366,11 +382,11 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/vichy-laboratories-mineral-89-fortifying-plumping-daily-booster-2-53-fl-oz-75-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-mineral-89-booster.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.SANS_PARFUM,
@@ -397,11 +413,12 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-purete-thermale-micellar-water.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
-        TAG_SLUGS.EAU_MICELLAIRE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -425,7 +442,12 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-liftactiv-serum-10-supreme.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE],
-      secondary: [TAG_SLUGS.SERUM, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -451,7 +473,13 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-aqualia-thermal-eye-cream.webp',
     tags: {
       primary: [TAG_SLUGS.CERNES_POCHES],
-      secondary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_YEUX],
+      secondary: [
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.ZONE_YEUX,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -478,11 +506,11 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.GRAIN_PEAU],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [],
     },
@@ -511,8 +539,9 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -541,7 +570,13 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-liftactiv-eye-cream.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.CERNES_POCHES],
-      secondary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_YEUX],
+      secondary: [
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.ZONE_YEUX,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -569,7 +604,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/vichy-laboratories-liftactiv-pure-retinol-serum.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE],
-      secondary: [TAG_SLUGS.SERUM, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.MOMENT_SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -596,15 +631,16 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-dercos-soin-anti-chute-cheveux-aminexil-clinical-5-femme-21-x-6ml-278189.webp',
     tags: {
-      primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.BARRIERE_CUTANEE],
+      primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [],
     },
@@ -626,14 +662,15 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-dercos-soin-anti-chute-cheveux-aminexil-clinical-5-homme-21-x-6ml-278188.webp',
     tags: {
-      primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [],
     },
@@ -655,14 +692,15 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-dercos-shampoing-anti-pelliculaire-ds-cheveux-normaux-a-gras-390ml-276091.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
@@ -684,14 +722,15 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-dercos-shampoing-traitant-keratoreducteur-psolution-200ml-278454.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION],
+      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.STEP_TRAITEMENT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
@@ -718,7 +757,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
@@ -741,14 +781,15 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-dercos-shampoing-anti-pelliculaire-ds-cheveux-normaux-a-gras-200ml-276089.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
@@ -770,7 +811,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-dercos-shampoing-mineral-doux-fortifiant-400ml-233643.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_HYDRATANTE],
+      primary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME],
       secondary: [TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
@@ -792,15 +833,15 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-dercos-serum-regeneratif-capillaire-anti-chute-90ml-279534.webp',
     tags: {
-      primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.BARRIERE_CUTANEE],
+      primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [],
     },
@@ -822,15 +863,16 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-dercos-shampoing-dermatologique-ultra-apaisant-cheveux-normaux-a-gras-200ml-278179.webp',
     tags: {
-      primary: [TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.APAISANT],
+      primary: [TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.APAISANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
@@ -857,7 +899,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
@@ -880,14 +923,15 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-dercos-anti-pelliculaire-ds-shampooing-traitant-cheveux-secs-390ml-278186.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
@@ -909,14 +953,15 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-dercos-shampooing-traitant-pellicules-et-demangeaisons-cheveux-normaux-gras-eco-recharge-390ml-285718.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_OXYDANT],
+      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
@@ -939,7 +984,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-deodorant-24h-toucher-sec.webp',
     tags: {
       primary: ['apaisant'],
-      secondary: ['deodorant'],
+      secondary: ['type-deodorant'],
       avoid: [],
     },
     keyIngredients: [
@@ -965,7 +1010,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/vichy-deodorant-24h-toucher-sec-hypoallergenique.webp',
     tags: {
       primary: ['apaisant'],
-      secondary: ['deodorant'],
+      secondary: ['type-deodorant'],
       avoid: [],
     },
     keyIngredients: [
@@ -991,7 +1036,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/vichy-deodorant-bille-24h-sans-sels-d-aluminium.webp',
     tags: {
       primary: ['apaisant'],
-      secondary: ['deodorant'],
+      secondary: ['type-deodorant'],
       avoid: [],
     },
     keyIngredients: [
@@ -1016,7 +1061,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-deodorant-mineral-48h-bille.webp',
     tags: {
       primary: ['apaisant', 'barriere-cutanee'],
-      secondary: ['reparateur', 'deodorant'],
+      secondary: ['reparateur', 'type-deodorant'],
       avoid: [],
     },
   },
@@ -1037,7 +1082,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-deodorant-mineral-mgo-48h.webp',
     tags: {
       primary: ['apaisant', 'barriere-cutanee'],
-      secondary: ['reparateur', 'deodorant'],
+      secondary: ['reparateur', 'type-deodorant'],
       avoid: [],
     },
   },
@@ -1057,8 +1102,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/homme/vichy-homme-hydra-mag-c-gel-douche-200-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-homme-hydra-mag-c-gel-douche.webp',
     tags: {
-      primary: ['anti-acne', 'hydratation'],
-      secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
+      primary: ['anti-acne', 'step-hydratation'],
+      secondary: ['sebo-regulateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
@@ -1084,7 +1129,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/vichy-deodorant-anti-transpirant-48h-50ml.webp',
     tags: {
       primary: ['anti-age'],
-      secondary: ['deodorant'],
+      secondary: ['type-deodorant'],
       avoid: [],
     },
   },
@@ -1104,8 +1149,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-homme-deodorant-24h-ultra-frais-100ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-homme-deodorant-24h-ultra-frais.webp',
     tags: {
-      primary: ['exfoliation', 'hydratation'],
-      secondary: ['keratolytique', 'deodorant', 'exfoliant-chimique'],
+      primary: ['step-traitement', 'step-hydratation'],
+      secondary: ['keratolytique', 'type-deodorant', 'type-exfoliation'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.LACTIC_ACID }],
@@ -1127,8 +1172,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-homme-deodorant-anti-transpirant-50ml.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['deodorant'],
+      primary: ['step-hydratation'],
+      secondary: ['type-deodorant'],
       avoid: [],
     },
   },
@@ -1148,8 +1193,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/homme-et-sport/par-produits/deodorants/vichy-homme-deodorant-ultra-frais-lot-de-2.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-homme-deodorant-ultra-frais.webp',
     tags: {
-      primary: ['exfoliation', 'hydratation'],
-      secondary: ['keratolytique', 'deodorant', 'exfoliant-chimique'],
+      primary: ['step-traitement', 'step-hydratation'],
+      secondary: ['keratolytique', 'type-deodorant', 'type-exfoliation'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.LACTIC_ACID }],
@@ -1172,7 +1217,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/vichy-deodorant-anti-transp-peaux-sensibles.webp',
     tags: {
       primary: ['anti-age'],
-      secondary: ['deodorant', 'peau-sensible'],
+      secondary: ['type-deodorant', 'peau-sensible'],
       avoid: [],
     },
   },
@@ -1193,8 +1238,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-dercos-densi-solutions-baume-epaisseur.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -1216,7 +1261,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/vichy-dercos-densi-solutions-masque-capilaire.webp',
     tags: {
       primary: ['anti-age', 'anti-oxydant', 'keratose-pilaire'],
-      secondary: ['masque-hebdo', 'zone-visage'],
+      secondary: ['moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.RESVERATROL }, { slug: INGREDIENT_SLUGS.RHAMNOSE }],
@@ -1238,7 +1283,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-dercos-kera-solutions-masque.webp',
     tags: {
       primary: ['apaisant', 'barriere-cutanee'],
-      secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
+      secondary: ['reparateur', 'moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
   },
@@ -1260,13 +1305,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/nsfp-vichy-purete-thermale-gel-frais-nettoyant.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: [
-        'sebo-regulateur',
-        'reparateur',
-        'nettoyant',
-        'double-nettoyage-2',
-        'zone-visage',
-      ],
+      secondary: ['sebo-regulateur', 'reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1290,8 +1329,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/soins-visage/vichy-eau-micellaire-minerale-400-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-eau-micellaire-minerale.webp',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
-      secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['apaisant', 'barriere-cutanee', 'step-hydratation'],
+      secondary: ['reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.PANTHENOL }],
@@ -1314,7 +1353,13 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/vichy-liftactiv-collagen-specialist-soin-yeux.webp',
     tags: {
       primary: ['anti-acne', 'anti-age', 'pores-dilates'],
-      secondary: ['sebo-regulateur', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
+      secondary: [
+        'sebo-regulateur',
+        'type-traitement',
+        'zone-yeux',
+        'zone-yeux',
+        'step-traitement',
+      ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
@@ -1345,8 +1390,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-naturalblend-stick-levres-hydratant.webp',
     tags: {
-      primary: ['anti-oxydant', 'hydratation'],
-      secondary: ['reparateur', 'soin-levres', 'zone-levres'],
+      primary: ['anti-oxydant', 'step-hydratation'],
+      secondary: ['reparateur', 'type-traitement', 'zone-levres', 'zone-levres'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.SILICA }, { slug: INGREDIENT_SLUGS.IRON_OXIDE }],
@@ -1369,7 +1414,13 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/vichy-neovadiol-post-menopause-creme-nuit-relipidante.webp',
     tags: {
       primary: ['barriere-cutanee', 'anti-acne', 'pores-dilates'],
-      secondary: ['reparateur', 'sebo-regulateur', 'creme-hydratante', 'zone-visage'],
+      secondary: [
+        'reparateur',
+        'sebo-regulateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
@@ -1398,8 +1449,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-neovadiol-rose-platinium-creme-nuit.webp',
     tags: {
-      primary: ['anti-age', 'hydratation'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['anti-age', 'step-hydratation'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1426,14 +1477,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-normaderm-phytosolution-gel-purifiant-intense.webp',
     tags: {
-      primary: ['anti-acne', 'microbiome', 'hydratation'],
-      secondary: [
-        'sebo-regulateur',
-        'reparateur',
-        'nettoyant',
-        'double-nettoyage-2',
-        'zone-visage',
-      ],
+      primary: ['anti-acne', 'microbiome', 'step-hydratation'],
+      secondary: ['sebo-regulateur', 'reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
@@ -1459,14 +1504,14 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-dercos-serum-regeneratif-capillaire.webp',
     tags: {
-      primary: ['pores-dilates', 'exfoliation', 'barriere-cutanee'],
+      primary: ['pores-dilates', 'step-traitement', 'barriere-cutanee'],
       secondary: [
         'keratolytique',
         'sebo-regulateur',
-        'serum',
-        'traitement',
+        'type-serum',
+        'step-traitement',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
       ],
       avoid: [],
     },
@@ -1488,8 +1533,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-homme-hydra-cool-gel-hydratant-coup-de-frais.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'apaisant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'apaisant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1520,8 +1565,14 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-liftactiv-collagen-specialist-16-serum-yeux.webp',
     tags: {
-      primary: ['anti-age', 'pores-dilates', 'hydratation'],
-      secondary: ['sebo-regulateur', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
+      primary: ['anti-age', 'pores-dilates', 'step-hydratation'],
+      secondary: [
+        'sebo-regulateur',
+        'type-traitement',
+        'zone-yeux',
+        'zone-yeux',
+        'step-traitement',
+      ],
       avoid: [],
     },
   },
@@ -1543,7 +1594,14 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/vichy-liftactiv-creme-nuit-b3-anti-taches-au-retinol.webp',
     tags: {
       primary: ['anti-age', 'barriere-cutanee', 'pores-dilates', 'anti-taches'],
-      secondary: ['reparateur', 'sebo-regulateur', 'traitement', 'creme-hydratante', 'zone-visage'],
+      secondary: [
+        'reparateur',
+        'sebo-regulateur',
+        'step-traitement',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: ['peau-sensible', 'peau-sensible', 'barriere-cutanee-alteree'],
     },
     keyIngredients: [
@@ -1574,8 +1632,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-liftactiv-serum-collagen-specialist-16.webp',
     tags: {
-      primary: ['anti-age', 'pores-dilates', 'hydratation'],
-      secondary: ['sebo-regulateur', 'reparateur', 'serum', 'traitement', 'zone-visage'],
+      primary: ['anti-age', 'pores-dilates', 'step-hydratation'],
+      secondary: ['sebo-regulateur', 'reparateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1606,7 +1664,13 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-liftactiv-specialist-b3-serum.webp',
     tags: {
       primary: ['eclat', 'pores-dilates', 'anti-taches'],
-      secondary: ['keratolytique', 'sebo-regulateur', 'traitement', 'serum', 'zone-visage'],
+      secondary: [
+        'keratolytique',
+        'sebo-regulateur',
+        'step-traitement',
+        'type-serum',
+        'zone-visage',
+      ],
       avoid: ['peau-sensible', 'peau-sensible'],
     },
   },
@@ -1626,8 +1690,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-liftactiv-supreme-vitamin-c-serum-20ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-liftactiv-supreme-vitamin-c-serum.webp',
     tags: {
-      primary: ['anti-age', 'hydratation', 'eclat'],
-      secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
+      primary: ['anti-age', 'step-hydratation', 'eclat'],
+      secondary: ['reparateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
   },
@@ -1648,16 +1712,17 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-mineral-89-creme-boost-hydratation-100h-texture-riche.webp',
     tags: {
-      primary: ['anti-acne', 'exfoliation', 'barriere-cutanee'],
+      primary: ['anti-acne', 'step-traitement', 'barriere-cutanee'],
       secondary: [
         'sebo-regulateur',
         'keratolytique',
         'reparateur',
-        'emollience',
+        'step-hydratation',
         'texture-legere',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
@@ -1679,16 +1744,17 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-mineral-89-creme-boost-hydratation-72h.webp',
     tags: {
-      primary: ['anti-acne', 'exfoliation', 'barriere-cutanee'],
+      primary: ['anti-acne', 'step-traitement', 'barriere-cutanee'],
       secondary: [
         'sebo-regulateur',
         'keratolytique',
         'reparateur',
-        'emollience',
+        'step-hydratation',
         'texture-legere',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
@@ -1710,13 +1776,14 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-mineral-89-creme-hydratante-recuperation-nuit.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'pores-dilates'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'pores-dilates'],
       secondary: [
-        'emollience',
+        'step-hydratation',
         'texture-legere',
         'sebo-regulateur',
         'reparateur',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
@@ -1749,8 +1816,14 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-neovadiol-creme-jour-redensifiante-peau-normale.webp',
     tags: {
-      primary: ['hydratation', 'pores-dilates', 'anti-age'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'pores-dilates', 'anti-age'],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1779,7 +1852,13 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-neovadiol-creme-jour-relipidante.webp',
     tags: {
       primary: ['anti-acne', 'pores-dilates', 'anti-age'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
@@ -1807,7 +1886,14 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-neovadiol-creme-revolumisante.webp',
     tags: {
       primary: ['barriere-cutanee', 'pores-dilates', 'anti-age'],
-      secondary: ['sebo-regulateur', 'reparateur', 'emollience', 'creme-hydratante', 'zone-visage'],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'step-hydratation',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1837,17 +1923,17 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-neovadiol-meno-5-bi-serum-px-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-neovadiol-meno-5-bi-serum-px.webp',
     tags: {
-      primary: ['anti-acne', 'exfoliation', 'eclat'],
+      primary: ['anti-acne', 'step-traitement', 'eclat'],
       secondary: [
         'sebo-regulateur',
         'keratolytique',
         'reparateur',
-        'emollience',
+        'step-hydratation',
         'texture-legere',
-        'serum',
-        'traitement',
+        'type-serum',
+        'step-traitement',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
@@ -1870,7 +1956,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/vichy-neovadiol-peri-menopause-creme-nuit-redensifiante.webp',
     tags: {
       primary: ['anti-acne', 'pores-dilates', 'anti-age'],
-      secondary: ['sebo-regulateur', 'creme-hydratante', 'zone-visage'],
+      secondary: ['sebo-regulateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
@@ -1900,15 +1986,16 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-neovadiol-peri-post-menopause-soin-yeux-levres.webp',
     tags: {
-      primary: ['anti-acne', 'exfoliation', 'hydratation'],
+      primary: ['anti-acne', 'step-traitement', 'step-hydratation'],
       secondary: [
         'sebo-regulateur',
         'keratolytique',
         'reparateur',
-        'contour-yeux',
+        'type-traitement',
         'zone-yeux',
-        'soin-yeux',
-        'exfoliant-chimique',
+        'zone-yeux',
+        'step-traitement',
+        'type-exfoliation',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
@@ -1931,7 +2018,14 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/vichy-neovadiol-recharge-creme-revolumisante.webp',
     tags: {
       primary: ['barriere-cutanee', 'pores-dilates', 'anti-age'],
-      secondary: ['sebo-regulateur', 'reparateur', 'emollience', 'creme-hydratante', 'zone-visage'],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'step-hydratation',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1962,15 +2056,15 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-normaderm-probio-bha-serum-anti-imperfections.webp',
     tags: {
-      primary: ['anti-acne', 'anti-age', 'exfoliation'],
+      primary: ['anti-acne', 'anti-age', 'step-traitement'],
       secondary: [
         'keratolytique',
         'sebo-regulateur',
         'reparateur',
-        'serum',
-        'traitement',
+        'type-serum',
+        'step-traitement',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
@@ -2002,8 +2096,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-purete-thermale-eau-demaquillante-yeux.webp',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
-      secondary: ['reparateur', 'keratolytique', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['apaisant', 'barriere-cutanee', 'step-hydratation'],
+      secondary: ['reparateur', 'keratolytique', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.ALLANTOIN }, { slug: INGREDIENT_SLUGS.PANTHENOL }],
@@ -2025,8 +2119,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-purete-thermale-lotion-tonique-perfectrice.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['tonique', 'preparation', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['type-toner', 'texture-eau', 'step-preparation', 'zone-visage'],
       avoid: [],
     },
   },
@@ -2047,8 +2141,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-homme-structure-force-soin-anti-age.webp',
     tags: {
-      primary: ['hydratation', 'anti-age'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-age'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -2069,7 +2163,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-apres-soleil-capital-soleil-soin-lacte.webp',
     tags: {
-      primary: ['hydratation', 'apaisant'],
+      primary: ['step-hydratation', 'apaisant'],
       secondary: [],
       avoid: [],
     },
@@ -2095,8 +2189,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/solaires/vichy-auto-bronzant-capital-soleil-100ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-auto-bronzant-capital-soleil.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation'],
-      secondary: ['filtres-chimiques', 'auto-bronzant', 'zone-corps', 'matin'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation'],
+      secondary: ['filtres-chimiques', 'type-solaire', 'zone-corps', 'moment-matin'],
       avoid: [],
     },
     keyIngredients: [
@@ -2120,8 +2214,14 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/solaires/vichy-brume-hydratante-spf-50-spray-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-brume-hydratante-spf-50-spray.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation'],
-      secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation'],
+      secondary: [
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2151,8 +2251,15 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/solaires/vichy-capital-soleil-bb-creme-spf-50-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-bb-creme-spf-50.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2182,8 +2289,15 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-creme-onctueuse-perfectrice-50spf.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'reparateur',
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
   },
@@ -2204,8 +2318,15 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-eau-de-protection-solaire-hydratante-spf30.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'repulpant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'repulpant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2236,8 +2357,15 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-eau-de-protection-solaire-spf30-hale-sublime.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2267,8 +2395,21 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-soin-anti-age-3-en-1-spf50.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant', 'anti-age'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'step-protection-solaire',
+        'moment-matin',
+        'step-hydratation',
+        'anti-oxydant',
+        'anti-age',
+      ],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2298,8 +2439,15 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/solaires/vichy-capital-soleil-spf50-brume-anti-sable-enfant-200ml-spray.html',
     imageUrl: '',
     tags: {
-      primary: ['protection-solaire', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2329,8 +2477,21 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/solaires/vichy-capital-soleil-spf50-matifiant-50-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-spf50-matifiant.webp',
     tags: {
-      primary: ['protection-solaire', 'microbiome', 'hydratation', 'sebo-regulateur'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'step-protection-solaire',
+        'moment-matin',
+        'microbiome',
+        'step-hydratation',
+        'sebo-regulateur',
+      ],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2359,8 +2520,15 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/solaires/vichy-capital-soleil-spf-50-hale-sublime-200-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-spf-50-hale-sublime.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2390,8 +2558,15 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/solaires/vichy-capital-soleil-spf-50-hydratante-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-spf-50-hydratante.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'repulpant'],
-      secondary: ['reparateur', 'filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'repulpant'],
+      secondary: [
+        'reparateur',
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
   },
@@ -2411,8 +2586,15 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/solaires/vichy-capital-soleil-stick-spf50-9g.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-stick-spf50.webp',
     tags: {
-      primary: ['protection-solaire', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2441,8 +2623,15 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/solaires/vichy-emulsion-capital-soleil-50spf-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-emulsion-capital-soleil-50spf.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2473,7 +2662,7 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-ideal-soleil-baume-secours-apres-soleil.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
+      primary: ['step-hydratation', 'anti-oxydant'],
       secondary: ['reparateur'],
       avoid: [],
     },
@@ -2498,8 +2687,21 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/solaires/vichy-ideal-soleil-spf-50-anti-taches-50-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-ideal-soleil-spf-50-anti-taches.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant', 'anti-taches'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'step-protection-solaire',
+        'moment-matin',
+        'step-hydratation',
+        'anti-oxydant',
+        'anti-taches',
+      ],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2529,8 +2731,15 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/solaires/vichy-lait-capital-soleil-30spf-300ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-lait-capital-soleil-30spf.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2558,8 +2767,15 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/solaires/vichy-lait-capital-soleil-50spf-300ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-lait-capital-soleil-50spf.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2590,8 +2806,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-aqua-fluide-invisible-spf50.webp',
     tags: {
-      primary: ['anti-oxydant', 'hydratation', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['anti-oxydant', 'step-hydratation', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
   },
@@ -2611,13 +2827,14 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-fluide-teinte-uv-age-daily-spf50.webp',
     tags: {
-      primary: ['pores-dilates', 'protection-solaire', 'barriere-cutanee'],
+      primary: ['pores-dilates', 'step-protection-solaire', 'moment-matin', 'barriere-cutanee'],
       secondary: [
         'reparateur',
         'sebo-regulateur',
         'filtres-chimiques',
-        'creme-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: [],
@@ -2640,13 +2857,14 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-fluide-uv-age-daily-spf50.webp',
     tags: {
-      primary: ['pores-dilates', 'protection-solaire', 'barriere-cutanee'],
+      primary: ['pores-dilates', 'step-protection-solaire', 'moment-matin', 'barriere-cutanee'],
       secondary: [
         'reparateur',
         'sebo-regulateur',
         'filtres-chimiques',
-        'creme-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: [],
@@ -2669,13 +2887,14 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-huile-invisible-spf50.webp',
     tags: {
-      primary: ['barriere-cutanee', 'anti-oxydant', 'protection-solaire'],
+      primary: ['barriere-cutanee', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
       secondary: [
-        'emollience',
+        'step-hydratation',
         'texture-legere',
         'reparateur',
-        'creme-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: [],
@@ -2706,8 +2925,15 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-kids-spf50-spray-fluide.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2735,8 +2961,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-lait-solaire-aco-concu-spf50.webp',
     tags: {
-      primary: ['anti-oxydant', 'hydratation', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['anti-oxydant', 'step-hydratation', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
   },
@@ -2757,13 +2983,14 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-spf30-huile-invisible.webp',
     tags: {
-      primary: ['barriere-cutanee', 'anti-oxydant', 'protection-solaire'],
+      primary: ['barriere-cutanee', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
       secondary: [
-        'emollience',
+        'step-hydratation',
         'texture-legere',
         'reparateur',
-        'creme-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: [],
@@ -2794,8 +3021,15 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-spf30-spray-fluide-invisible.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2826,8 +3060,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-spf50-brume-lait-apres-soleil.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'filtres-chimiques', 'matin'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'filtres-chimiques', 'moment-matin'],
       avoid: [],
     },
   },
@@ -2848,8 +3082,15 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-spf50-lait-protecteur.webp',
     tags: {
-      primary: ['protection-solaire', 'anti-oxydant', 'hydratation'],
-      secondary: ['reparateur', 'filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'anti-oxydant', 'step-hydratation'],
+      secondary: [
+        'reparateur',
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
   },
@@ -2870,8 +3111,8 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-spf50-spray-invisible.webp',
     tags: {
-      primary: ['anti-oxydant', 'hydratation', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['anti-oxydant', 'step-hydratation', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
   },
@@ -2892,13 +3133,14 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-spf50-stick-invisible.webp',
     tags: {
-      primary: ['barriere-cutanee', 'anti-oxydant', 'protection-solaire'],
+      primary: ['barriere-cutanee', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
       secondary: [
         'reparateur',
-        'emollience',
+        'step-hydratation',
         'texture-legere',
-        'creme-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: [],
@@ -2921,13 +3163,20 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-spf50-uv-clear-fluide-anti-imperfection.webp',
     tags: {
-      primary: ['pores-dilates', 'protection-solaire', 'barriere-cutanee', 'anti-acne'],
+      primary: [
+        'pores-dilates',
+        'step-protection-solaire',
+        'moment-matin',
+        'barriere-cutanee',
+        'anti-acne',
+      ],
       secondary: [
         'reparateur',
         'sebo-regulateur',
         'filtres-chimiques',
-        'creme-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: [],
@@ -2950,8 +3199,15 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-spray-fluide-invisible-spf50.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'reparateur',
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
   },
@@ -2971,8 +3227,15 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/vichy/vichy-capital-soleil-uv-age-fluide-spf50-80ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-uv-age-fluide-spf50.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3003,13 +3266,14 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-capital-soleil-uv-age-pigment-fluide-teinte-spf50.webp',
     tags: {
-      primary: ['protection-solaire', 'pores-dilates', 'barriere-cutanee'],
+      primary: ['step-protection-solaire', 'moment-matin', 'pores-dilates', 'barriere-cutanee'],
       secondary: [
         'filtres-chimiques',
         'sebo-regulateur',
         'reparateur',
-        'creme-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: [],
@@ -3042,13 +3306,14 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-liftactiv-collagen-specialist-16-creme-spf50.webp',
     tags: {
-      primary: ['anti-age', 'anti-acne', 'protection-solaire'],
+      primary: ['anti-age', 'anti-acne', 'step-protection-solaire', 'moment-matin'],
       secondary: [
         'filtres-chimiques',
         'sebo-regulateur',
         'reparateur',
-        'creme-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
@@ -3081,13 +3346,14 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-liftactiv-collagen-specialist-16-recharge-creme-spf50.webp',
     tags: {
-      primary: ['anti-age', 'anti-acne', 'protection-solaire'],
+      primary: ['anti-age', 'anti-acne', 'step-protection-solaire', 'moment-matin'],
       secondary: [
         'filtres-chimiques',
         'sebo-regulateur',
         'reparateur',
-        'creme-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
@@ -3120,17 +3386,19 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-liftactiv-creme-b3-anti-taches-spf50.webp',
     tags: {
-      primary: ['anti-age', 'anti-acne', 'exfoliation', 'anti-taches'],
+      primary: ['anti-age', 'anti-acne', 'step-traitement', 'anti-taches'],
       secondary: [
         'sebo-regulateur',
         'keratolytique',
         'reparateur',
         'filtres-chimiques',
-        'creme-solaire',
-        'protection-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'step-protection-solaire',
+        'moment-matin',
+        'moment-matin',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
@@ -3152,8 +3420,21 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-liftactiv-pigment-specialist-b3-soin-yeux-spf50.webp',
     tags: {
-      primary: ['anti-age', 'pores-dilates', 'hydratation', 'protection-solaire'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'anti-age',
+        'pores-dilates',
+        'step-hydratation',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3184,13 +3465,14 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-liftactiv-supreme-soin-anti-rides-fermetes-spf30.webp',
     tags: {
-      primary: ['protection-solaire', 'anti-age', 'pores-dilates'],
+      primary: ['step-protection-solaire', 'moment-matin', 'anti-age', 'pores-dilates'],
       secondary: [
         'reparateur',
         'sebo-regulateur',
         'filtres-chimiques',
-        'creme-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: [],
@@ -3213,15 +3495,16 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-mineral-89-fluide-hydratation-72h-spf50.webp',
     tags: {
-      primary: ['barriere-cutanee', 'protection-solaire', 'pores-dilates'],
+      primary: ['barriere-cutanee', 'step-protection-solaire', 'moment-matin', 'pores-dilates'],
       secondary: [
         'filtres-chimiques',
         'sebo-regulateur',
         'reparateur',
-        'emollience',
+        'step-hydratation',
         'texture-legere',
-        'creme-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: [],
@@ -3254,13 +3537,20 @@ export const VICHY_LABORATORIES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-neovadiol-post-menopause-creme-raffermissante-anti-taches-spf50.webp',
     tags: {
-      primary: ['anti-acne', 'protection-solaire', 'pores-dilates', 'anti-taches'],
+      primary: [
+        'anti-acne',
+        'step-protection-solaire',
+        'moment-matin',
+        'pores-dilates',
+        'anti-taches',
+      ],
       secondary: [
         'filtres-chimiques',
         'sebo-regulateur',
         'reparateur',
-        'creme-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],

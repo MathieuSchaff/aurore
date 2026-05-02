@@ -21,9 +21,9 @@ export const OCCITANE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.GRAIN_PEAU],
       secondary: [
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
-        TAG_SLUGS.MOUSSE_NETTOYANTE,
-        TAG_SLUGS.NETTOYANT,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_MOUSSE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -60,9 +60,9 @@ export const OCCITANE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE],
       secondary: [
-        TAG_SLUGS.DOUBLE_NETTOYAGE_1,
-        TAG_SLUGS.BAUME_DEMAQUILLANT,
-        TAG_SLUGS.NETTOYANT,
+        TAG_SLUGS.STEP_NETTOYAGE_1,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_BAUME,
         TAG_SLUGS.TEXTURE_RICHE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -113,9 +113,9 @@ export const OCCITANE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.DOUBLE_NETTOYAGE_1,
-        TAG_SLUGS.HUILE_DEMAQUILLANTE,
-        TAG_SLUGS.NETTOYANT,
+        TAG_SLUGS.STEP_NETTOYAGE_1,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_HUILE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -162,10 +162,11 @@ export const OCCITANE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.PREPARATION,
-        TAG_SLUGS.TONIQUE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.STEP_PREPARATION,
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PORES_DILATES,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -204,10 +205,10 @@ export const OCCITANE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.MICROBIOME],
       secondary: [
-        TAG_SLUGS.PREPARATION,
-        TAG_SLUGS.ESSENCE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.STEP_PREPARATION,
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -260,10 +261,10 @@ export const OCCITANE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
       secondary: [
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -309,9 +310,9 @@ export const OCCITANE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.BARRIERE_CUTANEE,
         TAG_SLUGS.TEINT_TERNE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -356,10 +357,12 @@ export const OCCITANE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.DESHYDRATATION],
       secondary: [
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.HUILE_VISAGE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.TEXTURE_HUILE,
+        TAG_SLUGS.ZONE_VISAGE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -412,10 +415,11 @@ export const OCCITANE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ANTI_TACHES],
       secondary: [
-        TAG_SLUGS.EMOLLIENCE,
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.REPULPANT,
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.GRAIN_PEAU,
@@ -468,10 +472,11 @@ export const OCCITANE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.DESHYDRATATION],
       secondary: [
-        TAG_SLUGS.EMOLLIENCE,
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.REPULPANT,
         TAG_SLUGS.PORES_DILATES,
         TAG_SLUGS.PEAU_SECHE,
@@ -522,10 +527,11 @@ export const OCCITANE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.CERNES_POCHES],
       secondary: [
-        TAG_SLUGS.SOIN_YEUX,
-        TAG_SLUGS.CONTOUR_YEUX,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.REPULPANT,
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.TEXTURE_RICHE,
@@ -573,11 +579,13 @@ export const OCCITANE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.DESHYDRATATION],
       secondary: [
-        TAG_SLUGS.SOIN_YEUX,
-        TAG_SLUGS.CONTOUR_YEUX,
-        TAG_SLUGS.SOIN_LEVRES,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_LEVRES,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.REPULPANT,
         TAG_SLUGS.ZONE_YEUX,
         TAG_SLUGS.ZONE_LEVRES,
@@ -626,10 +634,11 @@ export const OCCITANE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
       secondary: [
-        TAG_SLUGS.EMOLLIENCE,
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -676,9 +685,11 @@ export const OCCITANE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
       secondary: [
-        TAG_SLUGS.HUILE_CORPS,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_HUILE,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.ZONE_CORPS,
       ],
@@ -724,9 +735,11 @@ export const OCCITANE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.DESHYDRATATION],
       secondary: [
-        TAG_SLUGS.CREME_CORPS,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.REPULPANT,
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.ZONE_CORPS,
@@ -776,9 +789,11 @@ export const OCCITANE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ANTI_TACHES],
       secondary: [
-        TAG_SLUGS.CREME_MAINS,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_MAINS,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.REPULPANT,
         TAG_SLUGS.HYPERPIGMENTATION,
         TAG_SLUGS.ZONE_MAINS,

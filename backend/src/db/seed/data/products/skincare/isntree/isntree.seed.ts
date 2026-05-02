@@ -19,7 +19,7 @@ export const ISNTREE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/isntree-aloe-fresh-type-soothing-gel-10-14-fl-oz-300-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/isntree-aloe-fresh-type-soothing-gel.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.APAISANT, TAG_SLUGS.ZONE_CORPS],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.APAISANT, TAG_SLUGS.ZONE_CORPS],
       secondary: [TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -41,7 +41,7 @@ export const ISNTREE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/isntree-moisture-soothing-gel-aloe-5-07-fl-oz-150-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/isntree-moisture-soothing-gel-aloe.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.APAISANT],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.APAISANT],
       secondary: [TAG_SLUGS.PEAU_SENSIBLE],
       avoid: [],
     },
@@ -68,13 +68,14 @@ export const ISNTREE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.HYPOALLERGENIQUE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -106,7 +107,12 @@ export const ISNTREE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/isntree-essence-toner-onion-newpair-6-76-fl-oz-200-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/isntree-onion-newpair-essence-toner.webp',
     tags: {
-      primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.ECLAT, TAG_SLUGS.TRAITEMENT],
+      primary: [
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.ECLAT,
+        TAG_SLUGS.STEP_TRAITEMENT,
+      ],
       secondary: [TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -131,7 +137,7 @@ export const ISNTREE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/isntree-hyaluronic-acid-low-ph-cleansing-foam.webp',
     tags: {
-      primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
+      primary: [TAG_SLUGS.STEP_NETTOYAGE_2],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.PEAU_SENSIBLE],
       avoid: [],
     },
@@ -156,7 +162,7 @@ export const ISNTREE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/isntree-mild-exfoliant-chestnut-aha-clear-essence-3-38-fl-oz-100-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/isntree-chestnut-aha-clear-essence.webp',
     tags: {
-      primary: [TAG_SLUGS.EXFOLIANT_CHIMIQUE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ECLAT],
+      primary: [TAG_SLUGS.TYPE_EXFOLIATION, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ECLAT],
       secondary: [TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -181,7 +187,7 @@ export const ISNTREE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/isntree-vegan-milk-cleanser-yam-root-7-43-fl-oz-220-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/isntree-yam-root-vegan-milk-cleanser.webp',
     tags: {
-      primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.LAIT_NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
+      primary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.TEXTURE_LAIT, TAG_SLUGS.STEP_NETTOYAGE_2],
       secondary: [TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -203,7 +209,7 @@ export const ISNTREE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/isntree-onion-newpair-b5-ampoule-1-69-fl-oz-50-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/isntree-onion-newpair-b5-ampoule.webp',
     tags: {
-      primary: [TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ECLAT, TAG_SLUGS.APAISANT],
+      primary: [TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ECLAT, TAG_SLUGS.APAISANT],
       secondary: [TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -229,7 +235,7 @@ export const ISNTREE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/isntree-hyper-retinol-ex-1-0-serum-0-67-fl-oz-20-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/isntree-hyper-retinol-ex-1-0-serum.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.TRAITEMENT],
+      primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.STEP_TRAITEMENT],
       secondary: [TAG_SLUGS.SANS_PARFUM],
       avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
@@ -256,7 +262,7 @@ export const ISNTREE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/isntree-hyaluronic-acid-aqua-gel-cream-3-38-fl-oz-100-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/isntree-hyaluronic-acid-aqua-gel-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME],
       secondary: [TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },

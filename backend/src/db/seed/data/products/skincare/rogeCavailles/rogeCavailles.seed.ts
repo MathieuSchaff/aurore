@@ -19,8 +19,8 @@ export const ROG__CAVAILL_S_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/cavailles-savon-surgras-jardin-l-original-3x200gr.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant-corps', 'zone-corps'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -46,7 +46,12 @@ export const ROG__CAVAILL_S_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/roge-cavailles-gel-bain-douche-surgras-l-original-eco-recharge-1l-284272.webp',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -68,7 +73,12 @@ export const ROG__CAVAILL_S_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/roge-cavailles-gel-bain-douche-surgras-amande-verte-1l-284253.webp',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -90,7 +100,12 @@ export const ROG__CAVAILL_S_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/roge-cavailles-gel-bain-douche-surgras-fleur-de-coton-1l-284254.webp',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -112,7 +127,12 @@ export const ROG__CAVAILL_S_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/roge-cavailles-huile-de-douche-veloutante-750ml-284308.webp',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -135,9 +155,10 @@ export const ROG__CAVAILL_S_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.NETTOYANT_CORPS,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_CORPS,
       ],
       avoid: [],
@@ -160,8 +181,8 @@ export const ROG__CAVAILL_S_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/roge-cavailles-gel-bain-douche-surgras-aloe-vera-eco-recharge-bio-1l-284271.webp',
     tags: {
-      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],

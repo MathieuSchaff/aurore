@@ -18,8 +18,8 @@ export const MKL_GREEN_NATURE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/mkl-green-nature-gel-douche-surgras-lait-d-anesse-bio-1l-270691.webp',
     tags: {
-      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],
@@ -42,9 +42,10 @@ export const MKL_GREEN_NATURE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.NETTOYANT_CORPS,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.ZONE_CORPS,
       ],
       avoid: [],
@@ -67,8 +68,8 @@ export const MKL_GREEN_NATURE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/mkl-green-nature-cosm-ethik-gel-douche-aloe-vera-du-mexique-1l-270621.webp',
     tags: {
-      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],
@@ -90,7 +91,7 @@ export const MKL_GREEN_NATURE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/mkl-green-nature-aqua-huile-de-douche-dermo-apaisante-bio-1l-270791.webp',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],

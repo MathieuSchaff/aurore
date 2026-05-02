@@ -18,8 +18,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela-bebe/mustela-gel-lavant-bio-400-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-gel-lavant-bio.webp',
     tags: {
-      primary: ['hydratation', 'apaisant'],
-      secondary: ['nettoyant-corps', 'zone-corps'],
+      primary: ['step-hydratation', 'apaisant'],
+      secondary: ['type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
   },
@@ -39,8 +39,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela-bebe/mustela-gel-lavant-doux-corps-et-cheveux-500ml-peau-normale.html',
     imageUrl: '',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
-      secondary: ['reparateur', 'nettoyant-corps', 'zone-corps'],
+      primary: ['apaisant', 'barriere-cutanee', 'step-hydratation'],
+      secondary: ['reparateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -65,8 +65,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/mustela-gel-lavant-nourrissant-au-cold-cream.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation'],
-      secondary: ['emollience', 'nettoyant-corps', 'zone-corps'],
+      primary: ['barriere-cutanee', 'step-hydratation'],
+      secondary: ['step-hydratation', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -92,7 +92,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-huile-de-massage.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['reparateur', 'huile-corps', 'zone-corps'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-huile', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -116,8 +116,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela-bebe/mustela-hydra-bebe-lait-corps-500-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-hydra-bebe-lait-corps.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['lait-corps', 'zone-corps'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['type-hydratant', 'texture-lait', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.HUILE_GRAINES_TOURNESOL }],
@@ -138,8 +138,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela-bebe/mustela-stelatopia-huile-lavante-500-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-stelatopia-huile-lavante.webp',
     tags: {
-      primary: ['hydratation', 'eczema'],
-      secondary: ['nettoyant-corps', 'zone-corps', 'peau-seche', 'apaisant'],
+      primary: ['step-hydratation', 'eczema'],
+      secondary: ['type-nettoyant', 'zone-corps', 'zone-corps', 'peau-seche', 'apaisant'],
       avoid: [],
     },
   },
@@ -159,8 +159,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-gel-lavant-bio-eco-recharge-400ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-gel-lavant-bio-eco-recharge.webp',
     tags: {
-      primary: ['hydratation', 'apaisant'],
-      secondary: ['nettoyant-corps', 'zone-corps'],
+      primary: ['step-hydratation', 'apaisant'],
+      secondary: ['type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
   },
@@ -180,8 +180,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-huile-lavante-500-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-huile-lavante.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant-corps', 'zone-corps'],
+      primary: ['step-hydratation'],
+      secondary: ['type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.AVOCADO_OIL }],
@@ -202,8 +202,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-savon-surgras-cold-cream-100-g.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-savon-surgras-cold-cream.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation'],
-      secondary: ['emollience', 'nettoyant-corps', 'zone-corps'],
+      primary: ['barriere-cutanee', 'step-hydratation'],
+      secondary: ['step-hydratation', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -227,8 +227,15 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/par-soins/soins-nettoyants/mustela-baume-pectoral-reconfortant-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-baume-pectoral-reconfortant.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -254,8 +261,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/par-soins/soins-nettoyants/musti-eau-de-soin-parfumee-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/musti-eau-de-soin-parfumee.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['essence', 'preparation', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['type-toner', 'step-preparation', 'zone-visage'],
       avoid: [],
     },
   },
@@ -275,8 +282,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela-bebe/mustela-creme-change-100-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-creme-change.webp',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['apaisant', 'barriere-cutanee', 'step-hydratation'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -303,8 +310,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela-bebe/mustela-creme-pour-le-change-50-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-creme-pour-le-change.webp',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['apaisant', 'barriere-cutanee', 'step-hydratation'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -331,8 +338,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela-bebe/mustela-gel-nettoyant-200ml-avocat-bio.html',
     imageUrl: '',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.GLYCERYL_CAPRYLATE_CAPRATE }],
@@ -353,8 +360,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela-bebe/mustela-hydra-bebe-creme-visage-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-hydra-bebe-creme-visage.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -378,8 +385,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela-bebe/mustela-lait-nourrissant-cold-cream-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-lait-nourrissant-cold-cream.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant'],
-      secondary: ['emollience', 'creme-hydratante', 'zone-visage'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['step-hydratation', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -406,8 +413,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela-bebe/mustela-soin-croutes-de-lait-40-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-soin-croutes-de-lait.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.PROPANEDIOL }],
@@ -428,8 +435,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela-dermo-pediatrie/mustela-baume-allaitement-30-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-baume-allaitement.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -453,11 +460,12 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela-dermo-pediatrie/mustela-stelatopia-creme-emolliente-40-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-stelatopia-creme-emolliente.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'eczema'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'eczema'],
       secondary: [
-        'emollience',
+        'step-hydratation',
         'texture-legere',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
         'peau-seche',
         'apaisant',
@@ -489,8 +497,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/mustela-bio-baume-universel-extrait-d-avaocat.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -517,8 +525,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/mustela-cicastela-creme-reparatrice-peaux-irritees.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'barriere-cutanee', 'cicatrisation'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant', 'barriere-cutanee', 'cicatrisation'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -548,8 +556,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-creme-change-75-ml.html',
     imageUrl: '',
     tags: {
-      primary: ['apaisant', 'hydratation'],
-      secondary: ['peau-sensible', 'creme-hydratante', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation'],
+      secondary: ['peau-sensible', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.ZINC_OXIDE }],
@@ -570,8 +578,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-creme-hydratante-150-ml-bio.html',
     imageUrl: '',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -597,8 +605,15 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/mustela-creme-nourrissante-cold-cream-a-la-cire-d-abeille-bio.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant'],
-      secondary: ['peau-sensible', 'reparateur', 'emollience', 'creme-hydratante', 'zone-visage'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'peau-sensible',
+        'reparateur',
+        'step-hydratation',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -624,8 +639,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-creme-vergetures-150-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-creme-vergetures.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -651,8 +666,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-creme-vergetures-action-3-en-1-150-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-creme-vergetures-action-3-en-1.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -678,8 +693,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-eau-micellaire-bio-400ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-eau-micellaire-bio.webp',
     tags: {
-      primary: ['hydratation', 'apaisant'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant'],
+      secondary: ['step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
   },
@@ -700,7 +715,7 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-lait-de-toilette-peau-normale.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -725,8 +740,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-lait-de-toilette-peau-normale-750-ml.html',
     imageUrl: '',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -746,8 +761,15 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-stelatopia-creme-relipidante-bio-150ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-stelatopia-creme-relipidante-bio.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'eczema'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage', 'peau-seche', 'apaisant'],
+      primary: ['step-hydratation', 'anti-oxydant', 'eczema'],
+      secondary: [
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+        'peau-seche',
+        'apaisant',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -775,7 +797,14 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     imageUrl: '',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['reparateur', 'huile-visage', 'emollience', 'zone-visage'],
+      secondary: [
+        'reparateur',
+        'type-serum',
+        'texture-huile',
+        'zone-visage',
+        'step-hydratation',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -800,8 +829,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/mustela-l-essentiel-lait-de-soin-multi-actions-bio.webp',
     tags: {
-      primary: ['hydratation', 'apaisant'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -826,8 +855,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-lait-solaire-spf50-100ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-lait-solaire-spf50.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -857,8 +886,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-spray-solaire-spf50-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-spray-solaire-spf50.webp',
     tags: {
-      primary: ['anti-oxydant', 'hydratation', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['anti-oxydant', 'step-hydratation', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -888,8 +917,8 @@ export const MUSTELA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/mustela/mustela-stick-solaire-spf50-9ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/mustela-stick-solaire-spf50.webp',
     tags: {
-      primary: ['anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [

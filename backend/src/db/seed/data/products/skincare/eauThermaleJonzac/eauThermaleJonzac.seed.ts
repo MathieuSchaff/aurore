@@ -18,14 +18,15 @@ export const EAU_THERMALE_JONZAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eau-thermale-jonzac-nutritive-ato-huile-lavante-relipidante-bio-500ml-266677.webp',
     tags: {
-      primary: [TAG_SLUGS.EXFOLIATION],
+      primary: [TAG_SLUGS.STEP_TRAITEMENT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.BRUME,
-        TAG_SLUGS.PREPARATION,
+        TAG_SLUGS.TYPE_MIST,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.STEP_PREPARATION,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [],
     },
@@ -47,8 +48,8 @@ export const EAU_THERMALE_JONZAC_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/eau-thermale-jonzac-nutritive-ato-huile-lavante-relipidante-bio.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant-corps', 'zone-corps'],
+      primary: ['step-hydratation'],
+      secondary: ['type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
   },

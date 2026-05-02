@@ -19,12 +19,14 @@ export const SHISEIDO_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/shiseido-waso-nettoyant-gel-en-huile-shikulime.webp',
     tags: {
-      primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
-        TAG_SLUGS.GEL_NETTOYANT,
-        TAG_SLUGS.HUILE_NETTOYANTE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_HUILE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -51,11 +53,12 @@ export const SHISEIDO_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/shiseido-vital-perfection-creme-lift-fermete.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -82,8 +85,13 @@ export const SHISEIDO_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/shiseido-benefiance-creme-de-jour-lissante-anti-rides.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.MATIN, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -108,8 +116,13 @@ export const SHISEIDO_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/shiseido-ultimune-serum-concentre-activateur.webp',
     tags: {
-      primary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.HYDRATATION, TAG_SLUGS.ECLAT],
-      secondary: [TAG_SLUGS.SERUM, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.ECLAT],
+      secondary: [
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -135,11 +148,12 @@ export const SHISEIDO_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/shiseido-benefiance-creme-lissante-anti-rides.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -167,7 +181,13 @@ export const SHISEIDO_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/shiseido-benefiance-contour-des-yeux-anti-rides.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.CERNES_POCHES],
-      secondary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_YEUX],
+      secondary: [
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.ZONE_YEUX,
+      ],
       avoid: [],
     },
     keyIngredients: [

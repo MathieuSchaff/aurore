@@ -20,12 +20,13 @@ export const FILORGA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT, TAG_SLUGS.DESHYDRATATION],
       secondary: [
-        TAG_SLUGS.LOTION,
-        TAG_SLUGS.ESSENCE,
-        TAG_SLUGS.PREPARATION,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.STEP_PREPARATION,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [
@@ -58,10 +59,10 @@ export const FILORGA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.GRAIN_PEAU],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.EXFOLIATION,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.TYPE_EXFOLIATION,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -100,10 +101,10 @@ export const FILORGA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.EXFOLIATION,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.TYPE_EXFOLIATION,
         TAG_SLUGS.POST_ACNE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -143,11 +144,11 @@ export const FILORGA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.BIO_NATUREL,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -176,10 +177,11 @@ export const FILORGA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.CREME_DE_NUIT,
-        TAG_SLUGS.EXFOLIATION,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.TYPE_EXFOLIATION,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -218,10 +220,11 @@ export const FILORGA_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.PROTECTION_SOLAIRE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.LUMIERE_BLEUE,
         TAG_SLUGS.POLLUTION,
         TAG_SLUGS.TEXTURE_LEGERE,

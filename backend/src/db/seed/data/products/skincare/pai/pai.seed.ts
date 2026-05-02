@@ -26,14 +26,20 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/pai-skincare-bio-regenerate-oil-rosehip-seed-fruit-1-fl-oz-30-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/pai-bio-regenerate-oil-rosehip-30ml.webp',
     tags: {
-      primary: [TAG_SLUGS.HUILE_VISAGE, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.EMOLLIENCE],
+      primary: [
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.TEXTURE_HUILE,
+        TAG_SLUGS.ZONE_VISAGE,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.STEP_HYDRATATION,
+      ],
       secondary: [
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.ANTI_AGE,
         TAG_SLUGS.CICATRISATION,
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -61,12 +67,17 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/pai-calming-day-cream-chamomile-rosehip-1-7-fl-oz-50-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/pai-calming-day-cream-chamomile-rosehip.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ANTI_ROUGEURS],
+      primary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ANTI_ROUGEURS,
+      ],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
       ],
       avoid: [],
     },
@@ -92,7 +103,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/pai-camellia-rose-gentle-hydrating-cleanser.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_NETTOYANTE, TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
+      primary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.TEXTURE_CREME, TAG_SLUGS.STEP_NETTOYAGE_2],
       secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
@@ -114,14 +125,20 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/pai-the-landmark-edition-rosehip-bioregenerate-oil-15-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/pai-landmark-edition-rosehip-oil-15ml.webp',
     tags: {
-      primary: [TAG_SLUGS.HUILE_VISAGE, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.EMOLLIENCE],
+      primary: [
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.TEXTURE_HUILE,
+        TAG_SLUGS.ZONE_VISAGE,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.STEP_HYDRATATION,
+      ],
       secondary: [
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.ANTI_AGE,
         TAG_SLUGS.CICATRISATION,
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -146,12 +163,17 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/pai-skincare-chamomile-rosehip-calming-day-cream-anti-redness-moisturizer-for-hypersensitive-skin',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/pai-chamomile-rosehip-calming-day-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ANTI_ROUGEURS],
+      primary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ANTI_ROUGEURS,
+      ],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
       ],
       avoid: [],
     },
@@ -175,14 +197,14 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/pai-skincare-bring-sensitive-skin-back-to-life-0-5-fl-oz',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/pai-bring-sensitive-skin-back-to-life.webp',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ECLAT],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ECLAT],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.MICROBIOME,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -209,13 +231,18 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/pai-system-d-calm-schisandra-ceramide-eye-serum.webp',
     tags: {
-      primary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX],
+      primary: [
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.STEP_TRAITEMENT,
+      ],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SANS_PARFUM,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -247,7 +274,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/pai-skincare-double-cleanse-kit-0-95-fl-oz-28-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/pai-double-cleanse-kit.webp',
     tags: {
-      primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_1, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
+      primary: [TAG_SLUGS.STEP_NETTOYAGE_1, TAG_SLUGS.STEP_NETTOYAGE_2],
       secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.MICROBIOME, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
@@ -269,13 +296,18 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/pai-all-day-hydration-moisturizer-avocado-jojoba.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.EMOLLIENCE],
+      primary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_HYDRATATION,
+      ],
       secondary: [
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -296,13 +328,13 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/pai-instant-calm-redness-serum-sea-aster-wild-oat.webp',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ANTI_ROUGEURS],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -328,7 +360,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/pai-gentle-cream-cleanser-middlemist-seven.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_NETTOYANTE, TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
+      primary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.TEXTURE_CREME, TAG_SLUGS.STEP_NETTOYAGE_2],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SECHE,
@@ -353,14 +385,19 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/pai-skincare-feather-canyon-eye-cream-0-5-fl-oz-15-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/pai-feather-canyon-eye-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX],
+      primary: [
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.STEP_TRAITEMENT,
+      ],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.ANTI_AGE,
         TAG_SLUGS.SANS_PARFUM,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -391,8 +428,13 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/lion-pair-acne-cream-14-g',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/lion-pair-acne-cream-14g.webp',
     tags: {
-      primary: [TAG_SLUGS.SPOT_TREATMENT, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ANTI_ACNE],
-      secondary: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.SOIN_LOCALISE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.TYPE_TRAITEMENT, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_ACNE],
+      secondary: [
+        TAG_SLUGS.PEAU_GRASSE,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_USAGE_LOCALISE,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE],
     },
   },
@@ -417,8 +459,13 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/propaira-extra-strength-serum-hyaluronic-acid.webp',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.HYDRATATION, TAG_SLUGS.TRAITEMENT],
-      secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.ZONE_VISAGE, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.STEP_TRAITEMENT],
+      secondary: [
+        TAG_SLUGS.SANS_PARFUM,
+        TAG_SLUGS.ZONE_VISAGE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -448,15 +495,15 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/propaira-skin-defense-serum-10-niacinamide.webp',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ANTI_TACHES],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_TACHES],
       secondary: [
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.PORES_DILATES,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -492,11 +539,11 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/barrier-repair-sheet-mask-5-count',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/barrier-repair-sheet-mask-5-count.webp',
     tags: {
-      primary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
-        TAG_SLUGS.MASQUE_HEBDO,
+        TAG_SLUGS.MOMENT_HEBDOMADAIRE,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -526,12 +573,13 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/power-repair-multi-action-eye-lift.webp',
     tags: {
       primary: [
-        TAG_SLUGS.CONTOUR_YEUX,
+        TAG_SLUGS.TYPE_TRAITEMENT,
         TAG_SLUGS.ZONE_YEUX,
-        TAG_SLUGS.SOIN_YEUX,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.ANTI_AGE,
       ],
-      secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
+      secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.MOMENT_SOIR],
       avoid: [],
     },
     keyIngredients: [
@@ -559,12 +607,12 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/power-repair-skin-serum-1-0-fl-oz',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/power-repair-skin-serum.webp',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ANTI_AGE],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_AGE],
       secondary: [
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.ANTI_OXYDANT,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -589,13 +637,13 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/power-repair-hydrating-soothing-facial-toner.webp',
     tags: {
-      primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.PREPARATION],
+      primary: [TAG_SLUGS.TYPE_TONER, TAG_SLUGS.TEXTURE_EAU, TAG_SLUGS.STEP_PREPARATION],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -620,14 +668,14 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/receutics-clear-tone-complexion-corrector.webp',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ANTI_TACHES],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_TACHES],
       secondary: [
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.POST_ACNE,
         TAG_SLUGS.HYPERPIGMENTATION,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -654,14 +702,19 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/receutics-intense-hydration-repair-treatment.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CREME_HYDRATANTE],
+      primary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+      ],
       secondary: [
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -690,8 +743,13 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/receutics-active-skin-repair-rapid-wrinkle-corrector-1-7-fluid-oz',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/receutics-rapid-wrinkle-corrector.webp',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ANTI_AGE],
-      secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.ECLAT, TAG_SLUGS.ZONE_VISAGE, TAG_SLUGS.SOIR],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_AGE],
+      secondary: [
+        TAG_SLUGS.PEAU_SECHE,
+        TAG_SLUGS.ECLAT,
+        TAG_SLUGS.ZONE_VISAGE,
+        TAG_SLUGS.MOMENT_SOIR,
+      ],
       avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
     keyIngredients: [
@@ -725,7 +783,7 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/receutics-active-skin-repair-gentle-hydrating-cleanser-4-2-fluid-oz',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/receutics-gentle-hydrating-cleanser.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_NETTOYANTE, TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
+      primary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.TEXTURE_CREME, TAG_SLUGS.STEP_NETTOYAGE_2],
       secondary: [TAG_SLUGS.PEAU_NORMALE, TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
@@ -754,8 +812,13 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/receutics-active-skin-repair-step-2-breakout-treatment-1-7-fluid-oz',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/receutics-breakout-treatment.webp',
     tags: {
-      primary: [TAG_SLUGS.SPOT_TREATMENT, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ANTI_ACNE],
-      secondary: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.SOIN_LOCALISE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.TYPE_TRAITEMENT, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_ACNE],
+      secondary: [
+        TAG_SLUGS.PEAU_GRASSE,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_USAGE_LOCALISE,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE],
     },
   },
@@ -775,11 +838,11 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/receutics-active-skin-repair-acne-clearing-4-2-fl-oz',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/receutics-acne-clearing.webp',
     tags: {
-      primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ANTI_ACNE],
+      primary: [TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_ACNE],
       secondary: [
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.PORES_DILATES,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -810,11 +873,11 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/receutics-active-skin-repair-step-1-clear-skin-cleanser-4-2-fl-oz',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/receutics-clear-skin-cleanser.webp',
     tags: {
-      primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ANTI_ACNE],
+      primary: [TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_ACNE],
       secondary: [
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.PORES_DILATES,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -846,8 +909,19 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/skin-repair-rx-dermatological-moisturizing-lotion.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.LAIT_CORPS, TAG_SLUGS.ZONE_CORPS],
-      secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
+      primary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_LAIT,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.ZONE_CORPS,
+      ],
+      secondary: [
+        TAG_SLUGS.PEAU_SECHE,
+        TAG_SLUGS.SANS_PARFUM,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+      ],
       avoid: [],
     },
   },
@@ -871,8 +945,17 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/repair-beauty-under-eye-patches-ha-niacinamide.webp',
     tags: {
-      primary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX],
-      secondary: [TAG_SLUGS.CERNES_POCHES, TAG_SLUGS.HYDRATATION, TAG_SLUGS.MASQUE_HEBDO],
+      primary: [
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.STEP_TRAITEMENT,
+      ],
+      secondary: [
+        TAG_SLUGS.CERNES_POCHES,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.MOMENT_HEBDOMADAIRE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -899,8 +982,8 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/repair-beauty-advanced-repair-foot-masks-mint-tea-tree.webp',
     tags: {
-      primary: [TAG_SLUGS.CREME_PIEDS, TAG_SLUGS.ZONE_CORPS],
-      secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.MASQUE_HEBDO],
+      primary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.ZONE_PIEDS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.MOMENT_HEBDOMADAIRE],
       avoid: [],
     },
     keyIngredients: [
@@ -930,13 +1013,18 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/air-repair-complexion-boosting-moisturizer.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ECLAT],
+      primary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ECLAT,
+      ],
       secondary: [
         TAG_SLUGS.PEAU_NORMALE,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -963,8 +1051,18 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/air-repair-skincare-super-hydrating-eye-cream-0-5-oz',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/air-repair-super-hydrating-eye-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX],
-      secondary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.CERNES_POCHES, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
+      primary: [
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.STEP_TRAITEMENT,
+      ],
+      secondary: [
+        TAG_SLUGS.ANTI_AGE,
+        TAG_SLUGS.CERNES_POCHES,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -992,7 +1090,14 @@ export const PAI_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/air-repair-skincare-rescue-balm-all-purpose-skin-salve-lip-balm',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/air-repair-rescue-balm.webp',
     tags: {
-      primary: [TAG_SLUGS.BAUME, TAG_SLUGS.SOIN_LEVRES, TAG_SLUGS.OCCLUSION],
+      primary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_BAUME,
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_LEVRES,
+        TAG_SLUGS.STEP_OCCLUSIF,
+        TAG_SLUGS.MOMENT_SOIR,
+      ],
       secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.ZONE_LEVRES, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },

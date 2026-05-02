@@ -20,7 +20,12 @@ export const NUMBUZIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/numbuzin-no1-centella-re-leaf-green-toner-pad.webp',
     tags: {
-      primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_ROUGEURS],
+      primary: [
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.APAISANT,
+        TAG_SLUGS.ANTI_ROUGEURS,
+      ],
       secondary: [TAG_SLUGS.PEAU_SENSIBLE],
       avoid: [],
     },
@@ -44,7 +49,12 @@ export const NUMBUZIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/numbuzin-no-3-super-glowing-essence-toner-6-76-fl-oz',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/numbuzin-no3-super-glowing-essence-toner.webp',
     tags: {
-      primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.ECLAT, TAG_SLUGS.PREPARATION],
+      primary: [
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.ECLAT,
+        TAG_SLUGS.STEP_PREPARATION,
+      ],
       secondary: [],
       avoid: [],
     },
@@ -66,7 +76,7 @@ export const NUMBUZIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/numbuzin-no-1-easy-peasy-cleansing-oil-6-76-fl-oz-200-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/numbuzin-no1-easy-peasy-cleansing-oil.webp',
     tags: {
-      primary: [TAG_SLUGS.HUILE_DEMAQUILLANTE, TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_1],
+      primary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.TEXTURE_HUILE, TAG_SLUGS.STEP_NETTOYAGE_1],
       secondary: [],
       avoid: [],
     },
@@ -90,8 +100,8 @@ export const NUMBUZIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/numbuzin-no3-tingle-pore-softening-sheet-mask.webp',
     tags: {
-      primary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.PORES_DILATES],
-      secondary: [TAG_SLUGS.MASQUE_HEBDO],
+      primary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.PORES_DILATES],
+      secondary: [TAG_SLUGS.MOMENT_HEBDOMADAIRE],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.NIACINAMIDE }, { slug: INGREDIENT_SLUGS.PROBIOTICS }],
@@ -112,7 +122,12 @@ export const NUMBUZIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/numbuzin-no-1-toner-300-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/numbuzin-no1-toner.webp',
     tags: {
-      primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.APAISANT, TAG_SLUGS.PREPARATION],
+      primary: [
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.APAISANT,
+        TAG_SLUGS.STEP_PREPARATION,
+      ],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.PEAU_SENSIBLE],
       avoid: [],
     },
@@ -137,7 +152,12 @@ export const NUMBUZIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/numbuzin-no1-pantothenic-b5-active-soothing-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.APAISANT],
+      primary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.APAISANT,
+      ],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.ANTI_ACNE],
       avoid: [],
     },
@@ -163,7 +183,12 @@ export const NUMBUZIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/numbuzin-no-3-porcelain-base-beige-spf50-pa-1-69-fl-oz-50-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/numbuzin-no3-porcelain-base.webp',
     tags: {
-      primary: [TAG_SLUGS.PROTECTION_SOLAIRE, TAG_SLUGS.PRIMER, TAG_SLUGS.FILTRES_MINERAUX],
+      primary: [
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.TYPE_PRIMER,
+        TAG_SLUGS.FILTRES_MINERAUX,
+      ],
       secondary: [],
       avoid: [],
     },
@@ -186,8 +211,8 @@ export const NUMBUZIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/numbuzin-no5-vitamin-spotlight-sheet-mask.webp',
     tags: {
-      primary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.ECLAT, TAG_SLUGS.TRAITEMENT],
-      secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.MASQUE_HEBDO],
+      primary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.ECLAT, TAG_SLUGS.STEP_TRAITEMENT],
+      secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.MOMENT_HEBDOMADAIRE],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.VITAMIN_C }, { slug: INGREDIENT_SLUGS.NIACINAMIDE }],
@@ -209,7 +234,7 @@ export const NUMBUZIN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/numbuzin-skin-softening-serum-3-1-69-fl-oz-50-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/numbuzin-no3-skin-softening-serum.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ECLAT],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ECLAT],
       secondary: [TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -236,7 +261,12 @@ export const NUMBUZIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/numbuzin-no5-vitamin-niacinamide-concentrated-pad.webp',
     tags: {
-      primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.ECLAT, TAG_SLUGS.TRAITEMENT],
+      primary: [
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.ECLAT,
+        TAG_SLUGS.STEP_TRAITEMENT,
+      ],
       secondary: [TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -263,12 +293,13 @@ export const NUMBUZIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.TONIQUE,
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
         TAG_SLUGS.NON_COMEDOGENE,
         TAG_SLUGS.REPULPANT,
-        TAG_SLUGS.PREPARATION,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.STEP_PREPARATION,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -307,14 +338,15 @@ export const NUMBUZIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
-        TAG_SLUGS.TONIQUE,
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.NON_COMEDOGENE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.PREPARATION,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.STEP_PREPARATION,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -360,11 +392,12 @@ export const NUMBUZIN_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.TONIQUE,
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
         TAG_SLUGS.NON_COMEDOGENE,
-        TAG_SLUGS.PREPARATION,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.STEP_PREPARATION,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -400,7 +433,12 @@ export const NUMBUZIN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/numbuzin-no5-vitamin-boosting-essential-toner.webp',
     tags: {
-      primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.ECLAT, TAG_SLUGS.PREPARATION],
+      primary: [
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.ECLAT,
+        TAG_SLUGS.STEP_PREPARATION,
+      ],
       secondary: [TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },

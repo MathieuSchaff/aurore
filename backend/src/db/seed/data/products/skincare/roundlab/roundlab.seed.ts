@@ -41,7 +41,7 @@ export const ROUND_LAB_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/A174C8F22C2D1C/large_1735586541.jpeg?1735586541',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.APAISANT],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.APAISANT],
       secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ANTI_ACNE],
       avoid: [],
     },
@@ -68,9 +68,9 @@ export const ROUND_LAB_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/DBCC97EF26C021/large_1757646977.jpeg?1757646977',
     tags: {
-      primary: [TAG_SLUGS.MASQUE_ARGILE, TAG_SLUGS.PURIFIANT, TAG_SLUGS.PORES_DILATES],
+      primary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.PURIFIANT, TAG_SLUGS.PORES_DILATES],
       secondary: [
-        TAG_SLUGS.MASQUE_HEBDO,
+        TAG_SLUGS.MOMENT_HEBDOMADAIRE,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.SANS_PARFUM,
@@ -97,7 +97,12 @@ export const ROUND_LAB_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/8E56D41A4253C6/large_1755075549.png?1755075549',
     tags: {
-      primary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.HYDRATATION, TAG_SLUGS.TEXTURE_LEGERE],
+      primary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TEXTURE_LEGERE,
+      ],
       secondary: [TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -126,7 +131,7 @@ export const ROUND_LAB_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/30F3649919F364/large_1698107598.jpeg?1698107598',
     tags: {
-      primary: [TAG_SLUGS.MOUSSE_NETTOYANTE, TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
+      primary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.TEXTURE_MOUSSE, TAG_SLUGS.STEP_NETTOYAGE_2],
       secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE],
       avoid: [],
     },
@@ -153,8 +158,8 @@ export const ROUND_LAB_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/55440FD3CEF7A1/large_1747206338.png?1747206338',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
-      secondary: [TAG_SLUGS.EMOLLIENCE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.SANS_PARFUM],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
+      secondary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
     keyIngredients: [
@@ -181,7 +186,12 @@ export const ROUND_LAB_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/085638430E3925/large_1735559743.png?1735559743',
     tags: {
-      primary: [TAG_SLUGS.GEL_CREME, TAG_SLUGS.HYDRATATION, TAG_SLUGS.APAISANT],
+      primary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.APAISANT,
+      ],
       secondary: [TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -208,7 +218,7 @@ export const ROUND_LAB_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/12BFB5826EB6B5/large_1744579206.jpeg?1744579206',
     tags: {
-      primary: [TAG_SLUGS.HUILE_DEMAQUILLANTE, TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_1],
+      primary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.TEXTURE_HUILE, TAG_SLUGS.STEP_NETTOYAGE_1],
       secondary: [],
       avoid: [],
     },
@@ -232,7 +242,7 @@ export const ROUND_LAB_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/33E402A6CF5DA7/large_1735359956.jpeg?1735359956',
     tags: {
-      primary: [TAG_SLUGS.EXFOLIANT_CHIMIQUE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.ANTI_ACNE],
+      primary: [TAG_SLUGS.TYPE_EXFOLIATION, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_ACNE],
       secondary: [
         TAG_SLUGS.GRAIN_PEAU,
         TAG_SLUGS.PORES_DILATES,
@@ -265,8 +275,8 @@ export const ROUND_LAB_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/82AD957FE39E4D/large_1734293471.png?1734293471',
     tags: {
-      primary: [TAG_SLUGS.GEL_NETTOYANT, TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
-      secondary: [TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.TEXTURE_GEL, TAG_SLUGS.STEP_NETTOYAGE_2],
+      secondary: [TAG_SLUGS.STEP_HYDRATATION],
       avoid: [],
     },
     keyIngredients: [
@@ -292,7 +302,7 @@ export const ROUND_LAB_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/6487D9A9FF2409/large_1715925983.png?1715925983',
     tags: {
-      primary: [TAG_SLUGS.LOTION, TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.TYPE_TONER, TAG_SLUGS.TEXTURE_EAU, TAG_SLUGS.STEP_HYDRATATION],
       secondary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.TEXTURE_LEGERE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -320,7 +330,12 @@ export const ROUND_LAB_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/8C641FDC395483/large_1698106737.jpeg?1698106737',
     tags: {
-      primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.HYDRATATION, TAG_SLUGS.ECLAT],
+      primary: [
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.ECLAT,
+      ],
       secondary: [TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -347,7 +362,7 @@ export const ROUND_LAB_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/F7514AA2EC07B5/large_1698107578.jpeg?1698107578',
     tags: {
-      primary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.HYDRATATION, TAG_SLUGS.MASQUE_HEBDO],
+      primary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.MOMENT_HEBDOMADAIRE],
       secondary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.ECLAT, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -374,7 +389,12 @@ export const ROUND_LAB_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/9DC897A1A26A1D/large_1693423184.jpeg?1693423184',
     tags: {
-      primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.HYDRATATION, TAG_SLUGS.GRAIN_PEAU],
+      primary: [
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.GRAIN_PEAU,
+      ],
       secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -397,8 +417,8 @@ export const ROUND_LAB_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/195913098BED4A/large_1710576784.png?1710576784',
     tags: {
-      primary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.HYDRATATION, TAG_SLUGS.APAISANT],
-      secondary: [TAG_SLUGS.MASQUE_HEBDO, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.SANS_PARFUM],
+      primary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.APAISANT],
+      secondary: [TAG_SLUGS.MOMENT_HEBDOMADAIRE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE }],
@@ -419,7 +439,12 @@ export const ROUND_LAB_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/C26A360CF17AB6/large_1698106698.jpeg?1698106698',
     tags: {
-      primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.APAISANT],
+      primary: [
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.ANTI_ROUGEURS,
+        TAG_SLUGS.APAISANT,
+      ],
       secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.ANTI_ACNE],
       avoid: [],
     },
@@ -444,7 +469,12 @@ export const ROUND_LAB_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/58D5E034A97BF7/large_1698107129.jpeg?1698107129',
     tags: {
-      primary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
+      primary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+      ],
       secondary: [TAG_SLUGS.PEAU_NORMALE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -471,7 +501,12 @@ export const ROUND_LAB_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/4E86FC5E0F755E/large_1698107194.jpeg?1698107194',
     tags: {
-      primary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.APAISANT],
+      primary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ANTI_ROUGEURS,
+        TAG_SLUGS.APAISANT,
+      ],
       secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ANTI_ACNE],
       avoid: [],
     },
@@ -500,7 +535,12 @@ export const ROUND_LAB_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/0F6DDD4CA51C07/large_1744236039.jpeg?1744236039',
     tags: {
-      primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.HYDRATATION, TAG_SLUGS.EMOLLIENCE],
+      primary: [
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
+      ],
       secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -528,7 +568,7 @@ export const ROUND_LAB_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/8731E346204880/large_1754383242.png?1754383242',
     tags: {
-      primary: [TAG_SLUGS.LAIT_NETTOYANT, TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_1],
+      primary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.TEXTURE_LAIT, TAG_SLUGS.STEP_NETTOYAGE_1],
       secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE],
       avoid: [],
     },

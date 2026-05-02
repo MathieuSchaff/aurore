@@ -24,8 +24,8 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -53,7 +53,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medicube-red-cream.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.SEBO_REGULATEUR],
-      secondary: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.SOIR],
+      secondary: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.MOMENT_SOIR],
       avoid: [],
     },
     keyIngredients: [
@@ -80,7 +80,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medicube-zero-pore-pads-2-0.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.GRAIN_PEAU],
-      secondary: [TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.EXFOLIATION],
+      secondary: [TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.STEP_TRAITEMENT],
       avoid: [],
     },
     keyIngredients: [
@@ -106,7 +106,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medicube-zero-pore-one-day-cream-panthenol-5-bha-0-1-niacinamide-2-1-69-fl-oz-50-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medicube-zero-pore-one-day-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.STEP_HYDRATATION],
       secondary: [TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.ECLAT],
       avoid: [],
     },
@@ -147,7 +147,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medicube-zero-pore-pad-2-0-5-46-oz-155-g-70-count-0',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medicube-zero-pore-pad-2-0.webp',
     tags: {
-      primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.EXFOLIATION],
+      primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.STEP_TRAITEMENT],
       secondary: [TAG_SLUGS.PEAU_GRASSE, TAG_SLUGS.GRAIN_PEAU],
       avoid: [],
     },
@@ -175,7 +175,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medicube-triple-deep-erasing-cream.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.ANTI_AGE],
-      secondary: [TAG_SLUGS.SOIR],
+      secondary: [TAG_SLUGS.MOMENT_SOIR],
       avoid: [],
     },
     keyIngredients: [
@@ -202,7 +202,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/medicube-azelaic-acid-16-bb-calming-serum.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ROSACEE, TAG_SLUGS.ANTI_ACNE],
-      secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.TRAITEMENT],
+      secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.STEP_TRAITEMENT],
       avoid: [],
     },
     keyIngredients: [
@@ -234,7 +234,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medicube-collagen-night-mask.webp',
     tags: {
       primary: [TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_AGE],
-      secondary: [TAG_SLUGS.SLEEPING_MASK, TAG_SLUGS.SOIR],
+      secondary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.MOMENT_SOIR],
       avoid: [],
     },
     keyIngredients: [
@@ -260,8 +260,8 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medicube-zero-pore-one-day-serum-1-01-fl-oz-30-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medicube-zero-pore-one-day-serum.webp',
     tags: {
-      primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.EXFOLIATION],
-      secondary: [TAG_SLUGS.SERUM, TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.ECLAT],
+      primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.STEP_TRAITEMENT],
+      secondary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.ECLAT],
       avoid: [],
     },
     keyIngredients: [
@@ -290,7 +290,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/medicube-collagen-milk-toning-wrapping-mask.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.REPULPANT],
-      secondary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.ANTI_TACHES],
+      secondary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.ANTI_TACHES],
       avoid: [],
     },
     keyIngredients: [
@@ -317,7 +317,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medicube-pdrn-pink-collagen-gel-mask-4ct.webp',
     tags: {
       primary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.REPULPANT],
-      secondary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.ANTI_AGE],
+      secondary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.ANTI_AGE],
       avoid: [],
     },
     keyIngredients: [
@@ -343,7 +343,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medicube-triple-collagen-cream-1-69-fl-oz-50-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medicube-triple-collagen-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.REPULPANT, TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.REPULPANT, TAG_SLUGS.STEP_HYDRATATION],
       secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.ANTI_AGE],
       avoid: [],
     },
@@ -371,7 +371,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/medicube-kojic-acid-turmeric-night-wrapping-mask.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.ECLAT],
-      secondary: [TAG_SLUGS.SLEEPING_MASK, TAG_SLUGS.SOIR],
+      secondary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.MOMENT_SOIR],
       avoid: [],
     },
     keyIngredients: [
@@ -398,8 +398,8 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/medicube-pdrn-pink-glutathione-serum-mist.webp',
     tags: {
-      primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.BRUME, TAG_SLUGS.ANTI_AGE],
+      primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [TAG_SLUGS.TYPE_MIST, TAG_SLUGS.TEXTURE_EAU, TAG_SLUGS.ANTI_AGE],
       avoid: [],
     },
     keyIngredients: [
@@ -424,8 +424,8 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medicube-zero-pore-pad-5-46-oz-155-g-count-70',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medicube-zero-pore-pad-toner.webp',
     tags: {
-      primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.EXFOLIATION],
-      secondary: [TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.TONIQUE],
+      primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.STEP_TRAITEMENT],
+      secondary: [TAG_SLUGS.PEAU_MIXTE, TAG_SLUGS.TYPE_TONER, TAG_SLUGS.TEXTURE_EAU],
       avoid: [],
     },
     keyIngredients: [
@@ -451,7 +451,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/medicube-kojic-acid-turmeric-brightening-gel-mask.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.ECLAT],
-      secondary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.HYPERPIGMENTATION],
+      secondary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.HYPERPIGMENTATION],
       avoid: [],
     },
     keyIngredients: [
@@ -477,7 +477,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medicube-age-r-glutathione-glow-toner.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES],
-      secondary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.TEINT_TERNE],
+      secondary: [TAG_SLUGS.TYPE_TONER, TAG_SLUGS.TEXTURE_EAU, TAG_SLUGS.TEINT_TERNE],
       avoid: [],
     },
     keyIngredients: [
@@ -504,7 +504,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medicube-one-day-exosome-shot-2000.webp',
     tags: {
       primary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.BARRIERE_CUTANEE],
-      secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.SERUM],
+      secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.TYPE_SERUM],
       avoid: [],
     },
     keyIngredients: [
@@ -536,7 +536,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medicube-zero-pore-pad-pore-cleansing.webp',
     tags: {
       primary: [TAG_SLUGS.PURIFIANT, TAG_SLUGS.GRAIN_PEAU],
-      secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.EXFOLIATION],
+      secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.STEP_TRAITEMENT],
       avoid: [],
     },
     keyIngredients: [
@@ -561,8 +561,8 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medicube-zero-foam-cleanser-4-23-oz-120-g',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medicube-zero-foam-cleanser.webp',
     tags: {
-      primary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.MOUSSE_NETTOYANTE],
-      secondary: [TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
+      primary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.TEXTURE_MOUSSE],
+      secondary: [TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.MOMENT_SOIR],
       avoid: [],
     },
     keyIngredients: [
@@ -588,7 +588,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/medicube-collagen-night-wrapping-mask-75ml.webp',
     tags: {
       primary: [TAG_SLUGS.REPULPANT, TAG_SLUGS.BARRIERE_CUTANEE],
-      secondary: [TAG_SLUGS.SLEEPING_MASK, TAG_SLUGS.SOIR],
+      secondary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.MOMENT_SOIR],
       avoid: [],
     },
     keyIngredients: [
@@ -615,7 +615,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medicube-one-day-exosome-shot-7500.webp',
     tags: {
       primary: [TAG_SLUGS.REPARATEUR, TAG_SLUGS.BARRIERE_CUTANEE],
-      secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.SERUM],
+      secondary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.TYPE_SERUM],
       avoid: [],
     },
     keyIngredients: [
@@ -647,7 +647,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/medicube-pdrn-pink-collagen-exosome-shot-2000-serum.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPULPANT],
-      secondary: [TAG_SLUGS.SERUM],
+      secondary: [TAG_SLUGS.TYPE_SERUM],
       avoid: [],
     },
     keyIngredients: [
@@ -675,7 +675,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/medicube-pdrn-pink-collagen-capsule-cream.webp',
     tags: {
       primary: [TAG_SLUGS.REPULPANT, TAG_SLUGS.ECLAT],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE],
+      secondary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME],
       avoid: [],
     },
     keyIngredients: [
@@ -702,8 +702,8 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/medicube-pdrn-pink-niacinamide-milky-toner.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
-      secondary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.PEAU_SECHE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
+      secondary: [TAG_SLUGS.TYPE_TONER, TAG_SLUGS.TEXTURE_EAU, TAG_SLUGS.PEAU_SECHE],
       avoid: [],
     },
     keyIngredients: [
@@ -730,7 +730,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medicube-age-r-glutathione-glow-serum.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_AGE],
-      secondary: [TAG_SLUGS.SERUM, TAG_SLUGS.ANTI_TACHES],
+      secondary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.ANTI_TACHES],
       avoid: [],
     },
     keyIngredients: [
@@ -756,8 +756,8 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medicube-collagen-jelly-cream-3-71-fl-oz-110-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medicube-collagen-jelly-cream-110ml.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.REPULPANT],
-      secondary: [TAG_SLUGS.GEL_CREME],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.REPULPANT],
+      secondary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_GEL],
       avoid: [],
     },
     keyIngredients: [
@@ -783,8 +783,8 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medicube-collagen-jelly-cream-1-69-fl-oz-50-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medicube-collagen-jelly-cream-50ml.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.REPULPANT],
-      secondary: [TAG_SLUGS.GEL_CREME, TAG_SLUGS.PEAU_MIXTE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.REPULPANT],
+      secondary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_GEL, TAG_SLUGS.PEAU_MIXTE],
       avoid: [],
     },
     keyIngredients: [
@@ -810,7 +810,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medicube-pdrn-pink-collagen-facial-mask.webp',
     tags: {
       primary: [TAG_SLUGS.REPULPANT, TAG_SLUGS.REPARATEUR],
-      secondary: [TAG_SLUGS.MASQUE_TISSU],
+      secondary: [TAG_SLUGS.TYPE_MASQUE],
       avoid: [],
     },
     keyIngredients: [
@@ -837,7 +837,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medicube-pdrn-pink-cica-soothing-toner.webp',
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.ANTI_ROUGEURS],
-      secondary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.PEAU_SENSIBLE],
+      secondary: [TAG_SLUGS.TYPE_TONER, TAG_SLUGS.TEXTURE_EAU, TAG_SLUGS.PEAU_SENSIBLE],
       avoid: [],
     },
     keyIngredients: [
@@ -865,7 +865,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/medicube-pdrn-pink-collagen-gel-mask-single.webp',
     tags: {
       primary: [TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_AGE],
-      secondary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.ECLAT],
+      secondary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.ECLAT],
       avoid: [],
     },
     keyIngredients: [
@@ -890,8 +890,8 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medicube-jelly-cream-collagen-3-71-fl-oz-110-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medicube-collagen-jelly-cream-110ml-v2.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.REPULPANT],
-      secondary: [TAG_SLUGS.GEL_CREME, TAG_SLUGS.ECLAT],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.REPULPANT],
+      secondary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_GEL, TAG_SLUGS.ECLAT],
       avoid: [],
     },
     keyIngredients: [
@@ -915,7 +915,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/medicube-zero-pore-pad-2-0-lactic-acid-panthenol-5-46-oz-155-g-70-count',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medicube-zero-pore-pad-2-0-bha.webp',
     tags: {
-      primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.EXFOLIATION],
+      primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.STEP_TRAITEMENT],
       secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.GRAIN_PEAU],
       avoid: [],
     },
@@ -943,7 +943,7 @@ export const MEDICUBE_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/medicube-deep-peptide-radiance-mask.webp',
     tags: {
       primary: [TAG_SLUGS.REPULPANT, TAG_SLUGS.ECLAT],
-      secondary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.ANTI_AGE],
+      secondary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.ANTI_AGE],
       avoid: [],
     },
     keyIngredients: [

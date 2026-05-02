@@ -21,9 +21,10 @@ export const ABIB_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
-        TAG_SLUGS.MOUSSE_NETTOYANTE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_MOUSSE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -58,7 +59,7 @@ export const ABIB_SEED: UnifiedProductSeed[] = [
       'https://cdn1.skinsafeproducts.com/photo/C1510C255E7F91/large_1745398641.png?1745398641',
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.ECLAT],
-      secondary: [TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.MOMENT_SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -88,8 +89,14 @@ export const ABIB_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/abib-jericho-rose-jelly-collagen-eye-patch.webp',
     tags: {
-      primary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.PATCH, TAG_SLUGS.REPULPANT, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.TYPE_TRAITEMENT, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [
+        TAG_SLUGS.TYPE_MASQUE,
+        TAG_SLUGS.TEXTURE_PATCH,
+        TAG_SLUGS.REPULPANT,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -116,8 +123,8 @@ export const ABIB_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/91C45671F98098/large_1731490814.png?1731490814',
     tags: {
-      primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.MASQUE_HYDRATANT, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.MOMENT_SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -146,8 +153,8 @@ export const ABIB_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/abib-gummy-sheet-mask-collagen-milk-sticker.webp',
     tags: {
-      primary: [TAG_SLUGS.REPULPANT, TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.REPULPANT, TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.MOMENT_SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -181,10 +188,10 @@ export const ABIB_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/abib-collagen-gel-mask-heart-leaf-1-23-oz-35-g',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/abib-collagen-gel-mask-heart-leaf-jelly.webp',
     tags: {
-      primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
-        TAG_SLUGS.MASQUE_HYDRATANT,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_MASQUE,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.BARRIERE_CUTANEE,
       ],
@@ -217,7 +224,12 @@ export const ABIB_SEED: UnifiedProductSeed[] = [
       'https://cdn1.skinsafeproducts.com/photo/BD22C2526BFF64/large_1745409254.png?1745409254',
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.ECLAT, TAG_SLUGS.HYPERPIGMENTATION],
-      secondary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -253,7 +265,7 @@ export const ABIB_SEED: UnifiedProductSeed[] = [
       'https://cdn1.skinsafeproducts.com/photo/79233471325A76/large_1745407989.jpeg?1745407989',
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.ECLAT],
-      secondary: [TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.MOMENT_MATIN, TAG_SLUGS.MOMENT_SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [
@@ -288,7 +300,7 @@ export const ABIB_SEED: UnifiedProductSeed[] = [
       'https://cdn1.skinsafeproducts.com/photo/04DF67A7C86692/large_1718963038.png?1718963038',
     tags: {
       primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE],
-      secondary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.MOMENT_SOIR, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [

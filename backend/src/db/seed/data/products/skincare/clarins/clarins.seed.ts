@@ -19,8 +19,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-baume-corps-super-hydratant-beurre-de-karite.webp',
     tags: {
-      primary: ['hydratation', 'apaisant'],
-      secondary: ['peau-sensible', 'lait-corps', 'zone-corps'],
+      primary: ['step-hydratation', 'apaisant'],
+      secondary: ['peau-sensible', 'type-hydratant', 'texture-lait', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -46,8 +46,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-aroma-l-or-des-plantes-emulsion-en-huile-multi-revitalisante.webp',
     tags: {
-      primary: ['anti-oxydant', 'hydratation'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['anti-oxydant', 'step-hydratation'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -76,8 +76,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-cryo-flash-cream-mask-soin-tenseur.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -102,8 +102,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clarins/clarins-demaquillant-douceur-yeux-125ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clarins-demaquillant-douceur-yeux.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'barriere-cutanee'],
-      secondary: ['reparateur', 'keratolytique', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant', 'barriere-cutanee'],
+      secondary: ['reparateur', 'keratolytique', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -128,8 +128,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clarins/clarins-demaquillant-express-yeux-125ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clarins-demaquillant-express-yeux.webp',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
-      secondary: ['reparateur', 'keratolytique', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['apaisant', 'barriere-cutanee', 'step-hydratation'],
+      secondary: ['reparateur', 'keratolytique', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.PANTHENOL }, { slug: INGREDIENT_SLUGS.PROPANEDIOL }],
@@ -151,15 +151,15 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-double-serum-traitement-jeunesse-intensif.webp',
     tags: {
-      primary: ['anti-age', 'hydratation', 'apaisant'],
+      primary: ['anti-age', 'step-hydratation', 'apaisant'],
       secondary: [
-        'emollience',
+        'step-hydratation',
         'texture-legere',
         'peau-sensible',
         'keratolytique',
         'reparateur',
-        'serum',
-        'traitement',
+        'type-serum',
+        'step-traitement',
         'zone-visage',
       ],
       avoid: [],
@@ -192,8 +192,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-eau-des-jardins-eau-de-soins-parfumee.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['essence', 'preparation', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['type-toner', 'step-preparation', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.BETAINE }],
@@ -215,8 +215,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-eau-dynamisante-eau-de-soins-parfumee.webp',
     tags: {
-      primary: ['apaisant', 'hydratation'],
-      secondary: ['essence', 'preparation', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation'],
+      secondary: ['type-toner', 'step-preparation', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -242,8 +242,15 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-eau-dynamisante-lait-fondant-energisant.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'anti-oxydant'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -270,8 +277,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clarins/clarins-eau-micellaire-demaquillante-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clarins-eau-micellaire-demaquillante.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -298,12 +305,13 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-extra-firming-collagen-3-creme-jour-peaux-seches.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'pores-dilates'],
+      primary: ['apaisant', 'step-hydratation', 'pores-dilates'],
       secondary: [
         'sebo-regulateur',
         'peau-sensible',
         'reparateur',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
       ],
       avoid: [],
@@ -334,12 +342,13 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-extra-firming-collagen-3-creme-jour-toutes-peaux.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'pores-dilates'],
+      primary: ['apaisant', 'step-hydratation', 'pores-dilates'],
       secondary: [
         'sebo-regulateur',
         'peau-sensible',
         'reparateur',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
       ],
       avoid: [],
@@ -370,12 +379,13 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-extra-firming-collagen-3-creme-nuit.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'pores-dilates'],
+      primary: ['apaisant', 'step-hydratation', 'pores-dilates'],
       secondary: [
         'sebo-regulateur',
         'peau-sensible',
         'reparateur',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
       ],
       avoid: [],
@@ -406,12 +416,13 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-extra-firming-collagen-3-creme-nuit-peaux-seches.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'pores-dilates'],
+      primary: ['apaisant', 'step-hydratation', 'pores-dilates'],
       secondary: [
         'sebo-regulateur',
         'peau-sensible',
         'reparateur',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
       ],
       avoid: [],
@@ -442,8 +453,14 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-extra-firming-collagen-3-emulsion.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'pores-dilates'],
-      secondary: ['sebo-regulateur', 'peau-sensible', 'creme-hydratante', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation', 'pores-dilates'],
+      secondary: [
+        'sebo-regulateur',
+        'peau-sensible',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -471,12 +488,13 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-extra-firming-collagen-3-recharge-creme-jour-peaux-seches.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'pores-dilates'],
+      primary: ['apaisant', 'step-hydratation', 'pores-dilates'],
       secondary: [
         'sebo-regulateur',
         'peau-sensible',
         'reparateur',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
       ],
       avoid: [],
@@ -507,12 +525,13 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-extra-firming-collagen-3-recharge-creme-jour-toutes-peaux.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'pores-dilates'],
+      primary: ['apaisant', 'step-hydratation', 'pores-dilates'],
       secondary: [
         'sebo-regulateur',
         'peau-sensible',
         'reparateur',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
       ],
       avoid: [],
@@ -543,12 +562,13 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-extra-firming-collagen-3-recharge-creme-nuit.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'pores-dilates'],
+      primary: ['apaisant', 'step-hydratation', 'pores-dilates'],
       secondary: [
         'sebo-regulateur',
         'peau-sensible',
         'reparateur',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
       ],
       avoid: [],
@@ -579,12 +599,13 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-extra-firming-collagen-3-recharge-creme-nuit-peaux-seches.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'pores-dilates'],
+      primary: ['apaisant', 'step-hydratation', 'pores-dilates'],
       secondary: [
         'sebo-regulateur',
         'peau-sensible',
         'reparateur',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
       ],
       avoid: [],
@@ -615,7 +636,7 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clarins-huile-tres-demaquillante.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      secondary: ['reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -643,8 +664,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-hydra-essentiel-bi-serum-anti-soif-suractive.webp',
     tags: {
-      primary: ['hydratation', 'repulpant', 'anti-oxydant'],
-      secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
+      primary: ['step-hydratation', 'repulpant', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -673,8 +694,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-hydra-essentiel-emulsion-desalterante.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -702,8 +723,15 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-hydra-essentiel-ha2-creme-desalterante.webp',
     tags: {
-      primary: ['hydratation', 'barriere-cutanee', 'anti-oxydant'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'barriere-cutanee', 'anti-oxydant'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -731,8 +759,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-hydra-essentiel-ha2-creme-riche-desalterante.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -760,7 +788,13 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/clarins-hydra-essentiel-ha-peptide-baume-levres-reparateur.webp',
     tags: {
       primary: ['barriere-cutanee', 'anti-age', 'anti-oxydant', 'cicatrisation'],
-      secondary: ['reparateur', 'emollience', 'soin-levres', 'zone-levres'],
+      secondary: [
+        'reparateur',
+        'step-hydratation',
+        'type-traitement',
+        'zone-levres',
+        'zone-levres',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -791,8 +825,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-hydra-essentiel-masque-creme-reparateur.webp',
     tags: {
-      primary: ['hydratation', 'barriere-cutanee', 'repulpant', 'cicatrisation'],
-      secondary: ['emollience', 'reparateur', 'masque-hebdo', 'zone-visage'],
+      primary: ['step-hydratation', 'barriere-cutanee', 'repulpant', 'cicatrisation'],
+      secondary: ['step-hydratation', 'reparateur', 'moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -819,8 +853,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clarins/clarins-lait-velours-demaquillant-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clarins-lait-velours-demaquillant.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -845,8 +879,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clarins/clarins-lotion-tonique-apaisante-400ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clarins-lotion-tonique-apaisante.webp',
     tags: {
-      primary: ['hydratation', 'apaisant'],
-      secondary: ['tonique', 'preparation', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant'],
+      secondary: ['type-toner', 'texture-eau', 'step-preparation', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -872,8 +906,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-lotion-tonique-hydratante-peaux-normales-a-seches.webp',
     tags: {
-      primary: ['hydratation', 'apaisant'],
-      secondary: ['tonique', 'preparation', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant'],
+      secondary: ['type-toner', 'texture-eau', 'step-preparation', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -901,8 +935,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-masvelt-advanced-creme-anti-rondeurs-rebelles.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -931,8 +965,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clarins/clarins-men-gel-moussant-rasage-ideal-150ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clarins-men-gel-moussant-rasage-ideal.webp',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
-      secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['apaisant', 'barriere-cutanee', 'step-hydratation'],
+      secondary: ['reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -958,8 +992,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-men-lotion-apaisante-apres-rasage.webp',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
-      secondary: ['reparateur', 'tonique', 'preparation', 'zone-visage'],
+      primary: ['apaisant', 'barriere-cutanee', 'step-hydratation'],
+      secondary: ['reparateur', 'type-toner', 'texture-eau', 'step-preparation', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.BETAINE }, { slug: INGREDIENT_SLUGS.PANTHENOL }],
@@ -980,8 +1014,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clarins/clarins-men-nettoyant-visage-125ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clarins-men-nettoyant-visage.webp',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
-      secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['apaisant', 'barriere-cutanee', 'step-hydratation'],
+      secondary: ['reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1008,7 +1042,13 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/clarins-multi-active-emulsion-lissante-booster-d-eclat.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1035,7 +1075,13 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clarins-multi-active-jour-creme-lissante.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1061,7 +1107,13 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl: '',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1089,7 +1141,13 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl: '',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1116,8 +1174,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-multi-intensive-essence-de-jeunesse-defroissante.webp',
     tags: {
-      primary: ['hydratation', 'apaisant'],
-      secondary: ['peau-sensible', 'essence', 'preparation', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant'],
+      secondary: ['peau-sensible', 'type-toner', 'step-preparation', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1147,8 +1205,14 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-multi-intensive-jour-creme-lift-anti-rides.webp',
     tags: {
-      primary: ['anti-age', 'barriere-cutanee', 'hydratation'],
-      secondary: ['emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
+      primary: ['anti-age', 'barriere-cutanee', 'step-hydratation'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1178,8 +1242,15 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clarins/clarins-multi-intensive-nuit-creme-lift-anti-rides-50ml-peaux-seches.html',
     imageUrl: '',
     tags: {
-      primary: ['anti-age', 'hydratation', 'barriere-cutanee'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['anti-age', 'step-hydratation', 'barriere-cutanee'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1209,8 +1280,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clarins/clarins-multi-intensive-nuit-creme-lift-anti-rides-50ml-toutes-peaux.html',
     imageUrl: '',
     tags: {
-      primary: ['anti-age', 'hydratation', 'anti-oxydant'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['anti-age', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1243,11 +1314,12 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['barriere-cutanee', 'apaisant', 'anti-oxydant'],
       secondary: [
-        'emollience',
+        'step-hydratation',
         'texture-legere',
         'peau-sensible',
         'reparateur',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
       ],
       avoid: [],
@@ -1280,13 +1352,14 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-nutri-lumiere-jour-emulsion-revitalisante.webp',
     tags: {
-      primary: ['hydratation', 'barriere-cutanee', 'apaisant'],
+      primary: ['step-hydratation', 'barriere-cutanee', 'apaisant'],
       secondary: [
-        'emollience',
+        'step-hydratation',
         'texture-legere',
         'peau-sensible',
         'reparateur',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
       ],
       avoid: [],
@@ -1319,8 +1392,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-nutri-lumiere-nuit-creme-reconstituante.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1351,7 +1424,7 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/clarins-soin-levres-et-contour-multi-regenerant.webp',
     tags: {
       primary: ['anti-age', 'apaisant', 'anti-oxydant'],
-      secondary: ['soin-levres', 'zone-levres'],
+      secondary: ['type-traitement', 'zone-levres', 'zone-levres'],
       avoid: [],
     },
     keyIngredients: [
@@ -1377,8 +1450,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clarins/clarins-sos-primer-base-matifiante-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clarins-sos-primer-base-matifiante.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'sebo-regulateur'],
-      secondary: ['reparateur', 'primer', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'sebo-regulateur'],
+      secondary: ['reparateur', 'type-primer', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
   },
@@ -1398,8 +1471,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clarins/clarins-sos-primer-blanc-booste-l-eclat-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clarins-sos-primer-blanc-booste-l-eclat.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'eclat'],
-      secondary: ['reparateur', 'primer', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'eclat'],
+      secondary: ['reparateur', 'type-primer', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1428,8 +1501,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-sos-primer-peche-camoufle-les-imperfections.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'primer', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-primer', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1458,8 +1531,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-sos-primer-rose-attenue-les-signes-de-fatigue.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'primer', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-primer', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
   },
@@ -1480,8 +1553,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-sos-primer-vert-estompe-les-rougeurs.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'primer', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-primer', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1509,8 +1582,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clarins/clarins-supra-serum-lift-remodelant.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clarins-supra-serum-lift-remodelant.webp',
     tags: {
-      primary: ['apaisant', 'anti-age', 'hydratation'],
-      secondary: ['peau-sensible', 'serum', 'traitement', 'zone-visage'],
+      primary: ['apaisant', 'anti-age', 'step-hydratation'],
+      secondary: ['peau-sensible', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1543,10 +1616,10 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
       primary: ['barriere-cutanee', 'anti-oxydant'],
       secondary: [
         'reparateur',
-        'emollience',
+        'step-hydratation',
         'texture-legere',
-        'serum',
-        'traitement',
+        'type-serum',
+        'step-traitement',
         'zone-visage',
       ],
       avoid: [],
@@ -1568,8 +1641,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-produits/nettoyants-demaquillants/clarins-mousse-nettoyante-peau-neuve-150ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clarins-mousse-nettoyante-peau-neuve.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1596,8 +1669,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-produits/parfums/clarins-eau-ressourcante-eau-de-soins.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clarins-eau-ressourcante-eau-de-soins.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['essence', 'preparation', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['type-toner', 'step-preparation', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.BETAINE }, { slug: INGREDIENT_SLUGS.SODIUM_CITRATE }],
@@ -1619,8 +1692,8 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-doux-nettoyant-gommant-express-soins-demaquillants.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.PROPANEDIOL }],
@@ -1642,8 +1715,15 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-baume-huile-hydratant-tonic-aux-huile-essentielle.webp',
     tags: {
-      primary: ['hydratation', 'barriere-cutanee', 'apaisant'],
-      secondary: ['emollience', 'texture-legere', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'barriere-cutanee', 'apaisant'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1674,8 +1754,21 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-extra-firming-collagen-3-spf15-creme-jour.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'pores-dilates', 'protection-solaire'],
-      secondary: ['sebo-regulateur', 'peau-sensible', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'apaisant',
+        'step-hydratation',
+        'pores-dilates',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'sebo-regulateur',
+        'peau-sensible',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1703,8 +1796,14 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-hydra-essentiel-ha-creme-hydratante-spf15.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1733,13 +1832,14 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/clarins-multi-active-jour-spf15-creme-lissante.webp',
     tags: {
-      primary: ['protection-solaire', 'pores-dilates', 'hydratation'],
+      primary: ['step-protection-solaire', 'moment-matin', 'pores-dilates', 'step-hydratation'],
       secondary: [
         'filtres-chimiques',
         'sebo-regulateur',
         'reparateur',
-        'creme-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: [],
@@ -1771,14 +1871,21 @@ export const CLARINS_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/clarins/clarins-skin-illusion-spf15-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/clarins-skin-illusion-spf15.webp',
     tags: {
-      primary: ['hydratation', 'barriere-cutanee', 'anti-oxydant', 'protection-solaire'],
+      primary: [
+        'step-hydratation',
+        'barriere-cutanee',
+        'anti-oxydant',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
       secondary: [
-        'emollience',
+        'step-hydratation',
         'texture-legere',
         'keratolytique',
         'reparateur',
-        'creme-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: [],

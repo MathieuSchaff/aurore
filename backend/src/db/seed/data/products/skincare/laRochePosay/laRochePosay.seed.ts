@@ -22,8 +22,9 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HUILE_NETTOYANTE,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_1,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_HUILE,
+        TAG_SLUGS.STEP_NETTOYAGE_1,
         TAG_SLUGS.MICROBIOME,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.SANS_SAVON,
@@ -66,16 +67,19 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     url: 'https://www.laroche-posay.fr',
     tags: {
       primary: [
-        TAG_SLUGS.PROTECTION_SOLAIRE,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.PHOTO_VIEILLISSEMENT,
         TAG_SLUGS.PEAU_SENSIBLE,
       ],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.BRUME,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.TYPE_MIST,
+        TAG_SLUGS.TEXTURE_EAU,
         TAG_SLUGS.FILTRES_CHIMIQUES,
         TAG_SLUGS.HYPOALLERGENIQUE,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.PEAU_SENSIBLE,
       ],
@@ -123,10 +127,10 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_AGE],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.BARRIERE_CUTANEE,
@@ -173,10 +177,11 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.POST_ACNE, TAG_SLUGS.PEAU_GRASSE],
       secondary: [
-        TAG_SLUGS.GEL_CREME,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.MICROBIOME,
         TAG_SLUGS.NON_COMEDOGENE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -233,11 +238,18 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     url: 'https://www.laroche-posay.fr',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-cicaplast-baume-b5-spf50.webp',
     tags: {
-      primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CICATRISATION, TAG_SLUGS.PROTECTION_SOLAIRE],
+      primary: [
+        TAG_SLUGS.BARRIERE_CUTANEE,
+        TAG_SLUGS.CICATRISATION,
+        TAG_SLUGS.STEP_PROTECTION_SOLAIRE,
+        TAG_SLUGS.MOMENT_MATIN,
+      ],
       secondary: [
-        TAG_SLUGS.CREME_SOLAIRE,
-        TAG_SLUGS.BAUME,
-        TAG_SLUGS.MATIN,
+        TAG_SLUGS.TYPE_SOLAIRE,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_BAUME,
+        TAG_SLUGS.MOMENT_MATIN,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.FILTRES_MINERAUX,
         TAG_SLUGS.NON_COMEDOGENE,
@@ -288,10 +300,11 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ROSACEE, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
-        TAG_SLUGS.GEL_CREME,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.MICROBIOME,
         TAG_SLUGS.PIGMENTS_VERTS,
         TAG_SLUGS.SANS_PARFUM,
@@ -335,11 +348,12 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.MICROBIOME,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.NON_COMEDOGENE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -385,11 +399,13 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CICATRISATION, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
-        TAG_SLUGS.BAUME,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.EMOLLIENCE,
-        TAG_SLUGS.OCCLUSION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_BAUME,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.STEP_OCCLUSIF,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.OCCLUSIF,
         TAG_SLUGS.TEXTURE_RICHE,
         TAG_SLUGS.MICROBIOME,
@@ -442,10 +458,11 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_AGE],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.TEXTURE_RICHE,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.BARRIERE_CUTANEE,
@@ -487,9 +504,10 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BRILLANCE, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.PEAU_GRASSE],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.MATIFIANT,
         TAG_SLUGS.NON_COMEDOGENE,
         TAG_SLUGS.ZONE_VISAGE,
@@ -533,10 +551,11 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.HYPOALLERGENIQUE,
         TAG_SLUGS.NON_COMEDOGENE,
@@ -574,9 +593,9 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.TEINT_TERNE, TAG_SLUGS.ANTI_AGE],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ANTI_TACHES,
         TAG_SLUGS.HYPERPIGMENTATION,
@@ -624,11 +643,13 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.BAUME,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.EMOLLIENCE,
-        TAG_SLUGS.OCCLUSION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_BAUME,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.STEP_OCCLUSIF,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.MICROBIOME,
         TAG_SLUGS.OCCLUSIF,
         TAG_SLUGS.TEXTURE_RICHE,
@@ -687,12 +708,14 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.LAIT_CORPS,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_LAIT,
+        TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.HYPOALLERGENIQUE,
         TAG_SLUGS.SANS_PARFUM,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.EMOLLIENCE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.ZONE_CORPS,
       ],
       avoid: [],
@@ -740,8 +763,9 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES, TAG_SLUGS.PEAU_GRASSE],
       secondary: [
-        TAG_SLUGS.GEL_NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.MICROBIOME,
         TAG_SLUGS.SANS_SAVON,
         TAG_SLUGS.ZONE_VISAGE,
@@ -788,10 +812,10 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.HYPERPIGMENTATION, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.POST_ACNE,
         TAG_SLUGS.TEINT_TERNE,
@@ -833,9 +857,9 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.HYPERPIGMENTATION,
         TAG_SLUGS.PHOTO_VIEILLISSEMENT,
@@ -881,14 +905,15 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-kerium-shampoing-apaisant-gel-physiologique-400ml-268326.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION],
+      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.STEP_TRAITEMENT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
@@ -910,14 +935,15 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-kerium-ds-shampoing-antipelliculaire-pellicules-persistantes-200ml-257932.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION, TAG_SLUGS.PORES_DILATES],
+      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.PORES_DILATES],
       secondary: [
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.HYDRATATION,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
@@ -939,14 +965,15 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-kerium-shampoing-antipelliculaire-cheveux-gras-200ml-258193.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION],
+      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.STEP_TRAITEMENT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
@@ -970,9 +997,10 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -997,9 +1025,10 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1024,9 +1053,10 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1051,9 +1081,10 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1076,7 +1107,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-routine-peau-seche-huile-lavante-ap-anti-irritation-1l-baume-ap-m-triple-reparation-400ml-299915.webp',
     tags: {
-      primary: [TAG_SLUGS.SOIN_LEVRES],
+      primary: [TAG_SLUGS.TYPE_TRAITEMENT, TAG_SLUGS.ZONE_LEVRES],
       secondary: [TAG_SLUGS.ZONE_LEVRES],
       avoid: [],
     },
@@ -1100,9 +1131,10 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1126,7 +1158,12 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-huile-lavante-ap-anti-irritation-400ml-269453.webp',
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
-      secondary: [TAG_SLUGS.SEBO_REGULATEUR, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [
+        TAG_SLUGS.SEBO_REGULATEUR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -1149,10 +1186,9 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1177,10 +1213,9 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.APAISANT, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.REPARATEUR,
-        TAG_SLUGS.NETTOYANT,
-        TAG_SLUGS.DOUBLE_NETTOYAGE_2,
+        TAG_SLUGS.STEP_NETTOYAGE_2,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1205,9 +1240,10 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1230,8 +1266,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-pain-surgras-anti-dessechement-150g-279359.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.ZONE_VISAGE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION],
+      secondary: [TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_CREME, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],
@@ -1254,9 +1290,10 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1281,9 +1318,10 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1308,9 +1346,10 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1333,7 +1372,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-routine-peau-seche-syndet-ap-creme-lavante-400ml-baume-ap-m-triple-reparation-400ml-299917.webp',
     tags: {
-      primary: [TAG_SLUGS.SOIN_LEVRES],
+      primary: [TAG_SLUGS.TYPE_TRAITEMENT, TAG_SLUGS.ZONE_LEVRES],
       secondary: [TAG_SLUGS.ZONE_LEVRES],
       avoid: [],
     },
@@ -1357,9 +1396,10 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PORES_DILATES, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -1383,7 +1423,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lot-lipikar-huile-lavante-ap-relipidante-anti-grattage.webp',
     tags: {
       primary: ['barriere-cutanee', 'eczema'],
-      secondary: ['nettoyant-corps', 'zone-corps', 'peau-seche', 'apaisant'],
+      secondary: ['type-nettoyant', 'zone-corps', 'zone-corps', 'peau-seche', 'apaisant'],
       avoid: [],
     },
     keyIngredients: [
@@ -1408,7 +1448,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-huile-lavante-ap-anti-irritation-eco-recharge-lot-2-x.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
+      secondary: ['sebo-regulateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.NIACINAMIDE }],
@@ -1429,8 +1469,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-cicaplast-b5-gel-lavant-100ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-cicaplast-b5-gel-lavant.webp',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
-      secondary: ['reparateur', 'nettoyant-corps', 'zone-corps'],
+      primary: ['apaisant', 'barriere-cutanee', 'step-hydratation'],
+      secondary: ['reparateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -1456,7 +1496,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-cicaplast-mains-creme-t.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'creme-mains', 'zone-mains'],
+      secondary: ['sebo-regulateur', 'type-hydratant', 'texture-creme', 'zone-mains', 'zone-mains'],
       avoid: [],
     },
     keyIngredients: [
@@ -1482,7 +1522,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-deodorant-physiologique-24.webp',
     tags: {
       primary: ['apaisant'],
-      secondary: ['deodorant'],
+      secondary: ['type-deodorant'],
       avoid: [],
     },
     keyIngredients: [
@@ -1507,7 +1547,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-deodorant-spray-24h.webp',
     tags: {
       primary: ['apaisant'],
-      secondary: ['deodorant'],
+      secondary: ['type-deodorant'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.ALLANTOIN }, { slug: INGREDIENT_SLUGS.ZINC_PCA }],
@@ -1530,7 +1570,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-h-iso-biome-creme-lavante-390ml.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
+      secondary: ['sebo-regulateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -1556,7 +1596,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-creme-lavante.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
+      secondary: ['sebo-regulateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.NIACINAMIDE }],
@@ -1578,8 +1618,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-creme-mains-reparatrice-stick-levres.webp',
     tags: {
-      primary: ['anti-age', 'anti-oxydant', 'hydratation', 'cicatrisation'],
-      secondary: ['reparateur', 'creme-mains', 'zone-mains'],
+      primary: ['anti-age', 'anti-oxydant', 'step-hydratation', 'cicatrisation'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-mains', 'zone-mains'],
       avoid: [],
     },
     keyIngredients: [
@@ -1607,7 +1647,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-gel-lavant.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
+      secondary: ['sebo-regulateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.NIACINAMIDE }],
@@ -1630,7 +1670,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-gel-lavant-apaisant-recharge.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'apaisant'],
-      secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
+      secondary: ['sebo-regulateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
   },
@@ -1652,7 +1692,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-gel-lavant-lait-relipidant.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
+      secondary: ['sebo-regulateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.NIACINAMIDE }],
@@ -1675,7 +1715,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-surgras-creme-lavante-recharge.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
+      secondary: ['sebo-regulateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
   },
@@ -1696,7 +1736,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-deodorant-24h-roll-on.webp',
     tags: {
       primary: ['apaisant'],
-      secondary: ['deodorant'],
+      secondary: ['type-deodorant'],
       avoid: [],
     },
     keyIngredients: [
@@ -1722,7 +1762,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-lait-relipidant-corps.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'lait-corps', 'zone-corps'],
+      secondary: ['sebo-regulateur', 'type-hydratant', 'texture-lait', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.NIACINAMIDE }, { slug: INGREDIENT_SLUGS.BISABOLOL }],
@@ -1745,7 +1785,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-surgras-creme-lavante.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
+      secondary: ['sebo-regulateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.NIACINAMIDE }],
@@ -1768,7 +1808,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-syndet-ap-creme-lavante-400ml.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
+      secondary: ['sebo-regulateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -1795,7 +1835,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-syndet-ap-creme-lavante-relipidiante-recharge.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
+      secondary: ['sebo-regulateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
   },
@@ -1816,8 +1856,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-xerand-creme-mains-reparatrice.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'cicatrisation'],
-      secondary: ['creme-mains', 'zone-mains', 'reparateur'],
+      primary: ['apaisant', 'step-hydratation', 'cicatrisation'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-mains', 'zone-mains', 'reparateur'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.ALLANTOIN }],
@@ -1839,7 +1879,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-huile-lavante-ap.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
+      secondary: ['sebo-regulateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.NIACINAMIDE }],
@@ -1863,11 +1903,12 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['barriere-cutanee', 'pores-dilates', 'apaisant', 'cicatrisation'],
       secondary: [
-        'emollience',
+        'step-hydratation',
         'texture-legere',
         'reparateur',
         'sebo-regulateur',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
       ],
       avoid: [],
@@ -1896,8 +1937,14 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-lotion-astringente.webp',
     tags: {
-      primary: ['anti-acne', 'hydratation'],
-      secondary: ['sebo-regulateur', 'tonique', 'preparation', 'zone-visage'],
+      primary: ['anti-acne', 'step-hydratation'],
+      secondary: [
+        'sebo-regulateur',
+        'type-toner',
+        'texture-eau',
+        'step-preparation',
+        'zone-visage',
+      ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
@@ -1924,7 +1971,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-cicaplast-b5-baume-ultra-reparateur-apaisant.webp',
     tags: {
       primary: ['apaisant', 'cicatrisation', 'microbiome'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1955,8 +2002,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-cicaplast-b5-serum-ultra-reparateur.webp',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation', 'cicatrisation'],
-      secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
+      primary: ['apaisant', 'barriere-cutanee', 'step-hydratation', 'cicatrisation'],
+      secondary: ['reparateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1981,8 +2028,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-cicaplast-baume-b5-100ml-ultra-reparateur.html',
     imageUrl: '',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['apaisant', 'barriere-cutanee', 'step-hydratation'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -2008,7 +2055,13 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-cicaplast-mains-creme-reparatrice.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'cicatrisation'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2032,15 +2085,16 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-effaclar-az-gel-creme-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-az-gel-creme.webp',
     tags: {
-      primary: ['anti-acne', 'anti-rougeurs', 'exfoliation'],
+      primary: ['anti-acne', 'anti-rougeurs', 'step-traitement'],
       secondary: [
-        'traitement',
+        'step-traitement',
         'sebo-regulateur',
         'keratolytique',
         'reparateur',
-        'creme-hydratante',
+        'type-hydratant',
+        'texture-creme',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
@@ -2063,7 +2117,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-duo-m-22-patchs-anti-imperfections.webp',
     tags: {
       primary: ['anti-acne'],
-      secondary: ['patch'],
+      secondary: ['type-masque', 'texture-patch'],
       avoid: [],
     },
   },
@@ -2084,8 +2138,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-eau-micellaire-ultra-lot-de-2x400ml-peaux-grasses.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.ZINC_PCA }],
@@ -2107,8 +2161,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-eau-micellaire-ultra-peaux-grasses.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage', 'peau-grasse'],
+      primary: ['step-hydratation'],
+      secondary: ['step-nettoyage-2', 'zone-visage', 'peau-grasse'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.ZINC_PCA }],
@@ -2130,7 +2184,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-gel-purifiant.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      secondary: ['reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
   },
@@ -2151,8 +2205,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-gel-purifiant-400ml.webp',
     tags: {
-      primary: ['anti-acne', 'hydratation'],
-      secondary: ['sebo-regulateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['anti-acne', 'step-hydratation'],
+      secondary: ['sebo-regulateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
@@ -2178,8 +2232,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-masque-sebo-reglateur.webp',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
-      secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
+      primary: ['apaisant', 'barriere-cutanee', 'step-hydratation'],
+      secondary: ['reparateur', 'moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -2207,7 +2261,13 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-serum-ultra-concentre.webp',
     tags: {
       primary: ['anti-acne', 'eclat', 'pores-dilates'],
-      secondary: ['keratolytique', 'sebo-regulateur', 'serum', 'traitement', 'zone-visage'],
+      secondary: [
+        'keratolytique',
+        'sebo-regulateur',
+        'type-serum',
+        'step-traitement',
+        'zone-visage',
+      ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
@@ -2237,8 +2297,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-hyalu-b5-serum-suractive-50ml.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-age'],
-      secondary: ['reparateur', 'serum', 'traitement', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant', 'anti-age'],
+      secondary: ['reparateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
   },
@@ -2258,8 +2318,15 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-hyalu-b5-serum-yeux-15ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-hyalu-b5-serum-yeux.webp',
     tags: {
-      primary: ['barriere-cutanee', 'pores-dilates', 'hydratation'],
-      secondary: ['sebo-regulateur', 'reparateur', 'contour-yeux', 'zone-yeux', 'soin-yeux'],
+      primary: ['barriere-cutanee', 'pores-dilates', 'step-hydratation'],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-traitement',
+        'zone-yeux',
+        'zone-yeux',
+        'step-traitement',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2288,7 +2355,13 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-ap-creme-relipidante.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['reparateur', 'sebo-regulateur', 'creme-hydratante', 'zone-visage'],
+      secondary: [
+        'reparateur',
+        'sebo-regulateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
   },
@@ -2310,7 +2383,13 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-ap-m-creme-relipidante.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['reparateur', 'sebo-regulateur', 'creme-hydratante', 'zone-visage'],
+      secondary: [
+        'reparateur',
+        'sebo-regulateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
   },
@@ -2332,7 +2411,13 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-ap-max-baume-triple-reparation.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'cicatrisation'],
-      secondary: ['reparateur', 'sebo-regulateur', 'creme-hydratante', 'zone-visage'],
+      secondary: [
+        'reparateur',
+        'sebo-regulateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
   },
@@ -2353,8 +2438,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lipikar-lait-urea-10-hydratant-triple-action-400ml.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant'],
-      secondary: ['keratolytique', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant'],
+      secondary: ['keratolytique', 'reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -2384,8 +2469,14 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-mela-b3-gel-micro-peeling-unifiant-eclat.webp',
     tags: {
-      primary: ['barriere-cutanee', 'pores-dilates', 'eclat', 'exfoliation'],
-      secondary: ['peau-sensible', 'emollience', 'sebo-regulateur', 'reparateur', 'zone-visage'],
+      primary: ['barriere-cutanee', 'pores-dilates', 'eclat', 'step-traitement'],
+      secondary: [
+        'peau-sensible',
+        'step-hydratation',
+        'sebo-regulateur',
+        'reparateur',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2411,7 +2502,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-mela-b3-serum.webp',
     tags: {
       primary: ['anti-acne', 'pores-dilates', 'anti-rougeurs'],
-      secondary: ['sebo-regulateur', 'reparateur', 'serum', 'traitement', 'zone-visage'],
+      secondary: ['sebo-regulateur', 'reparateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
@@ -2440,8 +2531,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-nutritic-stick-levres-lot-de-2.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-nutritic-stick-levres.webp',
     tags: {
-      primary: ['anti-age', 'anti-oxydant', 'hydratation'],
-      secondary: ['reparateur', 'soin-levres', 'zone-levres'],
+      primary: ['anti-age', 'anti-oxydant', 'step-hydratation'],
+      secondary: ['reparateur', 'type-traitement', 'zone-levres', 'zone-levres'],
       avoid: [],
     },
     keyIngredients: [
@@ -2466,8 +2557,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-pure-vitamin-c12-serum-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-pure-vitamin-c12-serum.webp',
     tags: {
-      primary: ['anti-age', 'hydratation', 'anti-acne'],
-      secondary: ['reparateur', 'sebo-regulateur', 'serum', 'traitement', 'zone-visage'],
+      primary: ['anti-age', 'step-hydratation', 'anti-acne'],
+      secondary: ['reparateur', 'sebo-regulateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
@@ -2496,8 +2587,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-retinol-b3-serum-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-retinol-b3-serum.webp',
     tags: {
-      primary: ['anti-age', 'pores-dilates', 'hydratation'],
-      secondary: ['sebo-regulateur', 'traitement', 'reparateur', 'serum', 'zone-visage'],
+      primary: ['anti-age', 'pores-dilates', 'step-hydratation'],
+      secondary: ['sebo-regulateur', 'step-traitement', 'reparateur', 'type-serum', 'zone-visage'],
       avoid: ['peau-sensible', 'peau-sensible', 'barriere-cutanee-alteree'],
     },
     keyIngredients: [
@@ -2525,8 +2616,14 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-creme-hydratante.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation'],
-      secondary: ['emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
+      primary: ['barriere-cutanee', 'step-hydratation'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2552,8 +2649,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-dermo-nettoyant-fluide-400ml.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -2574,8 +2671,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-eau-micellaire-peaux-reactives.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage', 'peau-sensible'],
+      primary: ['step-hydratation'],
+      secondary: ['step-nettoyage-2', 'zone-visage', 'peau-sensible'],
       avoid: [],
     },
   },
@@ -2596,8 +2693,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-eau-micellaire-peaux-sensibles.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage', 'peau-sensible'],
+      primary: ['step-hydratation'],
+      secondary: ['step-nettoyage-2', 'zone-visage', 'peau-sensible'],
       avoid: [],
     },
   },
@@ -2618,8 +2715,14 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-fluide-correcteur-haute-couvrance.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'spot-treatment', 'soin-localise', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'reparateur',
+        'type-traitement',
+        'step-traitement',
+        'moment-usage-localise',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2645,8 +2748,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-fluide-nettoyant.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
   },
@@ -2668,13 +2771,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-gel-moussant-double-nettoyant.webp',
     tags: {
       primary: ['barriere-cutanee', 'pores-dilates', 'eclat'],
-      secondary: [
-        'emollience',
-        'sebo-regulateur',
-        'nettoyant',
-        'double-nettoyage-2',
-        'zone-visage',
-      ],
+      secondary: ['step-hydratation', 'sebo-regulateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -2699,8 +2796,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-mousse-d-eau-micellaire-nettoyante.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.POTASSIUM_CHLORIDE }],
@@ -2722,7 +2819,13 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-sensitive-creme.webp',
     tags: {
       primary: ['barriere-cutanee', 'pores-dilates', 'eclat'],
-      secondary: ['sebo-regulateur', 'emollience', 'creme-hydratante', 'zone-visage'],
+      secondary: [
+        'sebo-regulateur',
+        'step-hydratation',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2747,8 +2850,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-sensitive-fluide-hydratant.webp',
     tags: {
-      primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'hydratation'],
-      secondary: ['sebo-regulateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['pores-dilates', 'barriere-cutanee', 'eclat', 'step-hydratation'],
+      secondary: ['sebo-regulateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -2772,8 +2875,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/maquillage/la-roche-posay-eau-micellaire-ultra-400-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-eau-micellaire-ultra.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
   },
@@ -2794,8 +2897,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-eau-micellaire-purifiante.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -2820,8 +2923,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-eau-micellaire-ultra-peaux-reactives.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage', 'peau-sensible'],
+      primary: ['step-hydratation'],
+      secondary: ['step-nettoyage-2', 'zone-visage', 'peau-sensible'],
       avoid: [],
     },
   },
@@ -2841,8 +2944,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/soins-visage/la-roche-posay-effaclar-eau-micellaire-400ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-eau-micellaire.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -2866,8 +2969,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/soins-visage/la-roche-posay-effaclar-mat-hydratant-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-effaclar-mat-hydratant.webp',
     tags: {
-      primary: ['anti-acne', 'hydratation'],
-      secondary: ['sebo-regulateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['anti-acne', 'step-hydratation'],
+      secondary: ['sebo-regulateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
@@ -2894,8 +2997,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/soins-visage/la-roche-posay-lotion-apaisante-200-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-lotion-apaisante.webp',
     tags: {
-      primary: ['hydratation', 'apaisant'],
-      secondary: ['tonique', 'preparation', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant'],
+      secondary: ['type-toner', 'texture-eau', 'step-preparation', 'zone-visage'],
       avoid: [],
     },
   },
@@ -2916,7 +3019,13 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-nutritic-intense-creme.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-hydratante', 'zone-visage'],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2940,8 +3049,14 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/soins-visage/la-roche-posay-toleriane-ultra-fluide-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-ultra-fluide.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation'],
-      secondary: ['emollience', 'texture-legere', 'creme-hydratante', 'zone-visage'],
+      primary: ['barriere-cutanee', 'step-hydratation'],
+      secondary: [
+        'step-hydratation',
+        'texture-legere',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2967,8 +3082,21 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-400-fluide-ka-spf50.webp',
     tags: {
-      primary: ['barriere-cutanee', 'pores-dilates', 'apaisant', 'protection-solaire'],
-      secondary: ['reparateur', 'sebo-regulateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'barriere-cutanee',
+        'pores-dilates',
+        'apaisant',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'reparateur',
+        'sebo-regulateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
   },
@@ -2989,13 +3117,14 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-age-correct-spf50.webp',
     tags: {
-      primary: ['anti-acne', 'hydratation', 'protection-solaire'],
+      primary: ['anti-acne', 'step-hydratation', 'step-protection-solaire', 'moment-matin'],
       secondary: [
         'filtres-chimiques',
         'sebo-regulateur',
         'reparateur',
-        'creme-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
@@ -3027,8 +3156,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-brume-solaire-spf30.webp',
     tags: {
-      primary: ['protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
   },
@@ -3049,8 +3178,15 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-creme-hydratante-sans-parfum-spf50.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3081,8 +3217,15 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-creme-hydratante-spf50.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3113,8 +3256,15 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-creme-hydratante-teintee-spf50.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3145,8 +3295,15 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-fluid-oil-control-spf50.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3177,8 +3334,16 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-fluide-anti-taches-spf50.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'anti-taches', 'hyperpigmentation'],
-      secondary: ['reparateur', 'creme-solaire', 'protection-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'anti-taches', 'hyperpigmentation'],
+      secondary: [
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'step-protection-solaire',
+        'moment-matin',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3209,7 +3374,7 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-lait-apres-soleil.webp',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
+      primary: ['apaisant', 'barriere-cutanee', 'step-hydratation'],
       secondary: ['reparateur'],
       avoid: [],
     },
@@ -3235,8 +3400,21 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-serum-solaire-deep-spf50.webp',
     tags: {
-      primary: ['pores-dilates', 'hydratation', 'barriere-cutanee', 'protection-solaire'],
-      secondary: ['reparateur', 'sebo-regulateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'pores-dilates',
+        'step-hydratation',
+        'barriere-cutanee',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'reparateur',
+        'sebo-regulateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
   },
@@ -3257,8 +3435,21 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-serum-solaire-light-spf50.webp',
     tags: {
-      primary: ['pores-dilates', 'hydratation', 'barriere-cutanee', 'protection-solaire'],
-      secondary: ['sebo-regulateur', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'pores-dilates',
+        'step-hydratation',
+        'barriere-cutanee',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'sebo-regulateur',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3289,8 +3480,21 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-serum-solaire-medium-spf50.webp',
     tags: {
-      primary: ['pores-dilates', 'hydratation', 'barriere-cutanee', 'protection-solaire'],
-      secondary: ['reparateur', 'sebo-regulateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'pores-dilates',
+        'step-hydratation',
+        'barriere-cutanee',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'reparateur',
+        'sebo-regulateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
   },
@@ -3311,8 +3515,15 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-spf50-fluide-invisible-sans-parfum.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3343,13 +3554,14 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-spf50-oil-correct-gel-creme.webp',
     tags: {
-      primary: ['protection-solaire', 'pores-dilates', 'anti-acne'],
+      primary: ['step-protection-solaire', 'moment-matin', 'pores-dilates', 'anti-acne'],
       secondary: [
         'filtres-chimiques',
         'sebo-regulateur',
         'reparateur',
-        'creme-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
@@ -3382,8 +3594,15 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-spf50-spray-familial.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3414,8 +3633,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-spf50-spray-invisible-lait-apres-soleil.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'matin'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['filtres-chimiques', 'reparateur', 'moment-matin'],
       avoid: [],
     },
     keyIngredients: [
@@ -3446,8 +3665,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-stick-pro-resistance-spf50.webp',
     tags: {
-      primary: ['anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
   },
@@ -3468,8 +3687,15 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-stick-solaire-vitamine-spf50.webp',
     tags: {
-      primary: ['protection-solaire', 'anti-oxydant'],
-      secondary: ['reparateur', 'filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'anti-oxydant'],
+      secondary: [
+        'reparateur',
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
   },
@@ -3490,8 +3716,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-ultra-protection-spf50.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -3522,8 +3748,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-uvmune-400-creme-spf50-lait-apres-soleil.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'matin'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['filtres-chimiques', 'reparateur', 'moment-matin'],
       avoid: [],
     },
     keyIngredients: [
@@ -3554,8 +3780,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-uvmune-400-lait-hydratant-spf50.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -3585,8 +3811,14 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-cicaplast-baume-b5-spf50-ultra-reparateur.webp',
     tags: {
-      primary: ['apaisant', 'cicatrisation', 'microbiome', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'apaisant',
+        'cicatrisation',
+        'microbiome',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -3616,8 +3848,15 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/la-roche-posay-hyalu-b5-aquagel-spf30-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-hyalu-b5-aquagel-spf30.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'apaisant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'apaisant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3648,8 +3887,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-hyalu-b5-creme-suractive-spf30.webp',
     tags: {
-      primary: ['protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
   },
@@ -3670,15 +3909,22 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-hyalu-b5-recharge-creme-suractive-spf30.webp',
     tags: {
-      primary: ['anti-acne', 'exfoliation', 'anti-age', 'protection-solaire'],
+      primary: [
+        'anti-acne',
+        'step-traitement',
+        'anti-age',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
       secondary: [
         'sebo-regulateur',
         'keratolytique',
         'reparateur',
-        'creme-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
         'zone-visage',
-        'exfoliant-chimique',
+        'type-exfoliation',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
@@ -3700,8 +3946,14 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-hydraphase-bb-creme-spf15-teinte-claire.webp',
     tags: {
-      primary: ['hydratation', 'repulpant', 'apaisant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'step-hydratation',
+        'repulpant',
+        'apaisant',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.IRON_OXIDE }],
@@ -3723,8 +3975,14 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-hydraphase-bb-creme-spf15-teinte-foncee.webp',
     tags: {
-      primary: ['hydratation', 'repulpant', 'apaisant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'step-hydratation',
+        'repulpant',
+        'apaisant',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.IRON_OXIDE }],
@@ -3746,8 +4004,14 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-hydraphase-bb-creme-spf15-teinte-medium.webp',
     tags: {
-      primary: ['hydratation', 'repulpant', 'apaisant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'step-hydratation',
+        'repulpant',
+        'apaisant',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.IRON_OXIDE }],
@@ -3769,8 +4033,15 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-hydraphase-ha-uv-spf25-legere.webp',
     tags: {
-      primary: ['hydratation', 'protection-solaire', 'repulpant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'step-protection-solaire', 'moment-matin', 'repulpant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3797,8 +4068,15 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-hydraphase-ha-uv-spf25-riche.webp',
     tags: {
-      primary: ['anti-acne', 'hydratation', 'protection-solaire'],
-      secondary: ['filtres-chimiques', 'sebo-regulateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['anti-acne', 'step-hydratation', 'step-protection-solaire', 'moment-matin'],
+      secondary: [
+        'filtres-chimiques',
+        'sebo-regulateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [
@@ -3833,9 +4111,11 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
       secondary: [
         'sebo-regulateur',
         'reparateur',
-        'creme-solaire',
-        'protection-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'step-protection-solaire',
+        'moment-matin',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
@@ -3868,8 +4148,14 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-rosaliac-ar-spf30-soin-apaisant.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'apaisant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'step-hydratation',
+        'anti-oxydant',
+        'apaisant',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -3899,8 +4185,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-spf-25-lsf-25-correcteur-teint-beige-sable-13.webp',
     tags: {
-      primary: ['protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
   },
@@ -3921,8 +4207,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-teint-mineral-n-11-beige-clair-spf-25.webp',
     tags: {
-      primary: ['protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -3947,8 +4233,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-teint-mineral-n-15-dore-spf-15.webp',
     tags: {
-      primary: ['protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -3973,8 +4259,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-dermo-pediatrics-lait-hydratant-spf-50.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -4004,8 +4290,8 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-dermo-pediatrics-spray-invisible-spf-50.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -4035,8 +4321,15 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-oil-control-gel-creme-spf50.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -4067,8 +4360,15 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-spf50-dermo-pediatrics.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -4095,8 +4395,15 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-spf50-fluide-invisible.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -4127,8 +4434,15 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-spf50-fluide-teinte.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -4158,8 +4472,15 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/soins-solaires/la-roche-posay-anthelios-spf-30-200ml-spray.html',
     imageUrl: '',
     tags: {
-      primary: ['protection-solaire', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -4190,8 +4511,15 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-xl-spf50-anti-brillance.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -4222,8 +4550,15 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-xl-spf50-confort.webp',
     tags: {
-      primary: ['protection-solaire', 'hydratation', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'step-hydratation', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -4252,13 +4587,15 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/roche-posay/soins-visage/la-roche-posay-toleriane-soin-protecteur-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-roche-posay-toleriane-soin-protecteur.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation'],
+      primary: ['barriere-cutanee', 'step-hydratation'],
       secondary: [
-        'emollience',
+        'step-hydratation',
         'texture-legere',
-        'creme-solaire',
-        'protection-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'step-protection-solaire',
+        'moment-matin',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: [],
@@ -4281,8 +4618,15 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-roche-posay-anthelios-spf-30-fluide-invisible.webp',
     tags: {
-      primary: ['protection-solaire', 'anti-oxydant', 'hydratation'],
-      secondary: ['reparateur', 'filtres-chimiques', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'anti-oxydant', 'step-hydratation'],
+      secondary: [
+        'reparateur',
+        'filtres-chimiques',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
   },
@@ -4302,8 +4646,15 @@ export const LA_ROCHE_POSAY_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/solaires/par-marques/roche-posay-anthelios/la-roche-posay-spf-50-anthelios-xl-200-ml-spray.html',
     imageUrl: '',
     tags: {
-      primary: ['protection-solaire', 'anti-oxydant'],
-      secondary: ['filtres-chimiques', 'reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin', 'anti-oxydant'],
+      secondary: [
+        'filtres-chimiques',
+        'reparateur',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [

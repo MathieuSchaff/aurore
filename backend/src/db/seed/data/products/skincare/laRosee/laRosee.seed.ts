@@ -19,8 +19,8 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-creme-corps-hydratante-200-ml-bio.html',
     imageUrl: '',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['lait-corps', 'zone-corps'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['type-hydratant', 'texture-lait', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.SHEA_BUTTER }],
@@ -41,8 +41,15 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-creme-mains-ultra-reparatrice-50-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-creme-mains-ultra-reparatrice.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'cicatrisation'],
-      secondary: ['peau-sensible', 'creme-mains', 'zone-mains', 'reparateur'],
+      primary: ['step-hydratation', 'apaisant', 'cicatrisation'],
+      secondary: [
+        'peau-sensible',
+        'type-hydratant',
+        'texture-creme',
+        'zone-mains',
+        'zone-mains',
+        'reparateur',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -72,8 +79,8 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-rosee-deodorant-fraicheur-rechargeable.webp',
     tags: {
-      primary: ['microbiome', 'hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'deodorant'],
+      primary: ['microbiome', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-deodorant'],
       avoid: [],
     },
   },
@@ -94,8 +101,8 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-rosee-ecorecharge-gel-lavant-ultra-doux.webp',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant-corps', 'zone-corps'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.ALLANTOIN }],
@@ -117,8 +124,8 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-rosee-gommage-corps-nourrissant-bio-rechargeable.webp',
     tags: {
-      primary: ['anti-oxydant', 'exfoliation'],
-      secondary: ['reparateur', 'gommage-corps', 'exfoliant-physique', 'zone-corps'],
+      primary: ['anti-oxydant', 'step-traitement'],
+      secondary: ['reparateur', 'type-exfoliation', 'zone-corps', 'type-exfoliation', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -143,8 +150,8 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-rosee-recharge-deodorant-aux-probiotiques.webp',
     tags: {
-      primary: ['microbiome', 'hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'deodorant'],
+      primary: ['microbiome', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-deodorant'],
       avoid: [],
     },
   },
@@ -165,8 +172,8 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-rosee-recharge-gommage-corps-nourrissant-bio.webp',
     tags: {
-      primary: ['anti-oxydant', 'exfoliation'],
-      secondary: ['reparateur', 'gommage-corps', 'exfoliant-physique', 'zone-corps'],
+      primary: ['anti-oxydant', 'step-traitement'],
+      secondary: ['reparateur', 'type-exfoliation', 'zone-corps', 'type-exfoliation', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -190,8 +197,8 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/la-rosee/la-rosee-gel-lavant-ultra-doux-400-ml-peaux-sensibles.html',
     imageUrl: '',
     tags: {
-      primary: ['apaisant', 'hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant-corps', 'zone-corps'],
+      primary: ['apaisant', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.ALLANTOIN }],
@@ -213,8 +220,8 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-rosee-creme-corps-hydratante-au-beurre-de-karite-bio.webp',
     tags: {
-      primary: ['anti-oxydant', 'hydratation'],
-      secondary: ['reparateur', 'lait-corps', 'zone-corps'],
+      primary: ['anti-oxydant', 'step-hydratation'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-lait', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [
@@ -240,7 +247,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-huile-de-douche-lavante-bio.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['nettoyant-corps', 'zone-corps'],
+      secondary: ['type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.HUILE_GRAINES_TOURNESOL }],
@@ -262,8 +269,8 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-rosee-savon-surgras-ultra-doux-naturel.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['nettoyant-corps', 'zone-corps'],
+      primary: ['step-hydratation'],
+      secondary: ['type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.SHEA_BUTTER }],
@@ -285,8 +292,8 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-rosee-baume-demaquillant-fondant-recharge.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -313,8 +320,8 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-rosee-baume-demaquillant-fondant-rechargeable.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -341,7 +348,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-baume-sos-reparateur.webp',
     tags: {
       primary: ['anti-oxydant', 'cicatrisation'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -371,8 +378,8 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-gelee-micellaire-demaquillante-195ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-gelee-micellaire-demaquillante.webp',
     tags: {
-      primary: ['apaisant', 'hydratation'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['apaisant', 'step-hydratation'],
+      secondary: ['step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -400,7 +407,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-masque-en-stick-nourrissant.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
+      secondary: ['reparateur', 'moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -431,7 +438,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-mon-petit-baume-sos-reparateur.webp',
     tags: {
       primary: ['anti-oxydant', 'cicatrisation'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -462,14 +469,8 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-rosee-recharge-gel-nettoyant-anti-imperfections.webp',
     tags: {
-      primary: ['exfoliation', 'hydratation', 'anti-acne'],
-      secondary: [
-        'peau-sensible',
-        'nettoyant',
-        'double-nettoyage-2',
-        'zone-visage',
-        'exfoliant-chimique',
-      ],
+      primary: ['step-traitement', 'step-hydratation', 'anti-acne'],
+      secondary: ['peau-sensible', 'step-nettoyage-2', 'zone-visage', 'type-exfoliation'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.ZINC_PCA }],
@@ -492,7 +493,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/la-rosee-recharge-stick-correcteur-teinte-anti-imperfections.webp',
     tags: {
       primary: ['anti-acne'],
-      secondary: ['spot-treatment', 'soin-localise', 'zone-visage'],
+      secondary: ['type-traitement', 'step-traitement', 'moment-usage-localise', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.IRON_OXIDE }],
@@ -514,8 +515,8 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-rosee-serum-purifiant-anti-imperfections.webp',
     tags: {
-      primary: ['apaisant', 'anti-age', 'hydratation', 'anti-acne'],
-      secondary: ['serum', 'traitement', 'zone-visage'],
+      primary: ['apaisant', 'anti-age', 'step-hydratation', 'anti-acne'],
+      secondary: ['type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -544,8 +545,8 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-serum-visage-desalterant-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-serum-visage-desalterant.webp',
     tags: {
-      primary: ['hydratation', 'apaisant'],
-      secondary: ['serum', 'traitement', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant'],
+      secondary: ['type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
   },
@@ -567,7 +568,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/la-rosee-stick-correcteur-teinte-anti-imperfections.webp',
     tags: {
       primary: ['anti-acne'],
-      secondary: ['spot-treatment', 'soin-localise', 'zone-visage'],
+      secondary: ['type-traitement', 'step-traitement', 'moment-usage-localise', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.IRON_OXIDE }],
@@ -588,8 +589,8 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-stick-levres-nourrissant-4-5-g.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-stick-levres-nourrissant.webp',
     tags: {
-      primary: ['hydratation', 'apaisant'],
-      secondary: ['peau-sensible', 'soin-levres', 'zone-levres'],
+      primary: ['step-hydratation', 'apaisant'],
+      secondary: ['peau-sensible', 'type-traitement', 'zone-levres', 'zone-levres'],
       avoid: [],
     },
     keyIngredients: [
@@ -619,8 +620,8 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-rosee-creme-hydratante-beurre-de-karite.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant'],
-      secondary: ['creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant'],
+      secondary: ['type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -646,8 +647,8 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/bebe/top-marques/la-rosee/la-rosee-lait-de-toilette-nettoyant-400ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-lait-de-toilette-nettoyant.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant'],
-      secondary: ['nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant'],
+      secondary: ['step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -673,7 +674,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/la-rosee/la-rosee-gommage-doux-visage-bio-60-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-gommage-doux-visage-bio.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'anti-oxydant', 'exfoliation'],
+      primary: ['step-hydratation', 'apaisant', 'anti-oxydant', 'step-traitement'],
       secondary: ['reparateur', 'zone-visage'],
       avoid: [],
     },
@@ -695,8 +696,8 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/la-rosee/la-rosee-lotion-tonique-hydratante-bio-200ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-lotion-tonique-hydratante-bio.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['tonique', 'preparation', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['type-toner', 'texture-eau', 'step-preparation', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -721,8 +722,8 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/la-rosee/la-rosee-masque-stick-regenerant-75-ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-masque-stick-regenerant.webp',
     tags: {
-      primary: ['hydratation'],
-      secondary: ['masque-hebdo', 'zone-visage'],
+      primary: ['step-hydratation'],
+      secondary: ['moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.KAOLIN }],
@@ -745,7 +746,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/la-rosee-recharge-stick-levres-nourrissant.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['reparateur', 'soin-levres', 'zone-levres'],
+      secondary: ['reparateur', 'type-traitement', 'zone-levres', 'zone-levres'],
       avoid: [],
     },
     keyIngredients: [
@@ -776,7 +777,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/la-rosee-recharge-stick-levres-nourrissant-teinte.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['reparateur', 'soin-levres', 'zone-levres'],
+      secondary: ['reparateur', 'type-traitement', 'zone-levres', 'zone-levres'],
       avoid: [],
     },
     keyIngredients: [
@@ -803,11 +804,11 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: ['barriere-cutanee', 'anti-oxydant', 'repulpant'],
       secondary: [
-        'emollience',
+        'step-hydratation',
         'texture-legere',
         'reparateur',
-        'serum',
-        'traitement',
+        'type-serum',
+        'step-traitement',
         'zone-visage',
       ],
       avoid: [],
@@ -838,7 +839,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/la-rosee-stick-levres-nourrissant-teinte-framboire.webp',
     tags: {
       primary: ['anti-oxydant'],
-      secondary: ['reparateur', 'soin-levres', 'zone-levres'],
+      secondary: ['reparateur', 'type-traitement', 'zone-levres', 'zone-levres'],
       avoid: [],
     },
     keyIngredients: [
@@ -863,8 +864,8 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/patyka/creme-hydratante-nourrissante/la-rosee-creme-hydratant-60-ml-beurre-de-karite-bio.html',
     imageUrl: '',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -892,8 +893,8 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/top-marques/patyka/creme-hydratante-nourrissante/la-rosee-gel-creme-hydratant-bio-60ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-gel-creme-hydratant-bio.webp',
     tags: {
-      primary: ['hydratation', 'apaisant', 'barriere-cutanee'],
-      secondary: ['reparateur', 'creme-hydratante', 'zone-visage'],
+      primary: ['step-hydratation', 'apaisant', 'barriere-cutanee'],
+      secondary: ['reparateur', 'type-hydratant', 'texture-creme', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -921,8 +922,8 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-fluide-solaire-invisible-spf50-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-fluide-solaire-invisible-spf50.webp',
     tags: {
-      primary: ['anti-oxydant', 'hydratation', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['anti-oxydant', 'step-hydratation', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
   },
@@ -943,8 +944,8 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-rosee-huile-solaire-huile-d-abricot-bio-spf50.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -973,8 +974,8 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-huile-solaire-spf30-150ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-huile-solaire-spf30.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant', 'protection-solaire'],
-      secondary: ['reparateur', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant', 'step-protection-solaire', 'moment-matin'],
+      secondary: ['reparateur', 'type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -1003,8 +1004,21 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-lait-solaire-spf30-150ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-lait-solaire-spf30.webp',
     tags: {
-      primary: ['microbiome', 'apaisant', 'hydratation', 'protection-solaire'],
-      secondary: ['reparateur', 'peau-sensible', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'microbiome',
+        'apaisant',
+        'step-hydratation',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'reparateur',
+        'peau-sensible',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1034,8 +1048,21 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/la-rosee/la-rosee-lait-solaire-spf50-150ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/la-rosee-lait-solaire-spf50.webp',
     tags: {
-      primary: ['microbiome', 'apaisant', 'hydratation', 'protection-solaire'],
-      secondary: ['reparateur', 'peau-sensible', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'microbiome',
+        'apaisant',
+        'step-hydratation',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'reparateur',
+        'peau-sensible',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1066,8 +1093,8 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-rosee-stick-solaire-spf50-huile-d-abricot-bio.webp',
     tags: {
-      primary: ['protection-solaire'],
-      secondary: ['creme-solaire', 'matin', 'zone-visage'],
+      primary: ['step-protection-solaire', 'moment-matin'],
+      secondary: ['type-solaire', 'texture-creme', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
   },
@@ -1088,8 +1115,21 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/la-rosee-lait-solaire-a-l-huile-d-abricot-bebe-enfants-spf50.webp',
     tags: {
-      primary: ['apaisant', 'microbiome', 'hydratation', 'protection-solaire'],
-      secondary: ['reparateur', 'peau-sensible', 'creme-solaire', 'matin', 'zone-visage'],
+      primary: [
+        'apaisant',
+        'microbiome',
+        'step-hydratation',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
+      secondary: [
+        'reparateur',
+        'peau-sensible',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1120,7 +1160,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/la-rosee-ecorecharge-huile-de-douche-lavante-a-l-huile-de-graines-de-tournesol-bio-800ml-299195.webp',
     tags: {
       primary: [TAG_SLUGS.ANTI_OXYDANT],
-      secondary: [TAG_SLUGS.NETTOYANT_CORPS, TAG_SLUGS.ZONE_CORPS],
+      secondary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.ZONE_CORPS, TAG_SLUGS.ZONE_CORPS],
       avoid: [],
     },
     keyIngredients: [],
@@ -1142,7 +1182,7 @@ export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/mon-petit-la-rosee-ecorecharge-gel-lavant-ultra-doux-a-la-glycerine-vegetale-bio-800ml-231780.webp',
     tags: {
       primary: [],
-      secondary: [TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [TAG_SLUGS.STEP_NETTOYAGE_2, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
     keyIngredients: [],

@@ -20,7 +20,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/dr-jart-vital-hydra-solution-hydro-plump-essence.webp',
     tags: {
-      primary: [TAG_SLUGS.ESSENCE, TAG_SLUGS.HYDRATATION, TAG_SLUGS.PREPARATION],
+      primary: [TAG_SLUGS.TYPE_TONER, TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.STEP_PREPARATION],
       secondary: [TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -46,7 +46,12 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/dr-jart-ceramidin-skin-barrier-moisturizer.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CREME_HYDRATANTE],
+      primary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+      ],
       secondary: [],
       avoid: [],
     },
@@ -74,7 +79,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/dr-jart-prejuvenation-firming-bakuchiol-cream.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.ANTI_AGE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.ANTI_AGE],
       secondary: [],
       avoid: [],
     },
@@ -96,8 +101,8 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/dr-jart-pore-remedy-purifying-mud-mask-0-45-oz-13-g',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-pore-remedy-purifying-mud-mask.webp',
     tags: {
-      primary: [TAG_SLUGS.MASQUE_ARGILE, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.PORES_DILATES],
-      secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.MASQUE_HEBDO],
+      primary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.PORES_DILATES],
+      secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.MOMENT_HEBDOMADAIRE],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.COPPER_PEPTIDES }],
@@ -120,7 +125,12 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/dr-jart-cicapair-intensive-soothing-repair-lotion.webp',
     tags: {
-      primary: [TAG_SLUGS.TONIQUE, TAG_SLUGS.PREPARATION, TAG_SLUGS.ANTI_ROUGEURS],
+      primary: [
+        TAG_SLUGS.TYPE_TONER,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.STEP_PREPARATION,
+        TAG_SLUGS.ANTI_ROUGEURS,
+      ],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.APAISANT],
       avoid: [],
     },
@@ -147,8 +157,8 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/dr-jart-dermask-brightening-solution-mask.webp',
     tags: {
-      primary: [TAG_SLUGS.MASQUE_TISSU, TAG_SLUGS.ECLAT, TAG_SLUGS.TRAITEMENT],
-      secondary: [TAG_SLUGS.MASQUE_HEBDO],
+      primary: [TAG_SLUGS.TYPE_MASQUE, TAG_SLUGS.ECLAT, TAG_SLUGS.STEP_TRAITEMENT],
+      secondary: [TAG_SLUGS.MOMENT_HEBDOMADAIRE],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.NIACINAMIDE }, { slug: INGREDIENT_SLUGS.VITAMIN_C }],
@@ -171,7 +181,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/F548890E4CE5D7/large_1754892863.png?1754892863',
     tags: {
-      primary: [TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.PRIMER],
+      primary: [TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.TYPE_PRIMER],
       secondary: [],
       avoid: [],
     },
@@ -197,7 +207,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/dr-jart-pore-remedy-pha-exfoliating-serum.webp',
     tags: {
-      primary: [TAG_SLUGS.EXFOLIANT_CHIMIQUE, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.EXFOLIATION],
+      primary: [TAG_SLUGS.TYPE_EXFOLIATION, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.STEP_TRAITEMENT],
       secondary: [TAG_SLUGS.PORES_DILATES],
       avoid: [],
     },
@@ -219,7 +229,13 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://cdn1.skinsafeproducts.com/photo/3E4A7F8D445A93/large_1733722511.png?1733722511',
     tags: {
-      primary: [TAG_SLUGS.SOIN_LEVRES, TAG_SLUGS.ZONE_LEVRES, TAG_SLUGS.OCCLUSION],
+      primary: [
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_LEVRES,
+        TAG_SLUGS.ZONE_LEVRES,
+        TAG_SLUGS.STEP_OCCLUSIF,
+        TAG_SLUGS.MOMENT_SOIR,
+      ],
       secondary: [TAG_SLUGS.SANS_PARFUM],
       avoid: [],
     },
@@ -241,8 +257,14 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-ceramidin-creme-hydratante-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-ceramidin-creme-hydratante.webp',
     tags: {
-      primary: ['barriere-cutanee', 'apaisant', 'hydratation'],
-      secondary: ['reparateur', 'emollience', 'creme-hydratante', 'zone-visage'],
+      primary: ['barriere-cutanee', 'apaisant', 'step-hydratation'],
+      secondary: [
+        'reparateur',
+        'step-hydratation',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -271,8 +293,14 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/dr-jart-ceramidin-creme-infusee-a-l-ectoine.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'apaisant'],
-      secondary: ['reparateur', 'emollience', 'creme-hydratante', 'zone-visage'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'apaisant'],
+      secondary: [
+        'reparateur',
+        'step-hydratation',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -302,8 +330,8 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-ceramidin-masque-hydratant-22g.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-ceramidin-masque-hydratant.webp',
     tags: {
-      primary: ['barriere-cutanee', 'apaisant', 'hydratation'],
-      secondary: ['reparateur', 'emollience', 'masque-hebdo', 'zone-visage'],
+      primary: ['barriere-cutanee', 'apaisant', 'step-hydratation'],
+      secondary: ['reparateur', 'step-hydratation', 'moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -332,8 +360,15 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-ceramidin-serum-tonique-150ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-ceramidin-serum-tonique.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation', 'apaisant'],
-      secondary: ['reparateur', 'emollience', 'tonique', 'preparation', 'zone-visage'],
+      primary: ['barriere-cutanee', 'step-hydratation', 'apaisant'],
+      secondary: [
+        'reparateur',
+        'step-hydratation',
+        'type-toner',
+        'texture-eau',
+        'step-preparation',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -362,7 +397,13 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/dr-jart-cicapair-gel-creme-reparateur-intense.webp',
     tags: {
       primary: ['apaisant', 'anti-age', 'pores-dilates', 'cicatrisation'],
-      secondary: ['sebo-regulateur', 'creme-hydratante', 'zone-visage', 'reparateur'],
+      secondary: [
+        'sebo-regulateur',
+        'type-hydratant',
+        'texture-creme',
+        'zone-visage',
+        'reparateur',
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -393,7 +434,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-cicapair-masque-serum-reparateur.webp',
     tags: {
       primary: ['apaisant', 'barriere-cutanee', 'pores-dilates', 'cicatrisation'],
-      secondary: ['sebo-regulateur', 'reparateur', 'serum', 'traitement', 'zone-visage'],
+      secondary: ['sebo-regulateur', 'reparateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -424,7 +465,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-cicapair-mousse-nettoyante.webp',
     tags: {
       primary: ['apaisant', 'cicatrisation', 'anti-age'],
-      secondary: ['reparateur', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      secondary: ['reparateur', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -454,7 +495,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/dr-jart-cicapair-serum-reparateur-apaisant.webp',
     tags: {
       primary: ['apaisant', 'cicatrisation', 'anti-age'],
-      secondary: ['serum', 'traitement', 'zone-visage', 'reparateur'],
+      secondary: ['type-serum', 'step-traitement', 'zone-visage', 'reparateur'],
       avoid: [],
     },
     keyIngredients: [
@@ -486,7 +527,13 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/dr-jart-cicapair-traitement-correcteur-de-couleur.webp',
     tags: {
       primary: ['pores-dilates', 'barriere-cutanee', 'eclat'],
-      secondary: ['sebo-regulateur', 'spot-treatment', 'soin-localise', 'zone-visage'],
+      secondary: [
+        'sebo-regulateur',
+        'type-traitement',
+        'step-traitement',
+        'moment-usage-localise',
+        'zone-visage',
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.NIACINAMIDE }],
@@ -507,8 +554,8 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-cryo-rubber-masque-apaisant-36g-4g.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-cryo-rubber-masque-apaisant-36g.webp',
     tags: {
-      primary: ['anti-age', 'hydratation', 'repulpant', 'apaisant'],
-      secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
+      primary: ['anti-age', 'step-hydratation', 'repulpant', 'apaisant'],
+      secondary: ['reparateur', 'moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -534,8 +581,8 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-cryo-rubber-masque-hydratant-36g-4g.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-cryo-rubber-masque-hydratant-36g.webp',
     tags: {
-      primary: ['anti-age', 'hydratation', 'repulpant'],
-      secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
+      primary: ['anti-age', 'step-hydratation', 'repulpant'],
+      secondary: ['reparateur', 'moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -562,8 +609,8 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/dr-jart-cryo-rubber-masque-raffermissant-36g.webp',
     tags: {
-      primary: ['anti-age', 'hydratation', 'anti-oxydant'],
-      secondary: ['reparateur', 'masque-hebdo', 'zone-visage'],
+      primary: ['anti-age', 'step-hydratation', 'anti-oxydant'],
+      secondary: ['reparateur', 'moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -590,8 +637,8 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-masque-hydratant-levres-20ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-masque-hydratant-levres.webp',
     tags: {
-      primary: ['hydratation', 'anti-oxydant'],
-      secondary: ['masque-hebdo', 'zone-visage'],
+      primary: ['step-hydratation', 'anti-oxydant'],
+      secondary: ['moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.TITANIUM_DIOXIDE }],
@@ -613,7 +660,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-pore-remedy-base-lissante.webp',
     tags: {
       primary: ['apaisant', 'anti-age', 'barriere-cutanee'],
-      secondary: ['reparateur', 'peau-sensible', 'primer', 'matin', 'zone-visage'],
+      secondary: ['reparateur', 'peau-sensible', 'type-primer', 'moment-matin', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -642,8 +689,8 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-pore-remedy-masque-de-boue-13g.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-pore-remedy-masque-de-boue.webp',
     tags: {
-      primary: ['apaisant', 'anti-age', 'hydratation'],
-      secondary: ['reparateur', 'peau-sensible', 'masque-hebdo', 'zone-visage'],
+      primary: ['apaisant', 'anti-age', 'step-hydratation'],
+      secondary: ['reparateur', 'peau-sensible', 'moment-hebdomadaire', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -672,8 +719,8 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-pore-remedy-mousse-nettoyante-150ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-pore-remedy-mousse-nettoyante.webp',
     tags: {
-      primary: ['apaisant', 'barriere-cutanee', 'hydratation'],
-      secondary: ['reparateur', 'peau-sensible', 'nettoyant', 'double-nettoyage-2', 'zone-visage'],
+      primary: ['apaisant', 'barriere-cutanee', 'step-hydratation'],
+      secondary: ['reparateur', 'peau-sensible', 'step-nettoyage-2', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -698,8 +745,8 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-pore-remedy-serum-exfoliant-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-pore-remedy-serum-exfoliant.webp',
     tags: {
-      primary: ['anti-age', 'exfoliation', 'apaisant'],
-      secondary: ['peau-sensible', 'reparateur', 'zone-visage', 'exfoliant-chimique'],
+      primary: ['anti-age', 'step-traitement', 'apaisant'],
+      secondary: ['peau-sensible', 'reparateur', 'zone-visage', 'type-exfoliation'],
       avoid: [],
     },
     keyIngredients: [
@@ -728,7 +775,7 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/dr-jart-serum-eclaircissant-en-ampoule-rechrage.webp',
     tags: {
       primary: ['anti-age', 'eclat', 'barriere-cutanee'],
-      secondary: ['sebo-regulateur', 'reparateur', 'serum', 'traitement', 'zone-visage'],
+      secondary: ['sebo-regulateur', 'reparateur', 'type-serum', 'step-traitement', 'zone-visage'],
       avoid: [],
     },
     keyIngredients: [
@@ -758,13 +805,14 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-baume-de-beaute-bb-spf50-40ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-baume-de-beaute-bb-spf50.webp',
     tags: {
-      primary: ['protection-solaire', 'apaisant', 'pores-dilates'],
+      primary: ['step-protection-solaire', 'moment-matin', 'apaisant', 'pores-dilates'],
       secondary: [
         'filtres-chimiques',
         'sebo-regulateur',
         'reparateur',
-        'creme-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: [],
@@ -797,13 +845,14 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/dr-jart-bb-baume-de-beaute-premium-spf50-04-deep-tan.webp',
     tags: {
-      primary: ['protection-solaire', 'apaisant', 'pores-dilates'],
+      primary: ['step-protection-solaire', 'moment-matin', 'apaisant', 'pores-dilates'],
       secondary: [
         'filtres-chimiques',
         'sebo-regulateur',
         'reparateur',
-        'creme-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: [],
@@ -835,13 +884,20 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/beaute/dr-jart/dr-jart-cicapair-fluide-correcteur-spf35-30ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/dr-jart-cicapair-fluide-correcteur-spf35.webp',
     tags: {
-      primary: ['apaisant', 'cicatrisation', 'barriere-cutanee', 'protection-solaire'],
+      primary: [
+        'apaisant',
+        'cicatrisation',
+        'barriere-cutanee',
+        'step-protection-solaire',
+        'moment-matin',
+      ],
       secondary: [
         'sebo-regulateur',
         'reparateur',
-        'emollience',
-        'creme-solaire',
-        'matin',
+        'step-hydratation',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: [],
@@ -874,13 +930,14 @@ export const DR_JART_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/dr-jart-every-sun-day-stick-solaire-spf30-19-grammes.webp',
     tags: {
-      primary: ['protection-solaire', 'repulpant', 'apaisant'],
+      primary: ['step-protection-solaire', 'moment-matin', 'repulpant', 'apaisant'],
       secondary: [
         'filtres-chimiques',
         'peau-sensible',
         'reparateur',
-        'creme-solaire',
-        'matin',
+        'type-solaire',
+        'texture-creme',
+        'moment-matin',
         'zone-visage',
       ],
       avoid: [],

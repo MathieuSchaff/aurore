@@ -25,13 +25,7 @@ export function MetaStrip({ products }: Props) {
           <ul>
             {p.tags
               .filter((t) =>
-                [
-                  'product_type_v2',
-                  'texture',
-                  'product_type',
-                  'routine_step',
-                  'skin_type',
-                ].includes(t.tagType)
+                ['product_type_v2', 'texture', 'routine_moment', 'skin_type'].includes(t.tagType)
               )
               .map((t) => (
                 <li key={t.slug}>{t.slug}</li>

@@ -18,13 +18,14 @@ export const SAUGELLA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/saugella-dermoliquide-soin-lavant-hygiene-intime-femmes-sauge-flacon.webp',
     tags: {
-      primary: ['exfoliation', 'barriere-cutanee', 'hydratation'],
+      primary: ['step-traitement', 'barriere-cutanee', 'step-hydratation'],
       secondary: [
         'keratolytique',
-        'emollience',
-        'nettoyant-corps',
+        'step-hydratation',
+        'type-nettoyant',
         'zone-corps',
-        'exfoliant-chimique',
+        'zone-corps',
+        'type-exfoliation',
       ],
       avoid: [],
     },
@@ -49,13 +50,14 @@ export const SAUGELLA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/saugella-dermoliquide-soin-lavant-hygiene-intime-femmes-sauge.webp',
     tags: {
-      primary: ['exfoliation', 'barriere-cutanee', 'hydratation'],
+      primary: ['step-traitement', 'barriere-cutanee', 'step-hydratation'],
       secondary: [
         'keratolytique',
-        'emollience',
-        'nettoyant-corps',
+        'step-hydratation',
+        'type-nettoyant',
         'zone-corps',
-        'exfoliant-chimique',
+        'zone-corps',
+        'type-exfoliation',
       ],
       avoid: [],
     },
@@ -80,8 +82,8 @@ export const SAUGELLA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/saugella-homme-soin-lavant-intime-et-corps-special-hygiene-masculine.webp',
     tags: {
-      primary: ['barriere-cutanee', 'hydratation'],
-      secondary: ['emollience', 'nettoyant-corps', 'zone-corps'],
+      primary: ['barriere-cutanee', 'step-hydratation'],
+      secondary: ['step-hydratation', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.CHOLESTEROL }],

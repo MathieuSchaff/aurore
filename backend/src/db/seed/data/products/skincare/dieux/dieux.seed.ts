@@ -20,15 +20,15 @@ export const DIEUX_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/dieux-air-angel-hydrating-facial-gel-cream-0-85-fl-oz-25-ml',
     imageUrl: 'https://cdn1.skinsafeproducts.com/photo/21303A69BEAB65/large_1757748323.png',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.GEL_CREME],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.TYPE_HYDRATANT, TAG_SLUGS.TEXTURE_GEL],
       secondary: [
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -58,7 +58,7 @@ export const DIEUX_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/dieux-ethereal-facial-cleansing-oil-3-38-fl-oz-100-ml',
     imageUrl: 'https://cdn1.skinsafeproducts.com/photo/060D19A8C6E280/large_1748332259.png',
     tags: {
-      primary: [TAG_SLUGS.HUILE_NETTOYANTE, TAG_SLUGS.DOUBLE_NETTOYAGE_1, TAG_SLUGS.NETTOYANT],
+      primary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.TEXTURE_HUILE, TAG_SLUGS.STEP_NETTOYAGE_1],
       secondary: [TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
@@ -79,8 +79,18 @@ export const DIEUX_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/dieux-skin-auracle-reviving-eye-gel',
     imageUrl: 'https://cdn1.skinsafeproducts.com/photo/2E27A654BCC77E/large_1697911635.png',
     tags: {
-      primary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX],
-      secondary: [TAG_SLUGS.CERNES_POCHES, TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR],
+      primary: [
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.STEP_TRAITEMENT,
+      ],
+      secondary: [
+        TAG_SLUGS.CERNES_POCHES,
+        TAG_SLUGS.SANS_PARFUM,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -104,14 +114,19 @@ export const DIEUX_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/dieux-instant-angel-lipid-rich-moisturizer',
     imageUrl: 'https://cdn1.skinsafeproducts.com/photo/0D9183E680906D/large_1748155150.png',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.CREME_HYDRATANTE, TAG_SLUGS.BARRIERE_CUTANEE],
+      primary: [
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+      ],
       secondary: [
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -138,7 +153,7 @@ export const DIEUX_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/baptism-gentle-foaming-facial-gel-cleanser',
     imageUrl: 'https://cdn1.skinsafeproducts.com/photo/3D18B5F08670AF/large_1756637088.png',
     tags: {
-      primary: [TAG_SLUGS.MOUSSE_NETTOYANTE, TAG_SLUGS.NETTOYANT, TAG_SLUGS.DOUBLE_NETTOYAGE_2],
+      primary: [TAG_SLUGS.TYPE_NETTOYANT, TAG_SLUGS.TEXTURE_MOUSSE, TAG_SLUGS.STEP_NETTOYAGE_2],
       secondary: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.SANS_PARFUM, TAG_SLUGS.ZONE_VISAGE],
       avoid: [],
     },
@@ -159,15 +174,15 @@ export const DIEUX_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/dieux-deliverance-soothe-smooth-glow-serum',
     imageUrl: 'https://cdn1.skinsafeproducts.com/photo/5828AB330B3401/large_1730795496.png',
     tags: {
-      primary: [TAG_SLUGS.SERUM, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.ANTI_ROUGEURS],
+      primary: [TAG_SLUGS.TYPE_SERUM, TAG_SLUGS.STEP_TRAITEMENT, TAG_SLUGS.ANTI_ROUGEURS],
       secondary: [
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ECLAT,
         TAG_SLUGS.GRAIN_PEAU,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.ZONE_VISAGE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -191,8 +206,13 @@ export const DIEUX_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/dieux-skin-forever-eye-mask',
     imageUrl: 'https://cdn1.skinsafeproducts.com/photo/32D51E60FA5D02/large_1697912048.png',
     tags: {
-      primary: [TAG_SLUGS.CONTOUR_YEUX, TAG_SLUGS.ZONE_YEUX, TAG_SLUGS.SOIN_YEUX],
-      secondary: [TAG_SLUGS.MASQUE_HEBDO],
+      primary: [
+        TAG_SLUGS.TYPE_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.STEP_TRAITEMENT,
+      ],
+      secondary: [TAG_SLUGS.MOMENT_HEBDOMADAIRE],
       avoid: [],
     },
   },
@@ -213,7 +233,13 @@ export const DIEUX_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/dieux-barrier-blanket-restorative-balm',
     imageUrl: 'https://cdn1.skinsafeproducts.com/photo/2617FADCEF9E18/large_1723032316.png',
     tags: {
-      primary: [TAG_SLUGS.BAUME, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.OCCLUSION],
+      primary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_BAUME,
+        TAG_SLUGS.BARRIERE_CUTANEE,
+        TAG_SLUGS.STEP_OCCLUSIF,
+        TAG_SLUGS.MOMENT_SOIR,
+      ],
       secondary: [
         TAG_SLUGS.PEAU_SECHE,
         TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE,

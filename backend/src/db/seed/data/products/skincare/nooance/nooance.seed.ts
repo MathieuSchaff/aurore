@@ -21,15 +21,15 @@ export const NOOANCE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.REPULPANT],
       secondary: [
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.SERUM,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.TYPE_SERUM,
         TAG_SLUGS.NON_COMEDOGENE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.TEXTURE_LEGERE,
         TAG_SLUGS.PEAU_MIXTE,
         TAG_SLUGS.PEAU_NORMALE,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -95,8 +95,8 @@ export const NOOANCE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ROSACEE, TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.TRAITEMENT,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.STEP_TRAITEMENT,
         TAG_SLUGS.BARRIERE_CUTANEE,
         TAG_SLUGS.SANS_PARFUM,
         TAG_SLUGS.HYPOALLERGENIQUE,
@@ -142,9 +142,10 @@ export const NOOANCE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.REPARATEUR],
       secondary: [
-        TAG_SLUGS.SOIR,
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.CREME_DE_NUIT,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.BARRIERE_CUTANEE,
         TAG_SLUGS.MICROBIOME,
       ],
@@ -199,11 +200,12 @@ export const NOOANCE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.CERNES_POCHES, TAG_SLUGS.ANTI_AGE],
       secondary: [
-        TAG_SLUGS.CONTOUR_YEUX,
-        TAG_SLUGS.SOIN_YEUX,
+        TAG_SLUGS.TYPE_TRAITEMENT,
         TAG_SLUGS.ZONE_YEUX,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.BARRIERE_CUTANEE,
       ],
       avoid: [],
@@ -245,7 +247,12 @@ export const NOOANCE_SEED: UnifiedProductSeed[] = [
     url: 'https://nooance-paris.com',
     tags: {
       primary: [TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.ECLAT, TAG_SLUGS.HYPERPIGMENTATION],
-      secondary: [TAG_SLUGS.TRAITEMENT, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.POST_ACNE],
+      secondary: [
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.POST_ACNE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -284,7 +291,12 @@ export const NOOANCE_SEED: UnifiedProductSeed[] = [
     url: 'https://nooance-paris.com',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPARATEUR],
-      secondary: [TAG_SLUGS.SOIR, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.CREME_DE_NUIT],
+      secondary: [
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+      ],
       avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
     keyIngredients: [
@@ -319,9 +331,10 @@ export const NOOANCE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.ECLAT],
       secondary: [
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.ZONE_VISAGE,
         TAG_SLUGS.ANTI_OXYDANT,
       ],
@@ -365,7 +378,12 @@ export const NOOANCE_SEED: UnifiedProductSeed[] = [
     url: 'https://nooance-paris.com',
     tags: {
       primary: [TAG_SLUGS.ANTI_AGE, TAG_SLUGS.REPARATEUR],
-      secondary: [TAG_SLUGS.SOIR, TAG_SLUGS.TRAITEMENT, TAG_SLUGS.CREME_DE_NUIT],
+      secondary: [
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+      ],
       avoid: [TAG_SLUGS.GROSSESSE_COMPATIBLE],
     },
     keyIngredients: [
@@ -401,11 +419,12 @@ export const NOOANCE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.CERNES_POCHES, TAG_SLUGS.ANTI_AGE],
       secondary: [
-        TAG_SLUGS.CONTOUR_YEUX,
-        TAG_SLUGS.SOIN_YEUX,
+        TAG_SLUGS.TYPE_TRAITEMENT,
         TAG_SLUGS.ZONE_YEUX,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.ZONE_YEUX,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
       ],
       avoid: [],
     },
@@ -446,9 +465,9 @@ export const NOOANCE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_AGE],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ANTI_OXYDANT,
         TAG_SLUGS.ZONE_VISAGE,
       ],
@@ -487,10 +506,11 @@ export const NOOANCE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_AGE],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.BRUME,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.TYPE_MIST,
+        TAG_SLUGS.TEXTURE_EAU,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.BARRIERE_CUTANEE,
         TAG_SLUGS.ANTI_OXYDANT,
       ],
@@ -530,11 +550,11 @@ export const NOOANCE_SEED: UnifiedProductSeed[] = [
     inci: 'Aqua (Water), Dipropylene Glycol, Niacinamide, Pentylene Glycol, Glycerin, Hydrolyzed Yeast Extract, Glycereth-26, Panthenol, Hydrolyzed Hyaluronic Acid, Sodium Hyaluronate, Sodium Acetylated Hyaluronate, Sodium Hyaluronate Crosspolymer, Hydrolyzed Sodium Hyaluronate, Polyglutamic Acid, Centella Asiatica Leaf Cell Extract, Sodium Carboxymethyl Beta-Glucan, Polyglucuronic Acid, Carnosine, Acetyl Hexapeptide-8, N-ProlylPalmitoyl Tripeptide-56 Acetate, Palmitoyl Tripeptide-1, Palmitoyl Heptapeptide-27, Palmitoyl Oligopeptide-78, Palmitoyl Tetrapeptide-7, Heptapeptide-15 Palmitate, Palmitoyl Octapeptide-24, Arginine, Phospholipids, Lecithin, Sphingolipids, Chlorella Vulgaris Extract, Alpha-Arbutin, Dipotassium Glycyrrhizate, Camellia Sinensis Leaf Extract, Carbomer, Sodium Lactate, Cetyl Hydroxyethylcellulose, Lactic Acid/Glycolic Acid Copolymer, Ascorbyl Palmitate, Tocopherol, Butylene Glycol, Chlorphenesin, Citric Acid, Caprylyl Glycol, Polysorbate 20, Hydrogenated Palm Glycerides Citrate, Potassium Sorbate, Sodium Benzoate, Sodium Citrate, Ethylhexylglycerin, Polyvinyl Alcohol, Phenoxyethanol, Sodium Hydroxide.',
     url: 'https://nooance-paris.com',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_AGE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.REPULPANT, TAG_SLUGS.ANTI_AGE],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.BARRIERE_CUTANEE,
         TAG_SLUGS.ANTI_TACHES,
         TAG_SLUGS.ZONE_VISAGE,
@@ -584,11 +604,11 @@ export const NOOANCE_SEED: UnifiedProductSeed[] = [
     inci: 'AQUA, GLYCERIN, PROPANEDIOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, PENTYLENE GLYCOL, NIACINAMIDE, LIMNANTHES ALBA SEED OIL, COCO-CAPRYLATE/CAPRATE, CASTOR OIL/IPDI COPOLYMER, BUTYLENE GLYCOL, BISABOLOL, BACILLUS FERMENT, VITIS VINIFERA FLOWER CELL EXTRACT, PALMITOYL TETRAPEPTIDE-7, ROSA CENTIFOLIA FLOWER EXTRACT, ROSMARINUS OFFICINALIS LEAF EXTRACT, TRIHEPTANOIN, C13-15 ALKANE, CHLORPHENESIN/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CARBOMER, LACTIC ACID, SODIUM HYDROXIDE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, CITRIC ACID, TOCOPHEROL, CHRYSIN.',
     url: 'https://nooance-paris.com',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.SERUM,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.MICROBIOME,
         TAG_SLUGS.APAISANT,
       ],
@@ -622,9 +642,11 @@ export const NOOANCE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.HUILE_VISAGE,
-        TAG_SLUGS.EMOLLIENCE,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.TEXTURE_HUILE,
+        TAG_SLUGS.ZONE_VISAGE,
+        TAG_SLUGS.STEP_HYDRATATION,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PREBIOTIQUE,
         TAG_SLUGS.MICROBIOME,
         TAG_SLUGS.ANTI_OXYDANT,
@@ -665,9 +687,9 @@ export const NOOANCE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ANTI_TACHES],
       secondary: [
-        TAG_SLUGS.TRAITEMENT,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.PEAU_SENSIBLE,
         TAG_SLUGS.ROSACEE,
@@ -702,9 +724,10 @@ export const NOOANCE_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.HYPERPIGMENTATION,
         TAG_SLUGS.ZONE_VISAGE,
       ],

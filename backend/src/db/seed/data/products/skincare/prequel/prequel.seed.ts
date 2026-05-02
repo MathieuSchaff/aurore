@@ -22,10 +22,11 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ANTI_ACNE],
       secondary: [
-        TAG_SLUGS.BRUME,
+        TAG_SLUGS.TYPE_MIST,
+        TAG_SLUGS.TEXTURE_EAU,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -54,9 +55,10 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
-        TAG_SLUGS.MOUSSE_NETTOYANTE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_MOUSSE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -91,10 +93,11 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -130,7 +133,13 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-non-drying-glycerin-cleanser.webp',
     tags: {
       primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.PEAU_SECHE],
-      secondary: [TAG_SLUGS.GEL_NETTOYANT, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_GEL,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -161,10 +170,12 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.PEAU_SECHE, TAG_SLUGS.DESHYDRATATION],
       secondary: [
-        TAG_SLUGS.LAIT_CORPS,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_LAIT,
+        TAG_SLUGS.ZONE_CORPS,
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_CORPS,
       ],
       avoid: [],
@@ -200,7 +211,14 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-hand-wrap-hand-shielding-lotion.webp',
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.DESHYDRATATION],
-      secondary: [TAG_SLUGS.CREME_MAINS, TAG_SLUGS.MATIN, TAG_SLUGS.SOIR, TAG_SLUGS.ZONE_MAINS],
+      secondary: [
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.ZONE_MAINS,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
+        TAG_SLUGS.ZONE_MAINS,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -227,11 +245,12 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/prequel-am-pm-modern-moisturizer-2-fl-oz-60-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-am-pm-modern-moisturizer.webp',
     tags: {
-      primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
-        TAG_SLUGS.CREME_HYDRATANTE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_CREME,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -267,12 +286,13 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/prequel-half-half-fluid-moisturizer-peptides-ceramide-5-7-fl-oz-168-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-half-half-fluid-moisturizer.webp',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
+      primary: [TAG_SLUGS.STEP_HYDRATATION, TAG_SLUGS.BARRIERE_CUTANEE],
       secondary: [
-        TAG_SLUGS.GEL_CREME,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_GEL,
         TAG_SLUGS.PEAU_MIXTE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -306,9 +326,9 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.GRAIN_PEAU, TAG_SLUGS.ECLAT, TAG_SLUGS.TEINT_TERNE],
       secondary: [
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
-        TAG_SLUGS.EXFOLIATION,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_EXFOLIATION,
+        TAG_SLUGS.STEP_TRAITEMENT,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -342,11 +362,12 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/prequel-pre-gleanse-cleansing-oil-cica-oil-linoleic-acid-linolenic-acid-rice-bran-oil-6-5-fl-oz-193-ml',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-pre-gleanse-cleansing-oil.webp',
     tags: {
-      primary: [TAG_SLUGS.DOUBLE_NETTOYAGE_1],
+      primary: [TAG_SLUGS.STEP_NETTOYAGE_1],
       secondary: [
-        TAG_SLUGS.HUILE_NETTOYANTE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_HUILE,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -382,10 +403,11 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.CICATRISATION],
       secondary: [
-        TAG_SLUGS.BAUME,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_BAUME,
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -416,7 +438,12 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-lucent-c-brightening-serum.webp',
     tags: {
       primary: [TAG_SLUGS.ECLAT, TAG_SLUGS.ANTI_TACHES, TAG_SLUGS.PHOTO_VIEILLISSEMENT],
-      secondary: [TAG_SLUGS.SERUM, TAG_SLUGS.ANTI_OXYDANT, TAG_SLUGS.MATIN, TAG_SLUGS.ZONE_VISAGE],
+      secondary: [
+        TAG_SLUGS.TYPE_SERUM,
+        TAG_SLUGS.ANTI_OXYDANT,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.ZONE_VISAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -448,12 +475,13 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
     url: 'https://www.skinsafeproducts.com/prequel-skin-utility-ointment-2-oz-56-6-g',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/prequel-skin-utility-ointment.webp',
     tags: {
-      primary: [TAG_SLUGS.OCCLUSION, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
+      primary: [TAG_SLUGS.STEP_OCCLUSIF, TAG_SLUGS.MOMENT_SOIR, TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
       secondary: [
-        TAG_SLUGS.BAUME,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_BAUME,
         TAG_SLUGS.CICATRISATION,
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -486,11 +514,12 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.PORES_DILATES],
       secondary: [
-        TAG_SLUGS.GEL_NETTOYANT,
+        TAG_SLUGS.TYPE_NETTOYANT,
+        TAG_SLUGS.TEXTURE_GEL,
         TAG_SLUGS.PEAU_GRASSE,
         TAG_SLUGS.BRILLANCE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -522,12 +551,13 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/prequel-multi-purpose-skin-protectant-skin-utility-gel.webp',
     tags: {
-      primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.BARRIERE_CUTANEE, TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
-        TAG_SLUGS.GEL_CREME,
+        TAG_SLUGS.TYPE_HYDRATANT,
+        TAG_SLUGS.TEXTURE_GEL,
         TAG_SLUGS.PEAU_SENSIBLE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -558,12 +588,12 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/prequel-multi-quench-plumping-hydration-serum.webp',
     tags: {
-      primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.HYDRATATION],
+      primary: [TAG_SLUGS.DESHYDRATATION, TAG_SLUGS.STEP_HYDRATATION],
       secondary: [
-        TAG_SLUGS.SERUM,
+        TAG_SLUGS.TYPE_SERUM,
         TAG_SLUGS.PEAU_SECHE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],
@@ -595,10 +625,10 @@ export const PREQUEL_SEED: UnifiedProductSeed[] = [
     tags: {
       primary: [TAG_SLUGS.ANTI_ROUGEURS, TAG_SLUGS.ROSACEE, TAG_SLUGS.PEAU_SENSIBLE],
       secondary: [
-        TAG_SLUGS.SERUM,
+        TAG_SLUGS.TYPE_SERUM,
         TAG_SLUGS.COUPEROSE,
-        TAG_SLUGS.MATIN,
-        TAG_SLUGS.SOIR,
+        TAG_SLUGS.MOMENT_MATIN,
+        TAG_SLUGS.MOMENT_SOIR,
         TAG_SLUGS.ZONE_VISAGE,
       ],
       avoid: [],

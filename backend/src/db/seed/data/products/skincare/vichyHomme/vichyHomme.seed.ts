@@ -19,14 +19,15 @@ export const VICHY_HOMME_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-homme-gel-douche-corps-cheveux-hydra-mag-c-200ml-299448.webp',
     tags: {
-      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.EXFOLIATION],
+      primary: [TAG_SLUGS.ANTI_ACNE, TAG_SLUGS.STEP_TRAITEMENT],
       secondary: [
-        TAG_SLUGS.HYDRATATION,
+        TAG_SLUGS.STEP_HYDRATATION,
         TAG_SLUGS.SEBO_REGULATEUR,
         TAG_SLUGS.KERATOLYTIQUE,
-        TAG_SLUGS.NETTOYANT_CORPS,
+        TAG_SLUGS.TYPE_NETTOYANT,
         TAG_SLUGS.ZONE_CORPS,
-        TAG_SLUGS.EXFOLIANT_CHIMIQUE,
+        TAG_SLUGS.ZONE_CORPS,
+        TAG_SLUGS.TYPE_EXFOLIATION,
       ],
       avoid: [TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SENSIBLE, TAG_SLUGS.PEAU_SECHE],
     },
@@ -48,8 +49,8 @@ export const VICHY_HOMME_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/vichy-homme-gel-douche-corps-cheveux-hydra-mag-c.webp',
     tags: {
-      primary: ['anti-acne', 'hydratation'],
-      secondary: ['sebo-regulateur', 'nettoyant-corps', 'zone-corps'],
+      primary: ['anti-acne', 'step-hydratation'],
+      secondary: ['sebo-regulateur', 'type-nettoyant', 'zone-corps', 'zone-corps'],
       avoid: ['peau-sensible', 'peau-sensible', 'peau-seche'],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.ASCORBYL_GLUCOSIDE }],

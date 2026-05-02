@@ -20,7 +20,6 @@ export const SKINCARE_PRODUCT_TAG_CATEGORY_META: Record<
     order: 2,
     defaultOpen: true,
   },
-  // V2 type filter — 12 functional buckets, replaces legacy product_type in UI.
   product_type_v2: {
     label: 'Type',
     placeholder: 'Tous',
@@ -42,15 +41,15 @@ export const SKINCARE_PRODUCT_TAG_CATEGORY_META: Record<
     order: 5,
     defaultOpen: false,
   },
-  // Legacy 42-slug type — kept visible while products are migrated to V2.
-  product_type: {
-    label: 'Type (legacy)',
+  // Moment = essential : "produit du matin/soir" = filtre haute fréquence.
+  routine_moment: {
+    label: 'Moment',
     placeholder: 'Tous',
     tier: 'essential',
     order: 6,
     defaultOpen: false,
   },
-  routine_step: { label: 'Étape', placeholder: 'Toutes', tier: 'advanced', order: 7 },
+  routine_step_v2: { label: 'Étape', placeholder: 'Toutes', tier: 'advanced', order: 7 },
   skin_effect: { label: 'Rendu', placeholder: 'Tous', tier: 'advanced', order: 8 },
   product_label: { label: 'Label', placeholder: 'Tous', tier: 'advanced', order: 9 },
   shared_label: {
