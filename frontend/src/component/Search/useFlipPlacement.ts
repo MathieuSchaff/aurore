@@ -30,7 +30,7 @@ export function useFlipPlacement(
       dropdown.style.left = `${rect.left}px`
       dropdown.style.width = `${rect.width}px`
 
-      const MAX_HEIGHT = Math.min(window.innerHeight * 0.5, 400)
+      const MAX_HEIGHT = Math.min(window.innerHeight * 0.6, 520)
 
       if (placeAbove) {
         dropdown.style.top = 'auto'
@@ -57,3 +57,4 @@ export function useFlipPlacement(
     }
   }, [isOpen, triggerRef, dropdownRef, ...extraDeps])
 }
+

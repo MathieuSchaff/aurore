@@ -1,6 +1,19 @@
 # Roadmap — Products
 
-## Architecture
+## 📚 Références
+
+| Doc | Rôle | Quand consulter |
+|---|---|---|
+| `shared/src/products/STATE.md` | Source de vérité domaine products (schéma DB, taxonomie, validation Zod, routes, service, UI state, flow cross-layer) | Avant toute modif touchant un layer products |
+| `shared/src/products/PLAN.md` | Refacto taxonomy skincare (clusters, aliases, tier ⊥ visibility, search expansion) | Avant toucher search aliases, ordre drawer, auto-tagging |
+| `frontend/docs/filter-tests-plan.md` | Plan de tests Filter (drawer + search + hooks), MSW v2, état dette | Avant modif `component/Filter/*` ou tests intégration ProductsPage |
+| `backend/src/db/seed/docs/DEDUP.md` + `audit-imported-products.ts` | Audit doublons produits | Avant Phase 6 doublons |
+| `backend/src/db/seed/docs/IMAGES_AUDIT.md` | Audit images manquantes BunnyCDN | Avant Phase 6 images |
+| `idee/algo/dermo-signal-scoring-roadmap.md` §12.5 | Intégration `algo-derm` × Aurore | Avant Phase 8 concentrations INCI |
+
+---
+
+## 🏗️ Architecture
 
 | Fichier / dossier | Rôle |
 |---|---|
@@ -24,14 +37,82 @@
 
 ---
 
-## 🚧 Actif
+## 🚧 Actif — phasé par dépendances
 
-### Seed haircare
-- [ ] **Enrichir tags haircare** : ajouter `hair_type` / `concern` / `routine_step` / `hair_effect` / `product_label` sur chaque produit haircare (≥1 tag par axe pertinent). Phase sémantique.
+> Audit 2026-04-26 : baseline 19 fails tests préexistants (Toggle, FilterDrawer resync, CollectionPage, PurchaseFlow, ProductDetailSheet, Layout/Card) — orthogonaux, traités Phase 4.
+
+---
+
+### Phase 1 — Perf isolées (ProductsPage + Info/Edit) ✅
+
+PR 1a + 1b traités. Pass LOW close (voir Terminé #16).
+
+Triagés out (gain marginal, ré-ouvrir si profiling montre hotspot) :
+- `style={{ viewTransitionName }}` inline par card (`ProductCard.tsx:156`) — Card `memo`isée → re-render rare.
+- `unit?.toLowerCase().trim()` alloue par card (`ProductCard.tsx:79-82`) — Coût négligeable.
+- `tagQueries.list` mapping en `queryFn` (`lib/queries/tags.ts:20-24`) — runs 1× per fetch, RQ cache la sortie. Pas un re-render alloc.
+- `BrandCombobox` `useEffect` miroir prop→state — comportement intentionnel (Tab autocomplete via `latestValueRef`), déjà documenté inline (lignes 33-36).
+
+---
+
+### Phase 4 — Tests (`frontend/docs/filter-tests-plan.md`)
+
+Dette tracée dans le plan de tests Filter. Section 0-9 unit ✅, intégration ProductsPage scope complet ✅.
+
+- [x] **Section 9 scope complet** — 3 tests intégration ProductsPage ajoutés (2026-05-04) :
+  - filtre ingrédient async type → click → apply ;
+  - chips count=0 disabled (clic ignoré, URL inchangée) ;
+  - switch tab Cheveux ré-interroge filter-options avec `category=haircare`.
+  - Dette préalable : fixtures `PRODUCT_TAGS` utilisaient `'anti-acne'/'pores-dilates'` (slugs supprimés par refacto skincare-tags ca462cd1) → remplacés par `'acne-imperfections'/'pores-sebum'`. 4 tests scope min cassés depuis 2026-05-02 maintenant verts.
+- [ ] **Fails préexistants** orthogonaux à ce plan : Toggle, FilterDrawer resync, CollectionPage (4), `useProductTagFilterGroups` (override `barriere-cutanee-alteree` slug absent du shared), PurchaseFlow, ProductDetailSheet, Layout/Card. Suite globale au 2026-05-04 : **496/501 passing**, 5 fails (62 files, 2 fail).
+- [ ] **FilterDrawer focus trap & focus initial** reportés en e2e (limites jsdom) — voir `frontend/docs/e2e.md`.
+
+---
+
+### Phase 5 — Seed haircare (backend isolé)
+
+Pas de couplage frontend. Préalable à P6 auto-tagging propre sur haircare.
+
 - [ ] **DB cleanup** : `DELETE FROM product_tags WHERE slug IN ('shampoing', 'apres-shampoing', 'masque-cheveux', 'serum-cheveux', 'huile-cheveux', 'produit-coiffant') AND type = 'product_type'` — rows orphelines.
-- [ ] **db-seed non relancé** — relancer après haircare pour valider (diff labels attendu nul).
+- [ ] **Enrichir tags haircare** : `hair_type` / `concern` / `routine_step` / `hair_effect` / `product_label` ≥1 tag par axe pertinent. Phase sémantique.
+- [ ] **db-seed validation** — relancer après haircare (diff labels attendu nul).
+- [ ] **Flag** `cinqSurCinq` mal catégorisé (pediculicide). Reclasser `traitement-cuir-chevelu` ou exclure du domaine haircare.
 
-**Flag** : `cinqSurCinq` mal catégorisé (pediculicide). Reclasser en `traitement-cuir-chevelu` ou exclure du domaine haircare.
+---
+
+### Phase 6 — Data catalogue
+
+Ordre interne : doublons résolus avant auto-tagging (sinon tags appliqués sur doublons). Images en parallèle.
+
+- [ ] **Doublons produits** — auditer + dédupliquer. Outil : `backend/src/db/seed/docs/DEDUP.md` + `audit-imported-products.ts`.
+- [ ] **Auto-tagging** (post-doublons) — règles auto par INCI/kind/brand/nom. Spécifier : règles, axes tags, gestion conflits avec tags manuels. Référence taxonomy : `shared/src/products/PLAN.md` (clusters/aliases skincare).
+- [ ] **Images manquantes** — produits sans `image_url` → sourcer + upload BunnyCDN. Référence : `backend/src/db/seed/docs/IMAGES_AUDIT.md`.
+
+---
+
+### Phase 7 — Décisions produit bloquées
+
+Code bloqué tant que décision UX non prise.
+
+- [ ] **Ordre accordéons drawer** — l'ordre actuel (essentiel → avancé) ne convient pas. Pas les tags, mais la séquence des accordéons. Décision produit avant code. Piloté par `order` dans `hooks/useProductsFilterGroups.ts` + `shared/` (`tag-filters.ts` par domaine). Voir `filter-drawer.md §1` + `shared/src/products/PLAN.md` Q2 (tier ⊥ visibility).
+- [ ] **Édition nom + slug par admin** (dép P0 cache + décision UX) — points de vigilance :
+  - `slug` stocké séparément du `name` → modif name **n'update pas** le slug auto. Re-sync = opération explicite.
+  - Changer slug = changer URL produit → liens / bookmarks cassés + cache `productKeys.bySlug(old)` périmé sans invalidation.
+  - `image_url` pointe BunnyCDN, **pas dérivé du slug** (noms fichiers CDN ≠ slug DB). Renommer ne casse pas l'image, mais regen slug → ne pas écraser `image_url`.
+  - Décision : édition slug directe ou regen depuis nom avec confirm ?
+
+---
+
+### Phase 8 — Dép externe `algo-derm`
+
+Attendre intégration scoring INCI fourchettes côté lib.
+
+- [ ] **Estimer % ingrédients clés INCI** — fourchette de concentration depuis position liste INCI (ordre décroissant réglementaire). Pistes :
+  - Position = signal principal (avant/après eau, avant/après conservateurs <1 %).
+  - Données réf connues (niacinamide souvent 2-10 %, conservateurs <1 %).
+  - `algo-derm` scoring INCI déjà en place — voir si moteur peut exposer fourchettes (`idee/algo/dermo-signal-scoring-roadmap.md` §12.5).
+  - Affichage : fourchette indicative (ex: "~4-8 %"), pas valeur exacte (trompeur sinon).
+  - Stocker estimations ou calculer à la volée ? À décider selon coût.
 
 ---
 
@@ -49,41 +130,53 @@
 | 8 | Limit search 8 → 20 + pagination infinie | `productQueries.search` → `infiniteQueryOptions`, sentinel `IntersectionObserver` dans `ComboboxPrimitive` | — |
 | 9 | Header search multi-facettes (D1 ingrédient · D2 Enter · D3 `q` · D4 sections) | `SearchCombobox`, `ComboboxPrimitive`, `ProductsHeader`, `text-fold.ts` ; backend : param `q` list endpoint | Match alphabétique (pas de scoring). `q` couvre name+brand uniquement (pas les tags). Pas d'empty state spécifique mode `q`. |
 | 10 | Flash dropdown au re-fetch | `SearchCombobox.tsx` : `placeholderData: prev`, spinner premier fetch seulement | — |
+| 11 | Filter tests unit — Sections 0-8 + intégration scope min | `frontend/src/test/msw/`, `component/Filter/__tests__/`, `features/products/__tests__/` | Section 9 scope complet → Phase 4. Plan détaillé : `frontend/docs/filter-tests-plan.md`. |
+| 12 | Cache invalidation foundation (ex-Phase 0) — `useUpdateProductTags` / `use{Add,Update,Remove}ProductIngredient` / `useDeleteProduct` invalident `bySlug` + `lists` (+ brands pour delete) | `lib/queries/products.ts` (mutations 217-367) | `slug` passé dans payload mutation pour permettre invalidation cible. |
+| 13 | Memoize ProductsPage (ex-MEDIUM Phase 1) — `filters`, `apiFilters`, `avoidFor` tous `useMemo` ; `avoidFor` literal idem | `pages/ProductsPage/ProductsPage.tsx:71-77, 82-86, 108-123` | LOW `avoidFor literal` couvert par le même fix. |
+| 14 | Phase 1 PR 1b — waterfalls Info/Edit + dermo prefetch | backend `service.ts` (`getProductFullBySlug` inclut `tags`), frontend `lib/queries/products.ts` (drop `productQueries.tags`), `ProductEditPage.tsx`, `ProductInfoTab.tsx`, `routes/products/$slug.tsx` (loader parallèle bySlug+dermo, `.catch(() => null)` sur dermo), `routes/products/index.tsx` (loader prefetchQuery dermo si auth) | Sheet collection sur-fetch tags (~few hundred bytes) — marginal. Dermo failure ne casse pas la page produit (catch). |
+| 15 | Phase 1 PR 1a — `staleTime` ternary collapse + `react-markdown` lazy | `pages/ProductsPage/ProductsPage.tsx:127`, `pages/ProductInfoTab/ProductInfoTab.tsx:5,99` (`lazy()` + `<Suspense fallback={<p>{description}</p>}>`) | ~50 KB gzip déférré. Fallback raw text pendant chargement chunk. |
+| 16 | Phase 1 LOW pass — narrow `useRouterState`, drop type cast, fuse `useEffect` mirrors, dédupe filter loop | `ProductLayout.tsx:46` (`select: s => s.location.pathname.includes('/discussions')`), `ProductsPage.tsx:47` (drop `as Record`), `PriceRangeFilter.tsx:33-37` (1 effect au lieu de 2), `lib/queries/products.ts:53-56` (`for FILTER_KEYS` au lieu de TAG_FILTER_KEYS + 3 lignes manuelles) | 4 entries triagées out — voir section Phase 1. |
+| 17 | Phase 2 — ProductForm batch | `ProductForm.tsx` (amountUnit ChipGroup → `<select>` natif + `__select` CSS ; readonly image URL input sous ImageUpload ; row-scope `removing` via `removeIngredient.variables.ingredientId`), `lib/queries/products.ts` (`checkDuplicate` cache key normalisé lowercase+trim ; `useRemoveProductIngredient` optimistic `onMutate`/rollback/onSettled), `AddToCollectionModal.tsx` (`useState(() => today)` au lieu de body-level `new Date()`). HIGH `key={product.id}` déjà appliqué (`ProductEditPage.tsx:46`). | Backend `findSimilarProducts` est case-insensitive (`lower()`) → safe d'envoyer lowercase. |
+| 18 | Phase 3 — SearchCombobox bugs | `ComboboxPrimitive.tsx` (sections rendues avant items, index keyboard inversé : sections 0..N puis items N..total) + CSS divider via `.section + .option`, `SearchCombobox.tsx` (prop `onSubmitQuery` ; Enter sans highlight → `onSubmitQuery(debouncedQuery)` au lieu de premier item première section), `ProductsHeader.tsx` (`onSubmitQuery` → `navigate(/products?q=trimmed&page=1)`). Tests MAJ : `SearchCombobox.test.tsx` (nouveau test `onSubmitQuery` + retrait premier-section ; ordre keyboard inversé), `ProductsHeader.test.tsx` (Enter applique `q` même quand facette match ; ArrowDown+Enter → ingredient). | Section "Marques" toujours visible : sections en haut. Enter contract clair : highlight = sélection (item ou section), pas de highlight = `q` fallback. Fallback section "Recherche" gardée pour click discoverability. |
+| 19 | Phase 3 — densité dropdown header search | `ProductsHeader.tsx` (`FACET_SECTION_LIMIT: 3 → 2`), `useFlipPlacement.ts` (`MAX_HEIGHT: min(0.5vh, 400) → min(0.6vh, 520)`), `SearchCombobox.css` (`label`/`sublabel` truncate single-line ellipsis), `ComboboxPrimitive.css` (sections : drop margin/padding extra, divider `section + option` minimal, `__option` dans section padding compact, `__section-label` padding réduit). Tests MAJ : cap 3 → 2. | Avant : 1 produit visible (sections 287px / 400px, 1er item 84px à cause du wrap label + divider). Après : 4-6 produits visibles (sections 245px / 520px, items 58px stables). |
 
 ---
 
-## Issues ouverts (audit 2026-04-26)
+## 📝 Notes — Loading & data flow `/products`
 
-*Baseline : 19 fails préexistants (Toggle, FilterDrawer resync, CollectionPage, PurchaseFlow, ProductDetailSheet, Layout/Card) — antérieurs à cet audit, orthogonaux.*
+Documenté pour référence. Pas de chantier actif, juste l'état actuel.
 
-| Sévérité | Fichier | Ligne(s) | Problème | Fix |
-|---|---|---|---|---|
-| CRITICAL | `lib/queries/products.ts` | 252-255 | `useUpdateProductTags.onSuccess` n'invalide pas `bySlug` ni `lists()` → tags périmés dans `ProductInfoTab`. | Invalider `productKeys.bySlug(slug)` + `productKeys.lists()`. Passer `slug` dans le payload mutation. |
-| CRITICAL | `lib/queries/products.ts` | 277-278, 298-299 | `useAddProductIngredient` / `useRemoveProductIngredient` n'invalident pas `bySlug` → ingrédients périmés dans `ProductInfoTab`. | Invalider `productKeys.bySlug(slug)`. |
-| CRITICAL | `lib/queries/products.ts` | 220-230 | `useDeleteProduct.onSuccess` n'invalide pas `bySlug` ni brands → phantom brand dans combobox. | `removeQueries(bySlug)` + invalider liste brands. |
-| HIGH | `pages/ProductEditPage/ProductEditPage.tsx` | 14-15 | Waterfall : `bySlug` puis `tags(product.id)`. | `useSuspenseQueries` ou inclure les tags dans `bySlug`. |
-| HIGH | `pages/ProductInfoTab/ProductInfoTab.tsx` | 31, 36-44 | `profileQueries.dermo()` attend la barrière suspense `bySlug`. | Précharger `dermo()` dans le loader de route. |
-| HIGH | `pages/ProductsPage/ProductsPage.tsx` | 117-125 | Flash "tous produits" au toggle profil si `dermoProfile` absent du cache. | Précharger `dermo()` au boot (utilisateur connecté). |
-| HIGH | `components/ProductForm/ProductForm.tsx` | 89-93 | `useState(initialForm)` non resync après mutation. | `key={product.id ?? 'create'}` sur le form. |
-| MEDIUM | `pages/ProductsPage/ProductsPage.tsx` | 127-161 | `filters`, `apiFilters`, `avoidFor` recréés à chaque render (object literals). | `useMemo` sur chacun, keyed sur `[search]`. |
-| MEDIUM | `pages/ProductsPage/ProductsPage.tsx` | 176 | `staleTime` deux branches avec valeur identique. | `sort === 'random' \|\| hasFilters ? BROWSING_STALE_TIME : 0`. |
-| MEDIUM | `pages/ProductInfoTab/ProductInfoTab.tsx` | 5, 86 | `react-markdown` chargé eagerly (~50 KB gzip). | `lazy(() => import('react-markdown'))` + `<Suspense>`. |
-| MEDIUM | `components/ProductForm/ProductForm.tsx` | 117-120 | `checkDuplicate` re-keye à chaque frappe, pas de réutilisation cache. | Normaliser cache key (lowercase + trim). |
-| MEDIUM | `components/ProductForm/ProductForm.tsx` | 215, 426-436 | Trash button bloque toute la liste en edit mode pendant une suppression. | Optimistic `setQueryData(bySlug)` dans `onMutate` ; désactiver uniquement la row via `variables.ingredientId`. |
-| MEDIUM | `components/AddToCollectionModal/AddToCollectionModal.tsx` | 38 | `new Date()` dans le body → drift si modale ouverte à minuit. | `useState(() => new Date().toISOString().split('T')[0])`. |
-| LOW | `components/BrandCombobox/BrandCombobox.tsx` | 38-41 | `useEffect` miroir prop → state, bidirectionnel intentionnel. | Acceptable. Documenter le binding bidirectionnel. |
-| LOW | `components/PriceRangeFilter/PriceRangeFilter.tsx` | 33-38 | Deux `useEffect` miroirs `min`/`max`. | Fusionner en un seul. |
-| LOW | `pages/ProductsPage/ProductsPage.tsx` | 122-125 | `avoidFor` array literal recréé à chaque render. | `useMemo([profile_filter, dermoProfile])`. |
-| LOW | `pages/ProductsPage/ProductsPage.tsx` | 249-281 | `extraChips` impératif, non mémoïsé. | `useMemo`. |
-| LOW | `pages/ProductsPage/ProductsPage.tsx` | 442-446 | `style={{ viewTransitionName }}` inline par card par render. | `useMemo(slug)` ou `data-slug` + CSS custom property. |
-| LOW | `lib/queries/tags.ts` | 19-25 | `select` re-alloue le mapping à chaque read. | Passer `select` une couche plus profonde pour que React Query cache le résultat mappé. |
-| LOW | `pages/ProductLayout/ProductLayout.tsx` | 42-46 | `useRouterState` souscrit à toute location (re-render sur hash/search/pathname). | `select: s => s.location.pathname.includes('/discussions')`. |
-| LOW | `pages/ProductsPage/ProductsPage.tsx` | 89-92 | `unit?.toLowerCase().trim()` alloue par card par render. | `unitToClass` Map module-level. Coût actuel négligeable. |
-| LOW | `pages/ProductsPage/ProductsPage.tsx` | 67 | `as Record<string, string[]>` perd le type discriminé. | `as FilterValues<TagFilterKey>`. |
-| LOW | `lib/queries/products.ts` | 30-61 | `buildListProductsQuery` traite brand/ingredient/kind différemment des tag categories. | Dériver des deux listes depuis `FILTER_KEYS` pour symétrie. |
+### Flow page `/products` (mount)
 
-### Priorités
+1. **Loader route** (`routes/products/index.tsx`) — run avant render :
+   - `productQueries.list(filtersFromUrl)` → page paginée selon `?page=1&...` (24/page)
+   - Si auth : `dermo` prefetch parallèle (`.catch(()=>null)`, fail silencieux)
+2. **`ProductsPage` mount** :
+   - `useQuery(productQueries.list(...))` → cache hit (loader)
+3. **`ProductsHeader` mount** (toujours, pas conditionnel) :
+   - `useQuery(productQueries.brands())` → **fetch ALL marques** (one-shot, ~quelques KB)
+   - `useQuery(ingredientQueries.options())` → **fetch ALL ingrédients** (one-shot, id/slug/name)
+4. **`FilterDrawer` mount** (lazy si ouvert, voir Terminé #2) :
+   - `tagQueries.list()` → **fetch ALL tags**, filtrage client par catégorie
 
-1. **CRITICAL cache** — Invalider `productKeys.bySlug` dans les 4 mutations (`useUpdateProductTags`, `useAddProductIngredient`, `useRemoveProductIngredient`, `useDeleteProduct`) dans `lib/queries/products.ts`. Élimine la classe entière de données périmées silencieuses.
-2. **HIGH waterfall** — `ProductEditPage` + `ProductInfoTab` : paralléliser les queries indépendantes.
-3. **MEDIUM memoize** — `filters` / `apiFilters` / `avoidFor` dans `ProductsPage.tsx` : stabiliser les refs, prépare la memoization des sous-composants.
+→ **4 fetch initiaux** : `products?filters` (24) + `brands` (full) + `ingredients/options` (full) + `dermo` (auth only).
+
+### SearchCombobox header (live typing)
+
+- **Hook** : `useInfiniteQuery({ ...productQueries.search(debouncedQuery), enabled: q.length ≥ 2, placeholderData: prev })`
+- **Debounce** : 300ms
+- **1er fetch** : spinner "Chargement..." (`isFetching && !isFetchingNextPage && !isPlaceholderData`)
+- **Re-fetch** ("vit" → "vita") : pas de flash, anciens results visibles, pas de spinner (cf Terminé #10)
+- **Infinite scroll** : sentinel `IntersectionObserver` au bas de la liste → `fetchNextPage()` + indicator "Chargement..." inline
+- **Sections** (ingredients/brands/fallback) : pas de fetch live, filtrage client via `foldText()` sur les listes complètes déjà chargées
+- **Cache RQ** : clé `[productKeys.lists, 'search', q]`, persiste entre frappes
+
+### Trade-offs
+
+- **Brands + ingredients full lists** : payload initial gonflé, mais matching dropdown instant sans round-trip serveur par caractère. Acceptable tant que listes < ~quelques milliers d'items.
+- **Tags full list** : idem, optim future = passer `category` à la query (Terminé #2 limitation).
+- **`placeholderData: prev`** : pattern clé pour éviter le flash. Tradeoff = stale data brièvement visible jusqu'au resolve nouveau fetch.
+
+### Cache invalidation (mutations produit)
+
+Toutes les mutations (`useUpdateProductTags`, `use{Add,Update,Remove}ProductIngredient`, `useDeleteProduct`) invalident `productKeys.bySlug(slug)` + `productKeys.lists` (+ `brands` pour delete). Voir Terminé #12.
