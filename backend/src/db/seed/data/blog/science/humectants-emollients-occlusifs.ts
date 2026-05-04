@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const humectantsEmollientsOcclusifs: ArticleInput = {
   title: "Humectants, émollients, occlusifs : les trois piliers de l'hydratation",

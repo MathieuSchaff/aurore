@@ -10,7 +10,7 @@
 	logs logs-api logs-db logs-nginx logs-frontend \
 	lint lint-fix format \
 	shell-api shell-db shell-frontend \
-	db-migrate db-generate db-push db-studio db-backup db-restore db-seed db-clean db-reset audit-db db-seed-safe db-stats \
+	db-migrate db-generate db-push db-studio db-backup db-restore db-seed db-seed-merge db-clean db-reset audit-db db-seed-safe db-seed-merge-safe db-stats \
 	db-backup-prod db-backup-clean backup-cron-install \
 	ssl-init ssl-renew nginx-reload \
 	firewall-setup firewall-status \
@@ -318,6 +318,11 @@ db-seed: ## Remplit la base de données avec les données CORE (Tags, Ingrédien
 	$(COMPOSE_DEV) exec api bun run src/db/seed/runners/seed-core.ts
 	@echo "$(GREEN)✓ Seed CORE exécuté avec succès$(NC)"
 
+db-seed-merge: ## Push deltas seed sans wiper la DB (idempotent, --no-clean — préserve user-state)
+	@echo "$(CYAN)Push deltas seed CORE en mode idempotent (no-clean)...$(NC)"
+	$(COMPOSE_DEV) exec api bun run src/db/seed/runners/seed-core.ts --no-clean
+	@echo "$(GREEN)✓ Deltas seed CORE poussés (data existante préservée)$(NC)"
+
 db-clean: ## Vide complètement la base de données (SCHEMA public)
 	@echo "$(YELLOW)⚠ ATTENTION : Toutes les données vont être supprimées !$(NC)"
 	@read -p "Confirmer le nettoyage de la DB locale ? [y/N] " confirm && [ "$$confirm" = "y" ] || exit 1
@@ -335,6 +340,8 @@ db-stats: ## Statistiques DB (comptages produits, ingrédients, tags, users)
 	$(COMPOSE_DEV) exec api bun run src/db/audit/stats-db.ts
 
 db-seed-safe: db-seed audit-db ## Seed + audit (recommandé après reseed)
+
+db-seed-merge-safe: db-backup db-seed-merge audit-db ## Backup + push deltas idempotent + audit (recommandé pour Phase 5d & co)
 
 db-backup: ## Crée une sauvegarde SQL de la base de données
 	@mkdir -p ./backups

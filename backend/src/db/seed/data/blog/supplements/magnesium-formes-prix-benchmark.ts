@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const magnesiumFormesPrixBenchmark: ArticleInput = {
   title: 'Magnésium : benchmark des formes, prix et biodisponibilité',

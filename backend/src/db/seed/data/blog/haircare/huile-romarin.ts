@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const HUILE_ROMARIN_CHEVEUX: ArticleInput = {
   title: 'Huile de Romarin et Repousse des Cheveux : Efficace ou Simple Mythe ?',

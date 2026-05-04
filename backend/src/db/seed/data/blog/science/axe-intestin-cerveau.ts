@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const axeIntestinCerveau: ArticleInput = {
   title: 'Axe intestin-cerveau : SCFA, nerf vague et neurotransmetteurs',

@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const plantesCirculatoiresCerveau: ArticleInput = {
   title: 'Plantes circulation cérébrale et cœur : pervenche, romarin, chicorée…',

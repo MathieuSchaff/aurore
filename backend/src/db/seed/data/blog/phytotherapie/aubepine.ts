@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const aubepine: ArticleInput = {
   title: 'Aubépine : la plante du cœur et du calme (guide complet)',

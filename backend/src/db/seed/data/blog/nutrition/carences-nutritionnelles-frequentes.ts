@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const carencesNutritionnellesFrequentes: ArticleInput = {
   title: 'Carences nutritionnelles fréquentes en France',

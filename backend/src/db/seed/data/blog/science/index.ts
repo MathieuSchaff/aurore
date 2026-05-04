@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 import { antioxydantsScience } from './antioxydants-science'
 import { axeIntestinCerveau } from './axe-intestin-cerveau'
 import { humectantsEmollientsOcclusifs } from './humectants-emollients-occlusifs'

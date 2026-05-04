@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const reglisseLicorice: ArticleInput = {
   title: 'Réglisse (licorice) et acide glycyrrhétinique : actif apaisant en cosmétique',

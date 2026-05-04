@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const boissonsBenchmark: ArticleInput = {
   title: "Boissons : tier list santé (de l'eau aux sodas)",

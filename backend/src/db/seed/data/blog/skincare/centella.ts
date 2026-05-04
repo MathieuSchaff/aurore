@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const CENTELLA_ROUGEURS_ROSACEE: ArticleInput = {
   title:

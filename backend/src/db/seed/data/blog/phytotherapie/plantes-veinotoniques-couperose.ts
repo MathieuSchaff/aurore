@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const plantesVeinotoniquesCouperose: ArticleInput = {
   title: 'Plantes veinotoniques pour la couperose : guide des 4 plantes majeures',

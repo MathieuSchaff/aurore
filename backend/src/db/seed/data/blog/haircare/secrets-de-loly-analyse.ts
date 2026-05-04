@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const secretsDeLolyAnalyse: ArticleInput = {
   title: 'Les Secrets de Loly : analyse INCI de la gamme et routine complète',

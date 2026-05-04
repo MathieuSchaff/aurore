@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const plantesRespiratoires: ArticleInput = {
   title: 'Plantes respiratoires : guimauve, plantain, lierre, primevère…',

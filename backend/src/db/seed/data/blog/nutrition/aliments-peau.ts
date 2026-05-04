@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const alimentsPeau: ArticleInput = {
   title: 'Aliments pour une peau éclatante : fruits, légumes, légumineuses, super-aliments',

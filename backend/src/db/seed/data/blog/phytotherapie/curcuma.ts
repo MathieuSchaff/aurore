@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const curcuma: ArticleInput = {
   title: "Curcuma et curcumine : l'anti-inflammatoire, mais le défi de la biodisponibilité",

@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 import { ail } from './ail'
 import { arnica } from './arnica'
 import { aubepine } from './aubepine'

@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const alimentationCerveau: ArticleInput = {
   title: 'Alimentation et cerveau : guide des 8 piliers',

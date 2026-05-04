@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const LUMIERE_ROUGE_CHEVEUX: ArticleInput = {
   title: 'Lumière rouge et repousse des cheveux : vraie avancée ou simple gadget ?',

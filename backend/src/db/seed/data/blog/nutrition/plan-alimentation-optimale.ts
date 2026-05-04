@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const planAlimentationOptimale: ArticleInput = {
   title: "Plan d'alimentation optimale : principes et mise en pratique",

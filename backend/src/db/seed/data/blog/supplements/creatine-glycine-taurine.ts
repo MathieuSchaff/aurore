@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const creatineGlycineTaurine: ArticleInput = {
   title: 'Créatine, glycine, taurine : le trio énergie cellulaire et longévité',

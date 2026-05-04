@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const bacopaMonnieri: ArticleInput = {
   title: 'Bacopa monnieri (Brahmi) : nootropique ayurvédique à effets modestes',

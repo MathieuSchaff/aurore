@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const SIX_ERREURS_VIEILLISSEMENT_PEAU: ArticleInput = {
   title: '6 erreurs qui accélèrent le vieillissement de la peau (et comment les corriger)',

@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const MINOXIDIL_GUIDE_COMPLET: ArticleInput = {
   title:

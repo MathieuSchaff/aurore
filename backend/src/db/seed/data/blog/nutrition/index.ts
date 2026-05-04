@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 import { alimentationCerveau } from './alimentation-cerveau'
 import { alimentsPeau } from './aliments-peau'
 import { boissonsBenchmark } from './boissons'

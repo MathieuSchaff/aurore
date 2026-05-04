@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const mieuxVivre: ArticleInput = {
   title: "Mieux vivre : principes simples d'alimentation et de mode de vie",

@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 import { benchmarkSupplements } from './benchmark-supplements'
 import { collagenesBenchmark } from './collagenes-benchmark'
 import { complementsPrecautionsVigilance } from './complements-precautions-vigilance'

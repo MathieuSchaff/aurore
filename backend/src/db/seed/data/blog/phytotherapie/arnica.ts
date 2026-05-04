@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const arnica: ArticleInput = {
   title: 'Arnica : usage traditionnel vs preuves scientifiques',

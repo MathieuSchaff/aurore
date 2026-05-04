@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const LASER_ANTI_AGE_NON_ABLATIF: ArticleInput = {
   title: 'Laser anti-âge non ablatif : la technologie qui pourrait rivaliser avec les injections ?',

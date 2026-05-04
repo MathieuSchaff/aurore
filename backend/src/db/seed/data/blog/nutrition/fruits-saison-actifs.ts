@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const fruitsSaisonActifs: ArticleInput = {
   title: 'Fruits de saison : actifs clés, effets et tips pratiques',

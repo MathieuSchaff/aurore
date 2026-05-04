@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const gingembre: ArticleInput = {
   title: 'Gingembre : anti-inflammatoire, digestif, cardio (guide complet)',

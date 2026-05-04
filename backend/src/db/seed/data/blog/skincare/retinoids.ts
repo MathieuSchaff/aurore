@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 export const RETINOID: ArticleInput = {
   title:
     'Rétinoïdes : guide complet, scientifique et simple pour comprendre retinol, retinal, adapalène et trétinoïne',

@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const benchmarkSupplements: ArticleInput = {
   title: 'Suppléments : tier list par consensus (du S-tier au F-tier)',

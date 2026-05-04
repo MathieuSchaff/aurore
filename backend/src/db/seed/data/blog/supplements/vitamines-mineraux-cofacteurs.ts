@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const vitaminesMinerauxCofacteurs: ArticleInput = {
   title: 'Vitamines et minéraux : dosages, synergies et cofacteurs',

@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const PRODUITS_CAPILLAIRES_EFFICACES_GUIDE_SERIEUX: ArticleInput = {
   title:

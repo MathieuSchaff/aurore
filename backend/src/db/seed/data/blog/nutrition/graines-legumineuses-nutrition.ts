@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const grainesLegumineusesNutrition: ArticleInput = {
   title: 'Graines et légumineuses : profils nutritionnels et bons usages',

@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const leaveInsCheveuxBouclesBenchmark: ArticleInput = {
   title: 'Leave-ins cheveux bouclés : benchmark 14 produits (nutrition, silicones, prix)',

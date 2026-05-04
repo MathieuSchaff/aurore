@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const collagenesBenchmark: ArticleInput = {
   title: 'Collagènes : comment choisir et benchmark gamme Nutrimuscle',

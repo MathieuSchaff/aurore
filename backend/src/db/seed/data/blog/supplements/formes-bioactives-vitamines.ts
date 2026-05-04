@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const formesBioactivesVitamines: ArticleInput = {
   title: 'Bien choisir la forme de son complément : formes bioactives à privilégier',

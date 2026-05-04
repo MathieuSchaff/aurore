@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const keratosePilaire: ArticleInput = {
   title: 'Kératose pilaire : guide evidence-based 2025-2026',

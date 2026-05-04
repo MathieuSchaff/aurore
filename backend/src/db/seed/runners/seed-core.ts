@@ -1,5 +1,6 @@
 import { SKINCARE_INGREDIENT_CATEGORY_VALUES } from '@habit-tracker/shared'
 
+import slugify from '@sindresorhus/slugify'
 import { sql } from 'drizzle-orm'
 
 import { createIngredient } from '../../../features/ingredients/service'
@@ -7,7 +8,16 @@ import { addIngredientToProduct } from '../../../features/products/product-ingre
 import { createProduct } from '../../../features/products/service'
 import { addTagToIngredient, addTagToProduct } from '../../../features/tags/tags.service'
 import { db } from '../..'
-import { ingredientDermoProfiles, ingredientTagsDefs, productTagsDefs } from '../../schema'
+import {
+  ingredientDermoProfiles,
+  ingredients,
+  ingredientTagsDefs,
+  productIngredients,
+  products,
+  productTagsDefs,
+  tagIngredients,
+  tagProducts,
+} from '../../schema'
 import { ingredientTagMap } from '../data/ingredient-tags'
 import { ingredientData } from '../data/ingredients'
 import { FILLER_SLUGS } from '../data/ingredients/skincare/seed-dermo-profiles-fillers'
@@ -111,8 +121,22 @@ function pruneRelationshipPairs<T extends Record<string, unknown>>(
 
 // ── Fonction Principale ───────────────────────────────────────────────────────
 
+// Reproduces createProduct's slug derivation for filtering (input.slug ??
+// `${name}-${brand}`, then slugify). Needed because seed product entries can
+// omit slug — the filter against existingProductSlugs has to compare the
+// same canonical form the insert path would produce.
+function computeProductSlug(input: { name: string; brand: string; slug?: string }): string {
+  const name = input.name.trim().replace(/\s+/g, ' ')
+  const brand = input.brand.trim().replace(/\s+/g, ' ')
+  const raw = input.slug ?? `${name}${brand ? `-${brand}` : ''}`
+  return slugify(raw)
+}
+
 export async function seedCore(shouldClean = true) {
-  console.log('🌱 Démarrage du seed CORE (Données de base + Produits manuels)...\n')
+  const idempotent = !shouldClean
+  console.log(
+    `🌱 Démarrage du seed CORE (Données de base + Produits manuels)${idempotent ? ' [idempotent]' : ''}...\n`
+  )
 
   // All inserts are atomic: if anything fails mid-way the DB rolls back cleanly
   await db.transaction(async (tx) => {
@@ -127,6 +151,44 @@ export async function seedCore(shouldClean = true) {
     console.log("👤 Création de l'utilisateur seed...")
     const user = await getOrCreateSeedUser()
     console.log(`✅ Utilisateur seed : ${user.email} (${user.id})\n`)
+
+    // In idempotent mode we can't rely on per-row try/catch for uniqueness:
+    // Promise.allSettled in `seedBatch` runs inserts concurrently and a single
+    // unique-violation aborts the outer transaction so every later insert
+    // cascade-fails ("current transaction is aborted"). SAVEPOINTs would fix
+    // the abort but Drizzle's nested-tx counter races under concurrency
+    // ("savepoint sN does not exist"). So we pre-fetch existing slugs/pairs
+    // and filter the seed inputs before they ever hit the DB.
+    let existingIngredientSlugs = new Set<string>()
+    let existingProductSlugs = new Set<string>()
+    let existingTagProductPairs = new Set<string>()
+    let existingTagIngredientPairs = new Set<string>()
+    let existingProductIngredientPairs = new Set<string>()
+
+    if (idempotent) {
+      console.log('🔎 Lecture de l’état DB existant pour pré-filtrage...')
+      const [existIng, existProd, existTagProd, existTagIng, existProdIng] = await Promise.all([
+        tx.select({ slug: ingredients.slug }).from(ingredients),
+        tx.select({ slug: products.slug }).from(products),
+        tx
+          .select({ pId: tagProducts.productId, tId: tagProducts.productTagId })
+          .from(tagProducts),
+        tx
+          .select({ iId: tagIngredients.ingredientId, tId: tagIngredients.ingredientTagId })
+          .from(tagIngredients),
+        tx
+          .select({ pId: productIngredients.productId, iId: productIngredients.ingredientId })
+          .from(productIngredients),
+      ])
+      existingIngredientSlugs = new Set(existIng.map((r) => r.slug))
+      existingProductSlugs = new Set(existProd.map((r) => r.slug))
+      existingTagProductPairs = new Set(existTagProd.map((r) => `${r.pId}::${r.tId}`))
+      existingTagIngredientPairs = new Set(existTagIng.map((r) => `${r.iId}::${r.tId}`))
+      existingProductIngredientPairs = new Set(existProdIng.map((r) => `${r.pId}::${r.iId}`))
+      console.log(
+        `   Existant : ${existingIngredientSlugs.size} ingrédients · ${existingProductSlugs.size} produits · ${existingTagProductPairs.size} tag-products · ${existingTagIngredientPairs.size} tag-ingredients · ${existingProductIngredientPairs.size} product-ingredients`
+      )
+    }
 
     // Validate markdown before touching the DB
     console.log('🔍 Validation du markdown des ingrédients...')
@@ -202,27 +264,55 @@ export async function seedCore(shouldClean = true) {
     // 1. Tag definitions (ingredient + product domains are independent).
     // Bulk insert bypasses per-row service calls because seed data is already
     // in the `{slug, label, tagType}` shape the schema expects.
+    // Bulk tag defs use `onConflictDoNothing` on the slug unique idx so a
+    // re-run picks up new slugs without erroring on existing ones. Harmless
+    // after `cleanDatabase` (table is empty).
     if (ingredientTagData.length > 0) {
-      await tx.insert(ingredientTagsDefs).values(ingredientTagData)
+      await tx.insert(ingredientTagsDefs).values(ingredientTagData).onConflictDoNothing({
+        target: ingredientTagsDefs.slug,
+      })
     }
     console.log(`✅ ${ingredientTagData.length} ingredient_tags créés`)
 
     if (productTagData.length > 0) {
-      await tx.insert(productTagsDefs).values(productTagData)
+      await tx.insert(productTagsDefs).values(productTagData).onConflictDoNothing({
+        target: productTagsDefs.slug,
+      })
     }
     console.log(`✅ ${productTagData.length} product_tags créés`)
 
+    const ingredientsToInsert = idempotent
+      ? correctedIngredientData.filter((i) => !existingIngredientSlugs.has(i.slug))
+      : correctedIngredientData
+    if (idempotent) {
+      const skipped = correctedIngredientData.length - ingredientsToInsert.length
+      console.log(
+        `   Ingrédients à insérer : ${ingredientsToInsert.length} (${skipped} déjà en DB, sautés)`
+      )
+    }
+
     await seedBatch(
       'ingrédients',
-      correctedIngredientData,
+      ingredientsToInsert,
       (ing) => createIngredient(tx, user.id, ing),
       (ing) => ing.slug,
       true
     )
 
+    const allProductsCast = [...allProductData] as Parameters<typeof createProduct>[1][]
+    const productsToInsert = idempotent
+      ? allProductsCast.filter((p) => !existingProductSlugs.has(computeProductSlug(p)))
+      : allProductsCast
+    if (idempotent) {
+      const skipped = allProductsCast.length - productsToInsert.length
+      console.log(
+        `   Produits à insérer : ${productsToInsert.length} (${skipped} déjà en DB, sautés)`
+      )
+    }
+
     await seedBatch(
       'produits (manuels)',
-      [...allProductData] as Parameters<typeof createProduct>[1][],
+      productsToInsert,
       (p) => createProduct(user.id, p, tx),
       (p) => p.slug ?? p.name,
       true
@@ -244,9 +334,23 @@ export async function seedCore(shouldClean = true) {
       'ProductTag'
     )
 
+    const productTagPairsToInsert = idempotent
+      ? prunedProductTagPairs.filter(({ slug, tagSlug }) => {
+          const pId = productSlugToId.get(slug)
+          const tId = productTagSlugToId.get(tagSlug)
+          if (!pId || !tId) return false
+          return !existingTagProductPairs.has(`${pId}::${tId}`)
+        })
+      : prunedProductTagPairs
+    if (idempotent) {
+      console.log(
+        `   ProductTags à insérer : ${productTagPairsToInsert.length} (${prunedProductTagPairs.length - productTagPairsToInsert.length} déjà liés, sautés)`
+      )
+    }
+
     await seedBatch(
       'productTags',
-      prunedProductTagPairs,
+      productTagPairsToInsert,
       ({ slug, tagSlug, relevance }) =>
         addTagToProduct(
           tx,
@@ -268,9 +372,24 @@ export async function seedCore(shouldClean = true) {
       'Ingrédient'
     )
 
+    const productIngredientsToInsert = idempotent
+      ? prunedProductIngredients.filter(({ productSlug, ingredientSlug }) => {
+          if (!ingredientSlug) return false
+          const pId = productSlugToId.get(productSlug)
+          const iId = ingredientSlugToId.get(ingredientSlug)
+          if (!pId || !iId) return false
+          return !existingProductIngredientPairs.has(`${pId}::${iId}`)
+        })
+      : prunedProductIngredients
+    if (idempotent) {
+      console.log(
+        `   ProductIngredients à insérer : ${productIngredientsToInsert.length} (${prunedProductIngredients.length - productIngredientsToInsert.length} déjà liés, sautés)`
+      )
+    }
+
     await seedBatch(
       'productIngredients',
-      prunedProductIngredients,
+      productIngredientsToInsert,
       ({ productSlug, ingredientSlug, notes, concentrationValue, concentrationUnit }) => {
         if (!ingredientSlug) throw new Error(`Missing ingredientSlug for product ${productSlug}`)
         return addIngredientToProduct(tx, {
@@ -296,9 +415,23 @@ export async function seedCore(shouldClean = true) {
       'IngredientTag'
     )
 
+    const ingredientTagPairsToInsert = idempotent
+      ? prunedIngredientTagPairs.filter(({ slug, tagSlug }) => {
+          const iId = ingredientSlugToId.get(slug)
+          const tId = ingredientTagSlugToId.get(tagSlug)
+          if (!iId || !tId) return false
+          return !existingTagIngredientPairs.has(`${iId}::${tId}`)
+        })
+      : prunedIngredientTagPairs
+    if (idempotent) {
+      console.log(
+        `   IngredientTags à insérer : ${ingredientTagPairsToInsert.length} (${prunedIngredientTagPairs.length - ingredientTagPairsToInsert.length} déjà liés, sautés)`
+      )
+    }
+
     await seedBatch(
       'ingredientTags',
-      prunedIngredientTagPairs,
+      ingredientTagPairsToInsert,
       ({ slug, tagSlug, relevance }) =>
         addTagToIngredient(
           tx,
@@ -340,14 +473,15 @@ export async function seedCore(shouldClean = true) {
     await seedUserCollection(tx, user.id, productSlugToId)
   })
 
-  await seedBlog()
+  await seedBlog(idempotent)
 
   console.log('\n✨ Seed CORE terminé avec succès !\n')
 }
 
 // Auto-exécution si lancé directement
 if (import.meta.main || process.argv[1]?.endsWith('seed-core.ts')) {
-  seedCore().catch((err) => {
+  const shouldClean = !process.argv.includes('--no-clean')
+  seedCore(shouldClean).catch((err) => {
     console.error('\n💥 Erreur fatale :', err instanceof Error ? err.message : err)
     process.exit(1)
   })

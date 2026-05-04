@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const safran: ArticleInput = {
   title: 'Safran (Crocus sativus) : humeur, cycle, pharmacologie et dose utile',

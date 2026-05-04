@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const nutrimentsFonctionnels: ArticleInput = {
   title: 'Guide des nutriments fonctionnels : sulforaphane, caroténoïdes, polyphénols et longévité',

@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const ginkgoBiloba: ArticleInput = {
   title: 'Ginkgo biloba : circulation cérébrale et mémoire (guide complet)',

@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const shampoingsCheveuxBouclesBenchmark: ArticleInput = {
   title: 'Shampoings cheveux bouclés : benchmark 14 produits (douceur, INCI, prix au litre)',

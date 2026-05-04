@@ -1,3 +1,3 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const skincareArticles: ArticleInput[] = []

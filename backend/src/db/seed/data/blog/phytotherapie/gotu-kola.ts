@@ -1,4 +1,4 @@
-import type { ArticleInput } from '../seed-articles'
+import type { ArticleInput } from '../article-data'
 
 export const gotuKola: ArticleInput = {
   title: 'Gotu Kola (Centella asiatica) : cicatrisation, peau et circulation veineuse',
