@@ -256,10 +256,7 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/nuxe-huile-prodigieuse-riche-multi-fonctions-100ml-239630.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.HUILE_CAPILLAIRE],
-      secondary: [
-        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
-        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
-      ],
+      secondary: [HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS, HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION],
       avoid: [],
     },
     keyIngredients: [

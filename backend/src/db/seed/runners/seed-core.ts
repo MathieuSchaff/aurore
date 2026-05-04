@@ -170,9 +170,7 @@ export async function seedCore(shouldClean = true) {
       const [existIng, existProd, existTagProd, existTagIng, existProdIng] = await Promise.all([
         tx.select({ slug: ingredients.slug }).from(ingredients),
         tx.select({ slug: products.slug }).from(products),
-        tx
-          .select({ pId: tagProducts.productId, tId: tagProducts.productTagId })
-          .from(tagProducts),
+        tx.select({ pId: tagProducts.productId, tId: tagProducts.productTagId }).from(tagProducts),
         tx
           .select({ iId: tagIngredients.ingredientId, tId: tagIngredients.ingredientTagId })
           .from(tagIngredients),

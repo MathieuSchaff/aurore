@@ -119,10 +119,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/redken-pate-de-definition-de-longue-duree-282834.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.CIRE_COIFFANTE],
-      secondary: [
-        HAIRCARE_PRODUCT_TAG_SLUGS.COIFFAGE,
-        HAIRCARE_PRODUCT_TAG_SLUGS.FIXATION,
-      ],
+      secondary: [HAIRCARE_PRODUCT_TAG_SLUGS.COIFFAGE, HAIRCARE_PRODUCT_TAG_SLUGS.FIXATION],
       avoid: [],
     },
     keyIngredients: [
@@ -262,10 +259,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/redken-brews-pommade-coiffante-clay-fini-mat-100ml-271962.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.CIRE_COIFFANTE],
-      secondary: [
-        HAIRCARE_PRODUCT_TAG_SLUGS.COIFFAGE,
-        HAIRCARE_PRODUCT_TAG_SLUGS.FIXATION,
-      ],
+      secondary: [HAIRCARE_PRODUCT_TAG_SLUGS.COIFFAGE, HAIRCARE_PRODUCT_TAG_SLUGS.FIXATION],
       avoid: [],
     },
     keyIngredients: [
@@ -441,10 +435,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/redken-brews-pommade-coiffante-maneuver-100ml-271805.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.CIRE_COIFFANTE],
-      secondary: [
-        HAIRCARE_PRODUCT_TAG_SLUGS.COIFFAGE,
-        HAIRCARE_PRODUCT_TAG_SLUGS.FIXATION,
-      ],
+      secondary: [HAIRCARE_PRODUCT_TAG_SLUGS.COIFFAGE, HAIRCARE_PRODUCT_TAG_SLUGS.FIXATION],
       avoid: [],
     },
     keyIngredients: [
@@ -896,10 +887,7 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/redken-gel-sculptant-fixation-maximal-282832.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.GEL_COIFFANT],
-      secondary: [
-        HAIRCARE_PRODUCT_TAG_SLUGS.COIFFAGE,
-        HAIRCARE_PRODUCT_TAG_SLUGS.FIXATION,
-      ],
+      secondary: [HAIRCARE_PRODUCT_TAG_SLUGS.COIFFAGE, HAIRCARE_PRODUCT_TAG_SLUGS.FIXATION],
       avoid: [],
     },
     keyIngredients: [{ slug: 'propylene-glycol-hair' }, { slug: 'tocopherol-hair' }],

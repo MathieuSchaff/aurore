@@ -81,10 +81,7 @@ export const COSLYS_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/coslys-shampoing-famille-aloe-vera-bio-doypack-1l-286965.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [
-        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
-        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
-      ],
+      secondary: [HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES, HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE],
       avoid: [],
     },
     keyIngredients: [{ slug: 'aloe-vera-hair' }],

@@ -48,10 +48,7 @@ export const CATTIER_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/cattier-shampoing-extra-doux-lait-d-avoine-bio-1l-257467.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [
-        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
-        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
-      ],
+      secondary: [HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES, HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE],
       avoid: [],
     },
     keyIngredients: [

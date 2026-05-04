@@ -57,4 +57,3 @@ export function useFlipPlacement(
     }
   }, [isOpen, triggerRef, dropdownRef, ...extraDeps])
 }
-

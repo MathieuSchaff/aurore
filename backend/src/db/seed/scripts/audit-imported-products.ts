@@ -455,7 +455,8 @@ function audienceTokens(name: string, brand: string): Set<string> {
 
 function modelVariantTokens(name: string, brand: string): Set<string> {
   const out = new Set<string>()
-  for (const tok of stripName(name, brand).split(/\s+/)) if (MODEL_VARIANT_WORDS.has(tok)) out.add(tok)
+  for (const tok of stripName(name, brand).split(/\s+/))
+    if (MODEL_VARIANT_WORDS.has(tok)) out.add(tok)
   return out
 }
 
@@ -498,9 +499,15 @@ function classifyPair(a: UnifiedProductSeed, b: UnifiedProductSeed): ClassifyRes
   if (sizeMmDiff.size > 0) flags.push(`size-mm:${[...sizeMmDiff].join(',')}`)
   const colorDiff = symmetricDiff(colorTokens(a.name, a.brand), colorTokens(b.name, b.brand))
   if (colorDiff.size > 0) flags.push(`color-diff:${[...colorDiff].join(',')}`)
-  const audienceDiff = symmetricDiff(audienceTokens(a.name, a.brand), audienceTokens(b.name, b.brand))
+  const audienceDiff = symmetricDiff(
+    audienceTokens(a.name, a.brand),
+    audienceTokens(b.name, b.brand)
+  )
   if (audienceDiff.size > 0) flags.push(`audience-diff:${[...audienceDiff].join(',')}`)
-  const modelDiff = symmetricDiff(modelVariantTokens(a.name, a.brand), modelVariantTokens(b.name, b.brand))
+  const modelDiff = symmetricDiff(
+    modelVariantTokens(a.name, a.brand),
+    modelVariantTokens(b.name, b.brand)
+  )
   if (modelDiff.size > 0) flags.push(`model-variant:${[...modelDiff].join(',')}`)
   const tintLetterDiff = symmetricDiff(tintLetterTokens(a.name), tintLetterTokens(b.name))
   if (tintLetterDiff.size > 0) flags.push(`tint-letter:${[...tintLetterDiff].join(',')}`)

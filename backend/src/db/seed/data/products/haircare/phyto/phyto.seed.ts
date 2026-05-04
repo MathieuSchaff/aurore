@@ -73,10 +73,7 @@ export const PHYTO_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/phyto-phytocolor-coloration-permanente-n-4-chatain-269254.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [
-        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
-        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
-      ],
+      secondary: [HAIRCARE_PRODUCT_TAG_SLUGS.COLORES, HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION],
       avoid: [],
     },
     keyIngredients: [
@@ -136,10 +133,7 @@ export const PHYTO_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/phyto-phytocolor-coloration-permanente-n-5-chatain-clair-269255.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [
-        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
-        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
-      ],
+      secondary: [HAIRCARE_PRODUCT_TAG_SLUGS.COLORES, HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION],
       avoid: [],
     },
     keyIngredients: [

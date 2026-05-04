@@ -56,11 +56,11 @@ for (const line of block.split('\n')) {
     name: c[2] ?? '',
     brand: c[3] ?? '',
     kind: c[4] ?? '',
-    inci: c[6] === '\\N' ? '' : c[6] ?? '',
-    totalAmount: c[8] === '\\N' ? '' : c[8] ?? '',
-    amountUnit: c[9] === '\\N' ? '' : c[9] ?? '',
+    inci: c[6] === '\\N' ? '' : (c[6] ?? ''),
+    totalAmount: c[8] === '\\N' ? '' : (c[8] ?? ''),
+    amountUnit: c[9] === '\\N' ? '' : (c[9] ?? ''),
     slug: c[10] ?? '',
-    imageUrl: c[12] === '\\N' ? null : c[12] ?? null,
+    imageUrl: c[12] === '\\N' ? null : (c[12] ?? null),
   })
 }
 
@@ -93,7 +93,10 @@ function nameKey(n: string): Set<string> {
     n
       .toLowerCase()
       .replace(/\b\d+(?:[.,]\d+)?\s*(?:ml|cl|l|g|kg|oz)\b/g, '')
-      .replace(/\b(eco[-\s]?recharge|recharge|format|nomade|lot|pack|x\s*\d+|de\s+\d+|flacon|kit|duo|famille|et)\b/g, '')
+      .replace(
+        /\b(eco[-\s]?recharge|recharge|format|nomade|lot|pack|x\s*\d+|de\s+\d+|flacon|kit|duo|famille|et)\b/g,
+        ''
+      )
       .split(/\s+/)
       .map((t) => t.replace(/[^a-z0-9]/g, ''))
       .filter((t) => t.length > 2)
@@ -160,10 +163,7 @@ for (const [, brandRows] of byBrand) {
     const bases = list.filter((r) => !REFILL_MARKERS.test(r.name) && !REFILL_MARKERS.test(r.slug))
     for (const a of bases) {
       for (const b of refills) {
-        const jInci =
-          a.inci && b.inci
-            ? jaccard(tokenizeInci(a.inci), tokenizeInci(b.inci))
-            : 0
+        const jInci = a.inci && b.inci ? jaccard(tokenizeInci(a.inci), tokenizeInci(b.inci)) : 0
         refillPairs.push({ a, b, jInci, jName: 1 })
       }
     }
@@ -196,8 +196,18 @@ if (refillPairs.length > 30) console.log(`  ... ${refillPairs.length - 30} more`
 // Emit JSON sidecar for downstream tooling
 const out = {
   generatedAt: new Date().toISOString(),
-  slugTypos: slugTypos.map((r) => ({ slug: r.slug, name: r.name, brand: r.brand, imageUrl: r.imageUrl })),
-  kitsInSlug: kits.map((r) => ({ slug: r.slug, name: r.name, brand: r.brand, imageUrl: r.imageUrl })),
+  slugTypos: slugTypos.map((r) => ({
+    slug: r.slug,
+    name: r.name,
+    brand: r.brand,
+    imageUrl: r.imageUrl,
+  })),
+  kitsInSlug: kits.map((r) => ({
+    slug: r.slug,
+    name: r.name,
+    brand: r.brand,
+    imageUrl: r.imageUrl,
+  })),
   inciPairs: inciPairs.map((p) => ({
     a: { slug: p.a.slug, name: p.a.name, brand: p.a.brand, imageUrl: p.a.imageUrl },
     b: { slug: p.b.slug, name: p.b.name, brand: p.b.brand, imageUrl: p.b.imageUrl },

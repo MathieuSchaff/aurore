@@ -52,10 +52,7 @@ export const BIOKAP_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/biokap-nutricolor-delicato-coloration-2-9-chatain-fonce-chocolat-140ml-232335.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [
-        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
-        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
-      ],
+      secondary: [HAIRCARE_PRODUCT_TAG_SLUGS.COLORES, HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION],
       avoid: [],
     },
     keyIngredients: [

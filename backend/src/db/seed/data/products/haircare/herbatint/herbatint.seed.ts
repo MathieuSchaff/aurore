@@ -19,10 +19,7 @@ export const HERBATINT_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/phytoceutic-herbatint-6n-blond-fonce-170-ml-275856.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [
-        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
-        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
-      ],
+      secondary: [HAIRCARE_PRODUCT_TAG_SLUGS.COLORES, HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION],
       avoid: [],
     },
     keyIngredients: [
@@ -48,10 +45,7 @@ export const HERBATINT_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/phytoceutic-herbatint-5n-chatain-clair-170-ml-275855.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [
-        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
-        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
-      ],
+      secondary: [HAIRCARE_PRODUCT_TAG_SLUGS.COLORES, HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION],
       avoid: [],
     },
     keyIngredients: [
@@ -77,10 +71,7 @@ export const HERBATINT_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/phytoceutic-herbatint-3n-chatain-fonce-170-ml-275853.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [
-        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
-        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
-      ],
+      secondary: [HAIRCARE_PRODUCT_TAG_SLUGS.COLORES, HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION],
       avoid: [],
     },
     keyIngredients: [
@@ -106,10 +97,7 @@ export const HERBATINT_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/phytoceutic-herbatint-8n-blond-clair-170-ml-275858.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [
-        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
-        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
-      ],
+      secondary: [HAIRCARE_PRODUCT_TAG_SLUGS.COLORES, HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION],
       avoid: [],
     },
     keyIngredients: [
@@ -135,10 +123,7 @@ export const HERBATINT_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/phytoceutic-herbatint-6d-blond-fonce-dore-170-ml-275867.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [
-        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
-        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
-      ],
+      secondary: [HAIRCARE_PRODUCT_TAG_SLUGS.COLORES, HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION],
       avoid: [],
     },
     keyIngredients: [

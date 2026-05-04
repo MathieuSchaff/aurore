@@ -235,4 +235,6 @@ for (const [relFile, filePairs] of byFile) {
   }
 }
 
-console.log(`\n${DRY ? '[DRY] would drop' : 'dropped'}: ${totalDropped} entries across ${totalGroups} groups in ${byFile.size} files`)
+console.log(
+  `\n${DRY ? '[DRY] would drop' : 'dropped'}: ${totalDropped} entries across ${totalGroups} groups in ${byFile.size} files`
+)

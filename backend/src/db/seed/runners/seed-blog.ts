@@ -17,8 +17,7 @@ export async function seedBlog(idempotent = false) {
     let cur: unknown = e
     for (let i = 0; i < 5 && cur; i++) {
       if (!(cur instanceof Error)) break
-      const code =
-        (cur as { code?: unknown }).code ?? (cur as { errno?: unknown }).errno
+      const code = (cur as { code?: unknown }).code ?? (cur as { errno?: unknown }).errno
       if (code === '23505') return true
       if (/duplicate key|violates unique constraint/i.test(cur.message)) return true
       cur = (cur as { cause?: unknown }).cause
