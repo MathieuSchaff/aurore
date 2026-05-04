@@ -3,28 +3,6 @@ import type { UnifiedProductSeed } from '../../types'
 
 export const INAVA_SEED: UnifiedProductSeed[] = [
   {
-    slug: 'inava-brosse-a-dents-sensibilite-lot-de-2-300765',
-    name: 'Inava Brosse à Dents Sensibilité Lot de 2',
-    brand: 'Inava',
-    kind: 'toothpaste',
-    unit: 'pack',
-    totalAmount: 0,
-    amountUnit: '',
-    priceCents: 918,
-    description: '',
-    notes: '',
-    inci: '',
-    url: 'https://www.atida.fr/inava-brosse-a-dents-sensibilite-lot-de-2.html',
-    imageUrl:
-      'https://aurore-cdn.b-cdn.net/products/inava-brosse-a-dents-sensibilite-lot-de-2-300765.webp',
-    tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
-      secondary: [],
-      avoid: [],
-    },
-    keyIngredients: [],
-  },
-  {
     slug: 'inava-20-100-brosse-a-dents-souples-lot-de-4-300851',
     name: 'Inava 20/100 brosse à dents souples Lot de 4',
     brand: 'Inava',
@@ -81,28 +59,6 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     inci: '',
     url: 'https://www.atida.fr/inava-brosse-a-dents-parodontie.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/inava-brosse-a-dents-parodontie-275846.webp',
-    tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
-      secondary: [],
-      avoid: [],
-    },
-    keyIngredients: [],
-  },
-  {
-    slug: 'inava-brosse-a-dents-15-100-chirurgicale-lot-de-2-300771',
-    name: 'Inava Brosse à Dents 15 100 Chirurgicale Lot de 2',
-    brand: 'Inava',
-    kind: 'toothpaste',
-    unit: 'pack',
-    totalAmount: 0,
-    amountUnit: '',
-    priceCents: 898,
-    description: '',
-    notes: '',
-    inci: '',
-    url: 'https://www.atida.fr/inava-brosse-a-dents-15-100-chirurgicale-lot-de-2.html',
-    imageUrl:
-      'https://aurore-cdn.b-cdn.net/products/inava-brosse-a-dents-15-100-chirurgicale-lot-de-2-300771.webp',
     tags: {
       primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
@@ -215,28 +171,6 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/inava-brossettes-0-8mm-mono-compact-espaces-etroits-bleu-4-unites-269045.webp',
     tags: {
       primary: [TAG_SLUGS.FIL_DENTAIRE],
-      secondary: [],
-      avoid: [],
-    },
-    keyIngredients: [],
-  },
-  {
-    slug: 'inava-brosse-a-dents-20-100-souple-lot-de-2-300770',
-    name: 'Inava Brosse à Dents 20 100 Souple Lot de 2',
-    brand: 'Inava',
-    kind: 'toothpaste',
-    unit: 'pack',
-    totalAmount: 0,
-    amountUnit: '',
-    priceCents: 918,
-    description: '',
-    notes: '',
-    inci: '',
-    url: 'https://www.atida.fr/inava-brosse-a-dents-20-100-souple-lot-de-2.html',
-    imageUrl:
-      'https://aurore-cdn.b-cdn.net/products/inava-brosse-a-dents-20-100-souple-lot-de-2-300770.webp',
-    tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },

@@ -79,12 +79,20 @@ Cf. `classifyPair()` dans `backend/src/db/seed/scripts/audit-imported-products.t
 
 ## Règles de décision (par paire)
 
+> **Règle produit (2026-05-04)** : **un seul format par produit**. Pas de coexistence `100ml`/`400ml`/`recharge éco`. Choisir un format canonique et dropper les autres + tracker dans `DEDUP_DROPS.md` + CDN cleanup.
+
+**Format canonique à privilégier** (par ordre):
+1. Format standard de la gamme (sérum 30-50ml, crème 50ml, shampoing 200ml, gel douche 200-400ml, body lotion 200-400ml).
+2. Format le plus visible / vendu si standard ambigu.
+3. **Dropper** : recharges éco, refills, formats famille (`1L`, `500ml famille`), lots multipack (`x2`, `x3`, `lot-de-N`).
+
 | Cas | Action |
 |---|---|
-| INCI ≥ 0.85, **`sameSize: yes`**, pas de flag | **Fusionner** : garder la version curée si elle existe, sinon le record le plus riche (description non vide, `keyIngredients` non vide, `imageUrl` présent). Supprimer l'autre. |
-| INCI ≥ 0.85, **`sameSize: no`**, pas de flag | **Variante de format** : garder les deux. Lien logique via slug commun (préfixe partagé). Ne pas merger. |
-| Flag `num-diff` (SPF/concentration) | **Produits distincts** — garder les deux. Ne pas merger même si INCI = 1.0. Ex : `Xerial 30` ≠ `Xerial 50`. |
-| Flag `tint-diff` | **Variantes de teinte** — garder toutes. |
+| INCI ≥ 0.85, **`sameSize: yes`**, pas de flag | **Fusionner** : garder version curée si elle existe, sinon record le plus riche (description, `keyIngredients`, `imageUrl`). Supprimer l'autre. |
+| INCI ≥ 0.85, **`sameSize: no`** (variante format), pas de flag | **Canonicaliser** : choisir 1 format selon règle ci-dessus, supprimer les autres. Outil : `scripts/canonicalize-volume-variants.ts` ou DELETE manuel + tracker `DEDUP_DROPS.md`. |
+| Flag `num-diff` **sur SPF/concentration** (ex: `Xerial 30` vs `Xerial 50`, `SPF30` vs `SPF50`, `5%` vs `10%`) | **Produits distincts** — garder les deux. Ne pas merger même si INCI = 1.0. |
+| Flag `num-diff` **sur volume seul** (ex: `100ml` vs `400ml`) | **Variante format** — canonicaliser (cf. ligne `sameSize: no`). |
+| Flag `tint-diff` | **Variantes de teinte** — garder toutes (produits distincts pour l'utilisateur). |
 | Flag `gamme-letter` | **Sous-gammes distinctes** — garder. Ex : `Nodé P` ≠ `Nodé K`. |
 | Flag `kind-diff` seul | **Bug à corriger** : un des deux a un `kind` mal classé côté import. Vérifier curé d'abord, puis fusionner. |
 
@@ -100,20 +108,25 @@ Cf. `classifyPair()` dans `backend/src/db/seed/scripts/audit-imported-products.t
 
 ## État actuel
 
-Snapshot du dernier run (`audit-imported-products.ts --write`, 2026-04-30, post-merge + cleanup cross-source) :
+Snapshot du dernier run (`audit-imported-products.ts`, 2026-05-04, post-Round 7 dental reliquat + ducray flacon-pompe) :
 
 | Catégorie | Total |
 |---|---:|
-| Produits actifs | 3335 |
+| Produits actifs | 469 |
 | Cross-source `auto-merge` | 0 |
-| Cross-source `review` | 1 (faux positif vichy : `dercos-psolution` ↔ `neovadiol-meno`) |
+| Cross-source `review` | 0 |
 | Cross-source `weak` | 0 |
-| Intra-source `auto-merge` | 336 |
-| Intra-source `review` | 401 |
-| Intra-source `weak` | 314 |
-| Intra-source total | 1051 |
+| Intra-source total | 150 |
 
-Le gros du backlog est désormais **intra-fichier**. Beaucoup sont des faux positifs légitimes (variantes format `100ml`/`400ml`, lots `lot-de-2-x-X`, couleurs/teintes brossettes interdentaires). Filtrer par flags (`num-diff`, `kind-diff`, `same-size: no`) avant de trancher.
+Reste = 150 paires majoritairement FP irréductibles :
+- **Dental** ~83 — brossettes interdentaires (inava 48, tepe 16, gum 7, crinex 3 — tailles + couleurs), variants gencives/protection (elmex/fluocaril ~9). Bruit irréductible (variants distincts pour le consommateur).
+- **Haircare** ~67 — klorane 39 (cupuaçu parfums, monoï SPF, shampoo/conditioner kind-diff), herbatint 10 + petroleHahn 6 + les3Chenes 6 (coloration shades), nuxe 3 (huile prodigieuse format/parfum), reste 3 (ducray/lOrealProfessionnel/natessance/phyto/pouxit).
+
+> Note : « Produits actifs » = 490 ne reflète que les produits *seedés depuis fichiers `.seed.ts`* (l'audit ne charge pas les produits curated en DB-first). Total DB est ~3300.
+
+Le gros du backlog est désormais **intra-fichier**. Filtrage cible (règle "1 seul format") :
+- **À traiter** : `same-size: yes` (vrais doublons), `num-diff` sur volume seul (`100ml`/`400ml` → canonicaliser), lots/multipack (`x2`, `x3`, `lot-de-N` → dropper, garder l'unitaire).
+- **À garder** (faux positifs légitimes) : `num-diff` sur SPF/concentration (`SPF30`/`SPF50`, `5%`/`10%`), `tint-diff`, `gamme-letter`, brossettes interdentaires (tailles).
 
 Mettre à jour ce tableau si on rerun le script et que les chiffres bougent significativement.
 

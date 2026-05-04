@@ -35,30 +35,4 @@ export const NEUTRADERM_SEED: UnifiedProductSeed[] = [
       { slug: 'tocopherol-hair' },
     ],
   },
-  {
-    slug: 'neutraderm-shampoing-extra-doux-dermo-respect-lot-de-2-x-500ml-301117',
-    name: 'Neutraderm Shampoing Extra-Doux Dermo-Respect Lot de 2 x 500ml',
-    brand: 'Neutraderm',
-    kind: 'shampoo',
-    unit: 'pack',
-    totalAmount: 500,
-    amountUnit: 'ml',
-    priceCents: 1238,
-    description: '',
-    notes: '',
-    inci: '',
-    url: 'https://www.atida.fr/neutraderm-shampoing-extra-doux-dermo-respect-lot-de-2-x-500ml.html',
-    imageUrl:
-      'https://aurore-cdn.b-cdn.net/products/neutraderm-shampoing-extra-doux-dermo-respect-lot-de-2-x-500ml-301117.webp',
-    tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [
-        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
-        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_SENSIBLE,
-        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
-      ],
-      avoid: [],
-    },
-    keyIngredients: [],
-  },
 ]

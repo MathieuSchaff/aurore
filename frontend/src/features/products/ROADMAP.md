@@ -98,9 +98,10 @@ Pas de couplage frontend. Préalable à P6 auto-tagging propre sur haircare.
 
 Ordre interne : doublons résolus avant auto-tagging (sinon tags appliqués sur doublons). Images en parallèle.
 
-- [ ] **Doublons produits** — auditer + dédupliquer. Outil : `backend/src/db/seed/docs/DEDUP.md` + `audit-imported-products.ts`.
-- [ ] **Auto-tagging** (post-doublons) — règles auto par INCI/kind/brand/nom. Spécifier : règles, axes tags, gestion conflits avec tags manuels. Référence taxonomy : `shared/src/products/PLAN.md` (clusters/aliases skincare).
-- [ ] **Images manquantes** — produits sans `image_url` → sourcer + upload BunnyCDN. Référence : `backend/src/db/seed/docs/IMAGES_AUDIT.md`.
+- [ ] **Doublons produits** — cross-source clean. **Round 7 done 2026-05-04** : dental reliquat + ducray flacon-pompe — 10 drops (arthrodont/parodontax curés inherit image+inci ; 5 elmex slug-variants + lot-3x + bain-de-bouche 100ml ; gum paroex lot-3 ; hyalugel 100ml-50ml-offert ; ducray flacon-pompe-400ml). Audit 161 → **150 paires intra-source** (-11). DB DELETE 10/10 done + ts-verify ✅. Active products 479 → 469. **Round 6 done** : 2 haircare reliquat (lazartigue thicker, melvita 1L). **Round 5 done** : 9 klorane (slug curé courts, lots, volume canon.). **Round 4 done** : 19 lots/refills/volume-variants. **Reste backlog 150 paires majoritairement FP irréductibles** : dental ~83 (brossettes interdentaires inava/tepe/gum/crinex tailles+couleurs, elmex/fluocaril gencives variants), haircare ~67 (klorane 39 cupuaçu parfums + monoï SPF + shampoo/conditioner kind-diff, herbatint/petroleHahn/les3Chenes coloration shades, nuxe huile prodigieuse). Workflow + règles : `backend/src/db/seed/docs/DEDUP.md`. CDN cleanup Round 7 (8 orphans) à lancer : `delete-bunny-images.ts SLUGS_FILE=output/dedup-dropped-slugs.json`.
+- [x] **Bug elmex skincare** (2026-05-04) — `elmex-protection-email-professional` était `kind: sunscreen` avec tags skincare/solaire (fichier `elmex-solaire.seed.ts` mal nommé). Fix : merged dans `elmex.seed.ts` avec `kind: 'toothpaste'` + tag `dentifrice`, fichier supprimé, DB updated.
+- [x] **Auto-tagging** — fait 2026-04-23 via `scripts/auto-tag.ts`. 1017 produits seed traités : 875 primary+secondary remplis, 142 sans primary (manuel à finir). `avoid` auto sur retinol/retinal/salicylic/glycolic/BPO. Détail seed `ROADMAP.md §3.2`.
+- [ ] **Images manquantes** — 603 produits sans `image_url` (couverture 2700/3303 = 82 %). 119 PNG Skinsafe en 403 (browser automation requis, liste `output/image-download-failures.json`). Sources : `the-ordinary` (35), résidus svr/avene/bioderma, marques jamais scrappées. Référence : `backend/src/db/seed/docs/IMAGES_AUDIT.md` + seed `ROADMAP.md §7.3`.
 
 ---
 
@@ -109,11 +110,7 @@ Ordre interne : doublons résolus avant auto-tagging (sinon tags appliqués sur 
 Code bloqué tant que décision UX non prise.
 
 - [ ] **Ordre accordéons drawer** — l'ordre actuel (essentiel → avancé) ne convient pas. Pas les tags, mais la séquence des accordéons. Décision produit avant code. Piloté par `order` dans `hooks/useProductsFilterGroups.ts` + `shared/` (`tag-filters.ts` par domaine). Voir `filter-drawer.md §1` + `shared/src/products/PLAN.md` Q2 (tier ⊥ visibility).
-- [ ] **Édition nom + slug par admin** (dép P0 cache + décision UX) — points de vigilance :
-  - `slug` stocké séparément du `name` → modif name **n'update pas** le slug auto. Re-sync = opération explicite.
-  - Changer slug = changer URL produit → liens / bookmarks cassés + cache `productKeys.bySlug(old)` périmé sans invalidation.
-  - `image_url` pointe BunnyCDN, **pas dérivé du slug** (noms fichiers CDN ≠ slug DB). Renommer ne casse pas l'image, mais regen slug → ne pas écraser `image_url`.
-  - Décision : édition slug directe ou regen depuis nom avec confirm ?
+- [x] **Édition nom + slug par admin** — fait commit `c83237ff` (admin slug edit + fix silent slug regen on name change).
 
 ---
 

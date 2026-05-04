@@ -56,28 +56,6 @@ export const POUXIT_SEED: UnifiedProductSeed[] = [
     ],
   },
   {
-    slug: 'pouxit-xf-lotion-anti-poux-et-lentes-100-efficace-lot-de-2x-200ml-279559',
-    name: 'Pouxit XF Lotion Anti-poux et Lentes 100% efficace Lot de 2x 200ml',
-    brand: 'Pouxit',
-    kind: 'shampoo',
-    unit: 'pack',
-    totalAmount: 200,
-    amountUnit: 'ml',
-    priceCents: 3073,
-    description: '',
-    notes: '',
-    inci: 'Dimeticone, penetrol®',
-    url: 'https://www.atida.fr/pouxit-extra-fort-lotion-traitement-anti-poux-et-lentes-du-cuir-chevelu-lot-2x200-ml.html',
-    imageUrl:
-      'https://aurore-cdn.b-cdn.net/products/pouxit-xf-lotion-anti-poux-et-lentes-100-efficace-lot-de-2x-200ml-279559.webp',
-    tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.POUX],
-      secondary: [HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU],
-      avoid: [],
-    },
-    keyIngredients: [{ slug: 'dimethicone-hair', notes: 'physical pediculicide via asphyxiation' }],
-  },
-  {
     slug: 'pouxit-xf-lotion-anti-poux-et-lentes-100-efficace-200ml-263881',
     name: 'Pouxit XF Lotion Anti-poux et Lentes 100% efficace 200ml',
     brand: 'Pouxit',

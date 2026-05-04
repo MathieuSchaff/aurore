@@ -3,28 +3,6 @@ import type { UnifiedProductSeed } from '../../types'
 
 export const GUM_SEED: UnifiedProductSeed[] = [
   {
-    slug: 'gum-dentifrice-paroex-gencives-lot-de-3-x-75ml-248883',
-    name: 'Gum Dentifrice Paroex Gencives Lot de 3 x 75ml',
-    brand: 'Gum',
-    kind: 'toothpaste',
-    unit: 'pack',
-    totalAmount: 75,
-    amountUnit: 'ml',
-    priceCents: 690,
-    description: '',
-    notes: '',
-    inci: '',
-    url: 'https://www.atida.fr/gum-dentifrice-gencives-paroex-gel-lot-de-3-x-75ml.html',
-    imageUrl:
-      'https://aurore-cdn.b-cdn.net/products/gum-dentifrice-paroex-gencives-lot-de-3-x-75ml-248883.webp',
-    tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
-      secondary: [],
-      avoid: [],
-    },
-    keyIngredients: [],
-  },
-  {
     slug: 'gum-dentifrice-original-white-blancheur-lot-de-3-x-75ml-248884',
     name: 'Gum Dentifrice Original White Blancheur Lot de 3 x 75ml',
     brand: 'Gum',
@@ -84,28 +62,6 @@ export const GUM_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/gum-brossette-interdentaire-bi-direction-0-7mm-vert-6-unites-259254.webp',
     tags: {
       primary: [TAG_SLUGS.FIL_DENTAIRE],
-      secondary: [],
-      avoid: [],
-    },
-    keyIngredients: [],
-  },
-  {
-    slug: 'gum-brosse-a-dents-n-509-specifique-sensivital-ultra-souple-lot-de-2-300769',
-    name: 'Gum Brosse à Dents N°509 Spécifique SensiVital Ultra Souple Lot de 2',
-    brand: 'Gum',
-    kind: 'toothpaste',
-    unit: 'pack',
-    totalAmount: 0,
-    amountUnit: '',
-    priceCents: 658,
-    description: '',
-    notes: '',
-    inci: '',
-    url: 'https://www.atida.fr/gum-brosse-a-dents-n-509-specifique-sensivital-ultra-souple-lot-de-2-176762.html',
-    imageUrl:
-      'https://aurore-cdn.b-cdn.net/products/gum-brosse-a-dents-n-509-specifique-sensivital-ultra-souple-lot-de-2-300769.webp',
-    tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },

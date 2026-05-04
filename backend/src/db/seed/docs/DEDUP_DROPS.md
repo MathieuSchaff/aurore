@@ -6,13 +6,19 @@
 > **Workflow image cleanup** : batch via `bun run backend/src/db/seed/scripts/delete-bunny-images.ts`
 > avec `SLUGS_FILE=output/dedup-dropped-slugs.json` (env `BUNNY_STORAGE_*` requis).
 >
-> **Status CDN cleanup (2026-05-04)** : les 99 slugs ci-dessous ont été supprimés
-> du Bunny Storage Zone `aurore-images` — 98 deleted, 1 not-found
-> (`bioderma-atoderm-huile-douche` n'avait pas d'image). ✅
+> **Status CDN cleanup (2026-05-04)** : Rounds initial-6 ✅ tous purgés du Bunny Storage Zone
+> `aurore-images`. Sweep 1 (Rounds initial-4) : 98 deleted, 1 not-found
+> (`bioderma-atoderm-huile-douche` n'avait pas d'image). Sweep 2 (Rounds 5+6) :
+> 22 deleted (7 Round 5 + 1 Round 6 + 14 stragglers earlier rounds), 104 not-found, 0 failed.
+> Image inheritance (2 keepers) conservée : `klorane-quinine-serum-antichute-100ml-299620.webp`,
+> `klorane-quinine-edelweiss-shampoing-fortifiant-400ml-275208.webp`,
+> `lazartigue-serum-anti-chute-progressive-thicker-50ml-284107.webp`.
+> **Round 7** : 8 orphans ajoutés à `dedup-dropped-slugs.json`, sweep 3 à lancer. Image inheritance
+> +2 (arthrodont/parodontax curés inheritent CDN du scrappé) → exclus du cleanup.
 
 ---
 
-## Déjà supprimés (99)
+## Déjà supprimés (137)
 
 Date : 2026-05-04. Tous capturés depuis backups SQL avant DELETE.
 
@@ -327,6 +333,167 @@ Date : 2026-05-04. Tous capturés depuis backups SQL avant DELETE.
 | Slug | Image CDN |
 |------|-----------|
 | `medik8-crystal-retinal-ceramide-eye-3-eye-cream` | `https://aurore-cdn.b-cdn.net/products/medik8-crystal-retinal-ceramide-eye-3-eye-cream.webp` |
+
+### Round 4 (Lots/multipack + refills + volume canon. — Phase 6 audit) (19)
+
+DB DELETE en transaction (backup `backups/backup_20260504_174829.sql`). 17/19 trouvés en DB ; 2 absents en DB mais retirés du seed (`klorane-bebe-calendula-gel-lavant-doux-lot-de-2-x-500ml-275519`, `klorane-galanga-shampoing-antipelliculaire-lot-de-2-x-400ml-304343`). Critères: score audit ≥ 0.83, slug carry `lot-de-N` / `Nx{N}ml` / `eco-recharge` + canonical/unit slug existe en pair. CDN cleanup à faire via `delete-bunny-images.ts`.
+
+#### Elmex (3)
+
+| Slug | Image CDN |
+|------|-----------|
+| `elmex-anti-caries-professional-dentifrice-lot-de-2-x-75ml-263258` | `https://aurore-cdn.b-cdn.net/products/elmex-anti-caries-professional-dentifrice-lot-de-2-x-75ml-263258.webp` |
+| `elmex-professional-dentifrice-opti-email-haute-resistance-lot-de-2-x-75ml-263795` | `https://aurore-cdn.b-cdn.net/products/elmex-professional-dentifrice-opti-email-haute-resistance-lot-de-2-x-75ml-263795.webp` |
+| `elmex-dentifrice-anti-carie-4x75ml-300543` | `https://aurore-cdn.b-cdn.net/products/elmex-dentifrice-anti-carie-4x75ml-300543.webp` |
+
+#### Gum (1)
+
+| Slug | Image CDN |
+|------|-----------|
+| `gum-brosse-a-dents-n-509-specifique-sensivital-ultra-souple-lot-de-2-300769` | `https://aurore-cdn.b-cdn.net/products/gum-brosse-a-dents-n-509-specifique-sensivital-ultra-souple-lot-de-2-300769.webp` |
+
+#### Inava (3)
+
+| Slug | Image CDN |
+|------|-----------|
+| `inava-brosse-a-dents-sensibilite-lot-de-2-300765` | `https://aurore-cdn.b-cdn.net/products/inava-brosse-a-dents-sensibilite-lot-de-2-300765.webp` |
+| `inava-brosse-a-dents-15-100-chirurgicale-lot-de-2-300771` | `https://aurore-cdn.b-cdn.net/products/inava-brosse-a-dents-15-100-chirurgicale-lot-de-2-300771.webp` |
+| `inava-brosse-a-dents-20-100-souple-lot-de-2-300770` | `https://aurore-cdn.b-cdn.net/products/inava-brosse-a-dents-20-100-souple-lot-de-2-300770.webp` |
+
+#### Parogencyl (1)
+
+| Slug | Image CDN |
+|------|-----------|
+| `parogencyl-dentifrice-prevention-gencives-menthe-lot-de-2-x-75ml-248643` | `https://aurore-cdn.b-cdn.net/products/parogencyl-dentifrice-prevention-gencives-menthe-lot-de-2-x-75ml-248643.webp` |
+
+#### Klorane (6)
+
+| Slug | Image CDN |
+|------|-----------|
+| `klorane-quinine-edelweiss-shampoing-fortifiant-200ml-299619` | `https://aurore-cdn.b-cdn.net/products/klorane-quinine-edelweiss-shampoing-fortifiant-200ml-299619.webp` |
+| `klorane-quinine-edelweiss-shampoing-fortifiant-lot-de-2-x-400ml-300144` | `https://aurore-cdn.b-cdn.net/products/klorane-quinine-edelweiss-shampoing-fortifiant-lot-de-2-x-400ml-300144.webp` |
+| `klorane-bebe-calendula-gel-lavant-doux-lot-de-2-x-500ml-275519` | `https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-gel-lavant-doux-lot-de-2-x-500ml-275519.webp` |
+| `klorane-pivoine-shampoing-apaisant-cuir-chevelu-sensible-lot-de-2-x-400ml-300251` | `https://aurore-cdn.b-cdn.net/products/klorane-pivoine-shampoing-apaisant-cuir-chevelu-sensible-lot-de-2-x-400ml-300251.webp` |
+| `klorane-avoine-shampoing-extra-doux-lot-de-2-x-400ml-299930` | `https://aurore-cdn.b-cdn.net/products/klorane-avoine-shampoing-extra-doux-lot-de-2-x-400ml-299930.webp` |
+| `klorane-galanga-shampoing-antipelliculaire-lot-de-2-x-400ml-304343` | `https://aurore-cdn.b-cdn.net/products/klorane-galanga-shampoing-antipelliculaire-lot-de-2-x-400ml-304343.webp` |
+
+#### Neutraderm (1)
+
+| Slug | Image CDN |
+|------|-----------|
+| `neutraderm-shampoing-extra-doux-dermo-respect-lot-de-2-x-500ml-301117` | `https://aurore-cdn.b-cdn.net/products/neutraderm-shampoing-extra-doux-dermo-respect-lot-de-2-x-500ml-301117.webp` |
+
+#### Pouxit (1)
+
+| Slug | Image CDN |
+|------|-----------|
+| `pouxit-xf-lotion-anti-poux-et-lentes-100-efficace-lot-de-2x-200ml-279559` | `https://aurore-cdn.b-cdn.net/products/pouxit-xf-lotion-anti-poux-et-lentes-100-efficace-lot-de-2x-200ml-279559.webp` |
+
+#### Ducray (1)
+
+| Slug | Image CDN |
+|------|-----------|
+| `ducray-extra-doux-shampoing-dermo-protecteur-lot-de-2-x-400ml-300536` | `https://aurore-cdn.b-cdn.net/products/ducray-extra-doux-shampoing-dermo-protecteur-lot-de-2-x-400ml-300536.webp` |
+
+#### René Furterer (2)
+
+| Slug | Image CDN |
+|------|-----------|
+| `rene-furterer-naturia-shampooing-douceur-eco-recharge-bio-400ml-275339` | `https://aurore-cdn.b-cdn.net/products/rene-furterer-naturia-shampooing-douceur-eco-recharge-bio-400ml-275339.webp` |
+| `rene-furterer-triphasic-progressive-serum-antichute-cure-de-3-mois-lot-de-2-x-8-300158` | `https://aurore-cdn.b-cdn.net/products/rene-furterer-triphasic-progressive-serum-antichute-cure-de-3-mois-lot-de-2-x-8-300158.webp` |
+
+### Round 5 (Klorane buckets 1-3 — slug curé/lots/volume canon.) (9)
+
+DB DELETE en transaction (backup `backups/backup_20260504_181629.sql`). 6/9 trouvés en DB ; 3 absents (jamais seedés en DB) retirés du seed uniquement (`klorane-amande-douce-creme-depilatoire-lot-de-2-x-150ml-275502`, `klorane-lingettes-...-3-x-60-lingettes-300747`, `klorane-lingettes-...-bebe-25-unites-275140`).
+
+**Image inheritance (2 keepers)** — slugs curés courts héritent de l'image du drop scrappé : `klorane-quinine-serum-antichute` ← `klorane-quinine-serum-antichute-100ml-299620.webp` ; `klorane-quinine-edelweiss-shampoing-fortifiant` ← `klorane-quinine-edelweiss-shampoing-fortifiant-400ml-275208.webp`. Ces 2 fichiers CDN **conservés** (référencés par keepers, slug-mismatch path mais URL stable). **Exclus de `dedup-dropped-slugs.json`**.
+
+#### Bucket 1 — Slug curé courts (drops scrappés, image inherit) (2)
+
+| Slug | Image CDN | Note |
+|------|-----------|------|
+| `klorane-quinine-serum-antichute-100ml-299620` | `https://aurore-cdn.b-cdn.net/products/klorane-quinine-serum-antichute-100ml-299620.webp` | **CDN conservé** (réf par keeper `klorane-quinine-serum-antichute`) |
+| `klorane-quinine-edelweiss-shampoing-fortifiant-400ml-275208` | `https://aurore-cdn.b-cdn.net/products/klorane-quinine-edelweiss-shampoing-fortifiant-400ml-275208.webp` | **CDN conservé** (réf par keeper `klorane-quinine-edelweiss-shampoing-fortifiant`) |
+
+#### Bucket 2 — Lots multipack (2 absents DB, 0 DELETE) (2)
+
+| Slug | Image CDN | Note |
+|------|-----------|------|
+| `klorane-amande-douce-creme-depilatoire-lot-de-2-x-150ml-275502` | _(absent DB, jamais seedé)_ | seed only |
+| `klorane-lingettes-nettoyantes-a-l-eau-pour-le-corps-bebe-peau-normale-a-seche-3-x-60-lingettes-300747` | _(absent DB)_ | seed only |
+
+> Note : 3 lots non droppés (pas de version unitaire correspondante, drop = perte produit) : `klorane-menthe-aquatique-shampoing-sec-detox-anti-pollution-lot-de-2-x-150ml-300475`, `klorane-duo-spray-shampoing-sec-a-l-ortie-cheveux-gras-lot-de-2-x-150ml-300441`, `klorane-duo-spray-shampoing-sec-a-l-ortie-teinte-cheveux-gras-chatains-a-bruns-lot-de-2-x-150ml-300462`.
+
+#### Bucket 3 — Volume canonical (1 format/produit) (5)
+
+| Slug | Image CDN | Keeper |
+|------|-----------|--------|
+| `klorane-amande-douce-creme-depilatoire-75ml-263827` | `https://aurore-cdn.b-cdn.net/products/klorane-amande-douce-creme-depilatoire-75ml-263827.webp` | `klorane-amande-douce-creme-depilatoire-150ml-263828` |
+| `klorane-lingettes-nettoyantes-a-l-eau-pour-le-corps-bebe-25-unites-275140` | _(absent DB)_ | `klorane-lingettes-...-bebe-peau-normale-a-seche-60-lingettes-275080` |
+| `klorane-bleuet-demaquillant-yeux-sensibles-200ml-300667` | `https://aurore-cdn.b-cdn.net/products/klorane-bleuet-demaquillant-yeux-sensibles-200ml-300667.webp` | `klorane-bleuet-demaquillant-yeux-sensibles-100ml-269607` |
+| `klorane-beurre-de-mangue-baume-apres-shampoing-nutrition-50ml-275205` | `https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-mangue-baume-apres-shampoing-nutrition-50ml-275205.webp` | `klorane-beurre-de-mangue-baume-apres-shampoing-nutrition-200ml-299617` |
+| `klorane-bebe-creme-hydratante-bio-50ml-275614` | `https://aurore-cdn.b-cdn.net/products/klorane-bebe-creme-hydratante-bio-50ml-275614.webp` | `klorane-bebe-creme-hydratante-bio-200ml-275613` |
+
+### Round 6 (Haircare reliquat — true dups, scrappé→curé enrich) (2)
+
+Audit `163 → 161` paires intra-source (-2). DB DELETE en transaction (backup `backups/backup_20260504_184102.sql`). 2/2 trouvés en DB, supprimés. `audit-db` ✅.
+
+Reste haircare = 25 paires bruit irréductible (FP) :
+- **Klorane** 16 — cupuaçu parfums (eau-de-tiare, zeste-agrumes, ecorce-cedre, feve-tonka, feuille-figuier, seve-bambou, frangipanier, fleur-cupuacu, fleur-oranger) Option A keep + monoï SPF30/50 + bébé lingettes 12x14/10x12cm.
+- **PetroleHahn** 6 — créme colorante shades n:50/40/30/10 (clair/naturel/fonce/noir).
+- **Les3Chenes** 3 — color-soin coloration shades 4n/3n/5g (naturel/fonce/clair-doré).
+
+Tous distincts pour le consommateur (parfum/SPF/teinte/taille). Garder.
+
+#### Lazartigue (1) — keeper inherit image, exclu CDN cleanup
+
+| Slug droppé | Image CDN | Keeper |
+|------|-----------|--------|
+| `lazartigue-serum-anti-chute-progressive-thicker-50ml-284107` | `https://aurore-cdn.b-cdn.net/products/lazartigue-serum-anti-chute-progressive-thicker-50ml-284107.webp` | `lazartigue-thicker-anti-chute-progressive` (curé enrichi : inci + imageUrl + 6 keyIngredients hérités) |
+
+> CDN file conservé (URL stable, référencé par keeper). **Exclu de `dedup-dropped-slugs.json`**.
+
+#### Melvita (1)
+
+| Slug droppé | Image CDN | Keeper |
+|------|-----------|--------|
+| `melvita-les-essentiels-shampoing-douche-extra-doux-bio-1l-259310` | `https://aurore-cdn.b-cdn.net/products/melvita-les-essentiels-shampoing-douche-extra-doux-bio-1l-259310.webp` | `melvita-les-essentiels-shampoing-douche-extra-doux-bio` (curé enrichi : 5 keyIngredients hérités) |
+
+> Curé garde son image propre (`...-bio.webp`) ; image scrappée orpheline → ajouté à `dedup-dropped-slugs.json` pour CDN cleanup.
+
+### Round 7 (Dental reliquat + Ducray flacon-pompe — slug-variants/lots/canon. format) (10)
+
+Audit `161 → 150` paires intra-source (-11, certains drops éliminent plusieurs paires en chaîne). DB DELETE en transaction (backup `backups/backup_20260504_191405.sql`). 10/10 trouvés en DB, supprimés. Active products 479 → 469.
+
+Bucket A — slug-variants (curé court vs scrappé long) → **keeper inherit image+inci** (CDN file conservé, exclu de `dedup-dropped-slugs.json`):
+
+| Slug droppé | Image CDN (conservée) | Keeper enrichi |
+|------|-----------|--------|
+| `arthrodont-classic-pate-dentifrice-lot-de-2-x-75ml-248052` | `https://aurore-cdn.b-cdn.net/products/arthrodont-classic-pate-dentifrice-lot-de-2-x-75ml-248052.webp` | `arthrodont-classic-pate-lot-2x75ml` (inci + imageUrl + keyIngredients hérités) |
+| `parodontax-dentifrice-pate-gingivale-lot-de-2-x-75ml-260704` | `https://aurore-cdn.b-cdn.net/products/parodontax-dentifrice-pate-gingivale-lot-de-2-x-75ml-260704.webp` | `parodontax-pate-gingivale-lot-2x75ml` (inci + imageUrl + keyIngredients hérités) |
+
+Bucket B — duplicate slug-variants même produit (CDN orphan) :
+
+| Slug droppé | Image CDN (orphan) | Keeper |
+|------|-----------|--------|
+| `elmex-sensitive-dentifrice-duo-pack-2x75ml-284047` | `https://aurore-cdn.b-cdn.net/products/elmex-sensitive-dentifrice-duo-pack-2x75ml-284047.webp` | `elmex-sensitive-pro-lot-2x75ml` |
+| `elmex-dentifrice-sensitive-professional-blancheur` | `https://aurore-cdn.b-cdn.net/products/elmex-dentifrice-sensitive-professional-blancheur.webp` | `elmex-dentifrice-sensitive-professionnel-blancheur` (FR, INCI 247c richer) |
+| `elmex-sensitive-professional-blancheur-dentifrice` | `https://aurore-cdn.b-cdn.net/products/elmex-sensitive-professional-blancheur-dentifrice.webp` | `elmex-dentifrice-sensitive-professionnel-blancheur` |
+| `hyalugel-bain-de-bouche-aphtes-petites-plaies-100ml-50ml-offert-238963` | `https://aurore-cdn.b-cdn.net/products/hyalugel-bain-de-bouche-aphtes-petites-plaies-100ml-50ml-offert-238963.webp` | `hyalugel-bain-de-bouche-aphtes-petites-plaies-offert` (curé) |
+
+Bucket C — lots/canon. format (1 lot 2x ou volume canon. par produit) :
+
+| Slug droppé | Image CDN (orphan) | Keeper canonical |
+|------|-----------|--------|
+| `elmex-sensitive-pro-lot-3x75ml` | `https://aurore-cdn.b-cdn.net/products/elmex-sensitive-pro-lot-3x75ml.webp` | `elmex-sensitive-pro-lot-2x75ml` (lot 2x canon.) |
+| `elmex-bain-de-bouche-sensitive` (100ml) | `https://aurore-cdn.b-cdn.net/products/elmex-bain-de-bouche-sensitive.webp` | `elmex-solution-dentaire-sensitive` (400ml canon.) |
+| `gum-dentifrice-paroex-gencives-lot-de-3-x-75ml-248883` | `https://aurore-cdn.b-cdn.net/products/gum-dentifrice-paroex-gencives-lot-de-3-x-75ml-248883.webp` | `gum-dentifrice-paroex-gencives-lot-de-2-x-75ml-248867` (lot 2x canon.) |
+| `ducray-extra-doux-shampoing-dermo-protecteur-flacon-pompe-400ml-268752` | `https://aurore-cdn.b-cdn.net/products/ducray-extra-doux-shampoing-dermo-protecteur-flacon-pompe-400ml-268752.webp` | `ducray-extra-doux-shampoing-dermo-protecteur-400ml-268751` (format std non-pompe) |
+
+Skip Round 7 (manual review later) :
+- `elmex-anti-caries-dentifrice-junior-8-18-ans` vs `elmex-junior-dentifrice-anti-caries` — INCI 0.14 J, formulations possiblement distinctes.
+- `oral-b-brossette-crossaction-3-unites-271193` vs `8-unites-271194` — pack-size variants, garder choix consommateur.
+- Klorane 39 paires : 0 actionnable. Quasi-100% FP (cupuaçu/monoï parfums, SPF, bébé tailles, kind-diff shampoo/conditioner). Confirmé bruit irréductible.
 
 ---
 

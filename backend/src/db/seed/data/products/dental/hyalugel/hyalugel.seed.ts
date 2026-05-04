@@ -47,26 +47,4 @@ export const HYALUGEL_SEED: UnifiedProductSeed[] = [
     },
     keyIngredients: [{ slug: 'xylitol-dental' }],
   },
-  {
-    slug: 'hyalugel-bain-de-bouche-aphtes-petites-plaies-100ml-50ml-offert-238963',
-    name: 'Hyalugel Bain de Bouche Aphtes Petites Plaies 100ml + 50ml Offert',
-    brand: 'Hyalugel',
-    kind: 'mouthwash',
-    unit: 'bottle',
-    totalAmount: 0,
-    amountUnit: '',
-    priceCents: 1021,
-    description: '',
-    notes: '',
-    inci: 'Composant principal : hyaluronate de sodium. Autres composants : eau, xylitol, alcool, polysorbate-20, huile de ricin hydrogénée PEG40, carbomère (polycarbophile), alcool dichlorobenzylique, arôme, acide citrique, hydroxyde de sodium, acid blue 9 (CI 42090).',
-    url: 'https://www.atida.fr/hyalugel-bain-de-bouche-150ml-1000405.html',
-    imageUrl:
-      'https://aurore-cdn.b-cdn.net/products/hyalugel-bain-de-bouche-aphtes-petites-plaies-100ml-50ml-offert-238963.webp',
-    tags: {
-      primary: [TAG_SLUGS.BAIN_DE_BOUCHE],
-      secondary: [],
-      avoid: [],
-    },
-    keyIngredients: [{ slug: 'xylitol-dental' }],
-  },
 ]
