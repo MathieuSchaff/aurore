@@ -19,7 +19,12 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/ducray-extra-doux-shampoing-dermo-protecteur-400ml-268751.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_SENSIBLE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -46,7 +51,11 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/ducray-kelual-ds-shampoing-traitant-etats-pelliculaires-severes-100ml-275193.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.PELLICULES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_IRRITE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'piroctone-olamine' }, { slug: 'polyquaternium-10' }],
@@ -62,13 +71,18 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     priceCents: 4399,
     description: '',
     notes: '',
-    inci: 'Ingrédients : Water (aqua), alcohol denat., isopropyl alcohol, peg-6, hexylene glycol, pentylene glycol, butylene glycol, citric acid, lespedeza capitata flower/leaf/stem extract, manganese pca, polyacrylate-13, polyisobutene, polysorbate 20, silybum marianum fruit extract, sodium dilauramidoglutamide lysine, sodium phytate, sorbitan isostearate.',
+    inci: 'Ingrédients : Water (aqua), alcohol denat., isopropyl alcohol, peg-6, hexylene glycol, pentylene glycol, butylene glycol, citric acid, lespedeza capitata flower/leaf/stem extract, manganese pca, polyacrylate-13, polyisobutene, polysorbate 20, silybum marianum fruit extract, sodium dilauramidoglutamide lysine, sodium phytate, sorbitan isostearate.',
     url: 'https://www.atida.fr/ducray-neoptide-expert-serum-capillaire-anti-chute-croissance-lot-de-2-x-50ml.html',
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/ducray-neoptide-expert-serum-capillaire-anti-chute-croissance-lot-de-2-x-50ml-275359.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.ALOPECIE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -94,7 +108,11 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/ducray-kertyol-p-s-o-concentre-corps-et-cuir-chevelu-100ml-275489.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.PELLICULES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_IRRITE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -120,7 +138,12 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/ducray-kertyol-p-s-o-shampoing-traitant-200ml-275490.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.PELLICULES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_IRRITE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -146,7 +169,11 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/ducray-anaphase-shampoing-complement-anti-chute-400ml-300632.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.MANQUE_VOLUME,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -174,7 +201,11 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/ducray-anaphase-shampoing-complement-anti-chute-200ml-300633.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.MANQUE_VOLUME,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -202,7 +233,13 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/ducray-anaphase-shampoing-antichute-et-croissance-200ml-299408.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.MANQUE_VOLUME,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -231,7 +268,12 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/ducray-extra-doux-shampoing-dermo-protecteur-lot-de-2-x-400ml-300536.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_SENSIBLE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -253,7 +295,11 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/ducray-densiage-shampoing-redensifiant-200ml-232682.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.MANQUE_VOLUME,
+        HAIRCARE_PRODUCT_TAG_SLUGS.FINS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -283,7 +329,12 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/ducray-extra-doux-shampoing-dermo-protecteur-100ml-233313.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_SENSIBLE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -304,13 +355,18 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
     priceCents: 963,
     description: '',
     notes: '',
-    inci: "Ingrédients : WATER (AQUA). SODIUM\nLAURETH SULFATE. SODIUM CHLORIDE. COCAMIDOPROPYL BETAINE.\nCOCO-GLUCOSIDE. CITRIC ACID. FRAGRANCE (PARFUM). GLYCERYL OLEATE.\nHYDROGENATED VEGETABLE GLYCERIDES CITRATE. SODIUM BENZOATE.\nTOCOPHEROLFabriqué en France91% d'ingrédients d'origine naturelleVitamine E : Actif aux propriétés anti-oxydantesIl est recommandé au consommateur de vérifier systématiquement la composition du produit avant son achat.",
+    inci: "Ingrédients : WATER (AQUA). SODIUM\nLAURETH SULFATE. SODIUM CHLORIDE. COCAMIDOPROPYL BETAINE.\nCOCO-GLUCOSIDE. CITRIC ACID. FRAGRANCE (PARFUM). GLYCERYL OLEATE.\nHYDROGENATED VEGETABLE GLYCERIDES CITRATE. SODIUM BENZOATE.\nTOCOPHEROLFabriqué en France91% d'ingrédients d'origine naturelleVitamine E : Actif aux propriétés anti-oxydantesIl est recommandé au consommateur de vérifier systématiquement la composition du produit avant son achat.",
     url: 'https://www.atida.fr/ducray-extra-doux-shampooing-flacon-pompe-400ml.html',
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/ducray-extra-doux-shampoing-dermo-protecteur-flacon-pompe-400ml-268752.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_SENSIBLE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -337,7 +393,11 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/ducray-gel-rubefiant-tonique-capillaire-30ml-272680.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -359,7 +419,11 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/ducray-anaphase-soin-apres-shampoing-fortifiant-200ml-298112.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.MANQUE_VOLUME,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CONDITIONNEMENT,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -387,7 +451,11 @@ export const DUCRAY_HAIRCARE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/ducray-anacaps-expert-chute-de-cheveux-chronique-90-gelules-275585.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.ALOPECIE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+      ],
       avoid: [],
     },
     keyIngredients: [],

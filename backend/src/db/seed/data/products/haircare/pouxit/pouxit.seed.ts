@@ -18,8 +18,12 @@ export const POUXIT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/pouxit-spray-preventif-anti-poux-sans-rincage-200ml-272691.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.POUX],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.LEAVE_IN,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -42,8 +46,8 @@ export const POUXIT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/pouxit-xf-lotion-anti-poux-et-lentes-100-efficace-lot-de-2x-100ml-241160.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.POUX],
+      secondary: [HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU],
       avoid: [],
     },
     keyIngredients: [{ slug: 'dimethicone-hair', notes: 'physical pediculicide via asphyxiation' }],
@@ -64,8 +68,8 @@ export const POUXIT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/pouxit-lotion-spray-anti-poux-et-lentes-100-efficace-150ml-238892.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.POUX],
+      secondary: [HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU],
       avoid: [],
     },
     keyIngredients: [
@@ -89,8 +93,8 @@ export const POUXIT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/pouxit-xf-lotion-anti-poux-et-lentes-100-efficace-lot-de-2x-200ml-279559.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.POUX],
+      secondary: [HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU],
       avoid: [],
     },
     keyIngredients: [{ slug: 'dimethicone-hair', notes: 'physical pediculicide via asphyxiation' }],
@@ -111,8 +115,8 @@ export const POUXIT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/pouxit-xf-lotion-anti-poux-et-lentes-100-efficace-200ml-263881.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.POUX],
+      secondary: [HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU],
       avoid: [],
     },
     keyIngredients: [
@@ -138,8 +142,8 @@ export const POUXIT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/pouxit-baume-decolleur-de-lentes-100g-268020.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.POUX],
+      secondary: [HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU],
       avoid: [],
     },
     keyIngredients: [],

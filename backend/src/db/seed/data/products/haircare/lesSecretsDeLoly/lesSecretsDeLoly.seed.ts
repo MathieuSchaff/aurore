@@ -20,8 +20,16 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-shampooing-perfect-clean.webp',
     tags: {
-      primary: ['shampooing'],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.BOUCLES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CREPUS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CGM_FRIENDLY,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
   },
@@ -42,8 +50,17 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-apres-shampooing-cream-conditioner.webp',
     tags: {
-      primary: ['apres-shampooing'],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.BOUCLES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CREPUS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.HYDRATATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CGM_FRIENDLY,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CONDITIONNEMENT,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.BETAINE }],
@@ -58,15 +75,25 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     amountUnit: 'ml',
     priceCents: 1208,
     description:
-      "Découvrez l'après-shampooing Pink Paradise de la marque Les Secrets de Loly, en vente en ligne sur le site de votre parapharmacie à prix discount.\n\nLes Secrets de Loly est une marque reconnue pour ses produits capillaires naturels et efficaces. \n\nL'après-shampooing Pink Paradise est spécialement formulé pour nourrir et hydrater en profondeur les cheveux secs et abîmés ondulés, bouclés, frisés et crépus difficiles à démêler. Enrichi en huiles végétales (jojoba, amande douce), aloe vera, provitamine B5 et glycérine, ce soin laisse les cheveux doux, brillants et faciles à coiffer. Sa formule sans silicone et sans sulfate respecte la fibre capillaire et convient à tous les types de cheveux. Les cheveux seront faciles à coiffer et parfumé aux notes d'huile essentielle de pamplemousse rose. \n\nOffrez à vos cheveux un véritable moment de douceur et de bien-être avec l'après-shampooing Pink Paradise de Les Secrets de Loly.",
+      "Découvrez l'après-shampooing Pink Paradise de la marque Les Secrets de Loly, en vente en ligne sur le site de votre parapharmacie à prix discount.\n\nLes Secrets de Loly est une marque reconnue pour ses produits capillaires naturels et efficaces. \n\nL'après-shampooing Pink Paradise est spécialement formulé pour nourrir et hydrater en profondeur les cheveux secs et abîmés ondulés, bouclés, frisés et crépus difficiles à démêler. Enrichi en huiles végétales (jojoba, amande douce), aloe vera, provitamine B5 et glycérine, ce soin laisse les cheveux doux, brillants et faciles à coiffer. Sa formule sans silicone et sans sulfate respecte la fibre capillaire et convient à tous les types de cheveux. Les cheveux seront faciles à coiffer et parfumé aux notes d'huile essentielle de pamplemousse rose. \n\nOffrez à vos cheveux un véritable moment de douceur et de bien-être avec l'après-shampooing Pink Paradise de Les Secrets de Loly.",
     notes: '',
     inci: 'AQUA, ALOE BARBADENSIS GEL, CETEARYL ALCOHOL & BEHENTRIMONIUM METHOSULFATE (ÉMULSIFIANT VÉGÉTAL), GLYCERIN, SIMMONDSIA CHINENSIS OIL (HUILE DE JOJOBA), PRUNUS AMYGDALUS DULCIS OIL (HUILE D’AMANDE DOUCE), PANTHENOL (PROVITAMINE B5), CITRUS PARADISII OIL (',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/les-secrets-de-loly/les-secrets-de-loly-apres-shampooing-pink-paradise-250ml.html',
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-apres-shampooing-pink-paradise.webp',
     tags: {
-      primary: ['apres-shampooing'],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.BOUCLES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CREPUS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.HYDRATATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DEMELAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CGM_FRIENDLY,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CONDITIONNEMENT,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -91,8 +118,16 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-bubble-kurl-spray-demelant-enfants.webp',
     tags: {
-      primary: ['apres-shampooing'],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SPRAY_COIFFANT],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.BOUCLES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DEMELAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.ANTI_FRISOTTIS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CGM_FRIENDLY,
+      ],
       avoid: [],
     },
   },
@@ -113,8 +148,16 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-bubble-smooth-apres-shampooing-enfants.webp',
     tags: {
-      primary: ['apres-shampooing'],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.BOUCLES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DEMELAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CGM_FRIENDLY,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CONDITIONNEMENT,
+      ],
       avoid: [],
     },
   },
@@ -135,8 +178,14 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-serum-croissance-huile-capillaire.webp',
     tags: {
-      primary: ['huile-capillaire'],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.HUILE_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.ALOPECIE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.PRE_SHAMPOOING,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+      ],
       avoid: [],
     },
   },
@@ -150,15 +199,22 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     amountUnit: 'ml',
     priceCents: 1112,
     description:
-      "SECRETS DE LOLY BUBBLE DREAM SHAMPOOING ENFANT 250ML est en vente en ligne sur le site de votre parapharmacie à prix discount, idéal pour le nettoyage quotidien des cheveux délicats des enfants. \n\nFabriqué par Secrets de Loly, ce shampoing présente une texture douce et moussante, spécialement formulée pour respecter le cuir chevelu sensible des plus jeunes. Composé à 98,6 % d’ingrédients d'origine naturelle, il intègre des actifs végétaux à base de pommes pour une sensation de fraîcheur et des actifs hydratants issus du lait d’amande douce pour nourrir et adoucir les cheveux. La base lavante à la coco assure un nettoyage en douceur, tandis que la glycérine végétale contribue à maintenir l'hydratation naturelle du cheveu. \n\nCe shampoing est un allié du quotidien pour prendre soin des cheveux de votre enfant simplement et efficacement, tout en leur offrant une expérience de lavage agréable et adaptée.",
+      "SECRETS DE LOLY BUBBLE DREAM SHAMPOOING ENFANT 250ML est en vente en ligne sur le site de votre parapharmacie à prix discount, idéal pour le nettoyage quotidien des cheveux délicats des enfants. \n\nFabriqué par Secrets de Loly, ce shampoing présente une texture douce et moussante, spécialement formulée pour respecter le cuir chevelu sensible des plus jeunes. Composé à 98,6 % d’ingrédients d'origine naturelle, il intègre des actifs végétaux à base de pommes pour une sensation de fraîcheur et des actifs hydratants issus du lait d’amande douce pour nourrir et adoucir les cheveux. La base lavante à la coco assure un nettoyage en douceur, tandis que la glycérine végétale contribue à maintenir l'hydratation naturelle du cheveu. \n\nCe shampoing est un allié du quotidien pour prendre soin des cheveux de votre enfant simplement et efficacement, tout en leur offrant une expérience de lavage agréable et adaptée.",
     notes: '',
     inci: 'AQUA, GLYCERIN, COCAMIDOPROPYL BETAINE, SODIUM COCOYL APPLE AMINO ACIDS, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, HYDROLYZED ADANSONIA DIGITATA SEED EXTRACT, PARFUM, HEXYLENE GLYCOL, BENZYL ALCOHOL, TETRASODIUM GLUTAMATE DIACETATE, DEHYDROACETIC ACID, POTASSIUM SORBATE, SODIUM BENZOATE, HEXYL CINNAMAL*, CI 77491, MICA, CI 77891',
     url: 'https://www.pharmashopdiscount.com/fr/beaute/les-secrets-de-loly/les-secrets-de-loly-shampooing-enfants-bubble-dream-250ml.html',
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-shampooing-enfants-bubble-dream.webp',
     tags: {
-      primary: ['shampooing'],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.BOUCLES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CGM_FRIENDLY,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.MICA_HAIR }],
@@ -180,8 +236,16 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-sunshine-clean-shampooing-dermo-apaisant.webp',
     tags: {
-      primary: ['shampooing'],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_SENSIBLE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BOUCLES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CGM_FRIENDLY,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.PANTHENOL }],
@@ -203,7 +267,15 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-coiffants-leave-in-gelee-capillaire-boost-curl-250ml-273805.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.GEL_COIFFANT],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.BOUCLES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DEFINITION_BOUCLES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.FIXATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.COIFFAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CGM_FRIENDLY,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -235,7 +307,16 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-apres-shampoing-pink-paradise-250ml-273807.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.BOUCLES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CREPUS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.HYDRATATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DEMELAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CGM_FRIENDLY,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CONDITIONNEMENT,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -266,8 +347,17 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-coiffants-leave-in-soin-sans-rincage-kurl-nectar-250ml-257930.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.LEAVE_IN],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.BOUCLES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DEFINITION_BOUCLES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.HYDRATATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CGM_FRIENDLY,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -298,8 +388,16 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-routine-cheveux-epais-boucles-300106.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.BOUCLES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.EPAIS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.HYDRATATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CGM_FRIENDLY,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -320,8 +418,17 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-soin-masque-hydratant-repair-time-230ml-255169.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.BOUCLES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.HYDRATATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_HEBDO_CHEVEUX,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CGM_FRIENDLY,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -351,7 +458,15 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-shampoing-perfect-clean-250ml-273808.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.BOUCLES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CREPUS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CGM_FRIENDLY,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -376,8 +491,17 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-soin-sans-rincage-kurl-potion-250ml-239669.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.LEAVE_IN],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.BOUCLES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.HYDRATATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CGM_FRIENDLY,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -405,7 +529,15 @@ export const LES_SECRETS_DE_LOLY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/les-secrets-de-loly-shampooing-perfect-match-250ml-239668.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.BOUCLES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CGM_FRIENDLY,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [

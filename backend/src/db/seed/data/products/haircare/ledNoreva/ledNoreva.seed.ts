@@ -19,7 +19,12 @@ export const LED_NOREVA_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/noreva-psoriane-shampoing-quotidien-apaisant-125ml-278707.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_IRRITE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.PELLICULES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'salicylic-acid-hair' }, { slug: 'piroctone-olamine' }],
@@ -41,7 +46,12 @@ export const LED_NOREVA_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/noreva-psoriane-shampoing-intensif-apaisant-125ml-263640.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_IRRITE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.PELLICULES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -68,8 +78,12 @@ export const LED_NOREVA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/noreva-sebodiane-ds-serum-lp-seboregulateur-8ml-259742.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.RACINES_GRASSES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_GRAS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'linoleic-acid-hair' }, { slug: 'phytosphingosine-hair' }],

@@ -1,51 +1,14 @@
 import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../../data/tags'
 import type { UnifiedProductSeed } from '../../types'
 
+// Items "environnement" (spray surfaces + additif lessive) retirés du domaine
+// haircare : biocide ménager, hors scope soin du quotidien.
 export const CINQ_SUR_CINQ_SEED: UnifiedProductSeed[] = [
-  {
-    slug: 'cinq-sur-cinq-kit-anti-poux-environnement',
-    name: 'Kit Anti-Poux Spray + Additif Lessive',
-    brand: 'Cinq Sur Cinq',
-    kind: 'styling',
-    unit: 'pack',
-    totalAmount: 400,
-    amountUnit: 'ml',
-    priceCents: 1749,
-    description: 'Kit traitement environnement anti-poux : spray 250 ml + additif lessive 150 ml.',
-    url: 'https://www.atida.fr/cinq-sur-cinq-kit-traitement-environnement-anti-poux-et-lentes-spray-250ml-additif-lessive-150ml.html',
-    tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SPRAY_COIFFANT],
-      secondary: [],
-      avoid: [],
-    },
-  },
-  {
-    slug: 'cinq-sur-cinq-kit-traitement-environnement-anti-poux-et-lentes-spray-250ml-additif-lessive-150ml-267776',
-    name: 'Cinq sur Cinq Kit Traitement Environnement Anti Poux et Lentes Spray 250ml + Additif Lessive 150ml',
-    brand: 'Cinq Sur Cinq',
-    kind: 'shampoo',
-    unit: 'spray',
-    totalAmount: 150,
-    amountUnit: 'ml',
-    priceCents: 1749,
-    description: '',
-    notes: '',
-    inci: "Additif Lessive :\nContient du Géraniol 0,2% (m/m), CAS 106-24-1. Pareth-6, Parfum (Mélange de Dérivés d'Huiles Essentielles).Spray Environnement :\nContient du Géraniol 0,05% (m/m), CAS 106-24-1. Produits à usage Biocide (TP18-Insecticide).",
-    url: 'https://www.atida.fr/cinq-sur-cinq-kit-traitement-environnement-anti-poux-et-lentes-spray-250ml-additif-lessive-150ml.html',
-    imageUrl:
-      'https://aurore-cdn.b-cdn.net/products/cinq-sur-cinq-kit-traitement-environnement-anti-poux-et-lentes-spray-250ml-additif-lessive-150ml-267776.webp',
-    tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
-      avoid: [],
-    },
-    keyIngredients: [],
-  },
   {
     slug: 'cinq-sur-cinq-baume-decolleur-de-lentes-60ml-284064',
     name: 'Cinq sur Cinq Baume Décolleur de Lentes 60ml',
     brand: 'Cinq Sur Cinq',
-    kind: 'shampoo',
+    kind: 'styling',
     unit: 'bottle',
     totalAmount: 60,
     amountUnit: 'ml',
@@ -57,8 +20,8 @@ export const CINQ_SUR_CINQ_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/cinq-sur-cinq-baume-decolleur-de-lentes-60ml-284064.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.POUX],
+      secondary: [HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU],
       avoid: [],
     },
     keyIngredients: [],
@@ -67,7 +30,7 @@ export const CINQ_SUR_CINQ_SEED: UnifiedProductSeed[] = [
     slug: 'cinq-sur-cinq-anti-poux-lentes-spray-repulsif-100ml-284087',
     name: 'Cinq sur Cinq Anti Poux & Lentes Spray Répulsif 100ml',
     brand: 'Cinq Sur Cinq',
-    kind: 'shampoo',
+    kind: 'styling',
     unit: 'spray',
     totalAmount: 100,
     amountUnit: 'ml',
@@ -79,8 +42,8 @@ export const CINQ_SUR_CINQ_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/cinq-sur-cinq-anti-poux-lentes-spray-repulsif-100ml-284087.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.POUX],
+      secondary: [HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU],
       avoid: [],
     },
     keyIngredients: [],
@@ -101,8 +64,11 @@ export const CINQ_SUR_CINQ_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/cinq-sur-cinq-shampooing-gel-anti-poux-et-lentes-400ml-284073.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.POUX],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+      ],
       avoid: [],
     },
     keyIngredients: [

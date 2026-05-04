@@ -18,8 +18,8 @@ export const PURESSENTIEL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/puressentiel-anti-poux-repulsif-poux-spray-75ml-233629.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.POUX],
+      secondary: [HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU],
       avoid: [],
     },
     keyIngredients: [{ slug: 'tea-tree-oil-hair' }, { slug: 'romarin-extract-hair' }],
@@ -40,8 +40,12 @@ export const PURESSENTIEL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/puressentiel-anti-poux-pouxdoux-shampoing-quotidien-certifie-bio-200ml-256460.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.POUX],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -68,8 +72,8 @@ export const PURESSENTIEL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/puressentiel-anti-poux-repulsif-poux-200ml-267311.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.POUX],
+      secondary: [HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU],
       avoid: [],
     },
     keyIngredients: [{ slug: 'tea-tree-oil-hair' }, { slug: 'romarin-extract-hair' }],

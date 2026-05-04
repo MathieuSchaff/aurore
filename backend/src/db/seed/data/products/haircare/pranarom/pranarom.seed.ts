@@ -19,7 +19,7 @@ export const PRANAROM_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/pranarom-huile-vegetale-nigelle-60-capsules-299205.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES],
       avoid: [],
     },
     keyIngredients: [],
@@ -40,8 +40,14 @@ export const PRANAROM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/pranarom-huile-vegetale-bio-argan-50ml-279908.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.HUILE_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POINTES_SECHES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.HYDRATATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'argan-oil-hair' }],
@@ -62,8 +68,14 @@ export const PRANAROM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/pranarom-huile-vegetale-bio-onagre-50ml-279916.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.HUILE_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POINTES_SECHES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.HYDRATATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],

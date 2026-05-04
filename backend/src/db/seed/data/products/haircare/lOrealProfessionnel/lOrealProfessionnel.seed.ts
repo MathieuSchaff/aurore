@@ -19,7 +19,11 @@ export const L_OR_AL_PROFESSIONNEL_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/l-oreal-professionnel-serie-expert-vitamino-color-shampoing-fixateur-de-couleur-500ml-254779.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -48,7 +52,11 @@ export const L_OR_AL_PROFESSIONNEL_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/l-oreal-professionnel-serie-expert-vitamino-color-shampoing-fixateur-de-couleur-300ml-254778.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -77,7 +85,13 @@ export const L_OR_AL_PROFESSIONNEL_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/l-oreal-professionnel-serie-expert-absolut-repair-shampoing-restructurant-500ml-254770.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CASSE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.FOURCHES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.GAINAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -106,8 +120,14 @@ export const L_OR_AL_PROFESSIONNEL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/l-oreal-professionnel-serie-expert-absolut-repair-masque-250ml-254768.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CASSE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.FOURCHES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.GAINAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_HEBDO_CHEVEUX,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -134,8 +154,13 @@ export const L_OR_AL_PROFESSIONNEL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/l-oreal-professionnel-serie-expert-vitamino-color-masque-fixateur-de-couleur-250ml-255164.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.GAINAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_HEBDO_CHEVEUX,
+      ],
       avoid: [],
     },
     keyIngredients: [

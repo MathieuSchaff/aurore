@@ -19,7 +19,12 @@ export const K_RANOVE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/keranove-blond-vacances-shampoing-eclaircissant-250ml-253972.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DECOLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.JAUNISSEMENT_BLOND,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -47,7 +52,10 @@ export const K_RANOVE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/keranove-naturanove-coloration-n-4-chatain-profond-254560.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -77,7 +85,10 @@ export const K_RANOVE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/keranove-naturanove-coloration-n-5-15-chocolat-254563.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+      ],
       avoid: [],
     },
     keyIngredients: [

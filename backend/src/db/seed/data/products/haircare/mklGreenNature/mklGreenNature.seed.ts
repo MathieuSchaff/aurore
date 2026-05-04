@@ -19,7 +19,12 @@ export const MKL_GREEN_NATURE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/mkl-shampoing-solide-ortie-et-charbon-cheveux-gras-65g-270655.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_GRAS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.RACINES_GRASSES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+      ],
       avoid: [],
     },
     keyIngredients: [

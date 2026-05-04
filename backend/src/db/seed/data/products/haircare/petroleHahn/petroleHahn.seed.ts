@@ -19,7 +19,10 @@ export const PETROLE_HAHN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/petrole-hahn-creme-colorante-douce-sans-ammoniaque-n-50-chatain-clair-260686.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'glycerin-hair' }],
@@ -41,7 +44,10 @@ export const PETROLE_HAHN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/petrole-hahn-creme-colorante-douce-sans-ammoniaque-n-40-chatain-naturel-260680.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'glycerin-hair' }],
@@ -63,7 +69,10 @@ export const PETROLE_HAHN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/petrole-hahn-creme-colorante-douce-sans-ammoniaque-n-30-chatain-fonce-260677.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'glycerin-hair' }],
@@ -85,7 +94,10 @@ export const PETROLE_HAHN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/petrole-hahn-gel-creme-colorante-douce-sans-ammoniaque-n-20-brun-260670.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -113,7 +125,10 @@ export const PETROLE_HAHN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/petrole-hahn-vert-lotion-tonique-force-5-vitalite-cheveux-normaux-300ml-252839.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'panthenol-hair' }],
@@ -135,7 +150,10 @@ export const PETROLE_HAHN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/petrole-hahn-bleu-lotion-tonique-force-5-protection-cheveux-blancs-ou-gris-300ml-273427.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.NATURELS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'panthenol-hair' }],
@@ -157,7 +175,10 @@ export const PETROLE_HAHN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/petrole-hahn-creme-colorante-douce-sans-ammoniaque-n-10-noir-242711.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'glycerin-hair' }],

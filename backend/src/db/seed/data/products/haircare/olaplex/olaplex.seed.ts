@@ -19,7 +19,14 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/olaplex-n0-soin-intense-bond-building-155ml.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CASSE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.FOURCHES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.GAINAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -45,7 +52,14 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/olaplex-n3-soin-perfecteur-100ml.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CASSE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.FOURCHES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.GAINAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_HEBDO_CHEVEUX,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -76,7 +90,14 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/olaplex-n3-hair-perfector-250ml.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CASSE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.FOURCHES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.GAINAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_HEBDO_CHEVEUX,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -102,7 +123,14 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/olaplex-n4-shampoing-250ml.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CASSE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.FOURCHES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.GAINAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -135,7 +163,12 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/olaplex-n4p-shampoing-blonde-enhancer-250ml.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.JAUNISSEMENT_BLOND,
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DECOLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -162,7 +195,14 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/olaplex-n5-apres-shampoing-250ml.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CASSE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.FOURCHES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CONDITIONNEMENT,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.GAINAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DEMELAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -197,7 +237,14 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/olaplex-n6-bond-smoother-100ml.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.CREME_COIFFANTE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CASSE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.COIFFAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LISSANT,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DISCIPLINE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.ANTI_FRISOTTIS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -228,7 +275,14 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/olaplex-n7-huile-concentree-30ml.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.HUILE_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.POINTES_SECHES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.FOURCHES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BRILLANCE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.THERMOPROTECTION,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -257,7 +311,15 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/olaplex-masque-hydratant-4-en-1-370ml.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CASSE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_HEBDO_CHEVEUX,
+        HAIRCARE_PRODUCT_TAG_SLUGS.HYDRATATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.GAINAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -301,7 +363,14 @@ export const OLAPLEX_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/olaplex-n9-serum-capillaire-bond-protector-90ml.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CASSE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.GAINAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.THERMOPROTECTION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.HYDRATATION,
+      ],
       avoid: [],
     },
     keyIngredients: [

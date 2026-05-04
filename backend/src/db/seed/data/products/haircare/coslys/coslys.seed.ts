@@ -19,7 +19,12 @@ export const COSLYS_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/coslys-shampoing-anti-jaunissement-bio-500ml-286930.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.JAUNISSEMENT_BLOND,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DECOLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -45,7 +50,11 @@ export const COSLYS_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/coslys-shampoing-ultra-doux-bio-1l-285926.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_SENSIBLE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -72,7 +81,10 @@ export const COSLYS_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/coslys-shampoing-famille-aloe-vera-bio-doypack-1l-286965.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'aloe-vera-hair' }],

@@ -18,8 +18,12 @@ export const JALDES_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/jaldes-silettum-expert-traitement-anti-chute-cure-de-3-mois-3-x-40ml-270158.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+      ],
       avoid: [],
     },
     keyIngredients: [

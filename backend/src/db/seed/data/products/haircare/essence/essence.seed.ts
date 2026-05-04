@@ -19,7 +19,7 @@ export const ESSENCE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/essence-calendrier-de-l-avent-little-x-mas-wonder-24-unites-303499.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES],
       avoid: [],
     },
     keyIngredients: [],

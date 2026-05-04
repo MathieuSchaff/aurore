@@ -19,7 +19,13 @@ export const DERMACLAY_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/dermaclay-shampoing-traitant-bio-anti-chute-argile-blanche-250ml-233791.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_SENSIBLE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+      ],
       avoid: [],
     },
     keyIngredients: [

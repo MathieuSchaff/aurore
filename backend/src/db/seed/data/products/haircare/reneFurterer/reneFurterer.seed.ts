@@ -15,7 +15,12 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/rene-furterer-triphasic-reactional-traitement-antichute-reactionnelle-12-ampoules.html',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.ALOPECIE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -33,7 +38,12 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/furterer-triphasic-8-ampoules.html',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.ALOPECIE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -54,8 +64,13 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/rene-furterer-triphasic-reactional-coffret-ampoules-12x5ml-269052.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.ALOPECIE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -82,8 +97,13 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/rene-furterer-triphasic-progressive-serum-antichute-coffret-8-flac-232665.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.ALOPECIE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -114,8 +134,12 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/rene-furterer-complexe-5-head-spa-concentre-vegetal-stimulant-50ml-275493.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.HUILE_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+        HAIRCARE_PRODUCT_TAG_SLUGS.PRE_SHAMPOOING,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'castor-oil-hair' }],
@@ -137,7 +161,13 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/rene-furterer-triphasic-shampoing-traitant-contre-la-perte-de-cheveux-200ml-232650.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.ALOPECIE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -165,8 +195,13 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/rene-furterer-triphasic-progressive-serum-antichute-cure-de-3-mois-lot-de-2-x-8-300158.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.ALOPECIE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -198,7 +233,12 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/furterer-triphasic-active-grow-serum-accelerateur-de-pousse-100ml-301946.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.ALOPECIE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -228,7 +268,13 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/rene-furterer-naturia-shampooing-douceur-eco-recharge-bio-400ml-275339.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -254,7 +300,13 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/rene-furterer-forticea-shampoing-fortifiant-d-origine-naturel-doux-200ml-232647.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.MANQUE_VOLUME,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -284,7 +336,14 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/rene-furterer-absolue-keratine-shampoing-soin-reparateur-200ml-275459.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CASSE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.GAINAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -312,8 +371,13 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/rene-furterer-sublime-karite-masque-hydratant-gainant-200ml-275621.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.GAINAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_HEBDO_CHEVEUX,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -345,7 +409,13 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/rene-furterer-color-glow-shampooing-cheveux-colores-200ml-233057.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -371,8 +441,14 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/rene-furterer-sublime-curl-spray-activateur-de-boucles-150ml-275358.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SPRAY_COIFFANT],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.BOUCLES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DEFINITION_BOUCLES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.COIFFAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.ANTI_FRISOTTIS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -401,7 +477,12 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/rene-furterer-sublime-curl-baume-demelant-activateur-de-boucles-150ml-275344.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.BOUCLES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DEFINITION_BOUCLES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DEMELAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CONDITIONNEMENT,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -428,7 +509,11 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/rene-furterer-volumea-shampooing-expanseur-250ml-233647.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.MANQUE_VOLUME,
+        HAIRCARE_PRODUCT_TAG_SLUGS.FINS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -456,7 +541,13 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/rene-furterer-sublime-curl-shampoing-sublimateur-de-boucles-200ml-275346.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.BOUCLES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DEFINITION_BOUCLES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -486,7 +577,13 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/rene-furterer-naturia-shampoing-micellaire-douceur-bio-400ml-275338.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -512,7 +609,13 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/rene-furterer-curbicia-shampoing-purifiant-legerete-150ml-259987.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.RACINES_GRASSES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_GRAS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -543,7 +646,14 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/rene-furterer-neopur-shampoing-equilibrant-pellicules-grasses-150ml-275307.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.PELLICULES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.RACINES_GRASSES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [

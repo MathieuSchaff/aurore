@@ -19,7 +19,11 @@ export const BIORENE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/biorene-coiffant-creme-de-coiffage-25ml-248214.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.CREME_COIFFANTE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COIFFAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.FIXATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DISCIPLINE,
+      ],
       avoid: [],
     },
     keyIngredients: [

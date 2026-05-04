@@ -19,7 +19,13 @@ export const NATESSANCE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/natessance-shampoing-reparateur-fortifiant-ricin-500ml-266083.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CASSE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -48,7 +54,14 @@ export const NATESSANCE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/natessance-shampoing-fortifiant-ricin-bio-et-keratine-vegetale-500ml-266387.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CASSE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.GAINAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -79,7 +92,15 @@ export const NATESSANCE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/natessance-apres-shampoing-fortifiant-ricin-bio-et-keratine-vegetale-200ml-266369.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CASSE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CONDITIONNEMENT,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.GAINAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DEMELAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+      ],
       avoid: [],
     },
     keyIngredients: [

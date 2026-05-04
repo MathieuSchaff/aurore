@@ -19,7 +19,10 @@ export const BIOKAP_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/biokap-anti-chute-lotion-renforcante-50ml-232316.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -49,7 +52,10 @@ export const BIOKAP_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/biokap-nutricolor-delicato-coloration-2-9-chatain-fonce-chocolat-140ml-232335.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -78,7 +84,11 @@ export const BIOKAP_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/biokap-shampoing-anti-pelliculaire-200ml-294908.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.PELLICULES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [

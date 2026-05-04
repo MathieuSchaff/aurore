@@ -15,7 +15,12 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/klorane-serum-anti-chute-quinine-edelweiss-bio-100ml.html',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.ALOPECIE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+      ],
       avoid: [],
     },
   },
@@ -32,7 +37,11 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/klorane-quinine-edelweiss-shampoing-fortifiant-400ml.html',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.ALOPECIE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
   },
@@ -53,7 +62,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-creme-nutritive-cold-cream-125ml-253536.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -80,7 +92,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-maman-huile-de-soin-vergetures-200ml-267718.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -106,7 +121,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bebe-petit-brin-eau-parfumee-50ml-268353.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'glycerin-hair' }],
@@ -128,7 +146,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-monoi-tamanu-spray-solaire-sublime-corps-spf50-200ml-270081.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -155,7 +176,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-lait-de-toilette-sans-rincage-750ml-275069.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -182,7 +206,14 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-mangue-shampoing-solide-nutrition-80g-275178.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -210,8 +241,13 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/klorane-junior-shampoing-demelant-peche-500ml-275496.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DEMELAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -238,7 +274,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-gel-lavant-doux-lot-de-2-x-500ml-275519.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -266,7 +305,11 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-pivoine-creme-riche-apaisante-40ml-275581.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_SENSIBLE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -298,7 +341,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-patchs-lissants-defatiguant-express-7-paires-279767.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -324,7 +370,14 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-centauree-apres-shampoing-dejaunissant-200ml-301460.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.JAUNISSEMENT_BLOND,
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DECOLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CONDITIONNEMENT,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -351,7 +404,11 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-antichute-force-et-vitalite-complement-alimentaire-90-capsules-232490.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.ALOPECIE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -377,7 +434,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bebe-creme-pour-le-change-bio-100g-236631.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -404,7 +464,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-amande-douce-bande-de-cire-froide-visage-6-unites-264090.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'paraffinum-liquidum-hair' }, { slug: 'almond-oil-hair' }],
@@ -426,7 +489,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-monoi-tamanu-huile-seche-solaire-spf30-200ml-270079.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -452,7 +518,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-monoi-tamanu-creme-sublimatrice-apres-soleil-visage-et-corps-200ml-270089.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -479,7 +548,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-lait-de-toilette-sans-rincage-500ml-275070.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -506,7 +578,15 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-grenade-baume-apres-shampoing-eclat-cheveux-colores-200ml-275224.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BRILLANCE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CONDITIONNEMENT,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -532,7 +612,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-menthe-aquatique-masque-purifiant-en-stick-bio-25g-275296.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.RACINES_GRASSES,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'kaolin-hair' }, { slug: 'aloe-vera-hair' }],
@@ -554,7 +637,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-eau-nettoyante-sans-rincage-bebe-750-ml-300836.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -580,7 +666,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-amande-douce-creme-depilatoire-lot-de-2-x-150ml-275502.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'almond-oil-hair' }],
@@ -602,7 +691,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-eau-nettoyante-sans-rincage-bebe-400-ml-302422.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -628,7 +720,14 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-croissance-serum-accelerateur-de-pousse-intense-100ml-304429.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.ALOPECIE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -655,7 +754,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-lingette-nettoyante-douce-lot-de-6-x-70-unites-300411.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -677,7 +779,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-lait-hydratant-peau-normale-a-seche-bebe-500ml-304420.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -704,7 +809,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-lotion-florale-demaquillant-yeux-sensibles-lot-de-2-x-200ml-248043.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'cetrimonium-bromide' }],
@@ -726,7 +834,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-amande-douce-creme-depilatoire-150ml-263828.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'almond-oil-hair' }],
@@ -748,7 +859,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-monoi-tamanu-huile-reparatrice-apres-soleil-visage-et-corps-150ml-270087.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -773,8 +887,14 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-shampoing-demelant-200ml-275073.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_SENSIBLE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DEMELAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -802,7 +922,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://assets.atida.com/transform/f8be73eb-2075-42c4-8ab5-39610bbec2d8/Klorane-Lingettes-nettoyantes-a-l-eau-pour-le-corps-Bebe-Peau-normale-a-seche-60-lingettes?io=transform:extend,width:600,height:600',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -828,7 +951,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-creme-lavante-cold-cream-500ml-275077.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -856,8 +982,15 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-mangue-creme-de-jour-cheveux-nutrition-125ml-275206.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.LEAVE_IN],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -885,7 +1018,14 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-monoi-tamanu-shampooing-nutritif-apres-soleil-200ml-275330.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -916,8 +1056,13 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/klorane-lin-shampoing-sec-volume-lot-de-2-x-150ml-300825.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING_SEC],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.MANQUE_VOLUME,
+        HAIRCARE_PRODUCT_TAG_SLUGS.FINS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.VOLUME,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -939,7 +1084,14 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-lait-d-avoine-baume-apres-shampoing-revitalisant-50ml-267816.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_SENSIBLE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CONDITIONNEMENT,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -966,7 +1118,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-poudre-protectrice-au-calendula-bio-75gr-268603.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'kaolin-hair' }, { slug: 'glycerin-hair' }],
@@ -988,7 +1143,12 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-avoine-shampoing-solide-80g-275265.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_SENSIBLE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1014,8 +1174,13 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/klorane-junior-shampoing-demelant-peche-200ml-275497.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DEMELAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1042,7 +1207,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-creme-d-eau-de-bleuet-50ml-275508.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1068,7 +1236,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bebe-huile-massage-multi-usages-bio-200ml-275612.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'sunflower-oil-hair' }],
@@ -1090,7 +1261,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-amande-douce-creme-depilatoire-75ml-263827.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'almond-oil-hair' }],
@@ -1112,7 +1286,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-creme-lavante-cold-cream-200ml-275078.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1141,7 +1318,13 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-menthe-aquatique-shampoing-anti-pollution-400ml-275252.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_GRAS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.RACINES_GRASSES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1166,7 +1349,13 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-shampoing-solide-au-cedrat-80g-275323.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_GRAS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1193,7 +1382,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-monoi-tamanu-baume-riche-reparateur-apres-soleil-200ml-275331.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1222,7 +1414,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-amande-douce-bande-de-cire-froide-6-unites-279829.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'paraffinum-liquidum-hair' }, { slug: 'almond-oil-hair' }],
@@ -1244,7 +1439,14 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-lin-shampoing-volume-cheveux-fins-bio-200ml-275293.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.MANQUE_VOLUME,
+        HAIRCARE_PRODUCT_TAG_SLUGS.FINS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.VOLUME,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'disodium-laureth-sulfosuccinate' }, { slug: 'decyl-glucoside' }],
@@ -1266,7 +1468,15 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-pivoine-spray-serum-apaisant-sos-cuir-chevelu-sensible-100ml-275301.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_SENSIBLE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1293,7 +1503,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bebe-creme-hydratante-bio-200ml-275613.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1320,7 +1533,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-gel-lavant-doux-500ml-275076.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1348,7 +1564,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-routine-bebe-gel-lavant-et-creme-nutritive-au-calendula-300727.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -1370,7 +1589,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-patchs-lissants-defatiguants-express-1-paire-275174.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1396,7 +1618,14 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-centauree-shampoing-dejaunissant-400ml-275264.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.JAUNISSEMENT_BLOND,
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DECOLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1425,7 +1654,14 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-camomille-spray-illumine-cheveux-blonds-100ml-275311.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.JAUNISSEMENT_BLOND,
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BRILLANCE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1453,7 +1689,16 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-figuier-de-barbarie-shampooing-desalterant-72h-hydratation-brillance-200ml-275648.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TERNES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.HYDRATATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BRILLANCE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1479,8 +1724,14 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/klorane-avoine-ceramide-cheveux-bruns-shampoing-sec-150ml-275605.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING_SEC],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.RACINES_GRASSES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'butylene-glycol-hair' }],
@@ -1502,7 +1753,15 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-grenade-shampoing-eclat-cheveux-colores-200ml-275098.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BRILLANCE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1528,7 +1787,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-lingettes-nettoyantes-a-l-eau-pour-le-corps-bebe-25-unites-275140.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1554,7 +1816,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bebe-kit-complet-soin-et-toilette-eau-nettoyante-gel-lavant-et-eau-parfumee-303729.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1582,7 +1847,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-gel-lavant-doux-200ml-275075.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1609,8 +1877,15 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/klorane-ortie-shampoing-sec-sebo-regulateur-cheveux-bruns-150ml-275514.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING_SEC],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_GRAS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.RACINES_GRASSES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'cetrimonium-chloride' }],
@@ -1632,7 +1907,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-creme-nutritive-cold-cream-40ml-279801.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1659,7 +1937,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-lingettes-nettoyantes-a-l-eau-pour-le-corps-bebe-peau-normale-a-seche-3-x-60-lingettes-300747.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -1681,7 +1962,16 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-figuier-de-barbarie-apres-shampooing-desalterant-72h-hydratation-200ml-300845.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TERNES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.HYDRATATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BRILLANCE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CONDITIONNEMENT,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1707,8 +1997,16 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/klorane-galanga-lotion-anti-demangeaisons-antipelliculaire-100ml-302478.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.PELLICULES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_IRRITE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1733,8 +2031,14 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/klorane-avoine-ceramide-shampoing-sec-50ml-275606.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING_SEC],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.RACINES_GRASSES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'butylene-glycol-hair' }],
@@ -1756,7 +2060,14 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-mangue-masque-capillaire-nutrition-150ml-299618.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_HEBDO_CHEVEUX,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1784,7 +2095,11 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-quinine-edelweiss-shampoing-fortifiant-200ml-299619.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.ALOPECIE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1811,7 +2126,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bebe-calendula-eau-fraiche-parfumee-500ml-275074.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'glycerin-hair' }],
@@ -1832,8 +2150,14 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/klorane-avoine-ceramide-cheveux-bruns-shampoing-sec-50ml-275607.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING_SEC],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.RACINES_GRASSES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'butylene-glycol-hair' }],
@@ -1855,7 +2179,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-demaquillant-yeux-sensibles-200ml-300667.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'butylene-glycol-hair' }],
@@ -1877,7 +2204,14 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-monoi-tamanu-huile-capillaire-protection-soleil-100ml-275304.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.HUILE_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1903,7 +2237,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-eau-micellaire-visage-yeux-levres-bio-400ml-275599.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1930,7 +2267,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bebe-creme-hydratante-bio-50ml-275614.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -1957,7 +2297,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-demaquillant-yeux-sensibles-waterproof-100ml-263890.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'butylene-glycol-hair' }],
@@ -1979,7 +2322,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bebe-lingette-lavable-edition-limitee-hamac-12-x-14cm-5-unites-275451.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -2001,7 +2347,14 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-mangue-baume-apres-shampoing-nutrition-50ml-275205.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CONDITIONNEMENT,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2030,7 +2383,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bebe-lingette-lavable-edition-limitee-hamac-10-x-12cm-5-unites-275322.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -2052,7 +2408,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-demaquillant-yeux-sensibles-100ml-269607.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'butylene-glycol-hair' }],
@@ -2073,8 +2432,12 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/klorane-junior-gel-douche-corps-cheveux-poire-200ml-275499.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2101,7 +2464,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-cupuacu-gel-douche-nutritif-eau-de-tiare-200ml-275235.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2127,8 +2493,15 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/klorane-shampoing-sec-purifiant-cheveux-gras-a-l-ortie-et-vitamine-e-50-ml-305015.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING_SEC],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_GRAS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.RACINES_GRASSES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'glycerin-hair' }],
@@ -2150,7 +2523,14 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-mangue-huile-capillaire-nutrition-100ml-233051.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.HUILE_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'mango-butter-hair' }],
@@ -2172,7 +2552,11 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-quinine-edelweiss-shampoing-fortifiant-100ml-275207.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.ALOPECIE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2198,8 +2582,13 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/klorane-menthe-aquatique-shampoing-sec-detox-anti-pollution-lot-de-2-x-150ml-300475.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING_SEC],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_GRAS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.RACINES_GRASSES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -2221,7 +2610,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-monoi-tamanu-spray-solaire-sublime-corps-spf30-200ml-270080.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2248,7 +2640,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-cupuacu-gel-douche-nutritif-fleur-d-hibiscus-200ml-275238.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2275,7 +2670,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-cupuacu-gel-douche-nutritif-zeste-d-agrumes-200ml-275241.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2302,7 +2700,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-creme-nettoyante-demaquillante-200ml-275644.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2332,7 +2733,13 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-galanga-shampoing-antipelliculaire-lot-de-2-x-400ml-304343.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.PELLICULES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_IRRITE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2361,7 +2768,13 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-galanga-antipelliculaire-shampoing-traitant-et-reequilibrant-200-ml-275320.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.PELLICULES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_IRRITE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2390,7 +2803,14 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-lin-shampoing-volume-cheveux-fins-bio-400ml-275294.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.MANQUE_VOLUME,
+        HAIRCARE_PRODUCT_TAG_SLUGS.FINS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.VOLUME,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'disodium-laureth-sulfosuccinate' }, { slug: 'decyl-glucoside' }],
@@ -2412,7 +2832,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-eau-micellaire-visage-yeux-levres-bio-100ml-275598.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2439,7 +2862,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-cupuacu-gel-douche-nutritif-ecorce-de-cedre-200ml-275237.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2466,7 +2892,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-monoi-tamanu-creme-solaire-sublime-visage-spf50-50ml-275333.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2493,7 +2922,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-bain-d-hydratation-nuit-50ml-275509.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2521,7 +2953,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-monoi-tamanu-gel-creme-solaire-sublime-visage-et-corps-spf30-200ml-252535.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2548,7 +2983,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-althea-blanc-deodorant-spray-24h-125ml-260249.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'pentylene-glycol-hair' }],
@@ -2570,7 +3008,14 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-avoine-shampoing-extra-doux-200ml-275267.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_SENSIBLE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2600,7 +3045,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-cupuacu-gel-douche-nutritif-feve-de-tonka-200ml-275245.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2627,7 +3075,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-cupuacu-gel-douche-nutritif-feuille-de-figuier-200ml-275243.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2654,7 +3105,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-capuacu-gel-douche-parfum-fleur-d-oranger-200ml-275240.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2681,7 +3135,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-cupuacu-gel-douche-parfum-seve-de-bambou-200ml-275242.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2708,7 +3165,11 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-croissance-shampoing-accelerateur-de-pousse-200ml-304471.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.ALOPECIE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2738,7 +3199,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-bleuet-serum-reveil-tonique-50ml-275504.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2766,7 +3230,14 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-ortie-shampoing-seboreducteur-400ml-275214.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_GRAS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.RACINES_GRASSES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'disodium-laureth-sulfosuccinate' }, { slug: 'decyl-glucoside' }],
@@ -2788,7 +3259,14 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-ortie-shampoing-seboreducteur-200ml-275213.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_GRAS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.RACINES_GRASSES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'disodium-laureth-sulfosuccinate' }, { slug: 'decyl-glucoside' }],
@@ -2810,7 +3288,13 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-croissance-apres-shampoing-accelerateur-de-pousse-200ml-304430.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.ALOPECIE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CONDITIONNEMENT,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2839,7 +3323,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-cupuacu-creme-douche-nutritive-feuille-de-frangipanier-200ml-275231.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2867,7 +3354,10 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-cupuacu-creme-de-douche-nutritive-fleur-de-cupuacu-200ml-275230.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2895,7 +3385,13 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-shampooing-a-la-pulpe-de-cedrat-100ml-304919.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_GRAS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2922,7 +3418,14 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-avoine-baume-apres-shampoing-extra-doux-200ml-275266.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_SENSIBLE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CONDITIONNEMENT,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2949,7 +3452,13 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-pulpe-de-cedrat-shampooing-purifiant-legerete-200ml-289748.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_GRAS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -2975,8 +3484,15 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/klorane-quinine-serum-antichute-100ml-299620.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.ALOPECIE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3004,7 +3520,13 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-quinine-edelweiss-shampoing-fortifiant-400ml-275208.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.ALOPECIE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3034,7 +3556,13 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-quinine-edelweiss-shampoing-fortifiant-lot-de-2-x-400ml-300144.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.ALOPECIE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3064,7 +3592,14 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-pivoine-shampoing-apaisant-cuir-chevelu-sensible-lot-de-2-x-400ml-300251.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_SENSIBLE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'disodium-laureth-sulfosuccinate' }, { slug: 'decyl-glucoside' }],
@@ -3086,7 +3621,14 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-pivoine-shampoing-apaisant-cuir-chevelu-sensible-400ml-275258.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_SENSIBLE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'disodium-laureth-sulfosuccinate' }, { slug: 'decyl-glucoside' }],
@@ -3108,7 +3650,14 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-avoine-shampoing-extra-doux-400ml-275268.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_SENSIBLE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3138,7 +3687,12 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-avoine-shampoing-extra-doux-lot-de-2-x-400ml-299930.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_SENSIBLE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -3159,8 +3713,13 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/klorane-duo-spray-shampoing-sec-a-l-ortie-cheveux-gras-lot-de-2-x-150ml-300441.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING_SEC],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_GRAS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.RACINES_GRASSES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -3182,7 +3741,13 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-quinine-edelweiss-apres-shampoing-fortifiant-200ml-275211.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.ALOPECIE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CONDITIONNEMENT,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3213,7 +3778,13 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-cedrat-shampoing-purifiant-legerete-400ml-289749.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_GRAS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3237,7 +3808,12 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-camomille-shampooing-illuminateur-cheveux-blonds-400ml-275309.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.JAUNISSEMENT_BLOND,
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BRILLANCE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3265,7 +3841,11 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-routine-antichute-in-out-3-mois-a-la-quinine-a-l-edelweiss-bio-300268.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.ALOPECIE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -3287,7 +3867,14 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-beurre-de-mangue-baume-apres-shampoing-nutrition-200ml-299617.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CONDITIONNEMENT,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3316,8 +3903,12 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/klorane-duo-spray-shampoing-sec-extra-doux-a-l-avoine-ceramide-lot-de-2-x-150ml-300482.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING_SEC],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.RACINES_GRASSES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -3339,7 +3930,15 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-grenade-shampoing-eclat-cheveux-colores-400ml-275225.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BRILLANCE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3365,7 +3964,14 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-pivoine-apres-shampoing-apaisant-cuir-chevelu-sensible-150ml-275270.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_SENSIBLE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CONDITIONNEMENT,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3392,7 +3998,15 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-reparation-apres-shampoing-200ml-275250.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CASSE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.GAINAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CONDITIONNEMENT,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3422,8 +4036,14 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/klorane-ortie-shampoing-sec-sebo-regulateur-cheveux-gras-150ml-299657.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING_SEC],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_GRAS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.RACINES_GRASSES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'cetrimonium-chloride' }, { slug: 'cyclopentasiloxane' }],
@@ -3445,7 +4065,15 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-shampoing-gainant-a-l-amande-tous-types-de-cheveux-400-ml-275326.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.GAINAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CASSE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3475,8 +4103,13 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/klorane-duo-spray-shampoing-sec-a-l-ortie-teinte-cheveux-gras-chatains-a-bruns-lot-de-2-x-150ml-300462.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING_SEC],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_GRAS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.RACINES_GRASSES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -3497,8 +4130,17 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/klorane-figuier-de-barbarie-masque-repulpant-72h-hydratation-brillance-250ml-275651.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TERNES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.HYDRATATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BRILLANCE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_HEBDO_CHEVEUX,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3525,8 +4167,16 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/klorane-cupuacu-cica-serum-reparateur-100ml-275334.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CASSE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.GAINAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3553,7 +4203,16 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-figuier-de-barbarie-shampooing-desalterant-72h-hydratation-brillance-400ml-275649.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TERNES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.HYDRATATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BRILLANCE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3579,8 +4238,15 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/klorane-lait-d-avoine-shampoing-sec-extra-doux-50g-276170.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING_SEC],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.RACINES_GRASSES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'cetrimonium-chloride' }],
@@ -3601,8 +4267,12 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/klorane-duo-spray-shampoing-sec-teinte-extra-doux-avoine-ceramide-cheveux-chatains-a-bruns-lot-de-2-x-150ml-300239.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING_SEC],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.RACINES_GRASSES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -3623,8 +4293,17 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/klorane-figuier-de-barbarie-serum-ultra-desalterant-72h-hydratation-brillance-100ml-275650.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TERNES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.HYDRATATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BRILLANCE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3650,7 +4329,14 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-pivoine-shampoing-apaisant-cuir-chevelu-sensible-200ml-275257.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_SENSIBLE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'disodium-laureth-sulfosuccinate' }, { slug: 'decyl-glucoside' }],
@@ -3671,8 +4357,14 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/klorane-avoine-ceramide-shampoing-sec-150ml-275604.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING_SEC],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.RACINES_GRASSES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'butylene-glycol-hair' }],
@@ -3694,7 +4386,13 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/klorane-galanga-antipelliculaire-shampoing-traitant-et-reequilibrant-400ml-301462.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.PELLICULES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_IRRITE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -3722,8 +4420,15 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/klorane-shampoing-sec-volume-cheveux-fins-sans-volume-150-ml-275298.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING_SEC],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.MANQUE_VOLUME,
+        HAIRCARE_PRODUCT_TAG_SLUGS.FINS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.VOLUME,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'propylene-glycol-hair' }],

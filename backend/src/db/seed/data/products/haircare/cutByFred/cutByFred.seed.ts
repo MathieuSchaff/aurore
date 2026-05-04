@@ -18,8 +18,17 @@ export const CUT_BY_FRED_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/cut-by-fred-vegan-hydratation-mask-400ml-299588.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.BOUCLES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.HYDRATATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_HEBDO_CHEVEUX,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CGM_FRIENDLY,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [

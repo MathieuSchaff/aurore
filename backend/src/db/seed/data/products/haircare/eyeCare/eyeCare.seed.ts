@@ -19,7 +19,11 @@ export const EYE_CARE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/eye-care-soins-capillaire-ultracapil-serum-capillaire-75ml-273179.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+      ],
       avoid: [],
     },
     keyIngredients: [

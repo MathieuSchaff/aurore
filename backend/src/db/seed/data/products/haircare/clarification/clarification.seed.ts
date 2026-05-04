@@ -19,7 +19,11 @@ export const CLARIFICATION_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/clarification-coffret-cheveux-mes-chouchous-edition-limitee-245802.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'kaolin-hair' }],

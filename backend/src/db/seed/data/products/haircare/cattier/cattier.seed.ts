@@ -13,13 +13,20 @@ export const CATTIER_SEED: UnifiedProductSeed[] = [
     priceCents: 812,
     description: '',
     notes: '',
-    inci: "Butyrospermum Parkii Butter*. *Ingrédient issu de l'agriculture biologique.100% du total des ingrédients sont issus de l'agriculture biologique.",
+    inci: "Butyrospermum Parkii Butter*. *Ingrédient issu de l'agriculture biologique.100% du total des ingrédients sont issus de l'agriculture biologique.",
     url: 'https://www.atida.fr/cattier-beurre-de-karite-100-bio-100g.html',
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/cattier-beurre-de-karite-100-bio-100g-278308.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CREPUS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BOUCLES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.HYDRATATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_HEBDO_CHEVEUX,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'shea-butter-hair' }],
@@ -41,7 +48,10 @@ export const CATTIER_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/cattier-shampoing-extra-doux-lait-d-avoine-bio-1l-257467.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [

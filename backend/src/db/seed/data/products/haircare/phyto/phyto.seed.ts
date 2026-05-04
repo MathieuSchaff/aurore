@@ -13,13 +13,18 @@ export const PHYTO_SEED: UnifiedProductSeed[] = [
     priceCents: 3384,
     description: '',
     notes: '',
-    inci: 'Ingrédients : Aqua / water / eau, alcohol denat, niacinamide, capryloyl glycine, sodium hydroxide, glycerin, lepidium meyenii root extract, maltodextrin, lentinus edodes extract, magnesium ascorbyl phosphate, sodium benzoate, hydrolyzed corn protein, adenosine, carnitine, 1778.',
+    inci: 'Ingrédients : Aqua / water / eau, alcohol denat, niacinamide, capryloyl glycine, sodium hydroxide, glycerin, lepidium meyenii root extract, maltodextrin, lentinus edodes extract, magnesium ascorbyl phosphate, sodium benzoate, hydrolyzed corn protein, adenosine, carnitine, 1778.',
     url: 'https://www.atida.fr/phyto-phytocyane-traitement-anti-chute-men-chute-severe-12-fioles.html',
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/phyto-phytocyane-traitement-anti-chute-men-chute-severe-12-fioles-254878.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.ALOPECIE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'niacinamide-hair' }, { slug: 'glycerin-hair' }],
@@ -40,8 +45,13 @@ export const PHYTO_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/phyto-volume-spray-brushing-volumateur150ml-254962.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SPRAY_COIFFANT],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.MANQUE_VOLUME,
+        HAIRCARE_PRODUCT_TAG_SLUGS.VOLUME,
+        HAIRCARE_PRODUCT_TAG_SLUGS.COIFFAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.FIXATION,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'panthenol-hair' }, { slug: 'sorbitol-hair' }],
@@ -63,7 +73,10 @@ export const PHYTO_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/phyto-phytocolor-coloration-permanente-n-4-chatain-269254.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -90,8 +103,13 @@ export const PHYTO_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/phyto-reparation-spray-thermo-protecteur-230-anti-casse-150ml-254980.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SPRAY_THERMOPROTECTEUR],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CASSE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.COIFFAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.THERMOPROTECTION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -118,7 +136,10 @@ export const PHYTO_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/phyto-phytocolor-coloration-permanente-n-5-chatain-clair-269255.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+      ],
       avoid: [],
     },
     keyIngredients: [

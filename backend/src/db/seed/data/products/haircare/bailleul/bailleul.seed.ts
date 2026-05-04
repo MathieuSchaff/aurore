@@ -19,7 +19,10 @@ export const BAILLEUL_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/cystiphane-lotion-antichute-100ml-resistance-et-croissance-des-cheveux-233638.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+      ],
       avoid: [],
     },
     keyIngredients: [

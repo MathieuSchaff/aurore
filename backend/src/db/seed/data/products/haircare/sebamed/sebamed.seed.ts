@@ -1,3 +1,4 @@
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../../data/tags'
 import type { UnifiedProductSeed } from '../../types'
 import { INGREDIENT_SLUGS } from '../../types'
 
@@ -18,8 +19,12 @@ export const SEBAMED_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/visage-et-corps/par-produits/bain-et-douche/sebamed-shampooing-1l.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/sebamed-shampooing.webp',
     tags: {
-      primary: ['shampooing'],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_SENSIBLE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.DISODIUM_LAURETH_SULFOSUCCINATE }],

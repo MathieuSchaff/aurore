@@ -18,8 +18,13 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/redken-thickening-serum-epaississant-stemoxydine-90ml-251762.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.MANQUE_VOLUME,
+        HAIRCARE_PRODUCT_TAG_SLUGS.FINS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],
@@ -41,7 +46,12 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/redken-acidic-bonding-concentrate-apres-shampoing-reparateur-300ml-272713.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CASSE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.GAINAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CONDITIONNEMENT,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -71,8 +81,13 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/redken-acidic-color-gloss-soin-sans-rincage-190ml-255261.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.LEAVE_IN],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BRILLANCE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -103,8 +118,11 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/redken-pate-de-definition-de-longue-duree-282834.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.CIRE_COIFFANTE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COIFFAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.FIXATION,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -134,7 +152,13 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/redken-acidic-color-gloss-apres-shampoing-nourrissant-300ml-255259.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BRILLANCE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CONDITIONNEMENT,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -169,7 +193,12 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/redken-apres-shampooing-all-soft-mega-curls-255250.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.BOUCLES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DEFINITION_BOUCLES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.HYDRATATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CONDITIONNEMENT,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -205,8 +234,12 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/redken-acidic-color-gloss-huile-brillance-legere-pour-tous-types-de-cheveux-278822.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.HUILE_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BRILLANCE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.FINITION,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -231,8 +264,12 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/redken-acidic-color-gloss-traitement-brillance-professionnelle-237ml-282835.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BRILLANCE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -266,7 +303,10 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/redken-brews-pommade-coiffante-clay-fini-mat-100ml-271962.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.CIRE_COIFFANTE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COIFFAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.FIXATION,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -293,8 +333,13 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/redken-extreme-masque-reparateur-250ml-255158.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CASSE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.GAINAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_HEBDO_CHEVEUX,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -328,8 +373,13 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/redken-soin-sans-rincage-nourissant-hydramelt-255249.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.LEAVE_IN],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.HYDRATATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -358,8 +408,13 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/redken-spray-multi-benefices-one-united-255231.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SPRAY_COIFFANT],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.THERMOPROTECTION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DEMELAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -387,7 +442,12 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/redken-acidic-color-gloss-apres-shampoing-pour-cheveux-colores-255264.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BRILLANCE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CONDITIONNEMENT,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -422,7 +482,10 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/redken-brews-pommade-coiffante-maneuver-100ml-271805.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.CIRE_COIFFANTE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COIFFAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.FIXATION,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -449,8 +512,12 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/redken-deep-clean-shampoing-sec-purifiant-155ml-303556.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING_SEC],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_GRAS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.RACINES_GRASSES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.FINITION,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -474,8 +541,13 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/redken-poudre-densifiante.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/redken-poudre-densifiante-255243.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.CIRE_COIFFANTE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.MANQUE_VOLUME,
+        HAIRCARE_PRODUCT_TAG_SLUGS.FINS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.COIFFAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.FIXATION,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'glycerin-hair' }],
@@ -497,7 +569,12 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/redken-acidic-color-gloss-shampoing-doux-couleur-300ml-255260.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BRILLANCE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -531,7 +608,12 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/redken-acidic-bonding-concentrate-apres-shampoing-reparateur-pour-cheveux-sensibilises-255266.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CASSE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.GAINAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CONDITIONNEMENT,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -562,7 +644,12 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/redken-all-soft-apres-shampoing-hydratant-282826.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.HYDRATATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CONDITIONNEMENT,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -595,7 +682,12 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/redken-holiday-coffret-all-soft-251999.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.HYDRATATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -627,8 +719,13 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/redken-soin-sans-rincage-all-soft.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/redken-soin-sans-rincage-all-soft-255245.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.LEAVE_IN],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.HYDRATATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -658,7 +755,12 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/redken-extreme-shampoing-fortifiant-pour-cheveux-abimes-282829.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CASSE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.GAINAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -691,8 +793,13 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/redken-acidic-bonding-concentrate-baume-sans-rincage-pointes-abimees-75ml-304937.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.LEAVE_IN],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.POINTES_SECHES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.FOURCHES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -722,8 +829,13 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/redken-all-soft-huile-d-argan-6-multi-benefices-100ml-303548.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.HUILE_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BRILLANCE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.FINITION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -748,8 +860,13 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/redken-acidic-bonding-concentrate-soin-sans-rincage-50ml-303594.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.LEAVE_IN],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CASSE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.GAINAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -779,7 +896,12 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/redken-all-soft-shampoing-hydratant-pour-cheveux-secs-282827.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.HYDRATATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -814,8 +936,11 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/redken-gel-sculptant-fixation-maximal-282832.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.GEL_COIFFANT],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COIFFAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.FIXATION,
+      ],
       avoid: [],
     },
     keyIngredients: [{ slug: 'propylene-glycol-hair' }, { slug: 'tocopherol-hair' }],
@@ -836,8 +961,14 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/redken-gel-de-definition-pour-cheveux-boucles-hybrid-curl-stylers-255273.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.GEL_COIFFANT],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.BOUCLES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DEFINITION_BOUCLES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.COIFFAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.FIXATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.ANTI_FRISOTTIS,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -863,8 +994,13 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/redken-acidic-color-gloss-masque-gloss-250ml-303562.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BRILLANCE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_HEBDO_CHEVEUX,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -890,8 +1026,13 @@ export const REDKEN_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/redken-acidic-color-gloss-masque-gloss-50ml-303583.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BRILLANCE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_HEBDO_CHEVEUX,
+      ],
       avoid: [],
     },
     keyIngredients: [

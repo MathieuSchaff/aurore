@@ -19,7 +19,11 @@ export const NEUTRADERM_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/neutraderm-shampoing-extra-doux-dermo-respect-500ml-242343.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_SENSIBLE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -48,7 +52,11 @@ export const NEUTRADERM_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/neutraderm-shampoing-extra-doux-dermo-respect-lot-de-2-x-500ml-301117.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_SENSIBLE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [],

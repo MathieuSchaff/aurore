@@ -13,13 +13,17 @@ export const ARKOPHARMA_SEED: UnifiedProductSeed[] = [
     priceCents: 6347,
     description: '',
     notes: '',
-    inci: 'Forcapil Anti-Chute Cheveux Zinc, Vitamine B 90 comprimés : L-cystine – Extrait de partie aérienne de Cheveux de Vénus (Adiantum Capilllus – Veneris L.) – L-méthionine – Agent de charge : cellulose - Poudre de partie aérienne de Prêle (Equisetum Arvense L.) – Amidon modifié de pomme de terre - Antiagglomérant : mono- et diglycérides d’acide gras et acide stéarique - Oxyde de zinc - Vitamine B5 - Vitamine B6 – L- arginine - Vitamine D3 – Carbonate de cuivre - Vitamine B8 - Vitamine B9. Agents d’enrobage : hydroxypropylméthylcellulose, cellulose, acide stéarique, hydroxypropylcellulose – Agent de charge : carbonate de calcium – Colorant : caramel ordinaire – Concentrés de pomme (Malus domestica Borkh.), cassis (Ribes nigrum L.) et radis (Raphanus sativus L.).Forcapil Shampoing Anti-Chute 200 ml : AQUA, COCAMIDOPROPYL BETAINE, SODIUM METHYL COCOYL TAURATE, DECYL GLUCOSIDE, GLYCERIN, PEG-40 CASTOR OIL, SODIUM CHLORIDE, PEG-120 METHYL GLUCOSE DIOLEATE, PYRIDOXINE HCl, PANTHENOL, BIOTIN, PANICUM MILACEUM SEED EXTRACT, LINDERA STRYCHNIFOLIA ROOT EXTRACT, PROPYLENE GLYCOL, POLYQUATERNIUM-10, TOCOPHEROL, HELIANTHUS ANNUUS SEED OIL, PROPANEDIOL, TETRASODIUM GLUTAMATE DIACETATE, CITRIC ACID, SODIUM BENZOATE, POTASSIUM SORBATE, PARFUM • SANS SILICONE /SILICONE FREE. Forcapil Spray Anti-Chute Cheveux 125ml : AQUA • PROPYLENE GLYCOL • SODIUM PCA • PANICUM MILIACEUM SEED EXTRACT • URTICA DIOICA EXTRACT • GINKGO BILOBA LEAF EXTRACT • EQUISETUM ARVENSE EXTRACT • BAMBUSA ARUNDINACEA JUICE • SODIUM HYALURONATE • PYRIDOXINE HCI • CALCIUM PANTOTHENATE • BIOTIN • ZINC GLUCONATE • PEG-40 CASTOR OIL • POTASSIUM HYDROXIDE • POTASSIUM SORBATE • BENZYL ALCOHOL • DEHYDROACETIC ACID • PARFUM.',
+    inci: 'Forcapil Anti-Chute Cheveux Zinc, Vitamine B 90 comprimés : L-cystine – Extrait de partie aérienne de Cheveux de Vénus (Adiantum Capilllus – Veneris L.) – L-méthionine – Agent de charge : cellulose - Poudre de partie aérienne de Prêle (Equisetum Arvense L.) – Amidon modifié de pomme de terre - Antiagglomérant : mono- et diglycérides d’acide gras et acide stéarique - Oxyde de zinc - Vitamine B5 - Vitamine B6 – L- arginine - Vitamine D3 – Carbonate de cuivre - Vitamine B8 - Vitamine B9. Agents d’enrobage : hydroxypropylméthylcellulose, cellulose, acide stéarique, hydroxypropylcellulose – Agent de charge : carbonate de calcium – Colorant : caramel ordinaire – Concentrés de pomme (Malus domestica Borkh.), cassis (Ribes nigrum L.) et radis (Raphanus sativus L.).Forcapil Shampoing Anti-Chute 200 ml : AQUA, COCAMIDOPROPYL BETAINE, SODIUM METHYL COCOYL TAURATE, DECYL GLUCOSIDE, GLYCERIN, PEG-40 CASTOR OIL, SODIUM CHLORIDE, PEG-120 METHYL GLUCOSE DIOLEATE, PYRIDOXINE HCl, PANTHENOL, BIOTIN, PANICUM MILACEUM SEED EXTRACT, LINDERA STRYCHNIFOLIA ROOT EXTRACT, PROPYLENE GLYCOL, POLYQUATERNIUM-10, TOCOPHEROL, HELIANTHUS ANNUUS SEED OIL, PROPANEDIOL, TETRASODIUM GLUTAMATE DIACETATE, CITRIC ACID, SODIUM BENZOATE, POTASSIUM SORBATE, PARFUM • SANS SILICONE /SILICONE FREE. Forcapil Spray Anti-Chute Cheveux 125ml : AQUA • PROPYLENE GLYCOL • SODIUM PCA • PANICUM MILIACEUM SEED EXTRACT • URTICA DIOICA EXTRACT • GINKGO BILOBA LEAF EXTRACT • EQUISETUM ARVENSE EXTRACT • BAMBUSA ARUNDINACEA JUICE • SODIUM HYALURONATE • PYRIDOXINE HCI • CALCIUM PANTOTHENATE • BIOTIN • ZINC GLUCONATE • PEG-40 CASTOR OIL • POTASSIUM HYDROXIDE • POTASSIUM SORBATE • BENZYL ALCOHOL • DEHYDROACETIC ACID • PARFUM.',
     url: 'https://www.atida.fr/arkopharma-forcapil-routine-anti-chute-cheveux.html',
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/arkopharma-forcapil-routine-anti-chute-cheveux-299854.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -50,7 +54,10 @@ export const ARKOPHARMA_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/arkopharma-forcapil-spray-anti-chute-cheveux-125ml-254734.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -77,7 +84,12 @@ export const ARKOPHARMA_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/arkopharma-forcapil-shampoing-anti-chute-200ml-254335.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -105,7 +117,10 @@ export const ARKOPHARMA_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/arkopharma-forcapil-elixir-croissance-cheveux-10-ml-254342.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -132,7 +147,13 @@ export const ARKOPHARMA_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/arkopharma-forcapil-shampoing-fortifiant-cheveux-keratine-200ml-254257.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CASSE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.FOURCHES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.GAINAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [

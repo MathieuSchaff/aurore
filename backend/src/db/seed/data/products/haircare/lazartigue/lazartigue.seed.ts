@@ -15,7 +15,12 @@ export const LAZARTIGUE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/lazartigue-anti-chute-serum-anti-chute-progressive-thicker-50ml.html',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.GAINAGE,
+      ],
       avoid: [],
     },
   },
@@ -36,7 +41,12 @@ export const LAZARTIGUE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/lazartigue-serum-anti-chute-progressive-thicker-50ml-284107.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.GAINAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -65,7 +75,12 @@ export const LAZARTIGUE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/lazartigue-fortify-shampoing-fortifiant-anti-chute-guarana-et-extrait-de-ricinus-250ml-284716.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHUTE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.REPARATION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -94,7 +109,13 @@ export const LAZARTIGUE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/lazartigue-extra-gentle-shampooing-detox-250ml-304646.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_SENSIBLE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING_CLARIFIANT,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -122,7 +143,12 @@ export const LAZARTIGUE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/lazartigue-clear-shampooing-cuir-chevelu-sec-250ml-302413.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CUIR_CHEVELU_SENSIBLE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+      ],
       avoid: [],
     },
     keyIngredients: [

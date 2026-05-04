@@ -18,8 +18,12 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/nuxe-huile-prodigieuse-florale-multi-fonctions-100ml-280238.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.HUILE_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BRILLANCE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -48,8 +52,12 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/nuxe-huile-prodigieuse-flacon-50ml-multi-fonctions.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/nuxe-huile-prodigieuse-50ml-259521.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.HUILE_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BRILLANCE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -80,7 +88,14 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/nuxe-hair-prodigieux-le-shampooing-brillance-miroir-400ml-233232.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TERNES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BRILLANCE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -108,8 +123,12 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/nuxe-sun-huile-lactee-capillaire-protectrice-100ml-280167.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.HUILE_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.THERMOPROTECTION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -134,8 +153,12 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/nuxe-huile-prodigieuse-or-vaporisateur-100ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/nuxe-huile-prodigieuse-or-100ml-261073.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.HUILE_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BRILLANCE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -165,8 +188,12 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/nuxe-huile-prodigieuse-or-florale-50ml-280423.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.HUILE_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BRILLANCE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -197,7 +224,12 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/nuxe-hair-prodigieux-demelant-brillance-miroir-200ml-280383.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.APRES_SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TERNES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DEMELAGE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BRILLANCE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CONDITIONNEMENT,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -223,8 +255,11 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/nuxe-huile-prodigieuse-riche-multi-fonctions-100ml-239630.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.HUILE_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -255,7 +290,11 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/nuxe-hair-prodigieux-le-masque-huile-nutrition-avant-shampooing-125ml-280384.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.MASQUE_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.PRE_SHAMPOOING,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -285,7 +324,14 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/nuxe-hair-prodigieux-le-shampooing-brillance-miroir-200ml-280385.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TERNES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BRILLANCE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.DOUCEUR,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SULFATES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SANS_SILICONES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.LAVAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -312,8 +358,12 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/nuxe-huile-prodigieuse-or-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/nuxe-huile-prodigieuse-or-50ml-280181.webp',
     tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.HUILE_CAPILLAIRE],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BRILLANCE,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -344,7 +394,13 @@ export const NUXE_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/nuxe-hair-prodigieux-le-soin-capillaire-nutrition-intense-100ml-233231.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.LEAVE_IN,
+        HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_SECS,
+        HAIRCARE_PRODUCT_TAG_SLUGS.NUTRITION,
+        HAIRCARE_PRODUCT_TAG_SLUGS.BRILLANCE,
+        HAIRCARE_PRODUCT_TAG_SLUGS.SOIN_SANS_RINCAGE,
+      ],
       avoid: [],
     },
     keyIngredients: [

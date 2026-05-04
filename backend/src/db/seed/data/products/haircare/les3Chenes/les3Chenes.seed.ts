@@ -19,7 +19,10 @@ export const LES_3_CH_NES_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/les-3-chenes-color-soin-coloration-permanente-n-4n-chatain-naturel-279615.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -47,7 +50,10 @@ export const LES_3_CH_NES_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/les-3-chenes-color-soin-coloration-permanente-n-3n-chatain-fonce-278134.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -75,7 +81,10 @@ export const LES_3_CH_NES_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/les-3-chenes-color-soin-coloration-permanente-n-5n-chatain-clair-278135.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -103,7 +112,10 @@ export const LES_3_CH_NES_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/les-3-chenes-color-soin-coloration-permanente-n-5g-chatain-clair-dore-278146.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+      ],
       avoid: [],
     },
     keyIngredients: [
@@ -131,7 +143,10 @@ export const LES_3_CH_NES_SEED: UnifiedProductSeed[] = [
       'https://aurore-cdn.b-cdn.net/products/les-3-chenes-color-soin-coloration-permanente-n-5b-marron-chocolat-287898.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
-      secondary: [],
+      secondary: [
+        HAIRCARE_PRODUCT_TAG_SLUGS.COLORES,
+        HAIRCARE_PRODUCT_TAG_SLUGS.POST_COLORATION,
+      ],
       avoid: [],
     },
     keyIngredients: [
