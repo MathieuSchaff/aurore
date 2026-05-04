@@ -3,28 +3,6 @@ import type { UnifiedProductSeed } from '../../types'
 
 export const PURESSENTIEL_SEED: UnifiedProductSeed[] = [
   {
-    slug: 'puressentiel-anti-poux-repulsif-poux-spray-75ml-233629',
-    name: 'Puressentiel Anti-Poux Répulsif Poux Spray 75ml',
-    brand: 'Puressentiel',
-    kind: 'shampoo',
-    unit: 'spray',
-    totalAmount: 75,
-    amountUnit: 'ml',
-    priceCents: 873,
-    description: '',
-    notes: '',
-    inci: 'Alcohol, lavandula angustifolia flower water, aqua, melaleuca alternifolia leaf oil, lavandula hybrida oil, lavandula angustifolia oil, acetum, pelargonium graveolens oil, rosmarinus officinalis leaf oil, eugenia caryophyllus bud oil, linalool, citronellol, eugenol, geraniol, limonene, isoeugenol, coumarin.Biocide TP19.',
-    url: 'https://www.atida.fr/puressentiel-anti-poux-repulsif-poux-spray-75ml.html',
-    imageUrl:
-      'https://aurore-cdn.b-cdn.net/products/puressentiel-anti-poux-repulsif-poux-spray-75ml-233629.webp',
-    tags: {
-      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.POUX],
-      secondary: [HAIRCARE_PRODUCT_TAG_SLUGS.TRAITEMENT_CUIR_CHEVELU],
-      avoid: [],
-    },
-    keyIngredients: [{ slug: 'tea-tree-oil-hair' }, { slug: 'romarin-extract-hair' }],
-  },
-  {
     slug: 'puressentiel-anti-poux-pouxdoux-shampoing-quotidien-certifie-bio-200ml-256460',
     name: 'Puressentiel Anti-Poux Pouxdoux Shampoing Quotidien Certifié Bio 200ml',
     brand: 'Puressentiel',
