@@ -73,10 +73,24 @@ Dette tracée dans le plan de tests Filter. Section 0-9 unit ✅, intégration P
 
 Pas de couplage frontend. Préalable à P6 auto-tagging propre sur haircare.
 
-- [ ] **DB cleanup** : `DELETE FROM product_tags WHERE slug IN ('shampoing', 'apres-shampoing', 'masque-cheveux', 'serum-cheveux', 'huile-cheveux', 'produit-coiffant') AND type = 'product_type'` — rows orphelines.
-- [ ] **Enrichir tags haircare** : `hair_type` / `concern` / `routine_step` / `hair_effect` / `product_label` ≥1 tag par axe pertinent. Phase sémantique.
-- [ ] **db-seed validation** — relancer après haircare (diff labels attendu nul).
-- [ ] **Flag** `cinqSurCinq` mal catégorisé (pediculicide). Reclasser `traitement-cuir-chevelu` ou exclure du domaine haircare.
+État au 2026-05-04 : **51/51 marques traitées ✅** + **Phase 5d push deltas done ✅**. **Prompt de reprise** : `~/log/aurore-phase5-resume-2026-05-04.md`.
+
+- [x] **DB cleanup** orphan slugs (`shampoing`, `apres-shampoing`, `masque-cheveux`, `serum-cheveux`, `huile-cheveux`, `produit-coiffant`) — déjà absents de la DB (0 rows à la vérif). Probable cleanup lors d'un `db-reset` antérieur.
+- [x] **Décision cinqSurCinq** (pediculicide) — option B appliquée : items 1+2 (kits environnement biocide) supprimés ; items 3-5 (appliqués cheveux) reclassés `primary: [POUX]`, `secondary: [TRAITEMENT_CUIR_CHEVELU, ...]`. Nouveau slug `HAIRCARE_PRODUCT_TAG_SLUGS.POUX = 'poux'` (concern) ajouté dans `shared/src/products/haircare/tag-slugs.ts:29` + label "Poux et lentes" + push dans `CONCERN[]` taxonomy.
+- [x] **Enrichir tags haircare** ≥1 tag par axe pertinent (`hair_type` / `concern` / `routine_step` / `hair_effect` / `product_label`). **51/51 marques OK**.
+  - **Convention tagging** : `primary` = product_type principal (1 slug), `secondary` = multi-axe. Exception anti-poux : `primary = [POUX]`, secondary inclut product_type.
+  - **Convention reclassement** : si `primary` existant est faux (ex: SHAMPOOING sur un masque), corriger ; si `kind:` est faux, **reporter Phase 6** (on touche pas au champ kind).
+  - **51 marques traitées** : argiletz, arkopharma, bailleul, beauterra, biocyte, biokap, biorene, cattier, caudalie, cinqSurCinq, clarification, coslys, cutByFred, dermaclay, drTheiss, ducray, essence, eyeCare, herbatint, item, jaldes, keranove, klorane, laRosee, lazartigue, ledNoreva, les3Chenes, lesSecretsDeLoly, lOrealProfessionnel, luxeol, melvita, mklGreenNature, natessance, neutraderm, neutrogena, nuxe, olaplex, petroleHahn, phyto, pouxit, pranarom, puressentiel, redken, reneFurterer, sanoflore, sebamed, sowe, stiefel, toppik, wellaProfessionals + 1 dernière (klorane par sous-gamme : Quinine/Antichute/Croissance, Avoine/Lin, Mangue/Pivoine/Figuier, Ortie/Galanga/Cédrat/Grenade/Menthe/Réparation, Bébé/Junior/Maman/Calendula, Cupuaçu/Bleuet/Monoï/Amande/Althéa).
+  - **Skipped** : `florame` (pas de fichier seed haircare, juste bodycare), `VRAC` (juste 2 `.md`).
+  - **Items flag** non sortis du seed mais taggés minimal (à reclasser/sortir Phase 6) : Essence calendrier avent (kit makeup), Pranarom Nigelle capsules (compléments), Klorane gels douche Cupuaçu (10 body), Klorane Bleuet (12 yeux/visage skincare), Klorane Monoï&Tamanu sun/after-sun corps (9), Klorane Amande dépilatoire/cire (5), Klorane Althéa déodorant, Klorane Bébé/Calendula body items (28 lingettes/eaux/crèmes change/lait toilette/etc.), Klorane Pivoine crème visage, Klorane Menthe stick visage.
+- [x] **Phase 5d — Push deltas DB sans full reset** (option B retenue : refacto seed idempotent ≫ script ad-hoc) :
+  - Approche : `seed-core` étendu avec mode idempotent (flag `shouldClean=false`, CLI `--no-clean`). Pré-fetch slugs/pairs existants en début de tx → pré-filtre les inputs avant insert. Évite unique-violations (donc abort tx) et savepoints concurrents (Drizzle race sous `Promise.allSettled` de `seedBatch`). Tag defs : `.onConflictDoNothing()` direct.
+  - Fichiers : `backend/src/db/seed/runners/seed-core.ts` (`computeProductSlug`, pré-fetch 5 sets, filter par seedBatch), `backend/src/db/seed/runners/seed-blog.ts` (`idempotent` flag, swallow unique-violation via cause-chain walker), `Makefile` (`db-seed-merge`, `db-seed-merge-safe`).
+  - Workflow : `make db-seed-merge-safe` → `db-backup` + seed `--no-clean` + `audit-db`.
+  - Résultat 2026-05-04 : **+1470 productTags** insérés (poux concern + 8 routine_step + 12 product_label haircare propagés à 51 marques) ; ingrédients/produits/relations existants tous skippés ; user-state intact (1 user, 4 user_products, etc.) ; audit ✓.
+  - DELETE complémentaire (hors merge) : 2 produits `cinq-sur-cinq-kit-*-environnement` retirés via SQL direct (cascade tag_products/product_ingredients).
+  - **Non couvert** : DELETE des relations `tag_products` obsolètes (tag retiré du seed côté haircare). Impact faible — tag en trop = filtre légèrement bruyant, pas de bug fonctionnel. Si nécessaire plus tard : ajouter mode `--prune` à `seed-core` qui diff seed vs DB sur produits seed-créés (skip user-créés).
+- [x] **Dette long-terme (séparée Phase 5)** — résolu par Phase 5d. `seed-core` est idempotent désormais : `db-seed-merge` (= `--no-clean`) ré-exécutable à volonté sans wipe ni drift. `db-seed` (clean mode) inchangé pour repart-de-zéro.
 
 ---
 
