@@ -116,3 +116,9 @@ frontend/public/mock-products
 # =========================
 *.png
 frontend/src/features/products/changes.md
+
+# =========================
+# Manual image-fetcher scripts (one-shot maintenance, output goes to CDN)
+# =========================
+backend/src/db/seed/data/image-fetchers/
+backend/src/db/seed/scripts/fetch-images-*.ts
