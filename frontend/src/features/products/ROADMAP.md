@@ -64,7 +64,14 @@ Dette tracée dans le plan de tests Filter. Section 0-9 unit ✅, intégration P
   - chips count=0 disabled (clic ignoré, URL inchangée) ;
   - switch tab Cheveux ré-interroge filter-options avec `category=haircare`.
   - Dette préalable : fixtures `PRODUCT_TAGS` utilisaient `'anti-acne'/'pores-dilates'` (slugs supprimés par refacto skincare-tags ca462cd1) → remplacés par `'acne-imperfections'/'pores-sebum'`. 4 tests scope min cassés depuis 2026-05-02 maintenant verts.
-- [ ] **Fails préexistants** orthogonaux à ce plan : Toggle, FilterDrawer resync, CollectionPage (4), `useProductTagFilterGroups` (override `barriere-cutanee-alteree` slug absent du shared), PurchaseFlow, ProductDetailSheet, Layout/Card. Suite globale au 2026-05-04 : **496/501 passing**, 5 fails (62 files, 2 fail).
+- [x] **Fails préexistants résolus** (2026-05-05, **501/501 → 524/524 ✅**) :
+  - `useProductTagFilterGroups` labelOverrides : slug `barriere-cutanee-alteree` absent du shared (renommé `barriere-cutanee` par refacto skincare). Test mis à jour.
+  - `CollectionPage` × 4 : `Achats` tab queryait `role='button'` au lieu de `role='tab'` ; sentiment + delete tests cliquaient `.prod-card` (Card div sans onClick) au lieu du bouton `.prod-body` (`Voir les détails de X par Y`) ; brand filter test fermait le sheet via classe `coll-sheet-close` disparue → `Appliquer les filtres` ; aria-label criteria devenu `Noter <champ> N sur 5` (préfixe ajouté).
+- [x] **Couverture Filter étendue** (2026-05-05, +23 tests) :
+  - `FilterDrawer` : `aria-modal=true` + `aria-labelledby` lié au h2 ; fieldset "Filtres avancés" présent uniquement si tier=advanced ; label apply button (`Appliquer` / `Voir N produit(s)` singulier/pluriel pour 0/1/N) ; navigation arrows ↑↓ entre triggers d'accordéon (wrap haut/bas, no-op si focus sur chip).
+  - `FilterAccordion` : summary `aria-controls` → body id ; `<h3>` dans `<summary>` (heading nav screen-reader) ; chip `aria-pressed=true` quand sélectionné.
+  - `SearchSelect` : clamp `activeIndex` au dernier filtré (no overflow) ; focus retourne à l'input après select (mouse + dismiss button) ; dismiss accepte Enter/Espace ; `aria-label="Retirer X"` sur chips sélectionnés.
+  - `ActiveFiltersBar` : activation pill via Enter et Espace (boutons natifs) ; ordre DOM tags → extras → "Tout effacer".
 - [ ] **FilterDrawer focus trap & focus initial** reportés en e2e (limites jsdom) — voir `frontend/docs/e2e.md`.
 
 ---
@@ -102,6 +109,7 @@ Ordre interne : doublons résolus avant auto-tagging (sinon tags appliqués sur 
 - [x] **Bug elmex skincare** (2026-05-04) — `elmex-protection-email-professional` était `kind: sunscreen` avec tags skincare/solaire (fichier `elmex-solaire.seed.ts` mal nommé). Fix : merged dans `elmex.seed.ts` avec `kind: 'toothpaste'` + tag `dentifrice`, fichier supprimé, DB updated.
 - [x] **Auto-tagging** — fait 2026-04-23 via `scripts/auto-tag.ts`. 1017 produits seed traités : 875 primary+secondary remplis, 142 sans primary (manuel à finir). `avoid` auto sur retinol/retinal/salicylic/glycolic/BPO. Détail seed `ROADMAP.md §3.2`.
 - [ ] **Images manquantes** — 603 produits sans `image_url` (couverture 2700/3303 = 82 %). 119 PNG Skinsafe en 403 (browser automation requis, liste `output/image-download-failures.json`). Sources : `the-ordinary` (35), résidus svr/avene/bioderma, marques jamais scrappées. Référence : `backend/src/db/seed/docs/IMAGES_AUDIT.md` + seed `ROADMAP.md §7.3`.
+  - **Theramid 27/29 ✅** (2026-05-05) — pipeline pilote validé : Shopify products.json (live 11) + Wayback Machine og:image → cdn.shopify.com (legacy 16) → ImageMagick webp → Bunny CDN → UPDATE DB. Script : `backend/src/db/seed/scripts/fetch-images-theramid.ts`. **Note marque** : niche-beauty-lab regroupe 3 lignes (Theramid `TM_`, Transparent Lab `TL_`, Acnemy `AC_`) ; DB les a toutes sous `brand='Theramid'` (laissé tel quel sur décision user — niche = umbrella). Manquants : `theramid-pure-glycerin-face-serum` (og:image 404), `theramid-proteo-repair-cream` (handle introuvable wayback).
 
 ---
 
