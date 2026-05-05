@@ -43,7 +43,8 @@ async function processOne(src: string, slug: string) {
   console.log(`  ok ${slug}`)
 }
 
-const IMG_RE = /"image":\s*\[\s*"(https:\/\/cdn[0-9]+\.costatic\.com\/img\/product\/)(\d+)(\/[^"]+\.(?:jpg|jpeg|png|webp))"/
+const IMG_RE =
+  /"image":\s*\[\s*"(https:\/\/cdn[0-9]+\.costatic\.com\/img\/product\/)(\d+)(\/[^"]+\.(?:jpg|jpeg|png|webp))"/
 
 export async function fetchCocoon(cfg: CocoonConfig) {
   mkdirSync(NORMALIZED_DIR, { recursive: true })

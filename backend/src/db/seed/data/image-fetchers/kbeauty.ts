@@ -14,8 +14,7 @@ export const config: IllicoConfig = {
       'https://korean-skincare.fr/products/haruharu-wonder-black-rice-hyaluronic-toner-free-of-alcohol-fragrance',
     'purito-azelaic-kojic-tea-tree-serum':
       'https://korean-skincare.fr/products/purito-seoulazelaic-acid-10-kojic-tea-tree-serum',
-    'skin1004-spot-cover-patch':
-      'https://korean-skincare.fr/products/skin1004-spot-cover-patch',
+    'skin1004-spot-cover-patch': 'https://korean-skincare.fr/products/skin1004-spot-cover-patch',
     // mini ampoule has no SKU on KS — fall back to full-size packshot
     'skin1004-tea-trica-relief-ampoule-mini':
       'https://korean-skincare.fr/products/skin1004-madagascar-centella-tea-trica-relief-ampoule',

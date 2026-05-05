@@ -46,7 +46,8 @@ async function processOne(src: string, slug: string) {
 }
 
 const PACK_SHOT_RE = /\/mbFiles\/images\/[^"]+?\/thumbs\/766x766\/[^"]+?\.(?:jpg|jpeg|png|webp)/i
-const FALLBACK_RE = /\/mbFiles\/images\/[^"]+?\/thumbs\/(?:416x416|198x198)\/[^"]+?\.(?:jpg|jpeg|png|webp)/i
+const FALLBACK_RE =
+  /\/mbFiles\/images\/[^"]+?\/thumbs\/(?:416x416|198x198)\/[^"]+?\.(?:jpg|jpeg|png|webp)/i
 
 export async function fetchPsd(cfg: PsdConfig) {
   mkdirSync(NORMALIZED_DIR, { recursive: true })

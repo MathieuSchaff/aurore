@@ -7,7 +7,8 @@ export const config: DeciemConfig = {
   categoryPaths: ['/en-us/category/skincare', '/en-us/category/body-hair'],
   brandFolder: 'The%20Ordinary',
   slugByPageSlug: {
-    '4-sulphate-cleanser-for-body-and-hair-shampoo': 'the-ordinary-4-percent-sulfate-cleanser-body-hair',
+    '4-sulphate-cleanser-for-body-and-hair-shampoo':
+      'the-ordinary-4-percent-sulfate-cleanser-body-hair',
     'aha-30-bha-2-peeling-solution-exfoliator': 'the-ordinary-aha-30-bha-2-peeling-solution',
     'ascorbyl-glucoside-solution-12-vitamin-c': 'the-ordinary-ascorbyl-glucoside-solution-12',
     'ascorbyl-tetraisopalmitate-solution-20-in-vitamin-f-vitamin-c':
@@ -23,7 +24,8 @@ export const config: DeciemConfig = {
     'lactic-acid-5-ha-exfoliator': 'the-ordinary-lactic-acid-5-ha',
     'mandelic-acid-10-ha-exfoliator': 'the-ordinary-mandelic-acid-10-ha',
     'matrixyl-10-ha-serum': 'the-ordinary-matrixyl-10-percent-plus-ha',
-    'multi-peptide-copper-peptides-1-serum': 'the-ordinary-multi-peptide-plus-copper-peptides-1-percent',
+    'multi-peptide-copper-peptides-1-serum':
+      'the-ordinary-multi-peptide-plus-copper-peptides-1-percent',
     'multi-peptide-ha-serum': 'the-ordinary-multi-peptides-plus-ha-serum-ex-buffet',
     'multi-peptide-eye-serum': 'the-ordinary-multi-peptides-serum-yeux',
     'natural-moisturizing-factors-ha-moisturizer': 'the-ordinary-natural-moisturizing-factors-ha',
@@ -35,10 +37,12 @@ export const config: DeciemConfig = {
     'retinol-05-in-squalane-serum': 'the-ordinary-retinol-0-5-squalane',
     'retinol-1-in-squalane-serum': 'the-ordinary-retinol-1-squalane',
     'salicylic-acid-05-body-serum': 'the-ordinary-salicylic-acid-0-5-body-serum',
-    'salicylic-acid-2-anhydrous-solution-exfoliator': 'the-ordinary-salicylic-acid-2-anhydrous-solution',
+    'salicylic-acid-2-anhydrous-solution-exfoliator':
+      'the-ordinary-salicylic-acid-2-anhydrous-solution',
     'salicylic-acid-2-face-masque': 'the-ordinary-salicylic-acid-2-masque',
     'multi-antioxidant-radiance-serum': 'the-ordinary-serum-eclat-multi-antioxydant',
-    'gf-15-solution-growth-factors-serum': 'the-ordinary-solution-gf-15-pourcent-facteurs-croissance',
+    'gf-15-solution-growth-factors-serum':
+      'the-ordinary-solution-gf-15-pourcent-facteurs-croissance',
     'sulfur-10-powder-to-cream-concentrate': 'the-ordinary-sulfur-10-powder-to-cream',
     'vitamin-c-suspension-23-ha-spheres-2-vitamin-c':
       'the-ordinary-vitamin-c-suspension-23-ha-spheres-2',
