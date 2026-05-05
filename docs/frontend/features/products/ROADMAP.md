@@ -4,12 +4,12 @@
 
 | Doc | Rôle | Quand consulter |
 |---|---|---|
-| `shared/src/products/STATE.md` | Source de vérité domaine products (schéma DB, taxonomie, validation Zod, routes, service, UI state, flow cross-layer) | Avant toute modif touchant un layer products |
+| `docs/shared/products/STATE.md` | Source de vérité domaine products (schéma DB, taxonomie, validation Zod, routes, service, UI state, flow cross-layer) | Avant toute modif touchant un layer products |
 | `docs/shared/products/PLAN.md` | Refacto taxonomy skincare (clusters, aliases, tier ⊥ visibility, search expansion) | Avant toucher search aliases, ordre drawer, auto-tagging |
-| `frontend/docs/filter-tests-plan.md` | Plan de tests Filter (drawer + search + hooks), MSW v2, état dette | Avant modif `component/Filter/*` ou tests intégration ProductsPage |
+| `docs/frontend/filter-tests-plan.md` | Plan de tests Filter (drawer + search + hooks), MSW v2, état dette | Avant modif `component/Filter/*` ou tests intégration ProductsPage |
 | `backend/src/db/seed/docs/DEDUP.md` + `audit-imported-products.ts` | Audit doublons produits | Avant Phase 6 doublons |
 | `backend/src/db/seed/docs/IMAGES_AUDIT.md` | Audit images manquantes BunnyCDN | Avant Phase 6 images |
-| `idee/algo/dermo-signal-scoring-roadmap.md` §12.5 | Intégration `algo-derm` × Aurore | Avant Phase 8 concentrations INCI |
+| `docs/algo/dermo-signal-scoring-roadmap.md` §12.5 | Intégration `algo-derm` × Aurore | Avant Phase 8 concentrations INCI |
 
 ---
 
@@ -55,7 +55,7 @@ Triagés out (gain marginal, ré-ouvrir si profiling montre hotspot) :
 
 ---
 
-### Phase 4 — Tests (`frontend/docs/filter-tests-plan.md`)
+### Phase 4 — Tests (`docs/frontend/filter-tests-plan.md`)
 
 Dette tracée dans le plan de tests Filter. Section 0-9 unit ✅, intégration ProductsPage scope complet ✅.
 
@@ -145,7 +145,7 @@ Attendre intégration scoring INCI fourchettes côté lib.
 - [ ] **Estimer % ingrédients clés INCI** — fourchette de concentration depuis position liste INCI (ordre décroissant réglementaire). Pistes :
   - Position = signal principal (avant/après eau, avant/après conservateurs <1 %).
   - Données réf connues (niacinamide souvent 2-10 %, conservateurs <1 %).
-  - `algo-derm` scoring INCI déjà en place — voir si moteur peut exposer fourchettes (`idee/algo/dermo-signal-scoring-roadmap.md` §12.5).
+  - `algo-derm` scoring INCI déjà en place — voir si moteur peut exposer fourchettes (`docs/algo/dermo-signal-scoring-roadmap.md` §12.5).
   - Affichage : fourchette indicative (ex: "~4-8 %"), pas valeur exacte (trompeur sinon).
   - Stocker estimations ou calculer à la volée ? À décider selon coût.
 
@@ -165,7 +165,7 @@ Attendre intégration scoring INCI fourchettes côté lib.
 | 8 | Limit search 8 → 20 + pagination infinie | `productQueries.search` → `infiniteQueryOptions`, sentinel `IntersectionObserver` dans `ComboboxPrimitive` | — |
 | 9 | Header search multi-facettes (D1 ingrédient · D2 Enter · D3 `q` · D4 sections) | `SearchCombobox`, `ComboboxPrimitive`, `ProductsHeader`, `text-fold.ts` ; backend : param `q` list endpoint | Match alphabétique (pas de scoring). `q` couvre name+brand uniquement (pas les tags). Pas d'empty state spécifique mode `q`. |
 | 10 | Flash dropdown au re-fetch | `SearchCombobox.tsx` : `placeholderData: prev`, spinner premier fetch seulement | — |
-| 11 | Filter tests unit — Sections 0-8 + intégration scope min | `frontend/src/test/msw/`, `component/Filter/__tests__/`, `features/products/__tests__/` | Section 9 scope complet → Phase 4. Plan détaillé : `frontend/docs/filter-tests-plan.md`. |
+| 11 | Filter tests unit — Sections 0-8 + intégration scope min | `frontend/src/test/msw/`, `component/Filter/__tests__/`, `features/products/__tests__/` | Section 9 scope complet → Phase 4. Plan détaillé : `docs/frontend/filter-tests-plan.md`. |
 | 12 | Cache invalidation foundation (ex-Phase 0) — `useUpdateProductTags` / `use{Add,Update,Remove}ProductIngredient` / `useDeleteProduct` invalident `bySlug` + `lists` (+ brands pour delete) | `lib/queries/products.ts` (mutations 217-367) | `slug` passé dans payload mutation pour permettre invalidation cible. |
 | 13 | Memoize ProductsPage (ex-MEDIUM Phase 1) — `filters`, `apiFilters`, `avoidFor` tous `useMemo` ; `avoidFor` literal idem | `pages/ProductsPage/ProductsPage.tsx:71-77, 82-86, 108-123` | LOW `avoidFor literal` couvert par le même fix. |
 | 14 | Phase 1 PR 1b — waterfalls Info/Edit + dermo prefetch | backend `service.ts` (`getProductFullBySlug` inclut `tags`), frontend `lib/queries/products.ts` (drop `productQueries.tags`), `ProductEditPage.tsx`, `ProductInfoTab.tsx`, `routes/products/$slug.tsx` (loader parallèle bySlug+dermo, `.catch(() => null)` sur dermo), `routes/products/index.tsx` (loader prefetchQuery dermo si auth) | Sheet collection sur-fetch tags (~few hundred bytes) — marginal. Dermo failure ne casse pas la page produit (catch). |

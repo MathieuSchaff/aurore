@@ -389,7 +389,7 @@ Règle :
 
 ## Coexistence avec `tier` (category-level)
 
-`tag-filters.ts` expose déjà `tier` dans `{DOMAIN}_PRODUCT_TAG_CATEGORY_META` (cf `shared/src/products/STATE.md` §8). Les deux concepts cohabitent **sans recouvrement** : granularités et questions différentes.
+`tag-filters.ts` expose déjà `tier` dans `{DOMAIN}_PRODUCT_TAG_CATEGORY_META` (cf `docs/shared/products/STATE.md` §8). Les deux concepts cohabitent **sans recouvrement** : granularités et questions différentes.
 
 | Champ        | Niveau      | Question répondue                                                              |
 |--------------|-------------|-------------------------------------------------------------------------------|

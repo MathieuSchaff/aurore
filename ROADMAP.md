@@ -13,9 +13,9 @@
 
 ## Products feature refactor (2026-04-26 audit)
 
-> **Before touching anything: read `frontend/src/features/products/AUDIT.md`** (32 issues, severity-ranked, with file:line + fix per item) and `frontend/src/features/products/ROADMAP.md` (8 known bugs with browser-verified diagnoses). The audit cross-references against Vercel React best practices and confirms / corrects every entry in the products ROADMAP.
+> **Before touching anything: read `frontend/src/features/products/AUDIT.md`** (32 issues, severity-ranked, with file:line + fix per item) and `docs/frontend/features/products/ROADMAP.md` (8 known bugs with browser-verified diagnoses). The audit cross-references against Vercel React best practices and confirms / corrects every entry in the products ROADMAP.
 
-> **Status 2026-04-26 (end of session)** — Phases 1, 2, 3 mostly done. Bug 9 D1 (ingredient footer match in header search) ✅ shipped — see plan `docs/superpowers/plans/2026-04-26-search-d1.md`. Remaining: Bug 1c (Phase 2), Phases 4–6, Bug 9 D2/D3/D4 (deferred). Pre-existing test baseline: 19 unrelated failures (Toggle, FilterDrawer resync, CollectionPage, PurchaseFlow, ProductDetailSheet, Layout/Card) — none block products work, do not touch unless asked.
+> **Status 2026-04-26 (end of session)** — Phases 1, 2, 3 mostly done. Bug 9 D1 (ingredient footer match in header search) ✅ shipped — see plan `docs/workflow/plans/2026-04-26-search-d1.md`. Remaining: Bug 1c (Phase 2), Phases 4–6, Bug 9 D2/D3/D4 (deferred). Pre-existing test baseline: 19 unrelated failures (Toggle, FilterDrawer resync, CollectionPage, PurchaseFlow, ProductDetailSheet, Layout/Card) — none block products work, do not touch unless asked.
 
 > **Important — file paths in AUDIT.md are stale after Phase 3.** Sub-components moved out of `pages/ProductsPage/`:
 > - `ProductCard.tsx` → `features/products/components/ProductCard/ProductCard.{tsx,css}`
@@ -34,33 +34,33 @@ Execute in phases — each phase is independently shippable. Pick any phase, no 
 ### Phase 2 — UX glitches (~2h, browser verification per change)
 - [x] **Bug 3** — `ProductsPage.tsx:283-288` wrap `navigate` in `startTransition`. `PageHeader.css:55-62` reserve fixed-width loader slot. Verify INP < 200ms.
 - [x] **Bug 2** — `ProductForm.tsx:82` pass `form.category` to `tagQueries.list(category)`, drop tags whose `tagType` is invalid on category change.
-- [ ] **Bug 1** — `ProductForm.schema.ts:17` enum-ify `unit`. New `PRODUCT_AMOUNT_UNITS` shared constant + `ChipGroup` for `amountUnit`. Move `concentrationUnit` enum to one shared constant + add edit UI.
+- [x] **Bug 1** — `ProductForm.schema.ts:17` enum-ify `unit`. New `PRODUCT_AMOUNT_UNITS` shared constant + `ChipGroup` for `amountUnit`. `concentrationUnit` enum to shared constant + edit UI.
   - [x] 1a — enum-ify `unit` (refine against `PRODUCT_UNIT_VALUES`).
   - [x] 1b — `PRODUCT_AMOUNT_UNITS` shared (per-domain) + ChipGroup; backend `createProductSchema` / `updateProductSchema` / `productChangesSchema` use enum.
-  - [ ] 1c — `concentrationUnit` shared constant + edit UI in ingredient row (deferred — UX decision needed: edit in product form or per-ingredient page?).
+  - [x] 1c — `concentrationUnit` shared (`shared/src/products/units.ts`) + edit UI dans `IngredientRow` (cf products ROADMAP Terminé #1).
 
 ### Phase 3 — Architecture refactors (~3h, single feature branch)
 - [x] **Bug 5 / extract `useFlipPlacement`** — lift the flip `useEffect` from `AsyncSearchSelect.tsx:161-203` to a hook in `frontend/src/component/Search/`. Apply to `ComboboxPrimitive` (fixes `IngredientSearch` + `BrandCombobox` for free). Migrate `AsyncSearchSelect` + `SearchSelect` to consume it. **Note**: do not collapse `IngredientSearch` and `AsyncSearchSelect` into one component — the audit explains why their APIs intentionally differ (see Bug 5 section).
 - [x] **Split `ProductsPage`** (514 → 255 lines) into `<ProductCard>` (memoized), `<ProductsHeader>`, `<ProductsActiveBar>`, `<ProductsFilterDrawerContent>` + `useProductsFilterGroups` / `useProductsExtraChips` hooks. Integration test passes unchanged.
 - [x] **`ProductForm` form-state sync** — `key={mode === 'edit' ? product.id : 'create'}` on `<form>` so post-mutation `product` updates re-seed the form. Same pattern for `useFormTags(initialTags)`.
 
-### Phase 4 — Async waterfalls (~1h)
-- [ ] **`ProductEditPage`** — `productQueries.tags(slug)` instead of `tags(productId)` so both queries parallelize via `useSuspenseQueries`.
-- [ ] **`ProductInfoTab`** — move `profileQueries.dermo()` to the route loader.
-- [ ] **Prefetch `dermo` for `/products`** — root loader / app boot for authenticated users so the "Selon mon profil" toggle takes effect on first paint.
+### Phase 4 — Async waterfalls ✅ (cf products ROADMAP Terminé #14)
+- [x] **`ProductEditPage`** — backend `getProductFullBySlug` inclut tags ; loader parallèle.
+- [x] **`ProductInfoTab`** — `profileQueries.dermo()` dans route loader (`routes/products/$slug.tsx`).
+- [x] **Prefetch `dermo` pour `/products`** — `routes/products/index.tsx` loader si auth.
 
-### Phase 5 — Bundle + memoization batch (~1h)
-- [ ] Lazy-load `react-markdown` in `ProductInfoTab` (~50KB gzip).
-- [ ] `useMemo` for `filters`, `apiFilters`, `avoidFor`, `extraChips` in `ProductsPage`.
-- [ ] `useRouterState` boolean selector in `ProductLayout.tsx:42`.
-- [ ] `BROWSING_STALE_TIME` constant + simplified ternary at `ProductsPage.tsx:176`.
-- [ ] `tagQueries.list` use `select` instead of inline map.
-- [ ] `AddToCollectionModal` lazy `useState(() => …)` for `today`.
-- [ ] `buildListProductsQuery` symmetric loop over `FILTER_KEYS` (prevents bug 7 from recurring).
+### Phase 5 — Bundle + memoization batch ✅ (cf products ROADMAP Terminé #13, #15, #16, #17)
+- [x] Lazy `react-markdown` dans `ProductInfoTab` (~50KB gzip) — Terminé #15.
+- [x] `useMemo` pour `filters`, `apiFilters`, `avoidFor`, `extraChips` dans `ProductsPage` — Terminé #13.
+- [x] `useRouterState` boolean selector dans `ProductLayout.tsx:46` — Terminé #16.
+- [x] `BROWSING_STALE_TIME` ternary collapse `ProductsPage.tsx:127` — Terminé #15.
+- [x] `AddToCollectionModal` lazy `useState(() => today)` — Terminé #17.
+- [x] `buildListProductsQuery` loop sur `FILTER_KEYS` — Terminé #16.
+- ⏭ `tagQueries.list` `select` — triagé out (gain marginal, RQ cache déjà la sortie). Ré-ouvrir si profiling montre hotspot.
 
 ### Phase 6 — Decisions needed (no code yet)
 - [ ] **Bug 4** — `AddToCollectionModal` orthogonal `in_stock` flag. Question: can "Évité" / "Surveillé" / "Saint-graal" coexist with an in-stock state? If yes → schema migration (`in_stock boolean` column on `user_products`); if no → richer status meta only. See products ROADMAP bug 4.
-- [ ] **Bug 8** — header search limit (8 results hardcoded backend `service.ts:527`). Two paths: raise to 20 vs add "Voir tous les résultats" entry that navigates with `?brand=` populated (relies on Phase 1 bug 7 fix).
+- [x] **Bug 8** — header search limit 8 → 20 + pagination infinie (cf products ROADMAP Terminé #8). `productQueries.search` → `infiniteQueryOptions`, sentinel `IntersectionObserver`.
 
 ---
 
