@@ -2,7 +2,7 @@ import type { EnrichedComparisonProduct } from '@habit-tracker/shared'
 
 import { useState } from 'react'
 
-import { Button } from '@/component/Button'
+import { ExpandableSection } from '@/component/Layout/ExpandableSection/ExpandableSection'
 import { computeSpecifics } from '../helpers/aggregations'
 
 type Props = { products: EnrichedComparisonProduct[] }
@@ -19,16 +19,17 @@ export function PerProductSpecificsSection({ products }: Props) {
         const isOpen = openId === p.id
         return (
           <div key={p.id}>
-            <Button variant="ghost" onClick={() => setOpenId(isOpen ? null : p.id)}>
-              {p.brand} — {p.name} ({list.length}) {isOpen ? '▾' : '▸'}
-            </Button>
-            {isOpen && (
+            <ExpandableSection
+              title={`${p.brand} — ${p.name} (${list.length})`}
+              open={isOpen}
+              onToggle={() => setOpenId(isOpen ? null : p.id)}
+            >
               <ul>
                 {list.map((i) => (
                   <li key={i.slug}>{i.inciName}</li>
                 ))}
               </ul>
-            )}
+            </ExpandableSection>
           </div>
         )
       })}
