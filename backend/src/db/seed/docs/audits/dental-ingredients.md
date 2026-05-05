@@ -1,6 +1,6 @@
-# Dental Ingredients — Référentiel
+# Dental Ingredients — Audit INCI vs seed (2026)
 
-Inventaire des ingrédients actifs utilisés dans les produits dentaires du seed (25 fichiers, 18 marques analysés).
+> **À propos :** Inventaire des ingrédients actifs utilisés dans les produits dentaires du seed (25 fichiers, 18 marques). Audit ponctuel — la dette actionnable (ingrédients absents, catégorie zinc à créer, etc.) est portée dans `../ROADMAP.md` §2.6.
 
 ---
 
@@ -57,7 +57,9 @@ Inventaire des ingrédients actifs utilisés dans les produits dentaires du seed
 
 ---
 
-## Zinc (catégorie manquante dans le seed)
+## Zinc
+
+> ✅ **Ajouté depuis l'audit** — fichier `dental/zinc.ts` (6 formes : citrate, lactate, acétate, chlorure, phosphate, sulfate).
 
 Présents dans ~30% des produits. Souvent en support anti-tartre / anti-gingivite.
 
@@ -98,15 +100,15 @@ Présents dans ~30% des produits. Souvent en support anti-tartre / anti-gingivit
 
 ## Ingrédients absents du seed à considérer
 
-| Ingrédient | Justification |
-|---|---|
-| Arginine | Actif anti-sensibilité (Elmex Sensitive Pro) |
-| Calcium Sodium Phosphosilicate (Novamin) | Actif reminéralisant (Sensodyne) |
-| Cétylpyridinium Chloride (CPC) | Antiseptique fréquent |
-| Zinc (citrate / lactate / acétate) | Famille présente dans 30% des produits |
-| Cellulose Gum | Excipient très répandu |
-| Cocamidopropyl Bétaïne | Tensioactif alternatif au SLS |
-| Tetrasodium Pyrophosphate | Anti-tartre (Elmex) |
+| Ingrédient | Justification | État |
+|---|---|---|
+| Arginine | Actif anti-sensibilité (Elmex Sensitive Pro) | ouvert |
+| Calcium Sodium Phosphosilicate (Novamin) | Actif reminéralisant (Sensodyne) | ouvert |
+| Cétylpyridinium Chloride (CPC) | Antiseptique fréquent | ouvert |
+| Zinc (citrate / lactate / acétate / phosphate / chlorure / sulfate) | Famille présente dans 30% des produits | ✅ fait (`dental/zinc.ts`) |
+| Cellulose Gum | Excipient très répandu | ouvert |
+| Cocamidopropyl Bétaïne | Tensioactif alternatif au SLS | ouvert |
+| Tetrasodium Pyrophosphate | Anti-tartre (Elmex) | ouvert |
 
 ---
 

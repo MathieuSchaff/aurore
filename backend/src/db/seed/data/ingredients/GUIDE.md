@@ -12,7 +12,7 @@ A lire **en entier** avant de commencer.
 ```
 ingredients/
 ├── ingredient-slugs.ts    # Agregat `INGREDIENT_SLUGS` + re-export des groupes par domaine
-├── seed-ingredients.ts    # Type IngredientInput (NE PAS MODIFIER)
+├── types.ts               # Type IngredientInput (NE PAS MODIFIER)
 ├── index.ts               # Re-exporte ingredientData (tous types confondus)
 ├── GUIDE.md               # Ce fichier
 ├── skincare/              # Ingredients topiques peau
@@ -26,20 +26,7 @@ ingredients/
 │   ├── index.ts           # exporte supplementIngredients
 │   ├── ingredient-slugs.ts  # Groupes de slugs supplements (SUPPLEMENTS_VITAMINES, …)
 │   ├── ingredient-tags.ts   # Mappings slug → tags (primary/secondary/avoid) pour supplements
-│   ├── astaxanthine.ts
-│   ├── berberine.ts
-│   ├── beta-carotene.ts
-│   ├── cdp-choline.ts
-│   ├── choline.ts
-│   ├── creatine.ts
-│   ├── ergothioneine.ts
-│   ├── gaa.ts
-│   ├── glucosamine.ts
-│   ├── glycine.ts
-│   ├── luteine.ts
-│   ├── magnesium.ts
-│   ├── zeaxanthine.ts
-│   └── ...
+│   └── <ingredient>.ts    # un fichier par ingrédient (astaxanthine, berberine, …)
 ├── haircare/              # Ingredients capillaires
 │   ├── index.ts           # exporte haircareIngredients
 │   ├── ingredient-slugs.ts  # Groupes de slugs haircare (HAIR_CONDITIONNEURS, …)
@@ -51,7 +38,7 @@ ingredients/
 ```
 
 **Regle** : chaque fichier seed va dans le dossier correspondant a son `type`.
-Les fichiers partages (`ingredient-slugs.ts`, `seed-ingredients.ts`) restent a la racine.
+Les fichiers partages (`ingredient-slugs.ts`, `types.ts`) restent a la racine.
 
 ---
 
@@ -105,24 +92,18 @@ Import : `import { INGREDIENT_TYPES } from '@habit-tracker/shared'`
 
 Le `category` depend du `type`.
 
-### Pour `type: skincare` (et `haircare`, `dental`)
+Chaque domaine a son propre enum exporté depuis `@habit-tracker/shared`.
+**Ne pas mélanger** : un fichier seed `dental/` doit importer
+`DENTAL_INGREDIENT_CATEGORIES`, pas `SKINCARE_INGREDIENT_CATEGORIES`.
 
-Import : `import { INGREDIENT_CATEGORIES } from '@habit-tracker/shared'`
+| `type` | Enum à importer | Valeurs |
+|--------|-----------------|---------|
+| `skincare` | `SKINCARE_INGREDIENT_CATEGORIES` | `ACTIF`, `HUMECTANT`, `EMOLLIENT`, `FILTRE_UV`, `TENSIOACTIF`, `EXCIPIENT` |
+| `haircare` | `HAIRCARE_INGREDIENT_CATEGORIES` | `ACTIF`, `HUMECTANT`, `CONDITIONNEUR`, `TENSIOACTIF`, `EXCIPIENT` |
+| `dental` | `DENTAL_INGREDIENT_CATEGORIES` | `ACTIF`, `HUMECTANT`, `TENSIOACTIF`, `EXCIPIENT` |
+| `supplement` | `SUPPLEMENT_CATEGORIES` | `VITAMINE`, `MINERAL`, `ACIDE_AMINE`, `ACIDE_GRAS`, `ANTIOXYDANT`, `CAROTENOIDE`, `PLANTE`, `ADAPTOGENE`, `CHAMPIGNON`, `PROBIOTIQUE`, `PREBIOTIQUE`, `PEPTIDE`, `COLLAGENE`, `POLYPHENOL`, `NEUROACTIF`, `LONGEVITE`, `ENZYME`, `AUTRE` |
 
-| Valeur | Role en formulation |
-|--------|---------------------|
-| `ACTIF` | Principe actif (retinol, niacinamide, AHA...) |
-| `HUMECTANT` | Attire l'eau (glycerine, acide hyaluronique...) |
-| `EMOLLIENT` | Adoucit la peau (ceramides, squalane...) |
-| `FILTRE_UV` | Protection solaire |
-| `TENSIOACTIF` | Nettoyant / moussant |
-| `EXCIPIENT` | Support de formulation (sans effet actif) |
-
-### Pour `type: supplement`
-
-Import : `import { SUPPLEMENT_CATEGORIES } from '@habit-tracker/shared'`
-
-Valeurs : `VITAMINE`, `MINERAL`, `ACIDE_AMINE`, `ACIDE_GRAS`, `ANTIOXYDANT`, `CAROTENOIDE`, `PLANTE`, `ADAPTOGENE`, `CHAMPIGNON`, `PROBIOTIQUE`, `PREBIOTIQUE`, `PEPTIDE`, `COLLAGENE`, `POLYPHENOL`, `NEUROACTIF`, `LONGEVITE`, `ENZYME`, `AUTRE`.
+Source de vérité : `shared/src/ingredients/<domaine>/categories.ts`.
 
 ---
 
@@ -213,11 +194,11 @@ le fichier `ingredients/<domaine>/ingredient-tags.ts`, par exemple :
 ```
 
 Les regles strictes (scopes autorises, convention comedogene, regle `avoid`)
-sont documentees en tete de `ingredient-tags/index.ts`. A lire avant de tagger
-un ingredient.
+sont documentees en tete de `data/ingredient-tags/index.ts` (top-level,
+adjacent à `data/ingredients/`). A lire avant de tagger un ingredient.
 
 L'agregat `ingredientTagMap` est reconstruit automatiquement a partir des
-quatre fichiers de domaine — inutile de toucher `ingredient-tags/index.ts`.
+quatre fichiers de domaine — inutile de toucher `data/ingredient-tags/index.ts`.
 
 ---
 
@@ -235,9 +216,9 @@ quatre fichiers de domaine — inutile de toucher `ingredient-tags/index.ts`.
 
 | Fichier | Raison |
 |---------|--------|
-| `seed-ingredients.ts` | Type `IngredientInput` — source de verite |
-| `ingredient-slugs.ts` (racine) | Re-export + agregat. Pour ajouter un slug, editer `<domaine>/ingredient-slugs.ts` a la place. |
-| `ingredient-tags/index.ts` (shell) | Re-export + agregat. Pour ajouter un tag mapping, editer `<domaine>/ingredient-tags.ts` a la place. |
+| `types.ts` | Type `IngredientInput` — source de verite |
+| `ingredient-slugs.ts` (racine `ingredients/`) | Re-export + agregat. Pour ajouter un slug, editer `<domaine>/ingredient-slugs.ts` a la place. |
+| `data/ingredient-tags/index.ts` (shell, top-level) | Re-export + agregat. Pour ajouter un tag mapping, editer `<domaine>/ingredient-tags.ts` a la place. |
 
 ---
 

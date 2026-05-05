@@ -85,6 +85,22 @@ non détecté aujourd'hui.
 - [ ] Ajouter test dans `shared-schemas-vs-tags.test.ts` : cohérence
       catégorie → `ingredient_attribute` correspondant.
 
+### 2.6 Dental — ingrédients absents du seed (audit INCI 2026)
+
+Audit INCI vs seed sur 25 produits dentaires / 18 marques. Inventaire
+complet archivé dans `seed/docs/audits/dental-ingredients.md`. Manques
+actionnables :
+
+- [ ] **Arginine** — anti-sensibilité (Elmex Sensitive Pro, CB12). Bloque les tubules par dépôt phosphate de calcium.
+- [ ] **Calcium Sodium Phosphosilicate (Novamin)** — reminéralisant bioactif (Sensodyne Répare & Protège).
+- [ ] **Cetylpyridinium Chloride (CPC)** — antiseptique buccal fréquent (Gum, Meridol).
+- [ ] **Cellulose Gum** — épaississant très répandu, manquant côté excipients.
+- [ ] **Cocamidopropyl Bétaïne** — tensioactif doux, alternative SLS.
+- [ ] **Tetrasodium Pyrophosphate** — anti-tartre (Elmex).
+
+Ingrédients définis en seed mais sans usage produit actuel (à conserver
+ou retirer après revue) : Tea Tree Oil, Thymol, Carbamide Peroxide.
+
 ---
 
 ## 3. Produits
@@ -235,7 +251,7 @@ initiale : l'appliquer également aux ingrédients.
 - Pas de doc frontend pour les composants `Filter/` (FilterDrawer,
   FilterAccordion, SearchSelect, ActiveFiltersBar) ni pour les hooks
   `useListFilters` / `useTagFilterGroups`. `STATE.md` §5.5 liste les clés de
-  filtre par page mais n'explique pas les props/variants. `frontend/docs/CSS_GUIDE.md`
+  filtre par page mais n'explique pas les props/variants. `docs/frontend/CSS_GUIDE.md`
   référencé dans `CLAUDE.md` n'existe pas. Décision : laisser tant que le code
   reste auto-explicatif, ajouter une page dédiée si un 3ᵉ consommateur de
   FilterDrawer apparaît.

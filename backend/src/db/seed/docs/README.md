@@ -14,6 +14,7 @@
 | Comprendre **ce qu'un champ veut dire** (`type`, `category`, `kind`, `tagType`) | [`STATE.md`](./STATE.md) §10 | Glossaire sémantique cross-entité (ex-AUDIT.md) |
 | Gérer les **images produit** (CDN, S3, mapping) | [`STATE.md`](./STATE.md) §11 | Pipeline images Bunny CDN (ex-IMAGES.md) |
 | Savoir **ce qui reste à faire** ou **ce qui est déjà fait** | [`ROADMAP.md`](./ROADMAP.md) | Dette ouverte + tableau corrections récentes avec SHAs |
+| Consulter un **audit ponctuel** (INCI vs seed, etc.) | [`audits/`](./audits/) | Inventaires de référence ; la dette actionnable extraite est portée dans ROADMAP |
 
 ---
 
