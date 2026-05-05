@@ -1,3 +1,11 @@
+import type { ArticleInput } from '../article-data'
+
+export const ROSACEE_05_ROUTINE_SKINCARE: ArticleInput = {
+  title: '05 — Routine skincare idéale pour la rosacée',
+  slug: 'rosacee-05-routine-skincare',
+  category: 'skincare',
+  publishedAt: new Date(),
+  content: `
 # 05 — Routine skincare idéale pour la rosacée
 
 ## Introduction
@@ -468,3 +476,5 @@ Double nettoyage (si SPF) ou nettoyant doux → Actif (si peau stable) → Crèm
 - Si ça brûle, on simplifie sans hésiter — c'est un signal clair de la peau.
 - Le SPF minéral quotidien est probablement le geste à plus fort impact sur la progression à long terme.
 - Les actifs les plus utiles dans la rosacée : acide azélaïque en premier, niacinamide faible dose, centella asiatica — avant tout rétinoïde.
+`,
+}

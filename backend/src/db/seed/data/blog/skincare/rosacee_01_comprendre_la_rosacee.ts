@@ -1,3 +1,11 @@
+import type { ArticleInput } from '../article-data'
+
+export const ROSACEE_01_COMPRENDRE: ArticleInput = {
+  title: '01 — Comprendre la rosacée',
+  slug: 'rosacee-01-comprendre-la-rosacee',
+  category: 'skincare',
+  publishedAt: new Date(),
+  content: `
 # 01 — Comprendre la rosacée
 
 ## Définition
@@ -287,3 +295,5 @@ Réduire la fréquence et l'intensité des poussées, améliorer la rougeur de f
 - Plus on prend en charge tôt, plus il est facile de limiter la progression.
 - Une routine simple, régulière et adaptée donne souvent de meilleurs résultats qu'une routine complexe et agressive.
 - Les traitements ne guérissent pas mais permettent un contrôle efficace et durable.
+`,
+}

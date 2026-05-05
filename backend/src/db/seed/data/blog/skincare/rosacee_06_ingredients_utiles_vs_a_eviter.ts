@@ -1,3 +1,11 @@
+import type { ArticleInput } from '../article-data'
+
+export const ROSACEE_06_INGREDIENTS: ArticleInput = {
+  title: '06 — Ingrédients utiles vs ingrédients à éviter',
+  slug: 'rosacee-06-ingredients-utiles-vs-a-eviter',
+  category: 'skincare',
+  publishedAt: new Date(),
+  content: `
 # 06 — Ingrédients utiles vs ingrédients à éviter
 
 ## Introduction
@@ -566,3 +574,5 @@ La liste INCI (International Nomenclature of Cosmetic Ingredients) permet d'iden
 - Les ingrédients les plus constants dans leurs risques : **parfum/fragrance, alcool dénaturé en tête de liste, SLS, menthol, huiles essentielles**.
 - La peau rosacéique aime les formules courtes, transparentes et sans parfum.
 - En cas de doute sur un produit, chercher sa liste INCI sur INCIDecoder ou CosDNA avant de l'acheter.
+`,
+}

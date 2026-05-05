@@ -1,3 +1,11 @@
+import type { ArticleInput } from '../article-data'
+
+export const ROSACEE_03_DECLENCHEURS: ArticleInput = {
+  title: '03 — Déclencheurs et facteurs aggravants',
+  slug: 'rosacee-03-declencheurs-et-facteurs-aggravants',
+  category: 'skincare',
+  publishedAt: new Date(),
+  content: `
 # 03 — Déclencheurs et facteurs aggravants
 
 ## Introduction
@@ -467,3 +475,5 @@ Après 3 à 4 semaines, chercher :
 - Ne pas chercher à tout éliminer mais à **identifier et gérer les plus impactants**.
 - Le journal personnel, tenu sur 3 à 4 semaines, est souvent plus utile que toute liste générale.
 - Certains médicaments courants peuvent aggraver les flushings — toujours en parler avec son médecin avant toute modification.
+`,
+}

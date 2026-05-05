@@ -1,3 +1,11 @@
+import type { ArticleInput } from '../article-data'
+
+export const ROSACEE_04_BARRIERE_CUTANEE: ArticleInput = {
+  title: '04 — Barrière cutanée : pourquoi la peau rosacéique brûle, pique et réagit',
+  slug: 'rosacee-04-barriere-cutanee',
+  category: 'skincare',
+  publishedAt: new Date(),
+  content: `
 # 04 — Barrière cutanée : pourquoi la peau rosacéique brûle, pique et réagit
 
 ## Introduction
@@ -183,7 +191,7 @@ Une barrière intacte maintient une distance physique entre les irritants et les
 
 # 8. Le cercle vicieux
 
-```
+\`\`\`
 Inflammation (poussée, produit irritant, flushing)
         ↓
 Dégradation des lipides lamellaires (KLK5, lipases, radicaux libres)
@@ -197,7 +205,7 @@ Activation de TLR2 + sensibilisation de TRPV1/TRPA1
 Libération de cytokines + neuropeptides
         ↓
 Inflammation ← ← ← ← ← ← ← ← ← ← ←
-```
+\`\`\`
 
 La boucle s'auto-entretient. Intervenir à plusieurs niveaux simultanément (restaurer les lipides, abaisser le pH, réduire les agressions) permet de la briser.
 
@@ -346,3 +354,5 @@ La restauration complète de la barrière est un processus lent. Les lipides lam
 - Réparer la barrière est souvent la **première étape** avant tout actif anti-inflammatoire ou anti-rougeur.
 - Moins de produits, mieux choisis, avec un nettoyant au bon pH = le fondement de toute routine rosacée.
 - La réintroduction des actifs se fait progressivement, un à la fois, avec un intervalle d'observation.
+`,
+}

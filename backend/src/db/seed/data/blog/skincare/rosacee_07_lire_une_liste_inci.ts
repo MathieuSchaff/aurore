@@ -1,3 +1,11 @@
+import type { ArticleInput } from '../article-data'
+
+export const ROSACEE_07_LIRE_INCI: ArticleInput = {
+  title: '07 — Comment lire une liste INCI intelligemment',
+  slug: 'rosacee-07-lire-une-liste-inci',
+  category: 'skincare',
+  publishedAt: new Date(),
+  content: `
 # 07 — Comment lire une liste INCI intelligemment
 
 ## Introduction
@@ -27,15 +35,15 @@ En Europe, au Canada et dans la plupart des pays réglementés, les ingrédients
 Cela signifie que le début de la liste = la base réelle du produit.
 
 **Exemple de début de liste favorable pour une peau rosacéique :**
-```
+\`\`\`
 Aqua, Glycerin, Squalane, Cetearyl Alcohol, Niacinamide, Ceramide NP...
-```
+\`\`\`
 Cela indique : base aqueuse, humectant principal (glycérine), émollient doux (squalane), émulsifiant bien toléré (alcool cétéarylique), actif barrière (niacinamide), céramide de réparation.
 
 **Exemple de début de liste problématique :**
-```
+\`\`\`
 Alcohol Denat., Aqua, Fragrance, Menthol, Citrus Limon Peel Oil...
-```
+\`\`\`
 L'alcool dénaturé comme premier ingrédient indique qu'il constitue probablement 40–70 % de la formule — un rouge vif pour la peau rosacéique.
 
 ---
@@ -61,9 +69,9 @@ Un problème courant : certains fabricants listent des actifs "star" très en fi
 - la concentration réelle est probablement inférieure à 0,1 % — insuffisante pour être efficace
 
 **Contre-exemple d'un actif bien positionné :**
-```
+\`\`\`
 Aqua, Glycerin, Niacinamide, Cetearyl Alcohol...
-```
+\`\`\`
 Ici, la niacinamide est en 3ème position = probablement entre 3 et 10 % = dose efficace.
 
 ---
@@ -76,10 +84,10 @@ C'est souvent là qu'on comprend la philosophie réelle du produit.
 
 ## Profil barrière / peau sensible — favorable pour rosacée
 
-```
+\`\`\`
 Aqua, Glycerin, Squalane, Cetearyl Alcohol, Ceramide NP,
 Ceramide AP, Cholesterol, Panthenol, Allantoin, Sodium Hyaluronate
-```
+\`\`\`
 
 Ce profil suggère :
 - hydratation multi-niveaux (glycérine, sodium hyaluronate)
@@ -92,10 +100,10 @@ Ce profil suggère :
 
 ## Profil actif anti-rosacée ciblé
 
-```
+\`\`\`
 Aqua, Azelaic Acid, Glycerin, Dimethicone, Cetearyl Alcohol,
 Benzoic Acid, Panthenol, Allantoin, Niacinamide, Xanthan Gum
-```
+\`\`\`
 
 Ce profil indique un produit formulé autour de l'acide azélaïque (2ème position = concentration significative), avec une base douce et des actifs complémentaires.
 
@@ -103,10 +111,10 @@ Ce profil indique un produit formulé autour de l'acide azélaïque (2ème posit
 
 ## Profil potentiellement irritant pour la rosacée
 
-```
+\`\`\`
 Alcohol Denat., Aqua, Niacinamide, Fragrance, Menthol,
 Lavandula Angustifolia Oil, Salicylic Acid, Citric Acid
-```
+\`\`\`
 
 Malgré la niacinamide en 3ème position, l'alcool dénaturé en premier, le parfum, le menthol et l'huile essentielle de lavande rendent ce produit potentiellement problématique dans son ensemble.
 
@@ -116,11 +124,11 @@ Malgré la niacinamide en 3ème position, l'alcool dénaturé en premier, le par
 
 ## Profil "naturel" trompeur
 
-```
+\`\`\`
 Aqua, Glycerin, Aloe Barbadensis Leaf Juice, Rosa Canina Fruit Oil,
 Lavandula Angustifolia Oil, Melaleuca Alternifolia Leaf Oil,
 Citrus Bergamia Peel Oil, Mentha Piperita Leaf Extract
-```
+\`\`\`
 
 Un produit peut être 100 % naturel, vegan, biologique — et inadapté à la rosacée. Ici, plusieurs huiles essentielles potentiellement irritantes (lavande, tea tree, bergamote photosensibilisante, menthe) sont présentes en concentrations notables.
 
@@ -380,49 +388,49 @@ Les silicones sont généralement bien tolérés. Un léger bémol dans les form
 
 ## Le produit "peau sensible" avec menthol
 
-```
+\`\`\`
 Aqua, Glycerin, Allantoin, Aloe Barbadensis Leaf Juice,
 Panthenol, Menthol, Chamomilla Recutita Extract...
-```
+\`\`\`
 Allantoïne, aloe et panthénol semblent excellents — mais le menthol annule en grande partie ces bénéfices pour les patients rosacéiques.
 
 ---
 
 ## Le produit "naturel bio" aux huiles essentielles multiples
 
-```
+\`\`\`
 Aqua, Rosa Damascena Flower Water, Jojoba Oil, Lavandula Angustifolia Oil,
 Melaleuca Alternifolia Leaf Oil, Citrus Bergamia Peel Oil, Rosmarinus Officinalis Oil
-```
+\`\`\`
 Absence totale d'alcool dénaturé et de conservateurs synthétiques — et pourtant 4 huiles essentielles potentiellement irritantes pour la rosacée.
 
 ---
 
 ## Le produit "sans parfum" avec allergènes déclarés
 
-```
+\`\`\`
 ...Limonene, Linalool, Geraniol, Citronellol, Benzyl Alcohol...
-```
+\`\`\`
 La mention "sans parfum" peut être légalement vraie (pas de "Fragrance" ou "Parfum" dans la liste), mais les molécules parfumantes isolées — ici les terpènes limonène, linalool, géraniol — peuvent déclencher les mêmes réactions que le parfum complet.
 
 ---
 
 ## Le produit "riche en céramides" avec traces infimes
 
-```
+\`\`\`
 ...Panthenol, Ceramide NP, Ceramide AP, Ceramide EOP, Cholesterol...
-```
+\`\`\`
 Si ces céramides apparaissent tous en 15ème, 16ème, 17ème et 18ème position d'une liste de 25 ingrédients, leur concentration individuelle est probablement inférieure à 0,05 %. Le produit n'est pas "riche en céramides" — il contient des traces de céramides.
 
 ---
 
 ## L'actif estrelle très tardif
 
-```
+\`\`\`
 Aqua, Glycerin, Butylene Glycol, Dimethicone, Cetearyl Alcohol,
 Phenoxyethanol, Ethylhexylglycerin, Carbomer, Sodium Hydroxide,
 Madecassoside, Asiaticoside, Centella Asiatica Extract
-```
+\`\`\`
 Les trois actifs de centella en fin de liste derrière les conservateurs et les ajusteurs de pH. Probablement en concentration trace. Le marketing peut affirmer "formulé à la centella asiatica" — techniquement vrai mais cliniquement négligeable.
 
 ---
@@ -522,3 +530,5 @@ Il n'existe pas de définition réglementaire de "hypoallergénique" en Europe. 
 - Les silicones, le petrolatum et l'huile minérale sont généralement bien tolérés malgré leur réputation.
 - INCIDecoder est l'outil en ligne le plus pratique pour une analyse rapide.
 - L'INCI est le meilleur outil disponible — mais il n'est fiable que si on l'associe à sa propre expérience de tolérance.
+`,
+}

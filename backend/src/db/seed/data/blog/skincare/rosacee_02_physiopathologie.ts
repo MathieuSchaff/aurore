@@ -1,3 +1,11 @@
+import type { ArticleInput } from '../article-data'
+
+export const ROSACEE_02_PHYSIOPATHOLOGIE: ArticleInput = {
+  title: '02 — Physiopathologie de la rosacée',
+  slug: 'rosacee-02-physiopathologie',
+  category: 'skincare',
+  publishedAt: new Date(),
+  content: `
 # 02 — Physiopathologie de la rosacée
 
 ## Introduction
@@ -359,7 +367,7 @@ Flushings répétés → VEGF → angiogenèse → vaisseaux permanents → roug
 
 # Modèle d'ensemble
 
-```
+\`\`\`
 Déclencheur (UV, chaleur, Demodex, stress, irritants)
         ↓
     TLR2 (surexprimé)
@@ -375,7 +383,7 @@ Cytokines + VEGF + Histamine
 Vaisseaux ← → Nerfs sensoriels (TRPV1, TRPA1)
         ↓
 Rougeur + inflammation + flushing + télangiectasies
-```
+\`\`\`
 
 ---
 
@@ -389,3 +397,5 @@ Rougeur + inflammation + flushing + télangiectasies
 - Demodex joue un rôle pathogène via *Bacillus oleronius* et l'activation de TLR2, justifiant l'usage de l'ivermectine.
 - La chronification s'explique par des boucles de rétroaction qui s'auto-entretiennent, même sans déclencheur externe apparent.
 - La réparation de la barrière cutanée reste essentielle, même en présence de traitements médicaux efficaces.
+`,
+}
