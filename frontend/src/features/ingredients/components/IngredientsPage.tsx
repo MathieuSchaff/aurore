@@ -1,10 +1,10 @@
-import { SKINCARE_INGREDIENT_TAG_CATEGORY_META } from '@habit-tracker/shared'
+import type { IngredientType } from '@habit-tracker/shared'
 
 import { useQuery } from '@tanstack/react-query'
 import { getRouteApi, Link, useNavigate } from '@tanstack/react-router'
 import { FlaskConical, Plus, SlidersHorizontal } from 'lucide-react'
 import type React from 'react'
-import { useState } from 'react'
+import { startTransition, useCallback, useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
 import { Card } from '@/component/Card/Card'
@@ -18,12 +18,19 @@ import {
   type FilterValues,
   getFilterLabel,
 } from '@/component/Filter'
-import { PageHeader } from '@/component/Layout/PageHeader/PageHeader'
+import { ListPageLayout } from '@/component/Layout'
 import { SearchCombobox } from '@/component/Search/SearchCombobox'
+import { Tabs } from '@/component/Tabs/Tabs'
+import {
+  buildDomainSwitchSearch,
+  DOMAIN_TAB_OPTIONS,
+  FILTER_KEYS,
+  type FilterKey,
+  GROUP_LABELS,
+} from '@/features/ingredients/filters'
+import { useIngredientTagFilterGroups } from '@/hooks/useIngredientTagFilterGroups'
 import { useListFilters } from '@/hooks/useListFilters'
-import { useTagFilterGroups } from '@/hooks/useTagFilterGroups'
-import { ingredientQueries, type ListIngredientsFilters } from '../../../lib/queries/ingredients'
-import { FILTER_KEYS, type FilterKey, GROUP_LABELS } from '../filters'
+import { ingredientQueries, type ListIngredientsFilters } from '@/lib/queries/ingredients'
 
 import '@/component/Layout/PageLayout/ListPage.css'
 import './IngredientsPage.css'
@@ -37,7 +44,7 @@ export function IngredientsPage() {
   const [isDrawerOpen, setDrawerOpen] = useState(false)
 
   const search = routeApi.useSearch()
-  const { page } = search
+  const { page, type } = search
   const navigate = useNavigate({ from: '/ingredients/' })
 
   const filters: FilterValues<FilterKey> = Object.fromEntries(
@@ -59,10 +66,11 @@ export function IngredientsPage() {
         ...(Object.fromEntries(
           FILTER_KEYS.map((k) => [k, filters[k].length > 0 ? filters[k] : undefined])
         ) as Partial<ListIngredientsFilters>),
+        type,
         page,
         limit: PAGE_SIZE,
       }
-    : { sort: 'random', limit: 12 }
+    : { type, sort: 'random', limit: 12 }
 
   const { data, isLoading, isPlaceholderData } = useQuery({
     ...ingredientQueries.list(apiFilters),
@@ -70,21 +78,29 @@ export function IngredientsPage() {
     staleTime: hasFilters ? 5 * 60 * 1000 : 0,
   })
 
-  const { data: filterOptions } = useQuery(ingredientQueries.filterOptions())
+  const { data: filterOptions } = useQuery(ingredientQueries.filterOptions(type))
 
   const items = data?.items ?? []
   const total = data?.total ?? 0
   const totalPages = Math.ceil(total / PAGE_SIZE)
 
-  const filterGroups = useTagFilterGroups(
-    FILTER_KEYS,
-    filterOptions?.tags,
-    SKINCARE_INGREDIENT_TAG_CATEGORY_META
+  const filterGroups = useIngredientTagFilterGroups(type, filterOptions?.tags)
+
+  const handleDomainChange = useCallback(
+    (next: IngredientType) => {
+      startTransition(() => {
+        navigate({
+          search: (prev) => buildDomainSwitchSearch(prev, next, EMPTY_FILTERS),
+          replace: true,
+        })
+      })
+    },
+    [navigate]
   )
 
   return (
-    <div className="list-page ingredients-page">
-      <PageHeader
+    <ListPageLayout className="ingredients-page">
+      <ListPageLayout.Header
         title="Ingrédients"
         isLoading={isPlaceholderData}
         meta={hasFilters ? `${total} ingrédient${total > 1 ? 's' : ''}` : 'Découverte'}
@@ -122,6 +138,14 @@ export function IngredientsPage() {
         }
       />
 
+      <Tabs
+        options={DOMAIN_TAB_OPTIONS}
+        activeTab={type}
+        onTabChange={handleDomainChange}
+        variant="underline"
+        ariaLabel="Domaine d'ingrédient"
+      />
+
       <ActiveFiltersBar
         activeTags={activeTags}
         groupLabels={GROUP_LABELS}
@@ -140,7 +164,7 @@ export function IngredientsPage() {
         onReset={resetFilters}
       />
 
-      <main className={`list-main${isPlaceholderData ? ' list-main--syncing' : ''}`}>
+      <ListPageLayout.Body isSyncing={isPlaceholderData}>
         {isLoading && !isPlaceholderData ? (
           <EmptyState icon={<FlaskConical size={24} />} subtitle="Chargement..." />
         ) : items.length === 0 ? (
@@ -195,7 +219,7 @@ export function IngredientsPage() {
             )}
           </>
         )}
-      </main>
-    </div>
+      </ListPageLayout.Body>
+    </ListPageLayout>
   )
 }
