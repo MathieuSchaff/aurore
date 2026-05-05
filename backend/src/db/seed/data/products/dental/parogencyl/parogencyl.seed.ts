@@ -1,4 +1,3 @@
-import { TAG_SLUGS } from '../../../../data/tags'
 import type { UnifiedProductSeed } from '../../types'
 import { INGREDIENT_SLUGS } from '../../types'
 
