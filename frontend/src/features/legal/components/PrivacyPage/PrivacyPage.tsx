@@ -35,8 +35,8 @@ export function PrivacyPage() {
               </span>
               <h3 className="privacy-summary__card-title">Vos données d'usage</h3>
               <p>
-                Habitudes, produits, tâches, profil de peau — c'est le cœur du service que vous avez
-                demandé. Rien n'est partagé.
+                Produits, tâches, profil de peau — c'est le cœur du service que vous avez demandé.
+                Rien n'est partagé.
               </p>
             </div>
 
@@ -95,9 +95,9 @@ export function PrivacyPage() {
             <section className="privacy-block">
               <h2 className="privacy-block__title">Qui sommes-nous ?</h2>
               <p>
-                Aurore est un outil personnel de suivi des habitudes et des soins, conçu pour les
-                profils TDAH. Il est développé et exploité par <strong>Mathieu Schaff</strong>,
-                responsable de traitement.
+                Aurore est un outil personnel de suivi des soins cosmétiques, conçu pour les profils
+                TDAH. Il est développé et exploité par <strong>Mathieu Schaff</strong>, responsable
+                de traitement.
               </p>
               <p>
                 Contact :{' '}
@@ -115,8 +115,8 @@ export function PrivacyPage() {
                   sous forme de condensat (hachage Argon2, jamais en clair).
                 </li>
                 <li>
-                  <strong>Usage :</strong> habitudes, produits cosmétiques, tâches, notes
-                  personnelles, profil de peau.
+                  <strong>Usage :</strong> produits cosmétiques, tâches, notes personnelles, profil
+                  de peau.
                 </li>
                 <li>
                   <strong>Connexion :</strong> tokens de session (cookies HttpOnly, Secure).
@@ -155,9 +155,8 @@ export function PrivacyPage() {
                   contrat (Art. 6(1)(b)) — nécessaires pour créer et gérer votre compte.
                 </li>
                 <li>
-                  <strong>Données d'usage (habitudes, produits, tâches, profil de peau) :</strong>{' '}
-                  exécution du contrat (Art. 6(1)(b)) — constituent le service que vous avez
-                  demandé.
+                  <strong>Données d'usage (produits, tâches, profil de peau) :</strong> exécution du
+                  contrat (Art. 6(1)(b)) — constituent le service que vous avez demandé.
                 </li>
                 <li>
                   <strong>Emails de confirmation :</strong> exécution du contrat (Art. 6(1)(b)) —
