@@ -48,3 +48,9 @@
     opacity: 1;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .editable-section__body {
+    animation: none;
+  }
+}

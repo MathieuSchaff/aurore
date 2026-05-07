@@ -42,10 +42,6 @@ export const ACTIF_CLASS_DEFS: ActifClassDef[] = [
     ],
   },
   {
-    slug: SKINCARE_PRODUCT_TAG_SLUGS.RETINOL_ALTERNATIVES,
-    patterns: ['bakuchiol'],
-  },
-  {
     slug: SKINCARE_PRODUCT_TAG_SLUGS.VITAMIN_C,
     patterns: [
       'ascorbic acid',
@@ -62,10 +58,6 @@ export const ACTIF_CLASS_DEFS: ActifClassDef[] = [
   {
     slug: SKINCARE_PRODUCT_TAG_SLUGS.VITAMIN_E,
     patterns: ['tocopherol', 'tocopheryl acetate', 'tocopheryl glucoside'],
-  },
-  {
-    slug: SKINCARE_PRODUCT_TAG_SLUGS.NIACINAMIDE,
-    patterns: ['niacinamide', 'nicotinamide'],
   },
   {
     slug: SKINCARE_PRODUCT_TAG_SLUGS.AHA,
@@ -136,22 +128,8 @@ export const ACTIF_CLASS_DEFS: ActifClassDef[] = [
     ],
   },
   {
-    slug: SKINCARE_PRODUCT_TAG_SLUGS.CENTELLA,
-    patterns: [
-      'centella asiatica',
-      'asiaticoside',
-      'asiatic acid',
-      'madecassoside',
-      'madecassic acid',
-    ],
-  },
-  {
     slug: SKINCARE_PRODUCT_TAG_SLUGS.TYROSINASE_INHIBITORS,
     patterns: ['kojic acid', 'arbutin', 'tranexamic acid', 'ellagic acid', 'morus alba'],
-  },
-  {
-    slug: SKINCARE_PRODUCT_TAG_SLUGS.AZELAIC_ACID,
-    patterns: ['azelaic acid', 'potassium azeloyl diglycinate'],
   },
 ]
 
