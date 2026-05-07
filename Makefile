@@ -208,7 +208,7 @@ e2e-up: ts-build ## Lance la stack E2E (DB tmpfs + migrate + seed) et attend que
 	@echo "$(CYAN)Migrations...$(NC)"
 	@$(COMPOSE_E2E) exec -T api bun run src/db/migrate.ts
 	@echo "$(CYAN)Seed CORE...$(NC)"
-	@$(COMPOSE_E2E) exec -T api bun run src/db/seed/runners/seed-core.ts
+	@$(COMPOSE_E2E) exec -T api bun run src/db/seed/runners/seed-core.ts --reset
 	@echo "$(CYAN)Attente frontend...$(NC)"
 	@until curl -sf http://localhost:5173 >/dev/null; do sleep 1; done
 	@echo "$(GREEN)✓ Stack E2E prête sur http://localhost:5173$(NC)"
@@ -229,9 +229,9 @@ e2e-ui: ## Lance Playwright en mode UI interactif
 
 test-db-reset: test-db-down test-db-up ## Repart de zéro : arrête, vide et relance la DB de test avec migrations
 
-test-db-seed: ## Seed CORE dans la DB de test (nécessite test-db-up)
+test-db-seed: ## Seed CORE dans la DB de test (--reset, nécessite test-db-up)
 	@echo "$(CYAN)Injection des données CORE dans la DB de test...$(NC)"
-	@cd backend && export $$(grep -v '^\#' ../.env.dev | xargs) && DATABASE_URL=$(TEST_DB_URL) bun run src/db/seed/runners/seed-core.ts
+	@cd backend && export $$(grep -v '^\#' ../.env.dev | xargs) && DATABASE_URL=$(TEST_DB_URL) APP_DATABASE_URL=$(APP_TEST_DB_URL) bun run src/db/seed/runners/seed-core.ts --reset
 	@echo "$(GREEN)✓ Seed CORE exécuté sur la DB de test$(NC)"
 
 # =========================
@@ -313,15 +313,21 @@ db-studio: ## Lance l'interface graphique Drizzle Studio
 	@echo "$(CYAN)Lancement de Drizzle Studio sur http://localhost:4983$(NC)"
 	cd backend && export $$(grep -v '^\#' ../.env.dev | xargs) && bun x drizzle-kit studio --port 4983
 
-db-seed: ## Remplit la base de données avec les données CORE (Tags, Ingrédients, Produits manuels)
-	@echo "$(CYAN)Injection des données CORE (Seed)...$(NC)"
+db-seed: ## Push deltas seed CORE (idempotent, défaut sans destruction — préserve user-state)
+	@echo "$(CYAN)Push deltas seed CORE en mode idempotent...$(NC)"
 	$(COMPOSE_DEV) exec api bun run src/db/seed/runners/seed-core.ts
-	@echo "$(GREEN)✓ Seed CORE exécuté avec succès$(NC)"
-
-db-seed-merge: ## Push deltas seed sans wiper la DB (idempotent, --no-clean — préserve user-state)
-	@echo "$(CYAN)Push deltas seed CORE en mode idempotent (no-clean)...$(NC)"
-	$(COMPOSE_DEV) exec api bun run src/db/seed/runners/seed-core.ts --no-clean
 	@echo "$(GREEN)✓ Deltas seed CORE poussés (data existante préservée)$(NC)"
+
+# Alias historique de db-seed (mode idempotent désormais par défaut).
+db-seed-merge: db-seed
+
+db-seed-reset: ## ⚠️ Seed destructif (TRUNCATE + reseed). Demande confirmation. SEED_FORCE_RESET=1 si DB > seed.
+	@echo "$(YELLOW)⚠ ATTENTION : --reset va TRUNCATE products + ingredients + tags relations !$(NC)"
+	@echo "$(YELLOW)  Si la DB cible contient plus de produits que le seed JS,$(NC)"
+	@echo "$(YELLOW)  le garde-fou refusera sauf SEED_FORCE_RESET=1.$(NC)"
+	@read -p "Confirmer le reset complet de la DB locale ? [y/N] " confirm && [ "$$confirm" = "y" ] || exit 1
+	$(COMPOSE_DEV) exec api bun run src/db/seed/runners/seed-core.ts --reset
+	@echo "$(GREEN)✓ Seed CORE (--reset) exécuté avec succès$(NC)"
 
 db-clean: ## Vide complètement la base de données (SCHEMA public)
 	@echo "$(YELLOW)⚠ ATTENTION : Toutes les données vont être supprimées !$(NC)"

@@ -1,7 +1,7 @@
 import { SKINCARE_INGREDIENT_CATEGORY_VALUES } from '@habit-tracker/shared'
 
 import slugify from '@sindresorhus/slugify'
-import { sql } from 'drizzle-orm'
+import { count, sql } from 'drizzle-orm'
 
 import { createIngredient } from '../../../features/ingredients/service'
 import { addIngredientToProduct } from '../../../features/products/product-ingredients/product-ingredients.service'
@@ -133,10 +133,10 @@ function computeProductSlug(input: { name: string; brand: string; slug?: string 
   return slugify(raw)
 }
 
-export async function seedCore(shouldClean = true) {
+export async function seedCore(shouldClean = false) {
   const idempotent = !shouldClean
   console.log(
-    `🌱 Démarrage du seed CORE (Données de base + Produits manuels)${idempotent ? ' [idempotent]' : ''}...\n`
+    `🌱 Démarrage du seed CORE (Données de base + Produits manuels)${idempotent ? ' [idempotent]' : ' [RESET — table truncate]'}...\n`
   )
 
   // All inserts are atomic: if anything fails mid-way the DB rolls back cleanly
@@ -145,6 +145,22 @@ export async function seedCore(shouldClean = true) {
     await tx.execute(sql`SET LOCAL app.role = 'admin'`)
 
     if (shouldClean) {
+      // Mismatch guard: if the target DB already holds more products than
+      // the JS seed files would re-insert, the operator probably wired the
+      // wrong DB (e.g. dev instead of test) — refuse unless they opt in
+      // explicitly with `SEED_FORCE_RESET=1`. The 2026-05-07 incident is
+      // exactly this scenario: dev DB had 3137 snapshot products, seed had
+      // 469 squelettes, and the truncate destroyed 2668 rows.
+      const [{ value: dbProductCount }] = await tx.select({ value: count() }).from(products)
+      const seedProductCount = allProductData.length
+      if (dbProductCount > seedProductCount && process.env.SEED_FORCE_RESET !== '1') {
+        throw new Error(
+          `Refus du --reset : la DB cible contient ${dbProductCount} produits, le seed JS n'en fournit que ${seedProductCount}. ` +
+            `Vraisemblablement la mauvaise DB (dev au lieu de test ?). ` +
+            `Si tu es sûr, relance avec SEED_FORCE_RESET=1. ` +
+            `Pour récupérer une DB dev écrasée : make db-snapshot-load.`
+        )
+      }
       warnInvalidEntries()
       await cleanDatabase(tx)
     }
@@ -504,9 +520,13 @@ export async function seedCore(shouldClean = true) {
   console.log('\n✨ Seed CORE terminé avec succès !\n')
 }
 
-// Auto-exécution si lancé directement
+// Auto-exécution si lancé directement.
+//
+// Default behavior is idempotent (`shouldClean=false`) — destructive reset
+// is opt-in via `--reset`. `--no-clean` is still recognized for legacy
+// callers but is now a no-op (default already idempotent).
 if (import.meta.main || process.argv[1]?.endsWith('seed-core.ts')) {
-  const shouldClean = !process.argv.includes('--no-clean')
+  const shouldClean = process.argv.includes('--reset')
   seedCore(shouldClean).catch((err) => {
     console.error('\n💥 Erreur fatale :', err instanceof Error ? err.message : err)
     process.exit(1)

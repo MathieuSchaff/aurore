@@ -81,6 +81,32 @@ snapshot). Plus `make db-reset` (qui ne contient plus skincare).
 `~/Mathieu/Vault/aurore-archive/skincare-seed/` (référence locale uniquement).
 Path masqué dans `.gitignore`.
 
+### 1.4 ⚠️ seed-core — modes et garde-fous
+
+Depuis 2026-05-07 (post-incident wiping de la DB dev), `seedCore()` est
+**idempotent par défaut** (`shouldClean=false`). Le mode destructif ne
+s'active qu'explicitement.
+
+| Mode | Invocation | Comportement |
+|------|-----------|--------------|
+| Idempotent (défaut) | `bun run …/seed-core.ts` ou `make db-seed` | Lit `existing*` slugs, n'insère que les rows manquantes — préserve user-state, snapshot, etc. |
+| Reset (destructif)  | `bun run …/seed-core.ts --reset` ou `make db-seed-reset` | TRUNCATE products/ingredients/tags/relations puis reseed complet depuis JS |
+
+**Garde-fou `--reset`** : si la DB cible contient plus de produits que le seed
+JS (ex: 3137 vs 469), `seedCore` refuse et propose `make db-snapshot-load`.
+Override : `SEED_FORCE_RESET=1` (à utiliser uniquement après vérification
+manuelle de la DB cible).
+
+**Pour la DB de test** (port 5433) : passer par `make test-db-seed` qui
+override **les deux** vars (`DATABASE_URL` + `APP_DATABASE_URL`). `bun run`
+direct avec override inline de `DATABASE_URL` seul échoue silencieusement —
+`.env.dev` est chargé en premier, expose `APP_DATABASE_URL` (DB dev), et le
+client Drizzle lit cette var (`backend/src/db/index.ts`).
+
+**Pour reset complet propre** : `make db-snapshot-reset` (clean + migrate +
+reload depuis `snapshot/data.sql`). Préférable à `seed-core --reset` pour
+skincare, qui a snapshot comme source de vérité.
+
 ---
 
 ## 2. Structure ingrédient
