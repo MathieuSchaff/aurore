@@ -16,7 +16,7 @@ interface LifecycleSectionProps {
 }
 
 export function LifecycleSection({ p, onAddPurchase }: LifecycleSectionProps) {
-  const { data: purchases } = useQuery(purchaseQueries.byUserProduct(p.id))
+  const { data: purchases, isError: purchasesError } = useQuery(purchaseQueries.byUserProduct(p.id))
 
   const openPurchase = useMemo(() => {
     if (!purchases) return null
@@ -85,7 +85,11 @@ export function LifecycleSection({ p, onAddPurchase }: LifecycleSectionProps) {
           <h4>Historique des achats</h4>
         </div>
 
-        {sortedPurchases.length > 0 ? (
+        {purchasesError ? (
+          <p className="pds-empty-history" role="alert">
+            Historique indisponible — réessaie dans un instant.
+          </p>
+        ) : sortedPurchases.length > 0 ? (
           <div className="pds-purchase-list">
             {sortedPurchases.map((purch) => (
               <div key={purch.id} className="pds-purchase-item">

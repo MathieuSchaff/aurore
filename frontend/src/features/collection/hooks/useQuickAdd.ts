@@ -4,6 +4,7 @@ import type React from 'react'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
+import { reportError } from '@/lib/errorReporter'
 import { useCreateProduct } from '@/lib/queries/products'
 import { useAddPurchase } from '@/lib/queries/purchases'
 import { useCreateUserProduct } from '@/lib/queries/user-products'
@@ -73,7 +74,7 @@ export function useQuickAdd({ onClose }: UseQuickAddProps) {
       toast.success(`${selectedProduct.name} ajouté à votre collection !`)
       onClose()
     } catch (error) {
-      console.error('Failed to add product:', error)
+      reportError(error as Error, { flow: 'quick-add-existing' })
       toast.error("Impossible d'ajouter le produit à votre collection.")
     }
   }
@@ -92,7 +93,7 @@ export function useQuickAdd({ onClose }: UseQuickAddProps) {
       toast.success(`${newName} créé et ajouté à votre collection !`)
       onClose()
     } catch (error) {
-      console.error('Failed to create and add product:', error)
+      reportError(error as Error, { flow: 'quick-add-create' })
       toast.error("Impossible de créer ou d'ajouter le produit.")
     }
   }

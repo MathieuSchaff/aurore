@@ -6,10 +6,11 @@ import {
 
 import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
-import { BookOpen, Search } from 'lucide-react'
+import { AlertTriangle, BookOpen, Search } from 'lucide-react'
 import type React from 'react'
 import { useEffect, useRef, useState } from 'react'
 
+import { Button } from '@/component/Button/Button'
 import { Card } from '@/component/Card/Card'
 import { Badge } from '@/component/DataDisplay/Badge/Badge'
 import { ListPagination } from '@/component/DataDisplay/Pagination/ListPagination'
@@ -61,7 +62,7 @@ export function BlogListPage({
     }, 400)
   }
 
-  const { data, isLoading, isPlaceholderData } = useQuery({
+  const { data, isLoading, isError, isPlaceholderData, refetch } = useQuery({
     ...articleQueries.list({ category, page, q, limit: PAGE_SIZE }),
     placeholderData: (prev) => prev,
   })
@@ -119,7 +120,15 @@ export function BlogListPage({
       </div>
 
       <main className={`list-main${isPlaceholderData ? ' list-main--syncing' : ''}`}>
-        {isLoading && !isPlaceholderData ? (
+        {isError && !isPlaceholderData ? (
+          <EmptyState
+            icon={<AlertTriangle size={24} />}
+            title="Chargement impossible"
+            subtitle="On n'a pas pu récupérer les articles. Réessaie dans un instant."
+          >
+            <Button onClick={() => refetch()}>Réessayer</Button>
+          </EmptyState>
+        ) : isLoading && !isPlaceholderData ? (
           <BlogListSkeleton />
         ) : items.length === 0 ? (
           <EmptyState

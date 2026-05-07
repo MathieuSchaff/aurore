@@ -55,7 +55,9 @@ export function ProductDetailSheet({
   const [showInci, setShowInci] = useState(false)
   const [localComment, setLocalComment] = useState(p.comment || '')
 
-  const { data: fullProduct } = useQuery(productQueries.bySlug(p.product.slug))
+  const { data: fullProduct, isError: fullProductError } = useQuery(
+    productQueries.bySlug(p.product.slug)
+  )
 
   const score = calculateWeightedScore(
     p.review,
@@ -175,7 +177,11 @@ export function ProductDetailSheet({
                   <Droplets size={16} />
                   <h3 className="pds-section-title">Ingrédients</h3>
                 </div>
-                {fullProduct?.ingredients && fullProduct.ingredients.length > 0 ? (
+                {fullProductError ? (
+                  <p className="pds-empty-msg" role="alert">
+                    Détails indisponibles — vérifie ta connexion.
+                  </p>
+                ) : fullProduct?.ingredients && fullProduct.ingredients.length > 0 ? (
                   <div className="pds-ingredients-list">
                     {fullProduct.ingredients.map((pi) => (
                       <Link
