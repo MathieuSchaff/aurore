@@ -1180,7 +1180,7 @@ Le nom de la constante porte le préfixe domaine : `SKINCARE_INGREDIENT_TAG_CATE
 
 | Domaine | Catégories | Slugs définis | Seed DB |
 |---|---|---|---|
-| skincare | `concern`, `skin_type`, `ingredient_attribute`, `skin_effect`, `shared_label` (5) | ~70 | ✅ inséré |
+| skincare | `concern`, `skin_type`, `ingredient_attribute`, `actif_class`, `skin_effect`, `shared_label` (6) | ~86 | ✅ inséré |
 | haircare | `concern`, `hair_type`, `ingredient_attribute`, `hair_effect` (4) | 49 | ❌ pas encore en DB |
 | dental | `concern`, `age_group`, `ingredient_attribute`, `dental_effect` (4) | 33 | ❌ pas encore en DB |
 | supplement | `goal`, `moment`, `restriction`, `ingredient_attribute` (4) | 47 | ✅ inséré |
@@ -1205,6 +1205,7 @@ Valeurs skincare détaillées :
 | `concern` | Problématique cutanée (anti-acne, eczema, anti-age…) |
 | `skin_type` | Type de peau compatible (peau-grasse, peau-sensible…) |
 | `ingredient_attribute` | Rôle chimique/biologique de la molécule (humectant, keratolytique, filtre-uv…) |
+| `actif_class` | Famille pharmacologique d'un actif (retinoids, vitamin-c, aha, bha, niacinamide, ceramides, hyaluronic-acid, peptides, polyphenols, centella, tyrosinase-inhibitors…). Permet règles dermo type "max 1 retinoid", détection redondance variants vit C, filtres UI par famille. Distinct de `ingredient_attribute` (fonction) — la famille décrit le **mécanisme partagé** entre molécules. |
 | `skin_effect` | Effet perçu sur la peau (occlusif, matifiant, repulpant…) |
 | `shared_label` | Label transverse (comedogene, non-comedogene, grossesse-compatible) |
 

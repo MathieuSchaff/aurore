@@ -9,34 +9,6 @@
   border-radius: var(--radius-lg);
 }
 
-.ingredient-edit-form__textarea {
-  width: 100%;
-  box-sizing: border-box;
-  padding: var(--space-3) var(--space-4);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-md);
-  font-family: var(--font-sans);
-  font-size: var(--text-sm);
-  line-height: var(--leading-relaxed);
-  color: var(--text-primary);
-  background: var(--bg-page);
-  resize: vertical;
-  min-height: 6rem;
-  transition:
-    border-color var(--transition-fast) ease,
-    box-shadow var(--transition-fast) ease;
-}
-
-.ingredient-edit-form__textarea::placeholder {
-  color: var(--text-muted);
-}
-
-.ingredient-edit-form__textarea:focus {
-  outline: none;
-  border-color: var(--color-focus);
-  box-shadow: 0 0 0 3px oklch(from var(--color-focus) l c h / 0.15);
-}
-
 .ingredient-edit-form__actions {
   display: flex;
   justify-content: flex-end;
