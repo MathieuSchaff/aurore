@@ -74,8 +74,8 @@ export function IngredientsPage() {
 
   const { data, isLoading, isPlaceholderData } = useQuery({
     ...ingredientQueries.list(apiFilters),
-    placeholderData: hasFilters ? (prev) => prev : undefined,
-    staleTime: hasFilters ? 5 * 60 * 1000 : 0,
+    placeholderData: (prev) => prev,
+    staleTime: 5 * 60 * 1000,
   })
 
   const { data: filterOptions } = useQuery(ingredientQueries.filterOptions(type))
