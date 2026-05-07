@@ -841,4 +841,13 @@ L'**Acide Succinique** est un acide organique naturellement présent dans la nat
 * Très bien toléré, même par les peaux sensibles.
 `,
   },
+  {
+    name: 'Glycolide',
+    slug: INGREDIENT_SLUGS.GLYCOLIDE,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      "Dimère cyclique de l'acide glycolique. Exfoliant à libération prolongée par hydrolyse cutanée progressive — moins d'irritation que l'AHA libre.",
+    content: '',
+  },
 ]

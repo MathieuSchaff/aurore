@@ -23,8 +23,7 @@ import { ingredientData } from '../data/ingredients'
 import { FILLER_SLUGS } from '../data/ingredients/skincare/seed-dermo-profiles-fillers'
 import { allIngredientProductTags, allProductData, allProductTagsMap } from '../data/products'
 import { ingredientTagData, productTagData } from '../data/tags'
-import { detectActifClasses } from '../utils/actif-class-detection'
-import { detectAutoTags } from '../utils/auto-tag-detection'
+import { detectAllAutoTags } from '../utils/auto-tag-orchestrator'
 import { type ProductTagGroups, seedBatch, toNumeric, toText } from '../utils/batch'
 import { cleanDatabase, fetchIdMaps, flattenTagGroups } from '../utils/id-maps'
 import { printValidationReport, validateAllIngredients } from '../utils/markdown-validator'
@@ -221,55 +220,66 @@ export async function seedCore(shouldClean = false) {
       allProductTagsMap as Record<string, ProductTagGroups>
     )
 
-    // Auto-derive `actif_class` cluster tags from each skincare product's INCI
-    // string via algo-derm (`splitINCI` + `normalize` substring match). The
-    // cluster taxonomy lives Aurore-side (shared/products/skincare/tag-slugs.ts);
-    // algo-derm only provides the parser/normalizer. Tags emitted as `secondary`
-    // — informational, never as `avoid` — so they're invisible to the
-    // exclusion filter but show up in the family chip on the products page.
-    let actifClassDerived = 0
-    const actifClassPairs: { slug: string; tagSlug: string; relevance: 'secondary' }[] = []
+    // Auto-derive product tags via the shared orchestrator: 6 detection passes
+    // (algo-derm, actif-class, kind, formula, cross-signal, avoid) running on
+    // every skincare/solaire/bodycare product. Single source of truth shared
+    // with `runners/backfill-auto-tags.ts` — `make dev-fresh` followed by
+    // `make backfill-auto-tags` is a no-op on auto-tag pairs (parity test
+    // `auto-tag-orchestrator-parity` enforces this contract).
+    const secondaryBySource: Record<string, number> = {
+      'algo-derm': 0,
+      'actif-class': 0,
+      kind: 0,
+      formula: 0,
+      'cross-signal': 0,
+    }
+    // `'cross-signal'` source overlaps between secondary and avoid streams —
+    // disambiguate by AutoTagPair.relevance.
+    const avoidBySource: Record<string, number> = {
+      'grossesse-avoid': 0,
+      'cross-signal': 0,
+      interaction: 0,
+    }
+    const autoSecondaryPairs: { slug: string; tagSlug: string; relevance: 'secondary' }[] = []
+    const avoidPairs: { slug: string; tagSlug: string; relevance: 'avoid' }[] = []
     for (const product of allProductData) {
-      if (product.category !== 'skincare') continue
       const inci = (product as { inci?: string | null }).inci
-      const clusters = detectActifClasses(inci)
-      for (const tagSlug of clusters) {
-        actifClassPairs.push({ slug: product.slug, tagSlug, relevance: 'secondary' })
-        actifClassDerived++
+      const pairs = detectAllAutoTags({
+        inci,
+        kind: product.kind as ProductKind,
+        category: product.category,
+      })
+      for (const p of pairs) {
+        if (p.relevance === 'avoid') {
+          avoidBySource[p.source] = (avoidBySource[p.source] ?? 0) + 1
+          avoidPairs.push({ slug: product.slug, tagSlug: p.tagSlug, relevance: 'avoid' })
+        } else {
+          secondaryBySource[p.source] = (secondaryBySource[p.source] ?? 0) + 1
+          autoSecondaryPairs.push({
+            slug: product.slug,
+            tagSlug: p.tagSlug,
+            relevance: 'secondary',
+          })
+        }
       }
     }
-    if (actifClassDerived > 0) {
+    if (autoSecondaryPairs.length > 0) {
       console.log(
-        `🧬 Backfill actif_class: +${actifClassDerived} pair(s) auto-déduit(es) depuis INCI`
+        `🏷  Backfill auto-tags: +${autoSecondaryPairs.length} pair(s) (algo-derm ${secondaryBySource['algo-derm']} · actif-class ${secondaryBySource['actif-class']} · kind ${secondaryBySource.kind} · formula ${secondaryBySource.formula} · cross-signal ${secondaryBySource['cross-signal']})`
+      )
+    }
+    if (avoidPairs.length > 0) {
+      console.log(
+        `🛡  Backfill avoid: +${avoidBySource['grossesse-avoid']} grossesse · +${avoidBySource['cross-signal']} stack-irritation · +${avoidBySource.interaction} interaction`
       )
     }
 
-    // Auto-derive concern / skin_type / skin_effect / comedogenicity tags from
-    // INCI via algo-derm `tagProduct`. Per-tag policy lives in `auto-tag-detection`
-    // (TAG_CONFIG), calibrated 2026-05-07 — see docs/tags/AUTO-TAGS.md §7.4–7.6.
-    // Manual tags win on conflict because manualProductTagPairs is listed first in
-    // dedupPairs.
-    let autoTagsDerived = 0
-    const autoTagPairs: { slug: string; tagSlug: string; relevance: 'secondary' }[] = []
-    for (const product of allProductData) {
-      if (product.category !== 'skincare') continue
-      const inci = (product as { inci?: string | null }).inci
-      // `allProductData.kind` is widened to string from the unified union;
-      // we already filter on category=skincare so the value is a valid ProductKind.
-      const detected = detectAutoTags(inci, product.kind as ProductKind)
-      for (const tag of detected) {
-        autoTagPairs.push({ slug: product.slug, tagSlug: tag.slug, relevance: tag.relevance })
-        autoTagsDerived++
-      }
-    }
-    if (autoTagsDerived > 0) {
-      console.log(
-        `🏷  Backfill auto-tags: +${autoTagsDerived} pair(s) auto-déduit(es) depuis INCI (concern, skin_type, comedogenicity…)`
-      )
-    }
-
+    // Avoid pairs sit first in the dedup chain so they win on collision with
+    // a manual `secondary` for the same (product, tag) pair — the safety
+    // signal must override an editor's stale "compatible" call when the INCI
+    // says otherwise (mirrors backfill-auto-tags upsert behaviour).
     const productTagPairs = dedupPairs(
-      [...manualProductTagPairs, ...actifClassPairs, ...autoTagPairs],
+      [...avoidPairs, ...manualProductTagPairs, ...autoSecondaryPairs],
       'productTags'
     )
 

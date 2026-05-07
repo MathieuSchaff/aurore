@@ -1852,20 +1852,30 @@ L'**Extrait de Tasmannia Lanceolata** (Poivre de Tasmanie) contient de la polygo
     `,
   },
   {
-    name: 'Enoxolone',
-    slug: INGREDIENT_SLUGS.ENOXOLONE,
+    name: 'Acide Glycyrrhétinique (Glycyrrhetinic Acid)',
+    slug: INGREDIENT_SLUGS.GLYCYRRHETINIC_ACID,
 
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
-      'Dérivé de l’acide glycyrrhizique (réglisse), reconnu pour son puissant effet anti-inflammatoire et apaisant.',
+      'Triterpène extrait de la racine de réglisse (Glycyrrhiza glabra). Anti-inflammatoire topique : inhibe la 11-β-HSD et apaise rougeurs, irritations et eczéma. Très bonne tolérance, usage typique 0.5–2%.',
     content: `
-# Enoxolone : L'Actif de Référence pour l'Apaisement
-L'**Enoxolone** (Acide Beta-Glycyrrhétinique) est un actif majeur pour traiter les peaux réactives. Il bloque certains médiateurs de l'inflammation, permettant de calmer rapidement les irritations.
-## ✨ Propriétés
-* **Anti-inflammatoire** : Action ciblée sur les processus inflammatoires cutanés.
-* **Réparateur** : Favorise la récupération de la barrière cutanée.
-* **Polyvalent** : Utilisé aussi bien pour l'eczéma que pour les coups de soleil ou les suites d'actes dermatologiques.
+# Acide Glycyrrhétinique : Le Triterpène Apaisant de la Réglisse
+L'**Acide Glycyrrhétinique** (INCI : *Glycyrrhetinic Acid*, aussi appelé acide 18-β-glycyrrhétinique ou *Enoxolone* en nomenclature INN/BAN) est l'aglycone de l'acide glycyrrhizique. C'est l'actif anti-inflammatoire majeur isolé de la racine de réglisse.
+
+## ✨ Mécanisme & Bénéfices
+* **Anti-inflammatoire ciblé** : Inhibe la 11-β-hydroxystéroïde déshydrogénase (11β-HSD), prolongeant l'action du cortisol endogène. Effet « cortisone-like » sans la molécule.
+* **Anti-rougeurs** : Réduit l'inflammation vasculaire et les rougeurs diffuses.
+* **Réparateur barrière** : Favorise la récupération de l'épiderme après agression (peelings, laser, eczéma).
+* **Tolérance** : Excellent profil, compatible peaux atopiques et post-actes.
+
+## ⚖️ Usage & Concentrations
+* Concentrations cosmétiques typiques : **0.5 – 2%**.
+* Souvent associé à **panthénol**, **bisabolol**, **allantoïne** pour effet anti-crise complet.
+
+## 🔁 Alias & Naming
+* **INCI** : Glycyrrhetinic Acid (forme canonique).
+* **INN/BAN** : Enoxolone — même molécule, autre nomenclature. Privilégier l'INCI dans les recherches.
     `,
   },
   {
@@ -1980,5 +1990,23 @@ Le **1-Methylhydantoin-2-Imide** est une petite molécule apaisante qui agit sur
 ## 🛡️ Précautions & Sécurité
 * Tolérance élevée, formulé spécifiquement pour peaux les plus réactives.
 `,
+  },
+  {
+    name: 'Swertia Chirata Extract (Swertiamarine)',
+    slug: INGREDIENT_SLUGS.SWERTIA_CHIRATA,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Extrait de gentiane himalayenne riche en swertiamarine, apaisant amer aux propriétés anti-inflammatoires.',
+    content: '',
+  },
+  {
+    name: 'Salicornia Herbacea Extract (Saliporine-8)',
+    slug: INGREDIENT_SLUGS.SALICORNIA_HERBACEA,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Extrait halophile riche en mannitol et osmolytes, apaisant neuro-cosmétique pour peau hyper-réactive.',
+    content: '',
   },
 ]

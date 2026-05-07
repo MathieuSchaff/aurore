@@ -1,17 +1,23 @@
 #!/usr/bin/env bun
 /**
- * Auto-tagger for products with empty primary/secondary/avoid arrays.
+ * DEPRECATED — historical bootstrap script (2026-04). Generated the initial
+ * seed tag mappings for ~1k products via name regexes + INCI substring tables.
+ * Outputs were committed into `data/products/*` and the script has not been
+ * re-invoked since. Superseded by:
+ *   - `runners/seed-core.ts` — fresh init with algo-derm + actif-class + avoid
+ *   - `runners/backfill-auto-tags.ts` — post-snapshot rehydrate, all 6 passes
  *
- * Skincare: INCI → concern tags (primary) + kind-based product type (secondary).
- * Haircare: kind → product type tag (primary only, mirrors existing curated pattern).
- * Dental:   kind → product type tag (primary only, same pattern).
- *
- * Safety: skips any product where at least one array is already non-empty.
- *
- * Usage:
- *   bun run backend/src/db/seed/scripts/auto-tag.ts           # dry run
- *   bun run backend/src/db/seed/scripts/auto-tag.ts --write   # apply
+ * Kept under `_archive/` for reference only. Do not re-run: its INCI mapping
+ * is stale and its precedence rules diverge from the calibrated pipeline.
  */
+
+throw new Error(
+  'scripts/_archive/auto-tag.ts is deprecated. Use runners/seed-core.ts (fresh init) ' +
+    'or runners/backfill-auto-tags.ts (rehydrate). See docs/audits/auto-tags-audit.md §C.2.'
+)
+
+/* eslint-disable */
+// Original implementation preserved below for archeology.
 
 import { readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'

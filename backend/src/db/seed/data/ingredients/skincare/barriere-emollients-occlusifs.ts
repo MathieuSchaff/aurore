@@ -2299,4 +2299,31 @@ La **cire de tournesol** est obtenue par hivernage de l'huile de tournesol : la 
 ## Tolérance
 Bien toléré aux concentrations cosmétiques. Rares allergies de contact à la lanoline brute, la fraction huileuse purifiée est mieux tolérée.`,
   },
+  {
+    name: 'Acide 10-Hydroxystéarique',
+    slug: INGREDIENT_SLUGS.HYDROXYSTEARIC_ACID_10,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
+    description:
+      'Acide gras hydroxylé, agoniste PPAR-α, soutien barrière cutanée et anti-inflammatoire.',
+    content: '',
+  },
+  {
+    name: 'Huile de Passiflore (Passiflora Edulis Seed Oil)',
+    slug: INGREDIENT_SLUGS.PASSIFLORA_EDULIS,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT,
+    description:
+      'Huile riche en acide linoléique et vitamine E, antioxydante et apaisante (commercialisée Passioline).',
+    content: '',
+  },
+  {
+    name: 'Myrothamnus Flabellifolia (Myramaze)',
+    slug: INGREDIENT_SLUGS.MYROTHAMNUS_FLABELLIFOLIA,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Plante de résurrection, polyols protecteurs (tréhalose), antioxydant et anti-déshydratation extrême.',
+    content: '',
+  },
 ]

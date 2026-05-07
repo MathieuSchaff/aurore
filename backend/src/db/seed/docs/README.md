@@ -9,6 +9,7 @@
 | Tâche | Fichier | Pourquoi |
 |---|---|---|
 | **Ajouter un produit** (n'importe quelle catégorie) | [`SEED_FORMAT.md`](./SEED_FORMAT.md) | Guide contributeur avec les 2 workflows : DB-first (skincare/solaire/bodycare) vs JS seed (haircare/dental/supplement) |
+| **Insérer 1 produit en SQL** (depuis page scrapée) | [`QUICK_SQL_INSERT.md`](./QUICK_SQL_INSERT.md) | Recette express : cheat sheet enums + template INSERT + pièges (heredoc, unicité, CDN) |
 | **Ajouter un ingrédient** | [`../data/ingredients/GUIDE.md`](../data/ingredients/GUIDE.md) | Guide contributeur ingrédients (type, category, slug, contenu, tag) |
 | Comprendre **où** les données vivent (paths, layout, schéma DB) | [`STATE.md`](./STATE.md) §1-9 | Architecture complète, source de vérité stable |
 | Comprendre **ce qu'un champ veut dire** (`type`, `category`, `kind`, `tagType`) | [`STATE.md`](./STATE.md) §10 | Glossaire sémantique cross-entité (ex-AUDIT.md) |

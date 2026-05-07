@@ -792,12 +792,18 @@ Les tags `avoid` sont critiques pour les produits à acides forts, rétinoïdes,
 Exception : `noreva-product-tags.ts` est un fichier séparé hérité de l'ancienne convention
 (tous les autres brands intègrent les tags inline).
 
-### 6.4 Script de tagging initial — `scripts/auto-tag.ts`
+### 6.4 Script de tagging initial — `scripts/_archive/auto-tag.ts` (archivé)
 
-Script one-shot utilisé en avril 2026 pour pré-remplir les 1 017 produits seed
-dont `tags: { primary: [], secondary: [], avoid: [] }`.
+> **Archivé 2026-05-08** (`docs/audits/auto-tags-audit.md` §C.2). Script one-shot
+> utilisé en avril 2026 pour pré-remplir les 1 017 produits seed dont
+> `tags: { primary: [], secondary: [], avoid: [] }`. Ses outputs sont committés
+> dans `data/products/*` depuis. Remplacé par la pipeline calibrée
+> `runners/seed-core.ts` (fresh init) + `runners/backfill-auto-tags.ts`
+> (rehydrate). **Ne pas relancer** : son mapping INCI est stale et sa précédence
+> diverge du pipeline actuel. Le top du fichier `throw` à l'invocation pour
+> garde-fou.
 
-Logique par domaine :
+Logique par domaine (référence historique) :
 
 | Domaine | primary | secondary | avoid |
 |---|---|---|---|
@@ -805,22 +811,10 @@ Logique par domaine :
 | haircare | `kind` → type produit (`shampoing`, `serum-cheveux`…) | — | — |
 | dental | `kind` → type produit (`dentifrice`, `fil-dentaire`…) | — | — |
 
-Détection domaine : path (`/haircare/`, `/dental/`) ou `kind` (détecte les
-shampoings stockés sous `skincare/` chez des marques multi-domaines).
-
-État après exécution :
+État après exécution (avril 2026) :
 - **875 produits** : primary + secondary (± avoid) remplis
-- **142 produits** : secondary rempli, primary encore vide (INCI absent ou aucun
-  ingrédient connu ne mappe sur un concern primaire)
+- **142 produits** : secondary rempli, primary encore vide
 - **90 fichiers** seed ont reçu l'import `{ TAG_SLUGS }` manquant automatiquement
-
-Les 142 restants sont à traiter manuellement (voir ROADMAP §3.2).
-
-Usage (idempotent, skip les produits déjà taggués) :
-```sh
-bun run backend/src/db/seed/scripts/auto-tag.ts           # dry run
-bun run backend/src/db/seed/scripts/auto-tag.ts --write   # apply
-```
 
 ---
 

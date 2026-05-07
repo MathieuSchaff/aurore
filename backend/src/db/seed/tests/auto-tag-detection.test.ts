@@ -30,20 +30,20 @@ describe('auto-tag-detection', () => {
     expect(slugs).not.toContain(S.COMEDOGENE)
   })
 
-  test('allow:false tags are never emitted (matifiant, repulpant, sans-savon, …)', () => {
-    // INCI that would otherwise trigger several disabled tags:
-    // - hyaluronic acid + glycerin → repulpant
-    // - niacinamide → matifiant
-    // - no fragrance → sans-parfum
+  test('allow:false tags are never emitted (matifiant, repulpant, sans-savon, eczema-atopie)', () => {
+    // INCI designed to trigger several disabled tags:
+    // - hyaluronic acid + glycerin → repulpant (allow:false)
+    // - niacinamide → matifiant (allow:false — algo-derm path; sensoriel
+    //   detector lives in formula-detection.ts and keys on absorbent powders)
+    // - gentle ingredients → would normally fire peaux-atopiques
+    // Hypoallergenique is reactivated (T1.11) so it's no longer in this list.
     const inci = 'Aqua, Glycerin, Sodium Hyaluronate, Niacinamide, Phenoxyethanol'
     const tags = detectAutoTags(inci, 'serum')
     const slugs = new Set(tags.map((t) => t.slug))
     expect(slugs.has(S.REPULPANT)).toBe(false)
     expect(slugs.has(S.MATIFIANT)).toBe(false)
-    expect(slugs.has(S.SANS_PARFUM)).toBe(false)
     expect(slugs.has(S.SANS_SAVON)).toBe(false)
-    expect(slugs.has(S.HYPOALLERGENIQUE)).toBe(false)
-    expect(slugs.has(S.GROSSESSE_COMPATIBLE)).toBe(false)
+    expect(slugs.has(S.ECZEMA_ATOPIE)).toBe(false)
   })
 
   test('every emitted tag has relevance=secondary', () => {
@@ -66,15 +66,165 @@ describe('auto-tag-detection', () => {
     expect(tightened.length).toBeLessThanOrEqual(baseline.length)
   })
 
-  test('TAG_CONFIG counts match documented calibration (16 allow=true post-spot-check)', () => {
-    // Sanity check: the calibration ratio in §7.4/§7.6 is 16 effective tags
-    // (8 dropped). Run-time numbers from `audit-auto-tags` show 19 allow=true
-    // entries — three skin_type/concern pairs (peau-grasse/peau-seche stay
-    // separate from peau-sensible). Document the absolute count to flag any
-    // accidental flip in TAG_CONFIG.
+  test('coverage floor: low-coverage INCI suppresses computed_score tags', () => {
+    // INCI of mostly-unknown filler ingredients with one canonical actif.
+    // Coverage will be very low (≤ 0.3); computed mapped tags must not fire.
+    const inci =
+      'Acme XR-7, Synthetic Polymer Z, Proprietary Blend Q, Mystery Filler 12, Niacinamide'
+    const tags = detectAutoTags(inci, 'serum')
+    const computedSlugs = tags.filter((t) => t.source === 'computed_score').map((t) => t.slug)
+    // Niacinamide alone would normally fire acne-imperfections / pores-sebum / sebo-regulateur,
+    // but at < 30 % coverage these are suppressed.
+    expect(computedSlugs).not.toContain(S.ACNE_IMPERFECTIONS)
+    expect(computedSlugs).not.toContain(S.PORES_SEBUM)
+    expect(computedSlugs).not.toContain(S.SEBO_REGULATEUR)
+  })
+
+  test('coverage floor: override yields >= the default-floor candidate count', () => {
+    const inci =
+      'Acme XR-7, Synthetic Polymer Z, Proprietary Blend Q, Mystery Filler 12, Niacinamide'
+    const baseline = detectAutoTags(inci, 'serum').filter((t) => t.source === 'computed_score')
+    const override = detectAutoTags(inci, 'serum', { coverageMinOverride: 0 }).filter(
+      (t) => t.source === 'computed_score'
+    )
+    // Disabling the floor can only let through additional candidates; never fewer.
+    expect(override.length).toBeGreaterThanOrEqual(baseline.length)
+  })
+
+  test('TAG_CONFIG counts match calibration (T1: sans-X family added)', () => {
+    // Calibration evolved: sans-parfum (0.7), grossesse-compatible (0.75),
+    // deshydratation (0.85) flipped to allow=true; purifiant flipped to
+    // allow=false (R2 dedup — its trigger is a strict subset of sebo-regulateur);
+    // hypoallergenique flipped to allow=true (T1.11 — minConf 0.85 + coverageMin 0.7);
+    // non_irritant added (T2 — algo-derm computed tag, minConf 0.85 + coverageMin 0.7);
+    // sans_sulfates / sans_silicones / sans_huiles_essentielles /
+    // sans_huiles_minerales / sans_allergenes_parfumants added (T1 absence family,
+    // minConf 0.7 ≡ ≥ 70 % INCI coverage, same gate as `sans_parfum`).
+    // Hard-counted to flag any accidental flip in TAG_CONFIG.
     const allow = Object.values(TAG_CONFIG).filter((r) => r.allow)
     const drop = Object.values(TAG_CONFIG).filter((r) => !r.allow)
-    expect(allow.length).toBe(19)
-    expect(drop.length).toBe(8)
+    expect(allow.length).toBe(28)
+    expect(drop.length).toBe(5)
+  })
+
+  test('T2 non_irritant: recognized gentle INCI emits non-irritant', () => {
+    // Algo-derm fires `non_irritant` on `irritation.risk < 0.35` with
+    // `irritation.confidence` proportional to how many ingredients carry
+    // irritation evidence. INCI of canonical low-risk actives gives
+    // confidence ≈ 1.0 → passes Aurore's minConf 0.85 + coverageMin 0.7 gate.
+    const inci = 'Aqua, Glycerin, Niacinamide, Tocopherol, Sodium Hyaluronate'
+    const slugs = new Set(detectAutoTags(inci, 'serum').map((t) => t.slug))
+    expect(slugs.has(S.NON_IRRITANT)).toBe(true)
+  })
+
+  test('T2 non_irritant: leave-on with SLS + fragrance does not emit non-irritant', () => {
+    // Sodium lauryl sulfate + parfum + 2 EU 26 allergens push leave-on
+    // irritation.risk above 0.35 → algo-derm sets `present: false` at the
+    // source.
+    const inci = 'Aqua, Sodium Lauryl Sulfate, Parfum, Limonene, Linalool'
+    const slugs = new Set(detectAutoTags(inci, 'moisturizer').map((t) => t.slug))
+    expect(slugs.has(S.NON_IRRITANT)).toBe(false)
+  })
+
+  test('R3 per-tag coverageMin: non-comedogene needs ≥ 0.60 coverage', () => {
+    // INCI dominated by unknown fillers — coverage will sit between the global
+    // floor (0.30) and the non-comedogene floor (0.60). Other computed tags
+    // pass through, but non-comedogene must not.
+    const inci =
+      'Aqua, Acme XR-7, Synthetic Polymer Z, Proprietary Blend Q, Glycerin, Niacinamide'
+    const slugs = new Set(detectAutoTags(inci, 'serum').map((t) => t.slug))
+    expect(slugs.has(S.NON_COMEDOGENE)).toBe(false)
+  })
+
+  test('R3 coverageMinOverride=0 bypasses both global and per-tag floors', () => {
+    // Same low-coverage INCI — disabling the floor must surface non-comedogene.
+    const inci =
+      'Aqua, Acme XR-7, Synthetic Polymer Z, Proprietary Blend Q, Glycerin, Niacinamide'
+    const slugs = new Set(
+      detectAutoTags(inci, 'serum', { coverageMinOverride: 0 }).map((t) => t.slug)
+    )
+    // With floor disabled and minConf=0.90 still applied, non-comedogene
+    // surfaces only if comedogenicity.confidence ≥ 0.90 — not always true.
+    // The test asserts the override path is wired, not the specific outcome:
+    // it must be at least as permissive as the gated baseline.
+    const baselineSlugs = new Set(detectAutoTags(inci, 'serum').map((t) => t.slug))
+    for (const slug of baselineSlugs) expect(slugs.has(slug)).toBe(true)
+  })
+
+  test('R2 dedup: purifiant never emitted, sebo-regulateur still emitted on shared trigger', () => {
+    // Salicylic acid fires both purifiant and sebo-regulateur in algo-derm;
+    // after R2, only sebo-regulateur should make it through.
+    const inci = 'Aqua, Salicylic Acid, Niacinamide, Glycerin'
+    const slugs = new Set(detectAutoTags(inci, 'serum').map((t) => t.slug))
+    expect(slugs.has(S.PURIFIANT)).toBe(false)
+    expect(slugs.has(S.SEBO_REGULATEUR)).toBe(true)
+  })
+
+  test('dropCounts hook: populates `${reason}:${tagId}` when provided', () => {
+    // Salicylic acid leaves-on emits sebo-regulateur but suppresses purifiant
+    // (allow:false → reason=disallowed) and triggers absent candidates for
+    // many algo-derm tags (reason=not_present). Asserts both buckets fill.
+    const inci = 'Aqua, Salicylic Acid, Niacinamide, Glycerin'
+    const drops = new Map<string, number>()
+    detectAutoTags(inci, 'serum', { dropCounts: drops })
+    expect(drops.size).toBeGreaterThan(0)
+    expect(drops.get('disallowed:purifiant')).toBe(1)
+    // Some algo-derm candidates always come back present:false on this INCI
+    // (e.g. peaux_atopiques, comedogene). Don't pin a specific id — just
+    // assert the not_present bucket fired.
+    const hasNotPresent = [...drops.keys()].some((k) => k.startsWith('not_present:'))
+    expect(hasNotPresent).toBe(true)
+  })
+
+  test('T1 absence family: clean INCI emits sans-sulfates/silicones/HE/min-oil/allergens', () => {
+    // No SLS, no dimethicone, no essential oils, no petrolatum, no EU 26 allergens.
+    // Coverage ≥ 0.7 → minConf 0.7 gate passes for all 5 absence tags.
+    const inci = 'Aqua, Glycerin, Niacinamide, Sodium Hyaluronate, Tocopherol, Panthenol'
+    const slugs = new Set(detectAutoTags(inci, 'serum').map((t) => t.slug))
+    expect(slugs.has(S.SANS_SULFATES)).toBe(true)
+    expect(slugs.has(S.SANS_SILICONES)).toBe(true)
+    expect(slugs.has(S.SANS_HUILES_ESSENTIELLES)).toBe(true)
+    expect(slugs.has(S.SANS_HUILES_MINERALES)).toBe(true)
+    expect(slugs.has(S.SANS_ALLERGENES_PARFUMANTS)).toBe(true)
+  })
+
+  test('T1 sans-sulfates: SLS in INCI suppresses tag', () => {
+    const inci = 'Aqua, Sodium Lauryl Sulfate, Glycerin, Cocamidopropyl Betaine'
+    const slugs = new Set(detectAutoTags(inci, 'cleanser').map((t) => t.slug))
+    expect(slugs.has(S.SANS_SULFATES)).toBe(false)
+  })
+
+  test('T1 sans-silicones: dimethicone in INCI suppresses tag', () => {
+    const inci = 'Aqua, Glycerin, Dimethicone, Cyclopentasiloxane, Tocopherol'
+    const slugs = new Set(detectAutoTags(inci, 'moisturizer').map((t) => t.slug))
+    expect(slugs.has(S.SANS_SILICONES)).toBe(false)
+  })
+
+  test('T1 sans-huiles-essentielles: lavender oil suppresses tag', () => {
+    // Algo-derm `essential_oil` heuristic flags Lavandula angustifolia oil.
+    const inci = 'Aqua, Glycerin, Lavandula Angustifolia Oil, Tocopherol'
+    const slugs = new Set(detectAutoTags(inci, 'serum').map((t) => t.slug))
+    expect(slugs.has(S.SANS_HUILES_ESSENTIELLES)).toBe(false)
+  })
+
+  test('T1 sans-huiles-minerales: petrolatum in INCI suppresses tag', () => {
+    const inci = 'Aqua, Petrolatum, Glycerin, Tocopherol'
+    const slugs = new Set(detectAutoTags(inci, 'moisturizer').map((t) => t.slug))
+    expect(slugs.has(S.SANS_HUILES_MINERALES)).toBe(false)
+  })
+
+  test('T1 sans-allergenes-parfumants: limonene in INCI suppresses tag', () => {
+    const inci = 'Aqua, Glycerin, Parfum, Limonene, Linalool'
+    const slugs = new Set(detectAutoTags(inci, 'serum').map((t) => t.slug))
+    expect(slugs.has(S.SANS_ALLERGENES_PARFUMANTS)).toBe(false)
+  })
+
+  test('dropCounts hook: rinse-off comedogene drop labelled rinse_off_excluded', () => {
+    // Coconut oil + cleanser kind trips excludeRinseOff after low_confidence
+    // and coverage_floor pass — assert the right reason label.
+    const inci = 'Aqua, Coconut Oil, Glycerin'
+    const drops = new Map<string, number>()
+    detectAutoTags(inci, 'cleanser', { dropCounts: drops })
+    expect(drops.get('rinse_off_excluded:comedogene')).toBe(1)
   })
 })

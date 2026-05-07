@@ -1,0 +1,726 @@
+{
+  "schemaVersion": "2026-05-08",
+  "rulesetVersion": "products-branch@c0f5b16c",
+  "annotations": [
+    {
+      "productSlug": "abib-mild-acidic-ph-sheet-mask",
+      "kind": "mask",
+      "category": "skincare",
+      "present": ["ceramides", "hyaluronic-acid", "peptides"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["peptides"],
+      "notes": "Céramide 3 + Acide Hyaluronique + Acétyl Hexapeptide-8 Acétylé confirmed in INCI."
+    },
+    {
+      "productSlug": "aderma-epitheliale-ultra-repair-ha-serum-multi-reparateur",
+      "kind": "serum",
+      "category": "skincare",
+      "present": ["hyaluronic-acid", "texture-legere"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["fini-glowy"],
+      "notes": "SODIUM HYALURONATE confirmed. fini-glowy unrated — cannot confirm from INCI alone."
+    },
+    {
+      "productSlug": "aestura-regederm-365-retinoid-eye-serum",
+      "kind": "eye-cream",
+      "category": "skincare",
+      "present": ["retinoids", "hyaluronic-acid"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["retinoids"],
+      "notes": "Product name 'Retinoid Eye Serum' + DB confirm retinoids; SODIUM HYALURONATE visible."
+    },
+    {
+      "productSlug": "anua-niacinamide-10-txa-4-serum",
+      "kind": "serum",
+      "category": "skincare",
+      "present": [
+        "vitamin-c",
+        "tyrosinase-inhibitors",
+        "ceramides",
+        "hyaluronic-acid",
+        "polyphenols",
+        "bha"
+      ],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["tyrosinase-inhibitors"],
+      "notes": "3-O-ETHYL ASCORBIC ACID (vit-c); ALPHA-ARBUTIN+ARBUTIN (tyrosinase); CERAMIDE NP; DIMETHYLSILANOL HYALURONATE; CAMELLIA SINENSIS+CENTELLA (polyphenols); BETAINE SALICYLATE top-8 (bha)."
+    },
+    {
+      "productSlug": "avene-cleanance-comedomed-peeling-creme-intensive",
+      "kind": "exfoliant",
+      "category": "skincare",
+      "present": ["aha", "retinoids", "vitamin-e"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["aha"],
+      "notes": "GLYCOLIC ACID pos-4 (aha); RETINAL (retinaldehyde = retinoid); tocopherol confirmed by DB."
+    },
+    {
+      "productSlug": "avene-hyaluron-activ-procedure-serum-tenseur",
+      "kind": "serum",
+      "category": "skincare",
+      "present": ["hyaluronic-acid", "peptides", "texture-legere"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["fini-glowy"],
+      "notes": "SODIUM HYALURONATE + ACETYL HEXAPEPTIDE-8 visible. 7-ingredient formula = very light. fini-glowy unrated."
+    },
+    {
+      "productSlug": "avene-stick-levres-hydratation-quotidienne",
+      "kind": "lip-care",
+      "category": "skincare",
+      "present": ["texture-riche"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["texture-riche"],
+      "notes": "Lip stick with mineral oil, beeswax, shea, microcrystalline wax = rich. vitamin-e unrated (tocopherol not visible in 500-char INCI)."
+    },
+    {
+      "productSlug": "banila-co-clean-it-zero-nourishing-cleansing-balm",
+      "kind": "cleanser",
+      "category": "skincare",
+      "present": ["peptides"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["peptides"],
+      "notes": "Polypeptide De Glycine Max confirmed in full INCI (pos-22, past 500-char truncation). kind=cleanser = rinse-off, texture sensoriel unrated."
+    },
+    {
+      "productSlug": "banila-co-dear-hydration-skin-softening-toner",
+      "kind": "toner",
+      "category": "skincare",
+      "present": ["polyphenols", "vitamin-e", "texture-legere"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["polyphenols"],
+      "notes": "CAMELLIA SINENSIS SEED OIL (polyphenols); TOCOPHEROL visible; toner format (texture-legere)."
+    },
+    {
+      "productSlug": "cica-care-balm",
+      "kind": "balm",
+      "category": "skincare",
+      "present": ["enzymes-exfoliants"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["enzymes-exfoliants"],
+      "notes": "Protéase listed in full INCI (not visible in first 500 chars). Orchestrator correctly detects via normalize('protéase')→'protease' match."
+    },
+    {
+      "productSlug": "clarins-hydra-essentiel-ha-creme-hydratante-spf15",
+      "kind": "sunscreen",
+      "category": "solaire",
+      "present": ["hyaluronic-acid", "vitamin-e", "texture-legere"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["texture-legere"],
+      "notes": "SODIUM HYALURONATE + TOCOPHERYL ACETATE confirmed. SPF cream = moderate texture but DB says legere."
+    },
+    {
+      "productSlug": "cosrx-one-step-moisture-up-pads",
+      "kind": "toner",
+      "category": "skincare",
+      "present": ["pha", "hyaluronic-acid", "bha"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["pha"],
+      "notes": "GLUCONOLACTONE pos-11 (past positionCap:10 — orchestrator FN, but product marketed as PHA pad); HYALURONIC ACID + SODIUM HYALURONATE; BETAINE SALICYLATE pos-5 (bha)."
+    },
+    {
+      "productSlug": "dermaceutic-hyal-ceutic-soin-de-jour",
+      "kind": "moisturizer",
+      "category": "skincare",
+      "present": ["polyphenols", "vitamin-e"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["polyphenols"],
+      "notes": "ROSMARINUS OFFICINALIS (rosemary = rosmarinic acid, polyphenol); TOCOPHERYL ACETATE. 'SODIUM HYDRALURONATE' (typo) present but orchestrator likely misses it — unrated."
+    },
+    {
+      "productSlug": "dexeryl-essentiel-lait-nourrissant-500ml-270265",
+      "kind": "moisturizer",
+      "category": "skincare",
+      "present": ["vitamin-e"],
+      "absent": ["peptides"],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["peptides"],
+      "notes": "TOCOPHEROL confirmed. No peptides in INCI (full list visible and complete). Negative sample for peptides — correct."
+    },
+    {
+      "productSlug": "dexeryl-specific-brulures-et-coups-de-soleil",
+      "kind": "after-sun",
+      "category": "solaire",
+      "present": ["hyaluronic-acid", "texture-legere"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["texture-legere"],
+      "notes": "SODIUM HYALURONATE confirmed. After-sun lotion."
+    },
+    {
+      "productSlug": "dr-althea-gentle-retinol-serum-01",
+      "kind": "serum",
+      "category": "skincare",
+      "present": ["retinoids", "vitamin-e"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["retinoids"],
+      "notes": "Product name '0.1% Gentle Retinol Serum' confirms retinol (INCI truncated before retinol appears). vitamin-e by DB (tocopherol in truncated INCI). BAKUCHIOL present but excluded from retinoids per calibration."
+    },
+    {
+      "productSlug": "dr-ceuracle-pure-vc-mellight-a-tinol-cream",
+      "kind": "moisturizer",
+      "category": "skincare",
+      "present": ["vitamin-c", "retinoids"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["retinoids"],
+      "notes": "ACIDE 3-O-ÉTHYL ASCORBIQUE visible (vitamin-c). 'A-tinol' in name = retinol (INCI truncated). Other DB tags (ceramides, HA, polyphenols, vit-e) not confirmable from truncated INCI."
+    },
+    {
+      "productSlug": "dr-jart-pore-remedy-pha-exfoliating-serum",
+      "kind": "exfoliant",
+      "category": "skincare",
+      "present": ["pha"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["pha"],
+      "notes": "GLUCONOLACTONE confirmed. Short INCI, no other focus tags."
+    },
+    {
+      "productSlug": "dr-jart-vital-hydra-solution-hydro-plump-essence",
+      "kind": "toner",
+      "category": "skincare",
+      "present": ["hyaluronic-acid"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["hyaluronic-acid"],
+      "notes": "SODIUM HYALURONATE confirmed. Simple HA essence formula."
+    },
+    {
+      "productSlug": "dr-sams-flawless-moisturiser",
+      "kind": "moisturizer",
+      "category": "skincare",
+      "present": ["hyaluronic-acid"],
+      "absent": ["vitamin-e"],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["vitamin-e"],
+      "notes": "SODIUM HYALURONATE confirmed. Full INCI visible — no tocopherol/tocopheryl. Negative sample for vitamin-e — correct. Shea butter is not an isolated vit-e ingredient."
+    },
+    {
+      "productSlug": "ducray-dexyane-med-palpebral-eczema-des-paupieres-15ml-275302",
+      "kind": "moisturizer",
+      "category": "skincare",
+      "present": ["texture-riche"],
+      "absent": ["hyaluronic-acid"],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["hyaluronic-acid"],
+      "notes": "Full INCI visible — no sodium hyaluronate. Negative sample for HA — correct. Shea + beeswax eye cream = texture-riche."
+    },
+    {
+      "productSlug": "ducray-keracnyl-lotion-purifiante-200ml-271270",
+      "kind": "toner",
+      "category": "skincare",
+      "present": ["aha", "texture-legere"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["aha"],
+      "notes": "GLYCOLIC ACID pos-3 + LACTIC ACID pos-10 (aha). SALICYLIC ACID at pos-14 — past positionCap:10 → bha unrated (low conc, likely antimicrobial). Toner format."
+    },
+    {
+      "productSlug": "embryolisse-lait-creme-fluide-400ml-233880",
+      "kind": "moisturizer",
+      "category": "skincare",
+      "present": ["texture-riche", "vitamin-e"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["texture-riche"],
+      "notes": "TOCOPHEROL confirmed. Shea + beeswax early in INCI. 'Fluide' version but beeswax confirms richness."
+    },
+    {
+      "productSlug": "eqqualberry-vitamin-illuminating-serum",
+      "kind": "serum",
+      "category": "skincare",
+      "present": [
+        "ceramides",
+        "polyphenols",
+        "tyrosinase-inhibitors",
+        "vitamin-e",
+        "texture-legere"
+      ],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["ceramides"],
+      "notes": "CERAMIDE NP; CURCUMA LONGA+MELIA AZADIRACHTA (polyphenols); ARBUTIN pos-8 (tyrosinase); TOCOPHEROL. vitamin-c and HA unrated (INCI truncated)."
+    },
+    {
+      "productSlug": "eucerin-anti-pigment-gel-nettoyant",
+      "kind": "cleanser",
+      "category": "skincare",
+      "present": ["aha"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["aha"],
+      "notes": "LACTIC ACID pos-6 + GLYCOLIC ACID pos-9. Short 12-ingredient INCI."
+    },
+    {
+      "productSlug": "eucerin-anti-pigment-serum-eclat",
+      "kind": "serum",
+      "category": "skincare",
+      "present": ["hyaluronic-acid", "vitamin-e", "texture-legere"],
+      "absent": ["retinoids"],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["retinoids"],
+      "notes": "Full INCI visible — no retinol/retinyl. Negative sample for retinoids — correct. SODIUM HYALURONATE + TOCOPHEROL confirmed. ISOBUTYLAMIDO THIAZOLYL RESORCINOL (Thiamidol) = tyrosinase inhibitor not in scope tags."
+    },
+    {
+      "productSlug": "filorga-daily-peel-anti-rides",
+      "kind": "exfoliant",
+      "category": "skincare",
+      "present": ["aha", "hyaluronic-acid", "texture-legere"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["hyaluronic-acid"],
+      "notes": "LACTIC ACID pos-3 + MANDELIC ACID pos-5 (aha); HYDROLYZED HYALURONIC ACID. Light peel serum."
+    },
+    {
+      "productSlug": "garancia-coffret-mysterieux-repulpant-30ml-pschitt-magique-visage-30ml-offert-304292",
+      "kind": "moisturizer",
+      "category": "skincare",
+      "present": [
+        "enzymes-exfoliants",
+        "hyaluronic-acid",
+        "peptides",
+        "polyphenols",
+        "vitamin-e",
+        "texture-legere"
+      ],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["enzymes-exfoliants"],
+      "notes": "BACILLUS FERMENT (enzyme exfoliant signal); SODIUM HYALURONATE; DIPEPTIDE DIAMINOBUTYROYL BENZYLAMIDE DIACETATE (Syn-Ake) + ACETYL HEXAPEPTIDE-8 (peptides); ARNICA+CITRUS (polyphenols); TOCOPHEROL."
+    },
+    {
+      "productSlug": "innisfree-no-sebum-mineral-pact",
+      "kind": "moisturizer",
+      "category": "skincare",
+      "present": ["fini-mat", "vitamin-e"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["fini-mat"],
+      "notes": "Mica + Silica + Aluminum Starch Octenylsuccinate = classic mattifying compact. TOCOPHEROL confirmed."
+    },
+    {
+      "productSlug": "isdin-isdinceutics-flavo-c-serum-visage-antioxydant-a-la-vitamine-c-pure-30ml-244455",
+      "kind": "serum",
+      "category": "skincare",
+      "present": ["vitamin-c", "texture-legere"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["vitamin-c"],
+      "notes": "ASCORBIC ACID pos-4 confirmed. Lactic acid pos-9 in 11-ingredient formula — likely pH adjuster, aha unrated."
+    },
+    {
+      "productSlug": "isdin-isdinceutics-melaclear-serum-anti-taches-30-ml-244710",
+      "kind": "serum",
+      "category": "skincare",
+      "present": ["tyrosinase-inhibitors", "pha", "vitamin-e", "texture-legere"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["tyrosinase-inhibitors"],
+      "notes": "TRANEXAMIC ACID + 4-BUTYLRESORCINOL (tyrosinase); GLUCONOLACTONE pos-3 (pha); TOCOPHEROL+TOCOPHERYL ACETATE. Mandelic acid pos-13 (past cap) — aha unrated."
+    },
+    {
+      "productSlug": "isispharma-geneskin-lift-serum-liftant-28ml-274244",
+      "kind": "serum",
+      "category": "skincare",
+      "present": ["retinoids", "hyaluronic-acid", "fini-mat", "texture-legere"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["peptides"],
+      "notes": "RETINYL PALMITATE visible; SODIUM HYALURONATE; SILICA pos-7 (fini-mat). Peptides unrated (INCI truncated). DB tags peptides."
+    },
+    {
+      "productSlug": "isispharma-teen-derm-pure-soin-intense-anti-imperfections-30ml-281653",
+      "kind": "spot-treatment",
+      "category": "skincare",
+      "present": ["polyphenols", "texture-legere"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["polyphenols"],
+      "notes": "BOSWELLIA SERRATA (frankincense polyphenols). SALICYLIC ACID pos-19 — past positionCap:10 → bha unrated per design (DB tag is manual override for anti-acne context). Light spot treatment."
+    },
+    {
+      "productSlug": "iunik-centella-calming-ac-spot-cream",
+      "kind": "spot-treatment",
+      "category": "skincare",
+      "present": ["bha"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["pha"],
+      "notes": "CAPRYLOYL SALICYLIC ACID pos-6 (bha). GLUCONOLACTONE at pos-16 — past positionCap:10, likely conditioning not exfoliant → pha unrated."
+    },
+    {
+      "productSlug": "kreme-stick-levres-concentre",
+      "kind": "lip-care",
+      "category": "skincare",
+      "present": ["vitamin-e"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["vitamin-e"],
+      "notes": "TOCOPHEROL visible. Lip balm format."
+    },
+    {
+      "productSlug": "la-roche-posay-effaclar-h-iso-biome",
+      "kind": "moisturizer",
+      "category": "skincare",
+      "present": ["fini-mat", "texture-legere"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["fini-mat"],
+      "notes": "ZEA MAYS STARCH pos-6 = mattifying. Effaclar H = oily/combination skin moisturizer, light formula."
+    },
+    {
+      "productSlug": "la-roche-posay-toleriane-teint-mineral-n-15-dore-spf-15",
+      "kind": "sunscreen",
+      "category": "solaire",
+      "present": ["fini-mat"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["fini-mat"],
+      "notes": "TALC pos-1 + NYLON-12 + TITANIUM DIOXIDE = mineral compact makeup. Clear fini-mat."
+    },
+    {
+      "productSlug": "labello-sun-protect-spf50-soin-des-levres",
+      "kind": "sunscreen",
+      "category": "solaire",
+      "present": ["texture-riche", "vitamin-e"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["texture-riche"],
+      "notes": "Beeswax + shea + castor oil = rich lip balm. TOCOPHEROL (VITAMIN E) explicitly labeled."
+    },
+    {
+      "productSlug": "laneige-water-bank-blue-hyaluronic-cleansing-foam",
+      "kind": "cleanser",
+      "category": "skincare",
+      "present": ["hyaluronic-acid", "enzymes-exfoliants"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["enzymes-exfoliants"],
+      "notes": "ACIDE HYALURONIQUE HYDROLYSÉ confirmed. Papaïne (papain) in full INCI — not visible in first 500 chars. Orchestrator correctly fires enzymes."
+    },
+    {
+      "productSlug": "les-secrets-de-loly-bubble-kiss-soin-lavant-bebes-et-enfants",
+      "kind": "body-wash",
+      "category": "bodycare",
+      "present": ["fini-mat", "vitamin-e"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["fini-mat"],
+      "notes": "KAOLIN visible (fini-mat). TOCOPHEROL visible. vitamin-c (ASCORBYL PALMITATE) likely past pos-10, unrated."
+    },
+    {
+      "productSlug": "lierac-hydragenist-le-serum-rehydratant",
+      "kind": "serum",
+      "category": "skincare",
+      "present": ["pha", "hyaluronic-acid", "texture-legere"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["texture-legere"],
+      "notes": "GLUCONOLACTONE pos-8 (pha); SODIUM HYALURONATE pos-11 (ha). Light serum."
+    },
+    {
+      "productSlug": "loccitane-immortelle-mousse-nettoyante-125ml",
+      "kind": "cleanser",
+      "category": "skincare",
+      "present": ["aha", "vitamin-e"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["aha"],
+      "notes": "LACTIC ACID pos-10 (exactly at cap). TOCOPHERYL ACETATE confirmed."
+    },
+    {
+      "productSlug": "medicube-zero-pore-pad-2-0-bha",
+      "kind": "exfoliant",
+      "category": "skincare",
+      "present": ["bha", "aha", "hyaluronic-acid", "polyphenols", "texture-legere"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["bha"],
+      "notes": "BETAINE SALICYLATE pos-8 + SALICYLIC ACID pos-10 (bha); LACTIC ACID pos-9 (aha); SODIUM HYALURONATE; CENTELLA ASIATICA+SCUTELLARIA BAICALENSIS (polyphenols)."
+    },
+    {
+      "productSlug": "missha-m-perfect-covering-bb-cream-spf42-pa",
+      "kind": "moisturizer",
+      "category": "skincare",
+      "present": ["tyrosinase-inhibitors"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["tyrosinase-inhibitors"],
+      "notes": "ARBUTINE (Arbutin) pos-10 confirmed. Other DB tags (ceramides, HA, polyphenols) unrated — INCI truncated."
+    },
+    {
+      "productSlug": "mixsoon-cica-hyal-sun-stick",
+      "kind": "moisturizer",
+      "category": "skincare",
+      "present": ["hyaluronic-acid"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["hyaluronic-acid"],
+      "notes": "Name 'Cica-Hyal' confirms HA (INCI truncated before sodium hyaluronate). Other DB tags unrated."
+    },
+    {
+      "productSlug": "no-3-pore-reset-ampoule-shot",
+      "kind": "serum",
+      "category": "skincare",
+      "present": ["polyphenols", "texture-legere"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["retinoids"],
+      "notes": "CACAO+CURCUMA LONGA+MELIA AZADIRACHTA (polyphenols). No retinoids visible and name doesn't say retinoid — retinoids unrated (DB tags it, may be in truncated INCI). Light ampoule."
+    },
+    {
+      "productSlug": "nooance-soin-concentre-retinol-nuit",
+      "kind": "serum",
+      "category": "skincare",
+      "present": ["retinoids", "vitamin-c", "peptides", "polyphenols", "texture-legere"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["polyphenols"],
+      "notes": "RETINOL visible; ASCORBYL GLUCOSIDE (vit-c); ACETYL HEXAPEPTIDE-8+PALMITOYL TRIPEPTIDE-1+PALMITOYL TETRAPEPTIDE-7 (peptides); CENTELLA ASIATICA (polyphenols). vitamin-e unrated (truncated)."
+    },
+    {
+      "productSlug": "novexpert-ha-serum-booster-a-l-acide-hyaluronique",
+      "kind": "serum",
+      "category": "skincare",
+      "present": ["hyaluronic-acid", "texture-legere"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["fini-glowy"],
+      "notes": "SODIUM HYALURONATE pos-4. Pure HA serum — 15 ingredients. fini-glowy unrated (sensoriel, can't confirm from INCI)."
+    },
+    {
+      "productSlug": "numbuzin-no1-pantothenic-b5-active-soothing-cream",
+      "kind": "moisturizer",
+      "category": "skincare",
+      "present": ["tyrosinase-inhibitors", "polyphenols"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["tyrosinase-inhibitors"],
+      "notes": "ALPHA-ARBUTIN pos-4 (tyrosinase); CAMELLIA SINENSIS+CENTELLA ASIATICA+COFFEA ARABICA (polyphenols). vitamin-e unrated (truncated)."
+    },
+    {
+      "productSlug": "patyka-bio-glow-creme-teintee-perfectrice-doree",
+      "kind": "moisturizer",
+      "category": "skincare",
+      "present": ["hyaluronic-acid", "vitamin-c", "polyphenols"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["polyphenols"],
+      "notes": "SODIUM HYALURONATE; ASCORBYL GLUCOSIDE (vit-c); MELISSA OFFICINALIS (lemon balm = polyphenols) visible in INCI. FN: orchestrator misses polyphenols here (passionflower/melissa not in patterns)."
+    },
+    {
+      "productSlug": "patyka-essence-micro-peeling-eclat",
+      "kind": "exfoliant",
+      "category": "skincare",
+      "present": ["hyaluronic-acid", "texture-legere"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["fini-glowy"],
+      "notes": "SODIUM HYALURONATE. Fruit acid sources (bilberry, sugar cane, maple) present but not isolated acids — aha unrated. fini-glowy unrated."
+    },
+    {
+      "productSlug": "patyka-fluide-matifiant-anti-imperfections",
+      "kind": "moisturizer",
+      "category": "skincare",
+      "present": ["pha", "fini-mat"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["pha"],
+      "notes": "GLUCONOLACTONE pos-9 (pha); TAPIOCA STARCH+SILICA (fini-mat). vitamin-e unrated (truncated)."
+    },
+    {
+      "productSlug": "patyka-pure-gelee-nettoyante-purifiante",
+      "kind": "moisturizer",
+      "category": "skincare",
+      "present": ["pha"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["vitamin-c"],
+      "notes": "GLUCONOLACTONE pos-7 (pha). vitamin-c and vitamin-e not visible in INCI — unrated (INCI truncated)."
+    },
+    {
+      "productSlug": "power-repair-skin-serum",
+      "kind": "serum",
+      "category": "skincare",
+      "present": ["texture-riche", "vitamin-e", "vitamin-c", "polyphenols"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["texture-riche"],
+      "notes": "Shea butter pos-1 + beeswax pos-3 (texture-riche). TOCOTRIENOLS (VITAMIN E) + VITAMIN C ESTER (ASCORBYL PALMITATE) explicitly labeled. CAMELLIA SINENSIS GREEN TEA OIL (polyphenols)."
+    },
+    {
+      "productSlug": "prequel-am-pm-modern-moisturizer",
+      "kind": "moisturizer",
+      "category": "skincare",
+      "present": ["ceramides", "peptides", "fini-mat"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["ceramides"],
+      "notes": "CERAMIDE AP/AS/EOP/NP/NS (5 types); ACETYL HEPTAPEPTIDE-4; ALUMINUM STARCH OCTENYLSUCCINATE+BORON NITRIDE (fini-mat). HA and vit-e unrated (truncated)."
+    },
+    {
+      "productSlug": "pure-vitamin-c-serum",
+      "kind": "serum",
+      "category": "skincare",
+      "present": ["hyaluronic-acid", "polyphenols", "texture-legere", "vitamin-c"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["vitamin-c"],
+      "notes": "FN: ACIDE ASCORBIQUE 5% pos-2 confirmed — orchestrator does not tag vitamin-c here (DB missing tag). HYALURONATE DE SODIUM pos-1; CURCUMA LONGA+multiple plant extracts (polyphenols). Clear false negative to investigate."
+    },
+    {
+      "productSlug": "purito-seoul-luminous-moisture-shea-butter-body-lotion",
+      "kind": "moisturizer",
+      "category": "skincare",
+      "present": ["texture-legere"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["texture-legere"],
+      "notes": "Body lotion format. Shea butter present but in lotion base — borderline. Trust DB (texture-legere)."
+    },
+    {
+      "productSlug": "purito-seoul-wonder-releaf-centella-eye-cream",
+      "kind": "eye-cream",
+      "category": "skincare",
+      "present": ["hyaluronic-acid", "peptides", "polyphenols", "texture-legere"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["ceramides"],
+      "notes": "HYALURONATE DE SODIUM; 4 palmitoyl peptides (peptides); CENTELLA ASIATICA+ASIATICOSIDE (polyphenols). Ceramides unrated (truncated INCI)."
+    },
+    {
+      "productSlug": "purito-seoul-wonder-releaf-centella-serum-unscented",
+      "kind": "serum",
+      "category": "skincare",
+      "present": ["hyaluronic-acid", "peptides", "polyphenols", "texture-legere"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["ceramides"],
+      "notes": "SODIUM HYALURONATE; PALMITOYL TETRAPEPTIDE-7+HEXAPEPTIDE-12+TRIPEPTIDE-1+DIPEPTIDE-10; CENTELLA ASIATICA+MADECASSOSIDE. Ceramides unrated (truncated INCI)."
+    },
+    {
+      "productSlug": "pyunkang-yul-deep-nourishing-multi-balm",
+      "kind": "balm",
+      "category": "skincare",
+      "present": ["vitamin-e", "texture-riche"],
+      "absent": ["texture-legere"],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["vitamin-e"],
+      "notes": "ACÉTATE DE TOCOPHÉRYLE (vitamin-e). Balm format with shea + euphorbia cerifera wax + hydrogenated coconut = clearly texture-riche. DB tags texture-legere incorrectly. FP on texture-legere."
+    },
+    {
+      "productSlug": "skinfood-royal-honey-propolis-enrich-essence",
+      "kind": "essence",
+      "category": "skincare",
+      "present": ["hyaluronic-acid"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["hyaluronic-acid"],
+      "notes": "HYALURONATE DE SODIUM confirmed. Propolis/honey/royal jelly essence — short complete INCI."
+    },
+    {
+      "productSlug": "some-by-mi-lactosoy-enzyme-deep-cleansing-foam",
+      "kind": "cleanser",
+      "category": "skincare",
+      "present": ["enzymes-exfoliants"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["enzymes-exfoliants"],
+      "notes": "Product name 'Lactosoy Enzyme' + FILTRAT FERMENTÉ DE LACTOBACILLUS/LAIT DE SOJA → enzymatic cleansing claim confirmed. HA and polyphenols unrated (truncated INCI)."
+    },
+    {
+      "productSlug": "some-by-mi-retinol-intense-sheetmask",
+      "kind": "mask",
+      "category": "skincare",
+      "present": ["hyaluronic-acid", "peptides", "retinoids"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["peptides"],
+      "notes": "HYALURONATE DE SODIUM; ACÉTYL HEXAPEPTIDE-8 visible; 'Retinol Intense' name confirms retinoids (INCI truncated before retinol)."
+    },
+    {
+      "productSlug": "svr-clairial-ampoule",
+      "kind": "serum",
+      "category": "skincare",
+      "present": ["vitamin-c", "hyaluronic-acid", "texture-legere"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["vitamin-c"],
+      "notes": "ASCORBYL TETRAISOPALMITATE pos-6 (stable vit-c); SODIUM HYALURONATE. Light ampoule."
+    },
+    {
+      "productSlug": "svr-collagen-biotic",
+      "kind": "moisturizer",
+      "category": "skincare",
+      "present": ["vitamin-c", "hyaluronic-acid"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["vitamin-c"],
+      "notes": "ASCORBYL TETRAISOPALMITATE pos-11 (DB tags it; functional in Collagen line context); SODIUM ACETYLATED HYALURONATE pos-10."
+    },
+    {
+      "productSlug": "the-ordinary-salicylic-acid-2-masque",
+      "kind": "mask",
+      "category": "skincare",
+      "present": ["bha", "fini-mat"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["bha"],
+      "notes": "SALICYLIC ACID 2% pos-7 (bha); KAOLIN+CHARCOAL+SILICA (fini-mat). Clear positive."
+    },
+    {
+      "productSlug": "vichy-capital-soleil-kids-spf50-spray-fluide",
+      "kind": "sunscreen",
+      "category": "solaire",
+      "present": ["vitamin-e", "texture-legere"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["vitamin-e"],
+      "notes": "TOCOPHEROL confirmed. SPF50 spray = light fluid."
+    },
+    {
+      "productSlug": "vichy-laboratories-liftactiv-eye-cream",
+      "kind": "eye-cream",
+      "category": "skincare",
+      "present": ["bha", "peptides", "vitamin-c"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["bha"],
+      "notes": "CAPRYLOYL SALICYLIC ACID pos-9 (bha); ACETYL TETRAPEPTIDE-9 pos-1; ASCORBYL GLUCOSIDE pos-5. vitamin-e unrated (truncated)."
+    },
+    {
+      "productSlug": "vichy-laboratories-liftactiv-serum-10-supreme",
+      "kind": "serum",
+      "category": "skincare",
+      "present": ["bha", "hyaluronic-acid", "vitamin-e"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["bha"],
+      "notes": "CAPRYLOYL SALICYLIC ACID pos-7; SODIUM HYALURONATE; TOCOPHEROL visible."
+    },
+    {
+      "productSlug": "vichy-liftactiv-pigment-specialist-b3-soin-yeux-spf50",
+      "kind": "sunscreen",
+      "category": "solaire",
+      "present": ["fini-mat", "texture-legere"],
+      "absent": [],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["vitamin-e"],
+      "notes": "SILICA pos-3+PERLITE (fini-mat). SPF50 eye serum = light. HA/peptides/vitamin-e unrated (truncated)."
+    }
+  ]
+}

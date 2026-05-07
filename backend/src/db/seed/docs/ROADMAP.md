@@ -115,7 +115,7 @@ n'est utilisé dans aucune route. À nettoyer par cohérence quand on touche.
 
 ### 3.2 Tags produits — data quality résiduelle
 
-**Auto-tagging effectué (2026-04-23)** — 1 017 produits seed traités par `scripts/auto-tag.ts` :
+**Auto-tagging effectué (2026-04-23)** — 1 017 produits seed traités par `scripts/auto-tag.ts` (archivé 2026-05-08 sous `scripts/_archive/`, voir `docs/audits/auto-tags-audit.md` §C.2) :
 - 875 avec primary + secondary (± avoid) remplis
 - 142 avec secondary rempli, **primary encore vide** → traitement manuel requis
 - avoid auto-rempli pour : retinol, retinal, salicylic acid, capryloyl salicylic acid, glycolic acid, benzoyl peroxide

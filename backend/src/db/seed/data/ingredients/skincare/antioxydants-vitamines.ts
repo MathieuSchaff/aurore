@@ -2298,214 +2298,6 @@ MAGNESIUM ASCORBYL PHOSPHATE
 1-10% (efficace à 3-5%).`,
   },
   {
-    name: 'THD Ascorbate (Ascorbyl Tetraisopalmitate)',
-    slug: INGREDIENT_SLUGS.THD_ASCORBATE,
-
-    type: 'skincare',
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
-    description:
-      'Dérivé liposoluble stable de vitamine C : pénétration profonde, éclat, réduction taches et anti-âge doux. Faible irritation, idéal peaux sèches/sensibles, mais antioxydant in vitro limité.',
-    content: `
-  (Tetrahexyldecyl Ascorbate / Ascorbyl Tetraisopalmitate)
-
-
-
-  Forme huileuse ultra-stable de vitamine C (dérivé tétra-ester liposoluble).
-
-  Pénètre profondément dans la peau.
-
-  Illumine le teint, atténue taches pigmentaires (hyperpigmentation, melasma, post-acné).
-
-  Booste collagène et élastine.
-
-  Protège contre radicaux libres.
-
-  Améliore hydratation et barrière cutanée.
-
-
-
-  Très faible irritation comparé à l’acide ascorbique pur.
-
-  Parfait pour peaux sensibles, sèches, matures ou réactives.
-
-  Texture huileuse idéale pour sérums/crèmes riches.
-
-  Pas photosensibilisant → matin et soir OK.
-
-
-
-  ## INCI
-
-  TETRAHEXYLDECYL ASCORBATE
-  ou
-  ASCORBYL TETRAISOPALMITATE
-
-
-  (même ingrédient ; synonymes : THD / THDA / THDC / ATIP / VC-IP)
-
-
-
-  ## Concentration typique
-
-  - 3-10 % : zone la plus courante et efficace (5-10 % dans la plupart des sérums performants).
-
-  - 20 % : exemple The Ordinary Ascorbyl Tetraisopalmitate Solution 20 % (bon pour éclat quotidien).
-
-  - 30 % : exemple Revision C+ Correcting Complex 30 % (meilleurs résultats cliniques sur pigmentation).
-
-
-  Même à 1-3 % → déjà actif grâce à haute biodisponibilité et pénétration profonde.
-
-  Pas de limite réglementaire stricte en UE.
-
-
-
-  ## Mécanisme d’action
-
-  THD est un ester tétra de l’acide ascorbique avec acide 2-hexyldécanoïque (chaînes grasses longues).
-
-  Liposoluble → traverse facilement la barrière lipidique de l’épiderme.
-
-
-  Actions principales :
-
-  - Conversion enzymatique lente en acide ascorbique pur dans la peau (pénétration plus profonde que LAA).
-
-  - Neutralise radicaux libres (antioxydant, mais in vitro faible vs LAA).
-
-  - Stimule fibroblastes → synthèse collagène I/III, élastine, glycosaminoglycanes (dont acide hyaluronique).
-
-  - Inhibe tyrosinase → réduit production de mélanine → anti-taches puissante.
-
-  - Améliore barrière cutanée et hydratation (effet émollient huileux).
-
-
-  Pénétration : x3 supérieure à l’acide ascorbique pur (études in vitro/in vivo).
-
-
-
-  ## Bienfaits prouvés
-
-  - **Éclat & uniformité du teint** : illumine teint terne, atténue taches solaires/post-inflammatoires/melasma.
-  Résultats visibles dès 4-8 semaines ; jusqu’à +35 % amélioration hyperpigmentation à 20 % + stabilisants en 12 semaines.
-- **Anti-âge** : augmente fermeté, élasticité, densité cutanée ; réduit ridules fines et photodamage (boost collagène visible).
-- **Protection** : antioxydant complémentaire SPF (neutralise ROS UV/pollution).
-- **Hydratation & confort** : texture huileuse renforce barrière, apaise peaux sèches.
-- **Anti-inflammatoire** : réduit rougeurs, aide acné légère.
-
-
-  Tolérance excellente : quasi zéro irritation, picotements ou sécheresse vs acide ascorbique pur.
-
-
-
-  ## Insights du podcast Chemist Confessions (#148, 2025)
-
-  Gloria et Victoria analysent THD en profondeur :
-
-
-  - **Antioxydant in vitro** : très faible.
-  ORAC assay → THD ~1 000 μmol TE/g vs acide ascorbique ~30 000 μmol TE/mg (soit ~30 000x plus faible après ajustement).
-  IC50 lipid peroxidation ~38,7 mg/mL (vs acétyl zingérone ~46 μg/mL → beaucoup moins efficace).
-  Verdict : "pas un bon antioxydant pur".
-
-
-  - **Stabilité** : discutable sans stabilisants.
-  Dégrade à 0 % en 6 min sous stress oxydatif (singlet oxygen/UV).
-  Avec acétyl zingérone → ~75 % restant après 10 min.
-  "Pas aussi stable qu’on le dit ; besoin d’autres antioxydants pour le booster."
-
-
-  - **Études cliniques clés** :
-  - 5 % THD seul : décevant (pigment ↓ ~4 %, rougeurs ↑, rides ↑ ~7 % à 8 semaines).
-  - 5 % + acétyl zingérone : mieux mais faible (pigment ↓ ~4-10 %).
-  - 20 % + acétyl zingérone (Image Skincare Power-C) : ~35 % amélioration hyperpigmentation à 12 semaines.
-  - 30 % + acétyl zingérone + autres (Revision C+) : impressionnant sur pigmentation (grade ↓ de ~7 à 4,5) et uniformité ton malgré soleil estival (n=10).
-
-
-  - **Verdict global** : Pas un remplaçant antioxydant fiable vs acide ascorbique.
-  Bénéfices surtout sur hyperpigmentation/uniformité à hautes concentrations (20-30 %) + stabilisants.
-  "Higher is better".
-  Pas leur dérivé préféré ; ils préfèrent ascorbyl phosphates (SAP/MAP) ou LAA pour prévention.
-
-
-
-  ## Comment l’utiliser (guide pratique)
-
-  - **Quand** : Matin et/ou soir (stable à la lumière/air, non photosensibilisant).
-
-  - **Préparation** : Peau propre, sèche ou légèrement humide.
-
-  - **Quantité** : 2-4 gouttes sérum (ou petit pois) pour visage + cou.
-
-  - **Débutants** : Quotidien dès le départ (très doux, pas de phase d’adaptation).
-
-  - **Ordre idéal** : Nettoyage → THD → attendre 5-10 min → hydratant/crème riche.
-
-  - **Matin** : THD → SPF 30+ large spectre (combo antioxydant puissant).
-
-  - **Astuces** :
-  - Texture huileuse → excellent en layering huileux ou crème.
-  - Peut jaunir lentement si oxydé (stable avec bons stabilisants).
-  - Éviter layering agressif avec AHA/BHA forts (alterner ou attendre 20-30 min).
-
-
-
-  ## Compatibilités & associations gagnantes
-
-  - **Parfait avec** :
-  - Niacinamide (éclat + apaisant).
-  - Acide hyaluronique / céramides (hydratation).
-  - Peptides, centella asiatica, panthénol.
-- **Bakuchiol / GHK-Cu** : Duo régénérant anti-âge doux.
-- **Rétinol / rétinoïdes** : Alterner (THD matin, rétinol soir) ou layering prudent (THD apaise irritations).
-- **Autres Vit C** : Combiner avec dérivés aqueux (ascorbyl glucoside/SAP) ou acide ascorbique pur (prudence oxydation).
-- **À éviter** : Acides forts (glycolique/salicylique élevé) en layering immédiat si peau sensible.
-
-
-
-  ## Effets secondaires & précautions
-
-  - **Très rares** : Sensation huileuse (normale), oxydation lente si mal conservé (jaunissement).
-
-  - **Photosensibilité** : Non (au contraire, protège et complète SPF).
-
-  - **Grossesse & allaitement** : Sûr et recommandé (dérivé doux, absorption contrôlée, pas tératogène connu).
-
-  - Test patch 24-48 h si peau ultra-réactive.
-
-  - Conservation : Flacon opaque/airless/pompe, frais et à l’abri lumière/chaleur (stabilité excellente avec stabilisants comme acétyl zingérone).
-
-
-
-  ## Comparatif THD vs autres formes Vitamine C
-
-  | Critère                  | THD Ascorbate                          | Acide ascorbique pur (LAA)     | Ascorbyl Glucoside / SAP / MAP | 3-O-Ethyl Ascorbic Acid |
-  |--------------------------|----------------------------------------|--------------------------------|--------------------------------|-------------------------|
-  | Solubilité               | Huile (liposoluble)                    | Eau                            | Eau                            | Eau/huile mixte         |
-  | Stabilité                | Excellente (avec stabilisants)         | Faible                         | Bonne                          | Bonne                   |
-  | Pénétration              | Très profonde (x3 vs LAA)              | Moyenne                        | Moyenne                        | Bonne                   |
-  | Irritation               | Très faible                            | Moyenne+                       | Très faible                    | Faible                  |
-  | Antioxydant in vitro     | Faible (ORAC ~30 000x < LAA)           | Très fort                      | Moyen                          | Moyen-fort              |
-  | Concentration typique    | 5-30 % (higher better pigmentation)    | 10-20 %                        | 5-15 %                         | 1-5 %                   |
-  | Peaux cibles             | Sèches/sensibles/matures, pigmentation | Normales/mixtes/tolérantes     | Sensibles/hydratantes          | Tous                    |
-  | Utilisation              | Matin + soir                           | Matin idéal                    | Matin + soir                   | Matin + soir            |
-  | Bénéfices principaux     | Pigmentation, hydratation, anti-âge doux | Antioxydant max, éclat       | Éclat doux, anti-acné (SAP)    | Éclat + taches          |
-
-
-
-  **Conseil expert**
-  THD Ascorbate est excellent pour un glow quotidien sans irritation, surtout peaux sèches/sensibles ou ciblage pigmentation (taches, melasma) → privilégie 20-30 % + stabilisants (acétyl zingérone comme dans Revision/Image).
-
-  Pas le meilleur antioxydant pur (in vitro faible vs LAA) → ne remplace pas un sérum Vit C puissant pour prévention globale.
-
-  Choisis formules cliniquement testées.
-
-  Associer toujours SPF large spectre + hydratation riche → teint lumineux, ferme et protégé durablement.
-
-  Upgrade doux et confortable vs Vit C instable – idéal en routine mixte !
-  `,
-  },
-  {
     name: '3-O-Ethyl Ascorbic Acid',
     slug: INGREDIENT_SLUGS.THREE_O_ETHYL_ASCORBIC_ACID,
 
@@ -2740,22 +2532,212 @@ Antioxydant flavonoïde, renforce les capillaires fragiles, atténue rougeurs di
 Excellente.`,
   },
   {
-    name: 'Ascorbyl Tetraisopalmitate (VC-IP)',
+    name: 'Ascorbyl Tetraisopalmitate (THDA / VC-IP)',
     slug: INGREDIENT_SLUGS.ASCORBYL_TETRAISOPALMITATE,
+
     type: 'skincare',
     category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
-      'Dérivé liposoluble de la vitamine C, ultra-stable et excellente pénétration cutanée, antioxydant et anti-taches sans irritation.',
-    content: `# Ascorbyl Tetraisopalmitate
+      'Dérivé liposoluble stable de vitamine C : pénétration profonde, éclat, réduction taches et anti-âge doux. Faible irritation, idéal peaux sèches/sensibles, mais antioxydant in vitro limité.',
+    content: `
+  (Tetrahexyldecyl Ascorbate / Ascorbyl Tetraisopalmitate)
 
-## INCI
-**ASCORBYL TETRAISOPALMITATE**
 
-## Rôle
-Vitamine C estérifiée stable. Pénètre la couche lipidique du stratum corneum, agit sur l'éclat, l'unification et la photoprotection antioxydante.
 
-## Tolérance
-Très bonne, alternative douce à l'acide ascorbique pur.`,
+  Forme huileuse ultra-stable de vitamine C (dérivé tétra-ester liposoluble).
+
+  Pénètre profondément dans la peau.
+
+  Illumine le teint, atténue taches pigmentaires (hyperpigmentation, melasma, post-acné).
+
+  Booste collagène et élastine.
+
+  Protège contre radicaux libres.
+
+  Améliore hydratation et barrière cutanée.
+
+
+
+  Très faible irritation comparé à l’acide ascorbique pur.
+
+  Parfait pour peaux sensibles, sèches, matures ou réactives.
+
+  Texture huileuse idéale pour sérums/crèmes riches.
+
+  Pas photosensibilisant → matin et soir OK.
+
+
+
+  ## INCI
+
+  TETRAHEXYLDECYL ASCORBATE
+  ou
+  ASCORBYL TETRAISOPALMITATE
+
+
+  (même ingrédient ; synonymes : THD / THDA / THDC / ATIP / VC-IP)
+
+
+
+  ## Concentration typique
+
+  - 3-10 % : zone la plus courante et efficace (5-10 % dans la plupart des sérums performants).
+
+  - 20 % : exemple The Ordinary Ascorbyl Tetraisopalmitate Solution 20 % (bon pour éclat quotidien).
+
+  - 30 % : exemple Revision C+ Correcting Complex 30 % (meilleurs résultats cliniques sur pigmentation).
+
+
+  Même à 1-3 % → déjà actif grâce à haute biodisponibilité et pénétration profonde.
+
+  Pas de limite réglementaire stricte en UE.
+
+
+
+  ## Mécanisme d’action
+
+  THD est un ester tétra de l’acide ascorbique avec acide 2-hexyldécanoïque (chaînes grasses longues).
+
+  Liposoluble → traverse facilement la barrière lipidique de l’épiderme.
+
+
+  Actions principales :
+
+  - Conversion enzymatique lente en acide ascorbique pur dans la peau (pénétration plus profonde que LAA).
+
+  - Neutralise radicaux libres (antioxydant, mais in vitro faible vs LAA).
+
+  - Stimule fibroblastes → synthèse collagène I/III, élastine, glycosaminoglycanes (dont acide hyaluronique).
+
+  - Inhibe tyrosinase → réduit production de mélanine → anti-taches puissante.
+
+  - Améliore barrière cutanée et hydratation (effet émollient huileux).
+
+
+  Pénétration : x3 supérieure à l’acide ascorbique pur (études in vitro/in vivo).
+
+
+
+  ## Bienfaits prouvés
+
+  - **Éclat & uniformité du teint** : illumine teint terne, atténue taches solaires/post-inflammatoires/melasma.
+  Résultats visibles dès 4-8 semaines ; jusqu’à +35 % amélioration hyperpigmentation à 20 % + stabilisants en 12 semaines.
+- **Anti-âge** : augmente fermeté, élasticité, densité cutanée ; réduit ridules fines et photodamage (boost collagène visible).
+- **Protection** : antioxydant complémentaire SPF (neutralise ROS UV/pollution).
+- **Hydratation & confort** : texture huileuse renforce barrière, apaise peaux sèches.
+- **Anti-inflammatoire** : réduit rougeurs, aide acné légère.
+
+
+  Tolérance excellente : quasi zéro irritation, picotements ou sécheresse vs acide ascorbique pur.
+
+
+
+  ## Insights du podcast Chemist Confessions (#148, 2025)
+
+  Gloria et Victoria analysent THD en profondeur :
+
+
+  - **Antioxydant in vitro** : très faible.
+  ORAC assay → THD ~1 000 μmol TE/g vs acide ascorbique ~30 000 μmol TE/mg (soit ~30 000x plus faible après ajustement).
+  IC50 lipid peroxidation ~38,7 mg/mL (vs acétyl zingérone ~46 μg/mL → beaucoup moins efficace).
+  Verdict : "pas un bon antioxydant pur".
+
+
+  - **Stabilité** : discutable sans stabilisants.
+  Dégrade à 0 % en 6 min sous stress oxydatif (singlet oxygen/UV).
+  Avec acétyl zingérone → ~75 % restant après 10 min.
+  "Pas aussi stable qu’on le dit ; besoin d’autres antioxydants pour le booster."
+
+
+  - **Études cliniques clés** :
+  - 5 % THD seul : décevant (pigment ↓ ~4 %, rougeurs ↑, rides ↑ ~7 % à 8 semaines).
+  - 5 % + acétyl zingérone : mieux mais faible (pigment ↓ ~4-10 %).
+  - 20 % + acétyl zingérone (Image Skincare Power-C) : ~35 % amélioration hyperpigmentation à 12 semaines.
+  - 30 % + acétyl zingérone + autres (Revision C+) : impressionnant sur pigmentation (grade ↓ de ~7 à 4,5) et uniformité ton malgré soleil estival (n=10).
+
+
+  - **Verdict global** : Pas un remplaçant antioxydant fiable vs acide ascorbique.
+  Bénéfices surtout sur hyperpigmentation/uniformité à hautes concentrations (20-30 %) + stabilisants.
+  "Higher is better".
+  Pas leur dérivé préféré ; ils préfèrent ascorbyl phosphates (SAP/MAP) ou LAA pour prévention.
+
+
+
+  ## Comment l’utiliser (guide pratique)
+
+  - **Quand** : Matin et/ou soir (stable à la lumière/air, non photosensibilisant).
+
+  - **Préparation** : Peau propre, sèche ou légèrement humide.
+
+  - **Quantité** : 2-4 gouttes sérum (ou petit pois) pour visage + cou.
+
+  - **Débutants** : Quotidien dès le départ (très doux, pas de phase d’adaptation).
+
+  - **Ordre idéal** : Nettoyage → THD → attendre 5-10 min → hydratant/crème riche.
+
+  - **Matin** : THD → SPF 30+ large spectre (combo antioxydant puissant).
+
+  - **Astuces** :
+  - Texture huileuse → excellent en layering huileux ou crème.
+  - Peut jaunir lentement si oxydé (stable avec bons stabilisants).
+  - Éviter layering agressif avec AHA/BHA forts (alterner ou attendre 20-30 min).
+
+
+
+  ## Compatibilités & associations gagnantes
+
+  - **Parfait avec** :
+  - Niacinamide (éclat + apaisant).
+  - Acide hyaluronique / céramides (hydratation).
+  - Peptides, centella asiatica, panthénol.
+- **Bakuchiol / GHK-Cu** : Duo régénérant anti-âge doux.
+- **Rétinol / rétinoïdes** : Alterner (THD matin, rétinol soir) ou layering prudent (THD apaise irritations).
+- **Autres Vit C** : Combiner avec dérivés aqueux (ascorbyl glucoside/SAP) ou acide ascorbique pur (prudence oxydation).
+- **À éviter** : Acides forts (glycolique/salicylique élevé) en layering immédiat si peau sensible.
+
+
+
+  ## Effets secondaires & précautions
+
+  - **Très rares** : Sensation huileuse (normale), oxydation lente si mal conservé (jaunissement).
+
+  - **Photosensibilité** : Non (au contraire, protège et complète SPF).
+
+  - **Grossesse & allaitement** : Sûr et recommandé (dérivé doux, absorption contrôlée, pas tératogène connu).
+
+  - Test patch 24-48 h si peau ultra-réactive.
+
+  - Conservation : Flacon opaque/airless/pompe, frais et à l’abri lumière/chaleur (stabilité excellente avec stabilisants comme acétyl zingérone).
+
+
+
+  ## Comparatif THD vs autres formes Vitamine C
+
+  | Critère                  | THD Ascorbate                          | Acide ascorbique pur (LAA)     | Ascorbyl Glucoside / SAP / MAP | 3-O-Ethyl Ascorbic Acid |
+  |--------------------------|----------------------------------------|--------------------------------|--------------------------------|-------------------------|
+  | Solubilité               | Huile (liposoluble)                    | Eau                            | Eau                            | Eau/huile mixte         |
+  | Stabilité                | Excellente (avec stabilisants)         | Faible                         | Bonne                          | Bonne                   |
+  | Pénétration              | Très profonde (x3 vs LAA)              | Moyenne                        | Moyenne                        | Bonne                   |
+  | Irritation               | Très faible                            | Moyenne+                       | Très faible                    | Faible                  |
+  | Antioxydant in vitro     | Faible (ORAC ~30 000x < LAA)           | Très fort                      | Moyen                          | Moyen-fort              |
+  | Concentration typique    | 5-30 % (higher better pigmentation)    | 10-20 %                        | 5-15 %                         | 1-5 %                   |
+  | Peaux cibles             | Sèches/sensibles/matures, pigmentation | Normales/mixtes/tolérantes     | Sensibles/hydratantes          | Tous                    |
+  | Utilisation              | Matin + soir                           | Matin idéal                    | Matin + soir                   | Matin + soir            |
+  | Bénéfices principaux     | Pigmentation, hydratation, anti-âge doux | Antioxydant max, éclat       | Éclat doux, anti-acné (SAP)    | Éclat + taches          |
+
+
+
+  **Conseil expert**
+  THD Ascorbate est excellent pour un glow quotidien sans irritation, surtout peaux sèches/sensibles ou ciblage pigmentation (taches, melasma) → privilégie 20-30 % + stabilisants (acétyl zingérone comme dans Revision/Image).
+
+  Pas le meilleur antioxydant pur (in vitro faible vs LAA) → ne remplace pas un sérum Vit C puissant pour prévention globale.
+
+  Choisis formules cliniquement testées.
+
+  Associer toujours SPF large spectre + hydratation riche → teint lumineux, ferme et protégé durablement.
+
+  Upgrade doux et confortable vs Vit C instable – idéal en routine mixte !
+  `,
   },
   {
     name: 'Polygonum Cuspidatum Extract',
@@ -2792,5 +2774,94 @@ Antioxydant polyphénolique, anti-pollution, resserre l'apparence des pores.
 
 ## Tolérance
 Bonne.`,
+  },
+  {
+    name: 'Acetyl Zingerone',
+    slug: INGREDIENT_SLUGS.ACETYL_ZINGERONE,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Antioxydant nouvelle génération dérivé du gingembre. Stabilisateur de vitamine C, anti-inflammatoire, anti-pigmentation. Usage typique 0.5–2%.',
+    content: '',
+  },
+  {
+    name: 'Génistéine (Genistein)',
+    slug: INGREDIENT_SLUGS.GENISTEIN,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Isoflavone du soja, antioxydant phyto-œstrogène-like, anti-âge et photoprotecteur.',
+    content: '',
+  },
+  {
+    name: 'Quercétine (Quercetin)',
+    slug: INGREDIENT_SLUGS.QUERCETIN,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Flavonoïde antioxydant puissant, anti-inflammatoire et stabilisateur de mastocytes.',
+    content: '',
+  },
+  {
+    name: 'Silybine (Silybin / Silymarine)',
+    slug: INGREDIENT_SLUGS.SILYBIN,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Flavonolignane du chardon-marie, antioxydant hépatoprotecteur, anti-âge et anti-rougeurs en topique.',
+    content: '',
+  },
+  {
+    name: 'Hesperidin Methyl Chalcone',
+    slug: INGREDIENT_SLUGS.HESPERIDIN_METHYL_CHALCONE,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      "Flavonoïde dérivé d'agrumes, veinotonique et anti-rougeurs, ciblé microcirculation.",
+    content: '',
+  },
+  {
+    name: 'Dimethylmethoxy Chromanol (Lipochroman)',
+    slug: INGREDIENT_SLUGS.DIMETHYLMETHOXYCHROMANOL,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Antioxydant bi-mode hydro/liposoluble, neutralise ROS et RNS, complément à la vitamine E.',
+    content: '',
+  },
+  {
+    name: 'Tetrahydrodiferuloylmethane (THC)',
+    slug: INGREDIENT_SLUGS.TETRAHYDRODIFERULOYLMETHANE,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Tétrahydrocurcuminoïde, dérivé incolore et stable de la curcumine, anti-inflammatoire et anti-pigmentation.',
+    content: '',
+  },
+  {
+    name: 'Naringénine (Naringenin)',
+    slug: INGREDIENT_SLUGS.NARINGENIN,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      "Flavonoïde d'agrumes, antioxydant et anti-inflammatoire, partenaire de l'azélaïque pour les rougeurs.",
+    content: '',
+  },
+  {
+    name: 'Glucosylrutine (Glucosylrutin)',
+    slug: INGREDIENT_SLUGS.GLUCOSYLRUTIN,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      'Forme glycosylée de la rutine, soluble et stable, antioxydant et photo-protecteur.',
+    content: '',
+  },
+  {
+    name: 'Rutine (Rutin)',
+    slug: INGREDIENT_SLUGS.RUTIN,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description: 'Glycoside de la quercétine, antioxydant flavonoïde et veinotonique.',
+    content: '',
   },
 ]

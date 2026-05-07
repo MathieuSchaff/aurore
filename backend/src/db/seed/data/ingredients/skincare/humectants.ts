@@ -1510,4 +1510,13 @@ Booster d'acide hyaluronique endogène, hydratant et éclat. Module l'expression
 ## Tolérance
 Très bonne tolérance, non irritant.`,
   },
+  {
+    name: 'Acétamidoéthoxyéthanol (Hydromanil)',
+    slug: INGREDIENT_SLUGS.ACETAMIDOETHOXYETHANOL,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.HUMECTANT,
+    description:
+      "Humectant biomimétique longue durée, mime les facteurs naturels d'hydratation cutanés (NMF-like). Concentrations cosmétiques 5-10%.",
+    content: '',
+  },
 ]

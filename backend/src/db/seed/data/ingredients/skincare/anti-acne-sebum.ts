@@ -1637,4 +1637,21 @@ Régulation microbienne, séborégulateur, anti-imperfections.
 ## Tolérance
 Bonne, dosage faible (oligo-élément).`,
   },
+  {
+    name: 'Azelamide MEA',
+    slug: INGREDIENT_SLUGS.AZELAMIDE_MEA,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description:
+      "Dérivé amidé de l'acide azélaïque, alternative cosmétique soluble pour anti-imperfections et anti-rougeurs.",
+    content: '',
+  },
+  {
+    name: 'Azelamidopropyl Dimethyl Amine (Epi-On)',
+    slug: INGREDIENT_SLUGS.AZELAMIDOPROPYL_DIMETHYL_AMINE,
+    type: 'skincare',
+    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    description: "Dérivé amine de l'acide azélaïque, action anti-imperfections et anti-rougeurs.",
+    content: '',
+  },
 ]

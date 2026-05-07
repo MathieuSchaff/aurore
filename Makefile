@@ -354,6 +354,59 @@ audit-auto-tags: ## Dry-run auto-tagging produits via algo-derm tagProduct (read
 		$(if $(INCLUDE_DROPPED),-e INCLUDE_DROPPED=$(INCLUDE_DROPPED)) \
 		api bun run src/db/seed/runners/audit-auto-tags.ts
 
+backfill-auto-tags: ## Dry-run backfill tags (algo-derm + actif-class + kind) sur produits existants. Args: SLUG=<slug> WRITE=1 LIMIT=N CONF_OVERRIDE=f
+	@echo "$(CYAN)Backfill auto-tags ($(if $(WRITE),WRITE,dry-run))...$(NC)"
+	@$(COMPOSE_DEV) exec \
+		$(if $(CONF_OVERRIDE),-e CONF_OVERRIDE=$(CONF_OVERRIDE)) \
+		$(if $(LIMIT),-e LIMIT=$(LIMIT)) \
+		$(if $(INCLUDE_DROPPED),-e INCLUDE_DROPPED=$(INCLUDE_DROPPED)) \
+		api bun run src/db/seed/runners/backfill-auto-tags.ts \
+		$(if $(WRITE),--write) \
+		$(if $(SLUG),--slug $(SLUG))
+
+audit-orchestrator-diff: ## Snapshot/diff orchestrator output. Vars: CSV_OUT (req), BASELINE (opt → diff mode), LIMIT
+	@if [ -z "$(CSV_OUT)" ]; then echo "$(RED)❌ CSV_OUT requis (chemin du fichier de sortie dans le conteneur)$(NC)"; exit 1; fi
+	@echo "$(CYAN)Audit orchestrator $(if $(BASELINE),DIFF,SNAPSHOT)...$(NC)"
+	@$(COMPOSE_DEV) exec \
+		-e CSV_OUT=$(CSV_OUT) \
+		$(if $(BASELINE),-e BASELINE=$(BASELINE)) \
+		$(if $(LIMIT),-e LIMIT=$(LIMIT)) \
+		api bun run src/db/seed/runners/audit-orchestrator-diff.ts
+
+audit-actif-class: ## Dry-run audit passe 2 (clusters pharmacologiques). Vars: LIMIT
+	@echo "$(CYAN)Audit actif-class (dry-run)...$(NC)"
+	@$(COMPOSE_DEV) exec \
+		$(if $(LIMIT),-e LIMIT=$(LIMIT)) \
+		api bun run src/db/seed/runners/audit-actif-class.ts
+
+audit-aha-bha-pha: ## Audit AHA/BHA/PHA manual overrides (cap=10 misses). Vars: CSV_OUT|CSV_DIR|LIMIT, or APPLY=1 APPLY_FROM_CSV=path (destructive)
+	@if [ "$(APPLY)" = "1" ]; then echo "$(RED)⚠ APPLY mode — DELETE pairs from $(APPLY_FROM_CSV)$(NC)"; else echo "$(CYAN)Audit AHA/BHA/PHA overrides (read-only)...$(NC)"; fi
+	@$(COMPOSE_DEV) exec \
+		$(if $(CSV_OUT),-e CSV_OUT=$(CSV_OUT)) \
+		$(if $(CSV_DIR),-e CSV_DIR=$(CSV_DIR)) \
+		$(if $(LIMIT),-e LIMIT=$(LIMIT)) \
+		$(if $(APPLY),-e APPLY=$(APPLY)) \
+		$(if $(APPLY_FROM_CSV),-e APPLY_FROM_CSV=$(APPLY_FROM_CSV)) \
+		api bun run src/db/seed/runners/audit-aha-bha-pha-overrides.ts
+
+gold-set-bootstrap: ## Sample 60-80 produits stratifiés vers data/gold-set/annotations.json (idempotent). Vars: SAMPLE_SIZE, POSITIVES_PER_TAG, NEGATIVES_PER_TAG, SEED, GOLD_SET_PATH
+	@echo "$(CYAN)Gold-set bootstrap (sampling stratifié)...$(NC)"
+	@$(COMPOSE_DEV) exec \
+		$(if $(SAMPLE_SIZE),-e SAMPLE_SIZE=$(SAMPLE_SIZE)) \
+		$(if $(POSITIVES_PER_TAG),-e POSITIVES_PER_TAG=$(POSITIVES_PER_TAG)) \
+		$(if $(NEGATIVES_PER_TAG),-e NEGATIVES_PER_TAG=$(NEGATIVES_PER_TAG)) \
+		$(if $(SEED),-e SEED=$(SEED)) \
+		$(if $(GOLD_SET_PATH),-e GOLD_SET_PATH=$(GOLD_SET_PATH)) \
+		api bun run src/db/seed/runners/gold-set-bootstrap.ts
+
+audit-gold-set: ## Benchmark orchestrator vs gold-set (precision/recall/Brier/ECE par tag). Vars: GOLD_SET_PATH, CSV_OUT, STRICT
+	@echo "$(CYAN)Gold-set benchmark...$(NC)"
+	@$(COMPOSE_DEV) exec \
+		$(if $(GOLD_SET_PATH),-e GOLD_SET_PATH=$(GOLD_SET_PATH)) \
+		$(if $(CSV_OUT),-e CSV_OUT=$(CSV_OUT)) \
+		$(if $(STRICT),-e STRICT=$(STRICT)) \
+		api bun run src/db/seed/runners/audit-gold-set.ts
+
 db-seed-safe: db-seed audit-db ## Seed + audit (recommandé après reseed)
 
 db-seed-merge-safe: db-backup db-seed-merge audit-db ## Backup + push deltas idempotent + audit (recommandé pour Phase 5d & co)

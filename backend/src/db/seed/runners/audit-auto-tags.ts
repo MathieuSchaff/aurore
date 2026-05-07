@@ -18,8 +18,10 @@
 //   LIMIT            optional       — cap product count (debug)
 //   INCLUDE_DROPPED  optional 1     — include allow:false tags in the report (debug)
 
+import { analyzeINCI, splitINCI } from 'algo-derm'
 import { eq, sql } from 'drizzle-orm'
 
+import { mapKindToContext } from '../../../features/dermo-score/profile-mapping'
 import { db } from '../..'
 import { products, productTagsDefs, tagProducts } from '../../schema'
 import { detectAutoTags, TAG_CONFIG, type TagRule } from '../utils/auto-tag-detection'
@@ -103,14 +105,80 @@ async function main() {
   let totalNew = 0
   let totalManualSkincare = 0
 
+  // Regulatory surfacing — `assessment.regulatoryNotes` aggregates CELEX hits
+  // (Reg UE 1223/2009 Annex II/III/V/VI) plus any inline evidence notes. Audit
+  // surface only; never blocks tag emission.
+  const regulatoryNoteFreq = new Map<string, number>()
+  let productsWithRegulatory = 0
+
+  // Interaction surfacing — `assessment.interactions` exposes the firable
+  // subset of algo-derm `interaction_rules.json`: rules without profile
+  // condition (no pregnant/sensitiveSkin/acneProne required) and without pH
+  // condition (Aurore has no estimated_ph column today). The 5–6 firable
+  // rules cover cumulative irritation/allergenicity stacks (alcohol+parfum,
+  // alcohol+limonene, acid+alcohol, multi-EO) and the EU-banned MI/MCI in
+  // leave-on. Audit doc §A.2 / §D.3.
+  interface InteractionStat {
+    count: number
+    axes: string[]
+    adjustment: number
+    evidenceLevel: string
+  }
+  const interactionFreq = new Map<string, InteractionStat>()
+  let productsWithInteractions = 0
+  let totalInteractionHits = 0
+
+  // Per-tag drop accounting — populated by detectAutoTags when an audit hook
+  // is provided. Map key = `${reason}:${candidate.id}` (algo-derm tag id, not
+  // Aurore slug, so unmapped candidates still surface). Aggregated across all
+  // products in the corpus.
+  const dropCounts = new Map<string, number>()
+
   for (const p of subset) {
     if (!p.inci?.trim()) continue
     withInci++
 
+    // Single hoisted analyzeINCI — passed to detectAutoTags below and reused
+    // for regulatory surfacing. Saves a second algo-derm pass per product.
+    const ingredients = splitINCI(p.inci)
+    const assessment = analyzeINCI(p.inci, { context: mapKindToContext(p.kind) })
+
     const detected = detectAutoTags(p.inci, p.kind, {
       ...(CONF_OVERRIDE !== null ? { confOverride: CONF_OVERRIDE } : {}),
       includeDropped: INCLUDE_DROPPED,
+      assessment,
+      ingredients,
+      dropCounts,
     })
+
+    if (assessment.regulatoryNotes.length > 0) {
+      productsWithRegulatory++
+      // Dedup within product — same regulatory note may surface for multiple
+      // ingredients (e.g. two different parabens both prohibited).
+      const uniqueNotes = new Set(assessment.regulatoryNotes)
+      for (const n of uniqueNotes) {
+        regulatoryNoteFreq.set(n, (regulatoryNoteFreq.get(n) ?? 0) + 1)
+      }
+    }
+
+    if (assessment.interactions.length > 0) {
+      productsWithInteractions++
+      totalInteractionHits += assessment.interactions.length
+      for (const interaction of assessment.interactions) {
+        const existing = interactionFreq.get(interaction.id)
+        if (existing) {
+          existing.count++
+        } else {
+          interactionFreq.set(interaction.id, {
+            count: 1,
+            axes: interaction.axes,
+            adjustment: interaction.adjustment,
+            evidenceLevel: interaction.evidenceLevel,
+          })
+        }
+      }
+    }
+
     const existingSet = existingByProduct.get(p.id) ?? new Set<string>()
     totalManualSkincare += existingSet.size
 
@@ -190,6 +258,101 @@ async function main() {
     .map((r) => r.auroreSlug)
   if (silent.length > 0) {
     console.log(`\n⚪ Tags allow=true mais 0 hit : ${silent.join(', ')}`)
+  }
+
+  // ── Regulatory surfacing (read-only, no DB effect) ───────────────────
+  console.log(`\n🛡  Regulatory notes (algo-derm assessment.regulatoryNotes)`)
+  console.log(
+    `   ${productsWithRegulatory}/${withInci} produits avec notes (${pct(productsWithRegulatory, withInci)})`
+  )
+  console.log(`   ${regulatoryNoteFreq.size} notes distinctes`)
+  if (regulatoryNoteFreq.size > 0) {
+    const sortedNotes = [...regulatoryNoteFreq.entries()].sort((a, b) => b[1] - a[1])
+    const topN = Math.min(30, sortedNotes.length)
+    console.log(`\n   Top ${topN} notes par fréquence (produits affectés) :`)
+    for (const [note, count] of sortedNotes.slice(0, topN)) {
+      console.log(`   ${rpad(String(count), 4)} × ${note}`)
+    }
+    if (sortedNotes.length > topN) {
+      console.log(`   … (${sortedNotes.length - topN} notes additionnelles)`)
+    }
+  }
+
+  // ── Interactions (read-only, no DB effect) ───────────────────────────
+  console.log(`\n🔗 Interactions algo-derm (assessment.interactions, hors profile/pH)`)
+  console.log(
+    `   ${productsWithInteractions}/${withInci} produits avec interactions (${pct(productsWithInteractions, withInci)}) · ${totalInteractionHits} hits totaux`
+  )
+  if (interactionFreq.size > 0) {
+    const sorted = [...interactionFreq.entries()].sort((a, b) => b[1].count - a[1].count)
+    console.log(
+      `\n   ${pad('id', 36)} ${rpad('count', 6)} ${rpad('adj', 7)} ${rpad('evL', 4)} axes`
+    )
+    console.log(
+      `   ${'─'.repeat(36)} ${'─'.repeat(6)} ${'─'.repeat(7)} ${'─'.repeat(4)} ${'─'.repeat(40)}`
+    )
+    for (const [id, s] of sorted) {
+      const adjStr = (s.adjustment >= 0 ? '+' : '') + s.adjustment.toFixed(2)
+      console.log(
+        `   ${pad(id, 36)} ${rpad(String(s.count), 6)} ${rpad(adjStr, 7)} ${rpad(s.evidenceLevel, 4)} ${s.axes.join(',')}`
+      )
+    }
+  }
+
+  // ── Drop reasons (read-only) ─────────────────────────────────────────
+  // Audit-only diagnostic. When chasing "why didn't tag X fire on product Y",
+  // the most common questions are: was it absent, below confidence, dropped
+  // for coverage, etc. This breakdown answers in aggregate. See
+  // `auto-tag-detection.ts:DropReason`.
+  if (dropCounts.size > 0) {
+    console.log(`\n🪦 Candidats droppés (par raison × tag_id algo-derm)`)
+    const grouped = new Map<string, Map<string, number>>()
+    for (const [k, n] of dropCounts) {
+      const sep = k.indexOf(':')
+      const reason = k.slice(0, sep)
+      const tagId = k.slice(sep + 1)
+      let bucket = grouped.get(reason)
+      if (!bucket) {
+        bucket = new Map()
+        grouped.set(reason, bucket)
+      }
+      bucket.set(tagId, n)
+    }
+
+    // Report order — `not_present` first since it's typically the bulk; other
+    // reasons surface tunable gating decisions.
+    const order: Array<
+      | 'not_present'
+      | 'unmapped'
+      | 'disallowed'
+      | 'coverage_floor'
+      | 'low_confidence'
+      | 'rinse_off_excluded'
+      | 'declaration_only_risk'
+    > = [
+      'not_present',
+      'disallowed',
+      'low_confidence',
+      'coverage_floor',
+      'rinse_off_excluded',
+      'declaration_only_risk',
+      'unmapped',
+    ]
+
+    for (const reason of order) {
+      const bucket = grouped.get(reason)
+      if (!bucket || bucket.size === 0) continue
+      const total = [...bucket.values()].reduce((a, b) => a + b, 0)
+      console.log(`\n   ${reason} · total=${total}`)
+      const sorted = [...bucket.entries()].sort((a, b) => b[1] - a[1])
+      const topN = Math.min(15, sorted.length)
+      for (const [tagId, n] of sorted.slice(0, topN)) {
+        console.log(`   ${rpad(String(n), 5)} × ${tagId}`)
+      }
+      if (sorted.length > topN) {
+        console.log(`   … (${sorted.length - topN} tags additionnels)`)
+      }
+    }
   }
 
   if (CSV_OUT) {
