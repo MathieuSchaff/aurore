@@ -6,7 +6,7 @@ export const aubepine: ArticleInput = {
   category: 'phytotherapie',
   excerpt:
     "L'aubépine (Crataegus spp.), LA référence en phytothérapie cardiovasculaire depuis 2000 ans. Double action cardio + nerveuse : palpitations liées au stress, hypertension légère, troubles du rythme bénins, sommeil léger. Dosages, formes, interactions et profil de sécurité.",
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `L'aubépine (*Crataegus laevigata, C. monogyna, C. oxyacantha*) est utilisée depuis plus de 2000 ans, surnommée la **"valériane du cœur"** pour son action à la fois **cardiotonique** et **sédative**. C'est l'une des plantes médicinales les mieux étudiées, avec un profil de sécurité excellent.
 
 ## Principes actifs

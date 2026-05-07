@@ -6,7 +6,7 @@ export const collagenesBenchmark: ArticleInput = {
   category: 'supplements',
   excerpt:
     'Critères pour choisir un collagène (types, poids moléculaire, brevets, cofacteurs) et comparatif de 4 produits Nutrimuscle : Artipro, Super Collagène Mix, Collagen Repair, Artiprane. Angle articulaire et peau.',
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `Le marché du collagène va de la poudre anonyme à 20 €/kg aux formules brevetées à 150 €/kg. À composition identique, les bénéfices sont comparables ; la vraie variable, c'est **la matière première, le poids moléculaire et la présence de cofacteurs** (vitamine C, chondroïtine, MSM).
 
 Ce benchmark rappelle les critères de choix, puis compare quatre produits de la gamme Nutrimuscle (la plus documentée en France) pour donner des repères de prix et de positionnement.

@@ -1,9 +1,11 @@
 import type { ArticleInput } from '../article-data'
 
 export const ROSACEE_07_LIRE_INCI: ArticleInput = {
-  title: '07 — Comment lire une liste INCI intelligemment',
+  title: 'Rosacée : comment décrypter une liste INCI (7/7)',
   slug: 'rosacee-07-lire-une-liste-inci',
   category: 'skincare',
+  coverImageUrl:
+    'https://images.unsplash.com/photo-1556741533-927182355585?auto=format&fit=crop&w=1200&q=80',
   publishedAt: new Date().toISOString(),
   content: `
 # 07 — Comment lire une liste INCI intelligemment
@@ -478,10 +480,10 @@ Une formule avec 3 actifs bien positionnés et aucun signal d'alerte vaut mieux 
 
 **Question clé :** l'équilibre global penche vers la compatibilité ou vers le risque ?
 
-## Étape 5 — Croiser avec ta tolérance réelle
+## Étape 5 — Croiser avec votre tolérance réelle
 Une liste INCI favorable ne garantit pas la tolérance. Et une liste imparfaite peut parfois être tolérée.
 
-**Question clé :** est-ce que ma propre expérience avec ce produit (ou des produits similaires) confirme l'analyse ?
+**Question clé :** est-ce que votre propre expérience avec ce produit (ou des produits similaires) confirme l'analyse ?
 
 ---
 

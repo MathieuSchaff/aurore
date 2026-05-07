@@ -6,7 +6,7 @@ export const arnica: ArticleInput = {
   category: 'phytotherapie',
   excerpt:
     "L'arnica (Arnica montana) dans la pharmacopée traditionnelle européenne : usage topique pour hématomes, bleus et petits traumatismes cutanés. Ce que disent les études cliniques et pourquoi l'homéopathie n'a pas montré d'efficacité supérieure au placebo.",
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `L'**arnica** (*Arnica montana*) fait partie de la **pharmacopée traditionnelle européenne**. On la retrouve dans de nombreuses pommades et gels vendus en pharmacie, principalement pour les **petits traumatismes cutanés**.
 
 Mais contrairement à d'autres plantes comme l'aubépine ou le gingembre, **son efficacité clinique reste peu documentée**.

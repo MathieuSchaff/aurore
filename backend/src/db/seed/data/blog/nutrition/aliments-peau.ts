@@ -6,7 +6,7 @@ export const alimentsPeau: ArticleInput = {
   category: 'nutrition',
   excerpt:
     "Catalogue par famille (fruits, légumes, légumineuses, pseudo-céréales, fermentés, graines, algues) des aliments qui nourrissent la peau : vitamine C pour le collagène, caroténoïdes anti-UV, antioxydants, silice, zinc, oméga-3 et probiotiques pour l'axe intestin-peau.",
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `Quatre axes nutritionnels structurent une alimentation pro-peau :
 
 1. **Vitamine C** — synthèse du collagène.

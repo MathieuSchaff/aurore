@@ -6,7 +6,7 @@ export const gotuKola: ArticleInput = {
   category: 'phytotherapie',
   excerpt:
     "Gotu Kola (Centella asiatica), l'herbe du tigre ayurvédique : cicatrisation topique reconnue par l'OMS, insuffisance veineuse, stimulation du collagène. Principes actifs (asiaticoside, madecassoside), dosages, formes topiques et orales, précautions.",
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `Le **Gotu Kola** (*Centella asiatica*), surnommé **"herbe du tigre"**, est utilisé en Ayurveda et en médecine chinoise depuis plus de 2000 ans. C'est l'une des plantes les mieux documentées pour la **cicatrisation topique** et l'**insuffisance veineuse**.
 
 ## Principes actifs — les triterpènes

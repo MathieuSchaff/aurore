@@ -6,7 +6,7 @@ export const cuminNoir: ArticleInput = {
   category: 'phytotherapie',
   excerpt:
     'Le cumin noir (Nigella sativa, nigelle, black seed) et son actif clé, la thymoquinone : soutien immunitaire, effets anti-inflammatoires et antioxydants, glycémie, peau et allergies. Formes, dosages et précautions.',
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `Le **cumin noir** (*Nigella sativa*), aussi appelé **nigelle** ou *black seed*, est une graine médicinale très ancienne, utilisée autant en médecine ayurvédique qu'en médecine arabe ou égyptienne. Son huile est couramment appelée **huile de nigelle**.
 
 ## Bienfaits étudiés

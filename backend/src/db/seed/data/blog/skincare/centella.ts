@@ -8,7 +8,7 @@ export const CENTELLA_ROUGEURS_ROSACEE: ArticleInput = {
     'Longtemps vue comme une simple tendance K-beauty, la Centella Asiatica possède pourtant un vrai intérêt pour les peaux sensibles, rouges, réactives ou sujettes aux imperfections.',
   category: 'skincare',
   coverImageUrl:
-    'https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1753200472216-1452e6d83bf5?auto=format&fit=crop&w=1400&q=80',
   publishedAt: new Date().toISOString(),
   content: `
 # Centella Asiatica : l’ingrédient apaisant sous-estimé contre rougeurs, rosacée et peau sensible
@@ -24,7 +24,7 @@ Pour les peaux :
 - acnéiques mais fragilisées
 - matures et plus réactives
 
-… la Centella peut être un excellent allié. :contentReference[oaicite:0]{index=0}
+… la Centella peut être un excellent allié.
 
 ---
 
@@ -51,7 +51,7 @@ Avec le temps, plusieurs mécanismes évoluent :
 - renouvellement cellulaire plus lent
 - récupération cutanée parfois moins rapide
 
-Résultat : une peau qui peut devenir plus sèche, plus inflammatoire, plus réactive et plus sujette aux rougeurs persistantes. :contentReference[oaicite:1]{index=1}
+Résultat : une peau qui peut devenir plus sèche, plus inflammatoire, plus réactive et plus sujette aux rougeurs persistantes.
 
 ---
 
@@ -73,7 +73,7 @@ Ces molécules sont étudiées pour leur potentiel :
 - antioxydant
 - anti-inflammatoire léger
 
-:contentReference[oaicite:2]{index=2}
+
 
 ---
 
@@ -98,7 +98,7 @@ Elle peut être utile pendant :
 - inconfort avec rétinoïdes
 - peau sensibilisée après excès de soins
 
-:contentReference[oaicite:3]{index=3}
+
 
 ---
 
@@ -122,7 +122,7 @@ En pratique :
 
 Les deux approches peuvent être bonnes. La qualité globale de la formule reste essentielle.
 
-:contentReference[oaicite:4]{index=4}
+
 
 ---
 
@@ -157,7 +157,7 @@ Si la peau brûle ou réagit :
 - simplifier la routine
 - Centella + hydratation + SPF
 
-:contentReference[oaicite:5]{index=5}
+
 
 ---
 

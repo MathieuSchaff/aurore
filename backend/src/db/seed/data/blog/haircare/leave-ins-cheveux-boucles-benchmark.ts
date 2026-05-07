@@ -6,7 +6,7 @@ export const leaveInsCheveuxBouclesBenchmark: ArticleInput = {
   category: 'haircare',
   excerpt:
     'Comparatif de 14 leave-ins (crèmes/sprays sans rinçage) pour cheveux bouclés, ondulés, crépus : formulations cleans vs silicones, classement par nutrition et prix, recommandations selon fréquence (quotidien vs ponctuel). Inclut Activilong, SheaMoisture, Camille Rose, As I Am, Moroccanoil, Redken, Wella…',
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `## Ce qu'on cherche dans un leave-in
 
 Un leave-in reste en contact prolongé avec la fibre — la formulation pèse plus que pour un shampoing.

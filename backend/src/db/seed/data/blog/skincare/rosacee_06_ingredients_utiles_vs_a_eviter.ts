@@ -1,9 +1,11 @@
 import type { ArticleInput } from '../article-data'
 
 export const ROSACEE_06_INGREDIENTS: ArticleInput = {
-  title: '06 — Ingrédients utiles vs ingrédients à éviter',
+  title: 'Rosacée : ingrédients à privilégier et à éviter (6/7)',
   slug: 'rosacee-06-ingredients-utiles-vs-a-eviter',
   category: 'skincare',
+  coverImageUrl:
+    'https://images.unsplash.com/photo-1573461160327-b450ce3d8e7f?auto=format&fit=crop&w=1200&q=80',
   publishedAt: new Date().toISOString(),
   content: `
 # 06 — Ingrédients utiles vs ingrédients à éviter
@@ -244,7 +246,7 @@ Au-delà de 10 %, une partie peut se convertir en acide nicotinique chez certain
 **INCI :** Zinc Oxide
 
 **Mécanisme :**
-- filtre UV physique (UVA + UVB) par réflexion
+- filtre UV minéral (UVA + UVB) : protection par réflexion, diffusion et absorption combinées
 - légèrement anti-inflammatoire et antibactérien
 - forme un film protecteur sur la surface de la peau
 
@@ -568,7 +570,7 @@ La liste INCI (International Nomenclature of Cosmetic Ingredients) permet d'iden
 
 # À retenir
 
-- Le meilleur ingrédient est celui que ta peau tolère — mais la tolérance dépend aussi de l'état de la barrière au moment de l'utilisation.
+- Le meilleur ingrédient est celui que votre peau tolère — mais la tolérance dépend aussi de l'état de la barrière au moment de l'utilisation.
 - La formulation complète compte autant que l'actif : un niacinamide dans une base parfumée à l'alcool reste un mauvais produit.
 - Les ingrédients les plus constants dans leur efficacité pour la rosacée : **acide azélaïque, céramides, niacinamide 2–5 %, panthénol, centella asiatica**.
 - Les ingrédients les plus constants dans leurs risques : **parfum/fragrance, alcool dénaturé en tête de liste, SLS, menthol, huiles essentielles**.

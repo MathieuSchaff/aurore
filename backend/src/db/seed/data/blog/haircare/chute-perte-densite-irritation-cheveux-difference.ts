@@ -1,7 +1,7 @@
 import type { ArticleInput } from '../article-data'
 
 export const chuteDensiteIrritationDifferences: ArticleInput = {
-  title: 'Chute, Perte de Densité ou Simple Irritation : Comment Faire la Différence',
+  title: 'Chute, perte de densité ou simple irritation : comment faire la différence',
   slug: 'chute-perte-densite-irritation-cheveux-difference',
   excerpt:
     'Tous les problèmes capillaires ne se traitent pas de la même façon. Distinguer irritation, chute diffuse et perte de densité permet de choisir des soins vraiment adaptés.',

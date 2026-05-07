@@ -6,7 +6,7 @@ export const ail: ArticleInput = {
   category: 'phytotherapie',
   excerpt:
     "L'ail (Allium sativum) et son principe actif clé, l'allicine : mécanismes cardiovasculaires, effet sur le cholestérol et la tension, dosages, formes disponibles (cru, noir fermenté, extrait vieilli) et précautions.",
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `L'ail est l'une des plantes les plus étudiées en phytothérapie cardiovasculaire. Son principe actif principal, **l'allicine**, ne préexiste pas dans la gousse : il se forme quand l'ail est **écrasé ou coupé**, via l'enzyme alliinase qui transforme l'alliine (inactive) en allicine.
 
 ## Le principe actif : l'allicine

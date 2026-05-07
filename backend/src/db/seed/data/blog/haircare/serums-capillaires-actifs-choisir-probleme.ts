@@ -1,7 +1,7 @@
 import type { ArticleInput } from '../article-data'
 
 export const serumsCapillairesActifsChoisir: ArticleInput = {
-  title: 'Sérums Capillaires : Quels Actifs Choisir Selon le Problème Réel',
+  title: 'Sérums capillaires : quels actifs choisir selon le problème réel',
   slug: 'serums-capillaires-actifs-choisir-probleme',
   excerpt:
     'Anti-chute, densité, cuir chevelu sensible, racines douloureuses : les sérums capillaires ne répondent pas tous au même besoin. Guide clair pour choisir les bons actifs.',

@@ -6,7 +6,7 @@ export const plantesVeinotoniquesCouperose: ArticleInput = {
   category: 'phytotherapie',
   excerpt:
     "Hélichryse, thé vert, marron d'Inde, petit houx : les 4 plantes de référence pour réduire la rougeur diffuse, protéger les capillaires et prévenir la rechute après IPL. Actions, formes d'utilisation, précautions et synergie détaillées.",
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `La **couperose** est une dilatation permanente des capillaires superficiels du visage. Les plantes veinotoniques agissent sur les parois vasculaires (tonicité, perméabilité, élasticité) et constituent un **complément naturel à l'IPL** — en préparation, pendant la récupération, et surtout en **prévention de rechute**.
 
 Cet article détaille les 4 plantes majeures, leur complémentarité, et leur place exacte dans un protocole rosacée / couperose.

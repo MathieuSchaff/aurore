@@ -7,7 +7,7 @@ export const SIX_ERREURS_VIEILLISSEMENT_PEAU: ArticleInput = {
     'Sucres rapides, soleil, alcool, tabac, sédentarité… certaines habitudes vieillissent la peau plus vite que prévu. Voici les 6 plus importantes, expliquées simplement.',
   category: 'skincare',
   coverImageUrl:
-    'https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1609542499975-4ca8bde933db?auto=format&fit=crop&w=1200&q=80',
   publishedAt: new Date().toISOString(),
   content: `
 # 6 erreurs qui accélèrent le vieillissement de la peau
@@ -18,7 +18,7 @@ Mais certaines habitudes peuvent **accélérer inutilement** ce processus. Bonne
 
 Et non, il ne s’agit pas d’acheter une crème miracle.
 
-Il s’agit surtout de **mode de vie, constance et petits choix répétés**. :contentReference[oaicite:0]{index=0}
+Il s’agit surtout de **mode de vie, constance et petits choix répétés**.
 
 ---
 
@@ -52,7 +52,7 @@ La **glycation** correspond à une dégradation des fibres de soutien de la peau
 
 - peau moins souple
 - teint plus terne
-- rides plus marquées avec le temps :contentReference[oaicite:1]{index=1}
+- rides plus marquées avec le temps
 
 ## Que faire ?
 
@@ -90,7 +90,7 @@ Cela peut arriver après :
 - perte de poids rapide
 - prise de poids importante
 - fluctuations répétées
-- certains traitements amaigrissants :contentReference[oaicite:2]{index=2}
+- certains traitements amaigrissants
 
 ## Que faire ?
 
@@ -125,7 +125,7 @@ Certaines personnes remarquent rapidement :
 - rougeurs
 - poches
 - peau froissée le matin
-- fatigue visible :contentReference[oaicite:3]{index=3}
+- fatigue visible
 
 ## Que faire ?
 
@@ -154,7 +154,7 @@ C’est probablement le facteur externe numéro 1 du vieillissement cutané.
 - texture irrégulière
 - cancers cutanés
 
-Les UVA pénètrent plus profondément et participent au vieillissement. Les UVB brûlent davantage la surface. :contentReference[oaicite:4]{index=4}
+Les UVA pénètrent plus profondément et participent au vieillissement. Les UVB brûlent davantage la surface.
 
 ## Que faire ?
 
@@ -185,7 +185,7 @@ Elle aide à :
 - masse musculaire
 - densité osseuse
 
-Tout cela influence l’apparence du visage et la qualité de peau sur le long terme. :contentReference[oaicite:5]{index=5}
+Tout cela influence l’apparence du visage et la qualité de peau sur le long terme.
 
 ## Minimum utile
 
@@ -211,7 +211,7 @@ Le tabac reste l’un des accélérateurs les plus visibles du vieillissement.
 - rides péribuccales
 - cicatrisation moins bonne
 
-Les dermatologues repèrent souvent un fumeur au visage avant même de le savoir. :contentReference[oaicite:6]{index=6}
+Les dermatologues repèrent souvent un fumeur au visage avant même de le savoir.
 
 ## Bonne nouvelle
 

@@ -6,7 +6,7 @@ export const secretsDeLolyAnalyse: ArticleInput = {
   category: 'haircare',
   excerpt:
     'Décryptage INCI des 8 produits phares Les Secrets de Loly (Perfect Match, Pink Paradise, Pink Power Mask, Kurl Nectar, Kurl Potion, Smoothie, Kurl Fusion, Boost Curl) : actifs clés, rôles, routine hebdomadaire et coût mensuel réel. Complément Olaplex N°3 pour la réparation des ponts disulfure.',
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `Les Secrets de Loly est une marque française dédiée aux cheveux bouclés, frisés et crépus. Gamme positionnée sur **tensioactifs doux + protéines hydrolysées + acides aminés + actifs apaisants** (panthénol, aloe). Cet article décompose chaque produit par son INCI et propose une routine type avec coût mensuel réel.
 
 ---

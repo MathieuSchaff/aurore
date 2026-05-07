@@ -6,7 +6,7 @@ export const alimentationCerveau: ArticleInput = {
   category: 'nutrition',
   excerpt:
     "Comment l'alimentation soutient la santé cérébrale : myélinisation, neuroplasticité, mitochondries, neurotransmetteurs, barrière hémato-encéphalique, vascularisation, BDNF et inflammation. Top 10 aliments et modèle méditerranéen.",
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `Le cerveau représente **environ 2 % du poids corporel** mais consomme **20 % de l'énergie** au repos. C'est aussi l'organe le plus riche en lipides du corps (hors tissu adipeux) et le plus exposé au stress oxydatif.
 
 Ce qu'on mange au quotidien influence directement huit mécanismes cérébraux clés — de la vitesse de transmission des signaux nerveux à la capacité de créer de nouvelles connexions. Cet article couvre les aliments qui soutiennent chacun de ces mécanismes, sans entrer dans la supplémentation ciblée.

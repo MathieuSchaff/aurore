@@ -6,7 +6,7 @@ export const reglisseLicorice: ArticleInput = {
   category: 'phytotherapie',
   excerpt:
     "L'acide glycyrrhétinique (extrait de réglisse) en cosmétique : apaisant, anti-rougeurs, éclaircissant taches brunes, réparateur. Mécanismes (NF-κB, Nrf2, 11β-HSD1), formes (acide vs sels), pH optimal 5-7, concentrations 0,5-2 %, synergies et précautions.",
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `L'**acide glycyrrhétinique** (GA), aglycone de la glycyrrhizine extraite de la **racine de réglisse** (*Glycyrrhiza glabra*), est l'un des actifs cosmétiques **apaisants** les plus intéressants. C'est un triterpénoïde pentacyclique aux propriétés anti-inflammatoires et antioxydantes bien documentées.
 
 > Cet article traite de l'**usage cosmétique topique**. L'ingestion de glycyrrhizine (confiseries à la réglisse, compléments oraux) expose à d'autres effets (pseudo-Cushing, hypertension) qui sortent du cadre ici.

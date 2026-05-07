@@ -1,9 +1,11 @@
 import type { ArticleInput } from '../article-data'
 
 export const ROSACEE_03_DECLENCHEURS: ArticleInput = {
-  title: '03 — Déclencheurs et facteurs aggravants',
+  title: 'Rosacée : identifier ses déclencheurs et facteurs aggravants (3/7)',
   slug: 'rosacee-03-declencheurs-et-facteurs-aggravants',
   category: 'skincare',
+  coverImageUrl:
+    'https://images.unsplash.com/photo-1519084278803-b94f11e1c63b?auto=format&fit=crop&w=1200&q=80',
   publishedAt: new Date().toISOString(),
   content: `
 # 03 — Déclencheurs et facteurs aggravants
@@ -13,7 +15,7 @@ La rosacée ne réagit pas de la même manière chez tout le monde.
 
 Deux personnes avec le même sous-type peuvent avoir des déclencheurs très différents.
 
-L'objectif n'est pas d'éviter tout, mais d'identifier ce qui provoque TES poussées.
+L'objectif n'est pas d'éviter tout, mais d'identifier ce qui provoque VOS poussées.
 
 ---
 

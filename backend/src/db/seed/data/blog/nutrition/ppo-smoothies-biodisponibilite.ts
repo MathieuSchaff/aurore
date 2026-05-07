@@ -6,7 +6,7 @@ export const ppoSmoothiesBiodisponibilite: ArticleInput = {
   category: 'nutrition',
   excerpt:
     "Une étude Food & Function montre que la polyphénol oxydase (PPO) de la banane réduit de 84 % l'absorption des flavan-3-ols (cacao, thé, fruits rouges). Quels fruits éviter de mélanger, lesquels privilégier pour un smoothie antioxydant.",
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `Mélanger banane et cacao dans un smoothie paraît sain. En réalité, la **banane détruit jusqu'à 84 % des flavan-3-ols du cacao** avant qu'ils atteignent la circulation sanguine. Le coupable : une enzyme naturellement présente dans la chair de banane, la **polyphénol oxydase (PPO)**, celle-là même qui fait brunir une pomme coupée.
 
 Cet article résume une étude publiée dans *Food & Function* (Royal Society of Chemistry), explique le mécanisme, et propose des **règles simples** pour préserver les polyphénols de vos smoothies.

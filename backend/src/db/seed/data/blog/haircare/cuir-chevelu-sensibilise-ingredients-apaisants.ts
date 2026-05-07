@@ -1,7 +1,7 @@
 import type { ArticleInput } from '../article-data'
 
 export const ingredientsApaisantsCuirChevelu: ArticleInput = {
-  title: 'Cuir Chevelu Sensibilisé : Les Ingrédients Qui Peuvent Vraiment Aider',
+  title: 'Cuir chevelu sensibilisé : les ingrédients qui peuvent vraiment aider',
   slug: 'cuir-chevelu-sensibilise-ingredients-apaisants',
   excerpt:
     'Panthénol, niacinamide, glycérine, allantoïne, piroctone olamine : certains actifs ont un intérêt réel pour calmer un cuir chevelu irrité ou inconfortable.',

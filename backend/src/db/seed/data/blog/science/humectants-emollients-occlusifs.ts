@@ -6,7 +6,7 @@ export const humectantsEmollientsOcclusifs: ArticleInput = {
   category: 'science',
   excerpt:
     "Comprendre les trois familles d'actifs qui composent une crème hydratante : humectants (attirent l'eau), émollients (lissent et réparent), occlusifs (scellent). Exemples INCI, ordre de layering et choix selon type de peau et climat.",
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `La plupart des crèmes hydratantes (**moisturizers**) ne sont pas une substance unique mais un **mélange** de trois grandes familles d'actifs : humectants, émollients, occlusifs. Leur proportion détermine la texture, l'efficacité et l'adaptation au type de peau et au climat.
 
 Savoir les reconnaître dans une liste INCI, c'est comprendre ce qu'un produit **va vraiment faire** sur la peau — et pourquoi un sérum hyaluronique seul peut parfois *assécher* en hiver.

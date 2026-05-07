@@ -6,7 +6,7 @@ export const benchmarkSupplements: ArticleInput = {
   category: 'supplements',
   excerpt:
     'Classement de ~90 suppléments par consensus médical (Dr Karan, Dr Stillson, Dr Stanfield, Dr Youn, Dr Tracey, Physionic). Du S-tier (oméga-3, fibres, créatine, magnésium, vit D+K2) au F-tier (thés détox, BCAA seuls, fer si non carencé).',
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `Le marché de la supplémentation est saturé : ~30 000 produits sur étagère en Europe, des dizaines de tendances annuelles (NMN, turkesterone, spermidine…). La plupart n'ont **aucun effet mesurable** sur une personne déjà bien nourrie, certains sont contre-productifs, et quelques-uns ont un vrai rapport bénéfice / prix.
 
 Ce benchmark consolide les recommandations de six références publiques (Dr Karan Raj, Dr Stillson, Dr Stanfield, Dr Anthony Youn, Dr Tracey Marks, Physionic) en tier list S → F. Chaque niveau reflète le **consensus multi-experts**, pas l'avis isolé d'un influenceur.

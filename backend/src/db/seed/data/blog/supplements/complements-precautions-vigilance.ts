@@ -6,7 +6,7 @@ export const complementsPrecautionsVigilance: ArticleInput = {
   category: 'supplements',
   excerpt:
     'Naturel ne veut pas dire sans risque. Les compléments qui méritent une vigilance particulière : hépatotoxicité documentée, interactions médicamenteuses, mégadosages problématiques. Millepertuis, kava, extraits concentrés, B6 et B3 à fortes doses, timing post-exercice.',
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `Beaucoup de compléments sont utiles ou neutres à dose physiologique. Certains, en revanche, cumulent des signalements cliniques récurrents — hépatotoxicité, interactions médicamenteuses, effets neurologiques à long terme — qui justifient une vigilance particulière.
 
 Ce guide fait le tri. Il ne dit pas "jamais" mais "à connaître avant" : certains produits sont réservés à un contexte précis, d'autres demandent un suivi, d'autres encore n'apportent rien à la plupart des gens.

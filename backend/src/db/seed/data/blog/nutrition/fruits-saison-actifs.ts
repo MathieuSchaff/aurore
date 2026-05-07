@@ -6,7 +6,7 @@ export const fruitsSaisonActifs: ArticleInput = {
   category: 'nutrition',
   excerpt:
     "Un guide des fruits français par famille et par saison, avec leurs composés actifs dominants (anthocyanes, resvératrol, punicalagines, bromélaïne...), leurs effets documentés et des conseils d'utilisation au quotidien. Inclut les baies sauvages souvent oubliées.",
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `Manger "des fruits" n'est pas un geste interchangeable : chaque fruit apporte un profil de **composés actifs** spécifique. Une myrtille et une banane ne remplissent pas la même fonction — l'une apporte des anthocyanes et du ptérostilbène, l'autre du tryptophane et de l'amidon résistant.
 
 Ce guide recense les fruits courants en France par famille, avec pour chacun : **actifs clés**, **effets documentés**, **astuces pratiques** et **saison locale** (quand c'est pertinent pour le goût et le prix).

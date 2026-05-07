@@ -6,7 +6,7 @@ export const ginkgoBiloba: ArticleInput = {
   category: 'phytotherapie',
   excerpt:
     "Le Ginkgo biloba, 'fossile vivant' de 270 millions d'années : action sur la circulation cérébrale, la mémoire (50+), les vertiges/acouphènes circulatoires, la claudication intermittente. Extrait standardisé EGb 761, dosages, et surtout ses 290+ interactions médicamenteuses.",
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `Le **Ginkgo biloba** est l'arbre le plus ancien de la planète (270 millions d'années), surnommé **"arbre aux mille écus"**. Utilisé en médecine traditionnelle chinoise depuis des millénaires, c'est l'une des plantes nootropiques les mieux documentées — mais aussi l'une des plus **interactives** avec les médicaments.
 
 ## Principes actifs

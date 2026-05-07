@@ -2,7 +2,7 @@ import type { ArticleInput } from '../article-data'
 
 export const PRODUITS_CAPILLAIRES_EFFICACES_GUIDE_SERIEUX: ArticleInput = {
   title:
-    'Produits Capillaires Efficaces : Le Guide Sérieux Pour Choisir Shampoings, Sérums et Appareils Utiles',
+    'Produits capillaires efficaces : le guide sérieux pour choisir shampoings, sérums et appareils utiles',
   slug: 'produits-capillaires-efficaces-guide-serieux',
   excerpt:
     'Entre marketing agressif et vraies solutions, quels produits capillaires méritent réellement votre attention ? Analyse claire et rigoureuse des shampoings, sérums et appareils utiles.',
@@ -22,7 +22,7 @@ Le secteur des soins capillaires mélange souvent deux réalités :
 
 Résultat : il devient difficile de distinguer ce qui peut **améliorer la santé du cuir chevelu, la qualité des cheveux ou soutenir une routine anti-chute**, de ce qui relève surtout du discours commercial.
 
-Cet article propose une synthèse claire, simple et rigoureuse des catégories de produits les plus intéressantes aujourd’hui. :contentReference[oaicite:0]{index=0}
+Cet article propose une synthèse claire, simple et rigoureuse des catégories de produits les plus intéressantes aujourd’hui.
 
 ---
 

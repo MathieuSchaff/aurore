@@ -1,7 +1,7 @@
 import type { ArticleInput } from '../article-data'
 
 export const HUILE_ROMARIN_CHEVEUX: ArticleInput = {
-  title: 'Huile de Romarin et Repousse des Cheveux : Efficace ou Simple Mythe ?',
+  title: 'Huile de romarin et repousse des cheveux : efficace ou simple mythe ?',
   slug: 'huile-romarin-repousse-cheveux',
   excerpt:
     'L’huile de romarin est souvent présentée comme une alternative naturelle au minoxidil. Que dit réellement la science sur la repousse des cheveux ? Analyse claire et sérieuse.',
@@ -179,6 +179,6 @@ Le meilleur résultat vient souvent d’une approche globale :
 
 **Le romarin peut aider, mais la constance et la vraie cause de votre chute comptent davantage que n’importe quelle huile.**
 
-_Source analysée : transcription vidéo sur l’huile de romarin et la repousse capillaire. :contentReference[oaicite:0]{index=0}_
+_Source analysée : transcription vidéo sur l’huile de romarin et la repousse capillaire._
 `,
 }

@@ -1,49 +1,49 @@
-import { createArticle } from '../../../features/blog/service'
-import { isUniqueViolation } from '../../../lib/helpers'
+import slugify from '@sindresorhus/slugify'
+import { sql } from 'drizzle-orm'
+
 import { db } from '../..'
+import { articles } from '../../schema'
 import { articleData } from '../data/blog'
 import { seedBatch } from '../utils/batch'
 import { getOrCreateSeedUser } from './create-user'
 
-// Idempotent mode: re-runs against an existing DB skip articles whose slug
-// is already taken instead of logging one warning per existing article.
-export async function seedBlog(idempotent = false) {
+// Upsert: insert new articles, update publishedAt on existing drafts (published_at IS NULL).
+export async function seedBlog(_idempotent = false) {
   console.log('\n📝 Seed des articles de blog...')
 
   const user = await getOrCreateSeedUser()
 
-  const isLikelyUnique = (e: unknown): boolean => {
-    if (isUniqueViolation(e)) return true
-    let cur: unknown = e
-    for (let i = 0; i < 5 && cur; i++) {
-      if (!(cur instanceof Error)) break
-      const code = (cur as { code?: unknown }).code ?? (cur as { errno?: unknown }).errno
-      if (code === '23505') return true
-      if (/duplicate key|violates unique constraint/i.test(cur.message)) return true
-      cur = (cur as { cause?: unknown }).cause
-    }
-    return false
-  }
-
-  const insert = (article: (typeof articleData)[number]) => {
-    const p = createArticle(db, user.id, article)
-    if (!idempotent) return p
-    return p.catch((e: unknown) => {
-      if (isLikelyUnique(e)) return null
-      if (e instanceof Error && /already_exists/.test(e.message)) return null
-      throw e
-    })
-  }
-
   const result = await seedBatch(
     'articles',
     articleData,
-    insert,
+    (article) => {
+      const slug = article.slug ? slugify(article.slug) : slugify(article.title)
+      return db
+        .insert(articles)
+        .values({
+          ...article,
+          slug,
+          createdBy: user.id,
+          publishedAt: article.publishedAt ?? null,
+        })
+        .onConflictDoUpdate({
+          target: articles.slug,
+          set: {
+            title: sql`EXCLUDED.title`,
+            excerpt: sql`EXCLUDED.excerpt`,
+            content: sql`EXCLUDED.content`,
+            category: sql`EXCLUDED.category`,
+            coverImageUrl: sql`EXCLUDED.cover_image_url`,
+            publishedAt: sql`EXCLUDED.published_at`,
+            updatedAt: sql`now()`,
+          },
+        })
+    },
     (article) => article.slug ?? article.title,
     false
   )
 
-  console.log(`✅ ${result.success}/${result.total} articles insérés`)
+  console.log(`✅ ${result.success}/${result.total} articles insérés/mis à jour`)
   if (result.failed.length > 0) {
     console.warn(`⚠️  ${result.failed.length} article(s) en échec :`)
     for (const f of result.failed) console.warn(`   - ${f.item}: ${f.reason}`)

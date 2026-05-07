@@ -1,9 +1,11 @@
 import type { ArticleInput } from '../article-data'
 
 export const ROSACEE_04_BARRIERE_CUTANEE: ArticleInput = {
-  title: '04 — Barrière cutanée : pourquoi la peau rosacéique brûle, pique et réagit',
+  title: 'Rosacée : pourquoi la barrière cutanée est compromise (4/7)',
   slug: 'rosacee-04-barriere-cutanee',
   category: 'skincare',
+  coverImageUrl:
+    'https://images.unsplash.com/photo-1638609927040-8a7e97cd9d6a?auto=format&fit=crop&w=1200&q=80',
   publishedAt: new Date().toISOString(),
   content: `
 # 04 — Barrière cutanée : pourquoi la peau rosacéique brûle, pique et réagit

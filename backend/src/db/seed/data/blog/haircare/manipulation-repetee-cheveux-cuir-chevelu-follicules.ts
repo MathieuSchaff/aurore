@@ -1,7 +1,7 @@
 import type { ArticleInput } from '../article-data'
 
 export const cuirCheveluManipulationFollicules: ArticleInput = {
-  title: 'Manipulation Répétée des Cheveux : Ce Qui Se Passe Vraiment au Niveau du Cuir Chevelu',
+  title: 'Manipulation répétée des cheveux : ce qui se passe vraiment au niveau du cuir chevelu',
   slug: 'manipulation-repetee-cheveux-cuir-chevelu-follicules',
   excerpt:
     'Toucher, tourner ou manipuler régulièrement ses cheveux peut sensibiliser le cuir chevelu. Comprendre les mécanismes biologiques permet de mieux prévenir irritation, inconfort et chute secondaire.',

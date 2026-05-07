@@ -655,7 +655,7 @@ Le Gluconate de Zinc présente un excellent profil d'innocuité :
   | Concentration | Statut | Usage |
   |---|---|---|
   | 10 % | OTC / cosmétique | Soutien acné légère, actif secondaire |
-  | 15 % | OTC+ / quasi-Rx | Rosacée, acné, hyperpigmentation |
+  | 15 % | OTC (pharmacie, sans ordonnance) | Rosacée, acné, hyperpigmentation |
   | 20 % | Prescription | Melasma, acné modérée, gold standard clinique |
 
   ### Ce que 10 % peut (et ne peut pas) faire

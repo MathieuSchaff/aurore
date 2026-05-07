@@ -6,7 +6,7 @@ export const antioxydantsScience: ArticleInput = {
   category: 'science',
   excerpt:
     "Pourquoi supplémenter des antioxydants à l'aveugle peut être contre-productif. Différence entre ROS ennemis et ROS signaux, hormèse, NRF2, et classement pratique de 10 suppléments courants (glycine, NAC, astaxanthine, curcumine…).",
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `**"Antioxydant = bon, plus il y en a mieux c'est."** Ce raccourci est faux. Les espèces réactives de l'oxygène (ROS) ne sont pas un poison à éliminer : ce sont aussi des **signaux** qui déclenchent l'adaptation cellulaire à l'exercice, la réponse immunitaire, la mort des cellules précancéreuses. Les noyer sous une mégadose d'antioxydants, c'est éteindre ces signaux.
 
 Cet article explique la différence entre **neutraliser des ROS** et **soutenir les défenses cellulaires**, pourquoi certains essais sur de fortes doses d'antioxydants ont donné des résultats *négatifs* (bêta-carotène et cancer du poumon chez fumeurs, vit. E et mortalité), et comment lire une étiquette "antioxydant" de façon utile.

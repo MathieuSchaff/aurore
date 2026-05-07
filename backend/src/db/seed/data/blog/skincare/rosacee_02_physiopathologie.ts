@@ -1,9 +1,11 @@
 import type { ArticleInput } from '../article-data'
 
 export const ROSACEE_02_PHYSIOPATHOLOGIE: ArticleInput = {
-  title: '02 — Physiopathologie de la rosacée',
+  title: 'Rosacée : ce qui se passe vraiment dans la peau (2/7)',
   slug: 'rosacee-02-physiopathologie',
   category: 'skincare',
+  coverImageUrl:
+    'https://images.unsplash.com/photo-1714845596426-b794e7b56ae1?auto=format&fit=crop&w=1200&q=80',
   publishedAt: new Date().toISOString(),
   content: `
 # 02 — Physiopathologie de la rosacée

@@ -6,7 +6,7 @@ export const magnesiumFormesPrixBenchmark: ArticleInput = {
   category: 'supplements',
   excerpt:
     "Quelle forme de magnésium choisir (glycinate, citrate, malate, thréonate, marin, oxyde) et à quel prix ? Benchmark de 9 produits Sunday Natural : coût mensuel, score qualité, spécificité. Éviter l'oxyde sauf laxatif.",
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `Le magnésium est l'un des trois suppléments sur lesquels le consensus est le plus solide (cf. l'article benchmark-supplements). Mais à l'achat, la **forme** change tout : la biodisponibilité va de ~4 % (oxyde) à > 80 % (glycinate), et le prix au mg utilisable varie d'un facteur 10.
 
 Ce benchmark compare 9 produits de la gamme **Sunday Natural** (transparence et traçabilité documentées) pour donner des repères de prix et positionner chaque forme. La logique s'applique à d'autres marques sérieuses — Novoma, Nutri&Co, Thorne, Pure Encapsulations.

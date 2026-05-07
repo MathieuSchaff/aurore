@@ -6,7 +6,7 @@ export const boissonsBenchmark: ArticleInput = {
   category: 'nutrition',
   excerpt:
     "Classement des boissons courantes par intérêt nutritionnel, du S-tier (eau) au F-tier (sodas, energy drinks) : avantages, limites, pièges d'étiquettes. Angle nutritionnel pragmatique, pas médical.",
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `Toutes les boissons ne se valent pas : certaines hydratent en apportant des micronutriments intéressants, d'autres sont essentiellement des vecteurs de sucre ou d'alcool. Ce benchmark classe 26 boissons courantes sur une échelle S → F, avec pour chacune **apports réels** et **limites**.
 
 **Attention aux étiquettes** : pour les jus, la différence entre "100 % pur jus", "nectar" et "boisson aromatisée" change radicalement la position dans ce classement. À apport en sucre comparable, un "jus" industriel peut basculer de B-tier à D-tier.

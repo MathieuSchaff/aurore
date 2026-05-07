@@ -6,7 +6,7 @@ export const shampoingsCheveuxBouclesBenchmark: ArticleInput = {
   category: 'haircare',
   excerpt:
     "Comparatif de 14 shampoings cheveux bouclés/ondulés/crépus : analyse des tensioactifs (sulfates vs doux), classement par douceur, prix au litre, et recommandations selon la fréquence de lavage. Inclut Les Secrets de Loly, Olaplex, L'Oréal Pro, Hairlust, Énergie Fruit, Kérastase et + le conditioner Olaplex N°5.",
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `## Comment lire un INCI de shampoing
 
 Le **tensioactif principal** (en 2ᵉ ou 3ᵉ position après l'eau) détermine la douceur globale. Du plus doux au plus décapant :

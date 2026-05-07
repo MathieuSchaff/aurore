@@ -6,7 +6,7 @@ export const curcuma: ArticleInput = {
   category: 'phytotherapie',
   excerpt:
     "Le curcuma (Curcuma longa) et la curcumine : anti-inflammatoire le plus étudié au monde (+15 000 études), mais quasi-inutile sans solution d'absorption. Biodisponibilité, pipérine, graisses, formulations liposomales, dosages et limite ANSES.",
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `Le **curcuma** (*Curcuma longa*) contient la **curcumine**, qui représente 70-90 % des curcuminoïdes (pigments jaunes). C'est l'**anti-inflammatoire naturel le plus étudié au monde**, avec plus de **15 000 études scientifiques**.
 
 Mais il a un **gros défaut** : sa biodisponibilité est catastrophique. Prise seule, la curcumine est quasi-inutile.

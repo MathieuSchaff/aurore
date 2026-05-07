@@ -6,7 +6,7 @@ export const plantesCirculatoiresCerveau: ArticleInput = {
   category: 'phytotherapie',
   excerpt:
     'Panorama des plantes utilisées pour la circulation cérébrale et cardiaque : pervenche, monarde, romarin, sésame, chicorée sauvage, cimicifuga. Indications (acouphènes, vertiges, mémoire), posologies, interactions médicamenteuses.',
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `Ce panorama réunit six plantes à usage traditionnel et bibliographie inégale autour de la **circulation cérébrale et cardiaque** : pervenche, monarde, romarin, sésame, chicorée sauvage, cimicifuga. Il complète les articles individuels déjà publiés sur le **Ginkgo biloba** et l'**aubépine** — deux piliers du domaine — sans les répéter.
 
 Objectif : donner des **repères pragmatiques** (indications classiques, posologies traditionnelles, interactions médicamenteuses) sans promettre un traitement. Aucune de ces plantes ne remplace un suivi médical en cas de pathologie cardiaque, neurologique ou auditive avérée.

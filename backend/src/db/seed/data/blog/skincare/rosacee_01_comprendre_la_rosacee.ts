@@ -1,9 +1,11 @@
 import type { ArticleInput } from '../article-data'
 
 export const ROSACEE_01_COMPRENDRE: ArticleInput = {
-  title: '01 — Comprendre la rosacée',
+  title: 'Rosacée : comprendre la maladie, ses formes et son diagnostic (1/7)',
   slug: 'rosacee-01-comprendre-la-rosacee',
   category: 'skincare',
+  coverImageUrl:
+    'https://images.unsplash.com/photo-1575779977884-f1069c45cbf4?auto=format&fit=crop&w=1200&q=80',
   publishedAt: new Date().toISOString(),
   content: `
 # 01 — Comprendre la rosacée

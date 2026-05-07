@@ -6,7 +6,7 @@ export const bacopaMonnieri: ArticleInput = {
   category: 'phytotherapie',
   excerpt:
     "Bacopa monnieri (Brahmi) : nootropique ayurvédique utilisé depuis 3000 ans pour la mémoire et la concentration. Efficacité documentée (vitesse d'attention) mais modeste, délai d'action de 12 semaines minimum, profil de sécurité favorable à court terme. Dosages, formes, interactions et limites.",
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `Le **Bacopa monnieri** (nom ayurvédique : *Brahmi*) est utilisé depuis plus de 3000 ans en médecine indienne comme "tonique cérébral" — *Medhya Rasayana*, herbe rajeunissante pour l'intellect. C'est un **nootropique calmant** ("calming cognitive enhancer") aux effets **modestes mais réels** sur la vitesse de traitement de l'information.
 
 > ⚠️ **Pas un miracle, pas une arnaque**. Attentes réalistes indispensables.

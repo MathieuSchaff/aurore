@@ -6,7 +6,7 @@ export const vitaminesMinerauxCofacteurs: ArticleInput = {
   category: 'supplements',
   excerpt:
     'Guide de référence : apports recommandés, limites de sécurité, et surtout cofacteurs et synergies indispensables pour que chaque vitamine ou minéral soit réellement utilisable. A, D, E, K, C, complexe B, oméga-3, magnésium, zinc, sélénium, fer, cuivre, iode, bore.',
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `Une vitamine prise isolément n'est pas toujours bien utilisée. Chaque nutriment dépend d'autres — pour être activé, transporté, régénéré ou protégé de l'oxydation. Ce guide rassemble les **apports recommandés**, les **limites de sécurité** et surtout les **cofacteurs** qui conditionnent l'efficacité réelle.
 
 Les chiffres correspondent aux références EFSA / ANSES pour les adultes. Ce sont des repères généraux, pas des prescriptions individuelles.

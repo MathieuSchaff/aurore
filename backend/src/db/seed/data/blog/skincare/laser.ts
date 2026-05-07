@@ -23,7 +23,7 @@ Moins spectaculaires à court terme, ils visent autre chose :
 
 Autrement dit : moins “effet immédiat”, plus **travail de fond**.
 
-> Beaucoup de contenus en ligne présentent ces appareils comme révolutionnaires. La réalité est plus nuancée : intéressants, oui. Magiques, non. :contentReference[oaicite:0]{index=0}
+> Beaucoup de contenus en ligne présentent ces appareils comme révolutionnaires. La réalité est plus nuancée : intéressants, oui. Magiques, non.
 
 ---
 
@@ -49,7 +49,7 @@ Contrairement à certains lasers plus agressifs qui provoquent une exfoliation v
 - encourager la production de collagène
 - améliorer l’élasticité avec le temps
 
-Le principe mis en avant dans la vidéo repose sur un chauffage contrôlé autour de **45°C**, température souvent citée pour activer certains mécanismes cellulaires sans brûlure cutanée si l’appareil est bien conçu. :contentReference[oaicite:1]{index=1}
+Le principe mis en avant dans la vidéo repose sur un chauffage contrôlé autour de **45°C**, température souvent citée pour activer certains mécanismes cellulaires sans brûlure cutanée si l’appareil est bien conçu.
 
 ---
 
@@ -132,7 +132,7 @@ La vidéo oppose laser et lumière rouge, en affirmant une action plus profonde.
 
 La LED reste souvent plus douce, plus accessible, plus simple à intégrer.
 
-:contentReference[oaicite:2]{index=2}
+
 
 ---
 

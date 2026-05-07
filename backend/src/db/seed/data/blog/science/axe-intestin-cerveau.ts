@@ -6,7 +6,7 @@ export const axeIntestinCerveau: ArticleInput = {
   category: 'science',
   excerpt:
     "Comprendre comment l'intestin communique avec le cerveau : acides gras à chaîne courte (butyrate, propionate, acétate), activation du nerf vague, voies tryptophane / glutamate / tyrosine, et frontière claire entre ce qui traverse la barrière hémato-encéphalique et ce qui reste local.",
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `L'idée que "90 % de la sérotonine est produite dans l'intestin" circule beaucoup — et se traduit vite, à tort, par "mangez X pour booster votre sérotonine cérébrale". La réalité est plus fine : **la sérotonine intestinale ne traverse pas la barrière hémato-encéphalique (BHE)**. Ce qui passe de l'intestin au cerveau, c'est un **signal** — nerveux, métabolique, immunitaire — pas la molécule elle-même.
 
 Cet article pose les briques de ce signal : ce que produit le microbiote, par quelles voies il parle au cerveau, et ce qui distingue un effet **local** d'un effet **central**.

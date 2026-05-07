@@ -1,9 +1,11 @@
 import type { ArticleInput } from '../article-data'
 
 export const ROSACEE_05_ROUTINE_SKINCARE: ArticleInput = {
-  title: '05 — Routine skincare idéale pour la rosacée',
+  title: 'Rosacée : construire une routine skincare adaptée (5/7)',
   slug: 'rosacee-05-routine-skincare',
   category: 'skincare',
+  coverImageUrl:
+    'https://images.unsplash.com/photo-1739980104488-408eff709fff?auto=format&fit=crop&w=1200&q=80',
   publishedAt: new Date().toISOString(),
   content: `
 # 05 — Routine skincare idéale pour la rosacée
@@ -148,11 +150,11 @@ C'est souvent l'étape la plus importante de la routine rosacée. Une bonne crè
 ### Filtres minéraux vs filtres chimiques
 
 **Filtres minéraux (dioxyde de titane, oxyde de zinc) :**
-- agissent par réflexion physique des UV
+- agissent par une combinaison de réflexion, diffusion et absorption des UV (pas uniquement réflexion comme un miroir)
 - moins pénétrants dans l'épiderme → moins de risque de réaction
-- couvrent UVA, UVB et une partie des infrarouges visibles
 - souvent mieux tolérés dans la rosacée
 - inconvénient : peuvent laisser un résidu blanc (white cast)
+- **oxyde de zinc obligatoire** : seul filtre couvrant les UVA longs (340–400 nm). Le dioxyde de titane seul est insuffisant sur ce spectre — or les UVA longs activent TLR2 dans le derme et entretiennent l'inflammation rosacéique
 
 **Filtres chimiques (oxybenzone, avobenzone, octinoxate, etc.) :**
 - agissent par absorption et conversion en chaleur → cette chaleur dégagée dans l'épiderme peut activer TRPV1 et déclencher un flushing chez certains patients
@@ -212,8 +214,8 @@ L'acide azélaïque est probablement l'actif le mieux adapté à la rosacée, to
 - réduit l'hyperpigmentation post-inflammatoire
 
 **Concentrations disponibles :**
-- 10 % : disponible sans ordonnance dans certains pays (Skinoren 10 % crème)
-- 15 % : gel ou crème (Finacea®), sur prescription en France
+- 10 % : disponible sans ordonnance (Skinoren 10 % crème)
+- 15 % : disponible sans ordonnance en pharmacie (Skinoren 15 % gel ou crème)
 - 20 % : formulations magistrales
 
 Pour la rosacée, 15 % est souvent la concentration utilisée en dermatologie.
@@ -293,6 +295,16 @@ Fréquence : 1 à 2 fois par semaine pour commencer, puis augmenter très progre
 ---
 
 ### Autres actifs utiles
+
+**SymSitive® (4-t-butylcyclohexanol) :**
+- modulateur direct de TRPV1 — réduit la sensibilité au chaud, aux épices, au soleil
+- actif le plus ciblé pour l'ETR, présent dans certaines crèmes Eucerin (gamme Redness Relief)
+- bien toléré, utilisable dès les premières semaines
+
+**Licochalcone A (extrait de Glycyrrhiza inflata) :**
+- inhibe la dégranulation des mastocytes → réduit l'histamine et les cytokines pro-inflammatoires
+- freine l'inflammation neurogénique
+- présent dans certains soins Eucerin
 
 **Centella asiatica (madecassoside, asiaticoside) :**
 - anti-inflammatoire, améliore la microcirculation

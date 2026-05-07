@@ -6,7 +6,7 @@ export const gingembre: ArticleInput = {
   category: 'phytotherapie',
   excerpt:
     "Le gingembre (Zingiber officinale) et ses principes actifs (gingérol, shogaol) : anti-inflammatoire puissant, effets sur cholestérol et glycémie, anti-nauséeux reconnu par l'OMS. Dosages selon forme (frais, poudre, extrait), précautions et usages pratiques.",
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `Le **gingembre** (*Zingiber officinale*) est l'une des plantes médicinales les plus polyvalentes. Sa réputation anti-nauséeuse est **reconnue par l'OMS depuis 1999**, mais ses effets vont bien au-delà : anti-inflammatoire, cardio-protecteur, hypoglycémiant.
 
 ## Principes actifs

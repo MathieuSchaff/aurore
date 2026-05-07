@@ -6,7 +6,7 @@ export const plantesRespiratoires: ArticleInput = {
   category: 'phytotherapie',
   excerpt:
     'Panorama des plantes pour toux, bronchite et voies respiratoires : guimauve et plantain (toux sèche), primevère et lierre (toux grasse), ortie, marrube blanc. Posologies, synergies, limites — et quand consulter.',
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `Ce panorama réunit les plantes les plus classiques pour soutenir les **voies respiratoires** : apaiser une **toux sèche irritative**, fluidifier une **toux grasse**, accompagner un rhume ou une bronchite. L'objectif est de distinguer le **palliatif symptomatique** (utile) du **traitement d'infection** (pas du ressort des plantes).
 
 > ⚠️ Cadre d'usage. Les plantes présentées ici conviennent à des symptômes **bénins et transitoires** (toux saisonnière, rhume, bronchite aiguë simple). Elles ne remplacent **jamais** un traitement antibiotique quand celui-ci est indiqué, ni la prise en charge d'un asthme, d'une BPCO, d'une pneumopathie. La section "Quand consulter" en fin d'article détaille les signaux d'alerte.

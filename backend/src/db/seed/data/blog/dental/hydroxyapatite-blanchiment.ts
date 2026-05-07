@@ -1,8 +1,7 @@
 import type { ArticleInput } from '../article-data'
 
 export const HYDROXYAPATITE_DENTIFRICE_GUIDE: ArticleInput = {
-  title:
-    'Dentifrice à l’Hydroxyapatite : Le Guide Scientifique Complet pour Réparer l’Émail et Réduire la Sensibilité',
+  title: `Dentifrice à l’hydroxyapatite : guide complet pour réparer l’émail et réduire la sensibilité`,
   slug: 'dentifrice-hydroxyapatite-guide-scientifique-email-sensibilite',
   excerpt:
     'L’hydroxyapatite est l’un des ingrédients les plus prometteurs pour l’émail, la sensibilité et la reminéralisation. Voici ce que dit vraiment la science, sans marketing.',
@@ -15,7 +14,7 @@ export const HYDROXYAPATITE_DENTIFRICE_GUIDE: ArticleInput = {
 
 ## Résumé rapide
 
-Si tu veux aller droit au but :
+Si vous voulez aller droit au but :
 
 - L’hydroxyapatite est le **minéral principal des dents**.
 - En dentifrice, elle aide à **reminéraliser l’émail**.
@@ -34,7 +33,7 @@ C’est tout simplement :
 - environ **97 % de l’émail dentaire**
 - environ **70 % de la dentine**
 
-Autrement dit : tes dents sont déjà faites en grande partie de ce matériau.
+Autrement dit : vos dents sont déjà faites en grande partie de ce matériau.
 
 L’idée des dentifrices modernes est simple :
 
@@ -75,7 +74,7 @@ Les particules d’hydroxyapatite peuvent aider à **boucher les tubules dentina
 
 C’est l’une des utilisations les plus intéressantes.
 
-Souvent utile si tu as :
+Souvent utile si vous avez :
 
 - douleur au froid
 - gêne après blanchiment
@@ -121,7 +120,7 @@ Mais nuance importante :
 
 ## En pratique
 
-Tu peux voir l’hydroxyapatite comme :
+Vous pouvez voir l’hydroxyapatite comme :
 
 - une alternative intéressante
 - un complément
@@ -149,7 +148,7 @@ Peut agir davantage en surface.
 
 ## Verdict simple
 
-Si tu cherches la performance maximale :
+Si vous cherchez la performance maximale :
 
 > la **nano-hydroxyapatite** est souvent la plus intéressante.
 
@@ -186,7 +185,7 @@ Le meilleur choix dépend surtout de :
 
 ## Routine simple
 
-1. Brosse-toi les dents 2 minutes.
+1. Brossez-vous les dents 2 minutes.
 2. Crache l’excès.
 3. Évite de rincer abondamment.
 4. Laisse un film léger agir.
@@ -197,7 +196,7 @@ Cela laisse plus longtemps les minéraux au contact des dents.
 
 ---
 
-## Si tu fais un blanchiment dentaire
+## Si vous faites un blanchiment dentaire
 
 L’hydroxyapatite peut être très utile après :
 
@@ -266,11 +265,11 @@ Mais elle a une vraie place moderne entre :
 
 ## Conclusion
 
-Si tu veux un dentifrice intelligent, moderne et utile :
+Si vous voulez un dentifrice intelligent, moderne et utile :
 
 > un bon dentifrice à la nano-hydroxyapatite vaut clairement le test.
 
-Surtout si tu souffres de sensibilité ou si tu veux mieux protéger ton émail.
+Surtout si vous souffrez de sensibilité ou si vous voulez mieux protéger votre émail.
 
 Le plus important reste cependant :
 
@@ -283,6 +282,6 @@ Parce qu’aucun dentifrice ne compense de mauvaises habitudes.
 
 ---
 
-_Source utilisée : notes utilisateur sur dentifrices à l’hydroxyapatite, comparatifs produits et synthèse scientifique._ :contentReference[oaicite:0]{index=0} :contentReference[oaicite:1]{index=1}
+_Source utilisée : notes utilisateur sur dentifrices à l’hydroxyapatite, comparatifs produits et synthèse scientifique._
 `,
 }

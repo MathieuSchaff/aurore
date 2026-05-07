@@ -6,7 +6,9 @@ export const keratosePilaire: ArticleInput = {
   category: 'skincare',
   excerpt:
     "Trouble de la kératinisation folliculaire d'origine génétique (FLG, voie RAS/mTOR) donnant l'aspect « peau de poule » sur bras, cuisses et joues. Synthèse evidence-based des traitements 2025-2026 : urée, AHA, trifarotène, sirolimus, lasers (Thulium, Nd:YAG, PDL) + routine quotidienne et algorithme décisionnel.",
-  publishedAt: null,
+  coverImageUrl:
+    'https://images.unsplash.com/photo-1732993486279-9d0f3b91adb2?auto=format&fit=crop&w=1200&q=80',
+  publishedAt: new Date().toISOString(),
   content: `## 1. Qu'est-ce que c'est ?
 
 La kératose pilaire (KP) est un **trouble de la kératinisation folliculaire** d'origine génétique, se manifestant par une hyperkératose de l'infundibulum des follicules pileux. Les cornéocytes ne se détachent pas normalement : ils s'accumulent et fusionnent avec la kératine pour former un bouchon rigide qui obstrue l'orifice du pore.

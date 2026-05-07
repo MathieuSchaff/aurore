@@ -6,7 +6,7 @@ export const formesBioactivesVitamines: ArticleInput = {
   category: 'supplements',
   excerpt:
     "Toutes les formes d'un même nutriment ne se valent pas. Biodisponibilité, conversions enzymatiques, variants génétiques : ce qui distingue une forme active d'une forme bon marché. B9, B12, B6, vitamine E, K2, D, magnésium, zinc, fer, calcium.",
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `À nutriment égal, la forme chimique conditionne l'absorption, le métabolisme et parfois la tolérance. Un supplément qui ne déplace pas l'aiguille, c'est souvent la forme — pas la dose — qui est en cause.
 
 Ce guide passe en revue les dix cas où la différence entre une forme "économique" et une forme bioactive change concrètement les résultats.

@@ -192,6 +192,6 @@ Si vous cherchez à :
 
 **La lumière rouge semble plus crédible que beaucoup de compléments capillaires vendus sur internet, mais elle fonctionne surtout comme levier progressif, pas comme magie instantanée.**
 
-:contentReference[oaicite:0]{index=0}
+
 `,
 }

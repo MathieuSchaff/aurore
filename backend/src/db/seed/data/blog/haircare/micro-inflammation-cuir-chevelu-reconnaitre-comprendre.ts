@@ -1,7 +1,7 @@
 import type { ArticleInput } from '../article-data'
 
 export const microInflammationCuirChevelu: ArticleInput = {
-  title: 'Micro-Inflammation du Cuir Chevelu : Comment la Reconnaître et Pourquoi Elle Compte',
+  title: 'Micro-inflammation du cuir chevelu : comment la reconnaître et pourquoi elle compte',
   slug: 'micro-inflammation-cuir-chevelu-reconnaitre-comprendre',
   excerpt:
     'Racines douloureuses, cuir chevelu qui chauffe, démangeaisons ou inconfort local : ces signes peuvent évoquer une micro-inflammation autour du follicule pileux.',

@@ -6,7 +6,7 @@ export const safran: ArticleInput = {
   category: 'phytotherapie',
   excerpt:
     "Le safran (Crocus sativus) : crocines, crocétine, picrocrocine, safranal. Pharmacologie de la crocétine (seule à franchir la barrière hémato-encéphalique), dose standard de 30 mg/jour d'extrait, rôle du microbiote intestinal dans la biodisponibilité, précautions et dose toxique.",
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `Le **safran** (*Crocus sativus*) contient plus de **150 composés bioactifs**. Sa pharmacologie est remarquablement bien caractérisée : quatre apocaroténoïdes principaux, une biodisponibilité qui dépend du microbiote intestinal, et une dose thérapeutique optimale connue — **30 mg/jour** d'extrait standardisé.
 
 > ⚠️ Article informatif. Le safran ne remplace pas un traitement psychiatrique ou antidépresseur prescrit. Consultez un professionnel si vous souffrez de troubles de l'humeur.

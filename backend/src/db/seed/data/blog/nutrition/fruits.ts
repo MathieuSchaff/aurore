@@ -6,7 +6,7 @@ export const fruitsBenchmark: ArticleInput = {
   category: 'nutrition',
   excerpt:
     'Classement des 30+ fruits courants par densité en antioxydants, fibres, vitamines et composés bioactifs. Du S-tier (avocat, baies, grenade) au D-tier (fruits secs très sucrés). Angle nutritionnel, pas médical.',
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `Tous les fruits ne se valent pas sur le plan nutritionnel. Certains combinent densité en micronutriments, fibres et polyphénols **bioactifs** ; d'autres sont surtout sources de sucres avec peu de cofacteurs. Ce benchmark classe 30+ fruits courants sur une échelle **S → D**.
 
 Principe : plus un fruit combine **plusieurs familles d'actifs** (anthocyanes, caroténoïdes, enzymes, acides gras spécifiques) avec une **charge glycémique raisonnable**, plus il monte dans le classement.

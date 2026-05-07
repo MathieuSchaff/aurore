@@ -6,7 +6,7 @@ export const creatineGlycineTaurine: ArticleInput = {
   category: 'supplements',
   excerpt:
     "Trois acides aminés/dérivés à large base de preuves : créatine (énergie cellulaire, cerveau, muscle), glycine (sommeil, glutathion, collagène), taurine (mitochondries, cœur, stress oxydatif). Dosages, timing et logique d'association.",
-  publishedAt: null,
+  publishedAt: '2025-01-15T00:00:00.000Z',
   content: `Trois composés concentrent une littérature inhabituellement large pour des compléments : **créatine**, **glycine**, **taurine**. Tous trois ont des effets ciblés sur l'énergie cellulaire, la récupération, le sommeil ou la fonction mitochondriale, avec des marges de sécurité confortables.
 
 Ce guide reprend leurs dosages usuels, le timing, et la logique d'association.
