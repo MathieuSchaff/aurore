@@ -60,6 +60,7 @@ export const skincareListProductsQuery = baseListProductsQuery.extend({
   skin_effect: z.string().optional(),
   sensation: z.string().optional(),
   product_characteristic: z.string().optional(),
+  actif_class: z.string().optional(),
 })
 
 export const haircareListProductsQuery = baseListProductsQuery.extend({

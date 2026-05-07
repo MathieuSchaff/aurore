@@ -1227,12 +1227,15 @@ ont leurs propres fichiers `tag-taxonomy.ts` en stub (array vide) — axes
 | `skin_effect` | Effet texture/visuel (matifiant, texture-legere…) |
 | `product_label` | Label formulation (sans-parfum, vegan, filtres-mineraux…) |
 | `shared_label` | Label transverse (comedogene, …) |
+| `actif_class` | Famille pharmacologique présente dans la formule (retinoids, vitamin-c, aha, bha, niacinamide, ceramides, hyaluronic-acid, peptides…). Auto-dérivée au seed depuis `products.inci` via `splitINCI`+`normalize` (algo-derm) + substring match — voir `backend/src/db/seed/utils/actif-class-detection.ts`. Slugs miroir de la catégorie ingrédient `actif_class`. Permet le filtre "Famille d'actif" sur la page produits. |
 
 #### Catégories partagées entre ingrédient et produit
 
-`concern`, `skin_type`, `skin_effect`, `shared_label` existent des deux côtés.
+`concern`, `skin_type`, `skin_effect`, `shared_label`, `actif_class` existent des deux côtés.
 `ingredient_attribute` est ingrédient-only ;
 `skin_zone`, `product_type`, `routine_step`, `product_label` sont produit-only.
+
+**Note `actif_class`** : la définition vit côté `SKINCARE_INGREDIENT_TAG_SLUGS` ET `SKINCARE_PRODUCT_TAG_SLUGS` (mêmes 16 slugs : `retinoids`, `retinol-alternatives`, `vitamin-c`, `vitamin-e`, `niacinamide`, `aha`, `bha`, `pha`, `enzymes-exfoliants`, `ceramides`, `hyaluronic-acid`, `peptides`, `polyphenols`, `centella`, `tyrosinase-inhibitors`, `azelaic-acid`). Côté ingrédient les associations sont manuelles (dans `skincareTagMap.secondary`). Côté produit elles sont auto-dérivées au seed via `detectActifClasses(product.inci)`.
 
 #### 10.3.3 Axe `relevance` — lien entité↔tag
 

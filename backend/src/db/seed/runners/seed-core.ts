@@ -23,6 +23,7 @@ import { ingredientData } from '../data/ingredients'
 import { FILLER_SLUGS } from '../data/ingredients/skincare/seed-dermo-profiles-fillers'
 import { allIngredientProductTags, allProductData, allProductTagsMap } from '../data/products'
 import { ingredientTagData, productTagData } from '../data/tags'
+import { detectActifClasses } from '../utils/actif-class-detection'
 import { type ProductTagGroups, seedBatch, toNumeric, toText } from '../utils/batch'
 import { cleanDatabase, fetchIdMaps, flattenTagGroups } from '../utils/id-maps'
 import { printValidationReport, validateAllIngredients } from '../utils/markdown-validator'
@@ -199,8 +200,35 @@ export async function seedCore(shouldClean = true) {
     const correctedIngredientData = ingredientValidation.fixed
 
     // Prepare relation pairs (pure data, no DB) so we can validate before the transaction
+    const manualProductTagPairs = flattenTagGroups(
+      allProductTagsMap as Record<string, ProductTagGroups>
+    )
+
+    // Auto-derive `actif_class` cluster tags from each skincare product's INCI
+    // string via algo-derm (`splitINCI` + `normalize` substring match). The
+    // cluster taxonomy lives Aurore-side (shared/products/skincare/tag-slugs.ts);
+    // algo-derm only provides the parser/normalizer. Tags emitted as `secondary`
+    // — informational, never as `avoid` — so they're invisible to the
+    // exclusion filter but show up in the family chip on the products page.
+    let actifClassDerived = 0
+    const actifClassPairs: { slug: string; tagSlug: string; relevance: 'secondary' }[] = []
+    for (const product of allProductData) {
+      if (product.category !== 'skincare') continue
+      const inci = (product as { inci?: string | null }).inci
+      const clusters = detectActifClasses(inci)
+      for (const tagSlug of clusters) {
+        actifClassPairs.push({ slug: product.slug, tagSlug, relevance: 'secondary' })
+        actifClassDerived++
+      }
+    }
+    if (actifClassDerived > 0) {
+      console.log(
+        `🧬 Backfill actif_class: +${actifClassDerived} pair(s) auto-déduit(es) depuis INCI`
+      )
+    }
+
     const productTagPairs = dedupPairs(
-      flattenTagGroups(allProductTagsMap as Record<string, ProductTagGroups>),
+      [...manualProductTagPairs, ...actifClassPairs],
       'productTags'
     )
 
