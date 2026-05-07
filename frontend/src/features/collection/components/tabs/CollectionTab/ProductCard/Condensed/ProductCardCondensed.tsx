@@ -5,11 +5,11 @@ import clsx from 'clsx'
 import { Check, SmilePlus } from 'lucide-react'
 import { type PointerEvent as ReactPointerEvent, useCallback, useRef, useState } from 'react'
 
-import { ProductIcon } from '@/assets/product-icons'
 import { Card } from '@/component/Card/Card'
 import { Badge } from '@/component/DataDisplay/Badge/Badge'
 import { DropdownMenu } from '@/component/DropdownMenu/DropdownMenu'
 import { SCORE_THRESHOLDS, statusLabels } from '@/features/collection/constants'
+import { ProductImage } from '@/features/products/components/ProductImage/ProductImage'
 import { calculateWeightedScore } from '@/lib/helpers/reviews'
 import { userPreferenceQueries } from '@/lib/queries/user-preferences'
 import type { UserProduct } from '@/lib/queries/user-products'
@@ -180,9 +180,12 @@ export function ProductCardCondensed({
       <Card accent={statusCfg.color} className={clsx('prod-card', statusClass)}>
         <div className="prod-card-top">
           <div className="prod-icon-wrap">
-            <div className="prod-icon-box">
-              <ProductIcon unit={p.product.unit} kind={p.product.kind} size={20} />
-            </div>
+            <ProductImage
+              kind={p.product.kind}
+              unit={p.product.unit}
+              imageUrl={p.product.imageUrl}
+              size={56}
+            />
           </div>
 
           <button

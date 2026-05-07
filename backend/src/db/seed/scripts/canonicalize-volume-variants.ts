@@ -23,7 +23,7 @@ import { join } from 'node:path'
 const DRY = process.argv.includes('--dry')
 const SEED_ROOT = join(import.meta.dir, '..')
 const AUDIT_PATH = join(SEED_ROOT, 'output', 'imported-products-audit.json')
-const PRODUCTS_DIR = join(SEED_ROOT, 'data', 'products')
+const _PRODUCTS_DIR = join(SEED_ROOT, 'data', 'products')
 
 const INCI_THRESHOLD = 0.95
 const NAME_THRESHOLD = 0.85
@@ -206,7 +206,7 @@ for (const [relFile, filePairs] of byFile) {
   const toDrop: Entry[] = []
   console.log(`\n${relFile}`)
 
-  for (const [root, slugs] of groups) {
+  for (const [_root, slugs] of groups) {
     if (slugs.length < 2) continue
     totalGroups++
     const items = slugs

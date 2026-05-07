@@ -5,7 +5,7 @@
 //   - `runners/audit-auto-tags.ts` (dry-run report)
 //   - `runners/backfill-auto-tags.ts` (TODO — post-snapshot rehydrate)
 //
-// `tagProduct` from algo-derm emits 36 candidate tags (cf docs2/tags/AUTO-TAGS.md
+// `tagProduct` from algo-derm emits 36 candidate tags (cf docs/tags/AUTO-TAGS.md
 // §3). We keep only the 19 that survived dry-run + spot-check calibration
 // (snapshot 2026-05-07, N=1853 products with INCI). The 8 dropped tags either
 // fire on > 50 % of corpus (`sans-savon`, `grossesse-compatible`, …) or
@@ -31,7 +31,7 @@ export type TagRule = {
   excludeRinseOff?: boolean
 }
 
-// Calibration sources (see docs2/tags/AUTO-TAGS.md):
+// Calibration sources (see docs/tags/AUTO-TAGS.md):
 //   §7.2 — bucket 🟢 (allow @ 0.50, agree ≥ 36 %)
 //   §7.4 — bucket 🟠/🔴 (allow:false, structurally noisy)
 //   §7.6 — spot-check (allow @ 0.85 + excludeRinseOff for comedogenicity;

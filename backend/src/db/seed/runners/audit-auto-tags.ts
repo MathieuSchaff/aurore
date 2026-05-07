@@ -3,7 +3,7 @@
 // Read-only. Reads every skincare product with a non-empty INCI from the
 // live DB, runs `analyzeINCI` + `tagProduct`, applies `TAG_CONFIG` (per-tag
 // allow / minConf / excludeRinseOff calibrated 2026-05-07 — see
-// docs2/tags/AUTO-TAGS.md §7.4–7.6), and reports per-tag stats:
+// docs/tags/AUTO-TAGS.md §7.4–7.6), and reports per-tag stats:
 //   - hit:    number of products that would receive the tag
 //   - agree:  hit ∩ already-present in tag_products (recall on existing manual labels)
 //   - new:    hit \ already-present (proposed additions)

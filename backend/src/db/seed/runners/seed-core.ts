@@ -246,7 +246,7 @@ export async function seedCore(shouldClean = false) {
 
     // Auto-derive concern / skin_type / skin_effect / comedogenicity tags from
     // INCI via algo-derm `tagProduct`. Per-tag policy lives in `auto-tag-detection`
-    // (TAG_CONFIG), calibrated 2026-05-07 — see docs2/tags/AUTO-TAGS.md §7.4–7.6.
+    // (TAG_CONFIG), calibrated 2026-05-07 — see docs/tags/AUTO-TAGS.md §7.4–7.6.
     // Manual tags win on conflict because manualProductTagPairs is listed first in
     // dedupPairs.
     let autoTagsDerived = 0

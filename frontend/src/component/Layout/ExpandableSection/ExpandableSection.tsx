@@ -38,7 +38,7 @@ export function ExpandableSection({ title, children, defaultOpen = false, open, 
           height="16"
           viewBox="0 0 16 16"
           fill="none"
-          aria-hidden
+          aria-hidden="true"
         >
           <path
             d="M4 6l4 4 4-4"

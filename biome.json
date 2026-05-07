@@ -20,7 +20,9 @@
       "!.claude/**/*",
       "!**/*.test.ts",
       "!**/*.test.tsx",
-      "!**/__tests__"
+      "!**/__tests__",
+      "!docs/**/*.md",
+      "!docs/.obsidian"
     ]
   },
   "formatter": {
