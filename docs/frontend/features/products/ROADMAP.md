@@ -20,84 +20,31 @@
 | `pages/ProductsPage/` | Orchestration liste + filtres + pagination |
 | `pages/ProductLayout/` | Wrapper détail (tabs) |
 | `pages/ProductInfoTab/` | Fiche produit : ingrédients, tags, purchase log |
-| `pages/ProductCreate/EditPage/` | Wrappers form création/édition |
+| `pages/ProductCreatePage/` | Wrapper form création |
+| `pages/ProductEditPage/` | Wrapper form édition |
+| `comparison/` | Sous-feature comparaison (pages/components/helpers) |
 | `components/ProductCard/` | Card (slug, brand, price, tags, view transitions) |
-| `components/ProductForm/` | Form création/édition + `IngredientRow` inline |
+| `components/ProductImage/` | Affichage image produit (fallback, lazy) |
+| `components/ProductForm/` | Form création/édition. Sous-dossiers `components/`, `helpers/` ; `DoseField`, `ProductImageField`, `SlugEditModal` |
 | `components/ProductsHeader/` | Search + sort + filter button + create |
 | `components/ProductsActiveBar/` | Chips filtres actifs + remove |
 | `components/ProductsFilterDrawerContent/` | Wrapper composition du drawer |
+| `components/CollapsibleFiltersStrip/` | Strip filtres collapsible (header sticky) |
+| `components/AddToCollectionModal/` | Modal ajout à la collection user |
 | `components/SortControl/` | Dropdown tri (relevance, price, newest, random) |
 | `components/BrandCombobox/` | Combobox brand async |
 | `components/IngredientSearch/` | Single-add ingrédient (dans le form, ≠ `AsyncSearchSelect`) |
 | `components/PriceRangeFilter/` + `PriceFilterAccordion/` | Slider prix + wrapper `<details>` |
+| `components/skeletons/` | Skeletons loading (`ProductLayoutSkeleton`) |
 | `hooks/useProductsFilterGroups.ts` | Dérive la structure des groupes de filtres depuis le domaine |
 | `hooks/useProductsExtraChips.ts` | Construit les chips actifs (prix, profil, q) |
+| `hooks/useProductFormSubmit.ts` | Submit + validation form produit |
 | `filters.ts` | Schéma Zod de l'URL search params |
 | `helpers.ts` | `buildProductsApiFilters()` + helpers domaine |
 
 ---
 
-## 🚧 Actif — phasé par dépendances
-
-> Audit 2026-04-26 : baseline 19 fails tests préexistants (Toggle, FilterDrawer resync, CollectionPage, PurchaseFlow, ProductDetailSheet, Layout/Card) — orthogonaux, traités Phase 4.
-
----
-
-### Phase 1 — Perf isolées (ProductsPage + Info/Edit) ✅
-
-PR 1a + 1b traités. Pass LOW close (voir Terminé #16).
-
-Triagés out (gain marginal, ré-ouvrir si profiling montre hotspot) :
-- `style={{ viewTransitionName }}` inline par card (`ProductCard.tsx:156`) — Card `memo`isée → re-render rare.
-- `unit?.toLowerCase().trim()` alloue par card (`ProductCard.tsx:79-82`) — Coût négligeable.
-- `tagQueries.list` mapping en `queryFn` (`lib/queries/tags.ts:20-24`) — runs 1× per fetch, RQ cache la sortie. Pas un re-render alloc.
-- `BrandCombobox` `useEffect` miroir prop→state — comportement intentionnel (Tab autocomplete via `latestValueRef`), déjà documenté inline (lignes 33-36).
-
----
-
-### Phase 4 — Tests (`docs/frontend/filter-tests-plan.md`)
-
-Dette tracée dans le plan de tests Filter. Section 0-9 unit ✅, intégration ProductsPage scope complet ✅.
-
-- [x] **Section 9 scope complet** — 3 tests intégration ProductsPage ajoutés (2026-05-04) :
-  - filtre ingrédient async type → click → apply ;
-  - chips count=0 disabled (clic ignoré, URL inchangée) ;
-  - switch tab Cheveux ré-interroge filter-options avec `category=haircare`.
-  - Dette préalable : fixtures `PRODUCT_TAGS` utilisaient `'anti-acne'/'pores-dilates'` (slugs supprimés par refacto skincare-tags ca462cd1) → remplacés par `'acne-imperfections'/'pores-sebum'`. 4 tests scope min cassés depuis 2026-05-02 maintenant verts.
-- [x] **Fails préexistants résolus** (2026-05-05, **501/501 → 524/524 ✅**) :
-  - `useProductTagFilterGroups` labelOverrides : slug `barriere-cutanee-alteree` absent du shared (renommé `barriere-cutanee` par refacto skincare). Test mis à jour.
-  - `CollectionPage` × 4 : `Achats` tab queryait `role='button'` au lieu de `role='tab'` ; sentiment + delete tests cliquaient `.prod-card` (Card div sans onClick) au lieu du bouton `.prod-body` (`Voir les détails de X par Y`) ; brand filter test fermait le sheet via classe `coll-sheet-close` disparue → `Appliquer les filtres` ; aria-label criteria devenu `Noter <champ> N sur 5` (préfixe ajouté).
-- [x] **Couverture Filter étendue** (2026-05-05, +23 tests) :
-  - `FilterDrawer` : `aria-modal=true` + `aria-labelledby` lié au h2 ; fieldset "Filtres avancés" présent uniquement si tier=advanced ; label apply button (`Appliquer` / `Voir N produit(s)` singulier/pluriel pour 0/1/N) ; navigation arrows ↑↓ entre triggers d'accordéon (wrap haut/bas, no-op si focus sur chip).
-  - `FilterAccordion` : summary `aria-controls` → body id ; `<h3>` dans `<summary>` (heading nav screen-reader) ; chip `aria-pressed=true` quand sélectionné.
-  - `SearchSelect` : clamp `activeIndex` au dernier filtré (no overflow) ; focus retourne à l'input après select (mouse + dismiss button) ; dismiss accepte Enter/Espace ; `aria-label="Retirer X"` sur chips sélectionnés.
-  - `ActiveFiltersBar` : activation pill via Enter et Espace (boutons natifs) ; ordre DOM tags → extras → "Tout effacer".
-- [x] **FilterDrawer focus trap & focus initial** (2026-05-05) — `frontend/e2e/filter-drawer-focus.spec.ts` (4 tests Playwright). Bug Chromium découvert : native `<dialog>` + `showModal()` empêche focus de sortir mais ne cycle PAS Tab/Shift+Tab aux bornes (escape vers `<body>` depuis premier/dernier focusable). Fix : `handleTabTrap` ajouté à `FilterDrawer.tsx` (wrap explicite first ↔ last). 524/524 frontend tests pass.
-
----
-
-### Phase 5 — Seed haircare (backend isolé)
-
-Pas de couplage frontend. Préalable à P6 auto-tagging propre sur haircare.
-
-État au 2026-05-04 : **51/51 marques traitées ✅** + **Phase 5d push deltas done ✅**. **Prompt de reprise** : `~/log/aurore-phase5-resume-2026-05-04.md`.
-
-- [x] **DB cleanup** orphan slugs (`shampoing`, `apres-shampoing`, `masque-cheveux`, `serum-cheveux`, `huile-cheveux`, `produit-coiffant`) — déjà absents de la DB (0 rows à la vérif). Probable cleanup lors d'un `db-reset` antérieur.
-- [x] **Décision cinqSurCinq** (pediculicide) — option B appliquée : items 1+2 (kits environnement biocide) supprimés ; items 3-5 (appliqués cheveux) reclassés `primary: [POUX]`, `secondary: [TRAITEMENT_CUIR_CHEVELU, ...]`. Nouveau slug `HAIRCARE_PRODUCT_TAG_SLUGS.POUX = 'poux'` (concern) ajouté dans `shared/src/products/haircare/tag-slugs.ts:29` + label "Poux et lentes" + push dans `CONCERN[]` taxonomy.
-- [x] **Enrichir tags haircare** ≥1 tag par axe pertinent (`hair_type` / `concern` / `routine_step` / `hair_effect` / `product_label`). **51/51 marques OK**.
-  - **Convention tagging** : `primary` = product_type principal (1 slug), `secondary` = multi-axe. Exception anti-poux : `primary = [POUX]`, secondary inclut product_type.
-  - **Convention reclassement** : si `primary` existant est faux (ex: SHAMPOOING sur un masque), corriger ; si `kind:` est faux, **reporter Phase 6** (on touche pas au champ kind).
-  - **51 marques traitées** : argiletz, arkopharma, bailleul, beauterra, biocyte, biokap, biorene, cattier, caudalie, cinqSurCinq, clarification, coslys, cutByFred, dermaclay, drTheiss, ducray, essence, eyeCare, herbatint, item, jaldes, keranove, klorane, laRosee, lazartigue, ledNoreva, les3Chenes, lesSecretsDeLoly, lOrealProfessionnel, luxeol, melvita, mklGreenNature, natessance, neutraderm, neutrogena, nuxe, olaplex, petroleHahn, phyto, pouxit, pranarom, puressentiel, redken, reneFurterer, sanoflore, sebamed, sowe, stiefel, toppik, wellaProfessionals + 1 dernière (klorane par sous-gamme : Quinine/Antichute/Croissance, Avoine/Lin, Mangue/Pivoine/Figuier, Ortie/Galanga/Cédrat/Grenade/Menthe/Réparation, Bébé/Junior/Maman/Calendula, Cupuaçu/Bleuet/Monoï/Amande/Althéa).
-  - **Skipped** : `florame` (pas de fichier seed haircare, juste bodycare), `VRAC` (juste 2 `.md`).
-  - **Items flag** non sortis du seed mais taggés minimal (à reclasser/sortir Phase 6) : Essence calendrier avent (kit makeup), Pranarom Nigelle capsules (compléments), Klorane gels douche Cupuaçu (10 body), Klorane Bleuet (12 yeux/visage skincare), Klorane Monoï&Tamanu sun/after-sun corps (9), Klorane Amande dépilatoire/cire (5), Klorane Althéa déodorant, Klorane Bébé/Calendula body items (28 lingettes/eaux/crèmes change/lait toilette/etc.), Klorane Pivoine crème visage, Klorane Menthe stick visage.
-- [x] **Phase 5d — Push deltas DB sans full reset** (option B retenue : refacto seed idempotent ≫ script ad-hoc) :
-  - Approche : `seed-core` étendu avec mode idempotent (flag `shouldClean=false`, CLI `--no-clean`). Pré-fetch slugs/pairs existants en début de tx → pré-filtre les inputs avant insert. Évite unique-violations (donc abort tx) et savepoints concurrents (Drizzle race sous `Promise.allSettled` de `seedBatch`). Tag defs : `.onConflictDoNothing()` direct.
-  - Fichiers : `backend/src/db/seed/runners/seed-core.ts` (`computeProductSlug`, pré-fetch 5 sets, filter par seedBatch), `backend/src/db/seed/runners/seed-blog.ts` (`idempotent` flag, swallow unique-violation via cause-chain walker), `Makefile` (`db-seed-merge`, `db-seed-merge-safe`).
-  - Workflow : `make db-seed-merge-safe` → `db-backup` + seed `--no-clean` + `audit-db`.
-  - Résultat 2026-05-04 : **+1470 productTags** insérés (poux concern + 8 routine_step + 12 product_label haircare propagés à 51 marques) ; ingrédients/produits/relations existants tous skippés ; user-state intact (1 user, 4 user_products, etc.) ; audit ✓.
-  - DELETE complémentaire (hors merge) : 2 produits `cinq-sur-cinq-kit-*-environnement` retirés via SQL direct (cascade tag_products/product_ingredients).
-  - **Non couvert** : DELETE des relations `tag_products` obsolètes (tag retiré du seed côté haircare). Impact faible — tag en trop = filtre légèrement bruyant, pas de bug fonctionnel. Si nécessaire plus tard : ajouter mode `--prune` à `seed-core` qui diff seed vs DB sur produits seed-créés (skip user-créés).
-- [x] **Dette long-terme (séparée Phase 5)** — résolu par Phase 5d. `seed-core` est idempotent désormais : `db-seed-merge` (= `--no-clean`) ré-exécutable à volonté sans wipe ni drift. `db-seed` (clean mode) inchangé pour repart-de-zéro.
+## 🚧 Actif
 
 ---
 
@@ -105,36 +52,13 @@ Pas de couplage frontend. Préalable à P6 auto-tagging propre sur haircare.
 
 Ordre interne : doublons résolus avant auto-tagging (sinon tags appliqués sur doublons). Images en parallèle.
 
-- [ ] **Doublons produits** — cross-source clean. **Round 7 done 2026-05-04** : dental reliquat + ducray flacon-pompe — 10 drops (arthrodont/parodontax curés inherit image+inci ; 5 elmex slug-variants + lot-3x + bain-de-bouche 100ml ; gum paroex lot-3 ; hyalugel 100ml-50ml-offert ; ducray flacon-pompe-400ml). Audit 161 → **150 paires intra-source** (-11). DB DELETE 10/10 done + ts-verify ✅. Active products 479 → 469. **Round 6 done** : 2 haircare reliquat (lazartigue thicker, melvita 1L). **Round 5 done** : 9 klorane (slug curé courts, lots, volume canon.). **Round 4 done** : 19 lots/refills/volume-variants. **Reste backlog 150 paires majoritairement FP irréductibles** : dental ~83 (brossettes interdentaires inava/tepe/gum/crinex tailles+couleurs, elmex/fluocaril gencives variants), haircare ~67 (klorane 39 cupuaçu parfums + monoï SPF + shampoo/conditioner kind-diff, herbatint/petroleHahn/les3Chenes coloration shades, nuxe huile prodigieuse). Workflow + règles : `backend/src/db/seed/docs/DEDUP.md`. CDN cleanup Round 7 (8 orphans) à lancer : `delete-bunny-images.ts SLUGS_FILE=output/dedup-dropped-slugs.json`.
-- [x] **Bug elmex skincare** (2026-05-04) — `elmex-protection-email-professional` était `kind: sunscreen` avec tags skincare/solaire (fichier `elmex-solaire.seed.ts` mal nommé). Fix : merged dans `elmex.seed.ts` avec `kind: 'toothpaste'` + tag `dentifrice`, fichier supprimé, DB updated.
-- [x] **Auto-tagging** — fait 2026-04-23 via `scripts/auto-tag.ts`. 1017 produits seed traités : 875 primary+secondary remplis, 142 sans primary (manuel à finir). `avoid` auto sur retinol/retinal/salicylic/glycolic/BPO. Détail seed `ROADMAP.md §3.2`.
+- [ ] **Doublons produits** — backlog 150 paires (état 2026-05-04, après Round 7) : ~83 dental (brossettes interdentaires multi-tailles/couleurs, elmex/fluocaril variants), ~67 haircare (klorane cupuaçu parfums + monoï SPF + shampoo/conditioner kind-diff, herbatint/petroleHahn/les3Chenes coloration shades, nuxe huile prodigieuse). Majoritairement FP irréductibles. Workflow + règles : `backend/src/db/seed/docs/DEDUP.md`. Historique Round 4-7 → Terminé #24. CDN cleanup Round 7 (8 orphans) en attente : `delete-bunny-images.ts SLUGS_FILE=output/dedup-dropped-slugs.json`.
 - [ ] **Images manquantes** — 211/3137 = 93.3 % couverture (2026-05-05, après LRP via illicopharma). Reste : Bioderma 31, L'Occitane 16, Avène 16, Nutripure 16, LdB 10, Uriage 9, Weleda 8 + long-tail. Référence : `backend/src/db/seed/docs/IMAGES_AUDIT.md` (audit 2026-05-03 stale).
-  - **Pipeline Deciem (Salesforce CC)** (2026-05-05) — `backend/src/db/seed/scripts/fetch-images-deciem.ts` + config `data/image-fetchers/the-ordinary.ts`. Flow : scrape `/category/skincare` + `/category/body-hair` (`sz=200`) → `pageSlug -> URL` map → fetch produit → extract pack-shot `Images/products/<brand>/rdn-*.{png,jpg}` (no subfolder = filtre out model/infographics) → ImageMagick webp 800px q82.
-    - **The Ordinary 33/34 ✅** — 1 manquant : `the-ordinary-retinol-0-2-emulsion` (variant retinol 0.2% emulsion absent du catalogue live, seul retinAL 0.2% emulsion subsiste).
-  - **Pipeline Shopify générique** (2026-05-05) — `backend/src/db/seed/scripts/fetch-images-shopify.ts` + configs `data/image-fetchers/<brand>.ts` (handle→slug map, legacy handles via Wayback og:image fallback). Flow : `products.json` → ImageMagick webp 800px q82 → Bunny CDN → UPDATE DB.
-    - **Theramid 27/29 ✅** — live 11 + wayback legacy 16. Manquants : `theramid-pure-glycerin-face-serum` (og:image 404), `theramid-proteo-repair-cream` (handle wayback introuvable). Note marque : niche-beauty-lab regroupe Theramid/Transparent Lab/Acnemy sous `brand='Theramid'` (umbrella, décision user).
-    - **DermEden 22/22 ✅**
-    - **Geek & Gorgeous 19/19 ✅**
-    - **Nooance 15/16 ✅** — manquant : `nooance-serum-acide-azelaique-15-pourcent` (discontinued, hors catalogue live).
-    - **Colibri Skincare 7/7 ✅**
-    - **Dr. Idriss 7/7 ✅** (2026-05-05)
-    - **numbuzin 3/3 ✅** (2026-05-05) — via `us.numbuzin.com`
-    - **Cos De BAHA 1/3 ✅** (2026-05-05) — manquants : `cos-de-baha-az20-cream` (AZ 20% cream absent catalogue live), `cos-de-baha-azelaic-acid-10-serum-jumbo` (variant jumbo absent, seul 30ml dispo).
-    - **SVR 27/27 ✅** (2026-05-05) — Shopify sur `fr.svr.com` (pas `labo-svr.com` qui redirige).
-  - **Pipeline L'Oréal MBFv2 (Next.js + Sitecore)** (2026-05-05) — `backend/src/db/seed/scripts/fetch-images-loreal-mbf.ts` + config `data/image-fetchers/<brand>.ts` (DB slug → page path). Flow : fetch produit → regex `class="...product-summary__current-img__img..."` + `_next/image?url=ENCODED` → decode URI → CDN sitecorecloud.io → webp.
-    - **Mixa 7/7 ✅** (2026-05-05) — sur `www.mixa.fr`.
-  - **Pipeline illicopharma (fallback tiers)** (2026-05-05) — `backend/src/db/seed/scripts/fetch-images-illicopharma.ts` + config `data/image-fetchers/<brand>.ts` (DB slug → URL produit illicopharma.com). Flow : fetch page → og:image → webp. Utile quand site marque bot-protégé (Cloudflare etc.) — pharma resellers carry les mêmes pack-shots officiels.
-    - **La Roche-Posay 7/7 ✅** (2026-05-05) — première-party `laroche-posay.fr` Cloudflare-gated.
-
----
-
-### Phase 7 — Décisions produit bloquées
-
-- [x] **Ordre accordéons drawer** (2026-05-05) — Skincare réordonné : essentials Zone(1) → Problème(2) → Actions/Effets(3) → Peau(4) → Type de produit(5) → Forme/Galénique(6) → Ingrédients (appended). Advanced : Étape routine(7) → Moment(8) → Sensation(9) → Caractéristiques(10) → Brand (appended) → Prix (`advancedExtras` slot, fin). Haircare intouché. Fichier : `shared/src/products/skincare/tag-filters.ts`.
-- [x] **Profile toggle hors hiérarchie** (2026-05-05) — Status quo retenu. `Toggle` reste flottant en tête de drawer (1 control binaire ≠ accordéon).
-- [x] **`product_type` vs `routine_step` (skincare)** (2026-05-05) — Garder les deux avec libellés explicites : `Type` → `Type de produit`, `Étape` → `Étape routine`. Pas de fusion (taxonomy lourde).
-- [x] **Sémantique Reset vs Apply** (2026-05-05) — Modèle A uniformisé : drawer = brouillon, Apply commit, Reset clear draft local + clear non-draft URL state (price/profile/q via `onReset`), X/Échap/backdrop = drop draft (no commit). `FilterDrawer.tsx` : `handleClose` ne plus appliquer, `handleApply` séparé. Tests unit MAJ (Esc + backdrop n'appliquent plus). 524/524 frontend tests pass. Side-effect : Prix migré `essentialExtras` → `advancedExtras` (nouveau prop drawer).
-- [x] **Édition nom + slug par admin** — fait commit `c83237ff` (admin slug edit + fix silent slug regen on name change).
+  - **Pipelines branchés** (2026-05-05) :
+    - `fetch-images-deciem.ts` (Salesforce CC) — The Ordinary 33/34 (manquant : retinol 0.2% emulsion absent catalogue live).
+    - `fetch-images-shopify.ts` + `data/image-fetchers/<brand>.ts` (handle→slug map, Wayback og:image fallback) — Theramid 27/29, DermEden 22/22, Geek & Gorgeous 19/19, Nooance 15/16, Colibri 7/7, Dr. Idriss 7/7, numbuzin 3/3 (`us.numbuzin.com`), Cos De BAHA 1/3, SVR 27/27 (`fr.svr.com`).
+    - `fetch-images-loreal-mbf.ts` (Next.js + Sitecore, regex `product-summary__current-img__img` + `_next/image?url=`) — Mixa 7/7.
+    - `fetch-images-illicopharma.ts` (fallback pharma reseller via og:image) — La Roche-Posay 7/7. Utile quand site marque bot-protégé (Cloudflare).
 
 ---
 
@@ -176,6 +100,10 @@ Attendre intégration scoring INCI fourchettes côté lib.
 | 19 | Phase 3 — densité dropdown header search | `ProductsHeader.tsx` (`FACET_SECTION_LIMIT: 3 → 2`), `useFlipPlacement.ts` (`MAX_HEIGHT: min(0.5vh, 400) → min(0.6vh, 520)`), `SearchCombobox.css` (`label`/`sublabel` truncate single-line ellipsis), `ComboboxPrimitive.css` (sections : drop margin/padding extra, divider `section + option` minimal, `__option` dans section padding compact, `__section-label` padding réduit). Tests MAJ : cap 3 → 2. | Avant : 1 produit visible (sections 287px / 400px, 1er item 84px à cause du wrap label + divider). Après : 4-6 produits visibles (sections 245px / 520px, items 58px stables). |
 | 20 | Audit composants réutilisables — items 1-5 (cf `audit-composants.md`) | `ProductsPage.tsx` + `.css` (split button-in-button), `AddToCollectionModal.tsx` + `.css` (close → `<Button ghost>`, status grid → `<Button primary/outline>`), `ProductForm.tsx` + `.css` (remove ingredient → `<Button ghost>`), `ProductPicker.tsx` (119 → 46 lignes, délègue à `<AsyncSearchSelect>`), `lib/queries/products.ts` (`searchFlat` + `byIds` factories), `shared/src/products/schemas.ts` + `index.ts` (`productsByIdsQuery`), backend `routes.ts` + `service.ts` (`GET /products/by-ids`, route avant `/:slug`), tests `products.routes.test.ts` (+4) | Pas de régression : 251 frontend tests + 85 backend tests pass. |
 | 21 | `<ExpandableSection>` extrait (audit composants item 6) | `component/Layout/ExpandableSection/ExpandableSection.tsx` (controlled `open`+`onToggle` ou uncontrolled `defaultOpen`), refacto `comparison/components/CommonIngredientsSection.tsx` + `PerProductSpecificsSection.tsx` | `CollapsibleFiltersStrip` (ProductsPage) exclu : 2 boutons header + body always-mounted avec `aria-hidden` ferait gonfler la primitive. `<AccordionShell>` partagé `FilterAccordion`/`PriceFilterAccordion` décliné (4+ knobs + ref forwarding pour ~12 lignes). `<RemovableChip>` pattern (`chip chip--sm chip--active chip--removable` dans `AsyncSearchSelect.tsx:186` + `SearchSelect.tsx:147`) gardé inline — 2 sites internes Filter, extraire si 3e apparaît. 524/524 tests pass. |
+| 22 | Phase 4 — Filter tests (Section 9 + fails préexistants + couverture étendue + focus trap) | `frontend/src/test/msw/`, `component/Filter/__tests__/`, `features/products/__tests__/`, `frontend/e2e/filter-drawer-focus.spec.ts` | Section 9 intégration ProductsPage scope complet (3 tests : ingrédient async, count=0 disabled, switch tab haircare). Fails préexistants 501→524 résolus (slugs skincare-tags refacto `barriere-cutanee`/`acne-imperfections`, `role='tab'` vs `'button'`, aria-label criteria). +23 tests a11y/clavier (FilterDrawer `aria-modal`/`aria-labelledby`/arrows ↑↓, FilterAccordion `aria-controls`/`aria-pressed`, SearchSelect clamp+focus retour, ActiveFiltersBar Enter/Espace). Focus trap natif `<dialog>` réparé via `handleTabTrap` (bug Chromium `showModal()` ne cycle pas Tab/Shift+Tab aux bornes). 524/524 pass. |
+| 23 | Phase 5 — Seed haircare 51/51 + push deltas idempotent | `shared/src/products/haircare/tag-slugs.ts` (slug `POUX`), `backend/src/db/seed/runners/{seed-core,seed-blog}.ts` (`shouldClean=false`, pré-fetch slugs/pairs, swallow unique-violation cause-chain), `Makefile` (`db-seed-merge`, `db-seed-merge-safe`) | 51/51 marques tagguées ≥1 tag par axe (`hair_type`/`concern`/`routine_step`/`hair_effect`/`product_label`). Conventions : `primary` = product_type principal (1 slug), `secondary` = multi-axe ; exception anti-poux : `primary=[POUX]`. Décision cinqSurCinq option B (kits environnement drop, items cheveux reclassés POUX). `seed-core` mode idempotent → +1470 productTags insérés sans wipe, user-state intact. Skipped : florame (bodycare only), VRAC. Reste dette : pas de `--prune` mode (tags obsolètes non delete, impact faible) ; items à reclasser/sortir en P6 (Klorane Bébé/Calendula body, Cupuaçu gels douche, Bleuet skincare, Pivoine/Menthe visage…). |
+| 24 | Phase 6 — Doublons Round 4-7 + auto-tag + bug elmex skincare | `backend/src/db/seed/docs/DEDUP.md`, `scripts/auto-tag.ts`, `elmex.seed.ts` (mergé `elmex-solaire.seed.ts` supprimé) | Round 4-7 (40 drops total) : R4 19 lots/refills/volume-variants ; R5 9 klorane (slugs courts, lots, volume canonique) ; R6 2 haircare reliquat (lazartigue thicker, melvita 1L) ; R7 10 dental + ducray flacon-pompe (arthrodont/parodontax inherit image+inci, 5 elmex slug-variants + lot-3x + bain-de-bouche 100ml, gum paroex lot-3, hyalugel 100ml-50ml-offert). Audit 161 → 150 paires intra-source. Active products 519 → 469. Auto-tag 2026-04-23 : 1017 produits, 875 primary+secondary, 142 sans primary (manuel pending), `avoid` auto sur retinol/retinal/salicylic/glycolic/BPO. Bug elmex : `elmex-protection-email-professional` mal classé `kind: sunscreen` + tags skincare (fichier `elmex-solaire.seed.ts` mal nommé) → fix `kind: 'toothpaste'` + tag `dentifrice`. |
+| 25 | Phase 7 — Décisions UX drawer (skincare) | `shared/src/products/skincare/tag-filters.ts`, `FilterDrawer.tsx`, commit `c83237ff` | Ordre accordéons skincare : essentials Zone→Problème→Actions/Effets→Peau→Type de produit→Forme/Galénique→Ingrédients (appended) ; advanced Étape routine→Moment→Sensation→Caractéristiques→Brand (appended)→Prix (`advancedExtras` slot). Profile toggle : status quo (flottant tête drawer, control binaire ≠ accordéon). `product_type` vs `routine_step` skincare : libellés explicites `Type de produit` / `Étape routine`, pas de fusion (taxonomy lourde). Reset/Apply modèle A : drawer = brouillon, Apply commit, Reset clear draft + URL non-draft (price/profile/q via `onReset`), X/Échap/backdrop drop draft (no commit). Édition admin nom + slug (fix silent slug regen on name change). Side-effect : Prix migré `essentialExtras` → `advancedExtras`. |
 
 ---
 
