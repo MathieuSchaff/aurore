@@ -1,4 +1,4 @@
-import { SKINCARE_INGREDIENT_CATEGORY_VALUES } from '@habit-tracker/shared'
+import { type ProductKind, SKINCARE_INGREDIENT_CATEGORY_VALUES } from '@habit-tracker/shared'
 
 import slugify from '@sindresorhus/slugify'
 import { count, sql } from 'drizzle-orm'
@@ -24,6 +24,7 @@ import { FILLER_SLUGS } from '../data/ingredients/skincare/seed-dermo-profiles-f
 import { allIngredientProductTags, allProductData, allProductTagsMap } from '../data/products'
 import { ingredientTagData, productTagData } from '../data/tags'
 import { detectActifClasses } from '../utils/actif-class-detection'
+import { detectAutoTags } from '../utils/auto-tag-detection'
 import { type ProductTagGroups, seedBatch, toNumeric, toText } from '../utils/batch'
 import { cleanDatabase, fetchIdMaps, flattenTagGroups } from '../utils/id-maps'
 import { printValidationReport, validateAllIngredients } from '../utils/markdown-validator'
@@ -243,8 +244,32 @@ export async function seedCore(shouldClean = false) {
       )
     }
 
+    // Auto-derive concern / skin_type / skin_effect / comedogenicity tags from
+    // INCI via algo-derm `tagProduct`. Per-tag policy lives in `auto-tag-detection`
+    // (TAG_CONFIG), calibrated 2026-05-07 — see docs2/tags/AUTO-TAGS.md §7.4–7.6.
+    // Manual tags win on conflict because manualProductTagPairs is listed first in
+    // dedupPairs.
+    let autoTagsDerived = 0
+    const autoTagPairs: { slug: string; tagSlug: string; relevance: 'secondary' }[] = []
+    for (const product of allProductData) {
+      if (product.category !== 'skincare') continue
+      const inci = (product as { inci?: string | null }).inci
+      // `allProductData.kind` is widened to string from the unified union;
+      // we already filter on category=skincare so the value is a valid ProductKind.
+      const detected = detectAutoTags(inci, product.kind as ProductKind)
+      for (const tag of detected) {
+        autoTagPairs.push({ slug: product.slug, tagSlug: tag.slug, relevance: tag.relevance })
+        autoTagsDerived++
+      }
+    }
+    if (autoTagsDerived > 0) {
+      console.log(
+        `🏷  Backfill auto-tags: +${autoTagsDerived} pair(s) auto-déduit(es) depuis INCI (concern, skin_type, comedogenicity…)`
+      )
+    }
+
     const productTagPairs = dedupPairs(
-      [...manualProductTagPairs, ...actifClassPairs],
+      [...manualProductTagPairs, ...actifClassPairs, ...autoTagPairs],
       'productTags'
     )
 

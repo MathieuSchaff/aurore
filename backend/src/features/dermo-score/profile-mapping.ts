@@ -53,7 +53,7 @@ const KIND_TO_FORMULA: Partial<Record<ProductKind, AlgoDermFormulaType>> = {
 
 // Rinse-off changes the exposure multiplier inside algo-derm.
 // Masks are kept leave-on by default (skincare bias); rinse-off masks are rare.
-const RINSE_OFF_KINDS: ReadonlySet<ProductKind> = new Set<ProductKind>([
+export const RINSE_OFF_KINDS: ReadonlySet<ProductKind> = new Set<ProductKind>([
   'cleanser',
   'shampoo',
   'conditioner',

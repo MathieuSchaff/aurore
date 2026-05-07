@@ -102,6 +102,7 @@ VRAC/
 backend/src/db/seed/VRAC/
 backend/src/db/seed/VRAC-INGREDIENTS/
 backend/src/db/seed/output/
+backend/tmp/
 
 # Test results (generated in CI)
 **/test-results/
