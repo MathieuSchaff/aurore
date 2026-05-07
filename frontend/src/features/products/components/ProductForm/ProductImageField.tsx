@@ -23,9 +23,7 @@ export function ProductImageField(props: Props) {
   if (props.mode === 'create') {
     return (
       <FormField label="Image du produit">
-        <p className="product-form__upload-hint">
-          Image disponible après la création du produit.
-        </p>
+        <p className="product-form__upload-hint">Image disponible après la création du produit.</p>
       </FormField>
     )
   }

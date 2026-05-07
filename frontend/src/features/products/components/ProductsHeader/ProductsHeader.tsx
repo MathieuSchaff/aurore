@@ -5,14 +5,13 @@ import { useNavigate } from '@tanstack/react-router'
 import { FlaskConical, Plus, Search, SlidersHorizontal, Tag } from 'lucide-react'
 import { memo, useCallback, useEffect, useRef, useState } from 'react'
 
-import { useDraggableY } from '@/hooks/useDraggableY'
-
 import { Button } from '@/component/Button/Button'
 import type { ComboboxSection } from '@/component/Search/ComboboxPrimitive'
 import { SearchCombobox } from '@/component/Search/SearchCombobox'
 import { foldText } from '@/component/Search/text-fold'
 import { type TabOption, Tabs } from '@/component/Tabs/Tabs'
 import { SortControl } from '@/features/products/components/SortControl/SortControl'
+import { useDraggableY } from '@/hooks/useDraggableY'
 import { ingredientQueries } from '@/lib/queries/ingredients'
 import { type ProductSort, productQueries } from '@/lib/queries/products'
 
