@@ -46,7 +46,7 @@
   overflow-wrap: anywhere;
 }
 
-@media (min-width: 641px) {
+@media (--sm) {
   .blog-article {
     padding: var(--space-6) var(--space-4);
   }
