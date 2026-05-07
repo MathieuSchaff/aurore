@@ -1,6 +1,6 @@
 import { type ReactNode, useState } from 'react'
 
-import { Button } from '@/component/Button'
+import './ExpandableSection.css'
 
 type Props = {
   title: ReactNode
@@ -25,10 +25,31 @@ export function ExpandableSection({ title, children, defaultOpen = false, open, 
 
   return (
     <>
-      <Button variant="ghost" onClick={handleToggle} aria-expanded={isOpen}>
-        {title} {isOpen ? '▾' : '▸'}
-      </Button>
-      {isOpen && children}
+      <button
+        type="button"
+        className="expandable-section__trigger"
+        onClick={handleToggle}
+        aria-expanded={isOpen}
+      >
+        <span>{title}</span>
+        <svg
+          className={`expandable-section__chevron${isOpen ? ' expandable-section__chevron--open' : ''}`}
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          aria-hidden
+        >
+          <path
+            d="M4 6l4 4 4-4"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </button>
+      {isOpen && <div className="expandable-section__body">{children}</div>}
     </>
   )
 }

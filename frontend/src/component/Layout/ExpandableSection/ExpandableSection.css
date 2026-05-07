@@ -1,0 +1,42 @@
+.expandable-section__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+  cursor: pointer;
+  text-align: left;
+  gap: var(--space-3);
+  line-height: 1.4;
+}
+
+.expandable-section__trigger:hover {
+  color: var(--color-primary);
+}
+
+.expandable-section__trigger:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs, 2px);
+}
+
+.expandable-section__chevron {
+  flex-shrink: 0;
+  color: var(--text-muted);
+  transition: transform 0.2s ease;
+  display: inline-flex;
+}
+
+.expandable-section__chevron--open {
+  transform: rotate(180deg);
+}
+
+.expandable-section__body {
+  /* children render directly, no extra wrapper padding */
+}
