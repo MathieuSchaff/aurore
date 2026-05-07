@@ -6,7 +6,7 @@ import {
 
 import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
-import { AlertTriangle, BookOpen, Search } from 'lucide-react'
+import { AlertTriangle, BookOpen, Plus, Search } from 'lucide-react'
 import type React from 'react'
 import { useEffect, useRef, useState } from 'react'
 
@@ -17,6 +17,7 @@ import { ListPagination } from '@/component/DataDisplay/Pagination/ListPaginatio
 import { EmptyState } from '@/component/Feedback/ui/EmptyState/EmptyState'
 import { PageHeader } from '@/component/Layout/PageHeader/PageHeader'
 import { articleQueries } from '@/lib/queries/articles'
+import { useAuthStore } from '@/store/auth'
 import { BlogListSkeleton } from './skeletons/BlogSkeletons'
 
 import '@/component/Input/ChipGroup/ChipGroup.css'
@@ -62,6 +63,8 @@ export function BlogListPage({
     }, 400)
   }
 
+  const isAdmin = useAuthStore((s) => s.isAdmin)
+
   const { data, isLoading, isError, isPlaceholderData, refetch } = useQuery({
     ...articleQueries.list({ category, page, q, limit: PAGE_SIZE }),
     placeholderData: (prev) => prev,
@@ -82,7 +85,19 @@ export function BlogListPage({
 
   return (
     <div className="list-page blog-list-page">
-      <PageHeader title={pageTitle} meta={meta} isLoading={isPlaceholderData} />
+      <PageHeader
+        title={pageTitle}
+        meta={meta}
+        isLoading={isPlaceholderData}
+        actions={
+          isAdmin ? (
+            <Button to="/blog/admin/new" variant="outline" size="sm">
+              <Plus size={14} />
+              Nouvel article
+            </Button>
+          ) : undefined
+        }
+      />
 
       <div className="blog-list-page__controls">
         <nav className="blog-category-nav chip-group" aria-label="Catégories">
