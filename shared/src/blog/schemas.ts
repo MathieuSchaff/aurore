@@ -18,7 +18,7 @@ export const createArticleSchema = z.object({
   content: z.string().max(200000),
   category: z.enum(BLOG_CATEGORY_VALUES),
   coverImageUrl: z.url().optional(),
-  publishedAt: z.coerce.date().nullable().optional(),
+  publishedAt: z.iso.datetime().nullable().optional(),
 })
 
 export const updateArticleSchema = z
@@ -29,7 +29,7 @@ export const updateArticleSchema = z
     content: z.string().max(200000).optional(),
     category: z.enum(BLOG_CATEGORY_VALUES).optional(),
     coverImageUrl: z.url().nullable().optional(),
-    publishedAt: z.coerce.date().nullable().optional(),
+    publishedAt: z.iso.datetime().nullable().optional(),
   })
   .strict()
 
@@ -42,9 +42,9 @@ export const articleResponseSchema = z.object({
   content: z.string(),
   category: z.enum(BLOG_CATEGORY_VALUES),
   coverImageUrl: z.string().nullable(),
-  publishedAt: z.date().nullable(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
+  publishedAt: z.iso.datetime().nullable(),
+  createdAt: z.iso.datetime(),
+  updatedAt: z.iso.datetime(),
 })
 
 export const articleListItemSchema = z.object({
@@ -54,8 +54,8 @@ export const articleListItemSchema = z.object({
   excerpt: z.string().nullable(),
   category: z.enum(BLOG_CATEGORY_VALUES),
   coverImageUrl: z.string().nullable(),
-  publishedAt: z.date().nullable(),
-  updatedAt: z.date(),
+  publishedAt: z.iso.datetime().nullable(),
+  updatedAt: z.iso.datetime(),
 })
 
 export const articleSearchSchema = z.object({

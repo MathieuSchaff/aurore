@@ -4,7 +4,7 @@ export const ROSACEE_07_LIRE_INCI: ArticleInput = {
   title: '07 — Comment lire une liste INCI intelligemment',
   slug: 'rosacee-07-lire-une-liste-inci',
   category: 'skincare',
-  publishedAt: new Date(),
+  publishedAt: new Date().toISOString(),
   content: `
 # 07 — Comment lire une liste INCI intelligemment
 

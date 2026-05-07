@@ -11,6 +11,7 @@ import remarkMath from 'remark-math'
 import { Badge } from '@/component/DataDisplay/Badge/Badge'
 import { PageHeader } from '@/component/Layout/PageHeader/PageHeader'
 import { RichText } from '@/component/Typography/RichText/RichText'
+import { formatInstant } from '@/lib/dates'
 import { normalizeLatexMarkdown } from '@/lib/markdown'
 import { articleQueries } from '@/lib/queries/articles'
 import './BlogArticlePage.css'
@@ -22,10 +23,7 @@ type BlogArticlePageProps = {
 export function BlogArticlePage({ slug }: BlogArticlePageProps) {
   const { data: article } = useSuspenseQuery(articleQueries.bySlug(slug))
 
-  const publishedAt = article.publishedAt ? new Date(article.publishedAt) : null
-  const dateLabel = publishedAt
-    ? publishedAt.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
-    : null
+  const dateLabel = formatInstant(article.publishedAt, 'long')
 
   return (
     <article className="blog-article">
@@ -43,8 +41,8 @@ export function BlogArticlePage({ slug }: BlogArticlePageProps) {
         meta={
           <div className="blog-article__meta">
             <Badge variant="chip">{BLOG_CATEGORY_LABELS[article.category]}</Badge>
-            {publishedAt && dateLabel && (
-              <time dateTime={publishedAt.toISOString()}>{dateLabel}</time>
+            {article.publishedAt && dateLabel && (
+              <time dateTime={article.publishedAt}>{dateLabel}</time>
             )}
           </div>
         }

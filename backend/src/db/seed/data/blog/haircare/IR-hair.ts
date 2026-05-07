@@ -8,7 +8,7 @@ export const LUMIERE_ROUGE_CHEVEUX: ArticleInput = {
   category: 'haircare',
   coverImageUrl:
     'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1200&q=80',
-  publishedAt: new Date(),
+  publishedAt: new Date().toISOString(),
   content: `
 # Lumière rouge et repousse des cheveux : vraie avancée ou simple gadget ?
 

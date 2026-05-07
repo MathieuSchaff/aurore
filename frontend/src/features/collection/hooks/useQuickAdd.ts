@@ -4,6 +4,7 @@ import type React from 'react'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
+import { fromDateInputValue, todayDateInputValue } from '@/lib/dates'
 import { reportError } from '@/lib/errorReporter'
 import { useCreateProduct } from '@/lib/queries/products'
 import { useAddPurchase } from '@/lib/queries/purchases'
@@ -23,7 +24,7 @@ export function useQuickAdd({ onClose }: UseQuickAddProps) {
     slug: string
   } | null>(null)
   const [selectedStatus, setSelectedStatus] = useState<UserProductStatus>('in_stock')
-  const [purchasedAt, setPurchasedAt] = useState(() => new Date().toISOString().split('T')[0])
+  const [purchasedAt, setPurchasedAt] = useState(() => todayDateInputValue())
   const [purchasePrice, setPurchasePrice] = useState('')
   const [expiresAt, setExpiresAt] = useState('')
 
@@ -59,9 +60,9 @@ export function useQuickAdd({ onClose }: UseQuickAddProps) {
       await addPurchase.mutateAsync({
         userProductId: created.id,
         input: {
-          purchasedAt,
+          purchasedAt: fromDateInputValue(purchasedAt),
           pricePaidCents: purchasePrice ? Math.round(parseFloat(purchasePrice) * 100) : undefined,
-          expiresAt: expiresAt || undefined,
+          expiresAt: expiresAt ? fromDateInputValue(expiresAt) : undefined,
         },
       })
     }

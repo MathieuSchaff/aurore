@@ -49,7 +49,7 @@ export async function getOrCreateSeedUser(
   // Mark as verified and admin so slug is used as-is during ingredient creation
   await ctx.db
     .update(users)
-    .set({ emailVerifiedAt: new Date(), role: 'admin' })
+    .set({ emailVerifiedAt: new Date().toISOString(), role: 'admin' })
     .where(eq(users.id, result.data.user.id))
 
   console.log(`Utilisateur seed créé et vérifié : ${email}`)

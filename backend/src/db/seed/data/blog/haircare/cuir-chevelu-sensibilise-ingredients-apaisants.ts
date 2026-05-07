@@ -7,7 +7,7 @@ export const ingredientsApaisantsCuirChevelu: ArticleInput = {
     'Panthénol, niacinamide, glycérine, allantoïne, piroctone olamine : certains actifs ont un intérêt réel pour calmer un cuir chevelu irrité ou inconfortable.',
   category: 'haircare',
   coverImageUrl: 'https://images.com/ingredients-apaisants-cuir-chevelu.jpg',
-  publishedAt: new Date(),
+  publishedAt: new Date().toISOString(),
   content: `# Cuir chevelu sensibilisé : les ingrédients qui peuvent vraiment aider
 
 Face à un cuir chevelu sensible, l'objectif n'est pas toujours de stimuler la pousse. Dans de nombreux cas, il faut d'abord calmer l'environnement cutané.

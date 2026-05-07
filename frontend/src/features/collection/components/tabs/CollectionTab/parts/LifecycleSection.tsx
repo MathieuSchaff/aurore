@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
 import { Badge } from '@/component/DataDisplay/Badge/Badge'
+import { compareInstant, formatInstant } from '@/lib/dates'
 import { purchaseQueries, useFinishPurchase, useOpenPurchase } from '@/lib/queries/purchases'
 import type { UserProduct } from '@/lib/queries/user-products'
 import { AddPurchaseDialog, type PurchaseToEdit } from './AddPurchaseDialog'
@@ -25,9 +26,7 @@ export function LifecycleSection({ p, onAddPurchase }: LifecycleSectionProps) {
 
   const sortedPurchases = useMemo(() => {
     if (!purchases) return []
-    return [...purchases].sort(
-      (a, b) => new Date(b.purchasedAt).getTime() - new Date(a.purchasedAt).getTime()
-    )
+    return [...purchases].sort((a, b) => compareInstant(b.purchasedAt, a.purchasedAt))
   }, [purchases])
 
   const openMutation = useOpenPurchase()
@@ -97,7 +96,7 @@ export function LifecycleSection({ p, onAddPurchase }: LifecycleSectionProps) {
                   <div className="pds-purch-dates">
                     <span className="pds-purch-date" title="Date d'achat">
                       <Calendar size={12} />
-                      {new Date(purch.purchasedAt).toLocaleDateString()}
+                      {formatInstant(purch.purchasedAt, 'short')}
                     </span>
                     {purch.pricePaidCents && (
                       <span className="pds-purch-price">

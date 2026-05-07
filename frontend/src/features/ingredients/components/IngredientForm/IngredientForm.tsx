@@ -184,7 +184,7 @@ export function IngredientForm({
               category: form.category.trim() || undefined,
               description: form.description.trim() || undefined,
               content: form.content.trim() || undefined,
-              expectedUpdatedAt: new Date(updatedAtOverride ?? ingredient.updatedAt),
+              expectedUpdatedAt: updatedAtOverride ?? ingredient.updatedAt,
             },
           }),
           updateTags.mutateAsync({

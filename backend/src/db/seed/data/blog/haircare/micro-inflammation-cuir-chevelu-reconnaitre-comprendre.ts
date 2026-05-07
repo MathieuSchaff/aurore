@@ -7,7 +7,7 @@ export const microInflammationCuirChevelu: ArticleInput = {
     'Racines douloureuses, cuir chevelu qui chauffe, démangeaisons ou inconfort local : ces signes peuvent évoquer une micro-inflammation autour du follicule pileux.',
   category: 'haircare',
   coverImageUrl: 'https://images.com/micro-inflammation-cuir-chevelu.jpg',
-  publishedAt: new Date(),
+  publishedAt: new Date().toISOString(),
   content: `# Micro-inflammation du cuir chevelu : comment la reconnaître et pourquoi elle compte
 
 La micro-inflammation du cuir chevelu est souvent discrète. Elle ne ressemble pas forcément à une plaque rouge ou à une dermatite visible. Pourtant, elle peut être suffisante pour créer un inconfort durable.

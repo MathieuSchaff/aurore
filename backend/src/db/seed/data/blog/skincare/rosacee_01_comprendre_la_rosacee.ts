@@ -4,7 +4,7 @@ export const ROSACEE_01_COMPRENDRE: ArticleInput = {
   title: '01 — Comprendre la rosacée',
   slug: 'rosacee-01-comprendre-la-rosacee',
   category: 'skincare',
-  publishedAt: new Date(),
+  publishedAt: new Date().toISOString(),
   content: `
 # 01 — Comprendre la rosacée
 

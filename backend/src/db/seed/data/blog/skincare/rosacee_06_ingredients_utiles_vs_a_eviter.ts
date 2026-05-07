@@ -4,7 +4,7 @@ export const ROSACEE_06_INGREDIENTS: ArticleInput = {
   title: '06 — Ingrédients utiles vs ingrédients à éviter',
   slug: 'rosacee-06-ingredients-utiles-vs-a-eviter',
   category: 'skincare',
-  publishedAt: new Date(),
+  publishedAt: new Date().toISOString(),
   content: `
 # 06 — Ingrédients utiles vs ingrédients à éviter
 

@@ -4,7 +4,7 @@ export const ROSACEE_SKILL: ArticleInput = {
   title: "Skill Conseil Produits Rosacée : méthode d'analyse INCI",
   slug: 'skill-rosacee-conseil-produits',
   category: 'skincare',
-  publishedAt: new Date(),
+  publishedAt: new Date().toISOString(),
   excerpt:
     'Méthode systématique pour choisir des soins adaptés à sa forme de rosacée : profilage, raisonnement physiopathologique, analyse INCI et recommandations produits.',
   content: `

@@ -7,7 +7,7 @@ export const serumsCapillairesActifsChoisir: ArticleInput = {
     'Anti-chute, densité, cuir chevelu sensible, racines douloureuses : les sérums capillaires ne répondent pas tous au même besoin. Guide clair pour choisir les bons actifs.',
   category: 'haircare',
   coverImageUrl: 'https://images.com/serums-capillaires-actifs.jpg',
-  publishedAt: new Date(),
+  publishedAt: new Date().toISOString(),
   content: `# Sérums capillaires : quels actifs choisir selon le problème réel
 
 Le marché des sérums capillaires est devenu difficile à lire. Les mêmes promesses reviennent souvent : croissance, densité, anti-chute, cuir chevelu sain, cheveux plus forts.

@@ -7,7 +7,7 @@ export const LASER_ANTI_AGE_NON_ABLATIF: ArticleInput = {
     'Ridules, teint terne, relâchement cutané : les lasers non ablatifs promettent de stimuler la peau en profondeur sans éviction sociale lourde. Voici ce qu’il faut vraiment savoir.',
   category: 'skincare',
   coverImageUrl: 'https://images.unsplash.com/photo-1515377905703-c4788e51af15',
-  publishedAt: new Date(),
+  publishedAt: new Date().toISOString(),
   content: `
 # Laser anti-âge non ablatif : la technologie qui pourrait rivaliser avec les injections ?
 

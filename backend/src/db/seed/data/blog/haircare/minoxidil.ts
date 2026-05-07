@@ -9,7 +9,7 @@ export const MINOXIDIL_GUIDE_COMPLET: ArticleInput = {
   category: 'haircare',
   coverImageUrl:
     'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1200&q=80',
-  publishedAt: new Date(),
+  publishedAt: new Date().toISOString(),
   content: `
 # Minoxidil : guide complet pour la pousse des cheveux, éviter les erreurs et maximiser les résultats
 

@@ -9,7 +9,7 @@ export const PRODUITS_CAPILLAIRES_EFFICACES_GUIDE_SERIEUX: ArticleInput = {
   category: 'haircare',
   coverImageUrl:
     'https://images.unsplash.com/photo-1517832606299-7ae9b720a186?auto=format&fit=crop&w=1400&q=80',
-  publishedAt: new Date(),
+  publishedAt: new Date().toISOString(),
   content: `
 # Produits Capillaires Efficaces : Le Guide Sérieux
 

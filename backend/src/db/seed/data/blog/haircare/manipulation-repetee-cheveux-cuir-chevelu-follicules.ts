@@ -7,7 +7,7 @@ export const cuirCheveluManipulationFollicules: ArticleInput = {
     'Toucher, tourner ou manipuler régulièrement ses cheveux peut sensibiliser le cuir chevelu. Comprendre les mécanismes biologiques permet de mieux prévenir irritation, inconfort et chute secondaire.',
   category: 'haircare',
   coverImageUrl: 'https://images.com/cuir-chevelu-follicules.jpg',
-  publishedAt: new Date(),
+  publishedAt: new Date().toISOString(),
   content: `# Manipulation répétée des cheveux : ce qui se passe vraiment au niveau du cuir chevelu
 
 Toucher ses cheveux plusieurs fois par jour peut sembler anodin. Pourtant, lorsqu'un même geste est répété pendant des semaines ou des mois, le cuir chevelu peut finir par réagir.

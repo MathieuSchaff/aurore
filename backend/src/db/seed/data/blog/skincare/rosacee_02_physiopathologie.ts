@@ -4,7 +4,7 @@ export const ROSACEE_02_PHYSIOPATHOLOGIE: ArticleInput = {
   title: '02 — Physiopathologie de la rosacée',
   slug: 'rosacee-02-physiopathologie',
   category: 'skincare',
-  publishedAt: new Date(),
+  publishedAt: new Date().toISOString(),
   content: `
 # 02 — Physiopathologie de la rosacée
 

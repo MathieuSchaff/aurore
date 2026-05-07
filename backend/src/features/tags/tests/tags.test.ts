@@ -77,7 +77,7 @@ describe('Tags Service', () => {
     it('should store createdAt timestamp', async () => {
       const tag = await createProductTag(testDb, { name: 'Hydratation' })
 
-      expect(tag.createdAt).toBeInstanceOf(Date)
+      expect(typeof tag.createdAt).toBe('string')
     })
 
     it('should throw tag_already_exists for duplicate slug', async () => {

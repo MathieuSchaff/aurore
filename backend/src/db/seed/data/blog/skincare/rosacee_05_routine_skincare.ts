@@ -4,7 +4,7 @@ export const ROSACEE_05_ROUTINE_SKINCARE: ArticleInput = {
   title: '05 — Routine skincare idéale pour la rosacée',
   slug: 'rosacee-05-routine-skincare',
   category: 'skincare',
-  publishedAt: new Date(),
+  publishedAt: new Date().toISOString(),
   content: `
 # 05 — Routine skincare idéale pour la rosacée
 

@@ -4,7 +4,7 @@ export const ROSACEE_03_DECLENCHEURS: ArticleInput = {
   title: '03 — Déclencheurs et facteurs aggravants',
   slug: 'rosacee-03-declencheurs-et-facteurs-aggravants',
   category: 'skincare',
-  publishedAt: new Date(),
+  publishedAt: new Date().toISOString(),
   content: `
 # 03 — Déclencheurs et facteurs aggravants
 

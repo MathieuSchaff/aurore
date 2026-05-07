@@ -9,7 +9,7 @@ export const HYDROXYAPATITE_DENTIFRICE_GUIDE: ArticleInput = {
   category: 'dental',
   coverImageUrl:
     'https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&w=1400&q=80',
-  publishedAt: new Date(),
+  publishedAt: new Date().toISOString(),
   content: `
 # Dentifrice à l’Hydroxyapatite : Le Guide Scientifique Complet pour Réparer l’Émail et Réduire la Sensibilité
 

@@ -8,7 +8,7 @@ export const SIX_ERREURS_VIEILLISSEMENT_PEAU: ArticleInput = {
   category: 'skincare',
   coverImageUrl:
     'https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=1200&q=80',
-  publishedAt: new Date(),
+  publishedAt: new Date().toISOString(),
   content: `
 # 6 erreurs qui accélèrent le vieillissement de la peau
 

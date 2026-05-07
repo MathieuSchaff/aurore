@@ -7,7 +7,7 @@ export const chuteDensiteIrritationDifferences: ArticleInput = {
     'Tous les problèmes capillaires ne se traitent pas de la même façon. Distinguer irritation, chute diffuse et perte de densité permet de choisir des soins vraiment adaptés.',
   category: 'haircare',
   coverImageUrl: 'https://images.com/chute-densite-irritation-cheveux.jpg',
-  publishedAt: new Date(),
+  publishedAt: new Date().toISOString(),
   content: `# Chute, perte de densité ou simple irritation : comment faire la différence
 
 Lorsqu'un problème capillaire apparaît, on parle souvent de "chute de cheveux" pour tout décrire.

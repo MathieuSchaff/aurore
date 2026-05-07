@@ -34,6 +34,7 @@ import type { DB } from '../db'
 import { ingredientDermoProfiles } from '../db/schema/ingredients/ingredient-dermo-profiles'
 import { userIngredientAnalysisScore } from '../db/schema/ingredients/user-ingredient-analysis-score'
 import { userProducts } from '../db/schema/user-products'
+import { nowISO } from '../utils/dates'
 
 // Need at least this many products in a bucket before we trust the ratio.
 // With only 1 product, a single coincidence would look like a strong signal.
@@ -132,7 +133,7 @@ export async function recalculateSignalForUser(
   //
   //    > 0  → over-represented in bad products → suspicion
   //    < 0  → over-represented in good products → favorite
-  const now = new Date()
+  const now = nowISO()
   const scores = targetIngredientIds.map((ingredientId) => {
     const countInBad = badIngredientSets.reduce((n, s) => n + (s.has(ingredientId) ? 1 : 0), 0)
     const countInGood = goodIngredientSets.reduce((n, s) => n + (s.has(ingredientId) ? 1 : 0), 0)

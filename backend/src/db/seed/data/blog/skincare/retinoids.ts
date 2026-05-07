@@ -8,7 +8,7 @@ export const RETINOID: ArticleInput = {
   category: 'skincare',
   coverImageUrl:
     'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=1200&q=80',
-  publishedAt: new Date(),
+  publishedAt: new Date().toISOString(),
   content: `
 # Rétinoïdes : guide complet, scientifique et simple
 

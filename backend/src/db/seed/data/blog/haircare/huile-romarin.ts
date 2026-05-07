@@ -8,7 +8,7 @@ export const HUILE_ROMARIN_CHEVEUX: ArticleInput = {
   category: 'haircare',
   coverImageUrl:
     'https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=1200&q=80',
-  publishedAt: new Date(),
+  publishedAt: new Date().toISOString(),
   content: `
 # Huile de Romarin et Repousse des Cheveux : Efficace ou Simple Mythe ?
 
