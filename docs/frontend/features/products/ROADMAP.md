@@ -22,7 +22,18 @@
 | `pages/ProductInfoTab/` | Fiche produit : ingrédients, tags, purchase log |
 | `pages/ProductCreatePage/` | Wrapper form création |
 | `pages/ProductEditPage/` | Wrapper form édition |
-| `comparison/` | Sous-feature comparaison (pages/components/helpers) |
+| `comparison/pages/ComparisonsListPage/` | Liste des comparaisons sauvegardées de l'utilisateur |
+| `comparison/pages/ComparisonBuilderPage/` | Page de construction (picker N produits → résultat live) |
+| `comparison/components/ComparisonHeader/` | Header builder (titre, save, share) |
+| `comparison/components/ComparisonBody/` | Compose `MetaStrip` + `DiffSection` + `SignalsSection` + `CommonIngredientsSection` |
+| `comparison/components/MetaStrip/` | Bandeau métadonnées (prix/unité, alertes prix non comparable mixed-unit) |
+| `comparison/components/DiffSection/` | Diff colonne par produit (tags, ingrédients spécifiques) |
+| `comparison/components/SignalsSection/` | Actifs partagés ✦, alertes ⚠ avec count `(N/total)`, conflits ⊗ |
+| `comparison/components/CommonIngredientsSection/` | Ingrédients communs (collapsible via `ExpandableSection`) |
+| `comparison/components/PerProductSpecificsSection/` | Ingrédients spécifiques à un seul produit |
+| `comparison/components/ProductPicker/` | Combobox async ajout produit au comparatif |
+| `comparison/components/EmptyComparisonState/` | Empty state quand picker sous le minimum |
+| `comparison/helpers/aggregations.ts` | `computeSharedActives` / `computeAlerts` / `computeConflicts` |
 | `components/ProductCard/` | Card (slug, brand, price, tags, view transitions) |
 | `components/ProductImage/` | Affichage image produit (fallback, lazy) |
 | `components/ProductForm/` | Form création/édition. Sous-dossiers `components/`, `helpers/` ; `DoseField`, `ProductImageField`, `SlugEditModal` |
