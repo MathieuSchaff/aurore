@@ -151,5 +151,11 @@ Avant d'acheter un produit, il faut identifier le mécanisme dominant :
 - chute ;
 - perte de densité.
 
-C'est cette distinction qui permet de choisir un produit utile plutôt qu'un produit simplement bien marketé.`,
+C'est cette distinction qui permet de choisir un produit utile plutôt qu'un produit simplement bien marketé.
+
+## Pour aller plus loin
+
+- [**Micro-inflammation du cuir chevelu**](/blog/micro-inflammation-cuir-chevelu-reconnaitre-comprendre) : comment la reconnaître.
+- [**Ingrédients apaisants**](/blog/cuir-chevelu-sensibilise-ingredients-apaisants) : quels actifs privilégier.
+- [**Manipulation répétée**](/blog/manipulation-repetee-cheveux-cuir-chevelu-follicules) : comprendre l'impact du toucher sur les follicules.`,
 }

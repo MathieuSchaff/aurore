@@ -40,7 +40,6 @@ export const GOLD_SET_FOCUS_TAGS = [
   'ceramides',
   'tyrosinase-inhibitors',
   'fini-mat',
-  'fini-glowy',
   'texture-legere',
   'texture-riche',
   'aha',

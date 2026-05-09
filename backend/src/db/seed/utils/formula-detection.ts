@@ -37,17 +37,10 @@
 //                               (matifiant decoupled from algo-derm computed_score that
 //                               conflated it with peau-grasse).
 //   detectTextureRiche        — `texture-riche` from ≥ 2 butters/waxes top 8.
-//   detectEffetProtecteur     — `effet-protecteur` from lanolin top 8 OR ≥ 2
-//                               butters/waxes top 8 (delegates to texture-riche).
-//                               Leave-on only. Distinct from `occlusif`
-//                               (petrolatum) and `barriere-cutanee` (ceramide
-//                               lipid mimicry).
 //   detectTextureLegere       — `texture-legere` from water/glycerin top 3 + 0 butter/wax/
 //                               petrolatum top 8 + leave-on.
-//   detectFiniGlowy           — `fini-glowy` from glycerin top 3 + HA top 5 + 0 absorbent
-//                               powder top 8 + 0 butter/wax/petrolatum top 8.
-//   detectNonGrasAbsorption   — `non-gras` + `absorption-rapide` from serum/eye-cream with
-//                               silicones top 5 + 0 vegetable oil top 5.
+//   detectNonGras             — `non-gras` from serum/eye-cream with silicones top 5
+//                               + 0 vegetable oil top 5.
 //   detectPigmentsVerts       — `pigments-verts` from CI 77288 / chromium oxide/hydroxide green.
 //   detectVegan               — `vegan` from absence of animal-derived INCI patterns
 //                               (precision-first: ≥ 5 ingredients to claim).
@@ -891,61 +884,6 @@ export function detectTextureRiche(
   return groupHits >= 2 ? [S.TEXTURE_RICHE] : []
 }
 
-// ─── Effet-protecteur ────────────────────────────────────────────────────────
-// Skin_effect for film-forming protective formulas. Distinct from `occlusif`
-// (petrolatum/vaseline-driven barrier) and from `barriere-cutanee` concern
-// (lipid-mimicry: ceramides + cholesterol). Two triggers:
-//
-//   A) Lanolin (any variant — lanolin / lanolin alcohol / hydrogenated lanolin)
-//      in top 8. Lanolin alone is a strong protective film-former (Lansinoh /
-//      Aquaphor nipple-balm chemistry, cradle cap, cracked-skin care). Distinct
-//      enough that single-token presence justifies the slug.
-//
-//   B) ≥ 2 distinct butter/wax groups in top 8. Reuses `detectTextureRiche`
-//      (same shea/cocoa/cera-alba/carnauba/candelilla/microcristallina set with
-//      synonym dedup). Heavy butter formulas form a protective layer on top
-//      of texture richness — slugs co-fire deliberately.
-//
-// Leave-on only: rinse-off contact time too short for either pathway to claim
-// a sustained protective film.
-
-const EFFET_PROTECTEUR_LANOLIN_PATTERN = 'lanolin'
-const EFFET_PROTECTEUR_LANOLIN_POSITION_CAP = 8
-
-const EFFET_PROTECTEUR_RINSE_OFF_KINDS = new Set<ProductKind>([
-  'cleanser',
-  'shampoo',
-  'conditioner',
-  'body-wash',
-  'body-scrub',
-  'mouthwash',
-])
-
-export function detectEffetProtecteur(
-  inci: string | null | undefined,
-  kind: ProductKind,
-  hoistedIngredients?: readonly string[]
-): SkincareProductTagSlug[] {
-  if (EFFET_PROTECTEUR_RINSE_OFF_KINDS.has(kind)) return []
-  const ingredients = resolveIngredients(inci, hoistedIngredients)
-  if (ingredients.length === 0) return []
-
-  // Trigger A: lanolin top 8
-  const lanolinCap = Math.min(ingredients.length, EFFET_PROTECTEUR_LANOLIN_POSITION_CAP)
-  for (let i = 0; i < lanolinCap; i++) {
-    if (ingredients[i].includes(EFFET_PROTECTEUR_LANOLIN_PATTERN)) {
-      return [S.EFFET_PROTECTEUR]
-    }
-  }
-
-  // Trigger B: ≥ 2 butter/wax groups (delegate to texture-riche's calibrated
-  // dedup logic — same chemistry, both tags emit when the trigger fires).
-  // Forward hoisted ingredients so texture-riche reuses the same array.
-  if (detectTextureRiche(inci, ingredients).length > 0) return [S.EFFET_PROTECTEUR]
-
-  return []
-}
-
 // ─── Texture-legere ──────────────────────────────────────────────────────────
 // Light, watery feel. Signals: water or glycerin in top 3, no butter/wax/
 // petrolatum in top 8, leave-on (rinse-off cleansers/washes are not "lightweight"
@@ -993,59 +931,11 @@ export function detectTextureLegere(
   return [S.TEXTURE_LEGERE]
 }
 
-// ─── Fini-glowy ──────────────────────────────────────────────────────────────
-// Dewy / luminous finish. Signals: glycerin in top 3 (humectant moisture pull),
-// hyaluronic acid in top 5 (plumping water reservoir), absence of mattifying
-// powders in top 8 (would kill the sheen), and absence of butter/wax/petrolatum
-// in top 8 (heavy formulas don't read as dewy — they read as rich balm, which
-// is mutually exclusive sensoriel with glowy). Stricter than texture-legere — a
-// product can be light without being glowy (gel-creams with silicones).
-
-// Stays in sync with `actif-class-detection.ts:HYALURONIC_ACID.patterns`.
-// `hydrolyzed sodium hyaluronate` is covered by the `sodium hyaluronate`
-// substring match but listed explicitly for grep visibility.
-const HA_PATTERNS = [
-  'hyaluronic acid',
-  'sodium hyaluronate',
-  'hydrolyzed hyaluronic acid',
-  'sodium acetylated hyaluronate',
-  'hydrolyzed sodium hyaluronate',
-  'hydroxypropyltrimonium hyaluronate',
-  'potassium hyaluronate',
-  'sodium hyaluronate crosspolymer',
-]
-
-export function detectFiniGlowy(
-  inci: string | null | undefined,
-  hoistedIngredients?: readonly string[]
-): SkincareProductTagSlug[] {
-  const ingredients = resolveIngredients(inci, hoistedIngredients)
-  if (ingredients.length < 3) return []
-
-  // Glycerin in top 3
-  const top3 = ingredients.slice(0, 3)
-  if (!top3.some((ing) => ing.includes('glycerin'))) return []
-
-  // HA in top 5
-  const top5 = ingredients.slice(0, Math.min(ingredients.length, 5))
-  if (!top5.some((ing) => HA_PATTERNS.some((p) => ing.includes(p)))) return []
-
-  // No absorbent powder in top 8 (would mattify the finish), no heavy
-  // butter/wax/petrolatum top 8 (mutex with texture-riche / occlusif).
-  const top8 = ingredients.slice(0, Math.min(ingredients.length, 8))
-  for (const ing of top8) {
-    if (ABSORBENT_PATTERNS.some((p) => ing.includes(p))) return []
-    if (HEAVY_EXCLUSION_PATTERNS.some((p) => ing.includes(p))) return []
-  }
-
-  return [S.FINI_GLOWY]
-}
-
-// ─── Non-gras + absorption-rapide ────────────────────────────────────────────
+// ─── Non-gras ────────────────────────────────────────────────────────────────
 // Light leave-on formats (serum, eye-cream) where a silicone in top 5 carries
-// the texture and zero vegetable oil sits in top 5. Emitted as a pair —
-// `non-gras` (sensation) and `absorption-rapide` (sensation) describe the
-// same formula property from two axes.
+// the texture and zero vegetable oil sits in top 5. Emits `non-gras` only —
+// `absorption-rapide` was previously co-emitted from the same trigger but
+// dropped (taxonomy cleanup: same INCI signal, marketing-style duplicate slug).
 
 const NON_GRAS_KINDS = new Set<ProductKind>(['serum', 'eye-cream'])
 
@@ -1084,7 +974,7 @@ const VEGETABLE_OIL_PATTERNS = [
   'paraffinum liquidum',
 ]
 
-export function detectNonGrasAbsorption(
+export function detectNonGras(
   inci: string | null | undefined,
   kind: ProductKind,
   hoistedIngredients?: readonly string[]
@@ -1103,7 +993,7 @@ export function detectNonGrasAbsorption(
     if (VEGETABLE_OIL_PATTERNS.some((p) => ing.includes(p))) return []
   }
 
-  return [S.NON_GRAS, S.ABSORPTION_RAPIDE]
+  return [S.NON_GRAS]
 }
 
 // ─── Pigments-verts ──────────────────────────────────────────────────────────

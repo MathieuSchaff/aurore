@@ -7,12 +7,12 @@ against ground truth instead of running blind.
 
 ## Scope
 
-Focus calibration: 16 tags calibrated 2026-05-08.
+Focus calibration: 15 tags calibrated 2026-05-08 (`fini-glowy` retiré 2026-05-09 — slug killed comme marketing non-confirmable INCI).
 
 | Group | Tags |
 |-------|------|
 | Actif-class clusters (positionCap: ∞) | `retinoids`, `vitamin-c`, `vitamin-e`, `hyaluronic-acid`, `peptides`, `polyphenols`, `enzymes-exfoliants`, `ceramides`, `tyrosinase-inhibitors` |
-| Sensoriels Tier-1 | `fini-mat`, `fini-glowy`, `texture-legere`, `texture-riche` |
+| Sensoriels Tier-1 | `fini-mat`, `texture-legere`, `texture-riche` |
 | Acid clusters (positionCap: 10 — drift conservée par design) | `aha`, `bha`, `pha` |
 
 Adding a tag requires editing `GOLD_SET_FOCUS_TAGS` in

@@ -89,5 +89,11 @@ Une manipulation répétée des cheveux peut entraîner :
 - une hypersensibilité des racines ;
 - parfois une chute secondaire si le stress mécanique persiste.
 
-La priorité n'est pas toujours de chercher un produit "pousse des cheveux". Dans beaucoup de cas, la première étape est simplement de restaurer un cuir chevelu calme.`,
+La priorité n'est pas toujours de chercher un produit "pousse des cheveux". Dans beaucoup de cas, la première étape est simplement de restaurer un cuir chevelu calme.
+
+## Pour aller plus loin
+
+- [**Ingrédients apaisants**](/blog/cuir-chevelu-sensibilise-ingredients-apaisants) : restaurer le calme.
+- [**Micro-inflammation**](/blog/micro-inflammation-cuir-chevelu-reconnaitre-comprendre) : comprendre la boucle sensorielle.
+- [**Chute ou Irritation ?**](/blog/chute-perte-densite-irritation-cheveux-difference) : distinguer les symptômes.`,
 }

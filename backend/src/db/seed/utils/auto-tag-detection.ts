@@ -72,7 +72,6 @@ export const TAG_CONFIG: Readonly<Record<string, TagRule>> = {
   // concern (`pores-sebum`) + effect (`sebo-regulateur`) axis covers the
   // ground without bruit.
   purifiant: { auroreSlug: S.PURIFIANT, minConf: 1.0, allow: false },
-  keratolytique: { auroreSlug: S.KERATOLYTIQUE, minConf: 0.5, allow: true },
   // §7.6 — identical product set to peau-grasse, but means visual finish
   matifiant: { auroreSlug: S.MATIFIANT, minConf: 1.0, allow: false },
   // Algo `repulpant` stays disabled — fires on 78 % corpus (any HA/glycerin

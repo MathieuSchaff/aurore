@@ -5,12 +5,10 @@ import { SKINCARE_PRODUCT_TAG_SLUGS } from '@habit-tracker/shared'
 import {
   detectCernesPoches,
   detectEczemaAtopie,
-  detectEffetProtecteur,
-  detectFiniGlowy,
   detectFiniMat,
   detectGrossesseAvoid,
   detectKeratosePilaire,
-  detectNonGrasAbsorption,
+  detectNonGras,
   detectOcclusifTags,
   detectPeauNormale,
   detectPigmentsVerts,
@@ -491,72 +489,6 @@ describe('detectEczemaAtopie', () => {
   })
 })
 
-describe('detectEffetProtecteur', () => {
-  test('lanolin in top 8 → effet-protecteur (Aquaphor-style)', () => {
-    expect(
-      detectEffetProtecteur('Aqua, Petrolatum, Lanolin, Cetyl Alcohol', 'balm')
-    ).toContain(S.EFFET_PROTECTEUR)
-  })
-
-  test('lanolin alcohol variant → effet-protecteur', () => {
-    expect(
-      detectEffetProtecteur('Aqua, Glycerin, Lanolin Alcohol, Cetyl Alcohol', 'moisturizer')
-    ).toContain(S.EFFET_PROTECTEUR)
-  })
-
-  test('lanolin past position 8 (trace) → not flagged', () => {
-    const filler = Array.from({ length: 8 }, (_, i) => `Filler${i + 1}`).join(', ')
-    expect(detectEffetProtecteur(`Aqua, ${filler}, Lanolin`, 'balm')).toEqual([])
-  })
-
-  test('≥2 butters/waxes top 8 → effet-protecteur (heavy balm)', () => {
-    expect(
-      detectEffetProtecteur(
-        'Aqua, Butyrospermum Parkii Butter, Cera Alba, Glycerin',
-        'balm'
-      )
-    ).toContain(S.EFFET_PROTECTEUR)
-  })
-
-  test('1 butter only → not flagged (≥2 required, single butter = texture polish)', () => {
-    expect(
-      detectEffetProtecteur('Aqua, Glycerin, Butyrospermum Parkii Butter, Cetyl Alcohol', 'moisturizer')
-    ).toEqual([])
-  })
-
-  test('shea + cocoa butter top 8 → effet-protecteur', () => {
-    expect(
-      detectEffetProtecteur(
-        'Aqua, Shea Butter, Cocoa Butter, Glycerin',
-        'body-lotion'
-      )
-    ).toContain(S.EFFET_PROTECTEUR)
-  })
-
-  test('shea synonym dedup: shea-butter + butyrospermum parkii (same ingredient) → not flagged alone', () => {
-    expect(
-      detectEffetProtecteur(
-        'Aqua, Butyrospermum Parkii (Shea) Butter, Glycerin',
-        'moisturizer'
-      )
-    ).toEqual([])
-  })
-
-  test('cleanser (rinse-off) with butters → not flagged (leave-on only)', () => {
-    expect(
-      detectEffetProtecteur(
-        'Aqua, Butyrospermum Parkii Butter, Cera Alba, Sodium Lauryl Sulfate',
-        'cleanser'
-      )
-    ).toEqual([])
-  })
-
-  test('null/empty INCI → []', () => {
-    expect(detectEffetProtecteur(null, 'balm')).toEqual([])
-    expect(detectEffetProtecteur('', 'balm')).toEqual([])
-  })
-})
-
 describe('detectRepulpant', () => {
   test('HA top 3 + glycerin top 5 + acetyl hexapeptide-8 → repulpant', () => {
     expect(
@@ -759,58 +691,27 @@ describe('detectTextureLegere', () => {
   })
 })
 
-// ─── T1.4 — fini-glowy ──────────────────────────────────────────────────────
-describe('detectFiniGlowy', () => {
-  test('glycerin top 3 + sodium hyaluronate top 5 + no powder → fini-glowy', () => {
-    expect(
-      detectFiniGlowy('Aqua, Glycerin, Propanediol, Sodium Hyaluronate, Niacinamide')
-    ).toContain(S.FINI_GLOWY)
-  })
-
-  test('glycerin top 3 + HA top 5 + silica top 8 → not flagged (mattified)', () => {
-    expect(
-      detectFiniGlowy('Aqua, Glycerin, Sodium Hyaluronate, Silica, Niacinamide')
-    ).toEqual([])
-  })
-
-  test('glycerin past top 3 → not flagged', () => {
-    expect(
-      detectFiniGlowy('Aqua, Cetyl Alcohol, Stearic Acid, Glycerin, Sodium Hyaluronate')
-    ).toEqual([])
-  })
-
-  test('no HA → not flagged', () => {
-    expect(detectFiniGlowy('Aqua, Glycerin, Niacinamide, Tocopherol')).toEqual([])
-  })
-
-  test('null/empty INCI → []', () => {
-    expect(detectFiniGlowy(null)).toEqual([])
-  })
-})
-
-// ─── T1.5 — non-gras + absorption-rapide ────────────────────────────────────
-describe('detectNonGrasAbsorption', () => {
-  test('serum + dimethicone top 5 + no oil → emits pair', () => {
-    const tags = detectNonGrasAbsorption(
+// ─── T1.5 — non-gras (silicone-led light formula) ───────────────────────────
+describe('detectNonGras', () => {
+  test('serum + dimethicone top 5 + no oil → non-gras', () => {
+    const tags = detectNonGras(
       'Aqua, Glycerin, Dimethicone, Niacinamide, Tocopherol',
       'serum'
     )
     expect(tags).toContain(S.NON_GRAS)
-    expect(tags).toContain(S.ABSORPTION_RAPIDE)
   })
 
-  test('eye-cream + cyclopentasiloxane → emits pair', () => {
-    const tags = detectNonGrasAbsorption(
+  test('eye-cream + cyclopentasiloxane → non-gras', () => {
+    const tags = detectNonGras(
       'Aqua, Cyclopentasiloxane, Glycerin, Caffeine',
       'eye-cream'
     )
     expect(tags).toContain(S.NON_GRAS)
-    expect(tags).toContain(S.ABSORPTION_RAPIDE)
   })
 
   test('serum + dimethicone + jojoba oil top 5 → not flagged', () => {
     expect(
-      detectNonGrasAbsorption(
+      detectNonGras(
         'Aqua, Glycerin, Dimethicone, Simmondsia Chinensis Seed Oil, Niacinamide',
         'serum'
       )
@@ -819,18 +720,18 @@ describe('detectNonGrasAbsorption', () => {
 
   test('moisturizer (not in eligible kinds) → not flagged', () => {
     expect(
-      detectNonGrasAbsorption('Aqua, Dimethicone, Glycerin, Niacinamide', 'moisturizer')
+      detectNonGras('Aqua, Dimethicone, Glycerin, Niacinamide', 'moisturizer')
     ).toEqual([])
   })
 
   test('serum without any silicone top 5 → not flagged', () => {
     expect(
-      detectNonGrasAbsorption('Aqua, Glycerin, Niacinamide, Hyaluronic Acid, Tocopherol', 'serum')
+      detectNonGras('Aqua, Glycerin, Niacinamide, Hyaluronic Acid, Tocopherol', 'serum')
     ).toEqual([])
   })
 
   test('null INCI → []', () => {
-    expect(detectNonGrasAbsorption(null, 'serum')).toEqual([])
+    expect(detectNonGras(null, 'serum')).toEqual([])
   })
 })
 
@@ -1081,15 +982,14 @@ describe('detectStepNettoyage1 — extended sulfate variants', () => {
   })
 })
 
-describe('detectNonGrasAbsorption — extended silicone patterns', () => {
-  test('dimethiconol in top 5 (no vegetable oil) → non-gras + absorption-rapide', () => {
-    const tags = detectNonGrasAbsorption('Aqua, Glycerin, Dimethiconol, Niacinamide', 'serum')
+describe('detectNonGras — extended silicone patterns', () => {
+  test('dimethiconol in top 5 (no vegetable oil) → non-gras', () => {
+    const tags = detectNonGras('Aqua, Glycerin, Dimethiconol, Niacinamide', 'serum')
     expect(tags).toContain(S.NON_GRAS)
-    expect(tags).toContain(S.ABSORPTION_RAPIDE)
   })
 
   test('trimethylsiloxysilicate (film former) in top 5 → non-gras', () => {
-    const tags = detectNonGrasAbsorption(
+    const tags = detectNonGras(
       'Aqua, Glycerin, Trimethylsiloxysilicate, Cyclopentasiloxane',
       'serum'
     )
@@ -1098,56 +998,10 @@ describe('detectNonGrasAbsorption — extended silicone patterns', () => {
 
   test('dimethiconol + olea europaea oil top 5 → not flagged (vegetable oil exclusion)', () => {
     expect(
-      detectNonGrasAbsorption(
+      detectNonGras(
         'Aqua, Glycerin, Olea Europaea Fruit Oil, Dimethiconol, Niacinamide',
         'serum'
       )
-    ).toEqual([])
-  })
-})
-
-describe('detectFiniGlowy — extended HA salts', () => {
-  test('hydroxypropyltrimonium hyaluronate in top 5 → fini-glowy', () => {
-    expect(
-      detectFiniGlowy(
-        'Glycerin, Aqua, Niacinamide, Hydroxypropyltrimonium Hyaluronate, Panthenol'
-      )
-    ).toContain(S.FINI_GLOWY)
-  })
-
-  test('potassium hyaluronate in top 5 → fini-glowy', () => {
-    expect(
-      detectFiniGlowy('Glycerin, Aqua, Niacinamide, Potassium Hyaluronate, Panthenol')
-    ).toContain(S.FINI_GLOWY)
-  })
-
-  test('sodium hyaluronate crosspolymer in top 5 → fini-glowy', () => {
-    expect(
-      detectFiniGlowy('Glycerin, Aqua, Niacinamide, Sodium Hyaluronate Crosspolymer, Panthenol')
-    ).toContain(S.FINI_GLOWY)
-  })
-})
-
-describe('detectFiniGlowy — heavy formula exclusion (mutex with texture-riche)', () => {
-  test('shea butter top 5 (heavy formula) → not flagged even with glycerin + HA', () => {
-    expect(
-      detectFiniGlowy(
-        'Glycerin, Aqua, Butyrospermum Parkii Butter, Sodium Hyaluronate, Niacinamide'
-      )
-    ).toEqual([])
-  })
-
-  test('petrolatum top 8 → not flagged', () => {
-    expect(
-      detectFiniGlowy(
-        'Glycerin, Aqua, Niacinamide, Sodium Hyaluronate, Panthenol, Tocopherol, Petrolatum'
-      )
-    ).toEqual([])
-  })
-
-  test('beeswax top 8 → not flagged', () => {
-    expect(
-      detectFiniGlowy('Glycerin, Aqua, Niacinamide, Sodium Hyaluronate, Tocopherol, Beeswax')
     ).toEqual([])
   })
 })
@@ -1172,32 +1026,11 @@ describe('mutex invariants — sensoriel slugs cannot co-fire', () => {
     expect(riche.length > 0 && legere.length > 0).toBe(false)
   })
 
-  test('fini-mat / fini-glowy (silica formula)', () => {
-    const inci = 'Glycerin, Aqua, Sodium Hyaluronate, Silica, Niacinamide'
-    const mat = detectFiniMat(inci)
-    const glowy = detectFiniGlowy(inci)
-    expect(mat.length > 0 && glowy.length > 0).toBe(false)
-  })
-
-  test('fini-mat / fini-glowy (HA-glycerin formula)', () => {
-    const inci = 'Glycerin, Aqua, Sodium Hyaluronate, Niacinamide, Panthenol'
-    const mat = detectFiniMat(inci)
-    const glowy = detectFiniGlowy(inci)
-    expect(mat.length > 0 && glowy.length > 0).toBe(false)
-  })
-
   test('non-gras / texture-riche (silicone serum)', () => {
     const inci = 'Aqua, Glycerin, Cyclopentasiloxane, Niacinamide, Dimethicone'
     const riche = detectTextureRiche(inci)
-    const nonGras = detectNonGrasAbsorption(inci, 'serum')
+    const nonGras = detectNonGras(inci, 'serum')
     expect(riche.length > 0 && nonGras.length > 0).toBe(false)
-  })
-
-  test('fini-glowy / texture-riche (heavy butter + glycerin + HA)', () => {
-    const inci = 'Glycerin, Aqua, Butyrospermum Parkii Butter, Sodium Hyaluronate, Theobroma Cacao Seed Butter'
-    const glowy = detectFiniGlowy(inci)
-    const riche = detectTextureRiche(inci)
-    expect(glowy.length > 0 && riche.length > 0).toBe(false)
   })
 })
 

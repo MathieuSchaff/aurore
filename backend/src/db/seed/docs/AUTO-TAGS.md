@@ -13,6 +13,7 @@
 > Cross-signal avoid (X1) : 2026-05-07 — retinoids + AHA/BHA leave-on → `peau-sensible` avoid (stack irritation).
 > Tier-1 sweep (T1) : 2026-05-08 — 11 slugs jamais émis activés sans nouvelle taxonomie : `fini-mat`+`matifiant` (silica/kaolin/starch top 8), `texture-riche` (≥ 2 butters/waxes top 8), `texture-legere` (water/glycerin top 3 + 0 heavy top 8 + leave-on), `fini-glowy` (glycerin top 3 + HA top 5 + 0 absorbent top 8), `non-gras`+`absorption-rapide` (serum/eye-cream + silicone top 5 + 0 oil top 5), `pigments-verts` (CI 77288), `vegan` (absence patterns animaux), `peau-normale` (heuristique inverse, post-pass), `moment-crise` (cross-signal spot-treatment + BPO/BHA/azelaic), `hypoallergenique` réactivé (TAG_CONFIG : minConf 0.85 + coverageMin 0.7).
 > Audit-driven fixes : 2026-05-08 — recall + mutex (commit `79267410`), seed-core avoid wiring (commit `56b000bf`), audit surfacing regulatoryNotes + interactions (commits `883b8651` / `d2c0e27c` / `50fd08dd`), interaction-driven `peau-sensible` avoid (I1, commit `0c07e9a8`, +51 paires).
+> Marketing slug cleanup : 2026-05-09 — kill `fini-glowy` (subjective dewy finish, non-confirmable INCI seul per gold set ligne 1093, 14 paires DB) + merge `absorption-rapide` → `non-gras` (pattern duplicate strict, mêmes triggers silicone top 5 + 0 oil top 5, 60 paires migrées). Migration `0052_drop_marketing_sensation_slugs.sql`. -74 paires DB, slug count sensoriel 6 → 4.
 
 ---
 
@@ -993,7 +994,7 @@ edit rules → make backfill-auto-tags WRITE=1 → make audit-gold-set
 
 **Note Brier/ECE** : les 16 tags focus actuels sont déterministes (passes 2-6 du orchestrator). Brier dégénère en taux de mauvais classement, ECE en single-bin. Le pipeline garde le calcul pour quand le scope s'étendra à des tags algo-derm passe 1 (concerns/skin types/absence) qui portent une confidence calibrable.
 
-**À faire** : remplir 60-80 annotations manuellement → produire les premières mesures. Bloque la mesure absolue + valide T1 sensoriel post-hoc.
+~~**À faire** : remplir 60-80 annotations manuellement → produire les premières mesures. Bloque la mesure absolue + valide T1 sensoriel post-hoc.~~ ✅ Done 2026-05-09 — 70 produits annotés, macro F1=0.994 (P=1.000, R=0.989). Voir bloc Gold set §"Calibration O2" ci-dessous.
 
 ---
 
@@ -1003,7 +1004,7 @@ edit rules → make backfill-auto-tags WRITE=1 → make audit-gold-set
 
 ### Récap reprise de session
 
-**✅ Done (27) :** R1, R2, R3, C1, C2, C3, C4, C5, X1, C6, S1, S2, S3, S4, T1, **I1** (sweep 11 slugs commit `16b8ec60` + cleanup mutex stale + interaction-driven peau-sensible avoid `0c07e9a8`) + **X2** + **Tier 2** (eczema-atopie / effet-protecteur / repulpant) + **D.3 hoist** (2026-05-09) + **T1 sans-X family** (2026-05-09) + **R4 semi-occlusif** (2026-05-09) + **T3 texture field phase A** (2026-05-09) + **T4 brand-level vegan/cruelty-free/bio-naturel phases A+B+C+D+E** (2026-05-09) + **X3 ProductInteraction[] axis mapping** (2026-05-09) + **S5 texture-gel field + INCI fallback** (2026-05-09).
+**✅ Done (27) :** R1, R2, R3, C1, C2, C3, C4, C5, X1, C6, S1, S2, S3, S4, T1, **I1** (sweep 11 slugs commit `16b8ec60` + cleanup mutex stale + interaction-driven peau-sensible avoid `0c07e9a8`) + **X2** + **Tier 2** (eczema-atopie / effet-protecteur / repulpant) + **D.3 hoist** (2026-05-09) + **T1 sans-X family** (2026-05-09) + **R4 semi-occlusif** (2026-05-09) + **T3 texture field phase A** (2026-05-09) + **T4 brand-level vegan/cruelty-free/bio-naturel phases A+B+C+D+E** (2026-05-09) + **X3 ProductInteraction[] axis mapping** (2026-05-09) + **S5 texture-gel field + INCI fallback** (2026-05-09) + **Marketing cleanup `fini-glowy` kill + `absorption-rapide` merge → `non-gras`** (2026-05-09, commit `81e7ed8c`, migration `0052`) + **Round 2 taxonomy audit — `keratolytique` + `effet-protecteur` kill (product-side)** (2026-05-09, migration `0053`). `keratolytique` algo-derm trigger = subset of AHA + BHA + RETINOIDS + urea actif_class clusters (53% strict overlap on 595 paires). `effet-protecteur` Trigger B delegated to detectTextureRiche (74% co-fire with `texture-riche`) + Trigger A (lanolin top 8) niche-only (~24 paires). 688 paires deleted (595 + 93). Ingredient-side slugs preserved (`SKINCARE_INGREDIENT_TAG_SLUGS` unchanged) — pharmacological/chemical classification keeps meaning at ingredient level.
 
 **🔧 Session 2026-05-09 (suite) — auto-tagging Tier 2 + perf hoist :**
 - **X2 vit-C × sunscreen** (`1d471c31`) — vit-C cross-signal étendu à `kind=sunscreen` ; sémantique du combo SPF+vitC réaffirmée au niveau cross-signal. 0 paire DB nouvelle (kind-tag émet déjà `moment-matin`), valeur = audit-orchestrator attribue désormais le tag au combo. 2 tests.
@@ -1101,12 +1102,24 @@ Session totale : +155 paires DB, +30 tests, gold-set macro F1 stable 0.994.
 | ~~🔵 X2~~ | ~~SPF + vit C → moment-matin réaffirmé~~ ✅ Done 2026-05-09 — vit-C cross-signal étendu à `kind=sunscreen` (en plus de `LEAVE_ON_KINDS`). Impact DB = 0 paire (kind-tag émet déjà `moment-matin` pour sunscreen) ; valeur = sémantique + audit-orchestrator attribue désormais `moment-matin` au combo, pas seulement à kind. 2 tests added. | XS | Done |
 | ~~🟠 Tier 2~~ | ~~`eczema-atopie` / `effet-protecteur` / `repulpant`~~ ✅ Done 2026-05-09 — 3 détecteurs formula-pass (`detectEczemaAtopie`, `detectEffetProtecteur`, `detectRepulpant`). Algo-derm `peaux_atopiques` / `repulpant` restent `allow:false` (cohabitation documentée). +155 paires total (72+82+1, repulpant strict yields tight set : 8 hits dont 7 déjà manuels). | M-L | Done |
 | ~~⚙️ D.3 hoist~~ | ~~Propager `normalizedIngredients` aux détecteurs formula/actif-class/cross-signal pour éviter `splitINCI(inci).map(normalize)` × N par produit~~ ✅ Done 2026-05-09 — helper `utils/ingredient-resolver.ts` (`resolveIngredients`), orchestrator hoist `normalizedIngredients` once et le forward à passe 2/4/5 + Pass 6 (`computeAvoidCandidates` + `detectGrossesseAvoid` + `detectActifClasses`). Tous les détecteurs gardent un `inci` fallback (back-compat tests directs). 0 paire diff (no behavior change). 290 tests passent. | M | Done |
-| 🔒 T3-T5 | Migrations taxonomiques (slugs / fields produits) | M-L | Bloqués sur shared/ + DB migration (T1 absorbé hors-migration) |
+| ~~🔒 T3-T5~~ | ~~Migrations taxonomiques (slugs / fields produits)~~ ✅ Done 2026-05-09 — T1/T2/T3/T4/T5 tous livrés (voir entries individuelles ci-dessous). | M-L | Done |
 | ⚙️ O1 | CSV diff backfill (audit-diff.csv) | S | ✅ Done — runner `audit-orchestrator-diff.ts` (snapshot mode `CSV_OUT=…` ou diff mode `CSV_OUT=… BASELINE=…`) ; `make audit-orchestrator-diff` ; 7 unit tests `audit-orchestrator-diff.test.ts`. Mesure pre/post calibration sur l'output orchestrator complet (6 passes), pas seulement passe 1. Source change ignoré, seul `(product, tag, relevance)` observable. |
 | ⚙️ O2 | Gold set 50-100 produits annotés (precision/recall) | M | ✅ Done 2026-05-09 — 70 produits annotés, macro F1=0.994 (P=1.000, R=0.989). Calibration commits `c0f5b16c`+`3021c214`. |
 | ⚙️ O3 | Audit dédié actif-class (passe 2 stats) | S | ✅ Done — runner `audit-actif-class.ts` (read-only) ; per-cluster hit/agree/new + `only_db` (manual sans détection = drift signal) + top 3 kinds par cluster (catch gating drift). `make audit-actif-class`. Premier run révèle drift important : `vitamin-e` 756 only_db vs 193 hit, `hyaluronic-acid` 518 vs 179 — recall à investiguer dans une session calibration. |
 
 **Statut commit** : `16b8ec60` sur `products-branch` absorbe l'intégralité du sweep (R1 position gating + R2 + R3 + C1-C6 + X1 + T1). 11 fichiers, +3 451 / -25 lignes. Aucun changement auto-tags antérieur en historique git.
+
+### 🔬 Follow-ups émergés post-roadmap (2026-05-09)
+
+Items détectés après clôture du backlog R/C/S/X/T/O. Non-bloquants, à planifier au fil de l'eau quand le signal le justifie.
+
+| # | Item | Effort | Origine |
+|---|------|--------|---------|
+| ~~F1~~ | ~~Calibration recall actif-class clusters~~ ✅ **Vérifié closed 2026-05-09** — audit-actif-class re-run montre tous clusters à 100% agree. Calibration vit-E (2026-05-08, +1567 paires) + HA (+1198) + peptides (+284) + polyphenols (+518) + enzymes-exfoliants (+41) + tyrosinase (+73) toutes appliquées et write effectué (DB: vit-E 1860, HA 1408, polyphenols 675, ceramides 440, peptides 429, vit-C 418). Drift résiduelle = noise annotation (vit-E 2, polyphenols 1) ou par-design (AHA/BHA/PHA positionCap:10 — overrides cleanés ligne 1092). Pas d'investigation à reconduire. | — | Closed |
+| F2 | **Extension `texture-creme` au-delà de `hand-cream`** — kind list à élargir vers `moisturizer` / `eye-cream` / `night-cream`. Currently dérivé seulement pour hand-cream (heuristique conservatrice initiale), orthogonal à T3 phase B (admin-curé via `products.texture`). | XS | Audit ligne 1282 |
+| ~~F3~~ | ~~**Audit taxonomie round 2**~~ ✅ Done 2026-05-09 (migration `0053`) — 5 candidats challengés : `apaisant` KEEP (soothing benefit axis algo-derm distinct, 33-39 % overlap avec barriere/reparation = stack thérapeutique normal), `prebiotique` KEEP (14 patterns INCI factuels, pas marketing-flavored), `non-gras` KEEP (status quo session précédente, 60 paires conservatif), `keratolytique` KILL product-side (subset AHA+BHA+RETINOIDS+urea, 53 % overlap strict avec actif_class clusters ; ingredient-side `keratolytique` préservé pour chemistry classification). `effet-protecteur` MERGE-KILL product-side (Trigger B délègue déjà à detectTextureRiche, 74 % co-fire ; Trigger A lanolin = ~24 niche balms tombent à kind tags, acceptable ; ingredient-side `effet-protecteur` préservé). **−688 paires DB** (595 + 93). Slugs sensoriel/skin_effect product-side passent de 4+12 → 4+10. | S | Done |
+| F4 | **`texture-mousse` / `texture-stick`** — non-derivable INCI seul, dépendent admin curation `products.texture` field (T3 phase B done, 3738 NULL). Tracker quand coverage admin suffisante (~30%+) pour décider INCI fallback distinct ou rester pure pass-through. | M | S5 phase B partielle |
+| F5 | **Brier/ECE pipeline** — gold set §"Note Brier/ECE" (ligne 994) — pipeline en place mais 16 tags focus actuels = déterministes (passes 2-6 orchestrator), Brier dégénère en taux mauvais classement, ECE single-bin. À revisiter quand scope gold set s'étend à algo-derm passe 1 (concerns/skin types/absence) qui portent une `confidence` calibrable. **Defer** sauf si on calibre passe 1. | XS | Gold set scope expansion |
 
 ### Ordre d'exécution recommandé
 
@@ -1121,12 +1134,14 @@ Logique : tooling d'abord pour mesurer le reste · sensoriel ensuite (heuristiqu
 
 #### Phase 2 — Sensoriel (mesurable via O2)
 
+> ✅ **Phase 2 done** — S1/S2/S3/S4 livrés en bloc via T1 sweep (2026-05-08, voir ligne 14 + distribution ligne 635). Détecteurs `detectFiniMat`, `detectTextureRiche`, `detectTextureLegere`, `detectFiniGlowy`, `detectNonGrasAbsorption` câblés en passe 4 (`auto-tag-orchestrator.ts:181-186`). S5 done 2026-05-09 séparément.
+
 | Ordre | Item | Effort | Pourquoi |
 |------:|------|--------|----------|
-| 3 | **S4** fini-mat | M | Pattern simple, signal fort (silica/starch/kaolin/corn starch top 8). |
-| 4 | **S1** texture-riche | M | ≥ 2 butters/waxes top 8. |
-| 5 | **S3** fini-glowy | M | Combo glycerin top + HA + absence silicone matifiant. |
-| 6 | **S2** non-gras + absorption-rapide | M | kind serum/gel-cream + silicones top 5 + 0 huile végétale top 5. |
+| ~~3~~ | ~~**S4** fini-mat~~ ✅ Done 2026-05-08 (T1 sweep) — `detectFiniMat` (silica/kaolin/starch/corn-starch top 8). 370 paires post-cleanup. | M | Done |
+| ~~4~~ | ~~**S1** texture-riche~~ ✅ Done 2026-05-08 (T1 sweep) — `detectTextureRiche` (≥ 2 butters/waxes top 8) + `detectTextureLegere` inverse. 61 / 1781 paires. | M | Done |
+| ~~5~~ | ~~**S3** fini-glowy~~ 🪦 **Killed 2026-05-09** — slug supprimé (marketing/dewy = non-confirmable INCI seul, gold set verdict). Migration `0052`. | M | Killed |
+| ~~6~~ | ~~**S2** non-gras + absorption-rapide~~ ✅ Done 2026-05-08 puis **merged 2026-05-09** — `detectNonGras` (renommé) émet `non-gras` only. `absorption-rapide` slug supprimé (pattern duplicate strict). Migration `0052`. | M | Done (merged) |
 
 #### Phase 3 — Cross-signal
 
@@ -1184,13 +1199,15 @@ Logique : tooling d'abord pour mesurer le reste · sensoriel ensuite (heuristiqu
 
 ### 🟡 Sensoriel — heuristiques imprécises, à valider sur spot-check
 
+> ✅ **Bloc done** — S1-S5 tous livrés (S1-S4 via T1 sweep 2026-05-08, S5 via 2026-05-09). Tableau historique conservé pour réf heuristique.
+
 | # | Item | Effort | Heuristique INCI |
 |---|------|--------|------------------|
-| S1 | **`texture-riche`** | M | ≥ 2 butters/waxes (shea, mango, cocoa, beeswax, carnauba) en top 8. |
-| S2 | **`non-gras`** + **`absorption-rapide`** | M | `kind ∈ serum/gel-cream` ET dimethicone/cyclomethicone/isohexadecane en top 5 ET 0 huile végétale en top 5. |
-| S3 | **`fini-glowy`** | M | Glycerin top 3 + HA top 5 + 0 silicone matifiant + 0 starch absorbant. |
-| S4 | **`fini-mat`** | M | Silica / starch / kaolin / corn starch en top 8. |
-| S5 | **`texture-gel`** / **`texture-mousse`** / **`texture-stick`** | M | Pas dérivable d'INCI seul — nécessite enrichissement champ produit (voir T3). |
+| ~~S1~~ | ~~**`texture-riche`**~~ ✅ Done 2026-05-08 (T1) — `detectTextureRiche`. | M | ≥ 2 butters/waxes (shea, mango, cocoa, beeswax, carnauba) en top 8. |
+| ~~S2~~ | ~~**`non-gras`** + ~~`absorption-rapide`~~~~ ✅ Done 2026-05-08 (T1), **merged 2026-05-09** — `detectNonGras` émet `non-gras` only. `absorption-rapide` slug killed (pattern duplicate). | M | `kind ∈ serum/gel-cream` ET dimethicone/cyclomethicone/isohexadecane en top 5 ET 0 huile végétale en top 5. |
+| ~~S3~~ | ~~**`fini-glowy`**~~ 🪦 **Killed 2026-05-09** — slug supprimé (marketing dewy non-confirmable INCI seul). Migration `0052`. | M | Glycerin top 3 + HA top 5 + 0 silicone matifiant + 0 starch absorbant. |
+| ~~S4~~ | ~~**`fini-mat`**~~ ✅ Done 2026-05-08 (T1) — `detectFiniMat`. 370 paires. | M | Silica / starch / kaolin / corn starch en top 8. |
+| ~~S5~~ | ~~**`texture-gel`** / **`texture-mousse`** / **`texture-stick`**~~ ✅ Done 2026-05-09 — `detectTextureFromField` (pure pass-through `products.texture`) + `detectTextureGelInci` (gel-former top 5). mousse/stick attendent admin curation. | M | Pas dérivable d'INCI seul — nécessite enrichissement champ produit (voir T3). |
 
 ### 🔵 Cross-signal — combinaisons multi-pass
 
@@ -1237,6 +1254,8 @@ Logique : tooling d'abord pour mesurer le reste · sensoriel ensuite (heuristiqu
 
 ### Inventaire — 23 slugs sur ~80 jamais peuplés (~28 %)
 
+> **MAJ 2026-05-09** : 16 slugs résolus depuis l'audit initial (T1 sweep absorbe S1-S4 + `peau-normale` + `vegan` + `pigments-verts` + `hypoallergenique` + `moment-crise` + `matifiant` ; T4 absorbe `cruelty-free` + `bio-naturel` ; T5 absorbe `protection-cutanee` → `effet-protecteur` ; S5 absorbe `texture-gel`). **Marketing cleanup 2026-05-09** : `fini-glowy` killed (non-confirmable INCI) + `absorption-rapide` killed (pattern duplicate, mergé dans `non-gras`). Reste **7 slugs** non peuplés (~9 %) : `eczema-atopie` (semantic noise), `peau-mixte` (volontairement exclu), `repulpant` (`allow:false`), `texture-mousse` + `texture-stick` (admin curation), `texture-creme` (gating partiel), `type-outil` (pas de ProductKind correspondant). Tableaux ci-dessous mis à jour ✅ par sous-section.
+
 #### Concerns (1/13 manque)
 
 | Slug | Statut actuel | Cause |
@@ -1245,39 +1264,39 @@ Logique : tooling d'abord pour mesurer le reste · sensoriel ensuite (heuristiqu
 
 12 concerns couverts ✅ (`acne-imperfections`, `rougeurs-vasculaires`, `barriere-cutanee`, `hyperpigmentation`, `reparation-cutanee`, `keratose-pilaire`, `deshydratation`, `eclat-teint-uniforme`, `anti-age`, `pores-sebum`, `cernes-poches`, `protection`).
 
-#### Skin types (2/5 manquent)
+#### Skin types (1/5 manque — peau-normale résolu)
 
 | Slug | Cause |
 |------|-------|
 | `peau-mixte` | volontairement exclu de TAG_CONFIG (noisy on neutral hydrators) |
-| `peau-normale` | aucun émetteur — algo-derm n'a pas de signal positif "peau normale" |
+| ~~`peau-normale`~~ | ~~aucun émetteur~~ ✅ Done 2026-05-08 (T1) — `detectPeauNormale` post-pass, heuristique inverse (kind hydratant + 0 signal skin_type négatif). |
 
-3 couverts ✅ (`peau-seche`, `peau-grasse`, `peau-sensible`).
+4 couverts ✅ (`peau-seche`, `peau-grasse`, `peau-sensible`, `peau-normale`).
 
-#### Skin effects (3/11 manquent)
+#### Skin effects (1/11 manque — matifiant + protection-cutanee résolus)
 
 | Slug | Cause |
 |------|-------|
 | `repulpant` | `allow:false` (78 % corpus à 0.5) |
-| `matifiant` | `allow:false` — set algo-derm ≡ `peau-grasse`, mismatch sémantique |
-| `protection-cutanee` | aucun émetteur (T5 rename pending — chevauche `barriere-cutanee` concern) |
+| ~~`matifiant`~~ | ~~`allow:false` — set algo-derm ≡ `peau-grasse`, mismatch sémantique~~ ✅ Done 2026-05-08 (T1) — émis côté formula-pass via `detectFiniMat` (mêmes triggers silica/kaolin/starch top 8), indépendamment du `allow:false` algo-derm. |
+| ~~`protection-cutanee`~~ | ~~aucun émetteur (T5 rename pending)~~ ✅ Done 2026-05-09 (T5) — renommé `effet-protecteur`, ingrédients migrés via `TAG_SLUGS.EFFET_PROTECTEUR`. |
 
 `purifiant` désactivé volontairement (R2 — subset strict de `sebo-regulateur`), considéré couvert.
 
-#### Sensations (6/6 — bloc complet vide)
+#### Sensations (4 actifs — 2 killed marketing cleanup 2026-05-09)
 
-`texture-riche`, `texture-legere`, `non-gras`, `fini-mat`, `fini-glowy`, `absorption-rapide` — bloc S1-S4 roadmap, jamais implémenté.
+Initial T1 sweep (2026-05-08) avait livré 6 slugs sensation : `texture-riche`, `texture-legere`, `non-gras`, `fini-mat`, `fini-glowy`, `absorption-rapide`. **Marketing cleanup 2026-05-09** : `fini-glowy` killed (non-confirmable INCI per gold set) + `absorption-rapide` killed (pattern duplicate strict avec `non-gras`, mergé). Distribution finale : `texture-legere` 1791, `fini-mat` 370, `texture-riche` 120, `non-gras` 60. Détecteurs actifs : `detectFiniMat`, `detectTextureRiche`, `detectTextureLegere`, `detectNonGras` (renommé depuis `detectNonGrasAbsorption`).
 
-#### Textures (4/9 manquent)
+#### Textures (3/9 manquent — texture-gel livré S5)
 
 | Slug | Cause |
 |------|-------|
-| `texture-gel` | pas dérivable kind seul (carbomer ≠ gel garanti) |
-| `texture-mousse` | idem |
-| `texture-stick` | idem |
+| ~~`texture-gel`~~ | ~~pas dérivable kind seul~~ ✅ Done 2026-05-09 (S5) — `detectTextureFromField` (pure pass-through `products.texture`) + `detectTextureGelInci` (gel-former top 5 + 0 oil + 0 butter/wax + 0 silicone-led, leave-on). +93 paires backfill. |
+| `texture-mousse` | non dérivable INCI seul, attend admin curation `products.texture` |
+| `texture-stick` | non dérivable INCI seul, attend admin curation `products.texture` |
 | `texture-creme` | dérivé seulement pour `hand-cream` ; manque `moisturizer`, `eye-cream`, etc. |
 
-5 couverts ✅ (`texture-baume`, `texture-huile`, `texture-lait`, `texture-eau`, `texture-patch`).
+6 couverts ✅ (`texture-baume`, `texture-huile`, `texture-lait`, `texture-eau`, `texture-patch`, `texture-gel`).
 
 #### Moments (5/5 ✅)
 
@@ -1289,14 +1308,14 @@ Logique : tooling d'abord pour mesurer le reste · sensoriel ensuite (heuristiqu
 |------|-------|
 | `type-outil` | aucun `ProductKind` correspondant (gua sha, brushes pas dans `PRODUCT_KINDS`) |
 
-#### Labels (2/10 manquent — post-T1 + B.7)
+#### Labels (10/10 ✅ — bloc complet livré post-T4)
 
-| Slug | Source potentielle |
-|------|--------------------|
-| `cruelty-free` | brand-level (Leaping Bunny / PETA registry) — bloqué T4 |
-| `bio-naturel` | brand-level (Cosmos Organic / Ecocert) — bloqué T4 |
+| Slug | Statut |
+|------|--------|
+| ~~`cruelty-free`~~ | ✅ Done 2026-05-09 (T4 phase E) — brand-level via `brand_certifications`, PETA scraper +110 paires. |
+| ~~`bio-naturel`~~ | ✅ Done 2026-05-09 (T4 phase D) — brand-level via OBF dump (règle OR ratio≥0.5@n≥2 OR count≥3), +87 paires. |
 
-8 couverts ✅ (`sans-parfum`, `filtres-chimiques`, `filtres-mineraux`, `grossesse-compatible`, `comedogene`/`non-comedogene` shared, **`hypoallergenique`** (T1.11 reactivated — minConf 0.85 + coverageMin 0.7), **`pigments-verts`** (T1 — CI 77288 / chromium oxide-hydroxide green), **`vegan`** (T1 + B.7 — `ANIMAL_PATTERNS` includes lanolin/beeswax/snail/carmine/pearl/lactoperoxidase/...)).
+10 couverts ✅ (`sans-parfum`, `filtres-chimiques`, `filtres-mineraux`, `grossesse-compatible`, `comedogene`/`non-comedogene` shared, **`hypoallergenique`** (T1.11 reactivated — minConf 0.85 + coverageMin 0.7), **`pigments-verts`** (T1 — CI 77288 / chromium oxide-hydroxide green), **`vegan`** (T1 + B.7 — `ANIMAL_PATTERNS` includes lanolin/beeswax/snail/carmine/pearl/lactoperoxidase/...), **`cruelty-free`** (T4-E PETA), **`bio-naturel`** (T4-D OBF)).
 
 #### Domaines couverts intégralement ✅
 
@@ -1319,8 +1338,8 @@ zéro nouveau champ DB, zéro nouveau slug.
 | `fini-mat` | silica/kaolin/starch/corn-starch top 8 | `formula-detection.ts` | XS |
 | `texture-riche` | ≥ 2 butters/waxes (shea/mango/cocoa/beeswax/carnauba) top 8 | `formula-detection.ts` | XS |
 | `texture-legere` | inverse `texture-riche` — eau/glycerin top 3 + 0 butter top 8 + leave-on | `formula-detection.ts` | XS |
-| `fini-glowy` | glycerin top 3 + HA top 5 + 0 silicone matifiant + 0 starch | `formula-detection.ts` | S |
-| `non-gras` + `absorption-rapide` | `kind ∈ {serum, eye-cream}` + dimethicone/cyclopentasiloxane top 5 + 0 huile végétale top 5 | `formula-detection.ts` (paire) | S |
+| ~~`fini-glowy`~~ | ~~glycerin top 3 + HA top 5 + 0 silicone matifiant + 0 starch~~ 🪦 Killed 2026-05-09 (marketing). | — | — |
+| `non-gras` | `kind ∈ {serum, eye-cream}` + dimethicone/cyclopentasiloxane top 5 + 0 huile végétale top 5. ~~`absorption-rapide`~~ killed 2026-05-09 (pattern duplicate). | `formula-detection.ts` (`detectNonGras`) | S |
 | `pigments-verts` | INCI contient `CI 77288` ou `chromium oxide green` ou `chromium hydroxide green` | `formula-detection.ts` | XS |
 | `vegan` | absence INCI animal — lanolin / beeswax-cera-alba / mel-honey / collagen / lactoferrin-lactoperoxidase (B.7) / snail-mucin / royal-jelly / carmine-CI75470 / keratin / pearl- (B.7) / squalene (vs squalane) | `formula-detection.ts` | S |
 | `peau-normale` | heuristique inverse — coverage ≥ 0.7 + `kind ∈ {moisturizer, cleanser, toner}` + 0 actif fort + 0 autre skin_type émis | `formula-detection.ts` | S |
@@ -1333,7 +1352,7 @@ zéro nouveau champ DB, zéro nouveau slug.
 | Slug | Plan |
 |------|------|
 | ~~`eczema-atopie`~~ | ✅ Done 2026-05-09 — `detectEczemaAtopie` (formula-detection.ts). Trigger A : `avena sativa kernel` substring (kernel flour/extract/oil = OTC colloidal oatmeal ; flower/leaf/stem juice exclu). Trigger B : ≥ 2 distinct ceramide variants top 12 + 0 fragrance keyword (`parfum`/`fragrance`/`aroma` substring, gère slash-form `parfum/fragrance`) + 0 sulfate top 5. Leave-on only (RINSE_OFF_KINDS bloqué). 72 paires backfill, `peaux_atopiques` algo-derm reste `allow:false`. 11 tests ajoutés. |
-| ~~`effet-protecteur`~~ | ✅ Done 2026-05-09 — `detectEffetProtecteur` (formula-detection.ts). Trigger A : lanolin (any variant — substring `lanolin`) top 8 → seul suffit (Aquaphor/Lansinoh nipple-balm chemistry). Trigger B : ≥ 2 butter/wax groups top 8 (délègue à `detectTextureRiche` pour synonym dedup). Leave-on only. Co-fire avec `texture-riche` sur trigger B (sémantique distincte : sensoriel vs skin_effect). Distinct de `occlusif` (petrolatum/vaseline) et `barriere-cutanee` (lipid mimicry ceramides+cholesterol). 82 paires backfill, 9 tests. Les 11 paires manuelles post-T5 (urea/hydrocolloïde/silicones hétérogènes) ignorées — pattern privilégie cohérence chemistry vs réplique annotation manuelle. |
+| ~~`effet-protecteur`~~ | ✅ Done 2026-05-09 — `detectEffetProtecteur` (formula-detection.ts). Trigger A : lanolin (any variant — substring `lanolin`) top 8 → seul suffit (Aquaphor/Lansinoh nipple-balm chemistry). Trigger B : ≥ 2 butter/wax groups top 8 (délègue à `detectTextureRiche` pour synonym dedup). 🪦 **Killed product-side 2026-05-09 (round 2 audit, migration `0053`)** — Trigger B = pattern duplicate strict de `texture-riche` (74 % co-fire), Trigger A = niche balms (~24 paires). Slug retiré côté product. Ingredient-side `effet-protecteur` préservé (chemistry classification). |
 | ~~`repulpant`~~ | ✅ Done 2026-05-09 — `detectRepulpant` (formula-detection.ts). Pattern : HA (substring `hyaluron`) top 8 + pure glycerin (exact token, exclut `glyceryl stearate`) top 5 + plumping peptide (`acetyl hexapeptide-8` OR `palmitoyl tripeptide-1`) anywhere. Leave-on only. HA cap relâché à 8 (vs spec original 3) car peptide-headline serums (The Ordinary Matrixyl 10%+HA) placent peptide pos 3-6 et HA pos 5-8. 8 hits total (7 déjà manuels, 1 nouvelle). Profil : volumateur/tenseur/anti-âge ; quelques masques borderline. Algo-derm `repulpant` reste `allow:false`. 8 tests ajoutés. |
 
 #### Tier 3 — Bloqué champ `products.texture` (T3 roadmap)
@@ -1374,7 +1393,7 @@ Ordre d'implémentation par ROI décroissant :
 2. ✅ **`vegan`** (S) — table ingrédients animaux dans `formula-detection.ts`.
 3. ✅ **`pigments-verts`** (XS) — substring CI codes, niche mais propre.
 4. ✅ **`peau-normale`** (S) — heuristique inverse, post-pass dans `backfill-auto-tags.ts`.
-5. ✅ **`non-gras` + `absorption-rapide` + `fini-glowy`** (S × 2) — bloc sensoriel cohérent.
+5. ✅ **`non-gras`** (S) — bloc sensoriel silicone-led. ~~`absorption-rapide`~~ + ~~`fini-glowy`~~ killed 2026-05-09 (marketing cleanup, voir migration `0052`).
 6. ✅ **`moment-crise`** (XS) — cross-signal spot-treatment + BHA/BPO/azelaic.
 7. ✅ **`matifiant`** (S) — réactivation via formula sensoriel pur (découple de `peau-grasse`).
 8. ✅ **`hypoallergenique`** (S) — réactivation TAG_CONFIG : minConf 0.85 + coverageMin 0.7.

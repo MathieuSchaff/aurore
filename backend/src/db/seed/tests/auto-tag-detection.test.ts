@@ -100,10 +100,12 @@ describe('auto-tag-detection', () => {
     // sans_sulfates / sans_silicones / sans_huiles_essentielles /
     // sans_huiles_minerales / sans_allergenes_parfumants added (T1 absence family,
     // minConf 0.7 ≡ ≥ 70 % INCI coverage, same gate as `sans_parfum`).
+    // keratolytique row removed 2026-05-09 (round 2 audit: pharmacology subset
+    // of AHA + BHA + RETINOIDS actif_class clusters; product-side noise).
     // Hard-counted to flag any accidental flip in TAG_CONFIG.
     const allow = Object.values(TAG_CONFIG).filter((r) => r.allow)
     const drop = Object.values(TAG_CONFIG).filter((r) => !r.allow)
-    expect(allow.length).toBe(28)
+    expect(allow.length).toBe(27)
     expect(drop.length).toBe(5)
   })
 
