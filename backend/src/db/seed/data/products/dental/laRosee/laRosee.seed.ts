@@ -1,7 +1,7 @@
 import { TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
-export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
+export const LA_ROSEE_DENTAL_SEED: UnifiedProductSeed[] = [
   {
     slug: 'la-rosee-hygiene-dentifrice-soin-complet-75ml-235178',
     name: 'La Rosée Hygiène Dentifrice Soin Complet 75ml',

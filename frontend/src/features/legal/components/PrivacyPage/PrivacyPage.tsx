@@ -1,5 +1,57 @@
 import { Link } from '@tanstack/react-router'
+import type { ReactNode } from 'react'
 import './PrivacyPage.css'
+
+function PrivacySummaryCard({
+  icon,
+  title,
+  children,
+}: {
+  icon: string
+  title: ReactNode
+  children: ReactNode
+}) {
+  return (
+    <div className="privacy-summary__card">
+      <span className="privacy-summary__icon" aria-hidden="true">
+        {icon}
+      </span>
+      <h3 className="privacy-summary__card-title">{title}</h3>
+      <p>{children}</p>
+    </div>
+  )
+}
+
+function PrivacyBlock({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <section className="privacy-block">
+      <h2 className="privacy-block__title">{title}</h2>
+      {children}
+    </section>
+  )
+}
+
+function PrivacyList({ items }: { items: { label: ReactNode; body: ReactNode }[] }) {
+  return (
+    <ul className="privacy-list">
+      {items.map((item, i) => (
+        // biome-ignore lint/suspicious/noArrayIndexKey: items list is static and never reordered
+        <li key={i}>
+          <strong>{item.label}</strong> {item.body}
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+function ExternalLink({ href, children }: { href: string; children: ReactNode }) {
+  return (
+    <a href={href} className="privacy-link" target="_blank" rel="noopener noreferrer">
+      {children}
+      <span className="sr-only"> (nouvelle fenêtre)</span>
+    </a>
+  )
+}
 
 export function PrivacyPage() {
   return (
@@ -18,73 +70,42 @@ export function PrivacyPage() {
           </p>
 
           <div className="privacy-summary__grid">
-            <div className="privacy-summary__card">
-              <span className="privacy-summary__icon" aria-hidden="true">
-                🔑
-              </span>
-              <h3 className="privacy-summary__card-title">Compte</h3>
-              <p>
-                Email, pseudo, avatar — le minimum pour que votre espace existe. Base légale :
-                exécution du contrat.
-              </p>
-            </div>
+            <PrivacySummaryCard icon="🔑" title="Compte">
+              Email, pseudo, avatar — le minimum pour que votre espace existe. Base légale :
+              exécution du contrat.
+            </PrivacySummaryCard>
 
-            <div className="privacy-summary__card">
-              <span className="privacy-summary__icon" aria-hidden="true">
-                📋
-              </span>
-              <h3 className="privacy-summary__card-title">Vos données d'usage</h3>
-              <p>
-                Produits, tâches, profil de peau — c'est le cœur du service que vous avez demandé.
-                Rien n'est partagé.
-              </p>
-            </div>
+            <PrivacySummaryCard icon="📋" title="Vos données d'usage">
+              Produits, tâches, profil de peau — c'est le cœur du service que vous avez demandé.
+              Rien n'est partagé.
+            </PrivacySummaryCard>
 
-            <div className="privacy-summary__card">
-              <span className="privacy-summary__icon" aria-hidden="true">
-                🔒
-              </span>
-              <h3 className="privacy-summary__card-title">Cloisonnement par utilisateur</h3>
-              <p>
-                PostgreSQL Row-Level Security : même en cas de faille applicative, vos données
-                restent isolées des autres comptes au niveau de la base.
-              </p>
-            </div>
+            <PrivacySummaryCard icon="🔒" title="Cloisonnement par utilisateur">
+              PostgreSQL Row-Level Security : même en cas de faille applicative, vos données restent
+              isolées des autres comptes au niveau de la base.
+            </PrivacySummaryCard>
 
-            <div className="privacy-summary__card">
-              <span className="privacy-summary__icon" aria-hidden="true">
-                🇪🇺
-              </span>
-              <h3 className="privacy-summary__card-title">
-                Tout reste en Europe <span aria-hidden="true">🇪🇺</span>
-              </h3>
-              <p>
-                Serveur Hostinger (Francfort, UE), emails transactionnels via Brevo (France). Aucune
-                donnée ne quitte l'UE.
-              </p>
-            </div>
+            <PrivacySummaryCard
+              icon="🇪🇺"
+              title={
+                <>
+                  Tout reste en Europe <span aria-hidden="true">🇪🇺</span>
+                </>
+              }
+            >
+              Serveur Hostinger (Francfort, UE), emails transactionnels via Brevo (France). Aucune
+              donnée ne quitte l'UE.
+            </PrivacySummaryCard>
 
-            <div className="privacy-summary__card">
-              <span className="privacy-summary__icon" aria-hidden="true">
-                🗑️
-              </span>
-              <h3 className="privacy-summary__card-title">Suppression totale</h3>
-              <p>
-                Vous pouvez effacer l'intégralité de votre compte et de vos données à tout moment
-                depuis votre profil.
-              </p>
-            </div>
+            <PrivacySummaryCard icon="🗑️" title="Suppression totale">
+              Vous pouvez effacer l'intégralité de votre compte et de vos données à tout moment
+              depuis votre profil.
+            </PrivacySummaryCard>
 
-            <div className="privacy-summary__card">
-              <span className="privacy-summary__icon" aria-hidden="true">
-                🚫
-              </span>
-              <h3 className="privacy-summary__card-title">Ni pub, ni tracking</h3>
-              <p>
-                Aucune donnée publicitaire, aucun tracking comportemental, aucune revente à des
-                tiers. Jamais.
-              </p>
-            </div>
+            <PrivacySummaryCard icon="🚫" title="Ni pub, ni tracking">
+              Aucune donnée publicitaire, aucun tracking comportemental, aucune revente à des tiers.
+              Jamais.
+            </PrivacySummaryCard>
           </div>
         </section>
 
@@ -92,8 +113,7 @@ export function PrivacyPage() {
           <summary className="privacy-legal__trigger">Version juridique complète (RGPD)</summary>
 
           <div className="privacy-legal__content">
-            <section className="privacy-block">
-              <h2 className="privacy-block__title">Qui sommes-nous ?</h2>
+            <PrivacyBlock title="Qui sommes-nous ?">
               <p>
                 Aurore est un outil personnel de suivi des soins cosmétiques, conçu pour les profils
                 TDAH. Il est développé et exploité par <strong>Mathieu Schaff</strong>, responsable
@@ -105,132 +125,133 @@ export function PrivacyPage() {
                   contact@mathieu-schaff.eu
                 </a>
               </p>
-            </section>
+            </PrivacyBlock>
 
-            <section className="privacy-block">
-              <h2 className="privacy-block__title">Données collectées</h2>
-              <ul className="privacy-list">
-                <li>
-                  <strong>Compte :</strong> adresse email, nom d'utilisateur. Mot de passe stocké
-                  sous forme de condensat (hachage Argon2, jamais en clair).
-                </li>
-                <li>
-                  <strong>Usage :</strong> produits cosmétiques, tâches, notes personnelles, profil
-                  de peau.
-                </li>
-                <li>
-                  <strong>Connexion :</strong> tokens de session (cookies HttpOnly, Secure).
-                </li>
-                <li>
-                  <strong>Logs techniques :</strong> méthode HTTP, chemin de la route, code de
-                  statut, temps de réponse.{' '}
-                  <strong>
-                    Aucun contenu de requête, email ou identifiant personnel n'est enregistré dans
-                    les logs.
-                  </strong>
-                </li>
-              </ul>
+            <PrivacyBlock title="Données collectées">
+              <PrivacyList
+                items={[
+                  {
+                    label: 'Compte :',
+                    body: (
+                      <>
+                        adresse email, nom d'utilisateur. Mot de passe stocké sous forme de
+                        condensat (hachage Argon2, jamais en clair).
+                      </>
+                    ),
+                  },
+                  {
+                    label: 'Usage :',
+                    body: 'produits cosmétiques, tâches, notes personnelles, profil de peau.',
+                  },
+                  {
+                    label: 'Connexion :',
+                    body: 'tokens de session (cookies HttpOnly, Secure).',
+                  },
+                  {
+                    label: 'Logs techniques :',
+                    body: (
+                      <>
+                        méthode HTTP, chemin de la route, code de statut, temps de réponse.{' '}
+                        <strong>
+                          Aucun contenu de requête, email ou identifiant personnel n'est enregistré
+                          dans les logs.
+                        </strong>
+                      </>
+                    ),
+                  },
+                ]}
+              />
               <p>Nous ne collectons aucune donnée publicitaire ni de tracking comportemental.</p>
-            </section>
+            </PrivacyBlock>
 
-            <section className="privacy-block">
-              <h2 className="privacy-block__title">Bases légales du traitement</h2>
+            <PrivacyBlock title="Bases légales du traitement">
               <p>
                 Conformément à l'
-                <a
-                  href="https://gdpr-info.eu/art-6-gdpr/"
-                  className="privacy-link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <ExternalLink href="https://gdpr-info.eu/art-6-gdpr/">
                   article 6 du RGPD
-                  <span className="sr-only"> (nouvelle fenêtre)</span>
-                </a>
+                </ExternalLink>
                 , chaque traitement de données personnelles doit reposer sur une base légale. Voici
                 celles que nous appliquons :
               </p>
-              <ul className="privacy-list">
-                <li>
-                  <strong>Données de compte (email, username, avatar) :</strong> exécution du
-                  contrat (Art. 6(1)(b)) — nécessaires pour créer et gérer votre compte.
-                </li>
-                <li>
-                  <strong>Données d'usage (produits, tâches, profil de peau) :</strong> exécution du
-                  contrat (Art. 6(1)(b)) — constituent le service que vous avez demandé.
-                </li>
-                <li>
-                  <strong>Emails de confirmation :</strong> exécution du contrat (Art. 6(1)(b)) —
-                  nécessaires pour vérifier votre adresse email.
-                </li>
-                <li>
-                  <strong>Logs techniques :</strong> intérêt légitime (Art. 6(1)(f)) — sécurité et
-                  stabilité du service. Les logs enregistrent uniquement des méta-données de requête
-                  (méthode, chemin, statut, durée) et ne contiennent aucune donnée personnelle.
-                </li>
-              </ul>
+              <PrivacyList
+                items={[
+                  {
+                    label: 'Données de compte (email, username, avatar) :',
+                    body: 'exécution du contrat (Art. 6(1)(b)) — nécessaires pour créer et gérer votre compte.',
+                  },
+                  {
+                    label: "Données d'usage (produits, tâches, profil de peau) :",
+                    body: 'exécution du contrat (Art. 6(1)(b)) — constituent le service que vous avez demandé.',
+                  },
+                  {
+                    label: 'Emails de confirmation :',
+                    body: 'exécution du contrat (Art. 6(1)(b)) — nécessaires pour vérifier votre adresse email.',
+                  },
+                  {
+                    label: 'Logs techniques :',
+                    body: 'intérêt légitime (Art. 6(1)(f)) — sécurité et stabilité du service. Les logs enregistrent uniquement des méta-données de requête (méthode, chemin, statut, durée) et ne contiennent aucune donnée personnelle.',
+                  },
+                ]}
+              />
               <p className="privacy-note">
                 Le RGPD (Règlement Général sur la Protection des Données) est en vigueur depuis mai
                 2018 dans toute l'Union européenne. Il garantit que vos données personnelles sont
                 traitées de manière transparente, pour des finalités précises, et avec votre accord
                 lorsque c'est nécessaire.
               </p>
-            </section>
+            </PrivacyBlock>
 
-            <section className="privacy-block">
-              <h2 className="privacy-block__title">Hébergement et partenaires</h2>
+            <PrivacyBlock title="Hébergement et partenaires">
               <p>
                 Toutes vos données sont hébergées <strong>en Europe</strong>. Aucune donnée ne
                 quitte l'Union européenne sans votre consentement explicite.
               </p>
-              <ul className="privacy-list">
-                <li>
-                  <strong>Serveur principal :</strong> VPS Hostinger (entreprise lituanienne, UE),
-                  datacenter de Francfort, Allemagne.
-                </li>
-                <li>
-                  <strong>Emails de confirmation :</strong> Brevo (anciennement Sendinblue),
-                  entreprise française. Seuls les emails de confirmation de compte et de
-                  réinitialisation de mot de passe sont envoyés — aucun email marketing.
-                </li>
-                <li>
-                  <strong>Google OAuth :</strong> uniquement si vous choisissez la connexion via
-                  Google. Dans ce cas, Google reçoit votre demande d'authentification.
-                </li>
-              </ul>
-            </section>
+              <PrivacyList
+                items={[
+                  {
+                    label: 'Serveur principal :',
+                    body: 'VPS Hostinger (entreprise lituanienne, UE), datacenter de Francfort, Allemagne.',
+                  },
+                  {
+                    label: 'Emails de confirmation :',
+                    body: 'Brevo (anciennement Sendinblue), entreprise française. Seuls les emails de confirmation de compte et de réinitialisation de mot de passe sont envoyés — aucun email marketing.',
+                  },
+                  {
+                    label: 'Google OAuth :',
+                    body: "uniquement si vous choisissez la connexion via Google. Dans ce cas, Google reçoit votre demande d'authentification.",
+                  },
+                ]}
+              />
+            </PrivacyBlock>
 
-            <section className="privacy-block">
-              <h2 className="privacy-block__title">Cloisonnement et accès aux données</h2>
+            <PrivacyBlock title="Cloisonnement et accès aux données">
               <p>
                 Aurore est développée par une seule personne. Aucun accès de routine aux données
                 utilisateur n'est prévu, y compris par le développeur.
               </p>
-              <ul className="privacy-list">
-                <li>
-                  <strong>Row-Level Security (PostgreSQL) :</strong> le backend se connecte à la
-                  base avec un rôle restreint, soumis à des politiques de cloisonnement par
-                  utilisateur. Chaque requête est limitée au propriétaire de la donnée — une faille
-                  applicative ne permet pas de lire les données d'un autre compte.
-                </li>
-                <li>
-                  <strong>Sur signalement d'un bug :</strong> si vous signalez un problème, votre
-                  accord explicite est demandé par email avant que je consulte votre ligne.
-                </li>
-                <li>
-                  <strong>En cas d'incident technique urgent</strong> (corruption, faille de
-                  sécurité, indisponibilité bloquante) : un accès administrateur reste possible pour
-                  diagnostiquer et corriger. Vous en êtes alors informé·e par email (date, raison,
-                  données consultées, action effectuée).
-                </li>
-                <li>
-                  <strong>Jamais</strong> pour de la curiosité, de l'analyse d'usage ou de la veille
-                  produit.
-                </li>
-              </ul>
-            </section>
+              <PrivacyList
+                items={[
+                  {
+                    label: 'Row-Level Security (PostgreSQL) :',
+                    body: "le backend se connecte à la base avec un rôle restreint, soumis à des politiques de cloisonnement par utilisateur. Chaque requête est limitée au propriétaire de la donnée — une faille applicative ne permet pas de lire les données d'un autre compte.",
+                  },
+                  {
+                    label: "Sur signalement d'un bug :",
+                    body: 'si vous signalez un problème, votre accord explicite est demandé par email avant que je consulte votre ligne.',
+                  },
+                  {
+                    label: "En cas d'incident technique urgent",
+                    body: '(corruption, faille de sécurité, indisponibilité bloquante) : un accès administrateur reste possible pour diagnostiquer et corriger. Vous en êtes alors informé·e par email (date, raison, données consultées, action effectuée).',
+                  },
+                  {
+                    label: 'Jamais',
+                    body: "pour de la curiosité, de l'analyse d'usage ou de la veille produit.",
+                  },
+                ]}
+              />
+            </PrivacyBlock>
 
-            <section className="privacy-block">
-              <h2 className="privacy-block__title">Sauvegardes</h2>
+            <PrivacyBlock title="Sauvegardes">
               <p>
                 Une sauvegarde compressée de la base est générée quotidiennement et stockée sur le
                 serveur d'hébergement, derrière les protections d'accès du VPS. Les sauvegardes de
@@ -238,111 +259,93 @@ export function PrivacyPage() {
                 vos données peuvent subsister jusqu'à 7 jours dans les sauvegardes avant disparition
                 définitive.
               </p>
-            </section>
+            </PrivacyBlock>
 
-            <section className="privacy-block">
-              <h2 className="privacy-block__title">Durée de conservation</h2>
+            <PrivacyBlock title="Durée de conservation">
               <p>
                 Vos données sont conservées tant que votre compte est actif. À la suppression de
                 votre compte, l'ensemble de vos données personnelles est définitivement supprimé de
                 nos serveurs.
               </p>
-            </section>
+            </PrivacyBlock>
 
-            <section className="privacy-block">
-              <h2 className="privacy-block__title">Vos droits</h2>
+            <PrivacyBlock title="Vos droits">
               <p>Conformément au RGPD, vous disposez des droits suivants :</p>
-              <ul className="privacy-list">
-                <li>
-                  <strong>Accès et rectification :</strong> consultez et modifiez vos informations
-                  depuis votre profil.
-                </li>
-                <li>
-                  <strong>Suppression :</strong> supprimez intégralement votre compte et vos données
-                  depuis{' '}
-                  <Link to="/profile" className="privacy-link">
-                    Profil → Compte → Supprimer mon compte
-                  </Link>
-                  .
-                </li>
-                <li>
-                  <strong>Portabilité :</strong> un export JSON complet de vos données est prévu
-                  depuis votre profil (<em>fonctionnalité en cours de développement</em>). En
-                  attendant, vous pouvez en faire la demande par email.
-                </li>
-                <li>
-                  <strong>Opposition :</strong> vous pouvez retirer votre consentement au traitement
-                  des données dermatologiques en vidant les champs de votre profil de peau depuis
-                  les paramètres.
-                </li>
-              </ul>
-            </section>
+              <PrivacyList
+                items={[
+                  {
+                    label: 'Accès et rectification :',
+                    body: 'consultez et modifiez vos informations depuis votre profil.',
+                  },
+                  {
+                    label: 'Suppression :',
+                    body: (
+                      <>
+                        supprimez intégralement votre compte et vos données depuis{' '}
+                        <Link to="/profile" className="privacy-link">
+                          Profil → Compte → Supprimer mon compte
+                        </Link>
+                        .
+                      </>
+                    ),
+                  },
+                  {
+                    label: 'Portabilité :',
+                    body: (
+                      <>
+                        un export JSON complet de vos données est prévu depuis votre profil (
+                        <em>fonctionnalité en cours de développement</em>). En attendant, vous
+                        pouvez en faire la demande par email.
+                      </>
+                    ),
+                  },
+                  {
+                    label: 'Opposition :',
+                    body: 'vous pouvez retirer votre consentement au traitement des données dermatologiques en vidant les champs de votre profil de peau depuis les paramètres.',
+                  },
+                ]}
+              />
+            </PrivacyBlock>
 
-            <section className="privacy-block">
-              <h2 className="privacy-block__title">Contact</h2>
+            <PrivacyBlock title="Contact">
               <p>
                 Pour toute question relative à vos données personnelles :{' '}
                 <a href="mailto:contact@mathieu-schaff.eu" className="privacy-link">
                   contact@mathieu-schaff.eu
                 </a>
               </p>
-            </section>
+            </PrivacyBlock>
 
-            <section className="privacy-block">
-              <h2 className="privacy-block__title">Pour aller plus loin</h2>
+            <PrivacyBlock title="Pour aller plus loin">
               <p>Sources officielles sur la protection des données personnelles :</p>
               <ul className="privacy-list">
                 <li>
-                  <a
-                    href="https://www.cnil.fr/fr/reglement-europeen-protection-donnees"
-                    className="privacy-link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <ExternalLink href="https://www.cnil.fr/fr/reglement-europeen-protection-donnees">
                     CNIL — Le règlement européen en 10 points
-                    <span className="sr-only"> (nouvelle fenêtre)</span>
-                  </a>{' '}
+                  </ExternalLink>{' '}
                   — une introduction claire au RGPD par l'autorité française de protection des
                   données.
                 </li>
                 <li>
-                  <a
-                    href="https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre2"
-                    className="privacy-link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <ExternalLink href="https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre2">
                     CNIL — Chapitre II : Principes
-                    <span className="sr-only"> (nouvelle fenêtre)</span>
-                  </a>{' '}
+                  </ExternalLink>{' '}
                   — les principes fondamentaux encadrant tout traitement de données.
                 </li>
                 <li>
-                  <a
-                    href="https://gdpr-info.eu/art-6-gdpr/"
-                    className="privacy-link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <ExternalLink href="https://gdpr-info.eu/art-6-gdpr/">
                     Article 6 RGPD — Licéité du traitement
-                    <span className="sr-only"> (nouvelle fenêtre)</span>
-                  </a>{' '}
+                  </ExternalLink>{' '}
                   — le texte complet de l'article définissant les bases légales.
                 </li>
                 <li>
-                  <a
-                    href="https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32016R0679"
-                    className="privacy-link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <ExternalLink href="https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32016R0679">
                     Texte officiel du RGPD (EUR-Lex, version française)
-                    <span className="sr-only"> (nouvelle fenêtre)</span>
-                  </a>{' '}
+                  </ExternalLink>{' '}
                   — le règlement complet publié au Journal officiel de l'UE.
                 </li>
               </ul>
-            </section>
+            </PrivacyBlock>
           </div>
         </details>
       </div>

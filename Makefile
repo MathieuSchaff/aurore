@@ -8,7 +8,7 @@
 	e2e e2e-up e2e-down e2e-ui e2e-logs e2e-reset \
 	stop restart ps health diagnose stats env-check \
 	logs logs-api logs-db logs-nginx logs-frontend \
-	lint lint-fix format \
+	lint lint-fix format fallow fallow-scan fallow-dupes fallow-health fallow-baseline \
 	shell-api shell-db shell-frontend \
 	db-migrate db-generate db-push db-studio db-backup db-restore db-seed db-seed-merge db-clean db-reset audit-db audit-auto-tags db-seed-safe db-seed-merge-safe db-stats \
 	db-backup-prod db-backup-clean backup-cron-install \
@@ -278,6 +278,23 @@ lint-fix: ## Corrige les problèmes de lint (TESTS=1 pour cibler les tests)
 
 format: ## Formate le code avec Biome (TESTS=1 pour cibler les tests)
 	bunx biome format --write $(BIOME_CONFIG) .
+
+fallow: ## Audit fallow sur les fichiers changés vs main (new issues only)
+	npx fallow audit --format compact
+
+fallow-scan: ## Scan global dead-code (production entry points + cross-ref dupes)
+	npx fallow dead-code --production --include-dupes --summary
+
+fallow-dupes: ## Recherche de duplications
+	npx fallow dupes
+
+fallow-health: ## Analyse complexité cyclomatic/cognitive
+	npx fallow health
+
+fallow-baseline: ## Sauvegarde la baseline d'audit (reset après gros cleanup)
+	npx fallow dead-code --save-baseline .fallow/audit-dead-code.json --quiet
+	npx fallow health --save-baseline .fallow/audit-health.json --quiet
+	npx fallow dupes --save-baseline .fallow/audit-dupes.json --quiet
 
 # =========================
 # Shell interactif

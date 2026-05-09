@@ -1,7 +1,7 @@
 import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
-export const LA_ROS_E_SEED: UnifiedProductSeed[] = [
+export const LA_ROSEE_HAIRCARE_SEED: UnifiedProductSeed[] = [
   {
     slug: 'la-rosee-huile-de-soin-nourrissante-aux-huiles-vegetales-bio-100ml-235183',
     name: 'La Rosée Huile de Soin Nourrissante aux Huiles Végétales Bio 100ml',

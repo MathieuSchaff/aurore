@@ -36,6 +36,11 @@ jobs:
       - name: Lint Check (Biome)
         run: make lint
 
+      - name: Fallow audit (new issues only)
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: npx fallow audit --fail-on-issues --format compact --changed-since "${BASE_SHA:-HEAD~1}"
+
       - name: TypeScript Build & Global Check
         run: make ts-build
 

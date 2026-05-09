@@ -217,10 +217,3 @@ export function serializeGoldSet(file: GoldSetFile): string {
   return `${JSON.stringify(out, null, 2)}\n`
 }
 
-// Build an index keyed by productSlug for O(1) annotation lookup. Useful
-// for benchmark runners that walk products and need to skip non-annotated.
-export function indexByProductSlug(file: GoldSetFile): Map<string, GoldSetAnnotation> {
-  const m = new Map<string, GoldSetAnnotation>()
-  for (const a of file.annotations) m.set(a.productSlug, a)
-  return m
-}
