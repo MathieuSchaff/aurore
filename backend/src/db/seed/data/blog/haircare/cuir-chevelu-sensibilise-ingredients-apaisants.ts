@@ -3,12 +3,12 @@ import type { ArticleInput } from '../article-data'
 export const ingredientsApaisantsCuirChevelu: ArticleInput = {
   title: 'Cuir chevelu sensibilisé : les ingrédients qui peuvent vraiment aider',
   slug: 'cuir-chevelu-sensibilise-ingredients-apaisants',
-  excerpt:
-    'Panthénol, niacinamide, glycérine, allantoïne, piroctone olamine : certains actifs ont un intérêt réel pour calmer un cuir chevelu irrité ou inconfortable.',
+  excerpt: `Panthénol, niacinamide, glycérine, allantoïne, piroctone olamine : certains actifs ont un intérêt réel pour calmer un cuir chevelu irrité ou inconfortable.`,
   category: 'haircare',
   coverImageUrl: 'https://images.com/ingredients-apaisants-cuir-chevelu.jpg',
   publishedAt: new Date().toISOString(),
-  content: `# Cuir chevelu sensibilisé : les ingrédients qui peuvent vraiment aider
+  content: `
+# Cuir chevelu sensibilisé : les ingrédients qui peuvent vraiment aider
 
 Face à un cuir chevelu sensible, l'objectif n'est pas toujours de stimuler la pousse. Dans de nombreux cas, il faut d'abord calmer l'environnement cutané.
 
@@ -131,5 +131,11 @@ Les ingrédients les plus intéressants sont :
 - bisabolol ;
 - piroctone olamine si pellicules ou démangeaisons.
 
-Le bon produit est celui qui réduit l'inconfort sans ajouter d'irritation.`,
+Le bon produit est celui qui réduit l'inconfort sans ajouter d'irritation.
+
+## Pour aller plus loin
+
+- [**Chute, densité ou irritation ?**](/blog/chute-perte-densite-irritation-cheveux-difference) : faire le bon diagnostic.
+- [**Micro-inflammation**](/blog/micro-inflammation-cuir-chevelu-reconnaitre-comprendre) : les signes qui ne trompent pas.
+- [**Manipulation des cheveux**](/blog/manipulation-repetee-cheveux-cuir-chevelu-follicules) : l'impact des contraintes mécaniques.`,
 }

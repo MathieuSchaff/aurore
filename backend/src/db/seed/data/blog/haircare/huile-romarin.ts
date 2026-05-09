@@ -88,7 +88,9 @@ Résultat :
 - moins de démangeaisons dans le groupe romarin
 - progression lente, visible surtout après plusieurs mois
 
-Important : cela ne veut pas dire que le romarin remplace systématiquement le minoxidil. Cela montre surtout un **potentiel réel**, intéressant chez certaines personnes.
+Important : cela ne veut pas dire que le romarin remplace systématiquement le minoxidil. Cela montre surtout un **potentiel réel**, intéressant chez certaines personnes. 
+
+*Pour comprendre comment il se compare au traitement de référence, lisez notre [**guide complet sur le Minoxidil**](/blog/minoxidil-guide-complet-pousse-cheveux-erreurs-resultats).*
 
 ## Pour qui cela peut être utile ?
 
@@ -165,7 +167,7 @@ L’huile de romarin n’est pas un miracle.
 
 Mais ce n’est pas non plus un mythe.
 
-C’est probablement l’une des options naturelles les plus crédibles pour soutenir la repousse capillaire, surtout sur les formes légères à modérées et avec usage régulier.
+C’est probablement l’une des options naturelles les plus crédibles pour soutenir la repousse capillaire, surtout sur les formes légères à modérées et avec usage régulier. Bien que prometteuse, elle reste souvent moins puissante que le traitement médical de référence. Comparez les résultats attendus avec notre [**guide complet sur le Minoxidil**](/blog/minoxidil-guide-complet-pousse-cheveux-erreurs-resultats).
 
 Le meilleur résultat vient souvent d’une approche globale :
 

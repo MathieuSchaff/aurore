@@ -66,10 +66,12 @@ Dans cette situation, on cherche plutôt des actifs orientés soutien folliculai
 Les plus courants sont :
 
 - peptides ;
-- complexes de densité ;
+- complexes de densité (Redensyl, Capixyl, Procapil) ;
 - caféine ;
 - extraits végétaux ciblant l'environnement folliculaire ;
 - peptides de cuivre.
+
+*Pour comprendre comment ces complexes brevetés agissent sur le cycle de vie de votre cheveu, consultez notre dossier : [**Actifs capillaires : ce que la science dit vraiment**](/blog/actifs-capillaires-science).*
 
 Ces ingrédients ne doivent pas être confondus avec des traitements médicaux. Ils peuvent accompagner une routine, mais ils ne remplacent pas une prise en charge dermatologique lorsque la perte est marquée, progressive ou héréditaire.
 

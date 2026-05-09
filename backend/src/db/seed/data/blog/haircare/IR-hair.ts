@@ -166,7 +166,7 @@ Associer la lumière rouge à :
 - bilan sanguin si chute importante
 - gestion du stress
 - soins doux du cuir chevelu
-- éventuellement traitements validés médicalement
+- éventuellement des traitements validés comme le [**Minoxidil**](/blog/minoxidil-guide-complet-pousse-cheveux-erreurs-resultats) ou l'usage régulier d'[**huile de romarin**](/blog/huile-romarin-repousse-cheveux).
 
 ---
 
@@ -174,7 +174,7 @@ Associer la lumière rouge à :
 
 La lumière rouge n’est **ni un miracle**, ni une arnaque totale.
 
-C’est probablement **un outil utile**, surtout tôt dans la perte de cheveux, chez les personnes régulières et patientes.
+C’est probablement **un outil utile**, surtout tôt dans la perte de cheveux, chez les personnes régulières et patientes. Notez cependant que son efficacité sur la repousse pure reste souvent inférieure à celle du [**Minoxidil**](/blog/minoxidil-guide-complet-pousse-cheveux-erreurs-resultats).
 
 Si vous cherchez une repousse spectaculaire sur une calvitie installée depuis 15 ans, passez votre chemin.
 

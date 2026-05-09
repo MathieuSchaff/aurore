@@ -6,6 +6,6 @@ export const planAlimentationOptimale: ArticleInput = {
   category: 'nutrition',
   excerpt:
     'Cadre pratique pour structurer une alimentation optimale : macronutriments, micronutriments clés, fréquences de repas et principes de base fondés sur les données actuelles.',
-  publishedAt: '2025-01-15T00:00:00.000Z',
+  publishedAt: null,
   content: `Article à rédiger.`,
 }

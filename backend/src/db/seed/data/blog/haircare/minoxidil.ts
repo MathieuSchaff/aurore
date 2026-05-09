@@ -257,6 +257,8 @@ Plus un follicule est miniaturisé depuis longtemps, plus il devient difficile �
 
 **Le temps compte.**
 
+*Note : Si vous cherchez une alternative naturelle pour débuter, consultez notre analyse de l'[**huile de romarin**](/blog/huile-romarin-repousse-cheveux).*
+
 ---
 
 ## Autres leviers utiles
@@ -336,6 +338,15 @@ Si après **6 mois d’utilisation rigoureuse** rien ne change, il faut recherch
 - carences
 - troubles hormonaux
 - maladies auto-immunes
+
+---
+
+## Et si je ne tolère pas le Minoxidil ?
+
+Si vous ressentez trop d'irritations (démangeaisons, rougeurs) ou si vous préférez une approche différente, il existe des leviers complémentaires avec un niveau de preuve intéressant :
+
+- [**L'huile de romarin**](/blog/huile-romarin-repousse-cheveux) : elle a montré des résultats comparables au minoxidil 2 % dans une étude clinique célèbre, avec souvent moins de démangeaisons.
+- [**La thérapie par lumière rouge**](/blog/lumiere-rouge-repousse-cheveux) : elle aide à stimuler l'énergie cellulaire des follicules sans application de produit chimique.
 
 ---
 

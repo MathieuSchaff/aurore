@@ -7,7 +7,9 @@ export const secretsDeLolyAnalyse: ArticleInput = {
   excerpt:
     'Décryptage INCI des 8 produits phares Les Secrets de Loly (Perfect Match, Pink Paradise, Pink Power Mask, Kurl Nectar, Kurl Potion, Smoothie, Kurl Fusion, Boost Curl) : actifs clés, rôles, routine hebdomadaire et coût mensuel réel. Complément Olaplex N°3 pour la réparation des ponts disulfure.',
   publishedAt: '2025-01-15T00:00:00.000Z',
-  content: `Les Secrets de Loly est une marque française dédiée aux cheveux bouclés, frisés et crépus. Gamme positionnée sur **tensioactifs doux + protéines hydrolysées + acides aminés + actifs apaisants** (panthénol, aloe). Cet article décompose chaque produit par son INCI et propose une routine type avec coût mensuel réel.
+  content: `*Note : Analyse basée sur les formulations de Janvier 2025. Vérifiez toujours la liste INCI sur votre produit.*
+
+Les Secrets de Loly est une marque française dédiée aux cheveux bouclés, frisés et crépus. Gamme positionnée sur **tensioactifs doux + protéines hydrolysées + acides aminés + actifs apaisants** (panthénol, aloe). Cet article décompose chaque produit par son INCI et propose une routine type avec coût mensuel réel.
 
 ---
 
@@ -186,6 +188,15 @@ Pour cet angle, **Olaplex N°3** (~25-30 € / 100 ml) s'ajoute en **pré-shampo
 2. **Perfect Match** — shampooing.
 3. **Pink Paradise** — AS.
 4. **Kurl Nectar** — leave-in.
+
+---
+
+## Quelle porosité pour cette gamme ?
+
+- **Porosité Haute** : C'est la cible idéale. Les protéines et humectants de la gamme vont "remplir" et gainer votre fibre.
+- **Porosité Faible** : Attention aux textures trop riches (Smoothie). Privilégiez le *Kurl Potion* et utilisez une serviette chaude pour faire pénétrer les soins.
+
+*Pas de doute ? [**Identifiez votre porosité en 2 minutes ici**](/blog/porosite-cheveux-guide-complet).*
 
 ---
 

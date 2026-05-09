@@ -117,5 +117,11 @@ La première stratégie est simple :
 - calmer la peau ;
 - éviter les irritants ;
 - observer l'évolution ;
-- consulter si les signes persistent ou s'aggravent.`,
+- consulter si les signes persistent ou s'aggravent.
+
+## Pour aller plus loin
+
+- [**Manipulation répétée**](/blog/manipulation-repetee-cheveux-cuir-chevelu-follicules) : l'origine physique de l'inflammation.
+- [**Ingrédients apaisants**](/blog/cuir-chevelu-sensibilise-ingredients-apaisants) : comment calmer le feu.
+- [**Différencier chute et irritation**](/blog/chute-perte-densite-irritation-cheveux-difference) : ne pas se tromper de traitement.`,
 }

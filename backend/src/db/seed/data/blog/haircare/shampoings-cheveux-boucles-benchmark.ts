@@ -105,6 +105,8 @@ Base **Sodium Laureth Sulfate**. Très économique mais décapant (le nom "Ultra
 | **Usage ponctuel / clarifiant** | Garnier, Elseve, John Frieda, Redken |
 | **À éviter en routine** | Tout SLES + MIT/MCI |
 
+*Note : Si votre cuir chevelu graisse trop vite, privilégiez impérativement les références "douces" pour éviter la séborrhée réactionnelle. Plus de conseils dans notre [**guide du cuir chevelu gras**](/blog/cuir-chevelu-gras-solutions-routine).*
+
 ---
 
 ## Bonus — Olaplex N°5 Bond Maintenance Conditioner
@@ -126,7 +128,8 @@ Après-shampoing Olaplex (250 ml, 32 €). Compléte le shampooing N°4 sur le v
 ## Règles pratiques
 
 1. **Fréquence** : 1-2 lavages/semaine pour cheveux bouclés/secs, 3×/semaine max pour cheveux mixtes.
-2. **Doux en quotidien, clarifiant occasionnel** : alterner, ne pas laver tous les jours avec un décapant.
+2. **Défis de Porosité** : Votre choix dépend aussi de votre capacité à absorber l'eau. Si vous ne la connaissez pas, lisez notre [**guide de la porosité**](/blog/porosite-cheveux-guide-complet).
+3. **Doux en quotidien, clarifiant occasionnel** : alterner, ne pas laver tous les jours avec un décapant.
 3. **Chercher sur l'INCI** : pas de SLS/SLES en tête, pas de MIT/MCI, bonus pour le guar HPTC + panthénol.
 4. **Prix au litre** > prix nominal : le 4 € / 300 ml bat souvent le 28 € / 250 ml en rapport qualité/€.
 `,

@@ -128,7 +128,8 @@ Cyclomethicone + Dimethicone + argan + parfum + colorants. **Essentiellement des
 ## Règles pratiques
 
 1. **Lire le top 5 INCI** : si silicones dominent, c'est cosmétique immédiat, pas un soin.
-2. **Panthénol + aloe + BTMS** = triptyque de base d'un bon leave-in.
+2. **Connaître sa Porosité** : Les leave-ins "lourds" (SheaMoisture) sont parfaits pour la porosité haute, mais une catastrophe pour la porosité faible. [**Identifiez votre porosité ici**](/blog/porosite-cheveux-guide-complet).
+3. **Panthénol + aloe + BTMS** = triptyque de base d'un bon leave-in.
 3. **Protéines hydrolysées** = bonus pour cheveux abîmés, à alterner (trop de protéines rigidifient).
 4. **Prix au litre** : le Revlon Equave à 15 € et le Moroccanoil à 49,50 € / 100 ml jouent dans deux univers différents.
 5. **Test sur une section** avant de passer au produit entier — la tolérance dépend du type/porosité.

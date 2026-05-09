@@ -69,7 +69,7 @@ Pour beaucoup de personnes, le meilleur choix reste un shampoing :
 - adapté à la fréquence de lavage
 - respectueux du cuir chevelu
 
-Un cuir chevelu irrité chronique peut aggraver inconfort, démangeaisons et fragilité capillaire.
+*Pour comparer les meilleures références du marché, consultez notre [**benchmark des shampoings**](/blog/shampoings-cheveux-boucles-benchmark).*
 
 ---
 
@@ -135,10 +135,9 @@ Le bon produit dépend davantage du type de fibre que du prix.
 
 Le minoxidil topique reste la référence en vente libre la plus reconnue pour certaines formes de chute, notamment l’alopécie androgénétique.
 
-Il dispose d’un niveau de preuve supérieur à la majorité des sérums cosmétiques.
+Il dispose d’un niveau de preuve supérieur à la majorité des sérums cosmétiques. Retrouvez notre [**guide complet sur le Minoxidil ici**](/blog/minoxidil-guide-complet-pousse-cheveux-erreurs-resultats).
 
 ## Limites possibles
-
 - irritation
 - démangeaisons
 - sécheresse
@@ -164,27 +163,16 @@ Position raisonnable :
 - certains ingrédients sont intéressants
 - plusieurs études montrent des signaux positifs
 - niveau de preuve souvent inférieur au minoxidil
-- données parfois liées aux fabricants
 
-Ils peuvent avoir une place :
-
-- en complément
-- en prévention légère
-- chez ceux qui ne tolèrent pas d’autres options
-
-Mais il faut rester nuancé.
+*Nous avons analysé les mécanismes de ces molécules dans notre dossier : [**Actifs capillaires : ce que la science dit vraiment**](/blog/actifs-capillaires-science).*
 
 ---
 
 # 4. Les Appareils LED et Laser Capillaire
 
-La luminothérapie basse intensité (LLLT) est l’une des rares technologies capillaires disposant d’un rationnel scientifique crédible.
+La luminothérapie basse intensité (LLLT) est l’une des rares technologies capillaires disposant d’un rationnel scientifique crédible. 
 
-Objectif :
-
-- stimuler l’activité cellulaire locale
-- soutenir le follicule
-- améliorer densité ou épaisseur chez certains utilisateurs
+*Pour en savoir plus sur l'efficacité réelle, lisez notre article : [**Lumière rouge et repousse : gadget ou avancée ?**](/blog/lumiere-rouge-repousse-cheveux).*
 
 ## Conditions de réussite
 
