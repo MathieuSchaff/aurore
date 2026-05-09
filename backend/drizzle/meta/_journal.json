@@ -351,6 +351,13 @@
       "when": 1777700500000,
       "tag": "0049_skincare_product_characteristic",
       "breakpoints": true
+    },
+    {
+      "idx": 50,
+      "version": "7",
+      "when": 1778328513161,
+      "tag": "0050_dry_landau",
+      "breakpoints": true
     }
   ]
 }
