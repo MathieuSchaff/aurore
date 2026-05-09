@@ -143,6 +143,7 @@ async function main() {
         category: p.category,
         brand: p.brand,
         texture: p.texture as ProductTexture | null,
+        name: p.name,
       },
       {
         ...(CONF_OVERRIDE !== null ? { confOverride: CONF_OVERRIDE } : {}),

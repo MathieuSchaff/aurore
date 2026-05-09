@@ -1116,7 +1116,7 @@ Items détectés après clôture du backlog R/C/S/X/T/O. Non-bloquants, à plani
 | # | Item | Effort | Origine |
 |---|------|--------|---------|
 | ~~F1~~ | ~~Calibration recall actif-class clusters~~ ✅ **Vérifié closed 2026-05-09** — audit-actif-class re-run montre tous clusters à 100% agree. Calibration vit-E (2026-05-08, +1567 paires) + HA (+1198) + peptides (+284) + polyphenols (+518) + enzymes-exfoliants (+41) + tyrosinase (+73) toutes appliquées et write effectué (DB: vit-E 1860, HA 1408, polyphenols 675, ceramides 440, peptides 429, vit-C 418). Drift résiduelle = noise annotation (vit-E 2, polyphenols 1) ou par-design (AHA/BHA/PHA positionCap:10 — overrides cleanés ligne 1092). Pas d'investigation à reconduire. | — | Closed |
-| F2 | **Extension `texture-creme` au-delà de `hand-cream`** — kind list à élargir vers `moisturizer` / `eye-cream` / `night-cream`. Currently dérivé seulement pour hand-cream (heuristique conservatrice initiale), orthogonal à T3 phase B (admin-curé via `products.texture`). | XS | Audit ligne 1282 |
+| ~~F2~~ | ~~**Extension `texture-creme` au-delà de `hand-cream`**~~ ✅ Done 2026-05-09 (migration `0054`) — Path 2 (default-creme par kind + vétos INCI) retenu. `detectTextureCremeInci` réécrit : default pour `moisturizer` + `foot-cream`, 6 vétos (surfactant ionique, ≥2 butter/wax, huile pos 1, pas d'eau top 5, gel-former sans phase huileuse, serum pur). Fix bug slash-normalisation (`caprylic/capric` → `caprylic capric`). Eye-cream hors scope (trop hétérogène — ticket séparé). **+682 paires** (676 moisturizer + 6 foot-cream) · **−368 stale** (sunscreen 402 + body-lotion 23 + autres 17 + eye-cream 2 − new 76). DB finale : 701 pairs (vs 1069 legacy). | S | Done |
 | ~~F3~~ | ~~**Audit taxonomie round 2**~~ ✅ Done 2026-05-09 (migration `0053`) — 5 candidats challengés : `apaisant` KEEP (soothing benefit axis algo-derm distinct, 33-39 % overlap avec barriere/reparation = stack thérapeutique normal), `prebiotique` KEEP (14 patterns INCI factuels, pas marketing-flavored), `non-gras` KEEP (status quo session précédente, 60 paires conservatif), `keratolytique` KILL product-side (subset AHA+BHA+RETINOIDS+urea, 53 % overlap strict avec actif_class clusters ; ingredient-side `keratolytique` préservé pour chemistry classification). `effet-protecteur` MERGE-KILL product-side (Trigger B délègue déjà à detectTextureRiche, 74 % co-fire ; Trigger A lanolin = ~24 niche balms tombent à kind tags, acceptable ; ingredient-side `effet-protecteur` préservé). **−688 paires DB** (595 + 93). Slugs sensoriel/skin_effect product-side passent de 4+12 → 4+10. | S | Done |
 | F4 | **`texture-mousse` / `texture-stick`** — non-derivable INCI seul, dépendent admin curation `products.texture` field (T3 phase B done, 3738 NULL). Tracker quand coverage admin suffisante (~30%+) pour décider INCI fallback distinct ou rester pure pass-through. | M | S5 phase B partielle |
 | F5 | **Brier/ECE pipeline** — gold set §"Note Brier/ECE" (ligne 994) — pipeline en place mais 16 tags focus actuels = déterministes (passes 2-6 orchestrator), Brier dégénère en taux mauvais classement, ECE single-bin. À revisiter quand scope gold set s'étend à algo-derm passe 1 (concerns/skin types/absence) qui portent une `confidence` calibrable. **Defer** sauf si on calibre passe 1. | XS | Gold set scope expansion |
@@ -1294,9 +1294,9 @@ Initial T1 sweep (2026-05-08) avait livré 6 slugs sensation : `texture-riche`, 
 | ~~`texture-gel`~~ | ~~pas dérivable kind seul~~ ✅ Done 2026-05-09 (S5) — `detectTextureFromField` (pure pass-through `products.texture`) + `detectTextureGelInci` (gel-former top 5 + 0 oil + 0 butter/wax + 0 silicone-led, leave-on). +93 paires backfill. |
 | `texture-mousse` | non dérivable INCI seul, attend admin curation `products.texture` |
 | `texture-stick` | non dérivable INCI seul, attend admin curation `products.texture` |
-| `texture-creme` | dérivé seulement pour `hand-cream` ; manque `moisturizer`, `eye-cream`, etc. |
+| ~~`texture-creme`~~ | ~~dérivé seulement pour `hand-cream`~~ ✅ Done 2026-05-09 (F2) — default-creme pour `moisturizer` + `foot-cream` + 6 vétos INCI. 701 pairs DB. Eye-cream ticket séparé. |
 
-6 couverts ✅ (`texture-baume`, `texture-huile`, `texture-lait`, `texture-eau`, `texture-patch`, `texture-gel`).
+7 couverts ✅ (`texture-baume`, `texture-huile`, `texture-lait`, `texture-eau`, `texture-patch`, `texture-gel`, `texture-creme`).
 
 #### Moments (5/5 ✅)
 
@@ -1362,7 +1362,7 @@ zéro nouveau champ DB, zéro nouveau slug.
 | `texture-gel` | T3 — heuristique INCI partielle possible (carbomer/sodium-polyacrylate/xanthan top 5 + 0 huile top 5 + leave-on) mais précision moyenne |
 | `texture-mousse` | T3 — INCI seul ne distingue pas |
 | `texture-stick` | T3 — INCI seul ne distingue pas |
-| `texture-creme` étendu | T3 — couvrir `moisturizer` / `eye-cream` au-delà de `hand-cream` |
+| ~~`texture-creme` étendu~~ | ~~T3~~ ✅ Done F2 — moisturizer + foot-cream couverts. Eye-cream ticket séparé (hétérogène). |
 | `peau-mixte` | T3 indirect — pattern propre nécessite distinction texture (T-zone gel-cream + niacinamide top 8) |
 
 → Confirme priorité T3 roadmap.

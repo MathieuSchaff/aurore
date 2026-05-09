@@ -18,6 +18,9 @@ import {
   detectSemiOcclusif,
   detectSolaireTags,
   detectStepNettoyage1,
+  detectTextureBaumeFromName,
+  detectTextureCremeEyeInci,
+  detectTextureCremeInci,
   detectTextureFromField,
   detectTextureGelInci,
   detectTextureLegere,
@@ -1116,5 +1119,326 @@ describe('detectTextureGelInci (S5 INCI fallback)', () => {
 
   test('null INCI → no tag', () => {
     expect(detectTextureGelInci(null, 'serum', null)).toEqual([])
+  })
+})
+
+// ─── F2 — texture-creme default (kind-driven + veto INCI) ───────────────────
+describe('detectTextureCremeInci (F2 default + veto)', () => {
+  // ── Fires ──────────────────────────────────────────────────────────────────
+
+  test('moisturizer with classic emulsion (water + glyceryl stearate + shea) → texture-creme', () => {
+    const inci =
+      'Aqua, Caprylic/Capric Triglyceride, Glycerin, Butyrospermum Parkii Butter, Cetearyl Alcohol, Glyceryl Stearate, Panthenol, Tocopherol'
+    expect(detectTextureCremeInci(inci, 'moisturizer', null)).toEqual([S.TEXTURE_CREME])
+  })
+
+  test('moisturizer with steareth + cetyl palmitate emulsifier (Embryolisse-style) → texture-creme', () => {
+    const inci =
+      'Aqua, Glycerin, C12-15 Alkyl Benzoate, Dicaprylyl Carbonate, Steareth-21, Cetyl Palmitate, Steareth-2, Tocopherol'
+    expect(detectTextureCremeInci(inci, 'moisturizer', null)).toEqual([S.TEXTURE_CREME])
+  })
+
+  test('foot-cream with polymeric emulsifier (SVR Xerial-style) → texture-creme', () => {
+    const inci =
+      'Water, Urea, Glycerin, Butyrospermum Parkii Butter, Octyldodecanol, Cetearyl Ethylhexanoate, Isohexadecane, Polyacrylate-13, Panthenol, Salicylic Acid'
+    expect(detectTextureCremeInci(inci, 'foot-cream', null)).toEqual([S.TEXTURE_CREME])
+  })
+
+  test('moisturizer with emulsifier but no oily phase → fires (default, no veto)', () => {
+    // Path 2: emulsifier alone is sufficient signal; no requirement for oily phase.
+    const inci =
+      'Aqua, Glycerin, Cetearyl Alcohol, Niacinamide, Panthenol, Sodium Hyaluronate, Allantoin, Tocopherol'
+    expect(detectTextureCremeInci(inci, 'moisturizer', null)).toEqual([S.TEXTURE_CREME])
+  })
+
+  test('moisturizer water at pos 4, ester oil at pos 1 → fires (water in top 5, no veto)', () => {
+    // Oil-led but not face-oil mistag: ester emollient (caprylic/capric) is not
+    // in VEGETABLE_OIL_PATTERNS / BUTTER_WAX_PATTERNS, so veto 3 doesn't fire.
+    const inci =
+      'Caprylic/Capric Triglyceride, Cetearyl Alcohol, Glyceryl Stearate, Aqua, Glycerin, Tocopherol, Niacinamide, Panthenol'
+    expect(detectTextureCremeInci(inci, 'moisturizer', null)).toEqual([S.TEXTURE_CREME])
+  })
+
+  test('sparse INCI (< 4 ingredients) → fires (trust kind)', () => {
+    expect(detectTextureCremeInci('Aqua, Glycerin, Cetearyl Alcohol', 'moisturizer', null)).toEqual(
+      [S.TEXTURE_CREME]
+    )
+  })
+
+  test('null/empty INCI → fires (trust kind)', () => {
+    expect(detectTextureCremeInci(null, 'moisturizer', null)).toEqual([S.TEXTURE_CREME])
+    expect(detectTextureCremeInci('', 'moisturizer', null)).toEqual([S.TEXTURE_CREME])
+  })
+
+  test('Garancia-style INCI with asterisks → fires (slash-normalisation bug fixed)', () => {
+    // Bug: 'caprylic/capric triglyceride' pattern had a slash; normalize() converts
+    // slashes to spaces, so the pattern never matched. Fixed to 'caprylic capric triglyceride'.
+    const inci =
+      'Aqua*, Heptyl Undecylenate*, Glycerin*, Cetearyl Olivate*, Cetyl Alcohol*, Sorbitan Olivate*, Caprylic/Capric Triglyceride*, Pentylene Glycol*'
+    expect(detectTextureCremeInci(inci, 'moisturizer', null)).toEqual([S.TEXTURE_CREME])
+  })
+
+  test('gel-cream (gel former + oily phase) → fires (veto 5 does not fire when oily phase present)', () => {
+    const inci =
+      'Aqua, Glycerin, Carbomer, Dimethicone, Cetearyl Alcohol, Glyceryl Stearate, Panthenol, Tocopherol'
+    expect(detectTextureCremeInci(inci, 'moisturizer', null)).toEqual([S.TEXTURE_CREME])
+  })
+
+  // ── Skips (veto fires) ─────────────────────────────────────────────────────
+
+  test('admin texture field set → skipped (authoritative)', () => {
+    const inci = 'Aqua, Glycerin, Cetearyl Alcohol, Caprylic/Capric Triglyceride'
+    expect(detectTextureCremeInci(inci, 'moisturizer', 'gel')).toEqual([])
+    expect(detectTextureCremeInci(inci, 'moisturizer', 'creme')).toEqual([])
+  })
+
+  test('serum/eye-cream kind → not eligible (only moisturizer/foot-cream)', () => {
+    const inci =
+      'Aqua, Glycerin, Caprylic/Capric Triglyceride, Cetearyl Alcohol, Glyceryl Stearate, Niacinamide, Tocopherol, Dimethicone'
+    expect(detectTextureCremeInci(inci, 'serum', null)).toEqual([])
+    expect(detectTextureCremeInci(inci, 'eye-cream', null)).toEqual([])
+  })
+
+  test('cleanser mistag (sodium laureth sulfate top 5) → skipped (veto 1)', () => {
+    const inci =
+      'Aqua, Glycerin, Sodium Laureth Sulfate, Coco-Betaine, Cetearyl Alcohol, Glyceryl Stearate, Niacinamide, Panthenol'
+    expect(detectTextureCremeInci(inci, 'moisturizer', null)).toEqual([])
+  })
+
+  test('≥ 2 butters/waxes top 8 → skipped, defer to texture-riche (veto 2)', () => {
+    const inci =
+      'Aqua, Glycerin, Butyrospermum Parkii Butter, Theobroma Cacao Seed Butter, Cetearyl Alcohol, Beeswax, Panthenol, Tocopherol'
+    expect(detectTextureCremeInci(inci, 'moisturizer', null)).toEqual([])
+  })
+
+  test('vegetable oil at pos 1 → skipped, face-oil mistag (veto 3)', () => {
+    const inci =
+      'Helianthus Annuus Seed Oil, Glycerin, Aqua, Cetearyl Alcohol, Glyceryl Stearate, Panthenol, Tocopherol, Niacinamide'
+    expect(detectTextureCremeInci(inci, 'moisturizer', null)).toEqual([])
+  })
+
+  test('no water in top 5 → skipped, oil-led formula (veto 4)', () => {
+    const inci =
+      'Helianthus Annuus Seed Oil, Caprylic/Capric Triglyceride, Cetearyl Alcohol, Glyceryl Stearate, Squalane, Tocopherol, Aqua, Panthenol'
+    expect(detectTextureCremeInci(inci, 'moisturizer', null)).toEqual([])
+  })
+
+  test('pure aqueous gel (carbomer top 5, no oily phase) → skipped (veto 5)', () => {
+    const inci =
+      'Aqua, Glycerin, Niacinamide, Sodium Hyaluronate, Carbomer, Panthenol, Allantoin, Tocopherol'
+    expect(detectTextureCremeInci(inci, 'moisturizer', null)).toEqual([])
+  })
+
+  test('pure serum (water pos 1, no emulsifier, no oily phase) → skipped (veto 6)', () => {
+    const inci =
+      'Aqua, Glycerin, Niacinamide, Sodium Hyaluronate, Panthenol, Allantoin, Tocopherol, Arginine'
+    expect(detectTextureCremeInci(inci, 'moisturizer', null)).toEqual([])
+  })
+})
+
+// ─── Eye-cream texture-creme (Path 1 relaxé) ─────────────────────────────────
+describe('detectTextureCremeEyeInci (eye-cream path 1 relaxé)', () => {
+  // ── Fires ─────────────────────────────────────────────────────────────────
+
+  test('eye-cream + water top 1 + cetearyl alcohol top 3 → texture-creme', () => {
+    const inci =
+      'Aqua, Glycerin, Cetearyl Alcohol, Niacinamide, Caffeine, Panthenol, Tocopherol, Allantoin'
+    expect(detectTextureCremeEyeInci(inci, 'eye-cream', null)).toEqual([S.TEXTURE_CREME])
+  })
+
+  test('eye-cream + water top 2 + glyceryl stearate top 8 → texture-creme', () => {
+    const inci =
+      'Caprylic/Capric Triglyceride, Aqua, Glycerin, Glyceryl Stearate, Caffeine, Panthenol, Tocopherol, Squalane'
+    expect(detectTextureCremeEyeInci(inci, 'eye-cream', null)).toEqual([S.TEXTURE_CREME])
+  })
+
+  test('sparse INCI < 4 + cream name → fire', () => {
+    expect(
+      detectTextureCremeEyeInci('Aqua, Glycerin, Cetearyl Alcohol', 'eye-cream', null, 'Super Eye Cream')
+    ).toEqual([S.TEXTURE_CREME])
+  })
+
+  test('null/empty INCI + cream name → fire', () => {
+    expect(detectTextureCremeEyeInci(null, 'eye-cream', null, 'Crystal Retinal Eye Cream')).toEqual([S.TEXTURE_CREME])
+    expect(detectTextureCremeEyeInci('', 'eye-cream', null, 'Crème Contour des Yeux')).toEqual([S.TEXTURE_CREME])
+  })
+
+  // ── Skips ─────────────────────────────────────────────────────────────────
+
+  test('sparse INCI < 4, no name → abstain (unsafe to trust kind alone)', () => {
+    expect(
+      detectTextureCremeEyeInci('Aqua, Glycerin, Cetearyl Alcohol', 'eye-cream', null, null)
+    ).toEqual([])
+  })
+
+  test('null/empty INCI, no name → abstain', () => {
+    expect(detectTextureCremeEyeInci(null, 'eye-cream', null, null)).toEqual([])
+    expect(detectTextureCremeEyeInci('', 'eye-cream', null, null)).toEqual([])
+  })
+
+  test('moisturizer kind → not eligible (eye-cream only)', () => {
+    const inci =
+      'Aqua, Glycerin, Cetearyl Alcohol, Niacinamide, Caffeine, Panthenol, Tocopherol, Allantoin'
+    expect(detectTextureCremeEyeInci(inci, 'moisturizer', null)).toEqual([])
+  })
+
+  test('admin texture field set → skipped (admin wins)', () => {
+    const inci = 'Aqua, Glycerin, Cetearyl Alcohol, Niacinamide, Caffeine, Panthenol'
+    expect(detectTextureCremeEyeInci(inci, 'eye-cream', 'creme')).toEqual([])
+    expect(detectTextureCremeEyeInci(inci, 'eye-cream', 'gel')).toEqual([])
+  })
+
+  test('serum-yeux (no emulsifier top 8) → gate fails → skipped', () => {
+    const inci =
+      'Aqua, Glycerin, Sodium Hyaluronate, Niacinamide, Caffeine, Panthenol, Tocopherol, Arginine'
+    expect(detectTextureCremeEyeInci(inci, 'eye-cream', null)).toEqual([])
+  })
+
+  test('no water in top 3 (oil-led formula, water at pos 4) → gate fails → skipped', () => {
+    const inci =
+      'Squalane, Caprylic/Capric Triglyceride, Cetearyl Alcohol, Aqua, Glycerin, Caffeine, Panthenol, Allantoin'
+    expect(detectTextureCremeEyeInci(inci, 'eye-cream', null)).toEqual([])
+  })
+
+  test('gel-former top 5 → veto 3 → skipped (texture-gel wins)', () => {
+    const inci =
+      'Aqua, Glycerin, Carbomer, Cetearyl Alcohol, Niacinamide, Caffeine, Panthenol, Allantoin'
+    expect(detectTextureCremeEyeInci(inci, 'eye-cream', null)).toEqual([])
+  })
+
+  test('≥ 2 butters/waxes top 8 → veto 2 → skipped (texture-riche wins)', () => {
+    const inci =
+      'Aqua, Glycerin, Butyrospermum Parkii Butter, Cera Alba, Cetearyl Alcohol, Caffeine, Panthenol, Allantoin'
+    expect(detectTextureCremeEyeInci(inci, 'eye-cream', null)).toEqual([])
+  })
+
+  test('ionic surfactant top 5 → veto 1 → skipped', () => {
+    const inci =
+      'Aqua, Sodium Laureth Sulfate, Glycerin, Cetearyl Alcohol, Niacinamide, Caffeine'
+    expect(detectTextureCremeEyeInci(inci, 'eye-cream', null)).toEqual([])
+  })
+
+  // ── Name-based veto ───────────────────────────────────────────────────────
+
+  test('INCI gate passes but name says baume → conflict → abstain (admin fallback)', () => {
+    const inci =
+      'Aqua, Glycerin, Cetearyl Alcohol, Niacinamide, Caffeine, Panthenol, Tocopherol, Allantoin'
+    expect(detectTextureCremeEyeInci(inci, 'eye-cream', null, 'Baume Regard Immortelle Divine')).toEqual([])
+  })
+
+  test('INCI gate passes but name says balm → abstain', () => {
+    const inci =
+      'Aqua, Glycerin, Cetearyl Alcohol, Niacinamide, Caffeine, Panthenol, Tocopherol, Allantoin'
+    expect(detectTextureCremeEyeInci(inci, 'eye-cream', null, 'Palpebral Balm')).toEqual([])
+  })
+
+  test('INCI gate passes but name says gel → conflict → abstain', () => {
+    const inci =
+      'Aqua, Glycerin, Cetearyl Alcohol, Niacinamide, Caffeine, Panthenol, Tocopherol, Allantoin'
+    expect(detectTextureCremeEyeInci(inci, 'eye-cream', null, 'Gel Hydratant Contour des Yeux')).toEqual([])
+  })
+
+  test('name says serum → abstain regardless of INCI', () => {
+    const inci =
+      'Aqua, Glycerin, Cetearyl Alcohol, Niacinamide, Caffeine, Panthenol, Tocopherol, Allantoin'
+    expect(detectTextureCremeEyeInci(inci, 'eye-cream', null, 'Revive Eye Serum')).toEqual([])
+    expect(detectTextureCremeEyeInci(inci, 'eye-cream', null, 'Sérum Contour des Yeux')).toEqual([])
+  })
+
+  test('name says patch/hydrogel/ampoule → abstain', () => {
+    const inci =
+      'Aqua, Glycerin, Cetearyl Alcohol, Niacinamide, Caffeine, Panthenol, Tocopherol, Allantoin'
+    expect(detectTextureCremeEyeInci(inci, 'eye-cream', null, 'Collagen Eye Patch Jericho Rose Jelly')).toEqual([])
+    expect(detectTextureCremeEyeInci(inci, 'eye-cream', null, 'Hyal Reyouth Hydrogel Eye Mask')).toEqual([])
+    expect(detectTextureCremeEyeInci(inci, 'eye-cream', null, 'Bee Pollen Renew Eye Ampouler')).toEqual([])
+  })
+
+  test('name says cream, INCI gate passes → fire', () => {
+    const inci =
+      'Aqua, Glycerin, Cetearyl Alcohol, Niacinamide, Caffeine, Panthenol, Tocopherol, Allantoin'
+    expect(
+      detectTextureCremeEyeInci(inci, 'eye-cream', null, 'Advanced Snail Peptide Eye Cream')
+    ).toEqual([S.TEXTURE_CREME])
+  })
+
+  test('null name → no hint → INCI gate authoritative', () => {
+    // Normal INCI with emulsifier fires; no name conflict possible.
+    const inci =
+      'Aqua, Glycerin, Cetearyl Alcohol, Niacinamide, Caffeine, Panthenol, Tocopherol, Allantoin'
+    expect(detectTextureCremeEyeInci(inci, 'eye-cream', null, null)).toEqual([S.TEXTURE_CREME])
+  })
+})
+
+// ─── Eye-cream texture-baume from name ────────────────────────────────────────
+describe('detectTextureBaumeFromName', () => {
+  test('eye-cream + "Baume" in name → texture-baume', () => {
+    expect(detectTextureBaumeFromName('eye-cream', null, 'Baume Regard Immortelle Divine')).toEqual([S.TEXTURE_BAUME])
+  })
+
+  test('eye-cream + "Palpebral Baume" → texture-baume', () => {
+    expect(detectTextureBaumeFromName('eye-cream', null, 'SVR Palpebral Baume')).toEqual([S.TEXTURE_BAUME])
+  })
+
+  test('eye-cream + "balm" (EN) in name → texture-baume', () => {
+    expect(detectTextureBaumeFromName('eye-cream', null, 'Palpebral Balm Soothing')).toEqual([S.TEXTURE_BAUME])
+  })
+
+  test('admin texture set → skipped (field wins)', () => {
+    expect(detectTextureBaumeFromName('eye-cream', 'baume', 'Baume Regard')).toEqual([])
+    expect(detectTextureBaumeFromName('eye-cream', 'creme', 'Baume Regard')).toEqual([])
+  })
+
+  test('non-eye-cream kind → not eligible (balm kind already covered by kind-tags)', () => {
+    expect(detectTextureBaumeFromName('moisturizer', null, 'Baume Hydratant')).toEqual([])
+    expect(detectTextureBaumeFromName('balm', null, 'Baume Corps')).toEqual([])
+  })
+
+  test('eye-cream without baume/balm in name → no tag', () => {
+    expect(detectTextureBaumeFromName('eye-cream', null, 'Crystal Retinal Eye Cream')).toEqual([])
+    expect(detectTextureBaumeFromName('eye-cream', null, null)).toEqual([])
+  })
+
+  // Corpus fixtures (from spot-check)
+  test('L\'Occitane Baume Regard → texture-baume', () => {
+    expect(detectTextureBaumeFromName('eye-cream', null, 'Baume Regard Immortelle Divine')).toEqual([S.TEXTURE_BAUME])
+  })
+
+  test('SVR Palpebral Baume → texture-baume', () => {
+    expect(detectTextureBaumeFromName('eye-cream', null, 'Palpebral Baume')).toEqual([S.TEXTURE_BAUME])
+  })
+})
+
+// ─── Eye-cream texture-creme / texture-legere separation ──────────────────────
+describe('mutex invariants — eye-cream texture-creme vs texture-legere', () => {
+  test('eye-cream serum-style (no emulsifier) → texture-legere fires, texture-creme does not', () => {
+    const inci =
+      'Aqua, Glycerin, Sodium Hyaluronate, Niacinamide, Caffeine, Panthenol, Tocopherol, Arginine'
+    expect(detectTextureCremeEyeInci(inci, 'eye-cream', null)).toEqual([])
+    expect(detectTextureLegere(inci, 'eye-cream')).toContain(S.TEXTURE_LEGERE)
+  })
+
+  test('eye-cream cream-style (emulsifier) → texture-creme fires, texture-legere does not (emulsifier excluded from heavy patterns but typical cream formula avoids co-fire via oily phase)', () => {
+    // Cream with vegetable oil → texture-legere excluded via HEAVY_EXCLUSION_PATTERNS
+    const inci =
+      'Aqua, Glycerin, Helianthus Annuus Seed Oil, Cetearyl Alcohol, Niacinamide, Caffeine, Panthenol, Tocopherol'
+    expect(detectTextureCremeEyeInci(inci, 'eye-cream', null)).toContain(S.TEXTURE_CREME)
+    expect(detectTextureLegere(inci, 'eye-cream')).toEqual([])
+  })
+})
+
+// ─── F2 mutex — texture-creme / texture-legere on oil-driven emulsion ──────
+describe('mutex invariants — texture-creme vs texture-legere (F2)', () => {
+  test('moisturizer with sunflower oil emulsion → only texture-creme, not legere', () => {
+    const inci =
+      'Aqua, Glycerin, Helianthus Annuus Seed Oil, Cetearyl Alcohol, Glyceryl Stearate, Panthenol, Tocopherol, Niacinamide'
+    const creme = detectTextureCremeInci(inci, 'moisturizer', null)
+    const legere = detectTextureLegere(inci, 'moisturizer')
+    expect(creme.length > 0 && legere.length > 0).toBe(false)
+    expect(creme).toEqual([S.TEXTURE_CREME])
+  })
+
+  test('serum with sunflower oil top 5 → texture-legere also abstains (vegetable oil exclusion)', () => {
+    const inci = 'Aqua, Glycerin, Helianthus Annuus Seed Oil, Niacinamide, Tocopherol'
+    expect(detectTextureLegere(inci, 'serum')).toEqual([])
   })
 })

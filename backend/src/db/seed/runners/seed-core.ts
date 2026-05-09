@@ -268,12 +268,14 @@ export async function seedCore(shouldClean = false) {
     const avoidPairs: { slug: string; tagSlug: string; relevance: 'avoid' }[] = []
     for (const product of allProductData) {
       const inci = (product as { inci?: string | null }).inci
+      const name = (product as { name?: string | null }).name
       const pairs = detectAllAutoTags(
         {
           inci,
           kind: product.kind as ProductKind,
           category: product.category,
           brand: product.brand,
+          name,
         },
         { brandCertifications: brandCertMap }
       )

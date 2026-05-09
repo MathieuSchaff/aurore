@@ -40,6 +40,9 @@ import {
   detectSemiOcclusif,
   detectSolaireTags,
   detectStepNettoyage1,
+  detectTextureBaumeFromName,
+  detectTextureCremeEyeInci,
+  detectTextureCremeInci,
   detectTextureFromField,
   detectTextureGelInci,
   detectTextureLegere,
@@ -87,6 +90,9 @@ export interface OrchestratorInput {
   // Today populated by the T3 backfill on a subset of kinds (huile/baume/
   // patch/lait/creme/eau); gel/mousse/stick await admin curation.
   texture?: ProductTexture | null
+  // Product name — used by `detectTextureCremeEyeInci` for name-based
+  // cross-check (patch/serum/baume abstain; sparse-INCI cream fallback).
+  name?: string | null
 }
 
 export interface OrchestratorOptions {
@@ -184,6 +190,9 @@ export function detectAllAutoTags(
     ...detectVegan(inci, normalizedIngredients),
     ...detectTextureFromField(product.texture),
     ...detectTextureGelInci(inci, kind, product.texture, normalizedIngredients),
+    ...detectTextureCremeInci(inci, kind, product.texture, normalizedIngredients),
+    ...detectTextureBaumeFromName(kind, product.texture, product.name),
+    ...detectTextureCremeEyeInci(inci, kind, product.texture, product.name, normalizedIngredients),
   ]
   for (const s of formulaSlugs) propose(s, 'secondary', 'formula')
 
