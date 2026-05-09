@@ -1,10 +1,14 @@
 import { describe, expect, test } from 'bun:test'
 
 import { SKINCARE_PRODUCT_TAG_SLUGS } from '@habit-tracker/shared'
+import { analyzeINCI } from 'algo-derm'
 
+import { mapKindToContext } from '../../../features/dermo-score/profile-mapping'
 import {
   detectCrossSignalAvoidTags,
   detectCrossSignalTags,
+  detectInteractionAvoidTags,
+  detectInteractionSecondaryTags,
 } from '../utils/cross-signal-detection'
 
 const S = SKINCARE_PRODUCT_TAG_SLUGS
@@ -156,5 +160,67 @@ describe('detectCrossSignalAvoidTags — X1 stack irritation', () => {
 
   test('retinoids + PHA (gentle exfoliant) → no avoid', () => {
     expect(detectCrossSignalAvoidTags([S.RETINOIDS, S.PHA], 'serum')).toEqual([])
+  })
+})
+
+describe('detectInteractionAvoidTags — X3 axis mapping', () => {
+  const assess = (inci: string, kind: 'serum' | 'cleanser' | 'moisturizer') =>
+    analyzeINCI(inci, { context: mapKindToContext(kind) })
+
+  test('alcohol + parfum leave-on (irritation+allergenicity+dryness) → peau-sensible AND peau-seche', () => {
+    const a = assess('Aqua, Alcohol Denat, Parfum, Glycerin', 'serum')
+    const tags = detectInteractionAvoidTags(a, 'serum')
+    expect(tags).toContain(S.PEAU_SENSIBLE)
+    expect(tags).toContain(S.PEAU_SECHE)
+  })
+
+  test('acid+alcohol leave-on (irritation+dryness, no allergenicity) → peau-sensible + peau-seche', () => {
+    const a = assess('Aqua, Alcohol Denat, Glycolic Acid, Glycerin', 'serum')
+    const tags = detectInteractionAvoidTags(a, 'serum')
+    expect(tags).toContain(S.PEAU_SENSIBLE)
+    expect(tags).toContain(S.PEAU_SECHE)
+  })
+
+  test('isothiazolinone leave-on (allergenicity+irritation, no dryness) → peau-sensible only', () => {
+    const a = assess('Aqua, Methylisothiazolinone, Glycerin', 'moisturizer')
+    const tags = detectInteractionAvoidTags(a, 'moisturizer')
+    expect(tags).toContain(S.PEAU_SENSIBLE)
+    expect(tags).not.toContain(S.PEAU_SECHE)
+  })
+
+  test('mitigation niacinamide+glycerin (negative adj) → no avoid', () => {
+    const a = assess('Aqua, Glycerin, Niacinamide', 'serum')
+    expect(detectInteractionAvoidTags(a, 'serum')).toEqual([])
+  })
+
+  test('rinse-off cleanser → skipped regardless of interactions', () => {
+    const a = assess('Aqua, Alcohol Denat, Parfum, Glycerin', 'cleanser')
+    expect(detectInteractionAvoidTags(a, 'cleanser')).toEqual([])
+  })
+})
+
+describe('detectInteractionSecondaryTags — X3 photosensitivity → moment-soir', () => {
+  const assess = (inci: string, kind: 'serum' | 'cleanser') =>
+    analyzeINCI(inci, { context: mapKindToContext(kind) })
+
+  test('lavender + lemon peel oil leave-on → moment-soir', () => {
+    const a = assess(
+      'Aqua, Lavandula Angustifolia Oil, Citrus Limon Peel Oil, Glycerin',
+      'serum'
+    )
+    expect(detectInteractionSecondaryTags(a, 'serum')).toContain(S.MOMENT_SOIR)
+  })
+
+  test('same INCI rinse-off cleanser → no moment-soir (rinse-off gating)', () => {
+    const a = assess(
+      'Aqua, Lavandula Angustifolia Oil, Citrus Limon Peel Oil, Glycerin',
+      'cleanser'
+    )
+    expect(detectInteractionSecondaryTags(a, 'cleanser')).toEqual([])
+  })
+
+  test('alcohol + parfum (no photosensitivity axis) → no moment-soir from interactions', () => {
+    const a = assess('Aqua, Alcohol Denat, Parfum, Glycerin', 'serum')
+    expect(detectInteractionSecondaryTags(a, 'serum')).toEqual([])
   })
 })

@@ -20,6 +20,8 @@ import {
   detectSemiOcclusif,
   detectSolaireTags,
   detectStepNettoyage1,
+  detectTextureFromField,
+  detectTextureGelInci,
   detectTextureLegere,
   detectTextureRiche,
   detectVegan,
@@ -1196,5 +1198,90 @@ describe('mutex invariants — sensoriel slugs cannot co-fire', () => {
     const glowy = detectFiniGlowy(inci)
     const riche = detectTextureRiche(inci)
     expect(glowy.length > 0 && riche.length > 0).toBe(false)
+  })
+})
+
+describe('detectTextureFromField (S5 — products.texture pass-through)', () => {
+  test('null/undefined → no tag', () => {
+    expect(detectTextureFromField(null)).toEqual([])
+    expect(detectTextureFromField(undefined)).toEqual([])
+  })
+
+  test('gel → texture-gel', () => {
+    expect(detectTextureFromField('gel')).toEqual([S.TEXTURE_GEL])
+  })
+
+  test('mousse → texture-mousse', () => {
+    expect(detectTextureFromField('mousse')).toEqual([S.TEXTURE_MOUSSE])
+  })
+
+  test('stick → texture-stick', () => {
+    expect(detectTextureFromField('stick')).toEqual([S.TEXTURE_STICK])
+  })
+
+  test('creme/huile/lait/eau/baume/patch → matching slug (admin override)', () => {
+    expect(detectTextureFromField('creme')).toEqual([S.TEXTURE_CREME])
+    expect(detectTextureFromField('huile')).toEqual([S.TEXTURE_HUILE])
+    expect(detectTextureFromField('lait')).toEqual([S.TEXTURE_LAIT])
+    expect(detectTextureFromField('eau')).toEqual([S.TEXTURE_EAU])
+    expect(detectTextureFromField('baume')).toEqual([S.TEXTURE_BAUME])
+    expect(detectTextureFromField('patch')).toEqual([S.TEXTURE_PATCH])
+  })
+})
+
+describe('detectTextureGelInci (S5 INCI fallback)', () => {
+  test('carbomer top 5 + aqueous serum → texture-gel', () => {
+    const inci = 'Aqua, Glycerin, Carbomer, Niacinamide, Sodium Hyaluronate'
+    expect(detectTextureGelInci(inci, 'serum', null)).toEqual([S.TEXTURE_GEL])
+  })
+
+  test('xanthan gum top 5 + moisturizer → texture-gel', () => {
+    const inci = 'Aqua, Glycerin, Xanthan Gum, Panthenol, Allantoin'
+    expect(detectTextureGelInci(inci, 'moisturizer', null)).toEqual([S.TEXTURE_GEL])
+  })
+
+  test('hydroxyethyl cellulose top 5 → texture-gel', () => {
+    const inci = 'Aqua, Glycerin, Hydroxyethyl Cellulose, Niacinamide'
+    expect(detectTextureGelInci(inci, 'serum', null)).toEqual([S.TEXTURE_GEL])
+  })
+
+  test('field set (any value) → fallback skipped (admin wins)', () => {
+    const inci = 'Aqua, Carbomer, Glycerin'
+    expect(detectTextureGelInci(inci, 'serum', 'creme')).toEqual([])
+    expect(detectTextureGelInci(inci, 'serum', 'gel')).toEqual([])
+  })
+
+  test('rinse-off cleanser → skipped (gel-cleanser is rinsed)', () => {
+    const inci = 'Aqua, Carbomer, Sodium Lauroyl Sarcosinate'
+    expect(detectTextureGelInci(inci, 'cleanser', null)).toEqual([])
+  })
+
+  test('balm → skipped (chemistry contradicts gel)', () => {
+    const inci = 'Aqua, Carbomer, Glycerin'
+    expect(detectTextureGelInci(inci, 'balm', null)).toEqual([])
+  })
+
+  test('vegetable oil top 5 → skipped (not aqueous)', () => {
+    const inci = 'Aqua, Glycerin, Carbomer, Argania Spinosa Kernel Oil, Tocopherol'
+    expect(detectTextureGelInci(inci, 'serum', null)).toEqual([])
+  })
+
+  test('shea butter top 8 → skipped (rich emulsion)', () => {
+    const inci = 'Aqua, Carbomer, Glycerin, Niacinamide, Panthenol, Butyrospermum Parkii Butter, Tocopherol'
+    expect(detectTextureGelInci(inci, 'moisturizer', null)).toEqual([])
+  })
+
+  test('silicone-led gel-cream → skipped (covered by non-gras/semi-occlusif)', () => {
+    const inci = 'Aqua, Carbomer, Dimethicone, Glycerin, Niacinamide'
+    expect(detectTextureGelInci(inci, 'serum', null)).toEqual([])
+  })
+
+  test('no gel-former in top 5 → no tag', () => {
+    const inci = 'Aqua, Glycerin, Niacinamide, Panthenol, Tocopherol, Carbomer'
+    expect(detectTextureGelInci(inci, 'serum', null)).toEqual([])
+  })
+
+  test('null INCI → no tag', () => {
+    expect(detectTextureGelInci(null, 'serum', null)).toEqual([])
   })
 })

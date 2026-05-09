@@ -15,7 +15,7 @@
 // metadata (used by backfill stats) — same tag from multiple sources keeps
 // the first one seen at the highest relevance level.
 
-import type { ProductKind, SkincareProductTagSlug } from '@habit-tracker/shared'
+import type { ProductKind, ProductTexture, SkincareProductTagSlug } from '@habit-tracker/shared'
 
 import { analyzeINCI, normalize, type ProductAssessment, splitINCI } from 'algo-derm'
 
@@ -23,7 +23,8 @@ import { mapKindToContext } from '../../../features/dermo-score/profile-mapping'
 import { detectActifClasses } from './actif-class-detection'
 import { computeAvoidCandidates } from './auto-tag-avoid'
 import { detectAutoTags } from './auto-tag-detection'
-import { detectCrossSignalTags } from './cross-signal-detection'
+import { type BrandCertificationLookup, detectBrandLevelLabels } from './brand-cert-detection'
+import { detectCrossSignalTags, detectInteractionSecondaryTags } from './cross-signal-detection'
 import {
   detectCernesPoches,
   detectEczemaAtopie,
@@ -33,14 +34,16 @@ import {
   detectKeratosePilaire,
   detectNonGrasAbsorption,
   detectOcclusifTags,
-  detectSemiOcclusif,
   detectPeauNormale,
   detectPigmentsVerts,
   detectPrebiotique,
   detectReparationCutanee,
   detectRepulpant,
+  detectSemiOcclusif,
   detectSolaireTags,
   detectStepNettoyage1,
+  detectTextureFromField,
+  detectTextureGelInci,
   detectTextureLegere,
   detectTextureRiche,
   detectVegan,
@@ -62,6 +65,7 @@ export type AutoTagSource =
   | 'cross-signal'
   | 'grossesse-avoid'
   | 'interaction'
+  | 'brand'
 
 export type AutoTagRelevance = 'secondary' | 'avoid'
 
@@ -75,6 +79,16 @@ export interface OrchestratorInput {
   inci: string | null | undefined
   kind: ProductKind
   category: string
+  // Free-text brand from `products.brand`. Brand-level detector lower-cases
+  // and normalizes whitespace before the lookup. Optional so callers that
+  // don't have a brand handy (synthetic test fixtures) can omit it.
+  brand?: string | null
+  // Physical texture (`products.texture`) — orthogonal to `kind`. When the
+  // admin sets this, S5 emits `texture-gel`/`texture-mousse`/`texture-stick`
+  // directly. When NULL/undefined, the INCI fallback (gel only) takes over.
+  // Today populated by the T3 backfill on a subset of kinds (huile/baume/
+  // patch/lait/creme/eau); gel/mousse/stick await admin curation.
+  texture?: ProductTexture | null
 }
 
 export interface OrchestratorOptions {
@@ -82,6 +96,10 @@ export interface OrchestratorOptions {
   confOverride?: number
   includeDropped?: boolean
   coverageMinOverride?: number
+  // Pre-loaded brand certifications keyed by normalized brand. Caller (seed
+  // runner / backfill runner) fetches once and passes it in; the orchestrator
+  // never queries DB directly. Undefined → brand pass no-ops.
+  brandCertifications?: BrandCertificationLookup
 }
 
 const RELEVANCE_RANK: Record<AutoTagRelevance, number> = { avoid: 1, secondary: 0 }
@@ -105,9 +123,7 @@ export function detectAllAutoTags(
   // hoist avoids `splitINCI(inci).map(normalize)` × N detectors.
   const hasInci = !!inci?.trim()
   const ingredients = hasInci ? splitINCI(inci ?? '') : []
-  const normalizedIngredients: readonly string[] = hasInci
-    ? ingredients.map(normalize)
-    : []
+  const normalizedIngredients: readonly string[] = hasInci ? ingredients.map(normalize) : []
   const assessment: ProductAssessment | undefined = hasInci
     ? analyzeINCI(inci ?? '', { context: mapKindToContext(kind) })
     : undefined
@@ -148,6 +164,9 @@ export function detectAllAutoTags(
   for (const s of detectKindTags(kind)) propose(s, 'secondary', 'kind')
 
   // Pass 4 — specialized formula detectors (occlusif, solaire, sensoriel, ...).
+  // S5: `detectTextureFromField` is authoritative when `products.texture` is
+  // set (admin-curated); `detectTextureGelInci` is the precision-focused INCI
+  // fallback for `texture-gel` only when the field is null.
   const formulaSlugs = [
     ...detectOcclusifTags(inci, normalizedIngredients),
     ...detectSemiOcclusif(inci, kind, normalizedIngredients),
@@ -167,12 +186,29 @@ export function detectAllAutoTags(
     ...detectNonGrasAbsorption(inci, kind, normalizedIngredients),
     ...detectPigmentsVerts(inci, normalizedIngredients),
     ...detectVegan(inci, normalizedIngredients),
+    ...detectTextureFromField(product.texture),
+    ...detectTextureGelInci(inci, kind, product.texture, normalizedIngredients),
   ]
   for (const s of formulaSlugs) propose(s, 'secondary', 'formula')
 
   // Pass 5 — cross-signal secondary (combine actif × kind × INCI).
   for (const s of detectCrossSignalTags(actifSlugs, kind, inci, normalizedIngredients)) {
     propose(s, 'secondary', 'cross-signal')
+  }
+
+  // Pass 5a — interaction-driven secondary (X3): photosensitivity from
+  // algo-derm interactions (e.g. multi-HE stacks not covered by AHA/BHA
+  // cross-signal). Source 'interaction' so backfill stats attribute it.
+  if (assessment) {
+    for (const s of detectInteractionSecondaryTags(assessment, kind)) {
+      propose(s, 'secondary', 'interaction')
+    }
+  }
+
+  // Pass 5b — brand-level labels (vegan / cruelty-free / bio-naturel). Pure
+  // lookup against the injected map; absent map = no-op.
+  for (const s of detectBrandLevelLabels(product.brand, options.brandCertifications)) {
+    propose(s, 'secondary', 'brand')
   }
 
   // Pass 6 — avoid (grossesse + cross-signal-avoid + interaction). Re-uses

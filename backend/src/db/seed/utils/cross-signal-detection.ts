@@ -156,22 +156,57 @@ export function detectCrossSignalAvoidTags(
 
 // Interaction-driven avoid — algo-derm `assessment.interactions` exposes
 // the firable subset of `interaction_rules.json` (no profile/pH gating
-// at seed-time). Cumulative irritation/allergenicity stacks contraindicate
-// `peau-sensible`. Mitigations (negative adjustment) are skipped — they
+// at seed-time). Mitigations (negative adjustment) are skipped — they
 // signal protection, not risk. Leave-on only: rinse-off products dilute
 // the cumul effect below the clinical threshold (Lodén 2003 on cumulative
 // surfactant exposure; same rationale as `comedogene` excludeRinseOff).
+//
+// Axis → avoid tag mapping (X3):
+//   - irritation OR allergenicity → `peau-sensible` (cumul barrier insult)
+//   - dryness                     → `peau-seche`    (alcohol+acid stacks
+//     amplify TEWL, contraindicated for already-dry skin types)
+// `comedogenicity` and `fungalAcne` only fire under `acneProne` profile
+// gating (no seed-time emission). `photosensitivity` → moment-soir
+// (secondary, not avoid) — see `detectInteractionSecondaryTags` below.
 export function detectInteractionAvoidTags(
   assessment: ProductAssessment,
   kind: ProductKind
 ): SkincareProductTagSlug[] {
   if (!LEAVE_ON_KINDS.has(kind)) return []
 
+  const tags = new Set<SkincareProductTagSlug>()
   for (const interaction of assessment.interactions) {
     if (interaction.adjustment <= 0) continue
     if (interaction.axes.includes('irritation') || interaction.axes.includes('allergenicity')) {
-      return [S.PEAU_SENSIBLE]
+      tags.add(S.PEAU_SENSIBLE)
+    }
+    if (interaction.axes.includes('dryness')) {
+      tags.add(S.PEAU_SECHE)
     }
   }
-  return []
+  return [...tags]
+}
+
+// Interaction-driven secondary tags — same contract as the avoid version
+// (skip mitigations, leave-on gating) but emits non-avoid signals. Today:
+//   - photosensitivity → `moment-soir` (e.g. citrus + lavender essential
+//     oil combo: bergaptène-class furocoumarins amplify UV reactivity).
+// Stays distinct from `detectInteractionAvoidTags` because the orchestrator
+// emits this at relevance=secondary (the cross-signal pass already emits
+// moment-soir for AHA/BHA/retinoids; this extends coverage to multi-HE
+// stacks that don't trigger any actif-class).
+export function detectInteractionSecondaryTags(
+  assessment: ProductAssessment,
+  kind: ProductKind
+): SkincareProductTagSlug[] {
+  if (!LEAVE_ON_KINDS.has(kind)) return []
+
+  const tags = new Set<SkincareProductTagSlug>()
+  for (const interaction of assessment.interactions) {
+    if (interaction.adjustment <= 0) continue
+    if (interaction.axes.includes('photosensitivity')) {
+      tags.add(S.MOMENT_SOIR)
+    }
+  }
+  return [...tags]
 }

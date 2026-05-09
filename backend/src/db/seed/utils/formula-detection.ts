@@ -52,7 +52,7 @@
 //   detectVegan               — `vegan` from absence of animal-derived INCI patterns
 //                               (precision-first: ≥ 5 ingredients to claim).
 
-import type { ProductKind } from '@habit-tracker/shared'
+import type { ProductKind, ProductTexture } from '@habit-tracker/shared'
 import { SKINCARE_PRODUCT_TAG_SLUGS, type SkincareProductTagSlug } from '@habit-tracker/shared'
 
 import { resolveIngredients } from './ingredient-resolver'
@@ -1219,6 +1219,105 @@ export function detectVegan(
   }
 
   return [S.VEGAN]
+}
+
+// ─── Texture from `products.texture` field (S5 — direct mapping) ─────────────
+// Pure pass-through. When the admin populated the `texture` column, emit the
+// matching TEXTURE_* slug. Orthogonal to `kind` — a `cleanser` can be `gel`
+// or `mousse` or `huile`; only the field knows. Authoritative over any INCI
+// fallback (admin-curated wins).
+
+const TEXTURE_FIELD_TO_SLUG: Record<ProductTexture, SkincareProductTagSlug> = {
+  gel: S.TEXTURE_GEL,
+  creme: S.TEXTURE_CREME,
+  mousse: S.TEXTURE_MOUSSE,
+  stick: S.TEXTURE_STICK,
+  huile: S.TEXTURE_HUILE,
+  lait: S.TEXTURE_LAIT,
+  eau: S.TEXTURE_EAU,
+  baume: S.TEXTURE_BAUME,
+  patch: S.TEXTURE_PATCH,
+}
+
+export function detectTextureFromField(
+  texture: ProductTexture | null | undefined
+): SkincareProductTagSlug[] {
+  if (!texture) return []
+  const slug = TEXTURE_FIELD_TO_SLUG[texture]
+  return slug ? [slug] : []
+}
+
+// ─── Texture-gel INCI fallback (S5) ──────────────────────────────────────────
+// Heuristic for products without an admin-curated `texture` field: an aqueous
+// gel-former in top 5 + 0 oily/heavy/silicone-base markers. Precision-focused
+// — easier to miss a gel than to mislabel a cream as gel. Skipped when the
+// field is set (any value) — admin curation is the source of truth.
+//
+// `mousse` and `stick` have no INCI fallback: foaming surfactants don't
+// distinguish a foam-pump mousse from a liquid cleanser, and stick chemistry
+// (wax-heavy) overlaps with `baume` without a reliable INCI marker.
+
+const GEL_FORMER_PATTERNS = [
+  'carbomer',
+  'xanthan',
+  'sodium polyacrylate',
+  'hydroxyethylcellulose',
+  'hydroxyethyl cellulose',
+  'sclerotium gum',
+  // Pemulen — also positions as gel-cream stabiliser, but in top 5 the gel
+  // texture dominates (used at 0.2-0.5 % only when its rheology is the point).
+  'acrylates/c10-30 alkyl acrylate crosspolymer',
+  'ammonium acryloyldimethyltaurate',
+]
+
+// Skip rinse-off and inherently non-gel kinds. A "gel cleanser" is marketing
+// for the package, not the leave-on sensation we tag — the texture is rinsed
+// before any sensoriel signal lands. Balm and oil contradict gel by chemistry.
+const TEXTURE_GEL_INCI_SKIP_KINDS = new Set<ProductKind>([
+  'cleanser',
+  'body-wash',
+  'body-scrub',
+  'balm',
+  'oil',
+  'body-oil',
+  'hair-oil',
+  'patch',
+])
+
+const TEXTURE_GEL_POSITION_CAP = 5
+
+export function detectTextureGelInci(
+  inci: string | null | undefined,
+  kind: ProductKind,
+  texture: ProductTexture | null | undefined,
+  hoistedIngredients?: readonly string[]
+): SkincareProductTagSlug[] {
+  if (texture) return []
+  if (TEXTURE_GEL_INCI_SKIP_KINDS.has(kind)) return []
+  const ingredients = resolveIngredients(inci, hoistedIngredients)
+  if (ingredients.length === 0) return []
+
+  const top5 = ingredients.slice(0, Math.min(ingredients.length, TEXTURE_GEL_POSITION_CAP))
+  const hasGelFormer = top5.some((ing) => GEL_FORMER_PATTERNS.some((p) => ing.includes(p)))
+  if (!hasGelFormer) return []
+
+  // Aqueous-only: any vegetable / mineral oil in top 5 disqualifies.
+  for (const ing of top5) {
+    if (VEGETABLE_OIL_PATTERNS.some((p) => ing.includes(p))) return []
+  }
+
+  // No rich emulsion: butter/wax in top 8 disqualifies.
+  const cap8 = Math.min(ingredients.length, 8)
+  for (let i = 0; i < cap8; i++) {
+    if (BUTTER_WAX_PATTERNS.some((p) => ingredients[i].includes(p))) return []
+  }
+
+  // No silicone-led "gel-cream" hybrid (covered by `non-gras`/`semi-occlusif`).
+  for (const ing of top5) {
+    if (SILICONE_LIGHT_PATTERNS.some((p) => ing.includes(p))) return []
+  }
+
+  return [S.TEXTURE_GEL]
 }
 
 // ─── Peau-normale (heuristic, used by orchestrator post-pass) ────────────────

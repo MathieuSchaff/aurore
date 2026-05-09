@@ -25,12 +25,12 @@
 //   INCLUDE_DROPPED 1      — surface allow:false tags in report (no writes)
 //   LIMIT           int    — cap product count
 
-import type { ProductKind } from '@habit-tracker/shared'
+import type { ProductKind, ProductTexture } from '@habit-tracker/shared'
 
 import { inArray, sql } from 'drizzle-orm'
 
 import { db } from '../..'
-import { products, productTagsDefs, tagProducts } from '../../schema'
+import { brandCertifications, products, productTagsDefs, tagProducts } from '../../schema'
 import { TAG_CONFIG } from '../utils/auto-tag-detection'
 import {
   AUTO_TAG_ELIGIBLE_CATEGORIES,
@@ -72,12 +72,20 @@ async function main() {
       id: products.id,
       slug: products.slug,
       name: products.name,
+      brand: products.brand,
       kind: products.kind,
       inci: products.inci,
       category: products.category,
+      texture: products.texture,
     })
     .from(products)
     .where(inArray(products.category, [...AUTO_TAG_ELIGIBLE_CATEGORIES]))
+
+  // Brand certifications: pre-load once, then pass as immutable Map to the
+  // orchestrator. Map key = `lower(trim(brand))` produced via `normalizeBrand`
+  // — same convention as the seed (`brandNormalized` PK).
+  const certRows = await db.select().from(brandCertifications)
+  const brandCertMap = new Map(certRows.map((r) => [r.brandNormalized, r]))
 
   const subset = SLUG_ARG
     ? allProducts.filter((p) => p.slug === SLUG_ARG)
@@ -129,10 +137,17 @@ async function main() {
     if (!p.inci?.trim()) noInci++
 
     const pairs = detectAllAutoTags(
-      { inci: p.inci, kind: p.kind as ProductKind, category: p.category },
+      {
+        inci: p.inci,
+        kind: p.kind as ProductKind,
+        category: p.category,
+        brand: p.brand,
+        texture: p.texture as ProductTexture | null,
+      },
       {
         ...(CONF_OVERRIDE !== null ? { confOverride: CONF_OVERRIDE } : {}),
         includeDropped: INCLUDE_DROPPED,
+        brandCertifications: brandCertMap,
       }
     )
 
@@ -173,7 +188,7 @@ async function main() {
 
   // ── Report ────────────────────────────────────────────────────────────────────
 
-  const sourceCountInsert = {
+  const sourceCountInsert: Record<AutoTagSource, number> = {
     'algo-derm': 0,
     'actif-class': 0,
     kind: 0,
@@ -181,6 +196,7 @@ async function main() {
     'cross-signal': 0,
     'grossesse-avoid': 0,
     interaction: 0,
+    brand: 0,
   }
   for (const c of toInsert) sourceCountInsert[c.source]++
   const avoidCorrections = toUpsert.length
@@ -194,6 +210,7 @@ async function main() {
   console.log(`   ├ kind           : ${sourceCountInsert['kind']}`)
   console.log(`   ├ formula        : ${sourceCountInsert['formula']}`)
   console.log(`   ├ cross-signal   : ${sourceCountInsert['cross-signal']}`)
+  console.log(`   ├ brand          : ${sourceCountInsert['brand']}`)
   console.log(`   ├ grossesse-avoid: ${sourceCountInsert['grossesse-avoid']}`)
   console.log(`   └ interaction    : ${sourceCountInsert['interaction']}`)
   if (avoidCorrections > 0) {

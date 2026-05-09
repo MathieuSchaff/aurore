@@ -272,6 +272,21 @@ describe('computeAvoidCandidates — interaction stack avoid', () => {
     expect(got.find((c) => c.source === 'interaction')).toBeUndefined()
   })
 
+  test('alcohol + parfum leave-on → peau-seche avoid (dryness axis, X3)', () => {
+    const inci = 'Aqua, Alcohol Denat, Parfum, Glycerin'
+    const got = computeAvoidCandidates(
+      inci,
+      'serum',
+      'skincare',
+      undefined,
+      assess(inci, 'serum')
+    )
+    expect(got).toContainEqual({
+      tagSlug: S.PEAU_SECHE,
+      source: 'interaction',
+    })
+  })
+
   test('retinoid+AHA + alcohol+parfum → peau-sensible single emission (cross-signal first)', () => {
     const inci = 'Aqua, Retinol, Glycolic Acid, Alcohol Denat, Parfum'
     const got = computeAvoidCandidates(

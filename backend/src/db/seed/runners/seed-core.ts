@@ -9,6 +9,7 @@ import { createProduct } from '../../../features/products/service'
 import { addTagToIngredient, addTagToProduct } from '../../../features/tags/tags.service'
 import { db } from '../..'
 import {
+  brandCertifications,
   ingredientDermoProfiles,
   ingredients,
   ingredientTagsDefs,
@@ -18,6 +19,7 @@ import {
   tagIngredients,
   tagProducts,
 } from '../../schema'
+import { BRAND_CERTIFICATION_INSERTS } from '../data/brand-certifications'
 import { ingredientTagMap } from '../data/ingredient-tags'
 import { ingredientData } from '../data/ingredients'
 import { FILLER_SLUGS } from '../data/ingredients/skincare/seed-dermo-profiles-fillers'
@@ -226,12 +228,34 @@ export async function seedCore(shouldClean = false) {
     // with `runners/backfill-auto-tags.ts` — `make dev-fresh` followed by
     // `make backfill-auto-tags` is a no-op on auto-tag pairs (parity test
     // `auto-tag-orchestrator-parity` enforces this contract).
+    // Brand certifications are inserted later in this same transaction, but
+    // the auto-tag pass runs in-memory (no DB read). Build the lookup
+    // straight from the curated list. The Insert shape has booleans
+    // optional (DB defaults) — coerce to Select shape so the orchestrator's
+    // ReadonlyMap<string, BrandCertification> type matches.
+    const brandCertMap = new Map(
+      BRAND_CERTIFICATION_INSERTS.map((r) => [
+        r.brandNormalized,
+        {
+          brandNormalized: r.brandNormalized,
+          brandDisplay: r.brandDisplay,
+          isVegan: r.isVegan ?? false,
+          isCrueltyFree: r.isCrueltyFree ?? false,
+          isNaturalCertified: r.isNaturalCertified ?? false,
+          sources: r.sources ?? {},
+          notes: r.notes ?? null,
+          updatedAt: new Date().toISOString(),
+        },
+      ])
+    )
+
     const secondaryBySource: Record<string, number> = {
       'algo-derm': 0,
       'actif-class': 0,
       kind: 0,
       formula: 0,
       'cross-signal': 0,
+      brand: 0,
     }
     // `'cross-signal'` source overlaps between secondary and avoid streams —
     // disambiguate by AutoTagPair.relevance.
@@ -244,11 +268,15 @@ export async function seedCore(shouldClean = false) {
     const avoidPairs: { slug: string; tagSlug: string; relevance: 'avoid' }[] = []
     for (const product of allProductData) {
       const inci = (product as { inci?: string | null }).inci
-      const pairs = detectAllAutoTags({
-        inci,
-        kind: product.kind as ProductKind,
-        category: product.category,
-      })
+      const pairs = detectAllAutoTags(
+        {
+          inci,
+          kind: product.kind as ProductKind,
+          category: product.category,
+          brand: product.brand,
+        },
+        { brandCertifications: brandCertMap }
+      )
       for (const p of pairs) {
         if (p.relevance === 'avoid') {
           avoidBySource[p.source] = (avoidBySource[p.source] ?? 0) + 1
@@ -265,7 +293,7 @@ export async function seedCore(shouldClean = false) {
     }
     if (autoSecondaryPairs.length > 0) {
       console.log(
-        `🏷  Backfill auto-tags: +${autoSecondaryPairs.length} pair(s) (algo-derm ${secondaryBySource['algo-derm']} · actif-class ${secondaryBySource['actif-class']} · kind ${secondaryBySource.kind} · formula ${secondaryBySource.formula} · cross-signal ${secondaryBySource['cross-signal']})`
+        `🏷  Backfill auto-tags: +${autoSecondaryPairs.length} pair(s) (algo-derm ${secondaryBySource['algo-derm']} · actif-class ${secondaryBySource['actif-class']} · kind ${secondaryBySource.kind} · formula ${secondaryBySource.formula} · cross-signal ${secondaryBySource['cross-signal']} · brand ${secondaryBySource.brand})`
       )
     }
     if (avoidPairs.length > 0) {
@@ -357,6 +385,28 @@ export async function seedCore(shouldClean = false) {
       })
     }
     console.log(`✅ ${productTagData.length} product_tags créés`)
+
+    // Brand-level certifications (T4.B). Independent of product/tag rows —
+    // safe to seed before products since the lookup is by free-text brand,
+    // not FK. Idempotent via PK upsert; re-runs after editing the curated
+    // list refresh flags + sources.
+    if (BRAND_CERTIFICATION_INSERTS.length > 0) {
+      await tx
+        .insert(brandCertifications)
+        .values(BRAND_CERTIFICATION_INSERTS)
+        .onConflictDoUpdate({
+          target: brandCertifications.brandNormalized,
+          set: {
+            brandDisplay: sql`excluded.brand_display`,
+            isVegan: sql`excluded.is_vegan`,
+            isCrueltyFree: sql`excluded.is_cruelty_free`,
+            isNaturalCertified: sql`excluded.is_natural_certified`,
+            sources: sql`excluded.sources`,
+            notes: sql`excluded.notes`,
+          },
+        })
+    }
+    console.log(`✅ ${BRAND_CERTIFICATION_INSERTS.length} brand_certifications créés`)
 
     const ingredientsToInsert = idempotent
       ? correctedIngredientData.filter((i) => !existingIngredientSlugs.has(i.slug))
