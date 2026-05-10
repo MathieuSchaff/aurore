@@ -1,8 +1,9 @@
 # AUTO-TAGS-TEXTURE.md — Taxonomie `texture-*` / F2 post-mortem
 
-**Statut** : ✅ F2 livré 2026-05-09 · migration `0054` · 701 pairs DB · eye-cream ticket séparé.
-**Date d'ouverture** : 2026-05-09 · **Date de clôture** : 2026-05-09
-**Branche** : `products-branch`
+**Statut** : ✅ F2 livré 2026-05-09 (`texture-creme`) · ✅ F6 livré 2026-05-10 (autres `texture-*`).
+Migrations `0054` + `0055`. DB finale : creme 725 · eau 228 · baume 94 · lait 95 · gel 100 · huile 27.
+**Date d'ouverture** : 2026-05-09 · **Date de clôture** : 2026-05-10
+**Branche** : `auto-tags`
 
 Document de référence pour la décision d'architecture F2 et les éléments utiles
 aux futures évolutions `texture-*`. Les §1-6 sont historiques (analyse pré-décision).
@@ -276,9 +277,9 @@ Pairs stale à nettoyer — audit complet en §10.
 
 ---
 
-## 10. F6 — Audit drift `texture-gel/eau/huile/baume/lait`
+## 10. F6 — Cleanup drift `texture-gel/eau/huile/baume/lait`
 
-**Statut** : 🔴 En cours d'analyse · 2026-05-09 · décisions architecturales ouvertes (§10.4).
+**Statut** : ✅ Livré 2026-05-10 · migration `0055` + détecteur baume étendu.
 
 ---
 
@@ -481,11 +482,86 @@ Ajoute de la complexité pour 15 produits.
 
 ---
 
-### 10.5 Décisions (à compléter)
+### 10.5 Décisions (toutes closes 2026-05-10)
 
-- [ ] **Q1** : `cleanser` inclus ou exclu de la taxonomie `texture-*` ?
-- [ ] **Q2** : `body-wash` inclus ou exclu ?
-- [ ] **Q3** : moisturizer baume → admin field ou détecteur nom ?
-- [ ] **Q4** : moisturizer lait légitime → admin field ou détecteur nom ?
-- [ ] **Q5** : liquid exfoliants + eau → ajouter `exfoliant` au kind-tag ou admin ?
-- [ ] **Q6** : gel Phase 2b dans F6 ou F7 ?
+- [x] **Q1** : `cleanser` **exclu** de la taxonomie `texture-*`. Cohérent avec la sémantique leave-on des kind-tag existants. `detectTextureGelInci` excluait déjà cleanser via SKIP_KINDS — on étend la règle à toutes les textures.
+- [x] **Q2** : `body-wash` **exclu** (même logique).
+- [x] **Q3** : moisturizer baume → **détecteur étendu**. `detectTextureBaumeFromName` gère désormais `eye-cream` + `moisturizer`, pattern enrichi (`baume|balm|ointment`), avec veto rinse-off (`lavant|douche|lèvres|levers|lip|rasage`) pour neutraliser les `kind=moisturizer` mistaggés (lip balm, after-shave, cleansing balm, hair).
+- [x] **Q4** : moisturizer lait légitime → **admin field** (1 produit, Prequel Urea Advance Moisturizing Milk). Pas de détecteur dédié pour 1 cas.
+- [x] **Q5** : liquid exfoliants + eau → **admin field** (4 produits : Geek & Gorgeous Calm Down/Cheer Up/Smooth Out, SVR Sebiaclear Micro-Peel). Ajouter `exfoliant` au kind-tag risquait des FP (peeling pads, gels acides).
+- [x] **Q6** : gel Phase 2b → **inclus dans F6**. Pattern unifié pour les 5 textures : DELETE non-déterministe, backfill recrée via détecteur + admin field. Pas de script reverse-backfill séparé nécessaire.
+
+---
+
+### 10.6 Livraison 2026-05-10
+
+#### Migration `0055_cleanup_texture_eau_huile_baume_lait_gel_stale`
+
+Pattern (cf. `0054`) : préserver uniquement les paires émises par le kind-tag déterministe, backfill reconstruit le reste via détecteurs + admin field. Émetteurs déterministes préservés :
+
+| Tag | Kind-tag déterministe |
+|-----|----------------------|
+| `texture-eau` | `toner`, `mist` |
+| `texture-huile` | `oil`, `body-oil` |
+| `texture-baume` | `balm` |
+| `texture-lait` | `body-lotion` |
+| `texture-gel` | (aucun — full detector-driven, delete all) |
+
+Inclut aussi 5 `UPDATE products SET texture` pour Q4/Q5 (1 lait + 4 eau).
+
+#### Détecteur `detectTextureBaumeFromName` étendu
+
+```ts
+TEXTURE_BAUME_NAME_KINDS = { 'eye-cream', 'moisturizer' }
+EYE_CREAM_BAUME_RE = /\b(baume|balm|ointment)\b/i           // +ointment (Prequel Skin Utility)
+TEXTURE_BAUME_NAME_VETO_RE =                                 // F6 anti-FP
+  /\b(lavant|douche|l[èe]vres?|levers?|lip|rasage)\b/i
+```
+
+Le veto neutralise les produits `kind=moisturizer` mistaggés dont le nom révèle la vraie catégorie (cleansing balm, lip balm, after-shave, shower). Cohérent avec Q1.
+
+#### Counts DB avant / après
+
+| Slug | Avant F6 | Après F6 | Δ | Source variation |
+|------|--------:|---------:|--:|------------------|
+| `texture-eau` | 252 | **228** | -24 | -28 stale legacy + 4 admin (Q5) |
+| `texture-huile` | 57 | **27** | -30 | cleanser×26 + body-wash×3 + serum borderline |
+| `texture-baume` | 76 | **94** | +18 | -12 stale + 30 nouveau moisturizer (détecteur étendu) - 9 FP (veto rinse-off) |
+| `texture-lait` | 105 | **95** | -10 | cleanser×6 + Garancia mousse×3 + spot-treatment×1 + 1 admin (Q4) |
+| `texture-gel` | 177 | **100** | -77 | cleanser×41 + body-wash×3 + body-lotion×2 + ~31 INCI-non-fire |
+| `texture-creme` | 701 | **725** | +24 | Eye-cream backfill §9.1 (déjà livré 2026-05-09) |
+
+Net cleanup : -123 paires legacy, +52 paires correctes (eye-cream creme + moisturizer baume + admin Q4/Q5).
+
+#### Cleanup ad-hoc (one-shot, pas de migration)
+
+9 paires `texture-baume` × `kind=moisturizer` matchant le veto regex avaient été insérées par le backfill avant que le veto soit ajouté au détecteur. SQL one-shot pour les retirer du dev DB :
+
+```sql
+DELETE FROM tag_products
+WHERE product_tag_id = (SELECT id FROM product_tags WHERE slug = 'texture-baume')
+  AND product_id IN (
+    SELECT id FROM products
+    WHERE kind = 'moisturizer'
+      AND name ~* '\y(lavant|douche|l[èe]vres?|levers?|lip|rasage)\y'
+  );
+```
+
+Pas de migration 0056 : sur DB fraîche (snapshot + migrations + backfill), le détecteur veto empêche d'emblée la création de ces paires.
+
+#### FPs résiduels acceptés (4-5 produits)
+
+Mistags `products.kind` amont (hair/eye-cream/nipple-balm) qui se retrouvent en `texture-baume` parce que `kind=moisturizer` + nom contient "baume" :
+
+- Vichy Dercos Densi-Solutions (capillaire, mistag kind)
+- Les Secrets De Loly Sleek & Slay (capillaire, mistag kind)
+- Clinique Baume Yeux (eye-cream mistag kind)
+- Mustela Baume Allaitement / Baume Pectoral (vraies baumes mais kind ≠ moisturizer)
+
+Action : ticket **kind-mistag-cleanup** séparé (data quality `products.kind`), hors scope F6.
+
+#### Références code
+
+- `backend/src/db/seed/utils/formula-detection.ts:1459-1480` — `detectTextureBaumeFromName` étendu
+- `backend/src/db/seed/tests/formula-detection.test.ts:1373-1430` — suite baume (eye-cream + moisturizer + veto)
+- `backend/drizzle/0055_cleanup_texture_eau_huile_baume_lait_gel_stale.sql` — migration cleanup + admin Q4/Q5

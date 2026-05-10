@@ -1388,9 +1388,38 @@ describe('detectTextureBaumeFromName', () => {
     expect(detectTextureBaumeFromName('eye-cream', 'creme', 'Baume Regard')).toEqual([])
   })
 
-  test('non-eye-cream kind → not eligible (balm kind already covered by kind-tags)', () => {
-    expect(detectTextureBaumeFromName('moisturizer', null, 'Baume Hydratant')).toEqual([])
+  test('moisturizer + "Baume" in name → texture-baume (F6 Q3)', () => {
+    expect(detectTextureBaumeFromName('moisturizer', null, 'CeraVe Baume Hydratant')).toEqual([S.TEXTURE_BAUME])
+  })
+
+  test('moisturizer + "Balm" in name → texture-baume', () => {
+    expect(detectTextureBaumeFromName('moisturizer', null, 'Prequel Skin Utility Balm')).toEqual([S.TEXTURE_BAUME])
+  })
+
+  test('moisturizer + "Ointment" in name → texture-baume', () => {
+    expect(detectTextureBaumeFromName('moisturizer', null, 'Prequel Skin Utility Ointment')).toEqual([S.TEXTURE_BAUME])
+  })
+
+  test('moisturizer without baume/balm/ointment in name → no tag', () => {
+    expect(detectTextureBaumeFromName('moisturizer', null, 'Avène Hydrance Crème')).toEqual([])
+  })
+
+  test('balm kind → not eligible (already covered by kind-tag)', () => {
     expect(detectTextureBaumeFromName('balm', null, 'Baume Corps')).toEqual([])
+  })
+
+  test('other kinds → not eligible', () => {
+    expect(detectTextureBaumeFromName('cleanser', null, 'Baume Démaquillant')).toEqual([])
+    expect(detectTextureBaumeFromName('serum', null, 'Baume Sérum')).toEqual([])
+  })
+
+  test('rinse-off / non-leave-on-face name veto → no tag (kind mistag protection)', () => {
+    expect(detectTextureBaumeFromName('moisturizer', null, 'Topialyse Baume Lavant')).toEqual([])
+    expect(detectTextureBaumeFromName('moisturizer', null, 'Cicabiafine Douche Baume Surgras')).toEqual([])
+    expect(detectTextureBaumeFromName('moisturizer', null, 'Clinique Baume à Lèvres Hydratant')).toEqual([])
+    expect(detectTextureBaumeFromName('moisturizer', null, 'Eucerin Baume Levers')).toEqual([])
+    expect(detectTextureBaumeFromName('moisturizer', null, 'Avène Homme Baume Après-Rasage')).toEqual([])
+    expect(detectTextureBaumeFromName('moisturizer', null, 'Lip Balm Hydratant')).toEqual([])
   })
 
   test('eye-cream without baume/balm in name → no tag', () => {

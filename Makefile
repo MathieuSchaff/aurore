@@ -371,6 +371,13 @@ audit-auto-tags: ## Dry-run auto-tagging produits via algo-derm tagProduct (read
 		$(if $(INCLUDE_DROPPED),-e INCLUDE_DROPPED=$(INCLUDE_DROPPED)) \
 		api bun run src/db/seed/runners/audit-auto-tags.ts
 
+audit-product-kinds: ## Audit products.kind mistags via name patterns. Args: SLUG=<slug> WRITE=1
+	@echo "$(CYAN)Audit product kinds ($(if $(WRITE),WRITE,dry-run))...$(NC)"
+	@$(COMPOSE_DEV) exec \
+		api bun run src/db/seed/runners/audit-product-kinds.ts \
+		$(if $(WRITE),--write) \
+		$(if $(SLUG),--slug $(SLUG))
+
 backfill-auto-tags: ## Dry-run backfill tags (algo-derm + actif-class + kind) sur produits existants. Args: SLUG=<slug> WRITE=1 LIMIT=N CONF_OVERRIDE=f
 	@echo "$(CYAN)Backfill auto-tags ($(if $(WRITE),WRITE,dry-run))...$(NC)"
 	@$(COMPOSE_DEV) exec \

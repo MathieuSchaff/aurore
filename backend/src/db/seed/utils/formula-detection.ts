@@ -1372,7 +1372,7 @@ type EyeCreamTextureHint = 'creme' | 'baume' | 'gel' | 'abstain' | null
 
 const EYE_CREAM_ABSTAIN_RE =
   /\b(patch|hydrogel|masque|eye\s+mask|eye\s+patch|s[eé]rum|ampoule|ampouler|pencil|liner|eyeliner|fluide|fluid|essence|lotion)\b/i
-const EYE_CREAM_BAUME_RE = /\b(baume|balm)\b/i
+const EYE_CREAM_BAUME_RE = /\b(baume|balm|ointment)\b/i
 const EYE_CREAM_GEL_RE = /\bgel\b/i
 const EYE_CREAM_CREME_RE = /\b(cr[eè]me|cream)\b/i
 
@@ -1429,7 +1429,9 @@ export function detectTextureCremeEyeInci(
   if (top5.some((ing) => IONIC_SURFACTANT_PATTERNS.some((p) => ing.includes(p)))) return []
 
   // Veto 2: ≥ 2 distinct butter/wax top 8 → texture-riche wins
-  const butterWaxCount = top8.filter((ing) => BUTTER_WAX_PATTERNS.some((p) => ing.includes(p))).length
+  const butterWaxCount = top8.filter((ing) =>
+    BUTTER_WAX_PATTERNS.some((p) => ing.includes(p))
+  ).length
   if (butterWaxCount >= 2) return []
 
   // Veto 3: gel-former top 5 → texture-gel wins
@@ -1445,13 +1447,23 @@ export function detectTextureCremeEyeInci(
   return [S.TEXTURE_CREME]
 }
 
-// ─── Texture-baume for eye-cream (name-driven) ───────────────────────────────
+// ─── Texture-baume name-driven (eye-cream + moisturizer) ─────────────────────
 // `balm` kind products already get `texture-baume` via kind-tag detection.
-// Eye-cream products sold as balms (e.g. "Baume Regard") don't, because
-// eye-cream kind covers a heterogeneous range. This detector fills that gap
-// using the product name alone — INCI-based baume detection would require
-// butter/wax thresholds that don't generalise to eye-area balms.
+// Eye-cream and moisturizer kinds don't — they cover heterogeneous ranges
+// (eye-cream: patches/hydrogels/serums; moisturizer: lotions/creams/balms).
+// This detector fills the gap using the product name alone (F6 Q3): INCI-
+// based baume detection would need butter/wax thresholds that don't generalise
+// to leave-on balms with mixed phases.
 // Only fires when admin hasn't set `products.texture` (field wins).
+
+const TEXTURE_BAUME_NAME_KINDS = new Set<ProductKind>(['eye-cream', 'moisturizer'])
+
+// Rinse-off / non-leave-on-face markers — coherent with Q1 (cleansers excluded
+// from texture-*). Catches products mis-typed as `moisturizer` whose name reveals
+// the real category: "Baume Lavant" (cleansing balm), "Baume Lèvres" (lip balm),
+// "Baume Après-Rasage" (after-shave), "Douche Baume" (shower). `levers` is the
+// recurrent typo of "lèvres" in the Eucerin corpus.
+const TEXTURE_BAUME_NAME_VETO_RE = /\b(lavant|douche|l[èe]vres?|levers?|lip|rasage)\b/i
 
 export function detectTextureBaumeFromName(
   kind: ProductKind,
@@ -1459,8 +1471,11 @@ export function detectTextureBaumeFromName(
   name?: string | null
 ): SkincareProductTagSlug[] {
   if (texture) return []
-  if (kind !== 'eye-cream') return []
-  return EYE_CREAM_BAUME_RE.test(name ?? '') ? [S.TEXTURE_BAUME] : []
+  if (!TEXTURE_BAUME_NAME_KINDS.has(kind)) return []
+  const n = name ?? ''
+  if (!EYE_CREAM_BAUME_RE.test(n)) return []
+  if (TEXTURE_BAUME_NAME_VETO_RE.test(n)) return []
+  return [S.TEXTURE_BAUME]
 }
 
 // ─── Peau-normale (heuristic, used by orchestrator post-pass) ────────────────
