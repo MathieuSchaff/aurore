@@ -15,12 +15,7 @@
   // workspace packages (bun symlink) + pino-pretty (string reference in transport config)
   "ignoreDependencies": ["@habit-tracker/shared", "pino-pretty"],
 
-  "ignorePatterns": [
-    "vendor/**",
-    ".fallow/**",
-    "**/*.d.ts",
-    "node_modules/**"
-  ],
+  "ignorePatterns": ["vendor/**", ".fallow/**", "**/*.d.ts", "node_modules/**"],
 
   // Complexity gates aligned with fallow defaults (20 cyclomatic / 15 cognitive)
   "health": {

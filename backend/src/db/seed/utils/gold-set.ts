@@ -216,4 +216,3 @@ export function serializeGoldSet(file: GoldSetFile): string {
   }
   return `${JSON.stringify(out, null, 2)}\n`
 }
-
