@@ -1,0 +1,901 @@
+Loaded 4075 products with INCI.
+
+======================================================================
+1. INCI pathologies (formatting/quality issues)
+======================================================================
+
+  preamble — 168 products
+    ducray-keracnyl-stop-bouton-gel-assechant-10ml-279032 :: Ingrédients : Water (aqua),alcohol,hamamelis virginiana (witch hazel) leaf water
+    bioderma-node-p-shampoing-antipelliculaire-apaisant-cuir-chevelu-sensible-400ml-256411 :: Ingrédients : Aqua/water/eau, sodium laureth sulfate, sodium cocoamphoacetate,di
+    bioderma-node-ds-shampoing-antipelliculaire-cuirs-chevelus-sensibles-125ml-259129 :: Ingrédients : Aqua/water/eau, caprylyl/capryl glucoside, panthenol,methylpropane
+    bioderma-node-a-shampoing-apaisant-cuirs-chevelus-sensibles-irrites-400ml-287181 :: Ingrédients : Aqua/water/eau, caprylyl/capryl glucoside, panthenol,methylpropane
+    bioderma-node-k-shampoing-anti-demangeaisons-squames-150ml-279348 :: Ingrédients : Aqua/water/eau, sodium laureth sulfate, sodium cocoamphoacetate,di
+    bioderma-node-shampoing-doux-tous-types-de-cheveux-lot-de-2-x-400ml-300695 :: Ingrédients : Aqua/water/eau, caprylyl/capryl glucoside, peg-150 distearate, peg
+    bioderma-node-k-concentre-soin-apaisant-cuirs-chevelus-irrites-squames-100ml-279349 :: Ingrédients : Aqua/water/eau, glycolic acid, butyrospermumparkii (shea) butter e
+    bioderma-atoderm-huile-de-douche-apaisante-peaux-tres-seches-atopiques-1l-249680 :: Ingrédients : Aqua/water/eau, glycerin, peg-7 glyceryl cocoate, sodium cocoampho
+    bioderma-atoderm-gel-douche-sans-savon-peaux-seches-famille-1l-289252 :: Ingrédients : Aqua/water/eau, sodium laureth sulfate, coco-betaine, sodium lauro
+    bioderma-node-shampoing-fluide-doux-cheveux-normaux-400ml-277369 :: Ingrédients : Aqua/water/eau, caprylyl/capryl glucoside, peg-150 distearate, peg
+    bioderma-node-g-shampoing-purifiant-cheveux-gras-400ml-279802 :: Ingrédients : Aqua/water/eau, magnesium laureth sulfate, sodium lauroyl sarcosin
+    bioderma-atoderm-creme-douche-lavante-nourrissante-peaux-seches-1l-289246 :: Ingrédients : Aqua/water/eau, caprylyl/capryl glucoside, butyrospermum parkii (s
+    bioderma-crealine-ds-gel-moussant-apaisant-assainissant-peaux-sensibles-200ml-287716 :: Ingrédients : Aqua (water), sodium laureth sulfate, coco-betaine, sodium lauroyl
+    ducray-kelual-ds-gel-nettoyant-200ml-266077 :: Ingrédients : Water (aqua), lactamide mea, sodium cocoamphoacetate, ceteareth-60
+    ducray-hidrosis-control-anti-transpirant-roll-on-40ml-232702 :: Ingrédients : Water (aqua), aluminum sesquichlorohydrate, pentylene glycol, ppg-
+    ducray-dexyane-creme-emolliente-anti-grattage-400ml-302034 :: Ingrédients : Aqua (water), carthamus tinctorius (safflower) seed oil (carthamus
+    ducray-ictyane-nutri-creme-riche-40ml-232667 :: Ingrédients : Water (aqua), triethylhexanoin, glycerin, isodecyl neopentanoate, 
+    ducray-hidrosis-control-anti-transpirant-roll-on-lot-de-2-x-40ml-248040 :: Ingrédients : Water (aqua),aluminum sesquichlorohydrate, pentylene glycol, ppg-1
+    ducray-keracnyl-pp-creme-anti-imperfections-30ml-275209 :: Ingrédients : Water (aqua), caprylic/capric triglyceride, cetearyl alcohol, isoh
+    ducray-dexyane-creme-barriere-isolante-100ml-275473 :: Ingrédients : Water (aqua), mineral oil (paraffinum liquidum), caprylic/capric t
+    ducray-dexyane-gel-nettoyant-surgras-100ml-232706 :: Ingrédients : Aqua, ceteareth-60, myristyl glycol, coco-glucoside, zinc coceth s
+    ducray-keracnyl-uv-fluide-anti-imperfections-spf50-50ml-275259 :: Ingrédients : Water (aqua). c12-15 alkyl benzoate. dicaprylyl carbonate. methyle
+    ducray-ictyane-creme-emolliente-nutritive-200ml-278630 :: Ingrédients : Water (aqua), glycerin, mineral oil (paraffinum liquidum), glycery
+    ducray-kelual-emulsion-keratoreductrice-50ml-232649 :: Ingrédients : Water, acetamide mea, glycerin, PEG-12, cyclomethicone, mineral oi
+    ducray-sensinol-lait-apaisant-physioprotecteur-400ml-250427 :: Ingrédients : Water (aqua), glycerin, caprylic/capric triglyceride, laureth-9, 1
+    ducray-ictyane-pain-dermatologique-surgras-100g-267028 :: Ingrédients : Disodium lauryl sulfosuccinate, sodium coco-sulfate, cetearyl alco
+    ducray-ictyane-creme-emolliente-nutritive-400ml-275479 :: Ingrédients : Water (aqua), glycerin, mineral oil (paraffinum liquidum), glycery
+    ducray-keracnyl-gel-moussant-400ml-287344 :: Ingrédients : Water (aqua), zinc coceth sulfate, ceteareth-60 myristyl glycol, g
+    ducray-kertyol-p-s-o-gel-nettoyant-surgras-400ml-275481 :: Ingrédients : Water (aqua), glycerin , ceteareth-60 myristyl glycol, coco-glucos
+    klorane-monoi-tamanu-huile-capillaire-protection-soleil-100ml-275304 :: Ingrédients : Caprylic/capric triglyceride*. alcohol denat.*. isopropyl myristat
+    klorane-beurre-de-mangue-huile-capillaire-nutrition-100ml-233051 :: Ingrédients : Isodecyl neopentanoate, sd alcohol, 39-c (alcohol denat.), ethylhe
+    klorane-bebe-lingette-lavable-edition-limitee-hamac-12-x-14cm-5-unites-275451 :: Ingrédient : Microfibre.
+    eucerin-ph5-gel-lavant-peaux-sensibles-seches-1l-235107 :: Ingrédients : Aqua, sodium cocoamphoacetate, sodium myreth sulfate, lauryl gluco
+    eucerin-ph5-huile-de-douche-peaux-sensibles-seches-1l-288208 :: Ingrédients : Glycine Soja Oil, Laureth-4, MIPA-Laureth Sulfate, Ricinus Communi
+    isdin-fotoprotector-transparent-spray-creme-solaire-corps-spf30-250ml-244637 :: Ingrédients: Alcohol denat, isobutane, dibutyl adipate, dicaprylyl ether, diisop
+    klorane-lait-d-avoine-shampoing-sec-extra-doux-50g-276170 :: Ingrédients : Butane, propane, oryza sativa (rice) starch (oryza sativa starch),
+    isdin-isdinceutics-hyaluronic-moisture-sensitive-creme-hydratante-visage-anti-age-50g-244671 :: Ingrédients : Aqua (water), caprylic/capric triglyceride, dicaprylyl carbonate, 
+    isdin-isdinceutics-hyaluronic-moisture-normal-creme-hydratante-visage-anti-age-50g-244669 :: Ingrédients : Aqua (water), c15-19 alkane, propanediol, glycerin, caprylic/capri
+    garancia-pschitt-magique-nouvelle-peau-visage-micropeeling-sans-grain-edition-limitee-psychedelique-100ml-248660 :: Ingrédients : Aqua (water/eau)*, glycerin*, coco glucoside*, citrus limon (lemon
+    garancia-solaire-sun-expert-incroyable-douceur-fluide-teinte-embellisseur-spf50-40ml-303994 :: INGREDIENTS : AQUA (WATER/EAU) ; COCO-CAPRYLATE/CAPRATE ; DIETHYLAMINO HYDROXYBE
+    nitradine-ortho-junior-64-comprimes-effervescents-264747 :: Ingrédients : Citric Acid, Sodium Lauryl Sulfate, Lactose Monohydrate, Sodium Bi
+    garancia-a-la-belle-etoile-creme-supreme-de-nuit-regeneratrice-visage-et-cou-40ml-249786 :: Ingrédients : Aqua (water/eau)*, glycerin*, butyrospermum parkii (shea) butter*,
+    garancia-eclair-de-lune-la-foudroyante-creme-lactee-anti-taches-30ml-249816 :: INGREDIENTS : AQUA (WATER, EAU), CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, COCO-CA
+    garancia-etoile-polaire-serum-supreme-volumateur-anti-relachement-rides-visage-cou-yeux-30ml-249785 :: Ingrédients : Aqua (water/eau)*, glycerin*, pseudoalteromonas ferment extract*, 
+    garancia-a-la-belle-etoile-creme-supreme-de-nuit-regeneratrice-visage-et-cou-recharge-40ml-249793 :: Ingrédients : Aqua (water/eau)*, glycerin*, pseudoalteromonas ferment extract*, 
+    garancia-sun-protect-lait-solaire-douceur-invisible-spf50-150ml-249799 :: INGREDIENTS : AQUA (WATER/EAU), COCO-CAPRYLATE/CAPRATE, DIETHYLAMINO HYDROXYBENZ
+    garancia-l-appel-de-la-foret-creme-lumiere-eclat-jeunesse-30ml-249794 :: INGREDIENTS: AQUA (WATER/EAU)*, COCO-CAPRYLATE/CAPRATE*, GLYCERIN*, CETEARYL ALC
+    avene-cicalfate-gel-nettoyant-assainissant-visage-et-corps-200ml-301481 :: Ingrédients : Avene thermal spring water (avene aqua), water (aqua), glycerin, d
+    uriage-ds-hair-shampooing-traitant-keratoreducteur-150ml-269486 :: Ingrédients: Aqua (water, eau), sodium laureth sulfate, sodium cocoyl glutamate,
+    bonyf-bonyplus-fixobridge-kit-pour-la-fixation-temporaire-des-protheses-dentaires-7g-278782 :: Ingrédients : Calcium Sulphate, Glycol Ether, Barium Sulphate, Zinc Oxide, Acryl
+    ducray-extra-doux-shampoing-dermo-protecteur-400ml-268751 :: Ingrédients : Water (aqua), sodium laureth sulfate, sodium chloride, cocamidopro
+    isispharma-geneskin-lift-creme-lissante-50ml-274243 :: Ingrédients : Aqua (water), propanediol, dimethicone, glycerin, squalane, capryl
+    ducray-kelual-ds-shampoing-traitant-etats-pelliculaires-severes-100ml-275193 :: Ingrédients : Water (aqua), sodium laureth sulfate, decyl glucoside, undecylenam
+    svr-c-masque-anti-detox-mousse-micro-peeling :: INCI : 231116/1_07K05.36 – INGREDIENTS (CONTAINS) : AQUA/WATER/EAU, SODIUM ASCOR
+    svr-recharge-creme-hydraliane :: COMPOSITION: AQUA/WATER/EAU, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, C10-18 TRIG
+    svr-topialyse-huile-lavante-1l-eco-recharge-1l-peaux-atopiques-et-sensibles-300253 :: INGREDIENTS : AQUA/WATER/EAU, GLYCERIN, SODIUM C14-16 OLEFIN SULFONATE, COCO-BET
+    klorane-pivoine-apres-shampoing-apaisant-cuir-chevelu-sensible-150ml-275270 :: Ingrédients : Water (aqua)*, pentylene glycol*, hydroxypropyl starch phosphate, 
+    ducray-neoptide-expert-serum-capillaire-anti-chute-croissance-lot-de-2-x-50ml-275359 :: Ingrédients : Water (aqua), alcohol denat., isopropyl alcohol, peg-6, hexylene g
+    vichy-dercos-technique-shampoing-energy-400ml-276076 :: Ingrédients : Aqua / water / eau , sodium laureth sulfate , citric acid , sodium
+    klorane-maman-huile-de-soin-vergetures-200ml-267718 :: Ingrédients : Caprylic/capric triglyceride, carthamus tinctorius (safflower) see
+    vichy-dercos-technique-eco-recharge-shampooing-energy-500ml-278511 :: Ingrédients : Aqua / water / eau , sodium laureth sulfate , citric acid , sodium
+    klorane-beurre-de-mangue-shampoing-solide-nutrition-80g-275178 :: Ingrédients : Triticum vulgare (wheat) starch (triticum vulgare starch)*, sodium
+    klorane-bebe-petit-brin-eau-parfumee-50ml-268353 :: Ingrédients : Water (aqua), PEG-40 hydrogenated castor oil, caprylyl glycol, cit
+    biocyte-pack-keratine-forte-serum-anti-chute-15-ampoules-de-9-ml-45-jours-249238 :: INGREDIENTS: AQUA (WATER), PEG-40 HYDROGENATED CASTOR OIL, HYDROLYZED KERATIN, B
+    biokap-anti-chute-lotion-renforcante-50ml-232316 :: INCI: alcohol denat., aqua/ water, glycerin, cucurbita pepo (pumpkin) seed extra
+    cattier-shampoing-extra-doux-lait-d-avoine-bio-1l-257467 :: Ingrédients : Aqua, ammonium lauryl sulfate, erythritol, sodium cocoamphoacetate
+    clarification-coffret-cheveux-mes-chouchous-edition-limitee-245802 :: INGRÉDIENTS : ZEA MAYS (CORN) STARCH • KAOLIN • AVENA SATIVA (OAT) KERNEL FLOUR.
+    ducray-kertyol-p-s-o-concentre-corps-et-cuir-chevelu-100ml-275489 :: Ingrédients : Water (aqua), ethylhexyl palmitate, glycerin, cetearyl alcohol, la
+    ducray-kertyol-p-s-o-shampoing-traitant-200ml-275490 :: Ingrédients : Water (aqua), Cocos nucifera (coconut) oil (Cocos nucifera oil), s
+    ducray-anaphase-shampoing-complement-anti-chute-400ml-300632 :: Ingrédients : Aqua, sodium laureth sulfate, betaine, glycerin, sodium cocoamphoa
+    klorane-amande-douce-creme-depilatoire-150ml-263828 :: Ingrédients : Water (aqua), glycerin, urea, strontium hydroxide, cetearyl alcoho
+    ducray-densiage-shampoing-redensifiant-200ml-232682 :: Ingrédients : Water (aqua). sodium laureth sulfate. glycerin. coco-glucoside. so
+    ducray-gel-rubefiant-tonique-capillaire-30ml-272680 :: Ingrédients : Nicotinate de mé;thyle, he naturelles végétales, alcool à 70°, exc
+    ducray-anaphase-soin-apres-shampoing-fortifiant-200ml-298112 :: Ingrédients : Water (aqua), ethyhexyl palmitate, glycerin, betaine, caprylic/cap
+    klorane-avoine-shampoing-solide-80g-275265 :: Ingrédients : Water (aqua), sodium laureth sulfate, propylene glycol, coco-gluco
+    klorane-bebe-calendula-lait-de-toilette-sans-rincage-750ml-275069 :: Ingrédients : Water (aqua), glycerin, carthamus tinctorius (safflower) seed oil 
+    klorane-bebe-calendula-creme-nutritive-cold-cream-125ml-253536 :: Ingrédients : Aqua (water), carthamus tinctorius (safflower) seed oil, glycerin,
+    klorane-monoi-tamanu-spray-solaire-sublime-corps-spf50-200ml-270081 :: Ingrédients : Water (aqua), c12-15 alkyl benzoate, dicaprylyl carbonate, methyle
+    klorane-pivoine-creme-riche-apaisante-40ml-275581 :: Ingrédients : Water (aqua). caprylic/capric triglyceride. glycerin. cetearyl alc
+    klorane-bleuet-patchs-lissants-defatiguant-express-7-paires-279767 :: Ingrédients : Water (aqua)*. caprylic/capric triglyceride*. glycerin*. pentylene
+    klorane-centauree-apres-shampoing-dejaunissant-200ml-301460 :: Ingrédients : Water (aqua)*, cetyl alcohol*, ethylhexyl palmitate*, dicaprylyl c
+    klorane-amande-douce-bande-de-cire-froide-visage-6-unites-264090 :: Ingrédients : Rosin (colophonium), mineral oil (paraffinum liquidum), glycerin, 
+    klorane-bebe-calendula-shampoing-demelant-200ml-275073 :: Ingrédients : Water (aqua), glycerin, coco glucoside, ceteareth-60, myristyl gly
+    klorane-monoi-tamanu-huile-seche-solaire-spf30-200ml-270079 :: Ingrédients : C12-15 alkyl benzoate, diisopropyl adipate, coco-caprylate, dicapr
+    klorane-monoi-tamanu-creme-sublimatrice-apres-soleil-visage-et-corps-200ml-270089 :: Ingrédients : Water (aqua)*, glycerin*, squalane*, cocos nucifera (coconut) oil 
+    klorane-grenade-baume-apres-shampoing-eclat-cheveux-colores-200ml-275224 :: ingrédients : Water (aqua)*, stearyl alcohol*, behenamidopropyl dimethylamine*, 
+    klorane-menthe-aquatique-masque-purifiant-en-stick-bio-25g-275296 :: Ingrédients : Water (aqua). glycerin, kaolin, sodium stearate, butylene glycol, 
+    klorane-monoi-tamanu-huile-reparatrice-apres-soleil-visage-et-corps-150ml-270087 :: Ingrédients : Caprylic/capric triglyceride*; carthamus tinctorius (safflower) se
+    klorane-beurre-de-mangue-creme-de-jour-cheveux-nutrition-125ml-275206 :: Ingrédients : Water (aqua), cetearyl alcohol, ethylhexyl palmitate, dicaprylyl c
+    klorane-lait-d-avoine-baume-apres-shampoing-revitalisant-50ml-267816 :: Ingrédients : Water (aqua)*, cetyl alcohol*, ethylhexyl palmitate*, behenamidopr
+    klorane-bleuet-creme-d-eau-de-bleuet-50ml-275508 :: Ingrédients : Sodium hyaluronate* (acide hyaluronique), glycerin*, butylene glyc
+    klorane-menthe-aquatique-shampoing-anti-pollution-400ml-275252 :: Ingrédients : Water (aqua)*, disodium laureth sulfosuccinate, zinc coceth sulfat
+    klorane-shampoing-solide-au-cedrat-80g-275323 :: Ingrédients : Triticum vulgare (wheat) starch (triticum vulgare starch)*, sodium
+    klorane-amande-douce-bande-de-cire-froide-6-unites-279829 :: Ingrédients : Rosin (colophonium), mineral oil (paraffinum liquidum), glycerin, 
+    klorane-pivoine-spray-serum-apaisant-sos-cuir-chevelu-sensible-100ml-275301 :: Ingrédients : Water (aqua)*, pentylene glycol*, glycerin*, oleth-10, betaine*, p
+    klorane-bleuet-patchs-lissants-defatiguants-express-1-paire-275174 :: Ingrédients : Water (aqua)*. caprylic/capric triglyceride*. glycerin*. pentylene
+    klorane-centauree-shampoing-dejaunissant-400ml-275264 :: Ingrédients : Water (aqua)*, decyl glucoside*, sodium cocoyl isethonate, disodiu
+    klorane-camomille-spray-illumine-cheveux-blonds-100ml-275311 :: Ingrédients : Water (aqua)*, pentylene glycol*, oleth-10. glycerin*, chamomilla 
+    klorane-bebe-calendula-eau-fraiche-parfumee-500ml-275074 :: Ingrédients : Water (aqua), PEG-40 hydrogenated castor oil, calendula officinali
+    klorane-ortie-shampoing-sec-sebo-regulateur-cheveux-bruns-150ml-275514 :: Ingrédients : butane, propane, oriza sativa (riche) starch, isobutane, alcohol (
+    klorane-pivoine-shampoing-apaisant-cuir-chevelu-sensible-400ml-275258 :: Ingrédients : Water (aqua)*, disodium laureth sulfosuccinate, decyl glucoside*, 
+    klorane-beurre-de-mangue-masque-capillaire-nutrition-150ml-299618 :: Ingrédients : Water (aqua), behenyl alcohol, ethylhexyl palmitate, mangifera ind
+    klorane-bebe-lingette-lavable-edition-limitee-hamac-10-x-12cm-5-unites-275322 :: Ingrédient : Microfibre.
+    klorane-junior-gel-douche-corps-cheveux-poire-200ml-275499 :: Ingrédients : Water (aqua)*, ceteareth-60 myristyl glycol, coco-glucoside*, zinc
+    klorane-bleuet-demaquillant-yeux-sensibles-100ml-269607 :: Ingrédients : Water (aqua)*, butylene glycol, centaurea cyanus flower water*, po
+    klorane-beurre-de-cupuacu-gel-douche-nutritif-eau-de-tiare-200ml-275235 :: Ingrédients : Water (aqua), sodium laureth sulfate, lauryl betaine, decyl glucos
+    klorane-monoi-tamanu-spray-solaire-sublime-corps-spf30-200ml-270080 :: Ingrédients : Water (aqua), c12-15 alkyl benzoate, dicaprylyl carbonate, methyle
+    klorane-lin-shampoing-volume-cheveux-fins-bio-400ml-275294 :: Ingrédients : Water (aqua)*, disodium laureth sulfosuccinate, decyl glucoside*, 
+    klorane-monoi-tamanu-creme-solaire-sublime-visage-spf50-50ml-275333 :: Ingrédients : Water (aqua)*, c12-15 alkyl benzoate , dicaprylyl carbonate*, meth
+    klorane-beurre-de-cupuacu-gel-douche-nutritif-fleur-d-hibiscus-200ml-275238 :: Ingrédients : Water (aqua)*, glycerin*, ceteareth-60 myristyl glycol, sodium lau
+    klorane-beurre-de-cupuacu-gel-douche-nutritif-zeste-d-agrumes-200ml-275241 :: Ingrédients : Water (aqua), sodium laureth sulfate, lauryl betaine, decyl glucos
+    klorane-bleuet-bain-d-hydratation-nuit-50ml-275509 :: Ingrédients : Water (aqua)*, glycerin*, propanediol*, butylene glycol*, centaure
+    klorane-monoi-tamanu-gel-creme-solaire-sublime-visage-et-corps-spf30-200ml-252535 :: Ingrédients : Water (aqua)*, c12-15 alkyl benzoate, dicaprylyl carbonate*, methy
+    polident-corega-poudre-ultra-poudre-adhesive-pour-protheses-dentaires-40g-275531 :: Ingrédients : Cellulose gum, dicalcium phosphate, PEG-90 M, sodium phosphate, ar
+    klorane-beurre-de-cupuacu-gel-douche-nutritif-feuille-de-figuier-200ml-275243 :: Ingrédients : Water (aqua), sodium laureth sulfate, lauryl betaine, decyl glucos
+    klorane-bleuet-serum-reveil-tonique-50ml-275504 :: Ingrédients : Sodium hyaluronate* (acide hyaluronique), glycerin*, propanediol*,
+    klorane-ortie-shampoing-seboreducteur-400ml-275214 :: Ingrédients : Water (aqua)*, disodium laureth sulfosuccinate, decyl glucoside*, 
+    klorane-avoine-baume-apres-shampoing-extra-doux-200ml-275266 :: Ingrédients : Water (aqua)*, cetyl alcohol*, ethylhexyl palmitate*, behenamidopr
+    klorane-beurre-de-cupuacu-creme-de-douche-nutritive-fleur-de-cupuacu-200ml-275230 :: Ingrédients : Water (aqua), sodium laureth sulfate, lauryl betaine, coco-glucosi
+    klorane-avoine-shampoing-extra-doux-400ml-275268 :: Ingrédients : Water (aqua)*, decyl glucoside*, sodium cocoyl isethionate, disodi
+    klorane-quinine-edelweiss-apres-shampoing-fortifiant-200ml-275211 :: Ingrédients : Water (aqua)*, hydroxypropyl starch phosphate, cetearyl alcohol, b
+    klorane-beurre-de-mangue-baume-apres-shampoing-nutrition-200ml-299617 :: Ingrédients : Water ( aqua) , ethylhexyl palmitate, cetyl alcohol, dicaprylyl ca
+    klorane-grenade-shampoing-eclat-cheveux-colores-400ml-275225 :: Ingrédients : Water (aqua)*, disodium laureth sulfosuccinate, ceteareth-60 myris
+    klorane-ortie-shampoing-sec-sebo-regulateur-cheveux-gras-150ml-299657 :: Ingrédients : Butane, propane, oryza sativa (rice) starch (oryza sativa starch),
+    lazartigue-fortify-shampoing-fortifiant-anti-chute-guarana-et-extrait-de-ricinus-250ml-284716 :: INGREDIENTS : Aqua/Water/Eau, Sodium Lauroyl Glutamate, Decyl Glucoside, Sodium 
+    natessance-shampoing-reparateur-fortifiant-ricin-500ml-266083 :: Ingrédients : Aqua (water), cocamidopropyl betaine, cetrimonium chloride, decyl 
+    phyto-phytocyane-traitement-anti-chute-men-chute-severe-12-fioles-254878 :: Ingrédients : Aqua / water / eau, alcohol denat, niacinamide, capryloyl glycine,
+    dentifrice-elmex-sensitive-plus-soin-complet-2x75ml-263888 :: INGREDIENTS: Aqua, Sorbitol, Hydrated Silica, Glycerin, Sodium Methyl Cocoyl Tau
+    phyto-phytocolor-coloration-permanente-n-4-chatain-269254 :: Ingrédients :Crème colorante : Aqua / water / eau. cetearyl alcohol. ethanolamin
+    phyto-reparation-spray-thermo-protecteur-230-anti-casse-150ml-254980 :: INGREDIENTS : AQUA / WATER / EAU. PROPANEDIOL. ISODECYL NEOPENTANOATE. CETEARYL 
+    phyto-phytocolor-coloration-permanente-n-5-chatain-clair-269255 :: Ingrédients :Crème colorante : Eau, cetearyl alcohol, propylene glycol, etanolam
+    sowe-huile-pure-de-macadamia-bio-50ml-245270 :: INCI: 100% Macadamia integrifolia seed oil*  * Issu de l'agriculture biologique 
+    dentifrice-elmex-anti-caries-soin-complet-2x75-ml-263889 :: INGREDIENTS: Aqua, Sorbitol, Hydrated Silica, Glycerin, Sodium Methyl Cocoyl Tau
+    elmex-anti-caries-expert-orthodontie-lot-de-2-x-75ml-263856 :: Ingrédients : Calcium carbonate, aqua, glycerin, arginine, sodium lauryl sulfate
+    dermasens-gel-douche-surgras-3-en-1-monoi-1l-274421 :: Ingrédients: Aqua, coco-glucoside, glycerin, sodium coco-sulfate, cocamidopropyl
+    dermasens-gel-douche-surgras-3-en-1-fleur-de-frangipanier-1l-274424 :: Ingrédients: Aqua, coco-glucoside, glycerin, sodium coco-sulfate, cocamidopropyl
+    dexeryl-essentiel-huile-de-douche-apaisante-500ml-265284 :: Ingrédients : Water (aqua), glycerin, zinc coceth sulfate, coco-glucoside, sodiu
+    embryolisse-lait-creme-retinol-like-75ml-233892 :: INGREDIENTS : AQUA (WATER). DICAPRYLYL CARBONATE. BUTYROSPERMUM PARKII (SHEA) BU
+    embryolisse-soin-perfecteur-de-teint-cc-cream-nude-30ml-302371 :: INGREDIENTS : AQUA (WATER). DICAPRYLYL ETHER. PENTAERYTHRITYL TETRABEHENATE. HEP
+    embryolisse-soin-perfecteur-de-teint-cc-cream-clair-30ml-302375 :: INGREDIENTS : AQUA (WATER). DICAPRYLYL ETHER. PENTAERYTHRITYL TETRABEHENATE. HEP
+    embryolisse-soin-blush-de-peau-abricot-lumiere-50ml-260480 :: INGREDIENTS : AQUA (WATER). CAPRYLIC/CAPRIC TRIGLYCERIDE. GLYCERIN. POLYGLYCERYL
+    embryolisse-soin-perfecteur-de-teint-cc-cream-dore-30ml-302390 :: INGREDIENTS : AQUA (WATER). DICAPRYLYL ETHER. PENTAERYTHRITYL TETRABEHENATE. HEP
+    embryolisse-poudre-de-soleil-bonne-mine-302384 :: INGREDIENTS : DOLOMITE. MICA. ORYZA SATIVA (RICE) STARCH. OCTYLDODECYL STEAROYL 
+    embryolisse-soin-perfecteur-de-teint-cc-cream-chocolat-30ml-302374 :: INGREDIENTS : AQUA (WATER). DICAPRYLYL ETHER. PENTAERYTHRITYL TETRABEHENATE. HEP
+    embryolisse-serum-capsules-eclat-30ml-304314 :: INGREDIENTS : AQUA (WATER). CAPRYLIC/CAPRIC TRIGLYCERIDE. PENTYLENE GLYCOL. GLYC
+    embryolisse-lait-creme-sensitive-30ml-304295 :: INGREDIENTS : AQUA (WATER). CAPRYLIC/CAPRIC TRIGLYCERIDE. GLYCERIN. OCTYLDODECAN
+    clarification-la-poudre-lavante-naturelle-avoine-bio-et-acide-hyaluronique-40g-245804 :: INGREDIENTS : Sodium Lauroyl Glutamate, Aqua / Water, Kaolin, Avena Sativa Kerne
+    parodontax-pate-gingivale-lot-2x75ml :: Ingrédients:  sodium bicarbonate, aqua, glycerin, sodium lauryl sulfate, aroma, 
+    ducray-kertyol-p-s-o-baume-hydratant-quotidien-200ml-275484 :: Ingrédients : Water (aqua), caprylic/capric triglyceride, glycerin, cetearyl alc
+    ducray-kertyol-p-s-o-baume-hydratant-quotidien-anti-grattage-400ml-275485 :: Ingrédients : Water (aqua), caprylic/capric triglyceride, glycerin, cetearyl alc
+    ducray-dexyane-baume-emollient-anti-grattage-400ml-302033 :: Ingrédients : WATER (AQUA).CAPRYLIC/CAPRIC
+TRIGLYCERIDE. CARTHAMUS TINCTORIUS (S
+    ducray-dexyane-baume-emollient-anti-grattage-200ml-267138 :: Ingrédients : Aqua (water), carthamus tinctorius seed oil, isododecyl neopentano
+    embryolisse-baume-couleur-stick-3en1-mocha-302367 :: INGREDIENTS : CAPRYLIC/CAPRIC TRIGLYCERIDE. JOJOBA ESTERS. ZEA MAYS (CORN) STARC
+    ducray-ictyane-lait-hydratant-400ml-232612 :: Ingrédients : Water (aqua), glycerin, carthamus tinctorius (safflower) seed oil 
+    isdin-nutradeica-gel-creme-visage-peau-seborrheique-50ml-244463 :: Ingrédients : Piroctone olamine, stearyl glycyrrhetinate, pidolato de zinc, acet
+    ducray-keracnyl-lotion-purifiante-200ml-271270 :: Ingrédients : Water (aqua), hamamelis virginiana (witch hazel) leaf water (hamam
+    bioderma-node-shampoing-antipelliculaire-purifiant-cuir-chevelu-gras-400ml-256413 :: Ingrédients :Aqua/water/eau, magnesium laureth sulfate, sodium lauroyl sarcosina
+    klorane-bleuet-demaquillant-yeux-sensibles-waterproof-100ml-263890 :: Ingrédients : Water (aqua), isododecane, caprylic/capric triglyceride, butylene 
+    klorane-bleuet-lotion-florale-demaquillant-yeux-sensibles-lot-de-2-x-200ml-248043 :: Ingrédients : Water (aqua),butylene glycol,centaurea cyanus flower water,poloxam
+    klorane-junior-shampoing-demelant-peche-500ml-275496 :: Ingrédients : Water (aqua)*, sodium laureth sulfate, ceteareth-60 myristyl glyco
+    klorane-beurre-de-cupuacu-gel-douche-nutritif-ecorce-de-cedre-200ml-275237 :: Ingrédients : Water (aqua), sodium laureth sulfate, lauryl betaine, decyl glucos
+    klorane-beurre-de-cupuacu-gel-douche-nutritif-feve-de-tonka-200ml-275245 :: Ingrédients : Water (aqua), sodium laureth sulfate, lauryl betaine, decyl glucos
+    klorane-beurre-de-cupuacu-creme-douche-nutritive-feuille-de-frangipanier-200ml-275231 :: Ingrédients : Water (aqua), sodium laureth sulfate, lauryl betaine, coco-glucosi
+    ducray-sensinol-huile-lavante-apaisante-400ml-250426 :: Ingrédients : Water (aqua), disodium cocoamphodiacetate, coco-glucoside, sodium 
+    ducray-dexyane-huile-lavante-protectrice-400ml-269600 :: Ingrédients : Water (aqua), glycerin, disodium cocoyl glutamate, oleth-10, sodiu
+    klorane-bebe-calendula-creme-lavante-cold-cream-500ml-275077 :: Ingrédients : Water (aqua), disodium cocoyl glutamate, glycerin, peg-40 hydrogen
+    klorane-bebe-calendula-gel-lavant-doux-500ml-275076 :: Ingrédients : Water (aqua), glycerin, ceteareth-60, myristyl glycol, coco glucos
+    la-roche-posay-lipikar-huile-lavante-ap-relipidante-anti-grattage-peau-seche-1l-278584 :: INGREDIENTS: AQUA / WATER / EAU • GLYCERIN • SUCROSE • SODIUM LAURETH SULFATE • 
+
+  mojibake — 0 products
+
+  truncated — 0 products
+
+  very-short — 39 products
+    dr-sams-flawless-lip :: Lanolin, Ceramide NP
+    dr-sams-flawless-lip-tint :: Lanolin, Mica, Ceramide NP, CI 77491
+    crinex-phb-plus-brossettes-conique-12-unites-281667 :: Fibres de Tynex, plastique
+    crinex-phb-plus-brossettes-mini-gf-12-unites-258323 :: Fibres de Tynex, plastique
+    crinex-phb-plus-brossettes-micro-plus-gf-12-unites-258322 :: Fibres de Tynex, plastique
+    klorane-bebe-lingette-lavable-edition-limitee-hamac-12-x-14cm-5-unites-275451 :: Ingrédient : Microfibre.
+    isdin-warts-verrutop-traitement-topique-4-ampoules-244416 :: Nitrizinc Complex.
+    isdin-warts-verrutop-traitement-topique-4-ampoules-lot-de-2-303820 :: Nitrizinc Complex.
+    inava-brossettes-1mm-mono-compact-espaces-etroits-jaune-4-unites-301474 :: Fibres synthétiques.
+    elgydium-classique-brosse-a-dents-dure-272935 :: Plastique, nylon.
+    inava-brossettes-1-5mm-mono-compact-espaces-larges-rouge-4-unites-269046 :: Fibres synthétiques.
+    inava-brossettes-0-8mm-mono-compact-espaces-etroits-bleu-4-unites-269045 :: Fibres synthétiques.
+    inava-brossettes-4-recharges-etroits-0-8mm-bleu-269038 :: Fibres synthétiques.
+    inava-brossettes-1-8mm-mono-compact-espaces-larges-violet-4-unites-301475 :: Fibres synthétiques.
+    inava-brossettes-4-recharges-trio-compact-flex-iso4-1-5-mm-rouge-269041 :: Fibres synthétiques.
+    inava-recharge-power-sensibilite-265296 :: Fibres synthétiques
+    gum-brossette-interdentaire-bi-direction-0-7mm-vert-6-unites-259254 :: Tige recouverte de nylon
+    inava-brossettes-0-6mm-mono-compact-espaces-etroits-noir-4-unites-269044 :: Fibres synthétiques.
+    inava-recharge-power-rose-265295 :: Fibres synthétiques
+    gum-brossette-interdentaire-soft-picks-original-medium-100-unites-243492 :: Caoutchouc.
+    gum-fil-dentaire-expanding-floss-cire-279634 :: Fibres de nylon texturées.
+    klorane-bebe-lingette-lavable-edition-limitee-hamac-10-x-12cm-5-unites-275322 :: Ingrédient : Microfibre.
+    gum-brossette-interdentaire-trav-ler-0-9-mm-6-unites-301327 :: plastique + brins en nylon
+    gum-brossette-interdentaire-bi-direction-1-4mm-jaune-6-unites-243504 :: Tige recouverte de nylon
+    gum-brossette-interdentaire-bi-direction-0-6mm-bleu-lavande-6-unites-243503 :: Tige recouverte de nylon
+    inava-brossettes-1-2mm-mono-compact-espaces-etroits-orange-4-unites-300653 :: Fibres synthétiques.
+    oral-b-brossette-de-rechange-sensitive-clean-3-unites-271192 :: Fibres synthétiques.
+    forever-eye-mask :: NONPOROUS SILICONE
+    skin1004-spot-cover-patch :: HYDROCOLLOID
+    remedy-pimple-patches :: Hydrocolloid
+    avene-eau-thermale :: WATER, NITROGEN
+    mixsoon-heartleaf-toner :: Extrait de Houttuynia Cordata.
+    gum-dentifrice-original-white-blancheur-lot-de-3-x-75ml-248884 :: Does not contain any bleaching agents.
+    purito-seoul-bamboo-charcoal-konjac-sponge :: Poudre de Konjac, Charbon de Bambou.
+    pyunkang-yul-pimple-extractor-set :: Acier Inoxydable.
+    im-from-mugwort-essence :: Extrait d'Artemisia Princeps.
+    anua-cotton-pad-for-toner :: Pulpe, Rayonne.
+    mixsoon-collagen-powder :: Collagène Hydrolysé
+    mixsoon-vitamin-c-powder :: 100% Vitamine en Poudre
+
+  single-token — 216 products
+    a-derma-exomega-control-baume-emollient-anti-grattage :: WATER (AQUA) CAPRYLIC CAPRIC TRIGLYCERIDE GLYCERIN CETEARYL ALCOHOL NIACINAMIDE 
+    aderma-exomega-control-huile-lavante :: AQUA WATER GLYCERIN HYDROGENATED STARCH HYDROLYSATE COCO GLUCOSIDE ZINC COCETH S
+    pouxit-xf-lotion-anti-poux-et-lentes-100-efficace-200ml-263881 :: Dimeticone (4%); 1,6,10-Dodecatrien-3-ol,3,7,11-triméthyl ; PEG/PPG Dimeticone c
+    pranarom-huile-vegetale-bio-argan-50ml-279908 :: 100% pure and natural plant oil.
+Half of the contents are unsaturated fatty acid
+    ducray-anacaps-reactiv-90-capsules-275082 :: Pour la liste des ingrédients et des allergènes se référer à l’image produit.
+    acm-boreade-serum-concentre-anti-imperfections :: AQUA WATER LACTIC ACID PROPANEDIOL GLYCERIN CAPRYLIC CAPRIC TRIGLYCERIDE ORYZA S
+    acm-novophane-k-creme-visage :: HELIANTHUS ANNUUS SUNFLOWER SEED OIL TAPIOCA STARCH PARAFFINUM LIQUIDUM MINERAL 
+    klorane-bebe-lingette-lavable-edition-limitee-hamac-12-x-14cm-5-unites-275451 :: Ingrédient : Microfibre.
+    acm-novophane-60-gelules-259123 :: Pour la liste des ingrédients et des allergènes se référer à l’image produit.
+    eucerin-sensi-rides-creme-jour-peau-sensible :: AQUA GLYCERINE BUTYROSPERMUM PARKII BUTTER CETYL ALCOHOL ETHYLHEXYL COCOATE HYDR
+    eucerin-hydro-protect-spf50-fluide-teinte-medium :: AQUA ALCOHOL DENAT CI 77891 BUTYL METHOXYDIBENZOYLMETHANE BIS ETHYLHEXYLOXYPHENO
+    eucerin-oil-protect-spf50-serum-uv :: AQUA ALCOHOL DENAT C12 15 ALKYL BENZOATE BUTYL METHOXYDIBENZOYLMETHANE BIS ETHYL
+    isdin-warts-verrutop-traitement-topique-4-ampoules-244416 :: Nitrizinc Complex.
+    isdin-warts-verrutop-traitement-topique-4-ampoules-lot-de-2-303820 :: Nitrizinc Complex.
+    isdin-fotoprotector-fusion-water-pediatrics-creme-solaire-visage-pour-enfants-spf50-50ml-232743 :: Voir la composition inscrite sur l'emballage du produit.
+    inava-brossettes-1mm-mono-compact-espaces-etroits-jaune-4-unites-301474 :: Fibres synthétiques.
+    isdin-fotoultra-fusion-water-magic-repair-creme-solaire-anti-age-spf50-50ml-232742 :: Aqua (water) - ethylhexyl methoxycinnamate - butylene glycol - propylene glycol 
+    garancia-solaire-sun-expert-incroyable-douceur-fluide-teinte-embellisseur-spf50-40ml-303994 :: INGREDIENTS : AQUA (WATER/EAU) ; COCO-CAPRYLATE/CAPRATE ; DIETHYLAMINO HYDROXYBE
+    inava-brossettes-1-5mm-mono-compact-espaces-larges-rouge-4-unites-269046 :: Fibres synthétiques.
+    inava-brossettes-0-8mm-mono-compact-espaces-etroits-bleu-4-unites-269045 :: Fibres synthétiques.
+    svr-densitium-bi-serum-rechargeable :: AQUA WATER EAU DICAPRYLYL CARBONATE ISONONYL ISONONANOATE HEXYLDECYL STEARATE OL
+    svr-baume-nuit-densitium :: AQUA WATER EAU OCTYLDODECANOL BUTYROSPERMUM PARKII SHEA BUTTER GLYCERIN CETEARYL
+    svr-densitium-creme-rechargeable :: AQUA WATER EAU OCTYLDODECANOL VEGETABLE OIL ORBIGNYA OLEIFERA SEED OIL GLYCERYL 
+    svr-densitium-creme-riche-rechargeable :: AQUA WATER EAU OCTYLDODECANOL BUTYROSPERMUM PARKII SHEA BUTTER VITIS VINIFERA GR
+    svr-densitium-creme-rose-eclat-rechargeable :: AQUA PURIFIED WATER PEG 8 BEESWAX GLYCERIN BUTYROSPERMUM PARKII SHEA BUTTER CAPR
+    inava-brossettes-4-recharges-etroits-0-8mm-bleu-269038 :: Fibres synthétiques.
+    svr-densitium-recharge-baume-nuit :: AQUA WATER EAU OCTYLDODECANOL BUTYROSPERMUM PARKII SHEA BUTTER GLYCERIN CETEARYL
+    svr-densitium-recharge-bi-serum :: AQUA PURIFIED WATER DICAPRYLYL CARBONATE ISONONYL ISONONANOATE HEXYLDECYL STEARA
+    inava-brossettes-1-8mm-mono-compact-espaces-larges-violet-4-unites-301475 :: Fibres synthétiques.
+    svr-densitium-recharge-creme :: AQUA WATER EAU OCTYLDODECANOL VEGETABLE OIL ORBIGNYA OLEIFERA SEED OIL GLYCERYL 
+    svr-densitium-recharge-creme-riche :: AQUA WATER EAU OCTYLDODECANOL BUTYROSPERMUM PARKII SHEA BUTTER VITIS VINIFERA GR
+    svr-densitium-recharge-creme-rose-eclat :: AQUA PURIFIED WATER PEG 8 BEESWAX GLYCERIN BUTYROSPERMUM PARKII SHEA BUTTER CAPR
+    svr-sensifine-hydra-creme-soin-hydratant :: AQUA WATER EAU PERSEA GRATISSIMA AVOCADOOIL SQUALANE PANTHENOL 12HEXANEDIOL ACRY
+    inava-brossettes-4-recharges-trio-compact-flex-iso4-1-5-mm-rouge-269041 :: Fibres synthétiques.
+    svr-topialyse-stick-levres :: RICINUS COMMUNIS (CASTOR) SEED OIL CAPRYLIC CAPRIC TRIGLYCERIDE HELIANTHUS ANNUU
+    inava-recharge-power-sensibilite-265296 :: Fibres synthétiques
+    gum-brossette-interdentaire-bi-direction-0-7mm-vert-6-unites-259254 :: Tige recouverte de nylon
+    svr-densitium-creme-spf30-rechargeable :: AQUA WATER EAU DICAPRYLYL CARBONATE COCO CAPRYLATE CAPRATE DIETHYLAMINO HYDROXYB
+    svr-densitium-recharge-creme-spf30 :: AQUA WATER EAU DICAPRYLYL CARBONATE COCO CAPRYLATE CAPRATE DIETHYLAMINO HYDROXYB
+    svr-sun-secure-aqua-fluide-spf50 :: AQUA WATER EAU DICAPRYLYL CARBONATE DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE S
+    svr-sun-secure-eau-solaire-spf50 :: AQUA WATER EAU DICAPRYLYL CARBONATE COCO CAPRYLATE CAPRATE DIETHYLAMINO HYDROXYB
+    inava-brossettes-0-6mm-mono-compact-espaces-etroits-noir-4-unites-269044 :: Fibres synthétiques.
+    inava-recharge-power-rose-265295 :: Fibres synthétiques
+    noreva-sebodiane-ds-serum-lp-seboregulateur-8ml-259742 :: Caprylic/Capric Triglyceride • Isopropylidene Glycerol • Alcohol • Linoleic Acid
+    arkopharma-forcapil-elixir-croissance-cheveux-10-ml-254342 :: AQUA • PROPYLENE GLYCOL • SODIUM PCA • PANICUM MILIACEUM SEED EXTRACT • URTICA D
+    vichy-deodorant-mineral-48h-bille :: FORMULE INCI : AQUA / WATER - PROPYLENE GLYCOL - PPG-26-BUTETH-26 - STEARETH-100
+    vichy-deodorant-mineral-mgo-48h :: FORMULE INCI : ISOBUTANE - ISOPROPYL PALMITATE - ISODODECANE - DIMETHICONE - COC
+    vichy-deodorant-anti-transpirant-48h-50ml :: AQUA / WATER - ALUMINUM CHLOROHYDRATE - PPG-15 STEARYL ETHER - CETEARYL ALCOHOL 
+    vichy-homme-deodorant-anti-transpirant-50ml :: AQUA / WATER - ALUMINUM CHLOROHYDRATE - ALUMINUM SESQUICHLOROHYDRATE - PPG-15 ST
+    vichy-dercos-kera-solutions-masque :: AQUA / WATER - CETEARYL ALCOHOL - DICETYLDIMONIUM CHLORIDE - COCOS NUCIFERA OIL 
+    vichy-neovadiol-peri-post-menopause-soin-yeux-levres :: AQUA / WATER - DIMETHICONE - PROPYLENE GLYCOL - ISOHEXADECANE - DIMETHICONE/PEG-
+    vichy-liftactiv-collagen-specialist-16-serum-yeux :: AQUA WATER EAU GLYCERIN HYDROXYETHYLPIPERAZINE ETHANE SULFONIC ACID NIACINAMIDE 
+    vichy-capital-soleil-creme-onctueuse-perfectrice-50spf :: AQUA / WATER - GLYCERIN - DIISOPROPYL SEBACATE - ETHYLHEXYL SALICYLATE - BUTYL M
+    vichy-liftactiv-specialist-b3-serum :: AQUA /WATER / EAU - BUTYLENE GLYCOL - NIACINAMIDE - HYDROXYETHYLPIPERAZINE ETHAN
+    vichy-capital-soleil-fluide-uv-age-daily-spf50 :: AQUA / WATER - ALCOHOL DENAT - DIISOPROPYL SEBACATE - SILICA - ISOPROPYL MYRISTA
+    vichy-liftactiv-supreme-vitamin-c-serum :: AQUA / WATER - ASCORBIC ACID - ALCOHOL DENAT. - DIPROPYLENE GLYCOL - GLYCERIN - 
+    vichy-mineral-89-creme-boost-hydratation-100h-texture-riche :: AQUA / WATER / EAU - GLYCERIN - DICAPRYLYL ETHER - PENTYLENE GLYCOL - POLYGLYCER
+    vichy-mineral-89-creme-boost-hydratation-72h :: AQUA / WATER / EAU - GLYCERIN - DICAPRYLYL ETHER - PENTYLENE GLYCOL - POLYGLYCER
+    vichy-neovadiol-meno-5-bi-serum-px :: AQUA / WATER / EAU - ISOPROPYL ISOSTEARATE - DICAPRYLYL ETHER - NIACINAMIDE - PR
+    vichy-homme-structure-force-soin-anti-age :: AQUA - GLYCERIN - ALCOHOL DENAT. - DIMETHICONE - PENTAERYTHRITYL TETRAETHYLHEXAN
+    vichy-capital-soleil-spf-50-hydratante :: AQUA / WATER - HOMOSALATE - DICAPRYLYL ETHER - DICAPRYLYL CARBONATE - OCTOCRYLEN
+    vichy-capital-soleil-aqua-fluide-invisible-spf50 :: AQUA WATER EAU ALCOHOL DENAT DIISOPROPYL SEBACATE DICAPRYLYL CARBONATE BIS ETHYL
+    vichy-capital-soleil-fluide-teinte-uv-age-daily-spf50 :: AQUA / WATER - ALCOHOL DENAT - DIISOPROPYL SEBACATE - SILICA - ISOPROPYL MYRISTA
+    gum-brossette-interdentaire-soft-picks-original-medium-100-unites-243492 :: Caoutchouc.
+    vichy-capital-soleil-lait-solaire-aco-concu-spf50 :: AQUA/WATER - GLYCERIN - BIS-ETHYLHEXYLOXYPHENOLMETHOXYPHENYLTRIAZINE - ISOPROPYL
+    vichy-capital-soleil-spf50-brume-lait-apres-soleil :: BRUME HYDRATANTE INVISIBLEBUTANE AQUA WATER HOMOSALATE DICAPRYLYL ETHER OCTOCRYL
+    vichy-capital-soleil-spf50-lait-protecteur :: AQUA WATER EAU ISOPROPYL PALMITATE ALCOHOL DENAT ETHYLHEXYL SALICYLATE ETHYLHEXY
+    vichy-capital-soleil-spf50-spray-invisible :: AQUA WATER EAU ISOPROPYL MYRISTATE ALCOHOL DENAT BIS ETHYLHEXYLOXYPHENOL METHOXY
+    vichy-liftactiv-creme-b3-anti-taches-spf50 :: AQUA/WATER - GLYCERIN - ETHYLHEXYL SALICYLATE - ETHYLHEXYL TRIAZONE - ALCOHOL DE
+    vichy-capital-soleil-spf50-stick-invisible :: OCTYLDODECANOL ISOAMYL LAURATE DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE TRIHEP
+    vichy-capital-soleil-spf50-uv-clear-fluide-anti-imperfection :: AQUA /WATER - ALCOHOL DENAT. - DIISOPROPYL SEBACATE - SILICA - ISOPROPYL MYRISTA
+    vichy-capital-soleil-spray-fluide-invisible-spf50 :: AQUA / WATER / EAU - ALCOHOL DENAT. - ETHYLHEXYL SALICYLATE - ETHYLHEXYL TRIAZON
+    vichy-liftactiv-supreme-soin-anti-rides-fermetes-spf30 :: AQUA / WATER - GLYCERIN - OCTOCRYLENE - NIACINAMIDE - RHAMNOSE - ALCOHOL DENAT -
+    gum-fil-dentaire-expanding-floss-cire-279634 :: Fibres de nylon texturées.
+    argiletz-pate-argile-ghassoul-prete-a-l-emploi-150g-253533 :: Arcilla de Ghassoul (Tierra marroquí) y agua.
+    cattier-beurre-de-karite-100-bio-100g-278308 :: Butyrospermum Parkii Butter*. *Ingrédient issu de l'agriculture biologique.100% 
+    clarification-coffret-cheveux-mes-chouchous-edition-limitee-245802 :: INGRÉDIENTS : ZEA MAYS (CORN) STARCH • KAOLIN • AVENA SATIVA (OAT) KERNEL FLOUR.
+    ducray-anacaps-expert-chute-de-cheveux-chronique-90-gelules-275585 :: Pour la liste des ingrédients et des allergènes se référer à l’image produit.
+    klorane-antichute-force-et-vitalite-complement-alimentaire-90-capsules-232490 :: Huile de pépins de courge (Cucurbita pepo) - Gélatine de poissons - Affermissant
+    klorane-monoi-tamanu-huile-reparatrice-apres-soleil-visage-et-corps-150ml-270087 :: Ingrédients : Caprylic/capric triglyceride*; carthamus tinctorius (safflower) se
+    klorane-bebe-lingette-lavable-edition-limitee-hamac-10-x-12cm-5-unites-275322 :: Ingrédient : Microfibre.
+    les-secrets-de-loly-bubble-kurl-spray-demelant-enfants :: AQUA WATER ISOAMYL COCOATE PROPANEDIOL CAPRYLIC CAPRIC TRIGLYCERIDE HYDROGENATED
+    les-secrets-de-loly-bubble-smooth-apres-shampooing-enfants :: AQUA CETEARYL ALCOHOL PRUNUS AMYGDALUS DULCIS OIL SODIUM LACTATE GLYCERIN BETAIN
+    pouxit-spray-preventif-anti-poux-sans-rincage-200ml-272691 :: 1,2-dihydroxyoctane 1%(Protectdiol®); PEG-6 caprylic/capric glycerides; PEG-12 d
+    redken-gel-de-definition-pour-cheveux-boucles-hybrid-curl-stylers-255273 :: 1218415RK7 - INGREDIENTS: AQUA / WATER / EAU • PROPYLENE GLYCOL • VP/ACRYLATES/L
+    redken-holiday-coffret-all-soft-251999 :: 1129606RK4 - INGREDIENTS: AQUA / WATER • CETEARYL ALCOHOL • BEHENTRIMONIUM CHLOR
+    sowe-huile-de-chanvre-pure-bio-50ml-245266 :: Cannabis sativa seed oil* * Matière biologique première certifiée COSMOS par Eco
+    sowe-huile-de-jojoba-pure-bio-50ml-245268 :: Simmondsia chinensis seed oil* * Matière biologique première certifiée COSMOS pa
+    sowe-huile-pure-de-macadamia-bio-50ml-245270 :: INCI: 100% Macadamia integrifolia seed oil*  * Issu de l'agriculture biologique 
+    gum-brossette-interdentaire-trav-ler-0-9-mm-6-unites-301327 :: plastique + brins en nylon
+    gum-brossette-interdentaire-bi-direction-1-4mm-jaune-6-unites-243504 :: Tige recouverte de nylon
+    gum-brossette-interdentaire-bi-direction-0-6mm-bleu-lavande-6-unites-243503 :: Tige recouverte de nylon
+    inava-brossettes-1-2mm-mono-compact-espaces-etroits-orange-4-unites-300653 :: Fibres synthétiques.
+    oral-b-brossette-de-rechange-sensitive-clean-3-unites-271192 :: Fibres synthétiques.
+    clarins-sos-primer-base-matifiante :: AQUA/WATER/EAU· PROPANEDIOL · C9-12 ALKANE ·BUTYLENE GLYCOL ·GLYCERIN· SILICA· 1
+    clarins-sos-primer-rose-attenue-les-signes-de-fatigue :: AQUA/WATER/EAU · COCO CAPRYLATE/CAPRATE ·GLYCERIN· CAPRYLIC/CA PRIC TRIGLYCERIDE
+    clarins-tinted-oleo-serum :: COCO-CAPRYLATE/CAPRATE · SQUALANE · CI 77891/TITANIUM DIOXIDE · SIMMONDSIA CHINE
+    clinique-hydratant-eclat-revitalisant-nuit :: WATER AQUA EAU DIMETHICONE BUTYLENE GLYCOL VINYL DIMETHICONE METHICONE SILSESQUI
+    clinique-smart-clinical-repair-serum-anti-rides :: WATER AQUA EAU DIMETHICONE ISODODECANE BUTYLENE GLYCOL GLYCERIN POLYSILICONE11 A
+    clinique-moisture-surge-soin-auto-hydratant-100h :: WATER AQUA EAU DIMETHICONE BUTYLENE GLYCOL GLYCERIN TRISILOXANE TREHALOSE SACCHA
+    clinique-smart-clinical-repair-creme-riche-visage :: WATER AQUA EAU GLYCERIN ISOSTEARYL NEOPENTANOATE BUTYLENE GLYCOL GLYCERYL STEARA
+    clinique-uv-solutions-creme-visage-hydratante-spf50 :: HOMOSALATE 7 W W P P OCTOCRYLENE 7 W W P P OCTISALATE 4 5 W W P P AVOBENZONE 3 W
+    clinique-superdefense-city-block-protection-solaire-spf50 :: WATER\AQUA\EAU_DIMETHICONE_ZINC OXIDE_C12-15 ALKYLBENZOATE_HOMOSALATE_ISODODECAN
+    erborian-bamboo-super-serum :: BAMBUSA VULGARIS (BAMBOO) EXTRACT – METHYLPROPANEDIOL - GLYCERIN - 1,2-HEXANEDIO
+    erborian-centella-cleansing-balm :: HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL - COCOS NUCIFERA (COCONUT) OIL - PEG-40 S
+    erborian-centella-red-serum-apaisant :: AQUA WATER EAU BUTYLENE GLYCOL PENTYLENE GLYCOL GLYCERIN PROPANEDIOL SQUALANE EC
+    erborian-centella-creme-hydratante-apaisante :: AQUA WATER EAU DICAPRYLYL CARBONATE ISONONYL ISONONANOATE GLYCERYL STEARATE GLYC
+    erborian-skin-therapy-creme-yeux-multi-perfecteur :: AQUA/WATER - BUTYLENE GLYCOL - GLYCERIN - NIACINAMIDE - BUTYROSPERMUM PARKII (SH
+    erborian-centella-gel-nettoyant-doux :: AQUA/WATER -SODIUM METHYL COCOYL TAURATE -GLYCERIN -PENTYLENE GLYCOL -COCO-BETAI
+    erborian-centella-huile-demaquillante :: HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL -ETHYLHEXYL STEARATE -CAPRYLIC/CAPRIC TRI
+    erborian-yuza-super-serum :: CITRUS JUNOS FRUIT WATER - PROPANEDIOL - GLYCERIN - 1,2-HEXANEDIOL - METHYL GLUC
+    erborian-ginseng-super-serum :: PANAX GINSENG ROOT WATER - PROPANEDIOL - AQUA/WATER - 1,2-HEXANEDIOL - OLUS OIL/
+    erborian-pink-primer-care :: AQUA/WATER - CYCLOMETHICONE - ISONONYL ISONONANOATE - BUTYLENE GLYCOL - DIPROPYL
+    erborian-red-pepper-super-serum :: CAPSICUM ANNUUM LEAF EXTRACT - PROPANEDIOL - AQUA/WATER - GLUCONOLACTONE - 1,2-H
+    erborian-skin-therapy-serum-nuit-multi-perfecteur :: AQUA/WATER - GLYCERIN - CAPRYLIC/CAPRIC TRIGLYCERIDE - GLUCONOLACTONE - HELIANTH
+    erborian-bb-shot-mask :: AQUA/WATER - BUTYLENE GLYCOL - VINYL DIMETHICONE/METHICONE SILSESQUIOXANE CROSSP
+    erborian-masque-exfoliant-purifiant-au-charbon :: AQUA/WATER – BUTYLENE GLYCOL – CELLULOSE – PEG-8 – ALCOHOL – GLYCERIN – CHARCOAL
+    erborian-matt-creme-matifiant :: CYCLOMETHICONE - DIMETHICONE - AQUA/WATER - VINYL DIMETHICONE/METHICONE SILSESQU
+    erborian-matt-creme-matifiant-visage :: CYCLOMETHICONE - DIMETHICONE - AQUA/WATER - VINYL DIMETHICONE/METHICONE SILSESQU
+    erborian-cc-eye-contour-des-yeux-clair :: AQUA/WATER - CYCLOMETHICONE - ETHYLHEXYL METHOXYCINNAMATE- DIPROPYLENE GLYCOL - 
+    erborian-cc-eye-contour-des-yeux-dore :: AQUA/WATER - CYCLOMETHICONE - ETHYLHEXYL METHOXYCINNAMATE- DIPROPYLENE GLYCOL - 
+    erborian-eye-seve-de-bamboo-gel-hydratant-contour-des-yeux :: AQUA/WATER - BUTYLENE GLYCOL - GLYCERIN - PROPANEDIOL - PENTYLENE GLYCOL - PHYLL
+    erborian-bb-creme-au-ginseng-creme-teint-soin-spf20 :: AQUA/WATER - DIMETHICONE - CAPRYLIC/CAPRIC TRIGLYCERIDE – ISONONYL ISONONANOATE 
+    erborian-cc-creme-clair-spf30 :: AQUA/WATER - DIBUTYL ADIPATE - BUTYLOCTYL SALICYLATE - ETHYLHEXYL SALICYLATE - G
+    erborian-cc-creme-dore-spf30 :: AQUA/WATER - DIBUTYL ADIPATE - BUTYLOCTYL SALICYLATE - ETHYLHEXYL SALICYLATE - G
+    erborian-cc-creme-spf30-teinte-caramel :: AQUA WATER DIBUTYL ADIPATE CI 77891 TITANIUM DIOXIDE CI 77492 IRON OXIDES BUTYLO
+    erborian-cc-red-correct-soin-teinte-spf30 :: AQUA WATER EAU DIBUTYL ADIPATE BUTYLOCTYL SALICYLATE CI 77891 TITANIUM DIOXIDE E
+    kreme-deodorant-soin-24h-peaux-sensibles :: HELIANTHUS ANNUUS SEED OIL MAGNESIUM HYDROXIDE MAGNESIUM CARBONATE HYDROXIDE CAP
+    kreme-bio-masque-de-nuit-anti-soif :: AQUA (WATER) CHAMOMILLA RECUTITA (MATRICARIA) FLOWER WATER OCTYLDODECANOL GLYCER
+    kreme-stick-levres-concentre :: CORYLUS AVELLANA SEED OIL COCOGLYCERIDES GLYCERYL STEARATE ETHYL OLEATE CAPRYLIC
+    la-rosee-fluide-solaire-invisible-spf50 :: AQUA WATER DICAPRYLYL CARBONATE COCO CAPRYLATE CAPRATE DIETHYLAMINO HYDROXYBENZO
+    la-rosee-serum-visage-desalterant :: AQUA (WATER) PROPANEDIOL ERYTHRITOL GLYCERIN SODIUM HYALURONATE ALOE BARBADENSIS
+    les-secrets-de-loly-bubble-kiss-soin-lavant-bebes-et-enfants :: AQUA WATER GLYCERIN COCO-GLUCOSIDE SODIUM COCOYL GLUTAMATE CAPRYLYL CAPRYL GLUCO
+    lierac-lift-integral-le-gel-creme-jour-raffermissant :: AQUA WATER EAU C15-19 ALKANE GLYCERIN PROPANEDIOL BUTYLENE GLYCOL AMMONIUM ACRYL
+    lierac-lift-integral-recharge-gel-creme-jour-raffermissant :: AQUA WATER EAU C15-19 ALKANE GLYCERIN PROPANEDIOL BUTYLENE GLYCOL AMMONIUM ACRYL
+    lierac-protocole-eclat-masque-acide-glycolique-pur :: AQUA WATER EAU COCO-CAPRYLATE CAPRATE GLYCERYL STEARATE SE BEHENYL ALCOHOL PENTA
+    lierac-radiance-protocol-serum-pure-vitamine-c-14-sachets :: INGRÉDIENTS MÉLANGE AQUA WATER EAU ASCORBIC ACID PROPANEDIOL JOJOBA ESTERS NIACI
+    mustela-creme-change :: AQUA; ZINC OXIDE; PARAFFINUM LIQUIDUM; METHYL GLUCOSE DIOLEATE; PROPYLENE GLYCOL
+    mustela-creme-pour-le-change :: AQUA; ZINC OXIDE; PARAFFINUM LIQUIDUM; METHYL GLUCOSE DIOLEATE; PROPYLENE GLYCOL
+    mustela-lait-de-toilette-peau-normale-750ml :: AQUA WATER EAU HELIANTHUS ANNUUS SUNFLOWER SEED OIL GLYCERIN POLYGLYCERYL3 DISTE
+    patyka-pure-serum-anti-imperfections :: AQUA MENTHA VIRIDIS LEAF EXTRACT GLUCONOLACTONE GLYCERIN PENTYLENE GLYCOL C1519 
+    patyka-bio-creme-riche-hydra-apaisante :: AQUA COCOS NUCIFERA OIL BUTYROSPERMUM PARKII BUTTER RIBES NIGRUM LEAF WATER PENT
+    patyka-bio-glow-serum-detox-belle-nuit :: EAU HUILE DE GRAINES DE TOURNESOL UNDECANE 2 3 BUTANEDIOL TRIDECANE CAPRYLIC CAP
+    patyka-bio-glow-soin-yeux-correcteur-eclat :: AQUA WATER GLYCERIN CI 77891 TITANIUM DIOXIDE PROPYLENE GLYCOL DICAPRYLYL ETHER 
+    patyka-bio-masque-creme-hydra-reparateur :: AQUA PROPANEDIOL COCOCAPRYLATE CAPRATE RIBES NIGRUM LEAF WATER OCTYLDODECANOL DI
+    patyka-pure-lotion-purifiante-perfectrice :: AQUA (WATER) MENTHA VIRIDIS (SPEARMINT) LEAF EXTRACT PENTYLENE GLYCOL GLUCONOLAC
+    patyka-creme-solaire-teintee-spf50 :: AQUA PROPANEDIOL ALCOHOL DENAT RICINUS COMMUNIS SEED OIL PHYLLANTHUS EMBLICA FRU
+    patyka-pure-masque-charbon-desincrustant :: AQUA (WATER) MENTHA VIRIDIS (SPEARMINT) LEAF EXTRACT CETEARYL ALCOHOL ILLITE PEN
+    patyka-soin-cible-stop-boutons :: MENTHA VIRIDIS LEAF EXTRACT AQUA GLUCONOLACTONE GLYCERIN PENTYLENE GLYCOL C1519 
+    patyka-fluide-matifiant-anti-imperfections :: AQUA (WATER) MENTHA VIRIDIS (SPEARMINT) LEAF EXTRACT GLYCERIN PENTYLENE GLYCOL T
+    respire-deodorant-stick-embruns-cedre :: HELIANTHUS ANNUUS SEED OIL COCO CAPRYLATE CAPRATE MAGNESIUM OXIDE STEARYL ALCOHO
+    respire-recharge-deodorant-stick-douceur-monoi :: HELIANTHUS ANNUUS SEED OIL COCOCAPRYLATECAPRATE MAGNESIUM OXIDE STEARYL ALCOHOL 
+    respire-recharge-deodorant-stick-menthe-eucalyptus :: HELIANTHUS ANNUUS SEED OIL COCOCAPRYLATECAPRATE MAGNESIUM OXIDE STEARYL ALCOHOL 
+    respire-recharge-deodorant-stick-rose-pivoine :: HELIANTHUS ANNUUS SEED OIL COCO CAPRYLATE CAPRATE MAGNESIUM OXIDE STEARYL ALCOHO
+    acm-novophane-shampooing-traitant-pellicules-seches :: AQUA WATER SODIUM LAURETH SULFATE COCO BETAINE DIPROPYLENE GLYCOL ACRYLATES C10 
+    acm-novophane-ds-shampooing-traitant-pellicules-seches :: AQUA WATER SODIUM LAURETH SULFATE DIPROPYLENE GLYCOL COCO BETAINE ACRYLATES C10 
+    acm-novophane-shampooing-traitant-pellicules-grasses :: AQUA WATER SODIUM LAURETH SULFATE DIPROPYLENE GLYCOL COCO BETAINE ACRYLATES C10 
+    vichy-dercos-kera-solutions-shampooing :: AQUA / WATER - SODIUM LAURETH SULFATE - COCAMIDOPROPYL BETAINE - DIMETHICONE - S
+    vichy-dercos-shampooing-anti-pelliculaire-cheveux-normaux :: AQUA / WATER - SODIUM LAURETH SULFATE - GLYCOL DISTEARATE - COCO-BETAINE - GLYCE
+    vichy-dercos-shampooing-anti-pelliculaire-sensitive :: AQUA / WATER - SODIUM METHYL COCOYL TAURATE - LAURETH-5 CARBOXYLIC ACID - COCAMI
+    vichy-dercos-eco-recharge-shampooing-stimulant-energy :: AQUA / WATER / EAU - SODIUM LAURETH SULFATE - CITRIC ACID - SODIUM COCOAMPHOACET
+    vichy-dercos-psolution-shampooing-traitant-keratoreducteur :: AQUA / WATER / EAU - ISOPROPYL ISOSTEARATE - DICAPRYLYL ETHER - NIACINAMIDE - PR
+    vichy-dercos-shampooing-dermatologique :: AQUA WATER EAU SODIUM LAURETH SULFATE CITRIC ACID COCAMIDOPROPYL BETAINE SODIUM 
+    vichy-dercos-shampooing-stimulant-recharge :: AQUA /WATER / EAU - SODIUM LAURETH SULFATE - CITRIC ACID - SODIUM COCOAMPHOACETA
+    vichy-dercos-shampooing-traitant-anti-pellicule-recharge :: AQUA / EAU - SODIUM LAURETH SULFATE - DISTÉARATE DE GLYCOL - DIMÉTHICONE - COCO-
+    vichy-dercos-collagen-filler-17-shampoing-ultra-reparateur :: AQUA WATER EAU SODIUM C1416 OLEFIN SULFONATE GLYCERIN SODIUM CHLORIDE COCAMIDE M
+    les-secrets-de-loly-sleek-slay-baume-soin-2-en-1 :: AQUA WATER EAU SODIUM LAURETH SULFATE COCO BETAINE SODIUM LAUROYL SARCOSINATE GL
+    avene-creme-vitamin-activ-cg-intensive-eclat-rechargeable :: AVENE THERMAL SPRING WATER AVENE AQUA CAPRYLIC CAPRIC TRIGLYCERIDE GLYCERIN NIAC
+    avene-dermabsolu-creme-jour :: AVENE THERMAL SPRING WATER AVENE AQUA PENTAERYTHRITYL TETRACAPRYLATE TETRACAPRAT
+    avene-hyaluron-activ-b3-aqua-gel-creme-regenerant :: AVENE THERMAL SPRING WATER AVENE AQUA GLYCERIN NIACINAMIDE SQUALANE DIGLYCERIN P
+    avene-soin-apaisant-yeux :: AVENE THERMAL SPRING WATER (AVENE AQUA) CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OI
+    avene-gel-autobronzant-hydratant-hale-naturel :: AVENE THERMAL SPRING WATER AVENE AQUA PEG 4 COCO CAPRYLATE CAPRATE DIHYDROXYACET
+    la-roche-posay-lot-lipikar-huile-lavante-ap-relipidante-anti-grattage-2x1l-300356 :: 714327 01 - INGREDIENTS: AQUA / WATER / EAU • GLYCERIN • SUCROSE • SODIUM LAURET
+    la-roche-posay-lipikar-syndet-ap-400ml-lipikar-syndet-ap-ecorecharge-400ml-300577 :: 714238 60 - INGREDIENTS: AQUA / WATER / EAU • GLYCERIN • SODIUM LAURETH SULFATE 
+    la-roche-posay-lipikar-huile-lavante-ap-400ml-lipikar-huile-lavante-ap-ecorecharge-400ml-300582 :: 714327 01 - INGREDIENTS: AQUA / WATER / EAU • GLYCERIN • SUCROSE • SODIUM LAURET
+    la-roche-posay-lipikar-gel-lavant-apaisant-recharge :: AQUA WATER EAU SODIUM LAURETH SULFATE PEG-200 HYDROGENATED GLYCERYL PALMATE GLYC
+    la-roche-posay-lipikar-surgras-creme-lavante-recharge :: AQUA WATER EAU PEG-7 GLYCERYL COCOATE DISODIUM COCOAMPHODIACETATE COCO-BETAINE S
+    la-roche-posay-syndet-ap-creme-lavante-relipidiante-recharge :: AQUA WATER EAU PEG 7 GLYCERYL COCOATE DISODIUM COCOAMPHODIACETATE COCO BETAINE S
+    la-roche-posay-effaclar-gel-purifiant :: AQUA WATER EAU SODIUM LAURETH SULFATE PEG-8 COCO-BETAINE HEXYLENE GLYCOL SODIUM 
+    la-roche-posay-hyalu-b5-serum-suractive-50ml :: AQUA WATER EAU GLYCERIN ALCOHOL DENAT PROPYLENE GLYCOL PANTHENOL PENTYLENE GLYCO
+    la-roche-posay-lipikar-ap-creme-relipidante :: AQUA WATER EAU GLYCERIN ISOPROPYL PALMITATE BUTYROSPERMUM PARKII BUTTER SHEA BUT
+    la-roche-posay-lipikar-ap-m-creme-relipidante :: AQUA WATER EAU GLYCERIN ISOPROPYL PALMITATE BUTYROSPERMUM PARKII BUTTER SHEA BUT
+    la-roche-posay-lipikar-ap-max-baume-triple-reparation :: AQUA WATER EAU BUTYROSPERMUM PARKII BUTTER SHEA BUTTER GLYCERIN DIMETHICONE NIAC
+    la-roche-posay-anthelios-400-fluide-ka-spf50 :: AQUA WATER EAU ISOPROPYL MYRISTATE ALCOHOL DENAT DIISOPROPYL SEBACATE ETHYLHEXYL
+    la-roche-posay-anthelios-serum-solaire-deep-spf50 :: AQUA WATER EAU ALCOHOL DENAT DIISOPROPYL SEBACATE DICAPRYLYL CARBONATE BIS ETHYL
+    la-roche-posay-anthelios-serum-solaire-medium-spf50 :: AQUA WATER EAU ALCOHOL DENAT DIISOPROPYL SEBACATE DICAPRYLYL CARBONATE BIS ETHYL
+    la-roche-posay-anthelios-stick-pro-resistance-spf50 :: RICINUS COMMUNIS SEED OIL CASTOR SEED OIL ISOPROPYL PALMITATE POLYETHYLENE ISOHE
+    la-roche-posay-anthelios-stick-solaire-vitamine-spf50 :: RICINUS COMMUNIS CASTOR SEED OIL ISOPROPYL PALMITATE POLYETHYLENE OCTOCRYLENE IS
+    la-roche-posay-hyalu-b5-recharge-creme-suractive-spf30 :: AQUA WATER EAU GLYCERIN C1215 ALKYL BENZOATE DIISOPROPYL SEBACATE PHENYLBENZIMID
+    la-roche-posay-toleriane-soin-protecteur :: AQUA / WATERISOCETYL STEARATESQUALANEBUTYROSPERMUM PARKII BUTTER / SHEA BUTTERDI
+    la-roche-posay-anthelios-spf-30-fluide-invisible :: AQUA / WATER ALCOHOL DENAT.DIISOPROPYL SEBACATE SILICA ISOPROPYL MYRISTAT ETHYLH
+    erborian-centella-barrier-cream-baume-cica-reparateur :: AQUA WATER EAU GLYCERIN CAPRYLIC CAPRIC TRIGLYCERIDE DIPROPYLENE GLYCOL METHYLPR
+    forever-eye-mask :: NONPOROUS SILICONE
+    skin1004-spot-cover-patch :: HYDROCOLLOID
+    garancia-coffret-larmes-de-fantome-10ml-patchs-en-silicone-offerts-304323 :: LARMES DE FANTOME INGREDIENTS : AQUA(WATER/EAU*) ; GLYCERIN *; COCO-CAPRYLATE /C
+    erborian-centella-sos-patch-anti-imperfections :: AQUA/WATER - GLUCONOLACTONE - SODIUM POLYITACONATE - NIACINAMIDE - ALCOHOL DENAT
+    la-roche-posay-effaclar-duo-m-22-patchs-anti-imperfections :: HYDROGENATED POLY C6-20 OLEFIN CELLULOSE GUM HYDROGENATED STYRENE BUTADIENE COPO
+    remedy-pimple-patches :: Hydrocolloid
+    aderma-lait-corps-hydratation-72h :: WATER (AQUA) GLYCERIN CAPRYLIC CAPRIC TRIGLYCERIDE ISOPROPYL PALMITATE PROPYLENE
+    erborian-soin-corps-perfecteur-teinte :: AQUA/WATER - DIMETHICONE - SYNTHETIC FLUORPHLOGOPITE - METHYL TRIMETHICONE - ISO
+    vichy-purete-thermale-lotion-tonique-perfectrice :: AQUA / WATER - PEG-8 - GLYCERIN - PEG-60 HYDROGENATED CASTOR OIL - DISODIUM EDTA
+    mixsoon-heartleaf-toner :: Extrait de Houttuynia Cordata.
+    gum-dentifrice-original-white-blancheur-lot-de-3-x-75ml-248884 :: Does not contain any bleaching agents.
+    melvita-les-essentiels-shampoing-douche-extra-doux-bio :: AQUA/WATER - GLYCERIN - AMMONIUM LAURYL SULFATE - COCAMIDOPROPYL BETAINE - HORDE
+    erborian-yuza-sorbet-eye-serum :: AQUA/WATER - GLYCERIN - PROPANEDIOL - PENTYLENE GLYCOL - GLYCYRRHIZA GLABRA (LIC
+    kreme-yeux-serum-collagene-anti-rides :: AQUA WATER CITRUS LIMON LEMON FRUIT WATER COCO CAPRYLATE CAPRATE CAPRYLIC CAPRIC
+    vichy-dercos-collagen-filler-17-apres-shampoing-ultra-reparateur :: AQUA WATER EAU GLYCERIN CETEARYL ALCOHOL DISTARCH PHOSPHATE QUATERNIUM87 DIMETHI
+    eucerin-dermatoclean-lotion-micellair-3-en-1 :: AQUA POLOXAMER 124 GLYCERYL GLUCOSIDE GLYCERIN SODIUM HYALURONATE DECYL GLUCOSID
+    vichy-dercos-densi-solutions-baume-epaisseur :: AQUA / WATER - HYDROXYPROPYL STARCH PHOSPHATE - GLYCERIN - QUATERNIUM-87 - STEAR
+    vichy-dercos-serum-regeneratif-capillaire :: AQUA WATER EAU ALCOHOL DENAT NIACINAMIDE PROPYLENE GLYCOL DIAMINOPYRIMIDINE OXID
+    patyka-pure-gelee-nettoyante-purifiante :: AQUA (WATER) MENTHA VIRIDIS (SPEARMINT) LEAF EXTRACT GLYCERIN DECYL GLUCOSIDE PE
+    pyunkang-yul-pimple-extractor-set :: Acier Inoxydable.
+    im-from-mugwort-essence :: Extrait d'Artemisia Princeps.
+    some-by-mi-yuja-niacin-anti-blemish-starter-kit :: Yuja Niacin Brightening All-In-One Cleanser (30ml) : Yuja Niacin Brightening Ton
+    mixsoon-collagen-powder :: Collagène Hydrolysé
+    mixsoon-vitamin-c-powder :: 100% Vitamine en Poudre
+
+  no-comma — 267 products
+    a-derma-exomega-control-baume-emollient-anti-grattage :: WATER (AQUA) CAPRYLIC CAPRIC TRIGLYCERIDE GLYCERIN CETEARYL ALCOHOL NIACINAMIDE 
+    aderma-exomega-control-huile-lavante :: AQUA WATER GLYCERIN HYDROGENATED STARCH HYDROLYSATE COCO GLUCOSIDE ZINC COCETH S
+    ducray-keracnyl-repair-baume-levres-15-ml-272664 :: RICINUS COMMUNIS (CASTOR) SEED OIL (RICINUS COMMUNIS SEED OIL). CAPRYLIC/CAPRIC 
+    ducray-dexyane-med-palpebral-eczema-des-paupieres-15ml-275302 :: AQUA. GLYCERIN. CAPRYLIC/CAPRIC TRIGLYCERIDE. BUTYLENE GLYCOL. POLYSORBATE 60. G
+    ducray-melascreen-concentre-antitaches-30-ml-275587 :: WATER (AQUA). AZELAIC ACID. CAPRYLIC/CAPRIC TRIGLYCERIDE. SQUALANE. PROPANEDIOL.
+    ducray-melascreen-creme-antitaches-protectrice-spf50-50-ml-275590 :: WATER (AQUA). C12-15 ALKYL BENZOATE. DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE.
+    pranarom-huile-vegetale-bio-argan-50ml-279908 :: 100% pure and natural plant oil.
+Half of the contents are unsaturated fatty acid
+    ducray-dexyane-med-creme-reparatrice-apaisante-eczema-100ml-266178 :: AQUA. GLYCERIN. CAPRYLIC/CAPRIC TRIGLYCERIDE. BUTYLENE GLYCOL. POLYSORBATE 60. G
+    ducray-anacaps-reactiv-90-capsules-275082 :: Pour la liste des ingrédients et des allergènes se référer à l’image produit.
+    ducray-keracnyl-uv-fluide-anti-imperfections-spf50-50ml-275259 :: Ingrédients : Water (aqua). c12-15 alkyl benzoate. dicaprylyl carbonate. methyle
+    ducray-melascreen-fluide-antitaches-protecteur-spf50-50-ml-275589 :: WATER (AQUA). C12-15 ALKYL BENZOATE. DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE.
+    ducray-keracnyl-serum-regulateur-anti-imperfections-30ml-299583 :: WATER (AQUA). AZELAIC ACID. CAPRYLIC/CAPRIC TRIGLYCERIDE. DICAPRYLYL ETHER. GLYC
+    ducray-sensinol-shampooing-traitant-400ml-275173 :: WATER (AQUA). GLYCERIN. DECYL GLUCOSIDE. SODIUM COCOYL GLUTAMATE. LAURETH-9. ALG
+    ducray-elution-shampoing-doux-equilibrant-400ml-275596 :: WATER (AQUA). SODIUM LAURETH SULFATE. GLYCINE. GLYCERIN. LAURYL BETAINE. ACRYLAT
+    ducray-sensinol-serum-spray-sos-30ml-264178 :: WATER (AQUA). PENTYLENE GLYCOL. POLYGLYCERYL-4 CAPRATE. LAURETH-9. CITRIC ACID. 
+    ducray-shampooing-traitant-anti-pelliculaire-kelual-ds-intensive-100-ml-302486 :: WATER (AQUA). SODIUM LAURETH SULFATE. UNDECYLENAMIDOPROPYL BETAINE. DECYL GLUCOS
+    klorane-monoi-tamanu-huile-capillaire-protection-soleil-100ml-275304 :: Ingrédients : Caprylic/capric triglyceride*. alcohol denat.*. isopropyl myristat
+    acm-boreade-serum-concentre-anti-imperfections :: AQUA WATER LACTIC ACID PROPANEDIOL GLYCERIN CAPRYLIC CAPRIC TRIGLYCERIDE ORYZA S
+    acm-novophane-k-creme-visage :: HELIANTHUS ANNUUS SUNFLOWER SEED OIL TAPIOCA STARCH PARAFFINUM LIQUIDUM MINERAL 
+    klorane-bebe-lingette-lavable-edition-limitee-hamac-12-x-14cm-5-unites-275451 :: Ingrédient : Microfibre.
+    acm-novophane-60-gelules-259123 :: Pour la liste des ingrédients et des allergènes se référer à l’image produit.
+    eucerin-sensi-rides-creme-jour-peau-sensible :: AQUA GLYCERINE BUTYROSPERMUM PARKII BUTTER CETYL ALCOHOL ETHYLHEXYL COCOATE HYDR
+    eucerin-hydro-protect-spf50-fluide-teinte-medium :: AQUA ALCOHOL DENAT CI 77891 BUTYL METHOXYDIBENZOYLMETHANE BIS ETHYLHEXYLOXYPHENO
+    eucerin-oil-protect-spf50-serum-uv :: AQUA ALCOHOL DENAT C12 15 ALKYL BENZOATE BUTYL METHOXYDIBENZOYLMETHANE BIS ETHYL
+    topicrem-ultra-hydratant-huile-de-douche-1l-281616 :: AQUA (WATER) . GLYCERIN . SODIUM LAURETH SULFATE . SODIUM COCOAMPHOACETATE . POL
+    isdin-warts-verrutop-traitement-topique-4-ampoules-244416 :: Nitrizinc Complex.
+    isdin-warts-verrutop-traitement-topique-4-ampoules-lot-de-2-303820 :: Nitrizinc Complex.
+    isdin-fotoprotector-fusion-water-pediatrics-creme-solaire-visage-pour-enfants-spf50-50ml-232743 :: Voir la composition inscrite sur l'emballage du produit.
+    inava-brossettes-1mm-mono-compact-espaces-etroits-jaune-4-unites-301474 :: Fibres synthétiques.
+    isdin-fotoultra-fusion-water-magic-repair-creme-solaire-anti-age-spf50-50ml-232742 :: Aqua (water) - ethylhexyl methoxycinnamate - butylene glycol - propylene glycol 
+    avene-eau-thermale-xeracalm-nutrition-gel-nettoyant-750-ml-275369 :: AVENE THERMAL SPRING WATER (AVENE AQUA). GLYCERIN. DECYL GLUCOSIDE. WATER (AQUA)
+    inava-brossettes-1-5mm-mono-compact-espaces-larges-rouge-4-unites-269046 :: Fibres synthétiques.
+    inava-brossettes-0-8mm-mono-compact-espaces-etroits-bleu-4-unites-269045 :: Fibres synthétiques.
+    svr-densitium-bi-serum-rechargeable :: AQUA WATER EAU DICAPRYLYL CARBONATE ISONONYL ISONONANOATE HEXYLDECYL STEARATE OL
+    svr-baume-nuit-densitium :: AQUA WATER EAU OCTYLDODECANOL BUTYROSPERMUM PARKII SHEA BUTTER GLYCERIN CETEARYL
+    svr-densitium-creme-rechargeable :: AQUA WATER EAU OCTYLDODECANOL VEGETABLE OIL ORBIGNYA OLEIFERA SEED OIL GLYCERYL 
+    svr-densitium-creme-riche-rechargeable :: AQUA WATER EAU OCTYLDODECANOL BUTYROSPERMUM PARKII SHEA BUTTER VITIS VINIFERA GR
+    svr-densitium-creme-rose-eclat-rechargeable :: AQUA PURIFIED WATER PEG 8 BEESWAX GLYCERIN BUTYROSPERMUM PARKII SHEA BUTTER CAPR
+    inava-brossettes-4-recharges-etroits-0-8mm-bleu-269038 :: Fibres synthétiques.
+    svr-densitium-recharge-baume-nuit :: AQUA WATER EAU OCTYLDODECANOL BUTYROSPERMUM PARKII SHEA BUTTER GLYCERIN CETEARYL
+    svr-densitium-recharge-bi-serum :: AQUA PURIFIED WATER DICAPRYLYL CARBONATE ISONONYL ISONONANOATE HEXYLDECYL STEARA
+    inava-brossettes-1-8mm-mono-compact-espaces-larges-violet-4-unites-301475 :: Fibres synthétiques.
+    svr-densitium-recharge-creme :: AQUA WATER EAU OCTYLDODECANOL VEGETABLE OIL ORBIGNYA OLEIFERA SEED OIL GLYCERYL 
+    svr-densitium-recharge-creme-riche :: AQUA WATER EAU OCTYLDODECANOL BUTYROSPERMUM PARKII SHEA BUTTER VITIS VINIFERA GR
+    svr-densitium-recharge-creme-rose-eclat :: AQUA PURIFIED WATER PEG 8 BEESWAX GLYCERIN BUTYROSPERMUM PARKII SHEA BUTTER CAPR
+    svr-sensifine-hydra-creme-soin-hydratant :: AQUA WATER EAU PERSEA GRATISSIMA AVOCADOOIL SQUALANE PANTHENOL 12HEXANEDIOL ACRY
+    inava-brossettes-4-recharges-trio-compact-flex-iso4-1-5-mm-rouge-269041 :: Fibres synthétiques.
+    svr-topialyse-stick-levres :: RICINUS COMMUNIS (CASTOR) SEED OIL CAPRYLIC CAPRIC TRIGLYCERIDE HELIANTHUS ANNUU
+    inava-recharge-power-sensibilite-265296 :: Fibres synthétiques
+    gum-brossette-interdentaire-bi-direction-0-7mm-vert-6-unites-259254 :: Tige recouverte de nylon
+    svr-densitium-creme-spf30-rechargeable :: AQUA WATER EAU DICAPRYLYL CARBONATE COCO CAPRYLATE CAPRATE DIETHYLAMINO HYDROXYB
+    svr-densitium-recharge-creme-spf30 :: AQUA WATER EAU DICAPRYLYL CARBONATE COCO CAPRYLATE CAPRATE DIETHYLAMINO HYDROXYB
+    svr-sun-secure-aqua-fluide-spf50 :: AQUA WATER EAU DICAPRYLYL CARBONATE DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE S
+    svr-sun-secure-eau-solaire-spf50 :: AQUA WATER EAU DICAPRYLYL CARBONATE COCO CAPRYLATE CAPRATE DIETHYLAMINO HYDROXYB
+    inava-brossettes-0-6mm-mono-compact-espaces-etroits-noir-4-unites-269044 :: Fibres synthétiques.
+    inava-recharge-power-rose-265295 :: Fibres synthétiques
+    noreva-sebodiane-ds-serum-lp-seboregulateur-8ml-259742 :: Caprylic/Capric Triglyceride • Isopropylidene Glycerol • Alcohol • Linoleic Acid
+    arkopharma-forcapil-elixir-croissance-cheveux-10-ml-254342 :: AQUA • PROPYLENE GLYCOL • SODIUM PCA • PANICUM MILIACEUM SEED EXTRACT • URTICA D
+    vichy-deodorant-mineral-48h-bille :: FORMULE INCI : AQUA / WATER - PROPYLENE GLYCOL - PPG-26-BUTETH-26 - STEARETH-100
+    vichy-deodorant-mineral-mgo-48h :: FORMULE INCI : ISOBUTANE - ISOPROPYL PALMITATE - ISODODECANE - DIMETHICONE - COC
+    vichy-deodorant-anti-transpirant-48h-50ml :: AQUA / WATER - ALUMINUM CHLOROHYDRATE - PPG-15 STEARYL ETHER - CETEARYL ALCOHOL 
+    vichy-homme-deodorant-anti-transpirant-50ml :: AQUA / WATER - ALUMINUM CHLOROHYDRATE - ALUMINUM SESQUICHLOROHYDRATE - PPG-15 ST
+    vichy-dercos-kera-solutions-masque :: AQUA / WATER - CETEARYL ALCOHOL - DICETYLDIMONIUM CHLORIDE - COCOS NUCIFERA OIL 
+    vichy-neovadiol-peri-post-menopause-soin-yeux-levres :: AQUA / WATER - DIMETHICONE - PROPYLENE GLYCOL - ISOHEXADECANE - DIMETHICONE/PEG-
+    vichy-liftactiv-collagen-specialist-16-serum-yeux :: AQUA WATER EAU GLYCERIN HYDROXYETHYLPIPERAZINE ETHANE SULFONIC ACID NIACINAMIDE 
+    vichy-capital-soleil-creme-onctueuse-perfectrice-50spf :: AQUA / WATER - GLYCERIN - DIISOPROPYL SEBACATE - ETHYLHEXYL SALICYLATE - BUTYL M
+    vichy-liftactiv-specialist-b3-serum :: AQUA /WATER / EAU - BUTYLENE GLYCOL - NIACINAMIDE - HYDROXYETHYLPIPERAZINE ETHAN
+    vichy-capital-soleil-fluide-uv-age-daily-spf50 :: AQUA / WATER - ALCOHOL DENAT - DIISOPROPYL SEBACATE - SILICA - ISOPROPYL MYRISTA
+    vichy-liftactiv-supreme-vitamin-c-serum :: AQUA / WATER - ASCORBIC ACID - ALCOHOL DENAT. - DIPROPYLENE GLYCOL - GLYCERIN - 
+    vichy-mineral-89-creme-boost-hydratation-100h-texture-riche :: AQUA / WATER / EAU - GLYCERIN - DICAPRYLYL ETHER - PENTYLENE GLYCOL - POLYGLYCER
+    vichy-mineral-89-creme-boost-hydratation-72h :: AQUA / WATER / EAU - GLYCERIN - DICAPRYLYL ETHER - PENTYLENE GLYCOL - POLYGLYCER
+    vichy-neovadiol-meno-5-bi-serum-px :: AQUA / WATER / EAU - ISOPROPYL ISOSTEARATE - DICAPRYLYL ETHER - NIACINAMIDE - PR
+    vichy-homme-structure-force-soin-anti-age :: AQUA - GLYCERIN - ALCOHOL DENAT. - DIMETHICONE - PENTAERYTHRITYL TETRAETHYLHEXAN
+    vichy-capital-soleil-spf-50-hydratante :: AQUA / WATER - HOMOSALATE - DICAPRYLYL ETHER - DICAPRYLYL CARBONATE - OCTOCRYLEN
+    vichy-capital-soleil-aqua-fluide-invisible-spf50 :: AQUA WATER EAU ALCOHOL DENAT DIISOPROPYL SEBACATE DICAPRYLYL CARBONATE BIS ETHYL
+    vichy-capital-soleil-fluide-teinte-uv-age-daily-spf50 :: AQUA / WATER - ALCOHOL DENAT - DIISOPROPYL SEBACATE - SILICA - ISOPROPYL MYRISTA
+    gum-brossette-interdentaire-soft-picks-original-medium-100-unites-243492 :: Caoutchouc.
+    vichy-capital-soleil-lait-solaire-aco-concu-spf50 :: AQUA/WATER - GLYCERIN - BIS-ETHYLHEXYLOXYPHENOLMETHOXYPHENYLTRIAZINE - ISOPROPYL
+    vichy-capital-soleil-spf50-brume-lait-apres-soleil :: BRUME HYDRATANTE INVISIBLEBUTANE AQUA WATER HOMOSALATE DICAPRYLYL ETHER OCTOCRYL
+    vichy-capital-soleil-spf50-lait-protecteur :: AQUA WATER EAU ISOPROPYL PALMITATE ALCOHOL DENAT ETHYLHEXYL SALICYLATE ETHYLHEXY
+    vichy-capital-soleil-spf50-spray-invisible :: AQUA WATER EAU ISOPROPYL MYRISTATE ALCOHOL DENAT BIS ETHYLHEXYLOXYPHENOL METHOXY
+    vichy-liftactiv-creme-b3-anti-taches-spf50 :: AQUA/WATER - GLYCERIN - ETHYLHEXYL SALICYLATE - ETHYLHEXYL TRIAZONE - ALCOHOL DE
+    vichy-capital-soleil-spf50-stick-invisible :: OCTYLDODECANOL ISOAMYL LAURATE DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE TRIHEP
+    vichy-capital-soleil-spf50-uv-clear-fluide-anti-imperfection :: AQUA /WATER - ALCOHOL DENAT. - DIISOPROPYL SEBACATE - SILICA - ISOPROPYL MYRISTA
+    vichy-capital-soleil-spray-fluide-invisible-spf50 :: AQUA / WATER / EAU - ALCOHOL DENAT. - ETHYLHEXYL SALICYLATE - ETHYLHEXYL TRIAZON
+    vichy-liftactiv-supreme-soin-anti-rides-fermetes-spf30 :: AQUA / WATER - GLYCERIN - OCTOCRYLENE - NIACINAMIDE - RHAMNOSE - ALCOHOL DENAT -
+    gum-fil-dentaire-expanding-floss-cire-279634 :: Fibres de nylon texturées.
+    argiletz-pate-argile-ghassoul-prete-a-l-emploi-150g-253533 :: Arcilla de Ghassoul (Tierra marroquí) y agua.
+    cattier-beurre-de-karite-100-bio-100g-278308 :: Butyrospermum Parkii Butter*. *Ingrédient issu de l'agriculture biologique.100% 
+    clarification-coffret-cheveux-mes-chouchous-edition-limitee-245802 :: INGRÉDIENTS : ZEA MAYS (CORN) STARCH • KAOLIN • AVENA SATIVA (OAT) KERNEL FLOUR.
+    ducray-densiage-shampoing-redensifiant-200ml-232682 :: Ingrédients : Water (aqua). sodium laureth sulfate. glycerin. coco-glucoside. so
+    ducray-anacaps-expert-chute-de-cheveux-chronique-90-gelules-275585 :: Pour la liste des ingrédients et des allergènes se référer à l’image produit.
+    klorane-pivoine-creme-riche-apaisante-40ml-275581 :: Ingrédients : Water (aqua). caprylic/capric triglyceride. glycerin. cetearyl alc
+    klorane-bleuet-patchs-lissants-defatiguant-express-7-paires-279767 :: Ingrédients : Water (aqua)*. caprylic/capric triglyceride*. glycerin*. pentylene
+    klorane-antichute-force-et-vitalite-complement-alimentaire-90-capsules-232490 :: Huile de pépins de courge (Cucurbita pepo) - Gélatine de poissons - Affermissant
+    klorane-bebe-creme-pour-le-change-bio-100g-236631 :: Water (aqua). caprylic/capric triglyceride. glycerin. hydrogenated vegetable oil
+    klorane-croissance-serum-accelerateur-de-pousse-intense-100ml-304429 :: WATER (AQUA)*. ALCOHOL DENAT.*. GLYCERIN*. PENTYLENE GLYCOL*. PANTHENOL. CINCHON
+    klorane-lait-hydratant-peau-normale-a-seche-bebe-500ml-304420 :: WATER (AQUA). GLYCERIN. CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OIL (CARTHAMUS TIN
+    klorane-monoi-tamanu-huile-reparatrice-apres-soleil-visage-et-corps-150ml-270087 :: Ingrédients : Caprylic/capric triglyceride*; carthamus tinctorius (safflower) se
+    klorane-lingettes-nettoyantes-a-l-eau-pour-le-corps-bebe-peau-normale-a-seche-60-lingettes-275080 :: WATER (AQUA). GLYCERIN. PEG-40 HYDROGENATED CASTOR OIL. CALENDULA OFFICINALIS FL
+    klorane-monoi-tamanu-shampooing-nutritif-apres-soleil-200ml-275330 :: Water (aqua)*. sodium lauroyl methyl isethionate. decyl glucoside*. prunus amygd
+    klorane-poudre-protectrice-au-calendula-bio-75gr-268603 :: TAPIOCA STARCH*. ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH)*. ZEA MAYS (CO
+    klorane-bebe-huile-massage-multi-usages-bio-200ml-275612 :: Caprylic/capric triglyceride. glycerin. water (aqua). helianthus annuus (sunflow
+    klorane-monoi-tamanu-baume-riche-reparateur-apres-soleil-200ml-275331 :: Glycol palmitate. caprylic/capric triglyceride. cocos nucifera (coconut) oil (co
+    klorane-bleuet-patchs-lissants-defatiguants-express-1-paire-275174 :: Ingrédients : Water (aqua)*. caprylic/capric triglyceride*. glycerin*. pentylene
+    klorane-avoine-ceramide-cheveux-bruns-shampoing-sec-150ml-275605 :: BUTANE. PROPANE. ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH)*. ISOBUTANE. A
+    klorane-galanga-lotion-anti-demangeaisons-antipelliculaire-100ml-302478 :: WATER (AQUA)*. GLYCERIN*. PENTYLENE GLYCOL*. LACTIC ACID*. ALPINIA GALANGA RHIZO
+    klorane-bebe-lingette-lavable-edition-limitee-hamac-10-x-12cm-5-unites-275322 :: Ingrédient : Microfibre.
+    klorane-shampoing-sec-purifiant-cheveux-gras-a-l-ortie-et-vitamine-e-50-ml-305015 :: BUTANE. PROPANE. ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH)*. ALCOHOL*. IS
+    klorane-bleuet-eau-micellaire-visage-yeux-levres-bio-400ml-275599 :: WATER (AQUA). GLYCERIN. PENTYLENE GLYCOL. BUTYLENE GLYCOL. CENTAUREA CYANUS FLOW
+    klorane-bleuet-creme-nettoyante-demaquillante-200ml-275644 :: WATER (AQUA)*. CETEARYL ALCOHOL*. DISODIUM COCOYL GLUTAMATE*. GLYCERIN*. ZEA MAY
+    klorane-croissance-shampoing-accelerateur-de-pousse-200ml-304471 :: WATER (AQUA)*. SODIUM LAURETH SULFATE. COCAMIDOPROPYL BETAINE. COCO-GLUCOSIDE*. 
+    klorane-pulpe-de-cedrat-shampooing-purifiant-legerete-200ml-289748 :: Water (aqua)*. disodium laureth sulfosuccinate. decyl glucoside*. lauryl betaine
+    klorane-cedrat-shampoing-purifiant-legerete-400ml-289749 :: Extrait de Cédrat. provitamine B5. polymère démêlant cationique. base émulsionna
+    klorane-shampoing-gainant-a-l-amande-tous-types-de-cheveux-400-ml-275326 :: WATER (AQUA)*. DECYL GLUCOSIDE*. SODIUM COCOYL ISETHIONATE. DISODIUM LAURETH SUL
+    klorane-figuier-de-barbarie-shampooing-desalterant-72h-hydratation-brillance-400ml-275649 :: WATER (AQUA)*. LAURYL GLUCOSIDE*. SODIUM COCOYL ALANINATE*. COCO-BETAINE. OPUNTI
+    klorane-avoine-ceramide-shampoing-sec-150ml-275604 :: BUTANE. PROPANE. ORYZA SATIVA (RICE) STARCH (ORYZA SATIVA STARCH)*. ISOBUTANE. A
+    klorane-galanga-antipelliculaire-shampoing-traitant-et-reequilibrant-400ml-301462 :: WATER (AQUA)*. SODIUM LAURETH SULFATE. COCAMIDOPROPYL BETAINE. SODIUM CHLORIDE*.
+    les-secrets-de-loly-bubble-kurl-spray-demelant-enfants :: AQUA WATER ISOAMYL COCOATE PROPANEDIOL CAPRYLIC CAPRIC TRIGLYCERIDE HYDROGENATED
+    les-secrets-de-loly-bubble-smooth-apres-shampooing-enfants :: AQUA CETEARYL ALCOHOL PRUNUS AMYGDALUS DULCIS OIL SODIUM LACTATE GLYCERIN BETAIN
+    phyto-volume-spray-brushing-volumateur150ml-254962 :: ALCOHOL DENAT. AQUA / WATER / EAU***. VP/VA COPOLYMER. PARFUM / FRAGRANCE. VINYL
+    phyto-reparation-spray-thermo-protecteur-230-anti-casse-150ml-254980 :: INGREDIENTS : AQUA / WATER / EAU. PROPANEDIOL. ISODECYL NEOPENTANOATE. CETEARYL 
+    redken-gel-de-definition-pour-cheveux-boucles-hybrid-curl-stylers-255273 :: 1218415RK7 - INGREDIENTS: AQUA / WATER / EAU • PROPYLENE GLYCOL • VP/ACRYLATES/L
+    rene-furterer-complexe-5-head-spa-concentre-vegetal-stimulant-50ml-275493 :: LIMONENE*. RICINUS COMMUNIS (CASTOR) SEED OIL (RICINUS COMMUNIS SEED OIL)**. CIT
+    redken-holiday-coffret-all-soft-251999 :: 1129606RK4 - INGREDIENTS: AQUA / WATER • CETEARYL ALCOHOL • BEHENTRIMONIUM CHLOR
+    furterer-triphasic-active-grow-serum-accelerateur-de-pousse-100ml-301946 :: WATER (AQUA)*. ALCOHOL DENAT.*. GLYCERIN*. CAFFEINE. BIOTIN. CAMPHOR*. CITRAL*. 
+    rene-furterer-triphasic-shampoing-traitant-contre-la-perte-de-cheveux-200ml-232650 :: Water (aqua)*. lauryl glucoside*. sodium cocoyl alaninate*. coco-betaine. glycer
+    rene-furterer-triphasic-progressive-serum-antichute-coffret-8-flac-232665 :: WATER (AQUA)*. ALCOHOL*. C9-12 ALKANE*. GLYCERIN*. COCO-CAPRYLATE/CAPRATE*. BIOT
+    rene-furterer-forticea-shampoing-fortifiant-d-origine-naturel-doux-200ml-232647 :: Water (aqua)*. lauryl glucoside*. sodium cocoyl alaninate*. coco-betaine. agar*.
+    rene-furterer-curbicia-shampoing-purifiant-legerete-150ml-259987 :: Water (aqua)*. decyl glucoside*. sodium cocoyl isethionate. disodium laureth sul
+    sowe-huile-de-chanvre-pure-bio-50ml-245266 :: Cannabis sativa seed oil* * Matière biologique première certifiée COSMOS par Eco
+    sowe-huile-de-jojoba-pure-bio-50ml-245268 :: Simmondsia chinensis seed oil* * Matière biologique première certifiée COSMOS pa
+    sowe-huile-pure-de-macadamia-bio-50ml-245270 :: INCI: 100% Macadamia integrifolia seed oil*  * Issu de l'agriculture biologique 
+    arthrodont-solution-bain-de-bouche-300ml-265218 :: Aqua. glycerin. alcohol. PEG 60.hydrogenated castor oil. dipotassium glycyrrhizi
+    gum-brossette-interdentaire-trav-ler-0-9-mm-6-unites-301327 :: plastique + brins en nylon
+    gum-brossette-interdentaire-bi-direction-1-4mm-jaune-6-unites-243504 :: Tige recouverte de nylon
+    gum-brossette-interdentaire-bi-direction-0-6mm-bleu-lavande-6-unites-243503 :: Tige recouverte de nylon
+    inava-brossettes-1-2mm-mono-compact-espaces-etroits-orange-4-unites-300653 :: Fibres synthétiques.
+    oral-b-brossette-de-rechange-sensitive-clean-3-unites-271192 :: Fibres synthétiques.
+    dexeryl-essentiel-lait-riche-nourrissant-200ml-270264 :: water (aqua). caprylic/capric triglyceride. glycerin. mineral oil (paraffinum li
+    dexeryl-essentiel-huile-de-douche-apaisante-1l-302045 :: WATER [AQUA]. GLYCERIN. ZINC COCETH SULFATE. COCO-GLUCOSIDE. SODIUM COCOAMPHOACE
+    dexeryl-essentiel-lait-nourrissant-500ml-270265 :: water (aqua). caprylic/capric triglyceride. glycerin. mineral oil (paraffinum li
+    clarins-tinted-oleo-serum :: COCO-CAPRYLATE/CAPRATE · SQUALANE · CI 77891/TITANIUM DIOXIDE · SIMMONDSIA CHINE
+    dexeryl-dexeclear-gel-moussant-anti-imperfections-400ml-302056 :: WATER (AQUA). SODIUM LAURETH SULFATE. COCAMIDE DEA. SALICYLIC ACID. COCAMIDOPROP
+    dexeryl-dexeclear-aquafluide-matifiant-40ml-302059 :: WATER (AQUA). C12-15 ALKYL BENZOATE. DICAPRYLYL CARBONATE. BIS-ETHYLHEXYLOXYPHEN
+    clinique-hydratant-eclat-revitalisant-nuit :: WATER AQUA EAU DIMETHICONE BUTYLENE GLYCOL VINYL DIMETHICONE METHICONE SILSESQUI
+    clinique-smart-clinical-repair-serum-anti-rides :: WATER AQUA EAU DIMETHICONE ISODODECANE BUTYLENE GLYCOL GLYCERIN POLYSILICONE11 A
+    clinique-moisture-surge-soin-auto-hydratant-100h :: WATER AQUA EAU DIMETHICONE BUTYLENE GLYCOL GLYCERIN TRISILOXANE TREHALOSE SACCHA
+    clinique-smart-clinical-repair-creme-riche-visage :: WATER AQUA EAU GLYCERIN ISOSTEARYL NEOPENTANOATE BUTYLENE GLYCOL GLYCERYL STEARA
+    clinique-uv-solutions-creme-visage-hydratante-spf50 :: HOMOSALATE 7 W W P P OCTOCRYLENE 7 W W P P OCTISALATE 4 5 W W P P AVOBENZONE 3 W
+    clinique-superdefense-city-block-protection-solaire-spf50 :: WATER\AQUA\EAU_DIMETHICONE_ZINC OXIDE_C12-15 ALKYLBENZOATE_HOMOSALATE_ISODODECAN
+    dexeryl-dexeclear-nettoyant-hydratant-apaisant-400ml-302008 :: WATER (AQUA). SODIUM COCOAMPHOACETATE. GLYCERIN. COCO-GLUCOSIDE. SODIUM MYRISTOY
+    dexeryl-dexeclear-nettoyant-hydratant-apaisant-200ml-302032 :: WATER (AQUA). SODIUM COCOAMPHOACETATE. GLYCERIN. COCO-GLUCOSIDE. SODIUM MYRISTOY
+    embryolisse-mascara-soin-courbe-et-definition-noir-8ml-233886 :: AQUA (WATER). CI 77499 (IRON OXIDES). HYDROXYPROPYL STARCH. GLYCERYL STEARATE. C
+    embryolisse-les-nourrissants-stick-levres-protecteur-4g-279237 :: CAPRYLIC/CAPRIC TRIGLYCERIDE. RICINUS COMMUNIS (CASTOR) SEED OIL. CERA ALBA (BEE
+    embryolisse-pate-secrete-100ml-233888 :: AQUA (WATER). ILLITE. CALCIUM CARBONATE. GLYCERIN. KAOLIN. DECYL GLUCOSIDE. GLYC
+    embryolisse-poudre-de-soleil-bonne-mine-302384 :: INGREDIENTS : DOLOMITE. MICA. ORYZA SATIVA (RICE) STARCH. OCTYLDODECYL STEAROYL 
+    embryolisse-soin-sos-de-peau-30ml-242825 :: AQUA (WATER). C15-19 ALKANE. DICAPRYLYL CARBONATE. GLYCERIN. PENTYLENE GLYCOL. B
+    embryolisse-serum-anti-imperfections-30ml-233885 :: AQUA (WATER). PENTYLENE GLYCOL. PROPANEDIOL. POLYACRYLATE CROSSPOLYMER-6. CURCUM
+    embryolisse-active-peeling-nuit-40ml-233859 :: Aqua (water). glycerin. coco-caprylate/ caprate. c15-19 alkane. cetearyl alcohol
+    embryolisse-stick-solaire-spf50-15g-233891 :: CAPRYLIC/CAPRIC TRIGLYCERIDE. RICINUS COMMUNIS (CASTOR) SEED OIL. ORYZA SATIVA B
+    embryolisse-les-hydratants-hydra-creme-legere-40ml-270190 :: Aqua (water). glycerin. caprylic/capric triglyceride. tribehenin peg 20 esters. 
+    erborian-centella-cleansing-balm :: HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL - COCOS NUCIFERA (COCONUT) OIL - PEG-40 S
+    erborian-centella-red-serum-apaisant :: AQUA WATER EAU BUTYLENE GLYCOL PENTYLENE GLYCOL GLYCERIN PROPANEDIOL SQUALANE EC
+    erborian-centella-creme-hydratante-apaisante :: AQUA WATER EAU DICAPRYLYL CARBONATE ISONONYL ISONONANOATE GLYCERYL STEARATE GLYC
+    erborian-centella-gel-nettoyant-doux :: AQUA/WATER -SODIUM METHYL COCOYL TAURATE -GLYCERIN -PENTYLENE GLYCOL -COCO-BETAI
+    erborian-centella-huile-demaquillante :: HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL -ETHYLHEXYL STEARATE -CAPRYLIC/CAPRIC TRI
+    erborian-bb-shot-mask :: AQUA/WATER - BUTYLENE GLYCOL - VINYL DIMETHICONE/METHICONE SILSESQUIOXANE CROSSP
+    erborian-masque-exfoliant-purifiant-au-charbon :: AQUA/WATER – BUTYLENE GLYCOL – CELLULOSE – PEG-8 – ALCOHOL – GLYCERIN – CHARCOAL
+    erborian-matt-creme-matifiant :: CYCLOMETHICONE - DIMETHICONE - AQUA/WATER - VINYL DIMETHICONE/METHICONE SILSESQU
+    erborian-matt-creme-matifiant-visage :: CYCLOMETHICONE - DIMETHICONE - AQUA/WATER - VINYL DIMETHICONE/METHICONE SILSESQU
+    erborian-cc-eye-contour-des-yeux-clair :: AQUA/WATER - CYCLOMETHICONE - ETHYLHEXYL METHOXYCINNAMATE- DIPROPYLENE GLYCOL - 
+    erborian-cc-eye-contour-des-yeux-dore :: AQUA/WATER - CYCLOMETHICONE - ETHYLHEXYL METHOXYCINNAMATE- DIPROPYLENE GLYCOL - 
+    erborian-bb-creme-au-ginseng-creme-teint-soin-spf20 :: AQUA/WATER - DIMETHICONE - CAPRYLIC/CAPRIC TRIGLYCERIDE – ISONONYL ISONONANOATE 
+    erborian-cc-creme-clair-spf30 :: AQUA/WATER - DIBUTYL ADIPATE - BUTYLOCTYL SALICYLATE - ETHYLHEXYL SALICYLATE - G
+    erborian-cc-creme-dore-spf30 :: AQUA/WATER - DIBUTYL ADIPATE - BUTYLOCTYL SALICYLATE - ETHYLHEXYL SALICYLATE - G
+    erborian-cc-creme-spf30-teinte-caramel :: AQUA WATER DIBUTYL ADIPATE CI 77891 TITANIUM DIOXIDE CI 77492 IRON OXIDES BUTYLO
+    erborian-cc-red-correct-soin-teinte-spf30 :: AQUA WATER EAU DIBUTYL ADIPATE BUTYLOCTYL SALICYLATE CI 77891 TITANIUM DIOXIDE E
+    kreme-deodorant-soin-24h-peaux-sensibles :: HELIANTHUS ANNUUS SEED OIL MAGNESIUM HYDROXIDE MAGNESIUM CARBONATE HYDROXIDE CAP
+    kreme-bio-masque-de-nuit-anti-soif :: AQUA (WATER) CHAMOMILLA RECUTITA (MATRICARIA) FLOWER WATER OCTYLDODECANOL GLYCER
+    kreme-stick-levres-concentre :: CORYLUS AVELLANA SEED OIL COCOGLYCERIDES GLYCERYL STEARATE ETHYL OLEATE CAPRYLIC
+    la-rosee-fluide-solaire-invisible-spf50 :: AQUA WATER DICAPRYLYL CARBONATE COCO CAPRYLATE CAPRATE DIETHYLAMINO HYDROXYBENZO
+    les-secrets-de-loly-bubble-kiss-soin-lavant-bebes-et-enfants :: AQUA WATER GLYCERIN COCO-GLUCOSIDE SODIUM COCOYL GLUTAMATE CAPRYLYL CAPRYL GLUCO
+    lierac-lift-integral-le-gel-creme-jour-raffermissant :: AQUA WATER EAU C15-19 ALKANE GLYCERIN PROPANEDIOL BUTYLENE GLYCOL AMMONIUM ACRYL
+    lierac-lift-integral-recharge-gel-creme-jour-raffermissant :: AQUA WATER EAU C15-19 ALKANE GLYCERIN PROPANEDIOL BUTYLENE GLYCOL AMMONIUM ACRYL
+    lierac-protocole-eclat-masque-acide-glycolique-pur :: AQUA WATER EAU COCO-CAPRYLATE CAPRATE GLYCERYL STEARATE SE BEHENYL ALCOHOL PENTA
+    lierac-radiance-protocol-serum-pure-vitamine-c-14-sachets :: INGRÉDIENTS MÉLANGE AQUA WATER EAU ASCORBIC ACID PROPANEDIOL JOJOBA ESTERS NIACI
+    mustela-lait-de-toilette-peau-normale-750ml :: AQUA WATER EAU HELIANTHUS ANNUUS SUNFLOWER SEED OIL GLYCERIN POLYGLYCERYL3 DISTE
+    patyka-pure-serum-anti-imperfections :: AQUA MENTHA VIRIDIS LEAF EXTRACT GLUCONOLACTONE GLYCERIN PENTYLENE GLYCOL C1519 
+    patyka-bio-creme-riche-hydra-apaisante :: AQUA COCOS NUCIFERA OIL BUTYROSPERMUM PARKII BUTTER RIBES NIGRUM LEAF WATER PENT
+    patyka-bio-glow-serum-detox-belle-nuit :: EAU HUILE DE GRAINES DE TOURNESOL UNDECANE 2 3 BUTANEDIOL TRIDECANE CAPRYLIC CAP
+    patyka-bio-glow-soin-yeux-correcteur-eclat :: AQUA WATER GLYCERIN CI 77891 TITANIUM DIOXIDE PROPYLENE GLYCOL DICAPRYLYL ETHER 
+    patyka-bio-masque-creme-hydra-reparateur :: AQUA PROPANEDIOL COCOCAPRYLATE CAPRATE RIBES NIGRUM LEAF WATER OCTYLDODECANOL DI
+    patyka-pure-lotion-purifiante-perfectrice :: AQUA (WATER) MENTHA VIRIDIS (SPEARMINT) LEAF EXTRACT PENTYLENE GLYCOL GLUCONOLAC
+    patyka-creme-solaire-teintee-spf50 :: AQUA PROPANEDIOL ALCOHOL DENAT RICINUS COMMUNIS SEED OIL PHYLLANTHUS EMBLICA FRU
+    patyka-pure-masque-charbon-desincrustant :: AQUA (WATER) MENTHA VIRIDIS (SPEARMINT) LEAF EXTRACT CETEARYL ALCOHOL ILLITE PEN
+    patyka-soin-cible-stop-boutons :: MENTHA VIRIDIS LEAF EXTRACT AQUA GLUCONOLACTONE GLYCERIN PENTYLENE GLYCOL C1519 
+    patyka-fluide-matifiant-anti-imperfections :: AQUA (WATER) MENTHA VIRIDIS (SPEARMINT) LEAF EXTRACT GLYCERIN PENTYLENE GLYCOL T
+    respire-deodorant-stick-embruns-cedre :: HELIANTHUS ANNUUS SEED OIL COCO CAPRYLATE CAPRATE MAGNESIUM OXIDE STEARYL ALCOHO
+    respire-recharge-deodorant-stick-douceur-monoi :: HELIANTHUS ANNUUS SEED OIL COCOCAPRYLATECAPRATE MAGNESIUM OXIDE STEARYL ALCOHOL 
+    respire-recharge-deodorant-stick-menthe-eucalyptus :: HELIANTHUS ANNUUS SEED OIL COCOCAPRYLATECAPRATE MAGNESIUM OXIDE STEARYL ALCOHOL 
+    respire-recharge-deodorant-stick-rose-pivoine :: HELIANTHUS ANNUUS SEED OIL COCO CAPRYLATE CAPRATE MAGNESIUM OXIDE STEARYL ALCOHO
+    acm-novophane-shampooing-traitant-pellicules-seches :: AQUA WATER SODIUM LAURETH SULFATE COCO BETAINE DIPROPYLENE GLYCOL ACRYLATES C10 
+    acm-novophane-ds-shampooing-traitant-pellicules-seches :: AQUA WATER SODIUM LAURETH SULFATE DIPROPYLENE GLYCOL COCO BETAINE ACRYLATES C10 
+    acm-novophane-shampooing-traitant-pellicules-grasses :: AQUA WATER SODIUM LAURETH SULFATE DIPROPYLENE GLYCOL COCO BETAINE ACRYLATES C10 
+    vichy-dercos-kera-solutions-shampooing :: AQUA / WATER - SODIUM LAURETH SULFATE - COCAMIDOPROPYL BETAINE - DIMETHICONE - S
+    vichy-dercos-shampooing-anti-pelliculaire-sensitive :: AQUA / WATER - SODIUM METHYL COCOYL TAURATE - LAURETH-5 CARBOXYLIC ACID - COCAMI
+    vichy-dercos-eco-recharge-shampooing-stimulant-energy :: AQUA / WATER / EAU - SODIUM LAURETH SULFATE - CITRIC ACID - SODIUM COCOAMPHOACET
+    vichy-dercos-psolution-shampooing-traitant-keratoreducteur :: AQUA / WATER / EAU - ISOPROPYL ISOSTEARATE - DICAPRYLYL ETHER - NIACINAMIDE - PR
+    vichy-dercos-shampooing-dermatologique :: AQUA WATER EAU SODIUM LAURETH SULFATE CITRIC ACID COCAMIDOPROPYL BETAINE SODIUM 
+    vichy-dercos-shampooing-stimulant-recharge :: AQUA /WATER / EAU - SODIUM LAURETH SULFATE - CITRIC ACID - SODIUM COCOAMPHOACETA
+    vichy-dercos-collagen-filler-17-shampoing-ultra-reparateur :: AQUA WATER EAU SODIUM C1416 OLEFIN SULFONATE GLYCERIN SODIUM CHLORIDE COCAMIDE M
+    les-secrets-de-loly-sleek-slay-baume-soin-2-en-1 :: AQUA WATER EAU SODIUM LAURETH SULFATE COCO BETAINE SODIUM LAUROYL SARCOSINATE GL
+    avene-creme-vitamin-activ-cg-intensive-eclat-rechargeable :: AVENE THERMAL SPRING WATER AVENE AQUA CAPRYLIC CAPRIC TRIGLYCERIDE GLYCERIN NIAC
+    avene-dermabsolu-creme-jour :: AVENE THERMAL SPRING WATER AVENE AQUA PENTAERYTHRITYL TETRACAPRYLATE TETRACAPRAT
+    avene-hyaluron-activ-b3-aqua-gel-creme-regenerant :: AVENE THERMAL SPRING WATER AVENE AQUA GLYCERIN NIACINAMIDE SQUALANE DIGLYCERIN P
+    avene-soin-apaisant-yeux :: AVENE THERMAL SPRING WATER (AVENE AQUA) CARTHAMUS TINCTORIUS (SAFFLOWER) SEED OI
+    avene-gel-autobronzant-hydratant-hale-naturel :: AVENE THERMAL SPRING WATER AVENE AQUA PEG 4 COCO CAPRYLATE CAPRATE DIHYDROXYACET
+    la-roche-posay-lot-lipikar-huile-lavante-ap-relipidante-anti-grattage-2x1l-300356 :: 714327 01 - INGREDIENTS: AQUA / WATER / EAU • GLYCERIN • SUCROSE • SODIUM LAURET
+    la-roche-posay-lipikar-syndet-ap-400ml-lipikar-syndet-ap-ecorecharge-400ml-300577 :: 714238 60 - INGREDIENTS: AQUA / WATER / EAU • GLYCERIN • SODIUM LAURETH SULFATE 
+    la-roche-posay-lipikar-huile-lavante-ap-400ml-lipikar-huile-lavante-ap-ecorecharge-400ml-300582 :: 714327 01 - INGREDIENTS: AQUA / WATER / EAU • GLYCERIN • SUCROSE • SODIUM LAURET
+    la-roche-posay-lipikar-gel-lavant-apaisant-recharge :: AQUA WATER EAU SODIUM LAURETH SULFATE PEG-200 HYDROGENATED GLYCERYL PALMATE GLYC
+    la-roche-posay-lipikar-surgras-creme-lavante-recharge :: AQUA WATER EAU PEG-7 GLYCERYL COCOATE DISODIUM COCOAMPHODIACETATE COCO-BETAINE S
+    la-roche-posay-syndet-ap-creme-lavante-relipidiante-recharge :: AQUA WATER EAU PEG 7 GLYCERYL COCOATE DISODIUM COCOAMPHODIACETATE COCO BETAINE S
+    la-roche-posay-effaclar-gel-purifiant :: AQUA WATER EAU SODIUM LAURETH SULFATE PEG-8 COCO-BETAINE HEXYLENE GLYCOL SODIUM 
+    la-roche-posay-hyalu-b5-serum-suractive-50ml :: AQUA WATER EAU GLYCERIN ALCOHOL DENAT PROPYLENE GLYCOL PANTHENOL PENTYLENE GLYCO
+    la-roche-posay-lipikar-ap-creme-relipidante :: AQUA WATER EAU GLYCERIN ISOPROPYL PALMITATE BUTYROSPERMUM PARKII BUTTER SHEA BUT
+    la-roche-posay-lipikar-ap-m-creme-relipidante :: AQUA WATER EAU GLYCERIN ISOPROPYL PALMITATE BUTYROSPERMUM PARKII BUTTER SHEA BUT
+    la-roche-posay-lipikar-ap-max-baume-triple-reparation :: AQUA WATER EAU BUTYROSPERMUM PARKII BUTTER SHEA BUTTER GLYCERIN DIMETHICONE NIAC
+    la-roche-posay-anthelios-400-fluide-ka-spf50 :: AQUA WATER EAU ISOPROPYL MYRISTATE ALCOHOL DENAT DIISOPROPYL SEBACATE ETHYLHEXYL
+    la-roche-posay-anthelios-serum-solaire-deep-spf50 :: AQUA WATER EAU ALCOHOL DENAT DIISOPROPYL SEBACATE DICAPRYLYL CARBONATE BIS ETHYL
+    la-roche-posay-anthelios-serum-solaire-medium-spf50 :: AQUA WATER EAU ALCOHOL DENAT DIISOPROPYL SEBACATE DICAPRYLYL CARBONATE BIS ETHYL
+    la-roche-posay-anthelios-stick-pro-resistance-spf50 :: RICINUS COMMUNIS SEED OIL CASTOR SEED OIL ISOPROPYL PALMITATE POLYETHYLENE ISOHE
+    la-roche-posay-anthelios-stick-solaire-vitamine-spf50 :: RICINUS COMMUNIS CASTOR SEED OIL ISOPROPYL PALMITATE POLYETHYLENE OCTOCRYLENE IS
+    la-roche-posay-hyalu-b5-recharge-creme-suractive-spf30 :: AQUA WATER EAU GLYCERIN C1215 ALKYL BENZOATE DIISOPROPYL SEBACATE PHENYLBENZIMID
+    la-roche-posay-toleriane-soin-protecteur :: AQUA / WATERISOCETYL STEARATESQUALANEBUTYROSPERMUM PARKII BUTTER / SHEA BUTTERDI
+    la-roche-posay-anthelios-spf-30-fluide-invisible :: AQUA / WATER ALCOHOL DENAT.DIISOPROPYL SEBACATE SILICA ISOPROPYL MYRISTAT ETHYLH
+    ducray-dexyane-baume-emollient-anti-grattage-400ml-302033 :: Ingrédients : WATER (AQUA).CAPRYLIC/CAPRIC
+TRIGLYCERIDE. CARTHAMUS TINCTORIUS (S
+    embryolisse-baume-couleur-stick-3-en-1-rose-nude-2-5g-243077 :: CAPRYLIC/CAPRIC TRIGLYCERIDE. JOJOBA ESTERS. ZEA MAYS (CORN) STARCH. COCO-CAPRYL
+    embryolisse-baume-couleur-stick-3en1-mocha-302367 :: INGREDIENTS : CAPRYLIC/CAPRIC TRIGLYCERIDE. JOJOBA ESTERS. ZEA MAYS (CORN) STARC
+    erborian-centella-barrier-cream-baume-cica-reparateur :: AQUA WATER EAU GLYCERIN CAPRYLIC CAPRIC TRIGLYCERIDE DIPROPYLENE GLYCOL METHYLPR
+    forever-eye-mask :: NONPOROUS SILICONE
+    skin1004-spot-cover-patch :: HYDROCOLLOID
+    garancia-coffret-larmes-de-fantome-10ml-patchs-en-silicone-offerts-304323 :: LARMES DE FANTOME INGREDIENTS : AQUA(WATER/EAU*) ; GLYCERIN *; COCO-CAPRYLATE /C
+    erborian-centella-sos-patch-anti-imperfections :: AQUA/WATER - GLUCONOLACTONE - SODIUM POLYITACONATE - NIACINAMIDE - ALCOHOL DENAT
+    la-roche-posay-effaclar-duo-m-22-patchs-anti-imperfections :: HYDROGENATED POLY C6-20 OLEFIN CELLULOSE GUM HYDROGENATED STYRENE BUTADIENE COPO
+    remedy-pimple-patches :: Hydrocolloid
+    aderma-lait-corps-hydratation-72h :: WATER (AQUA) GLYCERIN CAPRYLIC CAPRIC TRIGLYCERIDE ISOPROPYL PALMITATE PROPYLENE
+    erborian-soin-corps-perfecteur-teinte :: AQUA/WATER - DIMETHICONE - SYNTHETIC FLUORPHLOGOPITE - METHYL TRIMETHICONE - ISO
+    avene-eau-thermale-xeracalm-nutrition-creme-de-douche-500ml-275371 :: AVENE THERMAL SPRING WATER (AVENE AQUA). GLYCERIN. WATER (AQUA). COCO-GLUCOSIDE.
+    vichy-purete-thermale-lotion-tonique-perfectrice :: AQUA / WATER - PEG-8 - GLYCERIN - PEG-60 HYDROGENATED CASTOR OIL - DISODIUM EDTA
+    mixsoon-heartleaf-toner :: Extrait de Houttuynia Cordata.
+    gum-dentifrice-original-white-blancheur-lot-de-3-x-75ml-248884 :: Does not contain any bleaching agents.
+    ducray-sensinol-shampoing-traitant-200ml-287244 :: WATER (AQUA). GLYCERIN. DECYL GLUCOSIDE. SODIUM COCOYL GLUTAMATE. LAURETH-9. ALG
+    melvita-les-essentiels-shampoing-douche-extra-doux-bio :: AQUA/WATER - GLYCERIN - AMMONIUM LAURYL SULFATE - COCAMIDOPROPYL BETAINE - HORDE
+    erborian-yuza-sorbet-eye-serum :: AQUA/WATER - GLYCERIN - PROPANEDIOL - PENTYLENE GLYCOL - GLYCYRRHIZA GLABRA (LIC
+    kreme-yeux-serum-collagene-anti-rides :: AQUA WATER CITRUS LIMON LEMON FRUIT WATER COCO CAPRYLATE CAPRATE CAPRYLIC CAPRIC
+    vichy-dercos-collagen-filler-17-apres-shampoing-ultra-reparateur :: AQUA WATER EAU GLYCERIN CETEARYL ALCOHOL DISTARCH PHOSPHATE QUATERNIUM87 DIMETHI
+    vichy-dercos-serum-regeneratif-capillaire :: AQUA WATER EAU ALCOHOL DENAT NIACINAMIDE PROPYLENE GLYCOL DIAMINOPYRIMIDINE OXID
+    a-derma-exomega-control-huile-lavante-emolliente-anti-demangeaisons-1l-303228 :: WATER (AQUA). GLYCERIN. HYDROGENATED STARCH HYDROLYSATE. COCO-GLUCOSIDE. ZINC CO
+    klorane-eau-nettoyante-sans-rincage-bebe-750-ml-300836 :: WATER (AQUA)*. GLYCERIN*. CALENDULA OFFICINALIS FLOWER EXTRACT*. CAPRYLYL GLYCOL
+    patyka-pure-gelee-nettoyante-purifiante :: AQUA (WATER) MENTHA VIRIDIS (SPEARMINT) LEAF EXTRACT GLYCERIN DECYL GLUCOSIDE PE
+    pyunkang-yul-pimple-extractor-set :: Acier Inoxydable.
+    im-from-mugwort-essence :: Extrait d'Artemisia Princeps.
+    some-by-mi-yuja-niacin-anti-blemish-starter-kit :: Yuja Niacin Brightening All-In-One Cleanser (30ml) : Yuja Niacin Brightening Ton
+    mixsoon-collagen-powder :: Collagène Hydrolysé
+    mixsoon-vitamin-c-powder :: 100% Vitamine en Poudre
+
+======================================================================
+2. Top unmatched tokens (after normalize) — opportunity for parser/evidence
+======================================================================
+
+  FR products — top 40 unmatched
+     301 × dipropylene glycol
+     290 × triglyceride caprylic capric
+     281 × allantoine
+     279 × lecithine hydrogenee
+     251 × gomme xanthane
+     228 × hyaluronic hydrolyse acid
+     193 × carbomere
+     128 × beta-glucane
+     124 × alcool cetearylic
+      86 × silice
+      86 × laurate de polyglyceryl-10
+      78 × dextrine
+      78 × sodium hyaluronate hydrolyse
+      77 × alcool cetylic
+      77 × melia azadirachta flower extract
+      72 × caprylate de glyceryl
+      71 × propylene glycol
+      67 × sodium hyaluronate acetyl
+      67 × glycyrrhizate dipotassic
+      65 × acetate de tocopheryl
+      65 × curcuma longa root extract
+      62 × portulaca oleracea extract
+      61 × triethoxycaprylylsilane
+      60 × macadamia ternifolia seed oil
+      59 × alcool
+      58 × citrus aurantium bergamia fruit oil
+      58 × dioxyde de titane
+      57 × ceramide
+      57 × ocimum sanctum leaf extract
+      56 × cyclohexasiloxane
+      52 × ethylhexanoate de cetyl
+      50 × glycyrrhizate de dipotassium
+      49 × ulmus davidiana root extract
+      48 × gomme de cellulose
+      47 × polyacrylate de sodium
+      47 × acrylates c10-30 alkyl acrylate copolymer
+      47 × glutathion
+      47 × polyquaternium-51
+      46 × aloe barbadensis leaf extract
+      46 × sodium hyaluronate reticule
+
+  non-FR products — top 40 unmatched
+     320 × propylene glycol
+     260 × dipropylene glycol
+      88 × avene thermal spring water
+      77 × dibutyl adipate
+      76 × ingredients water
+      73 × iron oxides
+      71 × cyclohexasiloxane
+      64 × carthamus tinctorius seed oil
+      63 × aroma
+      58 × centella asiatica leaf extract
+      58 × zea mays starch
+      56 × polyglyceryl-10 myristate
+      56 × beeswax
+      56 × oryza sativa starch
+      55 × curcuma longa root extract
+      55 × phenethyl alcohol
+      54 × melia azadirachta flower extract
+      53 × triethoxycaprylylsilane
+      52 × citrus aurantium bergamia fruit oil
+      51 × cera alba
+      51 × algin
+      49 × hydrogenated polydecene
+      48 × hydroxypropyl starch phosphate
+      46 × triethylhexanoin
+      46 × glyceryl acrylate acrylic acid copolymer
+      43 × hydrated silica
+      43 × laminaria ochroleuca extract
+      42 × ocimum sanctum leaf extract
+      42 × linoleic acid
+      42 × cellulose
+      42 × cyanocobalamin
+      42 × aloe barbadensis leaf extract
+      42 × tetrasodium edta
+      42 × polyglycerin-3
+      42 × disodium phosphate
+      42 × sodium saccharin
+      41 × oenothera biennis oil
+      41 × methylene bis-benzotriazolyl tetramethylbutylphenol nano
+      41 × polyhydroxystearic acid
+      41 × acrylates copolymer
+
+======================================================================
+3. Worst-match skincare products (≥10 ings, sorted by ratio asc)
+======================================================================
+
+  rank  ratio  matched/total  brand            slug
+   1.     0.0%    0/ 10        COSRX            cosrx-acne-pimple-master-patches
+         unmatched: de pointe | dont la résine de pétrole | la gomme de cellulose et le film de polyuréthane | ces patchs créent une barrière protectrice qui contribue à réduire les rougeurs et l'inflammation et à accélérer la cicatrisation. Il te suffit d'appliquer un patch sur le bouton à traiter et tu te réveilleras le lendemain avec une peau nette et purifiée. Découvre le potentiel libérateur des patchs Acne Pimple Master et retrouve confiance en toi grâce à un teint zéro défaut. Recommandés pour : Peaux à tendance grasse et acnéique. Peut être utilise pour : Tous types de peaux. Conseils d'utilisation : Nettoie la zone autour du bouton à traiter. Choisis un patch de taille supérieure à celle de l'imperfection à traiter. Place le patch sur la zone à traiter. Ingrédients : Résine de Pétrole | Gomme de Cellulose | Copolymère Séquencé de Styrène-Isoprène-Styrène
+   2.     0.0%    0/ 10        Medicube         medicube-age-r-booster-pro-mini
+         unmatched: actifs en profondeur | pour un teint | une texture et une clarté visiblement améliorés. Avec deux modes LED : rouge pour le soin ciblé et l’éclat | bleu pour calmer et contrôler le sébum | il est idéal pour la récupération après traitement intensif ou pour un boost quotidien d’éclat. Jusqu’à 2,7 millions de micro-impulsions par utilisation | pour des résultats comme l’amélioration du teint et la réduction de la profondeur des pores. Recommandé pour : Tous types de peaux. Conseils d'utilisations : Allume l’appareil en maintenant le bouton power enfoncé
+   3.     5.6%    2/ 36        MIXSOON          mixsoon-vegan-melting-lip-balm
+         unmatched: botaniques. Ce baume | disponible en Clear et Dry Rose | se targue d'une formule 100 % vegan et est cruelty-free. Enrichi en beurre d'Illipe nourrissant et en beurre de karité | il exfolie délicatement les cellules mortes de la peau | laissant tes lèvres intensément hydratées. Recommandé pour : Lèvres sèches et déshydratées. Conseils d'utilisation : Applique une quantité appropriée sur tes lèvres chaque fois que tu as l'impression qu'elles sont sèches. Ingrédients : 01. Clear : Polyglycéryl-2 Triisostéarate | Dibenzoate de propylène glycol
+   4.     9.1%    1/ 11        ISNTREE          isntree-mugwort-calming-powder-wash
+         unmatched: Amidon de Zea Mays | Isethionate de Cocoyle de Sodium | Palmitate de Sodium | Glutamate de Sodium Lauroyle | Diglycérine | Papaye
+   5.    16.2%    6/ 37        Abib             abib-airy-sunstick-smoothing-bar
+         unmatched: naturels comme l'allantoïne et l'huile de tournesol | cet écran solaire chimique protège non seulement ta peau des rayons nocifs | mais il adoucit et renforce également ta carnation. Sa formule inoffensive pour les coraux et résistante à l'eau glisse en douceur sans laisser de traces blanches | ce qui la rend parfaite pour un usage quotidien. Le design incurvé de 5,7 cm de large assure une application facile et uniforme | ce qui en fait une option pratique à emporter pour répondre à tous tes besoins en matière de protection solaire. Recommandé pour : Peaux sensibles | tous types de peaux. Conseils d'utilisation : Lors de la dernière étape de ta routine beauté
+   6.    17.5%   14/ 80        Numbuzin         numbuzin-no-3-radiance-glowing-jumbo-essence-pad
+         unmatched: fermentés nourrissants | notamment des extraits de ferment de soja et du ferment de raisin | pour donner un coup d'éclat à ta peau. Leur formule contient de l'adénosine et du niacinamide pour éliminer le teint terne et favoriser un teint plus lumineux et plus uniforme | ainsi que du hyaluronate de sodium pour retenir l'hydratation et laisser à ta peau une sensation d'hydratation et de fraîcheur. Ces compresses géantes sont fabriquées à partir d'un matériau doux et moelleux est particulièrement efficace pour faire pénétrer leur essence nourrissante dans la peau | sans l'agresser. Passe simplement la compresse sur ton visage | ton cou et ton décolleté au début de ta routine beauté
+   7.    19.4%    7/ 36        I'm From         fig-cleansing-balm
+         unmatched: clé | l'eau d'huile de figue | joue un rôle essentiel dans l'amélioration de la santé de ta peau. Elle dissout efficacement le sébum | minimisant ainsi l'apparence des points noirs | tout en atténuant les taches brunes et en apaisant les rougeurs | ce qui permet d'obtenir un teint plus uniforme. Enrichi d'une multitude de vitamines et de polyphénols
+   8.    20.0%    3/ 15        Avène            avene-xeracalm-nutrition-lait-hydratant
+         unmatched: AVENE THERMAL SPRING WATER(AVENE AQUA) | CAPRYLIC/CAPRICTRIGLYCERIDE | POLYGLYCERYL-2DIPOLYHYDROXYSTEARATE | NIACINAMIDE.PENTAERYTHRITYL TETRACAPRYLATE/TETRACAPRATE | BEHENYL ALCOHOL.BENZOIC ACID | CAPRYLYL GLYCOL.FRAGRANCE (PARFUM)
+   9.    20.0%    2/ 10        Dear Klairs      dear-klairs-gentle-black-fresh-cleansing-oil
+         unmatched: riches en antioxydants tels que l'huile de graines de tournesol | l'huile de pépins de raisin | l'huile de graines de jojoba et l'huile de cassis | l'huile nettoyante Klairs contribue à donner à la peau une apparence plus jeune et plus éclatante. Elle élimine efficacement toutes les impuretés | prévient l'obstruction des pores et nettoie sans laisser de résidus collants ou gras. Conseils d'utilisation : Applique une quantité appropriée de produit sur la peau Masse avec un mouvement circulaire. Rince à l'eau tiède. Ingrédients : Huile de Graines de Helianthus Annuus (Tournesol) | Triglycéride Caprylique/Caprique
+  10.    21.1%    4/ 19        Haruharu Wonder  haruharu-wonder-black-rice-facial-oil
+         unmatched: phare est l'huile de son de riz noir | qui représente 45 % de la formule. Le riz noir contient une forte concentration de polyphénols et de flavonoïdes | qui protègent la peau contre les radicaux libres | notamment les rayons ultraviolets et la pollution | et favorisent la croissance de nouvelles cellules cutanées. Les huiles de jojoba | d'amande douce
+  11.    21.3%   10/ 47        MISSHA           missha-ultra-powerproof-mascara
+         unmatched: CURLING & LENGTHENING Isododécane | Talc | Cérésine | Héctorite de Disteardimonium | Cire Microcristalline | Palmitate de Dextrine/Ethylhexanoate
+  12.    21.3%   10/ 47        Medicube         medicube-one-day-exosome-shot-pore-ampoule-7500
+         unmatched: actifs | procurant une légère sensation de picotement à l’application. La formule contient du niacinamide pour réguler la production de sébum et unifier le teint | ainsi que des acides AHA | BHA et PHA (acide citrique | salicylate de bétaïne | gluconolactone) pour une exfoliation douce
+  13.    21.9%   16/ 73        ETUDE            etude-dear-darling-oil-tint
+         unmatched: 01 Real Cherry : Copopolymère de Polyglyceryl-2 Isostéarate/Dimer Dilinoleate | Polyglyceryl-2 Triisostéarate | Triglycéride Caprylique/Caprique | Malate de Diisostéaryle | Silice Dimethyl Silylate | Red 7 Lake CI 15850
+  14.    22.6%    7/ 31        Clinique         clinique-baume-a-levres-hydratant-teinte-05-chunky-cherry
+         unmatched: VEGETABLE OIL\OLUS\HUILE VEGETALE | EUPHORBIA CERIFERA (CANDELILLA) WAX\CANDELILLA CERA\CIRE DE CANDELILLA | BEESWAX\CERA ALBA\CIRE D'ABEILLE | OZOKERITE | BUTYROSPERMUM PARKII (SHEA BUTTER) | BUTYROSPERMUM PARKII (SHEA BUTTER) EXTRACT
+  15.    22.9%    8/ 35        I'm From         im-from-ginseng-mask
+         unmatched: clés | il procure une hydratation intense | équilibre le teint de la peau | possède des propriétés anti-âge et améliore l'élasticité de la peau. Le masque est méticuleusement formulé sans parabènes | sulfates | phtalates
+  16.    22.9%    8/ 35        ETUDE            etude-zero-sebum-drying-powder
+         unmatched: d’origine animale | elle est sans parfum (malgré les huiles essentielles) et convient aux peaux sensibles | même si certains utilisateurs notent un léger dessèchement ou un fini plus poudré en cas d’application excessive. La poudre est fournie avec une houpette en microfibre pour une application facile | et peut aussi s’utiliser sur les racines grasses ou sur les paupières pour éviter que le maquillage ne file. Testée dermatologiquement | cruelty-free et vegan | elle est idéale pour les peaux grasses et mixtes
+  17.    23.1%    6/ 26        Regimen Lab      regimen-lab-glycolide-lipid-repair
+         unmatched: Phytosteryl/Isostearyl/Cetyl/Stearyl/Behenyl Dimer Dilinoleate | Dipentaerythrityl Tetrabehenate/Polyhydroxystearate | Diisostearyl Malate | Tetrahexyldecyl Ascorbate | Oryza Sativa (Rice) Bran Wax | Punica Granatum (Pomegranate) Sterols
+  18.    23.1%    6/ 26        Dr. Ceuracle     dr-ceuracle-pro-balance-night-enzyme-wash
+         unmatched: Amidon de Zea Mays (Maïs) | Sodium Lauroyl Glutamate | Diglycérine | Sodium Palmitate | Poudre de Charbon | Allantoïne
+  19.    23.2%   16/ 69        Mary&May         mary-may-vegan-peptide-bakuchiol-sun-stick-spf50-pa
+         unmatched: nocifs tels que l'Ethylhexyl Methoxycinnamate | le Benzophenone-3 | l'Octocrylène | le Benzophenone-1 | le Benzophenone-8 | ou le 4-Methylbenzylidene Camphor. Améliore ta routine beauté avec le Vegan Peptide Bakuchiol Sun Stick MARY & MAY . Ce stick solaire multifonctionnel te protège non seulement des rayons nocifs du soleil
+  20.    23.2%   13/ 56        ETUDE            etude-curl-fix-mascara
+         unmatched: #01 Black : Isododecane | Ceresin | Dextrin Palmitate Ethylhexanoate | Talc | Copolymère de Butyl Acrylate Hydroxypropyl Dimethicone Acrylate | Cire Microcristalline
+  21.    23.5%    4/ 17        MISSHA           missha-vivid-fix-brush-pen-liner
+         unmatched: Noir 2 | Alcool | Beheneth-30 | Copolymère d'Acrylates/Octylacrylamide | Méthylparabène | Diméthicone Polyglyceryl-3 Disiloxane
+  22.    24.2%    8/ 33        Haruharu Wonder  haruharu-wonder-black-rice-10-hyaluronic-cream
+         unmatched: d'origine naturelle. Son ingrédient phare est le riz noir fermenté | un ingrédient plein de nutriments | riche en antioxydants et anti-âge. Le riz noir contient une forte concentration de polyphénols et de flavonoïdes | qui protègent la peau contre les radicaux libres et encouragent la formation de nouvelles cellules cutanées. Ajoute à cela de l'acide hyaluronique profondément hydratant | du ginseng rouge rajeunissant | de l'huile d'onagre et de lavande apaisante
+  23.    24.4%   11/ 45        ETUDE            etude-fixing-tint
+         unmatched: clés comme le diméthicone et le butylène glycol apportent une sensation hydratante | tandis que la texture légère garantit un confort durable sans effet collant. Adaptée à différents styles | du fini couvrant au dégradé naturel | cette encre est idéale pour celles et ceux qui recherchent une couleur audacieuse | durable et non irritante. Formulée sans alcool agressif | sans parabènes et sans allergènes courants
+  24.    25.0%    4/ 16        Avène            avene-couvrance-poudre-mosaique-bonne-mine-correcteur-de-teint
+         unmatched: TALC | SYNTHETIC FLUORPHLOGOPITE | NYLON-12 | BIS-DIGLYCERYL POLYACYLADIPATE-2 | CETYL DIMETHICONE | IRON OXIDES (CI 77491) (CI 77492) (CI 77499)
+  25.    25.0%    3/ 12        Avène            avene-couvrance-poudre-mosaique-translucide-correcteur-de-teint
+         unmatched: TALC | SYNTHETIC FLUORPHLOGOPITE | NYLON-12 | BIS-DIGLYCERYL POLYACYLADIPATE-2 | CETYL DIMETHICONE | IRON OXIDES (CI 77492) (CI 77491) (CI 77499)
+  26.    25.0%    3/ 12        Power Repair     power-repair-hydrating-soothing-facial-toner
+         unmatched: GLUCOSE OXIDASE | LACTOPEROXIDASE | ORGANIC HERBAL ASTRINGENT OF ROSE PETAL | HIBISCUS FLOWER | AND ROSE HIPS | PURE ESSENTIAL OIL OF LAVANDIN GROSSO
+  27.    25.0%    6/ 24        ISNTREE          isntree-green-tea-fresh-toner
+         unmatched: naturels greens certifiés par l'EWG pour équilibrer et nourrir la peau. Sa formule comprend un mélange d'extraits de plantes - Anti Sebum P(HD) - pour contrôler le sébum et 80 % d'extrait de thé vert provenant de l'île de Jeju pour protéger | éclaircir et équilibrer davantage la peau. Parmi les autres ingrédients notables | on trouve l'extrait de Centella Asiatica pour renforcer la barrière cutanée | l'acide hyaluronique hydrolysé pour hydrater | l'allantoïne pour apaiser | et l'extrait de fruit de myrtille pour soulager le stress. Recommandé pour : Peaux sensibles
+  28.    25.0%    3/ 12        BANILA CO        banila-co-clean-it-zero-cleansing-balm-brightening
+         unmatched: Palmitate de Dextrine | Triisostéarate de Glycéryl PEG-20 | Isostéarate PEG-10 | Cire Synthétique | Glycol Butylique | Caprylate de Glycéryl
+  29.    25.0%    5/ 20        BANILA CO        banila-co-prime-primer-classic
+         unmatched: actifs à base de minéraux de glaciers et de sources chaudes. Utilisé sur une peau nettoyée et tonifiée | cette base hydratante lisse et affine le grain de la peau | tout en minimisant la taille des pores pour créer une base impeccable à laquelle le fond de teint peut facilement adhérer. Conseils d'utilisation : Pour te préparer le matin | Applique une fine couche sur ta peau hydratée | du centre du visage vers l'extérieur. Applique ton maquillage comme d'habitude ou porte la base seule ! Pour faire des retouches sur ton maquillage | tapote délicatement sur les zones à problèmes et estompe. Une petite quantité suffit ! Ingrédients : Cyclopentasiloxane
+  30.    25.0%    4/ 16        Dear Klairs      dear-klairs-gentle-black-sugar-facial-polish
+         unmatched: Triglycéride Caprylique/Caprique | Sucre | Ethylhexanoate de Cétyle | Acétate de Tocophéryle | Cire de Candelilla | PEG-7 Cocoate de Glycéryle
+
+======================================================================
+4. Brand-level match-rate (skincare, ≥5 products)
+======================================================================
+
+  prods  ratio   brand
+     21   41.4%  Numbuzin
+      7   44.2%  Holika Holika
+     17   45.6%  LANEIGE
+     49   46.6%  MIXSOON
+     16   47.0%  Dr.Jart+
+     32   47.1%  I'm From
+     64   47.3%  Dr. Ceuracle
+     21   47.7%  AXIS-Y
+     27   49.0%  ETUDE
+     32   49.2%  Dear Klairs
+     40   49.6%  ISNTREE
+     71   50.6%  Pyunkang Yul
+     13   50.9%  ROUND LAB
+     10   51.0%  Rovectin
+     28   51.2%  Haruharu Wonder
+     60   51.4%  SOME BY MI
+     39   53.1%  SKINFOOD
+     15   53.3%  BANILA CO
+     38   54.9%  Mary&May
+     10   55.4%  RealBarrier
+     70   55.7%  MISSHA
+     28   55.8%  Torriden
+     67   56.5%  Anua
+     37   56.9%  Purito Seoul
+      7   57.4%  Receutics Active Skin Repair
+      6   57.7%  Shiseido
+     31   58.8%  Beauty of Joseon
+     10   58.9%  NIOD
+     62   59.1%  Medicube
+     31   59.1%  Abib

@@ -40,13 +40,6 @@ DB sans erreur (seul `type` a une CHECK constraint depuis migration `0027`).
       source de shared, mais seules les valeurs constantes s'importent —
       simple à maintenir).
 
-### 2.3 ✅ Renommé `INGREDIENT_CATEGORIES` → `SKINCARE_INGREDIENT_CATEGORIES`
-
-Fait. Fichiers déplacés dans `shared/src/ingredients/<domaine>/categories.ts`.
-Symboles renommés : `SKINCARE_INGREDIENT_CATEGORIES`, `SkincareIngredientCategory`,
-`SKINCARE_INGREDIENT_CATEGORY_VALUES`. 51 fichiers consumers mis à jour.
-Pas de re-export legacy (clean break, monorepo self-contained). — `cd05aab` / `876f494`
-
 ### 2.4 Fichiers seed haircare/dental importent `SKINCARE_INGREDIENT_CATEGORIES`
 
 Bug pré-existant rendu visible par le rename §2.3. 20 fichiers dans
@@ -115,42 +108,19 @@ n'est utilisé dans aucune route. À nettoyer par cohérence quand on touche.
 
 ### 3.2 Tags produits — data quality résiduelle
 
-**Auto-tagging effectué (2026-04-23)** — 1 017 produits seed traités par `scripts/auto-tag.ts` (archivé 2026-05-08 sous `scripts/_archive/`, voir `docs/audits/auto-tags-audit.md` §C.2) :
-- 875 avec primary + secondary (± avoid) remplis
-- 142 avec secondary rempli, **primary encore vide** → traitement manuel requis
-- avoid auto-rempli pour : retinol, retinal, salicylic acid, capryloyl salicylic acid, glycolic acid, benzoyl peroxide
+Contexte auto-tag avril 2026 : 1 017 produits traités, 875 OK / 142 sans primary (INCI absent ou ingrédient inconnu).
 
-Reste à couvrir manuellement :
+- [ ] **142 produits sans primary** — traitement manuel par lot via description/notes.
+- [ ] **Toners (6 restants)** — aucun retinol/filtre chimique détecté en scan auto. Revue manuelle.
+- [ ] **Bioderma** — ajouter Sebium Global (niacinamide 5/10%) et Pigmentbio C-Concentrate (AA 10%) avant concentrations.
+- [ ] **Solaires absents** (Actinica Lotion, Colibri Daily SPF50) — vérifier `grossesse-compatible` (avoid) sur filtres chimiques quand ajoutés.
 
-**142 produits sans primary** — skin care principalement sans INCI ou INCI sans
-ingrédient connu. Traiter par lot en lisant description/notes.
-
-**Tags `avoid` manquants sur marques curatées** — produits avec rétinol/AHA
-forts / filtres chimiques. Règles de rattrapage (rappel) :
-
-- Rétinoïde → `peau-reactive` + `barriere-cutanee-alteree` +
-  `grossesse-compatible` (avoid)
+Règles de rattrapage `avoid` (rappel) :
+- Rétinoïde → `peau-reactive` + `barriere-cutanee-alteree` + `grossesse-compatible`
 - AHA fort (>8%) → `peau-reactive` + `barriere-cutanee-alteree`
 - BHA 2% → `peau-sensible`
-- Acide azélaïque 10%+ → `peau-reactive` + `barriere-cutanee-alteree`
-  (sauf produits rosacée cliniquement validés — cf. drIdriss Left Un-Red)
-- Filtres chimiques → `grossesse-compatible` (avoid) dans solaires
-
-Marques non traitées :
-
-- [x] `labBiarritz` (10 produits) — vérifié, filtres minéraux uniquement, rien à ajouter
-- [x] `occitane` (16 produits) — vérifié, pas de filtres chimiques ni rétinoïdes
-- [x] `solaires` (14 trouvés/17 estimés) — `grossesse-compatible` ajouté sur 14 solaires filtres chimiques : riemann ×3, bioderma ×2, eucerin ×2, dermaceutic, dermalogica, drIdriss, etude-house, skin1004, uriage, vichy
-- [ ] `toners` (6 restants/7) — 1 corrigé (filorga-time-filler-essence, retinyl acetate). 6 restants non identifiés — aucun retinol/filtre chimique détecté dans les toners scannés ; à revoir manuellement
-- [x] `uriage` (11 produits) — `roseliane-soin-teinte-spf50` corrigé (inclus dans solaires)
-- [x] `noreva` — avoid déjà présents dans `noreva-product-tags.ts`
-- [x] `drIdriss` — `disco-block-spf50-teintee` corrigé (inclus dans solaires)
-
-Bioderma : ajouter **Sebium Global** (niacinamide 5/10%) et
-**Pigmentbio C-Concentrate** (AA 10%) avant concentrations.
-
-Solaires absents du seed à évaluer quand ajoutés : Actinica Lotion,
-Colibri Daily SPF50 (vérifier absence `grossesse-compatible`, filtres chimiques).
+- Acide azélaïque 10%+ → `peau-reactive` + `barriere-cutanee-alteree` (sauf rosacée validée cliniquement)
+- Filtres chimiques → `grossesse-compatible` (solaires)
 
 ### 3.3 Doublons produits scrapés
 
@@ -177,12 +147,8 @@ skincare et supplement sont insérés en DB via `data/tags/index.ts`
 (`ingredientTagData`). Les taxonomies haircare et dental sont définies dans
 shared mais leurs slugs ne sont pas seedés.
 
-À définir par domaine quand un cas d'usage frontend l'exigera :
+Côté ingrédients : haircare (50 slugs) et dental (34 slugs) déjà seedés via `ingredientTagData`.
 
-- [x] **haircare** — `ingredientTagData` inclut `HAIRCARE_INGREDIENT_TAG_TAXONOMY`
-      (50 slugs : concern + hair_type + ingredient_attribute + hair_effect)
-- [x] **dental** — `ingredientTagData` inclut `DENTAL_INGREDIENT_TAG_TAXONOMY`
-      (34 slugs : concerns + age_group + ingredient_attribute + dental_effect)
 - [ ] **produits non-skincare** — `productTagData` ne couvre que skincare ;
       étendre quand les stubs haircare/dental/supplement produits seront remplis
 
@@ -260,7 +226,7 @@ initiale : l'appliquer également aux ingrédients.
 
 ## 7. Images & CDN
 
-État du pipeline image : voir [`STATE.md §11`](./STATE.md#11-pipeline-images).
+État du pipeline image : voir [`IMAGES.md`](./IMAGES.md).
 
 ### 7.1 Provisionnement infra
 
@@ -278,8 +244,6 @@ initiale : l'appliquer également aux ingrédients.
 
 État : **2700 / 3303 (82%)** après DL Atida + Skinsafe.
 
-- [x] **Atida-only** — 58/60 récupérés via `scripts/download-external-images.ts`. 2 × 404 résiduels.
-- [x] **Skinsafe-only** — 413/532 récupérés (78%). 119 × 403 sur PNG (protection per-asset Skinsafe).
 - [ ] **119 PNG Skinsafe en 403** — nécessite browser automation (cookies session) via `scrapper-para`. Liste dans `output/image-download-failures.json`.
 - [ ] **Sans image** (~603 produits) — `the-ordinary` (35), résidus svr/avene/bioderma, etc. Mix de marques jamais scrappées + variantes hors scope Pharmashop. Scrap source à choisir (sites marques, Yesstyle…).
 
@@ -287,3 +251,29 @@ initiale : l'appliquer également aux ingrédients.
 
 - [ ] Scripter `build-image-mapping.ts` (actuellement Python one-shot). Ré-runnable à chaque update du scrap.
 - [ ] Optionnel : route backend `/seed-images/<slug>.webp` servant `output/images-normalized/` en dev pour découpler test du CDN prod.
+
+---
+
+## 8. Auto-tagging — fallback `%` claim (proche)
+
+Spec détaillée : [`_archive/percent-claim-spec.md`](./_archive/percent-claim-spec.md).
+
+**Objectif** : récupérer les FN sur INCI fragile (alphabétique, tronqué, prose marketing) via `product_ingredients.percent` structurés. Stratégie **fallback strict** : INCI fiable l'emporte toujours sur `%`.
+
+- [ ] Détection fragilité INCI (vide / alphabétique / préambule / `...`).
+- [ ] Mapping `% → tag` v1 (retinoids, BHA, AHA, tyrosinase-inhibitors, vitamin-c) avec bornes plausibles + unité `%` obligatoire.
+- [ ] Passe orchestrateur `percent-claim` en `secondary`, après `cross-signal`.
+- [ ] Tests unitaires (fragilité, mapping, refus hors-unité, fallback strict) + test orchestrateur intégration.
+- [ ] Mesurer ΔFN sur gold-set.
+
+---
+
+## 9. Auto-tagging — dette résiduelle
+
+Historique complet (calibration log + tier audit + roadmap absorbée) : [`_archive/auto-tags-roadmap.md`](./_archive/auto-tags-roadmap.md). Comment ça marche aujourd'hui : [`AUTO-TAGS.md`](./AUTO-TAGS.md).
+
+- [ ] **O3** — audit dédié `actif-class` (étendre `audit-auto-tags` à la passe 2, stats hit/agree/new par cluster). Effort S.
+- [ ] **F5** — pipeline Brier/ECE pour passe 1 (concerns / skin types / absence) si on calibre les seuils algo-derm un jour. Defer sinon. Effort XS.
+- [ ] **`texture-mousse` / `texture-stick` admin curation** — non dérivables INCI seul. Attendent que les ~3 700 produits `products.texture = NULL` soient peuplés via admin UI (T3 phase B).
+- [ ] **`peau-mixte`** — Tier 3, débloqué par `products.texture` populé (pattern : T-zone gel-cream + niacinamide top 8).
+- [ ] **`type-outil`** — décision produit : soit étendre `PRODUCT_KINDS` (`gua-sha`, `jade-roller`, `cleansing-brush`), soit retirer le slug.

@@ -5,154 +5,14 @@ Migrations `0054` + `0055`. DB finale : creme 725 · eau 228 · baume 94 · lait
 **Date d'ouverture** : 2026-05-09 · **Date de clôture** : 2026-05-10
 **Branche** : `auto-tags`
 
-Document de référence pour la décision d'architecture F2 et les éléments utiles
-aux futures évolutions `texture-*`. Les §1-6 sont historiques (analyse pré-décision).
-Les §7-10 reflètent l'état livré.
+Ledger des décisions et de l'implémentation finale `texture-*`. L'analyse
+pré-décision (drift legacy 1069→701, spot-checks INCI strict vs Path 2,
+chronologie du drift, options Q1-Q6, plans de migration alternatifs) est
+archivée dans l'historique git de ce fichier (avant 2026-05-10).
 
 ---
 
-## 1. Contexte — pourquoi F2 a été complexe
-
-F2 (audit AUTO-TAGS.md ligne 1119) demandait l'extension de `texture-creme` au-delà
-de `hand-cream`. L'implémentation d'un détecteur INCI strict a exposé un problème
-plus large : le drift entre DB legacy (1069 pairs blanket) et le détecteur (244 pairs
-strict). La question est devenue **"quel modèle taxonomique pour les textures dérivées
-de kind"** avant même de coder.
-
----
-
-## 2. Chiffres clés
-
-### 2.1 État DB avant/après F2
-
-| Slug | Avant F2 (legacy) | Après F2 (2026-05-09) | Δ |
-|------|------------------:|---------------------:|--:|
-| `texture-creme` | 1069 | **701** | -368 |
-| `texture-legere` | 1791 | 1791 | 0 (non touché F2) |
-| `texture-gel` | 177 | 177 | 0 (non touché F2) |
-| `texture-riche` | 120 | 120 | 0 |
-| `texture-patch` | 33 | 33 | 0 |
-| `texture-mousse` | 33 | 33 | 0 |
-| `texture-eau` | 252 | 252 | 0 |
-| `texture-huile` | 57 | 57 | 0 |
-| `texture-baume` | 76 | 76 | 0 |
-| `texture-lait` | 105 | 105 | 0 |
-
-### 2.2 `texture-creme` par kind — avant/après
-
-| Kind | Avant F2 | Après F2 | Note |
-|------|--------:|---------:|------|
-| `moisturizer` | 600 | **676** | +76 (Path 2 default, vetos nettoyent les serums/gels) |
-| `sunscreen` | 402 | **0** | Hors scope, variable (fluide/lait/crème/stick) |
-| `body-lotion` | 23 | **0** | Hors scope, `texture-lait` exclusif via kind-tag |
-| `hand-cream` | 19 | 19 | Inchangé (kind-tag deterministic) |
-| `foot-cream` | 6 | 6 | Inchangé (Path 2 default, pas de nouveaux FP) |
-| `eye-cream` | 2 | **24** | Hors scope F2 → ticket §9.1 livré (backfill 2026-05-09) |
-| Autres mistags | 17 | **0** | Cleanser, balm, serum, mask… |
-
----
-
-## 3. Origine du drift — chronologie
-
-1. **Avant T1** (avant 2026-05-08) — `_archive/auto-tag.ts` tagguait par
-   mapping kind → tags blanket (tout `moisturizer` → `texture-creme`
-   indépendamment de l'INCI).
-
-2. **T1 sweep (2026-05-08)** — refacto orchestrator. Seul `hand-cream`
-   émettait `texture-creme` (kind-tag deterministic). Les 1069 pairs legacy
-   persistaient via backfill insert-only (`onConflictDoNothing`).
-
-3. **F2 analyse (2026-05-09)** — détecteur strict exposait le drift -825.
-   Spot-check : ~25-30 % des 825 droppés = vraies crèmes ratées. Choix
-   architectural discuté, Path 2 retenu.
-
-4. **F2 livraison (2026-05-09)** — Path 2 implémenté + bug slash-normalisation
-   fixé + migration 0054 (delete stale) + backfill (insert 683). DB finale : 701.
-
----
-
-## 4. Spot-check pré-décision (15 moisturizers DB-creme / strict-non-fire)
-
-Conservé comme référence — illustre pourquoi Path 1 strict était insuffisant.
-
-**Legit drops (~8/15)** : shampoings mistaggés comme moisturizer (SLES top 5),
-pain de toilette, INCI vide, produits dont le nom indique déjà `texture-baume`
-/ `texture-lait` / `texture-riche`.
-
-**Faux négatifs (~5/15)** : vraies crèmes ratées à cause du bug slash-normalisation
-(`caprylic/capric` avec slash non matché) et du mutex ≥2 butter/wax trop strict
-(Ducray Dexyane med = crème-baume hybride envoyé sur `texture-riche`).
-
-**Borderline (~2/15)** : INCI alphabétique (Shiseido Benefiance) — positions de
-concentration inconnues, détecteur ne peut pas trancher.
-
-**Implication** : Path 1 strict trop conservateur (≥40 % de FN sur INCI alphabétique
-/ sparse). Path 2 (default + veto) choisi.
-
----
-
-## 5. Décision d'architecture : Path 2 retenu
-
-**Sémantique tranchée** : `texture-creme` = catégorie **hybride** (option c) —
-kind-driven + INCI veto sur cas extrêmes. `moisturizer` = "Crème hydratante" dans
-`PRODUCT_KIND_LABELS`, le tag texture doit aligner avec l'attente UX, pas auditer
-la chimie.
-
-Path 1 (strict INCI) rejeté : trop de FN sur INCI sparse/alphabétique, maintenance
-continue de la liste émulsifiants, jamais parfaitement aligné avec le naming produit.
-
----
-
-## 6. Implémentation livrée
-
-### 6.1 Logique `detectTextureCremeInci` (Path 2)
-
-```
-Kind ∈ {moisturizer, foot-cream} + texture null → fire par défaut, sauf veto :
-
-Veto 1 : surfactant ionique top 5       → cleanser mistag
-Veto 2 : ≥ 2 butter/wax top 8          → texture-riche gagne
-Veto 3 : huile végétale ou butter pos 1 → face-oil mistag
-Veto 4 : pas d'eau dans top 5          → formule oil-led
-Veto 5 : gel-former top 5 + 0 phase huileuse top 8  → texture-gel
-Veto 6 : eau pos 1 + 0 émulsifiant + 0 phase huileuse → serum/essence
-
-INCI absent ou < 4 ingrédients → trust kind → fire
-```
-
-Eye-cream exclu du kind set : sous-corpus trop hétérogène (patches, hydrogels,
-sérums, vraies crèmes). Ticket séparé.
-
-### 6.2 Bug slash-normalisation (résolu)
-
-`normalize()` dans `algo-derm/src/parser.ts` convertit les slashes en espaces.
-`CREAM_OILY_EXTRA_PATTERNS` contenait `'caprylic/capric triglyceride'` (slash
-conservé) → pattern ne matchait jamais les ingrédients normalisés → FN sur toutes
-les crèmes avec caprylic/capric comme seule phase huileuse.
-
-Fix : `'caprylic/capric triglyceride'` → `'caprylic capric triglyceride'`.
-
-**Note algo-derm** : `normalize` vient de `/home/schaff/Mathieu/projets/algo-derm`
-(repo MIT indépendant). Dans `aurore`, importé via tarball vendored
-(`vendor/algo-derm.tgz`). Ne jamais modifier `node_modules/algo-derm` directement.
-Le fix était côté `aurore/formula-detection.ts`, pas dans algo-derm.
-
-### 6.3 Migration 0054
-
-```sql
-DELETE FROM "tag_products"
-WHERE "product_tag_id" = (SELECT "id" FROM "product_tags" WHERE "slug" = 'texture-creme')
-  AND "product_id" IN (
-    SELECT "id" FROM "products" WHERE "kind" != 'hand-cream'
-  );
-```
-
-Supprime 1050 pairs stale (tout sauf hand-cream deterministic). Backfill re-crée
-683 pairs correctes (676 moisturizer + 6 foot-cream + 1 foot-cream déjà présent).
-
----
-
-## 7. Décisions (toutes closes)
+## 1. Décisions (toutes closes)
 
 - [x] **Approche** : Path 2 retenu (default-creme + vétos INCI).
 - [x] **Eye-cream** : hors scope F2 — ticket séparé.
@@ -165,7 +25,7 @@ Supprime 1050 pairs stale (tout sauf hand-cream deterministic). Backfill re-cré
 
 ---
 
-## 8. Références code
+## 2. Références code
 
 - `backend/src/db/seed/utils/formula-detection.ts` —
   `detectTextureCremeInci` (Path 2 default + veto) · `detectTextureGelInci` ·
@@ -178,9 +38,9 @@ Supprime 1050 pairs stale (tout sauf hand-cream deterministic). Backfill re-cré
 
 ---
 
-## 9. Tickets issus de F2
+## 3. Tickets issus de F2
 
-### 9.1 Eye-cream `texture-creme` / `texture-baume` — ✅ livré 2026-05-09
+### 3.1 Eye-cream `texture-creme` / `texture-baume` — ✅ livré 2026-05-09
 
 **Contexte** : eye-cream (`kind = 'eye-cream'`) exclu de `TEXTURE_CREME_DEFAULT_KINDS`
 en F2 — sous-corpus trop hétérogène (patches, hydrogels, sérums, vraies crèmes, baumes).
@@ -271,19 +131,19 @@ détecteur fire plus large sur INCI non-alphabétique). 43 - 27 = 16 FN acceptab
 
 ---
 
-### 9.2 F6 — drift autres `texture-*`
+### 3.2 F6 — drift autres `texture-*`
 
-Pairs stale à nettoyer — audit complet en §10.
+Pairs stale nettoyées — audit complet en §4.
 
 ---
 
-## 10. F6 — Cleanup drift `texture-gel/eau/huile/baume/lait`
+## 4. F6 — Cleanup drift `texture-gel/eau/huile/baume/lait`
 
 **Statut** : ✅ Livré 2026-05-10 · migration `0055` + détecteur baume étendu.
 
 ---
 
-### 10.1 Émetteurs légitimes — état des détecteurs (2026-05-09)
+### 4.1 Émetteurs légitimes — état des détecteurs (2026-05-09)
 
 Avant tout audit, il faut savoir **qui émet quoi aujourd'hui**. Deux sources :
 
@@ -293,7 +153,7 @@ Avant tout audit, il faut savoir **qui émet quoi aujourd'hui**. Deux sources :
 |------|-------------------|
 | `toner` | `texture-eau` |
 | `mist` | `texture-eau` |
-| `balm` | `texture-baume` + `texture-riche` |
+| `balm` | `texture-baume` (texture-riche deferred to INCI detector) |
 | `oil` | `texture-huile` |
 | `body-oil` | `texture-huile` |
 | `body-lotion` | `texture-lait` |
@@ -311,7 +171,7 @@ Uniquement pour `texture-gel`. Skip si `products.texture` est set. SKIP_KINDS = 
 
 ---
 
-### 10.2 Chiffres DB (2026-05-09) et décomposition par kind
+### 4.2 Chiffres DB (2026-05-09) et décomposition par kind
 
 #### Vue globale
 
@@ -394,7 +254,7 @@ Doc estimait -69 total → ~23 stale supplémentaires hors SKIP_KINDS.
 
 ---
 
-### 10.3 Questions ouvertes — décisions à prendre
+### 4.3 Questions ouvertes — décisions à prendre
 
 #### Q1 (CRITIQUE — débloque tout) : Les `cleanser` reçoivent-ils des tags `texture-*` ?
 
@@ -453,7 +313,7 @@ Séparer F6b en F7 ou le faire maintenant ?
 
 ---
 
-### 10.4 Plan de migration (ébauche — conditionnel aux décisions Q1-Q6)
+### 4.4 Plan de migration (ébauche — conditionnel aux décisions Q1-Q6)
 
 #### Scénario A : cleanser exclu de la taxonomie texture (recommandé)
 
@@ -482,7 +342,7 @@ Ajoute de la complexité pour 15 produits.
 
 ---
 
-### 10.5 Décisions (toutes closes 2026-05-10)
+### 4.5 Décisions (toutes closes 2026-05-10)
 
 - [x] **Q1** : `cleanser` **exclu** de la taxonomie `texture-*`. Cohérent avec la sémantique leave-on des kind-tag existants. `detectTextureGelInci` excluait déjà cleanser via SKIP_KINDS — on étend la règle à toutes les textures.
 - [x] **Q2** : `body-wash` **exclu** (même logique).
@@ -493,7 +353,7 @@ Ajoute de la complexité pour 15 produits.
 
 ---
 
-### 10.6 Livraison 2026-05-10
+### 4.6 Livraison 2026-05-10
 
 #### Migration `0055_cleanup_texture_eau_huile_baume_lait_gel_stale`
 
@@ -529,7 +389,7 @@ Le veto neutralise les produits `kind=moisturizer` mistaggés dont le nom révè
 | `texture-baume` | 76 | **94** | +18 | -12 stale + 30 nouveau moisturizer (détecteur étendu) - 9 FP (veto rinse-off) |
 | `texture-lait` | 105 | **95** | -10 | cleanser×6 + Garancia mousse×3 + spot-treatment×1 + 1 admin (Q4) |
 | `texture-gel` | 177 | **100** | -77 | cleanser×41 + body-wash×3 + body-lotion×2 + ~31 INCI-non-fire |
-| `texture-creme` | 701 | **725** | +24 | Eye-cream backfill §9.1 (déjà livré 2026-05-09) |
+| `texture-creme` | 701 | **725** | +24 | Eye-cream backfill §3.1 (déjà livré 2026-05-09) |
 
 Net cleanup : -123 paires legacy, +52 paires correctes (eye-cream creme + moisturizer baume + admin Q4/Q5).
 
@@ -549,19 +409,21 @@ WHERE product_tag_id = (SELECT id FROM product_tags WHERE slug = 'texture-baume'
 
 Pas de migration 0056 : sur DB fraîche (snapshot + migrations + backfill), le détecteur veto empêche d'emblée la création de ces paires.
 
-#### FPs résiduels acceptés (4-5 produits)
+#### FPs résiduels (3-4 produits, post-kind-audit)
 
-Mistags `products.kind` amont (hair/eye-cream/nipple-balm) qui se retrouvent en `texture-baume` parce que `kind=moisturizer` + nom contient "baume" :
+Le followup F6 — `audit-product-kinds.ts` (livré 2026-05-10, 135 fixes auto-appliqués + 14 likely en admin review) — couvre les patterns détectables par nom. Mistags `products.kind` amont qui se retrouvent encore en `texture-baume` parce que `kind=moisturizer` + nom contient "baume" :
 
-- Vichy Dercos Densi-Solutions (capillaire, mistag kind)
-- Les Secrets De Loly Sleek & Slay (capillaire, mistag kind)
-- Clinique Baume Yeux (eye-cream mistag kind)
-- Mustela Baume Allaitement / Baume Pectoral (vraies baumes mais kind ≠ moisturizer)
+- **Vichy Dercos Densi-Solutions Baume Épaisseur** — détecté par règle `hair-misc` en likely tier (nom contient "Dercos"). Admin review pending.
+- **Les Secrets De Loly Sleek & Slay Baume Soin 2 en 1** — non détecté (pas de mot-clé hair dans le nom, brand-only signal nécessaire).
+- **Mustela Baume Allaitement / Pectoral** — vraies baumes pour usage maternité. Pas de pattern nom détectable, edge case.
 
-Action : ticket **kind-mistag-cleanup** séparé (data quality `products.kind`), hors scope F6.
+**Clinique Baume Yeux** mentionné initialement a été corrigé par le kind audit (`kind=eye-cream`) — fire désormais correctement via `detectTextureBaumeFromName` eye-cream path.
+
+Suite : si volume FP augmente, ticket brand-based (haircare-only brands) ou règle Mustela-spécifique. Volume actuel = négligeable.
 
 #### Références code
 
 - `backend/src/db/seed/utils/formula-detection.ts:1459-1480` — `detectTextureBaumeFromName` étendu
 - `backend/src/db/seed/tests/formula-detection.test.ts:1373-1430` — suite baume (eye-cream + moisturizer + veto)
 - `backend/drizzle/0055_cleanup_texture_eau_huile_baume_lait_gel_stale.sql` — migration cleanup + admin Q4/Q5
+- `backend/src/db/seed/runners/audit-product-kinds.ts` — followup auditeur kind mistags (135 fixes appliqués 2026-05-10)

@@ -14,7 +14,8 @@
 //   bun run src/db/seed/runners/audit-product-kinds.ts --write     # apply certain
 //   bun run src/db/seed/runners/audit-product-kinds.ts --slug s    # single product
 
-import { type ProductCategory, type ProductKind, PRODUCT_KINDS } from '@habit-tracker/shared'
+import { PRODUCT_KINDS, type ProductCategory, type ProductKind } from '@habit-tracker/shared'
+
 import { eq, sql } from 'drizzle-orm'
 
 import { db } from '../..'
@@ -107,7 +108,8 @@ const RULES: KindRule[] = [
     name: 'eye-cream',
     match: /\b(yeux|eye)\b/i,
     // Exclude makeup-removal products, lash/brow tools, multi-zone cleansers.
-    forbidden: /\bd[eé]maquillant|\bmicellair|\bmicellar|\bcils\b|\bsourcils\b|\bmascara|\bliner|\bcrayon|\bpencil|\bfard|\bshadow|\bprimer/i,
+    forbidden:
+      /\bd[eé]maquillant|\bmicellair|\bmicellar|\bcils\b|\bsourcils\b|\bmascara|\bliner|\bcrayon|\bpencil|\bfard|\bshadow|\bprimer/i,
     expected: 'eye-cream',
     // Eye patches and eye masks are alternative legitimate kinds — admin's call.
     okIfKindIn: new Set<ProductKind>(['eye-cream', 'patch', 'mask']),
@@ -126,23 +128,15 @@ const RULES: KindRule[] = [
     why: '"lèvres/lip" → lip-care',
   },
 
-  // ─── likely (admin review) ───
-  {
-    name: 'aftershave',
-    match: /\brasage|\bafter[-\s]?shave|\baftershave/i,
-    // Shaving foam/cream/gel = cleanser, not balm — keep these out of the auto-fix.
-    forbidden: /\bgel\s+moussant|\bmousse\b|\bcr[èe]me\s+[àa]\s+raser/i,
-    expected: 'balm',
-    confidence: 'likely',
-    why: '"rasage/after-shave" → balm (admin: confirm not shaving foam)',
-  },
+  // Hair-mask / hair-oil before hair-misc fallback (rule order = priority).
+  // Promoted to certain after gold-set audit confirmed 14/14 unambiguous: forbidden
+  // patterns exclude body/shampoo/SPF combos, okIfKindIn accepts any haircare kind.
   {
     name: 'hair-mask',
-    // Hair word + masque/mask anywhere in name. Lookahead avoids order constraint.
     match: /(?=.*\b(cheveux|capi[ll]?aire|cuir\s+chevelu|scalp|dercos)\b)(?=.*\b(masque|mask)\b)/i,
     forbidden: /\bcorps\b|\bbody\b|\bdouche\b|\bshower\b/i,
     expected: 'hair-mask',
-    confidence: 'likely',
+    confidence: 'certain',
     why: 'hair word + masque → hair-mask',
   },
   {
@@ -150,17 +144,15 @@ const RULES: KindRule[] = [
     match: /(?=.*\b(cheveux|capi[ll]?aire|cuir\s+chevelu|scalp|dercos)\b)(?=.*\b(huile|oil)\b)/i,
     forbidden: /\bcorps\b|\bbody\b|\bessentielle\b/i,
     expected: 'hair-oil',
-    confidence: 'likely',
+    confidence: 'certain',
     why: 'hair word + huile → hair-oil',
   },
   {
     name: 'hair-misc',
     match: /\b(cheveux|capi[ll]?aire|cuir\s+chevelu|scalp|dercos)\b/i,
-    // Sunscreen + scalp, body+hair washes, makeup remover stay where they are.
     forbidden:
       /\bshampo+ing?\b|\bshampoo\b|\bcorps\b|\bbody\b|\bspf\d|\bsolaire\b|\bsunscreen\b|\bdouche\b|\bshower\b|\bd[eé]maquillant/i,
     expected: 'hair-serum',
-    // Any haircare kind is acceptable — admin disambiguates serum/mask/oil/styling.
     okIfKindIn: new Set<ProductKind>([
       'hair-serum',
       'hair-mask',
@@ -171,19 +163,41 @@ const RULES: KindRule[] = [
       'sunscreen',
       'body-wash',
     ]),
-    confidence: 'likely',
-    why: '"cheveux/capillaire/scalp" → hair-serum (admin: confirm exact format)',
+    confidence: 'certain',
+    why: '"cheveux/capillaire/scalp" → hair-serum',
+  },
+  {
+    name: 'aftershave',
+    match: /\brasage|\bafter[-\s]?shave|\baftershave/i,
+    // Shaving foam/cream/gel = cleanser, not balm — forbidden excludes those.
+    forbidden: /\bgel\s+moussant|\bmousse\b|\bcr[èe]me\s+[àa]\s+raser/i,
+    expected: 'balm',
+    confidence: 'certain',
+    why: '"rasage/after-shave" → balm',
   },
   {
     name: 'body-wash',
-    match: /\bdouche|\bshower/i,
+    // `body wash` allows up to 2 intervening words (e.g., "Body Moisturizing Wash").
+    // `lavante?s?` paired with huile/gel/crème routes Avène/Ducray/A-Derma rinse-off
+    // products mistagged moisturizer/body-oil to body-wash.
+    match:
+      /\bdouche|\bshower|\bbody[-\s]+(?:\w+\s+){0,2}wash\b|\b(?:baby|kids?)\s+wash\b|\b(?:huile|gel|cr[èe]me|cream)\s+lavante?s?\b/i,
     // Hair+body combos with explicit "& Cheveux" stay shampoo (combo);
     // deodorant combos stay deodorant.
     forbidden: /\bcorps\s*(?:&|et)\s*cheveux|\bbody\s*(?:&|and)\s*hair|\bd[eé]o[-\s]?douche/i,
     expected: 'body-wash',
     okIfKindIn: new Set<ProductKind>(['body-wash', 'cleanser']),
     confidence: 'certain',
-    why: '"douche/shower" → body-wash',
+    why: '"douche/shower/body wash/huile-gel-crème lavante" → body-wash',
+  },
+  {
+    name: 'wash-off-mask',
+    // Korean-format rinse-off masks ("Wash Off Pack" / "Wash Off Mask").
+    match: /\bwash[-\s]off\s+(?:pack|mask)\b/i,
+    expected: 'mask',
+    okIfKindIn: new Set<ProductKind>(['mask', 'patch', 'exfoliant']),
+    confidence: 'certain',
+    why: '"wash off pack/mask" → mask',
   },
   {
     name: 'hand-cream',
@@ -229,6 +243,31 @@ const RULES: KindRule[] = [
     ]),
     confidence: 'certain',
     why: '"corps/body" + cream/lotion context → body-lotion',
+  },
+  {
+    name: 'cleanser-face',
+    // Last-resort cleanser signal: rinse-off face products mistagged moisturizer
+    // (most common drift) or spot-treatment/conditioner. Body & hair routed earlier.
+    match: /\b(nettoyante?s?|cleansing|cleanser|whip\s+cleanser|(?:powder|enzyme|face)\s+wash)\b/i,
+    // Skip: body/multi-zone (body-lotion catches), hair, lip/eye/hand/foot variants,
+    // post-peeling care, sunscreen mousses, self-tanner mousses, after-sun.
+    forbidden:
+      /\bcorps\b|\bbody\b|\bcheveux\b|\bcapi[ll]?aire\b|\bcuir\s+chevelu\b|\bscalp\b|\bshampo+ing?\b|\bshampoo\b|\bdouche\b|\bshower\b|\bl[èe]vres?\b|\blip\b|\byeux\b|\beye\b|\bmains?\b|\bhand\b|\bpieds?\b|\bfoot\b|\bp[eé]eling\b|\bmousse\s+cr[eé]pitante|\bautobronzant|\bapr[eèé]s[-\s]?soleil|\bafter[-\s]?sun|\bspf\d|\bsolaire\b|\bsunscreen\b/i,
+    expected: 'cleanser',
+    // Cleansing balms/oils keep their existing kind (balm/oil category is admin's call);
+    // exfoliants, masks, patches with cleansing in name keep their kind too.
+    okIfKindIn: new Set<ProductKind>([
+      'cleanser',
+      'body-wash',
+      'balm',
+      'oil',
+      'exfoliant',
+      'mask',
+      'patch',
+      'shampoo',
+    ]),
+    confidence: 'certain',
+    why: '"nettoyant/cleansing/cleanser/powder-enzyme-face wash" → cleanser',
   },
 ]
 

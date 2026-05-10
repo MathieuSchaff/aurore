@@ -52,6 +52,8 @@
 //                               3 INCI vetos + name cross-check.
 //   detectTextureBaumeFromName — `texture-baume` for eye-cream products whose
 //                               name contains "baume" or "balm".
+//   detectTextureStickFromName  — `texture-stick` from product name (F4) when
+//                               `products.texture` is null. Leave-on kinds only.
 
 import type { ProductKind, ProductTexture } from '@habit-tracker/shared'
 import { SKINCARE_PRODUCT_TAG_SLUGS, type SkincareProductTagSlug } from '@habit-tracker/shared'
@@ -528,7 +530,11 @@ const OIL_BALM_PATTERNS = [
   'persea gratissima',
   'prunus amygdalus',
   'oryza sativa',
-  'camellia',
+  // Same caveat as VEGETABLE_OIL_PATTERNS: camellia leaf/water are hydrosols,
+  // only the seed oil counts as oil-dominant signal.
+  'camellia japonica seed oil',
+  'camellia oleifera seed oil',
+  'camellia sinensis seed oil',
   // Mineral oils
   'mineral oil',
   'paraffinum liquidum',
@@ -920,8 +926,15 @@ const VEGETABLE_OIL_PATTERNS = [
   'cocos nucifera',
   'persea gratissima',
   'prunus amygdalus',
+  'prunus armeniaca',
+  'glycine soja',
   'oryza sativa bran oil',
-  'camellia',
+  // Camellia leaf/flower extract and water are light hydrosols/extracts —
+  // only the oil/seed forms count as heavy. Match the oil-producing botanical
+  // names + "oil" suffix to avoid excluding green-tea hydrosol formulas.
+  'camellia japonica seed oil',
+  'camellia oleifera seed oil',
+  'camellia sinensis seed oil',
   'rosa canina',
   'rosa rubiginosa',
   'vitis vinifera seed oil',
@@ -1312,6 +1325,7 @@ export function detectTextureCremeInci(
   const top8 = ingredients.slice(0, Math.min(ingredients.length, 8))
   const firstIng = ingredients[0]
 
+  // fallow-ignore-next-line code-duplication
   // Veto 1: ionic surfactant top 5 → cleanser mistag
   if (top5.some((ing) => IONIC_SURFACTANT_PATTERNS.some((p) => ing.includes(p)))) return []
 
@@ -1425,6 +1439,7 @@ export function detectTextureCremeEyeInci(
   const top5 = ingredients.slice(0, Math.min(ingredients.length, 5))
   const top8 = ingredients.slice(0, Math.min(ingredients.length, 8))
 
+  // fallow-ignore-next-line code-duplication
   // Veto 1: ionic surfactant top 5 → cleanser mistag
   if (top5.some((ing) => IONIC_SURFACTANT_PATTERNS.some((p) => ing.includes(p)))) return []
 
@@ -1476,6 +1491,42 @@ export function detectTextureBaumeFromName(
   if (!EYE_CREAM_BAUME_RE.test(n)) return []
   if (TEXTURE_BAUME_NAME_VETO_RE.test(n)) return []
   return [S.TEXTURE_BAUME]
+}
+
+// ─── Texture-stick name-driven (F4) ──────────────────────────────────────────
+// `texture-stick` is non-derivable from INCI alone (wax-stick chemistry overlaps
+// balm/sunscreen formulations without a reliable INCI marker). Falls back on
+// product name when admin hasn't set `products.texture`. Restricted to leave-on
+// kinds (Q1 cohérence: rinse-off cleansers/exfoliants/masks excluded from
+// texture-*); `lip-care`/`balm` are inherently leave-on, sun sticks land in
+// `moisturizer`/`sunscreen`, corrector sticks in `spot-treatment`.
+
+const TEXTURE_STICK_NAME_KINDS = new Set<ProductKind>([
+  'lip-care',
+  'balm',
+  'moisturizer',
+  'spot-treatment',
+  'sunscreen',
+])
+
+const TEXTURE_STICK_NAME_RE = /\b(stick|b[âa]ton)\b/i
+
+// Compound product veto: "Crème Mains + Stick Lèvres" = duo, the primary
+// product isn't a stick. SPF50+ / PA++++ are not vetoed (no whitespace +
+// product term after the +).
+const TEXTURE_STICK_NAME_VETO_RE = /\+\s+(stick|b[âa]ton)\b/i
+
+export function detectTextureStickFromName(
+  kind: ProductKind,
+  texture: ProductTexture | null | undefined,
+  name?: string | null
+): SkincareProductTagSlug[] {
+  if (texture) return []
+  if (!TEXTURE_STICK_NAME_KINDS.has(kind)) return []
+  const n = name ?? ''
+  if (!TEXTURE_STICK_NAME_RE.test(n)) return []
+  if (TEXTURE_STICK_NAME_VETO_RE.test(n)) return []
+  return [S.TEXTURE_STICK]
 }
 
 // ─── Peau-normale (heuristic, used by orchestrator post-pass) ────────────────

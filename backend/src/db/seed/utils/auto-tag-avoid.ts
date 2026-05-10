@@ -64,7 +64,7 @@ export function computeAvoidCandidates(
     push(SKINCARE_PRODUCT_TAG_SLUGS.GROSSESSE_COMPATIBLE, 'grossesse-avoid')
   }
 
-  const actifs = actifClasses ?? detectActifClasses(inci, hoistedIngredients)
+  const actifs = actifClasses ?? detectActifClasses(inci, hoistedIngredients, kind)
   for (const tagSlug of detectCrossSignalAvoidTags(actifs, kind)) {
     push(tagSlug, 'cross-signal')
   }

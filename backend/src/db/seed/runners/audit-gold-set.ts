@@ -34,11 +34,11 @@ import path from 'node:path'
 import type { ProductKind } from '@habit-tracker/shared'
 
 import { analyzeINCI, splitINCI } from 'algo-derm'
-import { inArray, sql } from 'drizzle-orm'
+import { eq, inArray, sql } from 'drizzle-orm'
 
 import { mapKindToContext } from '../../../features/dermo-score/profile-mapping'
 import { db } from '../..'
-import { products } from '../../schema'
+import { ingredients, productIngredients, products } from '../../schema'
 import { detectAutoTags } from '../utils/auto-tag-detection'
 import { AUTO_TAG_ELIGIBLE_CATEGORIES, detectAllAutoTags } from '../utils/auto-tag-orchestrator'
 import { GOLD_SET_FOCUS_TAGS, type GoldSetFocusTag, loadGoldSet } from '../utils/gold-set'
@@ -93,6 +93,41 @@ async function main() {
     })
     .from(products)
     .where(inArray(products.slug, annotated))
+
+  const productIds = dbProducts.map((p) => p.id)
+  const claimRows =
+    productIds.length === 0
+      ? []
+      : await db
+          .select({
+            productId: productIngredients.productId,
+            ingredientSlug: ingredients.slug,
+            concentrationValue: productIngredients.concentrationValue,
+            concentrationUnit: productIngredients.concentrationUnit,
+          })
+          .from(productIngredients)
+          .innerJoin(ingredients, eq(ingredients.id, productIngredients.ingredientId))
+          .where(inArray(productIngredients.productId, productIds))
+  const claimsByProduct = new Map<
+    string,
+    {
+      ingredientSlug: string
+      concentrationValue: number
+      concentrationUnit: string
+    }[]
+  >()
+  for (const row of claimRows) {
+    if (!row.concentrationValue || !row.concentrationUnit) continue
+    const value = Number(row.concentrationValue)
+    if (!Number.isFinite(value)) continue
+    const arr = claimsByProduct.get(row.productId) ?? []
+    arr.push({
+      ingredientSlug: row.ingredientSlug,
+      concentrationValue: value,
+      concentrationUnit: row.concentrationUnit,
+    })
+    claimsByProduct.set(row.productId, arr)
+  }
 
   // Drift check — every annotation slug must exist in DB. Otherwise gold
   // set is stale (a product was renamed or deleted) and the metric on that
@@ -152,6 +187,7 @@ async function main() {
       inci: p.inci,
       kind: p.kind as ProductKind,
       category: p.category,
+      percentClaims: claimsByProduct.get(p.id) ?? [],
     })
     const emittedSlugs = new Set<string>()
     for (const pair of orchPairs) emittedSlugs.add(pair.tagSlug)

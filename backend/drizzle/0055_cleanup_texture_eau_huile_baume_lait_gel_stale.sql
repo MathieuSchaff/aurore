@@ -1,5 +1,5 @@
 -- F6 — Cleanup stale texture-* pairs from legacy blanket tagging.
--- Decisions Q1-Q6 (see backend/src/db/seed/docs/AUTO-TAGS-TEXTURE.md §10):
+-- Decisions Q1-Q6 (see backend/src/db/seed/docs/_archive/auto-tags-texture-postmortem.md §10):
 --   Q1/Q2: rinse-off kinds (cleanser, body-wash) excluded from texture-*
 --   Q3:    moisturizer baume covered by detectTextureBaumeFromName extension
 --   Q4/Q5: 5 products get admin texture set (1 lait, 4 eau)

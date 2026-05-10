@@ -1,0 +1,375 @@
+Loaded 4075 products with INCI.
+
+======================================================================
+1. INCI pathologies (formatting/quality issues)
+======================================================================
+
+  preamble — 0 products
+
+  mojibake — 0 products
+
+  truncated — 0 products
+
+  very-short — 39 products
+    dr-sams-flawless-lip :: Lanolin, Ceramide NP
+    dr-sams-flawless-lip-tint :: Lanolin, Mica, Ceramide NP, CI 77491
+    crinex-phb-plus-brossettes-conique-12-unites-281667 :: Fibres de Tynex, plastique
+    crinex-phb-plus-brossettes-mini-gf-12-unites-258323 :: Fibres de Tynex, plastique
+    crinex-phb-plus-brossettes-micro-plus-gf-12-unites-258322 :: Fibres de Tynex, plastique
+    isdin-warts-verrutop-traitement-topique-4-ampoules-244416 :: Nitrizinc Complex.
+    isdin-warts-verrutop-traitement-topique-4-ampoules-lot-de-2-303820 :: Nitrizinc Complex.
+    inava-brossettes-1mm-mono-compact-espaces-etroits-jaune-4-unites-301474 :: Fibres synthétiques.
+    elgydium-classique-brosse-a-dents-dure-272935 :: Plastique, nylon.
+    inava-brossettes-1-5mm-mono-compact-espaces-larges-rouge-4-unites-269046 :: Fibres synthétiques.
+    inava-brossettes-0-8mm-mono-compact-espaces-etroits-bleu-4-unites-269045 :: Fibres synthétiques.
+    inava-brossettes-4-recharges-etroits-0-8mm-bleu-269038 :: Fibres synthétiques.
+    inava-brossettes-1-8mm-mono-compact-espaces-larges-violet-4-unites-301475 :: Fibres synthétiques.
+    inava-brossettes-4-recharges-trio-compact-flex-iso4-1-5-mm-rouge-269041 :: Fibres synthétiques.
+    inava-recharge-power-sensibilite-265296 :: Fibres synthétiques
+    gum-brossette-interdentaire-bi-direction-0-7mm-vert-6-unites-259254 :: Tige recouverte de nylon
+    inava-brossettes-0-6mm-mono-compact-espaces-etroits-noir-4-unites-269044 :: Fibres synthétiques.
+    inava-recharge-power-rose-265295 :: Fibres synthétiques
+    gum-brossette-interdentaire-soft-picks-original-medium-100-unites-243492 :: Caoutchouc.
+    gum-fil-dentaire-expanding-floss-cire-279634 :: Fibres de nylon texturées.
+    klorane-bebe-lingette-lavable-edition-limitee-hamac-10-x-12cm-5-unites-275322 :: Microfibre.
+    gum-brossette-interdentaire-trav-ler-0-9-mm-6-unites-301327 :: plastique + brins en nylon
+    gum-brossette-interdentaire-bi-direction-1-4mm-jaune-6-unites-243504 :: Tige recouverte de nylon
+    gum-brossette-interdentaire-bi-direction-0-6mm-bleu-lavande-6-unites-243503 :: Tige recouverte de nylon
+    inava-brossettes-1-2mm-mono-compact-espaces-etroits-orange-4-unites-300653 :: Fibres synthétiques.
+    oral-b-brossette-de-rechange-sensitive-clean-3-unites-271192 :: Fibres synthétiques.
+    forever-eye-mask :: NONPOROUS SILICONE
+    skin1004-spot-cover-patch :: HYDROCOLLOID
+    remedy-pimple-patches :: Hydrocolloid
+    avene-eau-thermale :: WATER, NITROGEN
+    mixsoon-heartleaf-toner :: Extrait de Houttuynia Cordata.
+    gum-dentifrice-original-white-blancheur-lot-de-3-x-75ml-248884 :: Does not contain any bleaching agents.
+    klorane-bebe-lingette-lavable-edition-limitee-hamac-12-x-14cm-5-unites-275451 :: Microfibre.
+    purito-seoul-bamboo-charcoal-konjac-sponge :: Poudre de Konjac, Charbon de Bambou.
+    pyunkang-yul-pimple-extractor-set :: Acier Inoxydable.
+    im-from-mugwort-essence :: Extrait d'Artemisia Princeps.
+    anua-cotton-pad-for-toner :: Pulpe, Rayonne.
+    mixsoon-collagen-powder :: Collagène Hydrolysé
+    mixsoon-vitamin-c-powder :: 100% Vitamine en Poudre
+
+  single-token — 63 products
+    pranarom-huile-vegetale-bio-argan-50ml-279908 :: 100% pure and natural plant oil.
+Half of the contents are unsaturated fatty acid
+    ducray-anacaps-reactiv-90-capsules-275082 :: Pour la liste des ingrédients et des allergènes se référer à l’image produit.
+    acm-novophane-60-gelules-259123 :: Pour la liste des ingrédients et des allergènes se référer à l’image produit.
+    isdin-warts-verrutop-traitement-topique-4-ampoules-244416 :: Nitrizinc Complex.
+    isdin-warts-verrutop-traitement-topique-4-ampoules-lot-de-2-303820 :: Nitrizinc Complex.
+    isdin-fotoprotector-fusion-water-pediatrics-creme-solaire-visage-pour-enfants-spf50-50ml-232743 :: Voir la composition inscrite sur l'emballage du produit.
+    inava-brossettes-1mm-mono-compact-espaces-etroits-jaune-4-unites-301474 :: Fibres synthétiques.
+    inava-brossettes-1-5mm-mono-compact-espaces-larges-rouge-4-unites-269046 :: Fibres synthétiques.
+    inava-brossettes-0-8mm-mono-compact-espaces-etroits-bleu-4-unites-269045 :: Fibres synthétiques.
+    svr-densitium-bi-serum-rechargeable :: AQUA WATER EAU DICAPRYLYL CARBONATE ISONONYL ISONONANOATE HEXYLDECYL STEARATE OL
+    svr-baume-nuit-densitium :: AQUA WATER EAU OCTYLDODECANOL BUTYROSPERMUM PARKII SHEA BUTTER GLYCERIN CETEARYL
+    svr-densitium-creme-riche-rechargeable :: AQUA WATER EAU OCTYLDODECANOL BUTYROSPERMUM PARKII SHEA BUTTER VITIS VINIFERA GR
+    inava-brossettes-4-recharges-etroits-0-8mm-bleu-269038 :: Fibres synthétiques.
+    svr-densitium-recharge-baume-nuit :: AQUA WATER EAU OCTYLDODECANOL BUTYROSPERMUM PARKII SHEA BUTTER GLYCERIN CETEARYL
+    inava-brossettes-1-8mm-mono-compact-espaces-larges-violet-4-unites-301475 :: Fibres synthétiques.
+    svr-densitium-recharge-creme-riche :: AQUA WATER EAU OCTYLDODECANOL BUTYROSPERMUM PARKII SHEA BUTTER VITIS VINIFERA GR
+    svr-sensifine-hydra-creme-soin-hydratant :: AQUA WATER EAU PERSEA GRATISSIMA AVOCADOOIL SQUALANE PANTHENOL 12HEXANEDIOL ACRY
+    inava-brossettes-4-recharges-trio-compact-flex-iso4-1-5-mm-rouge-269041 :: Fibres synthétiques.
+    inava-recharge-power-sensibilite-265296 :: Fibres synthétiques
+    gum-brossette-interdentaire-bi-direction-0-7mm-vert-6-unites-259254 :: Tige recouverte de nylon
+    svr-densitium-recharge-creme-spf30 :: AQUA WATER EAU DICAPRYLYL CARBONATE COCO CAPRYLATE CAPRATE DIETHYLAMINO HYDROXYB
+    inava-brossettes-0-6mm-mono-compact-espaces-etroits-noir-4-unites-269044 :: Fibres synthétiques.
+    inava-recharge-power-rose-265295 :: Fibres synthétiques
+    gum-brossette-interdentaire-soft-picks-original-medium-100-unites-243492 :: Caoutchouc.
+    vichy-capital-soleil-spf50-stick-invisible :: OCTYLDODECANOL ISOAMYL LAURATE DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE TRIHEP
+    gum-fil-dentaire-expanding-floss-cire-279634 :: Fibres de nylon texturées.
+    argiletz-pate-argile-ghassoul-prete-a-l-emploi-150g-253533 :: Arcilla de Ghassoul (Tierra marroquí) y agua.
+    cattier-beurre-de-karite-100-bio-100g-278308 :: Butyrospermum Parkii Butter*. *Ingrédient issu de l'agriculture biologique.100% 
+    ducray-anacaps-expert-chute-de-cheveux-chronique-90-gelules-275585 :: Pour la liste des ingrédients et des allergènes se référer à l’image produit.
+    klorane-bebe-lingette-lavable-edition-limitee-hamac-10-x-12cm-5-unites-275322 :: Microfibre.
+    les-secrets-de-loly-bubble-kurl-spray-demelant-enfants :: AQUA WATER ISOAMYL COCOATE PROPANEDIOL CAPRYLIC CAPRIC TRIGLYCERIDE HYDROGENATED
+    sowe-huile-de-chanvre-pure-bio-50ml-245266 :: Cannabis sativa seed oil* * Matière biologique première certifiée COSMOS par Eco
+    sowe-huile-de-jojoba-pure-bio-50ml-245268 :: Simmondsia chinensis seed oil* * Matière biologique première certifiée COSMOS pa
+    gum-brossette-interdentaire-trav-ler-0-9-mm-6-unites-301327 :: plastique + brins en nylon
+    gum-brossette-interdentaire-bi-direction-1-4mm-jaune-6-unites-243504 :: Tige recouverte de nylon
+    gum-brossette-interdentaire-bi-direction-0-6mm-bleu-lavande-6-unites-243503 :: Tige recouverte de nylon
+    inava-brossettes-1-2mm-mono-compact-espaces-etroits-orange-4-unites-300653 :: Fibres synthétiques.
+    oral-b-brossette-de-rechange-sensitive-clean-3-unites-271192 :: Fibres synthétiques.
+    clinique-uv-solutions-creme-visage-hydratante-spf50 :: HOMOSALATE 7 W W P P OCTOCRYLENE 7 W W P P OCTISALATE 4 5 W W P P AVOBENZONE 3 W
+    erborian-centella-gel-nettoyant-doux :: AQUA/WATER -SODIUM METHYL COCOYL TAURATE -GLYCERIN -PENTYLENE GLYCOL -COCO-BETAI
+    erborian-centella-huile-demaquillante :: HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL -ETHYLHEXYL STEARATE -CAPRYLIC/CAPRIC TRI
+    kreme-deodorant-soin-24h-peaux-sensibles :: HELIANTHUS ANNUUS SEED OIL MAGNESIUM HYDROXIDE MAGNESIUM CARBONATE HYDROXIDE CAP
+    kreme-stick-levres-concentre :: CORYLUS AVELLANA SEED OIL COCOGLYCERIDES GLYCERYL STEARATE ETHYL OLEATE CAPRYLIC
+    la-rosee-fluide-solaire-invisible-spf50 :: AQUA WATER DICAPRYLYL CARBONATE COCO CAPRYLATE CAPRATE DIETHYLAMINO HYDROXYBENZO
+    lierac-protocole-eclat-masque-acide-glycolique-pur :: AQUA WATER EAU COCO-CAPRYLATE CAPRATE GLYCERYL STEARATE SE BEHENYL ALCOHOL PENTA
+    patyka-pure-masque-charbon-desincrustant :: AQUA (WATER) MENTHA VIRIDIS (SPEARMINT) LEAF EXTRACT CETEARYL ALCOHOL ILLITE PEN
+    avene-dermabsolu-creme-jour :: AVENE THERMAL SPRING WATER AVENE AQUA PENTAERYTHRITYL TETRACAPRYLATE TETRACAPRAT
+    la-roche-posay-syndet-ap-creme-lavante-relipidiante-recharge :: AQUA WATER EAU PEG 7 GLYCERYL COCOATE DISODIUM COCOAMPHODIACETATE COCO BETAINE S
+    la-roche-posay-anthelios-stick-pro-resistance-spf50 :: RICINUS COMMUNIS SEED OIL CASTOR SEED OIL ISOPROPYL PALMITATE POLYETHYLENE ISOHE
+    la-roche-posay-anthelios-stick-solaire-vitamine-spf50 :: RICINUS COMMUNIS CASTOR SEED OIL ISOPROPYL PALMITATE POLYETHYLENE OCTOCRYLENE IS
+    forever-eye-mask :: NONPOROUS SILICONE
+    skin1004-spot-cover-patch :: HYDROCOLLOID
+    la-roche-posay-effaclar-duo-m-22-patchs-anti-imperfections :: HYDROGENATED POLY C6-20 OLEFIN CELLULOSE GUM HYDROGENATED STYRENE BUTADIENE COPO
+    remedy-pimple-patches :: Hydrocolloid
+    mixsoon-heartleaf-toner :: Extrait de Houttuynia Cordata.
+    gum-dentifrice-original-white-blancheur-lot-de-3-x-75ml-248884 :: Does not contain any bleaching agents.
+    klorane-bebe-lingette-lavable-edition-limitee-hamac-12-x-14cm-5-unites-275451 :: Microfibre.
+    sowe-huile-pure-de-macadamia-bio-50ml-245270 :: 100% Macadamia integrifolia seed oil*  * Issu de l'agriculture biologique et cer
+    pyunkang-yul-pimple-extractor-set :: Acier Inoxydable.
+    im-from-mugwort-essence :: Extrait d'Artemisia Princeps.
+    some-by-mi-yuja-niacin-anti-blemish-starter-kit :: Yuja Niacin Brightening All-In-One Cleanser (30ml) : Yuja Niacin Brightening Ton
+    mixsoon-collagen-powder :: Collagène Hydrolysé
+    mixsoon-vitamin-c-powder :: 100% Vitamine en Poudre
+
+  no-comma — 64 products
+    pranarom-huile-vegetale-bio-argan-50ml-279908 :: 100% pure and natural plant oil.
+Half of the contents are unsaturated fatty acid
+    ducray-anacaps-reactiv-90-capsules-275082 :: Pour la liste des ingrédients et des allergènes se référer à l’image produit.
+    acm-novophane-60-gelules-259123 :: Pour la liste des ingrédients et des allergènes se référer à l’image produit.
+    topicrem-ultra-hydratant-huile-de-douche-1l-281616 :: AQUA (WATER) . GLYCERIN . SODIUM LAURETH SULFATE . SODIUM COCOAMPHOACETATE . POL
+    isdin-warts-verrutop-traitement-topique-4-ampoules-244416 :: Nitrizinc Complex.
+    isdin-warts-verrutop-traitement-topique-4-ampoules-lot-de-2-303820 :: Nitrizinc Complex.
+    isdin-fotoprotector-fusion-water-pediatrics-creme-solaire-visage-pour-enfants-spf50-50ml-232743 :: Voir la composition inscrite sur l'emballage du produit.
+    inava-brossettes-1mm-mono-compact-espaces-etroits-jaune-4-unites-301474 :: Fibres synthétiques.
+    inava-brossettes-1-5mm-mono-compact-espaces-larges-rouge-4-unites-269046 :: Fibres synthétiques.
+    inava-brossettes-0-8mm-mono-compact-espaces-etroits-bleu-4-unites-269045 :: Fibres synthétiques.
+    svr-densitium-bi-serum-rechargeable :: AQUA WATER EAU DICAPRYLYL CARBONATE ISONONYL ISONONANOATE HEXYLDECYL STEARATE OL
+    svr-baume-nuit-densitium :: AQUA WATER EAU OCTYLDODECANOL BUTYROSPERMUM PARKII SHEA BUTTER GLYCERIN CETEARYL
+    svr-densitium-creme-riche-rechargeable :: AQUA WATER EAU OCTYLDODECANOL BUTYROSPERMUM PARKII SHEA BUTTER VITIS VINIFERA GR
+    inava-brossettes-4-recharges-etroits-0-8mm-bleu-269038 :: Fibres synthétiques.
+    svr-densitium-recharge-baume-nuit :: AQUA WATER EAU OCTYLDODECANOL BUTYROSPERMUM PARKII SHEA BUTTER GLYCERIN CETEARYL
+    inava-brossettes-1-8mm-mono-compact-espaces-larges-violet-4-unites-301475 :: Fibres synthétiques.
+    svr-densitium-recharge-creme-riche :: AQUA WATER EAU OCTYLDODECANOL BUTYROSPERMUM PARKII SHEA BUTTER VITIS VINIFERA GR
+    svr-sensifine-hydra-creme-soin-hydratant :: AQUA WATER EAU PERSEA GRATISSIMA AVOCADOOIL SQUALANE PANTHENOL 12HEXANEDIOL ACRY
+    inava-brossettes-4-recharges-trio-compact-flex-iso4-1-5-mm-rouge-269041 :: Fibres synthétiques.
+    inava-recharge-power-sensibilite-265296 :: Fibres synthétiques
+    gum-brossette-interdentaire-bi-direction-0-7mm-vert-6-unites-259254 :: Tige recouverte de nylon
+    svr-densitium-recharge-creme-spf30 :: AQUA WATER EAU DICAPRYLYL CARBONATE COCO CAPRYLATE CAPRATE DIETHYLAMINO HYDROXYB
+    inava-brossettes-0-6mm-mono-compact-espaces-etroits-noir-4-unites-269044 :: Fibres synthétiques.
+    inava-recharge-power-rose-265295 :: Fibres synthétiques
+    gum-brossette-interdentaire-soft-picks-original-medium-100-unites-243492 :: Caoutchouc.
+    vichy-capital-soleil-spf50-stick-invisible :: OCTYLDODECANOL ISOAMYL LAURATE DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE TRIHEP
+    gum-fil-dentaire-expanding-floss-cire-279634 :: Fibres de nylon texturées.
+    argiletz-pate-argile-ghassoul-prete-a-l-emploi-150g-253533 :: Arcilla de Ghassoul (Tierra marroquí) y agua.
+    cattier-beurre-de-karite-100-bio-100g-278308 :: Butyrospermum Parkii Butter*. *Ingrédient issu de l'agriculture biologique.100% 
+    ducray-anacaps-expert-chute-de-cheveux-chronique-90-gelules-275585 :: Pour la liste des ingrédients et des allergènes se référer à l’image produit.
+    klorane-bebe-lingette-lavable-edition-limitee-hamac-10-x-12cm-5-unites-275322 :: Microfibre.
+    les-secrets-de-loly-bubble-kurl-spray-demelant-enfants :: AQUA WATER ISOAMYL COCOATE PROPANEDIOL CAPRYLIC CAPRIC TRIGLYCERIDE HYDROGENATED
+    sowe-huile-de-chanvre-pure-bio-50ml-245266 :: Cannabis sativa seed oil* * Matière biologique première certifiée COSMOS par Eco
+    sowe-huile-de-jojoba-pure-bio-50ml-245268 :: Simmondsia chinensis seed oil* * Matière biologique première certifiée COSMOS pa
+    gum-brossette-interdentaire-trav-ler-0-9-mm-6-unites-301327 :: plastique + brins en nylon
+    gum-brossette-interdentaire-bi-direction-1-4mm-jaune-6-unites-243504 :: Tige recouverte de nylon
+    gum-brossette-interdentaire-bi-direction-0-6mm-bleu-lavande-6-unites-243503 :: Tige recouverte de nylon
+    inava-brossettes-1-2mm-mono-compact-espaces-etroits-orange-4-unites-300653 :: Fibres synthétiques.
+    oral-b-brossette-de-rechange-sensitive-clean-3-unites-271192 :: Fibres synthétiques.
+    clinique-uv-solutions-creme-visage-hydratante-spf50 :: HOMOSALATE 7 W W P P OCTOCRYLENE 7 W W P P OCTISALATE 4 5 W W P P AVOBENZONE 3 W
+    erborian-centella-gel-nettoyant-doux :: AQUA/WATER -SODIUM METHYL COCOYL TAURATE -GLYCERIN -PENTYLENE GLYCOL -COCO-BETAI
+    erborian-centella-huile-demaquillante :: HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL -ETHYLHEXYL STEARATE -CAPRYLIC/CAPRIC TRI
+    kreme-deodorant-soin-24h-peaux-sensibles :: HELIANTHUS ANNUUS SEED OIL MAGNESIUM HYDROXIDE MAGNESIUM CARBONATE HYDROXIDE CAP
+    kreme-stick-levres-concentre :: CORYLUS AVELLANA SEED OIL COCOGLYCERIDES GLYCERYL STEARATE ETHYL OLEATE CAPRYLIC
+    la-rosee-fluide-solaire-invisible-spf50 :: AQUA WATER DICAPRYLYL CARBONATE COCO CAPRYLATE CAPRATE DIETHYLAMINO HYDROXYBENZO
+    lierac-protocole-eclat-masque-acide-glycolique-pur :: AQUA WATER EAU COCO-CAPRYLATE CAPRATE GLYCERYL STEARATE SE BEHENYL ALCOHOL PENTA
+    patyka-pure-masque-charbon-desincrustant :: AQUA (WATER) MENTHA VIRIDIS (SPEARMINT) LEAF EXTRACT CETEARYL ALCOHOL ILLITE PEN
+    avene-dermabsolu-creme-jour :: AVENE THERMAL SPRING WATER AVENE AQUA PENTAERYTHRITYL TETRACAPRYLATE TETRACAPRAT
+    la-roche-posay-syndet-ap-creme-lavante-relipidiante-recharge :: AQUA WATER EAU PEG 7 GLYCERYL COCOATE DISODIUM COCOAMPHODIACETATE COCO BETAINE S
+    la-roche-posay-anthelios-stick-pro-resistance-spf50 :: RICINUS COMMUNIS SEED OIL CASTOR SEED OIL ISOPROPYL PALMITATE POLYETHYLENE ISOHE
+    la-roche-posay-anthelios-stick-solaire-vitamine-spf50 :: RICINUS COMMUNIS CASTOR SEED OIL ISOPROPYL PALMITATE POLYETHYLENE OCTOCRYLENE IS
+    forever-eye-mask :: NONPOROUS SILICONE
+    skin1004-spot-cover-patch :: HYDROCOLLOID
+    la-roche-posay-effaclar-duo-m-22-patchs-anti-imperfections :: HYDROGENATED POLY C6-20 OLEFIN CELLULOSE GUM HYDROGENATED STYRENE BUTADIENE COPO
+    remedy-pimple-patches :: Hydrocolloid
+    mixsoon-heartleaf-toner :: Extrait de Houttuynia Cordata.
+    gum-dentifrice-original-white-blancheur-lot-de-3-x-75ml-248884 :: Does not contain any bleaching agents.
+    klorane-bebe-lingette-lavable-edition-limitee-hamac-12-x-14cm-5-unites-275451 :: Microfibre.
+    sowe-huile-pure-de-macadamia-bio-50ml-245270 :: 100% Macadamia integrifolia seed oil*  * Issu de l'agriculture biologique et cer
+    pyunkang-yul-pimple-extractor-set :: Acier Inoxydable.
+    im-from-mugwort-essence :: Extrait d'Artemisia Princeps.
+    some-by-mi-yuja-niacin-anti-blemish-starter-kit :: Yuja Niacin Brightening All-In-One Cleanser (30ml) : Yuja Niacin Brightening Ton
+    mixsoon-collagen-powder :: Collagène Hydrolysé
+    mixsoon-vitamin-c-powder :: 100% Vitamine en Poudre
+
+======================================================================
+2. Top unmatched tokens (after normalize) — opportunity for parser/evidence
+======================================================================
+
+  FR products — top 40 unmatched
+      20 × malachite extract
+      18 × maris sal sea salt sel marin
+      18 × copolymere pvm ma
+      16 × lepidium sativum sprout extract
+      16 × acetyl tetrapeptide-2
+      16 × polyglyceryl-3 polydimethylsiloxyethyl dimethicone
+      16 × octyldodeceth-16
+      16 × polyquaternium-67
+      16 × potassium chloride
+      15 × sodium phosphate
+      15 × chondrus crispus extract
+      15 × alumine
+      15 × polyglyceryl-2 stearate
+      15 × triethylhexanoine
+      15 × sterols de brassica campestris
+      15 × sodium acrylate sodium acryloyldimethyl taurate copolymer
+      15 × gomme biosaccharide-1
+      14 × beheneth-25
+      14 × sodium acetate
+      14 × trisiloxane
+      14 × glutamate de stearoyl de sodium
+      14 × polyglycerine-3
+      14 × pca de sodium
+      14 × collagen soluble
+      14 × juniperus mexicana oil
+      14 × polyacryloyldimethyl taurate de sodium
+      14 × vinyl dimethicone
+      14 × propylheptyl caprylate
+      13 × neopentyl glycol diheptanoate
+      13 × helichrysum italicum flower oil
+      13 × ci 15985
+      13 × menthol
+      13 × bis-diglyceryl polyacyladipate-2
+      13 × cetyl peg ppg-10 1 dimethicone
+      13 × polyglyceryl-2 triisostearate
+      13 × mel extract
+      13 × ricin hydrogenee peg-60 oil
+      13 × glycine soja seed extract
+      13 × feuille tige de hedera helix extract
+      13 × riz extract
+
+  non-FR products — top 40 unmatched
+      34 × sodium acrylate sodium acryloyldimethyl taurate copolymer
+      33 × avena sativa leaf stem extract
+      33 × laureth-7
+      33 × zinc coceth sulfate
+      33 × sodium phosphate
+      33 × boron nitride
+      33 × dimethicone crosspolymer
+      32 × paraffin
+      32 × peg-200 hydrogenated glyceryl palmate
+      32 × sodium polyacryloyldimethyl taurate
+      32 × caprylhydroxamic acid
+      32 × talc
+      32 × menthol
+      32 × lauroyl lysine
+      31 × glycyrrhiza inflata root extract
+      31 × laureth-3
+      31 × phospholipids
+      31 × magnesium aluminum silicate
+      31 × c12-16 alcohols
+      31 × theobroma grandiflorum seed butter
+      31 × trihydroxystearin
+      31 × sodium fluoride
+      30 × chondrus crispus extract
+      30 × peg-6 caprylic capric glycerides
+      30 × aluminum starch octenylsuccinate
+      30 × linalyl acetate
+      30 × titanium dioxide nano
+      30 × vous etes invites a lire la liste de ingredients figurant sur son emballage afin de vous assurer que les ingredients sont adaptes a votre utilisation personnelle
+      29 × glyceryl linoleate
+      29 × hydrolyzed rice protein
+      29 × dimethyl isosorbide
+      29 × steareth-20
+      29 × carrageenan
+      29 × 1
+      29 × aspartic acid
+      29 × palmitoyl tripeptide-38
+      29 × sodium dna
+      29 × camelina sativa seed oil
+      28 × ppg-26-buteth-26
+      28 × pca
+
+======================================================================
+3. Worst-match skincare products (≥10 ings, sorted by ratio asc)
+======================================================================
+
+  rank  ratio  matched/total  brand            slug
+   1.     0.0%    0/ 20        Medicube         medicube-age-r-booster-pro-mini
+         unmatched: actifs en profondeur | pour un teint | une texture et une clarté visiblement améliorés | Avec deux modes LED : rouge pour le soin ciblé et l’éclat | bleu pour calmer et contrôler le sébum | il est idéal pour la récupération après traitement intensif ou pour un boost quotidien d’éclat
+   2.    23.1%    3/ 13        MIXSOON          mixsoon-melting-collagen-eye-film
+         unmatched: revitalisants | Sa formule hypoallergénique adhère confortablement à la peau | lisse les ridules et redonne de l'élasticité sans irriter | Idéal en tant que dernière étape de ta routine beauté pour les yeux | ou sur d'autres zones à traiter comme le front et le cou | Recommandé pour : Peaux sensibles
+   3.    25.0%    3/ 12        Power Repair     power-repair-hydrating-soothing-facial-toner
+         unmatched: GLUCOSE OXIDASE | LACTOPEROXIDASE | ORGANIC HERBAL ASTRINGENT OF ROSE PETAL | HIBISCUS FLOWER | AND ROSE HIPS | PURE ESSENTIAL OIL OF LAVANDIN GROSSO
+   4.    27.3%    3/ 11        MIXSOON          mixsoon-melting-collagen-cheek-film
+         unmatched: actifs en profondeur dans la peau | Recommandé pour : Peaux sensibles | tous types de peaux | Conseils d'utilisation : Retire le film protecteur rose avec des mains propres et sèches | Applique le collagène sur tes joues | Retire le film maillé. Laisse le produit se dissoudre dans ta peau
+   5.    30.8%    8/ 26        Regimen Lab      regimen-lab-glycolide-lipid-repair
+         unmatched: Phytosteryl/Isostearyl/Cetyl/Stearyl/Behenyl Dimer Dilinoleate | Dipentaerythrityl Tetrabehenate/Polyhydroxystearate | Tetrahexyldecyl Ascorbate | Oryza Sativa (Rice) Bran Wax | Punica Granatum (Pomegranate) Sterols | Bis-Diglyceryl Polyacyladipate-2
+   6.    31.3%    5/ 16        Avène            avene-couvrance-poudre-mosaique-bonne-mine-correcteur-de-teint
+         unmatched: TALC | SYNTHETIC FLUORPHLOGOPITE | NYLON-12 | BIS-DIGLYCERYL POLYACYLADIPATE-2 | CETYL DIMETHICONE | LAUROYL LYSINE
+   7.    31.8%    7/ 22        Power Repair     power-repair-skin-serum
+         unmatched: AFRICAN SHEA BUTTER | ALPHA LIPOIC ACID | BUFFERED CALCIUM | CAMELLIA SINENSIS (GREEN TEA) OIL | COENZYME Q10 | DMAE
+   8.    33.3%    7/ 21        Erborian         erborian-cc-eye-contour-des-yeux-dore
+         unmatched: CYCLOMETHICONE | ETHYLHEXYL METHOXYCINNAMATE- DIPROPYLENE GLYCOL | PEG-10 DIMETHICONE – METHYL TRIMETHICONE – GLYCERIN | C12-15 ALKYLBENZOATE | ZINC OXIDE-[NANO] | DIMETHICONE – TITANIUM DIOXIDE-[NANO] – BUTYLENE GLYCOL
+   9.    33.3%    5/ 15        Avène            avene-xeracalm-nutrition-lait-hydratant
+         unmatched: POLYGLYCERYL-2DIPOLYHYDROXYSTEARATE | NIACINAMIDE.PENTAERYTHRITYL TETRACAPRYLATE/TETRACAPRATE | BEHENYL ALCOHOL.BENZOIC ACID | CAPRYLYL GLYCOL.FRAGRANCE (PARFUM) | HELIANTHUSANNUUS (SUNFLOWER) SEED OIL(HELIANTHUS ANNUUS SEED OIL).HYDROXYETHYLCELLULOSE | LAURYLGLUCOSIDE
+  10.    33.3%    4/ 12        Avène            avene-couvrance-poudre-mosaique-translucide-correcteur-de-teint
+         unmatched: TALC | SYNTHETIC FLUORPHLOGOPITE | NYLON-12 | BIS-DIGLYCERYL POLYACYLADIPATE-2 | CETYL DIMETHICONE | LAUROYL LYSINE
+  11.    33.3%    7/ 21        Erborian         erborian-cc-eye-contour-des-yeux-clair
+         unmatched: CYCLOMETHICONE | ETHYLHEXYL METHOXYCINNAMATE- DIPROPYLENE GLYCOL | PEG-10 DIMETHICONE – METHYL TRIMETHICONE – GLYCERIN | C12-15 ALKYLBENZOATE | ZINC OXIDE-[NANO] | DIMETHICONE – TITANIUM DIOXIDE-[NANO] – BUTYLENE GLYCOL
+  12.    35.5%   11/ 31        Clinique         clinique-baume-a-levres-hydratant-teinte-05-chunky-cherry
+         unmatched: VEGETABLE OIL\OLUS\HUILE VEGETALE | EUPHORBIA CERIFERA (CANDELILLA) WAX\CANDELILLA CERA\CIRE DE CANDELILLA | BEESWAX\CERA ALBA\CIRE D'ABEILLE | OZOKERITE | BUTYROSPERMUM PARKII (SHEA BUTTER) | BUTYROSPERMUM PARKII (SHEA BUTTER) EXTRACT
+  13.    36.0%   27/ 75        Clinique         clinique-smart-clinical-repair-serum-correcteur-anti-rides
+         unmatched: WATERAQUAEAU | ASCORBYL | GLUCOSIDE | TOCOPHERYL | ACETATE | HYPNEA
+  14.    36.4%    4/ 11        ISNTREE          isntree-mugwort-calming-powder-wash
+         unmatched: Isethionate de Cocoyle de Sodium | Palmitate de Sodium | Glutamate de Sodium Lauroyle | Diglycérine | Papaye | Sel de Mer
+  15.    36.7%   36/ 98        Numbuzin         numbuzin-no-9-nad-collagen-under-eye-patches
+         unmatched: Chondrus Crispus Extract | Chondrus Crispus | Ceratonia Siliqua Gum | Agar | Ultramarines | Potassium Chloride
+  16.    37.1%   13/ 35        NIOD             niod-lip-bio-lipid-concentrate
+         unmatched: ANEMARRHENA ASPHERDELOIDES ROOT EXTRACT | BUTYLENE/ETHYLENE/STYRENE COPOLYMER | C13-16 ISOPARAFFIN | CETEARYL ETHYLHEXANOATE | COMMIPHORA MUKUL RESIN EXTRACT | DIMETHYL ISOSORBIDE
+  17.    37.7%   20/ 53        SOME BY MI       snail-truecica-miracle-repair-toner
+         unmatched: Filtrat de Mucine d'Escargot | Urée Hydroxyéthylée | Extrait de Lavande (Lavandula Angustifolia) | Extrait de Géranium (Geranium Maculatum) | Extrait de Feuille de Sauge (Salvia Officinalis) | Extrait de Fleur de Trèfle (Trifolium Pratense)
+  18.    39.5%   87/220        Numbuzin         numbuzin-nad-bio-lifting-sil-full-face-mask
+         unmatched: Étape 1 : Water | Neopentyl Glycol Diheptanoate | Polylactic Acid | Polyglyceryl-6 Laurate | Thioctic Acid | Adenosine Triphosphate
+  19.    39.6%   19/ 48        Mary&May         mary-may-blackberry-complex-glow-wash-off-pack
+         unmatched: naturels comme l'extrait de mûre | riche en puissants antioxydants | pour détoxifier et nettoyer les pores en profondeur | Sa texture douce et crémeuse s'étale facilement sur la peau | absorbant l'excès de sébum et les impuretés tout en apportant de l'hydratation et des nutriments pour un teint lisse et éclatant | Parfait pour tous les types de peaux
+  20.    40.0%    4/ 10        Eucerin          eucerin-aquaphor-baume-reparateur
+         unmatched: SANS CONSERVATEUR | SANS COLORANT | NON COMÉDOGÈNE | CLINIQUEMENT PROUVÉ CERA MICROCRISTALLINA | CERESIN | (EUCERIT)
+  21.    41.2%    7/ 17        MISSHA           missha-vivid-fix-brush-pen-liner
+         unmatched: Noir 2 | Beheneth-30 | Copolymère d'Acrylates/Octylacrylamide | Méthylparabène | Diméthicone Polyglyceryl-3 Disiloxane | Propylparabène
+  22.    41.2%   47/114        LANEIGE          lip-glowy-balm
+         unmatched: Phytosteryl/Isostearyl/Cetyl/ Stearyl/Behenyl Dimer Dilinoleate | Hydrogenated Poly | Phytosteryl Isostearyl Dimer Dilinoleate | Microcrystalline Wax /Cera Microcristallina / Cire Microcristalline | Sucrose Tetrastearate Triacetate | Ethylene/ Propylene/Styrene Copolymer
+  23.    41.7%    5/ 12        La Roche-Posay   la-roche-posay-toleriane-eau-micellaire-peaux-sensibles
+         unmatched: PEG-7 CAPRYLIC/CAPRIC GLYCERIDES | POLOXAMER 124 | POLOXAMER 184 | PEG-6 CAPRYLIC/CAPRIC GLYCERIDES | MYRTRIMONIUM BROMIDE | PARFUM / FRAGRANCE (F.I.L
+  24.    42.3%   11/ 26        Dr. Ceuracle     dr-ceuracle-pro-balance-night-enzyme-wash
+         unmatched: Sodium Lauroyl Glutamate | Diglycérine | Sodium Palmitate | Poudre de Charbon | Huile d’Orange Citrus Aurantium Dulcis | Huile de Zeste de Mandarine Citrus Nobilis
+  25.    42.9%    6/ 14        Embryolisse      embryolisse-huile-de-beaute-multi-fonctions-100ml-233819
+         unmatched: d i ca pry l at e | d i ca pry ly l e t h er | butyrospermum parki i (shea) butter | extract | prunus armeniaca (apricot) | kernel oil
+  26.    42.9%    6/ 14        La Roche-Posay   la-roche-posay-lipikar-pain-surgras-anti-dessechement-150g-279359
+         unmatched: Sodium palmate | sodium palm kernelate | sodium cocoyl amino acids | butyrospermum parkii / shea butter | etidronic acid | etidronic acid
+  27.    42.9%   24/ 56        ETUDE            etude-curl-fix-mascara
+         unmatched: #01 Black : Isododecane | Ceresin | Dextrin Palmitate Ethylhexanoate | Talc | Copolymère de Butyl Acrylate Hydroxypropyl Dimethicone Acrylate | Oxydes de Fer CI 77499
+  28.    43.2%   54/125        Numbuzin         numbuzin-no-9-nad-pdrn-glow-boosting-toner
+         unmatched: Copolymère Peg/Ppg-17/6 | Tripropylene Glycol | Huile de Ricin Hydrogénée Peg-40 | Pareth-10 C20-40 | ADN de Sodium | Extrait de Fruit de Luffa Cylindrica
+  29.    43.5%   10/ 23        Garancia         garancia-trousse-voyage-2025-303627
+         unmatched: COCO?CAPRYLATE/CAPRATE* | POLYGLYCERYL?4 STEARATE* | LINUM USITATISSIMUM ?LINSEED? SEED OIL* | HYDROXYSTEARIC ACID* | OLIVE OIL POLYGLYCERYL?6 ESTERS* | ORYZA SATIVA ?RICE? BRAN OIL*
+  30.    43.8%    7/ 16        Beplain          be-plain-mung-bean-cleansing-oil
+         unmatched: Cétate D'Éthylhexyle | Sorbeth-30 Tetraoleate | Huile de Graine de Camellia Sinensis | Extrait de Germes de Phaseolus Radiatus | Extrait de Graine de Phaseolus Radiatus | Extrait de Graine de Phaseolus Radiatus
+
+======================================================================
+4. Brand-level match-rate (skincare, ≥5 products)
+======================================================================
+
+  prods  ratio   brand
+      7   60.8%  Receutics Active Skin Repair
+     10   61.3%  NIOD
+     21   61.4%  Numbuzin
+      6   62.1%  Filorga
+      7   62.5%  Holika Holika
+      7   64.5%  Regimen Lab
+     63   67.0%  Garancia
+     42   67.6%  Clinique
+      8   68.5%  Dieux
+      8   68.7%  Dermalogica
+      6   68.9%  Sulwhasoo
+      6   70.1%  Shiseido
+     17   70.1%  LANEIGE
+     14   70.4%  Krème
+     32   72.5%  Dear Klairs
+     15   72.5%  BANILA CO
+     10   73.5%  Rovectin
+      6   73.7%  Weleda
+      7   73.8%  Les Secrets De Loly
+      6   73.8%  Klorane
+     16   74.0%  Dr.Jart+
+     60   74.5%  SOME BY MI
+     13   75.0%  L'Occitane
+     27   75.4%  Erborian
+     43   75.5%  Embryolisse
+     21   75.6%  AXIS-Y
+     64   75.8%  Dr. Ceuracle
+     39   75.8%  SKINFOOD
+     27   75.9%  ETUDE
+     45   76.1%  Patyka

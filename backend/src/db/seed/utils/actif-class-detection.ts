@@ -18,11 +18,23 @@
 // and HA humectants get a tighter cap because functional concentration
 // always sits early in the list.
 
+import type { ProductKind } from '@habit-tracker/shared'
 import { SKINCARE_PRODUCT_TAG_SLUGS, type SkincareProductTagSlug } from '@habit-tracker/shared'
 
-import { resolveIngredients } from './ingredient-resolver'
+import { isAlphabeticalINCI, resolveIngredients } from './ingredient-resolver'
 
 const DEFAULT_POSITION_CAP = 12
+
+// Cleansers/exfoliants/scrubs put surfactants and humectants first; pH-driven
+// actives (AHA/BHA/PHA) sit further down (pos 12-18 typical) but at functional
+// concentration. Use the looser cap for these kinds.
+const RINSE_OFF_LIKE_KINDS = new Set<ProductKind>([
+  'cleanser',
+  'body-wash',
+  'body-scrub',
+  'exfoliant',
+  'mask',
+])
 
 export interface ActifClassDef {
   slug: SkincareProductTagSlug
@@ -30,6 +42,8 @@ export interface ActifClassDef {
   // Top-N INCI position to scan. Below default if the actif must be at
   // functional concentration to count (acids, enzymes, humectants).
   positionCap?: number
+  // Override cap for cleansers/exfoliants where actives sit deeper.
+  positionCapRinseOff?: number
 }
 
 export const ACTIF_CLASS_DEFS: ActifClassDef[] = [
@@ -84,7 +98,6 @@ export const ACTIF_CLASS_DEFS: ActifClassDef[] = [
       // `vitamin c ester` as the residual token without `ascorbyl palmitate`
       // matching. Substring catches this edge case.
       'vitamin c ester',
-      'ascorbique', // French INCI: acide ascorbique / acide 3-o-ethyl ascorbique
     ],
     positionCap: Number.POSITIVE_INFINITY,
   },
@@ -104,6 +117,8 @@ export const ACTIF_CLASS_DEFS: ActifClassDef[] = [
   },
   {
     slug: SKINCARE_PRODUCT_TAG_SLUGS.AHA,
+    // French variants ("acide X") match products whose INCI was translated
+    // FR — common for FR pharmacy / Korean brand FR-localized listings.
     patterns: [
       'glycolic acid',
       'lactic acid',
@@ -111,19 +126,39 @@ export const ACTIF_CLASS_DEFS: ActifClassDef[] = [
       'malic acid',
       'tartaric acid',
       'ammonium lactate',
+      'acide glycolique',
+      'acide lactique',
+      'acide mandelique',
     ],
-    // Acids below position 10 are pH adjusters, not exfoliants
+    // Acids below position 10 are pH adjusters, not exfoliants — except in
+    // cleansers/exfoliants where surfactant-heavy formulas push the acid
+    // actif to pos 12-18 (CeraVe SA cleanser, Etude House AHA peel gel).
     positionCap: 10,
+    positionCapRinseOff: 20,
   },
   {
     slug: SKINCARE_PRODUCT_TAG_SLUGS.BHA,
-    patterns: ['salicylic acid', 'capryloyl salicylic acid', 'betaine salicylate'],
+    patterns: ['salicylic acid', 'acide salicylique', 'betaine salicylate'],
+    // Free SA + betaine salicylate (direct salt) at trace concentration
+    // (pos > 10 leave-on) is preservative or sub-functional, not
+    // exfoliant. Rinse-off cap looser per surfactant displacement.
     positionCap: 10,
+    positionCapRinseOff: 20,
+  },
+  {
+    slug: SKINCARE_PRODUCT_TAG_SLUGS.BHA,
+    // Capryloyl salicylic acid = Mexoryl-style ester (slow-release,
+    // skin-anchored), functional at 0.05-0.1 % and routinely listed
+    // pos 13-20 in serums/moisturizers (LRP Effaclar Mat, Abib
+    // glutathiosome). No preservative usage → position cap dropped.
+    patterns: ['capryloyl salicylic acid'],
+    positionCap: Number.POSITIVE_INFINITY,
   },
   {
     slug: SKINCARE_PRODUCT_TAG_SLUGS.PHA,
     patterns: ['gluconolactone', 'lactobionic acid', 'galactose'],
     positionCap: 10,
+    positionCapRinseOff: 20,
   },
   {
     slug: SKINCARE_PRODUCT_TAG_SLUGS.ENZYMES_EXFOLIANTS,
@@ -195,6 +230,10 @@ export const ACTIF_CLASS_DEFS: ActifClassDef[] = [
       'resveratrol',
       'epigallocatechin',
       'ferulic acid',
+      // Ferulic acid esters (ethylhexyl/ethyl ferulate) used as
+      // oil-soluble antioxidants in modern serums; same polyphenol
+      // pharmacophore, missed by `ferulic acid` substring.
+      'ferulate',
       'camellia sinensis',
       'curcuma longa',
       'rosmarinus officinalis',
@@ -204,6 +243,10 @@ export const ACTIF_CLASS_DEFS: ActifClassDef[] = [
       'quercetin',
       'vitis vinifera',
       'melissa officinalis',
+      // Milk thistle: `silybum marianum` (plant) + `silymarin`
+      // (standardized flavonolignan complex, alt INCI form).
+      'silybum marianum',
+      'silymarin',
     ],
     positionCap: Number.POSITIVE_INFINITY,
   },
@@ -226,10 +269,18 @@ export const ACTIF_CLASS_DEFS: ActifClassDef[] = [
       'kojic acid',
       'arbutin',
       'tranexamic acid',
+      // French INCI translation (Korean serum lines available in FR market).
+      'acide tranexamique',
       'ellagic acid',
       'morus alba',
       'undecylenoyl phenylalanine',
       'hexylresorcinol',
+      // Mela B3 patented anti-pigment actif (La Roche-Posay) — direct
+      // tyrosinase pathway inhibitor, not over-broad.
+      '2-mercaptonicotinoyl glycine',
+      // Boldine (diacetyl boldine = Lumiskin) — competitive tyrosinase
+      // inhibitor used in serums anti-taches.
+      'boldine',
     ],
     positionCap: Number.POSITIVE_INFINITY,
   },
@@ -237,7 +288,8 @@ export const ACTIF_CLASS_DEFS: ActifClassDef[] = [
 
 export function detectActifClasses(
   inci: string | null | undefined,
-  hoistedIngredients?: readonly string[]
+  hoistedIngredients?: readonly string[],
+  kind?: ProductKind
 ): SkincareProductTagSlug[] {
   const resolved = resolveIngredients(inci, hoistedIngredients)
   // Defensive filter — hoisted callers control the array shape; protect
@@ -245,9 +297,18 @@ export function detectActifClasses(
   const ingredients = resolved.filter(Boolean)
   if (ingredients.length === 0) return []
 
+  // Korean brands often list INCI alphabetically — position-based caps then
+  // mean nothing. Detect once and bypass position gating per cluster.
+  const isAlpha = isAlphabeticalINCI(ingredients)
+  const isRinseOffLike = kind !== undefined && RINSE_OFF_LIKE_KINDS.has(kind)
+
   const found = new Set<SkincareProductTagSlug>()
   for (const def of ACTIF_CLASS_DEFS) {
-    const cap = Math.min(ingredients.length, def.positionCap ?? DEFAULT_POSITION_CAP)
+    const baseCap =
+      isRinseOffLike && def.positionCapRinseOff !== undefined
+        ? def.positionCapRinseOff
+        : (def.positionCap ?? DEFAULT_POSITION_CAP)
+    const cap = isAlpha ? ingredients.length : Math.min(ingredients.length, baseCap)
     const window = ingredients.slice(0, cap)
     if (def.patterns.some((p) => window.some((ing) => ing.includes(p)))) {
       found.add(def.slug)

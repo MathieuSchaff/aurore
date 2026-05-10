@@ -47,9 +47,12 @@ import {
   detectTextureGelInci,
   detectTextureLegere,
   detectTextureRiche,
+  detectTextureStickFromName,
   detectVegan,
 } from './formula-detection'
+import { stripMarketingPreamble } from './ingredient-resolver'
 import { detectKindTags } from './kind-tag-detection'
+import { detectPercentClaimTags, type PercentClaimEvidence } from './percent-claim-detection'
 
 // Categories where INCI/kind-derived tagging applies. Other categories
 // (haircare, dental, supplements) carry no INCI-derived signal yet. Tuple
@@ -67,6 +70,7 @@ export type AutoTagSource =
   | 'grossesse-avoid'
   | 'interaction'
   | 'brand'
+  | 'percent-claim'
 
 export type AutoTagRelevance = 'secondary' | 'avoid'
 
@@ -93,6 +97,9 @@ export interface OrchestratorInput {
   // Product name — used by `detectTextureCremeEyeInci` for name-based
   // cross-check (patch/serum/baume abstain; sparse-INCI cream fallback).
   name?: string | null
+  // Structured concentration evidence from product_ingredients. Used only as
+  // strict fallback when INCI quality is fragile.
+  percentClaims?: readonly PercentClaimEvidence[]
 }
 
 export interface OrchestratorOptions {
@@ -125,11 +132,16 @@ export function detectAllAutoTags(
   // tagProduct does its own normalize). `normalizedIngredients` is for
   // passes 2/4/5 whose detectors match against normalized substrings — D.3
   // hoist avoids `splitINCI(inci).map(normalize)` × N detectors.
+  // Strip marketing preamble ("...Ingrédients : ...") before splitINCI/analyze.
+  // 589 seed products carry prose ahead of the real INCI list (Korean brands,
+  // some EU products); without slicing, comma-split tokens are prose chunks
+  // and position-rules (top 8 butter/wax for texture-riche, etc.) misfire.
   const hasInci = !!inci?.trim()
-  const ingredients = hasInci ? splitINCI(inci ?? '') : []
+  const cleanedInci = hasInci ? stripMarketingPreamble(inci ?? '') : ''
+  const ingredients = hasInci ? splitINCI(cleanedInci) : []
   const normalizedIngredients: readonly string[] = hasInci ? ingredients.map(normalize) : []
   const assessment: ProductAssessment | undefined = hasInci
-    ? analyzeINCI(inci ?? '', { context: mapKindToContext(kind) })
+    ? analyzeINCI(cleanedInci, { context: mapKindToContext(kind) })
     : undefined
 
   // Per-tag dedup — `avoid` wins over `secondary`; equal relevance keeps the
@@ -161,7 +173,7 @@ export function detectAllAutoTags(
   for (const t of autoTags) propose(t.slug, 'secondary', 'algo-derm')
 
   // Pass 2 — pharmacological clusters (RETINOIDS, VITAMIN_C, AHA, ...).
-  const actifSlugs = detectActifClasses(inci, normalizedIngredients)
+  const actifSlugs = detectActifClasses(inci, normalizedIngredients, kind)
   for (const s of actifSlugs) propose(s, 'secondary', 'actif-class')
 
   // Pass 3 — kind-derived (TYPE_*, ZONE_*, STEP_*, MOMENT_*, TEXTURE_*).
@@ -192,6 +204,7 @@ export function detectAllAutoTags(
     ...detectTextureGelInci(inci, kind, product.texture, normalizedIngredients),
     ...detectTextureCremeInci(inci, kind, product.texture, normalizedIngredients),
     ...detectTextureBaumeFromName(kind, product.texture, product.name),
+    ...detectTextureStickFromName(kind, product.texture, product.name),
     ...detectTextureCremeEyeInci(inci, kind, product.texture, product.name, normalizedIngredients),
   ]
   for (const s of formulaSlugs) propose(s, 'secondary', 'formula')
@@ -199,6 +212,12 @@ export function detectAllAutoTags(
   // Pass 5 — cross-signal secondary (combine actif × kind × INCI).
   for (const s of detectCrossSignalTags(actifSlugs, kind, inci, normalizedIngredients)) {
     propose(s, 'secondary', 'cross-signal')
+  }
+
+  // Pass 5x — structured percent claims. Strict fallback: only active when
+  // INCI appears fragile (alphabetical / truncated / marketing preamble).
+  for (const s of detectPercentClaimTags(inci, product.percentClaims)) {
+    propose(s, 'secondary', 'percent-claim')
   }
 
   // Pass 5a — interaction-driven secondary (X3): photosensitivity from

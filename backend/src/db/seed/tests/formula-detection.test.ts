@@ -25,6 +25,7 @@ import {
   detectTextureGelInci,
   detectTextureLegere,
   detectTextureRiche,
+  detectTextureStickFromName,
   detectVegan,
 } from '../utils/formula-detection'
 
@@ -665,6 +666,24 @@ describe('detectTextureLegere', () => {
     expect(
       detectTextureLegere(
         'Aqua, Glycerin, Caprylic/Capric Triglyceride, Butyrospermum Parkii Butter, Niacinamide',
+        'moisturizer'
+      )
+    ).toEqual([])
+  })
+
+  test('soybean oil top 6 → not flagged (glycine soja in HEAVY_EXCLUSION)', () => {
+    expect(
+      detectTextureLegere(
+        'Water, Pentylene Glycol, Polyglyceryl-10 Stearate, Caprylic/Capric Triglyceride, Diglycerin, Glycine Soja Oil, Undecane, Panthenol',
+        'serum'
+      )
+    ).toEqual([])
+  })
+
+  test('apricot kernel oil top 7 → not flagged (prunus armeniaca in HEAVY_EXCLUSION)', () => {
+    expect(
+      detectTextureLegere(
+        'Aqua, Caprylic/Capric Triglyceride, Propanediol, Cetearyl Alcohol, Glycerin, Panthenol, Prunus Armeniaca Kernel Oil, Cetearyl Olivate',
         'moisturizer'
       )
     ).toEqual([])
@@ -1434,6 +1453,56 @@ describe('detectTextureBaumeFromName', () => {
 
   test('SVR Palpebral Baume → texture-baume', () => {
     expect(detectTextureBaumeFromName('eye-cream', null, 'Palpebral Baume')).toEqual([S.TEXTURE_BAUME])
+  })
+})
+
+// ─── texture-stick name-driven (F4) ───────────────────────────────────────────
+describe('detectTextureStickFromName', () => {
+  test('lip-care + "Stick Lèvres" → texture-stick', () => {
+    expect(detectTextureStickFromName('lip-care', null, 'Cold Cream Stick Levres Nutrition')).toEqual([S.TEXTURE_STICK])
+  })
+
+  test('moisturizer + "Sun Stick" → texture-stick (Korean sunscreen sticks)', () => {
+    expect(detectTextureStickFromName('moisturizer', null, 'Hyaluronic Acid Airy Sun Stick SPF50+ PA++++')).toEqual([S.TEXTURE_STICK])
+  })
+
+  test('balm + "Stick Balm" → texture-stick', () => {
+    expect(detectTextureStickFromName('balm', null, 'Centella Stick Balm')).toEqual([S.TEXTURE_STICK])
+  })
+
+  test('spot-treatment + "Stick Correcteur" → texture-stick', () => {
+    expect(detectTextureStickFromName('spot-treatment', null, 'Couvrance Stick Correcteur Vert')).toEqual([S.TEXTURE_STICK])
+  })
+
+  test('SPF50+ / PA++++ are not vetoed (no whitespace + product term after)', () => {
+    expect(detectTextureStickFromName('moisturizer', null, 'Sun Stick SPF50+ PA++++')).toEqual([S.TEXTURE_STICK])
+  })
+
+  test('compound product "Crème + Stick Lèvres" → vetoed (duo, not stick-primary)', () => {
+    expect(detectTextureStickFromName('lip-care', null, 'La Roche-Posay Lipikar Crème Mains Réparatrice + Stick Lèvres')).toEqual([])
+  })
+
+  test('admin texture set → skipped (field wins)', () => {
+    expect(detectTextureStickFromName('lip-care', 'creme', 'Stick Lèvres')).toEqual([])
+    expect(detectTextureStickFromName('lip-care', 'stick', 'Stick Lèvres')).toEqual([])
+  })
+
+  test('rinse-off kinds → not eligible (Q1 cohérence)', () => {
+    expect(detectTextureStickFromName('cleanser', null, 'Soin Nettoyant Visage Stick')).toEqual([])
+    expect(detectTextureStickFromName('mask', null, 'Quick Clay Stick Mask')).toEqual([])
+  })
+
+  test('serum/toner/oil → not eligible', () => {
+    expect(detectTextureStickFromName('serum', null, 'Stick Sérum')).toEqual([])
+  })
+
+  test('name without stick/bâton → no tag', () => {
+    expect(detectTextureStickFromName('lip-care', null, 'Hydra Lip Cream')).toEqual([])
+    expect(detectTextureStickFromName('moisturizer', null, null)).toEqual([])
+  })
+
+  test('"bâton" (FR accentué) detected', () => {
+    expect(detectTextureStickFromName('lip-care', null, 'Bâton à lèvres')).toEqual([S.TEXTURE_STICK])
   })
 })
 

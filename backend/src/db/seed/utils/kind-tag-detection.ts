@@ -22,7 +22,10 @@ const KIND_TO_TAGS: Partial<Record<ProductKind, SkincareProductTagSlug[]>> = {
   essence: [S.TYPE_TONER, S.STEP_PREPARATION, S.ZONE_VISAGE],
   'spot-treatment': [S.TYPE_TRAITEMENT, S.MOMENT_USAGE_LOCALISE, S.ZONE_VISAGE],
   'lip-care': [S.TYPE_TRAITEMENT, S.ZONE_LEVRES],
-  balm: [S.TYPE_HYDRATANT, S.TEXTURE_BAUME, S.TEXTURE_RICHE],
+  // texture-riche removed: kind=balm alone is not enough — silicone/glycerin
+  // balms (e.g. cica balms) have a cream-like feel. Defer to detectTextureRiche
+  // (≥ 2 butter/wax top 8 INCI signal) so true heavy balms still tag.
+  balm: [S.TYPE_HYDRATANT, S.TEXTURE_BAUME],
   oil: [S.TYPE_SERUM, S.TEXTURE_HUILE, S.STEP_HYDRATATION, S.ZONE_VISAGE],
   primer: [S.TYPE_PRIMER, S.MOMENT_MATIN, S.ZONE_VISAGE],
   patch: [S.TYPE_MASQUE, S.TEXTURE_PATCH],

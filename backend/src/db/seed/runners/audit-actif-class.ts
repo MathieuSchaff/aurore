@@ -89,7 +89,7 @@ async function main() {
     if (!p.inci?.trim()) continue
     withInci++
 
-    const detected = new Set<string>(detectActifClasses(p.inci))
+    const detected = new Set<string>(detectActifClasses(p.inci, undefined, p.kind as ProductKind))
     const existing = existingByProduct.get(p.id) ?? new Set<string>()
 
     for (const slug of detected) {

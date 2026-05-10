@@ -27,10 +27,17 @@
 
 import type { ProductKind, ProductTexture } from '@habit-tracker/shared'
 
-import { inArray, sql } from 'drizzle-orm'
+import { eq, inArray, sql } from 'drizzle-orm'
 
 import { db } from '../..'
-import { brandCertifications, products, productTagsDefs, tagProducts } from '../../schema'
+import {
+  brandCertifications,
+  ingredients,
+  productIngredients,
+  products,
+  productTagsDefs,
+  tagProducts,
+} from '../../schema'
 import { TAG_CONFIG } from '../utils/auto-tag-detection'
 import {
   AUTO_TAG_ELIGIBLE_CATEGORIES,
@@ -97,6 +104,41 @@ async function main() {
     throw new Error(`Product slug "${SLUG_ARG}" not found in DB (or not in an eligible category)`)
   }
 
+  const productIds = subset.map((p) => p.id)
+  const claimRows =
+    productIds.length === 0
+      ? []
+      : await db
+          .select({
+            productId: productIngredients.productId,
+            ingredientSlug: ingredients.slug,
+            concentrationValue: productIngredients.concentrationValue,
+            concentrationUnit: productIngredients.concentrationUnit,
+          })
+          .from(productIngredients)
+          .innerJoin(ingredients, eq(ingredients.id, productIngredients.ingredientId))
+          .where(inArray(productIngredients.productId, productIds))
+  const claimsByProduct = new Map<
+    string,
+    {
+      ingredientSlug: string
+      concentrationValue: number
+      concentrationUnit: string
+    }[]
+  >()
+  for (const row of claimRows) {
+    if (!row.concentrationValue || !row.concentrationUnit) continue
+    const value = Number(row.concentrationValue)
+    if (!Number.isFinite(value)) continue
+    const arr = claimsByProduct.get(row.productId) ?? []
+    arr.push({
+      ingredientSlug: row.ingredientSlug,
+      concentrationValue: value,
+      concentrationUnit: row.concentrationUnit,
+    })
+    claimsByProduct.set(row.productId, arr)
+  }
+
   const tagDefs = await db
     .select({ id: productTagsDefs.id, slug: productTagsDefs.slug })
     .from(productTagsDefs)
@@ -144,6 +186,7 @@ async function main() {
         brand: p.brand,
         texture: p.texture as ProductTexture | null,
         name: p.name,
+        percentClaims: claimsByProduct.get(p.id) ?? [],
       },
       {
         ...(CONF_OVERRIDE !== null ? { confOverride: CONF_OVERRIDE } : {}),
@@ -198,6 +241,7 @@ async function main() {
     'grossesse-avoid': 0,
     interaction: 0,
     brand: 0,
+    'percent-claim': 0,
   }
   for (const c of toInsert) sourceCountInsert[c.source]++
   const avoidCorrections = toUpsert.length
@@ -211,6 +255,7 @@ async function main() {
   console.log(`   ├ kind           : ${sourceCountInsert['kind']}`)
   console.log(`   ├ formula        : ${sourceCountInsert['formula']}`)
   console.log(`   ├ cross-signal   : ${sourceCountInsert['cross-signal']}`)
+  console.log(`   ├ percent-claim  : ${sourceCountInsert['percent-claim']}`)
   console.log(`   ├ brand          : ${sourceCountInsert['brand']}`)
   console.log(`   ├ grossesse-avoid: ${sourceCountInsert['grossesse-avoid']}`)
   console.log(`   └ interaction    : ${sourceCountInsert['interaction']}`)

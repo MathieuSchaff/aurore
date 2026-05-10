@@ -230,7 +230,7 @@ Bénéfice signature. Ex: `ANTI_ACNE`, `HYDRATATION`.
 - **Labels** : `SANS_PARFUM`, `NON_COMEDOGENE`…
 
 ### `avoid`
-Profils déconseillés (skin_type ou concern). Cf `STATE.md §10.3.3` règle relevance.
+Profils déconseillés (skin_type ou concern). Cf `STATE-GLOSSARY.md §4.3` règle relevance.
 
 ### Scope tag (piège)
 Un tag `ingredient_attribute` ou `ingredient`-only ne doit **jamais** apparaître dans les tags d'un produit. Le test `shared-schemas-vs-tags.test.ts` détecte ça.

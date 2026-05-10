@@ -1,0 +1,245 @@
+Loaded 4075 products with INCI.
+
+======================================================================
+1. INCI pathologies (formatting/quality issues)
+======================================================================
+
+  preamble — 168 products
+    ducray-keracnyl-stop-bouton-gel-assechant-10ml-279032 :: Ingrédients : Water (aqua),alcohol,hamamelis virginiana (witch hazel) leaf water
+    bioderma-node-p-shampoing-antipelliculaire-apaisant-cuir-chevelu-sensible-400ml-256411 :: Ingrédients : Aqua/water/eau, sodium laureth sulfate, sodium cocoamphoacetate,di
+    bioderma-node-ds-shampoing-antipelliculaire-cuirs-chevelus-sensibles-125ml-259129 :: Ingrédients : Aqua/water/eau, caprylyl/capryl glucoside, panthenol,methylpropane
+    bioderma-node-a-shampoing-apaisant-cuirs-chevelus-sensibles-irrites-400ml-287181 :: Ingrédients : Aqua/water/eau, caprylyl/capryl glucoside, panthenol,methylpropane
+    bioderma-node-k-shampoing-anti-demangeaisons-squames-150ml-279348 :: Ingrédients : Aqua/water/eau, sodium laureth sulfate, sodium cocoamphoacetate,di
+    bioderma-node-shampoing-doux-tous-types-de-cheveux-lot-de-2-x-400ml-300695 :: Ingrédients : Aqua/water/eau, caprylyl/capryl glucoside, peg-150 distearate, peg
+    bioderma-node-k-concentre-soin-apaisant-cuirs-chevelus-irrites-squames-100ml-279349 :: Ingrédients : Aqua/water/eau, glycolic acid, butyrospermumparkii (shea) butter e
+    bioderma-atoderm-huile-de-douche-apaisante-peaux-tres-seches-atopiques-1l-249680 :: Ingrédients : Aqua/water/eau, glycerin, peg-7 glyceryl cocoate, sodium cocoampho
+    ... +160 more
+
+  mojibake — 0 products
+
+  truncated — 0 products
+
+  very-short — 39 products
+    dr-sams-flawless-lip :: Lanolin, Ceramide NP
+    dr-sams-flawless-lip-tint :: Lanolin, Mica, Ceramide NP, CI 77491
+    crinex-phb-plus-brossettes-conique-12-unites-281667 :: Fibres de Tynex, plastique
+    crinex-phb-plus-brossettes-mini-gf-12-unites-258323 :: Fibres de Tynex, plastique
+    crinex-phb-plus-brossettes-micro-plus-gf-12-unites-258322 :: Fibres de Tynex, plastique
+    klorane-bebe-lingette-lavable-edition-limitee-hamac-12-x-14cm-5-unites-275451 :: Ingrédient : Microfibre.
+    isdin-warts-verrutop-traitement-topique-4-ampoules-244416 :: Nitrizinc Complex.
+    isdin-warts-verrutop-traitement-topique-4-ampoules-lot-de-2-303820 :: Nitrizinc Complex.
+    ... +31 more
+
+  single-token — 216 products
+    a-derma-exomega-control-baume-emollient-anti-grattage :: WATER (AQUA) CAPRYLIC CAPRIC TRIGLYCERIDE GLYCERIN CETEARYL ALCOHOL NIACINAMIDE 
+    aderma-exomega-control-huile-lavante :: AQUA WATER GLYCERIN HYDROGENATED STARCH HYDROLYSATE COCO GLUCOSIDE ZINC COCETH S
+    pouxit-xf-lotion-anti-poux-et-lentes-100-efficace-200ml-263881 :: Dimeticone (4%); 1,6,10-Dodecatrien-3-ol,3,7,11-triméthyl ; PEG/PPG Dimeticone c
+    pranarom-huile-vegetale-bio-argan-50ml-279908 :: 100% pure and natural plant oil.
+Half of the contents are unsaturated fatty acid
+    ducray-anacaps-reactiv-90-capsules-275082 :: Pour la liste des ingrédients et des allergènes se référer à l’image produit.
+    acm-boreade-serum-concentre-anti-imperfections :: AQUA WATER LACTIC ACID PROPANEDIOL GLYCERIN CAPRYLIC CAPRIC TRIGLYCERIDE ORYZA S
+    acm-novophane-k-creme-visage :: HELIANTHUS ANNUUS SUNFLOWER SEED OIL TAPIOCA STARCH PARAFFINUM LIQUIDUM MINERAL 
+    klorane-bebe-lingette-lavable-edition-limitee-hamac-12-x-14cm-5-unites-275451 :: Ingrédient : Microfibre.
+    ... +208 more
+
+  no-comma — 267 products
+    a-derma-exomega-control-baume-emollient-anti-grattage :: WATER (AQUA) CAPRYLIC CAPRIC TRIGLYCERIDE GLYCERIN CETEARYL ALCOHOL NIACINAMIDE 
+    aderma-exomega-control-huile-lavante :: AQUA WATER GLYCERIN HYDROGENATED STARCH HYDROLYSATE COCO GLUCOSIDE ZINC COCETH S
+    ducray-keracnyl-repair-baume-levres-15-ml-272664 :: RICINUS COMMUNIS (CASTOR) SEED OIL (RICINUS COMMUNIS SEED OIL). CAPRYLIC/CAPRIC 
+    ducray-dexyane-med-palpebral-eczema-des-paupieres-15ml-275302 :: AQUA. GLYCERIN. CAPRYLIC/CAPRIC TRIGLYCERIDE. BUTYLENE GLYCOL. POLYSORBATE 60. G
+    ducray-melascreen-concentre-antitaches-30-ml-275587 :: WATER (AQUA). AZELAIC ACID. CAPRYLIC/CAPRIC TRIGLYCERIDE. SQUALANE. PROPANEDIOL.
+    ducray-melascreen-creme-antitaches-protectrice-spf50-50-ml-275590 :: WATER (AQUA). C12-15 ALKYL BENZOATE. DIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE.
+    pranarom-huile-vegetale-bio-argan-50ml-279908 :: 100% pure and natural plant oil.
+Half of the contents are unsaturated fatty acid
+    ducray-dexyane-med-creme-reparatrice-apaisante-eczema-100ml-266178 :: AQUA. GLYCERIN. CAPRYLIC/CAPRIC TRIGLYCERIDE. BUTYLENE GLYCOL. POLYSORBATE 60. G
+    ... +259 more
+
+======================================================================
+2. Top unmatched tokens (after normalize) — opportunity for parser/evidence
+======================================================================
+
+  FR products — top 40 unmatched
+     301 × dipropylene glycol
+     290 × triglyceride caprylic capric
+     281 × allantoine
+     279 × lecithine hydrogenee
+     251 × gomme xanthane
+     228 × hyaluronic hydrolyse acid
+     193 × carbomere
+     128 × beta-glucane
+     124 × alcool cetearylic
+      86 × silice
+      86 × laurate de polyglyceryl-10
+      78 × dextrine
+      78 × sodium hyaluronate hydrolyse
+      77 × alcool cetylic
+      77 × melia azadirachta flower extract
+      72 × caprylate de glyceryl
+      71 × propylene glycol
+      67 × sodium hyaluronate acetyl
+      67 × glycyrrhizate dipotassic
+      65 × acetate de tocopheryl
+      65 × curcuma longa root extract
+      62 × portulaca oleracea extract
+      61 × triethoxycaprylylsilane
+      60 × macadamia ternifolia seed oil
+      59 × alcool
+      58 × citrus aurantium bergamia fruit oil
+      58 × dioxyde de titane
+      57 × ceramide
+      57 × ocimum sanctum leaf extract
+      56 × cyclohexasiloxane
+      52 × ethylhexanoate de cetyl
+      50 × glycyrrhizate de dipotassium
+      49 × ulmus davidiana root extract
+      48 × gomme de cellulose
+      47 × polyacrylate de sodium
+      47 × acrylates c10-30 alkyl acrylate copolymer
+      47 × glutathion
+      47 × polyquaternium-51
+      46 × aloe barbadensis leaf extract
+      46 × sodium hyaluronate reticule
+
+  non-FR products — top 40 unmatched
+     320 × propylene glycol
+     260 × dipropylene glycol
+      88 × avene thermal spring water
+      77 × dibutyl adipate
+      76 × ingredients water
+      73 × iron oxides
+      71 × cyclohexasiloxane
+      64 × carthamus tinctorius seed oil
+      63 × aroma
+      58 × centella asiatica leaf extract
+      58 × zea mays starch
+      56 × polyglyceryl-10 myristate
+      56 × beeswax
+      56 × oryza sativa starch
+      55 × curcuma longa root extract
+      55 × phenethyl alcohol
+      54 × melia azadirachta flower extract
+      53 × triethoxycaprylylsilane
+      52 × citrus aurantium bergamia fruit oil
+      51 × cera alba
+      51 × algin
+      49 × hydrogenated polydecene
+      48 × hydroxypropyl starch phosphate
+      46 × triethylhexanoin
+      46 × glyceryl acrylate acrylic acid copolymer
+      43 × hydrated silica
+      43 × laminaria ochroleuca extract
+      42 × ocimum sanctum leaf extract
+      42 × linoleic acid
+      42 × cellulose
+      42 × cyanocobalamin
+      42 × aloe barbadensis leaf extract
+      42 × tetrasodium edta
+      42 × polyglycerin-3
+      42 × disodium phosphate
+      42 × sodium saccharin
+      41 × oenothera biennis oil
+      41 × methylene bis-benzotriazolyl tetramethylbutylphenol nano
+      41 × polyhydroxystearic acid
+      41 × acrylates copolymer
+
+======================================================================
+3. Worst-match skincare products (≥10 ings, sorted by ratio asc)
+======================================================================
+
+  rank  ratio  matched/total  brand            slug
+   1.     0.0%    0/ 10        COSRX            cosrx-acne-pimple-master-patches
+         unmatched: de pointe | dont la résine de pétrole | la gomme de cellulose et le film de polyuréthane | ces patchs créent une barrière protectrice qui contribue à réduire les rougeurs et l'inflammation et à accélérer la cicatrisation. Il te suffit d'appliquer un patch sur le bouton à traiter et tu te réveilleras le lendemain avec une peau nette et purifiée. Découvre le potentiel libérateur des patchs Acne Pimple Master et retrouve confiance en toi grâce à un teint zéro défaut. Recommandés pour : Peaux à tendance grasse et acnéique. Peut être utilise pour : Tous types de peaux. Conseils d'utilisation : Nettoie la zone autour du bouton à traiter. Choisis un patch de taille supérieure à celle de l'imperfection à traiter. Place le patch sur la zone à traiter. Ingrédients : Résine de Pétrole | Gomme de Cellulose | Copolymère Séquencé de Styrène-Isoprène-Styrène
+   2.     0.0%    0/ 10        Medicube         medicube-age-r-booster-pro-mini
+         unmatched: actifs en profondeur | pour un teint | une texture et une clarté visiblement améliorés. Avec deux modes LED : rouge pour le soin ciblé et l’éclat | bleu pour calmer et contrôler le sébum | il est idéal pour la récupération après traitement intensif ou pour un boost quotidien d’éclat. Jusqu’à 2,7 millions de micro-impulsions par utilisation | pour des résultats comme l’amélioration du teint et la réduction de la profondeur des pores. Recommandé pour : Tous types de peaux. Conseils d'utilisations : Allume l’appareil en maintenant le bouton power enfoncé
+   3.     5.6%    2/ 36        MIXSOON          mixsoon-vegan-melting-lip-balm
+         unmatched: botaniques. Ce baume | disponible en Clear et Dry Rose | se targue d'une formule 100 % vegan et est cruelty-free. Enrichi en beurre d'Illipe nourrissant et en beurre de karité | il exfolie délicatement les cellules mortes de la peau | laissant tes lèvres intensément hydratées. Recommandé pour : Lèvres sèches et déshydratées. Conseils d'utilisation : Applique une quantité appropriée sur tes lèvres chaque fois que tu as l'impression qu'elles sont sèches. Ingrédients : 01. Clear : Polyglycéryl-2 Triisostéarate | Dibenzoate de propylène glycol
+   4.     9.1%    1/ 11        ISNTREE          isntree-mugwort-calming-powder-wash
+         unmatched: Amidon de Zea Mays | Isethionate de Cocoyle de Sodium | Palmitate de Sodium | Glutamate de Sodium Lauroyle | Diglycérine | Papaye
+   5.    16.2%    6/ 37        Abib             abib-airy-sunstick-smoothing-bar
+         unmatched: naturels comme l'allantoïne et l'huile de tournesol | cet écran solaire chimique protège non seulement ta peau des rayons nocifs | mais il adoucit et renforce également ta carnation. Sa formule inoffensive pour les coraux et résistante à l'eau glisse en douceur sans laisser de traces blanches | ce qui la rend parfaite pour un usage quotidien. Le design incurvé de 5,7 cm de large assure une application facile et uniforme | ce qui en fait une option pratique à emporter pour répondre à tous tes besoins en matière de protection solaire. Recommandé pour : Peaux sensibles | tous types de peaux. Conseils d'utilisation : Lors de la dernière étape de ta routine beauté
+   6.    17.5%   14/ 80        Numbuzin         numbuzin-no-3-radiance-glowing-jumbo-essence-pad
+         unmatched: fermentés nourrissants | notamment des extraits de ferment de soja et du ferment de raisin | pour donner un coup d'éclat à ta peau. Leur formule contient de l'adénosine et du niacinamide pour éliminer le teint terne et favoriser un teint plus lumineux et plus uniforme | ainsi que du hyaluronate de sodium pour retenir l'hydratation et laisser à ta peau une sensation d'hydratation et de fraîcheur. Ces compresses géantes sont fabriquées à partir d'un matériau doux et moelleux est particulièrement efficace pour faire pénétrer leur essence nourrissante dans la peau | sans l'agresser. Passe simplement la compresse sur ton visage | ton cou et ton décolleté au début de ta routine beauté
+   7.    19.4%    7/ 36        I'm From         fig-cleansing-balm
+         unmatched: clé | l'eau d'huile de figue | joue un rôle essentiel dans l'amélioration de la santé de ta peau. Elle dissout efficacement le sébum | minimisant ainsi l'apparence des points noirs | tout en atténuant les taches brunes et en apaisant les rougeurs | ce qui permet d'obtenir un teint plus uniforme. Enrichi d'une multitude de vitamines et de polyphénols
+   8.    20.0%    3/ 15        Avène            avene-xeracalm-nutrition-lait-hydratant
+         unmatched: AVENE THERMAL SPRING WATER(AVENE AQUA) | CAPRYLIC/CAPRICTRIGLYCERIDE | POLYGLYCERYL-2DIPOLYHYDROXYSTEARATE | NIACINAMIDE.PENTAERYTHRITYL TETRACAPRYLATE/TETRACAPRATE | BEHENYL ALCOHOL.BENZOIC ACID | CAPRYLYL GLYCOL.FRAGRANCE (PARFUM)
+   9.    20.0%    2/ 10        Dear Klairs      dear-klairs-gentle-black-fresh-cleansing-oil
+         unmatched: riches en antioxydants tels que l'huile de graines de tournesol | l'huile de pépins de raisin | l'huile de graines de jojoba et l'huile de cassis | l'huile nettoyante Klairs contribue à donner à la peau une apparence plus jeune et plus éclatante. Elle élimine efficacement toutes les impuretés | prévient l'obstruction des pores et nettoie sans laisser de résidus collants ou gras. Conseils d'utilisation : Applique une quantité appropriée de produit sur la peau Masse avec un mouvement circulaire. Rince à l'eau tiède. Ingrédients : Huile de Graines de Helianthus Annuus (Tournesol) | Triglycéride Caprylique/Caprique
+  10.    21.1%    4/ 19        Haruharu Wonder  haruharu-wonder-black-rice-facial-oil
+         unmatched: phare est l'huile de son de riz noir | qui représente 45 % de la formule. Le riz noir contient une forte concentration de polyphénols et de flavonoïdes | qui protègent la peau contre les radicaux libres | notamment les rayons ultraviolets et la pollution | et favorisent la croissance de nouvelles cellules cutanées. Les huiles de jojoba | d'amande douce
+  11.    21.3%   10/ 47        MISSHA           missha-ultra-powerproof-mascara
+         unmatched: CURLING & LENGTHENING Isododécane | Talc | Cérésine | Héctorite de Disteardimonium | Cire Microcristalline | Palmitate de Dextrine/Ethylhexanoate
+  12.    21.3%   10/ 47        Medicube         medicube-one-day-exosome-shot-pore-ampoule-7500
+         unmatched: actifs | procurant une légère sensation de picotement à l’application. La formule contient du niacinamide pour réguler la production de sébum et unifier le teint | ainsi que des acides AHA | BHA et PHA (acide citrique | salicylate de bétaïne | gluconolactone) pour une exfoliation douce
+  13.    21.9%   16/ 73        ETUDE            etude-dear-darling-oil-tint
+         unmatched: 01 Real Cherry : Copopolymère de Polyglyceryl-2 Isostéarate/Dimer Dilinoleate | Polyglyceryl-2 Triisostéarate | Triglycéride Caprylique/Caprique | Malate de Diisostéaryle | Silice Dimethyl Silylate | Red 7 Lake CI 15850
+  14.    22.6%    7/ 31        Clinique         clinique-baume-a-levres-hydratant-teinte-05-chunky-cherry
+         unmatched: VEGETABLE OIL\OLUS\HUILE VEGETALE | EUPHORBIA CERIFERA (CANDELILLA) WAX\CANDELILLA CERA\CIRE DE CANDELILLA | BEESWAX\CERA ALBA\CIRE D'ABEILLE | OZOKERITE | BUTYROSPERMUM PARKII (SHEA BUTTER) | BUTYROSPERMUM PARKII (SHEA BUTTER) EXTRACT
+  15.    22.9%    8/ 35        I'm From         im-from-ginseng-mask
+         unmatched: clés | il procure une hydratation intense | équilibre le teint de la peau | possède des propriétés anti-âge et améliore l'élasticité de la peau. Le masque est méticuleusement formulé sans parabènes | sulfates | phtalates
+  16.    22.9%    8/ 35        ETUDE            etude-zero-sebum-drying-powder
+         unmatched: d’origine animale | elle est sans parfum (malgré les huiles essentielles) et convient aux peaux sensibles | même si certains utilisateurs notent un léger dessèchement ou un fini plus poudré en cas d’application excessive. La poudre est fournie avec une houpette en microfibre pour une application facile | et peut aussi s’utiliser sur les racines grasses ou sur les paupières pour éviter que le maquillage ne file. Testée dermatologiquement | cruelty-free et vegan | elle est idéale pour les peaux grasses et mixtes
+  17.    23.1%    6/ 26        Regimen Lab      regimen-lab-glycolide-lipid-repair
+         unmatched: Phytosteryl/Isostearyl/Cetyl/Stearyl/Behenyl Dimer Dilinoleate | Dipentaerythrityl Tetrabehenate/Polyhydroxystearate | Diisostearyl Malate | Tetrahexyldecyl Ascorbate | Oryza Sativa (Rice) Bran Wax | Punica Granatum (Pomegranate) Sterols
+  18.    23.1%    6/ 26        Dr. Ceuracle     dr-ceuracle-pro-balance-night-enzyme-wash
+         unmatched: Amidon de Zea Mays (Maïs) | Sodium Lauroyl Glutamate | Diglycérine | Sodium Palmitate | Poudre de Charbon | Allantoïne
+  19.    23.2%   16/ 69        Mary&May         mary-may-vegan-peptide-bakuchiol-sun-stick-spf50-pa
+         unmatched: nocifs tels que l'Ethylhexyl Methoxycinnamate | le Benzophenone-3 | l'Octocrylène | le Benzophenone-1 | le Benzophenone-8 | ou le 4-Methylbenzylidene Camphor. Améliore ta routine beauté avec le Vegan Peptide Bakuchiol Sun Stick MARY & MAY . Ce stick solaire multifonctionnel te protège non seulement des rayons nocifs du soleil
+  20.    23.2%   13/ 56        ETUDE            etude-curl-fix-mascara
+         unmatched: #01 Black : Isododecane | Ceresin | Dextrin Palmitate Ethylhexanoate | Talc | Copolymère de Butyl Acrylate Hydroxypropyl Dimethicone Acrylate | Cire Microcristalline
+  21.    23.5%    4/ 17        MISSHA           missha-vivid-fix-brush-pen-liner
+         unmatched: Noir 2 | Alcool | Beheneth-30 | Copolymère d'Acrylates/Octylacrylamide | Méthylparabène | Diméthicone Polyglyceryl-3 Disiloxane
+  22.    24.2%    8/ 33        Haruharu Wonder  haruharu-wonder-black-rice-10-hyaluronic-cream
+         unmatched: d'origine naturelle. Son ingrédient phare est le riz noir fermenté | un ingrédient plein de nutriments | riche en antioxydants et anti-âge. Le riz noir contient une forte concentration de polyphénols et de flavonoïdes | qui protègent la peau contre les radicaux libres et encouragent la formation de nouvelles cellules cutanées. Ajoute à cela de l'acide hyaluronique profondément hydratant | du ginseng rouge rajeunissant | de l'huile d'onagre et de lavande apaisante
+  23.    24.4%   11/ 45        ETUDE            etude-fixing-tint
+         unmatched: clés comme le diméthicone et le butylène glycol apportent une sensation hydratante | tandis que la texture légère garantit un confort durable sans effet collant. Adaptée à différents styles | du fini couvrant au dégradé naturel | cette encre est idéale pour celles et ceux qui recherchent une couleur audacieuse | durable et non irritante. Formulée sans alcool agressif | sans parabènes et sans allergènes courants
+  24.    25.0%    4/ 16        Avène            avene-couvrance-poudre-mosaique-bonne-mine-correcteur-de-teint
+         unmatched: TALC | SYNTHETIC FLUORPHLOGOPITE | NYLON-12 | BIS-DIGLYCERYL POLYACYLADIPATE-2 | CETYL DIMETHICONE | IRON OXIDES (CI 77491) (CI 77492) (CI 77499)
+  25.    25.0%    3/ 12        Avène            avene-couvrance-poudre-mosaique-translucide-correcteur-de-teint
+         unmatched: TALC | SYNTHETIC FLUORPHLOGOPITE | NYLON-12 | BIS-DIGLYCERYL POLYACYLADIPATE-2 | CETYL DIMETHICONE | IRON OXIDES (CI 77492) (CI 77491) (CI 77499)
+  26.    25.0%    3/ 12        Power Repair     power-repair-hydrating-soothing-facial-toner
+         unmatched: GLUCOSE OXIDASE | LACTOPEROXIDASE | ORGANIC HERBAL ASTRINGENT OF ROSE PETAL | HIBISCUS FLOWER | AND ROSE HIPS | PURE ESSENTIAL OIL OF LAVANDIN GROSSO
+  27.    25.0%    6/ 24        ISNTREE          isntree-green-tea-fresh-toner
+         unmatched: naturels greens certifiés par l'EWG pour équilibrer et nourrir la peau. Sa formule comprend un mélange d'extraits de plantes - Anti Sebum P(HD) - pour contrôler le sébum et 80 % d'extrait de thé vert provenant de l'île de Jeju pour protéger | éclaircir et équilibrer davantage la peau. Parmi les autres ingrédients notables | on trouve l'extrait de Centella Asiatica pour renforcer la barrière cutanée | l'acide hyaluronique hydrolysé pour hydrater | l'allantoïne pour apaiser | et l'extrait de fruit de myrtille pour soulager le stress. Recommandé pour : Peaux sensibles
+  28.    25.0%    3/ 12        BANILA CO        banila-co-clean-it-zero-cleansing-balm-brightening
+         unmatched: Palmitate de Dextrine | Triisostéarate de Glycéryl PEG-20 | Isostéarate PEG-10 | Cire Synthétique | Glycol Butylique | Caprylate de Glycéryl
+  29.    25.0%    5/ 20        BANILA CO        banila-co-prime-primer-classic
+         unmatched: actifs à base de minéraux de glaciers et de sources chaudes. Utilisé sur une peau nettoyée et tonifiée | cette base hydratante lisse et affine le grain de la peau | tout en minimisant la taille des pores pour créer une base impeccable à laquelle le fond de teint peut facilement adhérer. Conseils d'utilisation : Pour te préparer le matin | Applique une fine couche sur ta peau hydratée | du centre du visage vers l'extérieur. Applique ton maquillage comme d'habitude ou porte la base seule ! Pour faire des retouches sur ton maquillage | tapote délicatement sur les zones à problèmes et estompe. Une petite quantité suffit ! Ingrédients : Cyclopentasiloxane
+  30.    25.0%    4/ 16        Dear Klairs      dear-klairs-gentle-black-sugar-facial-polish
+         unmatched: Triglycéride Caprylique/Caprique | Sucre | Ethylhexanoate de Cétyle | Acétate de Tocophéryle | Cire de Candelilla | PEG-7 Cocoate de Glycéryle
+
+======================================================================
+4. Brand-level match-rate (skincare, ≥5 products)
+======================================================================
+
+  prods  ratio   brand
+     21   41.4%  Numbuzin
+      7   44.2%  Holika Holika
+     17   45.6%  LANEIGE
+     49   46.6%  MIXSOON
+     16   47.0%  Dr.Jart+
+     32   47.1%  I'm From
+     64   47.3%  Dr. Ceuracle
+     21   47.7%  AXIS-Y
+     27   49.0%  ETUDE
+     32   49.2%  Dear Klairs
+     40   49.6%  ISNTREE
+     71   50.6%  Pyunkang Yul
+     13   50.9%  ROUND LAB
+     10   51.0%  Rovectin
+     28   51.2%  Haruharu Wonder
+     60   51.4%  SOME BY MI
+     39   53.1%  SKINFOOD
+     15   53.3%  BANILA CO
+     38   54.9%  Mary&May
+     10   55.4%  RealBarrier
+     70   55.7%  MISSHA
+     28   55.8%  Torriden
+     67   56.5%  Anua
+     37   56.9%  Purito Seoul
+      7   57.4%  Receutics Active Skin Repair
+      6   57.7%  Shiseido
+     31   58.8%  Beauty of Joseon
+     10   58.9%  NIOD
+     62   59.1%  Medicube
+     31   59.1%  Abib

@@ -255,6 +255,7 @@ export async function seedCore(shouldClean = false) {
       kind: 0,
       formula: 0,
       'cross-signal': 0,
+      'percent-claim': 0,
       brand: 0,
     }
     // `'cross-signal'` source overlaps between secondary and avoid streams —
@@ -266,6 +267,24 @@ export async function seedCore(shouldClean = false) {
     }
     const autoSecondaryPairs: { slug: string; tagSlug: string; relevance: 'secondary' }[] = []
     const avoidPairs: { slug: string; tagSlug: string; relevance: 'avoid' }[] = []
+    const percentClaimsByProduct = new Map<
+      string,
+      {
+        ingredientSlug: string
+        concentrationValue: number
+        concentrationUnit: string
+      }[]
+    >()
+    for (const row of allIngredientProductTags) {
+      if (!row.ingredientSlug || row.concentrationValue == null || !row.concentrationUnit) continue
+      const arr = percentClaimsByProduct.get(row.productSlug) ?? []
+      arr.push({
+        ingredientSlug: row.ingredientSlug,
+        concentrationValue: Number(row.concentrationValue),
+        concentrationUnit: row.concentrationUnit,
+      })
+      percentClaimsByProduct.set(row.productSlug, arr)
+    }
     for (const product of allProductData) {
       const inci = (product as { inci?: string | null }).inci
       const name = (product as { name?: string | null }).name
@@ -276,6 +295,7 @@ export async function seedCore(shouldClean = false) {
           category: product.category,
           brand: product.brand,
           name,
+          percentClaims: percentClaimsByProduct.get(product.slug) ?? [],
         },
         { brandCertifications: brandCertMap }
       )
@@ -295,7 +315,7 @@ export async function seedCore(shouldClean = false) {
     }
     if (autoSecondaryPairs.length > 0) {
       console.log(
-        `🏷  Backfill auto-tags: +${autoSecondaryPairs.length} pair(s) (algo-derm ${secondaryBySource['algo-derm']} · actif-class ${secondaryBySource['actif-class']} · kind ${secondaryBySource.kind} · formula ${secondaryBySource.formula} · cross-signal ${secondaryBySource['cross-signal']} · brand ${secondaryBySource.brand})`
+        `🏷  Backfill auto-tags: +${autoSecondaryPairs.length} pair(s) (algo-derm ${secondaryBySource['algo-derm']} · actif-class ${secondaryBySource['actif-class']} · kind ${secondaryBySource.kind} · formula ${secondaryBySource.formula} · cross-signal ${secondaryBySource['cross-signal']} · percent-claim ${secondaryBySource['percent-claim']} · brand ${secondaryBySource.brand})`
       )
     }
     if (avoidPairs.length > 0) {

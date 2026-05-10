@@ -182,6 +182,16 @@ describe('detectAllAutoTags — pass coverage on representative products', () =>
     expect(slugs).toContain(S.STEP_NETTOYAGE_1)
     expect(slugs).toContain(S.TYPE_NETTOYANT)
   })
+
+  test('fragile INCI + structured % claim emits percent-claim source', () => {
+    const got = detectAllAutoTags({
+      inci: 'Adenosine, Allantoin, Betaine, Caffeine, Ceramide NP, Dimethicone',
+      kind: 'serum',
+      category: 'skincare',
+      percentClaims: [{ ingredientSlug: 'retinol', concentrationValue: 1, concentrationUnit: '%' }],
+    })
+    expect(got.some((p) => p.source === 'percent-claim' && p.tagSlug === S.RETINOIDS)).toBe(true)
+  })
 })
 
 describe('detectAllAutoTags — runner pathway parity', () => {
