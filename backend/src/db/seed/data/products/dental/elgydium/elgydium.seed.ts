@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../../data/tags'
+import { DENTAL_PRODUCT_TAG_SLUGS } from '../../../../data/tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const ELGYDIUM_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const ELGYDIUM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/elgydium-blancheur-dentifrice-lot-de-2-x-75ml-265562.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -40,7 +40,7 @@ export const ELGYDIUM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/elgydium-fix-creme-fixative-extra-fort-45g-265259.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -62,7 +62,7 @@ export const ELGYDIUM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/elgydium-classique-brosse-a-dents-dure-272935.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },

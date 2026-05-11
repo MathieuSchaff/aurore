@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { DENTAL_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const WATERPIK_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const WATERPIK_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/waterpik-hydropulseur-de-voyage-wp-450-cordless-plus-sans-fil-262321.webp',
     tags: {
-      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
       avoid: [],
     },

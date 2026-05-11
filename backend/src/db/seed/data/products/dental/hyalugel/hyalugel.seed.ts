@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../../data/tags'
+import { DENTAL_PRODUCT_TAG_SLUGS } from '../../../../data/tags'
 import type { UnifiedProductSeed } from '../../types'
 import { INGREDIENT_SLUGS } from '../../types'
 
@@ -41,7 +41,7 @@ export const HYALUGEL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/hyalugel-gel-buccal-aphtes-petites-plaies-20ml-258888.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },

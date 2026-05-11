@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { DENTAL_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const POLIDENT_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const POLIDENT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/polident-corega-poudre-ultra-poudre-adhesive-pour-protheses-dentaires-40g-275531.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -40,7 +40,7 @@ export const POLIDENT_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/polident-creme-fixative-maximum-controle-70g-271651.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },

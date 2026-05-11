@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { DENTAL_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const DENTAL_CARE_PRODUCTS_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const DENTAL_CARE_PRODUCTS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/nitradine-ortho-junior-64-comprimes-effervescents-264747.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -40,7 +40,7 @@ export const DENTAL_CARE_PRODUCTS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/bonyf-bonyplus-fixobridge-kit-pour-la-fixation-temporaire-des-protheses-dentaires-7g-278782.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -62,7 +62,7 @@ export const DENTAL_CARE_PRODUCTS_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/bonyf-bonyplus-reparfix-pour-la-reparation-des-dentiers-271302.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },

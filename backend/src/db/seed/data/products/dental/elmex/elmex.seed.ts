@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../../data/tags'
+import { DENTAL_PRODUCT_TAG_SLUGS } from '../../../../data/tags'
 import type { UnifiedProductSeed } from '../../types'
 import { INGREDIENT_SLUGS } from '../../types'
 
@@ -17,7 +17,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/elmex-sensitive-professionnal-lot-2x75ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-sensitive-pro-lot-2x75ml.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -36,7 +36,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/elmex-sensitive-professionnal-blancheur-lot-de-2-x-75ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-sensitive-pro-blancheur-lot-2x75ml.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -57,7 +57,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/dentifrice-elmex-sensitive-plus-soin-complet-2x75ml-263888.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -85,7 +85,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/elmex-junior-dentifrice-6-12-lot-de-2-x-75ml-233347.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -107,7 +107,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/elmex-kids-dentifrice-3-6-ans-lot-de-2-x-50ml-263763.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -129,7 +129,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/elmex-sensitive-solution-dentaire-sans-alcool-400ml-263589.webp',
     tags: {
-      primary: [TAG_SLUGS.BAIN_DE_BOUCHE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.BAIN_DE_BOUCHE],
       secondary: [],
       avoid: [],
     },
@@ -151,7 +151,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/elmex-dentifrice-blancheur-email-professional-2x75ml-300519.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -177,7 +177,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/elmex-protections-caries-dentifrices-pack-double-2-x-75ml-248276.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -199,7 +199,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/elmex-antii-caries-profesional-dentifrice-duo-2-x-100ml-263934.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -226,7 +226,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/elmex-nettoyage-intense-dentifrice-50ml-233686.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -248,7 +248,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/dentifrice-elmex-anti-caries-soin-complet-2x75-ml-263889.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -276,7 +276,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/elmex-anti-caries-solution-dentaire-sans-alcool-400ml-263590.webp',
     tags: {
-      primary: [TAG_SLUGS.BAIN_DE_BOUCHE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.BAIN_DE_BOUCHE],
       secondary: [],
       avoid: [],
     },
@@ -298,7 +298,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/elmex-sensitive-professional-solution-dentaire-400ml-256406.webp',
     tags: {
-      primary: [TAG_SLUGS.BAIN_DE_BOUCHE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.BAIN_DE_BOUCHE],
       secondary: [],
       avoid: [],
     },
@@ -323,7 +323,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/elmex-anti-caries-expert-orthodontie-lot-de-2-x-75ml-263856.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -895,7 +895,7 @@ export const ELMEX_SEED: UnifiedProductSeed[] = [
     url: 'https://www.pharmashopdiscount.com/fr/parapharmacie/hygiene/bucco-dentaire/dentifrices/elmex/elmex-protection-email-professional-75ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/elmex-protection-email-professional.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },

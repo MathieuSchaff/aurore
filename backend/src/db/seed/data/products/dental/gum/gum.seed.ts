@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../../data/tags'
+import { DENTAL_PRODUCT_TAG_SLUGS } from '../../../../data/tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const GUM_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/gum-dentifrice-original-white-blancheur-lot-de-3-x-75ml-248884.webp',
     tags: {
-      primary: [TAG_SLUGS.KIT_BLANCHIMENT],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.KIT_BLANCHIMENT],
       secondary: [],
       avoid: [],
     },
@@ -39,7 +39,7 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/gum-hydral-gel-humectant-50ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/gum-hydral-gel-humectant-50ml-271619.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -61,7 +61,7 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/gum-brossette-interdentaire-bi-direction-0-7mm-vert-6-unites-259254.webp',
     tags: {
-      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
       avoid: [],
     },
@@ -83,7 +83,7 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/gum-trav-ler-brossettes-interdentaires-10-unites-243502.webp',
     tags: {
-      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
       avoid: [],
     },
@@ -105,7 +105,7 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/gum-brossette-interdentaire-soft-picks-original-medium-100-unites-243492.webp',
     tags: {
-      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
       avoid: [],
     },
@@ -127,7 +127,7 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/gum-brosse-a-dents-n-509-specifique-sensivital-ultra-souple-260235.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -149,7 +149,7 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/gum-fil-dentaire-expanding-floss-cire-279634.webp',
     tags: {
-      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
       avoid: [],
     },
@@ -171,7 +171,7 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/gum-dentifrice-paroex-gencives-lot-de-2-x-75ml-248867.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -196,7 +196,7 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/brosse-a-dents-gum-pro-souple-2-1-offert-243513.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -218,7 +218,7 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/gum-dentifrice-ortho-email-et-gencives-75ml-233677.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -240,7 +240,7 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/gum-brossette-interdentaire-trav-ler-0-9-mm-6-unites-301327.webp',
     tags: {
-      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
       avoid: [],
     },
@@ -262,7 +262,7 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/gum-bain-de-bouche-gingidex-traitement-d-attaque-anti-plaque-300ml-286201.webp',
     tags: {
-      primary: [TAG_SLUGS.BAIN_DE_BOUCHE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.BAIN_DE_BOUCHE],
       secondary: [],
       avoid: [],
     },
@@ -284,7 +284,7 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/gum-brossette-interdentaire-trav-ler-1-1mm-4-unites-278812.webp',
     tags: {
-      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
       avoid: [],
     },
@@ -306,7 +306,7 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/gum-dentifrice-sensivital-sensibilite-dentaire-75ml-268964.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -334,7 +334,7 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/gum-brossette-interdentaire-bi-direction-1-4mm-jaune-6-unites-243504.webp',
     tags: {
-      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
       avoid: [],
     },
@@ -356,7 +356,7 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/gum-brossette-interdentaire-bi-direction-0-6mm-bleu-lavande-6-unites-243503.webp',
     tags: {
-      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
       avoid: [],
     },
@@ -377,7 +377,7 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/gum-hydral-dentifrice-75ml.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/gum-hydral-dentifrice-75ml-271620.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -403,7 +403,7 @@ export const GUM_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/brosse-a-dents-gum-pro-ultra-souple-15-100e-2-1-offert-243516.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },

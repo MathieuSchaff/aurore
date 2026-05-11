@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../../data/tags'
+import { DENTAL_PRODUCT_TAG_SLUGS } from '../../../../data/tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const M_RIDOL_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const M_RIDOL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/meridol-dentifrice-pack-double-2-x-75ml-248417.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -40,7 +40,7 @@ export const M_RIDOL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/meridol-parodont-expert-dentifrice-lot-de-2-x-75ml-263483.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -62,7 +62,7 @@ export const M_RIDOL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/meridol-bain-de-bouche-protection-gencives-400ml-277620.webp',
     tags: {
-      primary: [TAG_SLUGS.BAIN_DE_BOUCHE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.BAIN_DE_BOUCHE],
       secondary: [],
       avoid: [],
     },
@@ -84,7 +84,7 @@ export const M_RIDOL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/meridol-brosse-a-dents-souple-duo-pack-de-2-233562.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -106,7 +106,7 @@ export const M_RIDOL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/meridol-bain-de-bouche-parodont-expert-400ml-263874.webp',
     tags: {
-      primary: [TAG_SLUGS.BAIN_DE_BOUCHE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.BAIN_DE_BOUCHE],
       secondary: [],
       avoid: [],
     },

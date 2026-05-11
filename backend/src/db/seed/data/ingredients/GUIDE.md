@@ -187,8 +187,8 @@ le fichier `ingredients/<domaine>/ingredient-tags.ts`, par exemple :
 
 ```ts
 [INGREDIENT_SLUGS.BIOTINE]: {
-  primary: [TAG_SLUGS.ANTI_CHUTE, TAG_SLUGS.KERATINE],
-  secondary: [TAG_SLUGS.ONGLES, TAG_SLUGS.PEAU_ORALE],
+  primary: [SUPPLEMENT_INGREDIENT_TAG_SLUGS.CHEVEUX_ORALE],
+  secondary: [SUPPLEMENT_INGREDIENT_TAG_SLUGS.PEAU_ORALE],
   avoid: [],
 },
 ```

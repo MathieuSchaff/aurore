@@ -2,13 +2,21 @@ import { describe, expect, it } from 'bun:test'
 
 import {
   DENTAL_INGREDIENT_CATEGORY_VALUES,
+  DENTAL_INGREDIENT_TAG_SLUGS,
+  DENTAL_PRODUCT_TAG_SLUGS,
   HAIRCARE_INGREDIENT_CATEGORY_VALUES,
+  HAIRCARE_INGREDIENT_TAG_SLUGS,
+  HAIRCARE_PRODUCT_TAG_SLUGS,
   INGREDIENT_TYPE_VALUES,
   PRODUCT_CATEGORY_VALUES,
   PRODUCT_KINDS,
   PRODUCT_UNIT_VALUES,
   SKINCARE_INGREDIENT_CATEGORY_VALUES,
+  SKINCARE_INGREDIENT_TAG_SLUGS,
+  SKINCARE_PRODUCT_TAG_SLUGS,
   SUPPLEMENT_CATEGORY_VALUES,
+  SUPPLEMENT_INGREDIENT_TAG_SLUGS,
+  SUPPLEMENT_PRODUCT_TAG_SLUGS,
 } from '@habit-tracker/shared'
 
 import { ingredientTagMap } from '../data/ingredient-tags'
@@ -16,7 +24,7 @@ import { ingredientData } from '../data/ingredients'
 import { INGREDIENT_SLUGS } from '../data/ingredients/ingredient-slugs'
 import { skincareIngredients } from '../data/ingredients/skincare'
 import { allIngredientProductTags, allProductData, allProductTagsMap } from '../data/products'
-import { ingredientTagData, productTagData, TAG_SLUGS } from '../data/tags'
+import { ingredientTagData, productTagData } from '../data/tags'
 
 const definedIngredientSlugs = new Set(Object.values(INGREDIENT_SLUGS) as string[])
 const definedIngredientTagSlugs = new Set(ingredientTagData.map((t) => t.slug))
@@ -141,15 +149,23 @@ describe('Seed data integrity', () => {
     })
   })
 
-  describe('TAG_SLUGS vs seed tag data', () => {
-    it('every slug in TAG_SLUGS has a data entry', () => {
+  describe('shared slug maps vs seed tag data', () => {
+    it('every shared slug has a data entry', () => {
       const allSeedSlugs = new Set([
         ...ingredientTagData.map((t) => t.slug),
         ...productTagData.map((t) => t.slug),
       ])
-      const missing = (Object.values(TAG_SLUGS) as string[]).filter(
-        (slug) => !allSeedSlugs.has(slug)
-      )
+      const allSharedSlugs = [
+        ...Object.values(SKINCARE_INGREDIENT_TAG_SLUGS),
+        ...Object.values(SKINCARE_PRODUCT_TAG_SLUGS),
+        ...Object.values(HAIRCARE_INGREDIENT_TAG_SLUGS),
+        ...Object.values(HAIRCARE_PRODUCT_TAG_SLUGS),
+        ...Object.values(DENTAL_INGREDIENT_TAG_SLUGS),
+        ...Object.values(DENTAL_PRODUCT_TAG_SLUGS),
+        ...Object.values(SUPPLEMENT_INGREDIENT_TAG_SLUGS),
+        ...Object.values(SUPPLEMENT_PRODUCT_TAG_SLUGS),
+      ] as string[]
+      const missing = allSharedSlugs.filter((slug) => !allSeedSlugs.has(slug))
       expect(missing).toEqual([])
     })
   })

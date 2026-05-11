@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { DENTAL_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const CRINEX_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const CRINEX_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/crinex-phb-plus-brossettes-conique-12-unites-281667.webp',
     tags: {
-      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
       avoid: [],
     },
@@ -40,7 +40,7 @@ export const CRINEX_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/crinex-phb-plus-brossettes-mini-gf-12-unites-258323.webp',
     tags: {
-      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
       avoid: [],
     },
@@ -62,7 +62,7 @@ export const CRINEX_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/crinex-phb-plus-brossettes-micro-plus-gf-12-unites-258322.webp',
     tags: {
-      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
       avoid: [],
     },

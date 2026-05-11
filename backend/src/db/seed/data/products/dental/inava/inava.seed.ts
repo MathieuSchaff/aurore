@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../tags'
+import { DENTAL_PRODUCT_TAG_SLUGS } from '../../../tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const INAVA_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/inava-20-100-brosse-a-dents-souples-lot-de-4-300851.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -39,7 +39,7 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/inava-brosse-a-dents-sensibilite.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/inava-brosse-a-dents-sensibilite-259113.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -60,7 +60,7 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/inava-brosse-a-dents-parodontie.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/inava-brosse-a-dents-parodontie-275846.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -82,7 +82,7 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/inava-brossettes-1-2mm-mono-compact-espaces-etroits-orange-4-unites-300653.webp',
     tags: {
-      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
       avoid: [],
     },
@@ -104,7 +104,7 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/inava-brosse-a-dents-15-100-chirurgicale-253541.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -126,7 +126,7 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/inava-brosse-a-dents-20-100-souple-269448.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -148,7 +148,7 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/inava-brossettes-1-5mm-mono-compact-espaces-larges-rouge-4-unites-269046.webp',
     tags: {
-      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
       avoid: [],
     },
@@ -170,7 +170,7 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/inava-brossettes-0-8mm-mono-compact-espaces-etroits-bleu-4-unites-269045.webp',
     tags: {
-      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
       avoid: [],
     },
@@ -192,7 +192,7 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/inava-brossettes-1mm-mono-compact-espaces-etroits-jaune-4-unites-301474.webp',
     tags: {
-      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
       avoid: [],
     },
@@ -213,7 +213,7 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/inava-brosse-a-dents-power-blue.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/inava-brosse-a-dents-power-blue-265291.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -234,7 +234,7 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/inava-brosse-a-dents-power-rose.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/inava-brosse-a-dents-power-rose-265292.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -256,7 +256,7 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/inava-brossettes-1-8mm-mono-compact-espaces-larges-violet-4-unites-301475.webp',
     tags: {
-      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
       avoid: [],
     },
@@ -278,7 +278,7 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/inava-brossettes-4-recharges-etroits-0-8mm-bleu-269038.webp',
     tags: {
-      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
       avoid: [],
     },
@@ -299,7 +299,7 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/inava-recharge-power-sensibilite.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/inava-recharge-power-sensibilite-265296.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -321,7 +321,7 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/inava-brossettes-4-recharges-trio-compact-flex-iso4-1-5-mm-rouge-269041.webp',
     tags: {
-      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
       avoid: [],
     },
@@ -343,7 +343,7 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/inava-brossettes-0-6mm-mono-compact-espaces-etroits-noir-4-unites-269044.webp',
     tags: {
-      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
       avoid: [],
     },
@@ -364,7 +364,7 @@ export const INAVA_SEED: UnifiedProductSeed[] = [
     url: 'https://www.atida.fr/inava-recharge-power-rose.html',
     imageUrl: 'https://aurore-cdn.b-cdn.net/products/inava-recharge-power-rose-265295.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },

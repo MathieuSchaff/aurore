@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../../data/tags'
+import { DENTAL_PRODUCT_TAG_SLUGS } from '../../../../data/tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const PARODONTAX_SEED: UnifiedProductSeed[] = [
@@ -17,7 +17,7 @@ export const PARODONTAX_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/parodontax-dentifrice-pate-gingivale-lot-de-2-x-75ml-260704.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -39,7 +39,7 @@ export const PARODONTAX_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/parodontax-bain-de-bouche-quotidien-protection-active-menthe-fraiche-500ml-257603.webp',
     tags: {
-      primary: [TAG_SLUGS.BAIN_DE_BOUCHE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.BAIN_DE_BOUCHE],
       secondary: [],
       avoid: [],
     },
@@ -61,7 +61,7 @@ export const PARODONTAX_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/parodontax-dentifrice-blancheur-lot-de-2-x-75ml-274212.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -83,7 +83,7 @@ export const PARODONTAX_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/parodontax-reparation-active-gencives-bitube-301578.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },

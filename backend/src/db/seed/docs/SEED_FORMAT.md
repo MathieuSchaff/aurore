@@ -123,7 +123,7 @@ interface UnifiedProductSeed {
 ```ts
 import type { UnifiedProductSeed } from '../../types'
 import { INGREDIENT_SLUGS } from '../../types'
-import { TAG_SLUGS } from '../../tags'
+import { HAIRCARE_PRODUCT_TAG_SLUGS } from '../../../tags'
 
 export const BRAND_SEED: UnifiedProductSeed[] = [
   {
@@ -140,8 +140,8 @@ export const BRAND_SEED: UnifiedProductSeed[] = [
     url: 'https://...',
     imageUrl: 'https://...',
     tags: {
-      primary: [TAG_SLUGS.HYDRATATION],
-      secondary: [TAG_SLUGS.PEAU_SENSIBLE],
+      primary: [HAIRCARE_PRODUCT_TAG_SLUGS.HYDRATATION],
+      secondary: [HAIRCARE_PRODUCT_TAG_SLUGS.CHEVEUX_TOUS_TYPES],
       avoid: [],
     },
     keyIngredients: [{ slug: INGREDIENT_SLUGS.GLYCERIN }],

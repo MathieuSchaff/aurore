@@ -15,15 +15,14 @@ Du plus simple au plus risqué. S'arrêter dès qu'un item bloque.
 
 | Priorité | Item | Effort | Risque | Note |
 |---|---|---|---|---|
-| 1 | **§4.2 TAG_SLUGS** — migrer les 4 `ingredient-tags.ts` vers slugs typés | S | Faible | Même mécanique que fix §2.4 |
-| 2 | **§3.2 deux produits** — ajouter Bioderma Sebium Global + Actinica Lotion | XS | Nul | Data only, pas de code |
-| 3 | **§9 M.2** — fix parser `1,2-hexanediol` dans algo-derm (`src/parser.ts`) | XS | Faible | Vérifier F1 0.997 après |
-| 4 | **§1.1 Zod** — `superRefine` type×category dans `createIngredientSchema` | S | Faible | Additive, pas de breaking |
-| 5 | **§1.2 CHECK constraint** — migration DB `(type, category)` | M | Moyen | Faire §1.1 avant |
-| 6 | **§4.3 avoid_for ingrédients** — backend schema + service + frontend | M | Moyen | Cross-couches |
-| 7 | **§4.1 haircare/supplement tags** — taxonomie + seed + frontend | L | Moyen | Faire §4.2 avant |
-| 8 | **§7 images CDN** | L | Faible | Bloqué sur Bunny/S3 |
-| 9 | **§3.2 142 produits sans primary** | L | Nul | Curation manuelle |
+| 1 | ~~**§3.2 deux produits** — Bioderma Sebium Global + Pigmentbio C-Concentrate (2026-05-11)~~ ✅ | XS | Nul | Actinica Lotion reste en §3.2 |
+| 2 | ~~**§9 M.2** — fix parser `1,2-hexanediol` dans algo-derm (`src/parser.ts`) (2026-05-02, commit `440b896`)~~ ✅ | XS | Faible | Déjà fixé : `splitINCI` regex `/,(?!\d)/` + tests `parser.test.mjs:282` & `matching.test.mjs:35` |
+| 3 | ~~**§1.1 Zod** — `superRefine` type×category dans `createIngredientSchema` (2026-05-11)~~ ✅ | S | Faible | Wired sur create + update, tests `ingredients.schemas.test.ts` |
+| 4 | ~~**§1.2 CHECK constraint** — migration DB `(type, category)` (2026-05-12, `0057_ingredients_type_category_check`)~~ ✅ | M | Moyen | Drizzle `check()` inline + SQL `IS NULL OR (type AND category IN …)` |
+| 5 | ~~**§4.3 avoid_for ingrédients** — backend schema + service + frontend (2026-05-12)~~ ✅ | M | Moyen | Cross-couches |
+| 6 | ~~**§4.1 haircare/supplement product tags** — taxonomie + seed + frontend (2026-05-12, audit obsolète)~~ ✅ | L | Moyen | Déjà livré : taxos (97 + 39 slugs), META, `productTagData` 4 domaines, drawer frontend câblé (`useProductTagFilterGroups`). Seed haircare enrichi commit `7afbf805`. Smoke UI OK. Reste data dette : supplement n'a qu'une marque (nutripure). |
+| 7 | **§7 images CDN — gaps résiduels** | M | Faible | 7.1 + 7.2 ✅ (infra + upload livrés). Restes : §7.3 (Skinsafe 403, sans image, pending bioderma), §7.4 (`build-image-mapping.ts` en TS). |
+| 8 | **§3.2 142 produits sans primary** | L | Nul | Curation manuelle |
 
 ---
 
@@ -35,20 +34,24 @@ Du plus simple au plus risqué. S'arrêter dès qu'un item bloque.
 ingrédient `type: 'skincare'` peut avoir `category: 'vitamine'` sans erreur
 côté API. La vérification n'existe qu'en test seed.
 
-- [ ] Ajouter un `superRefine` dans `createIngredientSchema` /
+- [x] Ajouter un `superRefine` dans `createIngredientSchema` /
       `updateIngredientSchema` croisant `type` × `category` avec les 4 sets
       (`SKINCARE_INGREDIENT_CATEGORY_VALUES`, `HAIRCARE_INGREDIENT_CATEGORY_VALUES`,
       `DENTAL_INGREDIENT_CATEGORY_VALUES`, `SUPPLEMENT_CATEGORY_VALUES`).
+      Livré 2026-05-11 (`shared/src/ingredients/schemas.ts` + tests `backend/src/features/ingredients/tests/ingredients.schemas.test.ts`).
+      Sur update partiel, validation seulement quand `type` ET `category` présents — sinon le service merge avec le `type` stocké.
 
 ### 1.2 CHECK constraint DB sur `ingredients.category`
 
 Actuellement `text` nullable sans contrainte. Un `category: 'foobar'` passe en
 DB sans erreur (seul `type` a une CHECK constraint depuis migration `0027`).
 
-- [ ] Migration CHECK constraint croisée sur `(type, category)`. Dupliquer
-      manuellement les valeurs (drizzle-kit tourne via Bun qui charge les TS
-      source de shared, mais seules les valeurs constantes s'importent —
-      simple à maintenir).
+- [x] Migration CHECK constraint croisée sur `(type, category)` livrée 2026-05-12
+      (`drizzle/0057_ingredients_type_category_check.sql`). Valeurs dupliquées
+      en littéral dans `backend/src/db/schema/ingredients/ingredients.ts` (commentaire
+      pointe vers `shared/src/ingredients/*/categories.ts` à garder en sync).
+      Audit dev DB pré-migration : 0 violation (25 paires distinctes, toutes
+      dans les sets). Smoke insert `'vitamine'` sur `type=skincare` rejeté.
 
 
 ---
@@ -62,7 +65,7 @@ Contexte auto-tag avril 2026 : 1 017 produits traités, 875 OK / 142 sans primar
 
 - [ ] **142 produits sans primary** — traitement manuel par lot via description/notes.
 - [ ] **Toners (6 restants)** — aucun retinol/filtre chimique détecté en scan auto. Revue manuelle.
-- [ ] **Bioderma** — ajouter Sebium Global (niacinamide 5/10%) et Pigmentbio C-Concentrate (AA 10%) avant concentrations.
+- [x] **Bioderma** — Sebium Global + Pigmentbio C-Concentrate ajoutés 2026-05-11 (DB-first). Restes : tags via auto-tags pass, INCI à normaliser (séparateur `- ` → `, ` + `AQUA/WATER/EAU` → `WATER`), images CDN (cf §7.3).
 - [ ] **Solaires absents** (Actinica Lotion, Colibri Daily SPF50) — vérifier `grossesse-compatible` (avoid) sur filtres chimiques quand ajoutés.
 
 Règles de rattrapage `avoid` (rappel) :
@@ -91,39 +94,31 @@ Snapshot 2026-04-30 :
 
 ### 4.1 Vocabulaire haircare / supplement — produits (seed DB)
 
-`ingredientTagData` agrège les 4 domaines (skincare + supplement + dental + haircare).
-`productTagData` agrège skincare + dental (`DENTAL_PRODUCT_TAG_TAXONOMY` livré 2026-05-07,
-36 slugs, 5 catégories). Haircare et supplement produits restent des stubs vides.
+Audit 2026-05-12 : section déjà livrée, roadmap périmé. Détail :
 
-Le drawer frontend sur les tabs haircare/dental/complement est minimal (kind + brand +
-ingredient seulement) — même si dental product tags sont en DB, le frontend ne les
-consomme pas encore (STATE §5.6).
-
-- [ ] **haircare produits** — remplir `HAIRCARE_PRODUCT_TAG_TAXONOMY` + `HAIRCARE_PRODUCT_TAG_SLUGS`,
-      étendre `productTagData`, câbler drawer haircare frontend
-- [ ] **supplement produits** — idem pour supplement / complement
-
-### 4.2 `TAG_SLUGS` legacy dans `data/tags/index.ts`
-
-`TAG_SLUGS` est un agrégat non typé encore consommé par les 4 fichiers
-`ingredient-tags.ts` (skincare, haircare, supplements, dental) et `nutripure.seed.ts`.
-`noreva-product-tags.ts` est supprimé. Les re-exports shared sont supprimés — seule
-la constante locale dans `data/tags/index.ts` subsiste.
-
-- [ ] Migrer les 4 `ingredient-tags.ts` vers les slugs typés domain-spécifiques
-      (`SKINCARE_INGREDIENT_TAG_SLUGS`, `HAIRCARE_INGREDIENT_TAG_SLUGS`, etc.)
-- [ ] Migrer `nutripure.seed.ts` (utilise `TAG_SLUGS.GELULE` et autres slugs supplement)
-- [ ] Supprimer `TAG_SLUGS` une fois zéro consommateur
+- [x] **haircare produits** — `HAIRCARE_PRODUCT_TAG_TAXONOMY` (97 slugs, 6 cat : concern,
+      hair_type, product_type, routine_step, hair_effect, product_label),
+      `HAIRCARE_PRODUCT_TAG_CATEGORY_META`, `productTagData` étend haircare,
+      `DOMAIN_PRODUCT_FILTER_CATEGORIES.haircare` câblé, drawer frontend live
+      via `useProductTagFilterGroups`. Seed enrichi 51 marques (commit `7afbf805`).
+- [x] **supplement produits** — `SUPPLEMENT_PRODUCT_TAG_TAXONOMY` (39 slugs, 5 cat :
+      goal, moment, restriction, product_type, product_label), META + filter cat,
+      `DOMAIN_PRODUCT_FILTER_CATEGORIES.complement` câblé. Smoke UI OK 2026-05-12.
+- [ ] **Data dette supplement** — 1 seule marque seedée (nutripure). Pas dette
+      taxonomie, dette curation produit (hors scope §4.1).
 
 ### 4.3 Feature exclusion par profil — ingrédients
 
 La feature `avoid_for` existe côté produits. Hors scope de son itération
 initiale : l'appliquer également aux ingrédients.
 
-- [ ] `ingredientsSearchSchema.avoid_for`
-- [ ] `backend/src/features/ingredients/service.ts` — clause `notInArray`
-      équivalente
-- [ ] Frontend `IngredientsPage` — toggle + fetch profil dermo
+- [x] `listIngredientsSearchSchema.avoid_for` (2026-05-12, `shared/src/ingredients/helpers.ts`).
+- [x] `backend/src/features/ingredients/service.ts` — `profileMatches`
+      post-fetch via `tag_ingredients` × `relevance='avoid'`. Mirror produits :
+      ne filtre pas, signale. Tests `ingredients.test.ts` describe `avoid_for filter`.
+- [x] Frontend `IngredientsPage` — toggle "Selon mon profil" dans drawer
+      (skincare + user logged in), fetch `profileQueries.dermo()`, badge
+      « Éviter » sur cartes.
 
 ---
 
@@ -135,7 +130,7 @@ initiale : l'appliquer également aux ingrédients.
 | P2 | 🔴 Bloquant | `products.kind` : 25 valeurs hétérogènes → inutilisable en filtre. | Remplacer par `product_type` tag |
 | P5 | 🟡 Moyen | Recherche texte incohérente : fuzzy (produits, pg_trgm) vs simple ILIKE (ingrédients) | Harmoniser |
 | P6 | 🟢 Faible | Tri popularité absent. `price_asc`/`price_desc`/`newest`/`name`/`random` livrés (STATE §5.5). | Ajouter tri popularité si métrique disponible |
-| P10 | 🟡 Moyen | Tabs `haircare` / `complement` — taxonomie tag produit vide (cf. §4.1). Drawer minimal seulement. Dental product tags en DB mais non câblés frontend. | Remplir `HAIRCARE_PRODUCT_TAG_TAXONOMY`, câbler drawer dental + haircare |
+| ~~P10~~ | ✅ Résolu | Tabs `haircare` / `complement` / `dental` — taxonomies remplies + drawer câblé via `useProductTagFilterGroups` (2026-05-12). Reste data : supplement 1 marque seedée. | — |
 
 ---
 
@@ -167,17 +162,21 @@ initiale : l'appliquer également aux ingrédients.
 
 État du pipeline image : voir [`IMAGES.md`](./IMAGES.md).
 
-### 7.1 Provisionnement infra
+### 7.1 Provisionnement infra ✅
 
-- [ ] Créer le bucket S3 (Bunny Edge Storage ou Backblaze B2 + Bunny CDN devant). Décider : `aurore-images` flat ou par env (`aurore-images-prod` / `-dev`).
-- [ ] Configurer Bunny pull zone (origin → bucket). Vérifier transformation à la volée (resize/format) si on veut servir du `?width=200` etc.
-- [ ] Stocker `S3_ENDPOINT` / `IMAGE_CDN_BASE` (et keys pour CI) dans le secret manager.
+Audit 2026-05-12 : livré (roadmap périmé).
 
-### 7.2 Premier upload
+- [x] Bunny Storage Zone provisionnée + Pull Zone configurée. Vars dans `.env.dev`
+      (`BUNNY_STORAGE_ZONE`, `BUNNY_STORAGE_HOSTNAME`, `BUNNY_STORAGE_PASSWORD`,
+      `BUNNY_STORAGE_READONLY_PASSWORD`, `IMAGE_CDN_BASE`) + `.env.example` template.
 
-- [ ] Lancer `bun run scripts/upload-images.ts` (2229 webp, ~51 MB).
-- [ ] Lancer `IMAGE_CDN_BASE=… bun run scripts/patch-image-urls.ts`. Commit le diff sur les 80+ `*.seed.ts`.
-- [ ] `make ts-verify` + `make test-dev ARGS="seed-data-integrity"`.
+### 7.2 Premier upload ✅
+
+Audit 2026-05-12 : livré.
+
+- [x] `backend/src/db/seed/scripts/upload-images.ts` exécuté (Bunny HTTP native
+      API, AccessKey header, 16 uploads parallèles).
+- [x] `patch-image-urls.ts` exécuté : **80/81 `*.seed.ts`** référencent `b-cdn.net`.
 
 ### 7.3 Couverture image — gaps connus
 
@@ -185,6 +184,7 @@ initiale : l'appliquer également aux ingrédients.
 
 - [ ] **119 PNG Skinsafe en 403** — nécessite browser automation (cookies session) via `scrapper-para`. Liste dans `output/image-download-failures.json`.
 - [ ] **Sans image** (~603 produits) — `the-ordinary` (35), résidus svr/avene/bioderma, etc. Mix de marques jamais scrappées + variantes hors scope Pharmashop. Scrap source à choisir (sites marques, Yesstyle…).
+- [x] **Pending CDN upload** — `bioderma-sebium-global` + `bioderma-pigmentbio-c-concentrate` (2026-05-12) : pages bioderma.fr ajoutées à `data/image-fetchers/bioderma.ts`, scrape via `fetch-images-bioderma.ts`, upload Bunny, patch `snapshot/data.sql` (`imageUrl` colonne).
 
 ### 7.4 Outils
 
@@ -208,5 +208,5 @@ Historique complet (calibration log + tier audit + roadmap absorbée) : [`_archi
 
 Plateau evidence atteint. Deux pistes restantes ; contexte + commandes dans [`audits/NEXT-SESSION-PROMPT.md`](./audits/NEXT-SESSION-PROMPT.md).
 
-- [ ] **M.2 — parser fix `1,2-hexanediol`** : split virgule coupe `1,2-hexanediol` → `1` + `2-hexanediol`. Protéger `\d,\d-` dans `splitINCI` (algo-derm `src/parser.ts`). Vérifier F1 0.997 conservé.
+- [x] **M.2 — parser fix `1,2-hexanediol`** (2026-05-02, commit `440b896`) : `splitINCI` regex passée à `/,(?!\d)/` (lookahead seule, le lookbehind cassait `Polysorbate 60, Sorbitan…`). Couvert par `parser.test.mjs:282` + `matching.test.mjs:35`.
 - [ ] **Worst-match produits** : re-générer audit avec `INCI_AUDIT_FULL=1`, cibler §3/§4 (scrapes cassés, INCI appareil). Résoudre cas par cas plutôt que tokens haute fréquence.

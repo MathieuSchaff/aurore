@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../../data/tags'
+import { DENTAL_PRODUCT_TAG_SLUGS } from '../../../../data/tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const CB12_SEED: UnifiedProductSeed[] = [
@@ -18,7 +18,7 @@ export const CB12_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/cb12-bain-de-bouche-12h-d-haleine-fraiche-sans-alcool-arome-menthe-500ml-281510.webp',
     tags: {
-      primary: [TAG_SLUGS.BAIN_DE_BOUCHE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.BAIN_DE_BOUCHE],
       secondary: [],
       avoid: [],
     },
@@ -46,7 +46,7 @@ export const CB12_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/cb12-spray-haleine-fraiche-sans-alcool-arome-menthe-15-ml-232673.webp',
     tags: {
-      primary: [TAG_SLUGS.BAIN_DE_BOUCHE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.BAIN_DE_BOUCHE],
       secondary: [],
       avoid: [],
     },
@@ -68,7 +68,7 @@ export const CB12_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/cb12-boost-menthe-forte-fraicheur-instantanee-sans-sucres-10-gommes-a-macher-272852.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },

@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../../data/tags'
+import { DENTAL_PRODUCT_TAG_SLUGS } from '../../../../data/tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const TEPE_SEED: UnifiedProductSeed[] = [
@@ -14,7 +14,7 @@ export const TEPE_SEED: UnifiedProductSeed[] = [
     description: 'Brossettes interdentaires éco-responsables, ISO 1, sachet 20.',
     url: 'https://www.atida.fr/tepe-original-sachet-de-20-brossettes-oranges-eco-responsables-iso-1.html',
     tags: {
-      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
       avoid: [],
     },
@@ -31,7 +31,7 @@ export const TEPE_SEED: UnifiedProductSeed[] = [
     description: 'Brossettes interdentaires éco-responsables, ISO 1, blister 6.',
     url: 'https://www.atida.fr/tepe-brossette-interdentaire-eco-responsable-iso-1-0-45mm-6-brossettes.html',
     tags: {
-      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
       avoid: [],
     },
@@ -48,7 +48,7 @@ export const TEPE_SEED: UnifiedProductSeed[] = [
     description: 'Brossettes interdentaires éco-responsables 0,7 mm, sachet 20.',
     url: 'https://www.atida.fr/epe-brossette-interdentaire-eco-responsable-0-7mm-20-unites.html',
     tags: {
-      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
       avoid: [],
     },
@@ -65,7 +65,7 @@ export const TEPE_SEED: UnifiedProductSeed[] = [
     description: 'Brossettes interdentaires éco-responsables, ISO 0, sachet 20.',
     url: 'https://www.atida.fr/tepe-original-sachet-de-20-brossettes-roses-eco-responsables-iso-0.html',
     tags: {
-      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
       avoid: [],
     },
@@ -86,7 +86,7 @@ export const TEPE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/brossettes-interdentaires-tepe-originales-orange-0-45-mm-20-brossettes-245888.webp',
     tags: {
-      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
       avoid: [],
     },
@@ -108,7 +108,7 @@ export const TEPE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/brossettes-interdentaires-tepe-originales-orange-0-45-mm-6-brossettes-258882.webp',
     tags: {
-      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
       avoid: [],
     },
@@ -130,7 +130,7 @@ export const TEPE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/tepe-originales-brossettes-interdentaires-jaune-0-7-mm-20-brossettes-234345.webp',
     tags: {
-      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
       avoid: [],
     },
@@ -152,7 +152,7 @@ export const TEPE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/brossettes-interdentaires-tepe-originales-rose-0-4-mm-20-brossettes-245887.webp',
     tags: {
-      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
       avoid: [],
     },
@@ -174,7 +174,7 @@ export const TEPE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/brossettes-interdentaires-tepe-originales-vert-0-8-mm-20-brossettes-245866.webp',
     tags: {
-      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
       avoid: [],
     },
@@ -196,7 +196,7 @@ export const TEPE_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/brossettes-interdentaires-tepe-originales-bleu-0-6-mm-20-brossettes-245865.webp',
     tags: {
-      primary: [TAG_SLUGS.FIL_DENTAIRE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],
       avoid: [],
     },

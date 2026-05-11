@@ -565,21 +565,21 @@ comedogene, non-comedogene, grossesse-compatible
 ```ts
 [INGREDIENT_SLUGS.NIACINAMIDE]: {
   primary: [
-    TAG_SLUGS.BARRIERE_CUTANEE,     // concern
-    TAG_SLUGS.APAISANT,              // ingredient_attribute
-    TAG_SLUGS.SEBO_REGULATEUR,       // ingredient_attribute
-    TAG_SLUGS.ANTI_ROUGEURS,         // concern
-    TAG_SLUGS.ANTI_TACHES,           // concern
+    SKINCARE_INGREDIENT_TAG_SLUGS.BARRIERE_CUTANEE,     // concern
+    SKINCARE_INGREDIENT_TAG_SLUGS.APAISANT,              // ingredient_attribute
+    SKINCARE_INGREDIENT_TAG_SLUGS.SEBO_REGULATEUR,       // ingredient_attribute
+    SKINCARE_INGREDIENT_TAG_SLUGS.ANTI_ROUGEURS,         // concern
+    SKINCARE_INGREDIENT_TAG_SLUGS.ANTI_TACHES,           // concern
   ],
   secondary: [
-    TAG_SLUGS.ANTI_ACNE,             // concern secondaire
-    TAG_SLUGS.PORES_DILATES,
-    TAG_SLUGS.ECLAT,
-    TAG_SLUGS.PEAU_MIXTE,            // skin_type
-    TAG_SLUGS.PEAU_GRASSE,
-    TAG_SLUGS.PEAU_SENSIBLE,
-    TAG_SLUGS.PEAU_REACTIVE,
-    TAG_SLUGS.GROSSESSE_COMPATIBLE,  // product_label : sûr → secondary
+    SKINCARE_INGREDIENT_TAG_SLUGS.ANTI_ACNE,             // concern secondaire
+    SKINCARE_INGREDIENT_TAG_SLUGS.PORES_DILATES,
+    SKINCARE_INGREDIENT_TAG_SLUGS.ECLAT,
+    SKINCARE_INGREDIENT_TAG_SLUGS.PEAU_MIXTE,            // skin_type
+    SKINCARE_INGREDIENT_TAG_SLUGS.PEAU_GRASSE,
+    SKINCARE_INGREDIENT_TAG_SLUGS.PEAU_SENSIBLE,
+    SKINCARE_INGREDIENT_TAG_SLUGS.PEAU_REACTIVE,
+    SKINCARE_INGREDIENT_TAG_SLUGS.GROSSESSE_COMPATIBLE,  // product_label : sûr → secondary
   ],
   avoid: [],                          // universel, aucune contre-indication
 }
@@ -733,11 +733,13 @@ optionnel `category`. Quand absent, comportement inchangé. Quand présent,
 `listProducts` ajoute `inArray(products.category, PRODUCT_DOMAIN_DB_CATEGORIES[tab])`
 et `getFilterOptions` scope `brands` / `kinds` / `tags` au même set.
 
-Frontend : sur le tab `skincare`, drawer identique à l'actuel (8 accordions tag
-+ brand + ingredient). Sur les 3 autres tabs, drawer minimal (kind + brand +
-ingredient) — la taxonomie produit `haircare/dental/complement` n'est pas
-encore seedée (cf. §8.5). Le toggle profil dermo ne s'affiche que sur le tab
-skincare.
+Frontend : drawer câblé sur les 4 tabs via `useProductTagFilterGroups(domain,…)`
+qui mappe chaque domain vers son `*_PRODUCT_TAG_CATEGORY_META` shared. Catégories
+par tab : skincare = concern/skin_type/product_type/routine_step/ingredient_attribute/
+skin_effect/product_characteristic, haircare = hair_type/concern/product_type/
+routine_step/hair_effect/product_label, dental = concern/age_group/product_type/
+dental_effect/product_label, complement = goal/product_type/moment/restriction/
+product_label. Le toggle profil dermo ne s'affiche que sur le tab skincare.
 
 Reset au switch de tab : tag filters, `brand`, `kind`, `profile_filter` → reset ;
 `sort`, `priceMin`, `priceMax`, `ingredient` → préservés ; `page` → 1.
@@ -758,8 +760,9 @@ entrées). Le `tagType` est dérivé de la taxonomie shared.
 
 - `ingredientTagData` : agrégat skincare + supplement + dental + haircare (déduplification
   first-occurrence). 4 domaines insérés en DB.
-- `productTagData` : construit depuis `SKINCARE_PRODUCT_TAG_TAXONOMY` + `DENTAL_PRODUCT_TAG_TAXONOMY` —
-  haircare et supplement produit ont des stubs vides.
+- `productTagData` : agrégat skincare + haircare + dental + supplement
+  (déduplication first-occurrence sur slugs cross-domain comme `sans-parfum`,
+  `vegan`). 4 domaines insérés en DB.
 
 ### 6.2 Associations ingrédient↔tag — manuel
 
@@ -774,13 +777,13 @@ entrées). Le `tagType` est dérivé de la taxonomie shared.
 | `dental` | `dentalTagMap` | 18 | `ingredients/dental/INGREDIENT-TAGS.ts` |
 
 Les 12 entries haircare sont des tensioactifs/silicones dual-domain : ils réutilisent
-des slugs skincare via `TAG_SLUGS` (slugs skincare), pas les slugs haircare-natifs.
+des slugs skincare (via `SKINCARE_INGREDIENT_TAG_SLUGS`), pas les slugs haircare-natifs.
 
 ```ts
 [INGREDIENT_SLUGS.ACIDE_SALICYLIQUE]: {
-  primary: [INGREDIENT_TAG_SLUGS.ANTI_ACNE, INGREDIENT_TAG_SLUGS.KERATOLYTIQUE],
-  secondary: [INGREDIENT_TAG_SLUGS.PEAU_GRASSE, INGREDIENT_TAG_SLUGS.PORES_DILATES],
-  avoid: [INGREDIENT_TAG_SLUGS.PEAU_REACTIVE, INGREDIENT_TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
+  primary: [SKINCARE_INGREDIENT_TAG_SLUGS.ANTI_ACNE, SKINCARE_INGREDIENT_TAG_SLUGS.KERATOLYTIQUE],
+  secondary: [SKINCARE_INGREDIENT_TAG_SLUGS.PEAU_GRASSE, SKINCARE_INGREDIENT_TAG_SLUGS.PORES_DILATES],
+  avoid: [SKINCARE_INGREDIENT_TAG_SLUGS.PEAU_REACTIVE, SKINCARE_INGREDIENT_TAG_SLUGS.BARRIERE_CUTANEE_ALTEREE],
 }
 ```
 
@@ -811,7 +814,7 @@ Les tests vivent dans `backend/src/db/seed/tests/`. Ils tournent via
 - `allProductTagsMap` : cohérence slugs produits et tags
 - `allIngredientProductTags` : références valides
 - `INGREDIENT_SLUGS` vs `ingredientData` : tout slug a une entrée, pas de doublons
-- `TAG_SLUGS` vs seed tag data : couverture complète
+- shared slug maps vs seed tag data : couverture complète
 - `allProductData` : pas de doublons, champs `name`/`brand`, kinds valides, tag primaire présent
 - `ingredientData field completeness` :
   - `name` et `slug` non vides
@@ -893,13 +896,11 @@ console à l'exécution, pas d'erreur. Comportement voulu, mais masqué.
 
 `dentalTagMap` (18 entries) + `DENTAL_PRODUCT_TAG_SLUGS` (36 slugs, 5 catégories) livrés. `ingredientTagData` agrège skincare+supplement+dental ; `productTagData` agrège skincare+dental (dedup first-wins). Haircare/supplement produit restent vides.
 
-### 8.6 `TAG_SLUGS` legacy toujours consommé
+### 8.6 ~~`TAG_SLUGS` legacy~~ — résolu
 
-`TAG_SLUGS` dans `data/tags/index.ts` est un agrégat non typé encore consommé par
-`noreva-product-tags.ts` et `haircareTagMap` (12 entries dual-domain).
-
-**Fix** : migrer les consommateurs restants vers les slugs typés domain-spécifiques,
-puis supprimer `TAG_SLUGS`.
+L'alias non typé `TAG_SLUGS` a été retiré. Chaque consommateur (4
+`ingredient-tags.ts`, 24 dental seeds, `nutripure.seed.ts`) importe désormais
+sa(ses) map(s) domaine-spécifique(s) — TS bloque les slugs cross-domaine.
 
 ### 8.7 Pas de check constraint DB sur `category`, `kind`, `unit` produits
 

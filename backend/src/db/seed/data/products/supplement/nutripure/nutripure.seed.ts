@@ -1,5 +1,5 @@
 import { INGREDIENT_SLUGS } from '../../../../data/ingredients/ingredient-slugs'
-import { TAG_SLUGS } from '../../../../data/tags'
+import { SUPPLEMENT_PRODUCT_TAG_SLUGS } from '../../../../data/tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const NUTRIPURE_SEED: UnifiedProductSeed[] = [
@@ -17,7 +17,7 @@ export const NUTRIPURE_SEED: UnifiedProductSeed[] = [
     notes: '1 gélule/j avec graisses. Contient spiruline (50 mg).',
     url: 'https://www.nutripure.fr',
     tags: {
-      primary: [TAG_SLUGS.GELULE],
+      primary: [SUPPLEMENT_PRODUCT_TAG_SLUGS.GELULE],
       secondary: [],
       avoid: [],
     },
@@ -46,7 +46,7 @@ export const NUTRIPURE_SEED: UnifiedProductSeed[] = [
     notes: '3 caps/j avec graisses (matin/midi/soir).',
     url: 'https://www.nutripure.fr',
     tags: {
-      primary: [TAG_SLUGS.CAPSULE],
+      primary: [SUPPLEMENT_PRODUCT_TAG_SLUGS.CAPSULE],
       secondary: [],
       avoid: [],
     },
@@ -65,7 +65,7 @@ export const NUTRIPURE_SEED: UnifiedProductSeed[] = [
     notes: '1 softgel/j avec graisses.',
     url: 'https://www.nutripure.fr',
     tags: {
-      primary: [TAG_SLUGS.CAPSULE],
+      primary: [SUPPLEMENT_PRODUCT_TAG_SLUGS.CAPSULE],
       secondary: [],
       avoid: [],
     },
@@ -91,7 +91,7 @@ export const NUTRIPURE_SEED: UnifiedProductSeed[] = [
     notes: "7-7,5 g/j matin (dans 500 ml d'eau sur 1-2h).",
     url: 'https://www.nutripure.fr',
     tags: {
-      primary: [TAG_SLUGS.POUDRE],
+      primary: [SUPPLEMENT_PRODUCT_TAG_SLUGS.POUDRE],
       secondary: [],
       avoid: [],
     },
@@ -110,7 +110,7 @@ export const NUTRIPURE_SEED: UnifiedProductSeed[] = [
     notes: '10 g/j (3 g matin + 7 g soir, à jeun).',
     url: 'https://www.nutripure.fr',
     tags: {
-      primary: [TAG_SLUGS.POUDRE],
+      primary: [SUPPLEMENT_PRODUCT_TAG_SLUGS.POUDRE],
       secondary: [],
       avoid: [],
     },
@@ -129,7 +129,7 @@ export const NUTRIPURE_SEED: UnifiedProductSeed[] = [
     notes: '2 gélules/j 5j/7 (à jeun, matin).',
     url: 'https://www.nutripure.fr',
     tags: {
-      primary: [TAG_SLUGS.GELULE],
+      primary: [SUPPLEMENT_PRODUCT_TAG_SLUGS.GELULE],
       secondary: [],
       avoid: [],
     },
@@ -151,7 +151,7 @@ export const NUTRIPURE_SEED: UnifiedProductSeed[] = [
     notes: '2,2 g/j (1,1 g matin + 1,1 g soir, à jeun).',
     url: 'https://www.nutripure.fr',
     tags: {
-      primary: [TAG_SLUGS.POUDRE],
+      primary: [SUPPLEMENT_PRODUCT_TAG_SLUGS.POUDRE],
       secondary: [],
       avoid: [],
     },
@@ -170,7 +170,7 @@ export const NUTRIPURE_SEED: UnifiedProductSeed[] = [
     notes: '10 g/j midi. Synergie avec glycine + vitamine C.',
     url: 'https://www.nutripure.fr',
     tags: {
-      primary: [TAG_SLUGS.POUDRE],
+      primary: [SUPPLEMENT_PRODUCT_TAG_SLUGS.POUDRE],
       secondary: [],
       avoid: [],
     },
@@ -188,7 +188,7 @@ export const NUTRIPURE_SEED: UnifiedProductSeed[] = [
     notes: '3 g/j soir.',
     url: 'https://www.nutripure.fr',
     tags: {
-      primary: [TAG_SLUGS.POUDRE],
+      primary: [SUPPLEMENT_PRODUCT_TAG_SLUGS.POUDRE],
       secondary: [],
       avoid: [],
     },
@@ -207,7 +207,7 @@ export const NUTRIPURE_SEED: UnifiedProductSeed[] = [
     notes: '600 mg/j à jeun. Cure 6 sem. ON / 6 sem. OFF.',
     url: 'https://www.nutripure.fr',
     tags: {
-      primary: [TAG_SLUGS.POUDRE],
+      primary: [SUPPLEMENT_PRODUCT_TAG_SLUGS.POUDRE],
       secondary: [],
       avoid: [],
     },
@@ -226,7 +226,7 @@ export const NUTRIPURE_SEED: UnifiedProductSeed[] = [
     notes: '1 softgel/j matin.',
     url: 'https://www.nutripure.fr',
     tags: {
-      primary: [TAG_SLUGS.CAPSULE],
+      primary: [SUPPLEMENT_PRODUCT_TAG_SLUGS.CAPSULE],
       secondary: [],
       avoid: [],
     },
@@ -248,7 +248,7 @@ export const NUTRIPURE_SEED: UnifiedProductSeed[] = [
     notes: '1 gélule/j soir. Dose ultra-faible vs lithium médical.',
     url: 'https://www.nutripure.fr',
     tags: {
-      primary: [TAG_SLUGS.GELULE],
+      primary: [SUPPLEMENT_PRODUCT_TAG_SLUGS.GELULE],
       secondary: [],
       avoid: [],
     },
@@ -266,7 +266,7 @@ export const NUTRIPURE_SEED: UnifiedProductSeed[] = [
     notes: '1 gélule/j matin.',
     url: 'https://www.nutripure.fr',
     tags: {
-      primary: [TAG_SLUGS.GELULE],
+      primary: [SUPPLEMENT_PRODUCT_TAG_SLUGS.GELULE],
       secondary: [],
       avoid: [],
     },
@@ -287,7 +287,7 @@ export const NUTRIPURE_SEED: UnifiedProductSeed[] = [
     notes: '1 gélule/j soir.',
     url: 'https://www.nutripure.fr',
     tags: {
-      primary: [TAG_SLUGS.GELULE],
+      primary: [SUPPLEMENT_PRODUCT_TAG_SLUGS.GELULE],
       secondary: [],
       avoid: [],
     },
@@ -305,7 +305,7 @@ export const NUTRIPURE_SEED: UnifiedProductSeed[] = [
     notes: '5 g/j flexible.',
     url: 'https://www.nutripure.fr',
     tags: {
-      primary: [TAG_SLUGS.POUDRE],
+      primary: [SUPPLEMENT_PRODUCT_TAG_SLUGS.POUDRE],
       secondary: [],
       avoid: [],
     },
@@ -324,7 +324,7 @@ export const NUTRIPURE_SEED: UnifiedProductSeed[] = [
     notes: '1 dose/j soir. Dose volontairement basse.',
     url: 'https://www.nutripure.fr',
     tags: {
-      primary: [TAG_SLUGS.GELULE],
+      primary: [SUPPLEMENT_PRODUCT_TAG_SLUGS.GELULE],
       secondary: [],
       avoid: [],
     },

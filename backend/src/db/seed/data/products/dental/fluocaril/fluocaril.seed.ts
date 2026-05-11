@@ -1,4 +1,4 @@
-import { TAG_SLUGS } from '../../../../data/tags'
+import { DENTAL_PRODUCT_TAG_SLUGS } from '../../../../data/tags'
 import type { UnifiedProductSeed } from '../../types'
 
 export const FLUOCARIL_SEED: UnifiedProductSeed[] = [
@@ -14,7 +14,7 @@ export const FLUOCARIL_SEED: UnifiedProductSeed[] = [
     description: 'Dentifrice protection caries, double fluor, goût menthe.',
     url: 'https://www.atida.fr/fluocaril-cosmetique-bi-fluore-145mg-dentifrice-menthe-lot-de-2-x-75ml.html',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -35,7 +35,7 @@ export const FLUOCARIL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/fluocaril-cosmetique-bi-fluore-145mg-dentifrice-menthe-lot-de-2-x-75ml-233411.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -61,7 +61,7 @@ export const FLUOCARIL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/fluocaril-cosmetique-bi-fluore-145mg-dentifrice-blancheur-lot-de-2-x-75ml-232594.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -87,7 +87,7 @@ export const FLUOCARIL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/fluocaril-junior-6-12-ans-dentifrice-gel-fruits-rouges-lot-de-2-x-75ml-236789.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -109,7 +109,7 @@ export const FLUOCARIL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/fluocaril-protection-complete-dentifrice-2x75ml-281866.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -131,7 +131,7 @@ export const FLUOCARIL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/fluocaril-bain-de-bouche-bi-fluore-25mg-500ml-303038.webp',
     tags: {
-      primary: [TAG_SLUGS.BAIN_DE_BOUCHE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.BAIN_DE_BOUCHE],
       secondary: [],
       avoid: [],
     },
@@ -157,7 +157,7 @@ export const FLUOCARIL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/fluocaril-natur-essence-dentifrice-blancheur-75ml-281744.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -184,7 +184,7 @@ export const FLUOCARIL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/fluocaril-natur-essence-dentifrice-protection-complete-75ml-281745.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },
@@ -210,7 +210,7 @@ export const FLUOCARIL_SEED: UnifiedProductSeed[] = [
     imageUrl:
       'https://aurore-cdn.b-cdn.net/products/fluocaril-cosmetique-bi-fluore-145mg-dentifrice-gencives-menthe-lot-de-2-x-75ml-285055.webp',
     tags: {
-      primary: [TAG_SLUGS.DENTIFRICE],
+      primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],
       avoid: [],
     },

@@ -331,15 +331,12 @@ data/ingredients/
 └── dental/ingredient-slugs.ts
 ```
 
-**`TAG_SLUGS` legacy** — `backend/src/db/seed/data/tags/index.ts` expose une
-constante `TAG_SLUGS` qui n'est qu'un merge des consts shared
-(`SKINCARE_INGREDIENT_TAG_SLUGS` + `SKINCARE_PRODUCT_TAG_SLUGS` +
-`SUPPLEMENT_INGREDIENT_TAG_SLUGS`). Les re-exports thin dans
-`shared/src/ingredients/tag-slugs.ts` et `shared/src/products/tag-slugs.ts`
-ont été supprimés (`ddd35b7`). Subsiste uniquement la constante locale dans
-`data/tags/index.ts`, consommée par `noreva-product-tags.ts` et les 12
-entries haircare dual-domain de `haircare/ingredient-tags.ts`. Dette ouverte :
-ROADMAP §4.2.
+**Slug imports** — `backend/src/db/seed/data/tags/index.ts` re-exporte les 8
+maps domaine-spécifiques (`SKINCARE_INGREDIENT_TAG_SLUGS`,
+`SKINCARE_PRODUCT_TAG_SLUGS`, etc.) depuis `@habit-tracker/shared`. Chaque
+fichier seed importe seulement les maps dont il consomme les clés — TS
+détecte un slug du mauvais domaine à la compile. L'alias agrégé
+`TAG_SLUGS` a été retiré (ROADMAP §4.2 cloturé).
 
 ---
 

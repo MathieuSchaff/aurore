@@ -340,10 +340,10 @@ export async function seedCore(shouldClean = false) {
     )
 
     // Drop entries whose tagSlug resolved to `undefined` — these originate
-    // from `TAG_SLUGS.FOO` references in ingredientTagMap pointing at slugs
-    // removed during the tag split (AJUSTEUR_PH, SOLVANT, AHA, ACNE…). We
-    // warn once with a unique key list so the taxonomy can be reconciled
-    // manually; the seed keeps running.
+    // from domain slug references in ingredientTagMap pointing at slugs
+    // removed during a tag split (AJUSTEUR_PH, SOLVANT, AHA, ACNE…). We warn
+    // once with a unique key list so the taxonomy can be reconciled manually;
+    // the seed keeps running.
     const droppedTagKeys = new Set<string>()
     const ingredientTagPairs = rawIngredientTagPairs.filter((p) => {
       if (typeof p.tagSlug !== 'string' || p.tagSlug.length === 0) {
