@@ -2,9 +2,9 @@ import type { IngredientType } from '@habit-tracker/shared'
 
 import { useQuery } from '@tanstack/react-query'
 import { getRouteApi, Link, useNavigate } from '@tanstack/react-router'
-import { FlaskConical, Plus, SlidersHorizontal } from 'lucide-react'
+import { AlertTriangle, FlaskConical, Plus, SlidersHorizontal } from 'lucide-react'
 import type React from 'react'
-import { startTransition, useCallback, useState } from 'react'
+import { startTransition, useCallback, useMemo, useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
 import { Card } from '@/component/Card/Card'
@@ -18,9 +18,11 @@ import {
   type FilterValues,
   getFilterLabel,
 } from '@/component/Filter'
+import { Toggle } from '@/component/Input/Toggle/Toggle'
 import { ListPageLayout } from '@/component/Layout'
 import { SearchCombobox } from '@/component/Search/SearchCombobox'
 import { Tabs } from '@/component/Tabs/Tabs'
+import { SKIN_CONCERN_LABELS, SKIN_TYPE_LABELS } from '@/constants/skin'
 import {
   buildDomainSwitchSearch,
   DOMAIN_TAB_OPTIONS,
@@ -31,6 +33,8 @@ import {
 import { useIngredientTagFilterGroups } from '@/hooks/useIngredientTagFilterGroups'
 import { useListFilters } from '@/hooks/useListFilters'
 import { ingredientQueries, type ListIngredientsFilters } from '@/lib/queries/ingredients'
+import { profileQueries } from '@/lib/queries/profile'
+import { useAuthStore } from '@/store/auth'
 
 import '@/component/Layout/PageLayout/ListPage.css'
 import './IngredientsPage.css'
@@ -44,8 +48,23 @@ export function IngredientsPage() {
   const [isDrawerOpen, setDrawerOpen] = useState(false)
 
   const search = routeApi.useSearch()
-  const { page, type } = search
+  const { page, type, profile_filter } = search
   const navigate = useNavigate({ from: '/ingredients/' })
+
+  const user = useAuthStore((s) => s.user)
+
+  const { data: dermoProfile } = useQuery({
+    ...profileQueries.dermo(),
+    enabled: !!user && profile_filter,
+  })
+
+  const avoidFor = useMemo(
+    () =>
+      profile_filter && dermoProfile
+        ? [...(dermoProfile.skinTypes ?? []), ...dermoProfile.skinConcerns]
+        : [],
+    [profile_filter, dermoProfile]
+  )
 
   const filters: FilterValues<FilterKey> = Object.fromEntries(
     FILTER_KEYS.map((k) => [k, search[k] ?? []])
@@ -61,6 +80,8 @@ export function IngredientsPage() {
 
   const hasFilters = filterCount > 0
 
+  const avoidForParam = avoidFor.length > 0 ? avoidFor : undefined
+
   const apiFilters: ListIngredientsFilters = hasFilters
     ? {
         ...(Object.fromEntries(
@@ -69,8 +90,9 @@ export function IngredientsPage() {
         type,
         page,
         limit: PAGE_SIZE,
+        avoid_for: avoidForParam,
       }
-    : { type, sort: 'random', limit: 12 }
+    : { type, sort: 'random', limit: 12, avoid_for: avoidForParam }
 
   const { data, isLoading, isPlaceholderData } = useQuery({
     ...ingredientQueries.list(apiFilters),
@@ -97,6 +119,15 @@ export function IngredientsPage() {
     },
     [navigate]
   )
+
+  const handleProfileFilterChange = useCallback(
+    (checked: boolean) => {
+      navigate({ search: (prev) => ({ ...prev, profile_filter: checked, page: 1 }) })
+    },
+    [navigate]
+  )
+
+  const showProfileToggle = !!user && type === 'skincare'
 
   return (
     <ListPageLayout className="ingredients-page">
@@ -162,7 +193,17 @@ export function IngredientsPage() {
         initialFilters={EMPTY_FILTERS}
         onApply={applyFilters}
         onReset={resetFilters}
-      />
+      >
+        {showProfileToggle && (
+          <Toggle
+            label="Selon mon profil"
+            hint="Signale les ingrédients déconseillés pour votre type de peau"
+            checked={profile_filter}
+            onChange={handleProfileFilterChange}
+            size="sm"
+          />
+        )}
+      </FilterDrawer>
 
       <ListPageLayout.Body isSyncing={isPlaceholderData}>
         {isLoading && !isPlaceholderData ? (
@@ -176,42 +217,57 @@ export function IngredientsPage() {
         ) : (
           <>
             <div className="list-grid">
-              {items.map((ingredient) => (
-                <Card
-                  key={ingredient.id}
-                  as={Link as React.ElementType}
-                  to="/ingredients/$slug"
-                  params={{ slug: ingredient.slug }}
-                  accent="var(--color-info)"
-                >
-                  <Card.Body>
-                    <Card.Title
-                      style={{ viewTransitionName: `ingredient-name-${ingredient.slug}` }}
-                    >
-                      {ingredient.name}
-                    </Card.Title>
-                    {ingredient.description && (
-                      <Card.Description>{ingredient.description}</Card.Description>
-                    )}
-                  </Card.Body>
-                  <Card.Footer>
-                    <Badge variant="chip">{ingredient.category}</Badge>
-                    <svg
-                      className="ingredients-page__card-arrow"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      role="img"
-                      aria-label="Voir l'ingrédient"
-                    >
-                      <path d="M5 12h14M12 5l7 7-7 7" />
-                    </svg>
-                  </Card.Footer>
-                </Card>
-              ))}
+              {items.map((ingredient) => {
+                const avoidLabels = ingredient.profileMatches.map(
+                  (s) =>
+                    SKIN_TYPE_LABELS[s as keyof typeof SKIN_TYPE_LABELS] ??
+                    SKIN_CONCERN_LABELS[s as keyof typeof SKIN_CONCERN_LABELS] ??
+                    s
+                )
+                return (
+                  <Card
+                    key={ingredient.id}
+                    as={Link as React.ElementType}
+                    to="/ingredients/$slug"
+                    params={{ slug: ingredient.slug }}
+                    accent="var(--color-info)"
+                  >
+                    <Card.Body>
+                      <Card.Title
+                        style={{ viewTransitionName: `ingredient-name-${ingredient.slug}` }}
+                      >
+                        {ingredient.name}
+                      </Card.Title>
+                      {ingredient.description && (
+                        <Card.Description>{ingredient.description}</Card.Description>
+                      )}
+                    </Card.Body>
+                    <Card.Footer>
+                      {ingredient.profileMatches.length > 0 && (
+                        <span title={`Déconseillé pour : ${avoidLabels.join(', ')}`}>
+                          <Badge variant="error">
+                            <AlertTriangle size={12} aria-hidden="true" /> Éviter
+                          </Badge>
+                        </span>
+                      )}
+                      <Badge variant="chip">{ingredient.category}</Badge>
+                      <svg
+                        className="ingredients-page__card-arrow"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        role="img"
+                        aria-label="Voir l'ingrédient"
+                      >
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </svg>
+                    </Card.Footer>
+                  </Card>
+                )
+              })}
             </div>
 
             {hasFilters && (
