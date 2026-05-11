@@ -105,8 +105,6 @@ export const TEPE_SEED: UnifiedProductSeed[] = [
     notes: '',
     inci: 'Manche : Polypropylène (certifié ISCC).\nFilaments : Polyamide (PA).\nFil : Acier inoxydable plastifié.\nCapuchon : Polypropylène (certifié ISCC), encre offset sèche UV.',
     url: 'https://www.atida.fr/tepe-brossette-interdentaire-eco-responsable-iso-1-0-45mm-6-brossettes.html',
-    imageUrl:
-      'https://aurore-cdn.b-cdn.net/products/brossettes-interdentaires-tepe-originales-orange-0-45-mm-6-brossettes-258882.webp',
     tags: {
       primary: [DENTAL_PRODUCT_TAG_SLUGS.FIL_DENTAIRE],
       secondary: [],

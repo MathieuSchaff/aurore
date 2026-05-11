@@ -13,6 +13,7 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     priceCents: 3130,
     description: 'Sérum fortifiant antichute à la quinine + edelweiss bio.',
     url: 'https://www.atida.fr/klorane-serum-anti-chute-quinine-edelweiss-bio-100ml.html',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/klorane-quinine-serum-antichute.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [
@@ -35,6 +36,8 @@ export const KLORANE_SEED: UnifiedProductSeed[] = [
     priceCents: 1110,
     description: 'Shampoing fortifiant quinine + edelweiss bio.',
     url: 'https://www.atida.fr/klorane-quinine-edelweiss-shampoing-fortifiant-400ml.html',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/klorane-quinine-edelweiss-shampoing-fortifiant.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SHAMPOOING],
       secondary: [

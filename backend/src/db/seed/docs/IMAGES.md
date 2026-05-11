@@ -30,16 +30,16 @@ Le mapping `slug seed → fichier image` vit dans `output/image-mapping.json`. I
 3. **Atida / Skinsafe DL** — pour les seeds sans match local mais avec un `imageUrl` externe (`assets.atida.com` ou `cdn1.skinsafeproducts.com`), `scrapper-para/scripts/download-external-images.ts` télécharge l'image et l'ajoute au mapping.
 4. **Pas de fuzzy aveugle** — token-reorder et token-set matching ont été testés mais produisent des faux positifs (ex: `aderma-exomega-huile-500` ≠ `aderma-exomega-control-huile-lavante-emolliente-200ml`). On ne match que par préfixe bidirectionnel exact.
 
-### 2.2 État (snapshot)
+### 2.2 État (snapshot 2026-05-12 post-session §7.3, DB live)
 
-| Niveau | Seeds couverts | Source |
+| Niveau | Produits | Note |
 |---|---:|---|
-| Detail HD 600×600 | 1168 | `product-details/` |
-| Thumb fallback LR 198×198 | 1061 | `images/` |
-| Atida DL | 58 | `images-downloaded/` |
-| Skinsafe DL | 413 | `images-downloaded/` |
-| **Total mappé** | **2700 / 3303** (82%) | |
-| Sans image (mapping) | 603 | K-beauty + résidus pharma (cf. §3) |
+| `image_url` patché CDN Bunny | **4014** | `https://aurore-cdn.b-cdn.net/products/<slug>.webp` |
+| URL externe non patchée | 61 | 59 skinsafe (PNG 403) + 2 atida (404) |
+| Pas d'`image_url` (NULL/'') | 127 | top : nutripure (16), mustela (9), avène (7), svr (7) |
+| **Total** | **4202** | couverture CDN **95.5 %** |
+
+Snapshot mapping historique (`Vault/aurore-archive/seed-output/image-mapping.json`, n=2700) couvrait l'état pré-enrichissement (~3303 produits). La couverture relative s'est améliorée malgré l'ajout de ~900 produits : 82 % → 95.5 %.
 
 Format du mapping :
 
@@ -64,6 +64,10 @@ Format du mapping :
 
 ## 3. Classification des produits seed par source d'image
 
+### 3.1 Historique (build mapping initial, archivé)
+
+Réf `Vault/aurore-archive/seed-output/image-mapping.json` (n=2700, snapshot pré-enrichissement).
+
 | Bucket | Nb | Action patch CDN |
 |---|---:|---|
 | LOCAL only (pas d'imageUrl actuel) | 1172 | insert `imageUrl` |
@@ -73,21 +77,20 @@ Format du mapping :
 | Atida DL (résidus) | 58 | replace → CDN |
 | Skinsafe DL (K-beauty récupérables) | 413 | replace → CDN |
 | **Total mappé = 2700** ✅ | | patché |
-| Skinsafe externe (PNG protégés 403) | 119 | **non touché** (URL Skinsafe préservée) |
-| Atida externe (404) | 2 | non touché |
-| Sans image (vide/absent) | 636 | non touché |
-| Shopify-only (remedy) | 13 | non touché |
 
-### Skinsafe — état après DL (avril 2026)
+### 3.2 État DB live 2026-05-12 (post-session §7.3)
 
-Sur 532 produits Skinsafe-only, **413 récupérés** (78%) via `download-external-images.ts`. Les 119 restants sont des PNG en 403 Forbidden (probablement protection per-asset Skinsafe). Atida 58/60 (97%, 2 × 404).
+| Bucket | Nb | Détail |
+|---|---:|---|
+| URL CDN aurore-cdn | 4014 | OK |
+| Skinsafe externe (PNG protégés 403) | 59 | URL `cdn1.skinsafeproducts.com` préservée — failures JSON archivé : 119 (60 produits depuis dédupliqués/supprimés) |
+| Atida externe (404) | 2 | URL `assets.atida.com` préservée |
+| `image_url` NULL / vide | 127 | top : nutripure (16), mustela (9), avène (7), svr (7), eucerin (6), sulwhasoo (6) |
+| **Total** | **4202** | |
 
-Pour récupérer les 119 PNG bloqués il faudra browser automation (cookies session, scrapper-para). Cf. ROADMAP §7.3.
+### Skinsafe — gap résiduel (browser automation requise)
 
-### Brands sans image du tout (636)
-
-svr (35 résidus / 177 catalogue), the-ordinary (35), bioderma (31), theramid (29), avene (24 résidus / 146), dermeden (22), geek (19), nutripure (16), nooance (16), loccitane (16)…
-Mix de marques jamais scrappées (the-ordinary, bioderma) + résidus de marques scrappées (variantes/références particulières).
+Failures JSON (archive) : 119 PNG en `http 403`. Cf. ROADMAP §7.3. Approche : scrapper-para session avec cookies (`.browser_session/` déjà setup).
 
 ---
 
@@ -160,6 +163,32 @@ make ts-verify
 
 Re-runnable : changer `IMAGE_CDN_BASE` et relancer le patch ré-écrit toutes les URL gérées par le mapping.
 
+### 4.4 Service unifié `upload-product-image` (recommandé pour ajouts ponctuels)
+
+Pour publier une image isolée ou un petit lot, préférer le service au workflow §4.3 (qui exige un brand fetcher + run mass upload). Le service couvre tout en une commande : fetch URL ou fichier local → magick webp → Bunny PUT → DB UPDATE.
+
+```bash
+# single from URL (Shopify CDN, brand site, etc.)
+bun run backend/src/db/seed/scripts/upload-product-image.ts <slug> --url <URL>
+
+# single from local file (manuel DL préalable)
+bun run backend/src/db/seed/scripts/upload-product-image.ts <slug> --file /tmp/img.jpg
+
+# batch (JSON array of { slug, url? | file? })
+bun run backend/src/db/seed/scripts/upload-product-image.ts --batch jobs.json --concurrency 4
+
+# flags : --dry  --no-db  --no-staged
+```
+
+Implémentation : `scripts/lib/upload-product-image.ts` (`uploadProductImage(input, opts)`). Le CLI `scripts/upload-product-image.ts` est un thin wrapper.
+
+**Workflow ajout produit existant en DB sans image** :
+1. Trouver URL pack-shot manuellement (page produit marque, CDN Shopify, etc.).
+2. `bun run scripts/upload-product-image.ts <db-slug> --url <URL>`.
+3. `just db-snapshot` puis commit `snapshot/data.sql`.
+
+**Remplace** : `fetch-images-<brand>.ts` one-shot (chacun dupliquait HTML scrape + DL + convert + save). La couche discovery (regex HTML per-brand) n'est plus codée — l'utilisateur fournit l'URL au cas par cas.
+
 ---
 
 ## 5. Décisions design
@@ -172,23 +201,38 @@ Re-runnable : changer `IMAGE_CDN_BASE` et relancer le patch ré-écrit toutes le
 
 ---
 
-## 6. Re-générer mapping et webp (ad hoc)
+## 6. Re-générer mapping (`build-image-mapping.ts`)
 
-Pas encore scripté en TS — le mapping a été construit en Python one-shot. À scripter quand le scrap bougera. Étapes manuelles :
+```bash
+set -a && source .env.dev && set +a
+bun run backend/src/db/seed/scripts/build-image-mapping.ts [--dry]
+```
 
-1. Lister slugs seed et image filenames, faire le matching bidirectionnel detail-priority/thumb-fallback.
-2. Écrire `output/image-mapping.json`.
-3. Pour chaque entrée, convertir source → `output/images-normalized/<slug>.webp` via `magick <src> -quality 85 <dst>`.
+Source de vérité = **Bunny Storage list** (`/<zone>/products/`). Le local `output/images-normalized/` est un staging transient nettoyé après upload — il ne peut pas servir de référence. Le script :
 
-Voir aussi `output/image-mapping-detail.json` (mapping detail-only, sert au debug).
+1. Liste `products/*.webp` sur Bunny (auth `BUNNY_STORAGE_PASSWORD`).
+2. Liste `products.slug` en DB (`APP_DATABASE_URL`).
+3. Cross-join → `mapping[slug] = { source: 'cdn', file: '<slug>.webp', localStaged: bool }`.
+4. Écrit `output/image-mapping.json` + section `gaps` (CDN orphans, local pending, produits sans CDN).
+
+Shape compatible avec `patch-image-urls.ts` (lit `Object.keys(mapping)`) et `scrapper-para/scripts/download-external-images.ts` (lit `mapping[slug].source`).
+
+**Cas d'usage** :
+- Après ajout de fetchers brand + `upload-images.ts` → re-run pour régénérer mapping.
+- Avant `patch-image-urls.ts` si nouvelles uploads.
+- Debug : section `gaps.cdnOrphans` détecte webp uploadés mais produit supprimé/renommé depuis.
+
+Mapping historique archivé (Python one-shot, intro Pharmashop) : `Vault/aurore-archive/seed-output/image-mapping.json` (n=2700, pré-enrichissement). Conservé pour comparaison historique uniquement.
 
 ---
 
 ## 7. Tâches futures (cf. ROADMAP §7)
 
-- 119 PNG Skinsafe en 403 — récupérables via browser automation (scrapper-para).
-- ~636 produits sans image (the-ordinary, bioderma résidus, etc.) — scrap source à choisir.
-- Scripter le pipeline mapping+normalize en TS (`build-image-mapping.ts`) — actuellement Python one-shot.
+- 59 PNG Skinsafe en 403 — browser automation (scrapper-para `.browser_session/`). Cf. failures JSON archivé.
+- 127 produits sans image (nutripure 16, mustela 9, avène 7…) — workflow recommandé : `upload-product-image.ts <slug> --url <URL>` au cas par cas.
+- 2 URL Atida en 404 — source disparue, NULL ou alt source.
+- ~~Scripter `build-image-mapping.ts`~~ ✅ livré 2026-05-12.
+- ~~Service unifié upload~~ ✅ livré 2026-05-12 (`upload-product-image.ts`, cf §4.4).
 - Optionnel : route backend `/seed-images/<slug>.webp` (servir local en dev avant CDN).
 
 ---

@@ -13,6 +13,8 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     priceCents: 4199,
     description: 'Coffret 12 ampoules antichute réactionnelle (5 ml chacune).',
     url: 'https://www.atida.fr/rene-furterer-triphasic-reactional-traitement-antichute-reactionnelle-12-ampoules.html',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/rene-furterer-triphasic-reactional-ampoules.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [
@@ -36,6 +38,8 @@ export const RENE_FURTERER_SEED: UnifiedProductSeed[] = [
     priceCents: 5499,
     description: 'Coffret 8 flacons sérum antichute progressive (5,5 ml chacun).',
     url: 'https://www.atida.fr/furterer-triphasic-8-ampoules.html',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/rene-furterer-triphasic-progressive-ampoules.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [

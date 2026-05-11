@@ -15,7 +15,7 @@ export const LAZARTIGUE_SEED: UnifiedProductSeed[] = [
     inci: 'INGREDIENTS : Aqua/Water/Eau, Propanediol, Butylene Glycol, Glycerin, Polysorbate 20, Caprylyl/Capryl Glucoside, \nPanthenol, Cellulose Gum, Sodium Benzoate, Parfum/Fragrance, Polyglyceryl-3 Cocoate, Polyglyceryl-10 Laurate, Citric Acid, \nInulin, Tetrasodium Glutamate Diacetate, Xanthan Gum, Potassium Sorbate, Cellulose, Fructose, Glucose, Glycine, Larix \nEuropaea Wood Extract, Sodium Metabisulfite, Limonene, Dextran, Biotin, Linalool, Camellia Sinensis Leaf Extract, Zinc \nChloride, Acetyl Tetrapeptide-3, Trifolium Pratense (Clover) Flower Extract, CI 75810 (Chlorophyllin-Copper Complex), Acetyl \nHexapeptide-8, Maltodextrin',
     url: 'https://www.atida.fr/lazartigue-anti-chute-serum-anti-chute-progressive-thicker-50ml.html',
     imageUrl:
-      'https://aurore-cdn.b-cdn.net/products/lazartigue-serum-anti-chute-progressive-thicker-50ml-284107.webp',
+      'https://aurore-cdn.b-cdn.net/products/lazartigue-thicker-anti-chute-progressive.webp',
     tags: {
       primary: [HAIRCARE_PRODUCT_TAG_SLUGS.SERUM_CAPILLAIRE],
       secondary: [

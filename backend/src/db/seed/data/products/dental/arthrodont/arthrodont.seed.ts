@@ -14,8 +14,7 @@ export const ARTHRODONT_SEED: UnifiedProductSeed[] = [
     description: 'Pâte dentifrice gencives sensibles, soin quotidien.',
     inci: 'Water (aqua), calcium carbonate, glycerin, sodium lauryl sulfate, algin, carrageenan, cetylpyridiniuim chloride eugenol, flavor (aroma), glycyrrhetinic acid, illicium verum.',
     url: 'https://www.atida.fr/arthrodont-classic-pate-dentifrice-lot-de-2-x-75ml.html',
-    imageUrl:
-      'https://aurore-cdn.b-cdn.net/products/arthrodont-classic-pate-dentifrice-lot-de-2-x-75ml-248052.webp',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/arthrodont-classic-pate-lot-2x75ml.webp',
     tags: {
       primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],

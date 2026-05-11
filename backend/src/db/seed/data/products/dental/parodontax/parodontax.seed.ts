@@ -14,8 +14,7 @@ export const PARODONTAX_SEED: UnifiedProductSeed[] = [
     description: 'Dentifrice gencives saignantes, action quotidienne.',
     inci: 'Ingrédients:  sodium bicarbonate, aqua, glycerin, sodium lauryl sulfate, aroma, xanthan gum, cocamidopropyl betaine, sodium fluoride, sodium saccharin, titanium dioxide, steviol glycosides, limonene, CI 77491. Contient du fluorure de sodium à 0,310% p/p (1400 ppm de fluor).',
     url: 'https://www.atida.fr/parodontax-dentifrice-pate-gingivale-lot-de-2-x-75ml.html',
-    imageUrl:
-      'https://aurore-cdn.b-cdn.net/products/parodontax-dentifrice-pate-gingivale-lot-de-2-x-75ml-260704.webp',
+    imageUrl: 'https://aurore-cdn.b-cdn.net/products/parodontax-pate-gingivale-lot-2x75ml.webp',
     tags: {
       primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],

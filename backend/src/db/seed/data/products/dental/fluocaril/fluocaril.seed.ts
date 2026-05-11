@@ -13,6 +13,8 @@ export const FLUOCARIL_SEED: UnifiedProductSeed[] = [
     priceCents: 838,
     description: 'Dentifrice protection caries, double fluor, goût menthe.',
     url: 'https://www.atida.fr/fluocaril-cosmetique-bi-fluore-145mg-dentifrice-menthe-lot-de-2-x-75ml.html',
+    imageUrl:
+      'https://aurore-cdn.b-cdn.net/products/fluocaril-bi-fluore-145mg-menthe-lot-2x75ml.webp',
     tags: {
       primary: [DENTAL_PRODUCT_TAG_SLUGS.DENTIFRICE],
       secondary: [],

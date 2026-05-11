@@ -21,7 +21,7 @@ Du plus simple au plus risqué. S'arrêter dès qu'un item bloque.
 | 4 | ~~**§1.2 CHECK constraint** — migration DB `(type, category)` (2026-05-12, `0057_ingredients_type_category_check`)~~ ✅ | M | Moyen | Drizzle `check()` inline + SQL `IS NULL OR (type AND category IN …)` |
 | 5 | ~~**§4.3 avoid_for ingrédients** — backend schema + service + frontend (2026-05-12)~~ ✅ | M | Moyen | Cross-couches |
 | 6 | ~~**§4.1 haircare/supplement product tags** — taxonomie + seed + frontend (2026-05-12, audit obsolète)~~ ✅ | L | Moyen | Déjà livré : taxos (97 + 39 slugs), META, `productTagData` 4 domaines, drawer frontend câblé (`useProductTagFilterGroups`). Seed haircare enrichi commit `7afbf805`. Smoke UI OK. Reste data dette : supplement n'a qu'une marque (nutripure). |
-| 7 | **§7 images CDN — gaps résiduels** | M | Faible | 7.1 + 7.2 ✅ (infra + upload livrés). Restes : §7.3 (Skinsafe 403, sans image, pending bioderma), §7.4 (`build-image-mapping.ts` en TS). |
+| 7 | **§7 images CDN — gaps résiduels** | M | Faible | DB live : 4014/4202 patchés (95.5 %). 7.1 + 7.2 + 7.4 ✅. §7.3 partiel : reconcile + drsambunting/regimenlab ✅. Reste 59 Skinsafe (browser auto) + 127 sans image (curation) + 2 atida 404. |
 | 8 | **§3.2 142 produits sans primary** | L | Nul | Curation manuelle |
 
 ---
@@ -180,15 +180,21 @@ Audit 2026-05-12 : livré.
 
 ### 7.3 Couverture image — gaps connus
 
-État : **2700 / 3303 (82%)** après DL Atida + Skinsafe.
+État DB live 2026-05-12 (après session §7.3) : **4014 / 4202 patchés CDN (95.5 %)**.
 
-- [ ] **119 PNG Skinsafe en 403** — nécessite browser automation (cookies session) via `scrapper-para`. Liste dans `output/image-download-failures.json`.
-- [ ] **Sans image** (~603 produits) — `the-ordinary` (35), résidus svr/avene/bioderma, etc. Mix de marques jamais scrappées + variantes hors scope Pharmashop. Scrap source à choisir (sites marques, Yesstyle…).
+- [x] **Reconcile broken refs** (2026-05-12, `fix-broken-image-refs.ts`) : 7 renames (orphan webp + DB slug canonicalisé), 2 nullifies (image perdue), 12 cleanups (produits supprimés post-upload). 0 CDN orphans après.
+- [x] **drsambunting (22) + regimenlab (7)** uploadés via `upload-product-image.ts --batch` (2026-05-12). Shopify CDN PNG/JPG direct fetch.
+- [ ] **59 URL Skinsafe externes en DB** (failures JSON archivé : 119 PNG en `http 403`, 60 produits dédupliqués/supprimés depuis). Browser automation via `scrapper-para` (`.browser_session/` setup).
+- [ ] **127 produits sans `image_url`** — top marques : nutripure (16), mustela (9), avène (7), svr (7), eucerin (6), sulwhasoo (6). Mix marques jamais scrappées + résidus. Workflow recommandé : trouver URL manuellement → `upload-product-image.ts <slug> --url <URL>` (ou `--file` si DL local).
+- [ ] **2 URL Atida en 404** — source disparue. NULL ou trouver alt.
 - [x] **Pending CDN upload** — `bioderma-sebium-global` + `bioderma-pigmentbio-c-concentrate` (2026-05-12) : pages bioderma.fr ajoutées à `data/image-fetchers/bioderma.ts`, scrape via `fetch-images-bioderma.ts`, upload Bunny, patch `snapshot/data.sql` (`imageUrl` colonne).
 
 ### 7.4 Outils
 
-- [ ] Scripter `build-image-mapping.ts` (actuellement Python one-shot). Ré-runnable à chaque update du scrap.
+- [x] **`build-image-mapping.ts`** livré 2026-05-12 (`backend/src/db/seed/scripts/build-image-mapping.ts`).
+      Source de vérité = Bunny list (le Python one-shot original a disparu, et le local `images-normalized/` est un staging transient). Cross-check DB. Sortie `output/image-mapping.json` shape `{mapping: {slug: {source: 'cdn', file, localStaged}}, summary, gaps}`. Compat consumers (`patch-image-urls.ts`, `download-external-images.ts`).
+- [x] **`fix-broken-image-refs.ts`** livré 2026-05-12. Lit gaps du mapping, fait rename (copy+UPDATE+delete) / nullify / orphan cleanup. Idempotent, dry-run default.
+- [x] **`upload-product-image.ts` + lib service** livré 2026-05-12. Pipeline unifié URL/file/bytes → magick webp → Bunny PUT → DB UPDATE. CLI single + batch. Remplace les `fetch-images-<brand>.ts` one-shot. Cf. `IMAGES.md` §4.4.
 - [ ] Optionnel : route backend `/seed-images/<slug>.webp` servant `output/images-normalized/` en dev pour découpler test du CDN prod.
 
 ---
