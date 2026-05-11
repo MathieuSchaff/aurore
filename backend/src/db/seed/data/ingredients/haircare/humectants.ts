@@ -1,4 +1,4 @@
-import { INGREDIENT_TYPES, SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
+import { HAIRCARE_INGREDIENT_CATEGORIES, INGREDIENT_TYPES } from '@habit-tracker/shared'
 
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
 import type { IngredientInput } from '../types'
@@ -8,7 +8,7 @@ export const HAIR_HUMECTANTS: IngredientInput[] = [
     name: 'Aqua (Water)',
     slug: INGREDIENT_SLUGS.AQUA_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       'Base universelle de toute formulation cosmétique, solvant principal des actifs hydrophiles.',
     content: `
@@ -34,7 +34,7 @@ L'eau cosmétique est déionisée ou traitée par osmose inverse pour éliminer 
     name: 'Glycérine (Glycerin)',
     slug: INGREDIENT_SLUGS.GLYCERIN_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.HUMECTANT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       "Humectant polyol de référence, attire et retient l'eau atmosphérique dans la fibre capillaire et sur le cuir chevelu.",
     content: `
@@ -73,7 +73,7 @@ Protège les kératinocytes du cuir chevelu contre le stress osmotique — rôle
     name: 'Propylène Glycol (Propylene Glycol)',
     slug: INGREDIENT_SLUGS.PROPYLENE_GLYCOL_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.HUMECTANT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       'Diol synthétique humectant et solvant, favorise la pénétration des actifs dans la fibre capillaire.',
     content: `
@@ -108,7 +108,7 @@ Son faible poids moléculaire (76 Da) lui permet de traverser la cuticule et d'a
     name: 'Butylène Glycol (Butylene Glycol)',
     slug: INGREDIENT_SLUGS.BUTYLENE_GLYCOL_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.HUMECTANT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       'Humectant diol doux C4, pénètre la fibre capillaire avec moins de risque irritant que le propylène glycol.',
     content: `
@@ -141,7 +141,7 @@ Potentialise l'action des conservateurs classiques, permettant de réduire leurs
     name: 'Pentylène Glycol (Pentylene Glycol)',
     slug: INGREDIENT_SLUGS.PENTYLENE_GLYCOL_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.HUMECTANT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       'Humectant diol C5 à double action : hydratation et renforcement du système conservateur, compatible formules naturelles.',
     content: `
@@ -174,7 +174,7 @@ Compatible certification Cosmos/Ecocert. Très utilisé dans les shampooings et 
     name: 'Sorbitol',
     slug: INGREDIENT_SLUGS.SORBITOL_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.HUMECTANT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       'Polyol sucre naturel hautement hygroscopique, doux et non fermentescible, humectant de la fibre et du cuir chevelu.',
     content: `
@@ -209,7 +209,7 @@ Réduit la rigidité et l'électricité statique — bénéfice particulièremen
     name: 'Sodium PCA',
     slug: INGREDIENT_SLUGS.SODIUM_PCA_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.HUMECTANT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       "Composant clé du facteur naturel d'hydratation (NMF), hygroscopique puissant identique à celui produit naturellement dans le cortex capillaire.",
     content: `
@@ -239,7 +239,7 @@ Protège les kératinocytes et cellules folliculaires contre le stress hydrique,
     name: 'Panthénol (Pro-Vitamine B5)',
     slug: INGREDIENT_SLUGS.PANTHENOL_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.HUMECTANT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       'Pro-vitamine B5 qui pénètre le cortex capillaire, forme des liaisons hydrogène avec la kératine et améliore résistance, hydratation et brillance.',
     content: `
@@ -280,7 +280,7 @@ Des études in vitro (microscopie électronique) montrent une réduction signifi
     name: 'Aloe Vera (Aloe Barbadensis Leaf Juice)',
     slug: INGREDIENT_SLUGS.ALOE_VERA_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.HUMECTANT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       "Jus de feuille d'aloe vera riche en acemannane, vitamines et minéraux — hydratant, apaisant le cuir chevelu et anti-inflammatoire.",
     content: `
@@ -327,7 +327,7 @@ Le film polysaccharidique lisse les écailles et réduit la porosité — améli
     name: 'Acide Hyaluronique (Hyaluronic Acid)',
     slug: INGREDIENT_SLUGS.HYALURONIC_ACID_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.HUMECTANT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       "Biopolymère capable de retenir jusqu'à 1 000× son poids en eau, hydrate la fibre capillaire en profondeur selon son poids moléculaire.",
     content: `
@@ -365,7 +365,7 @@ Les fragments oligomériques traversent la cuticule et hydratent le cortex de l'
     name: 'Sodium Hyaluronate',
     slug: INGREDIENT_SLUGS.SODIUM_HYALURONATE_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.HUMECTANT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       "Sel sodique de l'acide hyaluronique, plus stable en formule et mieux pénétrant dans la fibre capillaire que la forme acide.",
     content: `
@@ -404,7 +404,7 @@ Le film hygroscopique formé en surface lisse la cuticule et réduit les nœuds 
     name: 'Bétaïne (Betaine)',
     slug: INGREDIENT_SLUGS.BETAINE_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.HUMECTANT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       'Osmolyte naturel extrait de la betterave sucrière, humectant doux et non irritant, protège la fibre et le cuir chevelu du stress osmotique.',
     content: `
@@ -442,7 +442,7 @@ Améliore la solubilité des actifs dans les phases aqueuses et stabilise les pr
     name: 'Fructose',
     slug: INGREDIENT_SLUGS.FRUCTOSE_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.HUMECTANT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       "Monosaccharide naturel hygroscopique, humectant doux d'origine végétale apportant souplesse et brillance à la fibre capillaire.",
     content: `
@@ -477,7 +477,7 @@ Protège les protéines kératiniques contre la déshydratation — effet "cryop
     name: 'Tréhalose (Trehalose)',
     slug: INGREDIENT_SLUGS.TREHALOSE_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.HUMECTANT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       'Disaccharide osmolyte produit par les organismes résistants à la dessiccation, stabilise les protéines kératiniques et protège la fibre capillaire du stress thermique.',
     content: `
@@ -510,7 +510,7 @@ Inhibe la réaction de Maillard (brunissement non enzymatique) entre sucres et p
     name: 'Allantoïne (Allantoin)',
     slug: INGREDIENT_SLUGS.ALLANTOIN_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.HUMECTANT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       'Métabolite purique apaisant et kératolytique doux, soulage les irritations du cuir chevelu et favorise le renouvellement cellulaire.',
     content: `
@@ -543,7 +543,7 @@ Stable sur une large gamme de pH (4–8), compatible avec la plupart des systèm
     name: 'Aquaxyl (Xylitylglucoside + Anhydroxylitol + Xylitol)',
     slug: INGREDIENT_SLUGS.AQUAXYL_COMPLEX,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.HUMECTANT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       'Complexe humectant breveté Sederma combinant trois dérivés du xylitol, réduit la perte en eau transépidermique et améliore la rétention hydrique de la fibre capillaire.',
     content: `
@@ -584,7 +584,7 @@ Le xylitol libre agit comme osmolyte humectant classique, retenant l'eau dans le
     name: 'Xylitylglucoside',
     slug: INGREDIENT_SLUGS.XYLITYLGLUCOSIDE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.HUMECTANT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       'Composant actif du complexe Aquaxyl, stimule la synthèse des lipides lamellaires et active les aquaporines pour améliorer la rétention hydrique.',
     content: `
@@ -606,7 +606,7 @@ Précurseur métabolique actif du complexe Aquaxyl : pénètre les kératinocyte
     name: 'Anhydroxylitol',
     slug: INGREDIENT_SLUGS.ANHYDROXYLITOL,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.HUMECTANT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       'Dérivé cyclique du xylitol, composant du complexe Aquaxyl, régule la fluidité des lipides intercellulaires de la cuticule capillaire.',
     content: `
@@ -628,7 +628,7 @@ Régule la fluidité et l'organisation lamellaire des lipides intercellulaires d
     name: 'Xylitol',
     slug: INGREDIENT_SLUGS.XYLITOL_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.HUMECTANT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.HUMECTANT,
     description:
       'Polyol sucre à cinq carbones, humectant osmotique direct et substrat énergétique cellulaire, composant du complexe Aquaxyl.',
     content: `

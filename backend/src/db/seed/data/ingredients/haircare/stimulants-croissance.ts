@@ -1,4 +1,4 @@
-import { INGREDIENT_TYPES, SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
+import { HAIRCARE_INGREDIENT_CATEGORIES, INGREDIENT_TYPES } from '@habit-tracker/shared'
 
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
 import type { IngredientInput } from '../types'
@@ -8,7 +8,7 @@ export const HAIR_STIMULANTS_CROISSANCE: IngredientInput[] = [
     name: 'Caféine (Caffeine)',
     slug: INGREDIENT_SLUGS.CAFFEINE_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Méthylxanthine qui pénètre le follicule pileux, inhibe la phosphodiestérase et contre l'effet inhibiteur de la DHT sur la croissance capillaire.",
     content: `
@@ -47,7 +47,7 @@ Peut améliorer la microcirculation périfolliculaire par vasodilatation légèr
     name: 'Niacinamide',
     slug: INGREDIENT_SLUGS.NIACINAMIDE_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Forme amide de la vitamine B3, améliore la microcirculation du cuir chevelu, renforce la barrière kératinique folliculaire et réduit l'inflammation associée à la miniaturisation pilaire.",
     content: `
@@ -85,7 +85,7 @@ Des études in vitro suggèrent une inhibition partielle de la 5α-réductase de
     name: 'Biotine (Biotin / Vitamine H)',
     slug: INGREDIENT_SLUGS.BIOTIN_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Coenzyme carboxylase essentielle au métabolisme des acides aminés et des acides gras constituant la kératine, active principalement en cas de carence avérée.',
     content: `
@@ -124,7 +124,7 @@ La prise orale à forte dose (2,5–10 mg/jour) n'a montré un effet que chez le
     name: 'Minoxidil',
     slug: INGREDIENT_SLUGS.MINOXIDIL,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Vasodilatateur antihypertenseur reconverti en stimulant capillaire topique, seul actif OTC reconnu par la FDA pour l'alopécie androgénétique masculine et féminine.",
     content: `
@@ -169,7 +169,7 @@ Retarde l'entrée en phase catagène (régression), augmentant la durée de vie 
     name: 'Capixyl (Acetyl Tetrapeptide-3)',
     slug: INGREDIENT_SLUGS.CAPIXYL,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Complexe breveté associant un tétrapeptide biomimétique et un extrait de trèfle rouge, stimule la matrice folliculaire et inhibe la 5α-réductase pour lutter contre l'alopécie androgénétique.",
     content: `
@@ -213,7 +213,7 @@ En associant stimulation ECM et inhibition androgénique locale, Capixyl s'oppos
     name: 'Redensyl',
     slug: INGREDIENT_SLUGS.REDENSYL,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Complexe breveté Givaudan ciblant les cellules souches folliculaires, réactive la division des cellules ORSc pour relancer la phase anagène et réduire la chute de cheveux.',
     content: `
@@ -260,7 +260,7 @@ L'EGCG2 neutralise les radicaux libres produits par le stress oxydatif périfoll
     name: 'Procapil',
     slug: INGREDIENT_SLUGS.PROCAPIL,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Complexe breveté Sederma à triple action anti-chute : inhibe la 5α-réductase, stimule la synthèse de protéines d'ancrage folliculaire et améliore la microcirculation du cuir chevelu.",
     content: `
@@ -303,7 +303,7 @@ La flavone apigénine (extraite de persil, camomille) inhibe l'enzyme de dégrad
     name: 'Extrait de Ginseng (Panax Ginseng Root Extract)',
     slug: INGREDIENT_SLUGS.GINSENG_EXTRACT_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait de racine de ginseng riche en ginsénosides, stimule la prolifération des cellules de la papille dermique et prolonge la phase anagène du cycle capillaire.',
     content: `
@@ -345,7 +345,7 @@ Neutralise les espèces réactives de l'oxygène (ROS) dans l'environnement foll
     name: 'Extrait de Cresson / Capucine',
     slug: INGREDIENT_SLUGS.CRESSON_CAPUCINE_EXTRACT,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Extraits riches en glucosinolates et isothiocyanates, stimulent la circulation périfolliculaire et constituent la base végétale de l'actif breveté Procapil.",
     content: `
@@ -389,7 +389,7 @@ Les polyphénols et la vitamine C neutralisent le stress oxydatif périfollicula
     name: 'Saw Palmetto (Serenoa Serrulata)',
     slug: INGREDIENT_SLUGS.SAW_PALMETTO,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Extrait lipidique de palmier nain américain riche en acides gras et stérols, inhibiteur naturel de la 5α-réductase utilisé contre l'alopécie androgénétique.",
     content: `

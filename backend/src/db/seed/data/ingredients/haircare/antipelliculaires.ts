@@ -1,4 +1,4 @@
-import { INGREDIENT_TYPES, SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
+import { HAIRCARE_INGREDIENT_CATEGORIES, INGREDIENT_TYPES } from '@habit-tracker/shared'
 
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
 import type { IngredientInput } from '../types'
@@ -8,7 +8,7 @@ export const HAIR_ANTIPELLICULAIRES: IngredientInput[] = [
     name: 'Pyrithione de Zinc (Zinc Pyrithione)',
     slug: INGREDIENT_SLUGS.ZINC_PYRITHIONE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Antifongique et antibactérien de référence contre Malassezia, réduit les squames et les démangeaisons du cuir chevelu.',
     content: `
@@ -46,7 +46,7 @@ Inhibe la synthèse de cytokines pro-inflammatoires (IL-1α, TNF-α) au niveau d
     name: 'Piroctone Olamine',
     slug: INGREDIENT_SLUGS.PIROCTONE_OLAMINE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Antifongique de nouvelle génération, plus efficace et mieux toléré que le pyrithione de zinc, actif de choix pour les formules antipelliculaires modernes.',
     content: `
@@ -88,7 +88,7 @@ Inhibe la production de leucotriènes et de prostaglandines au niveau du cuir ch
     name: 'Sulfure de Sélénium (Selenium Sulfide)',
     slug: INGREDIENT_SLUGS.SELENIUM_SULFIDE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Actif antipelliculaire puissant à double mécanisme antifongique et cytostatique, réservé aux traitements médicamenteux OTC en raison de son profil réglementaire strict.',
     content: `
@@ -125,7 +125,7 @@ Diminue l'activité des glandes sébacées par action locale, réduisant le subs
     name: 'Acide Salicylique (Salicylic Acid)',
     slug: INGREDIENT_SLUGS.SALICYLIC_ACID_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Bêta-hydroxy acide kératolytique qui exfolie le cuir chevelu en dissolisant le ciment intercornéocytaire, libère les squames et améliore la pénétration des autres actifs antipelliculaires.',
     content: `
@@ -164,7 +164,7 @@ Classé dans l'Annexe III du Règlement cosmétique 1223/2009 : concentration ma
     name: 'Kétoconazole (Ketoconazole)',
     slug: INGREDIENT_SLUGS.KETOCONAZOLE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Antifongique azolé à action ciblée sur la biosynthèse de l'ergostérol fongique, traitement de référence de la dermite séborrhéique modérée à sévère.",
     content: `
@@ -204,7 +204,7 @@ Réduit la production de cytokines pro-inflammatoires au niveau du cuir chevelu.
     name: 'Goudron de Houille (Coal Tar)',
     slug: INGREDIENT_SLUGS.COAL_TAR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Mélange complexe de composés aromatiques issu de la distillation du charbon, actif kératolytique et anti-prurigineux historique pour le psoriasis et la dermite séborrhéique sévère.',
     content: `
@@ -249,7 +249,7 @@ Activité modérée contre *Malassezia*, bien inférieure aux antifongiques spé
     name: 'Climbazole',
     slug: INGREDIENT_SLUGS.CLIMBAZOLE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Antifongique azolé très ciblé sur Malassezia, efficace à faible concentration et compatible avec les formules de rinçage comme les leave-ins antipelliculaires.',
     content: `
@@ -290,7 +290,7 @@ Stable en phase aqueuse, compatible avec la majorité des tensioactifs, émulsif
     name: "Huile d'Arbre à Thé (Tea Tree Oil)",
     slug: INGREDIENT_SLUGS.TEA_TREE_OIL_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Huile essentielle à large spectre antimicrobien extraite de Melaleuca alternifolia, reconnue pour ses propriétés antifongiques, antibactériennes et anti-inflammatoires sur le cuir chevelu.',
     content: `
@@ -340,7 +340,7 @@ Une étude randomisée contrôlée (Satchell et al., 2002, n=126) montre qu'un s
     name: 'Soufre (Sulfur)',
     slug: INGREDIENT_SLUGS.SULFUR_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Élément minéral kératolytique et séborrhéostatique historique, actif sur Malassezia et les bactéries du cuir chevelu, utilisé en shampoings et lotions traitants.',
     content: `

@@ -1,4 +1,4 @@
-import { INGREDIENT_TYPES, SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
+import { HAIRCARE_INGREDIENT_CATEGORIES, INGREDIENT_TYPES } from '@habit-tracker/shared'
 
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
 import type { IngredientInput } from '../types'
@@ -8,7 +8,7 @@ export const HAIR_CHELATEURS: IngredientInput[] = [
     name: 'Disodium EDTA',
     slug: INGREDIENT_SLUGS.DISODIUM_EDTA_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       "Chélateur synthétique disel de l'EDTA, séquestre les ions calcaire et métaux lourds qui déstabilisent les formules et ternissent la fibre capillaire.",
     content: `
@@ -46,7 +46,7 @@ L'EDTA est peu biodégradable (< 20% en 28 jours, test OCDE 301). Son accumulati
     name: 'Tetrasodium EDTA',
     slug: INGREDIENT_SLUGS.TETRASODIUM_EDTA,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       "Sel tétrasodique de l'EDTA, chélateur plus soluble que la forme disodique, efficace à pH neutre à basique pour la stabilisation des formules capillaires.",
     content: `
@@ -92,7 +92,7 @@ Même profil de biodégradabilité limitée que le disodium EDTA. Tendance à ê
     name: 'Acide Phytique (Phytic Acid)',
     slug: INGREDIENT_SLUGS.PHYTIC_ACID_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       "Hexaphosphate d'inositol d'origine végétale, chélateur biodégradable puissant des métaux lourds accumulés dans la fibre capillaire, compatible formules naturelles et Cosmos.",
     content: `
@@ -131,7 +131,7 @@ Biodégradable (> 60% en 28 jours selon OCDE 301), d'origine 100% végétale, co
     name: 'Gluconate de Sodium (Sodium Gluconate)',
     slug: INGREDIENT_SLUGS.SODIUM_GLUCONATE_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       "Sel sodique de l'acide gluconique, chélateur biodégradable d'origine naturelle, alternatif vert à l'EDTA pour la stabilisation des formules et la séquestration des ions calcaire.",
     content: `

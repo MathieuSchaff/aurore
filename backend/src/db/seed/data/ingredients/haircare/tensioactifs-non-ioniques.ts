@@ -1,4 +1,4 @@
-import { INGREDIENT_TYPES, SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
+import { HAIRCARE_INGREDIENT_CATEGORIES, INGREDIENT_TYPES } from '@habit-tracker/shared'
 
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
 import type { IngredientInput } from '../types'
@@ -8,7 +8,7 @@ export const HAIR_TENSIOACTIFS_NON_IONIQUES: IngredientInput[] = [
     name: 'Coco-Glucoside',
     slug: INGREDIENT_SLUGS.COCO_GLUCOSIDE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
     description:
       "Tensioactif non ionique d'origine 100% végétale issu du coco et du glucose, doux, certifiable naturel, base des shampoings sans sulfates.",
     content: `
@@ -46,7 +46,7 @@ Non ionique : compatible avec tensioactifs anioniques, cationiques et amphotère
     name: 'Decyl Glucoside',
     slug: INGREDIENT_SLUGS.DECYL_GLUCOSIDE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
     description:
       'Alkyl glucoside à chaîne C10 décyle, tensioactif non ionique très doux, faible CMC, adapté aux formules bébé et shampoings ultra-doux.',
     content: `
@@ -79,7 +79,7 @@ Le decyl glucoside est plus doux mais moins détersif que le coco-glucoside. Les
     name: 'Lauryl Glucoside',
     slug: INGREDIENT_SLUGS.LAURYL_GLUCOSIDE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
     description:
       'Alkyl glucoside à chaîne C12 laurique, tensioactif non ionique naturel avec le meilleur équilibre détersivité/douceur de la famille APG.',
     content: `
@@ -117,7 +117,7 @@ Comme tous les APG, biodégradable rapidement (>98% en 28 jours). Profil environ
     name: 'Caprylyl/Capryl Glucoside',
     slug: INGREDIENT_SLUGS.CAPRYLYL_CAPRYL_GLUCOSIDE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
     description:
       'Mélange APG de courtes chaînes C8–C10, tensioactif non ionique très doux avec propriétés émulsifiantes et solubilisantes, idéal pour formules légères et bébé.',
     content: `
@@ -152,7 +152,7 @@ Bonne capacité à stabiliser des émulsions huile-eau légères sans alourdir l
     name: 'Polysorbate 20',
     slug: INGREDIENT_SLUGS.POLYSORBATE_20,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
     description:
       'Ester de sorbitan éthoxylé (laurate), solubilisant non ionique léger, principalement utilisé pour incorporer les huiles et parfums dans les formules aqueuses capillaires.',
     content: `
@@ -188,7 +188,7 @@ Principalement comme **solubilisant** (pour huiles essentielles, fragrances, vit
     name: 'Polysorbate 60',
     slug: INGREDIENT_SLUGS.POLYSORBATE_60,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
     description:
       'Ester de sorbitan éthoxylé (stéarate), émulsifiant non ionique à HLB élevé, utilisé pour stabiliser les émulsions légères dans après-shampooings et traitements capillaires.',
     content: `
@@ -226,7 +226,7 @@ En association avec des co-émulsifiants (alcools gras, glycérol stéarate), st
     name: 'Polysorbate 80',
     slug: INGREDIENT_SLUGS.POLYSORBATE_80,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
     description:
       "Ester de sorbitan éthoxylé (oléate), émulsifiant non ionique polyvalent, solubilise huiles et silicones dans les formules aqueuses et améliore l'étalement des soins capillaires.",
     content: `

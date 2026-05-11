@@ -1,4 +1,4 @@
-import { INGREDIENT_TYPES, SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
+import { HAIRCARE_INGREDIENT_CATEGORIES, INGREDIENT_TYPES } from '@habit-tracker/shared'
 
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
 import type { IngredientInput } from '../types'
@@ -8,7 +8,7 @@ export const HAIR_TENSIOACTIFS_CATIONIQUES: IngredientInput[] = [
     name: 'Behentrimonium Chloride',
     slug: INGREDIENT_SLUGS.BEHENTRIMONIUM_CHLORIDE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
     description:
       'Tensioactif cationique C22 à longue chaîne, conditionneur puissant qui se dépose substantivement sur la fibre kératinique chargée négativement, réduisant la friction et les nœuds.',
     content: `
@@ -51,7 +51,7 @@ Le chlorure présente une charge cationique plus marquée et une substantivité 
     name: 'Behentrimonium Methosulfate',
     slug: INGREDIENT_SLUGS.BEHENTRIMONIUM_METHOSULFATE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
     description:
       "Tensioactif cationique C22 à contre-ion méthosulfate, conditionneur doux avec moindre risque d'accumulation que le chlorure, très utilisé dans les conditionneurs naturels et CG-friendly.",
     content: `
@@ -88,7 +88,7 @@ Le BTMS est très prisé dans les formules CG-friendly car il conditionne effica
     name: 'Cetrimonium Chloride',
     slug: INGREDIENT_SLUGS.CETRIMONIUM_CHLORIDE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
     description:
       'Tensioactif cationique C16 palmitique, conditionneur léger à déposition modérée, utilisé pour le démêlage et la douceur dans les après-shampooings et leave-ins.',
     content: `
@@ -130,7 +130,7 @@ Après-rinçage léger, sans film lourd sur les cheveux fins. Idéal pour les ap
     name: 'Cetrimonium Bromide',
     slug: INGREDIENT_SLUGS.CETRIMONIUM_BROMIDE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
     description:
       'Analogue bromure du cetrimonium chloride, conditionneur cationique C16 avec activité antimicrobienne marquée, utilisé dans les formules anti-pelliculaires et les défrisants.',
     content: `
@@ -163,7 +163,7 @@ Concentrations cosmétiques réglementées. En UE, usage limité et concentratio
     name: 'Stearalkonium Chloride',
     slug: INGREDIENT_SLUGS.STEARALKONIUM_CHLORIDE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
     description:
       "Tensioactif cationique C18 benzylique (alkylbenzyl ammonium), conditionneur puissant hérité des assouplissants textiles, fort dépôt sur la fibre mais risque accru d'accumulation.",
     content: `

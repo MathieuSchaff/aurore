@@ -1,4 +1,4 @@
-import { INGREDIENT_TYPES, SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
+import { HAIRCARE_INGREDIENT_CATEGORIES, INGREDIENT_TYPES } from '@habit-tracker/shared'
 
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
 import type { IngredientInput } from '../types'
@@ -8,7 +8,7 @@ export const HAIR_AGENTS_NACRANTS: IngredientInput[] = [
     name: 'Glycol Distéarate (Glycol Distearate)',
     slug: INGREDIENT_SLUGS.GLYCOL_DISTEARATE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       "Diester du glycol et de l'acide stéarique, agent nacrant et opacifiant de référence qui cristallise dans la phase aqueuse pour créer l'aspect perlé des shampoings et après-shampooings.",
     content: `
@@ -48,7 +48,7 @@ Intégré dans les micelles mixtes de tensioactifs, il modifie leur forme (sphé
     name: 'Mica',
     slug: INGREDIENT_SLUGS.MICA_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       "Silicate d'aluminium et de potassium sous forme de fines plaquettes réfléchissantes, agent nacrant et scintillant d'origine minérale utilisé dans les soins capillaires et produits coiffants.",
     content: `
@@ -89,7 +89,7 @@ Le mica brut est blanc nacré. Enrobé de dioxyde de titane (TiO₂) ou d'oxyde 
     name: 'Dioxyde de Titane (Titanium Dioxide)',
     slug: INGREDIENT_SLUGS.TITANIUM_DIOXIDE_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       "Oxyde minéral blanc d'origine naturelle ou synthétique, agent opacifiant puissant qui confère blancheur et opacité aux shampoings et soins capillaires, avec un secondaire effet protecteur UV.",
     content: `

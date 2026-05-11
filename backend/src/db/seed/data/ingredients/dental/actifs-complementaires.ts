@@ -1,4 +1,4 @@
-import { INGREDIENT_TYPES, SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
+import { DENTAL_INGREDIENT_CATEGORIES, INGREDIENT_TYPES } from '@habit-tracker/shared'
 
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
 import type { IngredientInput } from '../types'
@@ -8,7 +8,7 @@ export const DENTAL_ACTIFS_COMPLEMENTAIRES: IngredientInput[] = [
     name: 'Arginine',
     slug: INGREDIENT_SLUGS.ARGININE_DENTAL,
     type: INGREDIENT_TYPES.DENTAL,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: DENTAL_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Acide aminé basique qui obstrue les tubules dentinaires par dépôt de phosphate de calcium, réduisant la sensibilité dentinaire par occlusion physique.',
     content: `
@@ -35,7 +35,7 @@ Elmex Sensitive Professional (Pro-Argin), CB12 Boost.
     name: 'Calcium Sodium Phosphosilicate (Novamin)',
     slug: INGREDIENT_SLUGS.CALCIUM_SODIUM_PHOSPHOSILICATE,
     type: INGREDIENT_TYPES.DENTAL,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: DENTAL_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Biocéramique synthétique qui libère des ions calcium, sodium et phosphate au contact de la salive pour former de l'hydroxyapatite directement sur l'émail.",
     content: `
@@ -63,7 +63,7 @@ Sensodyne Répare et Protège (toute la gamme R&P).
     name: 'Chlorure de Cétylpyridinium (CPC)',
     slug: INGREDIENT_SLUGS.CETYLPYRIDINIUM_CHLORIDE,
     type: INGREDIENT_TYPES.DENTAL,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: DENTAL_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Tensioactif cationique quaternaire à large spectre antiseptique, utilisé en bain de bouche anti-gingivite comme alternative moins contraignante à la chlorhexidine.',
     content: `
@@ -95,7 +95,7 @@ Gum Paroex Bain de Bouche, Meridol Bain de Bouche Protection Gencives.
     name: 'Pyrophosphate de Tétrasodium (Tetrasodium Pyrophosphate)',
     slug: INGREDIENT_SLUGS.TETRASODIUM_PYROPHOSPHATE,
     type: INGREDIENT_TYPES.DENTAL,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: DENTAL_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Chélateur de calcium puissant qui empêche la minéralisation de la plaque en tartre en séquestrant les ions Ca²⁺ avant leur cristallisation.',
     content: `

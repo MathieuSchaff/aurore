@@ -1,4 +1,4 @@
-import { INGREDIENT_TYPES, SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
+import { DENTAL_INGREDIENT_CATEGORIES, INGREDIENT_TYPES } from '@habit-tracker/shared'
 
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
 import type { IngredientInput } from '../types'
@@ -8,7 +8,7 @@ export const DENTAL_ZINC: IngredientInput[] = [
     name: 'Citrate de Zinc (Zinc Citrate)',
     slug: INGREDIENT_SLUGS.ZINC_CITRATE,
     type: INGREDIENT_TYPES.DENTAL,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: DENTAL_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Forme organique du zinc très utilisée en dentifrice pour inhiber la formation du tartre et réduire la plaque bactérienne.',
     content: `
@@ -35,7 +35,7 @@ Fluocaril Bi-Fluoré, Parogencyl Gencives — souvent associé au monofluorophos
     name: 'Lactate de Zinc (Zinc Lactate)',
     slug: INGREDIENT_SLUGS.ZINC_LACTATE,
     type: INGREDIENT_TYPES.DENTAL,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: DENTAL_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Forme organique du zinc à haute biodisponibilité buccale, anti-gingivite et anti-tartre, présente notamment chez Meridol.',
     content: `
@@ -62,7 +62,7 @@ Meridol Dentifrice — combiné au fluorure stanneux pour une double action anti
     name: 'Acétate de Zinc (Zinc Acetate)',
     slug: INGREDIENT_SLUGS.ZINC_ACETATE,
     type: INGREDIENT_TYPES.DENTAL,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: DENTAL_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Actif anti-halitose à action rapide par neutralisation directe des composés soufrés volatils, signature de CB12.',
     content: `
@@ -89,7 +89,7 @@ CB12 Bain de Bouche — formule brevetée zinc acetate + chlorhexidine.
     name: 'Chlorure de Zinc (Zinc Chloride)',
     slug: INGREDIENT_SLUGS.ZINC_CHLORIDE,
     type: INGREDIENT_TYPES.DENTAL,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: DENTAL_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Sel inorganique du zinc à action antiseptique et astringente, utilisé principalement dans les bains de bouche anti-gingivite.',
     content: `
@@ -116,7 +116,7 @@ Parodontax Bain de Bouche Protection Quotidienne.
     name: 'Phosphate de Zinc (Zinc Phosphate)',
     slug: INGREDIENT_SLUGS.ZINC_PHOSPHATE,
     type: INGREDIENT_TYPES.DENTAL,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: DENTAL_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Actif anti-tartre qui précipite directement dans la plaque dentaire pour bloquer sa minéralisation, en synergie avec les fluorures.',
     content: `
@@ -140,7 +140,7 @@ Elmex Sensitive Plus, Elmex Anti-Caries Expert — combinaison zinc phosphate + 
     name: 'Sulfate de Zinc (Zinc Sulfate)',
     slug: INGREDIENT_SLUGS.ZINC_SULFATE,
     type: INGREDIENT_TYPES.DENTAL,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: DENTAL_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Forme inorganique classique du zinc en bain de bouche, anti-tartre et légèrement anti-inflammatoire gingival.',
     content: `

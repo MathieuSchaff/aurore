@@ -1,4 +1,4 @@
-import { INGREDIENT_TYPES, SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
+import { DENTAL_INGREDIENT_CATEGORIES, INGREDIENT_TYPES } from '@habit-tracker/shared'
 
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
 import type { IngredientInput } from '../types'
@@ -8,7 +8,7 @@ export const DENTAL_TENSIOACTIFS_DOUX: IngredientInput[] = [
     name: 'Cocamidopropyl Bétaïne',
     slug: INGREDIENT_SLUGS.COCAMIDOPROPYL_BETAINE_DENTAL,
     type: INGREDIENT_TYPES.DENTAL,
-    category: SKINCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
+    category: DENTAL_INGREDIENT_CATEGORIES.TENSIOACTIF,
     description:
       "Tensioactif amphotère dérivé de l'huile de coco, utilisé comme alternative ou complément au SLS pour une mousse plus douce sur les muqueuses buccales.",
     content: `

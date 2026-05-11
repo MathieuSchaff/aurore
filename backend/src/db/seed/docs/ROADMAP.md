@@ -1,19 +1,11 @@
 # Seed & Taxonomie — Roadmap
 
-> **À propos :** TODO list du seed + historique. Sections : dette ouverte (Infra / Ingrédients / Produits / Tags / Tests) et tableau des corrections récentes (avec SHAs). Répond à « qu'est-ce qui reste à faire ? » et « ça, c'est déjà fait ? ».
+> **À propos :** TODO list du seed + historique. Sections : dette ouverte (Ingrédients / Produits / Tags / Filtres / Images / INCI / Auto-tags). Répond à « qu'est-ce qui reste à faire ? » et « ça, c'est déjà fait ? ».
 
 Dette et tâches ouvertes. Pour l'architecture actuelle (stable), voir
 [`STATE.md`](./STATE.md).
 
 Règle : **une étape = une session = un commit propre.** Pas de chaînage.
-
----
-
-## 1. Infra
-
-- [ ] **DB reset + seed complet** — les migrations ont bougé (`0025` insérée,
-      `0024` modifiée, `0026` et `0027` sur ingredients). DB locale probablement
-      désynchronisée. → `make db-reset` (fallback `make db-clean && make db-migrate`).
 
 ---
 
@@ -40,35 +32,6 @@ DB sans erreur (seul `type` a une CHECK constraint depuis migration `0027`).
       source de shared, mais seules les valeurs constantes s'importent —
       simple à maintenir).
 
-### 2.4 Fichiers seed haircare/dental importent `SKINCARE_INGREDIENT_CATEGORIES`
-
-Bug pré-existant rendu visible par le rename §2.3. 20 fichiers dans
-`data/ingredients/{haircare,dental}/` importent `SKINCARE_INGREDIENT_CATEGORIES`
-alors qu'ils devraient importer respectivement
-`HAIRCARE_INGREDIENT_CATEGORIES` et `DENTAL_INGREDIENT_CATEGORIES`.
-
-Fonctionne aujourd'hui parce que les valeurs string sont identiques dans
-l'intersection (`actif`, `humectant`, `tensioactif`, `excipient`). Mais :
-- Un reader humain croit que ces ingrédients sont skincare.
-- Si quelqu'un ajoute `SKINCARE_INGREDIENT_CATEGORIES.EMOLLIENT` dans un
-  fichier haircare, le test `ingredient type and category are consistent`
-  échouera (EMOLLIENT absent de HAIRCARE_*).
-
-Fichiers concernés (13 haircare, 7 dental) :
-
-```
-haircare/agents-nacrants, antipelliculaires, ceramides-lipides, chelateurs,
-         divers, epaississants-texturants, humectants, proteines-keratine,
-         stimulants-croissance, tensioactifs-amphoteres, tensioactifs-anioniques,
-         tensioactifs-cationiques, tensioactifs-non-ioniques
-dental/  abrasifs, anti-sensibilite, antimicrobiens, blanchissants,
-         divers, excipients, remineralisation
-```
-
-- [ ] Remplacer l'import + les références par `HAIRCARE_INGREDIENT_CATEGORIES`
-      dans chaque fichier haircare (sauf `EMOLLIENT` → `CONDITIONNEUR` si présent)
-- [ ] Remplacer par `DENTAL_INGREDIENT_CATEGORIES` dans chaque fichier dental
-- [ ] Vérifier chaque `.X` utilisé existe dans le set cible
 
 ### 2.5 Cohérence catégorie ingrédient ↔ tags associés
 
@@ -139,18 +102,19 @@ Snapshot 2026-04-30 :
 
 ## 4. Tags
 
-### 4.1 Vocabulaire haircare / dental / supplement (seed DB)
+### 4.1 Vocabulaire haircare / supplement — produits (seed DB)
 
-Les fichiers shared `tag-slugs.ts` et `tag-taxonomy.ts` existent dans les 4
-domaines ingrédients (skincare, haircare, dental, supplement) — mais seuls
-skincare et supplement sont insérés en DB via `data/tags/index.ts`
-(`ingredientTagData`). Les taxonomies haircare et dental sont définies dans
-shared mais leurs slugs ne sont pas seedés.
+`ingredientTagData` agrège les 4 domaines (skincare + supplement + dental + haircare).
+`productTagData` agrège skincare + dental (`DENTAL_PRODUCT_TAG_TAXONOMY` livré 2026-05-07,
+36 slugs, 5 catégories). Haircare et supplement produits restent des stubs vides.
 
-Côté ingrédients : haircare (50 slugs) et dental (34 slugs) déjà seedés via `ingredientTagData`.
+Le drawer frontend sur les tabs haircare/dental/complement est minimal (kind + brand +
+ingredient seulement) — même si dental product tags sont en DB, le frontend ne les
+consomme pas encore (STATE §5.6).
 
-- [ ] **produits non-skincare** — `productTagData` ne couvre que skincare ;
-      étendre quand les stubs haircare/dental/supplement produits seront remplis
+- [ ] **haircare produits** — remplir `HAIRCARE_PRODUCT_TAG_TAXONOMY` + `HAIRCARE_PRODUCT_TAG_SLUGS`,
+      étendre `productTagData`, câbler drawer haircare frontend
+- [ ] **supplement produits** — idem pour supplement / complement
 
 ### 4.2 `TAG_SLUGS` legacy dans `data/tags/index.ts`
 
@@ -185,14 +149,12 @@ initiale : l'appliquer également aux ingrédients.
 
 | ID | Sévérité | Problème | Piste |
 |----|---|---|---|
-| P1 | 🟡 Moyen | Couverture tags faible sur produits seed — partiellement résolu (auto-tag avril 2026 : 875/1017 produits primary rempli, 142 restants sans primary). AND multi-filtres mieux couvert ; points ouverts : skin_type peu rempli, labels absents (sans-parfum, etc.), concentration INCI non utilisée. | 142 produits restants ; enrichir `INCI_TO_SKINCARE` avec les ingrédients fréquents non matchés |
+| P1 | 🟡 Moyen | Couverture tags faible sur produits seed — partiellement résolu (auto-tag avril 2026 : 875/1017 produits primary rempli, 142 restants sans primary). Points ouverts : skin_type peu rempli, labels absents (sans-parfum, etc.), concentration INCI non utilisée. | 142 produits restants ; curation manuelle par lot via description/notes |
 | P2 | 🔴 Bloquant | `products.kind` : 25 valeurs hétérogènes → inutilisable en filtre. | Remplacer par `product_type` tag |
 | P5 | 🟡 Moyen | Recherche texte incohérente : fuzzy (produits, pg_trgm) vs simple (ingrédients) | Harmoniser |
-| P6 | 🟢 Faible | Tri minimal : seulement `name` et `random`. Pas de tri date/popularité/prix. | — |
+| P6 | 🟢 Faible | Tri popularité absent. `price_asc`/`price_desc`/`newest`/`name`/`random` livrés (STATE §5.5). | Ajouter tri popularité si métrique disponible |
 | P7 | 🟡 Moyen | camelCase `skinType` (ingrédients) vs snake_case `skin_type` (produits) | Harmoniser |
-| P8 | 🟢 Faible | Pas de filtre prix. `products.priceCents` existe en DB mais aucun paramètre `priceMin`/`priceMax` dans `skincareListProductsQuery`. Pas d'UI range côté frontend. | Ajouter params range backend + composant range/input frontend |
-| P9 | 🟢 Faible | `GET /products/filter-options` retourne les tags sans compteur (`{ slug, name }`). UI ne peut pas afficher `"Acné (12)"`. Même limite côté ingrédients. | Enrichir la réponse avec `count` agrégé via junction |
-| P10 | 🟡 Moyen | Tabs `haircare` / `dental` / `complement` affichés mais taxonomie tag produit vide (cf. §4.1). Drawer minimal kind/brand/ingredient seulement. | Remplir `HAIRCARE_PRODUCT_TAG_TAXONOMY` etc., puis étendre `productTagData` (§4.1) |
+| P10 | 🟡 Moyen | Tabs `haircare` / `complement` — taxonomie tag produit vide (cf. §4.1). Drawer minimal seulement. Dental product tags en DB mais non câblés frontend. | Remplir `HAIRCARE_PRODUCT_TAG_TAXONOMY`, câbler drawer dental + haircare |
 
 ---
 
@@ -254,21 +216,7 @@ initiale : l'appliquer également aux ingrédients.
 
 ---
 
-## 8. Auto-tagging — fallback `%` claim (proche)
-
-Spec détaillée : [`_archive/percent-claim-spec.md`](./_archive/percent-claim-spec.md).
-
-**Objectif** : récupérer les FN sur INCI fragile (alphabétique, tronqué, prose marketing) via `product_ingredients.percent` structurés. Stratégie **fallback strict** : INCI fiable l'emporte toujours sur `%`.
-
-- [ ] Détection fragilité INCI (vide / alphabétique / préambule / `...`).
-- [ ] Mapping `% → tag` v1 (retinoids, BHA, AHA, tyrosinase-inhibitors, vitamin-c) avec bornes plausibles + unité `%` obligatoire.
-- [ ] Passe orchestrateur `percent-claim` en `secondary`, après `cross-signal`.
-- [ ] Tests unitaires (fragilité, mapping, refus hors-unité, fallback strict) + test orchestrateur intégration.
-- [ ] Mesurer ΔFN sur gold-set.
-
----
-
-## 9. Auto-tagging — dette résiduelle
+## 8. Auto-tagging — dette résiduelle
 
 Historique complet (calibration log + tier audit + roadmap absorbée) : [`_archive/auto-tags-roadmap.md`](./_archive/auto-tags-roadmap.md). Comment ça marche aujourd'hui : [`AUTO-TAGS.md`](./AUTO-TAGS.md).
 
@@ -277,3 +225,12 @@ Historique complet (calibration log + tier audit + roadmap absorbée) : [`_archi
 - [ ] **`texture-mousse` / `texture-stick` admin curation** — non dérivables INCI seul. Attendent que les ~3 700 produits `products.texture = NULL` soient peuplés via admin UI (T3 phase B).
 - [ ] **`peau-mixte`** — Tier 3, débloqué par `products.texture` populé (pattern : T-zone gel-cream + niacinamide top 8).
 - [ ] **`type-outil`** — décision produit : soit étendre `PRODUCT_KINDS` (`gua-sha`, `jade-roller`, `cleansing-brush`), soit retirer le slug.
+
+---
+
+## 9. INCI quality — suite (algo-derm)
+
+Plateau evidence atteint. Deux pistes restantes ; contexte + commandes dans [`audits/NEXT-SESSION-PROMPT.md`](./audits/NEXT-SESSION-PROMPT.md).
+
+- [ ] **M.2 — parser fix `1,2-hexanediol`** : split virgule coupe `1,2-hexanediol` → `1` + `2-hexanediol`. Protéger `\d,\d-` dans `splitINCI` (algo-derm `src/parser.ts`). Vérifier F1 0.997 conservé.
+- [ ] **Worst-match produits** : re-générer audit avec `INCI_AUDIT_FULL=1`, cibler §3/§4 (scrapes cassés, INCI appareil). Résoudre cas par cas plutôt que tokens haute fréquence.

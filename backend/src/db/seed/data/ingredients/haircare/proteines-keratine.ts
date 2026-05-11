@@ -1,4 +1,4 @@
-import { INGREDIENT_TYPES, SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
+import { HAIRCARE_INGREDIENT_CATEGORIES, INGREDIENT_TYPES } from '@habit-tracker/shared'
 
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
 import type { IngredientInput } from '../types'
@@ -8,7 +8,7 @@ export const HAIR_PROTEINES: IngredientInput[] = [
     name: 'Kératine Hydrolysée (Hydrolyzed Keratin)',
     slug: INGREDIENT_SLUGS.HYDROLYZED_KERATIN,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Protéine structurelle de la fibre capillaire hydrolysée en peptides, comble les zones de porosité et renforce la résistance mécanique du cheveu.',
     content: `
@@ -45,7 +45,7 @@ La kératine hydrolysée présente une affinité naturelle pour la fibre kérati
     name: 'Protéine de Blé Hydrolysée (Hydrolyzed Wheat Protein)',
     slug: INGREDIENT_SLUGS.HYDROLYZED_WHEAT_PROTEIN,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Protéine végétale hydrolysée du gluten de blé, riche en glutamine et proline, renforce la fibre capillaire et améliore l'élasticité sans alourdir.",
     content: `
@@ -82,7 +82,7 @@ Les acides aminés libres issus de l'hydrolyse (glutamine, glycine) exercent une
     name: 'Soie Hydrolysée (Hydrolyzed Silk)',
     slug: INGREDIENT_SLUGS.HYDROLYZED_SILK,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Fibroïne de soie hydrolysée en petits peptides, confère une brillance exceptionnelle, une texture soyeuse et renforce la résistance à la casse.',
     content: `
@@ -117,7 +117,7 @@ La sérine et la glycine sont des humectants naturels : la soie hydrolysée cont
     name: 'Protéine de Soja Hydrolysée (Hydrolyzed Soy Protein)',
     slug: INGREDIENT_SLUGS.HYDROLYZED_SOY_PROTEIN,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Protéine végétale hydrolysée du soja, riche en acides aminés essentiels, renforce la fibre capillaire et améliore la rétention de couleur des cheveux colorés.',
     content: `
@@ -152,7 +152,7 @@ Profil riche en acides aminés polaires (glutamine, asparagine) qui retiennent l
     name: 'Collagène Hydrolysé (Hydrolyzed Collagen)',
     slug: INGREDIENT_SLUGS.HYDROLYZED_COLLAGEN_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Protéine de tissu conjonctif hydrolysée en peptides, apporte fermeté à la fibre capillaire, hydratation et renforcement de la cuticule.',
     content: `
@@ -187,7 +187,7 @@ Les peptides collagène (PM 500–5 000 Da) s'adsorbent sur la surface kératini
     name: 'Protéine de Riz Hydrolysée (Hydrolyzed Rice Protein)',
     slug: INGREDIENT_SLUGS.HYDROLYZED_RICE_PROTEIN,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Protéine de riz hydrolysée riche en cystéine et méthionine, renforce la fibre capillaire en profondeur et protège contre les dommages oxydatifs.',
     content: `
@@ -222,7 +222,7 @@ Son profil en acides aminés confère un toucher doux et une brillance subtile �
     name: "Protéine d'Avoine Hydrolysée (Hydrolyzed Oat Protein)",
     slug: INGREDIENT_SLUGS.HYDROLYZED_OAT_PROTEIN,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Protéine d'avoine hydrolysée à profil apaisant, renforce la fibre et protège le cuir chevelu irrité grâce à ses peptides anti-inflammatoires et humectants.",
     content: `
@@ -257,7 +257,7 @@ Faible potentiel allergisant (sauf sensibilité connue à l'avoine) — adapté 
     name: 'Protéine de Quinoa Hydrolysée (Hydrolyzed Quinoa Protein)',
     slug: INGREDIENT_SLUGS.HYDROLYZED_QUINOA_PROTEIN,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Protéine du quinoa hydrolysée, profil d'acides aminés complet proche de la kératine, renforce la fibre, améliore l'élasticité et protège contre la casse.",
     content: `
@@ -292,7 +292,7 @@ Les acides aminés polaires du quinoa (asparagine, glutamine, thréonine) retien
     name: 'Acides Aminés de Blé (Wheat Amino Acids)',
     slug: INGREDIENT_SLUGS.WHEAT_AMINO_ACIDS,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Mélange d'acides aminés libres issus du blé, pénètre profondément la fibre capillaire, hydrate le cortex et renforce la structure kératinique.",
     content: `
@@ -329,7 +329,7 @@ Mimétisme du Natural Moisturizing Factor (NMF) de la fibre capillaire — profi
     name: 'Acides Aminés de Soie (Silk Amino Acids)',
     slug: INGREDIENT_SLUGS.SILK_AMINO_ACIDS,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Acides aminés libres de la fibroïne de soie — sérine, glycine, alanine — pénètrent la fibre capillaire et apportent brillance, douceur et résistance à la casse.',
     content: `
@@ -363,7 +363,7 @@ Analogie structurelle entre la fibroïne de soie (β-sheet) et les domaines cris
     name: 'Arginine',
     slug: INGREDIENT_SLUGS.ARGININE_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Acide aminé cationique essentiel de la kératine, améliore l'hydratation de la fibre, renforce la résistance chimique et stimule la microcirculation du cuir chevelu.",
     content: `
@@ -398,7 +398,7 @@ L'arginine est le précurseur du monoxyde d'azote (NO) via la NO synthase. Le NO
     name: 'Protéine de Jojoba Hydrolysée (Hydrolyzed Jojoba Esters)',
     slug: INGREDIENT_SLUGS.HYDROLYZED_JOJOBA_PROTEIN,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Esters de jojoba hydrolysés combinant un fragment protéique et un fragment lipidique, apportent nutrition, brillance et protection thermique à la fibre capillaire.',
     content: `
@@ -432,7 +432,7 @@ Contrairement aux huiles de jojoba non modifiées, les esters hydrolysés ne lai
     name: 'Créatine (Creatine)',
     slug: INGREDIENT_SLUGS.CREATINE_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Molécule guanidinoacétate naturelle, renforce la résistance mécanique de la fibre kératinique et protège contre les dommages oxydatifs et thermiques.',
     content: `
@@ -466,7 +466,7 @@ La créatine est présente naturellement dans les tissus kératinisés — son a
     name: 'Proline',
     slug: INGREDIENT_SLUGS.PROLINE_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Acide aminé cyclique constitutif de la kératine et du collagène, contribue à l'élasticité et à la flexibilité de la fibre capillaire.",
     content: `
@@ -500,7 +500,7 @@ En présence de cofacteurs (vitamine C), la proline peut être hydroxylée en hy
     name: 'Thréonine (Threonine)',
     slug: INGREDIENT_SLUGS.THREONINE_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Acide aminé essentiel hydroxylé, hydrate la fibre capillaire de l'intérieur, participe aux liaisons structurelles de la kératine et renforce la cuticule.",
     content: `
@@ -534,7 +534,7 @@ En s'incorporant dans les lacunes peptidiques de la kératine endommagée, la th
     name: 'Sérine (Serine)',
     slug: INGREDIENT_SLUGS.SERINE_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Acide aminé hydroxylé majeur du NMF cutané et capillaire, puissant humectant naturel qui maintient l'hydratation de la fibre et du cuir chevelu.",
     content: `
@@ -568,7 +568,7 @@ La sérine libre contribue à la sensation de douceur et de glissant perçue sur
     name: 'Glycine',
     slug: INGREDIENT_SLUGS.GLYCINE_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Plus petit acide aminé naturel, composant structurel majeur de la kératine et de la soie, pénètre profondément la fibre et stabilise la structure protéique.',
     content: `
@@ -602,7 +602,7 @@ La glycine est un acide aminé zwitterionique — elle agit comme tampon dans la
     name: 'Alanine',
     slug: INGREDIENT_SLUGS.ALANINE_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Acide aminé aliphatique abondant dans la kératine, renforce la structure alpha-hélicoïdale de la fibre et contribue à sa résistance mécanique.',
     content: `
@@ -635,7 +635,7 @@ Non irritante, non allergisante, stable dans toutes les formulations cosmétique
     name: 'Valine',
     slug: INGREDIENT_SLUGS.VALINE_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Acide aminé essentiel ramifié, composant des feuillets bêta de la kératine, améliore la compacité et la rigidité structurelle de la fibre capillaire.',
     content: `
@@ -668,7 +668,7 @@ Souvent formulée avec les autres BCAA (leucine, isoleucine) pour un effet syner
     name: 'Histidine',
     slug: INGREDIENT_SLUGS.HISTIDINE_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Acide aminé essentiel à cycle imidazole, chélatant naturel des métaux lourds dans la fibre capillaire, protège la kératine contre les dommages oxydatifs.',
     content: `
@@ -702,7 +702,7 @@ Les groupes imidazole chargés s'adsorbent sur les sites négatifs de la kérati
     name: 'Phénylalanine (Phenylalanine)',
     slug: INGREDIENT_SLUGS.PHENYLALANINE_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Acide aminé essentiel aromatique, composant des domaines hydrophobes de la kératine, contribue à la compacité structurelle et à la résistance chimique de la fibre.',
     content: `
@@ -735,7 +735,7 @@ Peu réactive chimiquement (pas de groupe fonctionnel polaire sur la chaîne lat
     name: 'Acide Aspartique (Aspartic Acid)',
     slug: INGREDIENT_SLUGS.ASPARTIC_ACID_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Acide aminé dicarboxylique chargé négativement, tamponne le pH de la fibre capillaire, hydrate le cortex et participe à la cohésion ionique de la kératine.',
     content: `

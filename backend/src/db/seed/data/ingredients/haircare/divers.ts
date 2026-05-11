@@ -1,4 +1,4 @@
-import { INGREDIENT_TYPES, SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
+import { HAIRCARE_INGREDIENT_CATEGORIES, INGREDIENT_TYPES } from '@habit-tracker/shared'
 
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
 import type { IngredientInput } from '../types'
@@ -8,7 +8,7 @@ export const HAIR_DIVERS: IngredientInput[] = [
     name: 'Tocophérol (Tocopherol / Vitamine E)',
     slug: INGREDIENT_SLUGS.TOCOPHEROL_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Antioxydant liposoluble majeur, protège les lipides de la cuticule contre la peroxydation et nourrit le cuir chevelu en profondeur.',
     content: `
@@ -47,7 +47,7 @@ Améliore la microcirculation du cuir chevelu par inhibition de l'agrégation pl
     name: 'Rétinyl Palmitate (Retinyl Palmitate / Vitamine A)',
     slug: INGREDIENT_SLUGS.RETINYL_PALMITATE_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Ester stable de la vitamine A, stimule le renouvellement cellulaire du cuir chevelu et renforce la gaine du follicule pileux.',
     content: `
@@ -86,7 +86,7 @@ Sensible à l'oxydation et à la lumière UV — encapsuler de préférence, ou 
     name: 'Coenzyme Q10 (Ubiquinone)',
     slug: INGREDIENT_SLUGS.COENZYME_Q10_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Coenzyme liposoluble de la chaîne respiratoire mitochondriale, antioxydant puissant qui protège les cellules folliculaires du vieillissement oxydatif.',
     content: `
@@ -122,7 +122,7 @@ Molécule lipophile de haut poids moléculaire (863 Da) — pénétration limit�
     name: 'Extrait de Bambou',
     slug: INGREDIENT_SLUGS.BAMBOU_EXTRACT_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait riche en silice organique issu des entrenœuds de bambou, renforce la structure kératinique et améliore résistance et élasticité de la fibre.',
     content: `
@@ -161,7 +161,7 @@ Les flavonoïdes (vitexine, orientine) protègent les pigments de la mélanine e
     name: 'Extrait de Romarin (Rosmarinus Officinalis Extract)',
     slug: INGREDIENT_SLUGS.ROMARIN_EXTRACT_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait botanique riche en acide rosmarinique et en diterpènes, stimule la microcirculation du cuir chevelu et protège la fibre du stress oxydatif.',
     content: `
@@ -201,7 +201,7 @@ Inhibe la COX-2 et la production de prostaglandines — réduit l'inflammation d
     name: 'Kaolin (Argile Blanche)',
     slug: INGREDIENT_SLUGS.KAOLIN_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Argile minérale douce à forte capacité d'adsorption, purifie le cuir chevelu en absorbant sébum et impuretés sans altérer la fibre.",
     content: `
@@ -245,7 +245,7 @@ En formulation, apporte corps et onctuosité aux shampoings secs, masques et pou
     name: 'Charbon Actif (Activated Charcoal)',
     slug: INGREDIENT_SLUGS.ACTIVATED_CHARCOAL_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Carbone poreux à surface spécifique ultra-élevée, adsorbe les polluants, résidus de silicones et excès de sébum du cuir chevelu avec une efficacité supérieure aux argiles.',
     content: `
@@ -281,7 +281,7 @@ Poudre noire intense — nécessite des conservateurs adaptés et une formule op
     name: 'Charbon de Bambou (Bambou Charcoal)',
     slug: INGREDIENT_SLUGS.BAMBOU_CHARCOAL_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Charbon obtenu par pyrolyse du bambou, alliant les propriétés adsorbantes du charbon actif et les oligo-éléments minéraux du végétal.',
     content: `
@@ -322,7 +322,7 @@ Souvent certifiable naturel/Cosmos. Positionné comme alternative éco-responsab
     name: 'Sel Marin (Sea Salt / Sodium Chloride)',
     slug: INGREDIENT_SLUGS.SEA_SALT_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       "Chlorure de sodium d'origine marine, ajuste la viscosité des shampoings et des gels, exfolie le cuir chevelu et apporte du volume à la fibre.",
     content: `
@@ -361,7 +361,7 @@ En granulométrie grossière (250–500 μm), les cristaux de sel marin exfolien
     name: 'Poudre de Shikakai (Acacia Concinna)',
     slug: INGREDIENT_SLUGS.SHIKAKAI_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Poudre ayurvédique issue des gousses d'Acacia concinna, naturellement riche en saponines lavantes douces et en acide ascorbique, nettoie et fortifie la fibre sans agresser le cuir chevelu.",
     content: `
@@ -405,7 +405,7 @@ Utilisé en poudre (mélangée à l'eau ou avec reetha/amla) ou comme extrait aq
     name: 'Poudre de Reetha (Sapindus Mukorossi)',
     slug: INGREDIENT_SLUGS.REETHA_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Poudre de noix de lavage ayurvédique à haute teneur en saponines triterpéniques, agent moussant naturel purifiant et anti-pelliculaire.',
     content: `
@@ -448,7 +448,7 @@ Souvent associé au shikakai et à l'amla (trio ayurvédique classique) en masqu
     name: "Poudre d'Amla (Phyllanthus Emblica)",
     slug: INGREDIENT_SLUGS.AMLA_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Poudre de groseille indienne exceptionnellement riche en vitamine C et en tanins hydrolysables, stimule la croissance capillaire, renforce la fibre et prévient le grisonnement prématuré.',
     content: `
@@ -492,7 +492,7 @@ Associé au shikakai et au reetha (trio lavant ayurvédique), ou en soin seul m�
     name: 'Bis-Aminopropyl Diglycol Dimaleate',
     slug: INGREDIENT_SLUGS.BIS_AMINOPROPYL_DIGLYCOL_DIMALEATE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Actif exclusif d'Olaplex, reconstruit les ponts disulfure brisés de la kératine à l'intérieur de la fibre capillaire — le seul traitement capillaire à réparer structurellement la kératine.",
     content: `
@@ -531,7 +531,7 @@ Les traitements répétés augmentent la densité de pontage — amélioration p
     name: 'Hydroxypropyl Cyclodextrine (Hydroxypropyl Cyclodextrin)',
     slug: INGREDIENT_SLUGS.HYDROXYPROPYL_CYCLODEXTRIN,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Oligosaccharide cyclique modifié capable d'encapsuler des molécules lipophiles, améliore la solubilité et la délivrance des actifs dans la fibre et élimine les odeurs par inclusion moléculaire.",
     content: `
@@ -567,7 +567,7 @@ Améliore la pénétration des peptides kératiniques hydrolysés de faible PM d
     name: 'Phytantriol',
     slug: INGREDIENT_SLUGS.PHYTANTRIOL_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Alcool triterpénique biomimétique dérivé de la phytol (chlorophylle), conditionneur de cuticule d'exception qui apporte brillance, douceur et protection thermique sans alourdir.",
     content: `
@@ -606,7 +606,7 @@ Compatible certifications naturelles. Non filmogène au sens classique — adapt
     name: 'Extrait de Noni (Morinda Citrifolia Fruit Extract)',
     slug: INGREDIENT_SLUGS.MORINDA_CITRIFOLIA_EXTRACT,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Extrait riche en proxéronine et en antioxydants phénoliques issu du fruit du noni polynésien, stimule la régénération cellulaire du cuir chevelu et protège la fibre du vieillissement oxydatif.',
     content: `
@@ -647,7 +647,7 @@ Les anthraquinones et la vitamine C protègent les mélanocytes et les cellules 
     name: "Extrait d'Açaï (Euterpe Oleracea Fruit Extract)",
     slug: INGREDIENT_SLUGS.EUTERPE_OLERACEA_EXTRACT,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Extrait de baie d'açaï amazonienne à très haute densité antioxydante (ORAC parmi les plus élevés), protège la kératine et les pigments de la fibre contre la dégradation oxydative.",
     content: `
@@ -689,7 +689,7 @@ Les phytostérols inhibent la synthèse de prostaglandines et de cytokines pro-i
     name: 'Extrait de Grenade (Punica Granatum Extract)',
     slug: INGREDIENT_SLUGS.PUNICA_GRANATUM_EXTRACT,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Extrait polyphénolique de grenade issu des graines et de l'écorce, puissant antioxydant et stimulant de la kératinisation folliculaire grâce à ses ellagitanins.",
     content: `
@@ -732,7 +732,7 @@ L'acide punique inhibe NF-κB et la production d'IL-1β — anti-inflammatoire p
     name: 'Palmitoyl Myristyl Serinate',
     slug: INGREDIENT_SLUGS.PALMITOYL_MYRISTYL_SERINATE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Ester lipopeptidique biomimétique de la 18-MEA capillaire, restaure la couche lipidique externe hydrophobe de la cuticule et réduit le coefficient de friction de la fibre.',
     content: `

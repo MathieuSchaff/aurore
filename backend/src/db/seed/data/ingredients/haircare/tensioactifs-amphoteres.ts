@@ -1,4 +1,4 @@
-import { INGREDIENT_TYPES, SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
+import { HAIRCARE_INGREDIENT_CATEGORIES, INGREDIENT_TYPES } from '@habit-tracker/shared'
 
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
 import type { IngredientInput } from '../types'
@@ -8,7 +8,7 @@ export const HAIR_TENSIOACTIFS_AMPHOTERES: IngredientInput[] = [
     name: 'Cocamidopropyl Betaine',
     slug: INGREDIENT_SLUGS.COCAMIDOPROPYL_BETAINE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
     description:
       'Co-tensioactif amphotère de référence dérivé du coco, adoucit les formules sulfatées, améliore la mousse et la douceur sensorielle tout en conditionnant légèrement la fibre.',
     content: `
@@ -48,7 +48,7 @@ La fraction cationique résiduelle à pH shampoing se dépose légèrement sur l
     name: 'Coco-Betaine',
     slug: INGREDIENT_SLUGS.COCO_BETAINE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
     description:
       'Bétaïne de coco sans liaison amide, tensioactif amphotère plus pur et moins susceptible aux impuretés allergisantes que la cocamidopropyl bétaïne.',
     content: `
@@ -86,7 +86,7 @@ Même effet adoucissant que la CAPB sur les systèmes sulfatés, avec meilleur p
     name: 'Sodium Cocoamphoacetate',
     slug: INGREDIENT_SLUGS.SODIUM_COCOAMPHOACETATE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
     description:
       "Tensioactif amphotère dérivé des acides gras de coco et de l'acide acétique, très doux, adapté aux shampoings bébé et formules pour cuirs chevelus sensibles.",
     content: `
@@ -124,7 +124,7 @@ Stable et actif à pH 5–6, compatible avec le film acide cutané.
     name: 'Disodium Cocoamphodiacetate',
     slug: INGREDIENT_SLUGS.DISODIUM_COCOAMPHODIACETATE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
     description:
       'Version di-acétate des amphotères coco, tensioactif très doux à double charge anionique, excellent co-tensioactif pour formules cuir chevelu sensible et anti-pelliculaire.',
     content: `

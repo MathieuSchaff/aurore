@@ -1,4 +1,4 @@
-import { INGREDIENT_TYPES, SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
+import { HAIRCARE_INGREDIENT_CATEGORIES, INGREDIENT_TYPES } from '@habit-tracker/shared'
 
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
 import type { IngredientInput } from '../types'
@@ -8,7 +8,7 @@ export const HAIR_CERAMIDES_LIPIDES: IngredientInput[] = [
     name: 'Céramide NP (Ceramide NP)',
     slug: INGREDIENT_SLUGS.CERAMIDE_NP_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Céramide non-hydroxy phytosphingosine, constituant majeur du ciment intercellulaire de la cuticule capillaire, restaure la barrière lipidique et réduit la porosité.',
     content: `
@@ -44,7 +44,7 @@ Stabilise l'adhérence des couches cuticulaires entre elles et avec la zone CMC 
     name: 'Céramide AP (Ceramide AP)',
     slug: INGREDIENT_SLUGS.CERAMIDE_AP_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Céramide alpha-hydroxy phytosphingosine, variant hydroxylé qui renforce la cohésion lamellaire de la cuticule avec une affinité particulière pour les fibres chimiquement traitées.',
     content: `
@@ -78,7 +78,7 @@ Zone de jonction cuticule-cortex la plus vulnérable aux dommages chimiques. Le 
     name: 'Céramide EOP (Ceramide EOP)',
     slug: INGREDIENT_SLUGS.CERAMIDE_EOP_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Céramide ester-lié oméga-hydroxy phytosphingosine, lipide ultra-longue chaîne constituant la couche lipidique superficielle de la fibre capillaire, clé de la brillance et de la résistance à l'humidité.",
     content: `
@@ -112,7 +112,7 @@ La mesure du céramide EOP par spectroscopie est utilisée en recherche cosméti
     name: 'Céramide NS (Ceramide NS)',
     slug: INGREDIENT_SLUGS.CERAMIDE_NS_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Céramide non-hydroxy sphingosine, constituant fondamental du ciment intercellulaire cuticulaire, renforce la barrière lipidique et améliore la résistance mécanique de la fibre.',
     content: `
@@ -146,7 +146,7 @@ Des études in vitro montrent que le céramide NS active des voies de signalisat
     name: 'Céramide AS (Ceramide AS)',
     slug: INGREDIENT_SLUGS.CERAMIDE_AS_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Céramide alpha-hydroxy sphingosine, variante hydroxylée à base sphingosine offrant un profil complémentaire aux céramides NP et NS pour la restauration complète du ciment intercellulaire.',
     content: `
@@ -180,7 +180,7 @@ La cohésion renforcée du ciment reconstruit avec une palette complète de cér
     name: 'Céramide 2',
     slug: INGREDIENT_SLUGS.CERAMIDE_2_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Ancienne nomenclature INCI correspondant au céramide NS, actif lipidique cuticule parmi les plus étudiés pour la réparation des fibres décolorées et chimiquement endommagées.',
     content: `
@@ -214,7 +214,7 @@ Voir la fiche **Céramide NS** pour le détail complet du mécanisme.
     name: 'Céramide 3',
     slug: INGREDIENT_SLUGS.CERAMIDE_3_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Ancienne nomenclature INCI correspondant au céramide NP, le plus représenté dans la cuticule capillaire saine et la référence formulatoire pour les soins lipidiques réparateurs.',
     content: `
@@ -247,7 +247,7 @@ Retrouvé dans les gammes Schwarzkopf BC Repair Rescue, Wella Enrich, et les soi
     name: 'Phytosphingosine',
     slug: INGREDIENT_SLUGS.PHYTOSPHINGOSINE_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Base sphingoïde précurseur des céramides cuticulaires, dotée d'une activité antimicrobienne intrinsèque, apaise le cuir chevelu et participe à la biosynthèse des lipides de barrière.",
     content: `
@@ -284,7 +284,7 @@ Améliore la synthèse de lipides lamellaires du cuir chevelu, réduisant la sen
     name: 'Cholestérol (Cholesterol)',
     slug: INGREDIENT_SLUGS.CHOLESTEROL_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Lipide stéroïdien indispensable à l'organisation lamellaire du ciment intercellulaire cuticulaire, le cholestérol amplifie l'efficacité des céramides et réduit la porosité de la fibre capillaire.",
     content: `
@@ -327,7 +327,7 @@ Améliore le glissant et la douceur de surface en comblant les microcrevasses cu
     name: 'Acide Linoléique (Linoleic Acid)',
     slug: INGREDIENT_SLUGS.LINOLEIC_ACID_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Acide gras oméga-6 essentiel, composant clé du ciment intercellulaire cuticulaire et de la couche lipidique externe (18-MEA), essentiel pour la brillance et la résistance à l'humidité.",
     content: `
@@ -365,7 +365,7 @@ Précurseur des prostaglandines anti-inflammatoires — réduit l'irritation du 
     name: 'Acide Oléique (Oleic Acid)',
     slug: INGREDIENT_SLUGS.OLEIC_ACID_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Acide gras monoinsaturé oméga-9 pénétrant, lubrifiant et émollient de la fibre capillaire, mais susceptible d'augmenter la porosité des cheveux très poreux si utilisé en excès.",
     content: `
@@ -406,7 +406,7 @@ Acide gras libre constitutif du ciment intercellulaire — sa restitution contri
     name: 'Acide Béhénique (Behenic Acid)',
     slug: INGREDIENT_SLUGS.BEHENIC_ACID,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Acide gras saturé à très longue chaîne (C22), émollient structurel de la fibre capillaire, filmogène léger et composant des lipides cuticulaires des cheveux à forte affinité pour la kératine.',
     content: `
@@ -443,7 +443,7 @@ Précurseur de la béhényl bétaïne et de l'alcool béhénylique, eux-mêmes u
     name: 'Squalane',
     slug: INGREDIENT_SLUGS.SQUALANE_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Hydrocarbure lipidique léger biomimétique, émollient non occlusif qui pénètre la fibre sans la surcharger, apporte brillance et souplesse en reproduisant les lipides sébacés naturels.',
     content: `
@@ -485,7 +485,7 @@ Inerte chimiquement, compatible avec tensioactifs, silicones, actifs anioniques 
     name: 'Phospholipides (Phospholipids)',
     slug: INGREDIENT_SLUGS.PHOSPHOLIPIDS_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       'Lipides membranaires amphiphiles aux propriétés émulsifiantes et restauratrices, ils reconstituent la bicouche lipidique du ciment intercellulaire cuticulaire et améliorent la pénétration des actifs.',
     content: `
@@ -527,7 +527,7 @@ Les acides gras libérés par hydrolyse des phospholipides nourrissent les lipid
     name: 'Phosphatidylcholine',
     slug: INGREDIENT_SLUGS.PHOSPHATIDYLCHOLINE_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.ACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.ACTIF,
     description:
       "Phospholipide majeur de la membrane cellulaire, principal actif de la lécithine, forme des liposomes vecteurs d'actifs et restaure la bicouche lipidique intercellulaire de la cuticule.",
     content: `

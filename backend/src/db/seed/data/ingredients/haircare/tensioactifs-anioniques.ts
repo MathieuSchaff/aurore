@@ -1,4 +1,4 @@
-import { INGREDIENT_TYPES, SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
+import { HAIRCARE_INGREDIENT_CATEGORIES, INGREDIENT_TYPES } from '@habit-tracker/shared'
 
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
 import type { IngredientInput } from '../types'
@@ -8,7 +8,7 @@ export const HAIR_TENSIOACTIFS_ANIONIQUES: IngredientInput[] = [
     name: 'Sodium Lauryl Sulfate (SLS)',
     slug: INGREDIENT_SLUGS.SLS_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
     description:
       'Tensioactif anionique puissant, agent moussant efficace mais potentiellement irritant pour le cuir chevelu et dénaturant pour les protéines kératiniques.',
     content: `
@@ -52,7 +52,7 @@ Le SLS ne se contente pas d'éliminer les salissures : il extrait aussi les lipi
     name: 'Sodium Laureth Sulfate (SLES)',
     slug: INGREDIENT_SLUGS.SLES_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
     description:
       'Version éthoxylée du SLS, plus douce et moins irritante, tensioactif anionique de référence dans la majorité des shampoings du marché.',
     content: `
@@ -96,7 +96,7 @@ Bonne capacité à solubiliser les actifs lipophiles (huiles essentielles, vitam
     name: 'Ammonium Lauryl Sulfate',
     slug: INGREDIENT_SLUGS.AMMONIUM_LAURYL_SULFATE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
     description:
       'Analogue ammonium du SLS, tensioactif anionique puissant produisant une mousse dense, légèrement plus doux que son homologue sodique.',
     content: `
@@ -135,7 +135,7 @@ Stable sur une plage de pH légèrement plus large que le SLS ; adapté aux sham
     name: 'Ammonium Laureth Sulfate',
     slug: INGREDIENT_SLUGS.AMMONIUM_LAURETH_SULFATE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
     description:
       'Version éthoxylée du sel ammonium, tensioactif anionique doux très moussant, alternative au SLES dans les formules à pH ajusté.',
     content: `
@@ -168,7 +168,7 @@ Profil fonctionnel très proche du SLES. La différence principale réside dans 
     name: 'Sodium Cocoyl Sulfate',
     slug: INGREDIENT_SLUGS.SODIUM_COCOYL_SULFATE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
     description:
       "Mélange de sulfates d'alkyle dérivés du coco (C8–C18), tensioactif anionique naturel plus doux que le SLS pur grâce à la diversité de ses chaînes.",
     content: `
@@ -203,7 +203,7 @@ L'hétérogénéité des chaînes dilue l'effet du C12 (le plus irritant) et ré
     name: 'Disodium Laureth Sulfosuccinate',
     slug: INGREDIENT_SLUGS.DISODIUM_LAURETH_SULFOSUCCINATE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
     description:
       'Tensioactif anionique doux dérivé du succinate, très bien toléré sur cuir chevelu sensible et cheveux colorés, utilisé en co-tensioactif.',
     content: `
@@ -238,7 +238,7 @@ Utilisé comme co-tensioactif secondaire avec les glucosides ou la coco-bétaïn
     name: 'Sodium Lauroyl Sarcosinate',
     slug: INGREDIENT_SLUGS.SODIUM_LAUROYL_SARCOSINATE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
     description:
       'Tensioactif anionique acide aminé (sarcosinique), doux, naturel, avec un pH de formulation favorable au respect du microbiome du cuir chevelu.',
     content: `
@@ -273,7 +273,7 @@ La tête anionique repousse les dépôts cationiques (calcaire, résidus conditi
     name: 'Sodium Cocoyl Glutamate',
     slug: INGREDIENT_SLUGS.SODIUM_COCOYL_GLUTAMATE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
     description:
       "Tensioactif anionique dérivé de l'acide glutamique et du coco, très doux, certifiable naturel, adapté aux shampoings sans sulfates pour cheveux sensibles.",
     content: `
@@ -308,7 +308,7 @@ Formule à pH 5–6 compatible avec le film acide du cuir chevelu. Ne perturbe p
     name: 'Sodium Lauroyl Glutamate',
     slug: INGREDIENT_SLUGS.SODIUM_LAUROYL_GLUTAMATE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
     description:
       'Tensioactif amino-acide très doux à chaîne C12 laurique, excellent profil tolérance pour cuirs chevelus sensibles et formules bébé.',
     content: `
@@ -343,7 +343,7 @@ La tête glutamique forme des liaisons hydrogène superficielles avec la cuticul
     name: 'Sodium Cocoyl Isethionate (SCI)',
     slug: INGREDIENT_SLUGS.SODIUM_COCOYL_ISETHIONATE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
     description:
       "Tensioactif anionique solide dérivé de l'acide iséthionique et du coco, produit une mousse crémeuse et riche tout en respectant la barrière du cuir chevelu.",
     content: `
@@ -379,7 +379,7 @@ Base solide de prédilection pour shampoings solides et barres de nettoyage. Peu
     name: 'Sodium Lauryl Methyl Isethionate (SLMI)',
     slug: INGREDIENT_SLUGS.SODIUM_LAURYL_METHYL_ISETHIONATE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
     description:
       "Tensioactif anionique de nouvelle génération dérivé de l'isethionate méthylé, offre détersivité et douceur supérieures au SLES avec une mousse microstructurée.",
     content: `
@@ -409,7 +409,7 @@ L'isethionate méthylé présente un potentiel irritant significativement infér
     name: 'Sodium Coco-Sulfate (SCS)',
     slug: INGREDIENT_SLUGS.SODIUM_COCO_SULFATE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
     description:
       "Mélange de sulfates d'alcools gras de coco non éthoxylés, souvent présenté comme alternative naturelle au SLS, mais au profil irritant comparable.",
     content: `
@@ -444,7 +444,7 @@ La présence de chaînes plus longues (C16–C18) adoucit légèrement le profil
     name: 'TEA Lauryl Sulfate',
     slug: INGREDIENT_SLUGS.TEA_LAURYL_SULFATE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.TENSIOACTIF,
     description:
       'Sel triéthanolamine du lauryl sulfate, tensioactif anionique liquide et dense utilisé en shampoing, moins irritant que le SLS sodique.',
     content: `

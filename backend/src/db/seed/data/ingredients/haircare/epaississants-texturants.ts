@@ -1,4 +1,4 @@
-import { INGREDIENT_TYPES, SKINCARE_INGREDIENT_CATEGORIES } from '@habit-tracker/shared'
+import { HAIRCARE_INGREDIENT_CATEGORIES, INGREDIENT_TYPES } from '@habit-tracker/shared'
 
 import { INGREDIENT_SLUGS } from '../ingredient-slugs'
 import type { IngredientInput } from '../types'
@@ -8,7 +8,7 @@ export const HAIR_EPAISSISSANTS: IngredientInput[] = [
     name: 'Carbomer',
     slug: INGREDIENT_SLUGS.CARBOMER_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       'Polymère acrylique réticulé qui forme des gels clairs à pH neutre-basique, agent épaississant et suspenseur de référence pour les gels coiffants et les shampoings.',
     content: `
@@ -52,7 +52,7 @@ Les chaînes ioniques du carbomer interagissent avec les interfaces huile/eau et
     name: 'Acrylates Copolymer',
     slug: INGREDIENT_SLUGS.ACRYLATES_COPOLYMER_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       'Copolymère acrylique tolèrant les électrolytes, épaississant stable dans les formules à forte concentration en sel ou en tensioactifs — utilisé dans les shampoings et après-shampooings modernes.',
     content: `
@@ -93,7 +93,7 @@ Certains grades forment un film polymère sur la cuticule qui améliore le gliss
     name: 'Gomme de Xanthane (Xanthan Gum)',
     slug: INGREDIENT_SLUGS.XANTHAN_GUM_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       'Polysaccharide fermenté par Xanthomonas campestris, épaississant et stabilisant naturel rhéofluidifiant, compatible formules Cosmos et soins capillaires naturels.',
     content: `
@@ -137,7 +137,7 @@ Sensation légèrement filmogène sur certains types de cheveux (cheveux fins, s
     name: 'Gomme de Cellulose (Cellulose Gum)',
     slug: INGREDIENT_SLUGS.CELLULOSE_GUM_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       'Carboxyméthylcellulose sodique dérivée du bois ou du coton, épaississant naturel substantif qui se dépose préférentiellement sur les cheveux abîmés pour un lissage et une protection durables.',
     content: `
@@ -173,7 +173,7 @@ Améliore la stabilité et la texture mousseuse des shampoings, en particulier d
     name: 'Hydroxyéthylcellulose (Hydroxyethylcellulose)',
     slug: INGREDIENT_SLUGS.HYDROXYETHYLCELLULOSE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       "Éther de cellulose non ionique d'origine végétale, épaississant stable aux électrolytes, agents filmogènes doux, compatible toutes formulations capillaires y compris shampoings à forte teneur en sel.",
     content: `
@@ -209,7 +209,7 @@ Se dépose sur la cuticule capillaire sous forme d'un film léger et flexible qu
     name: 'Hydroxypropyl Méthylcellulose (Hydroxypropyl Methylcellulose)',
     slug: INGREDIENT_SLUGS.HYDROXYPROPYL_METHYLCELLULOSE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       "Éther de cellulose mixte hydroxypropyléthylé, épaississant et agent filmogène thermogelifiable d'origine végétale, valorisé dans les formules capillaires naturelles et les gels coiffants.",
     content: `
@@ -245,7 +245,7 @@ Maintient les particules en suspension (argiles, poudres botaniques) sans néces
     name: 'PEG-120 Methyl Glucose Dioleate',
     slug: INGREDIENT_SLUGS.PEG_120_METHYL_GLUCOSE_DIOLEATE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       'Épaississant tensioactif non ionique PEGylé du glucose, augmente efficacement la viscosité des shampoings riches en tensioactifs doux sans alourdir la formule.',
     content: `
@@ -279,7 +279,7 @@ Stabilise et améliore la qualité de la mousse dans les shampoings doux (mousse
     name: 'Alginate de Sodium (Sodium Alginate)',
     slug: INGREDIENT_SLUGS.SODIUM_ALGINATE_HAIR,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       "Polysaccharide anionique extrait d'algues brunes, épaississant et agent filmogène naturel qui forme des gels en présence de calcium, certifiable Cosmos.",
     content: `
@@ -318,7 +318,7 @@ Maintient en suspension les particules et globules d'émulsion dans les formules
     name: 'Gomme de Sclérote (Sclerotium Gum)',
     slug: INGREDIENT_SLUGS.SCLEROTIUM_GUM,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       'Biopolymère fongique fermenté, épaississant naturel à haute performance tolérant les électrolytes, compatible formules certifiées et soins capillaires pour cheveux bouclés.',
     content: `
@@ -359,7 +359,7 @@ Les β-glucanes exercent une humectance de surface et peuvent se déposer légè
     name: 'Gomme de Tara (Caesalpinia Spinosa Gum)',
     slug: INGREDIENT_SLUGS.TARA_GUM,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       'Galactomannane extrait des gousses du tara péruvien, épaississant et conditionneur naturel qui améliore le glissant et facilite le démêlage des cheveux bouclés et épais.',
     content: `
@@ -405,7 +405,7 @@ Le film polysaccharidique est légèrement hygroscopique — contribue à la ré
     name: 'Cétéaryl Glucoside (Cetearyl Glucoside)',
     slug: INGREDIENT_SLUGS.CETEARYL_GLUCOSIDE,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       "Émulsifiant et co-émulsifiant non ionique biosourcé, produit par estérification d'alcools gras cétéaryliques et de glucose, utilisé pour former les émulsions O/E des après-shampooings et masques.",
     content: `
@@ -439,7 +439,7 @@ HLB ~11–12 : convient aux émulsions O/E légères à modérées. Peut être c
     name: 'PEG-40 Huile de Ricin Hydrogénée (PEG-40 Hydrogenated Castor Oil)',
     slug: INGREDIENT_SLUGS.PEG_40_HYDROGENATED_CASTOR_OIL,
     type: INGREDIENT_TYPES.HAIRCARE,
-    category: SKINCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
+    category: HAIRCARE_INGREDIENT_CATEGORIES.EXCIPIENT,
     description:
       "Agent solubilisant PEGylé de l'huile de ricin hydrogénée, incorpore les huiles essentielles, silicones et actifs lipophiles dans les phases aqueuses des shampoings et soins capillaires.",
     content: `
