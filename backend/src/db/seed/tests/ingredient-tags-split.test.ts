@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'bun:test'
+
 import { ingredientTagMap } from '../data/ingredient-tags'
 import { INGREDIENT_SLUGS, SUPPLEMENTS_CAROTENOIDES } from '../data/ingredients/ingredient-slugs'
 

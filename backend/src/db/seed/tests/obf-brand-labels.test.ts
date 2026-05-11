@@ -73,7 +73,11 @@ describe('aggregateBrandClaims', () => {
   ]
 
   test('vegan claim fires when ratio ≥ threshold AND total ≥ minProducts', () => {
-    const out = aggregateBrandClaims(rows, { ratioThreshold: 0.5, minProducts: 2, minLabelCount: 999 })
+    const out = aggregateBrandClaims(rows, {
+      ratioThreshold: 0.5,
+      minProducts: 2,
+      minLabelCount: 999,
+    })
     const foo = out.get('foo')
     expect(foo?.total).toBe(4)
     expect(foo?.vegan.count).toBe(2)
@@ -82,12 +86,20 @@ describe('aggregateBrandClaims', () => {
   })
 
   test('cruelty-free claim same threshold semantics', () => {
-    const out = aggregateBrandClaims(rows, { ratioThreshold: 0.5, minProducts: 2, minLabelCount: 999 })
+    const out = aggregateBrandClaims(rows, {
+      ratioThreshold: 0.5,
+      minProducts: 2,
+      minLabelCount: 999,
+    })
     expect(out.get('foo')?.crueltyFree.claim).toBe(true)
   })
 
   test('single-product brand fails minProducts even at ratio 1.0', () => {
-    const out = aggregateBrandClaims(rows, { ratioThreshold: 0.5, minProducts: 2, minLabelCount: 999 })
+    const out = aggregateBrandClaims(rows, {
+      ratioThreshold: 0.5,
+      minProducts: 2,
+      minLabelCount: 999,
+    })
     expect(out.get('single-product')?.vegan.claim).toBe(false)
   })
 
@@ -102,7 +114,11 @@ describe('aggregateBrandClaims', () => {
   })
 
   test('strict threshold (0.8) rejects 50%-tagged brand', () => {
-    const out = aggregateBrandClaims(rows, { ratioThreshold: 0.8, minProducts: 2, minLabelCount: 999 })
+    const out = aggregateBrandClaims(rows, {
+      ratioThreshold: 0.8,
+      minProducts: 2,
+      minLabelCount: 999,
+    })
     expect(out.get('foo')?.vegan.claim).toBe(false)
   })
 
@@ -111,7 +127,11 @@ describe('aggregateBrandClaims', () => {
       { brandTags: ['xx:a', 'xx:b'], labelTags: ['en:vegan'] },
       { brandTags: ['xx:a', 'xx:b'], labelTags: ['en:vegan'] },
     ]
-    const out = aggregateBrandClaims(multi, { ratioThreshold: 0.5, minProducts: 2, minLabelCount: 999 })
+    const out = aggregateBrandClaims(multi, {
+      ratioThreshold: 0.5,
+      minProducts: 2,
+      minLabelCount: 999,
+    })
     expect(out.get('a')?.vegan.count).toBe(2)
     expect(out.get('b')?.vegan.count).toBe(2)
   })

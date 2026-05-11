@@ -222,7 +222,15 @@ describe('macroAverage', () => {
     const a = macroAverage([
       stub({ tagSlug: 't1', rated: 4, precision: 1, recall: 1, f1: 1, brier: 0, ece: 0 }),
       stub({ tagSlug: 't2', rated: 0 }), // all NaN
-      stub({ tagSlug: 't3', rated: 2, precision: 0.5, recall: 0.5, f1: 0.5, brier: 0.25, ece: 0.1 }),
+      stub({
+        tagSlug: 't3',
+        rated: 2,
+        precision: 0.5,
+        recall: 0.5,
+        f1: 0.5,
+        brier: 0.25,
+        ece: 0.1,
+      }),
     ])
     expect(a.precision).toBeCloseTo(0.75, 5)
     expect(a.recall).toBeCloseTo(0.75, 5)
@@ -232,10 +240,7 @@ describe('macroAverage', () => {
   })
 
   test('all NaN → all NaN', () => {
-    const a = macroAverage([
-      stub({ tagSlug: 't1', rated: 0 }),
-      stub({ tagSlug: 't2', rated: 0 }),
-    ])
+    const a = macroAverage([stub({ tagSlug: 't1', rated: 0 }), stub({ tagSlug: 't2', rated: 0 })])
     expect(a.precision).toBeNaN()
     expect(a.recall).toBeNaN()
     expect(a.f1).toBeNaN()

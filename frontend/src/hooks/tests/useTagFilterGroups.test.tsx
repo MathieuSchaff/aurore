@@ -34,11 +34,7 @@ describe('useTagFilterGroups', () => {
 
   it('leaves count undefined when the tag item has no count', () => {
     const { result } = renderHook(() =>
-      useTagFilterGroups(
-        ['concern'] as const,
-        { concern: [{ slug: 'acne', name: 'Acné' }] },
-        META
-      )
+      useTagFilterGroups(['concern'] as const, { concern: [{ slug: 'acne', name: 'Acné' }] }, META)
     )
     const opt = result.current[0]?.subFilters[0]?.options[0]
     expect(opt?.count).toBeUndefined()
@@ -60,11 +56,7 @@ describe('useTagFilterGroups', () => {
 
   it('builds a FilterGroupConfig per category with tier + label from meta', () => {
     const { result } = renderHook(() =>
-      useTagFilterGroups(
-        ['skin_type', 'concern'] as const,
-        { skin_type: [], concern: [] },
-        META
-      )
+      useTagFilterGroups(['skin_type', 'concern'] as const, { skin_type: [], concern: [] }, META)
     )
     expect(result.current).toHaveLength(2)
     expect(result.current[0]?.id).toBe('skin_type')

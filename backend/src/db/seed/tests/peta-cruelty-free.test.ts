@@ -2,8 +2,8 @@ import { describe, expect, test } from 'bun:test'
 
 import {
   decidePetaStatus,
-  parsePetaPageStatus,
   type PerSlugStatus,
+  parsePetaPageStatus,
   petaSlug,
   petaSlugVariants,
 } from '../utils/peta-cruelty-free'
@@ -60,7 +60,7 @@ describe('parsePetaPageStatus', () => {
 
   test('"may not be cruelty-free" → not-cf', () => {
     const html =
-      '<h1>CeraVe (L&#039;Oreal) may not be cruelty-free</h1><p>This company hasn\'t signed PETA\'s statement.</p>'
+      "<h1>CeraVe (L&#039;Oreal) may not be cruelty-free</h1><p>This company hasn't signed PETA's statement.</p>"
     expect(parsePetaPageStatus(html)).toBe('not-cf')
   })
 
@@ -101,8 +101,6 @@ describe('decidePetaStatus', () => {
   })
 
   test('non-200/404 only → error', () => {
-    expect(
-      decidePetaStatus(new Map([['x', { httpCode: 500, pageStatus: null }]]))
-    ).toBe('error')
+    expect(decidePetaStatus(new Map([['x', { httpCode: 500, pageStatus: null }]]))).toBe('error')
   })
 })

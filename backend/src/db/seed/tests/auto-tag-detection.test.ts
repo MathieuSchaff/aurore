@@ -132,16 +132,14 @@ describe('auto-tag-detection', () => {
     // INCI dominated by unknown fillers — coverage will sit between the global
     // floor (0.30) and the non-comedogene floor (0.60). Other computed tags
     // pass through, but non-comedogene must not.
-    const inci =
-      'Aqua, Acme XR-7, Synthetic Polymer Z, Proprietary Blend Q, Glycerin, Niacinamide'
+    const inci = 'Aqua, Acme XR-7, Synthetic Polymer Z, Proprietary Blend Q, Glycerin, Niacinamide'
     const slugs = new Set(detectAutoTags(inci, 'serum').map((t) => t.slug))
     expect(slugs.has(S.NON_COMEDOGENE)).toBe(false)
   })
 
   test('R3 coverageMinOverride=0 bypasses both global and per-tag floors', () => {
     // Same low-coverage INCI — disabling the floor must surface non-comedogene.
-    const inci =
-      'Aqua, Acme XR-7, Synthetic Polymer Z, Proprietary Blend Q, Glycerin, Niacinamide'
+    const inci = 'Aqua, Acme XR-7, Synthetic Polymer Z, Proprietary Blend Q, Glycerin, Niacinamide'
     const slugs = new Set(
       detectAutoTags(inci, 'serum', { coverageMinOverride: 0 }).map((t) => t.slug)
     )

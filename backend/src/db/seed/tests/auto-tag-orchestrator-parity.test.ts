@@ -18,8 +18,8 @@ import { describe, expect, test } from 'bun:test'
 import { SKINCARE_PRODUCT_TAG_SLUGS } from '@habit-tracker/shared'
 
 import {
-  type AutoTagPair,
   AUTO_TAG_ELIGIBLE_CATEGORIES,
+  type AutoTagPair,
   detectAllAutoTags,
   type OrchestratorInput,
 } from '../utils/auto-tag-orchestrator'

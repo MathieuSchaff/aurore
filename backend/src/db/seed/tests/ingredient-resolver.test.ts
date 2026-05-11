@@ -4,15 +4,12 @@ import { isAlphabeticalINCI, stripMarketingPreamble } from '../utils/ingredient-
 
 describe('stripMarketingPreamble', () => {
   test('slices at "Ingrédients :" marker', () => {
-    const inci =
-      "Marketing prose, with commas, and more. Ingrédients : Aqua, Glycerin, Niacinamide"
+    const inci = 'Marketing prose, with commas, and more. Ingrédients : Aqua, Glycerin, Niacinamide'
     expect(stripMarketingPreamble(inci)).toBe('Aqua, Glycerin, Niacinamide')
   })
 
   test('slices at "Ingredients:" marker (English, no space)', () => {
-    expect(stripMarketingPreamble('Prose. Ingredients: Water, Glycerin')).toBe(
-      'Water, Glycerin'
-    )
+    expect(stripMarketingPreamble('Prose. Ingredients: Water, Glycerin')).toBe('Water, Glycerin')
   })
 
   test('returns input unchanged when no marker present', () => {
@@ -70,14 +67,12 @@ describe('isAlphabeticalINCI', () => {
   })
 
   test('rejects when window is sorted but only 2 distinct first letters', () => {
-    expect(
-      isAlphabeticalINCI(['acetic', 'adenosine', 'alpha', 'aqua', 'butylene'])
-    ).toBe(false)
+    expect(isAlphabeticalINCI(['acetic', 'adenosine', 'alpha', 'aqua', 'butylene'])).toBe(false)
   })
 
   test('accepts when 3+ distinct first letters and sorted', () => {
-    expect(
-      isAlphabeticalINCI(['acetic', 'adenosine', 'butylene', 'caprylic', 'glycerin'])
-    ).toBe(true)
+    expect(isAlphabeticalINCI(['acetic', 'adenosine', 'butylene', 'caprylic', 'glycerin'])).toBe(
+      true
+    )
   })
 })

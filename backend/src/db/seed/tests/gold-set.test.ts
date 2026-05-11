@@ -55,9 +55,9 @@ describe('validateGoldSet', () => {
   })
 
   test('rejects non-array annotations', () => {
-    expect(() =>
-      validateGoldSet({ ...validBase, annotations: 'oops' }, 'test.json')
-    ).toThrow(GoldSetValidationError)
+    expect(() => validateGoldSet({ ...validBase, annotations: 'oops' }, 'test.json')).toThrow(
+      GoldSetValidationError
+    )
   })
 
   test('rejects duplicate productSlug', () => {

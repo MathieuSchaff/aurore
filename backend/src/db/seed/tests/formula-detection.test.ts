@@ -307,9 +307,9 @@ describe('detectCernesPoches', () => {
 
 describe('detectKeratosePilaire', () => {
   test('urea in top 8 + body-lotion → keratose-pilaire', () => {
-    expect(
-      detectKeratosePilaire('Aqua, Urea, Glycerin, Petrolatum', 'body-lotion')
-    ).toContain(S.KERATOSE_PILAIRE)
+    expect(detectKeratosePilaire('Aqua, Urea, Glycerin, Petrolatum', 'body-lotion')).toContain(
+      S.KERATOSE_PILAIRE
+    )
   })
 
   test('urea + body-oil → keratose-pilaire', () => {
@@ -325,17 +325,14 @@ describe('detectKeratosePilaire', () => {
 
   test('lactic acid + ammonium lactate combo → keratose-pilaire (AmLactin pattern)', () => {
     expect(
-      detectKeratosePilaire(
-        'Aqua, Ammonium Lactate, Lactic Acid, Glycerin',
-        'body-lotion'
-      )
+      detectKeratosePilaire('Aqua, Ammonium Lactate, Lactic Acid, Glycerin', 'body-lotion')
     ).toContain(S.KERATOSE_PILAIRE)
   })
 
   test('lactic acid alone (no ammonium lactate) → not flagged (pH adjuster vs buffered)', () => {
-    expect(
-      detectKeratosePilaire('Aqua, Glycerin, Lactic Acid, Petrolatum', 'body-lotion')
-    ).toEqual([])
+    expect(detectKeratosePilaire('Aqua, Glycerin, Lactic Acid, Petrolatum', 'body-lotion')).toEqual(
+      []
+    )
   })
 
   test('urea in non-eligible kind (body-wash) → not flagged (rinse-off)', () => {
@@ -366,9 +363,9 @@ describe('detectReparationCutanee', () => {
   })
 
   test('centella asiatica extract → reparation-cutanee', () => {
-    expect(
-      detectReparationCutanee('Aqua, Glycerin, Centella Asiatica Leaf Extract')
-    ).toContain(S.REPARATION)
+    expect(detectReparationCutanee('Aqua, Glycerin, Centella Asiatica Leaf Extract')).toContain(
+      S.REPARATION
+    )
   })
 
   test('madecassoside (centella isolate) → reparation-cutanee', () => {
@@ -409,9 +406,7 @@ describe('detectEczemaAtopie', () => {
   })
 
   test('avena sativa on cleanser (rinse-off) → not flagged', () => {
-    expect(
-      detectEczemaAtopie('Aqua, Avena Sativa Kernel Flour, Glycerin', 'cleanser')
-    ).toEqual([])
+    expect(detectEczemaAtopie('Aqua, Avena Sativa Kernel Flour, Glycerin', 'cleanser')).toEqual([])
   })
 
   test('≥2 ceramides top 12 + no fragrance + no sulfate → eczema-atopie', () => {
@@ -449,9 +444,9 @@ describe('detectEczemaAtopie', () => {
 
   test('ceramides past position 12 → not counted (functional concentration cap)', () => {
     const filler = Array.from({ length: 12 }, (_, i) => `Filler${i + 1}`).join(', ')
-    expect(
-      detectEczemaAtopie(`Aqua, ${filler}, Ceramide NP, Ceramide AP`, 'moisturizer')
-    ).toEqual([])
+    expect(detectEczemaAtopie(`Aqua, ${filler}, Ceramide NP, Ceramide AP`, 'moisturizer')).toEqual(
+      []
+    )
   })
 
   test('ceramide combo + sodium lauryl sulfate top 5 → not flagged (sulfate disqualifies)', () => {
@@ -485,10 +480,7 @@ describe('detectEczemaAtopie', () => {
 
   test('avena sativa flower/leaf/stem juice (not kernel) → not flagged', () => {
     expect(
-      detectEczemaAtopie(
-        'Aqua, Avena Sativa Flower/Leaf/Stem Juice, Glycerin',
-        'serum'
-      )
+      detectEczemaAtopie('Aqua, Avena Sativa Flower/Leaf/Stem Juice, Glycerin', 'serum')
     ).toEqual([])
   })
 })
@@ -543,10 +535,7 @@ describe('detectRepulpant', () => {
 
   test('no plumping peptide → not flagged (HA + glycerin alone = generic hydrator)', () => {
     expect(
-      detectRepulpant(
-        'Aqua, Sodium Hyaluronate, Glycerin, Pentylene Glycol, Niacinamide',
-        'serum'
-      )
+      detectRepulpant('Aqua, Sodium Hyaluronate, Glycerin, Pentylene Glycol, Niacinamide', 'serum')
     ).toEqual([])
   })
 
@@ -612,15 +601,15 @@ describe('detectTextureRiche', () => {
   })
 
   test('shea butter alone → not flagged (one butter is just polish)', () => {
-    expect(
-      detectTextureRiche('Aqua, Glycerin, Butyrospermum Parkii Butter, Niacinamide')
-    ).toEqual([])
+    expect(detectTextureRiche('Aqua, Glycerin, Butyrospermum Parkii Butter, Niacinamide')).toEqual(
+      []
+    )
   })
 
   test('shea + beeswax → texture-riche', () => {
-    expect(
-      detectTextureRiche('Aqua, Butyrospermum Parkii Butter, Cera Alba, Glycerin')
-    ).toContain(S.TEXTURE_RICHE)
+    expect(detectTextureRiche('Aqua, Butyrospermum Parkii Butter, Cera Alba, Glycerin')).toContain(
+      S.TEXTURE_RICHE
+    )
   })
 
   test('shea synonyms (parkii + shea butter same ingredient) ≠ 2 butters', () => {
@@ -639,7 +628,9 @@ describe('detectTextureRiche', () => {
 
   test('euphorbia cerifera (candelilla wax INCI name) + shea → texture-riche', () => {
     expect(
-      detectTextureRiche('Polyglyceryl-2 Triisostearate, Octyldodecanol, Beurre de Butyrospermum Parkii, Cire d Euphorbia Cerifera, Huile Coco')
+      detectTextureRiche(
+        'Polyglyceryl-2 Triisostearate, Octyldodecanol, Beurre de Butyrospermum Parkii, Cire d Euphorbia Cerifera, Huile Coco'
+      )
     ).toContain(S.TEXTURE_RICHE)
   })
 
@@ -651,15 +642,15 @@ describe('detectTextureRiche', () => {
 // ─── T1.3 — texture-legere ──────────────────────────────────────────────────
 describe('detectTextureLegere', () => {
   test('aqua top 1 + no butter → texture-legere on serum', () => {
-    expect(
-      detectTextureLegere('Aqua, Glycerin, Niacinamide, Hyaluronic Acid', 'serum')
-    ).toContain(S.TEXTURE_LEGERE)
+    expect(detectTextureLegere('Aqua, Glycerin, Niacinamide, Hyaluronic Acid', 'serum')).toContain(
+      S.TEXTURE_LEGERE
+    )
   })
 
   test('water-based moisturizer with petrolatum top 8 → not flagged', () => {
-    expect(
-      detectTextureLegere('Aqua, Glycerin, Petrolatum, Niacinamide', 'moisturizer')
-    ).toEqual([])
+    expect(detectTextureLegere('Aqua, Glycerin, Petrolatum, Niacinamide', 'moisturizer')).toEqual(
+      []
+    )
   })
 
   test('shea butter top 5 → not flagged', () => {
@@ -716,18 +707,12 @@ describe('detectTextureLegere', () => {
 // ─── T1.5 — non-gras (silicone-led light formula) ───────────────────────────
 describe('detectNonGras', () => {
   test('serum + dimethicone top 5 + no oil → non-gras', () => {
-    const tags = detectNonGras(
-      'Aqua, Glycerin, Dimethicone, Niacinamide, Tocopherol',
-      'serum'
-    )
+    const tags = detectNonGras('Aqua, Glycerin, Dimethicone, Niacinamide, Tocopherol', 'serum')
     expect(tags).toContain(S.NON_GRAS)
   })
 
   test('eye-cream + cyclopentasiloxane → non-gras', () => {
-    const tags = detectNonGras(
-      'Aqua, Cyclopentasiloxane, Glycerin, Caffeine',
-      'eye-cream'
-    )
+    const tags = detectNonGras('Aqua, Cyclopentasiloxane, Glycerin, Caffeine', 'eye-cream')
     expect(tags).toContain(S.NON_GRAS)
   })
 
@@ -741,9 +726,7 @@ describe('detectNonGras', () => {
   })
 
   test('moisturizer (not in eligible kinds) → not flagged', () => {
-    expect(
-      detectNonGras('Aqua, Dimethicone, Glycerin, Niacinamide', 'moisturizer')
-    ).toEqual([])
+    expect(detectNonGras('Aqua, Dimethicone, Glycerin, Niacinamide', 'moisturizer')).toEqual([])
   })
 
   test('serum without any silicone top 5 → not flagged', () => {
@@ -768,9 +751,7 @@ describe('detectPigmentsVerts', () => {
   })
 
   test('chromium oxide green spelled out → flagged', () => {
-    expect(detectPigmentsVerts('Aqua, Glycerin, Chromium Oxide Green')).toContain(
-      S.PIGMENTS_VERTS
-    )
+    expect(detectPigmentsVerts('Aqua, Glycerin, Chromium Oxide Green')).toContain(S.PIGMENTS_VERTS)
   })
 
   test('clean INCI without green pigment → not flagged', () => {
@@ -786,60 +767,42 @@ describe('detectPigmentsVerts', () => {
 describe('detectVegan', () => {
   test('clean plant-based INCI ≥ 5 ingredients → vegan', () => {
     expect(
-      detectVegan(
-        'Aqua, Glycerin, Niacinamide, Hyaluronic Acid, Panthenol, Tocopherol'
-      )
+      detectVegan('Aqua, Glycerin, Niacinamide, Hyaluronic Acid, Panthenol, Tocopherol')
     ).toContain(S.VEGAN)
   })
 
   test('beeswax (cera alba) → not flagged', () => {
-    expect(
-      detectVegan('Aqua, Glycerin, Cera Alba, Tocopherol, Panthenol, Niacinamide')
-    ).toEqual([])
+    expect(detectVegan('Aqua, Glycerin, Cera Alba, Tocopherol, Panthenol, Niacinamide')).toEqual([])
   })
 
   test('lanolin → not flagged', () => {
-    expect(
-      detectVegan('Aqua, Glycerin, Lanolin, Tocopherol, Panthenol, Niacinamide')
-    ).toEqual([])
+    expect(detectVegan('Aqua, Glycerin, Lanolin, Tocopherol, Panthenol, Niacinamide')).toEqual([])
   })
 
   test('snail mucin → not flagged', () => {
     expect(
-      detectVegan(
-        'Aqua, Snail Secretion Filtrate, Glycerin, Niacinamide, Panthenol, Tocopherol'
-      )
+      detectVegan('Aqua, Snail Secretion Filtrate, Glycerin, Niacinamide, Panthenol, Tocopherol')
     ).toEqual([])
   })
 
   test('carmine / CI 75470 → not flagged', () => {
-    expect(
-      detectVegan('Aqua, Glycerin, Niacinamide, Panthenol, CI 75470, Tocopherol')
-    ).toEqual([])
+    expect(detectVegan('Aqua, Glycerin, Niacinamide, Panthenol, CI 75470, Tocopherol')).toEqual([])
   })
 
   test('hydrolyzed collagen → not flagged', () => {
     expect(
-      detectVegan(
-        'Aqua, Glycerin, Hydrolyzed Collagen, Niacinamide, Panthenol, Tocopherol'
-      )
+      detectVegan('Aqua, Glycerin, Hydrolyzed Collagen, Niacinamide, Panthenol, Tocopherol')
     ).toEqual([])
   })
 
   test('squalane (plant-derived saturated form) → vegan ok', () => {
-    expect(
-      detectVegan(
-        'Aqua, Glycerin, Squalane, Niacinamide, Panthenol, Tocopherol'
-      )
-    ).toContain(S.VEGAN)
+    expect(detectVegan('Aqua, Glycerin, Squalane, Niacinamide, Panthenol, Tocopherol')).toContain(
+      S.VEGAN
+    )
   })
 
   test('squalene (animal-derived unsaturated form) → not flagged', () => {
-    expect(
-      detectVegan(
-        'Aqua, Glycerin, Squalene, Niacinamide, Panthenol, Tocopherol'
-      )
-    ).toEqual([])
+    expect(detectVegan('Aqua, Glycerin, Squalene, Niacinamide, Panthenol, Tocopherol')).toEqual([])
   })
 
   test('short INCI < 5 ingredients → abstain', () => {
@@ -856,9 +819,9 @@ describe('detectVegan', () => {
   // enzyme). Patterns added to ANIMAL_PATTERNS — these tests pin the fix.
 
   test('pearl powder → not flagged', () => {
-    expect(
-      detectVegan('Aqua, Glycerin, Pearl Powder, Niacinamide, Panthenol, Tocopherol')
-    ).toEqual([])
+    expect(detectVegan('Aqua, Glycerin, Pearl Powder, Niacinamide, Panthenol, Tocopherol')).toEqual(
+      []
+    )
   })
 
   test('pearl extract → not flagged', () => {
@@ -1020,10 +983,7 @@ describe('detectNonGras — extended silicone patterns', () => {
 
   test('dimethiconol + olea europaea oil top 5 → not flagged (vegetable oil exclusion)', () => {
     expect(
-      detectNonGras(
-        'Aqua, Glycerin, Olea Europaea Fruit Oil, Dimethiconol, Niacinamide',
-        'serum'
-      )
+      detectNonGras('Aqua, Glycerin, Olea Europaea Fruit Oil, Dimethiconol, Niacinamide', 'serum')
     ).toEqual([])
   })
 })
@@ -1122,7 +1082,8 @@ describe('detectTextureGelInci (S5 INCI fallback)', () => {
   })
 
   test('shea butter top 8 → skipped (rich emulsion)', () => {
-    const inci = 'Aqua, Carbomer, Glycerin, Niacinamide, Panthenol, Butyrospermum Parkii Butter, Tocopherol'
+    const inci =
+      'Aqua, Carbomer, Glycerin, Niacinamide, Panthenol, Butyrospermum Parkii Butter, Tocopherol'
     expect(detectTextureGelInci(inci, 'moisturizer', null)).toEqual([])
   })
 
@@ -1273,13 +1234,22 @@ describe('detectTextureCremeEyeInci (eye-cream path 1 relaxé)', () => {
 
   test('sparse INCI < 4 + cream name → fire', () => {
     expect(
-      detectTextureCremeEyeInci('Aqua, Glycerin, Cetearyl Alcohol', 'eye-cream', null, 'Super Eye Cream')
+      detectTextureCremeEyeInci(
+        'Aqua, Glycerin, Cetearyl Alcohol',
+        'eye-cream',
+        null,
+        'Super Eye Cream'
+      )
     ).toEqual([S.TEXTURE_CREME])
   })
 
   test('null/empty INCI + cream name → fire', () => {
-    expect(detectTextureCremeEyeInci(null, 'eye-cream', null, 'Crystal Retinal Eye Cream')).toEqual([S.TEXTURE_CREME])
-    expect(detectTextureCremeEyeInci('', 'eye-cream', null, 'Crème Contour des Yeux')).toEqual([S.TEXTURE_CREME])
+    expect(detectTextureCremeEyeInci(null, 'eye-cream', null, 'Crystal Retinal Eye Cream')).toEqual(
+      [S.TEXTURE_CREME]
+    )
+    expect(detectTextureCremeEyeInci('', 'eye-cream', null, 'Crème Contour des Yeux')).toEqual([
+      S.TEXTURE_CREME,
+    ])
   })
 
   // ── Skips ─────────────────────────────────────────────────────────────────
@@ -1332,8 +1302,7 @@ describe('detectTextureCremeEyeInci (eye-cream path 1 relaxé)', () => {
   })
 
   test('ionic surfactant top 5 → veto 1 → skipped', () => {
-    const inci =
-      'Aqua, Sodium Laureth Sulfate, Glycerin, Cetearyl Alcohol, Niacinamide, Caffeine'
+    const inci = 'Aqua, Sodium Laureth Sulfate, Glycerin, Cetearyl Alcohol, Niacinamide, Caffeine'
     expect(detectTextureCremeEyeInci(inci, 'eye-cream', null)).toEqual([])
   })
 
@@ -1342,7 +1311,9 @@ describe('detectTextureCremeEyeInci (eye-cream path 1 relaxé)', () => {
   test('INCI gate passes but name says baume → conflict → abstain (admin fallback)', () => {
     const inci =
       'Aqua, Glycerin, Cetearyl Alcohol, Niacinamide, Caffeine, Panthenol, Tocopherol, Allantoin'
-    expect(detectTextureCremeEyeInci(inci, 'eye-cream', null, 'Baume Regard Immortelle Divine')).toEqual([])
+    expect(
+      detectTextureCremeEyeInci(inci, 'eye-cream', null, 'Baume Regard Immortelle Divine')
+    ).toEqual([])
   })
 
   test('INCI gate passes but name says balm → abstain', () => {
@@ -1354,7 +1325,9 @@ describe('detectTextureCremeEyeInci (eye-cream path 1 relaxé)', () => {
   test('INCI gate passes but name says gel → conflict → abstain', () => {
     const inci =
       'Aqua, Glycerin, Cetearyl Alcohol, Niacinamide, Caffeine, Panthenol, Tocopherol, Allantoin'
-    expect(detectTextureCremeEyeInci(inci, 'eye-cream', null, 'Gel Hydratant Contour des Yeux')).toEqual([])
+    expect(
+      detectTextureCremeEyeInci(inci, 'eye-cream', null, 'Gel Hydratant Contour des Yeux')
+    ).toEqual([])
   })
 
   test('name says serum → abstain regardless of INCI', () => {
@@ -1367,9 +1340,15 @@ describe('detectTextureCremeEyeInci (eye-cream path 1 relaxé)', () => {
   test('name says patch/hydrogel/ampoule → abstain', () => {
     const inci =
       'Aqua, Glycerin, Cetearyl Alcohol, Niacinamide, Caffeine, Panthenol, Tocopherol, Allantoin'
-    expect(detectTextureCremeEyeInci(inci, 'eye-cream', null, 'Collagen Eye Patch Jericho Rose Jelly')).toEqual([])
-    expect(detectTextureCremeEyeInci(inci, 'eye-cream', null, 'Hyal Reyouth Hydrogel Eye Mask')).toEqual([])
-    expect(detectTextureCremeEyeInci(inci, 'eye-cream', null, 'Bee Pollen Renew Eye Ampouler')).toEqual([])
+    expect(
+      detectTextureCremeEyeInci(inci, 'eye-cream', null, 'Collagen Eye Patch Jericho Rose Jelly')
+    ).toEqual([])
+    expect(
+      detectTextureCremeEyeInci(inci, 'eye-cream', null, 'Hyal Reyouth Hydrogel Eye Mask')
+    ).toEqual([])
+    expect(
+      detectTextureCremeEyeInci(inci, 'eye-cream', null, 'Bee Pollen Renew Eye Ampouler')
+    ).toEqual([])
   })
 
   test('name says cream, INCI gate passes → fire', () => {
@@ -1391,15 +1370,21 @@ describe('detectTextureCremeEyeInci (eye-cream path 1 relaxé)', () => {
 // ─── Eye-cream texture-baume from name ────────────────────────────────────────
 describe('detectTextureBaumeFromName', () => {
   test('eye-cream + "Baume" in name → texture-baume', () => {
-    expect(detectTextureBaumeFromName('eye-cream', null, 'Baume Regard Immortelle Divine')).toEqual([S.TEXTURE_BAUME])
+    expect(detectTextureBaumeFromName('eye-cream', null, 'Baume Regard Immortelle Divine')).toEqual(
+      [S.TEXTURE_BAUME]
+    )
   })
 
   test('eye-cream + "Palpebral Baume" → texture-baume', () => {
-    expect(detectTextureBaumeFromName('eye-cream', null, 'SVR Palpebral Baume')).toEqual([S.TEXTURE_BAUME])
+    expect(detectTextureBaumeFromName('eye-cream', null, 'SVR Palpebral Baume')).toEqual([
+      S.TEXTURE_BAUME,
+    ])
   })
 
   test('eye-cream + "balm" (EN) in name → texture-baume', () => {
-    expect(detectTextureBaumeFromName('eye-cream', null, 'Palpebral Balm Soothing')).toEqual([S.TEXTURE_BAUME])
+    expect(detectTextureBaumeFromName('eye-cream', null, 'Palpebral Balm Soothing')).toEqual([
+      S.TEXTURE_BAUME,
+    ])
   })
 
   test('admin texture set → skipped (field wins)', () => {
@@ -1408,15 +1393,21 @@ describe('detectTextureBaumeFromName', () => {
   })
 
   test('moisturizer + "Baume" in name → texture-baume (F6 Q3)', () => {
-    expect(detectTextureBaumeFromName('moisturizer', null, 'CeraVe Baume Hydratant')).toEqual([S.TEXTURE_BAUME])
+    expect(detectTextureBaumeFromName('moisturizer', null, 'CeraVe Baume Hydratant')).toEqual([
+      S.TEXTURE_BAUME,
+    ])
   })
 
   test('moisturizer + "Balm" in name → texture-baume', () => {
-    expect(detectTextureBaumeFromName('moisturizer', null, 'Prequel Skin Utility Balm')).toEqual([S.TEXTURE_BAUME])
+    expect(detectTextureBaumeFromName('moisturizer', null, 'Prequel Skin Utility Balm')).toEqual([
+      S.TEXTURE_BAUME,
+    ])
   })
 
   test('moisturizer + "Ointment" in name → texture-baume', () => {
-    expect(detectTextureBaumeFromName('moisturizer', null, 'Prequel Skin Utility Ointment')).toEqual([S.TEXTURE_BAUME])
+    expect(
+      detectTextureBaumeFromName('moisturizer', null, 'Prequel Skin Utility Ointment')
+    ).toEqual([S.TEXTURE_BAUME])
   })
 
   test('moisturizer without baume/balm/ointment in name → no tag', () => {
@@ -1434,10 +1425,16 @@ describe('detectTextureBaumeFromName', () => {
 
   test('rinse-off / non-leave-on-face name veto → no tag (kind mistag protection)', () => {
     expect(detectTextureBaumeFromName('moisturizer', null, 'Topialyse Baume Lavant')).toEqual([])
-    expect(detectTextureBaumeFromName('moisturizer', null, 'Cicabiafine Douche Baume Surgras')).toEqual([])
-    expect(detectTextureBaumeFromName('moisturizer', null, 'Clinique Baume à Lèvres Hydratant')).toEqual([])
+    expect(
+      detectTextureBaumeFromName('moisturizer', null, 'Cicabiafine Douche Baume Surgras')
+    ).toEqual([])
+    expect(
+      detectTextureBaumeFromName('moisturizer', null, 'Clinique Baume à Lèvres Hydratant')
+    ).toEqual([])
     expect(detectTextureBaumeFromName('moisturizer', null, 'Eucerin Baume Levers')).toEqual([])
-    expect(detectTextureBaumeFromName('moisturizer', null, 'Avène Homme Baume Après-Rasage')).toEqual([])
+    expect(
+      detectTextureBaumeFromName('moisturizer', null, 'Avène Homme Baume Après-Rasage')
+    ).toEqual([])
     expect(detectTextureBaumeFromName('moisturizer', null, 'Lip Balm Hydratant')).toEqual([])
   })
 
@@ -1447,39 +1444,63 @@ describe('detectTextureBaumeFromName', () => {
   })
 
   // Corpus fixtures (from spot-check)
-  test('L\'Occitane Baume Regard → texture-baume', () => {
-    expect(detectTextureBaumeFromName('eye-cream', null, 'Baume Regard Immortelle Divine')).toEqual([S.TEXTURE_BAUME])
+  test("L'Occitane Baume Regard → texture-baume", () => {
+    expect(detectTextureBaumeFromName('eye-cream', null, 'Baume Regard Immortelle Divine')).toEqual(
+      [S.TEXTURE_BAUME]
+    )
   })
 
   test('SVR Palpebral Baume → texture-baume', () => {
-    expect(detectTextureBaumeFromName('eye-cream', null, 'Palpebral Baume')).toEqual([S.TEXTURE_BAUME])
+    expect(detectTextureBaumeFromName('eye-cream', null, 'Palpebral Baume')).toEqual([
+      S.TEXTURE_BAUME,
+    ])
   })
 })
 
 // ─── texture-stick name-driven (F4) ───────────────────────────────────────────
 describe('detectTextureStickFromName', () => {
   test('lip-care + "Stick Lèvres" → texture-stick', () => {
-    expect(detectTextureStickFromName('lip-care', null, 'Cold Cream Stick Levres Nutrition')).toEqual([S.TEXTURE_STICK])
+    expect(
+      detectTextureStickFromName('lip-care', null, 'Cold Cream Stick Levres Nutrition')
+    ).toEqual([S.TEXTURE_STICK])
   })
 
   test('moisturizer + "Sun Stick" → texture-stick (Korean sunscreen sticks)', () => {
-    expect(detectTextureStickFromName('moisturizer', null, 'Hyaluronic Acid Airy Sun Stick SPF50+ PA++++')).toEqual([S.TEXTURE_STICK])
+    expect(
+      detectTextureStickFromName(
+        'moisturizer',
+        null,
+        'Hyaluronic Acid Airy Sun Stick SPF50+ PA++++'
+      )
+    ).toEqual([S.TEXTURE_STICK])
   })
 
   test('balm + "Stick Balm" → texture-stick', () => {
-    expect(detectTextureStickFromName('balm', null, 'Centella Stick Balm')).toEqual([S.TEXTURE_STICK])
+    expect(detectTextureStickFromName('balm', null, 'Centella Stick Balm')).toEqual([
+      S.TEXTURE_STICK,
+    ])
   })
 
   test('spot-treatment + "Stick Correcteur" → texture-stick', () => {
-    expect(detectTextureStickFromName('spot-treatment', null, 'Couvrance Stick Correcteur Vert')).toEqual([S.TEXTURE_STICK])
+    expect(
+      detectTextureStickFromName('spot-treatment', null, 'Couvrance Stick Correcteur Vert')
+    ).toEqual([S.TEXTURE_STICK])
   })
 
   test('SPF50+ / PA++++ are not vetoed (no whitespace + product term after)', () => {
-    expect(detectTextureStickFromName('moisturizer', null, 'Sun Stick SPF50+ PA++++')).toEqual([S.TEXTURE_STICK])
+    expect(detectTextureStickFromName('moisturizer', null, 'Sun Stick SPF50+ PA++++')).toEqual([
+      S.TEXTURE_STICK,
+    ])
   })
 
   test('compound product "Crème + Stick Lèvres" → vetoed (duo, not stick-primary)', () => {
-    expect(detectTextureStickFromName('lip-care', null, 'La Roche-Posay Lipikar Crème Mains Réparatrice + Stick Lèvres')).toEqual([])
+    expect(
+      detectTextureStickFromName(
+        'lip-care',
+        null,
+        'La Roche-Posay Lipikar Crème Mains Réparatrice + Stick Lèvres'
+      )
+    ).toEqual([])
   })
 
   test('admin texture set → skipped (field wins)', () => {
@@ -1502,7 +1523,9 @@ describe('detectTextureStickFromName', () => {
   })
 
   test('"bâton" (FR accentué) detected', () => {
-    expect(detectTextureStickFromName('lip-care', null, 'Bâton à lèvres')).toEqual([S.TEXTURE_STICK])
+    expect(detectTextureStickFromName('lip-care', null, 'Bâton à lèvres')).toEqual([
+      S.TEXTURE_STICK,
+    ])
   })
 })
 

@@ -7,13 +7,11 @@
 import { describe, expect, test } from 'bun:test'
 
 import { SKINCARE_PRODUCT_TAG_SLUGS } from '@habit-tracker/shared'
+
 import { analyzeINCI } from 'algo-derm'
 
 import { mapKindToContext } from '../../../features/dermo-score/profile-mapping'
-import {
-  computeAvoidCandidates,
-  isAvoidEligibleCategory,
-} from '../utils/auto-tag-avoid'
+import { computeAvoidCandidates, isAvoidEligibleCategory } from '../utils/auto-tag-avoid'
 
 const S = SKINCARE_PRODUCT_TAG_SLUGS
 
@@ -56,11 +54,7 @@ describe('computeAvoidCandidates — grossesse-avoid', () => {
   })
 
   test('homosalate sunscreen (solaire) → grossesse avoid', () => {
-    const got = computeAvoidCandidates(
-      'Aqua, Homosalate, Octocrylene',
-      'sunscreen',
-      'solaire'
-    )
+    const got = computeAvoidCandidates('Aqua, Homosalate, Octocrylene', 'sunscreen', 'solaire')
     expect(got).toContainEqual({
       tagSlug: S.GROSSESSE_COMPATIBLE,
       source: 'grossesse-avoid',
@@ -85,11 +79,7 @@ describe('computeAvoidCandidates — grossesse-avoid', () => {
 
   test('clean INCI → no candidates', () => {
     expect(
-      computeAvoidCandidates(
-        'Aqua, Glycerin, Niacinamide, Panthenol',
-        'serum',
-        'skincare'
-      )
+      computeAvoidCandidates('Aqua, Glycerin, Niacinamide, Panthenol', 'serum', 'skincare')
     ).toEqual([])
   })
 })
@@ -217,13 +207,7 @@ describe('computeAvoidCandidates — precomputed actifClasses parity', () => {
 describe('computeAvoidCandidates — interaction stack avoid', () => {
   test('alcohol + parfum leave-on serum → peau-sensible interaction avoid', () => {
     const inci = 'Aqua, Alcohol Denat, Parfum, Glycerin'
-    const got = computeAvoidCandidates(
-      inci,
-      'serum',
-      'skincare',
-      undefined,
-      assess(inci, 'serum')
-    )
+    const got = computeAvoidCandidates(inci, 'serum', 'skincare', undefined, assess(inci, 'serum'))
     expect(got).toContainEqual({
       tagSlug: S.PEAU_SENSIBLE,
       source: 'interaction',
@@ -232,25 +216,13 @@ describe('computeAvoidCandidates — interaction stack avoid', () => {
 
   test('alcohol + glycolic acid leave-on (acid+alcohol) → peau-sensible', () => {
     const inci = 'Aqua, Alcohol Denat, Glycolic Acid, Glycerin'
-    const got = computeAvoidCandidates(
-      inci,
-      'serum',
-      'skincare',
-      undefined,
-      assess(inci, 'serum')
-    )
+    const got = computeAvoidCandidates(inci, 'serum', 'skincare', undefined, assess(inci, 'serum'))
     expect(got.some((c) => c.tagSlug === S.PEAU_SENSIBLE)).toBe(true)
   })
 
   test('niacinamide + glycerin alone (mitigation, neg adj) → no avoid', () => {
     const inci = 'Aqua, Glycerin, Niacinamide, Panthenol'
-    const got = computeAvoidCandidates(
-      inci,
-      'serum',
-      'skincare',
-      undefined,
-      assess(inci, 'serum')
-    )
+    const got = computeAvoidCandidates(inci, 'serum', 'skincare', undefined, assess(inci, 'serum'))
     expect(got).toEqual([])
   })
 
@@ -274,13 +246,7 @@ describe('computeAvoidCandidates — interaction stack avoid', () => {
 
   test('alcohol + parfum leave-on → peau-seche avoid (dryness axis, X3)', () => {
     const inci = 'Aqua, Alcohol Denat, Parfum, Glycerin'
-    const got = computeAvoidCandidates(
-      inci,
-      'serum',
-      'skincare',
-      undefined,
-      assess(inci, 'serum')
-    )
+    const got = computeAvoidCandidates(inci, 'serum', 'skincare', undefined, assess(inci, 'serum'))
     expect(got).toContainEqual({
       tagSlug: S.PEAU_SECHE,
       source: 'interaction',
@@ -289,13 +255,7 @@ describe('computeAvoidCandidates — interaction stack avoid', () => {
 
   test('retinoid+AHA + alcohol+parfum → peau-sensible single emission (cross-signal first)', () => {
     const inci = 'Aqua, Retinol, Glycolic Acid, Alcohol Denat, Parfum'
-    const got = computeAvoidCandidates(
-      inci,
-      'serum',
-      'skincare',
-      undefined,
-      assess(inci, 'serum')
-    )
+    const got = computeAvoidCandidates(inci, 'serum', 'skincare', undefined, assess(inci, 'serum'))
     const peauSensible = got.filter((c) => c.tagSlug === S.PEAU_SENSIBLE)
     // dedup: same tag from cross-signal AND interaction → first source wins.
     expect(peauSensible).toHaveLength(1)

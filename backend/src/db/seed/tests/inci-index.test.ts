@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'bun:test'
 
 import {
-  EXCIPIENT_BLOCKLIST,
   buildInciIndex,
+  EXCIPIENT_BLOCKLIST,
   inferKeyIngredients,
   normalizeInciToken,
   parseInciFromContent,
@@ -16,8 +16,10 @@ describe('normalizeInciToken', () => {
   })
 
   it('strips parenthetical fragments', () => {
-    expect(normalizeInciToken('Glycerin (D\'origine végétale)')).toBe('GLYCERIN')
-    expect(normalizeInciToken('Citrus Limon (Lemon) Fruit Water')).toBe('CITRUS LIMON  FRUIT WATER'.replace(/\s+/g, ' '))
+    expect(normalizeInciToken("Glycerin (D'origine végétale)")).toBe('GLYCERIN')
+    expect(normalizeInciToken('Citrus Limon (Lemon) Fruit Water')).toBe(
+      'CITRUS LIMON  FRUIT WATER'.replace(/\s+/g, ' ')
+    )
   })
 })
 
@@ -28,7 +30,8 @@ describe('parseInciFromContent', () => {
   })
 
   it('extracts multiple tokens separated by " ou "', () => {
-    const md = '## INCI\n**CITRUS LIMON FRUIT WATER** ou **CITRUS LIMON FRUIT EXTRACT**\n(CAS: 92346-89-9)\n## Composition'
+    const md =
+      '## INCI\n**CITRUS LIMON FRUIT WATER** ou **CITRUS LIMON FRUIT EXTRACT**\n(CAS: 92346-89-9)\n## Composition'
     expect(parseInciFromContent(md)).toEqual([
       'CITRUS LIMON FRUIT WATER',
       'CITRUS LIMON FRUIT EXTRACT',
@@ -62,18 +65,28 @@ describe('parseInciFromSlugLine', () => {
   })
 
   it('parses haircare-style "// Token | desc" without INCI: prefix', () => {
-    const r = parseInciFromSlugLine(`  SLS_HAIR: 'sls-hair', // Sodium Lauryl Sulfate | tensioactif anionique`)
+    const r = parseInciFromSlugLine(
+      `  SLS_HAIR: 'sls-hair', // Sodium Lauryl Sulfate | tensioactif anionique`
+    )
     expect(r).toEqual({ slug: 'sls-hair', tokens: ['Sodium Lauryl Sulfate'] })
   })
 
   it('splits multi-name comments on slash and "ou"', () => {
-    const r = parseInciFromSlugLine(`  CLOVE: 'clove', // INCI: Eugenia Caryophyllus Bud Oil / Eugenol | analgésique`)
+    const r = parseInciFromSlugLine(
+      `  CLOVE: 'clove', // INCI: Eugenia Caryophyllus Bud Oil / Eugenol | analgésique`
+    )
     expect(r?.tokens).toEqual(['Eugenia Caryophyllus Bud Oil', 'Eugenol'])
   })
 
   it('rejects descriptor-style French comments (apostrophes, lowercase words)', () => {
-    expect(parseInciFromSlugLine(`  ESTER_ACIDE_MALIQUE: 'ester-acide-malique', // Ester d'acide malique | AHA doux`)).toBeNull()
-    expect(parseInciFromSlugLine(`  FOO: 'foo', // dérivé acide salicylique | exfoliant doux`)).toBeNull()
+    expect(
+      parseInciFromSlugLine(
+        `  ESTER_ACIDE_MALIQUE: 'ester-acide-malique', // Ester d'acide malique | AHA doux`
+      )
+    ).toBeNull()
+    expect(
+      parseInciFromSlugLine(`  FOO: 'foo', // dérivé acide salicylique | exfoliant doux`)
+    ).toBeNull()
   })
 
   it('returns null on non-slug lines', () => {
@@ -83,7 +96,10 @@ describe('parseInciFromSlugLine', () => {
 })
 
 describe('inferKeyIngredients', () => {
-  const index = new Map<string, { slug: string; domain: 'skincare' | 'haircare' | 'dental' | 'supplements' }>([
+  const index = new Map<
+    string,
+    { slug: string; domain: 'skincare' | 'haircare' | 'dental' | 'supplements' }
+  >([
     ['SODIUM HYALURONATE', { slug: 'sodium-hyaluronate', domain: 'skincare' }],
     ['NIACINAMIDE', { slug: 'niacinamide', domain: 'skincare' }],
     ['BUTYROSPERMUM PARKII BUTTER', { slug: 'shea-butter', domain: 'skincare' }],
@@ -108,7 +124,10 @@ describe('inferKeyIngredients', () => {
 
   it('caps result at max', () => {
     const big = new Map<string, { slug: string; domain: 'skincare' }>(
-      Array.from({ length: 12 }, (_, i) => [`TOK${i}`, { slug: `slug-${i}`, domain: 'skincare' as const }])
+      Array.from({ length: 12 }, (_, i) => [
+        `TOK${i}`,
+        { slug: `slug-${i}`, domain: 'skincare' as const },
+      ])
     )
     const inci = Array.from({ length: 12 }, (_, i) => `TOK${i}`).join(', ')
     expect(inferKeyIngredients(inci, big, { max: 5 })).toHaveLength(5)

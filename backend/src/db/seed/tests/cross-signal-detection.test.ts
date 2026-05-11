@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 
 import { SKINCARE_PRODUCT_TAG_SLUGS } from '@habit-tracker/shared'
+
 import { analyzeINCI } from 'algo-derm'
 
 import { mapKindToContext } from '../../../features/dermo-score/profile-mapping'
@@ -204,10 +205,7 @@ describe('detectInteractionSecondaryTags — X3 photosensitivity → moment-soir
     analyzeINCI(inci, { context: mapKindToContext(kind) })
 
   test('lavender + lemon peel oil leave-on → moment-soir', () => {
-    const a = assess(
-      'Aqua, Lavandula Angustifolia Oil, Citrus Limon Peel Oil, Glycerin',
-      'serum'
-    )
+    const a = assess('Aqua, Lavandula Angustifolia Oil, Citrus Limon Peel Oil, Glycerin', 'serum')
     expect(detectInteractionSecondaryTags(a, 'serum')).toContain(S.MOMENT_SOIR)
   })
 

@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 
 import { SKINCARE_PRODUCT_TAG_SLUGS } from '@habit-tracker/shared'
+
 import { detectActifClasses } from '../utils/actif-class-detection'
 
 describe('actif-class-detection', () => {
@@ -227,9 +228,9 @@ describe('actif-class-detection', () => {
   })
 
   test('vitamin-C: marketing INCI `Vitamin C Ester (Ascorbyl Palmitate)`', () => {
-    expect(
-      detectActifClasses('Aqua, Vitamin C Ester (Ascorbyl Palmitate)')
-    ).toContain(SKINCARE_PRODUCT_TAG_SLUGS.VITAMIN_C)
+    expect(detectActifClasses('Aqua, Vitamin C Ester (Ascorbyl Palmitate)')).toContain(
+      SKINCARE_PRODUCT_TAG_SLUGS.VITAMIN_C
+    )
   })
 
   test('ceramides: full-scan (no positionCap) — relipidant blend at tail still detected', () => {
@@ -256,9 +257,7 @@ describe('actif-class-detection', () => {
   test('tyrosinase: full-scan (no positionCap) — alpha-arbutin at tail still detected', () => {
     const filler = Array.from({ length: 25 }, (_, i) => `Filler${i + 1}`).join(', ')
     const inci = `Aqua, ${filler}, Alpha-Arbutin`
-    expect(detectActifClasses(inci)).toContain(
-      SKINCARE_PRODUCT_TAG_SLUGS.TYROSINASE_INHIBITORS
-    )
+    expect(detectActifClasses(inci)).toContain(SKINCARE_PRODUCT_TAG_SLUGS.TYROSINASE_INHIBITORS)
   })
 
   test('tyrosinase: undecylenoyl phenylalanine + hexylresorcinol detected', () => {
@@ -277,12 +276,12 @@ describe('actif-class-detection', () => {
   })
 
   test('tyrosinase: glycyrrhiza alone NOT tagged (over-broadening — soothing ingredient)', () => {
-    expect(
-      detectActifClasses('Aqua, Glycerin, Glycyrrhiza Glabra Root Extract')
-    ).not.toContain(SKINCARE_PRODUCT_TAG_SLUGS.TYROSINASE_INHIBITORS)
-    expect(
-      detectActifClasses('Aqua, Glycerin, Dipotassium Glycyrrhizate')
-    ).not.toContain(SKINCARE_PRODUCT_TAG_SLUGS.TYROSINASE_INHIBITORS)
+    expect(detectActifClasses('Aqua, Glycerin, Glycyrrhiza Glabra Root Extract')).not.toContain(
+      SKINCARE_PRODUCT_TAG_SLUGS.TYROSINASE_INHIBITORS
+    )
+    expect(detectActifClasses('Aqua, Glycerin, Dipotassium Glycyrrhizate')).not.toContain(
+      SKINCARE_PRODUCT_TAG_SLUGS.TYROSINASE_INHIBITORS
+    )
   })
 
   test('vitamin-C: French INCI — acide ascorbique detected', () => {
@@ -298,8 +297,8 @@ describe('actif-class-detection', () => {
   })
 
   test('polyphenols: melissa officinalis detected', () => {
-    expect(
-      detectActifClasses('Aqua, Glycerin, Melissa Officinalis Leaf Extract')
-    ).toContain(SKINCARE_PRODUCT_TAG_SLUGS.POLYPHENOLS)
+    expect(detectActifClasses('Aqua, Glycerin, Melissa Officinalis Leaf Extract')).toContain(
+      SKINCARE_PRODUCT_TAG_SLUGS.POLYPHENOLS
+    )
   })
 })
