@@ -76,9 +76,9 @@ sous-dossier dans `shared/src/ingredients/<domaine>/` avec son propre
 > de la constante historique.
 
 - **DB** (`ingredients.category`) : `text` (nullable, **sans CHECK constraint**).
-  Dette ouverte : voir ROADMAP §2.2.
+  Dette ouverte : voir ROADMAP §1.2.
 - **Zod** (`createIngredientSchema.category`) : `z.string()` free-form,
-  **pas de validation croisée `type × category`**. Dette ouverte : ROADMAP §2.1.
+  **pas de validation croisée `type × category`**. Dette ouverte : ROADMAP §1.1.
 - **Index DB** : `ingredients_category_idx`.
 - **Filet de sécurité actuel** : les tests seed
   (`seed-data-integrity.test.ts`, branche `ingredient type and category are consistent`)
@@ -387,7 +387,7 @@ Les domaines ne se recouvrent pas parfaitement :
 **Dettes visibles** (suivies dans ROADMAP) :
 
 - `ingredient.category` sans CHECK constraint ni validation Zod croisée
-  avec `type` → ROADMAP §2.1 et §2.2.
+  avec `type` → ROADMAP §1.1 et §2.2.
 - `product.category/kind/unit` sans CHECK DB (typage TS + validation Zod
   suffisent en pratique, shared/dist sans JS rend la migration coûteuse —
   décision : accepter).

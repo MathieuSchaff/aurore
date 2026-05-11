@@ -9,9 +9,27 @@ Règle : **une étape = une session = un commit propre.** Pas de chaînage.
 
 ---
 
-## 2. Ingrédients
+## 0. Ordre d'attaque recommandé (2026-05-11)
 
-### 2.1 Cohérence `type → category` en Zod
+Du plus simple au plus risqué. S'arrêter dès qu'un item bloque.
+
+| Priorité | Item | Effort | Risque | Note |
+|---|---|---|---|---|
+| 1 | **§4.2 TAG_SLUGS** — migrer les 4 `ingredient-tags.ts` vers slugs typés | S | Faible | Même mécanique que fix §2.4 |
+| 2 | **§3.2 deux produits** — ajouter Bioderma Sebium Global + Actinica Lotion | XS | Nul | Data only, pas de code |
+| 3 | **§9 M.2** — fix parser `1,2-hexanediol` dans algo-derm (`src/parser.ts`) | XS | Faible | Vérifier F1 0.997 après |
+| 4 | **§1.1 Zod** — `superRefine` type×category dans `createIngredientSchema` | S | Faible | Additive, pas de breaking |
+| 5 | **§1.2 CHECK constraint** — migration DB `(type, category)` | M | Moyen | Faire §1.1 avant |
+| 6 | **§4.3 avoid_for ingrédients** — backend schema + service + frontend | M | Moyen | Cross-couches |
+| 7 | **§4.1 haircare/supplement tags** — taxonomie + seed + frontend | L | Moyen | Faire §4.2 avant |
+| 8 | **§7 images CDN** | L | Faible | Bloqué sur Bunny/S3 |
+| 9 | **§3.2 142 produits sans primary** | L | Nul | Curation manuelle |
+
+---
+
+## 1. Ingrédients
+
+### 1.1 Cohérence `type → category` en Zod
 
 `category` est `z.string()` free-form dans les schémas ingrédient. Un
 ingrédient `type: 'skincare'` peut avoir `category: 'vitamine'` sans erreur
@@ -22,7 +40,7 @@ côté API. La vérification n'existe qu'en test seed.
       (`SKINCARE_INGREDIENT_CATEGORY_VALUES`, `HAIRCARE_INGREDIENT_CATEGORY_VALUES`,
       `DENTAL_INGREDIENT_CATEGORY_VALUES`, `SUPPLEMENT_CATEGORY_VALUES`).
 
-### 2.2 CHECK constraint DB sur `ingredients.category`
+### 1.2 CHECK constraint DB sur `ingredients.category`
 
 Actuellement `text` nullable sans contrainte. Un `category: 'foobar'` passe en
 DB sans erreur (seul `type` a une CHECK constraint depuis migration `0027`).
@@ -33,41 +51,10 @@ DB sans erreur (seul `type` a une CHECK constraint depuis migration `0027`).
       simple à maintenir).
 
 
-### 2.5 Cohérence catégorie ingrédient ↔ tags associés
-
-Ex : un ingrédient `filtre-uv` sans tag `filtre-uv` dans `ingredientTagMap` —
-non détecté aujourd'hui.
-
-- [ ] Ajouter test dans `shared-schemas-vs-tags.test.ts` : cohérence
-      catégorie → `ingredient_attribute` correspondant.
-
-### 2.6 Dental — ingrédients absents du seed (audit INCI 2026)
-
-Audit INCI vs seed sur 25 produits dentaires / 18 marques. Inventaire
-complet archivé dans `seed/docs/audits/dental-ingredients.md`. Manques
-actionnables :
-
-- [ ] **Arginine** — anti-sensibilité (Elmex Sensitive Pro, CB12). Bloque les tubules par dépôt phosphate de calcium.
-- [ ] **Calcium Sodium Phosphosilicate (Novamin)** — reminéralisant bioactif (Sensodyne Répare & Protège).
-- [ ] **Cetylpyridinium Chloride (CPC)** — antiseptique buccal fréquent (Gum, Meridol).
-- [ ] **Cellulose Gum** — épaississant très répandu, manquant côté excipients.
-- [ ] **Cocamidopropyl Bétaïne** — tensioactif doux, alternative SLS.
-- [ ] **Tetrasodium Pyrophosphate** — anti-tartre (Elmex).
-
-Ingrédients définis en seed mais sans usage produit actuel (à conserver
-ou retirer après revue) : Tea Tree Oil, Thymol, Carbamide Peroxide.
-
 ---
 
 ## 3. Produits
 
-### 3.1 `productResponseSchema.category` encore `.nullable()`
-
-Sans impact concret : Hono RPC type les réponses depuis le handler, ce schema
-n'est utilisé dans aucune route. À nettoyer par cohérence quand on touche.
-
-- [ ] Retirer `.nullable()` sur `productResponseSchema.category` + aligner
-      `Product.category` sur `ProductCategory` (non nullable) dans `shared/src/products/types.ts`.
 
 ### 3.2 Tags produits — data quality résiduelle
 
@@ -118,20 +105,15 @@ consomme pas encore (STATE §5.6).
 
 ### 4.2 `TAG_SLUGS` legacy dans `data/tags/index.ts`
 
-`TAG_SLUGS` est un agrégat non typé (skincare ingrédient + skincare produit +
-supplement ingrédient) encore consommé par `noreva-product-tags.ts` et les 12
-entries haircare dans `haircare/ingredient-tags.ts` (qui réutilisent des slugs
-skincare). Les re-exports shared (`shared/src/ingredients/tag-slugs.ts`,
-`shared/src/products/tag-slugs.ts`) ont déjà été supprimés — il ne reste que
-la constante locale dans `data/tags/index.ts`.
+`TAG_SLUGS` est un agrégat non typé encore consommé par les 4 fichiers
+`ingredient-tags.ts` (skincare, haircare, supplements, dental) et `nutripure.seed.ts`.
+`noreva-product-tags.ts` est supprimé. Les re-exports shared sont supprimés — seule
+la constante locale dans `data/tags/index.ts` subsiste.
 
-- [ ] Migrer `noreva-product-tags.ts` vers `SKINCARE_PRODUCT_TAG_SLUGS` typés,
-      puis fusionner le fichier dans `noreva.seed.ts`
-- [ ] Décider du sort des 12 entries haircare dual-domain : les conserver sur
-      les slugs skincare (intentionnel) ou créer des slugs haircare équivalents
+- [ ] Migrer les 4 `ingredient-tags.ts` vers les slugs typés domain-spécifiques
+      (`SKINCARE_INGREDIENT_TAG_SLUGS`, `HAIRCARE_INGREDIENT_TAG_SLUGS`, etc.)
+- [ ] Migrer `nutripure.seed.ts` (utilise `TAG_SLUGS.GELULE` et autres slugs supplement)
 - [ ] Supprimer `TAG_SLUGS` une fois zéro consommateur
-- [ ] Routes API qui filtrent/retournent des tags → audit
-- [ ] Frontend (filtres, affichage) → audit
 
 ### 4.3 Feature exclusion par profil — ingrédients
 
@@ -151,9 +133,8 @@ initiale : l'appliquer également aux ingrédients.
 |----|---|---|---|
 | P1 | 🟡 Moyen | Couverture tags faible sur produits seed — partiellement résolu (auto-tag avril 2026 : 875/1017 produits primary rempli, 142 restants sans primary). Points ouverts : skin_type peu rempli, labels absents (sans-parfum, etc.), concentration INCI non utilisée. | 142 produits restants ; curation manuelle par lot via description/notes |
 | P2 | 🔴 Bloquant | `products.kind` : 25 valeurs hétérogènes → inutilisable en filtre. | Remplacer par `product_type` tag |
-| P5 | 🟡 Moyen | Recherche texte incohérente : fuzzy (produits, pg_trgm) vs simple (ingrédients) | Harmoniser |
+| P5 | 🟡 Moyen | Recherche texte incohérente : fuzzy (produits, pg_trgm) vs simple ILIKE (ingrédients) | Harmoniser |
 | P6 | 🟢 Faible | Tri popularité absent. `price_asc`/`price_desc`/`newest`/`name`/`random` livrés (STATE §5.5). | Ajouter tri popularité si métrique disponible |
-| P7 | 🟡 Moyen | camelCase `skinType` (ingrédients) vs snake_case `skin_type` (produits) | Harmoniser |
 | P10 | 🟡 Moyen | Tabs `haircare` / `complement` — taxonomie tag produit vide (cf. §4.1). Drawer minimal seulement. Dental product tags en DB mais non câblés frontend. | Remplir `HAIRCARE_PRODUCT_TAG_TAXONOMY`, câbler drawer dental + haircare |
 
 ---
@@ -166,11 +147,7 @@ initiale : l'appliquer également aux ingrédients.
   Duplication manuelle nécessaire si pgEnum construit depuis shared.
 - `ingredients.category` Drizzle column sans `.$type<>()` — retiré après avoir
   cassé les spreads dans les seeds. Laissé sans cast, sécurisé par tests seed
-  + futur CHECK constraint (§2.2).
-- `ProductWithIngredients.category` encore optionnel dans
-  `frontend/src/features/products/components/ProductForm/ProductForm.tsx`
-  (`backend/dist/index.d.ts` stale pas rebuild en isolation). À rendre
-  obligatoire après rebuild backend dist.
+  + futur CHECK constraint (§1.2).
 - `product.category`, `product.kind`, `product.unit` : pas de check constraint
   DB (typage TS + validation Zod suffisent en pratique, shared/dist sans JS
   rend la migration coûteuse — décision : accepter). Pas d'index sur
@@ -224,7 +201,6 @@ Historique complet (calibration log + tier audit + roadmap absorbée) : [`_archi
 - [ ] **F5** — pipeline Brier/ECE pour passe 1 (concerns / skin types / absence) si on calibre les seuils algo-derm un jour. Defer sinon. Effort XS.
 - [ ] **`texture-mousse` / `texture-stick` admin curation** — non dérivables INCI seul. Attendent que les ~3 700 produits `products.texture = NULL` soient peuplés via admin UI (T3 phase B).
 - [ ] **`peau-mixte`** — Tier 3, débloqué par `products.texture` populé (pattern : T-zone gel-cream + niacinamide top 8).
-- [ ] **`type-outil`** — décision produit : soit étendre `PRODUCT_KINDS` (`gua-sha`, `jade-roller`, `cleansing-brush`), soit retirer le slug.
 
 ---
 

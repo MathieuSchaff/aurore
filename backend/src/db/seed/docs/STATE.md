@@ -901,19 +901,12 @@ console à l'exécution, pas d'erreur. Comportement voulu, mais masqué.
 **Fix** : migrer les consommateurs restants vers les slugs typés domain-spécifiques,
 puis supprimer `TAG_SLUGS`.
 
-### 8.7 `productResponseSchema.category` encore nullable
-
-DB : `category text NOT NULL`. `productResponseSchema` : `z.enum(...).nullable()`.
-`Product.category` dans `shared/src/products/types.ts` : `string | null`.
-
-**Fix** : retirer `.nullable()` et aligner `Product.category` sur `ProductCategory`.
-
-### 8.8 Pas de check constraint DB sur `category`, `kind`, `unit` produits
+### 8.7 Pas de check constraint DB sur `category`, `kind`, `unit` produits
 
 Un insert direct hors API/seed peut injecter n'importe quelle valeur. Pas d'index
 sur `category` — filtrage par catégorie sur grande table fera un seq scan.
 
-### 8.9 `drSam/` stub non connecté
+### 8.8 `drSam/` stub non connecté
 
 `data/products/drSam/` : deux fichiers vides (1 ligne chacun), non importé dans
 `index.ts`. Soit alimenter et connecter, soit supprimer.
