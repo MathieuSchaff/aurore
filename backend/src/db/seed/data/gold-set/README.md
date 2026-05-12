@@ -16,8 +16,8 @@ Focus calibration: 15 tags calibrated 2026-05-08 (`fini-glowy` retiré 2026-05-0
 | Acid clusters (positionCap: 10 — drift conservée par design) | `aha`, `bha`, `pha` |
 
 Adding a tag requires editing `GOLD_SET_FOCUS_TAGS` in
-`backend/src/db/seed/utils/gold-set.ts` and re-running bootstrap to draw
-new samples for it.
+`backend/src/features/auto-tagging/gold-set/fixtures.ts` and re-running
+bootstrap to draw new samples for it.
 
 ## Schema (`annotations.json`)
 

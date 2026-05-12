@@ -35,10 +35,10 @@ import type { ProductKind } from '@habit-tracker/shared'
 import { normalize, splitINCI } from 'algo-derm'
 import { eq, inArray, sql } from 'drizzle-orm'
 
-import { db } from '../..'
-import { products, productTagsDefs, tagProducts } from '../../schema'
-import { detectActifClasses } from '../utils/actif-class-detection'
-import { AUTO_TAG_ELIGIBLE_CATEGORIES } from '../utils/auto-tag-orchestrator'
+import { db } from '../../../db'
+import { products, productTagsDefs, tagProducts } from '../../../db/schema'
+import { AUTO_TAG_ELIGIBLE_CATEGORIES } from '../orchestrator'
+import { detectActifClasses } from '../passes/actif-class-detection'
 
 const TARGET_SLUGS = ['aha', 'bha', 'pha'] as const
 type TargetSlug = (typeof TARGET_SLUGS)[number]

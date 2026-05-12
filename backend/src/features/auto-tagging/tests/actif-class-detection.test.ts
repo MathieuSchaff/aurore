@@ -2,7 +2,7 @@ import { describe, expect, test } from 'bun:test'
 
 import { SKINCARE_PRODUCT_TAG_SLUGS } from '@habit-tracker/shared'
 
-import { detectActifClasses } from '../utils/actif-class-detection'
+import { detectActifClasses } from '../passes/actif-class-detection'
 
 describe('actif-class-detection', () => {
   test('empty/null/whitespace INCI returns []', () => {

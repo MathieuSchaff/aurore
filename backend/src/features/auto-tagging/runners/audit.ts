@@ -21,10 +21,10 @@
 import { analyzeINCI, splitINCI } from 'algo-derm'
 import { eq, sql } from 'drizzle-orm'
 
-import { mapKindToContext } from '../../../features/dermo-score/profile-mapping'
-import { db } from '../..'
-import { products, productTagsDefs, tagProducts } from '../../schema'
-import { detectAutoTags, TAG_CONFIG, type TagRule } from '../utils/auto-tag-detection'
+import { db } from '../../../db'
+import { products, productTagsDefs, tagProducts } from '../../../db/schema'
+import { mapKindToContext } from '../../dermo-score/profile-mapping'
+import { detectAutoTags, TAG_CONFIG, type TagRule } from '../passes/auto-tag-detection'
 
 interface TagStat {
   hit: number

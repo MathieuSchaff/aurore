@@ -13,7 +13,7 @@ audit-auto-tags conf_override="" csv_out="" limit="" include_dropped="":
         $([ -n "{{csv_out}}" ]       && echo "-e CSV_OUT={{csv_out}}"             || true) \
         $([ -n "{{limit}}" ]         && echo "-e LIMIT={{limit}}"                 || true) \
         $([ -n "{{include_dropped}}" ] && echo "-e INCLUDE_DROPPED={{include_dropped}}" || true) \
-        api bun run src/db/seed/runners/audit-auto-tags.ts
+        api bun run src/features/auto-tagging/runners/audit.ts
 
 # Audit products.kind mistags via name patterns
 # Usage: just audit-product-kinds slug=my-slug write=1
@@ -35,7 +35,7 @@ backfill-auto-tags slug="" write="" limit="" conf_override="" include_dropped=""
         $([ -n "{{conf_override}}" ]   && echo "-e CONF_OVERRIDE={{conf_override}}"     || true) \
         $([ -n "{{limit}}" ]           && echo "-e LIMIT={{limit}}"                     || true) \
         $([ -n "{{include_dropped}}" ] && echo "-e INCLUDE_DROPPED={{include_dropped}}" || true) \
-        api bun run src/db/seed/runners/backfill-auto-tags.ts \
+        api bun run src/features/auto-tagging/runners/backfill.ts \
         $([ -n "{{write}}" ] && echo "--write"         || true) \
         $([ -n "{{slug}}" ]  && echo "--slug {{slug}}" || true)
 
@@ -49,7 +49,7 @@ audit-orchestrator-diff csv_out baseline="" limit="":
         -e CSV_OUT={{csv_out}} \
         $([ -n "{{baseline}}" ] && echo "-e BASELINE={{baseline}}" || true) \
         $([ -n "{{limit}}" ]    && echo "-e LIMIT={{limit}}"       || true) \
-        api bun run src/db/seed/runners/audit-orchestrator-diff.ts
+        api bun run src/features/auto-tagging/runners/audit-orchestrator-diff.ts
 
 # Dry-run pharmacological cluster audit (pass 2)
 # Usage: just audit-actif-class limit=50
@@ -58,7 +58,7 @@ audit-actif-class limit="":
     printf '\033[0;36mAudit actif-class (dry-run)...\033[0m\n'
     {{COMPOSE_DEV}} exec \
         $([ -n "{{limit}}" ] && echo "-e LIMIT={{limit}}" || true) \
-        api bun run src/db/seed/runners/audit-actif-class.ts
+        api bun run src/features/auto-tagging/runners/audit-actif-class.ts
 
 # Audit AHA/BHA/PHA manual overrides
 # Usage: just audit-aha-bha-pha limit=50 apply=1 apply_from_csv=/path/to.csv
@@ -75,7 +75,7 @@ audit-aha-bha-pha csv_out="" csv_dir="" limit="" apply="" apply_from_csv="":
         $([ -n "{{limit}}" ]          && echo "-e LIMIT={{limit}}"                   || true) \
         $([ -n "{{apply}}" ]          && echo "-e APPLY={{apply}}"                   || true) \
         $([ -n "{{apply_from_csv}}" ] && echo "-e APPLY_FROM_CSV={{apply_from_csv}}" || true) \
-        api bun run src/db/seed/runners/audit-aha-bha-pha-overrides.ts
+        api bun run src/features/auto-tagging/runners/audit-aha-bha-pha-overrides.ts
 
 # Sample 60-80 products stratified → data/gold-set/annotations.json (idempotent)
 # Usage: just gold-set-bootstrap sample_size=80 seed=42
@@ -88,7 +88,7 @@ gold-set-bootstrap sample_size="" positives_per_tag="" negatives_per_tag="" seed
         $([ -n "{{negatives_per_tag}}" ] && echo "-e NEGATIVES_PER_TAG={{negatives_per_tag}}"  || true) \
         $([ -n "{{seed}}" ]              && echo "-e SEED={{seed}}"                            || true) \
         $([ -n "{{gold_set_path}}" ]     && echo "-e GOLD_SET_PATH={{gold_set_path}}"          || true) \
-        api bun run src/db/seed/runners/gold-set-bootstrap.ts
+        api bun run src/features/auto-tagging/runners/gold-set-bootstrap.ts
 
 # Benchmark orchestrator vs gold-set (precision/recall/Brier/ECE per tag)
 # Usage: just audit-gold-set gold_set_path=/path strict=1
@@ -99,4 +99,4 @@ audit-gold-set gold_set_path="" csv_out="" strict="":
         $([ -n "{{gold_set_path}}" ] && echo "-e GOLD_SET_PATH={{gold_set_path}}" || true) \
         $([ -n "{{csv_out}}" ]       && echo "-e CSV_OUT={{csv_out}}"             || true) \
         $([ -n "{{strict}}" ]        && echo "-e STRICT={{strict}}"               || true) \
-        api bun run src/db/seed/runners/audit-gold-set.ts
+        api bun run src/features/auto-tagging/runners/audit-gold-set.ts

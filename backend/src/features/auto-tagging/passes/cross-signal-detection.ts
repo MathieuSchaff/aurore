@@ -26,7 +26,7 @@ import { SKINCARE_PRODUCT_TAG_SLUGS, type SkincareProductTagSlug } from '@habit-
 
 import type { ProductAssessment } from 'algo-derm'
 
-import { resolveIngredients } from './ingredient-resolver'
+import { resolveIngredients } from '../lib/ingredient-resolver'
 
 const S = SKINCARE_PRODUCT_TAG_SLUGS
 

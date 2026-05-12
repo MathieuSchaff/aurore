@@ -2,7 +2,7 @@ import { describe, expect, test } from 'bun:test'
 
 import { SKINCARE_PRODUCT_TAG_SLUGS } from '@habit-tracker/shared'
 
-import { detectPercentClaimTags, isFragileINCI } from '../utils/percent-claim-detection'
+import { detectPercentClaimTags, isFragileINCI } from '../passes/percent-claim-detection'
 
 const S = SKINCARE_PRODUCT_TAG_SLUGS
 

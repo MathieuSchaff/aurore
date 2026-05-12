@@ -58,7 +58,7 @@
 import type { ProductKind, ProductTexture } from '@habit-tracker/shared'
 import { SKINCARE_PRODUCT_TAG_SLUGS, type SkincareProductTagSlug } from '@habit-tracker/shared'
 
-import { resolveIngredients } from './ingredient-resolver'
+import { resolveIngredients } from '../lib/ingredient-resolver'
 
 const S = SKINCARE_PRODUCT_TAG_SLUGS
 

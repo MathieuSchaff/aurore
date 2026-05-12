@@ -13,7 +13,10 @@
 
 import { SKINCARE_PRODUCT_TAG_SLUGS, type SkincareProductTagSlug } from '@habit-tracker/shared'
 
-import { type BrandCertification, normalizeBrand } from '../../schema/products/brand-certifications'
+import {
+  type BrandCertification,
+  normalizeBrand,
+} from '../../../db/schema/products/brand-certifications'
 
 const S = SKINCARE_PRODUCT_TAG_SLUGS
 

@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test'
 
-import { isAlphabeticalINCI, stripMarketingPreamble } from '../utils/ingredient-resolver'
+import { isAlphabeticalINCI, stripMarketingPreamble } from '../lib/ingredient-resolver'
 
 describe('stripMarketingPreamble', () => {
   test('slices at "Ingrédients :" marker', () => {

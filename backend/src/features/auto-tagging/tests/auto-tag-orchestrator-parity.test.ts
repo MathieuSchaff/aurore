@@ -22,7 +22,7 @@ import {
   type AutoTagPair,
   detectAllAutoTags,
   type OrchestratorInput,
-} from '../utils/auto-tag-orchestrator'
+} from '../orchestrator'
 
 const S = SKINCARE_PRODUCT_TAG_SLUGS
 

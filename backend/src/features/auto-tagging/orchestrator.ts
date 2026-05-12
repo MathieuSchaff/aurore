@@ -3,13 +3,14 @@
 // so every assessment-dependent pass shares the same evidence/coverage data.
 //
 // Consumed by:
-//   - `runners/seed-core.ts`         (initial seed, fresh DB)
-//   - `runners/backfill-auto-tags.ts` (post-snapshot rehydrate, idempotent)
+//   - `db/seed/runners/seed-core.ts`                (initial seed, fresh DB)
+//   - `features/auto-tagging/runners/backfill.ts`   (post-snapshot rehydrate, idempotent)
+//   - `features/products/service.ts createProduct()` (per-product, inline)
 //
-// Both runners produce identical output for the same product input — verified
+// All consumers produce identical output for the same product input — verified
 // by `tests/auto-tag-orchestrator-parity.test.ts`. This is the contract that
-// keeps `make dev-fresh` followed by `make backfill-auto-tags` a no-op on
-// auto-tag pairs (audit §C.5 parity goal).
+// keeps `make dev-fresh` followed by the backfill runner a no-op on auto-tag
+// pairs (audit §C.5 parity goal).
 //
 // Per-tag dedup: `avoid` wins over `secondary` for the same tag. Source is
 // metadata (used by backfill stats) — same tag from multiple sources keeps
@@ -19,12 +20,19 @@ import type { ProductKind, ProductTexture, SkincareProductTagSlug } from '@habit
 
 import { analyzeINCI, normalize, type ProductAssessment, splitINCI } from 'algo-derm'
 
-import { mapKindToContext } from '../../../features/dermo-score/profile-mapping'
-import { detectActifClasses } from './actif-class-detection'
-import { computeAvoidCandidates } from './auto-tag-avoid'
-import { detectAutoTags } from './auto-tag-detection'
-import { type BrandCertificationLookup, detectBrandLevelLabels } from './brand-cert-detection'
-import { detectCrossSignalTags, detectInteractionSecondaryTags } from './cross-signal-detection'
+import { mapKindToContext } from '../dermo-score/profile-mapping'
+import { stripMarketingPreamble } from './lib/ingredient-resolver'
+import { detectActifClasses } from './passes/actif-class-detection'
+import { computeAvoidCandidates } from './passes/auto-tag-avoid'
+import { detectAutoTags } from './passes/auto-tag-detection'
+import {
+  type BrandCertificationLookup,
+  detectBrandLevelLabels,
+} from './passes/brand-cert-detection'
+import {
+  detectCrossSignalTags,
+  detectInteractionSecondaryTags,
+} from './passes/cross-signal-detection'
 import {
   detectCernesPoches,
   detectEczemaAtopie,
@@ -49,10 +57,9 @@ import {
   detectTextureRiche,
   detectTextureStickFromName,
   detectVegan,
-} from './formula-detection'
-import { stripMarketingPreamble } from './ingredient-resolver'
-import { detectKindTags } from './kind-tag-detection'
-import { detectPercentClaimTags, type PercentClaimEvidence } from './percent-claim-detection'
+} from './passes/formula-detection'
+import { detectKindTags } from './passes/kind-tag-detection'
+import { detectPercentClaimTags, type PercentClaimEvidence } from './passes/percent-claim-detection'
 
 // Categories where INCI/kind-derived tagging applies. Other categories
 // (haircare, dental, supplements) carry no INCI-derived signal yet. Tuple

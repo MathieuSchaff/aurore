@@ -2,7 +2,7 @@ import { SKINCARE_PRODUCT_TAG_SLUGS, type SkincareProductTagSlug } from '@habit-
 
 import { normalize, splitINCI } from 'algo-derm'
 
-import { isAlphabeticalINCI, stripMarketingPreamble } from './ingredient-resolver'
+import { isAlphabeticalINCI, stripMarketingPreamble } from '../lib/ingredient-resolver'
 
 export interface PercentClaimEvidence {
   ingredientSlug: string

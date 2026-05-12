@@ -2,7 +2,7 @@ import { describe, expect, test } from 'bun:test'
 
 import { SKINCARE_PRODUCT_TAG_SLUGS } from '@habit-tracker/shared'
 
-import { detectAutoTags, TAG_CONFIG } from '../utils/auto-tag-detection'
+import { detectAutoTags, TAG_CONFIG } from '../passes/auto-tag-detection'
 
 const S = SKINCARE_PRODUCT_TAG_SLUGS
 

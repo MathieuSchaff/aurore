@@ -17,7 +17,7 @@ import { SKINCARE_PRODUCT_TAG_SLUGS, type SkincareProductTagSlug } from '@habit-
 
 import { analyzeINCI, type ProductAssessment, splitINCI, tagProduct } from 'algo-derm'
 
-import { mapKindToContext, RINSE_OFF_KINDS } from '../../../features/dermo-score/profile-mapping'
+import { mapKindToContext, RINSE_OFF_KINDS } from '../../dermo-score/profile-mapping'
 
 const S = SKINCARE_PRODUCT_TAG_SLUGS
 

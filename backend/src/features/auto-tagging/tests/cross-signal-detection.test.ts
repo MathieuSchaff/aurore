@@ -4,13 +4,13 @@ import { SKINCARE_PRODUCT_TAG_SLUGS } from '@habit-tracker/shared'
 
 import { analyzeINCI } from 'algo-derm'
 
-import { mapKindToContext } from '../../../features/dermo-score/profile-mapping'
+import { mapKindToContext } from '../../dermo-score/profile-mapping'
 import {
   detectCrossSignalAvoidTags,
   detectCrossSignalTags,
   detectInteractionAvoidTags,
   detectInteractionSecondaryTags,
-} from '../utils/cross-signal-detection'
+} from '../passes/cross-signal-detection'
 
 const S = SKINCARE_PRODUCT_TAG_SLUGS
 

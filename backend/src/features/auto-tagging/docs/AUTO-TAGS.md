@@ -2,7 +2,7 @@
 
 > Doc d'explication du système de détection automatique de tags (produits skincare/solaire/bodycare). 6 passes de détection branchées sur l'INCI + `kind`.
 
-> **Roadmap / dette ouverte** : voir [`ROADMAP.md` §9](./ROADMAP.md#9-auto-tagging). **Historique calibration + tier audit** : [`_archive/auto-tags-roadmap.md`](./_archive/auto-tags-roadmap.md).
+> **Roadmap / dette ouverte** : voir [`ROADMAP.md`](./ROADMAP.md). **Historique calibration + tier audit** : [`../../../db/seed/docs/_archive/auto-tags-roadmap.md`](../../../db/seed/docs/_archive/auto-tags-roadmap.md).
 
 ---
 
@@ -69,9 +69,9 @@ Il y a 3 familles de tags qu'il peut émettre :
 
 ## Les 6 passes de détection
 
-### Passe 1 — `utils/auto-tag-detection.ts`
+### Passe 1 — `passes/auto-tag-detection.ts`
 
-**Fichier :** `backend/src/db/seed/utils/auto-tag-detection.ts`
+**Fichier :** `backend/src/features/auto-tagging/passes/auto-tag-detection.ts`
 **Fonction exportée :** `detectAutoTags(inci, kind, options?)`
 
 C'est la passe la plus "intelligente" : elle délègue à algo-derm et filtre les résultats selon notre config.
@@ -116,9 +116,9 @@ Exemple d'entrées dans `TAG_CONFIG` :
 
 ---
 
-### Passe 2 — `utils/actif-class-detection.ts`
+### Passe 2 — `passes/actif-class-detection.ts`
 
-**Fichier :** `backend/src/db/seed/utils/actif-class-detection.ts`
+**Fichier :** `backend/src/features/auto-tagging/passes/actif-class-detection.ts`
 **Fonction exportée :** `detectActifClasses(inci)`
 
 Détecte les **clusters pharmacologiques** du produit. Plus simple que la passe 1 : juste du substring matching sur l'INCI normalisé, **gaté par position INCI**.
@@ -162,9 +162,9 @@ Les clusters définis :
 
 ---
 
-### Passe 3 — `utils/kind-tag-detection.ts`
+### Passe 3 — `passes/kind-tag-detection.ts`
 
-**Fichier :** `backend/src/db/seed/utils/kind-tag-detection.ts`
+**Fichier :** `backend/src/features/auto-tagging/passes/kind-tag-detection.ts`
 **Fonction exportée :** `detectKindTags(kind)`
 
 Rien d'algo-derm ici. On regarde juste le `kind` du produit et on retourne les tags structurels qui vont avec. Zéro INCI.
@@ -180,9 +180,9 @@ C'est un simple dictionnaire `kind → [slugs]`. Couvre : skincare (15 kinds), s
 
 ---
 
-### Passe 4 — `utils/formula-detection.ts`
+### Passe 4 — `passes/formula-detection.ts`
 
-**Fichier :** `backend/src/db/seed/utils/formula-detection.ts`
+**Fichier :** `backend/src/features/auto-tagging/passes/formula-detection.ts`
 **Fonctions exportées :** `detectOcclusifTags`, `detectSolaireTags`, `detectPrebiotique`, `detectReparationCutanee`, `detectKeratosePilaire`, `detectStepNettoyage1`, `detectCernesPoches`, `detectGrossesseAvoid`
 
 7 détections via patterns INCI (que algo-derm ne couvre pas) + 1 détection grossesse-avoid.
@@ -320,9 +320,9 @@ Pourquoi `avoid` et pas juste "ne pas émettre secondary" ? Parce qu'on veut pou
 
 ---
 
-### Passe 5 — `utils/cross-signal-detection.ts`
+### Passe 5 — `passes/cross-signal-detection.ts`
 
-**Fichier :** `backend/src/db/seed/utils/cross-signal-detection.ts`
+**Fichier :** `backend/src/features/auto-tagging/passes/cross-signal-detection.ts`
 **Fonction exportée :** `detectCrossSignalTags(actifClasses, kind)`
 
 Ici on combine les résultats de la passe 2 (actif classes) avec le `kind` pour déduire des tags de **moment d'utilisation**. Ni algo-derm, ni l'INCI seul ne peuvent faire ça — il faut les deux.
@@ -366,9 +366,9 @@ Les kinds "rinse-off" (cleanser, body-wash, mask) sont exclus des signaux de pho
 
 ---
 
-## Le runner : `runners/backfill-auto-tags.ts`
+## Le runner : `runners/backfill.ts`
 
-**Fichier :** `backend/src/db/seed/runners/backfill-auto-tags.ts`
+**Fichier :** `backend/src/features/auto-tagging/runners/backfill.ts`
 
 C'est lui qui orchestre tout et écrit en DB. Il ne contient pas de logique de détection — il appelle juste les 6 fonctions dans l'ordre.
 
@@ -408,9 +408,9 @@ make backfill-auto-tags LIMIT=50 WRITE=1   # applique sur 50 produits (test prog
 
 ---
 
-## Le runner d'audit : `runners/audit-auto-tags.ts`
+## Le runner d'audit : `runners/audit.ts`
 
-**Fichier :** `backend/src/db/seed/runners/audit-auto-tags.ts`
+**Fichier :** `backend/src/features/auto-tagging/runners/audit.ts`
 
 Similaire au backfill mais **lecture seule** et plus verbeux. Il montre pour chaque tag algo-derm :
 - `hit` : combien de produits le recevraient
@@ -434,12 +434,12 @@ Le `backfill-auto-tags.ts` sert pour les produits **déjà en DB** qui n'ont pas
 
 | Fichier | Rôle | Utilise algo-derm ? |
 |---------|------|---------------------|
-| `utils/auto-tag-detection.ts` | Passe 1 — concerns, skin type, comédogénicité, sans-parfum, grossesse-compatible secondary | `analyzeINCI` + `tagProduct` + `splitINCI` |
-| `utils/actif-class-detection.ts` | Passe 2 — clusters pharmacologiques | `splitINCI` + `normalize` |
-| `utils/kind-tag-detection.ts` | Passe 3 — TYPE_*, ZONE_*, STEP_*, MOMENT_*, TEXTURE_* | Non |
-| `utils/formula-detection.ts` | Passe 4 — occlusif, filtres solaires, prébiotique, reparation-cutanee, keratose-pilaire, step-nettoyage-1, cernes-poches, grossesse-avoid | `splitINCI` + `normalize` |
-| `utils/cross-signal-detection.ts` | Passe 5 — MOMENT_SOIR/MATIN depuis actif × kind | Non |
-| `runners/backfill-auto-tags.ts` | Runner principal — orchestre les 6 passes, écrit en DB | Via les utils ci-dessus |
-| `runners/audit-auto-tags.ts` | Runner audit — dry-run avec stats par tag (passe 1 uniquement) | Via `auto-tag-detection.ts` |
+| `passes/auto-tag-detection.ts` | Passe 1 — concerns, skin type, comédogénicité, sans-parfum, grossesse-compatible secondary | `analyzeINCI` + `tagProduct` + `splitINCI` |
+| `passes/actif-class-detection.ts` | Passe 2 — clusters pharmacologiques | `splitINCI` + `normalize` |
+| `passes/kind-tag-detection.ts` | Passe 3 — TYPE_*, ZONE_*, STEP_*, MOMENT_*, TEXTURE_* | Non |
+| `passes/formula-detection.ts` | Passe 4 — occlusif, filtres solaires, prébiotique, reparation-cutanee, keratose-pilaire, step-nettoyage-1, cernes-poches, grossesse-avoid | `splitINCI` + `normalize` |
+| `passes/cross-signal-detection.ts` | Passe 5 — MOMENT_SOIR/MATIN depuis actif × kind | Non |
+| `runners/backfill.ts` | Runner principal — orchestre les 6 passes, écrit en DB | Via les utils ci-dessus |
+| `runners/audit.ts` | Runner audit — dry-run avec stats par tag (passe 1 uniquement) | Via `auto-tag-detection.ts` |
 
 ---

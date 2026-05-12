@@ -15,10 +15,10 @@
 // (product, tag), avoid wins and is upserted (overrides any existing secondary).
 // Existing manual tags at secondary are preserved (onConflictDoNothing).
 //
-// Usage:
-//   bun run backend/src/db/seed/runners/backfill-auto-tags.ts            # dry-run
-//   bun run backend/src/db/seed/runners/backfill-auto-tags.ts --write    # apply
-//   bun run backend/src/db/seed/runners/backfill-auto-tags.ts --slug <s> # single product
+// Usage (via `just backfill-auto-tags`):
+//   bun run backend/src/features/auto-tagging/runners/backfill.ts            # dry-run
+//   bun run backend/src/features/auto-tagging/runners/backfill.ts --write    # apply
+//   bun run backend/src/features/auto-tagging/runners/backfill.ts --slug <s> # single product
 //
 // Env tunables:
 //   CONF_OVERRIDE   float  — raise every algo-derm per-tag minConf to this floor
@@ -29,7 +29,7 @@ import type { ProductKind, ProductTexture } from '@habit-tracker/shared'
 
 import { eq, inArray, sql } from 'drizzle-orm'
 
-import { db } from '../..'
+import { db } from '../../../db'
 import {
   brandCertifications,
   ingredients,
@@ -37,13 +37,13 @@ import {
   products,
   productTagsDefs,
   tagProducts,
-} from '../../schema'
-import { TAG_CONFIG } from '../utils/auto-tag-detection'
+} from '../../../db/schema'
 import {
   AUTO_TAG_ELIGIBLE_CATEGORIES,
   type AutoTagSource,
   detectAllAutoTags,
-} from '../utils/auto-tag-orchestrator'
+} from '../orchestrator'
+import { TAG_CONFIG } from '../passes/auto-tag-detection'
 
 const WRITE = process.argv.includes('--write')
 const SLUG_ARG = (() => {

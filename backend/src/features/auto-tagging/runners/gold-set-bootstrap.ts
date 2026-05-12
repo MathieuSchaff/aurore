@@ -40,9 +40,8 @@ import type { ProductKind } from '@habit-tracker/shared'
 
 import { inArray, sql } from 'drizzle-orm'
 
-import { db } from '../..'
-import { products, productTagsDefs, tagProducts } from '../../schema'
-import { AUTO_TAG_ELIGIBLE_CATEGORIES } from '../utils/auto-tag-orchestrator'
+import { db } from '../../../db'
+import { products, productTagsDefs, tagProducts } from '../../../db/schema'
 import {
   GOLD_SET_FOCUS_TAGS,
   GOLD_SET_SCHEMA_VERSION,
@@ -51,7 +50,8 @@ import {
   type GoldSetFocusTag,
   loadGoldSet,
   serializeGoldSet,
-} from '../utils/gold-set'
+} from '../gold-set/fixtures'
+import { AUTO_TAG_ELIGIBLE_CATEGORIES } from '../orchestrator'
 
 const SAMPLE_SIZE = Number(process.env.SAMPLE_SIZE ?? 70)
 const POSITIVES_PER_TAG = Number(process.env.POSITIVES_PER_TAG ?? 4)

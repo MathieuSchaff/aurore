@@ -35,15 +35,15 @@ import type { ProductKind } from '@habit-tracker/shared'
 
 import { inArray, sql } from 'drizzle-orm'
 
-import { db } from '../..'
-import { products } from '../../schema'
+import { db } from '../../../db'
+import { products } from '../../../db/schema'
 import {
   AUTO_TAG_ELIGIBLE_CATEGORIES,
   type AutoTagPair,
   type AutoTagRelevance,
   type AutoTagSource,
   detectAllAutoTags,
-} from '../utils/auto-tag-orchestrator'
+} from '../orchestrator'
 
 const CSV_OUT = process.env.CSV_OUT
 const BASELINE = process.env.BASELINE

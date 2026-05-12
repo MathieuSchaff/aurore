@@ -3,8 +3,8 @@
 //
 // Read-only on the DB. The annotations live in
 // `backend/src/db/seed/data/gold-set/annotations.json` (loaded with the
-// validator from utils/gold-set.ts) and stand-in for ground truth on the
-// 16 focus tags listed in `GOLD_SET_FOCUS_TAGS`.
+// validator from `gold-set/fixtures.ts`) and stand-in for ground truth on
+// the 16 focus tags listed in `GOLD_SET_FOCUS_TAGS`.
 //
 // Pipeline per product:
 //   1. detectAllAutoTags(product) — orchestrator output (16 focus tags or
@@ -36,18 +36,18 @@ import type { ProductKind } from '@habit-tracker/shared'
 import { analyzeINCI, splitINCI } from 'algo-derm'
 import { eq, inArray, sql } from 'drizzle-orm'
 
-import { mapKindToContext } from '../../../features/dermo-score/profile-mapping'
-import { db } from '../..'
-import { ingredients, productIngredients, products } from '../../schema'
-import { detectAutoTags } from '../utils/auto-tag-detection'
-import { AUTO_TAG_ELIGIBLE_CATEGORIES, detectAllAutoTags } from '../utils/auto-tag-orchestrator'
-import { GOLD_SET_FOCUS_TAGS, type GoldSetFocusTag, loadGoldSet } from '../utils/gold-set'
+import { db } from '../../../db'
+import { ingredients, productIngredients, products } from '../../../db/schema'
+import { mapKindToContext } from '../../dermo-score/profile-mapping'
+import { GOLD_SET_FOCUS_TAGS, type GoldSetFocusTag, loadGoldSet } from '../gold-set/fixtures'
 import {
   computePerTagMetrics,
   macroAverage,
   microAverage,
   type PerTagMetrics,
-} from '../utils/gold-set-metrics'
+} from '../gold-set/metrics'
+import { AUTO_TAG_ELIGIBLE_CATEGORIES, detectAllAutoTags } from '../orchestrator'
+import { detectAutoTags } from '../passes/auto-tag-detection'
 
 const GOLD_SET_PATH =
   process.env.GOLD_SET_PATH ??

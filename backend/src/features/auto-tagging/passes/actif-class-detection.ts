@@ -21,7 +21,7 @@
 import type { ProductKind } from '@habit-tracker/shared'
 import { SKINCARE_PRODUCT_TAG_SLUGS, type SkincareProductTagSlug } from '@habit-tracker/shared'
 
-import { isAlphabeticalINCI, resolveIngredients } from './ingredient-resolver'
+import { isAlphabeticalINCI, resolveIngredients } from '../lib/ingredient-resolver'
 
 const DEFAULT_POSITION_CAP = 12
 

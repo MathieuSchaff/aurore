@@ -2,9 +2,9 @@ import { describe, expect, test } from 'bun:test'
 
 import { SKINCARE_PRODUCT_TAG_SLUGS } from '@habit-tracker/shared'
 
-import type { BrandCertification } from '../../schema/products/brand-certifications'
-import { normalizeBrand } from '../../schema/products/brand-certifications'
-import { detectBrandLevelLabels } from '../utils/brand-cert-detection'
+import type { BrandCertification } from '../../../db/schema/products/brand-certifications'
+import { normalizeBrand } from '../../../db/schema/products/brand-certifications'
+import { detectBrandLevelLabels } from '../passes/brand-cert-detection'
 
 const S = SKINCARE_PRODUCT_TAG_SLUGS
 

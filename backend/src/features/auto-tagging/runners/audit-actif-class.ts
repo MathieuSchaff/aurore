@@ -28,9 +28,9 @@ import type { ProductKind } from '@habit-tracker/shared'
 
 import { eq, sql } from 'drizzle-orm'
 
-import { db } from '../..'
-import { products, productTagsDefs, tagProducts } from '../../schema'
-import { ACTIF_CLASS_DEFS, detectActifClasses } from '../utils/actif-class-detection'
+import { db } from '../../../db'
+import { products, productTagsDefs, tagProducts } from '../../../db/schema'
+import { ACTIF_CLASS_DEFS, detectActifClasses } from '../passes/actif-class-detection'
 
 const LIMIT = process.env.LIMIT ? Number(process.env.LIMIT) : null
 

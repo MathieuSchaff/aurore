@@ -14,7 +14,7 @@
 
 import { eq, sql } from 'drizzle-orm'
 
-import { db } from '../..'
+import { db } from '../../../db'
 import {
   ingredients,
   ingredientTagsDefs,
@@ -22,10 +22,10 @@ import {
   productTagsDefs,
   tagIngredients,
   tagProducts,
-} from '../../schema'
-import { ingredientTagMap } from '../data/ingredient-tags'
-import { ingredientTagData, productTagData } from '../data/tags'
-import { detectActifClasses } from '../utils/actif-class-detection'
+} from '../../../db/schema'
+import { ingredientTagMap } from '../../../db/seed/data/ingredient-tags'
+import { ingredientTagData, productTagData } from '../../../db/seed/data/tags'
+import { detectActifClasses } from '../passes/actif-class-detection'
 
 async function main() {
   console.log('🌱 Backfill actif_class (post-snapshot reload)...\n')

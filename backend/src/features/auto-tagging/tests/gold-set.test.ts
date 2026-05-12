@@ -7,7 +7,7 @@ import {
   isGoldSetFocusTag,
   serializeGoldSet,
   validateGoldSet,
-} from '../utils/gold-set'
+} from '../gold-set/fixtures'
 
 describe('isGoldSetFocusTag', () => {
   test('returns true for every entry in GOLD_SET_FOCUS_TAGS', () => {

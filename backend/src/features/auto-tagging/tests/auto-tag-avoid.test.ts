@@ -10,8 +10,8 @@ import { SKINCARE_PRODUCT_TAG_SLUGS } from '@habit-tracker/shared'
 
 import { analyzeINCI } from 'algo-derm'
 
-import { mapKindToContext } from '../../../features/dermo-score/profile-mapping'
-import { computeAvoidCandidates, isAvoidEligibleCategory } from '../utils/auto-tag-avoid'
+import { mapKindToContext } from '../../dermo-score/profile-mapping'
+import { computeAvoidCandidates, isAvoidEligibleCategory } from '../passes/auto-tag-avoid'
 
 const S = SKINCARE_PRODUCT_TAG_SLUGS
 
@@ -196,7 +196,7 @@ describe('computeAvoidCandidates — precomputed actifClasses parity', () => {
       const auto = computeAvoidCandidates(f.inci, f.kind, f.category)
       // Mirror backfill's call site: it passes `actifSlugs` precomputed for
       // the secondary cluster pairs and reuses the same value here.
-      const { detectActifClasses } = await import('../utils/actif-class-detection')
+      const { detectActifClasses } = await import('../passes/actif-class-detection')
       const actifSlugs = detectActifClasses(f.inci)
       const precomputed = computeAvoidCandidates(f.inci, f.kind, f.category, actifSlugs)
       expect(precomputed).toEqual(auto)

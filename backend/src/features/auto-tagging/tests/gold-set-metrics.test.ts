@@ -10,7 +10,7 @@ import {
   microAverage,
   type PerTagMetrics,
   type Sample,
-} from '../utils/gold-set-metrics'
+} from '../gold-set/metrics'
 
 const s = (p: number, y: 0 | 1): Sample => ({ p, y })
 
