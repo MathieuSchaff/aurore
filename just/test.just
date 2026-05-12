@@ -1,3 +1,8 @@
+import '_vars.just'
+
+TEST_DB_URL     := "postgres://app:testpassword@localhost:5433/appdb_test"
+APP_TEST_DB_URL := "postgres://app_runtime:testpassword@localhost:5433/appdb_test"
+
 # Start test DB and apply migrations
 test-db-up:
     {{COMPOSE_TEST}} up -d
@@ -70,5 +75,5 @@ test-db-reset: test-db-down test-db-up
 # Seed CORE into test DB — --reset, requires test-db-up
 test-db-seed:
     @printf "{{CYAN}}Seeding CORE into test DB...{{NC}}\n"
-    cd backend && export $(grep -v '^\#' ../.env.dev | xargs) && DATABASE_URL={{TEST_DB_URL}} APP_DATABASE_URL={{APP_TEST_DB_URL}} bun run src/db/seed/runners/seed-core.ts --reset
+    cd backend && export $(grep -v '^\#' ../.env.dev | xargs) && DATABASE_URL={{TEST_DB_URL}} APP_DATABASE_URL={{APP_TEST_DB_URL}} bun run src/db/seed/seeders/seed-core.ts --reset
     @printf "{{GREEN}}✓ CORE seed done on test DB{{NC}}\n"

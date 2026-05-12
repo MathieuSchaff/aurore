@@ -1,102 +1,190 @@
+import '_vars.just'
+
+# Audit DB + auto-tagging pipeline (audits + backfill + gold-set).
+# TARGET: env var (dev par défaut | prod). Confirmation interactive si TARGET=prod + write/apply.
+# Tous les autres paramètres passent par env vars (pas de positional bugué).
+#
+# Exemples:
+#   LIMIT=50 just audit-actif-class
+#   SLUG=la-roche-posay WRITE=1 just audit-product-kinds
+#   CSV_OUT=/tmp/orch.csv just audit-orchestrator-diff
+#   TARGET=prod WRITE=1 just backfill-auto-tags     # prod, confirmation requise
+
 # Audit DB consistency (seed drift, relational integrity)
 audit-db:
-    @printf "{{CYAN}}DB audit in progress...{{NC}}\n"
-    {{COMPOSE_DEV}} exec api bun run src/db/audit/audit-db.ts
-
-# Dry-run auto-tagging via algo-derm (read-only)
-# Usage: just audit-auto-tags conf_override=0.7 limit=50
-audit-auto-tags conf_override="" csv_out="" limit="" include_dropped="":
     #!/usr/bin/env bash
-    printf '\033[0;36mAudit auto-tags (dry-run)...\033[0m\n'
-    {{COMPOSE_DEV}} exec \
-        $([ -n "{{conf_override}}" ] && echo "-e CONF_OVERRIDE={{conf_override}}" || true) \
-        $([ -n "{{csv_out}}" ]       && echo "-e CSV_OUT={{csv_out}}"             || true) \
-        $([ -n "{{limit}}" ]         && echo "-e LIMIT={{limit}}"                 || true) \
-        $([ -n "{{include_dropped}}" ] && echo "-e INCLUDE_DROPPED={{include_dropped}}" || true) \
-        api bun run src/features/auto-tagging/runners/audit.ts
+    set -euo pipefail
+    TARGET="${TARGET:-dev}"
+    case "$TARGET" in
+        dev)  COMPOSE="{{COMPOSE_DEV}}" ;;
+        prod) COMPOSE="{{COMPOSE_PROD}}" ;;
+        *)    printf "{{RED}}TARGET invalide: dev|prod (got '$TARGET'){{NC}}\n"; exit 1 ;;
+    esac
+    printf "{{CYAN}}DB audit ($TARGET)...{{NC}}\n"
+    $COMPOSE exec api bun run src/db/audit/audit-db.ts
 
-# Audit products.kind mistags via name patterns
-# Usage: just audit-product-kinds slug=my-slug write=1
-audit-product-kinds slug="" write="":
+# Dry-run auto-tagging via algo-derm (read-only). Env: CONF_OVERRIDE, CSV_OUT, LIMIT, INCLUDE_DROPPED.
+audit-auto-tags:
     #!/usr/bin/env bash
-    MODE=$([ -n "{{write}}" ] && echo "WRITE" || echo "dry-run")
-    printf "\033[0;36mAudit product kinds ($MODE)...\033[0m\n"
-    {{COMPOSE_DEV}} exec api bun run src/db/seed/runners/audit-product-kinds.ts \
-        $([ -n "{{write}}" ] && echo "--write" || true) \
-        $([ -n "{{slug}}" ]  && echo "--slug {{slug}}" || true)
+    set -euo pipefail
+    TARGET="${TARGET:-dev}"
+    case "$TARGET" in
+        dev)  COMPOSE="{{COMPOSE_DEV}}" ;;
+        prod) COMPOSE="{{COMPOSE_PROD}}" ;;
+        *)    printf "{{RED}}TARGET invalide: dev|prod (got '$TARGET'){{NC}}\n"; exit 1 ;;
+    esac
+    printf "{{CYAN}}Audit auto-tags dry-run ($TARGET)...{{NC}}\n"
+    $COMPOSE exec \
+        ${CONF_OVERRIDE:+-e CONF_OVERRIDE="$CONF_OVERRIDE"} \
+        ${CSV_OUT:+-e CSV_OUT="$CSV_OUT"} \
+        ${LIMIT:+-e LIMIT="$LIMIT"} \
+        ${INCLUDE_DROPPED:+-e INCLUDE_DROPPED="$INCLUDE_DROPPED"} \
+        api bun run src/features/auto-tagging/runners/audit/main.ts
 
-# Dry-run backfill tags (algo-derm + actif-class + kind)
-# Usage: just backfill-auto-tags write=1 slug=my-slug limit=50
-backfill-auto-tags slug="" write="" limit="" conf_override="" include_dropped="":
+# Audit products.kind mistags via name patterns. Env: SLUG (single product), WRITE (apply fixes).
+audit-product-kinds:
     #!/usr/bin/env bash
-    MODE=$([ -n "{{write}}" ] && echo "WRITE" || echo "dry-run")
-    printf "\033[0;36mBackfill auto-tags ($MODE)...\033[0m\n"
-    {{COMPOSE_DEV}} exec \
-        $([ -n "{{conf_override}}" ]   && echo "-e CONF_OVERRIDE={{conf_override}}"     || true) \
-        $([ -n "{{limit}}" ]           && echo "-e LIMIT={{limit}}"                     || true) \
-        $([ -n "{{include_dropped}}" ] && echo "-e INCLUDE_DROPPED={{include_dropped}}" || true) \
-        api bun run src/features/auto-tagging/runners/backfill.ts \
-        $([ -n "{{write}}" ] && echo "--write"         || true) \
-        $([ -n "{{slug}}" ]  && echo "--slug {{slug}}" || true)
-
-# Snapshot/diff orchestrator output
-# Usage: just audit-orchestrator-diff csv_out=/tmp/out.csv baseline=/tmp/base.csv limit=100
-audit-orchestrator-diff csv_out baseline="" limit="":
-    #!/usr/bin/env bash
-    MODE=$([ -n "{{baseline}}" ] && echo "DIFF" || echo "SNAPSHOT")
-    printf "\033[0;36mAudit orchestrator ($MODE)...\033[0m\n"
-    {{COMPOSE_DEV}} exec \
-        -e CSV_OUT={{csv_out}} \
-        $([ -n "{{baseline}}" ] && echo "-e BASELINE={{baseline}}" || true) \
-        $([ -n "{{limit}}" ]    && echo "-e LIMIT={{limit}}"       || true) \
-        api bun run src/features/auto-tagging/runners/audit-orchestrator-diff.ts
-
-# Dry-run pharmacological cluster audit (pass 2)
-# Usage: just audit-actif-class limit=50
-audit-actif-class limit="":
-    #!/usr/bin/env bash
-    printf '\033[0;36mAudit actif-class (dry-run)...\033[0m\n'
-    {{COMPOSE_DEV}} exec \
-        $([ -n "{{limit}}" ] && echo "-e LIMIT={{limit}}" || true) \
-        api bun run src/features/auto-tagging/runners/audit-actif-class.ts
-
-# Audit AHA/BHA/PHA manual overrides
-# Usage: just audit-aha-bha-pha limit=50 apply=1 apply_from_csv=/path/to.csv
-audit-aha-bha-pha csv_out="" csv_dir="" limit="" apply="" apply_from_csv="":
-    #!/usr/bin/env bash
-    if [ -n "{{apply}}" ]; then
-        printf '\033[0;31m⚠ APPLY mode — DELETE pairs from {{apply_from_csv}}\033[0m\n'
-    else
-        printf '\033[0;36mAudit AHA/BHA/PHA overrides (read-only)...\033[0m\n'
+    set -euo pipefail
+    TARGET="${TARGET:-dev}"
+    case "$TARGET" in
+        dev)  COMPOSE="{{COMPOSE_DEV}}" ;;
+        prod) COMPOSE="{{COMPOSE_PROD}}" ;;
+        *)    printf "{{RED}}TARGET invalide: dev|prod (got '$TARGET'){{NC}}\n"; exit 1 ;;
+    esac
+    if [ "$TARGET" = "prod" ] && [ -n "${WRITE:-}" ]; then
+        printf "{{RED}}⚠ PROD WRITE (audit-product-kinds) — tape 'PROD' pour confirmer{{NC}}\n"
+        read -r -p "> " C
+        [ "$C" = "PROD" ] || { printf "{{RED}}abandon{{NC}}\n"; exit 1; }
     fi
-    {{COMPOSE_DEV}} exec \
-        $([ -n "{{csv_out}}" ]        && echo "-e CSV_OUT={{csv_out}}"               || true) \
-        $([ -n "{{csv_dir}}" ]        && echo "-e CSV_DIR={{csv_dir}}"               || true) \
-        $([ -n "{{limit}}" ]          && echo "-e LIMIT={{limit}}"                   || true) \
-        $([ -n "{{apply}}" ]          && echo "-e APPLY={{apply}}"                   || true) \
-        $([ -n "{{apply_from_csv}}" ] && echo "-e APPLY_FROM_CSV={{apply_from_csv}}" || true) \
-        api bun run src/features/auto-tagging/runners/audit-aha-bha-pha-overrides.ts
+    MODE=$([ -n "${WRITE:-}" ] && echo "WRITE" || echo "dry-run")
+    printf "{{CYAN}}Audit product kinds ($MODE, $TARGET)...{{NC}}\n"
+    $COMPOSE exec api bun run src/features/auto-tagging/runners/audit/product-kinds.ts \
+        ${WRITE:+--write} \
+        ${SLUG:+--slug "$SLUG"}
 
-# Sample 60-80 products stratified → data/gold-set/annotations.json (idempotent)
-# Usage: just gold-set-bootstrap sample_size=80 seed=42
-gold-set-bootstrap sample_size="" positives_per_tag="" negatives_per_tag="" seed="" gold_set_path="":
+# Backfill auto-tags. Env: SLUG, WRITE (apply), LIMIT, CONF_OVERRIDE, INCLUDE_DROPPED.
+backfill-auto-tags:
     #!/usr/bin/env bash
-    printf '\033[0;36mGold-set bootstrap (stratified sampling)...\033[0m\n'
-    {{COMPOSE_DEV}} exec \
-        $([ -n "{{sample_size}}" ]       && echo "-e SAMPLE_SIZE={{sample_size}}"              || true) \
-        $([ -n "{{positives_per_tag}}" ] && echo "-e POSITIVES_PER_TAG={{positives_per_tag}}"  || true) \
-        $([ -n "{{negatives_per_tag}}" ] && echo "-e NEGATIVES_PER_TAG={{negatives_per_tag}}"  || true) \
-        $([ -n "{{seed}}" ]              && echo "-e SEED={{seed}}"                            || true) \
-        $([ -n "{{gold_set_path}}" ]     && echo "-e GOLD_SET_PATH={{gold_set_path}}"          || true) \
+    set -euo pipefail
+    TARGET="${TARGET:-dev}"
+    case "$TARGET" in
+        dev)  COMPOSE="{{COMPOSE_DEV}}" ;;
+        prod) COMPOSE="{{COMPOSE_PROD}}" ;;
+        *)    printf "{{RED}}TARGET invalide: dev|prod (got '$TARGET'){{NC}}\n"; exit 1 ;;
+    esac
+    if [ "$TARGET" = "prod" ] && [ -n "${WRITE:-}" ]; then
+        printf "{{RED}}⚠ PROD WRITE (backfill-auto-tags) — tape 'PROD' pour confirmer{{NC}}\n"
+        read -r -p "> " C
+        [ "$C" = "PROD" ] || { printf "{{RED}}abandon{{NC}}\n"; exit 1; }
+    fi
+    MODE=$([ -n "${WRITE:-}" ] && echo "WRITE" || echo "dry-run")
+    printf "{{CYAN}}Backfill auto-tags ($MODE, $TARGET)...{{NC}}\n"
+    $COMPOSE exec \
+        ${CONF_OVERRIDE:+-e CONF_OVERRIDE="$CONF_OVERRIDE"} \
+        ${LIMIT:+-e LIMIT="$LIMIT"} \
+        ${INCLUDE_DROPPED:+-e INCLUDE_DROPPED="$INCLUDE_DROPPED"} \
+        api bun run src/features/auto-tagging/runners/backfill/main.ts \
+        ${WRITE:+--write} \
+        ${SLUG:+--slug "$SLUG"}
+
+# Snapshot/diff orchestrator output. Env: CSV_OUT (required), BASELINE, LIMIT.
+audit-orchestrator-diff:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    if [ -z "${CSV_OUT:-}" ]; then
+        printf "{{RED}}CSV_OUT requis (e.g. CSV_OUT=/tmp/out.csv just audit-orchestrator-diff){{NC}}\n"; exit 1
+    fi
+    TARGET="${TARGET:-dev}"
+    case "$TARGET" in
+        dev)  COMPOSE="{{COMPOSE_DEV}}" ;;
+        prod) COMPOSE="{{COMPOSE_PROD}}" ;;
+        *)    printf "{{RED}}TARGET invalide: dev|prod (got '$TARGET'){{NC}}\n"; exit 1 ;;
+    esac
+    MODE=$([ -n "${BASELINE:-}" ] && echo "DIFF" || echo "SNAPSHOT")
+    printf "{{CYAN}}Audit orchestrator ($MODE, $TARGET)...{{NC}}\n"
+    $COMPOSE exec \
+        -e CSV_OUT="$CSV_OUT" \
+        ${BASELINE:+-e BASELINE="$BASELINE"} \
+        ${LIMIT:+-e LIMIT="$LIMIT"} \
+        api bun run src/features/auto-tagging/runners/audit/orchestrator-diff.ts
+
+# Dry-run pharmacological cluster audit (pass 2). Env: LIMIT.
+audit-actif-class:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    TARGET="${TARGET:-dev}"
+    case "$TARGET" in
+        dev)  COMPOSE="{{COMPOSE_DEV}}" ;;
+        prod) COMPOSE="{{COMPOSE_PROD}}" ;;
+        *)    printf "{{RED}}TARGET invalide: dev|prod (got '$TARGET'){{NC}}\n"; exit 1 ;;
+    esac
+    printf "{{CYAN}}Audit actif-class dry-run ($TARGET)...{{NC}}\n"
+    $COMPOSE exec \
+        ${LIMIT:+-e LIMIT="$LIMIT"} \
+        api bun run src/features/auto-tagging/runners/audit/actif-class.ts
+
+# Audit AHA/BHA/PHA manual overrides. Env: CSV_OUT, CSV_DIR, LIMIT, APPLY (destructive), APPLY_FROM_CSV.
+audit-aha-bha-pha:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    TARGET="${TARGET:-dev}"
+    case "$TARGET" in
+        dev)  COMPOSE="{{COMPOSE_DEV}}" ;;
+        prod) COMPOSE="{{COMPOSE_PROD}}" ;;
+        *)    printf "{{RED}}TARGET invalide: dev|prod (got '$TARGET'){{NC}}\n"; exit 1 ;;
+    esac
+    if [ -n "${APPLY:-}" ]; then
+        printf "{{RED}}⚠ APPLY mode ($TARGET) — DELETE pairs from ${APPLY_FROM_CSV:-?}{{NC}}\n"
+        if [ "$TARGET" = "prod" ]; then
+            printf "{{RED}}⚠ PROD DESTRUCTIVE — tape 'PROD' pour confirmer{{NC}}\n"
+            read -r -p "> " C
+            [ "$C" = "PROD" ] || { printf "{{RED}}abandon{{NC}}\n"; exit 1; }
+        fi
+    else
+        printf "{{CYAN}}Audit AHA/BHA/PHA overrides read-only ($TARGET)...{{NC}}\n"
+    fi
+    $COMPOSE exec \
+        ${CSV_OUT:+-e CSV_OUT="$CSV_OUT"} \
+        ${CSV_DIR:+-e CSV_DIR="$CSV_DIR"} \
+        ${LIMIT:+-e LIMIT="$LIMIT"} \
+        ${APPLY:+-e APPLY="$APPLY"} \
+        ${APPLY_FROM_CSV:+-e APPLY_FROM_CSV="$APPLY_FROM_CSV"} \
+        api bun run src/features/auto-tagging/runners/audit/aha-bha-pha-overrides.ts
+
+# Sample 60-80 produits stratifié → data/gold-set/annotations.json (idempotent).
+# Env: SAMPLE_SIZE, POSITIVES_PER_TAG, NEGATIVES_PER_TAG, SEED, GOLD_SET_PATH.
+gold-set-bootstrap:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    TARGET="${TARGET:-dev}"
+    case "$TARGET" in
+        dev)  COMPOSE="{{COMPOSE_DEV}}" ;;
+        prod) COMPOSE="{{COMPOSE_PROD}}" ;;
+        *)    printf "{{RED}}TARGET invalide: dev|prod (got '$TARGET'){{NC}}\n"; exit 1 ;;
+    esac
+    printf "{{CYAN}}Gold-set bootstrap ($TARGET)...{{NC}}\n"
+    $COMPOSE exec \
+        ${SAMPLE_SIZE:+-e SAMPLE_SIZE="$SAMPLE_SIZE"} \
+        ${POSITIVES_PER_TAG:+-e POSITIVES_PER_TAG="$POSITIVES_PER_TAG"} \
+        ${NEGATIVES_PER_TAG:+-e NEGATIVES_PER_TAG="$NEGATIVES_PER_TAG"} \
+        ${SEED:+-e SEED="$SEED"} \
+        ${GOLD_SET_PATH:+-e GOLD_SET_PATH="$GOLD_SET_PATH"} \
         api bun run src/features/auto-tagging/runners/gold-set-bootstrap.ts
 
-# Benchmark orchestrator vs gold-set (precision/recall/Brier/ECE per tag)
-# Usage: just audit-gold-set gold_set_path=/path strict=1
-audit-gold-set gold_set_path="" csv_out="" strict="":
+# Benchmark orchestrator vs gold-set (precision/recall/Brier/ECE per tag).
+# Env: GOLD_SET_PATH, CSV_OUT, STRICT.
+audit-gold-set:
     #!/usr/bin/env bash
-    printf '\033[0;36mGold-set benchmark...\033[0m\n'
-    {{COMPOSE_DEV}} exec \
-        $([ -n "{{gold_set_path}}" ] && echo "-e GOLD_SET_PATH={{gold_set_path}}" || true) \
-        $([ -n "{{csv_out}}" ]       && echo "-e CSV_OUT={{csv_out}}"             || true) \
-        $([ -n "{{strict}}" ]        && echo "-e STRICT={{strict}}"               || true) \
-        api bun run src/features/auto-tagging/runners/audit-gold-set.ts
+    set -euo pipefail
+    TARGET="${TARGET:-dev}"
+    case "$TARGET" in
+        dev)  COMPOSE="{{COMPOSE_DEV}}" ;;
+        prod) COMPOSE="{{COMPOSE_PROD}}" ;;
+        *)    printf "{{RED}}TARGET invalide: dev|prod (got '$TARGET'){{NC}}\n"; exit 1 ;;
+    esac
+    printf "{{CYAN}}Gold-set benchmark ($TARGET)...{{NC}}\n"
+    $COMPOSE exec \
+        ${GOLD_SET_PATH:+-e GOLD_SET_PATH="$GOLD_SET_PATH"} \
+        ${CSV_OUT:+-e CSV_OUT="$CSV_OUT"} \
+        ${STRICT:+-e STRICT="$STRICT"} \
+        api bun run src/features/auto-tagging/runners/audit/gold-set.ts

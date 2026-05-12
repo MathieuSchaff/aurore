@@ -1,3 +1,5 @@
+import '_vars.just'
+
 # Launch E2E stack (tmpfs DB + migrate + seed) and wait for frontend
 # Stop `just dev` first — ports 5432/3000/5173 are shared
 e2e-up: ts-build
@@ -7,7 +9,7 @@ e2e-up: ts-build
     @printf "{{CYAN}}Migrations...{{NC}}\n"
     {{COMPOSE_E2E}} exec -T api bun run src/db/migrate.ts
     @printf "{{CYAN}}Seed CORE...{{NC}}\n"
-    {{COMPOSE_E2E}} exec -T api bun run src/db/seed/runners/seed-core.ts --reset
+    {{COMPOSE_E2E}} exec -T api bun run src/db/seed/seeders/seed-core.ts --reset
     @printf "{{CYAN}}Waiting for frontend...{{NC}}\n"
     @until curl -sf http://localhost:5173 >/dev/null; do sleep 1; done
     @printf "{{GREEN}}✓ E2E stack ready on http://localhost:5173{{NC}}\n"

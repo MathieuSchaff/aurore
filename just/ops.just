@@ -1,3 +1,5 @@
+import '_vars.just'
+
 # Launch production environment
 prod: env-check
     {{COMPOSE_PROD}} up -d --build

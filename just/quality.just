@@ -1,3 +1,5 @@
+import '_vars.just'
+
 # Check code with Biome (pass tests=1 to use biome.tests.json)
 lint tests="":
     #!/usr/bin/env bash

@@ -1,3 +1,7 @@
+import '_vars.just'
+
+ALGO_DERM_DIR := "../algo-derm"
+
 # Launch dev environment (builds types first)
 dev: ts-build
     {{COMPOSE_DEV}} up --build
