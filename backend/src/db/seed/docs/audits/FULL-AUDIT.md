@@ -114,13 +114,17 @@ L'audit `audit-actif-class` montre un accord de **100%** sur les clusters majeur
 - **Parse-fail 2 → 0** : mary-may-blackberry-complex-glow-wash-off-pack avait INCI vide en DB → re-scrape INCIDecoder (EN canonique) → UPDATE products.inci. 2 cluster flags (vit-e + hyaluronic-acid) = même SKU double-comptage. Tocopherol + Hydrolyzed Hyaluronic Acid présents en INCI → manual tags légit.
 - **Tyrosinase 76 % → 100 %** : 45 azelaic-line products promus en baseline manuel (acm-azeane, ducray melascreen/keracnyl, ordinary, dr-sams, anua, cos-de-baha, nine-less, theramid azid, colibri, svr sebiaclear, bioderma pigmentbio, isispharma teen-derm/ruboril, inkey, typology, tirtir, vt, medicube…). Tous ont AZELAIC ACID en INCI. Décision : algo trust > manual missing.
 
-### 5.2 Overrides AHA/BHA/PHA
-111 produits présentent des tags manuels pour des acides situés **au-delà du cap de concentration** (index 10+ dans l'INCI).
-- **AHA** (48 overrides) : Principalement `Lactic Acid`.
-- **BHA** (44 overrides) : Principalement `Salicylic Acid`.
-- **PHA** (19 overrides) : `Gluconolactone`.
+**État post-pos-cap cleanup (2026-05-13 part 3)** : drift = 35 (0 FP + 35 pos-cap + 0 parse-fail). Cleanup overrides AHA/BHA/PHA cap-10 §5.2 livré :
+- 40 paires (productSlug, tagSlug) supprimées via `aha-bha-pha-overrides.ts APPLY=1`. Politique : `keep` = marketed exfoliant (slug/name carrying acid marker), acne/pigmentation product à pos ≤ 19, `delete` = body-wash/hair/cleanser rinse-off ou pos ≥ 20 ou pos 15-19 hors acné/pigmentation. Borderline (pos 11-14 hors marketing/acné) revue manuelle.
+- 7 pos-cap retirés du drift (cleanser/oil/mask/eye-cream/essence où l'acide est inert past cap), 35 résiduels = produits gardés (Sebiaclear, Acniben, Keracnyl, Sebium, Dermaceutic, Medicube exosome, Lierac stop-boutons, Filorga Sleep&Peel, Dermalogica Superfoliant, Medik8 Surface Radiance, etc.) où le marketing/positionnement acne-pigmentation justifie le tag malgré la chimie.
 
-**Action** : Décider si ces ingrédients à faible concentration justifient un tag (ex: acide salicylique comme conservateur vs actif).
+### 5.2 Overrides AHA/BHA/PHA — RÉSOLU (2026-05-13)
+État post-cleanup : 70 overrides résiduels (AHA 21 / BHA 36 / PHA 13) — tous classés `keep` par la politique :
+- Marketed exfoliant (`MARKET_MARKERS` : aha/bha/pha/salicylic/glycolic/mandelic/peel/foliant/exfoliant…) → tag conservé même past cap.
+- Anti-acne (`ACNE_MARKERS` : sebium/sebiaclear/acniben/keracnyl/normaderm/effaclar/blemish/anti-imperfection/pore-…) + pos ≤ 19 → tag adjunct conservé.
+- Anti-pigmentation (`PIGMENTATION_MARKERS` : depiwhite/melaclear/dark-spot/brightening/eclaircissant/neotone/meno-5…) + pos ≤ 19 → idem.
+
+Implémentation : `runners/audit/aha-bha-pha-overrides.ts` (`CSV_DIR=` split auto delete/keep/borderline, `APPLY=1 APPLY_FROM_CSV=` destructive). Cleanup historique : 110 overrides → 40 supprimés (29 auto-delete + 11 borderline-promoted, moins 4 false-deletes reclassés keep : cerave-sa ×2 / acm-boreade / numbuzin No.5 pad).
 
 ---
 

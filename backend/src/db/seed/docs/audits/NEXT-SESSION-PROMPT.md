@@ -1,4 +1,4 @@
-# Prompt de reprise — post-session 2026-05-13 (drift 0 FP / 0 parse-fail / tyrosinase 100%)
+# Prompt de reprise — post-session 2026-05-13 (drift 0 FP / 0 parse-fail / 35 pos-cap kept-by-design)
 
 ```
 Session de continuité — projet Aurore, branche auto-tags.
@@ -9,17 +9,18 @@ Répertoire : ~/Mathieu/projets/aurore/
 Stack : Hono RPC backend, TanStack Router frontend, Drizzle ORM, PostgreSQL.
 Lib dermo locale : algo-derm (tarball vendoré dans vendor/algo-derm.tgz).
 
-ÉTAT À LA REPRISE (HEAD = a1842b64)
+ÉTAT À LA REPRISE
 
 Drift actif-class :
   - 0 false-positive
   - 0 parse-fail
-  - 42 pos-cap résiduels (AHA 13 / BHA 21 / PHA 8 — légitimes algo miss)
+  - 35 pos-cap kept-by-design (AHA 8 / BHA 21 / PHA 6) — produits marketed
+    exfoliant ou acné/pigmentation, tag conservé malgré chimie cap=10
   - 13 clusters, agree 100 % sauf pos-cap susmentionnés
 
-Tous les FP, parse-fail et drift baseline ont été clos sur la branche
-auto-tags. La taxonomie actif-class est stable. Prochains chantiers
-listés dans ITEMS OUVERTS ci-dessous.
+Tous les FP, parse-fail, drift baseline ET overrides AHA/BHA/PHA hors politique
+ont été clos sur la branche auto-tags. La taxonomie actif-class est stable.
+Prochains chantiers listés dans ITEMS OUVERTS ci-dessous.
 
 TRAJECTOIRE DRIFT (historique court)
 
@@ -33,6 +34,13 @@ TRAJECTOIRE DRIFT (historique court)
   - 2026-05-13 (2)  : parse-fail 2 → 0, tyrosinase 76 % → 100 %
                       - mary-may-blackberry INCI re-scrape INCIDecoder
                       - 45 azelaic-line products promus baseline manuel
+  - 2026-05-13 (3)  : pos-cap 42 → 35 (kept-by-design) via cleanup overrides
+                      AHA/BHA/PHA §5.2. 40 paires (productSlug, tagSlug)
+                      supprimées via `aha-bha-pha-overrides.ts APPLY=1`.
+                      Politique : keep marketed-exfoliant / acne / pigmentation
+                      à pos ≤ 19 ; delete tout body-wash / hair / cleanser
+                      rinse-off ou pos ≥ 20. Borderline (pos 11-14 hors
+                      marketing) revue manuelle.
 
 ITEMS OUVERTS — par ordre simple → complexe
 
@@ -40,15 +48,7 @@ ITEMS OUVERTS — par ordre simple → complexe
    sur products.category/kind/unit. Migration Drizzle + valider données
    existantes avant. ~2-3h.
 
-2. §5.2 Overrides AHA/BHA/PHA (FULL-AUDIT) — 42 produits pos-cap.
-   Acide past position cap = légitime miss algo. Décision politique
-   pendante :
-     A. Relax cap leave-on 10 → 12-15 (risque over-tag)
-     B. Accepter drift (manual = source de vérité si dermato a flaggé)
-     C. Au cas par cas via review manuelle
-   ~3-5h selon option.
-
-3. Priorité 2 — Auto-tagging primary (gros chantier différé).
+2. Priorité 2 — Auto-tagging primary (gros chantier différé).
    1101 produits sans tag primary.
    Doc : backend/src/features/auto-tagging/docs/ROADMAP.md §1.
 

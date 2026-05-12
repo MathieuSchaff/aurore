@@ -51,7 +51,7 @@ Historique : [`../../../db/seed/docs/_archive/auto-tags-roadmap.md`](../../../db
 - [x] **`texture-stick`** — livré via `detectTextureStickFromName` (name-based, pas de dépendance `products.texture`).
 - [ ] **`texture-mousse`** — livré via `detectTextureFromField` uniquement quand `products.texture = 'mousse'`. Pas de fallback nom/INCI (foaming surfactants ambigus). Bloqué par `products.texture = NULL` — nécessite curation admin ou parser description/notes.
 - [ ] **`peau-mixte`** — Tier 3, débloqué par `products.texture` populé (pattern : T-zone gel-cream + niacinamide top 8).
-- [ ] **Drift BHA/AHA/PHA pos-cap** — 42 tags manuels manqués par algo (21 BHA, 13 AHA, 8 PHA), acide past position cap. Décision pendante (relax cap / accepter / case-by-case). État 2026-05-13 : 0 false-pos, 0 parse-fail, tyrosinase 100 % agree. Cf. FULL-AUDIT §5.2 + `docs/algo/algo-derm-aurore-integration.md` §3.6.
+- [x] **Drift BHA/AHA/PHA pos-cap** — politique case-by-case livrée 2026-05-13 via `runners/audit/aha-bha-pha-overrides.ts`. 40 paires supprimées (cleanser/body-wash/scalp/pos ≥ 20 hors marketing). 35 résiduels kept-by-design (marketed exfoliant + acne/pigmentation ≤ pos 19). Cf. FULL-AUDIT §5.2 + classifier au header du runner.
 
 ---
 
@@ -78,14 +78,12 @@ Règles de rattrapage `avoid` (rappel, doivent être dans le pipeline auto) :
 
 ---
 
-## 6. Politique concentration AHA/BHA/PHA (111 overrides)
+## 6. Politique concentration AHA/BHA/PHA — RÉSOLU (2026-05-13)
 
-> Source : `audits/FULL-AUDIT.md` §5.2 (audit 2026-05-12).
+> Source : `audits/FULL-AUDIT.md` §5.2.
 
-111 produits avec tags manuels pour acides au-delà du cap de concentration (index INCI ≥ 10) :
-- **AHA** (48) : principalement `Lactic Acid`.
-- **BHA** (44) : principalement `Salicylic Acid`.
-- **PHA** (19) : `Gluconolactone`.
+Politique livrée : case-by-case via classifier dans `runners/audit/aha-bha-pha-overrides.ts` (`MARKET_MARKERS` / `HAIR_MARKERS` / `ACNE_MARKERS` / `PIGMENTATION_MARKERS`). Pas de relax du cap au niveau orchestrator — le cap=10 reste la policy chimie-aware, les overrides sont décrits par les tags manuels conservés explicitement pour leur positionnement marketing.
 
-- [ ] **Décider la politique** : acide conservateur (< 0.5%) → pas de tag actif, ou conserver avec flag `low-conc` ?
-- [ ] **Implémenter** dans `orchestrator.ts` une fois la politique arrêtée (ajuster cap-index ou règle d'override explicite).
+- [x] **Politique décidée** — keep marketed/acne/pigmentation ≤ pos 19, delete cleanser-rinse-off / hair / pos ≥ 20 / pos 15-19 hors marketing.
+- [x] **Cleanup historique** — 110 overrides → 40 supprimés → 70 résiduels (AHA 21 / BHA 36 / PHA 13) tous classés `keep`.
+- [x] **Runner réutilisable** — `CSV_DIR=` split auto, `APPLY=1 APPLY_FROM_CSV=` destructive, rejouable pour futurs audits.
