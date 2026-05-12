@@ -87,10 +87,17 @@ Total : **4 202** produits.
 
 ### 5.1 Agreement et Drift
 L'audit `audit-actif-class` montre un accord de **100%** sur les clusters majeurs (Vitamine E, Acide Hyaluronique, Polyphenols).
-Cependant, un **drift manuel** (tags présents en DB mais non détectés par l'algo) subsiste :
-- **BHA** : 22 produits.
-- **AHA** : 13 produits.
-- **Polyphenols** : 14 produits.
+
+**Drift initial (2026-05-12)** : 82 cas (manual_only across 11 clusters). Classifié par `runners/audit/drift-classify.ts` en 3 buckets :
+
+| Bucket | Count | Action |
+|---|---|---|
+| `pos-cap` — actif présent INCI mais past position cap | 42 | À traiter séparément (décision : relax cap ou accepter drift) |
+| `false-pos` mistags manuels — actif absent INCI | 17 | ✅ DELETE 2026-05-12 (`drift-cleanup.ts`) |
+| `false-pos` bug algo (FR translate, `lactobacillus/X ferment` substrate strip, `INGREDIENT (ALIAS)` parens strip) | ~21 | Tickets #16-#19 dans [`docs/algo/algo-derm-aurore-integration.md`](../../../../../../docs/algo/algo-derm-aurore-integration.md) §3.6 |
+| `parse-fail` — INCI manquant/cassé | 2 | Data quality |
+
+**État post-cleanup (2026-05-12)** : drift = 63 (21 false-pos = bugs algo + 42 pos-cap).
 
 ### 5.2 Overrides AHA/BHA/PHA
 111 produits présentent des tags manuels pour des acides situés **au-delà du cap de concentration** (index 10+ dans l'INCI).

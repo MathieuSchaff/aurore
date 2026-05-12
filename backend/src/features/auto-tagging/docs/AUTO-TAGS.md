@@ -149,14 +149,14 @@ detectActifClasses("Aqua, Retinol, Tocopherol, ...")
 Les clusters définis :
 - `retinoids` — retinol, retinal, tretinoin, HPR, adapalene…
 - `vitamin-c` — ascorbic acid, ascorbyl glucoside, SAP, MAP…
-- `vitamin-e` — tocopherol, tocopheryl acetate
+- `vitamin-e` — tocopherol, tocopheryl acetate, `vitamin e` / `vitamine-e` (marketing forms post parens-strip)
 - `aha` — glycolic acid, lactic acid, mandelic acid…
 - `bha` — salicylic acid, capryloyl salicylic acid, betaine salicylate
 - `pha` — gluconolactone, lactobionic acid
 - `ceramides` — ceramide np, ceramide ap, ceramide eop…
 - `hyaluronic-acid` — sodium hyaluronate, HA, hydrolyzed HA…
 - `peptides` — peptide, matrixyl, argireline…
-- `polyphenols` — resveratrol, ferulic acid, camellia sinensis…
+- `polyphenols` — resveratrol, ferulic acid, camellia sinensis, `green tea` (marketing form post parens-strip), punica granatum. Scan dédoublé : patterns aussi appliqués à la chaîne raw INCI lowercased (via `RAW_SCAN_SLUGS`) pour catch les substrates fermentés stripés par algo-derm (`lactobacillus/punica granatum ferment`).
 - `tyrosinase-inhibitors` — kojic acid, arbutin, tranexamic acid…
 - `enzymes-exfoliants` — papain, bromelain, subtilisin
 
@@ -393,6 +393,8 @@ C'est lui qui orchestre tout et écrit en DB. Il ne contient pas de logique de d
 main()
     │
     ├─ Lit tous les produits eligibles (skincare + solaire + bodycare)
+    ├─ Charge `brand_certifications` (map brandNormalized → certifications, pour pass 5b brand)
+    ├─ Charge `product_ingredients JOIN ingredients` pour les concentrations (pour pass 5x percent-claim)
     ├─ Charge le dictionnaire slug → ID depuis product_tags en DB
     ├─ Charge les paires (productId, tagId, relevance) déjà présentes en DB
     │
@@ -402,6 +404,9 @@ main()
          propose('type-serum', 'secondary', 'kind')
          propose('occlusif', 'secondary', 'formula')
          propose('moment-soir', 'secondary', 'cross-signal')
+         propose('retinoids-tag', 'secondary', 'percent-claim')
+         propose('moment-soir', 'secondary', 'interaction')
+         propose('vegan', 'secondary', 'brand')
          if (grossesseAvoid) propose('grossesse-compatible', 'AVOID', 'grossesse-avoid')
          
          // La fonction propose() déduplique en mémoire :
@@ -417,10 +422,12 @@ main()
 
 **Usage :**
 ```bash
-make backfill-auto-tags                     # dry-run (lecture seule, affiche les stats)
-make backfill-auto-tags WRITE=1             # applique
-make backfill-auto-tags SLUG=<slug>         # dry-run sur un seul produit (debug)
-make backfill-auto-tags LIMIT=50 WRITE=1   # applique sur 50 produits (test progressif)
+just backfill-auto-tags                           # dry-run (lecture seule, affiche les stats)
+WRITE=1 just backfill-auto-tags                   # applique
+SLUG=<slug> just backfill-auto-tags               # dry-run sur un seul produit (debug)
+LIMIT=50 WRITE=1 just backfill-auto-tags          # applique sur 50 produits (test progressif)
+TARGET=prod WRITE=1 just backfill-auto-tags       # prod (demande confirmation "PROD")
+CONF_OVERRIDE=0.7 just backfill-auto-tags         # rehausse le floor algo-derm minConf
 ```
 
 ---
@@ -435,7 +442,7 @@ Similaire au backfill mais **lecture seule** et plus verbeux. Il montre pour cha
 - `new` : combien seraient des ajouts purs
 - `avg_conf` / `min` / `max` : distribution de la confidence
 
-Utile pour recalibrer les seuils dans `TAG_CONFIG`. Une commande `make audit-auto-tags`.
+Utile pour recalibrer les seuils dans `TAG_CONFIG`. Commande : `just audit-auto-tags`.
 
 ---
 
@@ -455,14 +462,15 @@ La parité des trois chemins est garantie par `tests/auto-tag-orchestrator-parit
 
 | Fichier | Rôle | Utilise algo-derm ? |
 |---------|------|---------------------|
-| `orchestrator.ts` | Lance les 6 passes dans l'ordre, déduplique (avoid > secondary), hoist `analyzeINCI` une fois | `analyzeINCI` + `splitINCI` + `normalize` |
+| `orchestrator.ts` | Lance toutes les passes dans l'ordre, déduplique (avoid > secondary), hoist `analyzeINCI` + `stripMarketingPreamble` une fois | `analyzeINCI` + `splitINCI` + `normalize` |
+| `lib/ingredient-resolver.ts` | `stripMarketingPreamble` — supprime le prose marketing avant l'INCI (589 produits K-beauty / EU) | Non |
 | `passes/auto-tag-detection.ts` | Passe 1 — concerns, skin type, comédogénicité, sans-parfum, grossesse-compatible secondary | `analyzeINCI` + `tagProduct` + `splitINCI` |
 | `passes/actif-class-detection.ts` | Passe 2 — clusters pharmacologiques | `splitINCI` + `normalize` |
 | `passes/kind-tag-detection.ts` | Passe 3 — TYPE_*, ZONE_*, STEP_*, MOMENT_*, TEXTURE_* | Non |
-| `passes/formula/` | Passe 4 — 15 fichiers (occlusif, solaires, prébiotique, eczema, repulpant, KP, step-nettoyage, cernes, fini-mat, pigments-verts, vegan, peau-normale, grossesse-avoid, reparation-cutanee, texture) | `splitINCI` + `normalize` |
-| `passes/cross-signal-detection.ts` | Passe 5 — MOMENT_SOIR/MATIN depuis actif × kind | Non |
-| `passes/percent-claim-detection.ts` | Passe 5b — fallback `% INCI structuré` quand INCI fragile | `splitINCI` |
-| `passes/brand-cert-detection.ts` | Passe 5c — labels brand (vegan / cruelty-free / bio-naturel) depuis `brand_certifications` | Non |
+| `passes/formula/` | Passe 4 — 16 fichiers (occlusif, semi-occlusif, solaires, prébiotique, eczema, repulpant, KP, step-nettoyage, cernes, fini-mat, pigments-verts, vegan, peau-normale, grossesse-avoid, reparation-cutanee, texture) | `splitINCI` + `normalize` |
+| `passes/cross-signal-detection.ts` | Passe 5 — MOMENT_SOIR/MATIN depuis actif × kind ; `detectInteractionSecondaryTags` (passe 5a) — photosensibilité multi-HE depuis assessment | `analyzeINCI` (passe 5a) |
+| `passes/percent-claim-detection.ts` | Passe 5x — fallback `% INCI structuré` quand INCI fragile | `splitINCI` |
+| `passes/brand-cert-detection.ts` | Passe 5b — labels brand (vegan / cruelty-free / bio-naturel) depuis `brand_certifications` | Non |
 | `passes/auto-tag-avoid.ts` | Passe 6 — agrégateur avoid (grossesse + cross-signal + interactions algo-derm) | Via les passes ci-dessus |
 | `write.ts` | API runtime — `writeTagsForProduct(productId)` consommé par `createProduct()` | Via orchestrator |
 | `runners/backfill/main.ts` | Runner batch — ré-applique l'orchestrator sur toute la DB | Via orchestrator |

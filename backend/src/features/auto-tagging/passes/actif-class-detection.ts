@@ -25,6 +25,17 @@ import { isAlphabeticalINCI, resolveIngredients } from '../lib/ingredient-resolv
 
 const DEFAULT_POSITION_CAP = 12
 
+// Clusters whose patterns must also be scanned against the raw lowercase INCI
+// string (pre-normalize). algo-derm's `applyCompositeFerment` strips the
+// substrate from `LACTOBACILLUS/PUNICA GRANATUM FRUIT FERMENT EXTRACT` →
+// `lactobacillus ferment extract` by design (postbiotic risk profile is
+// organism-driven, not substrate-driven). For polyphenols tagging the
+// substrate IS the source of the polyphenolic actif, so we re-scan the raw
+// INCI for the same pattern list to recover those hits. Position cap is not
+// enforced here because the raw INCI is unsplit — fine since polyphenols
+// already use `positionCap: Infinity`.
+const RAW_SCAN_SLUGS = new Set<SkincareProductTagSlug>([SKINCARE_PRODUCT_TAG_SLUGS.POLYPHENOLS])
+
 // Cleansers/exfoliants/scrubs put surfactants and humectants first; pH-driven
 // actives (AHA/BHA/PHA) sit further down (pos 12-18 typical) but at functional
 // concentration. Use the looser cap for these kinds.
@@ -112,7 +123,10 @@ export const ACTIF_CLASS_DEFS: ActifClassDef[] = [
     // nicotinate / linoleate / phosphate / glucoside / ferulate / …).
     // `tocopherol` catches free forms (alpha-/beta-/gamma-/delta-/mixed).
     // `tocotrienol` is the vit-E sub-family (rare but functional).
-    patterns: ['tocopherol', 'tocopheryl', 'tocotrienol'],
+    // `vitamin e` / `vitamine-e` catch the marketing-form residual after
+    // algo-derm strips the parens content ("Vitamin E (A-Tocopherol)" →
+    // "vitamin e"; "vitamine-E (tocophérol acétate)" → "vitamine-e").
+    patterns: ['tocopherol', 'tocopheryl', 'tocotrienol', 'vitamin e', 'vitamine-e'],
     positionCap: Number.POSITIVE_INFINITY,
   },
   {
@@ -235,6 +249,11 @@ export const ACTIF_CLASS_DEFS: ActifClassDef[] = [
       // pharmacophore, missed by `ferulic acid` substring.
       'ferulate',
       'camellia sinensis',
+      // Marketing form for green tea: when INCI lists "Green Tea
+      // (Camellia Sinensis Leaf) Extract", algo-derm strips the Latin
+      // parenthetical and leaves `green tea extract`. Substring catches
+      // the residual.
+      'green tea',
       'curcuma longa',
       'rosmarinus officinalis',
       'punica granatum',
@@ -247,6 +266,11 @@ export const ACTIF_CLASS_DEFS: ActifClassDef[] = [
       // (standardized flavonolignan complex, alt INCI form).
       'silybum marianum',
       'silymarin',
+      // Theobroma cacao aliases evaluated (audit 2026-05-13) and rejected:
+      // even restricted to `extract` forms (excluding cocoa butter), the
+      // 62 over-tag products outweighed the 2 recall gains. Manual
+      // baseline judges trace cacao extract as non-functional polyphenol
+      // dose; keep alignment with that signal.
     ],
     positionCap: Number.POSITIVE_INFINITY,
   },
@@ -314,5 +338,14 @@ export function detectActifClasses(
       found.add(def.slug)
     }
   }
+
+  const rawLower = inci?.toLowerCase() ?? ''
+  if (rawLower) {
+    for (const def of ACTIF_CLASS_DEFS) {
+      if (!RAW_SCAN_SLUGS.has(def.slug) || found.has(def.slug)) continue
+      if (def.patterns.some((p) => rawLower.includes(p))) found.add(def.slug)
+    }
+  }
+
   return [...found]
 }
