@@ -470,7 +470,7 @@
 
     "@vitest/utils": ["@vitest/utils@4.1.6", "", { "dependencies": { "@vitest/pretty-format": "4.1.6", "convert-source-map": "^2.0.0", "tinyrainbow": "^3.1.0" } }, "sha512-FxIY+U81R3LGKCxaHHFRQ5+g6/iRgGLmeHWdp2Amj4ljQRrEIWHmZyDfDYBRZlpyqA7qKxtS9DD1dhk8RnRIVQ=="],
 
-    "algo-derm": ["algo-derm@../vendor/algo-derm.tgz", {}, "sha512-k58JhJDgVkEihx6NSqPJD5nmXfRQfYifCjyJjf2oxg+r7tZxmkcJTm4HjBlvGdBoMHG9YH5aIAXT1/fkOqehXA=="],
+    "algo-derm": ["algo-derm@../vendor/algo-derm.tgz", {}],
 
     "ansi-regex": ["ansi-regex@5.0.1", "", {}, "sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ=="],
 
