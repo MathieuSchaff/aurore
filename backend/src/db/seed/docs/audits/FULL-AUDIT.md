@@ -99,6 +99,13 @@ L'audit `audit-actif-class` montre un accord de **100%** sur les clusters majeur
 
 **État post-cleanup (2026-05-12)** : drift = 63 (21 false-pos = bugs algo + 42 pos-cap).
 
+**État post-#16/#17/#18/#19 (2026-05-13)** : drift = 48 (6 false-pos + 42 pos-cap). Tickets fermés :
+- **#16 livré** — parser algo-derm : `acide <stem>ic de <mod>` → `<mod> <stem>ic acid` (regex `RE_ACIDE_DE_MOD` avant `RE_ACIDE`, stem restreint au suffixe `-ic`). Recovered `jumiso-waterfull-hyaluronic-acid-cleansing-foam` (BHA).
+- **#17 livré** — parser algo-derm : bare `[mod] ascorbique` + trailing-mod `acide ascorbique [mod]` → `[mod] ascorbic acid`. Recovered `anua-peach-70-niacin-serum`.
+- **#18 livré** — aliases Aurore parens-stripped : `green tea` (polyphenols) + `vitamin e` / `vitamine-e` (vitamin-e). Recovered deliverance-serum, beauty-of-joseon-red-bean-water-gel, isispharma-xerolan-spray. Aliases `cocoa`/`cacao`/`theobroma cacao*` rejetés par audit precision (cocoa butter emollient ubiquitaire).
+- **#19 livré** — Aurore raw-INCI scan : `RAW_SCAN_SLUGS = {polyphenols}` re-scanne la chaîne raw lowercased contre les patterns du cluster, contourne le substrate-strip d'`applyCompositeFerment` côté algo-derm. Recovered 10 produits polyphenols (mixsoon ×2, missha ×3, garancia ×2, numbuzin, respire, dr-ceuracle). agree% polyphenols maintenu à 100 % (+10 recall, 0 over-tag).
+- Reste : 6 false-pos résiduels (1 par cluster sur retinoids/vitamin-c×2/hyaluronic/peptides/tyrosinase) — investigation case-by-case ou data quality.
+
 ### 5.2 Overrides AHA/BHA/PHA
 111 produits présentent des tags manuels pour des acides situés **au-delà du cap de concentration** (index 10+ dans l'INCI).
 - **AHA** (48 overrides) : Principalement `Lactic Acid`.
