@@ -13,10 +13,25 @@ Règle : **une étape = une session = un commit propre.** Pas de chaînage.
 
 | Priorité | Item | Effort | Risque |
 |---|---|---|---|
-| 1 | **Auto-tagging — primary auto + couverture** → `features/auto-tagging/docs/ROADMAP.md` | L | Moyen |
-| 2 | **§1 Dédup intra-source produits scrapés** | M | Faible |
-| 3 | **§2 INCI quality — worst-match** | S | Faible |
-| 4 | **§3 Images CDN — gaps résiduels** (dernière prio) | M | Faible |
+| ✅ | ~~**§0.5 Domain-consistency — 779 violations haircare/skincare**~~ | M | Faible |
+| 2 | **Auto-tagging — primary auto + couverture** → `features/auto-tagging/docs/ROADMAP.md` | L | Moyen |
+| 3 | **§1 Dédup intra-source produits scrapés** | M | Faible |
+| 4 | **§2 INCI quality — worst-match + formatage** | S | Faible |
+| 5 | **§3 Images CDN — gaps résiduels** (dernière prio) | M | Faible |
+
+---
+
+## 0.5 Domain-consistency — 779 violations (CRITIQUE)
+
+> Source : `audits/FULL-AUDIT.md` §3.1 (audit 2026-05-12). Script : `audit-db.ts`.
+
+Produits **haircare** portent des tags `skin_type`/`skin_zone`/`skin_effect` réservés au domaine **skincare**. Cause : migration multi-domaine avril 2026, slugs non-natifs hérités par les produits capillaires.
+
+Exemples : `bioderma-node-p-shampoing` → `peau-seche`, `vichy-dercos-shampoing` → `zone-visage`, `la-roche-posay-kerium` → `apaisant`.
+
+- [x] **Inventorier** : 779 paires extraites (14 tagTypes violants, bidirectionnel).
+- [x] **Correction** : script `maintenance/fix-tag-domain-consistency.ts` — suppression systématique des `tag_products` cross-domaine (pas de remap : slugs skincare/haircare non équivalents sans table de mapping curatée).
+- [x] **Vérifier** : `just audit-db` → `✓ tag-product-domain-consistency`. 0 violation.
 
 ---
 
@@ -42,6 +57,9 @@ Snapshot 2026-04-30 :
 Plateau evidence atteint. Contexte + commandes dans [`audits/NEXT-SESSION-PROMPT.md`](./audits/NEXT-SESSION-PROMPT.md).
 
 - [ ] **Worst-match produits** : re-générer audit avec `INCI_AUDIT_FULL=1`, cibler §3/§4 (scrapes cassés, INCI appareil). Résoudre cas par cas plutôt que tokens haute fréquence.
+- [ ] **Single-token / no-comma (130 produits)** : 65 `single-token` + 66 `no-comma` bloquent le parser. Utiliser `resplit-single-token.ts` pour SVR/Bioderma.
+- [ ] **Top unmatched FR** : ajouter à algo-derm : `malachite extract`, `maris sal`, `acetyl tetrapeptide-2`, `glutamate de stearoyl de sodium`.
+- [ ] **Top unmatched non-FR** : `glyceryl linoleate`, `hydrolyzed rice protein`, `dimethyl isosorbide`, `carrageenan`.
 
 ---
 

@@ -10,6 +10,27 @@ import '_vars.just'
 #   CSV_OUT=/tmp/orch.csv just audit-orchestrator-diff
 #   TARGET=prod WRITE=1 just backfill-auto-tags     # prod, confirmation requise
 
+# Fix tag_products rows violating domain constraints (skincare tagTypes on haircare products).
+# Env: WRITE=1 (apply). TARGET: dev|prod. Confirmation interactive si TARGET=prod + WRITE.
+fix-tag-domain-consistency:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    TARGET="${TARGET:-dev}"
+    case "$TARGET" in
+        dev)  COMPOSE="{{COMPOSE_DEV}}" ;;
+        prod) COMPOSE="{{COMPOSE_PROD}}" ;;
+        *)    printf "{{RED}}TARGET invalide: dev|prod (got '$TARGET'){{NC}}\n"; exit 1 ;;
+    esac
+    if [ "$TARGET" = "prod" ] && [ -n "${WRITE:-}" ]; then
+        printf "{{RED}}⚠ PROD WRITE (fix-tag-domain-consistency) — tape 'PROD' pour confirmer{{NC}}\n"
+        read -r -p "> " C
+        [ "$C" = "PROD" ] || { printf "{{RED}}abandon{{NC}}\n"; exit 1; }
+    fi
+    MODE=$([ -n "${WRITE:-}" ] && echo "WRITE" || echo "dry-run")
+    printf "{{CYAN}}fix-tag-domain-consistency ($MODE, $TARGET)...{{NC}}\n"
+    $COMPOSE exec api bun run src/db/seed/maintenance/fix-tag-domain-consistency.ts \
+        ${WRITE:+--write}
+
 # Audit DB consistency (seed drift, relational integrity)
 audit-db:
     #!/usr/bin/env bash
