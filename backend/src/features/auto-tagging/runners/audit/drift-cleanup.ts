@@ -100,6 +100,27 @@ const TO_DELETE: Array<{ product: string; tag: string; reason: string }> = [
     tag: 'ceramides',
     reason: 'generic "Céramide" only (no NP/AP/etc variant per algo policy)',
   },
+  {
+    product: 'cosrx-retinol-01-cream',
+    tag: 'retinoids',
+    reason:
+      'no retinol/retinyl/retinaldehyde in INCI (ascorbic + glutathione + beta-carotene line — marketing name does not reflect formula)',
+  },
+  {
+    product: 'garancia-trousse-voyage-2025-303627',
+    tag: 'vitamin-c',
+    reason: 'travel kit INCI = single cream (cetearyl/glyceryl/oils) — no ascorbic anywhere',
+  },
+  {
+    product: 'garancia-trousse-voyage-2025-303627',
+    tag: 'hyaluronic-acid',
+    reason: 'travel kit INCI = single cream — no hyaluronate anywhere',
+  },
+  {
+    product: 'garancia-trousse-voyage-2025-303627',
+    tag: 'peptides',
+    reason: 'travel kit INCI = single cream — no peptide listing',
+  },
 ]
 
 async function main() {

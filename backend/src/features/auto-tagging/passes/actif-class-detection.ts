@@ -109,6 +109,12 @@ export const ACTIF_CLASS_DEFS: ActifClassDef[] = [
       // `vitamin c ester` as the residual token without `ascorbyl palmitate`
       // matching. Substring catches this edge case.
       'vitamin c ester',
+      // FR translated INCI (Korean brands with FR-market labelling, e.g.
+      // mary&may glutathione eye cream listing "Acide Ascorbique" at tail).
+      // algo-derm normalize collapses `-ique` → `-ic`, but the FR `acide X`
+      // word order is preserved when a trailing junk sentence prevents the
+      // parser's FR→EN swap → match the post-normalize residual form.
+      'acide ascorbic',
     ],
     positionCap: Number.POSITIVE_INFINITY,
   },
@@ -305,6 +311,11 @@ export const ACTIF_CLASS_DEFS: ActifClassDef[] = [
       // Boldine (diacetyl boldine = Lumiskin) — competitive tyrosinase
       // inhibitor used in serums anti-taches.
       'boldine',
+      // Azelaic acid — competitive tyrosinase inhibitor + anti-acne; used
+      // pure in dermato lines (Skinoren, Anua azelaic, Nine-Less, Colibri).
+      // Specific token, low over-tag risk.
+      'azelaic acid',
+      'acide azélaïque',
     ],
     positionCap: Number.POSITIVE_INFINITY,
   },
