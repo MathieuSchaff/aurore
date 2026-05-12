@@ -55,7 +55,7 @@ export const TAG_CONFIG: Readonly<Record<string, TagRule>> = {
   // urea formulas — and filters out incidental glycerin in non-hydrating formulas.
   deshydratation: { auroreSlug: S.DESHYDRATATION, minConf: 0.85, allow: true },
   // Algo `peaux_atopiques` stays disabled — fires on 22 % corpus, 3 % agree.
-  // Eczema-atopie is now emitted by `detectEczemaAtopie` (formula-detection.ts)
+  // Eczema-atopie is now emitted by `detectEczemaAtopie` (passes/formula/)
   // with chemistry-aware triggers: oat OR ≥ 2 ceramides + fragrance-free +
   // sulfate-free top 5, leave-on. Keeping this row at allow:false documents
   // the algo-derm path is intentionally bypassed.
@@ -76,7 +76,7 @@ export const TAG_CONFIG: Readonly<Record<string, TagRule>> = {
   matifiant: { auroreSlug: S.MATIFIANT, minConf: 1.0, allow: false },
   // Algo `repulpant` stays disabled — fires on 78 % corpus (any HA/glycerin
   // moisturizer). Repulpant is now emitted by `detectRepulpant`
-  // (formula-detection.ts) with chemistry-aware triggers: HA top 3 + pure
+  // (passes/formula/) with chemistry-aware triggers: HA top 3 + pure
   // glycerin top 5 + plumping peptide (Argireline / palmitoyl tripeptide-1).
   // Same allow:false-then-formula-pass pattern as eczema-atopie.
   repulpant: { auroreSlug: S.REPULPANT, minConf: 1.0, allow: false },

@@ -87,6 +87,7 @@ CLAUDE.md
 CLAUDE2.md
 docs/
 !backend/src/db/seed/docs/
+!backend/src/features/auto-tagging/docs/
 .memory/
 .superpowers/
 .claude/

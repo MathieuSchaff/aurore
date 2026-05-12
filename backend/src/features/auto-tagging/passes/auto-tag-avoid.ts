@@ -14,7 +14,7 @@ import type { ProductAssessment } from 'algo-derm'
 
 import { detectActifClasses } from './actif-class-detection'
 import { detectCrossSignalAvoidTags, detectInteractionAvoidTags } from './cross-signal-detection'
-import { detectGrossesseAvoid } from './formula-detection'
+import { detectGrossesseAvoid } from './formula'
 
 export type AvoidSource = 'grossesse-avoid' | 'cross-signal' | 'interaction'
 

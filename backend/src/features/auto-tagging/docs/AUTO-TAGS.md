@@ -180,12 +180,29 @@ C'est un simple dictionnaire `kind → [slugs]`. Couvre : skincare (15 kinds), s
 
 ---
 
-### Passe 4 — `passes/formula-detection.ts`
+### Passe 4 — `passes/formula/`
 
-**Fichier :** `backend/src/features/auto-tagging/passes/formula-detection.ts`
-**Fonctions exportées :** `detectOcclusifTags`, `detectSolaireTags`, `detectPrebiotique`, `detectReparationCutanee`, `detectKeratosePilaire`, `detectStepNettoyage1`, `detectCernesPoches`, `detectGrossesseAvoid`
+**Dossier :** `backend/src/features/auto-tagging/passes/formula/` (15 fichiers + `index.ts`)
 
-7 détections via patterns INCI (que algo-derm ne couvre pas) + 1 détection grossesse-avoid.
+23 détecteurs via patterns INCI (que algo-derm ne couvre pas), un fichier par famille de slug émis. Le détail des détecteurs ci-dessous couvre les plus représentatifs ; consulter chaque fichier pour les patterns exacts.
+
+| Fichier | Slugs émis |
+|---------|------------|
+| `film-former.ts` | `occlusif`, `step-occlusif`, `semi-occlusif` |
+| `solaire.ts` | `filtres-chimiques`, `filtres-mineraux` |
+| `prebiotique.ts` | `prebiotique` |
+| `reparation-cutanee.ts` | `reparation-cutanee` |
+| `eczema-atopie.ts` | `eczema-atopie` |
+| `repulpant.ts` | `repulpant` |
+| `keratose-pilaire.ts` | `keratose-pilaire` |
+| `step-nettoyage-1.ts` | `step-nettoyage-1` |
+| `cernes-poches.ts` | `cernes-poches` |
+| `fini-mat.ts` | `fini-mat`, `matifiant` |
+| `pigments-verts.ts` | `pigments-verts` |
+| `vegan.ts` | `vegan` |
+| `peau-normale.ts` | `peau-normale` (post-pass, abstient si autre skin-type fired) |
+| `grossesse-avoid.ts` | `grossesse-compatible` (relevance=`avoid`) |
+| `texture.ts` | `texture-creme`, `texture-gel`, `texture-riche`, `texture-legere`, `texture-baume`, `texture-stick`, `non-gras` (+ champ `products.texture` direct mapping) |
 
 #### Occlusif
 
@@ -422,11 +439,15 @@ Utile pour recalibrer les seuils dans `TAG_CONFIG`. Une commande `make audit-aut
 
 ---
 
-## Comment les tags arrivent aussi au seed initial
+## Comment les tags arrivent à un produit
 
-Le fichier `runners/seed-core.ts` appelle lui aussi `detectAutoTags` et `detectActifClasses` pendant le seed complet (reseed depuis zéro). Donc les nouveaux produits qui entrent dans le seed ont déjà leurs tags auto-générés dès le premier insert.
+Trois chemins, tous via l'orchestrator partagé (`features/auto-tagging/orchestrator.ts`) → output identique pour un même input produit :
 
-Le `backfill-auto-tags.ts` sert pour les produits **déjà en DB** qui n'ont pas encore ces tags, et pour ré-appliquer quand on améliore les règles.
+1. **Création API runtime** — `features/products/service.ts createProduct()` appelle `writeTagsForProduct(product.id)` après l'insert. Inline, fail-soft (une erreur tagging log warn, ne bloque pas la création).
+2. **Seed initial** — `db/seed/runners/seed-core.ts` appelle `detectAllAutoTags` pendant le reseed depuis zéro. Les produits du seed JSON ont leurs tags auto-générés dès le premier insert.
+3. **Backfill** — `features/auto-tagging/runners/backfill.ts` ré-applique sur les produits **déjà en DB** (e.g. produits ajoutés avant que des règles existent, ou recalibration des seuils).
+
+La parité des trois chemins est garantie par `tests/auto-tag-orchestrator-parity.test.ts`.
 
 ---
 
@@ -434,12 +455,17 @@ Le `backfill-auto-tags.ts` sert pour les produits **déjà en DB** qui n'ont pas
 
 | Fichier | Rôle | Utilise algo-derm ? |
 |---------|------|---------------------|
+| `orchestrator.ts` | Lance les 6 passes dans l'ordre, déduplique (avoid > secondary), hoist `analyzeINCI` une fois | `analyzeINCI` + `splitINCI` + `normalize` |
 | `passes/auto-tag-detection.ts` | Passe 1 — concerns, skin type, comédogénicité, sans-parfum, grossesse-compatible secondary | `analyzeINCI` + `tagProduct` + `splitINCI` |
 | `passes/actif-class-detection.ts` | Passe 2 — clusters pharmacologiques | `splitINCI` + `normalize` |
 | `passes/kind-tag-detection.ts` | Passe 3 — TYPE_*, ZONE_*, STEP_*, MOMENT_*, TEXTURE_* | Non |
-| `passes/formula-detection.ts` | Passe 4 — occlusif, filtres solaires, prébiotique, reparation-cutanee, keratose-pilaire, step-nettoyage-1, cernes-poches, grossesse-avoid | `splitINCI` + `normalize` |
+| `passes/formula/` | Passe 4 — 15 fichiers (occlusif, solaires, prébiotique, eczema, repulpant, KP, step-nettoyage, cernes, fini-mat, pigments-verts, vegan, peau-normale, grossesse-avoid, reparation-cutanee, texture) | `splitINCI` + `normalize` |
 | `passes/cross-signal-detection.ts` | Passe 5 — MOMENT_SOIR/MATIN depuis actif × kind | Non |
-| `runners/backfill.ts` | Runner principal — orchestre les 6 passes, écrit en DB | Via les utils ci-dessus |
+| `passes/percent-claim-detection.ts` | Passe 5b — fallback `% INCI structuré` quand INCI fragile | `splitINCI` |
+| `passes/brand-cert-detection.ts` | Passe 5c — labels brand (vegan / cruelty-free / bio-naturel) depuis `brand_certifications` | Non |
+| `passes/auto-tag-avoid.ts` | Passe 6 — agrégateur avoid (grossesse + cross-signal + interactions algo-derm) | Via les passes ci-dessus |
+| `write.ts` | API runtime — `writeTagsForProduct(productId)` consommé par `createProduct()` | Via orchestrator |
+| `runners/backfill.ts` | Runner batch — ré-applique l'orchestrator sur toute la DB | Via orchestrator |
 | `runners/audit.ts` | Runner audit — dry-run avec stats par tag (passe 1 uniquement) | Via `auto-tag-detection.ts` |
 
 ---

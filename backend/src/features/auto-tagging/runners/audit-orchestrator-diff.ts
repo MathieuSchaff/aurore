@@ -17,7 +17,7 @@
 //
 // Workflow for measuring a calibration change:
 //   1. CSV_OUT=baseline.csv bun run …/audit-orchestrator-diff.ts
-//   2. (edit rules, e.g. tighten a pattern in formula-detection.ts)
+//   2. (edit rules, e.g. tighten a pattern in passes/formula/)
 //   3. CSV_OUT=diff.csv BASELINE=baseline.csv bun run …/audit-orchestrator-diff.ts
 //   4. Spot-check diff.csv — a tightening should add 0 / remove some.
 //

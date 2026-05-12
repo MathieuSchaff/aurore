@@ -57,7 +57,7 @@ import {
   detectTextureRiche,
   detectTextureStickFromName,
   detectVegan,
-} from './passes/formula-detection'
+} from './passes/formula'
 import { detectKindTags } from './passes/kind-tag-detection'
 import { detectPercentClaimTags, type PercentClaimEvidence } from './passes/percent-claim-detection'
 

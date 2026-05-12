@@ -27,7 +27,7 @@ import {
   detectTextureRiche,
   detectTextureStickFromName,
   detectVegan,
-} from '../passes/formula-detection'
+} from '../passes/formula'
 
 const S = SKINCARE_PRODUCT_TAG_SLUGS
 

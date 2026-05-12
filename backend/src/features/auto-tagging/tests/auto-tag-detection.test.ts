@@ -34,7 +34,7 @@ describe('auto-tag-detection', () => {
     // INCI designed to trigger several disabled tags:
     // - hyaluronic acid + glycerin → repulpant (allow:false)
     // - niacinamide → matifiant (allow:false — algo-derm path; sensoriel
-    //   detector lives in formula-detection.ts and keys on absorbent powders)
+    //   detector lives in passes/formula/ and keys on absorbent powders)
     // - gentle ingredients → would normally fire peaux-atopiques
     // Hypoallergenique is reactivated (T1.11) so it's no longer in this list.
     const inci = 'Aqua, Glycerin, Sodium Hyaluronate, Niacinamide, Phenoxyethanol'

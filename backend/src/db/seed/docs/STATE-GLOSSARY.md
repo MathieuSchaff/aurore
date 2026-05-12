@@ -271,7 +271,7 @@ ont leurs propres fichiers `tag-taxonomy.ts` en stub (array vide) — axes
 | `skin_effect` | Effet texture/visuel (matifiant, texture-legere…) |
 | `product_label` | Label formulation (sans-parfum, vegan, filtres-mineraux…) |
 | `shared_label` | Label transverse (comedogene, …) |
-| `actif_class` | Famille pharmacologique présente dans la formule (retinoids, vitamin-c, aha, bha, niacinamide, ceramides, hyaluronic-acid, peptides…). Auto-dérivée au seed depuis `products.inci` via `splitINCI`+`normalize` (algo-derm) + substring match — voir `backend/src/db/seed/utils/actif-class-detection.ts`. Slugs miroir de la catégorie ingrédient `actif_class`. Permet le filtre "Famille d'actif" sur la page produits. |
+| `actif_class` | Famille pharmacologique présente dans la formule (retinoids, vitamin-c, aha, bha, niacinamide, ceramides, hyaluronic-acid, peptides…). Auto-dérivée au seed depuis `products.inci` via `splitINCI`+`normalize` (algo-derm) + substring match — voir `backend/src/features/auto-tagging/passes/actif-class-detection.ts`. Slugs miroir de la catégorie ingrédient `actif_class`. Permet le filtre "Famille d'actif" sur la page produits. |
 
 #### Catégories partagées entre ingrédient et produit
 
