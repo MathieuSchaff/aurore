@@ -18,13 +18,14 @@ La base de données est structurellement saine mais souffre d'une dérive import
 | **Ingrédients** | 688 | 🟢 Bien structuré (665 avec tags) |
 | **Cohérence relationnelle** | **0 violations** | 🟢 **Résolu** (2026-05-12) |
 | **Couverture INCI** | 55.4 % | 🟡 Moyen (2 327 / 4 202 produits) |
-| **Qualité INCI** | 4077 prods | 🟡 170+ pathologies formatage |
-| **Doublons** | 150 paires | 🟠 À investiguer (Intra-source) |
+| **Qualité INCI** | 78.8 %/75.4 %/80.3 % | 🟢 Plateau définitif (2026-05-12) — 55 single-token / 56 no-comma restants irréductibles |
+| **Doublons** | 150 paires | ✅ Résolu 2026-05-12 (0 vrai doublon — tout = variantes légitimes) |
 | **Utilisateurs** | 1 | ⚪ Environnement de développement |
 
 ~~**Priorité 1** : Nettoyer les 779 violations de tagging~~ ✅ Résolu 2026-05-12.
-**Priorité 1** : Résoudre les 150 paires de doublons intra-source.
-**Priorité 2** : Améliorer la couverture INCI des catégories non-skincare et fixer les pathologies de formatage.
+~~**Priorité 1** : Résoudre les 150 paires de doublons intra-source.~~ ✅ Résolu 2026-05-12 (0 vrai doublon).
+~~**Priorité 2** : Améliorer la couverture INCI et fixer les pathologies de formatage.~~ ✅ Plateau atteint 2026-05-12.
+**Priorité 2** : Auto-tagging primary — 1 101 produits sans tag primary (voir `features/auto-tagging/docs/ROADMAP.md`).
 
 ---
 
@@ -70,16 +71,15 @@ Total : **4 202** produits.
 ### 4.1 État du corpus
 
 - **Produits avec INCI** : 4 077 produits analysés via `audit-inci-quality`.
-- **Match-rate moyen (algo-derm)** : ~77 % (Skincare) | ~74 % (Autres).
+- **Match-rate moyen (algo-derm)** : **78.8 %** (FR skincare) | **75.4 %** (FR other) | **80.3 %** (non-FR) — plateau définitif (2026-05-12).
 
 ### 4.2 Pathologies de formatage
 - **very-short** (39 produits) : Souvent des objets non-cosmétiques (brossettes) ou INCI minimalistes (sticks).
-- **single-token** (65 produits) : INCI complet sur une seule ligne sans séparateur (SVR Densitum, Bioderma Global).
-- **no-comma** (66 produits) : Similaire au single-token, bloque le parser.
+- **single-token** (~~65~~ → **55** produits) : `resplit-single-token.ts` livré 2026-05-12, 10 récupérés. Restant irréductibles.
+- **no-comma** (~~66~~ → **56** produits) : Idem resplit. Restant irréductibles.
 
 ### 4.3 Opportunités de Match (Top Unmatched)
-- **FR** : `malachite extract`, `maris sal`, `acetyl tetrapeptide-2`, `glutamate de stearoyl de sodium`.
-- **Non-FR** : `glyceryl linoleate`, `hydrolyzed rice protein`, `dimethyl isosorbide`, `carrageenan`.
+✅ **Résolu 2026-05-12** — 38 tokens ajoutés à `algo-derm/curated.generated.json` (30 batch evidence + 8 FR restants). Plus aucun token FR ≥ 12 occ non matché. Tokens irréductibles restants : ≤ 11 occ, ROI < 0.02 pt/token.
 
 ---
 
@@ -105,7 +105,9 @@ Cependant, un **drift manuel** (tags présents en DB mais non détectés par l'a
 ## 6. Audit des Doublons
 
 Le script `audit-imported-products` détecte **150 paires de doublons intra-source**.
-Ces doublons sont probablement des variantes de format (volume) ou des erreurs d'importation manuelle.
+Review manuelle 2026-05-12 : **0 vrai doublon**. Les 150 paires sont toutes des faux positifs :
+- 119 paires flaggées (`num-diff`, `color-diff`, `size-mm`, `model-variant`, `tint-diff`) = variantes quantité/couleur/taille/modèle légitimes.
+- 31 paires sans flag = faux positifs INCI (ex : Klorane gels douche à formula identique mais fragrances distinctes, elmex blancheur vs formule base, cire froide visage vs corps).
 
 ---
 
@@ -120,7 +122,7 @@ Ces doublons sont probablement des variantes de format (volume) ou des erreurs d
 
 ### Court terme (Immédiat)
 1. ~~**Remapping des tags Haircare**~~ ✅ Résolu (suppression systématique).
-2. **Traitement des Doublons** : Investiguer les 150 paires intra-source via `just dedupe-product-variants`.
+2. ~~**Traitement des Doublons** : Investiguer les 150 paires intra-source via `just dedupe-product-variants`.~~ ✅ Résolu.
 3. **Fix formatage INCI** : Utiliser `resplit-single-token.ts` pour les 65 produits SVR/Bioderma.
 
 ### Moyen terme
