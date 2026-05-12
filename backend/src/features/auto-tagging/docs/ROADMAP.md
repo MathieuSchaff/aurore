@@ -51,7 +51,7 @@ Historique : [`../../../db/seed/docs/_archive/auto-tags-roadmap.md`](../../../db
 - [x] **`texture-stick`** — livré via `detectTextureStickFromName` (name-based, pas de dépendance `products.texture`).
 - [ ] **`texture-mousse`** — livré via `detectTextureFromField` uniquement quand `products.texture = 'mousse'`. Pas de fallback nom/INCI (foaming surfactants ambigus). Bloqué par `products.texture = NULL` — nécessite curation admin ou parser description/notes.
 - [ ] **`peau-mixte`** — Tier 3, débloqué par `products.texture` populé (pattern : T-zone gel-cream + niacinamide top 8).
-- [ ] **Drift BHA/AHA/Polyphenols** — tags manuels non détectés par algo. État 2026-05-13 (post #16/#17/#18/#19) : 21 BHA pos-cap, 13 AHA pos-cap, 8 PHA pos-cap. Polyphenols cluster ramené à 100 % agree (via raw-INCI scan #19). Reste 6 false-pos résiduels singleton (retinoids/vitamin-c/hyaluronic/peptides/tyrosinase) — case-by-case. Cf. `docs/algo/algo-derm-aurore-integration.md` §3.6.
+- [ ] **Drift BHA/AHA/PHA pos-cap** — 42 tags manuels manqués par algo (21 BHA, 13 AHA, 8 PHA), acide past position cap. Décision pendante (relax cap / accepter / case-by-case). État 2026-05-13 : 0 false-pos, 0 parse-fail, tyrosinase 100 % agree. Cf. FULL-AUDIT §5.2 + `docs/algo/algo-derm-aurore-integration.md` §3.6.
 
 ---
 

@@ -1,4 +1,4 @@
-# Prompt de reprise — post-session 2026-05-13 (#16 + #19 livrés)
+# Prompt de reprise — post-session 2026-05-13 (drift 0 FP / 0 parse-fail / tyrosinase 100%)
 
 ```
 Session de continuité — projet Aurore, branche auto-tags.
@@ -9,76 +9,46 @@ Répertoire : ~/Mathieu/projets/aurore/
 Stack : Hono RPC backend, TanStack Router frontend, Drizzle ORM, PostgreSQL.
 Lib dermo locale : algo-derm (tarball vendoré dans vendor/algo-derm.tgz).
 
-ÉTAT POST-SESSION 2026-05-13
+ÉTAT À LA REPRISE (HEAD = a1842b64)
 
-Livré pendant cette session (commits sur disque) :
+Drift actif-class :
+  - 0 false-positive
+  - 0 parse-fail
+  - 42 pos-cap résiduels (AHA 13 / BHA 21 / PHA 8 — légitimes algo miss)
+  - 13 clusters, agree 100 % sauf pos-cap susmentionnés
 
-1. #17 algo-derm parser FR esters Vit-C  (commit bd876e4 algo-derm)
-   - RE_ACIDE_HEAD_TRAILING_MOD + RE_BARE_ACID_TRAILING.
-   - +3 tests, suite parser 44/44 ✅.
-   - Recovered : anua-peach-70-niacin-serum (vit-C drift).
+Tous les FP, parse-fail et drift baseline ont été clos sur la branche
+auto-tags. La taxonomie actif-class est stable. Prochains chantiers
+listés dans ITEMS OUVERTS ci-dessous.
 
-2. #16 algo-derm parser FR `Acide X de Y`  (même commit bd876e4)
-   - RE_ACIDE_DE_MOD : `acide <stem>ic de <mod>` → `<mod> <stem>ic acid`.
-   - Stem restreint au suffixe `-ic` (post `RE_IQUE_TO_IC`) pour ne pas
-     avaler des FR phrases comme `acide gras de coco`.
-   - +3 tests, suite parser 44/44 ✅.
-   - Recovered : jumiso-waterfull-hyaluronic-acid-cleansing-foam (BHA).
+TRAJECTOIRE DRIFT (historique court)
 
-3. #18 Aurore aliases parens-stripped  (commit 06f3326e Aurore)
-   - vitamin-e : `vitamin e`, `vitamine-e`.
-   - polyphenols : `green tea`.
-   - Rejetés par audit precision : `cocoa`/`cacao`/`theobroma cacao*`
-     (cocoa butter emollient ubiquitaire → 62-198 over-tags).
-   - Recovered : deliverance-serum, beauty-of-joseon-red-bean-water-gel,
-     isispharma-xerolan-spray.
+  - 2026-05-12      : 17 FP → 6 FP (#16/#17/#18/#19 — parser algo-derm
+                      FR esters Vit-C, `Acide X de Y`, aliases parens-
+                      stripped + raw-INCI scan ferments)
+  - 2026-05-13 (1)  : 6 FP → 0 FP — azelaic ajouté à tyrosinase
+                      cluster (+45 new), `acide ascorbic` FR résiduel
+                      Vit-C, drift-cleanup +4 (cosrx-retinol-01-cream,
+                      garancia-trousse coffret, etc.)
+  - 2026-05-13 (2)  : parse-fail 2 → 0, tyrosinase 76 % → 100 %
+                      - mary-may-blackberry INCI re-scrape INCIDecoder
+                      - 45 azelaic-line products promus baseline manuel
 
-4. #19 Aurore raw-INCI scan ferment substrate  (même commit 06f3326e)
-   - `RAW_SCAN_SLUGS = {polyphenols}` : 2e passe scanne la chaîne raw
-     INCI lowercased contre les patterns du cluster.
-   - Contourne `applyCompositeFerment` qui strippe le substrate par
-     design (`LACTOBACILLUS/PUNICA GRANATUM FRUIT FERMENT EXTRACT` →
-     `lactobacillus ferment extract`).
-   - polyphenols only_db 10 → 0 (recall +10, 0 over-tag, 100 % agree).
-   - Recovered : mixsoon-bean-essence, mixsoon-bean-cleansing-oil,
-     garancia-marabout-l-elixir, garancia-marabout-coffret, missha-time-
-     revolution-night-repair-ampoule + probio, missha-pure-source-cell-
-     sheet-mask-pomegranate, numbuzin-no3, respire-gelee, dr-ceuracle-
-     pro-balance.
+ITEMS OUVERTS — par ordre simple → complexe
 
-DRIFT ACTIF-CLASS — bilan session
+1. §7 Gaps archi (FULL-AUDIT) — CHECK CONSTRAINT Postgres
+   sur products.category/kind/unit. Migration Drizzle + valider données
+   existantes avant. ~2-3h.
 
-Avant session : 17 false-pos + 42 pos-cap + 2 parse-fail (= 61)
-Après #16     : 16 false-pos (-1 jumiso BHA)
-Après #19     : 6 false-pos (-10 polyphenols cluster fully resolved)
-Total session : drift global 61 → 50 (-11 false-pos).
+2. §5.2 Overrides AHA/BHA/PHA (FULL-AUDIT) — 42 produits pos-cap.
+   Acide past position cap = légitime miss algo. Décision politique
+   pendante :
+     A. Relax cap leave-on 10 → 12-15 (risque over-tag)
+     B. Accepter drift (manual = source de vérité si dermato a flaggé)
+     C. Au cas par cas via review manuelle
+   ~3-5h selon option.
 
-Reste : 6 false-pos singletons (retinoids ×1, vitamin-c ×2, hyaluronic
-×1, peptides ×1, tyrosinase ×1). Case-by-case ou data quality.
-
-ITEMS OUVERTS — par ROI décroissant
-
-1. §5.2 Overrides AHA/BHA/PHA (FULL-AUDIT) :
-   42 produits pos-cap (acide past position cap, légitime miss algo).
-   Décision politique ouverte :
-   - A. Relax cap leave-on 10 → 12-15 (risque over-tag)
-   - B. Accepter drift (manual = source de vérité si dermato a flaggé)
-   - C. Au cas par cas via review manuelle
-   AHA 13, BHA 21, PHA 8.
-
-2. 6 false-pos résiduels :
-   - retinoids : 1 (garancia-trousse-voyage-2025-303627 ?)
-   - vitamin-c : 2
-   - hyaluronic-acid : 1 (garancia idem)
-   - peptides : 1 (garancia idem)
-   - tyrosinase-inhibitors : 1 (anua-soothing-pad-azelaic)
-   Probable : produits coffret/trousse (INCI manquant ou agrégé) +
-   cluster `azelaic acid` non géré (anua azelaic).
-
-3. §7 Gaps archi (FULL-AUDIT) :
-   CHECK CONSTRAINT Postgres sur products.category/kind/unit.
-
-4. Priorité 2 — Auto-tagging primary (gros chantier différé) :
+3. Priorité 2 — Auto-tagging primary (gros chantier différé).
    1101 produits sans tag primary.
    Doc : backend/src/features/auto-tagging/docs/ROADMAP.md §1.
 
@@ -89,8 +59,8 @@ TREE NON-COMMIT (working tree au moment de la reprise)
 - frontend/src/lib/queries/optimistic.ts (??)
 - backend/src/db/seed/docs/audits/_archive/inci-audit-2026-05-12-after-prose-fix.txt (??)
 
-Le refacto TanStack Query optimistic helpers est uncommitted, non lié
-auto-tags. À investiguer si pas vu dans une autre branche.
+Refacto TanStack Query optimistic helpers uncommitted, non lié auto-tags.
+À investiguer si pas vu dans une autre branche.
 
 PIÈGE CRITIQUE algo-derm (ne pas répéter)
 
@@ -107,7 +77,8 @@ JAMAIS npm run check:all (écrase curated.generated.json via build:dataset).
 PIÈGE seed (mémoire)
 
 seedCore(true) wipe la dev DB. Snapshot ./backend/src/db/snapshot/data.sql
-= source de vérité produits. Avant UPDATE products → just db-backup.
+= source de vérité produits. Avant UPDATE products → just db-backup,
+après → just db-snapshot + commit data.sql.
 
 PIÈGE precision actif-class
 
@@ -119,6 +90,19 @@ Vérifier `new` (auto sans manual) ≤ recall gagné. Cocoa butter / cacao
 butter / autres emollients courants → aliases trop génériques causent des
 dizaines à centaines de over-tags. Privilégier patterns avec qualifier
 `extract` ou Latin complet.
+
+Exception : actif spécifique fonctionnel (azelaic acid clinical, kojic
+acid, arbutin, etc.) peut révéler du sous-tagging manuel légitime ; ratio
+new/recall > seuil acceptable si tous les nouveaux produits ont l'actif
+en INCI et un kind leave-on cohérent.
+
+PIÈGE algo-derm normalize FR
+
+algo-derm normalize fait `-ique` → `-ic` (acide ascorbique → acide
+ascorbic). Le swap FR→EN word order (`acide X-ic` → `X-ic acid`) peut
+échouer si une phrase marketing trailing dans le token casse la regex.
+Pour les patterns FR dans actif-class : tester d'abord en DB ce que
+splitINCI+normalize renvoie, puis matcher le résidu réel.
 
 INVARIANTS
 
@@ -159,15 +143,16 @@ Lint : just lint-fix
 FICHIERS CLÉS
 
 - backend/src/features/auto-tagging/passes/actif-class-detection.ts
+- backend/src/features/auto-tagging/lib/ingredient-resolver.ts
 - backend/src/features/auto-tagging/runners/audit/drift-classify.ts
 - backend/src/features/auto-tagging/runners/audit/drift-cleanup.ts
 - backend/src/features/auto-tagging/runners/audit/actif-class.ts
-- backend/src/db/seed/docs/audits/FULL-AUDIT.md §5.1
+- backend/src/db/seed/docs/audits/FULL-AUDIT.md §5.1, §5.2, §7
 - docs/algo/algo-derm-aurore-integration.md §3.6 (gitignored — tickets)
 - ~/Mathieu/projets/algo-derm/src/parser.ts
 
 ---
 Autonome : tout pour reprendre sans relire les commits de session.
-Pièges bun.lock (hash algo-derm) + seedCore(true) + audit precision =
-points critiques.
+Pièges bun.lock (hash algo-derm) + seedCore(true) + audit precision +
+algo-derm normalize FR = points critiques.
 ```

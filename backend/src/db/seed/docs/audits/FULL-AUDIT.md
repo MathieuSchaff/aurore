@@ -104,7 +104,15 @@ L'audit `audit-actif-class` montre un accord de **100%** sur les clusters majeur
 - **#17 livré** — parser algo-derm : bare `[mod] ascorbique` + trailing-mod `acide ascorbique [mod]` → `[mod] ascorbic acid`. Recovered `anua-peach-70-niacin-serum`.
 - **#18 livré** — aliases Aurore parens-stripped : `green tea` (polyphenols) + `vitamin e` / `vitamine-e` (vitamin-e). Recovered deliverance-serum, beauty-of-joseon-red-bean-water-gel, isispharma-xerolan-spray. Aliases `cocoa`/`cacao`/`theobroma cacao*` rejetés par audit precision (cocoa butter emollient ubiquitaire).
 - **#19 livré** — Aurore raw-INCI scan : `RAW_SCAN_SLUGS = {polyphenols}` re-scanne la chaîne raw lowercased contre les patterns du cluster, contourne le substrate-strip d'`applyCompositeFerment` côté algo-derm. Recovered 10 produits polyphenols (mixsoon ×2, missha ×3, garancia ×2, numbuzin, respire, dr-ceuracle). agree% polyphenols maintenu à 100 % (+10 recall, 0 over-tag).
-- Reste : 6 false-pos résiduels (1 par cluster sur retinoids/vitamin-c×2/hyaluronic/peptides/tyrosinase) — investigation case-by-case ou data quality.
+
+**État post-azelaic + FR ascorbic (2026-05-13 part 1)** : drift = 42 (0 false-pos + 42 pos-cap + 2 parse-fail). 6 FP résiduels fermés via :
+- Cluster tyrosinase-inhibitors : `azelaic acid` + `acide azélaïque` ajoutés (Skinoren, Anua, Ducray, ACM, Ordinary…). Recovered anua-soothing-pad-azelaic-10-hyaluron. +45 new auto-tags (manual sous-tagué).
+- Cluster vit-C : `acide ascorbic` (forme post-normalize FR résiduelle). Recovered mary-may-glutathione-eye-cream-special-set.
+- drift-cleanup +4 entries APPLIED : cosrx-retinol-01-cream (marketing lie), garancia-trousse-voyage-2025-303627 (coffret tagué avec union contenus).
+
+**État post-parse-fail + baseline (2026-05-13 part 2)** : drift = 42 (0 FP + 42 pos-cap + 0 parse-fail), tyrosinase 100 %. Items fermés :
+- **Parse-fail 2 → 0** : mary-may-blackberry-complex-glow-wash-off-pack avait INCI vide en DB → re-scrape INCIDecoder (EN canonique) → UPDATE products.inci. 2 cluster flags (vit-e + hyaluronic-acid) = même SKU double-comptage. Tocopherol + Hydrolyzed Hyaluronic Acid présents en INCI → manual tags légit.
+- **Tyrosinase 76 % → 100 %** : 45 azelaic-line products promus en baseline manuel (acm-azeane, ducray melascreen/keracnyl, ordinary, dr-sams, anua, cos-de-baha, nine-less, theramid azid, colibri, svr sebiaclear, bioderma pigmentbio, isispharma teen-derm/ruboril, inkey, typology, tirtir, vt, medicube…). Tous ont AZELAIC ACID en INCI. Décision : algo trust > manual missing.
 
 ### 5.2 Overrides AHA/BHA/PHA
 111 produits présentent des tags manuels pour des acides situés **au-delà du cap de concentration** (index 10+ dans l'INCI).
