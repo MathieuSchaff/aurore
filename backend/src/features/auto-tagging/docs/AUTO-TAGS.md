@@ -383,9 +383,9 @@ Les kinds "rinse-off" (cleanser, body-wash, mask) sont exclus des signaux de pho
 
 ---
 
-## Le runner : `runners/backfill.ts`
+## Le runner : `runners/backfill/main.ts`
 
-**Fichier :** `backend/src/features/auto-tagging/runners/backfill.ts`
+**Fichier :** `backend/src/features/auto-tagging/runners/backfill/main.ts`
 
 C'est lui qui orchestre tout et écrit en DB. Il ne contient pas de logique de détection — il appelle juste les 6 fonctions dans l'ordre.
 
@@ -425,9 +425,9 @@ make backfill-auto-tags LIMIT=50 WRITE=1   # applique sur 50 produits (test prog
 
 ---
 
-## Le runner d'audit : `runners/audit.ts`
+## Le runner d'audit : `runners/audit/main.ts`
 
-**Fichier :** `backend/src/features/auto-tagging/runners/audit.ts`
+**Fichier :** `backend/src/features/auto-tagging/runners/audit/main.ts`
 
 Similaire au backfill mais **lecture seule** et plus verbeux. Il montre pour chaque tag algo-derm :
 - `hit` : combien de produits le recevraient
@@ -444,8 +444,8 @@ Utile pour recalibrer les seuils dans `TAG_CONFIG`. Une commande `make audit-aut
 Trois chemins, tous via l'orchestrator partagé (`features/auto-tagging/orchestrator.ts`) → output identique pour un même input produit :
 
 1. **Création API runtime** — `features/products/service.ts createProduct()` appelle `writeTagsForProduct(product.id)` après l'insert. Inline, fail-soft (une erreur tagging log warn, ne bloque pas la création).
-2. **Seed initial** — `db/seed/runners/seed-core.ts` appelle `detectAllAutoTags` pendant le reseed depuis zéro. Les produits du seed JSON ont leurs tags auto-générés dès le premier insert.
-3. **Backfill** — `features/auto-tagging/runners/backfill.ts` ré-applique sur les produits **déjà en DB** (e.g. produits ajoutés avant que des règles existent, ou recalibration des seuils).
+2. **Seed initial** — `db/seed/seeders/seed-core.ts` appelle `detectAllAutoTags` pendant le reseed depuis zéro. Les produits du seed JSON ont leurs tags auto-générés dès le premier insert.
+3. **Backfill** — `features/auto-tagging/runners/backfill/main.ts` ré-applique sur les produits **déjà en DB** (e.g. produits ajoutés avant que des règles existent, ou recalibration des seuils).
 
 La parité des trois chemins est garantie par `tests/auto-tag-orchestrator-parity.test.ts`.
 
@@ -465,7 +465,7 @@ La parité des trois chemins est garantie par `tests/auto-tag-orchestrator-parit
 | `passes/brand-cert-detection.ts` | Passe 5c — labels brand (vegan / cruelty-free / bio-naturel) depuis `brand_certifications` | Non |
 | `passes/auto-tag-avoid.ts` | Passe 6 — agrégateur avoid (grossesse + cross-signal + interactions algo-derm) | Via les passes ci-dessus |
 | `write.ts` | API runtime — `writeTagsForProduct(productId)` consommé par `createProduct()` | Via orchestrator |
-| `runners/backfill.ts` | Runner batch — ré-applique l'orchestrator sur toute la DB | Via orchestrator |
-| `runners/audit.ts` | Runner audit — dry-run avec stats par tag (passe 1 uniquement) | Via `auto-tag-detection.ts` |
+| `runners/backfill/main.ts` | Runner batch — ré-applique l'orchestrator sur toute la DB | Via orchestrator |
+| `runners/audit/main.ts` | Runner audit — dry-run avec stats par tag (passe 1 uniquement) | Via `auto-tag-detection.ts` |
 
 ---

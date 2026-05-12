@@ -58,13 +58,13 @@ INVARIANTS
 - backend/src/db/seed/docs/audits/INCI-QUALITY-AUDIT.md §6 (table compacte)
 - backend/src/db/seed/docs/audits/_archive/phase4-log.md si besoin du
   détail historique
-- backend/scripts/cleanup-inci-trailing-prose.ts (modèle script DB-side)
+- backend/src/db/seed/inci/cleanup/trailing-prose.ts (modèle script DB-side)
 - algo-derm/src/parser.ts (cible si M.2)
 
 ENVIRONNEMENT
 
 - Stack Docker actif : just dev-d (app_db, app_api, app_frontend)
-- Bench : docker exec -w /app/backend -e DATABASE_URL='postgres://app:devpassword@app_db:5432/appdb' app_api bun scripts/benchmark-fr-parser.ts
+- Bench : docker exec -w /app/backend -e DATABASE_URL='postgres://app:devpassword@app_db:5432/appdb' app_api bun src/db/seed/inci/benchmark-fr-parser.ts
 - Audit FULL : ajouter -e INCI_AUDIT_FULL=1 ; redirect > audits/inci-audit-YYYY-MM-DD-<tag>.txt
 - Tests algo-derm : cd ~/Mathieu/projets/algo-derm && npm run check:all
 ```

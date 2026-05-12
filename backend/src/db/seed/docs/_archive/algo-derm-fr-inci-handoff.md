@@ -20,7 +20,7 @@ Parser FR ajouté à algo-derm en 3 itérations + bugfix `RE_ACIDE`. Tests verts
 - `algo-derm/test/parser.test.mjs` — 35 cas couvrant chaque bucket
 - `algo-derm/test/matching.test.mjs` — 2 assertions pinnées MAJ
 - `aurore/vendor/algo-derm.tgz` — tarball regen avec parser FR
-- `aurore/backend/scripts/benchmark-fr-parser.ts` — bench match-rate vs legacy
+- `aurore/backend/src/db/seed/inci/benchmark-fr-parser.ts` — bench match-rate vs legacy
 - `aurore/docs/algo/algo-derm-aurore-integration.md` §2.1 — note "Parser FR→Latin"
 
 ## Carte des passes du parser (référence curation)

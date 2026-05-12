@@ -3,7 +3,7 @@
 > **Rôle** : tracer les produits dégagés du seed/DB pour Phase 6 doublons,
 > avec leur image CDN.
 >
-> **Workflow image cleanup** : batch via `bun run backend/src/db/seed/scripts/delete-bunny-images.ts`
+> **Workflow image cleanup** : batch via `bun run backend/src/images/maintenance/delete-bunny.ts`
 > avec `SLUGS_FILE=output/dedup-dropped-slugs.json` (env `BUNNY_STORAGE_*` requis).
 >
 > **Status CDN cleanup (2026-05-04)** : Rounds initial-6 ✅ tous purgés du Bunny Storage Zone
@@ -26,7 +26,7 @@ Détail par round (slug + image CDN + image inheritance + skipped) : [`_archive/
 
 ## Backlog — scan DB (snapshot 2026-05-04T14:05:48.886Z, 214 signaux)
 
-Source : `bun run backend/src/db/seed/scripts/scan-db-duplicates.ts <backup.sql>`. JSON dans `output/scan-db-duplicates.json`.
+Source : `bun run backend/src/db/seed/maintenance/scan-db-duplicates.ts <backup.sql>`. JSON dans `output/scan-db-duplicates.json`.
 
 ### Slug typos (1)
 

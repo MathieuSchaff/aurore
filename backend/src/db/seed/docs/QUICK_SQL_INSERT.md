@@ -82,7 +82,7 @@ docker exec app_db psql -U app -d appdb -f /tmp/insert-<slug>.sql
      OR slug = '<brand-slug>-...';
   ```
 - **`id` est auto** (uuidv7), ne pas le fournir.
-- **`image_url`** : convention finale = `https://aurore-cdn.b-cdn.net/products/<slug>.webp` (Bunny CDN). Si pas encore uploadé, on peut stocker l'URL d'origine et migrer plus tard via les scripts de `backend/src/db/seed/scripts/upload-images.ts`. Voir `IMAGES.md`.
+- **`image_url`** : convention finale = `https://aurore-cdn.b-cdn.net/products/<slug>.webp` (Bunny CDN). Si pas encore uploadé, on peut stocker l'URL d'origine et migrer plus tard via les scripts de `backend/src/images/upload/batch.ts`. Voir `IMAGES.md`.
 - **INCI** : un seul champ `text`, pas de `product_ingredients` automatiquement. Pour la relation typée → pipeline d'extraction séparé.
 - **Tags** : aucun rattachement ici. Pour `tag_products` voir `SEED_FORMAT.md` §A.2.
 

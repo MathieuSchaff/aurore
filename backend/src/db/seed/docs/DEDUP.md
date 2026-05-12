@@ -23,8 +23,8 @@ Le seed contient des doublons issus de l'historique d'import multi-source :
 
 ```bash
 # Depuis backend/
-bun run src/db/seed/scripts/audit-imported-products.ts            # console only
-bun run src/db/seed/scripts/audit-imported-products.ts --write    # écrit json + md dans output/
+bun run backend/src/db/seed/maintenance/audit-imported-products.ts            # console only
+bun run backend/src/db/seed/maintenance/audit-imported-products.ts --write    # écrit json + md dans output/
 ```
 
 Sortie :
@@ -60,7 +60,7 @@ Pour chaque paire `(produit A, produit B)` de **même brand** :
 | `weak` | `name ≥ 0.7` (fallback quand l'INCI est absent ou très différent) |
 | `reject` | sinon |
 
-Cf. `classifyPair()` dans `backend/src/db/seed/scripts/audit-imported-products.ts`.
+Cf. `classifyPair()` dans `backend/src/db/seed/maintenance/audit-imported-products.ts`.
 
 ---
 
@@ -134,7 +134,7 @@ Mettre à jour ce tableau si on rerun le script et que les chiffres bougent sign
 
 ## Liens
 
-- Script : `backend/src/db/seed/scripts/audit-imported-products.ts`
+- Script : `backend/src/db/seed/maintenance/audit-imported-products.ts`
 - Rapport : `backend/src/db/seed/output/imported-products-audit.{md,json}` (gitignored)
 - Pipeline import amont : [`IMPORT_PIPELINE.md`](./IMPORT_PIPELINE.md)
 - Format produit : [`SEED_FORMAT.md`](./SEED_FORMAT.md)

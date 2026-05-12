@@ -426,4 +426,4 @@ Suite : si volume FP augmente, ticket brand-based (haircare-only brands) ou règ
 - `backend/src/db/seed/utils/formula-detection.ts:1459-1480` — `detectTextureBaumeFromName` étendu
 - `backend/src/db/seed/tests/formula-detection.test.ts:1373-1430` — suite baume (eye-cream + moisturizer + veto)
 - `backend/drizzle/0055_cleanup_texture_eau_huile_baume_lait_gel_stale.sql` — migration cleanup + admin Q4/Q5
-- `backend/src/db/seed/runners/audit-product-kinds.ts` — followup auditeur kind mistags (135 fixes appliqués 2026-05-10)
+- `backend/src/features/auto-tagging/runners/audit/product-kinds.ts` — followup auditeur kind mistags (135 fixes appliqués 2026-05-10)

@@ -3,8 +3,8 @@
 // so every assessment-dependent pass shares the same evidence/coverage data.
 //
 // Consumed by:
-//   - `db/seed/runners/seed-core.ts`                (initial seed, fresh DB)
-//   - `features/auto-tagging/runners/backfill.ts`   (post-snapshot rehydrate, idempotent)
+//   - `db/seed/seeders/seed-core.ts`                (initial seed, fresh DB)
+//   - `features/auto-tagging/runners/backfill/main.ts`   (post-snapshot rehydrate, idempotent)
 //   - `features/products/service.ts createProduct()` (per-product, inline)
 //
 // All consumers produce identical output for the same product input — verified

@@ -152,10 +152,10 @@ scrape Pharmashop ──┬──> output/images/<slug>.jpg               (thumb
 
 # 3. upload Bunny Storage (env vars depuis .env.dev)
 set -a; source .env.dev; set +a
-bun run backend/src/db/seed/scripts/upload-images.ts
+bun run backend/src/images/upload/batch.ts
 
 # 4. patch seeds (IMAGE_CDN_BASE déjà dans .env.dev)
-bun run backend/src/db/seed/scripts/patch-image-urls.ts
+bun run backend/src/images/maintenance/patch-urls.ts
 
 # 5. vérif
 make ts-verify
@@ -169,13 +169,13 @@ Pour publier une image isolée ou un petit lot, préférer le service au workflo
 
 ```bash
 # single from URL (Shopify CDN, brand site, etc.)
-bun run backend/src/db/seed/scripts/upload-product-image.ts <slug> --url <URL>
+bun run backend/src/images/upload/main.ts <slug> --url <URL>
 
 # single from local file (manuel DL préalable)
-bun run backend/src/db/seed/scripts/upload-product-image.ts <slug> --file /tmp/img.jpg
+bun run backend/src/images/upload/main.ts <slug> --file /tmp/img.jpg
 
 # batch (JSON array of { slug, url? | file? })
-bun run backend/src/db/seed/scripts/upload-product-image.ts --batch jobs.json --concurrency 4
+bun run backend/src/images/upload/main.ts --batch jobs.json --concurrency 4
 
 # flags : --dry  --no-db  --no-staged
 ```
@@ -205,7 +205,7 @@ Implémentation : `scripts/lib/upload-product-image.ts` (`uploadProductImage(inp
 
 ```bash
 set -a && source .env.dev && set +a
-bun run backend/src/db/seed/scripts/build-image-mapping.ts [--dry]
+bun run backend/src/images/maintenance/build-mapping.ts [--dry]
 ```
 
 Source de vérité = **Bunny Storage list** (`/<zone>/products/`). Le local `output/images-normalized/` est un staging transient nettoyé après upload — il ne peut pas servir de référence. Le script :

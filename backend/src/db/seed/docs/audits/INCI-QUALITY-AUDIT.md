@@ -1,6 +1,6 @@
 # INCI quality — audit complet du corpus seed
 
-> Audit conduit 2026-05-11. Complète [`INCI-ALPHABETICAL-AUDIT.md`](./INCI-ALPHABETICAL-AUDIT.md) qui couvre la dérive d'ordre Skinsafe. Script source : [`backend/scripts/audit-inci-quality.ts`](../../../scripts/audit-inci-quality.ts).
+> Audit conduit 2026-05-11. Complète [`INCI-ALPHABETICAL-AUDIT.md`](./INCI-ALPHABETICAL-AUDIT.md) qui couvre la dérive d'ordre Skinsafe. Script source : [`backend/src/db/seed/inci/audit-quality.ts`](../../../scripts/audit-inci-quality.ts).
 >
 > **Objectif** : identifier *tout* ce qui empêche les détecteurs auto-tags / le score dermo de fonctionner sur un INCI, avant d'élargir le périmètre auto-tags.
 
@@ -47,7 +47,7 @@ Conséquence : le premier token `ingredients water` ou `ingrédients : water (aq
 
 **Fix** : ajouter une passe de normalisation au seed time qui strippe `^(ingrédients?|ingredients?|composition|inci)\s*[:\-]\s*` (insensitive). Soit appliquer le strip lors du `seed-core` (un-shot, idempotent), soit dans les utils de chargement avant d'écrire en DB.
 
-**Liste exhaustive** : générée par `backend/scripts/audit-inci-quality.ts` section 1, regex `PREAMBLE_RX`.
+**Liste exhaustive** : générée par `backend/src/db/seed/inci/audit-quality.ts` section 1, regex `PREAMBLE_RX`.
 
 ### 1.2 INCI sans virgules — single-token (216 produits)
 
@@ -283,11 +283,11 @@ Bench cumulé Phase 4 (vs 73.1/71.1/76.3 post-Phase 3) : **FR skincare 77.4 %** 
 ```bash
 # Version condensée (top 8 par catégorie)
 docker exec -w /app/backend -e DATABASE_URL='postgres://app:devpassword@app_db:5432/appdb' \
-  app_api bun scripts/audit-inci-quality.ts
+  app_api bun src/db/seed/inci/audit-quality.ts
 
 # Version exhaustive (listes complètes)
 docker exec -w /app/backend -e DATABASE_URL='postgres://app:devpassword@app_db:5432/appdb' \
-  -e INCI_AUDIT_FULL=1 app_api bun scripts/audit-inci-quality.ts
+  -e INCI_AUDIT_FULL=1 app_api bun src/db/seed/inci/audit-quality.ts
 ```
 
 Sections :
@@ -307,8 +307,8 @@ Snapshots intermédiaires (24 dumps Phase 1/2/3 + items A→Mb) archivés dans [
 
 ## 8. Références
 
-- `backend/scripts/audit-inci-quality.ts` — script source
-- `backend/scripts/benchmark-fr-parser.ts` — bench complémentaire (legacy vs new parser)
+- `backend/src/db/seed/inci/audit-quality.ts` — script source
+- `backend/src/db/seed/inci/benchmark-fr-parser.ts` — bench complémentaire (legacy vs new parser)
 - `backend/src/db/seed/docs/audits/INCI-ALPHABETICAL-AUDIT.md` — audit dérive ordre Skinsafe
 - `algo-derm/src/parser.ts` — couche FR→Latin, à étendre §3
 - `algo-derm/data/ingredient_evidence.merged.json` — evidence DB, à enrichir §4
