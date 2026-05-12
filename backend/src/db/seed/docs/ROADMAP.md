@@ -58,7 +58,7 @@ Contexte complet + commandes : [`audits/NEXT-SESSION-PROMPT.md`](./audits/NEXT-S
 - [x] **Single-token / no-comma (2026-05-12)** : `resplit-single-token.ts` — 9 produits récupérés (2 trivial ` - `, 7 longest-match). 65→55 single-token, 66→56 no-comma. Restant irréductibles : voir packaging ou re-scrape.
 - [x] **Top unmatched FR + non-FR (2026-05-12)** : 30 tokens ajoutés à `curated.generated.json` (FR ≥14 occ : malachite extract, maris sal, copolymere pvm ma, acetyl tetrapeptide-2, potassium chloride, polyquaternium-67, alumine, beheneth-25, sodium acetate, pca de sodium… ; non-FR 29 occ : glyceryl linoleate, hydrolyzed rice protein, dimethyl isosorbide, steareth-20, carrageenan, aspartic acid, palmitoyl tripeptide-38, sodium dna, camelina sativa). Bench : FR skincare 77.5→78.5%, FR other 74.5→75.2%, non-FR 79.6→80.2%. Plateau ROI (tokens restants ≤14 occ ≈ <0.03 pt/token).
 - [x] **Parser fix M.2 (2026-05-13)** : `splitINCI` — post-merge bare-digit + token suivant chiffre. Token `1` (29 occ non-FR, = `1,2-hexanediol` scraped avec espace `"1, 2-Hexanediol"`) éliminé. Gain sub-rounding (0.037% sur 77K). Restant non adressé : `1 2 hexanediol` (27 occ, scraper sans tiret) — data quality, pas parser.
-- [ ] **Top unmatched FR restants** (≤14 occ — ROI trop faible, skip) : `glutamate de stearoyl de sodium`, `collagen soluble`, `juniperus mexicana oil`, `ectoine`, `pvp`, `helichrysum italicum flower oil`, `tripeptide-1`, `hexapeptide-9`.
+- [x] **Top unmatched FR restants (2026-05-12)** : 6 nouvelles entrées + 2 aliases (ectoin/sodium stearoyl glutamate). Gain +0.3/0.2/0.1 pt (FR skincare 78.8% / FR other 75.4% / non-FR 80.3%). Plateau définitif.
 
 ---
 
