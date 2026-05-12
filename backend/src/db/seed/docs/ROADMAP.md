@@ -16,7 +16,7 @@ Règle : **une étape = une session = un commit propre.** Pas de chaînage.
 | ✅ | ~~**§0.5 Domain-consistency — 779 violations haircare/skincare**~~ | M | Faible |
 | ✅ | ~~**§1 Dédup intra-source produits scrapés**~~ | M | Faible |
 | 2 | **Auto-tagging — primary auto + couverture** → `features/auto-tagging/docs/ROADMAP.md` | L | Moyen |
-| 3 | **§2 INCI quality — top unmatched FR/non-FR** (evidence algo-derm) | S | Faible |
+| ~✅~ | **§2 INCI quality** — plateau atteint (78.5%/75.2%/80.2%). Seul levier restant : parser fix M.2 (`1,2-hexanediol`). | S | Faible |
 | 4 | **§3 Images CDN — gaps résiduels** (dernière prio) | M | Faible |
 
 ---
@@ -47,15 +47,18 @@ Snapshot 2026-05-12 :
 
 ---
 
-## 2. INCI quality — suite (algo-derm)
+## 2. INCI quality — suite (algo-derm) — PLATEAU ATTEINT
 
-Plateau evidence atteint. Contexte + commandes dans [`audits/NEXT-SESSION-PROMPT.md`](./audits/NEXT-SESSION-PROMPT.md).
+Bench final : **FR skincare 78.5% / FR other 75.2% / non-FR 80.2%** (2026-05-12).
+Seul levier restant à ROI positif : parser fix M.2 (voir ci-dessous).
+Contexte complet + commandes : [`audits/NEXT-SESSION-PROMPT.md`](./audits/NEXT-SESSION-PROMPT.md).
 
 - [x] **Worst-match produits — prose marketing (2026-05-12)** : 5 worst-match fixés (medicube=NULL, mary-may=NULL, eucerin-preamble, mixsoon×2 post-Ingrédients). Restant : `power-repair` (terminologie non-standard).
 - [x] **Worst-match produits — parse artifacts (2026-05-12)** : `separators.ts` étendu — en-dash (Erborian ranks 13-14) + no-space period (Avène rank 7). 22 produits mis à jour. Restant : Clinique concat tokens (`WATERAQUAEAU`), `ETHYLHEXYL METHOXYCINNAMATE- DIPROPYLENE` (hyphen-space separator).
 - [x] **Single-token / no-comma (2026-05-12)** : `resplit-single-token.ts` — 9 produits récupérés (2 trivial ` - `, 7 longest-match). 65→55 single-token, 66→56 no-comma. Restant irréductibles : voir packaging ou re-scrape.
-- [ ] **Top unmatched FR** : ajouter à algo-derm : `malachite extract`, `maris sal`, `acetyl tetrapeptide-2`, `glutamate de stearoyl de sodium`.
-- [ ] **Top unmatched non-FR** : `glyceryl linoleate`, `hydrolyzed rice protein`, `dimethyl isosorbide`, `carrageenan`.
+- [x] **Top unmatched FR + non-FR (2026-05-12)** : 30 tokens ajoutés à `curated.generated.json` (FR ≥14 occ : malachite extract, maris sal, copolymere pvm ma, acetyl tetrapeptide-2, potassium chloride, polyquaternium-67, alumine, beheneth-25, sodium acetate, pca de sodium… ; non-FR 29 occ : glyceryl linoleate, hydrolyzed rice protein, dimethyl isosorbide, steareth-20, carrageenan, aspartic acid, palmitoyl tripeptide-38, sodium dna, camelina sativa). Bench : FR skincare 77.5→78.5%, FR other 74.5→75.2%, non-FR 79.6→80.2%. Plateau ROI (tokens restants ≤14 occ ≈ <0.03 pt/token).
+- [ ] **Piste A parser fix M.2** : `1` (29 occ non-FR) = `1,2-hexanediol` splitté sur la virgule. Fix dans `algo-derm/src/parser.ts`.
+- [ ] **Top unmatched FR restants** (≤14 occ) : `glutamate de stearoyl de sodium`, `collagen soluble`, `juniperus mexicana oil`, `ectoine`, `pvp`, `helichrysum italicum flower oil`, `tripeptide-1`, `hexapeptide-9`.
 
 ---
 
