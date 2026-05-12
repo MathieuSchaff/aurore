@@ -13,3 +13,4 @@ export {
   type OrchestratorInput,
   type OrchestratorOptions,
 } from './orchestrator'
+export { type WriteTagsResult, writeTagsForProduct } from './write'
