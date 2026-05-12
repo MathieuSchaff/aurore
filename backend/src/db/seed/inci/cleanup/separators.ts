@@ -70,6 +70,22 @@ const periodSepCount = (inci: string): number => (inci.match(PERIOD_SEP_RX) ?? [
 const normalizePeriodSeparator = (inci: string): string =>
   periodSepCount(inci) >= 4 ? inci.replace(PERIOD_SEP_RX, '$1, ') : inci
 
+// No-space period separator: scrapers (Avène) emit `NIACINAMIDE.PENTAERYTHRITYL`
+// with no space after the dot. `normalizePeriodSeparator` misses these because
+// it requires `\.\s+`. Threshold ≥4 to avoid triggering on single trailing dots.
+// Excludes digits on the right so `1.2` decimal patterns aren't split.
+const PERIOD_NOSPACE_RX = /([a-zA-Z)\]])\.(?=[a-zA-Z])/g
+const periodNoSpaceCount = (inci: string): number => (inci.match(PERIOD_NOSPACE_RX) ?? []).length
+const normalizePeriodSeparatorNoSpace = (inci: string): string =>
+  periodNoSpaceCount(inci) >= 4 ? inci.replace(PERIOD_NOSPACE_RX, '$1, ') : inci
+
+// En-dash (U+2013) as list separator — Erborian / Avène baume scrapers emit
+// `INGREDIENT – INGREDIENT`. En-dash is not part of any INCI name so the
+// substitution is unambiguous. Also handles `–,` and `,–` edge cases from
+// Erborian masque scraper (`AQUA –, BUTYLENE GLYCOL –, …`).
+const normalizeEnDash = (inci: string): string =>
+  inci.includes('–') ? inci.replace(/\s*,?\s*–\s*,?\s*/g, ', ').replace(/,\s*,/g, ',') : inci
+
 // Underscore-as-separator: only fire when `_` appears ≥3 times between
 // uppercase letters (catches Clinique superdefense, leaves `BETA_GLUCAN`).
 const underscoreSepCount = (inci: string): number => (inci.match(/[A-Z]_[A-Z]/g) ?? []).length
@@ -96,8 +112,10 @@ const TRANSFORMS: Transform[] = [
   { name: 'whitespace', fn: collapseWhitespace },
   { name: 'pipe', fn: normalizePipe },
   { name: 'middle-dot', fn: normalizeMiddleDot },
+  { name: 'en-dash', fn: normalizeEnDash },
   { name: 'underscore-sep', fn: normalizeUnderscoreSeparator },
   { name: 'period-sep', fn: normalizePeriodSeparator },
+  { name: 'period-sep-nospace', fn: normalizePeriodSeparatorNoSpace },
   { name: 'glued-chem', fn: applyGluedFixes },
   { name: 'marketing-prefix', fn: stripMarketingPrefix },
   { name: 'tail-prose', fn: stripTailProse },

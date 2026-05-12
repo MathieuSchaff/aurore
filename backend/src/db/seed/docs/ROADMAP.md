@@ -14,41 +14,36 @@ Règle : **une étape = une session = un commit propre.** Pas de chaînage.
 | Priorité | Item | Effort | Risque |
 |---|---|---|---|
 | ✅ | ~~**§0.5 Domain-consistency — 779 violations haircare/skincare**~~ | M | Faible |
+| ✅ | ~~**§1 Dédup intra-source produits scrapés**~~ | M | Faible |
 | 2 | **Auto-tagging — primary auto + couverture** → `features/auto-tagging/docs/ROADMAP.md` | L | Moyen |
-| 3 | **§1 Dédup intra-source produits scrapés** | M | Faible |
-| 4 | **§2 INCI quality — worst-match + formatage** | S | Faible |
-| 5 | **§3 Images CDN — gaps résiduels** (dernière prio) | M | Faible |
+| 3 | **§2 INCI quality — top unmatched FR/non-FR** (evidence algo-derm) | S | Faible |
+| 4 | **§3 Images CDN — gaps résiduels** (dernière prio) | M | Faible |
 
 ---
 
-## 0.5 Domain-consistency — 779 violations (CRITIQUE)
+## 0.5 Domain-consistency ✅ LIVRÉ (2026-05-12)
 
-> Source : `audits/FULL-AUDIT.md` §3.1 (audit 2026-05-12). Script : `audit-db.ts`.
-
-Produits **haircare** portent des tags `skin_type`/`skin_zone`/`skin_effect` réservés au domaine **skincare**. Cause : migration multi-domaine avril 2026, slugs non-natifs hérités par les produits capillaires.
-
-Exemples : `bioderma-node-p-shampoing` → `peau-seche`, `vichy-dercos-shampoing` → `zone-visage`, `la-roche-posay-kerium` → `apaisant`.
-
-- [x] **Inventorier** : 779 paires extraites (14 tagTypes violants, bidirectionnel).
-- [x] **Correction** : script `maintenance/fix-tag-domain-consistency.ts` — suppression systématique des `tag_products` cross-domaine (pas de remap : slugs skincare/haircare non équivalents sans table de mapping curatée).
-- [x] **Vérifier** : `just audit-db` → `✓ tag-product-domain-consistency`. 0 violation.
+779 violations supprimées. Pipeline auto-tag patché (`write.ts` + `backfill/main.ts`) pour ne plus recréer de violations. `just audit-db` → 0 violation.
 
 ---
 
 ## 1. Produits
 
-### 1.1 Doublons produits scrapés
+### 1.1 Doublons produits scrapés ✅
 
-> Mis à jour 2026-04-30 après le merge `0c477591` (fusion des `*.atida/.pharmashop.seed.ts` dans des `<brand>.seed.ts` unifiés) + cleanup cross-source. Détection : `scripts/audit-imported-products.ts` (archivé) ; workflow + règles : `DEDUP.md` (archivé dans `~/Mathieu/Vault/aurore-archive/seed-docs/`).
+> Mis à jour 2026-05-12 après review manuelle complète des 150 paires restantes.
 
-Snapshot 2026-04-30 :
+Snapshot 2026-05-12 :
 
-- **Cross-source : 1 paire** (review, faux positif vichy `dercos-psolution` ↔ `neovadiol-meno` — produits distincts, signal commun parasite). Plus rien à traiter sur cet axe.
-- **Intra-source : 1 051 paires** (336 auto-merge / 401 review / 314 weak). Tout est désormais intra-fichier. Beaucoup de faux positifs légitimes (variantes format `100ml`/`400ml`, lots `x2`/`x3`, couleurs/tailles brossettes).
+- **Cross-source : 0 paire**. Résolu 2026-04-30.
+- **Intra-source : 150 paires détectées** → **0 vrai doublon** après review.
+  - 119 paires avec flag (`num-diff`, `color-diff`, `size-mm`, `model-variant`, `tint-diff`) = variantes quantité/couleur/taille/modèle légitimes.
+  - 31 paires sans flag = faux positifs INCI (fragrances Klorane gel douche à INCI identique, elmex blancheur vs base, cire visage vs corps, etc.).
+  - Règle de décision DEDUP.md appliquée : aucune fusion justifiée.
 
-- [ ] Filtrer le rapport intra-source par flags pour isoler les **vrais doublons** (exclure `num-diff` quand seule la quantité change, `kind-diff` informatifs).
-- [ ] Review marque par marque dans l'ordre du tableau « Review Priority » du rapport, après filtrage.
-- [ ] Pour chaque marque : appliquer les règles de décision de l'ancien `DEDUP.md` (cf archive — sameSize → fusion, sinon variantes à conserver).
+- [x] Filtrer le rapport intra-source par flags pour isoler les **vrais doublons**.
+- [x] Review marque par marque dans l'ordre du tableau « Review Priority » du rapport, après filtrage.
+- [x] Pour chaque marque : appliquer les règles de décision de l'ancien `DEDUP.md` (cf archive — sameSize → fusion, sinon variantes à conserver).
 
 ---
 
@@ -56,8 +51,9 @@ Snapshot 2026-04-30 :
 
 Plateau evidence atteint. Contexte + commandes dans [`audits/NEXT-SESSION-PROMPT.md`](./audits/NEXT-SESSION-PROMPT.md).
 
-- [ ] **Worst-match produits** : re-générer audit avec `INCI_AUDIT_FULL=1`, cibler §3/§4 (scrapes cassés, INCI appareil). Résoudre cas par cas plutôt que tokens haute fréquence.
-- [ ] **Single-token / no-comma (130 produits)** : 65 `single-token` + 66 `no-comma` bloquent le parser. Utiliser `resplit-single-token.ts` pour SVR/Bioderma.
+- [x] **Worst-match produits — prose marketing (2026-05-12)** : 5 worst-match fixés (medicube=NULL, mary-may=NULL, eucerin-preamble, mixsoon×2 post-Ingrédients). Restant : `power-repair` (terminologie non-standard).
+- [x] **Worst-match produits — parse artifacts (2026-05-12)** : `separators.ts` étendu — en-dash (Erborian ranks 13-14) + no-space period (Avène rank 7). 22 produits mis à jour. Restant : Clinique concat tokens (`WATERAQUAEAU`), `ETHYLHEXYL METHOXYCINNAMATE- DIPROPYLENE` (hyphen-space separator).
+- [x] **Single-token / no-comma (2026-05-12)** : `resplit-single-token.ts` — 9 produits récupérés (2 trivial ` - `, 7 longest-match). 65→55 single-token, 66→56 no-comma. Restant irréductibles : voir packaging ou re-scrape.
 - [ ] **Top unmatched FR** : ajouter à algo-derm : `malachite extract`, `maris sal`, `acetyl tetrapeptide-2`, `glutamate de stearoyl de sodium`.
 - [ ] **Top unmatched non-FR** : `glyceryl linoleate`, `hydrolyzed rice protein`, `dimethyl isosorbide`, `carrageenan`.
 
