@@ -57,7 +57,16 @@ const S = SKINCARE_PRODUCT_TAG_SLUGS
 //                      `apaisant` / `anti-oxydant` / `barriere-cutanee` /
 //                      `eclat-teint-uniforme` expected — re-calibrate
 //                      TAG_HIT_RATE_BUDGET after audit.
-const CALIBRATED_FOR_TAG_DEFS_VERSION = 5
+//   v6 (2026-05-13) — Position-weighted confidence (B2). `anti-age` /
+//                      `purifiant` / `keratolytique` / `repulpant` confidence
+//                      now `min(coverage, 0.9) × positionConfidence(pos, cap)`.
+//                      Runtime impact on Aurore is narrow: only `anti-age`
+//                      reaches gating (confidenceFloor 0.5) — `purifiant` is
+//                      `allow:false`, `keratolytique` is unmapped, `repulpant`
+//                      is re-emitted via passes/formula/. Anti-age hit rate
+//                      may dip on products with retinol/vit-C at INCI pos > 5
+//                      (~half confidence); re-baseline budgets if drift.
+const CALIBRATED_FOR_TAG_DEFS_VERSION = 6
 
 if (TAG_DEFS_VERSION !== CALIBRATED_FOR_TAG_DEFS_VERSION) {
   throw new Error(
