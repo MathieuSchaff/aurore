@@ -44,7 +44,7 @@ audit-db:
     printf "{{CYAN}}DB audit ($TARGET)...{{NC}}\n"
     $COMPOSE exec api bun run src/db/audit/audit-db.ts
 
-# Dry-run auto-tagging via algo-derm (read-only). Env: CONF_OVERRIDE, CSV_OUT, LIMIT, INCLUDE_DROPPED.
+# Dry-run auto-tagging via algo-derm (read-only). Env: CONF_OVERRIDE, CSV_OUT, LIMIT, INCLUDE_DROPPED, DUMP_BUDGETS, CHECK, DUMP_BENEFITS, BENEFITS_OUT.
 audit-auto-tags:
     #!/usr/bin/env bash
     set -euo pipefail
@@ -60,7 +60,25 @@ audit-auto-tags:
         ${CSV_OUT:+-e CSV_OUT="$CSV_OUT"} \
         ${LIMIT:+-e LIMIT="$LIMIT"} \
         ${INCLUDE_DROPPED:+-e INCLUDE_DROPPED="$INCLUDE_DROPPED"} \
+        ${DUMP_BUDGETS:+-e DUMP_BUDGETS="$DUMP_BUDGETS"} \
+        ${CHECK:+-e CHECK="$CHECK"} \
+        ${DUMP_BENEFITS:+-e DUMP_BENEFITS="$DUMP_BENEFITS"} \
+        ${BENEFITS_OUT:+-e BENEFITS_OUT="$BENEFITS_OUT"} \
         api bun run src/features/auto-tagging/runners/audit/main.ts
+
+# Calibration drift detector — validate hit_rate per (slug, category) vs TAG_HIT_RATE_BUDGET.
+# Exit 1 on FAIL. Tags hors budget → WARN (warn-only initial — roadmap A3).
+audit-auto-tags-check:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    TARGET="${TARGET:-dev}"
+    case "$TARGET" in
+        dev)  COMPOSE="{{COMPOSE_DEV}}" ;;
+        prod) COMPOSE="{{COMPOSE_PROD}}" ;;
+        *)    printf "{{RED}}TARGET invalide: dev|prod (got '$TARGET'){{NC}}\n"; exit 1 ;;
+    esac
+    printf "{{CYAN}}Audit auto-tags CHECK ($TARGET)...{{NC}}\n"
+    $COMPOSE exec -e CHECK=1 api bun run src/features/auto-tagging/runners/audit/main.ts
 
 # Audit products.kind mistags via name patterns. Env: SLUG (single product), WRITE (apply fixes).
 audit-product-kinds:

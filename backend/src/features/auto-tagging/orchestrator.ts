@@ -58,7 +58,7 @@ import {
   detectTextureStickFromName,
   detectVegan,
 } from './passes/formula'
-import { detectKindTags } from './passes/kind-tag-detection'
+import { detectKindPrimaryType, detectKindTags } from './passes/kind-tag-detection'
 import { detectPercentClaimTags, type PercentClaimEvidence } from './passes/percent-claim-detection'
 
 // Categories where INCI/kind-derived tagging applies. Other categories
@@ -79,7 +79,7 @@ export type AutoTagSource =
   | 'brand'
   | 'percent-claim'
 
-export type AutoTagRelevance = 'secondary' | 'avoid'
+export type AutoTagRelevance = 'primary' | 'secondary' | 'avoid'
 
 export interface AutoTagPair {
   tagSlug: SkincareProductTagSlug
@@ -114,13 +114,17 @@ export interface OrchestratorOptions {
   confOverride?: number
   includeDropped?: boolean
   coverageMinOverride?: number
+  disableFloors?: boolean
   // Pre-loaded brand certifications keyed by normalized brand. Caller (seed
   // runner / backfill runner) fetches once and passes it in; the orchestrator
   // never queries DB directly. Undefined → brand pass no-ops.
   brandCertifications?: BrandCertificationLookup
 }
 
-const RELEVANCE_RANK: Record<AutoTagRelevance, number> = { avoid: 1, secondary: 0 }
+// Precedence: avoid > primary > secondary. `avoid` is a safety signal that
+// must always win (pregnancy/irritation flags); `primary` is display priority
+// (card chips); `secondary` is the baseline catch-all.
+const RELEVANCE_RANK: Record<AutoTagRelevance, number> = { avoid: 2, primary: 1, secondary: 0 }
 
 export function detectAllAutoTags(
   product: OrchestratorInput,
@@ -175,6 +179,7 @@ export function detectAllAutoTags(
     ...(options.coverageMinOverride !== undefined
       ? { coverageMinOverride: options.coverageMinOverride }
       : {}),
+    ...(options.disableFloors !== undefined ? { disableFloors: options.disableFloors } : {}),
     ...(assessment ? { assessment, ingredients } : {}),
   })
   for (const t of autoTags) propose(t.slug, 'secondary', 'algo-derm')
@@ -260,6 +265,18 @@ export function detectAllAutoTags(
   // skin_type fired upstream).
   for (const s of detectPeauNormale(inci, kind, seenSlugs, normalizedIngredients)) {
     propose(s, 'secondary', 'formula')
+  }
+
+  // Post-pass — promote the kind-derived TYPE_* slug to `primary`. One per
+  // product, deterministic from `kind`. Skipped when it would demote an avoid
+  // signal (RELEVANCE_RANK gate). Other primaries (top concern, routine_step)
+  // are scoped for V2 (cf ROADMAP §1).
+  const primaryType = detectKindPrimaryType(kind)
+  if (primaryType) {
+    const existing = byTag.get(primaryType)
+    if (existing && RELEVANCE_RANK.primary > RELEVANCE_RANK[existing.relevance]) {
+      byTag.set(primaryType, { ...existing, relevance: 'primary' })
+    }
   }
 
   return [...byTag.values()]

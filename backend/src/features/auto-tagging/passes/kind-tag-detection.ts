@@ -46,3 +46,12 @@ const KIND_TO_TAGS: Partial<Record<ProductKind, SkincareProductTagSlug[]>> = {
 export function detectKindTags(kind: ProductKind): SkincareProductTagSlug[] {
   return KIND_TO_TAGS[kind] ?? []
 }
+
+// Headline tag for the product card. Convention: index 0 of each KIND_TO_TAGS
+// entry is the TYPE_* slug (`type-serum`, `type-hydratant`, ...). When that
+// holds, the orchestrator promotes this slug to `primary`.
+export function detectKindPrimaryType(kind: ProductKind): SkincareProductTagSlug | null {
+  const slugs = KIND_TO_TAGS[kind]
+  const first = slugs?.[0]
+  return first?.startsWith('type-') ? first : null
+}

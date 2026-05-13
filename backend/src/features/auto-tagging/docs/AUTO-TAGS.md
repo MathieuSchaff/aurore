@@ -87,25 +87,47 @@ detectAutoTags("Aqua, Niacinamide, Retinol, ...", "serum")
          if (tag.present == false) → skip
          if (TAG_CONFIG[tag.id] n'existe pas) → skip
          if (TAG_CONFIG[tag.id].allow == false) → skip
-         if (tag.source == 'computed_score' ET coverage.ratio < 0.30) → skip   ← coverage floor
-         if (tag.confidence < TAG_CONFIG[tag.id].minConf) → skip
+         if (coverage.ratio < coverageFloor effectif) → skip   ← coverage floor
+         if (source=='computed_score' ET confidence < confidenceFloor) → skip
          if (tag.id est comedogenicity ET produit est rinse-off) → skip
          → émettre le slug Aurore correspondant
 ```
 
-**Coverage floor (0.30)** : les tags `computed_score` (`acne-imperfections`, `pores-sebum`, `anti-age`…) tirent sur un seul pattern ingrédient. Si l'INCI est à >70 % d'ingrédients non identifiés par algo-derm (formules exotiques, parfumeries indé), un seul `niacinamide` ne doit pas étiqueter le produit comme "anti-acné" sur la base d'inférences à confiance basse. Les tags `detected_absence` (`sans-parfum`, etc.) ne sont pas concernés — ils sont déjà gatés par `absenceConfidence = min(coverage, 0.95)`.
+**Deux floors orthogonaux** (refacto 2026-05-13) : `TagRule` a deux champs indépendants.
 
-**Per-tag `coverageMin`** (R3) : un tag peut surcharger le floor global. `non-comedogene` exige 0.60 (algo-derm fire sur `comedogenicity.risk ≤ 0.25`, très permissif — sans coverage haute, l'absence d'évidence n'est pas évidence d'absence). Le débug `coverageMinOverride` bypass à la fois global ET per-tag.
+- `coverageFloor` (number, optionnel) — floor sur `assessment.coverage.ratio`.
+  - Pour `source='detected_absence'` (sans-parfum, sans-sulfates, …) : c'est le seul gate qui compte. Algo-derm pose `confidence = min(coverage, 0.95)`, donc la coverage *est* le signal de confiance.
+  - Pour `source='computed_score'` : floor additionnel, overrides le défaut global `COMPUTED_COVERAGE_FLOOR` (0.30) quand set.
+- `confidenceFloor` (number, optionnel) — floor sur `candidate.confidence` (confidence d'axe émise par algo-derm). N'a de sens que pour `source='computed_score'` — ignoré sur absence tags (confidence ≡ coverage par construction, déjà couvert).
 
-Le `TAG_CONFIG` est la clé du fichier : c'est lui qui dit quels tags on accepte et à quel seuil de confiance. Calibré à partir d'un dry-run sur 2 912 produits skincare le 2026-05-07.
+Ce split remplace l'ancien champ unique `minConf` dont la sémantique dépendait silencieusement de `candidate.source` (coverage floor pour absence, confidence floor pour computed). Même champ, deux significations → confus en calibration.
+
+**Coverage floor global (0.30)** : les tags `computed_score` (`acne-imperfections`, `pores-sebum`, `anti-age`…) tirent sur un seul pattern ingrédient. Si l'INCI est à >70 % d'ingrédients non identifiés par algo-derm (formules exotiques, parfumeries indé), un seul `niacinamide` ne doit pas étiqueter le produit comme "anti-acné" sur la base d'inférences à confiance basse. Les tags `detected_absence` (`sans-parfum`, etc.) ne sont pas concernés par ce défaut — ils fixent leur propre `coverageFloor` explicitement.
+
+**Floors stackés (`non-comedogene`, `hypoallergenique`, `non_irritant`)** : un tag computed_score peut combiner `confidenceFloor` ET `coverageFloor`. Ex : `non-comedogene` exige `confidence ≥ 0.90` ET `coverage ≥ 0.60` (algo-derm fire sur `comedogenicity.risk ≤ 0.25`, très permissif — sans coverage haute, l'absence d'évidence n'est pas évidence d'absence).
+
+**Debug overrides (refacto 2026-05-13 — sémantique symétrique)** :
+
+| Option | Effet | Cible |
+|---|---|---|
+| `confOverride: number` | **Raise** : `effectiveFloor = max(rule.confidenceFloor, confOverride)`. Ne baisse jamais un floor existant. | `computed_score` uniquement (absence tags n'ont pas de `confidenceFloor`). |
+| `coverageMinOverride: number` | **Raise** : `effectiveFloor = max(baseFloor, coverageMinOverride)`. Symétrique avec `confOverride`. | Tous les tags. |
+| `disableFloors: true` | Bypass total : ignore `coverageFloor` ET `confidenceFloor` (per-tag + global + les deux overrides ci-dessus). | Tous les tags. Reserved for audits — n'affecte pas les autres gates (`allow`, `excludeRinseOff`, `skipIf`, `not_present`, `unmapped`). |
+
+Auparavant `coverageMinOverride` était un **replace** (passer `0` désactivait le floor). Asymétrie résolue : les deux overrides ne peuvent que tightening ; pour relâcher, utiliser `disableFloors`.
+
+**Predicate `skipIf` (refacto A1 2026-05-13)** : `TagRule.skipIf?: (a: ProductAssessment) => boolean`. Disqualifieur tardif, appliqué après les floors. Évite les hard-codes `auroreSlug === S.X` qui breakent silencieusement à un rename. Exemple : `hypoallergenique` skip si `assessment.declarationOnlyRisk` (allergènes Annex III en trace position). Drop reason agrégé : `skip_if`.
+
+Le `TAG_CONFIG` est la clé du fichier : c'est lui qui dit quels tags on accepte et à quel seuil. Calibré à partir d'un dry-run sur 2 912 produits skincare le 2026-05-07.
 
 Exemple d'entrées dans `TAG_CONFIG` :
 ```
-'acne-imperfections' → auroreSlug: ACNE_IMPERFECTIONS, minConf: 0.50, allow: true
-'grossesse-compatible' → auroreSlug: GROSSESSE_COMPATIBLE, minConf: 0.75, allow: true
-'sans_parfum' → auroreSlug: SANS_PARFUM, minConf: 0.70, allow: true
-'repulpant' → minConf: 1.0, allow: false   ← désactivé (78 % du corpus à 0.5)
-'purifiant' → minConf: 1.0, allow: false   ← désactivé R2 (subset strict de sebo-regulateur)
+'acne-imperfections'  → auroreSlug: ACNE_IMPERFECTIONS, confidenceFloor: 0.50, allow: true
+'grossesse-compatible' → auroreSlug: GROSSESSE_COMPATIBLE, confidenceFloor: 0.75, allow: true
+'sans_parfum'         → auroreSlug: SANS_PARFUM, coverageFloor: 0.70, allow: true
+'non-comedogene'      → confidenceFloor: 0.90, coverageFloor: 0.60, excludeRinseOff: true
+'repulpant'           → confidenceFloor: 1.0, allow: false   ← désactivé (78 % du corpus à 0.5)
+'purifiant'           → confidenceFloor: 1.0, allow: false   ← désactivé R2 (subset strict de sebo-regulateur)
 ```
 
 **Ce que ça tag (exemples) :**
@@ -427,7 +449,7 @@ WRITE=1 just backfill-auto-tags                   # applique
 SLUG=<slug> just backfill-auto-tags               # dry-run sur un seul produit (debug)
 LIMIT=50 WRITE=1 just backfill-auto-tags          # applique sur 50 produits (test progressif)
 TARGET=prod WRITE=1 just backfill-auto-tags       # prod (demande confirmation "PROD")
-CONF_OVERRIDE=0.7 just backfill-auto-tags         # rehausse le floor algo-derm minConf
+CONF_OVERRIDE=0.7 just backfill-auto-tags         # rehausse confidenceFloor (computed_score only)
 ```
 
 ---
@@ -443,6 +465,39 @@ Similaire au backfill mais **lecture seule** et plus verbeux. Il montre pour cha
 - `avg_conf` / `min` / `max` : distribution de la confidence
 
 Utile pour recalibrer les seuils dans `TAG_CONFIG`. Commande : `just audit-auto-tags`.
+
+### Calibration drift detection — `TAG_HIT_RATE_BUDGET` (A3, 2026-05-13)
+
+Le runner d'audit expose deux modes additionnels pour détecter la dérive de calibration entre l'audit figé (snapshot 2026-05-07, N=2912) et le corpus courant (N=3601 au 2026-05-13). Source de vérité : `passes/tag-budgets.ts`.
+
+| Mode | Env var | Effet |
+|---|---|---|
+| Dump | `DUMP_BUDGETS=1` | Émet en fin de run un bloc TS `TAG_HIT_RATE_BUDGET` prêt-à-coller dans `passes/tag-budgets.ts`. Auto baseline : `max = min(1, ceil(hit_rate × 1.5, 0.05))`. |
+| Check | `CHECK=1` (ou `just audit-auto-tags-check`) | Valide `hit_rate = hit / withInci(category)` par `(slug, category)` contre `TAG_HIT_RATE_BUDGET`. Exit 1 si au moins un FAIL. |
+
+**Sémantique CHECK :**
+
+- `hit_rate > max` → **FAIL** (régression — le tag s'élargit hors budget)
+- `min` défini et `hit_rate < min` → **FAIL** (tag structurel qui disparaît)
+- Tag émis mais sans entrée budget → **WARN** (encourage à enregistrer)
+- Sinon → **OK**
+
+**Pourquoi per-category :** skincare/solaire/bodycare ont des distributions INCI distinctes (filtres UV sur solaires, surfactants sur bodycare). Un budget global accepterait du bruit sur une catégorie ou ferait FAIL faussement sur une autre.
+
+**Sensibles à tightener manuellement après un `DUMP_BUDGETS` :**
+
+- `comedogene` — leave-on safety, doit rester rare
+- `non-comedogene` — claim fort, ne doit pas creep sur INCI bruité
+- `peau-sensible` — proxy reactive-skin dans les avoid flows
+- `hypoallergenique` — claim regulatory-adjacent
+
+**Workflow recalibration :**
+
+1. `DUMP_BUDGETS=1 just audit-auto-tags > /tmp/dump.log`
+2. Paster le bloc dans `passes/tag-budgets.ts`, capper > 1.0 si besoin
+3. Tightener les 4 sensibles ci-dessus (~ current × 2 au lieu de × 1.5)
+4. Vérifier : `just audit-auto-tags-check` → 0 FAIL attendu
+5. Câbler CI : ajouter `just audit-auto-tags-check` après `seed-core` dans le workflow
 
 ---
 
@@ -465,6 +520,7 @@ La parité des trois chemins est garantie par `tests/auto-tag-orchestrator-parit
 | `orchestrator.ts` | Lance toutes les passes dans l'ordre, déduplique (avoid > secondary), hoist `analyzeINCI` + `stripMarketingPreamble` une fois | `analyzeINCI` + `splitINCI` + `normalize` |
 | `lib/ingredient-resolver.ts` | `stripMarketingPreamble` — supprime le prose marketing avant l'INCI (589 produits K-beauty / EU) | Non |
 | `passes/auto-tag-detection.ts` | Passe 1 — concerns, skin type, comédogénicité, sans-parfum, grossesse-compatible secondary | `analyzeINCI` + `tagProduct` + `splitINCI` |
+| `passes/tag-budgets.ts` | A3 — `TAG_HIT_RATE_BUDGET` per-category, lu par `CHECK=1` du runner d'audit | Non |
 | `passes/actif-class-detection.ts` | Passe 2 — clusters pharmacologiques | `splitINCI` + `normalize` |
 | `passes/kind-tag-detection.ts` | Passe 3 — TYPE_*, ZONE_*, STEP_*, MOMENT_*, TEXTURE_* | Non |
 | `passes/formula/` | Passe 4 — 16 fichiers (occlusif, semi-occlusif, solaires, prébiotique, eczema, repulpant, KP, step-nettoyage, cernes, fini-mat, pigments-verts, vegan, peau-normale, grossesse-avoid, reparation-cutanee, texture) | `splitINCI` + `normalize` |

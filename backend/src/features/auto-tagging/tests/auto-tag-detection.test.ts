@@ -57,12 +57,15 @@ describe('auto-tag-detection', () => {
     }
   })
 
-  test('confOverride raises minConf globally', () => {
-    // peau-sensible at minConf 0.5 — should appear normally on a gentle INCI.
+  test('confOverride raises confidenceFloor globally (computed_score only)', () => {
+    // peau-sensible at confidenceFloor 0.5 — should appear normally on a gentle INCI.
     const inci = 'Aqua, Glycerin, Panthenol, Allantoin, Centella Asiatica Extract'
     const baseline = detectAutoTags(inci, 'serum')
     const tightened = detectAutoTags(inci, 'serum', { confOverride: 0.99 })
-    // confOverride 0.99 is so strict only confidence==1 candidates survive.
+    // confOverride 0.99 is so strict only computed_score candidates with
+    // confidence ≈ 1 survive. Absence tags (sans-X) are unaffected by
+    // confOverride (their confidence ≡ coverage; gate via coverageMinOverride
+    // — same raise-only semantics).
     expect(tightened.length).toBeLessThanOrEqual(baseline.length)
   })
 
@@ -80,40 +83,43 @@ describe('auto-tag-detection', () => {
     expect(computedSlugs).not.toContain(S.SEBO_REGULATEUR)
   })
 
-  test('coverage floor: override yields >= the default-floor candidate count', () => {
+  test('coverage floor: disableFloors yields >= the default-floor candidate count', () => {
     const inci =
       'Acme XR-7, Synthetic Polymer Z, Proprietary Blend Q, Mystery Filler 12, Niacinamide'
     const baseline = detectAutoTags(inci, 'serum').filter((t) => t.source === 'computed_score')
-    const override = detectAutoTags(inci, 'serum', { coverageMinOverride: 0 }).filter(
+    const bypassed = detectAutoTags(inci, 'serum', { disableFloors: true }).filter(
       (t) => t.source === 'computed_score'
     )
-    // Disabling the floor can only let through additional candidates; never fewer.
-    expect(override.length).toBeGreaterThanOrEqual(baseline.length)
+    // Bypassing floors can only let through additional candidates; never fewer.
+    expect(bypassed.length).toBeGreaterThanOrEqual(baseline.length)
   })
 
   test('TAG_CONFIG counts match calibration (T1: sans-X family added)', () => {
     // Calibration evolved: sans-parfum (0.7), grossesse-compatible (0.75),
     // deshydratation (0.85) flipped to allow=true; purifiant flipped to
     // allow=false (R2 dedup — its trigger is a strict subset of sebo-regulateur);
-    // hypoallergenique flipped to allow=true (T1.11 — minConf 0.85 + coverageMin 0.7);
-    // non_irritant added (T2 — algo-derm computed tag, minConf 0.85 + coverageMin 0.7);
+    // hypoallergenique flipped to allow=true (T1.11 — confidenceFloor 0.85 + coverageFloor 0.7);
+    // non_irritant added (T2 — algo-derm computed tag, confidenceFloor 0.85 + coverageFloor 0.7);
     // sans_sulfates / sans_silicones / sans_huiles_essentielles /
     // sans_huiles_minerales / sans_allergenes_parfumants added (T1 absence family,
-    // minConf 0.7 ≡ ≥ 70 % INCI coverage, same gate as `sans_parfum`).
+    // coverageFloor 0.7, same gate as `sans_parfum`).
     // keratolytique row removed 2026-05-09 (round 2 audit: pharmacology subset
     // of AHA + BHA + RETINOIDS actif_class clusters; product-side noise).
+    // peaux_atopiques / repulpant / matifiant rows removed 2026-05-13 (A4 —
+    // re-emitted from passes/formula/, algo-derm candidates fall through as
+    // `unmapped`). purifiant + sans_savon are the only allow:false rows left.
     // Hard-counted to flag any accidental flip in TAG_CONFIG.
     const allow = Object.values(TAG_CONFIG).filter((r) => r.allow)
     const drop = Object.values(TAG_CONFIG).filter((r) => !r.allow)
     expect(allow.length).toBe(27)
-    expect(drop.length).toBe(5)
+    expect(drop.length).toBe(2)
   })
 
   test('T2 non_irritant: recognized gentle INCI emits non-irritant', () => {
     // Algo-derm fires `non_irritant` on `irritation.risk < 0.35` with
     // `irritation.confidence` proportional to how many ingredients carry
     // irritation evidence. INCI of canonical low-risk actives gives
-    // confidence ≈ 1.0 → passes Aurore's minConf 0.85 + coverageMin 0.7 gate.
+    // confidence ≈ 1.0 → passes Aurore's confidenceFloor 0.85 + coverageFloor 0.7 gate.
     const inci = 'Aqua, Glycerin, Niacinamide, Tocopherol, Sodium Hyaluronate'
     const slugs = new Set(detectAutoTags(inci, 'serum').map((t) => t.slug))
     expect(slugs.has(S.NON_IRRITANT)).toBe(true)
@@ -137,16 +143,15 @@ describe('auto-tag-detection', () => {
     expect(slugs.has(S.NON_COMEDOGENE)).toBe(false)
   })
 
-  test('R3 coverageMinOverride=0 bypasses both global and per-tag floors', () => {
-    // Same low-coverage INCI — disabling the floor must surface non-comedogene.
+  test('R3 disableFloors bypasses both coverage and confidence floors', () => {
+    // Same low-coverage INCI — bypassing floors must be at least as permissive
+    // as the gated baseline. `disableFloors` skips both coverageFloor and
+    // confidenceFloor (per-tag + global), so non-comedogene can surface even
+    // when comedogenicity.confidence < 0.90.
     const inci = 'Aqua, Acme XR-7, Synthetic Polymer Z, Proprietary Blend Q, Glycerin, Niacinamide'
     const slugs = new Set(
-      detectAutoTags(inci, 'serum', { coverageMinOverride: 0 }).map((t) => t.slug)
+      detectAutoTags(inci, 'serum', { disableFloors: true }).map((t) => t.slug)
     )
-    // With floor disabled and minConf=0.90 still applied, non-comedogene
-    // surfaces only if comedogenicity.confidence ≥ 0.90 — not always true.
-    // The test asserts the override path is wired, not the specific outcome:
-    // it must be at least as permissive as the gated baseline.
     const baselineSlugs = new Set(detectAutoTags(inci, 'serum').map((t) => t.slug))
     for (const slug of baselineSlugs) expect(slugs.has(slug)).toBe(true)
   })
@@ -178,7 +183,7 @@ describe('auto-tag-detection', () => {
 
   test('T1 absence family: clean INCI emits sans-sulfates/silicones/HE/min-oil/allergens', () => {
     // No SLS, no dimethicone, no essential oils, no petrolatum, no EU 26 allergens.
-    // Coverage ≥ 0.7 → minConf 0.7 gate passes for all 5 absence tags.
+    // Coverage ≥ 0.7 → coverageFloor 0.7 gate passes for all 5 absence tags.
     const inci = 'Aqua, Glycerin, Niacinamide, Sodium Hyaluronate, Tocopherol, Panthenol'
     const slugs = new Set(detectAutoTags(inci, 'serum').map((t) => t.slug))
     expect(slugs.has(S.SANS_SULFATES)).toBe(true)
