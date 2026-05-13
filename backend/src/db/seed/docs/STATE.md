@@ -40,11 +40,19 @@ backend/src/db/seed/
 │   ├── tags/                # seed-tags : ingredientTagData + productTagData (284L)
 │   │   └── index.ts
 │   └── blog/                # article-data.ts + 8 catégories (articles seed)
-├── runners/                 # seed-core.ts, seed-blog.ts, etc.
-├── scripts/                 # outils data quality (ex: auto-tag.ts)
+├── seeders/                 # seed-core.ts, seed-blog.ts, seed-brand-certifications.ts, seed-user-collection.ts, create-user.ts
+├── ingest/                  # imports data externe (peta-cruelty-free, obf-brand-labels, incidecoder)
+├── maintenance/             # one-shots + audits data quality (canonicalize, dedupe, fix-tag-domain-consistency, etc.)
+├── inci/                    # parser INCI + audits qualité + cleanups texte
+├── utils/                   # helpers internes (batch, id-maps, markdown-validator)
 ├── tests/                   # seed-data-integrity, shared-schemas-vs-tags, etc.
+├── output/                  # gitignored — résultats audits, images temp
+├── VRAC/                    # staging — docs/data non-transformés
+├── _archive/                # scripts/code obsolète gardé en référence
 └── docs/                    # ← ici
 ```
+
+Pipeline auto-tagging déplacé vers `backend/src/features/auto-tagging/` (orchestrator + 6 passes + runners audit/backfill). Référence : [`../../features/auto-tagging/docs/AUTO-TAGS.md`](../../features/auto-tagging/docs/AUTO-TAGS.md).
 
 ### 1.2 4 domaines
 
@@ -61,10 +69,10 @@ Depuis 2026-05-02, deux sources cohabitent selon la catégorie :
 
 | Catégorie    | Source de vérité          | Ajout / modif                                                                 |
 |--------------|---------------------------|-------------------------------------------------------------------------------|
-| skincare     | `backend/src/db/snapshot/data.sql` (committé) | SQL direct DB (`make db-studio` ou migration `drizzle/00XX_*.sql`) → `make db-snapshot` → commit |
+| skincare     | `backend/src/db/snapshot/data.sql` (committé) | SQL direct DB (`just db-studio` ou migration `drizzle/00XX_*.sql`) → `just db-snapshot` → commit |
 | solaire      | idem skincare (vivait dans `data/products/skincare/`) | idem |
 | bodycare     | idem skincare (idem) | idem |
-| haircare     | seeds JS dans `data/products/haircare/`     | éditer `.seed.ts` → `make db-reset` → `make db-snapshot` → commit |
+| haircare     | seeds JS dans `data/products/haircare/`     | éditer `.seed.ts` → `just db-reset` → `just db-snapshot` → commit |
 | dental       | seeds JS dans `data/products/dental/`       | idem |
 | supplement   | seeds JS dans `data/products/supplement/`   | idem |
 
@@ -74,8 +82,8 @@ re-snapshot = workflow plus rapide pour catégorie figée.
 
 Les autres catégories restent en JS tant qu'elles sont en croissance active.
 
-**Workflow fresh env** : `make db-snapshot-reset` (clean + migrate + load
-snapshot). Plus `make db-reset` (qui ne contient plus skincare).
+**Workflow fresh env** : `just db-snapshot-reset` (clean + migrate + load
+snapshot). Plus `just db-reset` (qui ne contient plus skincare).
 
 **Archive** : ancien dossier `data/products/skincare/` déplacé vers
 `~/Mathieu/Vault/aurore-archive/skincare-seed/` (référence locale uniquement).
@@ -89,21 +97,21 @@ s'active qu'explicitement.
 
 | Mode | Invocation | Comportement |
 |------|-----------|--------------|
-| Idempotent (défaut) | `bun run …/seed-core.ts` ou `make db-seed` | Lit `existing*` slugs, n'insère que les rows manquantes — préserve user-state, snapshot, etc. |
-| Reset (destructif)  | `bun run …/seed-core.ts --reset` ou `make db-seed-reset` | TRUNCATE products/ingredients/tags/relations puis reseed complet depuis JS |
+| Idempotent (défaut) | `bun run …/seed-core.ts` ou `just db-seed` | Lit `existing*` slugs, n'insère que les rows manquantes — préserve user-state, snapshot, etc. |
+| Reset (destructif)  | `bun run …/seed-core.ts --reset` ou `just db-seed-reset` | TRUNCATE products/ingredients/tags/relations puis reseed complet depuis JS |
 
 **Garde-fou `--reset`** : si la DB cible contient plus de produits que le seed
-JS (ex: 3137 vs 469), `seedCore` refuse et propose `make db-snapshot-load`.
+JS (ex: 3137 vs 469), `seedCore` refuse et propose `just db-snapshot-load`.
 Override : `SEED_FORCE_RESET=1` (à utiliser uniquement après vérification
 manuelle de la DB cible).
 
-**Pour la DB de test** (port 5433) : passer par `make test-db-seed` qui
+**Pour la DB de test** (port 5433) : passer par `just test-db-seed` qui
 override **les deux** vars (`DATABASE_URL` + `APP_DATABASE_URL`). `bun run`
 direct avec override inline de `DATABASE_URL` seul échoue silencieusement —
 `.env.dev` est chargé en premier, expose `APP_DATABASE_URL` (DB dev), et le
 client Drizzle lit cette var (`backend/src/db/index.ts`).
 
-**Pour reset complet propre** : `make db-snapshot-reset` (clean + migrate +
+**Pour reset complet propre** : `just db-snapshot-reset` (clean + migrate +
 reload depuis `snapshot/data.sql`). Préférable à `seed-core --reset` pour
 skincare, qui a snapshot comme source de vérité.
 
@@ -795,16 +803,16 @@ Les tags `avoid` sont critiques pour les produits à acides forts, rétinoïdes,
 Exception : `noreva-product-tags.ts` est un fichier séparé hérité de l'ancienne convention
 (tous les autres brands intègrent les tags inline).
 
-### 6.4 Script de tagging initial — `scripts/_archive/auto-tag.ts` (archivé 2026-05-08)
+### 6.4 Script de tagging initial — archivé 2026-05-08
 
-One-shot avril 2026 qui a pré-rempli 1 017 produits seed (outputs committés depuis). Remplacé par `runners/seed-core.ts` (fresh) + `runners/backfill-auto-tags.ts` (rehydrate). **Ne pas relancer** : mapping INCI stale, précédence divergente — fichier `throw` à l'invocation. Détail : `docs/audits/auto-tags-audit.md` §C.2.
+One-shot avril 2026 qui a pré-rempli 1 017 produits seed (outputs committés depuis). Remplacé par `seeders/seed-core.ts` (fresh) + `features/auto-tagging/runners/backfill/main.ts` (rehydrate). **Ne pas relancer** : mapping INCI stale, précédence divergente — fichier `throw` à l'invocation. Détail : [`_archive/auto-tags-audit.md`](./_archive/auto-tags-audit.md) §C.2.
 
 ---
 
 ## 7. Garde-fous — tests d'intégrité
 
 Les tests vivent dans `backend/src/db/seed/tests/`. Ils tournent via
-`make test-dev ARGS="<pattern>"` (DB de test persistante via `make test-db-up`).
+`just test-dev "<pattern>"` (DB de test persistante via `just test-db-up`).
 
 ### 7.1 `seed-data-integrity.test.ts`
 
@@ -862,10 +870,10 @@ validés.
 
 | Action | Commande |
 |---|---|
-| Garder la DB de test active | `make test-db-up` |
-| Lancer un test ciblé | `make test-dev ARGS="seed-data-integrity"` |
-| Mode watch | `make test-dev-watch ARGS="<pattern>"` |
-| Cycle complet up/run/down | `make test` |
+| Garder la DB de test active | `just test-db-up` |
+| Lancer un test ciblé | `just test-dev "seed-data-integrity"` |
+| Mode watch | `just test-dev-watch "<pattern>"` |
+| Cycle complet up/run/down | `just test` |
 
 ---
 

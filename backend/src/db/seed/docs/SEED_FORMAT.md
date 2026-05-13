@@ -25,12 +25,12 @@ Voir aussi `STATE.md §1.3` (split source de vérité) et `STATE.md §3` (struct
 
 ### A.1 Quick add (1-2 produits, exploration)
 
-`make db-studio` (Drizzle Studio GUI). Insert dans :
+`just db-studio` (Drizzle Studio GUI). Insert dans :
 1. **`products`** — `slug`, `name`, `brand`, `category='skincare'`, `kind`, `unit`, `total_amount`, `amount_unit`, `price_cents`, `inci`, `image_url`
 2. **`tag_products`** — pour chaque tag : `product_id` + `product_tag_id`
 3. **`product_ingredients`** — pour chaque INCI clé : `product_id` + `ingredient_id`
 
-Puis : `make db-snapshot` → commit `backend/src/db/snapshot/data.sql`.
+Puis : `just db-snapshot` → commit `backend/src/db/snapshot/data.sql`.
 
 ### A.2 SQL direct (3-10 produits, contrôle texte)
 
@@ -55,7 +55,7 @@ INSERT INTO product_ingredients (product_id, ingredient_id)
 SELECT 3275, id FROM ingredients WHERE slug IN ('centella-asiatica');
 ```
 
-Puis `make db-snapshot` + commit.
+Puis `just db-snapshot` + commit.
 
 ### A.3 Migration versionnée (brand entière, doit être rejouable)
 
@@ -78,7 +78,7 @@ WHERE (p.slug, t.slug) IN (
 
 MAJ `backend/drizzle/meta/_journal.json` (Drizzle Kit ne génère pas auto pour les data migrations — copier l'entry précédente, changer `idx`/`tag`/`when`).
 
-`make db-migrate` → `make db-snapshot` → commit (`.sql` migration + `data.sql`).
+`just db-migrate` → `just db-snapshot` → commit (`.sql` migration + `data.sql`).
 
 ---
 
@@ -168,9 +168,9 @@ const allUnified: UnifiedProductSeed[] = [
 ```bash
 # 1. créer .seed.ts + ajouter au index.ts
 # 2. recharger DB depuis JS seed (clean + migrate + seed)
-make db-reset
+just db-reset
 # 3. snapshot la nouvelle baseline
-make db-snapshot
+just db-snapshot
 # 4. commit (.seed.ts + index.ts + data.sql)
 ```
 
@@ -250,10 +250,10 @@ Un tag `ingredient_attribute` ou `ingredient`-only ne doit **jamais** apparaîtr
 
 ## 9. Checklist de fin
 
-- [ ] Workflow A : `make db-snapshot` lancé + `data.sql` committé
-- [ ] Workflow B : `.seed.ts` ajouté + `index.ts` MAJ + `make db-reset` + `make db-snapshot` + tout committé
+- [ ] Workflow A : `just db-snapshot` lancé + `data.sql` committé
+- [ ] Workflow B : `.seed.ts` ajouté + `index.ts` MAJ + `just db-reset` + `just db-snapshot` + tout committé
 - [ ] `name` sans marque ni volume
 - [ ] INCI normalisé (WATER, MAJUSCULES, `, `)
 - [ ] Slug unique
-- [ ] `make ts-verify` (0 erreur)
-- [ ] Tests : `make test-dev ARGS="seed-data-integrity"` + `ARGS="shared-schemas-vs-tags"`
+- [ ] `just ts-verify` (0 erreur)
+- [ ] Tests : `just test-dev "seed-data-integrity"` + `just test-dev "shared-schemas-vs-tags"`

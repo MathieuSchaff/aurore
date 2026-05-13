@@ -93,20 +93,18 @@ detectAutoTags("Aqua, Niacinamide, Retinol, ...", "serum")
          → émettre le slug Aurore correspondant
 ```
 
-**Deux floors orthogonaux** (refacto 2026-05-13) : `TagRule` a deux champs indépendants.
+**Deux floors orthogonaux** : `TagRule` a deux champs indépendants.
 
 - `coverageFloor` (number, optionnel) — floor sur `assessment.coverage.ratio`.
   - Pour `source='detected_absence'` (sans-parfum, sans-sulfates, …) : c'est le seul gate qui compte. Algo-derm pose `confidence = min(coverage, 0.95)`, donc la coverage *est* le signal de confiance.
   - Pour `source='computed_score'` : floor additionnel, overrides le défaut global `COMPUTED_COVERAGE_FLOOR` (0.30) quand set.
-- `confidenceFloor` (number, optionnel) — floor sur `candidate.confidence` (confidence d'axe émise par algo-derm). N'a de sens que pour `source='computed_score'` — ignoré sur absence tags (confidence ≡ coverage par construction, déjà couvert).
-
-Ce split remplace l'ancien champ unique `minConf` dont la sémantique dépendait silencieusement de `candidate.source` (coverage floor pour absence, confidence floor pour computed). Même champ, deux significations → confus en calibration.
+- `confidenceFloor` (number, optionnel) — floor sur `candidate.confidence` (confidence d'axe émise par algo-derm). N'a de sens que pour `source='computed_score'` — ignoré sur absence tags (confidence ≡ coverage par construction).
 
 **Coverage floor global (0.30)** : les tags `computed_score` (`acne-imperfections`, `pores-sebum`, `anti-age`…) tirent sur un seul pattern ingrédient. Si l'INCI est à >70 % d'ingrédients non identifiés par algo-derm (formules exotiques, parfumeries indé), un seul `niacinamide` ne doit pas étiqueter le produit comme "anti-acné" sur la base d'inférences à confiance basse. Les tags `detected_absence` (`sans-parfum`, etc.) ne sont pas concernés par ce défaut — ils fixent leur propre `coverageFloor` explicitement.
 
 **Floors stackés (`non-comedogene`, `hypoallergenique`, `non_irritant`)** : un tag computed_score peut combiner `confidenceFloor` ET `coverageFloor`. Ex : `non-comedogene` exige `confidence ≥ 0.90` ET `coverage ≥ 0.60` (algo-derm fire sur `comedogenicity.risk ≤ 0.25`, très permissif — sans coverage haute, l'absence d'évidence n'est pas évidence d'absence).
 
-**Debug overrides (refacto 2026-05-13 — sémantique symétrique)** :
+**Debug overrides — sémantique symétrique (raise-only)** :
 
 | Option | Effet | Cible |
 |---|---|---|
@@ -114,11 +112,11 @@ Ce split remplace l'ancien champ unique `minConf` dont la sémantique dépendait
 | `coverageMinOverride: number` | **Raise** : `effectiveFloor = max(baseFloor, coverageMinOverride)`. Symétrique avec `confOverride`. | Tous les tags. |
 | `disableFloors: true` | Bypass total : ignore `coverageFloor` ET `confidenceFloor` (per-tag + global + les deux overrides ci-dessus). | Tous les tags. Reserved for audits — n'affecte pas les autres gates (`allow`, `excludeRinseOff`, `skipIf`, `not_present`, `unmapped`). |
 
-Auparavant `coverageMinOverride` était un **replace** (passer `0` désactivait le floor). Asymétrie résolue : les deux overrides ne peuvent que tightening ; pour relâcher, utiliser `disableFloors`.
+Les deux overrides ne peuvent que tightening ; pour relâcher, utiliser `disableFloors`.
 
-**Predicate `skipIf` (refacto A1 2026-05-13)** : `TagRule.skipIf?: (a: ProductAssessment) => boolean`. Disqualifieur tardif, appliqué après les floors. Évite les hard-codes `auroreSlug === S.X` qui breakent silencieusement à un rename. Exemple : `hypoallergenique` skip si `assessment.declarationOnlyRisk` (allergènes Annex III en trace position). Drop reason agrégé : `skip_if`.
+**Predicate `skipIf`** : `TagRule.skipIf?: (a: ProductAssessment) => boolean`. Disqualifieur tardif, appliqué après les floors. Évite les hard-codes `auroreSlug === S.X` qui breakent silencieusement à un rename. Exemple : `hypoallergenique` skip si `assessment.declarationOnlyRisk` (allergènes Annex III en trace position). Drop reason agrégé : `skip_if`.
 
-Le `TAG_CONFIG` est la clé du fichier : c'est lui qui dit quels tags on accepte et à quel seuil. Calibré à partir d'un dry-run sur 2 912 produits skincare le 2026-05-07.
+`TAG_CONFIG` = source de vérité des tags acceptés et leurs seuils. Calibré sur dry-run corpus (~3600 produits skincare/solaire/bodycare).
 
 Exemple d'entrées dans `TAG_CONFIG` :
 ```
@@ -184,10 +182,10 @@ Les clusters définis :
 
 ---
 
-### Passe 3 — `passes/kind-tag-detection.ts`
+### Passe 3 — `shared/products/kind-to-tags.ts`
 
-**Fichier :** `backend/src/features/auto-tagging/passes/kind-tag-detection.ts`
-**Fonction exportée :** `detectKindTags(kind)`
+**Fichier :** `shared/src/products/kind-to-tags.ts` (déplacé depuis backend le 2026-05-13 pour partage filter pipeline P2).
+**Fonctions exportées :** `detectKindTags(kind)` · `detectKindPrimaryType(kind)` · `kindsForTypeSlug(typeSlug)` · `availableTypeSlugs()`
 
 Rien d'algo-derm ici. On regarde juste le `kind` du produit et on retourne les tags structurels qui vont avec. Zéro INCI.
 
@@ -204,9 +202,9 @@ C'est un simple dictionnaire `kind → [slugs]`. Couvre : skincare (15 kinds), s
 
 ### Passe 4 — `passes/formula/`
 
-**Dossier :** `backend/src/features/auto-tagging/passes/formula/` (15 fichiers + `index.ts`)
+**Dossier :** `backend/src/features/auto-tagging/passes/formula/` (16 fichiers + `index.ts`)
 
-23 détecteurs via patterns INCI (que algo-derm ne couvre pas), un fichier par famille de slug émis. Le détail des détecteurs ci-dessous couvre les plus représentatifs ; consulter chaque fichier pour les patterns exacts.
+Détecteurs via patterns INCI / texte (que algo-derm ne couvre pas), un fichier par famille de slug émis. Le détail des détecteurs ci-dessous couvre les plus représentatifs ; consulter chaque fichier pour les patterns exacts.
 
 | Fichier | Slugs émis |
 |---------|------------|
@@ -224,6 +222,7 @@ C'est un simple dictionnaire `kind → [slugs]`. Couvre : skincare (15 kinds), s
 | `vegan.ts` | `vegan` |
 | `peau-normale.ts` | `peau-normale` (post-pass, abstient si autre skin-type fired) |
 | `grossesse-avoid.ts` | `grossesse-compatible` (relevance=`avoid`) |
+| `absence-claims.ts` | `sans-parfum` (name/description-based override quand coverage INCI < 0.7) |
 | `texture.ts` | `texture-creme`, `texture-gel`, `texture-riche`, `texture-legere`, `texture-baume`, `texture-stick`, `non-gras` (+ champ `products.texture` direct mapping) |
 
 #### Occlusif
@@ -466,9 +465,9 @@ Similaire au backfill mais **lecture seule** et plus verbeux. Il montre pour cha
 
 Utile pour recalibrer les seuils dans `TAG_CONFIG`. Commande : `just audit-auto-tags`.
 
-### Calibration drift detection — `TAG_HIT_RATE_BUDGET` (A3, 2026-05-13)
+### Calibration drift detection — `TAG_HIT_RATE_BUDGET`
 
-Le runner d'audit expose deux modes additionnels pour détecter la dérive de calibration entre l'audit figé (snapshot 2026-05-07, N=2912) et le corpus courant (N=3601 au 2026-05-13). Source de vérité : `passes/tag-budgets.ts`.
+Le runner d'audit expose deux modes additionnels pour détecter la dérive de calibration entre baseline figée et corpus courant. Source de vérité : `passes/tag-budgets.ts`.
 
 | Mode | Env var | Effet |
 |---|---|---|
@@ -479,7 +478,7 @@ Le runner d'audit expose deux modes additionnels pour détecter la dérive de ca
 
 - `hit_rate > max` → **FAIL** (régression — le tag s'élargit hors budget)
 - `min` défini et `hit_rate < min` → **FAIL** (tag structurel qui disparaît)
-- Tag émis mais sans entrée budget → **WARN** (encourage à enregistrer)
+- Tag émis mais sans entrée budget → **FAIL** (durci 2026-05-13 ; tout nouveau emitter doit déclarer son budget avant merge)
 - Sinon → **OK**
 
 **Pourquoi per-category :** skincare/solaire/bodycare ont des distributions INCI distinctes (filtres UV sur solaires, surfactants sur bodycare). Un budget global accepterait du bruit sur une catégorie ou ferait FAIL faussement sur une autre.
@@ -497,7 +496,8 @@ Le runner d'audit expose deux modes additionnels pour détecter la dérive de ca
 2. Paster le bloc dans `passes/tag-budgets.ts`, capper > 1.0 si besoin
 3. Tightener les 4 sensibles ci-dessus (~ current × 2 au lieu de × 1.5)
 4. Vérifier : `just audit-auto-tags-check` → 0 FAIL attendu
-5. Câbler CI : ajouter `just audit-auto-tags-check` après `seed-core` dans le workflow
+
+CI : job `audit-auto-tags` dans `.github/workflows/ci.yml` (Postgres service → drizzle-kit migrate → load `backend/src/db/snapshot/data.sql` → `CHECK=1`).
 
 ---
 
@@ -522,8 +522,8 @@ La parité des trois chemins est garantie par `tests/auto-tag-orchestrator-parit
 | `passes/auto-tag-detection.ts` | Passe 1 — concerns, skin type, comédogénicité, sans-parfum, grossesse-compatible secondary | `analyzeINCI` + `tagProduct` + `splitINCI` |
 | `passes/tag-budgets.ts` | A3 — `TAG_HIT_RATE_BUDGET` per-category, lu par `CHECK=1` du runner d'audit | Non |
 | `passes/actif-class-detection.ts` | Passe 2 — clusters pharmacologiques | `splitINCI` + `normalize` |
-| `passes/kind-tag-detection.ts` | Passe 3 — TYPE_*, ZONE_*, STEP_*, MOMENT_*, TEXTURE_* | Non |
-| `passes/formula/` | Passe 4 — 16 fichiers (occlusif, semi-occlusif, solaires, prébiotique, eczema, repulpant, KP, step-nettoyage, cernes, fini-mat, pigments-verts, vegan, peau-normale, grossesse-avoid, reparation-cutanee, texture) | `splitINCI` + `normalize` |
+| `shared/products/kind-to-tags.ts` (Passe 3) | TYPE_*, ZONE_*, STEP_*, MOMENT_*, TEXTURE_* + reverse lookup `kindsForTypeSlug` (P2 filter) | Non |
+| `passes/formula/` | Passe 4 — 16 fichiers (occlusif, semi-occlusif, solaires, prébiotique, eczema, repulpant, KP, step-nettoyage, cernes, fini-mat, pigments-verts, vegan, peau-normale, grossesse-avoid, reparation-cutanee, absence-claims, texture) | `splitINCI` + `normalize` |
 | `passes/cross-signal-detection.ts` | Passe 5 — MOMENT_SOIR/MATIN depuis actif × kind ; `detectInteractionSecondaryTags` (passe 5a) — photosensibilité multi-HE depuis assessment | `analyzeINCI` (passe 5a) |
 | `passes/percent-claim-detection.ts` | Passe 5x — fallback `% INCI structuré` quand INCI fragile | `splitINCI` |
 | `passes/brand-cert-detection.ts` | Passe 5b — labels brand (vegan / cruelty-free / bio-naturel) depuis `brand_certifications` | Non |

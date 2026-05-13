@@ -50,6 +50,7 @@ backend/src/
 │   │   ├── utils/                ← helpers internes (batch, id-maps, markdown-validator)
 │   │   ├── docs/                 ← STATE.md, ROADMAP.md, etc.
 │   │   ├── output/               (gitignored — résultats audits, images temp)
+│   │   ├── VRAC/                 (staging — docs/data non-transformés en attente de tri)
 │   │   └── _archive/             (scripts/code obsolète gardé en référence)
 │   ├── audit/              ← audit-db.ts (intégrité relationnelle, lancé via just audit-db)
 │   └── bench/              ← rls-init-plan.sh (bench perf RLS, ponctuel)
@@ -141,7 +142,8 @@ Toutes les options passent par **env vars** (préfixées avant `just`). Read-onl
 
 | Commande | Ce qu'elle fait | Env vars |
 |---|---|---|
-| `just audit-auto-tags` | Dry-run orchestrator algo-derm. Stats par tag. | `CONF_OVERRIDE`, `CSV_OUT`, `LIMIT`, `INCLUDE_DROPPED` |
+| `just audit-auto-tags` | Dry-run orchestrator algo-derm. Stats par tag. | `CONF_OVERRIDE`, `CSV_OUT`, `LIMIT`, `INCLUDE_DROPPED`, `DUMP_BUDGETS`, `DUMP_BENEFITS`, `BENEFITS_OUT`, `DISABLE_FLOORS` |
+| `just audit-auto-tags-check` | `CHECK=1` wrapper — valide hit rates vs `TAG_HIT_RATE_BUDGET`, exit 1 si FAIL. Câblé en CI. | — |
 | `WRITE=1 just backfill-auto-tags` | Ré-applique pipeline sur DB. Idempotent. | `SLUG`, `WRITE`, `LIMIT`, `CONF_OVERRIDE`, `INCLUDE_DROPPED` |
 | `CSV_OUT=/tmp/o.csv just audit-orchestrator-diff` | Snapshot/diff orchestrator. `CSV_OUT` requis. | `CSV_OUT`, `BASELINE`, `LIMIT` |
 | `just audit-actif-class` | Audit passe 2 (cluster pharmacologique). | `LIMIT` |
@@ -211,9 +213,10 @@ bun run src/db/seed/seeders/create-user.ts               # créer un user à la 
 ```bash
 bun run src/db/seed/maintenance/canonicalize-volume-variants.ts --dry
 bun run src/db/seed/maintenance/disambiguate-product-names.ts --dry
+bun run src/db/seed/maintenance/fix-tag-domain-consistency.ts          # --write pour apply
 ```
 
-Ces deux ont été lancés une fois lors de cleanups historiques. Si la situation se représente (probable jamais), `--dry` puis run.
+Ces scripts ont été lancés une fois lors de cleanups historiques (`fix-tag-domain-consistency` = post multi-domain migration April 2026, supprime les `tag_products` dont le `tagType` est invalide pour le domaine du produit). Si la situation se représente, dry-run puis apply.
 
 ### 🔍 Diagnostics seed-data (exploratoires)
 

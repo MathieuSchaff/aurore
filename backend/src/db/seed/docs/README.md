@@ -12,7 +12,7 @@
 | **Insérer 1 produit en SQL** (page scrapée) | [`QUICK_SQL_INSERT.md`](./QUICK_SQL_INSERT.md) | Cheat sheet enums + template INSERT + pièges |
 | **Ajouter un ingrédient** | [`../data/ingredients/GUIDE.md`](../data/ingredients/GUIDE.md) | Type, category, slug, contenu, tag |
 | Comprendre **où** vivent les données (paths, schéma DB, taxonomie) | [`STATE.md`](./STATE.md) | Archi stable. Glossaire champs → [`STATE-GLOSSARY.md`](./STATE-GLOSSARY.md). Pipeline images → [`IMAGES.md`](./IMAGES.md). |
-| Comprendre **comment on auto-tag** | [`AUTO-TAGS.md`](./AUTO-TAGS.md) | 6 passes détection · gating · cross-signal · seed/backfill wiring (roadmap : `ROADMAP.md` §9) |
+| Comprendre **comment on auto-tag** | [`../../features/auto-tagging/docs/AUTO-TAGS.md`](../../features/auto-tagging/docs/AUTO-TAGS.md) | 6 passes détection · gating · cross-signal · seed/backfill wiring. Roadmap : [`../../features/auto-tagging/docs/ROADMAP.md`](../../features/auto-tagging/docs/ROADMAP.md). |
 | **Dédupliquer les produits scrapés** | [`DEDUP.md`](./DEDUP.md) | Workflow détection/review + [`DEDUP_DROPS.md`](./DEDUP_DROPS.md) backlog actif |
 | Savoir **ce qui reste à faire** | [`ROADMAP.md`](./ROADMAP.md) | Dette ouverte + corrections récentes (SHAs) |
 | Consulter un **audit ponctuel** | [`audits/`](./audits/) | INCI quality + dental ingredients |
@@ -28,7 +28,6 @@ docs/
 ├── STATE-GLOSSARY.md      sémantique des champs (type / category / kind / tagType)
 ├── IMAGES.md              pipeline images produit (S3 + CDN Bunny)
 ├── ROADMAP.md             dette + à faire
-├── AUTO-TAGS.md           comment on tag (architecture seule — roadmap dans ROADMAP §9)
 ├── SEED_FORMAT.md         ajout produit (workflow A/B)
 ├── QUICK_SQL_INSERT.md    recette SQL produit unique
 ├── DEDUP.md               workflow dédup
@@ -56,9 +55,9 @@ docs/
 1. **Choisir le workflow** : `SEED_FORMAT.md` §1.
 2. **Lire** `STATE.md §<section>` pour le contexte.
 3. **Modifier** code ou DB.
-4. **Vérifier** : `make ts-verify` + `make test-dev ARGS="seed-data-integrity"` + `ARGS="shared-schemas-vs-tags"`.
-5. **Snapshot** (workflow A) ou `make db-reset && make db-snapshot` (workflow B). Commit `data.sql`.
-6. **MAJ doc** : `STATE.md` si archi bougée, `ROADMAP.md` si dette bougée, `AUTO-TAGS.md` si règles tagging.
+4. **Vérifier** : `just ts-verify` + `just test-dev "seed-data-integrity"` + `just test-dev "shared-schemas-vs-tags"`.
+5. **Snapshot** (workflow A) ou `just db-reset && just db-snapshot` (workflow B). Commit `data.sql`.
+6. **MAJ doc** : `STATE.md` si archi bougée, `ROADMAP.md` si dette bougée, `features/auto-tagging/docs/AUTO-TAGS.md` si règles tagging.
 
 ---
 
