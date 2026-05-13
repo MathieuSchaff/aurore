@@ -44,7 +44,7 @@ audit-db:
     printf "{{CYAN}}DB audit ($TARGET)...{{NC}}\n"
     $COMPOSE exec api bun run src/db/audit/audit-db.ts
 
-# Dry-run auto-tagging via algo-derm (read-only). Env: CONF_OVERRIDE, CSV_OUT, LIMIT, INCLUDE_DROPPED, DUMP_BUDGETS, CHECK, DUMP_BENEFITS, BENEFITS_OUT.
+# Dry-run auto-tagging via algo-derm (read-only). Env: CONF_OVERRIDE, CSV_OUT, LIMIT, INCLUDE_DROPPED, DUMP_BUDGETS, CHECK, DUMP_BENEFITS, BENEFITS_OUT, DISABLE_FLOORS.
 audit-auto-tags:
     #!/usr/bin/env bash
     set -euo pipefail
@@ -64,6 +64,7 @@ audit-auto-tags:
         ${CHECK:+-e CHECK="$CHECK"} \
         ${DUMP_BENEFITS:+-e DUMP_BENEFITS="$DUMP_BENEFITS"} \
         ${BENEFITS_OUT:+-e BENEFITS_OUT="$BENEFITS_OUT"} \
+        ${DISABLE_FLOORS:+-e DISABLE_FLOORS="$DISABLE_FLOORS"} \
         api bun run src/features/auto-tagging/runners/audit/main.ts
 
 # Calibration drift detector — validate hit_rate per (slug, category) vs TAG_HIT_RATE_BUDGET.

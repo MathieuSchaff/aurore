@@ -23,7 +23,10 @@
 //                                     ready-to-paste into passes/tag-budgets.ts.
 //   CHECK            optional 1     — validate per-(slug, category) hit rates
 //                                     against TAG_HIT_RATE_BUDGET. Exit 1 on FAIL.
-//                                     Tags outside the budget table → WARN.
+//                                     Tags outside the budget table → FAIL
+//                                     (forces explicit budget for every new
+//                                     emitter; hardened 2026-05-13 after A3
+//                                     baseline landed 0 WARN).
 //   DUMP_BENEFITS    optional 1     — emit per-axis benefit-score quantile
 //                                     table (P25/P50/P75/P85/P90/P95) for
 //                                     B3 calibration. Supports per-category
@@ -31,6 +34,11 @@
 //   BENEFITS_OUT     optional path  — also write raw (slug,category,kind,
 //                                     axis,benefit,confidence) CSV alongside
 //                                     the quantile table.
+//   DISABLE_FLOORS   optional 1     — bypass confidenceFloor/coverageFloor
+//                                     gates (per-tag + global). Use to inspect
+//                                     raw confidence distribution under the
+//                                     current calibration (skin_type tuning,
+//                                     §2 roadmap).
 
 import { analyzeINCI, splitINCI } from 'algo-derm'
 import { eq, inArray, sql } from 'drizzle-orm'
@@ -59,6 +67,7 @@ const DUMP_BUDGETS = process.env.DUMP_BUDGETS === '1'
 const CHECK = process.env.CHECK === '1'
 const DUMP_BENEFITS = process.env.DUMP_BENEFITS === '1'
 const BENEFITS_OUT = process.env.BENEFITS_OUT
+const DISABLE_FLOORS = process.env.DISABLE_FLOORS === '1'
 
 // Axes mirrored from algo-derm `BENEFIT_AXES` (src/engine/axes.ts). Type-only
 // import upstream — list duplicated here so the audit doesn't need a runtime
@@ -213,6 +222,7 @@ async function main() {
     const detected = detectAutoTags(p.inci, p.kind, {
       ...(CONF_OVERRIDE !== null ? { confOverride: CONF_OVERRIDE } : {}),
       includeDropped: INCLUDE_DROPPED,
+      disableFloors: DISABLE_FLOORS,
       assessment,
       ingredients,
       dropCounts,
@@ -553,9 +563,10 @@ async function main() {
             category: cat,
             hitRate: rate,
             budget: '—',
-            status: 'WARN',
-            reason: 'no budget entry',
+            status: 'FAIL',
+            reason: `no budget entry (add to TAG_HIT_RATE_BUDGET.${cat})`,
           })
+          failCount++
           continue
         }
         const budgetStr =

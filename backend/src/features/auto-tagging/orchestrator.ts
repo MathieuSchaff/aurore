@@ -16,7 +16,14 @@
 // metadata (used by backfill stats) — same tag from multiple sources keeps
 // the first one seen at the highest relevance level.
 
-import type { ProductKind, ProductTexture, SkincareProductTagSlug } from '@habit-tracker/shared'
+import {
+  detectKindPrimaryType,
+  detectKindTags,
+  type ProductKind,
+  type ProductTexture,
+  SKINCARE_CONCERN_SLUGS,
+  type SkincareProductTagSlug,
+} from '@habit-tracker/shared'
 
 import { analyzeINCI, normalize, type ProductAssessment, splitINCI } from 'algo-derm'
 
@@ -34,6 +41,7 @@ import {
   detectInteractionSecondaryTags,
 } from './passes/cross-signal-detection'
 import {
+  detectAbsenceClaimsFromText,
   detectCernesPoches,
   detectEczemaAtopie,
   detectFiniMat,
@@ -58,7 +66,6 @@ import {
   detectTextureStickFromName,
   detectVegan,
 } from './passes/formula'
-import { detectKindPrimaryType, detectKindTags } from './passes/kind-tag-detection'
 import { detectPercentClaimTags, type PercentClaimEvidence } from './passes/percent-claim-detection'
 
 // Categories where INCI/kind-derived tagging applies. Other categories
@@ -104,6 +111,9 @@ export interface OrchestratorInput {
   // Product name — used by `detectTextureCremeEyeInci` for name-based
   // cross-check (patch/serum/baume abstain; sparse-INCI cream fallback).
   name?: string | null
+  // Product marketing description — used by `detectAbsenceClaimsFromText`
+  // to recover `sans-parfum` when INCI is too short for algo-derm coverage.
+  description?: string | null
   // Structured concentration evidence from product_ingredients. Used only as
   // strict fallback when INCI quality is fragile.
   percentClaims?: readonly PercentClaimEvidence[]
@@ -125,6 +135,11 @@ export interface OrchestratorOptions {
 // must always win (pregnancy/irritation flags); `primary` is display priority
 // (card chips); `secondary` is the baseline catch-all.
 const RELEVANCE_RANK: Record<AutoTagRelevance, number> = { avoid: 2, primary: 1, secondary: 0 }
+
+// Minimum algo-derm `confidence` for a concern tag to be promoted to primary
+// (V2 chip enrichment). Above the per-tag computed_score floor (0.5) — only
+// strongly-evidenced concerns become the product's headline chip.
+const CONCERN_PRIMARY_CONFIDENCE_FLOOR = 0.7
 
 export function detectAllAutoTags(
   product: OrchestratorInput,
@@ -182,7 +197,19 @@ export function detectAllAutoTags(
     ...(options.disableFloors !== undefined ? { disableFloors: options.disableFloors } : {}),
     ...(assessment ? { assessment, ingredients } : {}),
   })
-  for (const t of autoTags) propose(t.slug, 'secondary', 'algo-derm')
+  // Track algo-derm-emitted concern confidences so the V2 post-pass can pick
+  // the top concern (highest confidence ≥ floor) and promote it to primary.
+  // Non-concern tags or non-algo-derm sources have no comparable confidence
+  // score, so this map stays scoped to pass 1's concern slugs.
+  let topConcernSlug: SkincareProductTagSlug | null = null
+  let topConcernConfidence = 0
+  for (const t of autoTags) {
+    propose(t.slug, 'secondary', 'algo-derm')
+    if (SKINCARE_CONCERN_SLUGS.has(t.slug) && t.confidence > topConcernConfidence) {
+      topConcernSlug = t.slug
+      topConcernConfidence = t.confidence
+    }
+  }
 
   // Pass 2 — pharmacological clusters (RETINOIDS, VITAMIN_C, AHA, ...).
   const actifSlugs = detectActifClasses(inci, normalizedIngredients, kind)
@@ -218,6 +245,7 @@ export function detectAllAutoTags(
     ...detectTextureBaumeFromName(kind, product.texture, product.name),
     ...detectTextureStickFromName(kind, product.texture, product.name),
     ...detectTextureCremeEyeInci(inci, kind, product.texture, product.name, normalizedIngredients),
+    ...detectAbsenceClaimsFromText(product.name, product.description),
   ]
   for (const s of formulaSlugs) propose(s, 'secondary', 'formula')
 
@@ -267,15 +295,27 @@ export function detectAllAutoTags(
     propose(s, 'secondary', 'formula')
   }
 
-  // Post-pass — promote the kind-derived TYPE_* slug to `primary`. One per
-  // product, deterministic from `kind`. Skipped when it would demote an avoid
-  // signal (RELEVANCE_RANK gate). Other primaries (top concern, routine_step)
-  // are scoped for V2 (cf ROADMAP §1).
+  // Post-pass — promote auto-derived primaries. RELEVANCE_RANK gate avoids
+  // demoting an `avoid` signal in either case. Backfill runner V1 gate
+  // (`productsWithPrimary` set) decides whether to keep them as primary or
+  // downgrade to secondary; seed-core unconditionally downgrades. See
+  // `runners/backfill/main.ts` for the runner contract.
+  //
+  // (a) Kind-derived TYPE_* — V1, one per product, deterministic from `kind`.
   const primaryType = detectKindPrimaryType(kind)
   if (primaryType) {
     const existing = byTag.get(primaryType)
     if (existing && RELEVANCE_RANK.primary > RELEVANCE_RANK[existing.relevance]) {
       byTag.set(primaryType, { ...existing, relevance: 'primary' })
+    }
+  }
+  // (b) Top algo-derm concern — V2. Highest-confidence concern from pass 1,
+  // promoted only when confidence ≥ floor (avoid noisy borderline concerns
+  // becoming the headline chip). At most one concern primary per product.
+  if (topConcernSlug && topConcernConfidence >= CONCERN_PRIMARY_CONFIDENCE_FLOOR) {
+    const existing = byTag.get(topConcernSlug)
+    if (existing && RELEVANCE_RANK.primary > RELEVANCE_RANK[existing.relevance]) {
+      byTag.set(topConcernSlug, { ...existing, relevance: 'primary' })
     }
   }
 
