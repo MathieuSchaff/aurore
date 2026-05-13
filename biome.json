@@ -19,9 +19,6 @@
       "!.superpowers/**/*",
       "!.worktrees/**/*",
       "!.claude/**/*",
-      "!**/*.test.ts",
-      "!**/*.test.tsx",
-      "!**/__tests__",
       "!docs/**/*.md",
       "!docs/.obsidian",
       "!backend/src/db/seed/data/*.json"

@@ -1,22 +1,16 @@
 import '_vars.just'
 
-# Check code with Biome (pass tests=1 to use biome.tests.json)
-lint tests="":
-    #!/usr/bin/env bash
-    BIOME_CONFIG=$([ -n "{{tests}}" ] && echo "--config-path=biome.tests.json" || echo "")
-    bunx biome check $BIOME_CONFIG .
+# Check code with Biome
+lint:
+    bunx biome check .
 
-# Fix lint issues (pass tests=1 to use biome.tests.json)
-lint-fix tests="":
-    #!/usr/bin/env bash
-    BIOME_CONFIG=$([ -n "{{tests}}" ] && echo "--config-path=biome.tests.json" || echo "")
-    bunx biome check --write $BIOME_CONFIG .
+# Fix lint issues
+lint-fix:
+    bunx biome check --write .
 
-# Format code with Biome (pass tests=1 to use biome.tests.json)
-format tests="":
-    #!/usr/bin/env bash
-    BIOME_CONFIG=$([ -n "{{tests}}" ] && echo "--config-path=biome.tests.json" || echo "")
-    bunx biome format --write $BIOME_CONFIG .
+# Format code with Biome
+format:
+    bunx biome format --write .
 
 # Audit changed files vs main (new issues only)
 fallow:
@@ -39,3 +33,15 @@ fallow-baseline:
     npx fallow dead-code --save-baseline .fallow/audit-dead-code.json --quiet
     npx fallow health --save-baseline .fallow/audit-health.json --quiet
     npx fallow dupes --save-baseline .fallow/audit-dupes.json --quiet
+
+# Check only test files
+lint-tests:
+    find . -type d \( -name node_modules -o -name dist -o -name .git -o -name .fallow \) -prune -o \( -name "*.test.ts" -o -name "*.spec.ts" -o -name "*.test.tsx" -o -name "*.spec.tsx" \) -print | xargs -r bunx biome check
+
+# Fix only test files
+lint-tests-fix:
+    find . -type d \( -name node_modules -o -name dist -o -name .git -o -name .fallow \) -prune -o \( -name "*.test.ts" -o -name "*.spec.ts" -o -name "*.test.tsx" -o -name "*.spec.tsx" \) -print | xargs -r bunx biome check --write
+
+# Format only test files
+format-tests:
+    find . -type d \( -name node_modules -o -name dist -o -name .git -o -name .fallow \) -prune -o \( -name "*.test.ts" -o -name "*.spec.ts" -o -name "*.test.tsx" -o -name "*.spec.tsx" \) -print | xargs -r bunx biome format --write
