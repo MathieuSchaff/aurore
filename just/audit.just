@@ -252,3 +252,21 @@ audit-gold-set:
         ${CSV_OUT:+-e CSV_OUT="$CSV_OUT"} \
         ${STRICT:+-e STRICT="$STRICT"} \
         api bun run src/features/auto-tagging/runners/audit/gold-set.ts
+
+# Audit algo-derm concentration solver vs brand-claim % stored in
+# product_ingredients.concentration_value. Read-only. Per-slug + global
+# MAE/RMSE + CI coverage. Env: JSON_OUT (per-row detail), SLUG (filter).
+audit-concentration-solver:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    TARGET="${TARGET:-dev}"
+    case "$TARGET" in
+        dev)  COMPOSE="{{COMPOSE_DEV}}" ;;
+        prod) COMPOSE="{{COMPOSE_PROD}}" ;;
+        *)    printf "{{RED}}TARGET invalide: dev|prod (got '$TARGET'){{NC}}\n"; exit 1 ;;
+    esac
+    printf "{{CYAN}}Concentration solver audit ($TARGET)...{{NC}}\n"
+    $COMPOSE exec \
+        ${JSON_OUT:+-e JSON_OUT="$JSON_OUT"} \
+        ${SLUG:+-e SLUG="$SLUG"} \
+        api bun run src/features/auto-tagging/runners/audit/concentration-solver.ts

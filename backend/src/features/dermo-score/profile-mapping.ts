@@ -49,6 +49,9 @@ const KIND_TO_FORMULA: Partial<Record<ProductKind, AlgoDermFormulaType>> = {
   balm: 'cream',
   oil: 'serum',
   primer: 'cream',
+  sunscreen: 'sunscreen',
+  'after-sun': 'sunscreen',
+  'self-tanner': 'sunscreen',
 }
 
 // Rinse-off changes the exposure multiplier inside algo-derm.

@@ -66,7 +66,13 @@ const S = SKINCARE_PRODUCT_TAG_SLUGS
 //                      is re-emitted via passes/formula/. Anti-age hit rate
 //                      may dip on products with retinol/vit-C at INCI pos > 5
 //                      (~half confidence); re-baseline budgets if drift.
-const CALIBRATED_FOR_TAG_DEFS_VERSION = 6
+//   v7 (2026-05-14) — `vegan` + `grossesse_risque` added (pregnancy and vegan
+//                      detection migrated from Aurore formula passes to algo-derm).
+//                      `grossesse-compatible` enriched with formaldehyde_donor
+//                      exclusion. `ProductAssessment.context` exposed; sunscreen
+//                      added to `formulaType` enum. Re-run `just audit-auto-tags`
+//                      and re-baseline TAG_HIT_RATE_BUDGET if hit rates drift.
+const CALIBRATED_FOR_TAG_DEFS_VERSION = 7
 
 if (TAG_DEFS_VERSION !== CALIBRATED_FOR_TAG_DEFS_VERSION) {
   throw new Error(
@@ -95,6 +101,10 @@ if (TAG_DEFS_VERSION !== CALIBRATED_FOR_TAG_DEFS_VERSION) {
 export type TagRule = {
   auroreSlug: SkincareProductTagSlug
   allow: boolean
+  // Relevance emitted when the tag fires. Defaults to 'secondary'.
+  // Set to 'avoid' for safety signals (e.g. `grossesse_risque`) so the
+  // avoid > secondary dedup rule in the orchestrator applies automatically.
+  relevance?: 'secondary' | 'avoid'
   // Algo-derm `tagProduct` ignores `context.leaveOn` on the comedogenicity axis
   // (rule = risk threshold + keyword match). 29 % of `comedogene` hits fire on
   // rinse-off products in the dry-run — filter at the wrapper level.
@@ -221,6 +231,26 @@ export const TAG_CONFIG: Readonly<Record<string, TagRule>> = {
     allow: true,
   },
 
+  // ── Vegan (absence-based from INCI, migrated from passes/formula/vegan.ts) ─
+  // Fires when no animal-derived INCI pattern detected + formula ≥ 5 ingredients.
+  // Brand-level certifications (brand-cert-detection pass 5b) are a separate,
+  // higher-authority source and may fire independently.
+  vegan: { auroreSlug: S.VEGAN, coverageFloor: 0.5, allow: true },
+
+  // ── Pregnancy contraindication (migrated from passes/formula/grossesse-avoid.ts)
+  // `grossesse_risque` is the explicit avoid signal: fires when algo-derm detects
+  // a known contraindication (retinoids, hydroquinone, formaldehyde donors,
+  // BHA leave-on, oxybenzone/homosalate in sunscreens, risky EOs).
+  // relevance='avoid' so the orchestrator's avoid > secondary dedup applies.
+  // coverageFloor: 0 — safety signal must fire even on low-coverage INCI;
+  // missing a pregnancy contraindication is worse than a false positive.
+  grossesse_risque: {
+    auroreSlug: S.GROSSESSE_COMPATIBLE,
+    relevance: 'avoid',
+    coverageFloor: 0,
+    allow: true,
+  },
+
   // ── Comedogenicity (leave-on only — §7.6) ──────────────────────────
   comedogene: {
     auroreSlug: S.COMEDOGENE,
@@ -244,7 +274,7 @@ export const TAG_CONFIG: Readonly<Record<string, TagRule>> = {
 
 export interface DetectedAutoTag {
   slug: SkincareProductTagSlug
-  relevance: 'secondary'
+  relevance: 'secondary' | 'avoid'
   confidence: number
   source: 'detected_absence' | 'computed_score'
 }
@@ -380,7 +410,7 @@ export function detectAutoTags(
 
     results.push({
       slug: rule.auroreSlug,
-      relevance: 'secondary',
+      relevance: rule.relevance ?? 'secondary',
       confidence: candidate.confidence,
       source: candidate.source,
     })

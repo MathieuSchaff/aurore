@@ -20,12 +20,13 @@ Pour ça on a **6 passes de détection** qui fonctionnent en parallèle, chacune
 ```
 INCI du produit
     │
-    ├─► [Passe 1] algo-derm tagProduct()  → concerns, types de peau, comédogénicité…
+    ├─► [Passe 1] algo-derm tagProduct()  → concerns, types de peau, comédogénicité,
+    │                                        vegan (absent. animaux), grossesse_risque (avoid)
     ├─► [Passe 2] actif-class             → clusters pharmacologiques (retinoids, AHA, vit C…)
     ├─► [Passe 3] kind → tags             → TYPE_*, ZONE_*, STEP_*, MOMENT_*
     ├─► [Passe 4] formula patterns        → occlusif, filtres solaires, prébiotique
     ├─► [Passe 5] cross-signal            → MOMENT_SOIR/MATIN depuis actif × kind
-    └─► [Passe 6] grossesse-avoid         → tag 'avoid' pour ingrédients contre-indiqués
+    └─► [Passe 6] cross-signal-avoid      → stack irritation (retinoid+AHA/BHA) → peau-sensible avoid
 
         ↓
     Déduplication (avoid > secondary)
@@ -58,7 +59,13 @@ Prend le résultat de `analyzeINCI` et retourne une liste de tags avec :
 Il y a 3 familles de tags qu'il peut émettre :
 - **ABSENCE_TAGS** — `sans_parfum`, `sans_savon`, `sans_sulfates`… (vrai si l'ingrédient est *absent*)
 - **COMPUTED_TAGS** — `hypoallergenique`, `peaux_sensibles`… (calculé depuis les axes de risque)
-- **MAPPED_TAGS** — `acne-imperfections`, `anti-age`, `peau-grasse`… (combinaison INCI + axes)
+- **MAPPED_TAGS** — `acne-imperfections`, `anti-age`, `peau-grasse`, `vegan`, `grossesse_risque`… (combinaison INCI + axes)
+
+Depuis **TAG_DEFS v7** (2026-05-14), deux nouveaux MAPPED_TAGS sont émis :
+- **`vegan`** (`present: true` si aucun ingrédient animal détecté ET INCI ≥ 5 ingrédients)
+- **`grossesse_risque`** (`present: true` si contraindication grossesse détectée — retinoids, hydroquinone, formaldehyde donors, BHA leave-on top 10, oxybenzone/homosalate en sunscreen, HE risque top 8). Aurore mappe ce tag en `GROSSESSE_COMPATIBLE` avec `relevance='avoid'` via `TAG_CONFIG.grossesse_risque`.
+
+Ces tags utilisent `assessment.context` (champ ajouté en v7) pour les checks context-dépendants (ex: `leaveOn` pour BHA, `formulaType === "sunscreen"` pour les filtres UV).
 
 ### `splitINCI(inci)` + `normalize(ingredient)` → parsing INCI
 
@@ -139,9 +146,9 @@ Exemple d'entrées dans `TAG_CONFIG` :
 ### Passe 2 — `passes/actif-class-detection.ts`
 
 **Fichier :** `backend/src/features/auto-tagging/passes/actif-class-detection.ts`
-**Fonction exportée :** `detectActifClasses(inci)`
+**Fonction exportée :** `detectActifClasses(inci, hoistedIngredients?, kind?)`
 
-Détecte les **clusters pharmacologiques** du produit. Plus simple que la passe 1 : juste du substring matching sur l'INCI normalisé, **gaté par position INCI**.
+Détecte les **clusters pharmacologiques** du produit. Substring matching sur l'INCI normalisé, **gaté par position INCI**.
 
 ```
 detectActifClasses("Aqua, Retinol, Tocopherol, ...")
@@ -150,21 +157,20 @@ detectActifClasses("Aqua, Retinol, Tocopherol, ...")
     │
     └─ Pour chaque cluster défini dans ACTIF_CLASS_DEFS :
          cluster RETINOIDS : patterns = ['retinol', 'retinal', 'tretinoin', ...]
-                             positionCap = 12 (défaut)
+                             positionCap = ∞
          window = ingrédients.slice(0, positionCap)
          → si UN des ingrédients dans window contient UN des patterns → émettre le slug
 ```
 
-**Position cap par cluster** — un actif au-delà de la position fonctionnelle est presque toujours un trace stabilizer / ajusteur de pH / antioxydant préservatif, pas un actif fonctionnel.
+**Position cap par cluster** — un actif pH-dépendant (AHA/BHA/PHA) au-delà de pos 10 (leave-on) est presque toujours un ajusteur de pH, pas un exfoliant. Tous les autres actifs sont fonctionnels même en zone trace : le corpus manuel les tague indépendamment de la position INCI.
 
 | Cluster | Cap | Pourquoi |
 |---------|----:|----------|
-| AHA / BHA / PHA | 10 | Acide pH-dépendant — concentration fonctionnelle obligatoirement tôt dans l'INCI. Lactic acid en pos 25 = pH adjuster. |
-| Enzymes-exfoliants | 10 | Activité enzymatique requiert concentration fonctionnelle. |
-| Hyaluronic-acid | 10 | Humectant : toujours tôt si fonctionnel. |
-| Ceramides | 15 | Blends typiques < 1 % mais fonctionnels (CeraVe etc.). |
-| Peptides | 15 | Dosages mg-range, souvent listés tard dans des blends complexes. |
-| Retinoids / Vitamin-C / Vitamin-E / Polyphenols / Tyrosinase-inhibitors | 12 (défaut) | Tocopherol pos 30 = preservative trace, retinol pos 25 = stabilizer trace. |
+| AHA / BHA / PHA | 10 (leave-on) / 20 (rinse-off) | Acide pH-dépendant. Lactic acid pos 25 = pH adjuster. Cap rinse-off looser : surfactants déplacent l'acide vers pos 12-18 (CeraVe SA cleanser, Etude House AHA peel gel). |
+| Capryloyl salicylic acid (ester BHA slow-release) | ∞ | Anchored sur la peau, fonctionnel à 0.05-0.1 % en pos 13-20. |
+| Tous les autres (retinoids, vitamin-c, vitamin-e, ceramides, hyaluronic-acid, peptides, polyphenols, tyrosinase-inhibitors, enzymes-exfoliants) | ∞ | Dosages mg-range / antioxydant / signaling — fonctionnels même sub-1 %, le corpus manuel les tague à toute position. |
+
+**Tentative `concentrationEstimate.belowBreakpoint` (rejetée 2026-05-14)** — pass 2 a brièvement consommé `assessment.matchedEvidenceByName.<ing>.concentrationEstimate.belowBreakpoint` (algo-derm flagge la zone EU <1 %) pour remplacer les position caps. Macro F1 chute 0.995 → 0.930 : vitamin-e / HA / ceramides fonctionnels en zone trace sont taggés par les annotateurs manuels malgré belowBreakpoint=true, et le breakpoint d'algo-derm contredit le gold même sur AHA/BHA/PHA (3 FN AHA + 2 FN BHA + 1 FP BHA + 2 FN PHA). Le champ `matchedEvidenceByName` reste exposé côté algo-derm pour de futurs consommateurs ; pass 2 n'en dépend pas.
 
 Les clusters définis :
 - `retinoids` — retinol, retinal, tretinoin, HPR, adapalene…
@@ -202,9 +208,9 @@ C'est un simple dictionnaire `kind → [slugs]`. Couvre : skincare (15 kinds), s
 
 ### Passe 4 — `passes/formula/`
 
-**Dossier :** `backend/src/features/auto-tagging/passes/formula/` (16 fichiers + `index.ts`)
+**Dossier :** `backend/src/features/auto-tagging/passes/formula/` (14 fichiers + `index.ts`)
 
-Détecteurs via patterns INCI / texte (que algo-derm ne couvre pas), un fichier par famille de slug émis. Le détail des détecteurs ci-dessous couvre les plus représentatifs ; consulter chaque fichier pour les patterns exacts.
+Détecteurs via patterns INCI / texte pour les signaux qu'algo-derm ne couvre pas nativement. `vegan` et `grossesse_risque` ont été migrés dans algo-derm (TAG_DEFS v7) — ce dossier ne les contient plus.
 
 | Fichier | Slugs émis |
 |---------|------------|
@@ -219,9 +225,7 @@ Détecteurs via patterns INCI / texte (que algo-derm ne couvre pas), un fichier 
 | `cernes-poches.ts` | `cernes-poches` |
 | `fini-mat.ts` | `fini-mat`, `matifiant` |
 | `pigments-verts.ts` | `pigments-verts` |
-| `vegan.ts` | `vegan` |
 | `peau-normale.ts` | `peau-normale` (post-pass, abstient si autre skin-type fired) |
-| `grossesse-avoid.ts` | `grossesse-compatible` (relevance=`avoid`) |
 | `absence-claims.ts` | `sans-parfum` (name/description-based override quand coverage INCI < 0.7) |
 | `texture.ts` | `texture-creme`, `texture-gel`, `texture-riche`, `texture-legere`, `texture-baume`, `texture-stick`, `non-gras` (+ champ `products.texture` direct mapping) |
 
@@ -327,34 +331,9 @@ detectCernesPoches(inci, kind)
        → 'cernes-poches'
 ```
 
-#### Grossesse-avoid (important)
+#### Vegan et grossesse (déplacés dans algo-derm)
 
-```
-detectGrossesseAvoid(inci, kind)  →  true | false
-    │
-    ├─ Tier 1 — TOUJOURS éviter (toute position INCI) :
-    │   Rétinoïdes → retinol, retinal, retinaldehyde, HPR/granactive retinoid, tretinoin,
-    │               adapalene, tazarotene, tous les retinyl-*
-    │   Hydroquinone
-    │   Formaldehyde donors → DMDM hydantoin, diazolidinyl urea, imidazolidinyl urea,
-    │                          quaternium-15, bronopol, sodium hydroxymethylglycinate,
-    │                          methenamine, benzylhemiformal, bronidox
-    │                          (fonctionnels en trace = pas de gating)
-    │
-    ├─ Tier 2 — Éviter dans ce contexte :
-    │   Oxybenzone (benzophenone-3/4, sulisobenzone) → uniquement si sunscreen/solaire
-    │   Homosalate (homomenthyl salicylate) → uniquement si sunscreen/solaire
-    │                                          (SCCS 2022 max 2.2 %, endocrine concern)
-    │   Acide salicylique en leave-on → uniquement si kind ≠ cleanser/mask/exfoliant
-    │                                    ET position ≤ 10 dans INCI (concentration fonctionnelle)
-    │   HE à risque (peppermint, clary sage, rosemary verbenone CT)
-    │     → token doit contenir genus latin + 'oil' (top 8 INCI uniquement)
-    │     → distingue EO de leaf extract / water (extraits non flaggés)
-    │
-    └─ Si true → émettre 'grossesse-compatible' avec relevance='AVOID'
-```
-
-Pourquoi `avoid` et pas juste "ne pas émettre secondary" ? Parce qu'on veut pouvoir **afficher un avertissement** dans l'UI pour ces produits, pas juste les ignorer silencieusement.
+Depuis TAG_DEFS v7, les détections `vegan` et `grossesse_risque` sont dans algo-derm. Voir la section **Passe 1** ci-dessus pour la logique complète.
 
 ---
 
@@ -389,7 +368,7 @@ detectCrossSignalTags(['retinoids', 'vitamin-c'], 'serum', inci)
          coverage < 0.30, gating le computed_score floor — re-émission ici)
 ```
 
-**Cross-signal avoid (X1)** — règles émettant un slug existant en `relevance='avoid'` (même précédence que `grossesse-avoid` : avoid > secondary) :
+**Cross-signal avoid (X1)** — règles émettant un slug existant en `relevance='avoid'` (même précédence que `grossesse_risque` algo-derm : avoid > secondary) :
 
 ```
 detectCrossSignalAvoidTags(actifClasses, kind)
@@ -427,8 +406,8 @@ main()
          propose('moment-soir', 'secondary', 'cross-signal')
          propose('retinoids-tag', 'secondary', 'percent-claim')
          propose('moment-soir', 'secondary', 'interaction')
-         propose('vegan', 'secondary', 'brand')
-         if (grossesseAvoid) propose('grossesse-compatible', 'AVOID', 'grossesse-avoid')
+         propose('vegan', 'secondary', 'algo-derm')       ← via grossesse_risque TAG_CONFIG
+         propose('grossesse-compatible', 'AVOID', 'algo-derm')  ← via grossesse_risque TAG_CONFIG
          
          // La fonction propose() déduplique en mémoire :
          // si le même (produit, tag) est émis deux fois, AVOID gagne sur SECONDARY
@@ -513,6 +492,129 @@ La parité des trois chemins est garantie par `tests/auto-tag-orchestrator-parit
 
 ---
 
+## Gold set — benchmark de précision/rappel
+
+### Ce que c'est
+
+Un corpus de **60-80 produits annotés à la main** qui sert d'oracle pour mesurer la qualité de détection des passes 2 et 4. Pour chaque produit, on note quels tags sont confirmés présents et quels tags sont confirmés absents — les autres restent non évalués (les métriques les ignorent).
+
+Fichiers :
+- `data/gold-set/annotations.json` — corpus actif (schéma `2026-05-08`)
+- `gold-set/fixtures.ts` — constantes, validation, sérialisation
+- `gold-set/metrics.ts` — primitives de calcul (Brier, ECE, P/R/F1)
+- `runners/gold-set-bootstrap.ts` — sampler stratifié (lecture seule)
+
+### Scope — 16 tags focus
+
+Le gold set couvre uniquement les passes **déterministes** (pattern matching + position cap). La passe 1 (algo-derm, scores [0,1]) n'est pas dans le scope actuel.
+
+| Famille | Tags |
+|---------|------|
+| Clusters actifs (passe 2) | `retinoids`, `vitamin-c`, `vitamin-e`, `hyaluronic-acid`, `peptides`, `polyphenols`, `enzymes-exfoliants`, `ceramides`, `tyrosinase-inhibitors` |
+| Acides (passe 2) | `aha`, `bha`, `pha` |
+| Sensoriels (passe 4) | `fini-mat`, `texture-legere`, `texture-riche` |
+
+Ces tags utilisent uniquement la **position INCI comme proxy de concentration** — aucune donnée de concentration réelle exploitée. Les caps varient par cluster (AHA/BHA/PHA : top 10 ; ceramides : top 15 ; autres : top 12).
+
+### Schéma `annotations.json`
+
+```json
+{
+  "schemaVersion": "2026-05-08",
+  "rulesetVersion": "products-branch@c0f5b16c",
+  "annotations": [
+    {
+      "productSlug": "la-roche-posay-effaclar-duo-plus",
+      "kind": "moisturizer",
+      "category": "skincare",
+      "present": ["bha", "niacinamide"],
+      "absent": ["retinoids", "aha"],
+      "annotatedAt": "2026-05-09",
+      "sampledFor": ["bha"],
+      "notes": "salicylic acid pos 6, no glycolic"
+    }
+  ]
+}
+```
+
+- `present` : tags que l'annotateur confirme (INCI vérifié)
+- `absent` : tags que l'annotateur confirme absents
+- non listé = non évalué → **ignoré par les métriques**
+- `sampledFor` : quel focus tag a causé l'inclusion dans le corpus (info bootstrap)
+
+### Workflow
+
+```
+1. Bootstrap (une fois / quand on veut élargir le corpus)
+   just gold-set-bootstrap
+   → sampler stratifié : 4 positifs + 2 négatifs par focus tag
+   → écrit des squelettes dans annotations.json (idempotent)
+
+2. Annotation manuelle
+   → ouvrir annotations.json
+   → pour chaque produit : inspecter l'INCI, remplir present[] et absent[]
+   → ne pas forcer l'exhaustivité — annoter seulement ce qu'on est sûr
+
+3. Benchmark
+   just audit-gold-set
+   → orchestre chaque produit annoté → compare output vs annotations
+   → affiche P/R/F1 + Brier/ECE par tag + macro/micro averages
+   STRICT=1 just audit-gold-set   # fail si des annotations sont vides
+```
+
+### Métriques — `gold-set/metrics.ts`
+
+Primitives pures (pas de DB, testables en isolation). Input : tableau `{ p, y }` où `p ∈ [0,1]` est la confiance prédite et `y ∈ {0,1}` est la vérité terrain.
+
+| Métrique | Formule | Interprétation |
+|----------|---------|----------------|
+| **Brier** | `mean((p - y)²)` | 0 = parfait, 0.25 = aléatoire. Pour passes déterministes (p ∈ {0,1}) : réduit au taux de mauvaise classification. |
+| **ECE** | `Σ (n_bin/N) × \|avg_conf_bin - accuracy_bin\|` | Calibration : à quel point la confiance prédit la précision réelle. Signal utile uniquement si `p ∉ {0,1}`. |
+| **Precision** | `TP / (TP + FP)` | Parmi les tags émis, combien sont corrects. |
+| **Recall** | `TP / (TP + FN)` | Parmi les vrais positifs, combien sont détectés. |
+| **F1** | `2 × P × R / (P + R)` | Harmonie P/R. Métrique principale pour passes déterministes. |
+| **Macro avg** | Moyenne non pondérée par tag | Tous les tags comptent pareil — tags rares pas noyés. |
+| **Micro avg** | Pool TP/FP/FN sur tous tags | Pondéré par volume — tags fréquents dominent. |
+
+Pour les passes 2-6 (déterministes), Brier et ECE n'apportent pas de signal de calibration supplémentaire au-delà de F1. Ils deviendraient utiles si on ajoutait la passe 1 (algo-derm, scores continus) au gold set.
+
+---
+
+## Gold set × Calibration — deux outils distincts
+
+Le sous-système de qualité utilise **deux mécanismes complémentaires** qui ne répondent pas à la même question.
+
+### Gold set — oracle de régression
+
+> "Cette règle est-elle correcte sur des produits connus ?"
+
+- Corpus **figé** d'~80 produits annotés manuellement.
+- Se déclenche après une modif de règle : `just audit-gold-set`.
+- Mesure P/R/F1 par tag → détecte FP/FN introduits par un changement de pattern ou de cap.
+- Risque : **overfitting** si on optimise les règles directement sur le corpus (80 produits = petit). Le gold set doit servir de garde-fou, pas de cible d'optimisation.
+- Signal de rulesetVersion : quand un détecteur change, `rulesetVersion` dans `annotations.json` devient périmé → ré-annoter les produits affectés.
+
+### `TAG_HIT_RATE_BUDGET` — dérive sur corpus complet
+
+> "Ce tag s'applique-t-il à une proportion réaliste de produits ?"
+
+- Baseline figée de hit rates par `(slug, category)` dans `passes/tag-budgets.ts`.
+- Se déclenche en CI : `CHECK=1 just audit-auto-tags` → exit 1 si un tag dépasse son budget.
+- Mesure la **dérive de couverture** sur les ~3600 produits, pas la justesse sur un sous-ensemble annoté.
+- Ne détecte pas les FP/FN individuels — un tag qui rate un produit connu mais tient son hit rate global passerait CHECK sans problème.
+
+### Quand utiliser lequel
+
+| Situation | Outil |
+|-----------|-------|
+| Ajout/modif d'un pattern de détection | Gold set en premier (P/R sur annotés) + CHECK ensuite (budget global) |
+| Bump `TAG_DEFS_VERSION` algo-derm | CHECK (hit rates peuvent changer) + gold set si passe 1 impactée |
+| Nouveau tag sans annotations gold set | CHECK uniquement (déclarer budget avant merge) |
+| Recalibration des seuils confidence/coverage | Gold set (impact direct sur FP/FN) + CHECK |
+| Ajout de produits au corpus DB | CHECK (distribution change) — gold set inchangé |
+
+---
+
 ## Résumé des fichiers
 
 | Fichier | Rôle | Utilise algo-derm ? |
@@ -523,7 +625,7 @@ La parité des trois chemins est garantie par `tests/auto-tag-orchestrator-parit
 | `passes/tag-budgets.ts` | A3 — `TAG_HIT_RATE_BUDGET` per-category, lu par `CHECK=1` du runner d'audit | Non |
 | `passes/actif-class-detection.ts` | Passe 2 — clusters pharmacologiques | `splitINCI` + `normalize` |
 | `shared/products/kind-to-tags.ts` (Passe 3) | TYPE_*, ZONE_*, STEP_*, MOMENT_*, TEXTURE_* + reverse lookup `kindsForTypeSlug` (P2 filter) | Non |
-| `passes/formula/` | Passe 4 — 16 fichiers (occlusif, semi-occlusif, solaires, prébiotique, eczema, repulpant, KP, step-nettoyage, cernes, fini-mat, pigments-verts, vegan, peau-normale, grossesse-avoid, reparation-cutanee, absence-claims, texture) | `splitINCI` + `normalize` |
+| `passes/formula/` | Passe 4 — 14 fichiers (occlusif, semi-occlusif, solaires, prébiotique, eczema, repulpant, KP, step-nettoyage, cernes, fini-mat, pigments-verts, peau-normale, reparation-cutanee, absence-claims, texture). `vegan` et `grossesse-avoid` supprimés — migrés dans algo-derm v7. | `splitINCI` + `normalize` |
 | `passes/cross-signal-detection.ts` | Passe 5 — MOMENT_SOIR/MATIN depuis actif × kind ; `detectInteractionSecondaryTags` (passe 5a) — photosensibilité multi-HE depuis assessment | `analyzeINCI` (passe 5a) |
 | `passes/percent-claim-detection.ts` | Passe 5x — fallback `% INCI structuré` quand INCI fragile | `splitINCI` |
 | `passes/brand-cert-detection.ts` | Passe 5b — labels brand (vegan / cruelty-free / bio-naturel) depuis `brand_certifications` | Non |

@@ -7,16 +7,14 @@
 // Categories: skincare + solaire + bodycare. Other categories (haircare,
 // dental, supplements) carry no INCI-derived safety signal yet.
 
-import type { ProductKind } from '@habit-tracker/shared'
-import { SKINCARE_PRODUCT_TAG_SLUGS, type SkincareProductTagSlug } from '@habit-tracker/shared'
+import type { ProductKind, SkincareProductTagSlug } from '@habit-tracker/shared'
 
 import type { ProductAssessment } from 'algo-derm'
 
 import { detectActifClasses } from './actif-class-detection'
 import { detectCrossSignalAvoidTags, detectInteractionAvoidTags } from './cross-signal-detection'
-import { detectGrossesseAvoid } from './formula'
 
-export type AvoidSource = 'grossesse-avoid' | 'cross-signal' | 'interaction'
+export type AvoidSource = 'cross-signal' | 'interaction'
 
 export interface AvoidCandidate {
   tagSlug: SkincareProductTagSlug
@@ -58,10 +56,6 @@ export function computeAvoidCandidates(
     if (seenTags.has(tagSlug)) return
     seenTags.add(tagSlug)
     candidates.push({ tagSlug, source })
-  }
-
-  if (detectGrossesseAvoid(inci, kind, hoistedIngredients)) {
-    push(SKINCARE_PRODUCT_TAG_SLUGS.GROSSESSE_COMPATIBLE, 'grossesse-avoid')
   }
 
   const actifs = actifClasses ?? detectActifClasses(inci, hoistedIngredients, kind)

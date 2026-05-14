@@ -32,52 +32,16 @@ describe('isAvoidEligibleCategory', () => {
   })
 })
 
-describe('computeAvoidCandidates — grossesse-avoid', () => {
-  test('retinol serum (skincare) → grossesse-compatible avoid', () => {
-    const got = computeAvoidCandidates('Aqua, Retinol, Glycerin', 'serum', 'skincare')
-    expect(got).toContainEqual({
-      tagSlug: S.GROSSESSE_COMPATIBLE,
-      source: 'grossesse-avoid',
-    })
-  })
-
-  test('sodium retinoyl hyaluronate (audit B.2) → grossesse avoid', () => {
-    const got = computeAvoidCandidates(
-      'Aqua, Glycerin, Sodium Retinoyl Hyaluronate, Niacinamide',
-      'serum',
-      'skincare'
-    )
-    expect(got).toContainEqual({
-      tagSlug: S.GROSSESSE_COMPATIBLE,
-      source: 'grossesse-avoid',
-    })
-  })
-
-  test('homosalate sunscreen (solaire) → grossesse avoid', () => {
-    const got = computeAvoidCandidates('Aqua, Homosalate, Octocrylene', 'sunscreen', 'solaire')
-    expect(got).toContainEqual({
-      tagSlug: S.GROSSESSE_COMPATIBLE,
-      source: 'grossesse-avoid',
-    })
-  })
-
-  test('retinol body lotion (bodycare) → grossesse avoid', () => {
-    const got = computeAvoidCandidates(
-      'Aqua, Glycerin, Retinol, Tocopherol',
-      'body-lotion',
-      'bodycare'
-    )
-    expect(got).toContainEqual({
-      tagSlug: S.GROSSESSE_COMPATIBLE,
-      source: 'grossesse-avoid',
-    })
-  })
-
+// grossesse-avoid signals migrated to algo-derm (pass 1 via grossesse_risque
+// MAPPED_TAG). computeAvoidCandidates no longer handles pregnancy detection —
+// see auto-tag-detection.test.ts and auto-tag-orchestrator-parity.test.ts for
+// end-to-end coverage of the avoid path.
+describe('computeAvoidCandidates — grossesse category guard', () => {
   test('retinol shampoo (haircare ineligible) → no candidates', () => {
     expect(computeAvoidCandidates('Aqua, Retinol', 'shampoo', 'haircare')).toEqual([])
   })
 
-  test('clean INCI → no candidates', () => {
+  test('clean INCI (no actifs, no interactions) → no candidates', () => {
     expect(
       computeAvoidCandidates('Aqua, Glycerin, Niacinamide, Panthenol', 'serum', 'skincare')
     ).toEqual([])
@@ -125,14 +89,15 @@ describe('computeAvoidCandidates — cross-signal stack irritation (X1)', () => 
 })
 
 describe('computeAvoidCandidates — combined signals', () => {
-  test('retinol + glycolic leave-on emits both grossesse + stack avoid', () => {
+  // grossesse-avoid now comes from pass 1 (algo-derm grossesse_risque).
+  // computeAvoidCandidates still handles cross-signal avoid (stack irritation).
+  test('retinol + glycolic leave-on → cross-signal stack-irritation avoid (peau-sensible)', () => {
     const got = computeAvoidCandidates(
       'Aqua, Glycerin, Retinol, Glycolic Acid',
       'serum',
       'skincare'
     )
     const sources = got.map((c) => c.source)
-    expect(sources).toContain('grossesse-avoid')
     expect(sources).toContain('cross-signal')
   })
 })

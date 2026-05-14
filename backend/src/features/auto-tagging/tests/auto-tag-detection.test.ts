@@ -46,15 +46,22 @@ describe('auto-tag-detection', () => {
     expect(slugs.has(S.ECZEMA_ATOPIE)).toBe(false)
   })
 
-  test('every emitted tag has relevance=secondary', () => {
-    const inci = 'Aqua, Salicylic Acid, Niacinamide, Tocopherol, Glycerin'
-    const tags = detectAutoTags(inci, 'serum')
-    expect(tags.length).toBeGreaterThan(0)
-    for (const t of tags) {
+  test('non-avoid tags have relevance=secondary; grossesse_risque fires as avoid', () => {
+    // INCI without grossesse contraindications → all secondary
+    const safeInci = 'Aqua, Glycerin, Niacinamide, Tocopherol, Phenoxyethanol'
+    const safeTags = detectAutoTags(safeInci, 'serum')
+    expect(safeTags.length).toBeGreaterThan(0)
+    for (const t of safeTags) {
       expect(t.relevance).toBe('secondary')
       expect(t.confidence).toBeGreaterThanOrEqual(0)
       expect(t.confidence).toBeLessThanOrEqual(1)
     }
+    // INCI with retinoid → grossesse_risque fires as avoid
+    const retinoidInci = 'Aqua, Retinol, Glycerin, Tocopherol, Phenoxyethanol'
+    const retinoidTags = detectAutoTags(retinoidInci, 'serum')
+    const avoidTags = retinoidTags.filter((t) => t.relevance === 'avoid')
+    expect(avoidTags.length).toBeGreaterThan(0)
+    expect(avoidTags.some((t) => t.slug === S.GROSSESSE_COMPATIBLE)).toBe(true)
   })
 
   test('confOverride raises confidenceFloor globally (computed_score only)', () => {
@@ -108,10 +115,11 @@ describe('auto-tag-detection', () => {
     // peaux_atopiques / repulpant / matifiant rows removed 2026-05-13 (A4 —
     // re-emitted from passes/formula/, algo-derm candidates fall through as
     // `unmapped`). purifiant + sans_savon are the only allow:false rows left.
+    // 2026-05-14 v7: vegan + grossesse_risque added (migrated from formula passes).
     // Hard-counted to flag any accidental flip in TAG_CONFIG.
     const allow = Object.values(TAG_CONFIG).filter((r) => r.allow)
     const drop = Object.values(TAG_CONFIG).filter((r) => !r.allow)
-    expect(allow.length).toBe(27)
+    expect(allow.length).toBe(29)
     expect(drop.length).toBe(2)
   })
 
@@ -149,9 +157,7 @@ describe('auto-tag-detection', () => {
     // confidenceFloor (per-tag + global), so non-comedogene can surface even
     // when comedogenicity.confidence < 0.90.
     const inci = 'Aqua, Acme XR-7, Synthetic Polymer Z, Proprietary Blend Q, Glycerin, Niacinamide'
-    const slugs = new Set(
-      detectAutoTags(inci, 'serum', { disableFloors: true }).map((t) => t.slug)
-    )
+    const slugs = new Set(detectAutoTags(inci, 'serum', { disableFloors: true }).map((t) => t.slug))
     const baselineSlugs = new Set(detectAutoTags(inci, 'serum').map((t) => t.slug))
     for (const slug of baselineSlugs) expect(slugs.has(slug)).toBe(true)
   })

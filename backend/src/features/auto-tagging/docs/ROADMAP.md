@@ -8,6 +8,39 @@
 
 ---
 
+## Questions ouvertes — gold set & calibration
+
+Questions non tranchées sur le sous-système de validation. Aucune urgente, mais elles conditionnent comment on fait évoluer le gold set.
+
+### Q1 — Scope : faut-il élargir les 16 tags focus ?
+
+Tags avec détecteur actif mais **zéro mesure de qualité** aujourd'hui :
+`grossesse-compatible` (Tier 1/2 bien défini, annoter = vérifier INCI), `vegan` (pattern matching, facile à annoter), `fini-mat` (passe 4, partiellement dans focus — mais les 3 sensoriels couverts sont texture, pas mat), `occlusif`, `reparation-cutanee`, `sans-parfum`, `peau-sensible` avoid.
+
+Trade-off : plus de tags = corpus plus grand à maintenir. Options :
+- Élargir aux tags avoid (`grossesse-compatible` Tier 1 au moins) — haute valeur métier, critères stricts, annotation rapide.
+- Laisser les passes 4 non-focus comme "non calibrées" et l'assumer explicitement.
+
+### Q2 — Séparer corpus régression et corpus calibration ?
+
+Actuellement un seul corpus fait les deux : régression (oracle figé) et calibration (cible pour ajuster les règles). Sur 80 produits, optimiser les règles directement sur le corpus = **overfitting structurel** : les règles passent le gold set mais peuvent sur-ajuster à ce sous-ensemble.
+
+Option simple : split 60/20 — 60 produits non touchés pour régression, 20 pour tester des ajustements de règles avant merge. Nb : bootstrap stratifié doit respecter le split.
+
+### Q3 — Produits orphelins non détectés par défaut
+
+Si un slug dans `annotations.json` disparaît de la DB (seed changé, slug renommé), le benchmark **ignore silencieusement** ce produit. `STRICT=1` détecte ça, mais n'est pas le mode CI.
+
+Option : passer `STRICT=1` en mode CI par défaut, ou ajouter une validation séparée `just gold-set-validate` (lecture seule, exit 1 sur orphelins) sans lancer le benchmark complet.
+
+### Q4 — Déclencheur de re-benchmark automatique
+
+Aujourd'hui `just audit-gold-set` est manuel. Quand un pattern change dans `actif-class-detection.ts` ou dans `passes/formula/`, rien n'oblige à relancer le benchmark.
+
+Option : hook pre-push (ou job CI séparé) qui, si `passes/` ou `gold-set/` est modifié, exécute `just audit-gold-set` et fail si F1 macro < seuil baseline. Nécessite de stocker le baseline F1 quelque part (fichier JSON commité, ou `tag-budgets.ts` étendu avec F1 floors par tag).
+
+---
+
 ## Open items — tous defer
 
 Aucun chantier actionnable court terme.
@@ -21,6 +54,7 @@ Aucun chantier actionnable court terme.
 | §6 `peau-reactive` / `barriere-cutanee-alteree` product slugs | Proxy `peau-sensible` côté product suffit. Concept barrière reste ingrédient-only | Décision design produit explicite |
 | §6 retinoid/BHA seul leave-on → `peau-sensible` avoid | algo-derm `detectInteractionAvoidTags` couvre déjà via `interactions[].axes ∋ irritation`. Variante aggressive mis-tag dermo-friendly (Avène Retrinal, LRP Retinol B3) | N/A (skip définitif) |
 | §6 AHA / azélaïque fort | Bloqué : azélaïque hors actif-class algo-derm + `products.percent_claims` partiel | Ajout azelaic actif-class côté algo-derm + % data |
+| **Pass 2 V2 — solver concentration calibration** | algo-derm calcule déjà `concentrationEstimate.solverMeanPct` / `ciLowPct` / `ciHighPct` par ingrédient matché (~79 % coverage) via `classifyIngredients` + `solveQP`. Pass 2 V1 a tenté `belowBreakpoint` (cliff binaire) → macro F1 0.995 → 0.930 (revert 2026-05-14). `solverMeanPct` (distribution + sum-constrained) inexploité, prérequis pour débloquer §6 ci-dessous. | Audit `solverMeanPct` vs 10-20 produits avec % connu (CeraVe SA 2 %, Ordinary glycolic 7 %, Skinoren azelaic 20 %, Effaclar Duo niacinamide 5 %), puis gating `auto-tag-avoid.ts` pour AHA/BHA/azélaïque fort |
 
 ---
 
@@ -30,13 +64,15 @@ Aucun chantier actionnable court terme.
 
 | Règle | Pipeline | Statut |
 | --- | --- | --- |
-| Rétinoïde → `grossesse-compatible` (avoid) | `passes/formula/grossesse-avoid.ts` Tier 1 | ✅ |
+| Rétinoïde → `grossesse-compatible` (avoid) | algo-derm `grossesse_risque` MAPPED_TAG (TAG_DEFS v7) | ✅ Migré algo-derm |
+| Formaldehyde donors → `grossesse-compatible` (avoid) | algo-derm `grossesse_risque` (flag `formaldehyde_donor`) | ✅ Migré algo-derm |
+| BHA leave-on top 10 → `grossesse-compatible` avoid | algo-derm `grossesse_risque` Tier 2 (`context.leaveOn`) | ✅ Migré algo-derm |
+| Oxybenzone/homosalate → `grossesse-compatible` (solaires) | algo-derm `grossesse_risque` Tier 2 (`context.formulaType === "sunscreen"`) | ✅ Migré algo-derm |
+| HE risque (peppermint/clary sage/rosemary oil) → `grossesse-compatible` avoid | algo-derm `grossesse_risque` Tier 2 (genus + "oil" top 8) | ✅ Migré algo-derm |
 | Rétinoïde → `peau-sensible` avoid (proxy reactive) | `passes/cross-signal-detection.ts` — uniquement rétinoïde + AHA/BHA leave-on | ⚠️ Partial — skip définitif |
-| BHA leave-on top 10 → `grossesse-compatible` avoid | `grossesse-avoid.ts` Tier 2 (salicylic top 10) | ✅ |
 | BHA → `peau-sensible` avoid | Combo retinoid+BHA seulement | ⚠️ Partial — skip définitif |
-| AHA fort (>8%) → `peau-sensible` + `barriere-cutanee-alteree` | Pas de % data | ❌ Bloqué |
-| Azélaïque 10%+ → reactive + alteree | Hors actif-class algo-derm + pas de % data | ❌ Bloqué |
-| Filtres chimiques → `grossesse-compatible` (solaires) | `grossesse-avoid.ts` Tier 2 — oxybenzone + homosalate uniquement | ⚠️ Evidence-based (SCCS 2022) |
+| AHA fort (>8%) → `peau-sensible` + `barriere-cutanee-alteree` | algo-derm `solverMeanPct` / `solverCiLowPct` per ingrédient dispo, calibration solver pré-requise | ⚠️ Débloque-able post Pass 2 V2 |
+| Azélaïque 10%+ → reactive + alteree | Idem AHA fort + ajout azelaic dans actif-class côté algo-derm | ⚠️ Débloque-able post Pass 2 V2 + algo-derm patch |
 
 **Note evidence-based** : `oxybenzone`/`homosalate` seuls retenus (consensus dermo). Avobenzone/octocrylene/Tinosorb/Mexoryl sans recommandation grossesse. Rule roadmap "tous les filtres chimiques" plus conservatif que guidance pro — garder Tier 2 actuel.
 
