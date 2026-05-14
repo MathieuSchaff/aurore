@@ -53,8 +53,8 @@ Aucun chantier actionnable court terme.
 | §5 P6 — tri popularité | `user_products` RLS-isolé + Aurore solo-user → 0-1 ajout/produit, signal nul | N/A (drop si confirmé) |
 | §6 `peau-reactive` / `barriere-cutanee-alteree` product slugs | Proxy `peau-sensible` côté product suffit. Concept barrière reste ingrédient-only | Décision design produit explicite |
 | §6 retinoid/BHA seul leave-on → `peau-sensible` avoid (dose-gated) | Shipped 2026-05-14 via `detectConcentrationAvoidTags` : retinol ≥ 0.25 %, salicylic ≥ 1.5 %. Skip définitif retiré — dose-gating sépare high-dose des dermo-friendly (LRP Retinol B3 0.3 %, Cicaplast trace) | ✅ Shipped |
-| §6 AHA / azélaïque fort | Glycolic / azelaic Class B audit (MAE 3-4 %) : solver biaisé bas sur high-dose, calibration algo-derm pré-requise | Tuner `PSEUDO_ACTIVE_*` priors `concentration.ts` formula-type aware (cream + position ≤ 3 → prior haut) |
-| **Pass 2 V2 — solver calibration debt** | Solver QP overshoot zone trace sur actifs uncapped (retinal pos 11/14 → 2.58 %). Bloque retinal / HPR / bakuchiol dose-gating. | Algo-derm C1 — fix solver pseudo-counts pour actifs uncapped trace + variance posterior preservation (CI shrunk de 51 → 42 % post-solver) |
+| §6 AHA / azélaïque fort | Glycolic / azelaic Class B audit (MAE 3-4 %) : solver biaisé bas sur high-dose. C1.b tuning `max_concentration_pct` testé 2026-05-14 sur 7 actifs : urea −0.93 MAE, vit-C −0.72 (kept), azelaic/glycolic/lactic/mandelic regressions (reverted — bimodal claim distributions). Plafond per-ingredient priors atteint. | **C2 — pass `product_ingredients.concentration_value` as `context.knownConcentrations`** : Aurore a 507 claims DB, algo-derm support déjà le pinning solver. Plus prometteur que tuner les priors. |
+| **Pass 2 V2 — solver calibration debt** | Solver QP overshoot zone trace sur actifs uncapped (retinal pos 11/14 → 2.58 %). Bloque retinal / HPR / bakuchiol dose-gating. C1.a non démarré — déprio post-C2 (claims pinning peut suffire). | Algo-derm C1.a — fix solver pseudo-counts pour actifs uncapped trace + variance posterior preservation (CI shrunk de 51 → 42 % post-solver). À retester après C2 ship. |
 
 ---
 
