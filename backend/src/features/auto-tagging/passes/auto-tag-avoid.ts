@@ -12,9 +12,13 @@ import type { ProductKind, SkincareProductTagSlug } from '@habit-tracker/shared'
 import type { ProductAssessment } from 'algo-derm'
 
 import { detectActifClasses } from './actif-class-detection'
-import { detectCrossSignalAvoidTags, detectInteractionAvoidTags } from './cross-signal-detection'
+import {
+  detectConcentrationAvoidTags,
+  detectCrossSignalAvoidTags,
+  detectInteractionAvoidTags,
+} from './cross-signal-detection'
 
-export type AvoidSource = 'cross-signal' | 'interaction'
+export type AvoidSource = 'cross-signal' | 'interaction' | 'concentration'
 
 export interface AvoidCandidate {
   tagSlug: SkincareProductTagSlug
@@ -66,6 +70,9 @@ export function computeAvoidCandidates(
   if (assessment) {
     for (const tagSlug of detectInteractionAvoidTags(assessment, kind)) {
       push(tagSlug, 'interaction')
+    }
+    for (const tagSlug of detectConcentrationAvoidTags(assessment, kind)) {
+      push(tagSlug, 'concentration')
     }
   }
 

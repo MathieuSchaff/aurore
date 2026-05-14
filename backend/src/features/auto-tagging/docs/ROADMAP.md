@@ -52,9 +52,9 @@ Aucun chantier actionnable court terme.
 | §4 `peau-mixte` Aurore-side | algo-derm B6 (0.4/0.4) fire sur 2 produits seul du corpus skincare | Calibration B3 élargit, ou texture data dispo |
 | §5 P6 — tri popularité | `user_products` RLS-isolé + Aurore solo-user → 0-1 ajout/produit, signal nul | N/A (drop si confirmé) |
 | §6 `peau-reactive` / `barriere-cutanee-alteree` product slugs | Proxy `peau-sensible` côté product suffit. Concept barrière reste ingrédient-only | Décision design produit explicite |
-| §6 retinoid/BHA seul leave-on → `peau-sensible` avoid | algo-derm `detectInteractionAvoidTags` couvre déjà via `interactions[].axes ∋ irritation`. Variante aggressive mis-tag dermo-friendly (Avène Retrinal, LRP Retinol B3) | N/A (skip définitif) |
-| §6 AHA / azélaïque fort | Bloqué : azélaïque hors actif-class algo-derm + `products.percent_claims` partiel | Ajout azelaic actif-class côté algo-derm + % data |
-| **Pass 2 V2 — solver concentration calibration** | algo-derm calcule déjà `concentrationEstimate.solverMeanPct` / `ciLowPct` / `ciHighPct` par ingrédient matché (~79 % coverage) via `classifyIngredients` + `solveQP`. Pass 2 V1 a tenté `belowBreakpoint` (cliff binaire) → macro F1 0.995 → 0.930 (revert 2026-05-14). `solverMeanPct` (distribution + sum-constrained) inexploité, prérequis pour débloquer §6 ci-dessous. | Audit `solverMeanPct` vs 10-20 produits avec % connu (CeraVe SA 2 %, Ordinary glycolic 7 %, Skinoren azelaic 20 %, Effaclar Duo niacinamide 5 %), puis gating `auto-tag-avoid.ts` pour AHA/BHA/azélaïque fort |
+| §6 retinoid/BHA seul leave-on → `peau-sensible` avoid (dose-gated) | Shipped 2026-05-14 via `detectConcentrationAvoidTags` : retinol ≥ 0.25 %, salicylic ≥ 1.5 %. Skip définitif retiré — dose-gating sépare high-dose des dermo-friendly (LRP Retinol B3 0.3 %, Cicaplast trace) | ✅ Shipped |
+| §6 AHA / azélaïque fort | Glycolic / azelaic Class B audit (MAE 3-4 %) : solver biaisé bas sur high-dose, calibration algo-derm pré-requise | Tuner `PSEUDO_ACTIVE_*` priors `concentration.ts` formula-type aware (cream + position ≤ 3 → prior haut) |
+| **Pass 2 V2 — solver calibration debt** | Solver QP overshoot zone trace sur actifs uncapped (retinal pos 11/14 → 2.58 %). Bloque retinal / HPR / bakuchiol dose-gating. | Algo-derm C1 — fix solver pseudo-counts pour actifs uncapped trace + variance posterior preservation (CI shrunk de 51 → 42 % post-solver) |
 
 ---
 
@@ -69,10 +69,12 @@ Aucun chantier actionnable court terme.
 | BHA leave-on top 10 → `grossesse-compatible` avoid | algo-derm `grossesse_risque` Tier 2 (`context.leaveOn`) | ✅ Migré algo-derm |
 | Oxybenzone/homosalate → `grossesse-compatible` (solaires) | algo-derm `grossesse_risque` Tier 2 (`context.formulaType === "sunscreen"`) | ✅ Migré algo-derm |
 | HE risque (peppermint/clary sage/rosemary oil) → `grossesse-compatible` avoid | algo-derm `grossesse_risque` Tier 2 (genus + "oil" top 8) | ✅ Migré algo-derm |
-| Rétinoïde → `peau-sensible` avoid (proxy reactive) | `passes/cross-signal-detection.ts` — uniquement rétinoïde + AHA/BHA leave-on | ⚠️ Partial — skip définitif |
-| BHA → `peau-sensible` avoid | Combo retinoid+BHA seulement | ⚠️ Partial — skip définitif |
-| AHA fort (>8%) → `peau-sensible` + `barriere-cutanee-alteree` | algo-derm `solverMeanPct` / `solverCiLowPct` per ingrédient dispo, calibration solver pré-requise | ⚠️ Débloque-able post Pass 2 V2 |
-| Azélaïque 10%+ → reactive + alteree | Idem AHA fort + ajout azelaic dans actif-class côté algo-derm | ⚠️ Débloque-able post Pass 2 V2 + algo-derm patch |
+| Rétinoïde → `peau-sensible` avoid (combo retinoid + AHA/BHA) | `passes/cross-signal-detection.ts:detectCrossSignalAvoidTags` | ✅ |
+| Rétinol standalone leave-on dose → `peau-sensible` avoid | `detectConcentrationAvoidTags` — `retinol.solverMeanPct ≥ 0.25` (cap EU 0.3, catches at-cap = high-dose retinol while skipping LRP Retinol B3-style trace) | ✅ dose-gated (Pass 2 V2) |
+| BHA standalone leave-on dose → `peau-sensible` avoid | `detectConcentrationAvoidTags` — `salicylic.solverMeanPct ≥ 1.5` (cap EU 2, skips Cicaplast Baume B5 trace) | ✅ dose-gated (Pass 2 V2) |
+| Retinal / HPR dose → `peau-sensible` avoid | Solver QP overshoot en zone trace sur actifs uncapped (retinal pos 11/14 → solver 2.58 % alors que concentration réelle ≈ 0.05 %) | ❌ Bloqué — débloque-able post C1 (algo-derm calibration solver pseudo-counts) |
+| AHA fort (>8%) → `peau-sensible` + `barriere-cutanee-alteree` | Glycolic-acid Class B (MAE 3.21, CI 71 %) — biais bas systématique sur high-dose | ⚠️ Débloque-able post C1 + ajout barriere-cutanee-alteree au taxonomy product-side |
+| Azélaïque 10%+ → reactive + alteree | Azelaic-acid Class B (MAE 4.03, CI 71 %) — biais bas (azelaic 30 % → solver 11 %) | ⚠️ Débloque-able post C1 + ajout azelaic actif-class côté algo-derm |
 
 **Note evidence-based** : `oxybenzone`/`homosalate` seuls retenus (consensus dermo). Avobenzone/octocrylene/Tinosorb/Mexoryl sans recommandation grossesse. Rule roadmap "tous les filtres chimiques" plus conservatif que guidance pro — garder Tier 2 actuel.
 

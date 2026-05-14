@@ -228,6 +228,101 @@ describe('computeAvoidCandidates — interaction stack avoid', () => {
   })
 })
 
+describe('computeAvoidCandidates — concentration-gated avoid', () => {
+  // EU-capped actives only: retinol (cap 0.3 %) ≥ 0.25, salicylic (cap 2 %) ≥ 1.5.
+  // Both thresholds catch the at-cap signal while skipping trace positions.
+  test('retinol pos 4 leave-on cream → peau-sensible concentration', () => {
+    const inci =
+      'Aqua, Glycerin, Niacinamide, Retinol, Cetearyl Alcohol, Phenoxyethanol, Tocopherol, Sodium Hyaluronate'
+    const got = computeAvoidCandidates(
+      inci,
+      'moisturizer',
+      'skincare',
+      undefined,
+      assess(inci, 'moisturizer')
+    )
+    expect(got).toContainEqual({
+      tagSlug: S.PEAU_SENSIBLE,
+      source: 'concentration',
+    })
+  })
+
+  test('retinol pos 13 (trace) leave-on → no concentration avoid', () => {
+    const inci =
+      'Aqua, Glycerin, Cyclomethicone, Cetearyl Alcohol, Caprylic/Capric Triglyceride, Niacinamide, Panthenol, Sodium Hyaluronate, Phenoxyethanol, Tocopherol, Allantoin, Xanthan Gum, Retinol, Disodium EDTA'
+    const got = computeAvoidCandidates(
+      inci,
+      'moisturizer',
+      'skincare',
+      undefined,
+      assess(inci, 'moisturizer')
+    )
+    expect(got.find((c) => c.source === 'concentration')).toBeUndefined()
+  })
+
+  test('retinol in cleanser (rinse-off) → no concentration avoid', () => {
+    const inci = 'Aqua, Glycerin, Retinol, Cocamidopropyl Betaine'
+    const got = computeAvoidCandidates(
+      inci,
+      'cleanser',
+      'skincare',
+      undefined,
+      assess(inci, 'cleanser')
+    )
+    expect(got.find((c) => c.source === 'concentration')).toBeUndefined()
+  })
+
+  test('salicylic pos 2 leave-on toner → peau-sensible concentration', () => {
+    const inci = 'Aqua, Salicylic Acid, Glycerin'
+    const got = computeAvoidCandidates(
+      inci,
+      'serum',
+      'skincare',
+      undefined,
+      assess(inci, 'serum')
+    )
+    expect(got).toContainEqual({
+      tagSlug: S.PEAU_SENSIBLE,
+      source: 'concentration',
+    })
+  })
+
+  test('salicylic trace pos 11/14 (Cicaplast-ish) → no concentration avoid', () => {
+    const inci =
+      'Aqua, Glycerin, Centella Asiatica Extract, Niacinamide, Panthenol, Cetearyl Alcohol, Caprylic/Capric Triglyceride, Sodium Hyaluronate, Phenoxyethanol, Allantoin, Salicylic Acid, Xanthan Gum, Tocopherol, Disodium EDTA'
+    const got = computeAvoidCandidates(
+      inci,
+      'moisturizer',
+      'skincare',
+      undefined,
+      assess(inci, 'moisturizer')
+    )
+    expect(got.find((c) => c.source === 'concentration')).toBeUndefined()
+  })
+
+  test('no assessment passed → concentration avoid silently skipped', () => {
+    const inci = 'Aqua, Retinol, Glycerin'
+    const got = computeAvoidCandidates(inci, 'moisturizer', 'skincare')
+    expect(got.find((c) => c.source === 'concentration')).toBeUndefined()
+  })
+
+  test('retinol high-pos + glycolic combo → peau-sensible single emit, cross-signal wins', () => {
+    // Both cross-signal (retinoid+AHA) AND concentration (retinol at cap) would
+    // emit peau-sensible. Dedup: first source seen wins, cross-signal runs first.
+    const inci = 'Aqua, Glycerin, Retinol, Glycolic Acid, Niacinamide'
+    const got = computeAvoidCandidates(
+      inci,
+      'serum',
+      'skincare',
+      undefined,
+      assess(inci, 'serum')
+    )
+    const peauSensible = got.filter((c) => c.tagSlug === S.PEAU_SENSIBLE)
+    expect(peauSensible).toHaveLength(1)
+    expect(peauSensible[0].source).toBe('cross-signal')
+  })
+})
+
 describe('computeAvoidCandidates — null/empty INCI', () => {
   test('null INCI → no candidates', () => {
     expect(computeAvoidCandidates(null, 'serum', 'skincare')).toEqual([])

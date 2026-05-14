@@ -26,7 +26,8 @@ INCI du produit
     ├─► [Passe 3] kind → tags             → TYPE_*, ZONE_*, STEP_*, MOMENT_*
     ├─► [Passe 4] formula patterns        → occlusif, filtres solaires, prébiotique
     ├─► [Passe 5] cross-signal            → MOMENT_SOIR/MATIN depuis actif × kind
-    └─► [Passe 6] cross-signal-avoid      → stack irritation (retinoid+AHA/BHA) → peau-sensible avoid
+    ├─► [Passe 6] cross-signal-avoid      → stack irritation (retinoid+AHA/BHA) → peau-sensible avoid
+    └─► [Passe 6b] concentration-avoid    → dose-gated solverMeanPct (retinol ≥0.25, salicylic ≥1.5) → peau-sensible avoid
 
         ↓
     Déduplication (avoid > secondary)
@@ -171,6 +172,8 @@ detectActifClasses("Aqua, Retinol, Tocopherol, ...")
 | Tous les autres (retinoids, vitamin-c, vitamin-e, ceramides, hyaluronic-acid, peptides, polyphenols, tyrosinase-inhibitors, enzymes-exfoliants) | ∞ | Dosages mg-range / antioxydant / signaling — fonctionnels même sub-1 %, le corpus manuel les tague à toute position. |
 
 **Tentative `concentrationEstimate.belowBreakpoint` (rejetée 2026-05-14)** — pass 2 a brièvement consommé `assessment.matchedEvidenceByName.<ing>.concentrationEstimate.belowBreakpoint` (algo-derm flagge la zone EU <1 %) pour remplacer les position caps. Macro F1 chute 0.995 → 0.930 : vitamin-e / HA / ceramides fonctionnels en zone trace sont taggés par les annotateurs manuels malgré belowBreakpoint=true, et le breakpoint d'algo-derm contredit le gold même sur AHA/BHA/PHA (3 FN AHA + 2 FN BHA + 1 FP BHA + 2 FN PHA). Le champ `matchedEvidenceByName` reste exposé côté algo-derm pour de futurs consommateurs ; pass 2 n'en dépend pas.
+
+**Pass 2 V2 — `concentrationEstimate.solverMeanPct` (shipped 2026-05-14)** — l'audit `audit-concentration-solver` (489 claim rows DB → 355 matched, global MAE solver 3.7 % vs Beta 7.1 %) montre que le solver QP est robuste sur les actifs EU-capped (retinol cap 0.3, salicylic cap 2) parce que le cap clamp les valeurs aberrantes. Sur les actifs uncapped (retinal, HPR, bakuchiol), le solver overshoot en zone trace (retinal pos 11/14 → 2.58 %) — dose-gating différé pour ces actifs. `detectConcentrationAvoidTags` (pass 6b) consomme `solverMeanPct` pour retinol ≥ 0.25 % et salicylic ≥ 1.5 %, étendant `peau-sensible` avoid aux produits standalone high-dose (cf §6 ROADMAP).
 
 Les clusters définis :
 - `retinoids` — retinol, retinal, tretinoin, HPR, adapalene…
@@ -626,10 +629,10 @@ Le sous-système de qualité utilise **deux mécanismes complémentaires** qui n
 | `passes/actif-class-detection.ts` | Passe 2 — clusters pharmacologiques | `splitINCI` + `normalize` |
 | `shared/products/kind-to-tags.ts` (Passe 3) | TYPE_*, ZONE_*, STEP_*, MOMENT_*, TEXTURE_* + reverse lookup `kindsForTypeSlug` (P2 filter) | Non |
 | `passes/formula/` | Passe 4 — 14 fichiers (occlusif, semi-occlusif, solaires, prébiotique, eczema, repulpant, KP, step-nettoyage, cernes, fini-mat, pigments-verts, peau-normale, reparation-cutanee, absence-claims, texture). `vegan` et `grossesse-avoid` supprimés — migrés dans algo-derm v7. | `splitINCI` + `normalize` |
-| `passes/cross-signal-detection.ts` | Passe 5 — MOMENT_SOIR/MATIN depuis actif × kind ; `detectInteractionSecondaryTags` (passe 5a) — photosensibilité multi-HE depuis assessment | `analyzeINCI` (passe 5a) |
+| `passes/cross-signal-detection.ts` | Passe 5 — MOMENT_SOIR/MATIN depuis actif × kind ; `detectInteractionSecondaryTags` (passe 5a) — photosensibilité multi-HE depuis assessment ; `detectConcentrationAvoidTags` (passe 6b) — dose-gating retinol/salicylic via `solverMeanPct` | `analyzeINCI` (passe 5a, 6b) |
 | `passes/percent-claim-detection.ts` | Passe 5x — fallback `% INCI structuré` quand INCI fragile | `splitINCI` |
 | `passes/brand-cert-detection.ts` | Passe 5b — labels brand (vegan / cruelty-free / bio-naturel) depuis `brand_certifications` | Non |
-| `passes/auto-tag-avoid.ts` | Passe 6 — agrégateur avoid (grossesse + cross-signal + interactions algo-derm) | Via les passes ci-dessus |
+| `passes/auto-tag-avoid.ts` | Passe 6 — agrégateur avoid (grossesse + cross-signal + interactions algo-derm + concentration dose-gated) | Via les passes ci-dessus |
 | `write.ts` | API runtime — `writeTagsForProduct(productId)` consommé par `createProduct()` | Via orchestrator |
 | `runners/backfill/main.ts` | Runner batch — ré-applique l'orchestrator sur toute la DB | Via orchestrator |
 | `runners/audit/main.ts` | Runner audit — dry-run avec stats par tag (passe 1 uniquement) | Via `auto-tag-detection.ts` |
