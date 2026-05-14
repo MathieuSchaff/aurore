@@ -28,17 +28,13 @@ describe('BlogListPage — error state', () => {
   })
 
   it('renders the retry EmptyState when the list query fails', () => {
-    renderWithProviders(
-      <BlogListPage page={1} onPageChange={vi.fn()} onSearchChange={vi.fn()} />
-    )
+    renderWithProviders(<BlogListPage page={1} onPageChange={vi.fn()} onSearchChange={vi.fn()} />)
     expect(screen.getByText('Chargement impossible')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /Réessayer/i })).toBeInTheDocument()
   })
 
   it('calls refetch when the user clicks Réessayer', async () => {
-    renderWithProviders(
-      <BlogListPage page={1} onPageChange={vi.fn()} onSearchChange={vi.fn()} />
-    )
+    renderWithProviders(<BlogListPage page={1} onPageChange={vi.fn()} onSearchChange={vi.fn()} />)
     await userEvent.click(screen.getByRole('button', { name: /Réessayer/i }))
     expect(refetchMock).toHaveBeenCalledOnce()
   })

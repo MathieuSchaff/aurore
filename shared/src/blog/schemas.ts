@@ -1,5 +1,6 @@
 import { z } from 'zod'
 
+import { safeUrl } from '../core'
 import { BLOG_CATEGORY_VALUES } from './categories'
 
 const uuid = z.uuid()
@@ -17,7 +18,7 @@ export const createArticleSchema = z.object({
   excerpt: z.string().max(500).optional(),
   content: z.string().max(200000),
   category: z.enum(BLOG_CATEGORY_VALUES),
-  coverImageUrl: z.url().optional(),
+  coverImageUrl: safeUrl.optional(),
   publishedAt: z.iso.datetime().nullable().optional(),
 })
 
@@ -28,7 +29,7 @@ export const updateArticleSchema = z
     excerpt: z.string().max(500).nullable().optional(),
     content: z.string().max(200000).optional(),
     category: z.enum(BLOG_CATEGORY_VALUES).optional(),
-    coverImageUrl: z.url().nullable().optional(),
+    coverImageUrl: safeUrl.nullable().optional(),
     publishedAt: z.iso.datetime().nullable().optional(),
   })
   .strict()

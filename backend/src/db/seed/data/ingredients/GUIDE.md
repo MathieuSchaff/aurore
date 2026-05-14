@@ -62,14 +62,14 @@ Contenu markdown detaille.
 
 ### Champs
 
-| Champ | Role | Obligatoire |
-|-------|------|-------------|
-| `name` | Nom affiche (FR) | oui |
-| `slug` | Identifiant URL unique, enregistre dans `ingredient-slugs.ts` | oui |
-| `type` | Domaine : `skincare`, `haircare`, `dental`, `supplement` | oui |
-| `category` | Role fonctionnel (depend du `type`, voir section 4) | oui |
-| `description` | Resume court, 1-2 phrases | oui |
-| `content` | Article wiki complet en markdown | oui |
+| Champ         | Role                                                          | Obligatoire |
+| ------------- | ------------------------------------------------------------- | ----------- |
+| `name`        | Nom affiche (FR)                                              | oui         |
+| `slug`        | Identifiant URL unique, enregistre dans `ingredient-slugs.ts` | oui         |
+| `type`        | Domaine : `skincare`, `haircare`, `dental`, `supplement`      | oui         |
+| `category`    | Role fonctionnel (depend du `type`, voir section 4)           | oui         |
+| `description` | Resume court, 1-2 phrases                                     | oui         |
+| `content`     | Article wiki complet en markdown                              | oui         |
 
 ---
 
@@ -77,12 +77,12 @@ Contenu markdown detaille.
 
 Import : `import { INGREDIENT_TYPES } from '@habit-tracker/shared'`
 
-| Valeur | Usage |
-|--------|-------|
-| `INGREDIENT_TYPES.SKINCARE` | Ingredients topiques pour la peau |
-| `INGREDIENT_TYPES.HAIRCARE` | Ingredients capillaires |
-| `INGREDIENT_TYPES.DENTAL` | Ingredients bucco-dentaires |
-| `INGREDIENT_TYPES.SUPPLEMENT` | Complements alimentaires oraux |
+| Valeur                        | Usage                             |
+| ----------------------------- | --------------------------------- |
+| `INGREDIENT_TYPES.SKINCARE`   | Ingredients topiques pour la peau |
+| `INGREDIENT_TYPES.HAIRCARE`   | Ingredients capillaires           |
+| `INGREDIENT_TYPES.DENTAL`     | Ingredients bucco-dentaires       |
+| `INGREDIENT_TYPES.SUPPLEMENT` | Complements alimentaires oraux    |
 
 **Un ingredient = un seul type.** Si un meme actif (ex: niacinamide) existe en skincare ET en supplement, creer **deux entrees distinctes** avec des slugs differents (ex: `niacinamide` skincare, `niacinamide-supplement` supplement).
 
@@ -96,12 +96,12 @@ Chaque domaine a son propre enum exporté depuis `@habit-tracker/shared`.
 **Ne pas mélanger** : un fichier seed `dental/` doit importer
 `DENTAL_INGREDIENT_CATEGORIES`, pas `SKINCARE_INGREDIENT_CATEGORIES`.
 
-| `type` | Enum à importer | Valeurs |
-|--------|-----------------|---------|
-| `skincare` | `SKINCARE_INGREDIENT_CATEGORIES` | `ACTIF`, `HUMECTANT`, `EMOLLIENT`, `FILTRE_UV`, `TENSIOACTIF`, `EXCIPIENT` |
-| `haircare` | `HAIRCARE_INGREDIENT_CATEGORIES` | `ACTIF`, `HUMECTANT`, `CONDITIONNEUR`, `TENSIOACTIF`, `EXCIPIENT` |
-| `dental` | `DENTAL_INGREDIENT_CATEGORIES` | `ACTIF`, `HUMECTANT`, `TENSIOACTIF`, `EXCIPIENT` |
-| `supplement` | `SUPPLEMENT_CATEGORIES` | `VITAMINE`, `MINERAL`, `ACIDE_AMINE`, `ACIDE_GRAS`, `ANTIOXYDANT`, `CAROTENOIDE`, `PLANTE`, `ADAPTOGENE`, `CHAMPIGNON`, `PROBIOTIQUE`, `PREBIOTIQUE`, `PEPTIDE`, `COLLAGENE`, `POLYPHENOL`, `NEUROACTIF`, `LONGEVITE`, `ENZYME`, `AUTRE` |
+| `type`       | Enum à importer                  | Valeurs                                                                                                                                                                                                                                  |
+| ------------ | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `skincare`   | `SKINCARE_INGREDIENT_CATEGORIES` | `ACTIF`, `HUMECTANT`, `EMOLLIENT`, `FILTRE_UV`, `TENSIOACTIF`, `EXCIPIENT`                                                                                                                                                               |
+| `haircare`   | `HAIRCARE_INGREDIENT_CATEGORIES` | `ACTIF`, `HUMECTANT`, `CONDITIONNEUR`, `TENSIOACTIF`, `EXCIPIENT`                                                                                                                                                                        |
+| `dental`     | `DENTAL_INGREDIENT_CATEGORIES`   | `ACTIF`, `HUMECTANT`, `TENSIOACTIF`, `EXCIPIENT`                                                                                                                                                                                         |
+| `supplement` | `SUPPLEMENT_CATEGORIES`          | `VITAMINE`, `MINERAL`, `ACIDE_AMINE`, `ACIDE_GRAS`, `ANTIOXYDANT`, `CAROTENOIDE`, `PLANTE`, `ADAPTOGENE`, `CHAMPIGNON`, `PROBIOTIQUE`, `PREBIOTIQUE`, `PEPTIDE`, `COLLAGENE`, `POLYPHENOL`, `NEUROACTIF`, `LONGEVITE`, `ENZYME`, `AUTRE` |
 
 Source de vérité : `shared/src/ingredients/<domaine>/categories.ts`.
 
@@ -115,15 +115,16 @@ Fichier : `ingredients/<domaine>/ingredient-slugs.ts` (domaine = `skincare`, `su
 
 Ajouter une nouvelle section const ou completer une existante dans le fichier de domaine. Le fichier racine `ingredients/ingredient-slugs.ts` re-exporte automatiquement tous les groupes de chaque sous-dossier — pas besoin d'y toucher pour ajouter un slug a un groupe existant.
 
-Si vous creez un *nouveau* groupe de slugs, il faut en plus :
+Si vous creez un _nouveau_ groupe de slugs, il faut en plus :
+
 1. Importer le nouveau groupe dans le bloc `import { ... } from './<domaine>/ingredient-slugs'` du fichier racine.
 2. Ajouter `...NOUVEAU_GROUPE` dans l'agregat `INGREDIENT_SLUGS` (en bas du fichier racine).
 
 ```ts
 export const SUPPLEMENTS_VITAMINES = {
-  BIOTINE: 'biotine',
-  VITAMINE_D3: 'vitamine-d3',
-} as const
+  BIOTINE: "biotine",
+  VITAMINE_D3: "vitamine-d3",
+} as const;
 ```
 
 ### Etape 2 : Creer le fichier seed
@@ -132,23 +133,23 @@ Creer un fichier dans le **sous-dossier correspondant au type**.
 Ex : `ingredients/supplements/vitamines.ts`
 
 ```ts
-import { INGREDIENT_TYPES, SUPPLEMENT_CATEGORIES } from '@habit-tracker/shared'
-import { INGREDIENT_SLUGS } from '../ingredient-slugs'
-import type { IngredientInput } from '../seed-ingredients'
+import { INGREDIENT_TYPES, SUPPLEMENT_CATEGORIES } from "@habit-tracker/shared";
+import { INGREDIENT_SLUGS } from "../ingredient-slugs";
+import type { IngredientInput } from "../seed-ingredients";
 
 export const SUPPLEMENTS_VITAMINES: IngredientInput[] = [
   {
-    name: 'Biotine (Vitamine B8)',
+    name: "Biotine (Vitamine B8)",
     slug: INGREDIENT_SLUGS.BIOTINE,
     type: INGREDIENT_TYPES.SUPPLEMENT,
     category: SUPPLEMENT_CATEGORIES.VITAMINE,
-    description: 'Vitamine hydrosoluble impliquee dans le metabolisme...',
+    description: "Vitamine hydrosoluble impliquee dans le metabolisme...",
     content: `
 # Biotine
 ...
 `,
   },
-]
+];
 ```
 
 ### Etape 3 : Brancher dans le index.ts du sous-dossier
@@ -157,12 +158,12 @@ Chaque sous-dossier a son propre `index.ts` qui exporte un tableau nomme.
 Ex : `ingredients/supplements/index.ts`
 
 ```ts
-import type { IngredientInput } from '../seed-ingredients'
-import { SUPPLEMENTS_VITAMINES } from './vitamines'
+import type { IngredientInput } from "../seed-ingredients";
+import { SUPPLEMENTS_VITAMINES } from "./vitamines";
 
 export const supplementIngredients: IngredientInput[] = [
   ...SUPPLEMENTS_VITAMINES,
-]
+];
 ```
 
 ### Etape 4 : Brancher dans le index.ts racine
@@ -172,12 +173,12 @@ Fichier : `ingredients/index.ts`
 Ajouter l'import et spreader dans `ingredientData` :
 
 ```ts
-import { supplementIngredients } from './supplements'
+import { supplementIngredients } from "./supplements";
 
 export const ingredientData: IngredientInput[] = [
   ...skincareIngredients,
-  ...supplementIngredients,  // <-- ajouter
-]
+  ...supplementIngredients, // <-- ajouter
+];
 ```
 
 ### Etape 5 : Associer des tags (optionnel)
@@ -214,10 +215,10 @@ quatre fichiers de domaine — inutile de toucher `data/ingredient-tags/index.ts
 
 ## 7. Fichiers a NE PAS MODIFIER
 
-| Fichier | Raison |
-|---------|--------|
-| `types.ts` | Type `IngredientInput` — source de verite |
-| `ingredient-slugs.ts` (racine `ingredients/`) | Re-export + agregat. Pour ajouter un slug, editer `<domaine>/ingredient-slugs.ts` a la place. |
+| Fichier                                            | Raison                                                                                              |
+| -------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `types.ts`                                         | Type `IngredientInput` — source de verite                                                           |
+| `ingredient-slugs.ts` (racine `ingredients/`)      | Re-export + agregat. Pour ajouter un slug, editer `<domaine>/ingredient-slugs.ts` a la place.       |
 | `data/ingredient-tags/index.ts` (shell, top-level) | Re-export + agregat. Pour ajouter un tag mapping, editer `<domaine>/ingredient-tags.ts` a la place. |
 
 ---
@@ -227,6 +228,6 @@ quatre fichiers de domaine — inutile de toucher `data/ingredient-tags/index.ts
 Apres ajout, lancer depuis la racine du projet :
 
 ```bash
-make ts-verify   # verifie les types
-make lint-fix    # formate
+just ts-verify   # verifie les types
+just lint-fix    # formate
 ```

@@ -53,5 +53,5 @@ docker-compose*
 # =========================
 .DS_Store
 Thumbs.db
-Makefile
+just/
 backups/

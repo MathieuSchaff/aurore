@@ -12,9 +12,9 @@ See [README.md](./README.md) for the full setup guide.
 
 ## Code standards
 
-- Prefer descriptive types (Zod + TypeScript) over comments. Comment the *why*, not the *what*.
+- Prefer descriptive types (Zod + TypeScript) over comments. Comment the _why_, not the _what_.
 - All validation schemas go in the `shared` package — never define a raw endpoint without a Zod validator.
-- Run `make lint-fix` before committing (Biome handles formatting and linting).
+- Run `just lint-fix` before committing (Biome handles formatting and linting).
 - Every new backend feature needs at least one integration test in `backend/src/features/*/tests`.
 
 ---
@@ -42,5 +42,5 @@ refactor(backend): centralize error handling with globalErrorHandler
 ## Pull requests
 
 - One PR = one thing. Don't mix a bug fix with a refactor.
-- `make test-all` must pass locally before opening a PR.
-- Describe the *why* in the PR description, not the *what* — the diff shows the what.
+- `just test-all` must pass locally before opening a PR.
+- Describe the _why_ in the PR description, not the _what_ — the diff shows the what.
