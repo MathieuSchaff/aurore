@@ -31,6 +31,30 @@ fix-tag-domain-consistency:
     $COMPOSE exec api bun run src/db/seed/maintenance/fix-tag-domain-consistency.ts \
         ${WRITE:+--write}
 
+# Scan DB rows for suspicious URLs / HTML injection (pre-dates safeUrl validation).
+# Exit 1 if high-severity findings. Env: WRITE=1 (auto-fix), CSV_OUT=/tmp/out.csv (export).
+# TARGET: dev|prod. Confirmation interactive si TARGET=prod + WRITE.
+audit-security:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    TARGET="${TARGET:-dev}"
+    case "$TARGET" in
+        dev)  COMPOSE="{{COMPOSE_DEV}}" ;;
+        prod) COMPOSE="{{COMPOSE_PROD}}" ;;
+        *)    printf "{{RED}}TARGET invalide: dev|prod (got '$TARGET'){{NC}}\n"; exit 1 ;;
+    esac
+    if [ "$TARGET" = "prod" ] && [ -n "${WRITE:-}" ]; then
+        printf "{{RED}}⚠ PROD WRITE (audit-security) — tape 'PROD' pour confirmer{{NC}}\n"
+        read -r -p "> " C
+        [ "$C" = "PROD" ] || { printf "{{RED}}abandon{{NC}}\n"; exit 1; }
+    fi
+    MODE=$([ -n "${WRITE:-}" ] && echo "WRITE" || echo "dry-run")
+    printf "{{CYAN}}Security audit ($MODE, $TARGET)...{{NC}}\n"
+    $COMPOSE exec \
+        ${WRITE:+-e WRITE="$WRITE"} \
+        ${CSV_OUT:+-e CSV_OUT="$CSV_OUT"} \
+        api bun run src/db/audit/audit-security.ts
+
 # Audit DB consistency (seed drift, relational integrity)
 audit-db:
     #!/usr/bin/env bash
