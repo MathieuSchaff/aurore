@@ -1,0 +1,48 @@
+.aur-chaos-tab {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  position: relative;
+  min-width: 0;
+}
+.aur-chaos-tab__favicon {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  background: var(--color-tertiary, var(--color-accent));
+  flex-shrink: 0;
+}
+.aur-chaos-tab__title {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: var(--font-medium);
+  color: var(--text-secondary);
+  min-width: 0;
+}
+.aur-chaos-tab__close {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+.aur-chaos-tab--strike .aur-chaos-tab__title {
+  text-decoration: line-through;
+  text-decoration-color: var(--color-accent);
+  opacity: 0.6;
+}
+.aur-chaos-tab--note {
+  background: oklch(98% 0.03 75);
+  color: oklch(35% 0.06 75);
+  font-style: italic;
+  transform: rotate(-1deg);
+}
+[data-theme="dark"] .aur-chaos-tab--note {
+  background: oklch(28% 0.06 75);
+  color: oklch(78% 0.08 75);
+}
