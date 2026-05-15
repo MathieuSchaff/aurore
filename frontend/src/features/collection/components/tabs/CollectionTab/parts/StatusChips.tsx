@@ -22,6 +22,7 @@ export function StatusChips({ currentStatus, onChange }: StatusChipsProps) {
               type="button"
               className={clsx('pds-status-chip', currentStatus === s && 'active')}
               aria-pressed={currentStatus === s}
+              title={cfg.purpose}
               onClick={() => onChange(s)}
             >
               <Icon size={14} />

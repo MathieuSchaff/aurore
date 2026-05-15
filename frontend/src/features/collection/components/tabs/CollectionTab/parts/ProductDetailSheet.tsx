@@ -1,28 +1,32 @@
 import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
 import {
-  Calendar,
+  ArrowLeftRight,
   Clipboard,
-  DollarSign,
   Droplets,
   ExternalLink,
-  HelpCircle,
-  Package,
+  Eye,
+  FlaskConical,
+  Heart,
+  ShoppingBag,
+  Sparkles,
   Star,
   Trash2,
   X,
 } from 'lucide-react'
-import { useMemo, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
+import { Button } from '@/component/Button/Button'
 import { Sheet } from '@/component/Dialog/Sheet'
-import { calculateWeightedScore } from '@/lib/helpers/reviews'
+import { statusLabels } from '@/features/collection/constants'
+import { ProductImage } from '@/features/products/components/ProductImage/ProductImage'
 import { productQueries } from '@/lib/queries/products'
-import type { UserPreferences } from '@/lib/queries/user-preferences'
 import type { UserProduct } from '@/lib/queries/user-products'
 import { useDeleteUserProduct, useUpdateUserProduct } from '@/lib/queries/user-products'
 import { AddPurchaseDialog } from './AddPurchaseDialog'
 import { CriteriaList } from './CriteriaList'
 import { DeleteConfirmDialog } from './DeleteConfirmDialog'
+import { ExperienceTags } from './ExperienceTags'
 import { InciPopup } from './InciPopup'
 import { LifecycleSection } from './LifecycleSection'
 import { RepurchasePicker } from './RepurchasePicker'
@@ -31,9 +35,28 @@ import { StatusChips } from './StatusChips'
 
 import './ProductDetailSheet.css'
 
+const REASON_TAG_LABEL = {
+  avoided: 'À éviter',
+  archived: 'Archivé',
+} as const
+
+type ReasonStatus = keyof typeof REASON_TAG_LABEL
+
+function isReasonStatus(s: UserProduct['status']): s is ReasonStatus {
+  return s === 'avoided' || s === 'archived'
+}
+
+function formatReasonDate(d: Date): string {
+  return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
+}
+
+function hasRecentReasonTag(comment: string | null | undefined, status: ReasonStatus): boolean {
+  if (!comment) return false
+  return comment.includes(`[${REASON_TAG_LABEL[status]},`)
+}
+
 interface ProductDetailSheetProps {
   p: UserProduct
-  prefs: UserPreferences | undefined
   activeTooltip: string | null
   setActiveTooltip: (id: string | null) => void
   onClose: () => void
@@ -41,7 +64,6 @@ interface ProductDetailSheetProps {
 
 export function ProductDetailSheet({
   p,
-  prefs,
   activeTooltip,
   setActiveTooltip,
   onClose,
@@ -50,19 +72,15 @@ export function ProductDetailSheet({
   const deleteMutation = useDeleteUserProduct()
 
   const closeBtnRef = useRef<HTMLButtonElement>(null)
+  const decisionSectionRef = useRef<HTMLElement>(null)
   const [showAddPurchase, setShowAddPurchase] = useState(false)
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [showInci, setShowInci] = useState(false)
   const [localComment, setLocalComment] = useState(p.comment || '')
+  const [reasonDraft, setReasonDraft] = useState('')
 
   const { data: fullProduct, isError: fullProductError } = useQuery(
     productQueries.bySlug(p.product.slug)
-  )
-
-  const score = calculateWeightedScore(
-    p.review,
-    prefs?.criteriaWeights,
-    prefs?.displayScale || 'out_of_20'
   )
 
   const handleCommentBlur = () => {
@@ -71,20 +89,37 @@ export function ProductDetailSheet({
     }
   }
 
-  const tagsByCategory = useMemo(() => {
-    const map: Record<string, string[]> = {}
-    if (!p.product.tagProducts) return map
-    for (const pt of p.product.tagProducts) {
-      const cat = pt.productTag?.tagType || 'other'
-      if (!map[cat]) map[cat] = []
-      map[cat].push(pt.productTag?.label ?? '')
-    }
-    return map
-  }, [p.product.tagProducts])
+  const showReasonPrompt = isReasonStatus(p.status) && !hasRecentReasonTag(p.comment, p.status)
 
-  const zone = tagsByCategory.skin_zone?.join(', ') || 'Non spécifiée'
-  const type = tagsByCategory.product_type?.join(', ') || 'Non spécifié'
-  const cible = tagsByCategory.skin_type?.join(', ') || 'Non spécifiée'
+  const handleSaveReason = () => {
+    const trimmed = reasonDraft.trim()
+    if (!trimmed || !isReasonStatus(p.status)) return
+    const prefix = `[${REASON_TAG_LABEL[p.status]}, ${formatReasonDate(new Date())}]`
+    const next = p.comment ? `${p.comment}\n\n${prefix} ${trimmed}` : `${prefix} ${trimmed}`
+    updateMutation.mutate({ id: p.id, input: { comment: next } })
+    setLocalComment(next)
+    setReasonDraft('')
+  }
+
+  // Status badge in §1 deep-links to §6 — scroll into view then focus the
+  // active chip so keyboard users land on the actionable control.
+  const handleFocusDecision = () => {
+    const section = decisionSectionRef.current
+    if (!section) return
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    const activeChip = section.querySelector<HTMLButtonElement>(
+      '.pds-status-chip[aria-pressed="true"]'
+    )
+    if (activeChip) {
+      activeChip.focus({ preventScroll: true })
+    } else {
+      section.focus({ preventScroll: true })
+    }
+  }
+
+  const statusCfg = statusLabels[p.status]
+  const StatusIcon = statusCfg.icon
+
   const priceEuros = p.product.priceCents ? `${(p.product.priceCents / 100).toFixed(2)}€` : null
 
   return (
@@ -119,69 +154,212 @@ export function ProductDetailSheet({
         </div>
 
         <div className="pds-content">
-          <StatusChips
-            currentStatus={p.status}
-            onChange={(newStatus) =>
-              updateMutation.mutate({ id: p.id, input: { status: newStatus } })
-            }
-          />
-
-          <div className="pds-grid">
-            <div className="pds-main-col">
-              <div className="pds-card pds-review-card coll-card">
-                <div className="pds-card-header">
-                  <Star size={16} />
-                  <h3>Mon Avis</h3>
-                  {score && <span className="pds-total-score">{score}</span>}
-                </div>
-
-                <SentimentPicker
-                  value={p.sentiment}
-                  onChange={(val) => updateMutation.mutate({ id: p.id, input: { sentiment: val } })}
-                />
-
-                <CriteriaList
-                  userProductId={p.id}
-                  review={p.review}
-                  activeTooltip={activeTooltip}
-                  setActiveTooltip={setActiveTooltip}
-                />
-
-                <div className="pds-comment-section">
-                  <label htmlFor="pds-comment" className="pds-section-title">
-                    Mes notes
-                  </label>
-                  <textarea
-                    id="pds-comment"
-                    placeholder="Qu'en pensez-vous ? (texture, odeur, résultats...)"
-                    value={localComment}
-                    onChange={(e) => setLocalComment(e.target.value)}
-                    onBlur={handleCommentBlur}
-                  />
-                </div>
-
-                <RepurchasePicker
-                  value={p.wouldRepurchase}
-                  onChange={(val) =>
-                    updateMutation.mutate({ id: p.id, input: { wouldRepurchase: val } })
-                  }
-                />
+          {/* §1 Sur votre étagère */}
+          <section className="pds-card coll-card pds-shelf-card">
+            <div className="pds-card-header">
+              <ShoppingBag size={16} />
+              <h3>Sur votre étagère</h3>
+            </div>
+            <div className="pds-shelf-row">
+              <ProductImage
+                kind={p.product.kind}
+                unit={p.product.unit}
+                imageUrl={p.product.imageUrl}
+                size={72}
+              />
+              <div className="pds-shelf-meta">
+                <p className="pds-shelf-summary">
+                  {p.product.kind
+                    ? `Un ${p.product.kind.toLowerCase()} enregistré dans votre étagère.`
+                    : 'Un produit enregistré dans votre étagère.'}
+                </p>
+                <button
+                  type="button"
+                  className="pds-shelf-status-badge"
+                  style={{ '--shelf-status-color': statusCfg.color } as React.CSSProperties}
+                  onClick={handleFocusDecision}
+                  aria-label={`Statut actuel : ${statusCfg.label}. Modifier dans Votre décision.`}
+                >
+                  <StatusIcon size={13} aria-hidden="true" />
+                  <span>{statusCfg.label}</span>
+                </button>
               </div>
+            </div>
+            <LifecycleSection p={p} onAddPurchase={() => setShowAddPurchase(true)} />
+          </section>
 
-              <LifecycleSection p={p} onAddPurchase={() => setShowAddPurchase(true)} />
+          {/* §2 En un coup d'œil */}
+          <section className="pds-card coll-card">
+            <div className="pds-card-header">
+              <Eye size={16} />
+              <h3>En un coup d'œil</h3>
+            </div>
+            <p className="pds-empty-msg">
+              Aurore n'a pas encore de résumé calme pour cette formule. Le détail des ingrédients
+              reste disponible plus bas.
+            </p>
+          </section>
+
+          {/* §3 Groupes d'ingrédients */}
+          <section className="pds-card coll-card">
+            <div className="pds-card-header">
+              <FlaskConical size={16} />
+              <h3>Groupes d'ingrédients</h3>
+            </div>
+            <p className="pds-empty-msg">
+              Aurore n'a pas encore assez de contexte pour regrouper cette formule. Vous trouverez
+              la liste complète en bas de page.
+            </p>
+          </section>
+
+          {/* §4 À noter */}
+          <section className="pds-card coll-card">
+            <div className="pds-card-header">
+              <Sparkles size={16} />
+              <h3>À noter</h3>
+            </div>
+            <p className="pds-empty-msg">
+              Aurore n'a rien à mettre en évidence sur cette formule pour le moment. À noter, pas
+              une alerte.
+            </p>
+          </section>
+
+          {/* §5 Votre expérience */}
+          <section className="pds-card pds-review-card coll-card">
+            <div className="pds-card-header">
+              <Star size={16} />
+              <h3>Votre expérience</h3>
             </div>
 
-            <div className="pds-side-col">
-              <div className="pds-card coll-card">
-                <div className="pds-card-header">
-                  <Droplets size={16} />
-                  <h3 className="pds-section-title">Ingrédients</h3>
-                </div>
-                {fullProductError ? (
-                  <p className="pds-empty-msg" role="alert">
-                    Détails indisponibles — vérifie ta connexion.
-                  </p>
-                ) : fullProduct?.ingredients && fullProduct.ingredients.length > 0 ? (
+            <SentimentPicker
+              value={p.sentiment}
+              status={p.status}
+              onChange={(val) => updateMutation.mutate({ id: p.id, input: { sentiment: val } })}
+            />
+
+            <CriteriaList
+              userProductId={p.id}
+              review={p.review}
+              activeTooltip={activeTooltip}
+              setActiveTooltip={setActiveTooltip}
+            />
+
+            <ExperienceTags
+              ressenti={p.ressenti}
+              routine={p.routine}
+              preferences={p.preferences}
+              onChangeRessenti={(next) =>
+                updateMutation.mutate({ id: p.id, input: { ressenti: next } })
+              }
+              onChangeRoutine={(next) =>
+                updateMutation.mutate({ id: p.id, input: { routine: next } })
+              }
+              onChangePreferences={(next) =>
+                updateMutation.mutate({ id: p.id, input: { preferences: next } })
+              }
+            />
+
+            <div className="pds-comment-section">
+              <label htmlFor="pds-comment" className="pds-section-title">
+                Notes personnelles
+              </label>
+              <textarea
+                id="pds-comment"
+                placeholder="Quelques mots sur votre expérience : texture, odeur, ressenti dans la routine…"
+                value={localComment}
+                onChange={(e) => setLocalComment(e.target.value)}
+                onBlur={handleCommentBlur}
+              />
+            </div>
+          </section>
+
+          {/* §6 Votre décision */}
+          <section
+            ref={decisionSectionRef}
+            id="pds-decision"
+            tabIndex={-1}
+            className="pds-card coll-card"
+          >
+            <div className="pds-card-header">
+              <Heart size={16} />
+              <h3>Votre décision</h3>
+            </div>
+            <p className="pds-section-lead">
+              Là où vous en êtes maintenant. Modifiable quand votre avis change.
+            </p>
+            <StatusChips
+              currentStatus={p.status}
+              onChange={(newStatus) =>
+                updateMutation.mutate({ id: p.id, input: { status: newStatus } })
+              }
+            />
+            {showReasonPrompt && (
+              <div className="pds-reason-prompt">
+                <label htmlFor="pds-reason" className="pds-section-title">
+                  Une raison à garder en tête ?
+                </label>
+                <p className="pds-reason-hint">
+                  Quelques mots pour vous rappeler ce choix plus tard. Ajoutés à vos notes.
+                </p>
+                <textarea
+                  id="pds-reason"
+                  className="pds-reason-textarea"
+                  value={reasonDraft}
+                  onChange={(e) => setReasonDraft(e.target.value)}
+                  placeholder="Trop riche pour mon hiver, picotements à la première utilisation…"
+                  rows={2}
+                />
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled={!reasonDraft.trim() || updateMutation.isPending}
+                  onClick={handleSaveReason}
+                >
+                  Garder cette raison
+                </Button>
+              </div>
+            )}
+            <RepurchasePicker
+              value={p.wouldRepurchase}
+              onChange={(val) =>
+                updateMutation.mutate({ id: p.id, input: { wouldRepurchase: val } })
+              }
+            />
+          </section>
+
+          {/* §7 Comparer avec un autre produit */}
+          <section className="pds-card coll-card">
+            <div className="pds-card-header">
+              <ArrowLeftRight size={16} />
+              <h3>Comparer avec un autre produit</h3>
+            </div>
+            <Link
+              to="/products/compare/new"
+              search={{ seed: p.productId }}
+              className="pds-compare-btn"
+            >
+              <ArrowLeftRight size={14} />
+              Comparer ce produit à un autre
+            </Link>
+          </section>
+
+          {/* §8 Liste complète des ingrédients */}
+          <section className="pds-card coll-card">
+            <div className="pds-card-header">
+              <Droplets size={16} />
+              <h3 className="pds-section-title">Liste complète des ingrédients</h3>
+            </div>
+            {fullProductError ? (
+              <p className="pds-empty-msg" role="alert">
+                Détails indisponibles — vérifie ta connexion.
+              </p>
+            ) : fullProduct?.ingredients && fullProduct.ingredients.length > 0 ? (
+              <>
+                <p className="pds-disclosure-hint">
+                  La liste complète reste disponible quand vous en avez besoin.
+                </p>
+                <details className="pds-ingredients-disclosure">
+                  <summary className="pds-ingredients-summary">Voir la liste complète</summary>
                   <div className="pds-ingredients-list">
                     {fullProduct.ingredients.map((pi) => (
                       <Link
@@ -194,46 +372,24 @@ export function ProductDetailSheet({
                       </Link>
                     ))}
                   </div>
-                ) : (
-                  <p className="pds-empty-msg">Liste non renseignée</p>
-                )}
+                </details>
+              </>
+            ) : (
+              <p className="pds-empty-msg">
+                Liste d'ingrédients non ajoutée. Vous pouvez garder ce produit comme note
+                personnelle pour le moment.
+              </p>
+            )}
 
-                {fullProduct?.inci && (
-                  <button type="button" className="pds-inci-btn" onClick={() => setShowInci(true)}>
-                    <Clipboard size={13} />
-                    Voir l'INCI
-                  </button>
-                )}
-              </div>
+            {fullProduct?.inci && (
+              <button type="button" className="pds-inci-btn" onClick={() => setShowInci(true)}>
+                <Clipboard size={13} />
+                Voir l'INCI
+              </button>
+            )}
+          </section>
 
-              <div className="pds-card coll-card">
-                <div className="pds-card-header">
-                  <Package size={16} />
-                  <h3 className="pds-section-title">Infos</h3>
-                </div>
-                <div className="pds-info-grid">
-                  <div className="pds-info-item">
-                    <Droplets size={14} />
-                    <span>Zone: {zone}</span>
-                  </div>
-                  <div className="pds-info-item">
-                    <Calendar size={14} />
-                    <span>Type: {type}</span>
-                  </div>
-                  <div className="pds-info-item">
-                    <HelpCircle size={14} />
-                    <span>Cible: {cible}</span>
-                  </div>
-                  <div className="pds-info-item">
-                    <DollarSign size={14} />
-                    <span>Format: {p.product.unit || '—'}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="pds-danger-zone">
+          <div className="pds-remove-row">
             <button
               type="button"
               className="pds-remove-btn"
@@ -253,10 +409,22 @@ export function ProductDetailSheet({
 
       {showDeleteConfirm && (
         <DeleteConfirmDialog
+          title="Retirer ce produit ?"
+          message="Retirer supprime aussi vos notes et votre historique pour ce produit. Si vous voulez juste ne plus l'utiliser, vous pouvez le marquer À éviter — vos notes restent disponibles."
+          confirmLabel="Retirer définitivement"
           onConfirm={() => deleteMutation.mutate(p.id, { onSuccess: onClose })}
           onClose={() => setShowDeleteConfirm(false)}
           isPending={deleteMutation.isPending}
-          message={`Voulez-vous vraiment retirer ${p.product.name} ? Toutes vos notes et votre historique d'achats pour ce produit seront supprimés.`}
+          onAvoid={
+            p.status === 'avoided'
+              ? undefined
+              : () =>
+                  updateMutation.mutate(
+                    { id: p.id, input: { status: 'avoided' } },
+                    { onSuccess: onClose }
+                  )
+          }
+          avoidPending={updateMutation.isPending}
         />
       )}
 

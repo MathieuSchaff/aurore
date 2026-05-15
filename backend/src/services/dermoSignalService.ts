@@ -5,28 +5,18 @@
  * compute a suspicion/favorite score based on how often it shows up in products
  * the user liked vs disliked.
  *
- * Formula
- * -------
- *   signal = (count_in_bad / total_bad) - (count_in_good / total_good)
- *
  *   total_bad   = user products where tolerance ≤ 2 OR status = 'avoided'
- *   total_good  = user products where tolerance ≥ 4 OR status = 'holy_grail'
+ *   total_good  = user products where tolerance ≥ 4 OR sentiment = 6 (Holy Grail)
  *   count_in_X  = subset of X products that also contain this ingredient
  *
- * Guard-rails
- * -----------
- *   1. Skip ingredients flagged is_filler = true (carriers, pH adjusters, etc.)
- *   2. Require at least MIN_EVIDENCE hits on a side before trusting that ratio
- *   3. Never divide by zero
- *
  * Storage mapping (schema uses suspicion/favorite split instead of raw signal)
- *   suspicionScore = max(0,  signal)   — ingredient over-represented in bad products
- *   favoriteScore  = max(0, -signal)   — ingredient over-represented in good products
+ *   suspicionScore = max(0,  signal)   — over-represented in bad products
+ *   favoriteScore  = max(0, -signal)   — over-represented in good products
  *
- * Note: status changes (avoided / holy_grail) also affect the signal, but this
- * service is only triggered from review saves. To keep scores fully up-to-date,
- * also call it from the PATCH /:id handler when status flips.
+ * Trigger: review saves and status/sentiment flips (avoided / sentiment=6).
  */
+
+import { HOLY_GRAIL_SENTIMENT } from '@habit-tracker/shared'
 
 import { and, eq, inArray, sql } from 'drizzle-orm'
 
@@ -45,9 +35,9 @@ function isBad(status: string, tolerance: number | null): boolean {
   return status === 'avoided' || (tolerance !== null && tolerance <= 2)
 }
 
-// A user product is "good" if it is a holy grail, or rated tolerance high.
-function isGood(status: string, tolerance: number | null): boolean {
-  return status === 'holy_grail' || (tolerance !== null && tolerance >= 4)
+// A user product is "good" if it is a Holy Grail (sentiment=6), or rated tolerance high.
+function isGood(sentiment: number | null, tolerance: number | null): boolean {
+  return sentiment === HOLY_GRAIL_SENTIMENT || (tolerance !== null && tolerance >= 4)
 }
 
 /**
@@ -56,7 +46,7 @@ function isGood(status: string, tolerance: number | null): boolean {
  * user_ingredient_analysis_score.
  *
  * Called after every review save (create / update), and should also be called
- * when a userProduct status flips to 'avoided' or 'holy_grail'.
+ * when a userProduct status flips to 'avoided' or sentiment to 6 (Holy Grail).
  *
  * Note: `userProductId` is accepted for API stability with callers, but we
  * recompute the whole collection — a single review save shifts totals for
@@ -72,7 +62,7 @@ export async function recalculateSignalForUser(
   //    list of ingredientIds of the underlying product.
   const collection = await db.query.userProducts.findMany({
     where: eq(userProducts.userId, userId),
-    columns: { status: true },
+    columns: { status: true, sentiment: true },
     with: {
       review: { columns: { tolerance: true } },
       product: {
@@ -85,17 +75,18 @@ export async function recalculateSignalForUser(
 
   // 2. Split the collection into two buckets and, while we're at it, turn each
   //    product's ingredient list into a Set for O(1) lookups later on.
-  //    Note: a product can land in both buckets if e.g. status='holy_grail'
-  //    but tolerance was temporarily set low — kept as-is, matches old behavior.
+  //    A product can land in both buckets if sentiment=6 but tolerance is low —
+  //    kept as-is, matches old holy_grail behavior.
   const badIngredientSets: Set<string>[] = []
   const goodIngredientSets: Set<string>[] = []
 
   for (const item of collection) {
     const tolerance = item.review?.tolerance ?? null
+    const sentiment = item.sentiment ?? null
     const ingredientSet = new Set(item.product.productIngredients.map((pi) => pi.ingredientId))
 
     if (isBad(item.status, tolerance)) badIngredientSets.push(ingredientSet)
-    if (isGood(item.status, tolerance)) goodIngredientSets.push(ingredientSet)
+    if (isGood(sentiment, tolerance)) goodIngredientSets.push(ingredientSet)
   }
 
   const totalBad = badIngredientSets.length

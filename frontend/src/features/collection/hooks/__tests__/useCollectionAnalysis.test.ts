@@ -8,8 +8,8 @@ describe('useCollectionAnalysis', () => {
   const mockProducts = [
     {
       id: '1',
-      status: 'holy_grail',
-      sentiment: 5,
+      status: 'in_stock',
+      sentiment: 6, // Holy Grail (orthogonal to status)
       product: {
         productIngredients: [
           { ingredient: { id: 'i1', name: 'Retinol' } },
@@ -19,8 +19,8 @@ describe('useCollectionAnalysis', () => {
     },
     {
       id: '2',
-      status: 'holy_grail',
-      sentiment: 4,
+      status: 'archived',
+      sentiment: 6, // Holy Grail can sit on any status except avoided
       product: {
         productIngredients: [
           { ingredient: { id: 'i1', name: 'Retinol' } },
@@ -53,27 +53,45 @@ describe('useCollectionAnalysis', () => {
     },
   ] as unknown as UserProduct[]
 
-  it('should count ingredients correctly and exclude fillers', () => {
+  it('groups ingredients into keeping and setAside buckets and excludes fillers', () => {
     const { result } = renderHook(() => useCollectionAnalysis(mockProducts))
 
-    expect(result.current.holyGrailCommon).toEqual([
+    expect(result.current.keeping.productCount).toBe(2)
+    expect(result.current.keeping.ingredients).toEqual([
       { name: 'Retinol', count: 2 },
       { name: 'Vitamin C', count: 1 },
     ])
 
-    expect(result.current.avoidedCommon).toEqual([{ name: 'Fragrance', count: 1 }])
-
-    expect(result.current.lowToleranceCommon).toEqual([{ name: 'Alcohol Denat.', count: 1 }])
-
-    expect(result.current.badSentimentCommon).toEqual([{ name: 'Alcohol Denat.', count: 1 }])
+    expect(result.current.setAside.productCount).toBe(3)
+    expect(result.current.setAside.ingredients).toEqual([
+      { name: 'Alcohol Denat.', count: 2 },
+      { name: 'Fragrance', count: 1 },
+    ])
   })
 
-  it('should return empty arrays if no products match criteria', () => {
+  it('deduplicates a product that hits multiple set-aside signals', () => {
+    const products = [
+      {
+        id: 'dup',
+        status: 'avoided',
+        sentiment: 1,
+        review: { tolerance: 1 },
+        product: {
+          productIngredients: [{ ingredient: { id: 'iX', name: 'Limonene' } }],
+        },
+      },
+    ] as unknown as UserProduct[]
+
+    const { result } = renderHook(() => useCollectionAnalysis(products))
+
+    expect(result.current.setAside.productCount).toBe(1)
+    expect(result.current.setAside.ingredients).toEqual([{ name: 'Limonene', count: 1 }])
+  })
+
+  it('returns empty buckets when no products are loaded', () => {
     const { result } = renderHook(() => useCollectionAnalysis([]))
 
-    expect(result.current.holyGrailCommon).toEqual([])
-    expect(result.current.lowToleranceCommon).toEqual([])
-    expect(result.current.badSentimentCommon).toEqual([])
-    expect(result.current.avoidedCommon).toEqual([])
+    expect(result.current.keeping).toEqual({ ingredients: [], productCount: 0 })
+    expect(result.current.setAside).toEqual({ ingredients: [], productCount: 0 })
   })
 })

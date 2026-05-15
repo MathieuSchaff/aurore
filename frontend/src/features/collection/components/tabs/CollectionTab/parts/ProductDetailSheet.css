@@ -182,26 +182,79 @@
   box-shadow: 0 1px 4px oklch(from var(--color-primary) l c h / 0.15);
 }
 
-/* === Grid === */
+/* === Shelf section (§1) === */
 
-.pds-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-}
-
-@media (min-width: 640px) {
-  .pds-grid {
-    grid-template-columns: 3fr 2fr;
-    gap: 1.25rem;
-  }
-}
-
-.pds-main-col,
-.pds-side-col {
+.pds-shelf-row {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  align-items: center;
+  gap: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.pds-shelf-meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.pds-shelf-summary {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: var(--leading-relaxed);
+  color: var(--text-secondary);
+}
+
+.pds-shelf-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: var(--font-medium);
+  background: oklch(from var(--shelf-status-color, var(--text-muted)) l c h / 0.12);
+  color: var(--shelf-status-color, var(--text-secondary));
+  border: 1px solid oklch(from var(--shelf-status-color, var(--text-muted)) l c h / 0.3);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.pds-shelf-status-badge:hover {
+  background: oklch(from var(--shelf-status-color, var(--text-muted)) l c h / 0.18);
+}
+
+.pds-shelf-status-badge:focus-visible {
+  outline: 2px solid var(--shelf-status-color, var(--color-primary));
+  outline-offset: 2px;
+}
+
+/* === Compare button (§7) === */
+
+.pds-compare-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.875rem;
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: var(--font-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-primary);
+  background: oklch(from var(--color-primary) l c h / 0.06);
+  border: 1px solid oklch(from var(--color-primary) l c h / 0.25);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.pds-compare-btn:hover {
+  background: oklch(from var(--color-primary) l c h / 0.12);
+  border-color: var(--color-primary);
+}
+
+.pds-compare-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 /* === Cards === */
@@ -243,17 +296,6 @@
   letter-spacing: var(--tracking-wide);
 }
 
-.pds-total-score {
-  background: var(--color-primary);
-  color: var(--color-primary-text);
-  font-family: var(--font-display);
-  font-feature-settings: var(--font-features-display);
-  font-size: 0.875rem;
-  font-weight: var(--font-bold);
-  padding: 0.2rem 0.625rem;
-  border-radius: var(--radius-sm);
-}
-
 /* === Sentiment buttons === */
 
 .pds-sentiment-row {
@@ -285,6 +327,18 @@
   border-color: var(--color-primary);
   box-shadow: 0 4px 12px oklch(from var(--color-primary) l c h / 0.25);
   transform: translateY(-2px);
+}
+
+.pds-sentiment-btn--grail {
+  border-color: var(--status-color-holy-grail, var(--color-primary));
+  background: oklch(from var(--status-color-holy-grail, var(--color-primary)) l c h / 0.06);
+}
+
+.pds-sentiment-btn--grail.active {
+  background: oklch(from var(--status-color-holy-grail, var(--color-primary)) l c h / 0.18);
+  border-color: var(--status-color-holy-grail, var(--color-primary));
+  box-shadow: 0 4px 14px
+    oklch(from var(--status-color-holy-grail, var(--color-primary)) l c h / 0.3);
 }
 
 .pds-emoji {
@@ -320,6 +374,48 @@
   border-color: var(--color-primary);
   outline: none;
   background: var(--bg-card);
+}
+
+/* === Reason prompt (avoided / archived) === */
+
+.pds-reason-prompt {
+  margin-top: 0.875rem;
+  padding: 0.875rem;
+  border-radius: var(--radius-md);
+  background: var(--bg-muted);
+  border: 1px solid var(--border-default);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.pds-reason-hint {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.pds-reason-textarea {
+  width: 100%;
+  min-height: 56px;
+  padding: 0.625rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-default);
+  background: var(--bg-card);
+  font-size: 0.875rem;
+  font-family: inherit;
+  resize: vertical;
+  color: var(--text-primary);
+  box-sizing: border-box;
+  transition:
+    border-color var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.pds-reason-textarea:focus {
+  border-color: var(--color-primary);
+  outline: none;
 }
 
 /* === Repurchase === */
@@ -381,6 +477,54 @@
 
 /* === Ingredients === */
 
+.pds-disclosure-hint {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  line-height: var(--leading-relaxed);
+  margin: 0 0 0.625rem;
+}
+
+.pds-ingredients-disclosure {
+  /* Collapsed by default — formula wall stays behind disclosure to keep
+     the sheet calm (anti-patterns.md §5 Overwhelming ingredient lists). */
+}
+
+.pds-ingredients-summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: var(--font-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-primary);
+  background: oklch(from var(--color-primary) l c h / 0.06);
+  border: 1px solid oklch(from var(--color-primary) l c h / 0.25);
+  cursor: pointer;
+  list-style: none;
+  transition: all var(--transition-fast);
+}
+
+.pds-ingredients-summary::-webkit-details-marker {
+  display: none;
+}
+
+.pds-ingredients-summary:hover {
+  background: oklch(from var(--color-primary) l c h / 0.12);
+  border-color: var(--color-primary);
+}
+
+.pds-ingredients-summary:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.pds-ingredients-disclosure[open] .pds-ingredients-summary {
+  margin-bottom: 0.625rem;
+}
+
 .pds-ingredients-list {
   display: flex;
   flex-wrap: wrap;
@@ -412,29 +556,19 @@
   margin: 0;
 }
 
-/* === Info grid === */
-
-.pds-info-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.pds-info-item {
-  display: flex;
-  align-items: center;
-  gap: 0.625rem;
-  font-size: 0.875rem;
+.pds-section-lead {
+  font-size: 0.8125rem;
   color: var(--text-secondary);
+  margin: 0 0 0.75rem;
+  line-height: var(--leading-relaxed);
 }
 
-/* === Danger zone (delete) === */
+/* === Remove row (calm framing — DeleteConfirmDialog owns the safety step) === */
 
-.pds-danger-zone {
+.pds-remove-row {
   padding-top: 1.5rem;
   padding-bottom: 0.5rem;
   margin-top: 0.25rem;
-  border-top: 1px dashed var(--border-default);
   display: flex;
   justify-content: center;
 }
@@ -446,17 +580,18 @@
   padding: 0.5rem 1.25rem;
   border-radius: var(--radius-full);
   font-size: 0.75rem;
-  font-weight: var(--font-semibold);
-  color: var(--color-error);
+  font-weight: var(--font-medium);
+  color: var(--text-muted);
   background: transparent;
-  border: 1px solid oklch(from var(--color-error) l c h / 0.3);
+  border: 1px solid var(--border-default);
   cursor: pointer;
   transition: all var(--transition-fast);
 }
 
 .pds-remove-btn:hover {
-  background: var(--color-error-light);
-  border-color: var(--color-error);
+  background: var(--bg-muted);
+  color: var(--text-secondary);
+  border-color: var(--text-muted);
 }
 
 /* === INCI trigger button === */

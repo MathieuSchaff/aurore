@@ -41,14 +41,8 @@ function getScoreChipClass(score: string | null): string {
 }
 
 function getStatusClass(status: string): string {
-  switch (status) {
-    case 'holy_grail':
-      return 'status-holy-grail'
-    case 'archived':
-      return 'status-archived'
-    default:
-      return ''
-  }
+  // Holy Grail used to be a status; it's now sentiment=6 (orthogonal).
+  return status === 'archived' ? 'status-archived' : ''
 }
 
 export function ProductCardCondensed({
@@ -125,7 +119,10 @@ export function ProductCardCondensed({
   const handleNextSentiment = (e: React.MouseEvent) => {
     e.stopPropagation()
     const current = p.sentiment || 0
-    const next = current >= 5 ? null : current + 1
+    // Cycle 1 → … → 6 (Holy Grail) → null. Avoided products cap at 5 —
+    // HG on a rejected product would be self-contradictory.
+    const max = p.status === 'avoided' ? 5 : 6
+    const next = current >= max ? null : current + 1
     updateMutation.mutate({ id: p.id, input: { sentiment: next } })
 
     setIsPopping(true)
@@ -134,7 +131,6 @@ export function ProductCardCondensed({
 
   const displayScale = prefs?.displayScale ?? 'out_of_20'
   const score = calculateWeightedScore(p.review, prefs?.criteriaWeights, displayScale)
-  const scoreMax = displayScale === 'out_of_10' ? 10 : 20
   const priceEuros = p.product.priceCents ? `${(p.product.priceCents / 100).toFixed(0)}€` : null
 
   const scoreChipClass = getScoreChipClass(score)
@@ -164,7 +160,7 @@ export function ProductCardCondensed({
         data-stop-long-press
       >
         {p.sentiment ? (
-          sentimentEmojis[p.sentiment as 1 | 2 | 3 | 4 | 5]
+          sentimentEmojis[p.sentiment as 1 | 2 | 3 | 4 | 5 | 6]
         ) : (
           <SmilePlus size={16} aria-hidden="true" />
         )}
@@ -196,6 +192,7 @@ export function ProductCardCondensed({
           >
             <div className="prod-brand">{p.product.brand}</div>
             <div className="prod-name">{p.product.name}</div>
+            {p.comment && <div className="prod-comment">{p.comment}</div>}
           </button>
         </div>
 
@@ -224,21 +221,6 @@ export function ProductCardCondensed({
               </DropdownMenu>
             </span>
             {p.product.kind && <Badge variant="chip">{p.product.kind}</Badge>}
-            {score != null && (
-              <div className={clsx('prod-score-bar-wrap', scoreChipClass)}>
-                <div className="prod-score-bar-track">
-                  <div
-                    className="prod-score-bar-fill"
-                    style={
-                      {
-                        '--score-pct': `${(Number.parseFloat(score) / scoreMax) * 100}%`,
-                      } as React.CSSProperties
-                    }
-                  />
-                </div>
-                <span className="prod-score-num">{score}</span>
-              </div>
-            )}
           </div>
           {priceEuros && <div className="prod-price">{priceEuros}</div>}
         </Card.Footer>

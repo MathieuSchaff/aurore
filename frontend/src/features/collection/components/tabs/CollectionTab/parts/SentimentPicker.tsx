@@ -1,20 +1,29 @@
+import type { UserProductStatus } from '@habit-tracker/shared'
+
 import clsx from 'clsx'
 
 import { sentimentEmojis } from '@/utils/sentimentMap'
 
-type SentimentValue = 1 | 2 | 3 | 4 | 5
+type SentimentValue = 1 | 2 | 3 | 4 | 5 | 6
 
 interface SentimentPickerProps {
   value: number | null | undefined
   onChange: (value: SentimentValue) => void
+  // Holy Grail (level 6) is unavailable on rejected products — picking it
+  // would contradict the rejection.
+  status?: UserProductStatus
 }
 
-export function SentimentPicker({ value, onChange }: SentimentPickerProps) {
+const STANDARD_VALUES = [1, 2, 3, 4, 5] as const
+
+export function SentimentPicker({ value, onChange, status }: SentimentPickerProps) {
+  const holyGrailAllowed = status !== 'avoided'
+
   return (
     <>
       <span className="pds-section-title">Ressenti rapide</span>
       <fieldset className="pds-sentiment-row" aria-label="Ressenti rapide">
-        {([1, 2, 3, 4, 5] as const).map((val) => (
+        {STANDARD_VALUES.map((val) => (
           <button
             key={val}
             type="button"
@@ -26,6 +35,17 @@ export function SentimentPicker({ value, onChange }: SentimentPickerProps) {
             <span className="pds-emoji">{sentimentEmojis[val]}</span>
           </button>
         ))}
+        {holyGrailAllowed && (
+          <button
+            type="button"
+            className={clsx('pds-sentiment-btn pds-sentiment-btn--grail', value === 6 && 'active')}
+            aria-label="Saint Graal"
+            aria-pressed={value === 6}
+            onClick={() => onChange(6)}
+          >
+            <span className="pds-emoji">{sentimentEmojis[6]}</span>
+          </button>
+        )}
       </fieldset>
     </>
   )

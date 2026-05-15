@@ -199,6 +199,17 @@
     word-break: break-word;
   }
 
+  .prod-comment {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    font-style: italic;
+  }
+
   .prod-chips {
     display: flex;
     gap: var(--space-2);
@@ -242,60 +253,6 @@
     /* DropdownMenu.Content owns absolute positioning (side="top" align="start").
        Cap width on narrow viewports to avoid overflow past the card edge. */
     max-width: calc(100vw - 32px);
-  }
-
-  .prod-score-bar-wrap {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    flex-shrink: 0;
-  }
-
-  .prod-score-bar-track {
-    width: 48px;
-    height: 5px;
-    border-radius: var(--radius-full);
-    background: var(--bg-muted, oklch(92% 0.01 220deg));
-    overflow: hidden;
-    flex-shrink: 0;
-  }
-
-  .prod-score-bar-fill {
-    width: var(--score-pct, 0%);
-    height: 100%;
-    border-radius: var(--radius-full);
-    transition: width 0.4s ease;
-  }
-
-  .prod-score-num {
-    font-size: 11px;
-    font-weight: var(--font-bold);
-  }
-
-  .prod-score-bar-wrap.score-gold .prod-score-bar-fill {
-    background: oklch(75% 0.18 80);
-  }
-  .prod-score-bar-wrap.score-rare .prod-score-bar-fill {
-    background: oklch(65% 0.2 300);
-  }
-  .prod-score-bar-wrap.score-good .prod-score-bar-fill {
-    background: var(--color-success);
-  }
-  .prod-score-bar-wrap.score-none .prod-score-bar-fill {
-    background: var(--text-muted);
-  }
-
-  .prod-score-bar-wrap.score-gold .prod-score-num {
-    color: oklch(40% 0.15 75);
-  }
-  .prod-score-bar-wrap.score-rare .prod-score-num {
-    color: oklch(40% 0.2 300);
-  }
-  .prod-score-bar-wrap.score-good .prod-score-num {
-    color: var(--color-success);
-  }
-  .prod-score-bar-wrap.score-none .prod-score-num {
-    color: var(--text-muted);
   }
 
   .prod-price {

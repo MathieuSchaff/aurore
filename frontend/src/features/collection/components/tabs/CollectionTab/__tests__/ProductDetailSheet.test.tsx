@@ -5,11 +5,13 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { makeUserProduct, renderWithProviders } from '@/test/utils'
 import { ProductDetailSheet } from '../parts/ProductDetailSheet'
 
+const updateMutate = vi.fn()
+
 vi.mock('@/lib/queries/user-products', async () => {
   const actual = (await vi.importActual('@/lib/queries/user-products')) as any
   return {
     ...actual,
-    useUpdateUserProduct: vi.fn(() => ({ mutate: vi.fn() })),
+    useUpdateUserProduct: vi.fn(() => ({ mutate: updateMutate })),
     useDeleteUserProduct: vi.fn(() => ({ mutate: vi.fn(), isPending: false })),
     useUpsertUserProductReview: vi.fn(() => ({ mutate: vi.fn() })),
   }
@@ -32,6 +34,7 @@ vi.mock('@/hooks/useScrollLock', () => ({
 describe('ProductDetailSheet', () => {
   afterEach(() => {
     cleanup()
+    updateMutate.mockClear()
   })
 
   const defaultProps = {
@@ -50,7 +53,7 @@ describe('ProductDetailSheet', () => {
 
   it('affiche les sections de détail', () => {
     renderWithProviders(<ProductDetailSheet {...defaultProps} />)
-    expect(screen.getByText('Mon Avis')).toBeInTheDocument()
+    expect(screen.getByText('Votre expérience')).toBeInTheDocument()
     expect(screen.getByText('Ressenti rapide')).toBeInTheDocument()
     expect(screen.getByText('Cycle de vie')).toBeInTheDocument()
   })
@@ -76,5 +79,31 @@ describe('ProductDetailSheet', () => {
     // jsdom doesn't convert keydown Escape to a cancel event — fire it directly
     fireEvent(screen.getByRole('dialog'), new Event('cancel', { bubbles: false, cancelable: true }))
     expect(onClose).toHaveBeenCalled()
+  })
+
+  it("toggle d'un chip Ressenti déclenche updateUserProduct avec le tableau mergé", async () => {
+    const props = {
+      ...defaultProps,
+      p: makeUserProduct({ ressenti: ['leger'], routine: [], preferences: [] }),
+    }
+    renderWithProviders(<ProductDetailSheet {...props} />)
+    await userEvent.click(screen.getByRole('button', { name: 'Confortable' }))
+    expect(updateMutate).toHaveBeenCalledWith({
+      id: 'test-id-1',
+      input: { ressenti: ['leger', 'confortable'] },
+    })
+  })
+
+  it('décocher un chip Routine déjà sélectionné le retire du tableau', async () => {
+    const props = {
+      ...defaultProps,
+      p: makeUserProduct({ ressenti: [], routine: ['matin', 'voyage'], preferences: [] }),
+    }
+    renderWithProviders(<ProductDetailSheet {...props} />)
+    await userEvent.click(screen.getByRole('button', { name: 'Matin' }))
+    expect(updateMutate).toHaveBeenCalledWith({
+      id: 'test-id-1',
+      input: { routine: ['voyage'] },
+    })
   })
 })
