@@ -20,6 +20,14 @@ const MAX_VISIBLE_PRODUCTS = 5
 
 const route = getRouteApi('/ingredients/$slug/')
 
+function formatUpdatedAt(date: string | Date): string {
+  return new Intl.DateTimeFormat('fr-FR', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(new Date(date))
+}
+
 export function IngredientInfoTab() {
   const { slug } = route.useParams()
   const { data: ingredient } = useSuspenseQuery(ingredientQueries.bySlug(slug))
@@ -32,11 +40,25 @@ export function IngredientInfoTab() {
   )
   const avoidTags = useMemo(() => tags?.filter((t) => t.relevance === 'avoid') ?? [], [tags])
 
+  const hasFamily = Boolean(ingredient.type || ingredient.category)
+
   return (
     <>
+      {hasFamily && (
+        <div className="ingredient-section">
+          <SectionHeader title="Famille" variant="primary" />
+          <div className="ingredient-famille">
+            {ingredient.type && (
+              <span className="tag-pill tag-pill--primary">{ingredient.type}</span>
+            )}
+            {ingredient.category && <span className="tag-pill">{ingredient.category}</span>}
+          </div>
+        </div>
+      )}
+
       {beneficialTags.length > 0 && (
         <div className="ingredient-section">
-          <SectionHeader title="Bénéfices" variant="primary" />
+          <SectionHeader title="Fonctions" variant="primary" />
           <div className="ingredient-tags-list">
             {beneficialTags.map((t) => (
               <span
@@ -50,31 +72,35 @@ export function IngredientInfoTab() {
         </div>
       )}
 
-      {avoidTags.length > 0 && (
-        <div className="ingredient-section">
-          <SectionHeader title="À éviter pour" variant="error" />
-          <div className="ingredient-tags-list">
-            {avoidTags.map((t) => (
-              <Badge key={t.ingredientTagId} variant="error">
-                {t.tagName}
-              </Badge>
-            ))}
-          </div>
-        </div>
-      )}
-
       {ingredient.description && (
         <div className="ingredient-section">
-          <SectionHeader title="Description" variant="primary" />
+          <SectionHeader title="Profil" variant="primary" />
           <RichText>
             <Markdown>{ingredient.description}</Markdown>
           </RichText>
         </div>
       )}
 
+      <div className="ingredient-section">
+        <SectionHeader title="À noter" variant="primary" />
+        {avoidTags.length > 0 && (
+          <div className="ingredient-tags-list ingredient-tags-list--spaced">
+            {avoidTags.map((t) => (
+              <Badge key={t.ingredientTagId} variant="error">
+                {t.tagName}
+              </Badge>
+            ))}
+          </div>
+        )}
+        <p className="ingredient-reading-note">
+          Ces repères servent à lire une formule, pas à poser un diagnostic. L'effet d'un ingrédient
+          dépend de sa concentration, du reste de la formule et de votre peau.
+        </p>
+      </div>
+
       {ingredient.content && (
         <div className="ingredient-section">
-          <SectionHeader title="Contenu" variant="primary" />
+          <SectionHeader title="Détail" variant="primary" />
           <RichText>
             <Markdown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]}>
               {normalizeLatexMarkdown(ingredient.content)}
@@ -115,6 +141,10 @@ export function IngredientInfoTab() {
           <p className="ingredient-products-empty">Aucun produit associé à cet ingrédient.</p>
         )}
       </div>
+
+      <p className="ingredient-updated-at">
+        Fiche mise à jour le {formatUpdatedAt(ingredient.updatedAt)}
+      </p>
     </>
   )
 }
