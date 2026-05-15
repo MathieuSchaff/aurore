@@ -89,9 +89,11 @@ describe('ProductCardCondensed', () => {
     expect(onToggleExpand).toHaveBeenCalled()
   })
 
-  it('renders score', () => {
-    // With all 4/5, score should be 16/20 (if unweighted)
-    render(<ProductCardCondensed p={makeProduct()} onToggleExpand={vi.fn()} />)
-    expect(screen.getByText(/16/)).toBeInTheDocument()
+  it('renders score corner ornament for high score', () => {
+    // F2: score number dropped. Ornament-only signal: all 4/5 unweighted = 16/20 → score-rare.
+    const { container } = render(
+      <ProductCardCondensed p={makeProduct()} onToggleExpand={vi.fn()} />
+    )
+    expect(container.querySelector('.prod-score-corner.score-rare')).toBeInTheDocument()
   })
 })

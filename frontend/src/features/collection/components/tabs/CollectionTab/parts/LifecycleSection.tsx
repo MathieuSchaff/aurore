@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { Calendar, CheckCircle2, FlaskConical, History, PlayCircle, Plus } from 'lucide-react'
+import { Calendar, CheckCircle2, History, PlayCircle, Plus } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
@@ -35,12 +35,7 @@ export function LifecycleSection({ p, onAddPurchase }: LifecycleSectionProps) {
   const [editingPurchaseId, setEditingPurchaseId] = useState<string | null>(null)
 
   return (
-    <div className="pds-card pds-lifecycle-card">
-      <div className="pds-card-header">
-        <FlaskConical size={16} />
-        <h3>Cycle de vie</h3>
-      </div>
-
+    <div className="pds-lifecycle-body">
       <div className="pds-lifecycle-actions">
         {openPurchase ? (
           <Button
@@ -86,7 +81,7 @@ export function LifecycleSection({ p, onAddPurchase }: LifecycleSectionProps) {
 
         {purchasesError ? (
           <p className="pds-empty-history" role="alert">
-            Historique indisponible — réessaie dans un instant.
+            Historique indisponible — réessayez dans un instant.
           </p>
         ) : sortedPurchases.length > 0 ? (
           <div className="pds-purchase-list">
@@ -110,7 +105,7 @@ export function LifecycleSection({ p, onAddPurchase }: LifecycleSectionProps) {
                     ) : purch.openedAt ? (
                       <Badge className="pds-badge-opened">En cours</Badge>
                     ) : (
-                      <Badge className="pds-badge-stock">En stock</Badge>
+                      <Badge className="pds-badge-unopened">Non entamé</Badge>
                     )}
                   </div>
                 </div>

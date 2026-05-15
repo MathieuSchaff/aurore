@@ -20,3 +20,21 @@
     text-transform: none;
   }
 }
+
+/* Personal-experience chips read as neutral annotation, not brand chips.
+   Stripping chroma from the theme's text/border tokens (`l 0 h`) keeps
+   the right lightness per light/dark theme while killing the warm hue
+   that bleeds in from the terracota palette. Active state is unchanged
+   so the primary ring keeps signalling selection. Unlayered to win
+   over the global ChipGroup rules. */
+.exp-tags .chip:not(.chip--active) {
+  background: transparent;
+  border-color: oklch(from var(--border-default) l 0 h);
+  color: oklch(from var(--text-secondary) l 0 h);
+}
+
+.exp-tags .chip:not(.chip--active):hover:not(:disabled) {
+  background: oklch(from var(--bg-muted) l 0 h);
+  border-color: oklch(from var(--text-muted) l 0 h);
+  color: oklch(from var(--text-primary) l 0 h);
+}

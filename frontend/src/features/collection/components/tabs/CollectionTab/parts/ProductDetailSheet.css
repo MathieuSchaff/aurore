@@ -12,13 +12,107 @@
 .pds-header-top {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
   margin-bottom: 0.875rem;
+}
+
+/* Hero row (P2.E.1) — photo flag-left, title block right. Replaces the
+   standalone §1 shelf card. Sits inside `.pds-header` so the photo
+   stays anchored when the user scrolls (continuous orientation). */
+.pds-header-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+/* === Header status popover (P2.B) — DropdownMenu trigger acts as a chip
+   mirroring `.pds-close-btn` on the opposite side. Click opens a menu
+   of all 5 statuses; the active one wins a check mark. */
+
+.pds-header-status {
+  position: relative;
+}
+
+.pds-header-status-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  min-height: 36px;
+  padding: 0.4rem 0.625rem;
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: var(--font-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  background: oklch(from var(--header-status-color, var(--text-muted)) l c h / 0.2);
+  color: var(--header-status-color, var(--text-secondary));
+  border: 1px solid oklch(from var(--header-status-color, var(--text-muted)) l c h / 0.42);
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.pds-header-status-trigger:hover {
+  background: oklch(from var(--header-status-color, var(--text-muted)) l c h / 0.26);
+}
+
+.pds-header-status-trigger:focus-visible {
+  outline: 2px solid var(--header-status-color, var(--color-primary));
+  outline-offset: 2px;
+}
+
+.pds-header-status-trigger[aria-expanded="true"] {
+  background: oklch(from var(--header-status-color, var(--text-muted)) l c h / 0.2);
+  border-color: var(--header-status-color, var(--text-secondary));
+}
+
+.pds-header-status-content {
+  min-width: 12rem;
+  padding: 0.25rem;
+}
+
+.pds-header-status-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.5rem 0.625rem;
+  font-size: 0.8125rem;
+  font-weight: var(--font-medium);
+  color: var(--text-primary);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  text-align: left;
+  transition: background var(--transition-fast);
+}
+
+.pds-header-status-item:hover {
+  background: var(--bg-muted);
+}
+
+.pds-header-status-item.is-active {
+  background: oklch(from var(--color-primary) l c h / 0.08);
+  font-weight: var(--font-semibold);
+}
+
+.pds-header-status-label {
+  flex: 1;
+}
+
+.pds-header-status-check {
+  color: var(--color-primary);
+  flex-shrink: 0;
 }
 
 .pds-close-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.375rem;
+  min-height: 36px;
   padding: 0.4rem 0.875rem 0.4rem 0.625rem;
   border-radius: var(--radius-full);
   background: var(--bg-muted);
@@ -43,8 +137,7 @@
 .pds-status-chip:focus-visible,
 .pds-sentiment-btn:focus-visible,
 .pds-repurchase-btn:focus-visible,
-.pds-remove-btn:focus-visible,
-.pds-inci-btn:focus-visible {
+.pds-remove-btn:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
@@ -111,7 +204,7 @@
 .pds-kind {
   font-size: 0.65rem;
   font-weight: var(--font-semibold);
-  color: var(--text-muted);
+  color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: var(--tracking-wide);
 }
@@ -119,7 +212,7 @@
 .pds-price {
   font-family: var(--font-display);
   font-feature-settings: var(--font-features-display);
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: var(--font-bold);
   color: var(--color-primary);
 }
@@ -157,6 +250,7 @@
   display: flex;
   align-items: center;
   gap: 0.35rem;
+  min-height: 32px;
   padding: 0.375rem 0.875rem;
   border-radius: var(--radius-full);
   font-size: 0.65rem;
@@ -180,52 +274,6 @@
   color: var(--color-primary);
   border-color: oklch(from var(--color-primary) l c h / 0.4);
   box-shadow: 0 1px 4px oklch(from var(--color-primary) l c h / 0.15);
-}
-
-/* === Shelf section (§1) === */
-
-.pds-shelf-row {
-  display: flex;
-  align-items: center;
-  gap: 0.875rem;
-  margin-bottom: 1rem;
-}
-
-.pds-shelf-meta {
-  flex: 1;
-  min-width: 0;
-}
-
-.pds-shelf-summary {
-  margin: 0;
-  font-size: 0.875rem;
-  line-height: var(--leading-relaxed);
-  color: var(--text-secondary);
-}
-
-.pds-shelf-status-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  margin-top: 0.5rem;
-  padding: 0.25rem 0.625rem;
-  border-radius: var(--radius-full);
-  font-size: 0.7rem;
-  font-weight: var(--font-medium);
-  background: oklch(from var(--shelf-status-color, var(--text-muted)) l c h / 0.12);
-  color: var(--shelf-status-color, var(--text-secondary));
-  border: 1px solid oklch(from var(--shelf-status-color, var(--text-muted)) l c h / 0.3);
-  cursor: pointer;
-  transition: background var(--transition-fast);
-}
-
-.pds-shelf-status-badge:hover {
-  background: oklch(from var(--shelf-status-color, var(--text-muted)) l c h / 0.18);
-}
-
-.pds-shelf-status-badge:focus-visible {
-  outline: 2px solid var(--shelf-status-color, var(--color-primary));
-  outline-offset: 2px;
 }
 
 /* === Compare button (§7) === */
@@ -266,9 +314,13 @@
   border: 1px solid var(--border-default);
 }
 
-.pds-review-card {
+/* Accent card — wins over `.coll-product-sheet .coll-card` reset
+   (specificity 0,3,0 > 0,2,0) and restores padding/border the reset strips. */
+.coll-product-sheet .pds-card.pds-review-card {
+  padding: 1.125rem;
+  border-radius: var(--radius-lg);
   background: var(--bg-card);
-  border-color: oklch(from var(--color-primary) l c h / 0.18);
+  border: 1px solid oklch(from var(--color-primary) l c h / 0.18);
   box-shadow: var(--shadow-card);
 }
 
@@ -345,6 +397,79 @@
   font-size: 1.25rem;
 }
 
+/* === Review subsections (Évaluation / Notes) === */
+
+.pds-subsection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.pds-subsection + .pds-subsection {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px dashed var(--border-default);
+}
+
+.pds-subsection-title {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: var(--font-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--text-secondary);
+}
+
+/* Collapsed CriteriaList — opt-in detailed rating */
+
+.pds-criteria-details {
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  background: var(--bg-muted);
+}
+
+.pds-criteria-details > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 0.625rem 0.875rem;
+  font-size: 0.8rem;
+  font-weight: var(--font-medium);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.pds-criteria-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.pds-criteria-details > summary::before {
+  content: "›";
+  display: inline-block;
+  font-size: 1rem;
+  line-height: 1;
+  transition: transform var(--transition-fast);
+}
+
+.pds-criteria-details[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.pds-criteria-details > summary:hover,
+.pds-criteria-details > summary:focus-visible {
+  color: var(--text-primary);
+}
+
+.pds-criteria-details[open] > summary {
+  border-bottom: 1px solid var(--border-default);
+}
+
+.pds-criteria-details-body {
+  padding: 0.875rem;
+}
+
 /* === Comment === */
 
 .pds-comment-section {
@@ -389,11 +514,28 @@
   gap: 0.5rem;
 }
 
+.pds-reason-lead {
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.pds-reason-lead strong {
+  font-weight: 600;
+}
+
 .pds-reason-hint {
   font-size: 0.75rem;
   color: var(--text-secondary);
   margin: 0;
   line-height: 1.4;
+}
+
+.pds-reason-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
 }
 
 .pds-reason-textarea {
@@ -435,6 +577,7 @@
 }
 
 .pds-repurchase-btn {
+  min-height: 40px;
   padding: 0.5rem 0.25rem;
   border-radius: var(--radius-md);
   font-size: 0.7rem;
@@ -468,85 +611,50 @@
   box-shadow: 0 2px 6px oklch(from var(--color-warning) l c h / 0.15);
 }
 
+/* "Non" stays neutral — choosing not to repurchase is a personal call,
+   not a danger signal (anti-patterns.md #18 good/bad framing). */
 .pds-repurchase-btn.active.no {
-  background: oklch(from var(--color-error) l c h / 0.15);
-  color: var(--color-error);
-  border-color: oklch(from var(--color-error) l c h / 0.5);
-  box-shadow: 0 2px 6px oklch(from var(--color-error) l c h / 0.15);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border-color: var(--text-muted);
+  box-shadow: 0 2px 6px oklch(from var(--text-muted) l c h / 0.15);
 }
 
-/* === Ingredients === */
-
-.pds-disclosure-hint {
-  font-size: 0.8125rem;
-  color: var(--text-muted);
-  line-height: var(--leading-relaxed);
-  margin: 0 0 0.625rem;
-}
-
-.pds-ingredients-disclosure {
-  /* Collapsed by default — formula wall stays behind disclosure to keep
-     the sheet calm (anti-patterns.md §5 Overwhelming ingredient lists). */
-}
-
-.pds-ingredients-summary {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  padding: 0.375rem 0.75rem;
-  border-radius: var(--radius-full);
-  font-size: 0.7rem;
-  font-weight: var(--font-bold);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-wide);
-  color: var(--color-primary);
-  background: oklch(from var(--color-primary) l c h / 0.06);
-  border: 1px solid oklch(from var(--color-primary) l c h / 0.25);
-  cursor: pointer;
-  list-style: none;
-  transition: all var(--transition-fast);
-}
-
-.pds-ingredients-summary::-webkit-details-marker {
-  display: none;
-}
-
-.pds-ingredients-summary:hover {
-  background: oklch(from var(--color-primary) l c h / 0.12);
-  border-color: var(--color-primary);
-}
-
-.pds-ingredients-summary:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
-}
-
-.pds-ingredients-disclosure[open] .pds-ingredients-summary {
-  margin-bottom: 0.625rem;
-}
+/* === Ingredients (P2.C/D) — expanded by default. Aurore audience reads INCI;
+   they come here to recall, not to dive into a disclosure. Editorial design:
+   refined typographic chips, INCI brut in small caps wide-tracking. */
 
 .pds-ingredients-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.3rem;
+  align-items: baseline;
+  column-gap: 1.25rem;
+  row-gap: 0.625rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border-default);
 }
 
 .pds-ing-tag {
-  font-size: 0.75rem;
+  font-family: var(--font-display, var(--font-sans));
+  font-feature-settings: var(--font-features-display);
+  font-size: 0.9375rem;
   font-weight: var(--font-medium);
-  padding: 0.3rem 0.625rem;
-  border-radius: var(--radius-sm);
-  background: var(--bg-card);
-  color: var(--text-secondary);
-  border: 1px solid var(--border-default);
+  color: var(--text-primary);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid transparent;
+  border-radius: 0;
+  padding: 0;
   text-decoration: none;
-  transition: all var(--transition-fast);
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast);
 }
 
 .pds-ing-tag:hover {
-  background: var(--bg-hover);
   color: var(--color-primary);
-  border-color: oklch(from var(--color-primary) l c h / 0.3);
+  border-bottom-color: var(--color-primary);
 }
 
 .pds-empty-msg {
@@ -556,11 +664,210 @@
   margin: 0;
 }
 
+.pds-glance-text {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: var(--leading-relaxed);
+  color: var(--text-secondary);
+}
+
+.pds-notes-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.pds-note-item {
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  line-height: var(--leading-relaxed);
+  padding-left: 0.75rem;
+  border-left: 2px solid var(--border-default);
+}
+
 .pds-section-lead {
   font-size: 0.8125rem;
   color: var(--text-secondary);
   margin: 0 0 0.75rem;
   line-height: var(--leading-relaxed);
+}
+
+/* === Lifecycle disclosure (§1) — calm by default to keep §1 short.
+   CTA + history opt-in via summary expansion. === */
+
+.pds-lifecycle-disclosure {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-default);
+}
+
+.pds-lifecycle-summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  list-style: none;
+  padding: 0.25rem 0;
+  font-size: 0.75rem;
+  font-weight: var(--font-medium);
+  color: var(--text-secondary);
+}
+
+.pds-lifecycle-summary::-webkit-details-marker {
+  display: none;
+}
+
+.pds-lifecycle-summary::after {
+  content: "▸";
+  font-size: 0.625rem;
+  color: var(--text-muted);
+  transition: transform var(--transition-fast);
+  margin-left: 0.25rem;
+}
+
+.pds-lifecycle-disclosure[open] .pds-lifecycle-summary::after {
+  transform: rotate(90deg);
+}
+
+.pds-lifecycle-summary:hover,
+.pds-lifecycle-summary:focus-visible {
+  color: var(--text-primary);
+}
+
+.pds-lifecycle-summary:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.pds-lifecycle-disclosure[open] .pds-lifecycle-body {
+  margin-top: 0.75rem;
+}
+
+/* === Status history (P1.1) — disclosure under §6, calm by default === */
+
+.pds-history-disclosure {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-default);
+}
+
+.pds-history-summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: var(--font-medium);
+  color: var(--text-secondary);
+  cursor: pointer;
+  list-style: none;
+  padding: 0.25rem 0;
+}
+
+.pds-history-summary::-webkit-details-marker {
+  display: none;
+}
+
+.pds-history-summary::before {
+  content: "▸";
+  font-size: 0.625rem;
+  color: var(--text-muted);
+  transition: transform var(--transition-fast);
+}
+
+.pds-history-disclosure[open] .pds-history-summary::before {
+  transform: rotate(90deg);
+}
+
+.pds-history-summary:hover,
+.pds-history-summary:focus-visible {
+  color: var(--text-primary);
+}
+
+.pds-history-summary:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.pds-history-count {
+  font-size: 0.6875rem;
+  font-weight: var(--font-bold);
+  color: var(--text-muted);
+  padding: 0.0625rem 0.375rem;
+  border-radius: var(--radius-full);
+  background: var(--bg-hover);
+}
+
+.pds-history-body {
+  margin-top: 0.625rem;
+}
+
+.pds-history-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.pds-history-item {
+  padding: 0.5rem 0.75rem;
+  background: var(--bg-card);
+  border-left: 2px solid var(--border-default);
+  border-radius: var(--radius-sm);
+}
+
+.pds-history-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.pds-history-date {
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.pds-history-transition {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+  font-weight: var(--font-medium);
+}
+
+.pds-history-from-empty {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.pds-history-reason {
+  font-size: 0.8125rem;
+  color: var(--text-primary);
+  margin: 0.375rem 0 0;
+  line-height: var(--leading-relaxed);
+}
+
+.pds-history-reason-label {
+  display: inline-block;
+  margin-right: 0.5rem;
+  padding: 0.0625rem 0.375rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg-muted);
+  font-size: 0.625rem;
+  font-weight: var(--font-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--text-muted);
+  vertical-align: 0.05em;
 }
 
 /* === Remove row (calm framing — DeleteConfirmDialog owns the safety step) === */
@@ -594,120 +901,44 @@
   border-color: var(--text-muted);
 }
 
-/* === INCI trigger button === */
+/* === INCI brut block — editorial small-caps wide-tracking print feel.
+   Sits inside the §2 Ingredients card, below the linked tags. */
 
-.pds-inci-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  margin-top: 0.75rem;
-  padding: 0.375rem 0.75rem;
-  border-radius: var(--radius-full);
-  font-size: 0.7rem;
-  font-weight: var(--font-bold);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-wide);
-  color: var(--color-primary);
-  background: oklch(from var(--color-primary) l c h / 0.06);
-  border: 1px dashed oklch(from var(--color-primary) l c h / 0.35);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.pds-inci-btn:hover {
-  background: oklch(from var(--color-primary) l c h / 0.12);
-  border-style: solid;
-}
-
-/* === INCI popup === */
-
-.pds-inci-dialog {
-  display: flex;
-  flex-direction: column;
-  max-height: 70vh;
-  padding: 0;
+.pds-inci-block {
+  margin-top: 0;
 }
 
 .pds-inci-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 1rem 0.75rem;
-  border-bottom: 1px solid var(--border-default);
-  flex-shrink: 0;
-}
-
-.pds-inci-header .pds-section-title {
-  margin-bottom: 0;
-}
-
-.pds-inci-actions {
-  display: flex;
-  align-items: center;
   gap: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
-.pds-inci-copy-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  padding: 0.375rem 0.75rem;
-  border-radius: var(--radius-full);
-  font-size: 0.7rem;
+.pds-inci-label {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
   font-weight: var(--font-bold);
   text-transform: uppercase;
-  letter-spacing: var(--tracking-wide);
-  color: var(--color-primary);
-  background: oklch(from var(--color-primary) l c h / 0.08);
-  border: 1px solid oklch(from var(--color-primary) l c h / 0.25);
-  cursor: pointer;
-  transition: all var(--transition-fast);
+  letter-spacing: 0.14em;
+  color: var(--text-secondary);
 }
 
-.pds-inci-copy-btn:hover {
-  background: oklch(from var(--color-primary) l c h / 0.14);
-  border-color: var(--color-primary);
-}
-
-.pds-inci-copy-btn.copied {
-  color: var(--color-success);
-  background: oklch(from var(--color-success) l c h / 0.08);
-  border-color: oklch(from var(--color-success) l c h / 0.35);
-}
-
-.pds-inci-close {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: var(--radius-full);
-  background: var(--bg-muted);
-  border: none;
-  cursor: pointer;
-  color: var(--text-muted);
-  transition: all var(--transition-fast);
+.pds-inci-copy {
   flex-shrink: 0;
-}
-
-.pds-inci-close:hover {
-  background: var(--border-default);
-  color: var(--text-primary);
-}
-
-.pds-inci-body {
-  overflow-y: auto;
-  padding: 1rem;
-  flex: 1;
 }
 
 .pds-inci-text {
-  font-size: 0.8125rem;
-  line-height: var(--leading-relaxed);
-  color: var(--text-secondary);
   margin: 0;
-  word-break: break-word;
   font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  word-break: break-word;
 }
 
 /* === coll-card override inside the sheet === */

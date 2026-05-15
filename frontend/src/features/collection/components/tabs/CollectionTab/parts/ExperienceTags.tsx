@@ -59,7 +59,7 @@ export function ExperienceTags({
         />
       </div>
       <div className="exp-tags__group">
-        <h4 className="exp-tags__title">Ce que vous en pensez</h4>
+        <h4 className="exp-tags__title">Préférences</h4>
         <ChipGroup
           options={preferencesOptions}
           selected={preferences}

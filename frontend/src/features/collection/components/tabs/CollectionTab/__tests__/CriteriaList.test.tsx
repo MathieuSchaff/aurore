@@ -57,6 +57,6 @@ describe('CriteriaList', () => {
 
   it("affiche le contenu de l'infobulle si activeTooltip correspond", () => {
     render(<CriteriaList {...defaultProps} activeTooltip="tolerance" />)
-    expect(screen.getByText(/Réaction de la peau/)).toBeInTheDocument()
+    expect(screen.getByText(/Comment votre peau a réagi/i)).toBeInTheDocument()
   })
 })

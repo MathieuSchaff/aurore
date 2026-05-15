@@ -1,59 +1,52 @@
+import { hasFragranceComponent } from '@habit-tracker/shared'
+
 import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
+import clsx from 'clsx'
 import {
   ArrowLeftRight,
-  Clipboard,
+  Check,
+  ChevronDown,
+  Copy,
   Droplets,
   ExternalLink,
   Eye,
   FlaskConical,
   Heart,
-  ShoppingBag,
   Sparkles,
   Star,
   Trash2,
   X,
 } from 'lucide-react'
-import { useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 
 import { Button } from '@/component/Button/Button'
 import { Sheet } from '@/component/Dialog/Sheet'
+import { DropdownMenu } from '@/component/DropdownMenu/DropdownMenu'
 import { statusLabels } from '@/features/collection/constants'
 import { ProductImage } from '@/features/products/components/ProductImage/ProductImage'
+import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
 import { productQueries } from '@/lib/queries/products'
+import { profileQueries } from '@/lib/queries/profile'
 import type { UserProduct } from '@/lib/queries/user-products'
 import { useDeleteUserProduct, useUpdateUserProduct } from '@/lib/queries/user-products'
+import { useAuthStore } from '@/store/auth'
 import { AddPurchaseDialog } from './AddPurchaseDialog'
 import { CriteriaList } from './CriteriaList'
 import { DeleteConfirmDialog } from './DeleteConfirmDialog'
 import { ExperienceTags } from './ExperienceTags'
-import { InciPopup } from './InciPopup'
 import { LifecycleSection } from './LifecycleSection'
 import { RepurchasePicker } from './RepurchasePicker'
 import { SentimentPicker } from './SentimentPicker'
 import { StatusChips } from './StatusChips'
+import { StatusHistory } from './StatusHistory'
 
 import './ProductDetailSheet.css'
 
-const REASON_TAG_LABEL = {
-  avoided: 'À éviter',
-  archived: 'Archivé',
-} as const
-
-type ReasonStatus = keyof typeof REASON_TAG_LABEL
-
-function isReasonStatus(s: UserProduct['status']): s is ReasonStatus {
-  return s === 'avoided' || s === 'archived'
-}
-
-function formatReasonDate(d: Date): string {
-  return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
-}
-
-function hasRecentReasonTag(comment: string | null | undefined, status: ReasonStatus): boolean {
-  if (!comment) return false
-  return comment.includes(`[${REASON_TAG_LABEL[status]},`)
-}
+const STATUSES_REQUIRING_REASON_PROMPT: ReadonlyArray<UserProduct['status']> = [
+  'avoided',
+  'archived',
+]
 
 interface ProductDetailSheetProps {
   p: UserProduct
@@ -75,13 +68,32 @@ export function ProductDetailSheet({
   const decisionSectionRef = useRef<HTMLElement>(null)
   const [showAddPurchase, setShowAddPurchase] = useState(false)
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
-  const [showInci, setShowInci] = useState(false)
   const [localComment, setLocalComment] = useState(p.comment || '')
+  const [pendingStatus, setPendingStatus] = useState<UserProduct['status'] | null>(null)
   const [reasonDraft, setReasonDraft] = useState('')
 
   const { data: fullProduct, isError: fullProductError } = useQuery(
     productQueries.bySlug(p.product.slug)
   )
+
+  const { copied: inciCopied, copy: copyInci } = useCopyToClipboard()
+  const handleCopyInci = useCallback(() => {
+    if (fullProduct?.inci) void copyInci(fullProduct.inci)
+  }, [fullProduct?.inci, copyInci])
+
+  const user = useAuthStore((s) => s.user)
+  const { data: dermoProfile } = useQuery({
+    ...profileQueries.dermo(),
+    enabled: !!user,
+  })
+
+  // §4 "À noter" — surface calm contextual notes when user prefs intersect
+  // formula signals. Today: fragrance components × peau-sensible skinType.
+  // Doc canonical microcopy: docs/04-design-ux/product-detail.md L171.
+  const fragranceNote =
+    dermoProfile?.skinTypes?.includes('peau-sensible') &&
+    fullProduct?.ingredients &&
+    hasFragranceComponent(fullProduct.ingredients)
 
   const handleCommentBlur = () => {
     if (localComment !== (p.comment || '')) {
@@ -89,32 +101,39 @@ export function ProductDetailSheet({
     }
   }
 
-  const showReasonPrompt = isReasonStatus(p.status) && !hasRecentReasonTag(p.comment, p.status)
+  // Status changes to `avoided`/`archived` open an inline prompt that
+  // collects an optional reason BEFORE submitting, so the reason ships with
+  // the same mutation and lands on `user_product_status_log.reason` (never
+  // in `comment`). Other status changes submit immediately.
+  // Triggered from §6 chips OR the header popover (P2.B). When the popover
+  // triggers the reason prompt, the prompt lives in §6 so we scroll there.
+  const handleStatusChange = (newStatus: UserProduct['status']) => {
+    if (newStatus === p.status) return
+    if (STATUSES_REQUIRING_REASON_PROMPT.includes(newStatus)) {
+      setPendingStatus(newStatus)
+      setReasonDraft('')
+      requestAnimationFrame(() => {
+        decisionSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      })
+      return
+    }
+    updateMutation.mutate({ id: p.id, input: { status: newStatus } })
+  }
 
-  const handleSaveReason = () => {
+  const handleConfirmStatus = () => {
+    if (!pendingStatus) return
     const trimmed = reasonDraft.trim()
-    if (!trimmed || !isReasonStatus(p.status)) return
-    const prefix = `[${REASON_TAG_LABEL[p.status]}, ${formatReasonDate(new Date())}]`
-    const next = p.comment ? `${p.comment}\n\n${prefix} ${trimmed}` : `${prefix} ${trimmed}`
-    updateMutation.mutate({ id: p.id, input: { comment: next } })
-    setLocalComment(next)
+    updateMutation.mutate({
+      id: p.id,
+      input: { status: pendingStatus, ...(trimmed ? { reason: trimmed } : {}) },
+    })
+    setPendingStatus(null)
     setReasonDraft('')
   }
 
-  // Status badge in §1 deep-links to §6 — scroll into view then focus the
-  // active chip so keyboard users land on the actionable control.
-  const handleFocusDecision = () => {
-    const section = decisionSectionRef.current
-    if (!section) return
-    section.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    const activeChip = section.querySelector<HTMLButtonElement>(
-      '.pds-status-chip[aria-pressed="true"]'
-    )
-    if (activeChip) {
-      activeChip.focus({ preventScroll: true })
-    } else {
-      section.focus({ preventScroll: true })
-    }
+  const handleCancelStatus = () => {
+    setPendingStatus(null)
+    setReasonDraft('')
   }
 
   const statusCfg = statusLabels[p.status]
@@ -135,141 +154,235 @@ export function ProductDetailSheet({
               <X size={15} />
               <span>Fermer</span>
             </button>
+            <DropdownMenu className="pds-header-status">
+              <DropdownMenu.Trigger>
+                <button
+                  type="button"
+                  className="pds-header-status-trigger"
+                  style={{ '--header-status-color': statusCfg.color } as React.CSSProperties}
+                  aria-label={`Statut : ${statusCfg.label}. Changer le statut.`}
+                >
+                  <StatusIcon size={14} aria-hidden="true" />
+                  <span>{statusCfg.label}</span>
+                  <ChevronDown size={12} aria-hidden="true" />
+                </button>
+              </DropdownMenu.Trigger>
+              <DropdownMenu.Content
+                ariaLabel="Changer le statut du produit"
+                className="pds-header-status-content"
+              >
+                {(Object.keys(statusLabels) as UserProduct['status'][]).map((s, idx) => {
+                  const cfg = statusLabels[s]
+                  const Icon = cfg.icon
+                  const isActive = p.status === s
+                  return (
+                    <DropdownMenu.Item key={s} index={idx} onSelect={() => handleStatusChange(s)}>
+                      <button
+                        type="button"
+                        className={clsx('pds-header-status-item', isActive && 'is-active')}
+                        title={cfg.purpose}
+                      >
+                        <Icon size={14} style={{ color: cfg.color }} aria-hidden="true" />
+                        <span className="pds-header-status-label">{cfg.label}</span>
+                        {isActive && (
+                          <Check size={14} aria-hidden="true" className="pds-header-status-check" />
+                        )}
+                      </button>
+                    </DropdownMenu.Item>
+                  )
+                })}
+              </DropdownMenu.Content>
+            </DropdownMenu>
           </div>
 
-          <div className="pds-title-section">
-            <div className="pds-brand-row">
-              <span className="pds-brand">{p.product.brand}</span>
-              <Link to="/products/$slug" params={{ slug: p.product.slug }} className="pds-link">
-                <ExternalLink size={13} />
-                <span>Fiche produit</span>
-              </Link>
-            </div>
-            <Sheet.Title className="pds-name">{p.product.name}</Sheet.Title>
-            <div className="pds-meta">
-              <span className="pds-kind">{p.product.kind}</span>
-              {priceEuros && <span className="pds-price">{priceEuros}</span>}
+          {/* Hero row (P2.E.1): photo as left-flag with brand/name/meta on
+              the right. Replaces the standalone §1 photo card — the picture
+              now anchors the sticky header instead of floating as a 72px
+              orphan tile above Ingrédients. */}
+          <div className="pds-header-main">
+            <ProductImage
+              kind={p.product.kind}
+              unit={p.product.unit}
+              imageUrl={p.product.imageUrl}
+              size={96}
+              className="product-image--flat"
+            />
+            <div className="pds-title-section">
+              <div className="pds-brand-row">
+                <span className="pds-brand">{p.product.brand}</span>
+                <Link to="/products/$slug" params={{ slug: p.product.slug }} className="pds-link">
+                  <ExternalLink size={13} />
+                  <span>Fiche produit</span>
+                </Link>
+              </div>
+              <Sheet.Title className="pds-name">{p.product.name}</Sheet.Title>
+              <div className="pds-meta">
+                <span className="pds-kind">{p.product.kind}</span>
+                {priceEuros && <span className="pds-price">{priceEuros}</span>}
+              </div>
             </div>
           </div>
         </div>
 
         <div className="pds-content">
-          {/* §1 Sur votre étagère */}
-          <section className="pds-card coll-card pds-shelf-card">
+          {/* §2 Ingrédients — primary value for Aurore audience (INCI-literate
+              per positioning.md: "lisent les listes INCI"). Moved from §8
+              and expanded by default (P2.C). Editorial design (P2.D):
+              refined typography for the linked tags, small-caps wide-
+              tracking INCI brut text underneath. */}
+          <section className="pds-card coll-card pds-ingredients-section">
             <div className="pds-card-header">
-              <ShoppingBag size={16} />
-              <h3>Sur votre étagère</h3>
+              <Droplets size={16} />
+              <h3>Ingrédients</h3>
             </div>
-            <div className="pds-shelf-row">
-              <ProductImage
-                kind={p.product.kind}
-                unit={p.product.unit}
-                imageUrl={p.product.imageUrl}
-                size={72}
-              />
-              <div className="pds-shelf-meta">
-                <p className="pds-shelf-summary">
-                  {p.product.kind
-                    ? `Un ${p.product.kind.toLowerCase()} enregistré dans votre étagère.`
-                    : 'Un produit enregistré dans votre étagère.'}
-                </p>
-                <button
-                  type="button"
-                  className="pds-shelf-status-badge"
-                  style={{ '--shelf-status-color': statusCfg.color } as React.CSSProperties}
-                  onClick={handleFocusDecision}
-                  aria-label={`Statut actuel : ${statusCfg.label}. Modifier dans Votre décision.`}
-                >
-                  <StatusIcon size={13} aria-hidden="true" />
-                  <span>{statusCfg.label}</span>
-                </button>
+            {fullProductError ? (
+              <p className="pds-empty-msg" role="alert">
+                Détails indisponibles — vérifiez votre connexion.
+              </p>
+            ) : fullProduct?.ingredients && fullProduct.ingredients.length > 0 ? (
+              <>
+                <div className="pds-ingredients-list">
+                  {fullProduct.ingredients.map((pi) => (
+                    <Link
+                      key={pi.ingredientId}
+                      to="/ingredients/$slug"
+                      params={{ slug: pi.ingredientSlug }}
+                      className="pds-ing-tag"
+                    >
+                      {pi.ingredientName}
+                    </Link>
+                  ))}
+                </div>
+                {fullProduct.inci && (
+                  <div className="pds-inci-block">
+                    <div className="pds-inci-header">
+                      <h4 className="pds-inci-label">INCI brut</h4>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={handleCopyInci}
+                        aria-label="Copier la liste INCI brute"
+                        className="pds-inci-copy"
+                      >
+                        {inciCopied ? (
+                          <>
+                            <Check size={14} aria-hidden="true" />
+                            <span>Copié</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy size={14} aria-hidden="true" />
+                            <span>Copier</span>
+                          </>
+                        )}
+                      </Button>
+                    </div>
+                    <p className="pds-inci-text">{fullProduct.inci}</p>
+                  </div>
+                )}
+              </>
+            ) : (
+              <p className="pds-empty-msg">
+                Liste d'ingrédients non ajoutée. Vous pouvez garder ce produit comme note
+                personnelle pour le moment.
+              </p>
+            )}
+          </section>
+
+          {/* §3 En un coup d'œil — admin-curated description, demoted under
+              §2 Ingrédients (P2.C — description is secondary signal for
+              INCI-literate Aurore audience). Render only when present. */}
+          {fullProduct?.description && (
+            <section className="pds-card coll-card">
+              <div className="pds-card-header">
+                <Eye size={16} />
+                <h3>En un coup d'œil</h3>
               </div>
-            </div>
-            <LifecycleSection p={p} onAddPurchase={() => setShowAddPurchase(true)} />
-          </section>
+              <p className="pds-glance-text">{fullProduct.description}</p>
+            </section>
+          )}
 
-          {/* §2 En un coup d'œil */}
-          <section className="pds-card coll-card">
-            <div className="pds-card-header">
-              <Eye size={16} />
-              <h3>En un coup d'œil</h3>
-            </div>
-            <p className="pds-empty-msg">
-              Aurore n'a pas encore de résumé calme pour cette formule. Le détail des ingrédients
-              reste disponible plus bas.
-            </p>
-          </section>
-
-          {/* §3 Groupes d'ingrédients */}
-          <section className="pds-card coll-card">
-            <div className="pds-card-header">
-              <FlaskConical size={16} />
-              <h3>Groupes d'ingrédients</h3>
-            </div>
-            <p className="pds-empty-msg">
-              Aurore n'a pas encore assez de contexte pour regrouper cette formule. Vous trouverez
-              la liste complète en bas de page.
-            </p>
-          </section>
-
-          {/* §4 À noter */}
-          <section className="pds-card coll-card">
-            <div className="pds-card-header">
-              <Sparkles size={16} />
-              <h3>À noter</h3>
-            </div>
-            <p className="pds-empty-msg">
-              Aurore n'a rien à mettre en évidence sur cette formule pour le moment. À noter, pas
-              une alerte.
-            </p>
-          </section>
+          {/* §4 À noter — render only when a contextual note triggers. */}
+          {fragranceNote && (
+            <section className="pds-card coll-card">
+              <div className="pds-card-header">
+                <Sparkles size={16} />
+                <h3>À noter</h3>
+              </div>
+              <ul className="pds-notes-list">
+                <li className="pds-note-item">
+                  Contient des composants parfumants, que vous suivez souvent.
+                </li>
+              </ul>
+            </section>
+          )}
 
           {/* §5 Votre expérience */}
-          <section className="pds-card pds-review-card coll-card">
+          <section className="pds-card coll-card">
             <div className="pds-card-header">
               <Star size={16} />
               <h3>Votre expérience</h3>
             </div>
 
-            <SentimentPicker
-              value={p.sentiment}
-              status={p.status}
-              onChange={(val) => updateMutation.mutate({ id: p.id, input: { sentiment: val } })}
-            />
+            <div className="pds-subsection">
+              <h4 className="pds-subsection-title">Évaluation</h4>
 
-            <CriteriaList
-              userProductId={p.id}
-              review={p.review}
-              activeTooltip={activeTooltip}
-              setActiveTooltip={setActiveTooltip}
-            />
-
-            <ExperienceTags
-              ressenti={p.ressenti}
-              routine={p.routine}
-              preferences={p.preferences}
-              onChangeRessenti={(next) =>
-                updateMutation.mutate({ id: p.id, input: { ressenti: next } })
-              }
-              onChangeRoutine={(next) =>
-                updateMutation.mutate({ id: p.id, input: { routine: next } })
-              }
-              onChangePreferences={(next) =>
-                updateMutation.mutate({ id: p.id, input: { preferences: next } })
-              }
-            />
-
-            <div className="pds-comment-section">
-              <label htmlFor="pds-comment" className="pds-section-title">
-                Notes personnelles
-              </label>
-              <textarea
-                id="pds-comment"
-                placeholder="Quelques mots sur votre expérience : texture, odeur, ressenti dans la routine…"
-                value={localComment}
-                onChange={(e) => setLocalComment(e.target.value)}
-                onBlur={handleCommentBlur}
+              <SentimentPicker
+                value={p.sentiment}
+                status={p.status}
+                onChange={(val) => updateMutation.mutate({ id: p.id, input: { sentiment: val } })}
               />
+
+              <RepurchasePicker
+                value={p.wouldRepurchase}
+                onChange={(val) =>
+                  updateMutation.mutate({ id: p.id, input: { wouldRepurchase: val } })
+                }
+              />
+
+              <details className="pds-criteria-details">
+                <summary>Évaluer en détail</summary>
+                <div className="pds-criteria-details-body">
+                  <CriteriaList
+                    userProductId={p.id}
+                    review={p.review}
+                    activeTooltip={activeTooltip}
+                    setActiveTooltip={setActiveTooltip}
+                  />
+                </div>
+              </details>
+            </div>
+
+            <div className="pds-subsection">
+              <h4 className="pds-subsection-title">Notes</h4>
+
+              <ExperienceTags
+                ressenti={p.ressenti}
+                routine={p.routine}
+                preferences={p.preferences}
+                onChangeRessenti={(next) =>
+                  updateMutation.mutate({ id: p.id, input: { ressenti: next } })
+                }
+                onChangeRoutine={(next) =>
+                  updateMutation.mutate({ id: p.id, input: { routine: next } })
+                }
+                onChangePreferences={(next) =>
+                  updateMutation.mutate({ id: p.id, input: { preferences: next } })
+                }
+              />
+
+              <div className="pds-comment-section">
+                <label htmlFor="pds-comment" className="pds-section-title">
+                  Notes personnelles
+                </label>
+                <textarea
+                  id="pds-comment"
+                  placeholder="Quelques mots sur votre expérience : texture, odeur, ressenti dans la routine…"
+                  value={localComment}
+                  onChange={(e) => setLocalComment(e.target.value)}
+                  onBlur={handleCommentBlur}
+                />
+              </div>
             </div>
           </section>
 
@@ -278,29 +391,24 @@ export function ProductDetailSheet({
             ref={decisionSectionRef}
             id="pds-decision"
             tabIndex={-1}
-            className="pds-card coll-card"
+            className="pds-card pds-review-card coll-card"
           >
             <div className="pds-card-header">
               <Heart size={16} />
               <h3>Votre décision</h3>
             </div>
             <p className="pds-section-lead">
-              Là où vous en êtes maintenant. Modifiable quand votre avis change.
+              Aurore traite votre choix d'étagère comme votre décision actuelle. Modifiable à tout
+              moment.
             </p>
-            <StatusChips
-              currentStatus={p.status}
-              onChange={(newStatus) =>
-                updateMutation.mutate({ id: p.id, input: { status: newStatus } })
-              }
-            />
-            {showReasonPrompt && (
+            <StatusChips currentStatus={p.status} onChange={handleStatusChange} />
+            {pendingStatus && (
               <div className="pds-reason-prompt">
-                <label htmlFor="pds-reason" className="pds-section-title">
-                  Une raison à garder en tête ?
-                </label>
-                <p className="pds-reason-hint">
-                  Quelques mots pour vous rappeler ce choix plus tard. Ajoutés à vos notes.
+                <p className="pds-reason-lead">
+                  Marquer comme <strong>{statusLabels[pendingStatus].label}</strong> — une raison à
+                  garder en tête ?
                 </p>
+                <p className="pds-reason-hint">Optionnel. Ajoutée à votre historique.</p>
                 <textarea
                   id="pds-reason"
                   className="pds-reason-textarea"
@@ -309,22 +417,22 @@ export function ProductDetailSheet({
                   placeholder="Trop riche pour mon hiver, picotements à la première utilisation…"
                   rows={2}
                 />
-                <Button
-                  variant="outline"
-                  size="sm"
-                  disabled={!reasonDraft.trim() || updateMutation.isPending}
-                  onClick={handleSaveReason}
-                >
-                  Garder cette raison
-                </Button>
+                <div className="pds-reason-actions">
+                  <Button variant="ghost" size="sm" onClick={handleCancelStatus}>
+                    Annuler
+                  </Button>
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    disabled={updateMutation.isPending}
+                    onClick={handleConfirmStatus}
+                  >
+                    Confirmer
+                  </Button>
+                </div>
               </div>
             )}
-            <RepurchasePicker
-              value={p.wouldRepurchase}
-              onChange={(val) =>
-                updateMutation.mutate({ id: p.id, input: { wouldRepurchase: val } })
-              }
-            />
+            <StatusHistory userProductId={p.id} />
           </section>
 
           {/* §7 Comparer avec un autre produit */}
@@ -333,6 +441,9 @@ export function ProductDetailSheet({
               <ArrowLeftRight size={16} />
               <h3>Comparer avec un autre produit</h3>
             </div>
+            <p className="pds-section-lead">
+              Comparez les groupes d'ingrédients et vos notes personnelles côte à côte.
+            </p>
             <Link
               to="/products/compare/new"
               search={{ seed: p.productId }}
@@ -343,50 +454,19 @@ export function ProductDetailSheet({
             </Link>
           </section>
 
-          {/* §8 Liste complète des ingrédients */}
+          {/* §8 Cycle de vie — moved from §1 to footer (P2.A.2). Post-purchase
+              tracking is secondary info; bottom keeps the calm narrative. */}
           <section className="pds-card coll-card">
             <div className="pds-card-header">
-              <Droplets size={16} />
-              <h3 className="pds-section-title">Liste complète des ingrédients</h3>
+              <FlaskConical size={16} />
+              <h3>Cycle de vie</h3>
             </div>
-            {fullProductError ? (
-              <p className="pds-empty-msg" role="alert">
-                Détails indisponibles — vérifie ta connexion.
-              </p>
-            ) : fullProduct?.ingredients && fullProduct.ingredients.length > 0 ? (
-              <>
-                <p className="pds-disclosure-hint">
-                  La liste complète reste disponible quand vous en avez besoin.
-                </p>
-                <details className="pds-ingredients-disclosure">
-                  <summary className="pds-ingredients-summary">Voir la liste complète</summary>
-                  <div className="pds-ingredients-list">
-                    {fullProduct.ingredients.map((pi) => (
-                      <Link
-                        key={pi.ingredientId}
-                        to="/ingredients/$slug"
-                        params={{ slug: pi.ingredientSlug }}
-                        className="pds-ing-tag"
-                      >
-                        {pi.ingredientName}
-                      </Link>
-                    ))}
-                  </div>
-                </details>
-              </>
-            ) : (
-              <p className="pds-empty-msg">
-                Liste d'ingrédients non ajoutée. Vous pouvez garder ce produit comme note
-                personnelle pour le moment.
-              </p>
-            )}
-
-            {fullProduct?.inci && (
-              <button type="button" className="pds-inci-btn" onClick={() => setShowInci(true)}>
-                <Clipboard size={13} />
-                Voir l'INCI
-              </button>
-            )}
+            <details className="pds-lifecycle-disclosure">
+              <summary className="pds-lifecycle-summary">
+                <span>Voir les achats et le cycle de vie</span>
+              </summary>
+              <LifecycleSection p={p} onAddPurchase={() => setShowAddPurchase(true)} />
+            </details>
           </section>
 
           <div className="pds-remove-row">
@@ -426,10 +506,6 @@ export function ProductDetailSheet({
           }
           avoidPending={updateMutation.isPending}
         />
-      )}
-
-      {showInci && fullProduct?.inci && (
-        <InciPopup inci={fullProduct.inci} onClose={() => setShowInci(false)} />
       )}
     </>
   )
