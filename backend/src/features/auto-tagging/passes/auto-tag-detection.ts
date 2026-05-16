@@ -5,12 +5,12 @@
 //   - `runners/audit-auto-tags.ts` (dry-run report)
 //   - `runners/backfill-auto-tags.ts` (TODO — post-snapshot rehydrate)
 //
-// `tagProduct` from algo-derm emits 36 candidate tags (cf docs/tags/AUTO-TAGS.md
-// §3). We keep only the 19 that survived dry-run + spot-check calibration
-// (snapshot 2026-05-07, N=1853 products with INCI). The 8 dropped tags either
-// fire on > 50 % of corpus (`sans-savon`, `grossesse-compatible`, …) or
-// conflate semantically distinct concepts (`matifiant` ≡ `peau-grasse` set
-// but means visual finish, not chemistry — §7.6).
+// `tagProduct` from algo-derm emits 36 candidate tags. We keep only the 19
+// that survived dry-run + spot-check calibration (snapshot 2026-05-07,
+// N=1853 products with INCI). The dropped ones either fire on > 50 % of the
+// corpus (`sans-savon`, `grossesse-compatible`, …) or conflate semantically
+// distinct concepts (`matifiant` ≡ `peau-grasse` set but means visual finish,
+// not chemistry).
 
 import type { ProductKind } from '@habit-tracker/shared'
 import { SKINCARE_PRODUCT_TAG_SLUGS, type SkincareProductTagSlug } from '@habit-tracker/shared'
@@ -120,11 +120,11 @@ export type TagRule = {
   skipIf?: (a: ProductAssessment) => boolean
 }
 
-// Calibration sources (see docs/tags/AUTO-TAGS.md):
-//   §7.2 — bucket 🟢 (allow @ 0.50, agree ≥ 36 %)
-//   §7.4 — bucket 🟠/🔴 (allow:false, structurally noisy)
-//   §7.6 — spot-check (allow @ 0.85 + excludeRinseOff for comedogenicity;
-//                       matifiant dropped despite small set size — semantic mismatch)
+// Calibration buckets:
+//   🟢 allow @ 0.50, agree ≥ 36 %
+//   🟠/🔴 allow:false (structurally noisy)
+//   spot-check overrides — allow @ 0.85 + excludeRinseOff for comedogenicity;
+//   matifiant dropped despite small set size (semantic mismatch).
 export const TAG_CONFIG: Readonly<Record<string, TagRule>> = {
   // Three algo-derm mapped tags are intentionally re-emitted from
   // `passes/formula/` instead of here:

@@ -1,4 +1,3 @@
-// Re-exports for easy single-line imports.
 export { AuroreBrandMark } from './AuroreBrandMark'
 export { ChaosTab } from './ChaosTab'
 export type { CompareRow, CompareSideMeta, ComparisonStripProps } from './ComparisonStrip'

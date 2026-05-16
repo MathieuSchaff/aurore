@@ -3,8 +3,8 @@
 // Read-only. Reads every product in AUTO_TAG_ELIGIBLE_CATEGORIES (skincare /
 // solaire / bodycare) with a non-empty INCI from the live DB, runs
 // `analyzeINCI` + `tagProduct`, applies `TAG_CONFIG` (per-tag
-// allow / confidenceFloor / coverageFloor / excludeRinseOff calibrated 2026-05-07 — see
-// docs/tags/AUTO-TAGS.md §7.4–7.6), and reports per-tag stats:
+// allow / confidenceFloor / coverageFloor / excludeRinseOff calibrated
+// 2026-05-07), and reports per-tag stats:
 //   - hit:    number of products that would receive the tag
 //   - agree:  hit ∩ already-present in tag_products (recall on existing manual labels)
 //   - new:    hit \ already-present (proposed additions)

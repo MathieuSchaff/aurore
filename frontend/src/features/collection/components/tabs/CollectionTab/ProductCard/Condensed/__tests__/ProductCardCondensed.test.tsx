@@ -4,7 +4,6 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { UserProduct } from '@/lib/queries/user-products'
 import { ProductCardCondensed } from '../ProductCardCondensed'
 
-// Mock the hook
 vi.mock('@/lib/queries/user-products', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/lib/queries/user-products')>()
   return {
@@ -15,7 +14,7 @@ vi.mock('@/lib/queries/user-products', async (importOriginal) => {
   }
 })
 
-// Card now reads prefs directly via useQuery — stub it out.
+// Card reads prefs via useQuery — stub it.
 vi.mock('@tanstack/react-query', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@tanstack/react-query')>()
   return {
@@ -90,7 +89,7 @@ describe('ProductCardCondensed', () => {
   })
 
   it('renders score corner ornament for high score', () => {
-    // F2: score number dropped. Ornament-only signal: all 4/5 unweighted = 16/20 → score-rare.
+    // F2: ornament-only signal. All 4/5 unweighted = 16/20 → score-rare.
     const { container } = render(
       <ProductCardCondensed p={makeProduct()} onToggleExpand={vi.fn()} />
     )

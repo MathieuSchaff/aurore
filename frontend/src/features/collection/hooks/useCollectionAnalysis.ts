@@ -4,9 +4,7 @@ import { useMemo } from 'react'
 
 import type { UserProduct } from '@/lib/queries/user-products'
 
-// Common formula fillers are present in nearly every product and dilute
-// the pattern signal — exclude them so the surfaced ingredients describe
-// the user's own shelf, not the cosmetics industry baseline.
+// Excluded from pattern detection — they dilute the signal and describe the industry baseline.
 export const COMMON_FILLERS = [
   'Aqua',
   'Water',
@@ -57,13 +55,10 @@ function countIngredients(products: UserProduct[]): IngredientCount[] {
 
 export function useCollectionAnalysis(userProducts: UserProduct[]): CollectionPatterns {
   return useMemo(() => {
-    // "Keeping" = products the user marked Holy Grail (sentiment=6).
-    // HG used to be a status; folded into the sentiment scale (F4).
+    // Holy Grail = sentiment=6 (folded into sentiment scale in F4; was a status).
     const keeping = userProducts.filter((p) => p.sentiment === HOLY_GRAIL_SENTIMENT)
 
-    // "Set aside" merges every signal that the user moved away from a product:
-    // explicitly avoided, low tolerance, or low sentiment. One calm bucket
-    // beats three alarm-coded ones (see docs/04-design-ux/collection-page-audit.md F1).
+    // "Set aside" merges avoided / low tolerance / low sentiment into one calm bucket.
     const setAsideSet = new Map<string, UserProduct>()
     for (const p of userProducts) {
       const tolerance = p.review?.tolerance ?? 0

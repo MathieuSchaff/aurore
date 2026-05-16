@@ -13,7 +13,7 @@
 
 throw new Error(
   'scripts/_archive/auto-tag.ts is deprecated. Use runners/seed-core.ts (fresh init) ' +
-    'or runners/backfill-auto-tags.ts (rehydrate). See docs/audits/auto-tags-audit.md §C.2.'
+    'or runners/backfill-auto-tags.ts (rehydrate).'
 )
 
 /* eslint-disable */

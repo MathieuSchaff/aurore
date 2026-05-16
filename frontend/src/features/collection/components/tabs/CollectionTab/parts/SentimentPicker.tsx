@@ -9,8 +9,7 @@ type SentimentValue = 1 | 2 | 3 | 4 | 5 | 6
 interface SentimentPickerProps {
   value: number | null | undefined
   onChange: (value: SentimentValue) => void
-  // Holy Grail (level 6) is unavailable on rejected products — picking it
-  // would contradict the rejection.
+  // Holy Grail (6) hidden on rejected products — would contradict the rejection.
   status?: UserProductStatus
 }
 

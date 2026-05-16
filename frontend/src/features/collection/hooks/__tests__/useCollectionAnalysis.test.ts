@@ -9,18 +9,18 @@ describe('useCollectionAnalysis', () => {
     {
       id: '1',
       status: 'in_stock',
-      sentiment: 6, // Holy Grail (orthogonal to status)
+      sentiment: 6,
       product: {
         productIngredients: [
           { ingredient: { id: 'i1', name: 'Retinol' } },
-          { ingredient: { id: 'i2', name: 'Aqua' } }, // Filler
+          { ingredient: { id: 'i2', name: 'Aqua' } }, // filler — excluded
         ],
       },
     },
     {
       id: '2',
       status: 'archived',
-      sentiment: 6, // Holy Grail can sit on any status except avoided
+      sentiment: 6,
       product: {
         productIngredients: [
           { ingredient: { id: 'i1', name: 'Retinol' } },

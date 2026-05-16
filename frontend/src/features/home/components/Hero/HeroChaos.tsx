@@ -3,10 +3,6 @@ import { ArrowRight } from 'lucide-react'
 import { ChaosTab, ProductCard } from '../primitives'
 import { HeroShell } from './HeroShell'
 
-/**
- * Hero B — "Anti-chaos skincare".
- * Plus éditorial. Visuel : onglets éparpillés → une fiche unique.
- */
 export function HeroChaos() {
   return (
     <HeroShell

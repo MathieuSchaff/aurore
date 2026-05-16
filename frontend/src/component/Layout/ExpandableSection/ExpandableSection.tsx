@@ -10,9 +10,7 @@ type Props = {
   onToggle?: () => void
 }
 
-// Toggle + chevron + collapsible body. Supports controlled (`open` +
-// `onToggle`) and uncontrolled (`defaultOpen`) modes so siblings can share
-// a mutually-exclusive open state when needed.
+// Controlled (`open` + `onToggle`) or uncontrolled (`defaultOpen`); siblings can share a mutually-exclusive open state.
 export function ExpandableSection({ title, children, defaultOpen = false, open, onToggle }: Props) {
   const [internalOpen, setInternalOpen] = useState(defaultOpen)
   const isControlled = open !== undefined

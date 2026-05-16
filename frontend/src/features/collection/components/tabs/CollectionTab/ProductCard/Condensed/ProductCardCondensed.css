@@ -250,8 +250,7 @@
   }
 
   .pcc-picker {
-    /* DropdownMenu.Content owns absolute positioning (side="top" align="start").
-       Cap width on narrow viewports to avoid overflow past the card edge. */
+    /* Cap width on narrow viewports to avoid overflow past the card edge. */
     max-width: calc(100vw - 32px);
   }
 

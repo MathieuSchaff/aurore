@@ -87,9 +87,7 @@ export function ProductDetailSheet({
     enabled: !!user,
   })
 
-  // §4 "À noter" — surface calm contextual notes when user prefs intersect
-  // formula signals. Today: fragrance components × peau-sensible skinType.
-  // Doc canonical microcopy: docs/04-design-ux/product-detail.md L171.
+  // §4 "À noter": contextual notes when user prefs intersect formula signals.
   const fragranceNote =
     dermoProfile?.skinTypes?.includes('peau-sensible') &&
     fullProduct?.ingredients &&
@@ -101,12 +99,8 @@ export function ProductDetailSheet({
     }
   }
 
-  // Status changes to `avoided`/`archived` open an inline prompt that
-  // collects an optional reason BEFORE submitting, so the reason ships with
-  // the same mutation and lands on `user_product_status_log.reason` (never
-  // in `comment`). Other status changes submit immediately.
-  // Triggered from §6 chips OR the header popover (P2.B). When the popover
-  // triggers the reason prompt, the prompt lives in §6 so we scroll there.
+  // avoided/archived open an inline reason prompt before submit; reason lands on the status log,
+  // never in comment. Prompt lives in §6 so we scroll there when triggered from the header popover.
   const handleStatusChange = (newStatus: UserProduct['status']) => {
     if (newStatus === p.status) return
     if (STATUSES_REQUIRING_REASON_PROMPT.includes(newStatus)) {
@@ -195,10 +189,7 @@ export function ProductDetailSheet({
             </DropdownMenu>
           </div>
 
-          {/* Hero row (P2.E.1): photo as left-flag with brand/name/meta on
-              the right. Replaces the standalone §1 photo card — the picture
-              now anchors the sticky header instead of floating as a 72px
-              orphan tile above Ingrédients. */}
+          {/* Hero row: photo as left-flag with brand/name/meta. Replaces the §1 photo card. */}
           <div className="pds-header-main">
             <ProductImage
               kind={p.product.kind}
@@ -225,11 +216,7 @@ export function ProductDetailSheet({
         </div>
 
         <div className="pds-content">
-          {/* §2 Ingrédients — primary value for Aurore audience (INCI-literate
-              per positioning.md: "lisent les listes INCI"). Moved from §8
-              and expanded by default (P2.C). Editorial design (P2.D):
-              refined typography for the linked tags, small-caps wide-
-              tracking INCI brut text underneath. */}
+          {/* §2 Ingrédients — primary value for the INCI-literate audience. */}
           <section className="pds-card coll-card pds-ingredients-section">
             <div className="pds-card-header">
               <Droplets size={16} />
@@ -289,9 +276,7 @@ export function ProductDetailSheet({
             )}
           </section>
 
-          {/* §3 En un coup d'œil — admin-curated description, demoted under
-              §2 Ingrédients (P2.C — description is secondary signal for
-              INCI-literate Aurore audience). Render only when present. */}
+          {/* §3 admin-curated description, demoted under Ingrédients. Render only when present. */}
           {fullProduct?.description && (
             <section className="pds-card coll-card">
               <div className="pds-card-header">
@@ -454,8 +439,7 @@ export function ProductDetailSheet({
             </Link>
           </section>
 
-          {/* §8 Cycle de vie — moved from §1 to footer (P2.A.2). Post-purchase
-              tracking is secondary info; bottom keeps the calm narrative. */}
+          {/* §8 Cycle de vie at footer: post-purchase tracking is secondary info. */}
           <section className="pds-card coll-card">
             <div className="pds-card-header">
               <FlaskConical size={16} />

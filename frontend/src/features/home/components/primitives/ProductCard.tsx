@@ -22,20 +22,14 @@ export type ProductCardProps = {
   type?: string
   status?: ProductStatus
   statusLabel?: string
-  /** Raw INCI string. Tokens in `highlight` are wrapped in <mark>. */
   inci?: string
-  /** Substrings to highlight inside the INCI text (case-insensitive). */
+  // Case-insensitive substrings wrapped in <mark> inside the INCI text.
   highlight?: string[]
   stats?: ProductStat[]
-  /** Enables hover lift (use for clickable cards inside lists). */
   hover?: boolean
   className?: string
 }
 
-/**
- * Single product fiche — brand, name, INCI excerpt, personal stats.
- * Designed to read like a small index-card from a personal library.
- */
 export function ProductCard({
   brand,
   name,

@@ -1,5 +1,3 @@
-/* ── Controls bar: category nav + search ─────────────────── */
-
 .blog-list-page__controls {
   display: flex;
   flex-direction: column;
@@ -8,14 +6,12 @@
   border-bottom: 1px solid var(--border-default);
 }
 
-/* Category nav: horizontal scroll on mobile, wrap on desktop */
 .blog-category-nav {
   flex-wrap: nowrap;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scroll-snap-type: x mandatory;
   padding-bottom: var(--space-1);
-  /* Hide scrollbar visually but keep functionality */
   scrollbar-width: none;
 }
 
@@ -29,7 +25,6 @@
   scroll-snap-align: start;
 }
 
-/* Search input */
 .blog-search-wrap {
   position: relative;
   display: flex;
@@ -57,7 +52,6 @@
   transition:
     border-color var(--transition-fast),
     background var(--transition-fast);
-  /* Remove native search clear button on webkit */
   -webkit-appearance: none;
 }
 
@@ -75,8 +69,6 @@
 .blog-search__input::-webkit-search-cancel-button {
   -webkit-appearance: none;
 }
-
-/* ── Article cards ──────────────────────────────────────── */
 
 .blog-list__cover {
   padding: 0;
@@ -103,9 +95,6 @@
   margin-left: auto;
 }
 
-/* ── Grid overrides ─────────────────────────────────────── */
-
-/* Hero card: full-width on ≥sm */
 @media (--sm) {
   .blog-list-page__controls {
     flex-direction: row;
@@ -135,7 +124,6 @@
   }
 }
 
-/* 3 columns + hero spans 3 on ≥lg */
 @media (--lg) {
   .blog-list-page .list-grid {
     grid-template-columns: repeat(3, 1fr);

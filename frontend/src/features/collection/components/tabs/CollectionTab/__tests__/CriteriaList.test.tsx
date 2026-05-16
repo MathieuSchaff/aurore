@@ -3,7 +3,6 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { CriteriaList } from '../parts/CriteriaList'
 
-// Mock the hook
 vi.mock('@/lib/queries/user-products', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/lib/queries/user-products')>()
   return {

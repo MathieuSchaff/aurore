@@ -13,9 +13,6 @@
 //      gate excluded them. Strip prefix and keep the short collagen-film INCI.
 //
 // Dry-run by default. Pass --apply to UPDATE.
-//
-// See backend/src/db/seed/docs/ROADMAP.md §2 (worst-match products) and
-// backend/src/db/seed/docs/audits/INCI-QUALITY-AUDIT.md §2.
 import { SQL } from 'bun'
 
 const apply = process.argv.includes('--apply')

@@ -10,10 +10,6 @@ export type ProfileCardProps = {
   className?: string
 }
 
-/**
- * Carte profil peau — affiche un résumé du profil utilisateur
- * (type, sensibilité, ingrédients recherchés / évités).
- */
 export function ProfileCard({ initials, name, meta, rows = [], className }: ProfileCardProps) {
   return (
     <article className={['aur-profile', className].filter(Boolean).join(' ')}>

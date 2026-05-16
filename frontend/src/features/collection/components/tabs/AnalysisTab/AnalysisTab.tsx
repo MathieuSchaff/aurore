@@ -13,9 +13,7 @@ interface AnalysisTabProps {
   userProducts: UserProduct[]
 }
 
-// Minimum products in a bucket before we surface a pattern. Below this
-// the signal is anecdotal, not a motif — and Aurore must not invent
-// certainty (anti-patterns.md §4 Fake precision).
+// Below 3 products the signal is anecdotal; Aurore must not invent certainty (anti-patterns §4).
 const MIN_BUCKET_SIZE = 3
 
 export function AnalysisTab({ userProducts }: AnalysisTabProps) {

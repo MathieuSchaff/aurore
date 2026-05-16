@@ -16,7 +16,7 @@ export const tagQueries = {
         const res = await api.tags.$get({ query: { category } })
         if (!res.ok) throw new Error('Failed to fetch tags')
         const json = await res.json()
-        // Map new field names (label, tagType) to the shape useFormTags expects (name, category)
+        // useFormTags still expects legacy {name, category}; alias the new {label, tagType} fields.
         return json.data.map((t: (typeof json.data)[number]) => ({
           ...t,
           name: t.label,

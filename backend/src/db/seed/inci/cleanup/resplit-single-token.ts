@@ -3,8 +3,6 @@
 // Two strategies: (1) trivial-separator split for " - " / " • " / " / " forms,
 // (2) longest-match against algo-derm alias index for uppercase blobs.
 // Dry-run by default. After --apply, regenerate snapshot + re-audit.
-//
-// See backend/src/db/seed/docs/audits/INCI-QUALITY-AUDIT.md §6 item 10.
 import { SQL } from 'bun'
 
 import { normalize, splitINCI } from 'algo-derm'

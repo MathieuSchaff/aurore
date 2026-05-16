@@ -17,8 +17,6 @@
 // string, the row is skipped (defensive against malformed splits).
 //
 // Dry-run by default. Pass --apply to UPDATE.
-//
-// See backend/src/db/seed/docs/audits/INCI-QUALITY-AUDIT.md §6 Phase 4 item B.
 import { SQL } from 'bun'
 
 import { splitINCI, stripPreamble } from 'algo-derm'

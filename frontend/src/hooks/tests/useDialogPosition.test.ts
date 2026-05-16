@@ -7,7 +7,6 @@ describe('useDialogPosition', () => {
   it('returns "top" when the element is in view', () => {
     const el = document.createElement('div')
     document.body.appendChild(el)
-    // Default getBoundingClientRect returns top: 0, which is not < 0
     const ref = { current: el }
 
     const { result } = renderHook(() => useDialogPosition(ref))

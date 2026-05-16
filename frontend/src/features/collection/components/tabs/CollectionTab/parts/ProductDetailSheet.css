@@ -17,18 +17,14 @@
   margin-bottom: 0.875rem;
 }
 
-/* Hero row (P2.E.1) — photo flag-left, title block right. Replaces the
-   standalone §1 shelf card. Sits inside `.pds-header` so the photo
-   stays anchored when the user scrolls (continuous orientation). */
+/* Hero row: photo flag-left, title right. Inside .pds-header so it stays anchored on scroll. */
 .pds-header-main {
   display: flex;
   align-items: flex-start;
   gap: 1rem;
 }
 
-/* === Header status popover (P2.B) — DropdownMenu trigger acts as a chip
-   mirroring `.pds-close-btn` on the opposite side. Click opens a menu
-   of all 5 statuses; the active one wins a check mark. */
+/* Header status popover: DropdownMenu trigger acts as a chip; opens menu of 5 statuses. */
 
 .pds-header-status {
   position: relative;
@@ -314,8 +310,7 @@
   border: 1px solid var(--border-default);
 }
 
-/* Accent card — wins over `.coll-product-sheet .coll-card` reset
-   (specificity 0,3,0 > 0,2,0) and restores padding/border the reset strips. */
+/* Accent card: specificity 0,3,0 wins over the .coll-card reset and restores padding/border. */
 .coll-product-sheet .pds-card.pds-review-card {
   padding: 1.125rem;
   border-radius: var(--radius-lg);
@@ -611,8 +606,7 @@
   box-shadow: 0 2px 6px oklch(from var(--color-warning) l c h / 0.15);
 }
 
-/* "Non" stays neutral — choosing not to repurchase is a personal call,
-   not a danger signal (anti-patterns.md #18 good/bad framing). */
+/* "Non" stays neutral — personal call, not a danger signal (anti-patterns #18). */
 .pds-repurchase-btn.active.no {
   background: var(--bg-card);
   color: var(--text-primary);
@@ -620,9 +614,7 @@
   box-shadow: 0 2px 6px oklch(from var(--text-muted) l c h / 0.15);
 }
 
-/* === Ingredients (P2.C/D) — expanded by default. Aurore audience reads INCI;
-   they come here to recall, not to dive into a disclosure. Editorial design:
-   refined typographic chips, INCI brut in small caps wide-tracking. */
+/* Ingredients: expanded by default for the INCI-literate audience. */
 
 .pds-ingredients-list {
   display: flex;

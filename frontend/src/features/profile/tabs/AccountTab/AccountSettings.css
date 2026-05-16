@@ -108,8 +108,7 @@
   gap: var(--space-3);
 }
 
-/* ── Privacy section (merged from PrivacySettings) ── */
-
+/* Privacy section (merged from PrivacySettings) */
 .privacy-loading {
   color: var(--text-muted);
   font-size: var(--text-sm);

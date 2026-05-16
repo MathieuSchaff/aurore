@@ -14,10 +14,6 @@ import type { ReactNode } from 'react'
 import { Button } from '../../../../component/Button/Button'
 import './AboutPage.css'
 
-/* ──────────────────────────────────────────────────────────────────
-   Sub-components — all internal to keep the page self-contained.
-   ────────────────────────────────────────────────────────────────── */
-
 function Eyebrow({ children }: { children: ReactNode }) {
   return <p className="aur-about__eyebrow">{children}</p>
 }
@@ -39,8 +35,6 @@ function SectionHeader({
     </header>
   )
 }
-
-/* ─── Hero ──────────────────────────────────────────────────────── */
 
 function AboutHero() {
   return (
@@ -108,8 +102,6 @@ function AboutHero() {
   )
 }
 
-/* ─── Story ─────────────────────────────────────────────────────── */
-
 function AboutStory() {
   return (
     <section className="aur-about-section" aria-labelledby="aur-about-story-title">
@@ -152,8 +144,6 @@ function AboutStory() {
     </section>
   )
 }
-
-/* ─── Pain points ───────────────────────────────────────────────── */
 
 function AboutPain() {
   const items = [
@@ -223,8 +213,6 @@ function AboutPain() {
   )
 }
 
-/* ─── What Aurore enables ───────────────────────────────────────── */
-
 const enables = [
   {
     icon: <Heart size={16} strokeWidth={1.75} />,
@@ -284,8 +272,6 @@ function AboutEnables() {
   )
 }
 
-/* ─── Principles ────────────────────────────────────────────────── */
-
 const principles = [
   {
     title: 'De l’information, pas du marketing.',
@@ -344,8 +330,6 @@ function AboutPrinciples() {
   )
 }
 
-/* ─── What Aurore is NOT ────────────────────────────────────────── */
-
 const notList: { head: string; sub: string }[] = [
   {
     head: 'Une application médicale.',
@@ -400,8 +384,6 @@ function AboutNot() {
     </section>
   )
 }
-
-/* ─── Collaborative ─────────────────────────────────────────────── */
 
 function AboutCollab() {
   return (
@@ -489,8 +471,6 @@ function AboutCollab() {
   )
 }
 
-/* ─── Final CTA ─────────────────────────────────────────────────── */
-
 function AboutCta() {
   return (
     <section className="aur-about-cta" aria-labelledby="aur-about-cta-title">
@@ -518,8 +498,6 @@ function AboutCta() {
     </section>
   )
 }
-
-/* ─── Page export ───────────────────────────────────────────────── */
 
 export function AboutPage() {
   return (

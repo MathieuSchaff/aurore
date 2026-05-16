@@ -4,9 +4,10 @@ const GAP = 4
 // Drawer body owns its own scroll context; recompute coords when it scrolls.
 const SCROLLABLE_SELECTOR = '.filter-drawer__body'
 
-// Position a fixed-element dropdown under (or above) a trigger. Flips when not
-// enough space below. Listens for window resize and drawer-body scroll so the
-// dropdown follows its trigger.
+/**
+ * Positions a fixed-element dropdown under (or above) a trigger; flips when
+ * space below is insufficient. Listens for window resize and drawer-body scroll.
+ */
 export function useFlipPlacement(
   triggerRef: RefObject<HTMLElement | null>,
   dropdownRef: RefObject<HTMLElement | null>,

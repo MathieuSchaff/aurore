@@ -41,7 +41,6 @@ function getScoreChipClass(score: string | null): string {
 }
 
 function getStatusClass(status: string): string {
-  // Holy Grail used to be a status; it's now sentiment=6 (orthogonal).
   return status === 'archived' ? 'status-archived' : ''
 }
 
@@ -119,8 +118,7 @@ export function ProductCardCondensed({
   const handleNextSentiment = (e: React.MouseEvent) => {
     e.stopPropagation()
     const current = p.sentiment || 0
-    // Cycle 1 → … → 6 (Holy Grail) → null. Avoided products cap at 5 —
-    // HG on a rejected product would be self-contradictory.
+    // Cycle 1 → 6 (HG) → null. Avoided caps at 5 (HG on rejected is self-contradictory).
     const max = p.status === 'avoided' ? 5 : 6
     const next = current >= max ? null : current + 1
     updateMutation.mutate({ id: p.id, input: { sentiment: next } })

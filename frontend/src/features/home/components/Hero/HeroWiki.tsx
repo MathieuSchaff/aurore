@@ -1,10 +1,6 @@
 import { ComparisonStrip, IngredientCard } from '../primitives'
 import { HeroShell } from './HeroShell'
 
-/**
- * Hero C — "Wiki + comparaison".
- * Plus produit / expert. Visuel : grande fiche INCI + bande comparative.
- */
 export function HeroWiki() {
   return (
     <HeroShell

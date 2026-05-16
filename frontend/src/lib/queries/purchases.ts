@@ -15,8 +15,7 @@ export const purchaseKeys = {
   byUserProduct: (userProductId: string) => [...purchaseKeys.all, userProductId] as const,
 }
 
-// All purchase mutations invalidate both the purchase list of the affected
-// user-product and the global user-product list (qty/lifecycle changes).
+// Invalidate both the purchase list and the user-product list (qty/lifecycle changes).
 function invalidateAfterPurchaseMutation(qc: QueryClient, userProductId: string) {
   qc.invalidateQueries({ queryKey: purchaseKeys.byUserProduct(userProductId) })
   qc.invalidateQueries({ queryKey: userProductKeys.all })
@@ -132,7 +131,7 @@ export const useUpdatePurchase = () => {
     },
     onSuccess: (_, { userProductId }) =>
       invalidateAfterPurchaseMutation(queryClient, userProductId),
-    // Caller (AddPurchaseDialog) shows its own toast.
+    // AddPurchaseDialog owns its toast.
   })
 }
 

@@ -11,8 +11,6 @@
 // "Ingrédients :" markers) — trailing disclaimer has no marker to anchor on.
 //
 // Dry-run by default. Pass --apply to UPDATE.
-//
-// See backend/src/db/seed/docs/audits/INCI-QUALITY-AUDIT.md §6 Phase 4 item M.
 import { SQL } from 'bun'
 
 import { splitINCI, stripPreamble } from 'algo-derm'

@@ -54,8 +54,7 @@
   border: 1px solid transparent;
 }
 
-/* Statuts personnels — inclut les 4 états product-first
-   (considering, wishlist, owned, rejected) + compat legacy. */
+/* Product-first states (considering/wishlist/owned/rejected) + legacy aliases. */
 .aur-product__status--holy,
 .aur-product__status--repurchase {
   background: oklch(94% 0.08 75);

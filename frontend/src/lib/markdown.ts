@@ -1,6 +1,4 @@
-// Seed content stores bare LaTeX tokens (e.g. `mathrm`, `frac`) without the
-// leading backslashes KaTeX expects. This normalizes the `$$...$$` blocks so
-// rehype-katex can render formulas written for Obsidian-style sources.
+// Seed content stores bare LaTeX tokens (Obsidian-style) without the leading backslashes KaTeX needs.
 export function normalizeLatexMarkdown(rawContent: string): string {
   if (!rawContent) return ''
 

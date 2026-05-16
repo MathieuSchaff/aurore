@@ -5,11 +5,10 @@ import { api } from '../api'
 
 export type SilentRefreshResult = 'ok' | 'failed' | 'cooldown'
 
-// If several components trigger a refresh at the same time, we reuse the same
-// in-flight promise instead of sending multiple requests to the server
+// Dedupe concurrent refresh triggers across components.
 let inflightRefresh: Promise<SilentRefreshResult> | null = null
 
-// Exponential backoff state: 1s → 2s → 4s → … → 30s cap
+// Exponential backoff: 1s → 2s → 4s → … → 30s cap.
 let failureCount = 0
 let retryAfter = 0
 
@@ -22,8 +21,7 @@ export function __resetSilentRefreshState() {
 
 export async function silentRefresh(queryClient: QueryClient): Promise<SilentRefreshResult> {
   if (inflightRefresh) return inflightRefresh
-  // Throttle window after a recent failure: signal `cooldown` so callers can choose
-  // whether to log the user out or wait for the window to expire instead.
+  // Cooldown window after recent failure — callers decide whether to wait or log out.
   if (Date.now() < retryAfter) return 'cooldown'
 
   inflightRefresh = (async (): Promise<SilentRefreshResult> => {

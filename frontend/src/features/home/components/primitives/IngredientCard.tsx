@@ -19,10 +19,6 @@ export type IngredientCardProps = {
   className?: string
 }
 
-/**
- * Fiche ingrédient — pour Hero C, sections Wiki et previews.
- * Pas une recommandation médicale ; juste une lecture de la formule.
- */
 export function IngredientCard({
   name,
   inci,

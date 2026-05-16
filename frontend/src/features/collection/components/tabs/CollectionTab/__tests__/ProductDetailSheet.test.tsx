@@ -68,7 +68,7 @@ describe('ProductDetailSheet', () => {
   it('appelle onClose au clic sur le backdrop', async () => {
     const onClose = vi.fn()
     renderWithProviders(<ProductDetailSheet {...defaultProps} onClose={onClose} />)
-    // backdrop = click on the <dialog> element itself (not a child)
+    // Backdrop = click on the <dialog> itself, not a child.
     fireEvent.click(screen.getByRole('dialog'))
     expect(onClose).toHaveBeenCalled()
   })
@@ -76,7 +76,7 @@ describe('ProductDetailSheet', () => {
   it('appelle onClose sur la touche Escape', async () => {
     const onClose = vi.fn()
     renderWithProviders(<ProductDetailSheet {...defaultProps} onClose={onClose} />)
-    // jsdom doesn't convert keydown Escape to a cancel event — fire it directly
+    // jsdom doesn't convert keydown Escape to a cancel event.
     fireEvent(screen.getByRole('dialog'), new Event('cancel', { bubbles: false, cancelable: true }))
     expect(onClose).toHaveBeenCalled()
   })

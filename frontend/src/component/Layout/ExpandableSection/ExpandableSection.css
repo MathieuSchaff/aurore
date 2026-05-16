@@ -38,5 +38,5 @@
 }
 
 .expandable-section__body {
-  /* children render directly, no extra wrapper padding */
+  /* No padding — children render directly. */
 }

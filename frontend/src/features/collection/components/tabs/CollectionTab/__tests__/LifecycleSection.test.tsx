@@ -12,7 +12,6 @@ const queryClient = new QueryClient({
   },
 })
 
-// Mock the queries and mutations
 vi.mock('@tanstack/react-query', async (importOriginal) => {
   const actual = await importOriginal<any>()
   return {

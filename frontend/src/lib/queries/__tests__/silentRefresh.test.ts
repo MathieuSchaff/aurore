@@ -89,7 +89,7 @@ describe('silentRefresh', () => {
     await silentRefresh(queryClient)
     expect(mockRefreshPost).toHaveBeenCalledOnce()
 
-    // Second call within the 1s backoff window must short-circuit to 'cooldown'.
+    // Within the 1s backoff window, second call short-circuits to 'cooldown'.
     const result = await silentRefresh(queryClient)
     expect(result).toBe('cooldown')
     expect(mockRefreshPost).toHaveBeenCalledOnce()

@@ -4,8 +4,6 @@
 // Covers cases the anchored stripPreamble can't reach: prose blurb then
 // the real header mid-string (korean-skincare.fr scrapes).
 // Dry-run by default. Pass --apply to UPDATE.
-//
-// See backend/src/db/seed/docs/audits/INCI-QUALITY-AUDIT.md §6 item 11.
 import { SQL } from 'bun'
 
 const apply = process.argv.includes('--apply')

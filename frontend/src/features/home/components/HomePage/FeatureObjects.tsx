@@ -1,5 +1,4 @@
-// Each component renders pure CSS shapes — no images, no SVG, no icons.
-// Animations are driven entirely by CSS classes defined in HomePage.css.
+// Pure CSS shapes — animations defined in HomePage.css.
 
 export function ObjJar() {
   return (

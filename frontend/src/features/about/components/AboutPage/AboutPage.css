@@ -1,9 +1,3 @@
-/* ──────────────────────────────────────────────────────────────────
-   AboutPage.css — /about route for Aurore
-   Tone: editorial · warm · personal manifesto · terracota light
-   All variables are inherited from src/styles/tokens/*.css
-   ────────────────────────────────────────────────────────────────── */
-
 @keyframes aur-about__fade-up {
   from {
     opacity: 0;
@@ -25,8 +19,6 @@
   }
 }
 
-/* ─── Page shell ────────────────────────────────────────────────── */
-
 .aur-about {
   --measure: 62ch;
   --rule-color: oklch(from var(--text-primary) l c h / 0.18);
@@ -45,8 +37,6 @@
   flex-direction: column;
   gap: var(--space-20);
 }
-
-/* Section eyebrow / label */
 
 .aur-about__eyebrow {
   display: inline-flex;
@@ -69,8 +59,6 @@
   background: var(--oxydized-iron);
   opacity: 0.55;
 }
-
-/* ─── HERO ──────────────────────────────────────────────────────── */
 
 .aur-about-hero {
   display: grid;
@@ -135,8 +123,6 @@
   margin-top: var(--space-2);
 }
 
-/* Hero visual: stack of notes + INCI ribbon */
-
 .aur-about-hero__visual {
   position: relative;
   height: 26rem;
@@ -178,8 +164,6 @@
   color: var(--text-secondary);
   margin: 0;
 }
-
-/* Note variants in hero */
 
 .aur-about-note--ingredient {
   top: 0;
@@ -237,8 +221,6 @@
   letter-spacing: 0.04em;
 }
 
-/* tags inside notes */
-
 .aur-about-note__tags {
   display: flex;
   flex-wrap: wrap;
@@ -256,8 +238,6 @@
   text-transform: lowercase;
   letter-spacing: 0.02em;
 }
-
-/* ─── Section heading ───────────────────────────────────────────── */
 
 .aur-about-section__header {
   display: flex;
@@ -285,8 +265,6 @@
   margin: 0;
   max-width: 42rem;
 }
-
-/* ─── Story: two-column letter-like layout ──────────────────────── */
 
 .aur-about-story {
   display: grid;
@@ -325,8 +303,6 @@
   margin: 0;
   font-style: italic;
 }
-
-/* ─── Pain points: visual chaos + structured list ───────────────── */
 
 .aur-about-pain {
   display: grid;
@@ -490,8 +466,6 @@
   font-weight: var(--font-normal);
 }
 
-/* ─── Enables grid (what Aurore lets you do) ────────────────────── */
-
 .aur-about-enables {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -542,8 +516,6 @@
   margin: 0;
 }
 
-/* ─── Principles: numbered manifesto ────────────────────────────── */
-
 .aur-about-principles {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -588,8 +560,6 @@
   color: var(--text-secondary);
   margin: 0;
 }
-
-/* ─── What Aurore is NOT ────────────────────────────────────────── */
 
 .aur-about-not {
   background:
@@ -651,8 +621,6 @@
   font-weight: var(--font-semibold);
 }
 
-/* ─── Collaborative: INCI mini-sheet visual ─────────────────────── */
-
 .aur-about-collab {
   display: grid;
   grid-template-columns: 1fr 1.05fr;
@@ -692,8 +660,6 @@
   background: var(--oxydized-iron);
   flex-shrink: 0;
 }
-
-/* INCI mini-sheet visual */
 
 .aur-about-inci {
   background: var(--bg-card);
@@ -813,8 +779,6 @@
   background: var(--color-primary);
 }
 
-/* ─── Final CTA ─────────────────────────────────────────────────── */
-
 .aur-about-cta {
   text-align: center;
   display: flex;
@@ -858,8 +822,6 @@
   justify-content: center;
   margin-top: var(--space-2);
 }
-
-/* ─── Responsive ────────────────────────────────────────────────── */
 
 @media (max-width: 900px) {
   .aur-about-hero,

@@ -5,14 +5,9 @@ import { HeroWiki } from './HeroWiki'
 export type HeroVariant = 'base' | 'chaos' | 'wiki'
 
 export type HeroProps = {
-  /** Default 'base'. Switch to compare hero positioning. */
   variant?: HeroVariant
 }
 
-/**
- * Picker — Hero A by default (Base personnelle, recommended).
- * Switch via prop to explore the editorial (chaos) or wiki framings.
- */
 export function Hero({ variant = 'base' }: HeroProps) {
   if (variant === 'chaos') return <HeroChaos />
   if (variant === 'wiki') return <HeroWiki />

@@ -50,7 +50,7 @@ export function BlogListPage({
   const [inputValue, setInputValue] = useState(q ?? '')
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  // Sync input when URL param changes externally (browser back/forward)
+  // Sync local input when URL param changes (browser back/forward).
   useEffect(() => {
     setInputValue(q ?? '')
   }, [q])
