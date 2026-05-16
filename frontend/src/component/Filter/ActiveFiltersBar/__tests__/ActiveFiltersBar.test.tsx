@@ -16,9 +16,9 @@ const labelMap: Record<Key, Record<string, string>> = {
   kind: { serum: 'Sérum', cleanser: 'Nettoyant' },
 }
 
-const getFilterLabel = (key: Key, value: string) => labelMap[key]?.[value] ?? value // fallback to raw slug if not in map
+const getFilterLabel = (key: Key, value: string) => labelMap[key]?.[value] ?? value
 
-describe('ActiveFiltersBar — empty', () => {
+describe('ActiveFiltersBar: empty', () => {
   it('renders nothing when there are no active tags and no extras', () => {
     const { container } = render(
       <ActiveFiltersBar
@@ -33,7 +33,7 @@ describe('ActiveFiltersBar — empty', () => {
   })
 })
 
-describe('ActiveFiltersBar — pills', () => {
+describe('ActiveFiltersBar: pills', () => {
   it('renders one pill per active tag with prefix + label', () => {
     render(
       <ActiveFiltersBar
@@ -97,7 +97,7 @@ describe('ActiveFiltersBar — pills', () => {
   })
 })
 
-describe('ActiveFiltersBar — actions', () => {
+describe('ActiveFiltersBar: actions', () => {
   it('calls onRemoveTag(key, value) when a pill is clicked', async () => {
     const onRemoveTag = vi.fn()
     const user = userEvent.setup()
@@ -132,7 +132,7 @@ describe('ActiveFiltersBar — actions', () => {
   })
 })
 
-describe('ActiveFiltersBar — extras', () => {
+describe('ActiveFiltersBar: extras', () => {
   it('renders extra chips alongside active tags and wires onRemove', async () => {
     const extraRemove = vi.fn()
     const user = userEvent.setup()
@@ -169,7 +169,7 @@ describe('ActiveFiltersBar — extras', () => {
   })
 })
 
-describe('ActiveFiltersBar — keyboard activation', () => {
+describe('ActiveFiltersBar: keyboard activation', () => {
   it('activates a pill via Enter (native button semantics)', async () => {
     const onRemoveTag = vi.fn()
     const user = userEvent.setup()
@@ -207,7 +207,7 @@ describe('ActiveFiltersBar — keyboard activation', () => {
   })
 })
 
-describe('ActiveFiltersBar — DOM order', () => {
+describe('ActiveFiltersBar: DOM order', () => {
   it('renders pills before extras, extras before "Tout effacer"', () => {
     render(
       <ActiveFiltersBar

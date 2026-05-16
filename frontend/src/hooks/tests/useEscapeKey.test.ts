@@ -28,7 +28,7 @@ describe('useEscapeKey', () => {
     expect(handler).not.toHaveBeenCalled()
   })
 
-  it('uses the latest handler without re-attaching the listener (ref-based)', () => {
+  it('uses the latest handler without attaching the listener again (ref-based)', () => {
     const first = vi.fn()
     const second = vi.fn()
 
@@ -54,8 +54,7 @@ describe('useEscapeKey', () => {
   })
 
   it('fires every active instance when multiple are mounted', () => {
-    // Current impl has no LIFO/stop semantics — both handlers fire.
-    // If LIFO is added later, this test should be updated to assert ordering.
+    // No LIFO/stop semantics: update this test if ordering is introduced.
     const a = vi.fn()
     const b = vi.fn()
 
