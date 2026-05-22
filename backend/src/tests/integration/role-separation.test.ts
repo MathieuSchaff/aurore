@@ -1,11 +1,15 @@
 import { describe, expect, it } from 'bun:test'
 import { SQL } from 'bun'
 
+import { setupDbTests } from '../db-setup'
+
 const APP_DATABASE_URL = process.env.APP_DATABASE_URL
 if (!APP_DATABASE_URL) throw new Error('APP_DATABASE_URL not set')
 
+setupDbTests()
+
 describe('runtime role (app_runtime)', () => {
-  // Bun 1.3.12: .rejects.toThrow() hangs with SQL tagged templates — use try/catch instead.
+  // Bun 1.3.12: .rejects.toThrow() hangs with SQL tagged templates, so use try/catch instead.
   it('cannot CREATE TABLE', async () => {
     const pool = new SQL(APP_DATABASE_URL)
     let threw = false
@@ -22,7 +26,7 @@ describe('runtime role (app_runtime)', () => {
 
   it('can SELECT from an existing table', async () => {
     const pool = new SQL(APP_DATABASE_URL)
-    // Table may be empty — we care that the query succeeds without a permission error.
+    // Table may be empty; we care that the query succeeds without a permission error.
     const rows = (await pool`SELECT 1 AS ok FROM users LIMIT 1`) as unknown as Array<{ ok: number }>
     await pool.close()
     expect(Array.isArray(rows)).toBe(true)
