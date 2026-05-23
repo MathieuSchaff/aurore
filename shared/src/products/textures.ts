@@ -1,9 +1,9 @@
-// Product texture — orthogonal to `kind` (functional category like serum or
+// Product texture, orthogonal to `kind` (functional category like serum or
 // cleanser). A `cleanser` can be `gel` / `mousse` / `huile` / `baume`; a
 // `moisturizer` can be `creme` / `gel` / `lait`. Texture drives sensoriel
-// tagging (S5 — texture-gel/mousse/stick) which the kind alone cannot supply.
+// tagging (texture-gel/mousse/stick) which the kind alone cannot supply.
 
-export const PRODUCT_TEXTURES = {
+const PRODUCT_TEXTURES = {
   GEL: 'gel',
   CREME: 'creme',
   MOUSSE: 'mousse',
