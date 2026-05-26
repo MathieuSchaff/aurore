@@ -1,4 +1,3 @@
-/** @vitest-environment jsdom */
 import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
@@ -77,7 +76,7 @@ describe('Flow : ajout rapide dans Ma Collection', () => {
     expect(screen.getByText('Nouveau produit')).toBeInTheDocument()
   })
 
-  it('onglet "Produit existant" actif par défaut — affiche le SearchCombobox', () => {
+  it('onglet "Produit existant" actif par défaut : affiche le SearchCombobox', () => {
     renderWithProviders(<QuickAdd onClose={() => {}} />)
     expect(screen.getByPlaceholderText('Rechercher dans le catalogue...')).toBeInTheDocument()
   })
