@@ -2,7 +2,7 @@ import {
   PRODUCT_TEXTURE_LABELS,
   PRODUCT_TEXTURE_VALUES,
   type ProductCategory,
-} from '@habit-tracker/shared'
+} from '@aurore/shared'
 
 import { ChipGroup } from '@/component/Input/ChipGroup/ChipGroup'
 import { FormField } from '@/component/Input/FormField/FormField'
@@ -32,7 +32,7 @@ export function TextureField({
         }))}
         selected={value ? [value] : []}
         onChange={(values) => {
-          // Toggle mode so re-clicking the active chip clears it (exclusive radios swallow re-click).
+          // Toggle mode so clicking the active chip again clears it (exclusive radios swallow the second click).
           onChange(values.at(-1) ?? '')
         }}
         mode="toggle"
