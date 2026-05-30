@@ -1,4 +1,4 @@
-import type { EnrichedComparisonProduct } from '@habit-tracker/shared'
+import type { EnrichedComparisonProduct } from '@aurore/shared'
 
 import { CommonIngredientsSection } from './CommonIngredientsSection'
 import { ComparisonHero } from './ComparisonHero'
@@ -10,7 +10,7 @@ import './ComparisonBody.css'
 
 type Props = {
   products: EnrichedComparisonProduct[]
-  /** Optional editorial header - falls back to a generic title when absent. */
+  /** Optional editorial header: falls back to a generic title when absent. */
   comparisonName?: string | null
   reference?: string
 }
