@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'bun:test'
 
-import { createIngredientSchema, updateIngredientSchema } from '@habit-tracker/shared'
+import { createIngredientSchema, updateIngredientSchema } from '@aurore/shared'
 
-describe('createIngredientSchema — type × category cross-check', () => {
+describe('createIngredientSchema: type × category cross-check', () => {
   it('accepts category from the matching type set', () => {
     const r = createIngredientSchema.safeParse({
       name: 'Niacinamide',
@@ -39,8 +39,8 @@ describe('createIngredientSchema — type × category cross-check', () => {
   })
 })
 
-describe('updateIngredientSchema — type × category cross-check', () => {
-  it('accepts partial update with no type and any category — service merges later', () => {
+describe('updateIngredientSchema: type × category cross-check', () => {
+  it('accepts partial update with no type and any category, service merges later', () => {
     const r = updateIngredientSchema.safeParse({ category: 'whatever' })
     expect(r.success).toBe(true)
   })
