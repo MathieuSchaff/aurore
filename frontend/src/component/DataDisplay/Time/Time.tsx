@@ -19,9 +19,9 @@ type RelativeProps = {
 
 type TimeProps = AbsoluteProps | RelativeProps
 
-// Single entry point for displaying wire dates - wraps the time tag with the
+// Single entry point for displaying wire dates: wraps the time tag with the
 // FR-locale helpers. Bypassing this and formatting dates inline in components
-// is a convention drift.
+// is a convention drift (see docs/conventions/dates.md).
 export function Time(props: TimeProps) {
   const {
     iso,
