@@ -6,6 +6,7 @@ import type {
   ResolveReportInput,
   ReviewSuggestedEditInput,
   SuggestedEditStatus,
+  UpdateRoleInput,
 } from '@aurore/shared'
 
 type ModerateTarget = 'reviews' | 'threads' | 'replies' | 'products' | 'ingredients'
@@ -159,6 +160,28 @@ export function useModerateProfileVisibility(userId: string) {
       if (!res.ok) throw new Error('Failed to update profile visibility')
       const json = await res.json()
       if (!json.success) throw new Error('Moderate profile error')
+      return json.data
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: adminKeys.users() })
+    },
+  })
+}
+
+export function useDemoteToUser(userId: string) {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: async (body: UpdateRoleInput) => {
+      const res = await api.admin.users[':id'].role.$patch({
+        param: { id: userId },
+        json: body,
+      })
+      if (!res.ok) {
+        const json = (await res.json()) as { error?: string }
+        throw new Error(json.error ?? 'Failed to update role')
+      }
+      const json = await res.json()
+      if (!json.success) throw new Error('Update role error')
       return json.data
     },
     onSuccess: () => {
