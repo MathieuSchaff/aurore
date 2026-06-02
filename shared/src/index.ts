@@ -8,11 +8,19 @@ export {
   adminRoleErrorMapping,
   type BanScope,
   banScopeSchema,
+  type CatalogKind,
+  type CatalogQuality,
+  type CatalogQueueItem,
+  type CatalogQueueQuery,
+  type CatalogQueueResponse,
   type ContentPreview,
   type ContentPreviewResult,
   type CreateBanInput,
   type CreateBanResponse,
   type CreateBanResult,
+  catalogKindSchema,
+  catalogQualitySchema,
+  catalogQueueQuerySchema,
   createBanBodySchema,
   type ListUsersResponse,
   type ModerateContentInput,
@@ -448,6 +456,7 @@ export type {
   SignupResult,
   UserPublic,
 } from './auth'
+export type { MySubmissionItem, MySubmissionsResponse } from './catalog/submissions'
 export type {
   DiscussionErrorCode,
   DiscussionReply,

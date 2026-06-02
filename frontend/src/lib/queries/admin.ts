@@ -1,7 +1,10 @@
 import type {
+  CatalogKind,
+  CatalogQuality,
   CreateBanInput,
   ModerateContentInput,
   ModerateProfileInput,
+  ModerationStatus,
   ReportStatus,
   ResolveReportInput,
   ReviewSuggestedEditInput,
@@ -25,6 +28,8 @@ const adminKeys = {
     [...adminKeys.all, 'suggested-edits', { status }] as const,
   preview: (target: ModerateTarget, id: string) =>
     [...adminKeys.all, 'preview', target, id] as const,
+  catalogQueue: (kind: CatalogKind, quality?: CatalogQuality, status?: ModerationStatus) =>
+    [...adminKeys.all, 'catalog-queue', { kind, quality, status }] as const,
   dashboard: () => [...adminKeys.all, 'dashboard'] as const,
 }
 
@@ -94,6 +99,23 @@ export const adminQueries = {
         return json.data
       },
       staleTime: 30_000,
+    }),
+
+  catalogQueue: (kind: CatalogKind, quality?: CatalogQuality, status?: ModerationStatus) =>
+    queryOptions({
+      queryKey: adminKeys.catalogQueue(kind, quality, status),
+      queryFn: async () => {
+        const query: { kind: CatalogKind; quality?: CatalogQuality; status?: ModerationStatus } = {
+          kind,
+        }
+        if (quality) query.quality = quality
+        if (status) query.status = status
+        const res = await api.admin.moderation.catalog.$get({ query })
+        if (!res.ok) throw new Error('Failed to fetch catalog queue')
+        const json = await res.json()
+        if (!json.success) throw new Error('Catalog queue error')
+        return json.data
+      },
     }),
 
   contentPreview: (target: ModerateTarget, id: string) =>
@@ -268,6 +290,31 @@ export function useModerateContent() {
     },
     onSuccess: (_data, vars) => {
       qc.invalidateQueries({ queryKey: adminKeys.preview(vars.target, vars.id) })
+    },
+  })
+}
+
+export function useVerifyCatalogItem() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: async ({ kind, id }: { kind: CatalogKind; id: string }) => {
+      const res =
+        kind === 'product'
+          ? await api.products[':id'].quality.$patch({
+              param: { id },
+              json: { quality: 'verified' },
+            })
+          : await api.ingredients[':id'].quality.$patch({
+              param: { id },
+              json: { quality: 'verified' },
+            })
+      if (!res.ok) throw new Error('Failed to verify catalog item')
+      const json = await res.json()
+      if (!json.success) throw new Error('Verify catalog error')
+      return json.data
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: [...adminKeys.all, 'catalog-queue'] })
     },
   })
 }
