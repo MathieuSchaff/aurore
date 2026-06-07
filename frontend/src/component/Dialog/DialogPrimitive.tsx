@@ -1,8 +1,6 @@
 import clsx from 'clsx'
 import { createContext, use, useEffect, useId, useRef } from 'react'
 
-import { useScrollLock } from '@/hooks/useScrollLock'
-
 import './DialogPrimitive.css'
 
 interface DialogTitleContextValue {
@@ -19,7 +17,7 @@ export function useDialogTitleId() {
 
 interface DialogPrimitiveProps {
   onClose: () => void
-  /** optional - if omitted, an id is generated and exposed via Modal.Title / Sheet.Title */
+  /** optional: if omitted, an id is generated and exposed via Modal.Title / Sheet.Title */
   labelledBy?: string
   /** native <dialog> implies role="dialog"; pass "alertdialog" only when the dialog interrupts a flow */
   role?: 'dialog' | 'alertdialog'
@@ -42,22 +40,20 @@ export function DialogPrimitive({
   const dialogRef = useRef<HTMLDialogElement>(null)
   const generatedId = useId()
   const titleId = labelledBy ?? generatedId
-  // showModal() locks scroll natively; manual lock only when falling back to open attribute.
-  const needsManualLock = useRef(false)
 
   useEffect(() => {
     const node = dialogRef.current
     if (!node) return
+    // showModal() locks scroll natively (Baseline 2022). The open-attribute path is a
+    // degraded fallback for environments without it.
     if (typeof node.showModal === 'function') {
       try {
         node.showModal()
       } catch {
         node.setAttribute('open', '')
-        needsManualLock.current = true
       }
     } else {
       node.setAttribute('open', '')
-      needsManualLock.current = true
     }
     // Defer focus past the showModal() commit: focusing synchronously forces a layout
     // reflow during the dialog open paint (~189ms LoAF). rAF lets the browser settle first.
@@ -78,8 +74,6 @@ export function DialogPrimitive({
       }
     }
   }, [initialFocusRef])
-
-  useScrollLock(needsManualLock.current)
 
   // Route cancel through React instead of letting the browser close the dialog alone.
   // Skip while a DropdownMenu is open: Escape should peel the menu first.
