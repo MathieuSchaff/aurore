@@ -16,7 +16,7 @@ const mockMatchMedia = (matches: boolean) => {
   })
 }
 
-describe('variant — initialization', () => {
+describe('variant: initialization', () => {
   beforeEach(() => {
     localStorage.clear()
     document.documentElement.removeAttribute('data-variant')
@@ -81,7 +81,7 @@ describe('setVariant', () => {
 
   it('sets the variant, saves to localStorage, and applies data-variant', async () => {
     const { useThemeStore } = await import('../theme')
-    useThemeStore.getState().setVariant('ardoise')
+    await useThemeStore.getState().setVariant('ardoise')
 
     expect(useThemeStore.getState().variant).toBe('ardoise')
     expect(localStorage.getItem('variant')).toBe('ardoise')
@@ -90,17 +90,17 @@ describe('setVariant', () => {
 
   it('switching variant updates data-variant in place', async () => {
     const { useThemeStore } = await import('../theme')
-    useThemeStore.getState().setVariant('foret')
-    useThemeStore.getState().setVariant('ardoise')
+    await useThemeStore.getState().setVariant('foret')
+    await useThemeStore.getState().setVariant('ardoise')
 
     expect(useThemeStore.getState().variant).toBe('ardoise')
     expect(document.documentElement.getAttribute('data-variant')).toBe('ardoise')
   })
 
-  it('works in dark mode too — variant is global', async () => {
+  it('works in dark mode too (variant is global)', async () => {
     mockMatchMedia(true) // system = dark
     const { useThemeStore } = await import('../theme')
-    useThemeStore.getState().setVariant('terracota')
+    await useThemeStore.getState().setVariant('terracota')
 
     expect(useThemeStore.getState().variant).toBe('terracota')
     expect(document.documentElement.getAttribute('data-variant')).toBe('terracota')
@@ -109,12 +109,12 @@ describe('setVariant', () => {
   it('does not affect the theme field', async () => {
     const { useThemeStore } = await import('../theme')
     const themeBefore = useThemeStore.getState().theme
-    useThemeStore.getState().setVariant('ardoise')
+    await useThemeStore.getState().setVariant('ardoise')
     expect(useThemeStore.getState().theme).toBe(themeBefore)
   })
 })
 
-describe('toggle — variant stays unchanged', () => {
+describe('toggle: variant stays unchanged', () => {
   beforeEach(() => {
     localStorage.clear()
     document.documentElement.removeAttribute('data-variant')
