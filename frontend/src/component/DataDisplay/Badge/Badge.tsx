@@ -2,14 +2,14 @@ import clsx from 'clsx'
 import type { ReactNode } from 'react'
 import './Badge.css'
 
-export type BadgeVariant =
+type BadgeVariant =
   | 'default'
   | 'primary'
   | 'skincare'
   | 'huile'
   | 'vitamine'
   | 'complement'
-  | 'error'
+  | 'avoided'
   | 'chip'
 
 interface BadgeProps {
