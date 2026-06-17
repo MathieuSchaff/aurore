@@ -3,6 +3,7 @@ import type { SubmitRoleRequestInput } from '@aurore/shared'
 import { queryOptions, useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { api } from '../api'
+import { ApiError } from '../helpers/apiError'
 
 const roleRequestKeys = {
   mine: ['role-requests', 'me'] as const,
@@ -14,7 +15,7 @@ export const roleRequestQueries = {
       queryKey: roleRequestKeys.mine,
       queryFn: async () => {
         const res = await api['role-requests'].me.$get()
-        if (!res.ok) throw new Error('Failed to fetch role request')
+        if (!res.ok) throw new ApiError('http_error', res.status)
         const json = await res.json()
         if (!json.success) throw new Error('Role request error')
         return json.data
@@ -36,7 +37,7 @@ export function useSubmitRoleRequest() {
       if (!json.success) throw new Error('submit_failed')
       return json.data
     },
-    // Response is the new RoleRequestView (same shape as GET /me) — write it straight
+    // Response is the new RoleRequestView (same shape as GET /me). Write it straight
     // to cache so the section flips to "pending" without a blank-form refetch flash.
     onSuccess: (data) => qc.setQueryData(roleRequestKeys.mine, data),
   })
