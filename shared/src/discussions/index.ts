@@ -2,8 +2,6 @@ import { z } from 'zod'
 
 import { HTTP_STATUS, type HttpStatus } from '../core'
 
-// SCHEMAS
-
 export const createThreadSchema = z.object({
   title: z.string().min(1).max(120),
   content: z.string().min(1),
@@ -12,8 +10,6 @@ export const createThreadSchema = z.object({
 export const createReplySchema = z.object({
   content: z.string().min(1),
 })
-
-// TYPES
 
 export type CreateThreadInput = z.infer<typeof createThreadSchema>
 export type CreateReplyInput = z.infer<typeof createReplySchema>
@@ -46,17 +42,13 @@ export type DiscussionThreadWithReplies = DiscussionThread & {
 export type DiscussionErrorCode =
   | 'thread_not_found'
   | 'reply_not_found'
-  | 'unauthorized_access'
   | 'thread_creation_failed'
   | 'reply_creation_failed'
   | 'entity_not_found'
 
-// HELPERS
-
 export const discussionErrorMapping = {
   thread_not_found: HTTP_STATUS.NOT_FOUND,
   reply_not_found: HTTP_STATUS.NOT_FOUND,
-  unauthorized_access: HTTP_STATUS.FORBIDDEN,
   thread_creation_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
   reply_creation_failed: HTTP_STATUS.INTERNAL_SERVER_ERROR,
   entity_not_found: HTTP_STATUS.NOT_FOUND,
