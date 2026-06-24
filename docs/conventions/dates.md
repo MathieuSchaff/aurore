@@ -13,7 +13,7 @@ voyage hors d'un site d'usage local.
 - Un `Date` JS perd toute info de timezone une fois sérialisé en JSON, puis
   est reconstruit en timezone locale au parsing. Source d'1 bug par an.
 - Drizzle en mode par défaut renvoie tantôt `Date`, tantôt string selon le
-  driver et la colonne — code défensif `instanceof Date` partout sinon.
+  driver et la colonne : code défensif `instanceof Date` partout sinon.
 - ISO 8601 UTC est lexicographiquement triable → `compareInstant` = string
   compare, zéro allocation `Date` dans les hot lists.
 - Une seule représentation = une seule règle à connaître.
@@ -42,7 +42,7 @@ purchasedAt: date('purchased_at', { mode: 'string' }).notNull()
 ```
 
 - `timestamptz` revient en ISO 8601 UTC (`"2026-05-07T14:23:10.000Z"`).
-- `date` revient en `"YYYY-MM-DD"` (pas de timezone — c'est une date
+- `date` revient en `"YYYY-MM-DD"` (pas de timezone : c'est une date
   calendaire, pas un instant).
 - `.$onUpdate(() => new Date().toISOString())` plutôt que `new Date()` :
   mode `string` n'accepte pas un objet `Date`.
@@ -63,8 +63,8 @@ purchasedAt: z.iso.datetime()
 snoozedUntil: z.iso.datetime().nullable().optional()
 ```
 
-Une calendar date voyage en plein ISO datetime UTC pour rester homogène —
-le backend tronque à `YYYY-MM-DD` à la frontière (cf. §2.3).
+Une calendar date voyage en plein ISO datetime UTC pour rester homogène.
+Le backend tronque à `YYYY-MM-DD` à la frontière (cf. §2.3).
 
 ### 2.3 Backend services
 
@@ -112,18 +112,18 @@ Helpers backend (`backend/src/utils/dates.ts`) :
 | `calendarToInstant(yyyymmdd)` | promotion à minuit UTC |
 | `normalizeInstant(value)` | force un timestamptz Drizzle vers ISO 8601 UTC |
 
-**DB `now()` (le tag `sql` de Drizzle) vs `nowISO()` (horloge JS).** `nowISO()` rend une string JS —
+**DB `now()` (le tag `sql` de Drizzle) vs `nowISO()` (horloge JS).** `nowISO()` rend une string JS,
 à utiliser dès qu'on a besoin de l'instant comme *valeur* : calcul d'expiry/cutoff, retour dans une
 réponse ou un export, comparaison, réutilisation sur plusieurs colonnes/branches. Un `now()` SQL nu
 (le tag `sql`) est un fragment utilisable seulement dans une requête (`.set()` / `.values()` /
 `where`) ; il ne se matérialise jamais en JS. Le préférer pour une simple estampille de colonne quand la valeur
-n'est pas réutilisée — surtout quand le même statement (ou la même transaction) écrit déjà d'autres
+n'est pas réutilisée, surtout quand le même statement (ou la même transaction) écrit déjà d'autres
 colonnes en `now()`, pour que tous les timestamps d'un même événement partagent l'unique instant de
-début de transaction (PG `now()` = horloge de début de tx). Ce n'est **pas** l'anti-pattern
+début de transaction (PG `now()` = horloge de début de tx). Ce n'est **pas** l'antipattern
 `new Date().toISOString()` du §3 : celui-ci bannit la forme JS côté app, alors que `now()` DB est la
 même source que le `.defaultNow()` béni en §2.1.
 
-> ⚠️ **Bun.sql gotcha** : pour les colonnes `timestamptz`, Bun.sql renvoie le
+> **Piège Bun.sql** : pour les colonnes `timestamptz`, Bun.sql renvoie le
 > format PG (`"2026-05-07 06:42:48.729+00"`, espace + `+00` au lieu de `T...Z`).
 > Drizzle en `mode: 'string'` passe la valeur telle quelle. `new Date(...)` JS
 > parse les deux formats donc le frontend ne voit rien, mais la chaîne sur le
@@ -131,26 +131,8 @@ même source que le `.defaultNow()` béni en §2.1.
 > `normalizeInstant` sur les `timestamptz` lus. Les mappers avec `devAssertSchema`
 > (purchases, tasks, blog) valident aussi en dev/test.
 > Les endpoints sans mapper de forme (users, ingredients) normalisent sans
-> `devAssertSchema` — pas de schéma Zod `UserPublic`, et `ingredientResponseSchema`
+> `devAssertSchema` : pas de schéma Zod `UserPublic`, et `ingredientResponseSchema`
 > a des nullabilités qui ne correspondent pas exactement au schéma DB.
-
-### 2.5 Validation runtime (paranoia mode)
-
-`backend/src/utils/dev-validate.ts` expose `devAssertSchema(schema, value, ctx)` :
-
-- en `NODE_ENV=production` → no-op, retourne la valeur telle quelle
-- en dev/test → `safeParse` et throw si la forme dérive (avec log structuré)
-
-Branché sur les boundary mappers calendar dates (`toApiPurchase`,
-`toApiTask`) — points où la conversion `date` ↔ instant est la plus
-sujette aux erreurs.
-
-```typescript
-function toApiPurchase(row: PurchaseRow): Purchase {
-  const mapped: Purchase = { /* … */ }
-  return devAssertSchema(purchaseSchema, mapped, 'toApiPurchase')
-}
-```
 
 ### 2.4 Frontend
 
@@ -158,28 +140,28 @@ Helpers `frontend/src/lib/dates.ts` :
 
 | Helper | Usage |
 |--------|-------|
-| `formatInstant(iso, style)` | affichage locale FR forcée — styles `'short' \| 'medium' \| 'long' \| 'monthYear'`. **À n'utiliser que quand l'interpolation impose une string** (template literal, attribut HTML). Sinon préférer `<Time>` (cf. §2.4.1). |
-| `formatRelative(iso)` | "il y a 3 jours" / "demain" / "dans 2 heures" via `Intl.RelativeTimeFormat('fr-FR', { numeric: 'auto' })` natif (zéro dépendance — date-fns retiré du frontend). `numeric: 'auto'` donne "hier"/"la semaine dernière" quand c'est plus naturel. Idem — préférer `<Time relative>` côté JSX. |
+| `formatInstant(iso, style)` | affichage locale FR forcée : styles `'short' \| 'medium' \| 'long' \| 'monthYear'`. **À n'utiliser que quand l'interpolation impose une string** (template literal, attribut HTML). Sinon préférer `<Time>` (cf. §2.4.1). |
+| `formatRelative(iso)` | "il y a 3 jours" / "demain" / "dans 2 heures" via `Intl.RelativeTimeFormat('fr-FR', { numeric: 'auto' })` natif (zéro dépendance : date-fns retiré du frontend). `numeric: 'auto'` donne "hier"/"la semaine dernière" quand c'est plus naturel. Idem, préférer `<Time relative>` côté JSX. |
 | `compareInstant(a, b)` | tri chronologique (string compare) |
 | `toDateInputValue(iso)` | extraction `YYYY-MM-DD` pour `<input type="date">` |
 | `fromDateInputValue(yyyymmdd)` | conversion vers ISO datetime UTC avant POST |
 | `todayDateInputValue()` | `YYYY-MM-DD` aujourd'hui |
 | `nowInstant()` | ISO datetime UTC maintenant. À utiliser pour tout write côté composant (`finishedAt: nowInstant()`) plutôt que `new Date().toISOString()`. |
-| `parseDatetimeLocalAsUTC(value)` | reinterprète une valeur `<input type="datetime-local">` (tz-naive) en UTC sans appliquer la tz du navigateur — évite le bug où le ban d'un admin en Asie expirait 9 h plus tard que prévu. |
+| `parseDatetimeLocalAsUTC(value)` | reinterprète une valeur `<input type="datetime-local">` (tz-naive) en UTC sans appliquer la tz du navigateur : évite le bug où le ban d'un admin en Asie expirait 9 h plus tard que prévu. |
 
 Tri descendant (le plus récent d'abord) :
 ```typescript
 items.sort((a, b) => compareInstant(b.createdAt, a.createdAt))
 ```
 
-### 2.4.1 Composant `<Time>` — affichage canonique
+### 2.4.1 Composant `<Time>` : affichage canonique
 
 **Toute date qui apparaît dans le DOM** passe par `frontend/src/component/DataDisplay/Time/Time.tsx`. Le composant émet un `<time dateTime={iso}>` (a11y / SEO gratuits) et délègue à `formatInstant`/`formatRelative`.
 
 ```tsx
 import { Time } from '@/component/DataDisplay/Time/Time'
 
-// Absolu — date complète localisée FR
+// Absolu : date complète localisée FR
 <Time iso={user.createdAt} style="medium" />
 // → <time dateTime="2026-05-22T...Z">22 mai 2026</time>
 
@@ -194,21 +176,39 @@ import { Time } from '@/component/DataDisplay/Time/Time'
 Styles : `'short' | 'medium' | 'long' | 'monthYear'` (défaut `'medium'`). En mode `relative`, le `style` contrôle le tooltip absolu (défaut `'long'`).
 
 **Interdits côté composant** (catchés par lefthook) :
-- `import ... from 'date-fns'` hors helpers (frontend n'en dépend plus ; backend = `utils/dates.ts` + `demo-seed.ts`)
+- `import ... from 'date-fns'` hors helpers (frontend n'en dépend plus ; backend = `demo-seed.ts` uniquement : `utils/dates.ts` n'importe pas date-fns)
 - `new Intl.DateTimeFormat(...)` / `new Intl.RelativeTimeFormat(...)` hors `frontend/src/lib/dates.ts`
 - `value.toLocaleDateString(...)`, `value.toLocaleString(...)` partout
-- `<time dateTime={...}>...</time>` à la main — passer par `<Time>`
-- `new Date().toISOString()` hors helpers/schema/seed — utiliser `nowISO()` (backend) ou `nowInstant()` (frontend)
+- `<time dateTime={...}>...</time>` à la main : passer par `<Time>`
+- `new Date().toISOString()` hors helpers/schema/seed : utiliser `nowISO()` (backend) ou `nowInstant()` (frontend)
 
 Exceptions tolérées :
 - `formatInstant` / `formatRelative` appelés en string (template literal, attribut `title` quand `<Time>` ne convient pas).
 - `new Date().toISOString()` dans les fixtures `vi.mock` factories (pas d'imports possibles, contrainte du runtime).
 
+### 2.5 Validation runtime (paranoia mode)
+
+`backend/src/utils/dev-validate.ts` expose `devAssertSchema(schema, value, ctx)` :
+
+- en `NODE_ENV=production` → no-op, retourne la valeur telle quelle
+- en dev/test → `safeParse` et throw si la forme dérive (avec log structuré)
+
+Branché sur les boundary mappers calendar dates (`toApiPurchase`,
+`toApiTask`), points où la conversion `date` ↔ instant est la plus
+sujette aux erreurs.
+
+```typescript
+function toApiPurchase(row: PurchaseRow): Purchase {
+  const mapped: Purchase = { /* … */ }
+  return devAssertSchema(purchaseSchema, mapped, 'toApiPurchase')
+}
+```
+
 ---
 
-## 3. Anti-patterns à éviter
+## 3. Antipatterns à éviter
 
-| ❌ Anti-pattern | ✅ Remplacer par |
+| Antipattern | Remplacer par |
 |---|---|
 | `z.date()`, `z.coerce.date()` | `z.iso.datetime()` |
 | `value.toISOString()` côté front sur une valeur d'API | `value` (déjà ISO) |
@@ -218,10 +218,10 @@ Exceptions tolérées :
 | `<time dateTime={iso}>{formatInstant(iso, style)}</time>` à la main | `<Time iso={iso} style="<style>" />` |
 | `value.split('T')[0]` | `toDateInputValue(value)` |
 | `new Date(a).getTime() - new Date(b).getTime()` (tri) | `compareInstant(a, b)` |
-| `instanceof Date` (Drizzle row) | rien — c'est toujours une string |
+| `instanceof Date` (Drizzle row) | rien : c'est toujours une string |
 | `value < new Date(...).toISOString()` (compare driver vs JS) | `Date.parse(value) < cutoffMs` |
 | `.set({ updatedAt: new Date() })` Drizzle | `.set({ updatedAt: nowISO() })` |
-| `new Date().toISOString()` dans un service backend | `nowISO()` — ou un `now()` SQL pour estampiller une colonne (cf §2.3) ; (exempt : `$onUpdate` en schema, seed, scripts `audit/`) |
+| `new Date().toISOString()` dans un service backend | `nowISO()`, ou un `now()` SQL pour estampiller une colonne (cf §2.3) ; (exempt : `$onUpdate` en schema, seed, scripts `audit/`) |
 | `new Date().toISOString()` dans un composant frontend | `nowInstant()` |
 | `new Date(datetimeLocalInput).toISOString()` (leak tz local) | `parseDatetimeLocalAsUTC(input)` |
 
@@ -232,11 +232,11 @@ Exceptions tolérées :
 Fixtures envoient des strings ISO :
 
 ```typescript
-// ✅
+// correct
 createdAt: new Date().toISOString()
 purchasedAt: '2026-03-22T00:00:00.000Z'
 
-// ❌
+// incorrect
 createdAt: new Date()
 purchasedAt: '2026-03-22'  // (sauf à passer par instantToCalendar avant Drizzle)
 ```
@@ -244,12 +244,12 @@ purchasedAt: '2026-03-22'  // (sauf à passer par instantToCalendar avant Drizzl
 Assertions :
 
 ```typescript
-// ✅
+// correct
 expect(typeof row.createdAt).toBe('string')
 expect(row.purchasedAt).toBe('2026-03-22T00:00:00.000Z')
 expect(Date.parse(row.expiresAt)).toBeGreaterThan(before)
 
-// ❌
+// incorrect
 expect(row.createdAt).toBeInstanceOf(Date)
 expect(row.createdAt.getTime()).toBeGreaterThan(...)
 ```
