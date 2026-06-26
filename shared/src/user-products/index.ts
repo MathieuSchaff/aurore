@@ -3,8 +3,6 @@ import { z } from 'zod'
 import { HTTP_STATUS, type HttpStatus } from '../core'
 import { SKIN_TYPES } from '../profile'
 
-// SCHEMAS
-
 export const userProductStatus = ['in_stock', 'wishlist', 'watched', 'archived', 'avoided'] as const
 
 export const repurchaseFlag = ['yes', 'no', 'unsure'] as const
@@ -13,8 +11,8 @@ export const repurchaseFlag = ['yes', 'no', 'unsure'] as const
 // folded into the sentiment scale so HG isn't a status.
 export const HOLY_GRAIL_SENTIMENT = 6 as const
 
-// User-experience tag catalogs surfaced in PDS §5. Statut group is
-// intentionally omitted — bound to userProduct.status.
+// User-experience tag catalogs surfaced in PDS. Statut group is
+// intentionally omitted: bound to userProduct.status.
 export const ressentiTags = [
   'leger',
   'riche',
@@ -83,11 +81,11 @@ export const updateUserProductReviewSchema = z.object({
   ratingsPublic: z.boolean().optional(),
 })
 
-// Public reviews surface (#7) — only review fields + reviewer pseudonym.
+// Public reviews surface (#7): only review fields + reviewer pseudonym.
 // Sentiment/wouldRepurchase/experience tags stay private (live on user_products).
 export const publicReviewViewSchema = z.object({
   // Exposed so user-facing UI can "report" a review. Already public per
-  // user_product_reviews_select_public RLS policy — no extra leak.
+  // user_product_reviews_select_public RLS policy, no extra leak.
   id: z.uuid(),
   tolerance: z.number().int().min(1).max(5).nullable(),
   efficacy: z.number().int().min(1).max(5).nullable(),
@@ -118,7 +116,16 @@ export const publicProductReviewsResponseSchema = z.object({
   reviews: z.array(publicReviewViewSchema),
 })
 
-// TYPES
+// Profile surface (#7 / social T4): same review view, but the product is
+// explicit (on a product page it is implicit). Extends, so the gards/projection
+// stay shared and the product-page surface is untouched.
+export const publicProfileReviewViewSchema = publicReviewViewSchema.extend({
+  product: z.object({ slug: z.string(), name: z.string() }),
+})
+
+export const publicProfileReviewsResponseSchema = z.object({
+  reviews: z.array(publicProfileReviewViewSchema),
+})
 
 export type UserProductStatus = z.infer<typeof userProductStatusSchema>
 export type RepurchaseFlag = z.infer<typeof repurchaseFlagSchema>
@@ -131,6 +138,8 @@ export type UpdateUserProductReviewInput = z.infer<typeof updateUserProductRevie
 export type ReviewAxisKey = (typeof reviewAxisKeys)[number]
 export type PublicReviewView = z.infer<typeof publicReviewViewSchema>
 export type PublicProductReviewsResponse = z.infer<typeof publicProductReviewsResponseSchema>
+export type PublicProfileReviewView = z.infer<typeof publicProfileReviewViewSchema>
+export type PublicProfileReviewsResponse = z.infer<typeof publicProfileReviewsResponseSchema>
 
 export type UserProductErrorCode =
   | 'user_product_not_found'
@@ -139,8 +148,6 @@ export type UserProductErrorCode =
   | 'user_product_delete_failed'
   | 'public_review_requires_comment'
   | 'database_error'
-
-// HELPERS
 
 export const userProductErrorMapping = {
   user_product_not_found: HTTP_STATUS.NOT_FOUND,
