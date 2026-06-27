@@ -25,7 +25,7 @@ const renderCount = (n: number | undefined) =>
 export function BlogCategoryNav({ category }: Props) {
   const { data: counts } = useQuery(articleQueries.categoryCounts())
 
-  // Hide empty categories to reduce noise - but never hide the currently-active one,
+  // Hide empty categories to reduce noise, but never hide the currently-active one,
   // so the user always sees where they are even if its last article was just removed.
   const visibleCategories = BLOG_CATEGORY_VALUES.filter(
     (c) => !counts || counts[c] > 0 || c === category
@@ -33,7 +33,7 @@ export function BlogCategoryNav({ category }: Props) {
 
   return (
     <nav className="blog-category-nav" aria-label="Catégories">
-      <ul className="blog-category-nav__list">
+      <ul role="list" className="blog-category-nav__list">
         <li>
           <Link
             to="/blog"
