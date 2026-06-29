@@ -7,7 +7,7 @@ import type { AppEnv } from '../app-env'
 import { clientIp } from './clientIp'
 
 // https://honohub.dev/docs/rate-limiter/configuration
-// In-memory store (MemoryStore) by default; switch to Redis for multi-replica.
+// In-memory store (MemoryStore) by default; switch to Redis once more than one replica runs.
 const skipLimiter = process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test'
 
 // SPA fans out many GETs per page (loaders + React Query retries), so a low cap bricks normal browsing; 1000 still blunts scraping/DoS. Login limited separately.
@@ -37,7 +37,7 @@ export const rateLimiterFunc: MiddlewareHandler<AppEnv> = skipLimiter
 // routes too (per-feature limiters only guard auth/admin/write). Distinct
 // instance from rateLimiterFunc so the shared per-feature store isn't counted
 // twice for routes that hit both. Skips /api/health + /api/ready so uptime probes
-// aren't throttled (paths are absolute at the root, unlike sub-router mounts).
+// aren't throttled (paths are absolute at the root, unlike routers mounted on a prefix).
 export const globalRateLimiterFunc: MiddlewareHandler<AppEnv> = skipLimiter
   ? async (_c: Context, next: Next) => await next()
   : rateLimiter<AppEnv>({
@@ -107,6 +107,27 @@ export const forgotPasswordRateLimiterFunc: MiddlewareHandler<AppEnv> = skipLimi
       limit: 5,
       standardHeaders: 'draft-7',
       keyGenerator: (c) => `forgot:${clientIp(c)}`,
+      handler: (c) =>
+        c.json(
+          err('too_many_requests', {
+            retryAfter: c.res.headers.get('Retry-After'),
+          }),
+          HTTP_STATUS.RATE_LIMIT_EXCEEDED
+        ),
+      skipFailedRequests: false,
+    })
+
+// Throttles /auth/reset-password per IP. The global limiter has skipFailedRequests:true,
+// so the 400s from probing random tokens never consume its quota: uncapped probe
+// throughput against the token lookup. This own bucket COUNTS failures (like login) to
+// cap that, complementing the cheap check that already blocks argon2 CPU exhaustion.
+export const resetPasswordRateLimiterFunc: MiddlewareHandler<AppEnv> = skipLimiter
+  ? async (_c: Context, next: Next) => await next()
+  : rateLimiter<AppEnv>({
+      windowMs: 15 * 60 * 1000,
+      limit: 10,
+      standardHeaders: 'draft-7',
+      keyGenerator: (c) => `reset:${clientIp(c)}`,
       handler: (c) =>
         c.json(
           err('too_many_requests', {
