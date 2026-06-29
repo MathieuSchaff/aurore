@@ -160,6 +160,10 @@ export const useDeleteUserProduct = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: userProductKeys.all })
       queryClient.invalidateQueries({ queryKey: productKeys.shelfStatuses() })
+      // Removing a product drops it from the empirical signal the compatibility
+      // query derives, but not the product-id set it is keyed on. Invalidate it
+      // explicitly, like update/review do.
+      queryClient.invalidateQueries({ queryKey: compatibilityKeys.all })
     },
     meta: { errorMessage: 'Suppression impossible — réessayez plus tard.' },
   })
@@ -204,9 +208,9 @@ export const useUpsertUserProductReview = () => {
       queryClient.invalidateQueries({ queryKey: userProductKeys.all })
       queryClient.invalidateQueries({ queryKey: userProductKeys.detail(id) })
       // A saved review (tolerance) shifts the signal but not the product-id set the
-      // compatibility query is keyed on — invalidate it explicitly.
+      // compatibility query is keyed on. Invalidate it explicitly.
       queryClient.invalidateQueries({ queryKey: compatibilityKeys.all })
-      // Public-reviews surface depends on isPublic flips - refetch whenever the
+      // Public-reviews surface depends on isPublic flips: refetch whenever the
       // toggle is part of the patch. Predicate scoping avoids nuking unrelated
       // product caches (bySlug, lists, ingredients...).
       // ratingsPublic also changes the public payload (axes nulled or revealed).
