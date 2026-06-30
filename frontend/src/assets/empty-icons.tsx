@@ -96,7 +96,7 @@ function EmptyArchived({ size = 64 }: IconProps) {
 }
 
 // Avoided = the bottle crossed out by one big hand stroke: "rayé".
-// A single soft curved diagonal — the user's own decision, not a ban
+// A single soft curved diagonal: the user's own decision, not a ban
 // sign (no circle, no X, the bottle stays intact and friendly).
 function EmptyAvoided({ size = 64 }: IconProps) {
   return (
@@ -125,7 +125,7 @@ function EmptyHolyGrail({ size = 64 }: IconProps) {
 }
 
 // Repurchase = the bottle itself inside a renewal loop with a solid
-// arrowhead — the object in the cycle is what keeps it from reading
+// arrowhead: the object in the cycle is what keeps it from reading
 // as a generic refresh button.
 function EmptyRepurchase({ size = 64 }: IconProps) {
   return (
@@ -155,13 +155,13 @@ export function EmptyIllustration({ kind, size = 96 }: { kind: EmptyKind; size?:
   return Icon ? <Icon size={size} /> : null
 }
 
-// --- Onboarding ornaments (24-grid, match the product-icons family) ---
+// Onboarding ornaments (24-grid, match the product-icons family).
 // Each hint is the miniature of its empty-state scene so the metaphor
 // stays single: shelf=stock, heart=wishlist, gem=grail.
 
 const smallStroke = { ...stroke, strokeWidth: 1.75 } as const
 
-// Replaces the ✦ glyph in the first-time shelf scene.
+// SVG replacement for the sparkle asterisk used in the empty-shelf first-visit scene.
 export function SparkleIcon({ size = 16 }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
