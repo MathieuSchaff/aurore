@@ -68,7 +68,7 @@ export function CollectionFilterProvider({
   const { sort, brand, productType, sentiment, repurchase, minNote, maxPrice } =
     routeApi.useSearch()
   const navigate = routeApi.useNavigate()
-  // Local state - URL-bound search would re-run the route loader on every keystroke.
+  // Local state: URL-bound search would run the route loader on every keystroke.
   const [q, setQ] = useState('')
 
   const productIds = useMemo(() => userProducts?.map((p) => p.product.id) ?? [], [userProducts])
@@ -96,7 +96,7 @@ export function CollectionFilterProvider({
       { q, brand, productType, sentiment, repurchase, minNote, maxPrice },
       prefs?.criteriaWeights
     )
-    return sortProducts(filtered, sort, prefs?.criteriaWeights, prefs?.displayScale, compatScores)
+    return sortProducts(filtered, sort, prefs?.criteriaWeights, compatScores)
   }, [
     userProducts,
     q,
