@@ -12,7 +12,7 @@ type SentimentValue = 1 | 2 | 3 | 4 | 5 | 6
 interface SentimentPickerProps {
   value: number | null | undefined
   onChange: (value: SentimentValue) => void
-  // Holy Grail (6) hidden on rejected products - would contradict the rejection.
+  // Holy Grail (6) hidden on rejected products: would contradict the rejection.
   status?: UserProductStatus
 }
 
@@ -22,7 +22,8 @@ export function SentimentPicker({ value, onChange, status }: SentimentPickerProp
   const holyGrailAllowed = status !== 'avoided'
 
   return (
-    <fieldset className="pds-sentiment-row" aria-label={pdsLabels.sentimentQuick}>
+    <fieldset className="pds-sentiment-row">
+      <legend className="sr-only">{pdsLabels.sentimentQuick}</legend>
       {STANDARD_VALUES.map((val) => (
         <button
           key={val}
