@@ -1,4 +1,4 @@
-// vi.mock factories are hoisted and can't import — this file only exports data + factories.
+// vi.mock factories are hoisted and can't import, so this file only exports data + factories.
 
 export const defaultCollectionSearch = {
   q: '',
@@ -12,7 +12,6 @@ export const defaultCollectionSearch = {
 }
 
 export const mockPrefs = {
-  displayScale: 'out_of_20',
   criteriaWeights: { tolerance: 1, efficacy: 1 },
 }
 
