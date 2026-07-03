@@ -6,18 +6,18 @@ accepted: 2026-05-24
 
 # Three formula passes re-emit algo-derm slugs with chemistry-aware gating
 
-The auto-tagging pipeline runs algo-derm's `tagProduct()` as Pass 1 (`passes/algo-derm-detection.ts`), which emits a set of candidate tags. For three of those — `peaux_atopiques`, `repulpant`, `matifiant` — Aurore drops the algo-derm candidate (no `TAG_CONFIG` entry → `unmapped` → dropped) and re-emits the equivalent slug from a dedicated Pass-4 formula detector instead (`passes/formula/{eczema-atopie,repulpant,fini-mat}.ts`). We keep this duplication and will not consolidate it into a `TAG_CONFIG` floor override.
+The auto-tagging pipeline runs algo-derm's `tagProduct()` as Pass 1 (`passes/algo-derm-detection.ts`), which emits a set of candidate tags. For three of those (`peaux_atopiques`, `repulpant`, `matifiant`), Aurore drops the algo-derm candidate (no `TAG_CONFIG` entry → `unmapped` → dropped) and re-emits the equivalent slug from a dedicated Pass-4 formula detector instead (`passes/formula/{eczema-atopie,repulpant,fini-mat}.ts`). We keep this duplication and will not consolidate it into a `TAG_CONFIG` floor override.
 
 ## Why
 
 algo-derm and the formula passes reason over **different inputs**, not the same input at a different threshold:
 
-- algo-derm's rules for these three slugs key on **computed axis scores** (`peaux_atopiques`: irritation+allergenicity risk both below a floor with no fragrance/sulfate/soap flags; `repulpant`: HA/glycerin presence top 12; `matifiant`: `seborrheicRegulation ≥ P85`). These fire on 22 % / 78 % / the entire `peau-grasse` set of the corpus — non-discriminating signal.
-- The formula passes key on **named-ingredient co-presence patterns or text signals**: `eczema-atopie` gates on product name/description matching `/atopi|ecz[ée]ma/i` (marketed-for positioning, not INCI co-presence — the EU-regulated atopy shelf carries no reliable INCI signal); `repulpant` requires HA top 8 AND a pure glycerin token top 5 AND ≥1 canonical plumping peptide (Argireline / palmitoyl tripeptide-1); `fini-mat` requires a literal absorbent powder (silica/kaolin/perlite/talc/starch) top 8.
+- algo-derm's rules for these three slugs key on **computed axis scores** (`peaux_atopiques`: irritation+allergenicity risk both below a floor with no fragrance/sulfate/soap flags; `repulpant`: HA/glycerin presence top 12; `matifiant`: `seborrheicRegulation ≥ P85`). These fire on 22 % / 78 % / the entire `peau-grasse` set of the corpus: nondiscriminating signal.
+- The formula passes key on **named-ingredient copresence patterns or text signals**: `eczema-atopie` gates on product name/description matching `/atopi|ecz[ée]ma/i` (marketed-for positioning, not INCI copresence: the EU-regulated atopy shelf carries no reliable INCI signal); `repulpant` requires HA top 8 AND a pure glycerin token top 5 AND ≥1 canonical plumping peptide (Argireline / palmitoyl tripeptide-1); `fini-mat` requires a literal absorbent powder (silica/kaolin/perlite/talc/starch) top 8.
 
-There is no shared knob to tune. `matifiant` is the clearest case: algo-derm infers it from a sebum-regulation *score*, the formula pass keys on the *presence of an absorbent powder* — a product can score high on sebum-regulation with zero absorbent ingredients, and vice-versa. Lowering or raising an algo-derm floor cannot reproduce the formula-pass logic because the formula pass does not consume the algo-derm axis at all.
+There is no shared knob to tune. `matifiant` is the clearest case: algo-derm infers it from a sebum-regulation *score*, the formula pass keys on the *presence of an absorbent powder*. A product can score high on sebum-regulation with zero absorbent ingredients, and vice-versa. Lowering or raising an algo-derm floor cannot reproduce the formula-pass logic because the formula pass does not consume the algo-derm axis at all.
 
-The boundary rule this ADR fixes: **map an algo-derm tag in `TAG_CONFIG` when calibrating its floors yields a discriminating signal; re-emit from a formula pass when the slug needs chemistry-aware co-presence the algo-derm axis can't express.** The re-emit path costs ~150-250 LOC across the three files; that cost buys precision the score-based rule structurally cannot reach.
+The boundary rule this ADR fixes: **map an algo-derm tag in `TAG_CONFIG` when calibrating its floors yields a discriminating signal; re-emit from a formula pass when the slug needs chemistry-aware copresence the algo-derm axis can't express.** The re-emit path costs ~150-250 LOC across the three files; that cost buys precision the score-based rule structurally cannot reach.
 
 ## Considered options
 
@@ -27,18 +27,16 @@ The boundary rule this ADR fixes: **map an algo-derm tag in `TAG_CONFIG` when ca
 
 ## Consequences
 
-- `peaux_atopiques`, `repulpant`, `matifiant` stay permanently in algo-derm's `unmapped` drop bucket. This is **expected**, not drift — audit tooling (`dropCounts.unmapped`) will always list them. A future reader seeing them unmapped should land here, not "fix" them by adding a `TAG_CONFIG` entry.
-- The three formula passes own these slugs end-to-end. The parity test (`tests/auto-tag-orchestrator-parity.test.ts`) and the per-pass shape tests are the safety net — there is no algo-derm rule cross-checking them.
+- `peaux_atopiques`, `repulpant`, `matifiant` stay permanently in algo-derm's `unmapped` drop bucket. This is **expected**, not drift: audit tooling (`dropCounts.unmapped`) will always list them. A future reader seeing them unmapped should land here, not "fix" them by adding a `TAG_CONFIG` entry.
+- The three formula passes own these slugs end-to-end. The parity test (`tests/auto-tag-orchestrator-parity.test.ts`) and the per-pass shape tests are the safety net: there is no algo-derm rule cross-checking them.
 - algo-derm `TAG_DEFS_VERSION` bumps do not affect these three slugs' output, because Aurore ignores the algo-derm candidate. Recalibration (the `CALIBRATED_FOR_TAG_DEFS_VERSION` gate) covers the 29 mapped tags only.
-- If a future algo-derm version reworks one of these rules to gate on named-ingredient co-presence (matching the formula-pass intent), revisit: the duplication would then collapse to option A and this ADR can be superseded.
+- If a future algo-derm version reworks one of these rules to gate on named-ingredient copresence (matching the formula-pass intent), revisit: the duplication would then collapse to option A and this ADR can be superseded.
 
-## Update (2026-07-02) — `protection` + `reparateur` follow the same principle, via upstream removal
+## Update (2026-07-02): `protection` + `reparateur` follow the same principle, via upstream removal
 
 Two more concern slugs are now Aurore-owned re-emits under this ADR's boundary rule, but reached it a step further than the original three: **algo-derm removed the candidate upstream** instead of Aurore dropping it as `unmapped`.
 
-- `protection` — algo-derm pulled it in `TAG_DEFS v19`. It fired lockstep with `anti-oxydant` (same antioxidant axis) → double-tag + 77 gold FP (P≈0.513). The real UV meaning is positioning, not mechanism, so it is re-emitted deterministically by `passes/formula/protection.ts` (`S.PROTECTION`) on `kind=sunscreen` / declared SPF. Post-removal gold: P≈0.949, FP≈4.
-- `reparateur` — algo-derm pulled it in `TAG_DEFS v20` (was a `barriere-cutanee` duplicate). Re-emitted name/claim-side by `passes/formula/reparateur.ts` (`S.REPARATEUR`).
+- `protection`: algo-derm pulled it in `TAG_DEFS v19`. It fired lockstep with `anti-oxydant` (same antioxidant axis) → double-tag + 77 gold FP (P≈0.513). The real UV meaning is positioning, not mechanism, so it is re-emitted deterministically by `passes/formula/protection.ts` (`S.PROTECTION`) on `kind=sunscreen` / declared SPF. Post-removal gold: P≈0.949, FP≈4.
+- `reparateur`: algo-derm pulled it in `TAG_DEFS v20` (was a `barriere-cutanee` duplicate). Re-emitted name/claim-side by `passes/formula/reparateur.ts` (`S.REPARATEUR`).
 
-Same principle as the body: **mechanism (presence of an active) ≠ positioning (product claim), and algo-derm has no name/claim input.** The difference from `peaux_atopiques`/`repulpant`/`matifiant` is the drop mechanics — here algo-derm emits **no candidate at all** (there is no `unmapped` entry to expect), so `CALIBRATED_FOR_TAG_DEFS_VERSION` (now 22) covers the removal. The algo-derm concern layer is consequently **empty**; every concern tag is Aurore-owned. Rationale currently lives only in code comments (`passes/algo-derm-detection.ts:230-233`); this section is its canonical home. See `docs-private/03-features/algo-derm/audit-2026-07-02-handoffs-adoption.md`.
-</content>
-</invoke>
+Same principle as the body: **mechanism (presence of an active) ≠ positioning (product claim), and algo-derm has no name/claim input.** The difference from `peaux_atopiques`/`repulpant`/`matifiant` is the drop mechanics: here algo-derm emits **no candidate at all** (there is no `unmapped` entry to expect), so `CALIBRATED_FOR_TAG_DEFS_VERSION` (now 22) covers the removal. The algo-derm concern layer is consequently **empty**; every concern tag is Aurore-owned. Rationale currently lives only in code comments (`passes/algo-derm-detection.ts:230-233`); this section is its canonical home.
