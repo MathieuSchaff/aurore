@@ -2,14 +2,11 @@ import type {
   CatalogKind,
   CatalogQuality,
   CreateBanInput,
-  ErrorGroupStatus,
-  ErrorSource,
   ModerateContentInput,
   ModerateProfileInput,
   ModerationStatus,
   ModerationTarget,
   ReportStatus,
-  ResolveErrorGroupInput,
   ResolveReportInput,
   ReviewRoleRequestInput,
   ReviewSuggestedEditInput,
@@ -38,8 +35,6 @@ const adminKeys = {
     [...adminKeys.all, 'preview', target, id] as const,
   catalogQueue: (kind: CatalogKind, quality?: CatalogQuality, status?: ModerationStatus) =>
     [...adminKeys.all, 'catalog-queue', { kind, quality, status }] as const,
-  errors: (status?: ErrorGroupStatus, source?: ErrorSource) =>
-    [...adminKeys.all, 'errors', { status, source }] as const,
   securityEvents: (severity?: SecuritySeverity) =>
     [...adminKeys.all, 'security-events', { severity }] as const,
   dashboard: () => [...adminKeys.all, 'dashboard'] as const,
@@ -114,21 +109,6 @@ export const adminQueries = {
       },
     }),
 
-  errors: (status?: ErrorGroupStatus, source?: ErrorSource) =>
-    queryOptions({
-      queryKey: adminKeys.errors(status, source),
-      queryFn: async () => {
-        const query: Record<string, string> = {}
-        if (status) query.status = status
-        if (source) query.source = source
-        const res = await api.admin.errors.$get({ query })
-        if (!res.ok) throw new ApiError('http_error', res.status)
-        const json = await res.json()
-        if (!json.success) throw new Error('Error groups error')
-        return json.data
-      },
-    }),
-
   securityEvents: (severity?: SecuritySeverity) =>
     queryOptions({
       queryKey: adminKeys.securityEvents(severity),
@@ -172,7 +152,7 @@ export const adminQueries = {
         return json.data
       },
       // Queue only changes when a moderator acts (which invalidates it explicitly);
-      // suppress the default 0ms window-focus refetch mid-action.
+      // suppress the default 0ms window-focus refetch during an action.
       staleTime: 30_000,
     }),
 
@@ -289,23 +269,6 @@ export function useResolveReport() {
   })
 }
 
-export function useResolveErrorGroup() {
-  const qc = useQueryClient()
-  return useMutation({
-    mutationFn: async ({ id, body }: { id: string; body: ResolveErrorGroupInput }) => {
-      const res = await api.admin.errors[':id'].$patch({ param: { id }, json: body })
-      if (!res.ok) throw new Error('Failed to resolve error group')
-      const json = await res.json()
-      if (!json.success) throw new Error('Resolve error group error')
-      return json.data
-    },
-    // Broad prefix: resolving from the open tab must also refresh the resolved tab (2-element partial key).
-    onSuccess: () => {
-      qc.invalidateQueries({ queryKey: [...adminKeys.all, 'errors'] })
-    },
-  })
-}
-
 export function useEscalateReport() {
   const qc = useQueryClient()
   return useMutation({
@@ -355,7 +318,7 @@ export function useReviewRoleRequest() {
     },
     onSuccess: () => {
       // Broad prefix: a decision moves a row between status tabs, so any cached
-      // status view must refresh — a { status } key only deep-matches its own filter.
+      // status view must refresh. A { status } key only deep-matches its own filter.
       qc.invalidateQueries({ queryKey: [...adminKeys.all, 'role-requests'] })
       // The dashboard's 5th card counts pending requests; refresh it after a decision.
       qc.invalidateQueries({ queryKey: adminKeys.dashboard() })

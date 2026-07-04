@@ -9,15 +9,15 @@ vi.mock('@tanstack/react-router', () => ({
   useRouter: () => ({ invalidate: vi.fn() }),
 }))
 
-vi.mock('../../../../../lib/errorReporter', () => ({
-  reportError: vi.fn(),
+vi.mock('../../../../../lib/observability/faro', () => ({
+  captureFrontendError: vi.fn(),
 }))
 
 afterEach(() => cleanup())
 
 const fakeError = new Error('Unexpected failure')
 
-describe('GlobalError — runtime error variant', () => {
+describe('GlobalError: runtime error variant', () => {
   it('renders the error title', () => {
     render(<GlobalError error={fakeError} />)
     expect(screen.getByText('On a renversé quelque chose.')).toBeInTheDocument()
@@ -47,7 +47,7 @@ describe('GlobalError — runtime error variant', () => {
   })
 })
 
-describe('GlobalError — 404 variant', () => {
+describe('GlobalError: 404 variant', () => {
   it('renders the 404 title', () => {
     render(<GlobalError error={fakeError} is404 />)
     expect(screen.getByText("Cette page n'est pas dans notre routine.")).toBeInTheDocument()

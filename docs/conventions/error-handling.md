@@ -20,7 +20,7 @@ request handler.
 
 ---
 
-## Style A — throw-domain + global handler (default)
+## Style A: throw-domain + global handler (default)
 
 Use for all standard CRUD features.
 
@@ -31,13 +31,13 @@ Handler  →  globalErrorHandler translates to { success: false, error: code }
 ```
 
 **DB translation**: catch only to convert known constraint violations (e.g. `isUniqueViolation`),
-convert to a domain code, then **rethrow**. Never swallow.
+convert to a domain code, then **throw again**. Never swallow.
 
 Examples: `products`, `ingredients`, `tasks`, `discussions`, `product-comparisons`, `blog`
 
 ---
 
-## Style B — `ApiResponse` explicit
+## Style B: `ApiResponse` explicit
 
 Use when error branches are semantically distinct outcomes (not failures), and you want the
 call-site to handle them without exception control flow.
@@ -51,10 +51,10 @@ Examples: `auth/service.ts`, `admin/bans.service.ts`, `admin/moderation.service.
 
 ---
 
-## Style C — local route try/catch (narrow, opt-in)
+## Style C: local route try/catch (narrow, opt-in)
 
 Use only to translate infra-level exceptions that are specific to one feature and don't belong
-in a shared domain error class. Re-throw everything else.
+in a shared domain error class. Rethrow everything else.
 
 Examples: `uploads/routes.ts`, `products/product-ingredients/routes.ts`,
 `ingredients/ingredient-tags/routes.ts`
@@ -67,14 +67,15 @@ Examples: `uploads/routes.ts`, `products/product-ingredients/routes.ts`,
    the *same* operation. House norm is pure throw: a single-row read that finds nothing throws
    `XxxError('..._not_found')` just like a write, so the route stays happy-path. The
    read-null/write-throw split (reads return `T | null`, route maps the null with `err(...)`) is
-   tolerated but non-standard — no CRUD entity feature uses it. If you ever do map a null in a
+   tolerated but nonstandard: no CRUD entity feature uses it. If you ever do map a null in a
    route, derive the status via `errorToStatus(code, xxxErrorMapping)`, never a hardcoded constant,
    so it can't drift from the registry.
 
 2. **Never mix styles within `withRlsContext`.** Any swallowed error breaks the rollback
-   contract. Best-effort logs (`logSecurityEvent`, `trackError`, audit writes) must run off the
-   request tx — pass the base pool (`baseDb`), not `c.get('db')` — or be wrapped in a nested
-   `transaction()` (savepoint) so a failed log can't abort the request tx.
+   contract. Best-effort writes (`logSecurityEvent`, audit writes) must run off the request tx
+   (pass the base pool (`baseDb`), not `c.get('db')`) or be wrapped in a nested `transaction()`
+   (savepoint) so a failed write can't abort the request tx. Error monitoring belongs in logs and
+   OpenTelemetry/Faro, not in request-local DB writes.
 
 3. **Route structure**:
    - Validate at the boundary via `zValidator`
@@ -83,7 +84,7 @@ Examples: `uploads/routes.ts`, `products/product-ingredients/routes.ts`,
 
 ---
 
-## Checklist — adding a new domain error code
+## Checklist: adding a new domain error code
 
 1. Add the error code type to `shared/src/<feature>/schemas.ts` (or a sibling file)
 2. Add / update the HTTP mapping (`xxxErrorMapping`) in the same shared file
@@ -98,9 +99,9 @@ Examples: `uploads/routes.ts`, `products/product-ingredients/routes.ts`,
 
 | Entry | Status |
 |---|---|
-| `ReportError` | Missing from registry — safe for now (codes fall through to `baseErrorMapping`) |
+| `ReportError` | Missing from registry: safe for now (codes fall through to `baseErrorMapping`) |
 
-Update the registry when extending `ReportError` with non-base codes.
+Update the registry when extending `ReportError` with nonbase codes.
 
 ---
 
@@ -125,19 +126,19 @@ const json = await res.json()
 return json.data
 ```
 
-Keep the `if (!res.ok) throw` form — TS uses it to narrow `res.json()` to the success variant
+Keep the `if (!res.ok) throw` form: TS uses it to narrow `res.json()` to the success variant
 of the Hono RPC union. (`throwIfNotOk` returns `Promise<void>`, so it does NOT narrow; using it
-forces an extra `if (!json.success) throw` to re-narrow.)
+forces an extra `if (!json.success) throw` to narrow it again.)
 
-Both forms satisfy the rule — the `if (!res.ok) throw new ApiError(...)` form above and
+Both forms satisfy the rule: the `if (!res.ok) throw new ApiError(...)` form above and
 `await throwIfNotOk(res)` + `if (!json.success) throw` (used by `social.ts`, `profile.ts`, the
 code-surfacing reads).
 
-Exempt — leave as-is, don't churn:
-- **Mutations** (`useMutation`/`mutationFn`) — not retried (guard is `defaultOptions.queries`
+Exempt (leave as-is, don't churn):
+- **Mutations** (`useMutation`/`mutationFn`): not retried (guard is `defaultOptions.queries`
   only).
-- **Auth probes** `session` / `me` / `health` — already `retry: false`, immune by design.
-- `if (!json.success)` throws — fire on 2xx, not the retry concern.
+- **Auth probes** `session` / `me` / `health`: already `retry: false`, immune by design.
+- `if (!json.success)` throws: fire on 2xx, not the retry concern.
 
 ### Loaders: `prefetchQuery` when components own their error UI
 
@@ -149,62 +150,62 @@ instead of replacing the whole page. Use `ensureQueryData` only when the data is
 the route to render at all.
 
 **Coverage (not audited).** Most route loaders use `ensureQueryData`; secondary/degradable fetches use `prefetchQuery`. Many
-`ensureQueryData` uses are correct — the route can't render without the data (a missing product →
+`ensureQueryData` uses are correct: the route can't render without the data (a missing product →
 full-page 404 is the right outcome). The risk is a **secondary, degradable** fetch wrongly making
 the page fatal: the `/blog` P0 (a failed category-counts fetch killed the whole page) was exactly
 this, and only `/blog` has been triaged. Any loader fetching more than its one mandatory entity is
 a candidate for `prefetchQuery` + in-page degradation.
 
-### Known gap — code collapsed to `http_error`
+### Known gap: code collapsed to `http_error`
 
 Read failures throw `ApiError('http_error', res.status)`: **status kept, the backend's specific
-`error` code discarded**. Fine for reads (generic `EmptyState`). To surface a code — e.g.
-"rate-limited, retry in Ns" from `rate_limit_exceeded` + `retry-after` — route that read through
-`throwIfNotOk(res)` (parses the envelope) and re-narrow with `if (!json.success)`.
+`error` code discarded**. Fine for reads (generic `EmptyState`). To surface a code (e.g.
+"rate-limited, retry in Ns" from `rate_limit_exceeded` + `retry-after`), route that read through
+`throwIfNotOk(res)` (parses the envelope) and narrow again with `if (!json.success)`.
 
 **P1 wired 2026-06-17.** The 6 highest-traffic reads (`products`/`ingredients` × `search` +
 `searchInfinite`/`searchFlat` + `list`) now route through `throwIfNotOk`. `frontend/src/lib/
 helpers/apiError.ts` exposes `isRateLimitError` / `rateLimitRetryAfter` / `rateLimitMessage`;
 list pages render `RateLimitEmptyState`, search dropdowns pass `rateLimitMessage` as their
 `errorMessage`. Note `details.retryAfter` is a **string or number** (rateLimiter routes forward the
-`Retry-After` header as a string; profile/export sends seconds as a number) and can be absent — the
+`Retry-After` header as a string; profile/export sends seconds as a number) and can be absent: the
 helper coerces both and falls back to a vague delay. P2/P3
 reads deferred.
 
-Established 2026-06-17 — commits `120f06f3` (rate-limit ceiling 100→1000), `0b2f396c` (blog
-degradation), `dc24466d` (read-queryFn sweep, all domains).
+Established 2026-06-17: rate-limit ceiling 100→1000, blog degradation, read-queryFn sweep on all
+domains.
 
-### Rate-limit — backend capacity (topology, not a bug)
+### Rate-limit: backend capacity (topology, not a bug)
 
 The limiter is **per-IP**, not per-user (`globalRateLimiter` in backend `index.ts`, `keyGenerator:
 rate-global:${clientIp}`, 1000/15min). Generous for one human (normal browse ≈ 5 %, power user ≈
-26 % — hitting the ceiling solo = deliberate abuse). **Real risk = shared IP** (mobile CGNAT,
+26 %: hitting the ceiling solo = deliberate abuse). **Real risk = shared IP** (mobile CGNAT,
 office/school NAT): ~18 active browsers on one IP exhaust the budget under normal use. Fix *if*
 shared-IP reports surface = **per-user budget for authed requests** (key on `user.id`, keep IP for
-anon = anti-scrape) — NOT a higher global ceiling (doesn't fix NAT). `rateLimiter.ts` untouched.
+anon = antiscrape), NOT a higher global ceiling (doesn't fix NAT). `rateLimiter.ts` untouched.
 
 ### Open items (frontend errors)
 
 | Item | Status | Pointer |
 |---|---|---|
-| **Loader resilience** — triage the `ensureQueryData` loaders; move secondary/degradable fetches to `prefetchQuery`/`.catch` so one failed call can't kill the page. | audited + P1 done 2026-06-17: 3 secondary fetches migrated (`admin/reports` + `admin/users_.$userId` `users()` → `prefetchQuery`, `products/` dermo → `.catch`). Discussions twins **kept** — `useSuspenseQuery` can't degrade via a loader `.catch` (re-throws at render), and their `errorComponent` is already outlet-scoped. | § Loaders above · `loader-resilience.spec.ts` |
-| **Surface specific read codes** — the `http_error` collapse hides codes like `rate_limit_exceeded` + `retry-after`; route the relevant reads through `throwIfNotOk` to show "retry in Ns". | P1 wired 2026-06-17 (6 search/list reads). P2/P3 deferred. | § Known gap above · `read-code-surfacing.spec.ts` |
-| **Demo logout** — user report "can't log out in demo mode", not reproduced. | needs user clarification | `bugs.md` |
+| **Loader resilience**: triage the `ensureQueryData` loaders; move secondary/degradable fetches to `prefetchQuery`/`.catch` so one failed call can't kill the page. | audited + P1 done 2026-06-17: 3 secondary fetches migrated (`admin/reports` + `admin/users_.$userId` `users()` → `prefetchQuery`, `products/` dermo → `.catch`). Discussions twins **kept**: `useSuspenseQuery` can't degrade via a loader `.catch` (throws again at render), and their `errorComponent` is already outlet-scoped. | § Loaders above · `loader-resilience.spec.ts` |
+| **Surface specific read codes**: the `http_error` collapse hides codes like `rate_limit_exceeded` + `retry-after`; route the relevant reads through `throwIfNotOk` to show "retry in Ns". | P1 wired 2026-06-17 (6 search/list reads). P2/P3 deferred. | § Known gap above · `read-code-surfacing.spec.ts` |
+| **Demo logout**: user report "can't log out in demo mode", not reproduced. | needs user clarification | `bugs.md` |
 
 ---
 
-## Security — what's safe to surface (applies to every error, not just auth)
+## Security: what's safe to surface (applies to every error, not just auth)
 
 The set of error codes a route emits **is a security boundary**. The HTTP response is public
-(DevTools, `curl`, proxy): filtering an error on the frontend hides nothing — it already crossed
+(DevTools, `curl`, proxy): filtering an error on the frontend hides nothing. It already crossed
 the wire. So **the backend decides the public code; sensitive distinctions are collapsed
 server-side**, and the real reason stays in logs.
 
-Decide per code — is it an oracle?
+Decide per code: is it an oracle?
 
 - **Existence / ownership oracle** (does this email/user/resource exist? is it mine?) → collapse
   to a generic code, **equalize timing**, never let the branch be distinguishable (code, status,
-  *or* latency). The asymmetry is the leak, not the message string — and a session-vs-no-session
+  *or* latency). The asymmetry is the leak, not the message string. And a session-vs-no-session
   or fast-vs-slow difference leaks just as much as a distinct code.
 - **Not an oracle** (validation 400, not-found on a public resource, generic 500, rate-limit 429)
   → safe; surface the code.
@@ -213,43 +214,43 @@ Rule of thumb: if knowing *which* error occurred tells an unauthenticated attack
 about another user's account or data, collapse it. Otherwise show it.
 
 **Worked instances**
-- **Login** — `invalid_credentials` for unknown-email, wrong-password, *and* locked-account;
-  `DUMMY_HASH` keeps timing uniform. `account_locked` removed as a public code (commit `dd9130d0`).
-- **Signup** — identical neutral `ok({ pending: true })` either way, no session, timing equalized
+- **Login**: `invalid_credentials` for unknown-email, wrong-password, *and* locked-account;
+  `DUMMY_HASH` keeps timing uniform. `account_locked` removed as a public code.
+- **Signup**: identical neutral `ok({ pending: true })` either way, no session, timing equalized
   (dummy hash on the existing-email branch), truth delivered by email (`sendAlreadyRegisteredEmail`).
   Implemented 2026-06-17, [ADR 0009](../adr/0009-signup-enumeration-safe.md). `email_exists` removed
   from the contract; `/auth/signup` + `/auth/mobile/signup` return 200, no cookie; frontend lands on
   verify-pending. The 24 h unverified-login grace was kept (back-compat), so login was left untouched.
-- **Forgot/reset-password** — identical neutral `ok({ pending: true })` whether the email exists or
+- **Forgot/reset-password**: identical neutral `ok({ pending: true })` whether the email exists or
   not, no session, timing equalized (dummy token hash on the unknown branch) + fire-and-forget reset
   mail so neither branch awaits the send. Implemented 2026-06-17 (greenfield),
   [ADR 0010](../adr/0010-forgot-password-enumeration-safe.md). OAuth-only accounts (null
-  `passwordHash`) take the same neutral branch — no token, no mail — so a reset can't reveal the
+  `passwordHash`) take the same neutral branch (no token, no mail) so a reset can't reveal the
   account or graft a password onto a Google login. The reset *confirmation* is
-  deliberately not neutral — distinct `invalid_token` vs `token_expired` (token-holder-only on a
+  deliberately not neutral: distinct `invalid_token` vs `token_expired` (token-holder-only on a
   2²⁵⁶ space, no enum gain, same as verify-email); a successful reset is treated as proof of inbox
   control (marks email verified, clears lockout) and rotates credentials (revokes all sessions).
-- **Discussions delete (thread + reply)** — was `403 unauthorized_access` (owned by another)
+- **Discussions delete (thread + reply)**: was `403 unauthorized_access` (owned by another)
   vs `404 not_found` (missing) = existence oracle, and those tables have no RLS. Collapsed by
   moving the owner check into the DELETE `WHERE id AND author_id` → uniform `..._not_found`; the
   dead `unauthorized_access` code was dropped. Regression test asserts cross-user ≡ missing.
-- **Profile username** — a unique-username collision propagated as an unhandled `500 server_error`
+- **Profile username**: a unique-username collision propagated as an unhandled `500 server_error`
   vs `200` = username-existence oracle (leaks even private-profile usernames that the public
   lookup hides). Now a handled `409 username_taken` (`ProfileError`, caught via `isUniqueViolation`
   then rethrown so `withRlsContext` still rolls back). Unique usernames inherently reveal
   taken-ness; usernames are display-public (shown on profiles + discussion authors), so a clean
   409 is the right resolution, not concealment.
 
-**Cross-cutting audit (2026-06-17)** — every user-data surface swept for existence / ownership /
+**Cross-cutting audit (2026-06-17)**: every user-data surface swept for existence / ownership /
 uniqueness oracles; each finding adversarially verified.
 
 - *Clean* (ownership folded into the query `WHERE id AND user_id` → uniform 404):
   collection / user-products / purchases; product-comparisons; reports / suggested-edits /
   catalog-submissions / role-requests (submit-only or self-scoped).
 - *Fixed this pass*: discussions delete, profile username (above).
-- *Ruled out*: verify-email `invalid_token` vs `token_expired` — only the token holder (2²⁵⁶
-  space) reaches the branch, no cross-user gain; product-create slug collision on a hidden row —
+- *Ruled out*: verify-email `invalid_token` vs `token_expired`: only the token holder (2²⁵⁶
+  space) reaches the branch, no cross-user gain; product-create slug collision on a hidden row:
   LOW, leaks catalog-item existence not user PII, deferred.
 - *Closed*: forgot/reset-password built always-neutral from day one, 2026-06-17 (ADR 0010; see the
-  Forgot/reset-password worked instance). **All known account-enumeration surfaces are now closed** —
+  Forgot/reset-password worked instance). **All known account-enumeration surfaces are now closed**:
   the unauthenticated set (login, signup, forgot-password) and the authenticated user-data sweep.
