@@ -1,12 +1,12 @@
 #!/bin/sh
 # Renders the nginx conf from /etc/nginx/templates/default.conf.template
-# (substituting ${DOMAIN}), then starts nginx and re-renders + reloads every 6h
-# to pick up renewed SSL certificates. Certbot renews certs every 12h — a 6h
+# (substituting ${DOMAIN}), then starts nginx and renders + reloads every 6h
+# to pick up renewed SSL certificates. Certbot renews certs every 12h; a 6h
 # reload window ensures we never serve an expired cert for more than one interval.
 #
 # Bootstrap: on first deploy the Let's Encrypt cert does not exist yet, so the
 # full template (which references it on `listen 443 ssl`) would prevent nginx from
-# starting at all — and a dead nginx can't serve the ACME challenge, deadlocking
+# starting at all, and a dead nginx can't serve the ACME challenge, deadlocking
 # certbot. When the cert is absent we render an HTTP-only config so nginx starts
 # and certbot can complete the challenge; the 6h loop (or a container restart)
 # then upgrades to the full HTTPS config once the cert is present.
@@ -30,7 +30,7 @@ render() {
         cat > "$OUT" <<EOF
 server {
     listen 80;
-    server_name ${DOMAIN};
+    server_name ${DOMAIN} www.${DOMAIN};
     server_tokens off;
 
     location /.well-known/acme-challenge/ {
