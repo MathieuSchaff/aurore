@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import { buildListIngredientsQuery } from '../ingredients'
 
-describe('buildListIngredientsQuery — empty', () => {
+describe('buildListIngredientsQuery: empty', () => {
   it('returns an empty object when no filters are set', () => {
     expect(buildListIngredientsQuery({})).toEqual({})
   })
@@ -12,7 +12,7 @@ describe('buildListIngredientsQuery — empty', () => {
   })
 })
 
-describe('buildListIngredientsQuery — axes', () => {
+describe('buildListIngredientsQuery: axes', () => {
   it('joins multi-value axes with commas', () => {
     expect(
       buildListIngredientsQuery({
@@ -39,9 +39,11 @@ describe('buildListIngredientsQuery — axes', () => {
       hair_effect: ['volume'],
       dental_effect: ['blanchissant'],
       shared_label: ['clean'],
+      actif_class: ['ceramides'],
     })
     expect(Object.keys(result).sort()).toEqual(
       [
+        'actif_class',
         'age_group',
         'concern',
         'dental_effect',
@@ -59,7 +61,7 @@ describe('buildListIngredientsQuery — axes', () => {
   })
 })
 
-describe('buildListIngredientsQuery — non-axis filters', () => {
+describe('buildListIngredientsQuery: non-axis filters', () => {
   it('maps `type` to `ingredient_type` (route param name divergence)', () => {
     expect(buildListIngredientsQuery({ type: 'skincare' })).toEqual({
       ingredient_type: 'skincare',

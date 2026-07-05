@@ -25,7 +25,7 @@ function AuthorName({ author }: { author: FeedItem['author'] }) {
   return <span className="feed-card__author-name">{author.username}</span>
 }
 
-// Anchors as calm, linked refs — what the post is about. The feed is cross-anchor,
+// Anchors as calm, linked refs: what the post is about. The feed is cross-anchor,
 // so unlike the product surface we show them. Concern is a facet (no link).
 function PostAnchors({ post }: { post: FeedItem }) {
   const concernLabel = post.concernSlug ? SKIN_CONCERN_LABELS[post.concernSlug] : null
@@ -57,9 +57,8 @@ function PostAnchors({ post }: { post: FeedItem }) {
   )
 }
 
-// One post in the feed: author + closeness band + tone + anchors + content + entraide
-// reactions. The band reinforces "people like me"; it is the ordinal label, never a
-// score (#1). No counters, no sort-by-reaction.
+// The band reinforces "people like me"; it is a label, never a score.
+// No counters, no sort-by-reaction.
 export function FeedPostCard({ post }: { post: FeedItem }) {
   const bandLabel = SIMILARITY_BAND_LABELS[post.authorBand]
   return (

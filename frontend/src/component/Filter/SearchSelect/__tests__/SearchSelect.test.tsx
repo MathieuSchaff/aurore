@@ -38,7 +38,7 @@ function renderSelect(ui: ReactElement = <SearchSelect {...baseProps} onToggle={
   return render(ui)
 }
 
-describe('SearchSelect — filter', () => {
+describe('SearchSelect: filter', () => {
   it('reduces the list to options matching the query', async () => {
     const user = userEvent.setup()
     renderSelect()
@@ -90,7 +90,7 @@ describe('SearchSelect — filter', () => {
   })
 })
 
-describe('SearchSelect — selection', () => {
+describe('SearchSelect: selection', () => {
   it('calls onToggle with the option value and resets the query on click', async () => {
     const onToggle = vi.fn()
     const user = userEvent.setup()
@@ -123,7 +123,7 @@ describe('SearchSelect — selection', () => {
   })
 })
 
-describe('SearchSelect — lazy load', () => {
+describe('SearchSelect: lazy load', () => {
   it('caps the initial dropdown to PAGE_SIZE (50)', async () => {
     const user = userEvent.setup()
     const many = makeManyOptions(120)
@@ -151,7 +151,7 @@ describe('SearchSelect — lazy load', () => {
   })
 })
 
-describe('SearchSelect — keyboard', () => {
+describe('SearchSelect: keyboard', () => {
   it('ArrowDown opens the dropdown and sets activeIndex=0', async () => {
     const user = userEvent.setup()
     renderSelect()
@@ -205,7 +205,24 @@ describe('SearchSelect — keyboard', () => {
     expect(input.value).toBe('')
   })
 
-  it('Enter while closed re-opens the dropdown', async () => {
+  it('ignores Enter while composing (IME): no toggle, query kept', async () => {
+    const onToggle = vi.fn()
+    const user = userEvent.setup()
+    renderSelect(<SearchSelect {...baseProps} onToggle={onToggle} />)
+    const input = screen.getByRole('combobox') as HTMLInputElement
+    await user.type(input, 'nia')
+    await user.keyboard('{ArrowDown}')
+
+    fireEvent.keyDown(input, { key: 'Enter', isComposing: true })
+    fireEvent.keyDown(input, { key: 'Enter', keyCode: 229 })
+    expect(onToggle).not.toHaveBeenCalled()
+    expect(input.value).toBe('nia')
+
+    fireEvent.keyDown(input, { key: 'Enter' })
+    expect(onToggle).toHaveBeenCalledWith('niacinamide')
+  })
+
+  it('Enter while closed opens the dropdown again', async () => {
     const user = userEvent.setup()
     renderSelect()
     const input = screen.getByRole('combobox')
@@ -254,7 +271,7 @@ describe('SearchSelect — keyboard', () => {
   })
 })
 
-describe('SearchSelect — a11y', () => {
+describe('SearchSelect: a11y', () => {
   it('aria-expanded follows isOpen', async () => {
     const user = userEvent.setup()
     renderSelect()
@@ -304,7 +321,7 @@ describe('SearchSelect — a11y', () => {
   })
 })
 
-describe('SearchSelect — click outside', () => {
+describe('SearchSelect: click outside', () => {
   it('closes the dropdown and clears the query on outside mousedown', async () => {
     const user = userEvent.setup()
     render(
@@ -335,7 +352,7 @@ describe('SearchSelect — click outside', () => {
   })
 })
 
-describe('SearchSelect — empty state', () => {
+describe('SearchSelect: empty state', () => {
   it('shows "Aucun résultat" when query has no matches', async () => {
     const user = userEvent.setup()
     renderSelect()
@@ -345,7 +362,7 @@ describe('SearchSelect — empty state', () => {
   })
 })
 
-describe('SearchSelect — controlled selected (integration)', () => {
+describe('SearchSelect: controlled selected (integration)', () => {
   it('reflects toggling through the parent state', async () => {
     function Harness() {
       const [sel, setSel] = useState<string[]>([])
@@ -368,7 +385,7 @@ describe('SearchSelect — controlled selected (integration)', () => {
   })
 })
 
-describe('SearchSelect — keyboard edge cases', () => {
+describe('SearchSelect: keyboard edge cases', () => {
   it('clamps activeIndex at the last filtered option (no overflow)', async () => {
     const user = userEvent.setup()
     const tiny: FilterOption[] = [
@@ -417,7 +434,7 @@ describe('SearchSelect — keyboard edge cases', () => {
   })
 })
 
-describe('SearchSelect — selected chip a11y', () => {
+describe('SearchSelect: selected chip a11y', () => {
   it('exposes a "Retirer X" aria-label on each selected chip', () => {
     renderSelect(
       <SearchSelect {...baseProps} selected={['retinol', 'glycerin']} onToggle={vi.fn()} />
