@@ -1,7 +1,7 @@
 // Shared helper for detectors that need a normalized INCI ingredient array.
 //
 // `hoisted` allows the orchestrator to share a single splitINCI result across
-// all passes (audit O3 D.3). When omitted, falls back to splitting locally
+// all passes. When omitted, falls back to splitting locally
 // for test/runner callers that don't hoist.
 
 import { normalize, splitINCI, stripPreamble } from 'algo-derm'
@@ -21,7 +21,7 @@ export function resolveIngredients(
 // Korean brands and some EU products list INCI alphabetically, not by concentration.
 // Position-based rules (top-8 butter/wax, top-10 AHA/BHA, etc.) are meaningless on these.
 // Detection: first 8 letter-starting tokens (skips digit-prefixed like "1,2-hexanediol"),
-// non-decreasing order, and ≥3 distinct first letters (avoids short sorted-by-chance INCIs).
+// an order that does not decrease, and ≥3 distinct first letters (avoids short sorted-by-chance INCIs).
 const ALPHA_DETECT_WINDOW = 8
 const ALPHA_DETECT_MIN_TOKENS = 5
 const ALPHA_DETECT_MIN_DISTINCT_LETTERS = 3

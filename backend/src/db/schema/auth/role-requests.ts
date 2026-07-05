@@ -12,10 +12,10 @@ export const roleRequestStatusEnum = pgEnum('role_request_status', [
   'cancelled',
 ])
 
-// Self-service requests to become a contributor (#16b). Only contributor is requestable
+// Self-service requests to become a contributor. Only contributor is requestable
 // (admin is never self-service), so there is no target-role column. tenantPolicies gives
 // the owner CRUD on their own rows and admins full read/write; contributors get nothing
-// here — granting the role is an account-elevation decision, admin-only.
+// here: granting the role is an account-elevation decision, admin-only.
 export const roleRequests = pgTable(
   'role_requests',
   {
@@ -34,7 +34,7 @@ export const roleRequests = pgTable(
   (t) => [
     index('role_requests_user_idx').on(t.userId),
     index('role_requests_status_idx').on(t.status),
-    // One pending request per user; cancelled/rejected/approved rows never block re-submission.
+    // One pending request per user; cancelled/rejected/approved rows never block a new request.
     uniqueIndex('role_requests_user_pending_unique')
       .on(t.userId)
       .where(sql`${t.status} = 'pending'`),

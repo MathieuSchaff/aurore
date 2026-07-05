@@ -5,13 +5,13 @@ import { SortControl } from '../SortControl'
 
 afterEach(() => cleanup())
 
-describe('SortControl — rendering', () => {
+describe('SortControl: rendering', () => {
   it('shows the current option label on the trigger', () => {
     render(<SortControl value="price_asc" onChange={vi.fn()} />)
     expect(screen.getByRole('button', { name: /Tri : Prix croissant/i })).toBeInTheDocument()
   })
 
-  it('renders all 5 options when opened', () => {
+  it('renders all 5 options when opened without a query', () => {
     render(<SortControl value="name" onChange={vi.fn()} />)
     fireEvent.click(screen.getByRole('button', { name: /Tri :/i }))
     const menu = within(screen.getByRole('menu'))
@@ -20,10 +20,18 @@ describe('SortControl — rendering', () => {
     expect(menu.getByText('Prix croissant')).toBeInTheDocument()
     expect(menu.getByText('Prix décroissant')).toBeInTheDocument()
     expect(menu.getByText('Nouveautés')).toBeInTheDocument()
+    expect(menu.queryByText('Pertinence')).not.toBeInTheDocument()
+  })
+
+  it('offers Pertinence only when a query is active', () => {
+    render(<SortControl value="relevance" onChange={vi.fn()} hasQuery />)
+    expect(screen.getByRole('button', { name: /Tri : Pertinence/i })).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: /Tri :/i }))
+    expect(within(screen.getByRole('menu')).getByText('Pertinence')).toBeInTheDocument()
   })
 })
 
-describe('SortControl — interaction', () => {
+describe('SortControl: interaction', () => {
   it('calls onChange with the selected sort value', () => {
     const handleChange = vi.fn()
     render(<SortControl value="random" onChange={handleChange} />)
