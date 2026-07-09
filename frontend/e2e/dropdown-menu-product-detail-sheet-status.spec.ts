@@ -2,10 +2,8 @@ import { expect, test } from '@playwright/test'
 
 import { loginAsSeed } from './helpers/auth'
 
-// Oracle pour les findings D1 (portal vers <dialog open> top layer), D2
-// (itemsRef survit aux re-renders), D3 (Escape menu ne ferme pas la Sheet),
-// D15 (focus return même si trigger reparent éventuellement).
-// Site #1 du composant DropdownMenu — celui qui a déclenché l'audit 2026-05-20.
+// Covers the fragile DropdownMenu-in-Sheet path: portal layer, re-renders,
+// Escape handling, and focus return.
 
 test.beforeEach(async ({ page }) => {
   await loginAsSeed(page)
@@ -34,7 +32,7 @@ test.describe('DropdownMenu × ProductDetailSheet — status picker', () => {
 
     await statusTrigger.click()
 
-    // D1 oracle : le menu doit être visible. Avant le patch portal-into-dialog,
+    // Le menu doit être visible. Avant le patch portal-into-dialog,
     // le portal vers document.body rendait sous le top layer et le menu était
     // invisible.
     const menu = page.getByRole('menu', { name: 'Changer le statut du produit' })
@@ -56,7 +54,7 @@ test.describe('DropdownMenu × ProductDetailSheet — status picker', () => {
     await expect(sheet).toBeVisible()
   })
 
-  test('D3 oracle: Escape ferme le menu sans fermer la Sheet', async ({ page }) => {
+  test('Escape ferme le menu sans fermer la Sheet', async ({ page }) => {
     await page.goto('/collection')
 
     // Click the explicit details button — the card wrapper is non-interactive,
@@ -76,7 +74,7 @@ test.describe('DropdownMenu × ProductDetailSheet — status picker', () => {
 
     await page.keyboard.press('Escape')
 
-    // Post-D3 fix : Escape ferme le menu, la Sheet reste ouverte (1er press
+    // Escape ferme le menu, la Sheet reste ouverte (1er press
     // peel le menu, 2e press fermerait la Sheet). Focus return = trigger.
     await expect(menu).toBeHidden()
     await expect(sheet).toBeVisible()
