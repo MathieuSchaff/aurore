@@ -213,4 +213,4 @@ just clean && just dev-fresh  # ⚠ destroys ALL Docker data incl. the local DB 
 1. Create `.env.prod` from `.env.prod.example` and fill **every** secret — the API validates env at boot (`backend/src/config/env.ts`) and crash-loops if any required var is missing.
 2. Run `just prod` to start services.
 3. Run `just prod-migrate` to apply migrations (execs into the running api container).
-4. Run `just ssl-init <domain> <email>` to generate the SSL certificate.
+4. Run `just ssl-init <apex-domain> <email>` to generate the SSL certificate for the apex and `www` hostnames.

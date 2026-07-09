@@ -150,14 +150,21 @@ shell-api:
 shell-db:
     {{COMPOSE_DEV}} exec db psql -U app -d appdb
 
-# Generate SSL certificates. Usage: just ssl-init <domain> <email>
+# Generate SSL certificates for the apex + www hostnames. Usage: just ssl-init <domain> <email>
 ssl-init domain email:
     #!/usr/bin/env bash
-    printf '\033[0;33m⚠ Cert request: {{domain}} <{{email}}>\033[0m\n'
+    set -euo pipefail
+    DOMAIN="{{domain}}"
+    PRIMARY="${DOMAIN#www.}"
+    WWW="www.${PRIMARY}"
+    printf '\033[0;33m⚠ Cert request: %s + %s <%s>\033[0m\n' "$PRIMARY" "$WWW" "{{email}}"
     read -p "Continue? [y/N] " confirm && [ "$confirm" = "y" ] || exit 1
     {{COMPOSE_PROD}} exec certbot \
         certbot certonly --webroot -w /var/www/certbot \
-        -d {{domain}} \
+        --cert-name "$PRIMARY" \
+        --expand \
+        -d "$PRIMARY" \
+        -d "$WWW" \
         --email {{email}} \
         --agree-tos \
         --no-eff-email
