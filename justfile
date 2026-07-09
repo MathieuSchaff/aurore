@@ -16,6 +16,7 @@ import 'scripts/just/images.just'
 import 'scripts/just/inci.just'
 import 'scripts/just/quality.just'
 import 'scripts/just/ops.just'
+import 'scripts/just/monitoring.just'
 
 # Show available commands
 help:
