@@ -1,15 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
-import {
-  BookOpen,
-  FlaskConical,
-  GitCompare,
-  Layers,
-  ListChecks,
-  Newspaper,
-  Package,
-  Users,
-} from 'lucide-react'
+import { BookOpen, FlaskConical, GitCompare, Layers, Newspaper, Package, Users } from 'lucide-react'
 import { Suspense } from 'react'
 
 import { Button, ButtonLink } from '@/component/Button/Button'
@@ -20,7 +11,6 @@ import { ShelfPulse } from '@/features/profile/components/ShelfPulse/ShelfPulse'
 import { SkinProfileRead } from '@/features/profile/components/SkinProfileRead/SkinProfileRead'
 import { formatInstant } from '@/lib/dates'
 import { privacySettingsQueries, profileQueries } from '@/lib/queries/profile'
-import { taskQueries } from '@/lib/queries/tasks'
 import { type UserProduct, userProductQueries } from '@/lib/queries/user-products'
 import { useAuthStore } from '@/store/auth'
 import { getSentimentLabel } from '@/utils/sentimentMap'
@@ -51,7 +41,6 @@ export function HomeHub() {
     refetch: refetchSkin,
   } = useQuery(profileQueries.dermo())
   const { data: list } = useQuery(userProductQueries.list())
-  const { data: todayTasks } = useQuery(taskQueries.today())
   const { data: privacy } = useQuery(privacySettingsQueries.get())
 
   const username = me?.username ?? null
@@ -63,13 +52,6 @@ export function HomeHub() {
   const heroSubtitle = recent
     ? repriseLine(recent)
     : 'Vos produits, vos notes et les raisons de chaque choix, au même endroit.'
-
-  const tasksLine =
-    todayTasks === undefined
-      ? 'Vos gestes du jour, au calme.'
-      : todayTasks.length === 0
-        ? "Rien de prévu aujourd'hui. Tout est calme."
-        : `${todayTasks.length} geste${todayTasks.length > 1 ? 's' : ''} prévu${todayTasks.length > 1 ? 's' : ''} aujourd'hui.`
 
   const cards: DoorwayItem[] = [
     {
@@ -93,14 +75,6 @@ export function HomeHub() {
       cta: 'Parcourir',
     },
     {
-      id: 'tasks',
-      icon: <ListChecks size={20} aria-hidden="true" />,
-      title: 'Ma routine du jour',
-      line: tasksLine,
-      to: '/tasks',
-      cta: 'Voir mes tâches',
-    },
-    {
       id: 'people',
       icon: <Users size={20} aria-hidden="true" />,
       title: 'Des gens comme vous',
@@ -111,7 +85,7 @@ export function HomeHub() {
       // Land where the action lives: the discovery list when on, else the account
       // tab that holds the toggle. Avoids the dead-end into the default profile tab.
       search: { tab: privacy?.discoverable ? 'people' : 'account' },
-      // Off case lands mid-page; scroll straight to the discoverable toggle.
+      // Off case lands partway down the page; scroll straight to the discoverable toggle.
       hash: privacy?.discoverable ? undefined : 'discoverable',
       cta: privacy?.discoverable ? 'Découvrir' : 'Activer la découverte',
     },

@@ -35,7 +35,6 @@ import { socialPostsRoutes } from './features/social/posts.routes'
 import { socialReactionsRoutes } from './features/social/reactions.routes'
 import { socialRoutes } from './features/social/routes'
 import { suggestedEditsRoutes } from './features/suggested-edits/routes'
-import { taskRoutes } from './features/tasks/routes'
 import { uploadsRoutes } from './features/uploads'
 import { userProductRoutes } from './features/user-products'
 import { logger } from './lib/logger'
@@ -98,7 +97,6 @@ const routes = app
   .route('/api/ingredients', ingredientDiscussionRoutes)
   .route('/api/product-tags', productTagDefRoutes)
   .route('/api/ingredient-tags', ingredientTagDefRoutes)
-  .route('/api/tasks', taskRoutes)
   .route('/api/user-products', userProductRoutes)
   .route('/api/collection', collectionRoutes)
   .route('/api/me', meRoutes)

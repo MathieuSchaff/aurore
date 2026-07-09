@@ -15,7 +15,6 @@ import {
   socialPostErrorMapping,
   socialReactionErrorMapping,
   tagErrorMapping,
-  taskErrorMapping,
   userProductErrorMapping,
 } from '@aurore/shared'
 
@@ -42,7 +41,6 @@ const errorMappingRegistry = new Map<string, Record<string, HttpStatus>>([
   ['ProductIngredientError', productIngredientErrorMapping as Record<string, HttpStatus>],
   ['PurchaseError', purchaseErrorMapping as Record<string, HttpStatus>],
   ['TagError', tagErrorMapping as Record<string, HttpStatus>],
-  ['TaskError', taskErrorMapping as Record<string, HttpStatus>],
   ['UserProductError', userProductErrorMapping as Record<string, HttpStatus>],
   ['BlogError', articleErrorMapping as Record<string, HttpStatus>],
   ['DiscussionError', discussionErrorMapping as Record<string, HttpStatus>],

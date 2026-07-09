@@ -36,7 +36,6 @@ import { Route as AdminRoleRequestsRouteImport } from './routes/admin/role-reque
 import { Route as AdminReportsRouteImport } from './routes/admin/reports'
 import { Route as AdminErrorsRouteImport } from './routes/admin/errors'
 import { Route as AdminCatalogRouteImport } from './routes/admin/catalog'
-import { Route as AuthenticatedTasksRouteImport } from './routes/_authenticated/tasks'
 import { Route as AuthenticatedSubmissionsRouteImport } from './routes/_authenticated/submissions'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedFeedRouteImport } from './routes/_authenticated/feed'
@@ -198,11 +197,6 @@ const AdminCatalogRoute = AdminCatalogRouteImport.update({
   path: '/catalog',
   getParentRoute: () => AdminRouteRoute,
 } as any)
-const AuthenticatedTasksRoute = AuthenticatedTasksRouteImport.update({
-  id: '/tasks',
-  path: '/tasks',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
 const AuthenticatedSubmissionsRoute =
   AuthenticatedSubmissionsRouteImport.update({
     id: '/submissions',
@@ -357,7 +351,6 @@ export interface FileRoutesByFullPath {
   '/feed': typeof AuthenticatedFeedRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/submissions': typeof AuthenticatedSubmissionsRoute
-  '/tasks': typeof AuthenticatedTasksRoute
   '/admin/catalog': typeof AdminCatalogRoute
   '/admin/errors': typeof AdminErrorsRoute
   '/admin/reports': typeof AdminReportsRoute
@@ -410,7 +403,6 @@ export interface FileRoutesByTo {
   '/feed': typeof AuthenticatedFeedRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/submissions': typeof AuthenticatedSubmissionsRoute
-  '/tasks': typeof AuthenticatedTasksRoute
   '/admin/catalog': typeof AdminCatalogRoute
   '/admin/errors': typeof AdminErrorsRoute
   '/admin/reports': typeof AdminReportsRoute
@@ -465,7 +457,6 @@ export interface FileRoutesById {
   '/_authenticated/feed': typeof AuthenticatedFeedRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/_authenticated/submissions': typeof AuthenticatedSubmissionsRoute
-  '/_authenticated/tasks': typeof AuthenticatedTasksRoute
   '/admin/catalog': typeof AdminCatalogRoute
   '/admin/errors': typeof AdminErrorsRoute
   '/admin/reports': typeof AdminReportsRoute
@@ -522,7 +513,6 @@ export interface FileRouteTypes {
     | '/feed'
     | '/profile'
     | '/submissions'
-    | '/tasks'
     | '/admin/catalog'
     | '/admin/errors'
     | '/admin/reports'
@@ -575,7 +565,6 @@ export interface FileRouteTypes {
     | '/feed'
     | '/profile'
     | '/submissions'
-    | '/tasks'
     | '/admin/catalog'
     | '/admin/errors'
     | '/admin/reports'
@@ -629,7 +618,6 @@ export interface FileRouteTypes {
     | '/_authenticated/feed'
     | '/_authenticated/profile'
     | '/_authenticated/submissions'
-    | '/_authenticated/tasks'
     | '/admin/catalog'
     | '/admin/errors'
     | '/admin/reports'
@@ -895,13 +883,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminCatalogRouteImport
       parentRoute: typeof AdminRouteRoute
     }
-    '/_authenticated/tasks': {
-      id: '/_authenticated/tasks'
-      path: '/tasks'
-      fullPath: '/tasks'
-      preLoaderRoute: typeof AuthenticatedTasksRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
     '/_authenticated/submissions': {
       id: '/_authenticated/submissions'
       path: '/submissions'
@@ -1110,7 +1091,6 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedFeedRoute: typeof AuthenticatedFeedRoute
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
   AuthenticatedSubmissionsRoute: typeof AuthenticatedSubmissionsRoute
-  AuthenticatedTasksRoute: typeof AuthenticatedTasksRoute
   AuthenticatedIngredientsNewRoute: typeof AuthenticatedIngredientsNewRoute
   AuthenticatedProductsNewRoute: typeof AuthenticatedProductsNewRoute
   AuthenticatedProductsCompareIdRoute: typeof AuthenticatedProductsCompareIdRoute
@@ -1123,7 +1103,6 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedFeedRoute: AuthenticatedFeedRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
   AuthenticatedSubmissionsRoute: AuthenticatedSubmissionsRoute,
-  AuthenticatedTasksRoute: AuthenticatedTasksRoute,
   AuthenticatedIngredientsNewRoute: AuthenticatedIngredientsNewRoute,
   AuthenticatedProductsNewRoute: AuthenticatedProductsNewRoute,
   AuthenticatedProductsCompareIdRoute: AuthenticatedProductsCompareIdRoute,
