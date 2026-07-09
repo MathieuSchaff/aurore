@@ -34,7 +34,6 @@ import { Route as AdminSuggestedEditsRouteImport } from './routes/admin/suggeste
 import { Route as AdminSecurityEventsRouteImport } from './routes/admin/security-events'
 import { Route as AdminRoleRequestsRouteImport } from './routes/admin/role-requests'
 import { Route as AdminReportsRouteImport } from './routes/admin/reports'
-import { Route as AdminErrorsRouteImport } from './routes/admin/errors'
 import { Route as AdminCatalogRouteImport } from './routes/admin/catalog'
 import { Route as AuthenticatedSubmissionsRouteImport } from './routes/_authenticated/submissions'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
@@ -185,11 +184,6 @@ const AdminRoleRequestsRoute = AdminRoleRequestsRouteImport.update({
 const AdminReportsRoute = AdminReportsRouteImport.update({
   id: '/reports',
   path: '/reports',
-  getParentRoute: () => AdminRouteRoute,
-} as any)
-const AdminErrorsRoute = AdminErrorsRouteImport.update({
-  id: '/errors',
-  path: '/errors',
   getParentRoute: () => AdminRouteRoute,
 } as any)
 const AdminCatalogRoute = AdminCatalogRouteImport.update({
@@ -352,7 +346,6 @@ export interface FileRoutesByFullPath {
   '/profile': typeof AuthenticatedProfileRoute
   '/submissions': typeof AuthenticatedSubmissionsRoute
   '/admin/catalog': typeof AdminCatalogRoute
-  '/admin/errors': typeof AdminErrorsRoute
   '/admin/reports': typeof AdminReportsRoute
   '/admin/role-requests': typeof AdminRoleRequestsRoute
   '/admin/security-events': typeof AdminSecurityEventsRoute
@@ -404,7 +397,6 @@ export interface FileRoutesByTo {
   '/profile': typeof AuthenticatedProfileRoute
   '/submissions': typeof AuthenticatedSubmissionsRoute
   '/admin/catalog': typeof AdminCatalogRoute
-  '/admin/errors': typeof AdminErrorsRoute
   '/admin/reports': typeof AdminReportsRoute
   '/admin/role-requests': typeof AdminRoleRequestsRoute
   '/admin/security-events': typeof AdminSecurityEventsRoute
@@ -458,7 +450,6 @@ export interface FileRoutesById {
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/_authenticated/submissions': typeof AuthenticatedSubmissionsRoute
   '/admin/catalog': typeof AdminCatalogRoute
-  '/admin/errors': typeof AdminErrorsRoute
   '/admin/reports': typeof AdminReportsRoute
   '/admin/role-requests': typeof AdminRoleRequestsRoute
   '/admin/security-events': typeof AdminSecurityEventsRoute
@@ -514,7 +505,6 @@ export interface FileRouteTypes {
     | '/profile'
     | '/submissions'
     | '/admin/catalog'
-    | '/admin/errors'
     | '/admin/reports'
     | '/admin/role-requests'
     | '/admin/security-events'
@@ -566,7 +556,6 @@ export interface FileRouteTypes {
     | '/profile'
     | '/submissions'
     | '/admin/catalog'
-    | '/admin/errors'
     | '/admin/reports'
     | '/admin/role-requests'
     | '/admin/security-events'
@@ -619,7 +608,6 @@ export interface FileRouteTypes {
     | '/_authenticated/profile'
     | '/_authenticated/submissions'
     | '/admin/catalog'
-    | '/admin/errors'
     | '/admin/reports'
     | '/admin/role-requests'
     | '/admin/security-events'
@@ -869,13 +857,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminReportsRouteImport
       parentRoute: typeof AdminRouteRoute
     }
-    '/admin/errors': {
-      id: '/admin/errors'
-      path: '/errors'
-      fullPath: '/admin/errors'
-      preLoaderRoute: typeof AdminErrorsRouteImport
-      parentRoute: typeof AdminRouteRoute
-    }
     '/admin/catalog': {
       id: '/admin/catalog'
       path: '/catalog'
@@ -1116,7 +1097,6 @@ const AuthenticatedRouteRouteWithChildren =
 
 interface AdminRouteRouteChildren {
   AdminCatalogRoute: typeof AdminCatalogRoute
-  AdminErrorsRoute: typeof AdminErrorsRoute
   AdminReportsRoute: typeof AdminReportsRoute
   AdminRoleRequestsRoute: typeof AdminRoleRequestsRoute
   AdminSecurityEventsRoute: typeof AdminSecurityEventsRoute
@@ -1128,7 +1108,6 @@ interface AdminRouteRouteChildren {
 
 const AdminRouteRouteChildren: AdminRouteRouteChildren = {
   AdminCatalogRoute: AdminCatalogRoute,
-  AdminErrorsRoute: AdminErrorsRoute,
   AdminReportsRoute: AdminReportsRoute,
   AdminRoleRequestsRoute: AdminRoleRequestsRoute,
   AdminSecurityEventsRoute: AdminSecurityEventsRoute,
