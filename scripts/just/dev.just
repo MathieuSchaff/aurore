@@ -134,13 +134,6 @@ reinstall-backend:
     {{COMPOSE_DEV}} up -d
     @printf "{{GREEN}}✓ Backend reinstalled{{NC}}\n"
 
-# Full frontend rebuild (volumes + image)
-reinstall-frontend:
-    {{COMPOSE_DEV}} down
-    {{COMPOSE_DEV}} build --no-cache frontend
-    {{COMPOSE_DEV}} up -d
-    @printf "{{GREEN}}✓ Frontend reinstalled{{NC}}\n"
-
 # Watch TypeScript (generates types for editor)
 ts-check:
     bunx tsc -b --watch
