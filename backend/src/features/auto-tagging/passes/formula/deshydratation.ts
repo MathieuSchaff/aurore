@@ -1,11 +1,11 @@
 import { SKINCARE_PRODUCT_TAG_SLUGS, type SkincareProductTagSlug } from '@aurore/shared'
 
-import { matchesNamePositioning } from './pass-helpers'
+import { matchesNamePositioning } from './name-positioning'
 
 const S = SKINCARE_PRODUCT_TAG_SLUGS
 
 // Positioning gate for `deshydratation` (re-emits an algo-derm slug, ADR-0004).
-// Bare "hydratant" over-fires massively, so the gate keys on explicit dehydration
+// Bare "hydratant" fires far too widely, so the gate keys on explicit dehydration
 // vocabulary (déshydrat, désaltère, soif) OR hydration as the named hero (hyaluronic,
 // moisture, hydra-* in the product-type name).
 export const DESHYDRATATION_POSITION_RE =

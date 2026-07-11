@@ -23,7 +23,7 @@ export type AutoTagRelevance = 'primary' | 'secondary' | 'avoid'
 // passes migrate to populate it incrementally; actif-class is the first emitter.
 export interface TagEvidence {
   readonly matchedToken?: string
-  // 0-based index in the resolved ingredient list. Undefined for non-positional
+  // 0-based index in the resolved ingredient list. Undefined for matches that are not positional
   // matches (raw-string scan, name/description text).
   readonly position?: number
   readonly sourceField?: 'name' | 'description' | 'inci' | 'content'
@@ -47,8 +47,8 @@ export interface AutoTagProposal {
 // Public shape returned by `detectAllAutoTags`. Strips `confidence` because
 // downstream consumers (DB writers, audit CSV) use only (tagSlug, relevance,
 // source). `evidence` is forwarded (optional) so the gold-set bench can dump the
-// trigger token + INCI position for each FP/FN. Mutable to preserve the
-// pre-ADR-0001 API contract.
+// trigger token + INCI position for each FP/FN. Mutable to preserve the API
+// contract as it was before ADR-0001.
 export interface AutoTagPair {
   tagSlug: SkincareProductTagSlug
   relevance: AutoTagRelevance
@@ -56,7 +56,7 @@ export interface AutoTagPair {
   evidence?: TagEvidence
 }
 
-// Built once per product; hoisted INCI work shared across every pass (§D.3 hoist).
+// Built once per product; hoisted INCI work shared across every pass.
 export interface PassContext {
   readonly inci: string | null | undefined
   readonly kind: ProductKind
@@ -66,11 +66,9 @@ export interface PassContext {
   readonly name: string | null | undefined
   readonly description: string | null | undefined
   readonly percentClaims: readonly PercentClaimEvidence[] | undefined
-  readonly knownConcentrations: Record<string, number> | undefined
   readonly brandCertifications: BrandCertificationLookup | undefined
 
   readonly hasInci: boolean
-  readonly cleanedInci: string
   readonly ingredients: readonly string[]
   readonly normalizedIngredients: readonly string[]
   readonly assessment: ProductAssessment | undefined
