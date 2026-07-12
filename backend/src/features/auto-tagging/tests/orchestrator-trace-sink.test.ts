@@ -1,7 +1,7 @@
 // The orchestrator's optional trace sink. detectAllAutoTags owns the one
-// dispatch loop; explainInci reads it through this sink instead of re-running the
+// dispatch loop; explainInci reads it through this sink instead of running the
 // loop. This pins the sink contract (per-pass callback in registry order, a
-// single pre-promote snapshot, drop-count wiring) so explain can rely on it.
+// single snapshot before promotion, drop-count wiring) so explain can rely on it.
 
 import { describe, expect, it } from 'bun:test'
 
@@ -13,14 +13,14 @@ import { AUTO_TAG_PASSES } from '../passes/registry'
 const SERUM_INCI = 'Aqua, Niacinamide, Glycerin, Pentylene Glycol, Zinc PCA, Phenoxyethanol'
 const input = { inci: SERUM_INCI, kind: 'serum' as ProductKind, category: 'skincare' }
 
-describe('detectAllAutoTags — trace sink', () => {
+describe('detectAllAutoTags: trace sink', () => {
   it('calls onPass once per pass in registry order', () => {
     const passNames: string[] = []
     detectAllAutoTags(input, {}, { onPass: (name) => passNames.push(name) })
     expect(passNames).toEqual(AUTO_TAG_PASSES.map((p) => p.name))
   })
 
-  it('calls onMerged exactly once with the pre-promote tag set (same slugs as final)', () => {
+  it('calls onMerged exactly once with the tag set before promotion (same slugs as final)', () => {
     let mergedCalls = 0
     let snapshotSlugs: string[] = []
     const final = detectAllAutoTags(input, {}, {
@@ -30,9 +30,24 @@ describe('detectAllAutoTags — trace sink', () => {
       },
     } satisfies AutoTagTraceSink)
     expect(mergedCalls).toBe(1)
-    // primaryPromote never adds or removes slugs — only rewrites relevance — so
-    // the pre-promote snapshot carries exactly the final slug set.
+    // primaryPromote never adds or removes slugs (only rewrites relevance), so
+    // the snapshot taken before promotion carries exactly the final slug set.
     expect(snapshotSlugs.sort()).toEqual(final.map((p) => p.tagSlug).sort())
+  })
+
+  it('aligns one merge verdict per proposal on every pass', () => {
+    let sawAccepted = false
+    detectAllAutoTags(
+      input,
+      {},
+      {
+        onPass: (_name, proposals, outcomes) => {
+          expect(outcomes.length).toBe(proposals.length)
+          if (outcomes.includes(true)) sawAccepted = true
+        },
+      }
+    )
+    expect(sawAccepted).toBe(true)
   })
 
   it('populates the sink dropCounts via the algo-derm gate', () => {
