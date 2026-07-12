@@ -1,6 +1,6 @@
 import { SKINCARE_PRODUCT_TAG_SLUGS, type SkincareProductTagSlug } from '@aurore/shared'
 
-import { matchesNamePositioning } from './pass-helpers'
+import { matchesNamePositioning } from './name-positioning'
 
 const S = SKINCARE_PRODUCT_TAG_SLUGS
 
@@ -10,23 +10,23 @@ const S = SKINCARE_PRODUCT_TAG_SLUGS
 // booster, eye butter, cica), positioned for other concerns.
 // A concern reports marketed positioning, not actant presence (ADR-0004).
 
-// Unambiguous positioning tokens — fire on naming alone.
+// Unambiguous positioning tokens, fire on naming alone.
 const CERNES_UNAMBIGUOUS_RE =
   /\bcernes?\b|d[eé][- ]?gonfl|d[eé]poch|puffiness|\bpuffy\b|dark\s+circles?|eye\s+bags?|de[- ]?puff/i
 
-// "poche(s)" is polysemous: eye bag vs garment pocket. Packaging copy on non-eye products
-// ("se glisse dans la poche", "tube de poche" on lip balms / sunscreen sticks) over-fired, so
+// "poche(s)" is polysemous: eye bag vs garment pocket. Packaging copy on products unrelated to
+// eyes ("se glisse dans la poche", "tube de poche" on lip balms / sunscreen sticks) made it fire, so
 // the poche token only counts when an eye anchor is also present.
 const CERNES_POCHES_RE = /\bpoches?\b/i
 const CERNES_EYE_ANCHOR_RE =
   /\byeux\b|regard|\beyes?\b|\bcernes?\b|dark\s+circles?|gonfl|paupière|sous\s+les\s+yeux/i
 
-// Evidence union (poche included) — namePass re-derives the matched token from this. Every fire
+// Evidence union (poche included): namePass derives the matched token again from this. Every fire
 // branch below is a subset, so a fire always matches here and the audit evidence never drifts.
 export const CERNES_POSITION_RE =
   /\bcernes?\b|\bpoches?\b|d[eé][- ]?gonfl|d[eé]poch|puffiness|\bpuffy\b|dark\s+circles?|eye\s+bags?|de[- ]?puff/i
 
-// "correcteur" excluded deliberately — correcteur-éclat soins are legitimate positives.
+// "correcteur" excluded deliberately: correcteur-éclat soins are legitimate positives.
 // Makeup (concealer/CC/tinted) names "anti-cernes" but covers rather than treats.
 export const CERNES_EXCLUSION_RE = /concealer|cc\s*(?:cream|eye)|teinté|tinted|couvrance/i
 
