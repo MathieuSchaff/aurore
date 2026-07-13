@@ -122,7 +122,7 @@ function RoleCard({ userId }: { userId: string }) {
     const body: UpdateRoleInput = { role: 'user' }
     if (reason.trim().length > 0) body.reason = reason.trim()
     // The card unmounts on success (contributor gone) = silent for a screen reader;
-    // announce before it goes. No toast — the announcement carries the confirmation.
+    // announce before it goes. No toast: the announcement carries the confirmation.
     demote.mutate(body, {
       onSuccess: () => announce('Modérateur rétrogradé'),
       onError: (err) => setError(getAdminErrorMessage(err)),
@@ -283,47 +283,49 @@ function BansListCard({
       {bans.length === 0 ? (
         <p className="admin-table__empty">{adminLabels.emptyBans}</p>
       ) : (
-        <table className="admin-table">
-          <caption className="sr-only">Pauses (actives et historique)</caption>
-          <thead>
-            <tr>
-              <th>Scope</th>
-              <th>Raison</th>
-              <th>Expire</th>
-              <th>Créé</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {bans.map((b) => (
-              <tr key={b.id}>
-                <td>
-                  <span className="admin-pill admin-pill--banned">{b.scope}</span>
-                </td>
-                <td>{b.reason ?? <em>—</em>}</td>
-                <td>{b.expiresAt ? <Time iso={b.expiresAt} relative /> : 'Permanent'}</td>
-                <td>
-                  <Time iso={b.createdAt} relative />
-                </td>
-                <td>
-                  {/* 'global' lift is admin-only; RLS filters it from a contributor's list. */}
-                  {isAdmin || b.scope !== 'global' ? (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      loading={pendingId === b.id && liftBan.isPending}
-                      onClick={() => handleLift(b.id, b.scope)}
-                    >
-                      Lever
-                    </Button>
-                  ) : (
-                    <em>—</em>
-                  )}
-                </td>
+        <div className="admin-table-scroll">
+          <table className="admin-table">
+            <caption className="sr-only">Pauses (actives et historique)</caption>
+            <thead>
+              <tr>
+                <th>Scope</th>
+                <th>Raison</th>
+                <th>Expire</th>
+                <th>Créé</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {bans.map((b) => (
+                <tr key={b.id}>
+                  <td>
+                    <span className="admin-pill admin-pill--banned">{b.scope}</span>
+                  </td>
+                  <td>{b.reason ?? <em>—</em>}</td>
+                  <td>{b.expiresAt ? <Time iso={b.expiresAt} relative /> : 'Permanent'}</td>
+                  <td>
+                    <Time iso={b.createdAt} relative />
+                  </td>
+                  <td>
+                    {/* 'global' lift is admin-only; RLS filters it from a contributor's list. */}
+                    {isAdmin || b.scope !== 'global' ? (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        loading={pendingId === b.id && liftBan.isPending}
+                        onClick={() => handleLift(b.id, b.scope)}
+                      >
+                        Lever
+                      </Button>
+                    ) : (
+                      <em>—</em>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
       {dialog}
     </div>
