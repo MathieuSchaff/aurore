@@ -1,8 +1,8 @@
-// Haircare Ingredient Tag definitions — single source of truth.
+// Haircare Ingredient Tag definitions: single source of truth.
 // One {key, slug, label, category} per tag; the legacy *_TAG_SLUGS object, the
 // {category} taxonomy and the slug->label map are derived.
 
-import { deriveTagSlugs, type LabeledTagDef } from '../../tag-api/tag-taxonomy-builder'
+import { deriveTagSlugs, type LabeledTagDef } from '../../tag-taxonomy-builder'
 
 export const HAIRCARE_INGREDIENT_TAG_CATEGORIES = [
   'concern',
