@@ -1,14 +1,22 @@
 import { useQuery } from '@tanstack/react-query'
-import { GitMerge, Info, Scale } from 'lucide-react'
+import { GitMerge, Info, Scale, Sparkles } from 'lucide-react'
 import { useMemo } from 'react'
 
 import { SectionHeader } from '@/component/Typography/SectionHeader/SectionHeader'
-import { PROFILE_RELEVANT_AXES, RISK_AXIS_PHRASE } from '@/constants/derm'
+import {
+  BENEFIT_AXIS_PHRASE,
+  DOSE_SIGNAL_MIN_CONFIDENCE,
+  DOSE_SIGNAL_MIN_DOSE_FACTOR,
+  DOSE_SIGNAL_PHRASE,
+  PROFILE_RELEVANT_AXES,
+  RISK_AXIS_PHRASE,
+} from '@/constants/derm'
 import { productQueries } from '@/lib/queries/products'
 import { formatRegulatoryNotes } from './regulatoryNotes'
 import './FormulaReading.css'
 
 type RiskAxis = keyof typeof RISK_AXIS_PHRASE
+type BenefitAxis = keyof typeof BENEFIT_AXIS_PHRASE
 
 interface FormulaReadingProps {
   slug: string
@@ -31,20 +39,64 @@ export function FormulaReading({ slug, userKey, profileSlugs }: FormulaReadingPr
 
   if (isError || !assessment) return null
 
-  const { explanation, regulatoryNotes, interactions, coverage } = assessment
+  const { explanation, regulatoryNotes, interactions, coverage, matchedEvidence } = assessment
+  // roleAtDose exists only for ingredients with an authored role curve (today:
+  // exfoliants); absence means "no dose signal", not "not dosed to act".
+  // Bundle INCI can repeat one inci at different doses while rendered drivers
+  // are deduped upstream: every occurrence must pass the cut, silence otherwise.
+  const dosedInci = new Map<string, boolean>()
+  for (const m of matchedEvidence) {
+    const pass =
+      !!m.roleAtDose &&
+      m.roleAtDose.doseFactor >= DOSE_SIGNAL_MIN_DOSE_FACTOR &&
+      m.roleAtDose.confidence >= DOSE_SIGNAL_MIN_CONFIDENCE
+    dosedInci.set(m.inci, (dosedInci.get(m.inci) ?? true) && pass)
+  }
   // Keep ingredient/heuristic signals only; interaction rules render in their own
   // section with a human note (their topDrivers label is a raw rule id). Drop drivers
   // with no axis — matched evidence that carries no concern is noise here.
   const drivers = explanation.topDrivers.filter(
     (d) => d.source !== 'interaction' && d.axes.length > 0
   )
-  const hasSignal = drivers.length > 0 || regulatoryNotes.length > 0 || interactions.length > 0
+  // Benefit drivers carry no `source` and are never interaction-derived; keep all.
+  const benefitDrivers = explanation.topBenefitDrivers.filter((d) => d.axes.length > 0)
+  const hasSignal =
+    benefitDrivers.length > 0 ||
+    drivers.length > 0 ||
+    regulatoryNotes.length > 0 ||
+    interactions.length > 0
 
   if (!hasSignal) return null
 
   return (
     <section className="formula-reading product-section">
       <SectionHeader title="Lecture de la formule" as="h2" />
+
+      {benefitDrivers.length > 0 && (
+        <div className="formula-reading__group">
+          <h3 className="formula-reading__subhead">
+            <Sparkles size={13} aria-hidden="true" />
+            Points forts
+          </h3>
+          <ul role="list" className="formula-reading__list">
+            {benefitDrivers.map((d) => {
+              const phrase = (d.axes as BenefitAxis[])
+                .map((a) => BENEFIT_AXIS_PHRASE[a])
+                .filter(Boolean)
+                .join(', ')
+              return (
+                <li key={d.label} className="formula-reading__item">
+                  <span className="formula-reading__label">{d.label}</span>
+                  {phrase && <span className="formula-reading__phrase"> — {phrase}</span>}
+                  {d.inci && dosedInci.get(d.inci) && (
+                    <span className="formula-reading__dose-tag">{DOSE_SIGNAL_PHRASE}</span>
+                  )}
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+      )}
 
       {drivers.length > 0 && (
         <div className="formula-reading__group">
@@ -65,6 +117,9 @@ export function FormulaReading({ slug, userKey, profileSlugs }: FormulaReadingPr
                 >
                   <span className="formula-reading__label">{d.label}</span>
                   {phrase && <span className="formula-reading__phrase"> — {phrase}</span>}
+                  {d.inci && dosedInci.get(d.inci) && (
+                    <span className="formula-reading__dose-tag">{DOSE_SIGNAL_PHRASE}</span>
+                  )}
                 </li>
               )
             })}
