@@ -29,18 +29,18 @@ export async function throwIfNotOk(res: Response, fallbackCode = 'http_error'): 
       details = body.details
     }
   } catch {
-    // Non-JSON body - fall back to status-only branching.
+    // Body isn't JSON: fall back to status-only branching.
   }
   throw new ApiError(code, res.status, details)
 }
 
 // Retry-after seconds off a 429 `rate_limit_exceeded` ApiError (backend envelope
-// `details.retryAfter`), for "réessayez dans Ns" UI. null when the error isn't a rate-limit.
+// `details.retryAfter`), for "retry in Ns" UI. null when the error isn't a rate-limit.
 export function isRateLimitError(err: unknown): boolean {
   return isApiError(err) && err.code === 'rate_limit_exceeded'
 }
 
-// Backend puts Retry-After (an HTTP header) under details.retryAfter, so it's a string — or
+// Backend puts Retry-After (an HTTP header) under details.retryAfter, so it's a string, or
 // null when the header is absent. Coerce; return null when no usable delay is available.
 export function rateLimitRetryAfter(err: unknown): number | null {
   if (!isRateLimitError(err)) return null
@@ -50,7 +50,7 @@ export function rateLimitRetryAfter(err: unknown): number | null {
   return typeof sec === 'number' && Number.isFinite(sec) ? sec : null
 }
 
-// "5 min" for ≥60s, "30 s" otherwise — avoids ugly "300 secondes" in retry copy.
+// "5 min" for ≥60s, "30 s" otherwise. Avoids ugly "300 secondes" in retry copy.
 export function formatRetryDelay(seconds: number): string {
   return seconds >= 60 ? `${Math.ceil(seconds / 60)} min` : `${seconds} s`
 }
