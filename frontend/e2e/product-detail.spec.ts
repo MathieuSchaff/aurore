@@ -8,15 +8,18 @@ function isApi(req: { url(): string }, path: string | RegExp): boolean {
   return path.test(u)
 }
 
-// Resolve a stable seed product (alphabetical first on skincare) and land on
-// its detail page. We avoid the /products list + "first card" approach because
-// the default sort=newest makes the first card volatile across parallel tests
-// that create products mid-run.
-async function gotoFirstProductDetail(page: Page): Promise<string> {
+// Alphabetical first on skincare = a stable pick. We avoid the /products list
+// + "first card" approach because the default sort=newest makes the first card
+// volatile across parallel tests that create products mid-run.
+async function resolveFirstSkincareSlug(page: Page): Promise<string> {
   const res = await page.request.get('/api/products?category=skincare&sort=name&limit=1')
   expect(res.ok()).toBe(true)
   const json = await res.json()
-  const slug = json.data.items[0].slug as string
+  return json.data.items[0].slug as string
+}
+
+async function gotoFirstProductDetail(page: Page): Promise<string> {
+  const slug = await resolveFirstSkincareSlug(page)
   await page.goto(`/products/${slug}`)
   await expect(page).toHaveURL(new RegExp(`/products/${slug}$`), { timeout: 15_000 })
   return slug
@@ -143,8 +146,7 @@ test.describe('Product edit — clearing nullable fields', () => {
     page: Page,
     sentinel: string
   ): Promise<{ slug: string; id: string }> {
-    const list = await page.request.get('/api/products?category=skincare&sort=name&limit=1')
-    const slug = (await list.json()).data.items[0].slug as string
+    const slug = await resolveFirstSkincareSlug(page)
     const detail = await page.request.get(`/api/products/${slug}`)
     const id = (await detail.json()).data.id as string
     const token = await getAccessToken(page)
@@ -321,7 +323,7 @@ test.describe('Product detail — Discussions tab', () => {
   })
 })
 
-test.describe('Product detail — dose signal (Lecture de la formule)', () => {
+test.describe('Product detail — Lecture de la formule', () => {
   // FormulaReading only mounts when the product has an INCI.
   async function findSlugWithInci(page: Page): Promise<string> {
     const list = await page.request.get('/api/products?category=skincare&sort=name&limit=10')
@@ -436,5 +438,171 @@ test.describe('Product detail — dose signal (Lecture de la formule)', () => {
     const tags = section.locator('.formula-reading__dose-tag')
     await expect(tags).toHaveCount(2)
     await expect(tags.first()).toHaveText('probablement dosé pour agir')
+  })
+
+  test('driver labels link to the ingredient page only when a slug is resolved', async ({
+    page,
+  }) => {
+    const slug = await findSlugWithInci(page)
+
+    // Mixed rendering is the norm: resolved labels become links, unresolved
+    // ones stay deliberate plain text (never a search-page fallback).
+    const assessment = {
+      explanation: {
+        topDrivers: [
+          {
+            label: 'Salicylic Acid',
+            inci: 'Salicylic Acid',
+            source: 'matchedEvidence',
+            axes: ['irritation'],
+            contribution: 0.6,
+            ingredientSlug: 'salicylic-acid',
+          },
+          {
+            label: 'Limonene',
+            inci: 'Limonene',
+            source: 'matchedEvidence',
+            axes: ['irritation'],
+            contribution: 0.4,
+            ingredientSlug: null,
+          },
+        ],
+        topBenefitDrivers: [
+          {
+            label: 'Niacinamide',
+            inci: 'Niacinamide',
+            axes: ['brightening'],
+            contribution: 0.8,
+            ingredientSlug: 'niacinamide',
+          },
+        ],
+      },
+      regulatoryNotes: [],
+      interactions: [],
+      coverage: { matched: 3, total: 5 },
+      matchedEvidence: [],
+    }
+
+    await page.route('**/api/products/*/dermo-score', (route) =>
+      route.fulfill({ json: { data: assessment } })
+    )
+
+    await page.goto(`/products/${slug}`)
+
+    const section = page.locator('.formula-reading')
+    await expect(section).toBeVisible({ timeout: 15_000 })
+
+    await expect(section.getByRole('link', { name: 'Niacinamide' })).toHaveAttribute(
+      'href',
+      '/ingredients/niacinamide'
+    )
+    await expect(section.getByRole('link', { name: 'Salicylic Acid' })).toHaveAttribute(
+      'href',
+      '/ingredients/salicylic-acid'
+    )
+    await expect(section.getByText('Limonene')).toBeVisible()
+    await expect(section.getByRole('link', { name: 'Limonene' })).toHaveCount(0)
+  })
+})
+
+test.describe('Product detail — Profil de la formule', () => {
+  // Both tests fetch-then-modify the detail endpoint under test. Deliberate
+  // deviation from e2e.md (do not mock the stack): the assertions need a tag
+  // mix no seed product guarantees. Only data.tags is rewritten.
+  async function mockDetailTags(
+    page: Page,
+    slug: string,
+    tags: Array<{ relevance: string; tagName: string; tagSlug: string; tagCategory: string }>
+  ): Promise<void> {
+    await page.route(`**/api/products/${slug}`, async (route) => {
+      const response = await route.fetch()
+      const json = await response.json()
+      json.data.tags = tags.map((t, i) => ({
+        ...t,
+        productTagId: `mock-tag-${i}`,
+        productId: json.data.id,
+      }))
+      await route.fulfill({ response, json })
+    })
+  }
+
+  test('groups neutral tags by category, hides avoid and off-scope ones', async ({ page }) => {
+    const slug = await resolveFirstSkincareSlug(page)
+
+    // One tag per rendered category, plus an avoid-relevance tag and an
+    // off-scope category: both must stay hidden and their rows self-hide.
+    const tags = [
+      {
+        relevance: 'secondary',
+        tagName: 'Rétinoïdes',
+        tagSlug: 'retinoides',
+        tagCategory: 'actif_class',
+      },
+      {
+        relevance: 'primary',
+        tagName: 'Apaisant',
+        tagSlug: 'apaisant',
+        tagCategory: 'skin_effect',
+      },
+      {
+        relevance: 'secondary',
+        tagName: 'Matifiant',
+        tagSlug: 'matifiant',
+        tagCategory: 'skin_effect',
+      },
+      {
+        relevance: 'secondary',
+        tagName: 'Traitement',
+        tagSlug: 'step-traitement',
+        tagCategory: 'routine_step_v2',
+      },
+      { relevance: 'avoid', tagName: 'Visage', tagSlug: 'zone-visage', tagCategory: 'skin_zone' },
+      {
+        relevance: 'secondary',
+        tagName: 'Peaux sensibles',
+        tagSlug: 'peaux-sensibles',
+        tagCategory: 'concern',
+      },
+    ]
+
+    await mockDetailTags(page, slug, tags)
+
+    await page.goto(`/products/${slug}`)
+
+    const section = page.locator('.formula-profile')
+    await expect(section).toBeVisible({ timeout: 15_000 })
+    await expect(section.getByRole('heading', { name: 'Profil de la formule' })).toBeVisible()
+
+    await expect(section.getByText("Famille d'actif")).toBeVisible()
+    await expect(section.getByText('Rétinoïdes')).toBeVisible()
+    await expect(section.getByText('Apaisant')).toBeVisible()
+    await expect(section.getByText('Matifiant')).toBeVisible()
+    await expect(section.getByText('Traitement')).toBeVisible()
+
+    // Avoid-relevance tag hidden and its whole category row self-hides.
+    await expect(section.getByText('Visage')).toHaveCount(0)
+    await expect(section.getByText('Zone', { exact: true })).toHaveCount(0)
+    // concern is not part of the formula profile block.
+    await expect(section.getByText('Peaux sensibles')).toHaveCount(0)
+  })
+
+  test('whole block self-hides when no tag survives the filters', async ({ page }) => {
+    const slug = await resolveFirstSkincareSlug(page)
+
+    await mockDetailTags(page, slug, [
+      { relevance: 'avoid', tagName: 'Visage', tagSlug: 'zone-visage', tagCategory: 'skin_zone' },
+      {
+        relevance: 'secondary',
+        tagName: 'Peaux sensibles',
+        tagSlug: 'peaux-sensibles',
+        tagCategory: 'concern',
+      },
+    ])
+
+    await page.goto(`/products/${slug}`)
+
+    // "En bref" proves the Infos tab rendered (the first seed product has a kind).
+    await expect(page.getByRole('heading', { name: 'En bref' })).toBeVisible({ timeout: 15_000 })
+    await expect(page.locator('.formula-profile')).toHaveCount(0)
   })
 })
