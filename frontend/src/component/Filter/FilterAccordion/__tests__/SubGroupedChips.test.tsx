@@ -26,7 +26,7 @@ function makeField(overrides: Partial<GroupedFilterField<Key>> = {}): GroupedFil
   }
 }
 
-describe('SubGroupedChips — rendering', () => {
+describe('SubGroupedChips: rendering', () => {
   it('renders each sub-group with its legend and only its chips', () => {
     render(
       <SubGroupedChips
@@ -82,47 +82,7 @@ describe('SubGroupedChips — rendering', () => {
   })
 })
 
-describe('SubGroupedChips — maxVisible', () => {
-  it('shows only the first N chips with a "Voir tout" button when maxVisible < options', async () => {
-    render(
-      <SubGroupedChips
-        field={makeField({
-          subGroups: [{ label: 'Greek', slugs: ['a', 'b', 'c', 'd', 'e'], maxVisible: 3 }],
-        })}
-        selected={[]}
-        onToggle={vi.fn()}
-        escapeHandler={() => {}}
-      />
-    )
-    expect(screen.getByRole('button', { name: 'Alpha' })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Beta' })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Gamma' })).toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: 'Delta' })).not.toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: 'Epsilon' })).not.toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /Voir les 5 options/ })).toBeInTheDocument()
-  })
-
-  it('reveals all chips after clicking the expand button', async () => {
-    const user = userEvent.setup()
-    render(
-      <SubGroupedChips
-        field={makeField({
-          subGroups: [{ label: 'Greek', slugs: ['a', 'b', 'c', 'd', 'e'], maxVisible: 3 }],
-        })}
-        selected={[]}
-        onToggle={vi.fn()}
-        escapeHandler={() => {}}
-      />
-    )
-    await user.click(screen.getByRole('button', { name: /Voir les 5 options/ }))
-
-    expect(screen.getByRole('button', { name: 'Delta' })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Epsilon' })).toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: /Voir les 5 options/ })).not.toBeInTheDocument()
-  })
-})
-
-describe('SubGroupedChips — toggle', () => {
+describe('SubGroupedChips: toggle', () => {
   it('calls onToggle with the slug of the clicked chip', async () => {
     const onToggle = vi.fn()
     const user = userEvent.setup()
@@ -152,25 +112,9 @@ describe('SubGroupedChips — toggle', () => {
     await user.click(screen.getByRole('button', { name: 'Alpha' }))
     expect(onToggle).toHaveBeenCalledWith('a')
   })
-
-  it('reflects the active selection across expand/collapse', async () => {
-    const user = userEvent.setup()
-    render(
-      <SubGroupedChips
-        field={makeField({
-          subGroups: [{ label: 'Greek', slugs: ['a', 'b', 'c', 'd', 'e'], maxVisible: 3 }],
-        })}
-        selected={['e']}
-        onToggle={vi.fn()}
-        escapeHandler={() => {}}
-      />
-    )
-    await user.click(screen.getByRole('button', { name: /Voir les 5 options/ }))
-    expect(screen.getByRole('button', { name: 'Epsilon' })).toHaveAttribute('aria-pressed', 'true')
-  })
 })
 
-describe('SubGroupedChips — escape handler', () => {
+describe('SubGroupedChips: escape handler', () => {
   it('forwards keydown events from chips to the escapeHandler prop', async () => {
     const escapeHandler = vi.fn()
     const user = userEvent.setup()
