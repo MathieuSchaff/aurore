@@ -18,7 +18,7 @@ fallow-baseline:
 knip flags="":
     DATABASE_URL=postgres://x bunx knip {{flags}} --reporter compact
 
-# Cycles d'imports. Seed blog data excluded: index↔article-data barrels are static-data cycles, not real coupling.
+# Import cycles. Seed blog data excluded: index↔article-data barrels are static-data cycles, not real coupling.
 cycles:
     bunx madge --circular --extensions ts,tsx --exclude '(dist|node_modules|db/seed/data)/' backend/src frontend/src shared/src
 
