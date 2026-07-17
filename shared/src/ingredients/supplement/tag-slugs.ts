@@ -1,10 +1,10 @@
-// Supplement Ingredient Tag definitions — single source of truth.
+// Supplement Ingredient Tag definitions: single source of truth.
 // One {key, slug, label, category} per tag; the legacy *_TAG_SLUGS object, the
 // {category} taxonomy and the slug->label map are derived.
 // Tags applicable to supplement/nutraceutical ingredients.
 // Categories: goal, moment, restriction, ingredient_attribute.
 
-import { deriveTagSlugs, type LabeledTagDef } from '../../tag-api/tag-taxonomy-builder'
+import { deriveTagSlugs, type LabeledTagDef } from '../../tag-taxonomy-builder'
 
 export const SUPPLEMENT_INGREDIENT_TAG_CATEGORIES = [
   'goal',
