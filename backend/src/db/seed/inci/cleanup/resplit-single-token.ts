@@ -1,7 +1,7 @@
-// One-shot: re-tokenize single-line INCI strings whose scraper lost separators.
+// One-shot: tokenize single-line INCI strings whose scraper lost separators.
 // Two strategies: (1) trivial-separator split for " - " / " • " / " / " forms,
 // (2) longest-match against algo-derm alias index for uppercase blobs.
-// Dry-run by default. After --apply, regenerate snapshot + re-audit.
+// Dry-run by default. After --apply, regenerate snapshot + audit again.
 import { SQL } from 'bun'
 
 import { normalize, splitINCI } from 'algo-derm'
@@ -17,40 +17,36 @@ const aliasIndex = buildAliasIndex(MERGED_EVIDENCE_DB)
 console.log(`Alias index: ${aliasIndex.size} keys`)
 
 const sql = new SQL(process.env.DATABASE_URL ?? 'postgres://app:devpassword@app_db:5432/appdb')
+// Supplements excluded: their `inci` holds nutrition text ("Extrait de X 500 mg,
+// enveloppe des gélules…") that longest-match happily shreds into noise. This caused most
+// of the historical 288-row false-positive dry-run.
 const rows = await sql<Array<{ id: string; slug: string; inci: string }>>`
   SELECT id, slug, inci
   FROM products
-  WHERE inci IS NOT NULL AND length(inci) > 10
+  WHERE inci IS NOT NULL AND length(inci) > 10 AND category <> 'complement'
 `
 
-// Non-INCI patterns: pure-oil descriptors, dental fibre blurbs, "see packaging".
+// Patterns that are not INCI: pure-oil descriptors, dental fibre blurbs, "see packaging".
 // These exist because the catalog mixes cosmetics with dental/supplement SKUs.
 const NON_INCI_RX =
   /^(fibres |caoutchouc|tige |pour la liste|voir (la )?composition|100% |arcilla|nitrizinc|collag[èe]ne hydrolys|pulpe|butyrospermum parkii butter\*|sa formule|formule inci\s*:\s*$)/i
 
-// Marketing/brand-name prefix glued to first ingredient — strip before split.
+// Strip marketing or brand-name prefixes glued to the first ingredient.
 // Caps preserved because actual INCI tokens are also caps in these strings.
 const LEADING_PREFIX_RX = /^(FORMULE INCI\s*:\s*|BRUME HYDRATANTE INVISIBLE|FORMULE\s*:\s*)/i
 
-const SEPARATOR_RX = / [-•] |\s•\s|;\s+/
-// " / " is ambiguous: WATER / EAU vs OIL / GLYCERIN — only split when surrounded
-// by non-synonym pairs. Cheap heuristic: split on " / " unless both sides are
-// known aqua/water/eau synonyms.
-const _SYNONYM_TOKENS = new Set(['aqua', 'water', 'eau', 'parfum', 'fragrance'])
+const SEPARATOR_RX = /\s[-•]\s|\s•\s|;\s+/
 
 function trivialSplit(inci: string): string[] | null {
   const stripped = inci.replace(LEADING_PREFIX_RX, '').trim()
   if (!SEPARATOR_RX.test(stripped) && !stripped.includes(' / ')) return null
-  // Replace " / " between non-synonym tokens with comma, then split on -/•
-  const slashed = stripped.replace(/\s\/\s/g, (_, _idx, _str) => ' / ') // keep as-is; handled below
-  // Simpler: split on regex, then handle synonyms
-  const parts = slashed.split(/\s[-•]\s|\s•\s|;\s+/).flatMap((p) => p.split(/\s\/\s/))
+  const parts = stripped.split(SEPARATOR_RX).flatMap((p) => p.split(/\s\/\s/))
   const cleaned = parts.map((p) => p.trim()).filter((p) => p.length > 0)
   if (cleaned.length < 2) return null
   return cleaned
 }
 
-// Longest-match re-split: walk tokens, at each position try windows of
+// Longest-match resplit: walk tokens, at each position try windows of
 // 5..1 against aliasIndex; emit matched span as 1 token, accumulate unmatched
 // words into a single trailing token until next match.
 const MAX_WINDOW = 5
@@ -97,13 +93,13 @@ function longestMatchSplit(inci: string): string[] | null {
   if (matchedSpans < 3) return null
   if (out.length < 2) return null
   // Tight quality filter: at least half the emitted spans must be matched,
-  // otherwise the re-split is likely shredding a marketing blob into noise.
+  // otherwise the resplit is likely shredding a marketing blob into noise.
   const ratio = matchedSpans / (matchedSpans + unmatchedSpans)
   if (ratio < 0.7) return null
   return out
 }
 
-// A glued blob is a "token" carrying this many space-separated words — well
+// A glued blob is a "token" carrying this many space-separated words, well
 // past the longest real INCI name (~6 words), so it cannot be a single
 // ingredient.
 const BLOB_WORDS = 8
@@ -114,7 +110,7 @@ const candidates = rows.filter((r) => {
   if (NON_INCI_RX.test(r.inci)) return false
   const tokens = splitINCI(r.inci)
   if (tokens.length === 1) return true
-  // Under-tokenized: a few comma-tokens but one is a long space-glued blob
+  // Too few tokens: a few comma-tokens but one is a long space-glued blob
   // (slash-prefixed synonyms + comma-less body, e.g. "AQUA / WATER / EAU
   // AZELAIC ACID C15-19 ALKANE ...").
   return tokens.length <= 3 && tokens.some((t) => wordCount(t) >= BLOB_WORDS)
@@ -134,7 +130,7 @@ for (const row of candidates) {
   let strategy = 'trivial'
   if (tokens !== null) {
     // A trivial split can still leave a space-glued blob in one chunk; expand
-    // those via longest-match so the comma-less tail is re-tokenized too.
+    // those via longest-match so the comma-less tail is tokenized too.
     tokens = tokens.flatMap((p) =>
       wordCount(p) >= BLOB_WORDS ? (longestMatchSplit(p) ?? [p]) : [p]
     )
