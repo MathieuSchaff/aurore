@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict ObreoGVtyjFGEYON60cpYtZoRSGWV3YTUb2s5MFMJQXSa6eFE70YuImtijSiXiG
+\restrict AuroreSnapshotToken
 
 -- Dumped from database version 18.3 (Debian 18.3-1.pgdg13+1)
 -- Dumped by pg_dump version 18.3 (Debian 18.3-1.pgdg13+1)
@@ -182447,5 +182447,5 @@ INSERT INTO public.user_product_status_log VALUES ('019f71cf-58f2-70df-a223-04ba
 -- PostgreSQL database dump complete
 --
 
-\unrestrict ObreoGVtyjFGEYON60cpYtZoRSGWV3YTUb2s5MFMJQXSa6eFE70YuImtijSiXiG
+\unrestrict AuroreSnapshotToken
 
