@@ -7,8 +7,6 @@ import type {
   updateIngredientSchema,
 } from './schemas'
 
-// TYPES
-
 // z.infer<> aliases for all ingredient schemas
 export type CreateIngredientInput = z.infer<typeof createIngredientSchema>
 export type UpdateIngredientInput = z.infer<typeof updateIngredientSchema>
@@ -38,15 +36,3 @@ export type IngredientEdit = {
   summary: string | null
   createdAt: string | Date
 }
-
-export type IngredientErrorCode =
-  | 'ingredient_not_found'
-  | 'ingredient_creation_failed'
-  | 'ingredient_update_failed'
-  | 'ingredient_delete_failed'
-  | 'ingredient_already_exists'
-  | 'ingredient_rate_limited'
-  | 'unauthorized_access'
-  | 'database_error'
-  | 'slug_already_exists'
-  | 'ingredient_update_conflict'
