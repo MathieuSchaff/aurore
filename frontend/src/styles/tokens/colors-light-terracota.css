@@ -7,7 +7,6 @@
   --h-aqua: 185;
   --h-lavender: 305;
   --h-coral-soft: 25;
-  --h-iron: 33.29;
   --h-forest: 151.3708;
 
   --c-muted: 0.07;
@@ -20,19 +19,23 @@
   --l-sunken: 95%;
   --l-muted: 97%;
 
-  --oxydized-iron: oklch(47.77% 0.1692 var(--h-iron));
   --forest-green: oklch(75.42% 0.1726 var(--h-forest));
   --mango-bright: oklch(82% 0.18 var(--h-mango));
   --text-inverse-warm: oklch(100% 0 0);
 
-  --color-primary: oklch(71.23% 0.1644 154.09);
-  --color-primary-hover: oklch(63% 0.175 154.09);
+  --primary-h: 215;
+
+  /* Petrol: low chroma on purpose. Earlier 190/215 tries at C0.15 read
+     "swimming pool". Derived tokens follow suit, else they render electric blue. */
+  --color-primary: oklch(43% 0.075 var(--primary-h));
+  --color-primary-hover: oklch(37% 0.075 var(--primary-h));
   --color-primary-text: oklch(100% 0 0);
-  --color-primary-dark: oklch(50% 0.16 154.09);
-  --color-focus: oklch(71.23% 0.1644 154.09);
-  --color-primary-deeper: oklch(26% 0.1 154.09);
-  --color-primary-light: oklch(92% 0.08 154.09);
-  --color-primary-subtle: oklch(97% 0.012 154.09);
+  --color-primary-dark: oklch(32% 0.07 var(--primary-h));
+  --color-focus: var(--color-primary);
+  --color-primary-deeper: oklch(26% 0.06 var(--primary-h));
+  /* Large tinted surfaces (drawer section bands) read clinical at C0.04. */
+  --color-primary-light: oklch(93% 0.022 var(--primary-h));
+  --color-primary-subtle: oklch(97% 0.012 var(--primary-h));
 
   --color-secondary: var(--mango-bright);
   --color-tertiary: var(--forest-green);
@@ -49,10 +52,13 @@
   --color-accent: oklch(68% 0.2 var(--h-mango));
   --color-accent-light: oklch(92% 0.1 var(--h-mango));
   --color-accent-hover: oklch(60% 0.22 var(--h-mango));
+  /* Accent CTA gradient darkened so white button text clears AA (raw mango reads ~3). */
+  --button-accent-from: oklch(from var(--color-accent) 52% c h);
+  --button-accent-to: oklch(from var(--color-accent-hover) 48% c h);
   --section-accent: var(--color-accent);
   --bg-deep: oklch(28% 0.1 var(--h-papaya));
 
-  /* Extended palette - not yet wired to components. */
+  /* Extended palette, not yet wired to components. */
   --color-aqua: oklch(70% 0.11 var(--h-aqua));
   --color-aqua-hover: oklch(62% 0.13 var(--h-aqua));
   --color-aqua-light: oklch(93% 0.045 var(--h-aqua));
@@ -75,7 +81,7 @@
   --color-success-light: oklch(94% 0.05 154.09);
   --color-error: oklch(56% 0.22 var(--h-coral));
   --color-error-light: oklch(93% 0.08 var(--h-coral));
-  --color-info: oklch(54% 0.14 var(--h-aqua));
+  --color-info: oklch(52% 0.14 var(--h-aqua));
   --color-warning: oklch(75% 0.15 30deg);
   --color-warning-light: oklch(96% 0.06 30deg);
   --color-warning-text: oklch(40% 0.15 30deg);
@@ -86,8 +92,22 @@
   --bg-elevated: oklch(var(--l-elevated) 0 0);
   --bg-sunken: oklch(var(--l-sunken) 0.02 75);
   --bg-muted: oklch(var(--l-muted) 0.008 75);
+  /* Petrol navbar, pairs with the petrol primary above. White text via --nav-* below. */
+  --nav-bg: oklch(36% 0.06 220);
 
-  --page-title-color: oklch(68% 0.2 65);
+  --nav-fg: oklch(100% 0 0);
+  --nav-link: oklch(100% 0 0 / 0.82);
+  --nav-link-hover: oklch(100% 0 0);
+  --nav-hover-bg: oklch(100% 0 0 / 0.12);
+  --nav-link-active: oklch(100% 0 0);
+  --nav-accent: oklch(100% 0 0);
+  --nav-border: transparent;
+  /* Lightness for an accent used as text on its own tint, so contrast holds (AA). */
+  --on-tint-l: 42%;
+
+  /* L64 keeps mango identity while clearing 3:1 (AA large text) on the
+     ivory page; L68 measured ~2.8. */
+  --page-title-color: oklch(64% 0.2 65);
 
   /* Card footer candidates kept for reference: shamrock oklch(60% 0.1268 154.47), emerald oklch(78% 0.1394 156.93). */
   --card-footer-bg: oklch(95% 0.026 65);
@@ -95,7 +115,7 @@
   --card-footer-color: var(--text-primary);
   --card-footer-color-muted: var(--text-muted);
 
-  /* Product unit chip: white bg, mango text - overrides the page surface treatment. */
+  /* Product unit chip: white bg, mango text, overrides the page surface treatment. */
   --product-unit-chip-bg: oklch(100% 0 0);
   --product-unit-chip-text: oklch(58% 0.2 65);
   --product-unit-chip-border: oklch(100% 0 0);
@@ -109,7 +129,7 @@
   --shadow-card: 0 4px 16px oklch(0% 0 0 / 0.1), 0 1px 4px oklch(0% 0 0 / 0.06);
 
   --tag-active-bg: oklch(from var(--color-primary-dark) l c h / 0.8);
-  --tag-active-text: var(--color-secondary);
+  --tag-active-text: var(--color-primary-text);
   --tag-default-bg: oklch(88% 0.06 var(--h-papaya));
   --tag-default-text: oklch(40% 0.1 var(--h-papaya));
 

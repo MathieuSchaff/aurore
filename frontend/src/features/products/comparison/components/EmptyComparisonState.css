@@ -38,7 +38,7 @@
 .empty-comparison__step--active {
   border-color: var(--color-accent);
   background: var(--color-accent-light);
-  color: var(--color-accent-hover);
+  color: var(--color-accent-on);
   box-shadow: 0 0 0 4px oklch(from var(--color-accent) l c h / 0.15);
 }
 

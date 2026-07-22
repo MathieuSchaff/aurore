@@ -106,7 +106,7 @@
 .skincare-filter-drawer__step {
   display: block;
   margin-bottom: var(--space-1);
-  color: var(--color-accent);
+  color: var(--color-accent-on);
   font-size: var(--text-xs);
   font-weight: var(--font-bold);
   letter-spacing: var(--tracking-widest);

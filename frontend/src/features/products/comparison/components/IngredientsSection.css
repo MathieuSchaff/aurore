@@ -39,6 +39,8 @@
 }
 
 .terroir__title em {
+  /* Global `* { font-family }` blocks inheritance; restore the display face. */
+  font-family: inherit;
   font-style: italic;
   color: var(--color-primary-dark);
 }

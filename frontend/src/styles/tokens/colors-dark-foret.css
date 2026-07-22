@@ -1,114 +1,132 @@
 [data-theme="dark"][data-variant="foret"] {
   color-scheme: dark;
 
-  /* Hues mirror the light variant. */
-  --h-pine: 155;
-  --h-terracotta: 30;
+  /* Undergrowth at golden hour: deep pine surfaces, honey light filtering through.
+     Green survives low lightness (unlike a warm hue, which turns to mud), but only
+     under C0.05. Past that the cards read bottle-green felt instead of forest. */
+  --h-pine: 152;
+  --h-honey: 82;
+  /* Consumed with a 75 fallback by features/home/.../shared.css. Keep it there. */
   --h-amber: 75;
   --h-coral: 18;
-  --h-ink: 150;
 
-  /* Chroma boosted for dark depth. */
-  --c-muted: 0.08;
-  --c-soft: 0.025;
+  /* Ramp compressed to ~4 points a step: the old page-to-card jump (12% to 28%)
+     made every card float off the page like a sticker. */
+  --l-page: 14%;
+  --l-card: 18.5%;
+  --l-elevated: 22%;
+  --l-sunken: 11%;
+  --l-muted: 27%;
 
-  /* Page deep moss, cards lifted pine. */
-  --l-page: 12%;
-  --l-card: 28%;
-  --l-elevated: 32%;
-  --l-sunken: 20%;
-  --l-muted: 38%;
+  --honey: oklch(82% 0.115 var(--h-honey));
+  --honey-bright: oklch(87% 0.1 var(--h-honey));
+  --honey-dim: oklch(32% 0.07 var(--h-honey));
+  --birch: oklch(90% 0.03 100);
+  --text-inverse-warm: oklch(10% 0.02 var(--h-pine));
 
-  --pine-deep: oklch(40% 0.13 var(--h-pine));
-  --pine-mid: oklch(58% 0.16 var(--h-pine));
-  --terracotta-warm: oklch(70% 0.17 var(--h-terracotta));
-  --terracotta-deep: oklch(58% 0.2 var(--h-terracotta));
-  --amber-honey: oklch(80% 0.16 var(--h-amber));
-  --text-inverse-warm: oklch(10% 0.02 var(--h-ink));
+  /* Primary: pale birch CTA. Light-on-dark, so the honey accent stays the only
+     chromatic voice instead of competing with the buttons. */
+  --color-primary: var(--birch);
+  --color-primary-hover: oklch(94% 0.024 100);
+  --color-primary-text: oklch(17% 0.03 var(--h-pine));
+  --color-primary-dark: oklch(75% 0.045 95);
+  --color-focus: var(--honey);
+  /* Consumed app-wide as text on faint primary tints (pills, subnav); on this
+     dark ground "deeper" must stay light to keep those labels readable. */
+  --color-primary-deeper: oklch(81% 0.045 95);
+  --color-primary-light: oklch(25% 0.04 var(--h-pine));
+  --color-primary-subtle: oklch(18% 0.03 var(--h-pine));
 
-  /* Primary: terracotta CTA pops on pine cards. */
-  --color-primary: var(--terracotta-warm);
-  --color-primary-hover: oklch(78% 0.18 var(--h-terracotta));
-  --color-primary-text: oklch(15% 0.04 var(--h-ink));
-  --color-primary-dark: var(--terracotta-deep);
-  --color-focus: var(--terracotta-warm);
-  --color-primary-deeper: oklch(40% 0.18 var(--h-terracotta));
-  --color-primary-light: oklch(28% 0.08 var(--h-pine));
-  --color-primary-subtle: oklch(20% 0.05 var(--h-pine));
+  --color-secondary: var(--honey);
+  --color-tertiary: oklch(76% 0.09 145);
 
-  /* Sidebar: deeper pine, amber accent. */
+  /* Header band: same pine as the page, honey actions (consumed by toggles below). */
+  --color-header-bg: oklch(16% 0.034 var(--h-pine));
+  --color-header-action: var(--honey);
+  --color-header-action-bg-hover: oklch(from var(--honey) l c h / 0.14);
 
-  --color-secondary: var(--terracotta-warm);
-  --color-tertiary: var(--amber-honey);
+  /* Text drifts to a lichen hue rather than pure grey, so it reads as light on foliage. */
+  --text-inverse: oklch(15% 0.025 var(--h-pine));
+  --text-primary: oklch(93% 0.014 110);
+  --text-secondary: oklch(79% 0.018 120);
+  --text-muted: oklch(68% 0.022 130);
 
-  /* Header: pine green band, amber actions. */
-  --color-header-bg: oklch(22% 0.09 var(--h-pine));
-  --color-header-action: var(--amber-honey);
-  --color-header-action-bg-hover: oklch(from var(--amber-honey) l c h / 0.15);
-
-  /* Warm-tinted text on dark pine. */
-  --text-inverse: oklch(15% 0.04 var(--h-ink));
-  --text-primary: oklch(95% 0.02 var(--h-amber));
-  --text-secondary: oklch(78% 0.03 var(--h-amber));
-  --text-muted: oklch(60% var(--c-muted) var(--h-pine));
-
-  --color-accent: var(--terracotta-warm);
-  --color-accent-light: oklch(28% 0.1 var(--h-terracotta));
-  --color-accent-hover: oklch(78% 0.18 var(--h-terracotta));
+  --color-accent: var(--honey);
+  --color-accent-light: oklch(26% 0.06 var(--h-honey));
+  --color-accent-hover: var(--honey-bright);
   --section-accent: var(--color-accent);
-  --bg-deep: oklch(10% 0.01 var(--h-pine));
+  --bg-deep: oklch(10% 0.022 var(--h-pine));
 
-  --color-success: oklch(72% 0.18 var(--h-pine));
-  --color-success-light: oklch(25% 0.08 var(--h-pine));
-  --color-error: oklch(70% 0.22 var(--h-coral));
-  --color-error-light: oklch(25% 0.09 var(--h-coral));
-  --color-info: oklch(70% 0.13 220);
-  --color-warning: oklch(78% 0.16 60);
-  --color-warning-light: oklch(25% 0.08 60);
-  --color-warning-text: oklch(85% 0.14 60);
+  /* Success is far lighter than the pine ground on purpose: a mid-lightness green
+     badge would dissolve into the surfaces it sits on. */
+  --color-success: oklch(80% 0.13 148);
+  --color-success-light: oklch(24% 0.06 148);
+  --color-error: oklch(70% 0.15 var(--h-coral));
+  --color-error-light: oklch(24% 0.07 var(--h-coral));
+  --color-info: oklch(74% 0.075 225);
+  --color-warning: oklch(80% 0.13 55);
+  --color-warning-light: oklch(24% 0.05 55);
+  --color-warning-text: oklch(86% 0.11 55);
 
-  /* Page deep moss, cards tinted pine. */
-  --bg-page: oklch(var(--l-page) 0.012 var(--h-pine));
-  --bg-card: oklch(var(--l-card) 0.06 var(--h-pine));
-  --bg-elevated: oklch(var(--l-elevated) 0.07 var(--h-pine));
-  --bg-sunken: oklch(var(--l-sunken) 0.05 var(--h-pine));
-  --bg-muted: oklch(var(--l-muted) 0.04 var(--h-pine));
+  --bg-page: oklch(var(--l-page) 0.032 var(--h-pine));
+  --bg-card: oklch(var(--l-card) 0.038 var(--h-pine));
+  --bg-elevated: oklch(var(--l-elevated) 0.042 var(--h-pine));
+  --bg-sunken: oklch(var(--l-sunken) 0.024 var(--h-pine));
+  --bg-muted: oklch(var(--l-muted) 0.045 var(--h-pine));
+  /* Navbar: same pine as the page, separated by a hairline. The old terracotta band
+     belonged to no other surface in the theme. */
+  --nav-bg: oklch(var(--l-page) 0.032 var(--h-pine));
+  --nav-fg: var(--text-primary);
+  --nav-link: oklch(from var(--text-primary) l c h / 0.72);
+  --nav-link-hover: var(--text-primary);
+  --nav-hover-bg: oklch(from var(--text-primary) l c h / 0.07);
+  --nav-link-active: var(--text-primary);
+  --nav-accent: var(--honey);
+  --nav-border: oklch(26% 0.045 var(--h-pine));
+  /* Lightness for an accent used as text on its own tint, so contrast holds (AA). */
+  --on-tint-l: 82%;
 
-  --page-title-color: var(--terracotta-warm);
+  --page-title-color: var(--honey-bright);
 
-  /* Card footer: warm clay haze. */
-  --card-footer-bg: oklch(20% 0.06 var(--h-terracotta));
-  --card-footer-border: oklch(35% 0.09 var(--h-terracotta));
-  --card-footer-color: oklch(92% 0.05 var(--h-amber));
-  --card-footer-color-muted: oklch(65% 0.05 var(--h-amber));
+  /* Card footer: sunken pine, no tinted haze. */
+  --card-footer-bg: oklch(16% 0.03 var(--h-pine));
+  --card-footer-border: oklch(26% 0.045 var(--h-pine));
+  --card-footer-color: oklch(89% 0.018 110);
+  --card-footer-color-muted: oklch(67% 0.022 130);
 
-  --product-unit-chip-bg: oklch(from var(--amber-honey) l c h / 0.12);
-  --product-unit-chip-text: var(--amber-honey);
-  --product-unit-chip-border: oklch(from var(--amber-honey) l c h / 0.3);
+  --product-unit-chip-bg: oklch(from var(--honey) l c h / 0.13);
+  --product-unit-chip-text: var(--honey-bright);
+  --product-unit-chip-border: oklch(from var(--honey) l c h / 0.3);
 
-  --bg-hover: oklch(from var(--terracotta-warm) l c h / 0.1);
-  --bg-active: oklch(from var(--terracotta-warm) l c h / 0.18);
-  --bg-selected: oklch(30% 0.14 var(--h-terracotta));
+  --bg-hover: oklch(from var(--text-primary) l c h / 0.06);
+  --bg-active: oklch(from var(--text-primary) l c h / 0.11);
+  --bg-selected: var(--honey-dim);
 
-  --border-default: oklch(42% 0.08 var(--h-pine));
-  --border-strong: oklch(58% 0.12 var(--h-pine));
+  --border-default: oklch(28% 0.045 var(--h-pine));
+  --border-strong: oklch(42% 0.06 var(--h-pine));
 
-  --shadow-color: oklch(0% 0 0 / 0.55);
+  /* Softer shadows in dark mode. */
+  --shadow-color: oklch(0% 0 0 / 0.5);
   --shadow-card: 0 4px 16px oklch(0% 0 0 / 0.45), 0 1px 4px oklch(0% 0 0 / 0.3);
 
-  --tag-active-bg: oklch(45% 0.16 var(--h-pine));
-  --tag-active-text: oklch(92% 0.06 var(--h-amber));
-  --tag-default-bg: oklch(25% 0.06 var(--h-pine));
-  --tag-default-text: oklch(72% 0.07 var(--h-amber));
+  --tag-active-bg: var(--honey-dim);
+  --tag-active-text: oklch(94% 0.03 100);
+  --tag-default-bg: oklch(25% 0.042 var(--h-pine));
+  --tag-default-text: oklch(80% 0.022 120);
 
-  --overlay: oklch(6% 0.04 var(--h-pine) / 0.78);
+  --overlay: oklch(6% 0.02 var(--h-pine) / 0.8);
   --surface-bright: oklch(99% 0.002 0deg);
-  --hero-glow: oklch(22% 0.08 var(--h-pine));
+  /* Light through the canopy: the one place the warm hue is allowed real chroma. */
+  --hero-glow: oklch(21% 0.05 100);
 
-  --toggle-track-bg: oklch(from var(--color-header-action) l c h / 0.15);
+  /* Photo tiles: dim the whole tile (backdrop + shot together) so product
+     photos stop glaring on the pine ground while white backgrounds still fuse. */
+  --photo-tile-dim: brightness(0.85) saturate(0.92);
+
+  --toggle-track-bg: oklch(from var(--color-header-action) l c h / 0.12);
   --toggle-track-hover-bg: var(--color-header-action-bg-hover);
   --toggle-fg: var(--color-header-action);
   --toggle-fg-opacity: 0.35;
   --toggle-active-icon: var(--color-header-bg);
-  --toggle-active-filter: drop-shadow(0 0 3px oklch(from var(--color-header-action) l c h / 0.6));
+  --toggle-active-filter: drop-shadow(0 0 3px oklch(from var(--color-header-action) l c h / 0.5));
 }

@@ -62,7 +62,8 @@
 
   .status-option.active {
     background: var(--opt-bg);
-    color: var(--opt-color);
+    /* Text needs the AA-safe companion; dot + check below keep the vivid identity color. */
+    color: var(--opt-color-on, var(--opt-color));
     font-weight: var(--font-semibold);
   }
 

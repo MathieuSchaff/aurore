@@ -49,12 +49,15 @@
   --text-inverse: var(--text-inverse-warm);
   --text-primary: oklch(18% 0.05 var(--h-ink));
   --text-secondary: oklch(40% 0.04 var(--h-ink));
-  --text-muted: oklch(56% var(--c-muted) var(--h-ink));
+  --text-muted: oklch(49% var(--c-muted) var(--h-ink));
 
   /* Accent: gold highlight. */
   --color-accent: var(--gold-deep);
   --color-accent-light: oklch(94% 0.06 var(--h-gold));
   --color-accent-hover: oklch(62% 0.18 var(--h-gold));
+  /* Accent CTA gradient darkened so white button text clears AA (raw gold reads ~4). */
+  --button-accent-from: oklch(from var(--color-accent) 52% c h);
+  --button-accent-to: oklch(from var(--color-accent-hover) 48% c h);
   --section-accent: var(--color-accent);
   --bg-deep: var(--slate-deep);
 
@@ -73,9 +76,20 @@
   --bg-elevated: oklch(var(--l-elevated) 0 0);
   --bg-sunken: oklch(var(--l-sunken) 0.02 var(--h-slate));
   --bg-muted: oklch(var(--l-muted) 0.01 var(--h-slate));
+  /* Deep navy navbar (CR 9.4 white text). White text via --nav-* below. */
+  --nav-bg: oklch(40% 0.14 260);
+  --nav-fg: oklch(100% 0 0);
+  --nav-link: oklch(100% 0 0 / 0.82);
+  --nav-link-hover: oklch(100% 0 0);
+  --nav-hover-bg: oklch(100% 0 0 / 0.12);
+  --nav-link-active: oklch(100% 0 0);
+  --nav-accent: oklch(100% 0 0);
+  --nav-border: transparent;
+  /* Lightness for an accent used as text on its own tint, so contrast holds (AA). */
+  --on-tint-l: 42%;
 
   /* Gold pop on cool base. */
-  --page-title-color: var(--gold-deep);
+  --page-title-color: oklch(50% 0.15 var(--h-gold));
 
   /* Card footer: ivory warm tint, slate text. */
   --card-footer-bg: oklch(96% 0.025 var(--h-gold));

@@ -20,7 +20,7 @@
     oklch(from var(--color-accent) l c h / 0.15) 0%,
     oklch(from var(--color-primary) l c h / 0.1) 100%
   );
-  color: var(--color-accent);
+  color: var(--color-accent-on);
   border: 1px solid oklch(from var(--color-accent) l c h / 0.3);
   box-shadow: 0 4px 16px oklch(from var(--color-accent) l c h / 0.12);
 }

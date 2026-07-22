@@ -93,14 +93,14 @@
 
 .public-reviews__author-link {
   font-weight: var(--font-semibold);
-  color: var(--color-accent-hover);
+  color: var(--color-accent-on);
   text-decoration: none;
   border-bottom: 1px dashed currentcolor;
 }
 
+/* Hover keeps the same AA-safe tone; the dashed-to-solid border carries the state change. */
 .public-reviews__author-link:hover,
 .public-reviews__author-link:focus-visible {
-  color: var(--color-accent);
   border-bottom-style: solid;
 }
 
