@@ -37,9 +37,7 @@ export function PdsFormulaSection({ p }: PdsFormulaSectionProps) {
 
   // Contextual notes appear when user prefs intersect formula signals.
   const fragranceNote =
-    dermoProfile?.skinTypes?.includes('peau-sensible') &&
-    fullProduct?.ingredients &&
-    hasFragranceComponent(fullProduct.ingredients)
+    dermoProfile?.skinTypes?.includes('peau-sensible') && hasFragranceComponent(fullProduct?.inci)
 
   const inciCount = fullProduct?.inci
     ? fullProduct.inci.split(',').filter((s) => s.trim()).length
@@ -74,7 +72,6 @@ export function PdsFormulaSection({ p }: PdsFormulaSectionProps) {
         </article>
       ) : null}
 
-      {/* Composants principaux - flowing serif tags under INCI. */}
       {fullProduct?.ingredients && fullProduct.ingredients.length > 0 ? (
         <div className="pds-ingtags-wrap">
           <h3 className="pds-microhead">
@@ -103,7 +100,6 @@ export function PdsFormulaSection({ p }: PdsFormulaSectionProps) {
         </p>
       ) : null}
 
-      {/* Render only when there is something personal to note. */}
       {fragranceNote && (
         <div className="pds-note" role="note">
           <Sparkles size={14} className="pds-note-icon" aria-hidden="true" />
