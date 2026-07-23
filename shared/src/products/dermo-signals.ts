@@ -59,7 +59,10 @@ const FRAGRANCE_COMPONENTS: ReadonlySet<string> = new Set([
   'alpha-isomethyl ionone',
   'amyl cinnamal',
   'amylcinnamyl alcohol',
+  // Annex III entry 90 is declared `Anise Alcohol` on labels; `Anisyl Alcohol` is the
+  // perfumery synonym for the same substance. Both spellings reach us, so both are listed.
   'anise alcohol',
+  'anisyl alcohol',
   'benzyl benzoate',
   'benzyl cinnamate',
   'benzyl salicylate',
@@ -89,7 +92,9 @@ const FRAGRANCE_COMPONENTS: ReadonlySet<string> = new Set([
  */
 export function hasFragranceComponent(inci: string | null | undefined): boolean {
   if (!inci) return false
-  for (const raw of inci.split(/[,;]/)) {
+  // Some scraped lists separate items with a period. A period followed by a digit is a decimal
+  // dose (`Salicylic Acid 2.0%`), never a separator.
+  for (const raw of inci.split(/[,;]|\.(?!\d)/)) {
     // Same scraper artefacts the seed strips: supplier codes, organic markers, stray dots.
     const token = raw
       .normalize('NFD')
