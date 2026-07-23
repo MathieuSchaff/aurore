@@ -27,6 +27,9 @@ const REVIEW_PUBLIC_EXCLUDE = {
   moderationReason: false,
 } as const
 
+// `source` tells the INCI linker whether it owns a link. Internal bookkeeping, not product data.
+const LINK_PUBLIC_EXCLUDE = { source: false } as const
+
 export async function getUserProducts(userId: string, db: DB) {
   return await db.query.userProducts.findMany({
     where: eq(userProducts.userId, userId),
@@ -43,6 +46,7 @@ export async function getUserProducts(userId: string, db: DB) {
           // Collection list only reads ingredient id+name (useCollectionAnalysis);
           // the full row (description/content markdown) was ~100x over-fetch per load.
           productIngredients: {
+            columns: LINK_PUBLIC_EXCLUDE,
             with: {
               ingredient: { columns: { id: true, name: true } },
             },
@@ -67,6 +71,7 @@ export async function getUserProductById(userId: string, userProductId: string, 
             },
           },
           productIngredients: {
+            columns: LINK_PUBLIC_EXCLUDE,
             with: {
               ingredient: true,
             },
@@ -95,6 +100,7 @@ export async function getUserProductByProductId(userId: string, productId: strin
             },
           },
           productIngredients: {
+            columns: LINK_PUBLIC_EXCLUDE,
             with: {
               ingredient: true,
             },

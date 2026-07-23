@@ -118,8 +118,8 @@ const EXCIPIENT_BLOCKLIST_SOURCE: string[] = [
   'Tocopherol',
   'Tocopheryl Acetate',
   'Tocopheryl Glucoside',
-  // Below: 2026-07-25 sweep of the token-coverage audit. Every entry appeared in >=10 corpus
-  // products with no resolvable slug, so blocklisting them changes no existing link — it only
+  // Below: first sweep of the token-coverage audit. Every entry appeared in >=10 corpus
+  // products with no resolvable slug, so blocklisting them changes no existing link. It only
   // keeps them out of the "to decide" bucket of future runs.
   // Colorants and pigments
   'CI 77492',
@@ -236,12 +236,16 @@ const EXCIPIENT_BLOCKLIST_SOURCE: string[] = [
   'Magnesium Sulfate',
   'Magnesium Chloride',
   'Sodium Phosphate',
-  // Below: second sweep, 2026-07-25. Same >=10-products / no-resolvable-slug rule as above,
+  // Below: second sweep. Same >=10-products / no-resolvable-slug rule as above,
   // but the read/skip call comes from algo-derm's risk and benefit axes rather than its prose
-  // note — every entry here is *measured* under 2 on all twelve axes. Tokens algo-derm leaves
+  // note: every entry here is *measured* under 2 on all twelve axes. Tokens algo-derm leaves
   // unscored are deliberately absent: unmeasured is not inert.
   // The "no resolvable slug" half of the rule swallowed three actives whose slug the declaration
   // parser was hiding (hamamelis, ruscus); re-check that half before adding a botanical here.
+  // Re-check it through the algo-derm bridge too, not only through buildInciIndex: resolveToken
+  // returns null on a blocklisted token before ever trying the bridge, so an organ synonym that
+  // stripBotanicalParts would fold onto a graded record (Avena Sativa Seed Extract onto Avena
+  // Sativa Kernel Extract) looks unresolvable here and still loses real links.
   // Preservative boosters and solvent humectants
   '1,2-Hexanediol',
   'Caprylyl Glycol',
@@ -314,7 +318,6 @@ const EXCIPIENT_BLOCKLIST_SOURCE: string[] = [
   'Marrubium Vulgare Extract',
   'Dioscorea Japonica Root Extract',
   'Avena Sativa Leaf/Stem Extract',
-  'Avena Sativa Seed Extract',
   'Pyrus Communis Fruit Extract',
   'Brassica Oleracea Italica Extract',
   'Furcellaria Lumbricalis Extract',
@@ -343,8 +346,8 @@ const EXCIPIENT_BLOCKLIST_SOURCE: string[] = [
   'Methylparaben',
   'Propylparaben',
   'Pyridoxine HCl',
-  // Below: third sweep, 2026-07-25. These carry no graded axis at all, so the call rests on
-  // algo-derm's prose plus a purely constructional function set — a weaker basis than the two
+  // Below: third sweep. These carry no graded axis at all, so the call rests on
+  // algo-derm's prose plus a purely constructional function set, a weaker basis than the two
   // sweeps above, and deliberately limited to entries where both agree. Ungraded botanicals
   // whose note claims a benefit are NOT here: see the algo-derm gradation request in bugs.md.
   // Humectants and polyol conditioners
@@ -478,7 +481,7 @@ export function foldScraperDelimiters(
 
 // Scraper/label artefacts that hide a substance we already resolve: organic markers, supplier
 // bracket notes, a paren the split cut open, formulation doses. `[nano]` folds onto the plain
-// name on purpose — the two are regulatorily distinct but share one `ingredients` row today.
+// name on purpose: the two are regulatorily distinct but share one `ingredients` row today.
 // Slashes are deliberately left alone: `Phytosteryl/Isostearyl/Cetyl Dimer Dilinoleate` is one
 // compound name, not a double nomenclature, and splitting on them fabricates links.
 // Applied before BOTH lookup paths, so keep it out of normalizeInciToken's uppercasing.
@@ -542,6 +545,55 @@ export function parseInciFromContent(content: string): string[] {
 // of a declaration, and to refuse the key when the expansion cannot apply.
 const NOMENCLATURE_NOUNS = new Set(['EXTRACT', 'OIL', 'JUICE', 'WATER', 'POLYSACCHARIDE'])
 
+// The plant parts an organ list enumerates (`Flower/Leaf/Stem Water`). Same rule as above: they
+// qualify a species, they never name one.
+const ORGAN_NOUNS = new Set([
+  'BARK',
+  'BUD',
+  'FLOWER',
+  'FRUIT',
+  'KERNEL',
+  'LEAF',
+  'PEEL',
+  'RHIZOME',
+  'ROOT',
+  'SEED',
+  'SPROUT',
+  'STEM',
+])
+
+// Never a substance: every word only qualifies one. `Stem Water` and `Leaf` are what an organ
+// list leaves behind once the species name has been consumed by the head segment.
+function isPartOnlyPhrase(s: string): boolean {
+  const words = s.toUpperCase().split(/\s+/).filter(Boolean)
+  return words.length > 0 && words.every((w) => ORGAN_NOUNS.has(w) || NOMENCLATURE_NOUNS.has(w))
+}
+
+// Grammar words an INCI name never carries. Checked casing-blind because the guard that rejects
+// all-lowercase words cannot see a French note written in Title Case.
+// `a` is deliberately absent: `Vitamin A` is a real declaration.
+const FRENCH_GRAMMAR_WORDS = new Set([
+  'au',
+  'aux',
+  'avec',
+  'dans',
+  'de',
+  'des',
+  'du',
+  'en',
+  'la',
+  'le',
+  'les',
+  'par',
+  'pour',
+  'que',
+  'qui',
+  'sans',
+  'sur',
+  'un',
+  'une',
+])
+
 /** Parse `SLUG_KEY: 'slug-value', // [INCI:] Token / Token | desc`. Returns null when format unfamiliar. */
 export function parseInciFromSlugLine(line: string): { slug: string; tokens: string[] } | null {
   const m = line.match(/^\s*([A-Z][A-Z0-9_]*)\s*:\s*['"]([^'"]+)['"]\s*,\s*\/\/\s*(.+?)\s*$/)
@@ -568,15 +620,21 @@ export function parseInciFromSlugLine(line: string): { slug: string; tokens: str
 
   if (!inciSegment) return null
   if (/['']/.test(inciSegment)) return null
+  // INCI nomenclature is plain ASCII, so an accent means the comment is a French description.
+  // Catches a Title-Case one the word-level guard below would wave through.
+  if (/[À-ÿ]/.test(inciSegment)) return null
 
   // Reject French descriptors. An INCI name capitalises its substance words, but a locant can
   // be lowercase (`o-Cymen-5-ol`, `p-Cresol`) or numeric (`3-O-Ethyl Ascorbic Acid`), so the
   // test is "the word carries an uppercase letter somewhere", not "it starts with one".
+  // Capitalisation alone is too weak: a French note written in Title Case passes it, which is
+  // how `Category` and `Variable INCI` reached the index. Grammar words are checked casing-blind.
   const allowedLowercase = new Set(['or', 'and'])
   const words = inciSegment.split(/\s+/).filter(Boolean)
   for (const w of words) {
     const cleaned = w.replace(/[(),./&-]/g, '')
     if (!cleaned) continue
+    if (FRENCH_GRAMMAR_WORDS.has(cleaned.toLowerCase())) return null
     if (!/[a-z]/i.test(cleaned)) continue
     if (/[A-Z]/.test(cleaned)) continue
     if (!allowedLowercase.has(cleaned.toLowerCase())) return null
@@ -596,7 +654,9 @@ export function parseInciFromSlugLine(line: string): { slug: string; tokens: str
     // `Aloe Barbadensis Leaf Juice / Extract` is a shorthand for two names sharing a stem, not
     // a name followed by a bare noun. Split literally it minted an `EXTRACT` key that captured
     // every product token spelled that way, and lost `Aloe Barbadensis Leaf Extract` itself.
-    if (headWords.length > 1 && NOMENCLATURE_NOUNS.has(seg.toUpperCase()))
+    // A three-organ list (`Flower/Leaf/Stem Water`) leaves a two-word tail the same way, so the
+    // test is "this segment only qualifies a species", not "this segment is one known noun".
+    if (headWords.length > 1 && isPartOnlyPhrase(seg))
       tokens.push([...headWords.slice(0, -1), seg].join(' '))
     else tokens.push(seg)
   }
@@ -604,10 +664,9 @@ export function parseInciFromSlugLine(line: string): { slug: string; tokens: str
   return { slug, tokens }
 }
 
-// Editorial markers (`// Alias`, `// Category – variable INCI`) and the plant part an organ
-// list leaves behind (`Houttuynia Cordata Flower/Leaf/Stem Water`). They name no substance, and
-// a one-word key captures every product token spelled that way.
-const NON_SUBSTANCE_KEYS = new Set(['ALIAS', 'CATEGORY', 'VARIABLE INCI', 'LEAF'])
+// Editorial markers (`// Alias`, `// Category - variable INCI`). They name no substance, and a
+// short key captures every product token spelled that way.
+const NON_SUBSTANCE_KEYS = new Set(['ALIAS', 'CATEGORY', 'VARIABLE INCI'])
 
 export function buildInciIndex(options: { includeExcipients?: boolean } = {}): InciIndex {
   const index: InciIndex = new Map()
@@ -619,7 +678,7 @@ export function buildInciIndex(options: { includeExcipients?: boolean } = {}): I
     if (norm.length < 2) return
     // Digits lead real INCI names (`3-O-Ethyl Ascorbic Acid`); only punctuation is junk.
     if (!/^[A-Z0-9]/.test(norm)) return
-    if (NON_SUBSTANCE_KEYS.has(norm) || NOMENCLATURE_NOUNS.has(norm)) return
+    if (NON_SUBSTANCE_KEYS.has(norm) || isPartOnlyPhrase(norm)) return
     if (!options.includeExcipients && EXCIPIENT_BLOCKLIST.has(norm)) return
     if (!index.has(norm)) index.set(norm, { slug })
   }
