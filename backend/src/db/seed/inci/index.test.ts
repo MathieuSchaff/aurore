@@ -200,6 +200,45 @@ describe('parseInciFromSlugLine', () => {
     expect(parseInciFromSlugLine('  // a comment')).toBeNull()
     expect(parseInciFromSlugLine('export const FOO = {')).toBeNull()
   })
+
+  // The descriptor guard used to read an English gloss as a French description and drop the
+  // whole declaration, so 23 slugs never reached the index at all.
+  it('keeps a name carrying a parenthesised gloss or a dashed note', () => {
+    expect(
+      parseInciFromSlugLine(
+        `  RUSCUS: 'ruscus-aculeatus', // INCI: Ruscus Aculeatus Root Extract (butcher's broom)`
+      )
+    ).toEqual({ slug: 'ruscus-aculeatus', tokens: ['Ruscus Aculeatus Root Extract'] })
+    expect(
+      parseInciFromSlugLine(
+        `  CERAMIDE_NS: 'ceramide-ns', // INCI: Ceramide NS (Ceramide 2) – rare`
+      )
+    ).toEqual({ slug: 'ceramide-ns', tokens: ['Ceramide NS'] })
+  })
+
+  it('keeps a name led by a digit or a lowercase locant', () => {
+    expect(
+      parseInciFromSlugLine(
+        `  EAA: '3-o-ethyl-ascorbic-acid', // INCI: 3-O-Ethyl Ascorbic Acid | x`
+      )
+    ).toEqual({ slug: '3-o-ethyl-ascorbic-acid', tokens: ['3-O-Ethyl Ascorbic Acid'] })
+    expect(
+      parseInciFromSlugLine(
+        `  CYMEN: 'o-cymen-5-ol', // INCI: o-Cymen-5-ol (Biosol) | preservative`
+      )
+    ).toEqual({ slug: 'o-cymen-5-ol', tokens: ['o-Cymen-5-ol'] })
+  })
+
+  it('does not split a name on a comma or a plus it owns', () => {
+    expect(
+      parseInciFromSlugLine(`  OLEAMIDO: 'oleamido', // INCI: 2-Oleamido-1,3-Octadecanediol | y`)
+        ?.tokens
+    ).toEqual(['2-Oleamido-1,3-Octadecanediol'])
+    expect(
+      parseInciFromSlugLine(`  AZECO: 'azecoglycine', // INCI: Azelaic Acid + Glycine | complex`)
+        ?.tokens
+    ).toEqual(['Azelaic Acid + Glycine'])
+  })
 })
 
 describe('buildInciIndex (integration)', () => {
@@ -226,5 +265,20 @@ describe('buildInciIndex (integration)', () => {
     expect(EXCIPIENT_BLOCKLIST.has(normalizeInciToken('Xanthan Gum*'))).toBe(true)
     expect(EXCIPIENT_BLOCKLIST.has(normalizeInciToken('Lauryl Glucoside*'))).toBe(true)
     expect(EXCIPIENT_BLOCKLIST.has(normalizeInciToken('Phenoxyethanol (F.i.l'))).toBe(true)
+  })
+
+  it('indexes names led by a digit', () => {
+    const idx = buildInciIndex()
+    expect(idx.get('3-O-ETHYL ASCORBIC ACID')?.slug).toBe('3-o-ethyl-ascorbic-acid')
+    expect(idx.get('1-METHYLHYDANTOIN-2-IMIDE')?.slug).toBe('methylhydantoin-imide')
+  })
+
+  // A `/` in a declaration used to mint a key out of the nomenclature noun alone, and every
+  // product token spelled `Extract` linked to whichever slug claimed it first.
+  it('never indexes a bare nomenclature noun', () => {
+    const idx = buildInciIndex()
+    expect(idx.has('EXTRACT')).toBe(false)
+    expect(idx.has('OIL')).toBe(false)
+    expect(idx.has('LEAF')).toBe(false)
   })
 })
