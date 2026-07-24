@@ -55,7 +55,8 @@
   .shelf-tabs-plus--active {
     background: color-mix(in oklch, var(--shelf-plus-color, var(--color-primary)) 14%, transparent);
     border-color: var(--shelf-plus-color, var(--color-primary));
-    color: var(--shelf-plus-color, var(--color-primary));
+    /* Label + count read as text: AA-safe companion, vivid identity stays on border/tint. */
+    color: var(--shelf-plus-color-on, var(--shelf-plus-color, var(--color-primary)));
   }
 
   /* Chevron stays visible after selection as an "is-expandable" affordance,
@@ -98,7 +99,7 @@
 
   .shelf-tabs-plus-item--active {
     background: color-mix(in oklch, var(--shelf-plus-color, var(--color-primary)) 16%, transparent);
-    color: var(--shelf-plus-color, var(--color-primary));
+    color: var(--shelf-plus-color-on, var(--shelf-plus-color, var(--color-primary)));
     font-weight: var(--font-semibold);
   }
 

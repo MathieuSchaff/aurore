@@ -84,7 +84,7 @@
 .coll-hist-price {
   font-family: var(--font-display);
   font-feature-settings: "onum" 1;
-  font-weight: var(--font-black);
+  font-weight: var(--font-bold);
   font-size: 0.9rem;
   color: var(--color-primary);
 }

@@ -24,7 +24,8 @@
 }
 .aur-section--deep .aur-section-title em {
   color: oklch(from var(--color-tertiary) 92% c h);
-  font-weight: var(--font-medium);
+  /* 600 has a real italic face loaded; 500 would faux-slant */
+  font-weight: var(--font-semibold);
 }
 .aur-section--deep .aur-section-lede {
   color: oklch(82% 0.05 var(--h-amber, 75));
@@ -38,7 +39,7 @@
   font-weight: var(--font-bold);
   letter-spacing: var(--tracking-widest);
   text-transform: uppercase;
-  color: var(--color-accent);
+  color: var(--color-accent-on);
 }
 .aur-eyebrow__num {
   color: var(--text-muted);
@@ -62,6 +63,8 @@
   text-wrap: balance;
 }
 .aur-section-title em {
+  /* Global `* { font-family }` blocks inheritance; restore the display face. */
+  font-family: inherit;
   color: var(--color-accent);
   font-style: italic;
   font-weight: var(--font-normal);

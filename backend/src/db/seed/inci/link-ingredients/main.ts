@@ -35,6 +35,7 @@ import {
   foldScraperDelimiters,
   getDomainAllowlist,
   normalizeInciToken,
+  stripInciArtefacts,
 } from '../index'
 import { bridgeEvidenceToSlug, buildSlugByHumanized } from './bridge'
 
@@ -90,7 +91,9 @@ function resolveToken(raw: string, canonicalKeyToSlug: Map<string, string>): Res
   const direct = inciIndex.get(normAurore)
   if (direct) return { kind: 'slug', slug: direct.slug }
 
-  const normAd = normalize(raw)
+  // algo-derm's normalize keeps bracket contents as words (`zinc oxide [nano]` → `zinc oxide
+  // nano`), so the artefacts have to go before it too, not only inside normalizeInciToken.
+  const normAd = normalize(stripInciArtefacts(raw))
   let evidence = aliasIndex.get(normAd)
   if (!evidence) {
     const stripped = stripBotanicalParts(normAd)

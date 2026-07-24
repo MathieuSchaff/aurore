@@ -6,33 +6,35 @@
 .unit--spray,
 .unit--spf {
   --_kind-bg: oklch(from var(--color-accent) l c h / 0.18);
-  --_kind-color: var(--color-accent-hover);
+  --_kind-color: var(--color-accent-on);
   --_kind-border: oklch(from var(--color-accent) l c h / 0.4);
 }
 
+/* Badge text lightness goes through --on-tint-l (42% light / 82% dark): the raw
+   semantic colors read 3.6-4.4 on their own 0.18 tint. Tints and borders keep them. */
 .kind--skincare {
   --_kind-bg: oklch(from var(--color-success) l c h / 0.18);
-  --_kind-color: var(--color-success);
+  --_kind-color: oklch(from var(--color-success) var(--on-tint-l) c h);
   --_kind-border: oklch(from var(--color-success) l c h / 0.4);
 }
 
 .kind--complement {
   --_kind-bg: oklch(from var(--color-primary) l c h / 0.18);
-  --_kind-color: var(--color-primary);
+  --_kind-color: oklch(from var(--color-primary) var(--on-tint-l) c h);
   --_kind-border: oklch(from var(--color-primary) l c h / 0.4);
 }
 
 .kind--huile {
-  /* Lavender, not amber: amber reads as warning. Text lightness tracks
-     --color-info so it stays readable in both light and dark themes. */
+  /* Lavender, not amber: amber reads as warning. Text keeps the info chroma on the
+     lavender hue. */
   --_kind-bg: oklch(from var(--color-lavender) l c h / 0.18);
-  --_kind-color: oklch(from var(--color-info) l c var(--h-lavender, 305));
+  --_kind-color: oklch(from var(--color-info) var(--on-tint-l) c var(--h-lavender, 305));
   --_kind-border: oklch(from var(--color-lavender) l c h / 0.4);
 }
 
 .kind--vitamine {
   --_kind-bg: oklch(from var(--color-info) l c h / 0.18);
-  --_kind-color: var(--color-info);
+  --_kind-color: oklch(from var(--color-info) var(--on-tint-l) c h);
   --_kind-border: oklch(from var(--color-info) l c h / 0.4);
 }
 

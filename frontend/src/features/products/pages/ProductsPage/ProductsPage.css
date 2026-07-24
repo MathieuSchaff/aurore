@@ -149,7 +149,7 @@
   background: var(--color-accent);
   color: oklch(100% 0 0);
   font-size: 10px;
-  font-weight: 800;
+  font-weight: var(--font-bold);
   border-radius: var(--radius-full);
   display: grid;
   place-items: center;

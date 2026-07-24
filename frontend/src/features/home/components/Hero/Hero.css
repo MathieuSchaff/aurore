@@ -64,7 +64,7 @@
   padding: 4px 10px;
   border-radius: var(--radius-full);
   background: var(--color-accent-light);
-  color: var(--color-accent);
+  color: var(--color-accent-on);
   border: 1px solid oklch(from var(--color-accent) l c h / 0.25);
   white-space: nowrap;
 }
@@ -84,6 +84,8 @@
   }
 }
 .aur-hero__title em {
+  /* Global `* { font-family }` blocks inheritance; restore the display face. */
+  font-family: inherit;
   font-style: italic;
   color: var(--color-accent);
   font-weight: var(--font-normal);

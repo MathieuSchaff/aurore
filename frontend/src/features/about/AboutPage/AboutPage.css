@@ -48,7 +48,7 @@
   font-weight: var(--font-bold);
   text-transform: uppercase;
   letter-spacing: var(--tracking-widest);
-  color: var(--oxydized-iron);
+  color: var(--text-secondary);
   margin: 0;
 }
 
@@ -57,7 +57,7 @@
   display: inline-block;
   width: 1.75rem;
   height: 2px;
-  background: var(--oxydized-iron);
+  background: var(--text-secondary);
   opacity: 0.55;
 }
 
@@ -89,8 +89,10 @@
 }
 
 .aur-about-hero__title em {
+  /* Global `* { font-family }` blocks inheritance; restore the display face. */
+  font-family: inherit;
   font-style: italic;
-  color: var(--oxydized-iron);
+  color: var(--text-secondary);
   font-weight: var(--font-normal);
 }
 
@@ -180,7 +182,7 @@
   left: 0;
   --rot: -3deg;
   transform: rotate(-3deg);
-  border-top: 3px solid var(--oxydized-iron);
+  border-top: 3px solid var(--text-secondary);
   width: 16rem;
   animation: aur-about__softfloat 8s ease-in-out -2s infinite;
 }
@@ -190,7 +192,7 @@
   right: 1rem;
   --rot: -1.5deg;
   transform: rotate(-1.5deg);
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   background: oklch(from var(--bg-card) calc(l - 0.02) c h);
   width: 19rem;
   animation: aur-about__softfloat 9s ease-in-out -4s infinite;
@@ -198,7 +200,7 @@
 
 .aur-about-note--markdown .aur-about-note__title,
 .aur-about-note--markdown .aur-about-note__body {
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 0.75rem;
 }
 
@@ -212,11 +214,11 @@
   position: absolute;
   top: -0.65rem;
   left: var(--space-4);
-  background: var(--mango-bright);
+  background: var(--color-secondary);
   color: oklch(20% 0.1 50);
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 0.625rem;
-  font-weight: var(--font-bold);
+  font-weight: var(--font-semibold);
   padding: 2px var(--space-2);
   border-radius: var(--radius-sm);
   letter-spacing: 0.04em;
@@ -299,7 +301,7 @@
   font-size: var(--text-xl);
   line-height: 1.35;
   color: var(--text-primary);
-  border-left: 2px solid var(--oxydized-iron);
+  border-left: 2px solid var(--text-secondary);
   padding: var(--space-2) 0 var(--space-2) var(--space-5);
   margin: 0;
   font-style: italic;
@@ -319,12 +321,12 @@
   background:
     radial-gradient(
       circle at 30% 20%,
-      oklch(from var(--oxydized-iron) l c h / 0.08),
+      oklch(from var(--text-secondary) l c h / 0.08),
       transparent 60%
     ),
     radial-gradient(
       circle at 80% 80%,
-      oklch(from var(--mango-bright) l c h / 0.12),
+      oklch(from var(--color-secondary) l c h / 0.12),
       transparent 60%
     ),
     var(--bg-sunken);
@@ -339,7 +341,7 @@
   border-radius: var(--radius-sm);
   padding: var(--space-2) var(--space-3);
   font-size: 0.6875rem;
-  font-family: ui-monospace, Menlo, monospace;
+  font-family: var(--font-mono);
   color: var(--text-muted);
   box-shadow: var(--shadow-sm);
   white-space: nowrap;
@@ -412,13 +414,13 @@
   height: 5.5rem;
   bottom: 1rem;
   right: 4rem;
-  background: var(--mango-bright);
+  background: var(--color-secondary);
   padding: var(--space-2);
   font-size: 0.6875rem;
   color: oklch(25% 0.1 50);
   transform: rotate(-4deg);
   box-shadow: 2px 4px 10px oklch(20% 0.05 50 / 0.18);
-  font-family: ui-monospace, Menlo, monospace;
+  font-family: var(--font-mono);
   line-height: 1.3;
   overflow: hidden;
 }
@@ -447,7 +449,7 @@
 .aur-about-pain__num {
   font-family: var(--font-display);
   font-size: var(--text-sm);
-  color: var(--oxydized-iron);
+  color: var(--text-secondary);
   font-feature-settings:
     "onum" 1,
     "tnum" 1;
@@ -487,15 +489,15 @@
 }
 
 .aur-about-enables__cell:hover {
-  background: oklch(from var(--mango-bright) l c h / 0.08);
+  background: oklch(from var(--color-secondary) l c h / 0.08);
 }
 
 .aur-about-enables__icon {
   width: 2rem;
   height: 2rem;
   border-radius: var(--radius-sm);
-  background: oklch(from var(--oxydized-iron) l c h / 0.1);
-  color: var(--oxydized-iron);
+  background: oklch(from var(--text-secondary) l c h / 0.1);
+  color: var(--text-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -539,7 +541,7 @@
     "onum" 1,
     "tnum" 1;
   font-size: var(--text-sm);
-  color: var(--oxydized-iron);
+  color: var(--text-secondary);
   font-weight: var(--font-bold);
   letter-spacing: 0.05em;
   align-self: start;
@@ -658,7 +660,7 @@
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: var(--oxydized-iron);
+  background: var(--text-secondary);
   flex-shrink: 0;
 }
 
@@ -762,8 +764,10 @@
 }
 
 .aur-about-cta__title em {
+  /* Global `* { font-family }` blocks inheritance; restore the display face. */
+  font-family: inherit;
   font-style: italic;
-  color: var(--oxydized-iron);
+  color: var(--text-secondary);
   font-weight: var(--font-normal);
 }
 
