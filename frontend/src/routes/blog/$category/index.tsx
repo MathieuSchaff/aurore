@@ -21,26 +21,18 @@ type Search = z.infer<typeof searchSchema>
 const categorySet = new Set<string>(BLOG_CATEGORY_VALUES)
 
 export const Route = createFileRoute('/blog/$category/')({
+  validateSearch: searchSchema,
+  // Input pinned to Search: a head() that reads ctx otherwise collapses this route's
+  // search-schema inference to {}, which cascades into deps here.
+  loaderDeps: ({ search }: { search: Search }) => ({ page: search.page, q: search.q }),
   // SSR so the bare category path ships its robots + canonical server-side.
   ssr: true,
-  validateSearch: searchSchema,
   search: {
     middlewares: [stripSearchParams(defaultValues)],
   },
   beforeLoad: ({ params }) => {
     if (!categorySet.has(params.category)) throw notFound()
   },
-  // params-only: reading match/loaderData collapses the route's search-schema to {}.
-  // Empty categories stay indexable but out of the sitemap; variants consolidate here.
-  // beforeLoad already 404s unknown categories, so the label lookup can't miss.
-  head: ({ params }) =>
-    seoHead({
-      path: `/blog/${params.category}`,
-      title: `${BLOG_CATEGORY_LABELS[params.category as BlogCategory]} — Aurore`,
-    }),
-  // Input pinned to Search: a head() that reads ctx otherwise collapses this route's
-  // search-schema inference to {}, which cascades into deps here.
-  loaderDeps: ({ search }: { search: Search }) => ({ page: search.page, q: search.q }),
   // prefetchQuery warms cache without throwing; a failed fetch degrades to the in-page error UI instead of GlobalError.
   loader: ({ context, params, deps }) =>
     Promise.all([
@@ -54,6 +46,14 @@ export const Route = createFileRoute('/blog/$category/')({
       ),
       context.queryClient.prefetchQuery(articleQueries.categoryCounts()),
     ]),
+  // params-only: reading match/loaderData collapses the route's search-schema to {}.
+  // Empty categories stay indexable but out of the sitemap; variants consolidate here.
+  // beforeLoad already 404s unknown categories, so the label lookup can't miss.
+  head: ({ params }) =>
+    seoHead({
+      path: `/blog/${params.category}`,
+      title: `${BLOG_CATEGORY_LABELS[params.category as BlogCategory]} — Aurore`,
+    }),
   component: BlogCategoryRoute,
   pendingComponent: BlogListSkeleton,
   errorComponent: ({ error, reset }) => <GlobalError error={error} reset={reset} />,

@@ -11,22 +11,15 @@ import { seoHead } from '@/lib/seo'
 import { useAuthStore } from '@/store/auth'
 
 export const Route = createFileRoute('/products/')({
+  validateSearch: productsSearchSchema,
+  loaderDeps: ({ search }) => search,
   // SSR the hub so the bare path ships index,follow + canonical in the server HTML
   // instead of inheriting the root's noindex until hydration. Filtered variants
   // stay on the same route and consolidate to this canonical.
   ssr: true,
-  validateSearch: productsSearchSchema,
   search: {
     middlewares: [stripSearchParams(productsSearchDefaults)],
   },
-  head: () =>
-    seoHead({
-      path: '/products',
-      title: 'Produits — Aurore',
-      description:
-        'Parcourez le catalogue skincare : formules, ingrédients et notes, sans score ni verdict, sur Aurore.',
-    }),
-  loaderDeps: ({ search }) => search,
   loader: async ({ context, deps }) => {
     // Cold authenticated sessions wait for the root boot probe; anonymous visitors
     // fetch right away. Skip on the server: hasSessionHint reads document.cookie.
@@ -48,5 +41,12 @@ export const Route = createFileRoute('/products/')({
     if (isServer) await context.queryClient.prefetchQuery(listQuery)
     else void context.queryClient.prefetchQuery(listQuery)
   },
+  head: () =>
+    seoHead({
+      path: '/products',
+      title: 'Produits — Aurore',
+      description:
+        'Parcourez le catalogue skincare : formules, ingrédients et notes, sans score ni verdict, sur Aurore.',
+    }),
   component: ProductsPage,
 })
