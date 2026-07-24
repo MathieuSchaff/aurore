@@ -64,6 +64,8 @@ services:
       # No index.html under TanStack Start — the __root route owns the document.
       - ../../../frontend/public:/app/frontend/public:ro
       - ../../../frontend/src:/app/frontend/src
+      # Same filesystem as src/ so the route generator's atomic rename works (EXDEV otherwise).
+      - ../../../frontend/.tanstack:/app/frontend/.tanstack
       - ../../../frontend/postcss.config.js:/app/frontend/postcss.config.js:ro
       - ../../../frontend/vite.config.ts:/app/frontend/vite.config.ts:ro
       - ../../../frontend/tsconfig.json:/app/frontend/tsconfig.json:ro
