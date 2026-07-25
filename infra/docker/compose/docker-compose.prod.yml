@@ -105,3 +105,13 @@ services:
         condition: service_healthy
       frontend:
         condition: service_healthy
+
+  # Was the only container without a cap, so a runaway renew loop had the whole host to
+  # eat while the other five would have been OOM-killed at their own limit.
+  certbot:
+    mem_limit: 128m
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

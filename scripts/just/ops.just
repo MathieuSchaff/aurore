@@ -116,6 +116,14 @@ db-fix file:
 prod-security:
     ssh aurore 'docker exec -e PGOPTIONS="-c role=dev_readonly" app_db psql -U app -d appdb -P pager=off -c "SELECT created_at, severity, event_type, field, route, left(payload,60) AS payload FROM security_events WHERE created_at > current_date - 30 ORDER BY created_at DESC LIMIT 20;"'
 
+# [VPS] Reclaim disk from superseded deploy images and build cache (~1.1 GB added per deploy, never removed). Keeps 14 days so a rollback still has an image; running images untouched.
+prod-docker-prune:
+    ssh aurore 'docker system df; echo; docker image prune -af --filter "until=336h"; docker builder prune -af --filter "unused-for=336h"; echo; docker system df'
+
+# Moderation acts that leave nothing on the domain row (lifted/updated bans, role changes); everything else records its actor on the row itself. Read-only via dev_readonly.
+prod-moderation:
+    ssh aurore 'docker exec -e PGOPTIONS="-c role=dev_readonly" app_db psql -U app -d appdb -P pager=off -c "SELECT created_at, action, actor_id, target_user_id, details FROM moderation_actions ORDER BY created_at DESC LIMIT 20;"'
+
 # Delete demo accounts past their 24h TTL (cron entrypoint). TARGET: dev|prod.
 sweep-demos:
     #!/usr/bin/env bash
