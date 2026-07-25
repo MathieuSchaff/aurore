@@ -34,6 +34,8 @@ export const UserMenu = ({
   const bootRefreshPending = useBootPending()
   // UserMenu mounts on every page (Header in AppLayout); skip the /profile probe until a session exists.
   const { data: profile } = useQuery({ ...profileQueries.me(), enabled: isAuthenticated })
+  // A disabled query still exposes cached data, so hide identity outside a live session.
+  const visibleProfile = isAuthenticated && !bootRefreshPending ? profile : undefined
   // « Modération » reaches admin AND contributor (« modérateur »); both land on the
   // report queue (/admin/users is admin-only).
   const isContentModerator = useAuthStore(
@@ -54,7 +56,11 @@ export const UserMenu = ({
     <DropdownMenu className={`user-menu${variant === 'drawer' ? ' user-menu--drawer' : ''}`}>
       <DropdownMenu.Trigger>
         <button type="button" className="user-menu__trigger" aria-label="Menu utilisateur">
-          <ProfileAvatar avatarUrl={profile?.avatarUrl} username={profile?.username} size="sm" />
+          <ProfileAvatar
+            avatarUrl={visibleProfile?.avatarUrl}
+            username={visibleProfile?.username}
+            size="sm"
+          />
           {variant === 'drawer' && (
             <span className="user-menu__username">
               {bootRefreshPending ? (

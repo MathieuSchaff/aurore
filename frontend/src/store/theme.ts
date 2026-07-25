@@ -8,7 +8,10 @@ const VALID_VARIANTS = ['terracota', 'foret', 'ardoise'] as const
 
 export type Variant = (typeof VALID_VARIANTS)[number]
 
-const DEFAULT_VARIANT: Variant = 'terracota'
+// Exported so SSR consumers can mirror the server's defaults on their first
+// client render; a mismatch here is never patched up by React.
+export const DEFAULT_THEME: Theme = 'light'
+export const DEFAULT_VARIANT: Variant = 'terracota'
 
 const STORAGE_KEY = 'theme-preference'
 const VARIANT_KEY = 'variant'
@@ -26,7 +29,7 @@ const getSystemTheme = (): Theme =>
   window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 
 const getInitialTheme = (): { theme: Theme; isUserChoice: boolean } => {
-  if (isServer) return { theme: 'light', isUserChoice: false }
+  if (isServer) return { theme: DEFAULT_THEME, isUserChoice: false }
   const saved = localStorage.getItem(STORAGE_KEY) as Theme | null
   if (saved === 'light' || saved === 'dark') return { theme: saved, isUserChoice: true }
   return { theme: getSystemTheme(), isUserChoice: false }

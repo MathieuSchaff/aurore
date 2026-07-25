@@ -5,11 +5,11 @@ import { seoHead } from '@/lib/seo'
 import { IngredientsPage } from '../../features/ingredients/page/IngredientsPage/IngredientsPage'
 
 export const Route = createFileRoute('/ingredients/')({
+  validateSearch: ingredientsSearchSchema,
   // SSR the hub so the bare path ships index,follow + canonical in the server HTML
   // instead of inheriting the root's noindex until hydration. Filtered variants
   // stay on the same route and consolidate to this canonical.
   ssr: true,
-  validateSearch: ingredientsSearchSchema,
   search: {
     middlewares: [stripSearchParams(ingredientsSearchDefaults)],
   },

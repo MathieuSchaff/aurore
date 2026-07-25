@@ -15,7 +15,11 @@ export async function recoverUnauthorized(
   const refreshOutcome = await ensureFresh(queryClient)
   if (refreshOutcome !== 'ok') {
     // Anonymous visitors also 401 at boot - they never had a session to expire.
-    if (refreshOutcome === 'failed' && hadSession) useAuthStore.getState().markSessionExpired()
+    if (refreshOutcome === 'failed' && hadSession) {
+      // User-scoped query data must not survive the session that populated it.
+      queryClient.clear()
+      useAuthStore.getState().markSessionExpired()
+    }
     return res
   }
 
