@@ -10,8 +10,8 @@
 // of the corpus (`sans-savon`), are re-emitted with chemistry-aware or
 // positioning gating by a formula pass (`matifiant`, `repulpant`,
 // `eczema-atopie`, the R5 concern gates, `sebo-regulateur`), are redundant
-// with the actif-class clusters (`keratolytique` → AHA/BHA/RETINOIDS), or are
-// false precision on a claim INCI can't verify (`vegan` → brand-cert only).
+// with the actif-class clusters (`keratolytique` → AHA/BHA/PHA/urea/enzymes),
+// or are false precision on a claim INCI can't verify (`vegan` → brand-cert only).
 
 import type { ProductKind } from '@aurore/shared'
 import { SKINCARE_PRODUCT_TAG_SLUGS, type SkincareProductTagSlug } from '@aurore/shared'
@@ -31,7 +31,7 @@ const S = SKINCARE_PRODUCT_TAG_SLUGS
 // Calibration version guard. Fails fast at module load to prevent silent drift
 // when a new algo-derm tarball changes tag semantics. Bump after re-running
 // `just audit-auto-tags` and confirming per-tag floors still hold.
-const CALIBRATED_FOR_TAG_DEFS_VERSION = 23
+const CALIBRATED_FOR_TAG_DEFS_VERSION = 24
 
 if (TAG_DEFS_VERSION !== CALIBRATED_FOR_TAG_DEFS_VERSION) {
   throw new Error(
@@ -118,7 +118,9 @@ export const TAG_CONFIG: Readonly<Record<string, TagRule>> = {
   // purifiant product also fires sebo-regulateur. pores-sebum + sebo-regulateur
   // axes cover the ground without redundancy.
   purifiant: { auroreSlug: S.PURIFIANT, confidenceFloor: 1.0, allow: false },
-  // Already surfaced by actif-class (BHA / AHA / RETINOIDS). No Aurore slug.
+  // Since TAG_DEFS 24 this reads the `exfoliation` benefit axis, and retinoids no
+  // longer carry it (ADR-0018 upstream). Already surfaced by actif-class
+  // (AHA / BHA / PHA / urea / enzymes). No Aurore slug: stays dropped.
   keratolytique: { allow: false },
 
   // peau-mixte excluded: too noisy on neutral hydrators.

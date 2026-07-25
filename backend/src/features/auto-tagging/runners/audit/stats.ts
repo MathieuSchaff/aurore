@@ -75,6 +75,7 @@ export const BENEFIT_AXES = [
   'antioxidant',
   'brightening',
   'seborrheicRegulation',
+  'exfoliation',
 ] as const
 export type BenefitAxisName = (typeof BENEFIT_AXES)[number]
 
