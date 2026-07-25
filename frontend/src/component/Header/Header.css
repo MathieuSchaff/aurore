@@ -11,6 +11,12 @@
   padding: 0 var(--page-gutter);
   background: var(--nav-bg);
   border-bottom: 1px solid var(--nav-border, var(--border-default));
+
+  /* The bar paints its own tinted surface, so the utilities sitting on it read
+     nav ink instead of page ink. */
+  --theme-toggle-fg: var(--nav-link, var(--text-secondary));
+  --theme-toggle-hover-fg: var(--nav-link-hover, var(--text-primary));
+  --theme-toggle-hover-bg: var(--nav-hover-bg, var(--bg-hover));
 }
 
 .main-nav__lead {
