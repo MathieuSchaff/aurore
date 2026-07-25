@@ -26,6 +26,7 @@ type BenefitAxis =
   | 'antioxidant'
   | 'brightening'
   | 'seborrheicRegulation'
+  | 'exfoliation'
 
 // Noun-form labels for the collection "motifs" view: "<phrase> · N produits".
 export const BENEFIT_AXIS_PHRASE: Record<BenefitAxis, string> = {
@@ -35,6 +36,7 @@ export const BENEFIT_AXIS_PHRASE: Record<BenefitAxis, string> = {
   antioxidant: 'antioxydant',
   brightening: 'coup d’éclat',
   seborrheicRegulation: 'régule le sébum',
+  exfoliation: 'exfoliant',
 }
 
 // Dose signal: algo-derm emits continuous roleAtDose.doseFactor/confidence and

@@ -265,8 +265,10 @@ export const ACTIF_CLASS_DEFS: ActifClassDef[] = [
     // (humectant), and botanicals (centaurea, echinacea purpurea, sureau).
     patterns: ['urea'],
     exact: true,
-    // Cap 12 = algo-derm ACTIVE_POS_CAP for keratolytique. Not Infinity: trace
-    // urea is a humectant, only top-of-list urea is the keratolytic actif.
+    // Aurore's own cap since TAG_DEFS 24: upstream keratolytique now reads the
+    // `exfoliation` benefit axis, so it no longer mirrors ACTIVE_POS_CAP. Kept at
+    // 12 and not Infinity because trace urea is a humectant, only top-of-list
+    // urea is the keratolytic actif.
     positionCap: 12,
   },
 ]
