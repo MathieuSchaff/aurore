@@ -27,7 +27,8 @@ export function BlogArticleCard({ article, isHero }: Props) {
         </Card.Media>
       )}
       <Card.Body>
-        <Card.Title>{article.title}</Card.Title>
+        {/* h2: the grid sits directly under the page h1, so the default h3 skips a level. */}
+        <Card.Title as="h2">{article.title}</Card.Title>
         {article.excerpt && <Card.Description>{article.excerpt}</Card.Description>}
       </Card.Body>
       <Card.Footer>
