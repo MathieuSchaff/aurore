@@ -82,7 +82,6 @@ export const BARRIERE_EMOLLIENTS_OCCLUSIFS = {
   HUILE_DE_PEPINS_DE_FIGUE_DE_BARBARIE: 'huile-de-pepins-de-barbarie', // INCI: Opuntia Ficus-Indica Seed Oil
   APRICOT_KERNEL_OIL: 'prunus-armeniaca-kernel-oil', // INCI: Prunus Armeniaca Kernel Oil | apricot kernel oil
   HUILE_CARTHAME: 'huile-carthame', // INCI: Carthamus Tinctorius Seed Oil SAFFLOWER_SEED_OIL
-  CERAMIDE_NG: 'ceramide-ng', // INCI: Ceramide NG | barrier-strengthening ceramide
   LINOLEIC_ACID: 'linoleic-acid', // INCI: Linoleic Acid | essential fatty acid, barrier anti-inflammatory
   BEURRE_CACAO: 'theobroma-cacao-butter', // INCI: Theobroma Cacao Seed Butter | cocoa butter, nourishing and protective
   OLEIC_ACID: 'oleic-acid', // INCI: Oleic Acid | omega-9 fatty acid emollient, strengthens the skin barrier, nourishes and hydrates (ideal for dry/mature skin)
