@@ -15,6 +15,7 @@ import { Hono } from 'hono'
 import { z } from 'zod'
 
 import type { AppEnv } from '../../app-env'
+import { db as baseDb } from '../../db'
 import { logger } from '../../lib/logger'
 import { zValidator } from '../../utils/validator'
 import { applyAuthedGuards } from '../auth/authed-guards'
@@ -26,6 +27,7 @@ import {
 } from '../auth/middleware'
 import { createBan, getBanScope, liftBan, listUserBans, listUsers, updateBan } from './bans.service'
 import { getAdminDashboard } from './dashboard.service'
+import { logModerationAction } from './moderation-audit.service'
 import { demoteToUser } from './roles.service'
 
 const userIdParam = z.object({ id: z.uuid() })
@@ -95,6 +97,17 @@ export const adminBansRoutes = app
       return c.json(err(result.error), errorToStatus(result.error, adminBanErrorMapping))
     }
 
+    await logModerationAction(baseDb, {
+      actorId,
+      targetUserId: result.data.userId,
+      action: 'ban_lifted',
+      details: {
+        scope: result.data.scope,
+        bannedBy: result.data.bannedBy,
+        reason: result.data.reason,
+      },
+    })
+
     logger.info({ actorId, banId }, 'ban lifted')
     return c.json(ok(null, 'Ban lifted'), HTTP_STATUS.OK)
   })
@@ -113,6 +126,18 @@ export const adminBansRoutes = app
       if (!isApiSuccess(result)) {
         return c.json(err(result.error), errorToStatus(result.error, adminBanErrorMapping))
       }
+
+      await logModerationAction(baseDb, {
+        actorId: adminId,
+        targetUserId: result.data.userId,
+        action: 'ban_updated',
+        details: {
+          scope: result.data.scope,
+          expiresAtChanged: body.expiresAt !== undefined,
+          expiresAt: body.expiresAt ?? null,
+          reasonChanged: body.reason !== undefined,
+        },
+      })
 
       logger.info(
         {
@@ -146,7 +171,16 @@ export const adminBansRoutes = app
         return c.json(err(result.error), errorToStatus(result.error, adminRoleErrorMapping))
       }
 
-      // No role-change audit table exists; reason is logged for operational context, not persisted.
+      await logModerationAction(baseDb, {
+        actorId: adminId,
+        targetUserId,
+        action: 'role_changed',
+        details: {
+          role: body.role,
+          reason: body.reason ?? null,
+        },
+      })
+
       logger.info({ adminId, targetUserId, reason: body.reason ?? null }, 'contributor demoted')
       return c.json(ok(result.data), HTTP_STATUS.OK)
     }

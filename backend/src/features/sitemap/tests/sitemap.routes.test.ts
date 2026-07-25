@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'bun:test'
+import { beforeEach, describe, expect, it, setSystemTime } from 'bun:test'
 
 import type { Hono } from 'hono'
 
@@ -10,6 +10,7 @@ import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
 import { createTestApp } from '../../../tests/helpers/createTestApp'
 import { createTestUser } from '../../../tests/helpers/test-factories'
+import { resetSitemapCache } from '../service'
 
 setupDbTests()
 
@@ -18,6 +19,7 @@ describe('Sitemap route', () => {
 
   beforeEach(async () => {
     app = await createTestApp()
+    resetSitemapCache()
   })
 
   it('emits published article routes with their category and update date', async () => {
@@ -152,5 +154,42 @@ describe('Sitemap route', () => {
 
     expect(xml).toContain('/blog/skincare/a&amp;b</loc>')
     expect(xml).not.toContain('a&b</loc>')
+  })
+
+  it("sert le XML mémoïsé tant que le cache n'est pas vidé", async () => {
+    const author = await createTestUser()
+    const first = await (await app.request('/api/sitemap.xml')).text()
+
+    await testDb.insert(articles).values({
+      createdBy: author.id,
+      title: 'Publié après le premier rendu',
+      slug: 'apres-premier-rendu',
+      category: 'skincare',
+      publishedAt: '2026-01-01T10:00:00.000Z',
+    })
+
+    expect(await (await app.request('/api/sitemap.xml')).text()).toBe(first)
+
+    resetSitemapCache()
+    const rebuilt = await (await app.request('/api/sitemap.xml')).text()
+    expect(rebuilt).toContain('/blog/skincare/apres-premier-rendu</loc>')
+  })
+
+  it('aligne le cache navigateur sur le TTL restant du XML serveur', async () => {
+    const startedAt = new Date('2026-07-27T10:00:00.000Z')
+    setSystemTime(startedAt)
+
+    try {
+      const first = await app.request('/api/sitemap.xml')
+      expect(first.headers.get('Cache-Control')).toBe('public, max-age=3600, s-maxage=3600')
+
+      setSystemTime(startedAt.getTime() + 3_590_000)
+      const cached = await app.request('/api/sitemap.xml')
+
+      expect(await cached.text()).toBe(await first.text())
+      expect(cached.headers.get('Cache-Control')).toBe('public, max-age=10, s-maxage=10')
+    } finally {
+      setSystemTime()
+    }
   })
 })
