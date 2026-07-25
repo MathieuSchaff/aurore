@@ -3,20 +3,29 @@
 // no network, no scraping, never creates ingredient rows. Idempotent: the eligible
 // query re-selects whatever is unlinked, so it is safe to re-run after a db reset.
 //
+// Writes reconcile, they never replace: existing rows are left untouched, only the
+// missing links are inserted, and a link the recompute no longer derives is deleted
+// ONLY when it holds no human data. `product_ingredients` carries no provenance column,
+// so a concentration or a note is the only evidence a row was curated by hand — such a
+// row is kept and reported for manual arbitration instead of being silently rewritten.
+//
 // Pipeline per token: aurore inci-index direct hit first; on a miss, resolve through
 // algo-derm's alias index (+ botanical strip) to canonical evidence, then bridge that
-// evidence back onto an aurore slug. Order follows the INCI order (concentration desc),
-// excipients are dropped, capped at 8 key actives.
+// evidence back onto an aurore slug. Order follows the INCI order (concentration desc)
+// and excipients are dropped. No count cap: INCI order is concentration order, so a cap
+// keeps the structuring agents at the top of the list and drops the actives dosed below
+// them — measured at 2079 evicted links, mostly hyaluronates, ceramides and centella.
 //
 // Usage (dry-run by default):
 //   bun run backend/src/db/seed/inci/link-ingredients/main.ts            # dry-run report
 //   bun run backend/src/db/seed/inci/link-ingredients/main.ts --write    # apply inserts
-//   bun run backend/src/db/seed/inci/link-ingredients/main.ts --slug <s> # single product (re-link)
+//   bun run backend/src/db/seed/inci/link-ingredients/main.ts --slug <s> # single product
+//   bun run backend/src/db/seed/inci/link-ingredients/main.ts --relink   # every product with INCI
 //   LIMIT=200 bun run .../main.ts                                        # cap product count (dev)
 
 import { normalize, splitINCI } from 'algo-derm'
 import { buildAliasIndex, MERGED_EVIDENCE_DB, stripBotanicalParts } from 'algo-derm/engine'
-import { and, eq, isNotNull, isNull, sql } from 'drizzle-orm'
+import { and, eq, inArray, isNotNull, isNull, sql } from 'drizzle-orm'
 
 import { parseIntEnv, parseWriteSlugArgs } from '../../../../features/auto-tagging/runners/cli-args'
 import { addManyIngredientsToProduct } from '../../../../features/products/product-ingredients/product-ingredients.service'
@@ -38,12 +47,13 @@ import {
   stripInciArtefacts,
 } from '../index'
 import { bridgeEvidenceToSlug, buildSlugByHumanized } from './bridge'
+import { type CurrentLink, planReconcile } from './reconcile'
 
 const { write: WRITE, slug: SLUG_ARG } = parseWriteSlugArgs()
+// Corpus re-link: recompute every product that has an INCI, not just the unlinked ones.
+const RELINK = process.argv.includes('--relink')
 const LIMIT = parseIntEnv('LIMIT')
 if (LIMIT !== null && LIMIT < 0) throw new Error(`LIMIT must be at least 0, got "${LIMIT}"`)
-
-const MAX_KEY_INGREDIENTS = 8
 
 interface EligibleProduct {
   id: string
@@ -156,7 +166,7 @@ function computeLinks(
       continue
     }
     const { slug } = resolved
-    // F2: drop filler/excipient by resolved slug before the cap so it never eats a slot.
+    // F2: drop filler/excipient by resolved slug, whichever raw token produced it.
     if (blockedSlugs.has(slug)) {
       blocked.push(slug)
       continue
@@ -167,7 +177,6 @@ function computeLinks(
     if (allowed && (!domain || !allowed.has(domain))) continue
     seen.add(slug)
     slugs.push(slug)
-    if (slugs.length >= MAX_KEY_INGREDIENTS) break
   }
 
   return { slugs, unbridged, blocked, uppercaseMegaTokens, nonUppercaseMegaTokens }
@@ -185,6 +194,19 @@ async function readEligible(tx: Transaction): Promise<EligibleProduct[]> {
       })
       .from(products)
       .where(eq(products.slug, SLUG_ARG))
+  }
+
+  if (RELINK) {
+    const all = await tx
+      .select({
+        id: products.id,
+        slug: products.slug,
+        inci: products.inci,
+        category: products.category,
+      })
+      .from(products)
+      .where(and(isNotNull(products.inci), sql`btrim(${products.inci}) <> ''`))
+    return LIMIT === null ? all : all.slice(0, LIMIT)
   }
 
   const rows = await tx
@@ -210,6 +232,32 @@ async function readEligible(tx: Transaction): Promise<EligibleProduct[]> {
 // Thrown to roll back the read-only dry-run transaction so nothing persists.
 class DryRunRollback extends Error {}
 
+async function readCurrentLinks(tx: Transaction): Promise<Map<string, CurrentLink[]>> {
+  const rows = await tx
+    .select({
+      id: productIngredients.id,
+      productId: productIngredients.productId,
+      slug: ingredients.slug,
+      value: productIngredients.concentrationValue,
+      unit: productIngredients.concentrationUnit,
+      per: productIngredients.concentrationPer,
+      notes: productIngredients.notes,
+    })
+    .from(productIngredients)
+    .innerJoin(ingredients, eq(ingredients.id, productIngredients.ingredientId))
+
+  const byProduct = new Map<string, CurrentLink[]>()
+  for (const r of rows) {
+    const curated =
+      r.value !== null || r.unit !== null || r.per !== null || (r.notes?.trim() ?? '') !== ''
+    const list = byProduct.get(r.productId)
+    const link: CurrentLink = { id: r.id, slug: r.slug, curated }
+    if (list) list.push(link)
+    else byProduct.set(r.productId, [link])
+  }
+  return byProduct
+}
+
 // Bucket observed signals, not assumed causes. Every bucket keeps samples for review.
 type ZeroBucket =
   | 'uppercase-mega-token'
@@ -231,10 +279,16 @@ interface RunStats {
   withLinks: number
   zeroLinks: number
   totalPairs: number
+  removedRows: number
+  keptCurated: number
+  untouchedNoTarget: number
+  changedProducts: number
   missingId: number
   slugFreq: Map<string, number>
   unbridgedFreq: Map<string, number>
   blockedFreq: Map<string, number>
+  removedFreq: Map<string, number>
+  keptCuratedSamples: string[]
   zeroBuckets: Map<ZeroBucket, string[]>
 }
 
@@ -252,7 +306,11 @@ function printReport(s: RunStats): void {
   console.table({
     'products ≥1 link': s.withLinks,
     'products 0 link': s.zeroLinks,
-    'total pairs': s.totalPairs,
+    'products changed': s.changedProducts,
+    'links to insert': s.totalPairs,
+    'links to delete': s.removedRows,
+    'curated links kept (stale but hand-edited)': s.keptCurated,
+    'products left alone (nothing derived)': s.untouchedNoTarget,
     ...(s.missingId > 0 ? { 'slugs w/o id row (dropped)': s.missingId } : {}),
   })
 
@@ -270,6 +328,17 @@ function printReport(s: RunStats): void {
   const topBlocked = freqTable(s.blockedFreq, 15, 'slug')
   if (topBlocked.length > 0) console.table(topBlocked)
 
+  console.log('top 15 slugs the recompute drops (uncurated rows only)')
+  const topRemoved = freqTable(s.removedFreq, 15, 'slug')
+  if (topRemoved.length > 0) console.table(topRemoved)
+
+  // These rows carry a concentration or a note, so a human wrote them. The recompute no longer
+  // derives them: they need arbitration, not a silent delete.
+  if (s.keptCurated > 0) {
+    console.log(`curated links kept despite the recompute (${s.keptCurated}) — sample`)
+    for (const line of s.keptCuratedSamples) console.log(`  ${line}`)
+  }
+
   console.log('0-link products by cause')
   for (const [bucket, slugs] of s.zeroBuckets) {
     console.log(`  ${slugs.length}\t${ZERO_BUCKET_LABELS[bucket]}`)
@@ -280,7 +349,8 @@ function printReport(s: RunStats): void {
 async function main() {
   console.log(
     `\n🔗 INCI → product_ingredients linking (${WRITE ? 'WRITE' : 'DRY-RUN'})` +
-      (SLUG_ARG ? ` · slug=${SLUG_ARG}` : LIMIT !== null ? ` · limit=${LIMIT}` : '')
+      (SLUG_ARG ? ` · slug=${SLUG_ARG}` : RELINK ? ' · relink=all' : '') +
+      (LIMIT !== null ? ` · limit=${LIMIT}` : '')
   )
   console.log(`   alias index: ${aliasIndex.size} keys · inci index: ${inciIndex.size} tokens\n`)
 
@@ -306,9 +376,17 @@ async function main() {
     const eligible = await readEligible(tx)
     console.log(`   eligible products: ${eligible.length}\n`)
 
+    const currentLinks = await readCurrentLinks(tx)
+
     let withLinks = 0
     let zeroLinks = 0
     let totalPairs = 0
+    let removedRows = 0
+    let keptCurated = 0
+    let untouchedNoTarget = 0
+    let changedProducts = 0
+    const removedFreq = new Map<string, number>()
+    const keptCuratedSamples: string[] = []
     const slugFreq = new Map<string, number>()
     const unbridgedFreq = new Map<string, number>()
     const blockedFreq = new Map<string, number>()
@@ -323,10 +401,7 @@ async function main() {
     let missingId = 0
 
     for (const product of eligible) {
-      // A slug-scoped run is a replacement, including replacement with no links.
-      if (WRITE && SLUG_ARG) {
-        await tx.delete(productIngredients).where(eq(productIngredients.productId, product.id))
-      }
+      const current = currentLinks.get(product.id) ?? []
       if (!product.inci) {
         zeroLinks++
         zeroBuckets.get('no-inci')?.push(product.slug)
@@ -341,30 +416,58 @@ async function main() {
         blockedFreq.set(b, (blockedFreq.get(b) ?? 0) + 1)
       }
 
-      const pairs = slugs
-        .map((slug) => {
-          const ingredientId = ingredientSlugToId.get(slug)
-          if (!ingredientId) {
-            missingId++
-            return null
-          }
-          slugFreq.set(slug, (slugFreq.get(slug) ?? 0) + 1)
-          return { productId: product.id, ingredientId }
-        })
-        .filter((p): p is { productId: string; ingredientId: string } => p !== null)
+      const targetIds = new Map<string, string>()
+      for (const slug of slugs) {
+        const ingredientId = ingredientSlugToId.get(slug)
+        if (!ingredientId) {
+          missingId++
+          continue
+        }
+        slugFreq.set(slug, (slugFreq.get(slug) ?? 0) + 1)
+        targetIds.set(slug, ingredientId)
+      }
 
-      if (pairs.length === 0) {
+      if (targetIds.size === 0) {
         zeroLinks++
         // Resolved slugs without an id row are seed↔DB drift: counted by missingId,
         // not a linking-cause bucket.
         if (slugs.length === 0) zeroBuckets.get(classifyZeroLink(computed))?.push(product.slug)
+        // Deriving nothing means the parser failed on this INCI (prose, glued tokens), not
+        // that the existing links are wrong. Never let an empty target delete anything.
+        if (current.length > 0) untouchedNoTarget++
         continue
       }
       withLinks++
+
+      const plan = planReconcile(current, targetIds.keys())
+      const pairs = plan.add.map((slug) => ({
+        productId: product.id,
+        // planReconcile only ever returns slugs taken from targetIds.
+        ingredientId: targetIds.get(slug) as string,
+      }))
+      const toRemove = plan.remove
+      for (const c of plan.remove) {
+        removedFreq.set(c.slug, (removedFreq.get(c.slug) ?? 0) + 1)
+      }
+      for (const c of plan.keptCurated) {
+        keptCurated++
+        if (keptCuratedSamples.length < 20) keptCuratedSamples.push(`${product.slug} · ${c.slug}`)
+      }
+
       totalPairs += pairs.length
+      removedRows += toRemove.length
+      if (pairs.length > 0 || toRemove.length > 0) changedProducts++
 
       if (WRITE) {
-        await addManyIngredientsToProduct(tx, pairs)
+        if (pairs.length > 0) await addManyIngredientsToProduct(tx, pairs)
+        if (toRemove.length > 0) {
+          await tx.delete(productIngredients).where(
+            inArray(
+              productIngredients.id,
+              toRemove.map((c) => c.id)
+            )
+          )
+        }
       }
     }
 
@@ -372,19 +475,29 @@ async function main() {
       withLinks,
       zeroLinks,
       totalPairs,
+      removedRows,
+      keptCurated,
+      untouchedNoTarget,
+      changedProducts,
       missingId,
       slugFreq,
       unbridgedFreq,
       blockedFreq,
+      removedFreq,
+      keptCuratedSamples,
       zeroBuckets,
     })
 
     if (!WRITE) {
-      console.log(`\n  Would insert ${totalPairs} rows. Re-run with --write.\n`)
+      console.log(
+        `\n  Would insert ${totalPairs} rows and delete ${removedRows} on ${changedProducts} products. Re-run with --write.\n`
+      )
       // Roll back the read-only transaction so nothing persists.
       throw new DryRunRollback()
     }
-    console.log(`\n  ✅ Inserted links for ${withLinks} products (${totalPairs} rows).\n`)
+    console.log(
+      `\n  ✅ Reconciled ${changedProducts} products: +${totalPairs} / -${removedRows} rows (${keptCurated} curated links kept).\n`
+    )
   }).catch((err) => {
     if (err instanceof DryRunRollback) return
     throw err
