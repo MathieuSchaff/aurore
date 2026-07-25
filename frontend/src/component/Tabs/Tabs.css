@@ -162,7 +162,8 @@
   }
 
   .underline-tab-active {
-    color: var(--tab-color);
+    /* Text uses the AA-safe companion when provided; tint backgrounds keep --tab-color. */
+    color: var(--tab-color-on, var(--tab-color));
     font-weight: var(--font-semibold);
   }
 
@@ -186,7 +187,7 @@
 
   .underline-tab-active .tab-badge {
     background: color-mix(in oklch, var(--tab-color) 15%, transparent);
-    color: var(--tab-color);
+    color: var(--tab-color-on, var(--tab-color));
   }
 
   .underline-tabs-indicator {

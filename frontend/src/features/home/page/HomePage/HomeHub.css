@@ -71,7 +71,7 @@
   color: var(--text-muted);
 }
 .aur-hub-links a {
-  color: var(--color-accent);
+  color: var(--color-accent-on);
   text-decoration: none;
 }
 .aur-hub-links a:hover {
@@ -114,7 +114,7 @@
   color: var(--text-muted);
 }
 .aur-hub-reorient__links a {
-  color: var(--color-accent);
+  color: var(--color-accent-on);
   text-decoration: none;
 }
 .aur-hub-reorient__links a:hover {

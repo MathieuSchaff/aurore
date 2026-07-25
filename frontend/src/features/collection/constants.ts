@@ -4,26 +4,30 @@ import { Archive, Ban, Eye, type LucideIcon, Package, ShoppingBag } from 'lucide
 
 import type { ReviewCriteria } from '@/lib/helpers/reviews'
 
+// colorOn = AA-safe companion of color for text spots; color stays the vivid identity (fills, dots, borders).
 export const statusLabels: Record<
   UserProductStatus,
-  { label: string; icon: LucideIcon; color: string; purpose: string }
+  { label: string; icon: LucideIcon; color: string; colorOn: string; purpose: string }
 > = {
   in_stock: {
     label: 'En stock',
     icon: Package,
     color: 'var(--status-color-in-stock)',
+    colorOn: 'var(--status-color-in-stock-on)',
     purpose: 'Produit en votre possession, prêt à être utilisé.',
   },
   wishlist: {
     label: 'Wishlist',
     icon: ShoppingBag,
     color: 'var(--status-color-wishlist)',
+    colorOn: 'var(--status-color-wishlist-on)',
     purpose: 'Pas encore acheté — vous avez l’intention de l’acheter.',
   },
   watched: {
     label: 'Garde un œil',
     icon: Eye,
     color: 'var(--status-color-watched)',
+    colorOn: 'var(--status-color-watched-on)',
     purpose:
       'Bookmark sans engagement — vous gardez ce produit en mémoire sans l’ajouter à votre routine ni à votre wishlist.',
   },
@@ -31,12 +35,14 @@ export const statusLabels: Record<
     label: 'Archivé',
     icon: Archive,
     color: 'var(--status-color-archived)',
+    colorOn: 'var(--status-color-archived-on)',
     purpose: 'Produit passé — fini, plus en stock, ou mis de côté longuement.',
   },
   avoided: {
     label: 'À éviter',
     icon: Ban,
     color: 'var(--status-color-avoided)',
+    colorOn: 'var(--status-color-avoided-on)',
     purpose: 'Vous avez rejeté ce produit pour vous.',
   },
 }
@@ -53,7 +59,7 @@ export const pdsLabels = {
   editPurchaseTitle: "MODIFIER L'ACHAT",
 } as const
 
-// Holy Grail is sentiment=6, not a status - orthogonal to these tabs.
+// Holy Grail is sentiment=6, not a status, orthogonal to these tabs.
 export const PRIMARY_SHELF_ORDER: UserProductStatus[] = ['in_stock', 'wishlist', 'watched']
 
 export const SECONDARY_SHELF_ORDER: UserProductStatus[] = ['archived', 'avoided']
@@ -118,7 +124,7 @@ export const sortAriaLabel = (current: SortOption, next: SortOption) =>
   `${sortTitle(current)}. Activer pour trier par ${sortLabels[next]}`
 
 // Empirical compatibility, surfaced as a calm indicative chip (never a number or
-// verdict, per the product vision). Mid-band and missing scores show nothing.
+// verdict, per the product vision). Scores in the middle band and missing scores show nothing.
 const COMPAT_THRESHOLDS = { favorite: 65, watch: 35 } as const
 
 export type CompatTone = 'favorite' | 'watch'

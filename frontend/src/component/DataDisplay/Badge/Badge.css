@@ -46,7 +46,7 @@
   padding: var(--space-1) var(--space-3);
   border-radius: var(--radius-full);
   background: var(--bg-card);
-  color: var(--card-accent, var(--color-primary));
+  color: oklch(from var(--card-accent, var(--color-primary)) var(--on-tint-l) c h);
   border: var(--border-width) solid
     oklch(from var(--card-accent, var(--color-primary)) l c h / 0.25);
   letter-spacing: 0.4px;
@@ -58,6 +58,6 @@
    the desaturated status color keeps them calm (manifesto: no verdicts). */
 .badge--avoided {
   background: oklch(from var(--status-color-avoided) l c h / 0.15);
-  color: var(--status-color-avoided);
+  color: var(--status-color-avoided-on);
   border-color: oklch(from var(--status-color-avoided) l c h / 0.3);
 }

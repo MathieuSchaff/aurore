@@ -1,115 +1,124 @@
 [data-theme="dark"][data-variant="ardoise"] {
   color-scheme: dark;
 
-  /* Hues mirror the light variant. */
-  --h-slate: 245;
-  --h-gold: 75;
-  --h-rose: 15;
-  --h-ink: 250;
-  --h-cool: 235;
+  /* Slate stone: blue-grey mineral surfaces, one warm accent (ember) as contrast. */
+  --h-slate: 248;
+  --h-warm: 75;
+  --h-ember: 65;
 
-  /* Chroma boosted for dark depth. */
-  --c-muted: 0.07;
-  --c-soft: 0.025;
+  /* Perceptible cool chroma: slate must read blue, never navy-loud (old 0.05). */
+  --l-page: 15%;
+  --l-card: 20%;
+  --l-elevated: 23%;
+  --l-sunken: 17%;
+  --l-muted: 28%;
 
-  /* Page deep, cards lifted slate. */
-  --l-page: 13%;
-  --l-card: 28%;
-  --l-elevated: 32%;
-  --l-sunken: 20%;
-  --l-muted: 38%;
+  /* The single warm accent: desaturated dusk ember, lichen on the stone. */
+  --ember: oklch(78% 0.075 var(--h-ember));
+  --ember-bright: oklch(84% 0.06 var(--h-ember));
+  --ember-dim: oklch(30% 0.035 var(--h-ember));
+  --slate-bright: oklch(86% 0.02 245);
+  --text-inverse-warm: oklch(10% 0.01 var(--h-slate));
 
-  --slate-deep: oklch(22% 0.09 var(--h-slate));
-  --slate-mid: oklch(55% 0.14 var(--h-slate));
-  --gold-warm: oklch(78% 0.16 var(--h-gold));
-  --gold-deep: oklch(65% 0.18 var(--h-gold));
-  --rose-dust: oklch(72% 0.1 var(--h-rose));
-  --text-inverse-warm: oklch(10% 0.02 var(--h-ink));
+  /* Primary: polished light slate CTA. Light-on-dark, mineral not shouting. */
+  --color-primary: var(--slate-bright);
+  --color-primary-hover: oklch(91% 0.018 245);
+  --color-primary-text: oklch(16% 0.02 250);
+  --color-primary-dark: oklch(72% 0.02 245);
+  --color-focus: var(--ember);
+  /* Consumed app-wide as text on faint primary tints (pills, subnav); on this
+     dark ground "deeper" must stay light to keep those labels readable. */
+  --color-primary-deeper: oklch(78% 0.025 245);
+  --color-primary-light: oklch(25% 0.03 245);
+  --color-primary-subtle: oklch(18.5% 0.02 245);
 
-  /* Primary: gold CTA pops on slate cards. */
-  --color-primary: var(--gold-warm);
-  --color-primary-hover: oklch(85% 0.14 var(--h-gold));
-  --color-primary-text: oklch(14% 0.04 var(--h-ink));
-  --color-primary-dark: var(--gold-deep);
-  --color-focus: var(--gold-warm);
-  --color-primary-deeper: oklch(42% 0.13 var(--h-gold));
-  --color-primary-light: oklch(25% 0.07 var(--h-slate));
-  --color-primary-subtle: oklch(18% 0.04 var(--h-slate));
+  --color-secondary: var(--ember);
+  --color-tertiary: oklch(70% 0.03 var(--h-slate));
 
-  /* Sidebar: deeper midnight slate. */
+  /* Header band: same slate as the page, ember actions (consumed by toggles below). */
+  --color-header-bg: oklch(17% 0.018 var(--h-slate));
+  --color-header-action: var(--ember);
+  --color-header-action-bg-hover: oklch(from var(--ember) l c h / 0.12);
 
-  --color-secondary: var(--gold-warm);
-  --color-tertiary: var(--rose-dust);
+  /* Cool mist text: slate-tinted greys, calm not clinical. */
+  --text-inverse: oklch(15% 0.015 var(--h-slate));
+  --text-primary: oklch(91% 0.008 var(--h-slate));
+  --text-secondary: oklch(75% 0.012 var(--h-slate));
+  --text-muted: oklch(66% 0.022 var(--h-slate));
 
-  /* Header: slate band, gold actions. */
-  --color-header-bg: oklch(18% 0.07 var(--h-slate));
-  --color-header-action: var(--gold-warm);
-  --color-header-action-bg-hover: oklch(from var(--gold-warm) l c h / 0.15);
-
-  /* Warm-tinted text on dark slate. */
-  --text-inverse: oklch(15% 0.04 var(--h-ink));
-  --text-primary: oklch(94% 0.02 var(--h-gold));
-  --text-secondary: oklch(78% 0.03 var(--h-gold));
-  --text-muted: oklch(60% var(--c-muted) var(--h-slate));
-
-  --color-accent: var(--gold-warm);
-  --color-accent-light: oklch(28% 0.1 var(--h-gold));
-  --color-accent-hover: oklch(85% 0.14 var(--h-gold));
+  --color-accent: var(--ember);
+  --color-accent-light: oklch(24% 0.02 var(--h-ember));
+  --color-accent-hover: var(--ember-bright);
   --section-accent: var(--color-accent);
-  --bg-deep: oklch(10% 0.02 var(--h-slate));
+  --bg-deep: oklch(11% 0.015 var(--h-slate));
 
-  --color-success: oklch(70% 0.18 152);
-  --color-success-light: oklch(25% 0.08 152);
-  --color-error: oklch(68% 0.2 var(--h-rose));
-  --color-error-light: oklch(25% 0.09 var(--h-rose));
-  --color-info: oklch(68% 0.15 var(--h-cool));
-  --color-warning: oklch(72% 0.16 45);
-  --color-warning-light: oklch(25% 0.08 45);
-  --color-warning-text: oklch(82% 0.14 45);
+  /* Statuses: chroma pulled down to stay quiet on the mineral ground. */
+  --color-success: oklch(70% 0.12 152);
+  --color-success-light: oklch(24% 0.05 152);
+  --color-error: oklch(68% 0.14 20);
+  --color-error-light: oklch(24% 0.06 20);
+  --color-info: oklch(70% 0.08 235);
+  --color-warning: oklch(75% 0.11 70);
+  --color-warning-light: oklch(24% 0.05 70);
+  --color-warning-text: oklch(84% 0.1 var(--h-warm));
 
-  /* Page deep, cards tinted slate. */
-  --bg-page: oklch(var(--l-page) 0.015 var(--h-slate));
-  --bg-card: oklch(var(--l-card) 0.05 var(--h-slate));
-  --bg-elevated: oklch(var(--l-elevated) 0.06 var(--h-slate));
-  --bg-sunken: oklch(var(--l-sunken) 0.04 var(--h-slate));
-  --bg-muted: oklch(var(--l-muted) 0.04 var(--h-slate));
+  --bg-page: oklch(var(--l-page) 0.018 var(--h-slate));
+  --bg-card: oklch(var(--l-card) 0.02 var(--h-slate));
+  --bg-elevated: oklch(var(--l-elevated) 0.022 var(--h-slate));
+  --bg-sunken: oklch(var(--l-sunken) 0.016 var(--h-slate));
+  --bg-muted: oklch(var(--l-muted) 0.022 var(--h-slate));
+  /* Navbar: same slate as the page, separated by a hairline. No colored band. */
+  --nav-bg: oklch(var(--l-page) 0.018 var(--h-slate));
+  --nav-fg: var(--text-primary);
+  --nav-link: oklch(from var(--text-primary) l c h / 0.72);
+  --nav-link-hover: var(--text-primary);
+  --nav-hover-bg: oklch(from var(--text-primary) l c h / 0.07);
+  --nav-link-active: var(--text-primary);
+  --nav-accent: var(--ember);
+  --nav-border: oklch(27% 0.025 var(--h-slate));
+  /* Lightness for an accent used as text on its own tint, so contrast holds (AA). */
+  --on-tint-l: 82%;
 
-  --page-title-color: var(--gold-warm);
+  --page-title-color: var(--ember);
 
-  /* Card footer: warm gold haze. */
-  --card-footer-bg: oklch(20% 0.05 var(--h-gold));
-  --card-footer-border: oklch(35% 0.08 var(--h-gold));
-  --card-footer-color: oklch(92% 0.05 var(--h-gold));
-  --card-footer-color-muted: oklch(65% 0.05 var(--h-gold));
+  /* Card footer: sunken slate, no tinted haze. */
+  --card-footer-bg: oklch(17.5% 0.016 var(--h-slate));
+  --card-footer-border: oklch(27% 0.025 var(--h-slate));
+  --card-footer-color: oklch(86% 0.01 var(--h-slate));
+  --card-footer-color-muted: oklch(65% 0.018 var(--h-slate));
 
-  --product-unit-chip-bg: oklch(from var(--gold-warm) l c h / 0.12);
-  --product-unit-chip-text: var(--gold-warm);
-  --product-unit-chip-border: oklch(from var(--gold-warm) l c h / 0.3);
+  --product-unit-chip-bg: oklch(from var(--ember) l c h / 0.1);
+  --product-unit-chip-text: var(--ember);
+  --product-unit-chip-border: oklch(from var(--ember) l c h / 0.25);
 
-  --bg-hover: oklch(from var(--gold-warm) l c h / 0.1);
-  --bg-active: oklch(from var(--gold-warm) l c h / 0.18);
-  --bg-selected: oklch(30% 0.12 var(--h-gold));
+  --bg-hover: oklch(from var(--text-primary) l c h / 0.06);
+  --bg-active: oklch(from var(--text-primary) l c h / 0.11);
+  --bg-selected: oklch(32% 0.05 var(--h-ember));
 
-  --border-default: oklch(42% 0.07 var(--h-slate));
-  --border-strong: oklch(58% 0.1 var(--h-slate));
+  --border-default: oklch(29% 0.025 var(--h-slate));
+  --border-strong: oklch(43% 0.03 var(--h-slate));
 
   /* Softer shadows in dark mode. */
   --shadow-color: oklch(0% 0 0 / 0.5);
   --shadow-card: 0 4px 16px oklch(0% 0 0 / 0.45), 0 1px 4px oklch(0% 0 0 / 0.3);
 
-  --tag-active-bg: oklch(45% 0.14 var(--h-gold));
-  --tag-active-text: oklch(96% 0.04 var(--h-gold));
-  --tag-default-bg: oklch(25% 0.05 var(--h-slate));
-  --tag-default-text: oklch(72% 0.06 var(--h-gold));
+  --tag-active-bg: var(--ember-dim);
+  --tag-active-text: oklch(92% 0.02 var(--h-warm));
+  --tag-default-bg: oklch(25% 0.022 var(--h-slate));
+  --tag-default-text: oklch(77% 0.015 var(--h-slate));
 
-  --overlay: oklch(6% 0.04 var(--h-ink) / 0.75);
+  --overlay: oklch(5% 0.015 var(--h-slate) / 0.78);
   --surface-bright: oklch(99% 0.002 0deg);
-  --hero-glow: oklch(22% 0.08 var(--h-gold));
+  --hero-glow: oklch(19% 0.02 var(--h-ember));
 
-  --toggle-track-bg: oklch(from var(--color-header-action) l c h / 0.15);
+  /* Photo tiles: dim the whole tile (backdrop + shot together) so product
+     photos stop glaring on the slate ground while white backgrounds still fuse. */
+  --photo-tile-dim: brightness(0.85) saturate(0.92);
+
+  --toggle-track-bg: oklch(from var(--color-header-action) l c h / 0.12);
   --toggle-track-hover-bg: var(--color-header-action-bg-hover);
   --toggle-fg: var(--color-header-action);
   --toggle-fg-opacity: 0.35;
   --toggle-active-icon: var(--color-header-bg);
-  --toggle-active-filter: drop-shadow(0 0 3px oklch(from var(--color-header-action) l c h / 0.6));
+  --toggle-active-filter: drop-shadow(0 0 3px oklch(from var(--color-header-action) l c h / 0.5));
 }

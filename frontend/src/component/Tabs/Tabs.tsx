@@ -19,6 +19,8 @@ export interface TabOption<T extends string> {
   badge?: string | number
   /** Underline variant only. */
   color?: string
+  /** Underline variant only. AA-safe companion of `color` for text; fills keep `color`. */
+  colorOn?: string
   /** Underline variant only. */
   dimmed?: boolean
 }
@@ -149,7 +151,10 @@ export const Tabs = <T extends string>({
           const isActive = activeTab === option.id
           const tintStyle =
             variant === 'underline' && option.color
-              ? ({ '--tab-color': option.color } as CSSProperties)
+              ? ({
+                  '--tab-color': option.color,
+                  '--tab-color-on': option.colorOn,
+                } as CSSProperties)
               : undefined
           return (
             <button

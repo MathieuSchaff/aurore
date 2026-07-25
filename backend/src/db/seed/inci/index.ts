@@ -199,8 +199,26 @@ export function foldScraperDelimiters(
     .replace(/([A-Za-zÀ-ÿ]{2}[™®*]{0,2})\s+-\s*(?=[A-Za-zÀ-ÿ]{2})/g, '$1, ')
 }
 
-export function normalizeInciToken(s: string): string {
+// Scraper/label artefacts that hide a substance we already resolve: organic markers, supplier
+// bracket notes, a paren the split cut open, formulation doses. `[nano]` folds onto the plain
+// name on purpose — the two are regulatorily distinct but share one `ingredients` row today.
+// Slashes are deliberately left alone: `Phytosteryl/Isostearyl/Cetyl Dimer Dilinoleate` is one
+// compound name, not a double nomenclature, and splitting on them fabricates links.
+// Applied before BOTH lookup paths, so keep it out of normalizeInciToken's uppercasing.
+export function stripInciArtefacts(s: string): string {
   return s
+    .replace(/[*†‡•]+/g, ' ')
+    .replace(/\[[^\]]*\]/g, ' ')
+    .replace(/\([^)]*$/, ' ')
+    .replace(/\d[\d.,]*\s*(%|ppm\b)/gi, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/[.,;:-]+$/, '')
+    .trim()
+}
+
+export function normalizeInciToken(s: string): string {
+  return stripInciArtefacts(s)
     .normalize('NFD')
     .replace(/[̀-ͯ]/g, '')
     .replace(/\([^)]*\)/g, '')

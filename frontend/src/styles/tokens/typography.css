@@ -1,7 +1,7 @@
 :root {
   --font-sans: "DM Sans", system-ui, sans-serif;
-  --font-display: "Young Serif", serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-display: "Fraunces", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
 
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
@@ -31,7 +31,7 @@
   --tracking-normal: 0;
   --tracking-wide: 0.05em;
   --tracking-wider: 0.1em;
-  /* Widest tracking for uppercase labels - luxurious / editorial. */
+  /* Widest tracking for uppercase labels: luxurious / editorial. */
   --tracking-widest: 0.2em;
 
   --font-features-display: "kern" 1, "liga" 1, "onum" 1, "pnum" 1;
