@@ -30,6 +30,8 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
+  /* Wordmark line-box alone is 21px, under the 24px minimum tap target. */
+  min-height: 44px;
   color: var(--nav-fg, var(--text-primary));
   text-decoration: none;
 }
