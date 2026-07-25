@@ -195,7 +195,7 @@ export function SearchCombobox<TItem, TQueryKey extends QueryKey>({
             spellCheck={false}
             aria-label={label}
             aria-expanded={combobox.isOpen}
-            aria-controls={listboxId}
+            aria-controls={combobox.isOpen ? listboxId : undefined}
             aria-activedescendant={activeDescendant}
             aria-autocomplete="list"
           />

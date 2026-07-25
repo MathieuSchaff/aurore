@@ -17,7 +17,7 @@ type AuthLayoutProps = {
 
 export const AuthLayout = ({ children, footer }: AuthLayoutProps) => {
   return (
-    <main className="auth-layout">
+    <div className="auth-layout">
       <div className="auth-container">
         <section className="auth-card" aria-label="Authentification">
           {children}
@@ -32,6 +32,6 @@ export const AuthLayout = ({ children, footer }: AuthLayoutProps) => {
           </footer>
         )}
       </div>
-    </main>
+    </div>
   )
 }
