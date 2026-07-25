@@ -30,13 +30,15 @@ import { AppErrorBoundary } from '../component/Feedback/app/AppErrorBoundary/App
 import { GlobalError } from '../component/Feedback/app/GlobalError/GlobalError'
 import { NavigationProgress } from '../component/Feedback/app/NavigationProgress/NavigationProgress'
 import { AppLayout } from '../component/Layout/AppLayout/AppLayout'
-import { readServerSessionHint, ServerHintProvider } from '../lib/auth/serverHint'
+import { readServerSessionHint } from '../lib/auth/readServerSessionHint'
+import { ServerHintProvider } from '../lib/auth/serverHint'
 import { getCspNonce } from '../lib/csp/nonce'
 import { useBootRefresh } from '../lib/hooks/useBootRefresh'
 import { useTokenRefresh } from '../lib/hooks/useTokenRefresh'
 import { NOINDEX_ROBOTS } from '../lib/seo'
 import type { RouterContext } from '../routerContext'
 import { useAuthStore } from '../store/auth'
+import { useThemeStore } from '../store/theme'
 
 // Excluded from prod bundle - Vite resolves import.meta.env.DEV at build time
 const ReactQueryDevtools = import.meta.env.DEV
@@ -48,11 +50,17 @@ const ReactQueryDevtools = import.meta.env.DEV
   : () => null
 
 function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
+  // Subscribed here rather than in RootComponent: a theme toggle then re-renders only
+  // this component, and the stable `children` element makes React skip the subtree.
+  const theme = useThemeStore((s) => s.theme)
+  const variant = useThemeStore((s) => s.variant)
+
   return (
-    // suppressHydrationWarning: client code re-themes data-theme/data-variant from
-    // storage before hydration, so these attributes legitimately differ from SSR.
-    // The SSR defaults (light/terracota) keep colors painted before that JS runs.
-    <html lang="fr" data-theme="light" data-variant="terracota" suppressHydrationWarning>
+    // React owns these attributes, so hardcoding them let every root replay write
+    // light/terracota back over what the pre-paint script had applied.
+    // suppressHydrationWarning: the store reads storage synchronously, so the first
+    // client render legitimately differs from the SSR defaults (light/terracota).
+    <html lang="fr" data-theme={theme} data-variant={variant} suppressHydrationWarning>
       <head>
         {/* @layer order must be declared before any CSS loads. Rolldown strips the
             bare @layer statement from bundled CSS, so without this the cascade

@@ -18,7 +18,9 @@ fallow-baseline:
 knip flags="":
     DATABASE_URL=postgres://x bunx knip {{flags}} --reporter compact
 
-# Import cycles. Seed blog data excluded: index↔article-data barrels are static-data cycles, not real coupling.
+# Import cycles. Type-only imports are ignored via .madgerc so TanStack Start's generated
+# Register imports and other erased TypeScript edges do not masquerade as runtime cycles.
+# Seed blog data excluded: index↔article-data barrels are static data, not real coupling.
 cycles:
     bunx madge --circular --extensions ts,tsx --exclude '(dist|node_modules|db/seed/data)/' backend/src frontend/src shared/src
 

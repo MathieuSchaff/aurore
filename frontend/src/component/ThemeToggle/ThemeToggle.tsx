@@ -3,7 +3,7 @@ import { Moon, Sun } from 'lucide-react'
 import { useId, useRef } from 'react'
 
 import type { Variant } from '../../store/theme'
-import { useThemeStore } from '../../store/theme'
+import { DEFAULT_THEME, DEFAULT_VARIANT, useThemeStore } from '../../store/theme'
 import './ThemeToggle.css'
 
 const VARIANTS: Array<{ value: Variant; label: string; color: string }> = [
@@ -18,15 +18,15 @@ export const ThemeToggle = () => {
   const popoverRef = useRef<HTMLDivElement>(null)
   const popoverId = useId()
   const hydrated = useHydrated()
-  // The store reads localStorage/matchMedia, which the server can't see: SSR
-  // always renders light. Mirror that on the first client render (hydration
-  // must match), then show the real theme once hydrated.
-  const isDark = hydrated && theme === 'dark'
-  const currentVariant = VARIANTS.find((v) => v.value === variant)
+  // The store reads localStorage/matchMedia the server can't see, so mirror the
+  // SSR defaults until hydrated: an attribute-only mismatch is never patched up.
+  const isDark = (hydrated ? theme : DEFAULT_THEME) === 'dark'
+  const activeVariant = hydrated ? variant : DEFAULT_VARIANT
+  const currentVariant = VARIANTS.find((v) => v.value === activeVariant)
 
   // The button's popovertarget owns open/close. A manual onClick toggle races
   // the auto-popover light-dismiss: dismiss hides on pointerdown, then the
-  // handler re-reads :popover-open as false and re-opens. Position from the
+  // handler reads :popover-open as false again and opens it. Position from the
   // toggle events so the browser stays the single source of truth.
   const position = () => {
     const el = popoverRef.current
@@ -82,8 +82,8 @@ export const ThemeToggle = () => {
       </button>
 
       {/* popover="auto" handles outside-click + Escape; the button's
-          popoverTarget handles toggle. beforetoggle pre-positions to avoid a
-          flash, toggle clamps once the popover is measurable. */}
+          popoverTarget handles toggle. beforetoggle positions it early to avoid
+          a flash, toggle clamps once the popover is measurable. */}
       <div
         ref={popoverRef}
         id={popoverId}
@@ -128,7 +128,7 @@ export const ThemeToggle = () => {
             key={v.value}
             type="button"
             className="theme-dropdown__btn"
-            aria-pressed={variant === v.value}
+            aria-pressed={activeVariant === v.value}
             onClick={() => {
               setVariant(v.value)
               close()

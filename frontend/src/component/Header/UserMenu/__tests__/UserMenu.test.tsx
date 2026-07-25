@@ -139,6 +139,16 @@ describe('UserMenu', () => {
     expect(useQuery).toHaveBeenCalledWith(expect.objectContaining({ enabled: false }))
   })
 
+  it('does not expose a cached profile after the session ends', () => {
+    setAuthState(false)
+    setProfile({ username: 'mathieu', avatarUrl: null })
+
+    render(<UserMenu />)
+
+    expect(screen.getByRole('img', { name: 'Avatar par défaut' })).toBeInTheDocument()
+    expect(screen.queryByRole('img', { name: 'Avatar de mathieu' })).not.toBeInTheDocument()
+  })
+
   it('renders the username next to the avatar only in the drawer variant', () => {
     setAuthState(true)
     setProfile({ username: 'mathieu', avatarUrl: null })

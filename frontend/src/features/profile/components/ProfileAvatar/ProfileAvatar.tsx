@@ -15,7 +15,7 @@ const getInitials = (username?: string | null): string | null => {
 export const ProfileAvatar = ({ avatarUrl, username, size = 'lg' }: ProfileAvatarProps) => {
   const initials = getInitials(username)
 
-  const label = `Avatar de ${username ?? 'utilisateur'}`
+  const label = username ? `Avatar de ${username}` : 'Avatar par défaut'
 
   return (
     <div className={`profile-avatar profile-avatar--${size}`} role="img" aria-label={label}>
