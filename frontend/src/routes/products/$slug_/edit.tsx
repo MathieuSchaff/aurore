@@ -25,6 +25,5 @@ export const Route = createFileRoute('/products/$slug_/edit')({
     }),
   pendingComponent: ProductInfoSkeleton,
   notFoundComponent: () => <GlobalError error={new Error('not_found')} is404 />,
-  errorComponent: ({ error, reset }) => <GlobalError error={error} reset={reset} />,
   component: ProductEditPage,
 })

@@ -13,7 +13,6 @@ export const Route = createFileRoute('/_authenticated/products/compare/$id')({
       throw err
     }),
   notFoundComponent: () => <GlobalError error={new Error('not_found')} is404 />,
-  errorComponent: ({ error, reset }) => <GlobalError error={error} reset={reset} />,
   component: function ComparisonDetailRoute() {
     const { id } = Route.useParams()
     return <ComparisonBuilderPage mode="edit" id={id} />

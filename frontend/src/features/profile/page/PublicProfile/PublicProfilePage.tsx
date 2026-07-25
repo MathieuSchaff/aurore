@@ -28,7 +28,7 @@ function hasAnyVisibleField(view: PublicProfileView): boolean {
 
 export function PublicProfilePage({ username }: PublicProfilePageProps) {
   const { data } = useSuspenseQuery(profileQueries.publicByUsername(username))
-  // Shared (deduped) with the trail sections — only used to keep the "rien de
+  // Shared (deduped) with the trail sections. Only used to keep the "rien de
   // partagé" message from contradicting a populated posts/reviews trail.
   const { data: reviewsData } = useQuery(profileQueries.reviewsByUsername(username))
   const { data: postsData } = useQuery(profileQueries.postsByUsername(username))

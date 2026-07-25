@@ -72,7 +72,7 @@ services:
         max-file: "3"
     expose:
       - "3000"
-    # Probe a static asset (no SSR cost) with bun itself — the image ships neither wget nor curl.
+    # Probe a static asset (no SSR cost) with bun itself. The image ships neither wget nor curl.
     healthcheck:
       test:
         [
@@ -107,7 +107,7 @@ services:
         condition: service_healthy
 
   # Was the only container without a cap, so a runaway renew loop had the whole host to
-  # eat while the other five would have been OOM-killed at their own limit.
+  # eat while every other service would have been OOM-killed at its own limit.
   certbot:
     mem_limit: 128m
     logging:

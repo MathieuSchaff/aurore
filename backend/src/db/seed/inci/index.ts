@@ -1,9 +1,9 @@
 /**
- * inci-index.ts: INCI-token → slug index for auto-filling candidate keyIngredients.
+ * INCI-token to slug index for auto-filling candidate keyIngredients.
  *
  * Two parsing sources, first-write wins on collisions:
  *   1. ingredientData[].content markdown: `## INCI\n**Token**` block
- *   2. data/ingredients/*&#47;ingredient-slugs.ts: inline `// [INCI:] Token | desc` comments
+ *   2. data/ingredients/<domain>/ingredient-slugs.ts: inline `// [INCI:] Token | desc` comments
  *
  * Excipient blocklist filters out tokens that are too common to be informative
  * (water, glycerin, denat. alcohol, EDTA…). buildInciIndex drops them at construction;

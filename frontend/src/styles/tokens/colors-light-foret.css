@@ -37,8 +37,6 @@
   --color-primary-light: oklch(92% 0.06 var(--h-pine));
   --color-primary-subtle: oklch(97% 0.012 var(--h-pine));
 
-  /* Sidebar: dark pine, amber accent. */
-
   --color-secondary: var(--terracotta-warm);
   --color-tertiary: var(--amber-honey);
 

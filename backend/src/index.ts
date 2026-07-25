@@ -19,7 +19,7 @@ import { articleRoutes } from './features/blog'
 import { meRoutes } from './features/catalog-submissions/routes'
 import { collectionRoutes } from './features/collection/routes'
 import { ingredientDiscussionRoutes } from './features/discussions/ingredient-discussion-routes'
-import { healthRoute, readyRoute } from './features/health/routes'
+import { HEALTH_PATH, healthRoute, READY_PATH, readyRoute } from './features/health/routes'
 import { ingredientTagDefRoutes } from './features/ingredient-tags/routes'
 import { ingredientTagRoutes } from './features/ingredients/ingredient-tags/routes'
 import { ingredientRoutes } from './features/ingredients/routes'
@@ -76,8 +76,8 @@ app.use('*', globalRateLimiterFunc)
 
 const routes = app
   .route('/api/auth', jwtAuthRoutes)
-  .route('/api/health', healthRoute)
-  .route('/api/ready', readyRoute)
+  .route(HEALTH_PATH, healthRoute)
+  .route(READY_PATH, readyRoute)
   .route('/api/profile', profileRoute)
   .route('/api/profiles', publicProfileRoutes)
   .route('/api/social', socialRoutes)
@@ -131,7 +131,7 @@ export type AppType = typeof routes
 const server = Bun.serve({ port, fetch: app.fetch })
 
 // Drain in-flight requests, then release DB connections on shutdown.
-// 8s hard cap stays under Docker's 10s SIGTERM→SIGKILL window.
+// 8s hard cap stays under Docker's 10s SIGTERM-to-SIGKILL window.
 let shuttingDown = false
 const shutdown = async (signal: string) => {
   if (shuttingDown) return
