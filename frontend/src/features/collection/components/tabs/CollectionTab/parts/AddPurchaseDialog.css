@@ -19,7 +19,7 @@
 
 .apd-title {
   font-size: 0.65rem;
-  font-weight: 800;
+  font-weight: var(--font-bold);
   color: var(--text-muted);
   letter-spacing: 0.05em;
 }

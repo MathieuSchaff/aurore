@@ -40,18 +40,18 @@
   .main-nav__link {
     position: relative;
     padding: var(--space-2) var(--space-3);
-    color: var(--text-secondary);
+    color: var(--nav-link, var(--text-secondary));
     border-radius: var(--radius-sm);
     font-size: var(--text-sm);
 
     &:hover {
-      color: var(--text-primary);
-      background: var(--bg-hover);
+      color: var(--nav-link-hover, var(--text-primary));
+      background: var(--nav-hover-bg, var(--bg-hover));
     }
   }
 
   .main-nav__link[aria-current="page"] {
-    color: var(--color-primary);
+    color: var(--nav-link-active, var(--color-primary));
     font-weight: var(--font-semibold);
 
     &::after {
@@ -62,7 +62,7 @@
       bottom: 0;
       height: 2px;
       border-radius: var(--radius-full);
-      background: var(--color-primary);
+      background: var(--nav-accent, var(--color-primary));
     }
   }
 }

@@ -1,12 +1,12 @@
 :root {
-  /* Indigo-base hues - default fallback when no variant is loaded. */
+  /* Indigo-base hues, default fallback when no variant is loaded. */
   --hue-primary: 260deg;
   --hue-accent: 35deg;
   --hue-success: 145deg;
   --hue-error: 15deg;
   --hue-warning: 45deg;
 
-  /* Collection status colors - kept theme-independent so status reads consistently across variants. */
+  /* Collection status colors, kept theme-independent so status reads consistently across variants. */
   --status-color-in-stock: oklch(65% 0.18 145deg);
   --status-color-wishlist: oklch(58% 0.18 250deg);
   --status-color-watched: oklch(72% 0.15 60deg);
@@ -15,7 +15,46 @@
   --status-color-avoided: oklch(52% 0.14 25deg);
   --status-color-repurchase: oklch(70% 0.14 340deg);
 
-  /* Sentiment faces - an "Aurore" dawn sweep, theme-independent like status colors.
+  /* Text-readable tone of each status color, for use as TEXT on a tint of itself
+     (badges, pickers). Mode-aware via light-dark(): dark ink in light themes, light
+     in dark. Raw status color as text on its 0.15 tint reads 2-3.5 (fails AA); these
+     resolve >=6:1 across all 6 themes. Keep the raw --status-color-* for fills/dots. */
+  --status-color-in-stock-on: light-dark(
+    oklch(from var(--status-color-in-stock) 40% c h),
+    oklch(from var(--status-color-in-stock) 82% c h)
+  );
+  --status-color-wishlist-on: light-dark(
+    oklch(from var(--status-color-wishlist) 40% c h),
+    oklch(from var(--status-color-wishlist) 82% c h)
+  );
+  --status-color-watched-on: light-dark(
+    oklch(from var(--status-color-watched) 40% c h),
+    oklch(from var(--status-color-watched) 82% c h)
+  );
+  --status-color-holy-grail-on: light-dark(
+    oklch(from var(--status-color-holy-grail) 40% c h),
+    oklch(from var(--status-color-holy-grail) 82% c h)
+  );
+  --status-color-archived-on: light-dark(
+    oklch(from var(--status-color-archived) 40% c h),
+    oklch(from var(--status-color-archived) 82% c h)
+  );
+  --status-color-avoided-on: light-dark(
+    oklch(from var(--status-color-avoided) 40% c h),
+    oklch(from var(--status-color-avoided) 82% c h)
+  );
+  --status-color-repurchase-on: light-dark(
+    oklch(from var(--status-color-repurchase) 40% c h),
+    oklch(from var(--status-color-repurchase) 82% c h)
+  );
+
+  /* Text-readable tone of the accent, same contract as --status-color-*-on: use for
+     normal-size TEXT (raw accent reads 2.2-4.4 on light-theme surfaces); keep the raw
+     accent for fills, borders, large display text. Follows each theme's --on-tint-l
+     (42% light / 82% dark), so it resolves per variant. */
+  --color-accent-on: oklch(from var(--color-accent) var(--on-tint-l, 42%) c h);
+
+  /* Sentiment faces: an "Aurore" dawn sweep, theme-independent like status colors.
      A mood/time gradient, never a verdict: the low end is calm pre-dawn, not punishment.
      Each face is multi-tone (emoji, not line-art): hue = spherical edge, -fill = the
      face body, plus shared highlight, dark facial ink and warm blush. */
@@ -33,11 +72,11 @@
   --sentiment-ink: oklch(34% 0.035 285deg);
   --sentiment-blush: oklch(72% 0.14 25deg);
 
-  /* Stats palette - theme-independent. */
+  /* Stats palette, theme-independent. */
   --color-stat-orange: oklch(70% 0.18 45deg);
   --color-stat-purple: oklch(65% 0.15 280deg);
 
-  /* Fitzpatrick skin-tone palette - physical pigmentation, theme-independent. Used in DermoProfileForm segments and SkinProfileRead badges. */
+  /* Fitzpatrick skin-tone palette: physical pigmentation, theme-independent. Used in DermoProfileForm segments and SkinProfileRead badges. */
   --fitz-1: oklch(88% 0.06 50);
   --fitz-2: oklch(78% 0.1 45);
   --fitz-3: oklch(66% 0.13 40);
@@ -45,7 +84,7 @@
   --fitz-5: oklch(36% 0.1 30);
   --fitz-6: oklch(22% 0.06 25);
 
-  /* Comparison column palette - distinguishes up to 5 products side-by-side. Theme-independent so DiffSection columns 3-5 keep their identity across all variants. Hues match the terracota palette intent. */
+  /* Comparison column palette: distinguishes up to 5 products side-by-side. Theme-independent so DiffSection columns 3-5 keep their identity across all variants. Hues match the terracota palette intent. */
   --color-aqua: oklch(70% 0.11 185);
   --color-aqua-subtle: oklch(97% 0.018 185);
   --color-lavender: oklch(68% 0.14 305);

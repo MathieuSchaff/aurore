@@ -1,120 +1,138 @@
 [data-theme="dark"][data-variant="terracota"] {
   color-scheme: dark;
 
-  /* Mirrors the light terracota identity: green CTA, warm orange/mango accents.
-     Surfaces stay near-neutral warm (hue ~50, low chroma) to read as warm
-     graphite, not the muddy brown the old hue-58 / chroma-0.018 surfaces gave. */
-  --h-green: 154;
-  --h-mango: 65;
-  --h-orange: 53;
-  --h-warm: 50;
-  --h-coral: 18;
-  --h-amber: 80;
+  /* Brick kiln at night: fired-clay ground, ember rust as the chromatic voice.
+     The ground sits on the red side of orange (h27) on purpose: cocoa/mud is a
+     dark *orange*, so h40+ grounds turn brown at these lightnesses while h27
+     stays oxblood-brick. That also means the ground can carry real chroma
+     (~0.05) instead of greying out. */
+  --h-brick: 27;
+  --h-rust: 52;
+  /* Text tint hue: between ground and accent so light text reads warm sand
+     rather than pink (pure h27 at low chroma pinks). */
+  --h-sand: 45;
+  /* Consumed with a 75 fallback by features/home/.../shared.css. Keep it there. */
+  --h-amber: 75;
 
-  --c-muted: 0.03;
-  --c-soft: 0.012;
-
+  /* ~4 points a step: a wider page-to-card jump makes every card float off the
+     page like a sticker. */
   --l-page: 13%;
-  --l-card: 21%;
-  --l-elevated: 26%;
-  --l-sunken: 17%;
-  --l-muted: 32%;
+  --l-card: 17%;
+  --l-elevated: 20.5%;
+  --l-sunken: 10%;
+  --l-muted: 25.5%;
 
-  --green-bright: oklch(72% 0.16 var(--h-green));
-  --green-strong: oklch(78% 0.17 var(--h-green));
-  --green-deep: oklch(52% 0.15 var(--h-green));
-  --mango: oklch(75% 0.17 var(--h-mango));
-  --mango-strong: oklch(80% 0.18 var(--h-mango));
-  --cream: oklch(94% 0.02 70);
-  --cream-muted: oklch(78% 0.03 var(--h-mango));
-  --text-inverse-warm: oklch(18% 0.03 var(--h-warm));
+  --rust: oklch(70% 0.16 var(--h-rust));
+  --rust-bright: oklch(77% 0.145 var(--h-rust));
+  --rust-dim: oklch(33% 0.1 var(--h-rust));
+  --clay-bright: oklch(91% 0.028 var(--h-amber));
+  --text-inverse-warm: oklch(9.5% 0.03 var(--h-brick));
 
-  /* Compatibility aliases for older page-level CSS (AboutPage uses mango-bright). */
-  --h-papaya: 32;
-  --h-forest: var(--h-green);
-  --mango-bright: var(--mango-strong);
-  --forest-green: var(--green-bright);
+  /* Primary: warm cream CTA. Lime wash against the brick, and the only pale
+     mass on the page. */
+  --color-primary: var(--clay-bright);
+  --color-primary-hover: oklch(95% 0.022 var(--h-amber));
+  --color-primary-text: oklch(17% 0.04 var(--h-brick));
+  --color-primary-dark: oklch(76% 0.05 55);
+  --color-focus: var(--rust);
+  /* Consumed app-wide as text on faint primary tints (pills, subnav); on this
+     dark ground "deeper" must stay light to keep those labels readable. */
+  --color-primary-deeper: oklch(82% 0.05 55);
+  --color-primary-light: oklch(24% 0.06 var(--h-brick));
+  --color-primary-subtle: oklch(17.5% 0.05 var(--h-brick));
 
-  --color-primary: var(--green-bright);
-  --color-primary-hover: var(--green-strong);
-  --color-primary-text: oklch(18% 0.04 var(--h-green));
-  --color-primary-dark: var(--green-deep);
-  --color-focus: var(--green-bright);
-  --color-primary-deeper: oklch(40% 0.12 var(--h-green));
-  --color-primary-light: oklch(28% 0.06 var(--h-green));
-  --color-primary-subtle: oklch(22% 0.04 var(--h-green));
+  --color-secondary: var(--rust);
+  --color-tertiary: oklch(80% 0.1 72);
 
-  /* Sidebar: dark clay band (warm orange hue), mango accents. */
+  /* Header band: same brick as the page, rust actions (consumed by toggles below). */
+  --color-header-bg: oklch(15.5% 0.05 var(--h-brick));
+  --color-header-action: var(--rust);
+  --color-header-action-bg-hover: oklch(from var(--rust) l c h / 0.14);
 
-  --color-secondary: var(--mango);
-  --color-tertiary: var(--green-bright);
+  --text-inverse: oklch(14% 0.035 var(--h-brick));
+  --text-primary: oklch(93% 0.009 var(--h-sand));
+  --text-secondary: oklch(79% 0.014 var(--h-sand));
+  --text-muted: oklch(68% 0.02 var(--h-sand));
 
-  --color-header-bg: oklch(22% 0.05 var(--h-orange));
-  --color-header-action: oklch(86% 0.06 var(--h-mango));
-  --color-header-action-bg-hover: oklch(from var(--mango) l c h / 0.15);
-
-  --text-inverse: var(--text-inverse-warm);
-  --text-primary: var(--cream);
-  --text-secondary: var(--cream-muted);
-  --text-muted: oklch(62% var(--c-muted) 60);
-
-  --color-accent: var(--mango);
-  --color-accent-light: oklch(28% 0.08 var(--h-mango));
-  --color-accent-hover: var(--mango-strong);
+  --color-accent: var(--rust);
+  --color-accent-light: oklch(26% 0.08 var(--h-rust));
+  --color-accent-hover: var(--rust-bright);
   --section-accent: var(--color-accent);
-  --bg-deep: oklch(10% 0.01 var(--h-warm));
+  --bg-deep: oklch(9.5% 0.045 var(--h-brick));
 
-  --color-success: var(--green-bright);
-  --color-success-light: oklch(26% 0.07 var(--h-green));
-  --color-error: oklch(70% 0.2 var(--h-coral));
-  --color-error-light: oklch(26% 0.08 var(--h-coral));
-  --color-info: oklch(72% 0.1 195);
-  --color-warning: oklch(80% 0.15 var(--h-amber));
-  --color-warning-light: oklch(26% 0.07 var(--h-amber));
-  --color-warning-text: oklch(85% 0.13 var(--h-amber));
+  /* Statuses on a red theme: error is pushed to a cold crimson (h8) at high
+     chroma so it never reads as brick decoration, and warning is pulled to a
+     franker yellow (h95) to clear the rust accent. */
+  --color-success: oklch(74% 0.12 152);
+  --color-success-light: oklch(24% 0.055 152);
+  --color-error: oklch(69% 0.2 8);
+  --color-error-light: oklch(24% 0.09 8);
+  /* Eucalyptus rather than periwinkle: keeps the one cool status token off
+     ardoise's territory. */
+  --color-info: oklch(76% 0.075 195);
+  --color-warning: oklch(85% 0.14 95);
+  --color-warning-light: oklch(24% 0.06 95);
+  --color-warning-text: oklch(89% 0.13 95);
 
-  /* Warm-neutral surfaces (hue ~50, collapsed chroma) — kills the brown mud. */
-  --bg-page: oklch(var(--l-page) 0.009 var(--h-warm));
-  --bg-card: oklch(var(--l-card) 0.011 var(--h-warm));
-  --bg-elevated: oklch(var(--l-elevated) 0.012 var(--h-warm));
-  --bg-sunken: oklch(var(--l-sunken) 0.01 var(--h-warm));
-  --bg-muted: oklch(var(--l-muted) 0.012 var(--h-warm));
+  --bg-page: oklch(var(--l-page) 0.052 var(--h-brick));
+  --bg-card: oklch(var(--l-card) 0.058 var(--h-brick));
+  --bg-elevated: oklch(var(--l-elevated) 0.062 var(--h-brick));
+  --bg-sunken: oklch(var(--l-sunken) 0.042 var(--h-brick));
+  --bg-muted: oklch(var(--l-muted) 0.066 var(--h-brick));
+  /* Navbar: same brick as the page, separated by a hairline. No colored band. */
+  --nav-bg: oklch(var(--l-page) 0.052 var(--h-brick));
+  --nav-fg: var(--text-primary);
+  --nav-link: oklch(from var(--text-primary) l c h / 0.72);
+  --nav-link-hover: var(--text-primary);
+  --nav-hover-bg: oklch(from var(--text-primary) l c h / 0.07);
+  --nav-link-active: var(--text-primary);
+  --nav-accent: var(--rust);
+  --nav-border: oklch(26% 0.055 var(--h-brick));
+  /* Lightness for an accent used as text on its own tint, so contrast holds (AA). */
+  --on-tint-l: 82%;
 
-  --page-title-color: var(--mango);
+  --page-title-color: var(--rust-bright);
 
-  /* Card footer: warm clay haze separated from card by chroma. */
-  --card-footer-bg: oklch(20% 0.045 var(--h-orange));
-  --card-footer-border: oklch(35% 0.06 var(--h-orange));
-  --card-footer-color: oklch(90% 0.05 var(--h-mango));
-  --card-footer-color-muted: oklch(65% 0.04 60);
+  /* Card footer: sunken brick, no tinted haze. */
+  --card-footer-bg: oklch(15.5% 0.05 var(--h-brick));
+  --card-footer-border: oklch(26% 0.055 var(--h-brick));
+  --card-footer-color: oklch(89% 0.012 var(--h-sand));
+  --card-footer-color-muted: oklch(67% 0.02 var(--h-sand));
 
-  --product-unit-chip-bg: oklch(from var(--mango) l c h / 0.12);
-  --product-unit-chip-text: oklch(82% 0.12 var(--h-mango));
-  --product-unit-chip-border: oklch(from var(--mango) l c h / 0.3);
+  --product-unit-chip-bg: oklch(from var(--rust) l c h / 0.13);
+  --product-unit-chip-text: var(--rust-bright);
+  --product-unit-chip-border: oklch(from var(--rust) l c h / 0.3);
 
-  --bg-hover: oklch(from var(--green-bright) l c h / 0.1);
-  --bg-active: oklch(from var(--green-bright) l c h / 0.18);
-  --bg-selected: oklch(30% 0.1 var(--h-green));
+  --bg-hover: oklch(from var(--text-primary) l c h / 0.06);
+  --bg-active: oklch(from var(--text-primary) l c h / 0.11);
+  --bg-selected: var(--rust-dim);
 
-  --border-default: oklch(38% 0.02 var(--h-warm));
-  --border-strong: oklch(50% 0.03 var(--h-warm));
+  --border-default: oklch(28% 0.055 var(--h-brick));
+  --border-strong: oklch(42% 0.065 var(--h-brick));
 
-  --shadow-color: oklch(0% 0 0 / 0.55);
+  /* Softer shadows in dark mode. */
+  --shadow-color: oklch(0% 0 0 / 0.5);
   --shadow-card: 0 4px 16px oklch(0% 0 0 / 0.45), 0 1px 4px oklch(0% 0 0 / 0.3);
 
-  --tag-active-bg: oklch(48% 0.14 var(--h-green));
-  --tag-active-text: var(--cream);
-  --tag-default-bg: oklch(25% 0.03 var(--h-warm));
-  --tag-default-text: oklch(72% 0.05 60);
+  --tag-active-bg: var(--rust-dim);
+  --tag-active-text: oklch(94% 0.035 55);
+  --tag-default-bg: oklch(24% 0.058 var(--h-brick));
+  --tag-default-text: oklch(80% 0.018 var(--h-sand));
 
-  --overlay: oklch(8% 0.02 var(--h-warm) / 0.78);
+  --overlay: oklch(6% 0.04 var(--h-brick) / 0.8);
   --surface-bright: oklch(99% 0.002 0deg);
-  --hero-glow: oklch(32% 0.1 var(--h-green));
+  /* The ember band where the kiln glows through: the one place the warm hue is
+     allowed real chroma on a surface. */
+  --hero-glow: oklch(28% 0.12 42);
 
-  --toggle-track-bg: oklch(from var(--color-header-action) l c h / 0.15);
+  /* Photo tiles: dim the whole tile (backdrop + shot together) so product
+     photos stop glaring on the brick ground while white backgrounds still fuse. */
+  --photo-tile-dim: brightness(0.85) saturate(0.92);
+
+  --toggle-track-bg: oklch(from var(--color-header-action) l c h / 0.12);
   --toggle-track-hover-bg: var(--color-header-action-bg-hover);
   --toggle-fg: var(--color-header-action);
   --toggle-fg-opacity: 0.35;
   --toggle-active-icon: var(--color-header-bg);
-  --toggle-active-filter: drop-shadow(0 0 3px oklch(from var(--color-header-action) l c h / 0.6));
+  --toggle-active-filter: drop-shadow(0 0 3px oklch(from var(--color-header-action) l c h / 0.5));
 }

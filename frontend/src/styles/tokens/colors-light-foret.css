@@ -73,6 +73,20 @@
   --bg-elevated: oklch(var(--l-elevated) 0 0);
   --bg-sunken: oklch(var(--l-sunken) 0.025 var(--h-amber));
   --bg-muted: oklch(var(--l-muted) 0.012 var(--h-amber));
+  /* Navbar surface: subtle warm tint so the top bar reads branded, not flat card-white.
+     Hue 88 rather than --h-amber (75): the beige band runs 88-95, below it turns orange. */
+  --nav-bg: oklch(91% 0.045 88);
+  /* Full --nav-* set (six-theme rule). Values mirror the generic fallbacks to keep the
+     intended beige look; only -active is darkened: raw primary reads 3.49 on the beige. */
+  --nav-fg: var(--text-primary);
+  --nav-link: var(--text-secondary);
+  --nav-link-hover: var(--text-primary);
+  --nav-hover-bg: var(--bg-hover);
+  --nav-link-active: oklch(from var(--color-primary) 38% c h);
+  --nav-accent: var(--color-primary);
+  --nav-border: var(--border-default);
+  /* Lightness for an accent used as text on its own tint, so contrast holds (AA). */
+  --on-tint-l: 42%;
 
   /* Page H1: terracotta pop on green base. */
   --page-title-color: var(--terracotta-deep);

@@ -24,8 +24,11 @@ interface ShelfTabsProps {
 }
 
 const HOLY_GRAIL_COLOR = 'var(--status-color-holy-grail)'
+const HOLY_GRAIL_COLOR_ON = 'var(--status-color-holy-grail-on)'
 const REPURCHASE_COLOR = 'var(--status-color-repurchase)'
+const REPURCHASE_COLOR_ON = 'var(--status-color-repurchase-on)'
 // Archived and avoided are personal decisions, so they stay visually neutral.
+// --text-muted already passes AA as text, so no -on companion needed.
 const NEUTRAL_SECONDARY_COLOR = 'var(--text-muted)'
 
 export function ShelfTabs({
@@ -54,6 +57,7 @@ export function ShelfTabs({
         icon: <Icon size={15} />,
         badge: countsByStatus[s],
         color: cfg.color,
+        colorOn: cfg.colorOn,
         dimmed: countsByStatus[s] === 0,
       }
     }),
@@ -64,6 +68,7 @@ export function ShelfTabs({
     label: string
     count: number
     color: string
+    colorOn?: string
     icon: LucideIcon
   }[] = [
     {
@@ -71,6 +76,7 @@ export function ShelfTabs({
       label: 'Saint Graal',
       count: holyGrailCount,
       color: HOLY_GRAIL_COLOR,
+      colorOn: HOLY_GRAIL_COLOR_ON,
       icon: Gem,
     },
     {
@@ -78,6 +84,7 @@ export function ShelfTabs({
       label: 'À racheter',
       count: repurchaseCount,
       color: REPURCHASE_COLOR,
+      colorOn: REPURCHASE_COLOR_ON,
       icon: RefreshCw,
     },
     ...SECONDARY_SHELF_ORDER.map((s) => ({
@@ -116,7 +123,10 @@ export function ShelfTabs({
             }
             style={
               activeSecondary
-                ? ({ '--shelf-plus-color': activeSecondary.color } as React.CSSProperties)
+                ? ({
+                    '--shelf-plus-color': activeSecondary.color,
+                    '--shelf-plus-color-on': activeSecondary.colorOn,
+                  } as React.CSSProperties)
                 : undefined
             }
           >
@@ -149,7 +159,12 @@ export function ShelfTabs({
                   'shelf-tabs-plus-item',
                   active === item.key && 'shelf-tabs-plus-item--active'
                 )}
-                style={{ '--shelf-plus-color': item.color } as React.CSSProperties}
+                style={
+                  {
+                    '--shelf-plus-color': item.color,
+                    '--shelf-plus-color-on': item.colorOn,
+                  } as React.CSSProperties
+                }
               >
                 <span className="shelf-tabs-plus-item-dot" aria-hidden="true" />
                 <span className="shelf-tabs-plus-item-label">{item.label}</span>

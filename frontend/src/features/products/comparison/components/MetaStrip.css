@@ -87,7 +87,7 @@
   font-weight: var(--font-bold);
   text-transform: uppercase;
   letter-spacing: var(--tracking-wide);
-  color: var(--color-accent);
+  color: var(--color-accent-on);
 }
 
 .cmp-shelf__name {

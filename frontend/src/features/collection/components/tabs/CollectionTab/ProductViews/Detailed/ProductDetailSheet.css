@@ -104,7 +104,7 @@
 }
 
 .pds-remove-btn:hover {
-  color: var(--status-color-avoided);
+  color: var(--status-color-avoided-on);
   border-color: oklch(from var(--status-color-avoided) l c h / 0.5);
   background: oklch(from var(--status-color-avoided) l c h / 0.05);
 }

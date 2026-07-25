@@ -202,7 +202,7 @@
 
 .admin-pill--frontend {
   background: oklch(from var(--color-accent) l c h / 0.15);
-  color: var(--color-accent);
+  color: var(--color-accent-on);
 }
 
 .admin-pill--high {

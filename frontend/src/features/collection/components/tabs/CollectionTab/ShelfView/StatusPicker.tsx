@@ -32,6 +32,7 @@ export function StatusPicker({ current, title = 'Déplacer vers…', onPick }: S
                 style={
                   {
                     '--opt-color': cfg.color,
+                    '--opt-color-on': cfg.colorOn,
                     '--opt-bg': `color-mix(in oklch, ${cfg.color} 12%, transparent)`,
                   } as CSSProperties
                 }

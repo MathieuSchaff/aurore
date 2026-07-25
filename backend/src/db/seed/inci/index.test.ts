@@ -2,16 +2,67 @@ import { describe, expect, it } from 'bun:test'
 
 import {
   buildInciIndex,
+  EXCIPIENT_BLOCKLIST,
   foldScraperDelimiters,
   normalizeInciToken,
   parseInciFromContent,
   parseInciFromSlugLine,
+  stripInciArtefacts,
 } from '.'
+
+describe('stripInciArtefacts', () => {
+  it('drops organic-certification markers', () => {
+    expect(stripInciArtefacts('Centaurea Cyanus Flower Water*')).toBe(
+      'Centaurea Cyanus Flower Water'
+    )
+  })
+
+  it('drops a paren opened but never closed, keeping balanced glosses', () => {
+    expect(stripInciArtefacts('Iron Oxides (CI 77491')).toBe('Iron Oxides')
+    expect(stripInciArtefacts('Phenoxyethanol (F.i.l')).toBe('Phenoxyethanol')
+    expect(stripInciArtefacts('Citrus Limon (Lemon) Fruit Water')).toBe(
+      'Citrus Limon (Lemon) Fruit Water'
+    )
+  })
+
+  it('drops supplier bracket notes, nano tag included', () => {
+    expect(stripInciArtefacts('Geraniol [n5107/A]')).toBe('Geraniol')
+    expect(stripInciArtefacts('Kaolin [02-012-1.09]')).toBe('Kaolin')
+    expect(stripInciArtefacts('Zinc Oxide [nano]')).toBe('Zinc Oxide')
+  })
+
+  it('drops percentage doses without touching digits that name the substance', () => {
+    expect(stripInciArtefacts('Niacinamide 5%')).toBe('Niacinamide')
+    expect(stripInciArtefacts('Salicylic Acid 2.0%')).toBe('Salicylic Acid')
+    expect(stripInciArtefacts('1% Bakuchiol')).toBe('Bakuchiol')
+    expect(stripInciArtefacts('Madecassoside 7.5 ppm')).toBe('Madecassoside')
+    expect(stripInciArtefacts('Centella Asiatica Extract 10,350 ppm')).toBe(
+      'Centella Asiatica Extract'
+    )
+    expect(stripInciArtefacts('C12-15 Alkyl Benzoate')).toBe('C12-15 Alkyl Benzoate')
+    expect(stripInciArtefacts('Ci 77491')).toBe('Ci 77491')
+  })
+
+  it('drops trailing punctuation left by the bracket strip, keeping inner hyphens', () => {
+    expect(stripInciArtefacts('Tocopherol. [v4240a]')).toBe('Tocopherol')
+    expect(stripInciArtefacts('Citric Acid -')).toBe('Citric Acid')
+    expect(stripInciArtefacts('PEG-100 Stearate')).toBe('PEG-100 Stearate')
+  })
+})
 
 describe('normalizeInciToken', () => {
   it('uppercases, strips accents, collapses whitespace', () => {
     expect(normalizeInciToken('  Bétaïne  ')).toBe('BETAINE')
     expect(normalizeInciToken('Sodium   Lauryl  Sulfate')).toBe('SODIUM LAURYL SULFATE')
+  })
+
+  it('folds scraper artefacts onto the clean spelling', () => {
+    expect(normalizeInciToken('centaurea cyanus flower water*')).toBe(
+      'CENTAUREA CYANUS FLOWER WATER'
+    )
+    expect(normalizeInciToken('Iron Oxides (CI 77491')).toBe('IRON OXIDES')
+    expect(normalizeInciToken('Zinc Oxide [nano]')).toBe('ZINC OXIDE')
+    expect(normalizeInciToken('Salicylic Acid 2.0%')).toBe('SALICYLIC ACID')
   })
 
   it('strips parenthetical fragments', () => {
@@ -167,5 +218,13 @@ describe('buildInciIndex (integration)', () => {
     const idx = buildInciIndex()
     expect(idx.has('AQUA')).toBe(false)
     expect(idx.has('GLYCERIN')).toBe(false)
+  })
+
+  // An artefact-carrying spelling used to slip past the blocklist and get linked as a
+  // key ingredient while its clean spelling was dropped.
+  it('blocklists an excipient whatever artefact its spelling carries', () => {
+    expect(EXCIPIENT_BLOCKLIST.has(normalizeInciToken('Xanthan Gum*'))).toBe(true)
+    expect(EXCIPIENT_BLOCKLIST.has(normalizeInciToken('Lauryl Glucoside*'))).toBe(true)
+    expect(EXCIPIENT_BLOCKLIST.has(normalizeInciToken('Phenoxyethanol (F.i.l'))).toBe(true)
   })
 })
