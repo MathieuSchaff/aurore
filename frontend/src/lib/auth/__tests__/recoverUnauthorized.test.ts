@@ -29,6 +29,8 @@ describe('recoverUnauthorized', () => {
   it('clears cached user data when recovery definitively ends a live session', async () => {
     useAuthStore.setState({ accessToken: 'existing-token' })
     queryClient.setQueryData(['profile', 'me'], { username: 'mathieu' })
+    queryClient.setQueryData(['collection', 'list'], [{ id: 'p1' }])
+    queryClient.setQueryData(['products', 'shelf-status', 'user-1', 'p1'], { p1: 'owned' })
     mockEnsureFresh.mockResolvedValue('failed')
     const unauthorized = new Response(null, { status: 401 })
 
@@ -37,5 +39,22 @@ describe('recoverUnauthorized', () => {
     expect(result).toBe(unauthorized)
     expect(useAuthStore.getState().sessionExpired).toBe(true)
     expect(queryClient.getQueryData(['profile', 'me'])).toBeUndefined()
+    expect(queryClient.getQueryData(['collection', 'list'])).toBeUndefined()
+    expect(queryClient.getQueryData(['products', 'shelf-status', 'user-1', 'p1'])).toBeUndefined()
+  })
+
+  // A global clear() sent every mounted public list back to its loading state.
+  it('keeps the public catalog and editorial caches the page is reading', async () => {
+    useAuthStore.setState({ accessToken: 'existing-token' })
+    queryClient.setQueryData(['products', 'list', {}], { items: [] })
+    queryClient.setQueryData(['articles', 'list', {}], { items: [] })
+    queryClient.setQueryData(['ingredients', 'list', {}], { items: [] })
+    mockEnsureFresh.mockResolvedValue('failed')
+
+    await recoverUnauthorized(new Response(null, { status: 401 }), '/api/profile')
+
+    expect(queryClient.getQueryData(['products', 'list', {}])).toBeDefined()
+    expect(queryClient.getQueryData(['articles', 'list', {}])).toBeDefined()
+    expect(queryClient.getQueryData(['ingredients', 'list', {}])).toBeDefined()
   })
 })
