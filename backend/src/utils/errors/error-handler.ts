@@ -49,13 +49,34 @@ const errorMappingRegistry = new Map<string, Record<string, HttpStatus>>([
 ])
 
 export async function globalErrorHandler(error: Error, c: Context<AppEnv>) {
+  const requestContext = {
+    requestId: c.get('requestId'),
+    path: c.req.path,
+    method: c.req.method,
+  }
+
   if ('code' in error && typeof (error as AppError).code === 'string') {
     const appError = error as AppError
     const mapping = errorMappingRegistry.get(appError.constructor.name) ?? {}
     const code = appError.code
     const details = appError.details
+    const status = errorToStatus(code, mapping) as ContentfulHttpStatus
 
-    return c.json(err(code, details), errorToStatus(code, mapping) as ContentfulHttpStatus)
+    // errorToStatus falls back to 500 on an unmapped code, so a domain error could answer
+    // 500 with no trace at all. 4xx stays silent here: the request middleware already
+    // records it, and only a 5xx is worth a stack in Grafana.
+    if (status >= HTTP_STATUS.INTERNAL_SERVER_ERROR) {
+      logger.error(
+        {
+          err: appError,
+          code,
+          ...requestContext,
+        },
+        'Domain error'
+      )
+    }
+
+    return c.json(err(code, details), status)
   }
 
   if ('status' in error && typeof (error as HttpError).status === 'number') {
@@ -64,11 +85,7 @@ export async function globalErrorHandler(error: Error, c: Context<AppEnv>) {
     // 4xx = client mistake → info, kept local only (dropped at Alloy, which ships >= warn).
     // 5xx = real server problem → error, shipped to Grafana Cloud.
     const logHttpError = status >= 500 ? logger.error : logger.info
-    logHttpError.call(
-      logger,
-      { err: httpError, path: c.req.path, method: c.req.method },
-      'HTTP error'
-    )
+    logHttpError.call(logger, { err: httpError, ...requestContext }, 'HTTP error')
     // Don't leak arbitrary error messages (libs/framework) to clients in prod; keep them server-side.
     return c.json(
       err('http_error', process.env.NODE_ENV === 'development' ? httpError.message : undefined),
@@ -83,7 +100,7 @@ export async function globalErrorHandler(error: Error, c: Context<AppEnv>) {
   span?.setAttribute('http.status_code', HTTP_STATUS.INTERNAL_SERVER_ERROR)
   span?.setStatus({ code: SpanStatusCode.ERROR, message: error.message })
 
-  logger.error({ err: error, path: c.req.path, method: c.req.method }, 'Unhandled internal error')
+  logger.error({ err: error, ...requestContext }, 'Unhandled internal error')
 
   return c.json(
     err('server_error', process.env.NODE_ENV === 'development' ? error.stack : undefined),
