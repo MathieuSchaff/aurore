@@ -5,16 +5,15 @@
 //
 // Writes reconcile, they never replace: existing rows are left untouched, only the
 // missing links are inserted, and a link the recompute no longer derives is deleted
-// ONLY when it holds no human data. `product_ingredients` carries no provenance column,
-// so a concentration or a note is the only evidence a row was curated by hand — such a
-// row is kept and reported for manual arbitration instead of being silently rewritten.
+// ONLY when `product_ingredients.source` says the linker wrote it. Everything else is
+// kept and reported for manual arbitration instead of being silently rewritten.
 //
 // Pipeline per token: aurore inci-index direct hit first; on a miss, resolve through
 // algo-derm's alias index (+ botanical strip) to canonical evidence, then bridge that
 // evidence back onto an aurore slug. Order follows the INCI order (concentration desc)
 // and excipients are dropped. No count cap: INCI order is concentration order, so a cap
 // keeps the structuring agents at the top of the list and drops the actives dosed below
-// them — measured at 2079 evicted links, mostly hyaluronates, ceramides and centella.
+// them, measured at 2079 evicted links, mostly hyaluronates, ceramides and centella.
 //
 // Usage (dry-run by default):
 //   bun run backend/src/db/seed/inci/link-ingredients/main.ts            # dry-run report
@@ -92,7 +91,7 @@ type Resolved = { kind: 'slug'; slug: string } | { kind: 'unbridged' }
 // DB-backed fallback: algo-derm's `evidence.inci` is exactly what backfill-canonical-key.ts
 // stores in `ingredients.canonical_key`, so a bridge miss can still land on an aurore slug
 // whose only link to this substance is that shared identity (the humanised bridge misses
-// `-hair` shadows and FR slugs — `zinc oxyde` ≠ `zinc oxide`). The category domain guard in
+// `-hair` shadows and FR slugs: `zinc oxyde` is not `zinc oxide`). The category domain guard in
 // computeLinks still filters the resolved slug, so a mismatch drops instead of mis-linking.
 function resolveToken(raw: string, canonicalKeyToSlug: Map<string, string>): Resolved | null {
   const normAurore = normalizeInciToken(raw)
@@ -136,7 +135,8 @@ function isUppercaseDominant(s: string): boolean {
 function computeLinks(
   inci: string,
   category: string,
-  canonicalKeyToSlug: Map<string, string>
+  canonicalKeyToSlug: Map<string, string>,
+  canonicalKeyBySlug: Map<string, string>
 ): ComputeResult {
   const allowed = getDomainAllowlist(category)
   // splitINCI only splits on commas (+ protects decimals). Fold scraper artifacts first.
@@ -146,6 +146,11 @@ function computeLinks(
   )
 
   const seen = new Set<string>()
+  // A declaration often names one substance twice (`Sodium Hyaluronate` beside `Hyaluronic
+  // Acid`). They are separate `ingredients` rows sharing one canonical_key, which is the
+  // project's identity for an ingredient, so linking both shows the same thing twice on the
+  // sheet. INCI order is concentration order: the first spelling wins.
+  const seenIdentities = new Set<string>()
   const slugs: string[] = []
   const unbridged: string[] = []
   const blocked: string[] = []
@@ -175,6 +180,11 @@ function computeLinks(
     const domain = slugToDomain.get(slug)
     // Fail closed: drop a slug whose domain is unknown or foreign to the product category.
     if (allowed && (!domain || !allowed.has(domain))) continue
+    const identity = canonicalKeyBySlug.get(slug)
+    if (identity) {
+      if (seenIdentities.has(identity)) continue
+      seenIdentities.add(identity)
+    }
     seen.add(slug)
     slugs.push(slug)
   }
@@ -232,26 +242,39 @@ async function readEligible(tx: Transaction): Promise<EligibleProduct[]> {
 // Thrown to roll back the read-only dry-run transaction so nothing persists.
 class DryRunRollback extends Error {}
 
-async function readCurrentLinks(tx: Transaction): Promise<Map<string, CurrentLink[]>> {
+async function readCurrentLinks(
+  tx: Transaction,
+  productIds: string[]
+): Promise<Map<string, CurrentLink[]>> {
+  if (productIds.length === 0) return new Map()
   const rows = await tx
     .select({
       id: productIngredients.id,
       productId: productIngredients.productId,
       slug: ingredients.slug,
+      canonicalKey: ingredients.canonicalKey,
       value: productIngredients.concentrationValue,
       unit: productIngredients.concentrationUnit,
       per: productIngredients.concentrationPer,
       notes: productIngredients.notes,
+      source: productIngredients.source,
     })
     .from(productIngredients)
     .innerJoin(ingredients, eq(ingredients.id, productIngredients.ingredientId))
+    .where(inArray(productIngredients.productId, productIds))
 
   const byProduct = new Map<string, CurrentLink[]>()
   for (const r of rows) {
+    // `source` is the real signal. The concentration/notes test stays as a second chance for
+    // rows written before the column existed, where every link was backfilled as `linker`.
     const curated =
-      r.value !== null || r.unit !== null || r.per !== null || (r.notes?.trim() ?? '') !== ''
+      r.source === 'manual' ||
+      r.value !== null ||
+      r.unit !== null ||
+      r.per !== null ||
+      (r.notes?.trim() ?? '') !== ''
     const list = byProduct.get(r.productId)
-    const link: CurrentLink = { id: r.id, slug: r.slug, curated }
+    const link: CurrentLink = { id: r.id, slug: r.slug, canonicalKey: r.canonicalKey, curated }
     if (list) list.push(link)
     else byProduct.set(r.productId, [link])
   }
@@ -283,12 +306,14 @@ interface RunStats {
   keptCurated: number
   untouchedNoTarget: number
   changedProducts: number
+  aliasConflicts: number
   missingId: number
   slugFreq: Map<string, number>
   unbridgedFreq: Map<string, number>
   blockedFreq: Map<string, number>
   removedFreq: Map<string, number>
   keptCuratedSamples: string[]
+  aliasConflictSamples: string[]
   zeroBuckets: Map<ZeroBucket, string[]>
 }
 
@@ -309,7 +334,8 @@ function printReport(s: RunStats): void {
     'products changed': s.changedProducts,
     'links to insert': s.totalPairs,
     'links to delete': s.removedRows,
-    'curated links kept (stale but hand-edited)': s.keptCurated,
+    'human links kept (stale but owned)': s.keptCurated,
+    'inserts held back (same substance already linked)': s.aliasConflicts,
     'products left alone (nothing derived)': s.untouchedNoTarget,
     ...(s.missingId > 0 ? { 'slugs w/o id row (dropped)': s.missingId } : {}),
   })
@@ -332,11 +358,16 @@ function printReport(s: RunStats): void {
   const topRemoved = freqTable(s.removedFreq, 15, 'slug')
   if (topRemoved.length > 0) console.table(topRemoved)
 
-  // These rows carry a concentration or a note, so a human wrote them. The recompute no longer
-  // derives them: they need arbitration, not a silent delete.
   if (s.keptCurated > 0) {
-    console.log(`curated links kept despite the recompute (${s.keptCurated}) — sample`)
+    console.log(`human links kept despite the recompute (${s.keptCurated}), sample`)
     for (const line of s.keptCuratedSamples) console.log(`  ${line}`)
+  }
+
+  // The derived slug and the kept row are the same substance under one canonical_key. Inserting
+  // both puts the ingredient on the sheet twice, so the insert waits for a human call.
+  if (s.aliasConflicts > 0) {
+    console.log(`inserts held back on an already-linked substance (${s.aliasConflicts}), sample`)
+    for (const line of s.aliasConflictSamples) console.log(`  ${line}`)
   }
 
   console.log('0-link products by cause')
@@ -364,8 +395,11 @@ async function main() {
       .from(ingredients)
       .where(isNotNull(ingredients.canonicalKey))
     const canonicalKeyToSlug = new Map<string, string>()
+    // Reverse direction: the identity of a slug, used to keep one substance off a product twice.
+    const canonicalKeyBySlug = new Map<string, string>()
     for (const { slug, key } of keyRows) {
       if (!key) continue
+      canonicalKeyBySlug.set(slug, key)
       const cur = canonicalKeyToSlug.get(key)
       if (!cur || (cur.endsWith('-hair') && !slug.endsWith('-hair'))) {
         canonicalKeyToSlug.set(key, slug)
@@ -376,7 +410,10 @@ async function main() {
     const eligible = await readEligible(tx)
     console.log(`   eligible products: ${eligible.length}\n`)
 
-    const currentLinks = await readCurrentLinks(tx)
+    const currentLinks = await readCurrentLinks(
+      tx,
+      eligible.map((p) => p.id)
+    )
 
     let withLinks = 0
     let zeroLinks = 0
@@ -385,8 +422,10 @@ async function main() {
     let keptCurated = 0
     let untouchedNoTarget = 0
     let changedProducts = 0
+    let aliasConflicts = 0
     const removedFreq = new Map<string, number>()
     const keptCuratedSamples: string[] = []
+    const aliasConflictSamples: string[] = []
     const slugFreq = new Map<string, number>()
     const unbridgedFreq = new Map<string, number>()
     const blockedFreq = new Map<string, number>()
@@ -407,7 +446,12 @@ async function main() {
         zeroBuckets.get('no-inci')?.push(product.slug)
         continue
       }
-      const computed = computeLinks(product.inci, product.category, canonicalKeyToSlug)
+      const computed = computeLinks(
+        product.inci,
+        product.category,
+        canonicalKeyToSlug,
+        canonicalKeyBySlug
+      )
       const { slugs, unbridged, blocked } = computed
       for (const u of unbridged) {
         unbridgedFreq.set(u, (unbridgedFreq.get(u) ?? 0) + 1)
@@ -439,11 +483,12 @@ async function main() {
       }
       withLinks++
 
-      const plan = planReconcile(current, targetIds.keys())
+      const plan = planReconcile(current, targetIds.keys(), canonicalKeyBySlug)
       const pairs = plan.add.map((slug) => ({
         productId: product.id,
         // planReconcile only ever returns slugs taken from targetIds.
         ingredientId: targetIds.get(slug) as string,
+        source: 'linker' as const,
       }))
       const toRemove = plan.remove
       for (const c of plan.remove) {
@@ -452,6 +497,11 @@ async function main() {
       for (const c of plan.keptCurated) {
         keptCurated++
         if (keptCuratedSamples.length < 20) keptCuratedSamples.push(`${product.slug} · ${c.slug}`)
+      }
+      for (const { slug, heldBy } of plan.aliasConflicts) {
+        aliasConflicts++
+        if (aliasConflictSamples.length < 20)
+          aliasConflictSamples.push(`${product.slug} · ${slug} shadowed by ${heldBy.slug}`)
       }
 
       totalPairs += pairs.length
@@ -479,12 +529,14 @@ async function main() {
       keptCurated,
       untouchedNoTarget,
       changedProducts,
+      aliasConflicts,
       missingId,
       slugFreq,
       unbridgedFreq,
       blockedFreq,
       removedFreq,
       keptCuratedSamples,
+      aliasConflictSamples,
       zeroBuckets,
     })
 
@@ -496,7 +548,7 @@ async function main() {
       throw new DryRunRollback()
     }
     console.log(
-      `\n  ✅ Reconciled ${changedProducts} products: +${totalPairs} / -${removedRows} rows (${keptCurated} curated links kept).\n`
+      `\n  Reconciled ${changedProducts} products: +${totalPairs} / -${removedRows} rows (${keptCurated} human links kept).\n`
     )
   }).catch((err) => {
     if (err instanceof DryRunRollback) return
