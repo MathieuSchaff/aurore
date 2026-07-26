@@ -20,9 +20,24 @@ describe('hasFragranceComponent', () => {
     expect(hasFragranceComponent('Aqua, Linalool.')).toBe(true)
   })
 
+  // The set is matched exactly, so an entry spelled outside CosIng never fires on a real label.
+  test('spells the multi-word allergens the way a label declares them', () => {
+    expect(hasFragranceComponent('Aqua, Anise Alcohol')).toBe(true)
+    expect(hasFragranceComponent('Aqua, Anisyl Alcohol')).toBe(true)
+    expect(hasFragranceComponent('Aqua, Amylcinnamyl Alcohol')).toBe(true)
+    expect(hasFragranceComponent('Aqua, Hydroxyisohexyl 3-Cyclohexene Carboxaldehyde')).toBe(true)
+    expect(hasFragranceComponent('Aqua, Alpha-Isomethyl Ionone')).toBe(true)
+    expect(hasFragranceComponent('Aqua, Evernia Prunastri Extract')).toBe(true)
+  })
+
   test('matches a fragrance marker with its translation in tow', () => {
     expect(hasFragranceComponent('Aqua, Parfum (Fragrance)')).toBe(true)
     expect(hasFragranceComponent('Aqua, Fragrance/Parfum')).toBe(true)
+  })
+
+  test('reads a period-separated list without swallowing a decimal dose', () => {
+    expect(hasFragranceComponent('Aqua. Glycerin. Limonene. Phenoxyethanol')).toBe(true)
+    expect(hasFragranceComponent('Aqua, Salicylic Acid 2.0%, Panthenol')).toBe(false)
   })
 
   test('ignores an allergen name that is only a substring of another token', () => {

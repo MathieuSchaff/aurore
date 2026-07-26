@@ -2,7 +2,12 @@ import { describe, expect, it } from 'bun:test'
 
 import { type CurrentLink, planReconcile } from './reconcile'
 
-const link = (slug: string, curated = false): CurrentLink => ({ id: `id-${slug}`, slug, curated })
+const link = (slug: string, curated = false, canonicalKey: string | null = null): CurrentLink => ({
+  id: `id-${slug}`,
+  slug,
+  canonicalKey,
+  curated,
+})
 
 describe('planReconcile', () => {
   it('inserts only the slugs missing from the DB', () => {
@@ -37,7 +42,36 @@ describe('planReconcile', () => {
     expect(plan.keptCurated).toEqual([])
   })
 
-  it('does not re-add a slug already linked, whatever the target order', () => {
+  it('holds back an insert when a kept human row is already the same substance', () => {
+    const identities = new Map([
+      ['hyaluronic-acid', 'Hyaluronic Acid'],
+      ['sodium-hyaluronate', 'Hyaluronic Acid'],
+    ])
+    const current = [link('sodium-hyaluronate', true, 'Hyaluronic Acid')]
+
+    const plan = planReconcile(current, ['hyaluronic-acid', 'niacinamide'], identities)
+
+    expect(plan.add).toEqual(['niacinamide'])
+    expect(plan.aliasConflicts.map((c) => c.slug)).toEqual(['hyaluronic-acid'])
+    expect(plan.aliasConflicts[0]?.heldBy.slug).toBe('sodium-hyaluronate')
+  })
+
+  // The row is about to go, so it cannot shadow the slug that replaces it.
+  it('still inserts when the row holding that substance is being deleted', () => {
+    const identities = new Map([
+      ['hyaluronic-acid', 'Hyaluronic Acid'],
+      ['sodium-hyaluronate', 'Hyaluronic Acid'],
+    ])
+    const current = [link('sodium-hyaluronate', false, 'Hyaluronic Acid')]
+
+    const plan = planReconcile(current, ['hyaluronic-acid'], identities)
+
+    expect(plan.add).toEqual(['hyaluronic-acid'])
+    expect(plan.remove.map((c) => c.slug)).toEqual(['sodium-hyaluronate'])
+    expect(plan.aliasConflicts).toEqual([])
+  })
+
+  it('does not add a slug that is already linked, whatever the target order', () => {
     const plan = planReconcile(
       [link('panthenol'), link('niacinamide')],
       ['niacinamide', 'panthenol']
