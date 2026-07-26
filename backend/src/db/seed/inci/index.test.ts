@@ -229,6 +229,29 @@ describe('parseInciFromSlugLine', () => {
     ).toEqual({ slug: 'o-cymen-5-ol', tokens: ['o-Cymen-5-ol'] })
   })
 
+  it('rebuilds the species name onto every organ an enumeration lists', () => {
+    expect(
+      parseInciFromSlugLine(
+        `  HEARTLEAF: 'heartleaf-water', // INCI: Houttuynia Cordata Flower/Leaf/Stem Water`
+      )?.tokens
+    ).toEqual([
+      'Houttuynia Cordata Flower',
+      'Houttuynia Cordata Leaf',
+      'Houttuynia Cordata Stem Water',
+    ])
+  })
+
+  it('rejects a French note the capitalisation guard alone would accept', () => {
+    expect(parseInciFromSlugLine(`  X: 'vitamin-c', // Actif Breveté Anti-Rougeurs`)).toBeNull()
+    expect(
+      parseInciFromSlugLine(`  X: 'vitamin-c', // INCI: Extrait De Levure Fermentee`)
+    ).toBeNull()
+    // `A` still reads as a substance letter, not a French article.
+    expect(parseInciFromSlugLine(`  X: 'retinol', // INCI: Vitamin A | retinoid`)?.tokens).toEqual([
+      'Vitamin A',
+    ])
+  })
+
   it('does not split a name on a comma or a plus it owns', () => {
     expect(
       parseInciFromSlugLine(`  OLEAMIDO: 'oleamido', // INCI: 2-Oleamido-1,3-Octadecanediol | y`)
@@ -280,5 +303,17 @@ describe('buildInciIndex (integration)', () => {
     expect(idx.has('EXTRACT')).toBe(false)
     expect(idx.has('OIL')).toBe(false)
     expect(idx.has('LEAF')).toBe(false)
+  })
+
+  // An organ list left `Stem Water` / `Stem Extract` behind, which captured every product token
+  // spelled that way whatever the species.
+  it('never indexes an organ phrase stripped of its species', () => {
+    const idx = buildInciIndex()
+    expect(idx.has('STEM WATER')).toBe(false)
+    expect(idx.has('STEM EXTRACT')).toBe(false)
+    expect(idx.get('HOUTTUYNIA CORDATA STEM WATER')?.slug).toBe('heartleaf-water')
+    expect(idx.get('MYROTHAMNUS FLABELLIFOLIA STEM EXTRACT')?.slug).toBe(
+      'myrothamnus-flabellifolia'
+    )
   })
 })

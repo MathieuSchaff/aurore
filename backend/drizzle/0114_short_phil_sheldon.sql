@@ -1,0 +1,2 @@
+CREATE TYPE "public"."product_ingredient_source" AS ENUM('manual', 'linker');--> statement-breakpoint
+ALTER TABLE "product_ingredients" ADD COLUMN "source" "product_ingredient_source" DEFAULT 'manual' NOT NULL;

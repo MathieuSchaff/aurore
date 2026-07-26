@@ -1,9 +1,23 @@
 import { sql } from 'drizzle-orm'
-import { index, numeric, pgTable, text, timestamp, uniqueIndex, uuid } from 'drizzle-orm/pg-core'
+import {
+  index,
+  numeric,
+  pgEnum,
+  pgTable,
+  text,
+  timestamp,
+  uniqueIndex,
+  uuid,
+} from 'drizzle-orm/pg-core'
 
 import { catalogPolicies } from '../_policies'
 import { ingredients } from '../ingredients/ingredients'
 import { products } from './products'
+
+// Who wrote the row. The INCI linker deletes a link it no longer derives, and without this it
+// could only guess from a concentration or a note being set, which a hand-added link often lacks.
+// Default `manual` on purpose: an unmarked writer must be treated as human and left alone.
+export const productIngredientSourceEnum = pgEnum('product_ingredient_source', ['manual', 'linker'])
 
 export const productIngredients = pgTable(
   'product_ingredients',
@@ -21,6 +35,7 @@ export const productIngredients = pgTable(
     concentrationUnit: text('concentration_unit'), // "%", "IU", "mg", "mcg"
     concentrationPer: text('concentration_per'), // "drop", "capsule", "mL"
     notes: text('notes'), // "liposomal", "encapsulated"
+    source: productIngredientSourceEnum('source').notNull().default('manual'),
     createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' })
       .notNull()
       .defaultNow(),
