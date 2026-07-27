@@ -12,12 +12,14 @@
   border-radius: var(--radius-md);
   background: none;
   cursor: pointer;
-  color: var(--text-secondary);
+  /* The nav bar tints its own background, so it overrides these; everywhere else
+     the page ink fallback applies. */
+  color: var(--theme-toggle-fg, var(--text-secondary));
   transition: background var(--transition-base);
 
   &:hover {
-    background: var(--bg-hover);
-    color: var(--text-primary);
+    background: var(--theme-toggle-hover-bg, var(--bg-hover));
+    color: var(--theme-toggle-hover-fg, var(--text-primary));
   }
 
   &:focus-visible {
@@ -26,11 +28,14 @@
   }
 }
 
+/* Swatch hues are fixed while the surface behind them is not, so ring them in the
+   surface's own ink: it is the only cue for the active variant. */
 .theme-toggle-trigger__dot {
   width: 8px;
   height: 8px;
   border-radius: var(--radius-full);
   flex-shrink: 0;
+  box-shadow: 0 0 0 1.5px oklch(from currentcolor l c h / 0.65);
 }
 
 /* Override popover UA inset/margin so JS-set left/bottom take effect. */
@@ -86,6 +91,7 @@
   height: 12px;
   border-radius: var(--radius-full);
   flex-shrink: 0;
+  box-shadow: 0 0 0 1.5px oklch(from currentcolor l c h / 0.65);
 }
 
 .theme-dropdown__sep {
