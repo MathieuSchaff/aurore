@@ -7,6 +7,23 @@ limit_req_zone $binary_remote_addr zone=static_limit:10m rate=30r/s;
 # Return 429 for throttling; 503 looks like nginx or the backend is down.
 limit_req_status 429;
 
+# Nothing was compressed on the wire: the sitemap alone (800 KB of XML) was half the
+# daily egress. `gzip_proxied any` is required here because every response comes from
+# an upstream and the default (`off`) skips all of them. text/html is always included.
+gzip on;
+gzip_vary on;
+gzip_proxied any;
+gzip_comp_level 5;
+gzip_min_length 1024;
+gzip_types application/xml application/json application/javascript text/javascript text/css image/svg+xml text/plain;
+
+# A response bigger than the buffers goes to /var/cache/nginx/proxy_temp whenever the
+# client drains slower than the upstream fills. The default 32k total put a product
+# list over that line; 256k keeps the common payloads in memory.
+proxy_buffer_size 16k;
+proxy_buffers 8 32k;
+proxy_busy_buffers_size 64k;
+
 # Needed with `resolve`; Docker can give api/frontend new IPs after restarts.
 resolver 127.0.0.11 valid=30s ipv6=off;
 
@@ -109,6 +126,24 @@ server {
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 60s;
+    }
+
+    # /refresh and /login return the access token in the JSON body. Compressing a
+    # response that carries a secret is the precondition for BREACH, so keep this
+    # prefix out of gzip; the payloads are small enough that it costs nothing.
+    location /api/auth/ {
+        gzip off;
+        limit_req zone=api_limit burst=40 nodelay;
+        client_max_body_size 2m;
+
+        proxy_pass http://api;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_connect_timeout 60s;
         proxy_read_timeout 60s;
     }
 
