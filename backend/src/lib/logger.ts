@@ -4,8 +4,17 @@ export const logger = pino({
   level: process.env.LOG_LEVEL ?? 'info',
   // Errors ship to Grafana Cloud (>= warn). Postgres bakes the offending row (email/ip)
   // into err.detail, Brevo into err.body/rawResponse; pino's default serializer copies both.
+  // Domain errors wrap that raw error one level down (BlogError(code, e)), so the same
+  // fields reappear under err.details.
   redact: {
-    paths: ['err.detail', 'err.where', 'err.body', 'err.rawResponse'],
+    paths: [
+      'err.detail',
+      'err.where',
+      'err.body',
+      'err.rawResponse',
+      'err.details.detail',
+      'err.details.where',
+    ],
     censor: '[redacted]',
   },
   transport:
