@@ -55,7 +55,7 @@ export function DropdownMenu({ children, className }: DropdownMenuProps) {
   const triggerRef = useRef<HTMLElement | null>(null)
   const contentRef = useRef<HTMLDivElement>(null)
   // ArrowUp sets 'last' (ARIA APG menu-button); everything else defaults to 'first'.
-  // Ref (not state) so toggling it doesn't re-render.
+  // Ref (not state) so toggling it triggers no render.
   const initialFocusRef = useRef<InitialFocus>('first')
   const menuId = useId()
 
@@ -74,7 +74,7 @@ export function DropdownMenu({ children, className }: DropdownMenuProps) {
 
   // useCaptureDismiss (not useClickOutside): portaled menu floats over sibling product cards;
   // mousedown-based dismiss would let the underlying card click through on mobile.
-  // Multi-ref: portaled content sits outside wrapperRef, so both refs count as "inside".
+  // Two refs: portaled content sits outside wrapperRef, so both count as "inside".
   // Gated on isOpen: one DropdownMenu per card x N cards adds up.
   useCaptureDismiss([wrapperRef, contentRef], () => setIsOpen(false), { enabled: isOpen })
 
@@ -148,7 +148,8 @@ function DropdownMenuTrigger({ children }: DropdownMenuTriggerProps) {
     },
     'aria-haspopup': 'menu',
     'aria-expanded': isOpen,
-    'aria-controls': menuId,
+    // The content only mounts while open, so pointing at it when closed leaves a dangling idref.
+    'aria-controls': isOpen ? menuId : undefined,
   })
 }
 
@@ -175,7 +176,7 @@ function DropdownMenuContent({
   const { isOpen, close, triggerRef, contentRef, menuId, initialFocusRef } = useDropdownMenu()
   const [coords, setCoords] = useState<MenuCoords | null>(null)
   // Captured in state (not inline at render): concurrent-mode safe, locks to the container
-  // it opened in so a dialog closing mid-open doesn't teleport the menu.
+  // it opened in so a dialog that closes while the menu is open doesn't teleport the menu.
   // null during SSR (no document); the menu only portals once opened on the client.
   const [portalTarget, setPortalTarget] = useState<Element | null>(() =>
     typeof document === 'undefined' ? null : document.body

@@ -86,6 +86,7 @@ export function IngredientLayout() {
         onTabChange={handleTabChange}
         variant="underline"
         ariaLabel="Sections de l'ingrédient"
+        hasPanels={false}
       />
 
       <div style={{ viewTransitionName: 'tab-content' }}>
