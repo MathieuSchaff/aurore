@@ -56,7 +56,8 @@ export const Header = () => {
           >
             <Menu size={22} strokeWidth={2} aria-hidden="true" />
           </button>
-          <Link to="/" className="main-nav__logo" aria-label="Accueil">
+          {/* Name starts with the visible wordmark so voice control can act on what it reads (WCAG 2.5.3). */}
+          <Link to="/" className="main-nav__logo" aria-label="Aurore, accueil">
             <AuroreLogo size={32} />
             <span className="main-nav__wordmark">Aurore</span>
           </Link>
@@ -83,7 +84,12 @@ export const Header = () => {
             Navigation principale
           </h2>
           <div className="main-nav-drawer__header">
-            <Link to="/" className="main-nav__logo" aria-label="Accueil" onClick={closeDrawer}>
+            <Link
+              to="/"
+              className="main-nav__logo"
+              aria-label="Aurore, accueil"
+              onClick={closeDrawer}
+            >
               <AuroreLogo size={36} />
               <span className="main-nav__wordmark">Aurore</span>
             </Link>

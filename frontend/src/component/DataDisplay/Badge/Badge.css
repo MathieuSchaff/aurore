@@ -20,7 +20,9 @@
 .badge--complement,
 .badge--default {
   --_badge-bg: oklch(from var(--color-primary) l c h / 0.12);
-  --_badge-color: var(--color-primary);
+  /* Primary at full lightness on its own tint reads 3.87 in foret-light; --on-tint-l is the
+     per-theme ink level for exactly this case. */
+  --_badge-color: oklch(from var(--color-primary) var(--on-tint-l) c h);
   background: var(--_badge-bg);
   color: var(--_badge-color);
   border-color: oklch(from var(--color-primary) l c h / 0.25);
@@ -39,7 +41,7 @@
   box-shadow: 0 1px 4px oklch(from var(--color-primary) l c h / 0.3);
 }
 
-/* Unified chip variant used inside cards - tints by the parent Card accent.
+/* Unified chip variant used inside cards: tints by the parent Card accent.
    Font size/weight inherited from .badge base so chip never reads heavier
    than other badges sitting next to it. */
 .badge--chip {

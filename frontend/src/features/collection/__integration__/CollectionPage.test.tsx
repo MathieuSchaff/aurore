@@ -152,7 +152,7 @@ describe('CollectionPage', () => {
 
     await screen.findByText('Super Serum')
     const cardBody = screen.getByRole('button', {
-      name: /Voir les détails de Super Serum/i,
+      name: /Voir les détails de.*Super Serum/i,
     })
     await userEvent.click(cardBody)
 
@@ -180,7 +180,7 @@ describe('CollectionPage', () => {
 
     await screen.findByText('Super Serum')
     const cardBody = screen.getByRole('button', {
-      name: /Voir les détails de Super Serum/i,
+      name: /Voir les détails de.*Super Serum/i,
     })
     await userEvent.click(cardBody)
 

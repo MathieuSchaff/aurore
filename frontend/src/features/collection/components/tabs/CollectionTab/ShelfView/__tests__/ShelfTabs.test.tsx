@@ -37,7 +37,7 @@ describe('ShelfTabs', () => {
       />
     )
     const watched = screen.getByRole('tab', { name: /garde un œil/i })
-    expect(watched).toHaveAccessibleName('Garde un œil (0)')
+    expect(watched).toHaveAccessibleName('Garde un œil 0')
   })
 
   it('invokes onChange("holy_grail") when Saint Graal is picked from the Plus menu', () => {

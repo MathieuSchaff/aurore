@@ -195,12 +195,10 @@ export function ProductCardCondensed({
             />
           </div>
 
-          <button
-            type="button"
-            className="prod-body"
-            onClick={handleBodyClick}
-            aria-label={`Voir les détails de ${p.product.name} par ${p.product.brand}`}
-          >
+          <button type="button" className="prod-body" onClick={handleBodyClick}>
+            {/* Prefix rather than aria-label: the name must contain the card's visible text
+                verbatim, which an aria-label reordering brand and product breaks (WCAG 2.5.3). */}
+            <span className="sr-only">Voir les détails de </span>
             <div className="prod-brand">{p.product.brand}</div>
             <div className="prod-name">{p.product.name}</div>
             {p.comment && <div className="prod-comment">{p.comment}</div>}
