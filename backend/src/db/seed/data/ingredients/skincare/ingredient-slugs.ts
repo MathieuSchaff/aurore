@@ -93,6 +93,7 @@ export const BARRIERE_EMOLLIENTS_OCCLUSIFS = {
   OLEIC_ACID: 'oleic-acid', // INCI: Oleic Acid | omega-9 fatty acid emollient, strengthens the skin barrier, nourishes and hydrates (ideal for dry/mature skin)
   HUILE_SOJA: 'huile-soja',
   CAPRYLIC_CAPRIC_TRIGLYCERIDE: 'caprylic-capric-triglyceride',
+  BUTYLOCTYL_SALICYLATE: 'butyloctyl-salicylate', // INCI: Butyloctyl Salicylate | solvent for solid UV filters, emollient
   HUILE_COLZA: 'huile-colza',
   BUTYLENE_GLYCOL: 'butylene-glycol',
   ROSEHIP_SEED_OIL: 'rosehip-seed-oil', // INCI: Rosa Canina Seed Oil | rosehip oil, regenerating, healing, rich in vitamin A/C
@@ -262,6 +263,11 @@ export const ANTIOXYDANTS_VITAMINES = {
   PUNICA_GRANATUM: 'punica-granatum', // INCI: Punica Granatum Fruit Extract | pomegranate, anti-aging antioxidant
   VITAMIN_K1: 'vitamine-k1',
   FERULIC_ACID: 'ferulic-acid',
+  ETHYL_FERULATE: 'ethyl-ferulate', // INCI: Ethyl Ferulate | liposoluble ferulic acid ester, antioxidant
+  ETHYLHEXYL_FERULATE: 'ethylhexyl-ferulate', // INCI: Ethylhexyl Ferulate | branched ferulic acid ester, antioxidant
+  ARGININE_FERULATE: 'arginine-ferulate', // INCI: Arginine Ferulate | water-soluble ferulate salt, antioxidant
+  DIETHYLHEXYL_SYRINGYLIDENEMALONATE: 'diethylhexyl-syringylidenemalonate', // INCI: Diethylhexyl Syringylidenemalonate | formula-stabilizing antioxidant (Oxynex ST)
+  TRIMETHOXYBENZYLIDENE_PENTANEDIONE: 'trimethoxybenzylidene-pentanedione', // INCI: Trimethoxybenzylidene Pentanedione | decolourised curcumin derivative, antioxidant
   HIBISCUS_SABDARIFFA: 'hibiscus-sabdariffa', // INCI: Hibiscus Sabdariffa Flower Extract | antioxidant, radiance, anti-aging
   BEET_ROOT_EXTRACT: 'beet-root-extract', // INCI: Beta Vulgaris Root Extract | beetroot, antioxidant betalains
   GARDENIA_FRUIT_EXTRACT: 'gardenia-fruit-extract', // INCI: Gardenia Jasminoides Fruit Extract | brightening / antioxidant
@@ -458,7 +464,9 @@ export const FILTRES_UV = {
   AVOBENZONE: 'butyl-methoxydibenvoylmethane', // Alias
   OCTOCRYLENE: 'octocrylene', // INCI: Octocrylene | stabilizing UVB filter
   HOMOSALATE: 'homosalate', // INCI: Homosalate | UVB filter
-  ETHYLHEXYL_SALICYLATE: 'ethylhexyl-salicylate', // INCI: Ethylhexyl Salicylate | UVB filter (Octisalate)
+  // Octisalate is declared as an alias, not left in the gloss: US sunscreen labels use the USAN
+  // name in their Active Ingredients block, and a parenthesised gloss is erased by the parser.
+  ETHYLHEXYL_SALICYLATE: 'ethylhexyl-salicylate', // INCI: Ethylhexyl Salicylate / Octisalate | UVB filter
   ISOAMYL_P_METHOXYCINNAMATE: 'isoamyl-p-methoxycinnamate', // INCI: Isoamyl p-Methoxycinnamate | UVB filter (Amiloxate)
   ETHYLHEXYL_METHOXYCINNAMATE: 'ethylhexyl-methoxycinnamate', // INCI: Ethylhexyl Methoxycinnamate | UVB filter (Octinoxate)
   METHYLENE_BIS_BENZOTRIAZOLYL_TETRAMETHYLBUTYLPHENOL:
@@ -466,6 +474,17 @@ export const FILTRES_UV = {
   TRIS_BIPHENYL_TRIAZINE: 'tris-biphenyl-triazine', // Tinosorb A2B nano – broad spectrum
   DIETHYLHEXYL_BUTAMIDO_TRIAZONE: 'diethylhexyl-butamido-triazone', // INCI: Diethylhexyl Butamido Triazone | Uvasorb HEB – broad-spectrum UVB/UVA filter, very photostable
   ENSULIZOLE: 'ensulizole', // INCI: Phenylbenzimidazole Sulfonic Acid | water-soluble UVB filter (Ensulizole / PBSA)
+  // The h-less spelling is the second most common in the corpus, not a one-off garble. The four
+  // French translations of the same name stay out: a grammar word in the INCI segment drops the
+  // whole declaration, so they are repaired at the source instead.
+  TEREPHTHALYLIDENE_DICAMPHOR_SULFONIC_ACID: 'terephthalylidene-dicamphor-sulfonic-acid', // INCI: Terephthalylidene Dicamphor Sulfonic Acid / Terephtalylidene Dicamphor Sulfonic Acid | water-soluble UVA filter (Mexoryl SX, ecamsule)
+  MEXORYL_400: 'methoxypropylamino-cyclohexenylidene-ethoxyethylcyanoacetate', // INCI: Methoxypropylamino Cyclohexenylidene Ethoxyethylcyanoacetate | long-UVA filter (Mexoryl 400)
+  DISODIUM_PHENYL_DIBENZIMIDAZOLE_TETRASULFONATE: 'disodium-phenyl-dibenzimidazole-tetrasulfonate', // INCI: Disodium Phenyl Dibenzimidazole Tetrasulfonate | water-soluble UVA filter (Neo Heliopan AP)
+  BENZOPHENONE_3: 'benzophenone-3', // INCI: Benzophenone-3 | UVB and short-UVA filter (Oxybenzone)
+  BENZOPHENONE_4: 'benzophenone-4', // INCI: Benzophenone-4 | water-soluble filter (Sulisobenzone), also shields the formula
+  BENZOPHENONE_5: 'benzophenone-5', // INCI: Benzophenone-5 | sodium salt of Benzophenone-4
+  POLYSILICONE_15: 'polysilicone-15', // INCI: Polysilicone-15 | polymeric UVB filter (Parsol SLX)
+  METHYLBENZYLIDENE_CAMPHOR: '4-methylbenzylidene-camphor', // INCI: 4-Methylbenzylidene Camphor | UVB filter, out of EU Annex VI since 2024/996
 } as const
 
 export const PROBIOTIQUES_PREBIOTIQUES_POSTBIOTIQUES = {
@@ -693,6 +712,7 @@ export const FILLERS = {
   PETROLATUM: 'petrolatum', // INCI: Petrolatum | inert occlusive
   ISOHEXADECANE: 'isohexadecane', // INCI: Isohexadecane | light inert vehicle
   ISODODECANE: 'isododecane', // INCI: Isododecane | light inert vehicle
+  ETHYLHEXYL_METHOXYCRYLENE: 'ethylhexyl-methoxycrylene', // INCI: Ethylhexyl Methoxycrylene | photostabiliser, quenches avobenzone
 
   // Synthetic vehicle esters
   DICAPRYLYL_CARBONATE: 'dicaprylyl-carbonate', // INCI: Dicaprylyl Carbonate | inert vehicle emollient
