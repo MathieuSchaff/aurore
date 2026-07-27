@@ -489,7 +489,7 @@ function AboutCta() {
 
 export function AboutPage() {
   return (
-    <main className="aur-about">
+    <div className="aur-about">
       <div className="aur-about__inner">
         <AboutHero />
         <AboutStory />
@@ -500,6 +500,6 @@ export function AboutPage() {
         <AboutCollab />
         <AboutCta />
       </div>
-    </main>
+    </div>
   )
 }

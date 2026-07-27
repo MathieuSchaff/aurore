@@ -94,9 +94,9 @@ export function AdminLayout() {
           </Link>
         </nav>
       </aside>
-      <main className="admin-main">
+      <div className="admin-main">
         <Outlet />
-      </main>
+      </div>
     </div>
   )
 }

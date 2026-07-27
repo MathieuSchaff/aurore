@@ -29,7 +29,7 @@ export function BrandCombobox({
 }: BrandComboboxProps) {
   const [inputValue, setInputValue] = useState(value)
   const [showConfirm, setShowConfirm] = useState(false)
-  // Synchronous mirror so validateBrand reads the Tab-autocompleted value before React re-renders.
+  // Synchronous mirror so validateBrand reads the Tab-autocompleted value before React renders again.
   const latestValueRef = useRef(value)
 
   useEffect(() => {
@@ -81,7 +81,7 @@ export function BrandCombobox({
   }
 
   function validateBrand() {
-    // Read from ref: Tab-autocomplete updates inputValue, but blur fires before re-render.
+    // Read from ref: Tab-autocomplete updates inputValue, but blur fires before the next render.
     combobox.close()
     const trimmed = latestValueRef.current.trim()
     if (trimmed && !isKnownBrand(trimmed)) {
@@ -123,7 +123,7 @@ export function BrandCombobox({
             placeholder={placeholder}
             autoComplete="off"
             aria-expanded={combobox.isOpen}
-            aria-controls={listboxId}
+            aria-controls={combobox.isOpen ? listboxId : undefined}
             aria-activedescendant={activeDescendant}
             aria-autocomplete="list"
           />

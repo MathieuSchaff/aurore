@@ -15,7 +15,7 @@ export function HomePage() {
 
   return (
     <div className="aur-page">
-      <main>{bootRefreshPending ? <HomeSkeleton /> : user ? <HomeHub /> : <HomeMarketing />}</main>
+      <div>{bootRefreshPending ? <HomeSkeleton /> : user ? <HomeHub /> : <HomeMarketing />}</div>
       <Footer />
     </div>
   )
