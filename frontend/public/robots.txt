@@ -2,5 +2,56 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
+# SEO backlink crawlers bring no readers and pulled ~70 requests/day between them. A
+# crawler that matches its own group ignores the `*` group entirely, so each one has
+# to repeat the /api/ rule. Search engines stay unthrottled on purpose.
+User-agent: AhrefsBot
+Allow: /
+Disallow: /api/
+Crawl-delay: 30
+
+User-agent: SemrushBot
+Allow: /
+Disallow: /api/
+Crawl-delay: 30
+
+User-agent: GenomeCrawlerd
+Allow: /
+Disallow: /api/
+Crawl-delay: 30
+
+# Training crawlers. Their vendors index under a different token, so blocking these
+# costs no visibility: GPTBot pulled the whole catalogue (5148 requests in 96h) while
+# OAI-SearchBot, the one that makes a page citable in ChatGPT, managed 29.
+# Google-Extended and Applebot-Extended never crawl; they are opt-out tokens read by
+# Googlebot and Applebot, and neither affects search ranking.
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: meta-externalagent
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: Applebot-Extended
+Disallow: /
+
+# Deliberately left to the `*` group so they keep full access: OAI-SearchBot,
+# Claude-SearchBot, PerplexityBot, ChatGPT-User, Claude-User, Googlebot, bingbot,
+# Applebot. These are what put a link in front of a reader.
+
 # Keep this origin in sync with SITE_URL (shared/src/core/site.ts).
 Sitemap: https://aurore-app.fr/sitemap.xml
