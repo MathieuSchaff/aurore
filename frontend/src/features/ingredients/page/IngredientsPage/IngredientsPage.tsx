@@ -270,6 +270,7 @@ export function IngredientsPage() {
                   >
                     <Card.Body>
                       <Card.Title
+                        as="h2"
                         style={{ viewTransitionName: `ingredient-name-${ingredient.slug}` }}
                       >
                         {ingredient.name}
