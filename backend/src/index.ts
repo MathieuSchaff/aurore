@@ -38,6 +38,7 @@ import { uploadsRoutes } from './features/uploads'
 import { userProductRoutes } from './features/user-products'
 import { logger } from './lib/logger'
 import { otelTracingMiddleware } from './lib/observability/hono-tracing'
+import { requestLoggingMiddleware } from './middleware/request-logging'
 import { globalErrorHandler } from './utils/errors/error-handler'
 import { globalRateLimiterFunc } from './utils/rateLimiter'
 
@@ -45,6 +46,8 @@ logger.info(`API listening on ${port}`)
 const app = new Hono<AppEnv>()
 
 app.onError(globalErrorHandler)
+
+app.use('*', requestLoggingMiddleware)
 
 app.use(secureHeaders())
 app.use(bodyLimit({ maxSize: 1024 * 1024 }))
@@ -66,17 +69,6 @@ app.use('*', async (c, next) => {
   c.set('refreshSecret', env.REFRESH_SECRET)
   c.set('frontendUrl', env.FRONTEND_URL)
   await next()
-})
-
-app.use('*', async (c, next) => {
-  const start = Date.now()
-  await next()
-  logger.info({
-    method: c.req.method,
-    path: c.req.path,
-    status: c.res.status,
-    ms: Date.now() - start,
-  })
 })
 
 app.use('*', otelTracingMiddleware)
