@@ -6,7 +6,7 @@ import { DropdownMenu } from '../DropdownMenu'
 
 // Oracle tests for the shared DropdownMenu component.
 // Cover the post-refactor Option B contract (DOM-order roving focus,
-// multi-ref useClickOutside hook). All active, no residual `it.skip`.
+// multi-ref useCaptureDismiss hook). All active, no residual `it.skip`.
 
 function Sample({ ariaLabel = 'Test menu' }: { ariaLabel?: string } = {}) {
   return (
@@ -140,15 +140,15 @@ describe('DropdownMenu — comportement actuel', () => {
       expect(screen.queryByRole('menu')).not.toBeInTheDocument()
     })
     // Tap-block: capture-phase intercept swallows the click so the underlying
-    // button's onClick never fires — no surprise navigation on mobile.
+    // button's onClick never fires. No surprise navigation on mobile.
     expect(outsideClick).not.toHaveBeenCalled()
   })
 
-  // D1 — a menu portaled into a <dialog open> must attach to the dialog (top
+  // A menu portaled into a <dialog open> must attach to the dialog (top
   // layer), not document.body. triggerRef is read outside render
   // (useLayoutEffect), target frozen at open time so a concurrent dialog close
   // doesn't teleport the menu and lose focus.
-  it('D1 — menu portalisé dans <dialog open> rejoint le dialog, pas document.body', async () => {
+  it('menu portalisé dans <dialog open> rejoint le dialog, pas document.body', async () => {
     const user = userEvent.setup()
     render(
       <dialog open data-testid="host-dialog">
@@ -191,9 +191,9 @@ describe('DropdownMenu — comportement actuel', () => {
 describe('DropdownMenu — contrats post-fix (D-findings shipped)', () => {
   afterEach(() => cleanup())
 
-  // D9 — ArrowDown on the trigger must open the menu and focus item[0].
+  // ArrowDown on the trigger must open the menu and focus item[0].
   // ARIA APG Menu Button pattern.
-  it('D9 — ArrowDown sur trigger ouvre menu + focus item[0]', async () => {
+  it('ArrowDown sur trigger ouvre menu + focus item[0]', async () => {
     const user = userEvent.setup()
     render(<Sample />)
     const trigger = screen.getByRole('button', { name: 'Open' })
@@ -205,7 +205,7 @@ describe('DropdownMenu — contrats post-fix (D-findings shipped)', () => {
     expect(document.activeElement).toBe(screen.getByRole('menuitem', { name: 'Item A' }))
   })
 
-  it('D9 — ArrowUp sur trigger ouvre menu + focus dernier item', async () => {
+  it('ArrowUp sur trigger ouvre menu + focus dernier item', async () => {
     const user = userEvent.setup()
     render(<Sample />)
     const trigger = screen.getByRole('button', { name: 'Open' })
@@ -217,16 +217,16 @@ describe('DropdownMenu — contrats post-fix (D-findings shipped)', () => {
     expect(document.activeElement).toBe(screen.getByRole('menuitem', { name: 'Item C' }))
   })
 
-  // D10 — aria-orientation="vertical" on role="menu".
-  it('D10 — role=menu porte aria-orientation="vertical"', async () => {
+  // aria-orientation="vertical" on role="menu".
+  it('role=menu porte aria-orientation="vertical"', async () => {
     const user = userEvent.setup()
     render(<Sample />)
     await user.click(screen.getByRole('button', { name: 'Open' }))
     expect(screen.getByRole('menu')).toHaveAttribute('aria-orientation', 'vertical')
   })
 
-  // D4 — items have tabIndex=-1 (roving tabIndex pattern).
-  it('D4 — chaque menuitem porte tabIndex=-1', async () => {
+  // Items have tabIndex=-1 (roving tabIndex pattern).
+  it('chaque menuitem porte tabIndex=-1', async () => {
     const user = userEvent.setup()
     render(<Sample />)
     await user.click(screen.getByRole('button', { name: 'Open' }))
@@ -235,10 +235,10 @@ describe('DropdownMenu — contrats post-fix (D-findings shipped)', () => {
     })
   })
 
-  // D2 — kb nav survives a parent re-render. With DOM-order roving, the source
+  // kb nav survives a parent re-render. With DOM-order roving, the source
   // of truth is the current DOM (querySelectorAll), not an itemsRef mutated by
-  // registration callbacks — no more wipe risk between re-renders.
-  it('D2 — kb nav reste fonctionnelle après re-render parent', async () => {
+  // registration callbacks. No more wipe risk between re-renders.
+  it('kb nav reste fonctionnelle après re-render parent', async () => {
     function Wrapper({ tick }: { tick: number }) {
       return (
         <div data-tick={tick}>
@@ -273,7 +273,7 @@ describe('DropdownMenu — contrats post-fix (D-findings shipped)', () => {
     expect(document.activeElement).toBe(trigger)
   })
 
-  // DOM-order roving — items inside a Fragment aren't "hidden" by a component
+  // DOM-order roving: items inside a Fragment aren't "hidden" by a component
   // wrapper. Children.toArray + a `child.type === DropdownMenuItem` check would
   // have skipped them; querySelectorAll sees them because the role is set by
   // cloneElement on the final element.
@@ -306,7 +306,7 @@ describe('DropdownMenu — contrats post-fix (D-findings shipped)', () => {
     expect(document.activeElement).toBe(screen.getByRole('menuitem', { name: 'Frag B' }))
   })
 
-  // Conditional remount — an item removed then re-added between two opens must
+  // Conditional remount: an item removed then re-added between two opens must
   // be accounted for. The live DOM read carries no stale state.
   it("items conditionnels — kb nav reflète l'ordre DOM courant après remount", async () => {
     function Conditional({ extra }: { extra: boolean }) {

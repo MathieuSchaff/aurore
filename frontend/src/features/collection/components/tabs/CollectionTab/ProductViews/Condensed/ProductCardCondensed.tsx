@@ -175,7 +175,7 @@ export function ProductCardCondensed({
         )}
       </button>
 
-      {/* Badge rond (.prod-sentiment-badge) — retiré le temps de retravailler les icônes. */}
+      {/* TODO(collection): restore .prod-sentiment-badge once the sentiment icon set is reworked. */}
 
       <span
         className={clsx('pcc-check', (selectMode || selected) && 'pcc-check--visible')}

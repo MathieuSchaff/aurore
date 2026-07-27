@@ -217,7 +217,6 @@ export const TAG_CONFIG: Readonly<Record<string, TagRule>> = {
     allow: true,
   },
 
-  // Leave-on only.
   comedogene: {
     auroreSlug: S.COMEDOGENE,
     confidenceFloor: 0.85,

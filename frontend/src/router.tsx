@@ -1,8 +1,10 @@
 import { createRouter, type ParsedLocation } from '@tanstack/react-router'
 import { setupRouterSsrQueryIntegration } from '@tanstack/react-router-ssr-query'
 
+import { GlobalError } from './component/Feedback/app/GlobalError/GlobalError'
 import { getCspNonce } from './lib/csp/nonce'
 import { isServer } from './lib/helpers/isServer'
+import { captureFrontendError } from './lib/observability/faro'
 import { queryClient as clientQueryClient, makeQueryClient } from './lib/queryClient'
 import { resolveTransitionType } from './lib/transitions/resolveTransitionType'
 import type { RouterContext } from './routerContext'
@@ -58,6 +60,17 @@ export function getRouter() {
     defaultPreload: import.meta.env.PROD ? 'intent' : false,
     defaultPreloadStaleTime: 0,
     scrollRestoration: true,
+    // Without a default, a route that omits errorComponent lets the throw climb to
+    // AppErrorBoundary, which sits above the Outlet and takes the header and nav
+    // down with it. Keeping the boundary per route confines the failure.
+    defaultErrorComponent: ({ error, reset }) => <GlobalError error={error} reset={reset} />,
+    // Routes that render their own terse errorComponent would otherwise swallow the
+    // error; the router calls this for every caught throw, notFound excluded.
+    defaultOnCatch: (error, info) =>
+      captureFrontendError(error, {
+        source: 'router',
+        componentStack: info.componentStack,
+      }),
     // Delay pending UI so fast nav doesn't flash a loader.
     defaultPendingMs: 200,
     defaultViewTransition: false,

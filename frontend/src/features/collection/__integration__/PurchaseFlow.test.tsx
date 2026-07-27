@@ -111,7 +111,7 @@ describe("Flow : Enregistrement d'achat depuis la collection", () => {
     })
     await userEvent.click(productBtn)
 
-    // Sheet is React.lazy — first mount can exceed the default 1s findBy* timeout
+    // Sheet is React.lazy. First mount can exceed the default 1s findBy* timeout
     // under full-suite parallel load. Wait explicitly for the dialog to render.
     await screen.findByRole('dialog', {}, { timeout: 3000 })
     // "Cycle de vie" accordion is collapsed by default; expand it first.

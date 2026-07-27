@@ -1,30 +1,9 @@
 // Global styles first: declares the @layer order before any component CSS can
 // register a layer (else routeTree's component CSS inverts the cascade).
 import './../styles/index.css'
-import '@fontsource/dm-sans/400.css'
-import '@fontsource/dm-sans/400-italic.css'
-import '@fontsource/dm-sans/500.css'
-import '@fontsource/dm-sans/500-italic.css'
-import '@fontsource/dm-sans/600.css'
-import '@fontsource/dm-sans/700.css'
-import '@fontsource/ibm-plex-mono/400.css'
-import '@fontsource/ibm-plex-mono/500.css'
-import '@fontsource/ibm-plex-mono/600.css'
-import '@fontsource/fraunces/400.css'
-import '@fontsource/fraunces/400-italic.css'
-import '@fontsource/fraunces/500.css'
-import '@fontsource/fraunces/600.css'
-import '@fontsource/fraunces/600-italic.css'
-import '@fontsource/fraunces/700.css'
 
-import {
-  createRootRouteWithContext,
-  HeadContent,
-  Scripts,
-  useNavigate,
-  useRouterState,
-} from '@tanstack/react-router'
-import { lazy, type ReactNode, Suspense, useEffect } from 'react'
+import { createRootRouteWithContext, HeadContent, Scripts } from '@tanstack/react-router'
+import { lazy, type ReactNode, Suspense } from 'react'
 
 import { AppErrorBoundary } from '../component/Feedback/app/AppErrorBoundary/AppErrorBoundary'
 import { GlobalError } from '../component/Feedback/app/GlobalError/GlobalError'
@@ -32,12 +11,13 @@ import { NavigationProgress } from '../component/Feedback/app/NavigationProgress
 import { AppLayout } from '../component/Layout/AppLayout/AppLayout'
 import { readServerSessionHint } from '../lib/auth/readServerSessionHint'
 import { ServerHintProvider } from '../lib/auth/serverHint'
+import { useBannedRedirect } from '../lib/auth/useBannedRedirect'
+import { useSessionExpiredRedirect } from '../lib/auth/useSessionExpiredRedirect'
 import { getCspNonce } from '../lib/csp/nonce'
 import { useBootRefresh } from '../lib/hooks/useBootRefresh'
 import { useTokenRefresh } from '../lib/hooks/useTokenRefresh'
 import { NOINDEX_ROBOTS } from '../lib/seo'
 import type { RouterContext } from '../routerContext'
-import { useAuthStore } from '../store/auth'
 import { useThemeStore } from '../store/theme'
 
 // Excluded from prod bundle - Vite resolves import.meta.env.DEV at build time
@@ -49,7 +29,7 @@ const ReactQueryDevtools = import.meta.env.DEV
     )
   : () => null
 
-function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
+function RootShell({ children }: Readonly<{ children: ReactNode }>) {
   // Subscribed here rather than in RootComponent: a theme toggle then re-renders only
   // this component, and the stable `children` element makes React skip the subtree.
   const theme = useThemeStore((s) => s.theme)
@@ -83,59 +63,16 @@ function RootComponent() {
   useSessionExpiredRedirect()
   useBannedRedirect()
   return (
-    <RootDocument>
-      <ServerHintProvider value={serverHint}>
-        <AppErrorBoundary>
-          <NavigationProgress />
-          <AppLayout />
-          <Suspense>
-            <ReactQueryDevtools />
-          </Suspense>
-        </AppErrorBoundary>
-      </ServerHintProvider>
-    </RootDocument>
+    <ServerHintProvider value={serverHint}>
+      <AppErrorBoundary>
+        <NavigationProgress />
+        <AppLayout />
+        <Suspense>
+          <ReactQueryDevtools />
+        </Suspense>
+      </AppErrorBoundary>
+    </ServerHintProvider>
   )
-}
-
-// On the sessionExpired flag (401-recovery refresh failed): clear auth and send
-// the user to login with the current path so they return here after re-login.
-function useSessionExpiredRedirect() {
-  const sessionExpired = useAuthStore((s) => s.sessionExpired)
-  const navigate = useNavigate()
-  const pathname = useRouterState({ select: (s) => s.location.pathname })
-
-  useEffect(() => {
-    if (!sessionExpired) return
-    // Already on the auth flow - clear the flag without redirecting.
-    if (pathname.startsWith('/auth/')) {
-      useAuthStore.getState().clearSessionExpired()
-      return
-    }
-    const store = useAuthStore.getState()
-    store.clearAuth()
-    store.clearSessionExpired()
-    navigate({ to: '/auth/login', search: { redirect: pathname } })
-  }, [sessionExpired, pathname, navigate])
-}
-
-function useBannedRedirect() {
-  const banned = useAuthStore((s) => s.banned)
-  const bannedDetails = useAuthStore((s) => s.bannedDetails)
-  const navigate = useNavigate()
-  const pathname = useRouterState({ select: (s) => s.location.pathname })
-
-  useEffect(() => {
-    if (!banned) return
-    useAuthStore.getState().clearBanned()
-    if (pathname === '/auth/banned') return
-    navigate({
-      to: '/auth/banned',
-      search: {
-        reason: bannedDetails?.reason ?? undefined,
-        expires: bannedDetails?.expiresAt ?? undefined,
-      },
-    })
-  }, [banned, bannedDetails, navigate, pathname])
 }
 
 export const Route = createRootRouteWithContext<RouterContext>()({
@@ -191,7 +128,10 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     ],
   }),
   component: RootComponent,
-  errorComponent: ({ error, reset }) => <GlobalError error={error} reset={reset} />,
+  // The router mounts the shell outside the root catch boundary, so the document
+  // survives a root throw. Rendering it from `component` instead would strip
+  // html/head/body from the error and not-found pages.
+  shellComponent: RootShell,
   notFoundComponent: () => (
     <GlobalError
       error={new Error("The page you're looking for doesn't exist.")}

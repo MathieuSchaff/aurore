@@ -83,8 +83,8 @@ const loadVariant = async (variant: Variant): Promise<void> => {
 const initial = getInitialTheme()
 const initialVariant = getInitialVariant()
 
-// Client-only: RootDocument ships data-theme="light" for SSR/prerender; the
-// client re-applies from storage after hydration.
+// Client-only: RootShell ships data-theme="light" for SSR/prerender; the
+// client applies it from storage after hydration.
 if (!isServer) {
   applyTheme(initial.theme)
   applyVariant(initialVariant)

@@ -5,6 +5,9 @@ import { index, jsonb, pgEnum, pgTable, timestamp, uuid } from 'drizzle-orm/pg-c
 
 import { users } from '../auth/users'
 
+// Only the moderation acts that leave nothing behind. Ban creation, content moderation,
+// report review, suggested-edit review and role-request review all record their actor on
+// the domain row itself, and duplicating them here would contradict audit-logs.mdx.
 export const moderationActionValues = ['ban_lifted', 'ban_updated', 'role_changed'] as const
 
 export type ModerationActionName = (typeof moderationActionValues)[number]
@@ -29,9 +32,6 @@ export type ModerationActionDetailsByAction = {
 
 export type ModerationActionDetails = ModerationActionDetailsByAction[ModerationActionName]
 
-// Only the moderation acts that leave nothing behind. Ban creation, content moderation,
-// report review, suggested-edit review and role-request review all record their actor on
-// the domain row itself, and duplicating them here would contradict audit-logs.mdx.
 export const moderationActionEnum = pgEnum('moderation_action', moderationActionValues)
 
 // Append-only. Nothing updates or deletes a row here.

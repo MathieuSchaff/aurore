@@ -41,7 +41,7 @@ export function ProductDetailSheet({ p, onClose }: ProductDetailSheetProps) {
   const { data: purchases } = useQuery(purchaseQueries.byUserProduct(p.id))
   const purchaseCount = purchases?.length ?? 0
 
-  // Watched products are still being evaluated — surface the formula first, open.
+  // Watched products are still being evaluated, so surface the formula first, open.
   const isWatched = p.status === 'watched'
   const formulaSection = (
     <PdsAccordion
@@ -91,7 +91,7 @@ export function ProductDetailSheet({ p, onClose }: ProductDetailSheetProps) {
             <LifecycleSection p={p} onAddPurchase={() => setShowAddPurchase(true)} />
           </PdsAccordion>
 
-          {/* Formula demoted — reference material, closed by default (except watched, rendered on top) */}
+          {/* Formula demoted to reference material, closed by default (except watched, rendered on top) */}
           {!isWatched && formulaSection}
 
           <footer className="pds-footer">

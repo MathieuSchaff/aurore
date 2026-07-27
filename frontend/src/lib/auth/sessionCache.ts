@@ -18,16 +18,20 @@ const USER_SCOPED_SUBTREES: ReadonlyArray<readonly [string, string]> = [
   ['products', 'shelf-status'],
 ]
 
+// An unknown key shape counts as session-scoped: dropping a public query costs a refetch,
+// keeping a user-scoped one leaks the previous session into the next render.
+function isSessionScoped(queryKey: readonly unknown[]): boolean {
+  const [root, second] = queryKey
+  if (typeof root !== 'string' || !PUBLIC_QUERY_ROOTS.has(root)) return true
+  return USER_SCOPED_SUBTREES.some(
+    ([scopedRoot, scopedSecond]) => scopedRoot === root && scopedSecond === second
+  )
+}
+
 /**
  * Drop every cached query that could carry the ending session's data.
  * Public catalog and editorial queries survive, so the page the user is reading does not blank out.
  */
 export function dropSessionScopedQueries(queryClient: QueryClient): void {
-  queryClient.removeQueries({
-    predicate: (query) => {
-      const [root, second] = query.queryKey
-      if (typeof root !== 'string' || !PUBLIC_QUERY_ROOTS.has(root)) return true
-      return USER_SCOPED_SUBTREES.some(([r, s]) => r === root && s === second)
-    },
-  })
+  queryClient.removeQueries({ predicate: (query) => isSessionScoped(query.queryKey) })
 }
