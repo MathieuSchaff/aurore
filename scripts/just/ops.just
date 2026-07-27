@@ -18,9 +18,9 @@ prod-migrate:
     if [ "${SKIP_CONFIRM:-}" != "1" ]; then confirm_prod "MIGRATE"; fi
     {{COMPOSE_PROD}} exec -T -w /app/backend api bun run src/db/migrate.ts
     APP_PW=$(grep -E '^APP_RUNTIME_PASSWORD=' .env.prod 2>/dev/null | cut -d= -f2- || true)
-    [ -n "$APP_PW" ] || { printf "{{RED}}APP_RUNTIME_PASSWORD absent de .env.prod — ALTER ROLE non appliqué{{NC}}\n"; exit 1; }
+    [ -n "$APP_PW" ] || { printf "{{RED}}APP_RUNTIME_PASSWORD missing from .env.prod, ALTER ROLE not applied{{NC}}\n"; exit 1; }
     {{COMPOSE_PROD}} exec -T db psql -U app -d appdb -c "ALTER ROLE app_runtime PASSWORD '$APP_PW';"
-    printf "{{GREEN}}✓ app_runtime password aligné{{NC}}\n"
+    printf "{{GREEN}}✓ app_runtime password aligned{{NC}}\n"
 
 # [VPS] Reload Nginx config without downtime
 nginx-reload:
@@ -37,9 +37,9 @@ deploy: env-prod-check
     source {{justfile_directory()}}/scripts/just/_lib.sh
     # Single 'DEPLOY' gate skips prod-migrate's own prompt. Migrate execs inside the
     # api container so it runs after `up`; additive migrations boot fine on the old
-    # schema — a breaking one needs `just prod-migrate` once the new image is up.
+    # schema. A breaking one needs `just prod-migrate` once the new image is up.
     confirm_prod "DEPLOY" "DEPLOY"
-    # Config only (compose, nginx, migration SQL) — code now ships as a pre-built image.
+    # Config only (compose, nginx, migration SQL): code now ships as a pre-built image.
     # Mirror, not pull: GitHub rewrites main's history on each PR merge, so a deploy
     # target is never fast-forwardable. reset --hard keeps untracked .env.prod/backups.
     printf "{{CYAN}}▸ sync config to origin/main{{NC}}\n"
@@ -63,7 +63,7 @@ deploy: env-prod-check
     just prod-health
     printf "{{GREEN}}✓ Deploy done{{NC}}\n"
 
-# ─── Prod from the laptop (ssh → VPS; no local prod stack needed) ───
+# Prod from the laptop: these recipes ssh to the VPS, no local prod stack needed.
 
 # Run any cmd on the VPS in the repo (bash -lc loads login PATH). Usage: just prod-ssh 'docker ps'
 prod-ssh +CMD:
@@ -81,7 +81,7 @@ prod-ps:
 prod-tail svc="api" n="200":
     ssh aurore 'docker logs app_{{svc}} --tail {{n}} 2>&1' | node_modules/.bin/pino-pretty -c -t -i pid,hostname
 
-# Interactive psql on prod (read/write — careful). Read-only browse: SET ROLE dev_readonly.
+# Interactive psql on prod (read/write, careful). Read-only browse: SET ROLE dev_readonly.
 prod-psql:
     ssh -t aurore 'docker exec -it app_db psql -U app -d appdb'
 
@@ -209,7 +209,7 @@ clean-soft:
     {{COMPOSE_E2E}} down 2>/dev/null || true
     just ts-clean
 
-# Check .env.prod present (gate for `prod` — a prod host has no .env.dev)
+# Check .env.prod present (gate for `prod`: a prod host has no .env.dev)
 env-prod-check:
     @test -f .env.prod || (printf "{{YELLOW}}Warning: .env.prod missing{{NC}}\n" && exit 1)
 

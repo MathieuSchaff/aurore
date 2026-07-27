@@ -220,7 +220,7 @@ describe('POST /admin/users/:id/bans', () => {
     expect(rows).toHaveLength(0)
   })
 
-  it('DELETE /admin/bans/:banId garde une trace de ce que la suppression détruit', async () => {
+  it('DELETE /admin/bans/:banId records what the deletion destroys', async () => {
     const [inserted] = await testDb
       .insert(userBans)
       .values({ userId, scope: 'global', bannedBy: adminId, reason: 'oops' })
@@ -279,7 +279,7 @@ describe('POST /admin/users/:id/bans', () => {
     expect(res.status).toBe(HTTP_STATUS.OK)
     const body = await res.json()
     if (!body.success) throw new Error(`expected success, got ${JSON.stringify(body)}`)
-    // Setup creates user then admin → admin is newer → newest-first
+    // Setup creates user then admin, so admin is newer and comes first.
     expect(body.data.items.length).toBeGreaterThanOrEqual(2)
     const ids = body.data.items.map((u) => u.id)
     expect(ids).toContain(userId)
@@ -334,7 +334,7 @@ describe('POST /admin/users/:id/bans', () => {
       details: { scope: 'global', expiresAtChanged: true, expiresAt: future, reasonChanged: true },
     })
 
-    // Cache was invalidated → /auth/session reads fresh state (still banned, expiry not reached)
+    // Cache was invalidated, so /auth/session reads fresh state (still banned, expiry not reached)
     const after = await client.auth.session.$get({}, withAuth(userToken))
     expect(after.status as number).toBe(HTTP_STATUS.FORBIDDEN)
   })
@@ -457,7 +457,7 @@ describe('POST /admin/users/:id/bans', () => {
 // Contributors can manage reversible, content-scoped bans. Global account lockout
 // stays admin-only. These route-level tests run as the table-owner `app` (BYPASSRLS),
 // so they exercise the app-level guard + handler scope gate; DB-level RLS has its own test.
-describe('Contributor (modérateur) content-scoped bans', () => {
+describe('Contributor (moderator) content-scoped bans', () => {
   let client: TestClient
   let targetId: string
   let contributorId: string
@@ -483,7 +483,7 @@ describe('Contributor (modérateur) content-scoped bans', () => {
     await testDb.delete(userBans)
   })
 
-  it('contributor creates a content-scoped ban (review_publish) → 201, bannedBy=contributor', async () => {
+  it('contributor creates a content-scoped ban (review_publish): 201, bannedBy=contributor', async () => {
     const res = await client.admin.users[':id'].bans.$post(
       { param: { id: targetId }, json: { scope: 'review_publish', reason: 'spam reviews' } },
       withAuth(contributorToken)
@@ -499,7 +499,7 @@ describe('Contributor (modérateur) content-scoped bans', () => {
     })
   })
 
-  it('contributor creating a global ban → 403 forbidden', async () => {
+  it('contributor creating a global ban: 403 forbidden', async () => {
     const res = await client.admin.users[':id'].bans.$post(
       { param: { id: targetId }, json: { scope: 'global', reason: 'nope' } },
       withAuth(contributorToken)
@@ -513,7 +513,7 @@ describe('Contributor (modérateur) content-scoped bans', () => {
     expect(rows).toHaveLength(0)
   })
 
-  it('contributor lifts a content-scoped ban → 200, row deleted', async () => {
+  it('contributor lifts a content-scoped ban: 200, row deleted', async () => {
     const [inserted] = await testDb
       .insert(userBans)
       .values({ userId: targetId, scope: 'review_publish', bannedBy: adminId, reason: 'x' })
@@ -533,8 +533,8 @@ describe('Contributor (modérateur) content-scoped bans', () => {
 
   // The app-level gate returns 403 here (owner `app`, BYPASSRLS, so getBanScope sees the
   // global row). Under prod RLS the same request is 404 (the row is hidden from the
-  // contributor → not_found); the DB-level denial is proven in user-bans-rls.test.ts.
-  it('contributor lifting a global ban → 403 forbidden, ban survives', async () => {
+  // contributor, so not_found); the DB-level denial is proven in user-bans-rls.test.ts.
+  it('contributor lifting a global ban: 403 forbidden, ban survives', async () => {
     const [inserted] = await testDb
       .insert(userBans)
       .values({ userId: targetId, scope: 'global', bannedBy: adminId })
@@ -554,7 +554,7 @@ describe('Contributor (modérateur) content-scoped bans', () => {
     expect(rows).toHaveLength(1)
   })
 
-  it('contributor lists a user bans → 200 (queue reachable by modo)', async () => {
+  it('contributor lists user bans: 200 (queue reachable by moderator)', async () => {
     const res = await client.admin.users[':id'].bans.$get(
       { param: { id: targetId } },
       withAuth(contributorToken)
@@ -565,7 +565,7 @@ describe('Contributor (modérateur) content-scoped bans', () => {
   // Pins the admin-vs-contributor boundary: PATCH stays requireAdmin, so a
   // contributor is rejected (the plain-user 403 test can't catch a regression
   // that loosened PATCH to requireContentModerator).
-  it('contributor cannot update a ban (PATCH stays admin-only) → 403', async () => {
+  it('contributor cannot update a ban (PATCH stays admin-only): 403', async () => {
     const [inserted] = await testDb
       .insert(userBans)
       .values({ userId: targetId, scope: 'review_publish', bannedBy: adminId })
@@ -579,7 +579,7 @@ describe('Contributor (modérateur) content-scoped bans', () => {
     expect(res.status as number).toBe(HTTP_STATUS.FORBIDDEN)
   })
 
-  it('plain user creating a content-scoped ban → 403, nothing inserted', async () => {
+  it('plain user creating a content-scoped ban: 403, nothing inserted', async () => {
     const res = await client.admin.users[':id'].bans.$post(
       { param: { id: contributorId }, json: { scope: 'review_publish' } },
       withAuth(userToken)

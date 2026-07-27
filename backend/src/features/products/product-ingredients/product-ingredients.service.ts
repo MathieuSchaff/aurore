@@ -96,7 +96,7 @@ export async function removeIngredientFromProduct(
   productId: string,
   ingredientId: string
 ): Promise<boolean> {
-  const result = await db
+  const deletedLinks = await db
     .delete(productIngredients)
     .where(
       and(
@@ -105,7 +105,7 @@ export async function removeIngredientFromProduct(
       )
     )
     .returning({ id: productIngredients.id })
-  return result.length > 0
+  return deletedLinks.length > 0
 }
 
 export async function replaceProductIngredients(

@@ -38,7 +38,7 @@ upstream frontend {
 }
 # link to check the directives of the core module
 # https://nginx.org/en/docs/http/ngx_http_core_module.html
-# Bloc HTTP (port 80) and ACME challenge + redirect to HTTPS.
+# Block HTTP (port 80) and ACME challenge + redirect to HTTPS.
 server {
     listen 80;
     server_name ${DOMAIN} www.${DOMAIN};
@@ -62,7 +62,7 @@ server {
     }
 }
 
- # Local Docker healthcheck: prevents Host: 127.0.0.1 from hitting the 444 default_server.
+# Local Docker healthcheck: prevents Host: 127.0.0.1 from hitting the 444 default_server.
 server {
     listen 80;
     server_name 127.0.0.1 localhost;
@@ -75,7 +75,7 @@ server {
     }
 }
 
-# Handle HTTPS for our domain on port 443)
+# Handle HTTPS for our domain on port 443.
 # https://nginx.org/en/docs/http/configuring_https_servers.html
 
 server {
@@ -92,7 +92,7 @@ server {
     # Generated with : https://configurator.tlsref.org/ ( config nginx intermediate)
     ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384;
     ssl_prefer_server_ciphers off;
-    # HSTS, tells browser to come only wiht https on future connexions
+    # HSTS, tells the browser to come only with https on future connections
     # for one year, always come back on https on this domain
     add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
     # Don't try to guess which type of files, if it's image, don't treat it as javascript, don't interpret

@@ -76,7 +76,6 @@ export const Route = createFileRoute('/blog/$category/$slug')({
   component: BlogArticleRoute,
   pendingComponent: BlogArticleSkeleton,
   notFoundComponent: () => <GlobalError error={new Error('not_found')} is404 />,
-  errorComponent: ({ error, reset }) => <GlobalError error={error} reset={reset} />,
 })
 
 function BlogArticleRoute() {

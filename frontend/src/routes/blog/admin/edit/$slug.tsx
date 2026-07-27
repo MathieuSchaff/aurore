@@ -29,7 +29,6 @@ export const Route = createFileRoute('/blog/admin/edit/$slug')({
     }),
   component: EditArticleRoute,
   notFoundComponent: () => <GlobalError error={new Error('not_found')} is404 />,
-  errorComponent: ({ error, reset }) => <GlobalError error={error} reset={reset} />,
 })
 
 function EditArticleRoute() {

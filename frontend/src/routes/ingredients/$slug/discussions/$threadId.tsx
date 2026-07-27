@@ -33,6 +33,5 @@ export const Route = createFileRoute('/ingredients/$slug/discussions/$threadId')
       }),
   pendingComponent: IngredientThreadSkeleton,
   notFoundComponent: () => <GlobalError error={new Error('not_found')} is404 />,
-  errorComponent: ({ error, reset }) => <GlobalError error={error} reset={reset} />,
   component: IngredientThreadDetailRoute,
 })

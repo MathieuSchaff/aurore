@@ -1,20 +1,21 @@
 import { err, HTTP_STATUS, ok } from '@aurore/shared'
 
-import { sql } from 'drizzle-orm'
 import { type Context, Hono } from 'hono'
 
 import type { AppEnv } from '../../app-env'
 import { logger } from '../../lib/logger'
+import { checkDatabase, type ReadinessCheck } from './service'
 
-// Liveness: process is up. Used by the container healthcheck — must NOT depend on
+// Single source for the probe mount paths: index.ts and createTestApp mount them,
+// request-logging matches them to skip successful probe lines.
+export const HEALTH_PATH = '/api/health'
+export const READY_PATH = '/api/ready'
+
+// Liveness: process is up. Used by the container healthcheck, so it must NOT depend on
 // the DB, or a DB outage would keep the container "unhealthy" and stop nginx booting.
 export const healthRoute = new Hono<AppEnv>().get('/', (c) => {
   return c.json(ok(true), HTTP_STATUS.OK)
 })
-
-type ReadinessCheck = (db: AppEnv['Variables']['db']) => Promise<unknown>
-
-const checkDatabase: ReadinessCheck = (db) => db.execute(sql`SELECT 1`)
 
 async function respondToReadiness(c: Context<AppEnv>, check: ReadinessCheck) {
   try {

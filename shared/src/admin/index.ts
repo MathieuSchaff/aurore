@@ -22,7 +22,7 @@ export const createBanBodySchema = z.object({
   scope: banScopeSchema,
   // Trim before length check so whitespace-only payloads are rejected.
   reason: z.string().trim().min(1).max(500).optional(),
-  // ISO 8601 UTC — backend rejects past timestamps as invalid_input.
+  // ISO 8601 UTC. Backend rejects past timestamps as invalid_input.
   expiresAt: z.iso.datetime().optional(),
 })
 
@@ -49,7 +49,7 @@ export type CreateBanResult = ApiResponse<CreateBanResponse, AdminBanErrorCode>
 
 // PATCH body: scope is immutable (creating a new ban is the right move for a
 // different scope). Both fields nullable so admin can clear reason or make a
-// ban permanent (expiresAt → null).
+// ban permanent (null expiresAt).
 export const updateBanBodySchema = z
   .object({
     reason: z.string().trim().min(1).max(500).nullable().optional(),
@@ -78,7 +78,7 @@ export type ListUsersResponse = {
   items: AdminUserListItem[]
 }
 
-// Admin-only demotion of a contributor back to a plain user (S6). The only
+// Admin-only demotion of a contributor back to a plain user. The only
 // allowed target role is 'user'; promotion goes through the separate role-request
 // flow. reason is operational context, persisted in the append-only moderation
 // audit trail because users.role itself is overwritten in place.
@@ -114,8 +114,8 @@ export const moderateContentBodySchema = z.object({
 
 export type ModerateContentInput = z.infer<typeof moderateContentBodySchema>
 
-// Catalog quality stamp: verify can only move a row to 'verified' (un-verify is
-// out of scope), so the body is a single literal.
+// Catalog quality stamp: verify can only move a row to 'verified' and there is no
+// way back, so the body is a single literal.
 export const verifyQualityBodySchema = z.object({ quality: z.literal('verified') })
 export type VerifyQualityInput = z.infer<typeof verifyQualityBodySchema>
 
@@ -126,7 +126,7 @@ export type ModerateContentResult = ApiResponse<
 
 export type ModerationTarget = 'reviews' | 'threads' | 'replies' | 'products' | 'ingredients'
 
-// Quick admin dashboard snapshot — at-a-glance counts so admins land on the
+// Quick admin dashboard snapshot: at-a-glance counts so admins land on the
 // workload, not on an arbitrary subpage.
 export type AdminDashboard = {
   openReports: number
@@ -175,7 +175,7 @@ export type ContentPreviewResult = ApiResponse<ContentPreview, CommonErrorCode>
 // Catalog moderation queue (#16). The queue lists submitted catalog rows so a
 // moderator can verify (bless) or hide them. One request = one kind (a tab), so the
 // product-only `brand` field is null for ingredients. ContentPreview is the single-row
-// preview shape and lacks catalogQuality — hence this dedicated list item.
+// preview shape and lacks catalogQuality, hence this dedicated list item.
 export const catalogKindSchema = z.enum(['product', 'ingredient'])
 export type CatalogKind = z.infer<typeof catalogKindSchema>
 

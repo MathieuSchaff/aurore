@@ -3,8 +3,10 @@ import { Component, type ErrorInfo, type ReactNode } from 'react'
 import { captureFrontendError } from '../../../../lib/observability/faro'
 import { GlobalError } from '../GlobalError/GlobalError'
 
-// Defense-in-depth boundary for non-route descendants (Header, Toaster);
-// TanStack root errorComponent handles loader/route throws but not these.
+// Last resort for what no route boundary covers: the chrome around the Outlet
+// (Header, Toaster) and anything the root component itself throws. React picks the
+// nearest boundary by tree position, so this sits above the Outlet and takes the
+// whole layout down when it fires: route-level errorComponents catch first.
 interface Props {
   children: ReactNode
   fallback?: (props: { error: Error; reset: () => void }) => ReactNode

@@ -8,10 +8,12 @@ import { ingredients } from '../../db/schema/ingredients/ingredients'
 import { products } from '../../db/schema/products/products'
 import { normalizeInstant } from '../../utils/dates'
 
+// lastmod feeds crawlers a recrawl hint. A null one omits the tag: static pages
+// have no row to date them.
 type SitemapEntry = { path: string; lastmod: string | null }
 
 // Marketing + indexable hub pages that are not row-backed. The blog category hubs
-// are data-driven (only non-empty ones) and come from getSitemapEntries.
+// are data-driven (only non-empty ones) and come from toSitemapEntries.
 const STATIC_PATHS = ['/', '/about', '/privacy', '/products', '/ingredients', '/blog']
 
 // Slugs are [a-z0-9-] by construction (create paths slugify); this is the belt
@@ -25,10 +27,7 @@ function escapeXml(s: string): string {
     .replace(/'/g, '&apos;')
 }
 
-// Public URLs only: catalogue rows accepted by the shared SEO publication rule
-// + published articles. lastmod feeds crawlers a recrawl hint; null (static
-// pages) omits the tag.
-async function getSitemapEntries(db: DB): Promise<SitemapEntry[]> {
+async function readSitemapRows(db: DB) {
   const [prods, ings, arts] = await Promise.all([
     db
       .select({
@@ -36,8 +35,8 @@ async function getSitemapEntries(db: DB): Promise<SitemapEntry[]> {
         updatedAt: products.updatedAt,
         moderationStatus: products.moderationStatus,
         category: products.category,
-        // Keep formula payloads out of the sitemap query; only the publication
-        // fact crosses the policy interface. btrim also rejects whitespace-only INCI.
+        // Keep formula payloads out of the sitemap query; we only need to know an
+        // INCI exists. btrim also rejects whitespace-only INCI.
         hasInci: sql<boolean>`nullif(btrim(coalesce(${products.inci}, '')), '') is not null`,
       })
       .from(products),
@@ -58,17 +57,27 @@ async function getSitemapEntries(db: DB): Promise<SitemapEntry[]> {
       .where(isNotNull(articles.publishedAt)),
   ])
 
-  // One hub entry per category that has at least one published article; lastmod is
-  // the freshest article in it. ISO strings compare lexicographically = chronologically.
-  const categoryLastmod = new Map<string, string | null>()
-  for (const a of arts) {
-    const mod = normalizeInstant(a.updatedAt)
-    const prev = categoryLastmod.get(a.category)
-    if (prev === undefined || (mod && (prev === null || mod > prev))) {
-      categoryLastmod.set(a.category, mod)
+  return { prods, ings, arts }
+}
+
+type SitemapRows = Awaited<ReturnType<typeof readSitemapRows>>
+
+// ISO strings compare lexicographically = chronologically.
+function latestArticleDateByCategory(arts: SitemapRows['arts']): Map<string, string | null> {
+  const byCategory = new Map<string, string | null>()
+  for (const article of arts) {
+    const lastmod = normalizeInstant(article.updatedAt)
+    const previous = byCategory.get(article.category)
+    if (previous === undefined || (lastmod && (previous === null || lastmod > previous))) {
+      byCategory.set(article.category, lastmod)
     }
   }
+  return byCategory
+}
 
+// Public URLs only: catalogue rows accepted by the shared SEO publication rule
+// + published articles.
+function toSitemapEntries({ prods, ings, arts }: SitemapRows): SitemapEntry[] {
   return [
     ...prods
       .filter(
@@ -93,7 +102,8 @@ async function getSitemapEntries(db: DB): Promise<SitemapEntry[]> {
         path: `/ingredients/${i.slug}`,
         lastmod: normalizeInstant(i.updatedAt),
       })),
-    ...[...categoryLastmod].map(([category, lastmod]) => ({
+    // A hub is indexable only if the category holds at least one published article.
+    ...[...latestArticleDateByCategory(arts)].map(([category, lastmod]) => ({
       path: `/blog/${category}`,
       lastmod,
     })),
@@ -107,7 +117,7 @@ async function getSitemapEntries(db: DB): Promise<SitemapEntry[]> {
 export async function buildSitemapXml(db: DB): Promise<string> {
   const urls: SitemapEntry[] = [
     ...STATIC_PATHS.map((path) => ({ path, lastmod: null })),
-    ...(await getSitemapEntries(db)),
+    ...toSitemapEntries(await readSitemapRows(db)),
   ]
   const body = urls
     .map(({ path, lastmod }) => {

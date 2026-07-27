@@ -1,7 +1,6 @@
 import { createFileRoute, stripSearchParams, useNavigate } from '@tanstack/react-router'
 import { z } from 'zod'
 
-import { GlobalError } from '@/component/Feedback/app/GlobalError/GlobalError'
 import { BlogListSkeleton } from '@/features/blog/components/skeletons/BlogSkeletons'
 import { BlogListPage } from '@/features/blog/page/BlogListPage/BlogListPage'
 import { articleQueries } from '@/lib/queries/articles'
@@ -41,7 +40,6 @@ export const Route = createFileRoute('/blog/')({
     }),
   component: BlogIndexRoute,
   pendingComponent: BlogListSkeleton,
-  errorComponent: ({ error, reset }) => <GlobalError error={error} reset={reset} />,
 })
 
 function BlogIndexRoute() {

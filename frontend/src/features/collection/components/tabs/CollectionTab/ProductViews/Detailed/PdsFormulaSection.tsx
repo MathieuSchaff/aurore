@@ -35,7 +35,6 @@ export function PdsFormulaSection({ p }: PdsFormulaSectionProps) {
     enabled: !!user,
   })
 
-  // Contextual notes appear when user prefs intersect formula signals.
   const fragranceNote =
     dermoProfile?.skinTypes?.includes('peau-sensible') && hasFragranceComponent(fullProduct?.inci)
 
@@ -45,7 +44,7 @@ export function PdsFormulaSection({ p }: PdsFormulaSectionProps) {
 
   return (
     <>
-      {/* INCI promoted to top per design brief. */}
+      {/* Raw INCI before the tag list: ingredients-first, backlog section 18 P2.C (2026-05-15). */}
       {fullProductError ? (
         <p className="pds-empty-msg" role="alert">
           Détails indisponibles — vérifiez votre connexion.
