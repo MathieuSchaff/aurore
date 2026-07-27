@@ -36,7 +36,25 @@ import { ingredients } from '../../schema/ingredients/ingredients'
 const WRITE = process.argv.includes('--write')
 const aliasIndex = buildAliasIndex(MERGED_EVIDENCE_DB)
 
+// Slugs whose alias resolution collapses two distinct substances. The ladder below matches
+// on words, so a narrower slug lands on its broader neighbour and inherits a dermo profile
+// that was never measured on it. Left unkeyed on purpose: no key beats a wrong one.
+//   - the bitter-orange trio: flower (neroli) and leaf (petitgrain) both fall on the peel oil,
+//     which is the one carrying furocoumarins.
+//   - Camellia oleifera is not Camellia sinensis (tea-seed vs green tea).
+//   - EOS/EOP and NG/NS are separate CosIng names; the vendored alias index conflates them,
+//     fixed upstream but not in this pin.
+export const UNRESOLVABLE_SLUGS = new Set([
+  'camellia-oleifera-leaf-extract',
+  'ceramide-eos',
+  'ceramide-ng',
+  'citrus-aurantium-amara-flower-oil',
+  'citrus-aurantium-amara-leaf-oil',
+])
+
 const resolve = (name: string, slug: string): string | null => {
+  if (UNRESOLVABLE_SLUGS.has(slug)) return null
+
   const bare = slug.replace(/-hair$/, '').replace(/-/g, ' ')
   const paren = name.match(/\(([^)]+)\)\s*$/)?.[1]
   return (
