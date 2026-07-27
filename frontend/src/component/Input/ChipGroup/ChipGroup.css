@@ -63,17 +63,17 @@
 }
 
 /* Ring style at sm so dense chip lists stay scannable. */
+/* Text on a primary tint takes the --on-tint-l ink; the border keeps the vivid brand hue. */
 .chip--sm.chip--active {
   background: oklch(from var(--color-primary) l c h / 0.14);
   border-color: var(--color-primary);
-  color: var(--color-primary);
+  color: oklch(from var(--color-primary) var(--on-tint-l) c h);
   font-weight: var(--font-semibold);
   box-shadow: none;
 }
 
 .chip--sm.chip--active:hover:not(:disabled) {
   background: oklch(from var(--color-primary) l c h / 0.2);
-  color: var(--color-primary-hover, var(--color-primary));
   box-shadow: none;
 }
 

@@ -19,7 +19,9 @@
   --l-muted: 97%;
 
   --pine-deep: oklch(38% 0.13 var(--h-pine));
-  --pine-mid: oklch(54% 0.16 var(--h-pine));
+  /* 50%, not 54%: green carries far more luminance than the slate and petrol primaries at equal
+     lightness, so 54% left primary-as-text at 3.95 on --bg-sunken while the sibling themes passed. */
+  --pine-mid: oklch(50% 0.16 var(--h-pine));
   --terracotta-warm: oklch(64% 0.16 var(--h-terracotta));
   --terracotta-deep: oklch(52% 0.18 var(--h-terracotta));
   --amber-honey: oklch(78% 0.16 var(--h-amber));
@@ -49,7 +51,8 @@
   --text-inverse: var(--text-inverse-warm);
   --text-primary: oklch(20% 0.06 var(--h-ink));
   --text-secondary: oklch(40% 0.06 var(--h-ink));
-  --text-muted: oklch(56% var(--c-muted) var(--h-ink));
+  /* 52%, not 56%: muted text also lands on --bg-page and --bg-sunken, where 56% fell to 4.31 and 3.91. */
+  --text-muted: oklch(52% var(--c-muted) var(--h-ink));
 
   /* Accent: terracotta highlight. */
   --color-accent: var(--terracotta-deep);

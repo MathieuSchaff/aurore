@@ -38,7 +38,8 @@
     padding: var(--space-2);
     font-size: var(--text-xs);
     font-weight: var(--font-bold);
-    color: color-mix(in oklch, var(--color-primary-text) 70%, transparent);
+    /* 90%, not 70%: the pine and slate primaries left the idle label at 3.43 against the pill bar. */
+    color: color-mix(in oklch, var(--color-primary-text) 90%, transparent);
     background: transparent;
     border: none;
     cursor: pointer;
@@ -167,7 +168,9 @@
     font-weight: var(--font-semibold);
   }
 
-  .underline-tab-dimmed {
+  /* Dim the count, not the label: --text-muted is tuned to sit just above 4.5, so any opacity
+     on the text itself drops it under (measured 2.5 on the dark themes). */
+  .underline-tab-dimmed .tab-badge {
     opacity: 0.5;
   }
 
