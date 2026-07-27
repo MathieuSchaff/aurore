@@ -53,7 +53,7 @@ export const HAIR_CONDITIONNEURS = {
   CYCLOTETRASILOXANE: 'cyclotetrasiloxane', // D4, silicone cyclique volatil
   PHENYL_TRIMETHICONE: 'phenyl-trimethicone', // silicone phénylé, brillance, protection chaleur
   DIMETHICONOL: 'dimethiconol', // silicone haute masse, film protecteur
-  POLYSILICONE_15: 'polysilicone-15', // silicone filmogène solaire
+  POLYSILICONE_15_HAIR: 'polysilicone-15-hair', // silicone filmogène solaire, ombre du filtre skincare
   TRIMETHYLSILYLAMODIMETHICONE: 'trimethylsilylamodimethicone', // silicone aminé léger
   SILICONE_QUATERNIUM_8: 'silicone-quaternium-8', // silicone cationique, conditionneur substantif
   SILICONE_QUATERNIUM_16: 'silicone-quaternium-16', // silicone cationique, démêlant
