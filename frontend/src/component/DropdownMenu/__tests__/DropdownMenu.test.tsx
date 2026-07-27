@@ -40,12 +40,17 @@ async function flushFocus() {
 describe('DropdownMenu — comportement actuel', () => {
   afterEach(() => cleanup())
 
-  it('aria-haspopup / aria-expanded / aria-controls sont posés sur le trigger', () => {
+  it("aria-haspopup / aria-expanded sont posés sur le trigger, aria-controls seulement à l'ouverture", async () => {
+    const user = userEvent.setup()
     render(<Sample />)
     const trigger = screen.getByRole('button', { name: 'Open' })
     expect(trigger).toHaveAttribute('aria-haspopup', 'menu')
     expect(trigger).toHaveAttribute('aria-expanded', 'false')
-    expect(trigger).toHaveAttribute('aria-controls')
+    // The menu is unmounted while closed; keeping the idref would dangle.
+    expect(trigger).not.toHaveAttribute('aria-controls')
+
+    await user.click(trigger)
+    expect(trigger).toHaveAttribute('aria-controls', screen.getByRole('menu').id)
   })
 
   it('click trigger → menu ouvert, aria-expanded passe à true, role=menu accessible', async () => {

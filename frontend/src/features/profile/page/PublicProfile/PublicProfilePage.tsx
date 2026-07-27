@@ -40,7 +40,7 @@ export function PublicProfilePage({ username }: PublicProfilePageProps) {
   const hasLinks = data.links !== null && data.links.length > 0
 
   return (
-    <main className="public-profile">
+    <div className="public-profile">
       <header className="public-profile__header">
         <ProfileAvatar avatarUrl={data.avatarUrl} username={data.username} size="xl" />
         <PageTitle title={`@${data.username}`} />
@@ -128,6 +128,6 @@ export function PublicProfilePage({ username }: PublicProfilePageProps) {
             Ce profil est public, mais aucune information n'est partagée pour le moment.
           </p>
         )}
-    </main>
+    </div>
   )
 }

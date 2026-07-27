@@ -135,9 +135,9 @@ export function BlogListPage({
             placeholder={searchPlaceholder}
             onChange={handleInput}
           />
-          <main className={`list-main${isPlaceholderData ? ' list-main--syncing' : ''}`}>
+          <div className={`list-main${isPlaceholderData ? ' list-main--syncing' : ''}`}>
             {renderListBody()}
-          </main>
+          </div>
         </div>
       </div>
     </div>

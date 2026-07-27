@@ -90,7 +90,7 @@ export const ProfileDashboard = () => {
   ]
 
   return (
-    <main className="profile-dashboard">
+    <div className="profile-dashboard">
       <ProfileHero
         displayName={displayName}
         avatarUrl={profile.avatarUrl}
@@ -176,6 +176,6 @@ export const ProfileDashboard = () => {
           {activeTab === 'people' && <SimilarPeople />}
         </TabPanel>
       </div>
-    </main>
+    </div>
   )
 }

@@ -175,6 +175,7 @@ export function ProductLayout() {
         onTabChange={handleTabChange}
         variant="underline"
         ariaLabel="Sections du produit"
+        hasPanels={false}
       />
 
       <div style={{ viewTransitionName: 'tab-content' }}>
