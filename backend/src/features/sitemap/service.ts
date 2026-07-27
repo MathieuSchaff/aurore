@@ -118,3 +118,42 @@ export async function buildSitemapXml(db: DB): Promise<string> {
     .join('')
   return `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${body}</urlset>`
 }
+
+// A build scans products, ingredients and articles in full. The route is public and nginx
+// lets a single client burst 20 requests, so rebuilding per hit is a cheap way to pin the
+// DB. Holding the promise rather than the string also collapses a concurrent burst into
+// one build. TTL matches the Cache-Control the route advertises.
+const CACHE_TTL_MS = 3_600_000
+
+let cached: { xml: Promise<string>; expiresAt: number } | null = null
+
+export type SitemapXml = {
+  xml: string
+  maxAgeSeconds: number
+}
+
+export async function getSitemapXml(db: DB): Promise<SitemapXml> {
+  const now = Date.now()
+  let entry = cached
+
+  if (!entry || entry.expiresAt <= now) {
+    entry = { xml: buildSitemapXml(db), expiresAt: now + CACHE_TTL_MS }
+    cached = entry
+    // A failed build must not be served for the rest of the hour.
+    entry.xml.catch(() => {
+      if (cached === entry) cached = null
+    })
+  }
+
+  const xml = await entry.xml
+  return {
+    xml,
+    maxAgeSeconds: Math.max(0, Math.floor((entry.expiresAt - Date.now()) / 1000)),
+  }
+}
+
+// Test-only: each spec seeds its own fixtures and reads the route once, so without this
+// they would all see whatever the first one built.
+export function resetSitemapCache(): void {
+  cached = null
+}

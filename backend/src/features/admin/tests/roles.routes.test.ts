@@ -4,7 +4,7 @@ import { HTTP_STATUS } from '@aurore/shared'
 
 import { eq } from 'drizzle-orm'
 
-import { users } from '../../../db/schema'
+import { moderationActions, users } from '../../../db/schema'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
 import {
@@ -75,6 +75,16 @@ describe('PATCH /admin/users/:id/role', () => {
       .from(users)
       .where(eq(users.id, contributorId))
     expect(row?.role).toBe('user')
+
+    const [trail] = await testDb
+      .select()
+      .from(moderationActions)
+      .where(eq(moderationActions.targetUserId, contributorId))
+    expect(trail).toMatchObject({
+      actorId: adminId,
+      action: 'role_changed',
+      details: { role: 'user', reason: 'curation inactive' },
+    })
   })
 
   it('reason is optional (200 without reason)', async () => {
