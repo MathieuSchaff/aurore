@@ -38,8 +38,10 @@ export function PdsFormulaSection({ p }: PdsFormulaSectionProps) {
   const fragranceNote =
     dermoProfile?.skinTypes?.includes('peau-sensible') && hasFragranceComponent(fullProduct?.inci)
 
+  // A comma followed by a digit belongs to the name (`1,2-Hexanediol`), never to the separator.
+  // Mirrors algo-derm's `splitINCI`, which the frontend cannot import (vendored backend-only).
   const inciCount = fullProduct?.inci
-    ? fullProduct.inci.split(',').filter((s) => s.trim()).length
+    ? fullProduct.inci.split(/,(?!\d)/).filter((s) => s.trim()).length
     : 0
 
   return (

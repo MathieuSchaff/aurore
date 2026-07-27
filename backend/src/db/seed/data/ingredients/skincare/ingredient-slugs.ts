@@ -50,6 +50,25 @@ export const HUMECTANTS = {
   SERICIN: 'sericin', // INCI: Sericin | silk glue protein, lowers TEWL, documented protein allergen
   POLYGLYCERIN_3: 'polyglycerin-3', // INCI: Polyglycerin-3 | low-MW polyglycerol humectant
   POLYQUATERNIUM_51: 'polyquaternium-51', // INCI: Polyquaternium-51 | phospholipid-mimetic MPC polymer, film-forming
+  // Chelates too, but algo-derm declares it HUMECTANT / SKIN CONDITIONING, so it sits here
+  // rather than with the chelators of CHELATANTS.
+  CALCIUM_GLUCONATE: 'calcium-gluconate', // INCI: Calcium Gluconate | calcium salt of gluconic acid
+  // Sugars, free amino acids and protein hydrolysates moved out of the haircare, dental and
+  // supplements files. They humectate a face cream exactly as they humectate a conditioner.
+  SORBITOL_DENTAL: 'sorbitol-dental', // INCI: Sorbitol | sugar humectant, non-fermentable
+  FRUCTOSE_HAIR: 'fructose-hair', // natural sugar humectant
+  TAURINE: 'taurine-supplement', // osmolyte, protects cells against hyperosmotic stress
+  PROLINE_HAIR: 'proline-hair', // free amino acid, NMF component
+  THREONINE_HAIR: 'threonine-hair', // free amino acid, NMF component
+  VALINE_HAIR: 'valine-hair', // free amino acid, NMF component
+  HYDROLYZED_COLLAGEN_HAIR: 'hydrolyzed-collagen-hair', // collagen hydrolysate, hydrating film former
+  HYDROLYZED_RICE_PROTEIN: 'hydrolyzed-rice-protein', // rice protein hydrolysate, film forming
+  HYDROLYZED_SOY_PROTEIN: 'hydrolyzed-soy-protein', // soy protein hydrolysate, film forming
+  HYDROLYZED_WHEAT_PROTEIN: 'hydrolyzed-wheat-protein', // wheat protein hydrolysate, hydrating
+  HYDROLYZED_SILK: 'hydrolyzed-silk', // silk protein hydrolysate, softening
+  HYDROLYZED_OAT_PROTEIN: 'hydrolyzed-oat-protein', // oat protein hydrolysate, soothing
+  SILK_AMINO_ACIDS: 'silk-amino-acids', // silk-derived free amino acids
+  WHEAT_AMINO_ACIDS: 'wheat-amino-acids', // wheat-derived free amino acids
 } as const
 
 export const BARRIERE_EMOLLIENTS_OCCLUSIFS = {
@@ -160,6 +179,22 @@ export const BARRIERE_EMOLLIENTS_OCCLUSIFS = {
   LANOLIN: 'lanolin', // INCI: Lanolin | whole sheep wool wax, distinct from the oily fraction
   SCLEROCARYA_BIRREA_SEED_OIL: 'sclerocarya-birrea-seed-oil', // INCI: Sclerocarya Birrea Seed Oil | marula oil, oleic-rich, clinically non-irritant
   GENTIANA_LUTEA_ROOT_EXTRACT: 'gentiana-lutea-root-extract', // INCI: Gentiana Lutea Root Extract | yellow gentian, raises keratinocyte ceramide synthesis
+  // Moved out of the haircare file: nothing about an olive oil or a lecithin is capillary.
+  PHOSPHATIDYLCHOLINE_HAIR: 'phosphatidylcholine-hair', // membrane phospholipid, emulsifier and liposome former
+  PHOSPHOLIPIDS_HAIR: 'phospholipids-hair', // membrane lipid fraction, barrier restoring
+  OLIVE_OIL_HAIR: 'olive-oil-hair', // olive fruit oil, oleic dominant, nourishing
+  MACADAMIA_OIL_HAIR: 'macadamia-oil-hair', // macadamia ternifolia oil, palmitoleic, silky
+  MORINGA_OIL_HAIR: 'moringa-oil-hair', // moringa seed oil, behenic acid rich
+  BLACK_SEED_OIL_HAIR: 'black-seed-oil-hair', // nigella seed oil, thymoquinone bearing
+  CRAMBE_ABYSSINICA_OIL: 'crambe-abyssinica-seed-oil', // abyssinian oil, light, heat protective
+  HYDROGENATED_CASTOR_OIL_HAIR: 'hydrogenated-castor-oil-hair', // hardened castor oil, solid wax emollient
+  MANGO_BUTTER_HAIR: 'mango-butter-hair', // mango seed butter, light occlusive
+  CERA_MICROCRISTALLINA_HAIR: 'cera-microcristallina-hair', // microcrystalline wax, structuring
+  BEHENIC_ACID: 'behenic-acid', // saturated fatty acid, surface conditioner and co-emulsifier
+  // Sat in the haircare protein group, which is doubly wrong: algo-derm files this token as an
+  // alias of Jojoba Esters (CosIng 34778, wax esters, emollient), not as a protein, and 38 of the
+  // 48 products carrying it are not haircare. The slug keeps its historical spelling, it is a URL.
+  HYDROLYZED_JOJOBA_PROTEIN: 'hydrolyzed-jojoba-protein', // INCI: Hydrolyzed Jojoba Esters | jojoba wax esters, emollient
 } as const
 
 export const EXFOLIANTS = {
@@ -216,6 +251,8 @@ export const PEPTIDES = {
   PALMITOYL_TETRAPEPTIDE_7: 'palmitoyl-tetrapeptide-7', // INCI: Palmitoyl Tetrapeptide-7 | anti-inflammatory
   PALMITOYL_TETRAPEPTIDE_10: 'palmitoyl-tetrapeptide-10', // INCI: Palmitoyl Tetrapeptide-10 | anti-aging
   PALMITOYL_TRIPEPTIDE_38: 'palmitoyl-tripeptide-38', // INCI: Palmitoyl Tripeptide-38
+  PALMITOYL_TRIPEPTIDE_5: 'palmitoyl-tripeptide-5', // INCI: Palmitoyl Tripeptide-5
+  PALMITOYL_HEXAPEPTIDE_12: 'palmitoyl-hexapeptide-12', // INCI: Palmitoyl Hexapeptide-12
   COPPER_PEPTIDES: 'copper-peptides', // INCI: Copper Tripeptide-1 (GHK-Cu) | repair / anti-aging
   ACETYL_TETRAPEPTIDE_5: 'acetyl-tetrapeptide-5', // INCI: Acetyl Tetrapeptide-5
   ACETYL_TETRAPEPTIDE_2: 'acetyl-tetrapeptide-2', // INCI: Acetyl Tetrapeptide-2
@@ -337,6 +374,9 @@ export const ANTIOXYDANTS_VITAMINES = {
   LAMINARIA_SACCHARINA_EXTRACT: 'laminaria-saccharina-extract', // INCI: Laminaria Saccharina Extract | sugar kelp, phenolic antioxidant
   CHENOPODIUM_QUINOA_SEED_EXTRACT: 'chenopodium-quinoa-seed-extract', // INCI: Chenopodium Quinoa Seed Extract | quinoa saponins and phenolics
   VIOLA_TRICOLOR_EXTRACT: 'viola-tricolor-extract', // INCI: Viola Tricolor Extract | heartsease, cyclotides
+  // Moved out of the supplements and haircare files: both are topical antioxidants here.
+  BETA_CAROTENE: 'beta-carotene', // provitamin A carotenoid, antioxidant and tinting
+  EUTERPE_OLERACEA_EXTRACT: 'euterpe-oleracea-extract', // acai, polyphenol antioxidant
 } as const
 
 export const APAISANTS_ANTI_INFLAMMATOIRES = {
@@ -372,7 +412,10 @@ export const APAISANTS_ANTI_INFLAMMATOIRES = {
   EXTRAIT_EPILOBE: 'extrait-epilobe',
   BOSWELLIA_SERRATA: 'boswellia-serrata', // INCI: Boswellia Serrata Gum/Extract | potent soothing agent
   ZINGIBER_OFFICINALE: 'zingiber-officinale', // INCI: Zingiber Officinale Root Extract | ginger, toning/antioxidant
-  MORINDA_CITRIFOLIA: 'morinda-citrifolia', // INCI: Morinda Citrifolia Fruit Extract | Noni, protective/antioxidant
+  // Every spelling is declared in full: only the fruit one was, so the three others reached the
+  // haircare twin through the algo-derm bridge and died on the domain guard. A direct index key
+  // is looked up before the bridge, which is what makes this line win them back.
+  MORINDA_CITRIFOLIA: 'morinda-citrifolia', // INCI: Morinda Citrifolia Fruit Extract / Morinda Citrifolia Extract / Morinda Citrifolia Callus Culture Lysate / Morinda Citrifolia Fruit Powder | Noni, protective/antioxidant
   GLYCYRRHETINIC_ACID: 'glycyrrhetinic-acid', // INCI: Glycyrrhetinic Acid (alias INN/BAN: Enoxolone), anti-inflammatory
   DIPOTASSIUM_GLYCYRRHIZATE: 'dipotassium-glycyrrhizate', // INCI: Dipotassium Glycyrrhizate | potent soothing agent from licorice
   NEUTRAZEN: 'neutrazen', // INCI: (specialized soothing component) | complex for reactive skin / rosacea
@@ -454,6 +497,9 @@ export const ANTI_ACNE_SEBUM = {
   TRIETHYL_CITRATE: 'triethyl-citrate', // INCI: Triethyl Citrate | ester solvent, inhibits sebum-processing skin esterases
   SERENOA_SERRULATA_FRUIT_EXTRACT: 'serenoa-serrulata-fruit-extract', // INCI: Serenoa Serrulata Fruit Extract | saw palmetto, 5-alpha-reductase inhibition
   GARCINIA_MANGOSTANA_PEEL_EXTRACT: 'garcinia-mangostana-peel-extract', // INCI: Garcinia Mangostana Peel Extract | mangosteen xanthones
+  // Moved out of the dental file, next to the other zinc salts already sitting here.
+  ZINC_CITRATE: 'zinc-citrate', // INCI: Zinc Citrate | zinc salt, astringent and antimicrobial
+  ZINC_CHLORIDE: 'zinc-chloride', // INCI: Zinc Chloride | astringent zinc salt
 } as const
 
 export const ANTI_ROSACEE_VASOCONSTRICTEURS = {
@@ -543,6 +589,9 @@ export const ACTIFS_ANTI_AGE_REPARATEURS = {
   TRIMETHOXYBENZYL_ACETYLSINAPATE: 'trimethoxybenzyl-acetylsinapate', // INCI: Trimethoxybenzyl Acetylsinapate | anti-glycation and photoprotective active
   ONOPORDUM_ACANTHIUM_EXTRACT: 'onopordum-acanthium-extract', // INCI: Onopordum Acanthium Extract | silver thistle, anti-glycation and anti-aging
   METHYLSILANOL_MANNURONATE: 'methylsilanol-mannuronate', // INCI: Methylsilanol Mannuronate | topical organosilicon (Algisium C), silicon skin support
+  // Moved out of the supplements file: topical creatine is an energy-metabolism active, not a
+  // sports supplement. The slug carries no suffix, so nothing about it reads as oral-only.
+  CREATINE: 'creatine', // cellular energy buffer, supports keratinocyte metabolism
 } as const
 
 export const CIRCULATOIRE_DRAINAGE = {
@@ -567,6 +616,22 @@ export const TENSIOACTIFS_NETTOYANTS = {
   SODIUM_C14_16_OLEFIN_SULFONATE: 'sodium-c14-16-olefin-sulfonate', // INCI: Sodium C14-16 Olefin Sulfonate | strong foaming anionic surfactant
   SODIUM_CETEARYL_SULFATE: 'sodium-cetearyl-sulfate', // INCI: Sodium Cetearyl Sulfate | anionic alkyl sulfate, emulsifying cleanser
   LAURETH_4: 'laureth-4', // INCI: Laureth-4 | low-mole ethoxylated lauryl alcohol, co-emulsifier
+  // Slugs first declared in the haircare file. The `-hair` suffix records where the line was
+  // written, not what the substance is: these are the same surfactants doing the same job in a
+  // face or body cleanser. The suffix is a public URL, so it stays.
+  SLES_HAIR: 'sles-hair', // INCI: Sodium Laureth Sulfate | ethoxylated lauryl sulfate, milder than SLS
+  // Came from the dental file, where the domain guard could only reach 17 of the 25 products
+  // carrying the token. sls-hair declares the same key from haircare, which is parsed later, so
+  // this line now wins it and the shared canonical_key sends the tiebreak here too.
+  SODIUM_LAURYL_SULFATE: 'sodium-lauryl-sulfate', // INCI: Sodium Lauryl Sulfate | strong anionic foaming surfactant
+  AMMONIUM_LAURYL_SULFATE: 'ammonium-lauryl-sulfate', // ammonium variant of lauryl sulfate, anionic
+  DISODIUM_LAURETH_SULFOSUCCINATE: 'disodium-laureth-sulfosuccinate', // mild sulfosuccinate surfactant
+  SODIUM_LAUROYL_SARCOSINATE: 'sodium-lauroyl-sarcosinate', // sarcosine derivative, very mild
+  SODIUM_COCOYL_GLUTAMATE: 'sodium-cocoyl-glutamate', // glutamic acid derivative, mild
+  SODIUM_LAUROYL_GLUTAMATE: 'sodium-lauroyl-glutamate', // glutamate derivative, mild
+  COCO_BETAINE: 'coco-betaine', // pure betaine, amphoteric co-surfactant
+  GLYCOL_DISTEARATE: 'glycol-distearate', // crystalline pearlising agent, opacifier
+  PEG_120_METHYL_GLUCOSE_DIOLEATE: 'peg-120-methyl-glucose-dioleate', // thickener for anionic systems
 } as const
 
 export const TEXTURANTS_FONCTIONNELS = {
@@ -582,6 +647,9 @@ export const TEXTURANTS_FONCTIONNELS = {
   BIOSACCHARIDE_GUM_1: 'biosaccharide-gum-1', // INCI: Biosaccharide Gum-1 | film-forming exopolysaccharide, long-lasting hydration
   AHNFELTIA_CONCINNA: 'ahnfeltia-concinna', // INCI: Ahnfeltiopsis Concinna Extract | red algae, hydrating and film-forming
   CHARCOAL_POWDER: 'charcoal-powder', // INCI: Charcoal / Activated Charcoal | powerful absorbent, purifying, detoxifying
+  // Moved out of the haircare file: its only carrier is a face sponge. Kept lowercase so it
+  // mints no index key — charcoal-powder owns CHARCOAL, and skincare is parsed first.
+  BAMBOU_CHARCOAL_HAIR: 'bambou-charcoal-hair', // bamboo-sourced charcoal, mild adsorbent
   KAOLIN: 'kaolin', // INCI: Kaolin | mineral clay, absorbent, purifying, texturizing (powder or suspension)
   BENTONITE: 'bentonite', // INCI: Bentonite | montmorillonite clay, powerful absorbent and purifying
   CORN_STARCH_MODIFIED: 'corn-starch-modified', // INCI: Corn Starch Modified / Distarch Phosphate | modified corn starch, mattifying absorbent texturizer
@@ -625,6 +693,25 @@ export const TEXTURANTS_FONCTIONNELS = {
   ANIBA_ROSAEODORA_WOOD_OIL: 'aniba-rosaeodora-wood-oil', // INCI: Aniba Rosaeodora Wood Oil | rosewood oil, linalool rich
   CHAMOMILLA_RECUTITA_FLOWER_OIL: 'chamomilla-recutita-flower-oil', // INCI: Chamomilla Recutita Flower Oil | german chamomile oil, chamazulene
   MENTHA_ARVENSIS_LEAF_OIL: 'mentha-arvensis-leaf-oil', // INCI: Mentha Arvensis Leaf Oil | cornmint oil, menthol rich
+  // One declaration used to carry both the oil and the molecule, so a single fiche answered
+  // for two substances algo-derm grades apart. Split: the oil keeps the historical slug, the
+  // fragrance molecule gets its own. Both live here — the corpus is overwhelmingly non-dental.
+  CLOVE_OIL_EUGENOL: 'clove-oil-eugenol', // INCI: Eugenia Caryophyllus Bud Oil | clove bud oil
+  EUGENOL: 'eugenol', // INCI: Eugenol | clove-derived fragrance molecule, EU-declarable
+  // Thickeners, mineral abrasives and one pearl pigment, moved out of the haircare and dental
+  // files. A cellulose gum gels a serum the way it gels a toothpaste.
+  CELLULOSE_GUM_DENTAL: 'cellulose-gum-dental', // INCI: Cellulose Gum (CMC) | very widespread cellulosic thickener
+  CARRAGEENAN_DENTAL: 'carrageenan-dental', // INCI: Carrageenan | marine gelling agent
+  SODIUM_ALGINATE_HAIR: 'sodium-alginate-hair', // algal gelling agent
+  HYDROXYPROPYL_GUAR: 'hydroxypropyl-guar', // non-ionic guar, slip and texture
+  HYDROXYPROPYL_CYCLODEXTRIN: 'hydroxypropyl-cyclodextrin', // delivery complex, solubilises lipophilic actives
+  MICA_HAIR: 'mica-hair', // mineral pearl pigment, satin finish
+  HYDRATED_SILICA: 'hydrated-silica', // INCI: Hydrated Silica | mild abrasive, also a texturizer
+  CALCIUM_CARBONATE: 'calcium-carbonate-dental', // INCI: Calcium Carbonate | natural abrasive and filler
+  SODIUM_BICARBONATE_DENTAL: 'sodium-bicarbonate-dental', // INCI: Sodium Bicarbonate | mild abrasive, buffers acidity
+  // Never declared in any slug file: the domain map gave it no domain, so the guard dropped it
+  // in every category. Synthetic rheology polymer, distinct INCI from the VP copolymer above.
+  AMMONIUM_POLYACRYLOYLDIMETHYL_TAURATE: 'ammonium-polyacryloyldimethyl-taurate', // INCI: Ammonium Polyacryloyldimethyl Taurate | rheology gelling agent
 } as const
 
 export const DIVERS_NON_CLASSES = {
@@ -674,6 +761,33 @@ export const DIVERS_NON_CLASSES = {
   SODIUM_METABISULFITE: 'sodium-metabisulfite', // INCI: Sodium Metabisulfite | sulfite antioxidant preservative
   SODIUM_SULFITE: 'sodium-sulfite', // INCI: Sodium Sulfite | sulfite antioxidant, same sensitizing moiety as metabisulfite
   VANILLIN: 'vanillin', // INCI: Vanillin | main aroma molecule of vanilla, EU Annex III restricted
+  // The Annex III fragrance substances an INCI list has to name one by one. That spelling exists
+  // precisely so a reader can spot them, and none of them reached a fiche: algo-derm grades all
+  // twenty-three, aurore declared none. `Benzyl Alcohol` is deliberately not here — it stays on
+  // NON_DISCRIMINANT_TOKENS, where its 547 products and its preservative role put it.
+  LIMONENE: 'limonene', // INCI: Limonene | citrus peel terpene, oxidises on air
+  LINALOOL: 'linalool', // INCI: Linalool | lavender and rosewood terpene alcohol
+  CITRONELLOL: 'citronellol', // INCI: Citronellol | rose and geranium terpene alcohol
+  GERANIOL: 'geraniol', // INCI: Geraniol | rose-scented terpene alcohol
+  CITRAL: 'citral', // INCI: Citral | lemon-scented aldehyde, geranial and neral
+  LINALYL_ACETATE: 'linalyl-acetate', // INCI: Linalyl Acetate | linalool ester, bergamot and lavender
+  HEXYL_CINNAMAL: 'hexyl-cinnamal', // INCI: Hexyl Cinnamal | jasmine-type synthetic aldehyde
+  ALPHA_ISOMETHYL_IONONE: 'alpha-isomethyl-ionone', // INCI: Alpha-Isomethyl Ionone | violet-type synthetic ketone
+  COUMARIN: 'coumarin', // INCI: Coumarin | tonka and woodruff lactone, hay note
+  BENZYL_SALICYLATE: 'benzyl-salicylate', // INCI: Benzyl Salicylate | floral ester, also a UV absorber
+  BENZYL_BENZOATE: 'benzyl-benzoate', // INCI: Benzyl Benzoate | balsamic ester, also a solvent
+  HYDROXYCITRONELLAL: 'hydroxycitronellal', // INCI: Hydroxycitronellal | lily-of-the-valley aldehyde
+  FARNESOL: 'farnesol', // INCI: Farnesol | sesquiterpene alcohol, also a deodorant
+  CINNAMAL: 'cinnamal', // INCI: Cinnamal | cinnamon bark aldehyde
+  CINNAMYL_ALCOHOL: 'cinnamyl-alcohol', // INCI: Cinnamyl Alcohol | hyacinth-type alcohol, found in storax
+  ISOEUGENOL: 'isoeugenol', // INCI: Isoeugenol | eugenol isomer, distinct from methyl eugenol
+  AMYL_CINNAMAL: 'amyl-cinnamal', // INCI: Amyl Cinnamal | jasmine-type synthetic aldehyde
+  AMYLCINNAMYL_ALCOHOL: 'amylcinnamyl-alcohol', // INCI: Amylcinnamyl Alcohol | reduced form of amyl cinnamal
+  BENZYL_CINNAMATE: 'benzyl-cinnamate', // INCI: Benzyl Cinnamate | balsamic ester of Peru balsam
+  ANISE_ALCOHOL: 'anise-alcohol', // INCI: Anise Alcohol | anise-scented aromatic alcohol
+  EVERNIA_PRUNASTRI_EXTRACT: 'evernia-prunastri-extract', // INCI: Evernia Prunastri Extract | oakmoss, a natural mixture
+  EVERNIA_FURFURACEA_EXTRACT: 'evernia-furfuracea-extract', // INCI: Evernia Furfuracea Extract | treemoss, a natural mixture
+  METHYL_2_OCTYNOATE: 'methyl-2-octynoate', // INCI: Methyl 2-Octynoate | violet-leaf note, concentration-capped
   PHENYLPROPANOL: 'phenylpropanol', // INCI: Phenylpropanol | aromatic alcohol, fragrance and preservative booster
   RASPBERRY_KETONE: 'raspberry-ketone', // INCI: Raspberry Ketone | raspberry aroma molecule, tyrosinase substrate
   ALGAE_EXTRACT: 'algae-extract', // INCI: Algae Extract | generic algal extract, species not declared
@@ -683,6 +797,45 @@ export const DIVERS_NON_CLASSES = {
   // corpus spellings are declared instead; the combined one arrives through the algo-derm bridge.
   HEDERA_HELIX_EXTRACT: 'hedera-helix-extract', // INCI: Hedera Helix Leaf Extract / Hedera Helix Extract | ivy saponins, falcarinol allergens
   ALUMINUM_CHLOROHYDRATE: 'aluminum-chlorohydrate', // INCI: Aluminum Chlorohydrate | antiperspirant aluminium salt
+  // Moved out of the dental file: menthol cools a face mist as it cools a mouthwash, and
+  // hydrogen peroxide oxidises wherever it is used.
+  MENTHOL_DENTAL: 'menthol-dental', // INCI: Menthol | cooling agent, mildly anaesthetic
+  HYDROGEN_PEROXIDE: 'hydrogen-peroxide', // INCI: Hydrogen Peroxide | oxidising bleaching agent
+} as const
+
+// Chelators, which bind the trace metals that would otherwise catalyse rancidity. The three
+// biodegradable ones link: choosing them over EDTA is a formulation stance a reader can act on.
+// `trisodium-edta` is declared here for its fiche but listed in FILLER_SLUGS, so the EDTA family
+// stays treated as one block: its two siblings were already fillers.
+export const CHELATANTS = {
+  TRISODIUM_ETHYLENEDIAMINE_DISUCCINATE: 'trisodium-ethylenediamine-disuccinate', // INCI: Trisodium Ethylenediamine Disuccinate
+  TETRASODIUM_GLUTAMATE_DIACETATE: 'tetrasodium-glutamate-diacetate', // INCI: Tetrasodium Glutamate Diacetate
+  CAPRYLHYDROXAMIC_ACID: 'caprylhydroxamic-acid', // INCI: Caprylhydroxamic Acid / Caprylohydroxamic Acid | iron chelator
+  TRISODIUM_EDTA: 'trisodium-edta', // INCI: Trisodium EDTA / Trisodium Ethylenediaminetetraacetate
+  // Moved out of the haircare and dental files. Both chelate the same trace metals here.
+  SODIUM_GLUCONATE_HAIR: 'sodium-gluconate-hair', // mild biodegradable chelator
+  TETRASODIUM_PYROPHOSPHATE: 'tetrasodium-pyrophosphate', // INCI: Tetrasodium Pyrophosphate | calcium chelator and buffer
+} as const
+
+// Organic-acid preservatives and their salts. Not FILLERS: the is_filler taxonomy would cut the
+// link, and a preservative system does tell a reader something about the product it is in.
+// The high-reach salts of the same acids (Sodium Benzoate, Potassium Sorbate) stay on
+// NON_DISCRIMINANT_TOKENS: they clear the 300-product bar, these do not.
+export const CONSERVATEURS = {
+  BENZOIC_ACID: 'benzoic-acid', // INCI: Benzoic Acid | acid-pH preservative, Annex V/1
+  POTASSIUM_BENZOATE: 'potassium-benzoate', // INCI: Potassium Benzoate | benzoate salt, Annex V/1a
+  SORBIC_ACID: 'sorbic-acid', // INCI: Sorbic Acid | antifungal acid preservative, Annex V/4
+  DEHYDROACETIC_ACID: 'dehydroacetic-acid', // INCI: Dehydroacetic Acid | antifungal, Annex V/13
+  SODIUM_DEHYDROACETATE: 'sodium-dehydroacetate', // INCI: Sodium Dehydroacetate | its sodium salt
+  SODIUM_LEVULINATE: 'sodium-levulinate', // INCI: Sodium Levulinate | booster, not an Annex V entry
+  LEVULINIC_ACID: 'levulinic-acid', // INCI: Levulinic Acid | pH adjuster and preservative booster
+  // Both spellings normalise to distinct keys, so the para isomer is declared with its alias.
+  P_ANISIC_ACID: 'p-anisic-acid', // INCI: p-Anisic Acid / Anisic Acid | fragrance and booster
+  SODIUM_ANISATE: 'sodium-anisate', // INCI: Sodium Anisate | antimicrobial, paired with levulinate
+  SODIUM_SALICYLATE: 'sodium-salicylate', // INCI: Sodium Salicylate | preservative salt, not a BHA
+  // Moved out of the dental file. Both are Annex V antimicrobials used well beyond mouthwash.
+  CHLORHEXIDINE: 'chlorhexidine', // INCI: Chlorhexidine Digluconate | broad-spectrum antimicrobial
+  THYMOL: 'thymol', // INCI: Thymol | phenolic antiseptic
 } as const
 
 export const FILLERS = {

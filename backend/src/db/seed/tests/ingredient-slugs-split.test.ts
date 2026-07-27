@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 
 import {
-  DENTAL_ABRASIFS,
+  DENTAL_ANTIMICROBIENS,
   HAIR_CONDITIONNEURS,
   HUMECTANTS,
   INGREDIENT_SLUGS,
@@ -34,7 +34,7 @@ describe('ingredient slugs aggregate', () => {
     expect(HUMECTANTS.GLYCERIN).toBe('glycerin')
     expect(RETINOIDES).toBeDefined()
     expect(SUPPLEMENTS_VITAMINES).toBeDefined()
-    expect(DENTAL_ABRASIFS).toBeDefined()
+    expect(DENTAL_ANTIMICROBIENS).toBeDefined()
     expect(HAIR_CONDITIONNEURS).toBeDefined()
   })
 })
