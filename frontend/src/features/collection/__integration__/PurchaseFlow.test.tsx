@@ -107,7 +107,7 @@ describe("Flow : Enregistrement d'achat depuis la collection", () => {
     renderWithProviders(<CollectionPage />)
 
     const productBtn = await screen.findByRole('button', {
-      name: /Voir les détails de Dream Cream/i,
+      name: /Voir les détails de.*Dream Cream/i,
     })
     await userEvent.click(productBtn)
 
@@ -132,7 +132,7 @@ describe("Flow : Enregistrement d'achat depuis la collection", () => {
     renderWithProviders(<CollectionPage />)
 
     await userEvent.click(
-      await screen.findByRole('button', { name: /Voir les détails de Dream Cream/i })
+      await screen.findByRole('button', { name: /Voir les détails de.*Dream Cream/i })
     )
     await userEvent.click(
       await screen.findByRole('button', { name: new RegExp(pdsLabels.lifecycle, 'i') })
@@ -160,7 +160,7 @@ describe("Flow : Enregistrement d'achat depuis la collection", () => {
     renderWithProviders(<CollectionPage />)
 
     await userEvent.click(
-      await screen.findByRole('button', { name: /Voir les détails de Dream Cream/i })
+      await screen.findByRole('button', { name: /Voir les détails de.*Dream Cream/i })
     )
 
     // Status now lives only in the Hero dropdown.

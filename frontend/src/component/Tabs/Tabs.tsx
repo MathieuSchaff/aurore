@@ -45,7 +45,7 @@ interface TabsProps<T extends string> {
   ariaLabel?: string
   /**
    * Set to false when tabs control navigation/filtering without associated tabpanel elements.
-   * Omits aria-controls to avoid pointing to non-existent DOM nodes.
+   * Omits aria-controls to avoid pointing to DOM nodes that don't exist.
    */
   hasPanels?: boolean
 }
@@ -69,7 +69,7 @@ export const Tabs = <T extends string>({
   const [indicator, setIndicator] = useState<{ left: number; width: number } | null>(null)
 
   // Measure-based indicator: aligns with the active tab's actual box (labels vary in width).
-  // biome-ignore lint/correctness/useExhaustiveDependencies: re-measure when tab list changes
+  // biome-ignore lint/correctness/useExhaustiveDependencies: measure again when tab list changes
   useLayoutEffect(() => {
     const btn = btnRefs.current[activeTab]
     const list = listRef.current
@@ -175,16 +175,18 @@ export const Tabs = <T extends string>({
               aria-selected={isActive}
               aria-controls={hasPanels ? `${idPrefix}-panel-${option.id}` : undefined}
               tabIndex={isActive ? 0 : -1}
-              aria-label={
-                option.badge !== undefined ? `${option.label} (${option.badge})` : undefined
-              }
             >
               {option.icon && <span aria-hidden="true">{option.icon}</span>}
+              {/* No aria-label, and the count stays exposed: the name is compared against the
+                  concatenated visible text ("Tout5"), which no hand-written label matches. Letting
+                  both come from the same nodes keeps them identical (WCAG 2.5.3). */}
               <span>{option.label}</span>
               {option.badge !== undefined && (
-                <span className="tab-badge" aria-hidden="true">
-                  {option.badge}
-                </span>
+                <>
+                  {/* Whitespace-only runs are dropped by flex layout, so this only separates the
+                      label from the count for readers ("Tout 0", not "Tout0"). */}{' '}
+                  <span className="tab-badge">{option.badge}</span>
+                </>
               )}
             </button>
           )
