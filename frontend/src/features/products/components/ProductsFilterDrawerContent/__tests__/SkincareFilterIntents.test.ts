@@ -6,11 +6,15 @@ import type { FilterKey } from '@/features/products/filters'
 import {
   applySearchIntent,
   inferActiveIntent,
+  intentCountLabel,
   isSearchIntentAvailable,
   SEARCH_INTENTS,
 } from '../SkincareFilterIntents'
 
-function intentGroups(texture: 'enabled' | 'disabled' | 'missing'): FilterGroupConfig<FilterKey>[] {
+function intentGroups(
+  option: 'enabled' | 'disabled' | 'missing',
+  count = 12
+): FilterGroupConfig<FilterKey>[] {
   return [
     {
       id: 'product',
@@ -22,16 +26,17 @@ function intentGroups(texture: 'enabled' | 'disabled' | 'missing'): FilterGroupC
           key: 'product_type_v2',
           label: 'Type',
           placeholder: 'Tous',
-          options: [{ value: 'type-hydratant', label: 'Hydratant' }],
-        },
-        {
-          key: 'texture',
-          label: 'Texture',
-          placeholder: 'Toutes',
           options:
-            texture === 'missing'
+            option === 'missing'
               ? []
-              : [{ value: 'texture-creme', label: 'Crème', disabled: texture === 'disabled' }],
+              : [
+                  {
+                    value: 'type-hydratant',
+                    label: 'Hydratant',
+                    count,
+                    disabled: option === 'disabled',
+                  },
+                ],
         },
       ],
     },
@@ -39,63 +44,75 @@ function intentGroups(texture: 'enabled' | 'disabled' | 'missing'): FilterGroupC
 }
 
 describe('skincare filter intents', () => {
-  it('replaces the active intent axes and preserves manual refinements', () => {
-    const cream = SEARCH_INTENTS.find((intent) => intent.id === 'cream-moisturizer')
-    const gel = SEARCH_INTENTS.find((intent) => intent.id === 'gel-cleanser')
-    if (!cream || !gel) throw new Error('Test intents are missing')
+  it('defines six product families backed by one product-type option each', () => {
+    expect(SEARCH_INTENTS).toHaveLength(6)
+    for (const intent of SEARCH_INTENTS) {
+      expect(Object.keys(intent.filters)).toEqual(['product_type_v2'])
+      expect(intent.filters.product_type_v2).toHaveLength(1)
+    }
+  })
 
-    const withCream = applySearchIntent(emptyFilters(), cream)
+  it('replaces the active family and preserves manual refinements', () => {
+    const moisturizer = SEARCH_INTENTS.find((intent) => intent.id === 'moisturizer')
+    const cleanser = SEARCH_INTENTS.find((intent) => intent.id === 'cleanser')
+    if (!moisturizer || !cleanser) throw new Error('Test intents are missing')
+
+    const withMoisturizer = applySearchIntent(emptyFilters(), moisturizer)
     const withManualConcern = {
-      ...withCream,
+      ...withMoisturizer,
       concern: ['acne-imperfections'],
     }
 
-    expect(applySearchIntent(withManualConcern, gel)).toMatchObject({
+    expect(applySearchIntent(withManualConcern, cleanser)).toMatchObject({
       concern: ['acne-imperfections'],
       product_type_v2: ['type-nettoyant'],
-      texture: ['texture-gel'],
     })
   })
 
-  it('infers the exact preset when only its axes are filled', () => {
+  it('infers the exact family when only its product type is filled', () => {
     const filters = {
       ...emptyFilters(),
       product_type_v2: ['type-nettoyant'],
-      texture: ['texture-gel'],
     }
-    expect(inferActiveIntent(filters)?.id).toBe('gel-cleanser')
+    expect(inferActiveIntent(filters)?.id).toBe('cleanser')
   })
 
   it('does not infer an intent when an axis beyond the preset is filled', () => {
-    // A preset is active only if the values match exactly. An extra axis
-    // (skin_zone) means neither "Gel nettoyant" nor "Nettoyant visage" is exact.
     const filters = {
       ...emptyFilters(),
       product_type_v2: ['type-nettoyant'],
       texture: ['texture-gel'],
-      skin_zone: ['zone-visage'],
     }
     expect(inferActiveIntent(filters)).toBeUndefined()
   })
 
   it('is available when every canonical option exists and is enabled', () => {
-    const cream = SEARCH_INTENTS.find((intent) => intent.id === 'cream-moisturizer')
-    if (!cream) throw new Error('Test intent is missing')
+    const moisturizer = SEARCH_INTENTS.find((intent) => intent.id === 'moisturizer')
+    if (!moisturizer) throw new Error('Test intent is missing')
 
-    expect(isSearchIntentAvailable(cream, intentGroups('enabled'))).toBe(true)
+    expect(isSearchIntentAvailable(moisturizer, intentGroups('enabled'))).toBe(true)
   })
 
   it('is unavailable when a canonical option is disabled', () => {
-    const cream = SEARCH_INTENTS.find((intent) => intent.id === 'cream-moisturizer')
-    if (!cream) throw new Error('Test intent is missing')
+    const moisturizer = SEARCH_INTENTS.find((intent) => intent.id === 'moisturizer')
+    if (!moisturizer) throw new Error('Test intent is missing')
 
-    expect(isSearchIntentAvailable(cream, intentGroups('disabled'))).toBe(false)
+    expect(isSearchIntentAvailable(moisturizer, intentGroups('disabled'))).toBe(false)
   })
 
   it('is unavailable when a canonical option is missing', () => {
-    const cream = SEARCH_INTENTS.find((intent) => intent.id === 'cream-moisturizer')
-    if (!cream) throw new Error('Test intent is missing')
+    const moisturizer = SEARCH_INTENTS.find((intent) => intent.id === 'moisturizer')
+    if (!moisturizer) throw new Error('Test intent is missing')
 
-    expect(isSearchIntentAvailable(cream, intentGroups('missing'))).toBe(false)
+    expect(isSearchIntentAvailable(moisturizer, intentGroups('missing'))).toBe(false)
+  })
+
+  it('formats the product count in French and handles unavailable families', () => {
+    const moisturizer = SEARCH_INTENTS.find((intent) => intent.id === 'moisturizer')
+    if (!moisturizer) throw new Error('Test intent is missing')
+
+    expect(intentCountLabel(moisturizer, intentGroups('enabled', 1_582))).toBe('1 582 produits')
+    expect(intentCountLabel(moisturizer, intentGroups('enabled', 1))).toBe('1 produit')
+    expect(intentCountLabel(moisturizer, intentGroups('missing'))).toBe('Indisponible')
   })
 })
