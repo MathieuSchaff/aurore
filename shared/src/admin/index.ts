@@ -80,9 +80,8 @@ export type ListUsersResponse = {
 
 // Admin-only demotion of a contributor back to a plain user (S6). The only
 // allowed target role is 'user'; promotion goes through the separate role-request
-// flow. reason is operational context (validated + logged) and is not persisted:
-// a demote is a one-shot mutation with no ongoing state row to attach it to,
-// unlike a ban row or a force-private flag, and no role-change audit table exists.
+// flow. reason is operational context, persisted in the append-only moderation
+// audit trail because users.role itself is overwritten in place.
 export const updateRoleBodySchema = z.object({
   role: z.literal('user'),
   reason: z.string().trim().min(1).max(500).optional(),

@@ -4,7 +4,7 @@ import { HTTP_STATUS } from '@aurore/shared'
 
 import { eq } from 'drizzle-orm'
 
-import { userBans } from '../../../db/schema'
+import { moderationActions, userBans } from '../../../db/schema'
 import { testDb } from '../../../tests/db.test.config'
 import { setupDbTests } from '../../../tests/db-setup'
 import {
@@ -220,6 +220,32 @@ describe('POST /admin/users/:id/bans', () => {
     expect(rows).toHaveLength(0)
   })
 
+  it('DELETE /admin/bans/:banId garde une trace de ce que la suppression détruit', async () => {
+    const [inserted] = await testDb
+      .insert(userBans)
+      .values({ userId, scope: 'global', bannedBy: adminId, reason: 'oops' })
+      .returning({ id: userBans.id })
+    if (!inserted) throw new Error('insert failed in test')
+    clearBanCache()
+
+    await client.admin.bans[':banId'].$delete(
+      { param: { banId: inserted.id } },
+      withAuth(adminToken)
+    )
+
+    const [trail] = await testDb
+      .select()
+      .from(moderationActions)
+      .where(eq(moderationActions.targetUserId, userId))
+
+    // The ban row is gone, so this structured payload is the only place these still exist.
+    expect(trail).toMatchObject({
+      actorId: adminId,
+      action: 'ban_lifted',
+      details: { scope: 'global', reason: 'oops', bannedBy: adminId },
+    })
+  })
+
   it('DELETE /admin/bans/:banId returns 404 when banId does not exist', async () => {
     const ghost = '019d0000-0000-7000-8000-000000000bad'
     const res = await client.admin.bans[':banId'].$delete(
@@ -297,6 +323,16 @@ describe('POST /admin/users/:id/bans', () => {
     if (!body.success) throw new Error(`expected success, got ${JSON.stringify(body)}`)
     expect(body.data.expiresAt && Date.parse(body.data.expiresAt)).toBe(Date.parse(future))
     expect(body.data.reason).toBe('extended')
+
+    const [trail] = await testDb
+      .select()
+      .from(moderationActions)
+      .where(eq(moderationActions.targetUserId, userId))
+    expect(trail).toMatchObject({
+      actorId: adminId,
+      action: 'ban_updated',
+      details: { scope: 'global', expiresAtChanged: true, expiresAt: future, reasonChanged: true },
+    })
 
     // Cache was invalidated → /auth/session reads fresh state (still banned, expiry not reached)
     const after = await client.auth.session.$get({}, withAuth(userToken))

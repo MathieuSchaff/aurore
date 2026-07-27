@@ -83,19 +83,24 @@ export async function listUserBans(db: Database, userId: string): Promise<UserBa
     .orderBy(desc(userBans.createdAt))
 }
 
-export type LiftBanResult = ApiResponse<null, 'not_found' | 'server_error'>
+export type LiftedBanSummary = Pick<UserBan, 'userId' | 'scope' | 'reason' | 'bannedBy'>
+export type LiftBanResult = ApiResponse<LiftedBanSummary, 'not_found' | 'server_error'>
 
 export async function liftBan(db: Database, banId: string): Promise<LiftBanResult> {
-  const deleted = await db
-    .delete(userBans)
-    .where(eq(userBans.id, banId))
-    .returning({ userId: userBans.userId })
+  // The row is destroyed here, so return what it held: this is the last moment where
+  // who banned whom, and why, still exists anywhere.
+  const deleted = await db.delete(userBans).where(eq(userBans.id, banId)).returning({
+    userId: userBans.userId,
+    scope: userBans.scope,
+    reason: userBans.reason,
+    bannedBy: userBans.bannedBy,
+  })
 
   const row = deleted[0]
   if (!row) return { success: false, error: 'not_found' }
 
   clearBanCache(row.userId)
-  return { success: true, data: null }
+  return { success: true, data: row }
 }
 
 export async function updateBan(
