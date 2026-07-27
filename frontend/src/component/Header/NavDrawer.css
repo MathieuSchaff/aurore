@@ -9,6 +9,11 @@
   border-right: 1px solid var(--border-default);
   box-shadow: var(--shadow-pop);
   animation: main-nav-drawer-in var(--transition-slow) var(--ease-decel);
+
+  /* Themes with a dark bar set --nav-* to white ink; the drawer sits on --bg-card,
+     where that hides the close button, the logo and the wordmark. */
+  --nav-fg: var(--text-primary);
+  --nav-hover-bg: var(--bg-hover);
 }
 
 @media (--reduced-motion) {
